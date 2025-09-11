@@ -44,7 +44,6 @@
 /***************************** Include Files *****************************************************/
 #include "xaes.h"
 #include "xasufw_status.h"
-#include "xasufw_util.h"
 #include "xasufw_config.h"
 #include "xasu_def.h"
 #include "xasu_aes_common.h"
@@ -323,6 +322,8 @@ static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif
 
+static XAes_ContextInfo AesContext; /**< AES context. */
+
 /************************** Inline Function Definitions ******************************************/
 
 /************************** Function Prototypes **************************************************/
@@ -343,6 +344,7 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 	u32 Size, u8 IsLastChunk);
 static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
+static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
 
@@ -410,6 +412,19 @@ s32 XAes_CfgInitialize(XAes *InstancePtr)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets the AES context instance.
+ *
+ * @return
+ * 		- Returns pointer to XAes_ContextInfo.
+ *
+ *************************************************************************************************/
+XAes_ContextInfo *XAes_GetAesContext(void)
+{
+	return &AesContext;
 }
 
 /*************************************************************************************************/
@@ -529,6 +544,28 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 
 	/** Write user key to the respective user key registers by changing the endianness. */
 	Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset, Key, KeySizeInWords);
+
+	/** Save the key information for context switching. */
+	if (AesContext.IsContextSaved != XASU_TRUE) {
+		/**
+		 * Copy KeyObject structure from 64-bit address space to AES context
+		 * structure using ASU DMA.
+		 */
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, KeyObjectAddr,
+			(u64)(UINTPTR)&AesContext.KeyObject, sizeof(XAsu_AesKeyObject), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+
+		/** Copy Key from 64-bit address space to AES context structure using ASU DMA. */
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr,  (u64)KeyObject.KeyAddress,
+			(u64)(UINTPTR)AesContext.Key, (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+	}
 
 END_CLR:
 	/** Clear local key object structure. */
@@ -973,6 +1010,11 @@ END:
 		XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
+	if (AesContext.IsContextSaved == XASU_TRUE) {
+		/** Set restore context flag to true. */
+		AesContext.IsContextRestoreReq = XASU_TRUE;
+	}
+
 	return Status;
 }
 
@@ -1515,6 +1557,141 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesPa
 	}
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function saves the complete state of an AES operation.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ * 		- XASUFW_SUCCESS, if context was successfully saved.
+ * 		- XASUFW_AES_INVALID_PARAM, if any parameter is invalid.
+ * 		- XASUFW_FAILURE, upon any other failure.
+ *
+ *************************************************************************************************/
+s32 XAes_SaveContext(XAes *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Index;
+
+	/** Validate the input arguments.*/
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Save mode configuration. */
+	AesContext.ModeConfig = XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET);
+
+	/** Save the intermediate context. */
+	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
+		AesContext.IvOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+			XAES_IV_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
+#ifdef XASU_AES_CM_ENABLE
+		AesContext.IvMaskOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+			XAES_IV_MASK_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
+#endif
+	}
+
+	/** Save operational state. */
+	AesContext.IsContextSaved = XASU_TRUE;
+	AesContext.AesSavedState = (u8)InstancePtr->AesState;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	/** Set AES under reset upon any failure. */
+	XAes_SetReset(InstancePtr);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function restores the complete state of an AES operation from a previously
+ * 		saved context.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ * 		- XASUFW_SUCCESS, if context was successfully restored.
+ * 		- XASUFW_AES_INVALID_PARAM, if any parameter is invalid.
+ * 		- XASUFW_FAILURE, upon any other failure.
+ *
+ *************************************************************************************************/
+s32 XAes_RestoreContext(XAes *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihAesCtxClear;
+	u32 Index;
+
+	/** Validate the input arguments.*/
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((AesContext.IsContextSaved != XASU_TRUE) ||
+			(AesContext.IsContextRestoreReq != XASU_TRUE)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Release reset of AES engine. */
+	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
+
+	/** Configure AES DPA counter measures. */
+	XAes_ConfigCounterMeasures(InstancePtr);
+
+	/** Check and restore the keys if provided key source is a user key. */
+	Status = XAes_CheckAndRestoreUserKeyContext(InstancePtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Load key to AES engine. */
+	XAes_LoadKey(InstancePtr, AesContext.KeyObject.KeySrc, AesContext.KeyObject.KeySize);
+
+	/** Restore mode configuration */
+	XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET,
+		AesContext.ModeConfig);
+
+	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
+		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
+			(Index * XASUFW_WORD_LEN_IN_BYTES), AesContext.IvOut[Index]);
+#ifdef XASU_AES_CM_ENABLE
+		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_MASK_IN_0_OFFSET +
+			(Index * XASUFW_WORD_LEN_IN_BYTES), AesContext.IvMaskOut[Index]);
+#endif
+	}
+
+	/** Trigger IV Load. */
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET),
+		XAES_IV_LOAD_MASK);
+
+	/** Restore the AES state machine to saved state. */
+	InstancePtr->AesState = (XAes_State)AesContext.AesSavedState;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	/** Clear saved AES context. */
+	XFIH_CALL(Xil_SecureZeroize, XFihAesCtxClear, ClearStatus, (u8 *)(UINTPTR)&AesContext,
+		sizeof(XAes_ContextInfo));
+
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	if (Status != XASUFW_SUCCESS) {
+		/** Set AES under reset upon any failure. */
+		XAes_SetReset(InstancePtr);
+	}
+
 	return Status;
 }
 
@@ -2204,6 +2381,26 @@ u8 XAes_GetEngineMode(const XAes *InstancePtr)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function retrieves the current internal AES state and validates it.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ *		- XASU_TRUE, if the Aes state is update in progress or completed state.
+ * 		- XASU_FALSE, if the AES state is not in update state.
+ *		- XASUFW_AES_INVALID_INTERNAL_STATE, upon NULL instance pointer.
+ *
+ *************************************************************************************************/
+u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr)
+{
+	u8 AesState = (InstancePtr != NULL) ? (u8)InstancePtr->AesState :
+		(u8)XASUFW_AES_INVALID_INTERNAL_STATE;
+	return (((AesState == (u8)XAES_UPDATE_COMPLETED) ||
+		(AesState == (u8)XAES_DATA_UPDATE_IN_PROGRESS)) ? XASU_TRUE : XASU_FALSE);
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function finalizes the AAD update phase by optionally sending zero padding
  * 		(for CCM mode) and clearing the AAD configuration for all modes.
  *
@@ -2247,6 +2444,50 @@ static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks and restores the keys to the register if the provided
+ * 		key source is a user key.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key restore is successful.
+ * 		- XASUFW_FAILURE, upon any other failure.
+ *
+ *************************************************************************************************/
+static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 Offset;
+	u32 KeySizeInWords = 0U;
+
+	/** Restore key. */
+	if (AesContext.KeyObject.KeySrc <= XASU_AES_USER_KEY_7) {
+		KeySizeInWords = (AesContext.KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
+			XASU_AES_KEY_SIZE_128BIT_IN_WORDS : XASU_AES_KEY_SIZE_256BIT_IN_WORDS;
+
+		Offset = AesKeyLookupTbl[AesContext.KeyObject.KeySrc].RegOffset;
+		/**
+		 * Traverse to Offset of last word of respective USER key register
+		 * (i.e., XAES_USER_KEY_X_7), where X = 0 to 7 USER key.
+		 * Write the key to the respective key source registers by changing the endianness.
+		 */
+		Offset = Offset + (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES) - XASUFW_WORD_LEN_IN_BYTES;
+
+		/** Write user key to the respective user key registers by changing the endianness. */
+		Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset, AesContext.Key, KeySizeInWords);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+
 }
 
 /*************************************************************************************************/

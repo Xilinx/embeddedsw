@@ -148,10 +148,12 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		 */
 		if (AesClientParamPtr->AadLen != 0U) {
 			/**
-			 * If AAD length is non-zero, AAD address must be valid and AAD length within limit.
+			 * If AAD length is non-zero, AAD address must be valid and AAD length should be
+			 * block size aligned within limit.
 			 */
 			if ((AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
-					(AesClientParamPtr->AadAddr == 0U)) {
+					(AesClientParamPtr->AadAddr == 0U) ||
+					((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
 				Status = XASU_INVALID_ARGUMENT;
 				goto END;
 			}
@@ -195,14 +197,8 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 			}
 		}
 
-		/**
-		 * For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or more
-		 * complete data blocks.
-		 */
-		if (((AesClientParamPtr->EngineMode == XASU_AES_ECB_MODE) ||
-				(AesClientParamPtr->EngineMode == XASU_AES_CBC_MODE) ||
-				(AesClientParamPtr->EngineMode == XASU_AES_CFB_MODE)) &&
-				((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
+		/** Plaintext must be a sequence of one or more complete data blocks. */
+		if ((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}

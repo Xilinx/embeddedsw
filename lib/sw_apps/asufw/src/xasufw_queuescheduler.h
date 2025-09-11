@@ -85,6 +85,7 @@ void XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
 u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask);
 u32 XAsufw_GetIpiMask(u32 ChannelIndex);
+s32 XAsufw_CheckPreemption(u32 CurrentReqId, u32 OwnerReqId);
 
 /************************************ Variable Definitions ***************************************/
 

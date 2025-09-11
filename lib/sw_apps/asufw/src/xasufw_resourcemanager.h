@@ -103,6 +103,8 @@ void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResou
 s32 XAsufw_ReleaseDmaResource(XAsufw_Dma *AsuDmaPtr, u32 ReqId);
 void XAsufw_IdleResource(XAsufw_Resource Resource);
 void XAsufw_DisableResource(XAsufw_Resource Resource);
+s32 XAsufw_IsResourceBusy(XAsufw_Resource Resource, u32 ReqId);
+void XAsufw_UpdateResourceOwner(XAsufw_Resource Resource, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 

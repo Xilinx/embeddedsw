@@ -36,6 +36,7 @@
 #include "xasufw_kat.h"
 #include "xasu_eccinfo.h"
 #include "xasufw_trnghandler.h"
+#include "xasufw_aeshandler.h"
 
 #ifdef XASU_ECIES_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -152,11 +153,20 @@ static s32 XAsufw_EciesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		XAsufw_EciesModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	}
 	XAsufw_EciesModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+
+	/** Check and save the AES context if resource is not busy. */
+	Status = XAsufw_AesCheckAndSaveContext(ReqId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_SAVE_FAIL);
+		goto END;
+	}
+
 	XAsufw_EciesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_ECIES, ReqId);
 	if (XAsufw_EciesModule.AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 		goto END;
 	}
+
 	XAsufw_AllocateResource(XASUFW_ECIES, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_ECIES, ReqId);

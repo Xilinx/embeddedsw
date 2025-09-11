@@ -135,8 +135,14 @@ END:
 static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-
 	(void)ReqBuf;
+
+	/** Check and save the context if resource is not busy. */
+	Status = XAsufw_AesCheckAndSaveContext(ReqId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_SAVE_FAIL);
+		goto END;
+	}
 
 	/** Allocate AES and DMA resources for AES operation and AES KAT commands. */
 	XAsufw_AesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
@@ -144,6 +150,7 @@ static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 		goto END;
 	}
+
 	XAsufw_AllocateResource(XASUFW_AES, XASUFW_AES, ReqId);
 
 	Status = XASUFW_SUCCESS;
@@ -283,8 +290,7 @@ XAES_STAGE_DATA_UPDATE:
 		 * Updates can be single updates or multiple chunks.
 		 * For authentication only modes like CMAC, plaintext is not required.
 		 */
-		if ((AesParamsPtr->InputDataAddr != 0U) &&
-		    (EngineMode != XASU_AES_CMAC_MODE)) {
+		if ((AesParamsPtr->InputDataAddr != 0U) && (EngineMode != XASU_AES_CMAC_MODE)) {
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 					AesParamsPtr->InputDataAddr, AesParamsPtr->OutputDataAddr,
 					AesParamsPtr->DataLen, AesParamsPtr->IsLast);
@@ -379,6 +385,50 @@ static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 	XAsufw_AesModule.AsuDmaPtr = NULL;
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks if AES resource is busy and saves the intermediate context
+ * 		if required.
+ *
+ * @param        ReqId		Request Unique ID for resource tracking.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if context save is successful or not required.
+ * 	- XASUFW_RESOURCE_UNAVAILABLE, if resource is busy in ECB mode.
+ * 	- XASUFW_FAILURE, if context save operation fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	XAes_ContextInfo *Ctx = XAes_GetAesContext();
+	u8 EngineMode = XAes_GetEngineMode(AesInstancePtr);
+
+	if (!(XAsufw_IsResourceBusy(XASUFW_AES, ReqId)) && (Ctx->IsContextSaved != XASU_TRUE) &&
+			(XAes_GetAndValidateInternalState(AesInstancePtr))) {
+		/** AES-ECB and AES-CCM mode doesn't support context switching. */
+		if ((EngineMode == XASU_AES_ECB_MODE) ||
+				(EngineMode == XASU_AES_CCM_MODE)) {
+			Status = XASUFW_RESOURCE_UNAVAILABLE;
+			goto END;
+		}
+
+		Status = XAes_SaveContext(AesInstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		Ctx->ReqId = ReqId;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
 	return Status;
 }
 /** @} */

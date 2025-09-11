@@ -389,4 +389,67 @@ void XAsufw_ChannelConfigInit(void)
 		XAsufw_EnableIpiInterrupt(CommChannelInfo->Channel[ChannelIndex].IpiBitMask);
 	}
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function compares priorities of two requests to determine if preemption is
+ * 		allowed.
+ *
+ * @param	CurrentReqId	The request ID of the current request.
+ * @param	OwnerReqId	The request ID of the resource owner.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS if preemption is allowed (current request has higher priority).
+ * 	- XASUFW_RESOURCE_UNAVAILABLE if preemption is not allowed.
+ *
+ *************************************************************************************************/
+s32 XAsufw_CheckPreemption(u32 CurrentReqId, u32 OwnerReqId)
+{
+	CREATE_VOLATILE(Status, XASUFW_RESOURCE_UNAVAILABLE);
+	u32 CurrentChannelIndex;
+	u32 CurrentQueueIndex;
+	u32 OwnerChannelIndex;
+	u32 OwnerQueueIndex;
+	u32 CurrentPriority;
+	u32 OwnerPriority;
+
+	/** Extract channel and queue indices from CurrentReqId. */
+	CurrentChannelIndex = (CurrentReqId & XASUFW_CHANNELINDEX_MASK) >> XASUFW_CHANNELINDEX_SHIFT;
+	CurrentQueueIndex = (CurrentReqId & XASUFW_QUEUEINDEX_MASK) >> XASUFW_QUEUEINDEX_SHIFT;
+
+	/** Extract channel and queue indices from OwnerReqId. */
+	OwnerChannelIndex = (OwnerReqId & XASUFW_CHANNELINDEX_MASK) >> XASUFW_CHANNELINDEX_SHIFT;
+	OwnerQueueIndex = (OwnerReqId & XASUFW_QUEUEINDEX_MASK) >> XASUFW_QUEUEINDEX_SHIFT;
+
+	/** Validate indices. */
+	if ((CurrentChannelIndex >= CommChannelInfo->NumOfIpiChannels) ||
+		(OwnerChannelIndex >= CommChannelInfo->NumOfIpiChannels)) {
+		goto END;
+	}
+
+	if ((CurrentQueueIndex != XASUFW_P0_QUEUE) && (CurrentQueueIndex != XASUFW_P1_QUEUE)) {
+		goto END;
+	}
+
+	if ((OwnerQueueIndex != XASUFW_P0_QUEUE) && (OwnerQueueIndex != XASUFW_P1_QUEUE)) {
+		goto END;
+	}
+
+	/** Get priorities from communication channel information. */
+	CurrentPriority = (CurrentQueueIndex == XASUFW_P0_QUEUE) ?
+		CommChannelInfo->Channel[CurrentChannelIndex].P0QueuePriority :
+		CommChannelInfo->Channel[CurrentChannelIndex].P1QueuePriority;
+
+	OwnerPriority = (OwnerQueueIndex == XASUFW_P0_QUEUE) ?
+		CommChannelInfo->Channel[OwnerChannelIndex].P0QueuePriority :
+		CommChannelInfo->Channel[OwnerChannelIndex].P1QueuePriority;
+
+	/** Allow preemption if current request has higher priority (lower numerical value). */
+	if (CurrentPriority < OwnerPriority) {
+		Status = XASUFW_SUCCESS;
+	}
+
+END:
+	return Status;
+}
 /** @} */

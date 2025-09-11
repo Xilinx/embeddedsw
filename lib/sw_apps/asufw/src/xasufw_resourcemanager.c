@@ -228,7 +228,14 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
 	if ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_BUSY) ||
 			((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
 			(ResourceManager[Resource].OwnerId != ReqId))) {
-		Status = XASUFW_RESOURCE_UNAVAILABLE;
+		if ((Resource == XASUFW_AES) &&
+				(ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE)) {
+			Status = XAsufw_CheckPreemption(ReqId,
+				ResourceManager[Resource].OwnerId);
+		}
+		else {
+			Status = XASUFW_RESOURCE_UNAVAILABLE;
+		}
 	}
 	else if (ResourceManager[Resource].State == XASUFW_RESOURCE_IS_DISABLED) {
 		Status = XASUFW_RESOURCE_DISABLED;
@@ -448,5 +455,38 @@ void XAsufw_DisableResource(XAsufw_Resource Resource)
 	ResourceManager[Resource].OwnerId = 0U;
 	ResourceManager[Resource].AllocatedResources = 0U;
 	XAsufw_Printf(DEBUG_GENERAL, "Disabling the module with Resource Id : %d due to failure\r\n", Resource);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks if the specified resource is busy for the given request ID.
+ *
+ * @param	Resource	The resource identifier to check.
+ * @param	ReqId		The unique ID of the request to check against.
+ *
+ * @return
+ * 	- XASU_TRUE, if the resource is busy/unavailable.
+ * 	- XASU_FALSE, if the resource is available.
+ *
+ *************************************************************************************************/
+s32 XAsufw_IsResourceBusy(XAsufw_Resource Resource, u32 ReqId)
+{
+	return (((ResourceManager[Resource].OwnerId != ReqId) &&
+		(ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE)) ? XASU_FALSE :
+		XASU_TRUE);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function updates resource owner Id and state to idle.
+ *
+ * @param	Resource	The resource identifier to update.
+ * @param	ReqId		The unique ID of the request to assign ownership to.
+ *
+ *************************************************************************************************/
+void XAsufw_UpdateResourceOwner(XAsufw_Resource Resource, u32 ReqId)
+{
+    ResourceManager[Resource].OwnerId = ReqId;
+    ResourceManager[Resource].State = XASUFW_RESOURCE_IS_IDLE;
 }
 /** @} */

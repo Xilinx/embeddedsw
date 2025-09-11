@@ -56,6 +56,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xaes_hw.h"
 #include "xasu_aesinfo.h"
+#include "xasufw_util.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -63,6 +64,25 @@ extern "C" {
 typedef struct _XAes_Config XAes_Config; /**< This typedef is to create alias name
 						for _XAes_Config */
 typedef struct _XAes XAes; /**< This typedef is to create alias name for _XAes */
+
+/**
+ * @brief AES context structure for saving and restoring AES state.
+ *
+ * This structure preserves the complete state of an AES operation, including
+ * configuration, IV, key information, and operational state. It enables
+ * context switching for preemptive AES operations.
+ */
+typedef struct {
+	u32 ReqId;				/**< Request ID associated with this context. */
+	u32 ModeConfig;				/**< AES mode configuration register value. */
+	u32 IvOut[XASUFW_BUFFER_INDEX_FOUR];	/**< Intermediate output. */
+	u32 IvMaskOut[XASUFW_BUFFER_INDEX_FOUR]; /**< Intermediate mask output. */
+	u32 Key[XASU_AES_KEY_SIZE_256BIT_IN_WORDS]; /**< User key array. */
+	XAsu_AesKeyObject KeyObject;		/**< Key object address. */
+	u8 IsContextSaved;			/**< Flag indicating if context is valid. */
+	u8 IsContextRestoreReq;			/**< Flag indicating if context restore is required. */
+	u8 AesSavedState;			/**< AES internal state. */
+} XAes_ContextInfo;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
@@ -88,6 +108,10 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesPa
 u8 XAes_GetEngineMode(const XAes *InstancePtr);
 s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc);
 void XAes_SetReset(XAes *InstancePtr);
+u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr);
+XAes_ContextInfo *XAes_GetAesContext(void);
+s32 XAes_SaveContext(XAes *InstancePtr);
+s32 XAes_RestoreContext(XAes *InstancePtr);
 
 #ifdef __cplusplus
 }

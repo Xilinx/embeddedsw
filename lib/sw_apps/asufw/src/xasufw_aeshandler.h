@@ -44,6 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_AesInit(void);
+s32 XAsufw_AesCheckAndSaveContext(u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 

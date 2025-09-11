@@ -33,6 +33,7 @@
 #include "xasufw_util.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
+#include "xasufw_aeshandler.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -138,6 +139,13 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+
+	/** Check and save the AES context if resource is not busy. */
+	Status = XAsufw_AesCheckAndSaveContext(ReqId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_SAVE_FAIL);
+		goto END;
+	}
 
 	/** Allocate resources for the module except for Get_Info command. */
 	/** Allocate DMA resource. */
