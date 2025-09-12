@@ -270,7 +270,7 @@ static XStatus AieCoreMemInit(const XPm_AieDomain *AieDomain)
 	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
 	u16 StartRow = AieDomain->Array.StartRow;
 	u16 EndRow = StartRow + AieDomain->Array.NumRowsAdjusted;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	for (u16 col = StartCol; col < EndCol; col++) {

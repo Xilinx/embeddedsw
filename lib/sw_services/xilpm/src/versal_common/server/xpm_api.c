@@ -2968,7 +2968,7 @@ done:
 
 static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (NODECLASS(DeviceId)) {
 	case (u32)XPM_NODECLASS_DEVICE:

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -492,7 +492,7 @@ done:
 
 XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	const XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(Id);
 	u32 Lat = 0;
 
@@ -503,6 +503,7 @@ XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency)
 	}
 
 	if (PM_PLL_STATE_LOCKED == Pll->ClkNode.Node.State) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 

@@ -177,7 +177,7 @@ done:
 
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	const XPm_Power *Power;
 	u32 Lat = 0;
@@ -190,16 +190,19 @@ XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 	}
 
 	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	*Latency += Core->PwrUpLatency;
 	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
 		*Latency += Core->PwrDwnLatency;
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	Power = Core->Device.Power;
+	Status = XST_SUCCESS;
 	if (NULL != Power) {
 		Status = XPmPower_GetWakeupLatency(Power->Node.Id, &Lat);
 		if (XST_SUCCESS == Status) {

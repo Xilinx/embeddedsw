@@ -502,7 +502,7 @@ done:
 
 XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	const XPm_Power *Power = XPmPower_GetById(DeviceId);
 	const XPm_Power *Parent;
 
@@ -513,6 +513,7 @@ XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 	}
 
 	if ((u8)XPM_POWER_STATE_ON == Power->Node.State) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -529,6 +530,7 @@ XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 		*Latency += Parent->PwrUpLatency;
 		Parent = Parent->Parent;
 	}
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
