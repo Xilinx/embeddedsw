@@ -1440,12 +1440,6 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 		goto END;
 	}
 
-	/** Clear the Iv. */
-	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_3_OFFSET) -
-			(Index * XASUFW_WORD_LEN_IN_BYTES), 0U);
-	}
-
 	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++ ) {
 		MaskedOutputPtr[Index] = Xil_In32((InputDataAddr + XAES_CM_OUTPUT_ADDR_INDEX) +
 			(Index * XASUFW_WORD_LEN_IN_BYTES));
@@ -1462,7 +1456,7 @@ END:
 	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 	/** Set AES under reset. */
-	XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
+	XAes_SetReset(InstancePtr);
 
 	return Status;
 }
@@ -2545,6 +2539,18 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr)
  *************************************************************************************************/
 void XAes_SetReset(XAes *InstancePtr)
 {
+	u32 Index = 0U;
+
+	/*
+	* - Hardware workaround for clearing the IV as it is not being cleared after
+	*   AES engine is set into reset.
+	*/
+
+	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
+		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_3_OFFSET) -
+			(Index * XASUFW_WORD_LEN_IN_BYTES), 0U);
+	}
+
 	InstancePtr->AesState = XAES_INITIALIZED;
 	XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 }
