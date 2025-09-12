@@ -934,7 +934,7 @@ void XPmDomainIso_CpmPcieIsoRemoval(void)
 
 	/* Remove XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR isolation if it is pending */
 	if (XPmDomainIso_List[XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
-		DisableCpmPcieIso(XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR);
+		DisableCpmPcieIso((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR);
 	}
 
 	/* Remove XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR isolation if it is pending */
