@@ -3098,6 +3098,21 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 		goto done;
 	}
 
+	/* Check for special node ID to unregister all notifiers */
+	if (PM_ALL_NOTIFIER == NodeId) {
+		if (0U != Enable) {
+			/* Cannot register with the special unregister all node ID */
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* Unregister single EAM error event from secondary SLRs */
+		Status = XPmNotifier_PlatUnregisterAllSsitErr(SubsystemId);
+
+		Status = XPmNotifier_UnregisterAll(Subsystem);
+		goto done;
+	}
+
 	/* Only Event, Device and Power Nodes are supported */
 	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
 	    ((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) &&

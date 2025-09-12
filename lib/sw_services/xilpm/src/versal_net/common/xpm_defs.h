@@ -612,7 +612,11 @@ enum XPmNotifyEvent {
  */
 #define XST_API_BASE_VERSION			(1U)
 #define XST_API_QUERY_DATA_VERSION		(2U)
-#define XST_API_REG_NOTIFIER_VERSION		(2U)
+/*
+ * Version 3 supports unregistering all notifiers at once if the
+ * node ID is PM_ALL_NOTIFIER (0xFFFFFFFF).
+ */
+#define XST_API_REG_NOTIFIER_VERSION		(3U)
 #define XST_API_PM_IOCTL_VERSION		(2U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
 /* Version 3 supports the CPU idling feature during force power down */

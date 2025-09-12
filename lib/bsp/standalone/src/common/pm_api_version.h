@@ -32,9 +32,10 @@ extern "C" {
  * | PM_GET_NODE_STATUS		| 0x3	| Both		| 1	 | The API is used to obtain information about current status of a device    |
  * | PM_GET_OP_CHARACTERISTIC	| 0x4	| Both		| 2	 | V1 - The API is used to get operating characteristics of a device	     |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of bitmask functionality, user can check the supported\n									"type" first before performing the actual functionality				       |
- * | PM_REGISTER_NOTIFIER	| 0x5	| Both		| 2	 | V1 - The API is used to register a subsystem to be notified about the\n									device event									       |
+ * | PM_REGISTER_NOTIFIER	| 0x5	| Both		| 3	 | V1 - The API is used to register a subsystem to be notified about the\n									device event									       |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of event management functionality			     |
  * | ^				| ^	| ^		| ^	 | Note: V2 is supported in Versal but ZynqMP supports only V1		     |
+ * | ^				| ^	| ^		| ^	 | V3 - Added support to unregister all notifiers at once		     |
  * | PM_REQUEST_SUSPEND		| 0x6	| Both		| 1	 | The API is used to send suspend request to another subsystem		     |
  * | PM_SELF_SUSPEND		| 0x7	| Both		| 3	 | V1 - The API is used to suspend a child subsystem			     |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of cpu idle functionality during force powerdown	     |

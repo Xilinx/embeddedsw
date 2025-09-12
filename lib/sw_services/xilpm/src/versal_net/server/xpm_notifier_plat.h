@@ -26,6 +26,13 @@ maybe_unused static inline XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId,
 	return XST_SUCCESS;
 }
 
+maybe_unused static inline XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 SubsystemId)
+{
+	XStatus Status = XST_SUCCESS;
+	(void)SubsystemId;
+
+	return Status;
+}
 #ifdef __cplusplus
 }
 #endif

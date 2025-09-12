@@ -15,6 +15,8 @@ extern "C" {
 
 XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId, u32 NodeId, u32 Event, u32 Enable);
 
+XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 SubsystemId);
+
 #ifdef __cplusplus
 }
 #endif

@@ -14,6 +14,9 @@ extern "C" {
 #include "xpm_subsystem.h"
 #include "xpm_notifier_plat.h"
 
+/* Node ID to unregister all notifiers */
+#define PM_ALL_NOTIFIER				(0xFFFFFFFFU)
+
 extern void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
 XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
