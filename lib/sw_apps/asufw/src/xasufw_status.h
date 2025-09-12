@@ -592,16 +592,15 @@ enum {
 	XASUFW_X509_PARSER_SIGN_FAIL, /**< 0x194U - Error when parsing signature is failed */
 	XASUFW_X509_PARSER_SIGN_ALGO_FAIL, /**< 0x195U - Error when signature algorithm parsing is
 						failed */
-	XASUFW_X509_PARSER_PUB_KEY_UNSUPPORTED, /**< 0x196U - Error when public key is
-							unsupported */
-	XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, /**< 0x197U - Error when public key validation fails
-						in ECIES */
-	XASUFW_OCP_DME_KEK_NOT_PRESENT, /**< 0x198U - Error when DME KEK is not present */
 
-	XASUFW_AES_CONTEXT_SAVE_FAIL, /**< 0x199U - Error when AES context saving fails */
-	XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, /**< 0x19AU - Error when AES context user key restore fails */
-	XASUFW_AES_CONTEXT_RESTORE_FAIL, /**< 0x19BU - Error when AES context restore fails */
-	XASUFW_AES_INVALID_INTERNAL_STATE, /**< 0x19CU - Error when AES invalid internal state. */
+	XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, /**< 0x196U - Error when public key validation fails
+						in ECIES */
+	XASUFW_OCP_DME_KEK_NOT_PRESENT, /**< 0x197U - Error when DME KEK is not present */
+
+	XASUFW_AES_CONTEXT_SAVE_FAIL, /**< 0x198U - Error when AES context saving fails */
+	XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, /**< 0x199U - Error when AES context user key restore fails */
+	XASUFW_AES_CONTEXT_RESTORE_FAIL, /**< 0x19AU - Error when AES context restore fails */
+	XASUFW_AES_INVALID_INTERNAL_STATE, /**< 0x19BU - Error when AES invalid internal state. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify

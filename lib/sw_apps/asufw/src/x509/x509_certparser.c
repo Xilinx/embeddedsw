@@ -16,6 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  05/08/25 Initial release
+ *       rmv  09/04/25 Add signature verification support
+ *       rmv  09/08/25 Add missing error codes to doxygen comments in X509_ParseCertificate function
  *
  * </pre>
  *
@@ -146,10 +148,9 @@ static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
  *	- XASUFW_X509_INVALID_BUFFER_SIZE, if buffer size is invalid.
  *	- XASUFW_X509_INVALID_PARAM, if parameter is invalid.
  *	- XASUFW_X509_INVALID_DATA, if data is invalid.
- *	- XASUFW_X509_PARSER_PUB_KEY_UNSUPPORTED, if public key is unsupported.
  *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed while parsing X.509.
  *	- XASUFW_X509_PARSER_TBS_INVALID_TAG, if invalid tag found during TBS parsing.
- *	- XASUFW_X509_PARSER_SIGN_VERIFICATION_FAIL, if signature verification is failed.
+ *	- XASUFW_X509_PARSER_TBS_FAIL, if TBS certificate parsing is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -250,8 +251,8 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if signature is verified successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_DATA, if data is invalid.
  *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if digest calculation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- XASUFW_X509_PARSER_SIGN_INFO_FAIL, if parsing signature information is failed.
  *	- XASUFW_X509_PARSER_SIGN_FAIL, if parsing signature is failed.
  *	- XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, if sign callback is not registered.
