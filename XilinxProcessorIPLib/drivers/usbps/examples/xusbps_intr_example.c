@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.1   kpc    04/28/14 Cleanup and removed unused functions
 * 2.4   vak    04/01/19 Fixed IAR data_alignment warnings
 * 2.8   pm     07/07/23 Added support for system device-tree flow
+* 2.10  ka     21/08/25 Fix GCC warnings
 *</pre>
 ******************************************************************************/
 
@@ -87,7 +88,9 @@ static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
 /* The instances to support the device drivers are global such that the
  * are initialized to zero each time the program runs.
  */
-static XScuGic IntcInstance;	/* The instance of the IRQ Controller */
+#ifndef SDT
+static XScuGic IntcInstance;    /* The instance of the IRQ Controller */
+#endif
 static XUsbPs UsbInstance;	/* The instance of the USB Controller */
 
 static volatile int NumIrqs = 0;
@@ -365,6 +368,9 @@ out:
  ******************************************************************************/
 static void UsbIntrHandler(void *CallBackRef, u32 Mask)
 {
+	(void)CallBackRef;
+	(void)Mask;
+
 	NumIrqs++;
 }
 
@@ -395,6 +401,7 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 	u32	BufferLen;
 	u32	Handle;
 
+	(void)Data;
 
 	Xil_AssertVoid(NULL != CallBackRef);
 
@@ -461,6 +468,7 @@ static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
 	u32 InavalidateLen;
 	u32	Handle;
 
+	(void)Data;
 
 	Xil_AssertVoid(NULL != CallBackRef);
 

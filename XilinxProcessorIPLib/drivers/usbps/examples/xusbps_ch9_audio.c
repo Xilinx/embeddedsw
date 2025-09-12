@@ -813,6 +813,8 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
 {
 	u8 State;
 
+	(void)ConfigIdx;
+
 	State = InstancePtr->AppData->State;
 	XUsbPs_SetConfigDone(InstancePtr, 0U);
 
