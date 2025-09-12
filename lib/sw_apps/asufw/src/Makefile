@@ -7,11 +7,7 @@
 CC := riscv64-unknown-elf-gcc
 CC_FLAGS := -MMD -MP -mabi=ilp32 -march=rv32imac_zicsr_zifencei
 CFLAGS := -O2 -flto -ffat-lto-objects
-
-SYSROOT = $(shell $(CC) -print-sysroot)
-MULTILIB = $(SYSROOT)/usr/lib/rv32imac/ilp32
-
-LN_FLAGS = -nostartfiles -L$(MULTILIB) $(MULTILIB)/crt0.o  -Wl,--start-group,-lxil,-lxilasu,-lgcc,-lc,--end-group -Wl,--no-warn-rwx-segment,--gc-sections
+LN_FLAGS = -Wl,--start-group,-lxil,-lxilasu,-lgcc,-lc,--end-group -Wl,--no-warn-rwx-segment,--gc-sections
 
 c_SOURCES := $(wildcard *.c) $(wildcard */*.c)
 S_SOURCES := $(wildcard *.S) $(wildcard */*.S)
