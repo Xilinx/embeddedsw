@@ -79,7 +79,7 @@ static USB_CBW lastCBW;
 /* Local transmit buffer for simple replies. */
 static u8 txBuffer[128];
 #else
-const static SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
+static const SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
 	0x00,
 	0x80,
 	0x00,

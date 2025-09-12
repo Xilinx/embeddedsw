@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
  * 2.1   kpc 4/29/14  Align dma buffers to cache line boundary
  * 2.4	 vak 4/01/19  Fixed IAR data_alignment warnings
  * 2.9   nd  3/18/24  Fixed failures reported by CV test suite.
+ * 2.10  ka  21/08/25 Fixed GCC warnings
  *</pre>
  ******************************************************************************/
 
@@ -600,7 +601,7 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 #pragma data_alignment = 32
 	const static u8	Reply[8] = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
 #else
-	const static u8	Reply[8] ALIGNMENT_CACHELINE =
+	static const u8	Reply[8] ALIGNMENT_CACHELINE =
 	{0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
 #endif
 	u8	EpNum = 0;
