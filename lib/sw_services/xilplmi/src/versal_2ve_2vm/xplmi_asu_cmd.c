@@ -21,6 +21,7 @@
 *       rmv  07/31/25 Add XPlmi_CmdAsuSubsystemHashTransfer() function to transfer
 *		      subsystem hash to provided address.
 *       rmv  08/26/25 Use callback functions instead of xilocp library functions
+*       rmv  09/11/25 Fix GCC warning when PLM_OCP_ASUFW_KEY_MGMT is disabled
 *
 * </pre>
 *
@@ -54,9 +55,13 @@
 				/**< ASU module response index */
 #define XPLMI_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 				/**< Response command execution status index */
-#define XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX		(0U)
-#define XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX		(0U)
-#define XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX	(1U)
+
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#define XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX		(0U)	/** ASU CDI address index */
+#define XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX		(0U)	/** Subsystem ID index */
+#define XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX	(1U)	/** Subsystem hash address index */
+#endif
+
 #define XPLMI_BH_KEK_IV_SIZE_IN_BYTES		(12U) /**< BootHeader KEK IV size in bytes. */
 
 /**************************** Type Definitions *******************************/
@@ -262,8 +267,8 @@ static const XPlmi_ModuleCmd XPlmi_AsuCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuCdiTransfer),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuSubsystemHashTransfer),
 #else
-	NULL,
-	NULL,
+	{ NULL },
+	{ NULL },
 #endif
 };
 
@@ -280,8 +285,8 @@ static XPlmi_AccessPerm_t XPlmi_AsuAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_AsuCmds
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
 #else
-	0U,
-	0U,
+	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
+	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
 #endif
 };
 
