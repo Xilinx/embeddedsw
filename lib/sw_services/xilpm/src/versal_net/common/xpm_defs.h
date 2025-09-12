@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -623,7 +623,11 @@ enum XPmNotifyEvent {
  * and REQ_ACCESS_SECURE_NONSECURE policies.
  */
 #define XST_API_REQUEST_NODE_VERSION		(2U)
-#define XST_API_RELEASE_NODE_VERSION		(2U)
+/*
+ * Version 3 supports bulk device release when the node index is
+ * XPM_NODEIDX_DEV_ALL (0xFFF).
+ */
+#define XST_API_RELEASE_NODE_VERSION		(3U)
 /*
  * Version 2 supports the bitmask functionality of GET_OP_CHAR IDs
  * where the user can check whether the ID is supported or not in

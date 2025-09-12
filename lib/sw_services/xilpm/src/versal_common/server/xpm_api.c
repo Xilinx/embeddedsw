@@ -3315,6 +3315,86 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function releases all devices from a subsystem that match
+ * the specified class, subclass, and type.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param DeviceId	Device ID containing the target class, subclass, and type
+ * @param CmdType	IPI command request type
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note If DeviceId uses the XPM_NODEIDX_DEV_ALL node index, all devices
+ * matching the class, subclass, and type will be released. This
+ * general-purpose behavior could inadvertently release critical devices
+ * (e.g., processors). Use with care and ensure it's usage is deliberate.
+ *
+ ****************************************************************************/
+static XStatus XPm_ReleaseAllDevices(const u32 SubsystemId, const u32 DeviceId, const u32 CmdType)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem* Subsystem = NULL;
+	const XPm_Requirement *Reqm;
+	u32 TargetClass = NODECLASS(DeviceId);
+	u32 TargetSubclass = NODESUBCLASS(DeviceId);
+	u32 TargetType = NODETYPE(DeviceId);
+	u32 ReqmDeviceId;
+	u32 Usage = 0U;
+
+	/* Ensure the subsystem is valid - not out-of-range and not the PMC subsystem  */
+	if ((MAX_NUM_SUBSYSTEMS <= NODEINDEX(SubsystemId)) || (PM_SUBSYS_PMC == SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Retrieve target subsystem */
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Release devices matching the specified class, subclass, and type */
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		ReqmDeviceId = Reqm->Device->Node.Id;
+
+		/* Only release allocated devices that match class, subclass, and type */
+		if ((1U != Reqm->Allocated) ||
+		    (TargetClass != NODECLASS(ReqmDeviceId)) ||
+		    (TargetSubclass != NODESUBCLASS(ReqmDeviceId)) ||
+		    (TargetType != NODETYPE(ReqmDeviceId))) {
+			Reqm = Reqm->NextDevice;
+			continue;
+		}
+
+		/* Release devices */
+		Status = XPmDevice_Release(SubsystemId, ReqmDeviceId, CmdType);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to release device 0x%x: 0x%x\n\r", ReqmDeviceId, Status);
+			Status = XPM_ERR_DEVICE_RELEASE;
+			goto done;
+		}
+
+		Usage = XPmDevice_GetUsageStatus(Subsystem, Reqm->Device);
+		if (0U == Usage) {
+			XPmNotifier_Event(Reqm->Device->Node.Id, (u32)EVENT_ZERO_USERS);
+		}
+
+		Reqm = Reqm->NextDevice;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used by a subsystem to release the usage of a
  * device. This will tell the platform management controller that the device
  * is no longer needed, allowing the device to be placed into an inactive
@@ -3346,6 +3426,12 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	 */
 	if (PM_DEV_AIE == DeviceId) {
 		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if this is a request to release all devices from subsystem */
+	if ((u32)XPM_NODEIDX_DEV_ALL == NODEINDEX(DeviceId)) {
+		Status = XPm_ReleaseAllDevices(SubsystemId, DeviceId, CmdType);
 		goto done;
 	}
 

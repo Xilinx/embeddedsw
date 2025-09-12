@@ -1085,6 +1085,7 @@ extern "C" {
 #define PM_DEV_MMI_GEM				(0x1822413AU)
 #define PM_DEV_CAN_FD_4				(0x1822413BU)
 #define PM_DEV_CAN_FD_5				(0x1822413CU)
+#define PM_DEV_ALL_PERIPH			(0x18224FFFU)
 /** @} */
 
 /**
