@@ -107,7 +107,7 @@ static void XUsbPs_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
 static void XUsbPs_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
 				 u32 BytesTxed );
 static void XUsbPs_AudioTransferSize(void);
-static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType);
+static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType, void *Data);
 s32 XUsbPs_CfgInit(struct Usb_DevData *InstancePtr, Usb_Config *ConfigPtr,
 		   u32 BaseAddress);
 
@@ -470,7 +470,7 @@ static void XUsbPs_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
  * @return	None.
  *
  ******************************************************************************/
-static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType)
+static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType, void *Data)
 {
 	XUsbPs *InstancePtr;
 	int Status;
@@ -478,6 +478,8 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType)
 	u8 *BufferPtr;
 	u32 BufferLen;
 	u32 Handle;
+
+	(void)Data;
 
 	Xil_AssertVoid(NULL != CallBackRef);
 
