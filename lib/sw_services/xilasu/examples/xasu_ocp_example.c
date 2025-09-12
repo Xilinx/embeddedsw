@@ -54,6 +54,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  08/04/25 Initial release
+ *       rmv  09/08/25 Fixed missing initialization of SignatureBufLen in OcpDevAkAttestParam
  *
  * </pre>
  *
@@ -381,6 +382,7 @@ static int XAsu_OcpAttestation(void)
 	OcpDevAkAttestParam.DataAddr = (u64)(UINTPTR)AttestData;
 	OcpDevAkAttestParam.DataLen = XOCP_ATTEST_DATA_SIZE;
 	OcpDevAkAttestParam.SignatureAddr = (u64)(UINTPTR)Signature;
+	OcpDevAkAttestParam.SignatureBufLen = XOCP_ECC_SIGN_TOTAL_LEN;
 
 	/* DevAk attestaion. */
 	Status = XAsu_OcpDevAkAttestation(&ClientParam, &OcpDevAkAttestParam);

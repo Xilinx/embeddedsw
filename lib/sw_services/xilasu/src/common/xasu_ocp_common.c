@@ -16,6 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  08/12/25 Initial release
+ *       rmv  09/08/25 Add validation for signature buffer length in XAsu_OcpValidateAttestParams
+ *		       function
  *
  * </pre>
  *
@@ -87,7 +89,8 @@ s32 XAsu_OcpValidateAttestParams(const XAsu_OcpDevAkAttest *OcpAttestParam)
 
 	if ((OcpAttestParam->DataAddr == 0U) || (OcpAttestParam->DataLen == 0U) ||
 	    (OcpAttestParam->SignatureAddr == 0U) ||
-	    (OcpAttestParam->SignatureBufLen < XASU_ECC_P384_SIZE_IN_BYTES)) {
+	    (OcpAttestParam->SignatureBufLen <
+	    XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES))) {
 		goto END;
 	}
 
