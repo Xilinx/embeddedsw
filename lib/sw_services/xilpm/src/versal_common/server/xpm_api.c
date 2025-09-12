@@ -193,7 +193,7 @@ static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 	}
 
 	/* Configure target subsystem */
-	Status = XPmSubsystem_Configure(TargetSubsystemId);
+	Status = XPmSubsystem_Configure(TargetSubsystemId, PREALLOC_ALL);
 
 done:
 	return Status;
@@ -4062,7 +4062,7 @@ XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
 	XStatus Status = XST_FAILURE;
 
 	/* Activate the subsystem by requesting its pre-alloc devices */
-	Status = XPmSubsystem_Configure(SubsystemId);
+	Status = XPmSubsystem_Configure(SubsystemId, PREALLOC_ALL);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

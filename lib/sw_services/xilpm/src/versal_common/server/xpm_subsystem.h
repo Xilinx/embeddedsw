@@ -31,12 +31,16 @@ extern "C" {
 #define SUBSYSTEM_SUSCB_PRIORITIZE		((u8)1U << 3U)
 #define SUBSYSTEM_IDLE_CB_IS_SENT		((u8)1U << 4U)
 #define SUBSYSTEM_DO_PERIPH_IDLE		((u8)1U << 5U)
+#define SUBSYSTEM_IS_CONFIGURED_PROC_MEM	((u8)1U << 6U)
+#define SUBSYSTEM_IS_CONFIGURED_PERIPH		((u8)1U << 7U)
 
 /**
  * Helper macros to check subsystem specific flags.
  */
 #define IS_SUBSYS_CONFIGURED(Flags)	(SUBSYSTEM_IS_CONFIGURED ==	\
-					 ((Flags) & SUBSYSTEM_IS_CONFIGURED))
+					((Flags) & SUBSYSTEM_IS_CONFIGURED))
+#define IS_SUBSYS_CONFIG_DONE(Flags)	((SUBSYSTEM_IS_CONFIGURED_PROC_MEM | SUBSYSTEM_IS_CONFIGURED_PERIPH) ==	\
+					((Flags) & (SUBSYSTEM_IS_CONFIGURED_PROC_MEM | SUBSYSTEM_IS_CONFIGURED_PERIPH)))
 #define IS_SUBSYS_INIT_FINALIZED(Flags)	(SUBSYSTEM_INIT_FINALIZED ==	\
 					 ((Flags) & SUBSYSTEM_INIT_FINALIZED))
 
@@ -50,6 +54,13 @@ extern "C" {
 #define SUB_PERM_PWRDWN_SHIFT_S			(1U + MAX_NUM_SUBSYSTEMS)
 
 #define PERM_BITMASK(Op, OpShift, SubShift)	((1U & ((Op) >> (OpShift))) << (SubShift))
+
+/**
+ * Subsystem configure/activation actions
+ */
+#define	PREALLOC_PROC_MEM_ONLY			BIT32(0U)
+#define	PREALLOC_PERIPH_ONLY			BIT32(1U)
+#define	PREALLOC_ALL				(PREALLOC_PROC_MEM_ONLY | PREALLOC_PERIPH_ONLY)
 
 /**
  * Subsystem creation states.
@@ -78,7 +89,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State);
-XStatus XPmSubsystem_Configure(u32 SubsystemId);
+XStatus XPmSubsystem_Configure(u32 SubsystemId, u32 Action);
 XStatus XPmSubsystem_Add(u32 SubsystemId);
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId);

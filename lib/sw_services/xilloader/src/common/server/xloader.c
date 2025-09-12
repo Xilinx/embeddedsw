@@ -1542,7 +1542,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 		Status = XPm_PmcActivateSubsystem(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
 #else
 		Status = XPmSubsystem_Configure(
-			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID, PREALLOC_ALL);
 #endif
 
 		if (Status != XST_SUCCESS) {

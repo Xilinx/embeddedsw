@@ -541,12 +541,97 @@ done:
 	return Status;
 }
 
-XStatus XPmSubsystem_Configure(u32 SubsystemId)
+static u32 ProcMemDevSelect(u32 DeviceId)
+{
+	u32 Use = 0U;
+
+	switch (NODESUBCLASS(DeviceId)) {
+	case (u32)XPM_NODESUBCL_DEV_CORE:
+	case (u32)XPM_NODESUBCL_DEV_MEM:
+	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
+		Use = 1U;
+		break;
+	default:
+		break;
+	}
+
+	return Use;
+}
+
+static u32 PeriphSelect(u32 DeviceId)
+{
+	u32 Use = 0U;
+
+	switch (NODESUBCLASS(DeviceId)) {
+	case (u32)XPM_NODESUBCL_DEV_PERIPH:
+	case (u32)XPM_NODESUBCL_DEV_PL:
+	case (u32)XPM_NODESUBCL_DEV_AIE:
+		Use = 1U;
+		break;
+	default:
+		break;
+	}
+
+	return Use;
+}
+
+static u32 IsSelected(u32 Action, u32 DeviceId)
+{
+	u32 Use = 0U;
+
+	if (PREALLOC_ALL == Action) {
+		Use = 1U;
+	} else if (PREALLOC_PROC_MEM_ONLY == (Action & PREALLOC_PROC_MEM_ONLY)) {
+		Use = ProcMemDevSelect(DeviceId);
+	} else if (PREALLOC_PERIPH_ONLY == (Action & PREALLOC_PERIPH_ONLY)) {
+		Use = PeriphSelect(DeviceId);
+	} else {
+		Use = 0U;
+	}
+
+	return Use;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function activates the subsystem based on a given action
+ *
+ * @param  SubsystemId	Subsystem ID
+ * @param  Action	Activation action
+ *
+ * @return XST_SUCCESS if successful, appropriate return code otherwise
+ *
+ * @note
+ * This function supports three actions:
+ *  PREALLOC_PROC_MEM_ONLY - Only selects processor and memory class of
+ *    devices for pre-allocation. This should be used before subsystem loading
+ *    phase from loader.
+ *    It is the first phase of the activation.
+ *  PREALLOC_PERIPH_ONLY - Only selects peripheral class of devices for
+ *    pre-allocation. This should be used after loader has successfully loaded
+ *    the subsystem image and is done using the boot device, but before hand-off
+ *    is done to any of the processors within the subsystem.
+ *    It is the second phase of the activation.
+ *  PREALLOC_ALL - This combines both the phases above in one action and is
+ *    provided for backward compatibility reasons. Use of this is deprecated
+ *    and avoided in future.
+ *
+ *  Only when both the above activation phases are done, subsystem is considered
+ *  to be activated. Either one of these actions do not activate the subsystem
+ *  by itself.
+/****************************************************************************/
+XStatus XPmSubsystem_Configure(u32 SubsystemId, u32 Action)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	const XPm_Requirement *Reqm;
 	u32 DeviceId;
+
+	/* Make sure the action is valid */
+	if ((Action & PREALLOC_ALL) != Action) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -573,6 +658,11 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 	while (NULL != Reqm) {
 		if ((1U != Reqm->Allocated) && (1U == PREALLOC((u32)Reqm->Flags))) {
 			DeviceId = Reqm->Device->Node.Id;
+			/* Prealloc only selected devices */
+			if (1U != IsSelected(Action, DeviceId)) {
+				Reqm = Reqm->NextDevice;
+				continue;
+			}
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
 						   Reqm->PreallocCaps,
 						   Reqm->PreallocQoS, 0U,
@@ -587,7 +677,22 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 	}
 	Status = XST_SUCCESS;
 
-	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
+	/* Mark prealloc proc/mem activation done */
+	if (PREALLOC_PROC_MEM_ONLY == (Action & PREALLOC_PROC_MEM_ONLY)) {
+		Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED_PROC_MEM;
+	}
+	/* Mark prealloc periph activation done */
+	if (PREALLOC_PERIPH_ONLY == (Action & PREALLOC_PERIPH_ONLY)) {
+		Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED_PERIPH;
+	}
+
+	/* Mark subsystem as configured only after all activation done */
+	if (IS_SUBSYS_CONFIG_DONE(Subsystem->Flags)) {
+		Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
+		/* Clear prealloc activation flags */
+		Subsystem->Flags &= SUBSYSTEM_IS_CONFIGURED_PROC_MEM;
+		Subsystem->Flags &= SUBSYSTEM_IS_CONFIGURED_PERIPH;
+	}
 
 done:
 	return Status;
