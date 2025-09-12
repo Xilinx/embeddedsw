@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 1.0   rmv  05/19/25 Initial release
+*       rmv  09/08/25 Add missing parameter validation
 *
 * </pre>
 *
@@ -120,8 +121,8 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 	u32 SignatureSize = XAsu_DoubleCurveLength(X509_ECC_SIGN_SIZE_IN_BYTES);
 
 	/** Validate input parameters. */
-	if ((Hash == NULL) || (Sign == NULL) || (SignActualLen == NULL) || (PvtKey == NULL) ||
-	    (PlatData == NULL)) {
+	if ((Hash == NULL) || (HashLen == 0U) || (Sign == NULL) || (SignActualLen == NULL) ||
+	    (PvtKey == NULL) || (PlatData == NULL)) {
 		Status = XASUFW_X509_INVALID_PLAT_DATA;
 		goto END;
 	}
@@ -184,7 +185,8 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
 	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
 
 	/** Validate input parameters. */
-	if ((Buf == NULL) || (Hash == NULL) || (HashLen == NULL) || (PlatData == NULL)) {
+	if ((Buf == NULL) || (Hash == NULL) || (HashLen == NULL) || (PlatData == NULL) ||
+	    (DataLen == 0U)) {
 		Status = XASUFW_X509_INVALID_PLAT_DATA;
 		goto END;
 	}

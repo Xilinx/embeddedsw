@@ -19,6 +19,7 @@
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 1.0   rmv  05/19/25 Initial release
 *       rmv  08/06/25 Move X509_CERTIFICATE_MAX_SIZE_IN_BYTES macro to header file
+*       rmv  09/08/25 Move parameter validation to exported function instead of static function
 *
 * </pre>
 *
@@ -29,6 +30,7 @@
  */
 /************************************** Include Files ********************************************/
 #include "x509_cert.h"
+#include "xasu_eccinfo.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xil_sutil.h"
@@ -175,6 +177,8 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen);
  *	- XASUFW_SUCCESS, if X.509 certificate or CSR is created successfully.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_X509_UNSUPPORTED_ALGORITHM, if Public Key Algorithm is not supported.
+ *	- XASUFW_X509_UNSUPPORTED_CURVE_TYPE, if curve type is not supported.
  *	- XASUFW_X509_CERT_GEN_FAIL, if certificate generation is failed.
  *	- XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, if digest or sign callback is not
  *	  registered.
@@ -235,8 +239,26 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 
 	/** Validate digest and signature callbacks. */
 	if ((InitData->GenerateDigest == NULL) || (InitData->GenerateSignature == NULL)) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-						  XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED);
+		Status = XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED;
+		goto END;
+	}
+
+	/** Validate public key type. */
+	if (Cfg->PubKeyInfo.PubKeyType != X509_PUB_KEY_ECC) {
+		Status = XASUFW_X509_UNSUPPORTED_ALGORITHM;
+		goto END;
+	}
+
+	/** Validate public key curve type. */
+	if (Cfg->PubKeyInfo.EccCurveType != X509_ECC_CURVE_TYPE_384) {
+		Status = XASUFW_X509_UNSUPPORTED_CURVE_TYPE;
+		goto END;
+	}
+
+	/** Validate subject public key. */
+	if ((Cfg->PubKeyInfo.SubjectPublicKey == NULL) || (Cfg->PubKeyInfo.SubjectPubKeyLen !=
+	     XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES))) {
+		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
 
@@ -894,8 +916,6 @@ static inline s32 X509_GenSubjectField(const u8 *Subject, const u32 SubjectValLe
  * @return
  *	- XASUFW_SUCCESS, if successfully created Public Key Algorithm Identifier sub-field.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_X509_UNSUPPORTED_ALGORITHM, if Public Key Algorithm is not supported.
- *	- XASUFW_X509_UNSUPPORTED_CURVE_TYPE, if curve type is not supported.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -923,18 +943,6 @@ static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *Pub
 	const u8 *SequenceValIdx;
 	const u8 *End;
 	u8 EccCurveType = (u8)PubKeyInfo->EccCurveType;
-
-	/** Check whether public key type is supported or not. */
-	if (PubKeyInfo->PubKeyType != X509_PUB_KEY_ECC) {
-		Status = XASUFW_X509_UNSUPPORTED_ALGORITHM;
-		goto END;
-	}
-
-	/** Check whether ECC curve type is supported or not. */
-	if (EccCurveType != (u8)X509_ECC_CURVE_TYPE_384) {
-		Status = XASUFW_X509_UNSUPPORTED_CURVE_TYPE;
-		goto END;
-	}
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
 	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
