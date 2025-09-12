@@ -502,9 +502,9 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 								/* Unsupported test selector */
 								break;
 						}
-						break;
 					}
 
+					break;
 				default:
 					Error = 1;
 					break;
