@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -18,6 +18,7 @@
  * Ver   Who	Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0  pm 	20/02/20 First release
+ * 2.10  ka     21/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -741,7 +742,7 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
  ******************************************************************************/
 u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index)
 {
-	s32 i;
+	u32 i;
 	char *String;
 	u32 StringLen;
 	u32 DescLen;

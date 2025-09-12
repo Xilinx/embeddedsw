@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * 1.00a wgr  10/10/10 First release
  * 2.5	 pm   02/20/20 Added SetConfigurationApp and SetInterfaceHandler API to
  *			make ch9 common framework to all example.
+ * 2.10  ka   08/21/25 Fixed GCC warnings
  *</pre>
  ******************************************************************************/
 
@@ -305,7 +306,7 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 ******************************************************************************/
 u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index)
 {
-	int i;
+	u32 i;
 
 	static char *StringList[] = {
 		"UNUSED",
