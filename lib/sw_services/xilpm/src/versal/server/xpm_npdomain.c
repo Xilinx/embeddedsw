@@ -672,7 +672,7 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			}
 		#endif
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
-		if (NULL != Device) {
+		if ((NULL != Device) && (i < ARRAY_SIZE(DdrMcAddresses))) {
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
 		}
 	}
@@ -786,7 +786,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		#endif
 
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
-		if (NULL != Device) {
+		if ((NULL != Device) && (i < ARRAY_SIZE(DdrMcAddresses))) {
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
 		}
 	}
