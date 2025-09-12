@@ -691,13 +691,11 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	}
 
 	/** Update configuration and start the operation. */
-	Status = XEcc_ConfigNStartOperation(InstancePtr,XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
+	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_CONFIGURE_AND_START_FAIL);
 		goto END;
 	}
-
-	ReturnStatus = XASUFW_ECC_SIGNATURE_VERIFIED;
 
 	/**
 	 * Measure and print the performance time for the ECC signature verification operation
@@ -922,7 +920,7 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 TerminationCode = 0U;
+	u32 TerminationCode = XASUFW_FAILURE;
 	u32 CtrlRegValue = 0U;
 
 	/** Enable interrupt, update configuration in control register and start the operation. */
@@ -962,6 +960,11 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 	if (TerminationCode != 0U) {
 		Status = XAsufw_UpdateErrorStatus(Status, (s32)(TerminationCode |
 				XASUFW_ECC_TERMINATION_CODE_MASK));
+	}
+
+	/** Update the additional status if the sign verification operation is successful. */
+	if ((Status == XASUFW_SUCCESS) && (OpCode == XECC_CTRL_SIGN_VERIFICATION_OP_CODE)) {
+		ReturnStatus = XASUFW_ECC_SIGNATURE_VERIFIED;
 	}
 
 END:
