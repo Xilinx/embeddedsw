@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       sk   09/13/25 Updated IOModule IRQ Address
 *
 * </pre>
 *
@@ -1127,8 +1128,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IOMODULE_SSIT_ERR1			(25U)
 #define XPLMI_IOMODULE_SSIT_ERR0			(26U)
 
-#define PMC_PMC_MB_IO_IRQ_ACK				(0xF028003CU)
-#define PMC_PMC_MB_IO_IRQ_ISR				(0xF0280030U)
+#define PMC_PMC_MB_IO_IRQ_ACK				(0xF030003CU)
+#define PMC_PMC_MB_IO_IRQ_ISR				(0xF0300030U)
 #define PMC_PMC_MB_IO_SSIT_IRQ_MASK			(0x7000000U)
 
 #define XPLMI_PSM_RAM_BASE_ADDR				(0xFFC00000U)
