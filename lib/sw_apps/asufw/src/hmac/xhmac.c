@@ -463,8 +463,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Zeroize the array created to store the processed key. */
-	Status = Xil_SMemSet(ProcessedKey, XASUFW_SHAKE_SHA3_256_BLOCK_LEN, 0x0U,
-			     XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
+	Status = Xil_SecureZeroize(ProcessedKey, XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
