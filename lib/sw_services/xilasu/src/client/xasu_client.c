@@ -293,6 +293,12 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 
 	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
+	if (Status != XST_SUCCESS) {
+		/** If sending IPI fails, clean up the queue buffer. */
+		ChannelQPtr->ReqSent--;
+		QueueBufPtr->ReqBufStatus = 0U;
+		ChannelQPtr->IsCmdPresent = XASU_FALSE;
+	}
 
 END:
 	return Status;
