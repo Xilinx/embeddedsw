@@ -129,26 +129,6 @@ static XEcc_CurveInfo XEcc_CurveInfoTable[XECC_CURVES_SUPPORTED] = {
 	}
 };
 
-/** Message to be used for pair wise consistency test. */
-static const u8 MsgPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
-	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
-	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
-	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
-	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U,
-	0xF8U, 0x2BU, 0x72U, 0xD3U, 0xA4U, 0xC2U, 0x8EU, 0x10U,
-	0xD8U, 0x25U, 0x5DU, 0x21U, 0x33U, 0xD5U, 0xCAU, 0x38U
-};
-
-/** Ephemeral Key to be used for pair wise consistency test. */
-static const u8 EKeyPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
-	0x36U, 0x77U, 0xFBU, 0xF9U, 0xBBU, 0x2DU, 0x96U, 0xA3U,
-	0x1BU, 0x01U, 0x11U, 0x08U, 0x57U, 0x93U, 0x8CU, 0xC4U,
-	0x9DU, 0x9AU, 0x30U, 0xA4U, 0xE0U, 0x0EU, 0x9CU, 0xD4U,
-	0xB5U, 0x5DU, 0x97U, 0x77U, 0x58U, 0x0CU, 0x84U, 0xC7U,
-	0x0CU, 0x67U, 0x48U, 0x94U, 0xE8U, 0x53U, 0xD3U, 0x6BU,
-	0xBEU, 0xC6U, 0xC2U, 0x1FU, 0xDCU, 0xFCU, 0x7BU, 0xD1U
-};
-
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
@@ -737,6 +717,15 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Signature[XASU_ECC_P384_SIZE_IN_BYTES + XASU_ECC_P384_SIZE_IN_BYTES];
+	u8 EphemeralKey[XASU_ECC_P384_SIZE_IN_BYTES];
+	const u8 MsgPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
+		0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+		0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+		0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+		0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U,
+		0xF8U, 0x2BU, 0x72U, 0xD3U, 0xA4U, 0xC2U, 0x8EU, 0x10U,
+		0xD8U, 0x25U, 0x5DU, 0x21U, 0x33U, 0xD5U, 0xCAU, 0x38U
+	};
 
 	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
@@ -744,9 +733,17 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 		goto END;
 	}
 
+	/** Generate the ephemeral key using TRNG */
+	Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, CurveLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL;
+		goto END_CLR;
+	}
+
 	/** Generate signature using the provided private key and curve type. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(InstancePtr, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
-			EKeyPwctEcc, (u64)(UINTPTR)MsgPwctEcc, CurveLen,
+			EphemeralKey, (u64)(UINTPTR)MsgPwctEcc, CurveLen,
 			(u64)(UINTPTR)Signature);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateBufStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL);
@@ -764,9 +761,12 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	ReturnStatus = XASUFW_FAILURE;
 
 END_CLR:
-	/** Zeroize the local buffer. */
+	/** Zeroize the local buffers. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
 					XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES)));
+
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)EphemeralKey,
+					XASU_ECC_P384_SIZE_IN_BYTES));
 
 END:
 	return Status;
