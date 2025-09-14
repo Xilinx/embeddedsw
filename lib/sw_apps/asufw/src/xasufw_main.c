@@ -129,8 +129,12 @@ int main(void)
 		goto END;
 	}
 
-	/** Create and trigger KAT task. */
-	XAsufw_StartKatTasks();
+	/**
+	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
+	 * Clients need to check this bit before sending any requests to ASUFW.
+	 */
+	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
+		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 
 	/**
 	 * Create and trigger task created for Key transfer and DME KEK derivation if PUF
@@ -138,12 +142,8 @@ int main(void)
 	 */
 	XAsufw_StartKeyTransferTasks();
 
-	/**
-	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
-	 * Clients need to check this bit before sending any requests to ASUFW.
-	 */
-	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
-		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+	/** Create and trigger KAT task. */
+	XAsufw_StartKatTasks();
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
