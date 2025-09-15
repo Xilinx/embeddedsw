@@ -67,17 +67,28 @@ def create_example(args):
     else:
         comp_path = domain_data['lib_info'][obj.name]['path']
     esw_app_dir = os.path.join(comp_path, "examples")
-
+    subdir_dep_list = []
+    additional_cmake_dep = []
     # Get the dependency list
     if obj.name in domain_data['drv_info']:
         dep_list = domain_data['drv_info'][obj.name]['examples'][obj.app_name]
     else:
         dep_list = domain_data['lib_info'][obj.name]['examples'][obj.app_name]
     if dep_list:
-        # copy the files
         for dep in dep_list:
-            app_file = os.path.join(esw_app_dir, dep)
-            utils.copy_file(app_file, obj.app_src_dir)
+            dep_path = os.path.join(esw_app_dir, dep)
+            dest_path = os.path.join(obj.app_src_dir, dep)  # Preserve directory name
+            if utils.is_dir(dep_path):
+                # copy the directories
+                utils.copy_directory(dep_path, dest_path)
+                subdir_dep_list.append(dep)
+            elif utils.is_file(dep_path):
+                # copy the files
+                if dep.endswith(".cmake"):
+                    additional_cmake_dep.append(dep)
+                utils.copy_file(dep_path, obj.app_src_dir)
+            else:
+                logger.warning(f" {dep_path} does not exist")
 
     app_file = os.path.join(esw_app_dir, obj.app_name)
     utils.copy_file(app_file, obj.app_src_dir)
@@ -94,6 +105,25 @@ def create_example(args):
         f'APP_NAME empty_application',
         f'set(APP_NAME {app_name})',
     )
+    add_subdir_string = ""
+    if subdir_dep_list:
+        for dir_dep in subdir_dep_list:
+            add_subdir_string += f"add_subdirectory({dir_dep})\n"
+        utils.replace_line(
+            src_cmake,
+            "# Add subdirectory dependency if available",
+            f"# Add subdirectory dependency if available \n{add_subdir_string}")
+
+    additonal_cmake_file_str = ""
+    # Add any additional CMake dependencies
+    if additional_cmake_dep:
+        for dep in additional_cmake_dep:
+            additonal_cmake_file_str += f"include(${{CMAKE_CURRENT_SOURCE_DIR}}/{dep})\n"
+        utils.replace_line(
+            src_cmake,
+            "# Include any additional CMake files here",
+            f"# Include any additional CMake files here \n{additonal_cmake_file_str}")
+
     # in case of library update link libraries
     if domain_data['lib_info']:
         lib_list = list(domain_data['lib_info'].keys())

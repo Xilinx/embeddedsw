@@ -1,8 +1,10 @@
 # Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.16)
-
 include(${CMAKE_SOURCE_DIR}/Empty_applicationExample.cmake)
+
+# Include any additional CMake files here
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 set(APP_NAME empty_application)
 project(${APP_NAME})
@@ -17,7 +19,17 @@ collect(PROJECT_LIB_DEPS c)
 # Use CMAKE_LIBRARY_PATH in link_directories
 link_directories(${CMAKE_LIBRARY_PATH})
 
-aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
+collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
+collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
+
+# Add subdirectory dependency if available
+
+collector_list (_headers PROJECT_LIB_HEADERS)
+collector_list (_sources PROJECT_LIB_SOURCES)
+
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} current_dir_sources)
+list(APPEND _sources ${current_dir_sources})
+
 foreach (source ${_sources})
     get_filename_component(ext ${source} EXT)
     list(APPEND src_ext ${ext})
@@ -52,6 +64,7 @@ set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${USER_LINKER_SCRI
 set(_linker_command "-Wl,-T -Wl,\"${USER_LINKER_SCRIPT}\" -L\"${CMAKE_SOURCE_DIR}/\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group,-l${_deps} -Wl,--end-group")
 target_link_libraries(${APP_NAME}.elf ${_linker_command})
 target_compile_definitions(${APP_NAME}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
+target_include_directories(${APP_NAME}.elf PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(${APP_NAME}.elf PUBLIC ${USER_INCLUDE_DIRECTORIES})
 print_build_info_target(${APP_NAME}.elf "${CMAKE_C_FLAGS}" "${USER_COMPILE_DEFINITIONS}" "${CMAKE_C_LINK_FLAGS}" "${_linker_command}")
 print_elf_size(CMAKE_SIZE ${APP_NAME})
