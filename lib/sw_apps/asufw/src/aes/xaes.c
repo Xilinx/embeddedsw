@@ -2326,7 +2326,7 @@ static s32 XAes_DummyEncryption(XAes *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	/* Same array is used for both input and output to perform dummy encryption. */
-	u8 DummyData[XASU_AES_BLOCK_SIZE_IN_BYTES];
+	u8 DummyData[XASU_AES_BLOCK_SIZE_IN_BYTES] = {0U};
 
 	/** Validate OperationType. */
 	if (InstancePtr->OperationType != XASU_AES_DECRYPT_OPERATION) {
