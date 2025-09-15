@@ -50,6 +50,8 @@ required:
     - xlnx,intctype
     - Handler-table
     - xlnx,num-sw-intr
+    - interrupts
+    - interrupt-parent
 
 additionalProperties:
     - xlnx,has-ivr

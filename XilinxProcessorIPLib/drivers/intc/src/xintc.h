@@ -205,6 +205,8 @@
 * 		       with config structure entries.
 * 3.20   ml   05/06/25 Fixed GCC warnings by declaring functions explicitly before
 *                      usage
+* 3.21   ml   09/13/25 Added support for IntrId and IntrParent to enable interrupt
+*                      routing through the GIC from the INTC.
 * </pre>
 *
 ******************************************************************************/
@@ -313,6 +315,10 @@ typedef struct {
 	XIntc_VectorTableEntry HandlerTable[XPAR_INTC_MAX_NUM_INTR_INPUTS];
 #endif
 	int NumberofSwIntrs;      /**< Number of SW interrupts */
+#if defined(SDT)
+	u32 IntrId;
+	UINTPTR IntrParent;
+#endif
 } XIntc_Config;
 
 /**
