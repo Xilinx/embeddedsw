@@ -381,7 +381,14 @@ static int XPmPeriph_TempPropTask(void *data)
 	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL0, (u32)Max);
 	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL1, (u32)Min);
 
-	XPm_LockPcsr(PMC_SYSMON_BASEADDR);
+	/*
+	 * There are scenarios where Sysmon PCSR must be left unlocked. Only
+	 * lock Sysmon PCSR if the RTCA bit to leave it unlocked is not set.
+	 */
+	if (XPM_RTCA_SSIT_TEMP_PROP_SYSMON_UNLOCK_MASK != (XPm_In32(XPLMI_RTCFG_SSIT_TEMP_PROPAGATION) &
+		   XPM_RTCA_SSIT_TEMP_PROP_SYSMON_UNLOCK_MASK)) {
+		XPm_LockPcsr(PMC_SYSMON_BASEADDR);
+	}
 
 	/* Check if max temperatures have exceeded device upper threshold */
 	if (Max > (s16)(XPm_In32(PMC_SYSMON_DEVICE_TEMP_TH_UPPER))) {
