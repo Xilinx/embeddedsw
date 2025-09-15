@@ -1160,6 +1160,9 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 			}
 			TotalAadLen = XAES_SIX_BYTE_ENCODING;
 		}
+		else {
+			/* Required for MISRA C compliance. */
+		}
 
 		/** Configure DMA with AES and transfer the AAD data to AES engine. */
 		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U, TotalAadLen,
