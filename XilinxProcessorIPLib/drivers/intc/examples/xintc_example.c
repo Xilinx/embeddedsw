@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.21  ml   09/13/25 Updated example to run with GIC-based interrupt routing
+*                     under SDT.
 * </pre>
 ******************************************************************************/
 
@@ -66,6 +68,9 @@
 #include "xintc.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -113,7 +118,7 @@ static XIntc InterruptController; /* Instance of the Interrupt Controller */
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
  */
-volatile static int InterruptProcessed = FALSE;
+static volatile int InterruptProcessed = FALSE;
 
 /*****************************************************************************/
 /**
@@ -213,7 +218,6 @@ int IntcExample(UINTPTR BaseAddr)
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 *  Simulate the Interrupt.
 	 */
@@ -286,13 +290,13 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Enable the interrupt for the device and then cause (simulate) an
 	 * interrupt so the handlers will be called.
 	 */
 	XIntc_Enable(XIntcInstancePtr, INTC_DEVICE_INT_ID);
 
+#if !defined(XPAR_SCUGIC)
 	/*
 	 * Initialize the exception table.
 	 */
@@ -309,7 +313,15 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 	 * Enable exceptions.
 	 */
 	Xil_ExceptionEnable();
+#else
+	Status = XSetupInterruptSystem(XIntcInstancePtr,(Xil_ExceptionHandler)XIntc_InterruptHandler,
+			XIntcInstancePtr->CfgPtr->IntrId, XIntcInstancePtr->CfgPtr->IntrParent,
+			XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
+#endif
 	return XST_SUCCESS;
 
 }
@@ -340,6 +352,7 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 ****************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)
 {
+	(void)CallbackRef;
 	/*
 	 * Indicate the interrupt has been processed using a shared variable.
 	 */
