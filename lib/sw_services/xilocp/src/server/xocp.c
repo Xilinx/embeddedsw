@@ -38,8 +38,9 @@
 *	vss  09/23/24 Modified code as per security best practices
 * 1.4   vss  10/24/24 Modified xppu disabled macro and it's corresponding code as per security best practices
 *       vss  10/24/24 Added redundancy checks for dynamic reconfiguration as per security best practices
-*       rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
+* 1.6   rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
 *                     file to xocp.c file as exported function.
+*       har  09/13/25 Fix bug in the logic to modify aperture values in XOcp_GenerateDmeResponse()
 *
 *
 * </pre>
@@ -905,17 +906,20 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
-		if ((Index == XOCP_XPPU_MASTER_ID_0) &&
-			(XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL != Xil_In32(PMC_XPPU_MASTER_ID00))) {
+		if (Index == XOCP_XPPU_MASTER_ID_0) {
+			if (XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL != Xil_In32(PMC_XPPU_MASTER_ID00)) {
+				XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
+			}
+		}
+		else if (Index == XOCP_XPPU_MASTER_ID_1) {
+			if (XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL != Xil_In32(PMC_XPPU_MASTER_ID01)) {
+				XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
+			}
+		}
+		else {
+			/** - All other apertures always need modification */
 			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
 		}
-		else if ((Index == XOCP_XPPU_MASTER_ID_1) &&
-			(XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL != Xil_In32(PMC_XPPU_MASTER_ID01))) {
-			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
-		} else {
-			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
-		}
-
 		/* Configure the XPPU Apertures with configuration */
 		Xil_Out32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
 				XOcp_DmeXppuCfgTable[Index].XppuAperWriteCfgVal);
