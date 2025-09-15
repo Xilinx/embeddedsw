@@ -141,6 +141,10 @@
 #define XAES_CM_SPLIT_ALIGNED_LENGTH	(0x10U) /**< AES CM split configuration aligned length. */
 #define XAES_CM_MASK_BUF_WORD_LEN	(32U) /**< AES CM mask data buffer word length. */
 #define XAES_CM_OUTPUT_ADDR_INDEX	(256U) /**< AES CM output data address index. */
+#define XAES_CCM_FLAG_SIZE_IN_BYTES	(1U) /**< Size of the flag field prepended to IV in
+						CCM mode (in bytes). */
+#define XAES_GCM_J0_IV_INIT_VAl		(0x01U) /**< Initial counter value used in GCM mode IV formatting. */
+
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
@@ -1940,17 +1944,20 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 		FormattedIv = (u8 *)(UINTPTR)Iv;
 
 		/** Set flag byte for AES-CCM nonce. */
-		FormattedIv[0] = (u8)((XAES_CCM_Q_CONST - IvLen - 1U) & XAES_CCM_Q_MASK);
+		FormattedIv[0] = (u8)((XAES_CCM_Q_CONST - IvLen - XAES_CCM_FLAG_SIZE_IN_BYTES) &
+			XAES_CCM_Q_MASK);
 
-		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)&FormattedIv[1U],
-			IvLength, 0U);
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr,
+			(u64)(UINTPTR)&FormattedIv[XAES_CCM_FLAG_SIZE_IN_BYTES], IvLength, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 		/** Add zero padding if nonce length is less than 16 bytes in case of CCM mode. */
-		if ((IvLength + 1U) < XASU_AES_IV_SIZE_128BIT_IN_BYTES) {
-			ZeroPadLen = XASU_AES_IV_SIZE_128BIT_IN_BYTES - (IvLength + 1U);
-			Status = Xil_SMemSet(&FormattedIv[IvLength + 1U], ZeroPadLen, 0U, ZeroPadLen);
+		if ((IvLength + XAES_CCM_FLAG_SIZE_IN_BYTES) < XASU_AES_IV_SIZE_128BIT_IN_BYTES) {
+			ZeroPadLen = XASU_AES_IV_SIZE_128BIT_IN_BYTES -
+				(IvLength + XAES_CCM_FLAG_SIZE_IN_BYTES);
+			Status = Xil_SMemSet(&FormattedIv[IvLength + XAES_CCM_FLAG_SIZE_IN_BYTES],
+				ZeroPadLen, 0U, ZeroPadLen);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1974,7 +1981,7 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 
 	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
 			(IvLength  == XASU_AES_IV_SIZE_96BIT_IN_BYTES)) {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET), 0x01U);
+		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET), XAES_GCM_J0_IV_INIT_VAl);
 	}
 
 	/** Trigger IV Load. */
