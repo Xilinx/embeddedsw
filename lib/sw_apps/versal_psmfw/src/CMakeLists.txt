@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.14.7)
@@ -42,7 +42,7 @@ endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
-
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})

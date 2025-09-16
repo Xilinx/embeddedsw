@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
@@ -27,6 +27,7 @@ collect (PROJECT_LIB_SOURCES bootloader.c)
 collect (PROJECT_LIB_SOURCES platform.c)
 collect (PROJECT_LIB_SOURCES srec.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/linker_files/")
 string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})

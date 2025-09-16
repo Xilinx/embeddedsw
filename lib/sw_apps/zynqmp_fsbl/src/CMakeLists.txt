@@ -36,7 +36,7 @@ if (CMAKE_EXPORT_COMPILE_COMMANDS AND
 endif()
 
 aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
-
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")
   set(S_SOURCES xfsbl_exit.S xfsbl_translation_table_a53_64.S)
   string(APPEND CMAKE_C_FLAGS " -Os -flto -ffat-lto-objects -DARMA53_64")

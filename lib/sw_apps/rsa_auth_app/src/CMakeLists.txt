@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -33,10 +33,9 @@ collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 
 collect (PROJECT_LIB_HEADERS rsa_auth_app.h)
 collect (PROJECT_LIB_SOURCES rsa_auth_app.c)
-
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
-
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
 

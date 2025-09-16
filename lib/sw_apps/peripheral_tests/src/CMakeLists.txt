@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Peripheral_testsExample.cmake)
@@ -22,6 +22,7 @@ if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
 endif()
 aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 linker_gen("${CMAKE_SOURCE_DIR}/linker_files/")
 string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})

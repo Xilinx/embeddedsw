@@ -123,7 +123,7 @@ endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
-
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})

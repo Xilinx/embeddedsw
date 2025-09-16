@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.16)
 include(${CMAKE_SOURCE_DIR}/Empty_applicationExample.cmake)
@@ -29,7 +29,7 @@ collector_list (_sources PROJECT_LIB_SOURCES)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} current_dir_sources)
 list(APPEND _sources ${current_dir_sources})
-
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 foreach (source ${_sources})
     get_filename_component(ext ${source} EXT)
     list(APPEND src_ext ${ext})

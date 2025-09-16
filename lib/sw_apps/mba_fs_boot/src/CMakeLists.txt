@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -38,9 +38,9 @@ collect (PROJECT_LIB_SOURCES fs-boot.c)
 collect (PROJECT_LIB_SOURCES fs-xspi.c)
 collect (PROJECT_LIB_SOURCES winbond-spi-flash.c)
 
-
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
 string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})

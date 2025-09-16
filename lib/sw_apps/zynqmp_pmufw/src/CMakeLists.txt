@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.14.7)
@@ -40,6 +40,7 @@ if (CMAKE_EXPORT_COMPILE_COMMANDS AND
 endif()
 
 aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
 add_dependency_on_bsp(_sources)

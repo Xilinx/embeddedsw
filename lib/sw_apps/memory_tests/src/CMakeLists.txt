@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Memory_testsExample.cmake)
@@ -59,6 +59,7 @@ collect (PROJECT_LIB_SOURCES platform.c)
 collect (PROJECT_LIB_SOURCES memorytest.c)
 collect (PROJECT_LIB_SOURCES memory_config_g.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
+list (APPEND _sources ${USER_COMPILE_SOURCES})
 set(CMAKE_INFILE_PATH "${CMAKE_SOURCE_DIR}/linker_files/")
 linker_gen(${CMAKE_INFILE_PATH})
 string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
