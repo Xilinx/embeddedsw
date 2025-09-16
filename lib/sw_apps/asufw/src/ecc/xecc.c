@@ -797,7 +797,7 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 ScpRandom[XASU_ECC_P384_SIZE_IN_BYTES];
 	u32 RegOffset = XECC_MEM_SCP_RAND_1_OFFSET;
-	u32 Index;
+	volatile u32 Index;
 
 	/** Perform the following steps Count times: */
 	for (Index = 0U; Index < Count; Index++) {
