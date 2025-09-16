@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,6 +16,7 @@
 * 0.1   gm   03/19/2021   Initial version of IPI configure
 * 0.2  rama  08/03/2023   Added support for system device-tree flow
 * 0.3  gayu  02/23/2024   Fixed error event notification issue in SDT flow.
+* 0.4  gayu  09/16/2025   Fixed GCC warnings.
 *
 * </pre>
 *
@@ -180,6 +181,6 @@ XStatus IpiInit(XIpiPsu * InstancePtr, XScuGic * GicInst)
 	}
 
 	Status = IpiRegisterCallback(InstancePtr, SRC_IPI_MASK, \
-			XSem_IpiCallback);
+			(void *) XSem_IpiCallback);
 	return Status;
 }
