@@ -219,12 +219,12 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XHmac *HmacPtr = XHmac_GetInstance();
-	static u32 Iterations = 0U;
-	static u8 KdfIndex = 0U;
+	volatile u32 Iterations = 0U;
+	volatile u8 KdfIndex = 0U;
 	u8 KdfValue;
 	u32 HashLen = 0U;
 	u8 KOut[XASU_SHA_512_HASH_LEN];
-	static u64 KeyOutAddr = 0U;
+	u64 KeyOutAddr = 0U;
 
 	/** Validate input parameters. */
 	if (Prk == NULL) {
@@ -347,7 +347,12 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 END_CLR:
-	/** Zeroize the intermediate KOut buffer. */
+	/** Zeroize the intermediate KOut buffer and locally created KeyOutAddr variable. */
+	KeyOutAddr = 0U;
+	if (KeyOutAddr != 0U) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ZEROIZE_MEMSET_FAIL);
+	}
+
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(KOut, XASU_SHA_512_HASH_LEN));
 
 END:

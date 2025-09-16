@@ -178,7 +178,12 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 	}
 
 END_CLR:
-	/** Zeroize the intermediate KOut buffer. */
+	/** Zeroize the intermediate KOut buffer and locally created KeyOutAddr variable. */
+	KeyOutAddr = 0U;
+	if (KeyOutAddr != 0U) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ZEROIZE_MEMSET_FAIL);
+	}
+
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, KOut, XASU_SHA_512_HASH_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
@@ -336,12 +341,16 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 A
 	}
 
 END_CLR:
-	/** Zeroize the intermediate KOut buffer. */
+	/** Zeroize the intermediate KOut buffer and locally created KeyOutAddr variable. */
+	KeyOutAddr = 0U;
+	if (KeyOutAddr != 0U) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ZEROIZE_MEMSET_FAIL);
+	}
+
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, KOut, XASU_AES_MAX_TAG_LENGTH_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
-
 }
 /** @} */
