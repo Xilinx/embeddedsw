@@ -32,6 +32,7 @@
 *                       parenthesis
 *       mb    07/22/25 Add XNvm_EfuseInitClockAndValidateFreq to set eFuse clock frequency and clk src
 *       mb    08/25/25 Add support for boot mode disable eFUSE bits programming
+*       mb    09/09/25 Set the EFUSE clock source register with user provided clock source
 *
 * </pre>
 *
@@ -126,6 +127,14 @@ static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData)
 	EfuseData->EfuseClkFreq = Xil_In32(XNVM_PLM_CONFIG_BASE_ADDRESS +
 				XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET);
 	EfuseData->EfuseClkSrc = Xil_In32(XNVM_EFUSE_CLK_CTRL_ADDR);
+#else
+	/**
+	 * If XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA is not set,
+	 * Set the frequency clock source value provided by user
+	 * in XNVM_EFUSE_CLK_CTRL_ADDR register.
+	 */
+	Xil_UtilRMW32(XNVM_EFUSE_CLK_CTRL_ADDR, EfuseData->EfuseClkSrc,
+			EfuseData->EfuseClkSrc);
 #endif
 
 	/**

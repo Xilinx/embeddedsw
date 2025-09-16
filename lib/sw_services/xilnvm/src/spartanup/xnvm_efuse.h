@@ -422,7 +422,7 @@ typedef struct {
 #ifdef SPARTANUPLUSAES1
 	XNvm_EfuseBootModeDis *BootModeDis; /**< Pointer to the boot mode disable structure */
 #endif
-	u64 EfuseClkFreq; /**< eFuse clock frequency */
+	u32 EfuseClkFreq; /**< eFuse clock frequency */
 	u32 EfuseClkSrc; /**< eFuse clock source */
 } XNvm_EfuseData;
 
