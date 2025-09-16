@@ -32,7 +32,7 @@
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 * 1.05  pj   03/24/2021 Added API for updating the SubsystemId of the error node
-*                       Added API for handling and trigger sofware errors
+*                       Added API for handling and trigger software errors
 *       bl   04/01/2021 Update XPlmi_ShutdownHandler_t typedef to remove
 *                       warning
 *       ma   04/05/2021 Added support for error configuration using Error Mask
@@ -72,6 +72,7 @@
 *                       and moved it to xplmi_err.c
 * 1.12  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       sk   02/20/2025 Added declaration for PSM handlers
+*       pre  09/08/2025 Added XPLMI_REG_OFFSET4 macro
 * </pre>
 *
 * @note
@@ -163,6 +164,9 @@ extern "C" {
 #define XPLMI_UPDATE_TYPE_INCREMENT	(1U)
 #define XPLMI_UPDATE_TYPE_DECREMENT	(2U)
 #define XPLMI_MAX_ERR_OUTS		(0xFFFFFFFFU)
+
+#define XPLMI_REG_OFFSET4 (0x4U) /** Register offset4 */
+
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
 typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);

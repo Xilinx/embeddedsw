@@ -34,6 +34,7 @@
 *                       to handle restoring of the error actions after IPU
 *                       Also, set CPM NCR error action to CUSTOM after IPU
 * 1.03  ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
+*       pre  09/08/2025 Added print statement with DEBUG_INFO level
 *
 * </pre>
 *
@@ -596,10 +597,10 @@ void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg,
 {
 	int Status = XST_FAILURE;
 	u32 PcieCdxIrStatus = XPlmi_In32(Cpm5NPcieCdxIrStatusReg);
-	u32 PcieCdxIrEnable = ((~XPlmi_In32(Cpm5NPcieCdxIrStatusReg + 4U)) &
+	u32 PcieCdxIrEnable = ((~XPlmi_In32(Cpm5NPcieCdxIrStatusReg + XPLMI_REG_OFFSET4)) &
 			CPM5N_SLCR_CDX_INTERRUPT_3_MASK);
 	u32 LinkUpEvent = XPlmi_In32(Cpm5NCdxPcieBReg);
-	u32 LinkUpEventEnable = (XPlmi_In32(Cpm5NCdxPcieBReg + 4U) &
+	u32 LinkUpEventEnable = (XPlmi_In32(Cpm5NCdxPcieBReg + XPLMI_REG_OFFSET4) &
 			CPM5N_LINK_UP_EVENT_MASK);
 
 	/*
@@ -897,6 +898,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		break;
 
 	default:
+	    XPlmi_Printf(DEBUG_INFO, "Error ID is invalid\n\r");
 		break;
 	}
 }

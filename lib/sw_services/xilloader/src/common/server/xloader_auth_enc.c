@@ -154,6 +154,7 @@
 *       vss  08/13/2025 Removed code which masks major errorcodes.
 * 2.3   tvp  08/19/2025 Added support to store partition Block hash in PtrnHashTable.
 *       pre  08/23/2025 Did versal macro change
+*       pre  09/09/2025 Returned error at necessary places and did status reset before reuse
 *
 * </pre>
 *
@@ -4390,6 +4391,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		if (KeyLen != XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR,
 				Status);
+			goto END;
 		}
 
 		HssInitParams.SignBuff = SignBuff;
@@ -4421,6 +4423,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		if (KeyLen != XSECURE_LMS_PUB_KEY_TOTAL_SIZE) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR,
 				Status);
+			goto END;
 		}
 
 		LmsSignVerifyParams.Data = Data;
@@ -4432,6 +4435,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		LmsSignVerifyParams.PubKeyLen = KeyLen;
 
 		/** Perform LMS signature verification */
+		Status = XST_FAILURE;
 		Status = XSecure_LmsSignatureVerification(ShaInstPtr,
 				SecurePtr->PmcDmaInstPtr,
 				&LmsSignVerifyParams);

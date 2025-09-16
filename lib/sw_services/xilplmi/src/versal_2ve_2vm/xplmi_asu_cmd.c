@@ -64,6 +64,8 @@
 
 #define XPLMI_BH_KEK_IV_SIZE_IN_BYTES		(12U) /**< BootHeader KEK IV size in bytes. */
 
+#define XPLMI_ASU_IPI_FULL_ACCESS(ApiId)	[ApiId] = XPLMI_FULL_IPI_ACCESS /**< Value for only ASU mask to be full access */
+
 /**************************** Type Definitions *******************************/
 static int (* AsuGeneratePufKEK)(u8* PufRegenStatusFlag) = NULL;
 	/** Static function pointer which holds address of Xplmi_PufOnDemandRegeneration. */
@@ -279,11 +281,11 @@ static const XPlmi_ModuleCmd XPlmi_AsuCmds[] =
  *****************************************************************************/
 static XPlmi_AccessPerm_t XPlmi_AsuAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_AsuCmds)] =
 {
-	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_FEATURES),
-	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_KEY_TRANSFER),
+	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_FEATURES),
+	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_KEY_TRANSFER),
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
-	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
-	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
+	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
+	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
 	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),

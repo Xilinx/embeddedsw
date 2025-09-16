@@ -194,7 +194,9 @@
 * 2.3   vss 08/13/2025 Removed code which masks major errorcodes.
 *       har 08/21/2025 Added code to handle invalid CL mode
 *       pre 08/21/2025 Moved extension of image hashes of ROM and PLM to TPM after boot
-*       rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
+*       rpu 09/05/2025 Added PLM_CFG_LIMITER_EN macro
+*       pre 09/09/2025 Returning zeroize status also at image header validation failure
+*
 * </pre>
 *
 ******************************************************************************/
@@ -715,6 +717,12 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		StatusTemp = Xil_SecureZeroize((u8 *)&(PdiPtr->MetaHdr->ImgHdrTbl),
 			sizeof(PdiPtr->MetaHdr->ImgHdrTbl));
+		if (StatusTemp != XST_SUCCESS) {
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+		}
+		else {
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+		}
 		goto END;
 	}
 	if (PdiPtr->DiscardUartLogs == (u8)TRUE) {

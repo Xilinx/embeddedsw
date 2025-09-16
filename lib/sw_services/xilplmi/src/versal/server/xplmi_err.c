@@ -37,6 +37,7 @@
 *                       and changed HBM CATTRIP SW Error Action in ErrorTable.
 *                       Also restricted HBM Cattrip error action to HW Errors.
 * 2.01  ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
+*       pre  09/08/2025 Added print statement with DEBUG_INFO level
 * </pre>
 *
 ******************************************************************************/
@@ -480,10 +481,10 @@ void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 {
 	int Status = XST_FAILURE;
 	u32 PcieLocalErr = XPlmi_In32(Cpm5PcieIrStatusReg);
-	u8 PcieLocalErrEnable = (u8)((~XPlmi_In32(Cpm5PcieIrStatusReg + 4U)) &
+	u8 PcieLocalErrEnable = (u8)((~XPlmi_In32(Cpm5PcieIrStatusReg + XPLMI_REG_OFFSET4)) &
 			CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK);
 	u32 LinkDownErr = XPlmi_In32(Cpm5DmaCsrIntDecReg);
-	u8 LinkDownErrEnable = (u8)(XPlmi_In32(Cpm5DmaCsrIntDecReg + 4U) &
+	u8 LinkDownErrEnable = (u8)(XPlmi_In32(Cpm5DmaCsrIntDecReg + XPLMI_REG_OFFSET4) &
 			CPM5_DMA_CSR_LINK_DOWN_MASK);
 
 	/*
@@ -681,6 +682,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		XPlmi_XmpuErrHandler(FPD_XMPU_BASEADDR, "FPD_XMPU");
 		break;
 	default:
+		XPlmi_Printf(DEBUG_INFO, "Error ID is invalid\n\r");
 		break;
 	}
 }
@@ -786,7 +788,7 @@ int XPlmi_RestrictErrActions(XPlmi_EventType NodeType,
 /**
  * @brief	This function registers SSIT Err handlers and also enables
  *		the interrupts.
- * @brief	This function detects and handles tamper condition occured on
+ * @brief	This function detects and handles tamper condition occurred on
  *		slave SLRs
  *
  *****************************************************************************/

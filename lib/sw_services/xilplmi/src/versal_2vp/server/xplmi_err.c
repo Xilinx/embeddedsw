@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       pre  09/08/2025 Added print statement with DEBUG_INFO level
 *
 * </pre>
 *
@@ -396,10 +397,10 @@ void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg, u32 Cpm5DmaCsrIntDecReg,
 {
 	int Status = XST_FAILURE;
 	u32 PcieLocalErr = XPlmi_In32(Cpm5PcieIrStatusReg);
-	u8 PcieLocalErrEnable = (u8)((~XPlmi_In32(Cpm5PcieIrStatusReg + 4U)) &
+	u8 PcieLocalErrEnable = (u8)((~XPlmi_In32(Cpm5PcieIrStatusReg + XPLMI_REG_OFFSET4)) &
 				     CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK);
 	u32 LinkDownErr = XPlmi_In32(Cpm5DmaCsrIntDecReg);
-	u8 LinkDownErrEnable = (u8)(XPlmi_In32(Cpm5DmaCsrIntDecReg + 4U) &
+	u8 LinkDownErrEnable = (u8)(XPlmi_In32(Cpm5DmaCsrIntDecReg + XPLMI_REG_OFFSET4) &
 				    CPM5_DMA_CSR_LINK_DOWN_MASK);
 
 	/*
@@ -589,6 +590,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		XPlmi_XmpuErrHandler(FPD_XMPU_BASEADDR, "FPD_XMPU");
 		break;
 	default:
+	    XPlmi_Printf(DEBUG_INFO, "Error ID is invalid\n\r");
 		break;
 	}
 }

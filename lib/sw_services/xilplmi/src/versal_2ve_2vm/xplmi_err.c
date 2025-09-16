@@ -26,6 +26,7 @@
 *       sk   04/09/2025 Updated LPD SLCR EAM Disable error logic
 *       pre  04/28/2025 Changed debug level for some prints
 *       pre  07/04/2025 Throwing error code for PMC's FW_CR err action change
+*       pre  09/08/2025 Replaced magic number with macro
 *
 * </pre>
 *
@@ -803,6 +804,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		break;
 
 	default:
+	    XPlmi_Printf(DEBUG_INFO, "Error ID is invalid\n\r");
 		break;
 	}
 }
@@ -820,7 +822,7 @@ static void XPlmi_HandleLinkDownError(u32 DeviceIrStatusReg, u32 GenralStsReg, u
 {
 	int Status = XST_FAILURE;
 	u32 SmlhLinkSts;
-	u32 SmlhLinkToggleEn = ((~XPlmi_In32(DeviceIrStatusReg + 4U)) & MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK);
+	u32 SmlhLinkToggleEn = ((~XPlmi_In32(DeviceIrStatusReg + XPLMI_REG_OFFSET4)) & MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK);
 	u32 DeviceIrStsUncorrErr = XPlmi_In32(DeviceIrStatusReg);
 
 	/* Checking PCIE linkup signal toggle status and its enable status */
@@ -1275,7 +1277,7 @@ int XPlmi_LpdSlcrEmInit(void)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
-	u32 ErrIndex;
+	volatile u32 ErrIndex;
 	u32 LpdSlcrErrStatus[XPLMI_LPDSLCR_MAX_ERR_CNT];
 	u32 RegMask;
 	XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
@@ -1330,7 +1332,9 @@ int XPlmi_LpdSlcrEmInit(void)
 		}
 	}
 
-	Status = XST_SUCCESS;
+	if (ErrIndex == XPLMI_LPDSLCR_MAX_ERR_CNT) {
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }
@@ -1367,7 +1371,7 @@ int XPlmi_LpdSlcrEmInit(void)
  *****************************************************************************/
 int XPlmi_Versal2Ve2VmSetAction(XPlmi_Cmd * Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	XPlmi_EventType NodeType =
 			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
@@ -1470,10 +1474,8 @@ int XPlmi_Versal2Ve2VmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XPlmi_EmSetAction(Cmd->Payload[0U], ErrorMasks, (u8)ErrorAction, NULL, SubsystemId);
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	return Status;

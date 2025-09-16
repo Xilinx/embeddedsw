@@ -30,6 +30,7 @@
 *       obs  12/18/2024 Fixed GCC Warnings
 *       am   02/22/2025 Added Puf on dmand regeneration support
 *       sk   03/25/2025 Updated platform name
+*       pre  09/09/2025 Added status reset before reusing
 *
 * </pre>
 *
@@ -235,7 +236,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function performs post update activites like restoring
+ * @brief	This function performs post update activities like restoring
  *		KEK Src, KAT Status, Clearing Aes Key, regenerating DevAk, etc.
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -323,7 +324,7 @@ END:
  *****************************************************************************/
 int XPlmi_PufOnDemandRegeneration(u8* StatusFlag)
 {
-	s32 Status = XST_FAILURE;
+	volatile s32 Status = XST_FAILURE;
 	XPuf_Data *PufData = (XPuf_Data *)(UINTPTR)XPLMI_PMCRAM_CHUNK_MEMORY_1;
 
 	Status = XPlmi_MemSetBytes(PufData, sizeof(XPuf_Data), 0U, sizeof(XPuf_Data));
@@ -360,6 +361,7 @@ int XPlmi_PufOnDemandRegeneration(u8* StatusFlag)
 		PufData->ReadOption = XPUF_READ_FROM_EFUSE_CACHE;
 	}
 
+	Status = XST_FAILURE;
 	Status = XPuf_Regeneration(PufData);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Failed at PUF regeneration with status "
