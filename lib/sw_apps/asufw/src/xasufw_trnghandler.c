@@ -359,12 +359,17 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @brief	This function reads the requested number of random bytes from TRNG AUTOPROC FIFO.
  *
  * @param	RandomBuf	Pointer to the random buffer.
- * @param	Size		Size of the random buffer. The maximum allowed size is 510 Bytes
+ * @param	Size		Size of the random buffer.
  *
  * @return
  * 	- XASUFW_SUCCESS, if requested bytes of random number is generated successfully.
  * 	- XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, if size of random buffer is invalid.
  * 	- XASUFW_FAILURE, if there is any failure.
+ *
+ * @note	The maximum size allowed is 510 Bytes.This limitation is kept to support RSA
+ * 		padding requirements.In RSA encryption with a 512-byte key size, the padding
+ * 		scheme requires 510 random bytes to be added to the plaintext, with the remaining
+ * 		two bytes being 0x00U and the input data.
  *
  *************************************************************************************************/
 s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
