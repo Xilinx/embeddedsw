@@ -26,6 +26,7 @@
 *                       in safety mode and done changes such as
 *                       Added goto statements.
 * 3.13  sb     09/09/25 Fix chip selection issues.
+* 3.13  sb     09/17/25 Corrected register masking logic in XSpiPs_SelfTest function.
 * </pre>
 *
 ******************************************************************************/
@@ -90,6 +91,7 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	 */
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET);
+	Register &= ~XSPIPS_CR_SSCTRL_MASK;
 	if (Register != XSPIPS_CR_RESET_STATE) {
 		Status = (s32)XST_REGISTER_ERROR;
 		goto END;
@@ -97,7 +99,6 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_SR_OFFSET);
-	Register &= ~XSPIPS_CR_SSCTRL_MASK;
 	if (Register != XSPIPS_ISR_RESET_STATE) {
 		Status = (s32)XST_REGISTER_ERROR;
 		goto END;;
