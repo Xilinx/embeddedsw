@@ -289,7 +289,11 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 
 	/** If FINISH operation flag is set, update response buffer details. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
-		XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
+		Status = XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
 		if (ClientParamPtr->ClientCtx == P0AesCtx) {
 			P0AesCtx = NULL;
 		} else {

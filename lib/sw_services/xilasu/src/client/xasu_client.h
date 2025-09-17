@@ -22,6 +22,7 @@
  *       vns  09/30/24 Added support for asynchronous communication
  *       am   03/05/25 Added include for performance measurement header
  * 1.1   kd   07/23/25 Fixed gcc warnings
+ *       rmv  09/15/25 Updated XAsu_UpdateCallBackDetails() prototype to return status value
  *
  * </pre>
  *
@@ -128,7 +129,7 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 	u32 Size, u32 Header);
 u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr,
 	u32 Size, u8 IsFinalCall);
-void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall);
+s32 XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall);
 void *XAsu_UpdateNGetCtx(u8 UniqueId);
 s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
 void XAsu_FreeCtx(void *Context);

@@ -30,6 +30,7 @@
  *       ma   03/14/25 Replace memcpy with Xil_SecureMemCpy to avoid arch dependencies during copy
  *       kd   07/23/25 Fixed gcc warnings
  *       am   08/08/25 Removed redundant condition before END label
+ *       rmv  09/15/25 Updated XAsu_UpdateCallBackDetails() prototype to return status value
  *
  * </pre>
  *
@@ -354,13 +355,29 @@ END:
  * @param	Size		Size of the response buffer.
  * @param	IsFinalCall	Flag indicating whether this is the final callback (1 if final, 0 otherwise).
  *
+ * @return
+ *	- XST_SUCCESS, if callback details are updated successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
  *************************************************************************************************/
-void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall)
+s32 XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall)
 {
+	s32 Status = XST_FAILURE;
+
+	/** Validate unique ID. */
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		goto END;
+	}
+
 	/** Update the callback details. */
 	AsuCallBackRef[UniqueId].RespBufferPtr = RespBufferPtr;
 	AsuCallBackRef[UniqueId].Size = Size;
 	AsuCallBackRef[UniqueId].Clear = IsFinalCall;
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/

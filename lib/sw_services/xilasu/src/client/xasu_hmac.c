@@ -155,8 +155,13 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 
 	/** If FINISH operation flag is set, update response buffer details. */
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) {
-		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)(UINTPTR)HmacParamsPtr->HmacAddr,
-			HmacParamsPtr->HmacLen, XASU_TRUE);
+		Status = XAsu_UpdateCallBackDetails(UniqueId,
+						    (u8 *)(UINTPTR)HmacParamsPtr->HmacAddr,
+						    HmacParamsPtr->HmacLen, XASU_TRUE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
 		if (ClientParamsPtr->ClientCtx == P0HmacCtx) {
 			P0HmacCtx = NULL;
 		} else {

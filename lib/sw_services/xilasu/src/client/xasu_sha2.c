@@ -194,8 +194,13 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 
 	/** If FINISH operation flag is set, update response buffer details. */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
-		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)(UINTPTR)ShaClientParamPtr->HashAddr,
-			ShaClientParamPtr->HashBufSize, XASU_TRUE);
+		Status = XAsu_UpdateCallBackDetails(UniqueId,
+						    (u8 *)(UINTPTR)ShaClientParamPtr->HashAddr,
+						    ShaClientParamPtr->HashBufSize, XASU_TRUE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
 		if (ClientParamPtr->ClientCtx == P0Sha2Ctx) {
 			P0Sha2Ctx = NULL;
 		} else {
