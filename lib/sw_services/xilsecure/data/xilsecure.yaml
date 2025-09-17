@@ -36,70 +36,50 @@ supported_os:
 
 examples:
   xilsecure_aes_example.c:
-    - supported_platforms:
-      - ZynqMP
   xilsecure_rsa_example.c:
-    - supported_platforms:
-      - ZynqMP
   xilsecure_rsa_generic_example.c:
-    - supported_platforms:
-      - ZynqMP
   xilsecure_sha_example.c:
-    - supported_platforms:
-      - ZynqMP
   xilsecure_simple_aes_example.c:
-    - supported_platforms:
-      - ZynqMP
-
   xilsecure_versal_aes_client_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
-      - Versal_2VE_2VM
   xilsecure_versal_aes_server_example.c:
-    - supported_platforms:
-      - Versal
-      - spartanuplus
   xilsecure_versal_ecdsa_client_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
-      - Versal_2VE_2VM
   xilsecure_versal_ecdsa_server_example.c:
-    - supported_platforms:
-      - Versal
   xilsecure_versal_net_trng_client_example.c:
-    - supported_platforms:
-      - VersalNet
-      - Versal_2VE_2VM
   xilsecure_versal_net_ecdh_client_example.c:
-    - supported_platforms:
-      - VersalNet
-      - Versal_2VE_2VM
   xilsecure_versal_rsa_client_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
-      - Versal_2VE_2VM
   xilsecure_versal_net_rsa_client_example.c:
-    - supported_platforms:
-      - VersalNet
   xilsecure_versal_rsa_server_example.c:
-    - supported_platforms:
-      - Versal
   xilsecure_versal_sha_client_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
   xilsecure_versal_sha_server_example.c:
-    - supported_platforms:
-      - Versal
   xilsecure_spartanup_sha_server_example.c:
-    - supported_platforms:
-      - spartanuplus
   xilsecure_versal_2ve_2vm_sha_client_example.c:
-    - supported_platforms:
-      - Versal_2VE_2VM
   xilsecure_versal_net_keyunwrap_client_example.c:
-    - supported_platforms:
-      - VersalNet
+
+  condition: |
+    examples = []
+    if platform in ["ZynqMP"]:
+      if proc in ["psu_cortexa53", "psu_cortexr5"]:
+        examples += ["xilsecure_aes_example.c", "xilsecure_rsa_example.c", "xilsecure_rsa_generic_example.c", "xilsecure_sha_example.c",
+                     "xilsecure_simple_aes_example.c"]
+    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"]:
+      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
+        examples += ["xilsecure_versal_aes_client_example.c", "xilsecure_versal_ecdsa_client_example.c", "xilsecure_versal_rsa_client_example.c"]
+    if platform in ["Versal", "VersalNet"]:
+      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52"]:
+        examples += ["xilsecure_versal_sha_client_example.c"]
+    if platform in ["Versal"]:
+      if proc in ["psv_cortexa72", "psv_cortexr5"]:
+        examples += ["xilsecure_versal_ecdsa_server_example.c", "xilsecure_versal_rsa_server_example.c", "xilsecure_versal_sha_server_example.c",
+                     "xilsecure_versal_aes_server_example.c"]
+    if platform in ["VersalNet"]:
+      if proc in ["microblaze", "psx_cortexa78", "psx_cortexr52"]:
+        examples += ["xilsecure_versal_net_rsa_client_example.c", "xilsecure_versal_net_keyunwrap_client_example.c"]
+    if platform in ["Versal_2VE_2VM"]:
+      if proc in ["microblaze", "cortexa78", "cortexr52"]:
+        examples += ["xilsecure_versal_2ve_2vm_sha_client_example.c"]
+    if platform in ["VersalNet", "Versal_2VE_2VM"]:
+      if proc in ["microblaze", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
+        examples += ["xilsecure_versal_net_trng_client_example.c", "xilsecure_versal_net_ecdh_client_example.c"]
+    if "spartanuplus" in variant:
+      if proc in ["microblaze", "microblaze_riscv"]:
+        examples += ["xilsecure_spartanup_sha_server_example.c", "xilsecure_versal_aes_server_example.c"]
