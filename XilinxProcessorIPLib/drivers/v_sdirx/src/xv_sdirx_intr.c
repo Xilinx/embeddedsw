@@ -549,6 +549,14 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			}
 		}
 
+		if (SdiStream->ColorFormatId == XVIDC_CSF_YCRCB_444 ||
+			SdiStream->ColorFormatId == XVIDC_CSF_RGB ||
+			SdiStream->ColorFormatId == XVIDC_CSF_MEM_YUVX10) {
+				XV_SdiRx_SetYCbCr444_RGB_10bit(InstancePtr);
+		} else if(SdiStream->ColorFormatId == XVIDC_CSF_YCBCR_422) {
+				XV_SdiRx_ClearYCbCr444_RGB_10bit(InstancePtr);
+		}
+
 		if (InstancePtr->Transport.IsFractional) {
 			switch (InstancePtr->Transport.TRate) {
 			case XV_SDIRX_FR_23_98HZ:
