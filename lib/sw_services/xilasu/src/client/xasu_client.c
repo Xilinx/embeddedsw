@@ -55,6 +55,9 @@
 #define ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK       0x10U          /**< ASU FW Present mask
                                                                               value */
 #define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timeout value */
+#define XASU_KAT_EXEC_STATUS_CHECK_TIMEOUT_VALUE	(0x4C4B40U)	/**< KAT execution status
+								check timeout value in microseconds
+								(5sec) */
 
 #define XASU_NO_OF_CONTEXTS				(10U)	/**< No of contexts can be saved by client */
 
@@ -365,30 +368,43 @@ void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsF
  * @brief	This function fetches the algorithm information based on Module ID and populates
  * 		the algorithm information structure.
  *
- * @param	AlginfoPtr	Pointer to the structure where the KDF algorithm
- *				information will be stored.
+ * @param	AlginfoPtr	Pointer to the structure where the algorithm
+ *				information of module will be stored.
  * @param	ModuleId	Registered ID of the module.
  *
  * @return
  *      	- XST_SUCCESS, if version info is updated successfully.
+ * 		- XST_FAILURE, if version info update fails.
+ * 		- XASU_KAT_EXEC_NOT_COMPLETED, if KAT execution is not completed.
  *      	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  *
  *************************************************************************************************/
 s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId)
 {
 	s32 Status = XST_FAILURE;
+	u32 Timeout = 0U;
 	const XAsu_CryptoAlgInfo *AlgInfoDataPtr = (const XAsu_CryptoAlgInfo*)XASU_RTCA_MODULE_INFO_BASEADDR;
 
 	/** Validate input parameters. */
-	if (ModuleId >= XASU_MAX_MODULES) {
+	if ((AlginfoPtr == NULL) || (ModuleId >= XASU_MAX_MODULES)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	AlginfoPtr->Version = AlgInfoDataPtr[ModuleId].Version;
-	AlginfoPtr->NistStatus = AlgInfoDataPtr[ModuleId].NistStatus;
+	/** Wait until KAT execution is completed. */
+	while(((Xil_In32(XASU_RTCA_KAT_EXEC_STATUS_ADDR)) & XASU_RTCA_KAT_EXEC_STATUS_MASK)
+		!= XASU_RTCA_KAT_EXEC_STATUS_VALUE) {
+		if (Timeout == XASU_KAT_EXEC_STATUS_CHECK_TIMEOUT_VALUE) {
+			Status = XASU_KAT_EXEC_NOT_COMPLETED;
+			goto END;
+		}
+		usleep(1U);
+		Timeout++;
+	}
 
-	Status = XST_SUCCESS;
+	Status = Xil_SecureMemCpy((void *)AlginfoPtr, (u32)sizeof(XAsu_CryptoAlgInfo),
+				   (const void *)(&(AlgInfoDataPtr[ModuleId])),
+				   (u32)sizeof(XAsu_CryptoAlgInfo));
 END:
 	return Status;
 }

@@ -603,10 +603,8 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 	}
 #endif /* XASU_RSA_PADDING_ENABLE */
 
-#ifdef XASU_ECC_SUPPORT_NIST_P256
 	/** Run ECC signature generation and verification KAT on ECC core for P-256 curve. */
 	Status = XAsufw_EccCoreKat(AsuDmaPtr);
-#endif /* XASU_ECC_SUPPORT_NIST_P256 */
 	if (Status != XASUFW_SUCCESS) {
 		/** On failure of KAT, disable the root resource. */
 		XAsufw_DisableResource(XASUFW_ECC);
@@ -617,6 +615,14 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 #endif
 	}
 	else {
+		/** Set KAT status as passed in RTCA area. */
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_ECC_ID);
+#ifdef XASU_RSA_PADDING_ENABLE
+		if(!(XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID))) {
+			/* If RSA KAT is not passed, skip ECC KAT on RSA core. */
+			goto END;
+		}
+#endif
 #ifdef XASU_ECC_SUPPORT_EDWARD_P25519
 		/** Run ECC KAT on RSA core using ED25519 curve. */
 		Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_ED25519);
@@ -671,6 +677,9 @@ SLD:
 	/* TODO: To send IPI to PLM to trigger secure lockdown. */
 #endif
 
+END:
+	XAsufw_RMW(XASU_RTCA_KAT_EXEC_STATUS_ADDR, XASU_RTCA_KAT_EXEC_STATUS_MASK,
+			XASU_RTCA_KAT_EXEC_STATUS_VALUE);
 	XAsufw_Printf(DEBUG_GENERAL, "KATs execution completed.\r\n");
 
 	/** Delete self task after completion. */

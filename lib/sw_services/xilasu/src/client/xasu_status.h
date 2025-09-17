@@ -62,6 +62,7 @@ enum {
 	XASU_REQUEST_INPROGRESS,	/**< 0x1D - Client should not allow more than one split
 				request */
 	XASU_INVALID_SECURE_FLAG,	/**< 0x1E - Invalid secure flag */
+	XASU_KAT_EXEC_NOT_COMPLETED,	/**< 0x1F - KAT execution is not completed */
 };
 
 /**

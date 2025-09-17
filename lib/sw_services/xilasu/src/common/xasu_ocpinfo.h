@@ -115,8 +115,8 @@ typedef struct {
 
 /** This structure contains information related to DME challenge parameters. */
 typedef struct {
-	u64 NonceAddr;
-	u64 OcpDmeResponseAddr;
+	u64 NonceAddr;	/**< Address of the Nonce buffer */
+	u64 OcpDmeResponseAddr;	/**< Address of the DME response structure */
 } XAsu_OcpDmeParams;
 
 /**
