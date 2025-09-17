@@ -155,6 +155,7 @@
 * 2.3   tvp  08/19/2025 Added support to store partition Block hash in PtrnHashTable.
 *       pre  08/23/2025 Did versal macro change
 *       pre  09/09/2025 Returned error at necessary places and did status reset before reuse
+*       vss  09/17/2025 Updated major error codes wherever missed in XLoader_DecHdrs function.
 *
 * </pre>
 *
@@ -2381,7 +2382,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)));
 			if (Status != XST_SUCCESS) {
 				XPLMI_STATUS_GLITCH_DETECT(Status);
-				goto END;
+				goto ERR_END;
 			}
 		}
 	}
@@ -2405,7 +2406,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 			"eFuses\n\r");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR,
 			Status);
-		goto END;
+		goto ERR_END;
 	}
 
 	/** Configure DPA CM */
@@ -2413,7 +2414,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		SecurePtr->AesInstPtr, PdiDpaCmCfg);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_DPA_CM_ERR, Status);
-		goto END;
+		goto ERR_END;
 	}
 #ifdef VERSAL_2VE_2VM
 	/**
@@ -2487,16 +2488,17 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	/** Decrypt Secure header */
 	Status = XLoader_DecryptSecureBlk(SecurePtr, SrcAddr);
 	if (Status != XST_SUCCESS) {
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		XPlmi_Printf(DEBUG_INFO, "SH decryption failed during header "
 			"decryption\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_DEC_FAIL, Status);
-		goto END;
+		goto ERR_END;
 	}
 
 	SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
 	TotalSize = TotalSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataDecrypt, SecurePtr,
 		(UINTPTR)SrcAddr, (UINTPTR)SecurePtr->ChunkAddr, TotalSize);
+ERR_END:
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_DEC_FAIL, Status);
 		XPlmi_Printf(DEBUG_INFO, "Failed at headers decryption\n\r");
