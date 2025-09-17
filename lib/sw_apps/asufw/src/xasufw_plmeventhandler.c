@@ -194,7 +194,9 @@ static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	Status = XASUFW_SUCCESS;
 
+#ifdef XASU_OCP_ENABLE
 END:
+#endif
 	return Status;
 }
 /** @} */

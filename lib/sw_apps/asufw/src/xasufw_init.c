@@ -504,12 +504,17 @@ s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
 
 	/** Generate DME KEK if PUF KEK generation and AES KAT are successful. */
 	if (PufKekFlag == XASUFW_PUF_KEK_GEN_SUCCESS) {
+#ifdef XASU_OCP_ENABLE
 		if (AesKatStatus == XASUFW_KAT_STATUS_PASS) {
 			Status = XOcp_GenerateDmeKek();
 			if (Status != XASUFW_SUCCESS) {
 				XAsufw_Printf(DEBUG_GENERAL, "ASUFW DME KEK generation failed. Error: 0x%x\r\n", Status);
 			}
 		}
+#else
+		(void)AesKatStatus;
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "ASUFW DME KEK generation failed as OCP is disabled\r\n");
+#endif
 	}
 
 END:

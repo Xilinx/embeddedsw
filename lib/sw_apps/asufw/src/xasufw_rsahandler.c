@@ -509,7 +509,6 @@ END:
 RET:
 	return Status;
 }
-#endif /* XASU_RSA_PADDING_ENABLE */
 
 /*************************************************************************************************/
 /**
@@ -571,4 +570,5 @@ static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	return Status;
 }
+#endif /* XASU_RSA_PADDING_ENABLE */
 /** @} */
