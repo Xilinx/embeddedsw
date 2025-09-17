@@ -37,41 +37,43 @@ supported_os:
 
 examples:
   xilnvm_bbram_versal_client_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
   xilnvm_bbram_versal_server_example.c:
-    - supported_platforms:
-      - Versal
   xilnvm_efuse_versal_client_example.c:
-    - supported_platforms:
-      - Versal
     - dependency_files:
       - xilnvm_efuse_versal_input.h
   xilnvm_efuse_versal_server_example.c:
-    - supported_platforms:
-      - Versal
     - dependency_files:
       - xilnvm_efuse_versal_input.h
   xilnvm_efuse_versal_net_client_example.c:
-    - supported_platforms:
-      - VersalNet
     - dependency_files:
       - xilnvm_efuse_versal_net_input.h
   xilnvm_efuse_spartan_ultrascale_plus_example.c:
-    - supported_platforms:
-      - spartanuplus
     - dependency_files:
       - xilnvm_efuse_spartan_ultrascale_plus_input.h
   xilnvm_bbram_config_limiter_client_example.c:
-    - supported_platforms:
-      - Versal_2VE_2VM
   xilnvm_bbram_versal_ssit_client_example.c:
-    - supported_platforms:
-      - Versal
   xilnvm_efuse_versal_ssit_client_example.c:
-    - supported_platforms:
-      - Versal
     - dependency_files:
       - xilnvm_efuse_versal_ssit_input.h
+
+  condition : |
+    examples = []
+    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"]:
+      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
+        examples += ["xilnvm_bbram_versal_client_example.c"]
+    if platform in ["VersalNet", "Versal_2VE_2VM"]:
+      if proc in ["microblaze", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
+        examples += ["xilnvm_efuse_versal_net_client_example.c"]
+    if platform in ["Versal"]:
+      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5"]:
+        examples += ["xilnvm_bbram_versal_server_example.c", "xilnvm_efuse_versal_client_example.c",
+                     "xilnvm_efuse_versal_server_example.c", "xilnvm_bbram_versal_ssit_client_example.c",
+                     "xilnvm_efuse_versal_ssit_client_example.c"]
+    if platform in ["Versal_2VE_2VM"]:
+      if proc in ["microblaze", "cortexa78", "cortexr52"]:
+        examples += ["xilnvm_bbram_config_limiter_client_example.c"]
+    if "spartanuplus" in variant:
+      if proc in ["microblaze", "microblaze_riscv"]:
+        examples += ["xilnvm_efuse_spartan_ultrascale_plus_example.c"]
+
 ...
