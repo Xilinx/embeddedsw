@@ -9,11 +9,10 @@ maintainers:
   - Harsha, Harsha <harsha.harsha@amd.com>
   - Akula, Kalyani <kalyani.akula@amd.com>
   - Challa, Durga <durga.challa@amd.com>
-  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
 
 type: library
 
-description: Xilinx Open Compute Platform(OCP) support Library. Supported only for Versal Net.
+description: Xilinx Open Compute Platform(OCP) support Library. Supported for Versal Net, Versal_2VE_2VM.
 
 supported_processors:
   - psx_pmc
@@ -28,6 +27,15 @@ supported_os:
   - freertos10_xilinx
 
 examples:
-  xilocp_client_devicekey_example.c: []
-  xilocp_client_dme_example.c: []
-  xilocp_client_pcr_example.c: []
+  xilocp_client_devicekey_example.c:
+  xilocp_client_dme_example.c:
+  xilocp_client_pcr_example.c:
+
+  condition : |
+    examples = []
+    if platform in ["VersalNet"]:
+      if proc in ["psx_cortexa78", "psx_cortexr52"]:
+        examples += ["xilocp_client_devicekey_example.c", "xilocp_client_dme_example.c"]
+    if platform in ["VersalNet", "Versal_2VE_2VM"]:
+      if proc in ["psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
+        examples += ["xilocp_client_pcr_example.c"]
