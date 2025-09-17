@@ -50,7 +50,7 @@ typedef enum {
 bool PmGetMmioAccessRead(const PmMaster *const master, const u32 address);
 bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address);
 #ifdef ENABLE_MEM_RANGE
-u32 PmIsValidAddressRange(const PmMaster *const master, const UINTPTR address,
+u32 PmIsValidAddressRange(const PmMaster *const master, const u64 address,
 			  const u32 length, const u32 access);
 #endif
 

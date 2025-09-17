@@ -667,8 +667,8 @@ typedef enum {
 #define DDR_LOW_END_ADDR        0x7FFFFFFFU
 
 /* DDR high memory details */
-#define DDR_HIGH_START_ADDR	0x800000000U
-#define DDR_HIGH_END_ADDR	0xFFFFFFFFFU
+#define DDR_HIGH_START_ADDR	0x800000000ULL
+#define DDR_HIGH_END_ADDR	0xFFFFFFFFFULL
 
 /* OCM memory details */
 #define OCM_START_ADDR          0xFFFC0000U

@@ -38,7 +38,7 @@ enum mmio_access_type {
  * @access	Access permission type for the memory range.
  */
 typedef struct {
-	UINTPTR address;
+	u64 address;
 	u32 length;
 	u32 ipiMask;
 	u32 access;
@@ -153,7 +153,7 @@ static PmMemRange addressTable[] = {
 	},
 	{
 		.address = DDR_HIGH_START_ADDR,
-		.length = DDR_HIGH_END_ADDR - DDR_HIGH_START_ADDR + 1U,
+		.length = (u32)(DDR_HIGH_END_ADDR - DDR_HIGH_START_ADDR + 1ULL),
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
 		.access = MEM_RANGE_WRITE_ACCESS,
 	},
@@ -1013,7 +1013,7 @@ static const PmAccessRegion pmAccessTable[] = {
  * - `1U` if the memory range is valid for the master with the given access.
  * - `0U` if the memory range is invalid.
  */
-u32 PmIsValidAddressRange(const PmMaster *const master, const UINTPTR address,
+u32 PmIsValidAddressRange(const PmMaster *const master, const u64 address,
 			  const u32 length, const u32 access)
 {
 	u32 status = 0U;
