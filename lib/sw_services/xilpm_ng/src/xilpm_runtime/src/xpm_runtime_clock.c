@@ -551,10 +551,10 @@ done:
 
 XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const struct XPm_ClkTopologyNode *Ptr;
-	u32 Divider1;
 	XPm_ClockNode *ParentClk = NULL;
+	u32 Divider1, Width, Shift;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_DIV1);
 	if (Ptr == NULL) {
@@ -562,13 +562,16 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 		goto done;
 	}
 
+	Width = Ptr->Param2.Width;
+	Shift = Ptr->Param1.Shift;
+
 	if ((Divider == 0) && !(Ptr->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	Divider1 = Divider & 0xFFFFU;
-	if (Divider1 > BITMASK(Ptr->Param2.Width)) {
+	if (Divider1 > BITMASK(Width)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -582,7 +585,7 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 		}
 	}
 
-	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Divider1 << Ptr->Param1.Shift);
+	XPm_RMW32(Ptr->Reg, BITNMASK(Shift, Width), Divider1 << Shift);
 
 	/* Release PLL reset if parent is PLL */
 	if ((NULL != ParentClk) && ISPLL(ParentClk->Node.Id)) {
@@ -590,6 +593,13 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+	}
+
+	/* Blind write check */
+	PmChkRegMask32(Ptr->Reg, BITNMASK(Shift, Width),
+		       Divider1 << Shift, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		goto done;
 	}
 
 	Status = XST_SUCCESS;
