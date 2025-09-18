@@ -144,7 +144,7 @@
 #define XAES_CCM_FLAG_SIZE_IN_BYTES	(1U) /**< Size of the flag field prepended to IV in
 						CCM mode (in bytes). */
 #define XAES_GCM_J0_IV_INIT_VAl		(0x01U) /**< Initial counter value used in GCM mode IV formatting. */
-
+#define XAES_TAG_LEN_IN_WORDS		(4U) /**< Number of 32-bit words in a 128-bit AES authentication tag. */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
@@ -2068,7 +2068,7 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr)
 	volatile u32 Index = 0U;
 	u32 *TagPtr = (u32 *)TagOutAddr;
 
-	for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
+	for (Index = 0U; Index < XAES_TAG_LEN_IN_WORDS; Index++) {
 		TagPtr[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 			(XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
 		/*
