@@ -932,7 +932,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 			     u32 BufLen, u8 Index)
 {
-	s32 i;
+	u32 i;
 	char *String;
 	u32 StringLen;
 	u32 DescLen;
