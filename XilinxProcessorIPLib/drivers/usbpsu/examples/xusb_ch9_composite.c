@@ -1159,7 +1159,7 @@ USB_STD_HID_DESC hid_desc = {
 	.bcdHID			=	0x0101,
 	.bCountryCode		=	0x00,
 	.bNumDescriptors	=	0x1,
-	.bDescriptorType	=	USB_TYPE_REPORT_DESC,
+	.bReportDescriptorType	=	USB_TYPE_REPORT_DESC,
 	.wDescriptorLength	=	sizeof(report_desc)
 };
 
