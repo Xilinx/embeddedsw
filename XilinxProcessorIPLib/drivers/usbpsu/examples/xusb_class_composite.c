@@ -84,7 +84,7 @@ static u8 ClassData[10];
 #endif
 const static SCSI_INQUIRY scsiInquiry[] = {
 #else
-const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
+static const SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 #endif
 	{
 		0x00,
