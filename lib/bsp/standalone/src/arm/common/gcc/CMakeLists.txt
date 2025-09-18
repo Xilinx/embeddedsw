@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 collect (PROJECT_LIB_SOURCES cpputest_time.c)
 collect (PROJECT_LIB_SOURCES read.c)
@@ -20,3 +20,5 @@ collect (PROJECT_LIB_SOURCES abort.c)
 collect (PROJECT_LIB_SOURCES kill.c)
 collect (PROJECT_LIB_SOURCES lseek.c)
 collect (PROJECT_LIB_SOURCES getentropy.c)
+collect (PROJECT_LIB_SOURCES gettimeofday.c)
+collect (PROJECT_LIB_SOURCES time.c)
