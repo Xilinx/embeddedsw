@@ -1052,7 +1052,7 @@ static void PmFpgaRead(const PmMaster *const master,
 	UINTPTR Address = ((u64)AddrHigh << 32U)|AddrLow;
 #if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_FPGA_READ_BACK)
 	u32 length = Reg_Numframes * 4U;
-	u32 access = MEM_RANGE_WRITE_ACCESS;
+	u32 access = (u32)MEM_RANGE_WRITE_ACCESS;
 #endif
 #if defined(ENABLE_FPGA_READ_CONFIG_REG)
    u32 RspBuf __attribute__ ((aligned(64)));
