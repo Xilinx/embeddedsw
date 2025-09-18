@@ -22,6 +22,7 @@
  *		       changes for all USB IPs
  * 1.5	 vak  13/02/19 Added support for versal
  * 1.17  ka   20/01/25 Fixed C++ warnings and errors
+ * 1.18  ka   21/08/25 Fix fallthrough without functional change
  *
  *</pre>
  ******************************************************************************/
@@ -103,7 +104,8 @@ s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
 				 */
 				DFU->runtime_to_dfu = 1;
 
-				/* fall through */
+				DFU->curr_state = STATE_DFU_IDLE;
+				DFU->next_state = STATE_DFU_DOWNLOAD_SYNC;
 				break;
 			} else if (DFU->curr_state == STATE_DFU_IDLE) {
 #ifdef DFU_DEBUG

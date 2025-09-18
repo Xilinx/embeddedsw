@@ -102,7 +102,9 @@ s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
 				 */
 				DFU->runtime_to_dfu = 1;
 
-				/* fall through */
+				DFU->curr_state = STATE_DFU_IDLE;
+				DFU->next_state = STATE_DFU_DOWNLOAD_SYNC;
+				break;
 			} else if (DFU->curr_state == STATE_DFU_IDLE) {
 #ifdef DFU_DEBUG
 				xil_printf("Waiting for USB reset to"
@@ -763,6 +765,7 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 				StopTransfer(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
 				Usb_DfuSetState(dfu, STATE_DFU_IDLE);
 			}
+			break;
 		default:
 
 			/* Unsupported command. Stall the end point. */
