@@ -920,7 +920,7 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 TerminationCode = XASUFW_FAILURE;
+	volatile u32 TerminationCode = XASUFW_FAILURE;
 	u32 CtrlRegValue = 0U;
 
 	/** Enable interrupt, update configuration in control register and start the operation. */
