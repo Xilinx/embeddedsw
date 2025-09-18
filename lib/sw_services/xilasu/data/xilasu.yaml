@@ -8,7 +8,11 @@ maintainers:
   - Challa, Durga <durga.challa@amd.com>
 type: library
 description: Xilinx Application Security Unit Library
-supported_processors: [cortexa78, cortexr52, asu, microblaze]
+supported_processors:
+  - condition: |
+      supported_processors = ["cortexa78", "cortexr52", "asu", "microblaze"]
+      if platform in ("microblaze", "microblaze_riscv"):
+        supported_processors = []
 supported_os: [standalone]
 depends_libs:
   xilmailbox: {}

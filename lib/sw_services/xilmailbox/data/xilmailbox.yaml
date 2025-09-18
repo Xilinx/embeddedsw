@@ -21,23 +21,13 @@ properties:
     description: IPI Bit mask
 
 supported_processors:
-  - psu_cortexa53
-  - psu_cortexr5
-  - psv_cortexa72
-  - psv_cortexr5
-  - psu_pmu
-  - psv_pmc
-  - psv_psm
-  - microblaze
-  - psx_cortexa78
-  - cortexa78
-  - psx_cortexr52
-  - cortexr52
-  - psx_pmc
-  - pmc
-  - psx_psm
-  - psm
-  - microblaze_riscv
+  - condition: |
+      supported_processors = ["psu_cortexa53", "psu_cortexr5", "psv_cortexa72",
+      "psv_cortexr5", "psu_pmu", "psv_pmc", "psv_psm","psx_cortexa78", "cortexa78",
+      "psx_cortexr52", "cortexr52", "psx_pmc", "pmc", "psx_psm",
+      "psm", "microblaze", "microblaze_riscv"]
+      if platform in ("microblaze", "microblaze_riscv"):
+          supported_processors = []
 
 supported_os:
   - standalone

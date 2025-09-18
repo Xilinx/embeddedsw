@@ -16,19 +16,12 @@ version: 2.1
 description: Xilinx Versal Soft Error Mitigation Library.
 
 supported_processors:
-  - psv_cortexr5
-  - psxl_cortexr52
-  - psx_cortexr52
-  - cortexr52
-  - psv_cortexa72
-  - psx_cortexa78
-  - cortexa78
-  - microblaze
-  - psv_pmc
-  - psx_pmc
-  - pmc
-  - psxl_pmc
-  - asu
+  - condition: |
+      supported_processors = ["psv_cortexr5", "psxl_cortexr52", "psx_cortexr52", "cortexr52",
+      "microblaze", "psv_pmc", "psx_pmc", "pmc", "psxl_pmc","asu"]
+      if platform in ("microblaze", "microblaze_riscv"):
+        supported_processors = []
+
 
 supported_os:
   - standalone
