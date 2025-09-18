@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * 1.0   rb   22/01/18 First release
  * 1.8   pm   15/09/20 Fixed C++ Compilation error.
  * 1.14  pm   21/06/23 Added support for system device-tree flow.
+ * 1.18  ka   21/08/25 Fixed GCC warnings.
  *
  * </pre>
  *
@@ -151,6 +152,8 @@ static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTx
 	struct audio_if *f = &(interface->f_audio);
 	u32 Size;
 
+	(void)RequestedBytes;
+
 	Size = f->packetsize;
 	f->residue += f->packetresidue;
 
@@ -197,6 +200,9 @@ static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxe
 	struct audio_dfu_if *interface = (struct audio_dfu_if *)(ch9_ptr->data_ptr);
 	struct audio_if *f = &(interface->f_audio);
 	u32 Size;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	Size = f->packetsize;
 	f->residue += f->packetresidue;
@@ -358,7 +364,6 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr)
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
 #ifdef SDT
-	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
 #endif
 
 	xil_printf("Audio-Dfu composite Start...\r\n");
@@ -462,6 +467,8 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr)
 			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
+	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
+
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
 				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);

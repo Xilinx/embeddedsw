@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.8   pm  15/09/20 Fixed C++ Compilation error.
  * 1.14  pm   21/06/23 Added support for system device-tree flow.
+ * 1.18  ka   21/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -236,6 +237,8 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
+	(void)RequestedBytes;
+
 	if (Phase == USB_EP_STATE_COMMAND) {
 		ParseCBW(InstancePtr);
 	} else if (Phase == USB_EP_STATE_DATA_OUT) {
@@ -270,6 +273,9 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 		   u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	if (Phase == USB_EP_STATE_DATA_IN) {
 		/* Send the status */

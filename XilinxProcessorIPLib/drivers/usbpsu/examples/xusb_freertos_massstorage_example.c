@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -33,6 +33,7 @@
  * 1.5   vak  13/02/19 Added support for versal
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.15  pm   12/15/23 Added support for system device-tree flow.
+ * 1.18  ka   21/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -267,6 +268,8 @@ static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
 
+	(void)pvParameters;
+
 #ifndef SDT
 	Status = XUsbMassStorageExamle(&UsbInstance, USB_DEVICE_ID,
 				       USB_INTR_ID);
@@ -330,6 +333,9 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 	struct storage_dev *dev = (struct storage_dev *)(ch9_ptr->data_ptr);
 	BaseType_t xHigherPriorityTaskWoken;
 
+	(void)RequestedBytes;
+	(void)BytesTxed;
+
 	xSemaphoreGiveFromISR(dev->xSemaphore, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
@@ -355,6 +361,9 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 		(USBCH9_DATA *) Get_DrvData(InstancePtr->PrivateData);
 	struct storage_dev *dev = (struct storage_dev *)(ch9_ptr->data_ptr);
 	BaseType_t xHigherPriorityTaskWoken;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	xSemaphoreGiveFromISR(dev->xSemaphore, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

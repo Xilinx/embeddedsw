@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   05/03/18 First release
  * 1.14  pm   21/06/23 Added support for system device-tree flow.
+ * 1.18  ka   21/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -161,6 +162,8 @@ static void Usb_AudioOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Bytes
 	struct audio_if *f = &(interface->f_audio);
 	u32 Size;
 
+	(void)RequestedBytes;
+
 	Size = f->packetsize;
 	f->residue += f->packetresidue;
 
@@ -207,6 +210,9 @@ static void Usb_AudioInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesT
 	struct composite_dev *interface = (struct composite_dev *)(ch9_ptr->data_ptr);
 	struct audio_if *f = &(interface->f_audio);
 	u32 Size;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	Size = f->packetsize;
 	f->residue += f->packetresidue;
@@ -268,6 +274,9 @@ static void Usb_StorageOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 	struct composite_dev *dev = (struct composite_dev *)(ch9_ptr->data_ptr);
 	struct storage_if *f = &(dev->f_storage);
 
+	(void)RequestedBytes;
+	(void)BytesTxed;
+
 	if (f->phase == USB_EP_STATE_COMMAND) {
 		ParseCBW(InstancePtr, f);
 
@@ -307,6 +316,9 @@ static void Usb_StorageInHandler(void *CallBackRef, u32 RequestedBytes, u32 Byte
 	struct composite_dev *dev = (struct composite_dev *)(ch9_ptr->data_ptr);
 	struct storage_if *f = &(dev->f_storage);
 
+	(void)RequestedBytes;
+	(void)BytesTxed;
+
 	if (f->phase == USB_EP_STATE_DATA_IN) {
 		/* Send the status */
 		SendCSW(InstancePtr, f, 0);
@@ -335,6 +347,10 @@ static void Usb_StorageInHandler(void *CallBackRef, u32 RequestedBytes, u32 Byte
 *****************************************************************************/
 static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 {
+	(void)CallBackRef;
+	(void)RequestedBytes;
+	(void)BytesTxed;
+
 	KeySent = 1;
 }
 
@@ -461,9 +477,6 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr)
 	u8 SendKey = 1;
 	u8 NoKeyData[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 	Usb_Config *UsbConfigPtr;
-#ifdef SDT
-	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
-#endif
 
 	xil_printf("USB Composite Device Start...\r\n");
 
@@ -577,6 +590,8 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr)
 			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
+	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
+
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
 				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
  * 1.0   rb   22/03/18 First release
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.15  pm   12/15/23 Added support for system device-tree flow.
+ * 1.18  ka   21/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -236,6 +237,8 @@ static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
 
+	(void)pvParameters;
+
 #ifndef SDT
 	Status = XUsbKeyboardExample(&UsbInstance, USB_DEVICE_ID, USB_INTR_ID);
 #else
@@ -292,6 +295,10 @@ int main(void)
 void Usb_EpInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 {
 	BaseType_t xHigherPriorityTaskWoken;
+
+	(void)CallBackRef;
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	xSemaphoreGiveFromISR(xSemaphore, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

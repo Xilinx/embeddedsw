@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -32,6 +32,7 @@
  * 1.0   rb   26/03/18 First release
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.15  pm   12/15/23 Added support for system device-tree flow.
+ * 1.18  ka   08/21/25 Fixed GCC warnings.
  *
  * </pre>
  *
@@ -199,6 +200,8 @@ static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
 	struct audio_dev *dev = (struct audio_dev *)(ch9_ptr->data_ptr);
 	BaseType_t xHigherPriorityTaskWoken;
 
+	(void)RequestedBytes;
+
 	dev->bytesRecv = BytesTxed;
 	xSemaphoreGiveFromISR(dev->xSemaphorePlay, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
@@ -226,6 +229,9 @@ static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
 		(USBCH9_DATA *) Get_DrvData(InstancePtr->PrivateData);
 	struct audio_dev *dev = (struct audio_dev *)(ch9_ptr->data_ptr);
 	BaseType_t xHigherPriorityTaskWoken;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	xSemaphoreGiveFromISR(dev->xSemaphoreRecord, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
@@ -376,6 +382,8 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
+
+	(void)pvParameters;
 
 #ifndef SDT
 	Status = XUsbAudioExample(&UsbInstance, &audio_dev, USB_DEVICE_ID,

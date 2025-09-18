@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   28/03/18 First release
  * 1.15  pm   15/12/23 Added support for system device-tree flow.
+ * 1.18  ka   21/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -155,6 +156,8 @@ static void Usb_AudioOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Bytes
 	struct audio_if *f = &(dev->f_audio);
 	BaseType_t xHigherPriorityTaskWoken;
 
+	(void)RequestedBytes;
+
 	f->bytesRecv = BytesTxed;
 	xSemaphoreGiveFromISR(f->xSemaphorePlay, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
@@ -183,6 +186,9 @@ static void Usb_AudioInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesT
 	struct audio_if *f = &(dev->f_audio);
 	BaseType_t xHigherPriorityTaskWoken;
 
+	(void)RequestedBytes;
+	(void)BytesTxed;
+
 	xSemaphoreGiveFromISR(f->xSemaphoreRecord, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
@@ -209,6 +215,9 @@ static void Usb_StorageOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 	struct composite_dev *dev = (struct composite_dev *)(ch9_ptr->data_ptr);
 	struct storage_if *f = &(dev->f_storage);
 	BaseType_t xHigherPriorityTaskWoken;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	xSemaphoreGiveFromISR(f->xSemaphore, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
@@ -237,6 +246,9 @@ static void Usb_StorageInHandler(void *CallBackRef, u32 RequestedBytes, u32 Byte
 	struct storage_if *f = &(dev->f_storage);
 	BaseType_t xHigherPriorityTaskWoken;
 
+	(void)RequestedBytes;
+        (void)BytesTxed;
+
 	xSemaphoreGiveFromISR(f->xSemaphore, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
@@ -263,6 +275,9 @@ static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 	struct composite_dev *dev = (struct composite_dev *)(ch9_ptr->data_ptr);
 	struct keyboard_if *f = &(dev->f_keyboard);
 	BaseType_t xHigherPriorityTaskWoken;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	xSemaphoreGiveFromISR(f->xSemaphore, &xHigherPriorityTaskWoken);
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

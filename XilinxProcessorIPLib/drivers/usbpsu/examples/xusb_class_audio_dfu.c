@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * 1.0   rb   22/02/18 First release
  * 1.5   vak  13/02/19 Added support for versal
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+ * 1.18  ka   08/21/25 Fixed GCC warnings.
  *
  *</pre>
  ******************************************************************************/
@@ -160,6 +161,7 @@ stall:
 ******************************************************************************/
 void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
 {
+	(void)status;
 
 	if (DFU->got_dnload_rqst != 1) {
 		return;

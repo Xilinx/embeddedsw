@@ -11,7 +11,7 @@ BEGIN driver usbpsu
   OPTION supported_peripherals = (psu_usb_xhci psv_usb_xhci psxl_usb_xhci psx_usb_xhci);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.17;
+  OPTION VERSION = 1.18;
   OPTION NAME = usbpsu;
 
 END driver

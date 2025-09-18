@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/03/18 First release
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+ * 1.18  ka   08/21/25 Fixed GCC warnings.
  *
  *</pre>
  *
@@ -583,6 +584,8 @@ u32 Usb_GetDescReply(struct Usb_DevData *InstancePtr, SetupPacket *SetupData,
 		     u8 *BufPtr)
 {
 	u32 reply_len = 0;
+
+	(void)InstancePtr;
 
 	switch ((SetupData->bRequestType << 8) | SetupData->bRequest) {
 		case (((USB_DIR_IN | USB_CMD_STDREQ | USB_STATUS_INTERFACE) << 8)
