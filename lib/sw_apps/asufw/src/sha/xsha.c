@@ -797,7 +797,7 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 			  XAsu_ShaOperationCmd *ShaParamsPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	static u32 CmdStage = 0x0U;
+	static u32 CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 
 	/** Validate the input arguments. */
 	if ((ShaInstancePtr == NULL) || (DmaPtr == NULL) || (ShaParamsPtr == NULL)) {
@@ -806,7 +806,7 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 	}
 
 	/** Jump to SHA_STAGE_UPDATE_DONE if SHA update is already in progress. */
-	if (CmdStage != 0x0U) {
+	if (CmdStage != XSHA_NON_BLOCKING_CMD_STAGE_INIT) {
 		goto SHA_STAGE_UPDATE_DONE;
 	}
 
@@ -830,7 +830,7 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 	}
 
 SHA_STAGE_UPDATE_DONE:
-	CmdStage = 0x0U;
+	CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u32 *)(UINTPTR)ShaParamsPtr->HashAddr,
 			     ShaParamsPtr->HashBufSize, XASU_FALSE);

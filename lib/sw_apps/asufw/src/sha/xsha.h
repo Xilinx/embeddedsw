@@ -56,7 +56,10 @@ extern "C" {
 #include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
-#define SHA_UPDATE_DONE   0x1U /**< SHA update done stage for DMA non-blocking wait */
+#define XSHA_NON_BLOCKING_CMD_STAGE_INIT	(0x0U) /**< Initial Command stage value for
+							SHA operations */
+#define SHA_UPDATE_DONE				(0x1U) /**< SHA update done stage for DMA
+							non-blocking wait */
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XSha_Config XSha_Config;

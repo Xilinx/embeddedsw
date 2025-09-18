@@ -179,11 +179,11 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
-	static u32 CmdStage = 0x0U;
+	static u32 CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 	u32 *HashAddr;
 
 	/** Jump to SHA_STAGE_UPDATE_DONE if SHA update is in progress. */
-	if (CmdStage != 0x0U) {
+	if (CmdStage != XSHA_NON_BLOCKING_CMD_STAGE_INIT) {
 		goto SHA_STAGE_UPDATE_DONE;
 	}
 
@@ -215,7 +215,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 SHA_STAGE_UPDATE_DONE:
-	CmdStage = 0x0U;
+	CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 
 	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		/** If operation flags include SHA FINISH, perform SHA3 finish operation. */
