@@ -450,6 +450,7 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		USB_DT_CS_ENDPOINT,		/* bDescriptorType */
 		UAC_EP_GENERAL,			/* bDescriptorSubtype */
 		0x00,				/* bmAttributes */
+		0x00,                           /* bmControls */
 		0x00,				/* bLockDelayUnits */
 		0x00,				/* wLockDelayL */
 		0x00				/* wLockDelayH */
@@ -932,6 +933,7 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		USB_DT_CS_ENDPOINT,		/* bDescriptorType */
 		UAC_EP_GENERAL,			/* bDescriptorSubtype */
 		0x00,				/* bmAttributes */
+		0x00,                           /* bmControls */
 		0x00,				/* bLockDelayUnits */
 		0x00,				/* wLockDelayL */
 		0x00				/* wLockDelayH */
