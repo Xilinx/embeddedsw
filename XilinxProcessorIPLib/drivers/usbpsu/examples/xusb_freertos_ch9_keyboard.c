@@ -384,9 +384,7 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 
 	String = (char *)&StringList[StrArray][Index];
 
-	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
-		return 0;
-	}
+	if (Index >= sizeof(StringList[0]) / sizeof(StringList[0][0])) return 0;
 
 	StringLen = strlen(String);
 

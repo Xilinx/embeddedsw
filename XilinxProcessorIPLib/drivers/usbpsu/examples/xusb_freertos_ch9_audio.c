@@ -947,9 +947,7 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 	}
 
 	/* check the validity of index */
-	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
-		return 0;
-	}
+	if (Index >= sizeof(StringList[0]) / sizeof(StringList[0][0])) return 0;
 
 	Status = IsSuperSpeed(InstancePtr);
 	if (Status != XST_SUCCESS) {

@@ -576,14 +576,10 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 
 	if (DFU->is_dfu == 1) {
 		String = (char *)&DFUStringList[StrArray][Index];
-		if (Index >= sizeof(DFUStringList) / sizeof(u8 *)) {
-			return 0;
-		}
+		if (Index >= sizeof(DFUStringList[0]) / sizeof(DFUStringList[0][0])) return 0;
 	} else {
 		String = (char *)&StringList[StrArray][Index];
-		if (Index >= sizeof(StringList) / sizeof(u8 *)) {
-			return 0;
-		}
+		if (Index >= sizeof(StringList[0]) / sizeof(DFUStringList[0][0])) return 0;
 	}
 
 	StringLen = strlen(String);

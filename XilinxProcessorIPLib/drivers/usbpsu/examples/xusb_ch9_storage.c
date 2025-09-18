@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
  * 1.5   vak 03/25/19  Fixed incorrect data_alignment pragma directive for IAR
+ * 1.18  ka  08/21/25  Fixed GCC warnings
  *
  *</pre>
  *
@@ -380,9 +381,7 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 
 	String = (char *)&StringList[StrArray][Index];
 
-	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
-		return 0;
-	}
+	if (Index >= sizeof(StringList[0]) / sizeof(StringList[0][0])) return 0;
 
 	StringLen = strlen(String);
 
