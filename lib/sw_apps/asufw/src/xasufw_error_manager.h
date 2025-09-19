@@ -46,7 +46,7 @@ typedef enum {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-void XAsufw_ErrorManagerInit(void);
+s32 XAsufw_ErrorManagerInit(void);
 void XAsufw_SendErrorToPlm(XAsufw_ErrorType ErrorType, s32 ErrorCode);
 
 /************************************ Variable Definitions ***************************************/

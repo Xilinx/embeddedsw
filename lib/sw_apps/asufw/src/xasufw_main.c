@@ -119,7 +119,11 @@ int main(void)
 	}
 
 	/** Initialize error manager functionality. */
-	XAsufw_ErrorManagerInit();
+	Status = XAsufw_ErrorManagerInit();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "Error management init failed. Error: 0x%x\r\n", Status);
+		goto END;
+	}
 
 	/** Update access permissions for all modules. */
 	Status = XAsufw_UpdateAccessPermissions();

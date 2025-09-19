@@ -601,6 +601,7 @@ enum {
 	XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, /**< 0x199U - Error when AES context user key restore fails */
 	XASUFW_AES_CONTEXT_RESTORE_FAIL, /**< 0x19AU - Error when AES context restore fails */
 	XASUFW_AES_INVALID_INTERNAL_STATE, /**< 0x19BU - Error when AES invalid internal state. */
+	XASUFW_SW_ERR_INIT_FAIL, /**< 0x19CU - Error when error management initialization fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify

@@ -27,6 +27,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_error_manager.h"
 #include "xasufw_hw.h"
+#include "xasufw_status.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -41,17 +42,38 @@
 /*************************************************************************************************/
 /**
  * @brief	This function initializes the error management functionality by enabling the required
- * errors.
+ * 		errors.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if error  management initialization is successful.
+ *		- XASUFW_FAILURE, if error  management initialization fails.
  *
  *************************************************************************************************/
-void XAsufw_ErrorManagerInit(void)
+s32 XAsufw_ErrorManagerInit(void)
 {
+	s32 Status = XASUFW_FAILURE;
+
 	/** Enable ASU SW Fatal and Non-Fatal Errors. */
 	XAsufw_WriteReg(ASU_GLOBAL_ASU_FATAL_ERROR_ENABLE,
 			ASU_GLOBAL_ASU_FATAL_ERROR_ENABLE_ASU_SW_ERROR_MASK);
+	if((XAsufw_ReadReg(ASU_GLOBAL_ASU_FATAL_ERROR_MASK) &
+		ASU_GLOBAL_ASU_FATAL_ERROR_ENABLE_ASU_SW_ERROR_MASK) != 0U) {
+		Status = XASUFW_SW_ERR_INIT_FAIL;
+		goto END;
+	}
 
 	XAsufw_WriteReg(ASU_GLOBAL_ASU_NON_FATAL_ERROR_ENABLE,
 			ASU_GLOBAL_ASU_NON_FATAL_ERROR_ENABLE_ASU_SW_ERROR_MASK);
+	if((XAsufw_ReadReg(ASU_GLOBAL_ASU_NON_FATAL_ERROR_MASK) &
+		ASU_GLOBAL_ASU_NON_FATAL_ERROR_ENABLE_ASU_SW_ERROR_MASK) != 0U) {
+		Status = XASUFW_SW_ERR_INIT_FAIL;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
