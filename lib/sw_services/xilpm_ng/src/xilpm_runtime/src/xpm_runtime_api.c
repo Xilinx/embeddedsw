@@ -56,6 +56,12 @@
 	#define XILPM_RUNTIME_BANNER_STRING "XilPm_Runtime: UNKNOWN"
 #endif
 
+/* Temperature tolerance for redundant read, in raw units.
+ * 1 LSB = 1/128 C (~0.0078125 C).
+ * Start conservative: TEMP_TOL_LSB=64 (~0.5 C). Tune after validation.
+ */
+#define TEMP_TOL_LSB  (64U)
+
 static XStatus XPm_DoAddSubsystem(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoAddRequirement(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetRequirement(XPlmi_Cmd* Cmd);
@@ -299,10 +305,17 @@ static XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *
 
 	return Status;
 }
+
+static inline u32 AbsDiffU32(u32 X, u32 Y)
+{
+	return (X > Y) ? (X - Y) : (Y - X);
+}
+
 static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 {
-	XStatus Status = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	volatile XStatus Status = XST_FAILURE;
+	XSysMonPsv *SysMonInstPtr;
+	u32 RawTemp1, RawTemp2, StableTemp;
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -317,13 +330,29 @@ static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 		goto done;
 	}
 
-	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
-					    XSYSMONPSV_VAL_VREF_MAX);
+	SysMonInstPtr = XPlmi_GetSysmonInst();
+	if (NULL == SysMonInstPtr) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	/* Production silicon: use XSYSMONPSV_VAL (current value) */
+	RawTemp1 = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
+	RawTemp2 = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
+
+	if (AbsDiffU32(RawTemp1, RawTemp2) >= TEMP_TOL_LSB) {
+		Status = XST_GLITCH_ERROR;
+		goto done;
+	}
+
+	StableTemp = RawTemp2;
+	*Result = StableTemp;
 	Status = XST_SUCCESS;
 
 done:
 	return Status;
 }
+
 XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
