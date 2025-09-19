@@ -144,4 +144,6 @@ additionalProperties:
     - xlnx,use-io-bus
     - xlnx,io-mask
     - xlnx,freq
+    - xlnx,io-baseaddr
+
 ...
