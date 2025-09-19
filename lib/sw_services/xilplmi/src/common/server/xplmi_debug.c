@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  ng   07/06/2023 Added support for SDT flow
 *       pre  14/12/2023 Fixed compilation warnings
+*       pre  09/08/2025 Limited printtobuf to lower nibble only
 *
 * </pre>
 *
@@ -280,7 +281,7 @@ void outbyte(char c)
 	}
 #endif
 	/** - Store the byte onto log buffer. */
-	if (DebugLog->PrintToBuf == (u8)TRUE) {
+	if ((DebugLog->DiscardLogsAndPrintToBuf & XPLMI_PRINTTOBUFF_MASK) == (u8)TRUE) {
 		CurrentAddr = DebugLog->LogBuffer.StartAddr +
 			DebugLog->LogBuffer.Offset;
 		if (CurrentAddr >= (DebugLog->LogBuffer.StartAddr +

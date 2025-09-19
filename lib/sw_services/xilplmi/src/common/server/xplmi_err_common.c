@@ -148,6 +148,7 @@
 *       sk   02/20/2025 Added emconfig support for Versal 2VE and 2VM Devices
 *                       moved PSM code to separate source file
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
+*       pre  09/03/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *
 * </pre>
 *
@@ -326,6 +327,15 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 		/* Perform error notification action */
 		XPlmi_SsitSlaveErrorNotify((u32)ErrStatus);
 		#endif
+	}
+
+	/**
+	 * In case of partial PDI failure, PLM prints log level is set to 0 after logging the first
+	 * error and it gets restored to default value here. This is done to avoid printing of repeated
+	 * error messages(only in the path of partial PDI)
+	 */
+	if ((DebugLog->DiscardLogsAndPrintToBuf >> XPLMI_DISCARDLOG_BIT_POS) == (u8)TRUE) {
+		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
 	}
 
 	return;

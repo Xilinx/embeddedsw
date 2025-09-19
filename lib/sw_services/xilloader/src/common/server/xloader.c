@@ -196,6 +196,7 @@
 *       pre 08/21/2025 Moved extension of image hashes of ROM and PLM to TPM after boot
 *       rpu 09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       pre 09/09/2025 Returning zeroize status also at image header validation failure
+*       pre 09/19/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *
 * </pre>
 *
@@ -335,10 +336,6 @@ static const XLoader_DeviceOps DeviceOps[] =
 int XLoader_Init(void)
 {
 	volatile int Status = XST_FAILURE;
-	XilPdi *PdiPtr = XLoader_GetPdiInstance();
-
-	/** - Initialize the Uart Logs Config */
-	PdiPtr->DiscardUartLogs = (u8)FALSE;
 
 	/** - Initialize the loader commands */
 	XLoader_CmdsInit();
@@ -713,7 +710,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
-		PdiPtr->DiscardUartLogs = (u8)TRUE;
+		/* Set discard uart logs to TRUE */
+		DebugLog->DiscardLogsAndPrintToBuf |= (u8)XPLMI_BIT(XPLMI_DISCARDLOG_BIT_POS);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		StatusTemp = Xil_SecureZeroize((u8 *)&(PdiPtr->MetaHdr->ImgHdrTbl),
 			sizeof(PdiPtr->MetaHdr->ImgHdrTbl));
@@ -725,8 +723,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		}
 		goto END;
 	}
-	if (PdiPtr->DiscardUartLogs == (u8)TRUE) {
-		PdiPtr->DiscardUartLogs = (u8)FALSE;
+
+	/* Set discard logs to false and restore log level when valid header is found */
+	if ((DebugLog->DiscardLogsAndPrintToBuf >> XPLMI_DISCARDLOG_BIT_POS) == (u8)TRUE) {
+		DebugLog->DiscardLogsAndPrintToBuf &= (u8)(~XPLMI_BIT(XPLMI_DISCARDLOG_BIT_POS));
 		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
 	}
 
@@ -1704,7 +1704,6 @@ END1:
 		goto END;
 	}
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
-	PdiPtr->DiscardUartLogs = (u8)FALSE;
 	XPlmi_Printf(DEBUG_GENERAL, "Loading from BootPdi\n\r");
 	Status = XLoader_PdiInit(PdiPtr, BootPdiInfo->PdiSrc , 0U);
 	if (Status != XST_SUCCESS) {

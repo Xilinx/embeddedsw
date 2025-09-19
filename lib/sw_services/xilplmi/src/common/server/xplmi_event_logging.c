@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.8 fixed
 *       ng   02/14/2024 removed int typecast for errors
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+*       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *
 * </pre>
 *
@@ -383,7 +384,8 @@ void XPlmi_InitDebugLogBuffer(void)
 	DebugLog->LogBuffer.Offset = 0x0U;
 	DebugLog->LogBuffer.IsBufferFull = (u32)FALSE;
 	DebugLog->LogLevel = 0U;
-	DebugLog->PrintToBuf = (u8)TRUE;
+	DebugLog->DiscardLogsAndPrintToBuf = (u8)(TRUE);
+
 }
 
 /**

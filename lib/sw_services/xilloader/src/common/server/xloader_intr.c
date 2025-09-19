@@ -52,6 +52,7 @@
 *                       PDI load is complete
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
+*       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *
 * </pre>
 *
@@ -190,6 +191,11 @@ static int XLoader_SbiLoadPdi(void *Data)
 		goto END1;
 	}
 
+	/* Mask log level to discard PLM log */
+	if ((DebugLog->DiscardLogsAndPrintToBuf >> XPLMI_DISCARDLOG_BIT_POS) == (u8)TRUE) {
+		DebugLog->LogLevel &= XLOADER_LOG_LEVEL_MASK;
+	}
+
 #if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 	if (XSecure_PdiLoadState == XLOADER_PDILOAD_TRIGGERED) {
@@ -217,11 +223,6 @@ static int XLoader_SbiLoadPdi(void *Data)
 	}
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-
-	if (PdiPtr->DiscardUartLogs == (u8)TRUE) {
-		DebugLog->LogLevel &= XLOADER_LOG_LEVEL_MASK;
-	}
-
 
 	/**
 	 * - Queue partial PDI if any of SHA and AES resources is busy
@@ -259,10 +260,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 
 END:
 	if (Status != XST_SUCCESS) {
-		/* Update the error code */
-		XPlmi_ErrMgr(Status);
-		PdiPtr->DiscardUartLogs = (u8)TRUE;
-		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
+		DebugLog->DiscardLogsAndPrintToBuf |= (u8)XPLMI_BIT(XPLMI_DISCARDLOG_BIT_POS);
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}

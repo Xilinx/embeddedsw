@@ -66,6 +66,7 @@
 * 1.11  sk   02/20/2025 Added EAM error config in LPDSLCR for Versal 2VE
 *                       and 2VM Devices
 *       pre  08/21/2025 Added TPM initialization after LPD initialization
+*       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *
 * </pre>
 *
@@ -330,7 +331,8 @@ void XPlmi_PrintPlmBanner(void)
  *****************************************************************************/
 static void XPlmi_PrintEarlyLog(void)
 {
-	DebugLog->PrintToBuf = (u8)FALSE;
+	DebugLog->DiscardLogsAndPrintToBuf = (u8)FALSE;
+
 	/* Print early log */
 	if (DebugLog->LogBuffer.IsBufferFull == (u32)FALSE) {
 		XPlmi_OutByte64(DebugLog->LogBuffer.StartAddr +
@@ -347,7 +349,7 @@ static void XPlmi_PrintEarlyLog(void)
 		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%.*s",
 			DebugLog->LogBuffer.Offset, (UINTPTR)(DebugLog->LogBuffer.StartAddr));
 	}
-	DebugLog->PrintToBuf = (u8)TRUE;
+	DebugLog->DiscardLogsAndPrintToBuf = (u8)TRUE;
 }
 
 /*****************************************************************************/

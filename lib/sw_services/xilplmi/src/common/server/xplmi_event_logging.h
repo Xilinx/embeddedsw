@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
 *       bm   08/12/2021 Added support to configure uart during run-time
+*       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *
 *
 * </pre>
@@ -65,7 +66,8 @@ typedef struct {
 typedef struct {
 	XPlmi_CircularBuffer LogBuffer;	/**< Instance of circular buffer */
 	u8 LogLevel;	/**< LogLevel indicates levels like DEBUG_INFO */
-	u8 PrintToBuf;	/**< If set, log is also written to PMC_RAM */
+	u8 DiscardLogsAndPrintToBuf;	/**< If PrintToBuf is set, log is also written to PMC_RAM(along with UART)
+	                            and if DiscardLogs is set, log is written to neither PMC_RAM nor UART */
 } XPlmi_LogInfo;
 
 /**@cond xplmi_internal
@@ -94,6 +96,9 @@ void XPlmi_InitDebugLogBuffer(void);
 
 /* Trace event IDs */
 #define XPLMI_TRACE_LOG_LOAD_IMAGE		(0x1U)
+
+#define XPLMI_PRINTTOBUFF_MASK    (0x0FU) /* Print to buffer mask */
+#define XPLMI_DISCARDLOG_BIT_POS (0x04U) /* Dicard logs start bit position */
 
 /*
  * Trace log functions
