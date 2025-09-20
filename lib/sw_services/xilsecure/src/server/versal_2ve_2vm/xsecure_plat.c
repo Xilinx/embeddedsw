@@ -19,6 +19,7 @@
 *       sk       08/22/24 Added support for key transfer to ASU
 *       vss      04/08/25 Updated AesValidateSize function
 *       vss      04/23/25 Added byte aligned support.
+* 5.6   mb       08/07/25 Added volatile keyword for Index variable to avoid optimization
 *
 * </pre>
 *
@@ -402,7 +403,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u8 *RandBufPtr = NULL;
 	u32 TotalSize = Size;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
-	u32 Index = 0U;
+	volatile u32 Index = 0U;
 	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >>
 				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
