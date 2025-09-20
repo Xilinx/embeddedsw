@@ -20,6 +20,7 @@
 *       pre  04/16/2025 Added core reset at resource freeing
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
+* 5.6   mb   08/07/2025 Fix SW-BP-LOOP-CONDSTMT by adding else block.
 *
 * </pre>
 *
@@ -515,6 +516,11 @@ int XSecure_SetDataContextLost(XPlmi_CoreType Core)
 			XSecure_SetReset(AesInstPtr->BaseAddress,
 				XSECURE_AES_SOFT_RST_OFFSET);
 				AesInstPtr->AesState = XSECURE_AES_INITIALIZED;
+		}
+		else {
+			/* Do nothing and return error*/
+			Status = XST_INVALID_PARAM;
+			goto END;
 		}
 #endif
 	}
