@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -111,6 +111,12 @@ required:
     - bank-lsb
     - reg-select-msb
     - reg-select-lsb
+    - vs_shift_id
+    - vs_shift_rm_shift_right_id
+    - vs_shift_rm_shift_left_id
+    - vs_count_id
+    - vs_count_rm_count_up_id
+    - vs_count_rm_count_down_id
 
 examples:
     xprc_selftest_example.c:
