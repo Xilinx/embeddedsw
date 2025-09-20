@@ -209,8 +209,8 @@ HMAC_STAGE_UPDATE_IN_PROGRESS:
 				      (u32)HmacParamsPtr->IsLast);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
 			HmacCmdStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
-			XAsufw_DmaNonBlockingWait(XAsufw_HmacModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-						  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+			XAsufw_DmaCfgNonBlocking(XAsufw_HmacModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+						 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 			goto DONE;
 		} else if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_UPDATE_FAILED);

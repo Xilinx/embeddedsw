@@ -21,6 +21,7 @@
  *       ma   02/06/25 Removed unused defines
  *       ma   02/21/25 Added defines related to FATAL and NON-FAL registers
  *       rmv  08/01/25 Added defines related to EFUSE CACHE registers
+ *       rmf  09/12/25 Added defines related to ASU IPI registers
  *
  * </pre>
  *
@@ -158,6 +159,21 @@ extern "C" {
 #define LPD_XPPU_APERPERM_49_TRUSTZONE_MASK	(0x08000000U)
 /** LPD_XPPU_APERPERM_49_TRUSTZONE shift value */
 #define LPD_XPPU_APERPERM_49_TRUSTZONE_SHIFT	(27U)
+
+/*
+ * Definitions required from ipi.h
+ */
+/** ASU IPI base address */
+#define IPI_ASU_BASEADDR	XPAR_XIPIPSU_0_BASEADDR
+
+/**< ASU IPI Interrupt Trigger Register */
+#define IPI_ASU_TRIG		(IPI_ASU_BASEADDR + 0x00000000U)
+/** ASU IPI Interrupt Status Register */
+#define IPI_ASU_ISR		(IPI_ASU_BASEADDR + 0x00000010U)
+/**< PMC IPI channel mask */
+#define IPI_ASU_ISR_PMC_MASK	(0x00000002U)
+/**< IPI6 NoBuf channel mask */
+#define IPI_ASU_NOBUF_6_MASK	(0x00008000U)
 
 /************************************** Type Definitions *****************************************/
 

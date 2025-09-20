@@ -22,6 +22,8 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       ma   01/28/25 Fix length validations in XAsufw_DmaMemSet API.
+ *       rmv  09/11/25 Rename XAsufw_DmaNonBlockingWait() to XAsufw_DmaCfgNonBlocking()
+ *       rmv  09/12/25 Removed XAsufw_DmaMemSet() function as it is not used
  *
  * </pre>
  *
@@ -230,8 +232,8 @@ END:
  * @param	DmaState	State of DMA whether to block or release
  *
  *************************************************************************************************/
-void XAsufw_DmaNonBlockingWait(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
-			       const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState)
+void XAsufw_DmaCfgNonBlocking(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
+			      const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState)
 {
 	/** Set the required parameters for DMA non-blocking wait operation. */
 	DmaPtr->Channel = Channel;
@@ -378,64 +380,6 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 				    XASUFW_DMA_NOT_LAST_INPUT);
 	XAsuDma_ByteAlignedTransfer(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, SrcAddr, Len,
 				    XASUFW_DMA_NOT_LAST_INPUT);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is used to set the given memory with a given value using DMA.
- *
- * @param	DmaPtr		Pointer to the DMA instance.
- * @param	DestAddr	Starting address of the buffer to be filled.
- * @param	Val		Value to be filled.
- * @param	Len		Size of memory to be set in bytes.
- *
- * @return
- * 	- XASUFW_SUCCESS, if memset operation using DMA is successful.
- * 	- XASUFW_FAILURE, if there is any failure.
- *
- *************************************************************************************************/
-s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 Index;
-	u64 SrcAddr = DestAddr;
-	u32 DstAddr = DestAddr;
-	u32 Count;
-	u32 RemBytes;
-
-	/** If length is 0, return success immediately. */
-	if (Len == 0U) {
-		Status = XASUFW_SUCCESS;
-		goto END;
-	}
-
-	/** Set Count to maximum of 4 words based on length. */
-	if (Len <= XASUFW_DMA_FIXED_TRANSFER_SIZE) {
-		Count = Len/XASUFW_WORD_LEN_IN_BYTES;
-	} else {
-		Count = XASUFW_WORD_LEN_IN_BYTES;
-	}
-
-	/** Set Count size memory to given value with direct writes to destination. */
-	for (Index = 0U; Index < Count; ++Index) {
-		XAsufw_WriteReg(DstAddr, Val);
-		DstAddr += XASUFW_WORD_LEN_IN_BYTES;
-	}
-
-	/** Calculate remaining bytes to be set. */
-	RemBytes = Len - (Count * XASUFW_WORD_LEN_IN_BYTES);
-
-	/** If remaining bytes are 0, return success. */
-	if (RemBytes == 0U) {
-		Status = XASUFW_SUCCESS;
-		goto END;
-	}
-
-	/** Do DMA transfer for remaining bytes by setting source channel to fixed mode. */
-	Status = XAsufw_DmaXfr(DmaPtr, SrcAddr, (u64)DstAddr, RemBytes, XASUFW_SRC_CH_AXI_FIXED);
 
 END:
 	return Status;

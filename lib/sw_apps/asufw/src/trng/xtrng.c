@@ -26,6 +26,8 @@
  *       ma   02/11/25 Added volatile to NumOfBursts variable in XTrng_CollectRandData
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       rmv  08/01/25 Added API to set TRNG to default mode
+ *       rmv  09/09/25 Bring TRNG mode check together in XTrng_Reseed()
+ *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
  *
  * </pre>
  *
@@ -75,6 +77,15 @@ typedef enum {
 	XTRNG_GENERATE_STATE, /**< Generate state */
 	XTRNG_AUTOPROC_STATE /**< TRNG in autoproc */
 } XTrng_State;
+
+/** This typedef is used to show the error state. */
+typedef enum {
+	XTRNG_UNHEALTHY = 0, /**< TRNG in unhealthy state */
+	XTRNG_HEALTHY, /**< TRNG in healthy state */
+	XTRNG_CATASTROPHIC, /**< TRNG in catastrophic state */
+	XTRNG_ERROR, /**< TRNG in error state */
+	XTRNG_STARTUP_TEST /**< TRNG in startup test state */
+} XTrng_ErrorState;
 
 /** @} */
 
@@ -614,13 +625,13 @@ s32 XTrng_Reseed(XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 		goto END;
 	}
 
-	if ((DLen < XTRNG_DF_MIN_LENGTH) || (DLen > XTRNG_DF_MAX_LENGTH)) {
-		Status = XASUFW_TRNG_INVALID_DF_LENGTH;
+	if (InstancePtr->UserCfg.Mode == XTRNG_PTRNG_MODE) {
+		Status = XASUFW_TRNG_INVALID_MODE;
 		goto END;
 	}
 
-	if (InstancePtr->UserCfg.Mode == XTRNG_PTRNG_MODE) {
-		Status = XASUFW_TRNG_INVALID_MODE;
+	if ((DLen < XTRNG_DF_MIN_LENGTH) || (DLen > XTRNG_DF_MAX_LENGTH)) {
+		Status = XASUFW_TRNG_INVALID_DF_LENGTH;
 		goto END;
 	}
 

@@ -352,8 +352,8 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Perform OAEP encryption operation. */
 	Status = XRsa_OaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-					  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 		goto RET;
 	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCODE_ERROR);
@@ -398,8 +398,8 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Perform OAEP decryption operation. */
 	Status = XRsa_OaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-					  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 		goto RET;
 	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECODE_ERROR);
@@ -444,8 +444,8 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Perform RSA PSS signature generation. */
 	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-					  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 		goto RET;
 	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_GEN_ERROR);
@@ -489,8 +489,8 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Perform RSA PSS signature verification. */
 	Status = XRsa_PssSignVerify(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-					  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 		goto RET;
 	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_VER_ERROR);

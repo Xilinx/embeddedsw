@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/24/24 Added API to disable autoproc mode
  *       rmv  08/01/25 Added API to set TRNG to default mode
+ *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
  *
  * </pre>
  *
@@ -51,15 +52,6 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XTrng XTrng; /**< This typedef is to create alias name for _XTrng. */
-
-/** This typedef is used to show the error state. */
-typedef enum {
-	XTRNG_UNHEALTHY = 0, /**< TRNG in unhealthy state */
-	XTRNG_HEALTHY, /**< TRNG in healthy state */
-	XTRNG_CATASTROPHIC, /**< TRNG in catastrophic state */
-	XTRNG_ERROR, /**< TRNG in error state */
-	XTRNG_STARTUP_TEST /**< TRNG in startup test state */
-} XTrng_ErrorState;
 
 /** This typedef is used to select TRNG mode. */
 typedef enum {

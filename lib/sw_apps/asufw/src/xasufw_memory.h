@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   07/23/23 Initial release
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       rmv  09/12/25 Added shared memory related macros
  *
  * </pre>
  *
@@ -55,6 +56,12 @@ extern "C" {
 							/**< RTCA version */
 #define XASUFW_RTCA_SIZE			(0x1000U)
 							/**< RTCA size */
+/* Shared memory related macros */
+#define XASUFW_SHARED_MEMORY_ADDRESS		(0xEBE41000U)	/**< Reserved address in ASU DATA
+								RAM for channel buffers shared
+								memory */
+#define XASUFW_SHARED_MEMORY_SIZE		(0x8000U)	/**< 32KB size for shared memory */
+
 
 /************************************** Type Definitions *****************************************/
 

@@ -30,6 +30,7 @@
  *       am   04/18/25 Suppressed unused variable warning
  * 1.3   am   05/18/25 Changed wait condition from implicit to explicit comparison
  *       am   06/16/25 Fixed consecutive PMC to ASU key transfers failing
+ *       rmv  09/09/25 Removed XASUFW_KILO macro as it not needed and fix doxygen comments
  *
  * </pre>
  *
@@ -71,7 +72,6 @@
 #define XASUFW_PIT3			(2U) /**< ASUFW PIT3 */
 #define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
 #define XASUFW_MEGA			(1000000U) /**< Value for mega */
-#define XASUFW_KILO			(1000UL) /**< Value for kilo */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
 #define XASUFW_KEY_TX_PAYLOAD_SIZE 	(2U) /**< Key transfer payload size */
 #define XASUFW_PAYLOAD_INDEX_0		(0U) /**< Key transfer payload index 0 */
@@ -486,7 +486,8 @@ END:
  * @param	KeyTransferTask		Pointer to the key transfer task instance.
  *
  * @return
- *	- Always returns XASUFW_SUCCESS.
+ *	- XASUFW_SUCCESS, if key transfer task is handled successfully.
+ *	- XASUFW_FAILURE, in case of failure.
  *
  *************************************************************************************************/
 s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
@@ -528,9 +529,6 @@ END:
 /**
  * @brief	This function writes crypto algorithm information
  * 		(NIST compliant status,Version Info) of each module to the reserved RTCA memory.
- *
- * @return
- *		- XASUFW_SUCCESS, if all modules version and NIST status information is updated.
  *
  *************************************************************************************************/
 void XAsufw_UpdateModulesInfo(void)

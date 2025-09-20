@@ -28,6 +28,8 @@
  *	 rmv  07/16/25 Added PLM event to the resources list
  *	 rmv  07/16/25 Added OCP to the resources list
  *	 rmv  09/09/25 Replace bitwise operations and values with macros
+ *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
+ *	 rmv  09/11/25 Removed code duplication in XAsufw_AllocateDmaResource()
  *
  * </pre>
  *
@@ -96,18 +98,21 @@ static XAsufw_ResourceManager ResourceManager[XASUFW_MAX_RESOURCES];
 
 /*************************************************************************************************/
 /**
- * @brief	This function initializes the resource manager and prepares it for resource allocation.
+ * @brief	This function initializes the resource manager and prepares it for resource
+ *		allocation.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if resource is initialized successfully.
+ *	- XASUFW_FAILURE, if resource is not initialized.
  *
  *************************************************************************************************/
-void XAsufw_ResourceInit(void)
+s32 XAsufw_ResourceInit(void)
 {
-	u32 Index;
+	s32 Status = XASUFW_FAILURE;
 
-	for (Index = 0U; Index < XASUFW_MAX_RESOURCES; Index++) {
-		ResourceManager[Index].State = XASUFW_RESOURCE_IS_FREE;
-		ResourceManager[Index].AllocatedResources = 0x0U;
-		ResourceManager[Index].OwnerId = 0x0U;
-	}
+	Status = Xil_SMemSet(ResourceManager, sizeof(ResourceManager), 0U, sizeof(ResourceManager));
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -398,8 +403,6 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId)
 	if (DmaAllocate != XASUFW_INVALID) {
 		AsuDmaPtr = XAsufw_GetDmaInstance(DmaDeviceId);
 		XAsufw_AllocateResource(DmaAllocate, Resource, ReqId);
-		XASUFW_MARK_RESOURCE_ALLOCATED(ResourceManager[Resource].AllocatedResources,
-					       DmaAllocate);
 		XASUFW_MARK_RESOURCE_ALLOCATED(ResourceManager[DmaAllocate].AllocatedResources,
 					       Resource);
 	}

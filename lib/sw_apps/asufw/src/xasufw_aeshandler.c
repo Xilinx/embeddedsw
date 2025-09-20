@@ -259,8 +259,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				AesParamsPtr->AadLen, AadIsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
 				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
-				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-					ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+				XAsufw_DmaCfgNonBlocking(XAsufw_AesModule.AsuDmaPtr,
+							 XASUDMA_SRC_CHANNEL, ReqBuf, ReqId,
+							 XASUFW_BLOCK_DMA);
 				goto DONE;
 			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
@@ -275,8 +276,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
 				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
-				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-					ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+				XAsufw_DmaCfgNonBlocking(XAsufw_AesModule.AsuDmaPtr,
+							 XASUDMA_SRC_CHANNEL, ReqBuf, ReqId,
+							 XASUFW_BLOCK_DMA);
 				goto DONE;
 			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_AAD_FORMATTING_FAILED);
@@ -296,8 +298,9 @@ XAES_STAGE_DATA_UPDATE:
 					AesParamsPtr->DataLen, AesParamsPtr->IsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
 				CmdStage = XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS;
-				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_DST_CHANNEL,
-					ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+				XAsufw_DmaCfgNonBlocking(XAsufw_AesModule.AsuDmaPtr,
+							 XASUDMA_DST_CHANNEL, ReqBuf, ReqId,
+							 XASUFW_BLOCK_DMA);
 				goto DONE;
 			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);

@@ -19,6 +19,8 @@
  *       ma   04/26/24 Change XAsufw_DmaXfr to XAsufw_StartDmaXfr
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
+ *       rmv  09/11/25 Rename XAsufw_DmaNonBlockingWait() to XAsufw_DmaCfgNonBlocking()
+ *       rmv  09/12/25 Removed XAsufw_DmaMemSet() function as it is not used
  *
  * </pre>
  *
@@ -78,10 +80,9 @@ s32 XAsufw_DmaInit(void);
 XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress);
 s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel);
 s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
-s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len);
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags);
-void XAsufw_DmaNonBlockingWait(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
-			       const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState);
+void XAsufw_DmaCfgNonBlocking(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
+			      const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState);
 void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum);
 
 /************************************ Variable Definitions ***************************************/

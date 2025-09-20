@@ -17,6 +17,8 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ma   01/15/25 Initial release
 *       yog  08/13/25 Added support for CMAC based KDF in counter mode.
+*       rmv  09/08/25 Updated Iterations calculation implementation in XKdf_Generate()
+*       rmv  09/11/25 Added KDF parameter validation in XAsufw_KdfGenerate()
 *
 * </pre>
 *
@@ -33,6 +35,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xfih.h"
+#include "xasu_kdf_common.h"
 
 #ifdef XASU_KDF_ENABLE
 /************************************** Type Definitions *****************************************/
@@ -77,14 +80,14 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 	u64 KeyOutAddr = 0U;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (KdfParams == NULL) || (ShaInstancePtr == NULL)) {
+	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL)) {
 		Status = XASUFW_KDF_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((KdfParams->ContextAddr == 0U) ||
-			(KdfParams->ContextLen == 0U) || (KdfParams->ContextLen > XASU_KDF_MAX_CONTEXT_LEN) ||
-		(KdfParams->KeyOutAddr == 0U) || (KdfParams->KeyOutLen == 0U)) {
+	/** Validate KDF parameters. */
+	Status = XAsu_ValidateKdfParameters(KdfParams);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KDF_INVALID_PARAM;
 		goto END;
 	}
@@ -103,10 +106,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 	 * variable, checking for maximum iterations is not required as this variable always holds
 	 * only in range numbers.
 	 */
-	Iterations = KdfParams->KeyOutLen/HashLen;
-	if ((KdfParams->KeyOutLen % HashLen) != 0x0U) {
-		++Iterations;
-	}
+	Iterations = (KdfParams->KeyOutLen + HashLen - 1U) / HashLen;
 
 	/**
 	 * Use HMAC as a pseudorandom function, run the below steps in iterations until requested bytes

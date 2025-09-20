@@ -35,6 +35,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasufw_plmeventschedular.h"
+#include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_IPI_MAX_MSG_LEN          8U /**< Maximum IPI buffer length */
@@ -75,7 +76,7 @@ s32 XAsufw_IpiInit(void)
 	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr, IpiCfgPtr->BaseAddress);
 
 	/** Enable IPI interrupt from PMC. */
-	XIpiPsu_InterruptEnable(&IpiInst, XASUFW_IPI_PMC_MASK);
+	XIpiPsu_InterruptEnable(&IpiInst, IPI_ASU_ISR_PMC_MASK);
 
 	XAsufw_Printf(DEBUG_DETAILED, "IPI interrupts are enabled\r\n");
 
@@ -120,7 +121,7 @@ void XAsufw_IpiHandler(const void *Data)
 			 * If IPI is received from PLM, trigger the PLM notification handler else
 			 * handles the client request.
 			 */
-			if (IpiMask == XASUFW_IPI_PMC_MASK) {
+			if (IpiMask == IPI_ASU_ISR_PMC_MASK) {
 				XAsufw_HandlePlmEvent();
 			} else {
 				XAsufw_TriggerQueueTask(IpiMask);
@@ -159,14 +160,14 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 
 	/** Check if there is any pending IPI message. */
 	/* TODO: Need to change timeout value */
-	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
+	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		goto END;
 	}
 
 	/** Write IPI message to ASU-PMC message buffer. */
-	Status = XIpiPsu_WriteMessage(&IpiInst, XASUFW_IPI_PMC_MASK, MsgBufPtr, MsgBufLen,
+	Status = XIpiPsu_WriteMessage(&IpiInst, IPI_ASU_ISR_PMC_MASK, MsgBufPtr, MsgBufLen,
 				      XIPIPSU_BUF_TYPE_MSG);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_WRITE_MESSAGE_FAILED, Status);
@@ -174,7 +175,7 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 	}
 
 	/** Trigger an IPI interrupt to PLM. */
-	Status = XIpiPsu_TriggerIpi(&IpiInst, XASUFW_IPI_PMC_MASK);
+	Status = XIpiPsu_TriggerIpi(&IpiInst, IPI_ASU_ISR_PMC_MASK);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_TRIGGER_FAILED, Status);
 		goto END;
@@ -211,14 +212,14 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 
 	/** Check if the IPI interrupt is processed. */
 	/* TODO: Need to change timeout value */
-	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
+	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		goto END;
 	}
 
 	/** Read IPI response from PLM. */
-	Status = XIpiPsu_ReadMessage(&IpiInst, XASUFW_IPI_PMC_MASK, RespBufPtr, RespBufLen,
+	Status = XIpiPsu_ReadMessage(&IpiInst, IPI_ASU_ISR_PMC_MASK, RespBufPtr, RespBufLen,
 				     XIPIPSU_BUF_TYPE_RESP);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_READ_MESSAGE_FAILED, Status);
@@ -254,14 +255,14 @@ s32 XAsufw_ReadIpiMsgFromPlm(u32 *MsgBufPtr, u32 MsgBufLen)
 	}
 
 	/** Check if the IPI interrupt is processed. */
-	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
+	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		goto END;
 	}
 
 	/** Read IPI message from PLM. */
-	Status = XIpiPsu_ReadMessage(&IpiInst, XASUFW_IPI_PMC_MASK, MsgBufPtr, MsgBufLen,
+	Status = XIpiPsu_ReadMessage(&IpiInst, IPI_ASU_ISR_PMC_MASK, MsgBufPtr, MsgBufLen,
 			XIPIPSU_BUF_TYPE_MSG);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_READ_MESSAGE_FAILED, Status);

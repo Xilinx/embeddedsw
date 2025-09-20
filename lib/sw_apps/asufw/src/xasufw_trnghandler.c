@@ -27,6 +27,7 @@
  *       ma   02/11/25 Added redundancy, validations and clearing of local buffer in
  *                     XAsufw_TrngGetRandomNumbers
  *       rmv  08/01/25 Added function call to set TRNG to default mode
+ *       rmv  09/12/25 Moved all DRBG related functions and commands under #ifdef
  *
  * </pre>
  *
@@ -61,9 +62,11 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_TrngModule; /**< ASUFW TRNG Module ID and commands array */
@@ -87,9 +90,11 @@ s32 XAsufw_TrngInit(void)
 	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngGetRandomBytes),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngKat),
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 		[XASU_TRNG_DRBG_INSTANTIATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgInstantiate),
 		[XASU_TRNG_DRBG_RESEED_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgReseed),
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgGenerate),
+#endif
 	};
 
 	/** The XAsufw_TrngResourcesBuf contains the required resources for each supported command. */
@@ -97,18 +102,22 @@ s32 XAsufw_TrngInit(void)
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 		[XASU_TRNG_DRBG_INSTANTIATE_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
 		[XASU_TRNG_DRBG_RESEED_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
+#endif
 	};
 
 	/** The XAsufw_TrngAccessPermBuf contains the IPI access permissions for each supported command. */
 	static XAsufw_AccessPerm_t XAsufw_TrngAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_TrngCmds)] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_KAT_CMD_ID),
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 		[XASU_TRNG_DRBG_INSTANTIATE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_DRBG_INSTANTIATE_CMD_ID),
 		[XASU_TRNG_DRBG_RESEED_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_DRBG_RESEED_CMD_ID),
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_DRBG_GENERATE_CMD_ID),
+#endif
 	};
 
 	XAsufw_TrngModule.Id = XASU_MODULE_TRNG_ID;
@@ -246,6 +255,7 @@ END:
 	return Status;
 }
 
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 /*************************************************************************************************/
 /**
  * @brief	This function is a handler for TRNG DRBG instantiate command.
@@ -261,10 +271,11 @@ END:
 static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XTrng_UserConfig UsrCfg;
 	XAsu_DrbgInstantiateCmd *Cmd = (XAsu_DrbgInstantiateCmd *)ReqBuf->Arg;
+
+	(void)ReqId;
 
 	/* Instantiate TRNG in DRBG mode. */
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
@@ -283,11 +294,6 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 END:
-#endif /*XASU_TRNG_ENABLE_DRBG_MODE */
-
-	(void)ReqBuf;
-	(void)ReqId;
-
 	return Status;
 }
 
@@ -306,18 +312,15 @@ END:
 static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XAsu_DrbgReseedCmd *Cmd = (XAsu_DrbgReseedCmd *)ReqBuf->Arg;
+
+	(void)ReqId;
 
 	Status = XTrng_Reseed(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->ReseedPtr, (u8)Cmd->DFLen);
 	if (Status != XASUFW_SUCCESS) {
 		(void)XTrng_Uninstantiate(XAsufw_Trng);
 	}
-#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
-
-	(void)ReqBuf;
-	(void)ReqId;
 
 	return Status;
 }
@@ -337,22 +340,20 @@ static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XAsu_DrbgGenerateCmd *Cmd = (XAsu_DrbgGenerateCmd *)ReqBuf->Arg;
+
+	(void)ReqId;
 
 	Status = XTrng_Generate(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->RandBuf, Cmd->RandBufSize,
 			(u8)Cmd->PredResistance);
 	if (Status != XASUFW_SUCCESS) {
 		(void)XTrng_Uninstantiate(XAsufw_Trng);
 	}
-#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
-
-	(void)ReqBuf;
-	(void)ReqId;
 
 	return Status;
 }
+#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
 
 /*************************************************************************************************/
 /**
@@ -433,6 +434,9 @@ END:
 	/** Zeroize local buffer. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, LocalBuf, XTRNG_SEC_STRENGTH_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+#else
+	(void)RandomBuf;
+	(void)Size;
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 	return Status;
 }

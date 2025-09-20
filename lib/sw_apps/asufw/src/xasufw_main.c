@@ -187,7 +187,11 @@ static s32 XAsufw_Init(void)
 	XTask_Init();
 
 	/** Initialize HW resource manager. */
-	XAsufw_ResourceInit();
+	Status = XAsufw_ResourceInit();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "Resource init failed with error: 0x%x\r\n", Status);
+		goto END;
+	}
 
 	/** Initialize ASUFW RTC area. */
 	XAsufw_RtcaInit();

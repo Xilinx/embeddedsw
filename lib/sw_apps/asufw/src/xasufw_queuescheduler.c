@@ -29,6 +29,7 @@
  *       ma   03/17/25 Update Status before writing response in case of command validation failure
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       rmv  07/30/25 Added function to provide subsystem ID
+ *       rmv  09/12/25 Moved shared memory macros to xasufw_memory.h file
  *
  * </pre>
  *
@@ -45,12 +46,9 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xil_util.h"
+#include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_SHARED_MEMORY_ADDRESS	0xEBE41000U /**< Reserved address in ASU DATA RAM  for
-							channel buffers shared memory */
-#define XASUFW_SHARED_MEMORY_SIZE	0x8000U /**< 32KB size for shared memory */
-
 #define XASUFW_MAX_PRIORITIES_SUPPORTED	16U /**< Maximum queue priorities supported */
 
 /**
@@ -345,8 +343,8 @@ void XAsufw_ChannelConfigInit(void)
 	/** Validate IPI channel information present at ASU RTCA. */
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
 		/** Skip IPI channel configuration if the received IPI channel information is incorrect. */
-		if ((CommChannelInfo->Channel[ChannelIndex].IpiBitMask <= XASUFW_IPI_PMC_MASK) ||
-		    (CommChannelInfo->Channel[ChannelIndex].IpiBitMask > XASUFW_IPI_NOBUF_6_MASK) ||
+		if ((CommChannelInfo->Channel[ChannelIndex].IpiBitMask <= IPI_ASU_ISR_PMC_MASK) ||
+		    (CommChannelInfo->Channel[ChannelIndex].IpiBitMask > IPI_ASU_NOBUF_6_MASK) ||
 		    (CommChannelInfo->Channel[ChannelIndex].P0QueuePriority >=
 		     XASUFW_MAX_PRIORITIES_SUPPORTED) ||
 		    (CommChannelInfo->Channel[ChannelIndex].P1QueuePriority >=
@@ -365,7 +363,7 @@ void XAsufw_ChannelConfigInit(void)
 		 */
 		PrivData = (ChannelIndex << XASUFW_CHANNELINDEX_SHIFT) |
 					((u32)XASUFW_P0_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
-					((u32)CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
+					((u32)CommChannelInfo->Channel[ChannelIndex].IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P0QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P0QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);
@@ -378,7 +376,7 @@ void XAsufw_ChannelConfigInit(void)
 		 */
 		PrivData = (ChannelIndex << XASUFW_CHANNELINDEX_SHIFT) |
 					((u32)XASUFW_P1_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
-					((u32)CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
+					((u32)CommChannelInfo->Channel[ChannelIndex].IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P1QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P1QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);

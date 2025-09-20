@@ -27,6 +27,7 @@
  *       yog  02/20/25 Added ECIES to the resources list
  *       rmv  07/16/25 Added macro for PLM event resource mask
  *       rmv  07/16/25 Added OCP to the resources list
+ *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
  *
  * </pre>
  *
@@ -94,7 +95,7 @@ typedef enum {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-void XAsufw_ResourceInit(void);
+s32 XAsufw_ResourceInit(void);
 s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 ReqId,
 	const XAsu_ReqBuf *ReqBuf);
 XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId);

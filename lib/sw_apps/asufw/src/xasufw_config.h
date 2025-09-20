@@ -27,6 +27,7 @@
  *       yog  01/24/25 Renamed RSA_ECC macros to ECC
  *       ma   02/07/25 Moved TRNG DRBG configuration option to xilasu common code
  *       am   02/21/25 Added XASUFW_ENABLE_PERF_MEASUREMENT macro
+ *       rmv  09/11/25 Added caution message for XASUFW_TRNG_IN_PTRNG_MODE macro
  *
  * </pre>
  *
@@ -83,7 +84,10 @@ extern "C" {
 //#define ASUFW_DEBUG_INFO /**< ASUFW more debug information prints */
 //#define ASUFW_DEBUG_DETAILED /**< ASUFW detailed debug information prints */
 
-/** Run TRNG in PTRNG mode */
+/**
+ * Run TRNG in PTRNG mode. This is used only for certification of TRNG module.
+ * It should not be enabled during normal use.
+ */
 //#define XASUFW_TRNG_ENABLE_PTRNG_MODE
 
 /************************************ Function Prototypes ****************************************/

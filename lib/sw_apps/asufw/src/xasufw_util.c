@@ -30,6 +30,7 @@
  *       vns  02/21/25 Added XAsufw_NvmEfuseWriteOffChipRevokeId() API
  * 1.2   am   05/18/25 Added XAsufw_WriteDataToRegs() API
  *       rmv  07/09/25 Added XAsufw_AsciiToInt() function.
+ *       rmv  09/10/25 Simplified XAsufw_SMemSet() error handling by combining status checks
  *
  * </pre>
  *
@@ -246,15 +247,8 @@ s32 XAsufw_SMemSet(void *Dest, const u32 DestSize)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	Status = Xil_SMemSet(Dest, DestSize, 0x00U, DestSize);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_FAILURE;
-		goto END;
-	}
+	Status |= Xil_SMemSet(Dest, DestSize, 0x00U, DestSize);
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status =  Xil_SMemSet(Dest, DestSize, 0x00U, DestSize);
-
-END:
 	return Status;
 }
 
