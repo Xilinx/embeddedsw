@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   01/21/25 Initial release
+ *       rmv  09/11/25 Move KDF parameter validation function to common file
  *
  * </pre>
  *
@@ -31,6 +32,7 @@
 #include "xasu_def.h"
 #include "xasu_shainfo.h"
 #include "xasu_hmacinfo.h"
+#include "xasu_kdf_common.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -39,7 +41,6 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -75,6 +76,7 @@ s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfPara
 
 	Status = XAsu_ValidateKdfParameters(KdfParamsPtr);
 	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
@@ -138,55 +140,6 @@ s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr)
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function validates the KDF input parameters.
- *
- * @param	KdfParamsPtr	Pointer to XAsu_KdfParams structure which holds the parameters of
- * 				KDF input arguments.
- *
- * @return
- * 	- XST_SUCCESS, if KDF input parameters validation is successful.
- * 	- XASU_INVALID_ARGUMENT, if KDF input parameters validation fails.
- *
- *************************************************************************************************/
-static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
-{
-	s32 Status = XASU_INVALID_ARGUMENT;
-
-	if (KdfParamsPtr == NULL) {
-		goto END;
-	}
-
-	/** Validate SHA Mode and SHA Type. */
-	if (XAsu_ShaValidateModeAndType(KdfParamsPtr->ShaType, KdfParamsPtr->ShaMode) != XST_SUCCESS) {
-		goto END;
-	}
-
-	if ((KdfParamsPtr->KeyInAddr == 0U) || (KdfParamsPtr->KeyInLen == 0U) ||
-		(KdfParamsPtr->KeyInLen > XASU_HMAC_MAX_KEY_LENGTH) ||
-		(KdfParamsPtr->ContextAddr == 0U) || (KdfParamsPtr->ContextLen == 0U) ||
-		(KdfParamsPtr->KeyOutAddr == 0U) || (KdfParamsPtr->KeyOutLen == 0U)) {
-		goto END;
-	}
-
-	if (((KdfParamsPtr->ShaMode == XASU_SHA_MODE_256) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_256_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_384) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_384_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_512) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_512_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_256_HASH_LEN))) {
-		goto END;
-	}
-
-	Status = XST_SUCCESS;
 
 END:
 	return Status;

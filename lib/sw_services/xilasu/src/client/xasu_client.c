@@ -31,6 +31,8 @@
  *       kd   07/23/25 Fixed gcc warnings
  *       am   08/08/25 Removed redundant condition before END label
  *       rmv  09/15/25 Updated XAsu_UpdateCallBackDetails() prototype to return status value
+ *       rmv  09/20/25 Updated memory copy logic to store Xil_SecureMemCpy return value in local
+ *                     variable to improve readability.
  *
  * </pre>
  *
@@ -154,7 +156,7 @@ s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 		}
 	}
 
-	if (ChannelIdx == CommChannelInfo->NumOfIpiChannels) {
+	if (ChannelIdx >= CommChannelInfo->NumOfIpiChannels) {
 		Status = XASU_IPI_CONFIG_NOT_FOUND;
 		goto END;
 	}
@@ -467,6 +469,7 @@ static XAsu_Client *XAsu_GetClientInstance(void)
  ****************************************************************************/
 static void XAsu_DoorBellToClient(void *CallBackRef)
 {
+	s32 Status = XST_FAILURE;
 	u8 BufferIdx;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 	XAsu_ChannelQueue *ChannelQueue = NULL;
@@ -486,10 +489,11 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 				UniqueId = XAsu_GetUniqueId(ChannelQueueBufPtr->RespBuf.Header);
 				/** Copy the response buffer data if any. */
 				if (AsuCallBackRef[UniqueId].RespBufferPtr != NULL) {
-					if (Xil_SecureMemCpy((void *)AsuCallBackRef[UniqueId].RespBufferPtr,
+					Status = Xil_SecureMemCpy((void *)AsuCallBackRef[UniqueId].RespBufferPtr,
 							AsuCallBackRef[UniqueId].Size,
 							(void *)(&(ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_BUFF_ADDR_INDEX])),
-							AsuCallBackRef[UniqueId].Size) != XST_SUCCESS) {
+							AsuCallBackRef[UniqueId].Size);
+					if (Status != XST_SUCCESS) {
 						XilAsu_Printf("Response copy to application failed\r\n");
 					}
 				}
