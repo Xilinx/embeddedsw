@@ -25,6 +25,9 @@
  *       tus  08/06/2025 Add error code for XSECURE_SHA_DMA_TRANSFER_ERROR,
  *			 XSECURE_SHA_PADDING_BUFFER_INIT_ERROR and
  *			 XSECURE_SHA_NIST_PADDING_ERROR
+ *       mb   09/09/2025 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
+ *                       Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -75,6 +78,10 @@ enum {
 
 	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
 						     operation */
+
+	XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR,  /**< 0x11 - Error when AES IPI event handling fails */
+
+	XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR,  /**< 0x12 - Error when SHA IPI event handling fails */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */

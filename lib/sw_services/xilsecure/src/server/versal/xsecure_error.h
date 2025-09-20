@@ -37,6 +37,8 @@
  * 5.4   yog  04/29/2024 Fixed doxygen warnings.
  *       pre  03/02/2025 Added error codes for IPI events handling
  * 5.6   aa   07/31/2025 Added error code for AES
+ *       mb   09/09/2025 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
+ *                       Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
  *
  * </pre>
  *
@@ -58,7 +60,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /** Error codes of XilSecure for versal. */
-typedef enum {
+enum {
 	XSECURE_SHA3_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA3
 						   init fails. */
 	XSECURE_SHA3_LAST_UPDATE_ERROR,		/**< 0x03 - Error when SHA3
@@ -76,6 +78,10 @@ typedef enum {
 	XSECURE_SSS_INVALID_PARAM,		/**< 0x09 - Invalid Argument */
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
+
+	XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR = 0x0D,  /**< 0x0D - Error when AES IPI event handling fails */
+
+	XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR,  /**< 0x0E - Error when SHA IPI event handling fails */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
@@ -200,7 +206,7 @@ typedef enum {
 	XSECURE_ERR_KAT_NOT_EXECUTED		    /**< 0xF5 - Error when KAT is not executed when
 												crypto kat efuse bit is enabled */
 
-} XSecure_ErrorCodes;
+};
 
 /************************** Function Prototypes ******************************/
 

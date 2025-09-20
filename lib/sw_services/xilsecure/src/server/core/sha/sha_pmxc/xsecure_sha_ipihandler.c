@@ -21,6 +21,7 @@
 *       tri  10/07/24 Added easier approach to enable SHA2 Crypto engine in PMC
 *       pre  03/02/25 Implemented task based event notification functionality for SHA IPI events
 *       pre  04/16/25 Fixed warning
+* 5.6   mb   09/09/25 Return error code on SHA IPI event handling failure
 *
 * </pre>
 *
@@ -85,6 +86,7 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 	/** SHA IPI event handling */
 	Status = XSecure_IpiEventHandling(Cmd, Core);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR;
 		goto END;
 	}
 

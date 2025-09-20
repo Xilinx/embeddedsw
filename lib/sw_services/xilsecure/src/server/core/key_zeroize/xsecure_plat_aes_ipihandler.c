@@ -19,6 +19,7 @@
 * 5.4   yog  04/29/2024 Fixed doxygen grouping
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *       pre  03/02/2025 Implemented task based event notification functionality for AES IPI events
+* 5.6   mb   09/09/2025 Return error code on AES IPI event handling failure
 *
 * </pre>
 *
@@ -69,6 +70,7 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 	/** Handle the present command based on AES core status */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_AES_CORE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR;
 		goto END;
 	}
 

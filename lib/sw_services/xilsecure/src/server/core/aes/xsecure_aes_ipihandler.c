@@ -43,6 +43,7 @@
 *                        XSecure_AesEncUpdate and XSecure_AesDecUpdate
 *       tri   10/08/24   Configure DmaSwap before transferring IV to AES engine
 *       pre   03/02/25   Implemented task based event notification functionality for AES IPI events
+* 5.6   mb    09/09/25   Return error code on AES IPI event handling failure
 *
 * </pre>
 *
@@ -114,6 +115,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 	/** Handle the present command based on AES core status */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_AES_CORE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR;
 		goto END;
 	}
 

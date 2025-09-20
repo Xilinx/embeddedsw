@@ -34,6 +34,7 @@
 *	ss    04/05/2024 Fixed doxygen warnings
 * 5.4   yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *       pre   03/02/2025 Implemented task based event notification functionality for SHA IPI events
+* 5.6   mb    09/09/2025 Return error code on SHA IPI event handling failure
 *
 * </pre>
 *
@@ -94,6 +95,7 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	/** SHA IPI event handling */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA3_CORE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR;
 		goto END;
 	}
 
