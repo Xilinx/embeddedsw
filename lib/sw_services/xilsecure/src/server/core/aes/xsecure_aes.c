@@ -102,6 +102,7 @@
 *       vss  01/22/2025   Added status check in AesUpdate and CopyGcmTag functions.
 * 5.6   aa   07/15/2025 Typecast to essential datatypes to avoid implicit conversions
 *                       and added explicit parenthesis for sub-expression
+*       mb   09/10/2025 Exclude cache validation for RISC-V processor.
 *
 * </pre>
 *
@@ -2115,8 +2116,8 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 		AesDmaCfg->DestChannelCfg = (u8)TRUE;
 		AesDmaCfg->SrcChannelCfg = (u8)FALSE;
 
-#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)))
-		/* Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 processors */
+#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)) && !(defined(__RISCV__)))
+		/* Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 and RISCV processors */
 		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 #endif
 		Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
@@ -2125,7 +2126,7 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 			goto END;
 		}
 
-#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)))
+#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)) && !(defined(__RISCV__)))
 		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 #endif
 		/* Wait for AES Operation completion. */
