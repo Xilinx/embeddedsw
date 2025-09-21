@@ -33,6 +33,7 @@
  *       rmv  09/15/25 Updated XAsu_UpdateCallBackDetails() prototype to return status value
  *       rmv  09/20/25 Updated memory copy logic to store Xil_SecureMemCpy return value in local
  *                     variable to improve readability.
+ *       rmv  09/21/25 Used unique id as an index for AsuContext
  *
  * </pre>
  *
@@ -62,7 +63,8 @@
 								check timeout value in microseconds
 								(5sec) */
 
-#define XASU_NO_OF_CONTEXTS				(10U)	/**< No of contexts can be saved by client */
+#define XASU_NO_OF_CONTEXTS		XASU_UNIQUE_ID_MAX	/**< No of contexts can be saved by
+								client */
 
 #define XASU_INITIAL_CALL_COUNT			(1U)	/**< Initial count for multi-update requests */
 
@@ -651,20 +653,18 @@ void XAsu_FreeCtx(void *Context)
  *************************************************************************************************/
 void *XAsu_UpdateNGetCtx(u8 UniqueId)
 {
-	u8 Index = 0U;
 	XAsu_ClientCtx *Context = NULL;
 
-	/** Find the free index to store the context. */
-	do {
-		/** Save the context. */
-		if (AsuContext[Index].UniqueId == 0U) {
-			AsuContext[Index].UniqueId = UniqueId;
-			Context = &AsuContext[Index];
-			break;
-		}
-		Index++;
-	} while (Index < XASU_NO_OF_CONTEXTS);
+	/** Validate unique id. */
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		goto END;
+	}
 
+	/** Store the context based on unique id. */
+	AsuContext[UniqueId].UniqueId = UniqueId;
+	Context = &AsuContext[UniqueId];
+
+END:
 	return (void *)Context;
 }
 
