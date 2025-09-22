@@ -117,6 +117,7 @@ XStatus NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	(void)(BaseAddress);
 	ConfigPtr = XOspiPsv_LookupConfig(DeviceId);
 #else
+	(void)DeviceId;
 	ConfigPtr = XOspiPsv_LookupConfig(BaseAddress);
 #endif
 
@@ -186,6 +187,7 @@ XStatus NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 #ifndef SDT
 	ConfigPtr = XUsbPsu_LookupConfig(DeviceId);
 #else
+	(void)DeviceId;
 	ConfigPtr = XUsbPsu_LookupConfig(BaseAddress);
 #endif
 	if (NULL == ConfigPtr) {
