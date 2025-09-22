@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 * 5.0   ka   04/10/18 Added error codes for user-efuse revocation
 * 6.0   bkm  04/10/18 Added error codes for FMC_VADJ
 * 7.0	bsv	 08/27/19 Added error code for invalid image header size
+* 10.0  tvp  09/20/25 Added error code PPK unavailability
 *
 * </pre>
 *
@@ -189,6 +191,7 @@ extern "C" {
 #define XFSBL_BITSTREAM_NOT_LOADED				(0x77U)
 #define XFSBL_ERROR_SHA2_NOT_SUPPORTED				(0x78U)
 #define XFSBL_ERROR_IMAGE_HEADER_SIZE				(0x79U)
+#define XFSBL_ERROR_PPK_NOT_AVAILABLE				(0x80U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/
