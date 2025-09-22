@@ -1,6 +1,7 @@
 /******************************************************************************
 *
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*****************************************************************************/
@@ -18,6 +19,7 @@
 * 1.00  kc   11/13/13 Initial release
 *       mus  02/26/19 Added support for armclang compiler
 *       dp   06/25/20 Added armclang support for Cortex-R5
+* 2.00  sd   17/09/25 Fix POS intermittent hang issue
 *
 * </pre>
 *
@@ -99,6 +101,9 @@ XFsbl_Exit:
 
 	isb
 
+	cmp x1, #3
+	beq XFsbl_Pos
+
 	cmp x1, #0  		/* exit to wfe    */
 	beq XFsbl_Loop
 
@@ -112,6 +117,21 @@ XFsbl_Exit:
 	isb
 	msr RMR_EL3,x2 /* write to reset management register */
 	isb
+
+/**
+ * @brief Notify PMU firmware of FSBL completion and enter WFE state.
+ *
+ * Writes '1' to PMU_GLOBAL_GLOB_GEN_STORAGE5 register to signal FSBL
+ * completion, then places FSBL into WFE state for POS use case.
+ */
+XFsbl_Pos:
+	.equ	PMU_GLOBAL_GLOB_GEN_STORAGE5,	0xFFD80044U
+	.equ	XFSBL_EXEC_COMPLETED,	0x00000001U
+	ldr		x0, =PMU_GLOBAL_GLOB_GEN_STORAGE5   /* load register address into x0 */
+	mov		w1, #XFSBL_EXEC_COMPLETED           /* load 32-bit value into w1 */
+	str		w1, [x0]                            /* store 32-bit value to address */
+	b XFsbl_Loop
+
 #endif
 
 XFsbl_Loop:
