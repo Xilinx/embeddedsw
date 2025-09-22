@@ -205,6 +205,8 @@ static int XLoader_CheckAndCompareHashFromIHTOptionalData(u64 HashAddr, XilPdi_H
 
 XSecure_ClientInstance SecureClientInstance;
 u8 NextHash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
+static u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES] __attribute__((aligned (64)))
+					__attribute__ ((section (".data.Sha3Hash")));
 
 /*************************************************************************************************/
 /**
@@ -377,7 +379,6 @@ static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstanceP
 	int Status = XST_FAILURE;
 	u64 BhAddr = PdiAddr + XLOADER_SMAP_WD_PATTERN_SIZE;
 	u64 BhAcAddr = BhAddr + XLOADER_BH_SIZE;
-	u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
 	XilLoader_BootHdr* BootHdrPtr = (XilLoader_BootHdr*)(UINTPTR)BhAddr;
 	u32 IsSignedImg = BootHdrPtr->ImgAttrb & XLOADER_BH_IMG_ATTRB_SIGNED_IMG_MASK;
 	u64 HashAddr = (UINTPTR)&Sha3Hash;
@@ -395,7 +396,7 @@ static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstanceP
 		xil_printf("Failure in Calculation of bootheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
-
+	Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 	/*
 	 * Verify bootheader signature
 	 */
@@ -487,7 +488,6 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	const u32 PrtnStartIdx)
 {
 	int Status = XST_FAILURE;
-	u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
 	u64 MhAddr = PdiAddr + MhOffset;
 	XilLoader_ImgHdrTbl* IhtPtr = (XilLoader_ImgHdrTbl*)(UINTPTR)MhAddr;
 	u64 MhAcAddr = PdiAddr + ((u64)(IhtPtr->AcOffset) << XLOADER_WORD_LEN_SHIFT);
@@ -512,7 +512,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 		xil_printf("Failure in Calculation of Image Header Table hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
-
+	Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 	/*
 	 * Verify Image Header Table signature
 	 */
@@ -571,6 +571,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 		xil_printf("SHA3 finish failed during calculation of metaheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
+	Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 
 	if (HashTblInfo.IsAuthOptimized != TRUE) {
 		/*
@@ -720,9 +721,7 @@ static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnA
 {
 	int Status = XST_FAILURE;
 	int Block = 0U;
-	u64 HashAddr;
-	u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
-	HashAddr = (UINTPTR)&Sha3Hash;
+	u64 HashAddr = (UINTPTR)&Sha3Hash;
 	u32 LastChunk = FALSE;
 	u32 Size = PrtnLen;
 	u32 ChunkLen;
@@ -755,12 +754,12 @@ static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnA
 			goto END;
 		}
 
-		Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
-
 		Status = XSecure_Sha3Finish(&SecureClientInstance, HashAddr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+		Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 
 		if (Block == 0U) {
 			if (HashTblInfo->IsAuthOptimized != TRUE) {
@@ -828,9 +827,7 @@ static int XLoader_VerifyPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, u64
 	u32 PrtnLen = BootHdrPtr->TotalPlmLen - XLOADER_AUTH_CERT_MIN_SIZE;
 	u64 ACAddr = BhAddr + XLOADER_BH_SIZE;
 	int Block = 0U;
-	u64 HashAddr;
-	u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
-	HashAddr = (UINTPTR)&Sha3Hash;
+	u64 HashAddr = (UINTPTR)&Sha3Hash;
 	u32 LastChunk = FALSE;
 	u32 ChunkLen;
 
@@ -860,8 +857,6 @@ static int XLoader_VerifyPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, u64
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-
-		Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 
 		Status = XSecure_Sha3Finish(&SecureClientInstance, HashAddr);
 		if (Status != XST_SUCCESS) {
@@ -921,8 +916,6 @@ static int XLoader_VerifyPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, u64
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-
-		Xil_DCacheInvalidateRange((INTPTR)HashAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 
 		Status = XSecure_Sha3Finish(&SecureClientInstance, HashAddr);
 		if (Status != XST_SUCCESS) {
