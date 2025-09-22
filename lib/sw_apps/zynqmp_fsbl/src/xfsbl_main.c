@@ -27,6 +27,7 @@
 * 3.1   ng   03/09/24 Fixed format specifier for 32bit variables
 * 4.0   sd   04/26/25 Add TPM read function conditionally
 *       sd   08/14/25 Added function to get Reset reason
+*       sd   17/09/25 Fix POS intermittent hang issue
 *
 * </pre>
 *
@@ -52,6 +53,11 @@
 static void XFsbl_UpdateMultiBoot(u32 MultiBootValue);
 static void XFsbl_FallBack(void);
 static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum);
+/**
+ * Functions defined in xfsbl_handoff.S
+ */
+extern void XFsbl_Exit(PTRSIZE HandoffAddress, u32 Flags);
+
 
 /************************** Variable Definitions *****************************/
 XFsblPs FsblInstance = {0x3U, XFSBL_SUCCESS, 0U, 0U, 0U, 0U};
@@ -81,7 +87,7 @@ int main(void )
 
 	WarmBoot = XFsbl_HookGetPosBootType();
 	if (0U != WarmBoot) {
-		XFsbl_HandoffExit(0U, XFSBL_NO_HANDOFFEXIT);
+		XFsbl_Exit((PTRSIZE)0U, XFSBL_POS_HANDOFFEXIT);
 	}
 #endif
 

@@ -32,6 +32,7 @@
 * 8.0   prt  02/06/25 Updated SDK release year and SDK release quarter
 * 9.0   aa   06/19/25 Updated SDK release version
 *       sd   08/14/25 Added function declaration
+*       sd   17/09/25 Added POS Handoff macro
 *
 * </pre>
 *
@@ -122,6 +123,7 @@ typedef struct {
 #define XFSBL_NO_HANDOFFEXIT	(0x0U)
 #define XFSBL_HANDOFFEXIT	(0x1U)
 #define XFSBL_HANDOFFEXIT_32	(0x2U)
+#define XFSBL_POS_HANDOFFEXIT	(0x3U)
 
 /**
  * Boot Modes definition
