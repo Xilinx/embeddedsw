@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,8 @@
 *                     non-secure when RSA_EN is not programmed and boot header
 *                     is not authenticated is disabled by default
 * 6.1   ng   07/13/23 Added SDT support
+* 10.0  tvp  09/20/25 Give error if, image is authenticated but but no PPK
+*                     found in eFuse and bh_auth is not enabled
 *
 * </pre>
 *
@@ -1213,6 +1215,17 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #ifdef FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE
 	if (XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
 			XIH_PH_ATTRB_RSA_SIGNATURE) {
+		if (FsblInstancePtr->AuthEnabled == FALSE) {
+			XFsbl_Printf(DEBUG_GENERAL,
+				"Image authenticated, but no PPK found in "
+				"efuse and bh_auth is not enabled \r\n");
+			/**
+			 * To bypass this error, unset FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE_VAL.
+			 * For more information refer xfsbl_config.h file.
+			 */
+			Status = XFSBL_ERROR_PPK_NOT_AVAILABLE;
+			goto END;
+		}
 #else
 	if ((FsblInstancePtr->AuthEnabled == TRUE) &&
 		(XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
