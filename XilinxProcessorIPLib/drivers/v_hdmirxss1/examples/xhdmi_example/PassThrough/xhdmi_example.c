@@ -6696,8 +6696,14 @@ u32 Exdes_AxisSwitchInitialize(XAxis_Switch *AxisSwitchPtr,u32 baseaddr)
 	Status = XAxisScr_CfgInitialize(AxisSwitchPtr, AxisSwitchConfigPtr,
 					AxisSwitchConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
+#ifndef SDT
 		xil_printf("ERR:: AXIS Stream Switch \r\n "
-				"Initialization failed for Device ID:%d,Status:\r\n",deviceid,Status);
+                   "Initialization failed for Device ID: %d, Status: %d\r\n", deviceid, Status);
+#else
+		xil_printf("ERR:: AXIS Stream Switch \r\n "
+                   "Initialization failed for Base Address: 0x%08x, Status: %d\r\n", baseaddr, Status);
+#endif
+
 		return (XST_FAILURE);
 	}
 	return Status;
