@@ -687,12 +687,6 @@ static XStatus XPm_CosimInit(void)
 		}
 	}
 
-	Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
-			XPM_MAX_CAPABILITY, XPM_MAX_QOS, XPLMI_CMD_SECURE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_REQ_ME_DEVICE;
-	}
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
