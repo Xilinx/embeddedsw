@@ -1609,6 +1609,7 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
 	Params.KeyOutLen = XASU_SHA_256_HASH_LEN;
 	Params.ShaMode = XASU_SHA_MODE_256;
+	Params.ShaType = XASU_SHA2_TYPE;
 
 	/** Perform KDF generate with known inputs. */
 	Status = XKdf_Generate(AsuDmaPtr, Sha2Ptr, &Params);
