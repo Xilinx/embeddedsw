@@ -128,7 +128,7 @@ int main(void)
 #endif
 
 	Status = Asu_KdfExample();
-	if (Status == XST_SUCCESS) {
+	if ((ErrorStatus == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		xil_printf("Successfully ran KDF example");
 	} else {
 		xil_printf("KDF Example failed");
