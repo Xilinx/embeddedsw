@@ -355,13 +355,16 @@ END_CLR:
 
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(KOut, XASU_SHA_512_HASH_LEN));
 
-END:
 	/** In case of failure, zeroize the intermediate KeyOutAddr memory. */
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_GENERATE_FAILED);
 		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(
 						(u8 *)(UINTPTR)HkdfParams->KdfParams.KeyOutAddr,
 						HkdfParams->KdfParams.KeyOutLen));
+	}
+
+END:
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_GENERATE_FAILED);
 	}
 
 	return Status;
