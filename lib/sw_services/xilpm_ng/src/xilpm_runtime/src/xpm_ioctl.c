@@ -529,6 +529,10 @@ done:
 	return Status;
 }
 
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * This logic will be removed
+ * Feature check needs to be updated as well for client-side support
+ */
 static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 		const u32 *Perms, u32 Type, u32 CmdType)
 {
@@ -570,6 +574,10 @@ done:
 	return Status;
 }
 
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * This logic will be removed
+ * Feature check needs to be updated as well for client-side support
+ */
 static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
 			    u32 *const Value, const u32 CmdType)
 {
@@ -601,6 +609,10 @@ done:
 	return Status;
 }
 
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * This logic will be removed
+ * Feature check needs to be updated as well for client-side support
+ */
 static XStatus XPm_WritePggs(const u32 SubsystemId, const u32 PggsNum,
 			     const u32 Value, const u32 CmdType)
 {
@@ -632,6 +644,10 @@ done:
 	return Status;
 }
 
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * This logic will be removed
+ * Feature check needs to be updated as well for client-side support
+ */
 static XStatus XPm_ReadGgs(const u32 SubsystemId, const u32 GgsNum,
 			   u32 *const Value, const u32 CmdType)
 {
@@ -656,6 +672,10 @@ done:
 	return Status;
 }
 
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * This logic will be removed
+ * Feature check needs to be updated as well for client-side support
+ */
 static XStatus XPm_WriteGgs(const u32 SubsystemId, const u32 GgsNum,
 			    const u32 Value, const u32 CmdType)
 {

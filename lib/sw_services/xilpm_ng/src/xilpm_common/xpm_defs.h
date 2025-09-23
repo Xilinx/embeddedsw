@@ -349,6 +349,9 @@ enum XPmInitFunctions {
 /**
  * IOCTL IDs
  */
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * The following ioctl list would change as PGGS/GGS ids would be removed
+ */
 typedef enum {
 	IOCTL_GET_RPU_OPER_MODE = 0,			/**< Get RPU mode */
 	IOCTL_SET_RPU_OPER_MODE = 1,			/**< Set RPU mode */
@@ -611,6 +614,9 @@ enum XPmNotifyEvent {
 #define XST_API_BASE_VERSION			(1U)
 #define XST_API_QUERY_DATA_VERSION		(2U)
 #define XST_API_REG_NOTIFIER_VERSION		(2U)
+/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
+ * Feature check will be updated for client-side support
+ */
 #define XST_API_PM_IOCTL_VERSION		(2U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
 /* Version 3 supports the CPU idling feature during force power down */
