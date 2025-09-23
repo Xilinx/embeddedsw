@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 * 1.08  bm   07/17/2023 Moved Exception Init early in the code flow
 * 1.09  sk   09/26/2023 Added Support for In-Place Update from Image Store
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+*       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -148,7 +149,7 @@ static int XPlm_Init(void)
 	 * Initialize PLM Update related handlers and perform
 	 * DS restoring. This is applicable only for Versal Net
 	 */
-	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck, XLoader_IsPdiAddrLookup);
+	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck, XLoader_IsPdiAddrLookup, XPlm_CheckPsmPresenceInOD);
 	if (Status != XST_SUCCESS) {
 		XPlmi_ErrMgr(Status);
 	}

@@ -26,6 +26,7 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       am   02/22/2025 Added Puf on dmand regeneration support
 *       sk   03/25/2025 Updated platform name
+*       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -70,6 +71,21 @@ extern "C" {
 static inline int XPlm_ConfigureDefaultNPll(void)
 {
 	/* Not Applicable for Versal 2VE and 2VM Devices */
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function is not applicable for Versal 2VE and 2VM
+*
+* @param	PdiAddr is the address of the PDI
+*
+* @return	XST_SUCCESS
+*
+*****************************************************************************/
+static inline int XPlm_CheckPsmPresenceInOD(u32 PdiAddr)
+{
+	/* Not Applicable for versal_2ve_2vm */
 	return XST_SUCCESS;
 }
 

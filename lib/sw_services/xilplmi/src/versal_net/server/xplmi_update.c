@@ -45,6 +45,7 @@
 * 2.01  gam  01/07/2025 Added IPI macro protection for IPI related APIs to fix
 *                       PLM build failure in no IPI cases.
 *       sk   08/25/2025 Update in-place update print for versal 2VE and 2VM Devices
+*       kd   09/02/2025 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -99,6 +100,7 @@
 static int XPlmi_PlmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
 static XPlmi_CompatibilityCheck_t XPlmi_CompatibilityCheck;
 static XPlmi_IsPdiAddrLookup_t XPlmi_IsPdiAddrLookup;
+static XPlmi_CheckPsmPresenceInOD_t XPlmi_CheckPsmPresenceInOD;
 static int XPlmi_PlmUpdateTask(void *Arg);
 
 /************************** Variable Definitions *****************************/
@@ -122,6 +124,7 @@ static u32 DbEndAddr; /** Db End Address */
  *
  * @param	CompatibilityHandler is the handler used for compatibility check
  * @param	IsPdiAddrLookupHandler is the PDI address look-up handler
+ * @param	CheckPsmPresenceHandler is the PSM presence check handler
  *
  * @return
  * 			- XST_SUCCESS if success.
@@ -133,7 +136,7 @@ static u32 DbEndAddr; /** Db End Address */
  *
  ****************************************************************************/
 int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
-		XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler)
+		XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler, XPlmi_CheckPsmPresenceInOD_t CheckPsmPresenceHandler)
 {
 	volatile int Status = XST_FAILURE;
 	XPlmi_TaskNode *Task = NULL;
@@ -142,6 +145,7 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 
 	XPlmi_CompatibilityCheck = CompatibilityHandler;
 	XPlmi_IsPdiAddrLookup = IsPdiAddrLookupHandler;
+	XPlmi_CheckPsmPresenceInOD = CheckPsmPresenceHandler;
 
 	if ((XPlmi_In32(PMC_GLOBAL_ROM_INT_REASON) & PMX_PLM_UPDATE_REASON_MASK) ==
 		PMX_PLM_UPDATE_REASON_MASK) {
@@ -687,6 +691,13 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 #else
+		/* Check if PSM firmware is present in PDI Optional Data */
+    XPlmi_Printf(DEBUG_DETAILED, "Checking PSM presence in PDI at DDR address: 0x%x\n\r", UpdatePdiAddr);
+	Status = XPlmi_CheckPsmPresenceInOD(UpdatePdiAddr);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "PSM firmware not found in PDI, In-Place Firmware Update terminated.\n\r");
+		goto END;
+	}
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM and PSM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 #endif

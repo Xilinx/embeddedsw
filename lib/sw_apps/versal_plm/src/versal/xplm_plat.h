@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 * 1.10  kpt  02/21/2024 Added XPlm_OcpHandler
+*       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -63,6 +64,20 @@ static inline int XPlm_CompatibilityCheck(u32 PdiAddr)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief	This function is not applicable for versal
+*
+* @param	PdiAddr is the address of the PDI
+*
+* @return	XST_SUCCESS
+*
+*****************************************************************************/
+static inline int XPlm_CheckPsmPresenceInOD(u32 PdiAddr)
+{
+	/* Not Applicable for Versal */
+	return XST_SUCCESS;
+}
 
 /************************** Function Prototypes ******************************/
 #ifdef XPLMI_IPI_DEVICE_ID
