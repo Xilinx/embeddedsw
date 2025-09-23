@@ -2055,8 +2055,7 @@ s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr, XVprocSs_ColorChannel ChId)
   /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
-  Xil_AssertNonvoid((ChId >= XVPROCSS_COLOR_CH_Y_RED) &&
-		            (ChId < XVPROCSS_COLOR_CH_NUM_SUPPORTED));
+  Xil_AssertNonvoid((ChId < XVPROCSS_COLOR_CH_NUM_SUPPORTED));
 
   if(InstancePtr->CscPtr) {
 	switch(ChId)
@@ -2102,8 +2101,8 @@ void XVprocSs_SetPictureGain(XVprocSs *InstancePtr,
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
-  Xil_AssertVoid((ChId >= XVPROCSS_COLOR_CH_Y_RED) &&
-		         (ChId <= XVPROCSS_COLOR_CH_NUM_SUPPORTED));
+  Xil_AssertVoid((ChId < XVPROCSS_COLOR_CH_NUM_SUPPORTED));
+
   Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
 
   if(InstancePtr->CscPtr) {
@@ -2198,8 +2197,7 @@ void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
-  Xil_AssertVoid((NewVal >= XVIDC_BT_2020) &&
-		         (NewVal < XVIDC_BT_NUM_SUPPORTED));
+  Xil_AssertVoid(NewVal < XVIDC_BT_NUM_SUPPORTED);
 
   if(InstancePtr->CscPtr) {
     XV_CscSetColorspace(CscPtr,
@@ -2234,8 +2232,7 @@ void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
-  Xil_AssertVoid((NewVal >= XVIDC_BT_2020) &&
-		         (NewVal < XVIDC_BT_NUM_SUPPORTED));
+  Xil_AssertVoid(NewVal < XVIDC_BT_NUM_SUPPORTED);
 
   if(InstancePtr->CscPtr) {
     XV_CscSetColorspace(CscPtr,
@@ -2294,8 +2291,7 @@ void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
-  Xil_AssertVoid((NewVal >= XVIDC_CR_16_235) &&
-		         (NewVal < XVIDC_CR_NUM_SUPPORTED));
+  Xil_AssertVoid(NewVal < XVIDC_CR_NUM_SUPPORTED);
 
   if(InstancePtr->CscPtr) {
     XV_CscSetColorspace(CscPtr,
@@ -2381,8 +2377,7 @@ void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(InstancePtr->LboxPtr != NULL);
-  Xil_AssertVoid((ColorId >= XLBOX_BKGND_BLACK) &&
-		         (ColorId < XLBOX_BKGND_LAST));
+  Xil_AssertVoid(ColorId < XLBOX_BKGND_LAST);
 
   if(InstancePtr->LboxPtr) {
 	XV_LboxSetBackgroundColor(InstancePtr->LboxPtr,
