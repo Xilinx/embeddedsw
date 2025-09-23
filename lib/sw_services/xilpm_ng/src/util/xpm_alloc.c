@@ -15,6 +15,17 @@ static XPm_AllocablePool_t TopoPoolMem XPM_INIT_DATA(TopoPoolMem) =  {
 	.FreeMem = TopoPoolMemBuffer
 };
 
+/* Local helpers for temporal checks (no include changes) */
+static inline XStatus XPm_CheckPositiveU32(u32 v)
+{
+	return (v > 0U) ? XST_SUCCESS : XST_FAILURE;
+}
+
+static inline XStatus XPm_CheckSizeLE(u32 a, u32 b)
+{
+	return (a <= b) ? XST_SUCCESS : XST_FAILURE;
+}
+
 /**
  * @brief Allocates a pool of memory of the specified size.
  *
@@ -29,31 +40,21 @@ void *XPm_AllocPool(u32 SizeInBytes, XPm_AllocablePool_t* PoolMem)
 {
 	void *Bytes = NULL;
 	int BytesLeft = (u8*)PoolMem->Pool + PoolMem->Size - (u8*)PoolMem->FreeMem;
-	if (BytesLeft <= 0) {
-		goto done;
-	}
-	u32 i;
-	u32 NumWords;
-	u32 *Words;
 	u32 Size = SizeInBytes;
+	volatile XStatus Status = XST_FAILURE;
 
-	/* Round size to the next multiple of 4 */
+	XSECURE_TEMPORAL_CHECK(done, Status, XPm_CheckPositiveU32, (u32)BytesLeft);
+
+	/* Round size up to a 4-byte boundary (ceil) */
 	Size += 3U;
 	Size &= ~0x3U;
 
-	if (Size >(u32)BytesLeft) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPm_CheckSizeLE, Size, (u32)BytesLeft);
 
 	Bytes = PoolMem->FreeMem;
 	PoolMem->FreeMem = (u8*)PoolMem->FreeMem + Size;
 
-	/* Zero the bytes */
-	NumWords = Size / 4U;
-	Words = (u32 *)Bytes;
-	for (i = 0; i < NumWords; i++) {
-		Words[i] = 0U;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, Xil_SecureZeroize, (u8*)Bytes, Size);
 
 done:
 	return Bytes;
