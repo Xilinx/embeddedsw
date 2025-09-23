@@ -99,6 +99,7 @@
 *       ng   12/12/2023 Fixed doxygen grouping
 * 3.6   hj   04/15/2025 Remove zero IV check in dec_only fuse programming
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
+*       hj   09/19/2025 Program PUF_RSVD efuse as user data
 * </pre>
 *
 *******************************************************************************/
@@ -5415,7 +5416,7 @@ END:
 static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 {
 	int Status = XST_FAILURE;
-	u32 PufFusesDataToPrgm[XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS] = {0U};
+	u32 PufFusesDataToPrgm[XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS] = {0U};
 	u32 PufCacheValue;
 	u32 Row = 0U;
 	u32 StartRow;
@@ -5426,8 +5427,8 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 		goto END;
 	}
 
-	StartRow = XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW +
-			WritePufFuses->StartPufFuseRow - 1;
+	StartRow = XNVM_EFUSE_PUF_SYN_RSVD_CACHE_READ_ROW +
+			WritePufFuses->StartPufFuseRow;
 	EndRow = StartRow + WritePufFuses->NumOfPufFusesRows;
 
 	/* Validate PufFuses before programming */
@@ -5442,8 +5443,8 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 			Status = (int)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
 			goto END;
 		}
-		if ((Row - XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW) ==
-			XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS - 1U) {
+		if ((Row - XNVM_EFUSE_PUF_SYN_RSVD_CACHE_READ_ROW) ==
+			XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS - 1U) {
 			if ((WritePufFuses->PufFuseData[Row - StartRow] &
 				XNVM_PUF_ROW_UPPER_NIBBLE_MASK) != 0x00U) {
 				Status = (int)XNVM_ERR_WRITE_PUF_USER_DATA;
@@ -5461,8 +5462,8 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 		goto END;
 	}
 
-	StartRow = XNVM_EFUSE_PUF_SYN_START_ROW +
-				WritePufFuses->StartPufFuseRow - 1;
+	StartRow = XNVM_EFUSE_PUF_SYN_RSVD_START_ROW +
+				WritePufFuses->StartPufFuseRow;
 	Status = XNvm_EfusePgmAndVerifyRows(StartRow,
 		WritePufFuses->NumOfPufFusesRows,
 		XNVM_EFUSE_PAGE_2, PufFusesDataToPrgm);
@@ -5514,20 +5515,19 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseRow < 1U) ||
-		(PufFuse->StartPufFuseRow  > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+	if (PufFuse->StartPufFuseRow  > (XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS - 1U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((PufFuse->NumOfPufFusesRows < 1U) ||
-		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseRow +
-		(PufFuse->NumOfPufFusesRows - 1U)) > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS) {
+	if ((PufFuse->StartPufFuseRow +	PufFuse->NumOfPufFusesRows) >
+		(XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -5700,20 +5700,19 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	 *  Check the PufSynLk bit,Chash,Aux and Deconly eFuses if they are blown.
 	 *  If not programmed proceed else return error.
 	 */
-	if ((PufFuse->StartPufFuseRow < 1U) ||
-		(PufFuse->StartPufFuseRow  > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+	if (PufFuse->StartPufFuseRow  > (XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS - 1)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((PufFuse->NumOfPufFusesRows < 1U) ||
-		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseRow +
-		(PufFuse->NumOfPufFusesRows - 1U)) > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS) {
+	if ((PufFuse->StartPufFuseRow +	PufFuse->NumOfPufFusesRows) >
+	     XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -5769,8 +5768,8 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	Row = XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW +
-		PufFuse->StartPufFuseRow - 1U;
+	Row = XNVM_EFUSE_PUF_SYN_RSVD_CACHE_READ_ROW +
+		PufFuse->StartPufFuseRow;
 
 	/**
 	 *  @{ Read Puf data from efuse cache by calculating offset range from start row to end row based on user inputs.

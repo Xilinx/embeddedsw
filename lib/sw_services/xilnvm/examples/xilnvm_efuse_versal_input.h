@@ -716,6 +716,25 @@
 *	XNVM_EFUSE_WRITE_PPK4_HASH should be set to TRUE, XNVM_EN_ADD_PPKS should
 *	be defined and PPK0,PPK1,PPK2 should already be programmed.
 *
+*	#define XNVM_EFUSE_WRITE_PUF_FUSES		FALSE
+*	TRUE will program user data provided in XNVM_EFUSE_PUF_FUSES into PUF syndrome data
+*	efuse bits.
+*	If set as FALSE, the user data will not be programmed into PUF Syndrome data efuse bits
+*
+*	#define	XNVM_EFUSE_PRGM_PUF_FUSE_NUM 		0U
+*	The value mentioned in this is start index of PUF efuse to be programmed
+*	Valid value for this index is 0 to 127
+*
+*	#define XNVM_EFUSE_NUM_OF_PUF_FUSES		1U
+*	The value mentioned in this is number of 32 bit efuses to be programmed
+*	Valid value for this index is 1 to 128.
+*
+*	#define XNVM_EFUSE_PUF_FUSES		"00000000"
+*	The value will be converted to a hex buffer and will be written
+*	into the Versal eFuse array. It should be XNVM_EFUSE_NUM_OF_PUF_FUSES * 8 characters long.
+*	This value should be given in string format. Valid characters are 0-9,a-f,A-F.
+*	Any other character is considered invalid and will not burn the PUF efuse.
+*
 *   #define XNVM_EFUSE_ADD_PPK_EN FALSE
 *   TRUE permanently enables the additional PPK support
 *   FALSE will not modify this control bit of efuse
@@ -754,6 +773,7 @@
 * 3.1   skg    12/07/22 Added additional PPKs related macros
 * 3.3   har    12/04/23 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 * 3.5   hj     14/04/25 Added support for unique PPK hash programming for each SLR
+* 3.6   hj     19/09/25 Program PUF_RSVD efuse as user data
 *
 * </pre>
 *
@@ -971,7 +991,7 @@ extern "C" {
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 #define XNVM_EFUSE_WRITE_PUF_FUSES		FALSE
 
-#define XNVM_EFUSE_PRGM_PUF_FUSE_NUM		1U
+#define XNVM_EFUSE_PRGM_PUF_FUSE_NUM		0U
 #define XNVM_EFUSE_NUM_OF_PUF_FUSES		1U
 #define XNVM_EFUSE_PUF_FUSES			"00000000"
 
