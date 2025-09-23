@@ -96,7 +96,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses(void);
 int main()
 {
 
-	XilSKey_ZynqMpEPs PsInstance = {0};
+	XilSKey_ZynqMpEPs PsInstance;
 	u32 PsStatus;
 	u32 UserFuses[8];
 	u32 Ppk0[12];
@@ -105,6 +105,11 @@ int main()
 	s8 Row;
 	u32 AesCrc;
 	u32 Dna[3];
+
+	PsStatus = Xil_SMemSet(&PsInstance, sizeof(XilSKey_ZynqMpEPs), 0, sizeof(XilSKey_ZynqMpEPs));
+	if (PsStatus != XST_SUCCESS) {
+		goto EFUSE_ERROR;
+	}
 
 #if defined (XSK_ZYNQ_PLATFORM) || defined (XSK_MICROBLAZE_PLATFORM)
 	xil_printf("This example will not work for this platform\n\r");
