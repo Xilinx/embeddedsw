@@ -436,7 +436,7 @@ done:
 #endif
 
 XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
-	XStatus Status = XPM_FAILURE;
+	volatile XStatus Status = XPM_FAILURE;
 	const XPm_MemDevice *MemDevice = NULL;
 	const XPm_MemCtrlrDevice *MCDev = NULL;
 	u32 DeviceId;
