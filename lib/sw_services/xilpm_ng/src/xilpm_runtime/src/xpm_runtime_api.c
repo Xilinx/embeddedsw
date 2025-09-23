@@ -2761,12 +2761,13 @@ static XStatus XPm_DoGetClockState(XPlmi_Cmd*Cmd)
 XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
 {
 	//XPM_EXPORT_CMD(PM_CLOCK_SETDIVIDER, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
 	/* Check if subsystem is allowed to access requested clock or not */
-	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
-	if (Status != XST_SUCCESS) {
+	volatile XStatus StatusTmp = XST_FAILURE;
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPm_IsAccessAllowed, SubsystemId, ClockId);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
