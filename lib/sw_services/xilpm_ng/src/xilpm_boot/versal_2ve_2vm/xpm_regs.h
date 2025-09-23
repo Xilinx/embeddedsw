@@ -87,6 +87,14 @@ extern "C" {
 #define MMI_UDH_SLCR_WPROTP_OFFSET			(0x00000004U)
 
 /*
+ * SEIO_CRS Module
+ */
+#define SEIO_CRS_BASEADDR				(0xED000000U)
+#define SEIO_CRS_SIZE					(0x00010000U)
+#define SEIO_CRS_WPROT_OFFSET				(0x0000001CU)
+
+
+/*
  * AIE2PS Module
  */
 #ifndef VIVADO_ME_BASEADDR
