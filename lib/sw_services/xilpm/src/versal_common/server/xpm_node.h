@@ -313,8 +313,11 @@ typedef enum {
 /* Register node typees */
 typedef enum {
 	XPM_NODETYPE_REGNODE_GENERIC = 0x0,
-	XPM_NODETYPE_REGNODE_MAX = 0x1
+	XPM_NODETYPE_REGNODE_PREDEF_PGGS = 0x1,
+	XPM_NODETYPE_REGNODE_PREDEF_GGS = 0x2,
+	XPM_NODETYPE_REGNODE_MAX = 0x3
 } XPm_RegNodeType;
+
 
 /* Misc node typees */
 typedef enum {
