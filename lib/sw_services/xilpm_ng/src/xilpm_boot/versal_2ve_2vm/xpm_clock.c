@@ -337,7 +337,7 @@ XStatus XPmClock_AddParent(u32 Id, const u32 *Parents, u8 NumParents)
 
 		if ((!ISOUTCLK(ParentId)) && (!ISREFCLK(ParentId)) &&
 		    (!ISPLL(ParentId)) &&
-		    (((u32)CLK_DUMMY_PARENT != ParentId) && ((u32)0xFFFFFFFFU != ParentId))) {
+		    ((u32)CLK_DUMMY_PARENT != ParentId)) {
 			DbgErr = XPM_INT_ERR_INVALID_CLK_PARENT;
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -365,9 +365,8 @@ XStatus XPmClock_AddParent(u32 Id, const u32 *Parents, u8 NumParents)
 
 	/* For clocks involving mux */
 	for (Idx = 0; Idx < NumParents; Idx++) {
-		if (((u32)CLK_DUMMY_PARENT == Parents[Idx]) ||
-		    ((u32)0xFFFFFFFFU == Parents[Idx])) {
-			ParentIdx = (u16)Parents[Idx];
+		if ((u32)CLK_DUMMY_PARENT == Parents[Idx]) {
+			ParentIdx = (u16)CLK_DUMMY_PARENT;
 		} else {
 			ParentIdx = (u16)(NODEINDEX(Parents[Idx]));
 		}
