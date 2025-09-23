@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       kd   09/02/25 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -501,10 +502,11 @@ static inline u8 XPlmi_IsPlmUpdateInProgress(void)
  * 		- XST_SUCCESS always.
  *
  **************************************************************************************************/
-static inline int XPlmi_UpdateInit(void *CompatibilityHandler, void *IsPdiAddrLookup)
+static inline int XPlmi_UpdateInit(void *CompatibilityHandler, void *IsPdiAddrLookup, void *CheckPsmPresenceInOD)
 {
 	(void)CompatibilityHandler;
 	(void)IsPdiAddrLookup;
+	(void)CheckPsmPresenceInOD;
 	/* Not Applicable for Versal_2vp */
 	return XST_SUCCESS;
 }

@@ -50,6 +50,7 @@
 *       tvp  07/28/2025 Add wrapper function prototype XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
+*  2.01 kd   09/02/2025 Added XLOADER_ERR_PSM_FW_NOT_FOUND error code
 *
 * </pre>
 *
@@ -267,6 +268,9 @@ enum {
 
 	/** 0x30 - Error while releasing I2C device used for Handshake */
 	XLOADER_ERR_I2C_DEV_RELEASE,
+
+	/** 0x31 - Error when PSM firmware is not found in optional data */
+	XLOADER_ERR_PSM_FW_NOT_FOUND,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */

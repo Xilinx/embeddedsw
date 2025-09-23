@@ -60,6 +60,7 @@
 *       pre  01/13/2025 Added macros for DDRMC register addresses
 * 2.2   vss  02/11/2025 Removed static keyword from XPlmi_SssMask function
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
+*       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -498,10 +499,11 @@ static inline u8 XPlmi_IsPlmUpdateInProgress(void)
 * @return	XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-static inline int XPlmi_UpdateInit(void *CompatibilityHandler, void *IsPdiAddrLookup)
+static inline int XPlmi_UpdateInit(void *CompatibilityHandler, void *IsPdiAddrLookup, void *CheckPsmPresenceInOD)
 {
 	(void)CompatibilityHandler;
 	(void)IsPdiAddrLookup;
+	(void)CheckPsmPresenceInOD;
 	/* Not Applicable for Versal */
 	return XST_SUCCESS;
 }

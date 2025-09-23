@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       obs  12/18/2024 Fixed GCC Warnings
+* 1.12  kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *
 * </pre>
 *
@@ -63,7 +64,7 @@
 #define XPLMI_PSM_COUNTER_LCVER		(1U) /**< PSM counter lowest compatible version */
 #define XPLMI_PSM_KEEP_ALIVE_STS_VER 	(1U) /**< PSM keep alive status version */
 #define XPLMI_PSM_KEEP_ALIVE_STS_LCVER	(1U) /**< PSM keep alive status lowest compatible version */
-
+#define XPLMI_PSM_FW_OPTIONAL_DATA_ID		(0x4U) /**< PSM Optional Data ID */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -356,6 +357,58 @@ int XPlm_PostPlmUpdate(void)
 		XPlmi_SetPlmUpdateIpiMask(0U);
 		microblaze_enable_interrupts();
 #endif
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if PSM firmware is present in PDI Optional Data
+ *
+ * @param	PdiAddr is the PDI address to check
+ *
+ * @return
+ * 			- XST_SUCCESS if PSM firmware is found in optional data.
+ * 			- XLOADER_ERR_PSM_FW_NOT_FOUND if PSM firmware is not found.
+ * 			- XST_FAILURE for other errors.
+ *
+ *****************************************************************************/
+int XPlm_CheckPsmPresenceInOD(u32 PdiAddr)
+{
+	int Status = XST_FAILURE;
+	u32 OptionalDataStartAddr;
+	u32 OptionalDataEndAddr;
+	u32 OptDataAddr;
+	u32 OptionalDataLen;
+	/* Calculate optional data address range */
+    u32 IhtAddr = PdiAddr + (u32)XPlmi_In32(PdiAddr + XIH_BH_META_HDR_OFFSET);
+	OptionalDataLen = XPlmi_In32(IhtAddr + XIH_OPTIONAL_DATA_LEN_OFFSET);
+
+	/* Check if optional data length is 0 */
+	if (OptionalDataLen == 0U) {
+		XPlmi_Printf(DEBUG_DETAILED, "Optional data length is zero, PSM firmware not available\n\r");
+		Status = XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN;
+		goto END;
+	}
+
+    OptionalDataStartAddr = IhtAddr + XIH_IHT_LEN;
+	OptionalDataEndAddr = OptionalDataStartAddr +
+		(u32)(OptionalDataLen * XPLMI_WORD_LEN);
+
+	/* Search for PSM firmware in optional data */
+	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
+		XPLMI_PSM_FW_OPTIONAL_DATA_ID); /* PSM Optional Data ID */
+
+	if (OptDataAddr >= OptionalDataEndAddr) {
+		XPlmi_Printf(DEBUG_DETAILED, "PSM firmware info not present in optional data (DataId: %u)\n\r",
+			XPLMI_PSM_FW_OPTIONAL_DATA_ID);
+		Status = XLOADER_ERR_PSM_FW_NOT_FOUND;
+	}
+	else
+	{
+		Status = XST_SUCCESS;
 	}
 
 END:
