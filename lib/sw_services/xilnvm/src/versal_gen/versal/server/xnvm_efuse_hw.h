@@ -38,6 +38,7 @@
 * 3.0	kal  07/12/2022	Moved common hw definitions to xnvm_efuse_common_hw.h
 * 3.1   skg  12/07/2022 Added Additional PPKs related macros
 * 3.3   har  12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+* 3.6   hj   09/19/2025 Program PUF_RSVD efuse as user data
 *
 * </pre>
 *
@@ -89,7 +90,12 @@ extern "C" {
 #define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW		(122U)
 #define XNVM_EFUSE_PUF_SYN_START_ROW			(129U)
 #define XNVM_EFUSE_USER_FUSE_START_ROW			(129U)
-#define XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW       (641U)
+
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+#define XNVM_EFUSE_PUF_SYN_RSVD_START_ROW		(128U)
+#define XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS		(128U)
+#define XNVM_EFUSE_PUF_SYN_RSVD_CACHE_READ_ROW		(640U)
+#endif
 /** @} */
 
 /**

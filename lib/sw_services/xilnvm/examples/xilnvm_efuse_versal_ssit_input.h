@@ -740,12 +740,32 @@
 *	Even if the bits are already programmed user must pass these already
 *	programmed bits along with the new bits that need to be programmed.
 *
+*	#define XNVM_EFUSE_SLR_X_WRITE_PUF_FUSES	FALSE
+*	TRUE will program user data provided in XNVM_EFUSE_PUF_FUSES into PUF syndrome data
+*	efuse bits.
+*	If set as FALSE, the user data will not be programmed into PUF Syndrome data efuse bits
+*
+*	#define XNVM_EFUSE_SLR_X_PRGM_PUF_FUSE_NUM	0U
+*	The value mentioned in this is start index of PUF efuse to be programmed
+*	Valid value for this index is 0 to 127.
+*
+*	#define XNVM_EFUSE_SLR_X_NUM_OF_PUF_FUSES	1U
+*	The value mentioned in this is number of 32 bit efuses to be programmed
+*	Valid value for this index is 1 to 128.
+*
+*	#define XNVM_EFUSE_SLR_X_PUF_FUSES		"00000000"
+*	The value will be converted to a hex buffer and will be written
+*	into the Versal eFuse array. It should be XNVM_EFUSE_NUM_OF_PUF_FUSES * 8 characters long.
+*	This value should be given in string format. Valid characters are 0-9,a-f,A-F.
+* 	Any other character is considered invalid and will not burn the PUF efuse.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver	Who	Date	Changes
 * ----- ------  -------- ------------------------------------------------------
 * 3.6    hj   18/06/2025 Added support to program unique value of efuse for each SLR
+*        hj   19/09/25 Program PUF_RSVD efuse as user data
 *
 * </pre>
 *
@@ -770,7 +790,7 @@ extern "C" {
 #define XNVM_MAX_SLRS 4U
 #define XNVM_EFUSE_PRGM_USER_FUSE_NUM		1U
 #define XNVM_EFUSE_READ_USER_FUSE_NUM		XNVM_EFUSE_PRGM_USER_FUSE_NUM
-#define XNVM_EFUSE_PRGM_PUF_FUSE_NUM	1U
+#define XNVM_EFUSE_PRGM_PUF_FUSE_NUM		0U
 #define XNVM_EFUSE_READ_PUF_FUSE_NUM		XNVM_EFUSE_PRGM_PUF_FUSE_NUM
 
 /**************** Macros for SLR 0 *******************************************/
