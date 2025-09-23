@@ -55,6 +55,20 @@ SECTIONS
    KEEP (*(.fini))
 } > tmr_ram_cntlr_Mem
 
+.init_array : {
+  __init_array_start = .;
+  KEEP (*(SORT(.init_array.*)))
+  KEEP (*(.init_array))
+  __init_array_end = .;
+} > tmr_ram_cntlr_Mem
+
+.fini_array : {
+  __fini_array_start = .;
+  KEEP (*(SORT(.fini_array.*)))
+  KEEP (*(.fini_array))
+  __fini_array_end = .;
+} > tmr_ram_cntlr_Mem
+
 .ctors : {
    __CTOR_LIST__ = .;
    ___CTORS_LIST___ = .;
