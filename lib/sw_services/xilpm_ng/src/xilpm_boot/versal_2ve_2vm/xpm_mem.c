@@ -29,7 +29,8 @@
  *
  ****************************************************************************/
 XStatus __attribute__((weak, noinline)) XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem) {
-	XStatus Status = XPM_SUCCESS;
+
+	volatile XStatus Status = XPM_FAILURE;
 	(void)(RegionAddr);
 	(void)(RegionSize);
 	*IsPLMem = 0U;
@@ -43,8 +44,12 @@ XStatus __attribute__((weak, noinline)) XPm_IsMemRegnAddressValid(u32 SubsystemI
 	if (!IS_BUILTIN_SUBSYSTEM(SubsystemId)) {
 		PmErr("Unexpected SubsystemId [0x%x]\r\n", SubsystemId);
 		Status = XST_INVALID_PARAM;
+		goto done;
 	}
 
+	Status = XPM_SUCCESS;
+
+done:
 	return Status;
 };
 
