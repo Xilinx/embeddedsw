@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -388,6 +388,7 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	/* Compute absolute base address */
 	AbsAddr = 0;
 	Status = Csi2TxSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
@@ -399,6 +400,9 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 			"base address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+	AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XCsi2Tx_CfgInitialize(CsiSsPtr->CsiPtr, ConfigPtr, AbsAddr);
@@ -445,6 +449,7 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	/* Compute absolute base address */
 	AbsAddr = 0;
 	Status = Csi2TxSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
@@ -456,6 +461,9 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 			"address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+	AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(CsiSsPtr->DphyPtr, ConfigPtr, AbsAddr);
