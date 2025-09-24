@@ -20,6 +20,7 @@
  * 3.2   har  02/22/2023 Added error code for ROM Rsvd bits
  *       kpt  09/11/2023 Added error code XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS
  * 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
+ * 3.6   ng   09/19/2025 Fixed error code overlap with other errors
  *
  * </pre>
  *
@@ -166,16 +167,16 @@ typedef enum {
 						* PUF HELPER DATA should be programmed for
 						* DEC_ONLY eFuse programming */
 
-	XNVM_EFUSE_ERROR_DME_MODE_SET = 0xFA00,/**<0xFA00 - Error
-						* occured when DME Mode is set and
+	XNVM_EFUSE_ERROR_DME_MODE_SET = 0xFC00,/**<0xFC00 - Error
+						* occurred when DME Mode is set and
 						* trying to read User fuses */
-	XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED = 0xFB00,	/**<0xFB00 - Error
-							 * occured when DME is not supported
+	XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED = 0xFD00,	/**<0xFD00 - Error
+							 * occurred when DME is not supported
 							 * for that specific platform */
-	XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR = 0xFC00, /**<0xFC00 - Error, CRC value of the
+	XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR = 0xFE00, /**< 0xFE00 - Error, CRC value of the
 							  * xilinx manufactured bits and
 							  * value written into CRC SALT efuse
-							  * doesnt match.
+							  * does not match.
 							  */
 } XNvm_EfuseVersalNetErrorCodes;
 
