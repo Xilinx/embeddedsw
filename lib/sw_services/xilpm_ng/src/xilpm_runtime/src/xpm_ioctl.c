@@ -42,7 +42,19 @@ static u32 GgsWritePermissions[GGS_REGS];
 	(NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE) && \
 	(NODETYPE(DeviceId) == XPM_NODETYPE_DEV_CORE_APU))
 
-maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, const u32 DeviceId)
+/*****************************************************************************/
+/**
+ * @brief  Internal validation function for device ID verification
+ *
+ * @param  IoctlId	IOCTL ID to validate
+ * @param  DeviceId	Device ID to validate
+ *
+ * @return XST_SUCCESS if validation passes, error code otherwise
+ *
+ * @note   This is the internal implementation function. For usage requiring
+ *         fault attack resistance, call XPm_ValidateDeviceId instead.
+ *****************************************************************************/
+static XStatus XPm_ValidateDeviceId_Int(const pm_ioctl_id IoctlId, const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -74,6 +86,35 @@ done:
 	if (XST_SUCCESS != Status) {
 		PmErr("IoctlId = 0x%x DeviceId=0x%x Status 0x%x\n\r",IoctlId, DeviceId, Status);
 	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief  Validates device ID based on IOCTL operation with fault attack resistance
+ *
+ * @param  IoctlId	IOCTL ID to validate
+ * @param  DeviceId	Device ID to validate
+ *
+ * @return XST_SUCCESS if validation passes, error code otherwise
+ *
+ * @note   This function implements redundancy to prevent fault injection attacks.
+ *****************************************************************************/
+maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, const u32 DeviceId)
+{
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
+
+	/* Execute validation function twice for redundancy */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPm_ValidateDeviceId_Int, IoctlId, DeviceId);
+
+	/* Check for consistency between the two calls */
+	if (Status != StatusTmp) {
+		/* Fault detected - return error */
+		Status = XPM_INVALID_DEVICEID;
+		PmErr("Status=0x%x\n\r", Status);
+	}
+
 	return Status;
 }
 
