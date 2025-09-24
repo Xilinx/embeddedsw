@@ -63,4 +63,6 @@ examples:
     - supported_platforms:
       - VersalNet
   xilloader_cfi_selective_readback_example.c: []
+  xilloader_add_pdi_to_image_store_client_example.c: []
+  xilloader_remove_pdi_from_image_store_client_example.c: []
 ...
