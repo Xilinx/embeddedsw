@@ -100,6 +100,7 @@
 #define XOCP_HWPCR_LOG_VERSION		(1U)   /**< HW PCR log version */
 
 #define XOCP_MIN_NUM_OF_DIGESTS_FOR_SW_PCR1 (5U) /**< Minimum number of digests for SW PCR1 */
+#define XOCP_EVENT_ID_VERSION_LEN_IN_BYTES	(8U) /**< Length of EVENT_ID + Length of Version */
 
 /**************************** Type Definitions *******************************/
 static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
@@ -1607,7 +1608,8 @@ END:
 /**
  * @brief	This function clears the all digest data for the specified SW PCR.
  *
- * @param	PcrNum	SW PCR number
+ * @param	PcrNum		SW PCR number
+ * 		DigestIdx	DigestIdx in the SW PCR log
  *
  * @return
  *		- XST_SUCCESS - Upon success
@@ -1618,9 +1620,14 @@ static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx)
 {
 	int Status = XST_FAILURE;
 	XOcp_SwPcrStore *SwPcr = XOcp_GetSwPcrInstance();
+	u32 ClearDataLen = sizeof(XOcp_SwPcrData) - XOCP_EVENT_ID_VERSION_LEN_IN_BYTES;
 
-	Status = Xil_SMemSet((void *)(UINTPTR)&SwPcr->Data[DigestIdx],
-			sizeof(XOcp_SwPcrData), 0U, sizeof(XOcp_SwPcrData));
+	/** Clear the data of DigestIdx from the log except EventId and Version info.
+	 * EventId is configured from CDO and Version is fixed currently and may change
+	 * in furture as per the request from the customer.
+	 */
+	Status = Xil_SMemSet((void *)(UINTPTR)&SwPcr->Data[DigestIdx].Measurement.DataLength,
+			ClearDataLen, 0U, ClearDataLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
