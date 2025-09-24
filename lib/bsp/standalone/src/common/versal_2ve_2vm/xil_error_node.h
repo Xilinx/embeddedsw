@@ -20,6 +20,7 @@
 *       sk       02/21/2025 Added nodes for Versal 2VE and 2VM devices EAM
 *                           register in LPD SLCR
 *       sk       04/07/2025 Updated error id encoding for UFSFE
+* 1.1   ng       09/19/2025 Fixed LPD SLCR error descriptions
 *
 * </pre>
 *
@@ -183,7 +184,7 @@ extern "C" {
  */
 /** Error event mask for General purpose PMC error,
  * can be triggered by any of the following peripherals:,
- * - PMC Global Regsiters,- PMC Clock & Reset (CRP),- PMC IOU Secure SLCR,
+ * - PMC Global Registers,- PMC Clock & Reset (CRP),- PMC IOU Secure SLCR,
  * - PMC IOU SLCR,- BBRAM Controller,- PMC Analog Control Registers,
  * - RTC Control Registers. */
 #define XIL_EVENT_ERROR_MASK_PMCAPB		(0x00000001U)
@@ -391,8 +392,7 @@ extern "C" {
  * generate this Non-Correctable Error. */
 #define XIL_EVENT_ERROR_MASK_PS_SW_NCR		(0x00000002U)
 
-/** Error event mask for USB_ERR can write to trigger register to
- * generate this Correctable Error. */
+/** Error event mask for Aggregated LPX USB errors. */
 #define XIL_EVENT_ERROR_MASK_USB_ERR		(0x00000004U)
 
 /** Error event mask for Aggregated LPX DFX controllers
@@ -448,10 +448,10 @@ extern "C" {
  * errors. */
 #define XIL_EVENT_ERROR_MASK_INT_FPXASILB_NCR	(0x00010000U)
 
-/** Error event mask for INT_LPD non-correctable error. */
+/** Error event mask for Splitter interconnect correctable error */
 #define XIL_EVENT_ERROR_MASK_INT_SPLIT_CR		(0x00020000U)
 
-/** Error event mask for INT_OCM correctable error. */
+/** Error event mask for Splitter interconnect uncorrectable error */
 #define XIL_EVENT_ERROR_MASK_INT_SPLIT_NCR		(0x00040000U)
 
 /** Error event mask for Firewall write errors from NOC NMUs*/
@@ -464,17 +464,17 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_NOC_NSU_FIREWALL_ERR	(0x02000000U)
 
 /** Error event mask for GIC_FMU_ERR, ARM suggested to have
- * seperated from GIC_ERR. */
+ * separated from GIC_ERR. */
 #define XIL_EVENT_ERROR_MASK_GIC_FMU_ERR	(0x04000000U)
 
 /** Error event mask for GIC_FMU_FAULT, ARM suggested to have
- * seperated from GIC_FAULT */
+ * separated from GIC_FAULT */
 #define XIL_EVENT_ERROR_MASK_GIC_FMU_FAULT		(0x08000000U)
 
-/** Error event mask for IPI error. */
+/** Error event mask for Aggregated IPI error (see IPI_ISR reg) */
 #define XIL_EVENT_ERROR_MASK_IPI_ERR		(0x40000000U)
 
-/** Error event mask for CPI error. */
+/** Error event mask for Aggregated CPI error (see CPI_IRQ reg) */
 #define XIL_EVENT_ERROR_MASK_FPD_CPI		(0x80000000U)
 /**
  * @}
@@ -730,7 +730,7 @@ extern "C" {
 /** Error event mask for LPX AFI FS Fatal Error */
 #define XIL_EVENT_ERROR_MASK_LPX_AFIFS_UNCORR_ERR	    (0x00000080U)
 
-/** Error event mask for Errors from RPU cluster A. */
+/** Error event mask for MMI top level correctable error */
 #define XIL_EVENT_ERROR_MASK_MMI_CORR_EVENT	    (0x00000100U)
 
 /** Error event mask for MMI top level uncorrectable error */

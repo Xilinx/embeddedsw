@@ -27,6 +27,7 @@
  *			 XSECURE_SHA_NIST_PADDING_ERROR
  *       mb   09/09/2025 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
  *                       Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
+ *       ng   09/19/2025 Fixed error descriptions
  *
  * </pre>
  *
@@ -278,11 +279,11 @@ enum {
 	XSECURE_ERR_ASU_KTE_DONE_NOT_SET,	/**< 0xF7 - Error in Key Transfer to ASU */
 	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR,	/**< 0xF8 - Error when MemCpy is failed after RSA operation */
 	XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR, /**< 0xF9 - Error during MemCpy and reversing the endianness */
-	XSECURE_RSA_OP_MEM_SET_ERROR,		/**< 0xF9 - Error when MemSet is failed during RSA private operation */
-	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR,	/**< 0xFA - Error when reversing the endianness during RSA private operation */
-	XSECURE_ERR_GLITCH_DETECTED,		/**< 0xFB - Error glitch detected */
-	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFC - Error in TRNG operation self tests */
-	XSECURE_ERR_TRNG_INIT_N_CONFIG		/**< 0xFD - Error in TRNG Instantiate and configuration */
+	XSECURE_RSA_OP_MEM_SET_ERROR,		/**< 0xFA - Error when MemSet is failed during RSA private operation */
+	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR,	/**< 0xFB - Error when reversing the endianness during RSA private operation */
+	XSECURE_ERR_GLITCH_DETECTED,		/**< 0xFC - Error glitch detected */
+	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFD - Error in TRNG operation self tests */
+	XSECURE_ERR_TRNG_INIT_N_CONFIG		/**< 0xFE - Error in TRNG Instantiate and configuration */
 
 };
 

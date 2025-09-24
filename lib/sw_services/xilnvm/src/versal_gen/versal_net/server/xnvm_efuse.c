@@ -40,6 +40,7 @@
 *       obs   04/21/2025 Fixed GCC Warnings.
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
 *       vss  08/08/2025 Added DME support for telluride.
+*       ng   09/19/2025 Replaced XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR with XST_FAILURE
 * </pre>
 *
 *******************************************************************************/
@@ -3077,7 +3078,7 @@ static int XNvm_EfuseProtectionChecks(void)
 		if ((RowVal != 0x0U) || (RowValTmp != 0x0U)) {
 			Status = XNvm_EfuseValidateCrc();
 			if (Status != XST_SUCCESS) {
-				Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
+				Status = (int)XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR;
 				goto END;
 			}
 		}
@@ -4009,8 +4010,7 @@ END:
 *
 * @return
 *	- XST_SUCCESS - Up on Success
-*	- XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR - Error as calculated CRC and CRC
-*					value written in eFuse doesn't match.
+*	- XST_FAILURE - Error as calculated CRC and CRC value written in eFuse doesn't match.
 *******************************************************************************/
 static int XNvm_EfuseValidateCrc(void)
 {
@@ -4087,14 +4087,14 @@ static int XNvm_EfuseValidateCrc(void)
 
 	CalCrcVal = XNvm_EfuseCalculateCrc32((u8*)InputData, XNVM_CRC_DATA_BYTE_COUNT);
 
-	Status = (int)XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR;
+	Status = (int)XST_FAILURE;
 
 	EfuseCrcVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_CRC_OFFSET);
 	EfuseCrcValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
                         XNVM_EFUSE_CACHE_CRC_OFFSET);
 	if ((CalCrcVal != EfuseCrcVal) || (CalCrcVal != EfuseCrcValTmp)) {
-		Status = (int)XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR;
+		Status = (int)XST_FAILURE;
 	}
 	else {
 		Status = XST_SUCCESS;
