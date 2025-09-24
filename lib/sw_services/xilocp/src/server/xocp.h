@@ -156,9 +156,10 @@ extern "C" {
 #define XOCP_CDI_SIZE_IN_WORDS			(12U)	/**< CDI size in words */
 
 /* Efuse number of rows */
-#define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS		(8U)	/**< PPK Hash number of words */
+#define XOCP_EFUSE_PPK_NUM_OF_BYTES		(32U)	/**< PPK Hash number of bytes */
+#define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS		(XOCP_EFUSE_PPK_NUM_OF_BYTES / XOCP_WORD_LEN)
+							/**< PPK Hash number of words */
 #define XOCP_EFUSE_REVOCATION_NO_OF_WORDS	(8U)	/**< Revocation ID number of words */
-#define XOCP_EFUSE_PPK_NUM_OF_BYTES		(48U)	/**< PPK Hash number of bytes */
 #define XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES	(32U)	/**< Revocation ID number of bytes */
 
 /**************************** Type Definitions *******************************/
