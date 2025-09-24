@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -54,6 +54,7 @@
 * 4.7   am   11/26/21 Resolved doxygen warnings
 * 5.2   ng   07/05/23 add SDT support
 *	ss   04/05/24 Fixed doxygen warnings
+* 5.6	hj   09/20/25 Change copy API to handle unaligned data in Sha3Update
 *
 * @note
 *
@@ -597,9 +598,16 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 		/* Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
 		    (((UINTPTR)DataPtr & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
-			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
-				(void *)DataPtr,
-				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
+			Status = (u32)Xil_SMemCpy((void *)&PartialData[PrevPartialLen],
+					     XSECURE_SHA3_BLOCK_LEN - PrevPartialLen,
+					     (void *)DataPtr, XSECURE_SHA3_BLOCK_LEN - PrevPartialLen,
+					     XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
+			if (Status != XST_SUCCESS) {
+				(void)memset(&InstancePtr->PartialData, 0,
+					     sizeof(InstancePtr->PartialData));
+
+				goto END;
+			}
 			DmableData = PartialData;
 			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
 			DataPtr += XSECURE_SHA3_BLOCK_LEN - PrevPartialLen;
@@ -631,8 +639,17 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Handle remaining data during processing of next data chunk or during
 	   data padding */
 	if(RemainingDataLen > 0U) {
-		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)DataPtr,
-		                     (RemainingDataLen - PrevPartialLen));
+		Status = (u32)Xil_SMemCpy((void *)(PartialData + PrevPartialLen),
+				      XSECURE_SHA3_BLOCK_LEN - PrevPartialLen,
+				      (void *)DataPtr,
+				      (RemainingDataLen - PrevPartialLen),
+				      (RemainingDataLen - PrevPartialLen));
+		if (Status != XST_SUCCESS) {
+			(void)memset(&InstancePtr->PartialData, 0,
+				     sizeof(InstancePtr->PartialData));
+
+			goto END;
+		}
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
 	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,
