@@ -67,6 +67,7 @@
 								client */
 
 #define XASU_INITIAL_CALL_COUNT			(1U)	/**< Initial count for multi-update requests */
+#define XASU_INVALID_UNIQUE_ID_VAL		(0xFFU) /**< Invalid unique id value */
 
 /** @} */
 /************************************** Type Definitions *****************************************/
@@ -116,7 +117,10 @@ static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 						configuration */
 static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
 
-static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS];	/**< ASU saved context */
+static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS] = {[0 ... (XASU_NO_OF_CONTEXTS - 1U)] =
+							 {.UniqueId = XASU_INVALID_UNIQUE_ID_VAL}};
+	/**< ASU Context with initial UniqueId value as XASU_INVALID_UNIQUE_ID_VAL
+	for all contexts */
 
 /*************************************************************************************************/
 /**
@@ -256,7 +260,7 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 	XAsu_ChannelQueue *ChannelQPtr = NULL;
 
 	/** Validate input parameters. */
-	if ((ClientParam == NULL) || (Header == 0U)) {
+	if (ClientParam == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -563,26 +567,17 @@ END:
  *************************************************************************************************/
 static u8 XAsu_GenerateUniqueId(void)
 {
-	static u8 UniqueId = XASU_UNIQUE_ID_MAX;
-	u8 TempId = UniqueId;
+	u8 UniqueId;
 
-	do {
-		if (UniqueId < (XASU_UNIQUE_ID_MAX - 1U)) {
-			UniqueId++;
-		}
-		else {
-			UniqueId = 1U;
-		}
-		/** Validate if the assigned unique ID is free. */
+	for (UniqueId = 0U; UniqueId < XASU_UNIQUE_ID_MAX; UniqueId++) {
 		if (AsuCallBackRef[UniqueId].ClientParams == NULL) {
-			break;
+			goto END;
 		}
-	} while (UniqueId != TempId);
-
-	if (UniqueId == TempId) {
-		UniqueId = XASU_UNIQUE_ID_MAX;
 	}
 
+	UniqueId = XASU_UNIQUE_ID_MAX;
+
+END:
 	return UniqueId;
 }
 
@@ -639,7 +634,11 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
  *************************************************************************************************/
 void XAsu_FreeCtx(void *Context)
 {
+	/* Clear context buffer */
 	(void *)memset(Context, 0, sizeof(XAsu_ClientCtx));
+
+	/* Mark context as free by resetting UniqueId to XASU_INVALID_UNIQUE_ID_VAL. */
+	((XAsu_ClientCtx *)Context)->UniqueId = XASU_INVALID_UNIQUE_ID_VAL;
 }
 
 /*************************************************************************************************/
