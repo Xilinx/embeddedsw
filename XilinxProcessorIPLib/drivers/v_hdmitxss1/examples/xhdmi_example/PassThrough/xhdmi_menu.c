@@ -28,6 +28,9 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_menu.h"
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
+#include "xv_hdmirx1_frl.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
@@ -2493,8 +2496,8 @@ static void XHdmi_DisplayDebugMainMenu(void) {
 static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     /* Variables */
     XHdmi_MenuType  Menu;
-#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
-    XV_HdmiRx1_FrlLtp Temp;
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
+	XV_HdmiRx1_FrlLtp Temp;
 #endif
     u32 RegOffset;
     /* Default */
@@ -2574,7 +2577,7 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("Enter Selection -> ");
 	    break;
 #endif
-#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
+	#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	case 10 :
 	    Temp.Byte[0] = 0x5;
 	    Temp.Byte[1] = 0x6;
@@ -2595,8 +2598,9 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 	case 13:
-	    XV_HdmiRx1_RestartFrlLt(HdmiRxSs.HdmiRx1Ptr);
-	    break;
+		XV_HdmiRx1_RestartFrlLt(HdmiRxSs.HdmiRx1Ptr);
+		break;
+	#endif
 
 	case 14:
 	    XHdmiphy1_ResetGtTxRx(&Hdmiphy1,
@@ -2658,7 +2662,6 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
     return Menu;
 }
-#endif
 
 /*****************************************************************************/
 /**
