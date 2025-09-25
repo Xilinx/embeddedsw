@@ -162,8 +162,8 @@ static void XAsufw_ExceptionHandler(void *Data)
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x, "
 			"CSR(mtval): 0x%x\r\n", csrr(mstatus), csrr(mcause), csrr(mtval));
 
-	/** Trigger Non-Fatal error to PLM. */
-	XAsufw_SendErrorToPlm(XASUFW_NON_FATAL_ERROR, (s32)Data);
+	/** Trigger Fatal error to PLM. */
+	XAsufw_SendErrorToPlm(XASUFW_FATAL_ERROR, (s32)Data);
 
 	/*
 	 * TODO: Need to add an illegal instruction trap here so that its respective handler will be
