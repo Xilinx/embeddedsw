@@ -950,6 +950,14 @@ u32 Exdes_SysTmrInitialize(XHdmi_Exdes *InstancePtr, u32 TmrBaseAddr)
 	XIntc_Enable(InstancePtr->hdmi_tx_ctlr->Intc, TmrIntrId);
 #endif
 #endif
+#else
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
+	Status = XSetupInterruptSystem(InstancePtr,
+				       Exdes_SysTimerIntrHandler,
+				       InstancePtr->SysTmrInst.Config.IntrId,
+				       InstancePtr->SysTmrInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 #endif
 	return Status;
 }
