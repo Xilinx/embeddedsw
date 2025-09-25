@@ -25,9 +25,6 @@
 /***************************** Include Files *********************************/
 
 #include "xv_hdmirx1.h"
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
-#include "xv_hdmirx1_frl.h"
-#endif
 #include "string.h"
 
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
@@ -175,9 +172,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	XV_HdmiRx1_Tmr4IntrDisable(InstancePtr);
 	XV_HdmiRx1_VtdIntrDisable(InstancePtr);
 	XV_HdmiRx1_DdcScdcClear(InstancePtr);
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	XV_HdmiRx1_FrlScdcInit(InstancePtr);
-#endif
 	XV_HdmiRx1_SetHpd(InstancePtr,FALSE);
 
 	/*
@@ -236,8 +231,9 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	XV_HdmiRx1_Tmr3IntrEnable(InstancePtr);
 
 	/* Enable Skew Lock Event */
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	XV_HdmiRx1_SkewLockEvtEnable(InstancePtr);
-
+#endif
 	/*
 	Video Timing detector peripheral
 	*/
@@ -1448,7 +1444,6 @@ void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
 #endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 }
 
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /******************************************************************************/
 /**
 *
@@ -1513,6 +1508,7 @@ void XV_HdmiRx1_DdcRegDump(XV_HdmiRx1 *InstancePtr)
 	}
 }
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 * This function prints out HDMI RX register
@@ -1533,6 +1529,26 @@ void XV_HdmiRx1_RegisterDebug(XV_HdmiRx1 *InstancePtr)
 	xil_printf("-------------------------------------\r\n");
 	for (RegOffset = 0;
 			RegOffset <= XV_HDMIRX1_FRL_VID_LOCK_CNT_OFFSET; ) {
+			xil_printf("0x%04x      0x%08x\r\n",RegOffset,
+			XV_HdmiRx1_ReadReg(
+			InstancePtr->Config.BaseAddress, RegOffset));
+		RegOffset += 4;
+		/* Ignore the DDC Space Register */
+		if (RegOffset == 0x114) {
+			RegOffset = 0x140;
+		}
+	}
+}
+#else
+void XV_HdmiRx1_RegisterDebug(XV_HdmiRx1 *InstancePtr)
+{
+	u32 RegOffset;
+
+	xil_printf("-------------------------------------\r\n");
+	xil_printf("       HDMI RX Register Dump \r\n");
+	xil_printf("-------------------------------------\r\n");
+	for (RegOffset = 0;
+			RegOffset <= XV_HDMIRX1_LNKSTA_BASE; ) {
 			xil_printf("0x%04x      0x%08x\r\n",RegOffset,
 			XV_HdmiRx1_ReadReg(
 			InstancePtr->Config.BaseAddress, RegOffset));
@@ -2281,7 +2297,6 @@ void XV_HdmiRx1_SetPixelClk(XV_HdmiRx1 *InstancePtr)
 	}
 }
 
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -2417,7 +2432,6 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
 				XV_HDMIRX1_SCDCFIELD_CED_UPDATE, 1);
 	}
 }
-#endif
 
 /*****************************************************************************/
 /**

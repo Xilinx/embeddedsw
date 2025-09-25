@@ -27,7 +27,6 @@
 #include "xv_hdmirx1.h"
 /*#include "string.h"*/
 
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /************************** Constant Definitions *****************************/
 #define Timer2MS		2
 #define Timer5MS		5
@@ -101,6 +100,7 @@ const XV_HdmiRx1_FrlScdcField FrlScdcField[XV_HDMIRX1_SCDCFIELD_SIZE] = {
 	{0x35, 0x01, 6},	/* XV_HDMIRX1_SCDCFIELD_DSC_FRL_MAX */
 };
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -1295,6 +1295,7 @@ void XV_HdmiRx1_FrlLinkRetrain(XV_HdmiRx1 *InstancePtr, u8 LtpThreshold,
 
 	XV_HdmiRx1_ExecFrlState(InstancePtr);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1438,6 +1439,7 @@ int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
 	return XST_SUCCESS;
 }
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -1653,6 +1655,7 @@ void XV_HdmiRx1_RestartFrlLt(XV_HdmiRx1 *InstancePtr)
 		xil_printf("RestartFrlLt_1\r\n");
 	}
 }
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 /*****************************************************************************/
 /**
@@ -1678,4 +1681,3 @@ void XV_HdmiRx1_FrlScdcInit(XV_HdmiRx1 *InstancePtr)
 	XV_HdmiRx1_FrlDdcWriteField(InstancePtr, XV_HDMIRX1_SCDCFIELD_SINK_VER, 1);
 }
 
-#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */

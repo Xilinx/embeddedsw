@@ -35,7 +35,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -79,6 +79,7 @@ typedef enum {
 	XV_HDMIRX1_SCDCFIELD_SIZE
 } XV_HdmiRx1_FrlScdcFieldType;
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /** @name HDMI RX FRL training state
 * @ {
 */
@@ -127,6 +128,7 @@ typedef union {
 	u32 Data;
 	u8  Byte[4];
 } XV_HdmiRx1_FrlLtp;
+#endif
 
 /**
 * This typedef contains DDC registers offset, mask, shift.
@@ -138,6 +140,7 @@ typedef struct {
 	u8 Shift;				/**< Bits shift */
 } XV_HdmiRx1_FrlScdcField;
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 /**
 * This typedef contains audio stream specific data structure
 */
