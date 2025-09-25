@@ -49,9 +49,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xv_hdmirx1.h"
 #include "xv_hdmic_vsif.h"
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #include "xv_hdmirxss1_frl.h"
-#endif
 #if !defined(XV_CONFIG_LOG_VHDMIRXSS1_DISABLE) && \
                                              !defined(XV_CONFIG_LOG_DISABLE_ALL)
 #define XV_HDMIRXSS1_LOG_ENABLE
