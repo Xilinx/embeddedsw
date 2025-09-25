@@ -78,6 +78,18 @@ XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id)
 		ApuCore->PcilPwrDwnReg = APU_PCIL_CORE_1_PWRDWN;
 		ApuCore->Core.PwrDwnMask = APU_PCIL_CORE_PWRDWN_MASK;
 		Status = XST_SUCCESS;
+	} else if (NODEINDEX(Id) == (u32)XPM_NODEIDX_DEV_ACPU_0_2) {
+		ApuCore->Core.SleepMask = PSXC_LPX_SLCR_APU0_CORE2_PWRDWN_MASK;
+		ApuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP0_IRQ_APU0_CORE2_MASK;
+		ApuCore->PcilPwrDwnReg = APU_PCIL_CORE_2_PWRDWN;
+		ApuCore->Core.PwrDwnMask = APU_PCIL_CORE_PWRDWN_MASK;
+		Status = XST_SUCCESS;
+	} else if (NODEINDEX(Id) == (u32)XPM_NODEIDX_DEV_ACPU_0_3) {
+		ApuCore->Core.SleepMask = PSXC_LPX_SLCR_APU0_CORE3_PWRDWN_MASK;
+		ApuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP0_IRQ_APU0_CORE3_MASK;
+		ApuCore->PcilPwrDwnReg = APU_PCIL_CORE_3_PWRDWN;
+		ApuCore->Core.PwrDwnMask = APU_PCIL_CORE_PWRDWN_MASK;
+		Status = XST_SUCCESS;
 	} else if (NODEINDEX(Id) == (u32)XPM_NODEIDX_DEV_ACPU_1_0) {
 		ApuCore->Core.SleepMask = PSXC_LPX_SLCR_APU1_CORE0_PWRDWN_MASK;
 		ApuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP0_IRQ_APU1_CORE0_MASK;

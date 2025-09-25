@@ -65,6 +65,62 @@ XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
+XPmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
+	.Id = PM_DEV_ACPU_0_2,
+	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR2L,
+	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE2_MASK,
+	.PwrCtrlAddr = PSXC_LPX_SLCR_APU0_CORE2_PWR_CNTRL_REG0,
+	.ClkCtrlAddr = PSXC_CRF_ACPU0_CLK_CTRL,
+	.ClkPropTime = ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSXC_CRF_RST_APU0,
+	.WarmRstMask = PSXC_CRF_RST_APU_CORE2_WARM_RST_MASK,
+	.ClusterPcilAddr = APU_PCIL_CLUSTER_0_BASEADDR,
+	.CorePcilAddr = APU_PCIL_CORE_2_BASEADDR,
+	.ScanMemClearMask = PSXC_LPX_SLCR_SCAN_MEM_CLEAR_APU0_CORE2_MASK,
+	.PwrCtrlMask = PSXC_LPX_SLCR_ACPU0_CORE2_POWER_CTRL_MASK,
+	.PwrUpDwnMask = PSXC_LPX_SLCR_ACPU0_CORE2_PWR_UPDWN_MASK,
+	.ClusterId = CLUSTER_0,
+	.PwrUpAckTimeout = {
+		PWRUP_ACPU_CHN0_TO,
+		PWRUP_ACPU_CHN1_TO,
+		PWRUP_ACPU_CHN2_TO,
+		PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		PWRUP_ACPU_CHN0_WAIT_TM,
+		PWRUP_ACPU_CHN1_WAIT_TM,
+		PWRUP_ACPU_CHN2_WAIT_TM,
+		PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
+};
+
+XPmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
+	.Id = PM_DEV_ACPU_0_3,
+	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR3L,
+	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE3_MASK,
+	.PwrCtrlAddr = PSXC_LPX_SLCR_APU0_CORE3_PWR_CNTRL_REG0,
+	.ClkCtrlAddr = PSXC_CRF_ACPU0_CLK_CTRL,
+	.ClkPropTime = ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSXC_CRF_RST_APU0,
+	.WarmRstMask = PSXC_CRF_RST_APU_CORE3_WARM_RST_MASK,
+	.ClusterPcilAddr = APU_PCIL_CLUSTER_0_BASEADDR,
+	.CorePcilAddr = APU_PCIL_CORE_3_BASEADDR,
+	.ScanMemClearMask = PSXC_LPX_SLCR_SCAN_MEM_CLEAR_APU0_CORE3_MASK,
+	.PwrCtrlMask = PSXC_LPX_SLCR_ACPU0_CORE3_POWER_CTRL_MASK,
+	.PwrUpDwnMask = PSXC_LPX_SLCR_ACPU0_CORE3_PWR_UPDWN_MASK,
+	.ClusterId = CLUSTER_0,
+	.PwrUpAckTimeout = {
+		PWRUP_ACPU_CHN0_TO,
+		PWRUP_ACPU_CHN1_TO,
+		PWRUP_ACPU_CHN2_TO,
+		PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		PWRUP_ACPU_CHN0_WAIT_TM,
+		PWRUP_ACPU_CHN1_WAIT_TM,
+		PWRUP_ACPU_CHN2_WAIT_TM,
+		PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
+};
+
 XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
 	.Id = PM_DEV_ACPU_1_0,
 	.ResetCfgAddr = APU_CLUSTER1_RVBARADDR0L,
@@ -1758,6 +1814,12 @@ XStatus XPm_DirectPwrUp(const u32 DeviceId)
 		case PM_DEV_ACPU_0_1:
 			Status = XPmPower_ACpuDirectPwrUp(&Acpu0_Core1PwrCtrl, ResumeAddr);
 			break;
+		case PM_DEV_ACPU_0_2:
+			Status = XPmPower_ACpuDirectPwrUp(&Acpu0_Core2PwrCtrl, ResumeAddr);
+			break;
+		case PM_DEV_ACPU_0_3:
+			Status = XPmPower_ACpuDirectPwrUp(&Acpu0_Core3PwrCtrl, ResumeAddr);
+			break;
 		case PM_DEV_ACPU_1_0:
 			Status = XPmPower_ACpuDirectPwrUp(&Acpu1_Core0PwrCtrl, ResumeAddr);
 			break;
@@ -1832,6 +1894,12 @@ XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 			break;
 		case PM_DEV_ACPU_0_1:
 			Status = XPmPower_ACpuDirectPwrDwn(&Acpu0_Core1PwrCtrl);
+			break;
+		case PM_DEV_ACPU_0_2:
+			Status = XPmPower_ACpuDirectPwrDwn(&Acpu0_Core2PwrCtrl);
+			break;
+		case PM_DEV_ACPU_0_3:
+			Status = XPmPower_ACpuDirectPwrDwn(&Acpu0_Core3PwrCtrl);
 			break;
 		case PM_DEV_ACPU_1_0:
 			Status = XPmPower_ACpuDirectPwrDwn(&Acpu1_Core0PwrCtrl);
