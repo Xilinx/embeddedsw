@@ -119,12 +119,14 @@ static void XV_Rx_HdmiRx_StateStreamOff(XV_Rx *InstancePtr,
 static void XV_Rx_HdmiRx_StatePhyReset(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr);
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 static void XV_Rx_HdmiRx_StateFrlConfig(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr);
 static void XV_Rx_HdmiRx_StateFrlStart(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr);
+#endif
 static void XV_Rx_HdmiRx_StateTmdsConfig(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
 					XV_Rx_Hdmi_State *NextStatePtr);
@@ -137,8 +139,10 @@ static void XV_Rx_HdmiRx_EnterStateStreamInitialized(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateStreamOn(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateStreamOff(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr);
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr);
 static void XV_Rx_HdmiRx_EnterStateFrlStart(XV_Rx *InstancePtr);
+#endif
 static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr);
 
 static void XV_Rx_HdmiRx_ProcessPendingEvents(XV_Rx *InstancePtr);
@@ -472,6 +476,7 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetFrlAudSampFreq (XV_Rx *InstancePtr)
 	InstancePtr->AcrNVal   = NVal;
 	InstancePtr->AcrCtsVal = CTSVal;
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl == TRUE) {
 
 	    switch (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.Frl.LineRate) {
@@ -497,6 +502,7 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetFrlAudSampFreq (XV_Rx *InstancePtr)
 	    SampFreq = XHdmiC_FRL_GetAudSampFreq(FRLCharRate,
 	    				CTSVal, NVal);
 	}
+#endif
 	return SampFreq;
 
 }
@@ -518,10 +524,15 @@ XHdmiC_SamplingFrequencyVal XV_Rx_GetTmdsAudSampFreq (XV_Rx *InstancePtr)
 	InstancePtr->AcrNVal = NVal;
 	InstancePtr->AcrCtsVal = CTSVal;
 
-	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
-		SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal, CTSVal);
-		SampFreqVal = XHdmiC_GetAudSampFreqVal(SampFreq);
-	}
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
+       if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
+	       SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal, CTSVal);
+	       SampFreqVal = XHdmiC_GetAudSampFreqVal(SampFreq);
+       }
+#else
+       SampFreq = XHdmiC_TMDS_GetAudSampFreq(RefClk, NVal, CTSVal);
+       SampFreqVal = XHdmiC_GetAudSampFreqVal(SampFreq);
+#endif
 	return SampFreqVal;
 
 }
@@ -1847,6 +1858,7 @@ static void XV_Rx_HdmiRx_ProcessEvents(XV_Rx *InstancePtr,
 		XV_Rx_HdmiRx_StatePhyReset(InstancePtr, Event, &NextState);
 		break;
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	case XV_RX_HDMI_STATE_FRLCONFIG:
 		XV_Rx_HdmiRx_StateFrlConfig(InstancePtr, Event, &NextState);
 		break;
@@ -1854,7 +1866,7 @@ static void XV_Rx_HdmiRx_ProcessEvents(XV_Rx *InstancePtr,
 	case XV_RX_HDMI_STATE_FRLSTART:
 		XV_Rx_HdmiRx_StateFrlStart(InstancePtr, Event, &NextState);
 		break;
-
+#endif
 	case XV_RX_HDMI_STATE_TMDSCONFIG:
 		XV_Rx_HdmiRx_StateTmdsConfig(InstancePtr, Event, &NextState);
 		break;
@@ -1918,6 +1930,7 @@ static void XV_Rx_HdmiRx_StateEnter(XV_Rx *InstancePtr, XV_Rx_Hdmi_State State)
 		XV_Rx_HdmiRx_EnterStatePhyReset(InstancePtr);
 		break;
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	case XV_RX_HDMI_STATE_FRLCONFIG:
 		XV_Rx_HdmiRx_EnterStateFrlConfig(InstancePtr);
 		break;
@@ -1925,7 +1938,7 @@ static void XV_Rx_HdmiRx_StateEnter(XV_Rx *InstancePtr, XV_Rx_Hdmi_State State)
 	case XV_RX_HDMI_STATE_FRLSTART:
 		XV_Rx_HdmiRx_EnterStateFrlStart(InstancePtr);
 		break;
-
+#endif
 	case XV_RX_HDMI_STATE_TMDSCONFIG:
 		XV_Rx_HdmiRx_EnterStateTmdsConfig(InstancePtr);
 		break;
@@ -2244,11 +2257,13 @@ static void XV_Rx_HdmiRx_StateStreamOn(XV_Rx *InstancePtr,
 static void XV_Rx_HdmiRx_EnterStateStreamOn(XV_Rx *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr);
-	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
-		/* Enable RX clock forwarding */
-		XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
-					       XHDMIPHY1_DIR_RX, (TRUE));
-	}
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
+    if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
+        /* Enable RX clock forwarding */
+        XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
+                                       XHDMIPHY1_DIR_RX, (TRUE));
+    }
+#endif
 
 	if (InstancePtr->RxStreamOn != NULL) {
 		InstancePtr->RxStreamOn(InstancePtr->RxStreamOnCallbackRef);
@@ -2314,7 +2329,9 @@ static void XV_Rx_HdmiRx_EnterStateStreamOff(XV_Rx *InstancePtr)
 	 * to receive the stream again.
 	 */
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	if (InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
+#endif
 		/* Power down the MMCM. (without holding) */
 		XHdmiphy1_MmcmPowerDown(InstancePtr->VidPhy, 0,
 					XHDMIPHY1_DIR_RX, FALSE);
@@ -2322,7 +2339,9 @@ static void XV_Rx_HdmiRx_EnterStateStreamOff(XV_Rx *InstancePtr)
 		/* Disable RX clock forwarding */
 		XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
 					       XHDMIPHY1_DIR_RX, (FALSE));
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	}
+#endif
 
 	InstancePtr->ErrorStats.RxBrdgOverflowCnt = 0;
 
@@ -2411,6 +2430,7 @@ static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr)
 						FALSE);
 	}
 #else
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	if((InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) ) {
 		XHdmiphy1_ClkDetFreqReset(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_RX);
 	} else {
@@ -2420,6 +2440,9 @@ static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr)
 				XHDMIPHY1_DIR_RX,
 				FALSE);
 	}
+#else
+	XHdmiphy1_ClkDetFreqReset(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_RX);
+#endif
 #endif
 
 }
@@ -2455,10 +2478,11 @@ static void XV_Rx_HdmiRx_StateFrlConfig(XV_Rx *InstancePtr,
 		*NextStatePtr = XV_RX_HDMI_STATE_PHYRESET;
 		break;
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	case XV_RX_HDMI_EVENT_FRLCONFIG:
 		XV_Rx_HdmiRx_EnterStateFrlConfig(InstancePtr);
 		break;
-
+#endif
 	case XV_RX_HDMI_EVENT_FRLSTART:
 		*NextStatePtr = XV_RX_HDMI_STATE_FRLSTART;
 		break;
@@ -2472,6 +2496,7 @@ static void XV_Rx_HdmiRx_StateFrlConfig(XV_Rx *InstancePtr,
 	}
 }
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr);
@@ -2577,6 +2602,7 @@ static void XV_Rx_HdmiRx_EnterStateFrlStart(XV_Rx *InstancePtr)
 
 	xdbg_xv_rx_print("%s: Hdmi Rx : Frl Start ...\r\n", __func__);
 }
+#endif
 
 static void XV_Rx_HdmiRx_StateTmdsConfig(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
@@ -2645,8 +2671,9 @@ static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr)
 	if (InstancePtr->RxClkSrcSelCb != NULL) {
 		InstancePtr->RxClkSrcSelCb(InstancePtr->RxClkSrcSelCallbackRef);
 	}
-
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	XV_HdmiRx1_SetFrlVClkVckeRatio(HdmiRxSs.HdmiRx1Ptr, 0);
+#endif
 }
 
 const char *XV_Rx_Hdmi_Rx_StatetoString(XV_Rx_Hdmi_State State)
@@ -2746,4 +2773,5 @@ const char *XV_Rx_Hdmi_Rx_EventtoString(XV_Rx_Hdmi_Events Event)
 
 	return eventNameString;
 }
-#endif
+
+#endif // XPAR_XV_HDMIRXSS1_NUM_INSTANCES
