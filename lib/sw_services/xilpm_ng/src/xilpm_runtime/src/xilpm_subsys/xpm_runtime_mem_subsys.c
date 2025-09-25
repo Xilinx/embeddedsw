@@ -33,6 +33,8 @@ static XStatus IsAddressInMemRegn(const XPm_Subsystem *Subsystem, u64 RegionAddr
 	const XPm_MemRegnDevice *MemRegnDevice = NULL;
 	const XPm_Requirement *Reqm = NULL;
 	u32 DeviceId;
+	volatile u8 RangeCheck = 0U;
+	volatile u8 RangeCheckTmp = 0U;
 
 	/* Iterate over all mem-regns for particular subsystem */
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
@@ -54,7 +56,9 @@ static XStatus IsAddressInMemRegn(const XPm_Subsystem *Subsystem, u64 RegionAddr
 		}
 		u64 EndAddress = StartAddress + MemSize - 1U;
 
-		if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
+		XSECURE_REDUNDANT_CALL(RangeCheck, RangeCheckTmp, IsAddrWithinRange,
+				RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress);
+		if ((1U == RangeCheck) && (1U == RangeCheckTmp)) {
 			/* Check whether PL Mem or not */
 			if (PL_MEM_REGN == Flags) {
 				*IsPLMem = 1U;
@@ -82,7 +86,7 @@ static XStatus IsAddressInMemRegn(const XPm_Subsystem *Subsystem, u64 RegionAddr
  *
  ****************************************************************************/
 XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem) {
-	XStatus Status = XPM_FAILURE;
+	volatile XStatus Status = XPM_FAILURE;
 	const XPm_Subsystem *Subsystem = NULL;
 
 	if (RegionSize < 1U) {
