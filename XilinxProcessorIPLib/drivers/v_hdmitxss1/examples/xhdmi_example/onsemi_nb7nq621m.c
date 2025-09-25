@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1143,35 +1143,21 @@ int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
 			if (IsFRL == 1) {
 				DeviceType = RX_R1_FRL;
 			} else {
-				if (LineRateMbps > 3400) {
-					DeviceType = RX_R1_TMDS_20;
-				} else {
-					DeviceType = RX_R1_TMDS_14;
-				}
+				DeviceType = RX_R1_TMDS_20;
 			}
 			break;
 		case 2:
 			if (IsFRL == 1) {
 				DeviceType = RX_R2_FRL;
 			} else {
-
-				if (LineRateMbps > 3400) {
-					DeviceType = RX_R2_TMDS_20;
-				} else {
-					DeviceType = RX_R2_TMDS_14;
-				}
+				DeviceType = RX_R2_TMDS_20;
 			}
 			break;
 		case 3:
 			if (IsFRL == 1) {
 				DeviceType = RX_R3_FRL;
 			} else {
-
-				if (LineRateMbps > 3400) {
-					DeviceType = RX_R3_TMDS_20;
-				} else {
-					DeviceType = RX_R3_TMDS_14;
-				}
+				DeviceType = RX_R3_TMDS_20;
 			}
 			break;
 
