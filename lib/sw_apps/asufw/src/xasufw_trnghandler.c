@@ -28,6 +28,7 @@
  *                     XAsufw_TrngGetRandomNumbers
  *       rmv  08/01/25 Added function call to set TRNG to default mode
  *       rmv  09/12/25 Moved all DRBG related functions and commands under #ifdef
+ *       rmv  09/22/25 Updated timeout value from 100ms to 40ms
  *
  * </pre>
  *
@@ -52,8 +53,8 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
-#define XASUFW_GET_RANDOM_BYTES_TIMEOUT_VAL	100000U /**< Maximum timeout in us waiting for TRNG
-								random number to be available in FIFO */
+#define XASUFW_GET_RANDOM_BYTES_TIMEOUT_VAL	40000U /**< Maximum loop count waiting for TRNG
+							random number to be available in FIFO */
 
 /************************************** Type Definitions *****************************************/
 
@@ -392,7 +393,7 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 	}
 
 	while (Bytes != 0U) {
-		/** Check if the random number is available in the TRNG FIFO for predefined time. */
+		/** Check if the random number is available in the TRNG FIFO for 40 ms. */
 		for (Loop = 0x0U; Loop < XASUFW_GET_RANDOM_BYTES_TIMEOUT_VAL; ++Loop) {
 			if (XTrng_IsRandomNumAvailable(XAsufw_Trng) == XASUFW_SUCCESS) {
 				break;
