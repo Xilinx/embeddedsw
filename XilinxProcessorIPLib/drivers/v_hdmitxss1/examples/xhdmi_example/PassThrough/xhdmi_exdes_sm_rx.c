@@ -1965,6 +1965,7 @@ static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMDOWN:
+		*NextStatePtr = XV_RX_HDMI_STATE_STREAMOFF;
 		break;
 
 	case XV_RX_HDMI_EVENT_PHYRESET:
@@ -1977,6 +1978,7 @@ static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 		break;
 
 	case XV_RX_HDMI_EVENT_TMDSCONFIG:
+		break;
 
 	default:
 		break;
@@ -2269,7 +2271,7 @@ static void XV_Rx_HdmiRx_StateStreamOff(XV_Rx *InstancePtr,
 		break;
 
 	case XV_RX_HDMI_EVENT_CONNECTED:
-
+		*NextStatePtr = XV_RX_HDMI_STATE_CONNECTED;
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMINIT:
