@@ -76,6 +76,7 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	u64 PubKeyAddr);
 s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRandBuf,
 			   u32 InputRandBufLen);
+s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashBufLen);
 
 /************************************ Variable Definitions ***************************************/
 

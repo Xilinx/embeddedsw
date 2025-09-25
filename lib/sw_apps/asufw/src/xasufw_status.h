@@ -602,6 +602,8 @@ enum {
 	XASUFW_AES_CONTEXT_RESTORE_FAIL, /**< 0x19AU - Error when AES context restore fails */
 	XASUFW_AES_INVALID_INTERNAL_STATE, /**< 0x19BU - Error when AES invalid internal state. */
 	XASUFW_SW_ERR_INIT_FAIL, /**< 0x19CU - Error when error management initialization fails. */
+	XASUFW_ECC_HASH_BUF_PAD_FAIL, /**< 0x19DU - Error when ECC hash buffer padding fails. */
+	XASUFW_RSA_ECC_HASH_BUF_PAD_FAIL, /**< 0x19EU - Error when RSA ECC hash buffer padding fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify

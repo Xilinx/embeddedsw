@@ -36,6 +36,7 @@
 #include "xasu_ecc.h"
 #include "xasu_def.h"
 #include "xasu_ecies_common.h"
+#include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -391,28 +392,29 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 {
 	s32 Status = XASU_INVALID_ARGUMENT;
 
+	/** Validate ECC params pointer. */
 	if (EccParamsPtr == NULL) {
 		goto END;
 	}
 
+	/** Validate input addresses provided. */
 	if ((EccParamsPtr->DigestAddr == 0U) || (EccParamsPtr->KeyAddr == 0U) ||
 		(EccParamsPtr->SignAddr == 0U)) {
 		goto END;
 	}
 
+	/** Validate curve information. */
 	if (XAsu_EccValidateCurveInfo(EccParamsPtr->CurveType, EccParamsPtr->KeyLen)!= XST_SUCCESS) {
 		goto END;
 	}
 
-	/**
-	 * TODO: For curves other than Edward curves, hash calculation of message logic
-	 * is to be supported. Will remove this logic once it is supported.
-	 */
+	/** Validate the digest length. */
 	if (((EccParamsPtr->CurveType != XASU_ECC_NIST_ED25519) &&
 	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED448) &&
 	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED25519_PH) &&
 	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED448_PH)) &&
-	    (EccParamsPtr->DigestLen != EccParamsPtr->KeyLen)) {
+	    ((EccParamsPtr->DigestLen == 0U) ||
+	    (EccParamsPtr->DigestLen > XASU_SHA_512_HASH_LEN))) {
 		goto END;
 	}
 
