@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -651,10 +651,7 @@ u32 DpSs_Main(void)
 
 #ifdef versal
 #if (VERSAL_FABRIC_8B10B == 1)
-        /* Unlocking the NPI space so that GT CH1 divider value
-         * can be programmed. This will generate a /20 clk
-         */
-	XDp_WriteReg(GT_QUAD_BASE,0xC,0xF9E8D7C6);
+        /* This will generate a /20 clk */
 	retval = XDp_ReadReg(GT_QUAD_BASE, CH1CLKDIV_REG);
 	retval &= ~DIV_MASK;
 	retval |= DIV;

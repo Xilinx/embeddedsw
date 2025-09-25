@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -518,8 +518,7 @@ u32 DpTxSs_Main(UINTPTR BaseAddress)
 	while(!((XGpio_DiscreteRead(&Gpio, 1)) & 0x1));
 
 #if (VERSAL_FABRIC_8B10B == 1)
-	//Unlocking NPI space to modify GT parameters
-	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
+        /* This will generate a /20 clk */
 	ReadVal = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
 	ReadVal &= ~DIV_MASK;
 	ReadVal |= DIV;
