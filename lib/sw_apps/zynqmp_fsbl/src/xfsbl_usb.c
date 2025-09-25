@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *                         destination data
 * 4.0   bvikram  06/09/21 Added support for delayed enumeration of DFU devices
 * 6.1   ng       07/13/23 Added SDT support
+* 6.2   ka       09/24/25 Increase USB control reply buffer size for FSBL
 *
 * </pre>
 *
@@ -48,7 +49,7 @@
 #define XFSBL_USB_DEVICE		XPAR_XUSBPSU_0_BASEADDR
 #endif
 
-#define XFSBL_REQ_REPLY_LEN		256U	/**< Max size of reply buffer. */
+#define XFSBL_REQ_REPLY_LEN		512U	/**< Max size of reply buffer. */
 #define XFSBL_DOWNLOAD_COMPLETE		3U
 
 
