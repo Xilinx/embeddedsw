@@ -43,6 +43,8 @@
 #include "xasu_eccinfo.h"
 #include "xfih.h"
 #include "xasufw_trnghandler.h"
+#include "xrsa_ecc.h"
+#include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
@@ -451,6 +453,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
+	u8 Hash[XASU_SHA_512_HASH_LEN];
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
@@ -465,11 +468,33 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
+	if ((HashBufLen == 0U) || (HashBufLen > XASU_SHA_512_HASH_LEN)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
 	CurveInfo = &XEcc_CurveInfoTable[CurveType];
 	InstancePtr->CurveInfo = CurveInfo;
 
-	if ((CurveLen != CurveInfo->CurveBytes) || (HashBufLen != CurveInfo->CurveBytes)) {
+	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_WRITE_DATA_FAIL;
+		goto END;
+	}
+
+	/**
+	 * If input hash length is less than curve length, pad the extra bytes with 0's.
+	 * If input hash length is greater than curve length, take first curve length bytes as hash.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccPrepareHashForSignature(Hash, CurveLen, HashBufLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_HASH_BUF_PAD_FAIL;
 		goto END;
 	}
 
@@ -490,9 +515,8 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, HashAddr,
-			(u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_HASH_OFFSET),
-			HashBufLen, 0U);
+	Status = Xil_SMemCpy((u8*)(InstancePtr->BaseAddress + XECC_MEM_HASH_OFFSET),
+			CurveLen, Hash, CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
 		goto END;
@@ -597,6 +621,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
+	u8 Hash[XASU_SHA_512_HASH_LEN];
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
@@ -610,11 +635,33 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		goto END;
 	}
 
+	if ((HashBufLen == 0U) || (HashBufLen > XASU_SHA_512_HASH_LEN)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
 	CurveInfo = &XEcc_CurveInfoTable[CurveType];
 	InstancePtr->CurveInfo = CurveInfo;
 
-	if ((CurveLen != CurveInfo->CurveBytes) || (HashBufLen != CurveInfo->CurveBytes)) {
+	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_WRITE_DATA_FAIL;
+		goto END;
+	}
+
+	/**
+	 * If input hash length is less than curve length, pad the extra bytes with 0's.
+	 * If input hash length is greater than curve length, take first curve length bytes as hash.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccPrepareHashForSignature(Hash, CurveLen, HashBufLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_HASH_BUF_PAD_FAIL;
 		goto END;
 	}
 
@@ -626,6 +673,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy signature, hash and public key to respective registers using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, SignAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_SIGN_R_OFFSET),
 			       CurveLen, 0U);
@@ -644,9 +692,8 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, HashAddr,
-			       (u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_HASH_OFFSET),
-			       HashBufLen, 0U);
+	Status = Xil_SMemCpy((u8*)(InstancePtr->BaseAddress + XECC_MEM_HASH_OFFSET),
+			CurveLen, Hash, CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
 		goto END;
@@ -718,13 +765,11 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Signature[XASU_ECC_P384_SIZE_IN_BYTES + XASU_ECC_P384_SIZE_IN_BYTES];
 	u8 EphemeralKey[XASU_ECC_P384_SIZE_IN_BYTES];
-	const u8 MsgPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
+	const u8 Hash[XASU_ECC_P256_SIZE_IN_BYTES] = {
 		0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
 		0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
 		0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
-		0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U,
-		0xF8U, 0x2BU, 0x72U, 0xD3U, 0xA4U, 0xC2U, 0x8EU, 0x10U,
-		0xD8U, 0x25U, 0x5DU, 0x21U, 0x33U, 0xD5U, 0xCAU, 0x38U
+		0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
 	};
 
 	/** Validate input parameters. */
@@ -743,7 +788,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	/** Generate signature using the provided private key and curve type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(InstancePtr, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
-			EphemeralKey, (u64)(UINTPTR)MsgPwctEcc, CurveLen,
+			EphemeralKey, (u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES,
 			(u64)(UINTPTR)Signature);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateBufStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL);
@@ -753,8 +798,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	/** Verify the generated signature using the provided public key and curve type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_VerifySignature(InstancePtr, DmaPtr, CurveType, CurveLen, PubKeyAddr,
-			(u64)(UINTPTR)MsgPwctEcc, CurveLen,
-			(u64)(UINTPTR)Signature);
+			(u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)Signature);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
 		Status = XAsufw_UpdateBufStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL);
 	}
