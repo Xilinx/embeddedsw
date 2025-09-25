@@ -114,9 +114,7 @@ extern "C" {
 #include "xdebug.h"
 #include "xvidc.h"
 #include "xv_hdmic.h"
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #include "xv_hdmirx1_frl.h"
-#endif
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
@@ -727,8 +725,6 @@ typedef struct {
 *		void XV_HdmiRx1_SetScrambler(XV_HdmiRx1 *InstancePtr, u8 SetClr)
 *
 ******************************************************************************/
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
-/* Define XV_HdmiRx1_SetScrambler with FRL functionality when FRL is enabled */
 #define XV_HdmiRx1_SetScrambler(InstancePtr, SetClr) \
 { \
 	if (SetClr) { \
@@ -747,24 +743,6 @@ typedef struct {
 				    XV_HDMIRX1_SCDCFIELD_SCRAMBLER_STAT, \
 				    SetClr); \
 }
-#else
-/* Define XV_HdmiRx1_SetScrambler without FRL functionality when in TMDS-only mode */
-#define XV_HdmiRx1_SetScrambler(InstancePtr, SetClr) \
-{ \
-	if (SetClr) { \
-		XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-				    (XV_HDMIRX1_PIO_OUT_SET_OFFSET), \
-				    (XV_HDMIRX1_PIO_OUT_SCRM_MASK)); \
-		(InstancePtr)->Stream.IsScrambled = (TRUE); \
-	} \
-	else { \
-		XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-				    (XV_HDMIRX1_PIO_OUT_CLR_OFFSET), \
-				    (XV_HDMIRX1_PIO_OUT_SCRM_MASK)); \
-		(InstancePtr)->Stream.IsScrambled = (FALSE); \
-	} \
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -1660,7 +1638,6 @@ typedef struct {
 *		void XV_HdmiRx1_DdcScdcClear(XV_HdmiRx1 *InstancePtr)
 *
 ******************************************************************************/
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #define XV_HdmiRx1_DdcScdcClear(InstancePtr) \
 { \
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
@@ -1675,18 +1652,7 @@ typedef struct {
 	XV_HdmiRx1_FrlDdcWriteField(InstancePtr,XV_HDMIRX1_SCDCFIELD_SINK_VER, \
 				    1);\
 }
-#else
-#define XV_HdmiRx1_DdcScdcClear(InstancePtr) \
-{ \
-	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-			    (XV_HDMIRX1_DDC_CTRL_SET_OFFSET), \
-			    (XV_HDMIRX1_DDC_CTRL_SCDC_CLR_MASK)); \
-	usleep(50);\
-	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-			    (XV_HDMIRX1_DDC_CTRL_CLR_OFFSET), \
-			    (XV_HDMIRX1_DDC_CTRL_SCDC_CLR_MASK)); \
-}
-#endif
+
 /*****************************************************************************/
 /**
 *
@@ -2155,11 +2121,6 @@ void XV_HdmiRx1_FrlLtpDetectionDisable(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_SetFrlLtpThreshold(XV_HdmiRx1 *InstancePtr, u8 Threshold);
 int XV_HdmiRx1_RetrieveFrlRateLanes(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_SetFrlRateWrEvent_En(XV_HdmiRx1 *InstancePtr);
-int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
-				XV_HdmiRx1_FrlScdcFieldType Field,
-				u8 Value);
-u32 XV_HdmiRx1_FrlDdcReadField(XV_HdmiRx1 *InstancePtr,
-				XV_HdmiRx1_FrlScdcFieldType Field);
 void XV_HdmiRx1_SetFrlFltNoTimeout(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_ClearFrlFltNoTimeout(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_SetFrl10MicroSecondsTimer(XV_HdmiRx1 *InstancePtr);
@@ -2167,16 +2128,21 @@ u32 XV_HdmiRx1_GetFrlTotalPixRatio(XV_HdmiRx1 *InstancePtr);
 u32 XV_HdmiRx1_GetFrlActivePixRatio(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_RestartFrlLt(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_FrlFltUpdate(XV_HdmiRx1 *InstancePtr, u8 Flag);
-void XV_HdmiRx1_FrlScdcInit(XV_HdmiRx1 *InstancePtr);
+
 #endif
+
+u32 XV_HdmiRx1_FrlDdcReadField(XV_HdmiRx1 *InstancePtr,
+				XV_HdmiRx1_FrlScdcFieldType Field);
+int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
+				XV_HdmiRx1_FrlScdcFieldType Field,
+				u8 Value);
+void XV_HdmiRx1_FrlScdcInit(XV_HdmiRx1 *InstancePtr);
 
 /* Log specific functions */
 void XV_HdmiRx1_Info(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_RegisterDebug(XV_HdmiRx1 *InstancePtr);
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 void XV_HdmiRx1_DdcRegDump(XV_HdmiRx1 *InstancePtr);
-#endif
 
 /* Self test function in xv_hdmirx1_selftest.c */
 int XV_HdmiRx1_SelfTest(XV_HdmiRx1 *InstancePtr);

@@ -650,19 +650,6 @@ extern "C" {
                                                        * mask */
 
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
-#define XV_HDMIRX1_FRL_SCDC_WR_MASK             (1<<16) /**< FRL SCDC Write
-                                                       * mask */
-#define XV_HDMIRX1_FRL_SCDC_RD_MASK             (1<<17) /**< FRL SCDC Read
-                                                       * mask */
-#define XV_HDMIRX1_FRL_SCDC_RDY_MASK            (1<<18) /**< FRL SCDC Ready
-                                                       * mask */
-/* FRL Error Count register masks */
-#define XV_HDMIRX1_FRL_SCDC_WR_MASK             (1<<16) /**< FRL SCDC Write
-                                                       * mask */
-#define XV_HDMIRX1_FRL_SCDC_RD_MASK             (1<<17) /**< FRL SCDC Read
-                                                       * mask */
-#define XV_HDMIRX1_FRL_SCDC_RDY_MASK            (1<<18) /**< FRL SCDC Ready
-                                                       * mask */
 
 #define XV_HDMIRX1_FRL_RATIO_TOT_MASK           0xFFFFFF
 #define XV_HDMIRX1_FRL_RATIO_ACT_MASK           0xFFFFFF
@@ -673,6 +660,19 @@ extern "C" {
 #define XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_SHIFT  0
 #endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
+#define XV_HDMIRX1_FRL_SCDC_WR_MASK             (1<<16) /**< FRL SCDC Write
+                                                       * mask */
+#define XV_HDMIRX1_FRL_SCDC_RD_MASK             (1<<17) /**< FRL SCDC Read
+                                                       * mask */
+/* FRL Error Count register masks */
+#define XV_HDMIRX1_FRL_SCDC_WR_MASK             (1<<16) /**< FRL SCDC Write
+                                                       * mask */
+#define XV_HDMIRX1_FRL_SCDC_RD_MASK             (1<<17) /**< FRL SCDC Read
+                                                       * mask */
+#define XV_HDMIRX1_FRL_SCDC_RDY_MASK            (1<<18) /**< FRL SCDC Ready
+                                                       * mask */
+#define XV_HDMIRX1_FRL_SCDC_RDY_MASK            (1<<18) /**< FRL SCDC Ready
+                                                       * mask */
 /* Peripheral ID and General shift values.*/
 #define XV_HDMIRX1_SHIFT_16      16  /**< 16 shift value */
 #define XV_HDMIRX1_MASK_16       0xFFFF  /**< 16 bit mask value */
