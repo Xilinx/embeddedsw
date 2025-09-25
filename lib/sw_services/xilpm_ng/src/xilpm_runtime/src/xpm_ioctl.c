@@ -783,7 +783,8 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	      const u32 Arg1, const u32 Arg2, const u32 Arg3,
 	      u32 *const Response, const u32 CmdType)
 {
-	XStatus Status = XPM_ERR_IOCTL;
+	volatile XStatus Status = XPM_ERR_IOCTL;
+	volatile pm_ioctl_id IoctlIdTmp = IoctlId;
 	XPm_Requirement *Reqm;
 
 	Status = XPm_ValidateDeviceId(IoctlId, DeviceId);
@@ -818,11 +819,21 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPmAie_Operations(Arg1, Arg2, Arg3);
 		break;
 	case IOCTL_READ_REG:
+		if (IoctlIdTmp != IOCTL_READ_REG) {
+			/* Fault detected - return error */
+			Status = XPM_ERR_IOCTL;
+			goto done;
+		}
 		Status = XPmAccess_ReadReg(SubsystemId, DeviceId, IoctlId,
 					   Arg1, Arg2,
 					   Response, CmdType);
 		break;
 	case IOCTL_MASK_WRITE_REG:
+		if (IoctlIdTmp != IOCTL_MASK_WRITE_REG) {
+			/* Fault detected - return error */
+			Status = XPM_ERR_IOCTL;
+			goto done;
+		}
 		Status = XPmAccess_MaskWriteReg(SubsystemId, DeviceId, IoctlId,
 						Arg1, Arg2, Arg3,
 						CmdType);
