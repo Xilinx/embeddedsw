@@ -91,31 +91,6 @@ void XV_HdmiRxSs1_FrlStartCallback(void *CallbackRef)
 
 /*****************************************************************************/
 /**
-*
-* This function is called when during FRL link training, it is decided to
-* fallback to the legacy HDMI TMDS mode.
-*
-* @param    CallbackRef is a callback reference passed in by the upper
-* 	    layer when setting the callback functions, and passed back to
-* 	    the upper layer when the callback is invoked
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void XV_HdmiRxSs1_TmdsConfigCallback(void *CallbackRef)
-{
-	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
-
-	/* Check if user callback has been registered */
-	if (HdmiRxSs1Ptr->TmdsConfigCallback) {
-	  HdmiRxSs1Ptr->TmdsConfigCallback(HdmiRxSs1Ptr->TmdsConfigRef);
-	}
-}
-
-/*****************************************************************************/
-/**
 * Initiates FRL (Fixed Rate Link) link retraining on the HDMI RX subsystem.
 * This function calls the lower-level FRL link retrain function using the HDMI RX1
 * instance pointer from the subsystem. It is typically used to reinitialize the FRL
@@ -215,3 +190,25 @@ void XV_HdmiRxSs1_ClearFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr)
 }
 
 #endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
+/*****************************************************************************/
+/**
+*
+* This function is called when during FRL link training, it is decided to
+* fallback to the legacy HDMI TMDS mode.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_TmdsConfigCallback(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+	/* Check if user callback has been registered */
+	if (HdmiRxSs1Ptr->TmdsConfigCallback) {
+	  HdmiRxSs1Ptr->TmdsConfigCallback(HdmiRxSs1Ptr->TmdsConfigRef);
+	}
+}

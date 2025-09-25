@@ -411,6 +411,11 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
                           (void *)XV_HdmiRxSs1_SkewLockErrorCallback,
                           (void *)InstancePtr);
 
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			  XV_HDMIRX1_HANDLER_TMDS_CONFIG,
+			  (void *)XV_HdmiRxSs1_TmdsConfigCallback,
+			  (void *)InstancePtr);
+
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			  XV_HDMIRX1_HANDLER_FRL_CONFIG,
@@ -420,11 +425,6 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			  XV_HDMIRX1_HANDLER_FRL_START,
 			  (void *)XV_HdmiRxSs1_FrlStartCallback,
-			  (void *)InstancePtr);
-
-    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
-			  XV_HDMIRX1_HANDLER_TMDS_CONFIG,
-			  (void *)XV_HdmiRxSs1_TmdsConfigCallback,
 			  (void *)InstancePtr);
 
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
@@ -472,7 +472,7 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			   XV_HDMIRX1_HANDLER_DYN_HDR,
 			  (void *)XV_HdmiRxSs1_DynHdrEvtCallback,
 			  (void *)InstancePtr);
-
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			   XV_HDMIRX1_HANDLER_DSC_STRM_CH,
 			  (void *)XV_HdmiRxSs1_DSCStreamChngCallback,
@@ -487,6 +487,7 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			   XV_HDMIRX1_HANDLER_DSC_STS_UPDT,
 			  (void *)XV_HdmiRxSs1_DSCStatusUpdateCallback,
 			  (void *)InstancePtr);
+#endif
   }
 
   return(XST_SUCCESS);
@@ -3206,6 +3207,7 @@ u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr)
 	return XV_HdmiRx1_DSC_IsEnableStream(InstancePtr->HdmiRx1Ptr);
 }
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -3319,3 +3321,4 @@ static void XV_HdmiRxSs1_DSCStatusUpdateCallback(void *CallbackRef)
 	if (HdmiRxSs1Ptr->DSCStsUpdtEvtCallback)
 		HdmiRxSs1Ptr->DSCStsUpdtEvtCallback(HdmiRxSs1Ptr->DSCStsUpdtEvtRef);
 }
+#endif
