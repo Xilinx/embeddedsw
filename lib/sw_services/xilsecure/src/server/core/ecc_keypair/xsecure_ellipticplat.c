@@ -30,6 +30,7 @@
 *       kpt  01/09/24 Updated option for non-blocking trng reseed
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
+*       tvp  05/14/25 XSecure_UpdateTrngCryptoStatus is not applicable for Versal_2vp
 *
 * </pre>
 *
@@ -52,6 +53,7 @@
 #include "xil_sutil.h"
 #include "xsecure_init.h"
 #include "xsecure_cryptochk.h"
+#include "Ecdsa.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN		(60U) /**< Length of xilsecure ecc true random number generator*/
@@ -148,7 +150,9 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 
 END:
 	ClearStatus = XSecure_Uninstantiate(TrngInstance);
+#ifndef VERSAL_2VP
 	XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
+#endif
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
 	ClearStatus |= Xil_SecureZeroize(RandBuf,

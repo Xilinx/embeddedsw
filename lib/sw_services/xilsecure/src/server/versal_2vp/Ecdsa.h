@@ -148,5 +148,10 @@ externC int Ecdsa_GenerateSign(EcdsaCrvInfo* CrvInfo, u8* Hash, u32 HashLen, con
 		const u8* K, EcdsaSign* Sign);
 
 externC int Ecdsa_GeneratePublicKey(EcdsaCrvInfo* CrvInfo, const u8* D, EcdsaKey* Key);
+
+externC s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo* CrvInfo, const u8* In, u8* Out);
+
+externC int Ecdsa_CDH_Q(EcdsaCrvInfo* CrvInfo, const unsigned char* Secret, const EcdsaKey* Public,
+	unsigned char* Result);
 /** @} */
 #endif
