@@ -55,6 +55,30 @@ typedef int (*XPlmi_CmdHandler)(XPlmi_Cmd *Cmd);
 /* Max number of processor base addresses */
 #define MAX_BASEADDR_LEN	(3U)
 
+/* Args positions for SetDevAttr handler*/
+#define ARG_IDX_DEVATTR_DEVICE_ID	0U
+#define ARG_IDX_DEVATTR_SEC_BASEADDR	6U
+#define ARG_IDX_DEVATTR_SEC_0_OFFSET	7U
+#define ARG_IDX_DEVATTR_SEC_0_MASK	7U
+#define ARG_IDX_DEVATTR_SEC_1_OFFSET	8U
+#define ARG_IDX_DEVATTR_SEC_1_MASK	8U
+#define DEVATTR_ARG_MIN_LEN		9U
+#define DEVATTR_ARG_MAX_LEN		12U
+#define DEVATTR_SEC_OFFSET		16U
+#define DEVATTR_SEC_MASK		0xFFFFU
+
+#define ARG_IDX_DEVATTR_COHVIR_BASEADDR	9U
+
+#define ARG_IDX_DEVATTR_COH_OFFSET	10U
+#define ARG_IDX_DEVATTR_COH_MASK	10U
+#define DEVATTR_COH_OFFSET		16U
+#define DEVATTR_COH_MASK		0xFFFFU
+
+#define ARG_IDX_DEVATTR_VIR_OFFSET	11U
+#define ARG_IDX_DEVATTR_VIR_MASK	11U
+#define DEVATTR_VIR_OFFSET		16U
+#define DEVATTR_VIR_MASK		0xFFFFU
+
 XStatus XPm_Init(void (*const RequestCb)(u32 SubsystemId, XPmApiCbId_t EventId, u32 *Payload),
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
