@@ -16,4 +16,8 @@ collect (PROJECT_LIB_SOURCES xocp_keymgmt.c)
 
 if(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM"))
 	add_subdirectory(versal_2ve_2vm)
+elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+	add_subdirectory(versal_net)
+elseif("${CMAKE_MACHINE}" STREQUAL "Versal_2vp")
+	add_subdirectory(versal_2vp)
 endif()

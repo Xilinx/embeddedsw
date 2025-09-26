@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2022-2025, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -10,6 +10,7 @@
 # 1.0   vns  06/27/22 Initial Release
 # 1.1   am   12/21/22 Changed user configurable parameter names
 #       am   01/10/23 Added xocp_cache_disable configurable parameter
+#       tvp  05/16/25 Refactor platform specific code
 #
 ##############################################################################
 
@@ -25,6 +26,7 @@ proc ocp_drc {libhandle} {
 	set server "src/server"
 	set client "src/client/"
 	set common "src/common"
+	set versal_net_server "$server/versal_net"
 
 	#For Versal devices PLM BSP contains dummy OCP library
 	if { $proc_type == "psv_pmc" } {
@@ -48,6 +50,9 @@ proc ocp_drc {libhandle} {
 
 	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
 		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
+			file copy -force $entry "./src"
+		}
+		foreach entry [glob -nocomplain -types f [file join "$versal_net_server" *]] {
 			file copy -force $entry "./src"
 		}
 	} elseif { $proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||

@@ -101,7 +101,10 @@ cp $BSP_DIR/libsrc/xilnvm/src/*.h $BSP_DIR/include/
 mkdir -p $BSP_DIR/libsrc/xilocp/src
 cp -r $SERVICES_DIR/xilocp/src/Makefile $BSP_DIR/libsrc/xilocp/src/
 cp -r $SERVICES_DIR/xilocp/src/common/* $BSP_DIR/libsrc/xilocp/src/
-cp -r $SERVICES_DIR/xilocp/src/server/* $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/*.c $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/*.h $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/versal_net/*.c $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/versal_net/*.h $BSP_DIR/libsrc/xilocp/src/
 
 mkdir -p $BSP_DIR/libsrc/xilcert/src
 cp -r $SERVICES_DIR/xilcert/src/Makefile $BSP_DIR/libsrc/xilcert/src/

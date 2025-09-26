@@ -43,6 +43,7 @@
 *       har  09/13/25 Fix bug in the logic to modify aperture values in XOcp_GenerateDmeResponse()
 *       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
+*       tvp  05/16/25 Use SHA3 for Versal_2vp
 *
 *
 * </pre>
@@ -65,7 +66,7 @@
 #include "xplmi_plat.h"
 #include "xplmi_dma.h"
 #include "xil_util.h"
-#include "xsecure_sha384.h"
+#include "xocp_sha.h"
 #include "xplmi_status.h"
 #include "xsecure_init.h"
 #include "xsecure_trng.h"
@@ -73,6 +74,7 @@
 #include "xplmi_err.h"
 #include "xplmi_tamper.h"
 #include "xsecure_plat_kat.h"
+#include "xsecure_kat.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_SHA3_LEN_IN_BYTES		(48U) /**< Length of Sha3 hash in bytes */
@@ -887,7 +889,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 			}
 			XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
 		}
-		Status = XSecure_Sha384Digest((u8 *)(UINTPTR)DevIkPubKey,
+		Status = XOcp_ShaDigest((u8 *)(UINTPTR)DevIkPubKey,
 				XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES, Sha3Hash);
 		if (Status != XST_SUCCESS) {
 			goto RET;
@@ -1769,20 +1771,20 @@ static int XOcp_CalculateSwPcr(u32 PcrNum, u8 *ExtendedHash)
 		}
 
 		/* Extend current Data hash with the previous digest PCR measurement */
-		XSecure_Sha384Start();
+		XOcp_ShaStart();
 
-		Status = XSecure_Sha384Update(ExtendedHash, XOCP_PCR_HASH_SIZE_IN_BYTES);
+		Status = XOcp_ShaUpdate((u8 *)(UINTPTR)ExtendedHash, XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XSecure_Sha384Update((u8 *)(UINTPTR)&SwPcr->Data[DigestIdx + Index].Measurement.HashOfData,
+		Status = XOcp_ShaUpdate((u8 *)(UINTPTR)&SwPcr->Data[DigestIdx + Index].Measurement.HashOfData,
 					XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		/* Push the calculated hash to same buffer */
-		Status = XSecure_Sha384Finish((XSecure_Sha2Hash *)(UINTPTR)ExtendedHash);
+		Status = XOcp_ShaFinish((u8 *)(UINTPTR)ExtendedHash);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1840,28 +1842,28 @@ static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash)
 	XOcp_SwPcrStore *SwPcr = XOcp_GetSwPcrInstance();
 
 	/* Start SHA2 engine */
-	XSecure_Sha384Start();
+	XOcp_ShaStart();
 
 	/* Update EventId to SHA2 */
-	Status = XSecure_Sha384Update((u8 *)(UINTPTR)&SwPcr->Data[DigestIdx].Measurement.EventId,
+	Status = XOcp_ShaUpdate((u8 *)(UINTPTR)&SwPcr->Data[DigestIdx].Measurement.EventId,
 			XOCP_EVENT_ID_NUM_OF_BYTES);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 	/* Update Version to SHA2 */
-	Status = XSecure_Sha384Update((u8 *)(UINTPTR)&SwPcr->Data[DigestIdx].Measurement.Version,
+	Status = XOcp_ShaUpdate((u8 *)(UINTPTR)&SwPcr->Data[DigestIdx].Measurement.Version,
 			XOCP_VERSION_NUM_OF_BYTES);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 	/* Update Data to SHA2 */
 	if (SwPcr->Data[DigestIdx].Measurement.DataLength > XOCP_PCR_HASH_SIZE_IN_BYTES) {
-		Status = XSecure_Sha384Update(
+		Status = XOcp_ShaUpdate(
 				(u8 *)(UINTPTR)SwPcr->Data[DigestIdx].DataAddr,
 				SwPcr->Data[DigestIdx].Measurement.DataLength);
 
 	} else {
-		Status = XSecure_Sha384Update(
+		Status = XOcp_ShaUpdate(
 				(u8 *)(UINTPTR)&SwPcr->Data[DigestIdx].DataToExtend,
 				SwPcr->Data[DigestIdx].Measurement.DataLength);
 	}
@@ -1870,7 +1872,7 @@ static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash)
 	}
 
 	/* Calculate the SHA2 hash */
-	Status = XSecure_Sha384Finish((XSecure_Sha2Hash *)(UINTPTR)Hash);
+	Status = XOcp_ShaFinish((u8 *)(UINTPTR)Hash);
 END:
 	return Status;
 }
@@ -1907,8 +1909,7 @@ static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum)
 			PrevIdx = CurrIdx;
 		}
 
-		/* Start the Sha2-384 */
-		XSecure_Sha384Start();
+		XOcp_ShaStart();
 
 		/**
 		 * For first measurement calculation for a PCR, the N-1 measurement shall be zeros.
@@ -1920,14 +1921,14 @@ static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum)
 			}
 		}
 		/* Extend previous digest PCR measurement */
-		Status = XSecure_Sha384Update(
+		Status = XOcp_ShaUpdate(
 			(u8 *)(UINTPTR)&SwPcr->Data[PrevIdx].Measurement.MeasuredData,
 			XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
 		/* Extend DataHash calculated of the current digest */
-		Status = XSecure_Sha384Update(
+		Status = XOcp_ShaUpdate(
 				(u8 *)(UINTPTR)&SwPcr->Data[CurrIdx].Measurement.HashOfData,
 				XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if(Status != XST_SUCCESS) {
@@ -1935,8 +1936,8 @@ static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum)
 		}
 
 		/* Calculate and get the SW PCR measurement */
-		Status = XSecure_Sha384Finish(
-			(XSecure_Sha2Hash *)(UINTPTR)&SwPcr->Data[CurrIdx].Measurement.MeasuredData);
+		Status = XOcp_ShaFinish(
+			(u8 *)(UINTPTR)&SwPcr->Data[CurrIdx].Measurement.MeasuredData);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
