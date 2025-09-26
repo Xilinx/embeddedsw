@@ -44,6 +44,7 @@
 *       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *       tvp  05/16/25 Use SHA3 for Versal_2vp
+*       tvp  05/16/25 Don't export OCP DS for Versal_2vp
 *
 *
 * </pre>
@@ -2073,9 +2074,11 @@ static XOcp_SwPcrStore *XOcp_GetSwPcrInstance(void)
 {
 	static XOcp_SwPcrStore SwPcr __attribute__ ((aligned(4U))) = {0U};
 
+#ifndef VERSAL_2VP
 	EXPORT_OCP_DS(SwPcr, XOCP_SWPCR_STORE_DS_ID,
 		XOCP_SWPCR_STORE_VERSION, XOCP_SWPCR_STORE_LCVERSION,
 		sizeof(SwPcr), (u32)(UINTPTR)&SwPcr);
+#endif
 
 	return &SwPcr;
 }
@@ -2094,9 +2097,11 @@ static XOcp_SwPcrConfig *XOcp_GetSwPcrConfigInstance(void)
 {
 	static XOcp_SwPcrConfig SwPcrConfig __attribute__ ((aligned(4U))) = {0U};
 
+#ifndef VERSAL_2VP
 	EXPORT_OCP_DS(SwPcrConfig, XOCP_SWPCR_CONFIG_DS_ID,
 		XOCP_SWPCR_CONFIG_VERSION, XOCP_SWPCR_CONFIG_LCVERSION,
 		sizeof(SwPcrConfig), (u32)(UINTPTR)&SwPcrConfig);
+#endif
 
 	return &SwPcrConfig;
 }
