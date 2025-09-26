@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2023-2025, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -9,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   har  01/11/23 Initial Release
 #       har  01/20/23 Fixed XSCT build issue
+#       tvp  05/16/25 Refactor platform specific code
 #
 ##############################################################################
 
@@ -21,6 +22,7 @@ proc cert_drc {libhandle} {
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 	set src "src"
+	set versal_net_server "$src/versal_net"
 
 	#For Versal devices PLM BSP contains dummy OCP library
 	if { $proc_type == "psv_pmc" } {
@@ -28,6 +30,12 @@ proc cert_drc {libhandle} {
 			file delete -force $entry
 		}
 		return;
+	}
+
+	if {$proc_type == "psx_pmc" || $proc_type == "psxl_pmc"} {
+		foreach entry [glob -nocomplain -types f [file join "$versal_net_server" *]] {
+			file copy -force $entry "./src"
+		}
 	}
 
 	if {$proc_type != "psxl_pmc" && $proc_type != "psx_pmc"} {
