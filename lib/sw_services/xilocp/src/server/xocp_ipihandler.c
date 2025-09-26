@@ -28,6 +28,7 @@
 *       har  06/11/24 Add support to handle IPI request to hash and attest with
 *                     key wrap DevAk
 *       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
+*       tvp  05/15/25 Disable attestation with unwrapped key for Versal_2vp
 *
 * </pre>
 *
@@ -53,7 +54,7 @@
 #include "xsecure_defs.h"
 #include "xsecure_ellipticplat.h"
 #include "xsecure_elliptic.h"
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM)
+#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
 #include "xsecure_plat_rsa.h"
 #endif
 
@@ -73,7 +74,7 @@ static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStruct
 #ifdef PLM_OCP_KEY_MNGMT
 static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow, u32 GetX509CertAddrHigh, u32 SubSystemID);
 static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow, u32 AttestWithDevAkHigh, u32 SubSystemID);
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM)
+#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
 static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAddrHigh, u32 AttnPloadSize,
 	u32 PubKeyOffset, u32 SignatureAddrLow, u32 SignatureAddrHigh, u32 SubSystemID);
 #endif
@@ -135,7 +136,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_GenSharedSecretWithDevAkIpi(Cmd->SubsystemId, Pload[0], Pload[1],
 				Pload[2], Pload[3]);
 			break;
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM)
+#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
 		case XOCP_API(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK):
 			Status = XOcp_AttestWithKeyWrapDevAkIpi(Pload[0], Pload[1],
 				Pload[2], Pload[3], Pload[4], Pload[5], Cmd->SubsystemId);
@@ -386,7 +387,7 @@ static int XOcp_GenSharedSecretWithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 	return Status;
 }
 
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM)
+#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
 /*****************************************************************************/
 /**
  * @brief	This function handler calls XOcp_AttestWithKeyWrapDevAk server API to
