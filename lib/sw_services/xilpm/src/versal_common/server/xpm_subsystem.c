@@ -552,6 +552,7 @@ static u32 ProcMemDevSelect(u32 DeviceId)
 		Use = 1U;
 		break;
 	default:
+		Use = 0U;
 		break;
 	}
 
@@ -569,6 +570,7 @@ static u32 PeriphSelect(u32 DeviceId)
 		Use = 1U;
 		break;
 	default:
+		Use = 0U;
 		break;
 	}
 
@@ -619,7 +621,8 @@ static u32 IsSelected(u32 Action, u32 DeviceId)
  *  Only when both the above activation phases are done, subsystem is considered
  *  to be activated. Either one of these actions do not activate the subsystem
  *  by itself.
-/****************************************************************************/
+ *
+ *****************************************************************************/
 XStatus XPmSubsystem_Configure(u32 SubsystemId, u32 Action)
 {
 	XStatus Status = XST_FAILURE;
