@@ -21,6 +21,7 @@ supported_processors:
   - cortexa78
   - psx_cortexr52
   - cortexr52
+  - psv_pmc
 
 supported_os:
   - standalone
