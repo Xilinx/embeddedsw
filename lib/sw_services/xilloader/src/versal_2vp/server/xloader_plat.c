@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       tvp  07/07/25 Initialize TRNG driver, applicable only if PLM_OCP is defined
 *
 * </pre>
 *
@@ -40,6 +41,9 @@
 #include "xplmi_err.h"
 #include "xloader_ddr.h"
 #include "xilpdi.h"
+#ifdef PLM_OCP
+#include "xsecure_trng.h"
+#endif
 
 /************************************ Constant Definitions ****************************************/
 #define XLOADER_TCM_0			(0U) /**< TCM 0 */
@@ -1120,3 +1124,64 @@ void XLoader_ShaInstance1Reset(void)
 {
 	/** Not Applicable for Versal_2vp */
 }
+
+#ifdef PLM_OCP
+/**************************************************************************************************/
+/**
+ * @brief	This function initializes the Trng instance.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_TRNG_INIT_FAIL if TRNG initialization fails.
+ *
+ **************************************************************************************************/
+static int XLoader_InitTrngInstance(void)
+{
+	int Status = XST_FAILURE;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	XTrngpsv_Config *CfgPtr = NULL;
+
+	CfgPtr = XTrngpsv_LookupConfig(0);
+	if (CfgPtr == NULL) {
+		Status = XLOADER_TRNG_INIT_FAIL;
+		goto END;
+	}
+
+	Status = XTrngpsv_CfgInitialize(TrngInstance, CfgPtr, CfgPtr->BaseAddress);
+END:
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function initializes the loader with platform specific
+ * 		initializations.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ **************************************************************************************************/
+int XLoader_PlatInit(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XLoader_InitTrngInstance();
+
+	return Status;
+}
+#else
+/**************************************************************************************************/
+/**
+ * @brief	This function initializes the loader with platform specific
+ * 		initializations.
+ *
+ * @return
+ * 		- XST_SUCCESS always.
+ *
+ **************************************************************************************************/
+int XLoader_PlatInit(void)
+{
+	return XST_SUCCESS;
+}
+#endif /* PLM_OCP */

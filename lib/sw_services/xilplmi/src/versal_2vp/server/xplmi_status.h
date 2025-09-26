@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       tvp  07/07/25 Added XLOADER_TRNG_INIT_FAIL error code for TRNG initialization
 *
 * </pre>
 *
@@ -566,6 +567,7 @@ typedef enum {
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,	/**< 0x6A0 Additional PPks are not
 								  enabled*/
+	XLOADER_TRNG_INIT_FAIL,		/**< 0x6A1 Error when TRNG driver look up or cfg fails */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,	/**< 0x2XXX, CDO command handler has failed. [12:8] contains
 					  Module ID, [7:0] contains API ID. Refer Minor code for

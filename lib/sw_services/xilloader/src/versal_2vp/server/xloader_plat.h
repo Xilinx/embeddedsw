@@ -16,6 +16,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
 *       pre  08/27/2025 Added prototype for XLoader_MeasureRomAndPlm function
+*       tvp  07/07/25 Removed empty XLoader_PlatInit from header moved to source file
 *
 * </pre>
 *
@@ -334,20 +335,6 @@ static inline u8 XLoader_IsPdiSrcSD0(u8 PdiSrc)
 
 /**************************************************************************************************/
 /**
- * @brief	This function initializes the loader with platform specific
- * 		initializations.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-static inline int XLoader_PlatInit(void)
-{
-	return XST_SUCCESS;
-}
-
-/**************************************************************************************************/
-/**
  * @brief	This function measures the PDI's meta header data by calculating
  *		the hash using SHA3.
  *
@@ -496,6 +483,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
+int XLoader_PlatInit(void);
 
 
 /************************************ Variable Definitions ****************************************/
