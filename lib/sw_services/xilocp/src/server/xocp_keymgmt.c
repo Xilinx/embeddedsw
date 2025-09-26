@@ -39,6 +39,7 @@
 *       tvp  07/30/25 Limit number of DevAK per subsystem to 0 and/or 1
 *       rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
 *                     file to xocp.c file as exported function.
+*       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 * @note
@@ -67,6 +68,7 @@
 #include "xsecure_defs.h"
 #include "xplmi_update.h"
 #include "xsecure_sha384.h"
+#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -161,7 +163,7 @@ int XOcp_GenerateDevIKKeyPair(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatusTmp = XST_FAILURE;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 
 	KeyInstPtr->KeyMgmtReady = FALSE;
@@ -181,9 +183,9 @@ int XOcp_GenerateDevIKKeyPair(void)
 	}
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
-		(TrngInstance->ErrorState != XTRNGPSX_HEALTHY)) {
+		(!XSecure_TrngIsHealthy(TrngInstance))) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status,
-			SStatusTmp, XTrngpsx_PreOperationalSelfTests, TrngInstance);
+			SStatusTmp, XSecure_PreOperationalSelfTests, TrngInstance);
 		if ((Status != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
 			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 			goto END;
@@ -315,7 +317,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 
 	Status = XPlmi_MemCpy64(
 			(u64)(UINTPTR)DevAkData[KeyMgmtInstance->DevAkInputIndex].PerString,
-			(u64)(UINTPTR)PerString, XTRNGPSX_PERS_STRING_LEN_IN_BYTES);
+			(u64)(UINTPTR)PerString, XSECURE_TRNG_PER_STRING_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -855,7 +857,7 @@ static int XOcp_KeyGenerateDevIk(void)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatusTmp = XST_FAILURE;
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
-	u8 PersString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];
+	u8 PersString[XSECURE_TRNG_PER_STRING_LEN_IN_BYTES];
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
 	u8 EccPvtKey[XOCP_ECC_P384_SIZE_BYTES];
@@ -875,8 +877,8 @@ static int XOcp_KeyGenerateDevIk(void)
 	 * which is of size 16 bytes where as TRNG requires 48 bytes of data as
 	 * personalized so the remaining bytes are set to zero.
 	 */
-	 Status = Xil_SMemSet(PersString, XTRNGPSX_PERS_STRING_LEN_IN_BYTES,
-			0U, XTRNGPSX_PERS_STRING_LEN_IN_BYTES);
+	 Status = Xil_SMemSet(PersString, XSECURE_TRNG_PER_STRING_LEN_IN_BYTES,
+			0U, XSECURE_TRNG_PER_STRING_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

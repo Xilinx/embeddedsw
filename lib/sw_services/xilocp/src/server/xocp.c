@@ -41,6 +41,7 @@
 * 1.6   rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
 *                     file to xocp.c file as exported function.
 *       har  09/13/25 Fix bug in the logic to modify aperture values in XOcp_GenerateDmeResponse()
+*       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 *
 * </pre>
@@ -843,7 +844,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	XOcp_Dme RomDmeInput;
 	XOcp_DmeResponse *DmeResponse = XOcp_GetDmeResponse();
 	XOcp_Dme *DmePtr = &RomDmeInput;
-	XTrngpsx_Instance *TrngInstance = NULL;
+	XSecure_TrngInstance *TrngInstance = NULL;
 	volatile u32 XppuEnabled = XOCP_XPPU_DISABLED;
 	volatile u32 XppuEnabledTmp = XOCP_XPPU_DISABLED;
 	u32 Index;
@@ -1044,8 +1045,8 @@ RET:
 	 * so that PLM can re-initialize during runtime requests.
 	 */
 	TrngInstance = XSecure_GetTrngInstance();
-	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE){
-		SStatus = XTrngpsx_Uninstantiate(TrngInstance);
+	if (XSecure_TrngIsInitialized(TrngInstance)){
+		SStatus = XSecure_Uninstantiate(TrngInstance);
 		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 			if(SStatus != XST_SUCCESS) {
 				Status = SStatus | XOCP_DME_ERR;

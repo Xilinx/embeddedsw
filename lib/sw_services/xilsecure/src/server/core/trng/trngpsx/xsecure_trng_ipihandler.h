@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0  kal   03/23/21 Initial release
 * 5.4  yog   04/29/24 Fixed doxygen grouping
+*      tvp   05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *

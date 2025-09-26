@@ -16,6 +16,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 5.4   kal  07/24/2024 Initial release
+* 5.5   tvp  05/13/2025 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -35,6 +36,7 @@
 #include "xsecure_init.h"
 #include "xplmi.h"
 #include "xsecure_resourcehandling.h"
+#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -115,9 +117,9 @@ END:
 static int XSecure_TrngKat(void)
 {
 	volatile int Status = XST_FAILURE;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
-	Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
+	Status = XSecure_PreOperationalSelfTests(TrngInstance);
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);

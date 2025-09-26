@@ -58,6 +58,7 @@
 * 1.04  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
 *       tvp  07/28/2025 Add wrapper function API XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
+*       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -92,9 +93,9 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
 #include "xplmi_hw.h"
-#include "xtrngpsx.h"
 #include "xloader_ddr.h"
 #include "xsecure_plat.h"
+#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
@@ -1748,7 +1749,7 @@ END:
 static int XLoader_InitTrngInstance(void)
 {
 	int Status = XST_FAILURE;
-	XTrngpsx_Instance  *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XTrngpsx_Config *CfgPtr = NULL;
 
 	CfgPtr = XTrngpsx_LookupConfig(0);

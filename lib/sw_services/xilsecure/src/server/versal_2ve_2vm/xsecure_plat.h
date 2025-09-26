@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 *       sk   08/22/24 Added defines for key transfer to ASU
+* 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -193,7 +194,6 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
        XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
-XTrngpsx_Instance *XSecure_GetTrngInstance(void);
 int XSecure_InitiateASUKeyTransfer(void);
 int XSecure_ShaDmaXfer(XPmcDma *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);

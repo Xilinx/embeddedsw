@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       kpt  01/09/24 Updated option for non-blocking trng reseed
 *	ss   04/05/24 Fixed doxygen warnings
+* 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -53,7 +54,6 @@
 #include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_ECC_TRNG_DF_LENGTH			(2U) /**< Default length of xilsecure ecc true random number generator*/
 #define XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN		(60U) /**< Length of xilsecure ecc true random number generator*/
 
 /**************************** Type Definitions *******************************/
@@ -85,8 +85,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 {
 	volatile int Status = (int)XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	volatile int ClearStatus = XST_FAILURE;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
-	XTrngpsx_UserConfig TrngUserCfg;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	/* The random ephimeral/Private key should be between 1 to ecc order
 	 * of the curve. EK can be obtained by using mod operation over
 	 * 384-bits random number. However to reduce bias associated with mod
@@ -111,39 +110,21 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 		goto RET;
 	}
 
-	Status = Xil_SMemSet(&TrngUserCfg, sizeof(XTrngpsx_UserConfig), 0U,
-					sizeof(XTrngpsx_UserConfig));
+	Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_DRNG_MODE, (u8 *)(UINTPTR)PrivateKey->SeedAddr,
+			PrivateKey->SeedLength, (u8 *)(UINTPTR)PrivateKey->PerStringAddr);
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_TrngGenerate(TrngInstance, RandBuf,
+				      XSECURE_TRNG_SEC_STRENGTH_IN_BYTES, FALSE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE) {
-		Status = XTrngpsx_Uninstantiate(TrngInstance);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	TrngUserCfg.Mode = XTRNGPSX_DRNG_MODE;
-	TrngUserCfg.DFLength = XSECURE_ECC_TRNG_DF_LENGTH;
-	TrngUserCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
-	TrngUserCfg.IsBlocking = FALSE;
-	Status = XTrngpsx_Instantiate(TrngInstance,
-			(u8 *)(UINTPTR)PrivateKey->SeedAddr, PrivateKey->SeedLength,
-			(u8 *)(UINTPTR)PrivateKey->PerStringAddr, &TrngUserCfg);
-	if (Status  != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XTrngpsx_Generate(TrngInstance, RandBuf,
-			XTRNGPSX_SEC_STRENGTH_IN_BYTES, FALSE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = XTrngpsx_Generate(TrngInstance,
-			RandBuf + XTRNGPSX_SEC_STRENGTH_IN_BYTES,
-			XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN -
-			XTRNGPSX_SEC_STRENGTH_IN_BYTES, FALSE);
+	Status = XSecure_TrngGenerate(TrngInstance, RandBuf +
+				      XSECURE_TRNG_SEC_STRENGTH_IN_BYTES,
+				      XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN -
+				      XSECURE_TRNG_SEC_STRENGTH_IN_BYTES, FALSE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -166,7 +147,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)PrvtKey, PrivateKey->KeyOutPutAddr);
 
 END:
-	ClearStatus = XTrngpsx_Uninstantiate(TrngInstance);
+	ClearStatus = XSecure_Uninstantiate(TrngInstance);
 	XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
