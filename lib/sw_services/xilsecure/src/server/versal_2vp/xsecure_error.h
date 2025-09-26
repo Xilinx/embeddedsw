@@ -18,7 +18,7 @@
  * 5.6   tvp  07/07/25 Initial release
  *       mb   09/09/25 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
  *                     Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
- *
+ *       rpu  09/26/25 Removed typedef for enum to fix compilation warnings
  * </pre>
  *
  **************************************************************************************************/
@@ -39,7 +39,7 @@ extern "C" {
 /************************************** Type Definitions ******************************************/
 
 /** Error codes of XilSecure for versal_2vp. */
-typedef enum {
+enum {
 	XSECURE_SHA3_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA3 init fails. */
 	XSECURE_SHA3_LAST_UPDATE_ERROR,		/**< 0x03 - Error when SHA3
 						   last update fails. */
