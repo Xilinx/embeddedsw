@@ -36,6 +36,8 @@
 *       rmv  07/17/2025 Added PLM_OCP_ASUFW_KEY_MGMT configuration macro and enable by default
 *       rmv  08/21/2025 Added option to enable/disable ASUFW OCP key management support
 * 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
+*       tvp  08/23/2025 Define PLM_HW_PCR macro
+*
 * </pre>
 *
 * @note
@@ -161,6 +163,7 @@ extern "C" {
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
+#define PLM_HW_PCR
 #endif
 
 #if (!defined(PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE)) && (defined(PLM_OCP))

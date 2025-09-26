@@ -28,6 +28,7 @@
 * 1.5   sk   03/05/2025 Added define for OCP PCR Measurement index position
 *       rmv  07/17/2025 Move declaration of XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() APIs
 *			from xocp_keymgmt.h file to xocp.h file as exported function.
+*       tvp  08/23/2025 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *
 * </pre>
 *
@@ -271,9 +272,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+#ifdef PLM_HW_PCR
 int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
 int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries);
+#endif
 int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr);
 int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize, u32 OverWrite);
 int XOcp_StoreSwPcrConfigAndExtendSwPcr_0_1(u32 *Pload, u32 Len);

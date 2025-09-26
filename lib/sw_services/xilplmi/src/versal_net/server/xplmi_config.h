@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *       ng   03/20/2024 Added CDO debug prints
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
 *       bm   11/11/2024 Added config option for I2C Handshake feature
+*       tvp  08/23/2025 Define PLM_HW_PCR macro
 *
 * </pre>
 *
@@ -147,6 +148,7 @@ extern "C" {
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
+#define PLM_HW_PCR
 #endif
 
 #if (!defined(PLM_ECDSA_EXCLUDE)) && (defined(PLM_OCP))
