@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
 *       kd   09/02/25 Added psm firmware presence check for In-Place PLM Update
+*       tvp  09/13/25 Add function prototype to get KAT status
 *
 * </pre>
 *
@@ -830,6 +831,7 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_SetXRamAvailable(void);
 void XPlmi_SssMask(u32 DmaSrc);
 XIOModule *XPlmi_GetIOModuleInst(void);
+u8 XPlmi_IsKatRan(u32 PlmKatMask);
 
 /************************************ Variable Definitions ****************************************/
 
