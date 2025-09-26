@@ -141,6 +141,14 @@ if((("${CMAKE_MACHINE}" STREQUAL "Versal")
 	set(XPM_SUPPORT " ")
 endif()
 
+if(("${CMAKE_MACHINE}" STREQUAL "ZynqMP") AND
+	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53"))
+	option(standalone_enable_4k_pages_ocm_tcm "Enable splitting of the 2MB memory block 0xFFE00000-0xFFFFFFFF into 4KB pages. NOTE: When enabled, add a .mmu_tbl3 section in the linker script referencing the MMU entries." OFF)
+	if(standalone_enable_4k_pages_ocm_tcm)
+		set(ENABLE_4K_PAGES_OCM_TCM " ")
+	endif()
+endif()
+
 if (DEFINED XPAR_CPU_ID)
     set(CPU_ID_VAL ${XPAR_CPU_ID})
 else()

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -59,6 +59,8 @@
 * 6.4   mus  08/10/17 Marked memory as a outer shareable for EL1 NS execution,
 *                     to support CCI enabled IP's.
 * 9.2   ml   01/23/24 Updated lower DDR mapping calculation for MMUTableL2.
+* 9.4   as   19/09/25 Added option to configure 4KB page tables for
+*                     0xFFE00000 - 0xFFFFFFFF.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -75,10 +77,13 @@
 	.set reserved,	0x0 					/* Fault*/
 	#if EL1_NONSECURE
 	.set Memory,	0x405 | (2 << 8) | (0x0)		/* normal writeback write allocate outer shared read write */
+	.set MemoryL3,	0x405 | (2 << 8) | (0x2)		/* normal L3 writeback write allocate outer shared read write */
 	#else
 	.set Memory,	0x405 | (3 << 8) | (0x0)		/* normal writeback write allocate inner shared read write */
+	.set MemoryL3,	0x405 | (3 << 8) | (0x2)		/* normal L3 writeback write allocate inner shared read write */
 	#endif
 	.set Device,	0x409 | (1 << 53)| (1 << 54) |(0x0)	/* strongly ordered read write non executable*/
+	.set DeviceL3,	0x409 | (1 << 53)| (1 << 54) |(0x2)	/* strongly ordered device for L3 read write non executable*/
 	.section .mmu_tbl0,"a"
 
 MMUTableL0:
@@ -270,8 +275,91 @@ MMUTableL2:
 				/* 0xFFC0_0000 - 0xFFDF_FFFF */
 .8byte	SECT + Device 		/*2MB PMU/CSU */
 
-.set	SECT, SECT+0x200000	/* 0xFFE0_0000 - 0xFFFF_FFFF*/
-.8byte  SECT + Memory		/*2MB OCM/TCM*/
+#ifndef ENABLE_4K_PAGES_OCM_TCM
+/* Use default 2MB page mapping */
+.set    SECT, SECT+0x200000     /* 0xFFE0_0000 - 0xFFFF_FFFF */
+.8byte  SECT + Memory           /* 2MB OCM/TCM */
+#else
+.set 	SECT, MMUTableL3
+.8byte	SECT + 0x3
+#endif
+
+#ifdef ENABLE_4K_PAGES_OCM_TCM
+.section .mmu_tbl3,"a"
+
+MMUTableL3:
+
+.set SECT, 0xFFE00000
+.rept 	0x10				/* 0xFFE0_0000 -  0xFFE0_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_0_ATCM_SPLIT */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFE1_0000 -  0xFFE1_FFFF */
+.8byte	SECT + reserved		  	/* reserved */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFE2_0000 -  0xFFE2_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_0_BTCM_SPLIT */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFE3_0000 -  0xFFE3_FFFF */
+.8byte	SECT + reserved  		/* reserved */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFE4_0000 -  0xFFE4_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_0_ICACHE */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFE5_0000 -  0xFFE5_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_0_DCACHE */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x30				/* 0xFFE6_0000 -  0xFFE8_FFFF */
+.8byte	SECT + reserved  		/* reserved */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFE9_0000 -  0xFFE9_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_1_ATCM_SPLIT */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFEA_0000 -  0xFFEA_FFFF */
+.8byte	SECT + reserved 		/* reserved */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFEB_0000 -  0xFFEB_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_1_BTCM_SPLIT */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFEC_0000 -  0xFFEC_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_1_ICACHE */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x10				/* 0xFFED_0000 -  0xFFED_FFFF */
+.8byte	SECT + reserved  		/* 64 KB R5_1_DCACHE */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0xE0				/* 0xFFEE_0000 -  0xFFFB_FFFF */
+.8byte	SECT + reserved  		/* reserved */
+.set SECT, SECT+0x1000
+.endr
+
+.rept 	0x40				/* 0xFFFC_0000 -  0xFFFF_FFFF */
+.8byte	SECT + MemoryL3  		/* 256 KB of OCM */
+.set SECT, SECT+0x1000
+.endr
+#endif
 
 .end
 /**
