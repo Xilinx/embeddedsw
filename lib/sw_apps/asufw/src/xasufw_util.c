@@ -150,7 +150,8 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 		}
 	}
 
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)TempVar, sizeof(u8)));
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)&TempVar,
+					sizeof(u8)));
 
 	return Status;
 }
