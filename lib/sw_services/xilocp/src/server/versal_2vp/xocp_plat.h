@@ -68,6 +68,11 @@ typedef struct {
 } XOcp_SecureConfig;
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
+#define XOCP_BH_IMG_ATTRB_PUF_HD_MASK		(0xC0U)	/**< Mask of PUF HD from Image Attributes */
+#define XOCP_BH_IMG_ATTRB_PUF_HD_SHIFT		(6U)	/**< Shift for PUF HD in Image Attributes */
+#define XOCP_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U)	/**< Shift for Global Variation Filter in
+							 * PUF shutter value */
+#define XOCP_PUF_HD_BHDR			(0x3U)	/**< Value of PUF HD stored in bootheader */
 
 /************************************ Function Prototypes *****************************************/
 XOcp_RegSpace* XOcp_GetRegSpace(void);
