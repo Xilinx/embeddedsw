@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
  *			 Array has no bounds specified,Logical conjunctions need brackets.
  * 1.8	 sg	07/13/19 Corrected calibration algorithm
  * 1.13	 ht	06/22/23 Added support for system device-tree flow.
+ * 1.16  ht	09/26/25 Remove redundant calibration register write in XRtcPsu_SetTime.
  * </pre>
  *
  ******************************************************************************/
@@ -195,11 +196,6 @@ static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
  *****************************************************************************/
 void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
 {
-	/* Set the calibration value in calibration register, so that
-	 * next Second is triggered exactly at 1 sec period
-	 */
-	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CALIB_WR_OFFSET,
-			 InstancePtr->CalibrationValue);
 	/* clear the RTC secs interrupt from status register */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
 			 XRTC_INT_STS_SECS_MASK);
