@@ -174,8 +174,9 @@ typedef enum {
 	XSECURE_SHA3_KAT_BUSY,	/**< 0xF2 - SHA3 busy with earlier operation, Kat can't be executed */
 	XSECURE_AES_KAT_BUSY,	/**< 0xF3 - AES busy with earlier operation, Kat can't be executed */
 	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED, /**< 0xF4 - Crypto Accelerators are disabled */
-	XSECURE_ERR_KAT_NOT_EXECUTED	/**< 0xF5 - Error when KAT is not executed when crypto kat
+	XSECURE_ERR_KAT_NOT_EXECUTED,	/**< 0xF5 - Error when KAT is not executed when crypto kat
 					  efuse bit is enabled */
+	XSECURE_ERR_HKDF_INVALID_PARAM,	/**< 0xF6 - Invalid parameters to HKDF */
 
 };
 
