@@ -1018,10 +1018,7 @@ static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 	/* If lower threshold values are not programmed, use hardcoded voltages */
 	if (SYSMON_THRESH_NOT_PROGRAMMED == LowThreshVal) {
 		PmDbg("Using hardcoded voltages for power rail checks\r\n");
-		Status = SysmonVoltageCheck(Rail, RailVoltage);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XSECURE_TEMPORAL_CHECK(done, Status, SysmonVoltageCheck, Rail, RailVoltage);
 	} else {
 		PmDbg("Using Sysmon lower threshold voltages for power rail checks\r\n");
 		if (RailVoltage < LowThreshVal) {
