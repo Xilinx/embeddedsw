@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.6   tvp  07/07/25 Initial release
+*       tvp  07/07/25 Add API for HMAC KAT
 *
 * </pre>
 *
@@ -32,6 +33,7 @@ extern "c" {
 
 /*************************************** Include Files ********************************************/
 #include "xparameters.h"
+#include "xsecure_sha.h"
 
 #ifndef PLM_RSA_EXCLUDE
 #include "xil_types.h"
@@ -40,6 +42,8 @@ extern "c" {
 int XSecure_RsaPrivateDecryptKat(void);
 
 #endif
+
+int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
 
 #ifdef __cplusplus
 }

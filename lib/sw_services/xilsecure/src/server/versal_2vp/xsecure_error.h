@@ -19,6 +19,7 @@
  *       mb   09/09/25 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
  *                     Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
  *       tvp  09/23/25 Add error code for ECC private key generation
+ *       tvp  09/23/25 Add error code for HMAC KAT
  *
  * </pre>
  *
@@ -131,6 +132,11 @@ typedef enum {
 	 * The error codes from 0x90 to 0xBF are reserved for Versal net platform
 	 * This range is reserved please don't define any error codes for Versal_2vp
 	 */
+	XSECURE_HMAC_KAT_INIT_ERROR = 0x90,		/**< 0x90 - HMAC init failure */
+	XSECURE_HMAC_KAT_UPDATE_ERROR,			/**< 0x91 - HMAC update failure */
+	XSECURE_HMAC_KAT_FINAL_ERROR,			/**< 0x92 - HMAC final failure */
+	XSECURE_HMAC_KAT_ERROR,				/**< 0x93 - HMAC KAT error */
+	XSECURE_HMAC_INVALID_PARAM,			/**< 0x94 - HMAC invalid parameter */
 	XSECURE_ECC_PRVT_KEY_GEN_ERR = 0xBF, 		/**< 0xBF - ECC private key generation error */
 
 	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
