@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 7.8   rama     06/28/2022 Add XilSem errors to SW error events
 * 7.9   rama     07/19/2023 Add STL errors to SW error events
 *       kj       12/01/2023 Add HBM CATTRIP Sw Error Mask
+*       tvp      07/07/2025 Add SW PCR Error Mask
 *
 * </pre>
 *
@@ -472,6 +473,7 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
 #define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
+#define XIL_EVENT_ERROR_PCR_LOG_UPDATE		(0x00000400U)
 /** XilSem errors */
 #define XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE	(0x00000020U)
 #define XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE	(0x00000040U)

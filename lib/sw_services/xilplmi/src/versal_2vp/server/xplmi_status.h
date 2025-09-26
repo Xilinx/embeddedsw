@@ -19,6 +19,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
 *       tvp  07/07/25 Added XLOADER_TRNG_INIT_FAIL error code for TRNG initialization
+*       tvp  07/07/25 Added error codes for OCP support
 *
 * </pre>
 *
@@ -569,6 +570,17 @@ typedef enum {
 								  enabled*/
 	XLOADER_TRNG_INIT_FAIL,		/**< 0x6A1 Error when TRNG driver look up or cfg fails */
 
+	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6B0,	/**< 0x6B0 Duplicate Pcr configuration provided */
+	XOCP_PCR_ERR_IN_SWPCR_CONFIG,	/**< 0x6B1 Error in SwPcr configuration */
+	XOCP_DEVAK_MAX_COUNT_EXCEED = 0x6C0,	/**< 0x6C0 DEVAK MAX count exceeded */
+	XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED,	/**< 0x6C1 DEVAK per subsystem MAX count
+							  exceeded */
+	XOCP_ERR_KAT_FAILED = 0x6D0,	/**< 0x6D0 Error when KAT fails */
+	XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED,	/**< 0x6D1 Storing user configuration for
+							  more than 4 subsystems is not allowed */
+	XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED,	/**< 0x6D2 Key Management operation is disabled */
+	XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT,	/**< 0x6D3 Error in storing app version
+							  for DevAk certificate */
 	XPLMI_ERR_CDO_CMD = 0x2000,	/**< 0x2XXX, CDO command handler has failed. [12:8] contains
 					  Module ID, [7:0] contains API ID. Refer Minor code for
 					  Handler error code */
