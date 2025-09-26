@@ -1040,10 +1040,10 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_DeviceAttr *DevAttr = NULL;
-	XPm_Device *Dev = XPmDevice_GetById(Args[0]);
+	XPm_Device *Dev = XPmDevice_GetById(Args[ARG_IDX_DEVATTR_DEVICE_ID]);
 
 	/* Check for device presence and sufficient arguments */
-	if ((NULL == Dev) || (NumArgs < 9U)) {
+	if ((NULL == Dev) || (NumArgs < DEVATTR_ARG_MIN_LEN)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1055,26 +1055,26 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 	}
 
 	/* Store the security attributes */
-	DevAttr->SecurityBaseAddr = Args[6];
-	DevAttr->Security[0].Offset = (u16)((Args[7] >> 16U) & 0xFFFFU);
-	DevAttr->Security[0].Mask = (u16)(Args[7] & 0xFFFFU);
-	DevAttr->Security[1].Offset = (u16)((Args[8] >> 16U) & 0xFFFFU);
-	DevAttr->Security[1].Mask = (u16)(Args[8] & 0xFFFFU);
+	DevAttr->SecurityBaseAddr = Args[ARG_IDX_DEVATTR_SEC_BASEADDR];
+	DevAttr->Security[0].Offset = (u16)((Args[ARG_IDX_DEVATTR_SEC_0_OFFSET] >> DEVATTR_SEC_OFFSET) & DEVATTR_SEC_MASK);
+	DevAttr->Security[0].Mask = (u16)(Args[ARG_IDX_DEVATTR_SEC_0_MASK] & DEVATTR_SEC_MASK);
+	DevAttr->Security[1].Offset = (u16)((Args[ARG_IDX_DEVATTR_SEC_1_OFFSET] >> DEVATTR_SEC_OFFSET) & DEVATTR_SEC_MASK);
+	DevAttr->Security[1].Mask = (u16)(Args[ARG_IDX_DEVATTR_SEC_1_MASK] & DEVATTR_SEC_MASK);
 
 	/* Check for the coherency and virtualization attributes */
-	if (NumArgs > 9U) {
-		if (NumArgs < 12U) {
+	if (NumArgs > DEVATTR_ARG_MIN_LEN) {
+		if (NumArgs < DEVATTR_ARG_MAX_LEN) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
-
 		/* Store the coherency and virtualization attributes */
-		DevAttr->CohVirtBaseAddr = Args[9];
-		DevAttr->Coherency.Offset = (u16)((Args[10] >> 16U) & 0xFFFFU);
-		DevAttr->Coherency.Mask = (u16)(Args[10] & 0xFFFFU);
-		DevAttr->Virtualization.Offset = (u16)((Args[11] >> 16U) & 0xFFFFU);
-		DevAttr->Virtualization.Mask = (u16)(Args[11] & 0xFFFFU);
+		DevAttr->CohVirtBaseAddr = Args[ARG_IDX_DEVATTR_COHVIR_BASEADDR];
+		DevAttr->Coherency.Offset = (u16)((Args[ARG_IDX_DEVATTR_COH_OFFSET] >> DEVATTR_COH_OFFSET) & DEVATTR_COH_MASK);
+		DevAttr->Coherency.Mask = (u16)(Args[ARG_IDX_DEVATTR_COH_MASK] & DEVATTR_COH_MASK);
+		DevAttr->Virtualization.Offset = (u16)((Args[ARG_IDX_DEVATTR_VIR_OFFSET] >> DEVATTR_VIR_OFFSET) & DEVATTR_VIR_MASK);
+		DevAttr->Virtualization.Mask = (u16)(Args[ARG_IDX_DEVATTR_VIR_MASK] & DEVATTR_VIR_MASK);
 	}
+
 	Dev->DevAttr = DevAttr;
 
 	Status = XST_SUCCESS;
@@ -1082,6 +1082,7 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 done:
 	return Status;
 }
+
 
 static XStatus AddAieDevice(const u32 *Args)
 {
