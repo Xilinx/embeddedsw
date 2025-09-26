@@ -46,6 +46,7 @@
 *       tvp  05/16/25 Use SHA3 for Versal_2vp
 *       tvp  05/16/25 Don't export OCP DS for Versal_2vp
 *       tvp  05/16/25 Use XOcp_GetRegSpace to get OCP related registers
+*       tvp  05/16/25 Move XOcp_ReadSecureConfig to platform specific files
 *
 *
 * </pre>
@@ -77,6 +78,7 @@
 #include "xplmi_tamper.h"
 #include "xsecure_plat_kat.h"
 #include "xsecure_kat.h"
+#include "xocp_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_SHA3_LEN_IN_BYTES		(48U) /**< Length of Sha3 hash in bytes */
@@ -172,7 +174,6 @@ static int XOcp_DmeStoreXppuDefaultConfig(void);
 static int XOcp_DmeRestoreXppuDefaultConfig(void);
 static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
 static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
-static void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig);
 static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
 static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig);
 static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig);
@@ -2108,38 +2109,6 @@ static XOcp_SwPcrConfig *XOcp_GetSwPcrConfigInstance(void)
 #endif
 
 	return &SwPcrConfig;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function reads secure efuse configuration
- *
- * @param EfuseConfig Pointer to XOcp_SecureConfig
- *
-*****************************************************************************/
-static void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
-{
-	EfuseConfig->BootEnvCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
-	EfuseConfig->IpDisable1 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_1);
-	EfuseConfig->SecMisc1 = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1);
-	EfuseConfig->Caher1 = XPlmi_In32(XOCP_EFUSE_CACHE_CAHER_1) &
-						XOCP_CAHER_1_MEASURED_MASK;
-	EfuseConfig->DecOnly = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_0) &
-			XOCP_DEC_ONLY_MEASURED_MASK;
-	EfuseConfig->SecCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL) &
-			XOCP_SEC_CTRL_MEASURED_MASK;
-	EfuseConfig->BootmodeDis = XPlmi_In32(XOCP_PMC_LOCAL_BOOT_MODE_DIS) &
-			XOCP_PMC_LOCAL_BOOT_MODE_DIS_FULLMASK;
-	EfuseConfig->MiscCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_MISC_CTRL) &
-			XOCP_MISC_CTRL_MEASURED_MASK;
-	EfuseConfig->AnlgTrim3 = XPlmi_In32(XOCP_EFUSE_CACHE_ANLG_TRIM_3);
-	EfuseConfig->DmeFips = XPlmi_In32(XOCP_EFUSE_CACHE_DME_FIPS) &
-			XOCP_DME_FIPS_MEASURED_MASK;
-	EfuseConfig->IPDisable0 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_0) &
-			XOCP_IP_DISABLE0_MEASURED_MASK;
-	EfuseConfig->RomRsvd = XPlmi_In32(XOCP_EFUSE_CACHE_ROM_RSVD) &
-			XOCP_ROM_RSVD_MEASURED_MASK;
-	EfuseConfig->RoSwapEn = XPlmi_In32(XOCP_EFUSE_CACHE_RO_SWAP_EN);
 }
 
 /*****************************************************************************/
