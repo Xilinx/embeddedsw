@@ -61,6 +61,7 @@
 * 1.2   tvp  08/19/2025 ssit is not required for Versal_2vp
 *       pre  08/21/2025 Removed TPM initialization here to add it after LPD initialization
 *       rmv  08/26/2025 Add ASU OCP functionality related callbacks to XPlmi_AsuModuleInit()
+*       tvp  08/27/2025 Generate CDI before generating DevIK from XPlm_ModuleInit for Versal_2vp
 *
 * </pre>
 *
@@ -113,6 +114,9 @@
 #include "xplmi_asu_cmd.h"
 #include "xocp_plat.h"
 #include "xloader_plat.h"
+#endif
+#ifdef VERSAL_2VP
+#include "xocp_dice_dme.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -218,9 +222,13 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 #endif
 
-	/* OCP module is applicable only for Versalnet */
+	/* OCP module is applicable only for Versalnet and Versal_2vp */
 #ifdef PLM_OCP
 #ifdef PLM_OCP_KEY_MNGMT
+#ifdef VERSAL_2VP
+	/** - Generate DICE CDI */
+	XOcp_GenerateDiceCdi();
+#endif
 	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_GenerateDevIKKeyPair);
 #endif
 	/**
