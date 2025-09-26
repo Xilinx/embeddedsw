@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   rmv  07/17/25 Initial release
+* 1.6   tvp  05/16/25 Add XOcp_GetRegSpace function
 *
 * </pre>
 *
@@ -31,11 +32,27 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xil_types.h"
 
+#ifdef PLM_OCP
+#include "xocp_hw.h"
+
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 
 /********************************** Constant Definitions *****************************************/
 
 /************************************ Type Definitions *******************************************/
+/**
+ * Data structure to hold HW register addresses required for OCP key management
+ */
+typedef struct {
+	u32 DmeSignRAddr;		/**< Address of DME Challenge R */
+	u32 DmeSignSAddr;		/**< Address of DME Challenge S */
+	u32 DiceCdiSeedAddr;		/**< Address of DICE CDI SEED_0 */
+	u32 DiceCdiSeedValidAddr;	/**< Address of DICE CDI SEED VALIDITY */
+	u32 DiceCdiSeedParityAddr;	/**< Address of DICE CDI SEED PARITY */
+	u32 DevIkPvtAddr;		/**< Address of DEV_IK_PVT_KEY_0 */
+	u32 DevIkPubXAddr;		/**< Address of DEV_IK_PUBLIC_KEY_X_0 */
+	u32 DevIkPubYAddr;		/**< Address of DEV_IK_PUBLIC_KEY_Y_0 */
+} XOcp_RegSpace;
 
 /**************************** Macros (Inline Functions) Definitions ******************************/
 #define XOCP_ASUFW_PLM_MODULE_ID		(10U)	/**< PLM module ID in ASUFW */
@@ -78,12 +95,15 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash);
 int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr);
 int XOcp_GetAsuCdiSeed(u32 CdiAddr);
 int XOcp_NotifyAsu(void);
+#endif /* PLM_OCP_ASUFW_KEY_MGMT */
+
+XOcp_RegSpace* XOcp_GetRegSpace(void);
 
 /********************************** Variable Definitions *****************************************/
+
+#endif /* PLM_OCP */
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* PLM_OCP_ASUFW_KEY_MGMT */
 #endif /* XOCP_PLAT_H */

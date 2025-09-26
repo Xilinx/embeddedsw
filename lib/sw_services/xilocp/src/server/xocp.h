@@ -49,6 +49,7 @@ extern "C" {
 #ifdef PLM_OCP
 #include "xstatus.h"
 #include "xocp_common.h"
+#include "xocp_plat.h"
 #include "xplmi_debug.h"
 #include "xsecure_hmac.h"
 
@@ -266,6 +267,16 @@ typedef struct {
 	u8 SecureConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Secure config hash */
 	u8 TapConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Tap config hash */
 } XOcp_SecureStateHash;
+
+typedef struct {
+	u32 DmeSignatureR[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp R */
+	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */
+} XOcp_DmeSignature;
+
+typedef struct {
+	u32 DevIkPubX[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key X */
+	u32 DevIkPubY[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key Y */
+} XOcp_DevPubIk;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

@@ -45,6 +45,7 @@
 *       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *       tvp  05/16/25 Use SHA3 for Versal_2vp
 *       tvp  05/16/25 Don't export OCP DS for Versal_2vp
+*       tvp  05/16/25 Use XOcp_GetRegSpace to get OCP related registers
 *
 *
 * </pre>
@@ -433,6 +434,7 @@ int XOcp_GetSwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize)
  * @return
  *		- XST_SUCCESS - If PCR contents are copied
  *		- XST_FAILURE - Upon failure
+ *		- XST_INVALID_PARAM - if parameter is invalid
  *
  ******************************************************************************/
 static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
@@ -850,8 +852,9 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile u32 RegVal = XOCP_PMC_XPPU_CTRL_DISABLE_VAL;
 	volatile u32 RegValtmp = XOCP_PMC_XPPU_CTRL_DISABLE_VAL;
 	int ClearStatus = XST_FAILURE;
+	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 #ifdef PLM_OCP_KEY_MNGMT
-	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
 	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
 #endif
 	XOcp_Dme RomDmeInput;
@@ -979,7 +982,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	/* Copy the contents to user DME response structure */
 	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureR,
 				XOCP_ECC_P384_SIZE_BYTES,
-				(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
+				(const u8 *)XOcp_Reg->DmeSignRAddr,
 				XOCP_ECC_P384_SIZE_BYTES,
 				XOCP_ECC_P384_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -988,7 +991,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureS,
 				XOCP_ECC_P384_SIZE_BYTES,
-				(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
+				(const u8 *)XOcp_Reg->DmeSignSAddr,
 				XOCP_ECC_P384_SIZE_BYTES,
 				XOCP_ECC_P384_SIZE_BYTES);
 END:
@@ -1340,16 +1343,17 @@ int XOcp_ValidateDiceCdi(void)
 	volatile u32 Index;
 	volatile u32 CdiParity = 0U;
 	volatile u32 CdiParityTmp = 0U;
+	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
 	/** Upon DICE CDI SEED zeroize, if CDI valid bit is not cleared in Versal Net.
 	 *  Check whether DICE CDI SEED is non zero or not.
 	 */
 	for (Index = 0U; Index < XOCP_CDI_SIZE_IN_WORDS; Index++) {
-		if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_0 +
+		if (XPlmi_In32(XOcp_Reg->DiceCdiSeedAddr +
 			(Index * XSECURE_WORD_LEN)) != 0x0U) {
-			CdiParity = XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
+			CdiParity = XPlmi_In32(XOcp_Reg->DiceCdiSeedParityAddr) &
 				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
-			CdiParityTmp = XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
+			CdiParityTmp = XPlmi_In32(XOcp_Reg->DiceCdiSeedParityAddr) &
 				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
 			if ((CdiParity != 0x0U) || (CdiParityTmp != 0x0U)) {
 				Status = (int)XOCP_DICE_CDI_PARITY_ERROR;

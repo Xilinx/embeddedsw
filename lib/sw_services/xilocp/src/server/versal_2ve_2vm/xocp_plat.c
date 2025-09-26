@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   rmv  07/17/25 Initial release
+* 1.6   tvp  05/16/25 Add XOcp_GetRegSpace function
 *
 * </pre>
 *
@@ -23,11 +24,12 @@
 
 /************************************** Include Files ********************************************/
 #include "xplmi_config.h"
-
-#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#ifdef PLM_OCP
 #include "xocp.h"
 #include "xocp_plat.h"
 #include "xocp_hw.h"
+
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
 #include "xplmi_scheduler.h"
 
 /********************************** Constant Definitions *****************************************/
@@ -401,3 +403,28 @@ static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void)
 }
 
 #endif /* PLM_OCP_ASUFW_KEY_MGMT */
+
+/**************************************************************************************************/
+/**
+ * @brief      This function provides OCP related register space.
+ *
+ * @return
+ * 	- XOcp_RegSpace pointer to register space.
+ *
+ **************************************************************************************************/
+XOcp_RegSpace* XOcp_GetRegSpace(void)
+{
+	static XOcp_RegSpace RegSpace = {
+		.DmeSignRAddr = XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
+		.DmeSignSAddr = XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
+		.DiceCdiSeedAddr = XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
+		.DiceCdiSeedValidAddr = XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID,
+		.DiceCdiSeedParityAddr = XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY,
+		.DevIkPvtAddr = XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0,
+		.DevIkPubXAddr = XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0,
+		.DevIkPubYAddr = XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0,
+	};
+
+	return &RegSpace;
+}
+#endif /* PLM_OCP */
