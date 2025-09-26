@@ -156,6 +156,7 @@
 *       pre  08/23/2025 Did versal macro change
 *       pre  09/09/2025 Returned error at necessary places and did status reset before reuse
 *       vss  09/17/2025 Updated major error codes wherever missed in XLoader_DecHdrs function.
+*       tvp  09/17/2025 Store Block 0 partition hash to calculate subsystem image hash for versal_2vp
 *
 * </pre>
 *
@@ -5592,7 +5593,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 #else
 	XLoader_AuthCertificate *AcPtr=
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
-#if defined(versal) && defined(PLM_TPM)
+#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
 	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 #endif
 #endif
@@ -5700,7 +5701,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_AUTH_FAIL, Status);
 			goto END;
 		}
-#if defined(versal) && defined(PLM_TPM)
+#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
 		/** Store Hash of the first block of the partition, required for data measurement */
 		Status = Xil_SMemCpy(&PtrnHashTablePtr[SecurePtr->PdiPtr->ImagePrtnId].Hash,
 				     XLOADER_SHA3_LEN, &BlkHash.Hash,

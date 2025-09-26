@@ -20,6 +20,7 @@
 * 2.3   tvp  07/07/25 Initial release
 *       tvp  07/07/25 Added XLOADER_TRNG_INIT_FAIL error code for TRNG initialization
 *       tvp  07/07/25 Added error codes for OCP support
+*       tvp  07/10/25 Added XLOADER_ERR_SECURE_CONFIG_MEASUREMENT error code
 *
 * </pre>
 *
@@ -564,6 +565,7 @@ typedef enum {
 	XLOADER_ERR_DATA_MEASUREMENT,	/**< Error in data measurement */
 	XLOADER_PRTN_HASH_NOT_PRESENT,	/**< Partition hash not present, data measurement not
 					  possible */
+	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< Error in Secure config measurement */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,	/**< 0x6A0 Additional PPks are not
