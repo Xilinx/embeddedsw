@@ -62,6 +62,14 @@ if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR ("${CMAKE_MACHINE}" STREQUAL "Versa
   endif()
 endif()
 
+if("${CMAKE_MACHINE}" STREQUAL "Versal")
+  set(XILSECURE_seedlife "256" CACHE STRING "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits")
+  set(XILSECURE_dlen "7" CACHE STRING "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31")
+
+  set(XSECURE_TRNG_USER_CFG_SEED_LIFE_VAL "${XILSECURE_seedlife}")
+  set(XSECURE_TRNG_USER_CFG_DF_LENGTH_VAL "${XILSECURE_dlen}")
+endif()
+
 if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   set(XILSECURE_seedlife "256" CACHE STRING "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits")
   set(XILSECURE_dlen "7" CACHE STRING "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31")

@@ -19,6 +19,7 @@
 * 2.3   tvp  07/07/25 Initial release
 *       kd   09/02/25 Added psm firmware presence check for In-Place PLM Update
 *       tvp  09/13/25 Add function prototype to get KAT status
+*       tvp  09/13/25 Added macro for TRNG KAT
 *
 * </pre>
 *
@@ -232,6 +233,7 @@ extern "C" {
 #define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK	 	(0x00000800U) /**< RSA private decrypt KAT mask */
 #define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK 	(0x00001000U) /**< ECC sign generation SHA3_384 KAT mask */
 #define XPLMI_SECURE_ECC_PWCT_KAT_MASK			(0x00002000U) /**< ECC PWCT KAT mask */
+#define XPLMI_SECURE_TRNG_KAT_MASK			(0x00004000U) /**< TRNG KAT mask */
 
 #define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK | \
 					 XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK | \
