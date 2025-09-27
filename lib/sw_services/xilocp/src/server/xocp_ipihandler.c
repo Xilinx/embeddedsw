@@ -27,6 +27,7 @@
 *                     is made
 *       har  06/11/24 Add support to handle IPI request to hash and attest with
 *                     key wrap DevAk
+*       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *
 * </pre>
 *
@@ -62,10 +63,12 @@
 #define XOCP_KEY_WRAP_MAX_BUF_SIZE				(4096U) /**< Keywrap maximum buffer size */
 
 /************************** Function Prototypes *****************************/
+#ifdef PLM_HW_PCR
 static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
 static int XOcp_GetHwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize);
 static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
 			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries);
+#endif
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
 #ifdef PLM_OCP_KEY_MNGMT
 static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow, u32 GetX509CertAddrHigh, u32 SubSystemID);
@@ -105,6 +108,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	switch (Cmd->CmdId & XOCP_API_ID_MASK) {
+#ifdef PLM_HW_PCR
 		case XOCP_API(XOCP_API_EXTEND_HWPCR):
 			Status = XOcp_ExtendHwPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
@@ -114,6 +118,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GET_HWPCRLOG):
 			Status = XOcp_GetHwPcrLogIpi(Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
 			break;
+#endif
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
@@ -159,6 +164,7 @@ END:
 	return Status;
 }
 
+#ifdef PLM_HW_PCR
 /*****************************************************************************/
 /**
  * @brief   This function handler calls XOcp_ExtendHwPcr server API to extend
@@ -237,6 +243,7 @@ static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**

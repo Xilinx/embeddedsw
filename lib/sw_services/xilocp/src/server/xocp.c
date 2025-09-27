@@ -42,6 +42,7 @@
 *                     file to xocp.c file as exported function.
 *       har  09/13/25 Fix bug in the logic to modify aperture values in XOcp_GenerateDmeResponse()
 *       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
+*       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *
 *
 * </pre>
@@ -148,7 +149,10 @@ static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifdef PLM_HW_PCR
 static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
+static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void);
+#endif
 static u32 XOcp_CountNumOfOnesInWord(u32 Num);
 static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash);
 static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum);
@@ -177,7 +181,6 @@ static int XOcp_CheckAndUpdateSpkRevokeConfigState(u32 *MeasureSpkRevokeConfig);
 static int XOcp_CheckAndUpdateOtherRevokeConfigState(u32 *MeasureOtherRevokeConfig);
 static int XOcp_CheckAndUpdateMiscConfigState(u32 *MeasureMiscConfig);
 static int XOcp_MeasureSecureState(void);
-static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -206,6 +209,7 @@ static u32 FirstExtendReq = FALSE;
 
 /************************** Function Definitions *****************************/
 
+#ifdef PLM_HW_PCR
 /*****************************************************************************/
 /**
  * @brief	This function updates the index of HWPCR log
@@ -392,6 +396,7 @@ int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize)
 {
 	return XOcp_GetPcr(PcrMask, PcrBuf, PcrBufSize, XOCP_HW_PCR);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -462,11 +467,16 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
 				PcrOffset = (u32)(UINTPTR)&ExtendedHash;
 			}
 			else {
+#ifdef PLM_HW_PCR
 				PcrOffset = XOCP_PMC_GLOBAL_PCR_0_0 + (u32)(PcrNum * XOCP_PCR_SIZE_BYTES);
 				if (PcrOffset > XOCP_PMC_GLOBAL_PCR_7_0) {
 					Status = (int)XOCP_PCR_ERR_PCR_SELECT;
 					goto END;
 				}
+#else
+				Status = XST_INVALID_PARAM;
+				goto END;
+#endif
 			}
 			Status = XOcp_MemCopy(PcrOffset,
 					PcrBuf + BufOffset,
@@ -1958,6 +1968,7 @@ static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum)
 	return SwPcrConfig->PcrIdxInLog[PcrNum];
 }
 
+#ifdef PLM_HW_PCR
 /*****************************************************************************/
 /**
  * @brief	This function updates the HWPCR log.
@@ -2022,6 +2033,7 @@ static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -2549,6 +2561,7 @@ END:
 	return Status;
 }
 
+#ifdef PLM_HW_PCR
 /*****************************************************************************/
 /**
  * @brief       This function provides the pointer to the XOcp_HwPcrLog
@@ -2570,4 +2583,5 @@ static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void)
 	return &HwPcrLog;
 }
 
+#endif
 #endif /* PLM OCP */
