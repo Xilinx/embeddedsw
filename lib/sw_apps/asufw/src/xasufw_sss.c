@@ -20,6 +20,7 @@
  *       ma   03/16/24 Added error codes at required places
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       rmv  09/26/25 Added redundancy in secure switch config
  *
  * </pre>
  *
@@ -75,7 +76,8 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 			   XAsufw_SssSrc OutputSrc);
-static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc);
+static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc,
+			 u32 *SssCfgValue);
 
 /************************************ Variable Definitions ***************************************/
 /** XAsufw_SssLookupTable[Input Source][Resource] */
@@ -102,20 +104,46 @@ const u8 XAsufw_SssLookupTable[XASUFW_SSS_MAX_SRCS][XASUFW_SSS_MAX_SRCS] = {
  * @param	DmaResource	DMA resource for the DMA loopback operation
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of the switch is successful.
- *		- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *	- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopback(XAsufw_SssSrc DmaResource)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
 
+	/** Validate input parameter(s). */
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		goto END;
 	}
 
-	Status = XAsufw_SssCfg(DmaResource, DmaResource, XASUFW_SSS_INVALID);
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(DmaResource, DmaResource, XASUFW_SSS_INVALID, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(DmaResource, DmaResource, XASUFW_SSS_INVALID, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
 
 END:
 	return Status;
@@ -130,21 +158,47 @@ END:
  * @param	ShaResource	Output SHA resource to be used for DMA loopback operation with hash
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of the switch is successful.
- *		- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *	- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc ShaResource)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
 
+	/** Validate input parameter(s). */
 	if (((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) ||
 	    ((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		goto END;
 	}
 
-	Status = XAsufw_SssCfg(DmaResource, DmaResource, ShaResource);
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(DmaResource, DmaResource, ShaResource, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(DmaResource, DmaResource, ShaResource, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
 
 END:
 	return Status;
@@ -158,20 +212,46 @@ END:
  * @param	DmaResource	DMA resource to be used for DMA to PL interface and back
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of the switch is successful.
- *		- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *	- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssDmaToPli(XAsufw_SssSrc DmaResource)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
 
+	/** Validate input parameter(s). */
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		goto END;
 	}
 
-	Status = XAsufw_SssCfg(DmaResource, XASUFW_SSS_PLI, XASUFW_SSS_PLI);
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(DmaResource, XASUFW_SSS_PLI, XASUFW_SSS_PLI, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(DmaResource, XASUFW_SSS_PLI, XASUFW_SSS_PLI, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
 
 END:
 	return Status;
@@ -185,21 +265,47 @@ END:
  * @param	DmaResource	Input DMA resource to be used for hash calculation using DMA
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of the switch is successful.
- *		- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *	- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc DmaResource)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
 
+	/** Validate input parameter(s). */
 	if (((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) ||
 		((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		goto END;
 	}
 
-	Status = XAsufw_SssCfg(ShaResource, DmaResource, XASUFW_SSS_INVALID);
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(ShaResource, DmaResource, XASUFW_SSS_INVALID, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(ShaResource, DmaResource, XASUFW_SSS_INVALID, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
 
 END:
 	return Status;
@@ -213,20 +319,46 @@ END:
  * @param	ShaResource SHA resource to be used for SSS configuration
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of SSS with SHA for PL interface is successful.
- *		- XASUFW_FAILURE, if configuration of SSS with SHA for PL fails.
+ *	- XASUFW_SUCCESS, if configuration of SSS with SHA for PL interface is successful.
+ *	- XASUFW_FAILURE, if configuration of SSS with SHA for PL fails.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssShaForPli(XAsufw_SssSrc ShaResource)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
 
+	/** Validate input parameter(s). */
 	if ((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		goto END;
 	}
 
-	Status = XAsufw_SssCfg(ShaResource, XASUFW_SSS_PLI, XASUFW_SSS_INVALID);
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(ShaResource, XASUFW_SSS_PLI, XASUFW_SSS_INVALID, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(ShaResource, XASUFW_SSS_PLI, XASUFW_SSS_INVALID, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
 
 END:
 	return Status;
@@ -240,20 +372,46 @@ END:
  * @param	DmaResource	Input DMA resource for the AES resource
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of the switch is successful.
- *		- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *	- XASUFW_FAILURE, if configuration of the switch fails.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssAesWithDma(XAsufw_SssSrc DmaResource)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
 
+	/** Validate input parameter(s). */
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		goto END;
 	}
 
-	Status = XAsufw_SssCfg(XASUFW_SSS_AES, DmaResource, DmaResource);
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(XASUFW_SSS_AES, DmaResource, DmaResource, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(XASUFW_SSS_AES, DmaResource, DmaResource, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
 
 END:
 	return Status;
@@ -265,13 +423,42 @@ END:
  * 		operation for PL interface.
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of SSS with AES for PL interface is successful.
- *		- XASUFW_FAILURE, if configuration of SSS with AES for PL fails.
+ *	- XASUFW_SUCCESS, if configuration of SSS with AES for PL interface is successful.
+ *	- XASUFW_FAILURE, if configuration of SSS with AES for PL fails.
+ *	- XASUFW_SSS_CFG_GET_FAIL, if retrieving SSS configuration is failed.
+ *	- XASUFW_SSS_CFG_CHECK_FAIL, if SSS configuration is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_SssAesForPli(void)
 {
-	return XAsufw_SssCfg(XASUFW_SSS_AES, XASUFW_SSS_PLI, XASUFW_SSS_PLI);
+	s32 Status = XASUFW_FAILURE;
+	u32 SssCfgValue1 = 0U;
+	u32 SssCfgValue2 = 0U;
+
+	/**
+	 * Read SSS config twice and ensure consistent value before writing
+	 * configuration register.
+	 */
+	Status = XAsufw_SssCfg(XASUFW_SSS_AES, XASUFW_SSS_PLI, XASUFW_SSS_PLI, &SssCfgValue1);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	Status = XAsufw_SssCfg(XASUFW_SSS_AES, XASUFW_SSS_PLI, XASUFW_SSS_PLI, &SssCfgValue2);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SSS_CFG_GET_FAIL;
+		goto END;
+	}
+	if (SssCfgValue1 != SssCfgValue2) {
+		Status = XASUFW_SSS_CFG_CHECK_FAIL;
+		goto END;
+	}
+
+	/** Write SSS configuration to config register. */
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfgValue1);
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -383,19 +570,19 @@ static s32 XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
  * @param	Resource	Resource for which input and output paths to be configured.
  * @param	InputSrc	Input source to be selected for the resource.
  * @param	OutputSrc	Output source to be selected for the resource.
+ * @param	SssCfgValue	Pointer to variable to store SSS configuration value.
  *
  * @return
- *		- XASUFW_SUCCESS, if configuration of the switch is successful.
- *		- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
+ *	- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *	- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
  *
  *************************************************************************************************/
-static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc)
+static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc,
+			 u32 *SssCfgValue)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 InputSrcCfg = 0x0U;
 	u32 OutputSrcCfg = 0x0U;
-	volatile u32 InputSrcCfgRedundant = 0x0U;
-	volatile u32 OutputSrcCfgRedundant = 0x0U;
 	u32 SssCfg = 0x0U;
 	u32 InputMask = 0x0U;
 	u32 OutputMask = 0x0U;
@@ -429,21 +616,14 @@ static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_
 	OutputShift = (XASUFW_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
 	OutputSrcCfg = (u32)XAsufw_SssLookupTable[OutputSrc][Resource] << OutputShift;
 
-	/** Recalculating to verify values. */
-	InputSrcCfgRedundant = (u32)XAsufw_SssLookupTable[Resource][InputSrc] << InputShift;
-	OutputSrcCfgRedundant = (u32)XAsufw_SssLookupTable[OutputSrc][Resource] << OutputShift;
-
 	SssCfg = InputSrcCfg | OutputSrcCfg;
 	InputMask = (u32)XASUFW_SSS_SRC_SEL_MASK << InputShift;
 	OutputMask = (u32)XASUFW_SSS_SRC_SEL_MASK << OutputShift;
 	Mask = InputMask | OutputMask;
 
-	if ((SssCfg ^ (InputSrcCfgRedundant | OutputSrcCfgRedundant)) == 0U) {
-		RegVal = XAsufw_ReadReg(XASUFW_LOCAL_SSS_CFG);
-		RegVal &= ~Mask;
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfg | RegVal);
-	}
+	RegVal = XAsufw_ReadReg(XASUFW_LOCAL_SSS_CFG);
+	RegVal &= ~Mask;
+	*SssCfgValue = (SssCfg | RegVal);
 
 END:
 	return Status;

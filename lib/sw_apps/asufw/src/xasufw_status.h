@@ -604,6 +604,8 @@ enum {
 	XASUFW_SW_ERR_INIT_FAIL, /**< 0x19CU - Error when error management initialization fails. */
 	XASUFW_ECC_HASH_BUF_PAD_FAIL, /**< 0x19DU - Error when ECC hash buffer padding fails. */
 	XASUFW_RSA_ECC_HASH_BUF_PAD_FAIL, /**< 0x19EU - Error when RSA ECC hash buffer padding fails. */
+	XASUFW_SSS_CFG_GET_FAIL, /**< 0x19FU - Error when retrieved SSS configuration fails. */
+	XASUFW_SSS_CFG_CHECK_FAIL, /**< 0x1A0U - Error when SSS configuration is invalid. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
