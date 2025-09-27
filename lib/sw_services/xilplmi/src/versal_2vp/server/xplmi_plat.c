@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       tvp  09/13/25 Add API to get KAT status
 *
 * </pre>
 *
@@ -783,4 +784,31 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	}
 
 	return BufferList;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function will return KAT status of given mask.
+ *
+ * @param	PlmKatMask contains the KAT mask
+ *
+ * @return
+ *		- TRUE  If KAT ran.
+ *		- FALSE If KAT didn't ran.
+ *
+ **************************************************************************************************/
+u8 XPlmi_IsKatRan(u32 PlmKatMask)
+{
+	volatile u32 CryptoKatEn = XPlmi_IsCryptoKatEn();
+	volatile u32 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
+	u8 IsKatRan = FALSE;
+
+	if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
+		IsKatRan = (((XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR) & PlmKatMask) != 0U)?
+					(u8)TRUE: (u8)FALSE);
+	} else {
+		IsKatRan = TRUE;
+	}
+
+	return IsKatRan;
 }
