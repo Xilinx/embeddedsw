@@ -43,6 +43,7 @@
 *       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
 *       tvp  05/16/25 Use SHA3 for Versal_2vp
 *       tvp  05/16/25 Don't export OCP DS for Versal_2vp
+*       tvp  05/16/25 Add support for Versal_2vp
 *
 * </pre>
 * @note
@@ -89,7 +90,9 @@
 #define XOcp_MemSet					XPlmi_MemSet
 
 /************************** Function Prototypes ******************************/
+#ifndef VERSAL_2VP
 static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg);
+#endif
 static int XOcp_KeyGenerateDevIk(void);
 static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void);
 static XOcp_SubSysHash *XOcp_GetSubSysHash(void);
@@ -173,11 +176,12 @@ int XOcp_GenerateDevIKKeyPair(void)
 	volatile int SStatusTmp = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
+	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
 	KeyInstPtr->KeyMgmtReady = FALSE;
 
 	/* If CDI is not valid device key generation is skipped */
-	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
+	if (XPlmi_In32(XOcp_Reg->DiceCdiSeedValidAddr) == 0x0U) {
 		XOcp_Printf(DEBUG_GENERAL, "Device key init is skipped"
 			" as no valid CDI is found\n\r");
 		Status = XST_SUCCESS;
@@ -210,9 +214,15 @@ int XOcp_GenerateDevIKKeyPair(void)
 
 END:
 	if (Status != XST_SUCCESS) {
+#ifndef VERSAL_2VP
 		/* Zeroize private keys */
 		Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
+#else
+		/* Zeroize private keys stored in PMC RAM for Versal_2vp */
+		Status = Xil_SecureZeroize((u8 *)(UINTPTR)XOcp_Reg->DevIkPvtAddr,
+				XOCP_ECC_P384_SIZE_BYTES);
+#endif
 	}
 RET:
 	return Status;
@@ -364,6 +374,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile u32 CryptoKatEnTmp = TRUE;
 	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
 	u32 KeyIndex = 0U;
+	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
 	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
 	if (Status != XST_SUCCESS) {
@@ -378,7 +389,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		DevAkData = DevAkData + DevAkIndex[KeyIndex];
 		DevAkData->IsDevAkKeyReady = FALSE;
 
-		XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
+		XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOcp_Reg->DiceCdiSeedAddr,
 			XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
 			(XSecure_HmacRes *)(UINTPTR)Seed);
 
@@ -511,6 +522,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 	XOcp_DevAkData *DevAkData = NULL;
 	XCert_Config CertConfig;
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
+	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
 	if (((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
 			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) &&
@@ -529,10 +541,9 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.SubSystemId = XOCP_PMC_SUBSYSTEM_ID;
 		CertConfig.KeyIndex = 0U;
 		CertConfig.AppCfg.IsSelfSigned = TRUE;
-		CertConfig.AppCfg.SubjectPublicKey =
-				(u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
-		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
-		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+		CertConfig.AppCfg.SubjectPublicKey = (u8 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
+		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOcp_Reg->DevIkPvtAddr;
+		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
 		CertConfig.AppCfg.FwHash = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
 		if (XOcp_GetX509CertPtr->IsCsr != TRUE) {
 			CertConfig.AppCfg.IsCsr = FALSE;
@@ -576,8 +587,8 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.AppCfg.IsSelfSigned = FALSE;
 		CertConfig.AppCfg.IsCsr = FALSE;
 		CertConfig.AppCfg.SubjectPublicKey = (u8 *)(UINTPTR)DevAkData->EccX;
-		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
-		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOcp_Reg->DevIkPvtAddr;
+		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
 		CertConfig.AppCfg.FwHash = DevAkData->SubSysHash;
 		CertConfig.AppCfg.FwVersion = DevAkData->AppVersion;
 		CertConfig.AppCfg.FwVersionLen = DevAkData->AppVersionLen;
@@ -811,7 +822,6 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -852,6 +862,7 @@ END:
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -876,10 +887,11 @@ static int XOcp_KeyGenerateDevIk(void)
 	int ClrStatus = XST_FAILURE;
 	volatile u32 CryptoKatEn = TRUE;
 	volatile u32 CryptoKatEnTmp = TRUE;
+	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
 	/* Copy CDI from PMC global registers to Seed buffer */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)(UINTPTR)Seed, XOCP_CDI_SIZE_IN_BYTES,
-		(const void *)(UINTPTR)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0, XOCP_CDI_SIZE_IN_BYTES,
+		(const void *)(UINTPTR)XOcp_Reg->DiceCdiSeedAddr, XOCP_CDI_SIZE_IN_BYTES,
 		XOCP_CDI_SIZE_IN_BYTES);
 
 	/*
@@ -928,15 +940,15 @@ static int XOcp_KeyGenerateDevIk(void)
 	}
 
 	/* Copy Private key to PMC global registers */
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0,
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)(UINTPTR)XOcp_Reg->DevIkPvtAddr,
 						   XOCP_ECC_P384_SIZE_BYTES, (const void *)(UINTPTR)EccPvtKey,
 						   XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
 
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-				(u64)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0,
+				(u64)(UINTPTR)XOcp_Reg->DevIkPubXAddr,
 						(u64)(UINTPTR)EccX);
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-				 (u64)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0,
+				 (u64)(UINTPTR)XOcp_Reg->DevIkPubYAddr,
 						(u64)(UINTPTR)EccY);
 
 END:

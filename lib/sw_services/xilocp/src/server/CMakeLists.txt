@@ -3,7 +3,6 @@
 
 collect (PROJECT_LIB_HEADERS xocp.h)
 collect (PROJECT_LIB_HEADERS xocp_cmd.h)
-collect (PROJECT_LIB_HEADERS xocp_hw.h)
 collect (PROJECT_LIB_HEADERS xocp_init.h)
 collect (PROJECT_LIB_HEADERS xocp_ipihandler.h)
 collect (PROJECT_LIB_HEADERS xocp_keymgmt.h)
