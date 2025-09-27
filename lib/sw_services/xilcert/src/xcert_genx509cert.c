@@ -36,6 +36,7 @@
 *       har  09/17/2024 Fixed doxygen warnings
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
 * 1.4   har  02/27/2025 Use SHA1 to calculate hash of uncompressed public key for SKI/AKI
+*       tvp  05/16/2025 Use SHA3 for Versal_2vp
 *
 * </pre>
 * @note
@@ -50,23 +51,26 @@
 
 #ifdef PLM_OCP_KEY_MNGMT
 #include "xsecure_ellipticplat.h"
-#include "xsecure_sha384.h"
+#include "xcert_sha.h"
 #include "xcert_genx509cert.h"
 #include "xcert_createfield.h"
 #include "xplmi.h"
 #include "xplmi_status.h"
 #include "xplmi_tamper.h"
-#include "xsecure_plat_kat.h"
 #include "xsecure_init.h"
 #include "xplmi_dma.h"
-#include "xsecure_sha1.h"
+#include "xsecure_kat.h"
 
 /************************** Constant Definitions *****************************/
 /** @name Object IDs
  * @{
  */
  /**< Object IDs used in X.509 Certificate and Certificate Signing Request */
+#ifdef VERSAL_2VP
+static const u8 Oid_SignAlgo[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x03U, 0x0BU};
+#else
 static const u8 Oid_SignAlgo[]		= {0x06U, 0x08U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x04U, 0x03U, 0x03U};
+#endif
 static const u8 Oid_EcPublicKey[]	= {0x06U, 0x07U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x02U, 0x01U};
 static const u8 Oid_P384[]		= {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U,0x00U, 0x22U};
 static const u8 Oid_SubKeyIdentifier[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x0EU};
@@ -288,12 +292,11 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 * SHA 384 is used to calculate hash for Serial field and to calculate hash
 	 * for signature calculation. So run KAT for SHA384 before use
 	 */
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+	if (XPlmi_IsKatRan(XOCP_SECURE_SHA_KAT_MASK) != (u8)TRUE) {
+		Status = XCert_ShaKat();
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
 	}
 
 	if (Cfg->AppCfg.IsCsr == TRUE) {
@@ -322,7 +325,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	/**
 	 * Calculate SHA 384 Digest of the TBS certificate
 	 */
-	Status = XSecure_Sha384Digest(TbsCertStart, DataLen, HashTmp);
+	Status = XCert_ShaDigest(TbsCertStart, DataLen, HashTmp);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
@@ -1130,8 +1133,13 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectP
 	u8* OctetStrValIdx;
 	u32 OidLen;
 	u32 FieldLen;
-	u8 Hash[XSECURE_SHA1_HASH_SIZE];
 	u8 UncompressedPublicKey[XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN];
+#ifndef VERSAL_2VP
+	u8 Hash[XSECURE_SHA1_HASH_SIZE];
+#else
+	XSecure_Sha3Hash Sha3Hash_Instance;
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+#endif
 
 	/**
 	 * First byte of the Public key should be 0x04 to indicate that it is
@@ -1155,19 +1163,35 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectP
 	}
 	Curr = Curr + OidLen;
 
+#ifndef VERSAL_2VP
 	Status = XSecure_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#else
+	Status = XSecure_Sha3Digest(ShaInstPtr, (UINTPTR)UncompressedPublicKey,
+				    XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, &Sha3Hash_Instance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
 	OctetStrLenIdx = Curr++;
 	OctetStrValIdx = Curr;
 
+#ifndef VERSAL_2VP
 	Status = XCert_CreateOctetString(Curr, Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#else
+	Status = XCert_CreateOctetString(Curr, Sha3Hash_Instance.Hash, XCERT_SUB_KEY_ID_VAL_LEN,
+					 &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 	Curr = Curr + FieldLen;
 
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
@@ -1217,8 +1241,13 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* Issuer
 	u8* KeyIdSequenceValIdx;
 	u32 OidLen;
 	u32 FieldLen;
-	u8 Hash[XSECURE_SHA1_HASH_SIZE];
 	u8 UncompressedPublicKey[XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN];
+#ifndef VERSAL_2VP
+	u8 Hash[XSECURE_SHA1_HASH_SIZE];
+#else
+	XSecure_Sha3Hash Sha3Hash_Instance;
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+#endif
 
 	/**
 	 * First byte of the Public key should be 0x04 to indicate that it is
@@ -1242,10 +1271,18 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* Issuer
 	}
 	Curr = Curr + OidLen;
 
+#ifndef VERSAL_2VP
 	Status = XSecure_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#else
+	Status = XSecure_Sha3Digest(ShaInstPtr, (UINTPTR)UncompressedPublicKey,
+				    XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, &Sha3Hash_Instance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
 	OctetStrLenIdx = Curr++;
@@ -1256,10 +1293,18 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* Issuer
 	KeyIdSequenceLenIdx = Curr++;
 	KeyIdSequenceValIdx = Curr;
 
+#ifndef VERSAL_2VP
 	Status = XCert_CreateOctetString(Curr, Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#else
+	Status = XCert_CreateOctetString(Curr, Sha3Hash_Instance.Hash, XCERT_SUB_KEY_ID_VAL_LEN,
+					 &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 	Curr = Curr + FieldLen;
 
 	/**
@@ -2353,11 +2398,11 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	}
 
 	/**
-	 * Calculate SHA2 Hash for all fields in the TBS certificate except Version and Serial
+	 * Calculate Hash for all fields in the TBS certificate except Version and Serial
 	 * Please note that currently SerialStartIdx points to the field after Serial.
 	 * Hence this is the start pointer for calculating the hash.
 	 */
-	Status = XSecure_Sha384Digest((u8* )SerialHashStartIdx, (u32)(Curr - SerialHashStartIdx), Hash);
+	Status = XCert_ShaDigest((u8* )SerialHashStartIdx, (u32)(Curr - SerialHashStartIdx), Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

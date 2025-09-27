@@ -18,6 +18,11 @@ collect (PROJECT_LIB_HEADERS xcert_genx509cert.h)
 collect (PROJECT_LIB_SOURCES xcert_createfield.c)
 collect (PROJECT_LIB_SOURCES xcert_genx509cert.c)
 
+if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+	add_subdirectory(versal_net)
+elseif("${CMAKE_MACHINE}" STREQUAL "Versal_2vp")
+	add_subdirectory(versal_2vp)
+endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
