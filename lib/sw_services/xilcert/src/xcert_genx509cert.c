@@ -37,6 +37,7 @@
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
 * 1.4   har  02/27/2025 Use SHA1 to calculate hash of uncompressed public key for SKI/AKI
 *       tvp  05/16/2025 Use SHA3 for Versal_2vp
+*       tvp  06/05/2025 Remove use of UEID and TCB Info extension for Versal_2vp
 *
 * </pre>
 * @note
@@ -75,8 +76,10 @@ static const u8 Oid_EcPublicKey[]	= {0x06U, 0x07U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0
 static const u8 Oid_P384[]		= {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U,0x00U, 0x22U};
 static const u8 Oid_SubKeyIdentifier[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x0EU};
 static const u8 Oid_AuthKeyIdentifier[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x23U};
+#ifndef VERSAL_2VP
 static const u8 Oid_TcbInfoExtn[]	= {0x06U, 0x06U, 0x67U, 0x81U, 0x05U, 0x05U, 0x04U, 0x01U};
 static const u8 Oid_UeidExtn[]		= {0x06U, 0x06U, 0x67U, 0x81U, 0x05U, 0x05U, 0x04U, 0x04U};
+#endif
 static const u8 Oid_KeyUsageExtn[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x0FU};
 static const u8 Oid_EkuExtn[]		= {0x06U, 0x03U, 0x55U, 0x1DU, 0x25U};
 static const u8 Oid_EkuClientAuth[]	= {0x06U, 0x08U, 0x2BU, 0x06U, 0x01U, 0x05U, 0x05U, 0x07U, 0x03U, 0x02U};
@@ -85,7 +88,9 @@ static const u8 Oid_EkuHwType[]		= {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x
 #endif
 static const u8 Oid_BasicConstraintExtn[] = {0x06U, 0x03U, 0x55U, 0x1DU, 0x13U};
 static const u8 Oid_ExtnRequest[]	= {0x06U, 0x09U, 0x2AU, 0x86U, 0x48U, 0x86U, 0xF7U, 0x0DU, 0x01U, 0x09U, 0x0EU};
+#ifndef VERSAL_2VP
 static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x09U};
+#endif
 static const u8 Oid_DmeExtn[] = {0x06U, 0x0AU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x03U, 0x01U};
 static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x03U, 0x02U, 0x02};
 /** @} */
@@ -190,8 +195,10 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAddr);
 static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen);
 static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen);
+#ifndef VERSAL_2VP
 static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen);
 static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen);
+#endif
 static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption);
 static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen);
 static int XCert_GenExtKeyUsageField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *EkuLen);
@@ -203,7 +210,7 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen);
 static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse *DmeResp);
 static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
-#ifndef VERSAL_2VE_2VM
+#if (!defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP))
 static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen);
 static int XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen);
 #endif
@@ -1322,6 +1329,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VP
 /******************************************************************************/
 /**
  * @brief	This function creates the TCB Info Extension(2.23.133.5.4.1)
@@ -1562,6 +1570,7 @@ static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
 END:
 	return Status;
 }
+#endif
 
 
 /******************************************************************************/
@@ -1843,6 +1852,7 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 		Curr = Curr + Len;
 	}
 
+#ifndef VERSAL_2VP
 	Status = XCert_GenTcbInfoExtnField(Curr, Cfg, &Len);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1860,6 +1870,7 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 		}
 		Curr = Curr + Len;
 	}
+#endif
 
 	Status =  XCert_GenKeyUsageField(Curr, Cfg, &Len);
 	if (Status != XST_SUCCESS) {
@@ -2217,6 +2228,7 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 	}
 	Curr = Curr + Len;
 
+#ifndef VERSAL_2VP
 	Status = XCert_GenTcbInfoExtnField(Curr, Cfg, &Len);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -2225,6 +2237,7 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 
 	XCert_GenUeidExnField(Curr, &Len);
 	Curr = Curr + Len;
+#endif
 
 	Status = XCert_GenBasicConstraintsExtnField(Curr, &Len);
 	if (Status != XST_SUCCESS) {
@@ -2589,7 +2602,7 @@ static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAd
 	}
 }
 
-#ifndef VERSAL_2VE_2VM
+#if (!defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP))
 /*****************************************************************************/
 /**
  * @brief	This function creates the Version sub-field present in the TCB Info extension
