@@ -111,12 +111,32 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/generic/* $BSP_DIR/libsrc/xilsecur
 cp -r $SERVICES_DIR/xilsecure/src/server/core/util/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/sha_pmx/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/hmac/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/kdf/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/trngpsv/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/versal_2vp/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/versal_2vp/* $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
+
+mkdir -p $BSP_DIR/libsrc/xilocp/src
+cp -r $SERVICES_DIR/xilocp/src/Makefile $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/common/* $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/*.c $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/*.h $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/versal_2vp/*.c $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/versal_2vp/*.h $BSP_DIR/libsrc/xilocp/src/
+cp $BSP_DIR/libsrc/xilocp/src/*.h $BSP_DIR/include/
+
+mkdir -p $BSP_DIR/libsrc/xilcert/src
+cp -r $SERVICES_DIR/xilcert/src/Makefile $BSP_DIR/libsrc/xilcert/src/
+cp -r $SERVICES_DIR/xilcert/src/*.c $BSP_DIR/libsrc/xilcert/src/
+cp -r $SERVICES_DIR/xilcert/src/*.h $BSP_DIR/libsrc/xilcert/src/
+cp -r $SERVICES_DIR/xilcert/src/versal_2vp/*.h $BSP_DIR/libsrc/xilcert/src/
+cp $BSP_DIR/libsrc/xilcert/src/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/

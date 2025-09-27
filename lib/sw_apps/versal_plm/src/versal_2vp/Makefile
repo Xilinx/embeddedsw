@@ -8,7 +8,7 @@ CC := mb-gcc
 PLATFORM := -DVERSAL_2VP
 CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high
 CFLAGS := -Os -flto -ffat-lto-objects $(PLATFORM)
-LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,-lxilpm,-lxilsecure,-lxilnvm,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
+LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,-lxilpm,-lxilsecure,-lxilnvm,-lxil,-lxilocp,-lxilcert,-lgcc,-lc,--end-group -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)
 c_SOURCES += $(wildcard ../common/*.c)
