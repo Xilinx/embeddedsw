@@ -41,6 +41,7 @@
 *                     file to xocp.c file as exported function.
 *       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
+*       tvp  05/16/25 Use SHA3 for Versal_2vp
 *
 * </pre>
 * @note
@@ -67,9 +68,12 @@
 #include "xsecure_plat_kat.h"
 #include "xcert_genx509cert.h"
 #include "xsecure_defs.h"
+#include "xocp_sha.h"
+#ifndef VERSAL_2VP
 #include "xplmi_update.h"
-#include "xsecure_sha384.h"
+#endif
 #include "xsecure_trng.h"
+#include "xsecure_kat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -664,7 +668,7 @@ int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId
 		goto END;
 	}
 
-	Status = XSecure_Sha384Digest((u8*)(UINTPTR)AttnPloadAddr, AttnPloadSize,
+	Status = XOcp_ShaDigest((u8 *)(UINTPTR)AttnPloadAddr, AttnPloadSize,
 		(u8*)(UINTPTR)AttestationInfoPtr->HashAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
