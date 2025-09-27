@@ -438,12 +438,6 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/** Copy seed buffer and data block from decrypted output. */
 	/** EM = Y || maskedSeed || maskedDB . */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (DecryptOutputData[XRSA_DATA_BLOCK_FIRST_INDEX] != 0U) {
-		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
-		goto END;
-	}
-
 	/** Increment output data index by one after maskedseed and point to masked datablock. */
 	MaskedSeedBuffer = &DecryptOutputData[XRSA_DATA_BLOCK_SECOND_INDEX];
 	MaskedDataBlock = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
@@ -486,32 +480,29 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* DB = lHash(hash of optional label) || 0x00(length= (KeySize - Len - (2U * HashLen) - 2U)
 	* || 0x01 || M.
 	*/
-	/**
-	* Compare generated hash from optional label with data block from index zero until
-	* hash length.
-	*/
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Xil_SMemCmp(DataBlock, XRSA_MAX_DB_LEN, HashBuffer, XASU_SHA_512_HASH_LEN,
-			     HashLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
-		goto END;
-	}
 
 	/**
 	* Iterate a loop until last but one index in data block to check for 0x01U from which
-	* original message is separated from rest of the data block and validating the padding
-	* string to have zeroes until 0x01U is found and copy data to output data address
-	* using DMA on successful comparison.
+	* original message is separated from rest of the data block.
 	*/
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Index = HashLen;
 	while ((Index < (DataBlockLen - XASUFW_BUFFER_INDEX_ONE))
 		&& (DataBlock[Index] == XRSA_OAEP_ZERO_PADDING_DATA_VALUE)) {
 		Index++;
 	}
-	if ((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
-		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE)) {
+	/**
+	* Check for OAEP decoding errors.
+	* a.Leading octet check in first byte of decrypted data to be zero.
+	* b.Compare generated hash from optional label with data block from index zero until
+	* hash length.
+	* c.Validating the padding string to have zeroes until 0x01U is found and copy data to
+	* output data address using DMA on successful comparison.
+	*/
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((DecryptOutputData[XRSA_DATA_BLOCK_FIRST_INDEX] != 0U) ||
+		(XASUFW_SUCCESS != Xil_SMemCmp(DataBlock, XRSA_MAX_DB_LEN, HashBuffer,
+		XASU_SHA_512_HASH_LEN, HashLen)) || ((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
+		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE))) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		XFIH_GOTO(END);
 	}
@@ -522,6 +513,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		Status = XASUFW_RSA_OAEP_INVALID_LEN;
 		goto END;
 	}
+
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(&(DataBlock[Index])),
 				PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
 				MsgLen, 0U);
