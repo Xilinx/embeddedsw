@@ -23,6 +23,7 @@
 *                     fix dereference before null check
 *       tus  08/06/25 Add support for zero data length SHA use case
 *       vss  09/02/25 Fixed GCC warnings
+* 5.6   rpu  08/11/25 Added crypto check in XSecure_ShaStart.
 * </pre>
 *
 * @note
@@ -170,6 +171,11 @@ END:
 int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 {
 	volatile int Status = XST_FAILURE;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/** Validate the input arguments */
 	if(InstancePtr == NULL) {

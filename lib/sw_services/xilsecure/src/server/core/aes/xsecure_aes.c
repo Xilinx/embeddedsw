@@ -103,7 +103,7 @@
 * 5.6   aa   07/15/2025 Typecast to essential datatypes to avoid implicit conversions
 *                       and added explicit parenthesis for sub-expression
 *       mb   09/10/2025 Exclude cache validation for RISC-V processor.
-*
+* 5.6   rpu  08/11/2025 Added crypto check in XSecure_AesOpInit.
 * </pre>
 *
 ******************************************************************************/
@@ -177,11 +177,6 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 {
 	int Status = XST_FAILURE;
-
-	Status = XSecure_CryptoCheck();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL)) {
@@ -1930,6 +1925,11 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	volatile int Status = XST_FAILURE;
 	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
 	u32 IsKeySrcAllowed = (u32)FALSE;
+
+    Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {

@@ -37,7 +37,7 @@
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       pre  06/05/2025 Bypassed AES & SHA initialization for crypto disabled boards
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
-*
+* 5.6   rpu  08/11/2025 Removed crypto check in xsecure_init
 * </pre>
 *
 ******************************************************************************/
@@ -142,13 +142,10 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_CryptoCheck();
-	if (Status == XST_SUCCESS) {
-		Status = XSecure_AesShaInit();
-		if (Status != XST_SUCCESS) {
+	Status = XSecure_AesShaInit();
+	if (Status != XST_SUCCESS) {
 			goto END;
 		}
-	}
 
 #if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
