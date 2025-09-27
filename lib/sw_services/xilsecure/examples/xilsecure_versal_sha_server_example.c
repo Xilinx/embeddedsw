@@ -23,7 +23,7 @@
 *                       with xilinx maintained functions
 * 4.9   bm     07/06/22 Refactor versal and versal_net code
 * 5.4   vss    01/08/25 Updated comments related to deprecated server mode of versalnet
-*
+* 5.6   rpu    08/22/25 Added status check for XSecure_Sha3Digest
 * </pre>
 ******************************************************************************/
 
@@ -149,8 +149,12 @@ static int SecureSha3Example()
 		goto END;
 	}
 
-	XSecure_Sha3Digest(&Secure_Sha3, (UINTPTR)Data, Size, (XSecure_Sha3Hash*)Out);
-
+	Status = XSecure_Sha3Digest(&Secure_Sha3, (UINTPTR)Data, Size, (XSecure_Sha3Hash*)Out);
+	if (Status != XST_SUCCESS) {
+		xil_printf("SHA Digest failed, Status = 0x%x \r\n",
+			Status);
+		goto END;
+	}
 
 	xil_printf(" Calculated Hash \r\n ");
 	SecureSha3PrintHash(Out);

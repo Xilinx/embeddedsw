@@ -54,7 +54,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen warnings
 *       kal  07/24/24 Code refactoring for versal_2ve_2vm
 *       pre  03/02/25 Removed data context lost setting
-*
+* 5.6   rpu  08/11/25 Added crypto check in XSecure_Sha3Start.
 * </pre>
 *
 ******************************************************************************/
@@ -127,11 +127,6 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 {
 	int Status = XST_FAILURE;
-
-	Status = XSecure_CryptoCheck();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/** Validate the input arguments */
 	if ((InstancePtr == NULL) || (DmaPtr == NULL) ||
@@ -267,6 +262,11 @@ END:
 int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
 	int Status = XST_FAILURE;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/** Validate the input arguments */
 	if (InstancePtr == NULL) {

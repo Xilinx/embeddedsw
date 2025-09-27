@@ -54,7 +54,7 @@
 * 5.4   vss    01/08/25 Updated comments related to deprecated server mode of versalnet
 *       mb     03/25/25 Add section attribute to global variables
 * 5.5   mb     06/10/25 Added description on usage of shared memory
-*
+* 5.6   rpu    08/22/25 Updated the print statement to show error code when the example fails
 * </pre>
 ******************************************************************************/
 
@@ -286,7 +286,7 @@ static int SecureAesGcmTest(XSecure_Aes *AesInstance)
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_0,
 				XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failure at key write\n\r");
+		xil_printf("Failure at key write, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -309,7 +309,7 @@ static int SecureAesGcmTest(XSecure_Aes *AesInstance)
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_USER_KEY_0,
 					XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" AES encrypt init is failed\n\r");
+		xil_printf(" AES encrypt init is failed, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -321,13 +321,13 @@ static int SecureAesGcmTest(XSecure_Aes *AesInstance)
 	Status = XSecure_AesEncryptUpdate(AesInstance, (UINTPTR)Data,(UINTPTR)EncData,
 						XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" AES encrypt update is failed\n\r");
+		xil_printf(" AES encrypt update is failed, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	Status = XSecure_AesEncryptFinal(AesInstance, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failed at GCM tag generation\n\r");
+		xil_printf("Failed at GCM tag generation, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -373,7 +373,7 @@ static int SecureAesGcmTest(XSecure_Aes *AesInstance)
 	}
 	Status = XSecure_AesDecryptFinal(AesInstance, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Decryption failure- GCM tag was not matched\n\r");
+		xil_printf("Decryption failure- GCM tag was not matched, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
@@ -389,7 +389,7 @@ static int SecureAesGcmTest(XSecure_Aes *AesInstance)
 	Status = Xil_SMemCmp(Data, XSECURE_DATA_SIZE, DecData,
 			XSECURE_DATA_SIZE, XSECURE_DATA_SIZE);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failure during comparison of the data\n\r");
+		xil_printf("Failure during comparison of the data, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
@@ -423,7 +423,7 @@ static int SecureAesGmacTest(XSecure_Aes *AesInstance)
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_0,
 				XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failure at key write\n\r");
+		xil_printf("Failure at key write, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
@@ -439,7 +439,7 @@ static int SecureAesGmacTest(XSecure_Aes *AesInstance)
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_USER_KEY_0,
 					XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" AES encrypt init is failed\n\r");
+		xil_printf(" AES encrypt init is failed, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
@@ -457,7 +457,7 @@ static int SecureAesGmacTest(XSecure_Aes *AesInstance)
 
 	Status = XSecure_AesEncryptFinal(AesInstance, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failed at GMAC tag generation\n\r");
+		xil_printf("Failed at GMAC tag generation, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
