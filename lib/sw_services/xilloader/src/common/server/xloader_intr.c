@@ -399,9 +399,9 @@ XSecure_PartialPdiEventParams *XLoader_PpdiEventParamsPtr(void)
  * @brief	This function handles the partial PDI event based on status of
  *          resources and is applicable only when queuinh mechanism is enabled
  *
- * @param	PdiPtr is the instance pointer that points to PDI details
  * @param	PdiSrc is source of PDI.
  * @param	PdiAddr is the address at which PDI is located in the PDI source
+ * @param	IpiMask is mask of IPI channel from which current partial PDI event is received
  *
  * @return
  * 			- XST_SUCCESS
