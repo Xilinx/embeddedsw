@@ -28,6 +28,7 @@
 *       kpt  02/20/24 Added support to extend secure state into SWPCR
 *       har  06/04/24 Added support to get Key Index as part of DevAkInput CDO command
 *       rmv  07/17/25 Added support to store OCP subsystem IDs for ASUFW
+*       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
 *
 * </pre>
 *
@@ -257,10 +258,12 @@ void XOcp_CmdsInit(void)
 		XOCP_API(XOCP_API_MAX),
 		NULL,
 		XOcp_AccessPermBuff,
+#ifndef VERSAL_2VP
 #ifdef PLM_OCP_KEY_MNGMT
 		XOcp_ShutdownHandler
 #else
 		NULL
+#endif
 #endif
 	};
 	u32 Idx;

@@ -40,6 +40,7 @@
 *       rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
 *                     file to xocp.c file as exported function.
 *       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
+*       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
 *
 * </pre>
 * @note
@@ -741,6 +742,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VP
 /*****************************************************************************/
 /**
  * @brief	This function zeroizes DEVIK and CDI SEED during OCP module shutdown.
@@ -802,6 +804,7 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**

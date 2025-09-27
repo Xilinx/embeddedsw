@@ -30,6 +30,7 @@
 *       rmv  07/17/2025   Move declaration of XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() APIs
 *			  from xocp_keymgmt.h file to xocp.h file as exported function.
 *       tvp  05/14/2025   Use platform independent TRNG related macros
+*       tvp  05/15/2025   XOcp_ShutdownHandler is not applicable for Versal_2vp
 *
 * </pre>
 *
@@ -134,7 +135,9 @@ int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId
 	u64 AttnPloadAddr, u32 AttnPloadSize);
 u32 XOcp_IsDevIkReady(void);
 int XOcp_RegenSubSysDevAk(void);
+#ifndef VERSAL_2VP
 int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);
+#endif
 int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr);
 #ifndef VERSAL_2VE_2VM
