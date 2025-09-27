@@ -527,16 +527,6 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 		}
 	}
 
-	/** Run Keywrap and dependent KAT's. */
-#if defined(XASU_KEYWRAP_ENABLE) || defined(XASU_RSA_PADDING_ENABLE)
-	Status = RunKeyWrapAndDependentKat(AsuDmaPtr);
-	if (Status != XASUFW_SUCCESS) {
-#ifdef XASU_TRIGGER_SLD_ON_KAT_FAILURE
-		goto SLD;
-#endif
-	}
-#endif
-
 	/** Run KDF and dependent(HMAC, SHA2-256/512) module. */
 	Status = RunKdfAndDependentKat(AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -588,6 +578,16 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 			XASUFW_SET_KAT_PASSED(XASU_MODULE_TRNG_ID);
 		}
 	}
+
+	/** Run Keywrap and dependent KAT's. */
+#if defined(XASU_KEYWRAP_ENABLE) || defined(XASU_RSA_PADDING_ENABLE)
+	Status = RunKeyWrapAndDependentKat(AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+#ifdef XASU_TRIGGER_SLD_ON_KAT_FAILURE
+		goto SLD;
+#endif
+	}
+#endif
 
 	/** Run ECC signature generation and verification KAT on ECC core for P-256 curve. */
 	Status = XAsufw_EccCoreKat(AsuDmaPtr);
