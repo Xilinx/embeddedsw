@@ -22,6 +22,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       tvp  07/07/2025 Added configurable option for OCP and OCP key management
 *
 * </pre>
 *
@@ -119,6 +120,7 @@ extern "C" {
 //#define PLM_PUF_EXCLUDE
 //#define PLM_ECDSA_EXCLUDE
 //#define PLM_RSA_EXCLUDE
+#define PLM_OCP_EXCLUDE
 
 #if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
 #define PLM_NVM
@@ -126,6 +128,14 @@ extern "C" {
 
 #if (!defined(PLM_PUF_EXCLUDE)) && (!defined(PLM_PUF))
 #define PLM_PUF
+#endif
+
+#if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP)) && (!defined(PLM_SECURE_EXCLUDE))
+#define PLM_OCP
+#endif
+
+#if (!defined(PLM_ECDSA_EXCLUDE)) && (defined(PLM_OCP))
+#define PLM_OCP_KEY_MNGMT
 #endif
 
 /**
