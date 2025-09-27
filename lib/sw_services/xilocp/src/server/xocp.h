@@ -284,6 +284,7 @@ XOcp_DmeResponse* XOcp_GetDmeResponse(void);
 u32 XOcp_IsDmeChlAvail(void);
 int XOcp_ValidateDiceCdi(void);
 int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSecure_HmacRes *Out);
+void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
 
 #ifdef __cplusplus
 }

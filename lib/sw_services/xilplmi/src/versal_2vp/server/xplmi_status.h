@@ -21,6 +21,7 @@
 *       tvp  07/07/25 Added XLOADER_TRNG_INIT_FAIL error code for TRNG initialization
 *       tvp  07/07/25 Added error codes for OCP support
 *       tvp  07/10/25 Added XLOADER_ERR_SECURE_CONFIG_MEASUREMENT error code
+*       tvp  07/10/25 Added XPLM_ERR_PUF_DISABLED error code
 *
 * </pre>
 *
@@ -260,6 +261,8 @@ typedef enum {
 					  RAM */
 	XPLM_ERR_STL_DIAG_TASK_CREATE,	/**< 0x20B - Error while creating STL diagnostic task */
 	XPLM_ERR_STL_DIAG_TASK_REMOVE,	/**< 0x20C - Error while removing STL diagnostic task */
+	XPLM_ERR_PUF_DISABLED,          /**< 0x20D - Error while puf regneration task due to
+					  disabled puf */
 
 	/** Status codes used in XLOADER */
 	/* PLM error codes specific to platform are from 0x2A0 to 0x2FF */
@@ -583,6 +586,23 @@ typedef enum {
 	XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED,	/**< 0x6D2 Key Management operation is disabled */
 	XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT,	/**< 0x6D3 Error in storing app version
 							  for DevAk certificate */
+	XOCP_ERR_DIGEST_CALC,	/**< 0x6D4 Error in digest calculation */
+	XOCP_ERR_AES_KEY_ZEROIZE,	/**< 0x6D4 Error while clearing AES key */
+	XOCP_ERR_AES_ENC_INIT,	/**< 0x6D5 Error while initializing AES key */
+	XOCP_ERR_AES_ENC_DATA,	/**< 0x6D6 Error while AES encrypting data */
+	XOCP_ERR_PUF_REGENERATION,	/**< 0x6D7 Error while PUF regeneration */
+	XOCP_ERR_KDF_FAILED,	/**< 0x6D8 Error while PUF regeneration */
+	XOCP_ERR_HASH_COPY_FAILED,	/**< 0x6D8 Error while copying Hash */
+	XOCP_ERR_DME_PARAM_COPY_FAILED,	/**< 0x6D9 Error while copying DME input params */
+	XOCP_ERR_DME_SIGN_COPY_FAILED,	/**< 0x6DA Error while copying DME signature */
+	XOCP_ERR_DME_CH_SIGN,	/**< 0x6DA Error while DME challenge signature */
+	XOCP_ERR_DME_DEC_PRIV_KEY,	/**< 0x6DB Error while decrypting DME private key */
+	XOCP_ERR_GEN_DME_PUB_KEY,	/**< 0x6DC Error while generating DME public key */
+	XOCP_ERR_DME_PWCT,	/**< 0x6DD Error in pair wise consistency  test for DME keys */
+	XOCP_ERR_GEN_ECC_KEY,	/**< 0x6DE Error while generating ephemeral key */
+	XOCP_ERR_GEN_DME_SIGN,	/**< 0x6DF Error while generating DME signature */
+	XOCP_ERR_DME_SIGN_VERIF_FAILED,	/**< 0x6DF Error while verifying DME signature */
+	XOCP_ERR_DME_MEAS_COPY_FAILED,	/**< 0x6E0 Error while copying DME measurement */
 	XPLMI_ERR_CDO_CMD = 0x2000,	/**< 0x2XXX, CDO command handler has failed. [12:8] contains
 					  Module ID, [7:0] contains API ID. Refer Minor code for
 					  Handler error code */

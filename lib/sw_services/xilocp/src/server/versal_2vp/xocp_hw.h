@@ -39,6 +39,20 @@ extern "C" {
 /************************************** Type Definitions ******************************************/
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
+#define XOCP_EFUSE_CACHE_BLACK_IV_0		(0xF12501D0U) /**< Black IV 0 register address*/
+#define XOCP_UDS_EFUSE_CACHE_ADDR		(0xF1250230U) /**< Encrypted UDS Key corresponding
+							       * User eFuse address */
+#define XOCP_DME_USER0_EFUSE_CACHE_ADDR		(0xF1250260U) /**< DME Encrypted Private Key0
+							       * corresponding User eFuse address */
+#define XOCP_DME_USER1_EFUSE_CACHE_ADDR		(0xF1250290U) /**< DME Encrypted Private Key1
+							       * corresponding User eFuse address */
+#define XOCP_PUF_CHASH_EFUSE_CACHE_ADDR		(0xF12500A8U) /**< PUF CHASH corresponding eFuse
+							       * address */
+
+#define XOCP_DME_KEY_0_REVOKE_MASK		(0x01800000U) /**< Revoke mask for DME key 0*/
+#define XOCP_DME_KEY_1_REVOKE_MASK		(0x06000000U) /**< Revoke mask for DME key 1*/
+
+#define XOCP_CDI_SEED_VALID			(1U) /**< To set CDI seed is valid */
 
 #define XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK		(0x00001000U)
 								/**< Error mask for CDI SEED parity*/
