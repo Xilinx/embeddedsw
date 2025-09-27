@@ -52,8 +52,18 @@ typedef int (*XPlmi_CmdHandler)(XPlmi_Cmd *Cmd);
 
 /* Force power down timeout in us */
 #define XPM_PWR_DWN_TIMEOUT	(60000U)
+
 /* Max number of processor base addresses */
 #define MAX_BASEADDR_LEN	(3U)
+
+/* Args positions per commands*/
+#define ARG_IDX_MEM_REG_DEVICE_ID	0U
+#define ARG_IDX_MEM_REG_ADDR_LOW	1U
+#define ARG_IDX_MEM_REG_ADDR_HIGH	2U
+#define ARG_IDX_MEM_REG_SIZE_LOW	3U
+#define ARG_IDX_MEM_REG_SIZE_HIGH	4U
+#define MEM_REG_ARG_MAX_LEN		5U
+#define SHIFT_TO_HIGH_U32		32U
 
 /* Args positions for SetDevAttr handler*/
 #define ARG_IDX_DEVATTR_DEVICE_ID	0U

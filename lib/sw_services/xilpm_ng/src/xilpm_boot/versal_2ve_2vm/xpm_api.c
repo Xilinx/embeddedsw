@@ -987,17 +987,17 @@ static XStatus AddMemRegnDevice(const u32 *Args, u32 NumArgs)
 	u64 Address;
 	u64 size;
 
-	if (5U != NumArgs) {
+	if (MEM_REG_ARG_MAX_LEN != NumArgs) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	DeviceId = Args[0];
+	DeviceId = Args[ARG_IDX_MEM_REG_DEVICE_ID];
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
-	Address = ((u64)Args[1]) | (((u64)Args[2]) << 32);
-	size = ((u64)Args[3]) | (((u64)Args[4]) << 32);
+	Address = ((u64)Args[ARG_IDX_MEM_REG_ADDR_LOW]) | (((u64)Args[ARG_IDX_MEM_REG_ADDR_HIGH]) << SHIFT_TO_HIGH_U32);
+	size = ((u64)Args[ARG_IDX_MEM_REG_SIZE_LOW]) | (((u64)Args[ARG_IDX_MEM_REG_SIZE_HIGH]) << SHIFT_TO_HIGH_U32);
 
 	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX < Index) {
 		Status = XST_DEVICE_NOT_FOUND;
