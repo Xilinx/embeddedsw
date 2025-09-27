@@ -205,22 +205,6 @@ typedef struct {
 }XOcp_DmeXppuCfg;
 
 typedef struct {
-	u32 BootmodeDis;	/* BOOT_MODE_DIS_15_0 */
-	u32 MiscCtrl;		/* MISC_CTRL */
-	u32 AnlgTrim3; 		/* ANLG_TRIM_3 */
-	u32 BootEnvCtrl;	/* BOOT_ENV_CTRL considering reserved bits */
-	u32 IpDisable1;		/* IP_DISABLE_1 */
-	u32 Caher1;			/* Caher_1 */
-	u32 DecOnly;		/* DEC_ONLY */
-	u32 SecCtrl;		/* Secure control */
-	u32 SecMisc1;		/* SEC_MISC 1 */
-	u32 DmeFips;		/* DME FIPS */
-	u32 IPDisable0;		/* IP_DISABLE_0 */
-	u32 RomRsvd;		/* ROM RSVD */
-	u32 RoSwapEn;		/* RO_SWAP_EN */
-} XOcp_SecureConfig;
-
-typedef struct {
 	u32 DapCfg;			/* Dap configuration */
 	u32 InstMask0;		/* Inst mask 0 */
 	u32 InstMask1;		/* Inst mask 1 */

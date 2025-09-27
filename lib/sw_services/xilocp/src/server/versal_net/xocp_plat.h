@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  05/16/25 Initial release
+*       tvp  09/13/25 Moved XOcp_ReadSecureConfig to platform file
 *
 * </pre>
 *
@@ -50,10 +51,30 @@ typedef struct {
 	u32 DevIkPubYAddr;		/**< Address of DEV_IK_PUBLIC_KEY_Y_0 */
 } XOcp_RegSpace;
 
+/**
+ * Data structure to hold secure configs.
+ */
+typedef struct {
+	u32 BootmodeDis;	/* BOOT_MODE_DIS_15_0 */
+	u32 MiscCtrl;		/* MISC_CTRL */
+	u32 AnlgTrim3; 		/* ANLG_TRIM_3 */
+	u32 BootEnvCtrl;	/* BOOT_ENV_CTRL considering reserved bits */
+	u32 IpDisable1;		/* IP_DISABLE_1 */
+	u32 Caher1;		/* Caher_1 */
+	u32 DecOnly;		/* DEC_ONLY */
+	u32 SecCtrl;		/* Secure control */
+	u32 SecMisc1;		/* SEC_MISC 1 */
+	u32 DmeFips;		/* DME FIPS */
+	u32 IPDisable0;		/* IP_DISABLE_0 */
+	u32 RomRsvd;		/* ROM RSVD */
+	u32 RoSwapEn;		/* RO_SWAP_EN */
+} XOcp_SecureConfig;
+
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
 /************************************ Function Prototypes *****************************************/
 XOcp_RegSpace* XOcp_GetRegSpace(void);
+void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig);
 
 /************************************ Variable Definitions ****************************************/
 

@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  05/16/25 Initial release
+*       tvp  09/13/25 Moved XOcp_ReadSecureConfig from xocp.c to platform file
 *
 * </pre>
 *
@@ -70,4 +71,35 @@ XOcp_RegSpace* XOcp_GetRegSpace(void)
 
 	return &RegSpace;
 }
+
+/**************************************************************************************************/
+/**
+ * @brief	This function reads secure efuse configuration.
+ *
+ * @param	EfuseConfig Pointer to XOcp_SecureConfig.
+ *
+ * @return
+ * 		- None.
+ *
+ **************************************************************************************************/
+void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
+{
+	EfuseConfig->BootEnvCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
+	EfuseConfig->IpDisable1 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_1);
+	EfuseConfig->SecMisc1 = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1);
+	EfuseConfig->Caher1 = XPlmi_In32(XOCP_EFUSE_CACHE_CAHER_1) &
+						XOCP_CAHER_1_MEASURED_MASK;
+	EfuseConfig->DecOnly = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_0) &
+			XOCP_DEC_ONLY_MEASURED_MASK;
+	EfuseConfig->SecCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL) &
+			XOCP_SEC_CTRL_MEASURED_MASK;
+	EfuseConfig->MiscCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_MISC_CTRL) &
+			XOCP_MISC_CTRL_MEASURED_MASK;
+	EfuseConfig->AnlgTrim3 = XPlmi_In32(XOCP_EFUSE_CACHE_ANLG_TRIM_3);
+	EfuseConfig->IPDisable0 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_0) &
+			XOCP_IP_DISABLE0_MEASURED_MASK;
+	EfuseConfig->RomRsvd = XPlmi_In32(XOCP_EFUSE_CACHE_ROM_RSVD) &
+			XOCP_ROM_RSVD_MEASURED_MASK;
+}
+
 #endif /* PLM OCP */
