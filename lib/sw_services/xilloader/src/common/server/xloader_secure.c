@@ -133,6 +133,7 @@
 *       pre  06/07/25 Hash verification skip is done using crypto check function
 * 2.03  tvp  08/22/25 Added support to store partition Block hash in PtrnHashTable.
 *       pre  08/23/25 Did versal macro change
+*       tvp  08/27/25 Store Block 0 partition hash to calculate subsystem image hash for versal_2vp
 *
 * </pre>
 *
@@ -458,7 +459,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	volatile int ClearStatus = XST_FAILURE;
-#if defined(versal) && defined(PLM_TPM)
+#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
 	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 #endif
 
@@ -536,7 +537,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-#if defined(versal) && defined(PLM_TPM)
+#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
 	/** Store Hash of first block requird for the data measurements */
 	if (SecurePtr->BlockNum == 0x0U) {
 		/** Store Hash of the first block of the partition, required for data measurement */

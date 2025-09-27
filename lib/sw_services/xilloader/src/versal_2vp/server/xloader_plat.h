@@ -17,6 +17,7 @@
 * 2.3   tvp  07/07/25 Initial release
 *       pre  08/27/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *       tvp  07/07/25 Removed empty XLoader_PlatInit from header moved to source file
+*       tvp  07/10/25 Define XLoader_SecureConfigMeasurement if PLM_OCP is enabled
 *
 * </pre>
 *
@@ -333,6 +334,8 @@ static inline u8 XLoader_IsPdiSrcSD0(u8 PdiSrc)
 	return (PdiSrc == XLOADER_PDI_SRC_SD0) ? (u8)TRUE : (u8)FALSE;
 }
 
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr,
+				    u32 PcrInfo, u32 *DigestIndex, u32 OverWrite);
 /**************************************************************************************************/
 /**
  * @brief	This function measures the PDI's meta header data by calculating
@@ -347,30 +350,6 @@ static inline u8 XLoader_IsPdiSrcSD0(u8 PdiSrc)
 static inline int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 {
 	(void)PdiPtr;
-	return XST_SUCCESS;
-}
-
-/**************************************************************************************************/
-/**
- * @brief	This function measures the Secure Config by calculating SHA3 hash.
- *
- * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
- * @param	PcrInfo provides the PCR number and Measurement Index
- * 		to be extended.
- * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only.
- * @param       OverWrite TRUE or FALSE to overwrite the extended digest or not.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-static inline int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr,
-	u32 PcrInfo, u32 *DigestIndex, u32 OverWrite)
-{
-	(void)SecurePtr;
-	(void)PcrInfo;
-	(void)DigestIndex;
-	(void)OverWrite;
 	return XST_SUCCESS;
 }
 
@@ -445,28 +424,6 @@ static inline int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataI
 }
 #endif
 
-/**************************************************************************************************/
-/**
- * @brief	This functions updates the partition data to SHA engine for measurement.
- *
- * @param	PdiPtr 		Pointer to the XilPdi structure.
- * 		DataAddr 	Address of Data for measure the hash.
- * 		DataLen		Length of data for DataMeasument.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-static inline int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen)
-{
-	(void)PdiPtr;
-	(void)DataAddr;
-	(void)DataLen;
-	/* Not Applicable for versal_2ve_2vm*/
-
-	return XST_SUCCESS;
-}
-
 /************************************ Function Prototypes *****************************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 void XLoader_SetJtagTapToReset(void);
@@ -485,6 +442,10 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_PlatInit(void);
 
+#if defined(PLM_OCP)
+XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
+#endif
+int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
 
 /************************************ Variable Definitions ****************************************/
 
