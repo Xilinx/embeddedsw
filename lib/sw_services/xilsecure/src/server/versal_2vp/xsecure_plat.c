@@ -30,8 +30,12 @@
 #include "xsecure_sha_hw.h"
 #include "xsecure_sha.h"
 #include "xsecure_defs.h"
+#include "xsecure_trng.h"
+#include "xplmi.h"
 
 /************************************ Constant Definitions ****************************************/
+#define XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT	(5U) /**< Shift to calculate
+							       true random number generator*/
 
 /************************************ Variable Definitions ****************************************/
 
@@ -282,4 +286,96 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
+
+/**************************************************************************************************/
+/**
+ * @brief	This function generates Random number of given size
+ *
+ * @param	Output	is pointer to the output buffer
+ * @param	Size	is the number of random bytes to be read
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On Failure
+ *
+ **************************************************************************************************/
+int XSecure_GetRandomNum(u8 *Output, u32 Size)
+{
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	volatile int Status = XST_FAILURE;
+	u8 *RandBufPtr = Output;
+	u32 TotalSize = Size;
+	u32 RandBufSize = XSECURE_TRNG_SEC_STRENGTH_IN_BYTES;
+	u32 Index = 0U;
+	u32 NoOfGenerates = (Size + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES - 1U) >>
+				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
+	u8 TmpRandBuf[XTRNGPSV_SEC_STRENGTH_BYTES];
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
+
+	for (Index = 0U; Index < NoOfGenerates; Index++) {
+		if (Index == (NoOfGenerates - 1U)) {
+			RandBufSize = TotalSize;
+			if (RandBufSize < XTRNGPSV_SEC_STRENGTH_BYTES) {
+				XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsv_Generate, TrngInstance,
+						       (u8 *)&TmpRandBuf,
+						       XTRNGPSV_SEC_STRENGTH_BYTES, XTRNGPSV_FALSE);
+				Status = Xil_SMemCpy(RandBufPtr, RandBufSize, TmpRandBuf,
+						     XTRNGPSV_SEC_STRENGTH_BYTES, RandBufSize);
+				break;
+			}
+		}
+
+		XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsv_Generate, TrngInstance, RandBufPtr,
+				       RandBufSize, XTRNGPSV_FALSE);
+		RandBufPtr += RandBufSize;
+		TotalSize -= RandBufSize;
+	}
+
+END:
+	if (Status != XST_SUCCESS) {
+		Status |= XSecure_Uninstantiate(TrngInstance);
+	}
+
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function initializes the trng in HRNG mode if it is not initialized
+ *		and it is applicable only for VersalNet
+ *
+ * @return
+ *		 - XST_SUCCESS  On Successful initialization
+ *		 - XST_FAILURE  On Failure
+ *
+ **************************************************************************************************/
+int XSecure_ECCRandInit(void)
+{
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	volatile int Status = XST_FAILURE;
+
+	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != (u8)TRUE) ||
+		(!XSecure_TrngIsHealthy(TrngInstance))) {
+		Status = XSecure_PreOperationalSelfTests(TrngInstance);
+		if (Status != XST_SUCCESS) {
+			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			goto END;
+		} else {
+			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+		}
+	}
+	if (((XSecureTrng_Mode)TrngInstance->UsrCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
+		(!XSecure_TrngIsInitialized(TrngInstance))) {
+		Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
+END:
+
+	return Status;
+}
+
 /** @} */

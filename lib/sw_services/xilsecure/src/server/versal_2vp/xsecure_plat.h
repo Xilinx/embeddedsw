@@ -107,6 +107,8 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr, XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 void XSecure_ConfigureDmaByteSwap(u32 Op);
+int XSecure_GetRandomNum(u8 *Output, u32 Size);
+int XSecure_ECCRandInit(void);
 /**
  * @}
  * @endcond
