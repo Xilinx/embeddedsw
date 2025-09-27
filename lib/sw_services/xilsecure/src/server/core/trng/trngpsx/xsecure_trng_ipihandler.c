@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
+*       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *

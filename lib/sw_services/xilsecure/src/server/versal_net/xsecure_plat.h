@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 		      and OVER_RUN coverity warning
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       kpt  06/30/24 Added XSecure_MemCpyAndChangeEndianness
+* 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -145,7 +146,6 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
 int XSecure_TrngInitNCfgHrngMode(void);
-XTrngpsx_Instance *XSecure_GetTrngInstance(void);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 
 /***************************** Variable Prototypes  ***************************/

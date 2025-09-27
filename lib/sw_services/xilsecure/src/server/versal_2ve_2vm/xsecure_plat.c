@@ -20,6 +20,7 @@
 *       vss      04/08/25 Updated AesValidateSize function
 *       vss      04/23/25 Added byte aligned support.
 * 5.6   mb       08/07/25 Added volatile keyword for Index variable to avoid optimization
+*       tvp      09/23/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -81,7 +82,6 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 /************************** Function Prototypes ******************************/
 
 static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
-static int XSecure_TrngInitNCfgHrngMode(void);
 
 /************************** Function Definitions *****************************/
 
@@ -406,7 +406,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	volatile u32 Index = 0U;
 	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >>
 				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((Size == 0U) || (Output == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -434,7 +434,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 
 END:
 	if (Status != XST_SUCCESS) {
-		Status |= XTrngpsx_Uninstantiate(TrngInstance);
+		Status |= XSecure_Uninstantiate(TrngInstance);
 	}
 
 	return Status;
@@ -454,11 +454,11 @@ int XSecure_ECCRandInit(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
-		(TrngInstance->ErrorState != XTRNGPSX_HEALTHY)) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XTrngpsx_PreOperationalSelfTests, TrngInstance);
+		(!XSecure_TrngIsHealthy(TrngInstance))) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_PreOperationalSelfTests, TrngInstance);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 			Status = (int)XSECURE_ERR_IN_TRNG_SELF_TESTS;
@@ -467,9 +467,11 @@ int XSecure_ECCRandInit(void)
 
 		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 	}
-	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
-		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngInitNCfgHrngMode);
+
+	if (((XSecureTrng_Mode)TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
+		(!XSecure_TrngIsInitialized(TrngInstance))) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngInitNCfgMode,
+				      XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 		if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = (int)XSECURE_ERR_TRNG_INIT_N_CONFIG;
 			goto END;
@@ -480,61 +482,6 @@ int XSecure_ECCRandInit(void)
 END:
 
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function initialize and configures the TRNG into HRNG mode of operation.
- *
- * @return
- *		- XST_SUCCESS  Upon success.
- *		- XST_FAILURE  On failure.
- *
- *****************************************************************************/
-static int XSecure_TrngInitNCfgHrngMode(void)
-{
-	volatile int Status = XST_FAILURE;
-	XTrngpsx_UserConfig UsrCfg;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
-
-	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE ) {
-		Status = XTrngpsx_Uninstantiate(TrngInstance);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
-	}
-	/* Initiate TRNG */
-	UsrCfg.Mode = XTRNGPSX_HRNG_MODE;
-	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
-	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
-	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH ;
-	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE ;
-	UsrCfg.IsBlocking = FALSE;
-	Status = XTrngpsx_Instantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
-	if (Status != XST_SUCCESS) {
-		(void)XTrngpsx_Uninstantiate(TrngInstance);
-		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
-		goto END;
-	}
-	XSecure_UpdateTrngCryptoStatus(XSECURE_SET_BIT);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function provides the pointer to the common trng instance
- *
- * @return	Pointer to the XSecure_TrngInstance instance
- *
- *****************************************************************************/
-XTrngpsx_Instance *XSecure_GetTrngInstance(void)
-{
-	static XTrngpsx_Instance TrngInstance = {0U};
-
-	return &TrngInstance;
 }
 
 /*****************************************************************************/

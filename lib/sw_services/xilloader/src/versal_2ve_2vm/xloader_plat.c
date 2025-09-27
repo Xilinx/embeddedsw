@@ -67,6 +67,7 @@
 * 1.04  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
 *       tvp  07/28/2025 Added comment for better code readability
 *       rmv  07/17/2025 Call XOcp_StoreSubsysDigest() to store subsystem digest for ASUFW
+*       tvp  08/13/2025 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -1708,7 +1709,8 @@ END:
 static int XLoader_InitTrngInstance(void)
 {
 	int Status = XST_FAILURE;
-	XTrngpsx_Instance  *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
 	XTrngpsx_Config *CfgPtr = NULL;
 
 	CfgPtr = XTrngpsx_LookupConfig(XLOADER_TRNG_DEVICE_ID);

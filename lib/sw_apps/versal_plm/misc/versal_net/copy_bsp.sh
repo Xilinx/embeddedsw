@@ -124,7 +124,7 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/* $BSP_DIR/libsrc/xils
 cp -r $SERVICES_DIR/xilsecure/src/server/core/key_zeroize/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/rsa/rsa_qmode/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/key_unwrap/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/trngpsx/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/softsha1/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/versal_net/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/versal_net/* $BSP_DIR/libsrc/xilsecure/src/

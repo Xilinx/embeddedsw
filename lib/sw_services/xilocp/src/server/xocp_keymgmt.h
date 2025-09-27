@@ -29,6 +29,7 @@
 *                         Renamed XOCP_GenSubSysDevAk to XOcp_GenSubSysDevAk
 *       rmv  07/17/2025   Move declaration of XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() APIs
 *			  from xocp_keymgmt.h file to xocp.h file as exported function.
+*       tvp  05/14/2025   Use platform independent TRNG related macros
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
 #include "xocp.h"
 #include "xocp_common.h"
 #include "xsecure_sha.h"
+#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U) /**< DNA cache */
@@ -109,7 +111,7 @@ typedef struct {
 	u32 KeyIndex;		/**< Index of DevAk for the subsystem */
 	u32 AppVersionLen;		/**< Length of app version */
 	u8 AppVersion[XOCP_APP_VERSION_MAX_LENGTH];		/**< App version */
-	u8 PerString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];/**< Personalization string */
+	u8 PerString[XSECURE_TRNG_PER_STRING_LEN_IN_BYTES];/**< Personalization string */
 	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DevAK private key */
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DevAK public key X */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
         kpt     01/09/24 Updated option for non-blocking trng reseed
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     06/30/24 Added XSecure_MemCpyAndChangeEndianness
+* 5.5   tvp	05/13/25 Code refactoring for Platform specific TRNG functions
 *
 * </pre>
 *
@@ -588,7 +589,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	u32 Index = 0U;
 	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
 
@@ -605,7 +606,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 
 END:
 	if (Status != XST_SUCCESS) {
-		Status |= XTrngpsx_Uninstantiate(TrngInstance);
+		Status |= XSecure_Uninstantiate(TrngInstance);
 		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 	}
 
@@ -625,11 +626,11 @@ END:
 int XSecure_ECCRandInit(void)
 {
 	volatile int Status = XST_FAILURE;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
-		(TrngInstance->ErrorState != XTRNGPSX_HEALTHY)) {
-		Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
+		(!XSecure_TrngIsHealthy(TrngInstance))) {
+		Status = XSecure_PreOperationalSelfTests(TrngInstance);
 		if (Status != XST_SUCCESS) {
 			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 			goto END;
@@ -638,9 +639,9 @@ int XSecure_ECCRandInit(void)
 			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 		}
 	}
-	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
-		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
-		Status = XSecure_TrngInitNCfgHrngMode();
+	if (((XSecureTrng_Mode)TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
+		(!XSecure_TrngIsInitialized(TrngInstance))) {
+		Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -682,60 +683,3 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 END:
 	return Status;
 }
-
-/*****************************************************************************/
-/**
- * @brief	This function initialize and configures the TRNG into HRNG mode of operation.
- *
- * @return
- *		 - XST_SUCCESS  Upon success.
- *		 - XST_FAILURE  On failure.
- *
- *****************************************************************************/
-int XSecure_TrngInitNCfgHrngMode(void)
-{
-	volatile int Status = XST_FAILURE;
-	XTrngpsx_UserConfig UsrCfg;
-	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
-
-	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE ) {
-		Status = XTrngpsx_Uninstantiate(TrngInstance);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
-	}
-	/* Initiate TRNG */
-	UsrCfg.Mode = XTRNGPSX_HRNG_MODE;
-	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
-	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
-	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH ;
-	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE ;
-	UsrCfg.IsBlocking = FALSE;
-	Status = XTrngpsx_Instantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
-	if (Status != XST_SUCCESS) {
-		(void)XTrngpsx_Uninstantiate(TrngInstance);
-		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
-		goto END;
-	}
-	XSecure_UpdateTrngCryptoStatus(XSECURE_SET_BIT);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function provides the pointer to the common trng instance
- *
- * @return
- *		 - Pointer to the XSecure_TrngInstance instance
- *
- *****************************************************************************/
-XTrngpsx_Instance *XSecure_GetTrngInstance(void)
-{
-	static XTrngpsx_Instance TrngInstance = {0U};
-
-	return &TrngInstance;
-}
-/** @} */

@@ -138,7 +138,7 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$server/core/rsa/rsa_qmode" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$server/core/trng" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/trng/trngpsx" *]] {
 					file copy -force $entry "./src"
 				}
 				foreach entry [glob -nocomplain -types f [file join "$server/versal_net" *]] {
@@ -170,7 +170,7 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$server/core/rsa/rsa_qmode" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$server/core/trng" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/trng/trngpsx" *]] {
 					file copy -force $entry "./src"
 				}
 				foreach entry [glob -nocomplain -types f [file join "$server/core/softsha2-384" *]] {
