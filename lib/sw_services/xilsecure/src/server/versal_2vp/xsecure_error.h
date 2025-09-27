@@ -19,6 +19,8 @@
  *       mb   09/09/25 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
  *                     Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
  *       rpu  09/26/25 Removed typedef for enum to fix compilation warnings
+ *       tvp  09/23/25 Add error code for ECC private key generation
+ *
  * </pre>
  *
  **************************************************************************************************/
@@ -130,6 +132,7 @@ enum {
 	 * The error codes from 0x90 to 0xBF are reserved for Versal net platform
 	 * This range is reserved please don't define any error codes for Versal_2vp
 	 */
+	XSECURE_ECC_PRVT_KEY_GEN_ERR = 0xBF, 		/**< 0xBF - ECC private key generation error */
 
 	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
 
