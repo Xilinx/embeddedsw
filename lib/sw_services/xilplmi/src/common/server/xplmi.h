@@ -68,6 +68,7 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 * 2.2   prt  02/06/2025 Updated the SDK RELEASE YEAR and QUARTER
 * 2.3   aa   06/19/2025 Updated SDK release version
+* 2.4   sk   09/27/2025 Added Boot Time config support to disable UART Logs
 * </pre>
 *
 * @note
@@ -115,6 +116,8 @@ extern "C" {
 #define XPLMI_CMD_NON_SECURE	(0x1U) /**< IPI command non-secure flag */
 #define XPLMI_PMC_VERSION_MASK		(0xFU) /**< Used to calculate PMC Version */
 #define XPLMI_PMC_VERSION_SHIFT		(0x4U) /**< Used to calculate PMC Version */
+#define XPLMI_UART_PRINT_DISABLED	(0x01U) /**< Used to check if UART Prints Disabled */
+#define XPLMI_RTCFG_LOG_UART_OFFSET	(0x24U) /**< RTCFG UART LOG Offset */
 
 /**************************** Type Definitions *******************************/
 #define UART_INITIALIZED	((u32)(1U << 0U)) /**< Flag indicates UART is initialized */
@@ -169,9 +172,18 @@ static inline u8 XPlmi_IsUartInitialized(void)
 static inline u8 XPlmi_IsUartPrintInitialized(void)
 {
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+	u8 Status = (u8)FALSE;
 
-	return (((*LpdInitializedPtr & UART_PRINT_INITIALIZED) ==
+	/* Check if UART Logging is disabled */
+	if (XPlmi_In32(XPLMI_RTCFG_BASEADDR + XPLMI_RTCFG_LOG_UART_OFFSET)
+			== XPLMI_UART_PRINT_DISABLED) {
+		Status = (u8)FALSE;
+	} else {
+		Status = (((*LpdInitializedPtr & UART_PRINT_INITIALIZED) ==
 			UART_PRINT_INITIALIZED) ?  (u8)TRUE : (u8)FALSE);
+	}
+
+	return Status;
 }
 
 /**@cond xplmi_internal
