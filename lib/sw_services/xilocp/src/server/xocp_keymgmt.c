@@ -42,6 +42,7 @@
 *       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
 *       tvp  05/16/25 Use SHA3 for Versal_2vp
+*       tvp  05/16/25 Don't export OCP DS for Versal_2vp
 *
 * </pre>
 * @note
@@ -130,9 +131,11 @@ static XOcp_SubSysHash *XOcp_GetSubSysHash(void)
 	static XOcp_SubSysHash SubSysHash[XOCP_MAX_DEVAK_SUPPORT]
 				__attribute__ ((aligned(4U))) = {0U};
 
+#ifndef VERSAL_2VP
 	EXPORT_OCP_DS(SubSysHash, XOCP_DEVAK_SUBSYS_HASH_DS_ID,
 		XOCP_DEVAK_SUBSYS_HASH_VERSION, XOCP_DEVAK_SUBSYS_HASH_LCVERSION,
 		sizeof(SubSysHash), (u32)(UINTPTR)&SubSysHash[0]);
+#endif
 
 	return &SubSysHash[0];
 }
