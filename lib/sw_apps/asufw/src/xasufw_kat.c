@@ -74,7 +74,9 @@ static s32 XAsufw_ValidateDpaIntermediateValues(const u32 *MaskedOutput0, const 
 	const u32 *Mask0, const u32 *Mask1);
 static void XAsufw_ApplyMask(const u32 *Data, u32 *MaskedData, u32 Mask, u32 Length);
 static s32 RunKdfAndDependentKat(XAsufw_Dma *AsuDmaPtr);
+#if defined(XASU_KEYWRAP_ENABLE) || defined(XASU_RSA_PADDING_ENABLE)
 static s32 RunKeyWrapAndDependentKat(XAsufw_Dma *AsuDmaPtr);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 #define XASUFW_KAT_MSG_LENGTH_IN_BYTES			(32U)	/**< SHA KAT message length in bytes */
@@ -159,6 +161,7 @@ static const u8 ExpKdfOutput[XASU_SHA_256_HASH_LEN] = {
 };
 #endif
 
+#if defined(XASU_RSA_PADDING_ENABLE) || defined(XASU_ECIES_ENABLE)
 static const u8 RsaData[XASUFW_RSA_INPUT_LEN_IN_BYTES] = {
 	0x05U, 0x95U, 0x87U, 0x3FU, 0xA5U, 0x76U, 0x50U, 0xBFU, 0x76U, 0x6FU, 0x2CU, 0xB3U, 0x97U, 0x80U,
 	0x8BU, 0x7BU, 0x99U, 0xE8U, 0x56U, 0x2FU, 0x4BU, 0xCDU, 0x66U, 0x25U, 0x6FU, 0xA9U, 0x51U, 0x7CU,
@@ -167,7 +170,9 @@ static const u8 RsaData[XASUFW_RSA_INPUT_LEN_IN_BYTES] = {
 	0xFAU, 0x29U, 0x28U, 0x76U, 0xB8U, 0xCEU, 0xC3U, 0x66U, 0xFFU, 0x15U, 0xFBU, 0x28U, 0x3BU, 0xC2U,
 	0x82U, 0x32U, 0xB7U, 0x5FU, 0xE4U, 0xD5U, 0x54U, 0x8EU, 0xE5U, 0x43U
 };
+#endif
 
+#if defined(XASU_RSA_PADDING_ENABLE) || defined(XASU_KEYWRAP_ENABLE)
 static const u8 RsaModulus[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES] = {
 	0xAEU, 0xFEU, 0xC6U, 0x93U, 0xF1U, 0x06U, 0x01U, 0x47U, 0x17U, 0x28U, 0xA2U, 0x49U,
 	0x6FU, 0xA3U, 0x1DU, 0x8CU, 0xDBU, 0xF9U, 0xB3U, 0x57U, 0x67U, 0xEFU, 0x31U, 0xCDU,
@@ -219,6 +224,9 @@ static const u8 RsaPvtExp[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES] = {
 };
 
 static const u32 RsaPublicExp = 0x1000100U;
+
+static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
+#endif
 
 static const u8 EccPrivKey[XASU_ECC_P256_SIZE_IN_BYTES] = {
 	0x22U, 0x17U, 0x96U, 0x4FU, 0xB2U, 0x14U, 0x35U, 0x33U,
@@ -449,8 +457,6 @@ static const u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
 	0x8aU, 0x95U, 0x9bU, 0x61U, 0xf2U
 };
 
-static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
-
 static u8 WrappedResult[XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES];
 #endif
 
@@ -657,7 +663,9 @@ SLD:
 	/* TODO: To send IPI to PLM to trigger secure lockdown. */
 #endif
 
+#ifdef XASU_RSA_PADDING_ENABLE
 END:
+#endif
 	XAsufw_RMW(XASU_RTCA_KAT_EXEC_STATUS_ADDR, XASU_RTCA_KAT_EXEC_STATUS_MASK,
 			XASU_RTCA_KAT_EXEC_STATUS_VALUE);
 	XAsufw_Printf(DEBUG_GENERAL, "KATs execution completed.\r\n");
