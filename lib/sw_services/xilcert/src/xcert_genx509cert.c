@@ -38,6 +38,7 @@
 * 1.4   har  02/27/2025 Use SHA1 to calculate hash of uncompressed public key for SKI/AKI
 *       tvp  05/16/2025 Use SHA3 for Versal_2vp
 *       tvp  06/05/2025 Remove use of UEID and TCB Info extension for Versal_2vp
+*       tvp  09/18/2025 Remove use of DME extension for Versal_2vp
 *
 * </pre>
 * @note
@@ -91,8 +92,10 @@ static const u8 Oid_ExtnRequest[]	= {0x06U, 0x09U, 0x2AU, 0x86U, 0x48U, 0x86U, 0
 #ifndef VERSAL_2VP
 static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x09U};
 #endif
+#ifndef VERSAL_2VP
 static const u8 Oid_DmeExtn[] = {0x06U, 0x0AU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x03U, 0x01U};
 static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x03U, 0x02U, 0x02};
+#endif
 /** @} */
 
 /************************** Macro Definitions *****************************/
@@ -156,8 +159,10 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 #define XCERT_DNA_LEN_IN_BYTES				(XCERT_DNA_LEN_IN_WORDS * XCERT_WORD_LEN)
 /** @} */
 
+#ifndef VERSAL_2VP
 #define XCERT_DME_PUB_KEY_X_0	    (0xF1115400U)	/**< DME public key X address */
 #define XCERT_DME_PUB_KEY_Y_0       (0xF1115430U)   /**< DME public key Y address */
+#endif
 
 #define XCert_In32					(XPlmi_In32)
 			/**< Alias of XPlmi_In32 to be used in XilCert*/
@@ -208,8 +213,10 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len);
 static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen);
 static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen);
+#ifndef VERSAL_2VP
 static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse *DmeResp);
 static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
+#endif
 #if (!defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP))
 static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen);
 static int XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen);
@@ -1986,6 +1993,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VP
 /******************************************************************************/
 /**
  * @brief	This function creates the DME extension field
@@ -2163,6 +2171,7 @@ static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len,
 END:
 	return Status;
 }
+#endif
 
 /******************************************************************************/
 /**
@@ -2245,11 +2254,13 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 	}
 	Curr = Curr + Len;
 
+#ifndef VERSAL_2VP
 	Status = XCert_GenDmeExtnField(Curr, &Len, Cfg->AppCfg.DmeResp);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Curr = Curr + Len;
+#endif
 
 	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
 	if (Status != XST_SUCCESS) {
