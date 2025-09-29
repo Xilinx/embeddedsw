@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       har  03/05/24 Fixed doxygen warnings
  *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
  *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
+ * 2.3   aa   09/29/25 Added UFS support as pdisrc option for partial PDI load
  *
  * </pre>
  *
@@ -62,6 +63,7 @@ typedef enum {
 		XLOADER_PDI_SBI, /**< 9U PDI source SBI */
 		XLOADER_PDI_SMAP = 0xAU,/**< 0xAU PDI source SMAP */
 		XLOADER_PDI_PCIE, /**< 0xBU PDI source PCIE */
+		XLOADER_PDI_UFS = 0xBU, /**< 0xBU PDI source UFS */
 		XLOADER_PDI_SD1_LS = 0XEU, /**< 0xEU PDI source SD1-LS */
 		XLOADER_PDI_DDR = 0xFU, /**< 0xFU PDI source DDR */
 		XLOADER_PDI_IS = 0x10U, /**< 0x10U PDI source Image Store */
