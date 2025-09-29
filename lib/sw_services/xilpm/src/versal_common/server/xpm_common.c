@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -253,5 +253,5 @@ inline void XPm_LockPcsr(u32 BaseAddr)
 	 * Any value that is not the unlock value will lock the PCSR. For
 	 * consistency across all blocks, PCSR_LOCK_VAL is 0.
 	 */
-	XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
+	XSECURE_REDUNDANT_IMPL(XPm_Out32, BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
 }
