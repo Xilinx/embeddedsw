@@ -91,6 +91,7 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  03/17/2025 Added task based event notification functionality for subsystem PDI load
 * 2.3   tvp  07/07/2025 Do not include xplmi_ssit.h for versal_2vp
+*       aa   09/29/2025 Added emmc and ufs support as pdisrc option for partial PDI load
 *
 * </pre>
 *
@@ -194,6 +195,8 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_AC_HIGH_ADDR_IDX		(4U)
 #endif
 
+#define XLOADER_SD_MULTIBOOT_SHIFT		(4U)
+
 #ifdef PLM_GET_OPT_DATA_EN
 #define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU)
 	/**< Mask for PDI Src in Extract Metaheader command */
@@ -292,6 +295,8 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	u64 PdiAddr;
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 	u32 PdiId;
+	u32 BootMode;
+	u32 OffSet;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -306,7 +311,22 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 		(PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 		(PdiSrc == XLOADER_PDI_SRC_OSPI) ||
 		(PdiSrc == XLOADER_PDI_SRC_IS) ||
-		(PdiSrc == XLOADER_PDI_SRC_DDR))) {
+		(PdiSrc == XLOADER_PDI_SRC_DDR) ||
+		(PdiSrc == XLOADER_PDI_SRC_EMMC0) ||
+		(PdiSrc == XLOADER_PDI_SRC_EMMC1)
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
+		|| (PdiSrc == XLOADER_PDI_SRC_SD0) ||
+		(PdiSrc == XLOADER_PDI_SRC_SD1) ||
+		(PdiSrc == XLOADER_PDI_SRC_SD1_LS)
+#elif defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
+		|| (PdiSrc == XLOADER_PDI_SRC_SDLS_B0) ||
+		(PdiSrc == XLOADER_PDI_SRC_SD_B1) ||
+		(PdiSrc == XLOADER_PDI_SRC_SDLS_B1)
+#endif
+#if defined(VERSAL_2VE_2VM)
+		|| (PdiSrc == XLOADER_PDI_SRC_UFS)
+#endif
+	     )) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC, (int)PdiSrc);
 		goto END;
@@ -324,6 +344,20 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 		PdiSrc = XLOADER_PDI_SRC_DDR;
+	}
+
+	if (XLoader_IsPdiSrcSD(PdiSrc) || (PdiSrc == XLOADER_PDI_SRC_EMMC0) ||
+		(PdiSrc == XLOADER_PDI_SRC_EMMC1)) {
+		BootMode = Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_HIGH_INDEX];
+		OffSet = Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX];
+		if(BootMode == XLOADER_FLASHTYPE_FS) {
+			PdiSrc |= (PdiSrc_t)XLOADER_SD_FILE_SYSTEM_VAL;
+			PdiSrc |=(PdiSrc_t)(OffSet << XLOADER_SD_MULTIBOOT_SHIFT);
+			PdiAddr = 0U;
+		} else {
+			PdiSrc |=(PdiSrc_t)XLOADER_SD_RAWBOOT_VAL;
+			PdiAddr = Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX];
+		}
 	}
 
 	/**
