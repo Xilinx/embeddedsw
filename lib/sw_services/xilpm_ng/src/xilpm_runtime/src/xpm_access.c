@@ -119,7 +119,7 @@ done:
 
 static XStatus XPmAccess_BaseHandler(pm_ioctl_id Op, XPm_NodeAccessTypes AccessType)
 {
-	XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
 
 	switch (AccessType) {
 	case ACCESS_ANY_RO:
@@ -166,15 +166,22 @@ static XStatus XPmAccess_SecHandler(u32 SubsystemId, pm_ioctl_id Op, u32 CmdType
 	(void)SubsystemId;
 	(void)Match;
 
-	XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 
 	Status = XPmAccess_BaseHandler(Op, AccessType);
-	if (XST_SUCCESS != Status) {
+	StatusTmp = Status;
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status |= StatusTmp;
 		goto done;
 	}
 
 	/* Check if incoming command is Secure */
+	Status = XPM_PM_NO_ACCESS;
+	StatusTmp = XPM_PM_NO_ACCESS;
 	Status = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
+	StatusTmp = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
+	Status |= StatusTmp;
 
 done:
 	return Status;
@@ -187,10 +194,13 @@ static XStatus XPmAccess_NSecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 {
 	(void)CmdType;
 
-	XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 
 	Status = XPmAccess_BaseHandler(Op, AccessType);
-	if (XST_SUCCESS != Status) {
+	StatusTmp = Status;
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status |= StatusTmp;
 		goto done;
 	}
 
