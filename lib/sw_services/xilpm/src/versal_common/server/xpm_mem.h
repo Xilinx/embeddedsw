@@ -64,6 +64,10 @@ extern "C" {
 #define PL_MEM_REGN_FLAGS(SZ_64BIT)	((u32)(((SZ_64BIT) & PL_MEM_REGN_FLAGS_MASK_64) >> PL_MEM_REGN_FLAGS_SHIFT_64))
 #define IS_PL_MEM_REGN(SZ_64BIT)	((u32)PL_MEM_REGN == PL_MEM_REGN_FLAGS((u64)(SZ_64BIT)))
 
+/* Macros with higher Hamming distance */
+#define ADDR_IN_RANGE      (0x3CU)
+#define ADDR_OUT_OF_RANGE  (0xC3U)
+
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 typedef struct XPm_MemRegnDevice XPm_MemRegnDevice;
 typedef struct XPm_AddrRegion XPm_AddrRegion;
@@ -110,12 +114,20 @@ struct XPm_MemCtrlrDevice {
  * @param  StartAddr 	Start Address of the Range
  * @param  EndAddr 	End Address of the Range
  *
- * @return true if the address range is within the region ( or false otherwise )
+ * @return ADDR_IN_RANGE if the address range is within the region ( or ADDR_OUT_OF_RANGE otherwise )
  * @note   This is a static inline function
  */
 static inline u8 IsAddrWithinRange(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr) {
-	return (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
-		((RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))) ? 1U : 0U;
+	u8 Range;
+
+	if (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
+	    ((RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))) {
+		Range = ADDR_IN_RANGE;
+	} else {
+		Range = ADDR_OUT_OF_RANGE;
+	}
+
+	return Range;
 }
 
 /************************** Function Prototypes ******************************/
