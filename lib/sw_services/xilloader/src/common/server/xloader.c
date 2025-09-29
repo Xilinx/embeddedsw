@@ -197,6 +197,7 @@
 *       rpu 09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       pre 09/09/2025 Returning zeroize status also at image header validation failure
 *       pre 09/19/2025 Added logic to avoid flooding of log buffer with repeated error messages
+*       obs 09/27/2025 Updated log level for restartimage fallback image search print
 *
 * </pre>
 *
@@ -1681,7 +1682,7 @@ END1:
 		if (Status != XST_SUCCESS) {
 			if ((Status != (int)XLOADER_ERR_IMG_ID_NOT_FOUND) &&
 				(Status != (int)XLOADER_ERR_FUNCTION_ID_MISMATCH)) {
-				XPlmi_Printf(DEBUG_GENERAL, "Restart Image "
+				XPlmi_Printf(DEBUG_DETAILED, "Restart Image "
 					"Failed with PLM Error: 0x%0x\n\r",
 					Status);
 				XPlmi_Printf(DEBUG_GENERAL, "Fallback to next"
