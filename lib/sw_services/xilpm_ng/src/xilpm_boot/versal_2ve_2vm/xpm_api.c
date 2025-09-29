@@ -65,7 +65,6 @@ static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX] = {NULL};
 static XStatus XPm_DoIgnoreCommand(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoBisr(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd);
-static XStatus XPm_DoHnicxDataXfer(XPlmi_Cmd* Cmd);
 static XStatus XPm_AddNodeParent(XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd);
 static XStatus XPm_IsoControl(XPlmi_Cmd *Cmd);
@@ -343,6 +342,24 @@ static XStatus XPm_DoIgnoreCommand(XPlmi_Cmd* Cmd)
 	Cmd->Response[0] = XST_SUCCESS;
 	return XST_SUCCESS;
 }
+
+/**
+ * XPm_DoWarningCommand - This function just ignore all commands with a warning.
+ *
+ * @Cmd: Pointer to the command structure.
+ *
+ * This function sets the response of the command to XST_SUCCESS and returns
+ * XST_SUCCESS. It is used to handle commands that should be ignored.
+ *
+ * Return: XST_SUCCESS on success.
+ */
+static XStatus XPm_DoWarningCommand(XPlmi_Cmd* Cmd)
+{
+	Cmd->Response[0] = XST_SUCCESS;
+	PmWarn("Ignoring command: CMDID: 0x%x\n\r", Cmd->CmdId);
+	return XST_SUCCESS;
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library
@@ -389,7 +406,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	XPlmi_PmCmds[PM_ISO_CONTROL].Handler = (XPlmi_CmdHandler)XPm_IsoControl;
 	XPlmi_PmCmds[PM_BISR].Handler = (XPlmi_CmdHandler)XPm_DoBisr;
 	XPlmi_PmCmds[PM_APPLY_TRIM].Handler = (XPlmi_CmdHandler)XPm_DoApplyTrim;
-	XPlmi_PmCmds[PM_HNICX_NPI_DATA_XFER].Handler = (XPlmi_CmdHandler)XPm_DoHnicxDataXfer;
+	XPlmi_PmCmds[PM_HNICX_NPI_DATA_XFER].Handler = (XPlmi_CmdHandler)XPm_DoWarningCommand;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoIgnoreCommand;
 	/* Init runtime submodule */
 	Status = XPm_RuntimeInit();
@@ -494,31 +511,6 @@ XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 TrimType = Cmd->Payload[0];
 	Status = XPm_PldApplyTrim(TrimType);
-
-	Cmd->Response[0] = (u32)Status;
-	return Status;
-}
-
-/**
- * @brief Performs HNICX data transfer
- *
- * This function performs a data transfer operation for HNICX.
- * It takes the address and value as input parameters and calls
- * the XPm_HnicxNpiDataXfer function to perform the data transfer.
- *
- * @param Cmd Pointer to the XPlmi_Cmd structure
- * @return XStatus Status of the data transfer operation
- */
-XStatus XPm_DoHnicxDataXfer(XPlmi_Cmd* Cmd)
-{
-	XStatus Status = XST_FAILURE;
-
-	if (2 > Cmd->Len) {
-		Status = XST_INVALID_PARAM;
-	}
-	u32 Address = Cmd->Payload[0];
-	u32 Value = Cmd->Payload[1];
-	Status = XPm_HnicxNpiDataXfer(Address, Value);
 
 	Cmd->Response[0] = (u32)Status;
 	return Status;
@@ -1938,50 +1930,6 @@ done:
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to wake up core 0x%x. Status = 0x%x\n\r", CoreId, Status);
 	}
-	return Status;
-}
-
-
-/****************************************************************************/
-/**
- * @brief  This function is used for HNICX NPI indirect write for a given
- *	   address.
- *
- * @param  Address	32 bit address
- * @param  Value	32 bit value to be written
- *
- * @return XST_SUCCESS if successful else XST_FAILURE
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value)
-{
-	XStatus Status = XST_FAILURE;
-
-	/* Fake read of status register */
-	(void)XPm_In32(HNICX_NPI_0_BASEADDR +
-		       HNICX_NPI_0_NPI_CSR_WR_STATUS_OFFSET);
-
-	/* Write NPI data in NPI_CSR_WDATA register */
-	XPm_Out32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_WDATA_OFFSET,
-		  Value);
-
-	/*
-	 * Write address + set command for data write in NPI_CSR_INST
-	 * register
-	 */
-	XPm_Out32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_INST_OFFSET,
-		  ((Address & HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_ADDR_MASK) |
-		  HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_CMD_WRITE));
-
-	/* Wait for a valid write response for the successful transaction */
-	Status = XPlmi_UtilPoll(HNICX_NPI_0_BASEADDR +
-				HNICX_NPI_0_NPI_CSR_WR_STATUS_OFFSET,
-				HNICX_NPI_0_NPI_CSR_WR_STATUS_MASK,
-				HNICX_NPI_0_NPI_CSR_WR_STATUS_VALID_RESP,
-				XPM_NPI_CSR_POLL_TIMEOUT, NULL);
-
 	return Status;
 }
 
