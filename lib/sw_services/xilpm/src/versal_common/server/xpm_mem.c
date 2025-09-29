@@ -335,7 +335,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		 * Ex Range3:             |-------| 		(given range completely inside excluded range)
 		 * Ex Range4: |-------------------------------| (given range fully contains excluded range)
 		 */
-		if ((1U == isRangeOverlapExclusion) || (1U == isExclusionInRange)) {
+		if ((1U == isRangeOverlapExclusion) || (ADDR_IN_RANGE == isExclusionInRange)) {
 			PmInfo("Range falls in Exclusion List [%d]\r\n", index);
 			Status = XPM_FAILURE;
 			goto done;
@@ -395,8 +395,10 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 			MemSize &= ~PL_MEM_REGN_FLAGS_MASK_64;
 		}
 		u64 EndAddress = StartAddress + MemSize - 1U;
+		u32 Range = IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U),
+					      StartAddress, EndAddress);
 
-		if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
+		if (ADDR_IN_RANGE == Range) {
 			/* Check whether PL mem or not */
 			if (PL_MEM_REGN == Flags) {
 				*IsPLMem = 1U;
@@ -497,7 +499,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		MemDevice = (const XPm_MemDevice *)Device;
 		u64 StartAddress = (u64)MemDevice->StartAddress;
 		u64 EndAddress = (u64)MemDevice->EndAddress;
-		if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
+		u32 Range = IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U),
+					      StartAddress, EndAddress);
+		if (ADDR_IN_RANGE == Range) {
 			if ((u8)XPM_DEVSTATE_RUNNING == MemDevice->Device.Node.State) {
 				Status = XPM_SUCCESS;
 			}
@@ -527,7 +531,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
 			u64 StartAddress = MCDev->Region[Cnt].Address;
 			u64 EndAddress = MCDev->Region[Cnt].Address + MCDev->Region[Cnt].Size - 1U;
-			if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
+			u32 Range = IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U),
+						      StartAddress, EndAddress);
+			if (ADDR_IN_RANGE == Range) {
 				/*
 				* the memory controller should be in running state
 				* for the address to be accessible
