@@ -26,7 +26,7 @@ static u32 XPmSubsystem_GetSubsysOpsType(u32 SubsystemId) {
 
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
