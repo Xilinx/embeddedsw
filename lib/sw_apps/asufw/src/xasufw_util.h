@@ -116,6 +116,16 @@ extern "C" {
 		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
 #endif
 
+/**
+ * This macro provides temporal redundancy against single instruction skipping glitches
+ * by calling the specified void function twice.
+ */
+#define XASUFW_TEMPORAL_REDUNDANT_CALL(Func, ...) \
+	do { \
+		Func(__VA_ARGS__); \
+		Func(__VA_ARGS__); \
+	} while (0)
+
 /*************************************************************************************************/
 /**
  * @brief	This function writes 32-bit value to 32-bit register.
