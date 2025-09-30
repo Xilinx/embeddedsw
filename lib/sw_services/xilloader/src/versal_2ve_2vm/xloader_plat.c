@@ -437,14 +437,22 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	u32 NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	u32 Index;
 
-	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
-						XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
+	/** Load the image partitions */
 	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
+						XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
 
 	ImageMeasureInfo.PcrInfo = PcrInfo;
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
@@ -458,12 +466,13 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		ImageMeasureInfo.OverWrite = FALSE;
 	}
 
+	/** Start the measurement with the partition hash's present in HashBlock */
 	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	for (Index = 0U; Index < NoOfPrtns; Index++) {
-		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&PdiPtr->MetaHdr->HashBlock.HashData[PrtnNum].PrtnHash;
+		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&HBPtr->HashData[PrtnNum].PrtnHash;
 		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
 		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
@@ -476,10 +485,10 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 		}
 		else {
-			/* Set Last word of DMA, by setting IsLastUpdate true */
+			/** Set Last word of DMA, by setting IsLastUpdate true */
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_LAST;
 		}
-		/* Update the data for measurement */
+		/** Update the data for measurement */
 		XPlmi_Printf(DEBUG_INFO, "Partition Measurement started\r\n");
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 		if (Status != XST_SUCCESS) {
