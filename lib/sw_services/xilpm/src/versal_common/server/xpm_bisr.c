@@ -460,6 +460,11 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				}
 				break;
 #endif
+#if defined(XCVR1602) || defined(XCVR1652)
+			case SDFEC_TAG_ID:
+				Status = XPmRepair_Cram_CacheType_SDFEC((u32 *)EfuseCurrAddr, &EfuseNextAddr);
+				break;
+#endif
 			default:
 				DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;
 				Status = XST_FAILURE;
@@ -500,6 +505,9 @@ XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	case DDRMC5_MAIN_TAG_ID:
 #ifdef XCVP1902
 	case VP1902_LAGUNA_TAG_ID:
+#endif
+#if defined(XCVR1602) || defined(XCVR1652)
+	case SDFEC_TAG_ID:
 #endif
 		Status = XST_SUCCESS;
 		break;
