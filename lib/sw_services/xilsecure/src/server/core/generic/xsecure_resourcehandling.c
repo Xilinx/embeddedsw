@@ -21,7 +21,7 @@
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 * 5.6   mb   08/07/2025 Fix SW-BP-LOOP-CONDSTMT by adding else block.
-*
+*       rpu  09/26/2025 Removed status after XPlmi_LoadResourceTimeout
 * </pre>
 *
 ******************************************************************************/
@@ -378,8 +378,6 @@ int XSecure_IpiEventHandling(XPlmi_Cmd *Cmd, XPlmi_CoreType Core)
 
 	/** Load timeout */
 	Status = XPlmi_LoadResourceTimeout(Core, XSECURE_2SEC_INTREMSOF_10MSEC);
-
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
