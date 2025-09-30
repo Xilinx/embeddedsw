@@ -53,6 +53,7 @@
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 *       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
+*       pre  09/30/2025 Added DMA1 reset and SBI reset in case of partial PDI failure.
 *
 * </pre>
 *
@@ -261,6 +262,11 @@ static int XLoader_SbiLoadPdi(void *Data)
 END:
 	if (Status != XST_SUCCESS) {
 		DebugLog->DiscardLogsAndPrintToBuf |= (u8)XPLMI_BIT(XPLMI_DISCARDLOG_BIT_POS);
+		XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
+		XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, CRP_RST_PDMA_RESET1_MASK);
+		usleep(10U);
+		XPlmi_Out32(CRP_RST_SBI, 0x0U);
+		XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
