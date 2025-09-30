@@ -1369,7 +1369,7 @@ static void PmEfuseAccess(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status;
-#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_EFUSE_ACCESS)
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_EFUSE_ACCESS) && defined(EFUSE_ACCESS)
 	u64 Addr = ((u64)AddrHigh << ADDRESS_HIGH_SHIFT) | AddrLow;
 	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 
