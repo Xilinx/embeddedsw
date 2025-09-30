@@ -1621,11 +1621,13 @@ static XStatus PlHouseCleanEarlyBoot(u16 *DbgErr)
 		*DbgErr = XPM_INT_ERR_MRMAC_BISR_REPAIR;
 		goto done;
 	}
-	Status = XPmBisr_Repair(SDFEC_TAG_ID);
+#if defined(XCVR1602) || defined(XCVR1652)
+	Status = XPmBisr_Repair2(SDFEC_TAG_ID);
 	if (XST_SUCCESS != Status) {
 		*DbgErr = XPM_INT_ERR_SDFEC_BISR_REPAIR;
 		goto done;
 	}
+#endif
 
 	/* BRAM/URAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_BRAM);

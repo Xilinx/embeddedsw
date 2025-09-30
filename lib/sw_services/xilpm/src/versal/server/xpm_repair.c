@@ -44,6 +44,34 @@
 #define DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK        (0x04000000U)
 #define DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET             (0x00000000U)
 
+#if defined(XCVR1602) || defined(XCVR1652)
+/* For BFR_FT, DFE, SDFEC repair, BISR Data Format
+W0:     {   TAG_ID[7:0],          Data_Size[7:0],        UNUSED[15:0]               },
+W1:     {   CFRAME_ROW[3:0],   COLUMN[4:0],  QUAD_TILE[4:0],  REPAIR_DATA_MSW[17:0]    },
+W2:     {               REPAIR_DATA_LSW[31:0]                                           }
+1.   Repair Data write to   CFRAME_REG_x_COE_REPAIR   register with BLK_TYPE=4
+2.   Trigger repair by      CFRAME_REG_x_CMD = 13 - REPAIR Read-Modify-Write Repair Data
+*/
+// EFUSE_CACHE Date Fields Definition of 1st word
+#define BISR_DATA_VECTOR_H_MASK                 ((u32)0x0003FFFFU)
+#define BISR_DATA_VECTOR_H_LSB                  0U
+#define BISR_DATA_CFRAME_QUAD_TILE_MASK         ((u32)0x007C0000U)
+#define BISR_DATA_CFRAME_QUAD_TILE_LSB          18U
+#define BISR_DATA_CFRAME_COL_MASK               ((u32)0x0F800000U)
+#define BISR_DATA_CFRAME_COL_LSB                 23U
+#define BISR_DATA_CFRAME_ROW_MASK               ((u32)0xF0000000U)
+#define BISR_DATA_CFRAME_ROW_LSB                28U
+// EFUSE_CACHE Date Fields Definition of 2nd word
+#define BISR_DATA_VECTOR_L_MASK                 ((u32)0xFFFFFFFFU)
+#define BISR_DATA_VECTOR_L_LSB                  0U
+
+
+// Repair Data fields Definition in Register
+#define BISR_DATA_REPAIR_DATA_MEM_TYPE          4U
+
+#define CFRAME_REG_CMD_REPAIR       0x0DU
+#endif
+
 #ifdef XCVP1902
 /* Laguna Repair */
 #define VP1902_LAGUNA_FUSE_REDUNDANT_Y_LSB	   (0U)
@@ -493,3 +521,79 @@ done:
 
 	return Status;
 }
+
+#if defined(XCVR1602) || defined(XCVR1652)
+XStatus XPmRepair_Cram_CacheType_SDFEC(u32 * EfuseRowTagPtr, u32 *EfuseNextAddr)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Tmp;
+	u32 *EfuseAddr = EfuseRowTagPtr;
+	u32 TagData;
+	u32 RepairExtendedWords[4];
+
+	u32 TagSize = (*EfuseAddr++ & PMC_EFUSE_BISR_SIZE_MASK) >> PMC_EFUSE_BISR_SIZE_SHIFT;
+	if (TagSize != 0x00000002U){   /* Each BISR data has defined 64bits for Cache type SDFEC. Must be double words */
+		XPm_Out32(PMC_GLOBAL_PMC_GSW_ERR, (XPm_In32(PMC_GLOBAL_PMC_GSW_ERR)|((u32)1<<PMC_GSW_ERR_BISR_INVLD_TAG_SIZE)|((u32)1<<PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT)));
+		Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+		goto done;
+	}else{
+		TagSize >>= 1;
+	}
+
+	for (u32 Rpr_Blks=0U; Rpr_Blks < TagSize; Rpr_Blks++)
+	{
+		if ((EfuseAddr == (u32*) EFUSE_CACHE_TBITS1_BISR_RSVD) || (EfuseAddr == (u32*) EFUSE_CACHE_TBITS2_BISR_RSVD)) {
+			EfuseAddr++;
+		}
+		TagData = *EfuseAddr;
+		EfuseAddr++;
+		/* 1. Turn on the Cframe Row */
+		u32 RepairCFrameRow = (TagData & BISR_DATA_CFRAME_ROW_MASK) >> BISR_DATA_CFRAME_ROW_LSB;
+
+		u32 CFrame_RegAddr = CFRAME0_REG_CMD +  (RepairCFrameRow << 13);
+		XPm_Out32(CFrame_RegAddr + 0x0U , CFRAME_REG_CMD_ROWON);
+		XPm_Out32(CFrame_RegAddr + 0x4U , 0U);
+		XPm_Out32(CFrame_RegAddr + 0x8U , 0U);
+		XPm_Out32(CFrame_RegAddr + 0xCU , 0U);
+
+		/* 2. Assembly Data for COE_REPAIR */
+		RepairExtendedWords[3] = 0U;
+		RepairExtendedWords[2] = ((u32)BISR_DATA_REPAIR_DATA_MEM_TYPE << (CFRAME0_REG_COE_REPAIR_REPAIR_BLK_TYPE_SHIFT & 0x1fU));
+		/* Repair Column */
+		Tmp = (TagData & BISR_DATA_CFRAME_COL_MASK) >> BISR_DATA_CFRAME_COL_LSB;
+		RepairExtendedWords[2] |= (Tmp << (CFRAME0_REG_COE_REPAIR_REPAIR_COLUMN_SHIFT & 0x1fU));
+		/* RepairCFrame Quad Tile */
+		Tmp = (TagData & BISR_DATA_CFRAME_QUAD_TILE_MASK) >> BISR_DATA_CFRAME_QUAD_TILE_LSB;
+		RepairExtendedWords[2] |= (Tmp << (CFRAME0_REG_COE_REPAIR_REPAIR_TILE_SHIFT & 0x1fU));
+
+		RepairExtendedWords[1] = (TagData & BISR_DATA_VECTOR_H_MASK) >> BISR_DATA_VECTOR_H_LSB;
+
+		if ((EfuseAddr == (u32*) EFUSE_CACHE_TBITS1_BISR_RSVD) || (EfuseAddr == (u32*) EFUSE_CACHE_TBITS2_BISR_RSVD)) {
+			EfuseAddr++;
+		}
+		TagData = *EfuseAddr;
+		EfuseAddr++;
+		RepairExtendedWords[0] = (TagData & BISR_DATA_VECTOR_L_MASK) >> BISR_DATA_VECTOR_L_LSB;
+		/* 3. Write COE_REPAIR */
+		CFrame_RegAddr = CFRAME0_REG_COE_REPAIR +  (RepairCFrameRow << 13);
+		XPm_Out32(CFrame_RegAddr + 0x0U , RepairExtendedWords[0]);
+		XPm_Out32(CFrame_RegAddr + 0x4U , RepairExtendedWords[1]);
+		XPm_Out32(CFrame_RegAddr + 0x8U , RepairExtendedWords[2]);
+		XPm_Out32(CFrame_RegAddr + 0xcU , RepairExtendedWords[3]);
+
+		/* 4. Trigger COE_REPAIR */
+		CFrame_RegAddr = CFRAME0_REG_CMD +  (RepairCFrameRow << 13);
+		XPm_Out32(CFrame_RegAddr + 0x0U , CFRAME_REG_CMD_REPAIR);
+		XPm_Out32(CFrame_RegAddr + 0x4U , 0U);
+		XPm_Out32(CFrame_RegAddr + 0x8U , 0U);
+		XPm_Out32(CFrame_RegAddr + 0xCU , 0U);
+		/* wait for BISR done */
+
+	}
+	*EfuseNextAddr = (u32)EfuseAddr;
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+#endif
