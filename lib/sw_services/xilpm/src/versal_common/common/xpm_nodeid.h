@@ -427,6 +427,13 @@ extern "C" {
 #define PM_RST_MMI_GEM_TSU			(0xC104122U)
 #define PM_RST_CAN_FD_4				(0xC104123U)
 #define PM_RST_CAN_FD_5				(0xC104124U)
+#define PM_RST_SEIO_UART_0			(0xC104125U)
+#define PM_RST_SEIO_UART_1			(0xC104126U)
+#define PM_RST_SEIO_UART_2			(0xC104127U)
+#define PM_RST_SEIO_SPI_0			(0xC104128U)
+#define PM_RST_SEIO_SPI_1			(0xC104129U)
+#define PM_RST_SEIO_SPI_2			(0xC10412AU)
+#define PM_RST_SEIO_SPI_3			(0xC10412BU)
 /** @} */
 
 /**
