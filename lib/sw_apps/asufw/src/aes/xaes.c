@@ -52,7 +52,8 @@
 /************************** Constant Definitions *************************************************/
 
 /************************** Macros Definitions ***************************************************/
-#define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value in micro seconds */
+#define XAES_TIMEOUT_MAX		(5000U) /**<  AES maximum wait timeout value in
+							micro seconds (5000us/5ms). */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
 #define XAES_KEY_NOT_ZEROIZED		(0x0) /**< Key in AES subsystem is not zeroized */
 #define XAES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized */
@@ -976,14 +977,14 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	if (InstancePtr->AesState == XAES_UPDATE_COMPLETED) {
-		/** Wait for AES operation to complete. */
+		/** Wait for AES operation to complete within 5ms timeout. */
 		Status = XAes_WaitForDone(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 	}
 
-	/** Wait for AES engine to be in idle and ready state. */
+	/** Wait for AES engine to be in idle and ready state within 5ms timeout. */
 	Status = XAes_WaitForReady(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -1309,7 +1310,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 		XAES_KEY_DEC_TRIG_MASK);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Wait for AES decrypt operation to complete. */
+	/** Wait for AES decrypt operation to complete within 5ms timeout. */
 	Status = XAes_WaitForDone(InstancePtr);
 
 END_CLR:
@@ -1743,7 +1744,7 @@ s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc)
 
 	/** Zeroize the specified key source. */
 	XAsufw_WriteReg(InstancePtr->KeyBaseAddress + XAES_KEY_CLEAR_OFFSET, KeyClearMask);
-	/** Check for key zeroed status within Timeout(10sec). */
+	/** Check for key zeroed status within 5ms timeout. */
 	Status = (s32)Xil_WaitForEvent((InstancePtr->KeyBaseAddress +
 				XAES_KEY_ZEROED_STATUS_OFFSET),	ZeroedStatusMask, ZeroedStatusMask,
 				XAES_TIMEOUT_MAX);
@@ -2509,7 +2510,7 @@ static s32 XAes_WaitForDone(const XAes *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	/* Check for AES operation is completed within Timeout(10sec) or not. */
+	/* Check for AES operation is completed within 5ms timeout or not. */
 	Status = (s32)Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_INTERRUPT_STATUS_OFFSET),
 				  XAES_INTERRUPT_STATUS_DONE_MASK, XAES_INTERRUPT_STATUS_DONE_MASK, XAES_TIMEOUT_MAX);
 
@@ -2531,7 +2532,7 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	/* Check for AES engine is idle and ready within Timeout(10sec) or not. */
+	/* Check for AES engine is idle and ready within 5ms timeout or not. */
 	Status = (s32)Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_STATUS_OFFSET),
 		(XAES_STATUS_BUSY_MASK | XAES_STATUS_READY_MASK),
 		XAES_STATUS_READY_MASK, XAES_TIMEOUT_MAX);
