@@ -159,6 +159,12 @@ proc xgen_opts_file {libhandle} {
 	if { [string match -nocase "xcvp1902" $part_name] } {
 		puts $file_handle "\#define XCVP1902"
 	}
+	if { [string match -nocase "xcvr1602" $part_name] } {
+		puts $file_handle "\#define XCVR1602"
+	}
+	if { [string match -nocase "xcvr1652" $part_name] } {
+		puts $file_handle "\#define XCVR1652"
+	}
 
 	# Add macro for enabling power rail control feature
 	if { $rail_control == true } {
