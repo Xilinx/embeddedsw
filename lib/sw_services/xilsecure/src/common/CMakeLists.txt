@@ -3,7 +3,11 @@
 
 add_subdirectory(core)
 if(("${CMAKE_MACHINE}" STREQUAL "Versal"))
-  add_subdirectory(versal)
+  if("Versal_2VP" IN_LIST VARIANT)
+    add_subdirectory(versal_2vp)
+  else()
+    add_subdirectory(versal)
+  endif()
 elseif(("${CMAKE_SUBMACHINE}" STREQUAL "VersalNet"))
   add_subdirectory(versal_net)
 elseif(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM"))
