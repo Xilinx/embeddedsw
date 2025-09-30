@@ -10,5 +10,7 @@
 #cmakedefine XCVP1902 @XCVP1902@
 #cmakedefine RAIL_CONTROL @RAIL_CONTROL@
 #cmakedefine VERSAL_DVS @VERSAL_DVS@
+#cmakedefine XCVR1602 @XCVR1602@
+#cmakedefine XCVR1652 @XCVR1652@
 
 #endif /* XPM_CONFIG_H */
