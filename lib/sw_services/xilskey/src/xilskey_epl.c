@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,7 @@
 * 7.2   am      07/13/21 Fixed doxygen warnings
 * 7.3   har     11/15/21 Removed local variable ErrorCode in
 *                        XilSKey_EfusePl_GetRowData_Ultra()
+* 7.8   vss     09/29/25 Fixed efuse read mask
 *
 * </pre>
 *
@@ -1426,7 +1428,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	}
 
 	JtagRead_Status_Ultrascale((u32 *)&RowData);
-	*StatusBits = RowData & 0xFFFFFF;
+	*StatusBits = RowData & 0xFFFFFFFF;
 
 #endif
 
