@@ -722,7 +722,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	XAes_LoadKey(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
 
 	/** Configure AES DPA counter measures. */
-	XAes_ConfigCounterMeasures(InstancePtr);
+	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
 	/** Configure AES engine to encrypt/decrypt operation. */
 	XAes_ConfigAesOperation(InstancePtr);
@@ -1269,7 +1269,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
 	/** Configure AES DPA counter measures. */
-	XAes_ConfigCounterMeasures(InstancePtr);
+	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
 	/** Set the AES engine to enable key decrypt operation mode. */
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_MODE_OFFSET),
@@ -1400,7 +1400,7 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
 	/** Configure AES DPA counter measures. */
-	XAes_ConfigCounterMeasures(InstancePtr);
+	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
 	/** Configure AES engine to encrypt/decrypt operation. */
 	XAes_ConfigAesOperation(InstancePtr);
@@ -1646,7 +1646,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
 	/** Configure AES DPA counter measures. */
-	XAes_ConfigCounterMeasures(InstancePtr);
+	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
 	/** Check and restore the keys if provided key source is a user key. */
 	Status = XAes_CheckAndRestoreUserKeyContext(InstancePtr);
