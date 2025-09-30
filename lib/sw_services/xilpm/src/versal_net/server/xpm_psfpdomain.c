@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,7 +62,7 @@ static XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
 
@@ -72,6 +72,13 @@ static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Copy FPD sysmon data */
 	for(u32 i = XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
+		/*
+		 * Reset the status before reuse, because if a fault prevents
+		 * the overwrite, the variable stays in a failure state instead
+		 * of accidentally retaining success from a previous iteration.
+		 */
+		Status = XST_FAILURE;
+
 		SysmonAddr = XPm_GetSysmonByIndex(i);
 		if (0U == SysmonAddr) {
 			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
