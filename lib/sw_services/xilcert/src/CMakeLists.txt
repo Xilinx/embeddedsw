@@ -20,8 +20,10 @@ collect (PROJECT_LIB_SOURCES xcert_genx509cert.c)
 
 if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
 	add_subdirectory(versal_net)
-elseif("${CMAKE_MACHINE}" STREQUAL "Versal_2vp")
-	add_subdirectory(versal_2vp)
+elseif("${CMAKE_MACHINE}" STREQUAL "Versal")
+	if("Versal_2VP" IN_LIST VARIANT)
+	  add_subdirectory(versal_2vp)
+	endif()
 endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)

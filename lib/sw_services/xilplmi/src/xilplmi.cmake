@@ -125,6 +125,13 @@ if ("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   endif()
 endif()
 
+if(("${CMAKE_MACHINE}" STREQUAL "Versal") AND ("Versal_2VP" IN_LIST VARIANT))
+  option(XILPLMI_plm_ocp_en "Enables or Disables OCP" OFF)
+  if (NOT XILPLMI_plm_ocp_en)
+    set(PLM_OCP_EXCLUDE " ")
+  endif()
+endif()
+
 if ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
   option(XILPLMI_plm_ocp_asufw_key_mgmt_en "Enables or Disables OCP ASUFW key management" OFF)
   if (NOT XILPLMI_plm_ocp_asufw_key_mgmt_en)
