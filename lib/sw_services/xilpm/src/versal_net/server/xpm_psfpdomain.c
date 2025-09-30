@@ -65,6 +65,7 @@ static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	volatile XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
+	u32 Count = 0U;
 
 	(void)PwrDomain;
 	(void)Args;
@@ -72,6 +73,9 @@ static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Copy FPD sysmon data */
 	for(u32 i = XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
+		/* For redundancy check */
+		Count++;
+
 		/*
 		 * Reset the status before reuse, because if a fault prevents
 		 * the overwrite, the variable stays in a failure state instead
@@ -92,6 +96,13 @@ static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			goto done;
 		}
 	}
+
+	/* Add a loop redundancy check */
+	if (Count != (XPM_NODEIDX_MONITOR_SYSMON_FPD_3 - XPM_NODEIDX_MONITOR_SYSMON_FPD_0 + 1U)) {
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_UNDEFINED;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
