@@ -21,6 +21,7 @@
 *                           register in LPD SLCR
 *       sk       04/07/2025 Updated error id encoding for UFSFE
 * 1.1   ng       09/19/2025 Fixed LPD SLCR error descriptions
+* 1.2   sk       09/23/2025 Added Additional HBMON Error ID's
 *
 * </pre>
 *
@@ -826,6 +827,10 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE	(0x00000080U)
 #define XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE	(0x00000100U)
 #define XIL_EVENT_ERROR_MASK_XSEM_NPI_UE	(0x00000200U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_4		(0x00000400U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_5		(0x00000800U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_6		(0x00001000U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_7		(0x00002000U)
 /**
  * @}
  */

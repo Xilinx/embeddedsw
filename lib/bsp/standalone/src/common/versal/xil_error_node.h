@@ -22,6 +22,7 @@
 * 7.9   rama     07/19/2023 Add STL errors to SW error events
 *       kj       12/01/2023 Add HBM CATTRIP Sw Error Mask
 *       tvp      07/07/2025 Add SW PCR Error Mask
+* 8.0   sk       09/23/2025 Added Additional HBMON Error ID's
 *
 * </pre>
 *
@@ -482,6 +483,10 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_XSTL_UE		(0x00000100U)
 /** HBM CATTRIP Software Error */
 #define XIL_EVENT_ERROR_MASK_HBM_CATTRIP	(0x00000200U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_4		(0x00000400U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_5		(0x00000800U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_6		(0x00001000U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_7		(0x00002000U)
 /**
  * @}
  */

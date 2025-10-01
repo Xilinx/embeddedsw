@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk   08/26/2024 Initial release EAM Table
 *       sk   09/20/2024 Added defines for errors in LPDSLCR
+*       sk   09/23/2025 Added additional HBMON Error ID's
 *
 * </pre>
 *
@@ -306,7 +307,11 @@ typedef enum {
 #define XPLMI_ERROR_CRAM_CE		(0xE7U)
 #define XPLMI_ERROR_CRAM_UE		(0xE8U)
 #define XPLMI_ERROR_NPI_UE		(0xE9U)
-#define XPLMI_ERROR_SW_ERR_MAX		(0xEAU)
+#define XPLMI_ERROR_HB_MON_4		(0xEAU)
+#define XPLMI_ERROR_HB_MON_5		(0xEBU)
+#define XPLMI_ERROR_HB_MON_6		(0xECU)
+#define XPLMI_ERROR_HB_MON_7		(0xEDU)
+#define XPLMI_ERROR_SW_ERR_MAX		(0xEEU)
 
 #define PSX_EAM_E0_BIT_SHIFT		14U
 #define PSX_EAM_E1_BIT_SHIFT		15U

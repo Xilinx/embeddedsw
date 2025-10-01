@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 1.08  rama 07/19/2023 Added STL error ID to support software event
 *                       notification
 *       kj   12/01/2023 Added HBM CATTRIP SW Error
+*       sk   09/23/2025 Added Additional HBMON Error ID's
 *
 * </pre>
 *
@@ -213,7 +214,11 @@ typedef enum {
 
 /* HBM CATTRIP Notification SW Error */
 #define XPLMI_ERROR_HBM_SW_CATTRIP	(0x89U)
-#define XPLMI_ERROR_SW_ERR_MAX		(0x8AU)
+#define XPLMI_ERROR_HB_MON_4		(0x8AU)
+#define XPLMI_ERROR_HB_MON_5		(0x8BU)
+#define XPLMI_ERROR_HB_MON_6		(0x8CU)
+#define XPLMI_ERROR_HB_MON_7		(0x8DU)
+#define XPLMI_ERROR_SW_ERR_MAX		(0x8EU)
 
 #define XPLMI_ERROR_PSMERR_MAX		XPLMI_ERROR_PSMERR2_MAX
 #define XPLMI_ERROR_PMCERR_MAX		XPLMI_ERROR_PMCERR2_MAX
