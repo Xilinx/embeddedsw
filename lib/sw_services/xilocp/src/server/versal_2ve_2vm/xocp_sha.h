@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  09/01/25 Initial release
+*       tvp  09/25/25 Use use sha_pmxc instead of using softsha2
 *
 * </pre>
 *
@@ -28,7 +29,8 @@ extern "C" {
 #endif
 
 /*************************************** Include Files ********************************************/
-#include "xsecure_sha384.h"
+#include "xsecure_sha.h"
+#include "xsecure_init.h"
 
 /*********************************** Constant Definitions *****************************************/
 
@@ -48,9 +50,9 @@ extern "C" {
  **************************************************************************************************/
 static inline int XOcp_ShaStart(void)
 {
-	XSecure_Sha384Start();
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 
-	return XST_SUCCESS;
+	return XSecure_ShaStart(ShaInstPtr, XSECURE_SHA2_384);
 }
 
 /**************************************************************************************************/
@@ -69,7 +71,9 @@ static inline int XOcp_ShaStart(void)
  **************************************************************************************************/
 static inline int XOcp_ShaUpdate(u8 *InDataAddr, u32 Size)
 {
-	return XSecure_Sha384Update((u8 *)(UINTPTR)InDataAddr, Size);
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+
+	return XSecure_ShaUpdate(ShaInstPtr, (u64)(UINTPTR)InDataAddr, Size);
 }
 
 /**************************************************************************************************/
@@ -85,7 +89,9 @@ static inline int XOcp_ShaUpdate(u8 *InDataAddr, u32 Size)
  **************************************************************************************************/
 static inline int XOcp_ShaFinish(u8 *ResHash)
 {
-	return XSecure_Sha384Finish((XSecure_Sha2Hash *)(UINTPTR)ResHash);
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+
+	return XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)ResHash, XSECURE_SHA2_384_HASH_LEN);
 }
 
 /**************************************************************************************************/
@@ -106,7 +112,10 @@ static inline int XOcp_ShaFinish(u8 *ResHash)
  **************************************************************************************************/
 static inline int XOcp_ShaDigest(u8* Data, u32 Size, u8* Hash)
 {
-	return XSecure_Sha384Digest((u8 *)(UINTPTR)Data, Size, (u8 *)(UINTPTR)Hash);
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+
+	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA2_384, (u64)(UINTPTR)Data, Size,
+				 (u64)(UINTPTR)Hash, XSECURE_SHA2_384_HASH_LEN);
 }
 
 /*********************************** Variable Definitions *****************************************/
