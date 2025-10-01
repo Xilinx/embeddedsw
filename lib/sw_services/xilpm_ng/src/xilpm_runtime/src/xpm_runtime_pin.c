@@ -628,6 +628,7 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_PinNode *Pin;
+	volatile u16 SubsysIdxTmp = 0U;
 
 	Pin = XPmPin_GetById(PinId);
 	if (NULL == Pin) {
@@ -635,7 +636,8 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	if (Pin->RuntimeOps->SubsysIdx != NODEINDEX(SubsystemId)) {
+	SubsysIdxTmp = Pin->RuntimeOps->SubsysIdx;
+	if ((Pin->RuntimeOps->SubsysIdx != NODEINDEX(SubsystemId)) || (SubsysIdxTmp != NODEINDEX(SubsystemId))){
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
