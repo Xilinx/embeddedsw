@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 *       kal  01/05/2023 Added XPLMI_ERROR_PCR_LOG_UPDATE
 *       rama 01/19/2023 Added XilSem error IDs to support software event
 *                       notification
-*
+* 2.00  sk   09/23/2025 Added additional HBMON Error ID's
 * </pre>
 *
 * @note
@@ -274,10 +274,14 @@ typedef enum {
 #define XPLMI_ERROR_DEV_STATE_CHANGE 	(0xE5U)
 #define XPLMI_ERROR_PCR_LOG_UPDATE	(0xE6U)
 /* XilSem CE & UE errors */
-#define XPLMI_ERROR_CRAM_CE			(0xE7U)
-#define XPLMI_ERROR_CRAM_UE			(0xE8U)
-#define XPLMI_ERROR_NPI_UE			(0xE9U)
-#define XPLMI_ERROR_SW_ERR_MAX		(0xEAU)
+#define XPLMI_ERROR_CRAM_CE		(0xE7U)
+#define XPLMI_ERROR_CRAM_UE		(0xE8U)
+#define XPLMI_ERROR_NPI_UE		(0xE9U)
+#define XPLMI_ERROR_HB_MON_4		(0xEAU)
+#define XPLMI_ERROR_HB_MON_5		(0xEBU)
+#define XPLMI_ERROR_HB_MON_6		(0xECU)
+#define XPLMI_ERROR_HB_MON_7		(0xEDU)
+#define XPLMI_ERROR_SW_ERR_MAX		(0xEEU)
 
 #define XPLMI_ERROR_PSMERR_MAX		XPLMI_ERROR_PSMERR4_MAX
 #define XPLMI_ERROR_PMCERR_MAX		XPLMI_ERROR_PMCERR3_MAX

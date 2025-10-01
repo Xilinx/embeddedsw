@@ -35,6 +35,7 @@
 *                       Also, set CPM NCR error action to CUSTOM after IPU
 * 1.03  ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
 *       pre  09/08/2025 Added print statement with DEBUG_INFO level
+*       sk   09/23/2025 Added Additional HBMON Error ID's
 *
 * </pre>
 *
@@ -471,6 +472,14 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_CRAM_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_NPI_UE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_4] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_5] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_6] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_7] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
