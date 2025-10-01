@@ -954,6 +954,10 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if ECC KAT is successful.
  *	- XASUFW_ECC_PUBKEY_COMPARISON_FAILED, if public key generation fails.
+ *	- XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, if public key generation operation fails.
+ *	- XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL, if public key validation operation fails.
+ *	- XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, if signature generation operation fails.
+ *	- XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, if signature verification operation fails.
  *	- XASUFW_ECC_SIGNATURE_COMPARISON_FAILED, if generated and expected signature
 	comparison fails.
  *	- XASUFW_ECC_KAT_FAILED, if XAsufw_EccCoreKat API fails.
@@ -972,7 +976,8 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 	Status = XEcc_GeneratePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL;
+		goto END;
 	}
 
 	/** Compare the generated public key with expected public key. */
@@ -980,14 +985,15 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 			     XASUFW_DOUBLE_P256_SIZE_IN_BYTES, XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_PUBKEY_COMPARISON_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Validate the generated ECC public key. */
 	Status = XEcc_ValidatePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL;
+		goto END;
 	}
 
 	/** Generate signature using core API XEcc_GenerateSignature. */
@@ -995,7 +1001,8 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, EccEphemeralKey,
 					(u64)(UINTPTR)EccHash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_ECC_GEN_SIGN_OPERATION_FAIL;
+		goto END;
 	}
 
 	/** Compare the generated signature with the expected signature. */
@@ -1003,16 +1010,18 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 			     XASUFW_DOUBLE_P256_SIZE_IN_BYTES, XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_SIGNATURE_COMPARISON_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Verify signature using core API XEcc_VerifySignature. */
 	Status = XEcc_VerifySignature(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 				      XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey,
 				      (u64)(UINTPTR)EccHash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
+		Status = XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL;
+		goto END;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 END:
 	/** Zeroize local copy of public key. */
@@ -1048,6 +1057,10 @@ END:
  *	- XASUFW_RSA_ECC_PUBKEY_COMPARISON_FAILED, if public key generation fails.
  *	- XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED, if generated and expected signature
  *	  comparison fails.
+ *	- XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, if public key generation operation fails.
+ *	- XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL, if public key validation operation fails.
+ *	- XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, if signature generation operation fails.
+ *	- XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, if signature verification operation fails.
  *	- XASUFW_RSA_ECC_KAT_FAILED, if XAsufw_RsaEccKat API fails.
  *	- XASUFW_FAILURE, if any other failure.
  *
@@ -1096,7 +1109,8 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType)
 	Status = XRsa_EccGeneratePubKey(AsuDmaPtr, CurveType, CurveSize,
 					(u64)(UINTPTR)PrivateKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL;
+		goto END;
 	}
 
 	/** Compare the generated public key with expected public key. */
@@ -1104,14 +1118,15 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType)
 			     XASUFW_DOUBLE_VALUE(CurveSize), XASUFW_DOUBLE_VALUE(CurveSize));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_PUBKEY_COMPARISON_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Validate the generated ECC public key. */
 	Status = XRsa_EccValidatePubKey(AsuDmaPtr, CurveType, CurveSize,
 					(u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL;
+		goto END;
 	}
 
 	/** Generate signature using RSA core API XRsa_EccGenerateSignature. */
@@ -1119,7 +1134,8 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType)
 					   CurveSize, (u64)(UINTPTR)PrivateKey, EccEphemeralKey,
 					   (u64)(UINTPTR)EccHash, InputLen, (u64)(UINTPTR)GenSign);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_ECC_GEN_SIGN_OPERATION_FAIL;
+		goto END;
 	}
 
 	/** Compare the generated signature message with the expected. */
@@ -1127,16 +1143,18 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType)
 			     XASUFW_DOUBLE_VALUE(CurveSize), XASUFW_DOUBLE_VALUE(CurveSize));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Verify signature using RSA core API XRsa_EccVerifySignature. */
 	Status = XRsa_EccVerifySignature(AsuDmaPtr, CurveType, CurveSize,
 					 (u64)(UINTPTR)ExpPubKey, (u64)(UINTPTR)EccHash,
 					 InputLen, (u64)(UINTPTR)GenSign);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
+		Status = XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL;
+		goto END;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 END:
 	/** Zeroize local copy of public key. */
@@ -1870,10 +1888,11 @@ s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr)
 					  XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EcdhPrivKey,
 					  (u64)(UINTPTR)EcdhPubKey1,
 					  (u64)(UINTPTR)SharedSecret, 0U);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL;
 		goto END_CLR;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 	/** Compare the generated shared secret with expected shared secret. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

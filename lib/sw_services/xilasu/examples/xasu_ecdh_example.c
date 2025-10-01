@@ -135,6 +135,7 @@ int main(void)
 	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EcdhCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
+	ClientParams.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
 	EcdhParams.CurveType = CurveType;
@@ -151,7 +152,8 @@ int main(void)
 	}
 	while(!Notify);
 	Notify = 0;
-	if (ErrorStatus != XST_SUCCESS) {
+	if ((ErrorStatus != XST_SUCCESS) ||
+	   (ClientParams.AdditionalStatus != XASU_RSA_ECDH_SUCCESS)) {
 		goto END;
 	}
 
@@ -162,7 +164,8 @@ int main(void)
 		XilAsu_Printf("%02x", SharedSecret[Index]);
 	}
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("Secret1 and Expected Secret Comparison failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Secret1 and Expected Secret Comparison failed, Status = %x \n\r",
+				Status);
 		goto END;
 	}
 
@@ -170,6 +173,7 @@ int main(void)
 	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EcdhCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
+	ClientParams.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
         EcdhParams.CurveType = CurveType;
@@ -186,7 +190,8 @@ int main(void)
 	}
 	while(!Notify);
 	Notify = 0;
-	if (ErrorStatus != XST_SUCCESS) {
+	if ((ErrorStatus != XST_SUCCESS) ||
+	   (ClientParams.AdditionalStatus != XASU_RSA_ECDH_SUCCESS)) {
 		goto END;
 	}
 
@@ -197,14 +202,17 @@ int main(void)
 		XilAsu_Printf("%02x", SharedSecret1[Index]);
 	}
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("Secret2 and Expected Secret Comparison failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Secret2 and Expected Secret Comparison failed, Status = %x \n\r",
+				Status);
 	}
 
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n ECDH client example failed with Status = %08x", Status);
-	} else if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("\r\n ECDH client example failed with error from server = %08x", ErrorStatus);
+	} else if ((ErrorStatus != XST_SUCCESS) ||
+		  (ClientParams.AdditionalStatus != XASU_RSA_ECDH_SUCCESS)) {
+		xil_printf("\r\n ECDH client example failed with error from server Status = %08x,"
+			" Additional Status = %08x", ErrorStatus, ClientParams.AdditionalStatus);
 	} else {
 		xil_printf("\r\n Successfully ran ECDH client example ");
 	}
