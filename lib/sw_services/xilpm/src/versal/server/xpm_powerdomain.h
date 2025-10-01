@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,15 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U
 #define MAX_DOMAIN_CONTROL_MODES	2U
+#define VCCINT_PMC_VOLTAGE_MIN			0x2547AU  /* 0.66V */
+#define VCCINT_PSLP_VOLTAGE_MIN			0x2547AU  /* 0.66V */
+#define VCCINT_PSFP_VOLTAGE_MIN			0x2547AU  /* 0.66V */
+#define VCCINT_PL_VOLTAGE_MIN			0x2547AU  /* 0.66V */
+#define VCCAUX_VOLTAGE_MIN			0x2B333U  /* 1.4V */
+#define VCCAUX_PMC_VOLTAGE_MIN			0x2B333U  /* 1.4V */
+#define VCCINT_SOC_VOLTAGE_MIN			0x25F5CU  /* 0.745V */
+#define VCCINT_RAM_VOLTAGE_MIN			0x25F5CU  /* 0.745V */
+#define EFUSE_BLOWN				0U
 
 /*Return success to null function*/
 #define XPM_HOUSECLEAN(PwrDomainNode, Func, Args, Num_Args, OutStatus) {\
