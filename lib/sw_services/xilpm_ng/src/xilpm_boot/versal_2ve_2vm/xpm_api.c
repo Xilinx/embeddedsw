@@ -46,6 +46,7 @@
 #endif
 #include "xpm_aie.h"
 
+#define PM_SUBSYS_INVALID		   (0xFFFFFFFFU) /* Invalid Subsystem ID */
 /* Macro to typecast PM API ID */
 /*
  * Macro for exporting xilpm command details. Use in the first line of commands
@@ -186,13 +187,16 @@ XStatus __attribute__((weak, noinline)) XPm_AddDDRMemRegnForDefaultSubsystem(con
 	return XST_SUCCESS;
 };
 
-u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
-	u32 SubsystemId = PM_SUBSYS_DEFAULT;
+static inline u32 XPmSubsystem_GetSubSysIdByIpiMask_Core(u32 IpiMask) {
+	u32 SubsystemId = PM_SUBSYS_INVALID;
 	s32 FirstSet = 0;
-	if (IpiMask == 0) {
-		SubsystemId = 0xFFFFFFFFU;
+
+	if (0U == IpiMask) {
+		/** This is the error case */
+		PmErr("Invalid IPI Mask: 0x%x\n\r", IpiMask);
 		goto done;
 	}
+
 	FirstSet = __builtin_ffs((s32)IpiMask) - 1;
 	switch (BIT((u32)FirstSet)) {
 		case ASU_IPI_MASK:
@@ -205,7 +209,21 @@ u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMas
 			SubsystemId = PM_SUBSYS_DEFAULT + (u32)FirstSet;
 			break;
 	}
+
 done:
+	return SubsystemId;
+}
+
+u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
+	volatile u32 SubsystemId = PM_SUBSYS_INVALID;
+	volatile u32 SubsystemIdTmp = PM_SUBSYS_INVALID;
+
+	XSECURE_REDUNDANT_CALL(SubsystemId, SubsystemIdTmp, XPmSubsystem_GetSubSysIdByIpiMask_Core, IpiMask);
+	if (SubsystemId != SubsystemIdTmp) {
+		PmErr("Glitched detected");
+		SubsystemId = PM_SUBSYS_INVALID;
+	}
+
 	return SubsystemId;
 }
 
