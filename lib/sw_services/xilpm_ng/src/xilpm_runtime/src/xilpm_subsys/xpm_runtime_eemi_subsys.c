@@ -285,6 +285,36 @@ done:
 	return Status;
 }
 
+/**
+ * @brief  Target checks whether Host has permission to enact the operation
+ *
+ * @param  CmdType 		Command type ( Secure/NonSecure )
+ * @param  HostId 		Host Subsystem ID
+ * @param  PermissionMask 	Permission mask of the Target subsystem for the operation
+ * @param  DbgErr 		Pass by reference to the debug error variable
+ *
+ * @return XPM_SUCCESS if permission is found ( XPM_PM_NO_ACCESS otherwise )
+ * @note   This is a static inline function
+ */
+static XStatus CheckTargetToHostPerm(const u32 CmdType, const u32 HostId, u32 PermissionMask) {
+
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
+	volatile u32 SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(HostId));
+	volatile u32 NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(HostId));
+
+	if ((XPLMI_CMD_SECURE == CmdType) &&
+	    (SecureMask == (PermissionMask & SecureMask))) {
+			Status = XST_SUCCESS;
+	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
+		Status = XST_SUCCESS;
+	} else {
+		/* Required by MISRA */
+		Status = XPM_PM_NO_ACCESS;
+	}
+
+	return Status;
+}
+
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
@@ -412,18 +442,18 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	u32 PermissionMask = 0;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XStatus Status = XST_FAILURE;
-	u32 SecureMask;
-	u32 NonSecureMask;
+	XStatus StatusTmp = XST_FAILURE;
+	volatile u32 HostIdTemp = HostId;
 
 	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
 		/* Only PMC subsystem can perform operations on itself */
 		Status = XPM_PM_NO_ACCESS;
 		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		goto done;
-	} else if (PM_SUBSYS_PMC == HostId) {
-		/* If PMC Subsystem is the host, it can perform any operation */
-		Status = XST_SUCCESS;
-		goto done;
+	} else if ((PM_SUBSYS_PMC == HostId) && (PM_SUBSYS_PMC == HostIdTemp)) {
+			/* If PMC Subsystem is the host, it can perform any operation */
+			Status = XST_SUCCESS;
+			goto done;
 	} else if ((PM_SUBSYS_DEFAULT == TargetId) || (PM_SUBSYS_DEFAULT == HostId)) {
 		/* Calling this function when default subsystem is an error! */
 		Status = XST_INVALID_PARAM;
@@ -458,18 +488,11 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(HostId));
-	NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(HostId));
 
 	/* Have Target check if Host can enact the operation */
-	if ((XPLMI_CMD_SECURE == CmdType) &&
-	    (SecureMask == (PermissionMask & SecureMask))) {
-			Status = XST_SUCCESS;
-	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
-		Status = XST_SUCCESS;
-	} else {
-		/* Required by MISRA */
-		Status = XPM_PM_NO_ACCESS;
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, CheckTargetToHostPerm, CmdType, HostId, PermissionMask);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status |= StatusTmp;
 		DbgErr = XPM_INT_ERR_SUBSYS_ACCESS;
 	}
 
