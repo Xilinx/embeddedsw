@@ -16,6 +16,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 5.4   kal  07/24/2024 Initial release
 *       kal  01/30/2025 Update KAT vectors for SHA2-256 and SHAKE for LMS
+* 5.6   tvp  10/01/2025 Remove XSecure_Sha384Kat and use sha_pmxc instead of
+*                       using softsha2
 *
 * </pre>
 *
@@ -29,7 +31,7 @@
 #include "xsecure_hmac.h"
 #include "xsecure_error.h"
 #include "xil_sutil.h"
-#include "xsecure_sha384.h"
+#include "xsecure_sha.h"
 #include "xsecure_rsa.h"
 
 #ifdef SDT
@@ -1451,57 +1453,6 @@ int XSecure_HmacKat(XSecure_Sha *SecureSha)
 	}
 END:
 	SStatus = Xil_SecureZeroize(Hmac.Hash, XSECURE_HASH_SIZE_IN_BYTES);
-	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-		Status = SStatus;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function performs KAT on SHA-384.
- *
- * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_SHA384_KAT_ERROR  If SHA384 KAT fails
- *		 - XST_FAILURE  On failure
- *
- *****************************************************************************/
-int XSecure_Sha384Kat(void)
-{
-	volatile int Status = (int)XSECURE_SHA384_KAT_ERROR;
-	volatile int SStatus = (int)XSECURE_SHA384_KAT_ERROR;
-	volatile u32 Index;
-	u8 *Data = XSecure_GetKatMessage();
-	u8 CalculatedHash[XSECURE_HASH_SIZE_IN_BYTES];
-	const u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
-		0x5AU, 0x2CU, 0xFCU, 0x1CU, 0xC1U, 0x1EU, 0x61U, 0x1BU,
-		0xD1U, 0xEAU, 0x4EU, 0x51U, 0xC8U, 0x72U, 0x73U, 0x40U,
-		0x01U, 0xCDU, 0x53U, 0x95U, 0x5DU, 0xC6U, 0xF9U, 0xFFU,
-		0x42U, 0xD1U, 0x66U, 0xA1U, 0x6BU, 0x76U, 0x2EU, 0x42U,
-		0x42U, 0x24U, 0xC2U, 0xBEU, 0xC4U, 0xEAU, 0x40U, 0xD4U,
-		0xF9U, 0x9CU, 0x90U, 0x10U, 0xF6U, 0x18U, 0xFFU, 0x95U
-	};
-
-	Status = XSecure_Sha384Digest(Data, XSECURE_KAT_MSG_LEN_IN_BYTES, CalculatedHash);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	for (Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
-		if (CalculatedHash[Index] != ExpectedHash[Index]) {
-			Status = (int)XSECURE_SHA384_KAT_ERROR;
-			goto END;
-		}
-	}
-
-	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
-		Status = XST_SUCCESS;
-	}
-
-END:
-	SStatus = Xil_SecureZeroize(CalculatedHash, XSECURE_HASH_SIZE_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
