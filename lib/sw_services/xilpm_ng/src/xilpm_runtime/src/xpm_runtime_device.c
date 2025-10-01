@@ -78,6 +78,28 @@ static inline XStatus XPmRequirement_IsAllocated(const XPm_Requirement *Reqm)
 	return Status;
 }
 
+/**
+ * @brief  checks whether given device is present as a requirement for the subsystem
+ *
+ * @param  Subsystem 	Pointer to the Subsystem structure
+ * @param  Device 	Pointer to the Device structure
+ * @param  Reqm 	Pass by reference to the requirement pointer
+ *
+ * @return XPM_SUCCESS if requirement is found and allocated ( XPM_FAILURE otherwise )
+ * @note   This is a static inline function
+ */
+static XStatus IsDevAllocatedToSubsys(const XPm_Subsystem *Subsystem, const XPm_Device *Device, const XPm_Requirement *Reqm) {
+
+	volatile XStatus Status = XPM_FAILURE;
+	if (NULL != Subsystem) {
+		Reqm = FindReqm(Device, Subsystem);
+		if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
+			Status = XPM_SUCCESS;
+		}
+	}
+	return Status;
+}
+
 static u8 XPmDevice_IsExcluded(const u32 NodeId)
 {
 	u8 IsExcluded = 0U;
@@ -1567,14 +1589,16 @@ u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 	u32 Idx, SubSystemId;
 	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
+	volatile XStatus Status = XPM_FAILURE;
+	volatile XStatus StatusTmp = XPM_SUCCESS;
 	for (Idx = 0; Idx <= SubsysIdx; Idx++) {
 		Subsystem = XPmSubsystem_GetByIndex(Idx);
-		if (NULL != Subsystem) {
-			Reqm = FindReqm(Device, Subsystem);
-			if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
-				break;
-			}
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, IsDevAllocatedToSubsys, Subsystem, Device, Reqm);
+		if ((XPM_SUCCESS == Status) && (XPM_SUCCESS == StatusTmp)) {
+			break;
 		}
+		Status = XPM_FAILURE;
+		StatusTmp = XPM_FAILURE;
 	}
 
 	if (SubsysIdx < Idx) {
