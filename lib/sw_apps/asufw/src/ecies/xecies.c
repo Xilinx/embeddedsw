@@ -139,10 +139,12 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, PrivKey,
 			XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
+	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS) ||
+		(ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
 		goto END;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 	/** Generate the encryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -231,10 +233,11 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	Status = XRsa_EcdhGenSharedSecret(DmaPtr, EciesParams->EccCurveType,
 		EciesParams->EccKeyLength, EciesParams->RxKeyAddr, EciesParams->TxKeyAddr,
 		(u64)(UINTPTR)SharedSecret, 0U);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
 		goto END;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 	/** Generate the decryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

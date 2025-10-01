@@ -815,6 +815,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		Status = XASUFW_FAILURE;
 	} else {
 		Status = XASUFW_SUCCESS;
+		ReturnStatus = XASUFW_ECC_SIGNATURE_VERIFIED;
 	}
 
 	/**
@@ -1143,6 +1144,8 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+	} else {
+		ReturnStatus = XASUFW_RSA_ECDH_SUCCESS;
 	}
 
 END_CLR:
@@ -1226,9 +1229,10 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EccVerifySignature(DmaPtr, CurveType, CurveLen, PubKeyAddr,
 			(u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)Signature);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL);
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 END_CLR:
 	/** Zeroize the local buffers. */

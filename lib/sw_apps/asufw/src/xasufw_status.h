@@ -608,7 +608,8 @@ enum {
 	XASUFW_SSS_CFG_CHECK_FAIL, /**< 0x1A0U - Error when SSS configuration is invalid. */
 
 	/* Additional status success codes */
-	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
+	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */
+	XASUFW_RSA_PSS_SIGNATURE_VERIFIED, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
 	XASUFW_RSA_DECRYPTION_SUCCESS, /**< 0x3FBU - Successfully decrypted RSA provided
 					message */
