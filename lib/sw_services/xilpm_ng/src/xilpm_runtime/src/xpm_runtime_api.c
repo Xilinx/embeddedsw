@@ -3033,37 +3033,12 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 {
 	XStatus Status = XST_FAILURE;
-	u32 NodeId;
-	XPm_NodeAccess *NodeEntry;
 	const u32 *Args = Cmd->Payload;
 	u32 NumArgs = Cmd->Len;
-	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
-	if ((NumArgs < 3U) || ((NumArgs % 2U) == 0U)) {
-		Status = XST_FAILURE;
-		goto done;
-	}
 
-	NodeId = Args[0];
+	Status = (u32) XPmAccess_UpdateTable(Args, NumArgs);
+	Cmd->Response[0] = (u32)Status;
 
-	/* TODO: Check if NodeId is present in database */
-
-	NodeEntry = (XPm_NodeAccess *)XPm_AllocBytesOthers(sizeof(XPm_NodeAccess));
-	if (NULL == NodeEntry) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
-	NodeEntry->Id = NodeId;
-	NodeEntry->Aperture = NULL;
-	NodeEntry->NextNode = NULL;
-
-	Status = XPmAccess_UpdateTable(NodeEntry, Args, NumArgs);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
-
-done:
 	return Status;
 }
 XStatus XPm_HookAfterBootPdi(void)

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -11,13 +11,26 @@
 #include "xplmi.h"
 #include "xpm_runtime_device.h"
 #include "xpm_requirement.h"
-static XPm_NodeAccess *PmNodeAccessTable;
 
 /* Match found in the "Node Access Table" */
 typedef struct XPm_NodeAccessMatch {
 	XPm_NodeAccess *Entry;
 	XPm_NodeAper *Aper;
 } XPm_NodeAccessMatch;
+
+static XPm_NodeAccess *PmNodeAccessTable;
+
+static XPm_NodeAccess* XPmAccess_FindEntry(u32 NodeId)
+{
+	XPm_NodeAccess *Entry = PmNodeAccessTable;
+	while (NULL != Entry) {
+		if (Entry->Id == NodeId) {
+			return Entry;
+		}
+		Entry = Entry->NextNode;
+	}
+	return NULL;
+}
 
 static XStatus XPmAccess_LookupEntry(u32 NodeId, u32 Offset,
 				     XPm_NodeAccessMatch *const Match)
@@ -455,47 +468,98 @@ done:
 /**
  * @brief  Add a new node access entry to the "Node Access Table"
  *
- * @param  NodeEntry: Pointer to an uninitialized XPm_NodeAccess struct
  * @param  Args: command arguments
  * @param  NumArgs: Number of arguments
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
- * @note None
+ * @note This function implements an prepend/update behavior:
+ * - If an aperture with the same offset and size exists, it updates the access field
+ * - If it doesn't exist, it prepends the new aperture to the list
  *
  ****************************************************************************/
-XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
-			      const u32 *Args, u32 NumArgs)
+XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_NodeAper *NodeApertures = NULL;
+	XPm_NodeAccess *Entry;
 
-	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
-	for (u32 i = 1U; i < NumArgs; i += 2U) {
-		XPm_NodeAper *Aper = (XPm_NodeAper *)XPm_AllocBytesOthers(sizeof(XPm_NodeAper));
-		if (NULL == Aper) {
+	/* Validate: <NodeId: Arg0> <Arg1,2> <Arg3,4> ... */
+	if ((NumArgs < 3U) || ((NumArgs % 2U) == 0U)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	u32 NodeId = Args[0];
+	/* Find or create the node entry */
+	Entry = XPmAccess_FindEntry(NodeId);
+	if (NULL == Entry) {
+		Entry = (XPm_NodeAccess *)XPm_AllocBytesOthers(sizeof(XPm_NodeAccess));
+		if (NULL == Entry) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-
-		/* Setup aperture */
-		Aper->Offset = NODE_APER_OFFSET(Args[i]);
-		Aper->Size = (u8)NODE_APER_SIZE(Args[i]);
-		Aper->Access = NODE_APER_ACCESS(Args[i + 1U]);
-
-		/* Add new aperture entry to the list */
-		Aper->NextAper = NodeApertures;
-		NodeApertures = Aper;
+		Entry->Id = NodeId;
+		Entry->Aperture = NULL;
+		Entry->NextNode = PmNodeAccessTable;
+		PmNodeAccessTable = Entry;
 	}
-	NodeEntry->Aperture = NodeApertures;
 
-	/* Add new node entry to the access table */
-	NodeEntry->NextNode = PmNodeAccessTable;
-	PmNodeAccessTable = NodeEntry;
+	/*
+	 * Process each aperture from Args:
+	 * 1. Search for existing aperture with same offset and size
+	 * 2. If found, update access field only
+	 * 3. If not found, prepend new aperture to the end of list
+	 */
+	for (u32 i = 1U; i < NumArgs; i += 2U) {
+		u32 Offset = NODE_APER_OFFSET(Args[i]);
+		u32 Size = (u32)NODE_APER_SIZE(Args[i]);
+		const u32 access = NODE_APER_ACCESS(Args[i + 1U]);
+
+		if (0U == Size) {
+			/* Size cannot be zero */
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* Search for existing aperture with matching offset and size */
+		XPm_NodeAper* FoundAper = NULL;
+		XPm_NodeAper* CurrAper = Entry->Aperture;
+		while (NULL != CurrAper) {
+			if ((CurrAper->Offset == Offset) &&
+			    (CurrAper->Size == (u8)Size)) {
+				/* Found matching aperture */
+				FoundAper = CurrAper;
+				break;
+			}
+			CurrAper = CurrAper->NextAper;
+		}
+
+		if (NULL != FoundAper) {
+			/* Update existing aperture's access field */
+			FoundAper->Access = access;
+		} else {
+			/* Prepend new aperture to the head of the list */
+			XPm_NodeAper *NewAper = (XPm_NodeAper *)XPm_AllocBytesOthers(sizeof(XPm_NodeAper));
+			if (NULL == NewAper) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			NewAper->Offset = Offset;
+			NewAper->Size = (u8)Size;
+			NewAper->Access = access;
+
+			/* Insert at the beginning */
+			NewAper->NextAper = Entry->Aperture;
+			Entry->Aperture = NewAper;
+		}
+	}
 
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to update Node Access Table: 0x%08x\r\n", Status);
+	}
 	return Status;
 }
 
