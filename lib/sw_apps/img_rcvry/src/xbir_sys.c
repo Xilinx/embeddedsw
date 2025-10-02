@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 6.00  sd    01/27/23   Clean up
 * 7.00  sd    07/17/24   Added Image recovery support for SC on L20 board
 * 7.01  sd    07/18/24   Aligned Ethernet MIO's as per hardware design
+* 8.00  sd    10/02/24   Update frequency divisor values for GEM interfaces
 *
 * </pre>
 *
@@ -333,7 +334,7 @@ static int Xbir_KVEthInit (void)
 #endif
 
 	/* GEM clock settings */
-	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
+	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010C00U);
 	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
 
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xD4000000U);
@@ -415,7 +416,7 @@ static int Xbir_KREthInit (void)
 	Xbir_MaskWrite(CRL_APB_GEM1_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
 	Xbir_MaskWrite(IOU_SLCR_GEM_CTRL_OFFSET, 0x00000003U, 0x00000001U);
 	Xbir_MaskWrite(IOU_SLCR_GEM_CLK_CTRL_OFFSET, 0x00000006U, 0x00000006U);
-	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010400U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
 
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xFFFFFFFFU, 0xD4000000U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0xFFFFFFFFU, 0x00B3F020U);
@@ -477,7 +478,7 @@ static int Xbir_KDEthInit (void)
 
 	/* GEM clock settings */
 	Xbir_MaskWrite(CRL_APB_GEM1_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
-	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010400U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
 
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xFFFFFFFFU, 0xD4000000U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0xFFFFFFFFU, 0x00015000);
