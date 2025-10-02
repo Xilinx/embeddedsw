@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -81,9 +81,8 @@ void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 /* Add requirements on a regnode from different subsystems */
 XStatus XPmAccess_AddRegnodeRequirement(u32 SubsystemId, u32 RegnodeId);
 
-/* Set node access handler */
-XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
-			      const u32 *Args, u32 NumArgs);
+/* Set node access handler (idempotent; updates in place) */
+XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs);
 
 /* Debug only function meant for printing regnodes and "Node Access Table" */
 void XPmAccess_PrintTable(void);
