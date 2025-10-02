@@ -390,7 +390,8 @@ done:
  ****************************************************************************/
 XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RailVoltage = 0;
 	u32 LowThreshVal = 0;
@@ -420,8 +421,9 @@ XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 	/* If lower threshold values are not programmed, use hardcoded voltages */
 	if (SYSMON_THRESH_NOT_PROGRAMMED == LowThreshVal) {
 		PmDbg("Using hardcoded voltages for power rail checks\r\n");
-		Status = SysmonVoltageCheck(Rail, RailVoltage);
-		if (XST_SUCCESS != Status) {
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, SysmonVoltageCheck, Rail, RailVoltage);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 			goto done;
 		}
 	} else {
