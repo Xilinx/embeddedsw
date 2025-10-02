@@ -33,6 +33,12 @@
  */
 #define RAILIDX(Idx) \
 		((u32)(Idx) - (u32)XPM_NODEIDX_POWER_VCCINT_PMC)
+
+/* Encoded voltage register values used for SysMon threshold comparisons */
+#define VOLT_CODE_0_66V   0x2547AU
+#define VOLT_CODE_0_745V  0x25F5CU
+#define VOLT_CODE_1_40V   0x2B333U
+
 /* Forward declarations for domain-specific operations */
 extern XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 extern XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
@@ -335,14 +341,14 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 	 * Second array element is placeholder for when EFUSE is blown.
 	 */
 	const u32 RailVoltageTable[8][2] = {
-		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PMC)] = {0x2547AU, 0U},   /* 0.66V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX_PMC)] = {0x2b333U, 0U},   /* 1.4V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSLP)] = {0x2547AU, 0U},  /* 0.66V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {0x2547AU, 0U},  /* 0.66V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {0x25F5CU, 0U},   /* 0.745V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {0x25F5CU, 0U},   /* 0.745V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333U, 0U},       /* 1.4V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)] = {0x2547AU, 0U},    /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PMC)] = {VOLT_CODE_0_66V,  0U}, /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX_PMC)] = {VOLT_CODE_1_40V,  0U}, /* 1.40V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSLP)] = {VOLT_CODE_0_66V, 0U},  /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {VOLT_CODE_0_66V, 0U},  /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {VOLT_CODE_0_745V, 0U},  /* 0.745V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {VOLT_CODE_0_745V, 0U},  /* 0.745V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)]      = {VOLT_CODE_1_40V,  0U}, /* 1.40V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)]   = {VOLT_CODE_0_66V,  0U}, /* 0.66V */
 	};
 
 	NodeIndex = NODEINDEX(Rail->Power.Node.Id);
@@ -350,7 +356,7 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 	if (RailVoltageTableIndex < ARRAY_SIZE(RailVoltageTable)) {
 		LowThreshVal = RailVoltageTable[RailVoltageTableIndex][0];
 	} else if (NODEINDEX(XPM_NODEIDX_POWER_VCCINT_ME) == NodeIndex) {
-		LowThreshVal = 0x2547AU; /* 0.66V */
+		LowThreshVal = VOLT_CODE_0_66V; /* 0.66V */
 	} else {
 		DbgErr = XPM_INT_ERR_DEVICE_NOT_SUPPORTED;
 		Status = XPM_ERR_RAIL_VOLTAGE;
