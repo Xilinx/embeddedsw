@@ -70,16 +70,16 @@ XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
-
+	u32 i;
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Copy FPD sysmon data */
-	for(u32 i = XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
+	for(i = XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
 		SysmonAddr = XPm_GetSysmonByIndex(i);
 		if (0U == SysmonAddr) {
 			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -87,12 +87,22 @@ XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			Status = XST_SUCCESS;
 			continue;
 		}
+		Status = XST_FAILURE;
+		/* Apply AMS trim for FPD sysmon */
 		Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_FPD, i - XPM_NODEIDX_MONITOR_SYSMON_FPD_0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_AMS_TRIM;
 			goto done;
 		}
 	}
+
+	/** Check if i is reach to  XPM_NODEIDX_MONITOR_SYSMON_FPD_3 + 1 */
+	if (i != (XPM_NODEIDX_MONITOR_SYSMON_FPD_3 + 1)) {
+		DbgErr = XPM_INT_ERR_AMS_TRIM;
+		Status = XST_GLITCH_ERROR;
+		goto done;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
