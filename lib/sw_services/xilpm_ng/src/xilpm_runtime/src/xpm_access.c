@@ -11,6 +11,7 @@
 #include "xplmi.h"
 #include "xpm_runtime_device.h"
 #include "xpm_requirement.h"
+#include "xpm_update.h"
 
 /* Match found in the "Node Access Table" */
 typedef struct XPm_NodeAccessMatch {
@@ -18,11 +19,11 @@ typedef struct XPm_NodeAccessMatch {
 	XPm_NodeAper *Aper;
 } XPm_NodeAccessMatch;
 
-static XPm_NodeAccess *PmNodeAccessTable;
+static XPm_NodeAccess *PmNodeAccessTable[XPM_NODE_ACCESS_TABLE_SIZE] XPM_INIT_DATA(PmNodeAccessTable) = { NULL };
 
 static XPm_NodeAccess* XPmAccess_FindEntry(u32 NodeId)
 {
-	XPm_NodeAccess *Entry = PmNodeAccessTable;
+	XPm_NodeAccess *Entry = PmNodeAccessTable[0];
 	while (NULL != Entry) {
 		if (Entry->Id == NodeId) {
 			return Entry;
@@ -36,7 +37,7 @@ static XStatus XPmAccess_LookupEntry(u32 NodeId, u32 Offset,
 				     XPm_NodeAccessMatch *const Match)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_NodeAccess *Entry = PmNodeAccessTable;
+	XPm_NodeAccess *Entry = PmNodeAccessTable[0];
 
 	/* Check for a matching entry with given node id */
 	while (NULL != Entry) {
@@ -500,8 +501,8 @@ XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs)
 		}
 		Entry->Id = NodeId;
 		Entry->Aperture = NULL;
-		Entry->NextNode = PmNodeAccessTable;
-		PmNodeAccessTable = Entry;
+		Entry->NextNode = PmNodeAccessTable[0];
+		PmNodeAccessTable[0] = Entry;
 	}
 
 	/*
@@ -577,7 +578,7 @@ done:
  ****************************************************************************/
 void XPmAccess_PrintTable(void)
 {
-	const XPm_NodeAccess *Table = PmNodeAccessTable;
+	const XPm_NodeAccess *Table = PmNodeAccessTable[0];
 	const XPm_NodeAper *Aper = NULL;
 	const XPm_RegNode *Regnode = XPmRegNode_GetNodes();
 
