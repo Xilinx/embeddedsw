@@ -8,6 +8,7 @@
 #include "xpm_alloc.h"
 #ifdef XILPM_RUNTIME
 #include "xpm_subsystem.h"
+#include "xpm_access.h"
 #endif
 #include "xpm_clock.h"
 #include "xpm_memory_pools.h"
@@ -37,6 +38,7 @@ EXPORT_DS(XPmInitData, \
 	sizeof(void*) + /* XPmRuntime_DeviceOpsList */
 	sizeof(void*) + /* XPm_RegNode* */
 	sizeof(void*) +/* XPmRuntime_ResetList* */
+	sizeof(void*)*XPM_NODE_ACCESS_TABLE_SIZE +/* XPm_NodeAccess */
 #endif
 	XPM_NODEIDX_CLK_MAX * sizeof(void*) + sizeof(u32) +
     6 * sizeof(XPm_AllocablePool_t), \

@@ -17,6 +17,9 @@ extern "C" {
 typedef struct XPm_NodeAccess XPm_NodeAccess;
 typedef struct XPm_NodeAper XPm_NodeAper;
 
+/* Size of node access table*/
+#define XPM_NODE_ACCESS_TABLE_SIZE		(1U)
+
 /* Size of bit fields for XPm_NodeAper struct */
 #define NODE_APER_OFFSET_BIT_FIELD_SIZE		(20U)
 #define NODE_APER_SIZE_BIT_FIELD_SIZE		(8U)
