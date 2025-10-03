@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,30 +31,51 @@ static u32 SavedCfuDivider = 0;
  *
  * @return      XST_SUCCESS on successful operation.
  *
- * @note	It is assumed that overflow will not occur for the CFU divisor
- *		register because the frequency is never configured such that
- *		the upper bits would be set and overflow would occur.
+ * @note	This function checks the MSB of CFU divisor register value. If MSB is set,
+ * 		(meaning left shifting would cause the overflow) then it does not reduce
+ * 		the CFU frequency and return with XST_SUCCESS;
+ *		otherwise, it reduces the clock frequency by 2 by left shifting one bit.
+ *		Also, calling this function twice consecutively cannot cause the reducing the
+ *		CFU clock frequency by 4. Only the first function call works.
  *
  *****************************************************************************/
 static XStatus ReduceCfuClkFreq(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	/* Get current CFU CLK divider value */
-	u32 CfuDivider = (XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) \
-		& CRP_CFU_REF_CTRL_DIVISOR0_MASK) >> CRP_CFU_REF_CTRL_DIVISOR0_SHIFT;
+	u32 CfuDivider;
 
-	/* Check if CFU clk divider is already double of the saved value */
+	/* Get current CFU CLK divider value */
+	CfuDivider = XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) \
+		& CRP_CFU_REF_CTRL_DIVISOR0_MASK;
+
+	/*
+	 * Check if CFU clk divider is already double of the saved value,
+	 * meaning this function has been called twice.
+	 */
 	if (((SavedCfuDivider << 1U) == CfuDivider)) {
-		PmDbg("Cfu clock frequency is already reduced.\n\r");
 		Status = XST_SUCCESS;
 		goto done;
 	}
-	/* Stored the value of divider */
-	SavedCfuDivider = CfuDivider ;
+
+	/* Check MSB; if it is set, then left shifting would overflow */
+	if (0U != (CfuDivider & CRP_CFU_REF_CTRL_DIVISOR0_MASK_MSB)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Stored the value of divider for restoring the clock frequency.
+	 * This SavedCfuDivider should be 0 when clock frequency is restored.
+	 */
+	SavedCfuDivider = CfuDivider;
+
 	/* Write clock freq divided by 2 */
-	XPm_RMW32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, \
-		CRP_CFU_REF_CTRL_DIVISOR0_MASK, (SavedCfuDivider << 1U) << CRP_CFU_REF_CTRL_DIVISOR0_SHIFT);
+	CfuDivider <<= 1U;
+
+	/* Write clock freq */
+	XSECURE_REDUNDANT_IMPL(XPm_RMW32, CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, \
+		CRP_CFU_REF_CTRL_DIVISOR0_MASK, CfuDivider);
 	Status = XST_SUCCESS;
 
 done:
@@ -62,18 +83,21 @@ done:
 	return Status;
 }
 
+
+
 /*****************************************************************************/
 /**
- * @brief This function resotres the CFU clock frequency by multiplying by 2
+ * @brief This function restores the CFU clock frequency
  *
  * @param       None
  *
  * @return      XST_SUCCESS on successful operation
  * 		XST_FAILURE on incorrect clock divider states
  *
- * @note	The clock frequency is reduced by dividing by 2 so to restore the
- *		original frequency it is multiplied by 2. This ensures that a global
- *		variable is not required.
+ * @note	This function, instead of right shifting one bit,
+ *		utilizes a stored variable to restore the original clock frequency back.
+ *		It also checks the exisitng CFU clk setting to make sure
+ *		the frequency is as expected, and returns an error if not.
  *
  *****************************************************************************/
 static XStatus RestoreCfuClkFreq(void)
@@ -83,11 +107,11 @@ static XStatus RestoreCfuClkFreq(void)
 
 	/* Get current CFU CLK divider value */
 	u32 CfuDivider = (XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) \
-		& CRP_CFU_REF_CTRL_DIVISOR0_MASK) >> CRP_CFU_REF_CTRL_DIVISOR0_SHIFT;
+		& CRP_CFU_REF_CTRL_DIVISOR0_MASK);
 
-	/* Check if CFU clk frequency is already restored */
-	if (SavedCfuDivider == CfuDivider) {
-		PmDbg("Cfu clock frequency is already restored.\n\r");
+	/* Check if CFU clk frequency is already restored,
+	 * SavedCfuDivider can also be 0 due to the overflow in ReduceCfuClkFreq() */
+	if (0U == SavedCfuDivider) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -95,15 +119,18 @@ static XStatus RestoreCfuClkFreq(void)
 	/* Check if CFU clk divider is at expected (double) value */
 	if ((SavedCfuDivider << 1U) != CfuDivider) {
 		PmErr("[Error]Cfu clock divider value is unxpected. Expect: %d \
-			Actual: %d.\n\r",SavedCfuDivider << 1U, CfuDivider);
+			Actual: %d.\n\r", SavedCfuDivider << 1U, CfuDivider);
 		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_CFU_CLK_DIVIDER;
 		goto done;
 	}
 
 	/* Write saved CFU clock */
-	XPm_RMW32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, \
-		CRP_CFU_REF_CTRL_DIVISOR0_MASK, SavedCfuDivider << CRP_CFU_REF_CTRL_DIVISOR0_SHIFT);
+	XSECURE_REDUNDANT_IMPL(XPm_RMW32, CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, \
+		CRP_CFU_REF_CTRL_DIVISOR0_MASK, SavedCfuDivider);
+
+	/* Reset SavedCfuDivider back as 0 */
+	SavedCfuDivider = 0U;
 	Status = XST_SUCCESS;
 
 done:
