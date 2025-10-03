@@ -503,12 +503,8 @@ RESULT VsiCamDeviceEnQueBuffer
 			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 	if (RET_SUCCESS != result)
 		return RET_FAILURE;
-	xil_printf("%s %d MBOX \n", __func__, __LINE__);
-
 	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie,
 					    packet.payload_data); //replace with wait_response();
-	xil_printf("%s %d MBOX \n", __func__, __LINE__);
-
 	return packet.resp_field.error_subcode_t;
 }
 

@@ -362,6 +362,9 @@ typedef struct CamDeviceMetadataConfig_s {
 } CamDeviceMetadataConfig_t;
 
 
+RESULT SendFirmwareCompability();
+
+
 /*****************************************************************************/
 /**
  * @brief   This function creates and initializes a CamDevice instance.

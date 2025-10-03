@@ -61,7 +61,6 @@ static RESULT CheckI2cBusId(uint8_t i2cBusId)
 {
 	RESULT result = RET_SUCCESS;
 	if (i2cBusId >= IIC_COUNT) {
-		xil_printf("middha - %s - invalid i2cbusid:%d \r\n", i2cBusId);
 		return RET_UNSUPPORT_ID;
 	}
 	return result;
@@ -70,8 +69,6 @@ static RESULT CheckI2cBusId(uint8_t i2cBusId)
 RESULT HalI2cApuInit(HalI2cConfig_t *pConfig)
 {
 	RESULT result = RET_SUCCESS;
-	xil_printf(" %s enter \r\n", __func__);
-
 
 	if (pConfig == NULL || (CheckI2cBusId(pConfig->i2cBusId) != RET_SUCCESS))
 		return RET_NULL_POINTER;
@@ -80,7 +77,6 @@ RESULT HalI2cApuInit(HalI2cConfig_t *pConfig)
 
 	if (HalI2cCtx->refCount) {
 		// HalAddRef(HalI2cCtx, HAL_DEV_I2C);
-		xil_printf("middha - %s - i2cbusId:%d, already initialized.\r\n");
 		return result;
 	}
 
@@ -120,7 +116,7 @@ RESULT HalI2cDeInit(uint8_t i2cBusId)
 	}
 
 	if (RET_SUCCESS != result) {
-		xil_printf("%s:mutex destory failed!(result=%d)\n", __func__, result);
+		xil_printf("%s:mutex destroy failed!(result=%d)\n", __func__, result);
 		return result;
 	}
 
@@ -139,15 +135,12 @@ RESULT HalI2cDeInit(uint8_t i2cBusId)
 
 int HalI2cInit(HalI2cConfig_t* pHalI2cConfig)
 {
-	xil_printf("middha - %s - enter :%d\r\n", __func__, __LINE__);
 	RESULT result = RET_SUCCESS;
 
 	Payload_packet packet;
 	memset(&packet, 0, sizeof(Payload_packet));
 	packet.cookie = 0x99;
 	packet.type = CMD;
-	xil_printf("middha - APU HalI2cInit %d, %d \r\n", pHalI2cConfig->i2cBusId,
-		   pHalI2cConfig->HalI2cMode);
 
 	packet.payload_size = sizeof(HalI2cConfig_t);
 	uint8_t *p_data = packet.payload_data;
@@ -158,7 +151,6 @@ int HalI2cInit(HalI2cConfig_t* pHalI2cConfig)
 
 	apu_wait_for_ACK(packet.cookie, packet.payload_data);
 
-	xil_printf("middha - %s - end :%d \r\n", __func__, __LINE__);
 	return result;
 }
 
@@ -169,7 +161,6 @@ RESULT HalReadI2CReg(uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uint
 	RESULT result = RET_SUCCESS;
 
 	if (CheckI2cBusId(i2cBusId) != RET_SUCCESS) {
-		xil_printf("middha - %s - invalid i2cbusid:%d\n", i2cBusId);
 		return RET_UNSUPPORT_ID;
 	}
 

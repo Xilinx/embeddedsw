@@ -118,7 +118,6 @@ void init_isp2rpu_mapping(u32 rpu_id, u32 isp_id)
 
 void selectDestinationCore(u32 ispid)
 {
-	xil_printf("%s %d \n\r", __func__, __LINE__);
 	if (isp2rpu_map.reg[ispid] == ISPMAP2NONE) {
 		//Assert
 		xil_printf("Failed to Map ISP =%x to RPU core...\n\r", ispid);

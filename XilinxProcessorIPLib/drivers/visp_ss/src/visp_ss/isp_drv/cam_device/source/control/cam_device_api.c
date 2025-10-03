@@ -13,6 +13,7 @@
 \******************************************************************************/
 
 #include <cam_device_app.h>
+#include <types.h>
 #include "cam_device_api.h"
 #include "sensor_cmd.h"
 #include "mbox_cmd.h"
@@ -43,6 +44,33 @@ static RESULT MyMemcpy(
 	return RET_SUCCESS;
 }
 
+RESULT SendFirmwareCompability()
+{
+
+	RESULT result = RET_SUCCESS;
+	int ret = 0;
+Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+
+	packet.cookie = 0x99;
+	packet.type = CMD;
+	packet.payload_size = 0;
+	bool_t FwCompatFlag = FALSE;
+
+	uint8_t *p_data = packet.payload_data;
+	memcpy(p_data,&FwCompatFlag , sizeof(bool_t));
+	packet.payload_size += sizeof(bool_t);
+
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
+	ret = Send_Command(APU_2_RPU_MB_LINUX_COMPAT, &packet,
+			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (0 != ret)
+		return ret;
+
+}
+
+
 RESULT VsiCamDeviceCreate
 (
 	CamDeviceConfig_t *pCamConfig,
@@ -60,7 +88,6 @@ RESULT VsiCamDeviceCreate
 	 * AMD : Multi-Core Changes
 	 * Verifying Multi-core
 	 */
-	xil_printf("%s %d camConfig.ispHwId=%x \n\r", __func__, __LINE__, hwId);
 
 #ifdef DEBUG_FLAG
 #else
@@ -105,12 +132,12 @@ RESULT VsiCamDeviceCreate
 	packet.payload_size += sizeof(CamDeviceConfig_t);
 
 #ifdef DEBUG_FLAG
-	xil_printf("APU create cam device payload size:%d.\r\n", packet.payload_size);
-	xil_printf("ispHwId: %d\r\n", pCamConfig->ispHwId);
-	xil_printf("inputType: %d\r\n", pCamConfig->inputCfg.inputType);
-	xil_printf("workMode: %d\r\n", pCamConfig->workCfg.workMode);
-	xil_printf("outputType: %d\r\n", pCamConfig->outputCfg.outputType);
-	xil_printf("priority: %d\r\n", pCamConfig->priority);
+	// xil_printf("APU create cam device payload size:%d.\r\n", packet.payload_size);
+	// xil_printf("ispHwId: %d\r\n", pCamConfig->ispHwId);
+	// xil_printf("inputType: %d\r\n", pCamConfig->inputCfg.inputType);
+	// xil_printf("workMode: %d\r\n", pCamConfig->workCfg.workMode);
+	// xil_printf("outputType: %d\r\n", pCamConfig->outputCfg.outputType);
+	// xil_printf("priority: %d\r\n", pCamConfig->priority);
 #endif
 
 	if (packet.payload_size > MAX_ITEM)
@@ -132,7 +159,7 @@ RESULT VsiCamDeviceCreate
 
 
 #ifdef DEBUG_FLAG
-	xil_printf("APU create cam device successfully return.\r\n");
+	//xil_printf("APU create cam device successfully return.\r\n");
 #endif
 	return packet.resp_field.error_subcode_t;
 }
@@ -227,7 +254,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, pCalibCfg->header.date, sizeof(pCalibCfg->header.date));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(pCalibCfg->header.date) ;
@@ -235,7 +262,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, pCalibCfg->header.creator, sizeof(pCalibCfg->header.creator));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(pCalibCfg->header.creator);
@@ -243,7 +270,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, pCalibCfg->header.sensorName, sizeof(pCalibCfg->header.sensorName));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(pCalibCfg->header.sensorName);
@@ -252,7 +279,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, pCalibCfg->header.generatorVersion,
 			  sizeof(pCalibCfg->header.generatorVersion));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(pCalibCfg->header.generatorVersion);
@@ -261,7 +288,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, (pCalibCfg->header.pResolutions)->name,
 			  sizeof((pCalibCfg->header.pResolutions)->name));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof((pCalibCfg->header.pResolutions)->name);
@@ -270,7 +297,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, (pCalibCfg->header.pResolutions)->id,
 			  sizeof((pCalibCfg->header.pResolutions)->id));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof((pCalibCfg->header.pResolutions)->id);
@@ -278,7 +305,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &((pCalibCfg->header.pResolutions)->width), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -286,7 +313,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &((pCalibCfg->header.pResolutions)->height), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -295,7 +322,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, (pCalibCfg->header.pResolutions)->pFramerate,
 			  sizeof(CamDeviceCalibHeaderResolutionFramerate_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibHeaderResolutionFramerate_t);
@@ -303,7 +330,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &((pCalibCfg->header.pResolutions)->framerateNumber), sizeof(uint8_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint8_t);
@@ -311,7 +338,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &(pCalibCfg->header.resolutionNumber), sizeof(uint8_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint8_t);
@@ -320,7 +347,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, ((pCalibCfg->sensor.awb).pGlobals),
 			  sizeof(CamDeviceCalibSensorAwbGlobal_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSensorAwbGlobal_t);
@@ -328,7 +355,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &((pCalibCfg->sensor.awb).globalNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -336,7 +363,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &((pCalibCfg->sensor.awb).illuminationNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -345,7 +372,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, ((pCalibCfg->sensor.awb).pIlluminations),
 			  sizeof(CamDeviceCalibSensorAwbIllumination_t) * (pCalibCfg->sensor.awb).illuminationNumber);
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSensorAwbIllumination_t) *
@@ -357,7 +384,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.lscNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -366,7 +393,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, (pCalibCfg->sensor.pLsc),
 			  sizeof(CamDeviceCalibSensorLsc_t) * (pCalibCfg->sensor.lscNumber));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSensorLsc_t) * (pCalibCfg->sensor.lscNumber);
@@ -374,7 +401,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.ccNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -383,7 +410,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, (pCalibCfg->sensor.pCc),
 			  sizeof(CamDeviceCalibSensorCc_t) * (pCalibCfg->sensor.ccNumber));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSensorCc_t) * (pCalibCfg->sensor.ccNumber);
@@ -391,7 +418,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.blsNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(uint16_t);
@@ -400,7 +427,7 @@ RESULT VsiCamDeviceLoadCalibration
 	result = MyMemcpy(p_data, (pCalibCfg->sensor.pBls),
 			  sizeof(CamDeviceCalibSensorBls_t) * (pCalibCfg->sensor.blsNumber));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSensorBls_t) * (pCalibCfg->sensor.blsNumber);
@@ -409,7 +436,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	//	result = MyMemcpy(p_data, (pCalibCfg->sensor.pDpcc), sizeof(CamDeviceCalibSensorDpcc_t)*(pCalibCfg->sensor.dpccNumber));
 	//	if(result != RET_SUCCESS){
-	//	xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+	//	xil_printf("can not do memcpy, error code: %d.\r\n", result);
 	//	return result;
 	//	}
 	//	packet.payload_size += sizeof(CamDeviceCalibSensorDpcc_t)*(pCalibCfg->sensor.dpccNumber);
@@ -417,7 +444,7 @@ RESULT VsiCamDeviceLoadCalibration
 
 	result = MyMemcpy(p_data, &(pCalibCfg->system), sizeof(CamDeviceCalibSystem_t));
 	if (result != RET_SUCCESS) {
-		xil_printf("can not do memcpy, erorr code: %d.\r\n", result);
+		xil_printf("can not do memcpy, error code: %d.\r\n", result);
 		return result;
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSystem_t);
@@ -454,10 +481,10 @@ RESULT VsiCamDeviceSetOutFormat
 	if (NULL == pFmt)
 		return (RET_NULL_POINTER);
 #ifdef DEBUG_FLAG
-	xil_printf("APU set out format :%d.\r\n");
-	xil_printf("out width: %d.\r\n", pFmt->outWidth);
-	xil_printf("databits: %d.\r\n", pFmt->dataBits);
-	xil_printf("outfmt: %d.\r\n", pFmt->outFormat);
+	// xil_printf("APU set out format :%d.\r\n");
+	// xil_printf("out width: %d.\r\n", pFmt->outWidth);
+	// xil_printf("databits: %d.\r\n", pFmt->dataBits);
+	// xil_printf("outfmt: %d.\r\n", pFmt->outFormat);
 #endif
 	pCamDevCtx->cookie ++;
 
@@ -570,8 +597,8 @@ RESULT VsiCamDeviceGetOutFormat
 	packet.payload_size += sizeof(CamDevicePipeOutFmt_t);
 
 #ifdef DEBUG_FLAG
-	xil_printf("APU get out format payload cookie:%d.\r\n", packet.cookie);
-	xil_printf("APU get out format payload size:%d.\r\n", packet.payload_size);
+	// xil_printf("APU get out format payload cookie:%d.\r\n", packet.cookie);
+	// xil_printf("APU get out format payload size:%d.\r\n", packet.payload_size);
 #endif
 
 	if (packet.payload_size > MAX_ITEM)
@@ -586,10 +613,10 @@ RESULT VsiCamDeviceGetOutFormat
 	memcpy(pFmt, p_data, sizeof(CamDevicePipeOutFmt_t));
 
 #ifdef DEBUG_FLAG
-	xil_printf("APU get out format results:%d.\r\n");
-	xil_printf("packet.resp_field.error_subcode_t %d.\r\n", packet.resp_field.error_subcode_t);
-	xil_printf("databits: %d.\r\n", pFmt->dataBits);
-	xil_printf("outfmt: %d.\r\n", pFmt->outFormat);
+	// xil_printf("APU get out format results:%d.\r\n");
+	// xil_printf("packet.resp_field.error_subcode_t %d.\r\n", packet.resp_field.error_subcode_t);
+	// xil_printf("databits: %d.\r\n", pFmt->dataBits);
+	// xil_printf("outfmt: %d.\r\n", pFmt->outFormat);
 #endif
 
 	return packet.resp_field.error_subcode_t;
@@ -638,9 +665,9 @@ RESULT VsiCamDeviceGetInFormat
 	memcpy(pFmt, p_data, sizeof(CamDevicePipeInFmt_t));
 
 #ifdef DEBUG_FLAG
-	xil_printf("APU get in format results:%d.\r\n");
-	xil_printf("in width: %d.\r\n", pFmt->inWidth);
-	xil_printf("infmt: %d.\r\n", pFmt->inFormat);
+	// xil_printf("APU get in format results:%d.\r\n");
+	// xil_printf("in width: %d.\r\n", pFmt->inWidth);
+	// xil_printf("infmt: %d.\r\n", pFmt->inFormat);
 #endif
 
 	return packet.resp_field.error_subcode_t;
@@ -758,10 +785,10 @@ RESULT VsiCamDeviceConnectCamera
 	if (NULL == pSubCtrl)
 		return (RET_NULL_POINTER);
 #ifdef DEBUG_FLAG
-	xil_printf("APU connect camera :%d.\r\n");
-	xil_printf("aeEnable: %d.\r\n", pSubCtrl->subCtrl.aeEnable);
-	xil_printf("aeEnable: %d.\r\n", pSubCtrl->subCtrl.aeEnable);
-	xil_printf("aeEnable: %d.\r\n", pSubCtrl->subCtrl.aeEnable);
+	// xil_printf("APU connect camera :%d.\r\n");
+	// xil_printf("aeEnable: %d.\r\n", pSubCtrl->subCtrl.aeEnable);
+	// xil_printf("aeEnable: %d.\r\n", pSubCtrl->subCtrl.aeEnable);
+	// xil_printf("aeEnable: %d.\r\n", pSubCtrl->subCtrl.aeEnable);
 #endif
 	pCamDevCtx->cookie ++;
 
