@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,9 @@ typedef struct XPm_NpDomain {
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent);
 
+XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 #ifdef __cplusplus
 }
 #endif

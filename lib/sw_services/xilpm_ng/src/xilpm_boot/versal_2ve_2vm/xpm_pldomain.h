@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt);
 XStatus XPmPlDomain_RetriggerPlHouseClean(void);
+XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 XStatus XPm_PldApplyTrim(u32 TrimType);
 
 #ifdef __cplusplus

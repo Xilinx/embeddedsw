@@ -5,6 +5,7 @@
 
 #include "xpm_fsm.h"
 #include "xpm_device.h"
+#include "xpm_device_fsm.h"
 #include "xpm_runtime_device.h"
 #include "xpm_power.h"
 #include "xpm_debug.h"

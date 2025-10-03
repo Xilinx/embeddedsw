@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,7 @@ u32 XPmSubsystem_GetMaxSubsysIdx(void)
 	return SubsysMgr.NumSubsystems;
 }
 
-u32 XPmSubsystem_GetSubsysOpsType(u32 SubsystemId) {
+static u32 XPmSubsystem_GetSubsysOpsType(u32 SubsystemId) {
 	/** TODO: implement me */
 	(void)SubsystemId;
 	return SUBSYS_OPS_GENERIC;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +33,9 @@ struct XPm_PsLpDomain {
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressesCnt);
-
+XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 #ifdef __cplusplus
 }
 #endif

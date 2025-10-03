@@ -11,9 +11,9 @@
 #ifdef SDT
 #include "xpm_config.h"
 #endif
-
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
-    defined (XPAR_XIICPS_2_DEVICE_ID)
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 #include "xiicps.h"
 #endif
 
@@ -73,7 +73,8 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode);
 XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs);
 XStatus XPmRail_AdjustVID(XPm_Rail *Rail);
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
-    defined (XPAR_XIICPS_2_DEVICE_ID)
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 XIicPs *XPmRail_GetIicInstance(void);
 XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID);
 #endif

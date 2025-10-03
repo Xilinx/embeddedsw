@@ -202,7 +202,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
+static XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -3036,7 +3036,7 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 	const u32 *Args = Cmd->Payload;
 	u32 NumArgs = Cmd->Len;
 
-	Status = (u32) XPmAccess_UpdateTable(Args, NumArgs);
+	Status = XPmAccess_UpdateTable(Args, NumArgs);
 	Cmd->Response[0] = (u32)Status;
 
 	return Status;
@@ -3055,7 +3055,7 @@ XStatus XPm_HookAfterBootPdi(void)
 	}
 
 	/* Init Pin RuntimeOps */
-	for (int i = 0; i < XPM_NODEIDX_STMIC_MAX; i++) {
+	for (u32 i = 0; i < XPM_NODEIDX_STMIC_MAX; i++) {
 		XPm_PinNode* Pin = XPmPin_GetByIndex(i);
 		if (NULL == Pin) {
 			continue;

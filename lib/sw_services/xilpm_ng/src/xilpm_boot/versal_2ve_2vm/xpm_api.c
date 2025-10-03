@@ -380,7 +380,8 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 	/* Zeroized xpm_bss_data session during none In-place update*/
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
-		Status = Xil_SMemSet(__xpm_bss_start, __xpm_bss_end - __xpm_bss_start, 0, __xpm_bss_end - __xpm_bss_start);
+		u32 __xpm_bss_len = (u32)(__xpm_bss_end - __xpm_bss_start);
+		Status = Xil_SMemSet(__xpm_bss_start, __xpm_bss_len , 0U, __xpm_bss_len);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to zeroize xpm_bss_data session\r\n");
 			goto done;

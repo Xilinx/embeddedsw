@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -133,7 +133,6 @@ done:
 XStatus XPm_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 {
 	XStatus Status = XST_FAILURE;
-	XStatus StatusTmp = XST_FAILURE;
 	u32 EfuseCacheBaseAddress, RegValue, DeltaVal = 0;
 	static u32 OffsetVal,SlopeVal,ProcessVal,ResistorVal,BjtOffsetVal,ExtOffsetVal,AnaSpareVal,DigSpareVal;
 	static u32 CacheRead = CACHE_READ_EMPTY;
