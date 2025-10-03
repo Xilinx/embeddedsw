@@ -537,7 +537,7 @@ XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs)
 
 		if (NULL != FoundAper) {
 			/* Update existing aperture's access field */
-			FoundAper->Access = access;
+			FoundAper->Access = (u8)access & NODE_APER_ACCESS_MASK;
 		} else {
 			/* Prepend new aperture to the head of the list */
 			XPm_NodeAper *NewAper = (XPm_NodeAper *)XPm_AllocBytesOthers(sizeof(XPm_NodeAper));
@@ -545,9 +545,9 @@ XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			NewAper->Offset = Offset;
-			NewAper->Size = (u8)Size;
-			NewAper->Access = access;
+			NewAper->Offset = Offset & NODE_APER_OFFSET_MASK;
+			NewAper->Size = (u8)Size & NODE_APER_SIZE_MASK;
+			NewAper->Access = (u8)access & NODE_APER_ACCESS_MASK;
 
 			/* Insert at the beginning */
 			NewAper->NextAper = Entry->Aperture;

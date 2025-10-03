@@ -10,7 +10,11 @@
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_psfpdomain.h"
+#include "xpm_npdomain.h"
+#include "xpm_pldomain.h"
+#include "xpm_aie.h"
 #include "xpm_device.h"
+
 #include "xpm_regs.h"
 #include "xpm_api.h"
 #include "xpm_debug.h"
@@ -40,23 +44,6 @@
 #define VOLT_CODE_1_40V   0x2B333U
 
 /* Forward declarations for domain-specific operations */
-extern XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-
-extern XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-
-extern XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-
-extern XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-
-extern XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-extern XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 
 /* Function pointer typedefs for dispatch mechanism */
 typedef XStatus (*XPm_DomainInitStartOp)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);

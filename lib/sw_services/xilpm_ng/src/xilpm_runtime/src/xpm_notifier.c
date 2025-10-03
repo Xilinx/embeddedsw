@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -617,7 +617,7 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 					goto done;
 				}
 				PmInfo("Core Idle support removed for 0x%x\r\n", Core->Device.Node.Id);
-				Subsystem->Flags &= ~(u8)SUBSYSTEM_IDLE_SUPPORTED;
+				Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_SUPPORTED);
 				PmInfo("Subsystem Idle support disabled for 0x%x, Flags: 0x%x\r\n\r\n",
 				       Subsystem->Id, Subsystem->Flags);
 			} else {

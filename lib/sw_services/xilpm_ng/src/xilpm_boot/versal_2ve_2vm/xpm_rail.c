@@ -722,7 +722,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 			continue;
 		}
 
-		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON, (Index + 2));
+		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON, (u8)(Index + 2));
 		if (XST_SUCCESS == Status) {
 			VIDAdj->VIDAdjusted = 1;
 			break;

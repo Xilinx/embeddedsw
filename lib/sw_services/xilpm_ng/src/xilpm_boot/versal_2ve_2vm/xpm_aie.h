@@ -69,6 +69,8 @@ typedef struct XPm_AieNode {
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);
 XStatus XPmAie_AddPeriphNode(const u32 *Args, u32 PowerId);
+XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 #ifdef __cplusplus
 }
 #endif

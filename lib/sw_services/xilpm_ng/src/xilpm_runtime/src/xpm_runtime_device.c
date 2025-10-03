@@ -1052,7 +1052,7 @@ done:
 }
 
 
-XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
+static XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
