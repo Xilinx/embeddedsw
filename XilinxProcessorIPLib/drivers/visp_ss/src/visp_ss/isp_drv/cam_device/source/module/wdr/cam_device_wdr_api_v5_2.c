@@ -110,7 +110,6 @@ RESULT VsiCamDeviceWdrEnable
 	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
 	if (NULL == pCamDevCtx)
 		return (RET_WRONG_HANDLE);
-	xil_printf("pCamDevCtx: 0x%x.\r\n", pCamDevCtx);
 	pCamDevCtx->cookie ++;
 
 	Payload_packet packet;

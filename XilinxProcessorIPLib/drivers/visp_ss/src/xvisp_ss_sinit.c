@@ -77,7 +77,7 @@ xvisp_ss_Config *XVisp_Ss_LookupConfig(UINTPTR BaseAddress)
 	xvisp_ss_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0; xvisp_ss_ConfigTable[Index].Name != NULL; Index++) {
+	for (Index = 0; Index < XPAR_XVISP_SS_NUM_INSTANCES ; Index++) {
 		if ((xvisp_ss_ConfigTable[Index].BaseAddress == BaseAddress) ||
 		    !BaseAddress) {
 			CfgPtr = &xvisp_ss_ConfigTable[Index];

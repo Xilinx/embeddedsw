@@ -120,6 +120,7 @@ typedef struct vvbench_vdev_iba {
 	uint32_t sensorHeight;
 	uint32_t sensorWidth;
 	uint32_t virtualChannelId;
+	uint16_t ppc;
 } vvbench_vdev_iba_t;
 
 

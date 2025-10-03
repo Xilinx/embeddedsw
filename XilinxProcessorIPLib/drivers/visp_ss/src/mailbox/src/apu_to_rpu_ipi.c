@@ -80,8 +80,6 @@ int mailbox_wrapper()
 	src_cpu_id = MBOX_CORE_APU;
 
 	for (i = 0; i < (MBOX_SECTION_SIZE / BLOCK_SIZE_2MB); i++) {
-		xil_printf("MBOX_FIFO_BLOCK_SIZE/BLOCK_SIZE_2MB %d, i-%d\r\n",
-			   MBOX_FIFO_BLOCK_SIZE / BLOCK_SIZE_2MB, i);
 #if defined __aarch64__
 
 		Xil_SetTlbAttributes(mbox_start + i * BLOCK_SIZE_2MB, NORM_NONCACHE);

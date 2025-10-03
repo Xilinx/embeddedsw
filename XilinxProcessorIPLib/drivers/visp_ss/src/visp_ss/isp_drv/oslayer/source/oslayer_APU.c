@@ -87,9 +87,6 @@ void *osMalloc(uint32_t size)
 					usedBlocks++;
 			}
 
-			xil_printf("osMalloc: SUCCESS - Allocated %lu bytes (aligned %lu), block %lu, used blocks: %lu/%d\r\n",
-				   size, alignedSize, i, usedBlocks, OS_MAX_POOL_BLOCKS);
-
 			return g_memBlocks[i].addr;
 		}
 	}
@@ -127,9 +124,6 @@ int32_t osFree(void *p)
 				if (g_memBlocks[j].used)
 					usedBlocks++;
 			}
-
-			xil_printf("osFree: SUCCESS - Freed %lu bytes from block %lu, remaining used blocks: %lu/%d\r\n",
-				   freedSize, i, usedBlocks, OS_MAX_POOL_BLOCKS);
 
 			return OSLAYER_OK;
 		}
@@ -309,7 +303,7 @@ size_t osFread(void* ptr, size_t size, size_t count, osFile* pVsiFile)
 		return -1;
 	}
 
-	UINT bytesRead;
+	unsigned int bytesRead;
 	void *tempBuffer;
 	tempBuffer = osMalloc(size * count);
 	FRESULT res = f_read(&(pVsiFile->file), tempBuffer, size * count, &bytesRead);
@@ -330,7 +324,7 @@ size_t osFwrite(const void* ptr, size_t size, size_t count, osFile* pVsiFile)
 		return -1;
 	}
 
-	UINT bytesWritten;
+	unsigned int bytesWritten;
 	FRESULT res = f_write(&(pVsiFile->file), ptr, size * count, &bytesWritten);
 	if (res != FR_OK) {
 		printf("%s: f_write is failed\n", __func__);
@@ -409,7 +403,7 @@ int osFgetc(osFile* pVsiFile)
 		return -1;
 	}
 
-	UINT bytesRead;
+	unsigned int bytesRead;
 	char tempBuffer;
 	FRESULT result = f_read(&(pVsiFile->file), (void*)&tempBuffer, sizeof(char), &bytesRead);
 	if (result != FR_OK) {
@@ -527,7 +521,7 @@ int32_t osTimeStampUs(int64_t *pTimeStamp)
 /**
  *  @brief  Returns a 64-bit timestamp [ns]
  *
- *  @param  pEvent         Reference of the timestamp object
+ *  @param   pTimeStamp       Reference of the timestamp object
  *
  *  @return                Status of operation
  *  @retval OSLAYER_OK     Event successfully created

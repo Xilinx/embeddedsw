@@ -90,7 +90,6 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 	XIpiPsu *InstancePtr = (XIpiPsu *) XIpiPsuPtr;
 	Xil_AssertVoid(InstancePtr != NULL);
 	IpiSrcMask = XIpiPsu_GetInterruptStatus(InstancePtr);
-	xil_printf("!!APU ---->IRQ no %d triggered\r\n", InstancePtr->Config.IntId);
 #ifdef DEBUG_ENABLE_LOG
 	xil_printf("!!APU ---->IRQ no %d triggered\r\n", InstancePtr->Config.IntId);
 #endif
@@ -159,8 +158,6 @@ int ipi_init(int src_ipi_id, XIpiPsu *IpiInst)
 	uint32_t ret = 0, baseaddr = 0;
 	XIpiPsu_Config *CfgPtr;
 
-	xil_printf("IPI_Init, src_ipi_id = 0x%d \r\n", src_cpu_id);
-
 	switch (src_ipi_id) {
 		case MBOX_CORE_APU:
 			baseaddr = 0xeb380000; //IPI-5
@@ -180,12 +177,12 @@ int ipi_init(int src_ipi_id, XIpiPsu *IpiInst)
 	/* Init with the Cfg Data */
 	XIpiPsu_CfgInitialize(IpiInst, CfgPtr, CfgPtr->BaseAddress);
 
-	xil_printf("APU ipi instance src config:\r\n");
-	xil_printf("InstancePtr->Config.BaseAddress:%x.\r\n", IpiInst->Config.BaseAddress);
-	xil_printf("IpiInst->Config.IntId:%x.\r\n", IpiInst->Config.IntId);
-	xil_printf("InstancePtr->Config.BitMask:%x.\r\n", IpiInst->Config.BitMask);
-	xil_printf("InstancePtr->Config.BufferIndex:%x.\r\n", IpiInst->Config.BufferIndex);
-	xil_printf("InstancePtr->Config.TargetList[0].Mask:%x.\r\n", IpiInst->Config.TargetList[0].Mask);
+	// xil_printf("APU ipi instance src config:\r\n");
+	// xil_printf("InstancePtr->Config.BaseAddress:%x.\r\n", IpiInst->Config.BaseAddress);
+	// xil_printf("IpiInst->Config.IntId:%x.\r\n", IpiInst->Config.IntId);
+	// xil_printf("InstancePtr->Config.BitMask:%x.\r\n", IpiInst->Config.BitMask);
+	// xil_printf("InstancePtr->Config.BufferIndex:%x.\r\n", IpiInst->Config.BufferIndex);
+	// xil_printf("InstancePtr->Config.TargetList[0].Mask:%x.\r\n", IpiInst->Config.TargetList[0].Mask);
 #ifndef SDT
 	/* Setup the GIC */
 	SetupInterruptSystem(&Intc, IpiInst, (IpiInst->Config.IntId));
@@ -229,21 +226,15 @@ static XStatus trigger_ipi(XIpiPsu *InstancePtr, uint32_t dst_ipi_id)
 	dst_ipi_id_offset=APU_TARGET; */
 	InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask = 0x1000;
 	XIpiPsu_TriggerIpi(InstancePtr, InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask);
-	xil_printf("APU DEBUG: triggering remote mask 0x%x \n",
-		   InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask);
-	xil_printf("APU DEBUG:IPI Baseaddress 0x%x \n", InstancePtr->Config.BaseAddress);
 
 	Status = XIpiPsu_PollForAck(InstancePtr, InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask,
 				    TIMEOUT_COUNT);
 
 	if (XST_SUCCESS == Status) {
 		Status = XST_SUCCESS;
-		xil_printf("trigger_ipi function done\r\n");
 	} else {
 		Status = XST_FAILURE;
-		xil_printf("Error: APUTimed Out polling for response\r\n");
 	}
-	xil_printf("trigger_ipi function \r\n");
 	return Status;
 }
 
@@ -321,7 +312,6 @@ void Apu_Mbox_Check_FusaCommand(void)
 	Payload_packet proc_cmd_packet;
 
 	if (ACK_PROC_FUSA == true) {
-		//	xil_printf("\r\n processing command from RPU \r\n");
 		ACK_PROC_FUSA = false;
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
@@ -335,8 +325,6 @@ uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
 {
 
 	volatile Payload_packet *packet = (Payload_packet *)rmsg_response_to_apu->payload;
-
-	xil_printf("%s %d MBOX \n", __func__, __LINE__);
 
 	while (ACK == false || cookie != payload_ret_cookie) {
 
@@ -354,23 +342,20 @@ uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
 		memcpy(data, packet->payload_data, packet->payload_size);
 	ACK = false;
 	mb_data_flag = false;
-	xil_printf("%s %d MBOX \n", __func__, __LINE__);
 	return packet->resp_field.error_subcode_t;
 }
 
 
 void apu_mailbox_read(uint32_t IpiSrcMask)
 {
-	xil_printf("APU-debug: Reading the message from RPU-%d \n", dest_cpu_id);
 	if (vpi_mbox_is_empty(apu_fifo_ctrl, dest_cpu_id,
 			      src_cpu_id)) //rpu0 check  the msg from MBOX_CORE_APU
 		xil_printf("APU there is no msg in Share memory!\r\n");
 	else {
 		while (!vpi_mbox_is_empty(apu_fifo_ctrl, dest_cpu_id, src_cpu_id)) {
 			vpi_mbox_read(apu_fifo_ctrl, rmsg_apu, dest_cpu_id); //rpu0 rece MBOX_CORE_APU's msg
-			xil_printf("%s %d MBOX \n", __func__, __LINE__);
 
-			//need make sure APU initiative call function to RPU after last function had recieve response
+			//need make sure APU initiative call function to RPU after last function had receive response
 			//to make it is compatitable for apu_wait_for_mb_data and apu_wait_for_ACK function
 			if ((rmsg_apu->msg_id == MB_CMD_RES_SUCCESS) || (rmsg_apu->msg_id == MB_CMD_GET_SUCCESS))
 				memcpy(rmsg_response_to_apu, rmsg_apu,
@@ -534,15 +519,11 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 	switch (cmd) {
 		/*These cases handle the commands sent by the RPU's*/
 		case MB_CMD_RES_SUCCESS:
-			xil_printf("%s %d MBOX \n", __func__, __LINE__);
-
 			payload_ret_cookie = packet->cookie;
 			ACK = true;
 			break;
 
 		case MB_CMD_GET_SUCCESS:
-			xil_printf("%s %d MBOX \n", __func__, __LINE__);
-
 			payload_ret_cookie = packet->cookie;
 			ACK = true;
 			mb_data_flag = true;
@@ -587,7 +568,7 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 			break;
 
 		case RPU_2_APU_MB_CMD_FULL_BUFFER_INFORM:
-			LOGI("RPU_2_APU_MB_CMD_FULL_BUFFER_INFORM coreid %d\r\n", core_id);
+			//LOGI("RPU_2_APU_MB_CMD_FULL_BUFFER_INFORM coreid %d\r\n", core_id);
 			CtrlFullBufferInform(data);
 			break;
 
@@ -614,9 +595,7 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 			//LOGI("FUN: %s\t buff response from RPU0 0x%x\r\n",__func__,buf_resp->resp_payload[0]);
 			//Vmix_buff.baseAddress = buf_resp->resp_payload[0];
 #if ENABLE_VMIX_MACRO
-			LOGI("FUN: %s\t buff response from RPU0 0x%x\r\n", __func__, packet->payload_data[0]);
 			Vmix_buff.baseAddress = packet->payload_data[0];
-			LOGI("FUN: %s\tVmix input buff 0x%x\r\n", __func__, Vmix_buff.baseAddress);
 			Status = VMix_User_defined(&VidStream);  //check this!??
 			if (Status == XST_FAILURE) {
 				LOGE("VMIX User defined failed.\n\r");
@@ -625,7 +604,6 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 				LOGI("\r\n\r\n VMIX User defined is Done \n");
 #endif
 			//LOGI("@RPU Response error: 0x%x cmd:%d cookie:%d load:%d\r\n",buf_resp->error_subcode, buf_resp->cmdid, buf_resp->cookie,buf_resp->payload_type) ;
-			LOGI("@RPU Response   cookie:%d load:%d\r\n", packet->cookie, packet->type);
 			break;
 	}
 	//TODO:Send response tacket

@@ -103,7 +103,7 @@ iba_inst_t IBA_ConfigTable[XPAR_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 																 depending on port selection*/
 			.hblank_prog = 0x50,
 			.vblank_prog = 0x23,
-			.virtual_channel_id = VC0,
+			.virtual_channel_id = VC1,
 			.input_pixel_width = QUAD_PIXEL_WIDTH,
 			.isp_instance = ISP1,
 		},
@@ -187,6 +187,7 @@ RESULT IBA_init_send_command
 		ConfigPtr->vres = caseCtx->sensorHeight;
 		ConfigPtr->hres = caseCtx->sensorWidth;
 		ConfigPtr->isp_instance = caseCtx->hpId;
+		ConfigPtr->input_pixel_width = caseCtx->ppc;
 		if (caseCtx->virtualChannelId != 0xFFFFFFFF)
 			ConfigPtr->virtual_channel_id = caseCtx->virtualChannelId;
 		LOGI("APU DEBUG: hcamdev->instanceid %d vcId:%d\n", pCamDevCtx->instanceId,
