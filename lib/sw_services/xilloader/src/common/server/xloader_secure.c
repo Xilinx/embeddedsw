@@ -134,6 +134,7 @@
 * 2.03  tvp  08/22/25 Added support to store partition Block hash in PtrnHashTable.
 *       pre  08/23/25 Did versal macro change
 *       tvp  08/27/25 Store Block 0 partition hash to calculate subsystem image hash for versal_2vp
+*       pre  09/30/25 Updated comments for rtf docs
 *
 * </pre>
 *
@@ -825,7 +826,7 @@ END:
 * @brief	This function checks if PPK is programmed.
 *
 * @return
-* 			- XST_SUCCESS on success.
+* 			- XST_SUCCESS if PPK is programmed.
 * 			- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
 * 			- XST_FAILURE on failure.
 *

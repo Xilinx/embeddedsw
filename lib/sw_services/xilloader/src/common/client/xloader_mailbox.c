@@ -19,6 +19,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
  * 1.01  abh  07/22/25 Added doxygen tag
+ *       pre  10/03/25 Updated comment which says about IPI response timeout
  *
  * </pre>
  *
@@ -70,7 +71,7 @@ int XLoader_ProcessMailbox(XLoader_ClientInstance *ClientPtr, u32 *MsgPtr, u32 M
 	}
 
     /**
-	 * - Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 * - Wait for IPI response from PLM  with a default timeout of 2 seconds.
      * If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */

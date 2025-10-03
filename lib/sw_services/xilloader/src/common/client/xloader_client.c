@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       har  03/05/24 Fixed doxygen warnings
  *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
  *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
+ *       pre  09/30/25 Updated comments for rtf docs
  *
  * </pre>
  *
@@ -426,10 +427,10 @@ END:
 /**
  * @brief	This function sends IPI request to get ATF Handoff parameters.
  *
- * @param	InstancePtr Pointer to the client instance.
- * @param	BuffAddr	Address to store the handoff parameter information.
- * @param	Size		Maximum number of bytes that can be stored in the buffer.
- * @param	BufferSize	To get the size of the buffer in bytes.
+ * @param	InstancePtr Pointer to the client instance (Input).
+ * @param	BuffAddr	Address to store the handoff parameter information (Input).
+ * @param	Size		Maximum number of bytes that can be stored in the buffer (Input).
+ * @param	BufferSize	To get the size of the buffer in bytes (Output).
  *
  * @return
  *			 - XST_SUCCESS on success.

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,10 +19,16 @@
  * 1.00  dd   01/09/24 Initial release
  *       am   04/04/24 Fixed doxygen warnings
  *       pre  07/10/24 Added SSIT support
+ *       pre  09/30/25 Updated comments for rtf docs
  *
  * </pre>
  *
  *************************************************************************************************/
+
+/**
+ * @addtogroup xilplmi_mailbox_apis XilPlmi Mailbox APIs
+ * @{
+ */
 
 /*************************************** Include Files *******************************************/
 
@@ -68,7 +74,7 @@ int XPlmi_ProcessMailbox(XPlmi_ClientInstance *ClientPtr, u32 *MsgPtr, u32 MsgLe
 	}
 
     /**
-	 * - Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 * - Wait for IPI response from PLM  with a default timeout of 2 seconds.
      * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response
 	 */

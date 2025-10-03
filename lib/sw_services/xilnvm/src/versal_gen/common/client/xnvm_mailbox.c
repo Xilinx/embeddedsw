@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 3.1   skg  10/04/22 Initialized SlrIndex to default value
 *       skg  10/28/22 Added In body comments for APIs
 * 3.3   ng   11/22/23 Fixed doxygen grouping
+*       pre  10/03/25 Updated comment which says about IPI response timeout
 *
 * </pre>
 *
@@ -78,7 +79,7 @@ int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	}
 
 	/**
-	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 * Wait for IPI response from PLM  with a default timeout of 2 seconds.
 	 * If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.
 	 */
 	Status = (int)XMailbox_Recv(MailboxPtr, XNVM_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
