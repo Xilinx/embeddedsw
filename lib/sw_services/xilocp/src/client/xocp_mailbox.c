@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
+*       pre  10/03/25 Updated comment which says about IPI response timeout
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	}
 
 	/**
-	 * Waits for IPI response from PLM  with a default timeout of 300 seconds.
+	 * Waits for IPI response from PLM  with a default timeout of 2 seconds.
 	 * If the timeout exceeds then error is returned otherwise,
 	 * it returns the status of the IPI response
 	 */
