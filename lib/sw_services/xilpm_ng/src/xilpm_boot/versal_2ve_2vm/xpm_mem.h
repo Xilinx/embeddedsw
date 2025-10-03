@@ -83,23 +83,44 @@ struct XPm_MemCtrlrDevice {
 	struct XPm_PlDeviceNode *PlDevice;	/**< Parent PL device */
 };
 
+/**
+ * @enum AddrRangeStatus
+ * @brief Status codes for address-range containment checks (inclusive bounds).
+ *
+ * Indicates whether the tested range is fully contained within a bounding range.
+ * Used as the return type of IsAddrWithinRange().
+ *
+ * Values:
+ *  - ADDR_IN_RANGE     (0x3C): The tested range is fully contained.
+ *  - ADDR_OUT_OF_RANGE (0xC3): The tested range is not fully contained.
+ *
+ * Note: These are non-boolean sentinels; compare explicitly with the enumerators.
+ */
+typedef enum {
+	ADDR_IN_RANGE		= 0x3CU,
+	ADDR_OUT_OF_RANGE 	= 0xC3U
+} AddrRangeStatus;
+
 /************************** Static Inline Functions ******************************/
 
 /**
- * @brief  Checks whether given address range (addr + size) is contained
- * 		for given Start and End address
- * @param  RegionStart 	Start Address of the Region to compare
- * @param  RegionEnd 	End Address of the Region to compare
- * @param  StartAddr 	Start Address of the Range
- * @param  EndAddr 	End Address of the Range
- *
- * @return true if the address range is within the region ( or false otherwise )
- * @note   This is a static inline function
+ * @brief  Checks whether region [RegionStart, RegionEnd] is fully contained
+ *		within range [StartAddr, EndAddr] (inclusive).
+ * @param	RegionStart  Start address of the region to test
+ * @param	RegionEnd    End address of the region to test
+ * @param	StartAddr    Start address of the bounding range
+ * @param	EndAddr      End address of the bounding range
+ * @return	ADDR_IN_RANGE if contained, otherwise ADDR_OUT_OF_RANGE
+ * @note	Caller must ensure RegionStart <= RegionEnd and StartAddr <= EndAddr.
  */
-static inline u8 IsAddrWithinRange(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr) {
-	return (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
-		((RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))) ? 1U : 0U;
+inline AddrRangeStatus IsAddrWithinRange(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr)
+
+{
+	return ((RegionStart >= StartAddr) && (RegionStart <= EndAddr) &&
+			(RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))
+			? ADDR_IN_RANGE : ADDR_OUT_OF_RANGE;
 }
+
 
 /************************** Function Prototypes ******************************/
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,

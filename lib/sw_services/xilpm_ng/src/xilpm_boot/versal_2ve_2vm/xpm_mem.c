@@ -202,8 +202,8 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 			continue;
 		}
 
-		u32 isRangeOverlapExclusion = 0U;
-		u32 isExclusionInRange = 0U;
+		AddrRangeStatus isRangeOverlapExclusion = ADDR_OUT_OF_RANGE;
+		AddrRangeStatus isExclusionInRange = ADDR_OUT_OF_RANGE;
 
 		/* condition to check whether entire excluded range falls in given address range (address + size) */
 		isExclusionInRange = IsAddrWithinRange(excludedStartAddress, excludedEndAddress,\
@@ -211,7 +211,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		/* condition to check whether there is any overlap of given address range (address + size) with excluded range */
 		if (((RegionStartAddr >= excludedStartAddress) && (RegionStartAddr <= excludedEndAddress)) || \
 			((RegionEndAddr >= excludedStartAddress) && (RegionEndAddr <= excludedEndAddress))) {
-			isRangeOverlapExclusion = 1U;
+			isRangeOverlapExclusion = ADDR_IN_RANGE;
 		}
 
 		/* If there is any overlap of provided range and excluded range, not allowed to access! */
@@ -222,7 +222,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		 * Ex Range3:             |-------| 		(given range completely inside excluded range)
 		 * Ex Range4: |-------------------------------| (given range fully contains excluded range)
 		 */
-		if ((1U == isRangeOverlapExclusion) || (1U == isExclusionInRange)) {
+		if ((ADDR_IN_RANGE == isRangeOverlapExclusion) || (ADDR_IN_RANGE == isExclusionInRange)) {
 			PmInfo("Range falls in Exclusion List [%d]\r\n", index);
 			Status = XPM_FAILURE;
 			goto done;
@@ -317,7 +317,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		}
 		u64 StartAddress = (u64)MemDevice->StartAddress;
 		u64 EndAddress = (u64)MemDevice->EndAddress;
-		if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
+		if (ADDR_IN_RANGE == IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
 			if ((u8)XPM_DEVSTATE_RUNNING == MemDevice->Device.Node.State) {
 				Status = XPM_SUCCESS;
 			}
@@ -352,7 +352,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
 			u64 StartAddress = MCDev->Region[Cnt].Address;
 			u64 EndAddress = MCDev->Region[Cnt].Address + MCDev->Region[Cnt].Size - 1U;
-			if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
+			if ( ADDR_IN_RANGE == IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
 				/*
 				* the memory controller should be in running state
 				* for the address to be accessible
