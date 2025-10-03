@@ -69,6 +69,15 @@ maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32
 	return Status;
 }
 
+static inline XStatus XPmRequirement_IsAllocated(const XPm_Requirement *Reqm)
+{
+	volatile XStatus Status = XPM_FAILURE;
+	if ((Reqm != NULL) && (1U == Reqm->Allocated)) {
+		Status = XPM_SUCCESS;
+	}
+	return Status;
+}
+
 static u8 XPmDevice_IsExcluded(const u32 NodeId)
 {
 	u8 IsExcluded = 0U;
@@ -1250,7 +1259,8 @@ done:
 
 XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
 {
-	XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 	const XPm_Requirement *Reqm;
 	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
 
@@ -1264,11 +1274,15 @@ XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
 		goto done;
 	}
 
-	if (1U == Reqm->Allocated) {
-		Status = XST_SUCCESS;
+	/* Redundant call on simple inline check to detect glitches */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRequirement_IsAllocated, Reqm);
+
+	if (XST_SUCCESS != Status || XST_SUCCESS != StatusTmp) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
+	Status = XST_SUCCESS;
 done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
