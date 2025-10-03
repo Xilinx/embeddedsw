@@ -18,6 +18,7 @@
 *	vss	09/21/23 Fixed doxygen warnings
 * 5.3   mb      04/01/24 Updated minor version
 * 5.5   vss     04/25/25 Updated minor version
+* 5.6   vss     09/30/25 Renamed file as xsecure_shaalginfo.h
 *
 * </pre>
 *
@@ -38,6 +39,9 @@ extern "C" {
 #define XSECURE_SHA3_MAJOR_VERSION	5 /**< Major version of SHA3 */
 #define XSECURE_SHA3_MINOR_VERSION	7 /**< Minor version of SHA3 */
 
+#define XSECURE_SHA2_MAJOR_VERSION	5 /**< Major version of SHA2 */
+#define XSECURE_SHA2_MINOR_VERSION	7 /**< Minor version of SHA2 */
+
 /****************** Macros (Inline Functions) Definitions *********************/
 
 /******************************************************************************/
@@ -54,6 +58,21 @@ static __attribute__((always_inline)) inline
 void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {
 	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA3_MAJOR_VERSION, XSECURE_SHA3_MINOR_VERSION);
+	AlgInfo->NistStatus = NIST_COMPLIANT;
+}
+
+/******************************************************************************/
+/**
+ *
+ * @brief	This function returns the SHA2 crypto algorithm information.
+ *
+ * @param	AlgInfo	Pointer to memory for holding the crypto algorithm information
+ *
+ ******************************************************************************/
+static __attribute__((always_inline)) inline
+void XSecure_Sha2GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+{
+	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA2_MAJOR_VERSION, XSECURE_SHA2_MINOR_VERSION);
 	AlgInfo->NistStatus = NIST_COMPLIANT;
 }
 

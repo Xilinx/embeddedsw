@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aesalginfo.h
+* @file xsecure_shaalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -15,17 +15,17 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
-*       vss     09/21/23 Fixed doxygen warnings
-* 5.3   kpt     03/30/24 Updated version number
+*	vss	09/21/23 Fixed doxygen warnings
+* 5.3   mb      04/01/24 Updated minor version
 * 5.4   kpt     06/30/24 Updated version number
-* 5.6   vss     09/30/25 Updated version number
+* 5.6   vss     09/30/25 Renamed file to xsecure_shaalginfo.h
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSECURE_AESALGINFO_H
-#define XSECURE_AESALGINFO_H
+#ifndef XSECURE_SHAALGINFO_H
+#define XSECURE_SHAALGINFO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,15 +36,15 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_AES_MAJOR_VERSION	5 /**< Major version of AES */
-#define XSECURE_AES_MINOR_VERSION	6 /**< Minor version of AES */
+#define XSECURE_SHA_MAJOR_VERSION	5 /**< Major version of SHA */
+#define XSECURE_SHA_MINOR_VERSION	6 /**< Minor version of SHA */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
 /******************************************************************************/
 /**
  *
- * This function returns the AES crypto algorithm information.
+ * This function returns the SHA crypto algorithm information.
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
  *
@@ -52,9 +52,9 @@ extern "C" {
  *
  ******************************************************************************/
 static __attribute__((always_inline)) inline
-void XSecure_AesGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+void XSecure_ShaGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_AES_MAJOR_VERSION, XSECURE_AES_MINOR_VERSION);
+	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA_MAJOR_VERSION, XSECURE_SHA_MINOR_VERSION);
 	AlgInfo->NistStatus = NIST_COMPLIANT;
 }
 
@@ -62,4 +62,4 @@ void XSecure_AesGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 }
 #endif
 
-#endif /* XSECURE_AESALGINFO_H */
+#endif /* XSECURE_SHAALGINFO_H */
