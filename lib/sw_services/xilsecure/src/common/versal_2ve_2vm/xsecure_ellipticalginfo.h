@@ -18,6 +18,7 @@
 *       vss     09/21/23 Fixed doxygen warnings
 * 5.3   kpt     03/30/24 Updated minor version
 * 5.4   mb      05/23/24 Updated minor version for 24.2
+* 5.6   vss     09/30/25 Updated version number
 * </pre>
 *
 ******************************************************************************/
@@ -35,7 +36,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_ELLIPTIC_MAJOR_VERSION	5 /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	5 /**< Minor version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MINOR_VERSION	6 /**< Minor version of ELLIPTIC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

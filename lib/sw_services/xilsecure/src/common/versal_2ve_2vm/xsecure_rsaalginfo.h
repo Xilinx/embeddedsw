@@ -18,6 +18,7 @@
 *	vss	09/21/23 Fixed doxygen warnings
 * 5.3   mb      04/01/24 Updated minor version
 * 5.4   kpt     06/30/24 Updated version number
+* 5.6   vss     09/30/25 Updated version number
 * </pre>
 *
 ******************************************************************************/
@@ -35,7 +36,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_RSA_MAJOR_VERSION	5 /**< Major version of RSA */
-#define XSECURE_RSA_MINOR_VERSION	5 /**< Minor version of RSA */
+#define XSECURE_RSA_MINOR_VERSION	6 /**< Minor version of RSA */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

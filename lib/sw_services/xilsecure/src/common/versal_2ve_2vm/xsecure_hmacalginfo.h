@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,24 +7,21 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha3alginfo.h
+* @file xsecure_hmacalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 5.2   mmd     07/04/23 Initial Release
-*	vss	09/21/23 Fixed doxygen warnings
-* 5.3   mb      04/01/24 Updated minor version
-* 5.4   kpt     06/30/24 Updated version number
+* 5.6   vss     09/18/25 Added FIPS info read support for HMAC
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSECURE_SHA3ALGINFO_H
-#define XSECURE_SHA3ALGINFO_H
+#ifndef XSECURE_HMACALGINFO_H
+#define XSECURE_HMACALGINFO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,15 +32,15 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_SHA3_MAJOR_VERSION	5 /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	5 /**< Minor version of SHA3 */
+#define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
+#define XSECURE_HMAC_MINOR_VERSION	6 /**< Minor version of HMAC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
 /******************************************************************************/
 /**
  *
- * This function returns the SHA3 crypto algorithm information.
+ * This function returns the HMAC crypto algorithm information.
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
  *
@@ -53,7 +50,7 @@ extern "C" {
 static __attribute__((always_inline)) inline
 void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA3_MAJOR_VERSION, XSECURE_SHA3_MINOR_VERSION);
+	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_HMAC_MAJOR_VERSION, XSECURE_HMAC_MINOR_VERSION);
 	AlgInfo->NistStatus = NIST_COMPLIANT;
 }
 
@@ -61,4 +58,4 @@ void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 }
 #endif
 
-#endif /* XSECURE_SHA3ALGINFO_H */
+#endif /* XSECURE_HMACALGINFO_H */

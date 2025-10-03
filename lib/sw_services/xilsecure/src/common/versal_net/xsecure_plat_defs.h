@@ -35,6 +35,7 @@
 *       kpt  06/13/24 Add support for XSECURE_API_RSA_RELEASE_KEY
 *       kpt  06/30/24 Updated version number
 * 5.5   vss  04/25/25 Updated minor version
+* 5.6   vss  09/30/25 Moved crypto algorithm version code to it's corresponding files.
 *
 * </pre>
 *
@@ -341,43 +342,7 @@ typedef struct {
 } XSecure_RsaKeyParam;
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
-#define XSECURE_HMAC_MINOR_VERSION	7 /**< Minor version of HMAC */
-
-#define XSECURE_SHA2_MAJOR_VERSION	5 /**< Major version of SHA2 */
-#define XSECURE_SHA2_MINOR_VERSION	7 /**< Minor version of SHA2 */
-
 /****************** Macros (Inline Functions) Definitions *********************/
-
-/******************************************************************************/
-/**
- *
- * @brief	This function returns the HMAC crypto algorithm information.
- *
- * @param	AlgInfo	Pointer to memory for holding the crypto algorithm information
- *
- ******************************************************************************/
-static __attribute__((always_inline)) inline
-void XSecure_HmacGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_HMAC_MAJOR_VERSION, XSECURE_HMAC_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
-
-/******************************************************************************/
-/**
- *
- * @brief	This function returns the SHA2 crypto algorithm information.
- *
- * @param	AlgInfo	Pointer to memory for holding the crypto algorithm information
- *
- ******************************************************************************/
-static __attribute__((always_inline)) inline
-void XSecure_Sha2GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA2_MAJOR_VERSION, XSECURE_SHA2_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
 
 #ifdef __cplusplus
 }
