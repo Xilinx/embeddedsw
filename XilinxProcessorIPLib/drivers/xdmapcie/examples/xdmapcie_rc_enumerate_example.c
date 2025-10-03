@@ -140,7 +140,7 @@ int main(void)
 
 	int Status;
 
-#if defined(versal_2ve_2vm)
+#if defined(XPS_BOARD_VEK385_1)
 	/* Initialize I2C and perform GPIO reset sequence */
 	Status = XDmaPcie_IicInit();
 	if (Status != XST_SUCCESS) {
