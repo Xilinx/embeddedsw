@@ -11,7 +11,8 @@
 * @addtogroup xsem_client_apis XilSEM Versal Client APIs
 * @{
 * This file provides XilSEM client interface to send IPI requests from the
-* user application to XilSEM server on PLM. This provides APIs to Init,
+* user application to XilSEM server on PLM. And supports SMC call support,
+* in EL1 Non secure mode. This provides APIs to Init,
 * Start, Stop, Error Injection, Event notification registration, get Status
 * details for both CRAM and NPI.
 *
@@ -55,6 +56,8 @@
 * 2.4   rama 08/22/2025   Added SMC call support for EL1 Non-secure apps
 * 2.5   gam  08/29/2025   Protected SMC header file inclusion for EL1 NS
 *                         applications.
+* 2.6   gam  10/02/2025   Updated payload to have common payload format
+*                         between linux and baremetal app.
 * </pre>
 *
 * @note
@@ -472,11 +475,14 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
 	(void) IpiInst;
-
-	Out = Xil_Smc(XSEM_CFR_ERRINJ_SMC_FID, ErrDetail->Efar,
-					ErrDetail->Qword,
-					ErrDetail->Bit,
-					ErrDetail->Row, 0, 0, 0);
+	u64 Data[2];
+	/* Payload: 0, Efar, Qword, Bit, Row */
+	Data[0] = ErrDetail->Efar;
+	Data[0]= (Data[0] << 32U);
+	Data[1] = ErrDetail->Bit;
+	Data[1] = (Data[1] << 32U) | ErrDetail->Qword;
+	Out = Xil_Smc(XSEM_CFR_ERRINJ_SMC_FID, Data[0],
+					Data[1], ErrDetail->Row, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
 	Status = XST_SUCCESS;
@@ -500,7 +506,7 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 		goto END;
 	}
 	/* Pack commands to be sent over IPI */
-	PACK_PAYLOAD5(Payload, CMD_ID_CFR_NJCT_ERR, ErrDetail->Efar,
+	PACK_PAYLOAD6(Payload, CMD_ID_CFR_NJCT_ERR, 0, ErrDetail->Efar,
 			ErrDetail->Qword, ErrDetail->Bit, ErrDetail->Row);
 
 	/* Send request to PLM with the payload */
@@ -535,7 +541,12 @@ END:
  *
  * @param[out]	CfrStatusInfo Structure Pointer with CRAM Status details
  *		- CfrStatusInfo->Status: Provides details about CRAM scan
- *			- Bit [31-25]: Reserved
+ *			- Bit [31-29]: Reserved
+ *			- Bit [28-25]: CRAM Target SLR ID
+ *				- 0001: Target is master only
+ *				- 0010: Target is slave 0 only
+ *				- 0100: Target is slave 1 only
+ *				- 1000: Target is slave 2 onl
  *			- Bit [24:20]: CRAM Error codes
  *				- 00001: Unexpected CRC error when CRAM is not in observation state
  *				- 00010: Unexpected ECC error when CRAM is
@@ -722,9 +733,12 @@ XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
+	u64 Data;
 	(void) IpiInst;
-
-	Out = Xil_Smc(XSEM_CFR_RD_ECC_SMC_FID, CframeAddr,
+	/* Payload: 0, Efar, Row */
+	Data = CframeAddr;
+	Data = (Data << 32U);
+	Out = Xil_Smc(XSEM_CFR_RD_ECC_SMC_FID, Data,
 					RowLoc, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
@@ -744,7 +758,7 @@ XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 		goto END;
 	}
 	/* Pack commands to be sent over IPI */
-	PACK_PAYLOAD3(Payload, CMD_ID_CFR_RDFRAME_ECC, CframeAddr, RowLoc);
+	PACK_PAYLOAD4(Payload, CMD_ID_CFR_RDFRAME_ECC, 0, CframeAddr, RowLoc);
 
 	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
@@ -1023,9 +1037,12 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
+	u64 Data;
 	(void) IpiInst;
 
-	Out = Xil_Smc(XSEM_NPI_GLDNSHA_SMC_FID, DescData, 0, 0, 0, 0, 0, 0);
+	Data = DescData;
+	Data = (Data << 32U);
+	Out = Xil_Smc(XSEM_NPI_GLDNSHA_SMC_FID, Data, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
 	Status = XST_SUCCESS;
@@ -1044,7 +1061,7 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		goto END;
 	}
 	/* Pack commands to be sent over IPI */
-	PACK_PAYLOAD2(Payload, CMD_NPI_GET_GLDN_SHA, (u32 *)DescData);
+	PACK_PAYLOAD3(Payload, CMD_NPI_GET_GLDN_SHA, 0, (u32 *)DescData);
 
 	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
@@ -1142,7 +1159,11 @@ END:
  *						1-  Indicates SHA comparison failure occurred during initialization.
  *						This failure indicates that there is some bit flip in the NPI
  *						registers. The scan will be stopped and an event will be sent to R5
- *			- Bit [15-12]: Reserved
+ *			- Bit [15-12]: NPI Target SLR ID
+ *						0001 - Target is master only
+ *						0010 - Target is slave 0 only
+ *						0100 - Target is slave 1 only
+ *						1000 - Target is slave 2 only
  *			- Bit [11]: 0 - NPI scan task is not added to PLM Scheduler
  *						to run periodically
  *						1 - NPI scan task is added to PLM Scheduler to run periodically
@@ -2016,7 +2037,11 @@ END:
  *						1-  Indicates SHA comparison failure occurred during initialization.
  *						This failure indicates that there is some bit flip in the NPI
  *						registers. The scan will be stopped and an event will be sent to R5
- *			- Bit [15-12]: Reserved
+ *			- Bit [15-12]: NPI Target SLR ID
+ *						0001 - Target is master only
+ *						0010 - Target is slave 0 only
+ *						0100 - Target is slave 1 only
+ *						1000 - Target is slave 2 onl
  *			- Bit [11]: 0 - NPI scan task is not added to PLM Scheduler
  *						to run periodically
  *						1 - NPI scan task is added to PLM Scheduler to run periodically
@@ -2068,7 +2093,12 @@ END:
  *			- Word 1 Bit [7-0]: NPI Slave Skip count Index
  *
  *		- StatusInfo->CramStatus: Provides details about CRAM scan
- *			- Bit [31-25]: Reserved
+ *			- Bit [31-29]: Reserved
+ *          - Bit [28:25]: CRAM Target SLR ID
+ *				- 0001: Target is master only
+ *				- 0010: Target is slave 0 only
+ *				- 0100: Target is slave 1 only
+ *				- 1000: Target is slave 2 onl
  *			- Bit [24:20]: CRAM Error codes
  *				- 00001: Unexpected CRC error when CRAM is
  *				not in observation state
