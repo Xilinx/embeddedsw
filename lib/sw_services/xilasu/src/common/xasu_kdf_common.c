@@ -78,17 +78,6 @@ s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		goto END;
 	}
 
-	if (((KdfParamsPtr->ShaMode == XASU_SHA_MODE_256) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_256_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_384) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_384_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_512) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_512_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-		 (KdfParamsPtr->KeyInLen < XASU_SHA_256_HASH_LEN))) {
-		goto END;
-	}
-
 	Status = XST_SUCCESS;
 
 END:
