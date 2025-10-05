@@ -491,14 +491,12 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 
 		/** Calculate block length based on SHA mode and type for SW padding. */
 		if (InstancePtr->BaseAddress == XASU_XSHA_1_S_AXI_BASEADDR) {
-			if (HashBufSize == XASU_SHA_256_HASH_LEN) {
-				BlockLen = XASUFW_SHAKE_SHA3_256_BLOCK_LEN;
-			}
-			else if (HashBufSize == XASU_SHA_384_HASH_LEN) {
+			if (InstancePtr->ShaMode == XASU_SHA_MODE_384) {
 				BlockLen = XASUFW_SHA3_384_BLOCK_LEN;
-			}
-			else {
+			} else if (InstancePtr->ShaMode == XASU_SHA_MODE_512) {
 				BlockLen = XASUFW_SHA3_512_BLOCK_LEN;
+			} else {
+				BlockLen = XASUFW_SHAKE_SHA3_256_BLOCK_LEN;
 			}
 			LengthFieldSize = 0U;
 		}
