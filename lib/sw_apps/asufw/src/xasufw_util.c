@@ -57,6 +57,9 @@
 #define XASUFW_PLM_XILNVM_OFFCHID_INDEX			(2U) /**< PLM command payload index of off chip ID */
 #define XASUFW_PLM_XILNVM_ENV_MON_CHECK			(0U) /**< Perform environment checks */
 
+#define XASUFW_ENDIANNESS_SWAP_OFFSET			(1U) /**< Position offset for swapping */
+#define XASUFW_ENDIANNESS_SWAP_MIN_LENGTH		(2U) /**< Minimum length to make a swap */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -137,15 +140,16 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 	volatile u32 Index;
 	volatile u8 TempVar;
 
-	if ((Buffer == NULL) || (Length == 0U) || ((Length % 2U) != 0U)) {
+	if ((Buffer == NULL) || (Length == 0U) ||
+				((Length % XASUFW_ENDIANNESS_SWAP_MIN_LENGTH) != 0U)) {
 		Status = XASUFW_INVALID_PARAM;
 	} else {
-		for (Index = 0U; Index < (Length / 2U); Index++) {
+		for (Index = 0U; Index < (Length / XASUFW_ENDIANNESS_SWAP_MIN_LENGTH); Index++) {
 			TempVar = Buffer[Index];
-			Buffer[Index] = Buffer[Length - Index - 1U];
-			Buffer[Length - Index - 1U] = TempVar;
+			Buffer[Index] = Buffer[Length - Index - XASUFW_ENDIANNESS_SWAP_OFFSET];
+			Buffer[Length - Index - XASUFW_ENDIANNESS_SWAP_OFFSET] = TempVar;
 		}
-		if (Index == (Length / 2U)) {
+		if (Index == (Length / XASUFW_ENDIANNESS_SWAP_MIN_LENGTH)) {
 			Status = XASUFW_SUCCESS;
 		}
 	}
