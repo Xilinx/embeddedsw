@@ -67,6 +67,8 @@
 #define XTRNG_DF_700CLKS_WAIT				10U /**< Delay after 4bytes */
 #define XTRNG_DF_2CLKS_WAIT					4U /**< Delay after 1byte */
 #define XTRNG_STATUS_QCNT_VAL				4U /**< QCNT value for single burst */
+#define XTRNG_AUTOPROC_TIMEOUT				5000U /**< Autoproc mode disable timeout
+								   value in microseconds(5ms)*/
 
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of TRNG. */
@@ -1296,6 +1298,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if disabling autoproc mode is successful.
+ * 	- XASUFW_TRNG_TIMEOUT_ERROR, if the check failed to complete before timeout.
  * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
  * 	- XASUFW_OSCILLATOR_DISABLE_FAILED, if oscillator reseed source disable is failed.
  *
@@ -1315,10 +1318,14 @@ s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr)
 			XASU_TRNG_AUTOPROC_DISABLE_MASK);
 
 	/** Check if autoproc mode is disabled. */
-	while (XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_AUTOPROC_OFFSET) !=
-			XASU_TRNG_AUTOPROC_DISABLE_MASK) {
-		/* Do nothing */
-	}
+	if (XASUFW_SUCCESS != XTrng_WaitForEvent((InstancePtr->BaseAddress +
+						   XASU_TRNG_AUTOPROC_OFFSET),
+						   XASU_TRNG_AUTOPROC_DISABLE_MASK,
+						   XASU_TRNG_AUTOPROC_DISABLE_MASK,
+						   XTRNG_AUTOPROC_TIMEOUT)){
+			Status = XASUFW_TRNG_TIMEOUT_ERROR;
+			goto END;
+		}
 
 	/** Clear reseed/generation operation completion status. */
 	XAsufw_WriteReg((InstancePtr->BaseAddress + XASU_TRNG_INT_OFFSET),
