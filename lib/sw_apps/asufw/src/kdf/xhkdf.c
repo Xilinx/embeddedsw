@@ -212,6 +212,7 @@ END:
  * 	- XASUFW_HKDF_HMAC_INIT_FAILED, if XHmac_Init operation fails.
  * 	- XASUFW_HKDF_HMAC_UPDATE_FAILED, if XHmac_Update operation fails.
  * 	- XASUFW_HKDF_HMAC_FINAL_FAILED, if XHmac_Final operation fails.
+ * 	- XASUFW_HKDF_GENERATE_FAILED, if HKDF expand operation is unsuccessful.
  *
  *************************************************************************************************/
 static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -255,7 +256,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	 * length.
 	 * According to the algorithm, maximum iterations should not exceed byte max length 0xFFU.
 	 */
-	Iterations = (u32)Xil_Ceil((float)HkdfParams->KdfParams.KeyOutLen / HashLen);
+	Iterations = (HkdfParams->KdfParams.KeyOutLen + HashLen - XASUFW_VALUE_ONE) / HashLen;
 	if (Iterations > XHKDF_MAX_ITERATIONS) {
 		Status = XASUFW_HKDF_INVALID_PARAM;
 		goto END;
