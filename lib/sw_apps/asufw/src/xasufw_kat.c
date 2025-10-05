@@ -520,9 +520,6 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 			else {
 				/** Set KAT status as passed in RTCA area. */
 				XASUFW_SET_KAT_PASSED(XASU_MODULE_AES_ID);
-
-				/** Set KAT status as passed in RTCA area. */
-				XASUFW_SET_KAT_PASSED(XASU_MODULE_KEYWRAP_ID);
 			}
 		}
 	}
@@ -1686,6 +1683,8 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.ShaMode = XASU_SHA_MODE_256;
 	Params.ShaType = XASU_SHA2_TYPE;
+	Params.SaltAddr = 0U;
+	Params.SaltLen = 0U;
 
 	/** Perform ECIES encryption with known inputs. */
 	Status = XEcies_Encrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params);
