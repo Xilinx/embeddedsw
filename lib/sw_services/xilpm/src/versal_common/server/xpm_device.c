@@ -1552,25 +1552,25 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 	}
 
 	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(DeviceId)) {
-		MaxIndex = XPM_NODEIDX_DEV_PLD_MAX;
+		MaxIndex = (u32)XPM_NODEIDX_DEV_PLD_MAX;
 		DevicesHandle = PmPlDevices;
 	} else if (((u32)XPM_NODETYPE_DEV_GGS == NODETYPE(DeviceId)) ||
 		   ((u32)XPM_NODETYPE_DEV_PGGS == NODETYPE(DeviceId))) {
-		MaxIndex = XPM_NODEIDX_DEV_VIRT_MAX;
+		MaxIndex = (u32)XPM_NODEIDX_DEV_VIRT_MAX;
 		DevicesHandle = PmVirtualDevices;
 	} else if (((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(DeviceId)) &&
 		   ((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
-		MaxIndex = XPM_NODEIDX_DEV_HB_MON_MAX;
+		MaxIndex = (u32)XPM_NODEIDX_DEV_HB_MON_MAX;
 		DevicesHandle = PmHbMonDevices;
 	} else if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(DeviceId)) {
-		MaxIndex = XPM_NODEIDX_DEV_AIE_MAX;
+		MaxIndex = (u32)XPM_NODEIDX_DEV_AIE_MAX;
 		DevicesHandle = PmAieDevices;
 	} else if (((u32)XPM_NODESUBCL_DEV_MEM_REGN == NODESUBCLASS(DeviceId)) &&
 			((u32)XPM_NODETYPE_DEV_MEM_REGN == NODETYPE(DeviceId))) {
-		MaxIndex = XPM_NODEIDX_DEV_MEM_REGN_MAX;
+		MaxIndex = (u32)XPM_NODEIDX_DEV_MEM_REGN_MAX;
 		DevicesHandle = PmMemRegnDevices;
 	} else {
-		MaxIndex = XPM_NODEIDX_DEV_MAX;
+		MaxIndex = (u32)XPM_NODEIDX_DEV_MAX;
 		DevicesHandle = PmDevices;
 	}
 
