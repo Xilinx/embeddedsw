@@ -141,8 +141,12 @@ static XStatus Aie2ps_Zeroization(const XPm_Device *AieDev, u32 StartCol, u32 En
 	u32 Col, Row, Mrow;
 	u32 Ops = ((struct XPm_AieTypeLen *)Buffer)->Type;
 
-	/* Unused parameter */
-	(void)AieDev;
+	/* Unlock PCSR */
+	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
+
+	/* Enable privileged write access */
+	XPm_RMW32(AieDev->Node.BaseAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 1U);
 
 	/* Enable zeroization for program memory of core module. */
 	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION)	& Ops)) {
@@ -229,6 +233,13 @@ static XStatus Aie2ps_Zeroization(const XPm_Device *AieDev, u32 StartCol, u32 En
 	Status = XST_SUCCESS;
 
 done:
+	/* Disable privileged write access */
+	XPm_RMW32(AieDev->Node.BaseAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
+	/* Lock Pcsr */
+	XPm_LockPcsr(AieDev->Node.BaseAddress);
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -738,8 +749,14 @@ static XStatus Aie2ps_DisMemInterleave(const XPm_Device *AieDev, u32 StartCol, u
 	u32 RowEnd = RowStart + AieDomain->Array.NumMemRows;
 
 	/* Unused arguments */
-	(void)AieDev;
 	(void)Buffer;
+
+	/* Unlock PCSR */
+	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
+
+	/* Enable privileged write access */
+	XPm_RMW32(AieDev->Node.BaseAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 1U);
 
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		for (Row = RowStart; Row < RowEnd; Row++) {
@@ -750,6 +767,13 @@ static XStatus Aie2ps_DisMemInterleave(const XPm_Device *AieDev, u32 StartCol, u
 				  AIE2PS_MEM_TILE_MODULE_MEM_CTRL_MEM_INTERLEAVING_MASK, 0U);
 		}
 	}
+
+	/* Disable privileged write access */
+	XPm_RMW32(AieDev->Node.BaseAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
+	/* Lock Pcsr */
+	XPm_LockPcsr(AieDev->Node.BaseAddress );
 
 	return XST_SUCCESS;
 }
