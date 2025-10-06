@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/23 Initial release
+* 1.5   ank  09/26/25 Fixed MISRA-C Violations
 *
 * </pre>
 *
@@ -65,7 +66,6 @@ extern "C" {
 
 /* access_type: rw */
 #define TRNG_CTRL_SINGLEGENMODE_MASK    0x00000200U
-#define TRNG_CTRL_SINGLEGENMODE_DEFVAL  0x0U
 
 /* access_type: rw */
 #define TRNG_CTRL_EUMODE_MASK    0x00000100U
@@ -96,7 +96,6 @@ extern "C" {
 /* access_type: wo */
 #define TRNG_CTRL_2_REPCOUNTTESTCUTOFF_SHIFT   8U
 #define TRNG_CTRL_2_REPCOUNTTESTCUTOFF_MASK    0x0001ff00U
-#define TRNG_CTRL_2_REPCOUNTTESTCUTOFF_DEFVAL  0x21U
 
 /* access_type: wo */
 #define TRNG_CTRL_2_DIT_SHIFT   0U
@@ -111,12 +110,10 @@ extern "C" {
 /* access_type: wo */
 #define TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_SHIFT   8U
 #define TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_MASK    0x0003ff00U
-#define TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_DEFVAL  0x264U
 
 /* access_type: wo */
 #define TRNG_CTRL_3_DLEN_SHIFT   0U
 #define TRNG_CTRL_3_DLEN_MASK    0x000000ffU
-#define TRNG_CTRL_3_DLEN_DEFVAL  0x9U
 
 /**
  * Register: TRNG_CTRL_4

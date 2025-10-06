@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.1   mmd  07/09/23 Included header file for crypto algorithm information
 *       ng   09/04/23 Added SDT support
 * 1.2   kpt  01/09/24 Added error code XTRNGPSX_INVALID_BLOCKING_MODE
+* 1.5   ank  09/26/25 Fixed MISRA-C Violations
 *
 * </pre>
 *
@@ -43,7 +44,6 @@ extern "C" {
 #include "xtrngpsx_alginfo.h"
 
 /************************** Constant Definitions *****************************/
-#define XTRNGPSX_DEFAULT_SEED_LIFE		256U	/**< Default seed life */
 #define XTRNGPSX_PERS_STRING_LEN_IN_WORDS	12U	/**< Personalization string length in words */
 #define XTRNGPSX_PERS_STRING_LEN_IN_BYTES	48U	/**< Personalization string length in bytes */
 #define XTRNGPSX_SEC_STRENGTH_IN_BYTES	32U	/**< security strength in Bytes */
