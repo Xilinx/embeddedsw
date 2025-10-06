@@ -17,6 +17,7 @@
 * 1.1   mmd     07/04/23 Initial Release
 * 1.2   mb      04/01/24 Updated minor version
 * 1.4   vss     04/25/25 Updated minor version
+* 1.5   ank     09/26/25 Fixed MISRA-C Violations
 * </pre>
 *
 ******************************************************************************/
@@ -33,8 +34,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XTRNGPSX_MAJOR_VERSION	1
-#define XTRNGPSX_MINOR_VERSION	4
+#define XTRNGPSX_MAJOR_VERSION	1U
+#define XTRNGPSX_MINOR_VERSION	4U
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
