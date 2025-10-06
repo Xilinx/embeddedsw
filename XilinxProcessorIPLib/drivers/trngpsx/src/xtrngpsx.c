@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       kpt  01/09/24 Added option for blocking or non-blocking reseed support
 *       kpt  02/14/24 Use correct offset during PRNG set and reset
 *	vss  08/02/24 Fixed comments on security best practices
+* 1.5   ank  09/26/25 Fixed MISRA-C Violations
 *
 * </pre>
 *
@@ -47,7 +48,7 @@
 #define XTRNGPSX_BYTE_LEN_IN_BITS		8U	     /**< Byte length in bits */
 #define XTRNGPSX_BLOCK_LEN_IN_BYTES		16U	     /**< TRNG block length length in bytes */
 #define XTRNGPSX_MIN_SEEDLIFE			1U	     /**< Minimum seed life */
-#define XTRNGPSX_MAX_SEEDLIFE			0x80000  /**< Maximum seed life 2^19 */
+#define XTRNGPSX_MAX_SEEDLIFE			0x80000U /**< Maximum seed life 2^19 */
 #define XTRNGPSX_SEC_STRENGTH_IN_BURSTS	2U	     /**< Security strength in 128-bit bursts */
 #define XTRNGPSX_BURST_SIZE_IN_WORDS	4U	     /**< Burst size in words */
 #define XTRNGPSX_DF_MIN_LENGTH			2U	     /**< Minimum DF input length */
@@ -132,11 +133,8 @@ static inline u32 XTrngpsx_ReadReg(UINTPTR RegAddress)
  *
  **************************************************************************************************/
 static inline int XTrngpsx_UtilRMW32(UINTPTR RegAddress, u32 Mask, u32 Value) {
-	int Status = XST_FAILURE;
 
-	Status = Xil_SecureRMW32(RegAddress, Mask, Value);
-
-	return Status;
+	return Xil_SecureRMW32(RegAddress, Mask, Value);
 }
 
 /*************************************************************************************************/
@@ -163,7 +161,7 @@ static int XTrngpsx_Set(XTrngpsx_Instance *InstancePtr) {
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/* Soft reset PRNG unit */
+	/** Soft reset PRNG unit */
 	Status = XTrngpsx_PrngSet(InstancePtr);
 END:
 	return Status;
@@ -182,12 +180,9 @@ END:
  *
  **************************************************************************************************/
 static int XTrngpsx_Reset(XTrngpsx_Instance *InstancePtr) {
-	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_RESET), TRNG_RESET_VAL_MASK,
+	return XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_RESET), TRNG_RESET_VAL_MASK,
 		TRNG_RESET_DEFVAL);
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -205,11 +200,13 @@ static int XTrngpsx_Reset(XTrngpsx_Instance *InstancePtr) {
 static int XTrngpsx_PrngSet(XTrngpsx_Instance *InstancePtr) {
 	int Status = XST_FAILURE;
 
+	/** Assert PRNG soft reset bit */
 	Status = XTrngpsx_PrngReset(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	usleep(XTRNGPSX_RESET_DELAY_US);
+	/** Deassert PRNG soft reset bit */
 	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL), TRNG_CTRL_PRNGSRST_MASK, 0U);
 END:
 	return Status;
@@ -228,12 +225,9 @@ END:
  *
  **************************************************************************************************/
 static int XTrngpsx_PrngReset(XTrngpsx_Instance *InstancePtr) {
-	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL), TRNG_CTRL_PRNGSRST_MASK,
+	return XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL), TRNG_CTRL_PRNGSRST_MASK,
 		TRNG_CTRL_PRNGSRST_MASK);
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -250,12 +244,9 @@ static int XTrngpsx_PrngReset(XTrngpsx_Instance *InstancePtr) {
  *
  **************************************************************************************************/
 static int XTrngpsx_CfgDfLen(XTrngpsx_Instance *InstancePtr, u8 DfLen) {
-	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_3), TRNG_CTRL_3_DLEN_MASK,
+	return XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_3), TRNG_CTRL_3_DLEN_MASK,
 		(DfLen << TRNG_CTRL_3_DLEN_SHIFT));
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -272,12 +263,9 @@ static int XTrngpsx_CfgDfLen(XTrngpsx_Instance *InstancePtr, u8 DfLen) {
  *
  **************************************************************************************************/
 static int XTrngpsx_CfgAdaptPropTestCutoff(XTrngpsx_Instance *InstancePtr, u16 AdaptPropTestCutoff) {
-	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_3), TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_MASK,
+	return XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_3), TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_MASK,
 		(AdaptPropTestCutoff << TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_SHIFT));
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -294,12 +282,9 @@ static int XTrngpsx_CfgAdaptPropTestCutoff(XTrngpsx_Instance *InstancePtr, u16 A
  *
  **************************************************************************************************/
 static int XTrngpsx_CfgRepCountTestCutoff(XTrngpsx_Instance *InstancePtr, u16 RepCountTestCutoff) {
-	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_2), TRNG_CTRL_2_REPCOUNTTESTCUTOFF_MASK,
+	return XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_2), TRNG_CTRL_2_REPCOUNTTESTCUTOFF_MASK,
 		(RepCountTestCutoff << TRNG_CTRL_2_REPCOUNTTESTCUTOFF_SHIFT));
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -316,12 +301,9 @@ static int XTrngpsx_CfgRepCountTestCutoff(XTrngpsx_Instance *InstancePtr, u16 Re
  *
  **************************************************************************************************/
 static int XTrngpsx_CfgDIT(XTrngpsx_Instance *InstancePtr, u8 DITValue) {
-	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_2), TRNG_CTRL_2_DIT_MASK,
+	return XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL_2), TRNG_CTRL_2_DIT_MASK,
 		(DITValue << TRNG_CTRL_2_DIT_SHIFT));
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -347,7 +329,7 @@ int XTrngpsx_CfgInitialize(XTrngpsx_Instance *InstancePtr, const XTrngpsx_Config
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate arguments. */
+	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
 		Status = XTRNGPSX_INVALID_PARAM;
 		goto END;
@@ -358,7 +340,7 @@ int XTrngpsx_CfgInitialize(XTrngpsx_Instance *InstancePtr, const XTrngpsx_Config
 		goto SET_ERR;
 	}
 
-	/* Populate Config parameters */
+	/** Populate Config parameters */
 	#ifndef SDT
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	#else
@@ -413,6 +395,7 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 			const XTrngpsx_UserConfig *UserCfg) {
 	volatile int Status = XST_FAILURE;
 
+	/** Validate input arguments */
 	if ((UserCfg == NULL) || (InstancePtr == NULL)) {
 		Status = XTRNGPSX_INVALID_PARAM;
 		goto END;
@@ -475,6 +458,7 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 		goto END;
 	}
 
+	/** Secure copy user configuration to driver instance */
 	Status = Xil_SMemCpy(&InstancePtr->UserCfg, sizeof(XTrngpsx_UserConfig), UserCfg,
 			sizeof(XTrngpsx_UserConfig), sizeof(XTrngpsx_UserConfig));
 	if (Status != XST_SUCCESS) {
@@ -482,15 +466,16 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 		goto END;
 	}
 
-	/* Bring TRNG and PRNG unit core out of reset */
+	/** Bring TRNG and PRNG unit core out of reset */
 	Status = XTrngpsx_Set(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/** Configure health monitoring and DIT for PTRNG/HRNG */
 	if ((UserCfg->Mode == XTRNGPSX_PTRNG_MODE) ||
 		(UserCfg->Mode == XTRNGPSX_HRNG_MODE)) {
-		/* Configure cutoff values */
+		/** Configure cutoff values */
 		Status = XTrngpsx_CfgAdaptPropTestCutoff(InstancePtr, UserCfg->AdaptPropTestCutoff);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -499,7 +484,7 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/* Configure default DIT value */
+		/** Configure default DIT value */
 		Status = XTrngpsx_CfgDIT(InstancePtr, TRNG_CTRL_2_DIT_DEFVAL);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -508,7 +493,7 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 
 	InstancePtr->State = XTRNGPSX_INSTANTIATE_STATE;
 
-	/* Do reseed operation when mode is DRNG/HRNG */
+	/** Do reseed operation when mode is DRNG/HRNG */
 	if ((UserCfg->Mode == XTRNGPSX_DRNG_MODE) ||
 		(UserCfg->Mode == XTRNGPSX_HRNG_MODE)) {
 		Status = XST_FAILURE;
@@ -518,9 +503,11 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 	}
 
 	Status = XST_SUCCESS;
+	/** Mark TRNG as healthy and ready for operation */
 	InstancePtr->ErrorState = XTRNGPSX_HEALTHY;
 
 END:
+	/** Set error state on failure (except catastrophic failures) */
 	if (InstancePtr != NULL) {
 		if ((Status != XST_SUCCESS) &&
 		(InstancePtr->ErrorState != XTRNGPSX_CATASTROPHIC)) {
@@ -558,6 +545,7 @@ END:
 int XTrngpsx_Reseed(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen) {
 	volatile int Status = XST_FAILURE;
 
+	/** Validate input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XTRNGPSX_INVALID_PARAM;
 		goto END;
@@ -594,11 +582,12 @@ int XTrngpsx_Reseed(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen) {
 		goto END;
 	}
 
-	/* Wait for reseed operation and check CTF flag */
+	/** Wait for reseed operation and check CTF flag */
 	if ((InstancePtr->State == XTRNGPSX_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != TRUE)) {
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_WaitForReseed, InstancePtr);
 	}
 
+	/** Execute reseed operation with temporal protection against fault attacks */
 	XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_ReseedInternal, InstancePtr,
 		Seed, DLen, NULL, InstancePtr->UserCfg.IsBlocking);
 
@@ -637,6 +626,7 @@ END:
 int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResistance) {
 	volatile int Status = XST_FAILURE;
 
+	/** Validate input arguments. */
 	if ((InstancePtr == NULL) || (RandBuf == NULL)) {
 		Status = XTRNGPSX_INVALID_PARAM;
 		goto END;
@@ -687,18 +677,20 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 				goto END;
 			}
 		}
-		/* Wait for reseed operation and check CTF flag */
+		/** Wait for reseed operation and check CTF flag */
 		if ((InstancePtr->State == XTRNGPSX_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != TRUE)) {
 			XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_WaitForReseed, InstancePtr);
 		}
 
+		/** Store prediction resistance setting for hardware configuration during data collection */
 		InstancePtr->UserCfg.PredResistance = PredResistance;
 	}
 	else if (InstancePtr->UserCfg.Mode == XTRNGPSX_PTRNG_MODE) {
-		/* Enable ring oscillators for random seed source */
+		/** Enable ring oscillators for random seed source */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_OSC_EN),
 			TRNG_OSC_EN_VAL_MASK, TRNG_OSC_EN_VAL_MASK);
 
+		/** Configure TRNG control: enable TRSS, EU mode for PTRNG operation */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 			TRNG_CTRL_TRSSEN_MASK | TRNG_CTRL_EUMODE_MASK |
 			TRNG_CTRL_PRNGXS_MASK, TRNG_CTRL_TRSSEN_MASK |
@@ -709,24 +701,28 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 		goto END;
 	}
 
-	/* Trigger generate and collect random data */
+	/** Trigger generate and collect random data */
 	XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_CollectRandData, InstancePtr, RandBuf,
 			RandBufSize);
 
+	/** State machine update: transition to generate state indicating successful operation */
 	InstancePtr->State = XTRNGPSX_GENERATE_STATE;
 
-	/* For every generate elapsed sseed life should be incremented */
+	/** Update seed life and handle HRNG automatic reseed logic */
 	InstancePtr->Stats.ElapsedSeedLife++;
+	/** HRNG automatic reseed logic: maintain fresh entropy based on configured seed life */
 	if (InstancePtr->UserCfg.Mode == XTRNGPSX_HRNG_MODE) {
-		/* Auto reseed in HRNG mode */
+		/** Auto reseed in HRNG mode */
 		if ((InstancePtr->Stats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
 			(PredResistance == TRUE)) {
+			/** Automatic reseed with internal entropy: maintain cryptographic strength */
 			XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_Reseed, InstancePtr,
 				NULL, InstancePtr->UserCfg.DFLength);
 		}
 	}
 
 END:
+	/** Update error state on failure (preserve catastrophic state) */
 	if (InstancePtr != NULL) {
 		if ((Status != XST_SUCCESS) &&
 		(InstancePtr->ErrorState != XTRNGPSX_CATASTROPHIC)) {
@@ -760,13 +756,13 @@ int XTrngpsx_Uninstantiate(XTrngpsx_Instance *InstancePtr) {
 		goto END;
 	}
 
-	/* Bring cores in to reset state */
+	/** Bring cores in to reset state */
 	Status = XTrngpsx_Reset(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Disable ring oscillators as a random seed source */
+	/** Disable ring oscillators as a random seed source */
 	Status = Xil_SecureRMW32((InstancePtr->Config.BaseAddress + TRNG_OSC_EN), TRNG_OSC_EN_VAL_MASK,
 			TRNG_OSC_EN_VAL_DEFVAL);
 	if (Status != XST_SUCCESS) {
@@ -776,7 +772,7 @@ int XTrngpsx_Uninstantiate(XTrngpsx_Instance *InstancePtr) {
 	ErrorState = InstancePtr->ErrorState;
 	InstancePtr->State = XTRNGPSX_UNINITIALIZED_STATE;
 
-	/* Retain the error state */
+	/** Retain the error state */
 	InstancePtr->ErrorState = ErrorState;
 	Status = XST_SUCCESS;
 
@@ -807,64 +803,72 @@ static int XTrngpsx_ReseedInternal(XTrngpsx_Instance *InstancePtr, const u8 *See
 	volatile int Status = XST_FAILURE;
 	u32 PersMask = TRNG_CTRL_PERSODISABLE_MASK;
 
-	/* Configure DF Len */
+	/** Configure DF Len */
 	Status = XTrngpsx_CfgDfLen(InstancePtr, DLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/** Personalization string processing: optional entropy input for DRBG instantiation */
 	if (PerStr != NULL) {
 		Status = XST_FAILURE;
+		/** Write 384-bit personalization string to TRNG_PER_STRNG registers */
 		Status = XTrngpsx_WritePersString(InstancePtr, PerStr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		/** Enable personalization string usage: clear PERSODISABLE bit */
 		PersMask = TRNG_CTRL_PERSODISABLE_DEFVAL;
 	}
 
+	/** Configure personalization and initialize PRNG start bit for reseed sequence */
 	XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 		TRNG_CTRL_PERSODISABLE_MASK | TRNG_CTRL_PRNGSTART_MASK, PersMask);
 
-	/* DRNG Mode */
+	/** DRNG Mode */
 	if (Seed != NULL) {
-		/* Enable TST mode and set PRNG mode for reseed operation*/
+		/** Enable TST mode and set PRNG mode for reseed operation*/
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 			TRNG_CTRL_PRNGMODE_MASK | TRNG_CTRL_TSTMODE_MASK |
 			TRNG_CTRL_TRSSEN_MASK, TRNG_CTRL_TSTMODE_MASK |
 			TRNG_CTRL_TRSSEN_MASK);
 
-		/* Start reseed operation */
+		/** Start reseed operation */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 			TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
 
-		/* For writing seed as an input to DF, PRNG start needs to be set */
+		/** For writing seed as an input to DF, PRNG start needs to be set */
 		XTRNGPSX_TEMPORAL_CHECK(END,Status, XTrngpsx_WriteSeed, InstancePtr, Seed,
 			DLen);
 	}
-	else { /* HTRNG Mode */
-		/* Enable ring oscillators for random seed source */
+	else { /** HTRNG Mode */
+		/** Enable ring oscillators for random seed source */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_OSC_EN),
 			TRNG_OSC_EN_VAL_MASK, TRNG_OSC_EN_VAL_MASK);
 
-		/* Enable TRSSEN and set PRNG mode for reseed operation */
+		/** Enable TRSSEN and set PRNG mode for reseed operation */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 			TRNG_CTRL_PRNGMODE_MASK | TRNG_CTRL_TRSSEN_MASK |
 			TRNG_CTRL_PRNGXS_MASK, TRNG_CTRL_TRSSEN_MASK);
 
-		/* Start reseed operation */
+		/** Start reseed operation */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 			TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
 	}
 
+	/** Blocking mode handling: optionally wait for reseed completion based on user configuration */
 	if (IsBlocking == TRUE) {
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_WaitForReseed, InstancePtr);
 	}
 
+	/** State transition and statistics update: mark reseed complete and reset seed life counter */
 	InstancePtr->State = XTRNGPSX_RESEED_STATE;
 	Status = XST_SUCCESS;
+	/** Reset elapsed seed life counter after successful reseed operation */
 	InstancePtr->Stats.ElapsedSeedLife = 0U;
 
 END:
+	/** Error state management: update error status unless catastrophic failure already flagged */
 	if ((Status != XST_SUCCESS) && (InstancePtr->ErrorState != XTRNGPSX_CATASTROPHIC)) {
 		InstancePtr->ErrorState = XTRNGPSX_ERROR;
 	}
@@ -889,6 +893,7 @@ static int XTrngpsx_WaitForReseed(XTrngpsx_Instance *InstancePtr) {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 
+	/** Wait for TRNG_STATUS.DONE bit with temporal protection */
 	XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, XTrngpsx_WaitForEvent,
 		   (UINTPTR)(InstancePtr->Config.BaseAddress + TRNG_STATUS),
 			TRNG_STATUS_DONE_MASK, TRNG_STATUS_DONE_MASK,
@@ -897,13 +902,16 @@ static int XTrngpsx_WaitForReseed(XTrngpsx_Instance *InstancePtr) {
 		Status = XTRNGPSX_TIMEOUT_ERROR;
 		goto END;
 	}
+	/** Check for Catastrophic Test Failure (CTF) in status register */
 	if ((Xil_In32(InstancePtr->Config.BaseAddress + TRNG_STATUS) & TRNG_STATUS_CERTF_MASK) ==
 			TRNG_STATUS_CERTF_MASK) {
+		/** Catastrophic error state: mark TRNG as permanently failed until reset/reinitialize */
 		InstancePtr->ErrorState = XTRNGPSX_CATASTROPHIC;
 		Status = XTRNGPSX_CATASTROPHIC_CTF_ERROR;
 		goto END;
 	}
 
+	/** Reset PRNG and TRNG bits for the next operation */
 	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL), TRNG_CTRL_PRNGSTART_MASK |
 			TRNG_CTRL_TRSSEN_MASK, 0U);
 END:
@@ -936,11 +944,12 @@ static int XTrngpsx_CollectRandData(XTrngpsx_Instance *InstancePtr, u8 *RandBuf,
 	u32 Size = RandBufSize / XTRNGPSX_WORD_LEN_IN_BYTES;
 	u32 SingleGenModeVal = 0U;
 
+	/** Configure single-generation mode if prediction resistance enabled */
 	if (InstancePtr->UserCfg.PredResistance == TRUE) {
 		SingleGenModeVal = TRNG_CTRL_SINGLEGENMODE_MASK;
 	}
 
-	/* Set PRNG mode to generate */
+	/** Set PRNG mode to generate */
 	XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 		TRNG_CTRL_PRNGMODE_MASK | TRNG_CTRL_SINGLEGENMODE_MASK | TRNG_CTRL_PRNGSTART_MASK,
 		TRNG_CTRL_PRNGMODE_MASK | SingleGenModeVal);
@@ -948,13 +957,14 @@ static int XTrngpsx_CollectRandData(XTrngpsx_Instance *InstancePtr, u8 *RandBuf,
 		goto END;
 	}
 
+	/** Start random number generation */
 	XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 		TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		goto END;
 	}
 
-	for (NumofBursts = 0; NumofBursts < XTRNGPSX_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
+	for (NumofBursts = 0U; NumofBursts < XTRNGPSX_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
 		XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, XTrngpsx_WaitForEvent, (UINTPTR)(InstancePtr->Config.BaseAddress + TRNG_STATUS),
 			TRNG_STATUS_QCNT_MASK,
 			(XTRNGPSX_STATUS_QCNT_VAL << TRNG_STATUS_QCNT_SHIFT),
@@ -965,10 +975,12 @@ static int XTrngpsx_CollectRandData(XTrngpsx_Instance *InstancePtr, u8 *RandBuf,
 		}
 		if ((Xil_In32(InstancePtr->Config.BaseAddress + TRNG_STATUS) & TRNG_STATUS_DTF_MASK) ==
 			TRNG_STATUS_DTF_MASK) {
+			/** Mark TRNG as catastrophically failed */
 			InstancePtr->ErrorState = XTRNGPSX_CATASTROPHIC;
 			Status = XTRNGPSX_CATASTROPHIC_DTF_ERROR;
 			goto END;
 		}
+		/** Calculate burst index and read 4 words with endian conversion */
 		BurstIdx = NumofBursts * XTRNGPSX_BURST_SIZE_IN_WORDS;
 		for (Idx = 0U; Idx < XTRNGPSX_BURST_SIZE_IN_WORDS; Idx++) {
 			RegVal = XTrngpsx_ReadReg((InstancePtr->Config.BaseAddress + TRNG_CORE_OUTPUT));
@@ -983,6 +995,7 @@ static int XTrngpsx_CollectRandData(XTrngpsx_Instance *InstancePtr, u8 *RandBuf,
 	}
 
 END:
+	/** Clear output buffer on failure to prevent data leakage */
 	if (Status != XST_SUCCESS) {
 		SStatus = Xil_SMemSet(RandBuf, RandBufSize, 0U, RandBufSize);
 		if (SStatus != XST_SUCCESS) {
@@ -1013,11 +1026,14 @@ static int XTrngpsx_WriteSeed(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8
 	volatile u32 Idx = 0U;
 	u8 Cnt = 0U;
 	u32 Bit = 0U;
+	/** Seed reconstruction variable for integrity verification */
 	u8 SeedConstruct = 0U;
 
+	/** Serial bit input to derivative function via TRNG_CTRL_4 register */
 	while (Idx < SeedLen) {
 		SeedConstruct = 0U;
-		for (Cnt = 0; Cnt < XTRNGPSX_BYTE_LEN_IN_BITS; Cnt++) {
+		/** Process each bit MSB-first for hardware DF input and integrity verification */
+		for (Cnt = 0U; Cnt < XTRNGPSX_BYTE_LEN_IN_BITS; Cnt++) {
 			Bit = (u32)(Seed[Idx] >> (XTRNGPSX_BYTE_LEN_IN_BITS - 1U - Cnt)) & 0x01U;
 			XTrngpsx_WriteReg((InstancePtr->Config.BaseAddress + TRNG_CTRL_4), Bit);
 			SeedConstruct = (u8)((SeedConstruct << 1U) | (u8)Bit);
@@ -1031,6 +1047,7 @@ static int XTrngpsx_WriteSeed(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8
 		}
 		Idx++;
 	}
+	/** Verify entire seed length processed successfully */
 	if (Idx == SeedLen) {
 		Status = XST_SUCCESS;
 	}
@@ -1058,9 +1075,11 @@ static int XTrngpsx_WritePersString(XTrngpsx_Instance *InstancePtr, const u8 *Pe
 	u8 Cnt = 0U;
 	u32 RegVal=0U;
 
-	for (Idx = 0; Idx < XTRNGPSX_PERS_STRING_LEN_IN_WORDS; Idx++){
+	/** Write 384-bit personalization string to TRNG_PER_STRNG registers */
+	for (Idx = 0U; Idx < XTRNGPSX_PERS_STRING_LEN_IN_WORDS; Idx++){
 		RegVal = 0U;
-		for (Cnt = 0; Cnt < XTRNGPSX_WORD_LEN_IN_BYTES; Cnt++) {
+		/** Pack 4 bytes into 32-bit word in big-endian format */
+		for (Cnt = 0U; Cnt < XTRNGPSX_WORD_LEN_IN_BYTES; Cnt++) {
 			RegVal = (RegVal << XTRNGPSX_BYTE_LEN_IN_BITS) |
 				PersString[(Idx * XTRNGPSX_WORD_LEN_IN_BYTES) + Cnt];
 		}
