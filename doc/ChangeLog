@@ -1,3 +1,54 @@
+Changes for 2025.2
+===============================
+axicdma_v4_15:
+Fix GCC warnings for peripheral test
+
+axidma_v9_20:
+Fix GCC warnings for peripheral test
+
+can_v3_11:
+Fix GCC warnings and update driver version
+Fix GCC warnings for peripheral test
+
+canfd_v2_11:
+Fix GCC warnings and update driver version
+
+canps_v3_11:
+Fix GCC warnings and update driver version
+
+csudma_v1_18:
+Replace occurences of #if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM) macro usage with #ifdef VERSAL_NET
+ospi/csudma: Add new compatible strings for spartanuplus device
+
+ipipsu_v2_18:
+Fix GCC warning and update driver version
+Add versal compatible string
+Add MicroBlaze support to self-test example
+
+ufspsxc_v1_2:
+Add support for High Speed Mode
+
+wdttb_v5_11:
+Fix GCC Warnings and update driver version
+Fix GCC Warning
+Add timeout property under additional properties
+
+zdma_v1_21:
+Fix GCC warnings for zdma
+Revert "zdma: Fix the register reset values"
+Add PM support
+
+xilffs_v5_5:
+Fix gcc warning
+
+xilmailbox_v1_12:
+Refactor conditional inclusion of interrupt header files
+Refactor to skip interrupt registration for PMC, PSM
+Add RemoteId based APIs to support concurrent IPI channel requests
+Add YAML conditon for the supported processors
+
+
+
 Changes for 2025.1
 ===============================
 can_v3_10:
