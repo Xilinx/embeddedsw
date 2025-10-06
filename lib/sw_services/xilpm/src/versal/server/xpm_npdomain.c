@@ -285,6 +285,8 @@ static void Clear_ScanClearErr(void){
 		 } else if(Type == (u32)XPM_NODETYPE_MEMIC_NPS) {
 			XPm_RMW32(MemIcAddr + NOC2_NPS_0_REG_ISR_OFFSET,
 					NOC2_NPS_0_REG_ISR_SCAN_CLR_MASK, NOC2_NPS_0_REG_ISR_SCAN_CLR_MASK);
+		} else {
+			/* to avoid MISRA violation */
 		}
 		/*lock pcsr*/
 		XPm_LockPcsr(MemIcAddr);
