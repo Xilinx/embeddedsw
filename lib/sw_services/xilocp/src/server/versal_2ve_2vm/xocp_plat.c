@@ -228,6 +228,40 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function checks if given subsystem ID is in OCP subsystems list or not.
+ *
+ * @param	SubsystemId	Subsystem ID.
+ *
+ * @return
+ *	- TRUE, if subsystem is part of OCP subsystems list.
+ *	- FALSE, if subsystem is not part of OCP subsystems list.
+ *
+ **************************************************************************************************/
+u8 XOcp_IsOcpSubsystem(u32 SubsystemId)
+{
+	XOcp_SubsysInfo *OcpSubsysInfo = XOcp_GetOcpSubsysInfoDb();
+	u32 Idx;
+	u8 IsOcpSubsystem = FALSE;
+
+	/* Return in case of invalid subsystem ID. */
+	if (SubsystemId == XOCP_INVALID_SUBSYSTEM_ID) {
+		goto END;
+	}
+
+	/* Check if given subsystem ID is in OCP subsystems list or not. */
+	for (Idx = 0U; Idx < XOCP_ASUFW_MAX_SUBSYS_SUPPORT; Idx++) {
+		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
+			IsOcpSubsystem = TRUE;
+			break;
+		}
+	}
+
+END:
+	return IsOcpSubsystem;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function triggers an ASU task notification.
  *
  * @param	Arg

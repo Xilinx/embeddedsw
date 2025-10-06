@@ -437,6 +437,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	u32 NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	u32 SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	u32 Index;
 
@@ -446,7 +447,11 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		goto END;
 	}
 
-	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	if ((PcrInfo == XOCP_PCR_INVALID_VALUE) && (XOcp_IsOcpSubsystem(SubsystemID) == FALSE)) {
+#else
+	if ((PcrInfo == XOCP_PCR_INVALID_VALUE)) {
+#endif
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -456,7 +461,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 
 	ImageMeasureInfo.PcrInfo = PcrInfo;
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
-	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageMeasureInfo.SubsystemID = SubsystemID;
 	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
 		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
