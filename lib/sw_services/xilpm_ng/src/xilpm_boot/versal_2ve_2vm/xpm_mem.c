@@ -193,12 +193,19 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		XPm_ExcludedList[RTCA_IMAGE_STORE_REGN].EndAddress = imgStoreRegionAddress + imgStoreRegionSize - 1ULL;
 	}
 
+	/* check security concerns for address overflow */
+	if (XPm_ExcludedList[RTCA_IMAGE_STORE_REGN].StartAddress > XPm_ExcludedList[RTCA_IMAGE_STORE_REGN].EndAddress) {
+		PmErr("RTCA Image Store Address Range Overflow\r\n");
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	for (u32 index=0U; index<ARRAY_SIZE(XPm_ExcludedList); index++) {
 		u64 excludedStartAddress = XPm_ExcludedList[index].StartAddress;
 		u64 excludedEndAddress = XPm_ExcludedList[index].EndAddress;
 
 		/* size for any exclusion region must be non-zero */
-		if (0x0ULL == excludedEndAddress) {
+		if (0x0ULL == (excludedEndAddress - excludedStartAddress)) {
 			continue;
 		}
 
