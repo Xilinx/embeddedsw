@@ -456,8 +456,7 @@ enum {
 							failed */
 	XASUFW_X509_UNSUPPORTED_CURVE_TYPE, /**< 0x138U - Error when curve type is unsupported */
 	XASUFW_X509_UNSUPPORTED_SIGN_TYPE, /**< 0x139U - Error when signature type in unsupported */
-	XASUFW_X509_ECC_EPHEMERAL_KEY_GEN_FAIL, /**< 0x13AU - Error when ephemeral key generation is
-						failed */
+	RESERVED0, /**< 0x13AU - Reserved */
 	XASUFW_X509_GEN_SIGN_ECC_FAIL, /**< 0x13BU - Error when ECC key generation is failed */
 	XASUFW_X509_SHA_DIGEST_FAIL, /**< 0x13CU - Error when SHA digest calculation is failed */
 	XASUFW_X509_DMA_RELEASE_FAIL, /**< 0x13DU - Error when DMA release is failed */
@@ -572,7 +571,7 @@ enum {
 						invalid */
 	XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED, /**< 0x182U - Error when updating access permissions */
 	XASUFW_OCP_DME_ALL_PVT_KEYS_REVOKED, /**< 0x183U - Error when all DME private keys are revoked */
-	XASUFW_OCP_DME_EPHEMERAL_KEY_GEN_FAIL, /**< 0x184U - Error when DME ephemeral key generation is failed */
+	RESERVED1, /**< 0x184U - Reserved */
 	XASUFW_OCP_DEVICE_ID_CALC_FAIL, /**< 0x185U - Error when device ID calculation is failed */
 	XASUFW_OCP_NONCE_UPDATE_FAIL, /**< 0x186U - Error when nonce update is failed */
 	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */

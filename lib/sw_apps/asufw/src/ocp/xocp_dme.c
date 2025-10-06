@@ -216,14 +216,13 @@ END:
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
  *	- XASUFW_OCP_DME_ALL_PVT_KEYS_REVOKED, if all DME private keys are revoked.
- *	- XASUFW_OCP_DME_KEY_ENCRYPT_FAIL, if DME private key encryption fails.
- *	- XASUFW_OCP_DME_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
  *	- XASUFW_OCP_DEVICE_ID_CALC_FAIL, if device ID calculation fails.
  *	- XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, if measurement update fails.
- *	- XASUFW_DMA_COPY_FAIL, if DMA copy operation fails.
  *	- XASUFW_MEM_COPY_FAIL, if memcpy operation fails.
  *	- XASUFW_OCP_SHA_DIGEST_FAIL, if SHA digest generation fails.
  *	- XASUFW_OCP_DME_SIGNATURE_GEN_FAIL, if DME signature generation fails.
+ *	- XASUFW_OCP_DME_KEY_DECRYPT_FAIL, if DME private key decryption fails.
+ *	- XASUFW_OCP_NONCE_UPDATE_FAIL, if nonce update fails.
  *
  *************************************************************************************************/
 s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDmeParamsPtr)
@@ -237,7 +236,6 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	XSha *ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	u8 EphemeralKey[XASU_ECC_P384_SIZE_IN_BYTES] = {0U};
 	XAsu_ShaOperationCmd ShaCmd;
 	u8 DmeKekIv[XASU_OCP_DME_IV_SIZE_IN_BYTES] = {0U};
 	const XOcp_DeviceKeys *DevIkDataPtr = NULL;
@@ -284,14 +282,6 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	Status = XOcp_DecryptPvtKey(DmaPtr, DmeUserKeyAddr, DmeKekIv, DmeDecPvtKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DME_KEY_DECRYPT_FAIL);
-		goto END_CLR;
-	}
-
-	/** Generate ephemeral key to calculate the DME signature. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, XASU_ECC_P384_SIZE_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_DME_EPHEMERAL_KEY_GEN_FAIL;
 		goto END_CLR;
 	}
 
@@ -353,7 +343,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	/** Generate signature for DME. */
 	Status = XEcc_GenerateSignature(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
 			XASU_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DmeDecPvtKey,
-			EphemeralKey, (u64)(UINTPTR)HashBuf, XASU_SHA_384_HASH_LEN,
+			NULL, (u64)(UINTPTR)HashBuf, XASU_SHA_384_HASH_LEN,
 			(u64)(UINTPTR)OcpDmeResp->DmeSignatureR);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DME_SIGNATURE_GEN_FAIL);
@@ -384,6 +374,8 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if AES operation is successful.
  * 	- XASUFW_MEM_COPY_FAIL, if mem copy fails.
+ * 	- XASUFW_OCP_DME_KEK_NOT_PRESENT, if DME KEK is not present.
+ * 	- XASUFW_OCP_DME_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if mem set fails.
  * 	- XASUFW_OCP_DME_AES_COMPUTE_FAIL, if AES compute fails.
  * 	- XASUFW_OCP_DME_KEY_DECRYPT_FAIL, if key decryption fails.

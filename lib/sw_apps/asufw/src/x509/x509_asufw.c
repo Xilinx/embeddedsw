@@ -105,7 +105,6 @@ s32 X509_CfgInitialize(void)
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_X509_INVALID_PLAT_DATA, if platform data is invalid.
  *	- XASUFW_X509_INVALID_BUFFER_SIZE, if buffer size is invalid.
- *	- XASUFW_X509_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key is not generated.
  *	- XASUFW_X509_GEN_SIGN_ECC_FAIL, if signature is not generated.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -116,7 +115,6 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
-	u8 EphemeralKey[X509_ECC_SIGN_SIZE_IN_BYTES] = {0U};
 	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
 	u32 SignatureSize = XAsu_DoubleCurveLength(X509_ECC_SIGN_SIZE_IN_BYTES);
 
@@ -133,19 +131,10 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 		goto END;
 	}
 
-	/** Generate ephemeral key using TRNG. */
-	Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, X509_ECC_SIGN_SIZE_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_ECC_EPHEMERAL_KEY_GEN_FAIL);
-		goto END;
-	}
-
 	/* Generate signature on the hash data. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(EccInstance, PlatData->DmaPtr, X509_XECC_CURVE_TYPE,
 					X509_ECC_SIGN_SIZE_IN_BYTES, (u64)(UINTPTR)PvtKey,
-					EphemeralKey, (u64)(UINTPTR)Hash,
-					HashLen, (u64)(UINTPTR)Sign);
+					NULL, (u64)(UINTPTR)Hash, HashLen, (u64)(UINTPTR)Sign);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_SIGN_ECC_FAIL);
 		goto END;

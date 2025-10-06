@@ -391,6 +391,7 @@ END:
  *	- XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
  *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
+ *	- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
  *	- XASUFW_FAILURE, if sign generation fails due to other reasons.
  *	- XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, if bad signature is generated.
  *	- XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, if invalid hash length is provided to the
@@ -423,8 +424,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	u32 HashLen = 0U;
 
 	/** Validate the input arguments. */
-	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U) ||
-			(EphemeralKeyPtr == NULL)) {
+	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -488,10 +488,18 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			goto END_CLR;
 		}
 
-		/** - Copy ephemeral key to local address and change the endianness of it. */
-		Status = Xil_SMemCpy((u8 *)EphemeralKey, CurveLen, (const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
+		/**
+		 * Generate the ephemeral key using TRNG if input pointer is NULL
+		 * else copy the key to the local buffer and change the endianness of it.
+		 */
+		if (EphemeralKeyPtr == NULL) {
+			Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, CurveLen);
+		} else {
+			Status =  Xil_SMemCpy((u8 *)EphemeralKey, CurveLen,
+					(const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
+		}
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			Status = XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL;
 			goto END_CLR;
 		}
 
@@ -513,8 +521,8 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		 * For curves other than Edward curves,
 		 * - Generate signature with provided inputs and curve type.
 		 */
-		XFIH_CALL(Ecdsa_GenerateSign, XFihEcc, Status, Crv, Hash, Crv->Bits, PrivKey, EphemeralKey,
-		  (EcdsaSign *)&Sign);
+		XFIH_CALL(Ecdsa_GenerateSign, XFihEcc, Status, Crv, Hash, Crv->Bits, PrivKey,
+			EphemeralKey, (EcdsaSign *)&Sign);
 	} else {
 		/**
 		 * For Edward curves,
@@ -599,7 +607,7 @@ END_CLR:
 					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_ECC_P521_SIZE_IN_BYTES);
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_SHA_512_HASH_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihEcc, ClearStatus, (u8 *)(UINTPTR)EphemeralKey,
@@ -1195,7 +1203,6 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
-	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
 	const u8 Hash[XASU_ECC_P256_SIZE_IN_BYTES] = {
 		0x8FU, 0xDFU, 0x4CU, 0x12U, 0x9AU, 0x90U, 0xBCU, 0x76U,
 		0x38U, 0xA5U, 0x5BU, 0x22U, 0x9BU, 0xD4U, 0xAEU, 0x1BU,
@@ -1208,17 +1215,9 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 		goto END;
 	}
 
-	/** Generate the ephemeral key using TRNG */
-	Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL;
-		goto END_CLR;
-	}
-
-	/** Generate signature using the provided private key and curve type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EccGenerateSignature(DmaPtr, CurveType, CurveLen, PrivKeyAddr,
-		 EphemeralKey, (u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES,
+		 NULL, (u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES,
 		 (u64)(UINTPTR)Signature);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL);
@@ -1238,9 +1237,6 @@ END_CLR:
 	/** Zeroize the local buffers. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
 					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES)));
-
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)EphemeralKey,
-					XASU_ECC_P521_SIZE_IN_BYTES));
 
 END:
 	return Status;
