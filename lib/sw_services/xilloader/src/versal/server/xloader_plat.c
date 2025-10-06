@@ -46,6 +46,8 @@
 *                       to update DataMeasurement
 * 2.3   tvp  08/19/2025 Updated data measurement flow for authenticate/non-authenticated boot
 *       pre  08/21/2025 Extending image hashes after LPD initialization only
+*       pre  09/23/2025 Added warning message for user indication if PCR info
+*						is added in BIF without enabling TPM feature.
 *
 * </pre>
 *
@@ -556,7 +558,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 		/* Extend TPM PCR Image Digest, Pcr0: ROM, Pcr1: PLM */
 		if (ImageInfo->PcrInfo >= XLOADER_PRTN_PCR_START_IDX && ImageInfo->PcrInfo <= XLOADER_PRTN_PCR_END_IDX) {
-			Status = XTpm_MeasurePartition(ImageInfo->PcrInfo, (u8*)(UINTPTR)&Sha3Hash.Hash);
+			Status = XTpm_MeasurePartition(ImageInfo->PcrInfo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
 						Status);
