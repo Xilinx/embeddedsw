@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   tri  03/13/25 Initial release
+*       pre  09/23/25 Fixed misrac violations
 *
 * </pre>
 *
@@ -42,7 +43,7 @@ extern "C" {
  *  The following table lists the Versal Tpm library error codes.
  */
 #ifdef PLM_TPM
-typedef enum {
+enum {
 	XTPM_ERR_SPIPS_INIT = 0x2,/**< 0x2 - SPI initialization failure */
 	XTPM_ERR_SET_ACCESS,/**< 0x3 - TPM access set failure */
 	XTPM_ERR_GET_ACCESS,/**< 0x4 - TPM access get failure.*/
@@ -63,7 +64,7 @@ typedef enum {
 	XTPM_ERR_SPIPS_SET_OPTIONS,/**<0x13 - SPIPS set options failure */
 	XTPM_ERR_SPIPS_SET_CLK_PRESCALER,/**<0x14 - SPIPS set clock prescaler failure */
 	XTPM_ERR_SPIPS_TRANSFER,/**<0x15 - Data transfer failure to TPM */
-} XTpm_ErrorCodes;
+};
 
 #ifdef __cplusplus
 }

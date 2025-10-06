@@ -16,6 +16,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  tri  03/13/25 Initial release
+ *       pre  09/23/25 Fixed misrac violations
  *
  * </pre>
  *
@@ -29,7 +30,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -56,15 +56,15 @@ extern "C" {
 u32 XTpm_Init(void);
 int XTpm_MeasureRom(void);
 int XTpm_MeasurePlm(void);
-int XTpm_MeasurePartition(u32 PcrIndex, u8* ImageHash);
+int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash);
 u32 XTpm_SpiInit(void);
-u32 XTpm_Transfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Length);
-u32 XTpm_DataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen);
+u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len);
+u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen);
 u32 XTpm_StatusGet(u8* StatusPtr);
 u32 XTpm_StatusSet(u8 StatusVal);
 u32 XTpm_AccessGet(u8* AccessPtr);
 u32 XTpm_AccessSet(u8 Access);
-u32 XTpm_Event(u32 pcr_number, u16 size, u8 *data, u8 *resp);
+u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response);
 
 #ifdef __cplusplus
 }
