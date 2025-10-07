@@ -757,6 +757,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_MemCtrlrDevice *MCDev = NULL;
 	u32 Offset = 2U;
+	u32 Idx = (u32)XPM_NODEIDX_DEV_DDRMC_MIN;
 
 	if ((6U != NumArgs) && (10U != NumArgs)) {
 		Status = XST_INVALID_PARAM;
@@ -792,7 +793,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	}
 
 	/* Lookup DDRMC device based on provided address in args */
-	for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+	while (Idx <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX) {
 	/*
 	 * - This block expands the base address check to new DDRMC nodes,
 	 *   skipping device nodes with type other than XPM_NODETYPE_DEV_DDR.
@@ -800,16 +801,17 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	 *   nodes and add a block similar to the one below.
 	 */
 #ifdef XPM_NODEIDX_DEV_DDRMC_MAX_INT_1
-		if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == i) {
-			i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
+		if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == Idx) {
+			Idx = (u32)XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
 		}
 #endif
-		MCDev = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(i));
+		MCDev = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(Idx));
 		if ((NULL != MCDev) &&
 		    (Args[0U] == MCDev->Device.Node.BaseAddress)) {
 			Status = XST_SUCCESS;
 			break;
 		}
+		Idx++;
 	}
 	if (XST_SUCCESS != Status) {
 		Status = XST_INVALID_PARAM;
