@@ -2712,9 +2712,9 @@ END:
 *
 * Our xilnvm driver also follows the same format to store it in eFUSE
 *
-* EfusePtr[0]=E0FDF8F7 -> IV[64:95]
-* EfusePtr[1]=8DA27486 -> IV[32:63]
-* EfusePtr[2]=378EEDC6 -> IV[0:31]]
+* EfusePtr[0]=C6ED8E37 -> IV[31:0]
+* EfusePtr[1]=8674A28D -> IV[63:32]
+* EfusePtr[2]=F7F8FDE0 -> IV[95:64]]
 *
 * Spec says:
 * IV[95:32] defined by user in meta header should match with eFUSEIV[95:32]
@@ -2724,20 +2724,27 @@ END:
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 {
 	int Status = (int)XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
-	volatile u32 IHPtr_0U = IHPtr[0U];
-	volatile u32 IHPtrTmp_0U = IHPtr[0U];
-	volatile u32 IHPtr_1U = IHPtr[1U];
-	volatile u32 IHPtrTmp_1U = IHPtr[1U];
-	volatile u32 IHPtr_2U = IHPtr[2U];
-	volatile u32 IHPtrTmp_2U = IHPtr[2U];
+	volatile u32 IHValue95_64;
+	volatile u32 IHValueTmp95_64;
+	volatile u32 IHValue63_32;
+	volatile u32 IHValueTmp63_32;
+	volatile u32 IHValue31_0;
+	volatile u32 IHValueTmp31_0;
 
-	if ((IHPtr_0U != EfusePtr[0U]) || (IHPtrTmp_0U != EfusePtr[0U])) {
+	IHValue95_64 = Xil_Htonl(IHPtr[0]);
+	IHValueTmp95_64 = Xil_Htonl(IHPtr[0]);
+	IHValue63_32 = Xil_Htonl(IHPtr[1]);
+	IHValueTmp63_32 = Xil_Htonl(IHPtr[1]);
+	IHValue31_0 = Xil_Htonl(IHPtr[2]);
+	IHValueTmp31_0 = Xil_Htonl(IHPtr[2]);
+
+	if ((IHValue95_64 != EfusePtr[2U]) || (IHValueTmp95_64 != EfusePtr[2U])) {
 		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[95:64]\r\n");
 	}
-	else if ((IHPtr_1U != EfusePtr[1U]) || (IHPtrTmp_1U != EfusePtr[1U])) {
+	else if ((IHValue63_32 != EfusePtr[1U]) || (IHValueTmp63_32 != EfusePtr[1U])) {
 		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[63:32]\r\n");
 	}
-	else if ((IHPtr_2U >= EfusePtr[2U]) && (IHPtrTmp_2U >= EfusePtr[2U])) {
+	else if ((IHValue31_0 >= EfusePtr[0U]) && (IHValueTmp31_0 >= EfusePtr[0U])) {
 		Status = XST_SUCCESS;
 	}
 	else {
