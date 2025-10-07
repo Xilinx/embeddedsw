@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                         when -Werror=conversion compiler flag is enabled
 * 7.5   mus      05/17/21 Update the functions with comments. It fixes CR#1067739.
 * 9.0   ml       03/03/23 Add description and remove comments to fix doxygen warnings.
+* 9.4   vmt      30/09/25 Included riscv_interface.h header for RISC-V processors.
 * </pre>
 ******************************************************************************/
 
@@ -56,6 +57,9 @@ extern "C" {
 #include "xpseudo_asm.h"
 #endif
 
+#if defined (__riscv)
+#include "riscv_interface.h"
+#endif
 /************************** Function Prototypes ******************************/
 #ifdef ENABLE_SAFETY
 extern u32 XStl_RegUpdate(u32 RegAddr, u32 RegVal);

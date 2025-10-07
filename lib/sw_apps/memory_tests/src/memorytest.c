@@ -49,8 +49,9 @@ s32 test_memory_range(struct memory_range_s *range)
 	print("    Memory Controller: ");
 	print(range->ip);
 	print("\n\r");
-#if defined(__MICROBLAZE__) && !defined(__arch64__)
-#if (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+#if (defined(__MICROBLAZE__) && !defined(__arch64__)) || \
+	(defined(__riscv) && (__riscv_xlen == 32))
+#if (XPAR_MICROBLAZE_ADDR_SIZE > 32) || (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32)
 	print("         Base Address: 0x");
 	putnum((range->base & UPPER_4BYTES_MASK) >> 32);
 	putnum(range->base & LOWER_4BYTES_MASK);
@@ -84,7 +85,8 @@ s32 test_memory_range(struct memory_range_s *range)
 	* in 4 KB chunks
 	*/
 	for (base = range->base, cnt = 0; cnt < num_words; cnt++, base += 0x1000) {
-#if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+#if (defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)) || \
+		(defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32))
 		status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), 1024, 0xAAAA5555,
 				       XIL_TESTMEM_ALLMEMTESTS);
 		if (status != XST_SUCCESS) {
@@ -121,13 +123,14 @@ s32 test_memory_range(struct memory_range_s *range)
 #endif
 	}
 #else
-	 /*
-        * This test covers whole memory range for given memory
-        * at once
-        */
-	 num_words = range->size / 4;
-	 base = range->base;
-#if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+	/*
+	 * This test covers whole memory range for given memory
+	 * at once
+	 */
+	num_words = range->size / 4;
+	base = range->base;
+#if (defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)) || \
+	 (defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32))
                 status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), num_words, 0xAAAA5555,
                                        XIL_TESTMEM_ALLMEMTESTS);
                 if (status != XST_SUCCESS) {

@@ -30,6 +30,7 @@
 *                         add checks for RISC-V MB proc and zeroize memory before return
 *       ng       04/07/25 Prevent overwriting of the status variable in Xil_SReverseData
 * 9.4   ml       09/01/25 Fix MISRA-C violation for Rule 17.7
+* 9.4   vmt      24/09/25 Added extended address support for RISC-V
 * </pre>
 *
 *****************************************************************************/
@@ -971,9 +972,9 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 	/* Checking for overlap */
 	if (((SrcAddr < DstAddr) && ((SrcAddr + Cnt) <= DstAddr)) ||
 	    ((DstAddr < SrcAddr) && ((DstAddr + Cnt) <= SrcAddr))) {
-#if defined(VERSAL_PLM) || ((defined(__MICROBLAZE__) || defined(__riscv)) &&\
-			    (XPAR_MICROBLAZE_ADDR_SIZE > 32) &&\
-			    (XPAR_MICROBLAZE_DATA_SIZE == 32))
+#if (defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32)) || \
+    (defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32) && (XPAR_MICROBLAZE_DATA_SIZE == 32)) || \
+    defined(VERSAL_PLM)
 			u64 Dst = DstAddr;
 			u64 Src = SrcAddr;
 			u32 Count = Cnt;

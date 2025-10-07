@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
 * 9.0   sa   06/21/23 Fix sleep related macros based on HW configuration.
 *                     It fixes CR#1162997.
 * 9.1   ml   11/16/23 Fix compilation errors reported with -std=c2x compiler flag
+* 9.4   vmt  24/09/25 Added extended address support for RISC-V
 * </pre>
 *
 ******************************************************************************/
@@ -185,6 +186,50 @@ extern void riscv_scrub(void);                                          /* Scrub
 #define mb_hibernate() 	({ __asm__ __volatile__ ("csrwi 0x7c4, 2 ; wfi\t"); })
 #define mb_suspend()   	({ __asm__ __volatile__ ("csrwi 0x7c4, 4 ; wfi\t"); })
 #endif
+
+/* Extended address custom instructions */
+#if __riscv_xlen == 32
+
+/**
+Executes an extended address load instruction in the MicroBlaze RISC-V processor
+@param lladdr Long long integer (64-bit) address
+@param instr  Instruction code
+@return data read from lladdr
+*/
+#define _load_ea(lladdr, instr) ({				      \
+	register unsigned long long int _addr_lsh asm("t1") = lladdr; \
+	register unsigned int _result asm("t0");		      \
+	__asm__ __volatile__ (					      \
+		".word " stringify(instr) " # rd = %0, rs1 = %1" : "=r" (_result): "r" (_addr_lsh) \
+	); \
+	_result; \
+})
+
+#define lbea(lladdr)  _load_ea(lladdr, 0x020322AB)
+#define lhea(lladdr)  _load_ea(lladdr, 0x220322AB)
+#define lwea(lladdr)  _load_ea(lladdr, 0x420322AB)
+#define lbuea(lladdr) _load_ea(lladdr, 0x820322AB)
+#define lhuea(lladdr) _load_ea(lladdr, 0xA20322AB)
+
+/**
+Executes an extended address store instruction in the MicroBlaze RISC-V processor
+@param lladdr Long long integer (64-bit) address
+@param data   Data to be written to lladdr
+@param instr  Instruction code
+*/
+#define _store_ea(lladdr, data, instr) {			      \
+	register unsigned long long int _addr_lsh asm("t1") = lladdr; \
+	register unsigned int _data asm("t0") = data;		      \
+	__asm__ __volatile__ (					      \
+		".word " stringify(instr) " # rs1 = %1, rs2 = %0" :: "r" (_data), "r" (_addr_lsh) \
+	); \
+}
+
+#define sbea(lladdr, data) _store_ea(lladdr, data, 0x0253302B)
+#define shea(lladdr, data) _store_ea(lladdr, data, 0x2253302B)
+#define swea(lladdr, data) _store_ea(lladdr, data, 0x4253302B)
+
+#endif // __riscv_xlen == 32
 
 #ifdef __cplusplus
 }

@@ -41,6 +41,7 @@
 *                     XIL_ENABLE_MEMORY_STRESS_TEST
 * 9.4   vmt  26/08/25 Updated datatype of word count to unsigned long to fix the
 *                     size limit issue
+* 9.4   vmt  24/09/25 Added extended address support for RISC-V
 * </pre>
 *
 *****************************************************************************/
@@ -62,7 +63,8 @@ static u32 RotateLeft(u32 Input, u8 Width);
 static u32 RotateRight(u32 Input, u8 Width);
 #endif /* ROTATE_RIGHT */
 
-#if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+#if (defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)) || \
+    (defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32))
 
 /*****************************************************************************/
 /**
