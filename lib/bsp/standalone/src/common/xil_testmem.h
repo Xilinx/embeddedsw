@@ -89,6 +89,7 @@
 *                     It fixes CR#1089129.
 * 9.4   vmt  26/08/25 Updated datatype of word count to unsigned long to fix
 *                     the size limit issue
+* 9.4   vmt  24/09/25 Added extended address support for RISC-V
 * </pre>
 *
 ******************************************************************************/
@@ -151,7 +152,8 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 /* xutil_testmem prototypes */
-#if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+#if (defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)) || \
+    (defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32))
 extern s32 Xil_TestMem32(u32 AddrLow, u32 AddrHigh, u32 Words, u32 Pattern, u8 Subtest);
 extern s32 Xil_TestMem16(u32 AddrLow, u32 AddrHigh, u32 Words, u16 Pattern, u8 Subtest);
 extern s32 Xil_TestMem8(u32 AddrLow, u32 AddrHigh, u32 Words, u8 Pattern, u8 Subtest);
