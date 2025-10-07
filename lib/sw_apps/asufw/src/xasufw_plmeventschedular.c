@@ -42,7 +42,6 @@
 #define XASUFW_PLM_REQ_ID		(0x3FU)	/**< Fixed request ID for PLM request */
 #define XASUFW_NOTIFICATION_TASK_DELAY	(100U)	/**< PLM to ASU notification task handler delay */
 #define XASUFW_MAX_PLM_CMDS		(1U)	/**< Maximum PLM commands */
-#define XASUFW_IPI_MESSAGE_LEN		(8U)	/**< Length of IPI message buffer */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_PlmEventTaskHandler(void *Arg);
@@ -98,13 +97,13 @@ void XAsufw_HandlePlmEvent(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsufw_Module *Module = NULL;
-	u32 Payload[XASUFW_IPI_MESSAGE_LEN] = {0U};
+	u32 Payload[XASUFW_IPI_MAX_MSG_LEN] = {0U};
 	u32 ReqId;
 	u32 ModuleId;
 	u32 CmdId;
 
 	/** Read IPI message form PLM. */
-	Status = XAsufw_ReadIpiMsgFromPlm(Payload, XASUFW_IPI_MESSAGE_LEN);
+	Status = XAsufw_ReadIpiMsgFromPlm(Payload, XASUFW_IPI_MAX_MSG_LEN);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_READ_IPI_MSG_FROM_PLM_FAIL);
 		goto END;

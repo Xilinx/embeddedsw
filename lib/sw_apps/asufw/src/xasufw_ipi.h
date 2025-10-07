@@ -77,6 +77,8 @@ extern "C" {
 
 #define XASUFW_PLM_ASU_MODULE_ID	(14U) /**< PLM ASU module Id */
 
+#define XASUFW_IPI_MAX_MSG_LEN		(XIPIPSU_MAX_MSG_LEN) /**< Maximum IPI buffer length */
+
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_IpiInit(void);
 void XAsufw_IpiHandler(const void *Data);
