@@ -219,7 +219,8 @@ static XStatus XPmAccess_SecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 					  XPm_NodeAccessTypes AccessType,
 					  const XPm_NodeAccessMatch *const Match)
 {
-	XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 
 	Status = XPmAccess_NSecSubsysHandler(SubsystemId, Op, CmdType,
 					     AccessType, Match);
@@ -228,7 +229,11 @@ static XStatus XPmAccess_SecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 	}
 
 	/* Check if incoming command is Secure */
+	Status = XPM_PM_NO_ACCESS;
+	StatusTmp = XPM_PM_NO_ACCESS;
 	Status = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
+	StatusTmp = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
+	Status |= StatusTmp;
 
 done:
 	return Status;
