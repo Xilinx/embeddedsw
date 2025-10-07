@@ -619,10 +619,17 @@ static int XilNvm_EfuseShowIv(XNvm_IvType IvType)
 
 	xil_printf("\n\r IV%d:",IvType);
 
-	XilNvm_FormatData((u8 *)EfuseIv->Iv, (u8 *)ReadIv,
+	if (IvType == XNVM_EFUSE_BLACK_IV) {
+		XilNvm_FormatData((u8 *)EfuseIv->Iv, (u8 *)ReadIv,
 			XNVM_EFUSE_IV_LEN_IN_BYTES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv[Row]);
+		for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
+			xil_printf("%08x", ReadIv[Row]);
+		}
+	}
+	else {
+		for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
+			xil_printf("%08x", EfuseIv->Iv[Row]);
+		}
 	}
 	Status = XST_SUCCESS;
 
@@ -2251,8 +2258,7 @@ static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len, XNvm_Iv
 		xil_printf("IV string validation failed\r\n");
 		goto END;
 	}
-	if ((IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) ||
-		(IvType == XNVM_EFUSE_BLACK_IV)) {
+	if (IvType == XNVM_EFUSE_BLACK_IV) {
 		Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
 	}
 	else {
