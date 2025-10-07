@@ -383,8 +383,7 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\rMetaheader IV:");
 
-	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
-	XilNvm_ShowData((u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
+	XilNvm_ShowData((u8 *)EfuseIv.Iv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_BLACK_IV);
 	if (Status != XST_SUCCESS) {
@@ -1927,8 +1926,7 @@ static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len,
 		goto END;
 	}
 
-	if ((IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) ||
-		(IvType == XNVM_EFUSE_BLACK_IV)) {
+	if (IvType == XNVM_EFUSE_BLACK_IV) {
 		Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
 	}
 	else {
