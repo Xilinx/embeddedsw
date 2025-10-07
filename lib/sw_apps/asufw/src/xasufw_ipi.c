@@ -38,7 +38,6 @@
 #include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_IPI_MAX_MSG_LEN          8U /**< Maximum IPI buffer length */
 
 /************************************** Type Definitions *****************************************/
 
