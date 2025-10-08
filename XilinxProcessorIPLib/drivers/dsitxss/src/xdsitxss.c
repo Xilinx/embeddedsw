@@ -595,6 +595,7 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
 					DsiTxSsPtr->Config.HighAddr,
@@ -605,6 +606,9 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 			"address (0x%x) invalid \n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+    AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XDsi_CfgInitialize(DsiTxSsPtr->DsiPtr, ConfigPtr, AbsAddr);
@@ -656,6 +660,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
 					DsiTxSsPtr->Config.HighAddr,
@@ -666,6 +671,9 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 				"(0x%x) invalid \n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+    AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(DsiTxSsPtr->DphyPtr, ConfigPtr, AbsAddr);
@@ -710,6 +718,7 @@ static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
 					DsiTxSsPtr->Config.HighAddr,
@@ -720,6 +729,9 @@ static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr)
 			"address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+    AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XMipi_Tx_Phy_CfgInitialize(DsiTxSsPtr->MipiTxPhyPtr, ConfigPtr, AbsAddr);
