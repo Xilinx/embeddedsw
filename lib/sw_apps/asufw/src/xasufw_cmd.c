@@ -47,7 +47,7 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-static s32 XAsufw_CheckAndRestoreAesContext(void);
+static void XAsufw_CheckAndRestoreAesContext(void);
 
 /*************************************************************************************************/
 /**
@@ -134,11 +134,7 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, ReqId);
 
 	/** Check and restore the AES context if previous AES operation had saved the context. */
-	Status = XAsufw_CheckAndRestoreAesContext();
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_RESTORE_FAIL);
-		goto END;
-	}
+	XAsufw_CheckAndRestoreAesContext();
 
 END:
 	return Status;
@@ -365,25 +361,20 @@ END:
  * 	- XASUFW_FAILURE, if context restoration operation fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_CheckAndRestoreAesContext(void)
+static void XAsufw_CheckAndRestoreAesContext(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAes_ContextInfo *Ctx = XAes_GetAesContext();
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
-	u32 ReqId = Ctx->ReqId;
 
 	if (Ctx->IsContextRestoreReq == XASU_TRUE) {
 		Status = XAes_RestoreContext(AesInstancePtr);
 		if (Status != XASUFW_SUCCESS) {
-			goto END;
+			XAsufw_Printf(DEBUG_PRINT_ALWAYS, "AES context restore failed: 0x%x\r\n", Status);
+		} else {
+			/** Update the resource owner to the restored context. */
+			XAsufw_UpdateResourceOwner(XASUFW_AES, Ctx->ReqId);
 		}
-		/** Update the resource owner to the restored context. */
-		XAsufw_UpdateResourceOwner(XASUFW_AES, ReqId);
 	}
-
-	Status = XASUFW_SUCCESS;
-
-END:
-	return Status;
 }
 /** @} */
