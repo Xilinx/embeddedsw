@@ -988,7 +988,7 @@ done:
  ****************************************************************************/
 static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RailVoltage = 0;
 	u32 LowThreshVal = 0;
