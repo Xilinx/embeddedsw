@@ -37,7 +37,6 @@
 *                        Changes were done for other cleanups and also to
 *                        ensure that the DMA is reset before the program exits.
 * 1.16  sa     09/29/22  Fix infinite loops in the example.
-* 1.20	aj     06/16/25  Add Stop API for the example
 * </pre>
 *
 ******************************************************************************/
@@ -299,7 +298,6 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 
 	/* Reset the DMA to remove all configurations done in this example  */
 	XZDma_Reset(&ZDma);
-	XZDma_Stop(&ZDma);
 
 	return XST_SUCCESS;
 
