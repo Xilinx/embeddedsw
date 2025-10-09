@@ -104,6 +104,7 @@
 *                       and added explicit parenthesis for sub-expression
 *       mb   09/10/2025 Exclude cache validation for RISC-V processor.
 * 5.6   rpu  08/11/2025 Added crypto check in XSecure_AesOpInit.
+*       mb   10/06/2025 Optimize Status variable usage.
 * </pre>
 *
 ******************************************************************************/
@@ -1020,19 +1021,6 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 #endif
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
-
-	SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
-	if (Status == XST_SUCCESS) {
-		Status = SStatus;
-	}
-
-	SStatus = XST_FAILURE;
-	SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
-	if (Status == XST_SUCCESS) {
-		Status = SStatus;
-	}
-	XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
 
 	SStatus = Xil_SecureZeroize(InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status == XST_SUCCESS) {
@@ -2110,6 +2098,7 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg* AesDmaCfg)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 
 	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)TRUE) {
 		AesDmaCfg->DestDataAddr = (u64)(UINTPTR)InstancePtr->GcmTag;
@@ -2132,6 +2121,20 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 		/* Wait for AES Operation completion. */
 		Status = XSecure_AesWaitForDone(InstancePtr);
 
+		/* Zeroize the keys after AES operation completion */
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+
+		SStatus = XST_FAILURE;
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				 XSECURE_AES_SOFT_RST_OFFSET);
 	}
 END:
 	return Status;
