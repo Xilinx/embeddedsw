@@ -52,12 +52,6 @@
 #define XASU_CLIENT_READY               0xFFFFFFFFU /**< To indicate Client is ready */
 #define XASU_TARGET_IPI_INT_MASK        1U          /**< ASU IPI interrupt mask */
 
-#define ASU_GLOBAL_BASEADDR             (0xEBF80000U) /**< ASU GLOBAL register base address */
-#define ASU_GLOBAL_GLOBAL_CNTRL         (ASU_GLOBAL_BASEADDR + 0x00000000U) /**< ASU GLOBAL CNTRL
-                                                                             register address */
-
-#define ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK       0x10U          /**< ASU FW Present mask
-                                                                              value */
 #define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timeout value */
 #define XASU_KAT_EXEC_STATUS_CHECK_TIMEOUT_VALUE	(0x4C4B40U)	/**< KAT execution status
 								check timeout value in microseconds
@@ -417,7 +411,7 @@ s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId)
 	}
 
 	/** Wait until KAT execution is completed. */
-	while(((Xil_In32(XASU_RTCA_KAT_EXEC_STATUS_ADDR)) & XASU_RTCA_KAT_EXEC_STATUS_MASK)
+	while(((Xil_In32(XASU_RTCA_EXEC_STATUS_ADDR)) & XASU_RTCA_KAT_EXEC_STATUS_MASK)
 		!= XASU_RTCA_KAT_EXEC_STATUS_VALUE) {
 		if (Timeout == XASU_KAT_EXEC_STATUS_CHECK_TIMEOUT_VALUE) {
 			Status = XASU_KAT_EXEC_NOT_COMPLETED;
@@ -544,8 +538,8 @@ static s32 XAsu_CheckAsufwPrsntBit(void)
 	s32 Timeout = 0U;
 
 	for (Timeout = 0U; Timeout != XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE; Timeout++) {
-		if ((Xil_In32(ASU_GLOBAL_GLOBAL_CNTRL) & ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)
-			== ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
+		if ((Xil_In32(XASU_RTCA_EXEC_STATUS_ADDR) & XASU_RTCA_FW_IS_PRESENT_STATUS_MASK)
+			== XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE) {
 				Status = XST_SUCCESS;
 				goto END;
 		}

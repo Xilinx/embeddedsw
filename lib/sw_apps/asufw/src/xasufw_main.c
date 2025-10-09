@@ -86,6 +86,7 @@ static s32 XAsufw_Init(void);
 static s32 XAsufw_ModulesInit(void);
 static void XAsufw_StartKatTasks(void);
 static void XAsufw_StartKeyTransferTasks(void);
+static void XAsufw_SetAsufwPresentBit(void);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -143,11 +144,10 @@ int main(void)
 	XAsufw_StartKeyTransferTasks();
 
 	/**
-	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
-	 * Clients need to check this bit before sending any requests to ASUFW.
+	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register and RTCA address reserved for FW_IS_PRSNT.
+	 * Clients need to check the bit in RTCA area before sending any requests to ASUFW.
 	 */
-	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
-		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+	XAsufw_SetAsufwPresentBit();
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
@@ -161,6 +161,7 @@ int main(void)
 	 * TODO: Need to add code for clearing security critical data if any.
 	 */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK, 0x0U);
+	XAsufw_WriteReg(XASU_RTCA_EXEC_STATUS_ADDR, 0x0U);
 	while (1U);
 
 END:
@@ -382,5 +383,18 @@ static void XAsufw_StartKeyTransferTasks(void)
 		KeyTransferTask->PrivData = KeyTransferTask;
 		XTask_TriggerNow(KeyTransferTask);
 	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sets the FW PRESENT status in ASU GLOBAL register and RTCA address.
+ *
+ *************************************************************************************************/
+static void XAsufw_SetAsufwPresentBit(void)
+{
+	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
+		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+	XAsufw_RMW(XASU_RTCA_EXEC_STATUS_ADDR, XASU_RTCA_FW_IS_PRESENT_STATUS_MASK,
+			XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE);
 }
 /** @} */

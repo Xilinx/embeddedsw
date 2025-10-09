@@ -356,10 +356,6 @@ END:
  * @brief	This function restores AES context if required and updates the resource owner of
  * 		restored context. when a previous AES operation had saved context.
  *
- * @return
- * 	- XASUFW_SUCCESS, if context restoration is successful or not required.
- * 	- XASUFW_FAILURE, if context restoration operation fails.
- *
  *************************************************************************************************/
 static void XAsufw_CheckAndRestoreAesContext(void)
 {
