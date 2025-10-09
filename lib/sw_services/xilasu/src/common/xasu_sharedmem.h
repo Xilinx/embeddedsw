@@ -89,13 +89,17 @@ extern "C" {
 #define XASU_RTCA_BH_IV_ADDR			(XASU_RTCA_BASEADDR + 0x168U)
 						/**< Base address of BH IV of size 12 bytes */
 
-#define XASU_RTCA_KAT_EXEC_STATUS_ADDR		(XASU_RTCA_BASEADDR + 0x174U)
-						/**< Base address of KAT execution status of
-							size 4 bytes */
+#define XASU_RTCA_EXEC_STATUS_ADDR		(XASU_RTCA_BASEADDR + 0x174U)
+						/**< Base address of execution status of
+							size 1 byte */
 #define XASU_RTCA_KAT_EXEC_STATUS_VALUE		(0x01U)
 						/**< KAT status execution complete value */
 #define XASU_RTCA_KAT_EXEC_STATUS_MASK		(0x01U)
 						/**< KAT status execution complete mask */
+#define XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE	(0x02U)
+						/**< FW is present status value */
+#define XASU_RTCA_FW_IS_PRESENT_STATUS_MASK	(0x02U)
+						/**< FW is present status mask */
 
 #define XASU_MAX_IPI_CHANNELS			(8U) /**< Maximum IPI channels supported by ASUFW */
 #define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**<Channel memory offset */
