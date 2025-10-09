@@ -1261,6 +1261,22 @@ extern "C" {
 #define PM_REG_PMC_GLOBAL			(0x30000004U)
 #define PM_REG_MMI_UDH_SLCR			(0x30000005U)
 #define PM_REG_MMI_UDH_SLCR_DC			(0x30000006U)
+#define PM_REG_PGGS3				(0x30004003U)
+#define PM_REG_PGGS4				(0x30004004U)
+#define PM_REG_PGGS5				(0x30004005U)
+#define PM_REG_PGGS6				(0x30004006U)
+#define PM_REG_PGGS7				(0x30004007U)
+#define PM_REG_GGS5				(0x30008005U)
+#define PM_REG_GGS6				(0x30008006U)
+#define PM_REG_GGS7				(0x30008007U)
+#define PM_REG_GGS8				(0x30008008U)
+#define PM_REG_GGS9				(0x30008009U)
+#define PM_REG_GGS10				(0x3000800AU)
+#define PM_REG_GGS11				(0x3000800BU)
+#define PM_REG_GGS12				(0x3000800CU)
+#define PM_REG_GGS13				(0x3000800DU)
+#define PM_REG_GGS14				(0x3000800EU)
+#define PM_REG_GGS15				(0x3000800FU)
 /** @} */
 
 #ifdef __cplusplus
