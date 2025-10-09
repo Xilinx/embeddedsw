@@ -24,11 +24,6 @@
 #include "xpm_runtime_api.h"
 #include "xpm_runtime_aie.h"
 extern u32 ResetReason;
-static u32 PsmGgsValues[GGS_REGS] = {0U};
-static u32 PggsReadPermissions[PMC_PGGS_REGS];
-static u32 PggsWritePermissions[PMC_PGGS_REGS];
-static u32 GgsReadPermissions[GGS_REGS];
-static u32 GgsWritePermissions[GGS_REGS];
 
 /* Macro to check if a device is an RPU core */
 #define IS_DEV_RPU(DeviceId) \
@@ -519,228 +514,6 @@ done:
 	return Status;
 }
 
-static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 Register, u32 Type)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm = NULL;
-	u32 DeviceId;
-	u32 NodeClass = (u32)XPM_NODECLASS_DEVICE;
-	u32 NodeSubClass = (u32)XPM_NODESUBCL_DEV_PERIPH;
-	u32 RegNum = Register;
-
-	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_PGGS:
-			/*
-			 * +1 is needed as the first PGGS Node ID is after the last
-			 * GGS Node ID.
-			 */
-			RegNum += (u32)GGS_MAX + 1U;
-			break;
-		case (u32)XPM_NODETYPE_DEV_GGS:
-			break;
-		default:
-			Status = XPM_INVALID_TYPEID;
-			break;
-	}
-
-	if (XPM_INVALID_TYPEID == Status) {
-		goto done;
-	}
-
-	DeviceId = NODEID(NodeClass, NodeSubClass, Type, RegNum);
-
-	if (NULL == XPmDevice_GetById(DeviceId)) {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
-	}
-
-	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
-	if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
-		Status = XPM_ERR_DEVICE_STATUS;
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
-/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
- * This logic will be removed
- * Feature check needs to be updated as well for client-side support
- */
-static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
-		const u32 *Perms, u32 Type, u32 CmdType)
-{
-	XStatus Status = XST_FAILURE;
-	u32 PermissionMask = 0;
-	u32 SecureMask;
-	u32 NonSecureMask;
-
-	/*
-	 * RegNum is validated later in each operation so do not need to
-	 * validate here in case of PMC subsystem.
-	 */
-	if (PM_SUBSYS_PMC == SubsystemId) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* Other subsystems have RegNum validated in this function. */
-	Status = XPmIoctl_IsRegRequested(SubsystemId, RegNum, Type);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	PermissionMask = Perms[RegNum];
-	SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(SubsystemId));
-	NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(SubsystemId));
-
-	/* Have Target check if Host can enact the operation */
-	if ((XPLMI_CMD_SECURE == CmdType) &&
-			(SecureMask == (PermissionMask & SecureMask))) {
-		Status = XST_SUCCESS;
-	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
-		Status = XST_SUCCESS;
-	} else {
-		Status = XPM_PM_NO_ACCESS;
-	}
-
-done:
-	return Status;
-}
-
-/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
- * This logic will be removed
- * Feature check needs to be updated as well for client-side support
- */
-static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
-			    u32 *const Value, const u32 CmdType)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-
-	if (NULL == Pmc) {
-		goto done;
-	}
-
-	if (PMC_PGGS_REGS <= PggsNum) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPmIoctl_IsOperationAllowed(PggsNum, SubsystemId,
-					     PggsReadPermissions,
-					     (u32)XPM_NODETYPE_DEV_PGGS,
-					     CmdType);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 */
-	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
-	       (PggsNum << 2U)), *Value);
-
-done:
-	return Status;
-}
-
-/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
- * This logic will be removed
- * Feature check needs to be updated as well for client-side support
- */
-static XStatus XPm_WritePggs(const u32 SubsystemId, const u32 PggsNum,
-			     const u32 Value, const u32 CmdType)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-
-	if (NULL == Pmc) {
-		goto done;
-	}
-
-	if (PMC_PGGS_REGS <= PggsNum) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPmIoctl_IsOperationAllowed(PggsNum, SubsystemId,
-					     PggsWritePermissions,
-					     (u32)XPM_NODETYPE_DEV_PGGS,
-					     CmdType);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 */
-	PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
-		(PggsNum << 2U)), Value);
-
-done:
-	return Status;
-}
-
-/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
- * This logic will be removed
- * Feature check needs to be updated as well for client-side support
- */
-static XStatus XPm_ReadGgs(const u32 SubsystemId, const u32 GgsNum,
-			   u32 *const Value, const u32 CmdType)
-{
-	XStatus Status = XST_FAILURE;
-
-	if (GGS_REGS <= GgsNum) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPmIoctl_IsOperationAllowed(GgsNum, SubsystemId,
-					     GgsReadPermissions,
-					     (u32)XPM_NODETYPE_DEV_GGS,
-					     CmdType);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	*Value = PsmGgsValues[GgsNum];
-
-done:
-	return Status;
-}
-
-/** TODO: FIXME: PGGSx/GGSx IOCTL access will be replaced with new RegNode approach.
- * This logic will be removed
- * Feature check needs to be updated as well for client-side support
- */
-static XStatus XPm_WriteGgs(const u32 SubsystemId, const u32 GgsNum,
-			    const u32 Value, const u32 CmdType)
-{
-	XStatus Status = XST_FAILURE;
-
-	if (GGS_REGS <= GgsNum) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPmIoctl_IsOperationAllowed(GgsNum, SubsystemId,
-					     GgsWritePermissions,
-					     (u32)XPM_NODETYPE_DEV_GGS,
-					     CmdType);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	PsmGgsValues[GgsNum] = Value;
-
-done:
-	return Status;
-}
-
 static XStatus XPm_SetBootHealth(const u32 Value)
 {
 	XStatus Status = XST_FAILURE;
@@ -859,6 +632,13 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	case IOCTL_AIE2PS_OPS:
 		Status = XPmAie_Operations(Arg1, Arg2, Arg3);
 		break;
+	case IOCTL_READ_GGS:
+	case IOCTL_WRITE_GGS:
+	case IOCTL_READ_PGGS:
+	case IOCTL_WRITE_PGGS:
+		Status = XST_NO_FEATURE;
+		PmErr("Following IOCTL feature is deprecated (ioctl id = 0x%x)\n\r", IoctlId);
+		break;
 	case IOCTL_READ_REG:
 		if (IoctlIdTmp != IOCTL_READ_REG) {
 			/* Fault detected - return error */
@@ -887,18 +667,6 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	case IOCTL_SET_SD_TAPDELAY:
 		Status = XPm_TapDelayOper(IoctlId, SubsystemId, DeviceId,
 					  Arg1, Arg2);
-		break;
-	case IOCTL_WRITE_GGS:
-		Status = XPm_WriteGgs(SubsystemId, Arg1, Arg2, CmdType);
-		break;
-	case IOCTL_READ_GGS:
-		Status = XPm_ReadGgs(SubsystemId, Arg1, Response, CmdType);
-		break;
-	case IOCTL_WRITE_PGGS:
-		Status = XPm_WritePggs(SubsystemId, Arg1, Arg2, CmdType);
-		break;
-	case IOCTL_READ_PGGS:
-		Status = XPm_ReadPggs(SubsystemId, Arg1, Response, CmdType);
 		break;
 	case IOCTL_SET_BOOT_HEALTH_STATUS:
 		Status = XPm_SetBootHealth(Arg1);
@@ -956,63 +724,5 @@ done:
 		PmErr("0x%x\n\r", Status);
 	}
 
-	return Status;
-}
-
-XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
-		u32 Operations)
-{
-	XStatus Status = XST_FAILURE;
-	u32 RegNum = NODEINDEX(DeviceId);
-	u32 SubsystemId = Subsystem->Id;
-	u32 Type = NODETYPE(DeviceId);
-	u32 *ReadPerm, *WritePerm;
-
-	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_PGGS:
-			/* Normalize to permissions indices range for PGGS */
-			RegNum -= (u32)XPM_NODEIDX_DEV_PGGS_0;
-			if (RegNum >= ARRAY_SIZE(PggsReadPermissions)) {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-			ReadPerm =  &PggsReadPermissions[RegNum];
-			WritePerm = &PggsWritePermissions[RegNum];
-			break;
-		case (u32)XPM_NODETYPE_DEV_GGS:
-			if (RegNum >= ARRAY_SIZE(GgsReadPermissions)) {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-			ReadPerm =  &GgsReadPermissions[RegNum];
-			WritePerm = &GgsWritePermissions[RegNum];
-			break;
-		default:
-			Status = XPM_INVALID_TYPEID;
-			break;
-	}
-
-	if (XPM_INVALID_TYPEID == Status) {
-		goto done;
-	}
-
-	*ReadPerm |= PERM_BITMASK(Operations, IOCTL_PERM_READ_SHIFT_NS,
-			SUBSYS_TO_NS_BITPOS(SubsystemId));
-	*ReadPerm |= PERM_BITMASK(Operations, IOCTL_PERM_READ_SHIFT_S,
-			SUBSYS_TO_S_BITPOS(SubsystemId));
-	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_NS,
-			SUBSYS_TO_NS_BITPOS(SubsystemId));
-	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_S,
-			SUBSYS_TO_S_BITPOS(SubsystemId));
-
-	Status = XST_SUCCESS;
-
-done:
 	return Status;
 }

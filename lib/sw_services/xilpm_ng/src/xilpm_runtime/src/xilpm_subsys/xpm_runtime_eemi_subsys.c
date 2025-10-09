@@ -664,50 +664,6 @@ done:
 	return Status;
 }
 
-static XStatus XPm_AddGgsPggsRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
-{
-	XStatus Status = XST_FAILURE;
-	u32 SubsysId = 0U, DeviceId = 0U, Permissions = 0U;
-	XPm_Device *Device = NULL;
-	/* Preallocate the GGS and PGGS */
-	u32 Flags = REQUIREMENT_FLAGS(1U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
-	u32 PreallocCaps = (u32)PM_CAP_ACCESS;
-	u32 PreallocQoS = XPM_DEF_QOS;
-
-	/* Check the minimum basic arguments required for this command */
-	if (3U > PayloadLen) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	/* Parse the basic arguments */
-	SubsysId = Subsystem->Id;
-	DeviceId = Payload[1];
-	Permissions = Payload[2];
-
-	/* Device must be present in the topology at this point */
-	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	/* Add the GGS and PGGS permission to the subsystem */
-	Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Permissions);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	/* Preallocate the GGS and PGGS */
-	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
-
-	PmDbg("SubsysId: 0x%x, DeviceId: 0x%x, Flags: 0x%x, PreallocCaps: 0x%x, PreallocQoS: 0x%x\n\r",
-		SubsysId, DeviceId, Flags, PreallocCaps, PreallocQoS);
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("SubsysId: 0x%x, DeviceId: 0x%x, Status: 0x%x\n\r", SubsysId, DeviceId, Status);
-	}
-	return Status;
-}
-
 static XStatus XPm_AddRstRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
@@ -773,15 +729,9 @@ static XStatus XPmSubsystem_Generic_AddRequirement(XPm_Subsystem *Subsystem, u32
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeId = Payload[1];
-	u32 NodeType = NODETYPE(NodeId);
 
 	switch (NODECLASS(NodeId)) {
 	case (u32)XPM_NODECLASS_DEVICE:
-		if (NodeType == (u32)XPM_NODETYPE_DEV_GGS ||
-		    NodeType == (u32)XPM_NODETYPE_DEV_PGGS) {
-			Status = XPm_AddGgsPggsRequirement(Subsystem, Payload, PayloadLen);
-			break;
-		}
 		Status = XPm_AddDevRequirement(Subsystem, Payload, PayloadLen);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
