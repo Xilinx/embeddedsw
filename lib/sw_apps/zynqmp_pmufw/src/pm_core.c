@@ -1710,13 +1710,12 @@ done:
 
 static void PmGetRpuState(const u32 node, u32 *State)
 {
-	PmProc *proc = &pmProcRpu1_g;
-	u32 rpucfg, reset, mode, clock, rstmask;
+	const PmProc *proc = &pmProcRpu1_g;
+	u32 rpucfg = 0U, rstmask = 0U, reset, clk;
 	reset = XPfw_Read32(CRL_APB_RST_LPD_TOP);
-	mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
-	clock = XPfw_Read32(CRL_APB_CPU_R5_CTRL);
+	clk = XPfw_Read32(CRL_APB_CPU_R5_CTRL);
 
-	if(node == NODE_RPU_0 || node == NODE_RPU) {
+	if((node == NODE_RPU_0) || (node == NODE_RPU)) {
 		rpucfg = XPfw_Read32(RPU_RPU_0_CFG);
 		proc = &pmProcRpu0_g;
 		rstmask = CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK;
@@ -1725,12 +1724,14 @@ static void PmGetRpuState(const u32 node, u32 *State)
 		rpucfg = XPfw_Read32(RPU_RPU_1_CFG);
 		proc = &pmProcRpu1_g;
 		rstmask = CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK;
+	} else {
+		/* Misra compliance*/
 	}
 
 	/* If reset is asserted or (deasserted and RPU_0 is halted) */
 	if (((0U == (reset & rstmask)) &&
 		(0U == (rpucfg & RPU_RPU_0_CFG_NCPUHALT_MASK)) &&
-		(0U != (clock & CRL_APB_CPU_R5_CTRL_CLKACT_CORE_MASK))) ) {
+		(0U != (clk & CRL_APB_CPU_R5_CTRL_CLKACT_CORE_MASK))) ) {
 		*State = PM_PROC_STATE_HALT;
 	}
 	else {
