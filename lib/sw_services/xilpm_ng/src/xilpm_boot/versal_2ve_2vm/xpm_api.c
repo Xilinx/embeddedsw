@@ -776,16 +776,7 @@ static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (((u32)XPM_NODETYPE_DEV_GGS == Type) ||
-	    ((u32)XPM_NODETYPE_DEV_PGGS == Type)) {
-		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
-		if (NULL == Device) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		Status = XPmVirtDev_DeviceInit(Device, DeviceId, Power);
-	} else if ((u32)XPM_NODETYPE_DEV_HB_MON == Type) {
+	if ((u32)XPM_NODETYPE_DEV_HB_MON == Type) {
 		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;

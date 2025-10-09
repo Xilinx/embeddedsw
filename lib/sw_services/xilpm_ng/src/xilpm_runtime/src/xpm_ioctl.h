@@ -15,9 +15,6 @@
 extern "C" {
 #endif
 #define IS_DEV_USB(DeviceId)			((PM_DEV_USB_0 == (DeviceId)) || (PM_DEV_USB_1 == (DeviceId)))
-#define GGS_REGS	(4U)
-
-#define PMC_PGGS_REGS	(2U)
 
 /* Tap delay bypass */
 #define TAPDLY_BYPASS_OFFSET			(0x0000003CU)
@@ -39,23 +36,9 @@ extern "C" {
 #define XPM_SD_OTAPDLYENA_MASK			(0x40U)
 #define XPM_SD_OTAPDLYSEL_MASK			(0x3FU)
 
-/* Permissions related macros */
-#define IOCTL_PERM_READ_SHIFT_NS		(0U)
-#define IOCTL_PERM_WRITE_SHIFT_NS		(1U)
-#define IOCTL_PERM_READ_IDX			(IOCTL_PERM_READ_SHIFT_NS)
-#define IOCTL_PERM_WRITE_IDX			(IOCTL_PERM_WRITE_SHIFT_NS)
-
-#define IOCTL_PERM_READ_SHIFT_S			(IOCTL_PERM_READ_SHIFT_NS + MAX_NUM_SUBSYSTEMS)
-#define IOCTL_PERM_WRITE_SHIFT_S		(IOCTL_PERM_WRITE_SHIFT_NS + MAX_NUM_SUBSYSTEMS)
-
-#define GGS_MAX					(XPM_NODEIDX_DEV_GGS_3)
-
-
 XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, const u32 Arg3,
 	      u32 *const Response, const u32 CmdType);
-XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
-				  u32 Operations);
 #ifdef __cplusplus
 }
 #endif

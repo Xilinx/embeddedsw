@@ -1096,24 +1096,6 @@ extern "C" {
 /**
  * Versal Virtual Device Nodes
  */
-#define PM_DEV_GGS_0				(0x18248000U)
-#define PM_DEV_GGS_1				(0x18248001U)
-#define PM_DEV_GGS_2				(0x18248002U)
-#define PM_DEV_GGS_3				(0x18248003U)
-#define PM_DEV_PGGS_0				(0x1824C004U)
-#define PM_DEV_PGGS_1				(0x1824C005U)
-#define PM_DEV_PGGS_RESERVED_0			(0x1824C006U)
-#define PM_DEV_PGGS_RESERVED_1			(0x1824C007U)
-/** @} */
-
-/**
- * @name Versal Virtual Device Nodes
- * @addtogroup xilpmdvcnodes
- * @{
- */
-/**
- * Versal Virtual Device Nodes
- */
 #define PM_DEV_HB_MON_0				(0x18250000U)
 #define PM_DEV_HB_MON_1				(0x18250001U)
 #define PM_DEV_HB_MON_2				(0x18250002U)
