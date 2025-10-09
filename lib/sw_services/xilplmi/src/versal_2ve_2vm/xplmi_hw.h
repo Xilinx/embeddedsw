@@ -60,6 +60,8 @@
 *       sk   03/12/2025 Added define for UFS config
 *       sk   03/17/2025 Added TCM address range defines for all RPU clusters
 *       pre  04/07/2025 Hash verification skip for non-secure boot in export control enabled devices
+*       pre  10/09/2025 Removed FIXME comment since SSIT PLM to PLM communication space is unused
+*                       in Versal_2VE_2VM and can be used for other purposes
 *
 * </pre>
 *
@@ -792,7 +794,6 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x300U)	/* 768B */
 
 /* PMC RAM secure lockdown reserved memory macros */
-/* FIXME: using SSIT PLM to PLM communication space. Remove this asap */
 #define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x15000U)
 #define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0x2000U)
 
