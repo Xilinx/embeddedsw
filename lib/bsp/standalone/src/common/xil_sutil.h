@@ -29,6 +29,8 @@
 * 9.2   kpt      04/21/19 First release.
 * 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
 * 9.4   ml       07/24/25 Fixed GCC warnings
+*       har      10/10/25 Updated datatype of Len in Xil_ConvertStringToHex
+*
 * </pre>
 *
 *****************************************************************************/
@@ -186,7 +188,7 @@ extern "C" {
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
 
 /**< Convert input hex string to array of 32-bits integers */
-u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len);
+u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u32 Len);
 
 #ifdef VERSAL_PLM
 /**< Register PLM handler */
