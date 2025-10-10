@@ -202,8 +202,8 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	}
 
 	if ((RsaKeyParam.IsPrimeAvail == TRUE) || (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE)) {
-		if ((RsaKeyParam.PSize != RsaParams.Size / 2U) ||
-			(RsaKeyParam.QSize != RsaParams.Size / 2U)) {
+		if ((RsaKeyParam.PSize != (RsaParams.Size / 2U)) ||
+			(RsaKeyParam.QSize != (RsaParams.Size / 2U))) {
 			Status = (int)XST_INVALID_PARAM;
 			goto END;
 		}
