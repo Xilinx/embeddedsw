@@ -78,7 +78,7 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 
 	ApiId = Cmd->CmdId & XSECURE_API_ID_MASK;
 
-	if (ApiId == XSECURE_API_SHA2_OPERATION) {
+	if (ApiId == (u32)XSECURE_API_SHA2_OPERATION) {
 		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 		Core = XPLMI_SHA2_CORE;
 	}
