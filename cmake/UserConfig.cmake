@@ -157,6 +157,13 @@ foreach(entry ${USER_UNDEFINED_SYMBOLS})
     list(APPEND USER_COMPILE_OPTIONS " -U${entry}")
 endforeach()
 
+# Process USER_LINK_DIRECTORIES to generate proper -L flags
+if(USER_LINK_DIRECTORIES)
+    # Convert list to string with proper -L flag formatting
+    string(REPLACE ";" "\" -L\"" _formatted_dirs "${USER_LINK_DIRECTORIES}")
+    set(USER_LINK_DIRECTORIES "${_formatted_dirs}")
+endif()
+
 set(USER_LINK_OPTIONS
     " ${USER_LINKER_NO_START_FILES}"
     " ${USER_LINKER_NO_DEFAULT_LIBS}"
