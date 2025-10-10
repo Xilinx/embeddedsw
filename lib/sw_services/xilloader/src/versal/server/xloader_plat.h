@@ -43,6 +43,9 @@
 *                       to update DataMeasurement
 * 2.3   tvp  08/19/2025 Add function prototype XLoader_GetPtrnHashTable to get partition hash table
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
+*       tvp  10/01/2025 Add Image authentication state enum to handle data
+*                       measurement for image with authenticated/
+*                       non-authenticated/checksum enabled partitions
 *
 * </pre>
 *
@@ -270,6 +273,15 @@ enum {
 	/* Platform specific Minor Error Codes start from 0x100 */
 };
 
+enum {
+	XLOADER_IMAGE_NOT_AUTHENTICATED,	/** 0x00 - No partition is authenticated
+						 * in image */
+	XLOADER_IMAGE_FULL_AUTHENTICATED,	/** 0x01 - All partitions are authenticated
+						 * in image */
+	XLOADER_IMAGE_PARTIALLY_AUTHENTICATED,	/** 0x02 - Image has both authenticated and
+						 * non-authenticated partitions */
+};
+
 /**************************** Type Definitions *******************************/
 
 /** Structure to store DDRMC registers and there memory offsets */
@@ -472,7 +484,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
-#if defined(PLM_TPM)
+#ifdef PLM_TPM
 XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_MeasureRomAndPlm(void);
