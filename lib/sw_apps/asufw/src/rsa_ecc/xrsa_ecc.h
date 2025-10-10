@@ -53,12 +53,14 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XRSA_ECC_P521_RANDBUFLEN_IN_BYTES	(0x4C) /**< Length of the random number to be
+#define XRSA_ECC_P521_RANDBUFLEN_IN_BYTES	(0x50) /**< Length of the random number to be
 							generated for NIST P-521 in bytes */
 #define XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES	(0xCU) /**< Extra bytes count used for key pair
 							generation */
-#define XRSA_ECC_RAND_NUM_GEN_EXTRA_BYTES	(0x8U) /**< Extra bytes count for random number
-							generation */
+#define XRSA_ECC_P521_RAND_NUM_GEN_EXTRA_BYTES	(0x7U) /**< Extra bytes count for random number
+							generation for P-521 curve */
+#define XRSA_ECC_GENERIC_RAND_NUM_GEN_EXTRA_BYTES	(0x8U) /**< Extra bytes count for random number
+							generation for other curves */
 
 /************************************ Function Prototypes ****************************************/
 s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
