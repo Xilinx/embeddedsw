@@ -1638,6 +1638,7 @@ typedef struct {
 *		void XV_HdmiRx1_DdcScdcClear(XV_HdmiRx1 *InstancePtr)
 *
 ******************************************************************************/
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #define XV_HdmiRx1_DdcScdcClear(InstancePtr) \
 { \
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
@@ -1652,6 +1653,23 @@ typedef struct {
 	XV_HdmiRx1_FrlDdcWriteField(InstancePtr,XV_HDMIRX1_SCDCFIELD_SINK_VER, \
 				    1);\
 }
+#else
+#define XV_HdmiRx1_DdcScdcClear(InstancePtr) \
+{ \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_DDC_CTRL_SET_OFFSET), \
+			    (XV_HDMIRX1_DDC_CTRL_SCDC_CLR_MASK)); \
+	usleep(50);\
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_DDC_CTRL_CLR_OFFSET), \
+			    (XV_HDMIRX1_DDC_CTRL_SCDC_CLR_MASK)); \
+	/* FRL-specific SCDC field writes */ \
+	XV_HdmiRx1_FrlDdcWriteField(InstancePtr, XV_HDMIRX1_SCDCFIELD_FLT_READY,\
+				    0);\
+	XV_HdmiRx1_FrlDdcWriteField(InstancePtr,XV_HDMIRX1_SCDCFIELD_SINK_VER, \
+				    1);\
+}
+#endif
 
 /*****************************************************************************/
 /**
