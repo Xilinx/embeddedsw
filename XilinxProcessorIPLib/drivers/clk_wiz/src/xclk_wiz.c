@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 1.5 sd  5/22/20 Prevent return in void function
 * 1.6 sd  7/07/23 Added SDT support.
 * 1.8 sd  8/14/24 Added GetRate support.
+* 1.10 sd  9/27/25 Added XClk_Wiz_GetInputRate.
 * </pre>
 ******************************************************************************/
 
@@ -811,6 +812,32 @@ void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate)
 	Xil_AssertVoid(Rate != 0);
 	InstancePtr->Config.PrimInClkFreq  = Rate;
 
+}
+
+/****************************************************************************/
+/**
+* Get the Input frequency.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+*
+* @return 	Clock frequency in KHz
+*
+* @note		Should be called only if the input provider clock is changed eg
+* 		input clock is si570.
+*****************************************************************************/
+u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
+{
+	u32 RegLow;
+	u32 RegHigh = 0;
+	u32 Reg;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	if ((strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0" >= 0))) {
+		RegLow = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_L_OFFSET);
+		RegHigh = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_H_OFFSET) << 16 | RegLow;
+	}
+	return RegHigh;
 }
 /*****************************************************************************/
 /**

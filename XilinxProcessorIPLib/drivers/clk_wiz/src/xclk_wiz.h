@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,6 +83,7 @@
 * 1.4 sd  5/22/20 Added zynqmp set rate.
 * 1.6 sd  7/07/23 Added ST support.
 * 1.8 sd  8/19/24 Added XClk_Wiz_SetRateHz.
+* 1.10 sd  9/27/25 Added XClk_Wiz_GetInputRate.
 * </pre>
 *
 ******************************************************************************/
@@ -471,6 +472,8 @@ void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate);
 u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr);
 
 s32 XClk_Wiz_GetRate(XClk_Wiz  *InstancePtr, u32 ClockId, u64 *Rate);
+
+u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr);
 
 s32 XClk_Wiz_SetLeafRateHz(XClk_Wiz  *InstancePtr, u32 ClockId, u64 SetRate);
 
