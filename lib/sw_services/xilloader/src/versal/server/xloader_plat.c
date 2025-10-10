@@ -48,6 +48,9 @@
 *       pre  08/21/2025 Extending image hashes after LPD initialization only
 *       pre  09/23/2025 Added warning message for user indication if PCR info
 *						is added in BIF without enabling TPM feature.
+*       tvp  10/01/2025 Handle data measurement for image with both
+*                       authenticated/non-authenticated/checksum enabled
+*                       partitions
 *
 * </pre>
 *
@@ -125,7 +128,13 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
 
 /************************** Variable Definitions *****************************/
-#if defined(PLM_TPM)
+#ifdef PLM_TPM
+static u8 ImageAuthState = (u8)XLOADER_IMAGE_NOT_AUTHENTICATED;
+#endif
+
+/************************** Function Definitions *****************************/
+
+#ifdef PLM_TPM
 /*****************************************************************************/
 /**
  * @brief	This function provides pointer to PrtitionHashTable
@@ -161,15 +170,27 @@ XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void)
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen)
 {
 	int Status = XST_FAILURE;
-#if defined(PLM_TPM)
+#ifdef PLM_TPM
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
-	u32 ChecksumType;
 	u32 PrtnNum = PdiPtr->PrtnNum;
-	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
-	/** Update data for measurement only if Authentication or ChecksumType is not SHA3 hash */
-	if ((!XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl)) &&
-	    (ChecksumType != XIH_PH_ATTRB_HASH_SHA3)) {
+	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	static u32 ProcessedLen;
+
+	if (ImageAuthState == (u8)XLOADER_IMAGE_FULL_AUTHENTICATED) {
+		/**
+		 * - If authentication or checksum is enabled, SHA engine is
+		 *   used for partition authentication or checksum calculation.
+		 *   So, data should not be updated to SHA engine from this
+		 *   place.
+		 */
+		Status = XST_SUCCESS;
+	} else if (ImageAuthState == (u8)XLOADER_IMAGE_NOT_AUTHENTICATED) {
+		/**
+		 * - Update data for measurement only if Authentication or
+		 *   Checksum is not enabled.
+		 */
 		ImageMeasureInfo.DataAddr = DataAddr;
 		ImageMeasureInfo.DataSize = DataLen;
 		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
@@ -180,12 +201,67 @@ int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLe
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	} else {
 		/**
-		 * - If authentication or checksum is enabled, SHA engine is used for partition
-		 *   authentication or checksum calculation.
-		 *   So, data should not be updated to SHA engine from this place.
+		 * - If an image contains either authenticated or checksum
+		 *   enabled partitions and non-authenticated partitions, hash
+		 *   of non-authenticated partition block 0 needs to be
+		 *   calculated and stored here, so that it can be extended
+		 *   later along with other authenticated or checksum enabled
+		 *   partitions.
 		 */
-		Status = XST_SUCCESS;
+		if ((PdiPtr->MetaHdr->PrtnHdr[PrtnNum].AuthCertificateOfst == 0x0U)
+		    && (XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PrtnNum])
+		        != XIH_PH_ATTRB_HASH_SHA3)) {
+			if (ProcessedLen == 0U) {
+				/*
+				 * For partition block 0, start SHA engine and
+				 * update data.
+				 */
+				Status = XSecure_ShaStart(ShaInstPtr,
+							  XSECURE_SHA3_384);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+				Status = XSecure_ShaUpdate(ShaInstPtr, DataAddr,
+							   DataLen);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+			} else if (ProcessedLen <
+			   PdiPtr->MetaHdr->PrtnHdr[PrtnNum].TotalDataWordLen) {
+				/*
+				 * For partition block 1 to n-1, update data to
+				 * SHA engine.
+				 */
+				Status = XSecure_ShaUpdate(ShaInstPtr, DataAddr,
+							   DataLen);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+			} else {
+				/* For MISRA-C compliance */
+			}
+			ProcessedLen += DataLen;
+			if (ProcessedLen >=
+			    PdiPtr->MetaHdr->PrtnHdr[PrtnNum].TotalDataWordLen) {
+				/*
+				 * For last partition block, finish SHA
+				 * calculation and store the hash in
+				 * PtrnHashTable.
+				 */
+				Status = XSecure_ShaFinish(ShaInstPtr,
+					 (u64)(UINTPTR)PtrnHashTablePtr[PdiPtr->ImagePrtnId].Hash,
+					 XLOADER_SHA3_LEN);
+				ProcessedLen = 0U;
+			}
+		} else {
+			/**
+			 * - For authenticated or checksum enabled partition,
+			 *   nothing needs to be done.
+			 */
+			Status = XST_SUCCESS;
+		}
 	}
+END:
 #else
 	(void)PdiPtr;
 	(void)DataAddr;
@@ -386,18 +462,60 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
 #ifdef PLM_TPM
+	volatile int TmpStatus = XST_FAILURE;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	u32 Index;
+	u32 AuthPrtnCount = 0;
 	XSecure_Sha3Hash *PtrnHashTablePtr;
-	u32 ChecksumType;
-	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum]);
+	u32 PrtnNum = PdiPtr->PrtnNum;
+
 	PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
 			       XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
 
-	if (XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl) ||
-	    (ChecksumType == XIH_PH_ATTRB_HASH_SHA3)) {
+	/** - Check if all partitions of an image are authenticated or not. */
+	for(Index = 0U; Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
+	    Index++)
+	{
+		if ((PdiPtr->MetaHdr->PrtnHdr[PrtnNum].AuthCertificateOfst != 0x0U) ||
+		    (XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PrtnNum]) ==
+		     XIH_PH_ATTRB_HASH_SHA3)) {
+			AuthPrtnCount++;
+		}
+		PrtnNum++;
+	}
+
+	if (AuthPrtnCount == PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns) {
+		/**
+		 * - If image contains all authenticated partitions, change
+		 *   ImageAuthState to fully authenticated.
+		 */
+		ImageAuthState = (u8)XLOADER_IMAGE_FULL_AUTHENTICATED;
+	} else if (AuthPrtnCount == 0U) {
+		/**
+		 * - If image contains all non-authenticated partitions, change
+		 *   ImageAuthState to not authenticated.
+		 */
+		ImageAuthState = (u8)XLOADER_IMAGE_NOT_AUTHENTICATED;
+	} else {
+		/**
+		 * - If image contains authenticated/non-authenticated/checksum
+		 *   enabled partitions, change ImageAuthState to partially
+		 *   authenticated.
+		 */
+		ImageAuthState = (u8)XLOADER_IMAGE_PARTIALLY_AUTHENTICATED;
+	}
+
+	/**
+	 * - For fully and partially authenticated images, hash of partition
+	 *   block 0 is calculated during partition load and stored in
+	 *   PtrnHashTable. Once all partitions are loaded cumulative hash of
+	 *   block 0 hashes will be calculated for a subsystem image data
+	 *   measurement.
+	 */
+	if ((ImageAuthState == (u8)XLOADER_IMAGE_FULL_AUTHENTICATED) ||
+	    (ImageAuthState == (u8)XLOADER_IMAGE_PARTIALLY_AUTHENTICATED)) {
 		Status = XLoader_LoadImagePrtns(PdiPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -410,7 +528,9 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		for(Index = 0U; Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns; Index++)
+		for(Index = 0U;
+		    Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
+		    Index++)
 		{
 			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
 			ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
@@ -427,6 +547,11 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		}
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+		/* Zeroise the stored hashes from hash table */
+		TmpStatus = Xil_SMemSet((void *)(UINTPTR)PtrnHashTablePtr[0].Hash,
+			XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES, 0U,
+			XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES);
+		Status = XPlmi_UpdateStatus(Status, TmpStatus);
 	} else {
 		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
