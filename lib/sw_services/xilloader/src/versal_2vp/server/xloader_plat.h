@@ -18,6 +18,8 @@
 *       pre  08/27/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *       tvp  07/07/25 Removed empty XLoader_PlatInit from header moved to source file
 *       tvp  07/10/25 Define XLoader_SecureConfigMeasurement if PLM_OCP is enabled
+*       tvp  10/01/25 Add Image authentication state enum to handle data measurement for image
+*                     with authenticated/non-authenticated/checksum enabled partitions
 *
 * </pre>
 *
@@ -243,6 +245,14 @@ enum {
 	/* Platform specific Minor Error Codes start from 0x100 */
 };
 
+enum {
+	XLOADER_IMAGE_NOT_AUTHENTICATED,	/** 0x00 - No partition is authenticated in image */
+	XLOADER_IMAGE_FULL_AUTHENTICATED,	/** 0x01 - All partitions are authenticated in
+						  * image */
+	XLOADER_IMAGE_PARTIALLY_AUTHENTICATED,	/** 0x02 - Image has both authenticated and
+						  * non-authenticated partitions */
+};
+
 /************************************** Type Definitions ******************************************/
 
 /** Structure to store DDRMC registers and there memory offsets */
@@ -442,7 +452,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_PlatInit(void);
 
-#if defined(PLM_OCP)
+#ifdef PLM_OCP
 XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
