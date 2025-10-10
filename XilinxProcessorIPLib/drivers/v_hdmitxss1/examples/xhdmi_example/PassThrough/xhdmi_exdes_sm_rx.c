@@ -2263,6 +2263,9 @@ static void XV_Rx_HdmiRx_EnterStateStreamOn(XV_Rx *InstancePtr)
         XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
                                        XHDMIPHY1_DIR_RX, (TRUE));
     }
+#else
+        XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
+                                       XHDMIPHY1_DIR_RX, (TRUE));
 #endif
 
 	if (InstancePtr->RxStreamOn != NULL) {
