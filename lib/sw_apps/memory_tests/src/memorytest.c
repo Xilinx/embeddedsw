@@ -25,6 +25,11 @@
  * application disables D-Caches before running memory tests.
  */
 
+#ifndef versal
+#define XIL_INDIVIDUAL_REGION_TEST
+#endif
+
+#if defined(XIL_INDIVIDUAL_REGION_TEST) || defined(XIL_ENABLE_MEMORY_STRESS_TEST)
 void putnum(unsigned int num);
 
 s32 test_memory_range(struct memory_range_s *range)
@@ -81,25 +86,25 @@ s32 test_memory_range(struct memory_range_s *range)
 	num_words = range->size / 4096;
 
 	/*
-	* This for loop covers whole memory range for given memory
-	* in 4 KB chunks
-	*/
+	 * This for loop covers whole memory range for given memory
+	 * in 4 KB chunks
+	 */
 	for (base = range->base, cnt = 0; cnt < num_words; cnt++, base += 0x1000) {
 #if (defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)) || \
 		(defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32))
 		status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), 1024, 0xAAAA5555,
-				       XIL_TESTMEM_ALLMEMTESTS);
+				XIL_TESTMEM_ALLMEMTESTS);
 		if (status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 		status = Xil_TestMem16((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), 2048, 0xAA55,
-				       XIL_TESTMEM_ALLMEMTESTS);
+				XIL_TESTMEM_ALLMEMTESTS);
 		if (status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 		status = Xil_TestMem8((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), 4096, 0xA5,
-				      XIL_TESTMEM_ALLMEMTESTS);
+				XIL_TESTMEM_ALLMEMTESTS);
 		if (status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -131,38 +136,38 @@ s32 test_memory_range(struct memory_range_s *range)
 	base = range->base;
 #if (defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)) || \
 	 (defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32))
-                status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), num_words, 0xAAAA5555,
-                                       XIL_TESTMEM_ALLMEMTESTS);
-                if (status != XST_SUCCESS) {
-                        return XST_FAILURE;
-                }
+	status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), num_words, 0xAAAA5555,
+			XIL_TESTMEM_ALLMEMTESTS);
+	if (status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
-                status = Xil_TestMem16((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), (num_words * 2), 0xAA55,
-                                       XIL_TESTMEM_ALLMEMTESTS);
-                if (status != XST_SUCCESS) {
-                        return XST_FAILURE;
-                }
-                status = Xil_TestMem8((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), (num_words * 4), 0xA5,
-                                      XIL_TESTMEM_ALLMEMTESTS);
-                if (status != XST_SUCCESS) {
-                        return XST_FAILURE;
-                }
+	status = Xil_TestMem16((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), (num_words * 2), 0xAA55,
+			XIL_TESTMEM_ALLMEMTESTS);
+	if (status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	status = Xil_TestMem8((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), (num_words * 4), 0xA5,
+			XIL_TESTMEM_ALLMEMTESTS);
+	if (status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 #endif
 #else
 
-                status = Xil_TestMem32((u32 *)base, num_words, 0xAAAA5555, XIL_TESTMEM_ALLMEMTESTS);
-                if (status != XST_SUCCESS) {
-                        return XST_FAILURE;
-                }
+	status = Xil_TestMem32((u32 *)base, num_words, 0xAAAA5555, XIL_TESTMEM_ALLMEMTESTS);
+	if (status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
-                status = Xil_TestMem16((u16 *)base, (unsigned long)(num_words * 2), 0xAA55, XIL_TESTMEM_ALLMEMTESTS);
-                if (status != XST_SUCCESS) {
-                        return XST_FAILURE;
-                }
-                status = Xil_TestMem8((u8 *)base, (unsigned long)(num_words * 4), 0xA5, XIL_TESTMEM_ALLMEMTESTS);
-                if (status != XST_SUCCESS) {
-                        return XST_FAILURE;
-                }
+	status = Xil_TestMem16((u16 *)base, (unsigned long)(num_words * 2), 0xAA55, XIL_TESTMEM_ALLMEMTESTS);
+	if (status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	status = Xil_TestMem8((u8 *)base, (unsigned long)(num_words * 4), 0xA5, XIL_TESTMEM_ALLMEMTESTS);
+	if (status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 #endif
 #endif
 
@@ -170,10 +175,80 @@ s32 test_memory_range(struct memory_range_s *range)
 
 	return status;
 }
+#else
+s32 Xil_TestMem_StressAllRegions()
+{
+	int i;
+	u64 j;
+	u64 Val;
+	u64 Words;
+	u64 WordMem;
+	UINTPTR *Addr;
+	s32 Status = XST_SUCCESS;
+
+	/*
+	 * variable initialization
+	 */
+	Val = XIL_TESTMEM_INIT_VALUE;
+
+	/*
+	 * Fill all memory regions with
+	 * incrementing values starting
+	 * from 'Val'
+	 */
+	for (i = 0; i < n_memory_ranges; i++) {
+		xil_printf("Filling memory region: %s\n\r",memory_ranges[i].name);
+		xil_printf("         Base Address: 0x%lx \n\r", memory_ranges[i].base);
+		xil_printf("                 Size: 0x%llx bytes \n\r", memory_ranges[i].size);
+
+		Addr = (UINTPTR *) memory_ranges[i].base;
+		Words = memory_ranges[i].size / sizeof(UINTPTR);
+
+		for (j = 0; j < Words; j++) {
+			Addr[j] = Val;
+			Val++;
+		}
+	}
+
+	/*
+	 * Restore the reference 'Val' to the
+	 * initial value
+	 */
+
+	Val = XIL_TESTMEM_INIT_VALUE;
+
+	/*
+	 * Check every word within the words
+	 * of tested memory and compare it
+	 * with the incrementing reference
+	 * Val
+	 */
+
+	for (i = 0; i < n_memory_ranges; i++) {
+		xil_printf("\n\rVerifying memory region: %s",memory_ranges[i].name);
+
+		Addr = (UINTPTR *)memory_ranges[i].base;
+		Words = memory_ranges[i].size / sizeof(UINTPTR);
+
+		for (j = 0; j < Words; j++) {
+			WordMem = Addr[j];
+
+			if (WordMem != Val) {
+				xil_printf("\nFAILURE at Address: 0x%p, ExpectedVal: 0x%llx ActualVal: 0x%llx\n\r",
+						(void *)&Addr[j], Val, WordMem);
+				Status = XST_FAILURE;
+				goto END;
+			}
+			Val++;
+		}
+	}
+END:
+	return Status;
+}
+#endif
 
 int main()
 {
-	sint32 i;
 	s32 Status = XST_SUCCESS;
 	init_platform();
 
@@ -181,23 +256,34 @@ int main()
 	print("NOTE: This application runs with D-Cache disabled.");
 	print("As a result, cacheline requests will not be generated\n\r");
 
-    print("Warning: If the DDR address apertures in the design are noncontiguous ");
-    print("with holes in between, the memory test will hang. \n\r");
+	print("Warning: If the DDR address apertures in the design are noncontiguous ");
+	print("with holes in between, the memory test will hang. \n\r");
 
-	for (i = 0; i < n_memory_ranges; i++) {
+#if defined(XIL_INDIVIDUAL_REGION_TEST) || defined(XIL_ENABLE_MEMORY_STRESS_TEST)
+	print("\n-- Running Memory Test for Individual Regions --\n\r");
+
+	for (int i = 0; i < n_memory_ranges; i++) {
 		Status = test_memory_range(&memory_ranges[i]);
 		if (Status == XST_FAILURE) {
 			break;
 		}
 	}
-	print("--Memory Test Application Complete--\n\r");
 
 	if ( Status == XST_SUCCESS) {
 		print("Successfully ran Memory Test Application");
 	} else {
 		print("Memory Test Application is failed");
 	}
+#else
+	print("\n-- Running Memory Test for Cross-Region --\n\r");
+	Status = Xil_TestMem_StressAllRegions();
 
+	if (Status == XST_SUCCESS) {
+		print("\n\rSuccessfully ran Cross-Region Memory Test Application");
+	} else {
+		print("\n\rCross-Region Memory Test Application failed");
+	}
+#endif
 	cleanup_platform();
 	return 0;
 }
