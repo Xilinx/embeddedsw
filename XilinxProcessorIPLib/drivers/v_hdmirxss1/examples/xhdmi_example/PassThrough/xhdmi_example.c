@@ -3921,12 +3921,13 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 ******************************************************************************/
 void XV_ReportDynamicHDR(void)
 {
+	u8 pktype = 0;
     xil_printf("\r\n");
     xil_printf("Dynamic HDR \r\n");
     xil_printf("------------\r\n");
-
+    pktype = (RX_DynHDR_Info.pkt_type<7)?RX_DynHDR_Info.pkt_type:0;
 	xil_printf("Packet type: 0x%x (%s) \r\n",RX_DynHDR_Info.pkt_type,
-			Dynamic_hdr_type[RX_DynHDR_Info.pkt_type]);
+			Dynamic_hdr_type[pktype]);
 	xil_printf("Packet Length: 0x%x \r\n",RX_DynHDR_Info.pkt_length);
 	xil_printf("Graphics Overlay Flag: 0x%x \r\n",RX_DynHDR_Info.gof);
 	xil_printf("Packet Error: 0x%x \r\n",RX_DynHDR_Info.err);
