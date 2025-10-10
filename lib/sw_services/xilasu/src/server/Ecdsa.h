@@ -178,7 +178,6 @@ externC s32 Ecdsa_GeneratePublicKey(const EcdsaCrvInfo *CrvInfo, const u8 *D, co
 externC void sdk_assert(int cond);
 
 externC s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo *CrvInfo, const u8 *In, u8 *Out);
-externC s32 Ecdsa_ModWithEccOrder(const EcdsaCrvInfo* CrvInfo, const u8* In, u32 InSize, u8* Out);
 externC int Ecdsa_CDH_Q(EcdsaCrvInfo *CrvInfo, const unsigned char *Secret, const EcdsaKey *Public,
 			unsigned char *Result);
 void Ecdsa_ClearEccRam(void);

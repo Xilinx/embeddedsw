@@ -415,13 +415,15 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES];
 	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	u8 Hash[XASU_ECC_P521_SIZE_IN_BYTES];
-	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
 	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	EcdsaSign Sign;
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 	u64 HashBufAddr = 0U;
 	u32 HashLen = 0U;
+	u8* EKeyPtr = NULL;
+	u8 EphemeralKeyLen = 0U;
 
 	/** Validate the input arguments. */
 	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U)) {
@@ -493,7 +495,21 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		 * else copy the key to the local buffer and change the endianness of it.
 		 */
 		if (EphemeralKeyPtr == NULL) {
-			Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, CurveLen);
+			/* For curve P-521, the required random number size for the ephemeral key
+			is 521 bits (equivalent to 65 bytes plus 1 bit). Since the provided curve
+			length is 66 bytes (528 bits), the most significant 7 bits must be cleared
+			to ensure the value is less than the curve order. To achieve this, a 65-byte
+			random number is generated and placed starting from the first index, ensuring
+			that the most significant byte is zero.
+			*/
+			if (Crv->CrvType == ECDSA_NIST_P521) {
+				EKeyPtr = (EphemeralKey + XASUFW_BUFFER_INDEX_ONE);
+				EphemeralKeyLen = (u8)(CurveLen - XASUFW_VALUE_ONE);
+			} else {
+				EKeyPtr = EphemeralKey ;
+				EphemeralKeyLen = (u8)CurveLen;
+			}
+			Status = XAsufw_TrngGetRandomNumbers(EKeyPtr, EphemeralKeyLen);
 		} else {
 			Status =  Xil_SMemCpy((u8 *)EphemeralKey, CurveLen,
 					(const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
@@ -868,8 +884,9 @@ END:
  *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	-	XASUFW_RSA_ECC_TRNG_FAILED, if random number generation fails.
- *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if changing edianness is failed.
+ *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if changing endianness fails.
  *	-	XASUFW_RSA_ECC_MOD_ORDER_FAILED, if ModEccOrder fails.
+ *	-	XASUFW_MEM_COPY_FAIL, if copying random number to PvtKey pointer fails.
  *
  *************************************************************************************************/
 s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRandBuf,
@@ -881,6 +898,7 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 	EcdsaCrvInfo *CrvInfo = NULL;
 	u32 CurveSize = 0U;
 	u8 RandBufLen = 0U;
+	u8 RandGenLen = 0U;
 
 	/** Validate input parameters. */
 	if (PvtKey == NULL) {
@@ -895,7 +913,12 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 		goto END;
 	}
 
-	RandBufLen = (u8)((CurveLen & ~(XASUFW_VALUE_THREE)) + XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES);
+	/*
+	 * Random buffer length is calculated based on the curve length:
+	 * (CurveLen + 14 bytes) for P-521 and (CurveLen + 12 bytes) for all other curves.
+	 */
+	RandBufLen = (u8)(((CurveLen + XASUFW_VALUE_THREE) & ~(XASUFW_VALUE_THREE)) +
+			XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES);
 
 	/** Validate input random buffer length. */
 	if ((InputRandBuf != NULL) && (InputRandBufLen < RandBufLen)) {
@@ -905,9 +928,22 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 
 	/** Generate random number for calculating private key. */
 	if (InputRandBuf == NULL) {
-		Status = XAsufw_TrngGetRandomNumbers(RandBuf,
-						     (CurveLen +
-						      XRSA_ECC_RAND_NUM_GEN_EXTRA_BYTES));
+		/**
+		 * Length should be CurveLen for Edward curves.
+		 * Length should be (CurveLen + 64-bit), so,
+		 *  - (CurveLen + 7U) bytes for curve NIST P-521.
+		 *  - (CurveLen + 8U) bytes for all other curves.
+		 */
+		if (CrvInfo->CrvType == ECDSA_NIST_P521) {
+			RandGenLen = (u8)(CurveLen + XRSA_ECC_P521_RAND_NUM_GEN_EXTRA_BYTES);
+		} else if ((CrvInfo->CrvType == ECDSA_ED25519) || (CrvInfo->CrvType == ECDSA_ED448)) {
+			RandGenLen = (u8)CurveLen;
+		}
+		else {
+			RandGenLen = (u8)(CurveLen + XRSA_ECC_GENERIC_RAND_NUM_GEN_EXTRA_BYTES);
+		}
+
+		Status = XAsufw_TrngGetRandomNumbers(RandBuf, RandGenLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
 			goto END;
@@ -915,32 +951,45 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 		RandBufPtr = RandBuf;
 	}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(RandBufPtr, RandBufLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END;
-	}
+	/** For curves other than Edward curves, calculate the private key using third party code. */
+	if ((CrvInfo->CrvType != ECDSA_ED25519) && (CrvInfo->CrvType != ECDSA_ED448)) {
+		/** - Release Reset. */
+		XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
-	/** Release Reset. */
-	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
+		/**
+		 * - Calculate the private key with the random number generated by TRNG using
+		 * Ecdsa_ModEccOrder API.
+		 */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Ecdsa_ModEccOrder(CrvInfo, RandBufPtr, PvtKey);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_MOD_ORDER_FAILED;
+			goto END;
+		}
 
-	/**
-	 * Calculate the private key with the random number generated by TRNG using
-	 * Ecdsa_ModWithEccOrder API.
-	 */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Ecdsa_ModWithEccOrder(CrvInfo, RandBufPtr, RandBufLen,
-				PvtKey);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ECC_MOD_ORDER_FAILED;
+		/**
+		 * - Since the third party API gives the key in little endian form, change
+		 * the endianness of the key.
+		 */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PvtKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+		}
+	} else {
+		/** For edward curves, copy the generated random number to private key pointer. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SecureMemCpy(PvtKey, CurveLen, RandBufPtr, CurveLen);
+		if (Status != XASUFW_FAILURE) {
+			Status = XASUFW_MEM_COPY_FAIL;
+		}
 	}
 
 END:
 	if (InputRandBuf == NULL) {
 		/** Zeroize the local buffer. */
 		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(RandBufPtr,
-						XASU_ECC_P521_SIZE_IN_BYTES));
+						XRSA_ECC_P521_RANDBUFLEN_IN_BYTES));
 	}
 
 	/** Set RSA under reset. */
