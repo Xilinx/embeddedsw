@@ -62,8 +62,10 @@ collector_list (_sources PROJECT_LIB_SOURCES)
 list (APPEND _sources ${USER_COMPILE_SOURCES})
 set(CMAKE_INFILE_PATH "${CMAKE_SOURCE_DIR}/linker_files/")
 linker_gen(${CMAKE_INFILE_PATH})
-string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
-string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})
+# Forcing -O2 optimization for application build to improve performance,
+# as -O0 is taking longer time
+string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS} " -O2")
+string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS} " -O2")
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
 add_dependency_on_bsp(_sources)
