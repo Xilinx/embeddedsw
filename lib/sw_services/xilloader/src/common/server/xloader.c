@@ -242,6 +242,7 @@
 #ifdef PLM_TPM
 #include "xtpm.h"
 #endif
+#include "xloader_auth_jtag.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -365,7 +366,7 @@ int XLoader_Init(void)
 	}
 #endif /* PLM_CFG_LIMITER_EN */
 
-#ifndef PLM_AUTH_JTAG_EXCLUDE
+#ifdef PLM_AUTH_JTAG
 	/** - Add task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {

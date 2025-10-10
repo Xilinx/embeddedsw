@@ -31,6 +31,7 @@
 #cmakedefine    PLM_OCP_EXCLUDE
 #cmakedefine    PLM_ECDSA_EXCLUDE
 #cmakedefine    PLM_RSA_EXCLUDE
+#cmakedefine    PLM_AUTH_JTAG_EXCLUDE
 #cmakedefine    PLM_EN_ADD_PPKS
 #cmakedefine    PLM_ENABLE_CFI_SELECTIVE_READ
 #cmakedefine    PLM_ENABLE_SHA_AES_EVENTS_QUEUING

@@ -173,6 +173,11 @@ if (NOT XILPLMI_plm_rsa_en)
   set(PLM_RSA_EXCLUDE " ")
 endif()
 
+option(XILPLMI_plm_auth_jtag_en "Enables or Disables Authenticated JTAG feature" ON)
+if (NOT XILPLMI_plm_auth_jtag_en)
+  set(PLM_AUTH_JTAG_EXCLUDE " ")
+endif()
+
 option(XILPLMI_timestamp_en "Enables or Disables Timestamp prints" ON)
 if (NOT XILPLMI_timestamp_en)
   set(PLM_BANNER_TIMESTAMP_EXCLUDE " ")

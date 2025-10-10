@@ -106,6 +106,8 @@
 #include "xsecure_plat.h"
 #include "xpm_rpucore.h"
 #include "xpm_apucore.h"
+#include "xloader_auth_jtag.h"
+
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
 #define XLOADER_IMAGE_INFO_LCVERSION	(1U) /**< Image lowest compatible version information */
@@ -1141,7 +1143,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 	volatile int Status = XST_FAILURE;
 	static u8 LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
 #ifndef PLM_SECURE_EXCLUDE
-#ifndef PLM_AUTH_JTAG_EXCLUDE
+#ifdef PLM_AUTH_JTAG
 	static u8 AuthJtagTaskRemoved = (u8)FALSE;
 #endif
 	static u8 DeviceStateTaskRemoved = (u8)FALSE;
@@ -1153,7 +1155,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 
 			/** - Remove Scheduler tasks if they already exist. */
 #ifndef PLM_SECURE_EXCLUDE
-#ifndef PLM_AUTH_JTAG_EXCLUDE
+#ifdef PLM_AUTH_JTAG
 			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
 				XLoader_CheckAuthJtagIntStatus,
 				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, NULL);
@@ -1194,7 +1196,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 
 			/** - Add Scheduler tasks if they are removed during shutdown init */
 #ifndef PLM_SECURE_EXCLUDE
-#ifndef PLM_AUTH_JTAG_EXCLUDE
+#ifdef PLM_AUTH_JTAG
 			if (AuthJtagTaskRemoved == (u8)TRUE) {
 				Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
 					XLoader_CheckAuthJtagIntStatus, NULL,

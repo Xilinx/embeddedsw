@@ -155,6 +155,10 @@ extern "C" {
 #define PLM_OCP_KEY_MNGMT
 #endif
 
+#if (!defined(PLM_SECURE_EXCLUDE)) && (!defined(PLM_AUTH_JTAG_EXCLUDE))
+#define PLM_AUTH_JTAG
+#endif
+
 /**
  * Enable the feature to get optional data
  */
