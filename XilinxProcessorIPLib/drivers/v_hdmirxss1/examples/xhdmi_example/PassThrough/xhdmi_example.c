@@ -563,12 +563,10 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 			    XV_TX_TRIG_HANDLER_SETUP_TXFRLREFCLK,
 				(void *)XV_Tx_HdmiTrigCb_SetupTxFrlRefClk,
 				(void *)InstancePtr);
-#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_GET_FRL_CLOCK,
 				(void *)XV_Tx_HdmiTrigCb_GetFRLClk,
 				(void *)InstancePtr);
-#endif
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_TRIG_HANDLER_SETUP_AUDVID,
 				(void *)XV_Tx_HdmiTrigCb_SetupAudioVideo,
@@ -593,7 +591,6 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 				XV_TX_TRIG_HANDLER_READYTOSTARTTX,
 				(void *)XV_Tx_HdmiTrigCb_ReadyToStartTransmit,
 				(void *)InstancePtr);
-#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_TRIG_HANDLER_FRL_FFE_CONFIG_DEVICE,
 				(void *)XV_Tx_HdmiTrigCb_FrlFfeConfigDevice,
@@ -602,7 +599,6 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 				XV_TX_TRIG_HANDLER_FRL_CONFIG_DEVICE_SETUP,
 				(void *)XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup,
 				(void *)InstancePtr);
-#endif
 #if defined(USE_HDCP_HDMI_TX)
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_TRIG_HANDLER_HDCP_FORCE_BLANKING,
@@ -4526,7 +4522,6 @@ void XV_Tx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 			__LINE__, xhdmi_exdes_ctrlr.SystemEvent);
 }
 
-#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -4551,6 +4546,7 @@ void XV_Tx_HdmiTrigCb_GetFRLClk(void *InstancePtr)
 	u32 ActivePixFRLRatio;
 	u32 HdmiTxRefClkHz;
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	if ((xhdmi_exdes_ctrlr.ForceIndependent == FALSE) && IsRx && IsTx) {
 		ActivePixFRLRatio =
 			XV_HdmiRx1_GetFrlActivePixRatio(HdmiRxSs.HdmiRx1Ptr) / 1000;
@@ -4574,9 +4570,9 @@ void XV_Tx_HdmiTrigCb_GetFRLClk(void *InstancePtr)
 
 		XV_TxInst->VidPhy->HdmiTxRefClkHz = HdmiTxRefClkHz;
 	}
+	#endif
 #endif
 }
-#endif
 
 /*****************************************************************************/
 /**
