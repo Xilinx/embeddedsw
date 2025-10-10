@@ -170,6 +170,10 @@ extern "C" {
 #define PLM_OCP_ASUFW_KEY_MGMT
 #endif
 
+#if (!defined(PLM_SECURE_EXCLUDE)) && (!defined(PLM_AUTH_JTAG_EXCLUDE))
+#define PLM_AUTH_JTAG
+#endif
+
 /**
  * @name PLM DEBUG MODE options
  *
@@ -209,6 +213,9 @@ extern "C" {
 
 /* Enable the below define to enable PMC I2C Handshake Feature*/
 //#define PLM_I2C_MB_HANDSHAKE
+
+/* Enable below define to enable authentication of JTAG using PPK and SPK */
+#define PLM_AUTH_JTAG_PPK_SPK
 
 /************************** Function Prototypes ******************************/
 

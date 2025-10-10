@@ -550,7 +550,7 @@ typedef struct
 } XLoader_Vars;
 
 #ifndef VERSAL_2VE_2VM
-/**< Authenticated Message structure */
+/**< Authenticated Message structure for Versal and Versal Net */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
 	u32 RevocationIdMsgType;	/**< Revocation ID */
@@ -566,26 +566,31 @@ typedef struct {
 				/**< Auth JTAG signature */
 } XLoader_AuthJtagMessage;
 #else
-/**< Authenticated Message structure */
+/**< Authenticated Message structure for Versal_2VE_2VM */
 typedef struct {
-	u32 IdWord;
-	u32 AuthJtagMessageLen;
-	u32 AuthHdr;
-	u32 TotalPpkSize;
-	u32 ActualPpkSize;
-	u32 TotalAuthJtagSignSize;
-	u32 ActualAuthJtagSignSize;
-	u32 RevocationIdMsgType;
-	u32 Attrb;
-	u32 Dna[XLOADER_EFUSE_DNA_NUM_ROWS];
-	u32 JtagEnableTimeout;
-	u32 Alignment[2];
-	XLoader_RsaKey PpkData;
-	XLoader_SpkHeader SpkHeader;
-	XLoader_RsaKey Spk;
-	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
-	u8 EnableJtagSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
+	u32 IdWord;	/**< Identification word for Authenticated JTAG message */
+	u32 AuthJtagMessageLen;	/**< Size of Authenticated JTAG message in bytes */
+	u32 AuthHdr;	/**< Authentication Header */
+	u32 TotalPpkSize;	/**< Total PPK Size */
+	u32 ActualPpkSize;	/**< Actual PPK Size */
+	u32 TotalAuthJtagSignSize;	/**< Total Auth JTAG Signature Size */
+	u32 ActualAuthJtagSignSize;	/**< Actual Auth JTAG Signature Size */
+	u32 RevocationIdMsgType;	/**< Revocation ID Message Type */
+	u32 Attrb;	/**< Attributes */
+	u32 Dna[XLOADER_EFUSE_DNA_NUM_ROWS];	/**< DNA */
+	u32 JtagEnableTimeout;	/**< JTAG enable timeout */
+	u32 Alignment[2];	/**< Bytes for Alignment */
+	void* AuthJtagData[];	/**< Pointer for Auth JTAG data which is different for each algorithm */
 } XLoader_AuthJtagMessage;
+
+typedef struct {
+	u32* PpkData;	/**< Pointer to PPK */
+	XLoader_SpkHeader* SpkHeader;	/**< Pointer to SPK header */
+	u32* SpkData;	/**< Pointer to SPK */
+	u32* SPKSignature;	/**< Pointer to SPK Signature */
+	u32* EnableJtagSignature;	/**< Pointer to Enable JTAG message signature */
+}XLoader_AuthJtagData;
+
 #endif /**< end of VERSAL_2VE_2VM */
 #endif
 
@@ -700,10 +705,6 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
 void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
-#ifndef PLM_AUTH_JTAG_EXCLUDE
-int XLoader_AddAuthJtagToScheduler(void);
-int XLoader_CheckAuthJtagIntStatus(void *Arg);
-#endif
 int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);
 int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset);
@@ -719,7 +720,15 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
 int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
 XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
+int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 #endif
+int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
+int XLoader_VerifyRevokeId(u32 RevokeId);
+#ifndef PLM_SECURE_EXCLUDE
+int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
+	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
+#endif
+int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 
 #ifdef __cplusplus
 }
