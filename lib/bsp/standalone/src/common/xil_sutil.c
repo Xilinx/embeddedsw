@@ -31,6 +31,8 @@
 *       ng       04/07/25 Prevent overwriting of the status variable in Xil_SReverseData
 * 9.4   ml       09/01/25 Fix MISRA-C violation for Rule 17.7
 * 9.4   vmt      24/09/25 Added extended address support for RISC-V
+*       har      10/10/25 Updated datatype of Len in Xil_ConvertStringToHex
+*
 * </pre>
 *
 *****************************************************************************/
@@ -130,15 +132,16 @@ u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num)
  *
  * @return
  *          XST_SUCCESS - Input string is converted to hex
- *          XST_FAILURE - Invalid character in inpit string
+ *          XST_FAILURE - Invalid character in input string
  *
  * @note    None.
  *
  *****************************************************************************/
-u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
+u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u32 Len)
 {
 	u32 Status = XST_FAILURE;
-	u8 ConvertedLen = 0U, index = 0U;
+	u32 ConvertedLen = 0U;
+	u32 index = 0U;
 	u8 Nibble[MAX_NIBBLES] = {0U};
 	u8 i;
 
