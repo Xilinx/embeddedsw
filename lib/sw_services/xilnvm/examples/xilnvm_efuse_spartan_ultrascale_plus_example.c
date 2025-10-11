@@ -52,6 +52,7 @@
  * 3.6   hj    05/27/2025 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
  *       mb    08/20/2025 Add support to configure the clock settings from application.
  *       mb    08/20/2025 Add support to program the boot mode disable eFUSE bits.
+ *       mb    10/05/2025 Convert IV endianness to little endian format.
  *
  * </pre>
  *
@@ -432,7 +433,6 @@ static int XilNvm_EfuseShowIv(XNvm_EfuseIvType IvType)
 {
 	int Status = XST_FAILURE;
 	u32 ReadIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
-	u32 Iv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
 	s8 Row;
 
 	Status = XNvm_EfuseReadIv(IvType, ReadIv);
@@ -442,10 +442,8 @@ static int XilNvm_EfuseShowIv(XNvm_EfuseIvType IvType)
 
 	xil_printf("\n\rIV%d:", IvType);
 
-	XilNvm_FormatData((u8 *)ReadIv, (u8 *)Iv,
-			  XNVM_EFUSE_AES_IV_SIZE_IN_BYTES);
 	for (Row = (XNVM_EFUSE_AES_IV_SIZE_IN_WORDS - 1U); Row >= 0; Row--) {
-		xil_printf("%08x", Iv[Row]);
+		xil_printf("%08x", ReadIv[Row]);
 	}
 	Status = XST_SUCCESS;
 
@@ -1364,7 +1362,15 @@ static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len)
 		xil_printf("IV string validation failed\r\n");
 		goto END;
 	}
-	Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
+	/**
+	 * Convert IV string to Little endian Hex format
+	 * Example: Input: "378EEDC68DA27486E0FDF8F7"
+	 * After conversion:
+	 * Dst[0]->E0FDF8F7
+	 * Dst[1]->8DA27486
+	 * Dst[2]->378EEDC6
+	 */
+	Status = Xil_ConvertStringToHexLE(IvStr, Dst, Len);
 
 END:
 	return Status;
