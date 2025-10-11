@@ -443,6 +443,9 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	u32 Index;
 
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
+					XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
+
 	/** Load the image partitions */
 	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
@@ -457,9 +460,6 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		Status = XST_SUCCESS;
 		goto END;
 	}
-
-	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
-						XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
 
 	ImageMeasureInfo.PcrInfo = PcrInfo;
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
