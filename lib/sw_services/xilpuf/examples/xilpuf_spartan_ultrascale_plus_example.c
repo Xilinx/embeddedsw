@@ -47,6 +47,7 @@
   *       mb   10/05/25 Set Efuse clock frequency and src before programming key/Iv
   *       mb   10/05/25 Convert IV endianness to little endian format.
   * 2.6   mb   29/09/25 Set lower 32 bits of PUF_IV are zero
+  *       mb   09/11/25 Added support for calculate 384 bit PUF HD hash
   *
   *@note
   *
@@ -85,8 +86,13 @@
 
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES     (32U)
-#define XPUF_PPK_HASH_SIZE_IN_BYTES         (32U)
+#ifndef SPARTANUPLUSAES1
+#define XPUF_PPK_HASH_SIZE_IN_BYTES		(32U)
+#define SHA_MODE				XSECURE_SHA3_256
+#else
+#define XPUF_PPK_HASH_SIZE_IN_BYTES         	(48U)
+#define SHA_MODE				XSECURE_SHA3_384
+#endif
 #define XPUF_PMC_GLOBAL_SYN_DATA_ADDR       (0x040BF368U)
 #define XPUF_SYN_DATA_VALID_BITS            (0xFFFFF000U)
 
@@ -291,7 +297,7 @@ static int XPuf_ValidateUserInput()
 		goto END;
 	}
 
-	Status = XNvm_EfuseReadPpkHash(XNVM_EFUSE_PPK2, (u32 *)(UINTPTR)PpkHash,
+	Status = XNvm_EfuseReadPpkHash(XNVM_EFUSE_PPK_END, (u32 *)(UINTPTR)PpkHash,
 				       XPUF_PPK_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in reading PUF PPK hash");
@@ -406,7 +412,11 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	}
 
 	EfuseData.PpkHash = &PrgmPpkHash;
+#ifndef SPARTANUPLUSAES1
 	PrgmPpkHash.PrgmPpk2Hash = TRUE;
+#else
+	PrgmPpkHash.PrgmPpk1Hash = FALSE;
+#endif
 
 	Status = Xil_SMemCpy(PrgmPpkHash.Ppk2Hash, XPUF_PPK_HASH_SIZE_IN_BYTES, PufPpkHash,
 			     XPUF_PPK_HASH_SIZE_IN_BYTES,
@@ -415,7 +425,8 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 		goto END;
 	}
 
-	PrgmPpkHash.ActaulPpkHashSize = XPUF_PPK_HASH_SIZE_IN_BYTES;
+	PrgmPpkHash.ActualPpkHashSize = XPUF_PPK_HASH_SIZE_IN_BYTES;
+
 	Status = XNvm_EfuseWrite(&EfuseData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n Programming PUF ppk hash failed with Status:%02x", Status);
@@ -487,7 +498,7 @@ static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 Synd
 		goto END;
 	}
 
-	Status =  XSecure_ShaStart(&Sha, XSECURE_SHA3_256);
+	Status =  XSecure_ShaStart(&Sha, SHA_MODE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n SHA start with Status:%02x", Status);
 		goto END;
@@ -505,7 +516,8 @@ static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 Synd
 		goto END;
 	}
 
-	Status = XSecure_ShaFinish(&Sha, (UINTPTR)PufPpkHash, 32U);
+	Status = XSecure_ShaFinish(&Sha, (UINTPTR)PufPpkHash, XPUF_PPK_HASH_SIZE_IN_BYTES);
+
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n SHA finish failed");
 	}
@@ -844,9 +856,9 @@ static int XPuf_ProgramBlackKeynIV()
 	}
 
 	Status = Xil_SMemCpy(AesKey.AesKey,
-			     XNVM_EFUSE_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
-			     XNVM_EFUSE_AES_KEY_LEN_IN_BYTES,
-			     XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			     XNVM_256_BITS_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
+			     XNVM_256_BITS_AES_KEY_LEN_IN_BYTES,
+			     XNVM_256_BITS_AES_KEY_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
