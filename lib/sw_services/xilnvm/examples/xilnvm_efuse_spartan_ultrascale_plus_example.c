@@ -301,7 +301,7 @@ static int XilNvm_EfuseReadFuses(void)
 
 	xil_printf("\n\r");
 
-	for (Index = XNVM_EFUSE_IV_RANGE;
+	for (Index = XNVM_EFUSE_AES_IV_RANGE;
 	     Index <= XNVM_EFUSE_BLACK_IV; Index++) {
 		Status = XilNvm_EfuseShowIv(Index);
 		if (Status != XST_SUCCESS) {
@@ -925,6 +925,7 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseData *EfuseData,
 	int Status = XST_FAILURE;
 
 	Ivs->PrgmIv = XNVM_EFUSE_WRITE_AES_IV;
+	Ivs->IvType = XNVM_EFUSE_AES_IV_RANGE;
 	if (Ivs->PrgmIv == TRUE) {
 		Status = XilNvm_PrepareIvForWrite(XNVM_EFUSE_AES_IV,
 						  (u8 *)Ivs->AesIv,
