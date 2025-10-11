@@ -336,9 +336,9 @@ END:
  * @param	MailboxPtr Pointer to mailbox instance
  *
  * @return
- *		- XST_SUCCESS - if encryption was successful
- *  		- XST_FAILURE - On failure of AES Encrypt Initialization,
- *			AES Encrypt data.
+ * 		- XST_SUCCESS - if encryption was successful
+ * 		- XST_FAILURE - On failure of AES Encrypt Initialization,
+ * 			AES Encrypt data.
  *
  ******************************************************************************/
 static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
@@ -519,9 +519,9 @@ END:
  * @param	OutputData Pointer to buffer where encrypted data will be stored
  *
  * @return
- *		- XST_SUCCESS - if encryption was successful
- *  		- XST_FAILURE - On failure of AES Encrypt Initialization,
- *			AES Encrypt data.
+ * 		- XST_SUCCESS - if encryption was successful
+ * 		- XST_FAILURE - On failure of AES Encrypt Initialization,
+ * 			AES Encrypt data.
  *
  ******************************************************************************/
 static int XPuf_EncryptData(XSecure_ClientInstance *SecureClientInstance, char* Data, u32 DataLen, u8* Iv, u8* OutputData)

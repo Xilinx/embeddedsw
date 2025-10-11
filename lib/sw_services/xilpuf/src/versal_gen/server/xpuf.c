@@ -584,12 +584,12 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  *		to configure PUF.
  *
  * @return
- *			 - XST_SUCCESS  secure control bits are not set
- *			 - XPUF_ERROR_REGISTRATION_INVALID  PUF registration is not allowed
- *			 - XPUF_ERROR_REGENERATION_INVALID  PUF regeneration is not allowed
- *			 - XPUF_ERROR_REGEN_PUF_HD_INVALID  PUF HD in eFUSE id invalidated
- *			 - XPUF_ERROR_INVALID_PUF_OPERATION  In case of invalid PUF operation
- *			 - XST_FAILURE  Unexpected event
+ * 		- XST_SUCCESS  secure control bits are not set
+ * 		- XPUF_ERROR_REGISTRATION_INVALID  PUF registration is not allowed
+ * 		- XPUF_ERROR_REGENERATION_INVALID  PUF regeneration is not allowed
+ * 		- XPUF_ERROR_REGEN_PUF_HD_INVALID  PUF HD in eFUSE id invalidated
+ * 		- XPUF_ERROR_INVALID_PUF_OPERATION  In case of invalid PUF operation
+ * 		- XST_FAILURE  Unexpected event
  *
  *****************************************************************************/
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
@@ -744,14 +744,11 @@ END:
  *		to configure PUF.
  *
  * @return
- *			 - XST_SUCCESS  On Successful Regeneration
- *			 - XPUF_ERROR_INVALID_REGENERATION_TYPE  On Selection of invalid
- *                                                     regeneration type
- *			 - XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT  Timeout occurred while
- *                                                     waiting for PUF done bit
- *			 - XPUF_ERROR_PUF_DONE_KEY_NT_RDY Key ready bit and ID ready
- *                                                     bit is not set
- *			 - XPUF_ERROR_PUF_DONE_ID_NT_RDY  Id ready bit is not set
+ * 		- XST_SUCCESS  On Successful Regeneration
+ * 		- XPUF_ERROR_INVALID_REGENERATION_TYPE  On Selection of invalid regeneration type
+ * 		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT  Timeout occurred while waiting for PUF done bit
+ * 		- XPUF_ERROR_PUF_DONE_KEY_NT_RDY Key ready bit and ID ready bit is not set
+ * 		- XPUF_ERROR_PUF_DONE_ID_NT_RDY  Id ready bit is not set
  *
  *****************************************************************************/
 static int XPuf_StartRegeneration(XPuf_Data *PufData)

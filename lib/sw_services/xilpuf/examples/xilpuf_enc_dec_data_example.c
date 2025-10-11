@@ -231,21 +231,21 @@ END:
  * @param	None.
  *
  * @return
- *		XST_SUCCESS - If PUF_KEY generation was successful.
- * 		XPUF_ERROR_INVALID_PARAM - PufData is NULL.
- *		XPUF_ERROR_INVALID_SYNDROME_MODE  - Incorrect Registration mode.
- *		XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
- *			 waiting for PUF Syndrome data.
- *		XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow
- *			reported by PUF controller or more than required data
- *			 is provided by PUF controller.
- *		XPUF_ERROR_SYNDROME_DATA_UNDERFLOW - Number of syndrome data words
- *			words are less than expected number of words.
- *		XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
- *			regeneration type.
- *		XPUF_ERROR_CHASH_NOT_PROGRAMMED - Helper data not provided.
- *		XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout before Status was done.
- *		XST_FAILURE - PUF KEY generation failed.
+ * 		- XST_SUCCESS - If PUF_KEY generation was successful.
+ * 		- XPUF_ERROR_INVALID_PARAM - PufData is NULL.
+ * 		- XPUF_ERROR_INVALID_SYNDROME_MODE  - Incorrect Registration mode.
+ * 		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
+ * 			waiting for PUF Syndrome data.
+ * 		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow
+ * 			reported by PUF controller or more than required data
+ * 			is provided by PUF controller.
+ * 		- XPUF_ERROR_SYNDROME_DATA_UNDERFLOW - Number of syndrome data words
+ * 			words are less than expected number of words.
+ * 		- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ * 			regeneration type.
+ * 		- XPUF_ERROR_CHASH_NOT_PROGRAMMED - Helper data not provided.
+ * 		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout before Status was done.
+ * 		- XST_FAILURE - PUF KEY generation failed.
  *
  ******************************************************************************/
 static int XPuf_GenerateKey(void)
@@ -333,12 +333,12 @@ END:
  * @param	None.
  *
  * @return
- *		XST_SUCCESS - When the encryption and decryption of data is
- *			successfully verified
- *  		XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *		XST_FAILURE - On failure of AES Encrypt Initialization,
- *			AES Encrypt data, format AES key and AES decrypt
- *			Initialization and AES decrypt data.
+ * 		- XST_SUCCESS - When the encryption and decryption of data is
+ * 			successfully verified
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 		- XST_FAILURE - On failure of AES Encrypt Initialization,
+ * 			AES Encrypt data, format AES key and AES decrypt
+ * 			Initialization and AES decrypt data.
  *
  ******************************************************************************/
 static int XPuf_VerifyDataEncDec(void)
