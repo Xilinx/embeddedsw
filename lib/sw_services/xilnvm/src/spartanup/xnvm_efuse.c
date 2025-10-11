@@ -33,6 +33,7 @@
 *       mb    07/22/25 Add XNvm_EfuseInitClockAndValidateFreq to set eFuse clock frequency and clk src
 *       mb    08/25/25 Add support for boot mode disable eFUSE bits programming
 *       mb    09/09/25 Set the EFUSE clock source register with user provided clock source
+*       mb    10/03/25 Set lower bits 32 bits of black IV to zeros
 *
 * </pre>
 *
@@ -74,7 +75,7 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *EfuseData);
 static int XNvm_EfuseValidateBeforeWriteReq(const XNvm_EfuseData *EfuseData);
 static int XNvm_EfusePrgmAesKey(const XNvm_EfuseAesKeys *AesKey);
 static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash);
-static int XNvm_EfusePrgmIv(const XNvm_EfuseAesIvs *AesIv);
+static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv);
 static int XNvm_EfusePrgmUserFuse(const XNvm_EfuseUserFuse *UserFuse);
 static int XNvm_EfusePrgmSpkRevokeId(const XNvm_EfuseSpkRevokeId *SpkRevokeId);
 static int XNvm_EfusePrgmAesRevokeId(const XNvm_EfuseAesRevokeId *AesRevokeId);
@@ -441,9 +442,19 @@ static int XNvm_EfuseValidateIvsWriteReq(const XNvm_EfuseAesIvs *Ivs)
 	u32 IvRow;
 	u32 IvRowsRd[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
 
+	/** - Read IVs from eFUSE cache to check IV's are already programmed or not */
 	if (Ivs->PrgmIv == (u8)TRUE) {
-		Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_IV_START_OFFSET, XNVM_EFUSE_AES_IV_SIZE_IN_WORDS,
-						  IvRowsRd);
+		if (Ivs->IvType == XNVM_EFUSE_AES_IV_RANGE) {
+			Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_AES_IV_RANGE_START_OFFSET,
+							  XNVM_EFUSE_AES_IV_SIZE_IN_WORDS,
+							  IvRowsRd);
+		}
+		else {
+			Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_BLACK_IV_START_OFFSET,
+							  XNVM_EFUSE_AES_IV_SIZE_IN_WORDS,
+							  IvRowsRd);
+		}
+
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -729,7 +740,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmIv(const XNvm_EfuseAesIvs *AesIv)
+static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo AesIvInfo = {0U};
@@ -739,6 +750,14 @@ static int XNvm_EfusePrgmIv(const XNvm_EfuseAesIvs *AesIv)
 	AesIvInfo.ColStart = XNVM_EFUSE_AES_IV_START_COL;
 	AesIvInfo.ColEnd = XNVM_EFUSE_AES_IV_END_COL;
 	AesIvInfo.SkipVerify = (u32)FALSE;
+
+	/** - If IV type is Black IV, set lower 32 bits to zero */
+	if (AesIv->IvType == XNVM_EFUSE_BLACK_IV) {
+		Status = Xil_SMemSet(AesIv->AesIv, sizeof(AesIv->AesIv), 0U, XNVM_EFUSE_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
 	Status = XNvm_EfusePgmAndVerifyData(&AesIvInfo, AesIv->AesIv);
 	if (Status != XST_SUCCESS) {
@@ -2213,11 +2232,10 @@ int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData)
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
-
-	if (IvType ==  XNVM_EFUSE_IV_RANGE) {
-		IvStartOffset = XNVM_EFUSE_IV_RANGE_START_OFFSET;
+	if (IvType ==  XNVM_EFUSE_AES_IV_RANGE) {
+		IvStartOffset = XNVM_EFUSE_AES_IV_RANGE_START_OFFSET;
 	} else if (IvType == XNVM_EFUSE_BLACK_IV) {
-		IvStartOffset = XNVM_EFUSE_IV_START_OFFSET;
+		IvStartOffset = XNVM_EFUSE_BLACK_IV_START_OFFSET;
 	} else {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;

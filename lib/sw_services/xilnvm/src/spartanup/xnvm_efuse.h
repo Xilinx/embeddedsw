@@ -170,6 +170,11 @@ typedef struct {
 	u32 SkipVerify; /**< Flag to check if eFuse bit should be verified after programming */
 } XNvm_EfusePrgmInfo;
 
+typedef enum {
+	XNVM_EFUSE_AES_IV_RANGE, /**< IV range */
+	XNVM_EFUSE_BLACK_IV /**< Black IV */
+} XNvm_EfuseIvType;
+
 /**
  * @{ eFuse control bits
  */
@@ -206,6 +211,7 @@ typedef struct {
 typedef struct {
 	u32 AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]; /**< AES IV value to be programmed */
 	u8 PrgmIv; /**< Flag to determine whether to program IV or not */
+	XNvm_EfuseIvType IvType;
 } XNvm_EfuseAesIvs;
 
 typedef struct {
@@ -277,10 +283,6 @@ typedef enum {
 	XNVM_EFUSE_PPK2 /**< PPK 2 */
 } XNvm_EfusePpkType;
 
-typedef enum {
-	XNVM_EFUSE_IV_RANGE, /**< IV range */
-	XNVM_EFUSE_BLACK_IV /**< Black IV */
-} XNvm_EfuseIvType;
 
 /**
  * @}
