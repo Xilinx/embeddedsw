@@ -59,8 +59,8 @@ static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
  * @param 	    Cmd is pointer to the command structure
  *
  * @return
- *			 - XST_SUCCESS - If the programming is successful
- * 			 - ErrorCode - If there is a failure
+ * 		- XST_SUCCESS - When PUF operation completes successfully
+ * 		- XST_INVALID_PARAM - When Cmd or Payload is NULL, or unsupported API ID
  *
  ******************************************************************************/
 int XPuf_IpiHandler(const XPlmi_Cmd *Cmd)
@@ -114,8 +114,8 @@ END:
  *				XPuf_DataAddr structure
  *
  * @return
- *			 - XST_SUCCESS - If the programming is successful
- * 			 - ErrorCode - If there is a failure
+ * 		- XST_SUCCESS - When PUF registration completes successfully
+ * 		- XST_FAILURE - When any operation in the registration process fails
  *
  ******************************************************************************/
 static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh) {
@@ -199,8 +199,8 @@ END:
  *				XPuf_DataAddr structure
  *
  * @return
- *			 - XST_SUCCESS - If the programming is successful
- * 			 - ErrorCode - If there is a failure
+ * 		- XST_SUCCESS - When PUF regeneration completes successfully
+ * 		- XST_FAILURE - When any operation in the regeneration process fails
  *
  ******************************************************************************/
 static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh) {
@@ -276,8 +276,8 @@ END:
  * @param 	Len 		Length of data to be copied in bytes
  *
  * @return
- *			 - XST_SUCCESS - If the copy is successful
- *			 - XST_FAILURE - If there is a failure
+ * 		- XST_SUCCESS - If the copy is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
 static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)

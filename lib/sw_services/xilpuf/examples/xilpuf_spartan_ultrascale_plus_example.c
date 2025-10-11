@@ -262,8 +262,8 @@ END:
  * 			PUF helper data and black key.
  *
  * @return
- *		- XST_SUCCESS - Successful validation of user input
- *		- XST_FAILURE - If user input validation failed.
+ * 		- XST_SUCCESS - Successful validation of user input
+ * 		- XST_FAILURE - If user input validation failed.
  *
  ******************************************************************************/
 static int XPuf_ValidateUserInput()
@@ -329,8 +329,8 @@ END:
  * @param	DmaPtr Pointer to XPmcDma instance
  *
  * @return
- *		- XST_SUCCESS - if PUF_KEY generation was successful.
- *      - Errorcode - On failure
+ * 		- XST_SUCCESS - When PUF KEY generation completes successfully
+ * 		- XST_FAILURE - When any operation in the key generation process fails
  *
  ******************************************************************************/
 static int XPuf_GenerateKey(XPmcDma *DmaPtr)
@@ -480,8 +480,8 @@ END:
  *                     be stored
  *
  * @return
- *		- XST_SUCCESS - if SHA3 digest calculated successfully
- *      - Error code - On failure
+ * 		- XST_SUCCESS - When SHA3 digest calculation completes successfully
+ * 		- XST_FAILURE - When any SHA operation fails
  *
  ******************************************************************************/
 static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 SyndromeDataLen,
@@ -539,7 +539,9 @@ END:
  * @param       SynAddress - Address of Syndrome data to be decompress
  * @param       DeSynData - Pointer to store Decompressed Syndrome data
  *
- * @return	None
+ * @return
+ *		- XST_SUCCESS - When PUF helper data decompression completes successfully
+ *		- XST_FAILURE - When memory initialization fails
  ******************************************************************************/
 static int  XPuf_DecompressPufHd(u32 SynAddress, u32 *DeSynData)
 {
@@ -714,10 +716,10 @@ END:
  * @param	DmaPtr Pointer to XPmcDma instance
  *
  * @return
- *		- XST_SUCCESS - if black key generation was successful
- *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *		- XST_FAILURE - On failure of AES Encrypt Initialization,
- *			AES Encrypt data and format AES key.
+ * 		- XST_SUCCESS - if black key generation was successful
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 		- XST_FAILURE - On failure of AES Encrypt Initialization,
+ * 			AES Encrypt data and format AES key.
  *
  ******************************************************************************/
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr)
@@ -900,8 +902,8 @@ END:
  * @brief	This function programs PUF security control bits.
  *
  * @return
- *         XST_SUCCESS - On Success
- *         Errorcode - On Failure
+ * 		- XST_SUCCESS - When PUF security control bits programming completes successfully
+ * 		- XST_FAILURE - When memory initialization or eFuse write operation fails
  *
  ******************************************************************************/
 static int XPuf_WritePufSecCtrlBits()

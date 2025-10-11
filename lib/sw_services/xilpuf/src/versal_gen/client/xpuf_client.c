@@ -61,8 +61,8 @@
 * @param MailboxPtr Pointer to the mailbox instance
 *
 * @return
-* 	- XST_SUCCESS	On successful initialization
-* 	- XST_FAILURE	On failure
+* 		- XST_SUCCESS	On successful initialization
+* 		- XST_FAILURE	On failure
 *
 ******************************************************************************/
 int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr) {

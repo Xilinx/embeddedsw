@@ -513,10 +513,10 @@ END:
  * @param	MailboxPtr Pointer to mailbox instance
  *
  * @return
- *		- XST_SUCCESS - if black key generation was successful
- *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *		- XST_FAILURE - On failure of AES Encrypt Initialization,
- *			AES Encrypt data and format AES key.
+ * 		- XST_SUCCESS - if black key generation was successful
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 		- XST_FAILURE - On failure of AES Encrypt Initialization,
+ * 			AES Encrypt data and format AES key.
  *
  ******************************************************************************/
 static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr)
@@ -754,18 +754,16 @@ END:
  * @param	InstancePtr Pointer to client instance
  *
  * @return
- *		- XST_SUCCESS - If PUF secure control bits are successfully
- *			programmed.
- *		- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL - Error while reading
- *			PufSecCtrl eFUSE bits
+ * 		- XST_SUCCESS - If PUF secure control bits are successfully
+ * 			programmed.
+ * 		- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL - Error while reading
+ * 			PufSecCtrl eFUSE bits
  * 		- XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA - Error while writing
- *			Puf helper data.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA    - Error while writing
- *			Puf Syndata.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_CHASH       - Error while writing
- *			Puf Chash.
- * 		- XNVM_EFUSE_ERR_WRITE_PUF_AUX         - Error while writing
- *			Puf Aux.
+ * 			Puf helper data.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_SYNDATA - Error while writing
+ * 			Puf Syndata.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_CHASH - Error while writing Puf Chash.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_AUX - Error while writing Puf Aux.
  *
  ******************************************************************************/
 static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
