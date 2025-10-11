@@ -17,6 +17,7 @@
 * 5.5   kpt   08/16/22 Initial release
 * 5.6   mb    02/28/25 Added XSecure_AesOp enum
 * 5.6   aa    07/21/25 Removed unused macros
+*       mb    09/11/25 Added SHA3_384 mode related macros.
 *
 * </pre>
 *
@@ -133,6 +134,11 @@ extern "C" {
 #define SHA256					(0U) /** SHA256 mode */
 #define SHAKE256				(1U) /** SHAKE256 mode */
 
+/** SHA3-384 mode related macros for SPARTANUPLUSAES1 device */
+#ifdef SPARTANUPLUSAES1
+#define SHA384					(2U) /** SHA384 mode */
+#define XSECURE_SHA3_384_HASH_LEN		(48U) /**< SHA3_384 hash length */
+#endif
 /***************************** Type Definitions******************************/
 
 /** Used for selecting the Key source of AES Core. */

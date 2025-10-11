@@ -21,6 +21,7 @@
 * 5.6   aa    07/15/25 Typecast to essential datatype to avoid implicit conversions
 *                      added explicit parenthesis for sub-expression and fix
 *                      partially initialized array
+*       mb    09/11/25 Added SHA3_384 mode check to calculate hash
 *
 * </pre>
 *
@@ -449,6 +450,13 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 			InstancePtr->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
 			InstancePtr->ShaMode = SHAKE256;
 			break;
+#ifdef SPARTANUPLUSAES1
+		/** SHA3-384 Mode */
+		case XSECURE_SHA3_384:
+			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
+			InstancePtr->ShaMode = (u32)SHA384;
+			break;
+#endif
 		/** SHA invalid mode */
 		case XSECURE_SHA_INVALID_MODE:
 		default:
