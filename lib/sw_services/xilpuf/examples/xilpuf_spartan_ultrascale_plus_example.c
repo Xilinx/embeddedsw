@@ -44,6 +44,7 @@
   *       mb   11/11/24 Add section attribute to required variables
   * 1.1   mb   06/10/25 Added description on usage of shared memory
   *       mb   07/08/25 Added XPUF_FORMATTED_HD_IN_WORDS macro to print 129 words PUF HD
+  *       mb   10/05/25 Set Efuse clock frequency and src before programming key/Iv
   *
   *@note
   *
@@ -86,6 +87,11 @@
 #define XPUF_PPK_HASH_SIZE_IN_BYTES         (32U)
 #define XPUF_PMC_GLOBAL_SYN_DATA_ADDR       (0x040BF368U)
 #define XPUF_SYN_DATA_VALID_BITS            (0xFFFFF000U)
+
+#ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
+#define	XPUF_EFUSE_SET_REF_CLK_FREQ		(33333000U) /**< Reference clock frequency for eFUSE */
+#define	XPUF_EFUSE_SET_CLK_SRC_OP		(0U) /**< Set Efuse clock source */
+#endif
 
 /***************************** Type Definitions *******************************/
 
@@ -845,6 +851,12 @@ static int XPuf_ProgramBlackKeynIV()
 	AesIv.PrgmIv = TRUE;
 	EfuseData.AesKeys = &AesKey;
 	EfuseData.Ivs = &AesIv;
+	/** - If BSP configuration is disabled, set the freq and src provided by user */
+#ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
+	EfuseData.EfuseClkFreq = XPUF_EFUSE_SET_REF_CLK_FREQ;
+	EfuseData.EfuseClkSrc = XPUF_EFUSE_SET_CLK_SRC_OP;
+#endif
+
 	Status = XNvm_EfuseWrite(&EfuseData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming Black key and IV to eFuse %x\r\n", Status);
