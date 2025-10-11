@@ -46,6 +46,7 @@
   *       mb   07/08/25 Added XPUF_FORMATTED_HD_IN_WORDS macro to print 129 words PUF HD
   *       mb   10/05/25 Set Efuse clock frequency and src before programming key/Iv
   *       mb   10/05/25 Convert IV endianness to little endian format.
+  * 2.6   mb   29/09/25 Set lower 32 bits of PUF_IV are zero
   *
   *@note
   *
@@ -720,6 +721,13 @@ static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr)
 			xil_printf("String Conversion error (IV):%08x !!!\r\n", Status);
 			goto END;
 		}
+		/**
+		 * Set lower 4 bytes to 0
+		 */
+		Status = Xil_SMemSet(Iv + (2 * XNVM_EFUSE_WORD_LEN), XNVM_EFUSE_WORD_LEN, 0U, XNVM_EFUSE_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	} else {
 		xil_printf("Provided IV length is wrong\r\n");
 		goto END;
@@ -851,6 +859,7 @@ static int XPuf_ProgramBlackKeynIV()
 
 	AesKey.PrgmAesKey = TRUE;
 	AesIv.PrgmIv = TRUE;
+	AesIv.IvType = XNVM_EFUSE_BLACK_IV;
 	EfuseData.AesKeys = &AesKey;
 	EfuseData.Ivs = &AesIv;
 	/** - If BSP configuration is disabled, set the freq and src provided by user */
