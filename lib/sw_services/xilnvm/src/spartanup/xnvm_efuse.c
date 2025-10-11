@@ -34,6 +34,7 @@
 *       mb    08/25/25 Add support for boot mode disable eFUSE bits programming
 *       mb    09/09/25 Set the EFUSE clock source register with user provided clock source
 *       mb    10/03/25 Set lower bits 32 bits of black IV to zeros
+*       mb    10/03/25 Update PPK macros for SPARTANUPLUSAES1
 *
 * </pre>
 *
@@ -203,24 +204,21 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 		goto END;
 	}
 
-	/**
-	 *  Initialize Efuse clock settings and validate frequency
-	 */
+	/** - Initialize Efuse clock settings and validate frequency */
 	Status = XNvm_EfuseInitClockAndValidateFreq(EfuseData);
 	if (Status != XST_SUCCESS) {
 		Status = Status;
 		goto END;
 	}
 
-	/**
-	 * Sets up Efuse controller with validated frequency
-	 */
+	/** - Sets up Efuse controller with validated frequency */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD, EfuseData->EfuseClkFreq);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING;
 		goto END;
 	}
 
+	/** - Validate all the write requests for AesKeys, PPK hash 0/1/2, Ivs, DecOnly eFuses */
 	Status = XNvm_EfuseValidateBeforeWriteReq(EfuseData);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING;
@@ -380,47 +378,112 @@ END:
 static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *PpkHash)
 {
 	int Status = XST_FAILURE;
-	u32 RemPpkHashLen = 0U;
+	XNvm_EfuseSecCtrlBits ReadSecCtrlBits = {0U};
+#ifndef SPARTANUPLUSAES1
+	u8 IsPpkPrgmRequested = (PpkHash->PrgmPpk0Hash == (u8)TRUE) ||
+				 (PpkHash->PrgmPpk1Hash == (u8)TRUE) ||
+				 (PpkHash->PrgmPpk2Hash == (u8)TRUE);
+#else
+	u8 IsPpkPrgmRequested = (PpkHash->PrgmPpk0Hash == (u8)TRUE) ||
+				(PpkHash->PrgmPpk1Hash == (u8)TRUE);
+#endif
 
-	if ((PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES) &&
-	    (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
+	/**
+	 * If none of the PPK hash programming flags (PrgmPpk0Hash, PrgmPpk1Hash,
+	 * PrgmPpk2Hash) are set, there's nothing to validate and the function
+	 * can return Status as success.
+	 */
+	if (IsPpkPrgmRequested == (u8)FALSE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * Check if the requested PPK hash size is valid
+	 * For SPARTANUPLUS, PPK Hash should be 256 bits.
+	 * For SPARTANUPLUSAES1, PPK Hash should be 384 bits.
+	 */
+
+	if (PpkHash->ActualPpkHashSize != XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES) {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PpkHash->PrgmPpk2Hash == (u8)TRUE)
-	    && (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	/**
+	 * If PPK programming is requested, read respective WR_LK eFuse bits
+	 * to make sure the PPK write is allowed.
+	 */
+	Status = XNvm_EfuseReadSecCtrlBits(&ReadSecCtrlBits);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
 		goto END;
 	}
 
-	RemPpkHashLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
+	/**
+	 * Check if the requested PPK0 hash is already programmed
+	 * and check PPK0 write lock bit is set.
+	 */
 	if (PpkHash->PrgmPpk0Hash == (u8)TRUE) {
+		if (ReadSecCtrlBits.Ppk0lck == (u8)TRUE) {
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				  XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
+			goto END;
+		}
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK0_START_OFFSET,
-					      (XNVM_EFUSE_PPK0_START_OFFSET + PpkHash->ActaulPpkHashSize));
+					      (XNVM_EFUSE_PPK0_START_OFFSET + PpkHash->ActualPpkHashSize));
 		if (Status != XST_SUCCESS) {
 			Status = XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 	}
 
+	/**
+	 * Check if the requested PPK1 hash is already programmed
+	 * and check PPK1 write lock bit is set.
+	 * PPK2_WR_LK bit should be checked before programming PPK1 HASH into efuses on SPARTANUPLUSAES1,
+	 * PPK1_WR_LK bit should be checked before programming PPK1 HASH into efuses on SPARTANUPLUS.
+	 */
 	if (PpkHash->PrgmPpk1Hash == (u8)TRUE) {
-		Status = XNvm_EfuseCheckZeros((XNVM_EFUSE_PPK1_START_OFFSET + RemPpkHashLen),
-					      (XNVM_EFUSE_PPK1_START_OFFSET + RemPpkHashLen +
-					       PpkHash->ActaulPpkHashSize));
+#ifndef SPARTANUPLUSAES1
+		if (ReadSecCtrlBits.Ppk1lck == (u8)TRUE) {
+#else
+		if (ReadSecCtrlBits.Ppk2lck == (u8)TRUE) {
+#endif
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				  XNVM_EFUSE_ERR_WRITE_PPK1_HASH);
+			goto END;
+		}
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK1_START_OFFSET,
+					      (XNVM_EFUSE_PPK1_START_OFFSET +
+					       PpkHash->ActualPpkHashSize));
 		if (Status != XST_SUCCESS) {
 			Status = XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 	}
 
+	/**
+	 * Check if the requested PPK2 hash is already programmed
+	 * and check PPK2 write lock bit is set.
+	 */
+#ifndef SPARTANUPLUSAES1
 	if (PpkHash->PrgmPpk2Hash == (u8)TRUE) {
+		if (PpkHash->ActualPpkHashSize != XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES) {
+			Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+		if (ReadSecCtrlBits.Ppk2lck== (u8)TRUE) {
+			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+				  XNVM_EFUSE_ERR_WRITE_PPK2_HASH);
+			goto END;
+		}
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK2_START_OFFSET, XNVM_EFUSE_PPK2_START_OFFSET +
-					      PpkHash->ActaulPpkHashSize);
+					      PpkHash->ActualPpkHashSize);
 		if (Status != XST_SUCCESS) {
 			Status = XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD;
 		}
 	}
+#endif
 
 END:
 	return Status;
@@ -651,7 +714,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 	u32 RemainingPpkLen = 0U;
 	u32 Ppk1NoofRows = 0U;
 
-	RemainingPpkLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
+	RemainingPpkLen = (PpkHash->ActualPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
 	Ppk1NoofRows = (RemainingPpkLen != 0U) ? RemainingPpkLen : XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES;
 	if (PpkHash->PrgmPpk0Hash ==  (u8)TRUE) {
 		PpkPrgmInfo.StartRow = XNVM_EFUSE_PPK0_HASH_START_ROW;
@@ -711,7 +774,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 			}
 		}
 	}
-
+#ifndef SPARTANUPLUSAES1
 	if (PpkHash->PrgmPpk2Hash == (u8)TRUE) {
 		PpkPrgmInfo.StartRow = XNVM_EFUSE_PPK2_HASH_START_ROW;
 		PpkPrgmInfo.NumOfRows = XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS;
@@ -725,6 +788,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 			goto END;
 		}
 	}
+#endif
 
 END:
 	return Status;
@@ -764,6 +828,7 @@ static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_IV);
 	}
 
+END:
 	return Status;
 }
 
@@ -1303,7 +1368,7 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			}
 		}
 	}
-
+#ifndef SPARTANUPLUSAES1
 	if (SecCtrl->Ppk1lck == (u8)TRUE) {
 
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK) {
@@ -1339,7 +1404,7 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			}
 		}
 	}
-
+#endif
 	if (SecCtrl->Ppk0lck == (u8)TRUE) {
 
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK) {

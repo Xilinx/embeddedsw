@@ -53,6 +53,7 @@
  *       mb    08/20/2025 Add support to configure the clock settings from application.
  *       mb    08/20/2025 Add support to program the boot mode disable eFUSE bits.
  *       mb    10/05/2025 Convert IV endianness to little endian format.
+ *       mb    09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
  *
  * </pre>
  *
@@ -68,9 +69,7 @@
 
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
 #define XNVM_EFUSE_ROW_STRING_LEN			    (8U)
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
 #define XNVM_EFUSE_IV_LEN_IN_BITS               (96U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS         (256U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS          (256U)
 #define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
 #define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (\
@@ -292,7 +291,7 @@ static int XilNvm_EfuseReadFuses(void)
 
 	xil_printf("\n\r");
 
-	for (Index = XNVM_EFUSE_PPK0; Index <= XNVM_EFUSE_PPK2; Index++) {
+	for (Index = XNVM_EFUSE_PPK0; Index <= XNVM_EFUSE_PPK_END; Index++) {
 		Status = XilNvm_EfuseShowPpkHash(Index);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -399,12 +398,11 @@ static int XilNvm_EfuseShowPpkHash(XNvm_EfusePpkType PpkType)
 	u32 ReadPpk[XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS] = {0U};
 	s8 Row;
 
-	Status = XNvm_EfuseReadPpkHash(PpkType, ReadPpk, XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
+	Status = XNvm_EfuseReadPpkHash(PpkType, ReadPpk, XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	} else {
-		XilNvm_FormatData((u8 *)ReadPpk, (u8 *)Ppk,
-				  XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
+		XilNvm_FormatData((u8 *)ReadPpk, (u8 *)Ppk, XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES);
 		xil_printf("\n\rPPK%d:", PpkType);
 		for (Row = (XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS - 1U);
 		     Row >= 0; Row--) {
@@ -610,8 +608,10 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 
 	PpkHash->PrgmPpk0Hash = XNVM_EFUSE_WRITE_PPK0_HASH;
 	PpkHash->PrgmPpk1Hash = XNVM_EFUSE_WRITE_PPK1_HASH;
+#ifndef SPARTANUPLUSAES1
 	PpkHash->PrgmPpk2Hash = XNVM_EFUSE_WRITE_PPK2_HASH;
-	PpkHash->ActaulPpkHashSize = XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES;
+#endif
+	PpkHash->ActualPpkHashSize = XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES;
 
 	if (PpkHash->PrgmPpk0Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK0_HASH,
@@ -642,6 +642,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 			goto END;
 		}
 	}
+#ifndef SPARTANUPLUSAES1
 	if (PpkHash->PrgmPpk2Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
 					     XNVM_EFUSE_PPK_HASH_STRING_LEN);
@@ -656,7 +657,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 			goto END;
 		}
 	}
-
+#endif
 	if (Status == XST_SUCCESS) {
 		EfuseData->PpkHash = PpkHash;
 	}
@@ -746,7 +747,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->AesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
 	SecCtrl->AesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
 	SecCtrl->Ppk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
-	SecCtrl->Ppk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
 	SecCtrl->Ppk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
 	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
 	SecCtrl->UserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
@@ -760,7 +760,10 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->Lckdwn = XNVM_EFUSE_XNVM_LCKDWN_EN;
 	SecCtrl->PufTes2Dis = XNVM_EFUSE_XNVM_PUF_TEST_2_DIS;
 	SecCtrl->Ppk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
+#ifndef SPARTANUPLUSAES1
+	SecCtrl->Ppk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
 	SecCtrl->Ppk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
+#endif
 	SecCtrl->Ppk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
 	SecCtrl->CrcRmaDis = XNVM_EFUSE_XNVM_CRC_RMA_DIS;
 	SecCtrl->CrcRmaEn = XNVM_EFUSE_XNVM_CRC_RMA_EN;
@@ -768,7 +771,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	if ((SecCtrl->AesDis == TRUE) ||
 	    (SecCtrl->AesRdlk == TRUE) ||
 	    (SecCtrl->Ppk0lck == TRUE) ||
-	    (SecCtrl->Ppk1lck == TRUE) ||
 	    (SecCtrl->Ppk2lck == TRUE) ||
 	    (SecCtrl->JtagDis == TRUE) ||
 	    (SecCtrl->UserWrlk == TRUE) ||
@@ -782,7 +784,10 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	    (SecCtrl->Lckdwn == TRUE) ||
 	    (SecCtrl->PufTes2Dis == TRUE) ||
 	    (SecCtrl->Ppk0Invld == TRUE) ||
+#ifndef SPARTANUPLUSAES1
+	    (SecCtrl->Ppk1lck == TRUE) ||
 	    (SecCtrl->Ppk1Invld == TRUE) ||
+#endif
 	    (SecCtrl->Ppk2Invld == TRUE) ||
 	    (SecCtrl->CrcRmaDis == TRUE) ||
 	    (SecCtrl->CrcRmaEn == TRUE)) {
@@ -1152,15 +1157,10 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	} else {
 		xil_printf("Writing to PPK0 efuse is not locked\n\r");
 	}
-	if (SecCtrlBits.Ppk1lck == TRUE) {
+	if (SecCtrlBits.Ppk2lck == TRUE) {
 		xil_printf("Locks writing to PPK1 efuse\n\r");
 	} else {
 		xil_printf("Writing to PPK1 efuse is not locked\n\r");
-	}
-	if (SecCtrlBits.Ppk2lck == TRUE) {
-		xil_printf("Locks writing to PPK2 efuse\n\r");
-	} else {
-		xil_printf("Writing to PPK2 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.AesRdlk == TRUE) {
 		xil_printf("AES read/write lock is enabled \n\r");
@@ -1197,16 +1197,23 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	} else {
 		xil_printf("PPK0 is valid \n\r");
 	}
-	if (SecCtrlBits.Ppk1Invld == TRUE) {
-		xil_printf("PPK1 is invalid\n\r");
-	} else {
-		xil_printf("PPK1 is valid \n\r");
-	}
 	if (SecCtrlBits.Ppk2Invld == TRUE) {
 		xil_printf("PPK2 is invalid\n\r");
 	} else {
 		xil_printf("PPK2 is valid \n\r");
 	}
+#ifndef SPARTANUPLUSAES1
+	if (SecCtrlBits.Ppk1Invld == TRUE) {
+		xil_printf("PPK1 is invalid\n\r");
+	} else {
+		xil_printf("PPK1 is valid \n\r");
+	}
+	if (SecCtrlBits.Ppk1lck == TRUE) {
+		xil_printf("Locks writing to PPK1 efuse\n\r");
+	} else {
+		xil_printf("Writing to PPK1 efuse is not locked\n\r");
+	}
+#endif
 	if (SecCtrlBits.PufTes2Dis == TRUE) {
 		xil_printf("PUF test2 mode is disabled\n\r");
 	} else {

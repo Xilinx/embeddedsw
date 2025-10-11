@@ -28,6 +28,7 @@
 *       aa   07/24/2025 Remove unused macros
 *       mb   20/08/2025 Add EfuseCClkFreq and EfuseClkSrc to XNvm_EfuseData structure
 *       mb   08/24/2025 Add support to program boot mode disable efuses
+*       mb   10/04/2025 PPKs updates for SPARTANUPLUSAES1
 *
 * </pre>
 *
@@ -57,6 +58,7 @@ extern "C" {
 */
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< Word length */
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
+#define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for parts-SU10P,SU25P,SU35P*/
 #define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for all other
 							parts except SU10P,SU25P,SU35P */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_BYTES		(12U) /**< AES IV size in bytes */
@@ -102,8 +104,19 @@ extern "C" {
 #define XNVM_EFUSE_DIS_SJTAG_ROW		(50) /**< DIS_SJTAG start row */
 #define XNVM_EFUSE_DIS_SJTAG_COL		(12) /**< DIS_SJTAG column */
 
-#define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for parts-SU10P,SU25P,SU35P*/
+/**< PPK Efuse programing related macros */
+#ifndef SPARTANUPLUSAES1
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(256U)
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
+#define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES
+#define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK2
+#else
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(384U)
+#define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(12U) /**< Default PPK hash size in words */
+#define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES
+#define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK1
+#endif
+
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */
 #define XNVM_EFUSE_MAX_BITS_IN_ROW		(32U) /**< Maximum bits in a row */
@@ -189,14 +202,16 @@ typedef struct {
 	u8 Lckdwn; /**< Flag to read or program lockdown enable */
 	u8 PufTes2Dis; /**< Flag to read or program PUF test2 disable */
 	u8 Ppk0Invld; /**< Flag to read or program PPK0 invalid */
-	u8 Ppk1Invld; /**< Flag to read or program PPK1 invalid */
 	u8 Ppk2Invld; /**< Flag to read or program PPK2 invalid */
 	u8 AesRdlk; /**< Flag to read or program AES read lock */
 	u8 Ppk0lck; /**< Flag to read or program PPK0 read/write lock */
-	u8 Ppk1lck; /**< Flag to read or program PPK1 read/write lock */
 	u8 Ppk2lck; /**< Flag to read or program PPK2 read/write lock */
 	u8 JtagDis; /**< Flag to read or program JTAG disable */
 	u8 AesDis; /**< Flag to read or program AES disable */
+#ifndef SPARTANUPLUSAES1
+	u8 Ppk1lck; /**< Flag to read or program PPK1 read/write lock */
+	u8 Ppk1Invld; /**< Flag to read or program PPK1 invalid */
+#endif
 	u8 UserWrlk; /**< Flag to read or program user efuse write lock */
 	u8 JtagErrDis; /**< Flag to read or program JTAG error out disable */
 	u8 CrcRmaDis; /**< Flag to read or program RMA disable using CRC */
@@ -215,13 +230,15 @@ typedef struct {
 } XNvm_EfuseAesIvs;
 
 typedef struct {
-	u32 ActaulPpkHashSize; /**< PPK hash size to be programmed it can be either 256/384 bit */
-	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
-	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK1 hash value to be programmed */
-	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK2 hash value to be programmed */
+	u32 ActualPpkHashSize; /**< PPK hash size to be programmed it can be either 256/384 bit */
+	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
+	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK1 hash value to be programmed */
 	u8 PrgmPpk0Hash; /**< Flag to determine whether to program PPK0 hash or not */
 	u8 PrgmPpk1Hash; /**< Flag to determine whether to program PPK1 hash or not */
+#ifndef SPARTANUPLUSAES1
+	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK2 hash value to be programmed */
 	u8 PrgmPpk2Hash; /**< Flag to determine whether to program PPK2 hash or not */
+#endif
 } XNvm_EfusePpkHash;
 
 typedef struct {
