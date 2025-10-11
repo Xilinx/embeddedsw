@@ -107,11 +107,6 @@ extern "C" {
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */
 #define XNVM_EFUSE_MAX_BITS_IN_ROW		(32U) /**< Maximum bits in a row */
-#define XNVM_EFUSE_SEC_CTRL_ROW_0		(0U) /**< secure control row_0 */
-#define XNVM_EFUSE_SEC_CTRL_ROW_1		(1U) /**< secure control row_1 */
-#define XNVM_EFUSE_SEC_CTRL_ROW_2		(2U) /**< secure control row_2 */
-#define XNVM_EFUSE_SEC_CTRL_ROW_3		(3U) /**< secure control row_3 */
-#define XNVM_EFUSE_SEC_CTRL_ROW_4		(18U) /**< secure control row_4 */
 #define XNVM_EFUSE_MAX_SPK_REVOKE_ID		(3U)  /**< Maximum SPK revoke id */
 #define XNVM_EFUSE_DNA_SIZE_IN_WORDS		(3U) /**< DNA size in words */
 
@@ -165,38 +160,6 @@ extern "C" {
 #define XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER	/**< Set efuse clock frequency from user */
 #endif
 
-/**< Boot mode disable Efuse bits programming related macros */
-#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_60	(60U) /* Boot mode disable row 60 */
-#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_61	(61U) /* Boot mode disable row 61 */
-
-#define  XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL_8	(8U) /* QSPI32 Boot mode disable bit column value: 8 */
-#define  XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL_9	(9U) /* OSPI Boot mode disable bit column value: 9 */
-#define  XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL_12	(12U) /* SMAP Boot mode disable bit column value: 12 */
-#define  XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL_13	(13U) /* Serial Boot mode disable bit column value: 13 */
-#define  XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL_15	(15U) /* QSPI24 Boot mode disable bit column value: 15 */
-
-#define XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK	(0x00000001U) /* QSPI24 Boot mode disable Mask */
-#define XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK	(0x00000004U) /* QSPI32 Boot mode disable Mask */
-#define XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK	(0x00000008U) /* OSPI Boot mode disable Mask */
-#define XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK	(0x00000040U) /* SMAP Boot mode disable Mask */
-#define XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK	(0x00000080U) /* Serial Boot mode disable Mask */
-
-#define XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS		(0x01U) /*Boot mode disable efuse bits */
-#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT	(0x1U) /* QSPI24 Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT	(0x2U) /* QSPI32 Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT	(0x3U) /* OSPI Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT	(0x6U) /* SMAP Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT	(0x7U) /* Serial Boot mode disable shift */
-
-#define XNVM_PLM_CONFIG_BASE_ADDRESS	(0x0402B200U)
-#define XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET	(0x0000002CU)
-#define XNVM_EFUSE_CLK_CTRL_ADDR	(0x040A003CU)
-#define XNVM_EFUSE_IO_CTRL_ADDR		(0x040A00E8U)
-#define XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE	(0x1U)
-#define XNVM_EMCCLK_MIN_FREQUENCY	(25000000U)
-#define XNVM_EMCCLK_MAX_FREQUENCY	(200000000U)
-#define XNVM_EFUSE_EMC_CLK_EN_VAL	(1U << 1U)
-
 /***************************** Type Definitions *******************************/
 
 typedef struct {
@@ -212,109 +175,27 @@ typedef struct {
  */
 /**< This structer defines Security control bits*/
 
-enum {
-	XNVM_EFUSE_SVD_0, /**< SVD0 bit */
-	XNVM_EFUSE_SVD_1, /**< SVD1 bit */
-	XNVM_EFUSE_SVD_2, /**< SVD2 bit */
-	XNVM_EFUSE_RMA_DISABLE_0, /**< RMA disable 0 bit */
-	XNVM_EFUSE_RMA_ENABLE_0, /**< RMA enable 0 bit */
-	XNVM_EFUSE_SCAN_CLR_EN, /**< Scan clear enable bit */
-	XNVM_EFUSE_HASH_PUF_OR_KEY, /**< Hash PUF or PPK bit */
-	XNVM_EFUSE_AXI_DIS, /**< AXI disable bit */
-	XNVM_EFUSE_MDM_DISABLE_0 = 24, /**< MDM disable 0 bit */
-	XNVM_EFUSE_MDM_DISABLE_1, /**< MDM disable 1 bit */
-	XNVM_EFUSE_ICAP_DIS, /**< ICAP disable bit */
-	XNVM_EFUSE_MCAP_DIS, /**< MCAP disable bit */
-	XNVM_EFUSE_TBIT_0, /**< Tbit0 enable bit */
-	XNVM_EFUSE_TBIT_1, /**< Tbit1 enable bit */
-	XNVM_EFUSE_TBIT_2, /**< Tbit2 enable bit */
-	XNVM_EFUSE_TBIT_3 /**< Tbit3 enable bit */
-};
-
-enum {
-	XNVM_EFUSE_CRC_EN = 24, /**< Efuse CRC enable bit */
-	XNVM_EFUSE_DFT_DISABLE_0, /**< DFT disable 0 bit */
-	XNVM_EFUSE_DFT_DISABLE_1, /**< DFT disable 1 bit */
-	XNVM_EFUSE_LCKDOWN, /**< Lockdown enable bit */
-	XNVM_EFUSE_RMA_DISABLE_1, /**< RMA disable 1 bit */
-	XNVM_EFUSE_RMA_ENABLE_1 /**< RMA enable 1 bit */
-};
-
-enum {
-	XNVM_EFUSE_PUF_TEST2_DIS = 24, /**< PUF test2 disable bit */
-	XNVM_EFUSE_PPK0_INVLD_0, /**< PPK0 invalid 0 bit */
-	XNVM_EFUSE_PPK0_INVLD_1, /**< PPK0 invalid 1 bit */
-	XNVM_EFUSE_PPK1_INVLD_0, /**< PPK1 invalid 0 bit */
-	XNVM_EFUSE_PPK1_INVLD_1, /**< PPK1 invalid 1 bit */
-	XNVM_EFUSE_PPK2_INVLD_0, /**< PPK2 invalid 0 bit */
-	XNVM_EFUSE_PPK2_INVLD_1, /**< PPK2 invalid 1 bit */
-	XNVM_EFUSE_EXPORT_CONTROL /**< Export control bit */
-};
-
-enum {
-	XNVM_EFUSE_AES_RD_WR_LK_0 = 24, /**< AES read/write lock bit 0 */
-	XNVM_EFUSE_AES_RD_WR_LK_1, /**< AES read/write lock bit 1 */
-	XNVM_EFUSE_PPK0_WR_LK, /**< PPK0 write lock bit */
-	XNVM_EFUSE_PPK1_WR_LK, /**< PPK1 write lock bit */
-	XNVM_EFUSE_PPK2_WR_LK, /**< PPK2 write lock bit */
-	XNVM_EFUSE_JTAG_DIS, /**< AES JTAG disable bit */
-	XNVM_EFUSE_AES_DIS, /**< AES disable bit */
-	XNVM_EFUSE_AES_CM_DIS, /**< AES counter measures disable bit */
-};
-
-enum {
-	XNVM_EFUSE_DNA_WR_LK = 10, /**< DNA write lock bit */
-	XNVM_EFUSE_MEM_CLR_EN = 12, /**< Memory clear enable bit */
-	XNVM_EFUSE_JTAG_ERR_OUT_DIS = 14, /**< JTAG error out disable bit */
-	XNVM_EFUSE_USER_WR_LK, /**< User write lock bit */
-};
-
 typedef struct {
-	u8 PrgmHashPufOrKey; /**< Flag to program either hash of PUF syndrome date or PPK  */
-	u8 PrgmRmaDis; /**< Flag to disable RMA */
-	u8 PrgmRmaEn; /**< Flag to enable RMA */
-	u8 PrgmCrcEn; /**< Flag to enable CRC enable */
-	u8 PrgmDftDis; /**< Flag to disable DFT */
-	u8 PrgmLckdwn; /**< Flag to enable lockdown */
-	u8 PrgmPufTes2Dis; /**< Flag to disable PUF test2 */
-	u8 PrgmPpk0Invld; /**< Flag to program PPK0 invalid */
-	u8 PrgmPpk1Invld; /**< Flag to program PPK1 invalid */
-	u8 PrgmPpk2Invld; /**< Flag to program PPK2 invalid */
-	u8 PrgmAesRdlk; /**< Flag to lock AES read */
-	u8 PrgmPpk0lck; /**< Flag to lock PPK0 read/write */
-	u8 PrgmPpk1lck; /**< Flag to lock PPK1 read/write */
-	u8 PrgmPpk2lck; /**< Flag to lock PPK2 read/write */
-	u8 PrgmJtagDis; /**< Flag to disable JTAG */
-	u8 PrgmAesDis; /**< Flag to disable AES */
-	u8 PrgmUserWrlk; /**< Flag to lock writing user efuses*/
-	u8 PrgmJtagErrDis; /**< Flag to disable JTAG error out*/
-} XNvm_EfuseSecCtrl;
-
-typedef struct {
-	u8 RMA_ENABLE_1; /**< RMA enable 1 */
-	u8 RMA_DISABLE_1; /**< RMA disable 1 */
-	u8 LCKDOWN; /**< Lockdown enable */
-	u8 DFT_DIS; /**< DFT disable */
-	u8 EFUSE_CRC_EN; /**< Efuse CRC enable */
-	u8 PPK0_INVLD1;  /**< PPK0 invalid 1 */
-	u8 PPK1_INVLD1;  /**< PPK1 invalid 1 */
-	u8 PPK2_INVLD1;  /**< PPK2 invalid 1 */
-	u8 USER_WR_LK; /**< User write lock */
-	u8 JTAG_ERR_OUT_DIS; /**< JTAG error out disable */
-	u8 AES_RD_WR_LK_1; /**< AES read write lock 1 */
-	u8 AES_RD_WR_LK_0; /**< AES read write lock 0 */
-	u8 PPK0_INVLD0; /**< PPK0 invalid 0 */
-	u8 PPK0_WR_LK; /**< PPK0 write lock */
-	u8 PPK1_INVLD0; /**< PPK1 invalid 0 */
-	u8 PPK1_WR_LK; /**< PPK1 write lock */
-	u8 PPK2_INVLD0; /**< PPK2 invalid 0 */
-	u8 PPK2_WR_LK; /**< PPK2 write lock */
-	u8 HASH_PUF_OR_KEY; /**< Hash PUF or PPK key */
-	u8 PUF_TEST2_DIS; /**< PUF test2 disable */
-	u8 JTAG_DIS; /**< JTAG disable */
-	u8 RMA_ENABLE_0; /**< RMA disable 1 */
-	u8 RMA_DISABLE_0; /**< RMA disable 0 */
-	u8 AES_DIS; /**< AES disable */
+	u8 HashPufOrKey; /**< Flag to read or program hash of PUF syndrome data or PPK */
+	u8 RmaDis; /**< Flag to read or program RMA disable */
+	u8 RmaEn; /**< Flag to read or program RMA enable */
+	u8 CrcEn; /**< Flag to read or program CRC enable */
+	u8 DftDis; /**< Flag to read or program DFT disable */
+	u8 Lckdwn; /**< Flag to read or program lockdown enable */
+	u8 PufTes2Dis; /**< Flag to read or program PUF test2 disable */
+	u8 Ppk0Invld; /**< Flag to read or program PPK0 invalid */
+	u8 Ppk1Invld; /**< Flag to read or program PPK1 invalid */
+	u8 Ppk2Invld; /**< Flag to read or program PPK2 invalid */
+	u8 AesRdlk; /**< Flag to read or program AES read lock */
+	u8 Ppk0lck; /**< Flag to read or program PPK0 read/write lock */
+	u8 Ppk1lck; /**< Flag to read or program PPK1 read/write lock */
+	u8 Ppk2lck; /**< Flag to read or program PPK2 read/write lock */
+	u8 JtagDis; /**< Flag to read or program JTAG disable */
+	u8 AesDis; /**< Flag to read or program AES disable */
+	u8 UserWrlk; /**< Flag to read or program user efuse write lock */
+	u8 JtagErrDis; /**< Flag to read or program JTAG error out disable */
+	u8 CrcRmaDis; /**< Flag to read or program RMA disable using CRC */
+	u8 CrcRmaEn; /**< Flag to read or program RMA enable using CRC */
 } XNvm_EfuseSecCtrlBits;
 
 typedef struct {
@@ -414,7 +295,7 @@ typedef struct {
 	XNvm_EfusePpkHash *PpkHash; /**< Pointer to ppk hash*/
 	XNvm_EfuseAesIvs *Ivs; /**< Pointer to the IVs structure*/
 	XNvm_EfuseDecOnly *DecOnly; /**< Pointer to the DecOnly structure*/
-	XNvm_EfuseSecCtrl *SecCtrlBits; /**< Pointer to security control bits*/
+	XNvm_EfuseSecCtrlBits *SecCtrlBits; /**< Pointer to security control bits*/
 	XNvm_EfuseSpkRevokeId *SpkRevokeId; /**< Pointer to the SPK revoke ID structure*/
 	XNvm_EfuseAesRevokeId *AesRevokeId; /**< Pointer to the AES revoke ID structure */
 	XNvm_EfuseUserFuse *UserFuse; /**< Pointer to the user efuse structure */
@@ -503,6 +384,9 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_OSPI_BOOT_MODE_DIS = 0xB300, /**< 0xB300 - Error write OSPI Boot mode disable */
 	XNVM_EFUSE_ERR_WRITE_SMAP_BOOT_MODE_DIS = 0xB400, /**< 0xB400 - Error write SMAP Boot mode disable */
 	XNVM_EFUSE_ERR_WRITE_SERIAL_BOOT_MODE_DIS = 0xB500, /**< 0xB500 - Error write SERIAL Boot mode disable */
+	XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_0 = 0xB600, /**< 0xB600 - Error write rma disable0 */
+	XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_1 = 0xB700, /**< 0xB700 - Error write rma disable1 */
+	XNVM_EFUSE_ERR_WRITE_LCK_DWN = 0xB800, /**< 0xB800 - Error write lock down */
 };
 
 /*************************** Function Prototypes ******************************/

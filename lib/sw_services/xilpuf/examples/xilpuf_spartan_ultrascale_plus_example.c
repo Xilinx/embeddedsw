@@ -271,13 +271,13 @@ static int XPuf_ValidateUserInput()
 		xil_printf("\r\n Error in reading secure control bits");
 		goto END;
 	}
-	if ((SecCtrlBits.PPK2_INVLD0 == TRUE) || (SecCtrlBits.PPK2_INVLD1 == TRUE)) {
+	if (SecCtrlBits.Ppk2Invld == TRUE) {
 		Status = XST_FAILURE;
 		xil_printf("PPK2 is invalidated \n\r");
 		goto END;
 	}
 
-	if (SecCtrlBits.PPK2_WR_LK == TRUE) {
+	if (SecCtrlBits.Ppk2lck == TRUE) {
 		Status = XST_FAILURE;
 		xil_printf("PPK2 is locked \n\r");
 		goto END;
@@ -869,14 +869,14 @@ END:
 static int XPuf_WritePufSecCtrlBits()
 {
 	int Status = XST_SUCCESS;
-	XNvm_EfuseSecCtrl SecCtrlBits;
+	XNvm_EfuseSecCtrlBits SecCtrlBits;
 
 	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	SecCtrlBits.PrgmHashPufOrKey = XPUF_PRGM_HASH_PUF_OR_KEY;
+	SecCtrlBits.HashPufOrKey = XPUF_PRGM_HASH_PUF_OR_KEY;
 	EfuseData.SecCtrlBits = &SecCtrlBits;
 
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -906,7 +906,7 @@ static void XPuf_ShowPufSecCtrlBits()
 		goto END;
 	}
 
-	if (ReadSecCtrlBits.HASH_PUF_OR_KEY == TRUE) {
+	if (ReadSecCtrlBits.HashPufOrKey == TRUE) {
 		xil_printf("PUF PPK hash programming is enabled \r\n ");
 	} else {
 		xil_printf("\r\n PUF PPK hash programming is disabled \r\n ");

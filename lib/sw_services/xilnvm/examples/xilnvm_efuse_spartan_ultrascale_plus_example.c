@@ -97,7 +97,7 @@ static int XilNvm_EfuseShowUserFuses(void);
 static int XilNvm_EfuseShowCtrlBits(void);
 static int XilNvm_EfuseShowSecCtrlBits(void);
 static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
-				   XNvm_EfuseSecCtrl *SecCtrl);
+				   XNvm_EfuseSecCtrlBits *SecCtrl);
 static int XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
 				       XNvm_EfuseSpkRevokeId *SpkRevokeId);
 static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
@@ -193,7 +193,7 @@ static int XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseUserFuse UserFuse;
 	XNvm_EfuseSpkRevokeId SpkRevokeId;
 	XNvm_EfuseAesRevokeId AesRevId;
-	XNvm_EfuseSecCtrl SecCtrl;
+	XNvm_EfuseSecCtrlBits SecCtrl;
 	XNvm_EfuseDecOnly DecOnly;
 	XNvm_EfuseXilinxCtrl XilinxCtrl;
 #ifdef SPARTANUPLUSAES1
@@ -708,24 +708,26 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *EfuseData,
  * to program SECURITY_CONTROL eFuses.
  *
 typedef struct {
-	u8 PrgmHashPufOrKey;
-	u8 PrgmRmaDis;
-	u8 PrgmRmaEn;
-	u8 PrgmCrcEn;
-	u8 PrgmDftDis;
-	u8 PrgmLckdwn;
-	u8 PrgmPufTes2Dis;
-	u8 PrgmPpk0Invld;
-	u8 PrgmPpk1Invld;
-	u8 PrgmPpk2Invld;
-	u8 PrgmAesRdlk;
-	u8 PrgmPpk0lck;
-	u8 PrgmPpk1lck;
-	u8 PrgmPpk2lck;
-	u8 PrgmJtagDis;
-	u8 PrgmAesDis;
-	u8 PrgmUserWrlk;
-	u8 PrgmJtagErrDis;
+	u8 HashPufOrKey;
+	u8 RmaDis;
+	u8 RmaEn;
+	u8 CrcEn;
+	u8 DftDis;
+	u8 Lckdwn;
+	u8 PufTes2Dis;
+	u8 Ppk0Invld;
+	u8 Ppk1Invld;
+	u8 Ppk2Invld;
+	u8 AesRdlk;
+	u8 Ppk0lck;
+	u8 Ppk1lck;
+	u8 Ppk2lck;
+	u8 JtagDis;
+	u8 AesDis;
+	u8 UserWrlk;
+	u8 JtagErrDis;
+	u8 CrcRmaDis;
+	u8 CrcRmaEn;
 } XNvm_EfuseSecCtrl;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
@@ -739,49 +741,53 @@ typedef struct {
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
-				   XNvm_EfuseSecCtrl *SecCtrl)
+				   XNvm_EfuseSecCtrlBits *SecCtrl)
 {
 	int Status = XST_FAILURE;
 
-	SecCtrl->PrgmAesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
-	SecCtrl->PrgmAesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
-	SecCtrl->PrgmPpk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
-	SecCtrl->PrgmPpk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
-	SecCtrl->PrgmPpk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
-	SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
-	SecCtrl->PrgmUserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
-	SecCtrl->PrgmJtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
-	SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
-	SecCtrl->PrgmHashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
-	SecCtrl->PrgmRmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
-	SecCtrl->PrgmRmaEn = XNVM_EFUSE_XNVM_RMA_EN;
-	SecCtrl->PrgmCrcEn = XNVM_EFUSE_XNVM_CRC_EN;
-	SecCtrl->PrgmDftDis = XNVM_EFUSE_XNVM_DFT_DIS;
-	SecCtrl->PrgmLckdwn = XNVM_EFUSE_XNVM_LCKDWN_EN;
-	SecCtrl->PrgmPufTes2Dis = XNVM_EFUSE_XNVM_PUF_TEST_2_DIS;
-	SecCtrl->PrgmPpk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
-	SecCtrl->PrgmPpk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
-	SecCtrl->PrgmPpk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
+	SecCtrl->AesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
+	SecCtrl->AesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
+	SecCtrl->Ppk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
+	SecCtrl->Ppk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
+	SecCtrl->Ppk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
+	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
+	SecCtrl->UserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
+	SecCtrl->JtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
+	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
+	SecCtrl->HashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
+	SecCtrl->RmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
+	SecCtrl->RmaEn = XNVM_EFUSE_XNVM_RMA_EN;
+	SecCtrl->CrcEn = XNVM_EFUSE_XNVM_CRC_EN;
+	SecCtrl->DftDis = XNVM_EFUSE_XNVM_DFT_DIS;
+	SecCtrl->Lckdwn = XNVM_EFUSE_XNVM_LCKDWN_EN;
+	SecCtrl->PufTes2Dis = XNVM_EFUSE_XNVM_PUF_TEST_2_DIS;
+	SecCtrl->Ppk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
+	SecCtrl->Ppk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
+	SecCtrl->Ppk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
+	SecCtrl->CrcRmaDis = XNVM_EFUSE_XNVM_CRC_RMA_DIS;
+	SecCtrl->CrcRmaEn = XNVM_EFUSE_XNVM_CRC_RMA_EN;
 
-	if ((SecCtrl->PrgmAesDis == TRUE) ||
-	    (SecCtrl->PrgmAesRdlk == TRUE) ||
-	    (SecCtrl->PrgmPpk0lck == TRUE) ||
-	    (SecCtrl->PrgmPpk1lck == TRUE) ||
-	    (SecCtrl->PrgmPpk2lck == TRUE) ||
-	    (SecCtrl->PrgmJtagDis == TRUE) ||
-	    (SecCtrl->PrgmUserWrlk == TRUE) ||
-	    (SecCtrl->PrgmJtagErrDis == TRUE) ||
-	    (SecCtrl->PrgmJtagDis == TRUE) ||
-	    (SecCtrl->PrgmHashPufOrKey == TRUE) ||
-	    (SecCtrl->PrgmRmaDis == TRUE) ||
-	    (SecCtrl->PrgmRmaEn == TRUE) ||
-	    (SecCtrl->PrgmCrcEn == TRUE) ||
-	    (SecCtrl->PrgmDftDis == TRUE) ||
-	    (SecCtrl->PrgmLckdwn == TRUE) ||
-	    (SecCtrl->PrgmPufTes2Dis == TRUE) ||
-	    (SecCtrl->PrgmPpk0Invld == TRUE) ||
-	    (SecCtrl->PrgmPpk1Invld == TRUE) ||
-	    (SecCtrl->PrgmPpk2Invld == TRUE)) {
+	if ((SecCtrl->AesDis == TRUE) ||
+	    (SecCtrl->AesRdlk == TRUE) ||
+	    (SecCtrl->Ppk0lck == TRUE) ||
+	    (SecCtrl->Ppk1lck == TRUE) ||
+	    (SecCtrl->Ppk2lck == TRUE) ||
+	    (SecCtrl->JtagDis == TRUE) ||
+	    (SecCtrl->UserWrlk == TRUE) ||
+	    (SecCtrl->JtagErrDis == TRUE) ||
+	    (SecCtrl->JtagDis == TRUE) ||
+	    (SecCtrl->HashPufOrKey == TRUE) ||
+	    (SecCtrl->RmaDis == TRUE) ||
+	    (SecCtrl->RmaEn == TRUE) ||
+	    (SecCtrl->CrcEn == TRUE) ||
+	    (SecCtrl->DftDis == TRUE) ||
+	    (SecCtrl->Lckdwn == TRUE) ||
+	    (SecCtrl->PufTes2Dis == TRUE) ||
+	    (SecCtrl->Ppk0Invld == TRUE) ||
+	    (SecCtrl->Ppk1Invld == TRUE) ||
+	    (SecCtrl->Ppk2Invld == TRUE) ||
+	    (SecCtrl->CrcRmaDis == TRUE) ||
+	    (SecCtrl->CrcRmaEn == TRUE)) {
 		EfuseData->SecCtrlBits = SecCtrl;
 	}
 
@@ -1126,96 +1132,106 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 
 	xil_printf("\r\nSecurity Control eFuses:\n\r");
 
-	if (SecCtrlBits.AES_DIS == TRUE) {
+	if (SecCtrlBits.AesDis == TRUE) {
 		xil_printf("\r\nAES is disabled\n\r");
 	} else {
 		xil_printf("\r\nAES is not disabled\n\r");
 	}
 
-	if (SecCtrlBits.JTAG_ERR_OUT_DIS == TRUE) {
+	if (SecCtrlBits.JtagErrDis == TRUE) {
 		xil_printf("JTAG Error Out is disabled\n\r");
 	} else {
 		xil_printf("JTAG Error Out is not disabled\n\r");
 	}
-	if (SecCtrlBits.JTAG_DIS == TRUE) {
+	if (SecCtrlBits.JtagDis == TRUE) {
 		xil_printf("JTAG is disabled\n\r");
 	} else {
 		xil_printf("JTAG is not disabled\n\r");
 	}
-	if (SecCtrlBits.PPK0_WR_LK == TRUE) {
+	if (SecCtrlBits.Ppk0lck == TRUE) {
 		xil_printf("Locks writing to PPK0 efuse\n\r");
 	} else {
 		xil_printf("Writing to PPK0 efuse is not locked\n\r");
 	}
-	if (SecCtrlBits.PPK1_WR_LK == TRUE) {
+	if (SecCtrlBits.Ppk1lck == TRUE) {
 		xil_printf("Locks writing to PPK1 efuse\n\r");
 	} else {
 		xil_printf("Writing to PPK1 efuse is not locked\n\r");
 	}
-	if (SecCtrlBits.PPK2_WR_LK == TRUE) {
+	if (SecCtrlBits.Ppk2lck == TRUE) {
 		xil_printf("Locks writing to PPK2 efuse\n\r");
 	} else {
 		xil_printf("Writing to PPK2 efuse is not locked\n\r");
 	}
-	if (SecCtrlBits.AES_RD_WR_LK_0 == TRUE || SecCtrlBits.AES_RD_WR_LK_1 == TRUE) {
+	if (SecCtrlBits.AesRdlk == TRUE) {
 		xil_printf("AES read/write lock is enabled \n\r");
 	} else {
 		xil_printf("AES read/write lock is enabled \n\r");
 	}
-	if (SecCtrlBits.USER_WR_LK == TRUE) {
+	if (SecCtrlBits.UserWrlk == TRUE) {
 		xil_printf("User write lock is enabled\n\r");
 	} else {
 		xil_printf("User write lock is enabled\n\r");
 	}
-	if (SecCtrlBits.DFT_DIS == TRUE) {
+	if (SecCtrlBits.DftDis == TRUE) {
 		xil_printf("DFT boot mode is disabled\n\r");
 	} else {
 		xil_printf("DFT boot mode is disabled\n\r");
 	}
-	if (SecCtrlBits.EFUSE_CRC_EN == TRUE) {
+	if (SecCtrlBits.CrcEn == TRUE) {
 		xil_printf("EFUSE CRC is enabled\n\r");
 	} else {
 		xil_printf("EFUSE CRC is disabled\n\r");
 	}
-	if (SecCtrlBits.HASH_PUF_OR_KEY == TRUE) {
+	if (SecCtrlBits.HashPufOrKey == TRUE) {
 		xil_printf("PUF hash is enabled \n\r");
 	} else {
 		xil_printf("PUF hash is disabled \n\r");
 	}
-	if (SecCtrlBits.LCKDOWN == TRUE) {
+	if (SecCtrlBits.Lckdwn == TRUE) {
 		xil_printf("secure lockdown is enabled\n\r");
 	} else {
 		xil_printf("secure lockdown is disabled\n\r");
 	}
-	if (SecCtrlBits.PPK0_INVLD0 == TRUE || SecCtrlBits.PPK0_INVLD1 == TRUE) {
+	if (SecCtrlBits.Ppk0Invld == TRUE) {
 		xil_printf("PPK0 is invalid\n\r");
 	} else {
 		xil_printf("PPK0 is valid \n\r");
 	}
-	if (SecCtrlBits.PPK1_INVLD0 == TRUE || SecCtrlBits.PPK1_INVLD1 == TRUE) {
+	if (SecCtrlBits.Ppk1Invld == TRUE) {
 		xil_printf("PPK1 is invalid\n\r");
 	} else {
 		xil_printf("PPK1 is valid \n\r");
 	}
-	if (SecCtrlBits.PPK2_INVLD0 == TRUE || SecCtrlBits.PPK2_INVLD1 == TRUE) {
+	if (SecCtrlBits.Ppk2Invld == TRUE) {
 		xil_printf("PPK2 is invalid\n\r");
 	} else {
 		xil_printf("PPK2 is valid \n\r");
 	}
-	if (SecCtrlBits.PUF_TEST2_DIS == TRUE) {
+	if (SecCtrlBits.PufTes2Dis == TRUE) {
 		xil_printf("PUF test2 mode is disabled\n\r");
 	} else {
 		xil_printf("PUF test2 mode is enabled \n\r");
 	}
-	if (SecCtrlBits.RMA_DISABLE_0 == TRUE || SecCtrlBits.RMA_DISABLE_1 == TRUE) {
+	if (SecCtrlBits.RmaDis == TRUE) {
 		xil_printf("RMA disable bits are programmed\n\r");
 	} else {
 		xil_printf("RMA disable bits are not programmed \n\r");
 	}
-	if (SecCtrlBits.RMA_ENABLE_0 == TRUE || SecCtrlBits.RMA_ENABLE_1 == TRUE) {
+	if (SecCtrlBits.CrcRmaDis == TRUE) {
+		xil_printf("CRC RMA disable bit is programmed\n\r");
+	} else {
+		xil_printf("CRC RMA disable bit is not programmed \n\r");
+	}
+	if (SecCtrlBits.RmaEn == TRUE) {
 		xil_printf("RMA enable bits are programmed\n\r");
 	} else {
 		xil_printf("RMA enable bits are not programmed \n\r");
+	}
+	if (SecCtrlBits.CrcRmaEn == TRUE) {
+		xil_printf("CRC RMA enable bit is programmed\n\r");
+	} else {
+		xil_printf("CRC RMA enable bit is not programmed \n\r");
 	}
 
 	Status = XST_SUCCESS;
