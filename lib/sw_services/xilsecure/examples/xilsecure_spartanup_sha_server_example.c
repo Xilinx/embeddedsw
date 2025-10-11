@@ -41,6 +41,7 @@
 * 1.1   mb     03/25/25 Add section attribute to global variables
 * 1.1   mb     04/11/25 Add support for XSECURE_SHAKE_256 hash calculation
 * 1.2   mb     06/10/25 Add description on usage of shared memory
+* 5.6   mb     09/11/25 Added support to calculate hash in SHA3_384 mode
 *
 * </pre>
 ******************************************************************************/
@@ -57,11 +58,12 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#ifndef SPARTANUPLUSAES1
 #define SHA_HASH_LEN_IN_BYTES  (XSECURE_SHA3_256_HASH_LEN) /**< SHA hash length in bytes */
+#else
+#define SHA_HASH_LEN_IN_BYTES  (XSECURE_SHA3_384_HASH_LEN) /**< SHA hash length in bytes */
+#endif
 #define SHA_INPUT_DATA_LEN     8U /**< Input data length */
-#define XSECURE_SHA3_256               (5U) /**< SHA3 mode */
-#define XSECURE_SHAKE_256              (3U) /**< SHAKE256 mode */
 #define SHA_MODE               (XSECURE_SHA3_256) /**< SHA mode */
 
 /************************** Function Prototypes ******************************/
@@ -89,6 +91,15 @@ static u8 ExpHash[SHA_HASH_LEN_IN_BYTES] = {
 	0x1AU, 0xFFU, 0xA7U, 0xF8U, 0xDCU, 0xE1U, 0xA3U, 0xECU,
 	0x79U, 0x91U, 0xB6U, 0xBCU, 0xD0U, 0x86U, 0x23U, 0x8BU,
 	0xB4U, 0x18U, 0x6BU, 0x04U, 0x45U, 0x56U, 0xBDU, 0xA1U
+};
+#elif (SHA_MODE == XSECURE_SHA3_384)
+static u8 ExpHash[SHA_HASH_LEN_IN_BYTES] = {
+	0x4CU, 0x5CU, 0x24U, 0xD0U, 0x8FU, 0xECU, 0xDDU, 0xA6U,
+	0x94U, 0x19U, 0x38U, 0x1FU, 0x81U, 0x83U, 0xE1U, 0x4CU,
+	0x8CU, 0xCCU, 0xBEU, 0x69U, 0x45U, 0x0AU, 0x7AU, 0x36U,
+	0xFBU, 0xCFU, 0xECU, 0xFDU, 0xC0U, 0x39U, 0x50U, 0xCAU,
+	0xA0U, 0x1CU, 0x65U, 0x2AU, 0xC8U, 0x3AU, 0xB6U, 0xECU,
+	0x1DU, 0x5FU, 0xBCU, 0xA0U, 0x20U, 0x8AU, 0x92U, 0x54U
 };
 #else
 #error "Invaild SHA mode selected"
