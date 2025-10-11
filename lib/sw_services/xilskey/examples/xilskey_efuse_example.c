@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -802,7 +802,7 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 			xil_printf("EfusePL status bits : Not programmed FUSE SHAD SEC 3\n\r");
 		}
 #else
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA)) {
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC3_ULTRA)) {
 			xil_printf("EfusePL status bits : External Jtag pins are disabled\n\r");
 		}else {
 			xil_printf("EfusePL status bits : Jtag is not disabled\n\r");
