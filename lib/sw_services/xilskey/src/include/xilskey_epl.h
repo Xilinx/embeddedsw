@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -114,9 +114,9 @@ typedef enum {
 							/**< Bit 15 of Status reg */
 	XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA,
 	XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA = 25,/**< Bit 25 of Status reg */
-	XSK_EFUSEPL_STATUS_EFUSE_KEY_ONLY_DECRYPTION_ULTRA, /**< Bit 26 of Status reg */
+	XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC1_ULTRA, /**< Bit 26 of Status reg */
 	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,  /**< Bit 27 of Status reg */
-	XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA, /**< Bit 28 of Status reg */
+	XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC3_ULTRA, /**< Bit 28 of Status reg */
 	XSK_EFUSEPL_STATUS_SCAN_DISABLE_ULTRA, /**< Bit 29 of Status reg */
 	XSK_EFUSEPL_STATUS_DISABLE_CRYPTO_ULTRA,/**< Bit 30 of Status reg */
 	XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY /**< Bit 31 of Status reg */
