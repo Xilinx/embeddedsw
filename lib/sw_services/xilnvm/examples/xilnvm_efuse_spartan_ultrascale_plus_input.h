@@ -240,7 +240,6 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_JTAG_DIS                FALSE
 #define XNVM_EFUSE_XNVM_USER_WR_LK              FALSE
 #define XNVM_EFUSE_XNVM_JTAG_ERR_DIS            FALSE
-#define XNVM_EFUSE_XNVM_JTAG_DIS                FALSE
 #define XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY         FALSE
 #define XNVM_EFUSE_XNVM_RMA_DIS                 FALSE
 #define XNVM_EFUSE_XNVM_RMA_EN                  FALSE
@@ -251,6 +250,8 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_PPK0_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK1_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK2_INVLD              FALSE
+#define XNVM_EFUSE_XNVM_CRC_RMA_DIS             FALSE
+#define XNVM_EFUSE_XNVM_CRC_RMA_EN              FALSE
 
 #ifdef SPARTANUPLUSAES1
 /**
