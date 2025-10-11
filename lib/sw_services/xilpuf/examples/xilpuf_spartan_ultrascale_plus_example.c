@@ -45,6 +45,7 @@
   * 1.1   mb   06/10/25 Added description on usage of shared memory
   *       mb   07/08/25 Added XPUF_FORMATTED_HD_IN_WORDS macro to print 129 words PUF HD
   *       mb   10/05/25 Set Efuse clock frequency and src before programming key/Iv
+  *       mb   10/05/25 Convert IV endianness to little endian format.
   *
   *@note
   *
@@ -827,7 +828,8 @@ static int XPuf_ProgramBlackKeynIV()
 
 	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
-	Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv, XPUF_IV_LEN_IN_BITS);
+	/** - Convert IV to Little Endian format */
+	Status = Xil_ConvertStringToHexLE((const char *)(XPUF_IV), Iv, XPUF_IV_LEN_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf("String Conversion error (IV):%08x\r\n", Status);
 		goto END;
