@@ -79,22 +79,33 @@ static s32 RunKeyWrapAndDependentKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 
 /************************************ Variable Definitions ***************************************/
-#define XASUFW_KAT_MSG_LENGTH_IN_BYTES			(32U)	/**< SHA KAT message length in bytes */
-#define XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES		(256U)	/**< RSA KAT message length in bytes */
+#define XASUFW_KAT_MSG_LENGTH_IN_BYTES			(32U)	/**< SHA KAT message length in
+									bytes */
+#define XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES		(256U)	/**< RSA KAT message length in
+									bytes */
 #define XASUFW_AES_KEY_LEN_IN_BYTES			(32U)	/**< AES KAT Key length in bytes */
 #define XASUFW_AES_IV_LEN_IN_BYTES			(12U)	/**< AES KAT Iv length in bytes */
 #define XASUFW_AES_AAD_LEN_IN_BYTES			(16U)	/**< AES KAT AAD length in bytes */
 #define XASUFW_AES_TAG_LEN_IN_BYTES			(16U)	/**< AES KAT Tag length in bytes */
-#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES		(64U)	/**< Double the size of P256 curve length */
-#define XASUFW_DOUBLE_P448_SIZE_IN_BYTES		(114U)	/**< Double the size of P448 curve length */
-#define XASUFW_DOUBLE_P384_SIZE_IN_BYTES		(96U)	/**< Double the size of P384 curve length */
-#define XASUFW_AES_CM_LEN_IN_WORDS			(4U) /**< AES CM input and output buffer lengths in words. */
+#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES		(64U)	/**< Double the size of P256 curve
+									length */
+#define XASUFW_DOUBLE_P448_SIZE_IN_BYTES		(114U)	/**< Double the size of P448 curve
+									length */
+#define XASUFW_DOUBLE_P384_SIZE_IN_BYTES		(96U)	/**< Double the size of P384 curve
+									length */
+#define XASUFW_AES_CM_LEN_IN_WORDS			(4U)	/**< AES CM input and output
+									buffer lengths in words. */
+#define XASUFW_AES_CM_IV_LEN_IN_WORDS			(3U)	/**< AES CM Iv buffer length
+									in words. */
 #define XASUFW_AES_CM_SPLIT_MASK			(0xFFFFFFFFU) /**< AES CM split mask. */
-#define XASUFW_AES_CM_SPLIT_ALIGNED_LENGTH		(0x10U) /**< AES CM split configuration aligned length. */
-#define XASUFW_AES_CM_DATA_LEN_IN_BYTES			(16U) /**< AES CM data length in bytes. */
-#define XASUFW_AES_CM_MASK_BUF_WORD_LEN			(32U) /**< AES CM mask data buffer word length. */
-#define XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES		(31U)	/**< Key wrap unwrap KAT message length in
-								bytes*/
+#define XASUFW_AES_CM_SPLIT_ALIGNED_LENGTH		(0x10U) /**< AES CM split configuration
+									aligned length. */
+#define XASUFW_AES_CM_DATA_LEN_IN_BYTES			(16U)	/**< AES CM data length in
+									bytes. */
+#define XASUFW_AES_CM_MASK_BUF_WORD_LEN			(32U)	/**< AES CM mask data buffer word
+									length. */
+#define XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES		(31U)	/**< Key wrap unwrap KAT message
+									length in bytes*/
 #define XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES		(5U)	/**< RSA OAEP optional data length
 									in bytes */
 #define XASUFW_KEYWRAP_INPUT_PADDING_SIZE_IN_BYTES	(9U)	/**< Key wrap padding length for
@@ -390,14 +401,17 @@ static const u8 ExpAesGcmTag[XASUFW_AES_TAG_LEN_IN_BYTES] = {
 /* AES counter measure plaintext */
 static const u32 AesCmPt[XASUFW_AES_CM_LEN_IN_WORDS] = {0xE2BEC16BU, 0x969F402EU, 0x117E3DE9U, 0x2A179373U};
 
-/* AES counter measure expected ciphertext */
-static const u32 AesCmCt[XASUFW_AES_CM_LEN_IN_WORDS] = {0x91614D87U, 0x26E320B6U, 0x6468EF1BU, 0xCEB60D99U};
-
 /* AES counter measure key */
 static const u32 AesCmKey[XASUFW_AES_CM_LEN_IN_WORDS] = {0x2B7E1516U, 0x28AED2A6U, 0xABF71588U, 0x9CF4F3CU};
 
 /* AES counter measure Iv */
-static const u32 AesCmIv[XASUFW_AES_CM_LEN_IN_WORDS] = {0xF0F1F2F3U, 0xF4F5F6F7U, 0xF8F9FAFBU, 0xFCFDFEFFU};
+static const u32 AesCmIv[XASUFW_AES_CM_IV_LEN_IN_WORDS] = {0xF0F1F2F3U, 0xF4F5F6F7U, 0xF8F9FAFBU};
+
+/* AES counter measure expected ciphertext */
+static const u32 AesCmExpCt[XASUFW_AES_CM_LEN_IN_WORDS] = {0xCF0DC96EU, 0x41B85CE2U, 0xD83A03E3U, 0xA687B5F9U};
+
+/* AES counter measure expected tag */
+static const u32 AesCmExpTag[XASUFW_AES_CM_LEN_IN_WORDS] = {0x32CD3334U, 0xE1C616FDU, 0x2132E1BAU, 0xD92045DFU};
 #endif
 
 static const u8 EcdhPrivKey[XASU_ECC_P256_SIZE_IN_BYTES] = {
@@ -1356,8 +1370,12 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	XAes *InstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	u32 Output0[XASUFW_AES_CM_LEN_IN_WORDS];
 	u32 Output1[XASUFW_AES_CM_LEN_IN_WORDS];
+	u32 Tag0[XASUFW_AES_CM_LEN_IN_WORDS];
+	u32 Tag1[XASUFW_AES_CM_LEN_IN_WORDS];
 	u32 MaskedOutput0[XASUFW_AES_CM_LEN_IN_WORDS + XASUFW_AES_CM_LEN_IN_WORDS];
 	u32 MaskedOutput1[XASUFW_AES_CM_LEN_IN_WORDS + XASUFW_AES_CM_LEN_IN_WORDS];
+	u32 MaskedTag0[XASUFW_AES_CM_LEN_IN_WORDS + XASUFW_AES_CM_LEN_IN_WORDS];
+	u32 MaskedTag1[XASUFW_AES_CM_LEN_IN_WORDS + XASUFW_AES_CM_LEN_IN_WORDS];
 	u32 MaskedPt[XASUFW_AES_CM_MASK_BUF_WORD_LEN];
 	u32 MaskedKey[XASUFW_AES_CM_MASK_BUF_WORD_LEN];
 	u32 Index;
@@ -1390,20 +1408,35 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** First encryption run. */
 	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
-		MaskedOutput0, MaskedKey, AesCmIv, XASU_AES_ENCRYPT_OPERATION);
+		MaskedOutput0, MaskedTag0, MaskedKey, AesCmIv, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_ENC_OP_FAILED;
 		goto END;
 	}
 
-	/** Calculate unmasked result for first run. */
+	/** Calculate unmasked encrypted output for first run. */
 	for (Index = 0U; Index < XASUFW_AES_CM_LEN_IN_WORDS; Index++) {
 		Output0[Index] = MaskedOutput0[Index] ^
 			MaskedOutput0[XASUFW_AES_CM_LEN_IN_WORDS + Index];
 	}
 
+	/** Calculate unmasked tag output for first run. */
+	for (Index = 0U; Index < XASUFW_AES_CM_LEN_IN_WORDS; Index++) {
+		Tag0[Index] = MaskedTag0[Index] ^
+			MaskedTag0[XASUFW_AES_CM_LEN_IN_WORDS + Index];
+
+		Tag0[Index] = Xil_EndianSwap32(Tag0[Index]);
+	}
+
 	/** Compare encrypted data with expected ciphertext data. */
-	Status = Xil_SMemCmp_CT(AesCmCt, XASUFW_AES_CM_DATA_LEN_IN_BYTES, Output0,
+	Status = Xil_SMemCmp_CT(AesCmExpCt, XASUFW_AES_CM_DATA_LEN_IN_BYTES, Output0,
+		XASUFW_AES_CM_DATA_LEN_IN_BYTES, XASUFW_AES_CM_DATA_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Compare generated tag with expected tag. */
+	Status = Xil_SMemCmp_CT(AesCmExpTag, XASUFW_AES_CM_DATA_LEN_IN_BYTES, Tag0,
 		XASUFW_AES_CM_DATA_LEN_IN_BYTES, XASUFW_AES_CM_DATA_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -1411,7 +1444,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Second encryption run. */
 	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
-		MaskedOutput1, MaskedKey, AesCmIv, XASU_AES_ENCRYPT_OPERATION);
+		MaskedOutput1, MaskedTag1, MaskedKey, AesCmIv, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_ENC_OP_FAILED;
 		goto END;
@@ -1423,8 +1456,23 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 			MaskedOutput1[XASUFW_AES_CM_LEN_IN_WORDS + Index];;
 	}
 
+	/** Calculate unmasked tag output for first run. */
+	for (Index = 0U; Index < XASUFW_AES_CM_LEN_IN_WORDS; Index++) {
+		Tag1[Index] = MaskedTag1[Index] ^
+			MaskedTag1[XASUFW_AES_CM_LEN_IN_WORDS + Index];
+
+		Tag1[Index] = Xil_EndianSwap32(Tag1[Index]);
+	}
+
 	/** Compare encrypted data with expected ciphertext data. */
-	Status = Xil_SMemCmp_CT(AesCmCt, XASUFW_AES_CM_DATA_LEN_IN_BYTES, Output1,
+	Status = Xil_SMemCmp_CT(AesCmExpCt, XASUFW_AES_CM_DATA_LEN_IN_BYTES, Output1,
+		XASUFW_AES_CM_DATA_LEN_IN_BYTES, XASUFW_AES_CM_DATA_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Compare generated tag with expected tag. */
+	Status = Xil_SMemCmp_CT(AesCmExpTag, XASUFW_AES_CM_DATA_LEN_IN_BYTES, Tag1,
 		XASUFW_AES_CM_DATA_LEN_IN_BYTES, XASUFW_AES_CM_DATA_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -1438,8 +1486,16 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 		goto END;
 	}
 
+	/** Validate intermediate tag output. */
+	Status = XAsufw_ValidateDpaIntermediateValues(MaskedTag0,
+		&MaskedTag0[XASUFW_AES_CM_LEN_IN_WORDS], MaskedTag1,
+		&MaskedTag1[XASUFW_AES_CM_LEN_IN_WORDS]);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
 	/** Output data masking for decryption. */
-	XAsufw_ApplyMask(AesCmCt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, sizeof(AesCmCt));
+	XAsufw_ApplyMask(AesCmExpCt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, sizeof(AesCmExpCt));
 
 	/** Load mask data to plaintext address. */
 	for (Index = 0U; Index < XASUFW_AES_CM_LEN_IN_WORDS; Index++) {
@@ -1455,7 +1511,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** First decryption run. */
 	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
-		MaskedOutput0, MaskedKey, AesCmIv, XASU_AES_DECRYPT_OPERATION);
+		MaskedOutput0, Tag0, MaskedKey, AesCmIv, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_DEC_OP_FAILED;
 		goto END;
@@ -1476,7 +1532,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Second decryption run. */
 	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
-		MaskedOutput1, MaskedKey, AesCmIv, XASU_AES_DECRYPT_OPERATION);
+		MaskedOutput1, Tag1, MaskedKey, AesCmIv, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_DEC_OP_FAILED;
 		goto END;
