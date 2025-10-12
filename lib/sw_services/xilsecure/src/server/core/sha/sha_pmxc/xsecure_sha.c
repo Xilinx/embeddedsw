@@ -235,7 +235,7 @@ END:
  *******************************************************************************************/
 int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Size)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/** Validate the input arguments. */
 	if(InstancePtr == NULL) {
@@ -610,7 +610,7 @@ END:
  *****************************************************************************/
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {

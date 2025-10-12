@@ -37,7 +37,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xsecure_mailbox.h"
 #include "xsecure_defs.h"
-#include "xsecure_sha3alginfo.h"
+#include "xsecure_shaalginfo.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA_START       (0x1U)	/**< Operation flags for SHA start  */
