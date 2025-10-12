@@ -72,25 +72,25 @@
  * Number of bits to shift for tag length encoding in the B0 flag.
  * Bits 5-3 in the B0 flag store the tag length as (t-2)/2.
  */
-#define XAES_CCM_TAG_SHIFT      	(3U)
+#define XAES_CCM_TAG_SHIFT		(3U)
 
 /**
  * Mask for extracting the 3-bit tag length encoding in the B0 flag.
  * The tag length is stored in bits 5-3 and extracted using this mask.
  */
-#define XAES_CCM_TAG_MASK       	(0x07U)
+#define XAES_CCM_TAG_MASK		(0x07U)
 
 /**
  * Constant used for computing q, where q = 15 - nonce_len.
  * q represents the number of bytes used to encode the message length.
  */
-#define XAES_CCM_Q_CONST        	(15U)
+#define XAES_CCM_Q_CONST		(15U)
 
 /**
  * Mask to extract the lower 3 bits for q-1 encoding in the B0 flag.
  * The message length encoding q-1 is stored in bits 2-0.
  */
-#define XAES_CCM_Q_MASK         	(0x07U)
+#define XAES_CCM_Q_MASK			(0x07U)
 
 /**
  * @brief Macro to compute the B0 flag for AES-CCM mode.
@@ -133,7 +133,6 @@
 					/**< AES CCM maximum header length
 					(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
 					XAES_MAX_PLEN_AAD_ENCODING_SIZE. */
-#define XAES_U64_ONE			(1ULL) /**< Constant value 1 as an unsigned 64-bit integer. */
 #define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index of the NonceHeader array, used to
 					store the high byte. */
 #define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index of the NonceHeader array, used to
@@ -146,6 +145,12 @@
 						CCM mode (in bytes). */
 #define XAES_GCM_J0_IV_INIT_VAl		(0x01U) /**< Initial counter value used in GCM mode IV formatting. */
 #define XAES_TAG_LEN_IN_WORDS		(4U) /**< Number of 32-bit words in a 128-bit AES authentication tag. */
+#define XAES_CCM_MIN_LEN_FIELD_SIZE	(2U) /**< AES CCM minimum length field size in bytes. */
+#define XAES_CCM_MAX_LEN_FIELD_SIZE	(8U) /**< AES CCM maximum length field size in bytes. */
+#define XAES_CCM_2BYTE_LEN_FIELD_SIZE	(2U) /**< AES CCM 2bytes length field size. */
+#define XAES_CCM_3BYTE_LEN_FIELD_SIZE	(3U) /**< AES CCM 3bytes length field size. */
+#define XAES_CCM_2BYTE_MAX_LEN		(0xFFFFU) /**< AES CCM 2BYTE maximum length (64KB). */
+#define XAES_CCM_3BYTE_MAX_LEN		(0xFFFFFFU) /**< AES CCM 3BYTE maximum length (16MB). */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
@@ -350,6 +355,7 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
 static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr);
+static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
 
@@ -1096,9 +1102,11 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	/** Number of bytes for payload length encoding. */
 	LengthFieldSize = XAES_CCM_Q_CONST - NonceLen;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Check if plaintext length fits in LengthFieldSize bytes. */
-	if (PlainTextLen >= (XAES_U64_ONE << (XASUFW_BYTE_LEN_IN_BITS * LengthFieldSize))) {
-		Status = XASUFW_AES_INVALID_PARAM;
+	Status = XAes_CcmValidatePlainTextLength(PlainTextLen, LengthFieldSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INVALID_PARAM);
 		goto END;
 	}
 
@@ -2493,6 +2501,51 @@ static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr)
 END:
 	return Status;
 
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates if plaintext length complies with CCM length encoding
+ * 		requirements.
+ *
+ * @param	PlainTextLen	Length of plaintext in bytes.
+ * @param	LengthFieldSize	Number of bytes available for length encoding (2-8).
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if validation is successful.
+ *		- XASUFW_FAILURE, if validation fails.
+ *
+ *************************************************************************************************/
+static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Validate LengthFieldSize range per AES-CCM specification. */
+	if ((LengthFieldSize >= XAES_CCM_MIN_LEN_FIELD_SIZE) &&
+			(LengthFieldSize <= XAES_CCM_MAX_LEN_FIELD_SIZE)) {
+		switch (LengthFieldSize) {
+		case XAES_CCM_2BYTE_LEN_FIELD_SIZE:
+			/* 2 bytes max: 0xFFFF (64KB) */
+			if (PlainTextLen <= XAES_CCM_2BYTE_MAX_LEN) {
+				Status = XASUFW_SUCCESS;
+			}
+			break;
+
+		case XAES_CCM_3BYTE_LEN_FIELD_SIZE:
+			/* 3 bytes max: 0xFFFFFF (16MB) */
+			if (PlainTextLen <= XAES_CCM_3BYTE_MAX_LEN) {
+				Status = XASUFW_SUCCESS;
+			}
+			break;
+
+		default:
+			/* For 4+ bytes, DMA constraints already cover validation */
+			Status = XASUFW_SUCCESS;
+			break;
+		}
+	}
+
+	return Status;
 }
 
 /*************************************************************************************************/
