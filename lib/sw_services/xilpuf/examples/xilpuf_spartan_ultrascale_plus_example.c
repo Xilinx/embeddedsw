@@ -48,6 +48,7 @@
   *       mb   10/05/25 Convert IV endianness to little endian format.
   * 2.6   mb   29/09/25 Set lower 32 bits of PUF_IV are zero
   *       mb   09/11/25 Added support for calculate 384 bit PUF HD hash
+  *       mb   10/05/25 Minor updates in xilpuf library
   *
   *@note
   *
@@ -66,35 +67,37 @@
 #include "xilpuf_spartan_ultrascale_plus_example.h"
 
 /************************** Constant Definitions ****************************/
-#define XPUF_IV_LEN_IN_BYTES			(12U)
-/* IV Length in bytes */
+#define XPUF_IV_LEN_IN_BYTES			(12U) /**< IV Length in bytes */
 #define XPUF_RED_KEY_LEN_IN_BITS		(XPUF_RED_KEY_LEN_IN_BYTES * 8U)
-/* Data length in Bits */
+						/**< Red key length in Bits */
 #define XPUF_IV_LEN_IN_BITS			(XPUF_IV_LEN_IN_BYTES * 8U)
-/* IV length in Bits */
-#define XPUF_GCM_TAG_SIZE			(16U)
-/* GCM tag Length in bytes */
-#define XPUF_HD_LEN_IN_WORDS			(140U)
-#define XPUF_HD_TRIM_PAD_LEN_IN_WORDS   (132U)
-#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
-	XPUF_WORD_LENGTH)
-#define XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES	(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * \
-	XPUF_WORD_LENGTH)
-#define XPUF_CHASH_AND_AUX_IN_WORDS		(2U)
-#define XPUF_FORMATTED_HD_IN_WORDS		(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS + \
-        XPUF_CHASH_AND_AUX_IN_WORDS)		/* 127U Syn_data + 1 Aux + 1 Chash */
+						/**< PUF IV length in Bits */
+#define XPUF_GCM_TAG_SIZE			(16U) /**< GCM tag Length in bytes */
+#define XPUF_HD_LEN_IN_WORDS			(140U) /**< PUF helper data length in words */
 
-#define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
-#define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
+#define XPUF_HD_TRIM_PAD_LEN_IN_WORDS		(132U) /**< PUF helper data trim pad
+							length in words */
+#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
+						XPUF_WORD_LENGTH) /**< PUF ID length in bytes */
+#define XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES	(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * \
+						XPUF_WORD_LENGTH)
+						/**< Trimmed syndrome data size in bytes */
+#define XPUF_CHASH_AND_AUX_IN_WORDS		(2U) /**< CHASH + AUX size in words  */
+#define XPUF_FORMATTED_HD_IN_WORDS		(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS + \
+						XPUF_CHASH_AND_AUX_IN_WORDS)
+						/* 127U Syn_data + 1 Aux + 1 Chash */
+
+#define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U) /**< AES key size 128 in words */
+#define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U) /**< AES key size 256 in words */
 #ifndef SPARTANUPLUSAES1
-#define XPUF_PPK_HASH_SIZE_IN_BYTES		(32U)
+#define XPUF_PPK_HASH_SIZE_IN_BYTES		(32U) /**< PPK hash size in bytes */
 #define SHA_MODE				XSECURE_SHA3_256
 #else
-#define XPUF_PPK_HASH_SIZE_IN_BYTES         	(48U)
+#define XPUF_PPK_HASH_SIZE_IN_BYTES		(48U) /**< PPK hash size in bytes */
 #define SHA_MODE				XSECURE_SHA3_384
 #endif
-#define XPUF_PMC_GLOBAL_SYN_DATA_ADDR       (0x040BF368U)
-#define XPUF_SYN_DATA_VALID_BITS            (0xFFFFF000U)
+#define XPUF_PMC_GLOBAL_SYN_DATA_ADDR		(0x040BF368U) /**< PMC global syndrome data address */
+#define XPUF_SYN_DATA_VALID_BITS		(0xFFFFF000U) /**< Syndrome data valid bits */
 
 #ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
 #define	XPUF_EFUSE_SET_REF_CLK_FREQ		(33333000U) /**< Reference clock frequency for eFUSE */
@@ -468,7 +471,7 @@ END:
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 /******************************************************************************/
 /**
- * @brief	This function encrypts the red key with PUF KEY and IV.
+ * @brief	This function calculates hash of given PUF syndrome data.
  *
  * @param	DmaPtr Pointer to XPmcDma instance
  * @param   PufSyndromeData Pointer to PUF syndrome data
