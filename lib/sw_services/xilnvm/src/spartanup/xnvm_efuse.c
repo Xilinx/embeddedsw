@@ -112,8 +112,8 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
  * @param  EfuseData	Pointer to the XNvm_EfuseData.
  *
  * @return
- *		- XST_SUCCESS Clock initialization and frequency validation were successful.
- *		- XNVM_EFUSE_ERR_INVALID_FREQUENCY If clock frequency is invalid.
+ * 		- XST_SUCCESS Clock initialization and frequency validation were successful.
+ * 		- XNVM_EFUSE_ERR_INVALID_FREQUENCY If clock frequency is invalid.
  *
  *****************************************************************************/
 static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData)
@@ -171,7 +171,9 @@ END:
 *
 * @return
 * 		- XST_SUCCESS if programs successfully.
-* 		- Errorcode on failure
+* 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+* 		- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED - Nothing to be programmed
+* 		- XNVM_EFUSE_ERR_BEFORE_PROGRAMMING - Error before programming
 *
 * @note		After eFUSE programming is complete, the cache is automatically
 * 	reloaded so all programmed eFUSE bits can be directly read from cache.
@@ -328,8 +330,11 @@ END:
  *
  * @param	AesKey - Pointer to XNvm_EfuseAesKeys.
  *
- * @return	- XST_SUCCESS	- On success.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On success.
+ * 		- XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS - Error reading security control bits.
+ * 		- XNVM_EFUSE_ERR_FUSE_PROTECTED | XNVM_EFUSE_ERR_WRITE_AES_KEY - AES fuses are protected.
+ * 		- XNVM_EFUSE_ERR_AES_ALREADY_PRGMD - AES key is already programmed.
  *
  ******************************************************************************/
 static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *AesKey)
@@ -371,8 +376,12 @@ END:
  *
  * @param	PpkHash - Pointer to XNvm_EfusePpkHash.
  *
- * @return	- XST_SUCCESS	- On success.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On success.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid parameter.
+ * 		- XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD - PPK0 hash is already programmed.
+ * 		- XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD - PPK1 hash is already programmed.
+ * 		- XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD - PPK2 hash is already programmed.
  *
  ******************************************************************************/
 static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *PpkHash)
@@ -495,8 +504,9 @@ END:
  *
  * @param	Ivs - Pointer to XNvm_EfuseAesIvs.
  *
- * @return	- XST_SUCCESS	- On success.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On success.
+ * 		- XNVM_EFUSE_ERR_BEFORE_PROGRAMMING | XNVM_EFUSE_ERR_BIT_CANT_REVERT - IV bits cannot be reverted.
  *
  ******************************************************************************/
 static int XNvm_EfuseValidateIvsWriteReq(const XNvm_EfuseAesIvs *Ivs)
@@ -545,8 +555,11 @@ END:
  *
  * @param	EfuseData - Pointer to XNvm_EfuseData.
  *
- * @return	- XST_SUCCESS	- On success.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On success.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD - AES key must be programmed before DEC_ONLY.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_HASH_OR_PUF_KEY_MUST_BE_PRGMD - Hash or PUF key must be programmed.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD - DEC_ONLY is already programmed.
  *
  ******************************************************************************/
 static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *EfuseData)
@@ -608,8 +621,9 @@ END:
  *
  * @param	EfuseData - Pointer to XNvm_EfuseData.
  *
- * @return	- XST_SUCCESS	- On success.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On success.
+ * 		- XST_FAILURE - On validation failure.
  *
  ******************************************************************************/
 static int XNvm_EfuseValidateBeforeWriteReq(const XNvm_EfuseData *EfuseData)
@@ -656,8 +670,9 @@ END:
  *
  * @param	AesKey - Pointer to XNvm_EfuseAesKeys.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_AES_KEY - Error in AES key programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmAesKey(const XNvm_EfuseAesKeys *AesKey)
@@ -703,8 +718,11 @@ END:
  *
  * @param	PpkHash - Pointer to XNvm_EfusePpkHash.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error in PPK0 hash programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error in PPK1 hash programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in PPK2 hash programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
@@ -800,8 +818,9 @@ END:
  *
  * @param	AesIv - Pointer to XNvm_EfuseAesIvs.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_IV - Error in IV programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
@@ -838,8 +857,9 @@ END:
  *
  * @param	UserFuse - Pointer to XNvm_EfuseUserFuse.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_USER_FUSE - Error in user fuse programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmUserFuse(const XNvm_EfuseUserFuse *UserFuse)
@@ -875,8 +895,9 @@ END:
  *
  * @param	SpkRevokeId - Pointer to XNvm_EfuseSpkRevokeId.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_SPK_REVOKE_ID - Error in SPK revoke ID programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmSpkRevokeId(const XNvm_EfuseSpkRevokeId *SpkRevokeId)
@@ -913,8 +934,9 @@ END:
  *
  * @param	AesRevokeId - Pointer to XNvm_EfuseAesRevokeId.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_AES_REVOKE_ID - Error in AES revoke ID programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmAesRevokeId(const XNvm_EfuseAesRevokeId *AesRevokeId)
@@ -951,8 +973,9 @@ END:
  *
  * @param	DecOnly - Pointer to XNvm_EfuseDecOnly.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_DEC_ONLY - Error in DEC only programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly)
@@ -985,10 +1008,10 @@ static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly)
  * 		PufHDInvld flag which says to program eFuse.
  *
  * @return
- *		- XST_SUCCESS  Specified data read.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid input parameter.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  Error in PUFHD_INVLD
- *						     programming.
+ * 		- XST_SUCCESS  Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid input parameter.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  Error in PUFHD_INVLD
+ * 						     programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld)
@@ -1025,12 +1048,12 @@ END:
  * 		PufHDInvld and PrgmDisSJtag flag which says to program eFuse.
  *
  * @return
- *		- XST_SUCCESS  Specified data read.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid input parameter.
- *		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  Error in PUFHD_INVLD
- *						     programming.
- *		- XNVM_EFUSE_ERR_WRITE_DIS_SJTAG Error in DIS_SJTAG
- *						     programming.
+ * 		- XST_SUCCESS  Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid input parameter.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  Error in PUFHD_INVLD
+ * 						     programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_DIS_SJTAG Error in DIS_SJTAG
+ * 						     programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
@@ -1074,10 +1097,13 @@ END:
  * @param	BootModeDis	Pointer to XNvm_EfuseBootModeDis.
  *
  * @return
- * 		- XNVM_EFUSE_ERR_RD_BOOT_MODE_DIS_BITS, Error when read Boot mode disable bits
- * 		  from cache is failed
- * 		- XST_SUCCESS, If Boot mode disable bits are programmed successfully.
- * 		- Errorcode, If there is any failure.
+ * 		- XST_SUCCESS - If Boot mode disable bits are programmed successfully.
+ * 		- XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS - Error when read Boot mode disable bits from cache fails.
+ * 		- XNVM_EFUSE_ERR_WRITE_QSPI24_BOOT_MODE_DIS - Error in QSPI24 boot mode disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_QSPI32_BOOT_MODE_DIS - Error in QSPI32 boot mode disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_OSPI_BOOT_MODE_DIS - Error in OSPI boot mode disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_SMAP_BOOT_MODE_DIS - Error in SMAP boot mode disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_SERIAL_BOOT_MODE_DIS - Error in SERIAL boot mode disable programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDis)
@@ -1187,10 +1213,9 @@ END:
  * @param	BootModeDisBits	Pointer to the Boot mode disable efuse data.
  *
  * @return
- * 		- XST_SUCCESS, If Boot mode disable efuses are read successfully.
- * 		- XNVM_EFUSE_ERR_RD_BOOT_MODE_DIS_BITS, Error when reading Boot mode disable bits
- *		  from cache fails
- *		- Errorcode, If there is any failure
+ * 		- XST_SUCCESS - If Boot mode disable efuses are read successfully.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid input parameter.
+ * 		- XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS - Error when reading Boot mode disable bits from cache fails.
  *
  ******************************************************************************/
 int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits)
@@ -1240,8 +1265,30 @@ END:
  *
  * @param	SecCtrl - Pointer to XNvm_EfuseSecCtrl.
  *
- * @return	- XST_SUCCESS	- On successful programming.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - On successful programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_AES_DIS - Error in AES disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_JTAG_DIS - Error in JTAG disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK2_WR_LCK - Error in PPK2 write lock programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK1_WR_LCK - Error in PPK1 write lock programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK0_WR_LCK - Error in PPK0 write lock programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_AES_RD_WR_LCK0 - Error in AES read/write lock 0 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_AES_RD_WR_LCK1 - Error in AES read/write lock 1 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_0 - Error in PPK2 invalid 0 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_1 - Error in PPK2 invalid 1 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_0 - Error in PPK1 invalid 0 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_1 - Error in PPK1 invalid 1 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK0_INVLD_0 - Error in PPK0 invalid 0 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK0_INVLD_1 - Error in PPK0 invalid 1 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS - Error in PUF test2 disable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_RMA_ENABLE_0 - Error in RMA enable 0 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_RMA_ENABLE_1 - Error in RMA enable 1 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_DFT_DIS_0 - Error in DFT disable 0 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_DFT_DIS_1 - Error in DFT disable 1 programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_CRC_EN - Error in CRC enable programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_HASH_PUF_OR_KEY - Error in hash PUF or key programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_USER_WR_LK - Error in user write lock programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_JTAG_ERR_OUT_DIS - Error in JTAG error output disable programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
@@ -1582,9 +1629,10 @@ END:
  * @param	EndOffset   - A 32 bit End Cache offset of an expected
  * 			Programmable Bits.
  *
- * @return	- XST_SUCCESS - if the eFuse data computation is successful.
- *			- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *			- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
+ * @return
+ * 		- XST_SUCCESS - if the eFuse data computation is successful.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
  *
  ******************************************************************************/
 static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
@@ -1633,8 +1681,9 @@ END:
  * @brief	This function reloads the cache of eFUSE so that can be directly
  * 			read from cache.
  *
- * @return	- XST_SUCCESS - on successful cache reload.
- *			- XNVM_EFUSE_ERR_CACHE_LOAD - Error while loading the cache.
+ * @return
+ * 		- XST_SUCCESS - on successful cache reload.
+ * 		- XNVM_EFUSE_ERR_CACHE_LOAD - Error while loading the cache.
  *
  * @note	Not recommended to call this API frequently,if this API is called
  *		all the cache memory is reloaded by reading eFUSE array,
@@ -1700,8 +1749,9 @@ END:
  * 			written is stored. Only bit set are used for programming
  * 			eFUSE.
  *
- * @return	- XST_SUCCESS - Specified bit set in eFUSE.
- *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * @return
+ * 		- XST_SUCCESS - Specified bit set in eFUSE.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
 static int XNvm_EfusePgmAndVerifyData(const XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32 *RowData)
@@ -1760,9 +1810,10 @@ END:
  * @param	Row  - It is an 32-bit Row number (0-based addressing).
  * @param	Col  - It is an 32-bit Col number (0-based addressing).
  *
- * @return	- XST_SUCCESS	- Specified bit set in eFUSE.
- *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out.
- *			- XNVM_EFUSE_ERR_PGM - eFUSE programming failed.
+ * @return
+ * 		- XST_SUCCESS - Specified bit set in eFUSE.
+ * 		- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out.
+ * 		- XNVM_EFUSE_ERR_PGM - eFUSE programming failed.
  *
  ******************************************************************************/
 static int XNvm_EfusePgmBit(u32 Row, u32 Col)
@@ -1804,11 +1855,12 @@ static int XNvm_EfusePgmBit(u32 Row, u32 Col)
  * @param	Row - It is an 32-bit Row number (0-based addressing).
  * @param	RegData - Pointer to the register value.
  *
- * @return	- XST_SUCCESS - Specified bit set in eFUSE.
- *			- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
- *						   is not set.
- *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
- *			- XST_FAILURE                - Unexpected error.
+ * @return
+ * 		- XST_SUCCESS - Specified bit set in eFUSE.
+ * 		- XNVM_EFUSE_ERR_PGM_VERIFY - Verification failed, specified bit
+ * 				is not set.
+ * 		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
+ * 		- XST_FAILURE - Unexpected error.
  *
  ******************************************************************************/
 static int XNvm_EfuseReadRow(u32 Row, u32 *RegData)
@@ -1849,11 +1901,12 @@ END:
  * @param	Row - It is an 32-bit Row number (0-based addressing).
  * @param	Col - It is an 32-bit Col number (0-based addressing).
  *
- * @return	- XST_SUCCESS - Specified bit set in eFUSE.
- *			- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
- *						   is not set.
- *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
- *			- XST_FAILURE                - Unexpected error.
+ * @return
+ * 		- XST_SUCCESS - Specified bit set in eFUSE.
+ * 		- XNVM_EFUSE_ERR_PGM_VERIFY - Verification failed, specified bit
+ * 				is not set.
+ * 		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
+ * 		- XST_FAILURE - Unexpected error.
  *
  ******************************************************************************/
 static int XNvm_EfuseVerifyBit(u32 Row, u32 Col)
@@ -1888,12 +1941,13 @@ END:
  * @param	Col  - It is an 32-bit Col number (0-based addressing).
  * @param	SkipVerify - Skips verification of bit if set to non zero
  *
- * @return	- XST_SUCCESS - Specified bit set in eFUSE.
- *			- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out.
- *			- XNVM_EFUSE_ERR_PGM 	- eFUSE programming failed.
- *			- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
- *						is not set.
- *			- XST_FAILURE 	- Unexpected error.
+ * @return
+ * 		- XST_SUCCESS - Specified bit set in eFUSE.
+ * 		- XNVM_EFUSE_ERR_PGM_TIMEOUT - eFUSE programming timed out.
+ * 		- XNVM_EFUSE_ERR_PGM - eFUSE programming failed.
+ * 		- XNVM_EFUSE_ERR_PGM_VERIFY - Verification failed, specified bit
+ * 				is not set.
+ * 		- XST_FAILURE - Unexpected error.
  *
  ******************************************************************************/
 static int XNvm_EfusePgmAndVerifyBit(u32 Row, u32 Col, u32 SkipVerify)
@@ -1929,11 +1983,12 @@ END:
  * @param	CrcPassMask - Respective CRC pass mask in status register
  * @param	Crc - A 32 bit CRC value of an expected AES key.
  *
- * @return	- XST_SUCCESS - On successful CRC check.
- *			- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES boot key integrity
- *							check is failed.
- *			- XST_FAILURE - If AES boot key integrity check
- *							has not finished.
+ * @return
+ * 		- XST_SUCCESS - On successful CRC check.
+ * 		- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES boot key integrity
+ * 			check is failed.
+ * 		- XST_FAILURE - If AES boot key integrity check
+ * 			has not finished.
  *
  * @note	Expected CRC calculation steps:
  *		1. Convert the key provided at XNVM_EFUSE_AES_KEY into hexadecimal little-endian format.
@@ -2014,8 +2069,9 @@ END:
  * @param	RowData	- Pointer to memory location where read 32-bit row data
  *					  is to be stored.
  *
- * @return	- XST_SUCCESS - Specified data read.
- *			- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
 static int XNvm_EfuseReadCache(u32 Offset, u32 *RowData)
@@ -2053,8 +2109,9 @@ END:
  * @param	RowData  - Pointer to memory location where read 32-bit row data(s)
  *					   is to be stored.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *			- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ *		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
 static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowData)
@@ -2084,8 +2141,9 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
  * @param	SecCtrlBits - Pointer to XNvm_EfuseSecCtrlBits where secure control
  *                        bits are read.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *			- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
 int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
@@ -2149,8 +2207,10 @@ END:
  * @param	PpkData - Pointer to the PPK data.
  * @param	PpkSize - Size of PPK it is either 32 or 48 bytes.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid input parameter.
+ * 		- XST_FAILURE - Error in cache read operation.
  *
  ******************************************************************************/
 int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
@@ -2202,8 +2262,9 @@ END:
  * @param	SpkRevokeData - is pointer to SPK revoke data.
  * @param	SpkRevokeRow  - SPK revoke row to be read it can be either 0/1/2.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadSpkRevokeId(u32 *SpkRevokeData, u32 SpkRevokeRow)
@@ -2233,8 +2294,9 @@ END:
  *
  * @param	AesRevokeData - is pointer to AES revoke data.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadAesRevokeId(u32 *AesRevokeData)
@@ -2258,8 +2320,9 @@ END:
  *
  * @param	UserFuseData - is pointer to AES revoke data.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadUserFuse(u32 *UserFuseData)
@@ -2284,8 +2347,9 @@ END:
  * @param	IvType - is of type XNvm_EfuseIvType.
  * @param	IvData - Pointer to the iv data.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData)
@@ -2318,8 +2382,9 @@ END:
  *
  * @param	Dna - Pointer to the DNA data.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadDna(u32 *Dna)
@@ -2343,8 +2408,9 @@ END:
  *
  * @param	DecOnly - Pointer to the DEC only efuse data.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadDecOnly(u32 *DecOnly)
@@ -2368,8 +2434,9 @@ END:
  *
  * @param	XilinxCtrl - Pointer to the XilinxCtrl efuse data.
  *
- * @return	- XST_SUCCESS	- Specified data read.
- *          - Errorcode on failure
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl)
@@ -2402,8 +2469,9 @@ END:
  * @param	OffsetStart - Row number from which verification has to be started.
  * @param	OffsetEnd   - Row number till which verification has to be ended.
  *
- * @return	- XST_SUCCESS - if efuses are not programmed.
- * 			- XST_FAILURE - if efuses are already programmed.
+ * @return
+ * 		- XST_SUCCESS - if efuses are not programmed.
+ * 		- XST_FAILURE - if efuses are already programmed.
  *
  ******************************************************************************/
 static int XNvm_EfuseCheckZeros(u32 OffsetStart, u32 OffsetEnd)

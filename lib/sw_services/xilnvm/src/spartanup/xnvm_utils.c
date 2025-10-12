@@ -74,8 +74,9 @@ static void XNvm_EfuseInitTimers(u32 ClkFreq);
  *
  * @param	RdMode - Mode to be used for eFUSE read.
  *
- * @return	XST_SUCCESS - if Setting read mode is successful.
- *		XST_FAILURE - if there is a failure
+ * @return
+ * 		- XST_SUCCESS - if Setting read mode is successful.
+ * 		- XST_FAILURE - if there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
@@ -148,8 +149,9 @@ static void XNvm_EfuseEnableProgramming(void)
 /**
  * @brief	This function disables programming mode of eFUSE controller.
  *
- * @return      XST_SUCCESS - if eFUSE programming is disabled successfully.
- *              XST_FAILURE - if there is a failure
+ * @return
+ * 		- XST_SUCCESS - if eFUSE programming is disabled successfully.
+ * 		- XST_FAILURE - if there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseDisableProgramming(void)
@@ -176,8 +178,9 @@ int XNvm_EfuseDisableProgramming(void)
 /**
  * @brief	This function disables Margin Read mode of eFUSE controller.
  *
- * @return      XST_SUCCESS - if resetting read mode is successful.
- *              XST_FAILURE - if there is a failure
+ * @return
+ * 		- XST_SUCCESS - if resetting read mode is successful.
+ * 		- XST_FAILURE - if there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseResetReadMode(void)
@@ -238,11 +241,12 @@ static void XNvm_EfuseInitTimers(u32 ClkFreq)
  * @param	RdMode - Read mode for eFUSE read operation.
  * @param	EfuseClkFreq - Input Clock frequency for timers initialization.
  *
- * @return	- XST_SUCCESS - eFUSE controller setup for given op.
- *		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *					  register access.
- *		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
- *		- XST_FAILURE - Error on set read mode failure.
+ * @return
+ * 		- XST_SUCCESS - eFUSE controller setup for given op.
+ * 		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ * 					  register access.
+ * 		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
+ * 		- XST_FAILURE - Error on set read mode failure.
  ******************************************************************************/
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 			      XNvm_EfuseRdMode RdMode, u32 EfuseClkFreq)
@@ -295,8 +299,9 @@ END:
 /**
  * @brief	This function checks whether Tbits are programmed or not.
  *
- * @return	- XST_SUCCESS - On Success.
- *		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
+ * @return
+ * 		- XST_SUCCESS - On Success.
+ * 		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
  *
  ******************************************************************************/
 static int XNvm_EfuseCheckForTBits(void)
@@ -354,9 +359,10 @@ void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
  * @brief	This function locks the eFUSE Controller to prevent accidental
  * 		writes to eFUSE controller registers.
  *
- * @return	- XST_SUCCESS - eFUSE controller locked.
- *		- XNVM_EFUSE_ERR_LOCK - Failed to lock eFUSE controller
- *					                register access.
+ * @return
+ * 		- XST_SUCCESS - eFUSE controller locked.
+ * 		- XNVM_EFUSE_ERR_LOCK - Failed to lock eFUSE controller
+ * 					  register access.
  *
  ******************************************************************************/
 int XNvm_EfuseLockController(void)
@@ -389,9 +395,10 @@ int XNvm_EfuseLockController(void)
  * @brief	This function unlocks the eFUSE Controller for writing
  *		to its registers.
  *
- * @return	XST_SUCCESS - eFUSE controller locked.
- *		XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *							register access.
+ * @return
+ * 		- XST_SUCCESS - eFUSE controller unlocked.
+ * 		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ * 					  register access.
  *
  ******************************************************************************/
 int XNvm_EfuseUnlockController(void)
@@ -484,8 +491,8 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
  * @param	Length	Length of the data in bytes.
  *
  * @return
- *		- XST_SUCCESS: If Zeroization is successful.
- *		- XST_FAILURE: If Zeroization is not successful.
+ * 		- XST_SUCCESS: If Zeroization is successful.
+ * 		- XST_FAILURE: If Zeroization is not successful.
  ********************************************************************************/
 int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 {

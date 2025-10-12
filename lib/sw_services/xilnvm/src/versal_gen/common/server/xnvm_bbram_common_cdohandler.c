@@ -74,8 +74,8 @@ static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxN
  * @param 	Cmd is pointer to the command structure
  *
  * @return
- *		- XST_SUCCESS  If the handler execution is successful
- * 		- XST_INVALID_PARAM  On invalid input parameter
+ * 		- XST_SUCCESS - If the handler execution is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameter
  *
  ******************************************************************************/
 int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
@@ -142,7 +142,7 @@ END:
  *		KeyAddrHigh	Higher 32 bit address of the key
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
+ * 		- XST_SUCCESS  If the programming is successful
  * 		- XNVM_BBRAM_ERROR_IN_DMA_XFER  Error in DMA copy
  *
  ******************************************************************************/
@@ -184,7 +184,7 @@ END:
  * @brief       This function zeroizes BBRAM.
  *
  * @return
- *		- XST_SUCCESS  If the zeroize is successful
+ * 		- XST_SUCCESS  If the zeroize is successful
  * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -227,7 +227,7 @@ static int XNvm_BbramUsrDataWrite(u32 UsrData)
  *				address to store the user data
  *
  * @return
- *		- XST_SUCCESS  If the read is successful
+ * 		- XST_SUCCESS  If the read is successful
  * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -251,7 +251,7 @@ static int XNvm_BbramUsrDataRead(u32 DstAddrLow, u32 DstAddrHigh)
  * @brief       This function locks BBRAM user data.
  *
  * @return
- *		- XST_SUCCESS  If the BBRAM LOCK is successful
+ * 		- XST_SUCCESS  If the BBRAM LOCK is successful
  * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/

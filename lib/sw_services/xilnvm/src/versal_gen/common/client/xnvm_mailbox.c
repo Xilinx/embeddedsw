@@ -56,8 +56,8 @@
  * @param	MsgLen		Length of the message
  *
  * @return
- *		- XST_SUCCESS  If the IPI send and receive is successful
- *		- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the IPI send and receive is successful
+ * 		- XST_FAILURE  If there is a failure
  *
  * @note	Payload  consists of API id and call arguments to be written
  * 		in IPI buffer

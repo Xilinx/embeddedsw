@@ -134,13 +134,13 @@ static int XNvm_BbramWriteBbram8(u32 Data);
  *
  * @return
  * 		- XST_SUCCESS  Key is written to BBRAM.
- *		- XST_INVALID_PARAM  Invalid parameter passed.
- *		- XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  Timeout during enabling
- *							programming mode.
- *		- XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT  Timeout during disabling
- *							programming mode.
- *		- XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT  CRC validation check timed out.
- *		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH  CRC mismatch.
+ * 		- XST_INVALID_PARAM  Invalid parameter passed.
+ * 		- XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  Timeout during enabling
+ * 							programming mode.
+ * 		- XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT  Timeout during disabling
+ * 							programming mode.
+ * 		- XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT  CRC validation check timed out.
+ * 		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH  CRC mismatch.
  *
  ******************************************************************************/
 int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
@@ -219,8 +219,8 @@ END:
  * 		making user data written in BBRAM as read only.
  *
  * @return
- *		- XST_SUCCESS  Success in locking the BBRAM user data.
- *		- XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE  Failure to lock BBRAM user data.
+ * 		- XST_SUCCESS  Success in locking the BBRAM user data.
+ * 		- XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE  Failure to lock BBRAM user data.
  *
  ******************************************************************************/
 int XNvm_BbramLockUsrDataWrite(void)
@@ -252,7 +252,7 @@ int XNvm_BbramLockUsrDataWrite(void)
  *
  * @return
  * 		- XST_SUCCESS  Successfully programmed data in BBRAM_8 register
- *		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED  Failure since write is locked for the register
+ * 		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED  Failure since write is locked for the register
  *
  ******************************************************************************/
 static int XNvm_BbramWriteBbram8(u32 Data)
@@ -301,8 +301,8 @@ static int XNvm_BbramWriteBbram8(u32 Data)
  *
  * @return
  * 		- XST_SUCCESS  User data written to BBRAM
- *  		- XNVM_BBRAM_INVALID_PARAM  Invalid input parameter
- *		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED  Failure since write is locked for the register
+ * 		- XNVM_BBRAM_INVALID_PARAM  Invalid input parameter
+ * 		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED  Failure since write is locked for the register
  *
  * @note	Provisoning of general purpose data is allowed only
  * 		if Symmetric/Asymeetric HWRoT boot is not enabled for Versal Gen 2 devices
@@ -357,8 +357,8 @@ u32 XNvm_BbramReadUsrData(void)
  * @brief	This function zeroizes the BBRAM.
  *
  * @return
- *		- XST_SUCCESS  Success in Zeroization of BBRAM.
- *		- XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT  If Timed out during BBRAM zeroization
+ * 		- XST_SUCCESS  Success in Zeroization of BBRAM.
+ * 		- XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT  If Timed out during BBRAM zeroization
  *
  ******************************************************************************/
 int XNvm_BbramZeroize(void)
@@ -389,8 +389,8 @@ int XNvm_BbramZeroize(void)
  * 		to the BBRAM_PGM_MODE register with the required value.
  *
  * @return
- *		- XST_SUCCESS  Enabled programming mode.
- *		- XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  On failure.
+ * 		- XST_SUCCESS  Enabled programming mode.
+ * 		- XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  On failure.
  *
  ******************************************************************************/
 static inline int XNvm_BbramEnablePgmMode(void)
@@ -422,8 +422,8 @@ static inline int XNvm_BbramEnablePgmMode(void)
  * 		writing to 0 BBRAM_PGM_MODE register.
  *
  * @return
- *		- XST_SUCCESS  Disabled programming mode.
- *		- XST_FAILURE  On failure in disabling programming mode.
+ * 		- XST_SUCCESS  Disabled programming mode.
+ * 		- XST_FAILURE  On failure in disabling programming mode.
  *
  ******************************************************************************/
 static inline int XNvm_BbramDisablePgmMode(void)
@@ -455,9 +455,9 @@ static inline int XNvm_BbramDisablePgmMode(void)
  *				  stored in BBRAM.
  *
  * @return
- *		- XST_SUCCESS  CRC matched
- *		- XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT  CRC validation check timed out.
- *		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH  CRC mismatch
+ * 		- XST_SUCCESS  CRC matched
+ * 		- XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT  CRC validation check timed out.
+ * 		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH  CRC mismatch
  *
  ******************************************************************************/
 static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
@@ -528,7 +528,7 @@ END:
  * @return
  * 		- XST_SUCCESS  Configuration parameters are written to BBRAM
  * 		- XNVM_BBRAM_INVALID_PARAM  Invalid input parameter
- *		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED  Failure since write is locked for the register
+ * 		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED  Failure since write is locked for the register
  *
  * @note	Provisoning of Configuration limiter parameters is allowed only
  * 		in case of Symmetric/Asymeetric HWRoT boot.

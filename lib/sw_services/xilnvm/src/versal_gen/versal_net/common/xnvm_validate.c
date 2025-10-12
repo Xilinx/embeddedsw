@@ -63,17 +63,18 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
  * @param	KeyType - Type of AES key requested to be validated. Possible options are
  * 		AES key, User0 key and User1 key.
  *
- * @return	- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_AES_ALREADY_PRGMD       - Aes key already
- *								programmed.
- *		- XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD - User key 0 is already
- *								programmed.
- *		- XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD - User key 1 is already
- *							 	programmed.
- *		- XNVM_EFUSE_ERR_FUSE_PROTECTED  - eFuse is write protected.
- *		- XNVM_EFUSE_ERR_WRITE_AES_KEY   - Error in writing Aes key.
- *		- XNVM_EFUSE_ERR_WRITE_USER0_KEY - Error in writing User key 0.
- *		- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
+ * @return
+ * 		- XST_SUCCESS - if validation is successful.
+ * 		- XNVM_EFUSE_ERR_AES_ALREADY_PRGMD       - Aes key already
+ * 								programmed.
+ * 		- XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD - User key 0 is already
+ * 								programmed.
+ * 		- XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD - User key 1 is already
+ * 							 	programmed.
+ * 		- XNVM_EFUSE_ERR_FUSE_PROTECTED  - eFuse is write protected.
+ * 		- XNVM_EFUSE_ERR_WRITE_AES_KEY   - Error in writing Aes key.
+ * 		- XNVM_EFUSE_ERR_WRITE_USER0_KEY - Error in writing User key 0.
+ * 		- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
  *
  ******************************************************************************/
 int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
@@ -154,17 +155,18 @@ END:
  * @param	PpkType - PpkHash0/PpkHash1/PpkHash2 type of PpkHash request to
  * 				be validated
  *
- * @return	- XST_SUCCESS - if validates successfully.
- *		- XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD - Ppk0 hash already
- *							   programmed.
- *		- XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD - Ppk1 hash already
- *							   programmed.
- *		- XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD - Ppk2 hash already
- *							   programmed.
- *		- XNVM_EFUSE_ERR_FUSE_PROTECTED  - eFuse is write protected.
- *		- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error in writing ppk0 hash.
- *		- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error in writing ppk1 hash.
- *		- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in writing ppk2 hash.
+ * @return
+ * 		- XST_SUCCESS - if validates successfully.
+ * 		- XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD - Ppk0 hash already
+ * 							   programmed.
+ * 		- XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD - Ppk1 hash already
+ * 							   programmed.
+ * 		- XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD - Ppk2 hash already
+ * 							   programmed.
+ * 		- XNVM_EFUSE_ERR_FUSE_PROTECTED  - eFuse is write protected.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK0_HASH - Error in writing ppk0 hash.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK1_HASH - Error in writing ppk1 hash.
+ * 		- XNVM_EFUSE_ERR_WRITE_PPK2_HASH - Error in writing ppk2 hash.
  *
  ******************************************************************************/
 int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
@@ -253,17 +255,18 @@ END:
  * @param	EfuseIv - Pointer to XNvm_EfuseIvs structure which holds IV data
  * 			to be programmed to eFuse.
  *
- * @return	- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE - Error in
- *							Metaheader IV range
- *							write request.
- *		- XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD - Error in Blk Obfus Iv
- *							  write request.
- *		- XNVM_EFUSE_ERR_WRITE_PLM_IV_RANGE - Error in Plm Iv range
- *							write request.
- *		- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV_RANGE - Error in
- *							Data Partition Iv range
- *							write request.
+ * @return
+ * 		- XST_SUCCESS - if validation is successful.
+ * 		- XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE - Error in
+ * 							Metaheader IV range
+ * 							write request.
+ * 		- XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD - Error in Blk Obfus Iv
+ * 							  write request.
+ * 		- XNVM_EFUSE_ERR_WRITE_PLM_IV_RANGE - Error in Plm Iv range
+ * 							write request.
+ * 		- XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV_RANGE - Error in
+ * 							Data Partition Iv range
+ * 							write request.
  *
  ******************************************************************************/
 int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
@@ -323,10 +326,11 @@ END:
  * @param	Iv  - Pointer to Iv data to be programmed.
  * @param	IvOffset - Offset of the Iv to be vaildated.
  *
- * @return	- XST_SUCCESS - if validation is successful.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
- *						   already programmed bit.
+ * @return
+ * 		- XST_SUCCESS - if validation is successful.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 		- XNVM_EFUSE_ERR_BIT_CANT_REVERT - if requested to revert the
+ * 						   already programmed bit.
  *
  *******************************************************************************/
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset)
@@ -362,7 +366,8 @@ END:
  * @param	CacheOffset - Cache Offset from which verification has to be started.
  * @param	Count  - Number of rows till which verification has to be ended.
  *
- * @return	- XST_SUCCESS - if eFuses are not programmed.
+ * @return
+ * 		- XST_SUCCESS - if eFuses are not programmed.
  * 		- XST_FAILURE - if eFuses are already programmed.
  *
  ******************************************************************************/
@@ -408,7 +413,8 @@ END:
 /**
  * @brief	This function checks whether PUF is already programmed or not.
  *
- * @return	- XST_SUCCESS - if all rows are zero.
+ * @return
+ * 		- XST_SUCCESS - if all rows are zero.
  * 		- XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD	 - Puf Syn data already
  * 							programmed.
  * 		- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD - Puf chash already
@@ -452,8 +458,9 @@ END:
 /**
  * @brief	This function validates DEC_ONLY eFuse programming request.
  *
- * @return	- XST_SUCCESS - if validation is successful.
- *  		- XNVM_EFUSE_ERR_INVALID_PARAM 	- On Invalid Parameter.
+ * @return
+ * 		- XST_SUCCESS - if validation is successful.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM 	- On Invalid Parameter.
  *		- XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD- Aes key should be
  *							 programmed for DEC_ONLY
  *							 eFuse programming.
@@ -510,7 +517,10 @@ END:
  * @param	FipsMode - Fips mode to be written to eFuses.
  * @param	FipsVersion - Fips version to be written to eFuses.
  *
- * @return	- XST_SUCCESS - On successful write.
+ * @return
+ * 		- XST_SUCCESS - On successful validation.
+ * 		- XNVM_EFUSE_ERR_BEFORE_PROGRAMMING | XNVM_EFUSE_ERR_BIT_CANT_REVERT -
+ * 			On attempt to revert already programmed bits.
  *
  ******************************************************************************/
 int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion)
@@ -565,9 +575,10 @@ END:
 /**
  * @brief	This function checks DME Mode is enabled or disabled.
  *
- * @return	- XST_SUCCESS - if DME Mode is not set.
+ * @return
+ * 		- XST_SUCCESS - if DME Mode is not set.
  * 		- XNVM_EFUSE_ERROR_DME_MODE_SET | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING
- * 			      - if DME Mdoe is set.
+ * 			      - if DME Mode is set.
  *
  ******************************************************************************/
 int XNvm_IsDmeModeEn(void)

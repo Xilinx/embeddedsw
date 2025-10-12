@@ -92,8 +92,10 @@ static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS  If the handler execution is successful
- * 		- ErrorCode  If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the handler execution is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
+ * 		- XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT - If OCP handler fails
  *
  ******************************************************************************/
 int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
@@ -407,8 +409,8 @@ END:
  * @param	Key - Pointer to the Aes key
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *Key)
@@ -431,8 +433,8 @@ static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType Key
  * @param	Hash - Pointer to the PpkHash
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWritePpkHashFromCdoPload(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *Hash)
@@ -455,8 +457,8 @@ static int XNvm_EfuseWritePpkHashFromCdoPload(u32 EnvDisFlag, XNvm_PpkType PpkTy
  * @param	Iv - Pointer to the Iv
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *Iv)
@@ -480,8 +482,8 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNv
  * @param	AddrHigh	Higher Address of the key buffer
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
@@ -520,8 +522,8 @@ END:
  * @param 	GlitchConfig - Glitch configuration to be programmed
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig)
@@ -542,8 +544,8 @@ static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig)
  * 				and temperature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvDisFlag)
@@ -565,8 +567,8 @@ static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvDisFlag)
  * @param 	RevokeIdNum - Revoke Id eFuse number to be programmed
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteRevocationId(u32 EnvDisFlag, u32 RevokeIdNum)
@@ -588,8 +590,8 @@ static int XNvm_EfuseWriteRevocationId(u32 EnvDisFlag, u32 RevokeIdNum)
  * @param 	OffChipId - Offchip eFuse number to be programmed
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvDisFlag, u32 OffChipId)
@@ -613,8 +615,8 @@ static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvDisFlag, u32 OffChipId)
  * @param	AddrHigh	Higher Address of the PPK Hash buffer
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
@@ -644,8 +646,8 @@ END:
  * @param 	MiscCtrlBits - MiscCtrlBits input to be programmed
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteMiscCtrl(u32 EnvDisFlag, u32 MiscCtrlBits)
@@ -667,8 +669,8 @@ static int XNvm_EfuseWriteMiscCtrl(u32 EnvDisFlag, u32 MiscCtrlBits)
  * @param 	SecCtrlBits - SecCtrlBits input to be programmed
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+  * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits)
@@ -692,8 +694,8 @@ static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits)
  * @param	AddrHigh	Higher Address of the IV buffer
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
@@ -724,8 +726,8 @@ END:
  * @param	AddrHigh	Higher Address of the UDS buffer
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh)
@@ -757,8 +759,8 @@ END:
  * @param	AddrHigh	Higher Address of the DME Key buffer
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDmeKey(u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh)
@@ -788,8 +790,8 @@ END:
  * @param 	Misc1CtrlBits - Misc1CtrlBits input to be programmed
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvDisFlag, u32 Misc1CtrlBits)
@@ -811,8 +813,8 @@ static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvDisFlag, u32 Misc1CtrlBits)
  * @param 	BootEnvCtrl - BootEnvCtrl input to be programmed
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvDisFlag, u32 BootEnvCtrlBits)
@@ -834,8 +836,8 @@ static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvDisFlag, u32 BootEnvCtrlBits)
  * @param 	FipsInfo - FipsMode and FipsVersion input to be programmed
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
@@ -857,8 +859,8 @@ static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVe
  * @param	Uds - Pointer to the Uds
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
@@ -880,8 +882,8 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
  * @param	AddrHigh	Higher Address of the output buffer
  *
  * @return
- *		- XST_SUCCESS  If reading eFUSEs is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If reading eFUSEs is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
  static int XNvm_EfuseRead(u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh)
@@ -917,8 +919,8 @@ END:
  * @brief	This function reloads cache and programs the protection bits
  *
  * @return
- *		- XST_SUCCESS  In case of success
- *  		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
  static int XNvm_EfuseCacheLoadNPrgmProtBits(void)
@@ -941,8 +943,8 @@ END:
  * @param 	Key - Pointer to the DME key
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *Key)
@@ -964,8 +966,8 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyTyp
  * @param 	DmeRevokeNum - Dme revoke number to programmed
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum)
@@ -986,8 +988,8 @@ static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum)
  * 				and temperature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag)
@@ -1009,8 +1011,8 @@ static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag)
  * @param 	BootModeDisMask - BootMode disable mask to be programmed
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask)
@@ -1032,8 +1034,8 @@ static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask)
  * 		Crc		Crc to be programmed into eFuses
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc)
@@ -1055,8 +1057,8 @@ static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc)
  * 		DmeMode		DmeMode to be programmed into eFuses
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode)
@@ -1077,7 +1079,7 @@ static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode)
  *
  * @return
  *		- XST_SUCCESS  If the write is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData)
@@ -1122,7 +1124,7 @@ static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCt
  *
  * @return
  *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_FAILURE  If there is a failure
  ******************************************************************************/
 static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh)
 {
@@ -1152,7 +1154,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits)

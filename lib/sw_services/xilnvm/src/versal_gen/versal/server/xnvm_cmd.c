@@ -120,8 +120,9 @@ static XPlmi_Module XPlmi_Nvm =
  *
  * @param   RespBuf buffer to store response of slaves
  *
- * @return 	XST_SUCCESS		    on successful communication
- * 		    error code      	On failure
+ * @return
+ * 		- XST_SUCCESS - On successful communication
+ * 		- XST_FAILURE - On failure
  *
  *****************************************************************************/
 static int XNvm_InvalidCmdHandler(u32 *Payload, u32 *RespBuf){
@@ -135,8 +136,9 @@ static int XNvm_InvalidCmdHandler(u32 *Payload, u32 *RespBuf){
  *
  * @param	ApiId	ApiId to check the supported features
  *
- * @return 	XST_SUCCESS		if the requested API ID is supported
- * 		XST_INVALID_PARAM	On invalid command
+ * @return
+ * 		- XST_SUCCESS - if the requested API ID is supported
+ * 		- XST_INVALID_PARAM - On invalid command
  *
  *****************************************************************************/
 static int XNvm_FeaturesCmd(u32 ApiId)
@@ -208,9 +210,9 @@ static int XNvm_FeaturesCmd(u32 ApiId)
  *
  * @param	Cmd 	Pointer to the XPlmi_Cmd structure
  *
- * @return 	XST_SUCCESS		On successful IPI processing
- * 		XST_INVALID_PARAM	On invalid command
- * 		Error Code 		On Failure
+ * @return
+ * 		- XST_SUCCESS - On successful IPI processing
+ * 		- XST_INVALID_PARAM - On invalid parameter or unsupported command
  *****************************************************************************/
 static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 {
