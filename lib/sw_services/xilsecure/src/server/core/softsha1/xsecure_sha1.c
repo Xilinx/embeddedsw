@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   mmd  12/20/24 Initial release
+ * 5.6   vns  09/27/25 Added error handling for SHA1 transform
  *
  * </pre>
  *
@@ -27,6 +28,7 @@
 /*************************************** Include Files ********************************************/
 #include "xil_sutil.h"
 #include "xsecure_sha1.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions **************************************************/
 #define BYTE_SIZE_IN_BITS				(8U)
@@ -123,7 +125,7 @@ typedef struct {
 /************************************ Function Prototypes *****************************************/
 static s32 XSecure_Sha1Transform(XSecure_Sha1Ctx *const Ctx, const u8 *const Buffer);
 static void XSecure_Sha1Init (XSecure_Sha1Ctx* Ctx);
-static void XSecure_ReadHash (const XSecure_Sha1Ctx* Ctx, u8 * const Hash);
+static s32 XSecure_ReadHash (const XSecure_Sha1Ctx* Ctx, u8 * const Hash);
 static void XSecure_Sha1AddDataLenToPadding(u8 * const Buffer, u32 Len);
 
 /**************************************************************************************************/
@@ -134,23 +136,35 @@ static void XSecure_Sha1AddDataLenToPadding(u8 * const Buffer, u32 Len);
  * @param	Len	Length of input data
  * @param	Hash	Pointer to memory location where calculated hash to be stored
  *
- * @return	XST_FAILURE	In case of failure in SHA1 digest calculation
- * 		XST_SUCCESS	In case of successful calculation of SHA1 digest
+ * @return
+ *		- XST_FAILURE	In case of failure in SHA1 digest calculation
+ * 		- XST_SUCCESS	In case of successful calculation of SHA1 digest
+ *		- XSECURE_SHA1_TRANSFORM_ERROR	In case of failure in SHA1 transform operation
+ *		- XST_GLITCH_ERROR	In case of glitch detected in SHA1 calculation
  *
  **************************************************************************************************/
 s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 {
-	s32 Status = XST_FAILURE;
+	volatile s32 Status = XST_FAILURE;
+	volatile s32 Sstatus = XST_FAILURE;
 	XSecure_Sha1Ctx Ctx;
 	u32 PaddingSize;
 	XSecure_Sha1Init(&Ctx);
-	u32 Idx;
+	volatile u32 Idx;
 	u32 AvailableBytes;
 	u32 RemianingData;
 	u8 *CtxBufferPtr = (u8 *) Ctx.Buffer;
 
 	for (Idx = 0U; Idx < (Len / XSECURE_SHA1_HASH_BLK_SIZE); Idx++) {
-		(void)XSecure_Sha1Transform(&Ctx, &Data[Idx * XSECURE_SHA1_HASH_BLK_SIZE]);
+		Status = XSecure_Sha1Transform(&Ctx, &Data[Idx * XSECURE_SHA1_HASH_BLK_SIZE]);
+		if (Status != XST_SUCCESS) {
+			Status = XSECURE_SHA1_TRANSFORM_ERROR;
+			goto END;
+		}
+	}
+	if (Idx != (Len / XSECURE_SHA1_HASH_BLK_SIZE)) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
 	}
 
 	RemianingData = Len % XSECURE_SHA1_HASH_BLK_SIZE;
@@ -159,6 +173,7 @@ s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 			 &Data[Idx * XSECURE_SHA1_HASH_BLK_SIZE], RemianingData,
 			 RemianingData);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -179,7 +194,11 @@ s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 			Idx++;
 			PaddingSize--;
 		}
-		(void)XSecure_Sha1Transform(&Ctx, (u8 *) Ctx.Buffer);
+		Status = XSecure_Sha1Transform(&Ctx, (u8 *)Ctx.Buffer);
+		if (Status != XST_SUCCESS) {
+			Status = XSECURE_SHA1_TRANSFORM_ERROR;
+			goto END;
+		}
 		Idx = 0U;
 	}
 	else {
@@ -197,15 +216,20 @@ s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 	}
 
 	XSecure_Sha1AddDataLenToPadding(&CtxBufferPtr[Idx], Len);
-	(void)XSecure_Sha1Transform(&Ctx, (u8 *) Ctx.Buffer);
-	XSecure_ReadHash(&Ctx, Hash);
-	Status = Xil_SMemSet(&Ctx, sizeof(Ctx), 0, sizeof(Ctx));
+	Status = XSecure_Sha1Transform(&Ctx, (u8 *) Ctx.Buffer);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_SHA1_TRANSFORM_ERROR;
 		goto END;
 	}
+	/** Read hash */
+	Status = XSecure_ReadHash(&Ctx, Hash);
 
-	Status = XST_SUCCESS;
 END:
+	Sstatus = Xil_SMemSet(&Ctx, sizeof(Ctx), 0U, sizeof(Ctx));
+	if (Status == XST_SUCCESS) {
+		Status = Sstatus;
+	}
+
 	return Status;
 }
 
@@ -233,8 +257,10 @@ static void XSecure_Sha1Init (XSecure_Sha1Ctx* Ctx)
  * @param	Ctx	Pointer to SHA1 context
  * @param	Buffer	Pointer to 512-bit block data
  *
- * @return	XST_FAILURE	In case of failure in SHA1 transform function
- * 		XST_SUCCESS	In case of success in SHA1 transform function
+ * @return
+ *		- XST_FAILURE		In case of failure in SHA1 transform function
+ * 		- XST_SUCCESS		In case of success in SHA1 transform function
+ *		- XST_GLITCH_ERROR	In case of glitch detected in SHA1 calculation
  *
  **************************************************************************************************/
 static s32 XSecure_Sha1Transform(XSecure_Sha1Ctx *const Ctx, const u8 *const Buffer)
@@ -250,6 +276,7 @@ static s32 XSecure_Sha1Transform(XSecure_Sha1Ctx *const Ctx, const u8 *const Buf
 	Status = Xil_SMemCpy(Ctx->Buffer, XSECURE_SHA1_HASH_BLK_SIZE, Buffer, XSECURE_SHA1_HASH_BLK_SIZE,
 				XSECURE_SHA1_HASH_BLK_SIZE);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -310,18 +337,29 @@ END:
  * @param	Ctx	Pointer to SHA1 context
  * @param	Hash	Pointer to memory location where calculated hash to be stored
  *
+ * @return
+ *		- XST_SUCCESS	In case of successful read
+ * 		- XST_FAILURE 	Upon failure
+ *
  **************************************************************************************************/
-static void XSecure_ReadHash (const XSecure_Sha1Ctx* Ctx, u8 * const Hash)
+static s32 XSecure_ReadHash (const XSecure_Sha1Ctx* Ctx, u8 * const Hash)
 {
-	u32 Idx;
+	volatile s32 Status = XST_FAILURE;
+	volatile u32 Idx;
 
+	/** Read SHA1 hash */
 	for (Idx = 0; Idx < (XSECURE_SHA1_HASH_SIZE / sizeof(u32)); Idx++) {
-
 		Hash[Idx * sizeof(u32)] = GET_BYTE_FROM_U32(Ctx->State[Idx], 3U);
 		Hash[(Idx * sizeof(u32)) + 1U] = GET_BYTE_FROM_U32(Ctx->State[Idx], 2U);
 		Hash[(Idx * sizeof(u32)) + 2U] = GET_BYTE_FROM_U32(Ctx->State[Idx], 1U);
 		Hash[(Idx * sizeof(u32)) + 3U] = GET_BYTE_FROM_U32(Ctx->State[Idx], 0U);
 	}
+	/** Check if all bytes are read */
+	if (Idx == (XSECURE_SHA1_HASH_SIZE / sizeof(u32))) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /**************************************************************************************************/

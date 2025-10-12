@@ -63,6 +63,8 @@ enum {
 
 	XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR,  /**< 0x0E - Error when SHA IPI event handling fails */
 
+	XSECURE_RESERVED_SHA1 = 0x30,		/**< 0x30 - Reserved for SHA1 */
+
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
 	XSECURE_AES_KEY_CLEAR_ERROR,
