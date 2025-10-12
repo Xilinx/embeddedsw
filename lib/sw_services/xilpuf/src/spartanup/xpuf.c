@@ -19,6 +19,7 @@
 * 1.1   mb   04/30/2025 Fix PUF_REGEN_ON_DEMAND failure.
 * 2.6   mb   06/25/2025 Updated doxygen comments
 *       aa   07/14/2025 Fixed MISRA-C violations
+*       mb   09/26/2025 Minor updates in xilpuf library
 *
 * </pre>
 *
@@ -32,56 +33,60 @@
 #include "xpuf.h"
 #include "xpuf_hw.h"
 #include "xil_util.h"
-#include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
 		/**< Recommended software timeout is 1 second */
 
-#define XPUF_AUX_MASK_VALUE			(0x0FFFFFF0U)	/**< Mask value for AUX*/
+#define XPUF_AUX_MASK_VALUE			(0x0FFFFFF0U) /**< Mask value for AUX*/
 
-#define XPUF_OV_MASK_VALUE			(0x30000000U)	/**< Mask value for overflow*/
+#define XPUF_OV_MASK_VALUE			(0x30000000U) /**< Mask value for overflow*/
 
-#define XPUF_RESET_VAL				(1U)	/**< PUF reset value */
+#define XPUF_RESET_VAL				(1U) /**< PUF reset value */
 
-#define XPUF_SET_VAL				(0U)	/**< PUF set value  */
+#define XPUF_SET_VAL				(0U) /**< PUF set value  */
 
-#define XPUF_PUF_AUX_ENABLE			(0xFU)	/**< PUF aux enable */
+#define XPUF_PUF_AUX_ENABLE			(0xFU) /**< PUF aux enable */
 
 #define XPUF_PUF_IC_MASK			(1U << 31U)
 		/**< PUF iterative convergence mask */
 
 #define XPUF_PUF_KR_MASK			(1U << 3U) /**< PUF Key ready mask */
 
-#define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE		(1U << 2U)	/**< PUF key capture mask */
+#define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE		(1U << 2U) /**< PUF key capture mask */
 
-#define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1U << 1U)	/**< PUF ID capture mask */
+#define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1U << 1U) /**< PUF ID capture mask */
 
 #define XPUF_KEY_GEN_ITERATIONS			6U
 		/**< PUF maximum key generation iterations to obtain PUF iterative convergence */
 
-#define XPUF_STATUS_MASK			(XPUF_STATUS_SYNDROME_WORD_RDY | XPUF_STATUS_KEY_RDY | \
-							XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
-		/**< PUF status mask */
+#define XPUF_STATUS_MASK			(XPUF_STATUS_SYNDROME_WORD_RDY | \
+						XPUF_STATUS_KEY_RDY | \
+						XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
+						/**< PUF status mask */
+
+/************************** Function Prototypes ******************************/
+static int XPuf_CapturePufID(XPuf_Data *PufData);
+static int XPuf_RegeneratePufKey(XPuf_Data *PufData);
 
 /********************Macros (Inline function) Definitions*********************/
 
 /*****************************************************************************/
 /**
  * @brief	This function waits till Puf Syndrome ready bit is set and captures the
- *           PUF status.
+ * 		PUF status.
  *
- * @param	PufStatus PUF status
+ * @param	PufStatus	Pointer to update PUF status
  *
  * @return
  *		- XST_SUCCESS if Syndrome word is ready.
- *		- XST_FAILURE if timeout occurred.
+ *		- XST_TIMEOUT if timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdyAndCaptureStatus(u32 *PufStatus)
 {
 	return (int)Xil_WaitForEvents((UINTPTR)(XPUF_BASEADDR +
-						XPUF_PUF_STATUS_OFFSET),
+				      XPUF_PUF_STATUS_OFFSET),
 				      XPUF_STATUS_MASK,
 				      XPUF_STATUS_SYNDROME_WORD_RDY,
 				      XPUF_STATUS_WAIT_TIMEOUT, PufStatus);
@@ -93,23 +98,24 @@ static inline int XPuf_WaitForPufSynWordRdyAndCaptureStatus(u32 *PufStatus)
  *
  * @return
  *		- XST_SUCCESS if Syndrome word is ready.
- *		- XST_FAILURE if timeout occurred.
+ *		- XST_TIMEOUT if timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdy(void)
 {
 	return (int)Xil_WaitForEvent((UINTPTR)(XPUF_BASEADDR +
-					       XPUF_PUF_STATUS_OFFSET),
-				     XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
-				     XPUF_STATUS_WAIT_TIMEOUT);
+				      XPUF_PUF_STATUS_OFFSET),
+				      XPUF_STATUS_SYNDROME_WORD_RDY,
+				      XPUF_STATUS_SYNDROME_WORD_RDY,
+				      XPUF_STATUS_WAIT_TIMEOUT);
 }
 
 /*****************************************************************************/
 /**
- * @brief       This function configures the Global Variation Filter option provided
- *              by user and updates Puf Cfg0 register
+ * @brief	This function configures the Global Variation Filter option provided
+ *		by the user.
  *
- * @param       GlobalVarFilter User configuration to enable/disable
+ * @param	GlobalVarFilter	User configuration to enable/disable
  *		Global Variation Filter in PUF.
  *
  *****************************************************************************/
@@ -118,7 +124,8 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
 	if (GlobalVarFilter == TRUE) {
 		XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_CFG0_OFFSET,
 			      (XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
-	} else {
+	}
+	else {
 		XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_CFG0_OFFSET,
 			      XPUF_CFG0_HASH_SEL);
 	}
@@ -130,7 +137,7 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
  *
  * @return
  *		- XST_SUCCESS on successful Puf Operation.
- *		- XST_FAILURE if timeout occurred.
+ *		- XST_TIMEOUT if timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_ClearPuf(void)
@@ -147,28 +154,27 @@ static inline int XPuf_ClearPuf(void)
 
 /*****************************************************************************/
 /**
- * @brief       This function reset the PUF module
+ * @brief       This function reset the PUF module after clearing the PUF data
  *
  * @return
  *		- XST_SUCCESS on successful Puf Operation.
- *		- XST_FAILURE if timeout occurred.
+ *		- XST_FAILURE Upon any failure.
  *
  *****************************************************************************/
 static inline int XPuf_ResetPuf(void)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
 
 	Status = XPuf_ClearPuf();
-	SStatus = Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET,
+	Status |= Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET,
 				  XPUF_RESET_VAL);
 
-	return (Status | SStatus);
+	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief       This function releases reset of the PUF module
+ * @brief       This function brings the PUF module out of reset
  *
  * @return
  *		- XST_SUCCESS on successful Puf Operation.
@@ -179,22 +185,11 @@ static inline int XPuf_SetPuf(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET, XPUF_RESET_VAL);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status =  Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET,
+				  XPUF_SET_VAL);
 
-	usleep(1U);
-
-	Status =  Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET, XPUF_SET_VAL);
-
-END:
 	return Status;
 }
-
-/************************** Function Prototypes ******************************/
-static void XPuf_CapturePufID(XPuf_Data *PufData);
-static int XPuf_GeneratePufKey(XPuf_Data *PufData);
 
 /************************** Function Definitions *****************************/
 
@@ -263,7 +258,7 @@ END:
 /**
  * @brief	This functions performs PUF registration
  *
- * @param	PufData Pointer to XPuf_Data structure which includes options
+ * @param	PufData	Pointer to XPuf_Data structure which includes options
  *		to configure PUF.
  *
  * @return
@@ -284,7 +279,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
-	u32 Idx = 0U;
+	volatile u32 Idx = 0U;
 	u32 PufStatus = 0U;
 
 	Status = XPuf_Cfg(PufData);
@@ -295,14 +290,12 @@ int XPuf_Registration(XPuf_Data *PufData)
 	/** Issue PUF command */
 	Xil_Out32(XPUF_BASEADDR + XPUF_PUF_CMD_OFFSET, XPUF_CMD_REGISTRATION);
 
-	Status = XST_FAILURE;
-
 	/**
 	 * PUF helper data includes Syndrome data, CHash and Auxiliary data.
 	 * Capturing Syndrome data word by word.
 	 */
-	while ((Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS) &&
-	       ((PufStatus & XPUF_STATUS_KEY_RDY) != XPUF_STATUS_KEY_RDY)) {
+	do {
+		Status = XST_FAILURE;
 		Status = XPuf_WaitForPufSynWordRdyAndCaptureStatus(&PufStatus);
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
@@ -311,7 +304,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 		PufData->SyndromeData[Idx] = XPuf_ReadReg(XPUF_BASEADDR,
 					     XPUF_PUF_WORD_OFFSET);
 		Idx++;
-	}
+	} while ((Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS) &&
+		((PufStatus & XPUF_STATUS_KEY_RDY) != XPUF_STATUS_KEY_RDY));
 
 	/**
 	 * Once complete Syndrome data is captured and PUF operation is done,
@@ -364,25 +358,21 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
-	/**
-	 * Configure the PUF,
-	 * return XPUF_ERROR_INVALID_PARAM when input parameters are NULL
-	 */
-
+	/** - Configure the PUF */
 	Status = XPuf_Cfg(PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XST_FAILURE;
 	/**
 	 * Run PUF regeneration through iterative convergence
-	 * - Check for the syndrom data is ready or not in the given timeout vlaue.
+	 * - Check for the syndrom data is ready or not in the given timeout value.
 	 *   if not, return XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT
 	 * - Capture the Key and ID. Return XPUF_ERROR_KEY_NOT_CONVERGED on failure.
 	 * - Once the Key and ID are captured, reset the PUF
 	 */
-	Status = XPuf_GeneratePufKey(PufData);
+	Status = XST_FAILURE;
+	Status = XPuf_RegeneratePufKey(PufData);
 
 END:
 	SStatus = XPuf_ResetPuf();
@@ -432,7 +422,7 @@ int XPuf_ClearPufID(void)
 
 /******************************************************************************/
 /**
- * @brief	This function will generate the Puf key form Aux data, Chash and
+ * @brief	This function will regenerate the Puf key form Aux data, Chash and
  * 		syndrome data
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
@@ -446,56 +436,42 @@ int XPuf_ClearPufID(void)
  *		- XST_FAILURE  Unexpected event
  *
  ******************************************************************************/
-static int XPuf_GeneratePufKey(XPuf_Data *PufData)
+static int XPuf_RegeneratePufKey(XPuf_Data *PufData)
 {
-	u32 Index;
-	u32 SyndromeIndex = 0U;
-	volatile u32 VarPufStatus = 0U;
 	volatile int Status = XST_FAILURE;
-	const u32 *SynData;
-	u32 SynDataTmp;
-	u32 SynDataSize;
-
-	SynDataSize = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
-	SynData = (const u32 *)(UINTPTR)PufData->SyndromeAddr;
+	volatile u32 VarPufStatus = 0U;
+	u32 SyndromeIndex = 0U;
+	u32 Index;
+	const u32 *SynData = (const u32 *)(UINTPTR)PufData->SyndromeAddr;
 
 	for (Index = 0U; Index < XPUF_KEY_GEN_ITERATIONS; Index++) {
 		SyndromeIndex = 0U;
-		/*
-		 * Start the PUF in Regeneration mode
-		 */
+		/* - Start the PUF in Regeneration mode */
 		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_WORD_OFFSET,
 			  (PufData->Aux << XPUF_AUX_SHIFT_VALUE) | XPUF_PUF_AUX_ENABLE);
 		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_CHASH_OFFSET, PufData->Chash);
 		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_CMD_OFFSET, XPUF_CMD_REGEN_ON_DEMAND);
 		VarPufStatus = Xil_In32(XPUF_BASEADDR + XPUF_PUF_STATUS_OFFSET);
-		/*
-		 * Check for Key ready
-		 */
-		/* Indicates that the key is ready. Clears on read or CMD = STOP */
+		/* - Check for Key ready */
+		/* - Indicates that the key is ready. Clears on read or CMD = STOP */
 		while ((VarPufStatus & XPUF_STATUS_KEY_RDY)
 		       != XPUF_STATUS_KEY_RDY) {
 
-			/* Indicates that the syndrome word is ready. Clears on read or CMD = STOP */
+			/* -Indicates that the syndrome word is ready. Clears on read or CMD = STOP */
 			Status = XPuf_WaitForPufSynWordRdy();
 			if (Status != XST_SUCCESS) {
 				Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
 				goto END;
 			}
-			/**
-			* Read the Debug date and discard
-			*/
+			/* - Read the Debug date and discard */
 			VarPufStatus = Xil_In32(XPUF_BASEADDR + XPUF_PUF_STATUS_OFFSET);
 			if ((VarPufStatus & XPUF_STATUS_SEG_RDY) == XPUF_STATUS_SEG_RDY) {
-				/**
-				 * Read the Debug date and discard
-				*/
+				/* - Read the Debug date and discard */
 				(void) Xil_In32(XPUF_BASEADDR + XPUF_PUF_DBG_OFFSET);
 			}
 
-			if (SyndromeIndex < SynDataSize) {
-				SynDataTmp = SynData[SyndromeIndex];
-				Xil_Out32(XPUF_BASEADDR + XPUF_PUF_WORD_OFFSET, SynDataTmp);
+			if (SyndromeIndex < XPUF_4K_PUF_SYN_LEN_IN_WORDS) {
+				Xil_Out32(XPUF_BASEADDR + XPUF_PUF_WORD_OFFSET, SynData[SyndromeIndex]);
 				SyndromeIndex++;
 			}
 
@@ -510,14 +486,10 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData)
 		}
 	}
 
-	/*
-	 * Read the last Debug 2 Word
-	 */
+	/* - Read the last debug 2- words and discard */
 	(void) Xil_In32(XPUF_BASEADDR + XPUF_PUF_DBG_OFFSET);
 
-	/*
-	 * 	Request to capture Key & ID.
-	 */
+	/* - Request to capture Key & ID */
 	Status = XPUF_ERROR_KEY_NOT_CONVERGED;
 	if ((VarPufStatus & XPUF_PUF_KR_MASK) == XPUF_PUF_KR_MASK) {
 		Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
@@ -537,19 +509,30 @@ END:
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
  *					to configure PUF.
+ * @return
+ *		- XST_SUCCESS	On successful PUF ID capture
+ *		- XPUF_ERROR_PUF_DONE_ID_NT_RDY Upon PUF ID not ready
  *
  *****************************************************************************/
-static void XPuf_CapturePufID(XPuf_Data *PufData)
+static int XPuf_CapturePufID(XPuf_Data *PufData)
 {
-	u32 Index;
+	volatile u32 Index;
+	int Status = XST_FAILURE;
 
-	/**
-	 * Reads PUF ID from PUF_ID_0 to PUF_ID_7 registers.
-	 */
+	/* - Reads PUF ID from PUF_ID_0 to PUF_ID_7 registers */
 	for (Index = 0U; Index < XPUF_ID_LEN_IN_WORDS; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
 			(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET + (Index * XPUF_WORD_LENGTH)));
 	}
+
+	if (Index != XPUF_ID_LEN_IN_WORDS) {
+		Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -558,7 +541,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  * @brief	Converts the PUF Syndrome data to eFUSE writing format
  *
  *
- * @param	PufData Pointer to XPuf_Data structure which includes options
+ * @param	PufData	Pointer to XPuf_Data structure which includes options
  *					to configure PUF.
  *
  * @return
@@ -580,7 +563,8 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 	u32 SubIndex;
 
 	/**
-	 *  Check if PufData instance pointer is NULL. If NULL, return XPUF_ERROR_INVALID_PARAM.
+	 *  Check if PufData instance pointer is NULL.
+	 *  If NULL, return XPUF_ERROR_INVALID_PARAM.
 	 */
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
