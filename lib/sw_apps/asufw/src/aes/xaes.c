@@ -1354,6 +1354,7 @@ END:
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param 	InputDataAddr	Input data address.
  * @param 	MaskedOutputPtr	Pointer to buffer holding masked output buffer.
+ * @param	MaskedTagPtr	Pointer to buffer holding masked tag buffer.
  * @param 	MaskedKeyPtr	Pointer to buffer holding masked key buffer.
  * @param	IvPtr		Pointer to buffer holding IV.
  * @param	OperationType	AES encrypt/decrypt operation type.
@@ -1366,7 +1367,8 @@ END:
  *
  *************************************************************************************************/
 s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
-	u32 *MaskedOutputPtr, u32 *MaskedKeyPtr, const u32 *IvPtr, u8 OperationType)
+	u32 *MaskedOutputPtr, u32 *MaskedTagPtr, const u32 *MaskedKeyPtr, const u32 *IvPtr,
+	u8 OperationType)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Index;
@@ -1402,7 +1404,7 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	/** Initialize the AES instance with engine mode and operation type. */
-	InstancePtr->EngineMode = XASU_AES_CTR_MODE;
+	InstancePtr->EngineMode = XASU_AES_GCM_MODE;
 	InstancePtr->OperationType = OperationType;
 
 	/** Release reset of AES engine. */
@@ -1431,6 +1433,8 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_3_OFFSET) -
 			(Index * XASUFW_WORD_LEN_IN_BYTES), IvPtr[Index]);
 	}
+
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET), XAES_GCM_J0_IV_INIT_VAl);
 
 	/** Configure user key size as 128-bit.  */
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), XASU_AES_KEY_SIZE_128_BITS);
@@ -1462,6 +1466,20 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 		MaskedOutputPtr[XASUFW_BUFFER_INDEX_FOUR + Index] =  Xil_In32(((InputDataAddr +
 			XAES_CM_OUTPUT_ADDR_INDEX) + XAES_CM_SPLIT_ALIGNED_LENGTH) +
 			(Index * XASUFW_WORD_LEN_IN_BYTES));
+	}
+
+	if (OperationType == XASU_AES_ENCRYPT_OPERATION) {
+		for (Index = 0U; Index < XAES_TAG_LEN_IN_WORDS; Index++) {
+			MaskedTagPtr[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+				(XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
+
+			MaskedTagPtr[XASUFW_BUFFER_INDEX_FOUR + Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+				(XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
+		}
+	}
+	else {
+		Status = XAes_ReadNVerifyTag(InstancePtr, (u32)(UINTPTR)MaskedTagPtr,
+			(XAES_TAG_LEN_IN_WORDS * XASUFW_WORD_LEN_IN_BYTES));
 	}
 
 END:
