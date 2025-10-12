@@ -104,7 +104,7 @@ static inline u32 Header(u32 Len, u32 ApiId)
  *
  * @return
  * 		- XST_SUCCESS On valid input SlrIndex.
- *		- XST_FAILURE On invalid SlrIndex.
+ * 		- XST_FAILURE On invalid SlrIndex.
  *
  * @note	This function is applicable to only Versal
  *

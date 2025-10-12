@@ -55,7 +55,7 @@ static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload);
  *
  * @return
  * 		- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
@@ -114,7 +114,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
- * 		- ErrorCode - If there is a failure
+ * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload)

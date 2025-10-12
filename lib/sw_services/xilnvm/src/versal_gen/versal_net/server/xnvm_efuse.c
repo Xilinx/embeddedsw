@@ -3681,7 +3681,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS  Specified bit set in eFUSE.
- *  		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
  *
  ******************************************************************************/
 static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32* RowData)
@@ -3940,7 +3940,8 @@ END:
  *
  * @return
  *		- XST_SUCCESS  On successful conversion
- *		- Error code  On failure
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  If size is not word-aligned
+ *		- XST_FAILURE  On failure
  *
  ******************************************************************************/
 static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size)
@@ -4112,7 +4113,7 @@ END:
 * @param	Len - Length of the input data
 
 * @return
-*	-	 Crc - 32-bit CRC Value
+*		- Crc - 32-bit CRC Value
 *******************************************************************************/
 static u32 XNvm_EfuseCalculateCrc32(const u8* Data, u32 Len)
 {

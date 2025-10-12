@@ -52,7 +52,8 @@
  *
  * @param	GenericHandler Pointer to generic handler
  *
- * @return	- XST_SUCCESS - On success
+ * @return
+ * 		- XST_SUCCESS - On success
  *
  *****************************************************************************/
 void XNvm_Init(int (*GenericHandler)(void))

@@ -668,8 +668,8 @@ END:
  * @param	SysmonpsvSatBaseAddr - Pointer to SysMon base address
  *
  * @return
- * 		On Success  Reads and returns SupplyReg Id
- *		On Failure  Returns default SupplyReg value
+ * 		- SupplyReg Id - On successful match found
+ * 		- XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET - When no matching supply found
  *
  ******************************************************************************/
 u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
@@ -722,10 +722,10 @@ u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
  * @param	SysMonInstPtr - Pointer to SysMon instance.
  *
  * @return
- *		- XST_SUCCESS  On successful Voltage and Temparature checks.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM  Input validation failure.
- *		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE  Voltage is out of range
- *		- XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE  Temparature is out of range
+ * 		- XST_SUCCESS - On successful Voltage and Temperature checks.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Input validation failure.
+ * 		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is out of range
+ * 		- XNVM_EFUSE_ERROR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range
  *
  ******************************************************************************/
 int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)

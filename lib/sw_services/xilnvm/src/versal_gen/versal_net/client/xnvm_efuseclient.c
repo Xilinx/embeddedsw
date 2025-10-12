@@ -89,8 +89,8 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr, X
  * 				data to be programmed is stored
  *
  * @return
- * 		- XST_SUCCESS  If the eFUSE programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the eFUSE programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  *@section Implementation
  ******************************************************************************/
@@ -248,8 +248,9 @@ END:
  *                      and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
+ * 		- XST_FAILURE - On shared memory allocation or validation failure
  *
  ******************************************************************************/
 int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag)
@@ -383,8 +384,8 @@ END:
  *                      and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, const u32 EnvDisFlag)
@@ -453,8 +454,8 @@ END:
  *                      and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, const u64 DmeKeyAddr, const u32 EnvDisFlag)
@@ -527,8 +528,8 @@ END:
  *                      and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag)
@@ -590,8 +591,8 @@ END:
  *				and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const u32 EnvDisFlag)
@@ -651,8 +652,8 @@ END:
  *				and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits, const u32 EnvDisFlag)
@@ -711,8 +712,8 @@ END:
  *				and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits, const u32 EnvDisFlag)
@@ -771,8 +772,8 @@ END:
  *				and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits, const u32 EnvDisFlag)
@@ -831,8 +832,8 @@ END:
  *				and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDisBits, const u32 EnvDisFlag)
@@ -892,8 +893,8 @@ END:
  *				and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bits, const u32 EnvDisFlag)
@@ -952,8 +953,8 @@ END:
  *				and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnvCtrlBits, const u32 EnvDisFlag)
@@ -1012,8 +1013,8 @@ END:
  *				and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits, const u32 EnvDisFlag)
@@ -1071,8 +1072,8 @@ END:
  *				and temparature limits.
  *
  * @return
- *		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 GlitchCfgBits, const u32 EnvDisFlag)
@@ -1127,8 +1128,9 @@ END:
  *				When set to true it will not check for voltage
  *				and temparature limits.
  *
- * @return	- XST_SUCCESS - If the programming is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFlag)
@@ -1183,8 +1185,8 @@ END:
  *				and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFlag)
@@ -1241,8 +1243,8 @@ END:
  *				and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode, const u16 FipsVersion, const u32 EnvDisFlag)
@@ -1300,8 +1302,8 @@ END:
  *				and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 RevokeIdNum, const u32 EnvDisFlag)
@@ -1357,8 +1359,8 @@ END:
  *					and temparature limits.
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u32 OffChipRevokeIdNum, const u32 EnvDisFlag)
@@ -1414,8 +1416,8 @@ END:
  * 				where the user provided helper data to be programmed
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
@@ -1477,8 +1479,8 @@ END:
  * 				where the user provided helper data to be programmed
  *
  * @return
- * 		- XST_SUCCESS  If the programming is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
@@ -1612,8 +1614,8 @@ END:
  * @param	IvType		Type of the IV to read out
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
@@ -1685,8 +1687,8 @@ END:
  * @param 	RevokeIdNum	Revocation ID to be read out
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr,
@@ -1741,8 +1743,8 @@ END:
  * 				User eFuse data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
@@ -1798,8 +1800,8 @@ END:
  * 				MiscCtrlBits eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
@@ -1897,8 +1899,8 @@ END:
  * 				SecCtrlBits eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
@@ -2031,8 +2033,8 @@ END:
  * 				SecMisc1Bits eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
@@ -2110,8 +2112,8 @@ END:
  * 				BootEnvCtrlBits eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
@@ -2197,8 +2199,8 @@ END:
  * 				RomRsvdBits eFuses data
  *
  * @return
- *		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsvdBits)
@@ -2275,8 +2277,8 @@ END:
  * 				RomRsvdBits eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsInfoBits)
@@ -2371,8 +2373,8 @@ END:
  * 				PufSecCtrlBits eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
@@ -2472,8 +2474,8 @@ END:
  * @param	OffChipIdNum	OffChip ID number to be read out
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 OffChipIdAddr,
@@ -2529,8 +2531,8 @@ END:
  * @param 	PpkHashType	Type of the PpkHash to be read out
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
@@ -2597,8 +2599,8 @@ END:
  * 				DecEfuseOnly eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
@@ -2646,8 +2648,8 @@ END:
  * 				DecEfuseOnly eFuses data
  *
  * @return
- *		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr)
@@ -2694,8 +2696,8 @@ END:
  * 				BootModeDisable eFuses data
  *
  * @return
- *		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ *		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootModeDisAddr)
@@ -2742,8 +2744,8 @@ END:
  * 				DNA eFuses data
  *
  * @return
- * 		- XST_SUCCESS  If the read is successful
- * 		- ErrorCode  If there is a failure
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
 int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)

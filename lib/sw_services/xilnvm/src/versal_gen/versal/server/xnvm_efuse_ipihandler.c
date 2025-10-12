@@ -119,8 +119,9 @@ static int XNvm_EfuseAesKeysWriteAccess(u64 Addr, u8 EnvMonitorDis);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the handler execution is successful
+ * 		- XST_INVALID_PARAM - On invalid parameter or unsupported API_ID
  *
  ******************************************************************************/
 int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
@@ -225,8 +226,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseDataAddr structure
  *
- * @return	- XST_SUCCESS - If the programming is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - On memory copy or data clearing failure
  *
  ******************************************************************************/
 static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
@@ -434,8 +436,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfusePufFuseAddr structure
  *
- * @return	- XST_SUCCESS - If the programming is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh)
@@ -488,8 +491,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the PufUserFuseAddr
  *				structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
@@ -532,8 +536,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfusePufHdAddr structure
  *
- * @return	- XST_SUCCESS - If the programming is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh) {
@@ -591,8 +596,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfusePufHdAddr structure
  *
- * @return	- XST_SUCCESS - If the programming is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh) {
@@ -636,8 +642,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseIv structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseIvRead(XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
@@ -667,8 +674,9 @@ END:
  *
  * @param	AddrHigh	Higher 32 bit address of the Revocation ID
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseRevocationIdRead(XNvm_RevocationId RevokeIdNum,
@@ -700,8 +708,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseUserDataAddr structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseUserFusesRead(u32 AddrLow, u32 AddrHigh)
@@ -744,8 +753,9 @@ END:
  *
  * @param	AddrHigh	Higher 32 bit address of the PpkHash array
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfusePpkHashRead(XNvm_PpkType PpkHashType,
@@ -777,8 +787,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseMiscCtrlBits structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseMiscCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
@@ -809,8 +820,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseSecCtrlBits structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseSecCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
@@ -841,8 +853,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseMisc1Bits structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseSecMisc1BitsRead(u32 AddrLow, u32 AddrHigh)
@@ -873,8 +886,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfuseBootEnvCtrlBits structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseBootEnvCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
@@ -905,8 +919,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_EfusePufSecCtrlBits structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfusePufCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
@@ -937,8 +952,9 @@ END:
  *
  * @param	AddrHigh	Higher 32 bit address of the OffChip ID
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseOffChipIdRead(XNvm_OffchipId IdNum, u32 AddrLow,
@@ -968,8 +984,9 @@ END:
  *
  * @param	AddrHigh	Higher 32 bit address of the DecOnly value
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseDecEfuseOnlyRead(u32 AddrLow, u32 AddrHigh)
@@ -1000,8 +1017,9 @@ END:
  * @param	AddrHigh	Higher 32 bit address of the
  *				XNvm_Dna structure
  *
- * @return	- XST_SUCCESS - If the read is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ * 		- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
 static int XNvm_EfuseDnaRead(u32 AddrLow, u32 AddrHigh)
@@ -1033,7 +1051,8 @@ END:
  *
  * @param 	Len 		Length of data to be copied in bytes
  *
- * @return	- XST_SUCCESS - If the copy is successful
+ * @return
+ * 		- XST_SUCCESS - If the copy is successful
  * 		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
@@ -1060,8 +1079,9 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
  *				Payload
  *@param	EnvMonitorDis	Environment monitor disable variable.
  *
- * @return	- XST_SUCCESS - On Specified data write.
- *		- Error Code - On corresponding failure
+ * @return
+ * 		- XST_SUCCESS - On Specified data write.
+ * 		- XST_INVALID_PARAM - On invalid parameter or unsupported API_ID
  *
  *
  ******************************************************************************/
@@ -1148,7 +1168,8 @@ END:
  *
  * @param 	Size 		Length of data to be read
  *
- * @return	- XST_SUCCESS - If the copy is successful
+ * @return
+ * 		- XST_SUCCESS - If the copy is successful
  * 		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
@@ -1181,8 +1202,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseIvWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1223,8 +1246,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseSecMisc1WriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1265,8 +1290,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseAnlgTrimWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1307,8 +1334,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseBootEnvCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1349,8 +1378,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfusePufWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1405,8 +1436,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseSecMisc0WriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1447,8 +1480,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseAesKeysWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1491,8 +1526,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseOffChipIdsWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1533,8 +1570,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseRevokeIdsWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1575,8 +1614,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfusePpkhashWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1619,8 +1660,10 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseUserFuseWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1663,8 +1706,11 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED - On access disabled
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseMiscCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
@@ -1723,8 +1769,11 @@ END:
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
  *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- Error Code - Corresponding error code on failure
+ * @return
+ * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED - On access disabled
+ * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
 static int XNvm_EfuseSecCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)

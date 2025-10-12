@@ -54,9 +54,9 @@
  * @param	KeyLen		Size of the Aes key
  *
  * @return
- *		 	- XST_SUCCESS  If the BBRAM programming is successful
- *		 	- XST_INVALID_PARAM  If there is a input validation failure
- *			- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the BBRAM programming is successful
+ * 		- XST_INVALID_PARAM  If there is a input validation failure
+ * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
@@ -99,9 +99,9 @@ END:
  * @param	InstancePtr Pointer to the client instance
  *
  * @return
- *		- XST_SUCCESS  If the BBRAM zeroize is successful
- *		- XST_INVALID_PARAM  If there is a input validation failure
- *		- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the BBRAM zeroize is successful
+ * 		- XST_INVALID_PARAM  If there is a input validation failure
+ * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr)
@@ -138,9 +138,9 @@ END:
  * @param	UsrData		User data to be written to BBRAM
  *
  * @return
- *		- XST_SUCCESS  If the BBRAM user data write successful
- *		- XST_INVALID_PARAM  If there is a input validation failure.
- *		- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the BBRAM user data write successful
+ * 		- XST_INVALID_PARAM  If there is a input validation failure.
+ * 		- XST_FAILURE  If there is a failure
  *
  *****************************************************************************/
 int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 UsrData)
@@ -178,9 +178,9 @@ END:
  * 				BBRAM user data
  *
  * @return
- *		- XST_SUCCESS  If the read is successful
- *		- XST_INVALID_PARAM  If there is a input validation failure
- *		- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the read is successful
+ * 		- XST_INVALID_PARAM  If there is a input validation failure
+ * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr)
@@ -219,9 +219,9 @@ END:
  * @param	InstancePtr Pointer to the client instance
  *
  * @return
- *		- XST_SUCCESS  If the Locking is successful
- *		- XST_INVALID_PARAM  If there is a input validation failure
- *		- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the Locking is successful
+ * 		- XST_INVALID_PARAM  If there is a input validation failure
+ * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
@@ -263,8 +263,8 @@ END:
  * 		allowed
  *
  * @return
- *		- XST_SUCCESS  If the provisioning is successful
- *		- XST_FAILURE  If there is a failure
+ * 		- XST_SUCCESS  If the provisioning is successful
+ * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, const u32 ClEnFlag,

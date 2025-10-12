@@ -1029,7 +1029,7 @@ END :
  * @param	SynData - Pointer to the Puf Syndrome data to program the eFUSE.
  *
  * @return
- *		- XST_SUCCESS  If programs successfully.
+ * 		- XST_SUCCESS  If programs successfully.
  * 		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
  *
  * @note	To generate PufSyndromeData please use XPuf_Registration API.
@@ -1059,8 +1059,8 @@ END:
  * @param	Chash - A 32-bit Chash to program the eFUSE.
  *
  * @return
- *		- XST_SUCCESS  If programs successfully.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
+ * 		- XST_SUCCESS  If programs successfully.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
  *
  ******************************************************************************/
 static int XNvm_EfuseWritePufChash(u32 Chash)
@@ -1732,8 +1732,8 @@ END:
  *
  * @return
  * 		- XST_SUCCESS  On Successful read.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
- *		- XNVM_EFUSE_ERR_RD_DEC_ONLY  Error in reading in Dec_only efuses.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
+ * 		- XNVM_EFUSE_ERR_RD_DEC_ONLY  Error in reading in Dec_only efuses.
  *
  * @note	If DecOnly eFuse is programmed that means boot can happen in
  * 		only Symmetric HWRoT boot mode.
