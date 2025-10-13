@@ -7,6 +7,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0140 OLD)
 
 if (YOCTO)
 find_package(commonmeta QUIET)
+ADD_COMPILE_DEFINITIONS(-DYOCTO_FLOW)
 endif()
 
 set (CMAKE_INSTALL_LIBDIR "lib")
