@@ -47,6 +47,245 @@ Refactor to skip interrupt registration for PMC, PSM
 Add RemoteId based APIs to support concurrent IPI channel requests
 Add YAML conditon for the supported processors
 
+axipmon_v6_13:
+Fix GCC warnings
+
+bram_v4_13:
+Add peripheral tests support
+Fix GCC warnings
+
+cframe_v1_9:
+Fix GCC warnings and update driver version
+
+clk_wiz_v1_10:
+clk_wiz: Fix gcc warning
+
+devcfg_v3_9:
+devcfg: Fix GCC warning
+
+emaclite_v4_12:
+Fix ARP resolution and Endianness
+
+intc_v3_21:
+intc: examples: Improve support interrupt handling with GIC
+intc: Add support for IntrId and IntrParent
+intc: increment driver version
+intc: Fix compilation warnings
+
+iomodule_v2_19:
+drivers:iomodule: Add xlnx, io-baseaddr as additional property for the iomodule
+sw_apps:asufw:Implementation of ASUFW specific outbyte function
+drivers: Add peripheral tests support in SDT flow
+
+llfifo_v6_0:
+Fix GCC warning and update driver version
+
+mipi_rx_phy_v1_1:
+Fix doxygen warnings and update driver version
+
+ospipsv_v1_13:
+Add new compatible strings for spartanuplus devices
+Modularize the Transfer functions
+Set the required configurations for SpartanUp in SDR-PHY and DDR-PHY
+
+pciepsu_v2_2:
+Fix compiler warnings in ZynqMP FSBL build
+
+prc_v2_3:
+drivers: prc: Add VSM shift and count related properties
+
+prd_v2_3:
+prd: Improve self-test by validating control register read/write path
+
+scugic_v5_6:
+scugic: Fix ARMCLANG warning
+scugic: Fix GCC and ARMCLANG warnings
+
+spi_v4_15:
+Update driver version and fix GCC warnings
+
+srio_v1_7:
+srio: Fix unused paremeter warning
+
+tmr_manager_v1_8:
+tmr_manager: Fix GCC warning
+
+tmrctr_v4_14:
+tmrctr: Fix GCC warning
+
+ttcps_v3_22:
+ttcps: Ported TTCPS driver to support XPM usage in SDT flow.
+ttcps: Fix ARMCC compilation error
+ttcps: Fix GCC warnings
+
+usbps_v2_10:
+usbps: Fix incompatible function types
+usbps: Fix fall through warning
+usbps: Fix static at beginning of declaration
+usbps: Fix unused parameter warnings
+usbps: Fix signedness warnings
+
+usbpsu_v1_18:
+usbpsu: Fix comparison of different signedness
+usbpsu: Fix static declaration
+usbpsu: Fix fallthrough warning
+usbpsu: Fix initialized field overwritten
+usbpsu: Fix array bounds checking
+usbpsu: Fix missing initializer field of structure
+usbpsu: Fix unused parameter warnings
+
+visp_ss_v1_1:
+Add ISP LIMO/MIMO/LILO BareMetal driver & example support
+
+xilfpga_v6_9:
+sw_services: xilfpga: Fix GCC warnings
+
+xilloader_v2_3:
+Added support for Versal_2VP devices
+Added Versal_2VP SDT build Support
+Added support for Versal_2VP data measurement
+Initialize TRNG for Versal_2VP
+For all platforms
+Added EMMC as PDI SRC option for partial PDI load
+Added logic to avoid flooding of PLM log buffer with repeated error messages during partial PDI failure
+PCR sub-system restart handling from Image Store and IPI
+Fix for DMA1 hang after failure of partial PDI
+Implemented boot copy optimization
+Reset SHA instance 1 after Load Image
+For Versal only
+Updated Versal data measurement for authenticated/non-authenticated boot
+For Versal_2VE_2VM only
+Secure components extension to PCR
+Added config limiter feature under a macro which is disabled by default
+Store the subsystem digest when OCP functionalities are enabled for ASUFW
+Point the correct hash block for getting partition hash during subsystem image hash calculation
+For Versal NET only
+Fix local buffers and cache invalidation at client side
+Fix for doxygen warnings
+Fix for GCC warnings
+Refactored platform specific code
+
+xilpdi_v1_12:
+Fix for RTF docs
+Fix for GCC warnings
+Fix for MISRA-C violations
+
+xilplmi_v2_3:
+Added support for Versal_2VP devices
+Added Versal_2VP SDT build support
+Provided option to enable PLM_OCP
+Added API to check KAT status
+Updated IO Module Address for Versal_2VP
+For all platforms
+Added new HBMON Error IDs and corresponding Error Masks for all except Versal_2VP
+Added RTCA based Boot time config to disable UART logs
+Fixed XILPLMI_plm_dbg_lvl level0 config option
+Added an example for user module
+For Versal NET only
+Added check for PSM FW presence in optional header table before starting in place update
+For Versal_2VE_2VM only
+Added support to transfer subsystem hash
+Added support to transfer ASU CDI
+Added config option for ASU key management which is disabled by default.
+Enable OCP ASU config
+Removed OCP key management for Versal Gen2. Moved it to ASUFW
+Fix for restricting error action change for FW_CR error
+Fix for GCC warnings
+Fix for doxygen warnings
+Fix for MISRA-C violations
+
+xilsfl_v1_2:
+Prevent buffer overrun in STIG mode reads
+Add support for microblaze processor
+Fix GCC warnings
+Enable copying of flash ID for QSPI flashes
+
+xiltimer_v2_3:
+xiltimer: Initialize global timer only once to support AMP configuration
+xiltimer: Add one time init for XGlobalTimer_Start
+sw_services: xiltimer: Fix tick timer alignment issue
+
+xiltpm_v1_1:
+Enhancements in TPM
+Updated CMakeLists for yocto build support
+
+lwip220_v1_3:
+Prevent buffer descriptor memory exhaustion
+Add xclocking support for ZYNQMP
+Add SDT support for axiethernet fifo
+
+standalone_v9_4:
+bsp: standalone: Add extended address support for RISC-V
+lib: Add Versal_2vp SDT build support
+sw_services:xilplmi:Add new HBMON error IDs and masks
+sw_services: Add error/macros to support Versal_2vp in xilocp
+bsp: standalone: Update A53 translation table
+sw_services: Fix error numbers and descriptions
+lib: bsp: Add weak _gettimeofday and include missing sources in CMake
+xilpm: versal_common: Add support for unregister all notifiers
+xilpm: versal_common: Add support for bulk release of peripheral devices
+bsp: standalone: Enable XPM support for standalone BSP
+lib: bsp: standalone: Add feature deprecation status code
+bsp: standalone: Fix MISRA-C violation for Rule 9.1
+bsp: standalone: Fix MISRA-C violation for Rule 17.7
+bsp: standalone: Fix MISRA-C violation for Rule 12.1
+bsp: standalone: Fix MISRA-C violation for Rule 10.4
+bsp: standalone: Update datatype to support large memory ranges
+bsp: standalone: Dont define XIL_INTERRUPT for PSMFW
+lib: bsp: Add support for AXI NOC2 to high DDR regions of Versal
+standalone: Add a XCLOCKING to bspconfig
+Revert "lib:bsp:standalone: Add exclusion for Versal_2VE_2VM submachine in minimal xlat tbl option"
+bsp: riscv: Add missing exception and interrupt ID's
+lib:bsp:standalone: Correct macro names for DDR low 3 base/high address in translation_table
+lib:bsp:standalone: Add exclusion for Versal_2VE_2VM submachine in minimal xlat tbl option
+bsp:standalone: Add support for Spartanuplusaes1 device family
+bsp: standalone: Fix GCC warnings
+bsp: Extend FPU support in Standalone and FreeRTOS
+bsp: standalone: Fix incorrect cache line address usage in Xil_DCacheInvalidateRange
+sw_apps:asufw:Implementation of ASUFW specific outbyte function
+riscv: Handle exceptions using RISCV_ExceptionVectorTable
+standalone: Remove irrelevant comment
+riscv: Add support for exception handler registration
+
+rtcpsu_v_16:
+Remove redundant calibration register write in XRtcPsu_SetTime
+
+asufw:
+Configurability for enabling/disabling of crypto modules
+Performance measurement additions for all crypto modules
+Versioning of crypto modules
+EdDSA support in ASUFW
+X.509 certification generation and parsing
+Logging ASUFW prints to memory
+Minor bug fixes and enhancements
+Support for NIST software padding to support 0 data length and SHA finish use case without SHA final update
+Private key generation for all curves
+OCP
+DevIK/DevAK key pair generation
+DevIK/DevAK X.509 certificate and CSR generation
+DevAK attestation support
+OCP-DME
+Generation of DME KEK
+Encryption of DME private keys with DME KEK
+DME challenge response creation
+CMAC based KDF support
+KATs execution on boot as a task and status management of the modules
+IPI message filtering
+Simplify queue scheduling logic
+X.509 certificate parsing and signature verification
+AES context switching
+Update ASU RTCA for FW_IS_PRESENT status along with ASU GLOBAL register
+
+xilasu:
+Client-side performance measurement additions for all crypto modules
+Client support for versioning of crypto modules
+Restriction of ASU examples only to supported clients
+Client interface and example support for OCP
+Client interface and example support for OCP-DME
+Client updates related to IPI message filtering
+Support for one multi-update call per queue from client
+Moved ASUFW_IS_PRESENT polling to ASU RTCA instead of ASU_GLOBAL register
+
 
 
 Changes for 2025.1
