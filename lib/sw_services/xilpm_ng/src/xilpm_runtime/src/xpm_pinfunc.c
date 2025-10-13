@@ -133,7 +133,7 @@ done:
 /* TODO: Each function can not be mapped with their corresponding
  *       device. Keeping those devIdx as 0.
  */
-static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
+static const XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	[PIN_FUNC_SD0] = {
 		.Id = (u8)PIN_FUNC_SD0,
 		.Name = "sd0",
@@ -1077,9 +1077,9 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
  * @return Pointer to XPm_PinFunc if successful, NULL otherwise
  *
  ****************************************************************************/
-XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId)
+const XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId)
 {
-	XPm_PinFunc *PinFunc = NULL;
+	const XPm_PinFunc *PinFunc = NULL;
 
 	if ((u32)MAX_FUNCTION > FuncId) {
 		PinFunc = &PmPinFuncs[FuncId];

@@ -11,7 +11,7 @@
 #include "xpm_notifier.h"
 
 extern XPm_SubsystemMgr SubsysMgr;
-extern XPm_SubsystemOps SubsystemOpsTable[];
+extern const XPm_SubsystemOps SubsystemOpsTable[];
 
 u32 XPmSubsystem_GetMaxSubsysIdx(void)
 {

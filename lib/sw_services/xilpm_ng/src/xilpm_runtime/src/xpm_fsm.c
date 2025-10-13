@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C)  2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C)  2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_core.h"
@@ -9,7 +9,7 @@
 #include "xpm_fsm.h"
 #include "xpm_device_fsm.h"
 
-static const XPm_Fsm* XPmFsmTable[] = {
+static const XPm_Fsm* const XPmFsmTable[] = {
 	[XPM_FSM_TYPE_GENERIC_DEVICE] = &XPmGenericDeviceFsm,
 };
 

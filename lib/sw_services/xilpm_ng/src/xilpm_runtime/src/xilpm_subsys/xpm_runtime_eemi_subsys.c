@@ -39,7 +39,7 @@ XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 	.Subsystems = { .Root = NULL },
 	.NumSubsystems = 0,
 };
-XPm_SubsystemOps SubsystemOpsTable[] = {
+const XPm_SubsystemOps SubsystemOpsTable[] = {
 	/* Generic Subsystem Operations */
 	[SUBSYS_OPS_GENERIC] = {
 		.Activate = XPmSubsystem_Generic_Activate,

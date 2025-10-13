@@ -353,7 +353,7 @@ enum PmPinGrpIds {
 	PIN_GRP_SYSMON_I2C_ALERT_15 = 315,
 };
 /************************** Function Prototypes ******************************/
-XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId);
+const XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId);
 XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs);
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName);
 XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups);

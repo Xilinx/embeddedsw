@@ -9,7 +9,7 @@
 
 #define NUM_CLUSTER 4U
 static u8 ApuClusterState[NUM_CLUSTER] = {0U};
-XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 	.Id = PM_DEV_ACPU_0_0,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE0_MASK,
@@ -37,7 +37,7 @@ XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
 	.Id = PM_DEV_ACPU_0_1,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE1_MASK,
@@ -65,7 +65,7 @@ XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
 	.Id = PM_DEV_ACPU_0_2,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR2L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE2_MASK,
@@ -93,7 +93,7 @@ XPmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
 	.Id = PM_DEV_ACPU_0_3,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR3L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE3_MASK,
@@ -121,7 +121,7 @@ XPmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
 	.Id = PM_DEV_ACPU_1_0,
 	.ResetCfgAddr = APU_CLUSTER1_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU1_CORE0_MASK,
@@ -149,7 +149,7 @@ XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
 	.Id = PM_DEV_ACPU_1_1,
 	.ResetCfgAddr = APU_CLUSTER1_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU1_CORE1_MASK,
@@ -177,7 +177,7 @@ XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
 	.Id = PM_DEV_ACPU_2_0,
 	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU2_CORE0_MASK,
@@ -205,7 +205,7 @@ XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
 	.Id = PM_DEV_ACPU_2_1,
 	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU2_CORE1_MASK,
@@ -233,7 +233,7 @@ XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
 	.Id = PM_DEV_ACPU_3_0,
 	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU3_CORE0_MASK,
@@ -261,7 +261,7 @@ XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
 	.Id = PM_DEV_ACPU_3_1,
 	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU3_CORE1_MASK,
@@ -289,7 +289,7 @@ XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
 	.PwrDwnAckTimeout = PWRDWN_ACPU_TO,
 };
 
-XPmFwPwrCtrl_t RpuA_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t RpuA_Core0PwrCtrl = {
 	.Id = PM_DEV_RPU_A_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_A0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUA_CORE0_MASK,
@@ -310,7 +310,7 @@ XPmFwPwrCtrl_t RpuA_Core0PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_A0_CORE_0_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuA_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t RpuA_Core1PwrCtrl = {
 	.Id = PM_DEV_RPU_A_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_A1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUA_CORE1_MASK,
@@ -331,7 +331,7 @@ XPmFwPwrCtrl_t RpuA_Core1PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_A1_CORE_1_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuB_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t RpuB_Core0PwrCtrl = {
 	.Id = PM_DEV_RPU_B_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_B0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUB_CORE0_MASK,
@@ -352,7 +352,7 @@ XPmFwPwrCtrl_t RpuB_Core0PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_B0_CORE_0_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuB_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t RpuB_Core1PwrCtrl = {
 	.Id = PM_DEV_RPU_B_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_B1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUB_CORE1_MASK,
@@ -373,7 +373,7 @@ XPmFwPwrCtrl_t RpuB_Core1PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_B1_CORE_1_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuC_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t RpuC_Core0PwrCtrl = {
 	.Id = PM_DEV_RPU_C_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_C0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUC_CORE0_MASK,
@@ -394,7 +394,7 @@ XPmFwPwrCtrl_t RpuC_Core0PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_C0_CORE_0_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuC_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t RpuC_Core1PwrCtrl = {
 	.Id = PM_DEV_RPU_C_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_C1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUC_CORE1_MASK,
@@ -415,7 +415,7 @@ XPmFwPwrCtrl_t RpuC_Core1PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_C1_CORE_1_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuD_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t RpuD_Core0PwrCtrl = {
 	.Id = PM_DEV_RPU_D_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_D0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUD_CORE0_MASK,
@@ -436,7 +436,7 @@ XPmFwPwrCtrl_t RpuD_Core0PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_D0_CORE_0_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuD_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t RpuD_Core1PwrCtrl = {
 	.Id = PM_DEV_RPU_D_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_D1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUD_CORE1_MASK,
@@ -457,7 +457,7 @@ XPmFwPwrCtrl_t RpuD_Core1PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_D1_CORE_1_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuE_Core0PwrCtrl = {
+const XPmFwPwrCtrl_t RpuE_Core0PwrCtrl = {
 	.Id = PM_DEV_RPU_E_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_E0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUE_CORE0_MASK,
@@ -478,7 +478,7 @@ XPmFwPwrCtrl_t RpuE_Core0PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_E0_CORE_0_VECTABLE,
 };
 
-XPmFwPwrCtrl_t RpuE_Core1PwrCtrl = {
+const XPmFwPwrCtrl_t RpuE_Core1PwrCtrl = {
 	.Id = PM_DEV_RPU_E_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_E1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUE_CORE1_MASK,
@@ -499,7 +499,7 @@ XPmFwPwrCtrl_t RpuE_Core1PwrCtrl = {
 	.VectTableAddr = PSX_RPU_CLUSTER_E1_CORE_1_VECTABLE,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B0_I0_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B0_I0_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B0_I0_MASK,
@@ -509,7 +509,7 @@ XPmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B0_I0_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B0_I1_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B0_I1_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B0_I1_MASK,
@@ -519,7 +519,7 @@ XPmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B0_I1_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B0_I2_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B0_I2_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B0_I2_MASK,
@@ -529,7 +529,7 @@ XPmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B0_I2_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B0_I3_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B0_I3_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B0_I3_MASK,
@@ -539,7 +539,7 @@ XPmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B0_I3_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B1_I0_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B1_I0_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B1_I0_MASK,
@@ -549,7 +549,7 @@ XPmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B1_I0_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B1_I1_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B1_I1_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B1_I1_MASK,
@@ -559,7 +559,7 @@ XPmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B1_I1_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B1_I2_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B1_I2_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B1_I2_MASK,
@@ -569,7 +569,7 @@ XPmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B1_I2_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B1_I3_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B1_I3_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B1_I3_MASK,
@@ -579,7 +579,7 @@ XPmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B1_I3_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B2_I0_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B2_I0_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B2_I0_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B2_I0_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B2_I0_MASK,
@@ -589,7 +589,7 @@ XPmFwMemPwrCtrl_t Ocm_B2_I0_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B2_I0_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B2_I1_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B2_I1_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B2_I1_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B2_I1_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B2_I1_MASK,
@@ -599,7 +599,7 @@ XPmFwMemPwrCtrl_t Ocm_B2_I1_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B2_I1_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B2_I2_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B2_I2_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B2_I2_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B2_I2_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B2_I2_MASK,
@@ -609,7 +609,7 @@ XPmFwMemPwrCtrl_t Ocm_B2_I2_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B2_I2_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B2_I3_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B2_I3_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B2_I3_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B2_I3_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B2_I3_MASK,
@@ -619,7 +619,7 @@ XPmFwMemPwrCtrl_t Ocm_B2_I3_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B2_I3_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B3_I0_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B3_I0_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B3_I0_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B3_I0_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B3_I0_MASK,
@@ -629,7 +629,7 @@ XPmFwMemPwrCtrl_t Ocm_B3_I0_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B3_I0_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B3_I1_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B3_I1_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B3_I1_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B3_I1_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B3_I1_MASK,
@@ -639,7 +639,7 @@ XPmFwMemPwrCtrl_t Ocm_B3_I1_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B3_I1_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B3_I2_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B3_I2_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B3_I2_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B3_I2_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B3_I2_MASK,
@@ -649,7 +649,7 @@ XPmFwMemPwrCtrl_t Ocm_B3_I2_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B3_I2_MASK,
 };
 
-XPmFwMemPwrCtrl_t Ocm_B3_I3_PwrCtrl = {
+const XPmFwMemPwrCtrl_t Ocm_B3_I3_PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_OCM_B3_I3_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_OCM_CE_CNTRL_B3_I3_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_OCM_PWR_CNTRL_B3_I3_MASK,
@@ -659,7 +659,7 @@ XPmFwMemPwrCtrl_t Ocm_B3_I3_PwrCtrl = {
 	.RetCtrlMask = PSXC_LPX_SLCR_OCM_RET_CNTRL_B3_I3_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmA0PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmA0PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_A0_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMA0_MASK,
@@ -674,7 +674,7 @@ XPmTcmPwrCtrl_t TcmA0PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM0A_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmA1PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmA1PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_A1_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMA1_MASK,
@@ -689,7 +689,7 @@ XPmTcmPwrCtrl_t TcmA1PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM1A_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmB0PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmB0PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_B0_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMB0_MASK,
@@ -704,7 +704,7 @@ XPmTcmPwrCtrl_t TcmB0PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM0B_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmB1PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmB1PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_B1_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMB1_MASK,
@@ -719,7 +719,7 @@ XPmTcmPwrCtrl_t TcmB1PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM1B_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmC0PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmC0PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_C0_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMC0_MASK,
@@ -735,7 +735,7 @@ XPmTcmPwrCtrl_t TcmC0PwrCtrl = {
 
 };
 
-XPmTcmPwrCtrl_t TcmC1PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmC1PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_C1_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMC1_MASK,
@@ -750,7 +750,7 @@ XPmTcmPwrCtrl_t TcmC1PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM1C_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmD0PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmD0PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_D0_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMD0_MASK,
@@ -765,7 +765,7 @@ XPmTcmPwrCtrl_t TcmD0PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM0D_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmD1PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmD1PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_D1_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCMD1_MASK,
@@ -780,7 +780,7 @@ XPmTcmPwrCtrl_t TcmD1PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM1D_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmE0PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmE0PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_E0_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCME0_MASK,
@@ -795,7 +795,7 @@ XPmTcmPwrCtrl_t TcmE0PwrCtrl = {
 	.PwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_TCM0E_MASK,
 };
 
-XPmTcmPwrCtrl_t TcmE1PwrCtrl = {
+const XPmTcmPwrCtrl_t TcmE1PwrCtrl = {
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE1_RPU_TCM_E1_MASK,
 		.ChipEnMask = PSXC_LPX_SLCR_RPU_TCM_CE_CNTRL_TCME1_MASK,
@@ -811,7 +811,7 @@ XPmTcmPwrCtrl_t TcmE1PwrCtrl = {
 };
 
 
-XPmFwGemPwrCtrl_t Gem0PwrCtrl = {
+const XPmFwGemPwrCtrl_t Gem0PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE2_GEM0_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_GEM_CE_CNTRL_GEM0_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_GEM_PWR_CNTRL_GEM0_MASK,
@@ -825,7 +825,7 @@ XPmFwGemPwrCtrl_t Gem0PwrCtrl = {
 	.PwrUpWaitTime = GEM0_PWR_UP_WAIT_TIME,
 };
 
-XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
+const XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE2_GEM1_MASK,
 	.ChipEnMask = PSXC_LPX_SLCR_GEM_CE_CNTRL_GEM1_MASK,
 	.PwrCtrlMask = PSXC_LPX_SLCR_GEM_PWR_CNTRL_GEM1_MASK,
@@ -850,7 +850,7 @@ XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
  * @note       None
  *
  ****************************************************************************/
-static XStatus XPm_PCILWaitForPstable(struct XPmFwPwrCtrl_t *Args)
+static XStatus XPm_PCILWaitForPstable(const struct XPmFwPwrCtrl_t *Args)
 {
        XStatus Status = XST_FAILURE;
 
@@ -877,7 +877,7 @@ done:
 }
 
 
-static XStatus XPmPower_IslandPwrUp(struct XPmFwPwrCtrl_t *Args)
+static XStatus XPmPower_IslandPwrUp(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -910,7 +910,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPower_ACpuPwrUp(struct XPmFwPwrCtrl_t *Args)
+static XStatus XPmPower_ACpuPwrUp(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -979,7 +979,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_ACpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
+XStatus XPmPower_ACpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 LowAddress, HighAddress;
@@ -1022,7 +1022,7 @@ done:
 
 
 
-static XStatus XPmPower_ACpuPwrDwn(struct XPmFwPwrCtrl_t *Args)
+static XStatus XPmPower_ACpuPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1064,7 +1064,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_ACpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_ACpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1133,7 +1133,7 @@ done:
 
 
 
-static XStatus XPmPower_RpuPwrUp(struct XPmFwPwrCtrl_t *Args)
+static XStatus XPmPower_RpuPwrUp(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1177,7 +1177,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
+XStatus XPmPower_RpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 LowAddress;
@@ -1245,7 +1245,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_RpuPwrDwn(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_RpuPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1280,7 +1280,7 @@ XStatus XPmPower_RpuPwrDwn(struct XPmFwPwrCtrl_t *Args)
 done:
 	return Status;
 }
-XStatus XPmPower_RpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_RpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1335,7 +1335,7 @@ done:
 }
 
 
-static XStatus XPmPower_MemPwrDwn(struct XPmFwMemPwrCtrl_t *Args)
+static XStatus XPmPower_MemPwrDwn(const struct XPmFwMemPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1389,7 +1389,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPower_MemPwrUp(struct XPmFwMemPwrCtrl_t *Args)
+static XStatus XPmPower_MemPwrUp(const struct XPmFwMemPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1418,7 +1418,7 @@ static XStatus XPmPower_MemPwrUp(struct XPmFwMemPwrCtrl_t *Args)
 done:
 	return Status;
 }
-XStatus XPmPower_RpuReqPwrUp(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_RpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1463,7 +1463,7 @@ XStatus XPmPower_RpuReqPwrUp(struct XPmFwPwrCtrl_t *Args)
 done:
 	return Status;
 }
-XStatus XPmPower_RpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_RpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1503,7 +1503,7 @@ XStatus XPmPower_RpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args)
 done:
 	return Status;
 }
-XStatus XPmPower_ACpuReqPwrUp(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_ACpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1527,7 +1527,7 @@ XStatus XPmPower_ACpuReqPwrUp(struct XPmFwPwrCtrl_t *Args)
 done:
 	return Status;
 }
-XStatus XPmPower_ACpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args)
+XStatus XPmPower_ACpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1573,7 +1573,7 @@ XStatus XPmPower_ACpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args)
 done:
 	return Status;
 }
-static XStatus XPmPower_TcmRpuPwrUp(struct XPmTcmPwrCtrl_t *Args)
+static XStatus XPmPower_TcmRpuPwrUp(const struct XPmTcmPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mode;
@@ -1649,10 +1649,10 @@ static XStatus XPmPower_TcmRpuPwrUp(struct XPmTcmPwrCtrl_t *Args)
 	return Status;
 }
 
-static XStatus XPmPower_TcmPwrUp(struct XPmTcmPwrCtrl_t *Args)
+static XStatus XPmPower_TcmPwrUp(const struct XPmTcmPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
+	const struct XPmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
 
 	/* RPU needs to be power up to access TCM since TCM is in RPU island */
 	Status = XPmPower_TcmRpuPwrUp(Args);
@@ -1689,10 +1689,10 @@ done:
 	return Status;
 }
 
-static XStatus XPmPower_TcmPwrDown(struct XPmTcmPwrCtrl_t *Args)
+static XStatus XPmPower_TcmPwrDown(const struct XPmTcmPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
+    const struct XPmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
 
 	/* Clear the interrupt */
 	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS, Args->PwrDwnStatusMask);
@@ -1730,7 +1730,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPower_MemPwrUpGem(struct XPmFwGemPwrCtrl_t *Gem)
+static XStatus XPmPower_MemPwrUpGem(const struct XPmFwGemPwrCtrl_t *Gem)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1759,7 +1759,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPower_MemPwrDwnGem(struct XPmFwGemPwrCtrl_t *Gem)
+static XStatus XPmPower_MemPwrDwnGem(const struct XPmFwGemPwrCtrl_t *Gem)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -2165,6 +2165,3 @@ XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node)
 
 	return Status;
 }
-
-
-
