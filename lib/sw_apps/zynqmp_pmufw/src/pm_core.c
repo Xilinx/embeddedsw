@@ -63,7 +63,7 @@
 #define ADDRESS_HIGH_SHIFT	(32U)
 #define IV_SIZE_IN_BYTES	(12U)
 
-#define ADDR64(high, low)	(((u64)high << ADDRESS_HIGH_SHIFT) | low)
+#define ADDR64(high, low)	(((u64)(high) << ADDRESS_HIGH_SHIFT) | (low))
 #define SECURE_IMAGE_PRTN_TOTAL_LENGTH	(0x1108U)
 #define SECURE_IMAGE_PRTN_OFFSET	(0x1120U)
 
@@ -1220,7 +1220,7 @@ static void PmSecureAes(const PmMaster *const master,
 	XilSKey_Puf InstancePtr = {0U};
 #endif
 	u64 WrAddr = ((u64)SrcAddrHigh << ADDRESS_HIGH_SHIFT) | SrcAddrLow;
-	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
+	const XSecure_AesParams *Aes = (const XSecure_AesParams *)(UINTPTR)WrAddr;
 #if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
 	if (0U == PmIsValidAddressRange(master, WrAddr,
 				sizeof(XSecure_AesParams), (u32)MEM_RANGE_ANY_ACCESS)) {
@@ -1228,12 +1228,12 @@ static void PmSecureAes(const PmMaster *const master,
 		goto END;
 	}
 	if (0U == PmIsValidAddressRange(master, Aes->Src,
-				Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+				(u32)Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
 		Status = XST_PM_NO_ACCESS;
 		goto END;
 	}
 	if (0U == PmIsValidAddressRange(master, Aes->Dst,
-				Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+				(u32)Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
 		Status = XST_PM_NO_ACCESS;
 		goto END;
 	}
@@ -1303,6 +1303,8 @@ static void PmSecureImage(const PmMaster *const master,
 			const u32 SrcAddrHigh, const u32 SrcAddrLow, const u32 KupAddrHigh, const u32 KupAddrLow)
 {
 	u32 Status;
+	u32 TotalDataWordLength = 0U;
+	u32 DataWordOffset = 0U;
 	XSecure_DataAddr Addr = {0U};
 #if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD)
 	u64 SrcAddr = ((u64)SrcAddrHigh << ADDRESS_HIGH_SHIFT) | SrcAddrLow;
@@ -1310,7 +1312,7 @@ static void PmSecureImage(const PmMaster *const master,
 	u32 SrcSize;
 
 	if (KupAddr != 0U) {
-		SrcSize = KupAddr - SrcAddr;
+		SrcSize = (u32)(KupAddr - SrcAddr);
 		/** KUP key is placed at the end of Secure image */
 		if (0U == PmIsValidAddressRange(master, KupAddr,
 					XSECURE_KEY_SIZE, (u32)MEM_RANGE_ANY_ACCESS)) {
@@ -1323,8 +1325,9 @@ static void PmSecureImage(const PmMaster *const master,
 		 * Total len of Secure image = TotalDataWordLength  + DataWordOffset
 		 * TotalDataWordLength and DataWordOffset are Partition Header attributes.
 		 */
-		SrcSize = (Xil_In32(SrcAddr + SECURE_IMAGE_PRTN_TOTAL_LENGTH) +
-			Xil_In32(SrcAddr + SECURE_IMAGE_PRTN_OFFSET)) * XSECURE_WORD_LEN;
+        TotalDataWordLength = Xil_In32((u32)(SrcAddr + SECURE_IMAGE_PRTN_TOTAL_LENGTH));
+        DataWordOffset = Xil_In32((u32)(SrcAddr + SECURE_IMAGE_PRTN_OFFSET));
+        SrcSize = (TotalDataWordLength + DataWordOffset) * XSECURE_WORD_LEN;
 	}
 
 	if (0U == PmIsValidAddressRange(master, SrcAddr, SrcSize, (u32)MEM_RANGE_ANY_ACCESS)) {
