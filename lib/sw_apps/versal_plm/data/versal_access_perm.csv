@@ -44,6 +44,7 @@ list_mask_write,0x129,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 list_mask_poll,0x12a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 configure_secure_communication,0x12b,3,3,3,3,3,3,0,3,IPI,Configures secure communication between master and slave SLR
 get_secure_communication_status,0x12d,3,3,3,3,3,3,0,3,IPI,Read secure communication status between master and slave SLR
+DDRMC_MainReg_StatusSet,0x12e,3,3,3,3,3,3,0,3,IPI,Sets the access status of DDRMC main registers
 pm_get_api_version,0x201,3,3,3,3,3,3,0,3,IPI,Gives version number of the API
 pm_set_configuration,0x202,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 pm_get_node_status,0x203,3,3,3,3,3,3,0,3,IPI,Obtains information about the current state of device
