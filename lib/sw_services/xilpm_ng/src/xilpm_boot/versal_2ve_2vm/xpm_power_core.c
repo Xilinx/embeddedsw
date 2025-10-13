@@ -5,10 +5,11 @@
 #include "xpm_regs.h"
 #include "xpm_core.h"
 #include "xpm_power_core.h"
+#include "xpm_update.h"
 /* TODO: see if this data can be passed via topology */
 
 #define NUM_CLUSTER 4U
-static u8 ApuClusterState[NUM_CLUSTER] = {0U};
+static u8 ApuClusterState[NUM_CLUSTER] XPM_INIT_DATA(ApuClusterState) = {0U};
 const XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 	.Id = PM_DEV_ACPU_0_0,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR0L,

@@ -13,8 +13,9 @@
 #include "xpm_runtime_device.h"
 #include "xpm_runtime_clock.h"
 #include "xpm_core.h"
+#include "xpm_update.h"
 
-static XPmRuntime_CoreList *RuntimeCoreList = NULL;
+static XPmRuntime_CoreList *RuntimeCoreList XPM_INIT_DATA(RuntimeCoreList) = NULL;
 
 XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
 	XStatus Status = XST_SUCCESS;

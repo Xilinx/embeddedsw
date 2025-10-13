@@ -22,6 +22,7 @@
 #include "xpm_runtime_device.h"
 #include "xpm_runtime_rpucore.h"
 #include "xpm_runtime_api.h"
+#include "xpm_update.h"
 #include "xpm_runtime_aie.h"
 extern u32 ResetReason;
 

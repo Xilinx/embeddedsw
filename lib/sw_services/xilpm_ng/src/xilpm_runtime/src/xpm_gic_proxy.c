@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 #include "xpm_device.h"
 #include "xpm_common.h"
 #include "xpm_regs.h"
+#include "xpm_update.h"
 
 #define XPM_GIC_PROXY_IS_ENABLED		0x1U
 
@@ -121,7 +122,7 @@ static void XPmGicProxy_Clear(void)
 }
 
 /* FPD GIC Proxy has interrupts organized in 5 Groups */
-static XPm_GicProxyGroup XPm_GicProxyGroups[5];
+static XPm_GicProxyGroup XPm_GicProxyGroups[5] XPM_INIT_DATA(XPm_GicProxyGroups);
 
 XPm_GicProxy_t XPm_GicProxy = {
 	.Groups = XPm_GicProxyGroups,
