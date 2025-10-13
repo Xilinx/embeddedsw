@@ -105,6 +105,8 @@
 *       mb   09/10/2025 Exclude cache validation for RISC-V processor.
 * 5.6   rpu  08/11/2025 Added crypto check in XSecure_AesOpInit.
 *       mb   10/06/2025 Optimize Status variable usage.
+*	tus  10/10/2025 Fix ECB mode state transition to
+*			XSECURE_AES_INITIALIZED
 * </pre>
 *
 ******************************************************************************/
@@ -2058,6 +2060,7 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 	if ((XSecure_AesIsEcbModeEn(InstancePtr) == (u32)TRUE) && (IsLastChunk == (u8)TRUE)) {
 		/* Wait for AES Done for last chunk in ECB mode */
 		Status = XSecure_AesWaitForDone(InstancePtr);
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	}
 
 END_RST:

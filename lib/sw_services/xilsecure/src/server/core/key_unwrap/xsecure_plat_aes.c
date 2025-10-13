@@ -18,7 +18,9 @@
 * 5.2   kpt     06/20/23 Initial release
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     06/13/24 Added AES key unwrap with padding support.
-*
+* 5.6	tus	10/10/25 Move XSecure_AesEcbDecryptInit() inside the unwrap
+*			 loop to properly initilise AES state before each
+*			 independent ECB decrypt operation
 * </pre>
 *
 ******************************************************************************/
@@ -234,12 +236,6 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 		goto END;
 	}
 
-	/* Validate and put AES in ECB and decryption mode */
-	Status = XSecure_AesEcbDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/* Copy initial value*/
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)InitValue, (u64)(UINTPTR)AesWrapKey, XSECURE_AES_64BIT_BLOCK_SIZE);
 	if (Status != XST_SUCCESS) {
@@ -259,6 +255,12 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 				goto END;
 			}
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)(DecInput + XSECURE_AES_64BIT_BLOCK_SIZE), (u64)(UINTPTR)(AesWrapKey + (AesBlkRoundNum * 8U)), XSECURE_AES_64BIT_BLOCK_SIZE);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+			/* Validate and put AES in ECB and decryption mode */
+			Status = XSecure_AesEcbDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
