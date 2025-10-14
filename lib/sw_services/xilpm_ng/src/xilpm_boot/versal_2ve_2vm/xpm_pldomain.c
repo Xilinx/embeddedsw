@@ -13,15 +13,16 @@
 #include "xpm_rail.h"
 #include "xpm_regs.h"
 #include "xpm_pmc.h"
+#include "xpm_update.h"
 
 /* CFRAME Driver Instance */
-static XCframe CframeIns = {0};
+static XCframe CframeIns XPM_INIT_DATA(CframeIns) = {0};
 /**
  * If TRIM_CRAM[31:0]=0 (FUSE not programmed),
  * Use Dynamic read voltage and 4 Legs setting for keeper Bias
  */
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x08000B80U
-static u32 SavedCfuDivider = 0;
+static u32 SavedCfuDivider XPM_INIT_DATA(SavedCfuDivider) = 0;
 
 /*****************************************************************************/
 /**

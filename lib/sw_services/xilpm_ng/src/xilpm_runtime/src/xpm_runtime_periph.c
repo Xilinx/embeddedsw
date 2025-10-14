@@ -1,10 +1,11 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #include "xpm_runtime_periph.h"
-static XPmRuntime_PeriphList *PeriphList = NULL;
+#include "xpm_update.h"
+static XPmRuntime_PeriphList *PeriphList XPM_INIT_DATA(PeriphList) = NULL;
 XStatus XPmRuntime_Periph_GetWakeProcId(XPm_Periph * Device, u32 *WakeProcId)
 {
 	XStatus Status = XST_FAILURE;

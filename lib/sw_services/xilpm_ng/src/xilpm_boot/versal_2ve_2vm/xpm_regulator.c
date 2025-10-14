@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,9 @@
 #include "xpm_node.h"
 #include "xpm_debug.h"
 #include "xpm_power.h"
+#include "xpm_update.h"
 
-static XPm_Regulator *PmRegulators[XPM_NODEIDX_POWER_REGULATOR_MAX];
+static XPm_Regulator *PmRegulators[XPM_NODEIDX_POWER_REGULATOR_MAX] XPM_INIT_DATA(PmRegulators);
 
 XPm_Regulator *XPmRegulator_GetById(u32 Id)
 {

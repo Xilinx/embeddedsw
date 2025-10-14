@@ -38,6 +38,7 @@
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
 #include "xpm_aie.h"
+#include "xpm_update.h"
 #include "xpm_alloc.h"
 #include "xpm_regnode.h"
 #include "xpm_aiedevice.h"
@@ -60,7 +61,7 @@
  * the module commands for the Versal platform. It has a size of PM_API_MAX, which represents
  * the maximum number of module commands supported.
  */
-static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX] = {NULL};
+static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX] XPM_INIT_DATA(XPlmi_PmCmds) = {NULL};
 
 static XStatus XPm_DoIgnoreCommand(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoBisr(XPlmi_Cmd* Cmd);
@@ -94,7 +95,7 @@ XPlmi_ModuleCmd* XPm_GetPmCmds(void){
  * for various PM API functions. It is used in the Versal Common Server module of the Xilinx
  * Power Management Interface (XPMI) library.
  */
-static XPlmi_AccessPerm_t XPlmi_PmAccessPermBuff[PM_API_MAX] =
+static XPlmi_AccessPerm_t XPlmi_PmAccessPermBuff[PM_API_MAX] XPM_INIT_DATA(XPlmi_PmAccessPermBuff) =
 {
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_GET_API_VERSION),
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_GET_NODE_STATUS),

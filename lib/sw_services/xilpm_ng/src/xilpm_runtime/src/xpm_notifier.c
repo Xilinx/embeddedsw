@@ -15,6 +15,7 @@
 #include "xplmi_task.h"
 #include "xplmi_scheduler.h"
 #include "xpm_runtime_core.h"
+#include "xpm_update.h"
 
 #ifdef XILPM_NOTIFIER_LIST_SIZE
 #define XPM_NOTIFIERS_COUNT XILPM_NOTIFIER_LIST_SIZE /* Provide by user */
@@ -45,12 +46,12 @@
   * when got form EventeSeq[] to PmNotifier[] so Index is Index-1
   * instead of Index.
   */
-static DATA_TYPE EventSeq[XPM_NOTIFIERS_COUNT] = {0};
+static DATA_TYPE EventSeq[XPM_NOTIFIERS_COUNT] XPM_INIT_DATA(EventSeq) = {0};
 
-static u32 PendingEvent = (u32)NOT_PRESENT;
+static u32 PendingEvent XPM_INIT_DATA(PendingEvent) = (u32)NOT_PRESENT;
 
 /* Variable to record the position of first empty space in EventSeq */
-static volatile u32 PosEmptySpace = 0U;
+static volatile u32 PosEmptySpace XPM_INIT_DATA(PosEmptySpace) = 0U;
 
 typedef struct {
 	u32 SubsystemId;
@@ -62,9 +63,9 @@ typedef struct {
 	u32 PendEventCnt;
 } XPmNotifier;
 
-static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
+static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT] XPM_INIT_DATA(PmNotifiers);
 
-static volatile u32 SchedulerTask = (u32)NOT_PRESENT;
+static volatile u32 SchedulerTask XPM_INIT_DATA(SchedulerTask) = (u32)NOT_PRESENT;
 
 static int XPmNotifier_SchedulerTask(void *Arg);
 

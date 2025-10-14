@@ -7,6 +7,7 @@
 #include "xpm_debug.h"
 #include "xpm_defs.h"
 #include "xpm_api.h"
+#include "xpm_update.h"
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
 #define PWR_DOMAIN_PL_BITMASK			BIT(1)
