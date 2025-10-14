@@ -567,6 +567,7 @@ ENDF:
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  * @param	Data 		Pointer to the input data for hashing.
  * @param	Size 		Size of the input data in bytes.
+ * @param	IsLastUpdate	Indicates if this is the last update.
  *
  * @return	None
  *

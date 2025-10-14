@@ -59,7 +59,7 @@ extern "C" {
 #define XSECURE_SHA_TIMEOUT_MAX			(0x1FFFFU) /**< SHA Timeout max */
 #define XSECURE_HASH_SIZE_IN_BYTES		(48U) 	/**< SHA3-384 hash in size of bytes */
 #define XSECURE_SHA_DIGEST_OFFSET		(0x10U) /**< SHA Digest Register */
-
+/** @endcond */
 /***************************** Type Definitions******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -67,7 +67,7 @@ extern "C" {
 /***************************** Function Prototypes ******************************************/
 int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr);
 int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode);
-int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Size);
+int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 DataSize);
 int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufSize);
 int XSecure_ShaDigest(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode, const u64 DataAddr,
 u32 DataSize, u64 HashAddr, u32 HashBufSize);
@@ -80,3 +80,4 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 #endif
 
 #endif /** XSECURE_SHA_H_ */
+/** @} */

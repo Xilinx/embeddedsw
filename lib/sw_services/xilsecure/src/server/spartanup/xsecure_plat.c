@@ -35,7 +35,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_ADDR_HIGH_SHIFT (32U)
+#define XSECURE_ADDR_HIGH_SHIFT (32U)	/**< High address shift for 64-bit addresses */
 
 /************************** Variable Definitions *****************************/
 

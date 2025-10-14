@@ -35,17 +35,18 @@ extern "C" {
 #include "xsecure_utils.h"
 
 /************************** Constant Definitions ****************************/
-#define XSECURE_SHA_NUM_OF_INSTANCES            (1) /**< Number of Sha instances*/
+#define XSECURE_SHA_NUM_OF_INSTANCES            (1)	/**< Number of SHA instances*/
 
 #define XSECURE_SHA3_DEVICE_ID			(0U) /**< SHA3 device id */
 
 #define XSECURE_SHA_BASE_ADDRESS		(0x04100000U) /**< SHA3 base address */
 
-#define XSECURE_SHA_DEVICE_ID           (0U)
+#define XSECURE_SHA_DEVICE_ID           	(0U)	/**< SHA device id */
 
 #define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_DEVICE_ID)
+							/**< SHA 0 device id */
 
-#define XSECURE_MAX_HASH_SIZE_IN_BYTES          (32U)  /**< SHA3 maximum supported hash size */
+#define XSECURE_MAX_HASH_SIZE_IN_BYTES          (32U)	/**< SHA3 maximum supported hash size */
 
 #ifdef __cplusplus
 }

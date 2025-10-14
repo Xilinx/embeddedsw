@@ -280,3 +280,4 @@ void XSecure_CmdsInit(void)
 	XPlmi_ModuleRegister(&XPlmi_Secure);
 
 }
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -48,10 +48,13 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/**
+ * @brief Enum of SHA states
+ */
 typedef enum {
-	XSECURE_SHA_UNINITIALIZED = 0,
-	XSECURE_SHA_INITIALIZED,
-	XSECURE_SHA_UPDATE
+	XSECURE_SHA_UNINITIALIZED = 0,	/**< SHA uninitialized state */
+	XSECURE_SHA_INITIALIZED,		/**< SHA initialized state */
+	XSECURE_SHA_UPDATE				/**< SHA update state */
 }XSecure_ShaState;
 /***************** Macros (Inline Functions) Definitions *********************/
 

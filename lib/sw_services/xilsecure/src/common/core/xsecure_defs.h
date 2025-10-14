@@ -196,11 +196,13 @@ typedef struct {
 	u32 IsUpdateAadEn; /**<Enable if operation includes update AAD */
 } XSecure_AesDataBlockParams;
 
+/** XilSecure AES operation types */
 typedef enum {
 	XSECURE_ENCRYPT,	/**< Encrypt operation */
 	XSECURE_DECRYPT,	/**< Decrypt operation */
 } XSecure_AesOp;
 
+/** XilSecure ECC curve types */
 typedef enum {
       XSECURE_ECC_NIST_P192 = 1,              /**< NIST P-192 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P224 = 2,	      /**< NIST P-256 curve value in Ecdsa.h */
@@ -209,11 +211,13 @@ typedef enum {
       XSECURE_ECC_NIST_P521 = 5               /**< NIST P-521 curve value in Ecdsa.h */
 } XSecure_EllipticCrvTyp;
 
+/** XilSecure ECC curve class */
 typedef enum {
 	XSECURE_ECC_PRIME = 0,	/**< Prime curve */
 	XSECURE_ECC_BINARY = 1,	/**< Binary curve */
 } XSecure_EccCrvClass;
 
+/** XilSecure API KAT operations */
 typedef enum {
 	XSECURE_API_KAT_SET = 0U,				/**< 0U */
 	XSECURE_API_KAT_CLEAR					/**< 1U */

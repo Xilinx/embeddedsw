@@ -777,7 +777,6 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
  * @param	DmaPtr		Pointer to the XPmcDma instance
- * @param	Mode		SHA mode
  *
  * @return
  *		 - XST_SUCCESS  If initialization was successful
@@ -795,6 +794,7 @@ int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma* DmaPtr)
  *		SHA-3 engine
  *
  * @param	InstancePtr Pointer to the XSecure_Sha3 instance
+ * @param	ShaMode	SHA mode to be set
  *
  * @return
  *		 - XST_SUCCESS  On successful
@@ -802,9 +802,9 @@ int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma* DmaPtr)
  *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
  *
  ******************************************************************************/
-int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode)
+int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode)
 {
-	(void)Mode;
+	(void)ShaMode;
 
 	return XSecure_Sha3Start(InstancePtr);
 }
@@ -815,9 +815,9 @@ int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode)
  * 		located at a 64-bit address
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
- * @param	InDataAddr	Starting 64 bit address of the data which has
+ * @param	DataAddr	Starting 64 bit address of the data which has
  *				to be updated to SHA engine
- * @param	Size		Size of the input data in bytes
+ * @param	DataSize	Size of the input data in bytes
  *
  * @return
  *		 - XST_SUCCESS  If the update is successful
@@ -826,9 +826,9 @@ int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode)
  *		 - XST_FAILURE  If there is a failure in SSS configuration
  *
  ******************************************************************************/
-int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 InDataAddr, const u32 DataSize)
+int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 DataAddr, const u32 DataSize)
 {
-	return XSecure_Sha3Update64Bit(InstancePtr, InDataAddr, DataSize);
+	return XSecure_Sha3Update64Bit(InstancePtr, DataAddr, DataSize);
 }
 
 /****************************************************************************/
@@ -856,9 +856,10 @@ int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
  * 		SHA3 padding and reads final hash on complete data
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
- * @param	Sha3Hash	Pointer to XSecure_Sha3Hash structure, where
- * 				output hash is stored into Hash which is a member of
- * 				XSecure_Sha3Hash structure
+ * @param	HashAddr	Address of XSecure_Sha3Hash structure, where
+ *				output hash is stored into Hash which is a member of
+ *				XSecure_Sha3Hash structure
+ * @param	HashBufSize	Size of the hash in bytes
  *
  * @return
  *		 - XST_SUCCESS  If finished without any errors
@@ -867,9 +868,9 @@ int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
  *		 - XST_FAILURE  If Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
-int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashSize)
+int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashBufSize)
 {
-	(void)HashSize;
+	(void)HashBufSize;
 
 	return XSecure_Sha3Finish(InstancePtr, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
 }
@@ -879,26 +880,28 @@ int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashSize
  * @brief	This wrapper function calls SHA3 digest on the given input data
  *
  * @param	InstancePtr	Pointer to the void
- * @param	InDataAddr 	Starting address of the data on which sha3 hash
+ * @param	ShaMode		SHA mode
+ * @param	DataAddr 	Starting address of the data on which sha3 hash
  * 				should be calculated
- * @param	Size		Size of the input data
- * @param	Sha3Hash	Pointer to XSecure_Sha3Hash structure, where output
+ * @param	DataSize	Size of the input data
+ * @param	HashAddr	Address of XSecure_Sha3Hash structure, where output
  * 				hash is stored into Hash which is a member of
  *				XSecure_Sha3Hash structure
+ * @param	HashBufSize	Size of the hash in bytes
  *
  * @return
  *		 - XST_SUCCESS  If digest calculation done successfully
  *		 - XST_FAILURE  If any error from Sha3Update or Sha3Finish
  *
  ******************************************************************************/
-int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode,
-			const u64 InDataAddr, const u32 DataSize, u64 HashAddr,
-			const u32 HashSize)
+int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode,
+			const u64 DataAddr, const u32 DataSize, u64 HashAddr,
+			const u32 HashBufSize)
 {
-	(void)HashSize;
-	(void)Mode;
+	(void)HashBufSize;
+	(void)ShaMode;
 
-	return XSecure_Sha3Digest(InstancePtr, (UINTPTR)InDataAddr,
+	return XSecure_Sha3Digest(InstancePtr, (UINTPTR)DataAddr,
 				DataSize, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
 }
 

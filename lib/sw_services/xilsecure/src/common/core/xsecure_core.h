@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -41,7 +41,11 @@ extern "C" {
 #define XSECURE_AES_BASEADDR				(0xF11E0000U)
 						/**< AES Base Address */
 
-/* Key select values */
+/**
+ * @name AES_KEY_SEL values
+ * @{
+ */
+/**< Key select values */
 #define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600U)
 #define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200U)
 #define XSECURE_AES_KEY_SEL_BH_KEY			(0xBDB06600U)
@@ -62,6 +66,7 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)
 #define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
+/** @} */
 
 /**
  * @name  AES_KEY_CLEAR register
@@ -115,17 +120,18 @@ extern "C" {
 #define XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK		(0x003FFFF3U)
 
 #define XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK	(0x003B8003U)
+/** @} */
 
-#define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
-#define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED		(0x3U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED		(0x4U)
+#define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)	/**< BBRAM Red Key */
+#define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)	/**< BH Red Key */
+#define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)	/**< eFUSE Red Key */
+#define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED		(0x3U)	/**< eFUSE User Red Key 0 */
+#define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED		(0x4U)	/**< eFUSE User Red Key 1 */
 
-#define XSECURE_AES_INVALID_CFG				(0xFFFFFFFFU)
+#define XSECURE_AES_INVALID_CFG		(0xFFFFFFFFU)	/**< Invalid Configuration */
 
-#define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
-										/**< Max key source value */
+#define XSECURE_MAX_KEY_SOURCES		XSECURE_AES_EXPANDED_KEYS
+					/**< Max key source value */
 
 /************************** Variable Definitions *****************************/
 

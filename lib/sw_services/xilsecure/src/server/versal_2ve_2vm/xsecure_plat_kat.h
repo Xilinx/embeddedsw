@@ -63,3 +63,4 @@ int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 #endif
 
 #endif /* XSECURE_PLAT_KAT_H_ */
+/** @} */

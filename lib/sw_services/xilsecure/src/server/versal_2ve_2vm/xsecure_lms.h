@@ -29,6 +29,7 @@
 #include "xsecure_lms_ots.h"
 
 #define XSECURE_IS_ODD(Value)		((Value & 0x00000001U) == 0x00000001U)
+						/**< Check if a value is odd */
 
 /************************** Constant Definitions ****************************/
 
@@ -40,30 +41,36 @@
 #define XSECURE_LMS_TYPE_MAX_SUPPORTED			(9U)
 
 /* Common lengths - they remain same irrespective of place they are used */
-#define XSECURE_LMS_TYPE_SIZE				(4U)	/** Length of type field */
-#define XSECURE_LMS_M_BYTE_FIELD_SIZE			(32U)
+#define XSECURE_LMS_TYPE_SIZE				(4U)	/**< Length of type field */
+#define XSECURE_LMS_M_BYTE_FIELD_SIZE			(32U)	/**< Length of M byte field */
 
 /* Public key related sizes */
 #define XSECURE_LMS_PUB_KEY_FIXED_FIELD_SIZE		(XSECURE_LMS_TYPE_SIZE + \
 							XSECURE_LMS_OTS_TYPE_SIZE + \
 							XSECURE_LMS_I_FIELD_SIZE)
+							/**< Length of fixed part of public key */
 #define XSECURE_LMS_PUB_KEY_T_FIELD_SIZE		(XSECURE_LMS_M_BYTE_FIELD_SIZE)
+							/**< Length of T field of public key */
 #define XSECURE_LMS_PUB_KEY_TOTAL_SIZE			(XSECURE_LMS_PUB_KEY_FIXED_FIELD_SIZE + \
 							XSECURE_LMS_PUB_KEY_T_FIELD_SIZE)
+							/**< Length of total public key */
 
 /* Sizes related to tmp buffer used to calculate root public key from leaf */
 #define	XSECURE_MERKLE_TREE_NODE_NUMBER_SIZE		(XSECURE_LMS_Q_FIELD_SIZE)
+						/**< Length of Merkle tree node number */
 #define	XSECURE_LMS_D_LEAF_FIELD_SIZE			(2U)
+						/**< Length of D leaf field */
 #define	XSECURE_LMS_D_INTR_FIELD_SIZE			(2U)
-#define	XSECURE_LMS_D_FIELD_SIZE			(2U)
+						/**< Length of D internal field */
+#define	XSECURE_LMS_D_FIELD_SIZE			(2U)	/**< Length of D field */
 
-/* Used for leaf node processing */
+/** Used for leaf node processing */
 #define XSECURE_LMS_PUB_KEY_TMP_BUFFER_LEAF_TOTAL_SIZE	(XSECURE_LMS_I_FIELD_SIZE + \
 							XSECURE_MERKLE_TREE_NODE_NUMBER_SIZE + \
 							XSECURE_LMS_D_LEAF_FIELD_SIZE + \
 							XSECURE_LMS_M_BYTE_FIELD_SIZE)
 
-/* Used for internal nodes processing */
+/** Used for internal nodes processing */
 #define XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE	(XSECURE_LMS_I_FIELD_SIZE + \
 							XSECURE_MERKLE_TREE_NODE_NUMBER_SIZE + \
 							XSECURE_LMS_D_INTR_FIELD_SIZE + \
@@ -73,55 +80,63 @@
 /* Offsets */
 
 /* LMS public key related offsets */
-#define XSECURE_LMS_PUB_KEY_TYPE_OFFSET			(0U)
+#define XSECURE_LMS_PUB_KEY_TYPE_OFFSET			(0U)	/**< Offset of LmsType field in public key */
 #define XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET		(XSECURE_LMS_PUB_KEY_TYPE_OFFSET + \
-							XSECURE_LMS_TYPE_SIZE)
+							XSECURE_LMS_TYPE_SIZE)	/**< Offset of OtsType field in public key */
 #define XSECURE_LMS_PUB_KEY_I_OFFSET			(XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET + \
-							XSECURE_LMS_OTS_TYPE_SIZE)
+							XSECURE_LMS_OTS_TYPE_SIZE)	/**< Offset of I field in public key */
 #define XSECURE_LMS_PUB_KEY_T_OFFSET			(XSECURE_LMS_PUB_KEY_I_OFFSET + \
-							XSECURE_LMS_I_FIELD_SIZE)
+							XSECURE_LMS_I_FIELD_SIZE)	/**< Offset of T field in public key */
 
 /* LMS Signature offsets */
-#define XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET		(0U)
+#define XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET		(0U)	/**< Offset of Q field in LMS Signature */
 #define XSECURE_LMS_SIGNATURE_OTS_FIELD_OFFSET		(XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET + \
-							XSECURE_LMS_Q_FIELD_SIZE)
+							XSECURE_LMS_Q_FIELD_SIZE)	/**< Offset of OTS field in LMS Signature */
 
 /***************************** Type Definitions******************************/
 /**
  * @brief Supported LMS Types from standard
  */
 typedef enum {
-	XSECURE_LMS_RESERVED = 0x00000000U,
-	XSECURE_LMS_SHA256_M32_H5 = 0x00000005U,		/** 'M' = 32, 'H' =  SHA2-256, 'h' = 5 */
-	XSECURE_LMS_SHA256_M32_H10 = 0x00000006U,		/** 'M' = 32, 'H' =  SHA2-256, 'h' = 10 */
-	XSECURE_LMS_SHA256_M32_H15 = 0x00000007U,		/** 'M' = 32, 'H' =  SHA2-256, 'h' = 15 */
-	XSECURE_LMS_SHA256_M32_H20 = 0x00000008U,		/** 'M' = 32, 'H' =  SHA2-256, 'h' = 20 */
-	XSECURE_LMS_SHAKE_M32_H5 = 0x0000000FU,			/** 'M' = 32, 'H' =  SHAKE-256, 'h' = 5 */
-	XSECURE_LMS_SHAKE_M32_H10 = 0x00000010U,		/** 'M' = 32, 'H' =  SHAKE-256, 'h' = 10 */
-	XSECURE_LMS_SHAKE_M32_H15 = 0x00000011U,		/** 'M' = 32, 'H' =  SHAKE-256, 'h' = 15 */
-	XSECURE_LMS_SHAKE_M32_H20 = 0x00000012U,		/** 'M' = 32, 'H' =  SHAKE-256, 'h' = 20 */
-	XSECURE_LMS_NOT_SUPPORTED
+	XSECURE_LMS_RESERVED = 0x00000000U,		/**< Reserved */
+	XSECURE_LMS_SHA256_M32_H5 = 0x00000005U,
+					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 5 */
+	XSECURE_LMS_SHA256_M32_H10 = 0x00000006U,
+					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 10 */
+	XSECURE_LMS_SHA256_M32_H15 = 0x00000007U,
+					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 15 */
+	XSECURE_LMS_SHA256_M32_H20 = 0x00000008U,
+					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 20 */
+	XSECURE_LMS_SHAKE_M32_H5 = 0x0000000FU,
+					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 5 */
+	XSECURE_LMS_SHAKE_M32_H10 = 0x00000010U,
+					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 10 */
+	XSECURE_LMS_SHAKE_M32_H15 = 0x00000011U,
+					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 15 */
+	XSECURE_LMS_SHAKE_M32_H20 = 0x00000012U,
+					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 20 */
+	XSECURE_LMS_NOT_SUPPORTED	/**< Not Supported */
 } XSecure_LmsType;
 
 /**
  * @brief Different Heights supported for Merkle Tree, 'h'=25 not supported
  */
 typedef enum {
-	XSECURE_LMS_TREE_HEIGHT_UNSUPPORTED = 0U,
-	XSECURE_LMS_TREE_HEIGHT_H5 = 5U,
-	XSECURE_LMS_TREE_HEIGHT_H10 = 10U,
-	XSECURE_LMS_TREE_HEIGHT_H15 = 15U,
-	XSECURE_LMS_TREE_HEIGHT_H20 = 20U
+	XSECURE_LMS_TREE_HEIGHT_UNSUPPORTED = 0U,	/**< Unsupported tree height */
+	XSECURE_LMS_TREE_HEIGHT_H5 = 5U,	/**< Supported tree height 5*/
+	XSECURE_LMS_TREE_HEIGHT_H10 = 10U,	/**< Supported tree height 10*/
+	XSECURE_LMS_TREE_HEIGHT_H15 = 15U,	/**< Supported tree height 15*/
+	XSECURE_LMS_TREE_HEIGHT_H20 = 20U	/**< Supported tree height 20*/
 } XSecure_LmsTreeHeight;
 
 /**
  * @brief Structure for maintaining parameters for each LMS Type
  */
 typedef struct {
-	XSecure_ShaMode H; /** HASH function for selected type */
-	u32 m;	/** The number of bytes of the output of the hash function, same as 'n' in LMS OTS */
-	XSecure_LmsTreeHeight h; /** Height of Merkle tree */
-	u32 mh;	/** Product of m and h, used in signature length determination */
+	XSecure_ShaMode H; /**< HASH function for selected type */
+	u32 m;	/**< The number of bytes of the output of the hash function, same as 'n' in LMS OTS */
+	XSecure_LmsTreeHeight h; /**< Height of Merkle tree */
+	u32 mh;	/**< Product of m and h, used in signature length determination */
 } XSecure_LmsParam;
 
 /**
@@ -133,7 +148,7 @@ typedef union XSecure_LmsPublicKey_ {
 	u8 Buff[XSECURE_LMS_PUB_KEY_TOTAL_SIZE];
 	struct {
 		/**
-		 * @brief LmsType @ref  XSecure_LmsType
+		 * @brief LmsType @ref XSecure_LmsType
 		 * Size - 4 bytes, 0 to 3 in public key
 		 */
 		XSecure_LmsType LmsType;
@@ -158,7 +173,7 @@ typedef union XSecure_LmsPublicKey_ {
 		 * D_INTR is a constant @ref XSECURE_D_INTR
 		 */
 		u8 T[XSECURE_LMS_PUB_KEY_T_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;
+	}__attribute__((__packed__)) Fields;	/**< Fields of the public key structure */
 } XSecure_LmsPublicKey;
 
 /**
@@ -191,7 +206,7 @@ typedef union XSecure_LmsPubKeyTmp_ {
 		 * Size - 32 * 2 = 64 bytes, 23 to 85 bytes
 		 */
 		u8	Tmp[XSECURE_LMS_M_BYTE_FIELD_SIZE + XSECURE_LMS_M_BYTE_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;
+	}__attribute__((__packed__)) Fields;	/**< Fields of chain temporary buffer structure */
 } XSecure_LmsPubKeyTmp;
 
 /***************************** Function Prototypes ******************************************/

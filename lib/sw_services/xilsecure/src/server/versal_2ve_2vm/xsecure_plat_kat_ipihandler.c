@@ -157,3 +157,4 @@ static int XSecure_Sha2Kat(void)
 
 	return Status;
 }
+/** @} */

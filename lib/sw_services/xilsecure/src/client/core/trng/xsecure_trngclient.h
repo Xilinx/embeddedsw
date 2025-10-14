@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -43,7 +43,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_TRNG_SEC_STRENGTH_IN_BYTES      (32U)
+#define XSECURE_TRNG_SEC_STRENGTH_IN_BYTES      (32U)	/**< TRNG security strength in bytes */
 
 /************************** Function Prototypes ******************************/
 

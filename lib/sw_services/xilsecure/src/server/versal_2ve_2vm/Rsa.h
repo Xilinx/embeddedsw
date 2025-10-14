@@ -18,22 +18,20 @@
 #define externC extern
 #endif
 
-//
-// RSA key pair definition
-//
+/** RSA key pair definition */
 typedef struct {
-	unsigned char* E;	// Public exponent (e)
-	unsigned char* M;	// Modulus
-	unsigned char* D;	// Secret exponent (d)
-	unsigned char* P;	// Secret prime (P, half-size)
-	unsigned char* Q;	// Secret prime (Q, half-size)
-	unsigned char* DP;	// Secret value (dP, half-size)
-	unsigned char* DQ;	// Secret value (dQ, half-size)
-	unsigned char* iQ;	// Secret value (inverted Q, half-size)
-	unsigned stage;     // State machine stage
-	unsigned s;         // MR 's' value
-	unsigned bits2;     // Half-size in bits
-	unsigned iter;      // Number of MR iterations remaining
+	unsigned char* E;	/**< Public exponent (e) */
+	unsigned char* M;	/**< Modulus */
+	unsigned char* D;	/**< Secret exponent (d) */
+	unsigned char* P;	/**< Secret prime (P, half-size) */
+	unsigned char* Q;	/**< Secret prime (Q, half-size) */
+	unsigned char* DP;	/**< Secret value (dP, half-size) */
+	unsigned char* DQ;	/**< Secret value (dQ, half-size) */
+	unsigned char* iQ;	/**< Secret value (inverted Q, half-size) */
+	unsigned stage;     /**< State machine stage */
+	unsigned s;         /**< MR 's' value */
+	unsigned bits2;     /**< Half-size in bits */
+	unsigned iter;      /**< Number of MR iterations remaining */
 } RsaKeyPair;
 
 /**

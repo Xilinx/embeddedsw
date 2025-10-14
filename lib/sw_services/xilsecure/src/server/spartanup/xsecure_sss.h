@@ -60,6 +60,8 @@ u32 XSecure_SssMask(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc, u32 Value
 /************************** Variable Prototypes ******************************/
 extern const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS];
 
+/** @endcond */
+
 #ifdef __cplusplus
 }
 #endif

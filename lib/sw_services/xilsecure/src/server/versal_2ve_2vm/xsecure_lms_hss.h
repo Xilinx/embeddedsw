@@ -36,14 +36,14 @@ extern "C" {
 #include "xsecure_lms.h"
 
 /************************** Constant Definitions ****************************/
-#define XSECURE_LMS_HSS_MIN_LEVELS_SUPPORTED	(1U)	/** during KAT we support only one tree */
-#define XSECURE_LMS_HSS_MAX_LEVELS_SUPPORTED	(2U)	/** max supported by ROM */
-#define XSECURE_LMS_HSS_LEVELS_FIELD_SIZE	(4U)	/** Level field size */
+#define XSECURE_LMS_HSS_MIN_LEVELS_SUPPORTED	(1U)	/**< during KAT we support only one tree */
+#define XSECURE_LMS_HSS_MAX_LEVELS_SUPPORTED	(2U)	/**< max supported by ROM */
+#define XSECURE_LMS_HSS_LEVELS_FIELD_SIZE	(4U)	/**< Level field size */
 /** public key size */
 #define XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE	(XSECURE_LMS_HSS_LEVELS_FIELD_SIZE +\
 						 XSECURE_LMS_PUB_KEY_TOTAL_SIZE)
 /* signature list related */
-#define XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET	(0U)		/** level field offset */
+#define XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET	(0U)		/**< level field offset */
 /** Offset of Signature-0 in HSS Signature */
 #define XSECURE_HSS_SIGN_LIST_SIGN_0_OFFSET		(XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET + \
 							XSECURE_LMS_HSS_LEVELS_FIELD_SIZE)
@@ -55,29 +55,32 @@ extern "C" {
 
 /* public key related offsets */
 #define XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET		(0U)
+						/**< HSS public key level field offset */
 
 #define XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET			(XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET +\
 								 XSECURE_LMS_HSS_LEVELS_FIELD_SIZE)
+						/**< HSS public key LMS field offset */
 
 #define XSECURE_HSS_PUBLIC_KEY_LMS_OTS_FIELD_OFFSET		(XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET + \
 								XSECURE_LMS_TYPE_SIZE)
+						/**< HSS public key OTS field offset */
 
 /***************************** Type Definitions******************************/
 /**
  * @brief Used to parse HSS public key fields
  */
 typedef struct {
-	u32 Levels;
+	u32 Levels;	/**< Levels supported */
 
-	XSecure_LmsPublicKey LmsPubKey;
+	XSecure_LmsPublicKey LmsPubKey;	/**< LMS public key */
 }__attribute__((__packed__)) XSecure_LmsHssPublicKey;
 
 /**
  * @brief Used to parse HSS Signature list
  */
 typedef struct {
-	u32 Levels;
-	u8* SignList;
+	u32 Levels;	/**< Levels supported */
+	u8* SignList;	/**< Pointer to signature list */
 } XSecure_LmsHssSignature;
 
 #ifdef __cplusplus

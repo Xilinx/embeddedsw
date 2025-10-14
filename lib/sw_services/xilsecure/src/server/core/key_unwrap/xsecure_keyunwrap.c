@@ -65,14 +65,15 @@
 #define XSECURE_AES_128BIT_KEY_BLOCK_SIZE		(24U)            /**< AES 128-bit key block size */
 #define XSECURE_AES_KEY_SLOT_STATUS_FULL		(0x973AFB51U)		  /**< AES key status is full */
 #define XSECURE_KEY_SLOT_KEY_STATUS_ADDR	 (XSECURE_KEY_STORE_ADDR + \
-											 sizeof(XSecure_KeyStoreHdr))
-											 /* Key slot status address */
-#define XSECURE_KEY_SLOT_KEY_ADDR			 (XSECURE_KEY_SLOT_KEY_STATUS_ADDR + \
-											 XSECURE_KEY_STORE_KEY_OFFSET) /* Key address */
+						sizeof(XSecure_KeyStoreHdr))
+						/**< Key slot status address */
+#define XSECURE_KEY_SLOT_KEY_ADDR		(XSECURE_KEY_SLOT_KEY_STATUS_ADDR + \
+						XSECURE_KEY_STORE_KEY_OFFSET)	/**< Key address */
 
 #define XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE (XSECURE_KEY_STORE_KEY_OFFSET + \
-											 sizeof(XSecure_KeyMetaData) + XSECURE_AES_KEY_SIZE_256BIT_BYTES)
-											/* key wrap data size */
+						 sizeof(XSecure_KeyMetaData) + \
+						 XSECURE_AES_KEY_SIZE_256BIT_BYTES)
+						/**< Key wrap data size */
 
 /************************** Function Prototypes ******************************/
 
@@ -172,7 +173,6 @@ static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
  *              with metadata in Shared address between PMC and secure shell.
  *
  * @param	KeyWrapData is pointer to the XSecure_KeyWrapData instance.
- * @param	DmaPtr is pointer to DMA instance which is used for AES and SHA
  *
  * @return
  *		 - XST_SUCCESS  On success.

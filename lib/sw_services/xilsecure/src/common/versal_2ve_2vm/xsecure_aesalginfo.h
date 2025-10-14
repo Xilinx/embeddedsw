@@ -51,8 +51,7 @@ extern "C" {
  * @return	None
  *
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-void XSecure_AesGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+static XSECURE_ALWAYS_INLINE void XSecure_AesGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {
 	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_AES_MAJOR_VERSION, XSECURE_AES_MINOR_VERSION);
 	AlgInfo->NistStatus = NIST_COMPLIANT;

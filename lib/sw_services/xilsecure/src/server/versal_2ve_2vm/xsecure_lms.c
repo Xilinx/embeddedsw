@@ -48,8 +48,8 @@
 * 				parameter values are present @ref XSecure_LmsParam
 *
 * @return
-*	-	@ref XST_SUCCESS - Valid type is passed, and parameters are assigned
-*	-	@ref XST_FAILURE - If not a valid type is passed
+*	- XST_SUCCESS - Valid type is passed, and parameters are assigned
+*	- XST_FAILURE - If not a valid type is passed
 *******************************************************************************/
 int XSecure_LmsLookupParamSet(XSecure_LmsType Type,
 	XSecure_LmsParam** Parameters)

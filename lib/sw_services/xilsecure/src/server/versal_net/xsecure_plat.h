@@ -90,15 +90,15 @@ extern "C" {
 								/**< Rep test cutoff */
 #endif
 
-#define XSECURE_SSS_SBI_MASK	(0xF00000U)
-#define XSECURE_SSS_AES_MASK	(0xF000U)
-#define XSECURE_SSS_DMA1_MASK	(0xF0U)
-#define XSECURE_SSS_DMA0_MASK	(0xFU)
-#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
-#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)
-#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)
-#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)
-#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)
+#define XSECURE_SSS_SBI_MASK	(0xF00000U)	/**< SSS SBI mask */
+#define XSECURE_SSS_AES_MASK	(0xF000U)	/**< SSS AES mask */
+#define XSECURE_SSS_DMA1_MASK	(0xF0U)		/**< SSS DMA1 mask */
+#define XSECURE_SSS_DMA0_MASK	(0xFU)		/**< SSS DMA0 mask */
+#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)		/**< SSS Source select mask */
+#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)	/**< SSS SBI DMA0 value */
+#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)	/**< SSS SBI DMA1 value */
+#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)	/**< SSS AES DMA0 value */
+#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)	/**< SSS AES DMA1 value */
 
 /***************************** Type Definitions******************************/
 
@@ -124,6 +124,7 @@ typedef struct {
 	u8 IsLastChunkDest;     /**< Flag for last update in destination */
 }XSecure_AesDmaCfg;
 
+/** Data structure contains parameters to configure key source	*/
 typedef struct {
 	u32 RegOffset;	/**< Register offset for key source */
 	u32 KeySrcSelVal;	/**< Selection value for key source */

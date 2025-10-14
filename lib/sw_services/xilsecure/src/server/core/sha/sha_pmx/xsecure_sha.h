@@ -95,7 +95,7 @@ extern "C" {
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
 					/**< SHA 3 hash length in bits */
 
-
+/** @endcond */
 /***************************** Type Definitions******************************/
 
 /***************************** Type Definitions******************************/
@@ -129,18 +129,18 @@ int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId);
 /* Initialization */
 int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma *DmaPtr);
 
-int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode);
+int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode);
 
 /* Data Transfer */
-int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 InDataAddr, const u32 DataSize);
+int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 DataAddr, const u32 DataSize);
 
-int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashSize);
+int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashBufSize);
 
 
 /* Complete SHA digest calculation */
-int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode,
-		const u64 InDataAddr, const u32 DataSize, u64 HashAddr,
-		const u32 HashSize);
+int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode,
+		const u64 DataAddr, const u32 DataSize, u64 HashAddr,
+		const u32 HashBufSize);
 
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr);
 

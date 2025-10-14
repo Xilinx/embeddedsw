@@ -92,15 +92,15 @@ extern "C" {
 #define XSECURE_AES_KTE_CNT_MASK		(0x6U)		/**< AES Key Transfer Engine Count value */
 #define XSECURE_AES_KTE_DONE_POLL_TIMEOUT	(4000U)		/**< AES Key Transfer complete poll timeout */
 
-#define XSECURE_SSS_SBI_MASK	(0xF00000U)
-#define XSECURE_SSS_AES_MASK	(0xF000U)
-#define XSECURE_SSS_DMA1_MASK	(0xF0U)
-#define XSECURE_SSS_DMA0_MASK	(0xFU)
-#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
-#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)
-#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)
-#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)
-#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)
+#define XSECURE_SSS_SBI_MASK	(0xF00000U)	/**< SSS SBI mask */
+#define XSECURE_SSS_AES_MASK	(0xF000U)	/**< SSS AES mask */
+#define XSECURE_SSS_DMA1_MASK	(0xF0U)		/**< SSS DMA1 mask */
+#define XSECURE_SSS_DMA0_MASK	(0xFU)		/**< SSS DMA0 mask */
+#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)	/**< SSS Source Select mask */
+#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)	/**< SSS SBI DMA0 value */
+#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)	/**< SSS SBI DMA1 value */
+#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)	/**< SSS AES DMA0 value */
+#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)	/**< SSS AES DMA1 value */
 
 #define XCSUDMA_WORD_SIZE			(4U)	/**< WORD size */
 #define XSECURE_SHA_512_HASH_LEN		(64U) /**< SHA_512 block length */
@@ -122,14 +122,14 @@ extern "C" {
 #define XSECURE_SHA2_256_HASH_WORD_LEN		(XSECURE_SHA2_256_HASH_LEN / XCSUDMA_WORD_SIZE)
 							/**< SHA2_256 hash word length */
 
-#define SHA256					(0U) /** SHA256 mode */
-#define SHA384					(1U) /** SHA384 mode */
-#define SHA512					(2U) /** SHA512 mode */
-#define SHAKE256				(4U) /** SHAKE256 mode */
+#define SHA256					(0U)	/**< SHA256 mode */
+#define SHA384					(1U)	/**< SHA384 mode */
+#define SHA512					(2U)	/**< SHA512 mode */
+#define SHAKE256				(4U)	/**< SHAKE256 mode */
 
 /***************************** Type Definitions******************************/
 
-/*
+/**
  * Sources to be selected to configure secure stream switch.
  * XSECURE_SSS__IGNORE is added to make enum type int
  * irrespective of compiler used.
@@ -146,6 +146,9 @@ typedef enum {
 	XSECURE_SSS_INVALID /**< Invalid */
 } XSecure_SssSrc;
 
+/**
+ * This structure contains parameters to configure DMA for AES
+ */
 typedef struct {
 	u64 SrcDataAddr;        /**< Address of source buffer */
 	u64 DestDataAddr;       /**< Address of destination buffer */
@@ -155,6 +158,9 @@ typedef struct {
 	u8 IsLastChunkDest;     /**< Flag for last update in destination */
 }XSecure_AesDmaCfg;
 
+/**
+ * This structure contains parameters to configure key source for AES
+ */
 typedef struct {
 	u32 RegOffset;	/**< Register offset for key source */
 	u32 KeySrcSelVal;	/**< Selection value for key source */
@@ -205,4 +211,4 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 
 #endif /** XSECURE_PLAT_H */
 
-/* @} */
+/** @} */

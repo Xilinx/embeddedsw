@@ -71,35 +71,37 @@ extern "C" {
 
 /***************************** Type Definitions******************************/
 
+/** SHA3 Hash */
 typedef struct {
-	u8 Hash[XSECURE_MAX_HASH_SIZE_IN_BYTES];
+	u8 Hash[XSECURE_MAX_HASH_SIZE_IN_BYTES];	/**< SHA3 Hash */
 } XSecure_Sha3Hash;
 
-/* Sha3 driver states */
+/** SHA driver states */
 typedef enum {
-	XSECURE_SHA_UNINITIALIZED = 0,
-	XSECURE_SHA_INITIALIZED,
-	XSECURE_SHA_ENGINE_STARTED,
-	XSECURE_SHA_UPDATE_IN_PROGRESS,
-	XSECURE_SHA_UPDATE_DONE, /**< This state is only used in aiepg2 */
+	XSECURE_SHA_UNINITIALIZED = 0,	/**< SHA uninitialized state */
+	XSECURE_SHA_INITIALIZED,	/**< SHA initialized state */
+	XSECURE_SHA_ENGINE_STARTED,	/**< SHA engine started state */
+	XSECURE_SHA_UPDATE_IN_PROGRESS,	/**< SHA update in progress state */
+	XSECURE_SHA_UPDATE_DONE, 	/**< SHA update done state */
 } XSecure_ShaState;
 
+/** SHA configuration */
 typedef struct {
-	XSecure_SssSrc SssShaCfg;
-	UINTPTR BaseAddress;
-	u32 DeviceId;
+	XSecure_SssSrc SssShaCfg;	/**< SSS configuration */
+	UINTPTR BaseAddress;	/**< Base address */
+	u32 DeviceId;		/**< Device ID */
 } XSecure_ShaConfig;
 
-/* Sha modes */
+/** SHA modes */
 typedef enum {
-	XSECURE_SHA_INVALID_MODE = -1,
-	XSECURE_SHA3_384,
-	XSECURE_SHA2_384,
-	XSECURE_SHA2_256,
-	XSECURE_SHAKE_256,
-	XSECURE_SHA2_512,
-	XSECURE_SHA3_256,
-	XSECURE_SHA3_512
+	XSECURE_SHA_INVALID_MODE = -1,	/**< Invalid mode */
+	XSECURE_SHA3_384,	/**< SHA3-384 mode */
+	XSECURE_SHA2_384,	/**< SHA2-384 mode */
+	XSECURE_SHA2_256,	/**< SHA2-256 mode */
+	XSECURE_SHAKE_256,	/**< SHAKE-256 mode */
+	XSECURE_SHA2_512,	/**< SHA2-512 mode */
+	XSECURE_SHA3_256,	/**< SHA3-256 mode */
+	XSECURE_SHA3_512	/**< SHA3-512 mode */
 } XSecure_ShaMode;
 
 /**

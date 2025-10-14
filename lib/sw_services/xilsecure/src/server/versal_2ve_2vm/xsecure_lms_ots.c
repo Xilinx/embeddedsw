@@ -32,16 +32,16 @@
 /**************************** Type Definitions ********************************/
 
 /***************** Macros (Inline Functions) Definitions **********************/
-#define XSECURE_BYTE_QUO(i) 		((i)/8U) /** To Pick the byte in array */
-#define XSECURE_BYTE_REM(i)  		((i)%8U) /** Inside the byte interested
+#define XSECURE_BYTE_QUO(i) 		((i)/8U) /**< To Pick the byte in array */
+#define XSECURE_BYTE_REM(i)  		((i)%8U) /**< Inside the byte interested
 						value has to be right shifted */
-#define XSECURE_BIT_MASK(i)		((1U << i) - 1U) /** Mask out rest of bits,
+#define XSECURE_BIT_MASK(i)		((1U << i) - 1U) /**< Mask out rest of bits,
 					only take w width back to caller invocations
 					to get signature is equal to number of w width
 					digits in a digest to get that,
 					(2^w - 1), example w=8, Mask = 256 */
-#define	XSECURE_BITS_PER_BYTE		(8U)
-#define XSECURE_LOWER_16_BIT_MASK	(0x0000FFFFU)
+#define	XSECURE_BITS_PER_BYTE		(8U)	/**< Bits per byte */
+#define XSECURE_LOWER_16_BIT_MASK	(0x0000FFFFU)	/**< Lower 16 bit mask */
 
 /************************** Function Prototypes *******************************/
 
@@ -65,10 +65,10 @@
  * If i is larger than the number of w-bit values in S, then coef(S, i, w) is undefined,
  * this cant be checked here
  *
- * @param	Array - Byte array from where the digit needs to be picked
- * @param	ArrayIndex - When array is divided into array of digits,
+ * @param	Arr	Byte array from where the digit needs to be picked
+ * @param	ArrayIndex	When array is divided into array of digits,
  * 				i represents the index of digit
- * @param[	w	- Width in bits, for each digit allowed values
+ * @param	w	Width in bits, for each digit allowed values
  *
  * @return	-	digit value.
 *******************************************************************************/
@@ -96,15 +96,15 @@ u32 XSecure_LmsOtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w)
 /**
 * @brief	This function calculates the checksum for a given array
 *
-* @param	Array 	- Byte array ffor which checksum needs to be calculated
-* @param	ArrayLen- Length of input array
-* @param	w	- Width in bits, for each digit allowed values
-* @param	ls	- Number of bits to left-shift the calculated checksum
-* @param	Checksum- Pointer to address, where computed checksum needs to be copied
+* @param	Array	Byte array ffor which checksum needs to be calculated
+* @param	ArrayLen	Length of input array
+* @param	w	Width in bits, for each digit allowed values
+* @param	ls	Number of bits to left-shift the calculated checksum
+* @param	Checksum Pointer to address, where computed checksum needs to be copied
 *
 * @return
-*	-	@ref XST_SUCCESS - Valid type is passed, and parameters are assigned
-*	-	@ref XST_FAILURE - If not a valid type is passed
+*	-	XST_SUCCESS - Valid type is passed, and parameters are assigned
+*	-	XST_FAILURE - If not a valid type is passed
 *******************************************************************************/
 int XSecure_LmsOtsComputeChecksum(const u8* const Array,
 				const u32 ArrayLen,
@@ -148,8 +148,8 @@ END:
 * 		parameter values are present @ref XSecure_LmsOtsParam
 *
 * @return
-*	-	@ref XST_SUCCESS - Valid type is passed, and parameters are assigned
-*	-	@ref XST_FAILURE - If not a valid type is passed
+*	-	XST_SUCCESS - Valid type is passed, and parameters are assigned
+*	-	XST_FAILURE - If not a valid type is passed
 *******************************************************************************/
 int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 	XSecure_LmsOtsParam** Parameters)
