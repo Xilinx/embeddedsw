@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,13 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xvidframe_crc.h"
+
+#if (XPAR_DP_RX_HIER_0_V_DP_RXSS2_0_DP_OCTA_PIXEL_ENABLE)
+#define CRC_CFG 0x5
+#endif
+#if (XPAR_DP_RX_HIER_0_V_DP_RXSS2_0_DP_QUAD_PIXEL_ENABLE)
+#define CRC_CFG 0x4
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -56,12 +63,12 @@ int XVidFrameCrc_Initialize(Video_CRC_Config *VidFrameCRC)
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 			      VIDEO_FRAME_CRC_CONFIG,
 			      (VIDEO_FRAME_CRC_CLEAR |
-			       XPAR_VPHY_0_INPUT_PIXELS_PER_CLOCK));
+			       CRC_CFG));
 #else
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 			      VIDEO_FRAME_CRC_CONFIG,
 			      (VIDEO_FRAME_CRC_CLEAR |
-			       XPAR_XVPHY_0_INPUT_PIXELS_PER_CLOCK));
+			       CRC_CFG));
 #endif
 
 	return (XST_SUCCESS);

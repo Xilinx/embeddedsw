@@ -20,6 +20,7 @@
 * 1.00 ND  10/18/22  Common DP 2.1 rx only application for zcu102 and vcu118
 * 1.01 ND  03/24/25  Added support for PARRETO fmc.
 * 1.02 ND  05/02/25  Enhanced the prints for training.
+* 1.03 KU  10/07/26  Optimization to work for any system combination
 * </pre>
 *
 ******************************************************************************/
@@ -68,7 +69,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #ifdef SDT
-#define XPAR_IIC_0_BASEADDR XPAR_AXI_IIC_0_BASEADDR
+#define XPAR_IIC_0_BASEADDR XPAR_PROC_HIER_0_AXI_IIC_0_BASEADDR
 #define INTRNAME_DPRX   0
 #endif
 #ifndef PLATFORM_MB
@@ -98,24 +99,24 @@
 #ifndef SDT
 #define IIC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
 #else
-#define IIC_DEVICE_ID	XPAR_AXI_IIC_0_BASEADDR
+#define IIC_DEVICE_ID	XPAR_PROC_HIER_0_AXI_IIC_0_BASEADDR
 #endif
 
 /* DP Specific Defines
  */
 #define DPRXSS_LINK_RATE 		XDPRXSS_LINK_BW_SET_810GBPS
 #define DPRXSS_LANE_COUNT 		XDPRXSS_LANE_COUNT_SET_4
-#ifndef SDT
-#define SET_TX_TO_2BYTE            \
-	(XPAR_XDP_0_GT_DATAWIDTH/2)
-#define SET_RX_TO_2BYTE            \
-	(XPAR_XDP_0_GT_DATAWIDTH/2)
-#else
-#define SET_TX_TO_2BYTE            \
-	(XPAR_XDP_0_GT_DATA_WIDTH / 2)
-#define SET_RX_TO_2BYTE            \
-	(XPAR_XDP_0_GT_DATA_WIDTH / 2)
-#endif
+// #ifndef SDT
+// #define SET_TX_TO_2BYTE            \
+// 	(XPAR_XDP_0_GT_DATAWIDTH/2)
+// #define SET_RX_TO_2BYTE            \
+// 	(XPAR_XDP_0_GT_DATAWIDTH/2)
+// #else
+// #define SET_TX_TO_2BYTE            \
+// 	(XPAR_XDP_0_GT_DATA_WIDTH / 2)
+// #define SET_RX_TO_2BYTE            \
+// 	(XPAR_XDP_0_GT_DATA_WIDTH / 2)
+// #endif
 
 #define XDP_RX_CRC_CONFIG 		0x074
 #define XDP_RX_CRC_COMP0 		0x078
@@ -171,39 +172,33 @@
 
 #define PARRETO_FMC //enable for parreto fmc and disable for diode fmc
 
-#if !defined (XPS_BOARD_ZCU102)
+#if (XPAR_DP_RX_HIER_0_V_DP_RXSS2_0_DP_OCTA_PIXEL_ENABLE)
 #define CRC_CFG 0x5
-#else
+#endif
+#if (XPAR_DP_RX_HIER_0_V_DP_RXSS2_0_DP_QUAD_PIXEL_ENABLE)
 #define CRC_CFG 0x4
 #endif
 
-//#define DEBUG
-/***************** Macros (Inline Functions) Definitions *********************/
 
-
-/**************************** Type Definitions *******************************/
-typedef enum {
-        ONBOARD_REF_CLK = 1,
-#ifdef PLATFORM_MB
-		ONBOARD_400_CLK = 2,
-#else
-		ONBOARD_400_CLK = 3,
+//Set the RX PLL and Channel based on the VPHY config
+#if (XPAR_XVPHY_0_RX_PLL_SELECTION == 0x1)
+XVphy_PllType VPHY_RX_PLL_TYPE = XVPHY_PLL_TYPE_QPLL0;
+XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN0;
 #endif
-} XVphy_User_GT_RefClk_Src;
+#if (XPAR_XVPHY_0_RX_PLL_SELECTION == 0x2)
+XVphy_PllType VPHY_RX_PLL_TYPE = XVPHY_PLL_TYPE_QPLL1;
+XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
+#endif
 
-typedef struct {
-        u8 Index;
-        XVphy_PllType  TxPLL;
-        XVphy_PllType  RxPLL;
-        XVphy_ChannelId TxChId;
-        XVphy_ChannelId RxChId;
-        u32 LineRate;
-        u64 LineRateHz;
-        XVphy_User_GT_RefClk_Src QPLLRefClkSrc;
-        XVphy_User_GT_RefClk_Src CPLLRefClkSrc;
-        u64 QPLLRefClkFreqHz;
-        u64 CPLLRefClkFreqHz;
-} XVphy_User_Config;
+
+//These are the REFCLK sources for VCU118 and ZCU102
+#ifdef PLATFORM_MB //VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1)
+XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
+XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
+#else //ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0)
+XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
+XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
+#endif
 
 
 #define XVPHY_DP_LINK_RATE_HZ_1000GBPS  10000000000LL
@@ -212,84 +207,6 @@ typedef struct {
 
 #define XVPHY_DP_REF_CLK_FREQ_HZ_400	 400000000LL
 
-static XVphy_User_Config PHY_User_Config_Table[] =
-{
-/* Index,         TxPLL,               RxPLL,
- * TxChId,         RxChId,
- * LineRate,         LineRateHz,
- * QPLLRefClkSrc,          CPLLRefClkSrc,    QPLLRefClkFreqHz,CPLLRefClkFreqHz
- * */
-  {   0,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
-		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
-  {   1,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
-		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
-  {   2,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
-		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
-  {   3,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
-  {   4,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
-  {   5,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,     270000000,270000000},
-  {   6,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   7,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   8,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   9,     XVPHY_PLL_TYPE_QPLL0,   XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,     XVPHY_CHANNEL_ID_CMN0,
-		  0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
-  {   10,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,
-		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,              270000000,270000000},
-  {   11,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x01,    XVPHY_DP_LINK_RATE_HZ_1000GBPS,
-		  ONBOARD_400_CLK,        ONBOARD_400_CLK,     400000000,400000000},
-  {   12,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x01,    XVPHY_DP_LINK_RATE_HZ_1000GBPS,
-		  ONBOARD_400_CLK,        ONBOARD_400_CLK,     400000000,400000000},
-  {   13,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x04,    XVPHY_DP_LINK_RATE_HZ_1350GBPS,
-		  ONBOARD_400_CLK,        ONBOARD_400_CLK,     400000000,400000000},
-  {   14,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x04,    XVPHY_DP_LINK_RATE_HZ_1350GBPS,
-		  ONBOARD_400_CLK,        ONBOARD_400_CLK,     400000000,400000000},
-#if !defined (XPS_BOARD_ZCU102)
-  {   15,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x02,    XVPHY_DP_LINK_RATE_HZ_2000GBPS,
-		  ONBOARD_400_CLK,        ONBOARD_400_CLK,     400000000,400000000},
-  {   16,     XVPHY_PLL_TYPE_QPLL0,  XVPHY_PLL_TYPE_QPLL0,
-		  XVPHY_CHANNEL_ID_CMN0,    XVPHY_CHANNEL_ID_CMN0,
-		  0x02,    XVPHY_DP_LINK_RATE_HZ_2000GBPS,
-		  ONBOARD_400_CLK,        ONBOARD_400_CLK,     400000000,400000000},
-#endif
-};
 
 /*The structure defines sub-fields of Register 0x214*/
 typedef struct {
@@ -338,9 +255,8 @@ XilAudioExtFrame  SdpExtFrame;
 XilAudioExtFrame  SdpExtFrame_q;
 
 #ifndef PLATFORM_MB
-XIicPs Ps_Iic0, Ps_Iic1;
+XIicPs Ps_Iic0;
 XIicPs_Config *XIic0Ps_ConfigPtr;
-XIicPs_Config *XIic1Ps_ConfigPtr;
 #define PS_IIC_CLK 100000
 #endif
 
@@ -1029,7 +945,7 @@ u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
 #endif
 {
 	XVphy_Config *ConfigPtr;
-
+    u32 Status;
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
 #ifndef SDT
 	ConfigPtr = XVphy_LookupConfig(DeviceId);
@@ -1040,14 +956,24 @@ u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
 		return XST_FAILURE;
 	}
 
-	PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[5].LineRate);
+	PLLRefClkSel (&VPhyInst, 0x4);
 
 	XVphy_DpInitialize(&VPhyInst, ConfigPtr, 0,
-			   PHY_User_Config_Table[5].CPLLRefClkSrc,
-			   PHY_User_Config_Table[5].QPLLRefClkSrc,
-			   PHY_User_Config_Table[5].TxPLL,
-			   PHY_User_Config_Table[5].RxPLL,
-			   PHY_User_Config_Table[5].LineRate);
+			   VPHY_REFCLK_SEL_400,
+			   VPHY_REFCLK_SEL_400,
+			   XVPHY_PLL_TYPE_QPLL1,
+			   VPHY_RX_PLL_TYPE,
+			   0x4);
+    PLLRefClkSel (&VPhyInst, 0x4);
+	XVphy_SetupDP21Phy (&VPhyInst, 0, VPHY_RX_CHANNEL_TYPE,
+		XVPHY_DIR_RX, 0x4, VPHY_REFCLK_SEL_400,
+		VPHY_RX_PLL_TYPE);
+
+	Status = XVphy_DP21PhyReset (&VPhyInst, 0, VPHY_RX_CHANNEL_TYPE,
+			XVPHY_DIR_RX);
+    if (Status == XST_FAILURE) {
+        xil_printf ("Issue encountered in PHY config and reset\r\n");
+    }
 
 #ifndef PARRETO_FMC
 	//Setting polarity (RX) for new DP2.1 FMC
@@ -1419,6 +1345,9 @@ void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr)
         XDp *DpPtr = DpRxSsPtr->DpPtr;
         RegVal = XDp_ReadReg(DpPtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
         XDp_RxAllocatePayloadStream(DpPtr);
+	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+                    XDP_RX_INTERRUPT_MASK_ACT_RX_MASK);
+
 }
 
 void Dprx_InterruptHandlerActRx(void *InstancePtr)
@@ -1428,6 +1357,9 @@ void Dprx_InterruptHandlerActRx(void *InstancePtr)
                     XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
     XDp_RxInterruptEnable1(DpRxSsInst.DpPtr,
                     0x3FFFF);
+    XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+                    XDP_RX_INTERRUPT_MASK_ACT_RX_MASK);
+
 
 }
 
@@ -1645,23 +1577,25 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 {
+
+	XVphy_PllRefClkSelType Refclk;
+
+        if ((DpRxSsInst.UsrOpt.LinkRate == 0x1E) ||
+                (DpRxSsInst.UsrOpt.LinkRate == 0x14) ||
+                (DpRxSsInst.UsrOpt.LinkRate == 0xA) ||
+                (DpRxSsInst.UsrOpt.LinkRate == 0x6) ) {
+                        Refclk = VPHY_REFCLK_SEL_270;
+        } else {
+                        Refclk = VPHY_REFCLK_SEL_400;
+        }
+
 	/*Program Video PHY to requested line rate*/
 	PLLRefClkSel (&VPhyInst, DpRxSsInst.UsrOpt.LinkRate);
 
-    if ((DpRxSsInst.UsrOpt.LinkRate == 0x1E) ||
-              (DpRxSsInst.UsrOpt.LinkRate == 0x14) ||
-              (DpRxSsInst.UsrOpt.LinkRate == 0x0A) ||
-              (DpRxSsInst.UsrOpt.LinkRate == 0x06) ) {
 
-            XVphy_SetupDP21Phy (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN0,
-                    XVPHY_DIR_RX, DpRxSsInst.UsrOpt.LinkRate, ONBOARD_REF_CLK,
-					XVPHY_PLL_TYPE_QPLL0);
-    } else {
-            XVphy_SetupDP21Phy (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN0,
-                    XVPHY_DIR_RX, DpRxSsInst.UsrOpt.LinkRate, ONBOARD_400_CLK,
-					XVPHY_PLL_TYPE_QPLL0);
-
-    }
+	XVphy_SetupDP21Phy (&VPhyInst, 0, VPHY_RX_CHANNEL_TYPE,
+			XVPHY_DIR_RX, DpRxSsInst.UsrOpt.LinkRate, Refclk,
+			VPHY_RX_PLL_TYPE);
 }
 
 /*****************************************************************************/
@@ -1687,7 +1621,7 @@ void DpRxSs_PllResetHandler(void *InstancePtr)
 		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
 		      VidFrameCRC.TEST_CRC_CNT));
 
-    Status = XVphy_DP21PhyReset (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN0,
+    Status = XVphy_DP21PhyReset (&VPhyInst, 0, VPHY_RX_CHANNEL_TYPE,
                 XVPHY_DIR_RX);
     if (Status == XST_FAILURE) {
         xil_printf ("Issue encountered in PHY config and reset\r\n");
@@ -1933,81 +1867,82 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 *
 ******************************************************************************/
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
+
+	XVphy_CfgQuadRefClkFreq(InstancePtr, 0, VPHY_REFCLK_SEL_270,
+					XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, VPHY_REFCLK_SEL_400,
+				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+
 	switch (link_rate) {
 	case 0x6:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
-				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_162GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				  XVPHY_DP_LINK_RATE_HZ_162GBPS);
 		break;
 	case 0x14:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
-				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
+		// 			XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
+		// 		XVPHY_DP_REF_CLK_FREQ_HZ_400);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_540GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				  XVPHY_DP_LINK_RATE_HZ_540GBPS);
 		break;
 	case 0x1E:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
-				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
+		// 			XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
+		// 		XVPHY_DP_REF_CLK_FREQ_HZ_400);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_810GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				  XVPHY_DP_LINK_RATE_HZ_810GBPS);
 		break;
 
 	case 0x1:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
-				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
+		// 			XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
+		// 		XVPHY_DP_REF_CLK_FREQ_HZ_400);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DP_LINK_RATE_HZ_1000GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				XVPHY_DP_LINK_RATE_HZ_1000GBPS);
 		break;
 
 	case 0x4:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
-				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
+		// 			XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
+		// 		XVPHY_DP_REF_CLK_FREQ_HZ_400);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DP_LINK_RATE_HZ_1350GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				XVPHY_DP_LINK_RATE_HZ_1350GBPS);
 		break;
 
-#if !defined (XPS_BOARD_ZCU102)
 	case 0x2:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
-				XVPHY_DP_REF_CLK_FREQ_HZ_400);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
+		// 			XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_400_CLK,
+		// 		XVPHY_DP_REF_CLK_FREQ_HZ_400);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DP_LINK_RATE_HZ_2000GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				XVPHY_DP_LINK_RATE_HZ_2000GBPS);
 		break;
-#endif
 
 	default:
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
-					XVPHY_DP_REF_CLK_FREQ_HZ_270);
-		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-				ONBOARD_400_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_400);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
+		// 			XVPHY_DP_REF_CLK_FREQ_HZ_270);
+		// XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
+		// 		ONBOARD_400_CLK, XVPHY_DP_REF_CLK_FREQ_HZ_400);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_270GBPS);
-		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+		XVphy_CfgLineRate(InstancePtr, 0, VPHY_RX_CHANNEL_TYPE,
 				  XVPHY_DP_LINK_RATE_HZ_270GBPS);
 		break;
 	}
