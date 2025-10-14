@@ -90,10 +90,15 @@ extern u16 fb_rd_count;
 extern u8 Clip_4k;
 extern u32 Clip_4k_Hactive;
 extern u32 Clip_4k_Vactive;
+extern XVphy_PllType VPHY_RX_PLL_TYPE;
+extern XVphy_ChannelId VPHY_RX_CHANNEL_TYPE;
+extern XVphy_PllType VPHY_TX_PLL_TYPE;
+extern XVphy_ChannelId VPHY_TX_CHANNEL_TYPE;
 
 u8 SinkMaxLinkrate=0, SinkMaxLanecount=0;
-u8 SinkCap[16], SinkExtendedCap[16];
-u8 config_128_132b;
+// u8 SinkCap[16], SinkExtendedCap[16];
+// u8 config_128_132b;
+u16 max_link_lane;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -109,6 +114,7 @@ void DpPt_Main(void){
 
 	// This is for EDID setup
 	u8 connected = 0;
+	u8 crc_config = 0;
 
 #ifdef Tx
 	while (!XDpTxSs_IsConnected(&DpTxSsInst)) {
@@ -188,36 +194,9 @@ void DpPt_Main(void){
 
 #ifdef Tx
 
-	//Read the sink's max linkrate and lanecount cap
-	Status = XDpTxSs_GetSinkCapabilities(&DpTxSsInst, SinkCap, SinkExtendedCap,&config_128_132b);
-	if(Status != XST_SUCCESS){
-		xil_printf("Error in reading Rx Cap\r\n");
-	}
-
-	if(SinkCap[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
-		    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK){
-		if(SinkExtendedCap[XDP_DPCD_ML_CH_CODING_CAP] &
-			    XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK){
-			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-					       XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
-					       1, &SinkMaxLinkrate);
-			if((SinkMaxLinkrate & 0x3) == 0x3){
-				SinkMaxLinkrate=XDP_TX_LINK_BW_SET_UHBR20;
-			}else if((SinkMaxLinkrate & 0x5) == 0x5){
-				SinkMaxLinkrate=XDP_TX_LINK_BW_SET_UHBR135;
-			}else{
-				SinkMaxLinkrate=XDP_TX_LINK_BW_SET_UHBR10;
-			}
-			SinkMaxLanecount= SinkExtendedCap[XDP_DPCD_MAX_LANE_COUNT] & XDP_DPCD_MAX_LANE_COUNT_MASK;
-		}else{
-			SinkMaxLinkrate = SinkExtendedCap[XDP_DPCD_MAX_LINK_RATE];
-			SinkMaxLanecount= SinkExtendedCap[XDP_DPCD_MAX_LANE_COUNT] & XDP_DPCD_MAX_LANE_COUNT_MASK;
-		}
-
-	}else{
-		SinkMaxLinkrate = SinkCap[XDP_DPCD_MAX_LINK_RATE];
-		SinkMaxLanecount= SinkCap[XDP_DPCD_MAX_LANE_COUNT] & XDP_DPCD_MAX_LANE_COUNT_MASK;
-	}
+    max_link_lane = get_max_capabilities (&DpTxSsInst);
+    SinkMaxLanecount = max_link_lane;
+	SinkMaxLinkrate = (max_link_lane >> 8);
 
 #endif
 
@@ -397,7 +376,7 @@ void DpPt_Main(void){
 
 					// This configures the vid_phy for line rate to start with
 #ifdef Tx
-					config_phy(LineRate_init_tx);
+					config_phy(&VPhyInst, LineRate_init_tx, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 #endif
 					LaneCount_init_tx = LaneCount_init_tx & 0x7;
 					tx_after_rx = 1;
@@ -419,22 +398,31 @@ void DpPt_Main(void){
 								0xC)&0xFFFF) + 1)));
 					xil_printf ("Rxd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0xC)>>16);
-					xil_printf ("CRC Cfg     =  0x%x\r\n",
-							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0));
+					crc_config = XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0);
+					if (crc_config == 0x5) {
+					    xil_printf ("CRC Cfg     =  0x8\r\n");
+					} else {
+						xil_printf ("CRC Cfg     =  %x\r\n",crc_config);
+					}
 					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x4)&0xFFFF);
 					xil_printf ("CRC - G/Y  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x4)>>16);
 					xil_printf ("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x8)&0xFFFF);
+
 					xil_printf ("========== Tx CRC===========\r\n");
 					xil_printf ("Txd Hactive =  %d\r\n",
 						(8*((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)&0xFFFF)+ 1)));
 
 					xil_printf ("Txd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)>>16);
-					xil_printf ("CRC Cfg     =  0x%x\r\n",
-							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0));
+					crc_config = XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0);
+					if (crc_config == 0x5) {
+					    xil_printf ("CRC Cfg     =  0x8\r\n");
+					} else {
+						xil_printf ("CRC Cfg     =  %x\r\n",crc_config);
+					}
 					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)&0xFFFF);
 					xil_printf ("CRC - G/Y  =  0x%x\r\n",
@@ -612,6 +600,9 @@ void start_tx_after_rx (void) {
 	// check monitor capability
 	u8 max_cap_org=0;
 	u8 max_cap_lanes=0;
+        u8 supports_20g = 0;
+        u8 supports_135g = 0;
+        u8 supports_10g = 0;
 
 	//scaling down Tx output to 4k30 if Rx receives above 8k30 due to bw issues
 	if (Msa_test[0].Vtm.FrameRate * Msa_test[0].Vtm.Timing.HActive *
@@ -655,18 +646,68 @@ void start_tx_after_rx (void) {
 	}
 
 #ifdef Rx
-	LineRate_init_tx = DpRxSsInst.UsrOpt.LinkRate;
-	LaneCount_init_tx = DpRxSsInst.UsrOpt.LaneCount;
-	if(LineRate_init_tx == XDP_TX_LINK_BW_SET_UHBR135){
-		if(SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR135){
-			LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR10;
-		}else if(SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR20){
-			LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR20;
-		}else{
-			LineRate_init_tx = SinkMaxLinkrate;
+    //Determine what should be the TX rate
+    //Assuming 20G will support 20, 13.5, 10
+        if (SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR20) {
+           supports_20g = 1;
+           supports_135g = 1;
+           supports_10g = 1;
+	} else if (SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR135) {
+           supports_20g = 0;
+           supports_135g = 1;
+           supports_10g = 1;
+	} else if (SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR10) {
+           supports_20g = 0;
+           supports_135g = 0;
+           supports_10g = 1;
+        }
+	//QPLL1 does not support 13.5
+	if (VPHY_TX_CHANNEL_TYPE == XVPHY_CHANNEL_ID_CMN1) {
+		//If RX is trained at 13.5, TX cannot train at 13.5
+		// TX could run at 10G or 20G
+		if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_UHBR135) {
+			if (SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR135) {
+				//assuming it will also support 10G
+				LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR10;
+			} else if (SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR20) {
+				//It can be 10G also, but keeping 20G
+				LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR20;
+			} else {
+				LineRate_init_tx = SinkMaxLinkrate;
+			}
+			xil_printf("VCU118 QPLL1 doesn't support 13.5g hence Training TX at 0x%x Linkrate\r\n",LineRate_init_tx);
+		} else {
+			if (SinkMaxLinkrate == XDP_TX_LINK_BW_SET_UHBR135) {
+				//QPLL1 cannot run at 13.5
+				//Assuming it supports 10G
+				SinkMaxLinkrate = XDP_TX_LINK_BW_SET_UHBR10;
+			}
+                        if ((DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_UHBR20)) {
+                           if (supports_20g == 1) {
+	                      LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR20;
+                           } else if (supports_135g == 1) {
+	                      LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR10;	 // TX QPLL1 not capable
+                           } else if (supports_10g == 1) {
+	                      LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR10;
+                           } else {
+	                      LineRate_init_tx = SinkMaxLinkrate;
+                           }
+                        } else if ((DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_UHBR10)) {
+                         //    if (supports_20g == 1) {
+	                 //       LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR20;
+                         //    } else if (supports_135g == 1) {
+	                 //       LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR10;	 // TX QPLL1 not capable
+                             if (supports_10g == 1 || supports_20g ==1 || supports_135g == 1) {
+	                        LineRate_init_tx = XDP_TX_LINK_BW_SET_UHBR10;
+                             } else {
+	                        LineRate_init_tx = SinkMaxLinkrate;
+                             }
+                        } else {
+	                   LineRate_init_tx = DpRxSsInst.UsrOpt.LinkRate;
+                        }
 		}
-		xil_printf("VCU118 QPLL1 doesnt support 13.5g hence Training Tx at 0x%x Linkrate\r\n",LineRate_init_tx);
 	}
+	LaneCount_init_tx = DpRxSsInst.UsrOpt.LaneCount;
 #endif
 
 	user_config.user_bpc = Msa_test[0].BitsPerColor;
@@ -696,7 +737,7 @@ void start_tx_after_rx (void) {
 	//Dell models, which otherwise give too many HPDs
 	//This is needed especially on multiple unplug/plug
 	XDpTxSs_SetLinkRate(&DpTxSsInst, XDP_TX_LINK_BW_SET_162GBPS);
-	config_phy(LineRate_init_tx);
+	config_phy(&VPhyInst, LineRate_init_tx, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 
 	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config,Msa_test);
@@ -899,7 +940,7 @@ void dptx_tracking(void) {
 		user_config_txo.user_bpc = 8;
 		user_config_txo.user_format=1;
 		user_config_txo.user_pattern=1;
-		config_phy(SinkMaxLinkrate);
+		config_phy(&VPhyInst, SinkMaxLinkrate, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 		start_tx(SinkMaxLinkrate, SinkMaxLanecount, user_config_txo, 0);
 	}
 	else {

@@ -164,10 +164,10 @@ extern "C" {
 
 #ifndef SDT
 #define AXI_SYSTEM_CLOCK_FREQ_HZ \
-			XPAR_AXI_TIMER_0_CLOCK_FREQ_HZ
+			XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
 #else
 #define AXI_SYSTEM_CLOCK_FREQ_HZ \
-			XPAR_AXI_TIMER_0_CLOCK_FREQUENCY
+			XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
 #endif
 
 /* DP Specific Defines
@@ -227,31 +227,31 @@ extern "C" {
 
 
 /**************************** Type Definitions *******************************/
-typedef enum {
-        ONBOARD_REF_CLK = 1,
-#ifdef PLATFORM_MB
-		ONBOARD_400_CLK = 2,
-} XVphy_User_GT_RefClk_Src;
+// typedef enum {
+//         ONBOARD_REF_CLK = 1,
+// #ifdef PLATFORM_MB
+// 		ONBOARD_400_CLK = 2,
+// } XVphy_User_GT_RefClk_Src;
 
 typedef enum {
 	XVIDC_VM_7680x4320_30_DELL = (XVIDC_VM_CUSTOM + 1),
     XVIDC_CM_NUM_SUPPORTED
 } XVIDC_CUSTOM_MODES;
 
-typedef struct {
-        u8 Index;
-        XVphy_PllType  TxPLL;
-        XVphy_PllType  RxPLL;
-        XVphy_ChannelId TxChId;
-        XVphy_ChannelId RxChId;
-        u32 LineRate;
-        u64 LineRateHz;
-        XVphy_User_GT_RefClk_Src QPLLRefClkSrc;
-        XVphy_User_GT_RefClk_Src CPLLRefClkSrc;
-        u64 QPLLRefClkFreqHz;
-        u64 CPLLRefClkFreqHz;
-} XVphy_User_Config;
-#endif
+// typedef struct {
+//         u8 Index;
+//         XVphy_PllType  TxPLL;
+//         XVphy_PllType  RxPLL;
+//         XVphy_ChannelId TxChId;
+//         XVphy_ChannelId RxChId;
+//         u32 LineRate;
+//         u64 LineRateHz;
+//         XVphy_User_GT_RefClk_Src QPLLRefClkSrc;
+//         XVphy_User_GT_RefClk_Src CPLLRefClkSrc;
+//         u64 QPLLRefClkFreqHz;
+//         u64 CPLLRefClkFreqHz;
+// } XVphy_User_Config;
+// #endif
 
 #define XVPHY_DP_LINK_RATE_HZ_1000GBPS  10000000000LL
 #define XVPHY_DP_LINK_RATE_HZ_1350GBPS  13500000000LL
@@ -272,7 +272,7 @@ u32 DpSs_PlatformInit(void);
 void frameBuffer_stop(void);
 void frameBuffer_stop_wr(void);
 void frameBuffer_stop_rd(void);
-void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
+void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate, XVphy_ChannelId Channel);
 void ReportVideoCRC();
 void CalculateCRC(void);
 char XUartPs_RecvByte_NonBlocking();
@@ -302,6 +302,10 @@ u8 i2c_read_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress);
 u8 i2c_read_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress);
 int i2c_write_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value);
 #endif
+
+u32 config_phy(XVphy *InstancePtr, int LineRate_init_tx, XVphy_PllType Pll, XVphy_ChannelId Channel, XVphy_DirectionType Dir);
+
+
 /************************** Function Definitions *****************************/
 /* Defining constants for colors in printing */
 #define ANSI_COLOR_RED          "\x1b[31m"

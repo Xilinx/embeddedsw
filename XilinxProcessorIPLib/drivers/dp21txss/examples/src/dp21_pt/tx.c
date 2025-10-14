@@ -61,7 +61,7 @@ volatile u8 prev_line_rate; 		/* This previous line rate to keep
 				 * with new line rate request*/
 
 extern XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
-extern XVphy_User_Config PHY_User_Config_Table[];
+// extern XVphy_User_Config PHY_User_Config_Table[];
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
 #define DPCD_TEST_SINK_MISC  0x246
@@ -69,6 +69,9 @@ extern XVphy_User_Config PHY_User_Config_Table[];
 #define CRC_AVAIL_TIMEOUT    1000
 /************************** Function Definitions *****************************/
 extern lane_link_rate_struct lane_link_table[];
+
+extern XVphy_PllType VPHY_TX_PLL_TYPE;
+extern XVphy_ChannelId VPHY_TX_CHANNEL_TYPE;
 
 #ifdef Tx
 /*****************************************************************************/
@@ -111,6 +114,52 @@ u32 DpTxSs_SetupIntrSystem(void)
 			(void *)DpPt_ffe_adjustHandler, &DpTxSsInst);
 
 	return (XST_SUCCESS);
+}
+
+u32 get_max_capabilities (XDpTxSs *InstancePtr) {
+
+    u8 SinkCap[16], SinkExtendedCap[16];
+	u8 SinkMaxLanecount=0;
+	u8 SinkMaxLinkrate=0;
+	u16 max_link_lane = 0;
+	u8 config_128_132b;
+	u8 support_20g;
+	u32 Status = XST_SUCCESS;
+
+	Status = XDpTxSs_GetSinkCapabilities(InstancePtr, SinkCap, SinkExtendedCap,&config_128_132b);
+	if(Status != XST_SUCCESS){
+		xil_printf("Error in reading Rx Cap\r\n");
+		return XST_FAILURE;
+	}
+
+	if(SinkCap[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+		    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK){
+		if(SinkExtendedCap[XDP_DPCD_ML_CH_CODING_CAP] &
+			    XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK){
+			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+					       XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
+					       1, &SinkMaxLinkrate);
+			support_20g = (SinkMaxLinkrate & 0x7);
+			if ((support_20g == 0x7) || (support_20g == 0x3) || (support_20g == 0x6) || (support_20g == 0x2)) {
+				SinkMaxLinkrate=XDP_TX_LINK_BW_SET_UHBR20;
+			} else if ((support_20g == 0x4) || (support_20g == 0x5)) {
+                SinkMaxLinkrate=XDP_TX_LINK_BW_SET_UHBR135;
+			} else if (support_20g == 0x1) {
+                SinkMaxLinkrate=XDP_TX_LINK_BW_SET_UHBR10;
+			}
+			SinkMaxLanecount= SinkExtendedCap[XDP_DPCD_MAX_LANE_COUNT] & XDP_DPCD_MAX_LANE_COUNT_MASK;
+		}else{
+			SinkMaxLinkrate = SinkExtendedCap[XDP_DPCD_MAX_LINK_RATE];
+			SinkMaxLanecount= SinkExtendedCap[XDP_DPCD_MAX_LANE_COUNT] & XDP_DPCD_MAX_LANE_COUNT_MASK;
+		}
+
+	}else{
+		SinkMaxLinkrate = SinkCap[XDP_DPCD_MAX_LINK_RATE];
+		SinkMaxLanecount= SinkCap[XDP_DPCD_MAX_LANE_COUNT] & XDP_DPCD_MAX_LANE_COUNT_MASK;
+	}
+
+    max_link_lane = (SinkMaxLinkrate << 8) | (SinkMaxLanecount);
+    return max_link_lane;
 }
 
 u16 vsync_counter = 0;
@@ -210,12 +259,15 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	// If TX is unable to train at what it has been asked then
 	// necessary down shift handling has to be done here
 	// eg. reconfigure GT to new rate etc
-
+    u32 Status = XST_SUCCESS;
     u8 rate;
-	u8 lanes;
+	// u8 lanes;
 	rate = get_LineRate();
-    lanes = XPAR_DP_TX_HIER_0_V_DP_TXSS2_1_LANE_COUNT;//get_Lanecounts();
-	config_phy(rate);
+    // lanes = XPAR_DP_TX_HIER_0_V_DP_TXSS2_1_LANE_COUNT;//get_Lanecounts();
+	Status = config_phy (&VPhyInst, rate, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
+	if (Status != XST_SUCCESS) {
+		xil_printf ("PHY Config failed during the TX training\r\n");
+	}
 
 	//update the previous link rate info at here
 	prev_line_rate = rate;
@@ -353,13 +405,22 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 * @note		None.
 *
 ******************************************************************************/
+extern u8 SinkMaxLinkrate;
+extern u8 SinkMaxLanecount;
+
 void DpPt_HpdEventHandler(void *InstancePtr)
 {
+	u16 max_link_lane_hpd;
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 //		sink_power_down();
 		sink_power_up();
 		tx_is_reconnected = 1;
 		xil_printf ("Cable Connected\r\n");
+		max_link_lane_hpd = get_max_capabilities (&DpTxSsInst);
+        SinkMaxLanecount = max_link_lane_hpd;
+	    SinkMaxLinkrate = (max_link_lane_hpd >> 8);
+		// xil_printf ("max rate is %x\r\n",SinkMaxLinkrate);
+		// xil_printf ("max lane is %x\r\n",SinkMaxLanecount);
 		onetime = 0;
 	}
 	else
@@ -531,99 +592,6 @@ u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
 	return Status;
 }
 
-/*****************************************************************************/
-/**
-*
-* This function sets up PHY
-*
-* @param	pointer to VideoPHY
-* @param	User Config table
-*
-* @return
-*		- XST_SUCCESS if interrupt setup was successful.
-*		- A specific error code defined in "xstatus.h" if an error
-*		occurs.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 PHY_Configuration_Tx(XVphy *InstancePtr,
-		XVphy_User_Config PHY_User_Config_Table)
-{
-	XVphy_PllRefClkSelType QpllRefClkSel;
-	XVphy_PllRefClkSelType CpllRefClkSel;
-	XVphy_PllType TxPllSelect;
-	XVphy_PllType RxPllSelect; // Required for VPHY setting
-	XVphy_ChannelId TxChId;
-	//XVphy_ChannelId RxChId;
-	u8 QuadId = 0;
-	u32 Status = XST_FAILURE;
-	u32 retries = 0;
-
-	QpllRefClkSel = PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel = PHY_User_Config_Table.CPLLRefClkSrc;
-	TxPllSelect   = PHY_User_Config_Table.TxPLL;
-	// Required for VPHY setting
-	RxPllSelect = PHY_User_Config_Table.RxPLL;
-	TxChId      = PHY_User_Config_Table.TxChId;
-
-			//Set the Ref Clock Frequency
-	XVphy_CfgQuadRefClkFreq(InstancePtr, QuadId, QpllRefClkSel,
-				PHY_User_Config_Table.QPLLRefClkFreqHz);
-	XVphy_CfgQuadRefClkFreq(InstancePtr, QuadId, CpllRefClkSel,
-				PHY_User_Config_Table.CPLLRefClkFreqHz);
-	XVphy_CfgLineRate(InstancePtr, QuadId, TxChId,
-			  PHY_User_Config_Table.LineRateHz);
-
-	XVphy_PllInitialize(InstancePtr, QuadId, TxChId,
-					QpllRefClkSel, CpllRefClkSel, TxPllSelect, RxPllSelect);
-
-	// Initialize GT with ref clock and PLL selects
-	// GT DRPs may not get completed if GT is busy doing something else
-	// hence this is run in loop and retried 100 times
-	while (Status != XST_SUCCESS) {
-		Status = XVphy_ClkInitialize(InstancePtr, QuadId,
-					     TxChId, XVPHY_DIR_TX);
-		if (retries > 100) {
-			retries = 0;
-			xil_printf ("exhausted\r\n");
-			break;
-		}
-		retries++;
-	}
-
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
-			XVPHY_PLL_RESET_REG,
-			XVPHY_PLL_RESET_QPLL1_MASK); // 0x06
-
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
-			XVPHY_PLL_RESET_REG, 0x0);
-
-	XVphy_ResetGtPll(InstancePtr, QuadId,
-			XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,(FALSE));
-
-
-	Status = XVphy_WaitForPmaResetDone(InstancePtr, QuadId,
-			TxChId, XVPHY_DIR_TX);
-	if (Status  != XST_SUCCESS) {
-		xil_printf ("++++rst failed error++++\r\n");
-	}
-
-	Status += XVphy_WaitForPllLock(InstancePtr, QuadId, TxChId);
-	if (Status  != XST_SUCCESS) {
-		xil_printf ("++++lock failed++++\r\n");
-	}
-
-	Status += XVphy_WaitForResetDone(InstancePtr, QuadId,
-			TxChId, XVPHY_DIR_TX);
-
-	if (Status  != XST_SUCCESS) {
-		xil_printf ("++++TX GT config encountered error++++\r\n");
-	}
-
-	return (Status);
-
-}
 
 /*****************************************************************************/
 /**
@@ -654,6 +622,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 	u8 i = 0;
+	int lr,lc=0;
 	u32 Status;
 	lanecount_tx_run = lane_count;
 	linkrate_tx_run = line_rate;
@@ -782,17 +751,14 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	xil_printf ("..done !\r\n");
 	tx_started = 1;
 
-	int lr,lc=0;
-
 	/* Read Link rate over through channel */
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_LINK_BW_SET, 1, &lr);
-
 
 	/* Read Lane count through AUX channel */
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_LANE_COUNT_SET, 1,
 			&lc);
 
-	xil_printf("Tx trained at %x x %x\r\n",(lr & 0xFF),(lc & XDP_DPCD_LANE_COUNT_SET_MASK));
+	xil_printf("(TX Link established at %x x %x)\r\n",(lr & 0xFF),(lc & XDP_DPCD_LANE_COUNT_SET_MASK));
 	return XST_SUCCESS;
 }
 
@@ -1111,72 +1077,6 @@ u8 get_Lanecounts(void){
 	return DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
 }
 
-/*****************************************************************************/
-/**
-*
-* This function sets VPHY based on the linerate
-*
-* @param	user_config_struct.
-*
-* @return	Status.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 config_phy(int LineRate_init_tx){
-	u32 Status=XST_SUCCESS;
-	u8 linerate;
-
-	//Tx on QPLL1 doesnt support 13.5g
-	 if(LineRate_init_tx == XDP_TX_LINK_BW_SET_UHBR135){
-		xil_printf("Tx on QPLL1 doesnt support 13.5G hence downshifting the linkrate\r\n");
-		return XST_FAILURE;
-	 }
-
-	if (LineRate_init_tx == XDP_TX_LINK_BW_SET_810GBPS) {
-		PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?9:10].LineRate);
-	} else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_540GBPS) {
-		PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?2:5].LineRate);
-	} else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_270GBPS) {
-		PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?1:4].LineRate);
-	} else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_162GBPS) {
-		PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?0:3].LineRate);
-	} else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_UHBR10) {
-	PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?11:12].LineRate);
-	} else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_UHBR135) {
-	PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?13:14].LineRate);
-	}
-	else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_UHBR20) {
-	PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?15:16].LineRate);
-	}
-
-    if ((LineRate_init_tx == 0x1E) ||
-             (LineRate_init_tx == 0x14) ||
-             (LineRate_init_tx == 0x0A) ||
-             (LineRate_init_tx == 0x06) ) {
-
-             XVphy_SetupDP21Phy (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN1,
-                              XVPHY_DIR_TX, LineRate_init_tx, ONBOARD_REF_CLK,
-                              XVPHY_PLL_TYPE_QPLL1);
-    } else {
-             XVphy_SetupDP21Phy (&VPhyInst, 0,XVPHY_CHANNEL_ID_CMN1,
-                              XVPHY_DIR_TX, LineRate_init_tx, ONBOARD_400_CLK,
-							  XVPHY_PLL_TYPE_QPLL1);
-
-    }
-
-	Status = XVphy_DP21PhyReset (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN1,
-				XVPHY_DIR_TX);
-	if (Status == XST_FAILURE) {
-			xil_printf ("Issue encountered in PHY config and reset\r\n");
-	}
-
-	if (Status != XST_SUCCESS) {
-		xil_printf (
-   "+++++++ TX GT configuration encountered a failure config+++++++\r\n");
-	}
-	return Status;
-}
 
 
 /*****************************************************************************/
