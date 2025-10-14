@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,6 +46,9 @@ extern XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
 
 u32 hdrframe[9];
 u16 fifoOverflow=0;
+
+extern XVphy_PllType VPHY_RX_PLL_TYPE;
+extern XVphy_ChannelId VPHY_RX_CHANNEL_TYPE;
 
 /*****************************************************************************/
 /**
@@ -570,24 +573,11 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 {
-	/*Program Video PHY to requested line rate*/
-	PLLRefClkSel (&VPhyInst, DpRxSsInst.UsrOpt.LinkRate);
-
-    if ((DpRxSsInst.UsrOpt.LinkRate == 0x1E) ||
-              (DpRxSsInst.UsrOpt.LinkRate == 0x14) ||
-              (DpRxSsInst.UsrOpt.LinkRate == 0x0A) ||
-              (DpRxSsInst.UsrOpt.LinkRate == 0x06) ) {
-
-            XVphy_SetupDP21Phy (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN0,
-                    XVPHY_DIR_RX, DpRxSsInst.UsrOpt.LinkRate, ONBOARD_REF_CLK,
-                    XVPHY_PLL_TYPE_QPLL0);
-    } else {
-            XVphy_SetupDP21Phy (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN0,
-                    XVPHY_DIR_RX, DpRxSsInst.UsrOpt.LinkRate, ONBOARD_400_CLK,
-					XVPHY_PLL_TYPE_QPLL0);
-
-    }
-
+    u32 Status = XST_SUCCESS;
+    Status = config_phy(&VPhyInst, DpRxSsInst.UsrOpt.LinkRate, VPHY_RX_PLL_TYPE, VPHY_RX_CHANNEL_TYPE, XVPHY_DIR_RX);
+	if (Status != XST_SUCCESS) {
+		xil_printf ("PHY Config on RX failed\r\n");
+	}
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	DpRxSsInst.no_video_trigger = 1;
@@ -616,7 +606,7 @@ void DpRxSs_PllResetHandler(void *InstancePtr)
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
                    XDP_RX_AUX_CLK_DIVIDER, ReadVal);
 
-    Status = XVphy_DP21PhyReset (&VPhyInst, 0, XVPHY_CHANNEL_ID_CMN0,
+    Status = XVphy_DP21PhyReset (&VPhyInst, 0, VPHY_RX_CHANNEL_TYPE,
                 XVPHY_DIR_RX);
     if (Status == XST_FAILURE) {
         xil_printf ("Rx Issue encountered in PHY config and reset\r\n");

@@ -137,7 +137,7 @@ void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			XDpTxSs_MainStreamAttributes Msa[4]);
-u32 config_phy(int LineRate_init_tx);
+
 
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 void sink_power_down(void);
@@ -153,6 +153,7 @@ int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 			u8 Edid_org[128], u8 Edid1_org[128]);
 u32 DpTxSs_SetupIntrSystem(void);
+u32 get_max_capabilities (XDpTxSs *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
