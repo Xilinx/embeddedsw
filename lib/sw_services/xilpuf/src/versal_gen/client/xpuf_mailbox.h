@@ -42,33 +42,48 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define XILPUF_MODULE_ID			(12U)
+#define XILPUF_MODULE_ID			(12U)	/**< Module ID for PUF */
 
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
-#define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
+#define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN	/**< Payload argument count */
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT			XIPIPSU_MAX_MSG_LEN
-#define XPUF_TARGET_IPI_INT_MASK	(0x00000002U)
-#define XPUF_MODULE_ID_SHIFT		(8U)
-#define XPUF_PAYLOAD_LEN_SHIFT		(16U)
+#define RESPONSE_ARG_CNT		XIPIPSU_MAX_MSG_LEN	/**< Response argument count */
+#define XPUF_TARGET_IPI_INT_MASK	(0x00000002U)	/**< Target IPI interrupt mask */
+#define XPUF_MODULE_ID_SHIFT		(8U)	/**< Module ID shift */
+#define XPUF_PAYLOAD_LEN_SHIFT		(16U)	/**< Payload length shift */
 #define XILPUF_MODULE_ID_MASK		(XILPUF_MODULE_ID << XPUF_MODULE_ID_SHIFT)
+						/**< Module ID mask */
 
 /**************************** Type Definitions *******************************/
+/** PUF client instance */
 typedef struct {
-	XMailbox *MailboxPtr;
-	u32 SlrIndex;
+	XMailbox *MailboxPtr;	/**< Pointer to the mailbox instance */
+	u32 SlrIndex;	/**< SLR index for the PUF client */
 } XPuf_ClientInstance;
 
-/** Enumeration constants for SlrIndex*/
+/** Enumeration constants for SlrIndex */
 typedef enum{
-	XPUF_SLR_INDEX_0 = 0,	/** SLR_INDEX_0 */
-	XPUF_SLR_INDEX_1,	/** SLR_INDEX_1 */
-	XPUF_SLR_INDEX_2,	/** SLR_INDEX_2 */
-	XPUF_SLR_INDEX_3	/** SLR_INDEX_3 */
+	XPUF_SLR_INDEX_0 = 0,	/**< SLR_INDEX_0 */
+	XPUF_SLR_INDEX_1,	/**< SLR_INDEX_1 */
+	XPUF_SLR_INDEX_2,	/**< SLR_INDEX_2 */
+	XPUF_SLR_INDEX_3	/**< SLR_INDEX_3 */
 } XPuf_SlrIndex;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+/******************************************************************************/
+/**
+ * @brief   Constructs a header value for PUF mailbox communication.
+ *
+ * This function encodes the payload length, module ID, and API ID into a single
+ * 32-bit value for use in PUF mailbox messages.
+ *
+ * @param   Len     Payload length.
+ * @param   ApiId   API identifier.
+ *
+ * @return
+ * 	- 32-bit header value combining payload length, module ID, and API ID.
+ *
+ *******************************************************************************/
 static inline u32 PufHeader(u32 Len, u32 ApiId)
 {
 	return ((Len << XPUF_PAYLOAD_LEN_SHIFT) |

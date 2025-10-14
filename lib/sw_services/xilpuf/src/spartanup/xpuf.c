@@ -779,3 +779,4 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 END:
 	return Status;
 }
+/** @} */
