@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -319,6 +319,7 @@ void sub_help_menu(void)
 "7 - Display Link Configuration Status and user selected resolution, BPC\r\n"
 "8 - Display DPCD register Configurations\r\n"
 "9 - Read Auxiliary registers \r\n"
+"a - Enable/Disable Audio\r\n"
 "d - Power Up/Down sink\r\n"
 "e - Read EDID from sink\r\n"
 "m - Read CRC checker value\r\n"
@@ -386,6 +387,8 @@ void main_loop(){
 	u32 user_tx_LaneCount , user_tx_LineRate;
 	u32 aux_reg_address, num_of_aux_registers;
 	u8 Data[8];
+	u8 audio_on=0;
+	XDp_TxAudioInfoFrame *xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
 	u32 DrpVal =0;
@@ -494,6 +497,60 @@ void main_loop(){
 			}
 			break;
 
+#if ENABLE_AUDIO
+		case 'a' :
+			audio_on = XDp_ReadReg(
+					DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_AUDIO_CONTROL);
+			if (audio_on == 0) {
+				xilInfoFrame->audio_channel_count = 1;
+				xilInfoFrame->audio_coding_type = 0;
+				xilInfoFrame->channel_allocation = 0;
+				xilInfoFrame->downmix_inhibit = 0;
+				xilInfoFrame->info_length = 27;
+				xilInfoFrame->level_shift = 0;
+				xilInfoFrame->sample_size = 0;//16 bits
+				xilInfoFrame->sampling_frequency = 0; //48 Hz
+				xilInfoFrame->type = 0x84;
+				xilInfoFrame->version = 0x11;
+
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CONTROL, 0x0);
+				XDpTxSs_SendAudioInfoFrame(&(DpTxSsInst),xilInfoFrame);
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CHANNELS, 0x1);
+				switch(LineRate)
+				{
+					case  6:m_aud = 512; n_aud = 3375; break;
+					case 10:m_aud = 512; n_aud = 5625; break;
+					case 20:m_aud = 512; n_aud = 11250; break;
+					case 30:m_aud = 512; n_aud = 16875; break;
+				}
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_MAUD,  m_aud );
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_NAUD,  n_aud );
+
+				Vpg_Audio_start();
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CONTROL, 0x1);
+				xil_printf ("Audio enabled\r\n");
+				audio_on = 1;
+			} else {
+				Vpg_Audio_stop();
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_CONTROL, 0x0);
+				xil_printf ("Audio disabled\r\n");
+				audio_on = 0;
+			}
+			break;
+#endif
+#if !ENABLE_AUDIO
+		case 'a' :
+				xil_printf ("Audio is not enabled in TX SS\r\n");
+			break;
+#endif
+
 		case '1' :
 			//resolution menu
 			LineRate = get_LineRate();
@@ -532,11 +589,12 @@ void main_loop(){
 							break;
 						}
 						xil_printf ("\r\nSetting resolution...\r\n");
+						audio_on = 0;
 						user_config.VideoMode_local =
 											resolution_table[Command];
 						// Disabling TX interrupts
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_INTERRUPT_MASK, 0xFFF);
+										XDP_TX_INTERRUPT_MASK, 0xFFFFFFFF);
 
 						//for DP2.0
 						XDpTxSs_Stop(&DpTxSsInst);
@@ -665,11 +723,12 @@ void main_loop(){
 						}
 						// Disabling TX interrupts
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-										XDP_TX_INTERRUPT_MASK, 0xFFF);
+										XDP_TX_INTERRUPT_MASK, 0xFFFFFFFF);
 						LineRate_init_tx = user_tx_LineRate;
 						prev_line_rate = user_tx_LineRate;
 						LaneCount_init_tx = user_tx_LaneCount;
 						XDpTxSs_Stop(&DpTxSsInst);
+						audio_on = 0;
 						xil_printf(
 					"TX Link & Lane Capability is set to %x, %x\r\n",
 					user_tx_LineRate, user_tx_LaneCount);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@ extern "C" {
 #define I2C_LMK03318_ADDR  0x51 /**< I2C TI LMK03318 Address */
 #define I2C_MUX_ADDR2      0x74  /**< I2C Mux Address */
 #define I2C_SI5344_ADDR    0x68 /**< I2C SI5344 Address */
+#define IIC_SI570_ADDRESS  0x5D
 
 /**************************** Type Definitions *******************************/
 

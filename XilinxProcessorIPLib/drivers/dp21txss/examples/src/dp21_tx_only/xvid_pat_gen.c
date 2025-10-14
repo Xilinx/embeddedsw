@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -108,7 +108,7 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 #define QuadPixelMode 0x200
 #define OctaPixelMode 0x400
 
-#if !defined (XPS_BOARD_ZCU102)
+#if XPAR_TX_SUBSYSTEM_V_DP_TXSS2_0_DP_OCTA_PIXEL_ENABLE
 #define PIXEL_MODE OctaPixelMode
 #else
 #define PIXEL_MODE QuadPixelMode
