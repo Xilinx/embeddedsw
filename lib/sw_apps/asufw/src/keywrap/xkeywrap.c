@@ -392,11 +392,18 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		goto END;
 	}
 
-	/** Calculate padding length. */
+	/**
+	 * Calculate number of padding bytes that are needed to align input data length ensuring total
+	 * length is a multiple of 8 bytes.
+	 */
 	PadLen = (XASUFW_BYTE_LEN_IN_BITS *
 		((KeyWrapParamsPtr->InputDataLen + XASUFW_BYTE_LEN_IN_BITS - XASUFW_VALUE_ONE)
 		/ XASUFW_BYTE_LEN_IN_BITS)) - KeyWrapParamsPtr->InputDataLen;
 
+	/**
+	 * Calculate the number of rounds required for the wrap operation by calculating the number
+	 * of semi-blocks present in the input data.
+	 */
 	MaxRounds = ((PadLen + KeyWrapParamsPtr->InputDataLen +
 			XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) / XASUFW_BYTE_LEN_IN_BITS) - 1U;
 
@@ -423,7 +430,10 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		goto END_CLR;
 	}
 
-	/** Append 0's if calculated padding length is non zero. */
+	/**
+	 * Append 0's if calculated padding length is non zero.
+	 * This arranges the input data block in the format ICV || MLI || Plaintext || Padding.
+	 */
 	if (PadLen != 0U) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemSet(&InData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES +
@@ -463,7 +473,10 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		goto END_CLR;
 	}
 
-	/** Perform AES wrap operation. */
+	/**
+	 * If the input data length exceeds 8 bytes, apply the AES Key Wrap with Padding (KWP)
+	 * operation to wrap the data. Else, perform a standard AES encryption operation on the input data.
+	 */
 	if (KeyWrapParamsPtr->InputDataLen > XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) {
 		for(RoundNum = 0U; RoundNum <= XASUFW_KEYWRAP_MAX_AES_ROUNDS; RoundNum++) {
 			for(BlkRoundNum = XASUFW_KEYWRAP_BLOCK_ROUND_INDEX; BlkRoundNum <= MaxRounds;
@@ -603,8 +616,15 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END;
 	}
 
-	/** Copy wrapped input data from user memory to ASU memory using DMA. */
+	/** Check if input data length exceeds max allocated input size for key unwrap operation. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((KeyUnwrapParamsPtr->InputDataLen - KeyUnwrapParamsPtr->RsaKeySize) >
+		XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES) {
+		Status = XASUFW_KEYWRAP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Copy wrapped input data from user memory to ASU memory using DMA. */
 	Status = XAsufw_DmaXfr(AsuDmaPtr, (KeyUnwrapParamsPtr->InputDataAddr +
 				KeyUnwrapParamsPtr->RsaKeySize), (u64)(UINTPTR)InData,
 				(KeyUnwrapParamsPtr->InputDataLen - KeyUnwrapParamsPtr->RsaKeySize),
@@ -645,7 +665,11 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END_CLR;
 	}
 
-	/** Perform AES unwrap operation. */
+	/**
+	 * If the input data length, after removing RSA-related and padding data, exceeds 8 bytes,
+	 * perform AES unwrapping using the Key Unwrap with Padding (KWP) operation. Else, apply a
+	 * standard AES operation to the input data.
+	 */
 	if ((KeyUnwrapParamsPtr->InputDataLen - KeyUnwrapParamsPtr->RsaKeySize -
 		XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) > XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) {
 		for(RoundNum = (s32)XASUFW_KEYWRAP_MAX_AES_ROUNDS; RoundNum >= 0; RoundNum--) {
@@ -717,6 +741,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		CopyLen = XASU_AES_BLOCK_SIZE_IN_BYTES;
 	}
 
+	/** Copy AES unwrap output data to local output buffer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
 		XASU_AES_BLOCK_SIZE_IN_BYTES, CopyLen);
@@ -725,7 +750,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END_CLR;
 	}
 
-	/** Compare default integrity check value with first four bytes of output data. */
+	/** Compare default integrity check value (ICV) with first four bytes of output data. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCmp(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, InitValue,
 				XASUFW_WORD_LEN_IN_BYTES, XASUFW_WORD_LEN_IN_BYTES);
@@ -745,7 +770,10 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END_CLR;
 	}
 
-	/** Calculate and compare padding length. */
+	/**
+	 * Calculate and compare padding length which should not exceed maximum allowed padding
+	 * length i.e 7 bytes.
+	 */
 	PadLen = (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * MaxRounds) - (*OutDataLenPtr);
 
 	if (PadLen > XASUFW_KEYWRAP_MAX_PAD_LEN) {
