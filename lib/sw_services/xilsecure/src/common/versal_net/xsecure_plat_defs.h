@@ -76,7 +76,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/**< XilSecure API ids */
+/** XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,		/**< 0U */
 	XSECURE_API_RSA_SIGN_VERIFY,		/**< 1U */
@@ -120,7 +120,7 @@ typedef enum {
 	XSECURE_API_MAX,				/**< 39U */
 } XSecure_ApiId;
 
-/**< XilSecure KAT ids */
+/** KAT ids */
 typedef enum {
 	XSECURE_API_AES_DECRYPT_KAT = 0U,		/**< 0U */
 	XSECURE_API_AES_DECRYPT_CM_KAT,			/**< 1U */
@@ -134,6 +134,7 @@ typedef enum {
 	XSECURE_API_UPDATE_KAT_STATUS,			/**< 9U */
 } XSecure_KatId;
 
+/** DDR KAT ids */
 typedef enum {
 	XSECURE_DDR_0_AES_GCM_KAT = 0U,  /**< 0U */
 	XSECURE_DDR_0_AES_XTS_KAT, 		 /**< 1U */
@@ -169,6 +170,7 @@ typedef enum {
 	XSECURE_DDR_7_TRNG_KAT,			 /**< 31U */
 } XSecure_DDRKatId;
 
+/** HNIC KAT ids */
 typedef enum {
 	XSECURE_HNIC_AES_GCM_ENC_KAT = 0U,		/**< 0U */
 	XSECURE_HNIC_AES_GCM_DECRYPT_KAT,		/**< 1U */
@@ -178,6 +180,7 @@ typedef enum {
 	XSECURE_HNIC_AES_GCM_BYPASS_CHECK,		/**< 5U */
 } XSecure_HnicKatId;
 
+/** CPM5N KAT ids */
 typedef enum {
 	XSECURE_CPM5N_AES_XTS_ENC_KAT = 8U,		/**< 8U */
 	XSECURE_CPM5N_AES_XTS_DEC_KAT,			/**< 9U */
@@ -187,11 +190,13 @@ typedef enum {
 	XSECURE_CPM5N_AES_XTS_BYPASS_CHECK,		/**< 13U */
 } XSecure_Cpm5nKatId;
 
+/** PCIe IDE KAT ids */
 typedef enum {
 	XSECURE_PCIDE_AES_ENC_KAT = 16U,	/**< 16U */
 	XSECURE_PCIDE_AES_DEC_KAT			/**< 17U */
 } XSecure_PciIdeKatId;
 
+/** PKI KAT ids */
 typedef enum {
 	XSECURE_PKI_ECC_P192_SIGN_GEN_KAT = 0U,		/**< 0U */
 	XSECURE_PKI_ECC_P192_SIGN_VER_KAT,			/**< 1U */
@@ -284,11 +289,13 @@ typedef enum {
 	XSECURE_PKI_SHA2_512_KAT,					/**< 88U */
 } XSecure_PkiKatId;
 
+/** Crypto Status Operation */
 typedef enum {
 	XSECURE_CRYPTO_STATUS_SET = 0U, /**< 0U */
 	XSECURE_CRYPTO_STATUS_CLEAR, /**< 1U */
 }XSecure_CryptoStatusOp;
 
+/** Key Operation */
 typedef enum {
 	XSECURE_ENC_OP = 0U,	/**< Encryption operation */
 	XSECURE_DEC_OP,		/**< Decryption operation */
@@ -314,12 +321,14 @@ typedef struct {
 	u64 ExponentAddr;	/**< Exponent address */
 } XSecure_RsaPubKeyAddr;
 
+/** RSA Operation Modes */
 typedef enum {
 	XSECURE_RSA_EXPQ_MODE = 0, /**< RSA EXPQ mode */
 	XSECURE_RSA_CRT_MODE,      /**< RSA CRT mode */
 	XSECURE_RSA_EXPOPT_MODE    /**< RSA expopt mode */
 } XSecure_RsaOperationMode;
 
+/** RSA key parameters */
 typedef struct {
 	u64 ExpAddr;		/**< Exponent address */
 	u64 ModAddr;		/**< Modulus address */

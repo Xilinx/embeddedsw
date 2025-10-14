@@ -46,3 +46,4 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_PLAT_KAT_IPIHANDLER_H_ */
+/** @} */

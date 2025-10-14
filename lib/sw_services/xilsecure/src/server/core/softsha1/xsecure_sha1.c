@@ -31,47 +31,56 @@
 #include "xsecure_error.h"
 
 /************************** Constant Definitions **************************************************/
-#define BYTE_SIZE_IN_BITS				(8U)
-#define WORD_SIZE_IN_BITS				(sizeof(u32) * BYTE_SIZE_IN_BITS)
-#define XSECURE_SHA1_HASH_BLK_SIZE			(64U)		/* 512-bits = 64 bytes */
-#define XSECURE_SHA1_LEN_FIELD_SIZE			(8U)
-#define XSECURE_SHA1_MIN_PADDING_LEN			(XSECURE_SHA1_LEN_FIELD_SIZE + 1U)
-#define XSECURE_SHA1_PADDING_START			(0x80)
-#define XSECURE_SHA1_PADDING_MIDDLE			(0x00)
-#define XSECURE_SHA_TOTAL_NUM_OF_STATES			(5U)
+#define BYTE_SIZE_IN_BITS		(8U)	/**< Size of byte in bits */
+#define WORD_SIZE_IN_BITS		(sizeof(u32) * BYTE_SIZE_IN_BITS)
+					/**< Size of word in bits */
+#define XSECURE_SHA1_HASH_BLK_SIZE	(64U)		/**< 512-bits = 64 bytes */
+#define XSECURE_SHA1_LEN_FIELD_SIZE	(8U)		/**< Size of Length field */
+#define XSECURE_SHA1_MIN_PADDING_LEN	(XSECURE_SHA1_LEN_FIELD_SIZE + 1U)
+					/**< Minimum padding length */
+#define XSECURE_SHA1_PADDING_START	(0x80)	/**< Padding start byte */
+#define XSECURE_SHA1_PADDING_MIDDLE	(0x00)	/**< Padding middle byte */
+#define XSECURE_SHA_TOTAL_NUM_OF_STATES	(5U)	/**< Total number of states */
 
-#define K0	0x5A827999U
-#define K1	0x6ED9EBA1U
-#define K2	0x8F1BBCDCU
-#define K3	0xCA62C1D6U
+#define K0	0x5A827999U	/**< Constant K0 */
+#define K1	0x6ED9EBA1U	/**< Constant K1 */
+#define K2	0x8F1BBCDCU	/**< Constant K2 */
+#define K3	0xCA62C1D6U	/**< Constant K3 */
 
-#define H0	0x67452301U
-#define H1	0xEFCDAB89U
-#define H2	0x98BADCFEU
-#define H3	0x10325476U
-#define H4	0xC3D2E1F0U
+#define H0	0x67452301U	/**< Initial hash value H0 */
+#define H1	0xEFCDAB89U	/**< Initial hash value H1 */
+#define H2	0x98BADCFEU	/**< Initial hash value H2 */
+#define H3	0x10325476U	/**< Initial hash value H3 */
+#define H4	0xC3D2E1F0U	/**< Initial hash value H4 */
 
 
 /**************************** Type Definitions ****************************************************/
-/* SHA1 Context */
+/** SHA1 Context */
 typedef struct {
-	u32 State[XSECURE_SHA_TOTAL_NUM_OF_STATES];
-	u32 Buffer[XSECURE_SHA1_HASH_BLK_SIZE / sizeof(u32)];
+	u32 State[XSECURE_SHA_TOTAL_NUM_OF_STATES];	/**< SHA1 context state */
+	u32 Buffer[XSECURE_SHA1_HASH_BLK_SIZE / sizeof(u32)];	/**< SHA1 context buffer */
 } XSecure_Sha1Ctx;
 
 /***************** Macros (Inline Functions) Definitions ******************************************/
+/** Macro to Rotate left the 32-bit value */
 #define RotateLeft32(Value, Bits) \
 	(((Value) << (Bits)) | ((Value) >> (WORD_SIZE_IN_BITS - (Bits))))
 
 /* BLK0() and BLK() perform the initial expand. */
 /* Inspired by SSLeay */
+/** Macro for Block 0 expansion */
 #define BLK0(i) (Block[(i)] = (RotateLeft32(Block[(i)], 24U)& 0xFF00FF00UL) \
 	|(RotateLeft32(Block[(i)], 8U) & 0x00FF00FFUL))
 
+/** Macro for Block expansion */
 #define BLK(i) (Block[(i) & 15U] = RotateLeft32(Block[((i) + 13U) & 15U] ^ Block[((i) + 8U) & 15U] \
 	^Block[((i) + 2U) & 15U] ^ Block[(i) & 15U], 1U))
 
-/* R0, R1, R2, R3, R4 are the different operations used in SHA1 */
+/**
+ * @name  SHA1 operations
+ * @{
+ */
+/**< R0, R1, R2, R3, R4 are the different intermediate operations used in SHA1 digest calculation */
 #define R0(v, w, x, y, z, i)   \
 	do {	\
 		BLK0(i); \
@@ -111,15 +120,16 @@ typedef struct {
 		(z) += (((w) ^ (x) ^ (y)) + t + K3 + RotateLeft32((v), 5U)); \
 		(w) = RotateLeft32((w), 30U); \
 	} while (FALSE)
+/** @} */
 
-/* Muliply 32-bit Len by 8 and store 64-bit result in LenHigh, LenLow */
+/** Multiply 32-bit Len by 8 and store 64-bit result in LenHigh, LenLow */
 #define CONVERT_BYTE_TO_BITS(Len, LenHigh, LenLow)	\
 	do { \
 		LenHigh = (Len) >> 29U;	\
 		LenLow = (Len) << 3U;	\
 	} while(FALSE)
 
-/* Extracts specified byte from 32-bit word. Make sure ByteNo is between 0 to 3. */
+/** Extracts specified byte from 32-bit word. Make sure ByteNo is between 0 to 3. */
 #define GET_BYTE_FROM_U32(Data, ByteNo)			((u8)(((Data) >> ((ByteNo) * 8U)) & 0xFFU))
 
 /************************************ Function Prototypes *****************************************/

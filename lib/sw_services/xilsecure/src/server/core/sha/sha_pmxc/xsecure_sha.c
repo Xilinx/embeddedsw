@@ -223,9 +223,9 @@ END:
 /**
 * @brief	This function updates input data to SHA Engine to calculate Hash.
 *
-* @param	InstancePtr - Pointer to the SHA instance.
-* @param	Data - Pointer to the input data for hashing.
-* @param	Size - Input data size in bytes.
+* @param	InstancePtr	Pointer to the SHA instance.
+* @param	DataAddr	Pointer to the input data for hashing.
+* @param	DataSize	Size of the input data in bytes.
 *
 * @return
 *		XST_SUCCESS - Upon Success.
@@ -233,7 +233,7 @@ END:
 *		XSECURE_SHA_INVALID_PARAM_ERROR
 *		XSECURE_SHA_NOT_STARTED_ERROR
  *******************************************************************************************/
-int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Size)
+int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 DataSize)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -251,26 +251,26 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 	}
 
 	/** Validate the SHA data size */
-	Status = XSecure_ValidateShaDataSize(Size);
+	Status = XSecure_ValidateShaDataSize(DataSize);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
 	/** If the inpute data is of 0 length, do not initiate DMA transfer */
-	if (Size == 0U) {
+	if (DataSize == 0U) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
 	/** Transfer input data to SHA engine using DMA */
-	Status = XSecure_ShaDmaTransfer(InstancePtr, DataAddr, Size, InstancePtr->IsLastUpdate);
+	Status = XSecure_ShaDmaTransfer(InstancePtr, DataAddr, DataSize, InstancePtr->IsLastUpdate);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_SHA_DMA_TRANSFER_ERROR;
 		goto END_RST;
 	}
 
-	InstancePtr->Sha3Len += Size;
+	InstancePtr->Sha3Len += DataSize;
 
 	if (InstancePtr->IsLastUpdate == (u32)TRUE) {
 		InstancePtr->ShaState = XSECURE_SHA_UPDATE_DONE;
@@ -294,7 +294,7 @@ END:
 * @brief	This function calculates and reads the final hash of input data.
 *
 * @param	InstancePtr - Pointer to the SHA instance.
-* @param   	Hash - Pointer which holds final hash.
+* @param   	HashAddr - Pointer which holds final hash.
 * @param	HashBufSize - Size allocated for Hash Buffer
 *
 * @return
@@ -539,11 +539,13 @@ END:
 /**
 * @brief	This function calculates the SHA2/3 digest on the given input data
 *
-* @param	InstancePtr - Pointer to the SHA instance.
-* @param	Data - Pointer to the input data for hashing.
-* @param	Size - Input data size in bytes.
-* @param   	Hash - Pointer which holds final hash.
-* @param	HashBufSize - Size allocated for Hash Buffer
+* @param	InstancePtr	Pointer to the SHA instance.
+* @param	ShaMode		Indicates SHA3/SHA2 shall be operated in which sha mode
+* 			that is SHA-384/256/512
+* @param	DataAddr	Pointer to the input data for hashing.
+* @param	DataSize	Size of the input data in bytes.
+* @param	HashAddr	Pointer which holds final hash.
+* @param	HashBufSize	Size allocated for Hash Buffer
 *
 * @return
 *		XST_SUCCESS - Upon Success.

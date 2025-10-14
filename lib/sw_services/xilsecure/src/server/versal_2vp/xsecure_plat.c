@@ -163,14 +163,14 @@ END:
 /**
  * @brief	This function configures DMA Byte Swap based on the user input.
  *
- * @param	Swap	Enable/Disable byte swapping.
+ * @param	Op	Enable/Disable byte swapping.
  *
  **************************************************************************************************/
-void XSecure_ConfigureDmaByteSwap(u32 Swap)
+void XSecure_ConfigureDmaByteSwap(u32 Op)
 {
 	XSecure_Aes *AesInstance = XSecure_GetAesInstance();
 
-	AesInstance->DmaSwapEn = Swap;
+	AesInstance->DmaSwapEn = Op;
 }
 
 /**************************************************************************************************/

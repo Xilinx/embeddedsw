@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -54,6 +54,10 @@ void XSecure_Sha384Start(void);
 int XSecure_Sha384Update(u8* Data, u32 Size);
 int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash);
 
+/**
+ * @}
+ * @endcond
+ */
 #ifdef __cplusplus
 }
 #endif

@@ -47,9 +47,10 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes);
 
 /**************************** Type Definitions *******************************/
 
-#define XSECURE_PUB_ALGO_LMS_HSS	(4U)
-#define XSECURE_PUB_ALGO_LMS		(5U)
+#define XSECURE_PUB_ALGO_LMS_HSS	(4U)	/**< LMS/HSS public key algorithm */
+#define XSECURE_PUB_ALGO_LMS		(5U)	/**< LMS public key algorithm */
 #define XSECURE_LMS_PUB_KEY_TMP_BUF_ADJ_NODE_VAL_INDEX		(32U)
+		/**< LMS public key temporary buffer adjustment node value index */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -65,19 +66,21 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes);
 * 		Public key, which in turn is used to calculate the root public
 * 		key of Merkle tree
 *
-* @param	Data			- Data to be authenticated
-* @param	DataLen			- Length of data to be authenticated
-* @param	PreHashedMsg		-  If TRUE, then Data contains digest,
-* 					if FALSE contains raw msg to be authenticated
-* @param	LmsOtsSignatureBuff	- Pointer to OTS signature buffer
-* @param	LmsOtsSignatureLen 	- Length of OTS signature buffer
-* @param	LmsOtsExpectedType 	- Expected OTS signature type, value read
+* @param	ShaInstPtr	Pointer to the SHA instance.
+* @param	DmaPtr		Pointer to the DMA instance.
+* @param	Data		Pointer to the data to be authenticated
+* @param	DataLen		Length of data to be authenticated
+* @param	PreHashedMsg	If TRUE, then Data contains digest,
+*				if FALSE contains raw msg to be authenticated
+* @param	LmsOtsSignatureBuff	Pointer to OTS signature buffer
+* @param	LmsOtsSignatureLen	Length of OTS signature buffer
+* @param	LmsOtsExpectedType 	Expected OTS signature type, value read
 * 					from public key of this level XSecure_LmsOtsType
-* @param	Kc			- Buffer where the computed value of root
+* @param	Kc	Buffer where the computed value of root
 * 					needs to be copied, assumed that has enough place
 *
 * @return
-*	-	@ref XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - If operation success, otherwise following errors
 *******************************************************************************/
 static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
         XPmcDma *DmaPtr,
@@ -337,16 +340,9 @@ END:
 /**
 * @brief	This function performs LMS level signature verification
 *
-* @param	Data - Data to be authenticated, will be passed to
-* 				LMS OTS signature verification
-* @param	DataLen	- Length of data to be authenticated, will be
-* 				passed to LMS OTS signature verification
-* @param	PreHashedMsg	- If TRUE, then Data contains digest, if FALSE
-*				contains raw msg to be authenticated
-* @param	LmsSign		- Pointer to LMS signature buffer for a tree
-* @param	LmsSignLen	- Length of LMS signature
-* @param	ExpectedPubKey	- Pointer to expected  LMS public key
-* @param	PubKeyLen	- Length of LMS public key
+* @param	ShaInstPtr	Pointer to SHA instance
+* @param	DmaPtr	Pointer to DMA instance
+* @param	LmsSignVerifyParams	Pointer to LMS signature verification parameters
 *
 * @return
 *		XST_SUCCESS - if operation success, otherwise following errors
@@ -764,13 +760,12 @@ END:
 * 		Completes all upper level Merkle trees verification and prepares
 * 		for data's Digest calculation
 *
-* @param[in]	Signature	- Pointer to Signature buffer
-* @param[in]	SignatureLen	- Length of signature buffer
-* @param[in]	PublicKey	- Pointer to public key buffer
-* @param[in]	PublicKeyLen	- Length of public key buffer
+* @param	ShaInstPtr	Pointer to SHA instance
+* @param	DmaPtr	Pointer to DMA instance
+* @param	HssInitParams	Pointer to HSS initialization parameters
 *
 * @return
-*	-	@ref XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - If operation success, otherwise following errors
 *******************************************************************************/
 int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitParams *HssInitParams)
 {
@@ -1075,11 +1070,13 @@ END:
 * @brief	This function calculates the Digest of data to authenticate
 * 		to initiate the process of LMS verification
 *
-* @param	Data	- Data to be authenticated
-* @param	DataLen	- Length of data to be authenticated
+* @param	ShaInstPtr	Pointer to the SHA instance.
+* @param	Data	Pointer to the data to be authenticated
+* @param	DataLen	Length of data to be authenticated
+* @param	Mode	Mode of the SHA operation
 *
 * @return
-*	-	@ref XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - If operation success, otherwise following errors
 *******************************************************************************/
 int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	u8* Data, u32 DataLen, XSecure_ShaMode Mode)
@@ -1137,11 +1134,13 @@ END:
 *		Data should have been pre-processed before calling this function, by
 *		calling @ref XSecure_HssInit & @ref XSecure_LmsHashMessage in sequence
 *
-* @param	SignBuff	- Pointer to Signature buffer
-* @param	SignatureLen	- Length of signature buffer
+* @param	ShaInstPtr	Pointer to the SHA instance.
+* @param	DmaPtr		Pointer to the DMA instance.
+* @param	SignBuff	Pointer to Signature buffer
+* @param	SignatureLen	Length of signature buffer
 *
 * @return
-*		XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - If operation success, otherwise following errors
 *******************************************************************************/
 int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	XPmcDma *DmaPtr, u8* SignBuff,
@@ -1264,13 +1263,14 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes)
 /**
 * @brief	This function returns public key LMS type.
 *
-* @param	PubAlgo	- Algorithm selected by current PDI
-* @param	PubKey	- pointer to PPK location, PPK is used to detect the variant of LMS selected
+* @param	PubAlgo	Algorithm selected by current PDI
+* @param	PubKey	Pointer to PPK location, PPK is used to detect the variant of LMS selected
+* @param	SignAlgo	Pointer to store the extracted LMS hash algorithm
 *
 * @return
-*	-	@ref XST_SUCCESS - If operation success, otherwise following errors
-*	-	@ref XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR
-*	-	@ref XSECURE_LMS_INVALID_PARAM - If an invalid public algorithm is provided
+*		- XST_SUCCESS - If operation success, otherwise following errors
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR
+*		- XSECURE_LMS_INVALID_PARAM - If an invalid public algorithm is provided
 *******************************************************************************/
 int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode *SignAlgo)
 {

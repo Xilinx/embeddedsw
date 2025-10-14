@@ -42,7 +42,8 @@ extern "C" {
 /************************************ Variable Definitions ****************************************/
 
 /************************************** Type Definitions ******************************************/
-/**< XilSecure API ids */
+
+/** XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,		/**< 0U */
 	XSECURE_API_RSA_SIGN_VERIFY,		/**< 1U */
@@ -71,6 +72,7 @@ typedef enum {
 	XSECURE_API_MAX,			/**< 24U */
 } XSecure_ApiId;
 
+/** XilSecure API KAT ids */
 typedef enum {
 	XSECURE_API_AES_DECRYPT_KAT = 0U,		/**< 0U */
 	XSECURE_API_AES_DECRYPT_CM_KAT,			/**< 1U */

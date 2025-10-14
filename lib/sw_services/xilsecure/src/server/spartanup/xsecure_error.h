@@ -35,6 +35,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/** XilSecure Error Codes */
 enum {
 	XSECURE_SHA_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA
 						   init fails. */
@@ -102,12 +103,16 @@ enum {
 };
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR
+						/**< SHA3 KAT failed error */
 
 #define XSECURE_SHA3_INVALID_PARAM		XSECURE_SHA_INVALID_PARAM
+						/**< SHA3 invalid parameter error */
 
 #define XSECURE_SHA3_PMC_DMA_UPDATE_ERROR	XSECURE_SHA_PMC_DMA_UPDATE_ERROR
+						/**< SHA3 PMC DMA update error */
 
 #define XSECURE_SHA3_FINISH_ERROR		XSECURE_SHA_FINISH_ERROR
+						/**< SHA3 finish error */
 /**
  * @}
 */

@@ -35,12 +35,13 @@ extern "C" {
 #define XSECURE_SHA3_NUM_OF_INSTANCES		(1U) /**< SHA3 Number of instances*/
 
 #define XSECURE_SHA_NUM_OF_INSTANCES		(XSECURE_SHA3_NUM_OF_INSTANCES)
+						/**< Number of instances */
 
 #define XSECURE_SHA3_0_BASE_ADDRESS		(0xF1210000U) /**< SHA3 base address */
 
 #define XSECURE_SHA3_0_DEVICE_ID		(0U) /**< SHA3 0 device id */
 
-#define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_0_DEVICE_ID)
+#define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_0_DEVICE_ID) /**< SHA 0 device id */
 
 #define XSECURE_MAX_HASH_SIZE_IN_BYTES          (48U)  /**< SHA3 maximum supported hash size */
 

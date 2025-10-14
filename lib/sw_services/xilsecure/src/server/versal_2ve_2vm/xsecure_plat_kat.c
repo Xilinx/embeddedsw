@@ -41,9 +41,9 @@
 #include "xsecure_lms_hss.h"
 #include "xsecure_lms_core.h"
 /************************** Constant Definitions *****************************/
-#define XSECURE_LMS_DATA_SIZE_BYTES		(56U)
-#define XSECURE_HSS_SIGNATURE_SIZE_BYTES	(4464U)
-#define XSECURE_LMS_SIGNATURE_SIZE_BYTES	(4460U)
+#define XSECURE_LMS_DATA_SIZE_BYTES		(56U)	/**< LMS Data Size */
+#define XSECURE_HSS_SIGNATURE_SIZE_BYTES	(4464U)	/**< HSS Signature Size */
+#define XSECURE_LMS_SIGNATURE_SIZE_BYTES	(4460U)	/**< LMS Signature Size */
 
 static const u8 Sha256InputData[48] = {
 	0x4EU, 0xEFU, 0x51U, 0x07U, 0x45U, 0x9BU, 0xDDU, 0xF8U,
@@ -1395,7 +1395,7 @@ static u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE] = {
 /**
  * @brief	This function performs KAT on HMAC (SHA3-384).
  *
- * @param	SecureSha3	Pointer to SHA3 instance
+ * @param	SecureSha	Pointer to SHA3 instance
  *
  * @return
  *		 - XST_SUCCESS  On success
@@ -1802,3 +1802,4 @@ int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
 
 	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 }
+/** @} */

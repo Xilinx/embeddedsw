@@ -36,21 +36,23 @@ extern "C" {
 #include "xsecure_sha.h"
 
 /************************** Constant Definitions ******************************/
+/** Structure for HSS initialization parameters */
 typedef struct {
-	u8* SignBuff;	/** Buffer to store signature to be verified */
-	u32 SignatureLen;	/** Length of signature to be verified */
-	u8* PublicKey;	/** Buffer to store public key to verify signature */
-	u32 PublicKeyLen;	/** Length of public key to verify signature */
+	u8* SignBuff;	/**< Buffer to store signature to be verified */
+	u32 SignatureLen;	/**< Length of signature to be verified */
+	u8* PublicKey;	/**< Buffer to store public key to verify signature */
+	u32 PublicKeyLen;	/**< Length of public key to verify signature */
 } XSecure_HssInitParams;
 
+/** Structure for LMS Signature verification parameters */
 typedef struct {
-	u8* Data;	/** Buffer to store data which is signed */
-	u32 DataLen;	/** Length of data which is signed */
-	u32 PreHashedMsg;	/** Flag to indicate if data is prehashed */
-	u8* LmsSign;	/** Buffer to store signature to be verified */
-	u32 LmsSignLen;	/** Length of signature to be verified */
-	u8* ExpectedPubKey;	/** Buffer to store expected public key */
-	u32 PubKeyLen;	/** Length of public key to verify signature */
+	u8* Data;	/**< Buffer to store data which is signed */
+	u32 DataLen;	/**< Length of data which is signed */
+	u32 PreHashedMsg;	/**< Flag to indicate if data is prehashed */
+	u8* LmsSign;	/**< Buffer to store signature to be verified */
+	u32 LmsSignLen;	/**< Length of signature to be verified */
+	u8* ExpectedPubKey;	/**< Buffer to store expected public key */
+	u32 PubKeyLen;	/**< Length of public key to verify signature */
 } XSecure_LmsSignVerifyParams;
 
 /***************************** Type Definitions********************************/

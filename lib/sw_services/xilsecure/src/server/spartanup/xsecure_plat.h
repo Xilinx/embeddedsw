@@ -41,8 +41,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define XSECURE_AES_BASEADDR				(0x040F0000U)
-						/**< AES Base Address */
+#define XSECURE_AES_BASEADDR		(0x040F0000U)	/**< AES base address */
 
 #define XSECURE_SSS_ADDRESS		(0x040A0090U) /**< SSS base address */
 
@@ -53,29 +52,29 @@ extern "C" {
 #define XSECURE_SSS_SHA_DMA0_VAL	(0x500U) /**< SSS SHA3 instance 0 DMA0 value*/
 #define XSECURE_AES_NO_CFG_DST_DMA 	(0xFFFFFFFFU) /**< Not to configure Dst DMA at this address in AES*/
 
-#define XSECURE_SSS_SBI_MASK	(0xF000U)
-#define XSECURE_SSS_AES_MASK	(0xF0U)
-#define XSECURE_SSS_DMA0_MASK	(0xFU)
-#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
-#define XSECURE_SSS_SBI_DMA0_VAL	(0x5000U)
-#define XSECURE_SSS_AES_DMA0_VAL	(0x50U)
+#define XSECURE_SSS_SBI_MASK	(0xF000U)	/**< SSS SBI mask */
+#define XSECURE_SSS_AES_MASK	(0xF0U)	/**< SSS AES mask */
+#define XSECURE_SSS_DMA0_MASK	(0xFU)	/**< SSS DMA0 mask */
+#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)	/**< SSS Source select mask */
+#define XSECURE_SSS_SBI_DMA0_VAL	(0x5000U)	/**< SSS SBI DMA0 value */
+#define XSECURE_SSS_AES_DMA0_VAL	(0x50U)	/**< SSS AES DMA0 value */
 
 /* Key select values */
-#define XSECURE_AES_KEY_SEL_BH_KEY			(0xBDB06600U)
-#define XSECURE_AES_KEY_SEL_BH_RD_KEY			(0xBDB08200U)
-#define XSECURE_AES_KEY_SEL_EFUSE_KEY			(0xEFDE6600U)
-#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY		(0xEFDE8200U)
-#define XSECURE_AES_KEY_SEL_KUP_KEY			(0xBDC98200U)
-#define XSECURE_AES_KEY_SEL_FAMILY_KEY		(0xFEDE8200U)
-#define XSECURE_AES_KEY_SEL_PUF_KEY			(0xDBDE8200U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_2			(0xBD858204U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_3			(0xBD858208U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_4			(0xBD858210U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
+#define XSECURE_AES_KEY_SEL_BH_KEY		(0xBDB06600U)	/**< BH Key */
+#define XSECURE_AES_KEY_SEL_BH_RD_KEY		(0xBDB08200U)	/**< BH Read Key */
+#define XSECURE_AES_KEY_SEL_EFUSE_KEY		(0xEFDE6600U)	/**< eFUSE Key */
+#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY	(0xEFDE8200U)	/**< eFUSE Red Key */
+#define XSECURE_AES_KEY_SEL_KUP_KEY		(0xBDC98200U)	/**< KUP Key */
+#define XSECURE_AES_KEY_SEL_FAMILY_KEY		(0xFEDE8200U)	/**< Family Key */
+#define XSECURE_AES_KEY_SEL_PUF_KEY		(0xDBDE8200U)	/**< PUF Key */
+#define XSECURE_AES_KEY_SEL_USR_KEY_0		(0xBD858201U)	/**< User Key 0 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_1		(0xBD858202U)	/**< User Key 1 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_2		(0xBD858204U)	/**< User Key 2 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_3		(0xBD858208U)	/**< User Key 3 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_4		(0xBD858210U)	/**< User Key 4 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_5		(0xBD858220U)	/**< User Key 5 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_6		(0xBD858240U)	/**< User Key 6 */
+#define XSECURE_AES_KEY_SEL_USR_KEY_7		(0xBD858280U)	/**< User Key 7 */
 
 /**
  * @name  AES_KEY_CLEAR register
@@ -120,19 +119,23 @@ extern "C" {
 
 #define XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK	(0x00288003U)
 
-#define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
+/** @} */
 
-#define XSECURE_AES_INVALID_CFG				(0xFFFFFFFFU)
+#define XSECURE_AES_KEY_DEC_SEL_BH_RED		(0x1U)
+				/**< BH Red Key Decryption Source Select */
+#define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED	(0x2U)
+				/**< eFUSE Red Key Decryption Source Select */
 
-#define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
-										/**< Max key source value */
+#define XSECURE_AES_INVALID_CFG		(0xFFFFFFFFU)	/**< Invalid Configuration */
+
+#define XSECURE_MAX_KEY_SOURCES		XSECURE_AES_EXPANDED_KEYS
+						/**< Max key source value */
 
 #define XSECURE_SHA3_256_HASH_LEN		(32U) /**< SHA3_256 block length */
 #define XSECURE_SHAKE_256_HASH_LEN		(32U) /**< SHAKE_256 hash length */
 
-#define SHA256					(0U) /** SHA256 mode */
-#define SHAKE256				(1U) /** SHAKE256 mode */
+#define SHA256					(0U) /**< SHA256 mode */
+#define SHAKE256				(1U) /**< SHAKE256 mode */
 
 /** SHA3-384 mode related macros for SPARTANUPLUSAES1 device */
 #ifdef SPARTANUPLUSAES1
@@ -183,6 +186,7 @@ typedef struct {
 	u8 IsLastChunkDest;	/**< Flag for last update in destination */
 } XSecure_AesDmaCfg;
 
+/**	This structure contains parameters to configure SHA instance */
 typedef struct {
 	u32 RegOffset;	/**< Register offset for key source */
 	u32 KeySrcSelVal;	/**< Selection value for key source */
@@ -225,3 +229,4 @@ int XSecure_CryptoCheck(void);
 #endif
 
 #endif /** XSECURE_PLAT_H */
+/** @} */

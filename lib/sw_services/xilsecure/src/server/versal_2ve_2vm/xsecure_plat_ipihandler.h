@@ -47,3 +47,4 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_PLAT_IPIHANDLER_H_ */
+/** @} */

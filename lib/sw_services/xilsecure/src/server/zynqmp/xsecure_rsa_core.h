@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -135,8 +135,9 @@ extern "C" {
 #define XSECURE_CSU_RSA_STATUS_BUSY	(0x2U) /**< RSA busy */
 #define XSECURE_CSU_RSA_STATUS_ERROR	(0x4U) /**< Error */
 #define XSECURE_CSU_RSA_STATUS_PROG_CNT	(0xF8U) /**< Progress Counter */
-/* @}*/
+/** @} */
 
+/** Enum for RSA state */
 typedef enum {
 	XSECURE_RSA_UNINITIALIZED = 0, /**< RSA uninitialized value */
 	XSECURE_RSA_INITIALIZED /**< RSA initialized value */
@@ -177,4 +178,4 @@ u8* XSecure_RsaGetTPadding(void);
 
 #endif /* XSECURE_RSA_CORE_H */
 
-/* @} */
+/** @} */

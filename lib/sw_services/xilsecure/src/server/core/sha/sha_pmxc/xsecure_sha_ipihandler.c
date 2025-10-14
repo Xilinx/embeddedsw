@@ -169,3 +169,4 @@ static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32
 END:
 	return Status;
 }
+/** @} */

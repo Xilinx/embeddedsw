@@ -53,13 +53,15 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/** Structure to hold partial PDI event parameters */
 typedef struct
 {
-	u32 PartialPdiEventSts;
+	u32 PartialPdiEventSts;	/**< Partial PDI event status */
 	int (*TriggerPartialPdiEvent)(void);
-	u32 IpiMask;
-	u32 PdiSrc;
-	u64 PdiAddr;
+				/**< Function pointer to trigger partial PDI event */
+	u32 IpiMask;	/**< IPI mask */
+	u32 PdiSrc;	/**< PDI source */
+	u64 PdiAddr;	/**< PDI address */
 } XSecure_PartialPdiEventParams;
 
 /************************** Function Prototypes ******************************/

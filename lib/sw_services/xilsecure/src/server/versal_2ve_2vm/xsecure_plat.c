@@ -661,3 +661,4 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 END:
 	return Status;
 }
+/** @} */

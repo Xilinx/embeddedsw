@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -49,7 +49,7 @@
 #include "xsecure_aesclient.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_SLR_INDEX_SHIFT (6U)
+#define XSECURE_SLR_INDEX_SHIFT (6U)	/**< SLR index shift */
 
 /**************************** Type Definitions *******************************/
 
@@ -826,7 +826,6 @@ END:
  * 		along with update AAD/GMAC based on the user's choice.
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	KeySrc		Type of the key
  * @param 	AesDataParams	Pointer to the Aes parameters
  *
  * @return

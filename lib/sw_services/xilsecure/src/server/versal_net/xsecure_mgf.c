@@ -146,7 +146,7 @@ static int XSecure_ShaMgfFinish(XSecure_ShaMode Shatype, void *InstancePtr, u64 
  *
  * @param	Shatype		holds the XSecure_ShaMode value of chosen sha algo.
  * @param	InstancePtr	is the pointer to SHA algorithm used.
- * @param	InDataAddr	is the input data address.
+ * @param	InputDataAddr	is the input data address.
  * @param	Size		is the size of the input data.
  * @param	HashAddr	is the address where the hash is stored.
  *
@@ -298,3 +298,4 @@ int XSecure_MaskGenFunc(XSecure_ShaMode ShaType, void *InstancePtr, XSecure_MgfI
 END:
 	return Status;
 }
+/** @} */

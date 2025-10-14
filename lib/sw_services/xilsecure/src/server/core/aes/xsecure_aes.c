@@ -2089,8 +2089,6 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	AesDmaCfg	DMA SRC and DEST channel configuration
- * @param	IsLastChunk	If this is the last update of data to be encrypted,
- *				  this parameter should be set to TRUE otherwise FALSE
  *
  * @return
  *	-	XST_SUCCESS - On successful copy of the GCM tag

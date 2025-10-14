@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,12 +63,12 @@ typedef struct {
  * irrespective of compiler used.
  */
 typedef enum{
-	XSECURE_SSS_IGNORE = -1,
-	XSECURE_SSS_PCAP = 0,
-	XSECURE_SSS_DMA0,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA,
-	XSECURE_SSS_INVALID
+	XSECURE_SSS_IGNORE = -1,	/**< Ignore the source */
+	XSECURE_SSS_PCAP = 0,	/**< PCAP source */
+	XSECURE_SSS_DMA0,	/**< DMA0 source */
+	XSECURE_SSS_AES,	/**< AES source */
+	XSECURE_SSS_SHA,	/**< SHA source */
+	XSECURE_SSS_INVALID	/**< Invalid source */
 }XSecure_SssSrc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -85,9 +85,10 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
 u32 XSecure_SssPcap(XSecure_Sss *InstancePtr, u16 DmaId);
 #endif
 
+/** @endcond */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SSS_H_ */
-/**@}*/
+/** @} */

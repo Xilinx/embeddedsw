@@ -53,12 +53,14 @@ extern "C" {
 #define XSECURE_KEY_ID_LEN_IN_BYTES (128U) /**< Key id length in bytes */
 
 /************************** Variable Definitions *****************************/
+/** RSA operation modes */
 typedef enum {
 	XSECURE_RSA_EXPQ_MODE = 0, /**< RSA EXPQ mode */
 	XSECURE_RSA_CRT_MODE,      /**< RSA CRT mode */
 	XSECURE_RSA_EXPOPT_MODE    /**< RSA expopt mode */
 } XSecure_RsaOperationMode;
 
+/** RSA key parameters */
 typedef struct {
 	u64 ExpAddr;		/**< Exponent address */
 	u64 ModAddr;		/**< Modulus address */
@@ -80,6 +82,7 @@ typedef struct {
 	XSecure_RsaOperationMode OpMode; /**< RSA operation mode */
 } XSecure_RsaKeyParam;
 
+/** SHA operation parameters */
 typedef struct {
 	u64 DataAddr; /**< SHA2/3 data address */
 	u64 HashAddr; /**< SHA2/3 hash address */
@@ -90,7 +93,7 @@ typedef struct {
 	u8 OperationFlags; /**< SHA2/3 operation flags */
 } XSecure_ShaOpParams;
 
-/**< XilSecure API ids */
+/** XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,		/**< 0U */
 	XSECURE_API_RSA_SIGN_VERIFY,		/**< 1U */
@@ -123,7 +126,7 @@ typedef enum {
 	XSECURE_API_MAX,			/**< 39U */
 } XSecure_ApiId;
 
-/**< XilSecure KAT ids */
+/** XilSecure KAT ids */
 typedef enum {
 	XSECURE_API_AES_DECRYPT_KAT = 0U,		/**< 0U */
 	XSECURE_API_AES_DECRYPT_CM_KAT,			/**< 1U */
@@ -143,3 +146,4 @@ typedef enum {
 #endif
 
 #endif  /* XSECURE_PLAT_DEFS_H */
+/** @} */

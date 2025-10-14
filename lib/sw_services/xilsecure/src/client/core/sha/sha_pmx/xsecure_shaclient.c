@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -50,8 +50,8 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XSECURE_SHA_FIRST_PACKET_SHIFT		(30U)
-#define XSECURE_SHA_UPDATE_CONTINUE_SHIFT	(31U)
+#define XSECURE_SHA_FIRST_PACKET_SHIFT		(30U)	/**< SHA - First packet shift */
+#define XSECURE_SHA_UPDATE_CONTINUE_SHIFT	(31U)	/**< SHA - Update continue shift */
 
 /************************** Function Prototypes ******************************/
 

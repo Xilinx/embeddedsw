@@ -86,6 +86,7 @@
 /***************************** Type Definitions ******************************/
 typedef RsaKeyPair XSecure_RsaKeyPtr;
 
+/** Enum to hold RSA key operation states */
 typedef enum {
 	XSECURE_RSA_KEY_DEFAULT_STATE = 0, /**< Default state */
 	XSECURE_RSA_KEY_INIT_STATE,     /**< Key initialized state */
@@ -93,6 +94,7 @@ typedef enum {
 	XSECURE_RSA_KEY_READY_STATE     /**< Key ready state */
 } XSecure_RsaKeyOpState;
 
+/** Enum to hold RSA key status */
 typedef enum {
 	XSECURE_RSA_KEY_FREE = 0, /**< RSA key is free */
 	XSECURE_RSA_KEY_AVAIL /**< RSA key is available */
@@ -123,11 +125,13 @@ typedef struct {
 	u8 *QInv;     /**< Q inverse */
 } XSecure_RsaKey;
 
+/** Structure to hold RSA public key */
 typedef struct {
 	u8 Mod[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];          /**< Modulus */
 	u32 PubExp[XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS]; /**< Public exponent */
 } XSecure_RsaPubKey;
 
+/** Structure to hold RSA private key */
 typedef struct {
 	u8 Mod[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];    /**< Modulus */
 	u8 Exp[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];    /**< Exponent */
@@ -138,20 +142,24 @@ typedef struct {
 	u8 QInv[XSECURE_PRIME_FACTOR_Q_SIZE];         /**< Q inverse */
 }XSecure_RsaPrivKey;
 
+/** Structure to hold RSA key pair */
 typedef struct {
 	XSecure_RsaPrivKey* PrivKey;     /**< Private Key */
 	XSecure_RsaPubKey* PubKey; /**< Public Key */
 } XSecure_RsaKeyPair;
 
+/** Structure that holds parameters for RSA key generation */
 typedef struct {
-	XSecure_RsaKeyPair KeyPair;
-	u32 QuantSize;
-	u32 IsRsaKeyAvail;
+	XSecure_RsaKeyPair KeyPair;	/**< Key pair for RSA */
+	u32 QuantSize;		/**< Quant size */
+	u32 IsRsaKeyAvail;	/**< Flag to indicate if RSA key is available */
 } XSecure_RsaKeyGenParam;
 
+/** Structure to hold parameters for RSA key management */
 typedef struct {
 	XSecure_RsaKeyGenParam Key[XSECURE_RSA_MAX_KEY_GEN_SUPPORT];
-	u32 KeyInUse;
+					/**< Key parameters for RSA */
+	u32 KeyInUse;	/**< Index of the key currently in use */
 } XSecure_RsaKeyMgmt;
 
 /***************************** Function Prototypes ***************************/

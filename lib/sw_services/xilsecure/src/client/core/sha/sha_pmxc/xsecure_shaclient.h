@@ -45,16 +45,16 @@ extern "C" {
 #define XSECURE_SHA_FINISH      (0x4U)	/**< Operation flags for SHA finish */
 
 /**************************** Type Definitions *******************************/
-/* Sha modes */
+/** SHA modes */
 typedef enum {
-        XSECURE_SHA_INVALID_MODE = -1,
-        XSECURE_SHA3_384,
-        XSECURE_SHA2_384,
-        XSECURE_SHA2_256,
-        XSECURE_SHAKE_256,
-        XSECURE_SHA2_512,
-        XSECURE_SHA3_256,
-        XSECURE_SHA3_512
+        XSECURE_SHA_INVALID_MODE = -1,	/**< Invalid mode */
+        XSECURE_SHA3_384,	/**< SHA3-384 mode */
+        XSECURE_SHA2_384,	/**< SHA2-384 mode */
+        XSECURE_SHA2_256,	/**< SHA2-256 mode */
+        XSECURE_SHAKE_256,	/**< SHAKE-256 mode */
+        XSECURE_SHA2_512,	/**< SHA2-512 mode */
+        XSECURE_SHA3_256,	/**< SHA3-256 mode */
+        XSECURE_SHA3_512	/**< SHA3-512 mode */
 } XSecure_ShaMode;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -66,8 +66,10 @@ int XSecure_Sha2Kat(XSecure_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
+/** @endcond */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_SHACLIENT_H */
+/** @} */
