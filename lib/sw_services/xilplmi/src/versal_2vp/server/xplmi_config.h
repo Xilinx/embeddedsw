@@ -202,9 +202,9 @@ extern "C" {
 //#define PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 
 /**
- * Enable the below define to enable events queuing mechanism for SHA & AES
+ * The below define enable events queuing mechanism for SHA & AES
  */
-//#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
+#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
 
 /**
  * Enable the below define to enable the feature to get optional data for Versal_2vp

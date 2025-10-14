@@ -500,10 +500,15 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "#define PLM_ENABLE_CFI_SELECTIVE_READ"
 	}
 
-	# Get aes_and_sha_events_queuing_en value set by user, by default it is FALSE
+	# Get aes_and_sha_events_queuing_en value set by user, by default it is FALSE(Valid only for Versal)
 	set value [common::get_property CONFIG.aes_and_sha_events_queuing_en $libhandle]
-	if {$value == true} {
-		puts $file_handle "\n/* AES and SHA events queuing mechanism enable for Versal */"
+	if {$proc_type == "psv_pmc"} {
+		if {$value == true} {
+			puts $file_handle "\n/* AES and SHA events queuing mechanism enable for Versal */"
+			puts $file_handle "#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING"
+		}
+	} else {
+		puts $file_handle "\n/* Enable AES and SHA events queuing mechanism */"
 		puts $file_handle "#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING"
 	}
 

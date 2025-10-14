@@ -204,6 +204,12 @@ extern "C" {
 /* Enable the below define to enable PMC I2C Handshake Feature*/
 //#define PLM_I2C_MB_HANDSHAKE
 
+/**
+ * The below define enable events queuing mechanism for SHA & AES
+ */
+#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
+
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
