@@ -27,6 +27,14 @@
 
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
+/**
+ * For HBMon[0:3], map to SW error events bit 0-3 and for HBMon[4:7], map to SW
+ * error events bit 10-13.
+ */
+#define HB_MON_SW_ERR_MASK(Idx) \
+	(((Idx) < XPM_NODEIDX_DEV_HB_MON_4) ? ((u32)1U << (Idx)) : \
+	 ((u32)1U << ((Idx) + 6U)))
+
 static struct XPm_PeriphOps GenericOps = {
 	.SetWakeupSource = &XPmGicProxy_WakeEventSet,
 };
@@ -292,7 +300,7 @@ static int HbMon_Scheduler(void *data)
 									Idx);
 				HbMon_TimeoutList[Idx] = 0U;
 				XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-							(u32)1U << Idx);
+						    HB_MON_SW_ERR_MASK(Idx));
 			}
 		} else {
 			HbMon_TimeoutList[Idx] = HbMon_TimeoutList[Idx] - HbMon_SchedFreq;
