@@ -1022,7 +1022,6 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 	}
 
-	#ifdef XPAR_XV_SDITX_0_DBPC
 	if ((InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_444) ||
 		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_RGB) ||
 		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_MEM_YUVX10)) {
@@ -1030,7 +1029,6 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 	} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCBCR_422) {
 			XV_SdiTx_ClearYCbCr444_RGB_10bit(InstancePtr);
 	}
-	#endif
 
 #ifndef versal
 	/* Workaround for the current limitation of the TX core */
