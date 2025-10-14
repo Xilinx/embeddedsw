@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,8 @@
 *		     further information
 * 2.05a bss 02/05/12 Assigned RecvBufferPtr in XIic_MasterSend API and
 *		     SendBufferPtr in XIic_MasterRecv NULL
+* 3.15  vlt 10/10/25 Replace u8 to int for LoopCnt in RecvMasterData to
+* 		     eliminate type mismatch warning.
 * </pre>
 *
 ****************************************************************************/
@@ -634,7 +637,7 @@ static void SendMasterData(XIic *InstancePtr)
 ******************************************************************************/
 static void RecvMasterData(XIic *InstancePtr)
 {
-	u8 LoopCnt;
+	int LoopCnt;
 	int BytesInFifo;
 	int BytesToRead;
 	u32 CntlReg;
