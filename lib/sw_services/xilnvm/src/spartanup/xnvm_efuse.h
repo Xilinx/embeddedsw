@@ -53,9 +53,6 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 
-/**
-* @}
-*/
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< Word length */
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
 #define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for parts-SU10P,SU25P,SU35P*/
@@ -159,14 +156,14 @@ extern "C" {
 #define XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET		(0xFFU) /**< Byte mask */
 
 #define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U) /**< CRC for Aes zero key */
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS	(0x02U) /*Puf Invalid Bits*/
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT	(0x13U) /*Puf Invalid shift*/
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK	(0x00006000U) /*Puf Invalid mask*/
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL	(0x03U) /*Puf Invalid */
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS	(0x02U) /**< Puf Invalid Bits*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT	(0x13U) /**< Puf Invalid shift*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK	(0x00006000U) /**< Puf Invalid mask*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL	(0x03U) /**< Puf Invalid */
 
-#define XNVM_EFUSE_DISSJTAG_EFUSE_BITS		(0x01U) /*Disable Secure JTAG shift*/
-#define XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT		(0x12U) /*Disable Secure JTAG shift*/
-#define XNVM_EFUSE_DISSJTAG_EFUSE_MASK		(0x00001000U) /*Disable Secure JTAG shift*/
+#define XNVM_EFUSE_DISSJTAG_EFUSE_BITS		(0x01U) /**< Disable Secure JTAG shift*/
+#define XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT		(0x12U) /**< Disable Secure JTAG shift*/
+#define XNVM_EFUSE_DISSJTAG_EFUSE_MASK		(0x00001000U) /**< Disable Secure JTAG shift*/
 
 /**< Efuse clock programming related macros */
 #ifndef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
@@ -175,6 +172,9 @@ extern "C" {
 
 /***************************** Type Definitions *******************************/
 
+/**
+ * @brief eFuse programming information
+ */
 typedef struct {
 	u32 StartRow; /**< Start row number of eFuse */
 	u32 ColStart; /**< Start column number of eFuse */
@@ -218,17 +218,26 @@ typedef struct {
 	u8 CrcRmaEn; /**< Flag to read or program RMA enable using CRC */
 } XNvm_EfuseSecCtrlBits;
 
+/**
+ * @brief Efuse AES key
+ */
 typedef struct {
 	u32 AesKey[XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS]; /**< AES key value to be programmed */
 	u8 PrgmAesKey; /**< Flag to determine whether to program AES key or not */
 } XNvm_EfuseAesKeys;
 
+/**
+ * @brief Efuse AES IV
+ */
 typedef struct {
 	u32 AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]; /**< AES IV value to be programmed */
 	u8 PrgmIv; /**< Flag to determine whether to program IV or not */
 	XNvm_EfuseIvType IvType;
 } XNvm_EfuseAesIvs;
 
+/**
+ * @brief Efuse PPK hashes
+ */
 typedef struct {
 	u32 ActualPpkHashSize; /**< PPK hash size to be programmed it can be either 256/384 bit */
 	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
@@ -241,32 +250,49 @@ typedef struct {
 #endif
 } XNvm_EfusePpkHash;
 
+/**
+ * @brief Efuse Decrypt only
+ */
 typedef struct {
 	u8 PrgmDeconly; /**< Flag to determine whether to program Decrypt only or not */
 } XNvm_EfuseDecOnly;
 
+/**
+ * @brief Efuse SPK revoke ID
+ */
 typedef struct {
-	u32 RevokeId[XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES]; /**< Revoke ID value */
+	u32 RevokeId[XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES]; /**< Revoke ID info */
 	u8 PrgmSpkRevokeId; /**< Flag to determine whether to program SPK revoke ID or not */
 } XNvm_EfuseSpkRevokeId;
 
+/**
+ * @brief Efuse AES revoke ID info
+ */
 typedef struct {
 	u32 AesRevokeId; /**< AES revoke ID */
 	u8 PrgmAesRevokeId; /**< Flag to determine whether to program AES revoke ID or not */
 } XNvm_EfuseAesRevokeId;
 
+/**
+ * @brief Efuse Xilinx control
+ */
 typedef struct {
 	u32 PrgmPufHDInvld;  /**< Program PUFHD_INVLD */
 	u32 PrgmDisSJtag;    /**< Program Disable Secure JTAG */
 } XNvm_EfuseXilinxCtrl;
 
-
+/**
+ * @brief Efuse user fuse info
+ */
 typedef struct {
 	u32 UserFuseVal; /**< User efuse value */
 	u8 PrgmUserEfuse; /**< Program user efuse */
 } XNvm_EfuseUserFuse;
 
 #ifdef SPARTANUPLUSAES1
+/**
+ * @brief Efuse boot mode disable
+ */
 typedef struct {
 	u32 PrgmQspi24ModDis; /* Flag to program QSPI24 bootmode disable efuse bit */
 	u32 PrgmQspi32ModDis; /* Flag to program QSPI32 bootmode disable efuse bit */
@@ -277,23 +303,24 @@ typedef struct {
 #endif
 
 /**
- * @name  Operation mode
+ * @brief Operation mode
  */
 typedef enum {
 	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
 	XNVM_EFUSE_MODE_PGM /**< eFuse program mode */
 } XNvm_EfuseOpMode;
-/** @} */
 
 /**
- * @name  Read mode
+ * @brief Read mode
  */
 typedef enum {
 	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
 	XNVM_EFUSE_MARGIN_RD /**< eFuse margin read */
 } XNvm_EfuseRdMode;
-/** @} */
 
+/**
+ * @brief PPK type
+ */
 typedef enum {
 	XNVM_EFUSE_PPK0, /**< PPK 0 */
 	XNVM_EFUSE_PPK1, /**< PPK 1 */
@@ -302,12 +329,7 @@ typedef enum {
 
 
 /**
- * @}
- * @endcond
- */
-
-/**
- *  This structure defines sub structures of Spartan Ultrascale+ eFuses to be blown
+ * @brief structure defines sub structures of Spartan Ultrascale plus eFuses to be blown
  */
 typedef struct {
 	XNvm_EfuseAesKeys *AesKeys; /**< Pointer to Aes keys*/
@@ -430,4 +452,4 @@ int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits);
 
 #endif	/* XNVM_EFUSE_H */
 
-/* @} */
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_bbarm_common_cdohandler.h
+* @file xnvm_bbram_common_cdohandler.h
 *
 * This file contains the xilnvm BBRAM common cdo handler declaration.
 *

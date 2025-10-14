@@ -128,3 +128,4 @@ static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload)
 }
 
 #endif
+/** @} */

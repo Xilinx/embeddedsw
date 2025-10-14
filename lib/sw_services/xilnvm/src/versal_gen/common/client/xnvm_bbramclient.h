@@ -76,3 +76,4 @@ int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, c
 #endif
 
 #endif  /* XNVM_BBRAMCLIENT_H */
+/** @} */

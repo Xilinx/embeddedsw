@@ -188,7 +188,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	}
 
         /**
-	 *  @{ Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check.
+	 *  Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check.
 	 *  Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second.
 	 *  If timed out return timeout error.
 	 *  If AES_CRC_PASS bit is set in BBRAM_STATUS register, return XST_SUCCESS else return CRC mismatch error.
@@ -574,3 +574,4 @@ END:
 
 }
 #endif
+/** @} */

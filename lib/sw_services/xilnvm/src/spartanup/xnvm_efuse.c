@@ -11,7 +11,7 @@
 *
 * @note	None.
 *
-* </pre>
+* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who   Date     Changes

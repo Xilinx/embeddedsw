@@ -121,3 +121,4 @@ int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const Mail
 
 	return Status;
 }
+/** @} */

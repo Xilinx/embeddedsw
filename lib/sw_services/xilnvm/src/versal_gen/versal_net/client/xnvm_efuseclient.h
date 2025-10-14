@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file net/client/xnvm_efuseclient.h
+* @file versal_net/client/xnvm_efuseclient.h
 *
 * This file contains the client function prototypes, defines and macros for
 * the eFUSE programming and read.
@@ -97,3 +97,4 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 #endif
 
 #endif  /* XNVM_EFUSECLIENT_H */
+/** @} */

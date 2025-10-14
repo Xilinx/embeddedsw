@@ -1937,10 +1937,10 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 		goto END;
 	}
 
-        /**
-	 *  @{ Fill the XNvm_EfuseRevokeIds structure with the calculated inputs
+    /**
+	 *  Fill the XNvm_EfuseRevokeIds structure with the calculated inputs
 	 *  and fill the XNvm_EfuseData global structure with the XNvm_EfuseRevokeIds and call XNvm_EfuseWrite API.
-         *  Return the Status.
+     *  Return the Status.
 	 */
 	if (SysMonInstPtr == NULL) {
 		/**
@@ -1998,8 +1998,8 @@ int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr,
 	else {
 
 		/**
-		 *  @{ Read directly from cache offset of the Revocation Id to fill the Revocation Id array.
-                 *  Return XST_SUCCESS if the read is successful.
+		 *  Read directly from cache offset of the Revocation Id to fill the Revocation Id array.
+         *  Return XST_SUCCESS if the read is successful.
 		 */
 		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW + (u32)RevokeFuseNum;
 		Status = XNvm_EfuseReadCache(Row, RevokeFusePtr);
@@ -2046,8 +2046,8 @@ int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
 		Row = XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW + (u32)OffchipIdNum;
 
 		/**
-		 *  @{ Read directly from cache offset of the offchip revoke id offset to fill the OffchipIdPtr.
-                 *  Return XST_SUCCESS if the read is successful.
+		 *  Read directly from cache offset of the offchip revoke id offset to fill the OffchipIdPtr.
+         *  Return XST_SUCCESS if the read is successful.
 		 */
 		Status = XNvm_EfuseReadCache(Row, OffchipIdPtr);
 	}
@@ -2099,9 +2099,9 @@ int XNvm_EfuseReadUserFuses(const XNvm_EfuseUserData *UserFusesData)
 	Row = XNVM_EFUSE_USER_FUSE_START_ROW +
 		(UserFusesData->StartUserFuseNum - 1U);
 
-        /**
-	 * @{ Read directly from cache offset of the User Data eFuse to fill the UserFuseData address from specified UserFuse number (StartUserFuseNum) and number of eFuses to be read by NumOfUserFuses.
-         * Return XST_SUCCESS if the read is successful.
+    /**
+	 * Read directly from cache offset of the User Data eFuse to fill the UserFuseData address from specified UserFuse number (StartUserFuseNum) and number of eFuses to be read by NumOfUserFuses.
+     * Return XST_SUCCESS if the read is successful.
 	 */
 	Status = XNvm_EfuseReadCacheRange(Row,
 					(u8)(UserFusesData->NumOfUserFuses),
@@ -2154,10 +2154,10 @@ int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
 		UserFusesData.EnvMonitorDis = FALSE;
 	}
 
-       /**
-	 * @{ Fill the XNvm_EfuseData global structure with the user provided WriteUserFuses and call XNvm_EfuseWrite API.
-         * Return the XST_SUCCESS.
-	 */
+    /**
+	* Fill the XNvm_EfuseData global structure with the user provided WriteUserFuses and call XNvm_EfuseWrite API.
+    * Return the XST_SUCCESS.
+	*/
 	UserFusesData.UserFuses = WriteUserFuses;
 
 	Status = XNvm_EfuseWrite(&UserFusesData);
@@ -5601,7 +5601,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 * @{ Unlock the eFUSE controller. On failure return appropriate failure code.
+	 * Unlock the eFUSE controller. On failure return appropriate failure code.
 	 * Set reference clock.
 	 * Set read mode.
 	 */
@@ -5772,7 +5772,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		PufFuse->StartPufFuseRow;
 
 	/**
-	 *  @{ Read Puf data from efuse cache by calculating offset range from start row to end row based on user inputs.
+	 *  Read Puf data from efuse cache by calculating offset range from start row to end row based on user inputs.
 	 *  Return XST_SUCCESS when read is successful or error code on failure.
 	 */
 	Status = XNvm_EfuseReadCacheRange(Row,
@@ -6117,3 +6117,4 @@ END:
 }
 
 #endif /* END OF XNVM_EN_ADD_PPKS */
+/** @} */

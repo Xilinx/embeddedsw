@@ -4194,3 +4194,4 @@ static u32 XNvm_EfuseCalculateCrc32(const u8* Data, u32 Len)
 
 	return (Crc ^ (u32)XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET);
 }
+/** @} */

@@ -1185,3 +1185,4 @@ XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler)
 }
 
 #endif
+/** @} */

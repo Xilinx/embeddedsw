@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -49,39 +49,41 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/**< Enable client printfs by setting XNVM_DEBUG to 1 */
-#define XNVM_DEBUG	(0U)
+#define XNVM_DEBUG	(0U)	/**< Enable client printfs by setting XNVM_DEBUG to 1 */
 
 #if (XNVM_DEBUG)
-#define XNVM_DEBUG_GENERAL (1U)
+#define XNVM_DEBUG_GENERAL (1U)	/**< Enable debug messages */
 #else
-#define XNVM_DEBUG_GENERAL (0U)
+#define XNVM_DEBUG_GENERAL (0U)	/**< Disable debug messages */
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNvm_Printf(DebugType, ...)	\
-	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
+	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}	/**< Print debug messages */
 
 #ifndef XNVM_CACHE_DISABLE
 	#if defined(__microblaze__)
 		#define XNvm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((UINTPTR)SrcAddr, Len)
+		/**< Flush the data cache for a specific range */
 	#else
 		#define XNvm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)
+		/**< Flush the data cache for a specific range */
 	#endif
 #else
 	#define XNvm_DCacheFlushRange(SrcAddr, Len) {}
 #endif /**< Cache Invalidate function */
 
-/**< Macro to typecast XILSECURE API ID */
-#define XNVM_API(ApiId)	((u32)ApiId)
+#define XNVM_API(ApiId)	((u32)ApiId)	/**< Macro to typecast API ID */
 
-/**< Macro to extract the API_ID from CmdId */
-#define XNVM_API_ID_MASK	(0xFFU)
+#define XNVM_API_ID_MASK	(0xFFU)	/**< API ID Mask*/
 
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
+/**
+ * @brief PUF user data
+ */
 typedef struct {
 	u64 PufFuseDataAddr;	/**< PufUserFuseData Address */
 	u32 StartPufFuseRow;	/**< Start Puf user eFuse row number */
@@ -90,7 +92,9 @@ typedef struct {
 	u8 PrgmPufFuse;		/**< Program flag TRUE/FALSE */
 } XNvm_EfusePufFuseAddr;
 #else
-/**< Puf helper data*/
+/**
+ * @brief PUF helper data
+ */
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;/**< PufSecCtrlBits Data */
 	u8 PrgmPufHelperData;	/**< Program flag for PUF HD TRUE/FALSE */
@@ -103,6 +107,9 @@ typedef struct {
 #endif
 
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+/**
+ * @brief Efuse PUF Syndrome data
+ */
 typedef struct {
 	u32 Chash;	/**< Chash value to be programmed to Chash eFuses */
 	u32 Aux;	/**< Aux value to be programmed to AUX eFuses */
@@ -111,6 +118,9 @@ typedef struct {
 #endif
 
 #ifdef XNVM_EN_ADD_PPKS
+/**
+ * @brief Additional PPK Hash
+ */
 typedef struct {
 	u8 PrgmPpk3Hash; /**< Program flag for PPK3 Hash TRUE/FALSE */
 	u8 PrgmPpk4Hash; /**< Program flag for PPK4 Hash TRUE/FALSE */
@@ -119,7 +129,9 @@ typedef struct {
 } XNvm_EfuseAdditionalPpkHash;
 #endif
 
-/**< XilNVM API ids, IDs ranging from an enum value of 24 to 35 are used by IPI */
+/**
+ * @brief API ids, IDs ranging from an enum value of 24 to 35 are used by IPI
+ */
 typedef enum {
 	XNVM_API_FEATURES = 0,			/**< 0U */
 	XNVM_API_ID_BBRAM_WRITE_AES_KEY,	/**< 1U */

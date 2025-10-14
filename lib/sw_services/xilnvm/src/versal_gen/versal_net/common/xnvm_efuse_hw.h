@@ -7,7 +7,7 @@
 /******************************************************************************/
 /**
 *
-* @file net/server/xnvm_efuse_hw.h
+* @file versal_net/common/xnvm_efuse_hw.h
 *
 * This file contains NVM library eFUSE controller register definitions
 *

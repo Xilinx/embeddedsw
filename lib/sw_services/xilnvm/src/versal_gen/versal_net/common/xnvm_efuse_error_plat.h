@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *
- * @file net/server/xnvm_efuse_error_plat.h
+ * @file versal_net/common/xnvm_efuse_error_plat.h
  *
  * Header file for xnvm_efuse.c
  *
@@ -185,3 +185,4 @@ typedef enum {
 #endif
 
 #endif /* XNVM_EFUSE_ERROR_PLAT_H */
+/** @} */
