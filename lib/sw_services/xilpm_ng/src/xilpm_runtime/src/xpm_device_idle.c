@@ -10,7 +10,7 @@
 #define XPM_MAX_TIMEOUT 		(0x1FFFFFFF)
 #endif
 
-static XPmDevice_SoftResetInfo DeviceRstData[] = {
+static const XPmDevice_SoftResetInfo DeviceRstData[] = {
 #ifdef XILPM_USB_0
 	{
 		.DeviceId = PM_DEV_USB_0,

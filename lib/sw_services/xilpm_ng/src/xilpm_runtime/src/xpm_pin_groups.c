@@ -14,7 +14,7 @@
 #include "xpm_pinfunc.h"
 #include "xpm_runtime_pin.h"
 
-static XPm_PinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
+static const XPm_PinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
 	[XPM_NODEIDX_STMIC_LMIO_0] = {
 		.GroupCount = 7U,
 		.GroupList = ((u16 []) {
@@ -1170,7 +1170,7 @@ static XPm_PinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
  * @note Requires only node index
  *
  ****************************************************************************/
-XPm_PinGroup *XPmPin_GetGroupByIdx(const u32 PinIndex)
+const XPm_PinGroup *XPmPin_GetGroupByIdx(const u32 PinIndex)
 {
 	return &PmPinGroups[PinIndex];
 }

@@ -13,10 +13,12 @@
 #include "xpm_clock.h"
 #include "xpm_memory_pools.h"
 
-extern u8 __xpm_init_data_start[];
-extern u8 __xpm_topo_start[];
-extern u8 __xpm_subsys_start[];
-extern u8 __xpm_board_bss_start[];
+extern const u8 __xpm_init_data_start[];
+extern const u8 __xpm_topo_start[];
+#ifdef XILPM_RUNTIME
+extern const u8 __xpm_subsys_start[];
+#endif
+extern const u8 __xpm_board_bss_start[];
 
 EXPORT_DS(XPmInitData, \
 	XPLMI_MODULE_XILPM_ID, XPM_DEVICETABLE_DS_ID, \

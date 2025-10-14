@@ -83,37 +83,37 @@ extern XPmFwPwrCtrl_t Rpu##cluster##_Core##core##PwrCtrl;
 
 /* Define the macro to create the APU power up/down handler table */
 #define CREATE_TABLE_APU_PWRUPDOWNHANDLER(NumClusters, NumCores) \
-static struct PwrHandlerTable_t ApuPwrUpDwnHandlerTable[] = { \
+static const struct PwrHandlerTable_t ApuPwrUpDwnHandlerTable[] = { \
 X_APU_MACRO_ENTRIES(X_APU_PWR_HANDLER) \
 };
 
 /* Define the macro to create the RPU power up/down handler table */
 #define CREATE_TABLE_RPU_PWRUPDOWNHANDLER(NumClusters, NumCores) \
-static struct PwrHandlerTable_t RpuPwrUpDwnHandlerTable[] = { \
+static const struct PwrHandlerTable_t RpuPwrUpDwnHandlerTable[] = { \
 X_RPU_MACRO_ENTRIES(X_RPU_PWR_HANDLER) \
 };
 
 /* Define the macro to create the APU wakeup handler table */
 #define CREATE_TABLE_APU_WAKEUP_HANDLER(NumClusters, NumCores) \
-static struct PwrCtlWakeupHandlerTable_t ApuWakeupHandlerTable[] = { \
+static const struct PwrCtlWakeupHandlerTable_t ApuWakeupHandlerTable[] = { \
 X_APU_MACRO_ENTRIES(X_APU_WAKEUP_HANDLER) \
 };
 
 /* Define the macro to create the RPU wakeup handler table */
 #define CREATE_TABLE_RPU_WAKEUP_HANDLER(NumClusters, NumCores) \
-static struct PwrCtlWakeupHandlerTable_t RpuWakeupHandlerTable[] = { \
+static const struct PwrCtlWakeupHandlerTable_t RpuWakeupHandlerTable[] = { \
 X_RPU_MACRO_ENTRIES(X_RPU_WAKEUP_HANDLER) \
 };
 
 /* Define the macro to create the APU sleep handler table */
 #define CREATE_TABLE_APU_SLEEP_HANDLER(NumClusters, NumCores) \
-static struct PwrCtlWakeupHandlerTable_t ApuSleepHandlerTable[] = { \
+static const struct PwrCtlWakeupHandlerTable_t ApuSleepHandlerTable[] = { \
 X_APU_MACRO_ENTRIES(X_APU_SLEEP_HANDLER) \
 };
 
 /* Define the macro to create the RPU sleep handler table */
 #define CREATE_TABLE_RPU_SLEEP_HANDLER(NumClusters, NumCores) \
-static struct PwrCtlWakeupHandlerTable_t RpuSleepHandlerTable[] = { \
+static const struct PwrCtlWakeupHandlerTable_t RpuSleepHandlerTable[] = { \
 X_RPU_MACRO_ENTRIES(X_RPU_SLEEP_HANDLER) \
 };
 /* Generate all APU power control declarations */

@@ -9,7 +9,7 @@
 #include "xpm_regs.h"
 #include "xpm_alloc.h"
 
-static struct XPm_PllTopology PllTopologies[] =
+static const struct XPm_PllTopology PllTopologies[] =
 {
 	{ TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
 	  GEN_LOCK_SHIFT, GEN_STABLE_SHIFT, GEN_REG3_OFFSET },

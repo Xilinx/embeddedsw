@@ -123,14 +123,14 @@ struct XPmFwGemPwrCtrl_t {
 struct PwrHandlerTable_t {
 	u32 PwrUpMask;
 	u32 PwrDwnMask;
-	struct XPmFwPwrCtrl_t *Args;
+	const struct XPmFwPwrCtrl_t *Args;
 };
 
 /* Power control and wakeup Handler Table Structure */
 struct PwrCtlWakeupHandlerTable_t {
 	u32 DeviceId;
 	u32 Mask;
-	struct XPmFwPwrCtrl_t *Args;
+	const struct XPmFwPwrCtrl_t *Args;
 };
 
 XStatus XPm_DirectPwrUp(const u32 DeviceId);
@@ -138,15 +138,15 @@ XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node);
 XStatus XPmPower_SendIslandPowerUpReq(const XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerUpReq(XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerDownReq(const XPm_Node *Node);
-XStatus XPmPower_ACpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr);
-XStatus XPmPower_ACpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr);
-XStatus XPmPower_RpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_RpuPwrDwn(struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_RpuReqPwrUp(struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_RpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_ACpuReqPwrUp(struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_ACpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_ACpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr);
+XStatus XPmPower_ACpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_RpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr);
+XStatus XPmPower_RpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_RpuPwrDwn(const struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_RpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_RpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_ACpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args);
+XStatus XPmPower_ACpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args);
 void XPmCore_AfterDirectPwrUp(XPm_Core *Core);
 #ifdef __cplusplus
 }

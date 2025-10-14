@@ -59,7 +59,7 @@ static XStatus Aie2ps_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 StartCol, u
 static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer);
 static XStatus Aie2ps_CtrlPktTlastErr(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 
-static struct XPmAieOpsHandlers AieOpsHandlers[] = {
+static const struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_COL_RST,		Aie2ps_ColRst},
 	{AIE_OPS_SHIM_RST,		Aie2ps_ShimRst},
 	{AIE_OPS_UC_ZEROIZATION,	Aie2ps_UcZeroization},

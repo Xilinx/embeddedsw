@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +59,7 @@ struct XPm_PllClockNode {
 	u32 FracConfigReg;
 	u8 PllMode;
 	PmPllContext Context;
-	struct XPm_PllTopology *Topology;
+	const struct XPm_PllTopology *Topology;
 };
 
 
