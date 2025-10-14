@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -122,29 +122,45 @@
 #define APP_MAJ_VERSION 5
 #define APP_MIN_VERSION 3
 #ifdef SDT
-#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+/* HDCP interrupt name definitions for SDT build */
 #ifdef USE_HDCP
-#define INTRNAME_HDMIRX 4
-#define INTRNAME_HDCP1XRX 0
-#define INTRNAME_HDCP1XRX_TIMER 1
-#define INTRNAME_HDCP2XRX_TIMER   3
-#define INTRNAME_HDMITX 4
-#define INTRNAME_HDCP1XTX  0
-#define INTRNAME_HDCP1XTX_TIMER 1
-#define INTRNAME_HDCP2XTX_TIMER   3
-
+/* Check if HDCP 2.2 RX is available */
+#if defined(XPAR_XHDCP22_RX_NUM_INSTANCES) && \
+(XPAR_XHDCP22_RX_NUM_INSTANCES > 0 || \
+(defined(XPAR_XV_HDMIRXSS_NUM_INSTANCES) && XPAR_XV_HDMIRXSS_NUM_INSTANCES > 0))
+#define INTRNAME_HDMIRX         4
+#define INTRNAME_HDCP2XRX_TIMER 3
 #else
-#define INTRNAME_HDMIRX 0
-#define INTRNAME_HDCP1XRX 1
-#define INTRNAME_HDCP1XRX_TIMER 2
-#define INTRNAME_HDCP2XRX_TIMER   3
-#define INTRNAME_HDMITX 0
-#define INTRNAME_HDCP1XTX  1
-#define INTRNAME_HDCP1XTX_TIMER 2
-#define INTRNAME_HDCP2XTX_TIMER   3
+#define INTRNAME_HDMIRX         2
+#endif
 
+/* Check if HDCP 2.2 TX is available */
+#if defined(XPAR_XHDCP22_TX_NUM_INSTANCES) && \
+(XPAR_XHDCP22_TX_NUM_INSTANCES > 0 || \
+(defined(XPAR_XV_HDMITXSS_NUM_INSTANCES) && XPAR_XV_HDMITXSS_NUM_INSTANCES > 0))
+#define INTRNAME_HDMITX         4
+#define INTRNAME_HDCP2XTX_TIMER 3
+#else
+#define INTRNAME_HDMITX         2
 #endif
-#endif
+
+/* Common HDCP 1.x definitions */
+#define INTRNAME_HDCP1XRX       0
+#define INTRNAME_HDCP1XRX_TIMER 1
+#define INTRNAME_HDCP1XTX       0
+#define INTRNAME_HDCP1XTX_TIMER 1
+#else
+/* Non-HDCP SDT build - simplified interrupt names */
+#define INTRNAME_HDMIRX         0
+#define INTRNAME_HDCP1XRX       1
+#define INTRNAME_HDCP1XRX_TIMER 2
+#define INTRNAME_HDCP2XRX_TIMER 3
+#define INTRNAME_HDMITX         0
+#define INTRNAME_HDCP1XTX       1
+#define INTRNAME_HDCP1XTX_TIMER 2
+#define INTRNAME_HDCP2XTX_TIMER 3
+#endif /* USE_HDCP */
+#endif /* SDT */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
