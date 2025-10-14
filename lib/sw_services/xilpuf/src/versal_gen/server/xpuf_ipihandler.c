@@ -289,3 +289,4 @@ static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 	return Status;
 }
 #endif
+/** @} */
