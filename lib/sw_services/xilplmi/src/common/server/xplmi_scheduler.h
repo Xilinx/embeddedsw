@@ -34,7 +34,7 @@
 * 1.05  nb   06/28/2023 Move XPLMI_SCHED_TICK here from .c file
 *       pre  03/02/2025 Added timeout handling for AES and SHA resources
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
-*
+* 2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
 * </pre>
 *
 ******************************************************************************/
@@ -60,8 +60,7 @@ extern "C" {
 #define XPLMI_PERIODIC_TASK		(0U)
 #define XPLMI_NON_PERIODIC_TASK		(1U)
 #define XPLMI_SCHED_TICK		(10U)
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 #define XPLMI_FREE_RESOURCE_TASK_ID  (0x121U)/**< Task ID for free resource task */
 #endif
 typedef int (*XPlmi_Callback_t)(void *Data);
@@ -103,8 +102,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	void *Data,	u8 TaskType);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	u32 MilliSeconds, const void *Data);
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
-    && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 int XPlmi_LoadResourceTimeout(XPlmi_CoreType Core, u32 TimeoutVal);
 #endif
 

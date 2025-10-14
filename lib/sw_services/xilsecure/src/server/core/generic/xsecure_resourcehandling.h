@@ -17,6 +17,7 @@
  * 1.0   pre  03/02/2025 Initial release
  *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
  *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
+ * 5.6   vss  09/30/2025 Updated AES/SHA queueing macro checks.
  *
  * </pre>
  *
@@ -43,8 +44,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XSECURE_IPI_FIRST_PACKET_MASK		(0x40000000U)
 					/**< IPI First packet Mask */
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 #define XSECURE_EVENT_PENDING (1U) /**< Indicates event pending */
 #define XSECURE_EVENT_CLEAR (0U) /**< Indicates no event  */
 #define XSECURE_2SEC_INTREMSOF_10MSEC (200U) /*< 2seconds Timeout value in terms of 10msec */

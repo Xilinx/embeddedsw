@@ -22,6 +22,7 @@
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 * 5.6   mb   08/07/2025 Fix SW-BP-LOOP-CONDSTMT by adding else block.
 *       rpu  09/26/2025 Removed status after XPlmi_LoadResourceTimeout
+*       vss  09/30/2025 Updated AES/SHA queueing macro checks.
 * </pre>
 *
 ******************************************************************************/
@@ -40,8 +41,7 @@
 
 /************************** Variable Definitions *****************************/
 static u32 XSecure_ResIpiMask[XPLMI_MAX_CORE];
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 static struct metal_list XSecure_IpiEventsQueue[XPLMI_MAX_CORE];
 static XSecure_PartialPdiEventParams *XSecure_PpdiEventParamsPtr;
 

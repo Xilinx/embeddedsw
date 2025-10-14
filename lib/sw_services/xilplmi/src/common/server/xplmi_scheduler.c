@@ -53,7 +53,7 @@
 *       pre  03/02/2025 Added timeout handling for AES and SHA resources
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
-*
+* 2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
 * </pre>
 *
 ******************************************************************************/
@@ -73,8 +73,7 @@
  */
 
 /************************** Constant Definitions *****************************/
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 #define XPLMI_TIMEOUT_CLEAR  (0U) /*< Zero Timeout value */
 #endif
 /**************************** Type Definitions *******************************/
@@ -93,8 +92,7 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 
 /************************** Variable Definitions *****************************/
 static XPlmi_Scheduler_t Sched;
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 static u32 XPlmi_ResourceTimeOut[XPLMI_MAX_CORE];
 #endif
 /*****************************************************************************/
@@ -167,8 +165,7 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 **************************************************************************************************/
 static void XPlmi_ResTimeoutHandling(void)
 {
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 	XPlmi_TaskNode *Task = NULL;
 	u32 CoreType;
 
@@ -442,9 +439,7 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 
 	return Status;
 }
-
-#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
-     && defined(XPLMI_IPI_DEVICE_ID))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 /******************************************************************************/
 /**
 * @brief	The function loads the timeout values of AES and SHA

@@ -37,6 +37,7 @@
 *       rmv  08/21/2025 Added option to enable/disable ASUFW OCP key management support
 * 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       tvp  08/23/2025 Define PLM_HW_PCR macro
+*       vss  10/09/2025 Added PLM_ENABLE_SHA_AES_EVENTS_QUEUING macro
 *
 * </pre>
 *
@@ -216,6 +217,11 @@ extern "C" {
 
 /* Enable below define to enable authentication of JTAG using PPK and SPK */
 #define PLM_AUTH_JTAG_PPK_SPK
+/**
+ * The below define enable events queuing mechanism for SHA & AES
+ */
+#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
+
 
 /************************** Function Prototypes ******************************/
 
