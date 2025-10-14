@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file net/common/xnvm_defs.h
+* @file versal_net/common/xnvm_defs.h
 * @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
 * @{
 *
@@ -565,3 +565,4 @@ typedef enum {
 #endif
 
 #endif  /* XNVM_DEFS_H */
+/** @} */

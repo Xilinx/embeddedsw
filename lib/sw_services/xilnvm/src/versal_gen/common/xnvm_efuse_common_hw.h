@@ -449,6 +449,8 @@ extern "C" {
 #define XNVM_EFUSE_DNA_NUM_OF_ROWS			(4U)
 /** @} */
 
+/** @endcond */
+
 #ifdef __cplusplus
 }
 #endif

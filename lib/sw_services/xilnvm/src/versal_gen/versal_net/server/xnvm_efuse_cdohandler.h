@@ -96,3 +96,4 @@ XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler);
 #endif
 
 #endif /* XNVM_EFUSE_CDOHANDLER_H_ */
+/** @} */

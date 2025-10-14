@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /******************************************************************************/
 /**
 *
-* @file net/client/xnvm_efuseclient_hw.h
+* @file versal_net/client/xnvm_efuseclient_hw.h
 *
 * This file contains register offsets for EFUSE_CACHE module and other related
 * definitions.

@@ -285,3 +285,4 @@ static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxN
 #endif /* VERSAL_2VE_2VM */
 
 #endif /* PLM_NVM */
+/** @} */

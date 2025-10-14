@@ -49,10 +49,12 @@
 #define XNVM_ADDR_HIGH_SHIFT	(32U)	/**< Shift to get upper 32 bits of address */
 #define XNVM_MAX_PAYLOAD_LEN	(7U)	/**< Maximum IPI payload length */
 #if defined(__aarch64__)
-/**< Upper 32 bit address from the input address */
+/** For 64 bit architecture get upper 32 bits from input address */
 #define XNVM_GET_HADDR(InputAddr, HighAddr) \
                 HighAddr = (u32)(((UINTPTR)(InputAddr)) >> XNVM_ADDR_HIGH_SHIFT)
+
 #else
+/** For 32 bit address set HighAddr to 0 */
 #define XNVM_GET_HADDR(InputAddr, HighAddr) HighAddr = 0U
 #endif
 /**************************** Type Definitions *******************************/
