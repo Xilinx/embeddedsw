@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@
 #include "clk_set.h"
 
 
-extern XIicPs Ps_Iic0;
+extern XIicPs Ps_Iic1;
 
 #define two_to_37 (double) 137438953472.0
 #define two_to_32 (double)   4294967296.0
@@ -67,13 +67,13 @@ u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq)
     u8 HSDIV_Set;
     u8 N1_Set;
 
-	si570_read_cal(&Ps_Iic0, i2c_dev_addr, RFreq_Cal);
+	si570_read_cal(&Ps_Iic1, i2c_dev_addr, RFreq_Cal);
 
 	/* Calculate New Frequency Settings */
 	si570_rfreq_calc(set_freq, RFreq_Cal, RFreq_Set, &HSDIV_Set, &N1_Set);
 
 	/* Write New Frequency Settings */
-	si570_write_rfreq(&Ps_Iic0, i2c_dev_addr, RFreq_Set, HSDIV_Set, N1_Set);
+	si570_write_rfreq(&Ps_Iic1, i2c_dev_addr, RFreq_Set, HSDIV_Set, N1_Set);
 	return XST_SUCCESS;
 
 }

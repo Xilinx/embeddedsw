@@ -197,11 +197,13 @@ extern "C" {
 #define BPC_SHIFT 8
 #define DYNAMIC_RANGE_SHIFT 15
 
-#if !defined (XPS_BOARD_ZCU102)
+#if (XPAR_TX_SUBSYSTEM_V_DP_TXSS2_0_DP_OCTA_PIXEL_ENABLE)
 #define CRC_CFG 0x5
 #else
 #define CRC_CFG 0x4
 #endif
+
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -248,7 +250,7 @@ char xil_getc(u32 timeout_ms);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);
-u32 config_phy(int LineRate_init_tx);
+u32 config_phy(int LineRate_init_tx, XVphy_PllType Tx_Pll, XVphy_ChannelId Tx_Channel);
 #ifdef PARRETO_FMC
 int i2c_write_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress,
                 u32 Value);
@@ -270,30 +272,6 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 /************************** Variable Definitions *****************************/
-typedef enum {
-        ONBOARD_REF_CLK = 1,
-#ifdef PLATFORM_MB
-		ONBOARD_400_CLK = 2,
-#else
-		ONBOARD_400_CLK = 3,
-#endif
-} XVphy_User_GT_RefClk_Src;
-
-typedef struct {
-        u8 Index;
-        XVphy_PllType  TxPLL;
-        XVphy_PllType  RxPLL;
-        XVphy_ChannelId TxChId;
-        XVphy_ChannelId RxChId;
-        u32 LineRate;
-        u64 LineRateHz;
-        XVphy_User_GT_RefClk_Src QPLLRefClkSrc;
-        XVphy_User_GT_RefClk_Src CPLLRefClkSrc;
-        u64 QPLLRefClkFreqHz;
-        u64 CPLLRefClkFreqHz;
-} XVphy_User_Config;
-u32 PHY_Configuration_Tx(XVphy *InstancePtr,
-							XVphy_User_Config PHY_User_Config_Table);
 #ifdef __cplusplus
 }
 #endif
