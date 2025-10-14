@@ -129,7 +129,7 @@ END:
  ******************************************************************************/
 static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u64 ShaParamsAddr = ((u64)AddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)AddrLow;
 	XSecure_ShaOpParams ShaParams __attribute__ ((aligned (32U)));;
 
@@ -140,12 +140,14 @@ static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ShaParams, ShaParamsAddr, sizeof(ShaParams));
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
 	if ((ShaParams.OperationFlags & XSECURE_SHA_START) == XSECURE_SHA_START) {
 		Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaParams.ShaMode);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -153,11 +155,13 @@ static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32
 		if (ShaParams.IsLast == TRUE) {
 			Status = XSecure_ShaLastUpdate(XSecureShaInstPtr);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 		}
 		Status = XSecure_ShaUpdate(XSecureShaInstPtr, ShaParams.DataAddr, ShaParams.DataSize);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
