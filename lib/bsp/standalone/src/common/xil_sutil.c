@@ -32,6 +32,7 @@
 * 9.4   ml       09/01/25 Fix MISRA-C violation for Rule 17.7
 * 9.4   vmt      24/09/25 Added extended address support for RISC-V
 *       har      10/10/25 Updated datatype of Len in Xil_ConvertStringToHex
+*       hj       14/10/25 Remove zero address check in Xil_SMemCpy
 *
 * </pre>
 *
@@ -539,7 +540,8 @@ s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 /**
  * @brief	This is wrapper function to memcpy function. This function
  *		takes size of two memory regions to make sure not read from
- *		or write to out of bound memory region.
+ *		or write to out of bound memory region. Since 0 is valid address,
+*		Src and Dest paramemter are not checked for NULL
  *
  * @param	Dest      - Pointer to destination memory
  * @param	DestSize  - Memory available at destination
@@ -561,9 +563,7 @@ s32 Xil_SMemCpy(void *Dest, const u32 DestSize,
 	void *volatile DestTemp = Dest;
 	const void *volatile SrcTemp = Src;
 
-	if ((Dest == NULL) || (Src == NULL)) {
-		Status =  XST_INVALID_PARAM;
-	} else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
+	if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
 	/* Return error for overlap string */
