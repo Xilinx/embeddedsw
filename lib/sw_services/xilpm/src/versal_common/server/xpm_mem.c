@@ -355,11 +355,6 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 	const XPm_MemRegnDevice *MemRegnDevice = NULL;
 	u32 DeviceId;
 
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
 	if (RegionSize < 1U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -371,6 +366,12 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 	*/
 	if (IS_BUILTIN_SUBSYSTEM(SubsystemId)) {
 		Status = XPM_SUCCESS;
+		goto done;
+	}
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 

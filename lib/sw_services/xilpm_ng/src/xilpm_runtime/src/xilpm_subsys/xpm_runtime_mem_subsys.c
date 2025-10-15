@@ -93,11 +93,6 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
 
 	/**
 	 * For built-in subsystems, we don't have any Mem-Regns
@@ -105,6 +100,12 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 	*/
 	if (IS_BUILTIN_SUBSYSTEM(SubsystemId)) {
 		Status = XPM_SUCCESS;
+		goto done;
+	}
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
