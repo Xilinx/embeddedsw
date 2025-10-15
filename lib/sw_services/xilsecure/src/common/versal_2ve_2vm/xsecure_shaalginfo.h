@@ -36,8 +36,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_SHA_MAJOR_VERSION	5 /**< Major version of SHA */
-#define XSECURE_SHA_MINOR_VERSION	6 /**< Minor version of SHA */
+#define XSECURE_SHA_MAJOR_VERSION	6U /**< Major version of SHA */
+#define XSECURE_SHA_MINOR_VERSION	0U /**< Minor version of SHA */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

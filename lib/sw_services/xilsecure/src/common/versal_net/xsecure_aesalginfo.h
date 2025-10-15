@@ -35,8 +35,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_AES_MAJOR_VERSION	5 /**< Major version of AES */
-#define XSECURE_AES_MINOR_VERSION	7 /**< Minor version of AES */
+#define XSECURE_AES_MAJOR_VERSION	6U /**< Major version of AES */
+#define XSECURE_AES_MINOR_VERSION	0U /**< Minor version of AES */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

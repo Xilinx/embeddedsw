@@ -34,8 +34,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_KEYUNWRAP_MAJOR_VERSION	5U /**< Major version of Keyunwrap */
-#define XSECURE_KEYUNWRAP_MINOR_VERSION	7U /**< Minor version of Keyunwrap */
+#define XSECURE_KEYUNWRAP_MAJOR_VERSION	6U /**< Major version of Keyunwrap */
+#define XSECURE_KEYUNWRAP_MINOR_VERSION	0U /**< Minor version of Keyunwrap */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

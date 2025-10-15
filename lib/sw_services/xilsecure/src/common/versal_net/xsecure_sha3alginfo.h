@@ -36,11 +36,11 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_SHA3_MAJOR_VERSION	5 /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	7 /**< Minor version of SHA3 */
+#define XSECURE_SHA3_MAJOR_VERSION	6U /**< Major version of SHA3 */
+#define XSECURE_SHA3_MINOR_VERSION	0U /**< Minor version of SHA3 */
 
-#define XSECURE_SHA2_MAJOR_VERSION	5 /**< Major version of SHA2 */
-#define XSECURE_SHA2_MINOR_VERSION	7 /**< Minor version of SHA2 */
+#define XSECURE_SHA2_MAJOR_VERSION	6U /**< Major version of SHA2 */
+#define XSECURE_SHA2_MINOR_VERSION	0U /**< Minor version of SHA2 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

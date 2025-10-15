@@ -32,8 +32,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
-#define XSECURE_HMAC_MINOR_VERSION	6 /**< Minor version of HMAC */
+#define XSECURE_HMAC_MAJOR_VERSION	6U /**< Major version of HMAC */
+#define XSECURE_HMAC_MINOR_VERSION	0U /**< Minor version of HMAC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
