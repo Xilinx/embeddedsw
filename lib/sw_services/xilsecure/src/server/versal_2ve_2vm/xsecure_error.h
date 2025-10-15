@@ -84,12 +84,6 @@ enum {
 	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
 						     operation */
 
-	XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR,
-					/**< 0x11 - Error when AES IPI event handling fails */
-
-	XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR,
-					/**< 0x12 - Error when SHA IPI event handling fails */
-
 	XSECURE_SHA1_TRANSFORM_ERROR = 0x30,	/**< 0x30 - Error when SHA1 transform fails */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does

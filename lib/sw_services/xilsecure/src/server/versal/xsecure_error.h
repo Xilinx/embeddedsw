@@ -79,10 +79,6 @@ enum {
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
 
-	XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR = 0x0D,  /**< 0x0D - Error when AES IPI event handling fails */
-
-	XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR,  /**< 0x0E - Error when SHA IPI event handling fails */
-
 	XSECURE_RESERVED_SHA1 = 0x30,		/**< 0x30 - Reserved for SHA1 */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does

@@ -53,6 +53,7 @@
 #include "xplmi_hw.h"
 #include "xplmi.h"
 #include "xsecure_resourcehandling.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
@@ -95,7 +96,7 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	/** SHA IPI event handling */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA3_CORE);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
