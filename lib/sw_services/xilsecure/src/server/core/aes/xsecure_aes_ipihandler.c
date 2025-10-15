@@ -115,7 +115,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 	/** Handle the present command based on AES core status */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_AES_CORE);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
