@@ -34,8 +34,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_ECDH_MAJOR_VERSION	5 /**< Major version of ECDH */
-#define XSECURE_ECDH_MINOR_VERSION	7 /**< Minor version of ECDH */
+#define XSECURE_ECDH_MAJOR_VERSION	6U /**< Major version of ECDH */
+#define XSECURE_ECDH_MINOR_VERSION	0U /**< Minor version of ECDH */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

@@ -32,8 +32,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_LMS_MAJOR_VERSION	5 /**< Major version of LMS */
-#define XSECURE_LMS_MINOR_VERSION	6 /**< Minor version of LMS */
+#define XSECURE_LMS_MAJOR_VERSION	6U /**< Major version of LMS */
+#define XSECURE_LMS_MINOR_VERSION	0U /**< Minor version of LMS */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

@@ -36,8 +36,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_ELLIPTIC_MAJOR_VERSION	5U /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	5U /**< Minor version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MAJOR_VERSION	6U /**< Major version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MINOR_VERSION	0U /**< Minor version of ELLIPTIC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
