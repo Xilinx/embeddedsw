@@ -70,6 +70,8 @@
 #define XTRNG_AUTOPROC_TIMEOUT				5000U /**< Autoproc mode disable timeout
 								   value in microseconds(5ms)*/
 
+#define XTRNG_COLLECT_RAND_DATA_DELAY_US	(5U) /**< 5us delay to collect random number */
+
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of TRNG. */
 typedef enum {
@@ -1020,6 +1022,13 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 	u32 RegVal = 0U;
 	u32 Size = RandBufSize / XASUFW_WORD_LEN_IN_BYTES;
 	u32 SingleGenModeVal = 0U;
+
+	/**
+	 * FIXME: Without delay, random number generation is not giving deterministic value for
+	 * subsequent call to the TRNG generation. Add 5us delay as workaround until the issue
+	 * is fixed.
+	 */
+	usleep(XTRNG_COLLECT_RAND_DATA_DELAY_US);
 
 	if (InstancePtr->UserCfg.PredResistance == XASU_TRUE) {
 		SingleGenModeVal = XASU_TRNG_CTRL_SINGLEGENMODE_MASK;
