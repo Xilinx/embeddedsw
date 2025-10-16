@@ -1172,6 +1172,10 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 			/* Clear connected flag*/
 			InstancePtr->Stream.IsConnected = (FALSE);
 
+			InstancePtr->Stream.IsHdmi = FALSE;
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
+			InstancePtr->Stream.IsFrl = FALSE;
+#endif
 			/* Clear SCDC variables*/
 			XV_HdmiRx1_DdcScdcClear(InstancePtr);
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
