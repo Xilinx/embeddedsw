@@ -29,6 +29,7 @@
 *       mb   20/08/2025 Add EfuseCClkFreq and EfuseClkSrc to XNvm_EfuseData structure
 *       mb   08/24/2025 Add support to program boot mode disable efuses
 *       mb   10/04/2025 PPKs updates for SPARTANUPLUSAES1
+*       mb   10/14/2025 Update logic for programing Revoke ID's
 *
 * </pre>
 *
@@ -54,6 +55,7 @@ extern "C" {
 /*************************** Constant Definitions *****************************/
 
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< Word length */
+#define XNVM_EFUSE_BITS_IN_A_BYTE		(8U) /**< Number of bits in a byte */
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
 #define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for parts-SU10P,SU25P,SU35P*/
 #define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for all other
@@ -103,15 +105,17 @@ extern "C" {
 
 /**< PPK Efuse programing related macros */
 #ifndef SPARTANUPLUSAES1
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(256U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(256U) /**< PPK hash length in bits */
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES
-#define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK2
+						/**< PPK hash size in bytes */
+#define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK2 /**< Last PPK */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(384U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(384U) /**< PPK hash length in bits */
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(12U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES
-#define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK1
+						/**< PPK hash size in bytes */
+#define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK1 /**< Last PPK */
 #endif
 
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
@@ -119,6 +123,8 @@ extern "C" {
 #define XNVM_EFUSE_MAX_BITS_IN_ROW		(32U) /**< Maximum bits in a row */
 #define XNVM_EFUSE_MAX_SPK_REVOKE_ID		(3U)  /**< Maximum SPK revoke id */
 #define XNVM_EFUSE_DNA_SIZE_IN_WORDS		(3U) /**< DNA size in words */
+#define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_EFUSE_MAX_SPK_REVOKE_ID	\
+						* XNVM_EFUSE_MAX_BITS_IN_ROW)	/**< Maximum revocation ID eFuses */
 
 #define XNVM_EFUSE_PROGRAM_VERIFY		(0U) /**< Verify eFuses after programming */
 
@@ -232,7 +238,7 @@ typedef struct {
 typedef struct {
 	u32 AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]; /**< AES IV value to be programmed */
 	u8 PrgmIv; /**< Flag to determine whether to program IV or not */
-	XNvm_EfuseIvType IvType;
+	XNvm_EfuseIvType IvType; /**< IV type */
 } XNvm_EfuseAesIvs;
 
 /**
@@ -261,7 +267,7 @@ typedef struct {
  * @brief Efuse SPK revoke ID
  */
 typedef struct {
-	u32 RevokeId[XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES]; /**< Revoke ID info */
+	u32 RevokeIdNum; /**< Revoke ID Bit number */
 	u8 PrgmSpkRevokeId; /**< Flag to determine whether to program SPK revoke ID or not */
 } XNvm_EfuseSpkRevokeId;
 

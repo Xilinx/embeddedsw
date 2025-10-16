@@ -193,6 +193,14 @@
 *	NOTE:Above Boot mode disable efuses are only applicable
 *	only for SPARTANUPLUSAES1 devices.
 *
+*  	#define XNVM_EFUSE_WRITE_REVOKE_ID       FALSE
+*	TRUE will burn the revocation ID number which is specified
+*	in XNVM_EFUSE_WRITE_REVOCATION_ID_NUM
+*
+*	#define XNVM_EFUSE_WRITE_REVOCATION_ID_NUM  0
+*	The number of revocation ID which needs to be programmed.
+*	The value should be between 0 and 95.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -319,13 +327,11 @@ extern "C" {
 
 #define XNVM_EFUSE_AES_IV		"000000000000000000000000"
 
-#define XNVM_EFUSE_REVOCATION_ID_0_FUSES	"00000000"
-#define XNVM_EFUSE_REVOCATION_ID_1_FUSES	"00000000"
-#define XNVM_EFUSE_REVOCATION_ID_2_FUSES	"00000000"
-
 #define XNVM_EFUSE_AES_REVOCATION_ID_EFUSE  "00000000"
 
 #define XNVM_EFUSE_USER_FUSE			"00000000"
+
+#define XNVM_EFUSE_WRITE_REVOCATION_ID_NUM	(0U)
 
 #ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
 #define XNVM_EFUSE_SET_REF_CLK_FREQ  (0U) /* Set Efuse reference clock frequency */
