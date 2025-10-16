@@ -362,6 +362,7 @@ static void XAsufw_CheckAndRestoreAesContext(void)
 	s32 Status = XASUFW_FAILURE;
 	const XAes_ContextInfo *Ctx = XAes_GetAesContext();
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	u32 ReqId = Ctx->ReqId;
 
 	if (Ctx->IsContextRestoreReq == XASU_TRUE) {
 		Status = XAes_RestoreContext(AesInstancePtr);
@@ -369,7 +370,7 @@ static void XAsufw_CheckAndRestoreAesContext(void)
 			XAsufw_Printf(DEBUG_PRINT_ALWAYS, "AES context restore failed: 0x%x\r\n", Status);
 		} else {
 			/** Update the resource owner to the restored context. */
-			XAsufw_UpdateResourceOwner(XASUFW_AES, Ctx->ReqId);
+			XAsufw_UpdateResourceOwner(XASUFW_AES, ReqId);
 		}
 	}
 }
