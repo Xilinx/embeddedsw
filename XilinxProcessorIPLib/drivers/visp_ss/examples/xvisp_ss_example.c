@@ -26,13 +26,21 @@
 #include "xscugic.h"           /* Generic Interrupt Controller driver */
 #include "xvisp_ss.h"          /* VISP SS driver header */
 #include "xil_exception.h"     /* Exception handling utilities */
+#include "limo.h"
+#include "lilo.h"
+#include "mimo.h"
+#include "image.h"
 
 #define LOGTAG "MAIN"
 
-int UserSensorDevId;
-int ISP_ID;
-int userVirtualChannelId;
-
+/*ISP_ID to configure pipeline*/
+#define ISP_ID 0
+/* *
+ * If custom_json = 0  internal json will be configured
+ * custom_json = 1 external json will be configured
+ * */
+int custom_json = 0;
+int image_len = image_raw_len;
 
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 int init_lilo = 1;
@@ -119,10 +127,6 @@ int main()
 
 	RESULT ret = RET_SUCCESS;
 
-	// MIPI sensor id
-	UserSensorDevId = 2;
-	ISP_ID = 0;
-	userVirtualChannelId = 0;
 
 	/* Initialize the memory manager early - required for all buffer allocations */
 	if (mm_init() != 0) {
@@ -130,9 +134,6 @@ int main()
 		return -1;
 	}
 	xil_printf("Memory manager initialized successfully.\r\n");
-
-	/* Perform hardware reset - ensures clean state */
-	reset_hw_function();
 
 	/* Initialize IRQ - setup interrupt handling infrastructure */
 	u32 Status = SetupInterruptSystem();
@@ -164,7 +165,7 @@ int main()
 	mailbox_wrapper();
 
 	/* Run main video benchmark application - core video processing workflow */
-	ret = main_vvbench(&VispSsInst[0]);
+	ret = main_vvbench(&VispSsInst[ISP_ID]);
 
 	/* Cleanup mailbox resources */
 	mailbox_close();
@@ -295,7 +296,7 @@ int config_visp_ss(u32 baseaddress)
 		xil_printf("base address 0x%x %d\n",baseaddress,__LINE__);
 	}
 	/* Verify single-stream operation - this example doesn't support MCM mode */
-	if (VispSsInst[0].Config.NumStreams > 1) {
+	if (VispSsInst[ISP_ID].Config.NumStreams > 1) {
 		xil_printf("This ISP example only works for NON-MCM mode.\r\n");
 		return XST_INVALID_VERSION;
 	}
@@ -303,30 +304,6 @@ int config_visp_ss(u32 baseaddress)
 	xil_printf("VISP SS driver initialized successfully.\r\n");
 
 	return XST_SUCCESS;
-}
-
-/**
- * @brief Hardware reset function - resets main control register and all IP blocks
- *
- * This function performs a complete hardware reset sequence for the video
- * processing fabric. The reset ensures all IP blocks start from a known state.
- *
- * Reset sequence:
- * 1. Assert RST_PL (Programmable xil_printfc Reset)
- * 2. Wait for reset propagation (2ms)
- * 3. Deassert RST_PL to bring fabric out of reset
- *
- * @note The reset address 0x00F1260330 is specific to the platform
- * @note Reset timing is critical - 2ms delay ensures proper reset propagation
- * @note This affects all fabric-based IP blocks including frame buffer writers
- */
-void reset_hw_function(void)
-{
-	/* Assert RST_PL (Programmable xil_printfc Reset for fabric) */
-	Xil_Out32(0x00F1260330, 0x00000001);
-	usleep(2000);  /* Wait 2ms for reset propagation */
-	/* Deassert RST_PL to bring fabric out of reset */
-	Xil_Out32(0x00F1260330, 0x00000000);
 }
 
 /**
