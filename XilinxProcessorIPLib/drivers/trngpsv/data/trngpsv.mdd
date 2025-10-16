@@ -11,7 +11,7 @@ BEGIN driver trngpsv
   OPTION supported_peripherals = (psv_pmc_trng);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = trngpsv;
 
 END driver
