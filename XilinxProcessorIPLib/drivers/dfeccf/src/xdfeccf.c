@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 *       dc     08/29/23 Remove immediate trigger
 * 1.7   cog    02/02/24 Yocto SDT support
 *       dc     03/01/24 Update version number in makefiles
+* 1.9   dc     10/16/25 Fix zero padding and GetActivSets
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -89,7 +90,7 @@
 #define XDFECCF_ACTIVE_SET_NUM (8U) /**< Maximum number of active sets */
 #define XDFECCF_U32_NUM_BITS (32U) /**< Number of bits in register */
 #define XDFECCF_TAP_NUMBER_MAX (256U) /**< Maximum tap number */
-#define XDFECCF_DRIVER_VERSION_MINOR (7U) /**< Driver's minor version number */
+#define XDFECCF_DRIVER_VERSION_MINOR (9U) /**< Driver's minor version number */
 #define XDFECCF_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -2140,8 +2141,8 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 		Offset = XDFECCF_CARRIER_CONFIGURATION_CURRENT +
 			 (sizeof(u32) * Index);
 		Enable = XDfeCcf_RdRegBitField(InstancePtr, Offset,
-					       XDFECCF_ENABLE_OFFSET,
-					       XDFECCF_ENABLE_WIDTH);
+					       XDFECCF_ENABLE_WIDTH,
+					       XDFECCF_ENABLE_OFFSET);
 		if (Enable == XDFECCF_ENABLE_DISABLED) {
 			/* Skip this CC, it's not enabled */
 			continue;
@@ -2253,11 +2254,11 @@ void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 				InstancePtr,
 				XDFECCF_COEFF_VALUE + (sizeof(u32) * Index), 0);
 		}
-		for (Index = 0; Index < NumValues + NumPadding; Index++) {
+		for (Index = NumPadding; Index < NumValues + NumPadding; Index++) {
 			XDfeCcf_WriteReg(
 				InstancePtr,
 				XDFECCF_COEFF_VALUE +
-					(sizeof(u32) * (Index + NumPadding)),
+					(sizeof(u32) * (Index)),
 				Coeffs->Value[Index]);
 		}
 	}
