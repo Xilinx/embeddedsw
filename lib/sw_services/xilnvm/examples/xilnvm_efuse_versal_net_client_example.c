@@ -171,7 +171,8 @@ static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 static int XNvm_ValidateAesKey(const char *Key);
-
+static int XilNvm_WriteDmeRevoke(void);
+static int XilNvm_EfuseShowDmeRevokeId(void);
 /*****************************************************************************/
 int main(void)
 {
@@ -322,6 +323,62 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\r");
 
 	Status = XilNvm_EfuseShowCtrlBits();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	xil_printf("\n\r");
+
+	Status = XilNvm_EfuseShowDmeRevokeId();
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * This function reads DME revoke and displays.
+ *
+ * @return
+ *	- XST_SUCCESS - If the read request is successful.
+ *	- Error code - On failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseShowDmeRevokeId(void)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseDmeRevokeId* DmeRevokeId = (XNvm_EfuseDmeRevokeId *)(UINTPTR)&SharedMem[0U];
+
+	Status = XNvm_EfuseReadDmeRevokeId(&NvmClientInstance, (UINTPTR)DmeRevokeId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
+
+	if(DmeRevokeId->DmeRevoke0 == TRUE) {
+		xil_printf("\n\rDME Revoke 0 is Programmed");
+	} else {
+		xil_printf("\n\rDME Revoke 0 is Not Programmed");
+	}
+
+	if(DmeRevokeId->DmeRevoke1 == TRUE) {
+		xil_printf("\n\rDME Revoke 1 is Programmed");
+	} else {
+		xil_printf("\n\rDME Revoke 1 is Not Programmed");
+	}
+
+	if(DmeRevokeId->DmeRevoke2 == TRUE) {
+		xil_printf("\n\rDME Revoke 2 is Programmed");
+	} else {
+		xil_printf("\n\rDME Revoke 2 is Not Programmed");
+	}
+
+	if(DmeRevokeId->DmeRevoke3 == TRUE) {
+		xil_printf("\n\rDME Revoke 3 is Programmed");
+	} else {
+		xil_printf("\n\rDME Revoke 3 is Not Programmed");
+	}
 
 END:
 	return Status;
@@ -733,7 +790,34 @@ static int XilNvm_EfuseProgramFuses()
 		goto END;
 	}
 
+	Status = XilNvm_WriteDmeRevoke();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 END:
+	return Status;
+}
+/****************************************************************************/
+/**
+ * This function programs DME revoke
+ *
+ * @return
+ *	- XST_SUCCESS - If DME revoke is written successfully.
+ *	- Error code - On failure.
+ *
+ ******************************************************************************/
+static int XilNvm_WriteDmeRevoke(void)
+{
+	int Status = XST_FAILURE;
+
+	if (XNVM_EFUSE_PRGM_DME_REVOKE == TRUE) {
+		Status = XNvm_WriteDmeRevoke(&NvmClientInstance, XNVM_EFUSE_DME_REVOKE_ID, XNVM_EFUSE_ENV_MONITOR_DISABLE);
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 

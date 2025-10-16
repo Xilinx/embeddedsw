@@ -66,6 +66,17 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_IP_DISABLE_0_OFFSET			(0x00000018U)
 
 /**
+ * @name Register: EFUSE_CACHE_DME_REVOKE_ID_REG
+ */
+/**< eFUSE Cache DME Revoke ID Register Masks And Shifts */
+#define XNVM_EFUSE_CACHE_DME_REVOKE_ID_0_MASK			(0x00000030U)
+#define XNVM_EFUSE_CACHE_DME_REVOKE_ID_1_MASK			(0x000000C0U)
+#define XNVM_EFUSE_CACHE_DME_REVOKE_ID_2_MASK			(0x00000300U)
+#ifndef VERSAL_2VE_2VM
+#define XNVM_EFUSE_CACHE_DME_REVOKE_ID_3_MASK			(0x00000C00U)
+#endif
+
+/**
  * @name Register: EFUSE_CACHE_SECURITY_CONTROL_REG
  */
 /**< eFUSE Cache Security Control Register Masks And Shifts */

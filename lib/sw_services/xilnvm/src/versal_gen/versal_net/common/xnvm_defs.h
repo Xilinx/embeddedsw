@@ -306,6 +306,12 @@ typedef struct {
 	u16 DmeRevokeNum;
 } XNvm_DmeRevokeDirectPload;
 
+/** Structure for IPI/CDO payload params DME Revoke */
+typedef struct {
+	u32 CdoHdr;
+	XNvm_DmeRevokeDirectPload Pload;
+} XNvm_DmeRevokeId;
+
 /** Structure for IPI/CDO payload params for DISABLE_PLM_UPDATE eFuses write */
 typedef struct {
 	u16 EnvDisFlag;

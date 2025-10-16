@@ -89,6 +89,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr);
 int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsInfoBits);
 int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag);
+int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRevokeIdAddr);
 
 /************************** Variable Definitions *****************************/
 

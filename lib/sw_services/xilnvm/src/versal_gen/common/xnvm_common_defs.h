@@ -314,6 +314,13 @@ typedef struct {
 #endif
 } XNvm_EfuseDataAddr;
 
+typedef struct {
+	u8 DmeRevoke0;
+	u8 DmeRevoke1;
+	u8 DmeRevoke2;
+	u8 DmeRevoke3;
+} XNvm_EfuseDmeRevokeId;
+
 /**
  * @}
  * @endcond
