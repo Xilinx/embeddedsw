@@ -35,7 +35,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XTRNGPSX_MAJOR_VERSION	1U
-#define XTRNGPSX_MINOR_VERSION	4U
+#define XTRNGPSX_MINOR_VERSION	5U
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

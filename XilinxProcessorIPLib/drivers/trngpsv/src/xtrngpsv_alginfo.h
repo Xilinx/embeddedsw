@@ -37,7 +37,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XTRNGPSV_MAJOR_VERSION	1U /**< Major version of Trngpsv driver */
-#define XTRNGPSV_MINOR_VERSION	7U /**< Minor version of Trngpsv driver */
+#define XTRNGPSV_MINOR_VERSION	8U /**< Minor version of Trngpsv driver */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
