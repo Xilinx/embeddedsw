@@ -308,6 +308,19 @@
 *	The number of off chip revocation ID which needs to be programmed.
 *	The value should be between 0 and 255.
 *
+*	#define XNVM_EFUSE_PRGM_DME_REVOKE	(FALSE)
+*	TRUE will program the DME Revoke ID specified in XNVM_EFUSE_DME_REVOKE_ID.
+*	FALSE will ignore the value provided in XNVM_EFUSE_DME_REVOKE_ID.
+*
+*	#define XNVM_EFUSE_DME_REVOKE_ID	(XNVM_EFUSE_DME_REVOKE_0)
+*	The value of the DME Revoke ID which should be programmed.
+*	Valid values are:
+*	XNVM_EFUSE_DME_REVOKE_0
+*	XNVM_EFUSE_DME_REVOKE_1
+*	XNVM_EFUSE_DME_REVOKE_2
+*	XNVM_EFUSE_DME_REVOKE_3
+*   Note that XNVM_EFUSE_DME_REVOKE_3 is not allowed for versal_2ve_2vm.
+*
 *	#define XNVM_EFUSE_PRGM_FIPS_INFO		FALSE
 *	TRUE will program the FIPS mode and FIPS version efuses
 *	FALSE will ignore the value provided in XNVM_EFUSE_FIPS_MODE and XNVM_EFUSE_FIPS_VERSION
@@ -634,6 +647,12 @@ extern "C" {
 #define XNVM_EFUSE_WRITE_REVOCATION_ID_NUM	(0U)
 
 #define XNVM_EFUSE_PRGM_OFF_CHIP_REVOKE_ID	FALSE
+
+/**
+ * Following define is to select the DME Revoke ID
+ */
+#define XNVM_EFUSE_PRGM_DME_REVOKE	(FALSE)
+#define XNVM_EFUSE_DME_REVOKE_ID	(XNVM_EFUSE_DME_REVOKE_0)
 
 #define XNVM_EFUSE_WRITE_OFF_CHIP_REVOKE_ID_NUM	(0U)
 

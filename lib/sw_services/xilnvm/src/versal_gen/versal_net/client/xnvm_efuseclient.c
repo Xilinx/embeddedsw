@@ -536,7 +536,7 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
-	XNvm_RevokeIdCdo *RevokeIdCdo = (XNvm_RevokeIdCdo *)Payload;
+	XNvm_DmeRevokeId *RevokeId = (XNvm_DmeRevokeId *)Payload;
 
 	/**
 	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
@@ -551,16 +551,16 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 		goto END;
 	}
 
-	RevokeIdCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_DME_REVOKE);
-	RevokeIdCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
-	RevokeIdCdo->Pload.RevokeIdNum = DmeRevokeNum;
+	RevokeId->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_DME_REVOKE);
+	RevokeId->Pload.EnvDisFlag = (u16)EnvDisFlag;
+	RevokeId->Pload.DmeRevokeNum = DmeRevokeNum;
 
 	/**
 	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_REVOKE CDO command.
 	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeIdCdo,
-			sizeof(XNvm_RevokeIdCdo) / XNVM_WORD_LEN);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeId,
+			sizeof(XNvm_DmeRevokeId) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "DME key revoke failed; Error Code = %x\r\n", Status);
@@ -2729,6 +2729,65 @@ int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootMo
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to read Dme Revoke
+ * 		requested by the user
+ *
+ * @param	InstancePtr Pointer to the client instance
+ * @param	DmeRevokeIdAddr	Address of the output buffer to store the
+ * 		Dme Revoke ID eFuses data
+ *
+ * @return
+ * 		- XST_SUCCESS  If the read is successful
+ * 		- ErrorCode  If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRevokeIdAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
+	XNvm_EfuseDmeRevokeId* DmeRevokeId = (XNvm_EfuseDmeRevokeId *)DmeRevokeIdAddr;
+	u64 ReadReg;
+	u32 HighAddr;
+	u32 LowAddr;
+	/**
+	 *  Validate input parameters.
+	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	LowAddr = (u32)(UINTPTR)&ReadReg;
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DME_FIPS_OFFSET, 1U, LowAddr,
+		HighAddr);
+
+	/**
+	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
+			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	DmeRevokeId->DmeRevoke0 = (ReadReg & XNVM_EFUSE_CACHE_DME_REVOKE_ID_0_MASK) ? 1U : 0U;
+	DmeRevokeId->DmeRevoke1 = (ReadReg & XNVM_EFUSE_CACHE_DME_REVOKE_ID_1_MASK) ? 1U : 0U;
+	DmeRevokeId->DmeRevoke2 = (ReadReg & XNVM_EFUSE_CACHE_DME_REVOKE_ID_2_MASK) ? 1U : 0U;
+#ifndef VERSAL_2VE_2VM
+	DmeRevokeId->DmeRevoke3 = (ReadReg & XNVM_EFUSE_CACHE_DME_REVOKE_ID_3_MASK) ? 1U : 0U;
+#endif
 
 END:
 	return Status;
