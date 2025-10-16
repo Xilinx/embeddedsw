@@ -37,6 +37,7 @@
 * 2.2   sk   02/04/2025 Added redundancy check for XLoader_CheckSecureState
 *       sk   03/05/2025 Added redundancy check for AHwRotStatus & SHwRotStatus
 * 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
+*       har  10/16/2025 Updated code to extract CL mode
 * </pre>
 *
 ******************************************************************************/
@@ -538,8 +539,7 @@ int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
 
 	if ((ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK) == XLOADER_BBRAM_CL_FEATURE_EN_MASK) {
 		/** - Configuration limiter feature is enabled - process based on mode and boot phase */
-		ClMode = ReadCfgLimiterReg & XLOADER_BBRAM_CL_MODE_MASK;
-
+		ClMode = (ReadCfgLimiterReg & XLOADER_BBRAM_CL_MODE_MASK) >> XLOADER_BBRAM_CL_MODE_SHIFT;
 		if (ClMode == XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE) {
 			if (BootPhase == XLOADER_CL_BEFORE_BOOT) {
 				/** - Decrement counter before boot attempt */
