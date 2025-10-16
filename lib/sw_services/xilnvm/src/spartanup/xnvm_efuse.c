@@ -35,6 +35,7 @@
 *       mb    09/09/25 Set the EFUSE clock source register with user provided clock source
 *       mb    10/03/25 Set lower bits 32 bits of black IV to zeros
 *       mb    10/03/25 Update PPK macros for SPARTANUPLUSAES1
+*       mb    10/14/25 Update logic of XNvm_EfusePrgmSpkRevokeId function
 *
 * </pre>
 *
@@ -903,25 +904,35 @@ END:
 static int XNvm_EfusePrgmSpkRevokeId(const XNvm_EfuseSpkRevokeId *SpkRevokeId)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePrgmInfo SpkRevokeIdInfo = {0U};
-	u32 SpkRevokeIdFuse[XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES];
+	int StatusTmp = XST_FAILURE;
+	u32 RevokeIdRow = 0U;
+	u32 RevokeIdCol = 0U;
 
-	Status = XNvm_EfuseComputeProgrammableBits(SpkRevokeId->RevokeId, SpkRevokeIdFuse,
-		 XNVM_EFUSE_SPK_REVOKE_ID_OFFSET,
-		 XNVM_EFUSE_SPK_REVOKE_ID_END_OFFSET);
-	if (Status != XST_SUCCESS) {
+	/**
+	 * Validate input parameters.
+	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
+	 */
+	if ((SpkRevokeId->RevokeIdNum) > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	SpkRevokeIdInfo.StartRow = XNVM_EFUSE_SPK_REVOKE_ID_START_ROW;
-	SpkRevokeIdInfo.NumOfRows = XNVM_EFUSE_SPK_REVOKE_ID_NUM_OF_ROWS;
-	SpkRevokeIdInfo.ColStart = XNVM_EFUSE_SPK_REVOKE_ID_START_COL;
-	SpkRevokeIdInfo.ColEnd = XNVM_EFUSE_SPK_REVOKE_ID_END_COL;
-	SpkRevokeIdInfo.SkipVerify = (u32)FALSE;
+	/**
+	 * Calculate the Row and Column numbers based on the revoke id number input provided.
+	 */
+	RevokeIdRow = XNVM_EFUSE_SPK_REVOKE_ID_START_ROW + ((SpkRevokeId->RevokeIdNum) /
+							     XNVM_EFUSE_BITS_IN_A_BYTE);
+	RevokeIdCol = XNVM_EFUSE_SPK_REVOKE_ID_START_COL + ((SpkRevokeId->RevokeIdNum) %
+							     XNVM_EFUSE_BITS_IN_A_BYTE);
 
-	Status = XNvm_EfusePgmAndVerifyData(&SpkRevokeIdInfo, (const u32 *)&SpkRevokeIdFuse);
-	if (Status != XST_SUCCESS) {
-		Status = (Status | XNVM_EFUSE_ERR_WRITE_SPK_REVOKE_ID);
+	/**
+	 * Program revocation Id bit.
+	 * Return XNVM_EFUSE_ERR_WRITE_SPK_REVOKE_ID upon failure.
+	 */
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, RevokeIdRow,
+			      RevokeIdCol, FALSE);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = Status | XNVM_EFUSE_ERR_WRITE_SPK_REVOKE_ID;
 	}
 
 END:

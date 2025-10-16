@@ -54,6 +54,7 @@
  *       mb    08/20/2025 Add support to program the boot mode disable eFUSE bits.
  *       mb    10/05/2025 Convert IV endianness to little endian format.
  *       mb    09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
+ *       mb    10/14/2025 Update logic for programing Revoke ID's
  *
  * </pre>
  *
@@ -98,7 +99,7 @@ static int XilNvm_EfuseShowCtrlBits(void);
 static int XilNvm_EfuseShowSecCtrlBits(void);
 static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 				   XNvm_EfuseSecCtrlBits *SecCtrl);
-static int XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
+static void XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
 				       XNvm_EfuseSpkRevokeId *SpkRevokeId);
 static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
 				       XNvm_EfuseAesRevokeId *AesRevokeId);
@@ -226,10 +227,7 @@ static int XilNvm_EfuseWriteFuses(void)
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitSpkRevokeId(&EfuseData, &SpkRevokeId);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XilNvm_EfuseInitSpkRevokeId(&EfuseData, &SpkRevokeId);
 
 	Status = XilNvm_EfuseInitAesRevokeId(&EfuseData, &AesRevId);
 	if (Status != XST_SUCCESS) {
@@ -820,43 +818,14 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
+static void XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
 				       XNvm_EfuseSpkRevokeId *SpkRevokeId)
 {
-	int Status = XST_FAILURE;
-
 	SpkRevokeId->PrgmSpkRevokeId = XNVM_EFUSE_WRITE_REVOKE_ID;
-	if ( SpkRevokeId->PrgmSpkRevokeId == TRUE) {
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-				 (char *)XNVM_EFUSE_REVOCATION_ID_0_FUSES,
-				 &SpkRevokeId->RevokeId[0U],
-				 XNVM_EFUSE_ROW_STRING_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-				 (char *)XNVM_EFUSE_REVOCATION_ID_1_FUSES,
-				 &SpkRevokeId->RevokeId[1U],
-				 XNVM_EFUSE_ROW_STRING_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-				 (char *)XNVM_EFUSE_REVOCATION_ID_2_FUSES,
-				 &SpkRevokeId->RevokeId[2U],
-				 XNVM_EFUSE_ROW_STRING_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	if (Status == XST_SUCCESS) {
+	if (SpkRevokeId->PrgmSpkRevokeId == TRUE) {
+		SpkRevokeId->RevokeIdNum = XNVM_EFUSE_WRITE_REVOCATION_ID_NUM;
 		EfuseData->SpkRevokeId = SpkRevokeId;
 	}
-
-	Status = XST_SUCCESS;
-END:
-	return Status;
 }
 
 /****************************************************************************/
@@ -886,7 +855,7 @@ static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
 	int Status = XST_FAILURE;
 
 	AesRevokeId->PrgmAesRevokeId = XNVM_EFUSE_WRITE_AES_REVOKE_ID;
-	if ( AesRevokeId->PrgmAesRevokeId == TRUE) {
+	if (AesRevokeId->PrgmAesRevokeId == TRUE) {
 		Status = XilNvm_PrepareRevokeIdsForWrite(
 				 (char *)XNVM_EFUSE_AES_REVOCATION_ID_EFUSE,
 				 &AesRevokeId->AesRevokeId,
