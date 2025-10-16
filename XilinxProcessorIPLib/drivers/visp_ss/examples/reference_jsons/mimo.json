@@ -1,0 +1,53 @@
+{
+    "totalInstance": 1,
+    "instanceCfg": [
+        {
+            "hpId": 0,
+            "instanceEnable": 1,
+            "bufferType": "userptr",
+            "inputType": "User",
+            "//": "Second",
+            "workMode": 3,
+            "inputInfo": {
+                "loopCnt": 1,
+                "frameNum": 1,
+                "PicName": "mimo.txt",
+                "width": 1280,
+                "height": 1024,
+                "format": "RAW10_MODE1",
+                "layout": "RGGB"
+            },
+            "modeInfo": {
+                "reserved": 0
+            },
+            "streamDuration": 0,
+            "pathCfg": [
+                {
+                    "pathName": "MP",
+                    "pathEnable": 1,
+                    "bufferNumber": 3,
+                    "format": "RGB888P",
+                    "pathWidth": 1280,
+                    "pathHeight": 1024
+                },
+                {
+                    "pathName": "READ",
+                    "pathEnable": 1,
+                    "bufferNumber": 3,
+                    "format": "RAW10_MODE1"
+                }
+            ],
+            "dmscInfo": {
+                "enable": 1,
+				"usecfg": 1
+            },
+            "wdrInfo": {
+                "enable": 1,
+				"usecfg": 1
+            },
+            "awbInfo": {
+                "enable": 0
+            }
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+	"totalInstance": 1,
+	"instanceCfg": [
+	{
+		"hpId": 1,
+		"instanceEnable": 1,
+		"bufferType": "userptr",
+		"inputType": "Sensor",      "//": "Invalid, Sensor, Image, Tpg, Max",
+		"workMode": 1,       "//": "1:Stream_mode  2:Mcm_mode  3:Rdma_mode",
+		"modeInfo":
+		{
+			"reserved":0,
+			"portId":1
+		},
+		"streamDuration": 30, "//": "Second",
+
+		"outPutType" : 2,
+
+		"pathCfg":[
+		{
+			"pathName": "MP",
+			"pathEnable": 1,
+			"pathOutType": 1,
+			"bufferNumber": 6,
+			"pathWidth": 1920,
+                        "pathHeight": 1080,
+			"format": "RGB888"
+		}
+		],
+
+		"sensorInfo":
+		{
+			"sensorName": "ox03f10",
+			"sensorDevId": 3 ,
+			"calibrationName": "OX03f10.xml",
+			"modeIndex": 0,
+			"resolutionWidth": 1920,
+			"resolutionHeight": 1080,
+			"illumType": "D50",
+			"fps": 10,
+			"virtualChannelId": 1, "//": "0: Default"
+		},
+		"wdrInfo":
+		{
+			"enable": 1,
+			"usecfg": 1
+		},
+		"cpdInfo":
+		{
+			"enable": 1,
+			"usecfg": 1
+		},
+		"dmscInfo":
+		{
+			"enable": 1,
+			"usecfg": 1
+		}
+	}
+	]
+}

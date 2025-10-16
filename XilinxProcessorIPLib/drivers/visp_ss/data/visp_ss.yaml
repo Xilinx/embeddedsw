@@ -98,8 +98,13 @@ examples:
     xvisp_ss_example.c:
         - dependency_files:
             - xvisp_ss_example.h
+            - mimo.h
+            - limo.h
+            - lilo.h
+            - image.h
             - test.cmake
             - libvisp.a
             - libvisp_lilo.a
             - lscript.ld
+            - reference_jsons
 ...
