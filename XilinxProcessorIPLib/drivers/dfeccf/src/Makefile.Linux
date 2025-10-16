@@ -1,11 +1,11 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 APP = dfeccf
 
 LIBSOURCES = *.c
 OUTS = *.o
 NAME := dfeccf
 MAJOR = 1
-MINOR = 8
+MINOR = 9
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so
