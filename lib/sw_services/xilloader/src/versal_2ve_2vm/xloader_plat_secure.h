@@ -36,6 +36,7 @@
 * 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
 *                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
 *       har  08/21/2025 Added XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE macro
+*       har  10/16/2025 Added XLOADER_BBRAM_CL_MODE_SHIFT macro
 *
 * </pre>
 *
@@ -75,6 +76,8 @@ extern "C" {
 			/**< Mask to get the value of counter in Configuration Limiter register */
 #define XLOADER_BBRAM_CL_MODE_MASK			(0x30000000U)
 			/**< Mask to get the value of mode in Configuration Limiter register */
+#define XLOADER_BBRAM_CL_MODE_SHIFT			(28)
+			/**< Shift to get the value of mode in Configuration Limiter register */
 #define XLOADER_BBRAM_CL_FEATURE_EN_MASK		(0xC0000000U)
 			/**< Mask to get the value of Feature enable in Configuration Limiter register */
 #define XLOADER_CL_FEATURE_EN_SHIFT			(30U)	/**<  CL Feature Enable Shift*/
