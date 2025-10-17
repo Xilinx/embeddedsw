@@ -237,38 +237,40 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Co
 		Reqm = ReqmNode->Data;
 		if ((1U == Reqm->Allocated) &&
 		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id)) &&
-		    (((u8)XPM_DEVSTATE_RUNNING == Reqm->Device->Node.State) ||
-		     ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State))) {
-			PmWarn("Core 0x%x is still running/pending power down, cannot proceed with rest of the subsystem shutdown\r\n",
+		    ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Reqm->Device->Node.Id)) &&
+		     ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {
+			PmInfo("Core 0x%x is still running/pending power down, continue\r\n",
 				Reqm->Device->Node.Id);
-			Status = XST_SUCCESS;
 			break;
 		} else {
 			Reqm = NULL;
 		}
 	}
+	/* Set default status as success here as we may not have any action ahaed */
+	Status = XST_SUCCESS;
 
 	if (NULL != Reqm) {
-		PmInfo("Core 0x%x is pending power down!\r\n", Reqm->Device->Node.Id);
+		PmInfo("Core 0x%x is pending power down\r\n", Reqm->Device->Node.Id);
 	} else {
-		PmInfo("All cores are powered off\r\n");
+		PmInfo("No APU cores are in pending power off\r\n");
 	}
 
 	if ((u8)PENDING_POWER_OFF == Subsystem->State) {
 		/* Process pending subsystem force power down if all cores are powered off */
-		PmInfo("Subsystem 0x%x is pending power off, begin ShutDown\r\n", Subsystem->Id);
 		if (NULL == Reqm) {
+			PmInfo("All cores are powered off, triggering subsys shutdown 0x%x\r\n", SubsystemId);
+			PmInfo("Subsystem 0x%x is pending power off\r\n", Subsystem->Id);
 			Subsystem->Flags = 0U;
 			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
 		}
 	} else if ((u8)PENDING_RESTART == Subsystem->State) {
 		/* Process pending subsystem restart if all cores are powered off */
-		PmInfo("Subsystem 0x%x is pending restart\r\n", Subsystem->Id);
 		if (NULL == Reqm) {
 			PmInfo("All cores are powered off, triggering subsys restart 0x%x\r\n", SubsystemId);
+			PmInfo("Subsystem 0x%x is pending restart\r\n", Subsystem->Id);
 			/*
 			 * Control reached here means the idle notification is already sent
-			 * to the core.So, clear the subsystem flags which was set to
+			 * to the core. So, clear the subsystem flags which was set to
 			 * SUBSYSTEM_IDLE_SUPPORTED during the XPm_RegisterNotifier.
 			 * This will avoid idling the cores again during subsystem restart.
 			 */
@@ -308,16 +310,16 @@ XStatus XPmCore_ReleaseFromSubsys(XPm_Core *Core)
 		PmErr("Failed to release core 0x%x from subsystem 0x%x\r\n", Core->Device.Node.Id, SubsystemId);
 		goto done;
 	}
-	PmInfo("Core 0x%x released from subsystem 0x%x, State: 0x%x\r\n", Core->Device.Node.Id, SubsystemId, Core->Device.Node.State);
-
-	PmInfo("Core->isCoreUp = %d, Core->Device.Node.State = %d\r\n",
+	PmInfo("Core 0x%x released from 0x%x, Core->isCoreUp = %d, Core->Device.Node.State = %d\r\n",
+		Core->Device.Node.Id, SubsystemId,
 		Core->isCoreUp, Core->Device.Node.State);
 
 	Status = XPmCore_ProcessPendingForcePwrDwn(Subsystem, Core);
 	if (XST_SUCCESS != Status) {
-		PmErr("Failed to trigger subsys restart, from pwr done core 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
+		PmErr("Failed during process pending pwr done core 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
 		goto done;
 	}
+	PmInfo("Success, Core 0x%x released from 0x%x\r\n", Core->Device.Node.Id, SubsystemId);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -331,21 +333,24 @@ done:
 XStatus ResetAPUGic(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Power *AcpuPwrNode;
+	const XPm_Power *AcpuPwrNode = NULL;
 	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 	u32 NodeId;
 
 	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) &&
 	    (NULL != FpdPwrNode) && ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State)) {
-		for (NodeId = PM_POWER_ACPU_0_0; NodeId <= PM_POWER_ACPU_3_3; NodeId++) {
+		for (NodeId = PM_POWER_ACPU_0_0; NodeId <= PM_POWER_ACPU_3_1; NodeId++) {
 			AcpuPwrNode = XPmPower_GetById(NodeId);
-			if ((NULL != AcpuPwrNode) && ((u8)XPM_POWER_STATE_OFF !=
-			    AcpuPwrNode->Node.State)) {
+			if (AcpuPwrNode == NULL) {
+				continue;
+			}
+			if ((NULL != AcpuPwrNode) &&
+			    ((u8)XPM_POWER_STATE_OFF != AcpuPwrNode->Node.State)) {
 				break;
 			}
 		}
-		if (PM_POWER_ACPU_3_3 < NodeId) {
-			PmInfo("Resetting APU Gic (No APU cores are off) 0x%x!\r\n", DeviceId);
+		if (PM_POWER_ACPU_3_1 < NodeId) {
+			PmInfo("Resetting APU GIC, all APU cores are off\r\n");
 			Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_PULSE);
 			if (XST_SUCCESS != Status) {
 				goto done;
