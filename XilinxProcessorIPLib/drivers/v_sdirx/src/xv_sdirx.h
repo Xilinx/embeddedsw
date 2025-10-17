@@ -160,6 +160,7 @@ typedef struct {
 							*    of the core's registers */
 	u8 IsEdhIncluded;
 	u8 MaxRateSupported;
+	u8 dbpp;
 } XV_SdiRx_Config;
 
 /**
