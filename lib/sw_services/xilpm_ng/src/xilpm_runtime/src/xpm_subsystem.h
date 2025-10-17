@@ -163,6 +163,7 @@ XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId);
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
+XStatus XPmSubsystem_CmnFlush(u32 SubsystemId);
 
 XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);

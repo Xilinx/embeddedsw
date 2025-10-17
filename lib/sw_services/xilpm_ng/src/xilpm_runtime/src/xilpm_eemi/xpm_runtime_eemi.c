@@ -360,6 +360,14 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 }
 
 
+XStatus XPmSubsystem_CmnFlush(const u32 SubsystemId)
+{
+	(void)SubsystemId;
+
+	return XST_SUCCESS;
+}
+
+
 static XStatus XPmSubsystem_Generic_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
 {
 	(void)Subsystem;

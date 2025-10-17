@@ -4,6 +4,7 @@
  *****************************************************************************/
 
 #include "xstatus.h"
+#include "xpm_regs.h"
 #include "xpm_requirement.h"
 
 /********************* Macro / Struct Definitions *********************/
@@ -15,6 +16,122 @@
 #define IS_PL_MEM_REGN(SZ_64BIT)	((u32)PL_MEM_REGN == PL_MEM_REGN_FLAGS((u64)(SZ_64BIT)))
 
 /********************* Static Function Definitions *********************/
+
+/****************************************************************************/
+/**
+ * @brief  Callback to flush given memory region using ABF
+ *
+ * @param  AddrRegn	Handle to memory region to be flushed
+ *
+ * @return XST_SUCCESS if successful, error code otherwise
+ *
+ ****************************************************************************/
+static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
+{
+	XStatus Status = XST_FAILURE;
+	const u32 MemAddr[] = {
+		POR_HNF_NODE_INFO_U_HNF_NID8_BASEADDR,
+		POR_HNF_NODE_INFO_U_HNF_NID72_BASEADDR,
+		POR_HNF_NODE_INFO_U_HNF_NID136_BASEADDR,
+		POR_HNF_NODE_INFO_U_HNF_NID200_BASEADDR,
+	};
+
+	if (NULL == AddrRegion) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/**
+	 * Flush DDR and OCM addresses using ABF (Address based flush) for
+	 * NID8, NID72, NID136 and NID200
+	 */
+	PmInfo("Region: Addr: 0x%x_%x, Size: 0x%x_%x\r\n",
+		(u32)(AddrRegion->Address >> 32U), (u32)(AddrRegion->Address),
+		(u32)(AddrRegion->Size >> 32U), (u32)(AddrRegion->Size));
+
+	for (u32 Idx = 0U; Idx < ARRAY_SIZE(MemAddr); Idx++) {
+		XPm_Out32(MemAddr[Idx] + ABF_LO_ADDR_U_HNF_NID_OFFSET_0,
+			  (u32)(AddrRegion->Address));
+		XPm_Out32(MemAddr[Idx] + ABF_LO_ADDR_U_HNF_NID_OFFSET_1,
+			  (u32)(AddrRegion->Address >> 32U));
+		XPm_Out32(MemAddr[Idx] + ABF_HI_ADDR_U_HNF_NID_OFFSET_0,
+			  (u32)(AddrRegion->Address + AddrRegion->Size));
+		XPm_Out32(MemAddr[Idx] + ABF_HI_ADDR_U_HNF_NID_OFFSET_1,
+			  (u32)((AddrRegion->Address + AddrRegion->Size) >> 32U));
+		XPm_Out32(MemAddr[Idx] + ABF_PR_U_HNF_NID_OFFSET, 0x1U);
+		Status = XPm_PollForMask(MemAddr[Idx] + ABF_SR_U_HNF_NID_OFFSET, 0x1U,
+					 XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Iterate through all memory region/device nodes (DDR, OCM, TCM, PL)
+ *	   and apply the flush callback for each region
+ *
+ * @param  SubsystemId	ID of given subsystem
+ * @param  CmnFlushCb	Callback to flush given memory region
+ *
+ * @return XST_SUCCESS if successful else appropriate return code
+ *
+ ****************************************************************************/
+static XStatus SubsystemCmnFlush(u32 SubsystemId,
+		XStatus (*CmnFlushCb)(const XPm_AddrRegion *const AddrRegion))
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	XPm_AddrRegion AddrRegn = { 0U };
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Iterate over all devices for particular subsystem */
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
+		const XPm_MemRegnDevice *MemRegnDevice = NULL;
+		const XPm_Requirement *Reqm = ReqmNode->Data;
+		u32 DeviceId = Reqm->Device->Node.Id;
+		u64 Address = 0U, Size = 0U;
+
+		if ((u32)XPM_NODESUBCL_DEV_MEM_REGN != NODESUBCLASS(DeviceId)) {
+			continue;
+		}
+		MemRegnDevice  = (XPm_MemRegnDevice *)Reqm->Device;
+		Address = MemRegnDevice->AddrRegion.Address;
+		Size = MemRegnDevice->AddrRegion.Size;
+
+		if (IS_PL_MEM_REGN(Size)) {
+			/* Zero-ing out upper flag bits[31:28] from 64bit size for PL */
+			Size &= ~PL_MEM_REGN_FLAGS_MASK_64;
+		}
+		AddrRegn.Address = Address;
+		AddrRegn.Size = Size;
+
+		if (NULL != CmnFlushCb) {
+			Status = CmnFlushCb(&AddrRegn);
+			if (XST_SUCCESS != Status) {
+				PmErr("Failed to flush region: Addr: 0x%x_%x, Size: 0x%x_%x\r\n",
+					(u32)(AddrRegn.Address >> 32), (u32)(AddrRegn.Address),
+					(u32)(AddrRegn.Size >> 32), (u32)(AddrRegn.Size));
+				goto done;
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -139,4 +256,19 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Flush all memory region/device nodes (DDR, OCM, TCM, PL) for the
+ *	   given subsystem
+ *
+ * @param  SubsystemId	ID of given subsystem
+ *
+ * @return XST_SUCCESS if successful else appropriate return code
+ *
+ ****************************************************************************/
+XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
+{
+	return SubsystemCmnFlush(SubsystemId, AddrRegnCmnFlushCb);
 }
