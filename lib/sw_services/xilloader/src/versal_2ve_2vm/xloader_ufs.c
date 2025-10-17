@@ -20,6 +20,7 @@
 * 1.00  sk  09/23/2023 Initial release
 * 1.01  sk  03/28/2025 Updated UFS init and release calls using PM dev nodes
 * 1.02 	abh	07/21/2025 Fixed GCC warnings
+*       sk  09/26/2025 Added UFS speed change config
 *
 * </pre>
 *
@@ -60,7 +61,7 @@
 #define XLOADER_UFS_SRC_FILENAME_SIZE2		(13U)
 
 /************************** Function Prototypes ******************************/
-static int XLoader_MakeUFSFileName(u32 MultiBootOffsetVal);
+static int XLoader_MakeUFSFileName(u32 MultiBootOffsetVal, u32 BootFileIndex);
 static u8 XLoader_GetDrvNumUFS(u8 DeviceFlags);
 /************************** Variable Definitions *****************************/
 static FIL FFil;		/* File object */
@@ -79,6 +80,7 @@ static char BootFile[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
  * 			- XLOADER_ERR_PM_DEV_UFS if device request for UFS Dev fails.
  * 			- XLOADER_ERR_UFS_INIT if UFS init fails
  * 			- XLOADER_ERR_UFS_F_OPEN if file is not present or read fails.
+ * 			- XLOADER_ERR_UFS_SPEED_CHANGE if speed change config fails
  *
  *****************************************************************************/
 int XLoader_UfsInit(u32 DeviceFlags)
@@ -88,7 +90,12 @@ int XLoader_UfsInit(u32 DeviceFlags)
 	u32 MultiBootOffset;
 	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 	u8 DrvNum = XLoader_GetDrvNumUFS(PdiSrc);
+	u8 DrvIndex = 0U;
+	u8 Index = 0U;
+	u8 Value;
+	char DrvTmpBuff[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
 	static FATFS FatFileSystem;
+	u32 PowerMode;
 
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
 	if (Status != XST_SUCCESS) {
@@ -124,9 +131,22 @@ int XLoader_UfsInit(u32 DeviceFlags)
 
 	/** - Set logical drive number. */
 	/** - Register volume work area, initialize device. */
-	BootFile[0U] = (char)((unsigned int)DrvNum + XLOADER_ASCII_ZERO_ENCODING);
-	BootFile[1U] = ':';
-	BootFile[2U] = '/';
+	/* Logic to extract each digit and convert to char */
+	while (DrvNum > 0U) {
+		Value = (u8)(DrvNum % XLOADER_NUMERIC_TEN);
+		DrvNum /= XLOADER_NUMERIC_TEN;
+		DrvTmpBuff[Index] = (char)(Value + XLOADER_ASCII_ZERO_ENCODING);
+		Index++;
+	}
+
+	/* Update the Drive number in proper order to form mount point eg: 10:/ */
+	while (Index > 0U ) {
+		BootFile[DrvIndex++] = DrvTmpBuff[Index - 1];
+		Index--;
+	}
+
+	BootFile[DrvIndex++] = ':';
+	BootFile[DrvIndex] = '/';
 	Rc = f_mount(&FatFileSystem, BootFile, 0U);
 
 	XLoader_Printf(DEBUG_INFO,"UFS: rc= %.8x\n\r", Rc);
@@ -137,8 +157,9 @@ int XLoader_UfsInit(u32 DeviceFlags)
 		goto END;
 	}
 
+
 	/** - Create boot image name. */
-	Status = XLoader_MakeUFSFileName(MultiBootOffset);
+	Status = XLoader_MakeUFSFileName(MultiBootOffset, DrvIndex);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -152,6 +173,22 @@ int XLoader_UfsInit(u32 DeviceFlags)
 		(void)f_unmount(BootFile);
 		goto END;
 	}
+
+	/** - Configure speed mode */
+	/** - Fallback will only work on Uncalibrated Boards */
+	PowerMode = XUFSPSXC_HS_G4_B;
+	Rc = f_ioctl(BootFile, XUFSPSXC_SPEED_CHANGE, &PowerMode);
+	if (Rc != FR_OK) {
+		XLoader_Printf(DEBUG_GENERAL, "UFS Fallback to PWM G1\n\r");
+		PowerMode = XUFSPSXC_PWM_G1;
+		Rc = f_ioctl(BootFile, XUFSPSXC_SPEED_CHANGE, &PowerMode);
+		if (Rc != FR_OK) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_SPEED_CHANGE, (int)Rc);
+			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_UFS_SPEED_CHANGE\n\r");
+			goto END;
+		}
+	}
+
 	Status = XST_SUCCESS;
 
 END:
@@ -311,20 +348,13 @@ END:
 static u8 XLoader_GetDrvNumUFS(u8 DeviceFlags)
 {
 	u8 DrvNum;
-	/**
-	 * - If design has UFS
-	 */
-#if (XPAR_XUFSPSXC_NUM_INSTANCES >= 1)
-	if (DeviceFlags == XLOADER_PDI_SRC_UFS) {
-		DrvNum = XLOADER_UFS_DRV_NUM_2;
-		goto END;
-	}
-#else
-	(void)DeviceFlags;
-	DrvNum = XLOADER_UFS_DRV_NUM_0;
-#endif
 
-END:
+	(void)DeviceFlags;
+#ifdef XLOADER_FS_MULTI_PART
+	DrvNum = XLOADER_UFS_DRV_NUM_10;
+#else
+	DrvNum = XLOADER_UFS_DRV_NUM_2;
+#endif
 	return DrvNum;
 }
 
@@ -342,10 +372,10 @@ END:
  * 			crosses max limit.
  *
  ******************************************************************************/
-static int XLoader_MakeUFSFileName(u32 MultiBootOffsetVal)
+static int XLoader_MakeUFSFileName(u32 MultiBootOffsetVal, u32 BootFileIndex)
 {
 	int Status = XST_FAILURE;
-	u8 Index = XLOADER_MULTIBOOT_INDEX;
+	u8 Index = (u8)(XLOADER_MULTIBOOT_FILENAME_SIZE + BootFileIndex);
 	u8 Value;
 	u32 MultiBootOffset = MultiBootOffsetVal;
     /**

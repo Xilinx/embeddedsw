@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk  07/23/2024 Initial release for UFS Support
 * 1.01  sk  03/28/2025 Added define for Multiboot index
+*       sk  09/26/2025 Added drive number define for UFS
 *
 * </pre>
 *
@@ -47,13 +48,18 @@ extern "C" {
 #define XLOADER_SD_DRV_NUM_0			(0U)
 #define XLOADER_SD_DRV_NUM_1			(1U)
 #define XLOADER_UFS_DRV_NUM_2			(2U)
+#define XLOADER_UFS_DRV_NUM_10			(10U)
 #define XLOADER_UFS_DRV_NUM_0			(0U)
 #define XLOADER_SD_DRV_NUM_5			(5U)
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
 #define XLOADER_SD_CHUNK_SIZE		(0x200000U)
 #define XLOADER_NUM_SECTORS		(0x1000U)
-#define XLOADER_MULTIBOOT_INDEX		(10U)
+#define XLOADER_NUMERIC_TEN		(10U)
+#define XLOADER_MULTIBOOT_FILENAME_SIZE	(8U)
 #define XLOADER_ASCII_ZERO_ENCODING	(48U)
+#ifdef FILE_SYSTEM_MULTI_PARTITION
+#define XLOADER_FS_MULTI_PART
+#endif
 
 /************************** Function Prototypes ******************************/
 int XLoader_UfsInit(u32 DeviceFlags);

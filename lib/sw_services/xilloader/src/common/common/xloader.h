@@ -129,6 +129,7 @@
 *                       XLoader_ResourceSts type definition
 *       sk   03/28/2025 Updated the max handoff count for versal_2ve_2vm
 * 2.03  tvp  08/22/2025 Removed unnecessary XLoader_ImageMeasureInfo structure member for TPM.
+*       sk   09/27/2025 Added defines related to UFS Boot
 *
 * </pre>
 *
@@ -312,6 +313,7 @@ typedef struct {
 #endif
 
 #if defined(XLOADER_UFS)
+#define XLOADER_UFS_FSBOOT_VAL		(0xF0000000U) /**< UFS FS Boot Value */
 #define XLOADER_UFS_ADDR_MASK		(0xFFFFU)
 #define XLOADER_UFS_ADDR_SHIFT		(0x4U)
 

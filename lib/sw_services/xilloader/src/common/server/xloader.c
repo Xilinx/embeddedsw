@@ -198,6 +198,7 @@
 *       pre 09/09/2025 Returning zeroize status also at image header validation failure
 *       pre 09/19/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *       obs 09/27/2025 Updated log level for restartimage fallback image search print
+*       sk  09/26/2025 Updated handling of UFS as secondary boot device
 *
 * </pre>
 *
@@ -2019,9 +2020,13 @@ static int XLoader_LoadAndStartSecondaryPdi(XilPdi* PdiPtr)
 					}
 					PdiSrc = XLOADER_PDI_SRC_DDR;
 					break;
-#ifdef VERSAL_2VE_2VM
+#if (defined(VERSAL_2VE_2VM) && defined(XLOADER_UFS))
 				case XIH_IHT_ATTR_SBD_UFS:
-					PdiSrc = XLOADER_PDI_SRC_UFS;
+					PdiSrc = XLOADER_PDI_SRC_UFS |
+						XLOADER_UFS_FSBOOT_VAL |
+						(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
+						 << XLOADER_UFS_ADDR_SHIFT);
+					PdiAddr = 0U;
 					break;
 #endif
 				default:
