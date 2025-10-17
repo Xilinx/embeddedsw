@@ -154,6 +154,7 @@ typedef struct {
     u8 IsEdhIncluded;
     u8 MaxRateSupported;
     u8 InsertCSTRST352;         /**< Insert ST352 in C stream */
+    u8 dbpp;
 } XV_SdiTx_Config;
 
 /**
