@@ -143,6 +143,7 @@ struct XPm_SubsystemMgr {
 	XPm_SubsystemList Subsystems; /**< List of subsystem objects */
 	XPm_SubsystemOps SubsysOps[SUBSYS_OPS_MAX]; /**< Subsystem operations supported */
 	u32 NumSubsystems; /**< Total number of subsystems */
+	u32 MaxSubsystemIdx; /**< Maximum subsystem index present */
 };
 
 /************************** Function Prototypes ******************************/
