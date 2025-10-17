@@ -112,8 +112,27 @@ static u8 XPmDevice_IsExcluded(const u32 NodeId)
 	    ((u32)XPM_NODESUBCL_DEV_PHY == NODESUBCLASS(NodeId)) ||
 	    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(NodeId))) {
 		IsExcluded = 1U;
+		goto done;
 	}
 
+	switch (NodeId) {
+	case PM_DEV_IPI_PMC:
+	case PM_DEV_IPI_ASU:
+	case PM_DEV_AIE:
+	/*
+	 * TODO:
+	 * PMC_WWDT reset causes EAM error which triggers SRST
+	 * Skip this from adding to the default subsystem
+	 */
+	case PM_DEV_PMC_WWDT:
+		IsExcluded = 1U;
+		break;
+	default:
+		IsExcluded = 0U;
+		break;
+	}
+
+done:
 	return IsExcluded;
 }
 
@@ -477,7 +496,12 @@ XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if ((Subsystem == NULL) || (Subsystem->State != (u8)ONLINE)) {
+	/*
+	 * SUSPENDING state is allowed here to support core wakeup
+	 * after hotplug
+	 */
+	if ((Subsystem == NULL) ||
+	    ((Subsystem->State != (u8)ONLINE) && (Subsystem->State != SUSPENDING))) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -599,7 +623,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 			if (NULL == DeviceHandle) {
 				Status = XPmReset_AssertbyId(Reset->Node.Id, Action);
 				if (XST_SUCCESS != Status) {
-
+					PmErr("Failed to assert reset 0x%x\r\n", Reset->Node.Id);
 					goto done;
 				}
 			}

@@ -174,6 +174,8 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 		if ((((RELEASE_ALL == Scope) && (1U == cReqm->Allocated)) ||
 			 ((RELEASE_UNREQUESTED == Scope) && (0U == cReqm->Allocated))) &&
 			 ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(cReqm->Device->Node.Id))) {
+			PmDbg("Releasing Device 0x%x from Subsystem 0x%x\r\n",
+					cReqm->Device->Node.Id, cReqm->Subsystem->Id);
 			Status = XPmDevice_Release(cReqm->Subsystem->Id, cReqm->Device->Node.Id,
 						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
