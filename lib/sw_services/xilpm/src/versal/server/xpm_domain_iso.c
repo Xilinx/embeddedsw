@@ -862,13 +862,18 @@ XStatus XPmDomainIso_ProcessPending(void)
 		}
 
 		/*
-		 * If CPM PCIE isolations are pending to be removed, they need
+		 * If CPM PCIE isolations are pending to be removed and it is a
+		 * segmented boot with secondary PDI loaded over PCIE, they need
 		 * to be removed after PDI load is complete and PDI done bit is
 		 * set. So skip these isolations for now.
 		 */
-		if (((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == i) ||
-		    ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == i)) {
-			continue;
+		if ((XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE | SLAVE_BOOT_SBI_CTRL_ENABLE) ==
+		    (XPm_In32(SLAVE_BOOT_SBI_CTRL) &
+		    (XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE | SLAVE_BOOT_SBI_CTRL_ENABLE))) {
+			if (((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == i) ||
+				((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == i)) {
+				continue;
+			}
 		}
 
 		if (XPmDomainIso_List[i].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
