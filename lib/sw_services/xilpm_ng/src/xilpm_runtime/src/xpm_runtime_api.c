@@ -1550,7 +1550,16 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 					}
 				}
 			}
-
+			/* Make sure subsystem owns the core before requesting wakeup */
+			Status = XPmDevice_Request(SubsystemId, DeviceId,
+						(u32)XPM_MAX_CAPABILITY,
+						(u32)XPM_DEF_QOS,
+						CmdType);
+			if (XST_SUCCESS != Status) {
+				PmErr("Failed to request core 0x%x for subsystem 0x%x\r\n",
+					DeviceId, SubsystemId);
+				goto done;
+			}
 			Status = XPmCore_RequestWakeup(Core, SetAddress, Address);
 			if (XST_SUCCESS == Status) {
 				Status = SetSubsystemState_ByCore(Core, (u32)ONLINE);
