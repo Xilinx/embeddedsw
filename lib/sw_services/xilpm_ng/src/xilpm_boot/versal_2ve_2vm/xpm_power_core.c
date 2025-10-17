@@ -962,6 +962,9 @@ XStatus XPmPower_ACpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAd
 	XPm_Out32(PSXC_LPX_SLCR_REQ_SWRST_INT_EN, XPm_In32(PSXC_LPX_SLCR_REQ_SWRST_STATUS));
 
 done:
+	if (Status != XST_SUCCESS) {
+		PmErr("ACPU%d Power up failed..\n", Args->Id);
+	}
 	return Status;
 }
 
@@ -1063,6 +1066,10 @@ XStatus XPmPower_ACpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 		XPm_Out32(Args->ClusterPcilAddr + APU_PCIL_CLUSTER_PREQ_OFFSET, 0U);
 		ApuClusterState[Args->ClusterId] = 0U;
 	}
+
+	/* Clear APU_PCIL core ISR wake bit */
+	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_ISR_WAKE_OFFSET, APU_PCIL_CORE_PREQ_MASK);
+	XPm_Out32(PSXC_LPX_SLCR_WAKEUP0_IRQ_STATUS, 0xFFFFFFFFU);
 
 	/* Unmask the wake interrupt */
 	XPm_Out32(PSXC_LPX_SLCR_WAKEUP0_IRQ_EN, Args->PwrCtrlMask);
@@ -1748,6 +1755,7 @@ XStatus XPm_DirectPwrUp(const u32 DeviceId)
 	u64 ResumeAddr = Core->ResumeAddr;
 
 	if (Core->isCoreUp == 1U) {
+		PmDbg("Core 0x%x is already powered up\r\n", DeviceId);
 		Status = XST_SUCCESS;
 		goto done;
 	}
