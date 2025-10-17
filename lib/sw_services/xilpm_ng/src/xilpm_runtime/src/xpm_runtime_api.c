@@ -836,8 +836,8 @@ XStatus XPm_HookAfterPlmCdo(void)
 
 	/* If default subsystem is present, attempt to add its requirements */
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
-
-	if (((u32)1U == XPmSubsystem_GetMaxSubsysIdx()) && (NULL != Subsystem) && ((u8)ONLINE == Subsystem->State)) {
+	if (((u32)0U == XPmSubsystem_GetMaxSubsysIdx()) &&
+	    (NULL != Subsystem) && ((u8)ONLINE == Subsystem->State)) {
 		Status = XPm_AddReqsDefaultSubsystem(Subsystem);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to add requirements to default subsystem\n\r");

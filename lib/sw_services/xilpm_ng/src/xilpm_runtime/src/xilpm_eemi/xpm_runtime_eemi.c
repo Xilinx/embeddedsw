@@ -32,6 +32,7 @@ static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem);
 XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 	.Subsystems = { .Root = NULL },
 	.NumSubsystems = 0,
+	.MaxSubsystemIdx = 0,
 };
 const XPm_SubsystemOps SubsystemOpsTable[] = {
 	/* Generic Subsystem Operations */
@@ -238,6 +239,9 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	/* Add the subsystem to the list */
 	LIST_PREPEND(SubsysList, Subsystem);
 	SubsysMgr.NumSubsystems++;
+	if (SubsysMgr.MaxSubsystemIdx < NODEINDEX(Subsystem->Id)) {
+		SubsysMgr.MaxSubsystemIdx = NODEINDEX(Subsystem->Id);
+	}
 
 	Status = XST_SUCCESS;
 done:

@@ -15,7 +15,7 @@ extern const XPm_SubsystemOps SubsystemOpsTable[];
 
 u32 XPmSubsystem_GetMaxSubsysIdx(void)
 {
-	return SubsysMgr.NumSubsystems;
+	return SubsysMgr.MaxSubsystemIdx;
 }
 
 static u32 XPmSubsystem_GetSubsysOpsType(u32 SubsystemId) {
