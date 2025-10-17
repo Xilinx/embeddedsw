@@ -716,9 +716,11 @@ def create_domain(args):
 
     bsp_libsrc_cmake_subdirs = "libsrc standalone " + " ".join(lib_list)
     cmake_extra_flags_append=f'''
-
-        split_string_by_length("Compiler FLAGS: ${{CMAKE_C_FLAGS}} ${{proc_extra_compiler_flags}} ${{CMAKE_C_FLAGS_RELEASE}}" 100 CHUNKS)
-
+        if(COMMAND split_string_by_length)
+            split_string_by_length("Compiler FLAGS: ${{CMAKE_C_FLAGS}} ${{proc_extra_compiler_flags}} ${{CMAKE_C_FLAGS_RELEASE}}" 100 CHUNKS)
+        else()
+            set(CHUNKS "Compiler FLAGS: ${{CMAKE_C_FLAGS}} ${{proc_extra_compiler_flags}} ${{CMAKE_C_FLAGS_RELEASE}}")
+        endif()
         add_custom_target(print_compiler ALL
             COMMAND ${{CMAKE_COMMAND}} -E echo ""
             COMMAND ${{CMAKE_COMMAND}} -E echo "Compiler PATH: ${{CMAKE_C_COMPILER}}"
