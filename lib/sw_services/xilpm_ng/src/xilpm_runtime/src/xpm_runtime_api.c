@@ -1104,11 +1104,6 @@ maybe_unused static inline void XPm_ClearScanClear(void)
 {
 	/* Unused function for versal_2ve_2vm */
 }
-maybe_unused static inline XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
-{
-	(void)SubsystemId;
-        return XST_SUCCESS;
-}
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to suspend a child
@@ -1614,7 +1609,7 @@ static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
 	}
 
 	/* Flush LLC in CMN block before reloading subsystem Image. */
-	Status = XPm_PlatCmnFlush(SubsystemId);
+	Status = XPmSubsystem_CmnFlush(SubsystemId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

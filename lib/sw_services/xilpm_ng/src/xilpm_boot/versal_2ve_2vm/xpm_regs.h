@@ -191,6 +191,24 @@ extern "C" {
 #define FPD_SLCR_SECURE_WPROT0_OFFSET				(0x00000000U)
 
 /**
+ * Register: PS_FPD_CMN (ABF)
+ */
+#define POR_HNF_NODE_INFO_U_HNF_NID8_BASEADDR			(0xF8100000U)
+#define POR_HNF_NODE_INFO_U_HNF_NID72_BASEADDR			(0xF8900000U)
+#define POR_HNF_NODE_INFO_U_HNF_NID136_BASEADDR			(0xF9100000U)
+#define POR_HNF_NODE_INFO_U_HNF_NID200_BASEADDR			(0xF9900000U)
+/* Lower address range for Address Based Flush (ABF) [47:0] */
+#define ABF_LO_ADDR_U_HNF_NID_OFFSET_0				(0xF50U)
+#define ABF_LO_ADDR_U_HNF_NID_OFFSET_1				(0xF54U)
+/* Upper address range for Address Based Flush (ABF) [47:0] */
+#define ABF_HI_ADDR_U_HNF_NID_OFFSET_0				(0xF58U)
+#define ABF_HI_ADDR_U_HNF_NID_OFFSET_1				(0xF5CU)
+/* Address Based Flush (ABF) policy register */
+#define ABF_PR_U_HNF_NID_OFFSET					(0xF60U)
+/* Address Based Flush (ABF) status register */
+#define ABF_SR_U_HNF_NID_OFFSET					(0xF68U)
+
+/**
  * Register: PMXC_GLOBAL
  */
 #define PMXC_GLOBAL_BASEADDR					(0xF1110000U)
