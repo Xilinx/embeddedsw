@@ -246,8 +246,6 @@ static XStatus XPmSubsystem_Generic_WakeUp(XPm_Subsystem *Subsystem)
 static XStatus XPmSubsystem_Generic_ShutDown(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Requirement *Reqm = NULL;
-	u32 DeviceId = 0U;
 
 	PmInfo("%s: Shutdown 0x%x (state: 0x%x)\r\n", __func__, Subsystem->Id, Subsystem->State);
 

@@ -92,7 +92,8 @@ static void XPm_CoreIdle(XPm_Core *Core);
 static XStatus XPm_DoAbortSuspend(XPlmi_Cmd* Cmd);
 
 static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd);
-static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId);
+static XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId);
+static XStatus XPm_SubsystemPwrUp(u32 SubsystemId);
 static XStatus SetSubsystemState_ByCore(XPm_Core* Core, const u32 State);
 static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetMaxLatency(XPlmi_Cmd* Cmd);
@@ -1134,9 +1135,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	u32 CpuIdleFlag;
 	XPm_Subsystem *Subsystem = NULL;
 
-	PmInfo("SubsystemId = 0x%x, DeviceId = 0x%x, Latency = %d, State = %d, AddressLow = 0x%x, AddressHigh = 0x%x\n\r",
-		SubsystemId, DeviceId, Latency, State, AddrLow, AddrHigh);
-
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
 
@@ -1273,7 +1271,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	XPlmi_RestoreMultiboot();
 
 	if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
-		PmWarn("+++> Idle callback support, Idling Cores!\r\n");
 		Status = XPmSubsystem_StartRecoveryTimer(Subsystem, CmdType);
 		if (XST_DEVICE_NOT_FOUND == Status) {
 			PmWarn("No recovery timer found, add runtime HB_MON node for recovery!\r\n");
@@ -1317,7 +1314,9 @@ done:
 
 static void XPm_CoreIdle(XPm_Core *Core)
 {
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	if (1U == Core->isCoreUp) {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	}
 	XPmNotifier_Event(Core->Device.Node.Id,
 			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
 }
@@ -1345,14 +1344,27 @@ XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 		Status = XPmCore_GetCoreIdleSupport(Core, &IsCoreIdleSupported);
 		if (XST_SUCCESS != Status) {
 			if (XST_DEVICE_NOT_FOUND == Status) {
-				PmWarn(" --> No idle callback registration for 0x%x, skipping\r\n", Core->Device.Node.Id);
-				continue;
+				u32 CoreType = NODETYPE(Core->Device.Node.Id);
+				if (XPM_NODETYPE_DEV_CORE_RPU == CoreType) {
+					PmDbg("-> RPU: No IdleCb for 0x%x, skipping\r\n",
+							Core->Device.Node.Id);
+					continue;
+				}
+				if (XPM_NODETYPE_DEV_CORE_APU == CoreType) {
+					/* APU core without idle callback support */
+					IsCoreIdleSupported = 1U;
+					PmDbg("-> APU: No IdleCb for 0x%x, notifying anyway\r\n",
+							Core->Device.Node.Id);
+					goto cb;
+				}
 			}
-			PmErr("Failed to get core idle support for 0x%x: 0x%x\r\n", Core->Device.Node.Id, Status);
+			PmErr("Failed to get IdleCb Support for 0x%x: 0x%x\r\n",
+					Core->Device.Node.Id, Status);
 			goto done;
 		}
+cb:
 		if (1U == IsCoreIdleSupported) {
-			PmInfo("Sending idle callback notification to 0x%x\r\n", Core->Device.Node.Id);
+			PmInfo("Sending IdleCb notification to 0x%x\r\n", Core->Device.Node.Id);
 			XPm_CoreIdle(Core);
 		}
 	}
@@ -1538,8 +1550,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 				break;
 			}
 			if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(CoreDeviceId)) ||
-			    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(CoreDeviceId)) ||
-			    ((u32)XPM_NODETYPE_DEV_CORE_PSM == NODETYPE(CoreDeviceId))) {
+			    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(CoreDeviceId))) {
 				/* Power up LPD if not powered up */
 				Power = XPmPower_GetById(PM_POWER_LPD);
 				if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
@@ -1551,9 +1562,9 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			}
 			/* Make sure subsystem owns the core before requesting wakeup */
 			Status = XPmDevice_Request(SubsystemId, DeviceId,
-						(u32)XPM_MAX_CAPABILITY,
-						(u32)XPM_DEF_QOS,
-						CmdType);
+					     (u32)XPM_MAX_CAPABILITY,
+					     (u32)XPM_DEF_QOS,
+					     CmdType);
 			if (XST_SUCCESS != Status) {
 				PmErr("Failed to request core 0x%x for subsystem 0x%x\r\n",
 					DeviceId, SubsystemId);
@@ -1601,7 +1612,47 @@ static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd)
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
-static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
+
+/* Cleanup system activities after subsystem shutdown */
+static XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm = NULL;
+	XPm_Subsystem *Subsystem = NULL;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Reqm = XPmDevice_FindRequirement(PM_DEV_ACPU_0_0, SubsystemId);
+	if (NULL != Reqm) {
+		/*
+		 * Do APU GIC pulse reset:
+		 * if all the cores are in power OFF state & FPD is ON
+		 * Only applicable for APU Subsystem
+		 */
+		Status = ResetAPUGic(PM_DEV_ACPU_0_0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* TODO: SMMU disable if required */
+	}
+
+	/* Flush LLC in CMN block before reloading subsystem Image */
+	Status = XPmSubsystem_CmnFlush(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/* Subsystem power up procedure */
+static XStatus XPm_SubsystemPwrUp(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -1612,12 +1663,6 @@ static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
 
 	/* Activate the subsystem by requesting its pre-alloc devices */
 	Status = XPmSubsystem_Activate(Subsystem);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Flush LLC in CMN block before reloading subsystem Image. */
-	Status = XPmSubsystem_CmnFlush(SubsystemId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1696,6 +1741,9 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 	XPm_Subsystem *Subsystem;
 	const XPm_ResetNode *Rst;
 
+	PmDbg("%s: SubsystemId=0x%x, Type=0x%x, SubType=0x%x\r\n",
+		SubsystemId, Type, SubType);
+
 	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
 	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
 		Status = XPM_INVALID_TYPEID;
@@ -1710,23 +1758,26 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
-		/* Idle the subsystem first */
-		Status = XPmSubsystem_Idle(Subsystem);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_SUBSYS_IDLE;
-			goto done;
+		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+			Status = XPmSubsystem_SetState(Subsystem, (u8)PENDING_POWER_OFF);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPm_SubsystemIdleCores(Subsystem);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPmSubsystem_ShutdownSystemCleanup(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
-		/* Release devices and power down cores */
-		Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_CLEANUP;
-			goto done;
-		}
-
-		/* Clear the pending suspend cb reason */
-		Subsystem->PendCb.Reason = 0U;
-
-		Status = XPmSubsystem_SetState(Subsystem, (u32)POWERED_OFF);
+		/* We're done */
 		goto done;
 	}
 
@@ -1735,12 +1786,10 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		/* Restore multiboot register value*/
 		XPlmi_RestoreMultiboot();
 
-		/* FIXME: Disable idle callback support for now */
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
-		#if 0
-			Status = XPm_RequestHBMonDevice(SubsystemId, CmdType);
+			Status = XPmSubsystem_StartRecoveryTimer(Subsystem, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
-				PmWarn("Add runtime HB_MON node for recovery\r\n");
+				PmWarn("No recovery timer found, add runtime HB_MON node for recovery!\r\n");
 			} else if (XST_SUCCESS != Status) {
 				/*
 				 * Error while requesting run time Healthy Boot
@@ -1750,7 +1799,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 			} else {
 				/* Required by MISRA */
 			}
-		#endif
 
 			Status = XPmSubsystem_SetState(Subsystem, (u8)PENDING_RESTART);
 			if (XST_SUCCESS != Status) {
@@ -1762,6 +1810,10 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 			}
 		} else {
 			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPmSubsystem_ShutdownSystemCleanup(SubsystemId);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -1942,6 +1994,9 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 			goto done;
 		}
 	}
+
+	PmInfo("Subsystem 0x%x requests action %d on reset 0x%x\r\n",
+		SubsystemId, Action, ResetId);
 
 	Status = XPmReset_AssertbyId(ResetId, Action);
 
