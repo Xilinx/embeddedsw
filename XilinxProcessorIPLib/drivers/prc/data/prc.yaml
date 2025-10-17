@@ -111,6 +111,8 @@ required:
     - bank-lsb
     - reg-select-msb
     - reg-select-lsb
+
+additionalProperties:
     - vs_shift_id
     - vs_shift_rm_shift_right_id
     - vs_shift_rm_shift_left_id
