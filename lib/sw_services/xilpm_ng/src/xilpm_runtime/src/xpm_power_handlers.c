@@ -453,6 +453,7 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);
 
 				if (XST_SUCCESS != Status) {
+					PmErr("Failed to release core 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
 					goto done;
 				}
 			} else {

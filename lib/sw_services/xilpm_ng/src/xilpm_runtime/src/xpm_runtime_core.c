@@ -237,9 +237,11 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Co
 		Reqm = ReqmNode->Data;
 		if ((1U == Reqm->Allocated) &&
 		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id)) &&
-		    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {
-			PmWarn("Core 0x%x is still pending power down, cannot proceed with subsystem shutdown\r\n",
+		    (((u8)XPM_DEVSTATE_RUNNING == Reqm->Device->Node.State) ||
+		     ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State))) {
+			PmWarn("Core 0x%x is still running/pending power down, cannot proceed with rest of the subsystem shutdown\r\n",
 				Reqm->Device->Node.Id);
+			Status = XST_SUCCESS;
 			break;
 		} else {
 			Reqm = NULL;

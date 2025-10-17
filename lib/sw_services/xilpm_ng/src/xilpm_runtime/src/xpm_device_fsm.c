@@ -68,9 +68,6 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-
-	u32 NodeId = Device->Node.Id;
-
 	/** Power on Device */
 	Status = XPmDevice_BringUp(Device);
 	if (XST_SUCCESS != Status) {
@@ -78,23 +75,26 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 		goto done;
 	}
 	/** Start clocks */
-
 	Status = SetClocks(Device, 1U);
 	if (XST_SUCCESS != Status) {
 		PmErr("clock set failed!\n");
 		goto done;
 	}
 	/** Skip releasing reset if device is core type; since it is done as the part of request wakeup */
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
-	    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId))) {
+	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
+	    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
-	/** Release Reset */
-	Status = XPmDevice_Reset(Device, PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		PmErr("Reset deassert failed!\n");
-		goto done;
+
+	/** Release reset only for peripheral devices */
+	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) {
+		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to de-assert reset for 0x%x: 0x%x\n",
+					Device->Node.Id, Status);
+			goto done;
+		}
 	}
 
 done:
@@ -117,6 +117,25 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		}
 	}
 
+	if (XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(Device->Node.Id)) {
+		PmInfo("Skipping shutdown for memory device 0x%x\n", Device->Node.Id);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	switch (Device->Node.Id) {
+	/* Do not shutdown any IPI devices */
+	case PM_DEV_IPI_0 ... PM_DEV_IPI_6:
+	case PM_DEV_IPI_NOBUF_1 ... PM_DEV_IPI_NOBUF_6:
+		PmInfo("Skipping shutdown for IPI device 0x%x\n", Device->Node.Id);
+		Status = XST_SUCCESS;
+		goto done;
+	default:
+		break;
+	}
+
+	PmDbg("Periph reset/clock dev 0x%x\r\n", Device->Node.Id);
+	/* FIXME: Following reset and clock handling to be tweaked to handle device sharing between subsystems */
 	/* Assert reset for peripheral devices */
 	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) {
 		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
@@ -151,6 +170,10 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed during shutdown, Device=0x%x, Status=0x%x\n\r",
+			Device->Node.Id, Status);
+	}
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
