@@ -62,6 +62,7 @@
 *       ng   07/17/2025 Added new error codes partition copy failure when boot copy optimization is
 *                       disabled
 *       tvp  07/30/2025 Added XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED error code
+*       sk   09/26/2025 Added error code for UFS speed change
 *
 * </pre>
 *
@@ -573,7 +574,7 @@ typedef enum {
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
 	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
 	XLOADER_ERR_PM_DEV_UFS,   /**< 0x36C - Failed to XPM Request Device for PM_DEV_UFS */
-	XLOADER_ERR_RESERVED_36D, /**< 0x36D - XLOADER_ERR_RESERVED_36D */
+	XLOADER_ERR_UFS_SPEED_CHANGE, /**< 0x36D - Failed to change UFS Speed */
 	XLOADER_ERR_RESERVED_36E, /**< 0x36E - XLOADER_ERR_RESERVED_36E */
 	XLOADER_ERR_RESERVED_36F, /**< 0x36F - XLOADER_ERR_RESERVED_36F */
 	XLOADER_ERR_RESERVED_370, /**< 0x370 - XLOADER_ERR_RESERVED_370 */
