@@ -11,6 +11,7 @@
 #include "xpm_runtime_device.h"
 #include "xpm_runtime_clock.h"
 #include "xpm_runtime_reset.h"
+#include "xpm_runtime_pin.h"
 #include "xpm_update.h"
 
 static XStatus XPmSubsystem_Generic_Activate(XPm_Subsystem *Subsystem);
@@ -24,10 +25,8 @@ static XStatus XPmSubsystem_Generic_InitFinalize(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Generic_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
 static XStatus XPmSubsystem_Generic_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
 static XStatus XPmSubsystem_Generic_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
-static XStatus XPmSubsystem_Generic_StartBootTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_NotifyHealthyBoot(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType);
 
 XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 	.Subsystems = { .Root = NULL },
@@ -47,37 +46,28 @@ const XPm_SubsystemOps SubsystemOpsTable[] = {
 		.Suspend = XPmSubsystem_Generic_Suspend,
 		.Idle = XPmSubsystem_Generic_Idle,
 		.IsAccessAllowed = XPmSubsystem_Generic_IsAccessAllowed,
-		.StartBootTimer = XPmSubsystem_Generic_StartBootTimer,
-		.StopBootTimer = XPmSubsystem_Generic_StopBootTimer,
+		.NotifyHealthyBoot = XPmSubsystem_Generic_NotifyHealthyBoot,
 		.StartRecoveryTimer = XPmSubsystem_Generic_StartRecoveryTimer,
-		.StopRecoveryTimer = XPmSubsystem_Generic_StopRecoveryTimer,
 	},
 };
 
-static XStatus XPmSubsystem_Generic_StartBootTimer(XPm_Subsystem *Subsystem)
+XPm_Fsm *XPmSubsystem_GetHbMonFsm(void)
+{
+	PmWarn("Boot/recovery timer feature is not supported in EEMI\r\n");
+	return NULL;
+}
+
+static XStatus XPmSubsystem_Generic_NotifyHealthyBoot(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 {
 	(void)Subsystem;
-
-	return XST_SUCCESS;
-}
-
-static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem)
-{
-	(void)Subsystem;
-
-	return XST_SUCCESS;
-}
-
-static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem)
-{
-	(void)Subsystem;
+	(void)CmdType;
 
 	return XST_SUCCESS;
 }

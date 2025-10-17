@@ -150,39 +150,6 @@ done:
 }
 
 /*
- * Handle the healthy boot notification from the subsystem
- */
-XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Device *Device;
-	const XPm_Requirement *Reqm;
-	u32 Idx;
-
-	for (Idx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
-			Idx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; Idx++) {
-		/*
-		 * Iterate through available Healthy Boot Monitor nodes
-		 * and release it, if it is part of the given subsystem
-		 */
-		Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
-		if (NULL != Device) {
-			Reqm = XPmDevice_FindRequirement(Device->Node.Id, SubsystemId);
-			if (NULL != Reqm) {
-				Status = XPmDevice_Release(SubsystemId, Device->Node.Id,
-							   XPLMI_CMD_SECURE);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-			}
-		}
-	}
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
-/*
  * Add a requirement to the subsystem
  */
 XStatus XPmSubsystem_AddReqm(u32 SubsystemId, u32 *Payload, u32 PayloadLen)
@@ -338,7 +305,10 @@ done:
 	return Status;
 }
 
-XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem)
+/*
+ * Handle the healthy boot notification from the subsystem
+ */
+XStatus XPmSubsystem_NotifyHealthyBoot(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {
@@ -346,12 +316,12 @@ XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 	u32 SubsysOpsType = XPmSubsystem_GetSubsysOpsType(Subsystem->Id);
-	Status = SubsystemOpsTable[SubsysOpsType].StartBootTimer(Subsystem);
+	Status = SubsystemOpsTable[SubsysOpsType].NotifyHealthyBoot(Subsystem);
 done:
 	return Status;
 }
 
-XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem)
+XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {
@@ -359,33 +329,7 @@ XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 	u32 SubsysOpsType = XPmSubsystem_GetSubsysOpsType(Subsystem->Id);
-	Status = SubsystemOpsTable[SubsysOpsType].StopBootTimer(Subsystem);
-done:
-	return Status;
-}
-
-XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem)
-{
-	XStatus Status = XST_FAILURE;
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-	u32 SubsysOpsType = XPmSubsystem_GetSubsysOpsType(Subsystem->Id);
-	Status = SubsystemOpsTable[SubsysOpsType].StartRecoveryTimer(Subsystem);
-done:
-	return Status;
-}
-
-XStatus XPmSubsystem_StopRecoveryTimer(XPm_Subsystem *Subsystem)
-{
-	XStatus Status = XST_FAILURE;
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-	u32 SubsysOpsType = XPmSubsystem_GetSubsysOpsType(Subsystem->Id);
-	Status = SubsystemOpsTable[SubsysOpsType].StopRecoveryTimer(Subsystem);
+	Status = SubsystemOpsTable[SubsysOpsType].StartRecoveryTimer(Subsystem, CmdType);
 done:
 	return Status;
 }

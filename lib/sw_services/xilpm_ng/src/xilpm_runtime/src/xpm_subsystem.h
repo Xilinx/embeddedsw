@@ -11,6 +11,7 @@
 #include "xstatus.h"
 #include "xpm_list.h"
 #include "xpm_requirement.h"
+#include "xpm_fsm.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,6 +29,7 @@ extern "C" {
 #define SUBSYSTEM_IS_CONFIGURED			((u8)1U << 1U)
 #define SUBSYSTEM_IDLE_SUPPORTED		((u8)1U << 2U)
 #define SUBSYSTEM_SUSCB_PRIORITIZE              ((u8)1U << 3U)
+#define SUBSYSTEM_IDLE_CB_IS_SENT		((u8)1U << 4U)
 
 /**
  * Helper macros to check subsystem specific flags.
@@ -114,10 +116,8 @@ typedef struct XPm_SubsystemOps {
     XStatus (*Suspend)(XPm_Subsystem *Subsystem);
     XStatus (*Idle)(XPm_Subsystem *Subsystem);
     XStatus (*IsAccessAllowed)(XPm_Subsystem *Subsystem, u32 NodeId);
-    XStatus (*StartBootTimer)(XPm_Subsystem *Subsystem);
-    XStatus (*StopBootTimer)(XPm_Subsystem *Subsystem);
-    XStatus (*StartRecoveryTimer)(XPm_Subsystem *Subsystem);
-    XStatus (*StopRecoveryTimer)(XPm_Subsystem *Subsystem);
+    XStatus (*StartRecoveryTimer)(XPm_Subsystem *Subsystem, u32 CmdType);
+    XStatus (*NotifyHealthyBoot)(XPm_Subsystem *Subsystem);
 } XPm_SubsystemOps;
 
 /**
@@ -159,11 +159,11 @@ XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId);
 XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx);
 u32 XPmSubsystem_GetMaxSubsysIdx(void);
 XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId);
-XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId);
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPmSubsystem_CmnFlush(u32 SubsystemId);
+XPm_Fsm *XPmSubsystem_GetHbMonFsm(void);
 
 XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
@@ -176,10 +176,8 @@ XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
 XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
 XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
-XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem);
-XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem);
-XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem);
-XStatus XPmSubsystem_StopRecoveryTimer(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType);
+XStatus XPmSubsystem_NotifyHealthyBoot(XPm_Subsystem *Subsystem);
 
 #ifdef __cplusplus
 }

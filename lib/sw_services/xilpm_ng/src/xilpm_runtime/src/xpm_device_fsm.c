@@ -247,6 +247,12 @@ XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 		goto done;
 	}
 	DevOps->FsmType = XPM_FSM_TYPE_GENERIC_DEVICE;
+
+	/* Override FSM type for specific devices */
+	if (XPM_NODETYPE_DEV_HB_MON == NODETYPE(DevOps->Device->Node.Id)) {
+		DevOps->FsmType = XPM_FSM_TYPE_HB_MON;
+	}
+
 	Status = XST_SUCCESS;
 done:
 	return Status;

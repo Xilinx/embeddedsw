@@ -778,7 +778,13 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 {
 	XStatus Status = XPM_ERR_SET_REQ;;
 	XPm_ReqmInfo TempReqm;
-	XPm_Requirement *PendingReqm = NULL;
+
+	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	if (NULL == DevOps) {
+		PmErr("Runtime DevOps is not initalized, DeviceID=0x%x\n", Device->Node.Id);
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	PmInfo("Device: 0x%x, State: 0x%x\r\n", Device->Node.Id, Device->Node.State);
 
@@ -802,20 +808,20 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 			goto done;
 	}
 
-	PendingReqm = FindReqm(Device, Subsystem);
-	if (NULL == PendingReqm) {
+	DevOps->PendingReqm = FindReqm(Device, Subsystem);
+	if (NULL == DevOps->PendingReqm) {
 		goto done;
 	}
-	PendingReqm->IsPending = 1;
+	DevOps->PendingReqm->IsPending = 1;
 	/*
 	 * If subsystem state is suspending then do not change device's state
 	 * according to capabilities, only schedule requirements by setting
 	 * device's next requirements.
 	 */
 	if ((u8)SUSPENDING == Subsystem->State) {
-		PendingReqm->Next.Capabilities =
+		DevOps->PendingReqm->Next.Capabilities =
 			(Capabilities & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE));
-		PendingReqm->Next.QoS = QoS;
+		DevOps->PendingReqm->Next.QoS = QoS;
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
@@ -823,31 +829,31 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 		 * Store current requirements as a backup in case something
 		 * fails.
 		 */
-		TempReqm.Capabilities = PendingReqm->Curr.Capabilities;
-		TempReqm.QoS = PendingReqm->Curr.QoS;
+		TempReqm.Capabilities = DevOps->PendingReqm->Curr.Capabilities;
+		TempReqm.QoS = DevOps->PendingReqm->Curr.QoS;
 
-		PendingReqm->Curr.Capabilities =
+		DevOps->PendingReqm->Curr.Capabilities =
 			(Capabilities & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE));
-		PendingReqm->Curr.QoS = QoS;
+		DevOps->PendingReqm->Curr.QoS = QoS;
 	}
 	//Status = XST_SUCCESS;
 	Status = XPmDevice_UpdateStatus(Device);
 
 	if (XST_SUCCESS != Status) {
-		PendingReqm->Curr.Capabilities = TempReqm.Capabilities;
-		PendingReqm->Curr.QoS = TempReqm.QoS;
+		DevOps->PendingReqm->Curr.Capabilities = TempReqm.Capabilities;
+		DevOps->PendingReqm->Curr.QoS = TempReqm.QoS;
 	} else if ((u32)PM_CAP_UNUSABLE == Capabilities) {
 		/* Schedule next requirement to 0 */
-		PendingReqm->Next.Capabilities = 0U;
-		PendingReqm->Next.QoS = QoS;
+		DevOps->PendingReqm->Next.Capabilities = 0U;
+		DevOps->PendingReqm->Next.QoS = QoS;
 	} else {
-		XPm_RequiremntUpdate(PendingReqm);
+		XPm_RequiremntUpdate(DevOps->PendingReqm);
 	}
 
 done:
 	if (XST_SUCCESS != Status) {
-		if (NULL != PendingReqm) {
-			PendingReqm->IsPending = 0;
+		if ((NULL != DevOps) && (NULL != DevOps->PendingReqm)) {
+			DevOps->PendingReqm->IsPending = 0;
 		}
 		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
 	}
