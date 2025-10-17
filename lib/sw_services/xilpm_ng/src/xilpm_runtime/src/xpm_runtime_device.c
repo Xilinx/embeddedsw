@@ -1341,16 +1341,17 @@ done:
 	}
 	return Status;
 }
+
 XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Idx;
-	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
 	if ((NULL == Device) || (NULL == PermissionMask)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	*PermissionMask = 0U;
+
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
@@ -1359,11 +1360,7 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
 		XPm_Requirement *Reqm = ReqmNode->Data;
 		if (1U == Reqm->Allocated) {
-			for (Idx = 0; Idx <= SubsysIdx; Idx++) {
-				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
-					*PermissionMask |= ((u32)1U << Idx);
-				}
-			}
+			*PermissionMask |= ((u32)1U << NODEINDEX(Reqm->Subsystem->Id));
 		}
 	}
 
