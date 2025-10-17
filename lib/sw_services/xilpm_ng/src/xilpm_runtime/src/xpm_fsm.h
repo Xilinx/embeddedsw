@@ -15,6 +15,7 @@ extern "C" {
 typedef enum {
 	XPM_FSM_TYPE_MIN = 0x0,
 	XPM_FSM_TYPE_GENERIC_DEVICE = 0x1, /**< Generic device FSM */
+	XPM_FSM_TYPE_HB_MON = 0x2, /**< Healthy boot monitor device FSM */
 	XPM_FSM_TYPE_MAX = 0xE
 } XPm_FsmType;
 

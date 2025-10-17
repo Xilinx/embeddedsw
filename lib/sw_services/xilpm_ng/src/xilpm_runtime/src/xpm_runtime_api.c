@@ -1273,10 +1273,10 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	XPlmi_RestoreMultiboot();
 
 	if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
-		#if 0
-		Status = XPm_RequestHBMonDevice(NodeId, CmdType);
+		PmWarn("+++> Idle callback support, Idling Cores!\r\n");
+		Status = XPmSubsystem_StartRecoveryTimer(Subsystem, CmdType);
 		if (XST_DEVICE_NOT_FOUND == Status) {
-			PmWarn("Add runtime HB_MON node for recovery\r\n");
+			PmWarn("No recovery timer found, add runtime HB_MON node for recovery!\r\n");
 		} else if (XST_SUCCESS != Status) {
 			/*
 			 * Error while requesting run time Healthy Boot
@@ -1286,7 +1286,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		} else {
 			/* Required by MISRA */
 		}
-		#endif
 
 		Status = XPmSubsystem_SetState(Subsystem,
 					       (u8)PENDING_POWER_OFF);

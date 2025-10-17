@@ -30,10 +30,8 @@ static XStatus XPmSubsystem_Generic_InitFinalize(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Generic_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
 static XStatus XPmSubsystem_Generic_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
 static XStatus XPmSubsystem_Generic_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
-static XStatus XPmSubsystem_Generic_StartBootTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_NotifyHealthyBoot(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType);
 
 XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 	.Subsystems = { .Root = NULL },
@@ -53,39 +51,70 @@ const XPm_SubsystemOps SubsystemOpsTable[] = {
 		.Suspend = XPmSubsystem_Generic_Suspend,
 		.Idle = XPmSubsystem_Generic_Idle,
 		.IsAccessAllowed = XPmSubsystem_Generic_IsAccessAllowed,
-		.StartBootTimer = XPmSubsystem_Generic_StartBootTimer,
-		.StopBootTimer = XPmSubsystem_Generic_StopBootTimer,
+		.NotifyHealthyBoot = XPmSubsystem_Generic_NotifyHealthyBoot,
 		.StartRecoveryTimer = XPmSubsystem_Generic_StartRecoveryTimer,
-		.StopRecoveryTimer = XPmSubsystem_Generic_StopRecoveryTimer,
 	},
 };
 
-static XStatus XPmSubsystem_Generic_StartBootTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_NotifyHealthyBoot(XPm_Subsystem *Subsystem)
 {
-	(void)Subsystem;
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+	const XPm_Requirement *Reqm = NULL;
+	u32 DeviceIdx;
 
-	return XST_SUCCESS;
+	for (DeviceIdx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
+	     DeviceIdx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; DeviceIdx++) {
+		/*
+		 * Iterate through available Healthy Boot Monitor nodes
+		 * and release it, if it is part of the given subsystem
+		 */
+		Device = XPmDevice_GetHbMonDeviceByIndex(DeviceIdx);
+		if (NULL == Device) {
+			continue;
+		}
+		Reqm = XPmDevice_FindRequirement(Device->Node.Id, Subsystem->Id);
+		/* Make sure to release only the currently requested healthy boot nodes */
+		if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
+			continue;
+		}
+		Status = XPmDevice_Release(Subsystem->Id, Device->Node.Id,
+				XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
 }
 
-static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 {
-	(void)Subsystem;
+	u32 DeviceIdx;
+	XStatus Status = XST_DEVICE_NOT_FOUND;
+	const XPm_Device *Device;
+	const XPm_Requirement *Reqm = NULL;
 
-	return XST_SUCCESS;
-}
+	/* Request run time Healthy Boot Monitor node if it is added */
+	for (DeviceIdx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
+	     DeviceIdx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; DeviceIdx++) {
+		Device = XPmDevice_GetHbMonDeviceByIndex(DeviceIdx);
+		if (NULL == Device) {
+			continue;
+		}
+		Reqm = XPmDevice_FindRequirement(Device->Node.Id, Subsystem->Id);
+		/* Skip if boot time healthy boot monitor node found */
+		if ((NULL == Reqm) || (1U == PREALLOC((u32)Reqm->Flags))) {
+			continue;
+		}
+		Status = XPm_RequestDevice(Subsystem->Id, Device->Node.Id,
+					   (u32)PM_CAP_ACCESS, Reqm->PreallocQoS,
+					   0U, CmdType);
+		break;
+	}
 
-static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem)
-{
-	(void)Subsystem;
-
-	return XST_SUCCESS;
-}
-
-static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem)
-{
-	(void)Subsystem;
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 static XStatus XPmSubsystem_Generic_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
@@ -177,9 +206,20 @@ done:
 
 static XStatus XPmSubsystem_Generic_InitFinalize(XPm_Subsystem *Subsystem)
 {
-	(void)Subsystem;
+	XStatus Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	/*
+	 * As the subsystem boot is successfully,
+	 * notify healthy to stop healthy boot monitors
+	 */
+	Status = XPmSubsystem_NotifyHealthyBoot(Subsystem);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* TODO: implement me */
+done:
+	return Status;
 }
 
 static XStatus XPmSubsystem_Generic_Idle(XPm_Subsystem *Subsystem)
@@ -209,22 +249,11 @@ static XStatus XPmSubsystem_Generic_ShutDown(XPm_Subsystem *Subsystem)
 	const XPm_Requirement *Reqm = NULL;
 	u32 DeviceId = 0U;
 
+	PmInfo("%s: Shutdown 0x%x (state: 0x%x)\r\n", __func__, Subsystem->Id, Subsystem->State);
+
 	if ((u32)POWERED_OFF == Subsystem->State) {
 		Status = XST_SUCCESS;
 		goto done;
-	}
-
-	/* Power down the cores */
-	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
-		Reqm = ReqmNode->Data;
-		DeviceId = Reqm->Device->Node.Id;
-		PmDbg("Reqm: DeviceId: 0x%x Allocated: %d\r\n", DeviceId, Reqm->Allocated);
-		if ((1U == Reqm->Allocated) && ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId))) {
-			Status = XPmCore_ForcePwrDwn(DeviceId);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
 	}
 
 	/* Idle the subsystem */
@@ -233,6 +262,7 @@ static XStatus XPmSubsystem_Generic_ShutDown(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
+	Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_CB_IS_SENT);
 
 	/* Release the resources */
 	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
@@ -249,9 +279,10 @@ static XStatus XPmSubsystem_Generic_ShutDown(XPm_Subsystem *Subsystem)
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Subsystem 0x%x shutdown failed\r\n", Subsystem->Id);
+		PmErr("Subsystem 0x%x shutdown failed: 0x%x\r\n", Subsystem->Id, Status);
 	} else {
-		PmInfo("Subsystem 0x%x shutdown successful\r\n", Subsystem->Id);
+		PmInfo("Subsystem 0x%x shutdown successful, state: 0x%x\r\n",
+				Subsystem->Id, Subsystem->State);
 	}
 
 	return Status;
@@ -432,6 +463,8 @@ static XStatus XPmSubsystem_Generic_Activate(XPm_Subsystem *Subsystem)
 	}
 	Status = XST_SUCCESS;
 	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
+
+	PmInfo("Subsystem 0x%x configured successfully\r\n", Subsystem->Id);
 
 done:
 	return Status;
