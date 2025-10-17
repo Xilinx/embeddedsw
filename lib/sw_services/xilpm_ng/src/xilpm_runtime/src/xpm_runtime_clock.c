@@ -246,14 +246,15 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 
 	DevHandle = Clk->ClkHandles;
 	while (NULL != DevHandle) {
+		u32 DevPermissionMask = 0U;
 		/* Get permission mask which indicates permission for each subsystem */
 		Status = XPmDevice_GetPermissions(DevHandle->Device,
-						  &PermissionMask);
+						  &DevPermissionMask);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_GET_DEVICE_PERMISSION;
 			goto done;
 		}
-
+		PermissionMask |= DevPermissionMask;
 		DevHandle = DevHandle->NextDevice;
 	}
 
@@ -266,7 +267,8 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 
 	/* Access is not allowed if resource is shared (multiple subsystems) */
 	if (SubsystemIdx != 0 && __builtin_popcount(PermissionMask) > 1) {
-		PmErr("Resource is shared among multiple subsystems\r\n");
+		PmErr("Resource is shared among multiple subsystems: 0x%x\r\n",
+				PermissionMask);
 		DbgErr = XPM_INT_ERR_SHARED_RESOURCE;
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
