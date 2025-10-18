@@ -71,6 +71,7 @@
 * 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 * 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
+*       sd   10/13/2025 Added support for VERSAL_2VP_P devices.
 *
 * </pre>
 *
@@ -276,7 +277,7 @@ typedef struct {
 	u8 PrtnHash[XIPLDI_SHA3_HASH_SIZE_IN_BYTES]; /**< Partition hash */
 } XilPdi_PrtnHashInfo;
 
-#ifdef VERSAL_2VE_2VM
+#if (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P))
 /**
  * HashBlock Definition
  */
@@ -296,7 +297,7 @@ typedef struct {
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_IMGS]; /**< Image header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
-#ifdef VERSAL_2VE_2VM
+#if (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P))
 	XilPdi_HashBlock HashBlock; /**< HashBlock containing partition hashes */
 #endif
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
