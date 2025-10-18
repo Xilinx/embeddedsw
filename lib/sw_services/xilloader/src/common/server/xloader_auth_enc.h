@@ -66,6 +66,7 @@
 *       kal  04/16/25 Updated XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD when
 *                     additional PPKs feature is enabled
 * 2.2   har  04/21/25 Removed XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK macro
+*       sd   10/13/25 Added support for VERSAL_2VP_P devices.
 *
 * </pre>
 *
@@ -371,7 +372,7 @@ extern "C" {
 
 #define XLOADER_NOLOAD_VAL			(0xFFFFFFFFU)	/**< To indicate no load */
 
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 #define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
 						XLOADER_RSA_4096_KEY_SIZE \
 						+ 4U +4U)
@@ -453,12 +454,12 @@ typedef struct {
 	u32 PubModulus[128U];	/**< Public Modulus */
 	u32 PubModulusExt[128U];	/**< Public Modulus Extension */
 	u32 PubExponent;	/**< Public Exponent */
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	u32 Reserved[3U];
 #endif
 } XLoader_RsaKey;
 
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 /**< Authentication Certificate */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
@@ -524,7 +525,7 @@ typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
 typedef enum {
 	XLOADER_ECDSA,	/**< 0x0 - ECDSA */
 	XLOADER_RSA,	/**< 0x1 - RSA */
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XLOADER_LMS_HSS,/**< 0x2 - LMS_HSS */
 	XLOADER_LMS	/**< 0x3 - LMS*/
 #endif
@@ -549,7 +550,7 @@ typedef struct
 	u8 Padding1[8];	/**< Padding 1 */
 } XLoader_Vars;
 
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 /**< Authenticated Message structure for Versal and Versal Net */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
@@ -712,7 +713,7 @@ int XLoader_ClearAesKey(u32 *DecKeySrc);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);

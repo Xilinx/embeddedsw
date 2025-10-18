@@ -135,6 +135,7 @@
 *       pre  08/23/25 Did versal macro change
 *       tvp  08/27/25 Store Block 0 partition hash to calculate subsystem image hash for versal_2vp
 *       pre  09/30/25 Updated comments for rtf docs
+*       sd   10/13/25 Added support for VERSAL_2VP_P devices.
 *
 * </pre>
 *
@@ -486,7 +487,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 			Status);
 		goto END;
 	}
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	if ((Last == (u8)TRUE) || (SecurePtr->IsCdo == (u8)TRUE)) {
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -503,7 +504,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update next chunk's hash from pmc ram */
 	if ((Last != (u8)TRUE) && (SecurePtr->IsCdo != (u8)TRUE)) {
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
@@ -586,7 +587,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 {
 	int Status = XST_FAILURE;
 	u32 ChecksumType;
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	u64 ChecksumOffset;
 #else
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
@@ -608,7 +609,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0);
 			goto END;
 		}
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 		/** - Copy checksum hash */
 		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 				((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
@@ -666,7 +667,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 {
 
 	volatile int Status = XST_FAILURE;
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	volatile int CryptoChkStatus = XST_FAILURE;
 	volatile int CryptoChkStatusTmp = XST_FAILURE;
 #endif
@@ -728,7 +729,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		DataAddr = DestAddr;
 	}
 	/** Verify hash on the data */
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	/** Verify only when crypto engines are enabled */
 	XSECURE_REDUNDANT_CALL(CryptoChkStatus, CryptoChkStatusTmp, XSecure_CryptoCheck);
 	if ((CryptoChkStatus == XST_SUCCESS) || (CryptoChkStatusTmp == XST_SUCCESS))

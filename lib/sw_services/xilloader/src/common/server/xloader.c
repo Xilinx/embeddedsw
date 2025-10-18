@@ -199,6 +199,7 @@
 *       pre 09/19/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *       obs 09/27/2025 Updated log level for restartimage fallback image search print
 *       sk  09/26/2025 Updated handling of UFS as secondary boot device
+*       sd  10/13/2025 Added support for VERSAL_2VP_P devices.
 *
 * </pre>
 *
@@ -692,7 +693,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr->ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.Attr);
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XPlmi_Printf(DEBUG_INFO, "AutheticationHdr: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.AuthenticationHdr);
 	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",
@@ -795,7 +796,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		}
 	}
 
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	/* Secure flow is not supported for PDI versions older than v4 */
 	if ((SecureParams.SecureEn == (u8)TRUE) &&
 	   ((PdiPtr->MetaHdr->ImgHdrTbl.Version == XLOADER_PDI_VERSION_1) ||
@@ -819,7 +820,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	 * platforms. For Versal_2ve_2vm platform whole MetaHeader is autheticated with
 	 * HashBlock signature.
 	 */
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 			XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
@@ -867,7 +868,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			goto END;
 		}
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 		/**
 		 * This is applicable for Versal 2VE and 2VM Devices only.
 		 * Hashblock is a array of partition's hashes.
@@ -1990,7 +1991,7 @@ static int XLoader_LoadAndStartSecondaryPdi(XilPdi* PdiPtr)
 				case XIH_IHT_ATTR_SBD_SMAP:
 					PdiSrc = XLOADER_PDI_SRC_SMAP;
 					break;
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 				case XIH_IHT_ATTR_SBD_JTAG:
 					PdiSrc = XLOADER_PDI_SRC_JTAG;
 					break;
