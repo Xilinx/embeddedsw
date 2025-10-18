@@ -46,6 +46,7 @@
 *       pre  09/30/2024 Added support for get secure communication status command
 *       pre  01/13/2025 Added command to set access status of DDRMC main registers
 *       am   02/22/2025 Added ASU module Id
+*       sd   10/13/2025 Added support for VERSAL_2VP_P devices.
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ typedef struct {
 	u32 CmdCnt;
 	int (*InvalidCmdHandler)(u32 *Payload, u32 *RespBuf);
 	XPlmi_AccessPerm_t *AccessPermBufferPtr;
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_2VP_P)
 	XPlmi_UpdateHandler_t UpdateHandler;
 #endif
 } XPlmi_Module;

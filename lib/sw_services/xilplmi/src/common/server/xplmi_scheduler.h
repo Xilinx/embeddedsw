@@ -35,6 +35,8 @@
 *       pre  03/02/2025 Added timeout handling for AES and SHA resources
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 * 2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
+*       sd   10/08/2025 Added support for VERSAL_2VP_P devices.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -68,7 +70,7 @@ typedef void (*XPlmi_ErrorFunc_t)(int Status);
 
 typedef enum {
 	XPLMI_SHA3_CORE = 0, /* SHA3 core */
-#ifdef VERSAL_2VE_2VM
+#if (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P))
 	XPLMI_SHA2_CORE, /* SHA2 core */
 #endif
 #ifndef PLM_SECURE_EXCLUDE
