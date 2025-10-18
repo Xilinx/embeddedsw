@@ -44,6 +44,7 @@
 * 1.14	ab	01/16/23 Added Xil_WaitForEvent() to XcsuDma_WaitForDoneTimeout.
 * 1.14	ab	01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
 * 1.14	bm	05/01/23 Fixed Assert condition in XCsuDma_Transfer for VERSAL_NET.
+* 2.0	sd	10/13/25 Added support for VERSAL_2VP_P devices.
 * </pre>
 *
 ******************************************************************************/
@@ -147,7 +148,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	u32 DataSize = 0U;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-#if !defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P))
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
 #endif
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
@@ -155,7 +156,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -260,7 +261,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -913,7 +914,7 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 
 }
 
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 /*****************************************************************************/
 /**
 *

@@ -27,6 +27,7 @@
 * 1.11	sk     03/03/22 Add cond INTERNAL to avoid internal macros.
 * 1.12	sk     03/03/22 Added support for VERSAL NET.
 * 1.16  ng     08/20/24 Added spartanup device support
+* 2.0   sd     10/13/25 Added support for VERSAL_2VP_P devices.
 * </pre>
 *
 ******************************************************************************/
@@ -120,7 +121,7 @@ extern "C" {
 /** @name Address register bit masks
  * @{
  */
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFFU	/**< Address mask */
 #else
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFCU	/**< Address mask */
@@ -134,7 +135,7 @@ extern "C" {
  * @{
  */
 #define XCSUDMA_SIZE_MASK	0x1FFFFFFCU	/**< Mask for size */
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 #define XCSUDMA_LAST_WORD_MASK	0x20000000U	/**< Last word check bit mask*/
 #define XCSUDMA_SIZE_SHIFT	0U		/**< Shift for size */
 #else

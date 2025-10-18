@@ -49,6 +49,7 @@
 * 1.14	ab	01/16/23 Added Xil_PlmStubHandler() to XCsuDma_WaitForDone.
 * 1.14	ab	01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
 * 1.14  adk     04/14/23 Added support for system device-tree flow.
+* 2.0   sd      10/13/25 Added support for VERSAL_2VP_P devices.
 * </pre>
 *
 ******************************************************************************/
@@ -98,7 +99,7 @@ typedef enum {
 /** @name Ranges of Size
  * @{
  */
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 #define XCSUDMA_SIZE_MAX 0x1FFFFFFFU	/**< Maximum allowed no of bytes */
 #else
 #define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
@@ -385,7 +386,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					u64 Addr, u32 Size, u8 EnDataLast);
 void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			   u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast);
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 void XCsuDma_ByteAlignedTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					u64 Addr, u32 Size, u8 EnDataLast);
 #endif
