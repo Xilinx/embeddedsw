@@ -85,6 +85,7 @@ proc swapp_generate {} {
 	set versal "versal/"
 	set versal_2ve_2vm "versal_2ve_2vm/"
 	set versal_2vp "versal_2vp/"
+	set versal_2vp_p "versal_2vp_p/"
 	set common "common/"
 
 	foreach entry [glob -nocomplain -types f [file join . *]] {
@@ -109,6 +110,7 @@ proc swapp_generate {} {
 	file delete -force $versal
 	file delete -force $versal_2ve_2vm
 	file delete -force $versal_2vp
+	file delete -force $versal_2vp_p
 
 	# disable global optimizations through --no-relax flag
 	set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
