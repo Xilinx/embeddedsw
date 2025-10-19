@@ -140,7 +140,17 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->Extra_DummyCycle = 0U;
 		InstancePtr->DllMode = XOSPIPSV_DLL_BYPASS_MODE;
 		InstancePtr->DualByteOpcodeEn = 0U;
+#if defined (SPARTANUP)
+		/* Workaround for SpartanUP platform.
+		 * SpartanUP design does not include frequency information
+		 * in the OSPI IP configuration properties, causing
+		 * ConfigPtr->InputClockHz to be initialized to zero by default.
+		 * This results in prescaler configuration failure. To avoid
+		 * this issue, initialize InstancePtr->Config.InputClockHz to 160MHz.
+		 */
+		InstancePtr->Config.InputClockHz = 160000000;
 
+#endif
 #if defined (versal) && !defined (VERSAL_NET) && !defined (SPARTANUP)
 		if (XGetPSVersion_Info() != SILICON_VERSION_1) {
 #endif
