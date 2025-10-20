@@ -169,12 +169,7 @@ static XStatus XPmAccess_SecHandler(u32 SubsystemId, pm_ioctl_id Op, u32 CmdType
 	volatile XStatus Status = XPM_PM_NO_ACCESS;
 	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 
-	Status = XPmAccess_BaseHandler(Op, AccessType);
-	StatusTmp = Status;
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		Status |= StatusTmp;
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_BaseHandler, Op, AccessType);
 
 	/* Check if incoming command is Secure */
 	Status = XPM_PM_NO_ACCESS;
@@ -195,21 +190,11 @@ static XStatus XPmAccess_NSecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 	(void)CmdType;
 
 	volatile XStatus Status = XPM_PM_NO_ACCESS;
-	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 
-	Status = XPmAccess_BaseHandler(Op, AccessType);
-	StatusTmp = Status;
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		Status |= StatusTmp;
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_BaseHandler, Op, AccessType);
 
 	/* Check if caller subsystem has access to this entry */
-	Status = XPmAccess_CheckRequirement(SubsystemId, Match->Entry->Id);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_CheckRequirement, SubsystemId, Match->Entry->Id);
 done:
 	return Status;
 }
@@ -222,11 +207,7 @@ static XStatus XPmAccess_SecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 	volatile XStatus Status = XPM_PM_NO_ACCESS;
 	volatile XStatus StatusTmp = XPM_PM_NO_ACCESS;
 
-	Status = XPmAccess_NSecSubsysHandler(SubsystemId, Op, CmdType,
-					     AccessType, Match);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_NSecSubsysHandler, SubsystemId, Op, CmdType, AccessType, Match);
 
 	/* Check if incoming command is Secure */
 	Status = XPM_PM_NO_ACCESS;
@@ -292,7 +273,7 @@ static XStatus XPmAccess_IsAllowed(u32 SubsystemId, u32 DeviceId,
 				   pm_ioctl_id IoctlId,
 				   u32 Offset, u32 CmdType)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	XPm_NodeAccessMatch Match = { NULL, NULL };
 
 	/**
@@ -306,10 +287,8 @@ static XStatus XPmAccess_IsAllowed(u32 SubsystemId, u32 DeviceId,
 		goto done;
 	}
 
-	Status = XPmAccess_LookupEntry(DeviceId, Offset, &Match);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_LookupEntry, DeviceId, Offset, &Match);
+
 	PmDbg("Matching Entry Found:\r\n");
 	PmDbg("    Id: 0x%08x\r\n", Match.Entry->Id);
 	PmDbg("    Offset: 0x%x, Size: 0x%x, Access 0x%x\r\n",
@@ -317,10 +296,8 @@ static XStatus XPmAccess_IsAllowed(u32 SubsystemId, u32 DeviceId,
 			Match.Aper->Size,
 			Match.Aper->Access);
 
-	Status = XPmAccess_EnforcePolicy(SubsystemId, IoctlId, CmdType, &Match);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_EnforcePolicy, SubsystemId, IoctlId, CmdType, &Match);
+
 	PmDbg("Access policy successfully enforced\r\n");
 
 done:
@@ -330,7 +307,7 @@ done:
 
 static XStatus XPmAccess_CheckParent(u32 DeviceId, u32 *BaseAddress)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 Base = 0U;
 	const XPm_Device *Device;
 	const XPm_RegNode *Regnode;
@@ -348,10 +325,8 @@ static XStatus XPmAccess_CheckParent(u32 DeviceId, u32 *BaseAddress)
 			goto done;
 		}
 		/* Get device base */
-		Status = XPm_GetDeviceBaseAddr(DeviceId, &Base);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XSECURE_TEMPORAL_CHECK(done, Status, XPm_GetDeviceBaseAddr, DeviceId, &Base);
+
 		break;
 	case (u32)XPM_NODECLASS_REGNODE:
 		Regnode = XPmRegNode_GetNodes();
@@ -400,21 +375,14 @@ XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
 			  u32 Offset, u32 Count,
 			  u32 *const Response, u32 CmdType)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u32 DataIn = 0U;
 	(void)Count;
 
-	Status = XPmAccess_IsAllowed(SubsystemId, DeviceId, IoctlId,
-				     Offset, CmdType);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_IsAllowed, SubsystemId, DeviceId, IoctlId, Offset, CmdType);
 
-	Status = XPmAccess_CheckParent(DeviceId, &BaseAddress);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_CheckParent, DeviceId, &BaseAddress);
 
 	PmDbg("RD @ (0x%x + 0x%x)\r\n", BaseAddress, Offset);
 
@@ -447,19 +415,12 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
 			       u32 Offset, u32 Mask, u32 Value,
 			       u32 CmdType)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 
-	Status = XPmAccess_IsAllowed(SubsystemId, DeviceId, IoctlId,
-				     Offset, CmdType);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_IsAllowed, SubsystemId, DeviceId, IoctlId, Offset, CmdType);
 
-	Status = XPmAccess_CheckParent(DeviceId, &BaseAddress);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_CheckParent, DeviceId, &BaseAddress);
 
 	PmDbg("RMW M:0x%x V:0x%x @ (0x%x + 0x%x)\r\n",
 			Mask, Value, BaseAddress, Offset);
