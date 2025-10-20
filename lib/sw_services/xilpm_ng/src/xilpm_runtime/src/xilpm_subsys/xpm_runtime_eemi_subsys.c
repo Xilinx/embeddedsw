@@ -345,6 +345,40 @@ static XStatus CheckTargetToHostPerm(const u32 CmdType, const u32 HostId, u32 Pe
 	return Status;
 }
 
+/**
+ * @brief  Checks whether given Target Subsystem has required Permission Mask
+ *
+ * @param  Operation 		Operation Mask
+ * @param  TargetSubsystem	Target Subsystem
+ * @param  PermissionMask 	Permission mask of the Target subsystem for the operation
+ * @param  DbgErr 		Pass by reference to the debug error variable
+ *
+ * @return XPM_SUCCESS if permission is found ( XPM_PM_NO_ACCESS otherwise )
+ * @note   This is a static inline function
+ */
+static XStatus CheckTargetPermMask(const u32 Operation, const XPm_Subsystem *TargetSubsystem,
+						u32 *PermissionMask, u16 *DbgErr) {
+	volatile XStatus Status = XST_FAILURE;
+
+	switch (Operation)
+	{
+		case SUB_PERM_WAKE_MASK:
+			*PermissionMask = TargetSubsystem->Perms.WakeupPerms;
+			Status = XST_SUCCESS;
+			break;
+		case SUB_PERM_PWRDWN_MASK:
+			*PermissionMask = TargetSubsystem->Perms.PowerdownPerms;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			*DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+	return Status;
+}
+
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
@@ -476,8 +510,8 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	const XPm_Subsystem *TargetSubsystem = XPmSubsystem_GetById(TargetId);
 	u32 PermissionMask = 0;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XStatus Status = XST_FAILURE;
-	XStatus StatusTmp = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	volatile u32 HostIdTemp = HostId;
 
 	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
@@ -504,25 +538,7 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 		goto done;
 	}
 
-	switch (Operation)
-	{
-		case SUB_PERM_WAKE_MASK:
-			PermissionMask = TargetSubsystem->Perms.WakeupPerms;
-			Status = XST_SUCCESS;
-			break;
-		case SUB_PERM_PWRDWN_MASK:
-			PermissionMask = TargetSubsystem->Perms.PowerdownPerms;
-			Status = XST_SUCCESS;
-			break;
-		default:
-			DbgErr = XPM_INT_ERR_INVALID_PARAM;
-			Status = XST_INVALID_PARAM;
-			break;
-	}
-
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XSECURE_TEMPORAL_CHECK(done, Status, CheckTargetPermMask, Operation, TargetSubsystem, &PermissionMask, &DbgErr);
 
 	/* Have Target check if Host can enact the operation */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, CheckTargetToHostPerm, CmdType, HostId, PermissionMask);
