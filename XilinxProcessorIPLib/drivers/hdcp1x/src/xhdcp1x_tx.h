@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,6 +84,7 @@ void XHdcp1x_TxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value);
 
 int XHdcp1x_TxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
+int XHdcp1x_TxSetMSTMode(XHdcp1x *InstancePtr, int mode);
 
 int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_TxReadDownstream(XHdcp1x *InstancePtr);
@@ -93,7 +94,7 @@ int XHdcp1x_TxIsInComputations(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsInWaitforready(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsEnabled(const XHdcp1x *InstancePtr);
 void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr);
-
+int XHdcp1x_TxEnableEcfTimeslots(XHdcp1x *InstancePtr, u64 timeslots);
 int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr);
 void XHdcp1x_TxTriggerDownstreamAuth(void *Parameter);
 

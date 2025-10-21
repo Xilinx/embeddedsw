@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -131,6 +131,9 @@ extern "C" {
 
 #define XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE \
 					(0x01u <<  0)  /**< Enable bitmask in
+						Control register */
+#define XHDCP1X_CIPHER_BITMASK_MODE \
+					(0x01u <<  3)  /**< Enable SST/MST in
 						Control register */
 #define XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE \
 					(0x01u <<  1)  /**< Update bitmask in

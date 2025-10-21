@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -166,12 +166,6 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	if (!InstancePtr->Port.Adaptor || !InstancePtr->Port.Adaptor->Init) {
 		return (XST_NO_FEATURE);
 	}
-	/* Invoke adaptor initialization function. */
-	Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return (Status);
-	}
-
 	/* Initialize the cipher core. */
 	XHdcp1x_CipherInit(InstancePtr);
 	/* Initialize the transmitter/receiver state machine. */
@@ -331,7 +325,7 @@ int XHdcp1x_DownstreamReady(XHdcp1x *InstancePtr)
 *
 * @param	InstancePtr is the receiver instance.
 * @param	RepeaterInfoPtr is the Repeater information in the transmitter
-* 		instance.
+*		instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -364,6 +358,37 @@ int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* This function enables an HDCP MST ECF Field.
+*
+* @param	InstancePtr is the interface to enable.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_Enable_ECF_Slots(XHdcp1x *InstancePtr, u64 timeslots)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_TxEnableEcfTimeslots(InstancePtr, timeslots);
+	}
+	else {
+		Status = XST_FAILURE;
+	}
+#endif
+	return (Status);
+}
 
 /*****************************************************************************/
 /**
@@ -463,6 +488,11 @@ int XHdcp1x_Enable(XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (!InstancePtr->Config.IsRx) {
+		/* Invoke adaptor initialization function. */
+		Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return (Status);
+		}
 		Status = XHdcp1x_TxEnable(InstancePtr);
 	}
 	else
@@ -603,6 +633,40 @@ int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 		Status = XST_FAILURE;
 	}
 
+	return (Status);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the MST/ SST of a hdcp interface
+*
+* @param	InstancePtr is the interface to update.
+* @param	Mode determines the MST/ SST configuration.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_SetMSTMode(XHdcp1x *InstancePtr, int mode)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if ((!InstancePtr->Config.IsRx) && (!InstancePtr->Config.IsHDMI)) {
+		Status = XHdcp1x_TxSetMSTMode(InstancePtr, mode);
+	}
+	else
+	{
+		Status = XST_FAILURE;
+	}
+#endif
 	return (Status);
 }
 
@@ -988,9 +1052,18 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	if (!XHdcp1x_IsAuthenticated(InstancePtr))
+		return XST_SUCCESS;
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (!InstancePtr->Config.IsRx) {
+		if (InstancePtr->Tx.mode) {
+			/* Invoke adaptor initialization function. */
+			Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
+			if (Status != XST_SUCCESS) {
+				return (Status);
+			}
+		}
 		Status = XHdcp1x_TxEnableEncryption(InstancePtr, Map);
 	}
 #else

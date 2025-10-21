@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -457,6 +457,42 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x *InstancePtr, u32 NumLanes)
 			XHDCP1X_CIPHER_REG_CONTROL);
 		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		Value |= (NumLanes << 4);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL, Value);
+	}
+
+	return (Status);
+}
+
+/*****************************************************************************/
+/**
+* This function configures the Mode of the HDCP cipher to MST/ SST.
+*
+* @param	InstancePtr is the device to configure.
+* @param	mode determines MST/ SST configuration.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_CipherSetMode(XHdcp1x *InstancePtr, u32 mode)
+{
+	int Status = XST_SUCCESS;
+	u32 Value = 0;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Check for HDMI */
+	if (!XHdcp1x_IsHDMI(InstancePtr)) {
+
+		/* Update the control register */
+		Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL);
+		Value &= ~XHDCP1X_CIPHER_BITMASK_MODE;
+		Value |= mode << XHDCP1X_CIPHER_BITMASK_MODE;
 		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
 			XHDCP1X_CIPHER_REG_CONTROL, Value);
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -510,6 +510,52 @@ int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 
 /*****************************************************************************/
 /**
+* This function set the MST/SST mode of an HDCP interface.
+*
+* @param	InstancePtr is the transmitter instance.
+* @param	mode enables MST/SST configuration.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxSetMSTMode(XHdcp1x *InstancePtr, int mode)
+{
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	InstancePtr->Tx.mode = mode;
+
+	/* Set it */
+	return (XHdcp1x_CipherSetMode(InstancePtr, mode));
+}
+
+/*****************************************************************************/
+/**
+* This function enables HDCP ECF slots.
+*
+* @param	InstancePtr is the receiver instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxEnableEcfTimeslots(XHdcp1x *InstancePtr, u64 timeslots)
+{
+	int Status = XST_SUCCESS;
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	XHdcp1x_SetEcfSlots(InstancePtr, timeslots);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * This function initiates authentication on an interface.
 *
 * @param	InstancePtr is the transmitter instance.
@@ -738,7 +784,6 @@ int XHdcp1x_TxEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 
 	/* Update InstancePtr */
 	InstancePtr->Tx.EncryptionMap |= StreamMap;
-
 	/* Check for authenticated */
 	if (XHdcp1x_TxIsAuthenticated(InstancePtr)) {
 		XHdcp1x_TxEnableEncryptionState(InstancePtr);
@@ -3556,6 +3601,22 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 			}
 		}
 	}
+}
+
+/*****************************************************************************/
+/**
+* This function enables HDCP ECF slots.
+*
+* @param	InstancePtr is the receiver instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdcp1x_TxEnableEcf(XHdcp1x *InstancePtr, u64 timeslots)
+{
+	XHdcp1x_SetEcfSlots(InstancePtr, timeslots);
 }
 
 /*****************************************************************************/
