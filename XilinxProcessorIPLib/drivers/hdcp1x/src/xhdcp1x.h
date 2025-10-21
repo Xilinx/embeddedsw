@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1035,6 +1035,7 @@ typedef struct {
 	u32 IsUnauthenticatedCallbackSet;	/**< Unauthenticated config
 						  *  flag */
 	u16 DownstreamReady;/**< The downstream interface's status flag */
+	u8 mode;	/**< The interface is MST or SST */
 } XHdcp1x_Tx;
 
 /**
@@ -1196,6 +1197,7 @@ int XHdcp1x_Disable(XHdcp1x *InstancePtr);
 
 int XHdcp1x_SetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
+int XHdcp1x_SetMSTMode(XHdcp1x *InstancePtr, int mode);
 
 int XHdcp1x_Authenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_ReadDownstream(XHdcp1x *InstancePtr);
@@ -1212,6 +1214,7 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 
 int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect);
+int XHdcp1x_Enable_ECF_Slots(XHdcp1x *InstancePtr, u64 timeslots);
 
 void XHdcp1x_HandleTimeout(void *InstancePtr);
 

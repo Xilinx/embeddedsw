@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpTxAdaptor;
 /*************************** Function Prototypes *****************************/
 
 static int XHdcp1x_PortDpTxEnable(XHdcp1x *InstancePtr);
+static int XHdcp1x_PortDpTxEnableEcfSlots(XHdcp1x *InstancePtr, u64 timeslots);
 static int XHdcp1x_PortDpTxDisable(XHdcp1x *InstancePtr);
 static int XHdcp1x_PortDpTxInit(XHdcp1x *InstancePtr);
 static int XHdcp1x_PortDpTxIsCapable(const XHdcp1x *InstancePtr);
@@ -98,6 +99,43 @@ static int XHdcp1x_PortDpTxEnable(XHdcp1x *InstancePtr)
 	return (Status);
 }
 
+/*****************************************************************************/
+/**
+* This function enables a HDCP Encryption Control Field in MST mode.
+*
+* @param InstancePtr is the id of the device to enable.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+static int XHdcp1x_PortDpTxEnableEcfSlots(XHdcp1x *InstancePtr, u64 timeslots)
+{
+	u8 Value = 0;
+	u32 Base = 0;
+	int Status = XST_NOT_ENABLED;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
+
+	/* Ensure that the dp video path routes through the hdcp core */
+	Base = ((XDptx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddr;
+	Value  = XDptx_ReadReg(Base, XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L);
+	Value |= timeslots;
+	XDptx_WriteReg(Base, XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L, Value);
+
+	/* Ensure that the dp video path routes through the hdcp core */
+	Base = ((XDptx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddr;
+	Value  = XDptx_ReadReg(Base, XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H);
+	Value |= (timeslots >> 32);
+	XDptx_WriteReg(Base, XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H, Value);
+
+	return (Status);
+}
 /*****************************************************************************/
 /**
 * This function disables a HDCP port device.
@@ -449,7 +487,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpTxAdaptor =
 	&XHdcp1x_PortDpTxWrite,
 	&XHdcp1x_PortDpTxIsCapable,
 	&XHdcp1x_PortDpTxIsRepeater,
-	NULL,
+	&XHdcp1x_PortDpTxEnableEcfSlots,
 	&XHdcp1x_PortDpTxGetRepeaterInfo,
 	&XHdcp1x_PortDpTxIntrHandler,
 	NULL,

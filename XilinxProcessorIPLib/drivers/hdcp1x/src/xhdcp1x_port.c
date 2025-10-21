@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -167,6 +167,41 @@ int XHdcp1x_PortEnable(XHdcp1x *InstancePtr)
 	return (Status);
 }
 
+/*****************************************************************************/
+/**
+* This function enables encryption/decyption for all timeslots.
+*
+* @param	InstancePtr is the device to enables.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_NO_FEATURE if the port lacks an Enable function.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_SetEcfSlots(XHdcp1x *InstancePtr, u64 timeslots)
+{
+	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
+	int Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine Adaptor */
+	Adaptor = InstancePtr->Port.Adaptor;
+
+	/* Sanity Check */
+	if (Adaptor == NULL) {
+		Status = XST_NO_FEATURE;
+	}
+	/* Invoke adaptor function if present */
+	else if (Adaptor->SetEcfSlots != NULL) {
+		Status = (*(Adaptor->SetEcfSlots))(InstancePtr);
+	}
+
+	return (Status);
+}
 /*****************************************************************************/
 /**
 * This function disables a port device.

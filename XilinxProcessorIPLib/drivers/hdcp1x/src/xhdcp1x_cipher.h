@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved..
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved..
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -104,6 +104,7 @@ int XHdcp1x_CipherIsRequestComplete(const XHdcp1x *InstancePtr);
 
 u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x *InstancePtr);
 int XHdcp1x_CipherSetNumLanes(XHdcp1x *InstancePtr, u32 NumLanes);
+int XHdcp1x_CipherSetMode(XHdcp1x *InstancePtr, u32 Mode);
 
 u64 XHdcp1x_CipherGetEncryption(const XHdcp1x *InstancePtr);
 int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);

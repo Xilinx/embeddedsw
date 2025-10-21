@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,6 +66,7 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 	int (*Write)(XHdcp1x *, u8, const void *, u32); /**< Reg write */
 	int (*IsCapable)(const XHdcp1x *);	/**< Tests for HDCP capable */
 	int (*IsRepeater)(const XHdcp1x *);	/**< Tests for repeater */
+	int (*SetEcfSlots)(const XHdcp1x *);	/**< Tests for repeater */
 	int (*SetRepeater)(XHdcp1x *, u8);	/**< Sets repeater */
 	int (*GetRepeaterInfo)(const XHdcp1x *, u16 *); /**< Gets repeater
 							  *  info */
@@ -187,7 +188,7 @@ int XHdcp1x_PortWrite(XHdcp1x *InstancePtr, u8 Offset, const void *Buf,
 	u32 BufSize);
 
 void XHdcp1x_PortHandleInterrupt(XHdcp1x *InstancePtr, u32 IntCause);
-
+int XHdcp1x_SetEcfSlots(XHdcp1x *InstancePtr, u64 timeslots);
 #ifdef __cplusplus
 }
 #endif
