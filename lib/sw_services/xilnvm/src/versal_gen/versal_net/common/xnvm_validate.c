@@ -26,7 +26,7 @@
 *			Fixed MISRA-C Rule 8.3 violation
 * 3.5   har  12/04/2024 Split check for AES disable and key write lock in XNvm_EfuseValidateAesKeyWriteReq
 * 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
-* 3.6   vss  08/08/2025 Added required OCP support for telluride.
+* 3.6   vss  08/08/2025 Added required OCP support for versal_2ve_2vm.
 *
 * </pre>
 *
