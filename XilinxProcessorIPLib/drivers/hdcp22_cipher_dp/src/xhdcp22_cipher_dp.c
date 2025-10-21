@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -240,4 +240,27 @@ void XHdcp22Cipher_Dp_SetLanecount(XHdcp22_Cipher_Dp *InstancePtr, u8 LaneCount)
 			(LaneCount << XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS));
 }
 
+/*****************************************************************************/
+/**
+ * This function sets the MST mode in the HDCP22 Cipher core.
+ *
+ * @param  InstancePtr is the HDCP22 Cipher core instance.
+ * @param  Mode enables mst in the cipher core.
+ *
+ * @return None.
+ *
+ ******************************************************************************/
+void XHdcp22Cipher_Dp_SetMst(XHdcp22_Cipher_Dp *InstancePtr, u8 Mode)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	u64 MstMode = Mode;
+
+	MstMode |= (MstMode << XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS);
+
+	/*Clear Lane count bits*/
+	XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP22_CIPHER_REG_CTRL_SET_OFFSET,
+			MstMode);
+}
 /** @} */

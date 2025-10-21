@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -99,6 +99,9 @@ extern "C" {
 #define XHDCP22_CIPHER_REG_CTRL_LANE_CNT_MASK  	(0x0F<<6)
 /** Control register lane count bits position */
 #define XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS	6
+
+/** Control register lane count bits position */
+#define XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS	11
 
 /* HDCP22 Cipher Status register masks */
 /** Status register interrupt mask. Reserved for future use.*/
