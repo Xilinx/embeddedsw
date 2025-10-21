@@ -360,6 +360,10 @@ extern "C" {
 #define XDP_TX_HDCP_ENABLE		0x400	/**< Enables HDCP core. */
 /* @} */
 
+#define XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L		0x408	/**< Enables Encryption for all MST streams */
+
+#define XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H		0x40C	/**< Enables Encryption for all MST streams */
+
 /** @name DPTX core registers: HDCP22.
  * @{
  */

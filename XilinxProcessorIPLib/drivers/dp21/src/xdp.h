@@ -1852,6 +1852,7 @@ void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 void XDp_TxHdcp22Enable(XDp *InstancePtr);
+void XDp_TxHdcp22EnableECFSlots(XDp *InstancePtr);
 void XDp_TxHdcp22Disable(XDp *InstancePtr);
 #endif
 

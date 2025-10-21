@@ -5979,6 +5979,37 @@ void XDp_TxHdcp22Enable(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function Enables Dp Tx video path routes through HDCP22 core.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XDp_TxHdcp22EnableECFSlots(XDp *InstancePtr)
+{
+	u64 reg_l = 0;
+	/* this is tested for one stream only */
+
+	for (int i = 0; i < InstancePtr->Config.NumMstStreams; ++i) {
+        XDp_TxMainStreamAttributes *MsaConfig = &InstancePtr->TxInstance.MsaConfig[i];
+
+        // Skip if TransferUnitSize is zero (inactive stream)
+        if (MsaConfig->TransferUnitSize == 0) {
+            continue;
+        }
+		u8 start_timeslot = (InstancePtr->TxInstance.LinkConfig.TrainingMode == XDP_TX_TRAINING_MODE_DP21) ? 0 : 1;
+        u64 stream_mask = ((1ULL << MsaConfig->TransferUnitSize) - 1) << start_timeslot;
+        reg_l |= stream_mask;
+    }
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L, reg_l);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H, reg_l >> 32);
+}
+/******************************************************************************/
+/**
  * This function Disables Dp Tx video path through HDCP22 core.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
