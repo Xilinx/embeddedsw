@@ -1818,7 +1818,7 @@ Fix chunk boundary handling in KeyholeXfr logic
 
 xilpm_v5_3:
 Support mem-ranges cdo command from Vivado & use it in subsystem restart
-L20 DDRMC & Crypto BISR support
+xcvm2152 DDRMC & Crypto BISR support
 Support CFRAME writes using ioctl
 Support PMC EMIO as wakeup source
 
@@ -4079,7 +4079,7 @@ Bump up the version of PM_SELF_SUSPEND, PM_FORCE_POWERDOWN, PM_REQUEST_NODE, and
 Remove the CDO commands from the feature check functionality.
 Added a check for reason argument in XPm_AbortSuspend().
 Added support for zeroization of AIE data and program memory separately.
-Added support of SRST for P80 device
+Added support of SRST for xcvp1902 device
 Added support of In-place PLM
 Added support for OSPI pins for versal-net
 Added support for CPM5N BISR for versal-net
