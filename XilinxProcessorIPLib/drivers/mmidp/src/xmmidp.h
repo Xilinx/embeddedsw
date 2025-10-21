@@ -210,7 +210,12 @@ typedef enum {
 typedef enum {
 	XMMIDP_AUDIO_1_CHANNEL	= 0x0,
 	XMMIDP_AUDIO_2_CHANNEL	= 0x1,
-	XMMIDP_AUDIO_8_CHANNEL	= 0x2,
+	XMMIDP_AUDIO_3_CHANNEL  = 0x2,
+	XMMIDP_AUDIO_4_CHANNEL  = 0x3,
+	XMMIDP_AUDIO_5_CHANNEL  = 0x4,
+	XMMIDP_AUDIO_6_CHANNEL  = 0x5,
+	XMMIDP_AUDIO_7_CHANNEL  = 0x6,
+	XMMIDP_AUDIO_8_CHANNEL	= 0x7,
 
 } XMmiDp_AudioNumChannels;
 
@@ -550,6 +555,7 @@ void XMmiDp_SetVideoMapping(XMmiDp *InstancePtr,
 void XMmiDp_SetVidStreamEnable(XMmiDp *InstancePtr, u8 Stream,
 			       u8 StreamEnable);
 
+void XMmiDp_ConfigureAudioController(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_SetAudStreamInterfaceSel(XMmiDp *InstancePtr, u8 Stream, u8 InterfaceSel);
 void XMmiDp_SetAudDataInputEn(XMmiDp *InstancePtr, u8 Stream, u8 ActiveDataInput);
 void XMmiDp_SetAudDataWidth(XMmiDp *InstancePtr, u8 Stream, u8 DataWidth);
