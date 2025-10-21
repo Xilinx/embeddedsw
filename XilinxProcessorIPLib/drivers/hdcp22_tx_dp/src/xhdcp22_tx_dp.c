@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -4684,6 +4684,30 @@ int XHdcp22Tx_Dp_SetLaneCount(XHdcp22_Tx_Dp *InstancePtr, u8 LaneCount)
 
 	/* Set it */
 	XHdcp22Cipher_Dp_SetLanecount(&InstancePtr->Cipher, LaneCount);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function set the MST mode of an hdcp22 interface.
+*
+* @param	InstancePtr is the transmitter instance.
+* @param	Mode enables the MST configuration of the interface.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp22Tx_Dp_SetMst(XHdcp22_Tx_Dp *InstancePtr, u8 Mode)
+{
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Set it */
+	XHdcp22Cipher_Dp_SetMst(&InstancePtr->Cipher, Mode);
 
 	return XST_SUCCESS;
 }
