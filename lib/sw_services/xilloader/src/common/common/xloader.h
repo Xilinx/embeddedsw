@@ -130,7 +130,7 @@
 *       sk   03/28/2025 Updated the max handoff count for versal_2ve_2vm
 * 2.03  tvp  08/22/2025 Removed unnecessary XLoader_ImageMeasureInfo structure member for TPM.
 *       sk   09/27/2025 Added defines related to UFS Boot
-*
+*       sk   10/16/2025 Remove conditional declaration for XLoader_MbPmcI2cHandshake
 * </pre>
 *
 ******************************************************************************/
@@ -319,9 +319,6 @@ typedef struct {
 
 #endif
 
-#if !defined(XLOADER_PMC_IIC) || !defined(PLM_I2C_MB_HANDSHAKE)
-#define XLoader_MbPmcI2cHandshake	(NULL) /**< DDRMB - PMC I2C Handshake */
-#endif
 
 /* Configuration Limiter Boot Phase definitions */
 #define XLOADER_CL_BEFORE_BOOT		(0x0U)	/**< Before boot starts */
@@ -474,9 +471,7 @@ int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd);
-#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
-#endif
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);

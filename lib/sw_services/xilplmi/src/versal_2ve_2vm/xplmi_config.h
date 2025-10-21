@@ -38,6 +38,7 @@
 * 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       tvp  08/23/2025 Define PLM_HW_PCR macro
 *       vss  10/09/2025 Added PLM_ENABLE_SHA_AES_EVENTS_QUEUING macro
+*       sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 *
 * </pre>
 *
@@ -212,8 +213,10 @@ extern "C" {
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
 
-/* Enable the below define to enable PMC I2C Handshake Feature*/
-//#define PLM_I2C_MB_HANDSHAKE
+/* Enable the below define to enable PMC I2C Handshake Feature based on DDR5 IP*/
+#ifdef NOC_MC_DDR5
+#define PLM_I2C_MB_HANDSHAKE
+#endif
 
 /* Enable below define to enable authentication of JTAG using PPK and SPK */
 #define PLM_AUTH_JTAG_PPK_SPK
