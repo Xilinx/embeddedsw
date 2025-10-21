@@ -494,6 +494,9 @@ Update device status for PmGetNodeStatus
 Update PMUFW completion status
 Fix MISRA-C violations
 
+dfeccf_v1_9:
+Fix zero padding and GetActivSets
+
 
 New Files Added For 2025.2:
 
@@ -602,49 +605,6 @@ lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xpm_memory_pools.ld
 lib/sw_services/xilpm_ng/src/xpm_memory_pools.h.in
 lib/sw_services/xilpm_ng/src/xpm_memory_pools.ld.in
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.h
-lib/sw_apps/versal_plm/src/versal_2vp/CMakeLists.txt
-lib/sw_apps/versal_plm/src/versal_2vp/Makefile
-lib/sw_apps/versal_plm/src/versal_2vp/lscript.ld
-lib/sw_apps/versal_plm/src/versal_2vp/xplm_hooks.c
-lib/sw_apps/versal_plm/src/versal_2vp/xplm_plat.c
-lib/sw_apps/versal_plm/src/versal_2vp/xplm_plat.h
-lib/sw_services/xilsecure/src/common/versal_2vp/CMakeLists.txt
-lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_aesalginfo.h
-lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_ellipticalginfo.h
-lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h
-lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_rsaalginfo.h
-lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_sha3alginfo.h
-lib/sw_services/xilsecure/src/server/versal_2vp/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/versal_2vp/Ecdsa.h
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_error.h
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_ipihandler.c
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_ipihandler.h
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_kat.c
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_kat.h
-lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_sha_hw.h
-lib/sw_services/xilloader/src/versal_2vp/CMakeLists.txt
-lib/sw_services/xilloader/src/versal_2vp/server/CMakeLists.txt
-lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat.c
-lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat.h
-lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat_secure.c
-lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat_secure.h
-lib/sw_services/xilplmi/src/versal_2vp/CMakeLists.txt
-lib/sw_services/xilplmi/src/versal_2vp/common/CMakeLists.txt
-lib/sw_services/xilplmi/src/versal_2vp/common/xplmi_error_node.h
-lib/sw_services/xilplmi/src/versal_2vp/server/CMakeLists.txt
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_config.h
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.c
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_hw.h
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_plat.c
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_plat.h
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_status.h
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_wdt.c
-lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_wdt.h
 lib/sw_services/xilasu/examples/xasu_ocp_example.c
 lib/sw_services/xilasu/src/client/xasu_ocp.c
 lib/sw_services/xilasu/src/client/xasu_ocp.h
@@ -794,12 +754,12 @@ Avoid local header inclusion in CMake
 
 xilsfl_v1_1:
 Avoid local header inclusion in CMake
-Add condition to avoid dma read on Lassen
+Add condition to avoid dma read on SpartanUP
 Add support to get flash Type
 Add support for MT25QU128 qspi flash
 Add support for dynamic address size
 Add support for x2/x4 operation
-Add support for Lassen platform
+Add support for SpartanUP platform
 Add support to read in stig when DMA is not available
 Update AMD Copyright year and version number
 Update example to support reading unaligned bytes
@@ -1081,7 +1041,7 @@ Add the compatible for mailbox
 
 mutex_v4_10:
 Update example to use MutexInstPtr in both xsct and sdt flow
-Update example to fix compilation warnings in Rigel flow
+Update example to fix compilation warnings in SDT flow
 Update the YAML to generate xparameters.h defines in alignment with the XSCT flow
 Add the compatible for mutex
 
