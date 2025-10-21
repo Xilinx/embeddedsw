@@ -103,6 +103,7 @@ static int DpTxSs_HdcpStopTimer(void *InstancePtr);
 static int DpTxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
 static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
 static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
+static int XDpTxSs_Hdcp1xEcfSlot(XDpTxSs *InstancePtr);
 #endif
 
 #if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
@@ -331,6 +332,8 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 					" failed \n\r");
 			return(XST_FAILURE);
 		}
+		Status |= XHdcp22Tx_Dp_SetMst(InstancePtr->Hdcp22Ptr,
+					InstancePtr->UsrOpt.MstSupport);
 
 		XHdcp22Tx_Dp_SetHdcp22OverProtocol(InstancePtr->Hdcp22Ptr,
 				XHDCP22_TX_DP);
@@ -479,6 +482,11 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 		XTmrCtr_Reset(InstancePtr->TmrCtrPtr, 0);
 	}
 #endif
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+	XDpTxSs_HdcpReset(InstancePtr);
+#endif
+
 	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
 		/* Reset VTC's */
 		if (InstancePtr->VtcPtr[Index]) {
@@ -552,13 +560,33 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 				"SS ERR: Setting HDCP lane count failed.\n\r");
 			return Status;
 		}
-
-		/* Enable HDCP interface */
-		Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+			/* Set MST mode in HDCP */
+		Status = XHdcp1x_SetMSTMode(InstancePtr->Hdcp1xPtr,
+				InstancePtr->DpPtr->
+				TxInstance.MstEnable);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-					"SS ERR: Enabling HDCP failed.\n\r");
+				"SS ERR: Setting HDCP MST Mode failed.\n\r");
 			return Status;
+		}
+
+		if (!InstancePtr->UsrOpt.MstSupport) {
+			/* Enable HDCP interface */
+			Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+						"SS ERR: Enabling HDCP failed.\n\r");
+				return Status;
+			}
+		}
+
+		if (InstancePtr->UsrOpt.MstSupport) {
+			Status = XDpTxSs_Hdcp1xEcfSlot(InstancePtr);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+						"SS ERR: Enabling HDCP ECF Slots failed.\n\r");
+				return Status;
+			}
 		}
 
 		/* Set physical interface (DisplayPort) up */
@@ -656,6 +684,16 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 	}
 #endif
 
+#ifdef XPAR_XHDCP22_TX_DP_NUM_INSTANCES
+			if (InstancePtr->Hdcp22Ptr) {
+				XHdcp22Tx_Dp_SetMst(InstancePtr->Hdcp22Ptr, InstancePtr->UsrOpt.MstSupport);
+				XDp_TxHdcp22EnableECFSlots(InstancePtr->DpPtr);
+			if (!InstancePtr->UsrOpt.MstSupport)
+				XDp_TxHdcp22Enable(InstancePtr->DpPtr);
+			Status = XHdcp22Tx_Dp_Enable(
+						InstancePtr->Hdcp22Ptr);
+			}
+#endif
 	/* Start DisplayPort sub-core configuration */
 	Status = XDpTxSs_DpTxStart(InstancePtr->DpPtr,
 			InstancePtr->UsrOpt.MstSupport,
@@ -1777,8 +1815,17 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 		case XDPTXSS_HDCP_1X :
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 			if (InstancePtr->Hdcp1xPtr) {
-				Status1 = XHdcp1x_Enable(
-						InstancePtr->Hdcp1xPtr);
+				if (InstancePtr->UsrOpt.MstSupport) {
+					Status2 = XDpTxSs_Hdcp1xEcfSlot(InstancePtr);
+					if (Status2 != XST_SUCCESS) {
+						xdbg_printf(XDBG_DEBUG_GENERAL,
+								"SS ERR: Enabling HDCP ECF Slots failed.\n\r");
+						return Status2;
+					}
+				} else {
+					Status1 = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+				}
+
 				/* This is needed to ensure that the previous
 				 * command is executed */
 				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
@@ -1804,8 +1851,12 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 		case XDPTXSS_HDCP_22 :
 #ifdef XPAR_XHDCP22_TX_DP_NUM_INSTANCES
 			if (InstancePtr->Hdcp22Ptr) {
-				/*Enable HDCP22 in DP TX*/
-				XDp_TxHdcp22Enable(InstancePtr->DpPtr);
+				Status2 |= XHdcp22Tx_Dp_SetMst(InstancePtr->Hdcp22Ptr,
+					InstancePtr->UsrOpt.MstSupport);
+				XDp_TxHdcp22EnableECFSlots(InstancePtr->DpPtr);
+				if (!InstancePtr->UsrOpt.MstSupport)
+					XDp_TxHdcp22Enable(InstancePtr->DpPtr);
+					/*Enable HDCP22 in DP TX*/
 
 				Status2 = XHdcp22Tx_Dp_Enable(
 						InstancePtr->Hdcp22Ptr);
@@ -1969,6 +2020,7 @@ u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 					"Starting HDCP 2.2 authentication\r\n");
 			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
 					XDPTXSS_HDCP_22);
+
 			Status |= XDpTxSs_HdcpEnable(InstancePtr);
 
 			/*
@@ -2100,6 +2152,16 @@ u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 		Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp22Ptr) {
+		if (InstancePtr->UsrOpt.MstSupport) {
+			XDp_TxHdcp22Enable(InstancePtr->DpPtr);
+			Status = XST_SUCCESS;
+		} else
+			Status = XHdcp22Tx_Dp_EnableEncryption(InstancePtr->Hdcp22Ptr);
+	}
+#endif
+
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		/* Enable encryption on stream(s) */
@@ -2110,13 +2172,6 @@ u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 		}
 	}
 #endif
-
-#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
-	if (InstancePtr->Hdcp22Ptr)
-		Status = XHdcp22Tx_Dp_EnableEncryption(InstancePtr->Hdcp22Ptr);
-#endif
-
-
 	return Status;
 }
 
@@ -2364,6 +2419,47 @@ void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr)
 
 	/* Handle timeout */
 	XHdcp1x_HandleTimeout(InstancePtr->Hdcp1xPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Enables ECF field on HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return
+*		- None
+*
+* @note		None.
+*
+******************************************************************************/
+static int XDpTxSs_Hdcp1xEcfSlot(XDpTxSs *InstancePtr)
+{
+	u32 Status = 0;
+	u64 reg_l = 0;
+	/* this is tested for one stream only */
+
+	for (int i = 0; i < InstancePtr->DpPtr->Config.NumMstStreams; ++i) {
+        XDp_TxMainStreamAttributes *MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[i];
+
+        // Skip if TransferUnitSize is zero (inactive stream)
+        if (MsaConfig->TransferUnitSize == 0) {
+            continue;
+        }
+		u8 start_timeslot = (InstancePtr->DpPtr->TxInstance.LinkConfig.TrainingMode == XDP_TX_TRAINING_MODE_DP21) ? 0 : 1;
+        u64 stream_mask = ((1ULL << MsaConfig->TransferUnitSize) - 1) << start_timeslot;
+        reg_l |= stream_mask;
+    }
+	/* Enable HDCP Encryption streams */
+	Status = XHdcp1x_Enable_ECF_Slots(InstancePtr->Hdcp1xPtr, reg_l);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+				"SS ERR: Enabling HDCP ECF Slots failed.\n\r");
+		return Status;
+	}
+
+	return 0;
 }
 
 /*****************************************************************************/
@@ -2995,6 +3091,7 @@ int XDpTxSs_HdcpReset(XDpTxSs *InstancePtr)
 		Status = XHdcp22Tx_Dp_Reset(InstancePtr->Hdcp22Ptr);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
+		XDp_TxHdcp22Disable(InstancePtr->DpPtr);
 
 		Status = XHdcp22Tx_Dp_Disable(InstancePtr->Hdcp22Ptr);
 		if (Status != XST_SUCCESS)
