@@ -852,18 +852,19 @@ void XMmiDp_SetPhyLaneCount(XMmiDp *InstancePtr, XMmiDp_PhyLanes LaneCount)
 
 }
 
-u8 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
+u16 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 {
-
+	u16 link_rate;
 	if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_270GBPS) {
-		return XMMIDP_PHY_RATE_HBR_270GBPS;
+		link_rate = XMMIDP_HBR_LINK_RATE;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_540GBPS) {
-		return XMMIDP_PHY_RATE_HBR2_540GBPS;
+		link_rate = XMMIDP_HBR2_LINK_RATE;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_810GBPS) {
-		return XMMIDP_PHY_RATE_HBR3_810GBPS;
+		link_rate = XMMIDP_HBR3_LINK_RATE;
 	} else {
-		return XMMIDP_PHY_RATE_RBR_162GBPS;
+		link_rate = XMMIDP_RBR_LINK_RATE;
 	}
+	return link_rate;
 }
 
 u8 XMmiDp_GetLinkBW(XMmiDp *InstancePtr, u8 LinkRate)
@@ -937,18 +938,8 @@ void XMmiDp_SetPhyLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
 	InstancePtr->PhyConfig.LinkRate = LinkRate;
 	InstancePtr->PhyConfig.LinkBW = XMmiDp_GetLinkBW(InstancePtr, LinkRate);
 
-	switch (LinkRate) {
-		case XMMIDP_PHY_RATE_RBR_162GBPS:
-		case XMMIDP_PHY_RATE_HBR_270GBPS:
-			/* Set 20-bit PHY width */
-			XMmiDp_SetPhyWidth(InstancePtr, XMMIDP_PHY_20BIT);
-			break;
-		case XMMIDP_PHY_RATE_HBR2_540GBPS:
-		case XMMIDP_PHY_RATE_HBR3_810GBPS:
-			/* Set 40-bit PHY width */
-			XMmiDp_SetPhyWidth(InstancePtr, XMMIDP_PHY_40BIT);
-			break;
-	}
+	/* Set 20-bit PHY width */
+	XMmiDp_SetPhyWidth(InstancePtr, XMMIDP_PHY_20BIT);
 
 	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_PHYIF_CTRL_0,
 				  XMMIDP_PHYIF_CTRL_0_PHY_RATE_MASK,
