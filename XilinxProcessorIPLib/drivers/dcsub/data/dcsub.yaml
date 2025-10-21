@@ -291,3 +291,8 @@ examples:
         - bypass/xavtpg.c
         - bypass/xavtpg.h
         - bypass/xavtpg_hw.h
+    nonlive_4k_hbr3/mmi_dc_nonlive_test.c:
+    - dependency_files:
+        - nonlive_4k_hbr3/mmi_dc_nonlive_test.h
+        - nonlive_4k_hbr3/mmi_dp_init.c
+        - nonlive_4k_hbr3/mmi_dp_init.h
