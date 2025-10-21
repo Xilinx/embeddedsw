@@ -251,7 +251,7 @@ riscv: Handle exceptions using RISCV_ExceptionVectorTable
 standalone: Remove irrelevant comment
 riscv: Add support for exception handler registration
 
-rtcpsu_v_16:
+rtcpsu_v1_16:
 Remove redundant calibration register write in XRtcPsu_SetTime
 
 asufw:
@@ -470,6 +470,15 @@ Skipped InitFinalize for devices without requirement
 Fix for MISRA C violations.
 Added support to clear NOC/DDRMC scan clear ISRs.
 Fix XPm_GetNodeStatus to get rpu current state
+
+xilsem_v1_12:
+Add support for Versal_2ve_2vm NPI Scan (HW SHA)
+Add support for Versal Segmented HW SHA & HW ECC
+Essential bit data classification support for Versal_2ve_2vm
+Add SMC client call support for Versal
+Fix GCC warnings and MISRA violations
+Fix incorrect status of DDRMC Calibration timeout warning in NPI scan
+Fix Uncorrectable and CRC error event issue in Versal_2ve_2vm
 
 
 New Files Added For 2025.2:
