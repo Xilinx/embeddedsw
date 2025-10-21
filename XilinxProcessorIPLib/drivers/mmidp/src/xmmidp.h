@@ -297,7 +297,7 @@ typedef struct {
 	u32 NVid;
 	u32 HBlankInterval;
 	u8 BitsPerColor;
-	u8 PixelClockHz;
+	u64 PixelClockHz;
 	u8 Reserved[2];
 } XMmiDp_MainStreamAttributes;
 
