@@ -20,7 +20,7 @@
 * 3.0   har  07/06/22 Initial release
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *   	vek  05/31/23 Added support for Programming PUF secure control bits
-* 3.6   vss  08/08/2025 Added DME support for telluride.
+* 3.6   vss  08/08/2025 Added DME support for versal_2ve_2vm.
 *
 * </pre>
 *

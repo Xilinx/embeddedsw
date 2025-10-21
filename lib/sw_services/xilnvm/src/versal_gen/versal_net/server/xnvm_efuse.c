@@ -39,7 +39,7 @@
 *       kal  11/13/2024 Corrected logic in XNvm_EfuseWriteRevocationID function
 *       obs   04/21/2025 Fixed GCC Warnings.
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
-*       vss  08/08/2025 Added DME support for telluride.
+*       vss  08/08/2025 Added DME support for versal_2ve_2vm.
 *       ng   09/19/2025 Replaced XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR with XST_FAILURE
 * </pre>
 *

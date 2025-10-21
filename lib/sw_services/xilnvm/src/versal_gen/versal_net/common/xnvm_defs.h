@@ -22,7 +22,7 @@
 * 3.0   kal  07/12/22 Initial release
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *    	vek  05/31/23 Added support for Programming PUF secure control bits
-* 3.6   vss  08/22/25 Added macros required to support DME in telluride.
+* 3.6   vss  08/22/25 Added macros required to support DME in versal_2ve_2vm.
 *
 * </pre>
 * @note
@@ -65,8 +65,8 @@ extern "C" {
 #define XNVM_API_ID_MASK		(0xFFU)		/** Macro to extract the API_ID from CmdId */
 #define XNVM_EFUSE_CRC_AES_ZEROS 	(0x6858A3D5U) 	/** All zero AES key CRC value */
 #define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE	(0x400U) 	/** Number of cache addresses per eFuse page */
-#define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U) 		/** Number of bit positions to be shifted to acheive 1 byte shift */
-#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U) 		/** Number of bit positions to be shifted to acheive 1 byte shift */
+#define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U) 		/** Number of bit positions to be shifted to achieve 1 byte shift */
+#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U) 		/** Number of bit positions to be shifted to achieve 1 byte shift */
 
 /**
  * BBRAM configuration limiter

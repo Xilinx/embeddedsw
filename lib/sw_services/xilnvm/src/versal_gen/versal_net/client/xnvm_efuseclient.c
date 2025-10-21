@@ -29,7 +29,7 @@
 * 3.5  kal  02/05/25  Make status as volatile and reset status to XST_FAILURE
 *                     before security critical calls
 * 3.6  rpu  07/21/25  Fixed GCC warnings
-*      vss  08/08/2025 Added DME support for telluride.
+*      vss  08/08/2025 Added DME support for versal_2ve_2vm.
 * </pre>
 *
 * @note

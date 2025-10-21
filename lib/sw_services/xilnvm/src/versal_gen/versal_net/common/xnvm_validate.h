@@ -20,7 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   har  07/21/22 Initial release
 * 3.2   yog  09/13/23 Added XNvm_IsDmeModeEn() API
-* 3.6   vss  08/08/25 Added DME OCP support for telluride.
+* 3.6   vss  08/08/25 Added DME OCP support for versal_2ve_2vm.
 *
 * </pre>
 * @note
