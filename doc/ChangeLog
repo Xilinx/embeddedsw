@@ -101,10 +101,6 @@ drivers: prc: Add VSM shift and count related properties
 prd_v2_3:
 prd: Improve self-test by validating control register read/write path
 
-scugic_v5_6:
-scugic: Fix ARMCLANG warning
-scugic: Fix GCC and ARMCLANG warnings
-
 spi_v4_15:
 Update driver version and fix GCC warnings
 
@@ -479,6 +475,24 @@ Add SMC client call support for Versal
 Fix GCC warnings and MISRA violations
 Fix incorrect status of DDRMC Calibration timeout warning in NPI scan
 Fix Uncorrectable and CRC error event issue in Versal_2ve_2vm
+
+versal_psmfw:
+Replace standard assert with Xil_Assert and add custom callback
+Changed XPsmFw_FpdPreHouseClean() return type to void and removed unnecessary failure handling for cleaner code.
+Remove unused failure condition from SetUpInterruptSystem()
+Add Doxygen comments for PSM_API_READ_ACCESS and PSM_API_MASK_WRITE_ACCESS
+Move Versal NET specific functions under VERSAL_NET macro
+
+zynqmp_pmufw:
+Fix canonical PMU register defines
+Reject config object without total section number
+Add configurable memory range validation support
+Add memory range check support for FPGA read-back and Crypto APIs
+Add condition check to verify address range for eFuse IP
+Add support for secure flag
+Update device status for PmGetNodeStatus
+Update PMUFW completion status
+Fix MISRA-C violations
 
 
 New Files Added For 2025.2:
