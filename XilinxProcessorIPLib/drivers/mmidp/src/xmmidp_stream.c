@@ -869,9 +869,8 @@ void XMmiDp_SetAudNumChannels(XMmiDp *InstancePtr, u8 Stream, u8 NumChannels)
 		       (Stream == XMMIDP_STREAM_ID3) ||
 		       (Stream == XMMIDP_STREAM_ID4));
 
-	Xil_AssertVoid((Stream == XMMIDP_AUDIO_1_CHANNEL) ||
-		       (Stream == XMMIDP_AUDIO_2_CHANNEL) ||
-		       (Stream == XMMIDP_AUDIO_8_CHANNEL));
+	Xil_AssertVoid((NumChannels >= XMMIDP_AUDIO_1_CHANNEL) ||
+		       (NumChannels <= XMMIDP_AUDIO_8_CHANNEL));
 
 	InstancePtr->AudCfg[Stream - 1].NumChannels = NumChannels;
 
