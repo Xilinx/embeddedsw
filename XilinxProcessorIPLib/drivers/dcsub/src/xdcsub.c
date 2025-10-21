@@ -900,7 +900,7 @@ u32 XDcSub_SetVidFrameSwitch(XDcSub *InstancePtr, u32 Control)
  *
  *
 *******************************************************************************/
-u32 XDcSub_SetNonLiveLatency(XDcSub *InstancePtr, u16 Latency)
+u32 XDcSub_SetNonLiveLatency(XDcSub *InstancePtr, u32 Latency)
 {
 	XDc *DcConfigPtr;
 
