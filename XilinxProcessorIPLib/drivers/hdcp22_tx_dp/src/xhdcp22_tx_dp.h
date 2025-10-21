@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -708,7 +708,7 @@ void XHdcp22Tx_Dp_SetHdcp22OverProtocol(XHdcp22_Tx_Dp *InstancePtr,
 void XHdcp22Tx_Dp_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
 void XHdcp22Tx_Dp_Handle_Cp_Irq(XHdcp22_Tx_Dp *InstancePtr);
 int XHdcp22Tx_Dp_SetLaneCount(XHdcp22_Tx_Dp *InstancePtr, u8 LaneCount);
-
+int XHdcp22Tx_Dp_SetMst(XHdcp22_Tx_Dp *InstancePtr, u8 Mode);
 /************************** Variable Declarations ****************************/
 
 #ifdef __cplusplus
