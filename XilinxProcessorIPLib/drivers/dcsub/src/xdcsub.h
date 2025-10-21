@@ -81,7 +81,7 @@ u32 XDcSub_SetSdpCursorBuffers(XDcSub *InstancePtr, u8 Enable, u8 BurstLen);
 u32 XDcSub_SetStreamPartialBlend(XDcSub *InstancePtr, XDc_PartialBlendEn Enable1,
 				 XDc_PartialBlend *Coords1, XDc_PartialBlendEn Enable2, XDc_PartialBlend *Coords2);
 u32 XDcSub_SetVidFrameSwitch(XDcSub *InstancePtr, u32 Control);
-u32 XDcSub_SetNonLiveLatency(XDcSub *InstancePtr, u16 Latency);
+u32 XDcSub_SetNonLiveLatency(XDcSub *InstancePtr, u32 Latency);
 u32 XDcSub_EnableStcCtrl(XDcSub *InstancePtr);
 u32 XDcSub_ClearStcCtrl(XDcSub *InstancePtr);
 u32 XDcSub_SetStcLoad(XDcSub *InstancePtr, u64 InitVal);
