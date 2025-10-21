@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -22,6 +22,8 @@
  *       dd   08/11/2023 Updated doxygen comments
  *       ng   02/14/2024 removed int typecast for errors
  *       bm   11/11/2024 Move I2C Handshake feature to common code
+ * 2.0   sk   09/29/2025 Added SDT Support
+ *       sk   10/16/2025 Added stub function for XLoader_MbPmcI2cHandshake
  * </pre>
  *
  *
@@ -196,7 +198,11 @@ UPDATE_INDEX:
 	}
 
 END:
+#ifdef VERSAL_2VE_2VM
+	SStatus = XPm_PmcReleaseDevice(PM_DEV_I2C_PMC);
+#else
 	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, XPLMI_CMD_SECURE);
+#endif
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = XLOADER_ERR_I2C_DEV_RELEASE;
 	}
@@ -399,5 +405,22 @@ static u32 Xloader_CheckForTimeout(void)
 	Status = TRUE;
 END:
 	return Status;
+}
+#else
+/*****************************************************************************/
+/**
+ * This function is a stub to handle the DDR designs where i2c handshake is
+ * not required for the DIMM'S
+ *
+ * @param	Cmd is pointer to the command structure.
+ *
+ * @return	XST_SUCCESS success always
+ *
+ *******************************************************************************/
+int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
+{
+	(void)Cmd;
+
+	return XST_SUCCESS;
 }
 #endif
