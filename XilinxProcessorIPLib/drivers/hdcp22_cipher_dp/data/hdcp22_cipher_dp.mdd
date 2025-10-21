@@ -1,6 +1,6 @@
 ################################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 -2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ################################################################################
@@ -11,6 +11,6 @@ BEGIN driver hdcp22_cipher_dp
   OPTION supported_peripherals = (hdcp22_cipher_dp);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.1;
+  OPTION VERSION = 2.2;
   OPTION NAME = hdcp22_cipher_dp;
 END driver

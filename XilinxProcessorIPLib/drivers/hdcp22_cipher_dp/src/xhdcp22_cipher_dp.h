@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -331,7 +331,7 @@ void XHdcp22Cipher_Dp_SetKs(XHdcp22_Cipher_Dp *InstancePtr, const u8 *KsPtr, u16
 void XHdcp22Cipher_Dp_SetLc128(XHdcp22_Cipher_Dp *InstancePtr, const u8 *Lc128Ptr,  u16 Length);
 void XHdcp22Cipher_Dp_SetRiv(XHdcp22_Cipher_Dp *InstancePtr, const u8 *RivPtr,  u16 Length);
 void XHdcp22Cipher_Dp_SetLanecount(XHdcp22_Cipher_Dp *InstancePtr, u8 LaneCount);
-
+void XHdcp22Cipher_Dp_SetMst(XHdcp22_Cipher_Dp *InstancePtr, u8 Mode);
 /************************** Variable Declarations ****************************/
 
 #ifdef __cplusplus
