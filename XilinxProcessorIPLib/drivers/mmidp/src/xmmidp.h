@@ -26,6 +26,10 @@
 
 #define XMMIDP_MAX_LANES	4
 #define XMMIDP_MAX_EDID_READ	128
+#define XMMIDP_RBR_LINK_RATE	162
+#define XMMIDP_HBR_LINK_RATE	270
+#define XMMIDP_HBR2_LINK_RATE	540
+#define XMMIDP_HBR3_LINK_RATE	810
 
 /****************************** Type Definitions ******************************/
 
@@ -255,7 +259,7 @@ typedef struct {
 	u8 EnhancedFrameCap;
 	u8 PostLtAdjReqSupported;
 	u8 Tps3Supported;
-	u8 MaxLinkRate;
+	u16 MaxLinkRate;
 	u8 MaxLinkBW;
 	u8 Tps4Supported;
 	u8 NoAuxLinkTraining;
@@ -271,7 +275,7 @@ typedef struct {
 	u8 PeLevel[XMMIDP_MAX_LANES];
 	u8 LaneCount;
 	u8 NumLanes;
-	u8 LinkRate;
+	u16 LinkRate;
 	u8 LinkBW;
 	u8 FastLinkTrainEn;
 	u8 SpreadAmp;
@@ -444,7 +448,7 @@ void XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 RegOffset, u32
 u8 XMmiDp_GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes);
 u8 XMmiDp_GetNumLanes(XMmiDp *InstancePtr, u8 LaneCount);
 void XMmiDp_SetPhyLaneCount(XMmiDp *InstancePtr, XMmiDp_PhyLanes);
-u8 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBw);
+u16 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBw);
 u8 XMmiDp_GetLinkBW(XMmiDp *InstancePtr, u8 LinkRate);
 void XMmiDp_SetPhyLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate);
 void XMmiDp_SetPhyTrainingPattern(XMmiDp *InstancePtr,
