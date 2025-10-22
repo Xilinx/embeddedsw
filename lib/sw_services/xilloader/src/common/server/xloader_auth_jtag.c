@@ -757,6 +757,11 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	}
 
 END:
+	/** - Clear Auth Jtag Interrupt Status register in PMC TAP module */
+	XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
+		XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
+
+
 	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
 			XLOADER_SHA3_LEN);
 	if (ClearStatus != XST_SUCCESS) {
