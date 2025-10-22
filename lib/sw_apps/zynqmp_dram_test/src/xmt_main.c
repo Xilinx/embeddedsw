@@ -436,6 +436,27 @@ u64 TestPattern[12][4] = {
 
 /*****************************************************************************/
 /**
+ * This function returns log2 of the given value in argument
+ *
+ * @param	XVal is the value whose log2 value is returned
+ *
+ * @return	returns log2 of the given value
+ *
+ *****************************************************************************/
+static ULONG XMt_GetLog2(ULONG XVal)
+{
+	ULONG RVal = 0U;
+
+	while (XVal > 1U) {
+		RVal = RVal + 1U;
+		XVal = XVal >> 1U;
+	}
+
+	return RVal;
+}
+
+/*****************************************************************************/
+/**
  * This function measures the total time taken between two points for Memory
  * Test timing calculations
  *
@@ -873,6 +894,9 @@ int main(void)
 	/* Set the Default Starting Address */
 	StartAddr = 0x0U;
 
+	/* Set the Default Rank as 0*/
+	XMt.RankSel = 0U;
+
 	/* Set the Default number of Iterations */
 	Iter = 1U;
 
@@ -1074,8 +1098,8 @@ int main(void)
 			} else {
 				XMt_SelectRank(RankArg);
 				XMt.RankSel = RankArg;
-				StartAddr = (StartAddr & ~((u64)1U << 32))
-					    | ((u64)RankArg << 32);
+				StartAddr = (StartAddr & ~((u64)RankArg << XMt_GetLog2(XMT_DDR_MAX_SIZE)))
+					| ((u64)RankArg << XMt_GetLog2(XMT_DDR_MAX_SIZE));
 			}
 
 		} else if ((Ch == 'i') || (Ch == 'I')) {
