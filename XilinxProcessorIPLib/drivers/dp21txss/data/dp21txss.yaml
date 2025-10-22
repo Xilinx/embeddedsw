@@ -1,4 +1,4 @@
-# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -204,6 +204,7 @@ examples:
             - src/dp21_tx_only/menus.c
             - src/dp21_tx_only/si5344drv.c
             - src/dp21_tx_only/si5344drv.h
+            - src/dp21_tx_only/si570.c
             - src/dp21_tx_only/ti_lmk03318.c
             - src/dp21_tx_only/ti_lmk03318.h
             - src/dp21_tx_only/videofmc_defs.h
@@ -223,6 +224,7 @@ examples:
             - src/dp21_tx_only/menus.c
             - src/dp21_tx_only/si5344drv.c
             - src/dp21_tx_only/si5344drv.h
+            - src/dp21_tx_only/si570.c
             - src/dp21_tx_only/ti_lmk03318.c
             - src/dp21_tx_only/ti_lmk03318.h
             - src/dp21_tx_only/videofmc_defs.h
