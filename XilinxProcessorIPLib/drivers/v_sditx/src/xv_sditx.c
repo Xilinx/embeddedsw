@@ -1030,7 +1030,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_RGB) ||
 		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_MEM_YUVX10)) {
 			XV_SdiTx_SetYCbCr444_RGB_10bit(InstancePtr);
-	} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCBCR_422) {
+	} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
 			XV_SdiTx_ClearYCbCr444_RGB_10bit(InstancePtr);
 	}
 
