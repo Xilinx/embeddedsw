@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,9 @@ extern XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 #endif
 extern XDp_TxVscExtPacket VscPkt;
 u32 Ext_frame[3];
+#if PHY_COMP
+#define XPAR_VPHY_0_BASEADDR XPAR_XVPHY_0_BASEADDR
+#endif
 
 lane_link_rate_struct lane_link_table[]=
 {
