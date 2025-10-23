@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv  04/01/21 Initial release
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
+*       pre  10/23/25 Fixed bug in TPM command transmission
 *
 * </pre>
 *
@@ -316,6 +317,7 @@ u32 XFsbl_TpmTransfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Length)
 	int Status = XFSBL_FAILURE;
 	u8 TranLen;
 	u16 RxOffset = 0U;
+	u16 TxOffset = 0U;
 	u8 TpmTxBuffer[XFSBL_TPM_REQ_MAX_SIZE + XFSBL_TPM_TX_HEAD_SIZE] = {0U};
 	u8 TpmRxBuffer[XFSBL_TPM_RESP_MAX_SIZE + XFSBL_TPM_TX_HEAD_SIZE] = {0U};
 
@@ -335,7 +337,8 @@ u32 XFsbl_TpmTransfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Length)
 		TpmTxBuffer[3U] = (u8)Address;
 		if (TxBuf != NULL) {
 			(void)XFsbl_MemCpy(&TpmTxBuffer[XFSBL_TPM_TX_HEAD_SIZE],
-				TxBuf, TranLen);
+				&TxBuf[TxOffset], TranLen);
+			TxOffset += TranLen;
 		}
 
 		Status = XSpiPs_PolledTransfer(&SpiInstance, TpmTxBuffer,
