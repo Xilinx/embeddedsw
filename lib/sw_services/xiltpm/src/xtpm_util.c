@@ -18,6 +18,7 @@
 * 1.00  tri  03/13/25 Initial release
 *       pre  08/23/25 Did enhancements needed
 *       pre  09/23/25 Fixed misrac violations
+*       pre  10/23/25 Fixed bug in TPM command transmission
 *
 * </pre>
 *
@@ -347,6 +348,8 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 	u8 TranLen;
 	volatile u16 Length = Len;
 	u16 RxOffset = 0U;
+	u16 TxOffset = 0U;
+
 	/* Initialize transmit buffer */
 	static u8 TpmTxBuffer[XTPM_REQ_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
 	/* Initialize receive buffer */
@@ -373,7 +376,8 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 		TpmTxBuffer[3U] = (u8)Address;
 		if (TxBuf != NULL) {
 			(void)Xil_SMemCpy(&TpmTxBuffer[XTPM_TX_HEAD_SIZE], TranLen,
-				TxBuf, TranLen, TranLen);
+				&TxBuf[TxOffset], TranLen, TranLen);
+			TxOffset += TranLen;
 		}
 
 		/** - Transfer data and receive response in polled mode. */

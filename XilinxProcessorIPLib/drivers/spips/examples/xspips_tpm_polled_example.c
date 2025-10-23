@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  sg  04/02/21 Initial release
 * 3.9   sb  07/05/23 Added support for system device-tree flow.
+*       pre 10/23/25 Fixed bug in TPM command transmission
 *
 *</pre>
 *
@@ -357,7 +358,9 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 					xil_printf("Invalid PCR index\r\n");
 					break;
 				}
-
+				tpm2_pcrread[17] = 0U;
+				tpm2_pcrread[18] = 0U;
+				tpm2_pcrread[19] = 0U;
 				tpm2_pcrread[17 + (PcrIndex / 8)] = (1 << (PcrIndex % 8));
 
 				Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrread,
@@ -667,6 +670,7 @@ int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
 {
 	u16 TranLen;
 	u16 RxOffset = 0;
+	u16 TxOffset = 0;
 	int Index;
 	int Status;
 
@@ -682,8 +686,9 @@ int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
 
 		if (TxBuf != NULL) {
 			for (Index = 0; Index < TranLen; Index++) {
-				TpmTxBuffer[XSPIPS_TPM_TX_HEAD_SIZE + Index] = TxBuf[Index];
+				TpmTxBuffer[XSPIPS_TPM_TX_HEAD_SIZE + Index] = TxBuf[TxOffset + Index];
 			}
+			TxOffset += TranLen;
 		}
 
 		Status = XSpiPs_PolledTransfer(SpiPtr, TpmTxBuffer, TpmRxBuffer,
