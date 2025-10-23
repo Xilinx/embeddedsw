@@ -17,6 +17,7 @@
 
 /************************** Constant Definitions *****************************/
 
+#define CLK_LOCK			1
 #define UPDATE_ENABLE_SHIFT             8U
 #define IGNORE_DONE_SHIFT               9U
 #define LAST_DESC_SHIFT                 10U /* 16(ID) +  10 */
@@ -25,32 +26,6 @@
 #define XDCDMA_IEN_VSYNC_INT_MASK	0x0000000C
 #define XDCDMA_INTR_ID			179
 #define XDCDMA_INTR_PARENT		0xe2000000
-
-#define XCLK_WIZ_REG1			0x0
-#define XCLK_WIZ_REG3			0x75f
-#define XCLK_WIZ_REG4   		0xa75
-#define XCLK_WIZ_CLKOUT1_1		0x0
-#define XCLK_WIZ_CLKOUT1_1_OFFSET	0x340
-#define XCLK_WIZ_CLKOUT1_2		0xa9c
-#define XCLK_WIZ_CLKOUT1_2_OFFSET	0x344
-#define XCLK_WIZ_CLKOUT2_1		0x0
-#define XCLK_WIZ_CLKOUT2_1_OFFSET	0x348
-#define XCLK_WIZ_CLKOUT2_2		0x20c
-#define XCLK_WIZ_CLKOUT2_2_OFFSET	0x34c
-#define XCLK_WIZ_CLKOUT3_1		0x0
-#define XCLK_WIZ_CLKOUT3_1_OFFSET	0x350
-#define XCLK_WIZ_CLKOUT3_2		0x20c
-#define XCLK_WIZ_CLKOUT3_2_OFFSET	0x354
-#define XCLK_WIZ_REG6			0x0
-#define XCLK_WIZ_REG6_OFFSET		0x37c
-#define XCLK_WIZ_REG7			0x0
-#define XCLK_WIZ_REG7_OFFSET		0x384
-#define XCLK_WIZ_REG13			0x6a0
-#define XCLK_WIZ_REG8			0x320
-#define XCLK_WIZ_REG8_OFFSET		0x394
-#define XCLK_WIZ_REG15			0x20
-#define XCLK_WIZ_REG16			0x20
-#define XCLK_WIZ_RECONFIG		0x3
 
 RunConfig RunCfg;
 XDcSub DcSub;
@@ -178,30 +153,62 @@ u32 InitVtc0Subsystem(RunConfig *RunCfgPtr)
 
 }
 
-void InitClkWiz()
+u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr)
+{
+	u32 Count = 0;
+
+	while (!XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK) {
+		if (Count == 10000) {
+			return XST_FAILURE;
+		}
+		usleep(100);
+		Count++;
+	}
+	return XST_SUCCESS;
+}
+
+u32 InitClkWiz()
 {
 	XClk_Wiz InstancePtr;
-	XClk_Wiz_Config CfgPtr;
+	XClk_Wiz_Config *CfgPtr;
+	u32 Status = XST_SUCCESS;
+	u32 Reg;
+	u64 Rate;
 
-	XClk_Wiz_CfgInitialize(&InstancePtr, &CfgPtr, CLK_WIZ_BASEADDR);
+	CfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_BASEADDR);
+	if (!CfgPtr) {
+		xil_printf("FAILED to lookup Clk Wizard IP\n");
+		return XST_FAILURE;
+	}
 
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, XCLK_WIZ_REG1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, XCLK_WIZ_REG3);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, XCLK_WIZ_REG4);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT1_1_OFFSET, XCLK_WIZ_CLKOUT1_1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT1_2_OFFSET, XCLK_WIZ_CLKOUT1_2);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT2_1_OFFSET, XCLK_WIZ_CLKOUT2_1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT2_2_OFFSET, XCLK_WIZ_CLKOUT2_2);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT3_1_OFFSET, XCLK_WIZ_CLKOUT3_1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT3_2_OFFSET, XCLK_WIZ_CLKOUT3_2);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG6_OFFSET, XCLK_WIZ_REG6);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, XCLK_WIZ_REG13);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG7_OFFSET, XCLK_WIZ_REG7);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG8_OFFSET, XCLK_WIZ_REG8);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, XCLK_WIZ_REG15);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, XCLK_WIZ_REG16);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, XCLK_WIZ_RECONFIG);
+	Status = XClk_Wiz_CfgInitialize(&InstancePtr, CfgPtr, CfgPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("FAILED to cfg initialize Clk Wizard IP\n");
+		return XST_FAILURE;
+	}
 
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+
+	Status = XClk_Wiz_SetRateHz(&InstancePtr, 25200000);
+	if (Status != XST_SUCCESS) {
+		xil_printf("FAILED to set rate of Clk Wizard IP\n");
+		return XST_FAILURE;
+	}
+
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET,
+						(XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
+
+	Status = XClk_WaitForLock(CfgPtr);
+	if (Status != XST_SUCCESS) {
+		Reg = XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK;
+		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
+				": 0x1\n\r", Reg);
+	}
+	XClk_Wiz_GetRate(&InstancePtr, 0, &Rate);
+	Rate = Rate / XCLK_MHZ;
+	xil_printf("\nCalculated Rate is %ld MHz and Expected is 25.2 MHz \n",  Rate);
+
+	return Status;
 }
 
 void GenerateFrameInfoAttribute(FrameInfo *Frame)
@@ -399,7 +406,11 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 {
 	u32 Status = XST_SUCCESS;
 
-	InitClkWiz();
+	Status = InitClkWiz();
+	if (Status != XST_SUCCESS) {
+		xil_printf("FAILED to Initialize Clk Wizard IP\n");
+		return Status;
+	}
 
 	/* Initialize DcSubsystem */
 	Status = InitDcSubsystem(RunCfgPtr);
