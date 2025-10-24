@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@ maybe_unused static inline XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId,
 	return XST_SUCCESS;
 }
 
+#ifdef ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT
 maybe_unused static inline XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 SubsystemId)
 {
 	XStatus Status = XST_SUCCESS;
@@ -33,6 +34,7 @@ maybe_unused static inline XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 Subs
 
 	return Status;
 }
+#endif
 #ifdef __cplusplus
 }
 #endif

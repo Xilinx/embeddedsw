@@ -30,5 +30,6 @@ PARAM name = rail_control, type = bool, default = false, desc = "true: Include p
 PARAM name = versal_dvs, type = bool, default = false, desc = "true: Include Versal DVS feature support, false: Exclude Versal DVS feature support", permit = user;
 
 PARAM name = enable_bulk_dev_release, type = bool, default = false, desc = "true: Include bulk device release feature support, false: Exclude bulk device release feature support", permit = user;
+PARAM name = enable_unregister_all_notifier, type = bool, default = false, desc = "true: Include unregister all notifier feature support, false: Exclude unregister all notifier feature support", permit = user;
 
 END LIBRARY

@@ -98,11 +98,13 @@ done:
 	return Status;
 }
 
+#ifdef ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT
 XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 SubsystemId)
 {
 	return XPm_RegisterNotifier(SubsystemId, XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_ID,
 				    XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK, 0, 0, 0);
 }
+#endif /* ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT */
 #else
 
 XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId, u32 NodeId, u32 Event, u32 Enable)
@@ -116,6 +118,7 @@ XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId, u32 NodeId, u32 Event, u32 E
 	return Status;
 }
 
+#ifdef ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT
 XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 SubsystemId)
 {
 	XStatus Status = XST_SUCCESS;
@@ -123,4 +126,5 @@ XStatus XPmNotifier_PlatUnregisterAllSsitErr(u32 SubsystemId)
 
 	return Status;
 }
+#endif /* ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT */
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */

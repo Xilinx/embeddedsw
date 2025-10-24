@@ -3098,6 +3098,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 		goto done;
 	}
 
+#ifdef ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT
 	/* Check for special node ID to unregister all notifiers */
 	if (PM_ALL_NOTIFIER == NodeId) {
 		if (0U != Enable) {
@@ -3112,6 +3113,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 		Status = XPmNotifier_UnregisterAll(Subsystem);
 		goto done;
 	}
+#endif
 
 	/* Only Event, Device and Power Nodes are supported */
 	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
