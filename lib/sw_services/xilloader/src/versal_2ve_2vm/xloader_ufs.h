@@ -19,6 +19,7 @@
 * 1.00  sk  07/23/2024 Initial release for UFS Support
 * 1.01  sk  03/28/2025 Added define for Multiboot index
 *       sk  09/26/2025 Added drive number define for UFS
+*       sk  10/24/2025 Added ffs header for multi part define
 *
 * </pre>
 *
@@ -37,6 +38,9 @@ extern "C" {
 #ifdef XLOADER_UFS
 #include "xufspsxc.h"
 #include "xplmi_debug.h"
+#ifdef SDT
+#include "xilffs_config.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
