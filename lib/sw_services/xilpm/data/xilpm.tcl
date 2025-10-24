@@ -35,6 +35,7 @@ proc generate {libhandle} {
 	global apu_as_overlay_config_master
 	global rail_control versal_dvs
 	global enable_bulk_dev_release
+	global enable_unregister_all_notifier
 	set rpu0_as_power_management_master [common::get_property CONFIG.rpu0_as_power_management_master $libhandle]
 	set rpu1_as_power_management_master [common::get_property CONFIG.rpu1_as_power_management_master $libhandle]
 	set apu_as_power_management_master [common::get_property CONFIG.apu_as_power_management_master $libhandle]
@@ -47,6 +48,7 @@ proc generate {libhandle} {
 	set rail_control [common::get_property CONFIG.rail_control $libhandle]
 	set versal_dvs [common::get_property CONFIG.versal_dvs $libhandle]
 	set enable_bulk_dev_release [common::get_property CONFIG.enable_bulk_dev_release $libhandle]
+	set enable_unregister_all_notifier [common::get_property CONFIG.enable_unregister_all_notifier $libhandle]
 
 	set zynqmp_dir "./src/zynqmp"
 	set versal_dir "./src/versal"
@@ -114,6 +116,7 @@ proc generate {libhandle} {
 		"psxl_pmc" -
 		"psx_pmc" {
 			set enable_bulk_dev_release true
+			set enable_unregister_all_notifier true
 			copy_files_to_src $versal_net_server_dir
 			copy_files_to_src $versal_server_common_dir
 			copy_files_to_src $versal_net_common_dir
@@ -153,6 +156,7 @@ proc xgen_opts_file {libhandle} {
 
 	global rail_control versal_dvs
 	global enable_bulk_dev_release
+	global enable_unregister_all_notifier
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\#define XPAR_XILPM_ENABLED"
 	set part [::hsi::get_current_part]
@@ -173,6 +177,11 @@ proc xgen_opts_file {libhandle} {
 	# Add macro for enabling bulk dev release feature
 	if { $enable_bulk_dev_release == true } {
 		puts $file_handle "\#define ENABLE_BULK_DEV_RELEASE_SUPPORT"
+	}
+
+	# Add macro for enabling unregister all notifier feature
+	if { $enable_unregister_all_notifier == true } {
+		puts $file_handle "\#define ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT"
 	}
 
 	# Add macro for enabling power rail control feature

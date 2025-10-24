@@ -604,7 +604,11 @@ enum XPmNotifyEvent {
  * Version 3 supports unregistering all notifiers at once if the
  * node ID is PM_ALL_NOTIFIER (0xFFFFFFFF).
  */
+#ifdef ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT
 #define XST_API_REG_NOTIFIER_VERSION		(3U)
+#else
+#define XST_API_REG_NOTIFIER_VERSION		(2U)
+#endif
 /* Version 3 supports zeroization of AIE data and program memory separately */
 #define XST_API_PM_IOCTL_VERSION		(3U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)

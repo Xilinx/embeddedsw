@@ -39,12 +39,17 @@ endif()
 if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
 	# For Versal Net, enable by default
 	option(XILPM_enable_bulk_dev_release "true: Include bulk device release feature support, false: Exclude bulk device release feature support" ON)
+	option(XILPM_enable_unregister_all_notifier "true: Include unregister all notifier feature support, false: Exclude unregister all notifier feature support" ON)
 elseif("${CMAKE_MACHINE}" STREQUAL "Versal")
 	# For Versal, keep it disabled
 	option(XILPM_enable_bulk_dev_release "true: Include bulk device release feature support, false: Exclude bulk device release feature support" OFF)
+	option(XILPM_enable_unregister_all_notifier "true: Include unregister all notifier feature support, false: Exclude unregister all notifier feature support" OFF)
 endif()
 if (XILPM_enable_bulk_dev_release)
 	set(ENABLE_BULK_DEV_RELEASE_SUPPORT " ")
+endif()
+if (XILPM_enable_unregister_all_notifier)
+	set(ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT " ")
 endif()
 
 string(TOUPPER "${SPEED_GRADE}" SPEED_GRADE_U)
