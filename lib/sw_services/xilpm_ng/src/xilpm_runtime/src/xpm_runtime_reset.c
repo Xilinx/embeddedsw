@@ -439,12 +439,14 @@ XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsy
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
+		/* Set the allowed subsystems */
 		RuntimeReset->Device = Reset;
 		RuntimeReset->AllowedSubsystems = AllowSubsystems;
 		LIST_PREPEND(RuntimeResetList, RuntimeReset);
 	}
 	else {
-		RuntimeReset->AllowedSubsystems = AllowSubsystems;
+		/* Update the allowed subsystems */
+		RuntimeReset->AllowedSubsystems |= AllowSubsystems;
 	}
 	Status = XST_SUCCESS;
 
