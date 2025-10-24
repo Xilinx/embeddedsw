@@ -631,7 +631,11 @@ enum XPmNotifyEvent {
  * Version 3 supports bulk device release when the node index is
  * XPM_NODEIDX_DEV_ALL (0xFFF).
  */
+#ifdef ENABLE_BULK_DEV_RELEASE_SUPPORT
 #define XST_API_RELEASE_NODE_VERSION		(3U)
+#else
+#define XST_API_RELEASE_NODE_VERSION		(2U)
+#endif
 /*
  * Version 2 supports the bitmask functionality of GET_OP_CHAR IDs
  * where the user can check whether the ID is supported or not in

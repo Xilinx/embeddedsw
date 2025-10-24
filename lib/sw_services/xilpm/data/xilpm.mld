@@ -29,4 +29,6 @@ PARAM name = apu_as_overlay_config_master, type = bool, default = false, desc = 
 PARAM name = rail_control, type = bool, default = false, desc = "true: Include power Rail control feature support, false: Exclude power rail control feature support", permit = user;
 PARAM name = versal_dvs, type = bool, default = false, desc = "true: Include Versal DVS feature support, false: Exclude Versal DVS feature support", permit = user;
 
+PARAM name = enable_bulk_dev_release, type = bool, default = false, desc = "true: Include bulk device release feature support, false: Exclude bulk device release feature support", permit = user;
+
 END LIBRARY

@@ -36,6 +36,17 @@ if (XILPM_Rail_Control)
   set(RAIL_CONTROL " ")
 endif()
 
+if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+	# For Versal Net, enable by default
+	option(XILPM_enable_bulk_dev_release "true: Include bulk device release feature support, false: Exclude bulk device release feature support" ON)
+elseif("${CMAKE_MACHINE}" STREQUAL "Versal")
+	# For Versal, keep it disabled
+	option(XILPM_enable_bulk_dev_release "true: Include bulk device release feature support, false: Exclude bulk device release feature support" OFF)
+endif()
+if (XILPM_enable_bulk_dev_release)
+	set(ENABLE_BULK_DEV_RELEASE_SUPPORT " ")
+endif()
+
 string(TOUPPER "${SPEED_GRADE}" SPEED_GRADE_U)
 string(COMPARE EQUAL "${SPEED_GRADE_U}" "2LLI" IS_SPEED_GRADE_2LLI)
 string(COMPARE EQUAL "${SPEED_GRADE_U}" "2LI" IS_SPEED_GRADE_2LI)

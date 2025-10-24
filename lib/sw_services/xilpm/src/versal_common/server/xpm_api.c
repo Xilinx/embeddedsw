@@ -3328,6 +3328,7 @@ done:
 	return Status;
 }
 
+#ifdef ENABLE_BULK_DEV_RELEASE_SUPPORT
 /****************************************************************************/
 /**
  * @brief  This function releases all devices from a subsystem that match
@@ -3407,6 +3408,7 @@ done:
 
 	return Status;
 }
+#endif /* ENABLE_BULK_DEV_RELEASE_SUPPORT */
 
 /****************************************************************************/
 /**
@@ -3444,11 +3446,13 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
+#ifdef ENABLE_BULK_DEV_RELEASE_SUPPORT
 	/* Check if this is a request to release all devices from subsystem */
 	if ((u32)XPM_NODEIDX_DEV_ALL == NODEINDEX(DeviceId)) {
 		Status = XPm_ReleaseAllDevices(SubsystemId, DeviceId, CmdType);
 		goto done;
 	}
+#endif
 
 	u32 NumArgs = 1U;
 	u32 ArgBuf[1U];
