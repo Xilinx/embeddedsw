@@ -2276,12 +2276,12 @@ static void StubTp1Callback(void *InstancePtr)
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 		DpRxSsPtr->ltState = 1;
 		DpRxSsPtr->ceItrCounter = 0;
-	}
+
 
 	if (MCDP6000_IC_Rev == 0x3200) {
 		XDpRxSs_MCDP6000_ResetCrPath (DpRxSsPtr, XDPRXSS_MCDP6000_IIC_SLAVE);
 	}
-
+	}
 	/* Read link rate */
 	DpRxSsPtr->UsrOpt.LinkRate =
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
@@ -2292,9 +2292,11 @@ static void StubTp1Callback(void *InstancePtr)
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
-	if (MCDP6000_IC_Rev == 0x2100) {
-		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
-				XDPRXSS_MCDP6000_IIC_SLAVE);
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		if (MCDP6000_IC_Rev == 0x2100) {
+			XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
+					XDPRXSS_MCDP6000_IIC_SLAVE);
+		}
 	}
 
 	/* Link bandwidth callback */
@@ -2399,16 +2401,16 @@ static void StubUnplugCallback(void *InstancePtr)
 		DpRxSsPtr->ceItrCounter = 0;
 		DpRxSsPtr->prevLinkRate = 0;
 		DpRxSsPtr->prevLaneCounts = 0;
-	}
 
-	if (MCDP6000_IC_Rev == 0x2100) {
-		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr,
-				XDPRXSS_MCDP6000_IIC_SLAVE);
-	}
+		if (MCDP6000_IC_Rev == 0x2100) {
+			XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr,
+					XDPRXSS_MCDP6000_IIC_SLAVE);
+		}
 
-	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr,
-			XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
-			0x55000000, 0x55000000);
+		XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr,
+				XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
+				0x55000000, 0x55000000);
+	}
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected
@@ -2456,12 +2458,14 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 					   XDP_RX_DPCD_LANE01_STATUS);
 		read_val &= 0x0000FF00;
 
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 		if (MCDP6000_IC_Rev==0x2100) {
 			if (DpRxSsPtr->ceRequestValue != read_val) {
 				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
 					       XDPRXSS_MCDP6000_IIC_SLAVE);
 			}
 		}
+	}
 
 		/* Update the value to be used in next round */
 		DpRxSsPtr->ceRequestValue =
