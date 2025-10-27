@@ -19,6 +19,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kpt     08/23/24 First release
+* 2.6   mb      10/27/25 Update doxygen comment for PUF_IV
 *
 * </pre>
 *
@@ -43,6 +44,9 @@
 * characters are 0-9,a-f,A-F. Any other character is considered as invalid
 * string.The value mentioned here will be converted to hex buffer.It is used
 * with the AES-GCM cryptographic hardware in order to encrypt red key.
+ * NOTE: The lower 32 bits of the PUF IV must be zeros. Even if the user
+ * provides non-zero values in the lower 32 bits, they will be overridden
+ * and set to zero by the PUF example during black key generation.
 *
 * #define XPUF_GENERATE_KEK_N_ID			(TRUE)
 * This macro must be configured as TRUE to generate both PUF KEK and PUF ID. In order
