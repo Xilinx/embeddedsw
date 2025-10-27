@@ -55,6 +55,7 @@
 *       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *       pre  09/30/2025 Added DMA1 reset and SBI reset in case of partial PDI failure.
 * 2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
+*       pre  10/25/2025 Made SBI and DMA1 reset logic specific to master SLR only for versal devices
 *
 * </pre>
 *
@@ -170,6 +171,8 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	u32 RegVal;
+	/** - Read SLR Type */
+	u32 SlrType = (u32)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
 #if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
     u32 Response[XPLMI_CMD_RESP_SIZE] = {0U};
 #endif
@@ -260,11 +263,16 @@ static int XLoader_SbiLoadPdi(void *Data)
 END:
 	if (Status != XST_SUCCESS) {
 		DebugLog->DiscardLogsAndPrintToBuf |= (u8)XPLMI_BIT(XPLMI_DISCARDLOG_BIT_POS);
-		XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
-		XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, CRP_RST_PDMA_RESET1_MASK);
-		usleep(10U);
-		XPlmi_Out32(CRP_RST_SBI, 0x0U);
-		XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
+
+		/** - SSIT events are not supported on Monolithic devices */
+		if ((SlrType == XPLMI_SSIT_MONOLITIC) || (SlrType == XPLMI_SSIT_MASTER_SLR))
+		{
+			XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
+			XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, CRP_RST_PDMA_RESET1_MASK);
+			usleep(10U);
+			XPlmi_Out32(CRP_RST_SBI, 0x0U);
+			XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
+		}
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
