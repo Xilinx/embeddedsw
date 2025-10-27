@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       dc     01/02/23 Multiband registers update
 * 1.6   cog    07/04/23 Add support for SDT
 * 1.7   dc     11/29/23 Add continuous scheduling
+* 1.8   dc     10/24/23 Correct initialization values
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -102,7 +103,7 @@
 #define XDFEPRACH_HAS_IRQ_CFG                                                  \
 	"xlnx,has-irq" /**< The core has an IRQ port enabled. */
 #define XDFEPRACH_NUM_BANDS_CFG                                                \
-	"xlnx,has-irq" /**< The core has an IRQ port enabled. */
+	"xlnx,num-bands" /**< Number of bands. */
 /**
 * @cond nocomments
 */
@@ -482,7 +483,7 @@ end_failure:
 
 	InstancePtr->Config.NumAntenna[0] = ConfigTable->NumAntenna[0];
 	InstancePtr->Config.NumAntenna[1] = ConfigTable->NumAntenna[1];
-	InstancePtr->Config.NumAntenna[2] = ConfigTable->NumAntenna[1];
+	InstancePtr->Config.NumAntenna[2] = ConfigTable->NumAntenna[2];
 	InstancePtr->Config.NumCCPerAntenna[0] =
 		ConfigTable->NumCCPerAntenna[0];
 	InstancePtr->Config.NumCCPerAntenna[1] =
