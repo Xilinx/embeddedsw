@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.14	pm  09/09/23 Fixed MISRA C-2012 Rule 10.3 violation
 * 1.15  pm  26/03/24 Add doxygen and editorial fixes
+* 1.18  nk  23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
 * </pre>
 *
 *****************************************************************************/
@@ -80,12 +81,18 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 			 | XUSBPSU_TRB_CTRL_IOC
 			 | XUSBPSU_TRB_CTRL_ISP_IMI);
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
 				     sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((INTPTR)&InstancePtr->SetupData,
 				     sizeof(SetupPacket));
 	}
+#else
+	Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	Xil_DCacheFlushRange((INTPTR)&InstancePtr->SetupData,
+			     sizeof(SetupPacket));
+#endif
 
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
@@ -132,11 +139,18 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 
 	switch (InstancePtr->Ep0State) {
 		case XUSBPSU_EP0_SETUP_PHASE:
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 			if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 				Xil_DCacheInvalidateRange(
 					(INTPTR)&InstancePtr->SetupData,
 					sizeof(InstancePtr->SetupData));
 			}
+#else
+			Xil_DCacheInvalidateRange(
+					(INTPTR)&InstancePtr->SetupData,
+					sizeof(InstancePtr->SetupData));
+#endif
+
 			Length = Ctrl->wLength;
 			if (Length == 0U) {
 				InstancePtr->IsThreeStage = 0U;
@@ -259,11 +273,16 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
 				     sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
 	}
+#else
+	Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
+#endif
 
 	InstancePtr->Ep0State = XUSBPSU_EP0_DATA_PHASE;
 
@@ -337,11 +356,16 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 			 | XUSBPSU_TRB_CTRL_IOC
 			 | XUSBPSU_TRB_CTRL_ISP_IMI);
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
 				     sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
 	}
+#else
+	Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
+#endif
 
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;

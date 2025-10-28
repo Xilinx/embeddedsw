@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.13	pm     04/01/23 Use Xil_WaitForEvent() API for register bit polling
 * 1.14	pm     21/06/23 Added support for system device-tree flow.
 * 1.15  np     26/03/24 Add doxygen and editorial fixes
+* 1.18  nk     23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -157,10 +158,15 @@ s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 		return (s32)XST_FAILURE;
 	}
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf,
 				     XUSBPSU_HIBER_SCRATCHBUF_SIZE);
 	}
+#else
+	Xil_DCacheFlushRange((INTPTR)ScratchBuf,
+			     XUSBPSU_HIBER_SCRATCHBUF_SIZE);
+#endif
 
 	if (XUsbPsu_SetupScratchpad(InstancePtr, ScratchBuf) == XST_FAILURE) {
 		return (s32)XST_FAILURE;

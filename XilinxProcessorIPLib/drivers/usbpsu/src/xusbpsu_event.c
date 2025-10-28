@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.15  np  26/03/24 Add doxygen and editorial fixes
+* 1.18  nk  23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -174,10 +175,15 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 
 	Evt = &InstancePtr->Evt;
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
 					  XUSBPSU_EVENT_BUFFERS_SIZE);
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
+				  XUSBPSU_EVENT_BUFFERS_SIZE);
+#endif
 
 	while (Evt->Count > 0U) {
 		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);

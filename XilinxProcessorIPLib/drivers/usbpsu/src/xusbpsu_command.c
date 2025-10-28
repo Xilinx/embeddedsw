@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.10	pm  24/07/21 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.15  np  26/03/24 Add doxygen and editorial fixes
+* 1.18  nk  23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -154,10 +155,15 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		TrbLink->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
 
 		/* flush the link trb */
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 			Xil_DCacheFlushRange((INTPTR)TrbLink,
 					     sizeof(struct XUsbPsu_Trb));
 		}
+#else
+		Xil_DCacheFlushRange((INTPTR)TrbLink,
+				     sizeof(struct XUsbPsu_Trb));
+#endif
 	}
 
 	return (s32)XST_SUCCESS;
