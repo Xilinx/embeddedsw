@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *		       functions for set and clear register bits.
 * 1.14	pm    12/09/23 Fixed HIS RETURN Violations
 * 1.15  np    26/03/24 Add doxygen and editorial fixes
+* 1.18  nk    23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -513,6 +514,7 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 #endif
 
 	/* Set AXI-cache bits when CCI is Enable */
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)1U) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSBUSCFG0);
 		RegVal |= XUSBPSU_GSBUSCFG0_BITMASK;
@@ -521,6 +523,7 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 		XUsbPsu_WriteVendorReg(XUSBPSU_COHERENCY,
 				       XUSBPSU_COHERENCY_MODE_ENABLE);
 	}
+#endif
 
 	return (s32)XST_SUCCESS;
 }
