@@ -19,7 +19,7 @@ Fix GCC warnings and update driver version
 
 csudma_v1_18:
 Replace occurences of #if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM) macro usage with #ifdef VERSAL_NET
-ospi/csudma: Add new compatible strings for spartanuplus device
+ospi/csudma: Add new compatible strings for spartanuplus devices
 
 ipipsu_v2_18:
 Fix GCC warning and update driver version
@@ -504,6 +504,205 @@ dp21_v2_5:
 DP21 HDCP 1x & 2X driver MST (ECF) support added.
 Fixed the multiple issues: Blank screen issue with dynamic range initialization.
 Fixed the vphy CDR value.
+
+common_v1_4:
+Add a new macro XST_FEATURE_DEPRECATE that will be used for returning a feature deprecation status message from an already available driver/library API.
+
+csi2txss_v1_8:
+Fix subcore absolute address calculation
+
+csi_v1_8:
+Fix doxygen warnings
+
+dp14txss_v6_14:
+Removed the GT NPI programming
+
+dp14_v7_11:
+Fixed the GCC warnings
+
+dphy_v1_8:
+Fix doxygen warnings
+
+dsitxss_v2_6:
+Fix subcore absolute address calculation
+
+emaclite_v4_12:
+Fix ARP resolution and Endianness
+
+hdcp1x_v4_9:
+Added the MST HDCP1x support for DP21.
+
+hdcp22_tx_dp_v3_2:
+Added the HDCP2.4 support for DP21 MST ECF API’s.
+
+i2stx_v2_4:
+Fixed the code redundancy & GCC warnings.
+
+mipicsiss_v1_14:
+Fix subcore absolute address calculation
+Fix doxygen warnings
+Removed unused argument to resolve GCC warnings
+
+video_common_v4_18:
+Video_common: Removed GCC warning from this driver
+VIDEO_COMMON: Removed all GCC warnings from the driver
+
+vphy_v1_18:
+vphy: Fix the vphy
+
+vprocss_v2_15:
+vprocss: Fix GCC warning
+vprocss: Fix doxygen warnings
+vprocss: Clean up commented code and obsolete comments
+
+v_csc_v2_7:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_deinterlacer_v7_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_frmbuf_rd_v5_1:
+v_frmbuf_rd: Fix GCC warning
+v_frmbuf_rd: Fix doxygen warnings
+v_frmbuf_rd: Clean up commented code and obsolete comments
+
+v_frmbuf_wr_v5_1:
+v_frmbuf_wr: Fix GCC warning
+v_frmbuf_wr: Fix doxygen warnings
+v_frmbuf_wr: Clean up commented code and obsolete comments
+v_frmbuf_wr: Low latency support is added
+
+v_hcresampler_v3_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_hdmiphy1_v2_11:
+v_hdmiphy1: Fix GCC warning
+v_hdmiphy1: Fix doxygen warnings
+v_hdmiphy1: Clean up commented code and obsolete comments
+
+v_hdmirx1_v1_10:
+v_hdmirx1: Clean up commented code and obsolete comments
+v_hdmirx1: Add TMDS-only mode support to reduce the driver footprint
+v_hdmirx1: Fix compilation issues with PT app
+v_hdmirx1: Fix SCDC initialization in TMDS only mode
+v_hdmirx1: Force FLT ready low in TMDS-only mode with FRL source
+v_hdmirx1: Clears IsFrl flags in cable disconnect handler
+
+v_hdmirxss1_v3_8:
+v_hdmirxss1: Clean up commented code and obsolete comments
+v_hdmirxss1: Fix compilation warnings
+v_hdmirxss1: example: Add raw buffer support to ReadEdid_extension
+v_hdmirxss1: Add TMDS-only mode support to reduce the driver footprint
+v_hdmirxss1: Fix compilation issue with PT app
+v_hdmirxss1: example: Fix xil_printf when compiled with SDT
+Added interrupt handling for SysTimer
+Updated the sequence for stream down event
+Updated placeholder for TMDS case
+v_hdmirxss1: Fix driver TMDS-only mode by relocating callback
+v_hdmirxss1: example: Add support for TMDS-only mode
+v_hdmirxss1: example: Update PT app to work with FRL monitor
+v_hdmirxss1: example: Dynamic HDR vivid update
+
+v_hdmirxss_v6_8:
+v_hdmirxss: xhdmi_example: Fix HDCP interrupt index for HDCP14 only
+
+v_hdmitx1_v2_6:
+v_hdmitx1: Fix GCC warnings
+v_hdmitx1: Clean up commented code and obsolete comments
+v_hdmitx1: Fix compilation warning
+
+v_hdmitxss1_v3_8:
+v_hdmitxss1: Fix GCC warnings
+v_hdmitxss1: Clean up commented code and obsolete comments
+v_hdmitxss1: Add raw buffer support to ReadEdid_extension function
+v_hdmitxss1: example: Add raw buffer support to ReadEdid_extension
+v_hdmitxss1: example: Fix xil_printf when compiled with SDT
+Added interrupt handling for SysTimer
+Updated the sequence for stream down event
+Updated placeholder for TMDS case
+v_hdmitxss1: examples: Add support for TMDS-only mode
+v_hdmitxss1: example: Update PT app to work with FRL monitor
+v_hdmitxss1: example: Dynamic HDR vivid update
+
+v_hdmitxss_v6_7:
+v_hdmitxss: Fix GCC warning
+v_hdmitxss: Add vtc driver in dependency list
+v_hdmitxss: Remove subcore absolute address calculation
+v_hdmitxss: xhdmi_example: Fix HDCP interrupt index for HDCP14 only
+
+v_hdmitx_v2_8:
+v_hdmitxss: Add vtc driver in dependency list
+
+v_hdmi_common_v1_9:
+v_hdmi_common: Fix GCC warning
+
+v_hscaler_v3_6:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_letterbox_v2_5:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_mix_v7_0:
+v_mix: Fix GCC warning
+v_mix: Fix doxygen warnings
+v_mix: Clean up commented code and obsolete comments
+v_mix: Tile format support is added
+
+v_sdirxss_v3_5:
+Added the sub core address calculation for multiple instances of SDI IP.
+
+v_sdirx_v2_6:
+Fixed SDI 6G Mode color bar issue for DBPC enabled case with wrong muxpattern enablement.
+Fix the PICXO design for YUV422 & YUv444 10 & 12-bit
+New feature Dynamic BPC is added.
+Fix the ST352 decoding issue for multiple modes. (3GA, 6G, 12G)
+
+v_sditxss_v4_6:
+Added the sub core address calculation for multiple instances of SDI IP.
+Updated the SI5324 reference in PICXO design applications.
+
+v_sditx_v3_4:
+Added the SDI Tx Dynamic BPC feature support.
+Fixed the muxpattern logic.
+
+v_vcresampler_v3_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_vscaler_v3_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+freertos10_xilinx_v1_18:
+freertos10_xilinx: Enable XPM support for freertos in SDT flow
+freertos10_xilinx: Fix unused function warning
+freertos10_xilinx: examples: Fix GCC warnings
+bsp: Extend FPU support in Standalone and FreeRTOS
+
+xilpm_ng:
+Added support for Subsystem restart and system shutdown.
+Added support for PLM in-place update.
+Added ADMA idle sequence in custom reset handler.
+Added PGGSx/GGSx RegNodes and depricated old PGGS/GGS logic.
+Added support for programming PLL runtime.
+Added support for AIE clock frequency scaling.
+Added BISR code of ISP, MMI, MMI_GTYP, GTYP, and DDRMC5E
+Added BISR for LPXC, FPXC, VCU, and AIE2ps.
+Add AIE OPS for TLAST error config
+Support for Voltage ID (VID).
+
 
 
 New Files Added For 2025.2:
