@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver sdps
   OPTION supported_peripherals = (ps7_sdio psu_sd psv_pmc_sd psxl_pmc_sd psxl_pmc_emmc psx_pmc_sd psx_pmc_emmc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.4;
+  OPTION VERSION = 4.5;
   OPTION NAME = sdps;
 
 END driver
