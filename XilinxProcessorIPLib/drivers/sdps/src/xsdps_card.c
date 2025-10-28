@@ -40,6 +40,7 @@
 * 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
 * 4.2   ap     08/09/23 reordered function XSdPs_Identify_UhsMode.
 * 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
+* 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
 * </pre>
 *
 ******************************************************************************/
@@ -1262,10 +1263,15 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
 		       (u32)((UINTPTR) & (InstancePtr->Adma2_DescrTbl64[0]) & ~(u32)0x0U));
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR) & (InstancePtr->Adma2_DescrTbl64[0]),
 				     (INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
 	}
+#else
+	Xil_DCacheFlushRange((INTPTR) & (InstancePtr->Adma2_DescrTbl64[0]),
+			(INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
+#endif
 
 	/* Clear the 64-Bit Address variable */
 	InstancePtr->Dma64BitAddr = 0U;

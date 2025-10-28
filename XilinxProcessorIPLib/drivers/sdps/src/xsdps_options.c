@@ -64,6 +64,7 @@
 * 3.14  mn     11/28/21 Fix MISRA-C violations.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
+* 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
 *
 * </pre>
 *
@@ -246,10 +247,15 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff)
 		goto RETURN_PATH;
 	}
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
 				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
+				((INTPTR)BlkCnt * (INTPTR)BlkSize));
+#endif
 
 	Status = XST_SUCCESS;
 
@@ -414,10 +420,15 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 		goto RETURN_PATH;
 	}
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
 				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
+			((INTPTR)BlkCnt * (INTPTR)BlkSize));
+#endif
 
 	Status = XST_SUCCESS;
 
@@ -477,10 +488,15 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
 		goto RETURN_PATH;
 	}
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)SdStatReg,
 				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)SdStatReg,
+			((INTPTR)BlkCnt * (INTPTR)BlkSize));
+#endif
 
 	Status = XST_SUCCESS;
 
@@ -618,10 +634,15 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 		goto RETURN_PATH;
 	}
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
 				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
+			((INTPTR)BlkCnt * (INTPTR)BlkSize));
+#endif
 
 	Status = XST_SUCCESS;
 
