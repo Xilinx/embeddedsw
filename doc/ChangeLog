@@ -134,7 +134,7 @@ usbpsu: Fix array bounds checking
 usbpsu: Fix missing initializer field of structure
 usbpsu: Fix unused parameter warnings
 
-visp_ss_v1_1:
+visp_ss_v2_0:
 Add ISP LIMO/MIMO/LILO BareMetal driver & example support
 
 xilfpga_v6_9:
@@ -496,6 +496,14 @@ Fix MISRA-C violations
 
 dfeccf_v1_9:
 Fix zero padding and GetActivSets
+
+trngpsv_v1_7:
+Update algorithm version
+
+dp21_v2_5:
+DP21 HDCP 1x & 2X driver MST (ECF) support added.
+Fixed the multiple issues: Blank screen issue with dynamic range initialization.
+Fixed the vphy CDR value.
 
 
 New Files Added For 2025.2:
@@ -1811,7 +1819,7 @@ Added register node to access PMC analog registers
 Remove check to restrict crypto access when crypto KAT enable efuse bit
 is blown and KAT is not ran during runtime requests
 Added support for handling PSM to PLM IPI events
-Add support for Authenticated JTAG for versal_aiepg2 devices
+Add support for Authenticated JTAG for VERSAL_2VE_2VM devices
 Change SSIT timeout for slave message events
 Added glitch detector support for PL microblaze
 Fix chunk boundary handling in KeyholeXfr logic
