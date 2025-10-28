@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,6 +95,7 @@
 * 1.13  akm    02/13/24    Ensure buffer cache sync.
 * 1.13  akm    02/13/24    Avoid loop counter reset.
 * 1.13  akm    02/13/24    Always wrap page to device size.
+* 1.15  akm    10/28/25    Update IsCacheCoherent logic to include EL3 mode.
 *
 * </pre>
 *
@@ -1611,9 +1612,13 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 		}
 		if (PartialBytes > 0U) {
 			(void)Xil_MemCpy(DestBufPtr, BufPtr + Col, NumBytes);
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 			if (InstancePtr->Config.IsCacheCoherent == 0) {
 			        Xil_DCacheFlushRange((INTPTR)(void *)DestBufPtr, NumBytes);
 			}
+#else
+			Xil_DCacheFlushRange((INTPTR)(void *)DestBufPtr, NumBytes);
+#endif
 		}
 		DestBufPtr += NumBytes;
 		OffsetVar += NumBytes;
@@ -1766,9 +1771,13 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		IsrValue = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
 			   XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 		if (InstancePtr->Config.IsCacheCoherent == 0) {
 			Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 		}
+#else
+		Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+#endif
 		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
 		IsrValue = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
@@ -1880,9 +1889,13 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 		if (InstancePtr->Config.IsCacheCoherent == 0) {
 			Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
 		}
+#else
+		Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
+#endif
 		XNandPsu_Update_DmaAddr(InstancePtr, (u8 *)BufPtr);
 	} else {
 		RegVal = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
@@ -1979,9 +1992,13 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
 			 XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 		if (InstancePtr->Config.IsCacheCoherent == 0) {
 			Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 		}
+#else
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+#endif
 		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
 		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
@@ -2102,9 +2119,13 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
 		if (InstancePtr->Config.IsCacheCoherent == 0) {
 			Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 		}
+#else
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+#endif
 		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
 		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
