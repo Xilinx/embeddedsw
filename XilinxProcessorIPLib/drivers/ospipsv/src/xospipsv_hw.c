@@ -26,6 +26,7 @@
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 * 1.11	akm  05/15/24 Added support for x2/x4 operations.
+* 1.13	sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -562,9 +563,13 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 		AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
 				XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 		if (InstancePtr->Config.IsCacheCoherent == 0U) {
 			Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 		}
+#else
+		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+#endif
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
 

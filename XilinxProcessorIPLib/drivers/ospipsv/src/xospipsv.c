@@ -50,6 +50,7 @@
 * 1.12  sb  01/28/25 Use stig read for byte count less than 8bytes.
 * 1.13  sb  06/26/25 Set the required configurations for SpartanUp in
 *                    SDR-PHY & DDR-PHY mode.
+* 1.13  sb  10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -577,10 +578,14 @@ u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
 		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_IRQ_STATUS_REG));
 
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if ((Msg->Xfer64bit != (u8)1U) &&
 			(InstancePtr->Config.IsCacheCoherent == 0U)) {
 		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+#endif
 
 	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
 
@@ -690,9 +695,13 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 				XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
 			if (Msg->Xfer64bit != (u8)1U) {
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 				if (InstancePtr->Config.IsCacheCoherent == 0U) {
 					Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 				}
+#else
+				Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+#endif
 			}
 			/* Clear the ISR */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,

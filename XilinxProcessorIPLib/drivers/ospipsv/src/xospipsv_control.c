@@ -27,6 +27,7 @@
 * 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 * 1.9   sb   26/04/23 Updated address calculation logic in DAC read and write API's
+* 1.13  sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 *
 * </pre>
 *
@@ -197,9 +198,13 @@ u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 			goto ERROR_PATH;
 		}
 		if (Msg->Xfer64bit != (u8)1U) {
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 			if (InstancePtr->Config.IsCacheCoherent == 0U) {
 				Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 			}
+#else
+			Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+#endif
 		}
 		if (InstancePtr->IsUnaligned != 0U) {
 			InstancePtr->RecvBufferPtr += Msg->ByteCount;
@@ -217,9 +222,13 @@ u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		if (Status != (u32)XST_SUCCESS) {
 			goto ERROR_PATH;
 		}
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 		if (InstancePtr->Config.IsCacheCoherent == 0U) {
 			Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 		}
+#else
+		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+#endif
 		Xil_MemCpy(InstancePtr->RecvBufferPtr, InstancePtr->UnalignReadBuffer,
 				InstancePtr->RxBytes);
 		InstancePtr->IsUnaligned = 0U;
