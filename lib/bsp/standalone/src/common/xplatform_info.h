@@ -48,6 +48,8 @@
 * 9.3    mus 01/07/25 Fix address of RPU_PCIL_C0_PWRDWN register.
 * 9.3    tnt 02/10/25 versal_2ve_2vm: replace all RPU_PCI_[XY]_PWRDWN
                       with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN registers
+* 9.4    vmt 28/10/25 Added XIOCoherencySupported() declaration to check cache
+		      coherency support.
 * </pre>
 *
 ******************************************************************************/
@@ -148,6 +150,8 @@ extern "C" {
 #define XPS_PSX_RPU_CORE_X_PWRDWN_EN_MASK	1U
 #endif
 
+#define APU_EL1         1U
+
 /**************************** Type Definitions *******************************/
 /**
  *@endcond
@@ -173,6 +177,8 @@ u8 XGetClusterId(void);
 u8 XGetCoreId(void);
 u8 XGetBootStatus(void);
 #endif
+
+u32 XIOCoherencySupported(void);
 
 /************************** Function Prototypes ******************************/
 
