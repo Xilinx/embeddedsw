@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +85,7 @@
  * 1.18 sb  08/29/23 Updated PolledTransfer and InterruptHandler functions as modular.
  * 1.18 sb  09/11/23 Fix MISRA-C violation 8.13.
  * 1.19 sb  01/12/24 Added support for baud rate divisior
+ * 1.22 sb  10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *
  * </pre>
  *
@@ -856,11 +857,15 @@ s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr)
 	if ((DmaIntrSts & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)	!= (u32)FALSE) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
 		/* DMA transfer done, Invalidate Data Cache */
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 		if (!((InstancePtr->Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
 		      (InstancePtr->Msg->Xfer64bit != (u8)0U)) &&
 		    (InstancePtr->Config.IsCacheCoherent == 0U)) {
 			Xil_DCacheInvalidateRange((INTPTR)InstancePtr->Msg->RxBfrPtr, (INTPTR)InstancePtr->RxBytes);
 		}
+#else
+		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->Msg->RxBfrPtr, (INTPTR)InstancePtr->RxBytes);
+#endif
 		/* De-select slave */
 		XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 		if (InstancePtr->IsManualstart == (u8)TRUE) {

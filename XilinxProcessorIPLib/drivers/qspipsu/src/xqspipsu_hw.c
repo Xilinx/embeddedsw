@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
  * 1.15   akm  11/30/21 Fix compilation warnings reported with -Wundef flag
  * 1.15   akm  03/03/22 Enable tapdelay settings for applications on
  * 			 Microblaze platform.
+ * 1.22   sb   10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *
  * </pre>
  ******************************************************************************/
@@ -181,9 +182,13 @@ void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 		DmaRxBytes = InstancePtr->RxBytes - Remainder;
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 	}
+#else
+	Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+#endif
 	/* Write no. of words to DMA DST SIZE */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_SIZE_OFFSET, (u32)DmaRxBytes);
