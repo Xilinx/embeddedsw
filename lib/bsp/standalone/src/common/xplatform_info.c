@@ -52,6 +52,8 @@
 * 9.2    tnt 02/10/25 Replace all RPU_PCI_[XY]_PWRDWN for Versal 2VE and 2VM
                       devices with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN
                       registers.
+* 9.4    vmt 28/10/25 Added XIOCoherencySupported() API to check cache coherency
+		      support.
 * </pre>
 *
 ******************************************************************************/
@@ -288,5 +290,39 @@ u8 XGetBootStatus(void)
 }
 
 #endif
+
+/*****************************************************************************/
+/**
+ *
+ * @brief    This API checks if cache coherency is supported on the current processor.
+ *           For ARM AArch64 processors, coherency through CCI/CMN is allowed only at
+ *           EL1 NonSecure. For other cores such as Cortex-R5, MicroBlaze, and RISC-V,
+ *           coherency is not supported.
+ *
+ * @return   TRUE if coherency is supported, otherwise FALSE.
+ *
+ ******************************************************************************/
+u32 XIOCoherencySupported(void)
+{
+#if defined (__aarch64__)
+	u64 CurrentEL;
+	u32 ExceptionLevel;
+
+	/* Read CurrentEL register */
+	__asm__ __volatile__ ("mrs %0, CurrentEL" : "=r" (CurrentEL));
+
+	ExceptionLevel = (u32)((CurrentEL >> 2U) & 0x3U);
+
+	/* Baremetal coherency allowed at EL1 Non-Secure */
+	if (ExceptionLevel == APU_EL1) {
+		return TRUE;
+	}
+	return FALSE;
+
+#else
+	/* For ARM Cortex-R5, MicroBlaze and RISC-V */
+	return FALSE;
+#endif
+}
 
 /** @} */
