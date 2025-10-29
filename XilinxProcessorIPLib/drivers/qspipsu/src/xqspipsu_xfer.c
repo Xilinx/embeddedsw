@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.18   sb  08/29/2023 Restructured the code for more modularity
  * 1.18   sb  08/29/2023 Upadte XQspiPsu_PolledRecvData api to fix MISRA-C warnings.
+ * 1.22   sb  10/24/2025 Added cache invalidate when EL1_NONSECURE is not defined.
  *
  * </pre>
  ******************************************************************************/
@@ -119,12 +120,17 @@ s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 					  XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
 			/* DMA transfer done, Invalidate Data Cache */
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 			if (!((Msg[Index].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
 			      (Msg[Index].Xfer64bit != (u8)0U)) &&
 			    (InstancePtr->Config.IsCacheCoherent == 0U)) {
 				Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr,
 							  (INTPTR)Msg[Index].ByteCount);
 			}
+#else
+			Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr,
+					(INTPTR)Msg[Index].ByteCount);
+#endif
 
 			*IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
 			InstancePtr->RxBytes = 0;
@@ -200,11 +206,15 @@ void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
 		if ((DmaIntrStatusReg &
 		     XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
 			/* DMA transfer done, Invalidate Data Cache */
+#if defined(EL1_NONSECURE) && (EL1_NONSECURE==1U)
 			if (!((Msg[MsgCnt].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
 			      (Msg[MsgCnt].Xfer64bit != (u8)0U)) &&
 			    (InstancePtr->Config.IsCacheCoherent == 0U)) {
 				Xil_DCacheInvalidateRange((INTPTR)Msg[MsgCnt].RxBfrPtr, (INTPTR)Msg[MsgCnt].ByteCount);
 			}
+#else
+			Xil_DCacheInvalidateRange((INTPTR)Msg[MsgCnt].RxBfrPtr, (INTPTR)Msg[MsgCnt].ByteCount);
+#endif
 			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt]) == (u32)TRUE) {
 				XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[MsgCnt]);
 				XQspiPsu_ManualStartEnable(InstancePtr);
