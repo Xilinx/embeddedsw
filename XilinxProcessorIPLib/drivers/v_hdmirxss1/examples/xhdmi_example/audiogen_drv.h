@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,11 @@
 #if defined (XPS_BOARD_VEK280_ES) || \
 	defined (XPS_BOARD_VEK280_ES_REVB)
 #define XPS_BOARD_VEK280
+#endif
+
+#if defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_VEK385_1)
+#define XPS_BOARD_VEK385
 #endif
 
 /* AUDGEN_WAIT_CNT will be assigned a dummy value when there is no TX Instance

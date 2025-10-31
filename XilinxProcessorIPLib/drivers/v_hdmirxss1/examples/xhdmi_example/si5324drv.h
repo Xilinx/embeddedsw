@@ -31,6 +31,11 @@
 #ifndef SI5324DRV_H_
 #define SI5324DRV_H_
 
+#if defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_VEK385_1)
+#define XPS_BOARD_VEK385
+#endif
+
 #include "xil_types.h"
 #include "xparameters.h"
 #if defined (ARMR5) || (__aarch64__) && \
