@@ -29,6 +29,11 @@
 #define XPS_BOARD_VEK280
 #endif
 
+#if defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_VEK385_1)
+#define XPS_BOARD_VEK385
+#endif
+
 #if defined (XPS_BOARD_VEK280) || \
 	defined (XPS_BOARD_VEK385)
 #ifndef TI_TMDS1204_H

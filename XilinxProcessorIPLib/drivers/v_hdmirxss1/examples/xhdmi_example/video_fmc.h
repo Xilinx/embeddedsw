@@ -51,6 +51,10 @@
 	defined (XPS_BOARD_VEK280_ES_REVB)
 #define XPS_BOARD_VEK280
 #endif
+#if defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_VEK385_1)
+#define XPS_BOARD_VEK385
+#endif
 #if defined (XPS_BOARD_VEK280)
 #include "ti_tmds1204.h"
 #include "rc21008adrv.h"
