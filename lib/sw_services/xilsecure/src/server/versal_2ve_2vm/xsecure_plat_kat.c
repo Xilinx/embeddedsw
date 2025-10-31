@@ -1395,7 +1395,7 @@ static u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE] = {
 /**
  * @brief	This function performs KAT on HMAC (SHA3-384).
  *
- * @param	SecureSha	Pointer to SHA3 instance
+ * @param	SecureSha3	Pointer to SHA3 instance
  *
  * @return
  *		 - XST_SUCCESS  On success
@@ -1405,7 +1405,7 @@ static u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE] = {
  *		 - XSECURE_HMAC_KAT_ERROR  If HMAC KAT fails
  *
  *****************************************************************************/
-int XSecure_HmacKat(XSecure_Sha *SecureSha)
+int XSecure_HmacKat(XSecure_Sha *SecureSha3)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
@@ -1423,7 +1423,7 @@ int XSecure_HmacKat(XSecure_Sha *SecureSha)
 	u8 *HmacKey = XSecure_GetKatAesKey();
 	u8 *HmacMsg = XSecure_GetKatMessage();
 
-	Status = XSecure_HmacInit(&HmacInstance, SecureSha,
+	Status = XSecure_HmacInit(&HmacInstance, SecureSha3,
 				(UINTPTR)HmacKey, XSECURE_KAT_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_HMAC_KAT_INIT_ERROR;

@@ -44,7 +44,7 @@ extern "C" {
  * @cond xsecure_internal
  * @{
  */
-int XSecure_HmacKat(XSecure_Sha *SecureSha);
+int XSecure_HmacKat(XSecure_Sha *SecureSha3);
 /**
  * @}
  * @endcond

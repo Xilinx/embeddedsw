@@ -68,8 +68,7 @@ static XSECURE_ALWAYS_INLINE void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInf
  * @param	AlgInfo	Pointer to memory for holding the crypto algorithm information
  *
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-void XSecure_Sha2GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+static XSECURE_ALWAYS_INLINE void XSecure_Sha2GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {
 	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA2_MAJOR_VERSION, XSECURE_SHA2_MINOR_VERSION);
 	AlgInfo->NistStatus = NIST_COMPLIANT;

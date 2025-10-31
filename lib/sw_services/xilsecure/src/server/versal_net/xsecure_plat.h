@@ -146,9 +146,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
        XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
-int XSecure_TrngInitNCfgHrngMode(void);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
-
 /***************************** Variable Prototypes  ***************************/
 
 #ifdef __cplusplus
