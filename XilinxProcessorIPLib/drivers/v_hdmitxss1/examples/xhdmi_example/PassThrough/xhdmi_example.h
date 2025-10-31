@@ -40,6 +40,11 @@ extern "C" {
 #define XPS_BOARD_VEK280
 #endif
 
+#if defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_VEK385_1)
+#define XPS_BOARD_VEK385
+#endif
+
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190)

@@ -60,6 +60,7 @@
 #ifndef SDT
 #if defined (XPAR_V_HDMI_RX_SS_HDCP_1_4_DEVICE_ID) || \
 	defined (XPAR_XHDCP22_RX_NUM_INSTANCES)
+
 /* If HDCP 1.4 or HDCP 2.2 is in the system
  * then use the HDCP abstraction layer */
 #define USE_HDCP_HDMI_RX
@@ -78,6 +79,11 @@
 #if defined (XPS_BOARD_VEK280_ES) || \
 	defined (XPS_BOARD_VEK280_ES_REVB)
 #define XPS_BOARD_VEK280
+#endif
+
+#if defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_VEK385_1)
+#define XPS_BOARD_VEK385
 #endif
 /**************************** Type Definitions ******************************/
 
