@@ -548,7 +548,7 @@ Video_common: Removed GCC warning from this driver
 VIDEO_COMMON: Removed all GCC warnings from the driver
 
 vphy_v1_18:
-vphy: Fix the vphy
+Update the vphy driver for dp21 support
 
 vprocss_v2_15:
 vprocss: Fix GCC warning
@@ -703,6 +703,17 @@ Added BISR for LPXC, FPXC, VCU, and AIE2ps.
 Add AIE OPS for TLAST error config
 Support for Voltage ID (VID).
 
+dcsub:
+Added examples for non live audio, SDP, Bypass (single stream), MST, 4kp60 with 8 channel audio
+Update examples to support MMCM clocking wizard config
+
+mmidp:
+Fix for HBR3 and 4 lanes link training
+Add Audio and MST support
+Refactor and code cleanup
+
+libmetal_xlnx_extension:
+New module that implements libmetal interfaces with xlnx BSP
 
 
 New Files Added For 2025.2:
