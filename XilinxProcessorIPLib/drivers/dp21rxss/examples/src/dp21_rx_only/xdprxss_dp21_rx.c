@@ -961,7 +961,7 @@ u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
 	XVphy_DpInitialize(&VPhyInst, ConfigPtr, 0,
 			   VPHY_REFCLK_SEL_400,
 			   VPHY_REFCLK_SEL_400,
-			   XVPHY_PLL_TYPE_QPLL1,
+			   VPHY_RX_PLL_TYPE,
 			   VPHY_RX_PLL_TYPE,
 			   0x4);
     PLLRefClkSel (&VPhyInst, 0x4);
