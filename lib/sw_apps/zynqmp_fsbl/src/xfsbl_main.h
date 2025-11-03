@@ -33,6 +33,7 @@
 * 9.0   aa   06/19/25 Updated SDK release version
 *       sd   08/14/25 Added function declaration
 *       sd   17/09/25 Added POS Handoff macro
+* 10.0  aa   03/11/25 Updated SDK release version
 *
 * </pre>
 *
@@ -110,8 +111,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	2025
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_YEAR	2026
+#define SDK_RELEASE_QUARTER	1
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)

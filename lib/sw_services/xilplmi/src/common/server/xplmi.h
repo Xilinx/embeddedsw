@@ -69,6 +69,7 @@
 * 2.2   prt  02/06/2025 Updated the SDK RELEASE YEAR and QUARTER
 * 2.3   aa   06/19/2025 Updated SDK release version
 * 2.4   sk   09/27/2025 Added Boot Time config support to disable UART Logs
+*       aa   03/11/2025 Updated SDK release version
 * </pre>
 *
 * @note
@@ -87,11 +88,11 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2025" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_YEAR	"2026" /**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
 
-#define XPLMI_PLM_MAJOR_VERSION		25U /**< PLM Major Version */
-#define XPLMI_PLM_MINOR_VERSION		2U  /**< PLM Minor Version */
+#define XPLMI_PLM_MAJOR_VERSION		26U /**< PLM Major Version */
+#define XPLMI_PLM_MINOR_VERSION		1U  /**< PLM Minor Version */
 #define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION  /**< PLM RC Version */
 
 #define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U  /**< PLM Major Version Shift */

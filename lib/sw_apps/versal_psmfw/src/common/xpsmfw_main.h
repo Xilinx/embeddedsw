@@ -20,6 +20,7 @@
 * 1.01  ng   12/08/2022 Updated SDK release version
 * 1.02  prt  02/06/2025 Updated SDK release year and quarter
 * 1.03  hg   06/02/2025 Updated SDK release version
+* 1.04  aa   03/11/2025 Updated SDK release version
 * </pre>
 *
 * @note
@@ -38,7 +39,7 @@ extern "C" {
 /**
  * PSM Firmware version: SDK_RELEASE.QUARTER_RELEASE
  */
-#define versal_PSMFW_VERSION "2025.2"
+#define versal_PSMFW_VERSION "2026.1"
 
 #ifdef __cplusplus
 }
