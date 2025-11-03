@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,7 @@
 #include "xdebug.h"
 #include "xmcdma_hw.h"
 #include "xil_util.h"
+#include "xplatform_info.h"
 #ifdef SDT
 #include "xinterrupt_wrap.h"
 #endif
@@ -356,11 +357,16 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
-
-				if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
+				if(XIOCoherencySupported())
+				{
+					if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
+						Xil_DCacheInvalidateRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
+					}
+				}
+				else
+				{
 					Xil_DCacheInvalidateRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
 				}
-
 				RxBufferPtr += MAX_PKT_LEN;
 				if (!Rx_Chan->Has_Rxdre) {
 					buf_align = RxBufferPtr % 64;
@@ -589,7 +595,14 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 					Value = (Value + 1) & 0xFF;
 				}
 
-				if (!McDmaInstPtr->Config.IsTxCacheCoherent) {
+				if(XIOCoherencySupported())
+				{
+					if (!McDmaInstPtr->Config.IsTxCacheCoherent) {
+						Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
+					}
+				}
+				else
+				{
 					Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
 				}
 
@@ -641,7 +654,15 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
 		/* Invalidate the DestBuffer before receiving the data, in case
 		 * the data cache is enabled
 		 */
-		if (!InstancePtr->Config.IsRxCacheCoherent) {
+
+		if(XIOCoherencySupported())
+		{
+			if (!InstancePtr->Config.IsRxCacheCoherent) {
+				Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
+			}
+		}
+		else
+		{
 			Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
 		}
 

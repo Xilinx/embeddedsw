@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,6 +69,7 @@
 #include "xdebug.h"
 #include "xmcdma_hw.h"
 #include "sleep.h"
+#include "xplatform_info.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -327,7 +328,14 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
 
-				if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
+				if(XIOCoherencySupported())
+				{
+					if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
+						Xil_DCacheInvalidateRange(RxBufferPtr, MAX_PKT_LEN);
+					}
+				}
+				else
+				{
 					Xil_DCacheInvalidateRange(RxBufferPtr, MAX_PKT_LEN);
 				}
 
@@ -525,10 +533,17 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 		/* Invalidate the DestBuffer before receiving the data,
 		 * in case the data cache is enabled
 		 */
-		if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
+
+		if(XIOCoherencySupported())
+		{
+			if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
+				Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
+			}
+		}
+		else
+		{
 			Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
 		}
-
 		if (CheckData((u8 *) RxPacket, RxPacketLength, Chan_id) != XST_SUCCESS) {
 			xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
 			return XST_FAILURE;
