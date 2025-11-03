@@ -260,10 +260,13 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 	InstancePtr->Descriptor.DstDscrPtr =
 		(void *)(Dscr_MemPtr +
 			 (Size * InstancePtr->Descriptor.DscrCount));
-
-	if (!InstancePtr->Config.IsCacheCoherent) {
+	#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+		if (!InstancePtr->Config.IsCacheCoherent) {
+			Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
+		}
+	#else
 		Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
-	}
+	#endif
 
 	return (InstancePtr->Descriptor.DscrCount);
 }

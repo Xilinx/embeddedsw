@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 #endif
 #include "xil_cache.h"
 #include "xil_util.h"
+#include "xplatform_info.h"
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -236,7 +237,15 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 	 * Invalidating destination address and flushing
 	 * source address in cache
 	 */
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheFlushRange((INTPTR)ZDmaSrcBuf, SIZE);
+			Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
+		}
+	}
+	else
+	{
 		Xil_DCacheFlushRange((INTPTR)ZDmaSrcBuf, SIZE);
 		Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
 	}
@@ -332,7 +341,14 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 	/* Before the destination buffer data is accessed do one more invalidation
 	 * to ensure that the latest data is read. This is as per ARM recommendations.
 	 */
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
+		}
+	}
+	else
+	{
 		Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
 	}
 	/* Checking the data transferred */

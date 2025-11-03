@@ -49,6 +49,7 @@
 #endif
 #include "bspconfig.h"
 #include "xil_util.h"
+#include "xplatform_info.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -266,7 +267,17 @@ int XZDma_LinkedListExample(UINTPTR BaseAddress)
 	 * Invalidating destination address and flushing
 	 * source address in cache before initiating the data transfer
 	 */
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
+			Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
+			Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
+			Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+		}
+	}
+	else
+	{
 		Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
 		Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
 		Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
@@ -288,7 +299,15 @@ int XZDma_LinkedListExample(UINTPTR BaseAddress)
 	/* Before the destination buffer data is accessed do one more invalidation
 	 * to ensure that the latest data is read. This is as per ARM recommendations.
 	 */
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
+			Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+		}
+	}
+	else
+	{
 		Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
 		Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
 	}

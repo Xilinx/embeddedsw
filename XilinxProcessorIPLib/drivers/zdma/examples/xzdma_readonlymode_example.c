@@ -46,6 +46,7 @@
 #include "xinterrupt_wrap.h"
 #endif
 #include "xil_util.h"
+#include"xplatform_info.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -182,7 +183,14 @@ int XZDma_SimpleReadOnlyExample(UINTPTR BaseAddress)
 	/*
 	 * Flushing source address in cache
 	 */
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
+		}
+	}
+	else
+	{
 		Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
 	}
 
