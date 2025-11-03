@@ -433,6 +433,7 @@ extern "C" {
 #define PM_RST_SEIO_SPI_1			(0xC104129U)
 #define PM_RST_SEIO_SPI_2			(0xC10412AU)
 #define PM_RST_SEIO_SPI_3			(0xC10412BU)
+#define PM_RST_GPIO_SEIO			(0xC10412CU)
 /** @} */
 
 /**
@@ -1106,6 +1107,7 @@ extern "C" {
 #define PM_DEV_SEIO_SPI_1			(0x18224141U)
 #define PM_DEV_SEIO_SPI_2			(0x18224142U)
 #define PM_DEV_SEIO_SPI_3			(0x18224143U)
+#define PM_DEV_GPIO_SEIO			(0x18224144U)
 #define PM_DEV_ALL_PERIPH			(0x18224FFFU)
 /** @} */
 
