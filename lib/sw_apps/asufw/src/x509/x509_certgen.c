@@ -1821,7 +1821,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = InitData->GenerateDigest(HashStartIdx,
 					  (&(CertInstance.Buf[CertInstance.Offset]) -
-					   SerialStartIdx),
+					   HashStartIdx),
 					  Hash, (u32)X509_HASH_MAX_SIZE_IN_BYTES, &HashLen,
 					  Cfg->PlatformData);
 	if (Status != XASUFW_SUCCESS) {
