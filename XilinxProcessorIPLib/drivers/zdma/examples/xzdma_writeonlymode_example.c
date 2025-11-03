@@ -55,6 +55,7 @@
 #include "xinterrupt_wrap.h"
 #endif
 #include "xil_util.h"
+#include "xplatform_info.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -250,7 +251,14 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 		XZDma_WOData(&ZDma, SrcBuf);
 	}
 
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheFlushRange((INTPTR)DstBuf, SIZE);
+		}
+	}
+	else
+	{
 		Xil_DCacheFlushRange((INTPTR)DstBuf, SIZE);
 	}
 
@@ -269,7 +277,14 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 	/* Before the destination buffer data is accessed do one more invalidation
 	 * to ensure that the latest data is read. This is as per ARM recommendations.
 	 */
-	if (!Config->IsCacheCoherent) {
+	if(XIOCoherencySupported())
+	{
+		if (!Config->IsCacheCoherent) {
+			Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
+		}
+	}
+	else
+	{
 		Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
 	}
 	/* Validation */
