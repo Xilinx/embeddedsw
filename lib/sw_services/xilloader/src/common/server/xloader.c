@@ -200,6 +200,7 @@
 *       obs 09/27/2025 Updated log level for restartimage fallback image search print
 *       sk  09/26/2025 Updated handling of UFS as secondary boot device
 *       sd  10/13/2025 Added support for VERSAL_2VP_P devices.
+*       sk  11/03/2025 Fixed logic to properly update pdisrc for UFS fallback boot
 *
 * </pre>
 *
@@ -490,6 +491,14 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 			}
 		}
 	}
+
+#if (defined(VERSAL_2VE_2VM) && defined(XLOADER_UFS))
+	if ((PdiPtr->PdiIndex == XLOADER_UFS_INDEX) &&
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL)) {
+		PdiSrc |= (RegVal << XLOADER_UFS_ADDR_SHIFT);
+	}
+#endif
+
 	if ((PdiPtr->PdiIndex >= XLOADER_INVALID_INDEX) ||
 		(DeviceOps[PdiPtr->PdiIndex].Init == NULL)) {
 		goto END1;
