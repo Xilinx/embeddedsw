@@ -361,9 +361,13 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		   time. The size of the data in each pbuf is kept in the ->len
 		   variable. */
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+		#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+				Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
+			}
+		#else
 			Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
-		}
+		#endif
 
 		XEmacPs_BdSetAddressTx(txbd, (UINTPTR)q->payload);
 
@@ -468,13 +472,21 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 			return;
 		}
 #ifdef ZYNQMP_USE_JUMBO
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+		#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+				Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
+			}
+		#else
 			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
-		}
+		#endif
 #else
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+		#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+				Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
+			}
+		#else
 			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
-		}
+		#endif
 #endif
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
 		temp = (u32 *)rxbd;
@@ -558,9 +570,13 @@ void emacps_recv_handler(void *arg)
 			/* Invalidate RX frame before queuing to handle
 			 * L1 cache prefetch conditions on any architecture.
 			 */
-			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+			#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+				if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+					Xil_DCacheInvalidateRange((UINTPTR)p->payload, rx_bytes);
+				}
+			#else
 				Xil_DCacheInvalidateRange((UINTPTR)p->payload, rx_bytes);
-			}
+			#endif
 
 			/* store it in the receive queue,
 			 * where it'll be processed by a different handler
@@ -769,13 +785,21 @@ XStatus init_dma(struct xemac_s *xemac)
 		*temp = 0;
 		dsb();
 #ifdef ZYNQMP_USE_JUMBO
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+		#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+				Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
+			}
+		#else
 			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
-		}
+		#endif
 #else
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+		#if defined(EL1_NONSECURE) && (EL1_NONSECURE == 1U)
+			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+				Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
+			}
+		#else
 			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
-		}
+		#endif
 #endif
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 
