@@ -68,7 +68,7 @@ examples:
       if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52"]:
         examples += ["xilsecure_versal_sha_client_example.c"]
     if platform in ["Versal"]:
-      if proc in ["psv_cortexa72", "psv_cortexr5"]:
+      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5"]:
         examples += ["xilsecure_versal_ecdsa_server_example.c", "xilsecure_versal_rsa_server_example.c", "xilsecure_versal_sha_server_example.c",
                      "xilsecure_versal_aes_server_example.c"]
     if platform in ["VersalNet"]:

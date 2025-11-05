@@ -4,11 +4,11 @@
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR
    "${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(XILNVM_mode "server")
-elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
-  # For soft microblaze and Versal_net APU/RPU cores, mode is client.
+elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+  # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
   set(XILNVM_mode "client")
 else()
-  set(XILNVM_mode "client" CACHE STRING "Enables A72/R5 server and client mode support for XilNvm library for Versal")
+  set(XILNVM_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilNvm library for Versal")
   set_property(CACHE XILNVM_mode PROPERTY STRINGS "client" "server")
 endif()
 

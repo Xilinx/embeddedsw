@@ -23,6 +23,7 @@ supported_processors:
   - cortexr52
   - psv_pmc
   - psv_cortexr5
+  - microblaze
 
 supported_os:
   - standalone
@@ -36,8 +37,8 @@ examples:
   condition : |
     examples = []
     if platform in ["VersalNet"]:
-      if proc in ["psx_cortexa78", "psx_cortexr52"]:
+      if proc in ["microblaze", "psx_cortexa78", "psx_cortexr52"]:
         examples += ["xilocp_client_devicekey_example.c", "xilocp_client_dme_example.c"]
     if platform in ["VersalNet", "Versal_2VE_2VM"]:
-      if proc in ["psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
+      if proc in ["microblaze", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
         examples += ["xilocp_client_pcr_example.c"]
