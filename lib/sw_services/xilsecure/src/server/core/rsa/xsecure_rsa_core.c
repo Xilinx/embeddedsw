@@ -47,6 +47,7 @@
 * 5.2   kpt  08/20/23 Added XSecure_RsaEcdsaZeroizeAndVerifyRam
 *	vss  09/18/23 Fixed compilation warning due to XSecure_RsaEcdsaZeroizeAndVerifyRam
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+* 5.6   mb   11/04/25 Update to handle 64 bit DMA address
 *
 * </pre>
 *
@@ -158,6 +159,8 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 	int Status = XST_FAILURE;
 	volatile int ErrorCode = XST_FAILURE;
 	u32 Events;
+	u32 Index;
+	u32 ModExpoSize;
 
 	/** Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -178,8 +181,25 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 	}
 
 	InstancePtr->EncDec = (u8)RsaOp;
-	InstancePtr->SizeInWords = KeySize/XSECURE_WORD_SIZE;
+	InstancePtr->SizeInWords = KeySize / XSECURE_WORD_SIZE;
 
+	if (InstancePtr->EncDec == (u8)XSECURE_RSA_SIGN_ENC) {
+		ModExpoSize = XSECURE_RSA_PUBLIC_EXPO_SIZE;
+	}
+	else {
+		ModExpoSize = KeySize;
+	}
+
+	/* Check if modulus exponent buffer is non zero */
+	for (Index = 0U; Index < ModExpoSize; Index++) {
+		if (XSecure_InByte64(((InstancePtr->ModExpoAddr) + Index)) != 0x00U) {
+			break;
+		}
+	}
+	if (Index == ModExpoSize) {
+		ErrorCode = XSECURE_RSA_INVALID_PARAM;
+		goto END_RST;
+	}
 	/* Reset core */
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);

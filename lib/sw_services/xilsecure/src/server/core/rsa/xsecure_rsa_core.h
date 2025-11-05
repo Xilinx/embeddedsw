@@ -67,6 +67,7 @@ extern "C" {
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
+#define XSECURE_RSA_PUBLIC_EXPO_SIZE	(4U)	/**< Size of public key expo */
 /* Key size in bytes */
 #define XSECURE_RSA_2048_KEY_SIZE	(2048U/8U) /**< RSA 2048 key size */
 #define XSECURE_RSA_3072_KEY_SIZE	(3072U/8U) /**< RSA 3072 key size */
