@@ -4,11 +4,11 @@
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
     ("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))
   set(XILPUF_Mode "server")
-elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
-  # For soft microblaze and Versal_net APU/RPU cores, mode is client.
+elseif(("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
+  # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
   set(XILPUF_Mode "client")
 else()
-  set(XILPUF_Mode "client" CACHE STRING "Enables A72/R5 server and client mode support for XilPuf library")
+  set(XILPUF_Mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilPuf library")
   set_property(CACHE XILPUF_Mode PROPERTY STRINGS "client" "server")
 endif()
 

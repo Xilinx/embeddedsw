@@ -20,7 +20,7 @@ endforeach()
 include_directories(${CMAKE_BINARY_DIR}/include)
 
 if(("${XILSECURE_mode}" STREQUAL "server") AND
-   ((("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND (NOT("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))) OR
+   ((("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND (NOT("${CMAKE_MACHINE}" STREQUAL "spartanuplus") AND NOT("${CMAKE_MACHINE}" STREQUAL "Versal"))) OR
    (("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND (NOT ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))))
   )
   message(FATAL_ERROR "XilSecure library is not supported for selected ${CMAKE_SYSTEM_PROCESSOR} processor in ${XILSECURE_mode} mode")

@@ -36,11 +36,11 @@ endif()
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR "${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(XILSECURE_mode "server")
   set(XILSECURE_INCLUDE_XPLMI_BSP_CONFIG_H "")
-elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
-  # For soft microblaze and Versal_net APU/RPU cores, mode is client.
+elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+  # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
   set(XILSECURE_mode "client")
-elseif("${CMAKE_MACHINE}" STREQUAL "Versal")
-  set(XILSECURE_mode "client" CACHE STRING "Enables A72/R5 server and client mode support for XilSecure library for Versal")
+else()
+  set(XILSECURE_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilSecure library for Versal")
   set_property(CACHE XILSECURE_mode PROPERTY STRINGS "client" "server")
 endif()
 
