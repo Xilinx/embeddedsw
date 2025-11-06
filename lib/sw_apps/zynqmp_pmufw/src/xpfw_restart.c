@@ -664,16 +664,16 @@ s32 XPfw_StoreFsblToDDR(void)
 	void * volatile FsblStoreAddr = (void *)FSBL_STORE_ADDR;
 	const void * volatile FsblLoadAddr = (const void *)FSBL_LOAD_ADDR;
 
-	Status = PmDmaInit();
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
 	FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
 	/* Check if FSBL is running on A53 and not encrypted, store it to DDR */
 	if (FSBL_RUNNING_ON_A53 == (FsblStatus & FSBL_STATE_PROC_INFO_MASK)) {
 		if (0x0U == (FsblStatus & FSBL_ENCRYPTION_STS_MASK)) {
+			Status = PmDmaInit();
+			if (XST_SUCCESS != Status) {
+				goto END;
+			}
+
 			Status = XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
 			if (XST_SUCCESS != Status) {
 				goto END;
