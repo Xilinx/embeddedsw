@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *		      consistent, see the xiic_i.h and xiic_l.h files for further
 *		      information
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.15  vlt  11/05/25 Add 64-bit Addressing support.
 * </pre>
 *
 ****************************************************************************/
@@ -81,7 +82,7 @@ XIic_Config *XIic_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
-XIic_Config *XIic_LookupConfig(u32 BaseAddress)
+XIic_Config *XIic_LookupConfig(UINTPTR BaseAddress)
 {
 	XIic_Config *CfgPtr = NULL;
 	u32 Index;
@@ -138,7 +139,7 @@ XIic_Config *XIic_LookupConfig(u32 BaseAddress)
 #ifndef SDT
 int XIic_Initialize(XIic *InstancePtr, u16 DeviceId)
 #else
-int XIic_Initialize(XIic *InstancePtr, u32 BaseAddress)
+int XIic_Initialize(XIic *InstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	XIic_Config *ConfigPtr;	/* Pointer to configuration data */

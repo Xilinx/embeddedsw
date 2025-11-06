@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -260,6 +260,7 @@ exclusion
 * 2.8	ht   06/19/23 Added support for system device-tree flow.
 * 2.8	gm   06/22/23 Add XCanFd_stop to support release node.
 * 2.8	ht   07/18/23 Fixed GCC warnings.
+* 2.12  vlt  11/05/25 Add 64-bit Addressing support.
 * </pre>
 *
 ******************************************************************************/
@@ -1056,7 +1057,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 #ifndef SDT
 XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId);
 #else
-XCanFd_Config *XCanFd_LookupConfig(u32 BaseAddress);
+XCanFd_Config *XCanFd_LookupConfig(UINTPTR BaseAddress);
 #endif
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex);
 int XCanFd_GetDlc2len(u32 Dlc, u32 Edl);

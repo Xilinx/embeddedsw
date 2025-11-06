@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------
 * 1.00  gm      01/25/24 First release
+* 1.3   vlt     11/05/25 Add 64-bit Addressing support.
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +74,7 @@ XI3c_Config *XI3c_LookupConfig(u16 DeviceId)
 	return (XI3c_Config *)CfgPtr;
 }
 #else
-XI3c_Config *XI3c_LookupConfig(u32 BaseAddress)
+XI3c_Config *XI3c_LookupConfig(UINTPTR BaseAddress)
 {
 	XI3c_Config *CfgPtr = NULL;
 	s32 Index;

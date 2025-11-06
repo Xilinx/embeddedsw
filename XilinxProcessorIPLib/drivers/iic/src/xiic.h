@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -286,6 +286,8 @@
 *                     examples to recognize it as documentation block
 *                     for doxygen generation.
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.15  vlt  11/05/25 Add 64-bit Addressing support.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -512,8 +514,8 @@ static inline u32 XIic_IsIicBusy(XIic *InstancePtr)
 int XIic_Initialize(XIic *InstancePtr, u16 DeviceId);
 XIic_Config *XIic_LookupConfig(u16 DeviceId);
 #else
-int XIic_Initialize(XIic *InstancePtr, u32 BaseAddress);
-XIic_Config *XIic_LookupConfig(u32 BaseAddress);
+int XIic_Initialize(XIic *InstancePtr, UINTPTR BaseAddress);
+XIic_Config *XIic_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /*

@@ -65,6 +65,7 @@
 * 1.1   gm  10/07/24 Added XI3c_GetRevisionNumber() for reading revision
 * 		      number.
 * 1.2   gm  02/18/24 Added slave mode support
+* 1.3   vlt 11/05/25 Add 64-bit Addressing support.
 * </pre>
 *
 ******************************************************************************/
@@ -801,7 +802,7 @@ extern u8 XI3C_DynaAddrList[];
 #ifndef SDT
 XI3c_Config *XI3c_LookupConfig(u16 DeviceId);
 #else
-XI3c_Config *XI3c_LookupConfig(u32 BaseAddress);
+XI3c_Config *XI3c_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /*

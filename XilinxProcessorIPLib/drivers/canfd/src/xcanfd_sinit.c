@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,9 @@
 * 1.3   ask    08/08/18 Fixed doxygen warnings
 * 2.0	ask    09/12/18 Added support for canfd 2.0 spec sequential mode
 * 2.8	ht     06/19/23 Added support for system device-tree flow
+* 2.12  vlt    11/05/25 Add 64-bit Addressing Support.
+
+
 * </pre>
 *
 ******************************************************************************/
@@ -77,7 +80,7 @@ XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId)
 	return (XCanFd_Config *)CfgPtr;
 }
 #else
-XCanFd_Config *XCanFd_LookupConfig(u32 BaseAddress)
+XCanFd_Config *XCanFd_LookupConfig(UINTPTR BaseAddress)
 {
 	XCanFd_Config *CfgPtr = NULL;
 	u32 Index;
