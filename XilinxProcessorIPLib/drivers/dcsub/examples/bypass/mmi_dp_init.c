@@ -108,17 +108,17 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	MsaConfig->MVid = 0;
 	MsaConfig->Misc0 = 0x28;
 	MsaConfig->Misc1 = 0;
-	MsaConfig->HBlankInterval = 0x00000690;//0x000000A0 ;
+	MsaConfig->HBlankInterval = 0x5a;
 
 	BitsPerPixel = MsaConfig->BitsPerColor * 3;
 	VideoConfig->AvgBytesPerTuFrac = 0x24;
-	VideoConfig->InitThreshold = 0x20;
+	VideoConfig->InitThreshold = 0x10;
 	TransferUnitSize = 64;
 
 	VideoBw = ((MsaConfig->PixelClockHz / 1000) * BitsPerPixel) / 8;
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 	VideoConfig->AvgBytesPerTu = (VideoBw * TransferUnitSize) / LinkBw;
-	VideoConfig->AvgBytesPerTu = 0x8;
+	VideoConfig->AvgBytesPerTu = 0x11;
 }
 
 void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
@@ -129,7 +129,8 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 	XMmiDp_ClearVideoController(InstancePtr);
 
 	XMmiDp_SetMsaBpc(InstancePtr, XMMIDP_STREAM_ID1, 8);
-	XMmiDp_SetPixModeSel(InstancePtr, XMMIDP_STREAM_ID1, 0x0);
+	/* quad pixel mode */
+	XMmiDp_SetPixModeSel(InstancePtr, XMMIDP_STREAM_ID1, 0x2);
 	XMmiDp_SetVideoMapping(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_RGB_8BPC);
 	XMmiDp_SetVidStreamEnable(InstancePtr, XMMIDP_STREAM_ID1, 0x1);
 

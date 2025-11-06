@@ -44,6 +44,6 @@ void XAvTpg_SetVideoTiming(XAvTpg *InstancePtr)
 			(InstancePtr->Format << 1 | InstancePtr->Bpc << 5));
 	XAvTpg_WriteReg(InstancePtr->Config.BaseAddr, 0x304, 0x0);
 	XAvTpg_WriteReg(InstancePtr->Config.BaseAddr, XAV_PATGEN_MODE_PATTERN,
-			(InstancePtr->Pattern | (InstancePtr->DualPixelMode << 8)));
+			(InstancePtr->Pattern | (1 << 9)));
 
 }

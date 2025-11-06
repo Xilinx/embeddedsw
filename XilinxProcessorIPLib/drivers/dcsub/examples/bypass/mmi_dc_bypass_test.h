@@ -19,6 +19,10 @@ extern "C" {
 #include "xdcsub.h"
 #include "xmmidp.h"
 
+/* These macro values need to changed whenever there is a change in version */
+#define APP_MAJ_VERSION 1
+#define APP_MIN_VERSION 0
+
 #define AV_PATGEN_BASE  	0xB0400000
 #define V_TC_BASE       	0xB0410000
 
