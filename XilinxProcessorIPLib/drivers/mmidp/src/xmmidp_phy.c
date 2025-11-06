@@ -1788,12 +1788,11 @@ void XMmiDp_SetAux_2000Us_Cnt_Limit(XMmiDp *InstancePtr, u16 Limit)
  * @note        None.
  *
 *******************************************************************************/
-void XMmiDp_SetAux_100000Us_Cnt_Limit(XMmiDp *InstancePtr, u16 Limit)
+void XMmiDp_SetAux_100000Us_Cnt_Limit(XMmiDp *InstancePtr, u32 Limit)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_AUX_100000US_CNT_LIMIT_0, Limit);
-
 }
 
 /******************************************************************************/
