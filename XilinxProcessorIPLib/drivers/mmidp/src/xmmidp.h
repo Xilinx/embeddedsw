@@ -467,7 +467,7 @@ void XMmiDp_SetPhyPowerdown(XMmiDp *InstancePtr, XMmiDp_PhyPwrDown Control);
 void XMmiDp_SetPhyWidth(XMmiDp *InstancePtr, XMmiDp_PhyWidth Width);
 void XMmiDp_SetAux_250Us_Cnt_Limit(XMmiDp *InstancePtr, u16 Limit);
 void XMmiDp_SetAux_2000Us_Cnt_Limit(XMmiDp *InstancePtr, u16 Limit);
-void XMmiDp_SetAux_100000Us_Cnt_Limit(XMmiDp *InstancePtr, u16 Limit);
+void XMmiDp_SetAux_100000Us_Cnt_Limit(XMmiDp *InstancePtr, u32 Limit);
 void XMmiDp_SetPmConfig1(XMmiDp *InstancePtr, u32 Val);
 void XMmiDp_SetPmConfig2(XMmiDp *InstancePtr, u32 Val);
 
