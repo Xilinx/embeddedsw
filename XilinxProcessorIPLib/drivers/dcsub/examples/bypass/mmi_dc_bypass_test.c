@@ -69,8 +69,6 @@ u32 InitClkWiz()
 	XClk_Wiz InstancePtr;
 	XClk_Wiz_Config *CfgPtr;
 	u32 Status = XST_SUCCESS;
-	u32 Reg;
-	u64 Rate;
 
 	CfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_BASEADDR);
 	if (!CfgPtr) {
@@ -84,26 +82,48 @@ u32 InitClkWiz()
 		return XST_FAILURE;
 	}
 
-	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
-
-	Status = XClk_Wiz_SetRateHz(&InstancePtr, 25200000);
-	if (Status != XST_SUCCESS) {
-		xil_printf("FAILED to set rate of Clk Wizard IP\n");
-		return XST_FAILURE;
-	}
-
-	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET,
-						(XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
-
-	Status = XClk_WaitForLock(CfgPtr);
-	if (Status != XST_SUCCESS) {
-		Reg = XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK;
-		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
-				": 0x1\n\r", Reg);
-	}
-	XClk_Wiz_GetRate(&InstancePtr, 0, &Rate);
-	Rate = Rate / XCLK_MHZ;
-	xil_printf("\nCalculated Rate is %ld MHz and Expected is 25.2 MHz \n",  Rate);
+	/*
+	 * Bypass mode is in quad pixel.
+	 * So pl_dc_1x_clk is pixel clock = 25.175 MHz / 4.
+	 * But clk wiz output is controlled by pl_dc_2x_clk port.
+	 * So program clk wiz to (25.175 / 4) * 2 MHz i.e
+	 * 12.5875 MHz.
+	 *
+	 * These values are taken from Vivado generated drp file for accuracy.
+	 */
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x330, 0x1600);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x334, 0x2d2d);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x338, 0xba00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x33c, 0x3c3c);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x340, 0xa00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x344, 0x303);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x348, 0xa00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x34c, 0x303);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x350, 0xa00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x354, 0x303);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x378, 0x23);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x37c, 0x0);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x380, 0x400);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x384, 0x101);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x390, 0x0);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x394, 0x0);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x398, 0xe80);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x39c, 0x7e58);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3a0, 0x7fe9);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3a8, 0x18);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3c0, 0x1);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3cc, 0xa00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3d0, 0x303);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3d4, 0xa00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3d8, 0x303);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3dc, 0xa00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3e0, 0x303);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3e4, 0x0);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3e8, 0x0);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3f0, 0x18);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3f8, 0xf00);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x3fc, 0x3);
+	XClk_Wiz_WriteReg(CfgPtr->BaseAddr, 0x14, 0x3);
 
 	return Status;
 }
@@ -229,6 +249,9 @@ u32 InitDcSubsystem(RunConfig *RunCfgPtr)
 	XDcSub *DcSubPtr = RunCfgPtr->DcSubPtr;
 	XDc *DcPtr = DcSubPtr->DcPtr;
 
+	/* Program clock source selection */
+	XDc_VidClkSelect(DcPtr);
+
 	/* DC Video Frame Switch rate */
 	XDc_SetVidFrameSwitch(DcPtr);
 
@@ -295,6 +318,7 @@ void InitDcSubPtr(RunConfig *RunCfgPtr)
 	DcPtr->VideoTiming = VidTiming_640_480;
 
 	XDcSub_SetVidInterfaceMode(RunCfgPtr->DcSubPtr, XDC_VID_BYPASS);
+	XDcSub_VidClkSelect(RunCfgPtr->DcSubPtr, 0, 0);
 	XDcSub_SetVidFrameSwitch(RunCfgPtr->DcSubPtr, 0x3F);
 
 }
@@ -326,7 +350,7 @@ u32 InitRunConfig(RunConfig *RunCfgPtr)
 	RunCfgPtr->DcBaseAddr = DC_BASEADDR;
 	RunCfgPtr->Width = 640;
 	RunCfgPtr->Height = 480;
-	RunCfgPtr->PPC = 0x1;
+	RunCfgPtr->PPC = 4;
 
 	XAvTpg *AvTpgPtr0 = RunCfgPtr->AvTpgPtr0;
 	AvTpgPtr0->Config.BaseAddr = AV_PATGEN_BASE;
@@ -382,13 +406,19 @@ int main()
 	Xil_DCacheDisable();
 	Xil_ICacheDisable();
 
+	xil_printf("------------------------------------------\r\n");
+	xil_printf("----- MMI DC Bypass Example - v%d.%d -------\r\n",
+		    APP_MAJ_VERSION, APP_MIN_VERSION);
+        xil_printf("Build date - %s %s \r\n", __DATE__, __TIME__);
+	xil_printf("------------------------------------------\r\n");
+
 	Status = mmi_dc_mst_test(&RunCfgPtr);
 	if (Status != XST_SUCCESS) {
 		xil_printf("MMI_DC_LIVE_TEST failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("\nSuccessfully ran MMI_DC Live Mode Example\r\n");
+	xil_printf("\nSuccessfully ran MMI DC Bypass Mode Example\r\n");
 
 	/* Do not exit application,
 	   required for monitor display */
