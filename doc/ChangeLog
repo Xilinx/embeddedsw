@@ -41,6 +41,7 @@ Add PM support
 Revert "zdma: Add PM support"
 Revert "Revert "zdma: Fix the register reset values""
 zdma: update copy rights
+Add conditional cache ops for EL1_NS and EL3 modes
 
 xilffs_v5_5:
 Fix gcc warning
@@ -722,6 +723,19 @@ Give an error while loading signed image and PPK is not available.
 Fixed intermittent POS failure on ZynqMP caused by FSBL stuck in UART transmit check. Boot flow updated to enter WFE state without UART wait for POS use case.
 Increased XFSBL_REQ_REPLY_LEN from 256 to 512 bytes to support larger USB descriptor replies, improving DFU compatibility with Windows 10/11.
 Fixed issue where commands >64 bytes transmitted incorrect byte (0th instead of 65th). Implemented offset tracking for correct continuation.
+
+sdps_v4_5:
+Add conditional cache ops for EL1_NS
+
+mcdma_v1_13:
+Add conditional cache ops for EL1_NS and EL3 modes
+
+nandpsu_v1_15:
+Add conditional cache ops for EL1_NS and EL3 modes
+
+qspipsu_v1_22:
+Add conditional cache ops for EL1_NS and EL3 modes
+Update driver version
 
 
 New Files Added For 2025.2:
