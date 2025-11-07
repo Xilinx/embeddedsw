@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -105,6 +105,10 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	}
 
 	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if (NULL == Core) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	/* Do not process anything if proc is already down */
 	if ((u8)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
@@ -179,6 +183,11 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 		/* Release devices requested by PLM to turn of LPD domain */
 		Lpd = XPmPower_GetById(PM_POWER_LPD);
+		if (NULL == Lpd) {
+			Status = XPM_INVALID_PWRDOMAIN;
+			goto done;
+		}
+
 		if (((0U < Lpd->UseCount) &&
 		    (MIN_LPD_USE_COUNT >= Lpd->UseCount)) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
@@ -216,6 +225,10 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId)
 	XStatus Status = XST_FAILURE;
 	u32 CpuIdleFlag = 0;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if (NULL == Core) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	/* Do not process anything if proc is already running */
 	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {

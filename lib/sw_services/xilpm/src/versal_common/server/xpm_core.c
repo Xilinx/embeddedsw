@@ -329,6 +329,11 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 			}
 			Status = XPm_SubsystemPwrUp(Subsystem->Id);
 			XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
+			if (NULL == Fpd) {
+				Status = XPM_INVALID_PWRDOMAIN;
+				goto done;
+			}
+
 			/* Restore FPD use count */
 			Fpd->UseCount--;
 		}

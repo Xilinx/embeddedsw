@@ -662,6 +662,11 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	/* Not possible to reach here if Device doesn't exist hence no */
 	/* check for existence of Device */
 	Device = XPmDevice_GetByIndex((u32)XPM_NODEIDX_DEV_XRAM_0);
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		DbgErr = XPM_ERR_BISR;
+		goto done;
+	}
 
 	/* Calculate Destination address */
 	/* Dest. Addr = slcr_address + cache_data_offset */

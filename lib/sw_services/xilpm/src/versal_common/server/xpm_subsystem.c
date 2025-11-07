@@ -440,6 +440,12 @@ static XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId
 	 * other than node index.
 	 */
 	const XPm_PinFunc *PinFunc = XPmPinFunc_GetById(Pin->FuncId);
+	if (NULL == PinFunc) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XPM_INVALID_PIN_INDEX;
+		goto done;
+	}
+
 	Device =  XPmDevice_GetByIndex(PinFunc->DevIdx);
 	if (NULL == Device) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;

@@ -417,6 +417,12 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Enable NPI Clock */
 	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx((u32)XPM_NODEIDX_CLK_NPI_REF);
+	if (NULL == Clk) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
 	Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CLK_ENABLE;
@@ -1052,6 +1058,12 @@ static XStatus XPmNpDomain_IsParentPowerNoc(const XPm_Node *Node, u16 *DbgErr)
 		u32 i = 0U;
 		while (MAX_POWERDOMAINS > i) {
 			Power = (XPm_Power *)XPmPower_GetById(PowerD->Parents[i]);
+			if (NULL == Power) {
+				*DbgErr = XPM_INT_ERR_INVALID_PARAM;
+				Status = XPM_INVALID_PWRDOMAIN;
+				goto done;
+			}
+
 			i++;
 			if ((u32)PM_POWER_NOC == Power->Node.Id) {
 				break;

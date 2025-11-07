@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,12 @@ static XStatus SkipRpuReset(const XPm_Core *Core)
 	const XPm_Device *DevTcm0B = XPmDevice_GetById(PM_DEV_TCM_0_B);
 	const XPm_Device *DevTcm1A = XPmDevice_GetById(PM_DEV_TCM_1_A);
 	const XPm_Device *DevTcm1B = XPmDevice_GetById(PM_DEV_TCM_1_B);
+	if ((NULL == DevTcm0A) || (NULL == DevTcm0B) || (NULL == DevTcm1A) ||
+		(NULL == DevTcm1B)) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
 	if (!(((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) &&
 	      (((u8)XPM_DEVSTATE_RUNNING == DevTcm0A->Node.State) ||
 	       ((u8)XPM_DEVSTATE_RUNNING == DevTcm0B->Node.State) ||
@@ -103,7 +109,7 @@ XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	XStatus Status = XST_FAILURE;
 
-	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+	if ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx) {
 		goto done;
 	}
 

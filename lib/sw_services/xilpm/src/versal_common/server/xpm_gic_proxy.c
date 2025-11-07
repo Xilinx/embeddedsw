@@ -50,6 +50,10 @@ static void XPmGicProxy_Enable(void)
 	u32 g;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
+	if (NULL == Pmc) {
+		goto done;
+	}
+
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
 		u32 BaseAddress = Pmc->PmcGlobalBaseAddr;
@@ -68,6 +72,8 @@ static void XPmGicProxy_Enable(void)
 	}
 
 	XPm_GicProxy.Flags |= XPM_GIC_PROXY_IS_ENABLED;
+done:
+	return;
 }
 
 /**

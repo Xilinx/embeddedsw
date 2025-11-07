@@ -500,14 +500,19 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
-
+	const XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		Status = XST_FAILURE;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (NULL == PldDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -1352,6 +1357,11 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 			for (j = 0; ((j < MAX_POWERDOMAINS) && (0U != ParentDomain->Parents[j])); j++) {
 				if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(ParentDomain->Parents[j])) {
 					ParentRail = (XPm_Rail *)XPmPower_GetById(ParentDomain->Parents[j]);
+					if (NULL == ParentRail) {
+						Status = XPM_INVALID_PWRDOMAIN;
+						goto done;
+					}
+
 					if ((u8)XPM_POWER_STATE_ON == State) {
 						ParentRail->Power.UseCount++;
 					} else {
@@ -1361,6 +1371,11 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 			}
 		} else if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(PwrDomain->Parents[i])) {
 			ParentRail = (XPm_Rail *)XPmPower_GetById(PwrDomain->Parents[i]);
+			if (NULL == ParentRail) {
+				Status = XPM_INVALID_PWRDOMAIN;
+				goto done;
+			}
+
 			if ((u8)XPM_POWER_STATE_ON == State) {
 				if (PM_POWER_PMC == PwrDomain->Power.Node.Id) {
 					ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
@@ -1483,6 +1498,10 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 		/* Check for POR reset for a domain is occurred or not. */
 		if (0U != ResetId) {
 			Reset = XPmReset_GetById(ResetId);
+			if (NULL == Reset) {
+				goto done;
+			}
+
 			if (XPM_RST_STATE_ASSERTED ==
 			    Reset->Ops->GetState(Reset)) {
 				DomainPORFlag = 1;

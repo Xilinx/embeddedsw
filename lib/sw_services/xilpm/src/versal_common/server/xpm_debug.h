@@ -284,6 +284,8 @@ extern "C" {
 #define XPM_INT_ERR_ISO_MAX_DEPENDENCIES	0X3614U
 /* Out of bound */
 #define XPM_INT_ERR_OUT_OF_RANGE		0x3615U
+/* Invalid pin index */
+#define XPM_INVALID_PIN_INDEX			0x3616U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/

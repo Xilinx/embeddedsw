@@ -343,6 +343,12 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 	}
 
 	Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN));
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
 	Status = XPmNpDomain_ClockGate((XPm_Node *)Device, 0);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
@@ -363,6 +369,12 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 	u32 i;
 
 	Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN));
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
 	Status = XPmNpDomain_ClockGate((XPm_Node *)Device, 1);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;

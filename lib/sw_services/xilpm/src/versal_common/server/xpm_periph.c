@@ -253,6 +253,11 @@ static int HbMon_Scheduler(void *data)
 
 		if (HbMon_TimeoutList[Idx] <= HbMon_SchedFreq) {
 			Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
+			if (NULL == Device) {
+				Status = XST_DEVICE_NOT_FOUND;
+				goto done;
+			}
+
 			Subsystem = Device->Requirements->Subsystem;
 			if ((((u8)PENDING_RESTART == Subsystem->State) ||
 			    ((u8)PENDING_POWER_OFF == Subsystem->State)) &&

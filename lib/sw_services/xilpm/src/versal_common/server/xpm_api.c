@@ -1303,6 +1303,11 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	u32 CurrState = 0U;
 
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
 	/* HACK: Don't disable PLL clocks for now */
 	if((Enable == 0U) && (ISPLL(ClockId)))
 	{
@@ -1426,6 +1431,11 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 
 	if (0U == Divider) {
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
 		goto done;
 	}
 
@@ -4048,6 +4058,10 @@ XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 	}
 
 	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+	if (NULL == Core) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	/* Do not process anything if core is already running */
 	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {

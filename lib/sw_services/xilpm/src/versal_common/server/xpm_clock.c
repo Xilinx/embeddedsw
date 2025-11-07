@@ -448,10 +448,6 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNo
 	uint8_t NumNodes;
 	u32 i;
 
-	if (Clk == NULL) {
-		goto done;
-	}
-
 	SubNodes = *Clk->Topology.Nodes;
 	NumNodes = Clk->Topology.NumNodes;
 
@@ -467,7 +463,6 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNo
 			break;
 		}
 	}
-done:
 	return ClkSubNodes;
 }
 
@@ -591,6 +586,10 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 
 			/* Release the clock parent */
 			XPm_ClockNode *ParentClk = XPmClock_GetByIdx(Clk->ParentIdx);
+			if (NULL == ParentClk) {
+				goto done;
+			}
+
 			if (ISOUTCLK(ParentClk->Node.Id)) {
 				XPmClock_ReleaseInt(ParentClk);
 			} else if (ISPLL(ParentClk->Node.Id)) {
@@ -604,6 +603,8 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 			}
 		}
 	}
+
+done:
 	return;
 }
 
@@ -907,6 +908,10 @@ XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp)
 	const XPm_OutClockNode *Clk;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
 
 	if (!ISOUTCLK(ClockId)) {
 		goto done;

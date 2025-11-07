@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,10 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 	XStatus Status = XST_FAILURE;
 	u32 Address;
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	if (NULL == RpuCore) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	Address = RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET;
 	if (Config == XPM_RPU_TCM_SPLIT) {
@@ -40,6 +44,7 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 		Status = XST_INVALID_PARAM;
 	}
 
+done:
 	return Status;
 }
 

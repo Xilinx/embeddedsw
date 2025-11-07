@@ -396,6 +396,10 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 			NodeId = Payload[1];
 			Event = Payload[2];
 			const XPm_Subsystem* NotifierSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
+			if (NULL == NotifierSubsystem) {
+				goto done;
+			}
+
 			if (((u8)ONLINE ==NotifierSubsystem->State) ||
 			    ((u8)PENDING_POWER_OFF ==  NotifierSubsystem->State) ||
 			    ((u8)PENDING_RESTART == NotifierSubsystem->State) ||
@@ -782,6 +786,10 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 * the event only if it requested to be woken up.
 		 */
 		const XPm_Subsystem* NotifierSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
+		if (NULL == NotifierSubsystem) {
+			goto done;
+		}
+
 		if (((u8)OFFLINE != NotifierSubsystem->State) ||
 		    (0U != (Event & Notifier->WakeMask))) {
 			XPmNotifier_NotifyTarget(Notifier->IpiMask, Payload);

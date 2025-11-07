@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,11 @@ XStatus ReleaseDeviceLpd(void)
 #endif
 	/* Power down PSM core */
 	Core = (XPm_Core *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL == Core) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
 	if (NULL != Core->CoreOps->PowerDown) {
 		Status = Core->CoreOps->PowerDown(Core);
 		if (XST_SUCCESS != Status) {
