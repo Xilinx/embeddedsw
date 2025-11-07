@@ -24,6 +24,8 @@
 *       yog  08/07/23 Removed trng driver in xilsecure library
 * 5.4   yog  04/29/24 Fixed doxygen grouping
 * 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
+*       sd   11/07/25 Update TRNG function name and return logic to return true
+*                     when TRNG is uninitialized
 *
 * </pre>
 *
@@ -93,9 +95,9 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
  *		 - XST_FAILURE  If TRNGPSX is initialized.
  *
  **************************************************************************************************/
-static inline u8 XSecure_TrngIsInitialized(XSecure_TrngInstance *TrngInstance)
+static inline u8 XSecure_TrngIsUninitialized(XSecure_TrngInstance *TrngInstance)
 {
-	return !(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE);
+	return (TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE);
 }
 
 /**************************************************************************************************/
@@ -111,7 +113,7 @@ static inline u8 XSecure_TrngIsInitialized(XSecure_TrngInstance *TrngInstance)
  **************************************************************************************************/
 static inline u8 XSecure_TrngIsHealthy(XSecure_TrngInstance *TrngInstance)
 {
-	return !(TrngInstance->ErrorState == XTRNGPSX_HEALTHY);
+	return (TrngInstance->ErrorState == XTRNGPSX_HEALTHY);
 }
 
 #ifdef __cplusplus

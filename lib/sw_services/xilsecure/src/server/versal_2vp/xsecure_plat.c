@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.6   tvp  07/07/25 Initial release
+*       sd   11/07/25 Update condition to reflect the revised function return value
 *
 * </pre>
 *
@@ -366,7 +367,7 @@ int XSecure_ECCRandInit(void)
 		}
 	}
 	if (((XSecureTrng_Mode)TrngInstance->UsrCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
-		(!XSecure_TrngIsInitialized(TrngInstance))) {
+		(XSecure_TrngIsUninitialized(TrngInstance))) {
 		Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 		if (Status != XST_SUCCESS) {
 			goto END;
