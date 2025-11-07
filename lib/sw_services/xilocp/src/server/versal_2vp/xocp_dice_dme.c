@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.5   tvp  06/05/25 Initial release
+*       sd   11/07/25 Update condition to reflect the revised function return value
 *
 * </pre>
 *
@@ -975,7 +976,7 @@ RET:
 	 * so that it can be re-initialize during runtime requests.
 	 */
 	XSecureTrngInstance = XSecure_GetTrngInstance();
-	if (XSecure_TrngIsInitialized(XSecureTrngInstance)){
+	if (!XSecure_TrngIsUninitialized(XSecureTrngInstance)){
 		SStatus = XSecure_Uninstantiate(XSecureTrngInstance);
 		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 			if (SStatus != XST_SUCCESS) {

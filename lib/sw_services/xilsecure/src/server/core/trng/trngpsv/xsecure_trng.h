@@ -16,6 +16,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.5   tvp  05/13/25 Initial release
+*       sd   11/07/25 Update TRNG function name and return logic to return true
+*                     when TRNG is uninitialized
 *
 * </pre>
 *
@@ -86,9 +88,9 @@ int XSecure_PreOperationalSelfTests(XSecure_TrngInstance *TrngInstance);
  *		 - XST_FAILURE  If TRNGPSV is initialized.
  *
  **************************************************************************************************/
-static inline u8 XSecure_TrngIsInitialized(XSecure_TrngInstance *TrngInstance)
+static inline u8 XSecure_TrngIsUninitialized(XSecure_TrngInstance *TrngInstance)
 {
-	return !(TrngInstance->State == XTRNGPSV_UNINITIALIZED);
+	return (TrngInstance->State == XTRNGPSV_UNINITIALIZED);
 }
 
 /**************************************************************************************************/
@@ -104,7 +106,7 @@ static inline u8 XSecure_TrngIsInitialized(XSecure_TrngInstance *TrngInstance)
  **************************************************************************************************/
 static inline u8 XSecure_TrngIsHealthy(XSecure_TrngInstance *TrngInstance)
 {
-	return !(TrngInstance->State == XTRNGPSV_HEALTHY);
+	return (TrngInstance->State == XTRNGPSV_HEALTHY);
 }
 
 /**************************************************************************************************/

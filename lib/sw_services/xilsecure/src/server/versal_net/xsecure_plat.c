@@ -26,7 +26,9 @@
         kpt     01/09/24 Updated option for non-blocking trng reseed
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     06/30/24 Added XSecure_MemCpyAndChangeEndianness
-* 5.5   tvp	05/13/25 Code refactoring for Platform specific TRNG functions
+* 5.5   tvp     05/13/25 Code refactoring for Platform specific TRNG functions
+*       sd      11/07/25 Update condition to reflect the revised function return
+*                        value
 *
 * </pre>
 *
@@ -640,7 +642,7 @@ int XSecure_ECCRandInit(void)
 		}
 	}
 	if (((XSecureTrng_Mode)TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
-		(!XSecure_TrngIsInitialized(TrngInstance))) {
+		(XSecure_TrngIsUninitialized(TrngInstance))) {
 		Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 		if(Status != XST_SUCCESS) {
 			goto END;

@@ -21,6 +21,7 @@
 *       vss      04/23/25 Added byte aligned support.
 * 5.6   mb       08/07/25 Added volatile keyword for Index variable to avoid optimization
 *       tvp      09/23/25 Code refactoring for Platform specific TRNG functions
+*       sd       11/07/25 Update condition to reflect the revised function return value
 *
 * </pre>
 *
@@ -469,7 +470,7 @@ int XSecure_ECCRandInit(void)
 	}
 
 	if (((XSecureTrng_Mode)TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
-		(!XSecure_TrngIsInitialized(TrngInstance))) {
+		(XSecure_TrngIsUninitialized(TrngInstance))) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngInitNCfgMode,
 				      XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 		if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {

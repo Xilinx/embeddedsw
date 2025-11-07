@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.5   tvp  05/13/25 Initial release
+*       sd   11/07/25 Add check to ensure TRNG is initialized before uninitializing
 *
 * </pre>
 *
@@ -154,9 +155,11 @@ int XSecure_PreOperationalSelfTests(XSecure_TrngInstance *TrngInstance)
 	XTrngpsv *InstancePtr = TrngInstance;
 
 	/* Reset the TRNG state */
-	Status = XTrngpsv_Uninstantiate(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if (!XSecure_TrngIsUninitialized(TrngInstance)){
+		Status = XTrngpsv_Uninstantiate(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XTrngpsv_RunKAT(InstancePtr);
