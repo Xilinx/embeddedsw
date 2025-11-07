@@ -24,6 +24,7 @@
 *       am   02/17/2023 Fixed HIS_COMF violations
 * 2.2   bm   06/23/2023 Added access permissions for IPI commands
 * 2.3   ng   11/22/23 Fixed doxygen grouping
+* 2.7   tus  11/07/2026 Fix MISRA C Rule 10.3
 *
 * </pre>
 *
@@ -127,9 +128,9 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 	 * return XST_SUCCESS for valid ApiId else, return XST_INVALID_PARAM if the ApiId is invalid.
 	 */
 	switch (ApiId) {
-		case XPUF_PUF_REGISTRATION:
-		case XPUF_PUF_REGENERATION:
-		case XPUF_PUF_CLEAR_PUF_ID:
+		case XPUF_API(XPUF_PUF_REGISTRATION):
+		case XPUF_API(XPUF_PUF_REGENERATION):
+		case XPUF_API(XPUF_PUF_CLEAR_PUF_ID):
 			Status = XST_SUCCESS;
 			break;
 
