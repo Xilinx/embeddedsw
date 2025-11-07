@@ -49,6 +49,7 @@
   * 2.6   mb   29/09/25 Set lower 32 bits of PUF_IV are zero
   *       mb   09/11/25 Added support for calculate 384 bit PUF HD hash
   *       mb   10/05/25 Minor updates in xilpuf library
+  *       mb   11/06/25 Fix for PUF Regeneration on demand test case
   *
   *@note
   *
@@ -387,11 +388,11 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 
 #if XPUF_WRITE_IN_MEM
 	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES/ XPUF_WORD_LENGTH; Index++) {
-		Xil_Out32((XPUF_SYNDROME_DATA_WRITE_ADDR + Index * XPUF_WORD_LENGTH), Xil_EndianSwap32(PUF_TrimHD[Index]));
+		Xil_Out32((XPUF_SYNDROME_DATA_WRITE_ADDR + Index * XPUF_WORD_LENGTH), PUF_TrimHD[Index]);
 	}
 
-	Xil_Out32(XPUF_CHASH_DATA_WRITE_ADDR, Xil_EndianSwap32(PufData.Chash));
-	Xil_Out32(XPUF_AUX_DATA_WRITE_ADDR, Xil_EndianSwap32(PufData.Aux));
+	Xil_Out32(XPUF_CHASH_DATA_WRITE_ADDR, PufData.Chash);
+	Xil_Out32(XPUF_AUX_DATA_WRITE_ADDR, PufData.Aux);
 #endif
 
 	Status = XPuf_CalculatePufHash(DmaPtr, PUF_TrimHD, XPUF_HD_TRIM_PAD_LEN_IN_WORDS * XPUF_WORD_LENGTH,
@@ -449,7 +450,7 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
         }
 
 	PufData.Chash = XPUF_CHASH;
-	PufData.Aux = (XPUF_AUX >> XPUF_AUX_SHIFT_VALUE);
+	PufData.Aux = XPUF_AUX;
 	PufData.SyndromeAddr = (u32)(UINTPTR)&PufData.SyndromeData;
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
