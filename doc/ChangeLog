@@ -295,6 +295,7 @@ dfeofdm: Update comments about status and delay
 dfeprach_v1_8:
 dfeprach: Set phase offsets to 0 on startup
 dfeprach: Add missing parameter to yaml
+Correct initialization values
 
 emacps_v3_23:
 Update Versal_Gen2 name instances
@@ -714,6 +715,13 @@ Refactor and code cleanup
 
 libmetal_xlnx_extension:
 New module that implements libmetal interfaces with xlnx BSP
+
+zynqmp_fsbl:
+Fixed FSBL hang during APU restart caused by UART usage without reinitialization. Added check in UART routine to skip execution based on reset type.
+Give an error while loading signed image and PPK is not available.
+Fixed intermittent POS failure on ZynqMP caused by FSBL stuck in UART transmit check. Boot flow updated to enter WFE state without UART wait for POS use case.
+Increased XFSBL_REQ_REPLY_LEN from 256 to 512 bytes to support larger USB descriptor replies, improving DFU compatibility with Windows 10/11.
+Fixed issue where commands >64 bytes transmitted incorrect byte (0th instead of 65th). Implemented offset tracking for correct continuation.
 
 
 New Files Added For 2025.2:
