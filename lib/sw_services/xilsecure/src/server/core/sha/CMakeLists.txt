@@ -5,7 +5,11 @@ collect (PROJECT_LIB_HEADERS xsecure_sha_common.h)
 
 if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR
 	("${CMAKE_MACHINE}" STREQUAL "Versal"))
-  add_subdirectory(sha_pmx)
+  if("Versal_2VP_P" IN_LIST VARIANT)
+    add_subdirectory(sha_pmxc)
+  else()
+    add_subdirectory(sha_pmx)
+  endif()
 endif()
 
 if(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM") OR
