@@ -33,13 +33,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-#define I2C_IDT8N49_ADDR   0x7C /**< I2C IDT 8N49N241 Address */
 #define I2C_MUX_ADDR       0x75 /**< I2C Mux Address */
 #define I2C_CLK_ADDR       0x68 /**< I2C Clk Address */
 #define I2C_VFMCEXP_1_ADDR 0x65 /**< I2C VideoFMC IO Expander 1 address */
 #define I2C_VFMCEXP_0_ADDR 0x64 /**< I2C VideoFMC IO Expander 0 address */
-#define I2C_LMK03318_ADDR  0x51 /**< I2C TI LMK03318 Address */
-#define I2C_SI5344_ADDR    0x68 /**< I2C SI5344 Address */
 #define I2C_MUX_ADDR2      0x74  /**< I2C Mux Address */
 
 /**************************** Type Definitions *******************************/

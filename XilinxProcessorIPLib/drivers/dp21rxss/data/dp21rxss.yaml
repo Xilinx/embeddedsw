@@ -170,12 +170,6 @@ depends:
 examples:
     src/dp21_rx_only/xdprxss_dp21_rx.c:
         - dependency_files:
-            - src/dp21_rx_only/idt_8t49n24x.c
-            - src/dp21_rx_only/idt_8t49n24x.h
-            - src/dp21_rx_only/si5344drv.c
-            - src/dp21_rx_only/si5344drv.h
-            - src/dp21_rx_only/ti_lmk03318.c
-            - src/dp21_rx_only/ti_lmk03318.h
             - src/dp21_rx_only/videofmc_defs.h
             - src/dp21_rx_only/xdprxss_dp21_rx.c
             - src/dp21_rx_only/xvidframe_crc.c
@@ -183,12 +177,6 @@ examples:
 
     dummy/xdprxss_dp21_rx_vcu.txt:
         - dependency_files:
-            - src/dp21_rx_only/idt_8t49n24x.c
-            - src/dp21_rx_only/idt_8t49n24x.h
-            - src/dp21_rx_only/si5344drv.c
-            - src/dp21_rx_only/si5344drv.h
-            - src/dp21_rx_only/ti_lmk03318.c
-            - src/dp21_rx_only/ti_lmk03318.h
             - src/dp21_rx_only/videofmc_defs.h
             - src/dp21_rx_only/xdprxss_dp21_rx.c
             - src/dp21_rx_only/xvidframe_crc.c

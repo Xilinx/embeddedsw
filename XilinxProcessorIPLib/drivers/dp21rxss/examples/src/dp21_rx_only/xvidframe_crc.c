@@ -56,8 +56,9 @@
 ******************************************************************************/
 int XVidFrameCrc_Initialize(Video_CRC_Config *VidFrameCRC)
 {
-
-	/* Initialize CRC & Set default Pixel Mode */
+	/*
+	 * Initialize CRC & Set default Pixel Mode
+	 */
 	VidFrameCRC->TEST_CRC_SUPPORTED = 1;
 #ifndef SDT
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
@@ -90,18 +91,22 @@ void XVidFrameCrc_Reset(void)
 {
 	u32 RegVal;
 
-	/* Read Config Register */
+	/*
+	 * Read Config Register
+	 */
 	RegVal = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-				VIDEO_FRAME_CRC_CONFIG);
+				      VIDEO_FRAME_CRC_CONFIG);
 
-	/* Toggle CRC Clear Bit */
+	/*
+	 * Toggle CRC Clear Bit
+	 */
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-			VIDEO_FRAME_CRC_CONFIG,
-			(RegVal | VIDEO_FRAME_CRC_CLEAR));
-	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-			VIDEO_FRAME_CRC_CONFIG,
-			(RegVal & ~VIDEO_FRAME_CRC_CLEAR));
+			      VIDEO_FRAME_CRC_CONFIG,
+			      (RegVal | VIDEO_FRAME_CRC_CLEAR));
 
+	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+			      VIDEO_FRAME_CRC_CONFIG,
+			      (RegVal & ~VIDEO_FRAME_CRC_CLEAR));
 }
 
 /*****************************************************************************/
@@ -117,22 +122,24 @@ void XVidFrameCrc_Reset(void)
 *
 ******************************************************************************/
 void XVidFrameCrc_Report(void)
- {
+{
+	int Vid_frame_crc_cfg=0;
+
 	xil_printf("------------\r\n");
 	xil_printf("Video Frame CRC\n\r");
 	xil_printf("------------\r\n\r\n");
-	int Vid_frame_crc_cfg=0;
-	Vid_frame_crc_cfg = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-			VIDEO_FRAME_CRC_CONFIG);
-	if(Vid_frame_crc_cfg == 0x5){
-		xil_printf("CRC PPC     =  %d\r\n",0x8);
 
-	}else{
+	Vid_frame_crc_cfg = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+						 VIDEO_FRAME_CRC_CONFIG);
+	if (Vid_frame_crc_cfg == 0x5) {
+		xil_printf("CRC PPC     =  %d\r\n",0x8);
+	} else {
 		xil_printf("CRC PPC     =  %d\r\n",
-		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-					VIDEO_FRAME_CRC_CONFIG)
-					& VIDEO_FRAME_CRC_PXLMODE_MASK);
+			   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+						VIDEO_FRAME_CRC_CONFIG)
+			   & VIDEO_FRAME_CRC_PXLMODE_MASK);
 	}
+
 	xil_printf("CRC - R/Cr   =  0x%x\r\n",
 		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 					VIDEO_FRAME_CRC_VALUE_G_R)

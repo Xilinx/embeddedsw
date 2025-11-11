@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,27 +47,27 @@ extern "C" {
 #define VIDEO_FRAME_CRC_CONFIG			0x00
 #define VIDEO_FRAME_CRC_VALUE_G_R		0x04
 #define VIDEO_FRAME_CRC_VALUE_B			0x08
-#define VIDEO_FRAME_CRC_ACTIVE_COUNTS	0x0C
+#define VIDEO_FRAME_CRC_ACTIVE_COUNTS		0x0C
 #define VIDEO_FRAME_CRC_MISSES			0x10
 
 #define VIDEO_FRAME_CRC_CLEAR			0x10
-#define VIDEO_FRAME_CRC_PXLMODE_MASK	0x7
-#define VIDEO_FRAME_CRC_R_Y_COMP_MASK	0xFFFF
-#define VIDEO_FRAME_CRC_G_CR_COMP_MASK	0xFFFF0000
-#define VIDEO_FRAME_CRC_B_CB_COMP_MASK	0xFFFF
-#define VIDEO_FRAME_CRC_G_CR_COMP_SHIFT	16
+#define VIDEO_FRAME_CRC_PXLMODE_MASK		0x7
+#define VIDEO_FRAME_CRC_R_Y_COMP_MASK		0xFFFF
+#define VIDEO_FRAME_CRC_G_CR_COMP_MASK		0xFFFF0000
+#define VIDEO_FRAME_CRC_B_CB_COMP_MASK		0xFFFF
+#define VIDEO_FRAME_CRC_G_CR_COMP_SHIFT		16
 
 /************************** Variable Declaration ****************************/
 
 /**************************** Type Definitions ******************************/
 typedef struct {
-        u8  TEST_CRC_CNT;
-        u8  TEST_CRC_SUPPORTED;
-        u8  TEST_CRC_START_STOP;
-        u16 Pixel_r;
-        u16 Pixel_g;
-        u16 Pixel_b;
-        u8  Mode_422;
+	u8  TEST_CRC_CNT;
+	u8  TEST_CRC_SUPPORTED;
+	u8  TEST_CRC_START_STOP;
+	u16 Pixel_r;
+	u16 Pixel_g;
+	u16 Pixel_b;
+	u8  Mode_422;
 } Video_CRC_Config;
 
 /***************** Macros (Inline Functions) Definitions ********************/
