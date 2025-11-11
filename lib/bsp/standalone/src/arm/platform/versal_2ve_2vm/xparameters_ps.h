@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 9.2 	KSR     07/17/24 Initial release
 * 9.2   asa     09/11/23 Fix link error for redefinion of ARMR5
+* 9.5   oh      11/13/25 Add entries for PS PL IRQs
 *
 * </pre>
 *
@@ -440,6 +441,49 @@ extern "C" {
 #define XPAR_PSX_TTC_9_INTERRUPT_ID        0x4034U
 #define XPAR_PSX_TTC_10_INTERRUPT_ID       0x4035U
 #define XPAR_PSX_TTC_11_INTERRUPT_ID       0x4036U
+
+/* Defines for PS PL Interrupt IDs */
+#define XPS_PL_LPD_IRQ0_INT_ID           (104U + 32U)
+#define XPS_PL_LPD_IRQ1_INT_ID           (105U + 32U)
+#define XPS_PL_LPD_IRQ2_INT_ID           (106U + 32U)
+#define XPS_PL_LPD_IRQ3_INT_ID           (107U + 32U)
+#define XPS_PL_LPD_IRQ4_INT_ID           (108U + 32U)
+#define XPS_PL_LPD_IRQ5_INT_ID           (109U + 32U)
+#define XPS_PL_LPD_IRQ6_INT_ID           (110U + 32U)
+#define XPS_PL_LPD_IRQ7_INT_ID           (111U + 32U)
+#define XPS_PL_LPD_IRQ8_INT_ID           (51U + 32U)
+#define XPS_PL_LPD_IRQ9_INT_ID           (52U + 32U)
+#define XPS_PL_LPD_IRQ10_INT_ID          (53U + 32U)
+#define XPS_PL_LPD_IRQ11_INT_ID          (54U + 32U)
+#define XPS_PL_LPD_IRQ12_INT_ID          (82U + 32U)
+#define XPS_PL_LPD_IRQ13_INT_ID          (83U + 32U)
+#define XPS_PL_LPD_IRQ14_INT_ID          (84U + 32U)
+#define XPS_PL_LPD_IRQ15_INT_ID          (85U + 32U)
+#define XPS_PL_LPD_IRQ16_INT_ID          (86U + 32U)
+#define XPS_PL_LPD_IRQ17_INT_ID          (87U + 32U)
+#define XPS_PL_LPD_IRQ18_INT_ID          (88U + 32U)
+#define XPS_PL_LPD_IRQ19_INT_ID          (89U + 32U)
+#define XPS_PL_LPD_IRQ20_INT_ID          (90U + 32U)
+#define XPS_PL_LPD_IRQ21_INT_ID          (91U + 32U)
+#define XPS_PL_LPD_IRQ22_INT_ID          (92U + 32U)
+#define XPS_PL_LPD_IRQ23_INT_ID          (93U + 32U)
+
+#define XPS_PL_FPD_IRQ0_INT_ID           (143U + 32U)
+#define XPS_PL_FPD_IRQ1_INT_ID           (144U + 32U)
+#define XPS_PL_FPD_IRQ2_INT_ID           (145U + 32U)
+#define XPS_PL_FPD_IRQ3_INT_ID           (146U + 32U)
+#define XPS_PL_FPD_IRQ4_INT_ID           (147U + 32U)
+#define XPS_PL_FPD_IRQ5_INT_ID           (148U + 32U)
+#define XPS_PL_FPD_IRQ6_INT_ID           (149U + 32U)
+#define XPS_PL_FPD_IRQ7_INT_ID           (150U + 32U)
+
+/*
+* There exists two irq pins (pl_mmi_irq0 and pl_mmi_irq1) for mmi_misc_events.
+* These pins have the same interrupt IDs (163). These pins are ORed together
+* and given as corr_event interrupt to PS.
+*/
+#define XPS_PL_MMI_IRQ0_INT_ID           (163U + 32U)
+#define XPS_PL_MMI_IRQ1_INT_ID           (163U + 32U)
 
 #ifdef __cplusplus
 }
