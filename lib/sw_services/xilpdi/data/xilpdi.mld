@@ -14,6 +14,7 @@
 # 1.10  ng  11/23/23  Update library version for 2024.2
 #       bm  05/20/24  Add freertos10_xilinx support
 # 1.11  prt 06/04/25  Update library version for 2025.2
+# 1.12  sd  11/10/25  Update library version for 2026.1
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -25,6 +26,6 @@ BEGIN LIBRARY xilpdi
   OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psx_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Programmable Device Image (PDI) Library ";
-  OPTION VERSION = 1.12;
+  OPTION VERSION = 1.13;
   OPTION NAME = xilpdi;
 END LIBRARY
