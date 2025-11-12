@@ -1,7 +1,7 @@
 # Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(xilpm_ng)
 
 find_package(common)
@@ -51,5 +51,4 @@ install(
   TARGETS xilpm_ng
   LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH}
   ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include
-        DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

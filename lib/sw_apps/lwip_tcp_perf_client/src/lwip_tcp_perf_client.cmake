@@ -1,6 +1,6 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 
 list(APPEND TOTAL_MAC_INSTANCES ${EMACPS_NUM_DRIVER_INSTANCES})
 list(APPEND TOTAL_MAC_INSTANCES ${AXIETHERNET_NUM_DRIVER_INSTANCES})

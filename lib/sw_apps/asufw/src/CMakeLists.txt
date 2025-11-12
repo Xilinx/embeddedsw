@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
+set(APP_NAME asufw)
+project(${APP_NAME})
 
 include_directories(${CMAKE_BINARY_DIR}/include)
 include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
-set(APP_NAME asufw)
-project(${APP_NAME})
 
 find_package(common)
 enable_language(C ASM)

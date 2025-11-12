@@ -1,6 +1,6 @@
 # Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Freertos10_xilinxExample.cmake * NO_POLICY_SCOPE)
 
 find_package(common)

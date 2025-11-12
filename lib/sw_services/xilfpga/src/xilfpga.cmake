@@ -1,6 +1,6 @@
 # Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 
 option(XILFPGA_secure_mode "Enable secure Bitstream loading support" ON)
 option(XILFPGA_secure_environment "Which is used to Enable the secure PL configuration" OFF)

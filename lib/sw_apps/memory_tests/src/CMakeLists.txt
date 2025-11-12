@@ -1,10 +1,12 @@
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
-include(${CMAKE_CURRENT_SOURCE_DIR}/Memory_testsExample.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
+cmake_minimum_required(VERSION 3.15)
+
 set(APP_NAME memory_tests)
 project(${APP_NAME})
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/Memory_testsExample.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 
 find_package(common)
 enable_language(C ASM)

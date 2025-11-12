@@ -2,7 +2,7 @@
 # Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(xilpm)
 
 find_package(common)
@@ -41,4 +41,4 @@ set_target_properties(xilpm PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilpm PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilpm.a;${CMAKE_INCLUDE_PATH}/xpm_config.h;${clean_headers}" COMPILE_OPTIONS "")
 install(TARGETS xilpm LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

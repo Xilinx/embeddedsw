@@ -11,7 +11,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 
 find_package(common)
 find_package(commonmeta)
-
 enable_language(C ASM)
 
 collect(PROJECT_LIB_DEPS xilstandalone)

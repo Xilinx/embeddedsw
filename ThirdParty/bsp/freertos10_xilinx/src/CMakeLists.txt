@@ -1,6 +1,6 @@
 # Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(freertos)
 
 find_package(common)
@@ -25,4 +25,4 @@ endif()
 add_library(freertos STATIC ${_sources})
 set_target_properties(freertos PROPERTIES LINKER_LANGUAGE C)
 install(TARGETS freertos LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

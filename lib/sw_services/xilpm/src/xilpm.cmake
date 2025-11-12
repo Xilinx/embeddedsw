@@ -1,7 +1,7 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 
 set(XPAR_XILPM_ENABLED " ")
 

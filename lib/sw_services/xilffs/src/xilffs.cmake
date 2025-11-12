@@ -1,6 +1,6 @@
 # Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 
 SET(XILFFS_fs_interface 1 CACHE STRING "Enables file system with selected interface. Enter 1 for SD. Enter 2 for RAM")
 SET_PROPERTY(CACHE XILFFS_fs_interface PROPERTY STRINGS 1 2)

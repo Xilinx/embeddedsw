@@ -1,7 +1,7 @@
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 
 list(LENGTH SPI_NUM_DRIVER_INSTANCES _len)
 list(LENGTH OSPIPSV_NUM_DRIVER_INSTANCES _ospi_len)

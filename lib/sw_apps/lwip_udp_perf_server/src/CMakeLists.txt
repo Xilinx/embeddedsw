@@ -2,9 +2,10 @@
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/Lwip_udp_perf_serverExample.cmake)
 set(APP_NAME lwip_udp_perf_server)
 project(${APP_NAME})
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/Lwip_udp_perf_serverExample.cmake)
 
 find_package(common)
 include(${CMAKE_SOURCE_DIR}/lwip_udp_perf_server.cmake NO_POLICY_SCOPE)

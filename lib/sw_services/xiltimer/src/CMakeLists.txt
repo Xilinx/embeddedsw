@@ -1,6 +1,6 @@
 # Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(xiltimer)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/XiltimerExample.cmake NO_POLICY_SCOPE)
@@ -32,4 +32,4 @@ set_target_properties(xiltimer PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xiltimer PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxiltimer.a;${CMAKE_INCLUDE_PATH}/xtimer_config.h;${clean_headers}")
 install(TARGETS xiltimer LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

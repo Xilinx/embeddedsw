@@ -1,11 +1,12 @@
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
+
+set(APP_NAME freertos_hello_world)
+project(${APP_NAME})
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/Freertos_hello_worldExample.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
-set(APP_NAME freertos_hello_world)
-project(${APP_NAME})
 
 find_package(common)
 enable_language(C ASM)

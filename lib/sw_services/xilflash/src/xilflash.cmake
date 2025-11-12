@@ -1,7 +1,7 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/XilflashExample.cmake NO_POLICY_SCOPE)
 option(XILFLASH_enable_intel "Enables support for Intel family devices" ON)
 option(XILFLASH_enable_amd "Enables support for AMD family devices" OFF)

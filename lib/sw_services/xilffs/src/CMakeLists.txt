@@ -1,6 +1,6 @@
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(xilffs)
 
 find_package(common)
@@ -29,4 +29,4 @@ set_target_properties(xilffs PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilffs PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilffs.a;${CMAKE_INCLUDE_PATH}/xilffs_config.h;${clean_headers}")
 install(TARGETS xilffs LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

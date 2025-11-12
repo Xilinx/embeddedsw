@@ -1,8 +1,10 @@
 # Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
-include(${CMAKE_CURRENT_SOURCE_DIR}/Lwip220Example.cmake NO_POLICY_SCOPE)
+cmake_minimum_required(VERSION 3.15)
+
 project(lwip220)
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/Lwip220Example.cmake NO_POLICY_SCOPE)
 
 find_package(common)
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -67,4 +69,4 @@ set_target_properties(lwip220 PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(lwip220 PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/liblwip220.a;${CMAKE_INCLUDE_PATH}/lwipopts.h;${CMAKE_INCLUDE_PATH}/xlwipconfig.h;${clean_headers}")
 install(TARGETS lwip220 LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

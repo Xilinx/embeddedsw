@@ -2,13 +2,12 @@
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.16)
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/Hello_worldExample.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 set(APP_NAME hello_world)
 project(${APP_NAME})
-
-enable_language(C ASM CXX)
+include(${CMAKE_CURRENT_SOURCE_DIR}/Hello_worldExample.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 find_package(common)
+enable_language(C ASM CXX)
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS gcc)

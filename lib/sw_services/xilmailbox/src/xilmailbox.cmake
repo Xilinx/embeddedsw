@@ -1,6 +1,6 @@
 # Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 
 list(LENGTH IPIPSU_NUM_DRIVER_INSTANCES _len)
 

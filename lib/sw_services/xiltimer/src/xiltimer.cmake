@@ -1,6 +1,6 @@
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 
 find_package(common)
 list(APPEND TOTAL_TIMER_INSTANCES ${TMRCTR_NUM_DRIVER_INSTANCES})

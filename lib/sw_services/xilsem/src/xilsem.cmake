@@ -1,7 +1,7 @@
 # Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
 	if(NUMBER_OF_SLRS GREATER 1)
 		set(XILSEM_ENABLE_SSIT " ")

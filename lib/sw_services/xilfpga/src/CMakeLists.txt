@@ -1,6 +1,6 @@
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.15)
 project(xilfpga)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/xilfpga.cmake NO_POLICY_SCOPE)
@@ -30,4 +30,4 @@ set_target_properties(xilfpga PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilfpga PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilfpga.a;${CMAKE_INCLUDE_PATH}/xfpga_config.h;${clean_headers}")
 install(TARGETS xilfpga LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

@@ -7,6 +7,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0140 OLD)
 
 if (YOCTO)
 find_package(commonmeta QUIET)
+set(CMAKE_INCLUDE_PATH "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "Headers include path")
 endif()
 
 set (CMAKE_INSTALL_LIBDIR "lib")

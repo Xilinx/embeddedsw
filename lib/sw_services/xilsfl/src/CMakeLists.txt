@@ -1,6 +1,6 @@
 # Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(xilsfl)
 
 find_package(common)
@@ -29,4 +29,4 @@ set_target_properties(xilsfl PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilsfl PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsfl.a;${CMAKE_INCLUDE_PATH}/xilsfl.h;${clean_headers}")
 install(TARGETS xilsfl LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INCLUDE_PATH})

@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/Freertos_lwip_udp_perf_serverExample.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 set(APP_NAME freertos_lwip_udp_perf_server)
 project(${APP_NAME})
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/Freertos_lwip_udp_perf_serverExample.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 
 find_package(common)
 include(${CMAKE_SOURCE_DIR}/freertos_lwip_udp_perf_server.cmake NO_POLICY_SCOPE)
