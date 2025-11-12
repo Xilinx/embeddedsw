@@ -263,11 +263,6 @@ END:
 	return Status;
 }
 
-void XPm_DisableSkipHC(void){
-	/* Don't skip house cleaning sequence */
-	XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0U);
-}
-
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library

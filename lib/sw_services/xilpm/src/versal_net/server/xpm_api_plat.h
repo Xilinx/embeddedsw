@@ -64,10 +64,6 @@ maybe_unused static inline XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArg
 }
 
 XStatus XPm_PlatInit(void);
-maybe_unused static inline void XPm_DisableSkipHC(void)
-{
-	/*unused function in versal net*/
-}
 
 maybe_unused static inline XStatus XPm_EnableDdrSr(const u32 SubsystemId)
 {

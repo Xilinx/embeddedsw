@@ -779,6 +779,11 @@ static void XPm_CheckLastResetReason(void)
 	return;
 }
 
+static void XPm_DisableSkipHC(void){
+	/* Don't skip house cleaning sequence */
+	XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0U);
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library
