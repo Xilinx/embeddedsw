@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,8 @@
 *                     MER register to remove warnings
 * 2.06a bss  01/28/13 To support Cascade mode:
 *		      Modified XIntc_SimulateIntr API.
+* 3.22  ml   11/12/25 Updated XIntc_SelfTest API to avoid false failures
+*                     during repeated test executions
 * </pre>
 *
 ******************************************************************************/
@@ -78,18 +80,31 @@ int XIntc_SelfTest(XIntc *InstancePtr)
 {
 	u32 CurrentISR;
 	u32 Temp;
-
+	u32 IntcMode;
 	/*
 	 * Assert the arguments
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-
 	/*
 	 * Acknowledge all pending interrupts by reading the interrupt status
 	 * register and writing the value to the acknowledge register
 	 */
+
+	/* Read the current mode of the interrupt controller */
+	IntcMode = XIntc_In32(InstancePtr->BaseAddress + XIN_MER_OFFSET);
+
+	/*
+	 * Check if controller is still in simulation mode.
+	 * Simulation mode: MER <= 1
+	 * Real mode: Hardware enable bit (bit[1]) set — cannot re-enter simulation mode.
+	 */
+	if (IntcMode & XIN_INT_HARDWARE_ENABLE_MASK) {
+		xil_printf("\nwarning: Self-test can be executed only in simulation mode\n\n");
+		return XST_FAILURE;
+	}
+
 	Temp = XIntc_In32(InstancePtr->BaseAddress + XIN_ISR_OFFSET);
 
 	XIntc_Out32(InstancePtr->BaseAddress + XIN_IAR_OFFSET, Temp);
