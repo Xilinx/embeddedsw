@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hvm  12/28/06 First release
 * 5.6   pm   07/05/23 Added support for system device-tree flow.
+* 5.8   ka   11/09/25 Added 64-bit addressing support.
 *
 * </pre>
 *
@@ -78,7 +79,7 @@ XUsb_Config *XUsb_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
-XUsb_Config *XUsb_LookupConfig(u32 BaseAddress)
+XUsb_Config *XUsb_LookupConfig(UINTPTR BaseAddress)
 {
 	XUsb_Config *CfgPtr = NULL;
 	u32 Index;

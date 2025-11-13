@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -166,6 +166,7 @@
 * 5.3   asa  02/05/19 Added dependencies.props in data folder for
 *                     importing examples in SDK.
 * 5.6   pm   07/05/23 Added support for system device-tree flow.
+* 5.8   ka   11/09/25 Added 64-bit addressing support.
 *
 * </pre>
 *
@@ -467,7 +468,7 @@ void XUsb_UlpiIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 #ifndef SDT
 XUsb_Config *XUsb_LookupConfig(u16 DeviceId);
 #else
-XUsb_Config *XUsb_LookupConfig(u32 BaseAddress);
+XUsb_Config *XUsb_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 #ifdef __cplusplus

@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *
 * 4.03a bss  06/20/10 Added SIE Reset Mask (CR 660602)
 * 4.04a bss  10/22/13 Added macros for HSIC PHY registers.
+* 5.8   ka   11/09/25 Added 64-bit addressing support.
 * </pre>
 *
 ******************************************************************************/
@@ -388,7 +389,7 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u32 XUsb_ReadReg(u32 BaseAddress, u32 RegOffset);
+*		u32 XUsb_ReadReg(UINTPTR BaseAddress, u32 RegOffset);
 *
 ******************************************************************************/
 #define XUsb_ReadReg(BaseAddress, RegOffset) \
@@ -406,7 +407,7 @@ extern "C" {
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XUsb_WriteReg(u32 BaseAddress, u32 RegOffset,
+*		void XUsb_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
 *					u32 RegisterValue);
 ******************************************************************************/
 #define XUsb_WriteReg(BaseAddress, RegOffset, RegisterValue) \
