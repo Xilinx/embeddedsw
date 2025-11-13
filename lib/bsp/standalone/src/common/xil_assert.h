@@ -30,6 +30,8 @@
 * 		      __FILE__ with __FILENAME__ in assert APIs.
 * 9.3   vmt  03/03/25 Fixed compilation warning of strrchr
 *                     [-Wbuiltin-declaration-mismatch]
+* 9.5   bdk  11/13/25 Added explicit parantheses for strrchr to fix MISRA-C
+*		      violation for rule 12.1.
 * </pre>
 *
 ******************************************************************************/
@@ -43,7 +45,6 @@
 
 #include "xil_types.h"
 #include <string.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -56,7 +57,7 @@ extern "C" {
 #if ! defined(SDT)
 #define __FILENAME__	__FILE__
 #else
-#define __FILENAME__	(strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__))
+#define __FILENAME__	(strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1) : (strrchr(__FILE__, '\\') ? (strrchr(__FILE__, '\\') + 1) : __FILE__))
 #endif
 
 #define XIL_ASSERT_NONE     0U
