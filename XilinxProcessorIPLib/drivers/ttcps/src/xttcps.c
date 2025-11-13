@@ -54,6 +54,8 @@
 * 3.18  ml    09/08/23  Added comments to fix HIS COMF violations.
 * 3.21  ml    04/03/25  Added support for interrupt handling when a single interrupt
 *                       is used for all three counters.
+* 3.23	bdk   11/12/25	Modifying declaration of the XTtcPs_ConfigTable to fix MISRA-C
+*			violations for rules 5.8 and 8.3
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +85,7 @@ static u32 GetIndexFromBaseAddr(u32 BaseAddress);
 /************************** Variable Definitions *****************************/
 
 static XTtcPs_StatusHandlerTableEntry StatusHandlerTable[XPAR_XTTCPS_NUM_INSTANCES];
-extern XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES];
+extern XTtcPs_Config XTtcPs_ConfigTable[];
 
 #if defined  (XPM_SUPPORT)
 /*
