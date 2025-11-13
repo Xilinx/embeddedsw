@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -26,6 +26,8 @@
  * 1.3   asa   08/09/23 Added macros to ensure that for Zynq/CortexA9
  *                      16 bit TTC counters are used.
  * 2.0   ml    29/03/24 Added description to fix doxygen warnings.
+ * 2.4   bdk   13/11/25 Typecasted with proper datatypes to fix MISRA-C
+ *			violation rules for 10.1 and 17.7
  *</pre>
  *
  *@note
@@ -326,7 +328,7 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 
 	if (FALSE == IsSleepTimerStarted) {
 #ifdef SDT
-		XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
+		(void)XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
 			       &InstancePtr->TtcPs_SleepInst);
 #else
 		XTimer_TtcInit(XSLEEPTIMER_DEVICEID,
@@ -337,7 +339,7 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 
 	TimeLowVal1 = XTtcPs_GetCounterValue(TtcPsInstPtr);
 	tEnd = (u64)TimeLowVal1 + ((u64)(delay) *
-				   TtcPsInstPtr->Config.InputClockHz / (DelayType));
+				   TtcPsInstPtr->Config.InputClockHz / (u32)(DelayType));
 	do {
 		TimeLowVal2 = XTtcPs_GetCounterValue(TtcPsInstPtr);
 		if (TimeLowVal2 < TimeLowVal1) {
@@ -384,7 +386,7 @@ void XTime_GetTime(XTime *Xtime_Global)
 
 	if (FALSE == IsSleepTimerStarted) {
 #ifdef SDT
-		XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
+		(void)XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
 			       &InstancePtr->TtcPs_SleepInst);
 #else
 		XTimer_TtcInit(XSLEEPTIMER_DEVICEID,
