@@ -36,6 +36,7 @@
 *       mb    10/03/25 Set lower bits 32 bits of black IV to zeros
 *       mb    10/03/25 Update PPK macros for SPARTANUPLUSAES1
 *       mb    10/14/25 Update logic of XNvm_EfusePrgmSpkRevokeId function
+*       mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
 *
 * </pre>
 *
@@ -1134,7 +1135,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	}
 
 	/**
-	 * Program QSPI24 Boot mode disable bit when it's is not already set and
+	 * Program QSPI24 Boot mode disable bit when it's not already set and
 	 * QSPI24 Boot mode disable Efuse programming is enabled
 	 */
 	if (((BootModeDis->PrgmQspi24ModDis) == (u32)TRUE) &&
@@ -1150,7 +1151,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	}
 
 	/**
-	 * Program QSPI32 Boot mode disable bit when it's is not already set and
+	 * Program QSPI32 Boot mode disable bit when it's not already set and
 	 * QSPI32 Boot mode disable Efuse programming is enabled.
 	 */
 	if (((BootModeDis->PrgmQspi32ModDis) == (u32)TRUE) &&
@@ -1166,7 +1167,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	}
 
 	/**
-	 * Program OSPI Boot mode disable bit when it's is not already set and
+	 * Program OSPI Boot mode disable bit when it's not already set and
 	 * OSPI Boot mode disable Efuse programming is enabled
 	 */
 	if (((BootModeDis->PrgmOspiModDis) == (u32)TRUE) &&
@@ -1182,7 +1183,23 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	}
 
 	/**
-	 * Program SMAP Boot mode disable bit when it's is not already set and
+	 * Program JTAG Boot mode disable bit when it's not already set and
+	 * JTAG Boot mode disable Efuse programming is enabled
+	 */
+	if (((BootModeDis->PrgmJtagModDis) == (u32)TRUE) &&
+	    ((BootModeDisVal & XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK))
+	{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
+				      XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL_11, FALSE);
+
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_JTAG_BOOT_MODE_DIS;
+			goto END;
+		}
+	}
+
+	/**
+	 * Program SMAP Boot mode disable bit when it's not already set and
 	 * SMAP Boot mode disable Efuse programming is enabled
 	 */
 	if (((BootModeDis->PrgmSmapModDis) == (u32)TRUE) &&
@@ -1198,7 +1215,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	}
 
 	/**
-	 * Program SERIAL Boot mode disable bit when it's is not already set and
+	 * Program SERIAL Boot mode disable bit when it's not already set and
 	 * SERIAL Boot mode disable Efuse programming is enabled
 	 */
 	if (((BootModeDis->PrgmSerialModDis) == (u32)TRUE) &&
@@ -1258,6 +1275,8 @@ int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits)
 							XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT);
 	BootModeDisBits->PrgmOspiModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
 							XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT);
+	BootModeDisBits->PrgmJtagModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
+							XNVM_EFUSE_BOOT_MODE_DIS_JTAG_EFUSE_SHIFT);
 	BootModeDisBits->PrgmSmapModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
 							XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT);
 	BootModeDisBits->PrgmSerialModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,

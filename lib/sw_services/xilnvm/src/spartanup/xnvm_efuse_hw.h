@@ -20,6 +20,7 @@
 *       aa      07/24/25 Remove unused macros
 *       mb      10/03/25 Rename macro names
 *       mb      10/04/25 PPKs updates for SPARTANUPLUSAES1
+*       mb      11/11/2025 Add support for JTAG Boot mode disable efuse programming
 *
 * </pre>
 *
@@ -218,6 +219,7 @@ extern "C" {
 
 #define  XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL_8	(8U) /* QSPI32 Boot mode disable bit column value: 8 */
 #define  XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL_9	(9U) /* OSPI Boot mode disable bit column value: 9 */
+#define  XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL_11	(11U) /* JTAG Boot mode disable bit column value: 11 */
 #define  XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL_12	(12U) /* SMAP Boot mode disable bit column value: 12 */
 #define  XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL_13	(13U) /* Serial Boot mode disable bit column value: 13 */
 #define  XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL_15	(15U) /* QSPI24 Boot mode disable bit column value: 15 */
@@ -225,6 +227,7 @@ extern "C" {
 #define XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK	(0x00000002U) /* QSPI24 Boot mode disable Mask */
 #define XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK	(0x00000004U) /* QSPI32 Boot mode disable Mask */
 #define XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK	(0x00000008U) /* OSPI Boot mode disable Mask */
+#define XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK	(0x00000020U) /* JTAG Boot mode disable Mask */
 #define XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK	(0x00000040U) /* SMAP Boot mode disable Mask */
 #define XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK	(0x00000080U) /* Serial Boot mode disable Mask */
 
@@ -232,6 +235,7 @@ extern "C" {
 #define XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT	(0x1U) /* QSPI24 Boot mode disable shift */
 #define XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT	(0x2U) /* QSPI32 Boot mode disable shift */
 #define XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT	(0x3U) /* OSPI Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_JTAG_EFUSE_SHIFT	(0x5U) /* JTAG Boot mode disable shift */
 #define XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT	(0x6U) /* SMAP Boot mode disable shift */
 #define XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT	(0x7U) /* Serial Boot mode disable shift */
 

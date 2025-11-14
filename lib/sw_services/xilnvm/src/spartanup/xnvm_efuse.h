@@ -30,6 +30,7 @@
 *       mb   08/24/2025 Add support to program boot mode disable efuses
 *       mb   10/04/2025 PPKs updates for SPARTANUPLUSAES1
 *       mb   10/14/2025 Update logic for programing Revoke ID's
+*       mb   11/11/2025 Add support for JTAG Boot mode disable efuse programming
 *
 * </pre>
 *
@@ -303,6 +304,7 @@ typedef struct {
 	u32 PrgmQspi24ModDis; /* Flag to program QSPI24 bootmode disable efuse bit */
 	u32 PrgmQspi32ModDis; /* Flag to program QSPI32 bootmode disable efuse bit */
 	u32 PrgmOspiModDis;   /* Flag to program OSPI bootmode disable efuse bit */
+	u32 PrgmJtagModDis;   /* Flag to program JTAG bootmode disable efuse bit */
 	u32 PrgmSmapModDis;   /* Flag to program SMAP bootmode disable efuse bit */
 	u32 PrgmSerialModDis; /* Flag to program SERIAL bootmode disable efuse bit */
 } XNvm_EfuseBootModeDis;
@@ -434,6 +436,7 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_0 = 0xB600, /**< 0xB600 - Error write rma disable0 */
 	XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_1 = 0xB700, /**< 0xB700 - Error write rma disable1 */
 	XNVM_EFUSE_ERR_WRITE_LCK_DWN = 0xB800, /**< 0xB800 - Error write lock down */
+	XNVM_EFUSE_ERR_WRITE_JTAG_BOOT_MODE_DIS = 0xB900, /**< 0xB900 - Error write JTAG Boot mode disable */
 };
 
 /*************************** Function Prototypes ******************************/

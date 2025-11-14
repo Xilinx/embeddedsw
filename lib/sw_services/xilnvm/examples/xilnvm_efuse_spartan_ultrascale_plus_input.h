@@ -184,6 +184,9 @@
 *	#define XNVM_EFUSE_XNVM_EFUSE_OSPI_MODE_DIS	FALSE
 *	TRUE will disable OSPI bootmode.
 *
+*	#define XNVM_EFUSE_XNVM_EFUSE_JTAG_MODE_DIS	FALSE
+*	TRUE will disable JTAG bootmode.
+*
 *	#define XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS	FALSE
 *	TRUE will disable SMAP bootmode.
 *
@@ -214,6 +217,7 @@
 *       mb     07/18/25 Add clock configuration support for eFuse programming from application
 *       mb     08/24/25 Add support to program boot mode disable efuses
 *       mb     09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
+* 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
 *
 * </pre>
 *
@@ -318,6 +322,7 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_EFUSE_QSPI24_MODE_DIS	FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_QSPI32_MODE_DIS	FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_OSPI_MODE_DIS	FALSE
+#define XNVM_EFUSE_XNVM_EFUSE_JTAG_MODE_DIS	FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS	FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_SERIAL_MODE_DIS	FALSE
 

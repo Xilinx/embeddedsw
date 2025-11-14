@@ -55,6 +55,7 @@
  *       mb    10/05/2025 Convert IV endianness to little endian format.
  *       mb    09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
  *       mb    10/14/2025 Update logic for programing Revoke ID's
+ * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
  *
  * </pre>
  *
@@ -1027,6 +1028,7 @@ static int XilNvm_EfuseInitBootModeDis(XNvm_EfuseData *EfuseData,
 	BootModeDis->PrgmQspi24ModDis = XNVM_EFUSE_XNVM_EFUSE_QSPI24_MODE_DIS;
 	BootModeDis->PrgmQspi32ModDis = XNVM_EFUSE_XNVM_EFUSE_QSPI32_MODE_DIS;
 	BootModeDis->PrgmOspiModDis = XNVM_EFUSE_XNVM_EFUSE_OSPI_MODE_DIS;
+	BootModeDis->PrgmJtagModDis = XNVM_EFUSE_XNVM_EFUSE_JTAG_MODE_DIS;
 	BootModeDis->PrgmSmapModDis = XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS;
 	BootModeDis->PrgmSerialModDis = XNVM_EFUSE_XNVM_EFUSE_SERIAL_MODE_DIS;
 
@@ -1057,6 +1059,7 @@ static int XilNvm_EfuseShowBootModeDisBits(void)
 	xil_printf("QSPI32 Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmQspi32ModDis);
 	xil_printf("QSPI24 Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmQspi24ModDis);
 	xil_printf("OSPI Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmOspiModDis);
+	xil_printf("JTAG Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmJtagModDis);
 	xil_printf("SMAP Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmSmapModDis);
 	xil_printf("SERIAL Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmSerialModDis);
 
