@@ -12,7 +12,7 @@
 #include <xil_types.h>
 #include <sleep.h>
 
-#include "mmi_dc_nonlive_test.h"
+#include "mmi_dc_nonlive_4k_hbr3_test.h"
 #include "mmi_dp_init.h"
 
 /************************** Constant Definitions *****************************/

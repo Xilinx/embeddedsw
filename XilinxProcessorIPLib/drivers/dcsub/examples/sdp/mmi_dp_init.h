@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-#include "mmi_dc_nonlive_test.h"
+#include "mmi_dc_sdp_test.h"
 
 void XMmiDp_SinkPowerDown(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr);
