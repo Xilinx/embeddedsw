@@ -80,7 +80,7 @@ static void XAsu_OcpDmePrintData(const u8 *Data, u32 DataLen, const char *BufNam
 static u8 Notify = 0;			/**< To notify the call back from client library */
 static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP-DME operation from
 					client library and gets updated during callback. */
-static u32 NonceBuff[XASU_OCP_DME_NONCE_SIZE_IN_BYTES] __attribute__ ((section (".data.Nonce"))) =
+static u8 NonceBuff[XASU_OCP_DME_NONCE_SIZE_IN_BYTES] __attribute__ ((section (".data.Nonce"))) =
 {
 	0x70,0x69,0x77,0x35,0x0b,0x93,
 	0x92,0xa0,0x48,0x2c,0xd8,0x23,
