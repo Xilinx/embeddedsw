@@ -35,7 +35,7 @@
 #define XSECURE_BYTE_QUO(i) 		((i)/8U) /**< To Pick the byte in array */
 #define XSECURE_BYTE_REM(i)  		((i)%8U) /**< Inside the byte interested
 						value has to be right shifted */
-#define XSECURE_BIT_MASK(i)		((1U << i) - 1U) /**< Mask out rest of bits,
+#define XSECURE_BIT_MASK(i)		((1U << (i)) - 1U) /**< Mask out rest of bits,
 					only take w width back to caller invocations
 					to get signature is equal to number of w width
 					digits in a digest to get that,
