@@ -49,7 +49,7 @@ typedef struct {
 } XSecure_Sha2Hash;
 
 /************************** Function Prototypes ******************************/
-int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Sha384Hash);
+int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash);
 void XSecure_Sha384Start(void);
 int XSecure_Sha384Update(u8* Data, u32 Size);
 int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash);

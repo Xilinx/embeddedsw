@@ -201,7 +201,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
 int XSecure_InitiateASUKeyTransfer(void);
-int XSecure_ShaDmaXfer(XPmcDma *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
+int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 /***************************** Variable Prototypes  ***************************/
 

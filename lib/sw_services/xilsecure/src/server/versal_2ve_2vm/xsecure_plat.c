@@ -163,7 +163,7 @@ void XSecure_UpdateTrngCryptoStatus(u32 Op)
  * @brief	This function updates RSA crypto indicator
  *
  *****************************************************************************/
-void XSecure_SetRsaCryptoStatus()
+void XSecure_SetRsaCryptoStatus(void)
 {
 #ifdef VERSALNET_PLM
 	XPlmi_UpdateCryptoStatus(XPLMI_SECURE_RSA_MASK, XPLMI_SECURE_RSA_MASK);
