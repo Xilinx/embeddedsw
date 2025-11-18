@@ -19,22 +19,28 @@
 
 #define XPM_HC_CPM_OPS			0U
 #define XPM_HC_CPM5_OPS			1U
+#if defined(XC2VP3202) || defined(XC2VP3602)
 #define XPM_HC_CPM6_OPS			2U
+#endif
 #define XPM_CPM_OPS_MAX			3U
 
 /* Define CPM5_GTYP device */
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MIN		XPM_NODEIDX_DEV_GTYP_CPM5_0
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MAX		XPM_NODEIDX_DEV_GTYP_CPM5_3
 
-/* Define CPM5_GTYP device */
+/* Define CPM6_GTMPW device */
+#if defined(XC2VP3202) || defined(XC2VP3602)
 #define XPM_NODEIDX_DEV_GTMPW_CPM6_MIN		XPM_NODEIDX_DEV_GTMPW_CPM6_0
 #define XPM_NODEIDX_DEV_GTMPW_CPM6_MAX		XPM_NODEIDX_DEV_GTMPW_CPM6_3
+#endif
 
 static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
 
+#if defined(XC2VP3202) || defined(XC2VP3602)
 static u32 GtmpwAddresses[XPM_NODEIDX_DEV_GTMPW_CPM6_MAX -
 			  XPM_NODEIDX_DEV_GTMPW_CPM6_MIN + 1U] = {0U};
+#endif
 
 static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -178,6 +184,7 @@ done:
 	return Status;
 }
 
+#if defined(XC2VP3202) || defined(XC2VP3602)
 static XStatus Cpm6InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumofArgs)
 {
@@ -234,7 +241,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
-
+#endif
 
 static XStatus CpmInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -253,6 +260,19 @@ static XStatus CpmInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	return Status;
 }
+
+#if defined(XC2VP3202) || defined(XC2VP3602)
+static XStatus Cpm6InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	/* This function does not use the args */
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+
+	return XST_SUCCESS;
+}
+#endif
 
 static XStatus CpmScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -397,6 +417,7 @@ done:
 	return Status;
 }
 
+#if defined(XC2VP3202) || defined(XC2VP3602)
 static XStatus Cpm6ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -457,6 +478,7 @@ static XStatus Cpm6ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		RegVal = XPm_In32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET);
 		if ((RegVal & (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) !=
 				(u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) {
+			Status = XST_FAILURE;
 			DbgErr = XPM_INT_ERR_SCAN_PASS;
 			goto done;
 		}
@@ -491,6 +513,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+#endif
 
 static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -597,6 +620,7 @@ done:
 	return Status;
 }
 
+#if defined(XC2VP3202) || defined(XC2VP3602)
 static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			u32 NumOfArgs)
 {
@@ -633,6 +657,7 @@ static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 done:
 	return Status;
 }
+#endif
 
 static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -890,6 +915,7 @@ done:
 	return Status;
 }
 
+#if defined(XC2VP3202) || defined(XC2VP3602)
 static XStatus Cpm6GtmpwMbist(u32 BaseAddress, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
@@ -1031,6 +1057,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+#endif
 
 static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 	[XPM_HC_CPM_OPS] = {
@@ -1059,9 +1086,10 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 			     BIT16(FUNC_BISR) |
 			     BIT16(FUNC_MBIST_CLEAR))
 	},
+#if defined(XC2VP3202) || defined(XC2VP3602)
 	[XPM_HC_CPM6_OPS] = {
 		.InitStart = &Cpm6InitStart,
-		.InitFinish = &CpmInitFinish,
+		.InitFinish = &Cpm6InitFinish,
 		.ScanClear = &Cpm6ScanClear,
 		.Bisr = &Cpm6Bisr,
 		.Mbist = &Cpm6MbistClear,
@@ -1072,7 +1100,7 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 			     BIT16(FUNC_BISR) |
 			     BIT16(FUNC_MBIST_CLEAR))
 	},
-
+#endif
 };
 
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
@@ -1087,8 +1115,10 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		Ops = &CpmOps[XPM_HC_CPM_OPS];
 	} else if (Id == PM_POWER_CPM5) {
 		Ops = &CpmOps[XPM_HC_CPM5_OPS];
+#if defined(XC2VP3202) || defined(XC2VP3602)
 	} else if (Id == PM_POWER_CPM6) {
 		Ops = &CpmOps[XPM_HC_CPM6_OPS];
+#endif
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;

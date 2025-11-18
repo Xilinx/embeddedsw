@@ -699,6 +699,9 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 	case (u32)XPM_NODEIDX_POWER_ME2:
 	case (u32)XPM_NODEIDX_POWER_CPM:
 	case (u32)XPM_NODEIDX_POWER_CPM5:
+#if defined(XC2VP3202) || defined(XC2VP3602)
+	case (u32)XPM_NODEIDX_POWER_CPM6:
+#endif
 		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function,
 						   Args, NumArgs);
 		break;
