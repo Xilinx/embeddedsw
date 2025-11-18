@@ -173,6 +173,12 @@ proc xgen_opts_file {libhandle} {
 	if { [string match -nocase "xcvr1652" $part_name] } {
 		puts $file_handle "\#define XCVR1652"
 	}
+	if { [string match -nocase "xc2vp3202" $part_name] } {
+		puts $file_handle "\#define XC2VP3202"
+	}
+	if { [string match -nocase "xc2vp3602" $part_name] } {
+		puts $file_handle "\#define XC2VP3602"
+	}
 
 	# Add macro for enabling bulk dev release feature
 	if { $enable_bulk_dev_release == true } {
