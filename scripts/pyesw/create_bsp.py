@@ -659,9 +659,11 @@ def create_domain(args):
     if drv_lib_dep:
         #Remove duplicate entries
         drv_lib_dep = list(set(drv_lib_dep))
-        lib_list.extend(drv_lib_dep)
         for lib in drv_lib_dep:
-            lib_obj.copy_lib_src(lib)
+            #Validate the lib before copying to the libsrc
+            if lib_obj.is_valid_lib(lib):
+                lib_list.append(lib)
+                lib_obj.copy_lib_src(lib)
 
     if obj.os == "freertos":
         # Copy the freertos source code to libsrc folder
