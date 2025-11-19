@@ -350,10 +350,12 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 
 	EncOption.EncRedKey = XPUF_ENCRYPT_RED_KEY;
 	EncOption.EncUds = XPUF_ENCRYPT_UDS;
+#ifndef VERSAL_2VE_2VM
 	EncOption.EncDmePrivKey0 = XPUF_ENCRYPT_DME_PRIV_KEY_0;
 	EncOption.EncDmePrivKey1 = XPUF_ENCRYPT_DME_PRIV_KEY_1;
 	EncOption.EncDmePrivKey2 = XPUF_ENCRYPT_DME_PRIV_KEY_2;
 	EncOption.EncDmePrivKey3 = XPUF_ENCRYPT_DME_PRIV_KEY_3;
+#endif
 
 	Status = XSecure_ClientInit(&SecureClientInstance, MailboxPtr);
 	if (Status != XST_SUCCESS) {
@@ -419,7 +421,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 			XPuf_ShowData((u8*)EncryptedData->UdsPrime, XPUF_UDS_LEN_IN_BYTES);
 		}
 	}
-
+#ifndef VERSAL_2VE_2VM
 	if (EncOption.EncDmePrivKey0 == TRUE) {
 		xil_printf("Encryption started for DME Private Key 0 : \r\n");
 		Status = Xil_SMemCpy(UpdatedIv, XPUF_IV_LEN_IN_BYTES,
@@ -503,7 +505,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 			XPuf_ShowData((u8*)EncryptedData->EncDmeKey3, XPUF_DME_PRIV_KEY_LEN_IN_BYTES);
 		}
 	}
-
+#endif
 END:
 	return Status;
 }
@@ -678,8 +680,10 @@ static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance)
 	XPuf_EncryptedData *PrgmData = &PrgmEncData;
 	u32* EncDataInWords;
 	u32* PrgmDataInWords;
-	u32 DmeModeVal = XPUF_DME_MODE_VAL;
 	u32 Index;
+#ifndef VERSAL_2VE_2VM
+	u32 DmeModeVal = XPUF_DME_MODE_VAL;
+#endif
 
 	if (XPUF_PRGM_UDS == TRUE) {
 		EncDataInWords = (u32*)EncryptedData->UdsPrime;
@@ -702,7 +706,7 @@ static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance)
 		}
 
 	}
-
+#ifndef VERSAL_2VE_2VM
 	if (XPUF_PRGM_ENC_DME_PRIV_KEY_0 == TRUE) {
 		Status = XNvm_WriteDmePrivateKey(NvmClientInstance, 0U, (u64)(UINTPTR)EncryptedData->EncDmeKey0, XPUF_ENV_MONITOR_DISABLE);
 		if (Status != XST_SUCCESS) {
@@ -761,7 +765,7 @@ static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance)
 			xil_printf("Successfully programmed DME mode into eFuses \r\n");
 		}
 	}
-
+#endif
 	Status = XST_SUCCESS;
 
 END:
