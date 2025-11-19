@@ -1,0 +1,50 @@
+Name,Module(Id),Command Id,IPI7_MASK,IPI6_MASK,IPI5_MASK,IPI4_MASK,IPI3_MASK,IPI2_MASK,IPI1_MASK,IPI0_MASK,Description
+trng_get_rand_bytes,TRNG(0x0),0x000,3,3,3,3,3,3,3,3,Performs TRNG random number generation operation
+trng_kat,TRNG(0x0),0x001,3,3,3,3,3,3,3,3,Performs Known Answer Test on TRNG crypto engine
+sha2_operation,SHA2(0x1),0x100,3,3,3,3,3,3,3,3,Performs SHA2 operation
+sha2_kat,SHA2(0x1),0x101,3,3,3,3,3,3,3,3,Performs Known Answer Test on SHA2 crypto engine
+sha3_operation,SHA3(0x2),0x200,3,3,3,3,3,3,3,3,Performs SHA3 operation
+sha3_kat,SHA3(0x2),0x201,3,3,3,3,3,3,3,3,Performs Known Answer Test on SHA3 crypto engine
+ecc_sign_generation,ECC(0x3),0x300,3,3,3,3,3,3,3,3,Performs ECC sign generation operation
+ecc_sign_verification,ECC(0x3),0x301,3,3,3,3,3,3,3,3,Performs ECC sign verification operation
+ecc_kat,ECC(0x3),0x302,3,3,3,3,3,3,3,3,Performs Known Answer Test on ECC crypto engine
+ecdh_shared_secret,ECC(0x3),0x303,3,3,3,3,3,3,3,3,Performs ECDH shared secrete generation operation
+ecdh_kat,ECC(0x3),0x304,3,3,3,3,3,3,3,3,Performs ECDH Known Answer Test on RSA crypto engine
+ecc_pubkey_generation,ECC(0x3),0x305,3,3,3,3,3,3,3,3,Performs ECC public key generation operation
+rsa_pub_encrypt,RSA(0x4),0x400,3,3,3,3,3,3,3,3,Performs RSA encryption operation using public key
+rsa_pvt_decrypt,RSA(0x4),0x401,3,3,3,3,3,3,3,3,Performs RSA decryption operation using private key
+rsa_pvt_crt_decrypt,RSA(0x4),0x402,3,3,3,3,3,3,3,3,Performs RSA decryption operation with CRT algorithm using private key
+rsa_oaep_encrypt_sha2,RSA(0x4),0x403,3,3,3,3,3,3,3,3,Performs RSA OAEP encryption operation using SHA2 crypto engine
+rsa_oaep_decrypt_sha2,RSA(0x4),0x404,3,3,3,3,3,3,3,3,Performs RSA OAEP decryption operation using SHA2 crypto engine
+rsa_oaep_encrypt_sha3,RSA(0x4),0x405,3,3,3,3,3,3,3,3,Performs RSA OAEP encryption operation using SHA3 crypto engine
+rsa_oaep_decrypt_sha3,RSA(0x4),0x406,3,3,3,3,3,3,3,3,Performs RSA OAEP decryption operation using SHA3 crypto engine
+rsa_pss_sign_generation_sha2,RSA(0x4),0x407,3,3,3,3,3,3,3,3,Performs RSA PSS sign generation operation using SHA2 crypto engine
+rsa_pss_sign_verification_sha2,RSA(0x4),0x408,3,3,3,3,3,3,3,3,Performs RSA PSS sign verification operation using SHA2 crypto engine
+rsa_pss_sign_generation_sha3,RSA(0x4),0x409,3,3,3,3,3,3,3,3,Performs RSA PSS sign generation operation using SHA3 crypto engine
+rsa_pss_sign_verification_sha3,RSA(0x4),0x40A,3,3,3,3,3,3,3,3,Performs RSA PSS sign verification operation using SHA3 crypto engine
+rsa_oaep_enc_dec_kat,RSA(0x4),0x40B,3,3,3,3,3,3,3,3,Performs Known Answer Test on RSA OAEP algorithm
+rsa pss_sign_gen_verify_kat,RSA(0x4),0x40C,3,3,3,3,3,3,3,3,Performs Known Answer Test on RSA PSS signature algorithm
+aes_operation,AES(0x5),0x500,3,3,3,3,3,3,3,3,Performs AES operation
+aes_kat,AES(0x5),0x501,3,3,3,3,3,3,3,3,Performs Known Answer Test on AES crypto engine
+hmac_compute_sha2,HMAC(0x6),0x600,3,3,3,3,3,3,3,3,Performs HMAC compute operation using SHA2 crypto engine
+hmac_compute_sha3,HMAC(0x6),0x601,3,3,3,3,3,3,3,3,Performs HMAC compute operation using SHA3 crypto engine
+hmac_kat,HMAC(0x6),0x602,3,3,3,3,3,3,3,3,Performs Known Answer Test on HMAC crypto algorithm
+kdf_generate_sha2,KDF(0x7),0x700,3,3,3,3,3,3,3,3,Performs KDF generate operation using SHA2 crypto engine
+kdf_generate_sha3,KDF(0x7),0x701,3,3,3,3,3,3,3,3,Performs KDF generate operation using SHA3 crypto engine
+kdf_kat,KDF(0x7),0x702,3,3,3,3,3,3,3,3,Performs Known Answer Test on KDF crypto algorithm
+ecies_encrypt_sha2,ECIES(0x8),0x800,3,3,3,3,3,3,3,3,Performs ECIES encrypt operation using SHA2 crypto engine
+ecies_encrypt_sha3,ECIES(0x8),0x801,3,3,3,3,3,3,3,3,Performs ECIES encrypt operation using SHA3 crypto engine
+ecies_decrypt_sha2,ECIES(0x8),0x802,3,3,3,3,3,3,3,3,Performs ECIES decrypt operation using SHA2 crypto engine
+ecies_decrypt_sha3,ECIES(0x8),0x803,3,3,3,3,3,3,3,3,Performs ECIES decrypt operation using SHA3 crypto engine
+ecies_kat,ECIES(0x8),0x804,3,3,3,3,3,3,3,3,Performs Known Answer Test on ECIES crypto algorithm
+keywrap_sha2,Key Wrap(0x9),0x900,3,3,3,3,3,3,3,3,Performs KeyWrap operation using SHA2 crypto engine
+keywrap_sha3,Key Wrap(0x9),0x901,3,3,3,3,3,3,3,3,Performs KeyWrap operation using SHA3 crypto engine
+keyunwrap_sha2,Key Wrap(0x9),0x902,3,3,3,3,3,3,3,3,Performs KeyUnwrap operation using SHA2 crypto engine
+keyunwrap_sha3,Key Wrap(0x9),0x903,3,3,3,3,3,3,3,3,Performs KeyUnwrap operation using SHA3 crypto engine
+keywrap_kat,Key Wrap(0x9),0x904,3,3,3,3,3,3,3,3,Performs Known Answer Test on KeyWrap crypto algorithm
+ocp_devik_x509_cert_gen,OCP(0xB),0xB00,3,3,3,3,3,3,3,3,Performs DevIK X509 certificate generation operation
+ocp_devak_x509_cert_gen,OCP(0xB),0xB01,3,3,3,3,3,3,3,3,Performs DevAK X509 certificate generation operation
+ocp_devik_csr_x509_cert_gen,OCP(0xB),0xB02,3,3,3,3,3,3,3,3,Performs DevIK CSR X509 certificate generation operation
+ocp_devak_attestation,OCP(0xB),0xB03,3,3,3,3,3,3,3,3,Performs DevAK attestation operation
+ocp_dme_challenge_req,OCP(0xB),0xB04,3,3,3,3,3,3,3,3,Performs DME challenge request operation
+ocp_dme_pvt_key_encrypt,OCP(0xB),0xB05,3,3,3,3,3,3,3,3,Performs DME private keys encryption operation
