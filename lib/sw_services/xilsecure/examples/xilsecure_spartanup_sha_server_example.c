@@ -42,6 +42,7 @@
 * 1.1   mb     04/11/25 Add support for XSECURE_SHAKE_256 hash calculation
 * 1.2   mb     06/10/25 Add description on usage of shared memory
 * 5.6   mb     09/11/25 Added support to calculate hash in SHA3_384 mode
+*       mb     11/17/25 Corrected hash length definitions
 *
 * </pre>
 ******************************************************************************/
@@ -58,13 +59,22 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifndef SPARTANUPLUSAES1
-#define SHA_HASH_LEN_IN_BYTES  (XSECURE_SHA3_256_HASH_LEN) /**< SHA hash length in bytes */
+#define XSECURE_SHA3_384		(0U) /**< SHA3-384 mode */
+#define XSECURE_SHAKE_256		(3U) /**< SHAKE256 mode */
+#define XSECURE_SHA3_256		(5U) /**< SHA3-256 mode */
+#define SHA_MODE			(XSECURE_SHA3_256) /**<  User configurable SHA mode */
+
+#define SHA_INPUT_DATA_LEN		8U /**< Input data length */
+
+#if (SHA_MODE == XSECURE_SHA3_256)
+#define SHA_HASH_LEN_IN_BYTES		(XSECURE_SHA3_256_HASH_LEN) /**< SHA3-256 hash length in bytes */
+#elif (SHA_MODE == XSECURE_SHAKE_256)
+#define SHA_HASH_LEN_IN_BYTES		(XSECURE_SHAKE_256_HASH_LEN) /**< SHAKE256 hash length in bytes */
+#elif (SHA_MODE == XSECURE_SHA3_384)
+#define SHA_HASH_LEN_IN_BYTES		(XSECURE_SHA3_384_HASH_LEN) /**< SHA3-384 hash length in bytes */
 #else
-#define SHA_HASH_LEN_IN_BYTES  (XSECURE_SHA3_384_HASH_LEN) /**< SHA hash length in bytes */
+#error "Invalid SHA mode selected"
 #endif
-#define SHA_INPUT_DATA_LEN     8U /**< Input data length */
-#define SHA_MODE               (XSECURE_SHA3_256) /**< SHA mode */
 
 /************************** Function Prototypes ******************************/
 
