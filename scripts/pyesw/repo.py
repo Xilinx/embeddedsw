@@ -68,7 +68,7 @@ class Repo:
                 logger.debug("Checking for drivers inside SDT folder ")
                 if utils.is_dir(has_drivers, silent_discard=False):
                     yaml_list = glob.glob(has_drivers + '/**/data/*.yaml', recursive=True)
-                    yaml_file_abs = [yaml for yaml in yaml_list if f"{comp_name}.yaml" in yaml]
+                    yaml_file_abs = [yaml for yaml in yaml_list if f"{comp_name}.yaml" ==  os.path.basename(yaml)]
                     if yaml_file_abs:
                         comp_dir = utils.get_dir_path(utils.get_dir_path(yaml_file_abs[0]))
                         return self.validate_comp_path(comp_dir, comp_name)
