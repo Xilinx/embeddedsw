@@ -66,9 +66,9 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 			   u64 PubKeyAddr);
 s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr);
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
-			      const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen, u64 SignAddr);
+			      const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashLen, u64 SignAddr);
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
-			    u64 HashAddr, u32 HashBufLen, u64 SignAddr);
+			    u64 HashAddr, u32 HashLen, u64 SignAddr);
 s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 			    u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr);
 EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType);
@@ -77,7 +77,7 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	u64 PubKeyAddr);
 s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRandBuf,
 			   u32 InputRandBufLen);
-s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashBufLen);
+s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashLen);
 
 /************************************ Variable Definitions ***************************************/
 

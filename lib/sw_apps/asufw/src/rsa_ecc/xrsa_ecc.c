@@ -380,7 +380,7 @@ END:
  * @param	EphemeralKeyPtr	Pointer to the ephemeral key buffer, whose length shall be
  * 				CurveLen. This pointer shall be unused in the case of Edward curves.
  * @param	HashAddr	Address of the hash on which signature has to be generated.
- * @param	HashBufLen	Length of the hash in bytes.
+ * @param	HashLen		Length of the hash buffer in bytes.
  * @param	SignAddr	Address of the buffer to store the generated signature, whose
  * 				length shall be equal to double of CurveLen as it contains both
  * 				r, s components.
@@ -400,7 +400,7 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
-	const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
+	const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashLen, u64 SignAddr)
 {
 	/**
 	 * Capture the start time of the ECC signature generation operation using RSA core, if
@@ -421,7 +421,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 	u64 HashBufAddr = 0U;
-	u32 HashLen = 0U;
+	u32 HashBufLen = 0U;
 	u8* EKeyPtr = NULL;
 	u8 EphemeralKeyLen = 0U;
 
@@ -440,13 +440,13 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	/** For curves other than Edward curves, */
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		/** Validate the hash buffer length. */
-		if ((HashBufLen == 0U) || (HashBufLen > XASU_SHA_512_HASH_LEN)) {
+		if ((HashLen == 0U) || (HashLen > XASU_SHA_512_HASH_LEN)) {
 			Status = XASUFW_ECC_INVALID_PARAM;
 			goto END;
 		}
 
 		/** - Copy Hash to local address using DMA. */
-		Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+		Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashLen, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
@@ -458,7 +458,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		 * as hash.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XRsa_EccPrepareHashForSignature(Hash, CurveSize, HashBufLen);
+		Status = XRsa_EccPrepareHashForSignature(Hash, CurveSize, HashLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_ECC_HASH_BUF_PAD_FAIL;
 			goto END;
@@ -555,21 +555,21 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			/** - Calculate the hash for the input message for Hash-based EdDSA mode. */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XRsa_EccHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
-					HashBufLen);
+					HashLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
 				goto END;
 			}
 			HashBufAddr = (u64)(UINTPTR)Hash;
-			HashLen = XASU_SHA_512_HASH_LEN;
+			HashBufLen = XASU_SHA_512_HASH_LEN;
 		} else {
 			HashBufAddr = HashAddr;
-			HashLen = HashBufLen;
+			HashBufLen = HashLen;
 		}
 
 		/** - Generate signature with provided inputs. */
 		XFIH_CALL(Ecdsa_GenerateEdSign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashBufAddr,
-			(HashLen * XASUFW_BYTE_LEN_IN_BITS), PrivKey, (EcdsaKey *)&Key,
+			(HashBufLen * XASUFW_BYTE_LEN_IN_BITS), PrivKey, (EcdsaKey *)&Key,
 			(EcdsaSign *)&Sign, DmaPtr);
 	}
 	if ((Status == XRSA_ECC_GEN_SIGN_BAD_R) ||
@@ -652,7 +652,7 @@ END:
  * @param	PubKeyAddr	Address of the public key buffer, whose length shall be equal to
  * 				double of CurveLen as it contains both Qx, Qy components.
  * @param	HashAddr	Address of the hash for which signature has to be verified.
- * @param	HashBufLen	Length of the hash in bytes.
+ * @param	HashLen		Length of the hash buffer in bytes.
  * @param	SignAddr	Address of the signature buffer, whose length shall be equal to
  * 				double of CurveLen as it contains both r, s components.
  *
@@ -672,7 +672,7 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
-	u64 HashAddr, u32 HashBufLen, u64 SignAddr)
+	u64 HashAddr, u32 HashLen, u64 SignAddr)
 {
 	/**
 	 * Capture the start time of the ECC signature verification operation using RSA core, if
@@ -691,7 +691,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 	u64 HashBufAddr = 0U;
-	u32 HashLen = 0U;
+	u32 HashBufLen = 0U;
 
 	/** Validate the input arguments. */
 	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PubKeyAddr == 0U) || (SignAddr == 0U)) {
@@ -708,13 +708,13 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	/** For curves other than Edward curves, */
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		/** Validate the hash buffer length. */
-		if ((HashBufLen == 0U) || (HashBufLen > XASU_SHA_512_HASH_LEN)) {
+		if ((HashLen == 0U) || (HashLen > XASU_SHA_512_HASH_LEN)) {
 			Status = XASUFW_ECC_INVALID_PARAM;
 			goto END;
 		}
 
 		/** - Copy Hash to local address using DMA. */
-		Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+		Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashLen, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
@@ -726,7 +726,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		 * as hash.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XRsa_EccPrepareHashForSignature(Hash, CurveSize, HashBufLen);
+		Status = XRsa_EccPrepareHashForSignature(Hash, CurveSize, HashLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_ECC_HASH_BUF_PAD_FAIL;
 			goto END;
@@ -808,19 +808,19 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 			/** Calculate the hash for the input message for Hash-based EdDSA mode. */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XRsa_EccHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
-					HashBufLen);
+					HashLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
 				goto END;
 			}
 			HashBufAddr = (u64)(UINTPTR)Hash;
-			HashLen = XASU_SHA_512_HASH_LEN;
+			HashBufLen = XASU_SHA_512_HASH_LEN;
 		} else {
 			HashBufAddr = HashAddr;
-			HashLen = HashBufLen;
+			HashBufLen = HashLen;
 		}
 		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashBufAddr,
-			 (HashLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
+			 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
 			 (EcdsaSign *)&Sign, DmaPtr);
 	}
 	if ((XRSA_ECC_BAD_SIGN == Status)) {
@@ -1292,12 +1292,12 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the HashBufLen and aligns the hash buffer length to the
+ * @brief	This function validates the HashLen and aligns the hash buffer length to the
  *		specified curve size by padding with 0's if less than curve length.
  *
- * @param	HashAddr	Address of the hash buffer provided.
+ * @param	HashPtr		Pointer to the hash buffer.
  * @param	CurveSize	ECC Curve size.
- * @param	HashBufLen	Length of the hash buffer.
+ * @param	HashLen		Length of the hash bytes.
  *
  * @return
  *	- XASUFW_SUCCESS, if hash buffer alignment with CurveSize is successful.
@@ -1305,21 +1305,21 @@ END:
  *	- XASUFW_RSA_ECC_INVALID_PARAM, if Hash buffer length is NULL.
  *
  *************************************************************************************************/
-s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashBufLen)
+s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashLen)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 HashDiffLen = 0U;
 
 	/** Validate Hash Buffer Length. */
-	if (HashBufLen == 0U) {
+	if (HashLen == 0U) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Pad the hash buffer with 0's if less than curve length to align with curve length. */
-	if (HashBufLen < CurveSize) {
-		HashDiffLen = CurveSize - HashBufLen;
-		Status = Xil_SMemSet((HashPtr + HashBufLen), HashDiffLen, 0U, HashDiffLen);
+	if (HashLen < CurveSize) {
+		HashDiffLen = CurveSize - HashLen;
+		Status = Xil_SMemSet((HashPtr + HashLen), HashDiffLen, 0U, HashDiffLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		}
