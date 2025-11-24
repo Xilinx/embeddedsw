@@ -241,14 +241,20 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	const XOcp_DeviceKeys *DevIkDataPtr = NULL;
 	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
 	u8 IvIncVal = 0U;
-	XAsu_OcpDmeResponse *OcpDmeResp =
-		(XAsu_OcpDmeResponse *)(UINTPTR)OcpDmeParamsPtr->OcpDmeResponseAddr;
+	XAsu_OcpDmeResponse *OcpDmeResp = NULL;
 
 	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (OcpDmeParamsPtr == NULL)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 	}
+
+	if ((OcpDmeParamsPtr->OcpDmeResponseAddr == 0U) || (OcpDmeParamsPtr->NonceAddr == 0U)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	OcpDmeResp = (XAsu_OcpDmeResponse *)(UINTPTR)OcpDmeParamsPtr->OcpDmeResponseAddr;
 
 	/** Copy IV to the local buffer. */
 	Status = Xil_SMemCpy(DmeKekIv, XASU_OCP_DME_IV_SIZE_IN_BYTES,

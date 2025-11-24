@@ -1374,7 +1374,7 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
+		goto RET;
 	}
 
 	if (InputDataAddr == 0U) {
@@ -1490,6 +1490,7 @@ END:
 	/** Set AES under reset. */
 	XAes_SetReset(InstancePtr);
 
+RET:
 	return Status;
 }
 
@@ -1628,10 +1629,10 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 
 	Status = XASUFW_SUCCESS;
 
-END:
 	/** Set AES under reset upon any failure. */
 	XAes_SetReset(InstancePtr);
 
+END:
 	return Status;
 }
 
@@ -1713,7 +1714,7 @@ END:
 
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/** Set AES under reset upon any failure. */
 		XAes_SetReset(InstancePtr);
 	}

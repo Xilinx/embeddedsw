@@ -1394,10 +1394,10 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Mask the input data. */
-	XAsufw_ApplyMask(AesCmPt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, sizeof(AesCmPt));
+	XAsufw_ApplyMask(AesCmPt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, XASUFW_AES_CM_LEN_IN_WORDS);
 
 	/** Mask the key. */
-	XAsufw_ApplyMask(AesCmKey, MaskedKey, XASUFW_AES_CM_SPLIT_MASK, sizeof(AesCmKey));
+	XAsufw_ApplyMask(AesCmKey, MaskedKey, XASUFW_AES_CM_SPLIT_MASK, XASUFW_AES_CM_LEN_IN_WORDS);
 
 	/** Load mask data to plaintext address. */
 	for (Index = 0U; Index < XASUFW_AES_CM_LEN_IN_WORDS; Index++) {
@@ -1500,7 +1500,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Output data masking for decryption. */
-	XAsufw_ApplyMask(AesCmExpCt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, sizeof(AesCmExpCt));
+	XAsufw_ApplyMask(AesCmExpCt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, XASUFW_AES_CM_LEN_IN_WORDS);
 
 	/** Load mask data to plaintext address. */
 	for (Index = 0U; Index < XASUFW_AES_CM_LEN_IN_WORDS; Index++) {

@@ -1736,7 +1736,6 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	u32 TbsStart = CertInstance.Offset;
 	u8 *SequenceLenIdx;
 	u8 *SequenceValIdx;
-	const u8 *SerialStartIdx;
 	const u8 *HashStartIdx;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
@@ -1753,14 +1752,6 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 		goto END;
 	}
 
-	/**
-	 * Serial number is the lower 20 bytes of the digest calculated over the TBS certificate
-	 * data excluding the Version and Serial Number field. This digest can be calculated only
-	 * after these fields are populated. Store the index of the serial number where serial
-	 * number is to be stored so this fields can be updated when digest is calculated over
-	 * required fields.
-	 */
-	SerialStartIdx = &(CertInstance.Buf[CertInstance.Offset]);
 	CertInstance.SerialOffset = CertInstance.Offset;
 	CertInstance.Offset += X509_SERIAL_FIELD_LEN;
 	HashStartIdx = &(CertInstance.Buf[CertInstance.Offset]);
@@ -1814,9 +1805,8 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	}
 
 	/**
-	 * Calculate Hash for all fields in the TBS certificate except Version and Serial
-	 * Please note that currently SerialStartIdx points to the field after Serial.
-	 * Hence this is the start pointer for calculating the hash.
+	 * Calculate hash for all fields in the TBS certificate except Version and Serial.
+	 * The hash is calculated starting from the field after the Serial field.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = InitData->GenerateDigest(HashStartIdx,
