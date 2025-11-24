@@ -255,8 +255,12 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if HMAC update is successful.
+ * 	- XASUFW_FAILURE, in case of failure.
  * 	- XASUFW_HMAC_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_HMAC_STATE_MISMATCH_ERROR, if HMAC state is mismatched.
+ * 	- XASUFW_CMD_IN_PROGRESS, if HMAC update is in progress(non-blocking).
+ * 	- XASUFW_INVALID_CMD_STAGE, if command stage is invalid.
+ * 	- XASUFW_HMAC_ERROR, in case of error in HMAC operation.
  *
  *************************************************************************************************/
 s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 DataLen,
@@ -270,7 +274,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_HMAC_INVALID_PARAM;
-		goto DONE;
+		goto END;
 	}
 
 	if ((AsuDmaPtr == NULL) || (DataAddr == 0U)) {
@@ -289,45 +293,53 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 		goto END;
 	}
 
-	if (HmacUpdateStage != XHMAC_CMD_STAGE_IDLE) {
-		goto SHA_IN_HMAC_STAGE_UPDATE_DONE;
-	}
-
-	/** Update SHA with input data for which HMAC needs to be calculated. */
-	Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr, DataAddr, DataLen,
-			     IsLastUpdate);
-	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		HmacUpdateStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
-		goto DONE;
-	} else if (Status != XASUFW_SUCCESS) {
-		goto END;
-	} else {
-		/* Do nothing */
-	}
-
-SHA_IN_HMAC_STAGE_UPDATE_DONE:
-	HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
-
-	if (IsLastUpdate == XASU_TRUE) {
-		/**
-		 * If this is the last update, get the HASH calculated for input (iPad || Data)
-		 * and update HMAC state to XHMAC_UPDATE_COMPLETED.
-		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr, (u32 *)(InstancePtr->IntHash),
-				     (u32)InstancePtr->HashBufLen, XASU_FALSE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
+	switch (HmacUpdateStage) {
+	case XHMAC_CMD_STAGE_IDLE:
+		/** Update SHA with input data for which HMAC needs to be calculated. */
+		Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr, DataAddr, DataLen,
+				IsLastUpdate);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			HmacUpdateStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
+			break;
+		} else if (Status != XASUFW_SUCCESS) {
 			goto END;
+		} else {
+			/* Do nothing */
 		}
+		/* fall through */
+	case XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS:
+		HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
+		if (IsLastUpdate == XASU_TRUE) {
+			/**
+			 * If this is the last update, get the HASH calculated for input
+			 * (iPad || Data) and update HMAC state to XHMAC_UPDATE_COMPLETED.
+			 */
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr,
+					     (u32 *)(InstancePtr->IntHash),
+					     (u32)InstancePtr->HashBufLen, XASU_FALSE);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
+				goto END;
+			}
 
-		InstancePtr->HmacState = XHMAC_UPDATE_COMPLETED;
-	} else {
-		/** If this is not the last update, update HMAC state to XHMAC_UPDATE_IN_PROGRESS. */
-		InstancePtr->HmacState = XHMAC_UPDATE_IN_PROGRESS;
+			InstancePtr->HmacState = XHMAC_UPDATE_COMPLETED;
+		} else {
+			/**
+			 * If this is not the last update, update HMAC state to
+			 * XHMAC_UPDATE_IN_PROGRESS.
+			 */
+			InstancePtr->HmacState = XHMAC_UPDATE_IN_PROGRESS;
+		}
+		break;
+	default:
+		Status = XASUFW_INVALID_CMD_STAGE;
+		break;
 	}
+
 END:
-	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS) &&
+	    (InstancePtr != NULL)) {
 		/** Set HMAC state to XHMAC_INITIALIZED and set SHA under reset upon any failure. */
 		InstancePtr->HmacState = XHMAC_INITIALIZED;
 		XSha_Reset(InstancePtr->ShaInstancePtr);
@@ -336,7 +348,7 @@ END:
 			  (InstancePtr->IntHash), XASU_SHA_512_HASH_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
-DONE:
+
 	return Status;
 }
 
