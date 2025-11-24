@@ -201,7 +201,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XSha_Update(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr,
 					     Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
-				CmdStage = SHA_UPDATE_DONE;
+				CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS;
 				XAsufw_DmaCfgNonBlocking(XAsufw_Sha3Module.AsuDmaPtr,
 					XASUDMA_SRC_CHANNEL, ReqBuf, ReqId, XASUFW_RELEASE_DMA);
 				XAsufw_Sha3Module.AsuDmaPtr = NULL;
@@ -215,7 +215,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			}
 		}
 		/* fall through */
-	case SHA_UPDATE_DONE:
+	case XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 		if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 			/** If operation flags include SHA FINISH, perform SHA3 finish operation. */

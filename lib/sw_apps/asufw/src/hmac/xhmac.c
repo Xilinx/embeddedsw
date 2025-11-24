@@ -269,7 +269,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	static u32 HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
+	static u32 HmacUpdateStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -294,12 +294,12 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	}
 
 	switch (HmacUpdateStage) {
-	case XHMAC_CMD_STAGE_IDLE:
+	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:
 		/** Update SHA with input data for which HMAC needs to be calculated. */
 		Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr, DataAddr, DataLen,
 				IsLastUpdate);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
-			HmacUpdateStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
+			HmacUpdateStage = XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS;
 			break;
 		} else if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -307,8 +307,8 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 			/* Do nothing */
 		}
 		/* fall through */
-	case XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS:
-		HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
+	case XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
+		HmacUpdateStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
 		if (IsLastUpdate == XASU_TRUE) {
 			/**
 			 * If this is the last update, get the HASH calculated for input

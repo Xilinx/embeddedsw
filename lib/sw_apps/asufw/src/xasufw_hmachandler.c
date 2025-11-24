@@ -183,10 +183,10 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XHmac *HmacPtr = XHmac_GetInstance();
 	u32 *ResponseBufferPtr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 				 XASUFW_RESP_DATA_OFFSET;
-	static u32 HmacCmdStage = XHMAC_CMD_STAGE_IDLE;
+	static u32 HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
 
 	switch (HmacCmdStage) {
-	case XHMAC_CMD_STAGE_IDLE:
+	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:
 		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
 			/** If operation flags include HMAC INIT, perform HMAC init operation. */
 			Status = XHmac_Init(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
@@ -200,8 +200,8 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			}
 		}
 		/* fall through */
-	case XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS:
-		HmacCmdStage = XHMAC_CMD_STAGE_IDLE;
+	case XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
+		HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
 		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
 			/**
 			 * If operation flags include HMAC UPDATE, perform HMAC update operation.
@@ -210,7 +210,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					HmacParamsPtr->MsgBufferAddr, HmacParamsPtr->MsgLen,
 					(u32)HmacParamsPtr->IsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
-				HmacCmdStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
+				HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS;
 				XAsufw_DmaCfgNonBlocking(XAsufw_HmacModule.AsuDmaPtr,
 							 XASUDMA_SRC_CHANNEL, ReqBuf, ReqId,
 							 XASUFW_BLOCK_DMA);

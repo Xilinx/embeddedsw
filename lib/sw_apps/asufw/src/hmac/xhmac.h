@@ -39,9 +39,11 @@ extern "C" {
 
 #ifdef XASU_HMAC_ENABLE
 /************************************ Constant Definitions ***************************************/
-#define XHMAC_CMD_STAGE_IDLE			(0x0U) /**< HMAC uninit stage */
-#define XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS	(0x1U) /**< HMAC update done stage for DMA
-							non-blocking wait */
+#define XHMAC_NON_BLOCKING_CMD_STAGE_INIT			(0x0U) /**< HMAC init command
+									stage */
+#define XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS		(0x1U) /**< HMAC update command
+									stage for DMA non-blocking
+									wait */
 
 /************************************ Variable Definitions ***************************************/
 
