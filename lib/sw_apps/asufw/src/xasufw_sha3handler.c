@@ -167,11 +167,14 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if SHA3 hash operation is successful.
+ * 	- XASUFW_FAILURE, in case of failure.
  * 	- XASUFW_SHA3_START_FAILED, if SHA3 start fails.
  * 	- XASUFW_SHA3_UPDATE_FAILED, if SHA3 update fails.
  * 	- XASUFW_SHA3_FINISH_FAILED, if SHA3 finish fails.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_CMD_IN_PROGRESS, if SHA operation is in progress(non-blocking).
+ * 	- XASUFW_INVALID_CMD_STAGE, if command stage is invalid.
  *
  *************************************************************************************************/
 static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -182,78 +185,84 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	static u32 CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 	u32 *HashAddr;
 
-	/** Jump to SHA_STAGE_UPDATE_DONE if SHA update is in progress. */
-	if (CmdStage != XSHA_NON_BLOCKING_CMD_STAGE_INIT) {
-		goto SHA_STAGE_UPDATE_DONE;
-	}
-
-	if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
-		/** If operation flags include SHA START, perform SHA3 start operation. */
-		Status = XSha_Start(XAsufw_Sha3, Cmd->ShaMode);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_START_FAILED);
-			goto END;
-		}
-	}
-
-	if ((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) {
-		/** If operation flags include SHA UPDATE, perform SHA3 update operation. */
-		Status = XSha_Update(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr, Cmd->DataAddr,
-					Cmd->DataSize, Cmd->IsLast);
-		if (Status == XASUFW_CMD_IN_PROGRESS) {
-			CmdStage = SHA_UPDATE_DONE;
-			XAsufw_DmaCfgNonBlocking(XAsufw_Sha3Module.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-						 ReqBuf, ReqId, XASUFW_RELEASE_DMA);
-			XAsufw_Sha3Module.AsuDmaPtr = NULL;
-			goto DONE;
-		} else if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_UPDATE_FAILED);
-			goto END;
-		} else {
-			/* Do nothing */
-		}
-	}
-
-SHA_STAGE_UPDATE_DONE:
-	CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
-
-	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
-		/** If operation flags include SHA FINISH, perform SHA3 finish operation. */
-		HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
-						XASUFW_RESP_DATA_OFFSET;
-		Status = XSha_Finish(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr, HashAddr,
-						Cmd->HashBufSize, XASU_FALSE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_FINISH_FAILED);
-			goto END;
-		}
-	} else {
-		if (XAsufw_Sha3Module.AsuDmaPtr != NULL) {
-			/**
-			 * If SHA_FINISH is not set in operation flags and SHA3 update is complete,
-			 * release DMA resource and Idle SHA3 resource.
-			 */
-			Status = XAsufw_ReleaseDmaResource(XAsufw_Sha3Module.AsuDmaPtr, ReqId);
+	switch (CmdStage) {
+	case XSHA_NON_BLOCKING_CMD_STAGE_INIT:
+		if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+			/** If operation flags include SHA START, perform SHA3 start operation. */
+			Status = XSha_Start(XAsufw_Sha3, Cmd->ShaMode);
 			if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_START_FAILED);
+				goto END;
 			}
-			XAsufw_Sha3Module.AsuDmaPtr = NULL;
 		}
-		XAsufw_IdleResource(XASUFW_SHA3);
+
+		if ((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) {
+			/** If operation flags include SHA UPDATE, perform SHA3 update operation. */
+			Status = XSha_Update(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr,
+					     Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				CmdStage = SHA_UPDATE_DONE;
+				XAsufw_DmaCfgNonBlocking(XAsufw_Sha3Module.AsuDmaPtr,
+					XASUDMA_SRC_CHANNEL, ReqBuf, ReqId, XASUFW_RELEASE_DMA);
+				XAsufw_Sha3Module.AsuDmaPtr = NULL;
+				break;
+			} else if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+								  XASUFW_SHA3_UPDATE_FAILED);
+				goto END;
+			} else {
+				/* Do nothing */
+			}
+		}
+		/* fall through */
+	case SHA_UPDATE_DONE:
+		CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
+		if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
+			/** If operation flags include SHA FINISH, perform SHA3 finish operation. */
+			HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+				XASUFW_RESP_DATA_OFFSET;
+			Status = XSha_Finish(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr, HashAddr,
+					Cmd->HashBufSize, XASU_FALSE);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+								  XASUFW_SHA3_FINISH_FAILED);
+				goto END;
+			}
+		} else {
+			if (XAsufw_Sha3Module.AsuDmaPtr != NULL) {
+				/**
+				 * If SHA_FINISH is not set in operation flags and SHA3 update is
+				 * complete, release DMA resource and Idle SHA3 resource.
+				 */
+				Status = XAsufw_ReleaseDmaResource(XAsufw_Sha3Module.AsuDmaPtr,
+						ReqId);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XAsufw_UpdateErrorStatus(Status,
+							XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+				}
+				XAsufw_Sha3Module.AsuDmaPtr = NULL;
+			}
+			XAsufw_IdleResource(XASUFW_SHA3);
+		}
+		break;
+	default:
+		Status = XASUFW_INVALID_CMD_STAGE;
+		break;
 	}
 
 END:
-	if ((Status != XASUFW_SUCCESS) ||
-		((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH)) {
+	if (((Status != XASUFW_SUCCESS) ||
+	     ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH)) &&
+	    (Status != XASUFW_CMD_IN_PROGRESS)) {
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_SHA3, ReqId) != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
 		XSha_Reset(XAsufw_Sha3);
 		XAsufw_Sha3Module.AsuDmaPtr = NULL;
 	}
 
-DONE:
 	return Status;
 }
 
