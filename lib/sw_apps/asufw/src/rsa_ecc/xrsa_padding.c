@@ -128,8 +128,8 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 Index = 0U;
 	u32 DataBlockLen = 0U;
 	u8 *DataBlock = XRsa_GetDataBlockAddr();
-	u8 *MaskedDataBlock = DataBlock + XRSA_MAX_DB_LEN;
-	u8 *SeedBuffer = MaskedDataBlock + XRSA_MAX_DB_LEN;
+	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
+	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
 	u8 *MaskSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
 	u8 PaddedOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
@@ -236,7 +236,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Generate mask of required length for data block using MGF (Mask Generation Function). */
-	MgfInput.Output = MaskedDataBlock;
+	MgfInput.Output = DataBlockMask;
 	MgfInput.OutputLen = DataBlockLen;
 	MgfInput.Seed = SeedBuffer;
 	MgfInput.SeedLen = HashLen;
@@ -249,7 +249,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	for (Index = 0U; Index < DataBlockLen; Index++) {
-		DataBlock[Index] ^= MaskedDataBlock[Index];
+		DataBlock[Index] ^= DataBlockMask[Index];
 	}
 
 	/** Generate mask of required length for seed block using MGF. */
@@ -346,8 +346,8 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 DataBlockLen = 0U;
 	u32 MsgLen = 0U;
 	u8 *DataBlock = XRsa_GetDataBlockAddr();
-	u8 *MaskedDataBlock = DataBlock + XRSA_MAX_DB_LEN;
-	u8 *SeedBuffer = MaskedDataBlock + XRSA_MAX_DB_LEN;
+	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
+	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
 	u8 *MaskedSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
 	u8 HashBuffer[XASU_SHA_512_HASH_LEN];
 	u8 DecryptOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
@@ -440,12 +440,12 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** EM = Y || maskedSeed || maskedDB . */
 	/** Increment output data index by one after maskedseed and point to masked datablock. */
 	MaskedSeedBuffer = &DecryptOutputData[XRSA_DATA_BLOCK_SECOND_INDEX];
-	MaskedDataBlock = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
+	DataBlockMask = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
 
 	/** Generate mask of required length for seed block using MGF. */
 	MgfInput.Output = SeedBuffer;
 	MgfInput.OutputLen = HashLen;
-	MgfInput.Seed = MaskedDataBlock;
+	MgfInput.Seed = DataBlockMask;
 	MgfInput.SeedLen = DataBlockLen;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -473,7 +473,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	for (Index = 0U; Index < DataBlockLen; Index++) {
-		DataBlock[Index] ^= MaskedDataBlock[Index];
+		DataBlock[Index] ^= DataBlockMask[Index];
 	}
 
 	/**
