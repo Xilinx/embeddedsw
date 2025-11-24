@@ -96,7 +96,7 @@ s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfPara
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, KdfParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, KdfParamsPtr,
 						(u32)(sizeof(XAsu_KdfParams)), Header);
 
 END:
@@ -139,7 +139,7 @@ s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr)
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;

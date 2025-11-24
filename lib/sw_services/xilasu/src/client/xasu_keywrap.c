@@ -101,7 +101,7 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, KeyWrapParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, KeyWrapParamsPtr,
 						(u32)(sizeof(XAsu_KeyWrapParams)), Header);
 
 END:
@@ -168,7 +168,7 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, KeyUnwrapParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, KeyUnwrapParamsPtr,
 						(u32)(sizeof(XAsu_KeyWrapParams)), Header);
 
 END:
@@ -214,7 +214,7 @@ s32 XAsu_KeyWrapKat(XAsu_ClientParams *ClientParamsPtr)
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;

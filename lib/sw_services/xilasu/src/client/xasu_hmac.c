@@ -185,7 +185,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, HmacParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, HmacParamsPtr,
 						(u32)(sizeof(XAsu_HmacParams)), Header);
 
 END:
@@ -230,7 +230,7 @@ s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;

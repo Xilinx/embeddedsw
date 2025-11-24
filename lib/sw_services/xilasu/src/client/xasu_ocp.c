@@ -93,7 +93,7 @@ s32 XAsu_OcpGetDevIkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpCertClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpCertClientParamPtr,
 					(u32)(sizeof(XAsu_OcpCertParams)), Header);
 
 END:
@@ -152,7 +152,7 @@ s32 XAsu_OcpGetDevAkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpCertClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpCertClientParamPtr,
 					(u32)(sizeof(XAsu_OcpCertParams)), Header);
 
 END:
@@ -211,7 +211,7 @@ s32 XAsu_OcpGetDevIkCsr(XAsu_ClientParams *ClientParamPtr,
 				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpCertClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpCertClientParamPtr,
 					(u32)(sizeof(XAsu_OcpCertParams)), Header);
 
 END:
@@ -269,7 +269,7 @@ s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 				   0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpDevAkAttestParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpDevAkAttestParamPtr,
 					(u32)(sizeof(XAsu_OcpDevAkAttest)), Header);
 
 END:
@@ -321,7 +321,7 @@ s32 XAsu_OcpDmeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeParams
 				   0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpDmeParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpDmeParamsPtr,
 					(u32)(sizeof(XAsu_OcpDmeParams)), Header);
 
 END:
@@ -386,7 +386,7 @@ s32 XAsu_OcpDmeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeKeyEncr
 				   0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpDmeKeyEnc,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpDmeKeyEnc,
 					(u32)(sizeof(XAsu_OcpDmeKeyEncrypt)), Header);
 
 END:

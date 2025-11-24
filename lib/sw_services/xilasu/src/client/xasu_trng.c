@@ -86,7 +86,7 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 				   XASU_MODULE_TRNG_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;
@@ -130,7 +130,7 @@ s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr)
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;
@@ -181,7 +181,7 @@ END:
 				0U, ClientParamPtr->SecureFlag);
 
 	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, CmdParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, CmdParamsPtr,
 			sizeof(XAsu_DrbgInstantiateCmd), Header);
 
 END:
@@ -230,7 +230,7 @@ END:
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, CmdParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, CmdParamsPtr,
 			sizeof(XAsu_DrbgReseedCmd), Header);
 
 END:
@@ -278,7 +278,7 @@ s32 XAsu_TrngDrbgGenerate(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgGenerateCm
 	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_GENERATE_CMD_ID, UniqueId,
 				   XASU_MODULE_TRNG_ID, 0U, ClientParamPtr->SecureFlag);
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, CmdParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, CmdParamsPtr,
 			sizeof(XAsu_DrbgGenerateCmd), Header);
 
 END:

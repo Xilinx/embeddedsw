@@ -244,7 +244,7 @@ END:
  * 	- XASU_INVALID_ARGUMENT, if the input parameters are invalid.
  *
  *************************************************************************************************/
-s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuffer, u32 Size,
+s32 XAsu_SendCmdToAsu(XAsu_ClientParams *ClientParam, void *ReqBuffer, u32 Size,
 				   u32 Header)
 {
 	s32 Status = XST_FAILURE;

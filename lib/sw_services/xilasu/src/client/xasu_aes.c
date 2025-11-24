@@ -311,7 +311,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, AesClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, AesClientParamPtr,
 		sizeof(XAsu_AesParams), Header);
 
 END:
@@ -367,7 +367,7 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr, u32 KatMode)
 		ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, &KatMode,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, &KatMode,
 		sizeof(KatMode), Header);
 
 END:

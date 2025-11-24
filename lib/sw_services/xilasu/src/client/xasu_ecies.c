@@ -96,7 +96,7 @@ s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EciesParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EciesParamsPtr,
 					(u32)(sizeof(XAsu_EciesParams)), Header);
 
 END:
@@ -164,7 +164,7 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EciesParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EciesParamsPtr,
 					(u32)(sizeof(XAsu_EciesParams)), Header);
 
 END:
@@ -209,7 +209,7 @@ s32 XAsu_EciesKat(XAsu_ClientParams *ClientParamsPtr)
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;

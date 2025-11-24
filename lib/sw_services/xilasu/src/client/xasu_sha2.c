@@ -217,7 +217,7 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA2_ID, 0U,
 				ClientParamPtr->SecureFlag);
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, ShaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, ShaClientParamPtr,
 						sizeof(XAsu_ShaOperationCmd), Header);
 
 END:
@@ -269,7 +269,7 @@ s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr, u32 Sha2Mode)
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, &Sha2Mode, sizeof(Sha2Mode), Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, &Sha2Mode, sizeof(Sha2Mode), Header);
 
 END:
 	return Status;

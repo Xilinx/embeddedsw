@@ -107,7 +107,7 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaParams)), Header);
 
 END:
@@ -177,7 +177,7 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaParams)), Header);
 
 END:
@@ -249,7 +249,7 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaParams)), Header);
 
 END:
@@ -340,7 +340,7 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaOaepPaddingParams)), Header);
 
 END:
@@ -435,7 +435,7 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaOaepPaddingParams)), Header);
 
 END:
@@ -528,7 +528,7 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaPaddingParams)), Header);
 
 END:
@@ -627,7 +627,7 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaPaddingParams)), Header);
 
 END:
@@ -673,7 +673,7 @@ s32 XAsu_RsaOaepEncDecKat(XAsu_ClientParams *ClientParamPtr)
 		XASU_MODULE_RSA_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;
@@ -718,7 +718,7 @@ s32 XAsu_RsaPssSignGenAndVerKat(XAsu_ClientParams *ClientParamPtr)
 		XASU_MODULE_RSA_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;

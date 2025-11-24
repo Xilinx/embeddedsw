@@ -125,7 +125,7 @@ inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen, 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr);
 s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr);
-s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuffer,
+s32 XAsu_SendCmdToAsu(XAsu_ClientParams *ClientParam, void *ReqBuffer,
 	u32 Size, u32 Header);
 u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr,
 	u32 Size, u8 IsFinalCall);

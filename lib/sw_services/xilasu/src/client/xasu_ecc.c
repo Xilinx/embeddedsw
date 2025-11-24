@@ -94,7 +94,7 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EccParamsPtr,
 					sizeof(XAsu_EccParams), Header);
 
 END:
@@ -146,7 +146,7 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 					0U, ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EccParamsPtr,
 					sizeof(XAsu_EccParams), Header);
 
 END:
@@ -211,7 +211,7 @@ s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *Ecc
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccKeyParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EccKeyParamsPtr,
 					sizeof(XAsu_EccKeyParams), Header);
 
 END:
@@ -263,7 +263,7 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr, u32 CurveType)
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, &CurveType, sizeof(CurveType), Header);
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, &CurveType, sizeof(CurveType), Header);
 
 END:
 	return Status;
@@ -327,7 +327,7 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EcdhParamsPtr,
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EcdhParamsPtr,
 					sizeof(XAsu_EcdhParams), Header);
 
 END:
@@ -370,7 +370,7 @@ s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr)
 				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;
