@@ -334,9 +334,14 @@ END:
  * creates queue level tasks based on the priority set by the user and enables corresponding IPI
  * channel interrupts.
  *
+ * @return
+ *	- XASUFW_SUCCESS, if channel configured successfully.
+ *	- XASUFW_FAILURE, if channel configuration is failed.
+ *
  *************************************************************************************************/
-void XAsufw_ChannelConfigInit(void)
+s32 XAsufw_ChannelConfigInit(void)
 {
+	s32 Status = XASUFW_FAILURE;
 	u32 ChannelIndex;
 	u32 PrivData;
 
@@ -386,6 +391,12 @@ void XAsufw_ChannelConfigInit(void)
 		/** Enable IPI interrupt from the channel. */
 		XAsufw_EnableIpiInterrupt(CommChannelInfo->Channel[ChannelIndex].IpiBitMask);
 	}
+
+	if (ChannelIndex == CommChannelInfo->NumOfIpiChannels) {
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
 }
 
 /*************************************************************************************************/

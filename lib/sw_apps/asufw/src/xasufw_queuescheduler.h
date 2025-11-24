@@ -81,7 +81,7 @@ typedef struct {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-void XAsufw_ChannelConfigInit(void);
+s32 XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
 u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask);
 u32 XAsufw_GetIpiMask(u32 ChannelIndex);

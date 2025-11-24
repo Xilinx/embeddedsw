@@ -230,7 +230,12 @@ static s32 XAsufw_Init(void)
 	}
 
 	/** Initialize communication channel and their shared memory. */
-	XAsufw_ChannelConfigInit();
+	Status = XAsufw_ChannelConfigInit();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "Channel config init failed with error: 0x%x\r\n",
+			      Status);
+		goto END;
+	}
 
 	/** Initialize all ASUFW modules. */
 	Status = XAsufw_ModulesInit();
