@@ -135,6 +135,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 PaddedOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
+	u32 PadLen = 0U;
 
 	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
@@ -203,13 +204,13 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
+	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
+		 XRSA_DB_DELIMITER_LEN;
+
 	/** Append 0x00's of length (KeySize - Len - (2U * HashLen) - 2U) to data block. */
-	if ((KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
-				XRSA_DB_DELIMITER_LEN) != 0U) {
+	if (PadLen != 0U) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemSet(&DataBlock[HashLen], XRSA_MAX_DB_LEN, 0U,
-				     (KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen))
-				     - XRSA_PADDING_LEADING_ZERO_LEN - XRSA_DB_DELIMITER_LEN));
+		Status = Xil_SMemSet(&DataBlock[HashLen], XRSA_MAX_DB_LEN, 0U, PadLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END;
@@ -354,6 +355,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 DecryptOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
+	u32 PadLen = 0U;
 
 	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
@@ -509,9 +511,10 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 	Index++;
 	MsgLen = DataBlockLen - Index;
+	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
+		 XRSA_DB_DELIMITER_LEN;
 	/** Validate input length which should not be greater than KeySize – (2 * hashLen) – 2. */
-	if (MsgLen > (KeySize - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
-				XRSA_DB_DELIMITER_LEN)) {
+	if (MsgLen > PadLen) {
 		Status = XASUFW_RSA_OAEP_INVALID_LEN;
 		goto END;
 	}
@@ -579,6 +582,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 OutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
+	u32 ZeroPadLen = 0U;
 
 	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
@@ -720,8 +724,9 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* Check length of randomized string that if it is zero it is an error else zerioze required
 	* length which is KeySize - SaltLen - HashLen - 2.
 	*/
+	ZeroPadLen = KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET;
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET) == 0U) {
+	if (ZeroPadLen == 0U) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -731,8 +736,8 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
-	DataBlock[KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET]
-	= XRSA_DATA_BLOCK_DELIMITER;
+
+	DataBlock[ZeroPadLen] = XRSA_DATA_BLOCK_DELIMITER;
 	if (SaltLen != 0U) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy(&DataBlock[DataBlockLen - SaltLen], XRSA_MAX_DB_LEN,
@@ -851,6 +856,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 SignedInputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
+	u32 ZeroPadLen = 0U;
 
 	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
@@ -1011,18 +1017,20 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	*/
 
 	/** Check for zeroes of length which is KeySize - SaltLen - HashLen - 2 which is PS. */
+	Index = 0U;
+	ZeroPadLen = KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET;
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET) != 0U) {
-		for (Index = 0U; Index < (KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET); Index++) {
+	if (ZeroPadLen != 0U) {
+		for (Index = 0U; Index < ZeroPadLen; Index++) {
 			if (DataBlock[Index] != 0U) {
 				Status = XASUFW_RSA_PSS_DECODE_ERROR;
 				goto END;
 			}
 		}
-	}
-	if (Index != (KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET)) {
-		Status = XASUFW_RSA_LOOP_INDEX_CMP_ERROR;
-		goto END;
+		if (Index != ZeroPadLen) {
+			Status = XASUFW_RSA_LOOP_INDEX_CMP_ERROR;
+			goto END;
+		}
 	}
 
 	if (DataBlock[Index] != XRSA_DATA_BLOCK_DELIMITER) {
