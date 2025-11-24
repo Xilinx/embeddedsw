@@ -148,7 +148,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		goto END;
 	}
 
-	/** Copy the input data to server memory using DMA. */
+	/** Copy the input data to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -156,7 +156,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		goto END;
 	}
 
-	/** Copy key parameters to server memory using DMA. */
+	/** Copy key parameters to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaCrtKeyComp), 0U);
@@ -371,7 +371,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy the input data to server memory using DMA. */
+	/** Copy the input data to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -379,7 +379,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy key parameters to server memory using DMA. */
+	/** Copy key parameters to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPvtKeyComp), 0U);
@@ -510,7 +510,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 				  NULL, (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 		}
 	} else {
-		/* DMA transfer of pre-calculated modulus values from client address to server
+		/* DMA transfer of pre-calculated modulus values from client address to ASU
 		memory if available */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRModN),
@@ -658,7 +658,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy the input data to server memory using DMA. */
+	/** Copy the input data to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -666,7 +666,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy key parameters to server memory using DMA. */
+	/** Copy key parameters to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPubKeyComp), 0U);
@@ -727,7 +727,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	if (ExpoAddr == 0U) {
 		rsaexp(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 	} else {
-		/* DMA transfer of pre-calculated modulus values from client address to server
+		/* DMA transfer of pre-calculated modulus values from client address to ASU
 			memory */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRRModN),
