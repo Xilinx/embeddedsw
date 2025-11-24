@@ -226,6 +226,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 HashLen = 0U;
 	u8 KOut[XASU_SHA_512_HASH_LEN];
 	u64 KeyOutAddr = 0U;
+	u64 KeyOutAddrTemp = 0U;
 
 	/** Validate input parameters. */
 	if (Prk == NULL) {
@@ -284,7 +285,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		 */
 		if (KdfIndex > 0U) {
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XHmac_Update(HmacPtr, DmaPtr, (u64)(UINTPTR)KOut, HashLen,
+			Status = XHmac_Update(HmacPtr, DmaPtr, KeyOutAddrTemp, HashLen,
 						XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status,
@@ -292,6 +293,22 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				goto END_CLR;
 			}
 		}
+
+		/**
+		 * - HMAC output size is the SHA algorithm hash length. HKDF key output can be any
+		 * length.
+		 * - In the last iteration, data to be copied to the temporary buffer as remaining
+		 * buffer in destination buffer can be less than or equal to SHA algorithm hash
+		 * length which varies based on the requested key output length.
+		 */
+		if (KdfIndex == (Iterations - XHKDF_BLOCK_INDEX_LENGTH)) {
+			HashLen = HkdfParams->KdfParams.KeyOutLen - (KdfIndex * HashLen);
+			KeyOutAddrTemp = (u64)(UINTPTR)KOut;
+		} else {
+			KeyOutAddrTemp = KeyOutAddr;
+			KeyOutAddr = KeyOutAddr + HashLen;
+		}
+
 
 		/** - Update info provided by user to HMAC. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -314,37 +331,25 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 		/** - Get final HMAC for the running iteration. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XHmac_Final(HmacPtr, DmaPtr, (u32 *)KOut);
+		Status = XHmac_Final(HmacPtr, DmaPtr, (u32 *)(UINTPTR)KeyOutAddrTemp);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_HMAC_FINAL_FAILED);
 			goto END_CLR;
 		}
+	}
 
-		/**
-		 * - HMAC output size is the SHA algorithm hash length. HKDF key output can be any
-		 * length.
-		 * - In the last iteration, data to be copied to the destination can be less than or
-		 * equal to SHA algorithm hash length which varies based on the requested key
-		 * output length.
-		 */
-		if (KdfIndex == (Iterations - XHKDF_BLOCK_INDEX_LENGTH)) {
-			HashLen = HkdfParams->KdfParams.KeyOutLen - (KdfIndex * HashLen);
-		}
-
-		/**
-		 * - Copy the final HMAC of each iteration to the destination key output buffer.
-		 */
+	/** Check if the desired number of iterations are executed. */
+	if (KdfIndex != Iterations) {
+		Status = XASUFW_KDF_ITERATION_COUNT_MISMATCH;
+	} else {
+		/** Copy the final HMAC to the destination key output buffer. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy((u8 *)(UINTPTR)KeyOutAddr, HashLen, KOut, HashLen, HashLen);
+		Status = Xil_SMemCpy((u8 *)(UINTPTR)KeyOutAddr, HashLen,
+				     (u8 *)(UINTPTR)KeyOutAddrTemp, HashLen, HashLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MEM_COPY_FAIL);
 			goto END_CLR;
 		}
-		KeyOutAddr = KeyOutAddr + HashLen;
-	}
-	/** Check if the desired number of iterations are executed. */
-	if (KdfIndex != Iterations) {
-		Status = XASUFW_KDF_ITERATION_COUNT_MISMATCH;
 	}
 
 END_CLR:
