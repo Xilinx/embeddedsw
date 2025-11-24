@@ -1054,10 +1054,8 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
 	EcdsaCrvInfo *CrvInfo = XRsa_EccGetCrvData(CurveType);
 
 	if (CrvInfo != NULL) {
-		CurveSize = (u32)CrvInfo->Bits / XASUFW_BYTE_LEN_IN_BITS;
-		if (CrvInfo->CrvType == ECDSA_NIST_P521) {
-			CurveSize += (CurveSize % XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES);
-		}
+		CurveSize = ((u32)CrvInfo->Bits + XASUFW_BYTE_LEN_IN_BITS - 1U) /
+				  XASUFW_BYTE_LEN_IN_BITS;
 		*Crv = CrvInfo;
 	}
 
