@@ -165,12 +165,15 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if SHA2 hash operation is successful.
+ * 	- XASUFW_FAILURE, in case of failure.
  * 	- XASUFW_SHA_INVALID_SHA_MODE, if input sha mode is invalid
  * 	- XASUFW_HMAC_INITIALIZATION_FAILED, if HMAC initialisation fails.
  * 	- XASUFW_HMAC_UPDATE_FAILED, if HMAC update fails.
  * 	- XASUFW_HMAC_FINAL_FAILED, if HMAC final fails.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_CMD_IN_PROGRESS, if HMAC update is in progress(non-blocking).
+ * 	- XASUFW_INVALID_CMD_STAGE, if command stage is invalid.
  *
  *************************************************************************************************/
 static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -182,77 +185,89 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				 XASUFW_RESP_DATA_OFFSET;
 	static u32 HmacCmdStage = XHMAC_CMD_STAGE_IDLE;
 
-	/** Jump to HMAC_STAGE_UPDATE_DONE if HMAC update is in progress. */
-	if (HmacCmdStage != XHMAC_CMD_STAGE_IDLE) {
-		goto HMAC_STAGE_UPDATE_IN_PROGRESS;
-	}
-
-	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
-		/** If operation flags include HMAC UPDATE, perform HMAC init operation. */
-		Status = XHmac_Init(HmacPtr, XAsufw_HmacModule.AsuDmaPtr, XAsufw_HmacModule.ShaPtr,
-				    HmacParamsPtr->KeyAddr, HmacParamsPtr->KeyLen,
-				    HmacParamsPtr->ShaMode, HmacParamsPtr->HmacLen);
-		if (Status != XST_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-							  XASUFW_HMAC_INITIALIZATION_FAILED);
-			goto END;
-		}
-	}
-
-HMAC_STAGE_UPDATE_IN_PROGRESS:
-	HmacCmdStage = XHMAC_CMD_STAGE_IDLE;
-
-	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
-		/** If operation flags include HMAC UPDATE, perform HMAC update operation. */
-		Status = XHmac_Update(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
-				      HmacParamsPtr->MsgBufferAddr, HmacParamsPtr->MsgLen,
-				      (u32)HmacParamsPtr->IsLast);
-		if (Status == XASUFW_CMD_IN_PROGRESS) {
-			HmacCmdStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
-			XAsufw_DmaCfgNonBlocking(XAsufw_HmacModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-						 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
-			goto DONE;
-		} else if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_UPDATE_FAILED);
-			goto END;
-		} else {
-			/* Do nothing */
-		}
-	}
-
-	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) {
-		/** If operation flags include HMAC FINAL, perform HMAC final operation. */
-		Status = XHmac_Final(HmacPtr, XAsufw_HmacModule.AsuDmaPtr, ResponseBufferPtr);
-		if (Status != XST_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_FINAL_FAILED);
-			goto END;
-		}
-		if (XAsufw_ReleaseResource(XASUFW_HMAC, ReqId) != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-		}
-	} else {
-		if (XAsufw_HmacModule.AsuDmaPtr != NULL) {
-			/**
-			 * If HMAC_FINAL is not set in operation falgs, release DMA resource and
-			 * Idle HMAC and allocated SHA resource.
-			 */
-			Status = XAsufw_ReleaseDmaResource(XAsufw_HmacModule.AsuDmaPtr, ReqId);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	switch (HmacCmdStage) {
+	case XHMAC_CMD_STAGE_IDLE:
+		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
+			/** If operation flags include HMAC INIT, perform HMAC init operation. */
+			Status = XHmac_Init(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
+					XAsufw_HmacModule.ShaPtr, HmacParamsPtr->KeyAddr,
+					HmacParamsPtr->KeyLen, HmacParamsPtr->ShaMode,
+					HmacParamsPtr->HmacLen);
+			if (Status != XST_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_HMAC_INITIALIZATION_FAILED);
+				goto END;
 			}
 		}
-		XAsufw_IdleResource(XASUFW_HMAC);
-	}
-END:
-	XAsufw_HmacModule.AsuDmaPtr = NULL;
+		/* fall through */
+	case XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS:
+		HmacCmdStage = XHMAC_CMD_STAGE_IDLE;
+		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
+			/**
+			 * If operation flags include HMAC UPDATE, perform HMAC update operation.
+			 */
+			Status = XHmac_Update(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
+					HmacParamsPtr->MsgBufferAddr, HmacParamsPtr->MsgLen,
+					(u32)HmacParamsPtr->IsLast);
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				HmacCmdStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
+				XAsufw_DmaCfgNonBlocking(XAsufw_HmacModule.AsuDmaPtr,
+							 XASUDMA_SRC_CHANNEL, ReqBuf, ReqId,
+							 XASUFW_BLOCK_DMA);
+				break;
+			} else if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+								  XASUFW_HMAC_UPDATE_FAILED);
+				goto END;
+			} else {
+				/* Do nothing */
+			}
+		}
 
-	if (Status != XASUFW_SUCCESS) {
-		/** Release resources upon any failure or after HMAC operation is complete. */
-		if (XAsufw_ReleaseResource(XASUFW_HMAC, ReqId) != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) {
+			/** If operation flags include HMAC FINAL, perform HMAC final operation. */
+			Status = XHmac_Final(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
+					     ResponseBufferPtr);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_FINAL_FAILED);
+				goto END;
+			}
+		} else {
+			if (XAsufw_HmacModule.AsuDmaPtr != NULL) {
+				/**
+				 * If HMAC_FINAL is not set in operation flags, release DMA resource
+				 * and idle resources allocated for HMAC operation.
+				 */
+				Status = XAsufw_ReleaseDmaResource(XAsufw_HmacModule.AsuDmaPtr,
+								   ReqId);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XAsufw_UpdateErrorStatus(Status,
+							XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+				}
+			}
+			XAsufw_IdleResource(XASUFW_HMAC);
+		}
+		break;
+	default:
+		Status = XASUFW_INVALID_CMD_STAGE;
+		break;
+	}
+
+END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		XAsufw_HmacModule.AsuDmaPtr = NULL;
+		if ((Status != XASUFW_SUCCESS) ||
+		    ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL)) {
+			/**
+			 * Release resources upon any failure or after HMAC operation is complete.
+			 */
+			if (XAsufw_ReleaseResource(XASUFW_HMAC, ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
 		}
 	}
-DONE:
+
 	return Status;
 }
 
