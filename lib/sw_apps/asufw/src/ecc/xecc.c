@@ -76,10 +76,10 @@ typedef struct {
 * This structure contains configuration information for a ECC core.
 * Each core should have an associated configuration structure.
 */
-struct _XEcc_Config {
+typedef struct {
 	u32 DeviceId; /**< DeviceId is the unique ID of the device */
 	u32 BaseAddress; /**< BaseAddress is the physical base address of the device's registers */
-};
+} XEcc_Config;
 
 /**
 * ECC driver instance data structure. A pointer to an instance data

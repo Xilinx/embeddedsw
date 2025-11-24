@@ -43,8 +43,6 @@ extern "C" {
 #define XECC_CURVE_TYPE_NIST_P384	(0x1U) /**<  Curve type value for P-384 curve */
 
 /************************************** Type Definitions *****************************************/
-typedef struct _XEcc_Config
-	XEcc_Config; /**< This typedef is to create alias name for _XEcc_Config. */
 typedef struct _XEcc XEcc; /**< This typedef is to create alias name for _XEcc. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
