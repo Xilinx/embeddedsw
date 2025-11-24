@@ -85,8 +85,6 @@ typedef struct {
 					/**< Checks if resource is available or not */
 #define XASUFW_SHIFT_AND_GET_NEXT_RESOURCE_MASK(mask)	((mask) >> (1U))
 					/**< Shift the mask to get mask for next resource */
-#define XASUFW_GET_RESOURCE_MASK(idx)			((u32)1U << (u32)(idx))
-					/**< Provides resource mask from the resource index */
 #define XASUFW_RESOURCE_INDEX_ZERO			(0U)
 					/**< Index for the first resource */
 
@@ -274,15 +272,18 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 	XAsufw_ResourcesRequired ReqResources = Resources;
 	XAsufw_Resource Resource = XASUFW_INVALID;
 	XAsufw_ResourcesRequired TempResource;
-	u32 Loop;
 
 	if (Resources == 0U) {
 		Status = XASUFW_SUCCESS;
 		goto END;
 	}
 
-	for (Loop = 0U; ((Loop < (u32)XASUFW_INVALID) && (ReqResources != 0U)); ++Loop) {
-		TempResource = ReqResources & (u16)XASUFW_GET_RESOURCE_MASK(Loop);
+	while (ReqResources != 0U) {
+		/**
+		 * Compute the least significant set bit in ReqResources and store it in
+		 * TempResource which is used to isolate the lowest resource requested.
+		 */
+		TempResource = ~(~ReqResources | (ReqResources - 1U));
 		switch (TempResource) {
 			case XASUFW_DMA_RESOURCE_MASK:
 				if (XAsufw_IsResourceAvailable(XASUFW_DMA0, ReqId) == XASUFW_SUCCESS) {
