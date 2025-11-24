@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,6 @@
 /**
  *
  * @file xecc_hw.h
- * @{
  *
  * This header file contains ECC core hardware register offsets of ASU.
  *
@@ -58,6 +57,7 @@ extern "C" {
 #define XECC_CTRL_PUB_KEY_VALIDATION_OP_CODE	(0x00000001U)
 #define XECC_CTRL_PUB_KEY_GENERATION_OP_CODE	(0x00000002U)
 #define XECC_CTRL_SIGN_GENERATION_OP_CODE	(0x00000003U)
+/** @} */
 
 /**
  * @name  Status register
@@ -68,6 +68,7 @@ extern "C" {
 #define XECC_STATUS_TERMINATION_CODE_MASK	(0x0000000FU)
 #define XECC_STATUS_SCP_ENABLED_MASK		(0x00000020U)
 #define XECC_STATUS_BUSY_MASK			(0x00000080U)
+/** @} */
 
 /**
  * @name  Reset register
@@ -76,6 +77,7 @@ extern "C" {
 /**< Reset register offset and definitions */
 #define XECC_RESET_OFFSET			(0x00000040U) /**< Reset register offset */
 #define XECC_RESET_MASK				(0x00000001U)
+/** @} */
 
 /**
  * @name  ISR register
@@ -84,6 +86,7 @@ extern "C" {
 /**< Interrupt Status register offset */
 #define XECC_ISR_OFFSET				(0x00000048U)
 #define XECC_ISR_DONE_MASK			(0x00000001U)
+/** @} */
 
 /**
  * @name  IER register
@@ -92,6 +95,7 @@ extern "C" {
 /**< Interrupt Enable register offset */
 #define XECC_IER_OFFSET				(0x00000050U)
 #define XECC_IER_DONE_MASK			(0x00000001U)
+/** @} */
 
 /**
  * @name  IDR register
@@ -100,6 +104,7 @@ extern "C" {
 /**< Interrupt Disable register offset */
 #define XECC_IDR_OFFSET				(0x00000054U)
 #define XECC_IDR_DONE_MASK			(0x00000001U)
+/** @} */
 
 /**
  * @name  CFG register
@@ -122,6 +127,7 @@ extern "C" {
 #define XECC_MEM_PUB_KEY_Y_OFFSET		(0x000002C0U)
 
 #define XECC_MEM_SCP_RAND_1_OFFSET		(0x00000290U)
+/** @} */
 
 #ifdef __cplusplus
 }

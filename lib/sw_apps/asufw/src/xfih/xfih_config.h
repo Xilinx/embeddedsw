@@ -21,8 +21,6 @@
 * 1.2   mmd  09/04/23 Updated comments and added callback macro for lockdown
 * </pre>
 *
-* @note
-*
 *******************************************************************************/
 
 #ifndef XFIH_CONFIG_H_
@@ -36,7 +34,7 @@
  *        stores the value in original form and transformed form. And these
  *        two values stored later used for fault injection hardened comparison.
  *
- * @ref XFih_Var
+ * XFih_Var
  *
  */
 #define XFIH_ENABLE_SECURE_CHECK    TRUE
@@ -44,9 +42,9 @@
 /**
  * @brief When XFIH_ENABLE_VAR_GLITCH_DETECTION set to TRUE, the validation of
  *        fault injection hardened variables used in comparison will be done
- *        before they are used for comparison. ( @ref XFih_Validate)
+ *        before they are used for comparison. ( XFih_Validate)
  *
- * @note Make sure to enable @ref XFIH_ENABLE_SECURE_CHECK also to use this
+ * @note Make sure to enable XFIH_ENABLE_SECURE_CHECK also to use this
  *       feature
  */
 #define XFIH_ENABLE_VAR_GLITCH_DETECTION    FALSE
@@ -61,7 +59,7 @@
  * @brief This macro provides callback provision before going to secure lockdown.
  *        User can add function call or code to be executed just before lockdown.
  *
- * @ref XFIH_CALL_ON_ERROR_LOCKDOWN
+ * XFIH_CALL_ON_ERROR_LOCKDOWN
  */
 #define XFIH_CALLBACK_BEFORE_LOCKDOWN(Error)	MyErrorHandler(Error)
 

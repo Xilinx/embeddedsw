@@ -70,8 +70,7 @@
 								leading zero length */
 #define XRSA_DB_DELIMITER_LEN					(0x01U) /**< RSA data block
 								delimiter length */
-
-/** @} */
+/** @cond xrsa_padding_internal */
 /************************************** Type Definitions *****************************************/
 /** Structure has input and output parameters used for MGF */
 typedef struct {
@@ -80,6 +79,7 @@ typedef struct {
 	u32 SeedLen;   /**< Seed length */
 	u32 OutputLen; /**< Output buffer length */
 } XAsufw_MgfInput;
+/** @endcond */
 
 /** This enum contains OAEP operations (encode/decode). */
 enum {
@@ -87,10 +87,6 @@ enum {
 	XRSA_OAEP_OP_DECODE,		/**< For decode operation */
 };
 
-/**
-* @addtogroup xrsa_padding_apis RSA Padding Server APIs
-* @{
-*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -104,8 +100,8 @@ static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA OAEP padding for the provided message to output a data
- * 		of length equal to key size.
+ * @brief	This function performs RSA OAEP encoding for the provided message to output a padded
+ * 		data of length equal to key size using RSA OAEP algorithm for padding.
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the SHA instance.
@@ -452,8 +448,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA PSS padding for the provided message to output a data
- * 		of length equal to key size.
+ * @brief	This function performs sign generation for the provided message to output a signature
+ *		of length equal to key size using RSA PSS algorithm for padding
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the Sha instance.

@@ -267,7 +267,7 @@ typedef struct {
 #define X509_ASN1_THRESHOLD_YEARS			(50U)	/**< Threshold year to decide valid
 								year */
 #define X509_ASN1_TIME_SEGMENT_LEN			(2U)	/**< Number of bytes for each ASN.1
-								time field (e.g month, day, hour) */
+								time field (e.g. month, day, hour) */
 #define X509_ASN1_ZERO_TIME_OFFSET_LEN			(1U)	/**< Length of zero time offset */
 #define X509_ASN1_ZERO_TIME_OFFSET_VAL			(0x5A)	/**< Value of zero time offset */
 #define X509_ASN1_MAX_UNUSED_BITS			(7U)	/**< Maximum unused bits */

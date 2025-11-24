@@ -75,7 +75,7 @@ typedef enum {
 	XSHA_UPDATE_COMPLETED, /**< SHA update is in completed state after the final data chunk */
 } XSha_State;
 
-/** @} */
+/** @cond xsha_internal */
 /**
 * This structure contains configuration information for a SHA2/SHA3 core.
 * Each core should have an associated configuration structure.
@@ -102,10 +102,7 @@ struct _XSha {
 	u64 ShaLen; /**< SHA length */
 };
 
-/**
-* @addtogroup xsha_server_apis SHA Server APIs
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -422,6 +419,7 @@ END:
  * @brief	This function reads the final digest.
  *
  * @param	InstancePtr	Pointer to the SHA instance.
+ * @param	DmaPtr		Pointer to the DMA instance.
  * @param	HashAddr	Address of the buffer to store the generated hash.
  * @param	HashBufSize	Size of the hash buffer in bytes.
  * @param	NextXofOutput	Next XOF output enable/disable flag. Valid only for SHAKE256.
@@ -860,6 +858,7 @@ void XSha_Reset(XSha *InstancePtr)
 /**
  * @brief	This function generates NIST padding for SHA2 and SHA3 modes.
  *
+ * @param	InstancePtr	Pointer to the XSha instance.
  * @param	Buf    Pointer to location where padding is to be applied.
  * @param	PadLen Length of padding in bytes.
  *

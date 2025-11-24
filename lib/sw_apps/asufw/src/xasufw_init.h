@@ -44,7 +44,7 @@ extern "C" {
 #define XASUFW_PUF_KEK_GEN_SUCCESS	(0x0U) /**< PUF KEK generation success status */
 #define XASUFW_PUF_KEK_GEN_FAILURE	(0x1U) /**< PUF KEK generation failure status */
 
-/** @} */
+/** @cond xasufw_init_internal */
 /************************************** Type Definitions *****************************************/
 /** This structure contains the parameters required for performance measurement. */
 typedef struct {
@@ -52,10 +52,7 @@ typedef struct {
 	u64 TPerfUsFrac; /**< Fractional part of time in microseconds. */
 } XAsufw_PerfTime;
 
-/**
-* @addtogroup xasufw_application ASUFW Server Functionality
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /** Device ID for ASU MB IO module */
 #ifndef SDT

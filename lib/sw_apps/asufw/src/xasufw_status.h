@@ -76,7 +76,7 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 /**
- * @brief ASU error status values, maximum allowed value is 0x3FF.
+ * ASU error status values, maximum allowed value is 0x3FF.
  */
 enum {
 	XASUFW_SUCCESS, /**< 0x00U - ASUFW success */
@@ -499,7 +499,7 @@ enum {
 							field generation is failed */
 	XASUFW_X509_CREATE_INTEGER_FIELD_FROM_ARRAY_FAIL, /**< 0x152U - Error when create integer
 								field from array is failed */
-	XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, /**<* 0x153U - Error when integer field creation
+	XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, /**< 0x153U - Error when integer field creation
 						failed */
 	XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, /**< 0x154U - Error when raw data field
 								creation is failed */

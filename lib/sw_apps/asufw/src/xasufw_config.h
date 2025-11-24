@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -63,14 +63,15 @@ extern "C" {
 									performance measurement. */
 
 /** SDK release version */
-#define SDK_RELEASE_YEAR		2025	/**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER		2	/**< Specifies the SDK release quarter */
+#define SDK_RELEASE_YEAR		2026	/**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER		1	/**< Specifies the SDK release quarter */
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /**
  * @name ASUFW Debug options
+ * @{
  *
  *  ASUFW supports an unconditional print
  *     - ASUFW_PRINT - This print level is used to print ASUFW banner and any mandatory prints
@@ -83,6 +84,7 @@ extern "C" {
 #define ASUFW_DEBUG /**< ASUFW general debug information prints */
 //#define ASUFW_DEBUG_INFO /**< ASUFW more debug information prints */
 //#define ASUFW_DEBUG_DETAILED /**< ASUFW detailed debug information prints */
+/** @} */
 
 /**
  * Run TRNG in PTRNG mode. This is used only for certification of TRNG module.
@@ -99,4 +101,5 @@ extern "C" {
 #endif
 
 #endif /* XASUFW_CONFIG_H_ */
+
 /** @} */

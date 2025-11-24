@@ -27,7 +27,8 @@
  *       ma   02/11/25 Added redundancy, validations and clearing of local buffer in
  *                     XAsufw_TrngGetRandomNumbers
  *       rmv  08/01/25 Added function call to set TRNG to default mode
- *       rmv  09/12/25 Moved all DRBG related functions and commands under #ifdef
+ *       rmv  09/12/25 Moved all DRBG related functions and commands under
+ * 					   XASU_TRNG_ENABLE_DRBG_MODE macro
  *       rmv  09/22/25 Updated timeout value from 100ms to 40ms
  *
  * </pre>

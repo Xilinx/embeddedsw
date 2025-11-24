@@ -33,7 +33,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #ifndef XASUFW_RESOURCEMANAGER_H_
@@ -70,7 +70,7 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 /**
- * @brief Enumeration of ASUFW resources managed by the resource manager.
+ * Enumeration of ASUFW resources managed by the resource manager.
  */
 typedef enum {
 	XASUFW_DMA0,	/**< 0: DMA 0 */

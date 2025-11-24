@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -40,7 +40,7 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 /**
- * @brief Sources to be selected to configure Secure Stream Switch.
+ * Sources to be selected to configure Secure Stream Switch.
  */
 typedef enum {
 	XASUFW_SSS_DMA0 = 0U,	/**< DMA0 */

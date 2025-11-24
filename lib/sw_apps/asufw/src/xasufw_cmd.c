@@ -47,7 +47,6 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-static void XAsufw_CheckAndRestoreAesContext(void);
 
 /*************************************************************************************************/
 /**
@@ -78,6 +77,7 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
 
 /************************************ Function Prototypes ****************************************/
 static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex);
+static void XAsufw_CheckAndRestoreAesContext(void);
 
 /************************************ Variable Definitions ***************************************/
 s32 ReturnStatus = XASUFW_FAILURE; /**< Redundant variable holds non-zero success value helps to
@@ -179,8 +179,8 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
  * @param	ChannelIndex	IPI channel index.
  *
  * @return
- *	- XASU_CMD_SECURE, if command request type is secure.
- *	- XASU_CMD_NON_SECURE, if command request type is non-secure.
+ *  - XASU_CMD_SECURE, if command request type is secure.
+ *  - XASU_CMD_NON_SECURE, if command request type is non-secure.
  *
  *************************************************************************************************/
 static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex)
@@ -220,13 +220,18 @@ END:
  * @brief	This function checks if the received command is valid and has required access
  * 		permissions or not and returns status accordingly.
  *
- * @param	ReqBuf	Pointer to the request buffer.
+ * @param ReqBuf Pointer to the request buffer.
+ * @param ChannelIndex Index of the IPI channel.
  *
  * @return
- *	- XASUFW_SUCCESS, if the command validation is successful.
- *	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
- *	- XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, when invalid command ID is received.
- *	- XASUFW_FAILURE, if there is any failure.
+ *  - XASUFW_SUCCESS, if the command validation is successful.
+ *  - XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, when invalid channel index is received.
+ *  - XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
+ *  - XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, when invalid command ID is received.
+ *  - XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, if the requested command has no IPI access.
+ *  - XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, if Non-Secure access is not allowed.
+ *  - XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS, if Secure access is not allowed.
+ *  - XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
@@ -290,7 +295,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 			goto END;
 		}
 		/**
-		 * - If the request type is Non-Secure and the requested API requires Secure access,
+		 * - If the request type is Secure and the requested API requires Non-Secure access,
 		 * return an error.
 		 */
 		if ((ReqType == XASU_CMD_SECURE) && (AccessPerm == XASUFW_NON_SECURE_IPI_ACCESS)) {

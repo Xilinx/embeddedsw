@@ -26,7 +26,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 /*************************************** Include Files *******************************************/
@@ -468,6 +468,10 @@ END:
  * @param	Resource	Resource for which input and output paths to be configured.
  * @param	InputSrc	Input source for the SSS configuration.
  * @param	OutputSrc	Output source for the SSS configuration.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if SSS masking is successful.
+ * 	- XASUFW_FAILURE, if SSS masking fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,

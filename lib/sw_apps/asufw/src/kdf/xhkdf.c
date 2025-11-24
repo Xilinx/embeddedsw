@@ -201,7 +201,7 @@ END:
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	ShaInstancePtr	Pointer to the XSha instance.
- * @param	KdfParams	Pointer to the HKDF structure containing user input parameters.
+ * @param	HkdfParams	Pointer to the HKDF structure containing user input parameters.
  * @param	Prk		Pointer to the pseudorandom key generated from extract.
  *
  * @return

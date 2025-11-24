@@ -158,6 +158,8 @@ int main(void)
 	/**
 	 * Clear FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register if code reaches here which
 	 * it is not supposed to reach.
+	 */
+	/*
 	 * TODO: Need to add code for clearing security critical data if any.
 	 */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK, 0x0U);

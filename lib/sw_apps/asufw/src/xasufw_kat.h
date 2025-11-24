@@ -64,6 +64,8 @@ extern "C" {
 
 /**
  * @brief	Gets pointer to module information array.
+ *
+ * @return	Pointer to the XAsu_CryptoAlgInfo array containing module information.
  */
 static inline XAsu_CryptoAlgInfo *GetModuleInfoPtr(void)
 {
@@ -72,6 +74,10 @@ static inline XAsu_CryptoAlgInfo *GetModuleInfoPtr(void)
 
 /**
  * @brief	Returns pointer to the KatStatus for the specified module.
+ *
+ * @param	ModuleId	The module ID for which to get the KAT status pointer.
+ *
+ * @return	Pointer to the KAT status byte for the specified module.
  */
 static inline u8 *XAsu_GetKatStatusPtr(u32 ModuleId)
 {

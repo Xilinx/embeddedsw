@@ -51,7 +51,7 @@ extern "C" {
 
 #define XASUFW_INVALID_SUBSYS_ID		(0xFFFFFFFFU) /**< Invalid subsystem ID */
 
-/** @} */
+/** @cond xasufw_queuescheduler_internal */
 /************************************** Type Definitions *****************************************/
 /** This structure is for shared memory of all channels. */
 typedef struct {
@@ -71,10 +71,7 @@ typedef struct {
 	XAsufw_QueueTasks Channel[XASU_MAX_IPI_CHANNELS]; /**< Queue task info of all channels */
 } XAsufw_ChannelTasks;
 
-/**
-* @addtogroup xasufw_application ASUFW Server Functionality
-* @{
-*/
+/** @endcond */
 /** This define calculates the structure member address from Item and structure Type */
 #define XAsufw_GetRespBuf(Item, Type, Member)    \
 	((Type *)(((char *)(Item) - offsetof(Type, Item)) + offsetof(Type, Member)))

@@ -48,7 +48,7 @@ extern "C" {
 	data size more than this size, DMA transfer will happen in non-blocking mode */
 
 /************************************** Type Definitions *****************************************/
-/** @brief
+/**
  * The enum XAsufw_DmaState defines if the DMA needs to be released or not when non-blocking DMA
  * done interrupt is received
  */
@@ -57,7 +57,7 @@ typedef enum {
 	XASUFW_RELEASE_DMA, /**< Release DMA */
 	XASUFW_BLOCK_DMA, /**< Block DMA */
 } XAsufw_DmaState;
-/** @} */
+/** @cond xasufw_dma_internal */
 
 /** The structure XAsufw_Dma is DMA instance data structure. */
 typedef struct {
@@ -69,10 +69,7 @@ typedef struct {
 	XAsufw_DmaState DmaState; /**< DMA state to block or release after non-blocking wait */
 } XAsufw_Dma;
 
-/**
-* @addtogroup xasufw_application ASUFW Server Functionality
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

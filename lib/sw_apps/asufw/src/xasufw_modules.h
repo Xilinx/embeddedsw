@@ -75,7 +75,7 @@ typedef s32 (*XAsufw_ResourceHandler_t)(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 typedef u16 XAsufw_ResourcesRequired;
 
-/** @} */
+/** @cond xasufw_modules_internal */
 /** This structure contains a function pointer to command handler. */
 typedef struct {
 	s32 (*CmdHandler)(const XAsu_ReqBuf *ReqBuf, u32 ReqId); /**< Command handler */
@@ -96,10 +96,7 @@ typedef struct {
 	XAsufw_AccessPerm_t *AccessPermBufferPtr;	 /**< Pointer to the access permissions buffer */
 } XAsufw_Module;
 
-/**
-* @addtogroup xasufw_application ASUFW Server Functionality
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

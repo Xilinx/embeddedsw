@@ -84,14 +84,6 @@ END:
 /**
  * @brief	This function triggers task to handle event from PLM.
  *
- * @return
- *	- XASUFW_SUCCESS, if resource is allocated successfully.
- *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_READ_IPI_MSG_FROM_PLM_FAIL, if IPI message read is failed.
- *	- XASUFW_PLM_INVALID_CMD_HEADER, if header is not valid in IPI notification command.
- *	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, if module with given ID is not registered.
- *	- XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, if command ID is not valid.
- *
  *************************************************************************************************/
 void XAsufw_HandlePlmEvent(void)
 {

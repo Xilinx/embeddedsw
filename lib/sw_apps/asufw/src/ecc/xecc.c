@@ -63,7 +63,8 @@
 								generate public key operation. */
 #define XECC_RAND_NUM_COUNT_GEN_SIGN		(4U) /**< Number of random values required for
 								generate SIGN operation. */
-/** @} */
+
+/** @cond xecc_internal */
 /************************************** Type Definitions *****************************************/
 
 /** This structure contains curve related information. */
@@ -92,11 +93,8 @@ struct _XEcc {
 	u32 IsReady; /**< ECC component ready state */
 	XEcc_CurveInfo *CurveInfo; /**< ECC curve information */
 };
+/** @endcond */
 
-/**
-* @addtogroup xecc_server_apis ECC Server APIs
-* @{
-*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

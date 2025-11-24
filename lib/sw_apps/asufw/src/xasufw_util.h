@@ -191,8 +191,10 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
 u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len);
 
 /************************************ Variable Definitions ***************************************/
-extern s32 ReturnStatus;  /**< Redundant variable holds non-zero success value helps to	detect any
+/** @cond xasufw_util_internal */
+extern s32 ReturnStatus;  /**< Redundant variable holds non-zero success value helps to detect any
 		glitch attacks */
+/** @endcond */
 
 #ifdef __cplusplus
 }

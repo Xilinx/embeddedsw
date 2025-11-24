@@ -54,8 +54,7 @@
 
 /********************************** Variable Definitions *****************************************/
 static u8 XOcp_DmeKek[XOCP_DME_KEK_SIZE_IN_BYTES] = {0U};	/**< DME KEK */
-static u8 DmeKekFlag = XASU_FALSE;
-
+static u8 DmeKekFlag = XASU_FALSE;	/**< DME KEK presence flag */
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
 static void XOcp_IncrementIv(u8* Iv, u8 IncVal);
@@ -169,6 +168,8 @@ s32 XOcp_EncryptDmeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeKeyEncrypt *OcpDmeK
 
 	/**
 	 * Based on DME key ID, update the KEK IV with the offset to the local buffer.
+	 */
+	/*
 	 * | DME key ID | Offset  |
 	 * |     0      |    2    |
 	 * |     1      |    3    |
@@ -208,8 +209,7 @@ END:
  * @brief	This function generates the DME response
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	ShaInstancePtr	Pointer to the XSha instance.
- * @param	OcpDmeParam	Pointer to XAsu_OcpDme structure.
+ * @param	OcpDmeParamsPtr	Pointer to XAsu_OcpDmeParams structure.
  *
  * @return
  *	- XASUFW_SUCCESS, if subsystem hash address is retrieved successfully.

@@ -93,7 +93,7 @@ void outbyte(char Data)
 
 /*************************************************************************************************/
 /**
- * @brief	This function initializes the the DebugLog structure.
+ * @brief	This function initializes the DebugLog structure.
  *
  *************************************************************************************************/
 void XAsufw_InitDebugLogBuffer(void)

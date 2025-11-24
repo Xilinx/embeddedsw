@@ -51,7 +51,7 @@
 
 /************************************** Type Definitions *****************************************/
 /**
- * @brief Enumeration of resources state
+ * Enumeration of resources state
  */
 typedef enum {
 	XASUFW_RESOURCE_IS_FREE,	/**< Resource is not blocked */
@@ -60,7 +60,7 @@ typedef enum {
 	XASUFW_RESOURCE_IS_DISABLED	/**< Resource is disabled due to KAT failure */
 } XAsufw_ResourceState;
 
-/** @} */
+/** @cond xasufw_resourcemanager_internal */
 
 /**
  * Resource manager structure which contains each resource state, allocated resources and
@@ -72,10 +72,7 @@ typedef struct {
 	u32 OwnerId;				/**< ID of the request which has blocked the resource */
 } XAsufw_ResourceManager;
 
-/**
-* @addtogroup xasufw_application ASUFW Server Functionality
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASUFW_MARK_RESOURCE_ALLOCATED(mask, idx)	((mask) |= ((u32)1U << (u32)(idx)))
 					/**< Marks the resource with given index as allocated */

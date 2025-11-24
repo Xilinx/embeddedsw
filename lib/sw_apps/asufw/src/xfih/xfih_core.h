@@ -37,7 +37,7 @@
 /**
  * @brief FIH value for Success
  *
- * @note at a hamming distance of 18 from @ref XFIH_FAILURE_VAL
+ * @note at a hamming distance of 18 from XFIH_FAILURE_VAL
  */
 #define XFIH_SUCCESS_VAL		0x0U /**< TODO: Updated success value
 					to 0 from 0x46E56A7CU. Need to check */
@@ -45,7 +45,7 @@
 /**
  * @brief FIH value for Failure
  *
- * @note at a hamming distance of 18 from @ref XFIH_SUCCESS_VAL
+ * @note at a hamming distance of 18 from XFIH_SUCCESS_VAL
  */
 #define XFIH_FAILURE_VAL		0x973AFB51U
 
@@ -55,7 +55,7 @@
 
 /**
  * @brief FIH variable declared as u32 type when fault injection protection
- *        is disabled (@ref XFIH_ENABLE_SECURE_CHECK)
+ *        is disabled (XFIH_ENABLE_SECURE_CHECK)
  */
 typedef u32 XFih_Var;
 
@@ -64,7 +64,7 @@ typedef u32 XFih_Var;
  *        comparison passes.
  *
  * @note Used to disable FIH variable comparison for fall-in when secure check
- *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *       is disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_IF_FAILIN(a, condition, b) \
 	if (a condition b)
@@ -74,7 +74,7 @@ typedef u32 XFih_Var;
  *        comparison passes.
  *
  * @note Used to disable FIH variable comparison for fall-out when secure check
- *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *       is disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_IF_FAILOUT(a, condition, b) \
 	if (a condition b)
@@ -84,7 +84,7 @@ typedef u32 XFih_Var;
  *        comparison passes.
  *
  * @note Used to disable FIH variable comparison for fall-in when secure check
- *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *       is disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_IF_FAILIN_WITH_VALUE(a, condition, b) \
 	if (a condition b)
@@ -94,27 +94,27 @@ typedef u32 XFih_Var;
  *        comparison passes.
  *
  * @note Used to disable FIH variable comparison for fall-out when secure check
- *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *       is disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_IF_FAILOUT_WITH_VALUE(a, condition, b) \
 	if (a condition b)
 
 /**
  * @brief Dummy macro for disabling lockdown on detection of instruction glitch
- *        when secure check is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *        when secure check is disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_TRIGGER_LOCKDOWN	do{ }while(0)
 
 /**
  * @brief Macro to disable the FIH goto statement when secure check is disabled
- *        (@ref XFIH_ENABLE_SECURE_CHECK).
+ *        (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_GOTO(Label) \
 	goto Label
 
 /**
  * @brief Macro to perform volatile assignment of variable when secure check
- *        is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *        is disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_CORE_VOLATILE_ASSIGN_XFIH_VAR(FihVar, FihVal) \
 	do { \
@@ -131,7 +131,7 @@ typedef u32 XFih_Var;
 
 /**
  * @brief Macro to read the value from non FIH variable when secure check is
- *        disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ *        disabled (XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_CORE_GET_VAL(FihVar, Val) \
 	do { \
@@ -142,13 +142,13 @@ typedef u32 XFih_Var;
 
 /**
  * @brief Mask used for generating transformed redundant value for FIH variable
- *        (@ref XFih_Var)
+ *        (XFih_Var)
  */
 #define XFIH_MASK			0xB0551DEAU
 
 /**
  * @brief FIH variable that stores original value and its transformed value.
- *        Masking is used for transformation. Mask is defined by (@ref XFIH_MASK)
+ *        Masking is used for transformation. Mask is defined by (XFIH_MASK)
  */
 typedef struct _XFih_Var {
 	u32 Val;
@@ -161,7 +161,7 @@ typedef struct _XFih_Var {
  *        1. Comparison of FIH non-transformed variables
  *        2. Comparison of FIH transformed variables
  *
- * @note Validation of FIH variables depends on @ref XFIH_ENABLE_VAR_GLITCH_DETECTION
+ * @note Validation of FIH variables depends on XFIH_ENABLE_VAR_GLITCH_DETECTION
  */
 #define XFIH_IF_FAILIN(a, condition, b) \
 	XFIH_VALIDATE_VARIABLE(a); \
@@ -176,7 +176,7 @@ typedef struct _XFih_Var {
  *
  * @note
  * 		- Validation of input FIH variables depends on
- *        @ref XFIH_ENABLE_VAR_GLITCH_DETECTION
+ *        XFIH_ENABLE_VAR_GLITCH_DETECTION
  */
 #define XFIH_IF_FAILOUT(a, condition, b) \
 	XFIH_VALIDATE_VARIABLE(a); \
@@ -189,7 +189,7 @@ typedef struct _XFih_Var {
  *        1. Comparison of FIH non-transformed variable with given value
  *        2. Comparison of FIH transformed variable with given value
  *
- * @note Validation of FIH variables depends on @ref XFIH_ENABLE_VAR_GLITCH_DETECTION
+ * @note Validation of FIH variables depends on XFIH_ENABLE_VAR_GLITCH_DETECTION
  */
 #define XFIH_IF_FAILIN_WITH_VALUE(a, condition, b) \
 	XFIH_VALIDATE_VARIABLE(a); \
@@ -203,7 +203,7 @@ typedef struct _XFih_Var {
  *
  * @note
  * 		- Validation of input FIH variables depends on
- *        @ref XFIH_ENABLE_VAR_GLITCH_DETECTION
+ *        XFIH_ENABLE_VAR_GLITCH_DETECTION
  */
 #define XFIH_IF_FAILOUT_WITH_VALUE(a, condition, b) \
 	XFIH_VALIDATE_VARIABLE(a); \
@@ -275,8 +275,7 @@ typedef struct _XFih_Var {
  *
  * @brief Validates integrity of FIH variable
  *
- * @param[in] FihVar - Temporal redundant variable to be validated
- *                     (@ref XFih_Var)
+ * @param FihVar Temporal redundant variable to be validated (XFih_Var)
  *
  * @return	None
  ******************************************************************************/
@@ -284,7 +283,7 @@ void XFih_Validate(XFih_Var FihVar);
 
 /**
  * @brief Macro that provides flexibility to enable or disable FIH variable
- *        validation based on @ref XFIH_ENABLE_SECURE_CHECK
+ *        validation based on XFIH_ENABLE_SECURE_CHECK
  */
 #define XFIH_VALIDATE_VARIABLE(FihVar)	XFih_Validate(FihVar)
 
@@ -334,8 +333,8 @@ void XFih_Validate(XFih_Var FihVar);
  *
  * @brief Function to increment the CFI counter
  *
- * @param[in] CfiCounter - Pointer to CFI counter
- * @param[in] Steps - Value to be added to CFI counter
+ * @param CfiCounter Pointer to CFI counter
+ * @param Steps Value to be added to CFI counter
  *
  * @return	None
  ******************************************************************************/
@@ -349,10 +348,10 @@ void XFih_CfiStepUp(u32 *CfiCounter, u32 Steps)
 /**
  *
  * @brief Function to check control flow integrity variable. If integrity check
- *        fails, this function triggers lockdown using @ref XFIH_TRIGGER_LOCKDOWN
+ *        fails, this function triggers lockdown using XFIH_TRIGGER_LOCKDOWN
  *
- * @param[in] XFihCfiCounter - CFI counter
- * @param[in] ExpectedCounterValue - Value for comparison
+ * @param XFihCfiCounter - CFI counter
+ * @param ExpectedCounterValue - Value for comparison
  *
  * @return	None
  ******************************************************************************/
@@ -369,7 +368,7 @@ void XFih_CfiCheck(u32 XFihCfiCounter, u32 ExpectedCounterValue)
  *
  * @brief Function to reset CFI Counter
  *
- * @param[in] XFihCfiCounter - Pointer to CFI counter
+ * @param XFihCfiCounter - Pointer to CFI counter
  *
  * @return	None
  ******************************************************************************/

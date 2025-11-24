@@ -51,7 +51,7 @@ extern "C" {
 /** Type definition for task handler */
 typedef s32 (*XTask_Handler_t)(void *Arg);
 
-/** @} */
+/** @cond xtask_internal */
 /** This structure contains task metadata. */
 typedef struct {
 	u32 Priority; /**< Priority of the task */
@@ -71,10 +71,7 @@ typedef struct {
 /* Current time in ms */
 extern u32 TaskTimeNow;
 
-/**
-* @addtogroup xtask_apis Task Related Server APIs
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

@@ -66,7 +66,7 @@ typedef struct _XAes_Config XAes_Config; /**< This typedef is to create alias na
 typedef struct _XAes XAes; /**< This typedef is to create alias name for _XAes */
 
 /**
- * @brief AES context structure for saving and restoring AES state.
+ * AES context structure for saving and restoring AES state.
  *
  * This structure preserves the complete state of an AES operation, including
  * configuration, IV, key information, and operational state. It enables

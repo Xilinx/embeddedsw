@@ -85,6 +85,8 @@
  *
  * @param	MODULE	Module short name (e.g., AES, SHA2, ECC) used to construct module-specific
  * 			constants.
+ * @param	XASUFW_NIST_FLAG	NIST compliance status flag (XASUFW_NIST_COMPLIANT or
+ * 				XASUFW_NIST_NON_COMPLIANT).
  *
  * This macro sets:
  *  - 'version' using XASUFW_ALG_BUILD_VERSION(MAJOR, MINOR)
@@ -109,7 +111,7 @@ static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XAsufw_Pit3TimerHandler(const void *Data);
 
 /************************************ Variable Definitions ***************************************/
-static XIOModule IOModule; /* Instance of the IO Module */
+static XIOModule IOModule; /**< Instance of the IO Module */
 static u32 PufKekFlag = XASUFW_PUF_KEK_GEN_FAILURE; /**< PUF KEK generation status */
 
 /*************************************************************************************************/

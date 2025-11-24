@@ -43,7 +43,7 @@ typedef enum {
 	XHMAC_UPDATE_COMPLETED, /**< HMAC update is in completed state after the final data chunk */
 } XHmac_State;
 
-/** @} */
+/** @cond xhmac_internal */
 
 /**
 * HMAC driver instance data structure. A pointer to an instance data
@@ -60,11 +60,7 @@ struct _XHmac {
 	u8 OPadRes[XASUFW_SHAKE_SHA3_256_BLOCK_LEN]; /**< Buffer to store OPAD result */
 	XHmac_State HmacState; /**< HMAC current state */
 };
-
-/**
-* @addtogroup xhmac_server_apis HMAC Server APIs
-* @{
-*/
+/** @endcond */
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/

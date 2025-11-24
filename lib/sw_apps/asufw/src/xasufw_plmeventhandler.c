@@ -21,7 +21,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW server functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 /*************************************** Include Files *******************************************/

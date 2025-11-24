@@ -31,11 +31,17 @@
 #include "xil_printf.h"
 #include "xfih.h"
 
-/*
- * Variables for holding the success and failure value for both FIH and non FIH
- * variables.
+/**
+ * @brief Variable holding the success value. Should be used wherever
+ *        temporal redundancy is required. The variable type used for holding
+ *        success value is decided by XFIH_ENABLE_SECURE_CHECK.
  */
 XFih_Var XFIH_SUCCESS;
+/**
+ * @brief Variable holding the failure value. Should be used wherever
+ *        temporal redundancy is required. The variable type used for holding
+ *        failure value is decided by XFIH_ENABLE_SECURE_CHECK.
+ */
 XFih_Var XFIH_FAILURE;
 
 #if (XFIH_ENABLE_VAR_GLITCH_DETECTION == TRUE)
@@ -47,9 +53,7 @@ XFih_Var XFIH_FAILURE;
  * If the validation fails, it executes an illegal trap instruction to generate
  * processor exception.
  *
- * @param[in] FihVar - Variable to be validated of type @ref XFih_Var
- *
- * @return	None
+ * @param FihVar - Variable to be validated of type XFih_Var
  ******************************************************************************/
 void XFih_Validate(XFih_Var FihVar)
 {

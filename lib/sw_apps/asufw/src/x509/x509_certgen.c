@@ -49,7 +49,7 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									field */
 #define X509_VERSION_VALUE_V0					(0x00U)	/**< Value of version 0 */
 #define X509_SERIAL_VAL_LEN					(0x14U)	/**< Length of Serial
-									field */
+									number field */
 #define X509_SERIAL_FIELD_LEN					(22U)	/**< Length of Serial
 									Field */
 #define X509_AUTH_KEY_ID_VAL_LEN				(20U)	/**< Length of value of
@@ -273,7 +273,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 
 	TBSCertStart = &(CertInstance.Buf[CertInstance.Offset]);
 
-	/** Generate CSR or TBS depending on the request. */
+	/** Generate CSR or TBS(To Be Signed) depending on the request. */
 	if (Cfg->IsCsr == XASU_TRUE) {
 		Status = X509_GenCertReqInfo(Cfg, &DataLen);
 	} else {

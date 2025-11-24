@@ -242,7 +242,7 @@
  * @brief Macro to define CFI variable.
  *
  * @note Use this macro to define CFI Counter variable. This defines CFI
- *       variable only when CFI is enabled (@ref XFIH_ENABLE_CFI)
+ *       variable only when CFI is enabled (XFIH_ENABLE_CFI)
  ******************************************************************************/
 #define XFIH_CFI_DEFINE_VAR(VarName)	XFIH_CFI_CORE_DEFINE_VAR(VarName)
 
@@ -251,8 +251,8 @@
  *
  * @brief Function to increment the CFI counter
  *
- * @param[in]	Pointer to CFI counter
- * @param[in]	Value to be added to CFI counter
+ * @param XFihCfiCounter CFI counter variable
+ * @param Steps Value to be added to CFI counter
  *
  * @return	None
  ******************************************************************************/
@@ -264,10 +264,10 @@
  *
  * @brief Macro to check control flow integrity variable. If integrity check
  *        fails, this function triggers secure lock-down using
- *        @ref XFIH_TRIGGER_LOCKDOWN
+ *        XFIH_TRIGGER_LOCKDOWN
  *
- * @param[in]	Pointer to CFI counter
- * @param[in]	ExpectedCounterValue expected global counter value
+ * @param XFihCfiCounter CFI counter variable
+ * @param ExpectedCounterValue expected global counter value
  *
  * @return	None
  ******************************************************************************/
@@ -279,7 +279,7 @@
  *
  * @brief Macro to reset CFI Counter
  *
- * @param[in] CFI counter
+ * @param CfiCounter CFI counter variable
  *
  * @return	None
  ******************************************************************************/
@@ -297,38 +297,27 @@
 		XFIH_CFI_POST_CALL_CHECK(CfiCounter, ExpectedCfiIncrement); \
 	} while (0)
 
-/**
- * @brief Variable holding the success value. Should be used wherever
- *        temporal redundancy is required. The variable type used for holding
- *        success value is decided by @ref XFIH_ENABLE_SECURE_CHECK.
- */
+/** @cond xfih_internal */
 extern XFih_Var XFIH_SUCCESS;
-
-/**
- * @brief Variable holding the failure value. Should be used wherever
- *        temporal redundancy is required. The variable type used for holding
- *        faliure value is decided by @ref XFIH_ENABLE_SECURE_CHECK.
- */
 extern XFih_Var XFIH_FAILURE;
+/** @endcond */
 
 /******************************************************************************/
 /**
- *
  * @brief This function is used for non-volatile XFih variable assignment without
  *        getting optimized by the compiler. It takes s32 value as input, and
- *        assigns it to @ref XFih_Var
+ *        assigns it to XFih_Var
  *
- * @param Val input s32 value to be assigned to @ref XFih_Var
+ * @param Val input s32 value to be assigned to XFih_Var
  *
- * @return @ref XFih_Var assigned with input value
+ * @return XFih_Var assigned with input value
  *
  * @note  Usage: x is Xfih_Var type, y is s32 type
  *           x = XFih_VolatileAssignS32(y);
  *           Status = XFih_VolatileAssignS32(XST_FAILURE);
  *
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-XFih_Var XFih_VolatileAssignS32(s32 Val)
+static __attribute__((always_inline)) inline XFih_Var XFih_VolatileAssignS32(s32 Val)
 {
 	XFih_Var ReturnVal;
 
@@ -342,19 +331,18 @@ XFih_Var XFih_VolatileAssignS32(s32 Val)
  *
  * @brief This function is used for non-volatile XFih variable assignment without
  *        getting optimized by the compiler. It takes u32 value as input, and
- *        assigns it to @ref XFih_Var
+ *        assigns it to XFih_Var
  *
- * @param Val input u32 value to be assigned to @ref XFih_Var
+ * @param Val input u32 value to be assigned to XFih_Var
  *
- * @return @ref XFih_Var assigned with input value
+ * @return XFih_Var assigned with input value
  *
  * @note  Usage: x is Xfih_Var type, y is u32 type
  *           x = XFih_VolatileAssignU32(y);
  *           Status = XFih_VolatileAssignU32(XST_FAILURE);
  *
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-XFih_Var XFih_VolatileAssignU32(u32 Val)
+static __attribute__((always_inline)) inline XFih_Var XFih_VolatileAssignU32(u32 Val)
 {
 	XFih_Var ReturnVal;
 
@@ -367,19 +355,18 @@ XFih_Var XFih_VolatileAssignU32(u32 Val)
 /**
  *
  * @brief This function is used for non-volatile XFih variable assignment without
- *        getting optimized by the compiler. It takes @ref XFih_Var value as input,
- *        and returns @ref XFih_Var value for assignment
+ *        getting optimized by the compiler. It takes XFih_Var value as input,
+ *        and returns XFih_Var value for assignment
  *
- * @param FihVal Input FihVal value to be assigned to @ref XFih_Var
+ * @param FihVal Input FihVal value to be assigned to XFih_Var
  *
- * @return @ref XFih_Var assigned with input value
+ * @return XFih_Var assigned with input value
  *
  * @note  Usage: x and y both are XFih_Var type
  *           x = XFih_VolatileAssignXfihVar(y);
  *
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-XFih_Var XFih_VolatileAssignXfihVar(XFih_Var FihVal)
+static __attribute__((always_inline)) inline XFih_Var XFih_VolatileAssignXfihVar(XFih_Var FihVal)
 {
 	XFih_Var ReturnVal;
 
@@ -397,7 +384,7 @@ XFih_Var XFih_VolatileAssignXfihVar(XFih_Var FihVal)
  *        not work if you are assigning back to back same values to same
  *        variable.
  *
- * @param Val Input s32 value to be assigned to s32 varaible
+ * @param Val Input s32 value to be assigned to s32 variable
  *
  * @return s32 value for assignment
  *
@@ -405,8 +392,7 @@ XFih_Var XFih_VolatileAssignXfihVar(XFih_Var FihVal)
  *           x = XFih_VolatileAssign(y);
  *
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-s32 XFih_VolatileAssign(s32 Val)
+static __attribute__((always_inline)) inline s32 XFih_VolatileAssign(s32 Val)
 {
 	s32 ReturnVal;
 
@@ -420,13 +406,11 @@ s32 XFih_VolatileAssign(s32 Val)
  *
  * @brief Function to get value from temporal redundant variable
  *
- * @param[in]	FihVar - @ref XFih_Var variable to read from
+ * @param FihVar XFih_Var variable to read from
  *
- * @return
- * -	extracted u32 value
+ * @return Extracted s32 value
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-s32 XFih_GetVal(XFih_Var FihVar)
+static __attribute__((always_inline)) inline s32 XFih_GetVal(XFih_Var FihVar)
 {
 	s32 Val;
 
@@ -441,14 +425,14 @@ s32 XFih_GetVal(XFih_Var FihVar)
  * @brief Function initializes the fault injection hardened variables to holding
  *        success and failure values.
  *
- * @return	None
+ * @return None
  ******************************************************************************/
-static __attribute__((always_inline)) inline
-void XFih_Init (void)
+static __attribute__((always_inline)) inline void XFih_Init(void)
 {
 	XFIH_SUCCESS = XFih_VolatileAssignS32(XFIH_SUCCESS_VAL);
 	XFIH_FAILURE = XFih_VolatileAssignS32(XFIH_FAILURE_VAL);
 }
 
 #endif /* XFIH_H_ */
+
 /** @} */

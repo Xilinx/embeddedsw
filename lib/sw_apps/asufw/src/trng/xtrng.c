@@ -91,7 +91,7 @@ typedef enum {
 	XTRNG_STARTUP_TEST /**< TRNG in startup test state */
 } XTrng_ErrorState;
 
-/** @} */
+/** @cond xtrng_internal */
 
 /**
 * This typedef contains configuration information for a TRNG core.
@@ -123,10 +123,7 @@ struct _XTrng {
 	XTrng_State State; /**< TRNG core state */
 };
 
-/**
-* @addtogroup xtrng_server_apis TRNG Server APIs
-* @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

@@ -132,7 +132,7 @@
 						XAES_MAX_PLEN_AAD_ENCODING_SIZE)
 					/**< AES CCM maximum header length
 					(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
-					XAES_MAX_PLEN_AAD_ENCODING_SIZE. */
+					XAES_MAX_PLEN_AAD_ENCODING_SIZE). */
 #define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index of the NonceHeader array, used to
 					store the high byte. */
 #define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index of the NonceHeader array, used to
@@ -160,7 +160,8 @@ typedef enum {
 	XAES_DATA_UPDATE_IN_PROGRESS, /**< AES update is in progress state during data chunk updates */
 	XAES_UPDATE_COMPLETED, /**< AES update is in completed state after the final data chunk */
 } XAes_State;
-/** @} */
+
+/** @cond xaes_internal */
 /**************************** Type Definitions ***************************************************/
 /** This structure defines look up table for AES key. */
 typedef struct {
@@ -197,11 +198,8 @@ struct _XAes {
 	u8 CcmAadZeroBlockPadLen; /**< Number of zero bytes needed to pad AAD to AES block length in CCM. */
 	u8 Reserved2;		/**< Reserved for alignment */
 };
+/** @endcond */
 
-/**
-* @addtogroup xaes_server_apis AES Server APIs
-* @{
-*/
 /************************** Variable Definitions *************************************************/
 /**
  * @brief AES Key Lookup Table
