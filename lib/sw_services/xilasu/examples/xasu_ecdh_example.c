@@ -33,7 +33,7 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_CACHE_DISABLE
-#define XASU_ECC_P256_SIZE_IN_BYTES		(32U) /**< Size of NIST P-256 curve in bytes */
+#define XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES	(32U) /**< Size of NIST P-256 curve in bytes */
 
 /************************************** Type Definitions *****************************************/
 
@@ -76,10 +76,10 @@ static const u8 ExpSharedSecret[] __attribute__ ((section (".data.ExpSharedSecre
 	0xFAU, 0x01U, 0x85U, 0x11U, 0x2EU, 0x78U, 0x65U, 0x50U, 0x36U, 0xAEU, 0xEDU, 0x87U, 0xC7U,
 	0x15U, 0xA2U, 0x90U, 0x45U, 0xFDU, 0xFCU
 };
-static u8 SharedSecret[XASU_ECC_P256_SIZE_IN_BYTES]
+static u8 SharedSecret[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES]
         __attribute__ ((section (".data.SharedSecret")));
 
-static u8 SharedSecret1[XASU_ECC_P256_SIZE_IN_BYTES]
+static u8 SharedSecret1[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES]
         __attribute__ ((section (".data.SharedSecret1")));
 
 volatile u8 Notify = 0; /**< To notify the call back from client library */
@@ -115,7 +115,7 @@ int main(void)
 #endif
 
 	CurveType = XASU_ECC_NIST_P256;
-	CurveLength = XASU_ECC_P256_SIZE_IN_BYTES;
+	CurveLength = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
@@ -157,10 +157,11 @@ int main(void)
 		goto END;
 	}
 
-	Status = Xil_SMemCmp_CT(SharedSecret, XASU_ECC_P256_SIZE_IN_BYTES, ExpSharedSecret,
-				XASU_ECC_P256_SIZE_IN_BYTES, XASU_ECC_P256_SIZE_IN_BYTES);
+	Status = Xil_SMemCmp_CT(SharedSecret, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, ExpSharedSecret,
+				XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+				XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES);
 	XilAsu_Printf("\r\n Generated Secret1: ");
-	for (Index = 0; Index < XASU_ECC_P256_SIZE_IN_BYTES; Index++) {
+	for (Index = 0; Index < XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES; Index++) {
 		XilAsu_Printf("%02x", SharedSecret[Index]);
 	}
 	if (Status != XST_SUCCESS) {
@@ -195,10 +196,11 @@ int main(void)
 		goto END;
 	}
 
-	Status = Xil_SMemCmp_CT(SharedSecret1, XASU_ECC_P256_SIZE_IN_BYTES, ExpSharedSecret,
-				XASU_ECC_P256_SIZE_IN_BYTES, XASU_ECC_P256_SIZE_IN_BYTES);
+	Status = Xil_SMemCmp_CT(SharedSecret1, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, ExpSharedSecret,
+				XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+				XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES);
 	XilAsu_Printf("\r\n Generated Secret2: ");
-	for (Index = 0; Index < XASU_ECC_P256_SIZE_IN_BYTES; Index++) {
+	for (Index = 0; Index < XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES; Index++) {
 		XilAsu_Printf("%02x", SharedSecret1[Index]);
 	}
 	if (Status != XST_SUCCESS) {

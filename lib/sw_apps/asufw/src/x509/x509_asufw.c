@@ -46,8 +46,8 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define X509_XECC_CURVE_TYPE		XECC_CURVE_TYPE_NIST_P384	/**< ECC mode used for
 									X.509 certificate signing */
-#define X509_ECC_SIGN_SIZE_IN_BYTES	XASU_ECC_P384_SIZE_IN_BYTES	/**< ECC Signature size in
-									bytes */
+#define X509_ECC_SIGN_SIZE_IN_BYTES	XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES	/**< ECC Signature
+										size in bytes */
 #define X509_SHA_MODE			XASU_SHA_MODE_384		/**< SHA mode used for
 									X.509 certificate digest
 									calculation */
@@ -243,14 +243,14 @@ static s32 X509_VerifySignEcc(const u8 *Hash, u32 HashLen, const u8 *PubKey, con
 	}
 
 	/** Validate signature length. */
-	if (SignLen != XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES)) {
+	if (SignLen != XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)) {
 		Status = XASUFW_X509_INVALID_DATA;
 		goto END;
 	}
 
 	/** Verify ECC signature. */
 	Status = XEcc_VerifySignature(EccInstance, PlatData->DmaPtr, XASU_ECC_NIST_P384,
-				      XASU_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)PubKey,
+				      XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)PubKey,
 				      (u64)(UINTPTR)Hash, HashLen, (u64)(UINTPTR)Sign);
 
 END:

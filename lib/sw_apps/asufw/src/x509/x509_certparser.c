@@ -60,13 +60,13 @@ typedef struct {
 #define X509_MAX_HOURS_IN_DAY		(23U)	/**< Maximum hours in a day */
 #define X509_MAX_VALID_YEAR		(9999U)	/**< Maximum year value */
 
-#define X509_ECC_SIGN_LEN			(2U * XASU_ECC_P384_SIZE_IN_BYTES)
+#define X509_ECC_SIGN_LEN			(2U * XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)
 						/**< ECC signature length */
-#define X509_ECC_PUB_KEY_LEN			(2U * XASU_ECC_P384_SIZE_IN_BYTES)
+#define X509_ECC_PUB_KEY_LEN			(2U * XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)
 						/**< ECC public key length */
-#define X509_ASN1_SIGN_COMPONENT_MIN_LEN	(XASU_ECC_P384_SIZE_IN_BYTES)
+#define X509_ASN1_SIGN_COMPONENT_MIN_LEN	(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)
 						/**< Minimum length of signature component */
-#define X509_ASN1_SIGN_COMPONENT_MAX_LEN	(XASU_ECC_P384_SIZE_IN_BYTES + 1U)
+#define X509_ASN1_SIGN_COMPONENT_MAX_LEN	(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES + 1U)
 						/**< Maximum length of signature component */
 #define X509_ASN1_SIGN_UNUSED_BIT_VALUE	(0x00U) /**< Unused bit value of signature */
 
@@ -228,7 +228,7 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
 		}
 		/** Store the public key after skipping compression indicator. */
 		IssuerPubKeyInfo->PubKey = &CertInfo->PublicKey.PubKey[XASUFW_BUFFER_INDEX_ONE];
-		IssuerPubKeyInfo->PubKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES);
+		IssuerPubKeyInfo->PubKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 	}
 	/** Verify ECC signature by using TBS certificate data. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -394,7 +394,8 @@ static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen)
 	/** Copy the R component to the output buffer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (SignRLen == X509_ASN1_SIGN_COMPONENT_MIN_LEN) {
-		Status = Xil_SMemCpy(Sign, SignLen, SignR, SignRLen, XASU_ECC_P384_SIZE_IN_BYTES);
+		Status = Xil_SMemCpy(Sign, SignLen, SignR, SignRLen,
+				     XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MEM_COPY_FAIL);
 			goto END;
@@ -414,8 +415,8 @@ static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen)
 	/** Copy the S component to the output buffer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (SignSLen == X509_ASN1_SIGN_COMPONENT_MIN_LEN) {
-		Status = Xil_SMemCpy(Sign + XASU_ECC_P384_SIZE_IN_BYTES, SignLen, SignS, SignSLen,
-				     XASU_ECC_P384_SIZE_IN_BYTES);
+		Status = Xil_SMemCpy(Sign + XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, SignLen, SignS,
+				     SignSLen, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MEM_COPY_FAIL);
 			goto END;

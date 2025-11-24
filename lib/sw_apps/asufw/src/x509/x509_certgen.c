@@ -257,7 +257,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 
 	/** Validate subject public key. */
 	if ((Cfg->PubKeyInfo.SubjectPublicKey == NULL) || (Cfg->PubKeyInfo.SubjectPubKeyLen !=
-	     XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES))) {
+	     XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES))) {
 		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}

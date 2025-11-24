@@ -37,14 +37,14 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_CACHE_DISABLE
-#define XASU_ECC_P256_SIZE_IN_BYTES		(32U) /**< Size of NIST P-256 curve in bytes */
+#define XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES	(32U) /**< Size of NIST P-256 curve in bytes */
 #define XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES	(64U) /**< 2 * Size of NIST P-256 curve in bytes */
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_CURVE_TYPE		XASU_ECC_NIST_P256
-#define XASU_CURVE_LENGTH	XASU_ECC_P256_SIZE_IN_BYTES
+#define XASU_CURVE_LENGTH	XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES
 
 /************************************ Function Prototypes ****************************************/
 static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status);

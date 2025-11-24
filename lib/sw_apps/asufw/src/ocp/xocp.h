@@ -58,10 +58,10 @@ extern "C" {
  * This structure is used to store generated device keys.
  */
 typedef struct {
-	u8 EccPvtKey[XASU_ECC_P384_SIZE_IN_BYTES];	/**< ECC private key */
+	u8 EccPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];	/**< ECC private key */
 	u32 PublicKeyLen;				/**< Public key length */
-	u8 EccX[XASU_ECC_P384_SIZE_IN_BYTES];		/**< ECC public key x coordinate */
-	u8 EccY[XASU_ECC_P384_SIZE_IN_BYTES];		/**< ECC public key y coordinate */
+	u8 EccX[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];		/**< ECC public key x coordinate */
+	u8 EccY[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];		/**< ECC public key y coordinate */
 	u8 IsDevIkKeyReady;				/**< Indicates if DevIk is ready or not */
 	u8 IsDevAkKeyReady;				/**< Indicates if DevAk is ready or not */
 } XOcp_DeviceKeys;

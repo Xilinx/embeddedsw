@@ -158,7 +158,7 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 
 	/** Validate signature buffer. */
 	if ((OcpAttestParam->SignatureAddr == 0U) ||
-	    (OcpAttestParam->SignatureBufLen < XASU_ECC_P384_SIZE_IN_BYTES)) {
+	    (OcpAttestParam->SignatureBufLen < XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 	}
@@ -180,7 +180,7 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 	/* Generate the signature using DevAk private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(EccInstance, DmaPtr, XASU_ECC_NIST_P384,
-					XASU_ECC_P384_SIZE_IN_BYTES,
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 					(u64)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey,
 					NULL, OcpAttestParam->DataAddr,
 					OcpAttestParam->DataLen, OcpAttestParam->SignatureAddr);
@@ -259,14 +259,15 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
 
 	/** Generate DevIk public key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384, XASU_ECC_P384_SIZE_IN_BYTES,
+	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 					(u64)(UINTPTR)DevIkData.EccPvtKey,
 					(u64)(UINTPTR)DevIkData.EccX);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVIK_PUB_KEY_FAIL);
 		goto END;
 	}
-	DevIkData.PublicKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES);
+	DevIkData.PublicKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 
 	/** Set IsDevIkKeyReady to true. */
 	DevIkData.IsDevIkKeyReady = (u8)XASU_TRUE;
@@ -342,14 +343,15 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 
 	/** Generate DevAk public key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384, XASU_ECC_P384_SIZE_IN_BYTES,
+	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 					(u64)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey,
 					(u64)(UINTPTR)DevAkData[SubsysIdx].EccX);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVAK_PUB_KEY_FAIL);
 		goto END;
 	}
-	DevAkData[SubsysIdx].PublicKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES);
+	DevAkData[SubsysIdx].PublicKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 
 
 	/** Set IsDevAkKeyReady to true. */
@@ -432,7 +434,7 @@ static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
 
 	/** Generate private key using RSA ECC engine. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_SIZE_IN_BYTES,
+	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 					(u8 *)(UINTPTR)PvtKeyInfo->PvtKeyAddr,
 					RandBuf, XOCP_DEV_KEY_RANDOM_BUF_SIZE);
 	if (Status != XASUFW_SUCCESS) {

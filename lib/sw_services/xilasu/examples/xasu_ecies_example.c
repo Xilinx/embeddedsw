@@ -144,7 +144,7 @@ int main(void)
 	EciesParams.ShaMode = XASU_SHA_MODE_256;
 	EciesParams.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	EciesParams.DataLength = XASU_ECIES_INPUT_DATA_LENGTH;
-	EciesParams.EccKeyLength = XASU_ECC_P256_SIZE_IN_BYTES;
+	EciesParams.EccKeyLength = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 	EciesParams.RxKeyAddr = (u64)(UINTPTR)RxPubKey;
 	EciesParams.TxKeyAddr = (u64)(UINTPTR)TxPubKey;
 	EciesParams.InDataAddr = (u64)(UINTPTR)Data;
@@ -190,7 +190,7 @@ int main(void)
 	EciesParams.ShaMode = XASU_SHA_MODE_256;
 	EciesParams.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	EciesParams.DataLength = XASU_ECIES_INPUT_DATA_LENGTH;
-	EciesParams.EccKeyLength = XASU_ECC_P256_SIZE_IN_BYTES;
+	EciesParams.EccKeyLength = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 	EciesParams.RxKeyAddr = (u64)(UINTPTR)RxPrivKey;
 	EciesParams.TxKeyAddr = (u64)(UINTPTR)TxPubKey;
 	EciesParams.InDataAddr = (u64)(UINTPTR)OutEncData;

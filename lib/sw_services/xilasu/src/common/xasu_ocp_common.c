@@ -90,7 +90,7 @@ s32 XAsu_OcpValidateAttestParams(const XAsu_OcpDevAkAttest *OcpAttestParam)
 	if ((OcpAttestParam->DataAddr == 0U) || (OcpAttestParam->DataLen == 0U) ||
 	    (OcpAttestParam->SignatureAddr == 0U) ||
 	    (OcpAttestParam->SignatureBufLen <
-	    XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES))) {
+	    XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES))) {
 		goto END;
 	}
 

@@ -123,11 +123,11 @@ static XEcc XEcc_Instance[XASU_XECC_NUM_INSTANCES]; /**< ASUFW ECC HW instances 
 static XEcc_CurveInfo XEcc_CurveInfoTable[XECC_CURVES_SUPPORTED] = {
 	{
 		XECC_CURVE_TYPE_NIST_P256,
-		XASU_ECC_P256_SIZE_IN_BYTES
+		XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES
 	},
 	{
 		XECC_CURVE_TYPE_NIST_P384,
-		XASU_ECC_P384_SIZE_IN_BYTES
+		XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES
 	}
 };
 
@@ -456,7 +456,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u8 Hash[XASU_SHA_512_HASH_LEN];
-	u8 EphemeralKey[XASU_ECC_P384_SIZE_IN_BYTES];
+	u8 EphemeralKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
@@ -599,7 +599,7 @@ END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihEccVar, ClearStatus, (u8 *)(UINTPTR)EphemeralKey,
-					XASU_ECC_P384_SIZE_IN_BYTES);
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -789,8 +789,8 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	u64 PrivKeyAddr, u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 Signature[XASU_ECC_P384_SIZE_IN_BYTES + XASU_ECC_P384_SIZE_IN_BYTES];
-	const u8 Hash[XASU_ECC_P256_SIZE_IN_BYTES] = {
+	u8 Signature[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];
+	const u8 Hash[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 		0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
 		0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
 		0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
@@ -806,7 +806,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	/** Generate signature using the provided private key and curve type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(InstancePtr, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
-			NULL, (u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES,
+			NULL, (u64)(UINTPTR)Hash, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
 			(u64)(UINTPTR)Signature);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateBufStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL);
@@ -816,7 +816,8 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	/** Verify the generated signature using the provided public key and curve type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_VerifySignature(InstancePtr, DmaPtr, CurveType, CurveLen, PubKeyAddr,
-			(u64)(UINTPTR)Hash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)Signature);
+			(u64)(UINTPTR)Hash, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+			(u64)(UINTPTR)Signature);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
 		Status = XAsufw_UpdateBufStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL);
 	}
@@ -825,7 +826,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 END_CLR:
 	/** Zeroize the local buffers. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
-					XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES)));
+					XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)));
 
 END:
 	return Status;
@@ -854,7 +855,7 @@ END:
 static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Count)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 ScpRandom[XASU_ECC_P384_SIZE_IN_BYTES];
+	u8 ScpRandom[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];
 	u32 RegOffset = XECC_MEM_SCP_RAND_1_OFFSET;
 	volatile u32 Index;
 
@@ -888,7 +889,7 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 END:
 	/** Clear the local random buffer. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)ScpRandom,
-					XASU_ECC_P384_SIZE_IN_BYTES));
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES));
 
 	return Status;
 }

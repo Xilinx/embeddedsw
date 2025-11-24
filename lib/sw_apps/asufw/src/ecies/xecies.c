@@ -84,9 +84,9 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcies = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 SharedSecret[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 SharedSecret[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
 	u8 KOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
-	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
 
 	/** Validate the input parameters. */
 	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL)) {
@@ -137,7 +137,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Zeroize the private key immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, PrivKey,
-			XASU_ECC_P521_SIZE_IN_BYTES);
+			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS) ||
 		(ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
@@ -152,7 +152,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
-			XASU_ECC_P521_SIZE_IN_BYTES);
+			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
@@ -203,7 +203,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcies = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 SharedSecret[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 SharedSecret[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
 	u8 KOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
 
 	/** Validate the input parameters. */
@@ -245,7 +245,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
-		XASU_ECC_P521_SIZE_IN_BYTES);
+		XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);

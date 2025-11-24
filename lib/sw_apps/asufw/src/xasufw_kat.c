@@ -239,21 +239,21 @@ static const u32 RsaPublicExp = 0x1000100U;
 static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
 #endif
 
-static const u8 EccPrivKey[XASU_ECC_P256_SIZE_IN_BYTES] = {
+static const u8 EccPrivKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x22U, 0x17U, 0x96U, 0x4FU, 0xB2U, 0x14U, 0x35U, 0x33U,
 	0xBAU, 0x93U, 0xAAU, 0x35U, 0xFEU, 0x09U, 0x37U, 0xA6U,
 	0x69U, 0x5EU, 0x20U, 0x87U, 0x27U, 0x07U, 0x06U, 0x44U,
 	0x99U, 0x21U, 0x7CU, 0x5FU, 0x6AU, 0xB8U, 0x09U, 0xDFU
 };
 
-static const u8 EccPrivKey25519[XASU_ECC_P256_SIZE_IN_BYTES] = {
+static const u8 EccPrivKey25519[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x9DU, 0x61U, 0xB1U, 0x9DU, 0xEFU, 0xFDU, 0x5AU, 0x60U,
 	0xBAU, 0x84U, 0x4AU, 0xF4U, 0x92U, 0xECU, 0x2CU, 0xC4U,
 	0x44U, 0x49U, 0xC5U, 0x69U, 0x7BU, 0x32U, 0x69U, 0x19U,
 	0x70U, 0x3BU, 0xACU, 0x03U, 0x1CU, 0xAEU, 0x7FU, 0x60U
 };
 
-static const u8 EccPrivKey448[XASU_ECC_P448_SIZE_IN_BYTES] = {
+static const u8 EccPrivKey448[XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES] = {
 	0x6CU, 0x82U, 0xA5U, 0x62U, 0xCBU, 0x80U, 0x8DU, 0x10U,
 	0xD6U, 0x32U, 0xBEU, 0x89U, 0xC8U, 0x51U, 0x3EU, 0xBFU,
 	0x6CU, 0x92U, 0x9FU, 0x34U, 0xDDU, 0xFAU, 0x8CU, 0x9FU,
@@ -263,14 +263,14 @@ static const u8 EccPrivKey448[XASU_ECC_P448_SIZE_IN_BYTES] = {
 	0x03U, 0x2EU, 0x75U, 0x49U, 0xA2U, 0x00U, 0x98U, 0xF9U, 0x5BU
 };
 
-static const u8 EccHash[XASU_ECC_P256_SIZE_IN_BYTES] = {
+static const u8 EccHash[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x02U, 0xBFU, 0x58U, 0x5CU, 0x72U, 0x89U, 0x45U, 0x9CU,
 	0xDDU, 0x20U, 0x61U, 0xD1U, 0x67U, 0xE5U, 0x40U, 0xC0U,
 	0x1EU, 0x40U, 0x56U, 0xB4U, 0x65U, 0xCAU, 0xE1U, 0x5FU,
 	0xA3U, 0x45U, 0xEDU, 0xADU, 0x93U, 0x88U, 0x54U, 0x6DU
 };
 
-static const u8 EccEphemeralKey[XASU_ECC_P256_SIZE_IN_BYTES] = {
+static const u8 EccEphemeralKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0xBFU, 0xD6U, 0x31U, 0xA2U, 0xA6U, 0x47U, 0x31U, 0x70U,
 	0xB8U, 0x16U, 0x6DU, 0x33U, 0x25U, 0x06U, 0xBEU, 0x62U,
 	0xE5U, 0x48U, 0x5AU, 0xD0U, 0xBEU, 0x76U, 0xBAU, 0x74U,
@@ -414,7 +414,7 @@ static const u32 AesCmExpCt[XASUFW_AES_CM_LEN_IN_WORDS] = {0xCF0DC96EU, 0x41B85C
 static const u32 AesCmExpTag[XASUFW_AES_CM_LEN_IN_WORDS] = {0x32CD3334U, 0xE1C616FDU, 0x2132E1BAU, 0xD92045DFU};
 #endif
 
-static const u8 EcdhPrivKey[XASU_ECC_P256_SIZE_IN_BYTES] = {
+static const u8 EcdhPrivKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0xC9U, 0x80U, 0x68U, 0x98U, 0xA0U, 0x33U, 0x49U, 0x16U, 0xC8U, 0x60U, 0x74U, 0x88U, 0x80U,
 	0xA5U, 0x41U, 0xF0U, 0x93U, 0xB5U, 0x79U, 0xA9U, 0xB1U, 0xF3U, 0x29U, 0x34U, 0xD8U, 0x6CU,
 	0x36U, 0x3CU, 0x39U, 0x80U, 0x03U, 0x57U
@@ -427,14 +427,14 @@ static const u8 EcdhPubKey1[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
 	0X4BU, 0XB7U, 0XADU, 0X72U, 0XC1U, 0X73U, 0XADU, 0X97U, 0X4BU, 0X28U, 0X9DU, 0XC2U
 };
 
-static const u8 EcdhExpSharedSecret[XASU_ECC_P256_SIZE_IN_BYTES] = {
+static const u8 EcdhExpSharedSecret[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x1DU, 0xB8U, 0x09U, 0xC2U, 0x76U, 0xF2U, 0x16U, 0x10U, 0x79U, 0x11U, 0x68U, 0x52U, 0x8EU,
 	0xFAU, 0x01U, 0x85U, 0x11U, 0x2EU, 0x78U, 0x65U, 0x50U, 0x36U, 0xAEU, 0xEDU, 0x87U, 0xC7U,
 	0x15U, 0xA2U, 0x90U, 0x45U, 0xFDU, 0xFCU
 };
 
 #ifdef XASU_ECIES_ENABLE
-static const u8 EciesRxPrivKey[XASU_ECC_P384_SIZE_IN_BYTES] = {
+static const u8 EciesRxPrivKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {
 	0x02U, 0x87U, 0xF6U, 0x2AU, 0x5AU, 0xA8U, 0x43U, 0x2FU,
 	0xF5U, 0xE9U, 0x56U, 0x18U, 0xECU, 0x8FU, 0x9CU, 0xCAU,
 	0xA8U, 0x70U, 0xDDU, 0xE9U, 0x9CU, 0x30U, 0xB5U, 0x1BU,
@@ -985,7 +985,8 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Generate the public key using the provided private key. */
 	Status = XEcc_GeneratePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
-					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
+					XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+					(u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL;
 		goto END;
@@ -1001,7 +1002,8 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Validate the generated ECC public key. */
 	Status = XEcc_ValidatePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
-					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey);
+					XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+					(u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL;
 		goto END;
@@ -1009,8 +1011,10 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Generate signature using core API XEcc_GenerateSignature. */
 	Status = XEcc_GenerateSignature(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
-					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, EccEphemeralKey,
-					(u64)(UINTPTR)EccHash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
+					XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+					(u64)(UINTPTR)EccPrivKey, EccEphemeralKey,
+					(u64)(UINTPTR)EccHash, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+					(u64)(UINTPTR)GenSign);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_GEN_SIGN_OPERATION_FAIL;
 		goto END;
@@ -1026,8 +1030,9 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Verify signature using core API XEcc_VerifySignature. */
 	Status = XEcc_VerifySignature(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
-				      XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey,
-				      (u64)(UINTPTR)EccHash, XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
+				      XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey,
+				      (u64)(UINTPTR)EccHash, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+				      (u64)(UINTPTR)GenSign);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
 		Status = XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL;
 		goto END;
@@ -1093,21 +1098,21 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType)
 			PrivateKey = EccPrivKey;
 			ExpPubKey = EccExpPubKeyP256;
 			ExpSign = EccExpSignP256;
-			CurveSize = XASU_ECC_P256_SIZE_IN_BYTES;
-			InputLen = XASU_ECC_P256_SIZE_IN_BYTES;
+			CurveSize = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
+			InputLen = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 			break;
 		case XASU_ECC_NIST_ED25519:
 			PrivateKey = EccPrivKey25519;
 			ExpPubKey = EccExpPubKey25519;
 			ExpSign = EccExpSign25519;
-			CurveSize = XASU_ECC_P256_SIZE_IN_BYTES;
+			CurveSize = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 			InputLen = 0U;
 			break;
 		case XASU_ECC_NIST_ED448:
 			PrivateKey = EccPrivKey448;
 			ExpPubKey = EccExpPubKeyP448;
 			ExpSign = EccExpSignP448;
-			CurveSize = XASU_ECC_P448_SIZE_IN_BYTES;
+			CurveSize = XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES;
 			InputLen = 0U;
 			break;
 
@@ -1595,7 +1600,8 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Perform HMAC init operation. */
 	Status = XHmac_Init(XAsufw_HmacInstance, AsuDmaPtr, Sha2Ptr, (u64)(UINTPTR)EccPrivKey,
-			    XASU_ECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_256, XASU_SHA_256_HASH_LEN);
+			    XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, XASU_SHA_MODE_256,
+			    XASU_SHA_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1662,7 +1668,7 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	XAsu_KdfParams Params;
 
 	Params.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
-	Params.KeyInLen = XASU_ECC_P256_SIZE_IN_BYTES;
+	Params.KeyInLen = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 	Params.ContextAddr = (u64)(UINTPTR)KatMessage;
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
@@ -1718,7 +1724,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	XAsu_EciesParams Params;
-	u8 EciesTxPubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 EciesTxPubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
 	u8 EciesMac[XASUFW_AES_TAG_LEN_IN_BYTES];
 	u8 EciesEncOut[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
 	u8 EciesDecOut[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
@@ -1726,7 +1732,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	Params.DataLength = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.EccCurveType = XASU_ECC_NIST_P384;
-	Params.EccKeyLength = XASU_ECC_P384_SIZE_IN_BYTES;
+	Params.EccKeyLength = XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES;
 	Params.InDataAddr = (u64)(UINTPTR)KatMessage;
 	Params.IvAddr = (u64)(UINTPTR)EciesIv;
 	Params.IvLength = XASU_AES_IV_SIZE_96BIT_IN_BYTES;
@@ -1777,9 +1783,10 @@ END:
 			      XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	SStatus = Xil_SMemSet(&EciesTxPubKey[0U], (XASU_ECC_P521_SIZE_IN_BYTES +
-			      XASU_ECC_P521_SIZE_IN_BYTES), 0U, (XASU_ECC_P521_SIZE_IN_BYTES +
-			      XASU_ECC_P521_SIZE_IN_BYTES));
+	SStatus = Xil_SMemSet(&EciesTxPubKey[0U], (XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES +
+			      XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES), 0U,
+			      (XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES +
+			       XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
 	SStatus = Xil_SMemSet(&EciesMac[0U], XASUFW_AES_TAG_LEN_IN_BYTES, 0U,
@@ -1936,11 +1943,12 @@ s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
-	u8 SharedSecret[XASU_ECC_P256_SIZE_IN_BYTES];
+	u8 SharedSecret[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES];
 
 	/** Generate the shared secret using the known private key and public key. */
 	Status = XRsa_EcdhGenSharedSecret(AsuDmaPtr, XASU_ECC_NIST_P256,
-					  XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EcdhPrivKey,
+					  XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+					  (u64)(UINTPTR)EcdhPrivKey,
 					  (u64)(UINTPTR)EcdhPubKey1,
 					  (u64)(UINTPTR)SharedSecret, 0U);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
@@ -1951,8 +1959,9 @@ s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Compare the generated shared secret with expected shared secret. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Xil_SMemCmp(SharedSecret, XASU_ECC_P256_SIZE_IN_BYTES, EcdhExpSharedSecret,
-			     XASU_ECC_P256_SIZE_IN_BYTES, XASU_ECC_P256_SIZE_IN_BYTES);
+	Status = Xil_SMemCmp(SharedSecret, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, EcdhExpSharedSecret,
+			     XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
+			     XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECDH_SECRET_COMPARISON_FAILED;
 	}
@@ -1960,8 +1969,8 @@ s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr)
 END_CLR:
 
 	/** Zeroize local copy of shared secret. */
-	SStatus = Xil_SMemSet(&SharedSecret[0U], XASU_ECC_P256_SIZE_IN_BYTES, 0U,
-			      XASU_ECC_P256_SIZE_IN_BYTES);
+	SStatus = Xil_SMemSet(&SharedSecret[0U], XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, 0U,
+			      XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
 	}

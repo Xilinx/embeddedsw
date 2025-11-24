@@ -232,7 +232,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 DmeFipsRegValue = 0U;
 	u32 DmeUserKeyAddr = 0U;
-	u8 DmeDecPvtKey[XASU_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u8 DmeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
 	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	XSha *ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
@@ -296,14 +296,15 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 		 */
 		ShaCmd.ShaMode = XASU_SHA_MODE_384;
 		ShaCmd.DataAddr = (u64)(UINTPTR)(DevIkDataPtr->EccX);
-		ShaCmd.DataSize = XASUFW_DOUBLE_VALUE(XASU_ECC_P384_SIZE_IN_BYTES);
+		ShaCmd.DataSize = XASUFW_DOUBLE_VALUE(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		ShaCmd.HashAddr = (u64)(UINTPTR)OcpDmeResp->Dme.DeviceId;
 		ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
 		Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
 	} else {
 		/** - Else, DeviceId shall be all 0's. */
-		Status = Xil_SMemSet((u8 *)OcpDmeResp->Dme.DeviceId, XASU_ECC_P384_SIZE_IN_BYTES, 0U,
-			XASU_ECC_P384_SIZE_IN_BYTES);
+		Status = Xil_SMemSet((u8 *)OcpDmeResp->Dme.DeviceId,
+				XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, 0U,
+				XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DEVICE_ID_CALC_FAIL);
@@ -322,7 +323,8 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	/** Measurement update. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PMC_GLOBAL_HW_PCR_0_ADDR,
-			(u64)(UINTPTR)OcpDmeResp->Dme.Measurement, XASU_ECC_P384_SIZE_IN_BYTES, 0U);
+			(u64)(UINTPTR)OcpDmeResp->Dme.Measurement,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_MEASUREMENT_UPDATE_FAIL;
 		goto END_CLR;
@@ -342,7 +344,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 
 	/** Generate signature for DME. */
 	Status = XEcc_GenerateSignature(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
-			XASU_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DmeDecPvtKey,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)DmeDecPvtKey,
 			NULL, (u64)(UINTPTR)HashBuf, XASU_SHA_384_HASH_LEN,
 			(u64)(UINTPTR)OcpDmeResp->DmeSignatureR);
 	if (Status != XASUFW_SUCCESS) {
@@ -352,7 +354,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 END_CLR:
 	/** Zeroize local buffers. */
 	XFIH_CALL(Xil_SecureZeroize, XFihDme, ClearStatus, (u8 *)(UINTPTR)DmeDecPvtKey,
-					XASU_ECC_P384_SIZE_IN_BYTES);
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)DmeKekIv, XASU_OCP_DME_IV_SIZE_IN_BYTES);
