@@ -967,6 +967,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* on successful comparison else error out.
 	*/
 	/**EM = maskedDB || H || 0xbc. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (SignedInputData[KeySize - XRSA_PSS_DATA_BLOCK_END_BYTE_OFFSET]
 		!= XRSA_PSS_OUTPUT_END_BYTE_VALUE) {
 		Status = XASUFW_RSA_PSS_RIGHT_MOST_CMP_FAIL;
@@ -991,7 +992,6 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	MgfInput.Seed = HashBuffer;
 	MgfInput.SeedLen = HashLen;
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode,
 				  &MgfInput);
 	if (Status != XASUFW_SUCCESS) {
