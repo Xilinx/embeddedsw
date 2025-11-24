@@ -28,10 +28,6 @@
 *	- Support for 1 to 4 PPI Lanes.
 *	- Line rates ranging from 80 to 1500 Mbps.
 *	- Different data type support(RAW,RGB,YUV).
-*	- AXI IIC support for CCI Interface.
-*	- Using existing AXI IIC for CCI interface support for better
-*	  understanding & compatibility with other IIC’s (if any) used
-*	  in the system
 *	- Filtering of packets based on Virtual channel ID.
 *	- Single,Dual,Quad pixel support at output interface compliant
 *	  to UG934 format.
@@ -45,7 +41,6 @@
 *	- Line Rate
 *	- Buffer Depth
 *	- Embedded Non Image data (if needed)
-*	- Add IIC to subsystem (if required)
 *
 * The IIC can be added if the system doesn't contain an IIC or if a dedicated
 * IIC is to be used for MIPI CSI Rx Subsystem. In order to reduce resource
@@ -67,8 +62,6 @@
 * The subsystem driver provides an abstraction on top of the CSI and DPHY
 * drivers.
 *
-* The IIC instance (if present) is shared with application
-* and can be controlled using the AXI IIC driver.
 *
 * <b>Software Initialization & Configuration</b>
 *
@@ -147,9 +140,6 @@ extern "C" {
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
 #include "xmipi_rx_phy.h"
 #endif
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-#include "xiic.h"
-#endif
 #include "xdebug.h"
 #include "xcsiss_hw.h"
 
@@ -219,7 +209,6 @@ typedef struct {
 				of the subsystem address range */
 	UINTPTR HighAddr;	/**< HighAddress is the physical MAX address
 				of the  subsystem address range */
-	u32 IsIicPresent;	/**< Flag for IIC presence in subsystem */
 	u32 LanesPresent;	/**< Number of PPI Lanes in the design */
 	u32 PixelCount;	/**< Number of Pixels per clock 1,2,4 */
 	u32 PixelFormat;	/**< The pixel format selected from all RGB,
@@ -238,7 +227,6 @@ typedef struct {
 				  *  enabled */
 	u8 EnableCSIv20; /* csiv2.0 support*/
 	u8 EnableVCx;	/* vcx feature support*/
-	CsiRxSsSubCore IicInfo;	/**< IIC sub-core configuration */
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
 #ifdef SDT
@@ -270,9 +258,6 @@ typedef struct {
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	XIic *IicPtr;		/**< handle to sub-core driver instance */
-#endif
 	XCsi_ClkLaneInfo ClkInfo;	/**< Clock Lane information */
 	XCsi_DataLaneInfo DLInfo[XCSI_MAX_LANES];	/**< Data Lane
 							  *  information */
@@ -293,9 +278,6 @@ u32 XCsiSs_GetDrvIndex(UINTPTR BaseAddress);
 /* Initialization and control functions xcsiss.c */
 u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr);
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-XIic* XCsiSs_GetIicInstance(XCsiSs *InstancePtr);
-#endif
 u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask);
 u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag);
 u32 XCsiSs_Reset(XCsiSs *InstancePtr);

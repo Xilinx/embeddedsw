@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -11,9 +11,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX" "CMN_VC"
-	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX" "CMN_VC"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX" "CMN_VC"
+	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX" "CMN_VC"
 
 	set orig_dir [pwd]
 	cd ../../include/
@@ -35,12 +35,6 @@ proc generate {drv_handle} {
 			# if the peripheral name or the canonical substring is present
 			if {[regexp -nocase XPAR_$periph $line] ||
 				[regexp -nocase {XPAR_CSISS} $line]} {
-
-				# if substring CMN_INC_IIC is present in the string
-				if {[regexp -nocase {CMN_INC_IIC} $line]} {
-					# using string map to replace true with 1 and false with 0
-					set line [string map {true 1 false 0} $line]
-				}
 
 				# if substring CSI_EMB_NON_IMG is present in the string
 				if {[regexp -nocase {CSI_EMB_NON_IMG} $line]} {
@@ -132,7 +126,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	array set sub_core_inst {
 		mipi_csi2_rx_ctrl 1
 		mipi_dphy 1
-		axi_iic 1
 	}
 
 	foreach periph_g $periphs_g {

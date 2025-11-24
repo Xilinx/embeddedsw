@@ -1,11 +1,11 @@
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
 title: Bindings for mipicsiss Sub system controller Driver
 
 maintainers:
-  - Kunal Rane <kvrane@amd.com>
+  - Asif Ikbal <asif.ikbal@amd.com>
 
 type: driver
 
@@ -21,8 +21,6 @@ properties:
     description: Physical base address and size of the controller register map
   xlnx,highaddr:
     description: HighAddress is the physical MAX address of the subsystem address range
-  xlnx,cmn-inc-iic:
-    description: Flag for I2C channel.
   xlnx,cmn-num-lanes:
     description: Flag for number of lanes.
   xlnx,cmn-num-pixels:
@@ -47,10 +45,6 @@ properties:
     description: flag to enable csi v2.
   xlnx,dphy-lanes:
     description: Number of dphy lanes.
-  axii2c-present:
-    description: Sub-core instance presence.
-  axii2c-connected:
-    description: Sub-core instance configuration.
   csirx-present:
     description: Sub-core instance presence.
   csirx-connected:
@@ -72,7 +66,6 @@ required:
     - compatible
     - reg
     - xlnx,highaddr
-    - xlnx,cmn-inc-iic
     - xlnx,cmn-num-lanes
     - xlnx,cmn-num-pixels
     - xlnx,cmn-pxl-format
@@ -85,8 +78,6 @@ required:
     - xlnx,csi-en-activelanes
     - xlnx,en-csi-v2
     - xlnx,dphy-lanes
-    - axii2c-present
-    - axii2c-connected: phandle
     - csirx-present
     - csirx-connected: phandle
     - mipi-dphy-present

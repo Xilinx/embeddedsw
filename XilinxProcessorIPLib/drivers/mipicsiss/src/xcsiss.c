@@ -38,9 +38,6 @@
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-#include "xiic.h"
-#endif
 #include "xcsiss.h"
 
 /************************** Constant Definitions *****************************/
@@ -59,9 +56,6 @@ typedef struct {
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	XIic IicInst;
-#endif
 } XCsiSs_SubCores;
 
 /**************************** Local Global ***********************************/
@@ -70,7 +64,7 @@ typedef struct {
 #ifndef SDT
 XCsiSs_SubCores CsiSsSubCores[XPAR_XCSISS_NUM_INSTANCES];
 #else
-XCsiSs_SubCores CsiSsSubCores[];
+XCsiSs_SubCores CsiSsSubCores[XPAR_XMIPICSISS_NUM_INSTANCES];
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -79,9 +73,7 @@ XCsiSs_SubCores CsiSsSubCores[];
 
 static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr);
 static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr);
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr);
-#endif
+
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr);
 #endif
@@ -138,14 +130,6 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 	CsiSs_GetIncludedSubCores(InstancePtr);
 
 	/* Initialize all included sub_cores */
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	if (InstancePtr->IicPtr) {
-		Status = CsiSs_SubCoreInitIic(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-	}
-#endif
 	if (InstancePtr->CsiPtr) {
 		Status = CsiSs_SubCoreInitCsi(InstancePtr);
 		if (Status != XST_SUCCESS) {
@@ -172,38 +156,6 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	return XST_SUCCESS;
 }
-
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-/*****************************************************************************/
-/**
-* This function returns the Iic Instance Ptr if Iic is present in the subsystem
-* The application now will need to use Iic functions to access and configure
-* the CSI Transmitter (Camera) via Camera Control Interface(subset protocol of
-* IIC). Please refer to Camera specs for details on how to access and
-* configure.
-*
-*
-* @param	InstancePtr is a pointer to the Subsystem instance to be
-		worked on.
-*
-* @return	Pointer to IIC instance or NULL
-*
-* @note		This function is called after XCsiSs_CfgInitialize()
-*		This function must be called prior to using the IIC functions.
-*
-******************************************************************************/
-XIic* XCsiSs_GetIicInstance(XCsiSs *InstancePtr)
-{
-	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	if (InstancePtr->IicPtr) {
-		return InstancePtr->IicPtr;
-	}
-
-	return NULL;
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -376,12 +328,6 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 		xdbg_printf(XDBG_DEBUG_GENERAL,"register interface \n\r");
 	}
 #endif
-
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	if (InstancePtr->IicPtr) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"	: IIC \n\r");
-	}
-#endif
 }
 
 
@@ -541,10 +487,6 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 		(&CsiSsSubCores[CsiSsPtr->Config.DeviceId].DphyInst) : NULL);
 #endif
 
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	CsiSsPtr->IicPtr = ((CsiSsPtr->Config.IicInfo.IsPresent) ?
-		(&CsiSsSubCores[CsiSsPtr->Config.DeviceId].IicInst) : NULL);
-#endif
 #else
 	u32 Index = 0;
 	Index = XCsiSs_GetDrvIndex(CsiSsPtr->Config.BaseAddr);
@@ -561,10 +503,6 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 		(&CsiSsSubCores[Index].DphyInst) : NULL);
 #endif
 
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	CsiSsPtr->IicPtr = ((CsiSsPtr->Config.IicInfo.IsPresent) ?
-		(&CsiSsSubCores[Index].IicInst) : NULL);
-#endif
 #endif
 }
 
@@ -624,67 +562,6 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 	}
 	return XST_SUCCESS;
 }
-
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-/*****************************************************************************/
-/**
-* This function initializes the included sub-core to it's static configuration
-*
-* @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
-*
-* @return
-*		- XST_SUCCESS If IIC sub core is initialised successfully
-*		- XST_FAILURE Otherwise
-*
-* @note		None
-*
-******************************************************************************/
-static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
-{
-	u32  Status;
-	UINTPTR AbsAddr;
-	XIic_Config *ConfigPtr;
-
-	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_GENERAL,"->Initializing IIC MIPI CSI "
-		"subsystem.\n\r");
-#ifndef SDT
-	ConfigPtr = XIic_LookupConfig(CsiSsPtr->Config.IicInfo.DeviceId);
-#else
-	ConfigPtr = XIic_LookupConfig(CsiSsPtr->Config.IicInfo.AddrOffset);
-#endif
-	if (!ConfigPtr) {
-		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: IIC not found\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
-					CsiSsPtr->Config.HighAddr,
-					CsiSsPtr->Config.IicInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: Iic core base "
-			"address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
-	AbsAddr = ConfigPtr->BaseAddress;
-#endif
-
-	/* Initialize core */
-	Status = XIic_CfgInitialize(CsiSsPtr->IicPtr, ConfigPtr, AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS ERR:: Iic core "
-			"Initialization failed\n\r");
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-#endif
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 /*****************************************************************************/
@@ -804,6 +681,7 @@ static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr)
 }
 #endif
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function computes the subcore absolute address on axi-lite interface
@@ -851,4 +729,5 @@ static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 
 	return Status;
 }
+#endif
 /** @} */

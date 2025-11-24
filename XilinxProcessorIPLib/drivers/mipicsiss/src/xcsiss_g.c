@@ -1,6 +1,6 @@
 /*******************************************************************
 * Copyright (C) 2010-2022 Xilinx, Inc. All rights reserved.*
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,9 +26,6 @@
 *   - Excluded sub-core baseaddr is set to 0
 */
 
-#define XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_AXI_IIC_0_PRESENT 0
-#define XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_AXI_IIC_0_DEVICE_ID 255
-#define XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_AXI_IIC_0_BASEADDR 0
 
 XCsiSs_Config XCsiSs_ConfigTable[] =
 {
@@ -36,7 +33,6 @@ XCsiSs_Config XCsiSs_ConfigTable[] =
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_DEVICE_ID,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_BASEADDR,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_HIGHADDR,
-		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_CMN_INC_IIC,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_CMN_NUM_LANES,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_CMN_NUM_PIXELS,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_CMN_PXL_FORMAT,
@@ -49,11 +45,6 @@ XCsiSs_Config XCsiSs_ConfigTable[] =
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_CSI_EN_ACTIVELANES,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_EN_CSI_V2_0,
 		XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_EN_VCX,
-		{
-			XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_AXI_IIC_0_PRESENT,
-			XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_AXI_IIC_0_DEVICE_ID,
-			XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_AXI_IIC_0_BASEADDR
-		},
 		{
 			XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_MIPI_CSI2_RX_CTRL_0_PRESENT,
 			XPAR_MIPI_CSI2_RX_SUBSYSTEM_0_MIPI_CSI2_RX_CTRL_0_DEVICE_ID,
@@ -75,7 +66,6 @@ XCsiSs_Config XCsiSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 		"xlnx,mipi-csi2-rx-subsystem-5.4", /* compatible */
 		0x80000000, /* reg */
 		0x8000ffff, /* xlnx,highaddr */
-		0x0, /* xlnx,cmn-inc-iic */
 		0x4, /* xlnx,cmn-num-lanes */
 		0x2, /* xlnx,cmn-num-pixels */
 		0x2b, /* xlnx,cmn-pxl-format */
@@ -88,8 +78,6 @@ XCsiSs_Config XCsiSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 		0x1, /* xlnx,csi-en-activelanes */
 		0x0, /* xlnx,en-csi-v2 */
 		0x4, /* xlnx,dphy-lanes */
-		0x0, /* axii2c-present */
-		0x0, /* axii2c-connected */
 		0x1, /* csirx-present */
 		0x0, /* csirx-connected */
 		0x1, /* mipi-dphy-present */

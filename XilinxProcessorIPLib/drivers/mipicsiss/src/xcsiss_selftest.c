@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,15 +87,6 @@ u32 XCsiSs_SelfTest(XCsiSs *InstancePtr)
 		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,"ERR::Dphy Self test "
-			"failed\n\r");
-		}
-	}
-#endif
-#if (XPAR_XIIC_NUM_INSTANCES > 0)
-	if (InstancePtr->IicPtr) {
-		Status = XIic_SelfTest(InstancePtr->IicPtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_ERROR, "ERR::Iic Self test "
 			"failed\n\r");
 		}
 	}
