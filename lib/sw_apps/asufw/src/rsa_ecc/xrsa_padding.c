@@ -81,6 +81,12 @@ typedef struct {
 	u32 OutputLen; /**< Output buffer length */
 } XAsufw_MgfInput;
 
+/** This enum contains OAEP operations (encode/decode). */
+enum {
+	XRSA_OAEP_OP_ENCODE = 0U,	/**< For encode operation */
+	XRSA_OAEP_OP_DECODE,		/**< For decode operation */
+};
+
 /**
 * @addtogroup xrsa_padding_apis RSA Padding Server APIs
 * @{
@@ -90,6 +96,9 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode,
 			    const XAsufw_MgfInput *MgfInput);
+static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+				 const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 HashAddr,
+				 u32 *HashLen, u8 OaepOp);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -105,16 +114,16 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
  *
  * @return
  *		- XASUFW_SUCCESS, if RSA OAEP encoding is successful.
- *		- XASUFW_FAILURE, if RSA OAEP encoding fails.
- *		- XASUFW_RSA_INVALID_PARAM, if input parameters validation fails.
- *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
- *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
- *		  non-blocking mode.
+ *		- XASUFW_FAILURE, in case of failure.
  *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if Public encryption error occurs after
  *		  OAEP padding.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
+ *		- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
+ *		- XASUFW_RSA_RAND_GEN_ERROR, if random number generation fails.
+ *		- XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, if mask generation for seed fails.
+ *		- XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, if mask generation for data block fails.
  *
  *************************************************************************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -134,75 +143,18 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 *MaskSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
 	u8 PaddedOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
-	XAsu_ShaOperationCmd ShaParamsInput;
 	u32 PadLen = 0U;
 
-	/** Validate the input parameters. */
-	if (PaddingParamsPtr == NULL) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateInputParams(&(PaddingParamsPtr->XAsu_RsaOpComp));
+	/** Validating input parameters and calculating digest. */
+	Status = XRsa_OaepEncDecCommon(DmaPtr, ShaInstancePtr, PaddingParamsPtr,
+				       (u64)(UINTPTR)DataBlock, &HashLen, XRSA_OAEP_OP_ENCODE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Validate the input arguments. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((PaddingParamsPtr->OptionalLabelAddr == 0U) ||
-	    (PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) || (DmaPtr == NULL) ||
-	    (ShaInstancePtr == NULL)) {
-		Status = XASUFW_RSA_INVALID_PARAM;
+		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
 		goto END;
 	}
 
 	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
-
-	Status = XAsu_RsaValidateKeySize(KeySize);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Get hash length based on SHA mode. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SHA_INVALID_SHA_MODE;
-		goto END;
-	}
-
-	/** Validate input length which should not be greater than KeySize – (2 * hashLen) – 2. */
-	if (Len > (KeySize - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN - XRSA_DB_DELIMITER_LEN)) {
-		Status = XASUFW_RSA_OAEP_INVALID_LEN;
-		goto END;
-	}
-
-	/**
-	* Calculate data block length which is KeySize - HashLen - 1 as it is
-	* of the format Datablock = Hashofoptionallabel(HashLen) ||
-	* 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
-	*/
-	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
-
-	/** Calculate digest for optional label and append to data block. */
-	ShaParamsInput.DataAddr = PaddingParamsPtr->OptionalLabelAddr;
-	ShaParamsInput.HashAddr = (u64)(UINTPTR)DataBlock;
-	ShaParamsInput.DataSize = PaddingParamsPtr->OptionalLabelSize;
-	ShaParamsInput.HashBufSize = HashLen;
-	ShaParamsInput.ShaMode = PaddingParamsPtr->ShaMode;
-
-	XFIH_CALL(XSha_Digest, XFihVar, Status, ShaInstancePtr, DmaPtr, &ShaParamsInput);
-	XFIH_IF_FAILOUT_WITH_VALUE (XFihVar, ==, (u32)XASUFW_CMD_IN_PROGRESS) {
-		goto RET;
-	}
-	XFIH_IF_FAILOUT_WITH_VALUE (XFihVar, !=, (u32)XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_SHA_DIGEST_CALC_FAIL;
-		goto END;
-	}
 
 	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
 		 XRSA_DB_DELIMITER_LEN;
@@ -220,6 +172,13 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** Append 0x01U to data block after the zeroized memory. */
 	DataBlock[KeySize - Len - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET]
 	= XRSA_DATA_BLOCK_DELIMITER;
+
+	/**
+	 * Calculate data block length which is KeySize - HashLen - 1 as it is
+	 * of the format Datablock = Hashofoptionallabel(HashLen) ||
+	 * 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
+	 */
+	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
 
 	/** Copy input data to server memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -307,7 +266,6 @@ END:
 					XRSA_MAX_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-RET:
 	return Status;
 }
 
@@ -323,13 +281,13 @@ RET:
  *
  * @return
  *		- XASUFW_SUCCESS, if OAEP decode operation is successful.
- *		- XASUFW_FAILURE, if OAEP decode operation fails.
- *		- XASUFW_RSA_INVALID_PARAM, if input parameters are invalid.
+ *		- XASUFW_FAILURE, in case of failure.
  *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
- *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
- *		  non-blocking mode.
  *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
- *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
+ *		- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
+ *		- XASUFW_RSA_OAEP_DECRYPT_ERROR, if OAEP decryption fails.
+ *		- XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, if mask generation for seed fails.
+ *		- XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, if mask generation for data block fails.
  *		- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
  *		please refer to xasufw_status.h.
  *
@@ -357,74 +315,16 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	XAsu_ShaOperationCmd ShaParamsInput;
 	u32 PadLen = 0U;
 
-	/** Validate the input parameters. */
-	if (PaddingParamsPtr == NULL) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateInputParams(&(PaddingParamsPtr->XAsu_RsaOpComp));
+	/** Validating input parameters and calculating digest. */
+	Status = XRsa_OaepEncDecCommon(DmaPtr, ShaInstancePtr, PaddingParamsPtr,
+				       (u64)(UINTPTR)HashBuffer, &HashLen, XRSA_OAEP_OP_DECODE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Validate the input arguments. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((PaddingParamsPtr->OptionalLabelAddr == 0U) ||
-	    (PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) || (DmaPtr == NULL) ||
-	    (ShaInstancePtr == NULL)) {
-		Status = XASUFW_RSA_INVALID_PARAM;
+		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		goto END;
 	}
 
 	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
-
-	/** Validate input key size. */
-	Status = XAsu_RsaValidateKeySize(KeySize);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Get hash length based on SHA mode. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SHA_INVALID_SHA_MODE;
-		goto END;
-	}
-
-	/** Validate input length which should not be less than (2 * hashLen) + 2. */
-	if ((Len != KeySize) || (Len < ((XASUFW_DOUBLE_VALUE(HashLen)) +
-		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
-		Status = XASUFW_RSA_OAEP_INVALID_LEN;
-		goto END;
-	}
-
-	/**
-	* Calculate data block length which is KeySize - HashLen - 1 as it is
-	* of the format Datablock = Hashofoptionallabel(HashLen) ||
-	* 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
-	*/
-	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
-
-	/** Calculate digest for optional label. */
-	ShaParamsInput.DataAddr = PaddingParamsPtr->OptionalLabelAddr;
-	ShaParamsInput.HashAddr = (u64)(UINTPTR)HashBuffer;
-	ShaParamsInput.DataSize = PaddingParamsPtr->OptionalLabelSize;
-	ShaParamsInput.HashBufSize = HashLen;
-	ShaParamsInput.ShaMode = PaddingParamsPtr->ShaMode;
-
-	XFIH_CALL(XSha_Digest, XFihVar, Status, ShaInstancePtr, DmaPtr, &ShaParamsInput);
-	XFIH_IF_FAILOUT_WITH_VALUE (XFihVar, ==, (u32)XASUFW_CMD_IN_PROGRESS) {
-		goto RET;
-	}
-	XFIH_IF_FAILOUT_WITH_VALUE (XFihVar, !=, (u32)XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_SHA_DIGEST_CALC_FAIL;
-		goto END;
-	}
 
 	/** Perform private exponentiation decryption operation. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -444,6 +344,13 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** Increment output data index by one after maskedseed and point to masked datablock. */
 	MaskedSeedBuffer = &DecryptOutputData[XRSA_PADDING_LEADING_ZERO_LEN];
 	DataBlockMask = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
+
+	/**
+	 * Calculate data block length which is KeySize - HashLen - 1 as it is
+	 * of the format Datablock = Hashofoptionallabel(HashLen) ||
+	 * 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
+	 */
+	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
 
 	/** Generate mask of required length for seed block using MGF. */
 	MgfInput.Output = SeedBuffer;
@@ -539,7 +446,7 @@ END:
 	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DecryptOutputData,
 			XRSA_MAX_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-RET:
+
 	return Status;
 }
 
@@ -1223,6 +1130,122 @@ END:
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Bytes, XASUFW_WORD_LEN_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates input parameters for OAEP encode and decode function.
+ *		Also calculate the digest for the same.
+ *
+ * @param	DmaPtr			Pointer to the AsuDma instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
+ * @param	HashAddr		Variable which containing address to store calculated hash
+ * @param	HashLen			Variable to store hash length
+ * @param	PaddingParamsPtr	Pointer to the XAsu_RsaPaddingParams structure which
+ *					holds PSS padding related parameters.
+ * @param	OaepOp			Variable which containing OAEP operation mode.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if parameters are validated successfully and
+ *			  digest calculated successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
+ *	- XASUFW_SHA_INVALID_SHA_MODE, if SHA mode in invalid.
+ *	- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
+ *	- XASUFW_RSA_SHA_DIGEST_CALC_FAIL, if SHA digest calculation fails.
+ *	- XASUFW_CMD_IN_PROGRESS, if SHA operation is in progress(non-blocking).
+ *
+ *************************************************************************************************/
+static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+				 const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 HashAddr,
+				 u32 *HashLen, u8 OaepOp)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XAsu_ShaOperationCmd ShaParamsInput;
+
+	/** Validate the input parameters. */
+	if (PaddingParamsPtr == NULL) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_RsaValidateInputParams(&(PaddingParamsPtr->XAsu_RsaOpComp));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((PaddingParamsPtr->OptionalLabelAddr == 0U) ||
+	    (PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) || (DmaPtr == NULL) ||
+	    (ShaInstancePtr == NULL)) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_RsaValidateKeySize(PaddingParamsPtr->XAsu_RsaOpComp.KeySize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get hash length based on SHA mode. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, HashLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SHA_INVALID_SHA_MODE;
+		goto END;
+	}
+
+	/** Validating input length for encoding or decoding operation. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (OaepOp == (u8)XRSA_OAEP_OP_ENCODE) {
+		/**
+		 * If OAEP encode operation, validate input length which should not be greater than
+		 * KeySize – (2 * hashLen) – 2.
+		 */
+		if (PaddingParamsPtr->XAsu_RsaOpComp.Len >
+		    (PaddingParamsPtr->XAsu_RsaOpComp.KeySize - (XASUFW_DOUBLE_VALUE(*HashLen)) -
+		    XRSA_PADDING_LEADING_ZERO_LEN - XRSA_DB_DELIMITER_LEN)) {
+			Status = XASUFW_RSA_OAEP_INVALID_LEN;
+			goto END;
+		}
+	} else if (OaepOp == (u8)XRSA_OAEP_OP_DECODE) {
+		/**
+		 * If OAEP decode operation, Validate input length which should not be less than
+		 * (2 * hashLen) + 2.
+		 */
+		if ((PaddingParamsPtr->XAsu_RsaOpComp.Len !=
+		    PaddingParamsPtr->XAsu_RsaOpComp.KeySize) ||
+		    (PaddingParamsPtr->XAsu_RsaOpComp.Len < ((XASUFW_DOUBLE_VALUE(*HashLen)) +
+		    XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
+			Status = XASUFW_RSA_OAEP_INVALID_LEN;
+			goto END;
+		}
+	} else {
+		/* Do nothing. */
+	}
+
+	/** Calculate digest for optional label and append to data block. */
+	ShaParamsInput.DataAddr = PaddingParamsPtr->OptionalLabelAddr;
+	ShaParamsInput.HashAddr = HashAddr;
+	ShaParamsInput.DataSize = PaddingParamsPtr->OptionalLabelSize;
+	ShaParamsInput.HashBufSize = *HashLen;
+	ShaParamsInput.ShaMode = PaddingParamsPtr->ShaMode;
+
+	XFIH_CALL(XSha_Digest, XFihVar, Status, ShaInstancePtr, DmaPtr, &ShaParamsInput);
+	XFIH_IF_FAILOUT_WITH_VALUE (XFihVar, ==, (u32)XASUFW_CMD_IN_PROGRESS) {
+		goto END;
+	}
+
+	XFIH_IF_FAILOUT_WITH_VALUE (XFihVar, !=, (u32)XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_SHA_DIGEST_CALC_FAIL;
+	}
+
+END:
 	return Status;
 }
 #endif /* XASU_RSA_PADDING_ENABLE */
