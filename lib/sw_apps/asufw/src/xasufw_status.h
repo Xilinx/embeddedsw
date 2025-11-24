@@ -607,6 +607,8 @@ enum {
 	XASUFW_SSS_CFG_CHECK_FAIL, /**< 0x1A0U - Error when SSS configuration is invalid. */
 	XASUFW_SHA_UPDATE_FAIL, /**< 0x1A1U - Error when SHA update fails. */
 	XASUFW_INVALID_CMD_STAGE, /**< 0x1A2U - Error for invalid command stage. */
+	XASUFW_OCP_GET_ASU_CDI_FROM_PLM_FAIL, /**< 0x1A3U - Error when getting ASU CDI from PLM
+						fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

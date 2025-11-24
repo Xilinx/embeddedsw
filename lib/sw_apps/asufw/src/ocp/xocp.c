@@ -698,9 +698,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function provides ASU CDI address.
+ * @brief	This function sends IPI request to PLM to get ASU CDI.
  *
- * @param	AsuCdiAddr		Pointer to the variable to store ASU CDI address.
+ * @param	XOcpAsuCdi	Pointer to the buffer to store the ASU CDI.
  *
  * @return
  *	- XASUFW_SUCCESS, if ASU CDI address is retrieved successfully.
@@ -709,19 +709,11 @@ END:
  *	- XASUFW_OCP_READ_IPI_RESP_FAIL, if IPI response read is failed.
  *
  *************************************************************************************************/
-static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr)
+static inline s32 XOcp_GetAsuCdiFromPlm(const u8 *XOcpAsuCdi)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Payload[XOCP_ASU_CDI_TX_PAYLOAD_SIZE];
 	s32 Response = XASUFW_FAILURE;
-	static const u8 XOcpAsuCdi[XOCP_DICE_CDI_SIZE_IN_BYTES] = {0U};
-	static u8 AsuCdiValid = (u8)XASU_FALSE;
-
-	/** Skip IPI request to PLM if ASU CDI is already available. */
-	if (AsuCdiValid == (u8)XASU_TRUE) {
-		Status = XASUFW_SUCCESS;
-		goto RET;
-	}
 
 	/** Prepare IPI request payload. */
 	Payload[XASUFW_BUFFER_INDEX_ZERO] = XASUFW_PLM_IPI_HEADER(XOCP_ASU_CDI_TX_ID_CMD_LEN,
@@ -744,10 +736,42 @@ static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr)
 		goto END;
 	}
 
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function provides ASU CDI address.
+ *
+ * @param	AsuCdiAddr	Pointer to the variable to store ASU CDI address.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if ASU CDI address is retrieved successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_GET_ASU_CDI_FROM_PLM_FAIL, if getting ASU CDI fails.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	static const u8 XOcpAsuCdi[XOCP_DICE_CDI_SIZE_IN_BYTES] = {0U};
+	static u8 AsuCdiValid = (u8)XASU_FALSE;
+
+	/** Send IPI request to PLM if ASU CDI is not available. */
+	if (AsuCdiValid != (u8)XASU_TRUE) {
+		Status = XOcp_GetAsuCdiFromPlm(XOcpAsuCdi);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_OCP_GET_ASU_CDI_FROM_PLM_FAIL;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
 	/** Mark ASU CDI as valid. */
 	AsuCdiValid = (u8)XASU_TRUE;
 
-RET:
 	/** Provide ASU CDI address to caller. */
 	*AsuCdiAddr = (u32)XOcpAsuCdi;
 END:
