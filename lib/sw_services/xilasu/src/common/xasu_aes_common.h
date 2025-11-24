@@ -47,11 +47,6 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-/** This macro checks if AAD processing is allowed for the given AES engine mode. */
-#define XASU_AES_IS_AAD_SUPPORTED_MODE(EngineMode) \
-	(((EngineMode) == XASU_AES_GCM_MODE) || \
-	((EngineMode) == XASU_AES_CMAC_MODE) || \
-	((EngineMode) == XASU_AES_CCM_MODE))
 
 /************************************ Variable Definitions ***************************************/
 

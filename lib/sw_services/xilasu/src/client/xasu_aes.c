@@ -44,6 +44,11 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr);
+static inline s32 XAsu_IsModeValidForAad(u8 EngineMode);
+static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr);
+static inline s32 XAsu_ValidateAesEngineMode(const XAsu_AesParams *AesClientParamPtr);
+static inline s32 XAsu_ValidateCcmOpMode(const XAsu_AesParams *AesClientParamPtr);
+static inline s32 XAsu_ValidateDataLen(const XAsu_AesParams *AesClientParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -99,10 +104,8 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	}
 
 	/** Validate the operation flags for AES CCM mode to ensure all the flags are set. */
-	if ((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesClientParamPtr->OperationFlags &
-			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
-			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL))) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateCcmOpMode(AesClientParamPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -116,10 +119,8 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		}
 
 		/** Validate AES engine mode. */
-		if ((AesClientParamPtr->EngineMode > XASU_AES_GCM_MODE) &&
-				(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
-				(AesClientParamPtr->EngineMode != XASU_AES_GHASH_MODE)) {
-			Status = XASU_INVALID_ARGUMENT;
+		Status = XAsu_ValidateAesEngineMode(AesClientParamPtr);
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
@@ -146,55 +147,15 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
 		 * data transfer length.
 		 */
-		if (AesClientParamPtr->AadLen != 0U) {
-			/**
-			 * If AAD length is non-zero, AAD address must be valid and AAD length should be
-			 * block size aligned within limit.
-			 */
-			if ((AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
-					(AesClientParamPtr->AadAddr == 0U) ||
-					((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
-			if (!(XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode))) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
-		}
-		else {
-			/** If AAD Length is zero, AAD address must also be zero. */
-			if ((AesClientParamPtr->AadAddr != 0U) &&
-					(XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode))) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
+
+		Status = XAsu_ValidateAadLen(AesClientParamPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
 
-		if (AesClientParamPtr->DataLen != 0U) {
-			/**
-			 * If Data length is non-zero, both input and output addresses must be valid and
-			 * data length within limit.
-			 * AES-CMAC engine mode must not allow data updates.
-			 */
-			if ((AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
-					(AesClientParamPtr->InputDataAddr == 0U) ||
-					(AesClientParamPtr->OutputDataAddr == 0U)) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
-			if (AesClientParamPtr->EngineMode == XASU_AES_CMAC_MODE) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
-		}
-		else {
-			/** If Data Length is zero, addresses must also be zero. */
-			if ((AesClientParamPtr->InputDataAddr != 0U) ||
-					(AesClientParamPtr->OutputDataAddr != 0U)) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
+		Status = XAsu_ValidateDataLen(AesClientParamPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
 
 		/** Plaintext must be a sequence of one or more complete data blocks. */
@@ -407,6 +368,168 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 		(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_0) ||
 		(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_1)){
 		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates operation flags for AES CCM mode.
+ *
+ * @param	AesClientParamPtr	Pointer to the XAsu_AesParams structure which contains AES
+ *					AES input and output parameters.
+ *
+ * @return
+ *		- XST_SUCCESS, if flags are valid for AES CCM mode.
+ *		- XASU_INVALID_ARGUMENT, if flags are invalid.
+ *
+ *************************************************************************************************/
+static inline s32 XAsu_ValidateCcmOpMode(const XAsu_AesParams *AesClientParamPtr)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	if (!((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) &&
+			((AesClientParamPtr->OperationFlags &
+			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
+			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)))) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates AES Engine mode.
+ *
+ * @param	AesClientParamPtr	Pointer to the XAsu_AesParams structure which contains AES
+ *					AES input and output parameters.
+ *
+ * @return
+ *		- XST_SUCCESS, if AES Engine mode is valid.
+ *		- XASU_INVALID_ARGUMENT, if mode is invalid.
+ *
+ *************************************************************************************************/
+static inline s32 XAsu_ValidateAesEngineMode(const XAsu_AesParams *AesClientParamPtr)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	if (!((AesClientParamPtr->EngineMode > XASU_AES_GCM_MODE) &&
+			(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
+			(AesClientParamPtr->EngineMode != XASU_AES_GHASH_MODE))) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates AES mode for AAD.
+ *
+ * @param	EngineMode	AES Engine mode.
+ *
+ * @return
+ *		- XST_SUCCESS, if AES mode for AAD is valid.
+ *		- XASU_INVALID_ARGUMENT, if AES mode for AAD is invalid.
+ *
+ *************************************************************************************************/
+static inline s32 XAsu_IsModeValidForAad(u8 EngineMode)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	if ((EngineMode == XASU_AES_GCM_MODE) || (EngineMode == XASU_AES_CMAC_MODE) ||
+		(EngineMode == XASU_AES_CCM_MODE)) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates AAD length.
+ *
+ * @param	AesClientParamPtr	Pointer to the XAsu_AesParams structure which contains AES
+ *					AES input and output parameters.
+ *
+ * @return
+ *		- XST_SUCCESS, if AAD length is valid.
+ *		- XASU_INVALID_ARGUMENT, if AAD length is invalid.
+ *
+ *************************************************************************************************/
+static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	if (AesClientParamPtr->AadLen != 0U) {
+		/**
+		 * If AAD length is non-zero, AAD address must be valid and AAD length should be
+		 * block size aligned within limit.
+		 */
+		if ((AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+				(AesClientParamPtr->AadAddr == 0U) ||
+				((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
+			goto END;
+		}
+		Status = XAsu_IsModeValidForAad(AesClientParamPtr->EngineMode);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	} else {
+		/** If AAD Length is zero, AAD address must also be zero. */
+		Status = XAsu_IsModeValidForAad(AesClientParamPtr->EngineMode);
+		if ((AesClientParamPtr->AadAddr != 0U) && (Status == XST_SUCCESS)) {
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates Data length.
+ *
+ * @param	AesClientParamPtr	Pointer to the XAsu_AesParams structure which contains AES
+ *					AES input and output parameters.
+ *
+ * @return
+ *		- XST_SUCCESS, if Data length is valid.
+ *		- XASU_INVALID_ARGUMENT, if Data length is invalid.
+ *
+ *************************************************************************************************/
+static inline s32 XAsu_ValidateDataLen(const XAsu_AesParams *AesClientParamPtr)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	if (AesClientParamPtr->DataLen != 0U) {
+		/**
+		 * If Data length is non-zero, both input and output addresses must be valid and
+		 * data length within limit.
+		 * AES-CMAC engine mode must not allow data updates.
+		 */
+		if ((AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+				(AesClientParamPtr->InputDataAddr == 0U) ||
+				(AesClientParamPtr->OutputDataAddr == 0U)) {
+			goto END;
+		}
+		if (AesClientParamPtr->EngineMode == XASU_AES_CMAC_MODE) {
+			goto END;
+		}
+	} else {
+		/** If Data Length is zero, addresses must also be zero. */
+		if ((AesClientParamPtr->InputDataAddr != 0U) ||
+				(AesClientParamPtr->OutputDataAddr != 0U)) {
+			goto END;
+		}
 	}
 
 	Status = XST_SUCCESS;
