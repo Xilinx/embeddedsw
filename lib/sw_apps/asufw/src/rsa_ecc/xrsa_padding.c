@@ -38,18 +38,16 @@
 /************************************ Constant Definitions ***************************************/
 #define XRSA_MAX_DB_LEN		(479U)	/**< RSA max padding data block size in bytes */
 #define XRSA_PSS_MAX_MSG_LEN	(550U)	/**< RSA PSS padding max message length */
-#define XRSA_DATA_BLOCK_FIRST_INDEX				(0x00U)	/**< RSA output data block
-									first index */
-#define XRSA_DATA_BLOCK_SECOND_INDEX				(0x01U)	/**< RSA output data block
-									second index */
+#define XRSA_PADDING_LEADING_ZERO				(0x00U)	/**< RSA output data block
+								leading zero value */
+#define XRSA_PADDING_LEADING_ZERO_IDX				(0x00U)	/**< RSA output data block
+								value in leading zero index */
 #define XRSA_DATA_BLOCK_DELIMITER				(0x01U)	/**< RSA output data block
 								value after memory zeroization */
 #define XRSA_DATA_BLOCK_LENGTH_OFFSET				(0x01U)	/**< RSA Data block length
 								value calculation offset */
 #define XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET			(0x02U)	/**< RSA Padding
 								random string index offset value */
-#define XRSA_OAEP_OUTPUT_DATA_BLOCK_FIRST_INDEX_VALUE		(0x00U)	/**< RSA OAEP
-							output data block value in first index */
 #define XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE	(0x01U)	/**< RSA OAEP
 						output data block seperation value from msg */
 #define XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET		(0x01U)	/**< RSA OAEP
@@ -68,8 +66,11 @@
 								end byte calculation offset */
 #define XRSA_PSS_ONE_PADDING_DATA_BLOCK_OFFSET			(0x01U)	/**< RSA PSS
 								one padding index offset value*/
-#define XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET			(0x02U)	/**< RSA input message
-								length value calculation offset */
+#define XRSA_PADDING_LEADING_ZERO_LEN				(0x01U) /**< RSA output data block
+								leading zero length */
+#define XRSA_DB_DELIMITER_LEN					(0x01U) /**< RSA data block
+								delimiter length */
+
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** Structure has input and output parameters used for MGF */
@@ -174,7 +175,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Validate input length which should not be greater than KeySize – (2 * hashLen) – 2. */
-	if (Len > (KeySize - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET)) {
+	if (Len > (KeySize - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN - XRSA_DB_DELIMITER_LEN)) {
 		Status = XASUFW_RSA_OAEP_INVALID_LEN;
 		goto END;
 	}
@@ -203,11 +204,12 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Append 0x00's of length (KeySize - Len - (2U * HashLen) - 2U) to data block. */
-	if ((KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET) != 0U) {
+	if ((KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
+				XRSA_DB_DELIMITER_LEN) != 0U) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemSet(&DataBlock[HashLen], XRSA_MAX_DB_LEN, 0U,
 				     (KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen))
-				     - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET));
+				     - XRSA_PADDING_LEADING_ZERO_LEN - XRSA_DB_DELIMITER_LEN));
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END;
@@ -266,14 +268,13 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	for (Index = 0U; Index < HashLen; Index++) {
-		PaddedOutputData[Index + XRSA_DATA_BLOCK_SECOND_INDEX] =
+		PaddedOutputData[XRSA_PADDING_LEADING_ZERO_LEN + Index] =
 		SeedBuffer[Index] ^ MaskSeedBuffer[Index];
 	}
 
 	/** Append 0x00U to data block after masking the data. */
 	/** PaddedOutputData = 0x00 || maskedSeed || maskedDB. */
-	PaddedOutputData[XRSA_DATA_BLOCK_FIRST_INDEX] =
-		XRSA_OAEP_OUTPUT_DATA_BLOCK_FIRST_INDEX_VALUE;
+	PaddedOutputData[XRSA_PADDING_LEADING_ZERO_IDX] = XRSA_PADDING_LEADING_ZERO;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Increment output data index by one after maskedseed and copy masked datablock to output. */
@@ -395,7 +396,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/** Validate input length which should not be less than (2 * hashLen) + 2. */
 	if ((Len != KeySize) || (Len < ((XASUFW_DOUBLE_VALUE(HashLen)) +
-		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET))) {
+		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
 		Status = XASUFW_RSA_OAEP_INVALID_LEN;
 		goto END;
 	}
@@ -439,7 +440,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** Copy seed buffer and data block from decrypted output. */
 	/** EM = Y || maskedSeed || maskedDB . */
 	/** Increment output data index by one after maskedseed and point to masked datablock. */
-	MaskedSeedBuffer = &DecryptOutputData[XRSA_DATA_BLOCK_SECOND_INDEX];
+	MaskedSeedBuffer = &DecryptOutputData[XRSA_PADDING_LEADING_ZERO_LEN];
 	DataBlockMask = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
 
 	/** Generate mask of required length for seed block using MGF. */
@@ -499,7 +500,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* output data address using DMA on successful comparison.
 	*/
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((DecryptOutputData[XRSA_DATA_BLOCK_FIRST_INDEX] != 0U) ||
+	if ((DecryptOutputData[XRSA_PADDING_LEADING_ZERO_IDX] != 0U) ||
 		(XASUFW_SUCCESS != Xil_SMemCmp(DataBlock, XRSA_MAX_DB_LEN, HashBuffer,
 		XASU_SHA_512_HASH_LEN, HashLen)) || ((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
 		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE))) {
@@ -509,7 +510,8 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Index++;
 	MsgLen = DataBlockLen - Index;
 	/** Validate input length which should not be greater than KeySize – (2 * hashLen) – 2. */
-	if (MsgLen > (KeySize - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET)) {
+	if (MsgLen > (KeySize - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
+				XRSA_DB_DELIMITER_LEN)) {
 		Status = XASUFW_RSA_OAEP_INVALID_LEN;
 		goto END;
 	}
@@ -625,7 +627,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** Validate input length which should not be less than HashLen + SaltLen + 2. */
 	if ((PaddingParamsPtr->InputDataType != XASU_RSA_HASHED_INPUT_DATA) &&
 		(PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
-		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET))) {
+		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -760,7 +762,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Make MSBit of output data as zero. */
-	OutputData[XRSA_DATA_BLOCK_FIRST_INDEX] = OutputData[XRSA_DATA_BLOCK_FIRST_INDEX]
+	OutputData[XRSA_PADDING_LEADING_ZERO_IDX] = OutputData[XRSA_PADDING_LEADING_ZERO_IDX]
 							& XRSA_PSS_MSB_PADDING_MASK;
 
 	/** Append hash buffer and end byte 0xBC for final padded output. */
@@ -902,7 +904,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** Validate input length which should not be less than HashLen + SaltLen + 2. */
 	if ((PaddingParamsPtr->InputDataType != XASU_RSA_HASHED_INPUT_DATA) &&
 		(PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
-		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET))) {
+		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -975,7 +977,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* If MSbit is not 0x00 error out, else calculate the mask of data block on successful
 	* comparison using MGF.
 	*/
-	if ((MaskedDataBlock[XRSA_DATA_BLOCK_FIRST_INDEX] &
+	if ((MaskedDataBlock[XRSA_PADDING_LEADING_ZERO_IDX] &
 	     XRSA_PSS_MSB_PADDING_CHECK_MASK) != 0x00U) {
 		Status = XASUFW_RSA_PSS_LEFT_MOST_BIT_CMP_FAIL;
 		XFIH_GOTO(END);
@@ -1001,7 +1003,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	for (Index = 0U; Index < DataBlockLen; Index++) {
 		DataBlock[Index] ^= MaskedDataBlock[Index];
 	}
-	DataBlock[XRSA_DATA_BLOCK_FIRST_INDEX] = DataBlock[XRSA_DATA_BLOCK_FIRST_INDEX]
+	DataBlock[XRSA_PADDING_LEADING_ZERO_IDX] = DataBlock[XRSA_PADDING_LEADING_ZERO_IDX]
 		& XRSA_PSS_MSB_PADDING_MASK;
 	/**
 	* Check for 0x00's of length KeySize - SaltLen - HashLen - 2 in data block and then
