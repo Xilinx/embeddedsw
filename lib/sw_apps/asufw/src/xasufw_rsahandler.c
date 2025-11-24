@@ -186,6 +186,7 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	u16 ReqResources;
 
 	/** Allocate resources for the RSA module commands except for Get_Info command. */
 	/** Allocate DMA resource. */
@@ -198,12 +199,11 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, ReqId);
 
 	/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
-	if ((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_SHA2_RESOURCE_MASK)
-		== XASUFW_SHA2_RESOURCE_MASK) {
+	ReqResources = XAsufw_RsaModule.ResourcesRequired[CmdId];
+	if ((ReqResources & XASUFW_SHA2_RESOURCE_MASK) == XASUFW_SHA2_RESOURCE_MASK) {
 			XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_RSA, ReqId);
 			XAsufw_RsaModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	} else if ((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_SHA3_RESOURCE_MASK)
-		== XASUFW_SHA3_RESOURCE_MASK) {
+	} else if ((ReqResources & XASUFW_SHA3_RESOURCE_MASK) == XASUFW_SHA3_RESOURCE_MASK) {
 			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_RSA, ReqId);
 			XAsufw_RsaModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	} else {
@@ -211,8 +211,7 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Allocate TRNG resoource for commands which are dependent on TRNG HW. */
-	if (((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RESOURCE_MASK)
-		== XASUFW_TRNG_RESOURCE_MASK) &&
+	if (((ReqResources & XASUFW_TRNG_RESOURCE_MASK) == XASUFW_TRNG_RESOURCE_MASK) &&
 		((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RANDOM_BYTES_MASK)
 		== XASUFW_TRNG_RANDOM_BYTES_MASK)) {
 			XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, ReqId);

@@ -139,6 +139,7 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	u16 ReqResources;
 
 	/** Check and save the AES context if resource is not busy. */
 	Status = XAsufw_AesCheckAndSaveContext(ReqId);
@@ -166,12 +167,11 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYWRAP, ReqId);
 
 	/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
-	if ((XAsufw_KeyWrapModule.ResourcesRequired[CmdId] & XASUFW_SHA2_RESOURCE_MASK)
-		== XASUFW_SHA2_RESOURCE_MASK) {
+	ReqResources = XAsufw_KeyWrapModule.ResourcesRequired[CmdId];
+	if ((ReqResources & XASUFW_SHA2_RESOURCE_MASK) == XASUFW_SHA2_RESOURCE_MASK) {
 			XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_KEYWRAP, ReqId);
 			XAsufw_KeyWrapModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	} else if ((XAsufw_KeyWrapModule.ResourcesRequired[CmdId] & XASUFW_SHA3_RESOURCE_MASK)
-		== XASUFW_SHA3_RESOURCE_MASK) {
+	} else if ((ReqResources & XASUFW_SHA3_RESOURCE_MASK) == XASUFW_SHA3_RESOURCE_MASK) {
 			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_KEYWRAP, ReqId);
 			XAsufw_KeyWrapModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	} else {
