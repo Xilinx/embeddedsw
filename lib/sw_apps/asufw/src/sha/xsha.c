@@ -789,6 +789,8 @@ s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
  *		- XASUFW_SHA_INVALID_PARAM, if input parameter validation fails.
  *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
+ *		- XASUFW_INVALID_CMD_STAGE, if command stage is invalid.
+ *		- XASUFW_SHA_UPDATE_FAIL, if SHA update fails.
  *
  *************************************************************************************************/
 s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
@@ -803,35 +805,37 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 		goto END;
 	}
 
-	/** Jump to SHA_STAGE_UPDATE_DONE if SHA update is already in progress. */
-	if (CmdStage != XSHA_NON_BLOCKING_CMD_STAGE_INIT) {
-		goto SHA_STAGE_UPDATE_DONE;
-	}
+	switch (CmdStage) {
+	case XSHA_NON_BLOCKING_CMD_STAGE_INIT:
+		/** Perform SHA digest operation on the given input. */
+		Status = XSha_Start(ShaInstancePtr, ShaParamsPtr->ShaMode);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
 
-	/** Perform SHA digest operation on the given input. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Start(ShaInstancePtr, ShaParamsPtr->ShaMode);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XSha_Update(ShaInstancePtr, DmaPtr, ShaParamsPtr->DataAddr,
+				ShaParamsPtr->DataSize, (u32)XASU_TRUE);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			CmdStage = SHA_UPDATE_DONE;
+			break;
+		} else if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_SHA_UPDATE_FAIL;
+			break;
+		} else {
+			/* Do nothing */
+		}
+		/* fall through */
+	case SHA_UPDATE_DONE:
+		CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u32 *)(UINTPTR)ShaParamsPtr->HashAddr,
+				ShaParamsPtr->HashBufSize, XASU_FALSE);
+		break;
+	default:
+		Status = XASUFW_INVALID_CMD_STAGE;
+		break;
 	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Update(ShaInstancePtr, DmaPtr, ShaParamsPtr->DataAddr,
-		ShaParamsPtr->DataSize, (u32)XASU_TRUE);
-	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		CmdStage = SHA_UPDATE_DONE;
-		goto END;
-	} else if (Status != XASUFW_SUCCESS) {
-		goto END;
-	} else {
-		/* Do nothing */
-	}
-
-SHA_STAGE_UPDATE_DONE:
-	CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u32 *)(UINTPTR)ShaParamsPtr->HashAddr,
-			     ShaParamsPtr->HashBufSize, XASU_FALSE);
 
 END:
 	return Status;

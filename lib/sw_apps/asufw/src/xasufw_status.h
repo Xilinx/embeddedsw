@@ -605,6 +605,8 @@ enum {
 	XASUFW_RSA_ECC_HASH_BUF_PAD_FAIL, /**< 0x19EU - Error when RSA ECC hash buffer padding fails. */
 	XASUFW_SSS_CFG_GET_FAIL, /**< 0x19FU - Error when retrieved SSS configuration fails. */
 	XASUFW_SSS_CFG_CHECK_FAIL, /**< 0x1A0U - Error when SSS configuration is invalid. */
+	XASUFW_SHA_UPDATE_FAIL, /**< 0x1A1U - Error when SHA update fails. */
+	XASUFW_INVALID_CMD_STAGE, /**< 0x1A2U - Error for invalid command stage. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */
