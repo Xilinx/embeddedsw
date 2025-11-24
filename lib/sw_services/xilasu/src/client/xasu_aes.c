@@ -57,9 +57,9 @@ static inline s32 XAsu_ValidateDataLen(const XAsu_AesParams *AesClientParamPtr);
  * @brief	This function sends command to ASUFW to perform AES encryption/decryption operation
  * 		on a given payload data	with specified AES mode.
  *
- * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
- * @param	AesParamsPtr	Pointer to XAsu_AesParams structure which holds the parameters of
+ * @param	AesClientParamPtr	Pointer to XAsu_AesParams structure which holds the parameters of
  * 				AES input arguments.
  *
  * @return

@@ -229,6 +229,9 @@ END:
 /**
  * @brief	This function sends a command to ASUFW to run the SHA3 Known Answer Tests (KAT's).
  *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.

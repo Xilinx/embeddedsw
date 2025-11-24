@@ -54,7 +54,7 @@ extern "C" {
 typedef void (*XAsuClient_ResponseHandler) (void *CallBackRefPtr, u32 Status);
                                             /**< Response handler */
 
-/** @} */
+/** @cond xasu_client_internal */
 
 /** This structure contains client parameters information. */
 typedef struct {
@@ -118,10 +118,7 @@ inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen, 
 	return Header;
 }
 
-/**
- * @addtogroup xasu_client_info Client APIs
- * @{
-*/
+/** @endcond */
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr);
 s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr);

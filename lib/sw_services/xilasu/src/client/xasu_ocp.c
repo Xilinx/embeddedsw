@@ -46,7 +46,7 @@
  * @brief	This function sends command to ASUFW to perform DevIk certificate generation
  *		operation.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
  * @param	OcpCertClientParamPtr	Pointer to XAsu_OcpCertParams structure which holds the
  *					parameters of OCP input arguments.
@@ -105,7 +105,7 @@ END:
  * @brief	This function sends command to ASUFW to perform DevAk certificate generation
  *		operation.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
  * @param	OcpCertClientParamPtr	Pointer to XAsu_OcpCertParams structure which holds the
  *					parameters of OCP input arguments.
@@ -164,7 +164,7 @@ END:
  * @brief	This function sends command to ASUFW to perform CSR(Certificate Signing Request)
  *		generation operation.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
  * @param	OcpCertClientParamPtr	Pointer to XAsu_OcpCertParams structure which holds the
  *					parameters of OCP input arguments.
@@ -222,7 +222,7 @@ END:
 /**
  * @brief	This function sends command to ASUFW to perform DevAk attestation operation.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
  * @param	OcpDevAkAttestParamPtr	Pointer to XAsu_OcpDevAkAttest structure which holds the
  *					parameters of OCP input arguments.
@@ -280,9 +280,9 @@ END:
 /**
  * @brief	This function sends command to ASUFW to generate DME challenge response.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
- * @param	OcpDmeResponseAddr	Address of the XAsu_OcpDmeResponse structure.
+ * @param	OcpDmeParamsPtr		Pointer to the XAsu_OcpDmeParams structure.
  *
  * @return
  *	- XST_SUCCESS, if IPI request to ASUFW is sent successfully.
@@ -330,9 +330,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends command to ASUFW to perform DevAk attestation operation.
+ * @brief	This function sends command to ASUFW to perform DME key encryption operation.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
  * @param	OcpDmeKeyEnc		Pointer to XAsu_OcpDmeKeyEncrypt structure which holds the
  *					parameters of DME key arguments.

@@ -228,7 +228,7 @@ END:
 /**
  * @brief	This function performs SHA2 Known Answer Tests (KAT's).
  *
- * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
  * @param	Sha2Mode	SHA2 mode to test KAT (XASU_SHA_MODE_256 or XASU_SHA_MODE_512).
  *

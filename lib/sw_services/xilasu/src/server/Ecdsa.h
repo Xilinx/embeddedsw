@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,7 @@
 * API definitions
 */
 #ifndef ECDSA_H
-#define ECSDA_H
+#define ECDSA_H
 
 //#define NO_COMPACT_ECDSA_SUPPORT // If defined, the compact ECDSA code is disabled
 
@@ -20,11 +20,21 @@
 #define externC extern
 #endif
 
+/**
+ * The EcdsaKey is instance data. The user is required to allocate a
+ * variable of this type for every ECDSA public key operation. A pointer
+ * to a variable of this type is then passed to the ECDSA API functions.
+ */
 typedef struct {
 	u8 *Qx;		/**< Public key curve point x */
 	u8 *Qy;		/**< Public key curve point y */
 } EcdsaKey;
 
+/**
+ * The EcdsaSign is instance data. The user is required to allocate a
+ * variable of this type for every ECDSA digital signature operation. A pointer
+ * to a variable of this type is then passed to the ECDSA signature API functions.
+ */
 typedef struct {
 	u8 *r;		/**< The signature component r */
 	u8 *s;		/**< The signature component s */
@@ -181,6 +191,8 @@ externC s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo *CrvInfo, const u8 *In, u8 *Out
 externC int Ecdsa_CDH_Q(EcdsaCrvInfo *CrvInfo, const unsigned char *Secret, const EcdsaKey *Public,
 			unsigned char *Result);
 void Ecdsa_ClearEccRam(void);
+/** @} */
+
 #ifdef ENABLE_CONST_TIME_MEMCMP
 
 s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
@@ -196,4 +208,4 @@ s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 #endif  // ENABLE_CONST_TIME_MEMCMP
 /** @} */
 
-#endif
+#endif /* ECDSA_H */

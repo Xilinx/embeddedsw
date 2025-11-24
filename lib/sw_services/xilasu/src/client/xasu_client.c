@@ -63,7 +63,7 @@
 #define XASU_INITIAL_CALL_COUNT			(1U)	/**< Initial count for multi-update requests */
 #define XASU_INVALID_UNIQUE_ID_VAL		(0xFFU) /**< Invalid unique id value */
 
-/** @} */
+/** @cond xasu_client_internal */
 /************************************** Type Definitions *****************************************/
 /** This structure represents a client context, storing a unique identifier. */
 typedef struct {
@@ -91,10 +91,7 @@ typedef struct {
 	u8 Clear;				/**< Clear the contents after the callback if no pending updates */
 } XAsu_RefToCallBack;
 
-/**
- * @addtogroup xasu_client_info Client APIs
- * @{
-*/
+/** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
