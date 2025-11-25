@@ -137,7 +137,7 @@ int main(void)
 
 	ErrorStatus = XST_FAILURE;
 	OcpDmeParams.NonceAddr = (u64)(UINTPTR)NonceBuff;
-	OcpDmeParams.OcpDmeResponseAddr = (u64)(&OcpDmeResponse);
+	OcpDmeParams.OcpDmeResponseAddr = (u64)(UINTPTR)(&OcpDmeResponse);
 	/** Generate DME Response. */
 	Status = XAsu_OcpDmeChallengeReq(&ClientParam, &OcpDmeParams);
 	if (Status != XST_SUCCESS) {

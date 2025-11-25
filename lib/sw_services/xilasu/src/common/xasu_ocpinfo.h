@@ -111,6 +111,8 @@ typedef struct {
 	XAsu_OcpDme Dme;					/**< DME */
 	u32 DmeSignatureR[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Signature comp R */
 	u32 DmeSignatureS[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Signature comp S */
+	u32 DmePublicKeyX[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Public key component X */
+	u32 DmePublicKeyY[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Public key component Y */
 } XAsu_OcpDmeResponse;
 
 /** This structure contains information related to DME challenge parameters. */

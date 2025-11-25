@@ -30,6 +30,7 @@
 #include "xasu_ocp.h"
 #include "xasu_ocp_common.h"
 #include "xasu_ocpinfo.h"
+#include "xasu_generic.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -298,7 +299,20 @@ s32 XAsu_OcpDmeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeParams
 	u8 UniqueId;
 
 	/** Validate OCP client parameters. */
-	if ((OcpDmeParamsPtr->NonceAddr == 0U) || (OcpDmeParamsPtr->OcpDmeResponseAddr == 0U)) {
+	if (OcpDmeParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (OcpDmeParamsPtr->OcpDmeResponseAddr == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate the Nonce buffer to be non-zero. */
+	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)OcpDmeParamsPtr->NonceAddr,
+		XASU_OCP_DME_NONCE_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
