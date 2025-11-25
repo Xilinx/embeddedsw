@@ -73,7 +73,7 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 typedef s32 (*XAsufw_ResourceHandler_t)(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
-typedef u16 XAsufw_ResourcesRequired;
+typedef u32 XAsufw_ResourcesRequired;
 
 /** @cond xasufw_modules_internal */
 /** This structure contains a function pointer to command handler. */

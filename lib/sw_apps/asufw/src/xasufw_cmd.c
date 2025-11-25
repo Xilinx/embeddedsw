@@ -330,7 +330,7 @@ s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
 	const XAsufw_Module *Module = NULL;
-	u16 ReqResources;
+	u32 ReqResources;
 
 	/** Get module from the module ID received in the command header. */
 	Module = XAsufw_GetModule(ModuleId);

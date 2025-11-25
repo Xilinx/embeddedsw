@@ -611,6 +611,23 @@ enum {
 						fails. */
 	XASUFW_OCP_DME_KEY_NOT_PROGRAMMED, /**< 0x1A4U - Error when DME key is not programmed in eFuses. */
 	XASUFW_OCP_DME_PUBLIC_KEY_GEN_FAIL, /**< 0x1A5U - Error when DME public key generation fails. */
+	XASUFW_KEYMANAGER_INVALID_PARAM, /**< 0x1A6U - Invalid parameters to Keyvault APIs. */
+	XASUFW_KEYMANAGER_MODULE_REGISTRATION_FAILED, /**< 0x1A7U - Error when Keyvault module registration fails. */
+	XASUFW_KEYMANAGER_KEY_VAULT_DDR_INIT_FAILED, /**< 0x1A8U - Error when Keyvault DDR initialization fails. */
+	XASUFW_LOOP_INDEX_CMP_ERROR, /**< 0x1A9U - Error when loop index comparison fails. */
+	XASUFW_KEYMANAGER_INVALID_KEY_TYPE, /**< 0x1AAU - Error when Keyvault key type is invalid. */
+	XASUFW_KEYMANAGER_VAULT_GEN_ERROR, /**< 0x1ABU - Error when vault generation fails. */
+	XASUFW_KEYMANAGER_VAULT_DELETE_ERROR, /**< 0x1ACU - Error when vault deletion fails. */
+	XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, /**< 0x1ADU - Error when key object generation fails. */
+	XASUFW_KEYMANAGER_IV_GEN_ERROR, /**< 0x1AEU - Error when IV generation fails. */
+	XASUFW_KEYMANAGER_MAX_CAPACITY_REACHED, /**< 0x1AFU - Error when key vault maximum capacity is reached. */
+	XASUFW_RAND_GEN_ERROR, /**< 0x1B0U - Error when random number generation fails. */
+	XASUFW_KEYMANAGER_UPDATE_INFO_FAIL, /**< 0x1B1U - Error when key vault information update fails. */
+	XASUFW_KEYMANAGER_NEW_VAULT_NOT_ALLOWED, /**< 0x1B2U - Error when same subsystem creates another vault. */
+	XASUFW_KEYMANAGER_VAULT_NOT_FOUND, /**< 0x1B3U - Error when specified vault for a subsystem is not found. */
+	XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, /**< 0x1B4U - Error when key vault DDR address is invalid. */
+	XASUFW_KEYMANAGER_NO_SPACE, /**< 0x1B5U - Error when there is no space left to create key vault. */
+	XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, /**< 0x1B6U - Error when getting key object fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

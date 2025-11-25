@@ -73,6 +73,8 @@ collect (PROJECT_LIB_SOURCES xasufw_plmeventschedular.c)
 collect (PROJECT_LIB_HEADERS xasufw_plmeventschedular.h)
 collect (PROJECT_LIB_SOURCES xasufw_ocphandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_ocphandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_keymanagerhandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_keymanagerhandler.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
@@ -114,6 +116,7 @@ add_subdirectory(ecies)
 add_subdirectory(keywrap)
 add_subdirectory(x509)
 add_subdirectory(ocp)
+add_subdirectory(keymanager)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))

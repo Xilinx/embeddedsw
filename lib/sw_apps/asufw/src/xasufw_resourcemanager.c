@@ -339,6 +339,9 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 			case XASUFW_RSA_SHA_RESOURCE_MASK:
 				Resource = XAsufw_GetRsaShaMaskResourceId(ReqBuf);
 				break;
+			case XASUFW_KEYMANAGER_RESOURCE_MASK:
+				Resource = XASUFW_KEYMANAGER;
+				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
 				break;

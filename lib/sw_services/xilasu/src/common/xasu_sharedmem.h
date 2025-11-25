@@ -79,6 +79,13 @@ extern "C" {
 #define XASU_RTCA_COMM_CHANNEL_INFO_ADDR	(XASU_RTCA_BASEADDR + 0x10U) /**< Communication
 										channel info register
 										address */
+#define XASU_RTCA_KEYVAULT_BASEADDR_HIGH	(XASU_RTCA_BASEADDR + 0x98U)
+						/**< Higher 32-bit base address of key vault */
+#define XASU_RTCA_KEYVAULT_BASEADDR_LOW		(XASU_RTCA_BASEADDR + 0x9CU)
+						/**< Lower 32-bit base address of key vault */
+#define XASU_RTCA_KEYVAULT_SIZE_ADDR		(XASU_RTCA_BASEADDR + 0xA0U)
+						/**< Address of size of key vault */
+
 #define XASU_RTCA_MODULE_INFO_BASEADDR		(XASU_RTCA_BASEADDR + 0xA8U)
 						/**< Base address of module info of
 						size (180 bytes) */
@@ -92,6 +99,7 @@ extern "C" {
 #define XASU_RTCA_EXEC_STATUS_ADDR		(XASU_RTCA_BASEADDR + 0x174U)
 						/**< Base address of execution status of
 							size 1 byte */
+
 #define XASU_RTCA_KAT_EXEC_STATUS_VALUE		(0x01U)
 						/**< KAT status execution complete value */
 #define XASU_RTCA_KAT_EXEC_STATUS_MASK		(0x01U)

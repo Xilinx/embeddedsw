@@ -186,7 +186,7 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
-	u16 ReqResources;
+	u32 ReqResources;
 
 	/** Allocate resources for the RSA module commands except for Get_Info command. */
 	/** Allocate DMA resource. */

@@ -59,7 +59,8 @@ extern "C" {
 #define XASU_MODULE_KEYWRAP_ID			(9U) /**< Key wrap unwrap module ID */
 #define XASU_MODULE_PLM_ID			(10U) /**< PLM module ID */
 #define XASU_MODULE_OCP_ID			(11U) /**< OCP module ID */
-#define XASU_MAX_MODULES			(12U) /**< Maximum supported modules in ASU */
+#define XASU_MODULE_KEYMANAGER_ID		(12U) /**< KeyManager module ID */
+#define XASU_MAX_MODULES			(13U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */

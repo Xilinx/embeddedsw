@@ -139,7 +139,7 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
-	u16 ReqResources;
+	u32 ReqResources;
 
 	/** Check and save the AES context if resource is not busy. */
 	Status = XAsufw_AesCheckAndSaveContext(ReqId);

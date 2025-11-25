@@ -74,6 +74,7 @@
 #include "xasufw_plmeventhandler.h"
 #include "xasufw_ocphandler.h"
 #include "xasufw_kat.h"
+#include "xasufw_keymanagerhandler.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -349,6 +350,12 @@ static s32 XAsufw_ModulesInit(void)
 		goto END;
 	}
 #endif
+
+	/** Key manager module initialization. */
+	Status = XAsufw_KeyManagerInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Modules init done\r\n");
 

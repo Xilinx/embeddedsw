@@ -61,12 +61,13 @@ extern "C" {
 #define XASUFW_ECC_RESOURCE_MASK        0x80U /**< ECC resource mask */
 #define XASUFW_RSA_RESOURCE_MASK        0x100U /**< RSA resource mask */
 #define XASUFW_HMAC_RESOURCE_MASK       0x200U /**< HMAC resource mask */
-#define XASUFW_KDF_RESOURCE_MASK		0x400U /**< KDF resource mask */
-#define XASUFW_ECIES_RESOURCE_MASK		0x800U /**< ECIES resource mask */
+#define XASUFW_KDF_RESOURCE_MASK	0x400U /**< KDF resource mask */
+#define XASUFW_ECIES_RESOURCE_MASK	0x800U /**< ECIES resource mask */
 #define XASUFW_KEYWRAP_RESOURCE_MASK	0x1000U /**< Keywrap unwrap resource mask */
 #define XASUFW_RSA_SHA_RESOURCE_MASK	0x2000U /**< SHA resource mask for Edward curves */
 #define XASUFW_PLM_RESOURCE_MASK        0x4000U /**< PLM resource mask */
 #define XASUFW_OCP_RESOURCE_MASK        0x8000U /**< OCP resource mask */
+#define XASUFW_KEYMANAGER_RESOURCE_MASK	0x10000U /**< KeyVault resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -89,7 +90,8 @@ typedef enum {
 	XASUFW_NONE,	/**< 13: None */
 	XASUFW_PLM,	/**< 14: PLM */
 	XASUFW_OCP,	/**< 15: OCP */
-	XASUFW_INVALID,	/**< 16: Invalid */
+	XASUFW_KEYMANAGER, /**< 16: KeyManager */
+	XASUFW_INVALID,	/**< 17: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
