@@ -32,6 +32,7 @@
 * 1.8 sd  8/14/24 Added GetRate support.
 * 1.11 sd  9/27/25 Added XClk_Wiz_GetInputRate.
 *      sd  10/29/25 Conditionally compile XClk_Wiz_GetInputRate.
+* 1.12 sd  11/21/25 Fix a typo in strcmp.
 * </pre>
 ******************************************************************************/
 
@@ -831,12 +832,11 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
 #ifdef SDT
 	u32 RegLow;
 	u32 RegHigh = 0;
-	u32 Reg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0" >= 0))) {
+	if ((strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0")) >= 0) {
 		RegLow = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_L_OFFSET);
 		RegHigh = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_H_OFFSET) << 16 | RegLow;
 	}
