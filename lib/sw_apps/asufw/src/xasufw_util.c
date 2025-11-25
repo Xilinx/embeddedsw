@@ -162,38 +162,6 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 
 /*************************************************************************************************/
 /**
- * @brief	This function checks whether the buffer has a non-zero value or not.
- *
- * @param	Buffer	Pointer to the buffer whose value needs to be checked.
- * @param	Length	Length of the buffer in bytes.
- *
- * @return
- *	-	XASUFW_SUCCESS, if buffer has non-zero value.
- *	-	XASUFW_INVALID_PARAM, if input parameters are invalid.
- *	-	XASUFW_FAILURE, if buffer has all zeroes as values.
- *
- *************************************************************************************************/
-s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length)
-{
-	s32 Status = XASUFW_FAILURE;
-	volatile u32 Index;
-
-	if ((Buffer == NULL) || (Length == 0U)) {
-		Status = XASUFW_INVALID_PARAM;
-	} else {
-		for (Index = 0U; Index < Length ; Index++) {
-			if (Buffer[Index] != 0U) {
-				Status = XASUFW_SUCCESS;
-				break;
-			}
-		}
-	}
-
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
  * @brief	This function sends IPI request to PLM for programming the requested off chip
  * Revocation Id eFuses.
  *

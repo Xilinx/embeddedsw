@@ -36,6 +36,7 @@
 #include "xkdf.h"
 #include "xsha.h"
 #include "xsha_hw.h"
+#include "xasu_generic.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -263,6 +264,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 
 	/**
 	 * Get the DME encrypted private key address and update the IV with the offset based on
@@ -283,11 +285,32 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 		Status = XASUFW_OCP_DME_ALL_PVT_KEYS_REVOKED;
 		goto END;
 	}
+
+	/** Return error if DME encrypted key is not programmed into eFUSEs. */
+	Status = XAsu_IsBufferNonZero((u8 *)DmeUserKeyAddr, XASU_OCP_DME_KEY_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_DME_KEY_NOT_PROGRAMMED;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Increment IV based on the DME revoke bits. */
 	XOcp_IncrementIv(DmeKekIv, IvIncVal);
 
+	/** Decrypt the DME encrypted private key from eFUSEs. */
 	Status = XOcp_DecryptPvtKey(DmaPtr, DmeUserKeyAddr, DmeKekIv, DmeDecPvtKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DME_KEY_DECRYPT_FAIL);
+		goto END_CLR;
+	}
+
+	/** Generate the DME public key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XEcc_GeneratePublicKey(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)DmeDecPvtKey,
+			(u64)(UINTPTR)OcpDmeResp->DmePublicKeyX);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DME_PUBLIC_KEY_GEN_FAIL);
 		goto END_CLR;
 	}
 
@@ -342,6 +365,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	ShaCmd.DataSize = sizeof(XAsu_OcpDme);
 	ShaCmd.HashAddr = (u64)(UINTPTR)HashBuf;
 	ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SHA_DIGEST_FAIL);
@@ -349,6 +373,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	}
 
 	/** Generate signature for DME. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
 			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)DmeDecPvtKey,
 			NULL, (u64)(UINTPTR)HashBuf, XASU_SHA_384_HASH_LEN,
@@ -414,6 +439,7 @@ static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 DmeUserKeyAddr, u8* Iv, u8
 	}
 
 	/** Change endianness of DME encrypted private key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(DmeEncPvtKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_DME_CHANGE_ENDIANNESS_ERROR;

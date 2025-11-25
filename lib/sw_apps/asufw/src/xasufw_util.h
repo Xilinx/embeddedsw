@@ -183,7 +183,6 @@ void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value);
 void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset);
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset);
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
-s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length);
 s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,

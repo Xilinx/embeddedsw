@@ -609,6 +609,8 @@ enum {
 	XASUFW_INVALID_CMD_STAGE, /**< 0x1A2U - Error for invalid command stage. */
 	XASUFW_OCP_GET_ASU_CDI_FROM_PLM_FAIL, /**< 0x1A3U - Error when getting ASU CDI from PLM
 						fails. */
+	XASUFW_OCP_DME_KEY_NOT_PROGRAMMED, /**< 0x1A4U - Error when DME key is not programmed in eFuses. */
+	XASUFW_OCP_DME_PUBLIC_KEY_GEN_FAIL, /**< 0x1A5U - Error when DME public key generation fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

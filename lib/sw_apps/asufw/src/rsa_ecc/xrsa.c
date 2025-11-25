@@ -37,6 +37,7 @@
 #include "Rsa.h"
 #include "xil_util.h"
 #include "xfih.h"
+#include "xasu_generic.h"
 
 /************************************ Constant Definitions ***************************************/
 /* Definitions for peripheral RSA */
@@ -182,7 +183,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_IsBufferNonZero((u8 *)KeyPtr->PubKeyComp.Modulus, Len);
+	Status = XAsu_IsBufferNonZero((u8 *)KeyPtr->PubKeyComp.Modulus, Len);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_MOD_DATA_IS_ZERO;
 		goto END;
@@ -405,7 +406,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_IsBufferNonZero((u8 *)KeyPtr->PubKeyComp.Modulus, Len);
+	Status = XAsu_IsBufferNonZero((u8 *)KeyPtr->PubKeyComp.Modulus, Len);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_MOD_DATA_IS_ZERO;
 		goto END;
