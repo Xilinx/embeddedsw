@@ -1910,11 +1910,6 @@ extern "C" {
 /* PUF handlers disable */
 #define PLM_PUF_EXCLUDE
 
-//#define PLM_DEBUG_INFO
-#define PLM_DEBUG
-
-#define PLM_DEBUG_MODE
-
 /* AMD Secure library ecdsa endianness Settings */
 #define XSECURE_ELLIPTIC_ENDIANNESS	0U	/* 0: Little Endian and 1: Big endian */
 
