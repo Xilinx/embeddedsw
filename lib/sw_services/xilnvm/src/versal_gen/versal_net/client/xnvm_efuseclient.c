@@ -2753,7 +2753,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	XNvm_EfuseDmeRevokeId* DmeRevokeId = (XNvm_EfuseDmeRevokeId *)DmeRevokeIdAddr;
+	XNvm_EfuseDmeRevokeId* DmeRevokeId = (XNvm_EfuseDmeRevokeId *)(UINTPTR)DmeRevokeIdAddr;
 	u64 ReadReg;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -2766,7 +2766,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 		goto END;
 	}
 
-	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DME_FIPS_OFFSET, 1U, LowAddr,
 		HighAddr);
