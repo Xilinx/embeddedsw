@@ -1752,6 +1752,25 @@ done:
 	return BaseAddress;
 }
 
+XPm_Device *XPmDevice_GetMemRegnDeviceByIndex(const u32 DeviceIndex) {
+	XPm_Device *Device = NULL;
+	/* Make sure we are working with only Index. */
+	u32 Index = (DeviceIndex & NODE_INDEX_MASK);
+
+	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX <= Index) {
+		goto done;
+	}
+
+	Device = PmMemRegnDevices[Index];
+	/* Check that Device's Index is same as given Index or not. */
+	if ((NULL != Device) && (Index != NODEINDEX(Device->Node.Id))) {
+		Device = NULL;
+	}
+
+done:
+	return Device;
+}
+
 XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 CmdType)
 {

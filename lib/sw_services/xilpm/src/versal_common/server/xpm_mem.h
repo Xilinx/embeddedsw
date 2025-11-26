@@ -10,6 +10,7 @@
 #include "xpm_device.h"
 #include "xpm_mem_plat.h"
 #include "xpm_requirement.h"
+#include "cfu_apb.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,6 +33,7 @@ extern "C" {
 #if defined(XPM_ENABLE_MEM_REGN_CHECKING)
 #define IS_BUILTIN_SUBSYSTEM(ID) 	(((u32)PM_SUBSYS_PMC == (ID)) || \
 					 ((u32)PM_SUBSYS_DEFAULT == (ID)))
+#define IS_PL_STARTUP_ASSERTED 		((XPlmi_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK))
 #endif
 
 #define IS_MEM_DEV_TYPE(Type)		(((u32)XPM_NODETYPE_DEV_OCM == (Type)) || \
@@ -62,11 +64,18 @@ extern "C" {
 #define PL_MEM_REGN_FLAGS_SHIFT_64	(60U)
 #define PL_MEM_REGN_FLAGS_MASK_64	((u64)0xF0000000U << 32)
 #define PL_MEM_REGN_FLAGS(SZ_64BIT)	((u32)(((SZ_64BIT) & PL_MEM_REGN_FLAGS_MASK_64) >> PL_MEM_REGN_FLAGS_SHIFT_64))
+/* zero-ing out upper flag bits[31:28] from 64bit size */
+#define PL_MEM_SIZE(SZ_64BIT)		((SZ_64BIT) & ~PL_MEM_REGN_FLAGS_MASK_64)
+/** Check whether PL Flag is set or not
+ * This can be done by reading [31:28] bits of upper 64bit value,
+ * where if Bits[31:28] == 0x1, then it's a PL memory ( or non-PL Memory otherwise )
+*/
 #define IS_PL_MEM_REGN(SZ_64BIT)	((u32)PL_MEM_REGN == PL_MEM_REGN_FLAGS((u64)(SZ_64BIT)))
 
 /* Macros with higher Hamming distance */
-#define ADDR_IN_RANGE      (0x3CU)
-#define ADDR_OUT_OF_RANGE  (0xC3U)
+#define ADDR_IN_RANGE      		(0x3CU)
+#define ADDR_NOT_IN_RANGE  		(0xC2U)
+#define ADDR_RANGE_OVERLAP 		(0xC3U)
 
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 typedef struct XPm_MemRegnDevice XPm_MemRegnDevice;
@@ -103,32 +112,6 @@ struct XPm_MemCtrlrDevice {
 	struct XPm_PlDeviceNode *PlDevice;	/**< Parent PL device */
 	u32 DdrMc_MainAddr; /**< DDRMC Main Address */
 };
-
-/************************** Static Inline Functions ******************************/
-
-/**
- * @brief  Checks whether given address range (addr + size) is contained
- * 		for given Start and End address
- * @param  RegionStart 	Start Address of the Region to compare
- * @param  RegionEnd 	End Address of the Region to compare
- * @param  StartAddr 	Start Address of the Range
- * @param  EndAddr 	End Address of the Range
- *
- * @return ADDR_IN_RANGE if the address range is within the region ( or ADDR_OUT_OF_RANGE otherwise )
- * @note   This is a static inline function
- */
-static inline u8 IsAddrWithinRange(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr) {
-	u8 Range;
-
-	if (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
-	    ((RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))) {
-		Range = ADDR_IN_RANGE;
-	} else {
-		Range = ADDR_OUT_OF_RANGE;
-	}
-
-	return Range;
-}
 
 /************************** Function Prototypes ******************************/
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,

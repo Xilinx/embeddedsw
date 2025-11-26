@@ -239,6 +239,51 @@ done:
 	return Status;
 }
 
+
+/**
+ * @brief  Checks whether given address range (addr + size) is contained
+ * 		within specificed Memory Region or going beyond (for potential overlap)
+ * @param  RegionStart 	Start Address of the Region to compare
+ * @param  RegionEnd 	End Address of the Region to compare
+ * @param  StartAddr 	Start Address of the Memory Range
+ * @param  EndAddr 	End Address of the Memory Range
+ *
+ * @return ADDR_IN_RANGE if the address range is within the region,
+ * 		ADDR_RANGE_OVERLAP if overlapping region (or ADDR_NOT_IN_RANGE otherwise)
+ * @note   The assumption is that input address region is valid only if it
+ * 		starts within a valid memory region.
+ *************************************************************************************
+ */
+static u8 checkAddrRangeContainment(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr) {
+	u8 Range;
+
+	/**
+	 * Input:	   |==============|
+	 *             RegionStart       RegionEnd
+	 * Memory: 	|-----------------------|
+	 *           StartAddr               EndAddr
+	 */
+	if (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
+	((RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))) {
+		Range = ADDR_IN_RANGE;
+	}
+	/**
+	 * Input:	   |============================|
+	 *             RegionStart                   RegionEnd
+	 * Memory: 	|-----------------------|
+	 *           StartAddr               EndAddr
+	 */
+	else if (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
+	(RegionEnd > EndAddr)) {
+		Range = ADDR_RANGE_OVERLAP;
+	}
+	else {
+		Range = ADDR_NOT_IN_RANGE;
+	}
+
+	return Range;
+}
+
 /**
  * @brief Checks whether a given address range is not in any of the exclusion regions
  * @param RegionAddr 	Range Start Address
@@ -319,7 +364,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		u32 isExclusionInRange = 0U;
 
 		/* condition to check whether entire excluded range falls in given address range (address + size) */
-		isExclusionInRange = IsAddrWithinRange(excludedStartAddress, excludedEndAddress,\
+		isExclusionInRange = checkAddrRangeContainment(excludedStartAddress, excludedEndAddress,\
 								RegionStartAddr, RegionEndAddr);
 		/* condition to check whether there is any overlap of given address range (address + size) with excluded range */
 		if (((RegionStartAddr >= excludedStartAddress) && (RegionStartAddr <= excludedEndAddress)) || \
@@ -336,7 +381,6 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		 * Ex Range4: |-------------------------------| (given range fully contains excluded range)
 		 */
 		if ((1U == isRangeOverlapExclusion) || (ADDR_IN_RANGE == isExclusionInRange)) {
-			PmInfo("Range falls in Exclusion List [%d]\r\n", index);
 			Status = XPM_FAILURE;
 			goto done;
 		}
@@ -348,12 +392,90 @@ done:
 }
 
 #if defined(XPM_ENABLE_MEM_REGN_CHECKING)
+static XStatus IsPLMemoryAccess(u64 RegionAddr, u64 RegionSize) {
+	volatile XStatus Status = XPM_FAILURE;
+	const XPm_MemRegnDevice *MemRegnDevice = NULL;
+	u64 RegionEndAddr = RegionAddr + RegionSize - 1U;
+	/* store the provided region address in a local variable */
+	u64 CurrentRegionAddr = RegionAddr;
+	/* store the provided region size in a local variable */
+	u64 CurrentRegionSize = RegionSize;
+
+	u32 index = (u32)XPM_NODEIDX_DEV_MEM_REGN_MIN;
+	while (index <= (u32)XPM_NODEIDX_DEV_MEM_REGN_MAX) {
+		MemRegnDevice = (XPm_MemRegnDevice *)XPmDevice_GetMemRegnDeviceByIndex(index);
+		if (NULL == MemRegnDevice) {
+			index++;
+			continue;
+		}
+
+		u64 StartAddress = MemRegnDevice->AddrRegion.Address;
+		u64 MemSize = MemRegnDevice->AddrRegion.Size;
+		if (!IS_PL_MEM_REGN(MemSize)) {
+			index++;
+			continue;
+		}
+		MemSize = PL_MEM_SIZE(MemSize);
+
+		u64 EndAddress = StartAddress + MemSize - 1U;
+		u32 Range = checkAddrRangeContainment(CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U),
+					StartAddress, EndAddress);
+		if (ADDR_IN_RANGE == Range) {
+			Status = XPM_SUCCESS;
+			break;
+		}
+		else if (ADDR_RANGE_OVERLAP == Range) {
+			/* update region address and size for overlapping case */
+			CurrentRegionAddr = EndAddress + 1ULL;
+			CurrentRegionSize = RegionEndAddr - EndAddress;
+			/* reset the iteration because we don't expect
+			*  to get PL Memory type MemRegn sequentially */
+			index = (u32)XPM_NODEIDX_DEV_MEM_REGN_MIN;
+			continue;
+		}
+		else {
+			/* Required by Misra */
+		}
+
+		/* Iterate to next Mem-Regn Device */
+		index++;
+	}
+
+	return Status;
+}
+#endif
+
+#if defined(XPM_ENABLE_MEM_REGN_CHECKING)
+/****************************************************************************/
+/**
+ * @brief  Checks whether given address range (addr + size) is valid
+ * 		in any Mem-Regn of given subsystem id.
+ *
+ * @param  SubsystemId 	The Subsystem to check for given addr range
+ * @param  RegionAddr 	Start Address of the range
+ * @param  RegionSize 	Size of the range
+ * @param  IsPLMem 	If address range valid, indicates whether PL or Non-PL Mem-Regn
+ *
+ * @return Status of the operation : XPM_INVALID_SUBSYSID, XST_INVALID_PARAM, XPM_FAILURE,
+ * 				XPM_SUCCESS
+ *
+ ****************************************************************************/
 static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem) {
 	XStatus Status = XPM_FAILURE;
 	const XPm_Requirement *Reqm = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
 	const XPm_MemRegnDevice *MemRegnDevice = NULL;
 	u32 DeviceId;
+
+	u64 RegionEndAddr = RegionAddr + RegionSize - 1U;
+	/* store the provided region address in a local variable */
+	u64 CurrentRegionAddr = RegionAddr;
+	/* store the provided region size in a local variable */
+	u64 CurrentRegionSize = RegionSize;
+	u64 StartAddress = 0x0ULL;
+	u64 MemSize = 0x0ULL;
+	u32 PLFlag = 0x0UL;
+	*IsPLMem = 0U;
 
 	if (RegionSize < 1U) {
 		Status = XST_INVALID_PARAM;
@@ -365,6 +487,19 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 	 * and the below algorithm checking is not required!
 	*/
 	if (IS_BUILTIN_SUBSYSTEM(SubsystemId)) {
+		Status = IsPLMemoryAccess(CurrentRegionAddr, CurrentRegionSize);
+		/**
+		 * If it's a PL Memory Region, set the IsPLMem flag.
+		 * This is used later to perform PLD power domain check
+		 * as well as PL startup ( EOS ) check
+		 */
+		if (XPM_SUCCESS == Status) {
+			*IsPLMem = PL_MEM_REGN;
+		}
+		/** If Built-in Subsystem is accessing non-PL memory,
+		 *  then there is nothing to check here. Memory Controller
+		 *  level checking happens in XPm_IsMemAddressValid()
+		*/
 		Status = XPM_SUCCESS;
 		goto done;
 	}
@@ -375,7 +510,6 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 		goto done;
 	}
 
-	*IsPLMem = 0U;
 	Reqm = Subsystem->Requirements;
 
 	while (NULL != Reqm) {
@@ -387,48 +521,35 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 		}
 
 		MemRegnDevice  = (XPm_MemRegnDevice *)Reqm->Device;
-		u64 StartAddress = MemRegnDevice->AddrRegion.Address;
-		u64 MemSize = MemRegnDevice->AddrRegion.Size;
-		u32 Flags = 0U;
+		StartAddress = MemRegnDevice->AddrRegion.Address;
+		MemSize = MemRegnDevice->AddrRegion.Size;
+		PLFlag = 0U;
 		if (IS_PL_MEM_REGN(MemSize)) {
-			Flags = PL_MEM_REGN_FLAGS(MemSize);
-			/* zero-ing out upper flag bits[31:28] from 64bit size */
-			MemSize &= ~PL_MEM_REGN_FLAGS_MASK_64;
+			PLFlag = PL_MEM_REGN_FLAGS(MemSize);
+			MemSize = PL_MEM_SIZE(MemSize);
 		}
 		u64 EndAddress = StartAddress + MemSize - 1U;
-		u32 Range = IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U),
+		u32 Range = checkAddrRangeContainment(CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U),
 					      StartAddress, EndAddress);
 
 		if (ADDR_IN_RANGE == Range) {
-			/* Check whether PL mem or not */
-			if (PL_MEM_REGN == Flags) {
+			/** Check whether PL mem or not */
+			if (PL_MEM_REGN == PLFlag) {
 				*IsPLMem = 1U;
 			}
 			Status = XPM_SUCCESS;
 			break;
 		}
+		else if (ADDR_RANGE_OVERLAP == Range) {
+			/* update region address and size for overlapping case */
+			CurrentRegionAddr = EndAddress + 1ULL;
+			CurrentRegionSize = RegionEndAddr - EndAddress;
+			/** reset the requirements iteration because we don't expect
+			 *  to get same memory type MemRegn sequentially */
+			Reqm = Subsystem->Requirements;
+		}
 
 		Reqm = Reqm->NextDevice;
-	}
-
-	if (XPM_SUCCESS != Status) {
-		PmInfo("Range not in Mem-Regn: [0x%x]\r\n", SubsystemId);
-		goto done;
-	}
-	if (1U == *IsPLMem) {
-		/* Address Range provided falls in PL Region */
-		/**
-		 * Check whether PL Power Domain is up ( because no parent node for PL )
-		 * Note: For any other Mem-Regn, power checking is done by retrieving
-		 * their parent's controller node in XPm_IsMemAddressValid()
-		 */
-		const XPm_Power *Power = XPmPower_GetById(PM_POWER_PLD);
-		if ((NULL != Power) && ((u8)XPM_POWER_STATE_ON == Power->Node.State)) {
-			Status = XPM_SUCCESS;
-		}
-		else {
-			Status = XPM_PM_NO_ACCESS;
-		}
 	}
 
 done:
@@ -441,6 +562,14 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	const XPm_MemDevice *MemDevice = NULL;
 	const XPm_MemCtrlrDevice *MCDev = NULL;
 	u32 DeviceId;
+
+	/* Indicates whether we have encountered an overlapping memory regions */
+	u8 IsOverlapMemRegion = 0U;
+	u64 RegionEndAddr = RegionAddr + RegionSize - 1U;
+	/* store the provided region address in a local variable */
+	u64 CurrentRegionAddr = RegionAddr;
+	/* store the provided region size in a local variable */
+	u64 CurrentRegionSize = RegionSize;
 
 	if (RegionSize < 1U) {
 		Status = XST_INVALID_PARAM;
@@ -456,7 +585,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	 * For any subsystem other than PMC, we must check exclusion list
 	 * If range is in exclusion list, it's not allowed and we return
 	 */
-	Status = IsRangeOutsideExclusionList(RegionAddr, RegionSize);
+	Status = IsRangeOutsideExclusionList(CurrentRegionAddr, CurrentRegionSize);
 	if (XPM_SUCCESS != Status) {
 		if (PM_SUBSYS_PMC == SubsystemId) {
 			/* If range is in exclusion list and caller is PMC_SUBSYS, then it's accessible */
@@ -467,14 +596,28 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 
 #if defined(XPM_ENABLE_MEM_REGN_CHECKING)
 	u8 IsPlMem = 0U;
-	Status = IsMemRegnAddressValid(SubsystemId, RegionAddr, RegionSize, &IsPlMem);
+	Status = IsMemRegnAddressValid(SubsystemId, CurrentRegionAddr, CurrentRegionSize, &IsPlMem);
 	if (XPM_SUCCESS != Status) {
 		goto done;
 	}
-	/** For PL Mem-Regn, we have already checked the PLD Power Domain in IsMemRegnAddressValid()
-	 *  Hence, for XPM_SUCCESS and IsPlMem, we can skip rest everything! ( as PL doesn't have parent node )
+	/** XPM_SUCCESS and IsPlMem
+	 * - we check PLD Power Domain
+	 * - we check CFU_FGCR[1] bit, i.e EOS ( PL Startup Assert )
 	*/
 	if (IsPlMem) {
+		/**
+		 * - Check whether PL Power Domain is up ( because no parent node for PL )
+		 * Note: For any other Mem-Regn, power checking is done by retrieving
+		 * their parent's controller node in XPm_IsMemAddressValid()
+		 * - Check whether PL Startup has been asserted in hardware
+		 */
+		const XPm_Power *Power = XPmPower_GetById(PM_POWER_PLD);
+		if ((NULL != Power) && ((u8)XPM_POWER_STATE_ON == Power->Node.State) && IS_PL_STARTUP_ASSERTED) {
+			Status = XPM_SUCCESS;
+		}
+		else {
+			Status = XPM_PM_NO_ACCESS;
+		}
 		goto done;
 	}
 #endif
@@ -482,7 +625,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	Status = XPM_FAILURE;
 
 	/**
-	* We iterate over OCM/TCM Regions first to avoid the overlapping corner cases with DDR
+	* We iterate over OCM/TCM Regions first
 	*/
 	for (u32 i = (u32)XPM_NODEIDX_DEV_MIN; i <= (u32)XPM_NODEIDX_DEV_MAX; i++) {
 
@@ -496,24 +639,70 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 			continue;
 		}
 
-		/* OCM/TCM Case */
 		MemDevice = (const XPm_MemDevice *)Device;
 		u64 StartAddress = (u64)MemDevice->StartAddress;
 		u64 EndAddress = (u64)MemDevice->EndAddress;
-		u32 Range = IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U),
+		u32 Range = checkAddrRangeContainment(CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U),
 					      StartAddress, EndAddress);
 		if (ADDR_IN_RANGE == Range) {
-			if ((u8)XPM_DEVSTATE_RUNNING == MemDevice->Device.Node.State) {
-				Status = XPM_SUCCESS;
+			if ((u8)XPM_DEVSTATE_RUNNING != MemDevice->Device.Node.State) {
+				Status = XPM_PM_NO_ACCESS;
+				goto done;
+			}
+
+			if (IsOverlapMemRegion == 1U) {
+				/* we have exhausted all the memory chunks of provided Region */
+				CurrentRegionSize = 0U;
+				break;
 			}
 			else {
-				PmInfo("Node [0x%x] parent controller not running...!\r\n", DeviceId);
-				Status = XPM_PM_NO_ACCESS;
+				/** there was no memory overlap and Region completely falls in Range
+				 * Note: Power checking already done before
+				*/
+				Status = XPM_SUCCESS;
+				goto done;
 			}
-			goto done;
+
+		}
+		/* we have encountered an overlapping memory region */
+		else if (ADDR_RANGE_OVERLAP == Range) {
+			IsOverlapMemRegion = 1U;
+			/* update region address and size for overlapping case */
+			CurrentRegionAddr = EndAddress + 1U;
+			CurrentRegionSize = RegionEndAddr - EndAddress;
+			/* if any memory controller of given chunk region is not running, it's a failure! */
+			if ((u8)XPM_DEVSTATE_RUNNING != MemDevice->Device.Node.State) {
+				Status = XPM_PM_NO_ACCESS;
+				goto done;
+			}
+		}
+		else {
+			/* Required by Misra */
 		}
 	}
 
+	/* we encountered an overlapping memory region */
+	if (IsOverlapMemRegion == 1U) {
+		if (CurrentRegionSize > 0U) {
+			/* out-of-bound region provided */
+			Status = XPM_FAILURE;
+		}
+		else {
+			Status = XPM_SUCCESS;
+		}
+		goto done;
+	}
+
+	/* Reset for DDR iteration */
+	IsOverlapMemRegion = 0U;
+
+	/** We iterate over DDR Regions
+	 * FIXME: TODO: Currently we support only overlapping across ranges within
+	 * a given DDRMC. We don't support overlapping across multiple DDRMCs
+	 *
+	 * Note: In future, we expect to an agreement with design output for DDRMCs
+	 * which will be used to implement overlapping across multiple DDRMCs (specially interleaved case)
+	*/
 	for (u32 i = (u32)XPM_NODEIDX_DEV_MIN; i <= (u32)XPM_NODEIDX_DEV_MAX; i++) {
 
 		const XPm_Device *Device = XPmDevice_GetByIndex(i);
@@ -532,30 +721,60 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
 			u64 StartAddress = MCDev->Region[Cnt].Address;
 			u64 EndAddress = MCDev->Region[Cnt].Address + MCDev->Region[Cnt].Size - 1U;
-			u32 Range = IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U),
+			u32 Range = checkAddrRangeContainment(CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U),
 						      StartAddress, EndAddress);
 			if (ADDR_IN_RANGE == Range) {
-				/*
-				* the memory controller should be in running state
-				* for the address to be accessible
-				*/
 				if ((u8)XPM_DEVSTATE_RUNNING != MCDev->Device.Node.State) {
-					PmInfo("DDRMC [0x%x] not running...!\r\n", DeviceId);
+					/* memory controller not running for given Range */
 					Status = XPM_PM_NO_ACCESS;
 					goto done;
 				}
+
+				if (IsOverlapMemRegion == 1U) {
+					/* we have exhausted all the memory chunks of provided Region */
+					CurrentRegionSize = 0U;
+				}
+				/* Power checking is already done */
 				Status = XPM_SUCCESS;
+				/*
+				* If the address is valid and the memory controller is non-interleaved,
+				* then we can return with success.
+				*/
+				if (0U == MCDev->IntlvIndex) {
+					goto done;
+				}
+				/* for interleaved case, we iterate to next DDRMC */
 				break;
 			}
-		}
-		/*
-		* If the address is valid and the memory controller is interleaved,
-		* then keep going to check for paired memory controller.
-		*/
-		if ((XPM_SUCCESS == Status) && (0U == MCDev->IntlvIndex)) {
-			break;
+			/**
+			 * We calculate the memory chunks for next overlapping range
+			 * of the same DDRMC.
+			 *
+			 * Note: We don't support overlapping across multiple DDRMCs
+			 * at this time. (because of design limitations on interleaving DDRMCs)
+			 */
+			else if (ADDR_RANGE_OVERLAP == Range) {
+				IsOverlapMemRegion = 1U;
+				/* update region address and size for overlapping case */
+				CurrentRegionAddr = EndAddress + 1U;
+				CurrentRegionSize = RegionEndAddr - EndAddress;
+				/* if any memory controller of given chunk region is not running, it's a failure! */
+				if ((u8)XPM_DEVSTATE_RUNNING != MCDev->Device.Node.State) {
+					Status = XPM_PM_NO_ACCESS;
+					goto done;
+				}
+			}
+			else {
+				/* Required by Misra */
+			}
 		}
 
+		/** Reset the initial Region Address and Region Size
+		 * This is required for non-interleaved DDRMCs with multiple
+		 * ranges present and we have overlap across them
+		 */
+		CurrentRegionAddr = RegionAddr;
+		CurrentRegionSize = RegionSize;
 	}
 
 done:

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -189,6 +189,7 @@ XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power);
 XPm_Device *XPmDevice_GetPlDeviceByIndex(const u32 DeviceIndex);
+XPm_Device *XPmDevice_GetMemRegnDeviceByIndex(const u32 DeviceIndex);
 XPm_Device *XPmDevice_GetHbMonDeviceByIndex(const u32 DeviceIndex);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
 u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
