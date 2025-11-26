@@ -2448,7 +2448,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateHashBlockAAD,
 			SecurePtr, &HBAesParams);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE, Status);
 			goto END;
 		}
 	}
