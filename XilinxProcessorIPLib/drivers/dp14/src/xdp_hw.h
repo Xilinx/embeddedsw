@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -148,6 +148,11 @@ extern "C" {
 							of the DisplayPort TX
 							core or output stuffing
 							symbols if disabled. */
+
+#define XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L	0x408	/**< Enables Encryption for all MST streams */
+
+#define XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H	0x40C	/**< Enables Encryption for all MST streams */
+
 #define XDP_TX_ENABLE_MAIN_STREAM	0x084	/**< Enable transmission of main
 							link video info. */
 #define XDP_TX_ENABLE_SEC_STREAM	0x088	/**< Enable the transmission of
