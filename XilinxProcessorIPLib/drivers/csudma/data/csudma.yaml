@@ -48,15 +48,4 @@ examples:
     xcsudma_selftest_example.c:
         - compatible : xlnx,zynqmp-csudma-1.0
         - reg
-
-tapp:
-   xcsudma_selftest_example.c:
-        declaration: XCsuDma_SelfTestExample
-        hwproperties:
-            - compatible : xlnx,zynqmp-csudma-1.0
-   xcsudma_intr_example.c:
-        declaration: XCsuDma_IntrExample
-        hwproperties:
-            - compatible : xlnx,zynqmp-csudma-1.0
-            - interrupts
 ...
