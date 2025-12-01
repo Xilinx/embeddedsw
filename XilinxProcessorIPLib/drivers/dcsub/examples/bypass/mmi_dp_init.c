@@ -56,7 +56,6 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	u32 TransferUnitSize;
 
 	XMmiDp_VideoConfig *VideoConfig;
-	XMmiDp_VSampleCtrl *VSampleCtrl;
 	XMmiDp_MainStreamAttributes *MsaConfig;
 	XMmiDp_LinkConfig *LinkConfig;
 	XVidC_VideoTimingMode *Vtm;
@@ -76,7 +75,6 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 		       (MsaConfig->BitsPerColor == 16));
 
 	VideoConfig = &InstancePtr->VideoConfig[Stream - 1];
-	VSampleCtrl = &InstancePtr->VSampleCtrl[Stream - 1];
 	LinkConfig = &InstancePtr->LinkConfig;
 	Vtm = XVidC_GetVideoModeData(VideoMode);
 
