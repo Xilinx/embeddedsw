@@ -283,11 +283,11 @@ typedef struct {
 	XDc_VideoStream2 VideoSrc2;
 	XDc_AudioStream  AudSrc;
 
-	XDc_VideoAttribute *NonLiveVideo1;
-	XDc_VideoAttribute *NonLiveVideo2;
+	const XDc_VideoAttribute *NonLiveVideo1;
+	const XDc_VideoAttribute *NonLiveVideo2;
 
-	XDc_VideoAttribute *LiveVideo1;
-	XDc_VideoAttribute *LiveVideo2;
+	const XDc_VideoAttribute *LiveVideo1;
+	const XDc_VideoAttribute *LiveVideo2;
 
 	XDc_VideoAttribute *OutputVideo;
 
@@ -446,11 +446,11 @@ void XDc_SetBlenderBgColor(XDc *InstancePtr);
 void XDc_SetGlobalAlpha(XDc *InstancePtr);
 void XDc_SetInputVideoSelect(XDc *InstancePtr);
 void XDc_SetInputAudioSelect(XDc *InstancePtr);
-XDc_VideoAttribute *XDc_GetNonLiveVideoAttribute
+const XDc_VideoAttribute *XDc_GetNonLiveVideoAttribute
 (XDc_VideoFormat Format);
 void XDc_SetNonLiveInputFormat(XDc *InstancePtr, u8 VideoSrc,
-			       XDc_VideoAttribute *Video);
-XDc_VideoAttribute *XDc_GetLiveVideoAttribute
+			       const XDc_VideoAttribute *Video);
+const XDc_VideoAttribute *XDc_GetLiveVideoAttribute
 (XDc_VideoFormat Format);
 void XDc_SetOutputVideoFormat(XDc *InstancePtr);
 XDc_VideoAttribute *XDc_GetOutputVideoAttribute

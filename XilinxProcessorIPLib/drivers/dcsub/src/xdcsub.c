@@ -373,8 +373,8 @@ u32 XDcSub_SetStreamPixelScaling(XDcSub *InstancePtr, u32 *Stream1_ScaleFactors,
 				 u32 *Stream2_ScaleFactors)
 {
 	XDc *DcConfigPtr;
-	XDc_VideoAttribute *Video1;
-	XDc_VideoAttribute *Video2;
+	const XDc_VideoAttribute *Video1;
+	const XDc_VideoAttribute *Video2;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 

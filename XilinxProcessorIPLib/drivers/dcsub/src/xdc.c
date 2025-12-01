@@ -305,12 +305,12 @@ void XDc_SetInputAudioSelect(XDc *InstancePtr)
  *              format is valid, else returns NULL.
  * @note        None.
 *******************************************************************************/
-XDc_VideoAttribute *XDc_GetNonLiveVideoAttribute(XDc_VideoFormat Format)
+const XDc_VideoAttribute *XDc_GetNonLiveVideoAttribute(XDc_VideoFormat Format)
 {
 	u8 Index;
 
 	for (Index = CbY0CrY1; Index <= Ydcl_ONLY_12BPC; Index++) {
-		XDc_VideoAttribute *VideoAttribute;
+		const XDc_VideoAttribute *VideoAttribute;
 		VideoAttribute = &XDc_SupportedFormats[Index];
 		if (Format == VideoAttribute->VideoFormat) {
 			return VideoAttribute;
@@ -329,7 +329,7 @@ XDc_VideoAttribute *XDc_GetNonLiveVideoAttribute(XDc_VideoFormat Format)
  *
 ******************************************************************************/
 void XDc_SetNonLiveInputFormat(XDc *InstancePtr, u8 VideoSrc,
-			       XDc_VideoAttribute *Video)
+			       const XDc_VideoAttribute *Video)
 {
 	u32 RegVal = 0;
 
@@ -364,12 +364,12 @@ void XDc_SetNonLiveInputFormat(XDc *InstancePtr, u8 VideoSrc,
  *
  * @note        None.
 *******************************************************************************/
-XDc_VideoAttribute *XDc_GetLiveVideoAttribute(XDc_VideoFormat Format)
+const XDc_VideoAttribute *XDc_GetLiveVideoAttribute(XDc_VideoFormat Format)
 {
 	u8 Index;
 
 	for (Index = Y_ONLY_8BPC; Index <= YCbCr422_12BPC; Index++) {
-		XDc_VideoAttribute *VideoAttribute;
+		const XDc_VideoAttribute *VideoAttribute;
 		VideoAttribute = &XDc_SupportedFormats[Index];
 		if (Format == VideoAttribute->VideoFormat) {
 			return VideoAttribute;
@@ -399,7 +399,7 @@ XDc_VideoAttribute *XDc_GetLiveVideoAttribute(XDc_VideoFormat Format)
  *
 ******************************************************************************/
 static void XDc_SetLiveInputFormat(XDc *InstancePtr, u32 RegConfig,
-				   XDc_VideoAttribute *Video)
+				   const XDc_VideoAttribute *Video)
 {
 	u32 RegVal;
 
@@ -555,7 +555,7 @@ static void XDc_SetInputCSC(XDc *InstancePtr, u32 RegOffset, u32 *CSCCoeffs,
  *
 *******************************************************************************/
 static void XDc_SetLayerControl(XDc *InstancePtr, u32 RegOffset, u8
-				BlendBypass, XDc_VideoAttribute *Video)
+				BlendBypass, const XDc_VideoAttribute *Video)
 {
 	u32 RegVal;
 
@@ -652,7 +652,7 @@ u32 XDc_ConfigureStream(XDc *InstancePtr, u8 StreamSrc)
 	u32 *ScalingFactors = NULL;
 	u32 *Stream_CSCCoeff = NULL;
 	u32 *Stream_CSCOffset = NULL;
-	XDc_VideoAttribute *Video = NULL;
+	const XDc_VideoAttribute *Video = NULL;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
