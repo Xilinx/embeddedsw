@@ -86,7 +86,7 @@ typedef struct {
 	u32 Reserved_2;
 
 	u32 Checksum;
-} XDcDma_Descriptor __attribute__ ((aligned(XDCDMA_DESC_ALIGN))) __attribute__((packed));
+} XDcDma_Descriptor __attribute__ ((aligned(XDCDMA_DESC_ALIGN)));
 
 typedef struct {
 	u32 BaseAddr;
