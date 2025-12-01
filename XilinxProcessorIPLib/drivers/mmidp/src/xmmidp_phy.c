@@ -477,13 +477,13 @@ static u32 XMmiDp_AuxChanCommand(XMmiDp *InstancePtr, u32 AuxCmdType, u32
 
 		BytesLeft -= Request.NumBytes;
 
-		if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_WRITE) && (BytesLeft > 0)) {
-			Request.Cmd == XMMIDP_AUX_CMD_I2C_MOT_WRITE;
-		}
+	if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_WRITE) && (BytesLeft > 0)) {
+		Request.Cmd = XMMIDP_AUX_CMD_I2C_MOT_WRITE;
+	}
 
-		if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_READ) && (BytesLeft > 0)) {
-			Request.Cmd == XMMIDP_AUX_CMD_I2C_MOT_READ;
-		}
+	if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_READ) && (BytesLeft > 0)) {
+		Request.Cmd = XMMIDP_AUX_CMD_I2C_MOT_READ;
+	}
 
 		XMmiDp_WaitUs(InstancePtr, XMMIDP_AUX_REQUEST_TIMEOUT_TIMER);
 
