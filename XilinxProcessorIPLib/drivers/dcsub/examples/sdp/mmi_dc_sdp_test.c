@@ -136,7 +136,7 @@ void GenerateFrames()
 	xil_printf("POPBUFF done\n");
 }
 
-void GenerateSdpPacket(RunConfig *RunCfgPtr)
+void GenerateSdpPacket()
 {
 	u32 Index;
 	u32 BufAddr;

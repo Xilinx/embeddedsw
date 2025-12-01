@@ -95,6 +95,6 @@ void GenerateFrameInfoAttribute(FrameInfo *Frame);
 void CreateDescriptors(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo *FBInfo, XDcDma_Descriptor *NextDesc);
 void InitFrames(RunConfig *RunCfgPtr);
 void InitDcSubPtr(RunConfig *RunCfgPtr);
-void GenerateSdpPacket(RunConfig *RunCfgPtr);
+void GenerateSdpPacket();
 
 #endif /* __NONLIVE_H__ */
