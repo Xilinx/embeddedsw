@@ -776,6 +776,8 @@ void XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 DpcdReg,
 
 u8 XMmiDp_GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
 {
+	(void)InstancePtr;
+
 	if (NumLanes == 4) {
 		return XMMIDP_PHY_LANES_4;
 	} else if (NumLanes == 2) {
@@ -787,6 +789,7 @@ u8 XMmiDp_GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
 
 u8 XMmiDp_GetNumLanes(XMmiDp *InstancePtr, u8 LaneCount)
 {
+	(void)InstancePtr;
 
 	if (LaneCount == XMMIDP_PHY_LANES_1) {
 		return 0x1;
@@ -855,6 +858,9 @@ void XMmiDp_SetPhyLaneCount(XMmiDp *InstancePtr, XMmiDp_PhyLanes LaneCount)
 u16 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 {
 	u16 link_rate;
+
+	(void)InstancePtr;
+
 	if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_270GBPS) {
 		link_rate = XMMIDP_HBR_LINK_RATE;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_540GBPS) {
@@ -869,6 +875,8 @@ u16 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 
 u8 XMmiDp_GetLinkBW(XMmiDp *InstancePtr, u8 LinkRate)
 {
+	(void)InstancePtr;
+
 	if (LinkRate == XMMIDP_PHY_RATE_RBR_162GBPS) {
 		return XMMIDP_DPCD_LINK_BW_SET_162GBPS;
 	} else if (LinkRate == XMMIDP_PHY_RATE_HBR_270GBPS) {
