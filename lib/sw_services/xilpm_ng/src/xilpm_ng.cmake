@@ -12,8 +12,9 @@ if(XILPM_NG_SUBSYS_ENABLE)
     endif()
 endif()
 
-# Definitions for XILPM library based on options Enable Subsystem support (if
-# enabled) This includes EEMI + Subsystem. Otherwise, enable EEMI support
+# Definitions for XILPM library based on options
+# Enable Subsystem support (if enabled) - This includes EEMI + Subsystem
+# Otherwise, enable EEMI support only
 if(XILPM_NG_SUBSYS_ENABLE)
   message(STATUS "Subsystem support is enabled.")
   add_compile_definitions(XILPM_RUNTIME)

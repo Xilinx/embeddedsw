@@ -128,11 +128,11 @@ struct XPm_Subsystem {
 	u32 IpiMask; /**< IPI mask associated with the subsystem */
 	u16 State; /**< Subsystem state */
 	u16 Flags; /**< Subsystem specific flags */
+	u32 OpsType; /**< Subsystem operations type */
 	XPm_Permissions Perms; /**< Subsystem permissions */
 	XPm_PendSuspCb PendCb; /**< Pending suspend callback */
 	XPm_FrcPwrDwnReq FrcPwrDwnReq; /** Force power down request */
 	XPm_RequirementList *Requirements; /**< Head of the requirement list for all devices within the subsystem */
-	XPm_SubsystemOps *Ops; 		/**< Subsystem operations */
 	XPm_SubsystemList *AllSubsystems; /**< Head of the list of all subsystems */
 };
 
@@ -152,9 +152,7 @@ XStatus XPmSubsystem_ModuleInit(void);
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId);
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
-XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 XStatus XPmSubsystem_Add(u32 SubsystemId);
-XStatus XPmSubsystem_AddReqm(u32 SubsystemId, u32 *Payload, u32 PayloadLen);
 XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId);
 XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx);
 u32 XPmSubsystem_GetMaxSubsysIdx(void);
@@ -168,7 +166,6 @@ XPm_Fsm *XPmSubsystem_GetHbMonFsm(void);
 XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
 XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
-XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem);
@@ -178,6 +175,25 @@ XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 
 XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
 XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType);
 XStatus XPmSubsystem_NotifyHealthyBoot(XPm_Subsystem *Subsystem);
+
+/*
+ * (Private) Generic Common Subsystem Operation Functions
+ * These are common implementations used by SubsystemOpsTable in
+ * implementation modules (xpm_runtime_subsys.c and xpm_runtime_eemi.c).
+ * Declared here for LTO visibility.
+ */
+XStatus XPmSubsystemOp_Activate(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystemOp_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
+XStatus XPmSubsystemOp_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
+XStatus XPmSubsystemOp_Idle(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystemOp_InitFinalize(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystemOp_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
+XStatus XPmSubsystemOp_NotifyHealthyBoot(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystemOp_SetState(XPm_Subsystem *Subsystem, u32 State);
+XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystemOp_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType);
+XStatus XPmSubsystemOp_Suspend(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystemOp_WakeUp(XPm_Subsystem *Subsystem);
 
 #ifdef __cplusplus
 }

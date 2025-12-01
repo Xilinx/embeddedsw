@@ -676,6 +676,7 @@ XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 *Payload = Cmd->Payload;
 	u32 PayloadLen = Cmd->PayloadLen;
+	XPm_Subsystem *Subsystem;
 
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		/* Skip during PLM update */
@@ -683,12 +684,17 @@ XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd)
 		goto done;
 	}
 
-	Status = XPmSubsystem_AddReqm(Payload[0], Payload, PayloadLen);
-	if (XST_SUCCESS != Status) {
-		PmErr("0x%x\n\r", Status);
+	Subsystem = XPmSubsystem_GetById(Payload[0]);
+	if (NULL != Subsystem) {
+		Status = XPmSubsystem_AddRequirement(Subsystem, Payload, PayloadLen);
+	} else {
+		Status = XPM_INVALID_SUBSYSID;
 	}
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -1070,21 +1076,7 @@ XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd)
 	return Status;
 }
 
-u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
-{
-	const XPm_Subsystem *Subsystem;
-	u32 IpiMaskVal = 0;
-
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		goto done;
-	}
-
-	IpiMaskVal = Subsystem->IpiMask;
-
-done:
-	return IpiMaskVal;
-}
+/* XPmSubsystem_GetIPIMask() is now defined in xpm_subsystem.c */
 
 maybe_unused static inline XStatus XPm_EnableDdrSr(const u32 SubsystemId)
 {

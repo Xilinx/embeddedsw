@@ -14,8 +14,13 @@ CUSTOM_COMPILER_FLAGS+=-Wall -Wextra -Warray-bounds=2 -Wformat=2 -Wno-main -Wimp
 endif
 LIB= libxilpm_runtime.a
 
-XILPM_RUNTIME_EEMI_SRCS := xpm_runtime_eemi.c
-XILPM_RUNTIME_SUBSYS_SRCS := xpm_runtime_eemi_subsys.c xpm_runtime_mem_subsys.c xpm_runtime_hbmon_subsys.c
+# EEMI-specific sources (if any) to filter out when building Runtime (SUBSYS) module
+XILPM_RUNTIME_EEMI_SRCS :=
+
+# Subsystem-specific sources to filter out when building Runtime (EEMI) module
+XILPM_RUNTIME_SUBSYS_SRCS := xpm_runtime_subsys.c \
+			     xpm_runtime_mem_subsys.c \
+			     xpm_runtime_hbmon_subsys.c
 
 # Check if XilPM_Runtime (EEMI) or XilPM_Runtime (Subsys) is enabled
 ifneq ($(filter -DXILPM_RUNTIME_EEMI, $(_CC_XILPM_FLAGS)),)
