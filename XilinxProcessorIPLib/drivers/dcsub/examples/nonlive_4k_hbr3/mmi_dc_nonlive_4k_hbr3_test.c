@@ -558,8 +558,8 @@ void generate_demo_scene(RGBA *image)
 int main()
 {
 	u32 Status;
-	RGBA *buf1 = IN_BUFFER_0_ADDR_V1;
-	RGBA *buf2 = IN_BUFFER_0_ADDR_V2;
+	RGBA *buf1 = (RGBA *)IN_BUFFER_0_ADDR_V1;
+	RGBA *buf2 = (RGBA *)IN_BUFFER_0_ADDR_V2;
 
 	Xil_DCacheDisable();
 	Xil_ICacheDisable();
