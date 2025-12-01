@@ -1503,8 +1503,10 @@ u32 XMmiDp_PhyWaitReady(XMmiDp *InstancePtr)
 		case 2:
 			BusyLanes |= XMMIDP_PHY_BUSY_LANE3 |
 				     XMMIDP_PHY_BUSY_LANE2;
+			/* Fall through */
 		case 1:
 			BusyLanes |= XMMIDP_PHY_BUSY_LANE1;
+			/* Fall through */
 		case 0:
 			BusyLanes |= XMMIDP_PHY_BUSY_LANE0;
 			break;

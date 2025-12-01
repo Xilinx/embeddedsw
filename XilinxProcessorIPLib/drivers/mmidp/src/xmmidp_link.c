@@ -430,10 +430,11 @@ u32 XMmiDp_CheckClockRecovery(XMmiDp *InstancePtr, u8 LaneCount)
 				return XST_FAILURE;
 			}
 
-			InstancePtr->LinkConfig.CrDoneCnt =
-				XMMIDP_LANE_ALL_CR_DONE;
+		InstancePtr->LinkConfig.CrDoneCnt =
+			XMMIDP_LANE_ALL_CR_DONE;
+		/* Fall through */
 
-		case XMMIDP_PHY_LANES_2:
+	case XMMIDP_PHY_LANES_2:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_CR_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE0_CR_DONE_SHIFT)) {
@@ -446,10 +447,11 @@ u32 XMmiDp_CheckClockRecovery(XMmiDp *InstancePtr, u8 LaneCount)
 				return XST_FAILURE;
 			}
 
-			InstancePtr->LinkConfig.CrDoneCnt =
-				XMMIDP_LANE_2_CR_DONE;
+		InstancePtr->LinkConfig.CrDoneCnt =
+			XMMIDP_LANE_2_CR_DONE;
+		/* Fall through */
 
-		case XMMIDP_PHY_LANES_1:
+	case XMMIDP_PHY_LANES_1:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_CR_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE0_CR_DONE_SHIFT)) {
