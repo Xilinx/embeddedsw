@@ -2009,7 +2009,7 @@ u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 	u32 Status;
 	u8 TimeoutCount = 0;
 
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	XMmiDp_WaitUs(InstancePtr, 1000);
 	XMmiDp_MstActSeqEnable(InstancePtr);
