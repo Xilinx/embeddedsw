@@ -45,7 +45,6 @@
 *******************************************************************************/
 u32 XDcSub_CfgInitialize(XDcSub *InstancePtr)
 {
-	u32 Status;
 	XDc *DcPtr;
 	XDcSub_Config DcSubCfg;
 
@@ -74,7 +73,6 @@ u32 XDcSub_CfgInitialize(XDcSub *InstancePtr)
 *******************************************************************************/
 u32 XDcSub_Initialize(XDcSub *InstancePtr)
 {
-	u32 Status;
 	XDc *DcPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
