@@ -352,8 +352,8 @@ typedef struct {
 
 	XDc_AlphaBlend AlphaEnable;
 	u8 Alpha;
-	u32 *Stream1ScaleFactors;
-	u32 *Stream2ScaleFactors;
+	const u32 *Stream1ScaleFactors;
+	const u32 *Stream2ScaleFactors;
 	u32 *Stream1CSCCoeff;
 	u32 *Stream1CSCOffset;
 	u32 *Stream2CSCCoeff;

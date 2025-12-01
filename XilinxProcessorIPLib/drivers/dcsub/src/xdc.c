@@ -488,7 +488,7 @@ void XDc_SetOutputVideoFormat(XDc *InstancePtr)
  * @note        None.
  *
 *******************************************************************************/
-static void XDc_SetScalingFactors(XDc *InstancePtr, u32 RegOffset, u32 *ScalingFactors)
+static void XDc_SetScalingFactors(XDc *InstancePtr, u32 RegOffset, const u32 *ScalingFactors)
 {
 
 	u8 Index;
@@ -649,7 +649,7 @@ u32 XDc_ConfigureStream(XDc *InstancePtr, u8 StreamSrc)
 	u32 RegOffset = 0;
 
 	u8 Stream_BlendBypass = 0;
-	u32 *ScalingFactors = NULL;
+	const u32 *ScalingFactors = NULL;
 	u32 *Stream_CSCCoeff = NULL;
 	u32 *Stream_CSCOffset = NULL;
 	const XDc_VideoAttribute *Video = NULL;
