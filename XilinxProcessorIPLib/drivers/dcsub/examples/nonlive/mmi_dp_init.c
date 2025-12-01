@@ -58,7 +58,7 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XMmiDp_VideoConfig *VideoConfig;
 	XMmiDp_MainStreamAttributes *MsaConfig;
 	XMmiDp_LinkConfig *LinkConfig;
-	XVidC_VideoTimingMode *Vtm;
+	const XVidC_VideoTimingMode *Vtm;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
