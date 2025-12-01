@@ -1326,7 +1326,7 @@ u32 XDcSub_SetCursorSdpRdyInterval(XDcSub *InstancePtr, u16 RdyInterval)
 {
 	XDc *DcConfigPtr;
 
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
 
 	DcConfigPtr = InstancePtr->DcPtr;
@@ -1351,15 +1351,15 @@ void XDcSub_SetSdpAckSel(XDcSub *InstancePtr, u8 AckSel)
 	XDc *DcConfigPtr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
-	Xil_AssertNonvoid((AckSel == XDC_SDP_DP_ACK) ||
+	Xil_AssertVoid(InstancePtr->DcPtr != NULL);
+	Xil_AssertVoid((AckSel == XDC_SDP_DP_ACK) ||
 			  (AckSel == XDC_SDP_PL_ACK));
 
 	DcConfigPtr = InstancePtr->DcPtr;
 
 	DcConfigPtr->SdpAckSel = AckSel;
 
-	return XST_SUCCESS;
+
 
 }
 
@@ -1377,13 +1377,13 @@ void XDcSub_EnableSdp(XDcSub *InstancePtr)
 	XDc *DcConfigPtr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+	Xil_AssertVoid(InstancePtr->DcPtr != NULL);
 
 	DcConfigPtr = InstancePtr->DcPtr;
 
 	DcConfigPtr->SdpEnable = 0x1;
 
-	return XST_SUCCESS;
+
 
 }
 /******************************************************************************/
