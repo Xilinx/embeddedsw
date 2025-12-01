@@ -95,10 +95,11 @@ void XDcDma_CfgInitialize(XDcDma *InstancePtr, u32 BaseAddr)
 *******************************************************************************/
 void XDcDma_WriteProtEnable(XDcDma *InstancePtr)
 {
-	u32 RegVal;
+	u32 RegVal = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	RegVal = XDcDma_ReadReg(InstancePtr->Config.BaseAddr, XDCDMA_WPROTS);
 	RegVal &= ~XDCDMA_WPROTS_ACTIVE_MASK;
 
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr,
@@ -116,10 +117,11 @@ void XDcDma_WriteProtEnable(XDcDma *InstancePtr)
 *******************************************************************************/
 void XDcDma_WriteProtDisable(XDcDma *InstancePtr)
 {
-	u32 RegVal;
+	u32 RegVal = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	RegVal = XDcDma_ReadReg(InstancePtr->Config.BaseAddr, XDCDMA_WPROTS);
 	RegVal |= XDCDMA_WPROTS_ACTIVE_MASK;
 
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr,
@@ -427,7 +429,7 @@ u32 XDcDma_ConfigChannelState(XDcDma *InstancePtr, XDcDma_ChannelId Id, XDcDma_S
 *******************************************************************************/
 u32 XDcDma_WaitPendingTransaction(XDcDma *InstancePtr, XDcDma_ChannelId Id)
 {
-	u32 Timeout;
+	u32 Timeout = 0;
 	u32 Count;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -481,6 +483,7 @@ u32 XDCDma_GetOutstandingTxn(XDcDma *InstancePtr, XDcDma_ChannelId Id)
 *******************************************************************************/
 void XDcDma_InterruptEnable(XDcDma *InstancePtr, u32 Mask)
 {
+	(void)Mask;  /* Suppress unused parameter warning */
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_MISC_IER, 0xF);
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_MISC_ISR, 0xF);
 	XDcDma_WriteReg(0xEDD00000, 0xCC78, 0x1);
@@ -593,7 +596,7 @@ u32 XDcDma_SetCallBack(XDcDma *InstancePtr, XDcDma_IntHandlerType HandlerType,
 *******************************************************************************/
 u32 XDcDma_Trigger(XDcDma *InstancePtr, XDcDma_ChannelType Channel)
 {
-	u32 Trigger;
+	u32 Trigger = 0;
 	u8 Index;
 	u8 NumPlanes;
 
@@ -663,7 +666,7 @@ u32 XDcDma_Trigger(XDcDma *InstancePtr, XDcDma_ChannelType Channel)
 *******************************************************************************/
 u32 XDcDma_ReTrigger(XDcDma *InstancePtr, XDcDma_ChannelType Channel)
 {
-	u32 Trigger;
+	u32 Trigger = 0;
 	u8 Index;
 	u8 NumPlanes;
 
@@ -814,7 +817,7 @@ void XDcDma_VSyncHandler(XDcDma *InstancePtr)
 	if (InstancePtr->SDP.SDP_TriggerStatus == XDCDMA_TRIGGER_EN) {
 
 		XDcDma_SetupChannel(InstancePtr, CursorSDPChan);
-		XDcDma_ConfigChannelState(InstancePtr, CursorSDPChan,
+		XDcDma_ConfigChannelState(InstancePtr, (XDcDma_ChannelId)CursorSDPChan,
 					  XDCDMA_STATE_ENABLE);
 		XDcDma_Trigger(InstancePtr, CursorSDPChan);
 
@@ -834,7 +837,7 @@ void XDcDma_VSyncHandler(XDcDma *InstancePtr)
 	if (InstancePtr->Audio.Audio_TriggerStatus == XDCDMA_TRIGGER_EN) {
 
 		XDcDma_SetupChannel(InstancePtr, AudioChan);
-		XDcDma_ConfigChannelState(InstancePtr, AudioChan,
+		XDcDma_ConfigChannelState(InstancePtr, (XDcDma_ChannelId)AudioChan,
 					  XDCDMA_STATE_ENABLE);
 		XDcDma_Trigger(InstancePtr, AudioChan);
 
@@ -979,12 +982,12 @@ void XDcDma_SetupChannel(XDcDma *InstancePtr, XDcDma_ChannelType Channel)
 
 		case CursorSDPChan:
 			XDcDma_SetDescriptorAddress(
-				InstancePtr, CursorSDPChan);
+				InstancePtr, (XDcDma_ChannelId)CursorSDPChan);
 			break;
 
 		case AudioChan:
 			XDcDma_SetDescriptorAddress(
-				InstancePtr, AudioChan);
+				InstancePtr, (XDcDma_ChannelId)AudioChan);
 			break;
 
 		default:
@@ -1044,14 +1047,13 @@ void XDcDma_SetAudioChCtrl(XDcDma *InstancePtr)
 {
 	u32 RegVal;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	RegVal = InstancePtr->Audio.DscrErrDis;
 	RegVal |= (InstancePtr->Audio.VidActvFetchEn)
 		  << XDCDMA_AUD_CTRL_VID_ACTV_FETCH_EN_SHIFT;
 
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_AUD_CTRL, RegVal);
-
 }
 
 /** @} */
