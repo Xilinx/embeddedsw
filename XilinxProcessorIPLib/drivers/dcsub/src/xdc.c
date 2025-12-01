@@ -401,7 +401,7 @@ const XDc_VideoAttribute *XDc_GetLiveVideoAttribute(XDc_VideoFormat Format)
 static void XDc_SetLiveInputFormat(XDc *InstancePtr, u32 RegConfig,
 				   const XDc_VideoAttribute *Video)
 {
-	u32 RegVal;
+	u32 RegVal = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -455,7 +455,7 @@ XDc_VideoAttribute *XDc_GetOutputVideoAttribute(XDc_VideoFormat Format,
 ******************************************************************************/
 void XDc_SetOutputVideoFormat(XDc *InstancePtr)
 {
-	u32 RegVal;
+	u32 RegVal = 0;
 
 	XDc_VideoAttribute *OutVideo;
 
