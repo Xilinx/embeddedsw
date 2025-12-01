@@ -188,7 +188,7 @@ typedef struct {
  */
 typedef struct {
 	XDcDma_Channel_Dscr Channel[3];
-	XDc_VideoAttribute *VideoInfo;
+	const XDc_VideoAttribute *VideoInfo;
 	XDcDma_FrameBuffer *FrameBuffer[3];
 	u8 Video_TriggerStatus;
 	u8 Graphics_TriggerStatus;
