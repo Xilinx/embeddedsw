@@ -666,12 +666,9 @@ END:
 int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
-	volatile int Status = XST_FAILURE;
 	InstancePtr->OperationId = XSECURE_DECRYPT;
 
-	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_DEC);
-
-	return Status;
+	return XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_DEC);
 }
 
 /*****************************************************************************/
@@ -703,11 +700,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
-	int Status = XST_FAILURE;
-
-	Status = XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
-
-	return Status;
+	return XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 }
 
 /*****************************************************************************/
@@ -925,12 +918,9 @@ END:
 int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
-	volatile int Status = XST_FAILURE;
 	InstancePtr->OperationId = XSECURE_ENCRYPT;
 
-	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_ENC);
-
-	return Status;
+	return XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_ENC);
 }
 
 /*****************************************************************************/
@@ -962,11 +952,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
-	int Status = XST_FAILURE;
-
-	Status = XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
-
-	return Status;
+	return XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 }
 
 /*****************************************************************************/
@@ -1467,17 +1453,13 @@ END:
  ******************************************************************************/
 static int XSecure_AesWaitKeyLoad(const XSecure_Aes *InstancePtr)
 {
-	int Status = XST_FAILURE;
-
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
-	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+	return (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 					XSECURE_AES_STATUS_OFFSET),
 			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
 			XSECURE_AES_STATUS_KEY_INIT_DONE_MASK,
 			XSECURE_AES_TIMEOUT_MAX);
-
-	return Status;
 }
 
 /*****************************************************************************/
@@ -1539,18 +1521,14 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
  ******************************************************************************/
 static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
 {
-	int Status = XST_FAILURE;
-
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 
-	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+	return (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 				XSECURE_AES_STATUS_OFFSET),
 				XSECURE_AES_STATUS_DONE_MASK,
 				XSECURE_AES_STATUS_DONE_MASK,
 				XSECURE_AES_TIMEOUT_MAX);
-
-	return Status;
 }
 
 /*****************************************************************************/
@@ -1566,18 +1544,14 @@ static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
  ******************************************************************************/
 static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
 {
-	int Status = XST_FAILURE;
-
 	/* Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 
-	Status = (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
+	return (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 				XSECURE_AES_STATUS_OFFSET),
 				XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
 				XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK,
 				XSECURE_AES_TIMEOUT_MAX);
-
-	return Status;
 }
 
 /*****************************************************************************/
@@ -2003,7 +1977,7 @@ END:
 static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -2016,10 +1990,8 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 		goto END;
 	}
 	/* Validate the size for last chunk */
-	Status = XSecure_AesValidateSize(Size, IsLastChunk);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesValidateSize, Size, IsLastChunk);
+
 	/* Validate the AES state */
 	if ((InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) &&
 		(InstancePtr->AesState != XSECURE_AES_UPDATE_IN_PROGRESS)) {
@@ -2032,10 +2004,7 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
 
-	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
+	XSECURE_TEMPORAL_CHECK(END_RST, Status, XSecureAesUpdate, InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 
 	if (IsLastChunk == (u8)TRUE) {
 		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
