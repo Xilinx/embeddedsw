@@ -86,18 +86,6 @@ typedef struct {
 	u8 IsLastChunkDest;	/**< Flag for last update in destination */
 } XSecure_AesDmaCfg;
 
-/** This structure contains parameters to configure key source for AES */
-typedef struct {
-	u32 RegOffset;	/**< Register offset for key source */
-	u32 KeySrcSelVal;	/**< Selection value for key source */
-	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
-	u8  DecAllowed;		/**< Decryption allowed or not for key source */
-	u8  EncAllowed;		/**< Encryption allowed or not for key source */
-	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
-	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
-	u32 KeyClearVal;	/**< Key source clear value*/
-} XSecure_AesKeyLookup;
-
 /************************************ Function Prototypes *****************************************/
 /**
  * @cond xsecure_internal

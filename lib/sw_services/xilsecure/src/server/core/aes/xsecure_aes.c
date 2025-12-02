@@ -1863,7 +1863,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 		goto END_RST;
 	}
 
-	Status = XST_FAILURE;
+	Status = XSECURE_AES_GCM_TAG_MISMATCH;
 	/* Check Gcm Tag matching status */
 	GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_STATUS_OFFSET);
@@ -1872,13 +1872,10 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	GcmStatus &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
 	GcmStatusTmp &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
 
-	if ((GcmStatus != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) ||
-	   (GcmStatusTmp != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK)) {
-		Status = (int)XSECURE_AES_GCM_TAG_MISMATCH;
-		goto END_RST;
+	if ((GcmStatus == XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) &&
+	   (GcmStatusTmp == XSECURE_AES_STATUS_GCM_TAG_PASS_MASK)) {
+		Status = XST_SUCCESS;
 	}
-
-	Status = XST_SUCCESS;
 
 END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -1916,7 +1913,6 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
-	u32 IsKeySrcAllowed = (u32)FALSE;
 
     Status = XSecure_CryptoCheck();
 	if (Status != XST_SUCCESS) {
@@ -1953,20 +1949,9 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END;
 	}
 
-	if (Mode == XSECURE_AES_MODE_DEC) {
-		IsKeySrcAllowed = AesKeyLookupTbl[KeySrc].DecAllowed;
-	}
-	else if (Mode == XSECURE_AES_MODE_ENC) {
-		IsKeySrcAllowed = AesKeyLookupTbl[KeySrc].EncAllowed;
-	}
-	else {
+	/* Validate Mode */
+	if((Mode != XSECURE_AES_MODE_ENC) && (Mode != XSECURE_AES_MODE_DEC)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	/* Key selected does not allow decryption or encryption */
-	if (IsKeySrcAllowed == (u32)FALSE) {
-		Status = XST_FAILURE;
 		goto END;
 	}
 

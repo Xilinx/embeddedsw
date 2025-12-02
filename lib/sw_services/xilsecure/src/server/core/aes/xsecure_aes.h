@@ -140,6 +140,16 @@ typedef struct {
 	XSecure_AesOp OperationId;           /* Operation Id to select encrypt/decrypt operation */
 } XSecure_Aes;
 
+/** This structure contains parameters to configure key source for AES */
+typedef struct {
+	u32 RegOffset;	/**< Register offset for key source */
+	u32 KeySrcSelVal;	/**< Selection value for key source */
+	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
+	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
+	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
+	u32 KeyClearVal;	/**< Key source clear value*/
+} XSecure_AesKeyLookup;
+
 extern const XSecure_AesKeyLookup AesKeyLookupTbl[XSECURE_MAX_KEY_SOURCES];
 
 /*****************************************************************************/
