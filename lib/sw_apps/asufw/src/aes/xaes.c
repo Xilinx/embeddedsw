@@ -1365,7 +1365,7 @@ END:
  *	- XASUFW_AES_INVALID_IV, if IV is invalid.
  *
  *************************************************************************************************/
-s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
+s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
 	u32 *MaskedOutputPtr, u32 *MaskedTagPtr, const u32 *MaskedKeyPtr, const u8 *IvPtr,
 	u8 OperationType)
 {

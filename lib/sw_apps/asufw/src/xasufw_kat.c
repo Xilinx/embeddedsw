@@ -1410,7 +1410,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** First encryption run. */
-	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
+	Status = XAes_DpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
 		MaskedOutput0, MaskedTag0, MaskedKey, AesCmIv, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_ENC_OP_FAILED;
@@ -1446,7 +1446,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Second encryption run. */
-	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
+	Status = XAes_DpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
 		MaskedOutput1, MaskedTag1, MaskedKey, AesCmIv, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_ENC_OP_FAILED;
@@ -1513,7 +1513,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** First decryption run. */
-	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
+	Status = XAes_DpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
 		MaskedOutput0, Tag0, MaskedKey, AesCmIv, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_DEC_OP_FAILED;
@@ -1534,7 +1534,7 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Second decryption run. */
-	Status = XAsufw_AesDpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
+	Status = XAes_DpaCmOperation(InstancePtr, AsuDmaPtr, InputDataAddr,
 		MaskedOutput1, Tag1, MaskedKey, AesCmIv, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_DPA_CM_DEC_OP_FAILED;

@@ -101,7 +101,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen);
 s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr, u32 AadLen,
 	u64 NonceAddr, u8 NonceLen, u32 PlainTextLen, u8 TagLen);
-s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
+s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
 	u32 *MaskedOutputPtr, u32 *MaskedTagPtr, const u32 *MaskedKeyPtr, const u8 *IvPtr,
 	u8 OperationType);
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
