@@ -84,7 +84,7 @@ static s32 RunKeyWrapAndDependentKat(XAsufw_Dma *AsuDmaPtr);
 #define XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES		(256U)	/**< RSA KAT message length in
 									bytes */
 #define XASUFW_AES_KEY_LEN_IN_BYTES			(32U)	/**< AES KAT Key length in bytes */
-#define XASUFW_AES_IV_LEN_IN_BYTES			(12U)	/**< AES KAT Iv length in bytes */
+#define XASUFW_AES_IV_LEN_IN_BYTES			(12U)	/**< AES KAT IV length in bytes */
 #define XASUFW_AES_AAD_LEN_IN_BYTES			(16U)	/**< AES KAT AAD length in bytes */
 #define XASUFW_AES_TAG_LEN_IN_BYTES			(16U)	/**< AES KAT Tag length in bytes */
 #define XASUFW_DOUBLE_P256_SIZE_IN_BYTES		(64U)	/**< Double the size of P256 curve
@@ -95,8 +95,6 @@ static s32 RunKeyWrapAndDependentKat(XAsufw_Dma *AsuDmaPtr);
 									length */
 #define XASUFW_AES_CM_LEN_IN_WORDS			(4U)	/**< AES CM input and output
 									buffer lengths in words. */
-#define XASUFW_AES_CM_IV_LEN_IN_WORDS			(3U)	/**< AES CM Iv buffer length
-									in words. */
 #define XASUFW_AES_CM_SPLIT_MASK			(0xFFFFFFFFU) /**< AES CM split mask. */
 #define XASUFW_AES_CM_SPLIT_ALIGNED_LENGTH		(0x10U) /**< AES CM split configuration
 									aligned length. */
@@ -405,7 +403,7 @@ static const u32 AesCmPt[XASUFW_AES_CM_LEN_IN_WORDS] = {0xE2BEC16BU, 0x969F402EU
 static const u32 AesCmKey[XASUFW_AES_CM_LEN_IN_WORDS] = {0x2B7E1516U, 0x28AED2A6U, 0xABF71588U, 0x9CF4F3CU};
 
 /* AES counter measure Iv */
-static const u32 AesCmIv[XASUFW_AES_CM_IV_LEN_IN_WORDS] = {0xF0F1F2F3U, 0xF4F5F6F7U, 0xF8F9FAFBU};
+static const u8 AesCmIv[XAES_DPA_IV_LEN_IN_BYTES] = {0xF0U, 0xF1U, 0xF2U, 0xF3U, 0xF4U, 0xF5U, 0xF6U, 0xF7U, 0xF8U, 0xF9U, 0xFAU, 0xFBU};
 
 /* AES counter measure expected ciphertext */
 static const u32 AesCmExpCt[XASUFW_AES_CM_LEN_IN_WORDS] = {0xCF0DC96EU, 0x41B85CE2U, 0xD83A03E3U, 0xA687B5F9U};
@@ -1274,7 +1272,7 @@ s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode)
 	TagLen = (EngineMode == XASU_AES_GCM_MODE) ? XASUFW_AES_TAG_LEN_IN_BYTES : 0U;
 
 	/** Perform AES final operation for encryption. */
-	Status = XAes_Final(AesInstance, AsuDmaPtr, (u32)(UINTPTR)TagPtr, TagLen);
+	Status = XAes_Final(AesInstance, AsuDmaPtr, (u64)(UINTPTR)TagPtr, TagLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
 		goto END;
@@ -1325,7 +1323,7 @@ s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode)
 	}
 
 	/** Perform AES final operation for encryption. */
-	Status = XAes_Final(AesInstance, AsuDmaPtr, (u32)(UINTPTR)TagPtr, TagLen);
+	Status = XAes_Final(AesInstance, AsuDmaPtr, (u64)(UINTPTR)TagPtr, TagLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
 		goto END;

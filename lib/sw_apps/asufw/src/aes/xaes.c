@@ -1360,12 +1360,13 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if decryption of data is successful.
  *	- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr or MaskedOutputPtr is NULL or
- * 		MaskedKeyPtr or IvPtrASU DMA is not ready, or input or output address is invalid.
+ * 		MaskedKeyPtr or IvPtr is NULL, or ASU DMA is not ready, or input or output address is invalid.
  * 	- XASUFW_AES_INVALID_OPERATION_TYPE, if operation type is invalid.
+ *	- XASUFW_AES_INVALID_IV, if IV is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
-	u32 *MaskedOutputPtr, u32 *MaskedTagPtr, const u32 *MaskedKeyPtr, const u32 *IvPtr,
+	u32 *MaskedOutputPtr, u32 *MaskedTagPtr, const u32 *MaskedKeyPtr, const u8 *IvPtr,
 	u8 OperationType)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
@@ -1426,13 +1427,12 @@ s32 XAsufw_AesDpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDat
 			(Index * XASUFW_WORD_LEN_IN_BYTES)), XAES_CM_SPLIT_MASK);
 	}
 
-	/** Load Iv to Iv registers. */
-	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_3_OFFSET) -
-			(Index * XASUFW_WORD_LEN_IN_BYTES), IvPtr[Index]);
+	/** Load 96-bit IV into the IV registers. */
+	Status = XAes_ProcessAndLoadIv(InstancePtr, (u64)(UINTPTR)IvPtr, XAES_DPA_IV_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_INVALID_IV;
+		goto END;
 	}
-
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET), XAES_GCM_J0_IV_INIT_VAl);
 
 	/** Configure user key size as 128-bit.  */
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), XASU_AES_KEY_SIZE_128_BITS);
