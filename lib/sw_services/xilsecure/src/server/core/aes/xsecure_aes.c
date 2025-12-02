@@ -1844,6 +1844,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	/* Push the AAD to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END_RST;
 	}
 
@@ -1858,6 +1859,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END_RST;
 	}
 
