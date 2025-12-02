@@ -83,7 +83,6 @@ class Domain(Repo):
         template app passed over command line are valid or not for the
         sdt input.
         """
-
         cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
         dump = utils.discard_dump()
         if not utils.is_file(cpu_list_file):
@@ -128,12 +127,6 @@ class Domain(Repo):
             )
             sys.exit(1)
 
-        if self.app:
-            validate_obj = ValidateHW(
-                self.domain_dir, self.proc, self.os, self.sdt,
-                self.app, self.repo_yaml_path
-            )
-            validate_obj.validate_hw()
         app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
         lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
 
@@ -150,6 +143,12 @@ class Domain(Repo):
             Validation.validate_template_name(
                 self.domain_dir, proc_data, self.os, self.app
             )
+        if self.app:
+            validate_obj = ValidateHW(
+                self.domain_dir, self.proc, self.os, self.sdt,
+                self.app, self.repo_yaml_path
+            )
+            validate_obj.validate_hw()
         return avail_cpu_data[self.proc]
 
     def build_dir_struct(self):
@@ -901,29 +900,10 @@ def main(arguments=None):
         action="store",
         default="",
         help=textwrap.dedent(
-            """\
-        Specify template app name. Available names are:
-            - empty_application
-            - hello_world
-            - memory_tests
-            - peripheral_tests
-            - zynqmp_fsbl
-            - zynqmp_pmufw
-            - lwip_echo_server
-            - freertos_hello_world
-            - versal_plm
-            - versal_psmfw
-            - freertos_lwip_echo_server
-            - freertos_lwip_tcp_perf_client
-            - freertos_lwip_tcp_perf_server
-            - freertos_lwip_udp_perf_client
-            - freertos_lwip_udp_perf_server
-            - lwip_tcp_perf_client
-            - lwip_tcp_perf_server
-            - lwip_udp_perf_client
-            - lwip_udp_perf_server
-            - dhrystone
-            - zynqmp_dram_test
+             f"""\
+        Specify template app name. Available names are as below. Please note that
+        these template names are maintained statically, they don't contain the custom templates.
+{'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
         """
         ),
     )

@@ -116,14 +116,14 @@ class Validation(BSP, Library):
         within the bsp. If the required libs are not available in the bsp, it
         throws the suitable assertion.
         """
+        Validation.validate_template_name(
+            self.domain_path, self.proc_data, self.os, self.template
+        )
         validate_obj = ValidateHW(
             self.domain_path, self.proc, self.os, self.sdt,
             self.template, self.repo_yaml_path
         )
         validate_obj.validate_hw()
-        Validation.validate_template_name(
-            self.domain_path, self.proc_data, self.os, self.template
-        )
         required_libs = self.app_data[self.template].get("depends_libs", [])
         diff_libs = []
         for ele in required_libs:
@@ -225,29 +225,10 @@ def main(arguments=None):
         action="store",
         default="",
         help=textwrap.dedent(
-            """\
-        Specify template app name. Available names are:
-            - empty_application
-            - hello_world
-            - memory_tests
-            - peripheral_tests
-            - zynqmp_fsbl
-            - zynqmp_pmufw
-            - lwip_echo_server
-            - freertos_hello_world
-            - versal_plm
-            - versal_psmfw
-            - freertos_lwip_echo_server
-            - freertos_lwip_tcp_perf_client
-            - freertos_lwip_tcp_perf_server
-            - freertos_lwip_udp_perf_client
-            - freertos_lwip_udp_perf_server
-            - lwip_tcp_perf_client
-            - lwip_tcp_perf_server
-            - lwip_udp_perf_client
-            - lwip_udp_perf_server
-            - dhrystone
-            - zynqmp_dram_test
+             f"""\
+        Specify template app name. Available names are as below. Please note that
+        these template names are maintained statically, they don't contain the custom templates.
+{'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
         """
         ),
     )

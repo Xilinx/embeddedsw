@@ -30,6 +30,8 @@ def get_logger(name):
 
 logger = get_logger(__name__)
 
+
+
 def log_time(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -644,3 +646,41 @@ def get_cmake_verbosity(verbose=0):
     else:
         verbosity = ""
     return verbosity
+
+# valid templates
+VALID_TEMPLATES = [
+    "asufw",
+    "ddr_self_refresh",
+    "dhrystone",
+    "empty_application",
+    "freertos_hello_world",
+    "freertos_lwip_echo_server",
+    "freertos_lwip_tcp_perf_client",
+    "freertos_lwip_tcp_perf_server",
+    "freertos_lwip_udp_perf_client",
+    "freertos_lwip_udp_perf_server",
+    "hello_world",
+    "img_rcvry",
+    "libmetal_echo_demo",
+    "lwip_echo_server",
+    "lwip_tcp_perf_client",
+    "lwip_tcp_perf_server",
+    "lwip_udp_perf_client",
+    "lwip_udp_perf_server",
+    "mba_fs_boot",
+    "memory_tests",
+    "openamp_echo_test",
+    "openamp_matrix_multiply",
+    "openamp_rpc_demo",
+    "peripheral_tests",
+    "rsa_auth_app",
+    "srec_bootloader",
+    "srec_spi_bootloader",
+    "versal_plm",
+    "versal_psmfw",
+    "zynq_dram_test",
+    "zynq_fsbl",
+    "zynqmp_dram_test",
+    "zynqmp_fsbl",
+    "zynqmp_pmufw",
+]
