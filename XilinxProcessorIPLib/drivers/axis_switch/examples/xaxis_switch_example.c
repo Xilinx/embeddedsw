@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
 * 1.6   sd  07/14/23 Added SDT support.
+* 1.8   sd  07/14/23 Change the Baseaddress macro.
 * </pre>
 *
 ******************************************************************************/
@@ -80,7 +81,7 @@ int main()
 #ifndef SDT
 	Status = AxisSwitch_Example(XAXIS_SWITCH_DEVICE_ID);
 #else
-	Status = AxisSwitch_Example(XPAR_AXIS_SWITCH_0_BASEADDR);
+	Status = AxisSwitch_Example(XPAR_XAXIS_SWITCH_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("AXI4-Stream Switch driver example failed.\r\n");
@@ -144,9 +145,9 @@ int AxisSwitch_Example(UINTPTR BaseAddress)
 	/* Disable all MI ports */
 	XAxisScr_MiPortDisableAll(&AxisSwitch);
 
-	/* Source SI[1] to MI[0] */
+	/* Source SI[0] to MI[0] */
 	MiIndex = 0;
-	SiIndex = 1;
+	SiIndex = 0;
 	XAxisScr_MiPortEnable(&AxisSwitch, MiIndex, SiIndex);
 
 	/* Enable register update */
