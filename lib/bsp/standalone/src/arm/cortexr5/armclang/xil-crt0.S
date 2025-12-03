@@ -1,5 +1,6 @@
 ;/******************************************************************************
 ;* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+;* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
@@ -12,6 +13,7 @@
 ;* Ver   Who  Date     Changes
 ;* ----- ---- -------- ---------------------------------------------------
 ;* 7.3  dp  06/25/20   Initial version for armclang
+;* 9.5  vmt 28/11/25   Added Cortex-R52 processor support for armclang
 ;* </pre>
 ;*
 ;* @note
@@ -23,7 +25,9 @@
 #include "bspconfig.h"
 
 	IMPORT |Image$$BSS_SECTION$$Base|
+#if !defined (ARMR52)
 	IMPORT Xil_InitializeExistingMPURegConfig
+#endif
 	EXPORT _startup
 	IMPORT __cpu_init
 	IMPORT __main
@@ -37,11 +41,14 @@
 
 _startup
 	bl	__cpu_init ;Initialize the CPU first (BSP provides this)
+
 	;configure the timer if TTC is present
 #ifdef SLEEP_TIMER_BASEADDR
 	bl XTime_StartTTCTimer
 #endif
-	bl 	Xil_InitializeExistingMPURegConfig ;/* Initialize MPU config */
+#if !defined (ARMR52)
+	bl 	Xil_InitializeExistingMPURegConfig ;Initialize MPU config
+#endif
 	;make sure argc and argv are valid
 	mov	r0, #0
 	mov	r1, #0

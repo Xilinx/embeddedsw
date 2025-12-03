@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * SPDX-License-Identifier: MIT
 *
@@ -20,6 +20,7 @@
 * ----- -------- -------- -----------------------------------------------
 * 7.3  dp  06/25/20   Initial version for armclang
 * 9.1  ml  11/16/23   Fix compilation errors reported with -std=c2x compiler flag
+* 9.5  vmt 28/11/25   Added mtcp2 macro for coprocessor register operations
 * </pre>
 *
 ******************************************************************************/
@@ -136,6 +137,11 @@ extern "C" {
 				    );\
 		rval;\
 	})
+
+#define mtcp2(rn, v)     __asm__ __volatile__(\
+		"mcrr " rn "\n"\
+		: : "r" (v), "r" (0)\
+		);
 
 /************************** Variable Definitions ****************************/
 

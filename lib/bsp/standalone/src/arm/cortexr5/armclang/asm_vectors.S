@@ -1,5 +1,6 @@
 ;/******************************************************************************
 ;* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+;* Copyright (c) 2025 Advanced Micro Devices, Inc.  All rights reserved.
 ;*
 ;* SPDX-License-Identifier: MIT
 ;*
@@ -8,8 +9,8 @@
 ;/**
 ;* @file asm_vectors.S
 ;*
-;* This file contains the initial vector table for the Cortex R5 processor
-;* as per armclang compiler
+;* This file contains the initial vector table for the Cortex R5 and Cortex R52
+;* processor as per armclang compiler
 ;*
 ;* <pre>
 ;* MODIFICATION HISTORY:
@@ -17,6 +18,8 @@
 ;* Ver   Who     Date     Changes
 ;* ----- ------- -------- ---------------------------------------------------
 ;* 7.3  dp  06/25/20   Initial version for armclang
+;* 9.5	vmt 28/11/25   Added Cortex-R52 support with extended FPU (D16–D31)
+;*		       context save/restore.
 ;* </pre>
 ;*
 ;* @note
@@ -58,8 +61,12 @@ _vector_table
 IRQHandler					;IRQ vector handler
 	stmdb	sp!,{r0-r3,r12,lr}		;state save from compiled code
 #ifndef __SOFTFP__
-
+#if defined (ARMR52)
+	vpush {d0-d15}
+	vpush {d16-d31}
+#else
 	vpush {d0-d7}				;Store floating point registers/
+#endif
 	vmrs r1, FPSCR
 	push {r1}
 	vmrs r1, FPEXC
@@ -72,7 +79,12 @@ IRQHandler					;IRQ vector handler
 	vmsr    FPEXC, r1
 	pop 	{r1}
 	vmsr    FPSCR, r1
+#if defined (ARMR52)
+	vpop    {d16-d31}
+	vpop    {d0-d15}
+#else
 	vpop    {d0-d7}
+#endif
 #endif
 	ldmia	sp!,{r0-r3,r12,lr}		;state restore from compiled code
 	subs	pc, lr, #4			;adjust return

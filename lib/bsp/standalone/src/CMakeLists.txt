@@ -82,6 +82,7 @@ add_library(xilstandalone STATIC ${_sources})
 endif()
 elseif(("${proc_compiler}" STREQUAL "armclang") OR
 	("${proc_compiler}" STREQUAL "armcc"))
+separate_arguments(CLANG_FLAGS UNIX_COMMAND "${CMAKE_C_FLAGS}")
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
 set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/armclang/boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/platform/versal/armclang/translation_table.S)
 set(CLANG_TARGET --target=aarch64-arm-none-eabi)
@@ -90,6 +91,10 @@ elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
 set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang//boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/cpu_init.S)
 set(CLANG_TARGET --target=arm-arm-none-eabi)
 set(CLANG_CPU --cpu=Cortex-R5)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
+set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang//boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/cpu_init.S)
+set(CLANG_TARGET --target=arm-arm-none-eabi)
+set(CLANG_CPU --cpu=Cortex-R52)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
 set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/armcc/boot.S  ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/armcc/asm_vectors.s  ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/armcc/translation_table.s)
 set(CLANG_TARGET --cpu=Cortex-A9 --fpu=VFPv3)
@@ -110,7 +115,7 @@ foreach(ASM_S_FILE ${ASM_S_FILES})
     # Add a custom command to convert .S to .s
     add_custom_command(
         OUTPUT ${ASM_s_FILE}
-	COMMAND ${CMAKE_C_COMPILER} ${CLANG_TARGET} -I ${CMAKE_INCLUDE_PATH} -I ${CMAKE_BINARY_DIR}/include -E -o ${ASM_s_FILE} ${ASM_S_FILE}
+	COMMAND ${CMAKE_C_COMPILER} ${CLANG_TARGET} ARGS ${CLANG_FLAGS} -I ${CMAKE_INCLUDE_PATH} -I ${CMAKE_BINARY_DIR}/include -E -o ${ASM_s_FILE} ${ASM_S_FILE}
         DEPENDS ${ASM_S_FILE}
     )
 

@@ -1,13 +1,13 @@
 ;/******************************************************************************
 ;* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-;* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+;* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
 ;/**
 ;* @file boot.S
 ;*
-;* @addtogroup r5_boot_code Cortex R5 Processor Boot Code
+;* @addtogroup r5_boot_code Cortex R5 and Cortex R52 Processor Boot Code
 ;* @{
 ;* <h2> boot.S </h2>
 ;* The boot code performs minimum configuration which is required for an
@@ -39,10 +39,15 @@
 ;*                     to start of stack address space, it should point to
 ;*                     end of stack address space, since CortexR5 stack
 ;*                     works in descending order. It fixes CR#1177971.
+;* 9.5	vmt 28/11/25   Added Cortex-R52 processor support for armclang
 ;* </pre>
 ;*
 ;******************************************************************************/
+#ifndef SDT
 #include "xparameters.h"
+#else
+#include "bspconfig.h"
+#endif
 
 	EXPORT _prestart
 	EXPORT _boot
@@ -54,6 +59,18 @@
 	IMPORT |Image$$ARM_UNDEF_STACK$$ZI$$Limit|
 	IMPORT Init_MPU
 	IMPORT _startup
+	IMPORT _vector_table
+
+#if defined (ARMR52)
+	IMPORT _TCM_A_REGION
+	IMPORT _TCM_B_REGION
+	IMPORT _TCM_C_REGION
+#ifndef SDT
+counterfreq EQU XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#else
+	IMPORT XCortexr52_ConfigTable
+#endif
+#endif
 
 RPU_GLBL_CNTL EQU 0xFF9A0000
 RPU_ERR_INJ EQU 0xFF9A0020
@@ -83,6 +100,15 @@ _prestart
 _boot
 
 OKToRun
+#if defined (ARMR52)
+    mrs r0, cpsr
+    bfi r1, r0, #0, #5
+    cmp r1, #0x1A         ; Check if it is HYP mode
+    bne InitEL1
+
+    ldr r0, =_vector_table
+    mcr p15, 4, r0, c12, c0, 0      ; Write HVBAR
+#endif
 
 ;Initialize processor registers to 0
 	mov	r0,#0
@@ -98,6 +124,37 @@ OKToRun
 	mov	r10,#0
 	mov	r11,#0
 	mov	r12,#0
+
+#if defined (ARMR52)
+	; Set counter frequency, CNTFRQ: RW from EL2 RO from EL1
+#ifndef SDT
+	ldr     r0,=counterfreq
+#else
+	ldr	r1,=XCortexr52_ConfigTable
+	ldr     r0,[r1]
+#endif
+	mcr     p15,0,r0,c14,c0,0        ; Write CNTFRQ
+
+	; Change EL1 exception base address
+	ldr r0, =_vector_table
+	mcr p15, 0, r0, c12, c0, 0      ; Write VBAR
+
+	mrc     p15, 4, r1, c1, c0, 1   ; Read HACTLR
+	orr     r1, r1, #(0x1 << 8)     ; Enable access to IMP_PERIPHPREGIONR at EL1
+	mcr     p15, 4, r1, c1, c0, 1   ; Write HACTLR
+
+	; Switch to EL1 SVC mode
+	mrs r0, cpsr
+	mov r1, #0x13                   ; Mode SVC
+	bfi r0, r1, #0, #5
+	msr spsr_cxsf, r0
+	ldr r0, =InitEL1
+	msr elr_hyp, r0
+	dsb
+	isb
+	eret
+InitEL1
+#endif
 
 ;Initialize stack pointer and banked registers for various mode
 	mrs	r0, cpsr			;get the current PSR
@@ -183,6 +240,24 @@ OKToRun
 	vmov	d13,r1,r1
 	vmov	d14,r1,r1
 	vmov	d15,r1,r1
+#if defined (ARMR52)
+        vmov    d16, r1, r1
+        vmov    d17, r1, r1
+        vmov    d18, r1, r1
+        vmov    d19, r1, r1
+        vmov    d20, r1, r1
+        vmov    d21, r1, r1
+        vmov    d22, r1, r1
+        vmov    d23, r1, r1
+        vmov    d24, r1, r1
+        vmov    d25, r1, r1
+        vmov    d26, r1, r1
+        vmov    d27, r1, r1
+        vmov    d28, r1, r1
+        vmov    d29, r1, r1
+        vmov    d30, r1, r1
+        vmov    d31, r1, r1
+#endif
 
 #ifdef __SOFTFP__
 ;Disable the FPU if SOFTFP is defined
@@ -196,7 +271,56 @@ OKToRun
 	dsb                          	;Ensure all previous loads/stores have completed
 	mcr     p15, 0, r0, c1, c0, 0	;Write CP15 Control Register
 	isb                          	;Ensure subsequent insts execute wrt new MPU settings
+#if defined (ARMR52)
+	; Enable ECC checks for R52
+	mrc p15, 1, r0, c9, c1, 2			; Read IMP_MEMPROTCTLR
+	bic r0, r0, #(0x1 << 0)				; disable TCM and L1 cache ECC initially
+	mcr p15, 1, r0, c9, c1, 2			; Write IMP_MEMPROTCTLR
 
+	; Enable TCM regions for R52
+	ldr r0, =_TCM_A_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMB
+	mcr p15, 0, r1, c9, c1, 0  ; Write r1 to IMP_ATCMREGIONR
+
+InitTCMB
+	ldr r0, =_TCM_B_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMC
+	mcr p15, 0, r1, c9, c1, 1  ; Write r1 to IMP_BTCMREGIONR
+
+InitTCMC
+	ldr r0, =_TCM_C_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMDone
+	mcr p15, 0, r1, c9, c1, 2  ; Write r1 to IMP_CTCMREGIONR
+
+InitTCMDone
+	mrc     p15, 0, r1, c15, c0, 0   ; Read IMP_PERIPHPREGIONR
+	orr     r1, r1, #(0x3)           ; Enable peripheral port at EL2 and EL1 and EL0
+	mcr     p15, 0, r1, c15, c0, 0   ; Write IMP_PERIPHPREGIONR
+
+	; Disable branch prediction initially for R52
+	mrc p15, 1, r0, c9, c1, 1			; Read IMP_BPCTLR
+	orr r0, r0, #(0x1 << 1)				; Disable branch prediction
+	mcr p15, 1, r0, c9, c1, 1 			; Write IMP_BPCTLR
+
+	; Set attributes index for normal and device memory in MAIR0 for R52
+	MRC p15, 0, r0, c10, c2, 0	; Read MAIR0
+	LDR r1, =0xBB                   ; Attribute index0: Normal inner/outer RW cacheable, write-through
+	BFI r0, r1, #0, #8              ; Update attribute index0
+	LDR r1, =0x04                   ; Attribute index1: Device nGnRE
+	BFI r0, r1, #8, #8              ; Update Attribute index1
+	LDR r1, =0x44                   ; Attribute index2: Normal non cacheable
+	BFI r0, r1, #16, #8             ; Update Attribute index2
+	LDR r1, =0x00                   ; Attribute index3: Strongly ordered nGnRnE
+	BFI r0, r1, #24, #8             ; Update Attribute index3
+	MCR p15,0,r0,c10,c2,0           ; Write MAIR0
+
+#else
 ;Disable Branch prediction, TCM ECC checks
 	mrc     p15, 0, r0, c1, c0, 1	;Read ACTLR
 	orr     r0, r0, #(0x1 << 17)	;Enable RSDIS bit 17 to disable the return stack
@@ -212,7 +336,7 @@ OKToRun
 	dsb	;Complete all outstanding explicit memory operations
 
 ;Invalidate caches
-	mov	r0,#0	;r0 = 0
+	mov	r0,#0			;r0 = 0
 	dsb
 	mcr	p15, 0, r0, c7, c5, 0	;invalidate icache
 	mcr 	p15, 0, r0, c15, c5, 0 	;Invalidate entire data cache
@@ -244,10 +368,24 @@ OKToRun
 	nop
 	nop
 #endif
+#endif
 
 init
-	bl 	Init_MPU;Initialize MPU
+	bl 	Init_MPU		;Initialize MPU
 
+#if defined (ARMR52)
+;Enable Branch prediction for R52
+	mrc p15, 1, r0, c9, c1, 1       ; Read IMP_BPCTLR
+	bic r0, r0, #(0x1 << 1)         ; Enable branch prediction
+	mcr p15, 1, r0, c9, c1, 1       ; Write IMP_BPCTLR
+
+	mrc p15, 0, r1, c1, c0, 0	; Read System Control Register
+	ldr     r0, =0x1005             ; Set M bit to enable MPU, C & I bit for data and instruction caches
+	orr r1,r1,r0
+	dsb
+	mcr     p15, 0, r0, c1, c0, 0   ; Write System Control Register
+	isb
+#else
 ;Enable Branch prediction
 	mrc     p15, 0, r0, c1, c0, 1	;Read ACTLR
 	bic     r0, r0, #(0x1 << 17)	;Clear RSDIS bit 17 to enable return stack
@@ -282,6 +420,7 @@ init
 	ldr r1, [r0]
 	bic r1, r1, #(0x1 << 2)
 	str r1, [r0]
+#endif
 #endif
 #endif
 ;enable asynchronous abort exception
