@@ -30,8 +30,10 @@
 * 		      __FILE__ with __FILENAME__ in assert APIs.
 * 9.3   vmt  03/03/25 Fixed compilation warning of strrchr
 *                     [-Wbuiltin-declaration-mismatch]
-* 9.5   bdk  11/13/25 Added explicit parantheses for strrchr to fix MISRA-C
+* 9.5   bdk  11/13/25 Added explicit parentheses for strrchr to fix MISRA-C
 *		      violation for rule 12.1.
+* 9.5   bdk  11/29/25 Modified __FILENAME__ macro  to fix MISRA-C
+*                     violation for rule 10.1, 18.4 and 10.3.
 * </pre>
 *
 ******************************************************************************/
@@ -57,7 +59,9 @@ extern "C" {
 #if ! defined(SDT)
 #define __FILENAME__	__FILE__
 #else
-#define __FILENAME__	(strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1) : (strrchr(__FILE__, '\\') ? (strrchr(__FILE__, '\\') + 1) : __FILE__))
+#define __FILENAME__	((strrchr(__FILE__, (s32)'/') != NULL) ?	\
+(&(strrchr(__FILE__, (s32)'/')[1])) : ((strrchr(__FILE__, (s32)'\\') != NULL) ?	\
+(&(strrchr(__FILE__, (s32)'\\')[1])) : __FILE__))
 #endif
 
 #define XIL_ASSERT_NONE     0U
