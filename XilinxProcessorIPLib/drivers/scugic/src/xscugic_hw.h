@@ -75,6 +75,7 @@
 * 5.5   ml   01/08/25 Update datatype of function arguments from u32 to UINTPTR to
 *                     support both 32bit and 64bit platforms.
 * 5.6   ml   07/21/25 Fixed GCC warnings.
+* 5.7   bdk  11/29/25 Updated XScuGic_DeviceInitialize() declaratoin to fix 8.3 misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -737,7 +738,11 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void XScuGic_DeviceInterruptHandler(void *DeviceId);
+#ifndef SDT
 s32  XScuGic_DeviceInitialize(u32 DeviceId);
+#else
+s32 XScuGic_DeviceInitialize(u32 DistBaseAddr);
+#endif
 void XScuGic_RegisterHandler(UINTPTR BaseAddress, s32 InterruptID,
 			     Xil_InterruptHandler IntrHandler, void *CallBackRef);
 void XScuGic_SetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,

@@ -149,6 +149,7 @@
 * 5.5   ml   01/08/25 Update datatype of distributor and cpu base address in
 *                     scugic config structure.
 * 5.6   ml   07/21/25 Fix GCC warnings
+* 5.7   bdk  11/29/25 Updated XScuGic_LookupConfig() declaration to fix 8.3 misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -639,7 +640,7 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId);
  */
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress);
 #else
-XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddr);
+XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /*
