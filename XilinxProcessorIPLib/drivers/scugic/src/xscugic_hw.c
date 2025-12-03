@@ -105,6 +105,7 @@
 * 5.5   ml   01/08/25 Update datatype of function arguments from u32 to UINTPTR to
 *                     support both 32bit and 64bit platforms.
 * 5.6   ml   07/21/25 Fixed compilation warnings
+* 5.7   bdk  11/29/25 Updated conditional checks to fix 20.9 misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -184,7 +185,7 @@ static void DistInit(const XScuGic_Config *Config)
 	XScuGic_WriteReg(RedistBaseAddr, XSCUGIC_RDIST_WAKER_OFFSET,
 			 Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
 	/* Enable system reg interface through ICC_SRE_EL1 */
-#if EL3
+#if defined (EL3) && (EL3 == 1)
 	XScuGic_Enable_SystemReg_CPU_Interface_EL3();
 #endif
 	XScuGic_Enable_SystemReg_CPU_Interface_EL1();

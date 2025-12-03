@@ -125,7 +125,7 @@
 *                     the same register. The spinlock mechanism used here
 *                     used exclusive load and store instructions. To ensure
 *                     that legacy behavior is not broken, unless someone
-*                     enables spinlocks explicitely in their applications
+*                     enables spinlocks explicitly in their applications
 *                     the existing flow will remain unchanged. On how to
 *                     enable spinlocks, please refer to the documentations
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
@@ -181,6 +181,7 @@
 *                     Un-mapping of interrupts in case of GICv3.
 * 5.5   ml   12/20/24 Fixed GCC warnings
 * 5.6   ml   08/10/25 Fixed ARMCLANG warning
+* 5.7   bdk  11/29/25 Updated conditional checks to fix 20.9 misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -861,7 +862,7 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)
 #else
 	Mask = (Cpu_Identifier | (Int_Id << XSCUGIC_SGIR_EL1_INITID_SHIFT));
 #endif
-#if EL3
+#if defined (EL3) && (EL3 == 1)
 	XScuGic_WriteICC_SGI0R_EL1(Mask);
 #else
 	XScuGic_WriteICC_SGI1R_EL1(Mask);
@@ -1116,7 +1117,7 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
 * @param	Cpu_Identifier CPU number for which the interrupt has to be targeted
-*               For VERSAL_NET APU: 0 t0 3 bits sepcifies core id and 4 to 7 bits specifies
+*               For VERSAL_NET APU: 0 t0 3 bits specifies core id and 4 to 7 bits specifies
 *               cluster id of the targeted core.
 * @param	Int_Id IRQ source number to modify.
 *
@@ -1189,7 +1190,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 * @param	InstancePtr Pointer to the instance to be worked on.
 * @param	Cpu_Identifier CPU number from which the interrupt has to be
 *			unmapped.
-*               For VERSAL_NET APU: 0 t0 3 bits sepcifies core id and 4 to 7
+*               For VERSAL_NET APU: 0 t0 3 bits specifies core id and 4 to 7
 *               bits specifies cluster id of the targeted core.
 * @param	Int_Id IRQ source number to modify
 *
