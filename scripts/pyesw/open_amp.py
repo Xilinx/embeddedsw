@@ -177,9 +177,8 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
 
     cmd1 = (f"lopper -f --enhanced --permissive -i lop-xlate-yaml.dts "
             f"-i {overlay_dst} -i lop-r5-imux.dts "
-            f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} "
-            f"-- gen_domain_dts {obj.proc} --openamp_no_header ")
-    utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create openamp DT for remote")
+            f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} ")
+    utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create an openamp DT for remote")
 
     cmd2 = (f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} "
             f"-- openamp --openamp_header_only --openamp_output_filename={fname} "
