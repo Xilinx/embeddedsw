@@ -546,6 +546,29 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief	Get Memory Region device node by index
+ *
+ * @param MemRegnIndex	Memory Region Index (0 to XPM_NODEIDX_DEV_MEM_REGN_MAX-1)
+ *
+ * @return	Pointer to requested XPm_Device, NULL otherwise
+ *
+ ****************************************************************************/
+XPm_Device *XPmDevice_GetMemRegnByIndex(const u32 MemRegnIndex)
+{
+	XPm_Device *Device = NULL;
+
+	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX <= MemRegnIndex) {
+		goto done;
+	}
+
+	Device = PmMemRegnDevices[MemRegnIndex];
+
+done:
+	return Device;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function stores the sysmon addresses so that they can be retrieved
  * by index.
  *

@@ -724,6 +724,11 @@ XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev)
 
 		PmDbg("DeviceId: (0x%x) MemRegnDeviceId: (0x%x)\r\n", MCDev->Device.Node.Id, DeviceId);
 		Status = XPm_AddMemRegnDevice(DeviceId, Address, Size);
+		if (XST_DEVICE_BUSY == Status) {
+			/* Memory region already exists, skip requirement add */
+			Status = XST_SUCCESS;
+			continue;
+		}
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

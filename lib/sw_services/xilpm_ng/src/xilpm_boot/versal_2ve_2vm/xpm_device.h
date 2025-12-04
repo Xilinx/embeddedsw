@@ -105,6 +105,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex);
+XPm_Device *XPmDevice_GetMemRegnByIndex(const u32 MemRegnIndex);
 
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType);
