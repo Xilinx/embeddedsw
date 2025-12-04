@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *                     CR-965028.
 * 4.10  gm   07/11/23 Added SDT support.
 * 4.11  gm   12/06/23 Added IER and GIER calls in SDT flow.
+* 4.13 vlt   12/02/25 Added GlobalIntrMask initialization for SDT flow.
 *
 *</pre>
 *
@@ -260,11 +261,11 @@ int GpioIntrExample(XGpio *InstancePtr, UINTPTR BaseAddress,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
 #ifndef SDT
 	Status = GpioSetupIntrSystem(IntcInstancePtr, InstancePtr, DeviceId,
 				     IntrId, IntrMask);
 #else
+	GlobalIntrMask = IntrMask;
 	Status = XSetupInterruptSystem(InstancePtr, &GpioHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
