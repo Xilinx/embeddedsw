@@ -30,7 +30,8 @@
 *       dc     01/02/23 Multiband registers update
 * 1.6   cog    07/04/23 Add support for SDT
 * 1.7   dc     11/29/23 Add continuous scheduling
-* 1.8   dc     10/24/23 Correct initialization values
+* 1.8   dc     10/24/25 Correct initialization values
+* 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -102,8 +103,7 @@
 	"xlnx,has-axis-ctrl" /**< The AXIS dynamic scheduling control interface is present */
 #define XDFEPRACH_HAS_IRQ_CFG                                                  \
 	"xlnx,has-irq" /**< The core has an IRQ port enabled. */
-#define XDFEPRACH_NUM_BANDS_CFG                                                \
-	"xlnx,num-bands" /**< Number of bands. */
+#define XDFEPRACH_NUM_BANDS_CFG "xlnx,num-bands" /**< Number of bands. */
 /**
 * @cond nocomments
 */

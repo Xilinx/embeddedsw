@@ -56,6 +56,7 @@
 *       dc     03/22/24 Correct order of RACH mapping steps
 * 1.8   dc     06/12/25 Set phase offsets to 0 on startup
 *       dc     08/23/25 Add missing  parameter to yaml
+* 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -86,7 +87,7 @@
 */
 
 #define XDFEPRACH_DRIVER_VERSION_MINOR                                         \
-	(8U) /**< Driver's minor version number */
+	(9U) /**< Driver's minor version number */
 #define XDFEPRACH_DRIVER_VERSION_MAJOR                                         \
 	(1U) /**< Driver's major version number */
 
@@ -94,10 +95,11 @@
 	((double)((u64)1 << 32) /                                              \
 	 30720000) /**< 30720000 is the base sample rate */
 #define XDFEPRACH_ERROR_MARGIN                                                 \
-	(0.01) /**< Error margin in frequncy calculation */
+	(0.01) /**< Error margin in frequency calculation */
 #define XDFEPRACH_FREQ_MIN (-(1 << 23)) /**< Minimum frequency value */
 #define XDFEPRACH_FREQ_MAX (1 << 23) /**< Maximum frequency value */
-#define XDFEPRACH_MAX_CCRATE (3) /**< CCRate maxixmum value */
+#define XDFEPRACH_MAX_CCRATE                                                   \
+	(3) /**< Maximum CC sample rate value (245.76Ms/s) */
 
 /**
 * @cond nocomments
@@ -1038,7 +1040,6 @@ static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RCId,
 static void XDfePrach_AddNCO(XDfePrach_RCCfg *RCCfg,
 			     const XDfePrach_NCO *NcoCfg, u32 RCId)
 {
-	RCCfg->NcoCfg[RCId].PhaseOffset = NcoCfg->PhaseOffset;
 	RCCfg->NcoCfg[RCId].PhaseAcc = NcoCfg->PhaseAcc;
 	RCCfg->NcoCfg[RCId].DualModCount = NcoCfg->DualModCount;
 	RCCfg->NcoCfg[RCId].DualModSel = NcoCfg->DualModSel;
@@ -1525,7 +1526,7 @@ static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* API initialises an instance of the driver.
+* Initialises an instance of the driver.
 * Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
 * PRACH device with the name DeviceNodeName. The first available slot in
 * the instance array XDfePrach_Prach[] will be taken as a DeviceNodeName
@@ -1629,7 +1630,8 @@ bm_register_metal:
 
 	/* Set all phase offsets to 0 */
 	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
-		Offset = XDFEPRACH_FREQUENCY_PHASE_OFFSET + (Index * XDFEPRACH_NCO_CTRL_ADDR_STEP);
+		Offset = XDFEPRACH_FREQUENCY_PHASE_OFFSET +
+			 (Index * XDFEPRACH_NCO_CTRL_ADDR_STEP);
 		XDfePrach_WriteReg(InstancePtr, Offset, 0);
 	}
 
@@ -1646,7 +1648,7 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* API closes the instance of a PRACH driver and moves the state machine to
+* Closes the instance of a PRACH driver and moves the state machine to
 * a Not Ready state.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
@@ -1676,7 +1678,7 @@ void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Resets PRACH and puts block into a reset state.
+* Resets PRACH and moves the state machine into a reset state.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 *
@@ -1934,15 +1936,6 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
 	}
 
-	/* Set USE_FREQ_OFFSET */
-	if (Init->EnableUseFreqOffset == true) {
-		XDfePrach_WriteReg(InstancePtr, XDFEPRACH_CORE_SETTINGS,
-				   XDFEPRACH_USE_FREQ_OFFSET_ENABLE);
-	} else {
-		XDfePrach_WriteReg(InstancePtr, XDFEPRACH_CORE_SETTINGS,
-				   XDFEPRACH_USE_FREQ_OFFSET_DISABLE);
-	}
-
 	InstancePtr->StateId = XDFEPRACH_STATE_INITIALISED;
 }
 
@@ -2019,7 +2012,7 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Gets a state machine state id.
+* Returns the state machine state id.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 *
@@ -2155,7 +2148,8 @@ void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the current CCID carrier configuration from selected Band.
+* Returns the current CC configuration of a specific CCID from a selected band
+* in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2194,7 +2188,8 @@ void XDfePrach_GetCarrierCfgMB(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the current CCID carrier configuration from Band 0.
+* Returns the current CC configuration of a specific CCID in single band mode
+* or from band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2220,43 +2215,20 @@ void XDfePrach_GetCarrierCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Set antenna configuration in CC configuration container.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    CCCfg CC configuration container.
-* @param    AntennaCfg Array of all antenna configurations.
-*
-****************************************************************************/
-void XDfePrach_SetAntennaCfgInCCCfg(const XDfePrach *InstancePtr,
-				    XDfePrach_CCCfg *CCCfg, u32 *AntennaCfg)
-{
-	u32 Index;
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCCfg != NULL);
-	Xil_AssertVoid(AntennaCfg != NULL);
-
-	for (Index = 0; Index < XDFEPRACH_ANT_NUM_MAX; Index++) {
-		CCCfg->AntennaCfg[Index] = AntennaCfg[Index];
-	}
-}
-
-/****************************************************************************/
-/**
-*
 * Adds specified CCID, with specified configuration, to a local CC
-* configuration structure for the chosen Band.
+* configuration structure for the chosen band in multi band mode.
 * If there is insufficient capacity for the new CC the function will return
 * an error.
-* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* The returned CCCfg.Sequence is translated as there is no explicit indication
-* that SEQUENCE[i] is not used - 0 can define the slot as either used or not
-* used.
-* Sequence data that is returned in the CCIDSequence is not the same as what is
-* written in the registers. The translation is:
-* - CCIDSequence.CCID[i] = -1    - if [i] is unused slot
-* - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
-* - a returned CCIDSequence->Length = length in register + 1
+* The returned CCCfg->Sequence must be translated because there is no explicit
+* indication that a slot is unused. A zero value in the register can indicate
+* either a slot with ID = 0 or an unused slot.
+*
+* Therefore, the sequence data returned in CCCfg->Sequence is not identical
+* to what is written in the registers. The translation is as follows:
+* - Sequence.CCID[i] = -1    - if [i] is unused slot
+* - Sequence.CCID[i] = CCID  - if [i] is used slot
+* - a returned Sequence.Length = length in register + 1
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2312,19 +2284,19 @@ u32 XDfePrach_AddCCtoCCCfgMB(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 /**
 *
 * Adds specified CCID, with specified configuration, to a local CC
-* configuration structure on Band which Id = 0.
+* configuration structure for single band mode or on Band 0 for multi band mode.
 * If there is insufficient capacity for the new CC the function will return
 * an error.
-* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* The returned CCCfg.Sequence is translated as there is no explicit indication
-* that SEQUENCE[i] is not used - 0 can define the slot as either used or not
-* used.
-* Sequence data that is returned in the CCIDSequence is not the same as what is
-* written in the registers. The translation is:
-* - CCIDSequence.CCID[i] = -1    - if [i] is unused slot
-* - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
-* - a returned CCIDSequence->Length = length in register + 1
+* The returned CCCfg->Sequence must be translated because there is no explicit
+* indication that a slot is unused. A zero value in the register can indicate
+* either a slot with ID = 0 or an unused slot.
+*
+* Therefore, the sequence data returned in CCCfg->Sequence is not identical
+* to what is written in the registers. The translation is as follows:
+* - Sequence.CCID[i] = -1    - if [i] is unused slot
+* - Sequence.CCID[i] = CCID  - if [i] is used slot
+* - a returned Sequence.Length = length in register + 1
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2356,7 +2328,7 @@ u32 XDfePrach_AddCCtoCCCfg(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 /**
 *
 * Removes specified CCID from a local CC configuration structure for selected
-* band.
+* band in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2367,7 +2339,7 @@ u32 XDfePrach_AddCCtoCCCfg(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     For a sequence conversion see XDfePrach_AddCCtoCCCfg() comment.
+* @note     For sequence conversion see XDfePrach_AddCCtoCCCfg() comment.
 *
 ****************************************************************************/
 u32 XDfePrach_RemoveCCfromCCCfgMB(XDfePrach *InstancePtr,
@@ -2391,7 +2363,8 @@ u32 XDfePrach_RemoveCCfromCCCfgMB(XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Removes specified CCID from a local CC configuration structure for BandId=0.
+* Removes specified CCID from a local CC configuration structure in single
+* band mode or for Band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2401,7 +2374,7 @@ u32 XDfePrach_RemoveCCfromCCCfgMB(XDfePrach *InstancePtr,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     For a sequence conversion see XDfePrach_AddCCtoCCCfg() comment.
+* @note     For sequence conversion see XDfePrach_AddCCtoCCCfg() comment.
 *
 ****************************************************************************/
 u32 XDfePrach_RemoveCCfromCCCfg(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
@@ -2419,9 +2392,7 @@ u32 XDfePrach_RemoveCCfromCCCfg(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 /**
 *
 * Updates specified CCID, with specified configuration to a local CC
-* configuration structure for selected band.
-* If there is insufficient capacity for the new CC the function will return
-* an error.
+* configuration structure for selected band in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2453,9 +2424,7 @@ u32 XDfePrach_UpdateCCinCCCfgMB(const XDfePrach *InstancePtr,
 /**
 *
 * Updates specified CCID, with specified configuration to a local CC
-* configuration structure for BandId=0.
-* If there is insufficient capacity for the new CC the function will return
-* an error.
+* configuration structure in single band mode or for Band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2527,216 +2496,10 @@ u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 	return XST_SUCCESS;
 }
 
-/**
-* @cond nocomments
-*/
 /****************************************************************************/
 /**
 *
-* Adds specified CCID, with specified configuration for band id 0.
-* If there is insufficient capacity for the new CC the function will return
-* an error.
-* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    CCID CC ID [0-15].
-* @param    CCSeqBitmap - up to 16 defined slots into which a CC can be
-*           allocated. The number of slots can be from 1 to 16 depending on
-*           system initialization. The number of slots is defined by the
-*           "sequence length" parameter which is provided during initialization.
-*           The Bit offset within the CCSeqBitmap indicates the equivalent
-*           Slot number to allocate. e.g. 0x0003  means the caller wants the
-*           passed component carrier (CC) to be allocated to slots 0 and 1.
-* @param    CarrierCfg CC configuration container.
-*
-* @return
-*           - XST_SUCCESS if successful.
-*           - XST_FAILURE if error occurs.
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-* @note     Does not support multi-band option.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-*                  XDfePrach_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
-*                      CarrierCfg);
-*                  XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg);
-*
-****************************************************************************/
-u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 CCSeqBitmap,
-		    const XDfePrach_CarrierCfg *CarrierCfg)
-{
-	u32 AddSuccess;
-	XDfePrach_CCCfg CCCfg;
-	XDfePrach_RCCfg RCCfg;
-	u32 Rate;
-	u32 BandId = 0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertNonvoid(CarrierCfg != NULL);
-
-	/* Read current CC configuration. Note that XDfePrach_Initialise writes
-	   a NULL CC sequence to H/W */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &RCCfg);
-
-	/* Try to add CC to sequence and update carrier configuration */
-	AddSuccess =
-		XDfePrach_AddCCIDAndTranslateSeq(InstancePtr, CCID, CCSeqBitmap,
-						 &CCCfg.Sequence[BandId],
-						 BandId);
-	if (AddSuccess == (u32)XST_FAILURE) {
-		metal_log(METAL_LOG_ERROR, "CC not added to a sequence in %s\n",
-			  __func__);
-		return XST_FAILURE;
-	}
-
-	/* Update carrier configuration, first detect rate value */
-	if (XST_FAILURE ==
-	    XDfePrach_FindRate(InstancePtr, CCSeqBitmap, &Rate, BandId)) {
-		metal_log(METAL_LOG_ERROR, "Rate cannot be detected\n");
-		return XST_FAILURE;
-	}
-	CCCfg.CarrierCfg[BandId][CCID].Enable = XDFEPRACH_CC_MAPPING_ENABLED;
-	CCCfg.CarrierCfg[BandId][CCID].CCRate = Rate;
-	CCCfg.CarrierCfg[BandId][CCID].SCS = CarrierCfg->SCS;
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE == XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-*
-* Removes CCID from sequence for band id 0.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    CCID CC ID [0-15].
-*
-* @return
-*           - XST_SUCCESS if successful.
-*           - XST_FAILURE if error occurs.
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-* @note     Does not support multi-band option.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-*                  XDfePrach_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
-*                  XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg);
-*
-****************************************************************************/
-u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
-{
-	XDfePrach_CCCfg CCCfg;
-	XDfePrach_RCCfg RCCfg;
-	u32 BandId = 0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-
-	/* Read current CC configuration. */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &RCCfg);
-
-	/* Remove CCID from sequence and mark carrier configuration as
-	   disabled */
-	XDfePrach_RemoveCCID(InstancePtr, CCID, &CCCfg.Sequence[BandId],
-			     BandId);
-	CCCfg.CarrierCfg[BandId][CCID].Enable = 0U;
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE == XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-*
-* Updates a CCID sequence for band id 0.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    CCID CC ID [0-15].
-* @param    CarrierCfg Carrier data container.
-*
-* @return
-*           - XST_SUCCESS if successful.
-*           - XST_FAILURE if error occurs.
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-* @note     Does not support multi-band option.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-*                  CCCfg.CarrierCfg[BandId][CCID].SCS = CarrierCfg->SCS;
-*                  XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg);
-*
-****************************************************************************/
-u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
-		       const XDfePrach_CarrierCfg *CarrierCfg)
-{
-	XDfePrach_CCCfg CCCfg;
-	XDfePrach_RCCfg RCCfg;
-	u32 BandId = 0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertNonvoid(CarrierCfg != NULL);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-
-	/* Read current CC configuration. */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &RCCfg);
-
-	/* Update carrier configuration. */
-	CCCfg.CarrierCfg[BandId][CCID].SCS = CarrierCfg->SCS;
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE == XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-/**
-* @endcond
-*/
-
-/****************************************************************************/
-/**
-*
-* Reads all of the RC configuration back.
+* Returns the current RACH Channel configuration
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    RCCfg RC configuration container.
@@ -2757,7 +2520,7 @@ void XDfePrach_GetCurrentRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the empty CC configuration.
+* Returns an empty Rach channel configuration.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    RCCfg RC configuration container.
@@ -2775,7 +2538,7 @@ void XDfePrach_GetEmptyRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Gets RACH channel configuration.
+* Returns RACH channel configuration for a specific RCId.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    RCCfg RC configuration container.
@@ -2800,8 +2563,7 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds a new RC entry to the RC_CONFIGURATION. RCId must be same as the
-* physical channel RachChan on a selected band.
+* Adds a new RC entry to the RACH Channel configuration for multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -2810,8 +2572,9 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container (ignore it if module
-*                          parameter HAS_CONTINUOUS_SCHED == 1)
+* @param    StaticSchedule Schedule data container. Unused if operating in
+*           "Always On" mode, where internal scheduler is removed at core
+*           generation.
 * @param    NextCCCfg CC configuration container.
 * @param    BandId Band id.
 *
@@ -2819,8 +2582,8 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 *	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
-* @note     This API must be executed only after all CC configuration are done
-*           with the API XDfePrach_AddCCtoCCCfg.
+* @note     This API must be executed only after all CC configurations are
+*           done with the API XDfePrach_AddCCtoCCCfg.
 *
 ****************************************************************************/
 u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
@@ -2873,8 +2636,8 @@ u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds a new RC entry to the RC_CONFIGURATION in dynamic mode. RCId must be
-* same as the physical channel RachChan on a selected band.
+* Adds a new RC entry to the RACH Channel configuration for multi band mode
+* in dynamic mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -2888,7 +2651,7 @@ u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
 *	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
-* @note     This API must be executed only after all CC configuration are done
+* @note     This API must be executed only after all CC configurations are done
 *           with the API XDfePrach_AddCCtoCCCfg.
 *
 ****************************************************************************/
@@ -2948,8 +2711,9 @@ u32 XDfePrach_AddRCtoRCCfgMBDynamic(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds a new RC entry to the RC_CONFIGURATION. RCId must be same as the
-* physical channel RachChan on a band id = 0.
+* Adds a new RC entry to the RACH Channel configuration. Must be used when
+* the core is configured with a single band. It can be used to add an RC which
+* captures from a CC in band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -2958,15 +2722,16 @@ u32 XDfePrach_AddRCtoRCCfgMBDynamic(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container (ignore it if module
-*                          parameter HAS_CONTINUOUS_SCHED == 1)
+* @param    StaticSchedule Schedule Data Container. Not required and can be
+*           ignored  for "Always On" mode, where the internal scheduler is
+*           removed at core configuration.
 * @param    NextCCCfg CC configuration container.
 *
 * @return
 *	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
-* @note     This API must be executed only after all CC configuration are done
+* @note     This API must be executed only after all CC configurations are done
 *           with the API XDfePrach_AddCCtoCCCfg.
 *
 ****************************************************************************/
@@ -2999,8 +2764,9 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds a new RC entry to the RC_CONFIGURATION in dynamic mode. RCId must be
-* same as the physical channel RachChan on a band id = 0.
+* Adds a new RC entry to the RACH Channel configuration in dynamic mode.
+* Must be used when the core is configured with a single band. It can be used
+* to add an RC which captures from a CC in band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -3013,7 +2779,7 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 *	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
-* @note     This API must be executed only after all CC configuration are done
+* @note     This API must be executed only after all CC configurations are done
 *           with the API XDfePrach_AddCCtoCCCfg.
 *
 ****************************************************************************/
@@ -3050,8 +2816,7 @@ u32 XDfePrach_AddRCtoRCCfgDynamic(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Removes an RC configuration entry from the RC_CONFIGURATION. RCId must be
-* same as the physical channel RachChan.
+* Removes an RC configuration entry from the RACH Channel configuration.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -3078,7 +2843,9 @@ u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Updates an RC entry to the RC_CONFIGURATION on a selected band.
+* Updates an RC entry to the RACH Channel configuration in multi band mode
+* (RC entry updated for an RCId associated with PRACH extraction on a CC of
+* a specific band).
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -3087,12 +2854,11 @@ u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container (ignore it if module
-*                          parameter HAS_CONTINUOUS_SCHED == 1)
+* @param    StaticSchedule Schedule data container.
 * @param    NextCCCfg CC configuration container.
 * @param    BandId Band id.
 *
-* @note     This API must be executed only after all CC configuration are done
+* @note     This API must be executed only after all CC configurations are done
 *           with the API XDfePrach_AddCCtoCCCfg and XDfePrach_UpdateCCinCCCfg.
 *
 ****************************************************************************/
@@ -3124,7 +2890,9 @@ void XDfePrach_UpdateRCinRCCfgMB(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Updates an RC entry to the RC_CONFIGURATION on band id 0.
+* Updates an RC entry to the RACH Channel configuration in single band mode
+* (can also be used to update the RC entry of an RCId associated with PRACH
+* extraction on a CC of band 0 in multi band mode).
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -3136,7 +2904,7 @@ void XDfePrach_UpdateRCinRCCfgMB(const XDfePrach *InstancePtr,
 * @param    StaticSchedule Schedule data container.
 * @param    NextCCCfg CC configuration container.
 *
-* @note     This API must be executed only after all CC configuration are done
+* @note     This API must be executed only after all CC configurations are done
 *           with the API XDfePrach_AddCCtoCCCfg and XDfePrach_UpdateCCinCCCfg.
 *
 ****************************************************************************/
@@ -3161,307 +2929,6 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 	XDfePrach_UpdateRCinRCCfgMB(InstancePtr, CurrentRCCfg, CCID, RCId,
 				    RachChan, DdcCfg, NcoCfg, StaticSchedule,
 				    NextCCCfg, BandId);
-}
-
-/**
-* @cond nocomments
-*/
-/****************************************************************************/
-/**
-*
-* Adds a new RC entry to the RC_CONFIGURATION. RCId must be same as the
-* physical channel RachChan for band id 0.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    CCID CC Id [0-15].
-* @param    RCId RC Id [0-15].
-* @param    RachChan RACH channel [0-15].
-* @param    DdcCfg DDC data container.
-* @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container (ignore it if module
-*                          parameter HAS_CONTINUOUS_SCHED == 1)
-*
-* @return
-*	- XST_SUCCESS on success
-*	- XST_FAILURE on failure
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-* @note     This API must be executed only after all CC configuration are done
-*           with the API XDfePrach_AddCCCfg.
-*
-* @note     The api does not support multi-band option.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-*                  XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID,
-*                      &CurrentRCCfg, DdcCfg, NcoCfg, StaticSchedule,
-*                      &CurrentCCCfg, BandId);
-*                  XDfePrach_SetNextCfg(InstancePtr, CCCfg);
-*
-****************************************************************************/
-u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
-		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
-		       XDfePrach_NCO *NcoCfg,
-		       XDfePrach_Schedule *StaticSchedule)
-{
-	u32 Index;
-	XDfePrach_CCCfg CurrentCCCfg;
-	XDfePrach_RCCfg CurrentRCCfg;
-	u32 BandId = 0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(DdcCfg != NULL);
-	Xil_AssertNonvoid(NcoCfg != NULL);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-
-	/* Read current CC configuration. */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-
-	/* Check  RachChan" is not in use. */
-	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
-		if ((CurrentRCCfg.InternalRCCfg[Index].Enable ==
-		     XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLED) &&
-		    (CurrentRCCfg.InternalRCCfg[Index].RachChannel ==
-		     RachChan) &&
-		    (Index != RCId)) {
-			metal_log(METAL_LOG_ERROR, "RC failure, %s\n",
-				  __func__);
-			/* Error: a different RCID is using this RachChan. */
-			return XST_FAILURE;
-		}
-	}
-
-	/* Load the new channel's data into the RCID configuration, will be
-	   marked as needing a restart. */
-	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, &CurrentRCCfg,
-			DdcCfg, NcoCfg, StaticSchedule, &CurrentCCCfg, BandId);
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE ==
-	    XDfePrach_SetNextCfg(InstancePtr, &CurrentCCCfg, &CurrentRCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-*
-* Removes an RC configuration entry from the RC_CONFIGURATION.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    RCId RC Id [0-15].
-*
-* @return
-*	- XST_SUCCESS on success
-*	- XST_FAILURE on failure
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-*                  XDfePrach_RemoveRC(InstancePtr, RCId);
-*                  XDfePrach_SetNextCfg(InstancePtr, CCCfg);
-*
-****************************************************************************/
-u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
-{
-	XDfePrach_CCCfg CurrentCCCfg;
-	XDfePrach_RCCfg CurrentRCCfg;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-
-	/* Read current CC configuration. */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-
-	/* Remove the channel's data into the RCID configuration. */
-	XDfePrach_RemoveOneRC(&CurrentRCCfg.InternalRCCfg[RCId]);
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE ==
-	    XDfePrach_SetNextCfg(InstancePtr, &CurrentCCCfg, &CurrentRCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-*
-* Updates an RC entry to the RC_CONFIGURATION. RCId must be same as the
-* physical channel RachChan for band id 0.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    CCID CC Id [0-15].
-* @param    RCId RC Id [0-15].
-* @param    RachChan RACH channel [0-15].
-* @param    DdcCfg DDC data container.
-* @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container (ignore it if module
-*                          parameter HAS_CONTINUOUS_SCHED == 1)
-*
-* @return
-*	- XST_SUCCESS on success
-*	- XST_FAILURE on failure
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-* @note     This API must be executed only after all CC configuration are done
-*           with the API XDfePrach_AddCCCfg and XDfePrach_UpdateCCCfg.
-*
-* @note     The api does not support multi-band option.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-*                  XDfePrach_UpdateRC(InstancePtr, RCId, RachChan, CCID,
-*                      &CurrentRCCfg, DdcCfg, NcoCfg, StaticSchedule,
-*                      &CurrentCCCfg, BandId);
-*                  XDfePrach_SetNextCfg(InstancePtr, CCCfg);
-*
-****************************************************************************/
-u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
-			  u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
-			  XDfePrach_NCO *NcoCfg,
-			  XDfePrach_Schedule *StaticSchedule)
-{
-	XDfePrach_CCCfg CurrentCCCfg;
-	XDfePrach_RCCfg CurrentRCCfg;
-	u32 BandId = 0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(DdcCfg != NULL);
-	Xil_AssertNonvoid(NcoCfg != NULL);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-
-	/* Read current CC configuration. */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-
-	/* Load the new channel's data into the RCID configuration, will be
-	   marked as needing a restart. */
-	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, &CurrentRCCfg,
-			DdcCfg, NcoCfg, StaticSchedule, &CurrentCCCfg, BandId);
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE ==
-	    XDfePrach_SetNextCfg(InstancePtr, &CurrentCCCfg, &CurrentRCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-/**
-* @endcond
-*/
-
-/****************************************************************************/
-/**
-*
-* Moves the specified RCID from one NCO & Decimation Channel to another NCO
-* Decimation Channel.
-*
-* @param    InstancePtr Pointer to the PRACH instance.
-* @param    RCId RC Id [0-15].
-* @param    ToChannel Destination channel Id [0-15].
-*
-* @return
-*	- XST_SUCCESS on success
-*	- XST_FAILURE on failure
-*
-* @note     Clear event status with XDfePrach_ClearEventStatus() before
-*           running this API.
-*
-****************************************************************************/
-u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel)
-{
-	u32 Index;
-	XDfePrach_CCCfg CurrentCCCfg;
-	XDfePrach_RCCfg CurrentRCCfg;
-	XDfePrach_NCO NCOCfgOld;
-	XDfePrach_DDCCfg DDCCfgOld;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(ToChannel < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-
-	/* Read current CC configuration. */
-	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-	/* Read current RC configuration. */
-	XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
-
-	/* Check  "ToChannel" is not in use. */
-	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
-		if ((CurrentRCCfg.InternalRCCfg[Index].Enable ==
-		     XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLED) &&
-		    (CurrentRCCfg.InternalRCCfg[Index].RachChannel ==
-		     ToChannel)) {
-			metal_log(METAL_LOG_ERROR, "RC failure, %s\n",
-				  __func__);
-			/* Error we are trying to load a running channel,
-			   remove it first. */
-			return XST_FAILURE;
-		}
-	}
-
-	/* Phase transfer is transferred internally by the Core. There is no
-	   external intervention required beyond initiating the transfer. */
-	/* Load the old physical config onto the new physical config. */
-	/* First, copy the old NCO and DDC CFG. */
-	NCOCfgOld = CurrentRCCfg.NcoCfg[RCId];
-	DDCCfgOld = CurrentRCCfg.DdcCfg[RCId];
-
-	/* Set the physical channel to the new destination - changing this
-	   changes the destination address for NCO and DDC, making two channels
-	   with the same config after they are added. */
-	XDfePrach_AddRachChannel(ToChannel, &CurrentRCCfg.InternalRCCfg[RCId]);
-
-	/* Load the NCO and DDC onto the new physical channel. */
-	XDfePrach_AddNCO(&CurrentRCCfg, &NCOCfgOld, RCId);
-	XDfePrach_AddDDC(&CurrentRCCfg, &DDCCfgOld, RCId);
-
-	/* All other fields remain the same - move is recognised by the change
-	   in RACH_CHANNNEL and the RESTART==0 */
-
-	/* Update next configuration and trigger update. */
-	if (XST_FAILURE ==
-	    XDfePrach_SetNextCfg(InstancePtr, &CurrentCCCfg, &CurrentRCCfg)) {
-		metal_log(METAL_LOG_ERROR, "Trigger failure, %s\n", __func__);
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -3721,10 +3188,10 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 /**
 *
 * Gets the specified CCID carrier configuration from either Current or Next
-* for band id 0.
+* registers in single band mode or for band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
-* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    Next Boolean flag indicating NEXT(1) or CURRENT(0) register.
 * @param    CCID CC Id [0-15].
 * @param    CarrierCfg Carrier configuration container.
 *
@@ -3746,10 +3213,10 @@ void XDfePrach_GetCC(const XDfePrach *InstancePtr, bool Next, s32 CCID,
 /**
 *
 * Gets the specified CCID carrier configuration from either Current or Next
-* for selected band in multi-band mode.
+* registers for a selected band in multi-band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
-* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    Next Boolean flag indicating NEXT(1) or CURRENT(0) register.
 * @param    CCID CC Id [0-15].
 * @param    CarrierCfg Carrier configuration container.
 * @param    BandId Band Id.
@@ -3782,7 +3249,7 @@ void XDfePrach_GetCCMB(const XDfePrach *InstancePtr, bool Next, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Gets the PRACH Status.
+* Returns the PRACH status registers.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Status Status data container.
@@ -3900,7 +3367,8 @@ void XDfePrach_ClearStatus(const XDfePrach *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Captures phase for all phase accumulators in associated AXI-lite registers.
+* Captures phase for the phase accumulator output of all RACH channels in
+* associated AXI-lite registers.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 *
@@ -3915,7 +3383,7 @@ void XDfePrach_CapturePhase(const XDfePrach *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads the captured phase for a given Rach Channel.
+* Returns the captured phase accumulator output for a given Rach Channel.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    RachChan RACH channel Id [0-15].
@@ -3950,8 +3418,8 @@ void XDfePrach_GetCapturePhase(const XDfePrach *InstancePtr, u32 RachChan,
 /****************************************************************************/
 /**
 *
-* Sets the delay, which will be added to TUSER and TLAST (delay matched
-* through the IP).
+* Sets the delay, which is added to TUSER and TLAST (delay matched through
+* the IP) in single band mode or for band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Delay Requested delay variable.
@@ -3969,7 +3437,7 @@ void XDfePrach_SetTUserDelay(const XDfePrach *InstancePtr, u32 Delay)
 /****************************************************************************/
 /**
 *
-* Sets the delay of specified band in multiband mode, which will be added to
+* Sets the delay of specified band in multi band mode, which is added to
 * TUSER and TLAST (delay matched through the IP).
 *
 * @param    InstancePtr Pointer to the PRACH instance.
@@ -3993,8 +3461,8 @@ void XDfePrach_SetTUserDelayMB(const XDfePrach *InstancePtr, u32 Delay,
 /****************************************************************************/
 /**
 *
-* Reads the delay, which will be added to TUSER and TLAST (delay matched
-* through the IP).
+* Returns the delay, which is added to TUSER and TLAST (delay matched through
+* the IP) in single band mode or for band 0 in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 *
@@ -4013,7 +3481,7 @@ u32 XDfePrach_GetTUserDelay(const XDfePrach *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads the delay of specified band in multiband mode, which will be added to
+* Returns the delay of specified band in multi band mode, which is added to
 * TUSER and TLAST (delay matched through the IP).
 *
 * @param    InstancePtr Pointer to the PRACH instance.
@@ -4037,9 +3505,10 @@ u32 XDfePrach_GetTUserDelayMB(const XDfePrach *InstancePtr, u32 BandId)
 /****************************************************************************/
 /**
 *
-* Returns data latency.
+* Returns data latency in single band mode or for band 0 in multi-band mode.
 *
-* @param    InstancePtr Pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance in single band mode or
+*           for band 0 in multi-band mode.
 *
 * @return   Data latency value.
 *
@@ -4057,7 +3526,7 @@ u32 XDfePrach_GetTDataDelay(const XDfePrach *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Returns data latency of specified band in multiband mode.
+* Returns data latency of specified band in multi band mode.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    BandId Band Id.
@@ -4082,7 +3551,7 @@ u32 XDfePrach_GetTDataDelayMB(const XDfePrach *InstancePtr, u32 BandId)
 /*****************************************************************************/
 /**
 *
-* This API gets the driver and HW design version.
+* Returns the driver and HW design version.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    SwVersion Driver version number.

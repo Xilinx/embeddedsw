@@ -5,7 +5,7 @@ LIBSOURCES = *.c
 OUTS = *.o
 NAME := dfeprach
 MAJOR = 1
-MINOR = 8
+MINOR = 9
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so

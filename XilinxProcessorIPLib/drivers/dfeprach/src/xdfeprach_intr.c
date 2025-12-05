@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Correct event status read
 * 1.5   dc     01/02/23 Multiband registers update
+* 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -48,7 +49,7 @@ extern u32 XDfePrach_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 /****************************************************************************/
 /**
 *
-* Gets interrupt mask status.
+* Returns interrupt mask status.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Mask Interrupt masks container.
@@ -95,7 +96,7 @@ void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Sets interrupt mask.
+* Sets the interrupt mask.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Mask Interrupt mask flags container.
@@ -184,7 +185,7 @@ void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Gets event status.
+* Returns the event status.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Status Event status container.
@@ -232,7 +233,7 @@ void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Clears event status.
+* Clears the event status.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Status Clear event status container.

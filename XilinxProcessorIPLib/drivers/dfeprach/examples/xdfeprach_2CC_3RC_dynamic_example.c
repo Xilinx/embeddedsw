@@ -23,6 +23,7 @@
 *       dc     01/02/23 Multiband registers update
 * 1.6   dc     06/15/23 Configure all trigger parameters in examples
 * 1.8   dc     08/23/25 Add missing parameter to yaml
+* 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
 *
 * </pre>
 * @addtogroup Overview
@@ -93,8 +94,7 @@ int XDfePrach_2CC3RCDynamicTestExample()
 	/* Sequence: length 4, ID=0, Use static Schedule, length may depend
 	   on core generics (antenna interleave) */
 	XDfePrach_Init Init = { { { 0, { 0 } }, { 0, { 0 } }, { 0, { 0 } } },
-				1,
-				0 };
+				1 };
 	/* Full CC config structure */
 	XDfePrach_CCCfg CCCfg = { 0 };
 	/* Full RC config structure */
@@ -159,7 +159,6 @@ int XDfePrach_2CC3RCDynamicTestExample()
 		}
 		/* demodulation configuration: */
 		NcoCfg[Index].UserFreq = 0; /* Not needed in Dynamic mode.*/
-		NcoCfg[Index].PhaseOffset = 0; /* 0 phase offset */
 		NcoCfg[Index].PhaseAcc = 0; /* 0 initial phase */
 		NcoCfg[Index].NcoGain = 0; /* 0dB NCO gain */
 		NcoCfg[Index].DualModCount = 0; /* 0 dual mod count init */

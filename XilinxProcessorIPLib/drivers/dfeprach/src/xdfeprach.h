@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,6 +80,7 @@
 *       cog    07/04/23 Add support for SDT
 * 1.7   dc     11/29/23 Add continuous scheduling
 *       cog    02/19/24 Fixed SDT runtime issue
+* 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
 *
 * </pre>
 * @endcond
@@ -145,8 +146,8 @@ extern "C" {
 #define XDFEPRACH_RC_NUM_MAX (16U) /**< Maximum number of RACH channels. */
 #define XDFEPRACH_NCO_NUM_MAX (16U) /**< Maximum NCO number */
 #define XDFEPRACH_ANT_NUM_MAX (8U) /**< Maximum anntena number. */
-#define XDFEPRACH_SEQ_LENGTH_MAX (16U) /**< Maximum CCID sequence length. */
-#define XDFEPRACH_BAND_ID_MAX (3U) /**< Maximum Band Id number. */
+#define XDFEPRACH_SEQ_LENGTH_MAX (16U) /**< Maximum CC sequence length. */
+#define XDFEPRACH_BAND_ID_MAX (3U) /**< Maximum number of bands. */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -186,7 +187,7 @@ typedef enum XDfePrach_StateId {
 } XDfePrach_StateId;
 
 /**
- * Logicore version.
+ * DFE PRACH IP Version.
  */
 typedef struct {
 	u32 Major; /**< Major version number */
@@ -239,29 +240,28 @@ typedef struct {
 } XDfePrach_Trigger;
 
 /**
- * All IP triggers.
+ * DFE PRACH IP Triggers.
  */
 typedef struct {
 	XDfePrach_Trigger Activate; /**< Toggle between "Initialized",
-		ultra-low power state, and "Operational". One-shot trigger,
-		disabled following a single event */
+		ultra-low power state, and "Operational" state. */
 	XDfePrach_Trigger LowPower; /**< Toggle between "Low-power"
 		and "Operational" state */
 	XDfePrach_Trigger RachUpdate; /**< Transition to next Rach/CC
-		configuration. Will initiate flush of Rach channel */
+		configuration. */
 	XDfePrach_Trigger FrameInit[XDFEPRACH_BAND_ID_MAX]; /**< Indicate
-		the boundary of a frame */
+		the boundary of a frame for each band. */
 } XDfePrach_TriggerCfg;
 
 /**
- * Defines a CCID sequence.
+ * CC sequence definition.
  */
 typedef struct {
 	u32 Length; /**< [1-16] Sequence length */
 	s32 CCID[XDFEPRACH_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
 		arranged in the order the CCIDs are required to be processed
 		in the PRACH. May contain duplicate entries depending
-		on the rate channel rates. */
+		on the CC rates. */
 } XDfePrach_CCSequence;
 
 /*********** end - common code to all Logiccores ************/
@@ -270,23 +270,27 @@ typedef struct {
  */
 typedef struct {
 	u32 NumAntenna
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] CORE.MODEL_PARAM.NUM_ANTENNA */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] Number of antennas for each band. */
 	u32 NumCCPerAntenna
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-16] CORE.MODEL_PARAM.NUM_CC_PER_ANTENNA */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-16] Maximum number of usable CCs per
+		 antenna for each band. */
 	u32 NumAntennaChannels
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-4] CORE.MODEL_PARAM.NUM_SLOT_CHANNELS */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-4] Number of Antenna lanes for each
+		band (number of antennas divided by the antenna interleave factor) */
 	u32 NumAntennaSlots
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] CORE.MODEL_PARAM.NUM_SLOTS */
-	u32 NumRachLanes; /**< [1-2] CORE.MODEL_PARAM.NUM_RACH_LANES */
-	u32 NumRachChannels; /**< [1-16] CORE.MODEL_PARAM.NUM_RACH_CHANNELS */
-	u32 HasAxisCtrl; /**< [0,1] CORE.MODEL_PARAM.HAS_AXIS_CTRL */
-	u32 HasIrq; /**< [0,1] CORE.MODEL_PARAM.HAS_IRQ */
-	u32 NumBands; /**< [1-3] CORE.MODEL_PARAM.NUM_BANDS */
-	u32 HasContinuousSched; /**< [0,1] CORE.MODEL_PARAM.XDFEPRACH_HAS_CONTINUOUS_SCHED */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] Antenna Interleave factor for each
+		band. */
+	u32 NumRachLanes; /**< [1-2] Number of RACH output lanes. */
+	u32 NumRachChannels; /**< [1-16] Number of RACH channels. */
+	u32 HasAxisCtrl; /**< [0,1] Dynamic scheduling activation (if set to 1). */
+	u32 HasIrq; /**< [0,1] IRQ output activation (if set to 1). */
+	u32 NumBands; /**< [1-3] Number of bands. */
+	u32 HasContinuousSched; /**< [0,1] Removal of internal scheduling ("Always On"
+		mode) if set to 1 */
 } XDfePrach_ModelParameters;
 
 /**
- * Configuration.
+ * PRACH IP Configuration.
  */
 typedef struct {
 	XDfePrach_Version Version; /**< Logicore version */
@@ -298,10 +302,11 @@ typedef struct {
  * Initialization, "one-time" configuration parameters.
  */
 typedef struct {
-	XDfePrach_CCSequence
-		Sequence[XDFEPRACH_BAND_ID_MAX]; /**< CCID sequence. */
-	bool EnableStaticSchedule; /**< Static schedule enable flag. */
-	bool EnableUseFreqOffset; /**< Enable the use of frequency offset. */
+	XDfePrach_CCSequence Sequence
+		[XDFEPRACH_BAND_ID_MAX]; /**< sequence structure for each band. */
+	bool EnableStaticSchedule; /**< [0-1] Static schedule enable flag (set to 1 to
+		enable Static scheduling, only used when "Enable Dynamic Scheduling" has
+		been selected when configuring the core). */
 } XDfePrach_Init;
 
 /**
@@ -311,32 +316,27 @@ typedef struct {
 	u32 Enable; /**< [0,1] Enable/Disable CC while still reserving its
 		slot in the TDM - set by helper functions when building
 		the configuration. */
-	u32 SCS; /**< [0-4] Array of SCS values, one  for each CCID number
-		(different index from the location that the sequence is
-		mapped to). Sub carrier Spacing for each CC - required to
+	u32 SCS; /**< [0-4] CC sub-carrier spacing. Required to
 		determine Slot boundaries:
 				- 0: 15KHz spacing
 				- 1: 30KHz spacing
 				- 2: 60KHz spacing
 				- 3: 120KHz spacing
 				- 4: 240KHz spacing */
-	u32 CCRate; /**< [0-3] Array of Sample rate values values, one for
-		each CCID number. The sample rate for the CC:
-		- 0: 30.72Ms/s, implies 1x decimation to get to 30.72Ms/s)
-		- 1: 61.44MS/s, implies 2x decimation to get to 30.72Ms/s)
-		- 2: 122.88MS/s, implies 4x decimation to get to 30.72Ms/s)
-		- 3: 245.76MS/s, implies 8x decimation to get to 30.72Ms/s)
-		This is also the Decimation rate required to decimate the
-		CC down to 30.72Ms/s */
+	u32 CCRate; /**< [0-3] The sample rate for the CC. This is also
+		the decimation rate required to decimate the CC down to
+		Fc/16 Ms/s:
+		- 0: Fc/16 Ms/s, implies 1x decimation to get to Fc/16 Ms/s)
+		- 1: Fc/8 MS/s, implies 2x decimation to get to Fc/16 Ms/s)
+		- 2: Fc/4 MS/s, implies 4x decimation to get to Fc/16 Ms/s)
+		- 3: Fc/2 MS/s, implies 8x decimation to get to Fc/16 Ms/s) */
 } XDfePrach_InternalCarrierCfg;
 
 /**
  * Configuration for a single CC.
  */
 typedef struct {
-	u32 SCS; /**< [0-4] Array of SCS values, one  for each CCID number
-		(different index from the location that the sequence is
-		mapped to). Sub carrier Spacing for each CC - required to
+	u32 SCS; /**< [0-4] CC sub-carrier spacing. Required to
 		determine Slot boundaries:
 				- 0: 15KHz spacing
 				- 1: 30KHz spacing
@@ -350,45 +350,66 @@ typedef struct {
  */
 typedef struct {
 	XDfePrach_CCSequence Sequence
-		[XDFEPRACH_BAND_ID_MAX]; /**< CCID sequence, this needs to match
-		the CCID sequence generated by the Mixer connected to
-		the PRACH. Maximum CC number is 16. */
+		[XDFEPRACH_BAND_ID_MAX]; /**< CCID sequence per band, this needs
+		to match the CCID sequence generated by the Channel Filter IP
+		connected to the PRACH. Maximum CC number is 16. */
 	XDfePrach_InternalCarrierCfg CarrierCfg[XDFEPRACH_BAND_ID_MAX]
 					       [XDFEPRACH_CC_NUM_MAX]; /**< Array
-		of [16] CC configurations */
-	u32 AntennaCfg[XDFEPRACH_ANT_NUM_MAX]; /**< [0,1] Array of [8] antenna
-		TDM slot enablement */
+		of [16] CC configurations for each band. */
 } XDfePrach_CCCfg;
 
 /**
- * NCO Config.
+ * NCO Configuration Structure.
  */
 typedef struct {
-	u32 PhaseOffset; /**< [0-2^32-1] Phase offset value which can be
-		 applied to the NCO's phase accumulator */
 	u32 PhaseAcc; /**< [0-2^32-1] Initial Phase accumulator value, used to
-		set the NCO phase accumualtor to a specific phase at startup */
+		set the NCO phase accumualtor to a specific phase when a capture
+		is initiated on the channel. This is the value the internal
+		phase accumulator will start on when a  capture begins. */
 	u32 DualModCount; /**< [0-2^32-1] The phase accumulator allows for dual
 		modulus accumulation to create fractional frequencies. This
-		field allows for initialisation of the dual mod count to
-		a known value */
-	u32 DualModSel; /**< [0,1] Allows initialisation of the Dual mod select
-		to a known value */
-	s32 UserFreq; /**< [-(2^23)-2^23] User defined frequency container */
-	s32 Frequency; /**< [0-2^32-1] Frequency control word (FCW) */
-	u32 FreqSingleModCount; /**< [0-2^32-1] Single modulus cycle count (S) */
-	u32 FreqDualModCount; /**< [0-2^32-1] Dual modulus cycle count (T-S) */
+		requires an internal Modulus counter, which tracks the number
+		of samples at FCW and the number at "FCW+1". This field allows
+		the value of that counter to be initialized when a capture
+		begins. */
+	u32 DualModSel; /**< [0,1] The Modulus counter can either be in the
+		"Single Mod" part of the count, where the phase accumulator
+		increments by FCW; Or in the "Dual Mod", where the phase
+		increments by "FCW+1".
+		This Initialization field determines which of the two counts
+		the Modulus counter begins in when the capture begins. 0 starts
+		in Single Mod Count and 1 starts in Dual Mod. */
+	s32 UserFreq; /**< [-(2^23)-2^23] User defined frequency in half PRACH
+		channel RE. UserFreq should be set equal to the PRACH channel
+		center frequency. */
+	s32 Frequency; /**< [0-2^32-1] Frequency control word (FCW). The FCW
+		value that determines how much the phase accumulator
+		increases by on each sample.
+		This value is not used by the API when operating in Dynamic
+		mode. It is supplied directly by the FCW field in the DCP. */
+	u32 FreqSingleModCount; /**< [0-2^32-1] Single modulus cycle count (S).
+		Determines how many samples the Modulus counter spends in the
+		Single Mod count, where the phase increments by FCW.
+		If this is set to 0, FreqDualModCount is ignored and the phase
+		always increments by FCW.
+		This value is not used by the API when operating in Dynamic mode.
+		It is supplied directly by the SingleModCount field in the DCP. */
+	u32 FreqDualModCount; /**< [0-2^32-1] Dual modulus cycle count (T-S).
+		Determines how many samples the Modulus counter spends in the
+		Dual  Mod count, where the phase increments by FCW+1.
+		This value is not used by the API when operating in Dynamic mode.
+		It is supplied directly by the DualModCount  field in the DCP. */
 	u32 FreqPhaseOffset; /**< [0-2^18-1] Phase offset */
 	u32 NcoGain; /**< [0-3] Scaling of NCO output (0=0dB, 1=-3dB,
 		2=-6dB, 3=-9dB) */
 } XDfePrach_NCO;
 
 /**
- * Decimator Config.
+ * PRACH Decimation Configuration.
  */
 typedef struct {
 	u32 DecimationRate; /**< [0,1,2,3,4,8,9,10,11] Decimation Rate required
-			to go from 30.72MS/s to the RACH sample rate:
+			to go from Fc/16 MS/s to the RACH sample rate:
 				- 0: 1x decimation(not allowed when
 					XDfePrach_CarrierCfg.CCRate==0)
 				- 1: 2x decimation
@@ -404,10 +425,14 @@ typedef struct {
 					XDfePrach_CarrierCfg.CCRate==3)
 				- 11: 24x decimation(not allowed when
 					XDfePrach_CarrierCfg.CCRate==3 or
-					XDfePrach_CarrierCfg.CCRate==2) */
+					XDfePrach_CarrierCfg.CCRate==2)
+				- Note: This Field is not used by the API when
+				  operating in Dynamic Mode. The Decimation
+				  rate is supplied directly from the Decimation
+				  field in the Dynamic Control Packet(DCP) */
 	u32 UserSCS; /**< [0-4,12-15] SubCarrier spacing of the RACH
-			transmission this DDC is decimating and set by user.
-			Required to determine phase increment:
+			channel this DDC is decimating.
+			Required to determine the NCO phase increment:
 				- 0: 15KHz spacing
 				- 1: 30KHz spacing
 				- 2: 60KHz spacing
@@ -416,13 +441,18 @@ typedef struct {
 				- 12: 1.25KHz spacing
 				- 13: 3.75KHz spacing
 				- 14: 5KHz spacing
-				- 15: 7.5KHz spacing */
+				- 15: 7.5KHz spacing
+				- Note: This Field is not used by the API when
+				  operating in Dynamic Mode. The Phase increment
+				  and Decimation rate are supplied directly to
+				  from the FCW field and the Decimation field in
+				  the Dynamic Control Packet(DCP) so there is no
+				  requirement for the core to know what the RACH
+				  SCS is. */
 	u32 RachGain[6]; /**< [0-3] The array of [6] Decimation Gains. Gain is
 		applied to all active Decimation filters. Decimation filters
-		are enabled depending upon the total decimation rate.
-		The total_decimation_rate is the product of the decoded values
-		of DecRate and XDfePrach_CarrierCfg.CCRate. Gain is applied on
-		a per filter basis:
+		are enabled depending upon the total decimation rate. The gain
+		is applied on a per filter basis:
 
 		- Always applies:
 			- CCDecGain[0]=0: Gain of 0dB in last decimating filter
@@ -454,56 +484,71 @@ typedef struct {
  */
 typedef struct {
 	u32 PatternPeriod; /**< [1-256] Duration, in Frames, of the repeating
-		pattern of enables. Internal frame count runs from 0 to
-		PatternPeriod-1 */
+		pattern of captures. Internal frame count runs from 0 to
+		PatternPeriod-1. This field is not required by the API when
+		operating in dynamic mode. */
 	u32 FrameID; /**< [0-255] First frame within the pattern period which
-		is enabled for a RACH capture. Cannot exceed  PatternPeriod */
-	u32 SubframeID; /**< [0-9] Subframe number which denotes the subframe
-		at which a RACH capture should begin. Only valid when
-		FrameID==frame count */
-	u32 SlotId; /**< [0-7] Slot number whcih denotes the slot at which
-		a RACH Capture should begin. Only valid when FrameID==frame
-		count and only valid when SubframeID==sub frame count:
+		is enabled for a RACH capture. Cannot exceed  PatternPeriod.
+		This field is not required by the API when operating in
+		dynamic mode. */
+	u32 SubframeID; /**< [0-9] Subframe number at which a RACH capture
+		should begin. Only valid when FrameID==frame count.
+		This field is not required by the API when operating in
+		dynamic mode. */
+	u32 SlotId; /**< [0-7] Slot number at which
+		a RACH Capture should begin.
 			- CC SCS restricts the range of slots available:
 			- CC_SCS == 15KHz => slotID=={0}
 			- CC_SCS == 30KHz => slotID=={0,1}
 			- CC_SCS == 60KHz => slotID=={0,1,2,3}
 			- CC_SCS == 120KHz => slotID=={0,1,2,3,4,5,6,7}
 			- CC_SCS == 240KHz => slotID=={0,1,2,3,4,5,6,7,8,9,10,
-				11,12,13,14,15} (unused) */
+				11,12,13,14,15} (unused). This field is not
+		 required by the API when operating in dynamic mode. */
 	u32 Duration; /**< [1-2^12] Specifies the duration of a single RACH
-		capture, in slots */
+		capture, in slots. This field is not required by the API when
+		operating in dynamic mode. */
 	u32 Repeats; /**< [1-256] Specifies the number of consecutive captures
-		to execute. New capture will begin on the sl`ot immediately
-		after "Duration" has ended */
+		to execute. New capture will begin on the slot immediately
+		after "Duration" has ended. */
+	/**< Note: This field is not required by the API when operating
+		in dynamic mode. */
 } XDfePrach_Schedule;
 
 /**
- * Full RC configuration.
+ * Full RACH channel configuration.
  */
 typedef struct {
 	u32 Enable; /**< [0,1] Indicates if this RCID is enabled. */
-	u32 RCId; /**< [0-15] RCCID number allocated to this RACH channel
+	u32 RCId; /**< [0-15] RCID number allocated to this RACH channel
 		configuration. This is the TID identifier on the RACH/FFT
 		interface. */
 	u32 RachChannel; /**< [0-15] The physical RACH channel used by this
 		RCID. */
-	s32 CCID; /**< [0-15] The CCID channel (within the band defined in
-		field BAND) from which this RACH channel is to be extracted. */
+	s32 CCID; /**< [0-15] The carrier CCID (within the band defined in
+		field BandId) from which this RACH channel is to be extracted. */
 	u32 BandId; /**< [0-2] The Band from which this RACH channel is to be
 		extracted. */
 } XDfePrach_InternalChannelCfg;
 
+/**
+ * PRACH channel configuration.
+ */
 typedef struct {
-	u32 RCId; /**< [0-15] RCCID number allocated to this RACH channel
+	u32 RCId; /**< [0-15] RCID number allocated to this RACH channel
 		configuration. This is the TID identifier on the RACH/FFT
 		interface. */
 	u32 RachChannel; /**< [0-15] The physical RACH channel used by this
-		RCID. */
-	s32 CCID; /**< [0-15] The CCID channel (within the band defined in
-		field BAND) from which this RACH channel is to be extracted. */
+		RCID which corresponds to a specific data path in the HW */
+	s32 CCID; /**< [0-15] The carrier CCID (within the band defined in
+		the field BandId) from which this RACH channel is to be
+		extracted. This field is not used by the API when operating
+		in Dynamic Mode. In this mode the Carrier CCID is specified
+		by the CCID field in the Dynamic Control Packet(DCP)*/
 	u32 BandId; /**< [0-2] The Band from which this RACH channel is to be
-		extracted. */
+		extracted. This field is not used by the API when operating
+		in Dynamic Mode. In this mode the band is specified by the
+		Band field in the Dynamic Control Packet(DCP).*/
 } XDfePrach_ChannelCfg;
 
 typedef struct {
@@ -519,55 +564,51 @@ typedef struct {
  * PRACH status.
  */
 typedef struct {
-	u32 MixerOverflow; /**< [0-1] Source of first occurrence of overflow
-		as signalled in ISR. That is, register only updated when
-		MIXER_OVERFLOW flag is 0. */
-	u32 FirstAntennaOverflowing; /**< [0-7] Lowest numbered antenna on
+	u32 MixerOverflow; /**< [0-1] MixerOverflow=1 when an overflow has
+		occurred in the mixer. */
+	u32 FirstAntennaOverflowing; /**< [0-7] Lowest antenna number on
 		which first mixer overflow occurred. */
-	u32 FirstRCIdOverflowing; /**< [0-15] The physical mixer on which
-		the first mixer overflow occurred. Each mixer handles 4 rach
-		channels, and the overflow indicator is agregated, so an
+	u32 FirstRCIdOverflowing; /**< [0-15] Lowest physical mixer number on
+		which the first mixer overflow occurred. Each mixer handles 4
+		RACH channels, and the overflow indicator is agregated, so an
 		overflow on physical channel 0-3 will indicate as an overflow
-		on Channel 0, 4-7: channel 1, etc. */
+		on Channel 0, 4-7 on channel 1, etc. */
 } XDfePrach_MixerStatusOverflow;
 
 /**
  * PRACH decimator overflow status.
  */
 typedef struct {
-	u32 DecimatorOverflow; /**< [0-1] Source of first occurrence of
-		overflow as signalled in ISR. That is, register only
-		updated when DECIMATOR_OVERFLOW flag is 0. */
-	u32 FirstAntennaOverflowing; /**< [0-7] Lowest number antenna on which
+	u32 DecimatorOverflow; /**< [0-1] DecimatorOverflow=1 when an overflow
+		has occurred. */
+	u32 FirstAntennaOverflowing; /**< [0-7] Lowest antenna number on which
 		first overflow occurred. */
-	u32 FirstRCIdOverflowing; /**< [0-15] Lowest numbered Physical RACH
-		channel on which first overrun occurred. */
+	u32 FirstRCIdOverflowing; /**< [0-15] Lowest RACH channel RCId on which
+		first overrun overflow. */
 } XDfePrach_DecimatorStatusOverflow;
 
 /**
  * PRACH mixer overflow status.
  */
 typedef struct {
-	u32 MixerOverrun; /**< [0-1] Source of first occurrence of selector
-		overrun as signalled in ISR. That is, register only updated
-		when SELECTOR_OVERRUN flag is 0. */
-	u32 FirstAntennaOverruning; /**< [0-7] Earliest antenna in which
-		selector overrun occurred. */
-	u32 FirstRCIdOverruning; /**< [0-15] Lowest numbered Physical RACH
-		channel on which first selector overrun occurred. */
+	u32 MixerOverrun; /**< [0-1] MixerOverrun=1 when an overrun has
+		occurred in the mixer. */
+	u32 FirstAntennaOverruning; /**< [0-7] Lowest antenna number on which
+		mixer overrun occurred. */
+	u32 FirstRCIdOverruning; /**< [0-15] Lowest physical mixer number
+		on which first mixer overrun occurred. */
 } XDfePrach_MixerStatusOverrun;
 
 /**
  * PRACH decimator overrun status.
  */
 typedef struct {
-	u32 DecimatorOverrun; /**< [0-1] Source of first occurrence of overflow
-		as signalled in ISR. That is, register only updated when
-		DECIMATOR_OVERRUN flag is 0. */
-	u32 FirstAntennaOverruning; /**< [0-7] Lowest number antenna on which
+	u32 DecimatorOverrun; /**< [0-1] DecimatorOverrun=1 when an overrun
+		has occurred. */
+	u32 FirstAntennaOverruning; /**< [0-7] Lowest antenna number on which
 		first overrun occurred. */
-	u32 FirstRCIdOverruning; /**< [0-15] Lowest numbered Physical RACH
-		channel on which first overrun occurred. */
+	u32 FirstRCIdOverruning; /**< [0-15] Lowest RACH channel RCId on which
+		first overrun occurred. */
 } XDfePrach_DecimatorStatusOverrun;
 
 /**
@@ -603,7 +644,7 @@ typedef struct {
 
 typedef XDfePrach_StatusMask XDfePrach_InterruptMask;
 /**
- * PRACH Config Structure.
+ * PRACH IP Configuration.
  */
 typedef struct {
 #ifndef SDT
@@ -613,19 +654,23 @@ typedef struct {
 #endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] CORE.MODEL_PARAM.NUM_ANTENNA */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] Number of antennas for each band. */
 	u32 NumCCPerAntenna
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-16] CORE.MODEL_PARAM.NUM_CC_PER_ANTENNA */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-16] Maximum number of usable CCs per
+		 antenna for each band. */
 	u32 NumAntennaChannels
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-4] CORE.MODEL_PARAM.NUM_SLOT_CHANNELS */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-4] Number of Antenna lanes for each
+		band (number of antennas divided by the antenna interleave factor). */
 	u32 NumAntennaSlots
-		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] CORE.MODEL_PARAM.NUM_SLOTS */
-	u32 NumRachLanes; /**< [1-2] CORE.MODEL_PARAM.NUM_RACH_LANES */
-	u32 NumRachChannels; /**< [1-16] CORE.MODEL_PARAM.NUM_RACH_CHANNELS */
-	u32 HasAxisCtrl; /**< [0,1] CORE.MODEL_PARAM.HAS_AXIS_CTRL */
-	u32 HasIrq; /**< [0,1] CORE.MODEL_PARAM.HAS_IRQ */
-	u32 NumBands; /**< [1-3] CORE.MODEL_PARAM.NUM_BANDS */
-	u32 HasContinuousSched; /**< [0,1] CORE.MODEL_PARAM.XDFEPRACH_HAS_CONTINUOUS_SCHED */
+		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] Antenna Interleave factor for each
+		band */
+	u32 NumRachLanes; /**< [1-2] Number of RACH output lanes. */
+	u32 NumRachChannels; /**< [1-16] Number of RACH channels. */
+	u32 HasAxisCtrl; /**< [0,1] Dynamic scheduling activation (if set to 1). */
+	u32 HasIrq; /**< [0,1] IRQ output activation (if set to 1). */
+	u32 NumBands; /**< [1-3] Number of bands. */
+	u32 HasContinuousSched; /**< [0,1] Removal of internal scheduling ("Always On"
+		mode) if set to 1. */
 } XDfePrach_Config;
 
 /**
@@ -683,8 +728,6 @@ void XDfePrach_GetCarrierCfgMB(const XDfePrach *InstancePtr,
 void XDfePrach_GetCarrierCfg(const XDfePrach *InstancePtr,
 			     XDfePrach_CCCfg *CCCfg, s32 CCID, u32 *CCSeqBitmap,
 			     XDfePrach_CarrierCfg *CarrierCfg);
-void XDfePrach_SetAntennaCfgInCCCfg(const XDfePrach *InstancePtr,
-				    XDfePrach_CCCfg *CCCfg, u32 *AntennaCfg);
 u32 XDfePrach_AddCCtoCCCfgMB(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 			     s32 CCID, u32 CCSeqBitmap,
 			     const XDfePrach_CarrierCfg *CarrierCfg,
@@ -707,11 +750,6 @@ u32 XDfePrach_UpdateCCinCCCfg(const XDfePrach *InstancePtr,
 u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 			 const XDfePrach_CCCfg *NextCCCfg,
 			 XDfePrach_RCCfg *NextRCCfg);
-u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 CCSeqBitmap,
-		    const XDfePrach_CarrierCfg *CarrierCfg);
-u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID);
-u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
-		       const XDfePrach_CarrierCfg *CarrierCfg);
 void XDfePrach_GetCurrentRCCfg(const XDfePrach *InstancePtr,
 			       XDfePrach_RCCfg *RCCfg);
 void XDfePrach_GetEmptyRCCfg(const XDfePrach *InstancePtr,
@@ -754,16 +792,6 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 			       XDfePrach_NCO *NcoCfg,
 			       XDfePrach_Schedule *StaticSchedule,
 			       XDfePrach_CCCfg *NextCCCfg);
-u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
-		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
-		       XDfePrach_NCO *NcoCfg,
-		       XDfePrach_Schedule *StaticSchedule);
-u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId);
-u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
-			  u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
-			  XDfePrach_NCO *NcoCfg,
-			  XDfePrach_Schedule *StaticSchedule);
-u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel);
 void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
 			      XDfePrach_TriggerCfg *TriggerCfg);
 void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,

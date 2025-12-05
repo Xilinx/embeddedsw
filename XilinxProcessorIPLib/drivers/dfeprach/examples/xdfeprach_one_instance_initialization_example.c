@@ -22,6 +22,7 @@
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 * 1.5   dc     01/02/23 Multiband registers update
 * 1.8   dc     08/23/25 Add missing parameter to yaml
+* 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
 *
 * </pre>
 * @addtogroup Overview
@@ -80,8 +81,7 @@ int XDfePrach_SelfTestExample()
 	XDfePrach_Version SwVersion = { 0 };
 	XDfePrach_Version HwVersion = { 0 };
 	XDfePrach_Init Init = { { { 0, { 0 } }, { 0, { 0 } }, { 0, { 0 } } },
-				1,
-				0 };
+				1 };
 
 	printf("\n\rPrach \"One Instance Initialization\" Example - Start\n\n\r");
 
