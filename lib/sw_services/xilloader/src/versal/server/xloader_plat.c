@@ -1018,11 +1018,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 Mode = 0U;
 	u8 TcmComb;
 
-	/**
-	 * - Verify the load address.
-	 */
-	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, PrtnParams->DeviceCopy.DestAddr, Len, Status, XLOADER_ERR_INVALID_ELF_LOAD_ADDR, END);
-
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	/**
@@ -1097,6 +1092,11 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
+
+	/**
+	 * - Verify the load address.
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, PrtnParams->DeviceCopy.DestAddr, Len, Status, XLOADER_ERR_INVALID_ELF_LOAD_ADDR, END);
 
 	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
