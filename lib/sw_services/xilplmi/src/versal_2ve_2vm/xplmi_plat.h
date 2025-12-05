@@ -638,6 +638,7 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 		} \
 	}
 #else
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 #define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
 	{ \
 		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
@@ -647,6 +648,17 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 			goto Label; \
 		} \
 	}
+#else
+#define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
+	do { \
+		/* Address range validation is disabled for Versal by default */ \
+		(void)(SubsysId); \
+		(void)(StartAddr); \
+		(void)(Len); \
+		(void)(StatusVar); \
+		(void)(ErrorCode); \
+	} while(0)
+#endif
 #endif
 /*****************************************************************************/
 /**
