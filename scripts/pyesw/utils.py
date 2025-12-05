@@ -429,7 +429,7 @@ def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = 
         if not capture_output:
             subprocess.check_call(cmd, cwd=cwd, shell=True)
         else:
-            with subprocess.Popen(cmd, shell =True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=cwd) as process:
+            with subprocess.Popen(cmd, shell =True, encoding='utf-8', stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=cwd) as process:
                 for line in process.stdout:
                     print(line.strip('\n'))
                 if process.wait() != 0:
