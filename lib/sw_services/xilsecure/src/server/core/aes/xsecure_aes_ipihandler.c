@@ -32,18 +32,19 @@
 *                        into xsecure_kat_plat_ipihandler.c
 *       kpt   08/19/2022 Added GMAC support
 * 5.1   skg   12/16/2022 Added XSecure_AesEncrypt/DecryptInitUpdateFinal
-*	yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
+*	    yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 *       vss	  07/14/2023 Added support for IpiChannel check
 *       vss   09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *       mb    03/12/24   Added AES INIT call inside AES Operation INIT API
-*	ss    04/05/24   Fixed doxygen warnings
+*	    ss    04/05/24   Fixed doxygen warnings
 * 5.4   yog   04/29/24   Fixed doxygen grouping and doxygen warnings.
 *       ma    09/17/24   Replaced XPlmi_MemCpy64 with XSecure_MemCpy64 in
 *                        XSecure_AesEncUpdate and XSecure_AesDecUpdate
 *       tri   10/08/24   Configure DmaSwap before transferring IV to AES engine
 *       pre   03/02/25   Implemented task based event notification functionality for AES IPI events
 * 5.6   mb    09/09/25   Return error code on AES IPI event handling failure
+*    	obs   09/23/25   Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -76,18 +77,19 @@
 			/**< AES destination key source mask for KEK decryption */
 
 /************************** Function Prototypes *****************************/
-static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn);
-static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_AesOperationInit(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
+static int XSecure_AesAadUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn);
+static int XSecure_AesEncUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_AesEncFinal(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh);
+static int XSecure_AesDecUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
+static int XSecure_AesDecFinal(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
+static int XSecure_AesDecryptKek(u32 SubsystemId, u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
 static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAddr);
+
 /*****************************************************************************/
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
@@ -129,29 +131,29 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 		/**   - @ref XSecure_AesOperationInit */
-		Status = XSecure_AesOperationInit(Pload[0], Pload[1]);
+		Status = XSecure_AesOperationInit(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
 		/**   - @ref XSecure_AesAadUpdate */
-		Status = XSecure_AesAadUpdate(Pload[0], Pload[1], Pload[2], Pload[3]);
+		Status = XSecure_AesAadUpdate(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_UPDATE):
 		/**   - @ref XSecure_AesEncUpdate */
-		Status = XSecure_AesEncUpdate(Pload[0], Pload[1], Pload[2],
+		Status = XSecure_AesEncUpdate(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_FINAL):
 		/**   - @ref XSecure_AesEncFinal */
-		Status = XSecure_AesEncFinal(Pload[0], Pload[1]);
+		Status = XSecure_AesEncFinal(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_UPDATE):
 		/**   - @ref XSecure_AesDecUpdate */
-		Status = XSecure_AesDecUpdate(Pload[0], Pload[1], Pload[2],
+		Status = XSecure_AesDecUpdate(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_FINAL):
 		/**   - @ref XSecure_AesDecFinal */
-		Status = XSecure_AesDecFinal(Pload[0], Pload[1]);
+		Status = XSecure_AesDecFinal(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEY_ZERO):
 		/**   - @ref XSecure_AesKeyZeroize */
@@ -159,12 +161,12 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
 		/**   - @ref XSecure_AesKeyWrite */
-		Status = XSecure_AesKeyWrite((u8)Pload[0], (u8)Pload[1], Pload[2],
+		Status = XSecure_AesKeyWrite(Cmd->SubsystemId, (u8)Pload[0], (u8)Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 		/**   - @ref XSecure_AesDecryptKek */
-		Status = XSecure_AesDecryptKek(Pload[0], Pload[1], Pload[2]);
+		Status = XSecure_AesDecryptKek(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 		/**   - @ref XSecure_AesSetDpaCmConfig */
@@ -172,7 +174,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 		/**   - @ref XSecure_AesPerformOperation */
-		Status = XSecure_AesPerformOperation(Pload[0], Pload[1]);
+		Status = XSecure_AesPerformOperation(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -221,6 +223,7 @@ END:
  * @brief	This function handler calls XSecure_AesEncryptInit or
  * 		XSecure_AesDecryptInit server API based on the Operation type
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the XSecure_AesInitOps
  * 				structure.
  * @param	SrcAddrHigh	Higher 32 bit address of the XSecure_AesInitOps
@@ -231,16 +234,23 @@ END:
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
+static int XSecure_AesOperationInit(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XSecure_AesConfig(AesParams.OperationId, AesParams.KeySrc, AesParams.KeySize, AesParams.IvAddr);
 
@@ -253,6 +263,7 @@ END:
  * @brief	This function handler calls XSecure_AesGmacCfg and XSecure_AesUpdateAad
  *				server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the AAD data
  * @param	SrcAddrHigh	Higher 32 bit address of the AAD data
  * @param	Size		AAD Size
@@ -263,11 +274,13 @@ END:
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn)
+static int XSecure_AesAadUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	/**
 	 * Update GMAC configuration as per the user input and
@@ -289,6 +302,7 @@ END:
 /**
  * @brief	This function handler calls XSecure_AesEncryptUpdate server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_AesInParams structure.
  * @param	SrcAddrHigh	Higher 32 bit address of the
@@ -303,7 +317,7 @@ END:
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_AesEncUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -312,11 +326,21 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_AesInParams InParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(InParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, InParams.InDataAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
+#endif
+
+END:
 	return Status;
 }
 
@@ -324,6 +348,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 /**
  * @brief	This function handler calls XSecure_AesEncryptFinal server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	DstAddrLow	Lower 32 bit address of the GCM-TAG
  * 				to be stored.
  * @param	DstAddrHigh	Higher 32 bit address of the GCM-TAG
@@ -334,15 +359,22 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
+static int XSecure_AesEncFinal(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, XSECURE_SECURE_GCM_TAG_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	/* Generates GCM tag */
 	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
+#endif
+
+END:
 	return Status;
 }
 
@@ -350,6 +382,7 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
 /**
  * @brief	This function handler calls XSecure_AesDecryptUpdate server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_AesInParams structure.
  * @param	SrcAddrHigh	Higher 32 bit address of the
@@ -364,7 +397,7 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_AesDecUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -373,12 +406,22 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_AesInParams InParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(InParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, InParams.InDataAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	/** Update data in AES engine which needs to be decrypted. */
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
+#endif
+
+END:
 	return Status;
 }
 
@@ -386,6 +429,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 /**
  * @brief	This function handler calls XSecure_AesDecryptFinal server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the GCM-TAG
  * @param	SrcAddrHigh	Higher 32 bit address of the GCM-TAG
  *
@@ -394,15 +438,22 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
+static int XSecure_AesDecFinal(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, XSECURE_SECURE_GCM_TAG_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	/** Verify the GCM tag provided for the data decrypted */
 	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
+#endif
+
+END:
 	return Status;
 }
 
@@ -443,6 +494,7 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
 /**
  * @brief	This function handler calls XSecure_AesWriteKey server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	KeySize		Size of the key to specify 128/256 bit key
  * @param	KeySrc		KeySrc to which key has to be written
  * @param	KeyAddrLow	Lower 32 bit address of the Key
@@ -454,12 +506,14 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
+int XSecure_AesKeyWrite(u32 SubsystemId, u8 KeySize, u8 KeySrc,
 			u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 KeyAddr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyAddr, KeySize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	/* User not allowed to write key in boot header */
 	if ((KeySrc == (u32)XSECURE_AES_BH_KEY) ||
@@ -482,6 +536,7 @@ END:
 /**
  * @brief	This function handler calls XSecure_AesDecryptKek server API
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	KeyInfo		KeyInfo contains KeySize, KeyDst and KeySrc
  * @param	IvAddrLow	Lower 32 bit address of the IV
  * @param	IvAddrHigh	Higher 32 bit address of the IV
@@ -492,7 +547,7 @@ END:
  *		 - XST_FAILURE  If timeout has occurred
  *
  ******************************************************************************/
-static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
+static int XSecure_AesDecryptKek(u32 SubsystemId, u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 IvAddr;
@@ -501,6 +556,9 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 	XSecure_Aes *XSecureAesInstPtr;
 	XSecure_AesKeySrc DecKeySrc = (XSecure_AesKeySrc)(KeyInfo &
 		XSECURE_AES_DEC_KEY_SRC_MASK);
+	IvAddr = ((u64)IvAddrHigh << 32U) | (u64)IvAddrLow;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	/* Check for valid decryption key source */
 	if ((DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_0) &&
@@ -508,8 +566,6 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
-
-	IvAddr = ((u64)IvAddrHigh << 32U) | (u64)IvAddrLow;
 	DstKeySrc = (XSecure_AesKeySrc)(KeyInfo &
 		XSECURE_AES_DST_KEY_SRC_MASK);
 	KeySize = (XSecure_AesKeySize)(KeyInfo &
@@ -547,7 +603,7 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 /**
  * @brief	This function handler calls XSecure_AesPerformOperation
  *
- *
+ *@param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the XSecure_AesDataBlockParams
  * 				structure.
  * @param	SrcAddrHigh	Higher 32 bit address of the XSecure_AesDataBlockParams
@@ -558,16 +614,29 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
+int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesDataBlockParams AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.InDataAddr, AesParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.OutDataAddr, AesParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.GcmTagAddr, XSECURE_SECURE_GCM_TAG_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	if (AesParams.IsUpdateAadEn == TRUE) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.AadAddr, AesParams.AadSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	}
 
 	/** Validate key source and initialise AES to encryption/decryption */
@@ -578,7 +647,7 @@ int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 
 	if (AesParams.IsUpdateAadEn == TRUE) {
 		/** Update AAD */
-		Status = XSecure_AesAadUpdate((u32)AesParams.AadAddr, (u32)(AesParams.AadAddr >> 32U),
+	Status = XSecure_AesAadUpdate(SubsystemId, (u32)AesParams.AadAddr, (u32)(AesParams.AadAddr >> 32U),
 								 AesParams.AadSize, AesParams.IsGmacEnable);
 		if (Status != XST_SUCCESS) {
 			goto END;

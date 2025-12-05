@@ -61,6 +61,7 @@
 * 2.2   vss  02/11/2025 Removed static keyword from XPlmi_SssMask function
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
+* 2.3   obs  08/26/2025 Added error codes and macros for handling verifying address range
 *
 * </pre>
 *
@@ -373,6 +374,14 @@ enum {
 	/** 0x25 - Invalid tamper response received for TamperTrigger IPI call */
 	XPLMI_INVALID_TAMPER_RESPONSE,
 
+	/** 0x26 - Error when invalid log buffer type is received in Logging command. */
+	XPLMI_ERR_INVALID_LOG_BUF_TYPE,
+
+	/**< 0x27 - Error when registering the address range handler */
+	XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER,
+
+	/** 0x28 - Error when invalid address range is detected. */
+	XPLMI_ERR_INVALID_ADDR_RANGE,
 
 	/* Platform specific error codes start at 0x200 */
 	/** 0x200 - Error received from SSIT Slave SLR */
@@ -438,6 +447,50 @@ enum {
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
 
 #define XPLMI_STATUS_GLITCH_DETECT(Status)     /**< Glitch check on Status (excluded for Versal).  */
+
+/**< Function pointer type for address range validation handler */
+typedef XStatus (*XPlmi_IsAddrRangeValid_t)(u32 SubsystemId, u64 Addr, u64 Size);
+
+/**< Global address range validation handler */
+extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
+
+/******************************************************************************/
+/**
+ * This macro calls the registered address validation handler (XPm_IsMemAddressValid)
+ * to ensure memory access is within valid bounds for security-critical functions.
+ * This feature is conditionally compiled based on PLM_ENABLE_ADDR_RANGE_VALIDATION.
+ *
+ * @param   SubsysId         Subsystem ID
+ * @param   StartAddr        Start address of the range to verify
+ * @param   Len              Length of the address range to verify
+ * @param   StatusVar        Status variable to be updated
+ * @param   ErrorCode        Error code to set on failure
+ * @param   Label            Label to jump to on error
+ *
+ * @return  None
+ *
+ ******************************************************************************/
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
+#define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
+	{ \
+		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
+		if (StatusVar != XST_SUCCESS) { \
+			StatusVar = ErrorCode; \
+			goto Label; \
+		} \
+	}
+#else
+#define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
+	do { \
+		/* Address range validation is disabled for Versal by default */ \
+		(void)(SubsysId); \
+		(void)(StartAddr); \
+		(void)(Len); \
+		(void)(StatusVar); \
+		(void)(ErrorCode); \
+	} while(0)
+#endif
+
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type
@@ -602,7 +655,6 @@ int XPlmi_RegisterNEnableIpi(void);
 void XPlmi_EnableIomoduleIntr(void);
 int XPlmi_SetPmcIroFreq(void);
 int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue);
-int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
 u32 XPlmi_GetGicIntrId(u32 GicPVal, u32 GicPxVal);
 u32 XPlmi_GetIpiIntrId(u32 BufferIndex);
 void XPlmi_EnableIpiIntr(void);

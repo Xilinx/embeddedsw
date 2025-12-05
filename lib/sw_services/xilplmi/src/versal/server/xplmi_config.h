@@ -54,6 +54,7 @@
 *       obs  12/13/2024 Added PLM_BANNER_TIMESTAMP_EXCLUDE macro
 *       tri  03/13/2025 Added configurable option for xiltpm library
 *       pre  03/19/2025 Added configurable option for AES and SHA events queuing
+* 1.20  obs  08/26/2025 Added PLM_ENABLE_ADDR_RANGE_VALIDATION config option
 * </pre>
 *
 * @note
@@ -260,6 +261,14 @@ extern "C" {
 
 /* Enable the below define to enable PMC I2C Handshake Feature*/
 //#define PLM_I2C_MB_HANDSHAKE
+
+/**
+ * Enable the below define to enable address range validation in PLM.
+ * By default, address range validation is disabled for Versal to reduce code size.
+ * When enabled, this feature validates memory access ranges
+ * for security-critical functions.
+ */
+//#define PLM_ENABLE_ADDR_RANGE_VALIDATION
 
 /************************** Function Prototypes ******************************/
 

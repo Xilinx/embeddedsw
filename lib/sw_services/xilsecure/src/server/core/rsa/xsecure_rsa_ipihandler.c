@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 5.3  kpt   03/22/24 Fixed Branch past initialization
 *      ss    04/05/24 Fixed doxygen warnings
 * 5.4  yog   04/29/24 Fixed doxygen warnings.
+* 5.6  obs   08/26/25 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -36,7 +37,7 @@
 */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
-
+#include "xplmi_plat.h"
 #ifndef PLM_RSA_EXCLUDE
 #include "xplmi_dma.h"
 #include "xsecure_defs.h"
@@ -49,9 +50,9 @@
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
-static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_RsaEncrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh);
+static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
 
 /*************************** Function Definitions *****************************/
 
@@ -83,12 +84,12 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 		/**    - XSecure_RsaEncrypt */
-		Status = XSecure_RsaEncrypt(Pload[0], Pload[1],
+		Status = XSecure_RsaEncrypt(Cmd->SubsystemId, Pload[0], Pload[1],
 						Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
 		/**    - XSecure_RsaSignVerify */
-		Status = XSecure_RsaSignVerify(Pload[0], Pload[1]);
+		Status = XSecure_RsaSignVerify(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -105,6 +106,7 @@ END:
  * @brief	This function handler calls XSecure_RsaInitialize and
  * 		XSecure_RsaPublicEncrypt server APIs
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
  * @param	SrcAddrHigh	Higher 32 bit address of the XSecure_RsaInParam
@@ -119,7 +121,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_RsaEncrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -130,10 +132,19 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, XSECURE_RSA_KEY_ADDR_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.DataAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Modulus = RsaParams.KeyAddr;
 	PublicExp = RsaParams.KeyAddr + RsaParams.Size;
@@ -158,6 +169,7 @@ END:
  * 		to XSECURE_API_RSA_SIGN_VERIFY IPI command and calls
  * 		XSecure_RsaSignVerification_64Bit server API.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_RsaSignParams structure
  * @param	SrcAddrHigh	Higher 32 bit address of the
@@ -168,16 +180,23 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
+static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_RsaSignParams SignParams;
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SignParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status = XPlmi_MemCpy64((UINTPTR)&SignParams, Addr, sizeof(SignParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SignParams.SignAddr, SignParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SignParams.HashAddr, SignParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XST_FAILURE;
 	Status = XSecure_RsaSignVerification_64Bit(SignParams.SignAddr,

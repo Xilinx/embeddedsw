@@ -47,6 +47,7 @@
 *       vss  11/20/2024 Fix for data corruption of GCM tag when any other
 *                       operation uses DMA0 after encrypt update.
 *       pre  03/02/2025 Removed data context setting and resource busy functionality for AES
+* 5.6	obs  07/25/2025 Added XSECURE_AES_IV_SIZE_IN_BYTES macro
 *
 * </pre>
 *
@@ -74,6 +75,7 @@ extern "C" {
  */
 
 #define XSECURE_SECURE_GCM_TAG_SIZE			(16U)
+#define XSECURE_AES_IV_SIZE_IN_BYTES			(12U)
 #define XSECURE_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XSECURE_AES_KEY_SIZE_128BIT_BYTES		(16U)
 #define XSECURE_AES_KEY_SIZE_256BIT_WORDS		(8U)

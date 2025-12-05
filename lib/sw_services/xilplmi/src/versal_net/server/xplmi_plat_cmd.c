@@ -35,7 +35,6 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       jb   03/19/2024 Updated XPLMI_MAX_ADDR_BUFFERS count from 1 to 3
 *       am   04/04/2024 Fixed doxygen warnings
-*       obs  02/04/2025 Updated XPLMI_BUFFER_PAYLOAD_ARG_CNT macro value
 *
 * </pre>
 *

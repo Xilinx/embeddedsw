@@ -1,6 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +30,7 @@
 *      kpt   03/22/2024 Fixed Branch past initialization
 *      ss    04/05/2024 Fixed doxygen warnings
 * 5.4  yog   04/29/2024 Fixed doxygen warnings.
+* 5.6  obs   08/26/2025 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -53,17 +53,18 @@
 #include "xsecure_error.h"
 #include "xsecure_kat.h"
 #include "xsecure_init.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
-static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
+static int XSecure_EllipticGenKey(u32 SubsystemId, u32 CurveType, u32 SrcAddrLow,
 	u32 SrcAddrHigh, u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_EllipticGenSign(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_EllipticValidatePubKey(u32 CurveType,
+static int XSecure_EllipticValidatePubKey(u32 SubsystemId, u32 CurveType,
 	u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh);
+static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
 
 /*************************** Function Definitions *****************************/
 
@@ -95,22 +96,22 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 		/**   - XSecure_EllipticGenKey */
-		Status = XSecure_EllipticGenKey(Pload[0], Pload[1], Pload[2],
+		Status = XSecure_EllipticGenKey(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2],
 				Pload[3], Pload[4]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 		/**    - XSecure_EllipticGenSign */
-		Status = XSecure_EllipticGenSign(Pload[0], Pload[1], Pload[2],
+		Status = XSecure_EllipticGenSign(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 		/**    - XSecure_EllipticValidatePubKey */
-		Status = XSecure_EllipticValidatePubKey(Pload[0], Pload[1],
+		Status = XSecure_EllipticValidatePubKey(Cmd->SubsystemId, Pload[0], Pload[1],
 				Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 		/**    - XSecure_EllipticVerifySignature */
-		Status = XSecure_EllipticVerifySignature(Pload[0], Pload[1]);
+		Status = XSecure_EllipticVerifySignature(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -127,6 +128,7 @@ END:
  * @brief	This function handler extracts the payload params from the IPI
  * 		command and calls XSecure_EllipticGenerateKey server API.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	CurveType	Is a type of elliptic curve
  * @param	SrcAddrLow	Lower 32 bit address of the static private key
  * @param	SrcAddrHigh	Higher 32 bit address of the static private key
@@ -139,7 +141,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
+static int XSecure_EllipticGenKey(u32 SubsystemId, u32 CurveType, u32 SrcAddrLow,
 	u32 SrcAddrHigh, u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -154,6 +156,9 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 		goto END;
 	}
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SrcAddr, Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, Size * XSECURE_SIZE_DOUBLE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	KeyAddr.Qx = DstAddr;
 	KeyAddr.Qy = (DstAddr + (u64)Size);
@@ -185,6 +190,7 @@ END:
  * 		XSECURE_API_ELLIPTIC_GENERATE_SIGN IPI command and calls
  * 		XSecure_EllipticGenerateSignature server API.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
  * @param	SrcAddrHigh	Higher 32 bit address of the
@@ -198,7 +204,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_EllipticGenSign(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -208,6 +214,8 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_EllipticHashData HashInfo;
 	XSecure_EllipticSignAddr SignAddr;
 	u32 Size = 0U;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SrcAddr, sizeof(EcdsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, SrcAddr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
@@ -219,6 +227,14 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, sizeof(SignAddr), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.HashAddr, EcdsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.PrivKeyAddr, Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.EPrivKeyAddr, Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	HashInfo.Addr = EcdsaParams.HashAddr;
 	HashInfo.Len = EcdsaParams.Size;
@@ -244,6 +260,7 @@ END:
  * 		XSECURE_API_ELLIPTIC_VALIDATE_KEY IPI command and calls
  * 		XSecure_EllipticValidateKey server API.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	CurveType	Is a type of elliptic curve
  * @param	SrcAddrLow	Lower 32 bit address of the public key
  * @param	SrcAddrHigh	Higher 32 bit address of the public key
@@ -254,7 +271,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
+static int XSecure_EllipticValidatePubKey(u32 SubsystemId, u32 CurveType, u32 SrcAddrLow,
 	u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -267,6 +284,8 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SrcAddr, (Size * XSECURE_SIZE_DOUBLE), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	KeyAddr.Qx = SrcAddr;
 	KeyAddr.Qy = (SrcAddr + (u64)Size);
@@ -284,7 +303,7 @@ END:
  * 		to XSECURE_API_ELLIPTIC_VERIFY_SIGN IPI command and calls
  * 		XSecure_EllipticGenerateKey server API.
  *
- *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
  * @param	SrcAddrHigh	Higher 32 bit address of the
@@ -296,7 +315,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
+static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
@@ -305,6 +324,8 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_EllipticHashData HashInfo;
 	XSecure_EllipticSignAddr SignAddr;
 	u32 Size = 0U;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EcdsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, Addr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
@@ -316,6 +337,13 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.HashAddr, EcdsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.PubKeyAddr, Size * XSECURE_SIZE_DOUBLE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.SignAddr, Size * XSECURE_SIZE_DOUBLE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	KeyAddr.Qx = EcdsaParams.PubKeyAddr;
 	KeyAddr.Qy = (EcdsaParams.PubKeyAddr + (u64)Size);

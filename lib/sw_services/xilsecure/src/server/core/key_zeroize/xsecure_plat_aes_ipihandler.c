@@ -37,12 +37,13 @@
 #include "xsecure_aes.h"
 #include "xsecure_resourcehandling.h"
 #include "xil_sutil.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
 #ifndef PLM_SECURE_EXCLUDE
-static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh);
+static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh);
 
 /*****************************************************************************/
 /**
@@ -80,7 +81,7 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 		/**   - @ref XSecure_AesPerformOperationAndZeroizeKey */
-		Status = XSecure_AesPerformOperationAndZeroizeKey(Pload[0], Pload[1], Pload[2], Pload[3]);
+		Status = XSecure_AesPerformOperationAndZeroizeKey(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -105,6 +106,7 @@ END:
  *			- Encrypt/decrypt a single block of data using the provided key
  *			- Zeroize the key once the AES operation is done
  *
+ * @param 	SubsystemId			Subsystem ID.
  * @param	AesParamsAddrLow	Lower 32 bit address of the XSecure_AesDataBlockParams
  * 					structure.
  * @param	AesParamsAddrHigh	Upper 32 bit address of the XSecure_AesDataBlockParams
@@ -117,11 +119,13 @@ END:
  *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
-static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh)
+static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AesParamsAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)AesParamsAddrLow;
 	XSecure_AesDataBlockParams AesParams;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
@@ -133,11 +137,11 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 Ae
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END_KEY_CLR, Status, XSecure_AesKeyWrite, (u8)AesParams.KeySize,
+	XSECURE_TEMPORAL_CHECK(END_KEY_CLR, Status, XSecure_AesKeyWrite, SubsystemId, (u8)AesParams.KeySize,
 		(u8)AesParams.KeySrc, KeyAddrLow, KeyAddrHigh);
 
 	Status = XST_FAILURE;
-	Status = XSecure_AesPerformOperation(AesParamsAddrLow, AesParamsAddrHigh);
+	Status = XSecure_AesPerformOperation(SubsystemId, AesParamsAddrLow, AesParamsAddrHigh);
 
 END_KEY_CLR:
 	Status = XST_FAILURE;

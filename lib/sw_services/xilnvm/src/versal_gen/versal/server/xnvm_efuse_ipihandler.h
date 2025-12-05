@@ -40,7 +40,7 @@ extern "c" {
 
 /************************** Constant Definitions *****************************/
 int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd);
-int XNvm_EfuseRead(u32 Offset, u32 AddrLow, u32 AddrHigh, u32 Size);
+int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 Size);
 #if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE)) || \
 	(defined (XNVM_WRITE_USER_EFUSE))
 int XNvm_EfuseWriteAccess(const XPlmi_Cmd * Cmd, u32 AddrLow, u32 AddrHigh, u8 EnvMonitorDis);

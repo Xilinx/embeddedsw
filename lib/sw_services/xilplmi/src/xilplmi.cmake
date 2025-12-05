@@ -202,6 +202,20 @@ if (XILPLMI_pm_restore_multiboot)
   set(PLM_ENABLE_RESTORE_MULTIBOOT " ")
 endif()
 
+if("${CMAKE_MACHINE}" STREQUAL "Versal")
+  option(XILPLMI_addr_range_validation_en "Enables or Disables address range validation (valid only for Versal)" OFF)
+  if (XILPLMI_addr_range_validation_en)
+    set(PLM_ENABLE_ADDR_RANGE_VALIDATION " ")
+  endif()
+endif()
+
+if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR ("${CMAKE_MACHINE}" STREQUAL "Versal_2VE_2VM"))
+  option(XILPLMI_verify_addr_redundant_call_en "Enables or Disables redundant address verification calls (valid only for VersalNet and Versal_2VE_2VM)" OFF)
+  if (XILPLMI_verify_addr_redundant_call_en)
+    set(PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL " ")
+  endif()
+endif()
+
 set(XILPLMI_user_modules_count "0" CACHE STRING "Number of User Modules.")
 set(XILPLMI_USER_MODULES_COUNT "${XILPLMI_user_modules_count}")
 

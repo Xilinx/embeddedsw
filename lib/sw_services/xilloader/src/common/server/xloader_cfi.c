@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 *       pre   08/22/2024 Added XLoader_CfiSelectiveRead command execution
 *       pre   08/25/2024 Fixed build issue for PLM_DEBUG_MODE
 *       pre   10/22/2024 Made CFI_selective_read feature configurable
+* 2.30  obs   08/26/2025 Added support for address range checks
 *
 * </pre>
 *
@@ -417,12 +418,8 @@ int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd)
 		Status = XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME;
 		goto END;
 	}
-
 	/* Address range verification */
-	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + Len);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, DestAddr, Len, Status, XLOADER_ERR_INVALID_ADDR_RANGE, END);
 
 	/* Read the destination interface and destination address */
 	SrcAddr = CFU_FDRO_2_ADDR;

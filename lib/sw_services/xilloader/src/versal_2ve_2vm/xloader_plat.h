@@ -197,7 +197,6 @@ enum {
 	/** 0x13 - Error when the metaheader offset provided in full PDI is not present in DDR */
 	XLOADER_ERR_INVALID_METAHEADER_OFFSET,
 
-
 	/* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
 	/** 0x14 - IDCODE mismatch */
 	XLOADER_ERR_IDCODE,
@@ -286,6 +285,9 @@ enum {
 
 	/** 0x30 - Error while releasing I2C device used for Handshake */
 	XLOADER_ERR_I2C_DEV_RELEASE,
+
+	/**< 0x32 - Error when invalid address range is detected. */
+	XLOADER_ERR_INVALID_ADDR_RANGE = 0x32,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */

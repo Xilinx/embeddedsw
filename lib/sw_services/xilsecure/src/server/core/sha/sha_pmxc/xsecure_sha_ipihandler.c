@@ -22,6 +22,7 @@
 *       pre  03/02/25 Implemented task based event notification functionality for SHA IPI events
 *       pre  04/16/25 Fixed warning
 * 5.6   mb   09/09/25 Return error code on SHA IPI event handling failure
+*   	obs  09/23/25 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 #include "xplmi.h"
 #include "xsecure_resourcehandling.h"
 #include "xil_sutil.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -49,7 +51,7 @@
 #define XSECURE_SHA_FINISH      (0x4U)	/**< Operation flags for SHA finish */
 
 /************************** Function Prototypes *****************************/
-static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh);
+static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh);
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -96,7 +98,7 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 	switch (ApiId) {
         case XSECURE_API(XSECURE_API_SHA3_OPERATION):
 	case XSECURE_API(XSECURE_API_SHA2_OPERATION):
-		Status = XSecure_ShaOperation(XSecureShaInstPtr, Pload[0U], Pload[1U]);
+		Status = XSecure_ShaOperation(Cmd->SubsystemId, XSecureShaInstPtr, Pload[0U], Pload[1U]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -118,6 +120,7 @@ END:
  * @brief       This function performs SHA operation based on operation flags
  * 		provided in IPI payload and returns the result.
  *
+ * @param 	SubsystemId			Subsystem ID.
  * @param	XSecureShaInstPtr	Pointer to the SHA instance
  * @param	AddrLow			Lower 32 bit address of XSecure_ShaOpParams
  * 					structure
@@ -128,7 +131,7 @@ END:
  *	-	ErrorCode - If the SHA operation is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh)
+static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 ShaParamsAddr = ((u64)AddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)AddrLow;
@@ -139,11 +142,20 @@ static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32
 		goto END;
 	}
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParamsAddr, sizeof(ShaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ShaParams, ShaParamsAddr, sizeof(ShaParams));
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.DataAddr, ShaParams.DataSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.HashAddr, ShaParams.HashBufSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 
 	if ((ShaParams.OperationFlags & XSECURE_SHA_START) == XSECURE_SHA_START) {
 		Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaParams.ShaMode);

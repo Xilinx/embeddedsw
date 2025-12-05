@@ -32,6 +32,7 @@
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
 *       bm   11/11/2024 Added config option for I2C Handshake feature
 *       tvp  08/23/2025 Define PLM_HW_PCR macro
+* 2.30  obs  08/26/2025 Added PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL macro
 * 2.0 	sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 *
 * </pre>
@@ -198,6 +199,11 @@ extern "C" {
 //#define PLM_PRINT_PERF_CDO_PROCESS
 //#define PLM_PRINT_PERF_KEYHOLE
 //#define PLM_PRINT_PERF_PL
+
+/**
+ * Enables redundant check for VerifyaddrRange.
+ */
+//#define PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ

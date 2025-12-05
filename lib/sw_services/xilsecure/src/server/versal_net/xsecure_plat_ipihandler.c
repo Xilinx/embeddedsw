@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *      kpt   06/13/2024 Add support for RSA key generation.
 *      mb    07/31/2024 Added the check to validate Payload and command for NULL pointer
 *      mb    11/09/2024 Added Redundancy check for XPlmi_MemCpy64.
+* 5.6  obs   07/25/2025 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -58,8 +59,8 @@
 /************************** Function Prototypes *****************************/
 static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal);
 #ifndef PLM_RSA_EXCLUDE
-static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh);
-static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
+static int XSecure_KeyUnwrapIpi(u32 SubsystemId, u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh);
+static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 #endif
 
@@ -102,10 +103,10 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_KEY_UNWRAP):
-		Status = XSecure_KeyUnwrapIpi(Pload[0U], Pload[1U]);
+		Status = XSecure_KeyUnwrapIpi(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
-		Status = XSecure_RsaPrivateOperationIpi(Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
+		Status = XSecure_RsaPrivateOperationIpi(Cmd->SubsystemId, Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_RELEASE_KEY):
 		Status = XSecure_RsaDestroyKeyInUse();
@@ -166,6 +167,7 @@ END:
 /**
  * @brief	This function unwraps the input wrapped key and copies to secure shell.
  *
+ * @param	SubsystemId		Subsystem ID.
  * @param	KeyWrapAddrLow	Lower address of the XSecure_KeyWrapData structure.
  * @param	KeyWrapAddrHigh	Higher address of the XSecure_KeyWrapData structure.
  *
@@ -175,11 +177,13 @@ END:
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
+static int XSecure_KeyUnwrapIpi(u32 SubsystemId, u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)KeyWrapAddrLow;
 	XSecure_KeyWrapData KeyWrapData = {0U};
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyWrapAddr, sizeof(XSecure_KeyWrapData) , Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	if (XSECURE_KEY_STORE_ADDR == 0U) {
 		Status = (int)XSECURE_ERR_INVALID_KEY_STORE_ADDR;
@@ -191,6 +195,11 @@ static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 		goto END;
 	}
 
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyWrapData.KeyWrapAddr, KeyWrapData.TotalWrappedKeySize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status = XSecure_KeyUnwrap(&KeyWrapData);
 END:
 	return Status;
@@ -201,6 +210,7 @@ END:
  * @brief	This function handler calls XSecure_RsaInitialize and
  *		XSecure_RsaExp server API.
  *
+ * @param 	SubsystemId			Subsystem ID.
  * @param	RsaParamAddrLow		Lower 32 bit address of the XSecure_RsaInParam
  *					structure
  * @param	RsaParamAddrHigh	Higher 32 bit address of the XSecure_RsaInParam
@@ -217,7 +227,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
+static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -235,10 +245,19 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	u8 *Tot = NULL;
 	u32 PubModulus[XSECURE_RSA_4096_SIZE_WORDS];
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParamAddr, sizeof(RsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, RsaParamAddr, sizeof(XSecure_RsaInParam));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.DataAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = Xil_SMemSet(RsaOperationParamPtr, sizeof(XSecure_RsaOperationParam), 0U, sizeof(XSecure_RsaOperationParam));
 	if (Status != XST_SUCCESS) {
