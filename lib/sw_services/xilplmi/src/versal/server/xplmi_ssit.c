@@ -1162,10 +1162,11 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 	Cmd.Payload = (u32 *)&MsgBuf[1U];
 
 	/*
-	 * Use Subsystem Id as 0U - to indicate this command is likely
-	 * a forwarded command from master SLR
+	 * Use Subsystem Id as 0x1C000001U - to indicate this command is likely
+	 * a forwarded command from master SLR.
+	 * Note: This is a temporary fix, pending a more robust solution.
 	 */
-	Cmd.SubsystemId = 0U;
+	Cmd.SubsystemId = 0x1C000001U;
 	Cmd.IpiReqType = (Cmd.CmdId & IPI_CMD_HDR_SECURE_BIT_MASK) >>
 				IPI_CMD_HDR_SECURE_BIT_SHIFT;
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
