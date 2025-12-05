@@ -573,7 +573,7 @@ typedef struct XEmacPs_Instance {
 	u32 MaxMtuSize;
 	u32 MaxFrameSize;
 	u32 MaxVlanFrameSize;
-	u32 MaxQueues;
+	u8  MaxQueues;
 
 } XEmacPs;
 
@@ -819,7 +819,7 @@ typedef struct XEmacPs_Instance {
 #define CLEAR_BIT(x, n)		(x & (~BIT(n)))
 #define GENMASK(h, l)		(((~0U) << (l)) & \
 				(~0U >> (sizeof(int) * 8 - 1 - (h))))
-static INLINE u32 get_num_set_bits(u32 n)	{
+static INLINE u8 get_num_set_bits(u32 n)	{
 	u8 count = 0;
 	while(n) {
 		n &= (n - 1);

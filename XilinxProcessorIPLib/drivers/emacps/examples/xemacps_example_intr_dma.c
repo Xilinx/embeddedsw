@@ -738,7 +738,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	PayloadSize = rand() % (PayloadSize - 64 + 1) + 64;
 
 	/* Exercise all available queues */
-	queue = packet % (EmacPsInstancePtr->MaxQueues);
+	queue = packet % (u32)(EmacPsInstancePtr->MaxQueues);
 
 	/* Print packet count and payload size */
 	xil_printf("Packet: %d\tQueue: %d\tPayload size: %d\n", packet, queue, PayloadSize);
