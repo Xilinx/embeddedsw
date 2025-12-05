@@ -258,7 +258,7 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 			Status = XNvm_EfuseIpiHandler(Cmd);
 			break;
 		case XNVM_API(XNVM_API_ID_EFUSE_READ_CACHE):
-			Status =  XNvm_EfuseRead(Pload[0U], Pload[1U],
+			Status =  XNvm_EfuseRead(Cmd->SubsystemId, Pload[0U], Pload[1U],
 						 Pload[2U], Pload[3U]);
 			break;
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE

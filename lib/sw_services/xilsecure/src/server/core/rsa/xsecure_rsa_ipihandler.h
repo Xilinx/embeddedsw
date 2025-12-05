@@ -39,6 +39,11 @@ extern "c" {
 #ifndef PLM_RSA_EXCLUDE
 #include "xplmi_cmd.h"
 
+/***************** Macros (Inline Functions) Definitions *********************/
+#define XSECURE_RSA_KEY_ADDR_SIZE	(4U)	/**< Size of public key expo */
+
+/************************** Function Prototypes ******************************/
+
 /************************** Constant Definitions *****************************/
 int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd);
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -72,6 +72,7 @@
 *       pre  10/09/2024 Added support for get secure communication status command
 *       pre  10/11/2024 Added slave error notification at slave and processing at master
 *       obs  03/17/2025 Fixed GCC Warnings
+* 2.10  obs  08/26/2025 Added support for Verifying address range
 *
 * </pre>
 *
@@ -2241,10 +2242,7 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 		SrcAddr = ((u64)Cmd->Payload[XPLMI_ADDRESS_HIGH_OFFSET] << 32U) |
 		           Cmd->Payload[XPLMI_ADDRESS_LOW_OFFSET];
 
-		Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + sizeof(XPlmi_SsitSecComm));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, SrcAddr, sizeof(XPlmi_SsitSecComm), Status, XPLMI_ERR_INVALID_ADDR_RANGE, END);
 
         XPlmi_SecCommEstFlag SecKeyIVEstablished =
 		                          XPlmi_SsitGetSecCommEstFlag(SlrIndex);

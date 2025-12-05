@@ -35,6 +35,7 @@
 * 5.4   yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *       pre   03/02/2025 Implemented task based event notification functionality for SHA IPI events
 * 5.6   mb    09/09/2025 Return error code on SHA IPI event handling failure
+*   	obs   09/23/2025 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -54,6 +55,7 @@
 #include "xplmi.h"
 #include "xsecure_resourcehandling.h"
 #include "xil_sutil.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
@@ -63,7 +65,7 @@
 /************************** Function Prototypes *****************************/
 
 static int XSecure_Sha3Init(void);
-static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
+static int XSecure_Sha3UpdateIpi(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd);
 
@@ -149,6 +151,7 @@ END:
  * @brief	This function handler calls XSecure_Sha3Update64Bit or
  * 		XSecure_Sha3Finish based on the Continue bit in the command
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	SrcAddrLow	Lower 32 bit address of the input data
  * 				on which hash has to be calculated
  * @param	SrcAddrHigh	Higher 32 bit address of the input data
@@ -165,7 +168,7 @@ END:
  *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
+static int XSecure_Sha3UpdateIpi(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	int Status = XST_FAILURE;
@@ -186,6 +189,7 @@ static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	if ((InputSize & XSECURE_IPI_CONTINUE_MASK) != 0x0U) {
 		InputSize = InputSize & (~XSECURE_IPI_CONTINUE_MASK) &
 			(~XSECURE_IPI_FIRST_PACKET_MASK);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DataAddr, InputSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 		Status = XSecure_Sha3Update64Bit(XSecureSha3InstPtr,
 				DataAddr, InputSize);
 	}
@@ -193,6 +197,7 @@ static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
 				&Hash);
 		if (XST_SUCCESS == Status) {
+			XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, XSECURE_MAX_HASH_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 			/* copy hash to provided destination address using DMA */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
@@ -245,7 +250,7 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 		}
 	}
 	else{
-		Status = XSecure_Sha3UpdateIpi(Pload[0U], Pload[1U],
+		Status = XSecure_Sha3UpdateIpi(Cmd->SubsystemId, Pload[0U], Pload[1U],
 				Pload[2U], Pload[3U], Pload[4U]);
 	}
 

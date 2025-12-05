@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,8 +31,9 @@
 * 3.1   skg  10/25/2022 Added in body comments for APIs
 *       skg  12/07/2022 Added Additional PPKs support
 * 3.3	vss  02/23/2024	Added IPI support for eFuse read and write
-*	vss  05/20/2024 Added IPI support for AES key write
+*	    vss  05/20/2024 Added IPI support for AES key write
 *       ng   11/22/2023 Fixed doxygen grouping
+* 3.6	obs  08/26/2025 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -45,7 +46,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
-
+#include "xplmi_plat.h"
 #ifdef PLM_NVM
 #include "xnvm_efuse.h"
 #include "xnvm_efuse_ipihandler.h"
@@ -65,50 +66,50 @@
 #define XNVM_EFUSE_WORD_LEN			(4U)
 
 /************************** Function Prototypes *****************************/
-static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseIvRead(XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseRevocationIdRead(XNvm_RevocationId RevokeIdNum,
+static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseIvRead(u32 SubsystemId, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseRevocationIdRead(u32 SubsystemId, XNvm_RevocationId RevokeIdNum,
 	u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseUserFusesRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfusePpkHashRead(XNvm_PpkType PpkHashType, u32 AddrLow,
+static int XNvm_EfuseUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePpkHashRead(u32 SubsystemId, XNvm_PpkType PpkHashType, u32 AddrLow,
 	u32 AddrHigh);
-static int XNvm_EfuseMiscCtrlBitsRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseSecCtrlBitsRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseSecMisc1BitsRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseBootEnvCtrlBitsRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfusePufCtrlBitsRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseOffChipIdRead(XNvm_OffchipId IdNum, u32 AddrLow,
+static int XNvm_EfuseMiscCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseSecCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseSecMisc1BitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseBootEnvCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePufCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseOffChipIdRead(u32 SubsystemId, XNvm_OffchipId IdNum, u32 AddrLow,
 	u32 AddrHigh);
-static int XNvm_EfuseDecEfuseOnlyRead(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseDnaRead(u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseDecEfuseOnlyRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseDnaRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
-static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 #else
-static int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePufWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePufRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 #endif
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 #if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
-static int XNvm_EfuseMiscCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseSecCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
 #endif
 #ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
-static int XNvm_EfuseOffChipIdsWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseRevokeIdsWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfusePpkhashWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseOffChipIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseRevokeIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfusePpkhashWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
 #endif
 #ifdef XNVM_WRITE_USER_EFUSE
-static int XNvm_EfuseUserFuseWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
 #endif
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
-static int XNvm_EfuseIvWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseSecMisc1WriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseAnlgTrimWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseBootEnvCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfusePufWriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseSecMisc0WriteAccess(u64 Addr, u8 EnvMonitorDis);
-static int XNvm_EfuseAesKeysWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseIvWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseSecMisc1WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseAnlgTrimWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseBootEnvCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfusePufWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseSecMisc0WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseAesKeysWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
 #endif
 
 /*************************** Function Definitions *****************************/
@@ -149,62 +150,62 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE):
-		Status = XNvm_EfuseDataWrite(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseDataWrite(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_API(XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE):
-		Status = XNvm_EfusePufUserDataWrite(Pload[0U], Pload[1U]);
+		Status = XNvm_EfusePufUserDataWrite(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE):
-		Status = XNvm_EfusePufUserFusesRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfusePufUserFusesRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 #else
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
-		Status = XNvm_EfusePufWrite(Pload[0U], Pload[1U]);
+		Status = XNvm_EfusePufWrite(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF):
-		Status = XNvm_EfusePufRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfusePufRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 #endif
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_IV):
-		Status = XNvm_EfuseIvRead((XNvm_IvType)Pload[0U], Pload[1U],
+		Status = XNvm_EfuseIvRead(Cmd->SubsystemId, (XNvm_IvType)Pload[0U], Pload[1U],
 				Pload[2U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_REVOCATION_ID):
-		Status = XNvm_EfuseRevocationIdRead((XNvm_RevocationId)Pload[0U],
+		Status = XNvm_EfuseRevocationIdRead(Cmd->SubsystemId, (XNvm_RevocationId)Pload[0U],
 				Pload[1U], Pload[2U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID):
-		Status = XNvm_EfuseOffChipIdRead((XNvm_OffchipId)Pload[0U],
+		Status = XNvm_EfuseOffChipIdRead(Cmd->SubsystemId, (XNvm_OffchipId)Pload[0U],
 				Pload[1U], Pload[2U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_USER_FUSES):
-		Status = XNvm_EfuseUserFusesRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseUserFusesRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS):
-		Status = XNvm_EfuseMiscCtrlBitsRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseMiscCtrlBitsRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS):
-		Status = XNvm_EfuseSecCtrlBitsRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseSecCtrlBitsRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS):
-		Status = XNvm_EfuseSecMisc1BitsRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseSecMisc1BitsRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS):
-		Status = XNvm_EfuseBootEnvCtrlBitsRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseBootEnvCtrlBitsRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS):
-		Status = XNvm_EfusePufCtrlBitsRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfusePufCtrlBitsRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_PPK_HASH):
-		Status = XNvm_EfusePpkHashRead((XNvm_PpkType)Pload[0U],
+		Status = XNvm_EfusePpkHashRead(Cmd->SubsystemId, (XNvm_PpkType)Pload[0U],
 				Pload[1U], Pload[2U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY):
-		Status = XNvm_EfuseDecEfuseOnlyRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseDecEfuseOnlyRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_DNA):
-		Status = XNvm_EfuseDnaRead(Pload[0U], Pload[1U]);
+		Status = XNvm_EfuseDnaRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -221,6 +222,7 @@ END:
  * @brief       This function programs eFuses requested by the client with
  * 		the data provided in given address.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param 	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfuseDataAddr structure
  * @param	AddrHigh	Higher 32 bit address of the
@@ -231,7 +233,7 @@ END:
  * 		- XST_FAILURE - On memory copy or data clearing failure
  *
  ******************************************************************************/
-static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	int Status = XST_FAILURE;
 	volatile int ClearStatus = XST_FAILURE;
@@ -257,6 +259,8 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 	XNvm_EfuseAdditionalPpkHash AdditionalPpkHash __attribute__ ((aligned (32U)));
 #endif
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EfuseDataAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
 	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -267,6 +271,51 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/**
+	 * Validate internal address fields in the copied structure
+	 */
+	if (EfuseDataAddr.AesKeyAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AesKeyAddr, sizeof(XNvm_EfuseAesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.PpkHashAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.PpkHashAddr, sizeof(XNvm_EfusePpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.DecOnlyAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.DecOnlyAddr, sizeof(XNvm_EfuseDecOnly), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.SecCtrlAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.SecCtrlAddr, sizeof(XNvm_EfuseSecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.MiscCtrlAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.MiscCtrlAddr, sizeof(XNvm_EfuseMiscCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.RevokeIdAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.RevokeIdAddr, sizeof(XNvm_EfuseRevokeIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.IvAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.IvAddr, sizeof(XNvm_EfuseIvs), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.UserFuseAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.UserFuseAddr, sizeof(XNvm_EfuseUserDataAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.GlitchCfgAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.GlitchCfgAddr, sizeof(XNvm_EfuseGlitchCfgBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.BootEnvCtrlAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.BootEnvCtrlAddr, sizeof(XNvm_EfuseBootEnvCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.Misc1CtrlAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.Misc1CtrlAddr, sizeof(XNvm_EfuseSecMisc1Bits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+	if (EfuseDataAddr.OffChipIdAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.OffChipIdAddr, sizeof(XNvm_EfuseOffChipIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+#ifdef XNVM_EN_ADD_PPKS
+	if (EfuseDataAddr.AdditionalPpkHashAddr != 0U) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AdditionalPpkHashAddr, sizeof(XNvm_EfuseAdditionalPpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	}
+#endif
 
 	EfuseData.EnvMonitorDis = (u8)EfuseDataAddr.EnvMonDisFlag;
 	if (EfuseData.EnvMonitorDis == TRUE) {
@@ -363,6 +412,12 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 		UserData.StartUserFuseNum = UserFusesAddr.StartUserFuseNum;
 		UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
 
+		/**
+		 * Validate internal address field for user fuse data
+		 */
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UserFusesAddr.UserFuseDataAddr,
+			UserData.NumOfUserFuses * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
 		Status = XNvm_EfuseMemCopy(UserFusesAddr.UserFuseDataAddr,
 					(u64)(UINTPTR)&UserFuseArr,
 				UserData.NumOfUserFuses * XNVM_WORD_LEN);
@@ -431,6 +486,7 @@ END:
  * @brief       This function programs Puf HD eFuses as user eFuses as requested
  * 		by the client with the data provided in given address.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param 	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfusePufFuseAddr structure
  * @param	AddrHigh	Higher 32 bit address of the
@@ -441,7 +497,7 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
@@ -449,11 +505,19 @@ static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh)
 	XNvm_EfusePufFuse PufUserFuse;
 	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES];
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufFuseAddr,
 			sizeof(PufFuseAddr));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/**
+	 * Validate internal address field for PUF fuse data
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufFuseAddr.PufFuseDataAddr,
+		PufFuseAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	PufUserFuse.EnvMonitorDis = PufFuseAddr.EnvMonitorDis;
 	PufUserFuse.PrgmPufFuse = PufFuseAddr.PrgmPufFuse;
@@ -485,6 +549,7 @@ END:
 /**
  * @brief       This function reads the Puf User eFuses requested by the client
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param	AddrLow		Lower 32 bit address of the PufUserFuseAddr
  * 				structure
  *
@@ -496,7 +561,7 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
@@ -504,11 +569,19 @@ static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
 	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES];
 	XNvm_EfusePufFuse PufUserFuse;
 
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFusesAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufFusesAddr,
 			sizeof(PufFusesAddr));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/**
+	 * Validate internal address field for PUF fuse data
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufFusesAddr.PufFuseDataAddr,
+		PufFusesAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	PufUserFuse.StartPufFuseRow = PufFusesAddr.StartPufFuseRow;
 	PufUserFuse.NumOfPufFusesRows = PufFusesAddr.NumOfPufFusesRows;
@@ -531,6 +604,7 @@ END:
  * @brief       This function programs Puf helper data requested by the client with
  * 		the data provided in given address.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param 	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfusePufHdAddr structure
  * @param	AddrHigh	Higher 32 bit address of the
@@ -541,11 +615,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh) {
+int XNvm_EfusePufWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfusePufHdAddr PufHdAddr;
 	XNvm_EfusePufHd PufHd;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr,
 			sizeof(PufHdAddr));
@@ -591,6 +667,7 @@ END:
  * @brief       This function reads Puf helper data to given address
  *              requested by the client.
  *
+ * @param 	SubsystemId	Subsystem ID.
  * @param 	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfusePufHdAddr structure
  * @param	AddrHigh	Higher 32 bit address of the
@@ -601,11 +678,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh) {
+static int XNvm_EfusePufRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XNvm_EfusePufHdAddr PufHdAddr = {0U};
 	XNvm_EfusePufHd PufHd;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadPuf(&PufHd);
 	if (Status != XST_SUCCESS) {
@@ -635,6 +714,8 @@ END:
 /**
  * @brief       This function reads the IV requested by the client
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	IvType	Type of the IV to be read
  *
  * @param	AddrLow		Lower 32 bit address of the
@@ -647,11 +728,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseIvRead(XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseIvRead(u32 SubsystemId, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_Iv Iv;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(Iv), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadIv(&Iv, IvType);
 	if (Status != XST_SUCCESS) {
@@ -679,12 +762,14 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseRevocationIdRead(XNvm_RevocationId RevokeIdNum,
+static int XNvm_EfuseRevocationIdRead(u32 SubsystemId, XNvm_RevocationId RevokeIdNum,
 	u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 RevocationId;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RevocationId), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadRevocationId(&RevocationId, RevokeIdNum);
 	if (Status != XST_SUCCESS) {
@@ -702,6 +787,8 @@ END:
 /**
  * @brief       This function reads the User eFuses requested by the client
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfuseUserDataAddr structure
  *
@@ -713,13 +800,15 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseUserFusesRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseUserDataAddr UserFuses;
 	u32 UserFuseData[XNVM_NUM_OF_USER_FUSES];
 	XNvm_EfuseUserData UserData;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UserFuses), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&UserFuses,
 			sizeof(UserFuses));
@@ -747,6 +836,8 @@ END:
 /**
  * @brief       This function reads the PpkHash requested by the client
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	PpkHashType	PpkHash type to be read
  *
  * @param	AddrLow		Lower 32 bit address of the PpkHash array
@@ -758,12 +849,14 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfusePpkHashRead(XNvm_PpkType PpkHashType,
+static int XNvm_EfusePpkHashRead(u32 SubsystemId, XNvm_PpkType PpkHashType,
 		u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_PpkHash PpkHash;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadPpkHash(&PpkHash, PpkHashType);
 	if (Status != XST_SUCCESS) {
@@ -781,6 +874,8 @@ END:
 /**
  * @brief       This function reads the MiscCtrlBits eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfuseMiscCtrlBits structure
  *
@@ -792,11 +887,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseMiscCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseMiscCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(MiscCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadMiscCtrlBits(&MiscCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -814,6 +911,8 @@ END:
 /**
  * @brief       This function reads the SecCtrlBits eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfuseSecCtrlBits structure
  *
@@ -825,11 +924,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseSecCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseSecCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseSecCtrlBits SecCtrlBits;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadSecCtrlBits(&SecCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -847,6 +948,8 @@ END:
 /**
  * @brief       This function reads the Misc1CtrlBits eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfuseMisc1Bits structure
  *
@@ -858,11 +961,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseSecMisc1BitsRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseSecMisc1BitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseSecMisc1Bits SecMisc1Bits;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecMisc1Bits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadSecMisc1Bits(&SecMisc1Bits);
 	if (Status != XST_SUCCESS) {
@@ -880,6 +985,8 @@ END:
 /**
  * @brief       This function reads the BootEnvCtrlBits eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfuseBootEnvCtrlBits structure
  *
@@ -891,11 +998,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseBootEnvCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseBootEnvCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseBootEnvCtrlBits BootEnvCtrlBits;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(BootEnvCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadBootEnvCtrlBits(&BootEnvCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -913,6 +1022,8 @@ END:
 /**
  * @brief       This function reads the PufSecCtrlBits eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_EfusePufSecCtrlBits structure
  *
@@ -924,11 +1035,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfusePufCtrlBitsRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfusePufCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufSecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -946,6 +1059,8 @@ END:
 /**
  * @brief       This function reads the OffChip ID requested by the client
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	IdNum	OffChip ID number to be read
  *
  * @param	AddrLow		Lower 32 bit address of the OffChip ID
@@ -957,12 +1072,14 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseOffChipIdRead(XNvm_OffchipId IdNum, u32 AddrLow,
+static int XNvm_EfuseOffChipIdRead(u32 SubsystemId, XNvm_OffchipId IdNum, u32 AddrLow,
 		u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 OffChipId;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(OffChipId), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadOffchipRevokeId(&OffChipId, IdNum);
 	if (Status != XST_SUCCESS) {
@@ -980,6 +1097,8 @@ END:
 /**
  * @brief       This function reads the DecEfuseOnly eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the DecOnly value
  *
  * @param	AddrHigh	Higher 32 bit address of the DecOnly value
@@ -989,11 +1108,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseDecEfuseOnlyRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseDecEfuseOnlyRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 DecOnly;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(DecOnly), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadDecOnly(&DecOnly);
 	if (Status != XST_SUCCESS) {
@@ -1011,6 +1132,8 @@ END:
 /**
  * @brief       This function reads the DNA eFuse cache data
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param	AddrLow		Lower 32 bit address of the
  * 				XNvm_Dna structure
  *
@@ -1022,11 +1145,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  ******************************************************************************/
-static int XNvm_EfuseDnaRead(u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseDnaRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_Dna EfuseDna;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EfuseDna), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadDna(&EfuseDna);
 	if (Status != XST_SUCCESS) {
@@ -1098,51 +1223,51 @@ int XNvm_EfuseWriteAccess(const XPlmi_Cmd *Cmd, u32 AddrLow, u32 AddrHigh, u8 En
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
 		case XNVM_API_ID_EFUSE_WRITE_IV:
-			Status = XNvm_EfuseIvWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseIvWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1:
-			Status = XNvm_EfuseSecMisc1WriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseSecMisc1WriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM:
-			Status = XNvm_EfuseAnlgTrimWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseAnlgTrimWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL:
-			Status = XNvm_EfuseBootEnvCtrlWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseBootEnvCtrlWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_PUF_DATA:
-			Status = XNvm_EfusePufWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfusePufWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL:
-			Status = XNvm_EfuseSecMisc0WriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseSecMisc0WriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEYS):
-			Status = XNvm_EfuseAesKeysWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseAesKeysWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 #endif
 
 #ifdef XNVM_WRITE_USER_EFUSE
 		case XNVM_API_ID_EFUSE_WRITE_USER_EFUSE:
-			Status = XNvm_EfuseUserFuseWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseUserFuseWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 #endif
 
 #ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
 		case XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID:
-			Status = XNvm_EfuseOffChipIdsWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseOffChipIdsWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID:
-			Status = XNvm_EfuseRevokeIdsWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseRevokeIdsWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_PPK_HASH:
-			Status = XNvm_EfusePpkhashWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfusePpkhashWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 #endif
 #if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
 		case XNVM_API_ID_EFUSE_WRITE_MISC_CTRL:
-			Status = XNvm_EfuseMiscCtrlWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseMiscCtrlWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 		case XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL:
-			Status = XNvm_EfuseSecCtrlWriteAccess(Addr, EnvMonitorDis);
+			Status = XNvm_EfuseSecCtrlWriteAccess(Cmd->SubsystemId, Addr, EnvMonitorDis);
 			break;
 #endif
 		default :
@@ -1160,6 +1285,8 @@ END:
 /**
  * @brief	This function is used to read a specific eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Offset 		Offset of the eFuse
  *
  * @param 	AddrLow		Lower 32 bit address of the eFuse row
@@ -1173,16 +1300,12 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
-int XNvm_EfuseRead(u32 Offset, u32 AddrLow, u32 AddrHigh, u32 Size)
+int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 Size)
 {
 	int Status = XST_FAILURE;
 	u64 ReadDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	Status = XPlmi_VerifyAddrRange(ReadDataAddr, ReadDataAddr + Size - 1U);
-        if (Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-                goto END;
-        }
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReadDataAddr, Size, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	/*< Offset indicates lower nibble of the eFuse cache row offset */
 	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
@@ -1197,6 +1320,8 @@ END:
 /**
  * @brief	This function is used to write a Iv eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1208,17 +1333,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseIvWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseIvWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseIvs Ivs = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(Ivs) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(Ivs), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1241,6 +1362,8 @@ END:
 /**
  * @brief	This function is used to write SecMisc1Bits eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1252,17 +1375,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseSecMisc1WriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseSecMisc1WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecMisc1Bits SecMisc1Bits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(SecMisc1Bits) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecMisc1Bits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1285,6 +1404,8 @@ END:
 /**
  * @brief	This function is used to write GlitchCfgBits eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1296,17 +1417,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseAnlgTrimWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseAnlgTrimWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseGlitchCfgBits GlitchCfgBits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(GlitchCfgBits) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(GlitchCfgBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1329,6 +1446,8 @@ END:
 /**
  * @brief	This function is used to write BootEnvCtrl eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1340,17 +1459,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseBootEnvCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseBootEnvCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(BootEnvCtrl) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(BootEnvCtrl), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1373,6 +1488,8 @@ END:
 /**
  * @brief	This function is used to write puf eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1384,18 +1501,14 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfusePufWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfusePufWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePufData PufHdAddr = {0U};
 	XNvm_EfusePufHd PufHd = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(PufHdAddr) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1431,6 +1544,8 @@ END:
 /**
  * @brief	This function is used to write SecMisc0 eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1442,17 +1557,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseSecMisc0WriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseSecMisc0WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseDecOnly DecOnly = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(DecOnly) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(DecOnly), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1475,6 +1586,8 @@ END:
 /**
  * @brief	This function is used to write Aeskeys eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1486,17 +1599,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseAesKeysWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseAesKeysWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseAesKeys AesKeys = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(AesKeys) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1521,6 +1630,8 @@ END:
 /**
  * @brief	This function is used to write OffChipIds eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1532,17 +1643,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseOffChipIdsWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseOffChipIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseOffChipIds OffChipIds = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(OffChipIds) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(OffChipIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1565,6 +1672,8 @@ END:
 /**
  * @brief	This function is used to write RevokeIds eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1576,17 +1685,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseRevokeIdsWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseRevokeIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseRevokeIds RevokeIds = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(RevokeIds) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RevokeIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1609,6 +1714,8 @@ END:
 /**
  * @brief	This function is used to write PpkHash eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1620,17 +1727,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfusePpkhashWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfusePpkhashWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePpkHash PpkHash = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(PpkHash) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1655,6 +1758,8 @@ END:
 /**
  * @brief	This function is used to write UserFuses eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1666,17 +1771,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseUserFuseWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseUserData UserFuses = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(UserFuses) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UserFuses), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1701,6 +1802,8 @@ END:
 /**
  * @brief	This function is used to write MiscCtrlBits eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1713,17 +1816,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseMiscCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(MiscCtrlBits) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(MiscCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1764,6 +1863,8 @@ END:
 /**
  * @brief	This function is used to write SecCtrlBits eFuse
  *
+ * @param 	SubsystemId	Subsystem ID.
+ *
  * @param 	Addr 	Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
@@ -1776,17 +1877,13 @@ END:
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
-static int XNvm_EfuseSecCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
+static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits SecCtrlBits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(SecCtrlBits) - 1U);
-	if(Status != XST_SUCCESS) {
-		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {

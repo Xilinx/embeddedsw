@@ -28,6 +28,7 @@
  *       mb   09/09/2025 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
  *                       Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
  *       ng   09/19/2025 Fixed error descriptions
+ *       obs  09/23/2025 Added XSECURE_ERR_INVALID_ADDR_RANGE
  *
  * </pre>
  *
@@ -369,7 +370,8 @@ enum {
 	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR,	/**< 0xFB - Error when reversing the endianness during RSA private operation */
 	XSECURE_ERR_GLITCH_DETECTED,		/**< 0xFC - Error glitch detected */
 	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFD - Error in TRNG operation self tests */
-	XSECURE_ERR_TRNG_INIT_N_CONFIG		/**< 0xFE - Error in TRNG Instantiate and configuration */
+	XSECURE_ERR_TRNG_INIT_N_CONFIG,		/**< 0xFE - Error in TRNG Instantiate and configuration */
+	XSECURE_ERR_INVALID_ADDR_RANGE = 0xFF		/**< 0xFF - Error when address range validation fails */
 
 };
 

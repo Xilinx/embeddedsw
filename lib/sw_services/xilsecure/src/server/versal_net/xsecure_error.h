@@ -47,7 +47,7 @@
  * 5.6   aa   07/31/2025 Added error code for AES
  *       mb   09/09/2025 Added error code XSECURE_AES_IPI_EVENT_HANDLER_FAILED_ERROR
  *                       Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
- *
+ *       obs  09/23/2025 Added XSECURE_ERR_INVALID_ADDR_RANGE
  * </pre>
  *
  ******************************************************************************/
@@ -234,7 +234,8 @@ enum {
 	XSECURE_ERR_KAT_NOT_EXECUTED,		    /**< 0xF5 - Error when KAT is not executed when
 							crypto kat efuse bit is enabled */
 	XSECURE_RSA_GEN_SIGN_FAILED_ERROR,     /**< 0xF6 - Error when RSA sign generation is failed */
-	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR    /**< 0xF7 - Error when MemCpy is failed after RSA operation */
+	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR,   /**< 0xF7 - Error when MemCpy is failed after RSA operation */
+	XSECURE_ERR_INVALID_ADDR_RANGE = 0xFF         /**< 0xFF - Error when address range validation fails */
 };
 
 /************************** Function Prototypes ******************************/

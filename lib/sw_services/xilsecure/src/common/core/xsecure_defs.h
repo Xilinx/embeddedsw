@@ -37,6 +37,7 @@
 *       mb   05/23/24 Added support for P-224 Curve
 *       Pre  03/02/25 Removed macros and structures related to data context setting
 *       yog  03/18/25 Added XSecure_EcdhParams
+* 5.6   obs  09/17/25 Added XSECURE_SIZE_DOUBLE macro
 *
 * </pre>
 *
@@ -105,6 +106,8 @@ extern "C" {
 				/**< Xilsecure KAT major error for client APIs */
 #define XSECURE_ADDR_HIGH_SHIFT			(32U)
 				/**< Shift to get higher address */
+#define XSECURE_SIZE_DOUBLE	(2U)
+				/**< Multiplier to double size */
 #define XSECURE_IPI_MASK_DEF_VAL           (0U)
 				/**< Default IPI mask value */
 #define XSECURE_ECDSA_PRIME		(XSECURE_ECC_PRIME)

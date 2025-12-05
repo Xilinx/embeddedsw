@@ -126,6 +126,7 @@
 *       pre  01/13/2025 Added command to set access status of DDRMC main registers
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 *		abh  08/15/2025 Fixed GCC warnings
+*       obs  08/26/2025 Added support for address range checks
 * </pre>
 *
 *
@@ -1435,10 +1436,8 @@ static int XPlmi_GetBoard(XPlmi_Cmd *Cmd)
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
 	/** Verify the destination address range before writing */
-	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + ((u64)Len * 4U) - 1U);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+
+	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, DestAddr, ((u64)Len * XPLMI_WORD_LEN) ,  Status, XPLMI_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_DmaXfr((u64)(u32)&BoardName[0U], DestAddr, Len,
 			XPLMI_PMCDMA_0);

@@ -68,6 +68,7 @@
 *       tvp  07/28/2025 Added comment for better code readability
 *       rmv  07/17/2025 Call XOcp_StoreSubsysDigest() to store subsystem digest for ASUFW
 *       tvp  08/13/2025 Code refactoring for Platform specific TRNG functions
+*       obs  08/26/2025 Added support for address range checks
 *
 * </pre>
 *
@@ -710,7 +711,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 {
 	volatile int Status = XST_FAILURE;
 	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
-	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
 	u32 DstnCluster = 0U;
 	u32 ClusterLockstep = 0U;
 	u32 DeviceId;
@@ -727,12 +727,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	/**
 	 * - Verify the load address.
 	 */
-	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
-				Status);
-		goto END;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, PrtnParams->DeviceCopy.DestAddr, Len, Status, XLOADER_ERR_INVALID_ELF_LOAD_ADDR, END);
 
 	DstnCluster = XilPdi_GetDstnCluster(PrtnHdr) >>
 			XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;

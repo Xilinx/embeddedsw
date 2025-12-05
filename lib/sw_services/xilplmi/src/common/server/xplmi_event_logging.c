@@ -52,6 +52,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
+* 2.3   obs  09/23/2025 Added support for address range checks
 *
 * </pre>
 *
@@ -90,6 +91,7 @@
 
 #define XPLMI_TRACE_LOG_BUFFER	(0U)
 #define XPLMI_DEBUG_LOG_BUFFER	(1U)
+#define XPLMI_PM_SUBSYS_PMC_NODEID	(0x1C000001U)
 
 /**
  * @}
@@ -180,12 +182,13 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 	if ((NumBytes == 0U) ||
 		((NumBytes & XPLMI_WORD_LEN_MASK) != 0U)) {
 		Status = XPLMI_ERR_INVALID_LOG_BUF_LEN;
-		goto END1;
+		goto END;
 	}
 
 	EndAddr = StartAddr + NumBytes - 1U;
-	Status = XPlmi_VerifyAddrRange(StartAddr, EndAddr);
-	if (Status != XST_SUCCESS) {
+	Status = XPlmi_IsAddrRangeValid(XPLMI_PM_SUBSYS_PMC_NODEID, StartAddr, NumBytes);
+	if(Status != XST_SUCCESS)
+	{
 		if (BufType == XPLMI_TRACE_LOG_BUFFER) {
 			StartLimit = XPLMI_TRACE_LOG_BUFFER_ADDR;
 			EndLimit = XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR;
@@ -195,21 +198,22 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 			EndLimit = XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR;
 		}
 		else {
+			Status = XPLMI_ERR_INVALID_LOG_BUF_TYPE;
 			goto END;
 		}
 		if ((StartAddr < StartLimit) || (EndAddr > EndLimit)) {
 			Status = XPLMI_ERR_INVALID_LOG_BUF_ADDR;
-			goto END1;
+			goto END;
 		}
 	}
-END:
+
 	LogBuffer->StartAddr = StartAddr;
 	LogBuffer->Offset = 0x0U;
 	LogBuffer->Len = NumBytes;
 	LogBuffer->IsBufferFull = (u32)FALSE;
 	Status = XST_SUCCESS;
 
-END1:
+END:
 	return Status;
 }
 
