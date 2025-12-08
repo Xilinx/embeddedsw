@@ -42,7 +42,8 @@ static u8 XPmDevice_IsExcluded(const u32 NodeId)
 	    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(NodeId)) ||
 	    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(NodeId)) ||
 	    ((u32)XPM_NODESUBCL_DEV_PHY == NODESUBCLASS(NodeId)) ||
-	    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(NodeId))) {
+	    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(NodeId)) ||
+		((u32)XPM_NODEIDX_DEV_PMC_WWDT == NODEINDEX(NodeId))) {
 		IsExcluded = 1U;
 	}
 
