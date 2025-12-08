@@ -112,7 +112,7 @@ static u8 ExpHash[SHA_HASH_LEN_IN_BYTES] = {
 	0x1DU, 0x5FU, 0xBCU, 0xA0U, 0x20U, 0x8AU, 0x92U, 0x54U
 };
 #else
-#error "Invaild SHA mode selected"
+#error "Invalid SHA mode selected"
 #endif
 
 /*****************************************************************************/
