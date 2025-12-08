@@ -1925,6 +1925,18 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	 */
 	/* If RstStatus is invalid it returns current Device State */
 	if(NODETYPE(Device->Node.Id) == (u32)XPM_NODETYPE_DEV_CORE_RPU){
+		/* Check if ClkHandles is linked */
+		if (NULL == Device->ClkHandles) {
+			Status = XPM_ERR_DEVICE_CLKHANDLE_MISSING;
+			goto done;
+		}
+
+		/* Check if Clock pointer is linked */
+		if (NULL == Device->ClkHandles->Clock) {
+			Status = XPM_ERR_DEVICE_CLOCK_MISSING;
+			goto done;
+		}
+
 		Status = XPm_GetClockState(Device->ClkHandles->Clock->Node.Id, &ClkStatus);
 		const XPm_ResetHandle *RstHandle = Device->RstHandles;
 		while (NULL != RstHandle) {

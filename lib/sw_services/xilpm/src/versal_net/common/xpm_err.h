@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2025 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -113,6 +113,8 @@ extern "C" {
 #define XPM_INVALID_CLKID			 (2067L) /**< Invalid clock id passed */
 #define XPM_INVALID_CLK_SUBNODETYPE		 (2068L) /**< Invalid clock sub-node type */
 #define XPM_INVALID_PARENT_CLKID		 (2069L) /**< Invalid parent clock id */
+#define XPM_ERR_DEVICE_CLKHANDLE_MISSING	 (2070L) /**< Device ClkHandles pointer is NULL */
+#define XPM_ERR_DEVICE_CLOCK_MISSING		 (2071L) /**< Device Clock pointer is NULL */
 
 /**************************** Power Errors *******************************/
 /**************************** (2081L) - (2095L) **************************/
