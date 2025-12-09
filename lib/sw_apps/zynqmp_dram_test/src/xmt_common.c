@@ -634,12 +634,12 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
 	 */
 	Emr3 |= XMT_DDR_MR3_MPR_P2_CONFIG;
 
-	/* Select MR3 on MRCTRL0 register and select rank 0 of DDR */
+	/* Select MR3 on MRCTRL0 register and select rank (0 or 1) of DDR */
 	XMt_MaskWrite(XMT_DDRC_MRCTRL0,
 				  (XMT_DDRC_MRCTRL0_MR_ADDR_MASK
 				 | XMT_DDRC_MRCTRL0_MR_RANK_MASK),
 				  (XMT_DDR_MR_ADDR_MR3
-				 | XMT_DDR_MR_RANK_0));
+				 | XMT_DDR_MR_RANK(XMtPtr)));
 
 	/* Write the MR Data to MRCTRL1 register */
 	XMt_MaskWrite(XMT_DDRC_MRCTRL1, XMT_DDRC_MRCTRL1_MR_DATA_MASK, Emr3);
@@ -655,7 +655,7 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
 
 	/*
 	 * Select the MPR location '1' in MRCTRL0 register
-	 * Select Rank '0' of DDR
+	 * Select Rank (0 or 1) of DDR
 	 * Select the MPR mode 1 (enable)
 	 * Select the MR Type as 1 (Read)
 	 */
@@ -665,7 +665,7 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
 				 | XMT_DDRC_MRCTRL0_MPR_EN_MASK
 				 | XMT_DDRC_MRCTRL0_MR_TYPE_MASK),
 				  (XMT_DDR_MR_ADDR_MR1
-				 | XMT_DDR_MR_RANK_0
+				 | XMT_DDR_MR_RANK(XMtPtr)
 				 | XMT_DDR_MPR_ENABLE
 				 | XMT_DDR_MR_READ));
 
@@ -710,7 +710,7 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
 
 	/*
 	 * Select MR3 on MRCTRL0 register
-	 * Select rank 0 of DDR
+	 * Select rank (0 or 1) of DDR
 	 * Disable MPR mode
 	 * Disable Read mode
 	 */
@@ -718,7 +718,9 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
 				  (XMT_DDRC_MRCTRL0_MR_ADDR_MASK
 				 | XMT_DDRC_MRCTRL0_MR_RANK_MASK
 				 | XMT_DDRC_MRCTRL0_MPR_EN_MASK
-				 | XMT_DDRC_MRCTRL0_MR_TYPE_MASK), 0x3010U);
+				 | XMT_DDRC_MRCTRL0_MR_TYPE_MASK),
+				  (XMT_DDR_MR_ADDR_MR3
+				 | XMT_DDR_MR_RANK(XMtPtr)));
 
 	/* Write the MR Data to MRCTRL1 register */
 	XMt_MaskWrite(XMT_DDRC_MRCTRL1, XMT_DDRC_MRCTRL1_MR_DATA_MASK, Emr3);
@@ -742,7 +744,7 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
  *
  * @note none
  *****************************************************************************/
-static u32 XMt_ReadMrsVRef()
+static u32 XMt_ReadMrsVRef(XMt_CfgData *XMtPtr)
 {
 	u32 RetVal;
 
@@ -752,8 +754,8 @@ static u32 XMt_ReadMrsVRef()
 	/* Select MR14 for the Read */
 	Xil_Out32(XMT_DDRC_MRCTRL1, XMT_DDR_MR_ADDR_MR14);
 
-	/* Select Rank 0 */
-	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK_0);
+	/* Select Rank */
+	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK(XMtPtr));
 
 	/* 0 for Write, 1 for Read */
 	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_TYPE_MASK, XMT_DDR_MR_READ);
@@ -789,7 +791,7 @@ u32 XMt_GetWrVRef(XMt_CfgData *XMtPtr)
 	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
 		RetVal = XMt_ReadMprVRef(XMtPtr);
 	} else {
-		RetVal = XMt_ReadMrsVRef();
+		RetVal = XMt_ReadMrsVRef(XMtPtr);
 	}
 
 	return RetVal;
@@ -808,8 +810,8 @@ u32 XMt_GetWrVRef(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_SetWrVref(XMt_CfgData *XMtPtr, u32 VRef)
 {
-	/* Select Rank 0 */
-	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK_0);
+	/* Select Rank */
+	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK(XMtPtr));
 
 	/* 0 for Write, 1 for Read */
 	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_TYPE_MASK, XMT_DDR_MR_WRITE);
@@ -847,8 +849,8 @@ void XMt_ResetWrVref(XMt_CfgData *XMtPtr)
 	/* Enter the Range 1 calibration mode */
 	XMt_SetWrVref(XMtPtr, XMT_DDR_VREF_CALIB_MODE_EN);
 
-	/* Select Rank 0 */
-	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK_0);
+	/* Select Rank */
+	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK(XMtPtr));
 
 	/* 0 for Write, 1 for Read */
 	XMt_MaskWrite(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_TYPE_MASK, XMT_DDR_MR_WRITE);

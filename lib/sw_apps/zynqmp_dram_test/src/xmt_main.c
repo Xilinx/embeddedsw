@@ -1002,6 +1002,8 @@ int main(void)
 		} else if ((Ch == 'c') || (Ch == 'C')) {
 			if ((XMt.DdrType == XMT_DDR_TYPE_DDR4) ||
 			    (XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
+				XMt_MaskWrite(XMT_DDR_PHY_VTCR1, XMT_DDR_PHY_VTCR1_SHREN_MASK,
+						XMT_DDR_PHY_VTCR1_SHREN_DISABLE);
 				for (Index = 0; Index < Iter; Index++) {
 					Status = XMt_MeasureRdEye2D(&XMt, StartAddr,
 								    XMT_DEFAULT_TEST_LEN);
@@ -1010,6 +1012,8 @@ int main(void)
 						goto RETURN_PATH;
 					}
 				}
+				XMt_MaskWrite(XMT_DDR_PHY_VTCR1, XMT_DDR_PHY_VTCR1_SHREN_MASK,
+						XMT_DDR_PHY_VTCR1_SHREN_ENABLE);
 			} else {
 				xil_printf("\r\nThe 2D Eye Tests are applicable only for DDR4 and LPDDR4\r\n");
 			}
@@ -1100,6 +1104,7 @@ int main(void)
 				XMt.RankSel = RankArg;
 				StartAddr = (StartAddr & ~((u64)RankArg << XMt_GetLog2(XMT_DDR_MAX_SIZE)))
 					| ((u64)RankArg << XMt_GetLog2(XMT_DDR_MAX_SIZE));
+				XMt.WriteCenterFetched = 0;
 			}
 
 		} else if ((Ch == 'i') || (Ch == 'I')) {

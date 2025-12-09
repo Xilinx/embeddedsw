@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -180,6 +180,11 @@ extern "C" {
 #define XMT_DDR_PHY_RANKIDR_RANKWID_SHIFT	0
 #define XMT_DDR_PHY_RANKIDR_RANKWID_MASK	0x0000000f
 
+#define XMT_DDR_PHY_VTCR1			0xFD08052C
+#define XMT_DDR_PHY_VTCR1_SHREN_MASK		0x00000100
+#define XMT_DDR_PHY_VTCR1_SHREN_DISABLE		0
+#define XMT_DDR_PHY_VTCR1_SHREN_ENABLE		1
+
 #define XMT_DDR_PHY_DX0GCR5			0xFD080714
 #define XMT_DDR_PHY_DX0GCR5_DXREFISELR0_SHIFT	0
 #define XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK	0x7F
@@ -314,6 +319,7 @@ extern "C" {
 #define XMT_CHECK_BIT(var, pos) ((var) & (1<<(pos)))
 #define XMT_YLFSR(a) ((a << 1) + (((a >> 60) & 1) ^ ((a >> 54) & 1) ^ 1))
 #define XMT_RANDOM_VALUE(x) (0x12345678+19*(XMT_YLFSR(x))+0x017c1e2313567c9b)
+#define XMT_DDR_MR_RANK(ptr) ((ptr)->RankSel ? XMT_DDR_MR_RANK_1 : XMT_DDR_MR_RANK_0)
 
 /*****************************************************************************/
 /**
