@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -676,7 +676,7 @@ XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress);
 /* Initialization and control functions in xcsi.c */
 u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *Config,
 			UINTPTR EffectiveAddr);
-u32 XCsi_Configure(XCsi *InstancePtr);
+u32 XCsi_Configure(XCsi *InstancePtr, u8 ResetStatus);
 u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag);
 u32 XCsi_Reset(XCsi *InstancePtr);
 void XCsi_SetVCSelection(XCsi *InstancePtr, u16 Value);

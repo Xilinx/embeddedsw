@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -189,6 +189,7 @@ u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag)
 * This function will configure the core with proper number of Active Lanes
 *
 * @param	InstancePtr is the XCsi instance to operate on.
+* @param	ResetDisable indicates whether reset is disabled or not
 *
 * @return
 * 		- XST_SUCCESS On configuring the core.
@@ -197,7 +198,7 @@ u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag)
 * @note		None.
 *
 ****************************************************************************/
-u32 XCsi_Configure(XCsi *InstancePtr)
+u32 XCsi_Configure(XCsi *InstancePtr, u8 ResetDisable)
 {
 	u32 Status = XST_SUCCESS;
 	u32 Timeout = XCSI_RESET_TIMEOUT;
@@ -226,20 +227,22 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 					XCSI_GIER_OFFSET);
 
 	/* Set the Soft reset bit */
-	XCsi_SetSoftReset(InstancePtr);
+	if(!ResetDisable) {
+		XCsi_SetSoftReset(InstancePtr);
 
-	/* wait till core resets */
-	do {
-		Status = XCsi_IsSoftResetInProgress(InstancePtr);
-		Timeout--;
-	} while (Status && Timeout);
+		/* wait till core resets */
+		do {
+			Status = XCsi_IsSoftResetInProgress(InstancePtr);
+			Timeout--;
+		} while (Status && Timeout);
 
-	if (!Timeout) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSI Reset failed\r\n");
-		XCsi_IntrEnable(InstancePtr, IntEnReg);
-		XCsi_WriteReg(InstancePtr->Config.BaseAddr,
-				XCSI_GIER_OFFSET, GlbIntEnReg);
-		return XST_FAILURE;
+		if (!Timeout) {
+			xdbg_printf(XDBG_DEBUG_ERROR, "CSI Reset failed\r\n");
+			XCsi_IntrEnable(InstancePtr, IntEnReg);
+			XCsi_WriteReg(InstancePtr->Config.BaseAddr,
+					XCSI_GIER_OFFSET, GlbIntEnReg);
+			return XST_FAILURE;
+		}
 	}
 
 	/* set the active lanes if FixedLanes is disabled.
@@ -247,7 +250,9 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 	XCsi_SetActiveLaneCount(InstancePtr, (InstancePtr->ActiveLanes - 1));
 
 	/* Reset the Soft reset bit */
-	XCsi_ClearSoftReset(InstancePtr);
+	if(!ResetDisable) {
+		XCsi_ClearSoftReset(InstancePtr);
+	}
 
 	/* Restore the Interrupt enable and global interrupt enable register */
 	XCsi_IntrEnable(InstancePtr, IntEnReg);
