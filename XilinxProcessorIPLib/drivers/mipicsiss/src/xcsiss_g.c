@@ -78,10 +78,13 @@ XCsiSs_Config XCsiSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 		0x1, /* xlnx,csi-en-activelanes */
 		0x0, /* xlnx,en-csi-v2 */
 		0x4, /* xlnx,dphy-lanes */
+		0x0, /* xlnx,rst-disable */
 		0x1, /* csirx-present */
-		0x0, /* csirx-connected */
+		0x00000000, /* csirx-connected */
 		0x1, /* mipi-dphy-present */
-		0x1000, /* mipi-dphy-connected */
+		0xb0001000, /* mipi-dphy-connected */
+		0x1, /* rxphy-present */
+		0xb0001000, /* rxphy-connected */
 		0x405c, /* interrupts */
 		0xf9010000 /* interrupt-parent */
 	},

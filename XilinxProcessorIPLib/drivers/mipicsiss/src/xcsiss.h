@@ -227,18 +227,13 @@ typedef struct {
 				  *  enabled */
 	u8 EnableCSIv20; /* csiv2.0 support*/
 	u8 EnableVCx;	/* vcx feature support*/
+	u8 DisableRst; /* reset disable flag */
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
+	CsiRxSsSubCore MipiRxPhyInfo; /* MIPI RX PHY sub-core configuration */
 #ifdef SDT
 	u16 IntrId;		/* Interrupt ID */
 	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
-#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	u32 IsMipiRxPhyRegIntfcPresent;	/**< Flag for DPHY register interface
-					  *  presence */
-	u32 MipiRxPhyLineRate;	/**< DPHY Line Rate ranging from
-				  *  80-1500 Mbps */
-	CsiRxSsSubCore MipiRxPhyInfo; /* MIPI RX PHY sub-core configuration */
-#endif
 #endif
 } XCsiSs_Config;
 

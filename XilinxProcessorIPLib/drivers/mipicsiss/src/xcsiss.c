@@ -145,7 +145,7 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 		}
 	}
 #elif (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
 		Status = CsiSs_SubCoreInitMipiRxPhy(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -183,6 +183,7 @@ u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
 {
 	XCsi *CsiPtr;
 	u32 Status;
+	u8 DisSoftRst;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -191,12 +192,13 @@ u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
 						ActiveLanes));
 
 	CsiPtr = InstancePtr->CsiPtr;
+	DisSoftRst = InstancePtr->Config.DisableRst;
 
 	IntrMask &= XCSI_ISR_ALLINTR_MASK;
 	XCsi_IntrEnable(CsiPtr, IntrMask);
 
 	CsiPtr->ActiveLanes = ActiveLanes;
-	Status = XCsi_Configure(CsiPtr);
+	Status = XCsi_Configure(CsiPtr, DisSoftRst);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -234,7 +236,7 @@ u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag)
 		return Status;
 
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
 		XMipi_Rx_Phy_Activate(InstancePtr->MipiRxPhyPtr, Flag);
 	}
 #endif
@@ -270,9 +272,11 @@ u32 XCsiSs_Reset(XCsiSs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(InstancePtr->CsiPtr);
 
-	Status = XCsi_Reset(InstancePtr->CsiPtr);
-	if (Status == XST_FAILURE) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSI SubSys Reset failed\n\r");
+	if(!InstancePtr->Config.DisableRst) {
+		Status = XCsi_Reset(InstancePtr->CsiPtr);
+		if (Status == XST_FAILURE) {
+			xdbg_printf(XDBG_DEBUG_ERROR, "CSI SubSys Reset failed\n\r");
+		}
 	}
 
 	return Status;
@@ -305,7 +309,7 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
 	if (InstancePtr->MipiRxPhyPtr) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"    : XMipi Rx Phy ");
-		if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent) {
+		if (InstancePtr->Config.IsDphyRegIntfcPresent) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"with ");
 		}
 		else {
