@@ -270,7 +270,7 @@ void XOcp_CmdsInit(void)
 
 	/** Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Ocp.CmdCnt; Idx++) {
-		XOcp_Cmds[Idx].Handler = XOcp_ProcessCmd;
+		XOcp_Cmds[Idx].Handler = &XOcp_ProcessCmd;
 	}
 
 	XPlmi_ModuleRegister(&XPlmi_Ocp);
