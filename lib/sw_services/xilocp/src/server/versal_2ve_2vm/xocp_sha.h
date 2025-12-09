@@ -7,7 +7,7 @@
 /**
 *
 * @file xocp_sha.h
-* @addtogroup xil_ocpapis APIs
+* @addtogroup xilocp_sha_apis XilOcp SHA APIs
 * @{
 *
 * <pre>
@@ -124,3 +124,4 @@ static inline int XOcp_ShaDigest(u8* Data, u32 Size, u8* Hash)
 }
 #endif
 #endif /* XOCP_SHA_H */
+/** @} */

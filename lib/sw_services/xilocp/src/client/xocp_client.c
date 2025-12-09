@@ -8,6 +8,8 @@
 /**
 *
 * @file xocp_client.c
+* @addtogroup xocp_client_apis XilOcp Client APIs
+* @{
 *
 * This file contains the implementation of the client interface functions for
 * OCP hardware interface API's.
@@ -101,7 +103,7 @@ int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_EXTEND_HWPCR command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_HWPCR);
 	Payload[1U] = PcrNum;
 	Payload[2U] = (u32)ExtHashAddr;
@@ -143,7 +145,7 @@ int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_GET_HWPCR command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GET_HWPCR);
 	Payload[1U] = PcrMask;
 	Payload[2U] = (u32)PcrBufAddr;
@@ -181,7 +183,7 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
                 goto END;
         }
 
-        /** Fill IPI Payload */
+        /** Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server */
         Payload[0U] = OcpHeader(0U, XOCP_API_GET_HWPCRLOG);
         Payload[1U] = (u32)HwPcrEventAddr;
         Payload[2U] = (u32)(HwPcrEventAddr >> 32);
@@ -225,7 +227,7 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 			goto END;
 		}
 	}
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_EXTEND_SWPCR command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_SWPCR);
 	Payload[1U] = (u32)ExtendParamsAddr;
 	Payload[2U] = (u32)(ExtendParamsAddr >> 32);
@@ -266,7 +268,7 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCR);
 	Payload[1U] = PcrMask;
 	Payload[2U] = (u32)PcrBufAddr;
@@ -302,7 +304,7 @@ int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *Lo
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCRLOG);
 	Payload[1U] = (u32)LogBufAddr;
 	Payload[2U] = (u32)(LogBufAddr >> 32);
@@ -337,7 +339,7 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCRDATA);
 	Payload[1U] = (u32)DataBufAddr;
 	Payload[2U] = (u32)(DataBufAddr >> 32);
@@ -375,7 +377,7 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_GENDMERESP command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GENDMERESP);
 	Payload[1U] = (u32)NonceAddr;
 	Payload[2U] = (u32)(NonceAddr >> 32);
@@ -410,7 +412,7 @@ int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_GETX509CERT command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GETX509CERT);
 	Payload[1U] = (u32)GetX509CertAddr;
 	Payload[2U] = (u32)(GetX509CertAddr >> 32);
@@ -424,13 +426,13 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function sends IPI request to get 509 certificate.
+ * @brief   This function sends IPI request to attest the data with DevAk.
  *
  * @param   InstancePtr - Pointer to the client instance
  * @param   AttestWithDevAk - Address of XOcp_AttestWithDevAk structure.
  *
  * @return
- *          - XST_SUCCESS - If PCR contents are copied
+ *          - XST_SUCCESS - Attestation with DevAk is successful
  *          - XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
@@ -444,7 +446,7 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_ATTESTWITHDEVAK command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_ATTESTWITHDEVAK);
 	Payload[1U] = (u32)AttestWithDevAk;
 	Payload[2U] = (u32)(AttestWithDevAk >> 32);
@@ -482,7 +484,7 @@ int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill IPI payload for XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK command and send the request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK);
 	Payload[1U] = (u32)AttnPloadAddr;
 	Payload[2U] = (u32)(AttnPloadAddr >> XOCP_ADDR_HIGH_SHIFT);
@@ -531,7 +533,7 @@ int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* Pu
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** Fill IPI Payload for XOCP_API_GEN_SHARED_SECRET and send request to Server */
 	Payload[0U] = OcpHeader(0U, XOCP_API_GEN_SHARED_SECRET);
 	Payload[1U] = (u32)PubKeyAddr;
 	Payload[2U] = (u32)(PubKeyAddr >> XOCP_ADDR_HIGH_SHIFT);
@@ -543,3 +545,4 @@ int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* Pu
 END:
 	return Status;
 }
+/** @} */

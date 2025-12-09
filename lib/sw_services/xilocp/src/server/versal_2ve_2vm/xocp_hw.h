@@ -31,6 +31,9 @@ extern "C" {
 #include "xplmi_hw.h"
 
 /************************************ Constant Definitions ****************************************/
+/** @cond xocp_internal
+ * @{
+ */
 /**
  * Register: XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0
  */
@@ -319,7 +322,9 @@ extern "C" {
 #define PMC_XPPU_APERPERM_386			(PMC_XPPU_BASEADDR + 0x00001608U)
 #define PMC_XPPU_LOCK				(PMC_XPPU_BASEADDR + 0x00000020U)
 #define PMC_XPPU_LOCK_DEFVAL			(0U)
-/** @} */
+/** @}
+ * @endcond
+ */
 
 /************************************** Type Definitions ******************************************/
 

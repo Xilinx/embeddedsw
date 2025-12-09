@@ -7,7 +7,7 @@
 /**
 *
 * @file xocp_dice_dme.h
-* @addtogroup xil_ocpapis APIs
+* @addtogroup xilocp_dme_apis XilOcp DME APIs
 * @{
 *
 * This file contains the xilocp DME challenge signature declarations for versal_2ve_2vm.

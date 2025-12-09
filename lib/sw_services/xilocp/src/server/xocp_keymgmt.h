@@ -8,7 +8,7 @@
 /**
 *
 * @file xocp_keymgmt.h
-* @addtogroup xil_ocpapis DeviceKeysMgmt APIs
+* @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
 * @{
 *
 * @cond xocp_internal
@@ -55,6 +55,9 @@ extern "C" {
 #include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
+/** @cond xocp_internal
+ * @{
+ */
 #define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U) /**< DNA cache */
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_WORDS		(4U) /**< DNA size in words */
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(16U) /**< DNA size in bytes */
@@ -81,6 +84,9 @@ extern "C" {
 							/**< Invalid user configuration index */
 #define XOCP_APP_VERSION_MAX_LENGTH			(64U)
 							/**< Max length of app version in bytes */
+/** @}
+ * @endcond
+ */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -150,3 +156,4 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen);
 
 #endif /* PLM_OCP_KEY_MNGMT */
 #endif /* XOCPKEYMGMT_SERVER_H */
+/** @} */

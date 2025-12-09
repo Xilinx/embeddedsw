@@ -8,6 +8,8 @@
 /**
 *
 * @file xocp_mailbox.c
+* @addtogroup xocp_mailbox_apis XilOcp Mailbox APIs
+* @{
 *
 * This file contains the implementation of the xilmailbox generic interface APIs
 * for xilocp client library.
@@ -87,3 +89,4 @@ int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 END:
 	return Status;
 }
+/** @} */

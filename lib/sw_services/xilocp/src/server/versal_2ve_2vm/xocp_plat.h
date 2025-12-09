@@ -7,7 +7,7 @@
 /**
 *
 * @file xocp_plat.h
-* @addtogroup xil_ocpapis APIs to communicate with ASUFW for OCP functionalities
+* @addtogroup xilocp_plat_apis XilOcp Platform APIs
 * @{
 *
 * <pre>
@@ -57,24 +57,27 @@ typedef struct {
  * Data structure to hold secure configs.
  */
 typedef struct {
-	u32 BootmodeDis;	/* BOOT_MODE_DIS_15_0 */
-	u32 MiscCtrl;		/* MISC_CTRL */
-	u32 AnlgTrim3; 		/* ANLG_TRIM_3 */
-	u32 BootEnvCtrl;	/* BOOT_ENV_CTRL considering reserved bits */
-	u32 IpDisable1;		/* IP_DISABLE_1 */
-	u32 Caher1;		/* Caher_1 */
-	u32 DecOnly;		/* DEC_ONLY */
-	u32 SecCtrl;		/* Secure control */
-	u32 SecMisc1;		/* SEC_MISC 1 */
-	u32 DmeFips;		/* DME FIPS */
-	u32 IPDisable0;		/* IP_DISABLE_0 */
-	u32 RomRsvd;		/* ROM RSVD */
-	u32 RoSwapEn;		/* RO_SWAP_EN */
+	u32 BootmodeDis;	/**< BOOT_MODE_DIS_15_0 */
+	u32 MiscCtrl;		/**< MISC_CTRL */
+	u32 AnlgTrim3; 		/**< ANLG_TRIM_3 */
+	u32 BootEnvCtrl;	/**< BOOT_ENV_CTRL considering reserved bits */
+	u32 IpDisable1;		/**< IP_DISABLE_1 */
+	u32 Caher1;		/**< Caher_1 */
+	u32 DecOnly;		/**< DEC_ONLY */
+	u32 SecCtrl;		/**< Secure control */
+	u32 SecMisc1;		/**< SEC_MISC 1 */
+	u32 DmeFips;		/**< DME FIPS */
+	u32 IPDisable0;		/**< IP_DISABLE_0 */
+	u32 RomRsvd;		/**< ROM RSVD */
+	u32 RoSwapEn;		/**< RO_SWAP_EN */
 } XOcp_SecureConfig;
 
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 
 /**************************** Macros (Inline Functions) Definitions ******************************/
+/** @cond xocp_internal
+ * @{
+ */
 #define XOCP_ASUFW_PLM_MODULE_ID		(10U)	/**< PLM module ID in ASUFW */
 #define XOCP_ASUFW_DEV_KEY_CMD_ID		(0U)	/**< Command ID for device key generation */
 #define XOCP_ASUFW_PLM_REQ_ID			(0x3FU)	/**< Fixed request ID for PLM request */
@@ -108,6 +111,9 @@ typedef struct {
 						      XOCP_PLM_ASUFW_CMD_REQ_ID_VAL | \
 						      XOCP_PLM_ASUFW_CMD_CMD_VAL))
 	/**< Command header for device key generation command */
+/** @}
+ * @endcond
+ */
 
 /************************************ Function Prototypes ****************************************/
 int XOcp_StoreOcpSubsysIDs(u32 SubsystemIdListLen, const u32 *SubsystemIdList);
@@ -129,3 +135,4 @@ void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig);
 }
 #endif
 #endif /* XOCP_PLAT_H */
+/** @} */

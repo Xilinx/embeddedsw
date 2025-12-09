@@ -8,7 +8,7 @@
 /**
 *
 * @file xocp.h
-* @addtogroup xil_ocpapis APIs
+* @addtogroup xilocp_server_apis XilOcp Server APIs
 * @{
 *
 * <pre>
@@ -54,6 +54,9 @@ extern "C" {
 #include "xsecure_hmac.h"
 
 /************************** Constant Definitions *****************************/
+/** @cond xocp_internal
+ * @{
+ */
 #define XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL		(0x03FF0246U)
 							/**< PPU0 SMID */
 #define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x83FF0247U)
@@ -148,7 +151,7 @@ extern "C" {
 
 
 
-/* XilOcp Module Data Structure Ids*/
+/** XilOcp Module Data Structure Ids*/
 #define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U)	/**< DevAk Subsystem Hash data structure ID */
 #define XOCP_SWPCR_CONFIG_DS_ID			(2U)	/**< SW PCR config data structure ID */
 #define XOCP_SWPCR_STORE_DS_ID			(3U)	/**< SW PCR store data structure ID */
@@ -157,15 +160,18 @@ extern "C" {
 #define XOCP_CDI_SIZE_IN_BYTES			(48U)	/**< CDI size in bytes */
 #define XOCP_CDI_SIZE_IN_WORDS			(12U)	/**< CDI size in words */
 
-/* Efuse number of rows */
+/** Efuse number of rows */
 #define XOCP_EFUSE_PPK_NUM_OF_BYTES		(32U)	/**< PPK Hash number of bytes */
 #define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS		(XOCP_EFUSE_PPK_NUM_OF_BYTES / XOCP_WORD_LEN)
 							/**< PPK Hash number of words */
 #define XOCP_EFUSE_REVOCATION_NO_OF_WORDS	(8U)	/**< Revocation ID number of words */
 #define XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES	(32U)	/**< Revocation ID number of bytes */
+/** @}
+ * @endcond
+ */
 
 /**************************** Type Definitions *******************************/
-/*
+/**
  * SW PCR Config
  */
 typedef struct {
@@ -186,7 +192,7 @@ typedef struct {
 	u8 DataToExtend[XOCP_PCR_SIZE_BYTES];		/**< Data to extend */
 } XOcp_SwPcrData;
 
-/*
+/**
  * SW PCR log
  */
 typedef struct {
@@ -194,7 +200,7 @@ typedef struct {
 	u8 CountPerPcr[XOCP_NUM_OF_SWPCRS];		/**< Number of digests extended for each SW PCR */
 } XOcp_SwPcrStore;
 
-/*
+/**
  * Dme XPPU config
  */
 typedef struct {
@@ -205,51 +211,51 @@ typedef struct {
 }XOcp_DmeXppuCfg;
 
 typedef struct {
-	u32 DapCfg;			/* Dap configuration */
-	u32 InstMask0;		/* Inst mask 0 */
-	u32 InstMask1;		/* Inst mask 1 */
-	u32 DapSecurity;	/* DAP security */
-	u32 BootDevice;		/* Boot Device */
+	u32 DapCfg;			/**< Dap configuration */
+	u32 InstMask0;		/**< Inst mask 0 */
+	u32 InstMask1;		/**< Inst mask 1 */
+	u32 DapSecurity;	/**< DAP security */
+	u32 BootDevice;		/**< Boot Device */
 } XOcp_SecureTapConfig;
 
 typedef struct {
-	u32 Ppk0WrLk;		/* PPK0 WR LK eFuse */
-	u32 Ppk1WrLk;		/* PPK1 WR LK eFuse */
-	u32 Ppk2WrLk;		/* PPK2 WR LK eFuse */
-	u32 Ppk0Invld;		/* PPK0 INVALID eFuse */
-	u32 Ppk1Invld;		/* PPK1 INVALID eFuse */
-	u32 Ppk2Invld;		/* PPK2 INVALID eFuse */
-	u32 Ppk0Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /* PPK0 Hash eFuse */
-	u32 Ppk1Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /* PPK1 Hash eFuse */
-	u32 Ppk2Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /* PPK2 Hash eFuse */
+	u32 Ppk0WrLk;		/**< PPK0 WR LK eFuse */
+	u32 Ppk1WrLk;		/**< PPK1 WR LK eFuse */
+	u32 Ppk2WrLk;		/**< PPK2 WR LK eFuse */
+	u32 Ppk0Invld;		/**< PPK0 INVALID eFuse */
+	u32 Ppk1Invld;		/**< PPK1 INVALID eFuse */
+	u32 Ppk2Invld;		/**< PPK2 INVALID eFuse */
+	u32 Ppk0Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK0 Hash eFuse */
+	u32 Ppk1Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK1 Hash eFuse */
+	u32 Ppk2Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK2 Hash eFuse */
 } XOcp_PpkEfuseConfig;
 
 typedef struct {
-	u32 RevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /* REVOCATION_ID eFuses */
+	u32 RevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /**< REVOCATION_ID eFuses */
 } XOcp_RevocationSpkEfuseConfig;
 
 typedef struct {
-	u32 DmeRevoke0;	/* DME_REVOKE_0 eFuse */
-	u32 DmeRevoke1; /* DME_REVOKE_1 eFuse */
-	u32 DmeRevoke2; /* DME_REVOKE_2 eFuse */
-	u32 DmeRevoke3; /* DME_REVOKE_3 eFuse */
-	u32 OffChipRevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /* OFFCHIP Revocation ID eFuses */
+	u32 DmeRevoke0;	/**< DME_REVOKE_0 eFuse */
+	u32 DmeRevoke1; /**< DME_REVOKE_1 eFuse */
+	u32 DmeRevoke2; /**< DME_REVOKE_2 eFuse */
+	u32 DmeRevoke3; /**< DME_REVOKE_3 eFuse */
+	u32 OffChipRevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /**< OFFCHIP Revocation ID eFuses */
 } XOcp_RevocationOtherEfuseConfig;
 
 typedef struct {
-	u32 UdsWrLk; 			/* UDS_WR_LK eFuse */
-	u32 HwTstBitsDis; 		/* HWTST_DIS eFuse */
-	u32 PufDis;			/* PUF_DIS eFuse */
-	u32 PmcScEn;	 		/* PMC_SC_EN eFuses */
-	u32 SysmonTempMonEn; 		/* SYSMON_TEMP_MON_EN eFuses */
-	u32 DmeMode;			/* DME_MODE eFuses */
+	u32 UdsWrLk; 			/**< UDS_WR_LK eFuse */
+	u32 HwTstBitsDis; 		/**< HWTST_DIS eFuse */
+	u32 PufDis;			/**< PUF_DIS eFuse */
+	u32 PmcScEn;	 		/**< PMC_SC_EN eFuses */
+	u32 SysmonTempMonEn; 		/**< SYSMON_TEMP_MON_EN eFuses */
+	u32 DmeMode;			/**< DME_MODE eFuses */
 } XOcp_MiscEfuseConfig;
 
 typedef struct {
-	u8 RomHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Rom hash */
-	u8 PlmHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Plm hash */
-	u8 SecureConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Secure config hash */
-	u8 TapConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Tap config hash */
+	u8 RomHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Rom hash */
+	u8 PlmHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Plm hash */
+	u8 SecureConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Secure config hash */
+	u8 TapConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Tap config hash */
 } XOcp_SecureStateHash;
 
 typedef struct {
@@ -291,3 +297,4 @@ void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
 #endif
 #endif /* PLM_OCP */
 #endif  /* XOCP_H */
+/** @} */

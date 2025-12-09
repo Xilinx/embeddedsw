@@ -41,7 +41,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/**@cond xpuf_internal
+/**@cond xocp_internal
  * @{
  */
 #define XILOCP_MODULE_ID			(13U)
@@ -62,13 +62,19 @@ extern "C" {
 #define XOCP_PAYLOAD_LEN_5U		(5U)
 #define XOCP_PAYLOAD_LEN_6U		(6U)
 #define XOCP_PAYLOAD_LEN_7U		(7U)
+/** @}
+ * @endcond
+ */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	XMailbox *MailboxPtr;
+	XMailbox *MailboxPtr;	/**< Mailbox pointer */
 } XOcp_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond xocp_internal
+ * @{
+ */
 static inline u32 OcpHeader(u32 Len, u32 ApiId)
 {
 	return ((Len << XOCP_PAYLOAD_LEN_SHIFT) |
@@ -89,3 +95,4 @@ int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 #endif
 
 #endif  /* XOCP_MAILBOX_H */
+/** @} */
