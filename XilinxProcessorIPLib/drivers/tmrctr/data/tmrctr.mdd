@@ -22,6 +22,7 @@
 #                          -Werror=conversion is enabled in compilation flags.
 # 4.11     mus    01/05/23 Added support for Microblaze RISC-V.
 # 4.14     ml     07/14/25 Fix GCC warnings
+# 4.15     bdk    12/08/25 Incremented the driver version.
 #
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
@@ -43,7 +44,7 @@ BEGIN driver tmrctr
   OPTION supported_peripherals = (axi_timer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.14;
+  OPTION VERSION = 4.15;
   OPTION NAME = tmrctr;
 
 END driver

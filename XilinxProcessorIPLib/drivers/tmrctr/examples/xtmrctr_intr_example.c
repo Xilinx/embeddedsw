@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +50,8 @@
 *                     without generating interrupts. It fixes CR#1116308.
 * 4.12  ml   12/07/23 Make TimerExpired as a static variable.
 * 4.12  mus  03/25/24 Update RESET_VALUE to reduce extecution time to 1 seconds.
+* 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 *</pre>
 ******************************************************************************/
 
@@ -206,6 +208,10 @@ int main(void)
 *
 * This function uses interrupt driven mode of the timer counter.
 *
+* @if SDT
+* @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
+* @param	BaseAddr is the base address of the XTmrCtr device.
+* @else
 * @param	IntcInstancePtr is a pointer to the Interrupt Controller
 *		driver Instance
 * @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
@@ -213,12 +219,12 @@ int main(void)
 *		xparameters.h
 * @param	IntrId is XPAR_<INTC_instance>_<TmrCtr_instance>_INTERRUPT_INTR
 *		value from xparameters.h
-* @param	TmrCtrNumber is the number of the timer to which this
-*		handler is associated with.
+* @endif
 *
 * @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE
 *
-* @note		This function contains an infinite loop such that if interrupts
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration. This function contains an infinite loop such that if interrupts
 *		are not working it may never return.
 *
 *****************************************************************************/
@@ -521,10 +527,15 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 *
 * This function disables the interrupts for the Timer.
 *
+* @if SDT
+* @param	IntrId is the interrupt ID of the Timer.
+* @param	IntrParent is the parent interrupt controller.
+* @else
 * @param	IntcInstancePtr is a reference to the Interrupt Controller
 *		driver Instance.
 * @param	IntrId is XPAR_<INTC_instance>_<Timer_instance>_VEC_ID
 *		value from xparameters.h.
+* @endif
 *
 * @return	None.
 *

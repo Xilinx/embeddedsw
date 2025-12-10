@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 *****************************************************************************/
@@ -112,9 +114,12 @@ int main(void)
 * design example. The purpose of this function is to illustrate
 * how to use the XTmrCtr component.
 *
-*
+* @if SDT
+* @param	BaseAddr is the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<TMRCTR_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 * @param	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters.
 *		The timer number is a zero based number with a range of
@@ -122,7 +127,8 @@ int main(void)
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ****************************************************************************/
 #ifndef SDT

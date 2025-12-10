@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@
 * 4.0   als  09/30/15 Creation of this file. Moved LookupConfig from xtmrctr.c.
 * 4.4	mn   07/31/17 Resolve Compilation warning
 * 4.13  ml   09/19/24 Fix compilation warning by removing unused variable.
+* 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -54,17 +56,22 @@ extern XTmrCtr_Config XTmrCtr_ConfigTable[];
 
 /*****************************************************************************/
 /**
-* Looks up the device configuration based on the unique device ID. The table
-* TmrCtr_ConfigTable contains the configuration info for each device in the
-* system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The table TmrCtr_ConfigTable contains the configuration info for each device
+* in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device ID to search for in the config
 *		table.
+* @endif
 *
 * @return	A pointer to the configuration that matches the given device
-* 		ID, or NULL if no match is found.
+* 		ID/BaseAddress, or NULL if no match is found.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

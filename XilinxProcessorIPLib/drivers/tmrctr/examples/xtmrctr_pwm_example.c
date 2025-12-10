@@ -28,6 +28,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00b cjp  03/28/18 First release
 * 4.14  ml   07/14/25 Fixed GCC warnings.
+* 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 *</pre>
 ******************************************************************************/
 
@@ -154,6 +156,10 @@ int main(void)
 /**
 * This function demonstrates the use of tmrctr PWM APIs.
 *
+* @if SDT
+* @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
+* @param	BaseAddr is the base address of the XTmrCtr device.
+* @else
 * @param	IntcInstancePtr is a pointer to the Interrupt Controller
 *		driver Instance
 * @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
@@ -161,10 +167,12 @@ int main(void)
 *		xparameters.h
 * @param	IntrId is XPAR_<INTC_instance>_<TmrCtr_instance>_INTERRUPT_INTR
 *		value from xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE
 *
-* @note		none.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -447,10 +455,14 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 *
 * This function disconnects the interrupts for the Timer.
 *
+* @if SDT
+* @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance.
+* @else
 * @param	IntcInstancePtr is a reference to the Interrupt Controller
 *		driver Instance.
 * @param	IntrId is XPAR_<INTC_instance>_<Timer_instance>_VEC_ID
 *		value from xparameters.h.
+* @endif
 *
 * @return	None.
 *

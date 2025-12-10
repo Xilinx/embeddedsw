@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,8 @@
 *                     are used to enable/disable the PWM output.
 * 4.8   dp   02/12/21 Fix compilation errors that arise when -Werror=conversion
 *                     is enabled in compilation flags.
+* 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -170,17 +172,22 @@ int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
 *
 *
 * @param	InstancePtr is a pointer to the XTmrCtr instance.
+* @if SDT
+* @param	BaseAddr is the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this
 *		XTmrCtr component.  Passing in a device id associates the
 *		generic XTmrCtr component to a specific device, as chosen by
 *		the caller or application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
 *		- XST_DEVICE_NOT_FOUND if the device doesn't exist
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
