@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,9 @@
 * ----- --- -------- ---------------------------------------------
 * 1.00a nm  03/10/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
-* 2.5   dp   07/11/23 Add Support for system device tree flow
+* 2.5   dp  07/11/23 Add Support for system device tree flow
+* 2.8   bdk 12/08/25 Updated comments to support SDT flow for Doxygen
+*                    documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -50,15 +52,20 @@ extern XScuTimer_Config XScuTimer_ConfigTable[];
 
 /*****************************************************************************/
 /**
-* Lookup the device configuration based on the unique device ID. The table
-* contains the configuration info for each device in the system.
+* Lookup the device configuration based on the unique device ID/BaseAddress.
+* The table contains the configuration info for each device in the system.
 *
+* @if SDT
+* @param	BaseAddr contains the base address of the device
+* @else
 * @param	DeviceId is the unique device ID of the device being looked up.
+* @endif
 *
 * @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+*		given device ID/BaseAddress, or NULL if no match is found.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
