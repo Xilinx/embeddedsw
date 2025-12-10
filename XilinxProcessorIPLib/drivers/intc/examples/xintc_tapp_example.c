@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,10 +34,12 @@
 * 1.00c sn   05/09/06  Added Interrupt Setup Function
 * 2.00a ktn  10/20/09  Updated to use HAL Processor APIs and minor changes as
 *		       per coding guidelines.
-* 3.6   ms   01/23/17 Added xil_printf statement in main function to
-*                     ensure that "Successfully ran" and "Failed" strings
-*                     are available in all examples. This is a fix for
-*                     CR-965028.
+* 3.6   ms   01/23/17  Added xil_printf statement in main function to
+*                      ensure that "Successfully ran" and "Failed" strings
+*                      are available in all examples. This is a fix for
+*                      CR-965028.
+* 3.22  bdk  12/08/25  Updated comments to support SDT flow for Doxygen
+*                      documentation.
 * </pre>
 ******************************************************************************/
 
@@ -138,13 +140,18 @@ int main(void)
 * has come out of the reset state such that it will allow interrupts to be
 * simulated by the software.
 *
+* @if SDT
+* @param	BaseAddr is the base address of the device
+* @else
 * @param	DeviceId is device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -189,13 +196,18 @@ int IntcSelfTestExample(UINTPTR BaseAddr)
 *
 * @param	IntcInstancePtr is the reference to the Interrupt Controller
 *		instance.
+* @if SDT
+* @param	BaseAddr is the base address of the Interrupt Controller device.
+* @else
 * @param	DeviceId is device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

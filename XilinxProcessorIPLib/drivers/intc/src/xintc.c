@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +60,8 @@
 * 		     to reduce the size.
 * 3.19 ml   09/11/24 Add conditional checks to fix compilation warning.
 *                    [-Wunused-variable]
+* 3.22 bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                    documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -108,19 +110,24 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr);
 *	- Interrupt output is disabled
 *
 * @param	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @if SDT
+* @param	BaseAddr is the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this XIntc
 *		instance.  Passing in a device id associates the generic XIntc
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
 *		- XST_DEVICE_NOT_FOUND if device configuration information was
-*		not found for a device with the supplied device ID.
+*		not found for a device with the supplied device ID/BaseAddress.
 *
 * @note		In Cascade mode this function calls XIntc_InitializeSlaves to
-*	        initialize Slave Interrupt controllers.
+*	        initialize Slave Interrupt controllers. In XSCT/classic flow,
+*		DeviceId is used to look up the device configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -744,15 +751,20 @@ static void StubHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
 *
+* @if SDT
+* @param	BaseAddr contains the base address of the device
+* @else
 * @param	DeviceId is the unique identifier for a device.
+* @endif
 *
 * @return	A pointer to the XIntc configuration structure for the specified
-*		device, or NULL if the device was not found.
+*		device, or NULL if the device ID/BaseAddress was not found.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

@@ -58,6 +58,8 @@
 *                     CR-965028.
 * 3.21  ml   09/13/25 Updated example to run with GIC-based interrupt routing
 *                     under SDT.
+* 3.22  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 ******************************************************************************/
 
@@ -169,13 +171,18 @@ int main(void)
 * has come out of the reset state such that it will allow interrupts to be
 * simulated by the software.
 *
+* @if SDT
+* @param	BaseAddr is the base address of the Interrupt Controller device
+* @else
 * @param	DeviceId is Device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
