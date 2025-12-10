@@ -26,7 +26,8 @@
 * 1.00a hvm  12/28/06 First release
 * 5.6   pm   07/05/23 Added support for system device-tree flow.
 * 5.8   ka   11/09/25 Added 64-bit addressing support.
-*
+* 5.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 *****************************************************************************/
@@ -52,15 +53,22 @@ extern XUsb_Config XUsb_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId contains the ID of the device for which the
 *		device configuration pointer is to be returned.
+* @endif
 *
 * @return
 *		- A pointer to the configuration found.
-*		- NULL if the specified device ID was not found.
+*		- NULL if the specified device ID/BaseAddress was not found.
+*
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

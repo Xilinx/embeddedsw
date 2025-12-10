@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +59,8 @@
  * 4.02a bss  11/01/11 Modified UsbIfIntrHandler function to unconditionally
  *			reset when USB reset is asserted (CR 627574).
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
- *
+ * 5.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+ *                     documentation.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -168,13 +169,20 @@ int main(void)
  * The Key board action can be seen on the PC as and when any of the push
  * buttons SW3 or SW4 or SW5 or SW7 on the ML403 evaluation board is pressed.
  *
+ * @if SDT
+ * @param	UsbBaseAddress is the base address of the USB device.
+ * @param	GpioBaseAddress is the base address of the GPIO device.
+ * @else
  * @param	UsbId is the USB device id.
  * @param	GpioId is the GPIO device id.
+ * @endif
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if test fails.
- * @note	None.
+ *
+ * @note	In XSCT/classic flow, UsbId and GpioId are used to look up the
+ *		device configuration.
  *
  *****************************************************************************/
 #ifndef SDT
