@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * 		      misrac violation.
 * 5.2   ml   03/03/23 Add description to fix Doxygen warnings.
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
+* 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -56,14 +58,20 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId Unique identifier for a device.
+* @endif
 *
 * @return	A pointer to the XScuGic configuration structure for the
-*		specified device, or NULL if the device is not found.
+*		specified device, or NULL if the device ID/BaseAddress is not found.
 *
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

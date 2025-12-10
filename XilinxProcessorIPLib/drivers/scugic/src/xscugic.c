@@ -182,6 +182,8 @@
 * 5.5   ml   12/20/24 Fixed GCC warnings
 * 5.6   ml   08/10/25 Fixed ARMCLANG warning
 * 5.7   bdk  11/29/25 Updated conditional checks to fix 20.9 misra-c violation.
+* 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -1502,12 +1504,18 @@ u32 XScuGic_GetCpuID(void)
 
 /****************************************************************************/
 /**
-* Checks whether the XScGic is initialized or not given the device ID.
+* Checks whether the XScGic is initialized or not given the device ID/BaseAddress.
 *
+* @if SDT
+* @param	BaseAddress is the base address of the device
+* @else
 * @param	DeviceId ID of the XScuGic device.
+* @endif
 *
 * @return	Returns 1 if initialized otherwise 0.
 *
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 *****************************************************************************/
 #ifndef SDT

@@ -39,6 +39,8 @@
 * 5.2   mus  04/33/34 Use interrupt wrapper APIs in case of SDT flow.
 * 5.5   ml   02/05/25 Fixed compilation warnings and errors
 * 5.6   ml   07/21/25 Fixed GCC warnings.
+* 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 ******************************************************************************/
 
@@ -161,13 +163,18 @@ int main(void)
 * has come out of the reset state such that it will allow interrupts to be
 * simulated by the software.
 *
+* @if SDT
+* @param	None
+* @else
 * @param	DeviceId is Device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
