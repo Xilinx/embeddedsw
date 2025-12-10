@@ -63,7 +63,6 @@
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 * 		abh  07/21/2025 Fixed GCC warnings
-*       obs  08/26/2025 Added error codes and macros for handling verifying address range
 *
 * </pre>
 *
@@ -250,15 +249,6 @@ enum {
 
 	/** 0x25 - Invalid tamper response received for TamperTrigger IPI call */
 	XPLMI_INVALID_TAMPER_RESPONSE,
-
-	/** 0x26 - Error when invalid log buffer type is received in Logging command. */
-	XPLMI_ERR_INVALID_LOG_BUF_TYPE,
-
-	/**< 0x27 - Error when registering the address range handler */
-	XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER,
-
-	/** 0x28 - Error when invalid address range is detected. */
-	XPLMI_ERR_INVALID_ADDR_RANGE,
 
 	/* Platform specific error codes start at 0x200 */
 	/** 0x200 - Invalid/No DDR region reserved for PLM. This is checked before the update */
@@ -572,53 +562,6 @@ typedef enum {
 			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
 
 #define XPLMI_STATUS_GLITCH_DETECT(Status)		XSECURE_STATUS_CHK_GLITCH_DETECT(Status) /**< Glitch check on Status.  */
-
-/**< Function pointer type for address range validation handler */
-typedef XStatus (*XPlmi_IsAddrRangeValid_t)(u32 SubsystemId, u64 Addr, u64 Size);
-
-/**< Global address range validation handler */
-extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
-
-/******************************************************************************/
-/**
- *
- * This macro calls the registered address validation handler (XPm_IsMemAddressValid)
- * to ensure memory access is within valid bounds for security-critical functions.
- * Also adds redundancy to XPm_IsMemAddressValid function if PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
- * is defined, this is to avoid glitches from altering the return values of security
- * critical functions.
- *
- * @param   SubsysId         Subsystem ID
- * @param   StartAddr        Start address of the range to verify
- * @param   Len              Length of the address range to verify
- * @param   StatusVar        Status variable to be updated
- * @param   ErrorCode        Error code to set on failure
- * @param   Label            Label to jump to on error
- *
- * @return  None
- *
- ******************************************************************************/
-#ifdef PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
-#define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
-	{ \
-		volatile int RedundantStatus = XST_FAILURE; \
-		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
-		RedundantStatus = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
-		if ((StatusVar != XST_SUCCESS) || (RedundantStatus != XST_SUCCESS)) { \
-			StatusVar = ErrorCode; \
-			goto Label; \
-		} \
-	}
-#else
-#define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
-	{ \
-		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
-		if (StatusVar != XST_SUCCESS) { \
-			StatusVar = ErrorCode; \
-			goto Label; \
-		} \
-	}
-#endif
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type
@@ -790,6 +733,7 @@ void XPlmi_GicAddTask(u32 PlmIntrId);
 int XPlmi_RegisterNEnableIpi(void);
 void XPlmi_EnableIomoduleIntr(void);
 int XPlmi_SetPmcIroFreq(void);
+int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
 XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void);
 u8 XPlmi_GetTopLevelIntrTblSize(void);
 XPlmi_WaitForDmaDone_t XPlmi_GetPlmiWaitForDone(u64 DestAddr);

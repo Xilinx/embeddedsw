@@ -210,11 +210,6 @@ extern "C" {
 //#define PLM_PRINT_PERF_KEYHOLE
 //#define PLM_PRINT_PERF_PL
 
-/**
- * Enables redundant check for VerifyaddrRange.
- */
-//#define PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
-
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
 

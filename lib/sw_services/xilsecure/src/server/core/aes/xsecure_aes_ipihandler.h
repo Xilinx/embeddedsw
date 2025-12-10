@@ -44,8 +44,8 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd);
 int XSecure_AesInit(void);
-int XSecure_AesKeyWrite(u32 SubsystemId, u8 KeySize, u8 KeySrc, u32 KeyAddrLow, u32 KeyAddrHigh);
-int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
+int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc, u32 KeyAddrLow, u32 KeyAddrHigh);
+int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
 int XSecure_AesKeyZeroize(u32 KeySrc);
 
 #ifdef __cplusplus

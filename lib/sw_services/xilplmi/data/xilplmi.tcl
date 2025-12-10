@@ -34,8 +34,6 @@
 #       bm   11/11/2024 Added config option for I2C Handshake feature
 #       tri  03/13/2025 Added configurable option for xiltpm library
 #       pre  03/17/2024 Added configurable option for AES and SHA events queuing
-# 2.3   obs  08/21/2025 Added configurable options for address range validation
-#                      and redundant call verification
 #
 ##############################################################################
 
@@ -530,24 +528,6 @@ proc xgen_opts_file {libhandle} {
 	if {$value == true || $ddr5 == 1} {
 		puts $file_handle "\n/* PLM I2C MB Handshake */"
 		puts $file_handle "\n#define PLM_I2C_MB_HANDSHAKE"
-	}
-
-	# Get plm_addr_range_validation_en value set by user, by default it is FALSE (Valid only for Versal)
-	set value [common::get_property CONFIG.plm_addr_range_validation_en $libhandle]
-	if {$value == true} {
-		if {$proc_type == "psv_pmc"} {
-			puts $file_handle "\n/* Address range validation enable */"
-			puts $file_handle "#define PLM_ENABLE_ADDR_RANGE_VALIDATION"
-		}
-	}
-
-	# Get plm_verify_addr_redundant_call_en value set by user, by default it is FALSE (Valid only for VersalNet)
-	set value [common::get_property CONFIG.plm_verify_addr_redundant_call_en $libhandle]
-	if {$value == true} {
-		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
-			puts $file_handle "\n/* Redundant check for VerifyAddrRange enable */"
-			puts $file_handle "#define PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL"
-		}
 	}
 
 	puts $file_handle "\n"

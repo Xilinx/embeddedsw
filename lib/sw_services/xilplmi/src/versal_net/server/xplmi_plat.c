@@ -782,6 +782,80 @@ static void XPlmi_SetIoIntrMask(u32 Value)
 	XPlmi_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, Value);
 }
 
+/****************************************************************************/
+/**
+* @brief	This function is used to check if the given address range is
+* valid. This function can be called before loading any elf or assigning any
+* buffer in that address range
+*
+* @param	StartAddr is the starting address
+* @param	EndAddr is the ending address
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+*****************************************************************************/
+int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
+{
+	int Status = XST_FAILURE;
+
+	if (EndAddr < StartAddr) {
+		Status = XPLMI_ERROR_INVALID_ADDRESS;
+		goto END;
+	}
+
+	if ((EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR) ||
+		(StartAddr > (u64)XPLMI_4GB_END_ADDR)) {
+		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
+			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
+			Status = XPLMI_ERROR_INVALID_ADDRESS;
+		}
+		else {
+			/* Addr range less than OCM high addr or greater
+				than 2GB is considered valid */
+			Status = XST_SUCCESS;
+		}
+	}
+	else if((StartAddr >= (u64)XPLMI_PMCRAM_BASEADDR) &&
+			(EndAddr <= (u64)(XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE - 1U))){
+				/* PMC RAM is valid*/
+			Status = XST_SUCCESS;
+		}
+	else {
+		if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+			if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
+				/* PSM RAM is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
+				/* TCM0 is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
+				/* TCM1 is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
+				/* OCM is valid */
+				Status = XST_SUCCESS;
+			}
+			else {
+				/* Rest of the Addr range is treated as invalid */
+				Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
+			}
+		}
+		else {
+			Status = (int)XPLMI_ERROR_LPD_NOT_INITIALIZED;
+		}
+	}
+
+END:
+	return Status;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function is used to check and wait for DMA done

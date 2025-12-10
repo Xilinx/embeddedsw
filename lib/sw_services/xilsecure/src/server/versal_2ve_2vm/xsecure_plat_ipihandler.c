@@ -17,7 +17,6 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4  kpt   01/13/2023 Initial release
 *      mb    11/09/2024 Added Redundancy check for XPlmi_MemCpy64.
-* 5.6  obs   08/26/2025 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -36,13 +35,12 @@
 #include "xsecure_plat.h"
 #include "xsecure_error.h"
 #include "Rsa.h"
-#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_RSA_KEY_ADDRESS		(0xF2008000U) /**< Address to copy RSA input parameters */
 /************************** Function Prototypes *****************************/
 #ifndef PLM_RSA_EXCLUDE
-static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
+static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 #endif
 
@@ -71,7 +69,7 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 	Pload = Cmd->Payload;
 	if ((Cmd->CmdId & XSECURE_API_ID_MASK) == XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT)) {
 #ifndef PLM_RSA_EXCLUDE
-	Status = XSecure_RsaPrivateOperationIpi(Cmd->SubsystemId, Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
+		Status = XSecure_RsaPrivateOperationIpi(Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
 #endif
 	}
 
@@ -85,7 +83,6 @@ END:
  * @brief	This function handler calls XSecure_RsaInitialize and
  *		XSecure_RsaExp server API.
  *
- * @param 	SubsystemId			Subsystem ID.
  * @param	RsaParamAddrLow		Lower 32 bit address of the XSecure_RsaInParam
  *					structure
  * @param	RsaParamAddrHigh	Higher 32 bit address of the XSecure_RsaInParam
@@ -102,7 +99,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
+static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -120,20 +117,11 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 	u8 *Tot = NULL;
 	u32 PubModulus[XSECURE_RSA_4096_SIZE_WORDS];
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParamAddr, sizeof(XSecure_RsaInParam), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, RsaParamAddr, sizeof(XSecure_RsaInParam));
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
 		goto END;
 	}
-
-	/**
-	 * Validate internal address fields in the copied structure
-	 */
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.DataAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XST_FAILURE;
 	Status = Xil_SMemSet(RsaOperationParamPtr, sizeof(XSecure_RsaOperationParam), 0U, sizeof(XSecure_RsaOperationParam));

@@ -61,8 +61,6 @@
 * 1.2   tvp  08/19/2025 ssit is not required for Versal_2vp
 *       pre  08/21/2025 Removed TPM initialization here to add it after LPD initialization
 *       rmv  08/26/2025 Add ASU OCP functionality related callbacks to XPlmi_AsuModuleInit()
-*       obs  08/26/2025 Passed XPm_IsMemAddressValid function as
-*                       an arguement to XPlmi_Init function.
 *       tvp  08/27/2025 Generate CDI before generating DevIK from XPlm_ModuleInit for Versal_2vp
 *
 * </pre>
@@ -81,7 +79,6 @@
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
 #include "xsecure_init.h"
-#include "xpm_mem.h"
 #ifdef PLM_NVM
 #include "xnvm_init.h"
 #endif
@@ -167,7 +164,7 @@ int XPlm_ModuleInit(void *Arg)
 	 *  - TPM (only for Versal)
 	 */
 
-	Status = XPlmi_Init(XPm_IsMemAddressValid);
+	Status = XPlmi_Init();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

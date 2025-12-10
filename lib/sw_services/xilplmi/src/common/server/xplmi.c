@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
 * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -86,7 +86,6 @@
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
 #include "xplmi_plat.h"
-#include "xplmi_ipi.h"
 #include "xplmi_wdt.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
@@ -105,24 +104,16 @@ static void XPlmi_PrintEarlyLog(void);
 
 /************************** Variable Definitions *****************************/
 
-/**< Global address range validation handler */
-XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid = NULL;
-
 /******************************************************************************/
 /**
  * @brief	This function will initialize the PLMI module.
  *
- * @param	IsAddrRangeValidHandler - Function pointer to address range
- *			validation handler that validates if a given address range
- *			is accessible by the specified subsystem.
- *
  * @return
  *			- XST_SUCCESS on success.
  *			- XPLMI_ERR_PRE_INIT if pre initialization fails.
- *			- XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER if handler is NULL.
  *
  ****************************************************************************/
-int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler)
+int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
@@ -131,13 +122,6 @@ int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler)
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_PRE_INIT, Status);
 		goto END;
 	}
-
-	if (IsAddrRangeValidHandler == NULL) {
-		Status = XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER;
-		goto END;
-	}
-
-	XPlmi_IsAddrRangeValid = IsAddrRangeValidHandler;
 
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {

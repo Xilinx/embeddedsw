@@ -91,7 +91,6 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  03/17/2025 Added task based event notification functionality for subsystem PDI load
 * 2.3   tvp  07/07/2025 Do not include xplmi_ssit.h for versal_2vp
-*       obs  08/26/2025 Added support for address range checks
 *       aa   09/29/2025 Added emmc and ufs support as pdisrc option for partial PDI load
 *
 * </pre>
@@ -489,6 +488,7 @@ static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
 static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int TempStatus = XST_FAILURE;
 	u64 DestAddr;
 	u32 MaxSize;
 	u32 NumEntries = 0U;
@@ -502,8 +502,13 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 			XLOADER_BUFFER_MAX_SIZE_MASK);
 
 	/** Verify the destination address range before writing */
-	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, DestAddr, (u64)MaxSize, Status, XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS, END);
+	XSECURE_TEMPORAL_IMPL(Status, TempStatus, XPlmi_VerifyAddrRange,
+						   DestAddr, (DestAddr + (u64)MaxSize - 1U));
 
+	if (Status != XST_SUCCESS || TempStatus != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS;
+		goto END;
+	}
 	Status = XLoader_LoadImageInfoTbl(DestAddr, MaxSize, &NumEntries);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1177,7 +1182,11 @@ static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
 			XLOADER_GET_HANDOFF_PARAM_SIZE_MASK;
 
 	/** Verify destination address and the size */
-	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, DestAddr, Size, Status, XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR, END);
+	Status = XPlmi_VerifyAddrRange(DestAddr, (DestAddr + Size - 1U));
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR;
+		goto END;
+	}
 
 	/** Get TF-A Handoff parameters structure address */
 	HandoffParams = XLoader_GetATFHandoffParamsAddr();

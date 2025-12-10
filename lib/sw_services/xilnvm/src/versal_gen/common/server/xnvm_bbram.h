@@ -77,8 +77,6 @@ extern "C" {
 						/**< Error, invalid parameter */
 #define XNVM_BBRAM_ERROR_AES_INVALID_KEY_SIZE     (XNVM_EFUSE_BBRAM_TAG | 0x40U)
 						/**< Error, invalid AES key size */
-#define XNVM_BBRAM_ERROR_INVALID_ADDR_RANGE       (XNVM_EFUSE_BBRAM_TAG | 0x50U)
-						/**< Error, when accessed invalid address range */
 /***************************** Type Definitions *******************************/
 
 /*************************** Function Prototypes ******************************/

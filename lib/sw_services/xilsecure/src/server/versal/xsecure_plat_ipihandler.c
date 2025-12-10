@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,8 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   kpt   03/12/24 Initial release
 *       kpt   03/30/24 Fixed Branch past initialization
-*	    ss    04/05/24 Fixed doxygen warnings
-* 5.6   obs   08/26/25 Added support for Verifying Address Range
+*	ss    04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -38,11 +37,10 @@
 #endif
 #include "xsecure_init.h"
 #include "xsecure_plat_ipihandler.h"
-#include "xplmi_plat.h"
 
 /************************** Function Prototypes *****************************/
 #ifndef PLM_RSA_EXCLUDE
-static int XSecure_RsaDecrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 #endif
 
@@ -74,7 +72,7 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 		/**   - @ref XSecure_RsaDecrypt */
-		Status = XSecure_RsaDecrypt(Cmd->SubsystemId, Cmd->Payload[0], Cmd->Payload[1],
+		Status = XSecure_RsaDecrypt(Cmd->Payload[0], Cmd->Payload[1],
 						Cmd->Payload[2], Cmd->Payload[3]);
 		break;
 #endif
@@ -94,7 +92,6 @@ END:
  * @brief	This function handler calls XSecure_RsaInitialize and
  * 		XSecure_RsaPrivateDecrypt server APIs
  *
- * @param	SubsystemId	- Subsystem ID.
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
  * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
@@ -109,7 +106,7 @@ END:
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaDecrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
+static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -120,19 +117,10 @@ static int XSecure_RsaDecrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	/**
-	 * Validate internal address fields in the copied structure
-	 */
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, RsaParams.Size * XSECURE_SIZE_DOUBLE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.DataAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Modulus = RsaParams.KeyAddr;
 	PrivateExp = RsaParams.KeyAddr + RsaParams.Size;

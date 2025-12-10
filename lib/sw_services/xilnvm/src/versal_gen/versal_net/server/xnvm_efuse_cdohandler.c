@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,6 @@
 *      kpt   07/26/2023 Clear AES keys
 *      yog   09/13/2023 Removed XNvm_EfuseMemCopy() API
 * 3.3  kpt   01/22/2024 Added support to extend secure state into SWPCR
-* 3.6  obs   08/26/2025 Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -39,7 +38,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
-#include "xplmi_plat.h"
+
 #ifdef PLM_NVM
 #include "xnvm_efuse.h"
 #include "xnvm_efuse_cdohandler.h"
@@ -57,12 +56,12 @@
 static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *Key);
 static int XNvm_EfuseWritePpkHashFromCdoPload(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *Hash);
 static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *Iv);
-static int XNvm_EfuseWriteAesKeys(u32 SubsystemId, u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseWritePpk(u32 SubsystemId, u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseWriteIvs(u32 SubsystemId, u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseWriteDiceUds(u32 SubsystemId, u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseWriteDmeKey(u32 SubsystemId, u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseRead(u32 SubsystemId, u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteDmeKey(u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseRead(u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseCacheLoadNPrgmProtBits(void);
 static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig);
 static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvDisFlag);
@@ -80,7 +79,7 @@ static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag);
 static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask);
 static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
 static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits);
-static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
 static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
@@ -202,30 +201,30 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY):
 		KeyWrPload = (XNvm_AesKeyWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteAesKeys(Cmd->SubsystemId, (u32)KeyWrPload->EnvDisFlag,
+		Status = XNvm_EfuseWriteAesKeys((u32)KeyWrPload->EnvDisFlag,
 				(XNvm_AesKeyType)KeyWrPload->KeyType, KeyWrPload->AddrLow,
 				KeyWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PPK_HASH):
 		PpkWrPload = (XNvm_PpkWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWritePpk(Cmd->SubsystemId, (u32)PpkWrPload->EnvDisFlag,
+		Status = XNvm_EfuseWritePpk((u32)PpkWrPload->EnvDisFlag,
 				(XNvm_PpkType)PpkWrPload->PpkType, PpkWrPload->AddrLow,
 				PpkWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV):
 		IvWrPload = (XNvm_IvWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteIvs(Cmd->SubsystemId, (u32)IvWrPload->EnvDisFlag,
+		Status = XNvm_EfuseWriteIvs((u32)IvWrPload->EnvDisFlag,
 				(XNvm_IvType)IvWrPload->IvType, IvWrPload->AddrLow,
 				IvWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_CACHE):
 		RdCachePload = (XNvm_RdCachePload *)Cmd->Payload;
-		Status = XNvm_EfuseRead(Cmd->SubsystemId, RdCachePload->RegCount, RdCachePload->StartOffset, RdCachePload->AddrLow,
+		Status = XNvm_EfuseRead(RdCachePload->RegCount, RdCachePload->StartOffset, RdCachePload->AddrLow,
 			RdCachePload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
 		WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWritePufData(Cmd->SubsystemId, WrPufPload->AddrLow, WrPufPload->AddrHigh);
+		Status = XNvm_EfuseWritePufData(WrPufPload->AddrLow, WrPufPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS):
 		Status =  XNvm_EfuseCacheLoadNPrgmProtBits();
@@ -362,12 +361,12 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS):
 		UdsWrPload = (XNvm_UdsWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteDiceUds(Cmd->SubsystemId, (u32)UdsWrPload->EnvDisFlag,
+		Status = XNvm_EfuseWriteDiceUds((u32)UdsWrPload->EnvDisFlag,
 				UdsWrPload->AddrLow, UdsWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY):
 		DmeKeyWrPload = (XNvm_DmeKeyWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteDmeKey(Cmd->SubsystemId, (u32)DmeKeyWrPload->EnvDisFlag, (u32)DmeKeyWrPload->DmeKeyType,
+		Status = XNvm_EfuseWriteDmeKey((u32)DmeKeyWrPload->EnvDisFlag, (u32)DmeKeyWrPload->DmeKeyType,
 				DmeKeyWrPload->AddrLow, DmeKeyWrPload->AddrHigh);
 		break;
 	default:
@@ -475,7 +474,6 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNv
 /**
  * @brief       This function programs keys received via IPI into eFUSEs.
  *
- * @param 	SubsystemId	 Subsystem ID.
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
@@ -488,15 +486,13 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNv
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteAesKeys(u32 SubsystemId, u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	XNvm_AesKey AesKeys __attribute__ ((aligned (32U))) = {0U};
 	u64 AesKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesKeyAddr, sizeof(AesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&AesKeys, AesKeyAddr, sizeof(AesKeys));
 	if (Status != XST_SUCCESS) {
@@ -611,7 +607,6 @@ static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvDisFlag, u32 OffChipId)
 /**
  * @brief       This function programs PPK Hash received via IPI into eFUSEs.
  *
- * @param 	SubsystemId	 Subsystem ID.
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
@@ -624,13 +619,11 @@ static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvDisFlag, u32 OffChipId)
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePpk(u32 SubsystemId, u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_PpkHash PpkHash __attribute__ ((aligned (32U))) = {0U};
 	u64 PpkHashAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PpkHashAddr, sizeof(PpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PpkHash, PpkHashAddr, sizeof(PpkHash));
 	if (Status != XST_SUCCESS) {
@@ -693,7 +686,6 @@ static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits)
 /**
  * @brief       This function programs IV received via IPI into eFUSEs.
  *
- * @param 	SubsystemId	 Subsystem ID.
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
@@ -706,13 +698,11 @@ static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits)
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteIvs(u32 SubsystemId, u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_Iv Iv __attribute__ ((aligned (32U))) = {0U};
 	u64 IvAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, IvAddr, sizeof(Iv), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Iv, IvAddr, sizeof(Iv));
 	if (Status != XST_SUCCESS) {
@@ -729,7 +719,6 @@ END:
 /**
  * @brief       This function programs DICE UDS received via IPI into eFUSEs.
  *
- * @param 	SubsystemId	Subsystem ID.
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
@@ -741,13 +730,11 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDiceUds(u32 SubsystemId, u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_Uds Uds __attribute__ ((aligned (32U))) = {0U};
 	u64 UdsAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UdsAddr, sizeof(Uds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Uds, UdsAddr, sizeof(Uds));
 	if (Status != XST_SUCCESS) {
@@ -764,7 +751,6 @@ END:
 /**
  * @brief       This function programs DME key received via IPI into eFUSEs.
  *
- * @param 	SubsystemId	Subsystem ID.
  * @param	EnvDisFlag	Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
@@ -777,13 +763,11 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDmeKey(u32 SubsystemId, u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWriteDmeKey(u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_DmeKey DmeKey __attribute__ ((aligned (32U))) = {0U};
 	u64 DmeKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DmeKeyAddr, sizeof(DmeKey), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&DmeKey, DmeKeyAddr, sizeof(DmeKey));
 	if (Status != XST_SUCCESS) {
@@ -892,7 +876,6 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 /**
  * @brief	This function reads eFUSE cache registers from the required offset
  *
- * @param	SubsystemId	Subsystem ID.
  * @param	StartOffset	Start offset of cache register
  * @param	RegCount	Number of registers to be read
  * @param	AddrLow		Lower Address of the output buffer
@@ -903,7 +886,7 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
- static int XNvm_EfuseRead(u32 SubsystemId, u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh)
+ static int XNvm_EfuseRead(u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh)
  {
 	volatile int Status = XST_FAILURE;
 	u64 OutputBuffer = ((u64)AddrHigh << 32U) | (u64)AddrLow;
@@ -915,8 +898,6 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, OutputBuffer, RegCount * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	while(Offset < EndOffset){
 		RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
@@ -1138,7 +1119,6 @@ static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCt
  * @brief       This function programs PUF helper data and PUF control bits received
  * 		via IPI into eFUSEs.
  *
- * @param 	SubsystemId	Subsystem ID.
  * @param	AddrLow		Lower Address of the IV buffer
  * @param	AddrHigh	Higher Address of the IV buffer
  *
@@ -1146,13 +1126,11 @@ static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCt
  *		- XST_SUCCESS  If the programming is successful
  * 		- XST_FAILURE  If there is a failure
  ******************************************************************************/
-static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_EfusePufHdAddr PufData __attribute__ ((aligned (32U))) = {0U};
 	u64 PufDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, sizeof(PufData), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PufData, PufDataAddr, sizeof(PufData));
 	if (Status != XST_SUCCESS) {

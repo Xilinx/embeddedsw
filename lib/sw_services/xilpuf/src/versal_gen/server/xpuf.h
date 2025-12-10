@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -91,8 +91,6 @@ extern "C" {
 #define XPUF_IRO_FREQ_WRITE_MISMATCH			(0x0B)
 		/** Error if configured IRO frequency does not match
 		  * intended IRO frequency */
-#define XPUF_ERR_INVALID_ADDR_RANGE			(0x0C)
-		/** Error due to invalid address range for security validation */
 
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)

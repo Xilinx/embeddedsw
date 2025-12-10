@@ -48,7 +48,6 @@
 *       pre  08/21/2025 Extending image hashes after LPD initialization only
 *       pre  09/23/2025 Added warning message for user indication if PCR info
 *						is added in BIF without enabling TPM feature.
-*       obs  08/26/2025 Added support for address range checks
 *       tvp  10/01/2025 Handle data measurement for image with both
 *                       authenticated/non-authenticated/checksum enabled
 *                       partitions
@@ -1014,15 +1013,19 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
-	u32 ErrorCode = 0U;
+	u32 ErrorCode;
 	u32 Mode = 0U;
 	u8 TcmComb;
 
 	/**
 	 * - Verify the load address.
 	 */
-	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, PrtnParams->DeviceCopy.DestAddr, Len, Status, XLOADER_ERR_INVALID_ELF_LOAD_ADDR, END);
-
+	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
+				Status);
+		goto END;
+	}
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	/**
@@ -1074,21 +1077,20 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	else {
 		/* MISRA-C compliance */
 	}
-	if ((Status != XST_SUCCESS) && (ErrorCode != 0U)) {
+	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
 		goto END;
 	}
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		ErrorCode = (u32)XLoader_RequestTCM(XLOADER_TCM_0);
+		Status = XLoader_RequestTCM(XLOADER_TCM_0);
 	}
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		ErrorCode = (u32)XLoader_RequestTCM(XLOADER_TCM_1);
+		Status = XLoader_RequestTCM(XLOADER_TCM_1);
 	}
-	if (ErrorCode != XST_SUCCESS) {
-		Status = (int)ErrorCode;
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 

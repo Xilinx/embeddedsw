@@ -114,7 +114,6 @@
 *       tri  03/01/2025 Updated XLoader_ImageMeasureInfo for partition measurement
 * 2.3   ng   07/17/2025 Implemented partition copy when boot copy optimization is disabled
 *       tvp  07/28/2025 Refactor platform specific code.
-*       obs  08/26/2025 Added support for address range checks
 *
 * </pre>
 *
@@ -412,7 +411,11 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 
 	/** - Verify the destination address range before writing. */
-	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, DeviceCopy->DestAddr, (u64)DeviceCopy->Len, Status, XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR, END);
+	Status = XPlmi_VerifyAddrRange(DeviceCopy->DestAddr, DeviceCopy->DestAddr + (u64)DeviceCopy->Len - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR, Status);
+		goto END;
+	}
 
 	/**
 	 * - Check if security is enabled and start the partition copy securely.

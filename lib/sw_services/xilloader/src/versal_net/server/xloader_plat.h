@@ -272,9 +272,6 @@ enum {
 	/** 0x31 - Error when PSM firmware is not found in optional data */
 	XLOADER_ERR_PSM_FW_NOT_FOUND,
 
-	/**< 0x32 - Error when invalid address range is detected. */
-	XLOADER_ERR_INVALID_ADDR_RANGE,
-
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */
 	XLOADER_ERR_INVALID_JTAG_OPERATION = 0x100,

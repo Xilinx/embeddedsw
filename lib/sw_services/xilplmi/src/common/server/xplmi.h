@@ -273,7 +273,7 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_PMC_CDO_MAX_WORD_LEN	(XPLMI_PMC_CDO_MAX_LEN / XPLMI_WORD_LEN)
 
 /************************** Function Prototypes ******************************/
-int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler);
+int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
 void XPlmi_PrintPlmBanner(void);

@@ -30,7 +30,6 @@
 *       kpt   08/17/2023 Remove oring the Status with error code in XNvm_BbramKeyWrite
 * 3.3   ng   11/22/23 Fixed doxygen grouping
 * 3.5   kal  05/02/2025  Add a validation check for Size in XNvm_BbramKeyWrite function
-* 3.6   obs  08/26/2025  Added support for Verifying Address Range
 *
 * </pre>
 *
@@ -43,7 +42,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
-#include "xplmi_plat.h"
+
 #ifdef PLM_NVM
 #include "xnvm_bbram.h"
 #include "xnvm_bbram_common_cdohandler.h"
@@ -57,10 +56,10 @@
 
 /************************** Function Prototypes *****************************/
 
-static int XNvm_BbramKeyWrite(u32 SubsystemId, u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh);
+static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh);
 static int XNvm_BbramClear(void);
 static int XNvm_BbramUsrDataWrite(u32 UsrData);
-static int XNvm_BbramUsrDataRead(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh);
+static int XNvm_BbramUsrDataRead(u32 DstAddrLow, u32 DstAddrHigh);
 static int XNvm_BbramLockUsrData(void);
 #ifdef VERSAL_2VE_2VM
 static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs);
@@ -104,7 +103,7 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 	*/
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY):
-		Status = XNvm_BbramKeyWrite(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2]);
+		Status = XNvm_BbramKeyWrite(Pload[0], Pload[1], Pload[2]);
 		break;
 	case XNVM_API(XNVM_API_ID_BBRAM_ZEROIZE):
 		Status = XNvm_BbramClear();
@@ -113,7 +112,7 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_BbramUsrDataWrite(Pload[0]);
 		break;
 	case XNVM_API(XNVM_API_ID_BBRAM_READ_USER_DATA):
-		Status = XNvm_BbramUsrDataRead(Cmd->SubsystemId, Pload[0], Pload[1]);
+		Status = XNvm_BbramUsrDataRead(Pload[0], Pload[1]);
 		break;
 	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
 		Status = XNvm_BbramLockUsrData();
@@ -137,7 +136,6 @@ END:
 /**
  * @brief       This function programs BBRAM AES key.
  *
- * @param	SubsystemId	Subsystem ID
  * @param 	Size		Size of the input data in bytes to be
  *				updated
  * 		KeyAddrLow	Lower 32 bit address of the key
@@ -148,16 +146,13 @@ END:
  * 		- XNVM_BBRAM_ERROR_IN_DMA_XFER  Error in DMA copy
  *
  ******************************************************************************/
-static int XNvm_BbramKeyWrite(u32 SubsystemId, u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
+static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
-
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	u8 Key[XNVM_BBRAM_AES_KEY_SIZE];
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, Size, Status, XNVM_BBRAM_ERROR_INVALID_ADDR_RANGE, END);
 
 	if (Size != XNVM_256_BITS_AES_KEY_LEN_IN_BYTES) {
 		Status = XNVM_BBRAM_ERROR_AES_INVALID_KEY_SIZE;
@@ -226,7 +221,6 @@ static int XNvm_BbramUsrDataWrite(u32 UsrData)
 /**
  * @brief       This function reads BBRAM user data.
  *
- * @param	SubsystemId	Subsystem ID
  * @param	DstAddrLow	Lower 32 bit address of the destination
  * 				address to store the user data
  *		DstAddrHigh	Higher 32 bit address of the destination
@@ -237,7 +231,7 @@ static int XNvm_BbramUsrDataWrite(u32 UsrData)
  * 		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-static int XNvm_BbramUsrDataRead(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh)
+static int XNvm_BbramUsrDataRead(u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
@@ -245,17 +239,10 @@ static int XNvm_BbramUsrDataRead(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHig
 
 	UsrData = XNvm_BbramReadUsrData();
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UsrData), Status, XNVM_BBRAM_ERROR_INVALID_ADDR_RANGE, END);
-
 	XPlmi_Out64(Addr, UsrData);
 
 	Status = XST_SUCCESS;
 
-#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
-	goto END;
-#endif
-
-END:
 	return Status;
 }
 

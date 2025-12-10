@@ -197,7 +197,6 @@
 *       rpu 09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       pre 09/09/2025 Returning zeroize status also at image header validation failure
 *       pre 09/19/2025 Added logic to avoid flooding of log buffer with repeated error messages
-*       obs 09/23/2025 Added support for address range checks
 *       obs 09/27/2025 Updated log level for restartimage fallback image search print
 *       sk  09/26/2025 Updated handling of UFS as secondary boot device
 *       sk  11/03/2025 Fixed logic to properly update pdisrc for UFS fallback boot
@@ -267,10 +266,6 @@
 #define XLOADER_MIN_APP_VERSION_OPT_DATA_ID		(0x2000U)
 			/**< Minimum value of optional data ID for app version */
 #endif
-
-#define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_ADDR_RANGE_MASK		(0x1FU)
-	/**< Mask for PDI Src in Extract Metaheader command
-				for address range checks */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
@@ -2110,7 +2105,11 @@ int XLoader_ReadImageStoreCfg(void)
 	}
 
 	/** Verify the image store address range */
-	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, PdiList->PdiImgStrAddr, (u64)PdiList->PdiImgStrSize, Status, XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS, END);
+	Status = XPlmi_VerifyAddrRange(PdiList->PdiImgStrAddr, PdiList->PdiImgStrAddr + (u64)PdiList->PdiImgStrSize - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS;
+		goto END;
+	}
 
 	/**
 	 * - Update the PDI image store address in the image list.
@@ -2255,7 +2254,6 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	int SStatus = XST_FAILURE;
 	u32 IdString;
 	u64 MetaHdrOfst;
-	u32 PdiSrcType = Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX];
 
 	Status = Xil_SMemSet(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
 	if (Status != XST_SUCCESS) {
@@ -2289,23 +2287,33 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 		}
 	}
 
-	if ((PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_ADDR_RANGE_MASK) == XLOADER_PDI_SRC_DDR) {
-		XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, SrcAddr, XPLMI_WORD_LEN, Status, XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR, END);
+	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
+		goto END;
 	}
 
 	/** Check if Metaheader offset is pointing to a valid location */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
 		PdiPtr->MetaHdr->MetaHdrOfst = XPlmi_In64(SrcAddr + XIH_BH_META_HDR_OFFSET);
 		MetaHdrOfst = SrcAddr + (u64)PdiPtr->MetaHdr->MetaHdrOfst;
-
-		if ((PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_ADDR_RANGE_MASK) == XLOADER_PDI_SRC_DDR) {
-			XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, MetaHdrOfst, XPLMI_WORD_LEN, Status, XLOADER_ERR_INVALID_METAHEADER_OFFSET, END);
+		Status = XPlmi_VerifyAddrRange(MetaHdrOfst, MetaHdrOfst +
+				(XPLMI_WORD_LEN - 1U));
+		if (Status != XST_SUCCESS) {
+			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
+			goto END;
 		}
 	}
-	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, DestAddr, DestSize, Status, XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR, END);
+
+	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
+		goto END;
+	}
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
-	if ((PdiSrcType & XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
+	if ((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
 		/** Extract Metaheader using PdiInit */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
 				XLOADER_PDI_SRC_DDR, SrcAddr);
