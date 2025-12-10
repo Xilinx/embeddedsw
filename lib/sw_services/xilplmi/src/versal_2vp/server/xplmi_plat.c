@@ -579,6 +579,81 @@ int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
 
 /**************************************************************************************************/
 /**
+ * @brief	This function is used to check if the given address range is valid. This function
+ * 		can be called before loading any elf or assigning any buffer in that address range.
+ *
+ * @param	StartAddr is the starting address.
+ * @param	EndAddr is the ending address.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ **************************************************************************************************/
+int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (EndAddr < StartAddr) {
+		Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
+		goto END;
+	}
+
+	if ((EndAddr <= (u64)XPLMI_M_AXI_FPD_MEM_HIGH_ADDR) ||
+	    (StartAddr > (u64)XPLMI_4GB_END_ADDR)) {
+		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
+		    (EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
+			Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
+		} else {
+			/*
+			 * Addr range less than AXI FPD high addr or greater than 2GB is considered
+			 * valid
+			 */
+			Status = XST_SUCCESS;
+		}
+	} else if((StartAddr >= (u64)XPLMI_PMCRAM_BASEADDR) &&
+		(EndAddr <= (u64)(XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE - 1U))){
+			/* PMC RAM is valid*/
+			Status = XST_SUCCESS;
+	} else {
+		if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+			if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
+			    (EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
+				/* PSM RAM is valid */
+				Status = XST_SUCCESS;
+			} else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
+				 (EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
+				/* TCM0 is valid */
+				Status = XST_SUCCESS;
+			} else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
+				 (EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
+				/* TCM1 is valid */
+				Status = XST_SUCCESS;
+			} else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&
+				 (EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
+				/* OCM is valid */
+				Status = XST_SUCCESS;
+			} else if ((StartAddr >= (u64)XPLMI_XRAM_BASE_ADDR) &&
+				 (EndAddr <= (u64)XPLMI_XRAM_HIGH_ADDR)) {
+				/* If XRAM is available, it is valid */
+				if (XRamAvailable == (u8)TRUE) {
+					Status = XST_SUCCESS;
+				}
+			} else {
+				/* Rest of the Addr range is treated as invalid */
+				Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
+			}
+		} else {
+			Status = (int)XPLMI_ERROR_LPD_NOT_INITIALIZED;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
  * @brief	This function provides Gic interrupt id.
  *
  * @param	GicPVal indicates GICP source.

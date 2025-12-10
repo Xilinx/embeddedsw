@@ -176,7 +176,6 @@ enum {
 	XSECURE_ERR_KAT_NOT_EXECUTED,	/**< 0xF5 - Error when KAT is not executed when crypto kat
 					  efuse bit is enabled */
 	XSECURE_ERR_HKDF_INVALID_PARAM,	/**< 0xF6 - Invalid parameters to HKDF */
-	XSECURE_ERR_INVALID_ADDR_RANGE = 0xFF		    /**< 0xFF - Error when address range validation fails */
 
 };
 
