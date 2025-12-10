@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@
 *                           avoid unnecessary description displayed
 *                           while generating doxygen.
 * 2.2   Nava  06/22/2023    Added support for system device-tree flow.
+* 2.4   bdk   12/08/2025    Updated comments to support SDT flow for Doxygen
+*                           documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -103,14 +105,19 @@ int main(void)
 * design example. The purpose of this function is to illustrate
 * how to use the XPrd component.
 *
+* @if SDT
+* @param	BaseAddress is the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<prd_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

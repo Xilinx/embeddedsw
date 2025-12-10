@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,8 @@
 *                           files. This is a fix for CR-966099 based on the
 *                           update in the tools.
 * 2.2   Nava  06/22/23      Added support for system device-tree flow.
+* 2.4   bdk   12/08/25      Updated comments to support SDT flow for Doxygen
+*                           documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -60,15 +62,20 @@ extern XPrd_Config XPrd_ConfigTable[];
 /**
 *
 * This function looks for the device configuration based on the unique device
-* ID. The table XPrd_ConfigTable[] contains the configuration information
-* for each device in the system.
+* ID/BaseAddress. The table XPrd_ConfigTable[] contains the configuration
+* information for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device ID of the device being looked up.
+* @endif
 *
 * @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+*		given device ID/BaseAddress, or NULL if no match is found.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

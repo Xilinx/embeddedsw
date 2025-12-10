@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +28,7 @@
 *
 * <b> Initialization and Configuration </b>
 *
-*    - XPrd_LookupConfig(DeviceId) - Use the device identifier to find the
+*    - XPrd_LookupConfig(BaseAddress) - Use the device BaseAddress to find the
 *      static configuration structure defined in xprd_g.c. This is setup by
 *      the tools. For some operating systems the config structure will be
 *      initialized by the software and this call is not needed.
@@ -75,6 +75,8 @@
 *                            of prd examples to avoid unnecessary description
 *                            which was displayed while generating doxygen.
 * 2.2   Nava   06/22/2023    Added support for system device-tree flow.
+* 2.4   bdk    12/08/2025    Updated comments to support SDT flow for Doxygen
+*                            documentation.
 * </pre>
 *
 ******************************************************************************/
