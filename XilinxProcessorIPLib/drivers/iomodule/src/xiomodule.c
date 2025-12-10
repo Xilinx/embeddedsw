@@ -40,6 +40,8 @@
 * 2.19  ml   03/24/25 Fixed multiple returns in XIOModule_Initialize,
 *                     XIOModule_Timer_Initialize and XIOModule_IsExpired
 *                     to comply with MISRA-C R15.5
+* 2.20  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -91,18 +93,23 @@ static void StubHandler(void *CallBackRef);
 *
 * @param	InstancePtr is a pointer to the XIOModule instance to be
 *		worked on.
+* @if SDT
+* @param	BaseAddress is the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this
 *		XIOModule instance.  Passing in a device id associates the
 *		generic XIOModule instance to a specific device, as chosen
 *		by the caller or application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
 *		- XST_DEVICE_NOT_FOUND if device configuration information was
-*		not found for a device with the supplied device ID.
+*		not found for a device with the supplied device ID/BaseAddress.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -607,15 +614,20 @@ static void StubHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique identifier for a device.
+* @endif
 *
 * @return	A pointer to the XIOModule configuration structure for the
-*		specified device, or NULL if the device was not found.
+*		specified device, or NULL if the device ID/BaseAddress was not found.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -873,17 +885,22 @@ void XIOModule_DiscreteWrite(XIOModule *InstancePtr,
 * XIOModule structure, then reset the timer
 *
 * @param	InstancePtr is a pointer to the XIOModule instance.
+* @if SDT
+* @param	BaseAddress is the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this
 *		XIOModule component.  Passing in a device id associates the
 *		generic XIOModule component to a specific device, as chosen by
 *		the caller or application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
 *		- XST_DEVICE_NOT_FOUND if the device doesn't exist
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
