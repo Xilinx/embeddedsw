@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,7 @@
 *       dc     08/28/23 Remove immediate trigger
 * 1.7   cog    01/29/24 Yocto SDT support
 *       dc     03/01/24 Update version number in makefiles
+* 1.8   dc     12/08/25 Update doxygen comments
 * </pre>
 * @addtogroup dfemix Overview
 * @{
@@ -107,9 +108,12 @@
 /**
 * @endcond
 */
-#define XDFEMIX_DRIVER_VERSION_MINOR (7U) /**< Driver's minor version number */
+#define XDFEMIX_DRIVER_VERSION_MINOR (8U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
+/**
+* @cond nocomments
+*/
 /************************** Function Prototypes *****************************/
 static void XDfeMix_GetCurrentCCCfgLocal(const XDfeMix *InstancePtr,
 					 XDfeMix_CCCfg *CurrCCCfg);
@@ -117,10 +121,6 @@ static void XDfeMix_SetNCORegisters(const XDfeMix *InstancePtr,
 				    const XDfeMix_CCCfg *CCCfg);
 
 /************************** Variable Definitions ****************************/
-/**
-* @cond nocomments
-*/
-
 #ifdef __BAREMETAL__
 extern struct metal_device XDfeMix_CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
 extern metal_phys_addr_t XDfeMix_metal_phys[XDFEMIX_MAX_NUM_INSTANCES];
@@ -2393,7 +2393,8 @@ void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCCfg CC configuration container.
-* @param    AntennaCfg Array of all antenna configurations.
+* @param    AntennaCfg Structure containing the array of all antenna gain
+*           configurations.
 *
 ****************************************************************************/
 void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
@@ -2416,18 +2417,16 @@ void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* The CCID sequence register value 0 can define the slot as either used or
+* The CCID sequence register values 0-15 can define the slot as either used or
 * not used. That's why the register values are translated into CCCfg.Sequence
 * The translation is:
-* - CCIDSequence.CCID[i] = -1    - if [i] is unused slot
-* - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
-* - a returned CCIDSequence->Length = length in register + 1
+* - Sequence.CCID[i] = -1    - if [i] is unused slot
+* - Sequence.CCID[i] = CCID  - if [i] is used slot
+* - a returned Sequence.Length = length in register + 1
 *
-* The hardware is implemented in ARCH4 if MAX_USEABLE_CCIDS == 8 and LANES > 1
-* also, the hardware is implemented in ARCH5 if MAX_USEABLE_CCIDS == 16.
-* When ARCH4 or ARCH5 is implemented NCO to channel allocation will be
-* verified. Each sub-block (4 NCOs in width) can only be allocated a certain
-* percentage of the chosen sequence length, 50% for ARCH4 or 25% for ARCH5.
+* When the number of usable CC's is greater than four there is an additional
+* restriction on the CC sequence as described in "Component Carrier Sequencing".
+* This will be verified by the API to ensure a violation does not occur.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2516,8 +2515,8 @@ void XDfeMix_RemoveCCfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 * Adds specified auxiliary NCO, with specified configuration, to a local CCCfg.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    CCCfg CC and Auxiliry NCO configuration container.
-* @param    AuxId Auxiliary NCO ID to be disabled, range [0-3].
+* @param    CCCfg CC configuration container.
+* @param    AuxId Auxiliary NCO ID to be enabled, range [0-3].
 * @param    NCO NCO configuration container.
 * @param    AuxCfg Auxiliary NCO configuration container.
 *
@@ -2547,7 +2546,7 @@ void XDfeMix_AddAuxNCOtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 * @param    CCCfg Component carrier (CC) configuration container.
 * @param    AuxId Auxiliary NCO ID to be disabled, range [0-3].
 *
-* @note     For a sequence conversion see XDfeMix_AddCCtoCCCfg() comment.
+* @note     When MAX_USABLE_CCIDS > 4 see XDfeMix_AddCCtoCCCfg().
 *
 ****************************************************************************/
 void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
@@ -2566,8 +2565,7 @@ void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 *
 * Updates specified CCID, with specified configuration to a local CC
 * configuration structure.
-* If there is insufficient capacity for the new CC the function will return
-* an error.
+* An error is generated if the NCOidx selected is already used.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -2578,7 +2576,7 @@ void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
+* @note     When MAX_USABLE_CCIDS > 4 see XDfeMix_AddCCtoCCCfg().
 *
 ****************************************************************************/
 u32 XDfeMix_UpdateCCinCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
@@ -2804,15 +2802,14 @@ u32 XDfeMix_SetNextCCCfgAndTriggerSwitchable(XDfeMix *InstancePtr,
 *
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
-* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
+* @note     When MAX_USABLE_CCIDS > 4 see XDfeMix_AddCCtoCCCfg().
 *
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
-*                  XDfeMix_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
-*                      CarrierCfg, NCO);
-*                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+* @note:    This API is deprecated in the release 2023.2. The functionality of
+*           this API can be reproduced with the following API sequence:
+*           XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
+*           XDfeMix_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
+*                  CarrierCfg, NCO);
+*           XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
 *
 ****************************************************************************/
 u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
@@ -2897,9 +2894,8 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
+* @note:    This API is deprecated in the release 2023.2. The functionality of
+*           this API can be reproduced with the following API sequence:
 *                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
 *                  XDfeMix_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
 *                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
@@ -2954,16 +2950,13 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 *
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
-* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
-*
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
-*                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
-*                  XDfeMix_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
-*                  XDfeMix_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
-*                      CarrierCfg, NCO);
-*                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+* @note     When MAX_USABLE_CCIDS > 4 see XDfeMix_AddCCtoCCCfg().
+* @note:    This API is deprecated in the release 2023.2. The functionality of
+*           this API can be reproduced with the following API sequence:
+*           XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg); XDfeMix_UpdateCCinCCCfg();
+*           XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*           This will allow for the CCID to move from one NCO to another but
+*           will not allow for phase alignment.
 *
 ****************************************************************************/
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
@@ -3048,8 +3041,6 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 *
 * Updates specified CCID, with a configuration defined in CarrierCfg
 * structure.
-* If there is insufficient capacity for the new CC the function will return
-* an error.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCID Channel ID, range [0-15].
@@ -3061,11 +3052,10 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 *
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
-* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
+* @note     When MAX_USABLE_CCIDS > 4 see XDfeMix_AddCCtoCCCfg().
 *
-* @attention:  This API is deprecated in the release 2023.2. Source code will
-*              be removed from in the release 2024.1 release. The functionality
-*              of this API can be reproduced with the following API sequence:
+* @note:    This API is deprecated in the release 2023.2. The functionality of
+*           this API can be reproduced with the following API sequence:
 *                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
 *                  XDfeMix_UpdateCCinCCCfg(InstancePtr, CCCfg, CCID,
 *                      CarrierCfg);
@@ -3170,7 +3160,8 @@ u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId, u32 AntennaGain)
 * in switchable mode.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    AntennaCfg Array of all antenna configurations.
+* @param    AntennaCfg Structure containing the array of all antenna gain
+*           configurations.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -3209,8 +3200,8 @@ u32 XDfeMix_UpdateAntennaCfg(XDfeMix *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns current trigger configuration. In switchable mode ignors LOW_POWER
-* triggers as they are not used, instead reads SWITCH trigger configurations.
+* Returns current trigger configuration. In switchable mode ignores LOW_POWER
+* trigger as it is not used, instead reads SWITCH trigger configuration.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    TriggerCfg Trigger configuration container.
@@ -3309,8 +3300,8 @@ void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Sets trigger configuration. In switchable mode ignors LOW_POWER triggers
-* as they are not used, instead sets SWITCH trigger configurations.
+* Sets trigger configuration. In switchable mode ignores LOW_POWER trigger
+* as it is not used, instead sets SWITCH trigger configuration.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    TriggerCfg Trigger configuration container.
@@ -3512,7 +3503,7 @@ void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr,
 * through the IP).
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    Delay Requested delay variable.
+* @param    Delay Requested delay in clock cycles.
 *
 ****************************************************************************/
 void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay)
@@ -3532,7 +3523,7 @@ void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay)
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 *
-* @return   Delay value
+* @return   Delay value in clock cycles.
 *
 ****************************************************************************/
 u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr)
@@ -3550,8 +3541,8 @@ u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr)
 * Returns sum of data latency and number of taps.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    Tap Tap value.
-* @param    TDataDelay Returned Data latency value.
+* @param    Tap Tap value to be added to the data latency.
+* @param    TDataDelay Returned Data latency value in clock cycles.
 *
 * @return
 *           - XST_SUCCESS if successful.
