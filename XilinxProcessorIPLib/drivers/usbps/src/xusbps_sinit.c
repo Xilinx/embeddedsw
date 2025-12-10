@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.00a wgr  10/10/10 First release
  * 2.8   pm   07/07/23 Added support for system device-tree flow.
+ * 2.11  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+ *                     documentation.
  * </pre>
  *
  *****************************************************************************/
@@ -46,15 +48,23 @@ extern XUsbPs_Config XUsbPs_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Looks up the controller configuration based on the unique controller ID. A
-* table contains the configuration info for each controller in the system.
+* Looks up the controller configuration based on the unique controller
+* ID/BaseAddress. A table contains the configuration info for each controller
+* in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceID is the ID of the controller to look up the
 *		configuration for.
+* @endif
 *
 * @return
 *		A pointer to the configuration found or NULL if the specified
-*		controller ID was not found.
+*		controller ID/BaseAddress was not found.
+*
+* @note		In XSCT/classic flow, DeviceID is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

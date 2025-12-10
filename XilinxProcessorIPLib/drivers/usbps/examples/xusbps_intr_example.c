@@ -27,6 +27,8 @@
 * 2.4   vak    04/01/19 Fixed IAR data_alignment warnings
 * 2.8   pm     07/07/23 Added support for system device-tree flow
 * 2.10  ka     21/08/25 Fix GCC warnings
+* 2.11  bdk    12/08/25 Updated comments to support SDT flow for Doxygen
+*                       documentation.
 *</pre>
 ******************************************************************************/
 
@@ -135,7 +137,10 @@ int main(void)
  * as a design example. The purpose of this function is to illustrate how to
  * set up a USB flash disk emulation system.
  *
- *
+ * @if SDT
+ * @param	UsbInstancePtr is a pointer to the instance of USB driver.
+ * @param	BaseAddress is the base address of the USB Controller.
+ * @else
  * @param	IntcInstancePtr is a pointer to the instance of the INTC driver.
  * @param	UsbInstancePtr is a pointer to the instance of USB driver.
  * @param	UsbDeviceId is the Device ID of the USB Controller and is the
@@ -143,10 +148,14 @@ int main(void)
  * @param	UsbIntrId is the Interrupt Id and is typically
  * 		XPAR_<INTC_instance>_<USB_instance>_IP2INTC_IRPT_INTR value
  * 		from xparameters.h.
+ * @endif
  *
  * @return
  * 		- XST_SUCCESS if successful
  * 		- XST_FAILURE on error
+ *
+ * @note In XSCT/classic flow, UsbDeviceId is used to look up the device
+ *       configuration.
  *
  ******************************************************************************/
 #ifndef SDT
