@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 * ----- ----- -----------   ---------------------------------------------
 * 1.0   dp    07/14/20      First release
 * 1.2   Nava  06/22/23      Added support for system device-tree flow.
+* 1.3   bdk   12/08/25      Updated comments to support SDT flow for Doxygen
+*                           documentation.
 * </pre>
 *
 ******************************************************************************/
@@ -50,15 +52,20 @@ extern XDfxasm_Config XDfxasm_ConfigTable[];
 /**
 *
 * This function looks for the device configuration based on the unique device
-* ID. The table XDfxasm_ConfigTable[] contains the configuration information
-* for each device in the system.
+* ID/BaseAddress. The table XDfxasm_ConfigTable[] contains the configuration
+* information for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device ID of the device being looked up.
+* @endif
 *
 * @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+*		given device ID/BaseAddress, or NULL if no match is found.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
