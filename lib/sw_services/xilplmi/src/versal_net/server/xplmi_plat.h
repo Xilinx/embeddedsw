@@ -579,13 +579,6 @@ typedef XStatus (*XPlmi_IsAddrRangeValid_t)(u32 SubsystemId, u64 Addr, u64 Size)
 /**< Global address range validation handler */
 extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 
-#ifdef PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT
-#define VERIFY_ADDR_DEBUG_PRINT(error) \
-	xil_printf("VAR_ERR: 0x%x\n\r", error);
-#else
-#define VERIFY_ADDR_DEBUG_PRINT(error)	/* do nothing, if debug print is disabled */
-#endif
-
 /******************************************************************************/
 /**
  *
@@ -612,7 +605,6 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
 		RedundantStatus = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
 		if ((StatusVar != XST_SUCCESS) || (RedundantStatus != XST_SUCCESS)) { \
-			VERIFY_ADDR_DEBUG_PRINT(StatusVar); \
 			StatusVar = ErrorCode; \
 			goto Label; \
 		} \
@@ -622,7 +614,6 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 	{ \
 		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
 		if (StatusVar != XST_SUCCESS) { \
-			VERIFY_ADDR_DEBUG_PRINT(StatusVar); \
 			StatusVar = ErrorCode; \
 			goto Label; \
 		} \
