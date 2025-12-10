@@ -35,6 +35,8 @@
 * 3.18 gm     07/17/23 Invoke XTtcPs_Release to release ttc node.
 * 3.18 gm     03/06/24 Added support for system device-tree flow.
 * 3.22 ml     07/14/25 Fixed GCC warnings.
+* 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
+*                      documentation.
 *</pre>
 ******************************************************************************/
 
@@ -360,11 +362,18 @@ int WaitForDutyCycleFull(void)
 *  . set options
 *  . set interval and prescaler value for given output frequency.
 *
+* @if SDT
+* @param	BaseAddr is the base address of the device
+* @else
 * @param	DeviceID is the unique ID for the device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-*****************************************************************************/
+* @note		In XSCT/classic flow, DeviceID is used to look up the device
+*		configuration.
+*
+****************************************************************************/
 #ifndef SDT
 int SetupTimer(int DeviceID)
 #else

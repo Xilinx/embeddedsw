@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,8 @@
 *      		       per latest API.
 * 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
+* 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
+*                      documentation.
 *</pre>
 ******************************************************************************/
 
@@ -157,15 +159,21 @@ int main(void)
 *
 * This is the main function of the interrupt example.
 *
-*
 * @param	TtcPsInst is a pointer to the ttc instance.
+* @if SDT
+* @param	BaseAddr is the base address of the TTC device.
+* @else
 * @param	DeviceID is the unique ID for the device.
 * @param	TtcTickIntrID is the unique interrupt ID for the timer.
 * @param	InterruptController is a pointer to the interrupt controller
 *			instance..
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
+*
+* @note		In XSCT/classic flow, DeviceID is used to look up the device
+*		configuration.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -239,12 +247,19 @@ int TmrInterruptExample(XTtcPs *TtcPsInst, u32 BaseAddr)
 * This function sets up the Ticker timer.
 *
 * @param	TtcPsInst is a pointer to the ttc instance.
+* @if SDT
+* @param	BaseAddr is the base address of the TTC device.
+* @else
 * @param	DeviceID is the unique ID for the device.
 * @param	TtcTickIntrID is the unique interrupt ID for the timer.
 * @param	InterruptController is a pointer to the interrupt controller
 *			instance..
+* @endif
 *
 * @return	XST_SUCCESS if everything sets up well, XST_FAILURE otherwise.
+*
+* @note		In XSCT/classic flow, DeviceID is used to look up the device
+*		configuration.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -331,12 +346,19 @@ int SetupTicker(XTtcPs *TtcPsInst, u32 BaseAddr)
 *  . set options
 *  . set interval and prescaler value for given output frequency.
 *
+* @if SDT
+* @param	BaseAddr is the base address of the device
+* @else
 * @param	DeviceID is the unique ID for the device.
+* @endif
 * @param	TtcPsInst is a pointer to the ttc instance.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-*****************************************************************************/
+* @note		In XSCT/classic flow, DeviceID is used to look up the device
+*		configuration.
+*
+****************************************************************************/
 #ifndef SDT
 int SetupTimer(u16 DeviceID, XTtcPs *TtcPsInst)
 #else

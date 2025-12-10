@@ -46,6 +46,8 @@
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
 * 3.21 ml     02/05/25 Fixed compilation warnings and errors
 * 3.22 ml     07/24/25 Fixed ARMCC compilation error
+* 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
+*                      documentation.
 *</pre>
 ******************************************************************************/
 
@@ -571,11 +573,17 @@ int WaitForDutyCycleFull(void)
 *  . set options
 *  . set interval and prescaler value for given output frequency.
 *
+* @if SDT
+* @param	Index is the index in the SettingsTable.
+* @param	BaseAddr is the base address of the TTC device.
+* @else
 * @param	DeviceID is the unique ID for the device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceID is used to look up the device
+*		configuration.
 *
 *****************************************************************************/
 #ifndef SDT

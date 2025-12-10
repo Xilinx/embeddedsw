@@ -40,7 +40,7 @@
 * A driver instance is initialized through
 * XTtcPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr). Where CfgPtr
 * is a pointer to the XTtcPs_Config structure, it can be looked up statically
-* through XTtcPs_LookupConfig(DeviceID), or passed in by the caller. The
+* through XTtcPs_LookupConfig(BaseAddress), or passed in by the caller. The
 * EffectiveAddr can be the static base address of the device or virtual
 * mapped address if address translation is supported.
 *
@@ -152,6 +152,8 @@
 * 3.18  adk  04/14/23 Added support for system device-tree flow.
 * 3.21  ml   01/27/25 Added support for multiple counters in SDT flow.
 * 3.21  ml   04/03/25 Added a global structure to store all handlers in a table.
+* 3.23  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+*                     documentation.
 * </pre>
 *
 ******************************************************************************/
