@@ -18,6 +18,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.5   tvp  06/05/25 Initial release
 *       sd   11/07/25 Update condition to reflect the revised function return value
+* 1.7   tvp  12/10/25 Add required header file
 *
 * </pre>
 *
@@ -45,6 +46,7 @@
 #include "xilpdi_plat.h"
 #include "xpuf.h"
 #include "xpuf_hw.h"
+#include "xsecure_init.h"
 
 /************************************ Constant Definitions ****************************************/
 

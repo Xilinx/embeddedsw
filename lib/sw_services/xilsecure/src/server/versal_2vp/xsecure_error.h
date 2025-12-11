@@ -21,6 +21,7 @@
  *       rpu  09/26/25 Removed typedef for enum to fix compilation warnings
  *       tvp  09/23/25 Add error code for ECC private key generation
  *       tvp  09/23/25 Add error code for HMAC KAT
+ * 5.7   tvp  12/10/25 Add error code for invalid SHA384 param
  *
  * </pre>
  *
@@ -59,6 +60,9 @@ enum {
 	XSECURE_SSS_INVALID_PARAM,		/**< 0x09 - Invalid Argument */
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
+
+	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid param for SHA384 digest
+						  calculation*/
 
 	XSECURE_RESERVED_SHA1 = 0x30,		/**< 0x30 - Reserved for SHA1 */
 

@@ -111,6 +111,7 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/generic/* $BSP_DIR/libsrc/xilsecur
 cp -r $SERVICES_DIR/xilsecure/src/server/core/util/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/sha_pmx/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/softsha2-384/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/hmac/* $BSP_DIR/libsrc/xilsecure/src/

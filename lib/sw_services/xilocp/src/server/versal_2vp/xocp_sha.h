@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  09/01/25 Initial release
+* 1.7   tvp  12/10/25 Use soft SHA2-384 instead of SHA3-384 for PCR Measurement.
 *
 * </pre>
 *
@@ -28,9 +29,7 @@ extern "C" {
 #endif
 
 /*************************************** Include Files ********************************************/
-#include "xsecure_sha.h"
-#include "xsecure_sha_common.h"
-#include "xsecure_init.h"
+#include "xsecure_sha384.h"
 
 /*********************************** Constant Definitions *****************************************/
 
@@ -42,24 +41,23 @@ extern "C" {
 
 /**************************************************************************************************/
 /**
- * @brief	This function wrapper function to starts the SHA-3 engine.
+ * @brief	This function is wrapper to start SHA2-384.
  *
  * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ * 		- XST_SUCCESS always.
  *
  **************************************************************************************************/
 static inline int XOcp_ShaStart(void)
 {
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XSecure_Sha384Start();
 
-	return XSecure_Sha3Start(ShaInstPtr);
+	return XST_SUCCESS;
 }
 
 /**************************************************************************************************/
 /**
- * @brief	This function wrapper function call XSecure_Sha3Update to update the data in SHA3
- * 		engine.
+ * @brief	This wrapper function calls XSecure_Sha384Update to update the data in
+ * 		SHA2-384.
  *
  * @param	InDataAddr	Address of the data which has to be updated to SHA engine.
  *
@@ -72,16 +70,14 @@ static inline int XOcp_ShaStart(void)
  **************************************************************************************************/
 static inline int XOcp_ShaUpdate(u8 *InDataAddr, u32 Size)
 {
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
-	return XSecure_Sha3Update(ShaInstPtr, (UINTPTR)InDataAddr, Size);
+	return XSecure_Sha384Update((u8 *)(UINTPTR)InDataAddr, Size);
 }
 
 /**************************************************************************************************/
 /**
- * @brief	This function wrapper function reads the final SHA3 hash on complete data.
+ * @brief	This function is wrapper to read the final SHA2-384 hash on complete data.
  *
- * @param	ResHash	Pointer to storage for output SHA3 Hash.
+ * @param	ResHash	Pointer to store output SHA2-384 Hash.
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -90,20 +86,19 @@ static inline int XOcp_ShaUpdate(u8 *InDataAddr, u32 Size)
  **************************************************************************************************/
 static inline int XOcp_ShaFinish(u8 *ResHash)
 {
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
-	return XSecure_Sha3Finish(ShaInstPtr, (XSecure_Sha3Hash *)(UINTPTR)ResHash);
+	return XSecure_Sha384Finish((XSecure_Sha2Hash *)(UINTPTR)ResHash);
 }
 
 /**************************************************************************************************/
 /**
- * @brief	This wrapper function calls SHA3 digest on the given input data.
+ * @brief	This wrapper function calls SHA2-384 digest on the given input data.
  *
- * @param	Data		Starting address of the data on which sha3 hash should be calculated.
+ * @param	Data		Starting address of the data on which sha2-384 hash should be
+ * 				calculated.
  *
  * @param	Size		Size of the input data.
  *
- * @param	Hash		Pointer to storage for output SHA3 Hash.
+ * @param	Hash		Pointer to store output SHA2-384 Hash.
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -112,10 +107,7 @@ static inline int XOcp_ShaFinish(u8 *ResHash)
  **************************************************************************************************/
 static inline int XOcp_ShaDigest(u8* Data, u32 Size, u8* Hash)
 {
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
-	return XSecure_Sha3Digest(ShaInstPtr, (UINTPTR)Data, Size,
-				  (XSecure_Sha3Hash *)(UINTPTR)Hash);
+	return XSecure_Sha384Digest((u8 *)(UINTPTR)Data, Size, (u8 *)(UINTPTR)Hash);
 }
 
 /*********************************** Variable Definitions *****************************************/
