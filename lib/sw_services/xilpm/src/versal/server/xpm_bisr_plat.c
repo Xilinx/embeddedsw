@@ -655,7 +655,8 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 {
 	XStatus Status = XPM_ERR_BISR;
 	const XPm_Device *Device = NULL;
-	u32 RegValue, BaseAddr;
+	u32 BaseAddr = INVALID_ADDRESS;
+	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -715,8 +716,10 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	Status = XST_SUCCESS;
 
 done:
-	/* Write lock code to PCSR_LOCK register */
-	XPm_LockPcsr(BaseAddr);
+	if (INVALID_ADDRESS != BaseAddr) {
+		/* Write lock code to PCSR_LOCK register */
+		XPm_LockPcsr(BaseAddr);
+	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
