@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -994,10 +994,15 @@ static int DoSgTransfer(XAxiCdma *InstancePtr)
 *	a multiple BD scatter gather transfer
 *	another simple transfer
 *
+* @if SDT
+* @param	InstancePtr is a pointer to the XAxiCdma instance
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the INTC instance
 * @param	InstancePtr is a pointer to the XAxiCdma instance
 * @param	DeviceId is the Device Id of the XAxiCdma instance
 * @param	IntrId is the interrupt Id for the XAxiCdma instance in build
+* @endif
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
@@ -1005,6 +1010,7 @@ static int DoSgTransfer(XAxiCdma *InstancePtr)
 *
 * @note		If the hardware build has problems with interrupt, then this
 *		function hangs
+*
 *
 ******************************************************************************/
 #ifndef SDT

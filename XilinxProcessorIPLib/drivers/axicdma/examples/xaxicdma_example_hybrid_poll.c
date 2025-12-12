@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -700,7 +700,11 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 *	a scatter gather polled transfer with multiple BDs
 * 	a simple polled transfer
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device Id of the XAxiCdma instance
+* @endif
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
@@ -708,6 +712,7 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 *
 * @note		If the hardware build has problems with interrupt, then this
 *		function hangs
+*
 *
 ******************************************************************************/
 #ifndef SDT

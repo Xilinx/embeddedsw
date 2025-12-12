@@ -505,13 +505,19 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 /**
 * The example to do the scatter gather transfer through polling.
 *
+* @if SDT
+* @param	InstancePtr is a pointer to the XAxiCdma instance
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device Id of the XAxiCdma instance
+* @endif
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
 * 		- XST_FAILURE if error occurs
 *
 * @note		None
+*
 *
 ******************************************************************************/
 #ifndef SDT

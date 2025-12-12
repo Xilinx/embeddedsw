@@ -223,10 +223,15 @@ int main()
 /**
 * The example to do the simple transfer through interrupt.
 *
+* @if SDT
+* @param	InstancePtr is a pointer to the XAxiCdma instance
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the INTC instance
 * @param	InstancePtr is a pointer to the XAxiCdma instance
 * @param	DeviceId is the Device Id of the XAxiCdma instance
 * @param	IntrId is the interrupt Id for the XAxiCdma instance in build
+* @endif
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
@@ -234,6 +239,7 @@ int main()
 *
 * @note		If the hardware build has problems with interrupt,
 *		then this function hangs
+*
 *
 ******************************************************************************/
 #ifndef SDT

@@ -173,7 +173,12 @@ int main()
 * The example to do the simple transfer through polling. The constant
 * NUMBER_OF_TRANSFERS defines how many times a simple transfer is repeated.
 *
+* @if SDT
+* @param	InstancePtr is a pointer to the XAxiCdma instance
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device Id of the XAxiCdma instance
+* @endif
 *
 * @return
 *		- XST_SUCCESS if example finishes successfully

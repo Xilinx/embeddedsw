@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,16 +34,24 @@
 
 /*****************************************************************************/
 /**
- * Look up the hardware configuration for a device instance
- *
- * @param	DeviceId is the unique device ID of the device to lookup for
- *
- * @return	The configuration structure for the device. If the device ID
- *		is not found,a NULL pointer is returned.
- *
- * @note	None.
- *
- ******************************************************************************/
+*
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
+*
+* @if SDT
+* @param        BaseAddress contains the base address of the device
+* @else
+* @param        DeviceId contains the unique ID of the device
+* @endif
+*
+* @return
+*		A pointer to the configuration table entry corresponding to the given
+* 		device ID/BaseAddress, or NULL if no match is found.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*
+******************************************************************************/
 #ifndef SDT
 XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId)
 {
