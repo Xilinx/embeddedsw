@@ -523,8 +523,8 @@ typedef struct {
 	u8 IsCacheCoherent; /**< Applicable only to A53 in EL1 mode;
 				* describes whether Cache Coherent or not */
 #ifdef SDT
-	u16 IntrId;
-	UINTPTR IntrParent;
+	u16 IntrId;	/**< Interrupt number */
+	UINTPTR IntrParent;/**< Parent interrupt controller address */
 #endif
 #if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;	/**< Input clock */
@@ -533,9 +533,9 @@ typedef struct {
 	char *PhyType;     /**< PhyType indicates which type of PHY interface is
 			     *  used (MII, GMII, RGMII, etc.
 			     */
-        u32 PhyAddr;
-	UINTPTR MdioProducerBaseAddr;
-	u32 GmiitoRgmiiConvPhyAddr;
+        u32 PhyAddr;	/**< PHY address for MDIO register access */
+	UINTPTR MdioProducerBaseAddr;	/**< GEM Base address of MDIO Master */
+	u32 GmiitoRgmiiConvPhyAddr;	/**<  GMII-to-RGMII converter PHY address */
 #endif
 	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
 	u8 S1GDiv1;	/**< 1Gbps Clock Divider 1 */

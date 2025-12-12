@@ -385,15 +385,22 @@ int main(void)
 * sending and receiving frames in interrupt driven DMA mode.
 *
 *
+* @if SDT
+* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+*		driver.
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the Intc driver.
 * @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
 * @param	EmacPsDeviceId is Device ID of the EmacPs Device , typically
 *		XPAR_<EMACPS_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
 * @note		None.
+*
 *
 *****************************************************************************/
 #ifdef SDT
