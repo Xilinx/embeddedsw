@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,14 +102,19 @@ int main(void)
 * This function does a minimal test on the XCsudma driver.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
 * @note		None.
+*
 *
 ******************************************************************************/
 #ifndef SDT

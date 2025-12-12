@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -197,12 +197,18 @@ int main(void)
 * This function performs data transfer in loop back mode in interrupt mode
 * and verify the data.
 *
+* @if SDT
+* @param	CsuDmaInstance contains a pointer to the CSU DMA instance
+* 		which is going to be connected to the interrupt controller.
+* @param	BaseAddress contains the base address of the CsuDma device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the INTC.
 * @param	CsuDmaInstance contains a pointer to the CSU DMA instance
 * 		which is going to be connected to the interrupt controller.
 * @param	DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID macro value.
 * @param	IntrId is the interrupt Id and is typically
 * 		XPAR_<CSUDMA_instance>_INTR macro value.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.

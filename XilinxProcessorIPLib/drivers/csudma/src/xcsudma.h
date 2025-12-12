@@ -318,9 +318,9 @@ typedef struct {
 				 * 1 -- PMC DMA 0
 				 * 2 -- PMC DMA 1 */
 #ifdef SDT
-	u32 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
+	u32 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
 				 * trigger type and level flags */
-	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 #endif
 } XCsuDma_Config;
