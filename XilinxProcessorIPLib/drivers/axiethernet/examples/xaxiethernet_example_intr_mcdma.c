@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -347,6 +347,13 @@ int main(void)
 * and receiving frames in interrupt driven MCDMA mode.
 *
 *
+* @if SDT
+* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+*		AxiEthernet component.
+* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+*		component.
+* @param	AxiEthernetBaseAddress contains the base address of the AxiEthernet device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
 * @param	AxiEthernetInstancePtr is a pointer to the instance of the
@@ -362,6 +369,7 @@ int main(void)
 * @param	AxiEthernetIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
 *		value from xparameters.h.
+* @endif
 *
 * @return	-XST_SUCCESS to indicate success
 *		-XST_FAILURE to indicate failure
@@ -370,6 +378,9 @@ int main(void)
 *		AxiEthernet. Since AxiMcdma reset line is connected to the
 *		AxiEthernet reset line, a reset of AxiMcdma hardware during its
 *		initialization would reset AxiEthernet.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

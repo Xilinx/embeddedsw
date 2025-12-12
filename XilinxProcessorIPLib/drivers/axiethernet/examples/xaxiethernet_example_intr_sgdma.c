@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -420,6 +420,13 @@ int main(void)
 * and receiving frames in interrupt driven SGDMA mode.
 *
 *
+* @if SDT
+* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+*		AxiEthernet component.
+* @param	DmaInstancePtr is a pointer to the instance of the AXIDMA
+*		component.
+* @param	AxiEthernetBaseAddress contains the base address of the AxiEthernet device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
 * @param	AxiEthernetInstancePtr is a pointer to the instance of the
@@ -439,6 +446,7 @@ int main(void)
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMARX_INTR
 * @param	DmaTxIntrId is the interrupt id for DMA Tx and is typically
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMATX_INTR
+* @endif
 *
 * @return	-XST_SUCCESS to indicate success
 *		-XST_FAILURE to indicate failure

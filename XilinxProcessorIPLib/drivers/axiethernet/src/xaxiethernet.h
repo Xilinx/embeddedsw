@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -749,7 +749,7 @@ typedef struct XAxiEthernet_Config {
 #ifndef SDT
 	u16 DeviceId;	/**< DeviceId is the unique ID  of the device */
 #else
-	char *Name;
+	char *Name;	/**< Unique name of the device */
 #endif
 	UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
 			  *  device's registers
@@ -771,7 +771,9 @@ typedef struct XAxiEthernet_Config {
 			  *  used (MII, GMII, RGMII, etc.
 			  */
 #else
-	char *PhyType;
+	char *PhyType;	/**< PhyType indicates which type of PHY interface is
+                          *  used (MII, GMII, RGMII, etc.
+                          */
 #endif
 	u8 TxVlanTran;  /**< TX VLAN Translation indication */
 	u8 RxVlanTran;  /**< RX VLAN Translation indication */
@@ -787,9 +789,9 @@ typedef struct XAxiEthernet_Config {
 	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
 	u8 NumTableEntries;	/**< Number of table entries */
 #ifdef SDT
-	u32 PhyAddr;
-	u16 IntrId; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 PhyAddr;	/**< PHY address for MDIO register access */
+	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 	UINTPTR AxiDevBaseAddress; /**< Bit[3:0] AxiDevType is the type of device attached to the
 				 * Axi Ethernet's AXI4-Stream interface
 				 * Bit[64/32:4] AxiDevBaseAddress is the base address of

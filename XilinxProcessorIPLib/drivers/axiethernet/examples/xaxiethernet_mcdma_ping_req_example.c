@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -386,6 +386,13 @@ int main()
 * mode. This function will generate specified number of request packets as
 * defined in "NUM_OF_PING_REQ_PKTS.
 *
+* @if SDT
+* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+*		AxiEthernet component.
+* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+*		component.
+* @param	AxiEthernetBaseAddress contains the base address of the AxiEthernet device
+* @else
 * @param	AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
 * @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
@@ -396,6 +403,7 @@ int main()
 * @param	AxiMcDmaDeviceId is Device ID of the Axi DMAA Device ,
 *		typically XPAR_<AXIMCDMA_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_FAILURE to indicate failure, otherwise it will return
 *		XST_SUCCESS.
@@ -404,6 +412,7 @@ int main()
 *		AxiEthernet. Since AxiMcdma reset line is connected to the
 *		AxiEthernet reset line, a reset of AxiMcdma hardware during its
 *		initialization would reset AxiEthernet.
+*
 *
 ******************************************************************************/
 #ifndef SDT
