@@ -28,6 +28,8 @@
 * 9.2   ml   19/09/24 Fix compilation warnings by typecasting and adding
 *                     conditional compilation checks.
 * 9.4   ml   24/07/24 Fixed GCC warnings
+* 9.5   vmt  12/12/25 Fixed XConfigInterruptCntrl() to check IsReady, preventing
+* 		      re-initialization that clears interrupt enables.
 * </pre>
 *
 ******************************************************************************/
@@ -88,7 +90,7 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
-		if (XIntcInstance.IsStarted != XIL_COMPONENT_IS_STARTED) {
+		if (XIntcInstance.IsReady != XIL_COMPONENT_IS_READY) {
 			Status = XIntc_Initialize(&XIntcInstance, BaseAddr);
 		} else {
 			Status = XST_SUCCESS;
