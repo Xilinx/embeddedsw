@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,16 +49,21 @@ extern XEmacLite_Config XEmacLite_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* Lookup the device configuration based on the unique device ID.  The table
-* XEmacLite_ConfigTable contains the configuration info for each device in the
-* system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
 *
-* @param 	DeviceId is the unique device ID of the device being looked up.
+* @if SDT
+* @param        BaseAddress contains the base address of the device
+* @else
+* @param        DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+* @return
+*		A pointer to the configuration table entry corresponding to the given
+* 		device ID/BaseAddress, or NULL if no match is found.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifdef SDT

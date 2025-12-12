@@ -261,13 +261,16 @@ int main()
 * mode. This function will generate specified number of request packets as
 * defined in "NUM_OF_PING_REQ_PKTS.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the EmacLite device
+* @else
 * @param	DeviceId is device ID of the XEmacLite Device.
+* @endif
 *
 * @return	XST_FAILURE to indicate failure, otherwise it will return
 *		XST_SUCCESS.
 *
 * @note		None.
-*
 ******************************************************************************/
 #ifdef SDT
 static int EmacLitePingReqExample(UINTPTR BaseAddress)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,12 +146,17 @@ int main()
 * interface loop back (in the PHY device) and verify the data in the received
 * frame.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the EmacLite device
+* @else
 * @param	DeviceId is device ID of the XEmacLite Device , typically
 *		XPAR_<EMACLITE_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
 * @note		None.
+*
 *
 ******************************************************************************/
 #ifdef SDT

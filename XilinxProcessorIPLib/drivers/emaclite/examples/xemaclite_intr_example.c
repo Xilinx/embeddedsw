@@ -193,6 +193,10 @@ int main()
 * This function simply transmits a frame if the MDIO interface is not
 * configured in the EmacLite core.
 *
+* @if SDT
+* @param	EmacLiteInstPtr is a pointer to the instance of the EmacLite.
+* @param	EmacLiteBaseAddr contains the base address of the EmacLite device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the Intc.
 * @param	EmacLiteInstPtr is a pointer to the instance of the EmacLite.
 * @param	EmacLiteDeviceId is device ID of the XEmacLite Device ,
@@ -201,10 +205,12 @@ int main()
 * @param	EmacLiteIntrId is the interrupt ID and is typically
 *		XPAR_<INTC_instance>_<EMACLITE_instance>_VEC_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note		None.
+*
 *
 ******************************************************************************/
 #ifdef SDT

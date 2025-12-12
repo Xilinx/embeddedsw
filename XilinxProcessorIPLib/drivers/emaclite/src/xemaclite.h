@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -223,7 +223,7 @@ extern "C" {
  */
 typedef struct {
 #ifdef SDT
-	char *Name;
+	char *Name;	/**< Unique name of the device */
 #else
 	u16 DeviceId;	 /**< Unique ID  of device */
 #endif
@@ -233,8 +233,8 @@ typedef struct {
 	u8 MdioInclude;  /**< 1 if MDIO is enabled, 0 otherwise */
 	u8 Loopback;     /**< 1 if internal loopback is enabled, 0 otherwise */
 #ifdef SDT
-	u16 IntrId;
-	UINTPTR IntrParent;
+	u16 IntrId;	/**< Interrupt number */
+	UINTPTR IntrParent;	/**< Parent interrupt controller address */
 #endif
 } XEmacLite_Config;
 

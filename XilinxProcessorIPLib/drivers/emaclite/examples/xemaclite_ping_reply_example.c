@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -216,13 +216,18 @@ int main()
 *
 * The entry point for the EmacLite Ping reply example in polled mode.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the EmacLite device
+* @else
 * @param	DeviceId is device ID of the XEmacLite Device.
+* @endif
 *
 * @return	XST_FAILURE to indicate failure, otherwise XST_SUCCESS is
 *		returned.
 *
 * @note		This is in a continuous loop generating a specified number of
 *		ping replies as defined by MAX_PING_REPLIES.
+*
 *
 ******************************************************************************/
 #ifdef SDT

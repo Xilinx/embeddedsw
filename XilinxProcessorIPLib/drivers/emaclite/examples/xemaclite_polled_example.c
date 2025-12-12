@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -132,12 +132,17 @@ int main()
 * This function simply transmits a frame if the MDIO interface is not
 * configured in the EmacLite core.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the EmacLite device
+* @else
 * @param	DeviceId is device ID of the XEmacLite Device , typically
 *		XPAR_<EMAC_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS to indicate success, XST_FAILURE otherwise.
 *
 * @note		None.
+*
 *
 ******************************************************************************/
 #ifdef SDT
