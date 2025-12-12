@@ -52,6 +52,8 @@
 *       tvp  10/01/2025 Handle data measurement for image with both
 *                       authenticated/non-authenticated/checksum enabled
 *                       partitions
+*       pre  12/12/2025 Added warning message for user indication if PCR info
+*                       is added in BIF without enabling TPM feature.
 *
 * </pre>
 *
@@ -462,10 +464,10 @@ END:
 int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 #ifdef PLM_TPM
 	volatile int TmpStatus = XST_FAILURE;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
-	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	u32 Index;
 	u32 AuthPrtnCount = 0;
 	XSecure_Sha3Hash *PtrnHashTablePtr;
@@ -571,6 +573,10 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 END:
 #else
 	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if ((PcrInfo  & XLOADER_PCR_NUMBER_MASK) != XLOADER_PCR_NUMBER_MASK) {
+		XPlmi_Printf(DEBUG_GENERAL, "Warning: PCR extension failed for "
+					"image 0x%0x since TPM feature is disabled\r\n",PdiPtr->ImageNum);
+	}
 #endif
 	return Status;
 }
