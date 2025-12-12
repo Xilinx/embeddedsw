@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -234,29 +234,29 @@ typedef struct {
 
 typedef struct {
 #ifndef SDT
-	u32 DeviceId;
+	u32 DeviceId;	/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;	/**< Unique name of the device */
 #endif
-	UINTPTR BaseAddress;
-	int AddrWidth;
-	int Has_SingleIntr;
-	int HasMM2S;
-	int HasMM2SDRE;
-	int TxNumChannels;
-	int HasS2MM;
-	int HasS2MMDRE;
-	int RxNumChannels;
-	int MM2SDataWidth;
-	int S2MMDataWidth;
-	u32 MaxTransferlen;
-	int HasStsCntrlStrm;
-	int HasRxLength;
+	UINTPTR BaseAddress;	/**< Base address of the MCDMA device */
+	int AddrWidth;		/**< Address width in bits (32 or 64) */
+	int Has_SingleIntr;	/**< Single interrupt mode flag */
+	int HasMM2S;		/**< Has Memory to Stream channels */
+	int HasMM2SDRE;		/**< Has MM2S Data Realignment Engine */
+	int TxNumChannels;	/**< Number of transmit (MM2S) channels */
+	int HasS2MM;		/**< Has Stream to Memory channels */
+	int HasS2MMDRE;		/**< Has S2MM Data Realignment Engine */
+	int RxNumChannels;	/**< Number of receive (S2MM) channels */
+	int MM2SDataWidth;	/**< MM2S data width in bits */
+	int S2MMDataWidth;	/**< S2MM data bus width in bits */
+	u32 MaxTransferlen;	/**< Maximum transfer length per transaction */
+	int HasStsCntrlStrm;	/**< Status/Control stream interface present */
+	int HasRxLength;	/**< Receive length reporting capability */
 	u8 IsTxCacheCoherent; /**< Describes whether Cache Coherent or not */
 	u8 IsRxCacheCoherent; /**< Describes whether Cache Coherent or not */
 #ifdef SDT
-	u16 IntrId[32]; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 IntrId[32]; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XMcdma_Config;
 
