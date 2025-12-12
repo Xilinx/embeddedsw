@@ -462,6 +462,9 @@ else()
             set(FABS_FUN "#define fabs( x ) __builtin_fabs( x )")
             set(SET_INT_MASK_FROM_ISR
            "#define portSET_INTERRUPT_MASK_FROM_ISR() uxPortSetInterruptMask()")
+	elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+	    set(SET_INT_MASK_FROM_ISR
+           "#define portSET_INTERRUPT_MASK_FROM_ISR() ulPortSetInterruptMask()")
         endif()
     elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
         set(SET_INT_MASK_FROM_ISR
