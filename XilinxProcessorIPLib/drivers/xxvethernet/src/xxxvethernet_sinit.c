@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,18 +44,22 @@
 
 /*****************************************************************************/
 /**
-* XXxvEthernet_LookupConfig returns a reference to an XXxvEthernet_Config
-* structure based on an unique device id, <i>DeviceId</i>. The return value
-* will refer to an entry in the device configuration table defined in the
-* xxxvethernet_g.c file.
 *
-* @param	DeviceId is the unique ID for the lookup operation.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
+*
+* @if SDT
+* @param        BaseAddress contains the base address of the device
+* @else
+* @param        DeviceId contains the unique ID of the device
+* @endif
 *
 * @return
-*		- Returns a reference to a config record in the
-*		  configuration table (in xxxvethernet_g.c) corresponding to
-*		  <i>DeviceId</i>, or NULL
-*		- NULL if no match is found.
+*		A pointer to the configuration table entry corresponding to the given
+* 		device ID/BaseAddress, or NULL if no match is found.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifdef SDT

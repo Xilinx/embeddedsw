@@ -252,7 +252,13 @@ int main(void)
 * This function demonstrates the usage usage of the USXGMII by sending
 * and receiving frames in interrupt driven MCDMA mode.
 *
-*
+* @if SDT
+* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+*		XxvEthernet component.
+* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+*		component.
+* @param	XxvBaseAddress contains the base address of the XxvEthernet device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
 * @param	XxvEthernetInstancePtr is a pointer to the instance of the
@@ -265,6 +271,8 @@ int main(void)
 * @param	AxiMcDmaDeviceId is Device ID of the Axi MCDMA Device ,
 *		typically XPAR_<AXIMCDMA_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
+*
 * @return	-XST_SUCCESS to indicate success
 *		-XST_FAILURE to indicate failure
 *
