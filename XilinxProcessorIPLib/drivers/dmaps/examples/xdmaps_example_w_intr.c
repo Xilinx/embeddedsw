@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -157,7 +157,13 @@ int main(void)
  *
  * Interrupt Example to test the DMA.
  *
+ * @if SDT
+ * @param	DmapsInstPtr is a pointer to the DMA PS instance.
+ * @param	BaseAddress contains the base address of the DmaPs device
+ * @else
+ * @param	GicPtr is a pointer to the interrupt controller instance.
  * @param	DeviceId is the Device ID of the DMA controller.
+ * @endif
  *
  * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
  *

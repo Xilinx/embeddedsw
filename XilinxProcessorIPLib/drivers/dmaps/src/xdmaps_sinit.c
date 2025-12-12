@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,19 +48,21 @@ extern XDmaPs_Config XDmaPs_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. The table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* A table contains the configuration info for each device in the system.
 *
-* @param DeviceId contains the ID of the device
+* @if SDT
+* @param        BaseAddress contains the base address of the device
+* @else
+* @param        DeviceId contains the unique ID of the device
+* @endif
 *
 * @return
+* 		A pointer to the configuration table entry corresponding to the given
+* 		device ID/BaseAddress, or NULL if no match is found.
 *
-* A pointer to the configuration structure or NULL if the specified device
-* is not in the system.
-*
-* @note
-*
-* None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
