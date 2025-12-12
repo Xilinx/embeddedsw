@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -395,7 +395,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;         /**< DeviceId is the unique ID  of the device */
 #else
-	char *Name;
+	char *Name;		/**< Unique name of the device */
 #endif
 	UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
                             *  device's registers */
@@ -450,8 +450,8 @@ typedef struct {
 							   configuration parameter */
 	int AddrWidth;		  /**< Address Width */
 	u8 HasVFlip;		 /**< Whether hardware has Vertical Flip enabled(c_enable_vert_flip) */
-	u16 IntrId[2]; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 IntrId[2]; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 } XAxiVdma_Config;
 
 /**
