@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -111,13 +111,18 @@ int main()
 * This function performance a reset of the DMA device and checks the device is
 * coming out of reset or not.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the DMA device id.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if channel reset is successful
 *		- XST_FAILURE if channel reset fails.
 *
 * @note		None.
+*
 *
 ******************************************************************************/
 #ifndef SDT

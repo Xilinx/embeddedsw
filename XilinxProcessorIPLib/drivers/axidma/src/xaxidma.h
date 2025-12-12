@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -508,30 +508,30 @@ typedef struct XAxiDma {
  */
 typedef struct {
 #ifndef SDT
-	u32 DeviceId;
+	u32 DeviceId;	/**< Unique ID  of the device */
 #else
-	char *Name;
+	char *Name;	/**< Unique name of the device */
 #endif
-	UINTPTR BaseAddr;
+	UINTPTR BaseAddr;	/**< Base address of the device */
 
-	int HasStsCntrlStrm;
-	int HasMm2S;
-	int HasMm2SDRE;
-	int Mm2SDataWidth;
-	int HasS2Mm;
-	int HasS2MmDRE;
-	int S2MmDataWidth;
-	int HasSg;
-	int Mm2sNumChannels;
-	int S2MmNumChannels;
-	int Mm2SBurstSize;
-	int S2MmBurstSize;
-	int MicroDmaMode;
+	int HasStsCntrlStrm;	/**< Has status and control streams */
+	int HasMm2S;		/**< Has memory to stream channel */
+	int HasMm2SDRE;		/**< Has MM2S data realignment engine */
+	int Mm2SDataWidth;	/**< MM2S data width in bits */
+	int HasS2Mm;		/**< Has stream to memory channel */
+	int HasS2MmDRE;		/**< Has S2MM data realignment engine */
+	int S2MmDataWidth;	/**< S2MM data width in bits */
+	int HasSg;		/**< Has scatter gather support */
+	int Mm2sNumChannels;	/**< Number of MM2S channels */
+	int S2MmNumChannels;	/**< Number of S2MM channels */
+	int Mm2SBurstSize;	/**< Maximum burst length for MM2S channel (in beats) */
+	int S2MmBurstSize;	/**< Maximum burst length for S2MM channel (in beats) */
+	int MicroDmaMode;	/**< Micro DMA mode enable */
 	int AddrWidth;		  /**< Address Width */
-	int SgLengthWidth;
+	int SgLengthWidth;	/**< Scatter Gather transfer length field width */
 #ifdef SDT
-	u16 IntrId[2]; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 IntrId[2]; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XAxiDma_Config;
 
