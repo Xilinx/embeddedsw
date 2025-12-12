@@ -174,12 +174,18 @@ int main(void)
 * This function does a test of the data transfer in simple mode of normal mode
 * on the ZDMA driver.
 *
+* @if SDT
+* @param	ZdmaInstPtr contains a pointer to the ZDMA instance which
+*		is going to be connected to the interrupt controller.
+* @param	BaseAddress contains the base address of the ZDMA device
+* @else
 * @param	IntcInstPtr is a pointer to the instance of the INTC.
 * @param	ZdmaInstPtr contains a pointer to the ZDMA instance which
 *		is going to be connected to the interrupt controller.
 * @param	DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID macro value.
 * @param	IntrId is the interrupt Id and is typically
 *		XPAR_<ZDMA_instance>_INTR macro value.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.

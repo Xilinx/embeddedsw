@@ -151,8 +151,12 @@ int main(void)
 * This function does a test of the data transfer in linked mode on the ZDMA
 * driver.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the ZDMA device
+* @else
 * @param	DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.

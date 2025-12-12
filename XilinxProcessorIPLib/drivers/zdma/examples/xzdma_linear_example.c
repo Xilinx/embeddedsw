@@ -158,14 +158,19 @@ int main(void)
 * This function does a test of the data transfer in linear mode on the ZDMA
 * driver.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
 * @note		None.
+*
 *
 ******************************************************************************/
 #ifndef SDT
