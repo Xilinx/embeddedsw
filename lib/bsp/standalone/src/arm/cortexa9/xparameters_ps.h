@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -243,6 +244,24 @@ extern "C" {
 #define XPS_FPGA13_INT_ID		89U
 #define XPS_FPGA14_INT_ID		90U
 #define XPS_FPGA15_INT_ID		91U
+
+#define XPAR_FPGA0_INT_ID       0x401DU
+#define XPAR_FPGA1_INT_ID       0x401EU
+#define XPAR_FPGA2_INT_ID       0x401FU
+#define XPAR_FPGA3_INT_ID       0x4020U
+#define XPAR_FPGA4_INT_ID       0x4021U
+#define XPAR_FPGA5_INT_ID       0x4022U
+#define XPAR_FPGA6_INT_ID       0x4023U
+#define XPAR_FPGA7_INT_ID       0x4024U
+#define XPAR_FPGA8_INT_ID       0x4034U
+#define XPAR_FPGA9_INT_ID       0x4035U
+#define XPAR_FPGA10_INT_ID      0x4036U
+#define XPAR_FPGA11_INT_ID      0x4037U
+#define XPAR_FPGA12_INT_ID      0x4038U
+#define XPAR_FPGA13_INT_ID      0x4039U
+#define XPAR_FPGA14_INT_ID      0x403AU
+#define XPAR_FPGA15_INT_ID      0x403BU
+
 
 /* Private Peripheral Interrupts (PPI) */
 #define XPS_GLOBAL_TMR_INT_ID		27U	/* SCU Global Timer interrupt */

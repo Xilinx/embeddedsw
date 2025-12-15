@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -178,6 +178,24 @@ extern "C" {
 #define XPS_FPGA13_INT_ID		141U
 #define XPS_FPGA14_INT_ID		142U
 #define XPS_FPGA15_INT_ID		143U
+
+#define XPAR_FPGA0_INTERRUPT_ID 0x4059U
+#define XPAR_FPGA1_INTERRUPT_ID 0x405AU
+#define XPAR_FPGA2_INTERRUPT_ID 0x405BU
+#define XPAR_FPGA3_INTERRUPT_ID 0x405CU
+#define XPAR_FPGA4_INTERRUPT_ID 0x405DU
+#define XPAR_FPGA5_INTERRUPT_ID 0x405EU
+#define XPAR_FPGA6_INTERRUPT_ID 0x405FU
+#define XPAR_FPGA7_INTERRUPT_ID 0x4060U
+#define XPAR_FPGA8_INTERRUPT_ID 0x4068U
+#define XPAR_FPGA9_INTERRUPT_ID 0x4069U
+#define XPAR_FPGA10_INTERRUPT_ID 0x406AU
+#define XPAR_FPGA11_INTERRUPT_ID 0x406BU
+#define XPAR_FPGA12_INTERRUPT_ID 0x406CU
+#define XPAR_FPGA13_INTERRUPT_ID 0x406DU
+#define XPAR_FPGA14_INTERRUPT_ID 0x406EU
+#define XPAR_FPGA15_INTERRUPT_ID 0x406FU
+
 
 /* Updated Interrupt-IDs */
 #define XPS_OCMINTR_INT_ID		(10U + 32U)
