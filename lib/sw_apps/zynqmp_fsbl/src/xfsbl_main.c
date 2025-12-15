@@ -27,7 +27,9 @@
 * 3.1   ng   03/09/24 Fixed format specifier for 32bit variables
 * 4.0   sd   04/26/25 Add TPM read function conditionally
 *       sd   08/14/25 Added function to get Reset reason
-*       sd   17/09/25 Fix POS intermittent hang issue
+*       sd   09/17/25 Fix POS intermittent hang issue
+*       sd   12/15/25 Add PLL init function to re-initialization for
+*                     POS use case
 *
 * </pre>
 *
@@ -87,6 +89,7 @@ int main(void )
 
 	WarmBoot = XFsbl_HookGetPosBootType();
 	if (0U != WarmBoot) {
+		(void)psu_pll_init_data();
 		XFsbl_Exit((PTRSIZE)0U, XFSBL_POS_HANDOFFEXIT);
 	}
 #endif

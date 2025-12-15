@@ -32,8 +32,9 @@
 * 8.0   prt  02/06/25 Updated SDK release year and SDK release quarter
 * 9.0   aa   06/19/25 Updated SDK release version
 *       sd   08/14/25 Added function declaration
-*       sd   17/09/25 Added POS Handoff macro
-* 10.0  aa   03/11/25 Updated SDK release version
+*       sd   09/17/25 Added POS Handoff macro
+* 10.0  aa   11/03/25 Updated SDK release version
+*       sd   12/15/25 Added PLL init function prototype
 *
 * </pre>
 *
@@ -214,12 +215,21 @@ void XFsbl_MarkDdrAsReserved(u8 Cond);
  */
 u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 u32 XFsbl_PowerUpMemory(u32 MemoryType);
+
 /**
  * Functions defined in xfsbl_handoff.c
  */
 u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff);
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags);
 u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum);
+
+/**
+ * Functions defined in psu_init.c
+ */
+#ifdef ENABLE_POS
+unsigned long psu_pll_init_data(void);
+#endif
+
 /************************** Variable Definitions *****************************/
 
 
