@@ -278,6 +278,9 @@ extern "C" {
 
 #define PdiSrc_t			u32	/**< Alias for u32 */
 
+/**
+ * Structure to map PDI source names to their indices
+ */
 typedef struct {
 	const char* Name;	/**< Name of PDI source */
 	u8 Index;		/**< Index of PDI source */
@@ -325,7 +328,7 @@ typedef struct {
 #define XLOADER_CL_AFTER_BOOT		(0x1U)	/**< After successful boot */
 
 /**************************** Type Definitions *******************************/
-/*
+/**
  * This stores the handoff Address of the different cpu's
  */
 typedef struct {
@@ -333,6 +336,9 @@ typedef struct {
 	u64 HandoffAddr;	/**< Handoff address for CPU */
 } XLoader_HandoffParam;
 
+/**
+ * Structure to hold device operation function pointers
+ */
 typedef struct {
 	int (*Init) (u32 DeviceFlags); /**< Function pointer for Device
 				initialization code */
@@ -341,7 +347,7 @@ typedef struct {
 	int (*Release) (void);	/**< Function pointer for device release */
 } XLoader_DeviceOps;
 
-/*
+/**
  * This is PDI instance pointer. This stores all the information
  * required for PDI
  */
@@ -371,10 +377,10 @@ typedef struct {
 	u32 ImagePrtnId; /**< Partition number in the Image */
 } XilPdi __attribute__ ((aligned(4U)));
 
-/*
-* This BootPDI info struct is to store required config
-* for later use.
-*/
+/**
+ * This BootPDI info struct is to store required config
+ * for later use.
+ */
 typedef struct {
 	u32 PdiSrc; /**< Pdi Source */
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
@@ -384,7 +390,9 @@ typedef struct {
 #endif
 }XilBootPdiInfo;
 
-/* Structure to store various parameters for Device Copy */
+/**
+ * Structure to store various parameters for Device Copy
+ */
 typedef struct {
 	u64 SrcAddr;	/**< Source Address */
 	u64 DestAddr;	/**< Desrination Address */
@@ -392,22 +400,33 @@ typedef struct {
 	u32 Flags;	/**< Flags indicate mode of copying */
 } XLoader_DeviceCopy;
 
-/* Structure to store various parameters for processing partitions */
+/**
+ * Structure to store various parameters for processing partitions
+ */
 typedef struct {
 	XLoader_DeviceCopy DeviceCopy; /**< Device Copy instance */
 	u32 DstnCpu;	/**< Destination Cpu */
 } XLoader_PrtnParams;
 
+/**
+ * Structure to store information about image info table
+ */
 typedef struct {
 	u32 Count;	/**< Number of images */
 	u8 IsBufferFull;	/**< Flag to indicate if buffer is full */
 } XLoader_ImageInfoTbl;
 
+/**
+ * Structure to hold PDI information
+ */
 typedef struct {
 	u32 PdiId;	/**< PDI ID */
 	u64 PdiAddr;	/**< Address of PDI */
 } XLoader_PdiInfo;
 
+/**
+ * Structure to hold Image Store information
+ */
 typedef struct {
 	u64 PdiImgStrAddr; /**< Image Store address */
 	u32 PdiImgStrSize;/**< Image Store Memory Size */
@@ -415,6 +434,9 @@ typedef struct {
 	u8 Count;	/**< Number of images in Image Store */
 } XLoader_ImageStore;
 
+/**
+ * Structure to hold Image Measurement information
+ */
 typedef struct {
 	u64 DataAddr;	/**< Address of data to be extended to PCR */
 	u32 DataSize;	/**< Size of data to be extended to PCR */
@@ -448,13 +470,8 @@ static inline PdiSrc_t XLoader_GetBootMode(void)
 /************************** Function Prototypes ******************************/
 int XLoader_Init(void);
 XilPdi *XLoader_GetPdiInstance(void);
-/**
- * @}
- * @endcond
- */
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 /**
- * @{
  * @cond xloader_internal
  */
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
@@ -502,8 +519,6 @@ int XLoader_PpdiEventHandling(PdiSrc_t PdiSrc, u64 PdiAddr, u32 IpiMask);
 #endif  /* XLOADER_H */
 
 /**
- * @}
  * @endcond
  */
 
-/** @} */

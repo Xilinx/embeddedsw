@@ -601,3 +601,5 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr, const XLoader_O
 END:
 	return Status;
 }
+
+/** @} end of xloader_client_apis group */

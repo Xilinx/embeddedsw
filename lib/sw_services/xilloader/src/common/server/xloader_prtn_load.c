@@ -812,3 +812,5 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 END:
 	return Status;
 }
+
+/** @} end of xloader_server_apis group */

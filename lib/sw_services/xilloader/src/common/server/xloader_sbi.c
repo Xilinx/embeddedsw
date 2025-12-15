@@ -236,3 +236,5 @@ u8 XLoader_IsJtagSbiMode(void)
 				(TRUE) : (FALSE));
 }
 #endif /* end of XLOADER_SBI */
+
+/** @} end of xloader_sbi_apis group */

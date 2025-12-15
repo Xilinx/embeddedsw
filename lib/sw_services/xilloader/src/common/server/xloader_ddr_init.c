@@ -424,3 +424,5 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 	return XST_SUCCESS;
 }
 #endif
+
+/** @} end of xloader_server_apis group */

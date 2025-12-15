@@ -990,3 +990,5 @@ int XLoader_QspiRelease(void)
 	return Status;
 }
 #endif
+
+/** @} end of xloader_qspi_apis group */

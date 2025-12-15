@@ -1157,3 +1157,5 @@ static int XLoader_UsbReqSetFeature(const struct Usb_DevData *InstancePtr,
 	return Status;
 }
 #endif
+
+/** @} end of xloader_usb_apis group */

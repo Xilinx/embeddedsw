@@ -47,6 +47,7 @@
 /**
  * @brief	This function sends IPI request to the target module and gets the response from it.
  *
+ * @param	ClientPtr	Pointer to the client instance.
  * @param	MsgPtr		Pointer to the payload message.
  * @param	MsgLen		Length of the message.
  *
@@ -114,3 +115,5 @@ int XLoader_ClientInit(XLoader_ClientInstance* InstancePtr, XMailbox* MailboxPtr
 
 	return Status;
 }
+
+/** @} end of xloader_client_apis group */

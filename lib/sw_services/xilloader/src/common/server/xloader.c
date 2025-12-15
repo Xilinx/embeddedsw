@@ -288,10 +288,7 @@ static int XLoader_VerifyIHsAndPHs(XLoader_SecureParams *SecurePtr);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
-/**
- * @{
- * @cond xloader_internal
- */
+/** @cond xloader_internal */
 static const XLoader_DeviceOps DeviceOps[] =
 {
 	{XLoader_SbiInit, XLoader_SbiCopy, XLoader_SbiRecovery}, /* JTAG, SBI, SMAP, PCIE */
@@ -329,10 +326,7 @@ static const XLoader_DeviceOps DeviceOps[] =
 #endif
 };
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -2473,3 +2467,5 @@ static int XLoader_VerifyIHsAndPHs(XLoader_SecureParams *SecurePtr)
 END:
 	return Status;
 }
+
+/** @} end of xloader_server_apis group */

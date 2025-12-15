@@ -476,45 +476,60 @@ typedef struct {
 } XLoader_AuthCertificate;
 
 #else
+/**
+ * Hash Block structure containing partition hashes
+ */
 typedef struct {
 	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U] __attribute__ ((aligned(32U))); /**< HashBlock containing partition hashes */
 } XLoader_HashBlock;
 
+/**
+ * Structure for SPK Header
+ */
 typedef struct {
-        u32 TotalSPKSize;
-        u32 SPKSize;
-        u32 TotalSignatureSize;
-        u32 SignatureSize;
-        u32 SPKId;
-        u32 SPKPriv;
-        u32 Reserved[2U];
+        u32 TotalSPKSize;	/**< Total SPK Size */
+        u32 SPKSize;	/**< Actual SPK Size */
+        u32 TotalSignatureSize;	/**< Total Signature Size */
+        u32 SignatureSize;	/**< Actual Signature Size */
+        u32 SPKId;	/**< SPK ID */
+        u32 SPKPriv;	/**< SPK Private */
+        u32 Reserved[2U];	/**< Reserved */
 } XLoader_SpkHeader;
 
+/**
+ * Structure for Hash Block Authentication Certificate
+ */
 typedef struct {
-	XLoader_RsaKey Ppk;
-	XLoader_SpkHeader SpkHeader;
-	XLoader_RsaKey Spk;
-	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
-	u8 HBSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
-	u32 AuthHdr;
-	u32 SpkId;
+	XLoader_RsaKey Ppk;	/**< PPK */
+	XLoader_SpkHeader SpkHeader;	/**< SPK Header */
+	XLoader_RsaKey Spk;	/**< SPK */
+	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];	/**< SPK Signature */
+	u8 HBSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];	/**< Hash Block Signature */
+	u32 AuthHdr;	/**< Authentication Header */
+	u32 SpkId;	/**< SPK ID */
 } XLoader_HBAuthCertificate;
 
+/**
+ * Structure for Hash Block Sign Parameters
+ */
 typedef struct {
-	u32 ReadOffset;
-	u32 TotalPpkSize;
-	u32 ActualPpkSize;
-	u32 TotalHBSignSize;
-	u32 ActualHBSignSize;
-	u32 HBSize;
-	u32 AuthHdr;
+	u32 ReadOffset;	/**< Read Offset */
+	u32 TotalPpkSize;	/**< Total PPK Size */
+	u32 ActualPpkSize;	/**< Actual PPK Size */
+	u32 TotalHBSignSize;	/**< Total Hash Block Sign Size */
+	u32 ActualHBSignSize;	/**< Actual Hash Block Sign Size */
+	u32 HBSize;	/**< Hash Block Size */
+	u32 AuthHdr;	/**< Authentication Header */
 } XLoader_HBSignParams;
 
+/**
+ * Structure for Hash Block AES Parameters
+ */
 typedef struct {
-	u32 HashBlockOffset;
-	u32 HashBlockSize;
-	XSecure_AesKeySrc KeySrc;
-	u8 *IvPtr;
+	u32 HashBlockOffset;	/**< Hash Block Offset */
+	u32 HashBlockSize;	/**< Hash Block Size */
+	XSecure_AesKeySrc KeySrc;	/**< AES Key Source */
+	u8 *IvPtr;	/**< Pointer to IV */
 } XLoader_HBAesParams;
 
 typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
@@ -531,7 +546,9 @@ typedef enum {
 #endif
 } XLoader_AuthType;
 
-/**< PPK selection type */
+/**
+ * PPK selection type
+ */
 typedef enum {
 	XLOADER_PPK_SEL_0,	/**< 0 - PPK 0 */
 	XLOADER_PPK_SEL_1,	/**< 1 - PPK 1 */
@@ -542,7 +559,9 @@ typedef enum {
 #endif
 } XLoader_PpkSel;
 
-/**< RSA signature vars */
+/**
+ * RSA signature vars
+ */
 typedef struct
 {
 	u8 EmHash[48];	/**< EM hash */
@@ -551,7 +570,9 @@ typedef struct
 } XLoader_Vars;
 
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
-/**< Authenticated Message structure for Versal and Versal Net */
+/**
+ * Authenticated JTAG Message structure for Versal and Versal Net
+ */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
 	u32 RevocationIdMsgType;	/**< Revocation ID */
@@ -567,7 +588,9 @@ typedef struct {
 				/**< Auth JTAG signature */
 } XLoader_AuthJtagMessage;
 #else
-/**< Authenticated Message structure for Versal_2VE_2VM */
+/**
+ * Authenticated JTAG Message structure for Versal_2VE_2VM
+ */
 typedef struct {
 	u32 IdWord;	/**< Identification word for Authenticated JTAG message */
 	u32 AuthJtagMessageLen;	/**< Size of Authenticated JTAG message in bytes */
@@ -584,6 +607,9 @@ typedef struct {
 	void* AuthJtagData[];	/**< Pointer for Auth JTAG data which is different for each algorithm */
 } XLoader_AuthJtagMessage;
 
+/**
+ * Authenticated JTAG Data structure for Versal_2VE_2VM
+ */
 typedef struct {
 	u32* PpkData;	/**< Pointer to PPK */
 	XLoader_SpkHeader* SpkHeader;	/**< Pointer to SPK header */
@@ -595,6 +621,9 @@ typedef struct {
 #endif /**< end of VERSAL_2VE_2VM */
 #endif
 
+/**
+ * Structure to hold secure parameters
+ */
 typedef struct XLoader_SecureParams {
 	volatile u8 SecureEn;	/**< Security enabled or disabled */
 	u8 IsNextChunkCopyStarted;	/**< Next chunk copy started or not */
@@ -638,6 +667,9 @@ typedef struct XLoader_SecureParams {
  * which resides at XPLMI_PMC_CHUNK_MEMORY_1.
  */
 #ifndef PLM_SECURE_EXCLUDE
+/**
+ * Structure to hold secure data
+ */
 typedef struct {
 	XLoader_AuthCertificate AuthCert; /**< Authentication certificate */
 	u8 RsaSha3Array[XLOADER_RSA_4096_KEY_SIZE]; /**< RSA Sha3 array */

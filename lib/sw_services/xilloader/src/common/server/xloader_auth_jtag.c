@@ -772,3 +772,5 @@ END:
 
 #endif /**< PLM_AUTH_JTAG_PPK_SPK */
 #endif	/**< PLM_AUTH_JTAG */
+
+/** @} end of xloader_server_apis group */

@@ -1027,3 +1027,5 @@ XLoader_SecureTempParams* XLoader_GetTempParams(void) {
 
 	return &SecureTempParmas;
 }
+
+/** @} end of xloader_server_apis group */

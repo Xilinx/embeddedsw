@@ -77,6 +77,9 @@ typedef enum {
 		XLOADER_FLASH_RAW_BP2, /**< 3 */
 } XLoader_FlashType; /**< Flash types */
 
+/**
+ * Structure to hold the CFI selective readback parameters
+ */
 typedef struct {
         u64 DestAddr; /**< Destination address */
         u32 Row; /**< Row number */

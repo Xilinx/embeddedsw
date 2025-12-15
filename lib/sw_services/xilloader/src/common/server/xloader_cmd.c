@@ -8,9 +8,6 @@
 /**
 *
 * @file xloader_cmd.c
-* @addtogroup xloader_apis XilLoader Versal APIs
-* @{
-* @cond xloader_internal
 * This file contains the xloader commands implementation.
 *
 * <pre>
@@ -128,7 +125,6 @@
 /************************** Constant Definitions *****************************/
 
 /**
- * @{
  * @cond xloader_internal
  */
 /* READBACK Cmd Macros */
@@ -236,7 +232,6 @@ static int XLoader_Features(XPlmi_Cmd *Cmd)
 	return XST_SUCCESS;
 }
 /**
- * @}
  * @endcond
  */
 
@@ -447,13 +442,13 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function does nothing but provides a command which is
- * 			used by bootgen to set the Image Header IDs
+ * used by bootgen to set the Image Header IDs
  *
- * 			Command payload parameters are
- *			- Node ID
- *			- Unique ID
- *			- Parent Unique ID
- *			- Function ID
+ * 		Command payload parameters are
+ *		- Node ID
+ *		- Unique ID
+ *		- Parent Unique ID
+ *		- Function ID
  * @param	Cmd is pointer to the command structure
  *
  * @return
@@ -743,17 +738,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function adds Pdi to ImageStore PdiList
- * 			Command payload parameters are
- * 				- PDI ID
- *				- PDI Data
+ *		Command payload parameters are:
+ *		- PDI ID
+ *		- PDI Data
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET if image store configuration
- * 			is not enabled or error.
- * 			- XLOADER_ERR_PDI_IMG_STORE_FULL on PDI image list is full.
+ *		- XST_SUCCESS on success.
+ *		- XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET if image store configuration
+ *		is not enabled or error.
+ *		- XLOADER_ERR_PDI_IMG_STORE_FULL on PDI image list is full.
  *
  *****************************************************************************/
 static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
@@ -1256,7 +1251,6 @@ END:
 #endif
 
 /**
- * @{
  * @cond xloader_internal
  */
 
@@ -1377,7 +1371,7 @@ void XLoader_CmdsInit(void)
 }
 
 /**
- * @}
  * @endcond
  */
 
+/** @} end of xloader_server_apis group */

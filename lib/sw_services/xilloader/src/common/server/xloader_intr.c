@@ -101,7 +101,6 @@
 
 /************************** Function Prototypes **************************************************/
 /**
- * @{
  * @cond xloader_internal
  */
 static int XLoader_TriggerPartialPdiEvent(void);
@@ -145,7 +144,6 @@ int XLoader_IntrInit(void)
 }
 
 /**
- * @}
  * @endcond
  */
 /*****************************************************************************/
@@ -439,7 +437,6 @@ XSecure_PartialPdiEventParams *XLoader_PpdiEventParamsPtr(void)
 #endif
 
 /**
- * @{
  * @cond xloader_internal
  */
 /*****************************************************************************/
@@ -468,8 +465,7 @@ void XLoader_ClearIntrSbiDataRdy(void)
 }
 
 /**
- * @}
  * @endcond
  */
 
-/** @} */
+/** @} end of xloader_server_apis group */

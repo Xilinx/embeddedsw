@@ -92,7 +92,9 @@ extern "C" {
 	/**< Shift to get data ID from the payload of Extract metaheader command */
 
 /************************************** Type Definitions *****************************************/
-
+/**
+ * Structure to hold Image information
+ */
 typedef struct {
 	u32 ImgID; /**< Image ID */
 	u32 UID; /**< Unique ID */
@@ -100,6 +102,9 @@ typedef struct {
 	u32 FuncID; /**< Function ID */
 } XLoader_ImageInfo; /**< Image information */
 
+/**
+ * Structure to hold optional data information
+ */
 typedef struct {
 	u32 PdiSrc;		/**< Source where PDI is present - DDR or Image Store*/
 	u32 PdiAddrLow;		/**< Lower address of PDI when present in DDR */

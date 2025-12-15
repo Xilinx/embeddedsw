@@ -103,6 +103,9 @@ extern "C" {
 #define XLOADER_BBRAM_CL_DECREMENT_COUNT		(0x0U)  /**< Flag to indicate if counter in Configuration Limiter should be decremented */
 
 /**************************** Type Definitions *******************************/
+/**
+ * Structure to hold temporary parameters used during secure operations
+ */
 typedef struct {
 	volatile u8 SecureEn;	/**< Security enabled or disabled */
 #ifndef PLM_SECURE_EXCLUDE

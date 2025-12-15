@@ -212,3 +212,5 @@ int XLoader_DdrRelease(void)
 END:
 	return Status;
 }
+
+/** @} end of xloader_server_apis group */

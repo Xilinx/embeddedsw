@@ -59,11 +59,14 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 
+/**
+ * Structure to hold the client instance information for xilloader
+ */
 typedef struct {
 	XMailbox *MailboxPtr; /**< Pointer to mailbox for IPI communication */
 	u32 Response[RESPONSE_ARG_CNT];		/**< Buffer to store the response of the IPI */
 	u32 SlrIndex; /**< SLR index number */
-} XLoader_ClientInstance; /**< Xilloader client instance */
+} XLoader_ClientInstance;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /*************************************************************************************************/
@@ -94,3 +97,5 @@ int XLoader_ClientInit(XLoader_ClientInstance* const InstancePtr, XMailbox* cons
 #endif
 
 #endif  /* XLOADER_MAILBOX_H */
+
+/** @} end of xloader_mailbox_apis group */

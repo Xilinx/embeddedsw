@@ -353,17 +353,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function provides CFI SELECTIVE READ command execution.
- *  		Command payload parameters are
- *      - Row, block type and Start frame address
- *		- Frame count to be read from CFU(1frame = 25Quadwords)
+ *		Command payload parameters are:
+ *		- Row, block type and start frame address
+ *		- Frame count to be read from CFI(1 frame = 25 quad words
  *		- High Dest Addr
  *		- Low Dest Addr
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
  *
  *****************************************************************************/
 int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd)
@@ -466,3 +466,5 @@ END:
 #endif
 	return Status;
 }
+
+/** @} end of xloader_server_apis group */

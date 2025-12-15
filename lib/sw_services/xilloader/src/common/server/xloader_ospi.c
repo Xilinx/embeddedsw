@@ -1301,3 +1301,5 @@ static int XLoader_SpansionSetEccMode(XOspiPsv *OspiPsvPtr)
 #endif
 
 #endif
+
+/** @} end of xloader_ospi_apis group */

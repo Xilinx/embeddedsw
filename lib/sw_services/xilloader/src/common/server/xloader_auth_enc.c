@@ -2753,6 +2753,8 @@ static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 /**
 * @brief       This function enables the Jtag
 *
+* @param       CfgState is the configuration state for DAP
+*
 * @return
 * 			- XST_SUCCESS on SUCCESS
 * 			- Errorcode upon failure
@@ -3906,7 +3908,8 @@ static int XLoader_CopyHashBlock(u32 SrcHBSize, XilPdi_HashBlock *SrcHB)
 * @param	SignatureLen is length of the signature
 * @param	KeyAddr is pointer to the LMS public key to be used
 * @param	KeyLen is length of the public key to be used
-* @param	Hash is pointer to the expected hash
+* @param	Data is pointer to the data to be authenticated
+* @param	DataLen is length of the data to be authenticated
 *
 * @return
 * 		- XST_SUCCESS on success.
@@ -5469,3 +5472,5 @@ END:
 #endif
 
 #endif /* END OF PLM_SECURE_EXCLUDE */
+
+/** @} end of xloader_server_apis group */

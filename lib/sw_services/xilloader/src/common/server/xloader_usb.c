@@ -257,3 +257,5 @@ int XLoader_UsbRelease(void)
 	return Status;
 }
 #endif
+
+/** @} end of xloader_usb_apis group */

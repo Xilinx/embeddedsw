@@ -748,3 +748,5 @@ int XLoader_RawRelease(void)
 	return Status;
 }
 #endif /* end of XLOADER_SD_0 */
+
+/** @} end of xloader_sd_apis group */
