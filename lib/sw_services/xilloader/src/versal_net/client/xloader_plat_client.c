@@ -364,13 +364,14 @@ static int XLoader_IsAuthOptimized(u64 OptionalDataStartAddr, u32 OptionalDataLe
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to validate Boot Header, PLM
- *               and PMC CDO authentication
+ * and PMC CDO authentication
  *
  * @param	InstancePtr - Pointer to XLoader_ClientInstance
  * @param	PdiAddr - Address where authenticated PDI is present
+ * @param	MhOffset - Pointer to Meta Header Offset
  *
  * @return
- *		 - XST_SUCCESS on success and error code on failure
+ *		- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr,
@@ -704,16 +705,18 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function calculates hash and verifies signature for
- * 		each partition
+ * each partition
  *
  * @param	InstancePtr - Pointer to XLoader_ClientInstance
  * @param	PrtnAddr - Address where partition is present
  * @param	PrtnLen - Length of partition
+ * @param	PrtnIdx - Index of the partition
  * @param	ACAddr - Address where Authentication Certificate of partition
  * 			is present
+ * @param	HashTblInfo - Pointer to Hash Table Information
  *
  * @return
- *		 - XST_SUCCESS on success and error code on failure
+ *		- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnAddr, u32 PrtnLen, u32 PrtnIdx, u64 ACAddr,
@@ -980,3 +983,5 @@ static int XLoader_VerifyDataAuth(XLoader_ClientInstance *InstancePtr, u64 HashA
 
 	return Status;
 }
+
+/** @} end of xloader_client_apis group */

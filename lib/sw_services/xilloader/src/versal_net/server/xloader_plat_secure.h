@@ -7,8 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xloader_plat_secure.h
-* @addtogroup xloader_apis XilLoader versal_net specific APIs
+* @file xloader_plat_secure.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,9 +36,13 @@
 * 2.3   rpu  09/05/2025 Removed Configuration Limiter functions
 * </pre>
 *
-* @endcond
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_apis XilLoader versal_net APIs
+ * @{
+ */
 
 #ifndef XLOADER_PLAT_SECURE_H
 #define XLOADER_PLAT_SECURE_H
@@ -165,7 +168,9 @@ typedef enum {
 		/**<0x35 Error when partition hash comparison is failed */
 } XLoader_SecErrCodes;
 
-/**< KEK info */
+/**
+ * Structure to hold AES KEK information
+ */
 typedef struct {
 	u32 PdiKeySrc;	/**< PDI Key Source */
 	u32 PufHdLocation;	/**< PUF helper data location */
@@ -197,3 +202,5 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 #endif
 
 #endif  /* XLOADER_PLAT_SECURE_H */
+
+/** @} end of xloader_apis group */

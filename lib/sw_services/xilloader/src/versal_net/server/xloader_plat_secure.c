@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xloader_plat_secure.c
+* @file xloader_plat_secure.c
 *
 * This file contains the versal_net specific secure code related to PDI image
 * loading.
@@ -477,3 +477,5 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 
 	return Status;
 }
+
+/** @} end of xloader_server_apis group */

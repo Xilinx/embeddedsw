@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xloader_plat.c
+* @file xloader_plat.c
 *
 * This file contains the versal_net specific code related to PDI image loading.
 *
@@ -137,7 +137,6 @@
 	/**< AUTH_KEYS_TO_HASH eFuse bit shift */
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
 /**
- * @{
  * @cond DDR calibration errors
  */
 #define DDRMC_OFFSET_CAL_POINTER				(0x38280U)
@@ -152,7 +151,6 @@
 #define DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1		(0x382C8U)
 #define DDRMC_ARRAY_SIZE						(10U)
 /**
- * @}
  * @endcond
  */
 /**************************** Type Definitions *******************************/
@@ -179,11 +177,11 @@ static int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr);
 /*****************************************************************************/
 /**
  * @brief	This functions updates the partition data to SHA engine for
- * 			measurement.
+ * measurement.
  *
  * @param	PdiPtr 		Pointer to the XilPdi structure.
- * 		DataAddr 	Address of Data for measure the hash.
- * 		DataLen		Length of data for DataMeasument.
+ * @param	DataAddr 	Address of Data for measure the hash.
+ * @param	DataLen		Length of data for DataMeasument.
  *
  * @return
  * 		- XST_SUCCESS on success and error code on failure
@@ -1952,3 +1950,5 @@ void XLoader_ShaInstance1Reset(void)
 	/** Put the SHA instance 1 into initialized state */
 	ShaInstance->ShaState = XSECURE_SHA_INITIALIZED;
 }
+
+/** @} end of xloader_server_apis group */

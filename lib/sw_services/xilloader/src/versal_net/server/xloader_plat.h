@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xloader_plat.h
+* @file xloader_plat.h
 *
 * <pre>
 * MODIFICATION HISTORY:

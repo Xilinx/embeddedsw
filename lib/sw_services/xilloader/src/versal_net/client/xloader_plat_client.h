@@ -39,13 +39,15 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
-
+/**
+ * Structure to hold DDR Counters
+ */
 typedef struct {
 		u32 DDRCounter0; /**< DDR Counter0 */
 		u32 DDRCounter1; /**< DDR Counter1 */
 		u32 DDRCounter2; /**< DDR Counter2 */
 		u32 DDRCounter3; /**< DDR Counter3 */
-} XLoader_DDRCounters; /**< DDR Counters */
+} XLoader_DDRCounters;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XLOADER_PDI_SRC_DDR			(0xF)	/**< Source of PDI is DDR */
