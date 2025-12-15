@@ -6,8 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/server/xloader_plat.h
-* @addtogroup xloader_plat_apis XilLoader versal_2vp specific APIs
+* @file xloader_plat.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,6 +18,12 @@
 * </pre>
 *
 ***************************************************************************************************/
+
+
+/**
+ * @addtogroup xloader_plat_apis XilLoader versal_2vp_p APIs
+ * @{
+ */
 
 #ifndef XLOADER_PLAT_H
 #define XLOADER_PLAT_H
@@ -465,3 +470,5 @@ int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLe
 #endif
 
 #endif  /* XLOADER_PLAT_H */
+
+/** @} end of xloader_plat_apis group */

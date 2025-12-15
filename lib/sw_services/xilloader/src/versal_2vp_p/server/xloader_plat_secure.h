@@ -6,8 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/versal_2vp/xloader_plat_secure.h
-* @addtogroup xloader_apis XilLoader versal_2vp specific APIs
+* @file xloader_plat_secure.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -18,6 +17,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
+/**
+ * @addtogroup xloader_apis XilLoader versal_2vp_p APIs
+ * @{
+ */
 
 #ifndef XLOADER_PLAT_SECURE_H
 #define XLOADER_PLAT_SECURE_H
@@ -135,7 +139,9 @@ typedef enum {
 } XLoader_SecErrCodes;
 
 
-/**< KEK info */
+/**
+ * Structure to hold AES KEK information
+ */
 typedef struct {
 	u32 PdiKeySrc;	/**< PDI Key Source */
 	u32 PufHdLocation;	/**< PUF helper data location */
@@ -190,3 +196,5 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, u32 OutLen, u8 
 #endif
 
 #endif  /* XLOADER_PLAT_SECURE_H */
+
+/** @} end of xloader_apis group */
