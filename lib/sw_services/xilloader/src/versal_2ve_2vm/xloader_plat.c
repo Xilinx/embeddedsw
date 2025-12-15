@@ -138,7 +138,6 @@
 #define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK	(0x00000200U)	/**< AUTH_KEYS_TO_HASH eFuse bit mask */
 #define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT	(9U)		/**< AUTH_KEYS_TO_HASH eFuse bit shift */
 /**
- * @{
  * @cond DDR calibration errors
  */
 #define DDRMC_OFFSET_CAL_POINTER				(0x38280U)
@@ -153,7 +152,6 @@
 #define DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1		(0x382C8U)
 #define DDRMC_ARRAY_SIZE						(10U)
 /**
- * @}
  * @endcond
  */
 /**************************** Type Definitions *******************************/
@@ -1775,3 +1773,5 @@ void XLoader_ShaInstance1Reset(void)
 {
 	 /** Not Applicable for Versal_2Ve_2Vm */
 }
+
+/** @} end of xloader_server_apis group */

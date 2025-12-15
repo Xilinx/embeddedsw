@@ -461,11 +461,11 @@ static inline int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
 /*****************************************************************************/
 /**
  * @brief	This functions updates the partition data to SHA engine for
- * 			measurement.
+ * measurement.
  *
  * @param	PdiPtr 		Pointer to the XilPdi structure.
- * 		DataAddr 	Address of Data for measure the hash.
- * 		DataLen		Length of data for DataMeasument.
+ * @param	DataAddr 	Address of Data for measure the hash.
+ * @param	DataLen		Length of data for DataMeasument.
  *
  * @return
  * 		- XST_SUCCESS always.

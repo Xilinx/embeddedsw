@@ -7,8 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xloader_plat_secure.h
-* @addtogroup xloader_apis XilLoader versal_2ve_2vm specific APIs
+* @file xloader_plat_secure.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -43,6 +42,11 @@
 * @endcond
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_apis XilLoader versal_2ve_2vm APIs
+ * @{
+ */
 
 #ifndef XLOADER_PLAT_SECURE_H
 #define XLOADER_PLAT_SECURE_H
@@ -191,7 +195,9 @@ typedef enum {
 		/**<0x38 - Error in LMS sign verification due to invalid public key size */
 } XLoader_SecErrCodes;
 
-/**< KEK info */
+/**
+ * Structure to hold AES KEK information
+ */
 typedef struct {
 	u32 PdiKeySrc;	/**< PDI Key Source */
 	u32 PufHdLocation;	/**< PUF helper data location */
@@ -225,3 +231,5 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 #endif
 
 #endif  /* XLOADER_PLAT_SECURE_H */
+
+/** @} end of xloader_apis group */
