@@ -1231,6 +1231,9 @@ RET:
  *		- XASUFW_AES_INVALID_KEY_SIZE, if key size is invalid.
  *		- XASUFW_AES_INVALID_IV, if IV is invalid.
  *
+ * @note
+ *      Prerequisite: The PUF KEK must be transferred to the PUF Key selection value before calling this function.
+ *
  *************************************************************************************************/
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
 	u64 IvAddr, u32 IvLen)

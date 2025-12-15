@@ -104,8 +104,8 @@ static u8 XAsu_GetFreeIndex(u8 Priority);
 
 /************************************ Variable Definitions ***************************************/
 static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
-	XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /**< All IPI channels information received from user
-						configuration */
+		XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /**< All IPI channels information received from user
+												configuration */
 static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
 
 static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS] = {[0 ... (XASU_NO_OF_CONTEXTS - 1U)] =
@@ -162,7 +162,7 @@ s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 	if (ClientInstancePtr->IsReady != XASU_CLIENT_READY) {
 		/* Assign channel shared memory. */
 		ClientInstancePtr->ChannelMemoryPtr = (XAsu_ChannelMemory *)(UINTPTR)(XASU_CHANNEL_MEMORY_BASEADDR +
-						(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx));
+						(XASU_CHANNEL_MEMORY_OFFSET * (UINTPTR)ChannelIdx));
 
 		ClientInstancePtr->P0NextFreeIndex = 0U;
 		ClientInstancePtr->P1NextFreeIndex = 0U;
@@ -484,6 +484,9 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 			if (ChannelQueueBufPtr->RespBufStatus == XASU_RESPONSE_IS_PRESENT) {
 				/** Get UniqueID. */
 				UniqueId = XAsu_GetUniqueId(ChannelQueueBufPtr->RespBuf.Header);
+				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+					continue;
+				}
 				/** Copy the response buffer data if any. */
 				if (AsuCallBackRef[UniqueId].RespBufferPtr != NULL) {
 					Status = Xil_SecureMemCpy((void *)AsuCallBackRef[UniqueId].RespBufferPtr,
@@ -549,7 +552,10 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates a unique ID.
+ * @brief	This function generates a unique ID for client requests. The client library assigns
+ * 		a unique ID to each request, ensuring distinct identification.
+ * 		This ID is used to map the application's response handlers, which are invoked when the
+ * 		corresponding response IPI interrupt is received from ASUFW.
  *
  * @return	Unique ID
  *			- 0 to (XASU_UNIQUE_ID_MAX-1) if AsuCallBackRef array has any empty index.
