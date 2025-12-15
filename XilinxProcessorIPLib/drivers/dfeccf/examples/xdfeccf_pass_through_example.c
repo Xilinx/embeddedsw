@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       dc     11/05/21 Align event handlers
 * 1.5   dc     09/12/22 Update handling overflow status
 *       dc     10/28/22 Switching Uplink/Downlink support
+* 1.10  dc     12/10/25 Add IsCcfOperational API
 *
 * </pre>
 *
@@ -73,6 +74,7 @@ int XDfeCcf_PassThroughExample()
 	XDfeCcf_CarrierCfg CarrierCfg = { 0, 0, 0 };
 	XDfeCcf_Status Status;
 	u32 Return;
+	u32 IsOperational;
 	XDfeCcf_Version SwVersion;
 	XDfeCcf_Version HwVersion;
 
@@ -117,6 +119,8 @@ int XDfeCcf_PassThroughExample()
 
 	/* Activate - disable low power */
 	XDfeCcf_Activate(InstancePtr, false);
+	IsOperational = XDfeCcf_GetIsCcfOperational(InstancePtr);
+	printf("\n\rIsOperational = %d\n\r", IsOperational);
 
 	/* Set coefficients */
 	Shift = 5;

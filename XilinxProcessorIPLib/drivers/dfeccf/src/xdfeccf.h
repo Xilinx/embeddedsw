@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -86,6 +86,7 @@
 *       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
 * 1.6   cog    07/04/23 Add support for SDT
 * 1.7   cog    02/21/24 Fixed SDT runtime issue
+* 1.10  dc     12/10/25 Add IsOperational API
 *
 * </pre>
 * @endcond
@@ -517,6 +518,7 @@ u32 XDfeCcf_GetTDataDelayFromCCCfg(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
 				   XDfeCcf_CCCfg *CCCfg, u32 Symmetric, u32 Num,
 				   u32 *TDataDelay);
 void XDfeCcf_SetRegBank(const XDfeCcf *InstancePtr, u32 RegBank);
+u32 XDfeCcf_GetIsCcfOperational(XDfeCcf *InstancePtr);
 void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,
 			 XDfeCcf_Version *HwVersion);
 
