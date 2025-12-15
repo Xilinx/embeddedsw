@@ -81,7 +81,6 @@
 							       shift */
 #endif
 /**
- * @{
  * @cond DDR calibration errors
  */
 #define DDRMC_OFFSET_CALIB_PTR					(0x8400U)
@@ -92,7 +91,6 @@
 #define DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_2			(0x8414U)
 #define DDRMC_ARRAY_SIZE					(8U)
 /**
- * @}
  * @endcond
  */
 
@@ -150,8 +148,8 @@ XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void)
  * @brief	This functions updates the partition data to SHA engine for measurement.
  *
  * @param	PdiPtr 		Pointer to the XilPdi structure.
- * 		DataAddr 	Address of Data for measure the hash.
- * 		DataLen		Length of data for DataMeasument.
+ * @param	DataAddr 	Address of Data for measure the hash.
+ * @param	DataLen		Length of data for DataMeasument.
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -888,12 +886,11 @@ END:
 /**************************************************************************************************/
 /**
  * @brief	This function sets the handoff parameters to the ARM Trusted Firmware(ATF).
- * 		Some of the inputs for this are taken from image partition header. A pointer to
- * 		the structure containing these parameters is stored in the
- * 		PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.
+ * Some of the inputs for this are taken from image partition header. A pointer to the
+ * structure containing these parameters is stored in the PMC_GLOBAL.GLOBAL_GEN_STORAGE4
+ * register, which ATF reads.
  *
- * @param
- * 		- PrtnHdr is pointer to Partition header details.
+ * @param	PrtnHdr is pointer to Partition header details.
  *
  **************************************************************************************************/
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
@@ -1823,3 +1820,5 @@ int XLoader_PlatInit(void)
 	return XST_SUCCESS;
 }
 #endif /* PLM_OCP */
+
+/** @} end of xloader_server_apis group */

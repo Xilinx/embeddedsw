@@ -318,3 +318,5 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 END:
 	return Status;
 }
+
+/** @} end of xloader_server_apis group */
