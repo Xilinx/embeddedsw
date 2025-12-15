@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/xloader_plat.h
+* @file xloader_plat.h
 * @addtogroup xloader_plat_apis XilLoader Versal specific APIs
 *
 * <pre>

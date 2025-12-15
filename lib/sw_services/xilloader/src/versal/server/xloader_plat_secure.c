@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/xloader_plat_secure.c
+* @file xloader_plat_secure.c
 *
 * This file contains the versal specific secure code related to PDI image
 * loading.
@@ -441,3 +441,5 @@ END:
 }
 
 #endif /* END OF PLM_EN_ADD_PPKS */
+
+/** @} end of xloader_server_apis group */
