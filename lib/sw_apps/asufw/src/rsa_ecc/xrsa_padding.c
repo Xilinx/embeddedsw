@@ -887,7 +887,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* If MSbit is not 0x00 error out, else calculate the mask of data block on successful
 	* comparison using MGF.
 	*/
-	if ((MaskedDataBlock[XRSA_PADDING_LEADING_ZERO_IDX] &
+	if ((SignedInputData[XRSA_PADDING_LEADING_ZERO_IDX] &
 	     XRSA_PSS_MSB_PADDING_CHECK_MASK) != 0x00U) {
 		Status = XASUFW_RSA_PSS_LEFT_MOST_BIT_CMP_FAIL;
 		XFIH_GOTO(END);
