@@ -29,6 +29,7 @@
 * 5.5   tvp     05/13/25 Code refactoring for Platform specific TRNG functions
 *       sd      11/07/25 Update condition to reflect the revised function return
 *                        value
+* 5.7   Nik     12/04/25  Removed UINTPTR typecast for 64bit data
 *
 * </pre>
 *
@@ -450,7 +451,7 @@ static void XSecure_AesDataEndiannessChange(u64 Address, u32 Size)
 
 	XSecure_MemCpy64((u64)(UINTPTR)EndianessChange, Address, Size);
 	for (Index = 0; Index < Size; Index++) {
-		XSecure_OutByte64((u64)(UINTPTR)(Address + Index),
+		XSecure_OutByte64((Address + Index),
 			EndianessChange[RevIndex - 1U]);
 		RevIndex--;
 	}
@@ -514,7 +515,7 @@ static int XSecure_AesPmcDmaByteXfer(XPmcDma *PmcDmaPtr,
 	if ((AesDmaCfg->DestChannelCfg == TRUE)
 			&& ((u32) AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XCsuDma_ByteAlignedTransfer(PmcDmaPtr,
-				XPMCDMA_DST_CHANNEL, (u64)(UINTPTR)(AesDmaCfg->DestDataAddr +
+				XPMCDMA_DST_CHANNEL, (AesDmaCfg->DestDataAddr +
 				(u64)(UINTPTR)(Size - ExtraBytes)), ExtraBytes, AesDmaCfg->IsLastChunkDest);
 	}
 
