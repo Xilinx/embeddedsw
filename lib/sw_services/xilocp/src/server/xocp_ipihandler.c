@@ -29,6 +29,7 @@
 *                     key wrap DevAk
 *       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *       tvp  05/15/25 Disable attestation with unwrapped key for Versal_2vp
+* 1.7   Nik  11/21/25 Removed UINTPTR typecast of 64 bit variable to avoid truncation risks
 *
 * </pre>
 *
@@ -188,7 +189,7 @@ static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHi
 	volatile int Status = XST_FAILURE;
 	u64 ExtendedHashAddr = ((u64)ExtHashAddrHigh << 32U) | (u64)ExtHashAddrLow;
 
-	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNum, (u64)(UINTPTR)ExtendedHashAddr, Size);
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNum, ExtendedHashAddr, Size);
 
 	return Status;
 }

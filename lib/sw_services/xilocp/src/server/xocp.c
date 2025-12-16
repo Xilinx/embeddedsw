@@ -50,6 +50,7 @@
 *       tvp  05/16/25 Use XOcp_GetRegSpace to get OCP related registers
 *       tvp  05/16/25 Move XOcp_ReadSecureConfig to platform specific files
 *       tvp  06/05/25 Add GenerateDmeResponse support for Versal_2vp
+*  1.7  Nik  11/21/25 Removed UINTPTR typecast of 64 bit variable to avoid truncation risks
 *
 *
 * </pre>
@@ -682,7 +683,7 @@ int XOcp_GetSwPcrData(u64 Addr)
 	}
 
 	/** Copy the number of returned bytes to user provided buffer address */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)(Addr + (u64)ReturnedBytesOffset),
+	Status = XPlmi_MemCpy64((Addr + (u64)ReturnedBytesOffset),
                                 (u64)(UINTPTR)&ReturnedBytes, XOCP_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -690,11 +691,11 @@ int XOcp_GetSwPcrData(u64 Addr)
 
 	/** Copy the Data with DataStartIdx to the user provided buffer address */
 	if (CurrDataLen > XOCP_PCR_HASH_SIZE_IN_BYTES) {
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)Data.BufAddr,
+		Status = XPlmi_MemCpy64(Data.BufAddr,
 			(u64)(UINTPTR)SwPcr->Data[DigestIdx].DataAddr + Data.DataStartIdx,
 			ReturnedBytes);
 	} else {
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)Data.BufAddr,
+		Status = XPlmi_MemCpy64(Data.BufAddr,
 			(u64)(UINTPTR)&SwPcr->Data[DigestIdx].DataToExtend[Data.DataStartIdx],
 			ReturnedBytes);
 	}
@@ -759,7 +760,7 @@ int XOcp_GetSwPcrLog(u64 Addr)
 	/** Copy number of digests extended to requested SW PCR into
 	 * user provided buffer.
 	 */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)(Addr + (u64)DigestCountOffset),
+	Status = XPlmi_MemCpy64((Addr + (u64)DigestCountOffset),
 				(u64)(UINTPTR)&NumOfDigests, XOCP_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -770,7 +771,7 @@ int XOcp_GetSwPcrLog(u64 Addr)
 	 */
 	for(Index = PcrIdxInLog; Index < (PcrIdxInLog + SwPcrConfig->DigestsForPcr[Log.PcrNum]); Index++) {
 		if (SwPcr->Data[Index].IsReqExtended == TRUE) {
-			Status = XPlmi_MemCpy64((u64)(UINTPTR)Log.PcrLogAddr + BufOffset,
+			Status = XPlmi_MemCpy64(Log.PcrLogAddr + BufOffset,
 				(u64)(UINTPTR)&SwPcr->Data[Index].Measurement,
 				sizeof(XOcp_PcrMeasurement));
 			if (Status != XST_SUCCESS) {
