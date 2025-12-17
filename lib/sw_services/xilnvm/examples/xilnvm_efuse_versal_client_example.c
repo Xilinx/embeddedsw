@@ -198,6 +198,9 @@ static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuseAddr *PufFuse);
 static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 		XNvm_EfuseAdditionalPpkHash *PpkHash);
 #endif
+static int XilNvm_EfusePrepareRevocationIds(XNvm_EfuseRevokeIds *RevokeIds,
+					    u32 RevocationId,
+					    const char *RevocationIdFuse);
 /*****************************************************************************/
 int main(void)
 {
@@ -1389,72 +1392,73 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseDataAddr *WriteEfuse,
 {
 	int Status = XST_FAILURE;
 
-	if ((XNVM_EFUSE_WRITE_REVOCATION_ID_0 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_1 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_2 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_3 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_4 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_5 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_6 |
-		XNVM_EFUSE_WRITE_REVOCATION_ID_7) != 0U) {
-
-		RevokeIds->PrgmRevokeId = TRUE;
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_0 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_0,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_0_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
-	if (RevokeIds->PrgmRevokeId == TRUE) {
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_0_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_0],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_1 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_1,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_1_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_1_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_1],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_2 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_2,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_2_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_2_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_2],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_3 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_3,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_3_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_3_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_3],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_4 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_4,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_4_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_4_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_4],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_5 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_5,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_5_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_5_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_5],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_6 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_6,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_6_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_6_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_6],
-			XNVM_EFUSE_ROW_STRING_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_7_FUSES,
-			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_7],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_REVOCATION_ID_7 == TRUE) {
+		Status = XilNvm_EfusePrepareRevocationIds(RevokeIds,
+				(u32)XNVM_EFUSE_REVOCATION_ID_7,
+				(const char *)XNVM_EFUSE_REVOCATION_ID_7_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2676,5 +2680,36 @@ END:
 	return Status;
 }
 #endif /* END OF XNVM_EN_ADD_PPKS */
+
+/****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseRevokeIds structure for
+ * intended revoke Id with user provided data in order to program revocation
+ * ID eFuses.
+ *
+ * @param	RevokeIds	   Pointer to XNvm_EfuseRevokeIds structure
+ * @param	RevocationId	   Revoke Id to write
+ * @param	RevocationIdFuse   Value to write in provided revoke Id
+ *
+ * @return
+ *		- XST_SUCCESS - If the initialization of XNvm_EfuseRevokeIds
+ *				structure is successful
+ *		- Error Code - On Failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfusePrepareRevocationIds(XNvm_EfuseRevokeIds *RevokeIds,
+					    u32 RevocationId,
+					    const char *RevocationIdFuse)
+{
+	int Status = XST_FAILURE;
+
+	RevokeIds->PrgmRevokeId = (u32)TRUE;
+	Status = XilNvm_PrepareRevokeIdsForWrite(RevocationIdFuse,
+			&RevokeIds->RevokeId[RevocationId],
+			XNVM_EFUSE_ROW_STRING_LEN);
+
+	return Status;
+}
+
 /** //! [XNvm eFuse example] */
 /**@}*/
