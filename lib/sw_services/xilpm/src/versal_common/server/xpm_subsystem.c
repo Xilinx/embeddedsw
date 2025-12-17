@@ -699,8 +699,8 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId, u32 Action)
 	if (IS_SUBSYS_CONFIG_DONE(Subsystem->Flags)) {
 		Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
 		/* Clear prealloc activation flags */
-		Subsystem->Flags &= SUBSYSTEM_IS_CONFIGURED_PROC_MEM;
-		Subsystem->Flags &= SUBSYSTEM_IS_CONFIGURED_PERIPH;
+		Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED_PROC_MEM);
+		Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED_PERIPH);
 	}
 
 done:
