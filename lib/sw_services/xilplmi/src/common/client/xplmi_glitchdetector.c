@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
-
 /*************************************************************************************************/
 /**
  *
@@ -370,3 +369,5 @@ int XPlmi_PollforDone(void)
 	return (int)XIpiPs_PollforDone(&MailboxInstance);
 }
 #endif
+
+/** @} End of xilplmi_client_apis group */

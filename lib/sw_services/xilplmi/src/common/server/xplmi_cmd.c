@@ -166,3 +166,5 @@ int XPlmi_CmdResume(XPlmi_Cmd * CmdPtr)
 END:
 	return Status;
 }
+
+/** @} End of xilplmi_server_apis group */

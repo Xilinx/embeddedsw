@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_hw.h
+* @file xplmi_hw.h
 *
 * This is the header file which contains definitions for the versal_net hardware
 * registers.
@@ -54,8 +54,6 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 
 #ifndef XPLMI_HW_H
@@ -71,10 +69,6 @@ extern "C" {
 #include "xil_io.h"
 #include "xil_hw.h"
 #include "xplmi_util.h"
-
-/**@cond xplmi_internal
- * @{
- */
 
 /************************** Constant Definitions *****************************/
 
@@ -594,8 +588,6 @@ static inline  __attribute__((always_inline)) u32 XPlmi_In32(UINTPTR Addr)
  * @param	Addr is the address of the register
  * @param	Value is the value to store in register
  *
- * @return	None
- *
 ******************************************************************************/
 static inline __attribute__((always_inline)) void XPlmi_Out32(UINTPTR Addr, u32 Value)
 {
@@ -634,8 +626,6 @@ static inline u8 XPlmi_InByte64(u64 Addr)
 /**
  * @brief       This function disables waking up of PPU1 processor
  *
- * @return      None
- *
  *****************************************************************************/
 static inline void XPlmi_PpuWakeUpDis(void)
 {
@@ -651,8 +641,6 @@ static inline void XPlmi_PpuWakeUpDis(void)
  * @param	Addr is the address of the register
  * @param	Data is the value to store in register
  *
- * @return	None
- *
 ******************************************************************************/
 static inline void XPlmi_Out64(u64 Addr, u32 Data)
 {
@@ -665,8 +653,6 @@ static inline void XPlmi_Out64(u64 Addr, u32 Data)
  *
  * @param	Addr is the address of the register
  * @param	Data is the value to store in register
- *
- * @return	None
  *
 ******************************************************************************/
 static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
@@ -1530,11 +1516,6 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
-/**
- * @}
- * @endcond
- */
 
 #ifdef __cplusplus
 }

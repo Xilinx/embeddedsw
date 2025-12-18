@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_plat.h
+* @file xplmi_plat.h
 *
 * This file contains declarations for versal_net specific APIs
 *
@@ -678,8 +678,6 @@ static inline void XPlmi_CheckSlaveErrors(void)
 /**
  * @brief	This function Disables CFRAME Isolation
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_DisableCFrameIso(void)
 {
@@ -704,8 +702,6 @@ static inline void XPlmi_EnableIpiIntr(void)
 /**
  * @brief	This function clears IPI interrupt
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_ClearIpiIntr(void)
 {
@@ -717,8 +713,6 @@ static inline void XPlmi_ClearIpiIntr(void)
 /**
  * @brief	This function is not applicable for Versal Net
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_NotifySldSlaveSlrs(void)
 {
@@ -729,8 +723,6 @@ static inline void XPlmi_NotifySldSlaveSlrs(void)
 /*****************************************************************************/
 /**
  * @brief	This function is not applicable for Versal Net
- *
- * @return	None
  *
  *****************************************************************************/
 static inline void XPlmi_InterSlrSldHandshake(void)
@@ -745,8 +737,6 @@ static inline void XPlmi_InterSlrSldHandshake(void)
  *
  * @param	PlmErr value of Plm error
  * @param	RomErr value of ROM error
- *
- * @return	None
  *
  *****************************************************************************/
 static inline __attribute__((always_inline)) void XPlmi_AckIpi(u32 PlmErr, u32 RomErr)
@@ -764,9 +754,6 @@ static inline __attribute__((always_inline)) void XPlmi_AckIpi(u32 PlmErr, u32 R
 /*****************************************************************************/
 /**
  * @brief	This function waits for specified timeout before doing IPOR
- *
- *
- * @return	None
  *
  *****************************************************************************/
 static inline __attribute__((always_inline)) void XPlmi_IpuErrIporWait(void)

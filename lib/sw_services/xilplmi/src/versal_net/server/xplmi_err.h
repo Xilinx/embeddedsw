@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_err.h
+* @file xplmi_err.h
 *
 * This file contains declarations versal_net PLMI module.
 *
@@ -79,8 +79,6 @@ extern "C" {
 /**
  * @brief	This function sets the sysmon clock to IRO for ES1 silicon
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_SysmonClkSetIro(void) {
 	/* This workaround is not applicable for versal net */
@@ -93,8 +91,6 @@ static inline void XPlmi_SysmonClkSetIro(void) {
  *
  * @param	PmcErrStatus is the pointer to the error status array
  * @param	Index is the PMC Error register Index
- *
- * @return	None
  *
  *****************************************************************************/
 static inline void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index)

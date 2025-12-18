@@ -55,6 +55,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond xplmi_internal */
+
 #define PMC_ANALOG_GD_CTRL_REG		(0xF1160000U)
 					/**< PMC_ANALOG base address */
 #define PMC_ANALOG_GD0_RST_STATUS_REG_MASK	(0x200U)
@@ -71,14 +73,27 @@
 #define CFU_REF_CTRL_DIVISOR_INCREASE	(0x2U)
 					/**< CRP CFU_REF_CTRL Divisor increase */
 
+/** @endcond */
+
 /************************** Function Prototypes ******************************/
 static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		const u32 ErrorMask);
 static int XPlmi_ProcessTamperResponse(void *Data);
 
 /************************** Variable Definitions *****************************/
+/**
+ * SldState variable maintains the current secure lockdown state
+ */
 static u32 SldState = XPLMI_SLD_NOT_TRIGGERED;
+
+/**
+ * TamperResponse variable stores the tamper response configuration
+ */
 static u32 TamperResponse;
+
+/**
+ * TamperTask is the task node pointer for tamper response processing
+ */
 static XPlmi_TaskNode *TamperTask = NULL;
 
 /************************** Function Definitions *****************************/
@@ -358,3 +373,5 @@ void XPlmi_TriggerSLDOnHaltBoot(u32 Flag)
 		XSECURE_REDUNDANT_IMPL(XPlmi_TriggerTamperResponse, XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK, Flag);
 	}
 }
+
+/** @} End of xilplmi_server_apis group */

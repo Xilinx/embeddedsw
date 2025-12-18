@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_err.c
+* @file xplmi_err.c
 *
 * This file contains the PLMI versal_net platform specific code.
 *
@@ -993,3 +993,5 @@ u32 *XPlmi_GetNumErrOuts(void)
 
 	return &NumErrOuts;
 }
+
+/** @} End of xilplmi_server_apis group */

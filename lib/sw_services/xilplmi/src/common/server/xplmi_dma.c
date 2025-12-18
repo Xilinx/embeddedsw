@@ -1046,3 +1046,5 @@ int XPlmi_MemCpy64(u64 DestAddress, u64 SrcAddress, u32 Length)
 END:
 	return Status;
 }
+
+/** @} End of xilplmi_server_apis group */

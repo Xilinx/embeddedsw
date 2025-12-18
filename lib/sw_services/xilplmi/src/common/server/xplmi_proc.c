@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,21 +74,13 @@
 #include "xplmi_plat.h"
 #include "xplmi_config.h"
 
-/**@cond xplmi_internal
- * @{
- */
-
 /************************** Constant Definitions *****************************/
+/** Microblaze MSR Break In Progress bit mask */
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-/**
- * @}
- * @endcond
- */
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_InitPitTimer(u32 Timer, u32 ResetValue);
@@ -96,7 +88,10 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 		XPlmi_PerfTime *PerfTime);
 
 /************************** Variable Definitions *****************************/
-static u32 PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ; /* Frequency of the PMC IRO */
+/**
+ * PmcIroFreq variable stores the frequency of the PMC IRO in Hz
+ */
+static u32 PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
 
 /*****************************************************************************/
 /**
@@ -535,3 +530,5 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 
 	return Status;
 }
+
+/** @} End of xilplmi_server_apis group */

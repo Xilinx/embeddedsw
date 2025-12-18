@@ -559,16 +559,17 @@ static inline u8 XPlmi_IsPlmUpdateInProgress(void)
 	return (u8)FALSE;
 }
 
-/**************************************************************************************************/
+/*****************************************************************************/
 /**
- * @brief	This function will initialize In-Place Update related logic.
+ * @brief	This function is not applicable for Versal_2vp
  *
- * @param	CompatibilityHandler is the handler used for compatibility check.
+ * @param	CompatibilityHandler is the handler used for compatibility check
+ * @param	IsPdiAddrLookup is the PDI address look-up handler
+ * @param	CheckPsmPresenceInOD is the PSM presence check handler
  *
- * @return
- * 		- XST_SUCCESS always.
+ * @return	XST_SUCCESS always
  *
- **************************************************************************************************/
+ *****************************************************************************/
 static inline int XPlmi_UpdateInit(void *CompatibilityHandler, void *IsPdiAddrLookup, void *CheckPsmPresenceInOD)
 {
 	(void)CompatibilityHandler;

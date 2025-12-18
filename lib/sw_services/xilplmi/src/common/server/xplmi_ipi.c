@@ -98,8 +98,6 @@
  *
  * </pre>
  *
- * @note
- *
  ******************************************************************************/
 
 /**
@@ -122,17 +120,29 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond xplmi_internal */
+
+/** IPI mask for XSDB master channel */
 #define XPLMI_IPI_XSDB_MASTER_MASK	IPI_PMC_ISR_IPI5_BIT_MASK
+/** PMC image subsystem ID */
 #define XPLMI_PMC_IMAGE_ID		(0x1C000001U)
+/** Mask for IPI PMC interrupt mask register */
 #define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
+/** Shift value for IPI PMC interrupt mask register */
 #define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
+/** Buffer index for IPI5 channel */
 #define XPLMI_IPI5_BUFFER_INDEX		(0x7U)
+/** Mask for access permission bits */
 #define XPLMI_ACCESS_PERM_MASK		(0x3U)
+/** Shift value for access permission bits */
 #define XPLMI_ACCESS_PERM_SHIFT		(0x2U)
 
 #ifdef PLM_ENABLE_STL
+/** Command ID for PSM to STL events */
 #define XPLMI_PSM_TO_STL_EVENTS_CMD_ID	(0x6U)
 #endif /* PLM_ENABLE_STL */
+
+/** @endcond */
 
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
@@ -147,9 +157,19 @@ static int XPlmi_PsmIpiDispatchHandler(void *Data);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-/* Instance of IPI Driver */
+/**
+ * IpiInst is the instance of IPI Driver
+ */
 static XIpiPsu IpiInst;
+
+/**
+ * IpiCfgPtr is the pointer to IPI configuration
+ */
 static XIpiPsu_Config *IpiCfgPtr;
+
+/**
+ * PsmToPlmEventInfo is the pointer to PSM to PLM event information structure
+ */
 static volatile PsmToPlmEventInfo_t *PsmToPlmEventInfo = NULL;
 
 /*****************************************************************************/
@@ -1005,3 +1025,5 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 }
 
 #endif /* XPLMI_IPI_DEVICE_ID */
+
+/** @} End of xilplmi_server_apis group */

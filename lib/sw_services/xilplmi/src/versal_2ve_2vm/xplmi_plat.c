@@ -496,7 +496,7 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 
 /****************************************************************************/
 /**
-* @brief    This function is the Ipi interrupt handler for the device.
+* @brief    This function is the IPI interrupt handler for the device.
 *
 * @param    CallbackRef is a dummy argument
 *
@@ -564,9 +564,7 @@ END:
 /**
  * @brief	This function provides handler for HW interrupts
  *
- * @param	CallbackRef
- *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @param	CallbackRef is presently the interrupt number that is received
  *
  *****************************************************************************/
 static void XPlmi_HwIntrHandler(void *CallbackRef)
@@ -1097,3 +1095,5 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 
 	return BufferList;
 }
+
+/** @} End of xilplmi_server_apis group */

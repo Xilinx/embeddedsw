@@ -158,64 +158,95 @@
 #include "xplmi_plat.h"
 #include "xplmi_tamper.h"
 
-/**@cond xplmi_internal
- * @{
- */
+/** @cond xplmi_internal */
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/* Log Address Command Argument Indices */
+/** Index for low address in log address command payload */
 #define XPLMI_LOG_ADDR_ARG_LOW_ADDR_INDEX	(0U)
+/** Index for high address in log address command payload */
 #define XPLMI_LOG_ADDR_ARG_HIGH_ADDR_INDEX	(1U)
+/** Maximum number of arguments for log address command */
 #define XPLMI_LOG_ADDR_MAX_ARGS		(2U)
+
+/* DMA Alignment Request Types */
+/** Source address alignment requirement flag */
 #define XPLMI_SRC_ALIGN_REQ	(0U)
+/** Destination address alignment requirement flag */
 #define XPLMI_DEST_ALIGN_REQ	(1U)
+/** Length alignment requirement flag */
 #define XPLMI_LEN_ALIGN_REQ	(2U)
 
-/* Mask poll related macros */
+/* Mask Poll Command Payload Indices */
+/** Index for address in 32-bit mask poll command payload */
 #define XPLMI_MASKPOLL_ADDR_INDEX		(0U)
+/** Index for low address in 64-bit mask poll command payload */
 #define XPLMI_MASKPOLL_ADDR_64BIT_INDEX		(1U)
+/** Index for mask value in mask poll command payload */
 #define XPLMI_MASKPOLL_MASK_INDEX		(1U)
+/** Index for expected value in mask poll command payload */
 #define XPLMI_MASKPOLL_EXP_VAL_INDEX		(2U)
+/** Index for timeout value in mask poll command payload */
 #define XPLMI_MASKPOLL_TIMEOUT_INDEX		(3U)
+/** Index for flags in mask poll command payload */
 #define XPLMI_MASKPOLL_FLAGS_INDEX		(4U)
+/** Mask to extract minor error code from mask poll flags */
 #define XPLMI_MASKPOLL_MINOR_ERROR_MASK		(0xFFFFU)
+/** Offset for 32-bit mask poll command processing */
 #define XPLMI_MASK_POLL_32BIT_OFFSET	(0U)
+/** Offset for 64-bit mask poll command processing */
 #define XPLMI_MASK_POLL_64BIT_OFFSET	(1U)
 
-
+/* Begin Command Stack Parameters */
+/** Maximum size of begin offset stack (supports 10 nested begin commands) */
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
+/** Default pop level for begin offset stack */
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
+/** Extra offset added for begin command processing */
 #define XPLMI_BEGIN_CMD_EXTRA_OFFSET			(2U)
 
-/* Masks and shift defines of set ipi access command */
+/* Set IPI Access Command Masks, Shifts and Payload Indices */
+/** Mask to extract module ID from set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_MODULE_ID_MASK	(0xFFU)
+/** Mask to extract lower API ID from set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_API_ID_LOWER_MASK	(0xFF00U)
+/** Shift value for lower API ID in set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_API_ID_LOWER_SHIFT	(8U)
+/** Mask to extract upper API ID from set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_API_ID_UPPER_MASK	(0xFF0000U)
+/** Shift value for upper API ID in set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_API_ID_UPPER_SHIFT	(16U)
-
-/* Index defines of set ipi access command payload */
+/** Index for API ID value in set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_API_ID_VAL_INDEX	(0U)
+/** Index for permission value in set IPI access command payload */
 #define XPLMI_SET_IPI_ACCESS_PERM_VAL_INDEX	(1U)
 
-/* Secure Lockdown and SRST Tamper response mask */
+/** Mask for Secure Lockdown and SRST tamper response */
 #define XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK	(0xEU)
 
-/* CFU keyhole size in words */
+/** CFU keyhole size in words (64K words) */
 #define XPLMI_CFU_KEYHOLE_SIZE		(0x10000U)
 
-/**< Versal Subsystem node ID for PMC. */
+/** Versal subsystem node ID for PMC */
 #define XPLMI_PMC_SUBSYS_NODE_ID	(0x1c000001U)
 
-/**< Defines for set access status of DDRMC main registers command */
+/* DDRMC Main Registers Access Command Definitions */
+/** Bit number for PMC to UB info status in DDRMC_UB register */
 #define XPLMI_DDRMC_UB_PMC2UB_INFO_STS_BIT_NO (15U)
+/** Unlock word for DDRMC UB registers */
 #define XPLMI_DDRMC_UB_UNLOCK_WORD            (0xF9E8D7C6U)
+/** Index for DDRMC number in set DDRMC main register status command payload */
 #define XPLMI_SET_DDRMCMAIN_REGSTS_DDRMC_INDEX (0U)
+/** Index for status value in set DDRMC main register status command payload */
 #define XPLMI_SET_DDRMCMAIN_REGSTS_STS_INDEX   (1U)
+/** Value indicating DDRMC main register is busy */
 #define XPLMI_SET_DDRMC_MAIN_REGSTS_BUSY       (1U)
+/** Value indicating DDRMC main register is free */
 #define XPLMI_SET_DDRMC_MAIN_REGSTS_FREE       (0U)
 
 /************************** Function Prototypes ******************************/
@@ -238,10 +269,7 @@ static int XPlmi_SetDDRMCRegStsCmdHandler(XPlmi_Cmd *Cmd);
  *****************************************************************************/
 static XPlmi_Module XPlmi_Generic;
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -809,10 +837,7 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
 /*****************************************************************************/
 /**
  * @brief	The function reads data from Npi address space.
@@ -935,10 +960,8 @@ static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 END:
 	return Status;
 }
-/**
- * @}
- * @endcond
- */
+
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -1333,10 +1356,7 @@ END:
 	return Status;
 }
 
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
 /*****************************************************************************/
 /**
  * @brief	This function stores the board name in a local variable based
@@ -1379,10 +1399,8 @@ static u8* XPlmi_BoardNameRW(const XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 END:
 	return BoardParams->Name;
 }
-/**
- * @}
- * @endcond
- */
+
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -2398,10 +2416,7 @@ static int XPlmi_InvalidCmdHandler(u32 *Payload, u32 *RespBuf){
 }
 #endif
 
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
 
 /*****************************************************************************/
 /**
@@ -2837,9 +2852,6 @@ END:
 	return Status;
 }
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
- /** @} */
+/** @} */

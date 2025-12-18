@@ -43,7 +43,7 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       am   04/04/2024 Fixed doxygen warnings
 * 2.01  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
-*       sk   02/20/2025 EM Set action support fot Versal 2VE and 2VM Devices
+*       sk   02/20/2025 EM Set action support for Versal 2VE and 2VM Devices
 *
 * </pre>
 *
@@ -74,20 +74,10 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-/*****************************************************************************/
-/**
- * @brief	Contains the module ID and PLM error commands array
- *
- *****************************************************************************/
-/**
- * @{
- * @cond xplmi_internal
- */
+
+/** @cond xplmi_internal */
 static XPlmi_Module XPlmi_ErrModule;
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -122,26 +112,28 @@ static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function sets the error action as prescribed by the command.
- *			Command payload parameters are
- *				* Error Node ID
- *				* Error Action
- *					0 - Invalid
- *					1 - POR
- *					2 - SRST
- *					3 - Custom(Not supported)
- *					4 - ErrOut
- *					5 - Subsystem Shutdown
- *					6 - Subsystem Restart
- *					7 - None
- *			* Error ID Mask
+ *
+ * Command payload parameters are:
+ * - Error Node ID
+ * - Error Action:
+ *   - 0 - Invalid
+ *   - 1 - POR
+ *   - 2 - SRST
+ *   - 3 - Custom(Not supported)
+ *   - 4 - ErrOut
+ *   - 5 - Subsystem Shutdown
+ *   - 6 - Subsystem Restart
+ *   - 7 - None
+ * - Error ID Mask
+ *
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
- * 			- XPLMI_INVALID_ERROR_ACTION on invalid error action.
- * 			- XPLMI_CANNOT_CHANGE_ACTION if failed to change error action.
- * 			- XPLMI_LPD_UNINITIALIZED if LPD failed to initialize.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLMI_INVALID_NODE_ID on invalid node ID.
+ * 		- XPLMI_INVALID_ERROR_ACTION on invalid error action.
+ * 		- XPLMI_CANNOT_CHANGE_ACTION if failed to change error action.
+ * 		- XPLMI_LPD_UNINITIALIZED if LPD failed to initialize.
  *
  *****************************************************************************/
 static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
@@ -256,10 +248,7 @@ END:
 	return Status;
 }
 
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
 /*****************************************************************************/
 /**
  * @brief	Contains the array of PLM error commands
@@ -303,17 +292,12 @@ static XPlmi_Module XPlmi_ErrModule =
 /**
  * @brief	This function registers the PLM error commands to the PLMI.
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_ErrModuleInit(void)
 {
 	XPlmi_ModuleRegister(&XPlmi_ErrModule);
 }
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
- /** @} */
+/** @} End of xilplmi_server_apis group */

@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_wdt.c
+* @file xplmi_wdt.c
 *
 * This file contains the PLMI WDT functionality related code for versal_net.
 *
@@ -62,17 +62,19 @@
 #define XPLMI_PM_DEV_PMC_WDT		(0x1821C035U) /**< PM DEV PMC WDT */
 
 #ifdef XPLMI_PMC_WDT
-#define XPLMI_WDT_VERSION	(1U)
-#define XPLMI_WDT_LCVERSION	(1U)
-#define XPLMI_DEFAULT_PMC_WDT_TIMEOUT	(1000U)
+#define XPLMI_WDT_VERSION	(1U) /**< WDT data structure version */
+#define XPLMI_WDT_LCVERSION	(1U) /**< WDT data structure LC version */
+#define XPLMI_DEFAULT_PMC_WDT_TIMEOUT	(1000U) /**< Default PMC WDT timeout in milliseconds */
 #endif
 
 /**************************** Type Definitions *******************************/
+/**
+ * Structure to store WDT instance information
+ */
 typedef struct {
 	u8 PlmLiveStatus; /**< PLM sets this bit to indicate it is alive */
 	u8 IsEnabled; /**< Used to indicate if WDT is enabled or not */
-	u32 Periodicity; /**< WDT period at which PLM should set the
-			   live status */
+	u32 Periodicity; /**< WDT period at which PLM should set the live status */
 	u32 GpioAddr; /**< GPIO address corresponding to MIO used for WDT */
 	u32 GpioMask; /**< GPIO Mask corresponding to MIO used for WDT */
 	u32 LastResetPeriod; /**< Last reset period is used to check last tick time */
@@ -87,6 +89,9 @@ static int XPlmi_WdtDrvInit(void);
 #endif
 
 /************************** Variable Definitions *****************************/
+/**
+ * WdtInstance is an instance of external WDT used for GPIO toggling
+ */
 static XPlmi_Wdt WdtInstance = {
 	.PlmLiveStatus = (u8)FALSE,
 	.IsEnabled = (u8)FALSE,
@@ -98,11 +103,17 @@ static XPlmi_Wdt WdtInstance = {
 
 
 #ifdef XPLMI_PMC_WDT
+/**
+ * Structure to store PMC WDT instance and driver information
+ */
 typedef struct {
 	XPlmi_Wdt WdtInst; /**< Wdt Instance for PMC WDT */
 	XWdtTb DrvInst; /**< Driver Instance for PMC WDT */
 } XPlmi_PmcWdt;
 
+/**
+ * PmcWdtInstance is an instance of PMC WDT used for internal watchdog
+ */
 static XPlmi_PmcWdt PmcWdtInstance __attribute__ ((aligned(4U))) = {
 	.WdtInst.PlmLiveStatus = (u8)FALSE,
 	.WdtInst.IsEnabled = (u8)FALSE,
@@ -112,7 +123,13 @@ static XPlmi_PmcWdt PmcWdtInstance __attribute__ ((aligned(4U))) = {
 	.WdtInst.LastResetPeriod = 0U
 };
 
-/* Export PmcWdtInstance to be stored during In-Place PLM Update */
+/**
+ * Export PmcWdtInstance data structure for In-Place PLM Update.
+ *
+ * This macro exports the PMC WDT instance data structure so it can be stored
+ * and restored during In-Place PLM Update operations, preserving the WDT state
+ * across updates.
+ */
 EXPORT_GENERIC_DS(PmcWdtInstance, XPLMI_WDT_DS_ID, XPLMI_WDT_VERSION,
 	XPLMI_WDT_LCVERSION, sizeof(PmcWdtInstance), (u32)(UINTPTR)&PmcWdtInstance);
 
@@ -158,7 +175,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function enables the WDT and sets NodeId and periodicity.
- *			It also verifies the parameters.
  *
  * @param	NodeId NodeId is the MIO node to be used by PLM for toggling.
  * @param	Periodicity at which MIO value should be toggled.
@@ -281,12 +297,10 @@ int XPlmi_DefaultSWdtConfig(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function disables the WDT. This is required when LPD is
- * 			powered down and if LPD MIO is used. Also required	when debugging.
+ * @brief	This function disables the WDT. This is required when LPD is powered down and if LPD
+ * MIO is used. Also required when debugging.
  *
  * @param	NodeId is the Node ID of external WDT or internal PMC WDT
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_DisableWdt(u32 NodeId)
@@ -306,8 +320,6 @@ void XPlmi_DisableWdt(u32 NodeId)
  * @brief	This function stops PMC WDT. Used during In-Place PLM update.
  *
  * @param	NodeId is the Node ID of external WDT or internal PMC WDT
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_StopWdt(u32 NodeId)
@@ -352,8 +364,6 @@ void XPlmi_ClearPlmLiveStatus(void)
  * @brief	This function is used to refresh WDT before timeout
  *
  * @param	NodeId is the Node ID of external WDT or internal PMC WDT
- *
- * @return	None
  *
  *****************************************************************************/
 static void XPlmi_RefreshWdt(u32 NodeId)
@@ -403,8 +413,6 @@ END:
  *
  * @param	Time is timeout in ms
  *
- * @return	None
- *
  *****************************************************************************/
 static void XPlmi_SetGWdtTimeout(u32 Time)
 {
@@ -425,8 +433,6 @@ END:
  * @brief	This function is used to kick the WDT
  *
  * @param	NodeId is the Node ID of external WDT or internal PMC WDT
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_KickWdt(u32 NodeId)
@@ -478,3 +484,5 @@ void XPlmi_WdtHandler(void)
 	XPlmi_RefreshWdt(XPLMI_WDT_INTERNAL);
 #endif
 }
+
+/** @} End of xilplmi_server_apis group */

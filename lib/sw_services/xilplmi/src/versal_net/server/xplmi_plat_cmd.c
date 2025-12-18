@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_plat_cmd.c
+* @file xplmi_plat_cmd.c
 *
 * This file contains versalnet specific cmds and modules logic.
 *
@@ -229,7 +229,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 	}
 
 	if (Cmd->ProcessedLen == 0){
-		/* This is the beggining of the CMD execution. */
+		/* This is the beginning of the CMD execution. */
 		/* Latch on the first address of psm_sequence */
 		Cmd->ResumeData[1U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 		/* Check if new proc length fits in the proc allocated memory */
@@ -326,17 +326,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function will write 2 32-bit values to multiple addresses
- *			which are specified by the payload.
- *  		Command payload parameters are
- *			- Value1
- * 			- Value2
- *			- Address[N]: array of N addresses
- *			where Address[i] = Value1 and Address[i] + 4 = Value2
+ * which are specified by the payload.
+ *
+ * Command payload parameters are
+ *	- Value1
+ *	- Value2
+ *	- Address[N]: array of N addresses
+ *	where Address[i] = Value1 and Address[i] + 4 = Value2
+ *
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS if success.
- * 			- XPLMI_ERR_INVALID_PAYLOAD_LEN on invalid payload length.
+ * 		- XST_SUCCESS if success.
+ * 		- XPLMI_ERR_INVALID_PAYLOAD_LEN on invalid payload length.
  *
  *****************************************************************************/
 int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
@@ -612,3 +614,5 @@ int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
+
+/** @} End of xilplmi_server_apis group */

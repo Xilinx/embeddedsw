@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_wdt.h
+* @file xplmi_wdt.h
 *
 * This file contains declarations related to WDT in versal_net
 *
@@ -21,9 +21,6 @@
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
-*
-* @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -39,10 +36,6 @@ extern "C" {
 #include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
-/**
- * @{
- * @cond xplmi_internal
- */
 
 /* WDT Timeout (in ms) to be used in In-Place Update */
 #define XPLMI_INPLACE_UPDATE_WDT_TIMEOUT	(100U)
@@ -74,19 +67,11 @@ static inline u8 XPlmi_RomSwdtUsage(void) {
 /************************** Function Prototypes ******************************/
 void XPlmi_SetPlmLiveStatus(void);
 void XPlmi_ClearPlmLiveStatus(void);
-/**
- * @}
- * @endcond
- */
 int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity);
 void XPlmi_KickWdt(u32 NodeId);
 void XPlmi_RestoreWdt(void);
 void XPlmi_StopWdt(u32 NodeId);
 int XPlmi_DefaultSWdtConfig(void);
-/**
- * @{
- * @cond xplmi_internal
- */
 void XPlmi_DisableWdt(u32 NodeId);
 void XPlmi_WdtHandler(void);
 
@@ -95,9 +80,3 @@ void XPlmi_WdtHandler(void);
 #endif
 
 #endif  /* XPLMI_WDT_H */
-
-/**
-* @}
-* @endcond
-*/
-

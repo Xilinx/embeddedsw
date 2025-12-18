@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -504,7 +504,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->CopiedCmdLen = 0x0U;
 	}
 
-	/** - Handle the break command occured in previous chunk */
+	/** - Handle the break command occurred in previous chunk */
 	if (CdoPtr->Cmd.BreakLength > 0U) {
 		RemainingLen = CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 		if (RemainingLen >= BufLen) {
@@ -588,3 +588,5 @@ END:
 	XPlmi_SetPlmLiveStatus();
 	return Status;
 }
+
+/** @} End of xilplmi_server_apis group */

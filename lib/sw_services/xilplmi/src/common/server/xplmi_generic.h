@@ -10,7 +10,7 @@
 *
 * @file xplmi_generic.h
 *
-* This is the file which contains .
+* This is the file which contains general commands related declarations.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -65,8 +65,6 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 #ifndef XPLMI_GENERIC_H
 #define XPLMI_GENERIC_H
@@ -79,10 +77,6 @@ extern "C" {
 #include "xplmi_debug.h"
 #include "xplmi_dma.h"
 #include "xplmi_cmd.h"
-
-/**@cond xplmi_internal
- * @{
- */
 
 /************************** Constant Definitions *****************************/
 /* Max board name length supported is 256 bytes */
@@ -203,11 +197,6 @@ XPlmi_BoardParams *XPlmi_GetBoardParams(void);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-
-/**
- * @}
- * @endcond
- */
 
 #ifdef __cplusplus
 }

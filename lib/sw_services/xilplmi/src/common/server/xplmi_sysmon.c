@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -182,7 +182,7 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)
 	u32 Count;
 
 	/**
-	 * Check for over-temperature condition in Interrupt Status Regiser.
+	 * Check for over-temperature condition in Interrupt Status Register.
 	 */
 	Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
 	if (0U == (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
@@ -224,3 +224,5 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)
 END:
 	return;
 }
+
+/** @} End of xilplmi_server_apis group */

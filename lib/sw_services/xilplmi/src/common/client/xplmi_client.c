@@ -357,3 +357,5 @@ int XPlmi_InputSlrIndex(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex)
 	}
 	return Status;
 }
+
+/** @} End of xilplmi_client_apis group */

@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_update.c
+* @file xplmi_update.c
 * This is the file which contains PLM update process. This code in this file
 * is applicable only for versal_net platform.
 *
@@ -424,7 +424,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function restore all the data structures after InPlace
- *			PLM udpate.
+ *			PLM update.
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -492,7 +492,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function store all the data structures before InPlace
- *			PLM udpate.
+ *			PLM update.
  *
  * @return
  * 			- XST_SUCCESS if success.
@@ -897,10 +897,10 @@ u32 XPlmi_GetPlmUpdateIpiMask(void)
  *
  * @param	value of PlmUpdateIpiMask
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_SetPlmUpdateIpiMask(u32 value)
 {
 	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, value);
 }
+
+/** @} End of xilplmi_server_apis group */

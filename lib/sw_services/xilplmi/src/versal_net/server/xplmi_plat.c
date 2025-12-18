@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_plat.c
+* @file xplmi_plat.c
 *
 * This file contains the PLMI versal_net platform specific code.
 *
@@ -244,9 +244,10 @@ u32 *XPlmi_GetLpdInitialized(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides LpdInitialized variable pointer
+ * @brief	This function provides a pointer to the UART base address variable
  *
- * @return	Pointer to LpdInitialized variable
+ * @return	Pointer to the static UartBaseAddr variable that stores the UART
+ * base address (initialized to XPLMI_INVALID_UART_BASE_ADDR)
  *
  *****************************************************************************/
 u32 *XPlmi_GetUartBaseAddr(void)
@@ -557,9 +558,6 @@ END:
  *
  * @param	CallbackRef is presently the interrupt number that is received
  *
- *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
- *
  *****************************************************************************/
 static void XPlmi_HwIntrHandler(void *CallbackRef)
 {
@@ -742,8 +740,6 @@ static void XPlmi_DisableClearIOmodule(void)
 /****************************************************************************/
 /**
 * @brief    This function will disable the IOmodule interrupts
-*
-* @return   None
 *
 ****************************************************************************/
 static void XPlmi_DisableIOmodule(void)
@@ -1154,3 +1150,5 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 
 	return BufferList;
 }
+
+/** @} End of xilplmi_server_apis group */

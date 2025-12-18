@@ -58,11 +58,16 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 
+/**
+ * This structure contains the client instance data for XilPlmi.
+ * The user is required to allocate an instance of this structure and
+ * initialize it using XPlmi_ClientInit() before using it with other APIs.
+ */
 typedef struct {
-	XMailbox *MailboxPtr; /**< pointer to mailbox for IPI communication*/
-	u32 Response[RESPONSE_ARG_CNT]; /**< Response payload */
+	XMailbox *MailboxPtr; /**< Pointer to mailbox for IPI communication */
+	u32 Response[RESPONSE_ARG_CNT]; /**< Response payload buffer */
 	u32 SlrIndex; /**< SLR index number */
-} XPlmi_ClientInstance; /**< xilplmi client instance*/
+} XPlmi_ClientInstance;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -93,3 +98,5 @@ int XPlmi_ClientInit(XPlmi_ClientInstance* InstancePtr, XMailbox* MailboxPtr);
 #endif
 
 #endif  /* XPLMI_MAILBOX_H */
+
+/** @} end of xilplmi_mailbox_apis group*/

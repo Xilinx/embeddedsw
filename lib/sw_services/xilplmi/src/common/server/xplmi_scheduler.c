@@ -68,22 +68,18 @@
 #include "xplmi_debug.h"
 #include "xplmi_wdt.h"
 
-/**@cond xplmi_internal
- * @{
- */
+/** @cond xplmi_internal */
 
 /************************** Constant Definitions *****************************/
 #if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
-#define XPLMI_TIMEOUT_CLEAR  (0U) /*< Zero Timeout value */
+/** Zero timeout value for resource timeout handling */
+#define XPLMI_TIMEOUT_CLEAR  (0U)
 #endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_ResTimeoutHandling(void);
@@ -468,3 +464,5 @@ END:
 	return Status;
 }
 #endif
+
+/** @} End of xilplmi_server_apis group */

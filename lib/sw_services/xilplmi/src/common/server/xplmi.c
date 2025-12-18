@@ -487,3 +487,5 @@ u32 XPlmi_IsCryptoKatEn(void)
 
 	return CryptoKatEn;
 }
+
+/** @} End of xilplmi_server_apis group */

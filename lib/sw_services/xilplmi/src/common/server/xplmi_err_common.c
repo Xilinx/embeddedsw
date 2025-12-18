@@ -171,24 +171,22 @@
 #include "xplmi_tamper.h"
 #include "xplmi_wdt.h"
 
-/**@cond xplmi_internal
- * @{
- */
 
 /************************** Constant Definitions *****************************/
+/** @cond xplmi_internal */
 
-/* Command IDs supported in CDOs */
+/** Command ID for Set Action command supported in CDOs */
 #define XPLMI_EM_SET_ACTION_CMD_ID	(1U)
 
 /* BOOT modes */
+/** Boot mode source: JTAG */
 #define XPLMI_PDI_SRC_JTAG		(0x0U)
+/** Boot mode source: USB */
 #define XPLMI_PDI_SRC_USB		(0x7U)
+/** Boot mode source: SMAP (SelectMAP) */
 #define XPLMI_PDI_SRC_SMAP		(0xAU)
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /**************************** Type Definitions *******************************/
 
@@ -202,6 +200,9 @@ static void XPlmi_DumpRegisters(void);
 static void XPlmi_ErrOutNClearFwCR(u32 ErrorId);
 
 /************************** Variable Definitions *****************************/
+/**
+ * EmSubsystemId variable stores the error management subsystem ID
+ */
 static u32 EmSubsystemId = 0U;
 
 /*****************************************************************************/
@@ -368,10 +369,7 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
 
 /*****************************************************************************/
 /**
- * @brief	This function triggers Power on Reset
- *
- * @return
- * 			- None
+ * @brief	This function triggers Power on Reset.
  *
  *****************************************************************************/
 void XPlmi_PORHandler(void) {
@@ -1074,7 +1072,7 @@ END:
  * 		  	can be SRST/POR/ERR OUT/INT
  * @param	ErrorHandler If INT is defined as response, handler should be
  * 		  	defined.
- * @param       SubsystemId
+ * @param	SubsystemId is the subsystem ID for the error node
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
@@ -1130,7 +1128,8 @@ int XPlmi_EmConfig(XPlmi_EventType NodeType, u32 ErrorId, u8 ActionId,
  * 		  	can be SRST/POR/ERR OUT/INT
  * @param	ErrorHandler If INT is defined as response, handler should be
  * 		  	defined.
- * @param       SubsystemId
+ * @param	SubsystemId is the subsystem ID for the error node
+ *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
@@ -1452,10 +1451,11 @@ u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
 
 /*****************************************************************************/
 /**
- * @brief	This function clears NPI errors.
+ * @brief	This function checks for NPI errors and logs them if present.
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS if no errors detected.
+ * 		- XST_FAILURE if NPI errors are detected.
  *
 ******************************************************************************/
 int XPlmi_CheckNpiErrors(void)
@@ -1488,7 +1488,7 @@ int XPlmi_CheckNpiErrors(void)
  * @brief	This function clears NPI errors.
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
 int XPlmi_ClearNpiErrors(void)
@@ -1535,3 +1535,5 @@ static void XPlmi_ErrOutNClearFwCR(u32 ErrorId)
 		}
 	}
 }
+
+/** @} End of xilplmi_server_apis group */

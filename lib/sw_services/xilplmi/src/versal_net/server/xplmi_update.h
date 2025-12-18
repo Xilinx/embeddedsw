@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_update.h
+* @file xplmi_update.h
 * This file contains declarations related to PLM update process in versal_net
 *
 * <pre>
@@ -167,10 +167,6 @@ typedef int (*XPlmi_CheckPsmPresenceInOD_t)(u32 PdiAddr);
 
 
 /************************** Function Prototypes ******************************/
-/**
- * @{
- * @cond xplmi_internal
- */
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_RestoreDataBackup(void);
 int XPlmi_DsOps(u32 Op, u64 Addr, void *Data);
@@ -180,14 +176,9 @@ XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *D
 u32 XPlmi_GetUpdatePdiAddr(void);
 void XPlmi_SetPlmUpdateIpiMask(u32 value);
 u32 XPlmi_GetPlmUpdateIpiMask(void);
-/**
- * @}
- * @endcond
- */
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XPLMI_UPDATE_H */
-/** @} */

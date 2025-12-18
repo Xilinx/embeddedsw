@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,9 +102,6 @@ END:
  * @param	GicPVal indicates GICP source
  * @param	GicPxVal indicates GICPx source
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_GicIntrClearStatus(u32 GicPVal, u32 GicPxVal)
 {
@@ -126,9 +123,6 @@ void XPlmi_GicIntrClearStatus(u32 GicPVal, u32 GicPxVal)
  *
  * @param	GicPVal indicates GICP source
  * @param	GicPxVal indicates GICPx source
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrEnable(u32 GicPVal, u32 GicPxVal)
@@ -153,9 +147,6 @@ void XPlmi_GicIntrEnable(u32 GicPVal, u32 GicPxVal)
  * @param	GicPVal indicates GICP source
  * @param	GicPxVal indicates GICPx source
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_GicIntrDisable(u32 GicPVal, u32 GicPxVal)
 {
@@ -173,9 +164,6 @@ void XPlmi_GicIntrDisable(u32 GicPVal, u32 GicPxVal)
  * @brief	This is handler for GIC interrupts.
  *
  * @param	CallbackRef Not used in the function currently
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrHandler(void *CallbackRef)
@@ -247,9 +235,6 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
  * @param	Index is the interrupt index with GicPx and its corresponding
  * 			bit details.
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_GicIntrAddTask(u32 Index)
 {
@@ -257,7 +242,7 @@ void XPlmi_GicIntrAddTask(u32 Index)
 
 	Task = XPlmi_GetTaskInstance(NULL, NULL, Index);
 	if (Task == NULL) {
-		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrrupt add task error\n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrupt add task error\n\r");
 		goto END;
 	}
 	XPlmi_TaskTriggerNow(Task);
@@ -265,3 +250,5 @@ void XPlmi_GicIntrAddTask(u32 Index)
 END:
 	return;
 }
+
+/** @} End of xilplmi_server_apis group */

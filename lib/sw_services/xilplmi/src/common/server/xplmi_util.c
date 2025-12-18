@@ -67,21 +67,17 @@
 #include "xplmi_wdt.h"
 #include "xplmi_proc.h"
 
-/**@cond xplmi_internal
- * @{
- */
+/** @cond xplmi_internal */
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** Period for printing polling status (1 second in microseconds) */
 #define XPLMI_MASK_PRINT_PERIOD		(1000000U)
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /************************** Function Prototypes ******************************/
 
@@ -468,3 +464,5 @@ void XPlmi_ClearMultiboot(void) {}
 
 
 #endif
+
+/** @} End of xilplmi_server_apis group */

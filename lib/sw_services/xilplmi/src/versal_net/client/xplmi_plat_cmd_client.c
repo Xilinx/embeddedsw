@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -46,7 +46,7 @@ static int XPlmi_InPlacePlmUpdate(XPlmi_ClientInstance *InstancePtr,const u32 Fl
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends IPI request to In place plm update status
+ * @brief	This function sends IPI request to perform in-place PLM update
  *
  * @param	InstancePtr	Pointer to XPlmi_ClientInstance
  * @param	Flag		To enable / disable jtag
@@ -87,7 +87,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends IPI request to In place plm update status
+ * @brief	This function sends IPI request to perform in-place PLM update from DDR
  *
  * @param	Ptr	Pointer to XPlmi_ClientInstance
  * @param	Flag	To enable / disable jtag
@@ -107,7 +107,7 @@ int XPlmi_InPlacePlmUpdate_DDR(XPlmi_ClientInstance *Ptr,const u32 Flag, u32 DDR
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends IPI request to In place plm update status through Image store
+ * @brief	This function sends IPI request to perform in-place PLM update from Image Store
  *
  * @param	Ptr	Pointer to XPlmi_ClientInstance
  * @param	Flag	To enable / disable jtag
@@ -124,3 +124,5 @@ int XPlmi_InPlacePlmUpdate_ImageStore(XPlmi_ClientInstance *Ptr,const u32 Flag, 
 	Status = XPlmi_InPlacePlmUpdate(Ptr, Flag, PdiId);
 	return Status;
 }
+
+/** @} End of xilplmi_client_apis group */

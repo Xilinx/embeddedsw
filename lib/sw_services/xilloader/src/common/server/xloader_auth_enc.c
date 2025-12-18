@@ -1041,17 +1041,20 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function encrypts the RSA/ECDSA signature provided and
-* 			compares it with expected hash.
+* @brief	This function verifies the signature (RSA/ECDSA) using
+* 			the provided key and compares the result with the expected hash.
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	Hash is pointer to the expected hash
-* @param	Key is pointer to the RSA/ECDSA public key to be used
-* @param	Signature is pointer to the Signature
+* @param	Hash is pointer to the expected hash to be verified
+* @param	Key is pointer to the RSA/ECDSA public key to be used for verification
+* @param	Signature is pointer to the signature to be verified
 *
 * @return
-* 			- XST_SUCCESS on success.
-* 			- XLOADER_SEC_INVALID_AUTH on invalid authentication type.
+* 		- XST_SUCCESS on successful signature verification.
+* 		- XLOADER_SEC_INVALID_AUTH on invalid authentication type.
+* 		- XLOADER_ERR_RSA_NOT_ENABLED if RSA is excluded from build.
+* 		- XLOADER_ERR_ECDSA_NOT_ENABLED if ECDSA is excluded from build.
+* 		- XLOADER_SEC_CURVE_NOT_SUPPORTED if P-521 curve is not supported.
 *
 ******************************************************************************/
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,

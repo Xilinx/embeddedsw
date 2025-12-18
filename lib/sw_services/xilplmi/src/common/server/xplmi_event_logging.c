@@ -80,31 +80,29 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/**@cond xplmi_internal
- * @{
- */
+/** @cond xplmi_internal */
 
+/** High address of debug log buffer */
 #define XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR	(XPLMI_DEBUG_LOG_BUFFER_ADDR + \
 						XPLMI_DEBUG_LOG_BUFFER_LEN - 1U)
+/** High address of trace log buffer */
 #define XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR	(XPLMI_TRACE_LOG_BUFFER_ADDR + \
 						XPLMI_TRACE_LOG_BUFFER_LEN - 1U)
 
+/** Trace log buffer type identifier */
 #define XPLMI_TRACE_LOG_BUFFER	(0U)
+/** Debug log buffer type identifier */
 #define XPLMI_DEBUG_LOG_BUFFER	(1U)
+/** PMC subsystem node ID */
 #define XPLMI_PM_SUBSYS_PMC_NODEID	(0x1C000001U)
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
+/** Pointer to debug log information structure stored in RTCA memory */
 XPlmi_LogInfo *DebugLog = (XPlmi_LogInfo *)(UINTPTR)XPLMI_RTCFG_DBG_LOG_BUF_ADDR;
 
 
@@ -235,44 +233,42 @@ static void XPlmi_RetrieveBufferInfo(XPlmi_Cmd *Cmd,
 	Cmd->Response[5U] = LogBuffer->IsBufferFull;
 }
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /*****************************************************************************/
 /**
- * @brief	This function provides Event Logging command execution.
- *		Command payload parameters are
- *		Sub command
- *		1 - Configure print log level
- *			Arg1 - Log Level
- *		2 - Configure Debug Log buffer memory
- *			Arg1 - High Address
- *			Arg2 - Low Address
- *			Arg3 - Length
- *		3 - Retrieve Debug Log buffer
- *			Arg1 - High Address
- *			Arg2 - Low Address
- *		4 - Retrieve Debug Log buffer information
- *		5 - Configure Trace Log buffer memory
- *			Arg1 - High Address
- *			Arg2 - Low Address
- *			Arg3 - Length
- *		6 - Retrieve Trace Log buffer
- *			Arg1 - High Address
- *			Arg2 - Low Address
- *		7 - Retrieve Trace Log buffer information
- *		8 - Configure Uart
- *			Arg1 - Uart Select
- *			Arg2 - Uart Enable
+ * @brief	This function processes event logging commands for managing log buffers,
+ * 			log levels, and UART configuration.
+ *
+ * 			Supported commands and their payload parameters:
+ * 			- Command 1: Configure print log level
+ * 				- Arg1: Log Level
+ * 			- Command 2: Configure Debug Log buffer memory
+ * 				- Arg1: High Address
+ * 				- Arg2: Low Address
+ * 				- Arg3: Buffer Length in bytes
+ * 			- Command 3: Retrieve Debug Log buffer data
+ * 				- Arg1: Destination High Address
+ * 				- Arg2: Destination Low Address
+ * 			- Command 4: Retrieve Debug Log buffer information
+ * 			- Command 5: Configure Trace Log buffer memory
+ * 				- Arg1: High Address
+ * 				- Arg2: Low Address
+ * 				- Arg3: Buffer Length in bytes
+ * 			- Command 6: Retrieve Trace Log buffer data
+ * 				- Arg1: Destination High Address
+ * 				- Arg2: Destination Low Address
+ * 			- Command 7: Retrieve Trace Log buffer information
+ * 			- Command 8: Configure UART settings
+ * 				- Arg1: UART Select
+ * 				- Arg2: UART Enable/Disable
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_INVALID_LOG_LEVEL on invalid log level.
- * 			- XST_INVALID_PARAM on invalid logging command.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLMI_ERR_INVALID_LOG_LEVEL on invalid log level.
+ * 		- XST_INVALID_PARAM on invalid logging command.
  *
  *****************************************************************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
@@ -336,19 +332,13 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	return Status;
 }
 
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
 /*****************************************************************************/
 /**
  * @brief	This function stores the trace events to the Trace Log buffer.
  *
  * @param	TraceData to be stored to buffer
  * @param	Len is number of words in TraceData
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
@@ -392,9 +382,6 @@ void XPlmi_InitDebugLogBuffer(void)
 
 }
 
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
-/** @} */
+/** @} End of xilplmi_server_apis group */

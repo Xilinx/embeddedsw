@@ -318,3 +318,5 @@ void XPlmi_Print(u16 DebugType, const char8 *Ctrl1, ...)
 	}
 	va_end(Args);
 }
+
+/** @} End of xilplmi_server_apis group */
