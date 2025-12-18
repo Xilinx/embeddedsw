@@ -36,10 +36,6 @@
 #include "xpm_update_data.h"
 #include "xpm_notifier_plat.h"
 
-#include "xloader.h"
-#include "xloader_plat.h"
-#include "xloader_ddr.h"
-
 #define XPM_UPDATE_PSM_RST_TIMEOUT 150000U /** < Timeout to wait for PSM firmware us */
 #define DONTCAREVAL 0xCAFECAFEU
 #define MAX_NUM_NODE 1000
