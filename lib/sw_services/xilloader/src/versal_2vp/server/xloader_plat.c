@@ -22,6 +22,7 @@
 *       tvp  07/28/25 Add wrapper function API XLoader_UpdateDataMeasurement to update DataMeasurement
 *       tvp  10/01/25 Handle data measurement for image with both authenticated/non-authenticated/
 *                     checksum enabled partitions
+*       pre  12/16/25 Handled PCR info invalid case in case of OCP key management disabled
 *
 * </pre>
 *
@@ -809,6 +810,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 #ifndef PLM_SECURE_EXCLUDE
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 #endif
+
 #ifdef PLM_OCP_KEY_MNGMT
 	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 
@@ -820,6 +822,11 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
 		((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX) &&
 		(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX))) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+#else
+	if (ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
