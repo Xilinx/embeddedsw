@@ -441,7 +441,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		/** Validate the hash buffer length. */
 		if ((HashLen == 0U) || (HashLen > XASU_SHA_512_HASH_LEN)) {
-			Status = XASUFW_ECC_INVALID_PARAM;
+			Status = XASUFW_RSA_ECC_INVALID_PARAM;
 			goto END;
 		}
 
@@ -709,7 +709,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		/** Validate the hash buffer length. */
 		if ((HashLen == 0U) || (HashLen > XASU_SHA_512_HASH_LEN)) {
-			Status = XASUFW_ECC_INVALID_PARAM;
+			Status = XASUFW_RSA_ECC_INVALID_PARAM;
 			goto END;
 		}
 
@@ -980,7 +980,7 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 		/** For edward curves, copy the generated random number to private key pointer. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SecureMemCpy(PvtKey, CurveLen, RandBufPtr, CurveLen);
-		if (Status != XASUFW_FAILURE) {
+		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_COPY_FAIL;
 		}
 	}
@@ -1310,12 +1310,6 @@ s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashLen)
 	s32 Status = XASUFW_FAILURE;
 	u32 HashDiffLen = 0U;
 
-	/** Validate Hash Buffer Length. */
-	if (HashLen == 0U) {
-		Status = XASUFW_RSA_ECC_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Pad the hash buffer with 0's if less than curve length to align with curve length. */
 	if (HashLen < CurveSize) {
 		HashDiffLen = CurveSize - HashLen;
@@ -1327,7 +1321,6 @@ s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashLen)
 		Status = XASUFW_SUCCESS;
 	}
 
-END:
 	return Status;
 }
 

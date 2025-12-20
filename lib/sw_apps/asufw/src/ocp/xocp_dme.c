@@ -245,7 +245,7 @@ s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDme
 	XAsu_OcpDmeResponse *OcpDmeResp = NULL;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (OcpDmeParamsPtr == NULL)) {
+	if ((DmaPtr == NULL) || (OcpDmeParamsPtr == NULL)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 	}
@@ -397,7 +397,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the AES encrypt/decrypt operation as part of OCP.
+ * @brief	This function decrypts the DME encrypted private key using DME KEK.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	DmeUserKeyAddr	Address of DME user key

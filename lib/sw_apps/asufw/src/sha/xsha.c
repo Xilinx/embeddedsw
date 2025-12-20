@@ -45,7 +45,7 @@
 
 /************************************ Constant Definitions ***************************************/
 #define	XSHA_LAST_WORD					(1U) /**< SHA last word value */
-#define XSHA_TIMEOUT_MAX				(0x1FFFFU) /**< SHA finish timeout */
+#define XSHA_TIMEOUT_MAX				(5000U) /**< SHA finish timeout in micro-seconds */
 
 #define XSHA_SHA2_START_NIST_PADDING_MASK		(0x80U)
 						/**< Nist Start padding masks */
@@ -629,7 +629,7 @@ s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
  *************************************************************************************************/
 static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
 {
-	/* Check whether SHA operation is completed within Timeout(10sec) or not. */
+	/* Check whether SHA operation is completed within Timeout(5ms) or not. */
 	return (s32)Xil_WaitForEvent(InstancePtr->BaseAddress + XASU_SHA_DONE_OFFSET,
 				     XASU_SHA_DONE_MASK, XASU_SHA_DONE_MASK, XSHA_TIMEOUT_MAX);
 }

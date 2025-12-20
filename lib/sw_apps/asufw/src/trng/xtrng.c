@@ -972,7 +972,7 @@ static s32 XTrng_WaitForReseed(XTrng *InstancePtr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
-	/** Check whether TRNG operation is completed within Timeout or not. */
+	/** Check whether TRNG operation is completed within Timeout(3sec) or not. */
 	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XTrng_WaitForEvent, XASUFW_TRNG_TIMEOUT_ERROR, XFihVar, Status,
 					   END, (UINTPTR)(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET),
 					   XASU_TRNG_STATUS_DONE_MASK, XASU_TRNG_STATUS_DONE_MASK, (XTRNG_RESEED_TIMEOUT * 2U));
@@ -1042,7 +1042,7 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 					   XASU_TRNG_CTRL_PRNGSTART_MASK, XASU_TRNG_CTRL_PRNGSTART_MASK);
 
 	for (NumofBursts = 0; NumofBursts < XTRNG_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
-		/** Check whether TRNG operation is completed within Timeout or not. */
+		/** Check whether TRNG operation is completed within Timeout(1.5sec) or not. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XTrng_WaitForEvent, XASUFW_TRNG_TIMEOUT_ERROR,
 			XFihVar, Status, END,
 			(UINTPTR)(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET),

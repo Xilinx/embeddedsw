@@ -106,7 +106,7 @@ s32 XAsufw_HmacInit(void)
 	/** Initialize HMAC instance. */
 	Status = XHmac_CfgInitialize(HmacPtr);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_MODULE_REGISTRATION_FAILED);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_INIT_FAILED);
 	}
 
 END:
