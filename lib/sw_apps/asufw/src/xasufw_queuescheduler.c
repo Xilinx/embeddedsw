@@ -348,12 +348,21 @@ s32 XAsufw_ChannelConfigInit(void)
 	/** Validate IPI channel information present at ASU RTCA. */
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
 		/** Skip IPI channel configuration if the received IPI channel information is incorrect. */
+		/**
+		 * P0 queue priority value must be strictly less than P1 queue priority value
+		 * (lower value = higher priority).
+		 * P1 having same or higher priority than P0 violates the design requirement that
+		 * P0 commands must always be processed before P1 commands from the same channel.
+		 * P0 queue priority valid range: [0-14]
+		 * P1 queue priority valid range: [1-15]
+		 * These ranges ensure that a valid P0 < P1 priority pair can always be configured.
+		 */
 		if ((CommChannelInfo->Channel[ChannelIndex].IpiBitMask <= IPI_ASU_ISR_PMC_MASK) ||
 		    (CommChannelInfo->Channel[ChannelIndex].IpiBitMask > IPI_ASU_NOBUF_6_MASK) ||
-		    (CommChannelInfo->Channel[ChannelIndex].P0QueuePriority >=
-		     XASUFW_MAX_PRIORITIES_SUPPORTED) ||
 		    (CommChannelInfo->Channel[ChannelIndex].P1QueuePriority >=
-		     XASUFW_MAX_PRIORITIES_SUPPORTED)) {
+		     XASUFW_MAX_PRIORITIES_SUPPORTED) ||
+		    (CommChannelInfo->Channel[ChannelIndex].P0QueuePriority >=
+		     CommChannelInfo->Channel[ChannelIndex].P1QueuePriority)) {
 			XAsufw_Printf(DEBUG_INFO, "Invalid communication channel information received "
 				      "from user configuration.\r\nIPI Bit Mask: 0x%x, "
 				      "P0 Queue Priority: %d, P1 Queue Priority: %d\r\n",
