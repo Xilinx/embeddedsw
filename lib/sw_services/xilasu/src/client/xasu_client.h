@@ -85,7 +85,7 @@ typedef struct {
  * 			- Unique ID	Returns the unique ID
  *
  *************************************************************************************************/
-inline u8 XAsu_GetUniqueId(u32 Header)
+static inline u8 XAsu_GetUniqueId(u32 Header)
 {
 	return (u8)((Header & XASU_UNIQUE_REQ_ID_MASK) >> XASU_UNIQUE_REQ_ID_SHIFT);
 }
@@ -105,7 +105,7 @@ inline u8 XAsu_GetUniqueId(u32 Header)
  * 	- Header	Command Header.
  *
  *************************************************************************************************/
-inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen, u8 SecureFlag)
+static inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen, u8 SecureFlag)
 {
 	u32 Header = 0U;
 
