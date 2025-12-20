@@ -371,6 +371,7 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		if ((RegVal & (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) !=
 				(u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) {
 			DbgErr = XPM_INT_ERR_SCAN_PASS;
+			Status = XPM_ERR_SCAN_CLR;
 			goto done;
 		}
 	} else {
@@ -541,6 +542,7 @@ static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XPmBisr_Repair(CPM_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_BISR_REPAIR;
+			goto done;
 		}
 
 	} else {
