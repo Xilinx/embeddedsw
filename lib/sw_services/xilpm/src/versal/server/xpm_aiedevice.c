@@ -139,7 +139,7 @@ static XStatus AieDeviceInitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32
 	XPm_AieNode *AieNode;
 	const XPm_AieDomain *AieDomain;
 
-	if ((1U != NumArgs) || (PM_POWER_ME != Args[0]) || (PM_POWER_ME2 != Args[0])) {
+	if ((1U != NumArgs) || ((PM_POWER_ME != Args[0]) && (PM_POWER_ME2 != Args[0]))) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		goto done;
 	}
