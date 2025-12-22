@@ -14,7 +14,7 @@ BSP_MAKEFILES := $(wildcard $(PROCESSOR)/libsrc/*/src/Makefile)
 SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
 DRIVERS_LIST=../drivers.txt
 PAR_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
-PLATFORM := -DVERSAL_2VP
+PLATFORM := -DVERSAL_2VP -DXC2VP3602
 
 ifneq (,$(findstring win,$(RDI_PLATFORM)))
  SHELL = CMD
