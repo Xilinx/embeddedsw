@@ -954,10 +954,13 @@ static XStatus Cpm6GtmpwMbist(u32 BaseAddress, u32 PollTimeOut)
 	}
 
 done:
-	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
-	/* Lock PCSR Redundancy */
-	XPm_LockPcsr(BaseAddress);
+	/* Lock PCSR only if it is not XC2VP3602 device due to PCSR access issue */
+	#if !defined(XC2VP3602)
+		/* Lock PCSR */
+		XPm_LockPcsr(BaseAddress);
+		/* Lock PCSR Redundancy */
+		XPm_LockPcsr(BaseAddress);
+	#endif
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
