@@ -36,16 +36,36 @@ supported_os:
   - freertos10_xilinx
 
 examples:
-  xplmi_event_logging_client_example.c: []
-  xplmi_get_board_client_example.c: []
-  xplmi_get_device_id_client_example.c: []
-  xplmi_tamper_trigger_client_example.c: []
-  xplmi_glitch_detector_example.c: []
-  xplmi_usermodule_example.c: []
+  xplmi_event_logging_client_example.c:
+  xplmi_get_board_client_example.c:
+  xplmi_get_device_id_client_example.c:
+  xplmi_tamper_trigger_client_example.c:
+  xplmi_glitch_detector_example.c:
+  xplmi_usermodule_example.c:
   xilplmi_in_place_plm_update_client_example.c:
-   - supported_platforms:
-      - VersalNet
   xplmi_configure_secure_comm_example.c:
-   - supported_platforms:
-      - Versal
+
+  condition: |
+    examples = []
+
+    versal_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5"]
+    versalnet_procs = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psxl_cortexa78", "psxl_cortexr52"]
+    versal_2ve_2vm_procs = ["microblaze", "cortexa78", "cortexr52"]
+    all_family_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52", "psxl_cortexa78", "psxl_cortexr52", "cortexa78", "cortexr52"]
+
+    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"] and proc in all_family_procs:
+      examples += [
+        "xplmi_event_logging_client_example.c",
+        "xplmi_get_board_client_example.c",
+        "xplmi_get_device_id_client_example.c",
+        "xplmi_tamper_trigger_client_example.c",
+        "xplmi_glitch_detector_example.c",
+        "xplmi_usermodule_example.c"
+      ]
+
+    if platform == "Versal" and proc in versal_procs:
+      examples += ["xplmi_configure_secure_comm_example.c"]
+
+    if (platform == "VersalNet" and proc in versalnet_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
+      examples += ["xilplmi_in_place_plm_update_client_example.c"]
 ...
