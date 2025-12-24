@@ -283,7 +283,7 @@ static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	u32 Sha2Mode = *((u32 *)ReqBuf->Arg);
 
-	if ((Sha2Mode != XASU_SHA_MODE_256) && (Sha2Mode != XASU_SHA_512_HASH_LEN)) {
+	if ((Sha2Mode != XASU_SHA_MODE_256) && (Sha2Mode != XASU_SHA_MODE_512)) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
 	}
