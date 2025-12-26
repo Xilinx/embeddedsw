@@ -40,6 +40,7 @@
 * 4.12  ml   12/07/23 Make TimerExpired as a static variable.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.15  vmt  12/16/25 Updated reset values to reduce interrupt interval.
 *</pre>
 ******************************************************************************/
 
@@ -81,8 +82,8 @@
  * making this number larger reduces the amount of time this example consumes
  * because it is the value the timer counter is loaded with when it is started
  */
-#define RESET_VALUE_CNTR_0	 0xF0000000
-#define RESET_VALUE_CNTR_1	 0xFFFFFFFE
+#define RESET_VALUE_CNTR_0	 0xFFFF0000
+#define RESET_VALUE_CNTR_1	 0xFFFFFFFF
 
 
 
