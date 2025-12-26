@@ -511,7 +511,7 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	KeyObject.KeyAddress = (u64)(UINTPTR)(XOcp_DmeKek);
 
 	/** Write AES key - DME KEK for encryption and decryption of DME private keys. */
-	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, (u64)(UINTPTR)&KeyObject);
+	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, &KeyObject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_AES_WRITE_KEY_FAILURE);
 		goto END;

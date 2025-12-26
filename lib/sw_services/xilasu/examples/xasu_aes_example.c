@@ -305,9 +305,11 @@ static void XAsu_AesGcmExample(void)
 	AesKeyObj.KeyAddress = (u64)(UINTPTR)XAsu_AesKey;
 	AesKeyObj.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
+	AesKeyObj.KeyId = 0U;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
 	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
+	AesParams.IvId = 0U;
 
 	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesInputData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;

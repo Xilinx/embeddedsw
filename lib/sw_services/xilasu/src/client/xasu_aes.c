@@ -131,11 +131,20 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 			goto END;
 		}
 
+		if ((AesClientParamPtr->EngineMode != XASU_AES_ECB_MODE) && (AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE)) {
+			if ((AesClientParamPtr->IvAddr == 0U) && (AesClientParamPtr->IvId == 0U)) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
+		}
+
 		/** Validate IV. */
-		Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
-			AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
-		if (Status != XST_SUCCESS) {
-			goto END;
+		if (AesClientParamPtr->IvAddr != 0U) {
+			Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
+				AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 		}
 	}
 
@@ -355,7 +364,7 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 		goto END;
 	}
 
-	if (KeyObjectPtr->KeyAddress == 0U) {
+	if ((KeyObjectPtr->KeyAddress == 0U) && (KeyObjectPtr->KeyId == 0U)) {
 		goto END;
 	}
 

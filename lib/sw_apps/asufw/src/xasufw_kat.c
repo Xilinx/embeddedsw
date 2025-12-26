@@ -1227,9 +1227,10 @@ s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode)
 	KeyObject.KeyAddress = (u64)(UINTPTR)AesKey;
 	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
 	KeyObject.KeySize = XASU_AES_KEY_SIZE_256_BITS;
+	KeyObject.KeyId = 0U;
 
 	/** Write key to AES registers. */
-	Status = XAes_WriteKey(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject);
+	Status = XAes_WriteKey(AesInstance, AsuDmaPtr, &KeyObject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
 		goto END;
@@ -1243,7 +1244,7 @@ s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode)
 	 * Initialize the AES engine and load the provided key and IV to the AES engine for
 	 * encryption operation.
 	 */
-	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)IvPtr,
+	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)IvPtr,
 		IvLen, EngineMode, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
@@ -1297,7 +1298,7 @@ s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode)
 	 * Initialize the AES engine and load the provided key and IV to the AES engine for
 	 * decryption operation.
 	 */
-	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)IvPtr,
+	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)IvPtr,
 		IvLen, EngineMode, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
@@ -1861,10 +1862,11 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
+	KwpunwpParam.KeyId = 0U;
 
 	/** Perform key wrap operation with known inputs. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal);
+	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL;
 		goto END;

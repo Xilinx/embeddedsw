@@ -49,7 +49,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-                XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
+                XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr, u32 SubsystemId);
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
                 XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
 #endif /* XASU_KEYWRAP_ENABLE */

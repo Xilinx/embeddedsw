@@ -75,7 +75,7 @@ typedef struct {
 	u8 ShaMode;	/**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
 		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
-	u8 Reserved;	/**< Reserved */
+	u8 KeyId;	/**< Key ID, if the key to be used from ASU key vault */
 } XAsu_KeyWrapParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

@@ -117,6 +117,7 @@ typedef struct {
 	u64 KeyAddress; /**< AES Key pointer */
 	u32 KeySize; /**< AES key size */
 	u32 KeySrc; /**< AES key source */
+	u32 KeyId; /**< AES key ID, if the key to be used from ASU key vault */
 } XAsu_AesKeyObject;
 
 /**
@@ -143,6 +144,7 @@ typedef struct {
 	u8 OperationType; /**< AES encrypt/decrypt operation type
 					* - XASU_AES_ENCRYPT_OPERATION: For encrypt operation
 					* - XASU_AES_DECRYPT_OPERATION: For decrypt operation */
+	u32 IvId; /**< AES IV ID, if the IV to be used from ASU key vault */
 } XAsu_AesParams __attribute__ ((aligned (32)));
 
 /************************************ Function Prototypes ****************************************/

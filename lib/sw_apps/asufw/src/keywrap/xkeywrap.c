@@ -35,6 +35,7 @@
 #include "xasu_keywrap_common.h"
 #include "xasu_aesinfo.h"
 #include "xasufw_trnghandler.h"
+#include "xkeymanager.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -77,7 +78,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
- * 	- XASUFW_RSA_RAND_GEN_ERROR, if ephemeral AES key using TRNG generation fails.
+ * 	- XASUFW_RAND_GEN_ERROR, if ephemeral AES key using TRNG generation fails.
  * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
  * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
@@ -86,7 +87,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  *
  *************************************************************************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-			XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr)
+			XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr, u32 SubsystemId)
 {
 	/**
 	 * Capture the start time of the key wrap operation, if performance measurement is
@@ -118,12 +119,6 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END;
 	}
 
-	if (KeyWrapParamsPtr->AesKeySize == XASU_AES_KEY_SIZE_128_BITS) {
-		AesKeySizeInBytes = XASU_AES_KEY_SIZE_128BIT_IN_BYTES;
-	} else {
-		AesKeySizeInBytes = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
-	}
-
 	/** Calculate padding length. */
 	PadLen = (XASUFW_BYTE_LEN_IN_BITS *
 		((KeyWrapParamsPtr->InputDataLen + XASUFW_BYTE_LEN_IN_BITS - XASUFW_VALUE_ONE)
@@ -141,17 +136,36 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	}
 
 	/** Generate ephemeral AES key using TRNG. */
-	Status = XAsufw_TrngGetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_RAND_GEN_ERROR;
-		goto END;
+	if (KeyWrapParamsPtr->KeyId == 0U) {
+		AesKeySizeInBytes = (u8)((KeyWrapParamsPtr->AesKeySize << XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT) +
+				XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET);
+		Status = XAsufw_TrngGetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RAND_GEN_ERROR;
+			goto END;
+		}
+		AesKeyObj.KeyAddress = (u64)(UINTPTR)EphemeralAesKey;
+		AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
+		AesKeyObj.KeyId = 0U;
+	} else {
+		AesKeyObj.KeyId = KeyWrapParamsPtr->KeyId;
+		Status = XKeyManager_UpdateAesKeyObjectFromVault(&AesKeyObj, SubsystemId,
+							XKEYMANAGER_AES_KEY_WRAP_USE_CASE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+		AesKeySizeInBytes = (u8)((AesKeyObj.KeySize << XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT) +
+				XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET);
 	}
+
+	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	/**
 	 * Update RSA OAEP related parameters for encryption of generated AES Key and perform RSA OAEP
 	 * encode operation.
 	 */
-	PaddingParams.XAsu_RsaOpComp.InputDataAddr = (u64)(UINTPTR)EphemeralAesKey;
+	PaddingParams.XAsu_RsaOpComp.InputDataAddr = AesKeyObj.KeyAddress;
 	PaddingParams.XAsu_RsaOpComp.OutputDataAddr = KeyWrapParamsPtr->OutputDataAddr;
 	PaddingParams.XAsu_RsaOpComp.ExpoCompAddr = KeyWrapParamsPtr->ExpoCompAddr;
 	PaddingParams.XAsu_RsaOpComp.KeyCompAddr= KeyWrapParamsPtr->KeyCompAddr;
@@ -168,13 +182,9 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END;
 	}
 
-	AesKeyObj.KeyAddress = (u64)(UINTPTR)EphemeralAesKey;
-	AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
-
 	/** Write AES key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, (u64)(UINTPTR)&AesKeyObj);
+	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, &AesKeyObj);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_WRITE_KEY_FAILED;
 		goto END_KEY_CLR;
@@ -301,7 +311,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 
 	/** Write AES key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, (u64)(UINTPTR)&AesKeyObj);
+	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, &AesKeyObj);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_WRITE_KEY_FAILED;
 		goto END_KEY_CLR;
@@ -377,7 +387,6 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	u32 CopyLen = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 	XAsu_AesParams AesParams;
-	XAsu_AesKeyObject AesKeyObj;
 
 	/** Validate input parameters. */
 	if ((KeyWrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (AesInstancePtr == NULL)
@@ -449,11 +458,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	AesParams.EngineMode = XASU_AES_ECB_MODE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 
-	AesKeyObj.KeyAddress = 0U;
-	AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
-
-	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
+	AesParams.KeyObjectAddr = 0U;
 	AesParams.IvAddr = 0U;
 	AesParams.IvLen = 0U;
 	AesParams.InputDataAddr = (u64)(UINTPTR)AesInData;
@@ -601,7 +606,6 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	volatile u32 Index = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 	XAsu_AesParams AesParams;
-	XAsu_AesKeyObject AesKeyObj;
 
 	/** Validate input parameters. */
 	if ((KeyUnwrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (AesInstancePtr == NULL)
@@ -641,11 +645,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	AesParams.EngineMode = (u8)XASU_AES_ECB_MODE;
 	AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 
-	AesKeyObj.KeyAddress = 0U;
-	AesKeyObj.KeySize = KeyUnwrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
-
-	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
+	AesParams.KeyObjectAddr = 0U;
 	AesParams.IvAddr = 0U;
 	AesParams.IvLen = 0U;
 	AesParams.InputDataAddr = (u64)(UINTPTR)AesInData;

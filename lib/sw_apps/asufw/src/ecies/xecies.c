@@ -348,7 +348,7 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 	KeyObject.KeyAddress = (u64)(UINTPTR)(Key);
 
 	/** Write AES key. */
-	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, (u64)(UINTPTR)&KeyObject);
+	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, &KeyObject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECIES_AES_WRITE_KEY_FAILURE;
 		goto END;

@@ -93,8 +93,8 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 XAes *XAes_GetInstance(u16 DeviceId);
 s32 XAes_CfgInitialize(XAes *InstancePtr);
-s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr);
-s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAddr, u32 IvLen,
+s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjectPtr);
+s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 	u8 EngineMode, u8 OperationType);
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
 	u32 DataLength, u8 IsLastChunk);

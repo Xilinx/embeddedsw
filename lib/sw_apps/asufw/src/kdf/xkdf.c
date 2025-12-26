@@ -260,7 +260,7 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 A
 
 	/** Write AES key if the key source is a user key. */
 	if (AesKeySrc <= XASU_AES_USER_KEY_7) {
-		Status = XAes_WriteKey(AesInstancePtr, DmaPtr, (u64)(UINTPTR)&KeyObject);
+		Status = XAes_WriteKey(AesInstancePtr, DmaPtr, &KeyObject);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_ERROR);
 			goto END;
@@ -275,7 +275,7 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 A
 	for (KdfIndex = 0U; KdfIndex < Iterations; ++KdfIndex) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** - Initialize AES with KeyIn provided in CMAC mode. */
-		Status = XAes_Init(AesInstancePtr, DmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)KOut,
+		Status = XAes_Init(AesInstancePtr, DmaPtr, (u64)(UINTPTR)KOut,
 				XASU_AES_MAX_TAG_LENGTH_IN_BYTES, XASU_AES_CMAC_MODE,
 				XASU_AES_ENCRYPT_OPERATION);
 		if (Status != XASUFW_SUCCESS) {

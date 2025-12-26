@@ -41,6 +41,7 @@
 #include "xasufw_kat.h"
 #include "xfih.h"
 #include "xasu_aes_common.h"
+#include "xkeymanager.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -183,6 +184,13 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
 	static u32 CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 	u8 AadIsLast;
+	u8 KeyUsecase = 0U;
+	u64 LocalIvAddr = 0U;
+	u32 LocalIvLen = 0U;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	XAsu_AesKeyObject KeyObject;
+	XKeyManager_IvObject *KeyVaultIvObjectPtr;
 
 	/**
 	 * If the DMA non-blocking transfer was initiated previously,
@@ -199,24 +207,85 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto XAES_STAGE_DATA_UPDATE_DONE;
 	}
 
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
 	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesParamsPtr->OperationFlags &
 			XASUFW_AES_OP_FLAGS_ALL) != XASUFW_AES_OP_FLAGS_ALL)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
 		goto END;
 	}
 
+	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) ||
+		(AesParamsPtr->EngineMode == XASU_AES_GCM_MODE) ||
+		(AesParamsPtr->EngineMode == XASU_AES_CMAC_MODE) || (AesParamsPtr->EngineMode == XASU_AES_GHASH_MODE)) {
+		KeyUsecase = XKEYMANAGER_AES_AUTH_USE_CASE;
+	} else if (AesParamsPtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
+		KeyUsecase = XKEYMANAGER_AES_ENC_USE_CASE;
+	} else if (AesParamsPtr->OperationType == XASU_AES_DECRYPT_OPERATION) {
+		KeyUsecase = XKEYMANAGER_AES_DEC_USE_CASE;
+	} else {
+		Status = XASUFW_AES_INVALID_OPERATION_TYPE;
+		goto END;
+	}
+
+	LocalIvAddr = AesParamsPtr->IvAddr;
+	LocalIvLen = AesParamsPtr->IvLen;
+
+	if ((AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) && (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
+		if ((AesParamsPtr->IvAddr == 0U) && (AesParamsPtr->IvId == 0U)) {
+			Status = XASUFW_AES_INVALID_IV;
+			goto END;
+		}
+		if (AesParamsPtr->IvAddr == 0U) {
+			KeyVaultIvObjectPtr = (XKeyManager_IvObject* )XKeyManager_GetKeyObjectPtr(AesParamsPtr->IvId,
+										SubsystemId, KeyUsecase);
+			if (KeyVaultIvObjectPtr == NULL) {
+				Status = XASUFW_AES_INVALID_IV;
+				goto END;
+			}
+			LocalIvAddr = (u64)(UINTPTR)KeyVaultIvObjectPtr->Content;
+			LocalIvLen = KeyVaultIvObjectPtr->Metadata.Length;
+		}
+	}
+
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
+		/** Copy KeyObject structure from 64-bit address space to local structure using ASU DMA. */
+		Status = XAsufw_DmaXfr(XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
+			(u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+
+		if ((KeyObject.KeyAddress == 0U) && (KeyObject.KeyId == 0U)) {
+			Status = XASUFW_AES_INVALID_KEY_ADDRESS;
+			goto END;
+		}
+
+		if ((KeyObject.KeyAddress == 0U) && (KeyObject.KeyId != 0U)) {
+		Status = XKeyManager_UpdateAesKeyObjectFromVault(&KeyObject, SubsystemId,
+							KeyUsecase);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+				goto END;
+			}
+		}
+
 		/** Write the given user key to the specified AES USER KEY register. */
-		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
-				AesParamsPtr->KeyObjectAddr);
+		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, &KeyObject);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
 			goto END;
 		}
 
 		/** Initialize the AES engine for the given AES operation. */
-		Status = XAes_Init(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
-				AesParamsPtr->IvAddr, AesParamsPtr->IvLen, AesParamsPtr->EngineMode,
+		Status = XAes_Init(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, LocalIvAddr,
+				LocalIvLen, AesParamsPtr->EngineMode,
 				AesParamsPtr->OperationType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
@@ -272,8 +341,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/** For AES CCM mode, format and push the AAD to AES engine. */
 		if (EngineMode == XASU_AES_CCM_MODE) {
 			Status = XAes_CcmFormatAadAndXfer(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
-				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, AesParamsPtr->IvAddr,
-				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
+				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, LocalIvAddr,
+				(u8)LocalIvLen, AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
 				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
 				XAsufw_DmaCfgNonBlocking(XAsufw_AesModule.AsuDmaPtr,
