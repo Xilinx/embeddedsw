@@ -8,7 +8,7 @@
  *
  * @file xkeymanager.h
  *
- * This file Contains the function prototypes, defines and macros for the key manager functionality.
+ * This file contains the function prototypes, defines and macros for the key manager functionality.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -38,13 +38,23 @@ extern "C" {
 #include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XKEYMANAGER_MAX_SUB_VAULTS	(0x09U) /**< Total number of supported sub-vaults */
+#define XKEYMANAGER_MAX_SUB_VAULTS	(9U) /**< Total number of supported sub-vaults */
 
 #define XKEYMANAGER_MAJOR_VERSION	(1U) /**< Major version of the key manager */
 #define XKEYMANAGER_MINOR_VERSION	(0U) /**< Minor version of the key manager */
 #define XKEYMANAGER_IDENTIFICATION_STRING	(0x4C564B58U) /**< Key manager identification string */
 
 #define XKEYMANAGER_MAX_VAULTS		(8U) /**< Maximum number of key vaults supported */
+
+#define XKEYMANAGER_AES_ENC_USE_CASE		(0U)	/**< Data encryption key use case */
+#define XKEYMANAGER_AES_DEC_USE_CASE		(1U)	/**< Data decryption key use case */
+#define XKEYMANAGER_AES_KEY_WRAP_USE_CASE	(2U)	/**< Data key wrap use case */
+#define XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE	(3U)	/**< Data key unwrap use case */
+#define XKEYMANAGER_AES_AUTH_USE_CASE		(4U)	/**< Data key unwrap use case */
+
+#define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
+#define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
+
 /************************************** Type Definitions *****************************************/
 
 /** This enum contains sub vault ID related information. */
@@ -138,9 +148,11 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 s32 XKeyManager_DeleteKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId);
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
-			XKeyManager_SubVaultType Keytype);
-u8* XKeyManager_GetKeyObjectPtr(u32 KeyId);
+			XKeyManager_SubVaultType KeyType);
+u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase);
 s32 XKeyManager_GetVaultId(u32 SubSystemId, u8 *VaultIdPtr);
+s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject, u32 SubSystemId,
+			u8 KeyUsecase);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -628,6 +628,9 @@ enum {
 	XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, /**< 0x1B4U - Error when key vault DDR address is invalid. */
 	XASUFW_KEYMANAGER_NO_SPACE, /**< 0x1B5U - Error when there is no space left to create key vault. */
 	XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, /**< 0x1B6U - Error when getting key object fails. */
+	XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, /**< 0x1B7U - Error when key use case is invalid. */
+	XASUFW_KEYMANAGER_ACCESS_DENIED, /**< 0x1B8U - Error when access right violation occurs. */
+	XASUFW_KEYMANAGER_KEY_EXPIRED, /**< 0x1B9U - Error when key is expired. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

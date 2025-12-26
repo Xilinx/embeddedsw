@@ -45,9 +45,11 @@ extern "C" {
 #define XASU_KM_DELETE_KEYVAULT_CMD_ID		(1U) /**< Command ID for key vault deletion */
 #define XASU_KM_GEN_AES_KEY_CMD_ID		(2U) /**< Command ID for AES key generation */
 #define XASU_KM_GEN_AES_IV_CMD_ID		(3U) /**< Command ID for AES IV generation */
-#define XASU_KM_MAX_CMD_ID			(4U) /**< Maximum command ID value */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
+
+#define XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE	(0xFFFFFFFFU) /**< Marker for keys that
+									never expire */
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This structure contains info for meta data of key. */

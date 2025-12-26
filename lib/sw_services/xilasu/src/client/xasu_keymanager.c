@@ -27,6 +27,7 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xasu_keymanager.h"
+#include "xasu_keymanager_common.h"
 #include "xasu_aesinfo.h"
 #include "xasu_def.h"
 
@@ -138,21 +139,15 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (KmSubVaultParamPtr == NULL) {
+	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
+	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Validate key length is either 128-bit or 256-bit. */
-	if ((KmSubVaultParamPtr->Length != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
-	   (KmSubVaultParamPtr->Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_AES_KEYTYPE);
+	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate at least one output destination is provided. */
-	if ((KmSubVaultParamPtr->KeyObjectAddr == 0U) && (KmSubVaultParamPtr->KeyIdAddr == 0U)) {
-	        Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
@@ -207,26 +202,15 @@ s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (KmSubVaultParamPtr == NULL) {
+	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
+	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Validate IV length is non-zero. */
-	if (KmSubVaultParamPtr->Length == 0U) {
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_IV_KEYTYPE);
+	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate IV length does not exceed maximum size. */
-	if (KmSubVaultParamPtr->Length > XASU_AES_IV_SIZE_128BIT_IN_BYTES) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate at least one output destination is provided. */
-	if ((KmSubVaultParamPtr->KeyObjectAddr == 0U) && (KmSubVaultParamPtr->KeyIdAddr == 0U)) {
-	        Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 

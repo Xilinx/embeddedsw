@@ -32,10 +32,12 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xkeymanager.h"
+#include "xasu_keymanager_common.h"
 #include "xasufw_util.h"
 #include "xasufw_status.h"
 #include "xasufw_debug.h"
 #include "xasufw_trnghandler.h"
+#include "xasufw_queuescheduler.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_HEADER_SIZE			(12U) /**< Size of the key vault header */
@@ -47,7 +49,12 @@
 #define XKEYMANAGER_VAULT_ID_MASK_VAL	(0x00FF0000U) /**< Vault ID mask (bits 23:16) */
 #define XKEYMANAGER_KEY_TYPE_MASK_VAL	(0xFF000000U) /**< Key type mask (bits 31:24) */
 
-#define XKEYMANAGER_KEY_INDEX_OFFSET	(1U) /**< Offset for key index */
+#define XKEYMANAGER_KEY_INDEX_OFFSET		(1U) /**< Offset for key index */
+#define XKEYMANAGER_USAGE_COUNT_DEC_VALUE	(1U) /**< Usage count decrement
+							value per access */
+
+#define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & (1U << (Index))) != 0U) /**< Check if a bit is set */
+#define XKEYMANAGER_KEYUSECASE_BITMASK(KeyUseCase) (1U << (KeyUseCase)) /**< Generate bitmask for a use case */
 
 #define XKEYMANAGER_EXTRACT_KEYTYPE(KeyId) (((KeyId) & XKEYMANAGER_KEY_TYPE_MASK_VAL) >> \
 						XKEYMANAGER_KEY_TYPE_SHIFT_VAL)	/**< Extract key
@@ -69,6 +76,7 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 *VaultIdPtr);
 static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubVault, u16 *KeyIdPtr,
 				XKeyManager_SubVaultType KeyType);
+static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 KeyUseCase, u8 VaultId);
 
 /************************************ Variable Definitions ***************************************/
 XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for each vault of a
@@ -108,6 +116,13 @@ s32 XKeyManager_CfgInitialize(void)
 
 	/*TODO: Compare DDR capacity.*/
 
+	Status = Xil_SMemSet(&VaultManager, sizeof(XKeyManager_VaultRegistry), 0U,
+			sizeof(XKeyManager_VaultRegistry));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
 	/** Initialize vault size from RTCA registers. */
 	VaultManager.TotalVaultSize = XAsufw_ReadReg(XASU_RTCA_KEYVAULT_SIZE_ADDR);
 	VaultManager.RemainingVaultSize = XAsufw_ReadReg(XASU_RTCA_KEYVAULT_SIZE_ADDR);
@@ -128,16 +143,19 @@ END:
  * 		- Bits [23:16]: Vault ID identifying which vault contains the key
  * 		- Bits [31:24]: Key type identifier (AES, IV, RSA, ECC, etc.)
  *
- * @param	KeyId	Composite key identifier containing VaultId (bits [23:16]),
- * 			KeyType (bits [31:24]), and KeyId (bits [15:0]).
+ * @param	KeyId		Composite key identifier containing VaultId (bits [23:16]),
+ * 						KeyType (bits [31:24]), and KeyId (bits [15:0]).
+ * @param	SubSystemId	Subsystem identifier for which the key is requested.
+ * @param	KeyUsecase	Use case identifier for the key.
  *
  * @return
  * 	- Pointer to the key object on success
  * 	- NULL if the key ID is invalid or not found.
  *
  *************************************************************************************************/
-u8* XKeyManager_GetKeyObjectPtr(u32 KeyId)
+u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase)
 {
+	s32 Status = XASUFW_FAILURE;
 	XKeyManager* KeyVaultPtr;
 	u32 VaultId = XKEYMANAGER_EXTRACT_VAULTID(KeyId);
 	u32 KeyType = XKEYMANAGER_EXTRACT_KEYTYPE(KeyId);
@@ -151,10 +169,14 @@ u8* XKeyManager_GetKeyObjectPtr(u32 KeyId)
 		goto END;
 	}
 
+	if (VaultManager.VaultInfo[VaultId].VaultSize == 0U) {
+		goto END;
+	}
+
 	/** Get vault base address from vault info. */
 	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
 
-	if (KeyIndex > KeyVaultPtr->SubVaultHeaders[KeyType].Capacity) {
+	if (KeyIndex >= KeyVaultPtr->SubVaultHeaders[KeyType].Capacity) {
 		goto END;
 	}
 
@@ -164,6 +186,11 @@ u8* XKeyManager_GetKeyObjectPtr(u32 KeyId)
 	/** Calculate pointer to key object within sub-vault. */
 	SubVaultPtr = (u8 *)KeyVaultPtr + (KeyVaultPtr->SubVaultHeaders[KeyType].Offset) +
 			(KeyObjectSize * (KeyIndex - XKEYMANAGER_KEY_INDEX_OFFSET));
+
+	Status = XKeyManager_CheckKeyValidity(SubSystemId, SubVaultPtr, KeyUsecase, (u8)VaultId);
+	if (Status != XASUFW_SUCCESS) {
+		SubVaultPtr = NULL;
+	}
 END:
 	return SubVaultPtr;
 }
@@ -230,7 +257,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 		goto END;
 	}
 
-	/** Update sub-system ID and vault ID for to vault info for a subsystem. */
+	/** Update sub-system ID and vault ID to vault info for a subsystem. */
 	Status = XKeyManager_UpdateVaultInfo(SubsystemId, &VaultId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_INFO_FAIL);
@@ -323,7 +350,7 @@ s32 XKeyManager_DeleteKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
  * @param	ParamsPtr	Pointer to XAsu_KeyManagerParams.
  * @param	KeyIdPtr	Pointer to the output Key ID.
  * @param	SubSystemId	Subsystem ID for which the key is being generated.
- * @param	Keytype		Type of key to be generated.
+ * @param	KeyType		Type of key to be generated.
  *
  * @return
  * 	- XASUFW_SUCCESS, when the key is generated and transferred or updated in the vault.
@@ -336,7 +363,7 @@ s32 XKeyManager_DeleteKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
  *************************************************************************************************/
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
-			XKeyManager_SubVaultType Keytype)
+			XKeyManager_SubVaultType KeyType)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
@@ -344,12 +371,21 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 	u8 VaultId = 0U;
 
 	/** Validate the input parameters. */
-	if ((ParamsPtr == NULL) || (DmaPtr == NULL) || (KeyIdPtr == NULL)) {
+	if ((ParamsPtr == NULL) || (DmaPtr == NULL) || (KeyIdPtr == NULL) ||
+	    (KeyType >= XKEYMANAGER_MAX_SUB_VAULTS)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate key length parameters. */
+	Status = XAsu_KmValidateKeyLength(ParamsPtr, (u8)KeyType);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Generate ephemeral Key/IV using TRNG. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_TrngGetRandomNumbers(EphemeralData, ParamsPtr->Length);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RAND_GEN_ERROR;
@@ -365,6 +401,11 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			Status = XASUFW_DMA_COPY_FAIL;
 		}
 	} else {
+		Status = XAsu_KmValidateVaultParams(ParamsPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END_CLR;
+		}
 		/** Store key in vault if no address is provided. */
 		Status = XKeyManager_GetVaultId(SubSystemId, &VaultId);
 		if (Status != XASUFW_SUCCESS) {
@@ -372,7 +413,7 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			goto END_CLR;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XKeyManager_UpdateKeyVault(Keytype, ParamsPtr, EphemeralData,
+		Status = XKeyManager_UpdateKeyVault(KeyType, ParamsPtr, EphemeralData,
 						KeyIdPtr, VaultId);
 	}
 
@@ -403,6 +444,11 @@ s32 XKeyManager_GetVaultId(u32 SubSystemId, u8 *VaultIdPtr)
 	s32 Status = XASUFW_FAILURE;
 	u8 Index;
 
+	if (VaultIdPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Search for vault matching the subsystem ID. */
 	for (Index = 0U; Index < XKEYMANAGER_MAX_VAULTS; Index++) {
 		if (VaultManager.VaultInfo[Index].SubSystemId == SubSystemId) {
@@ -412,6 +458,48 @@ s32 XKeyManager_GetVaultId(u32 SubSystemId, u8 *VaultIdPtr)
 		}
 	}
 
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Resolve key object from key vault if KeyId is provided.
+ *
+ * @param	KeyObject		Pointer to the XAsu_AesKeyObject structure.
+ * @param	SubSystemId		Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase		Requested use case for the key.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_AES_INVALID_KEY_ADDRESS, if get key object pointer failed.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject, u32 SubSystemId,
+					u8 KeyUsecase)
+{
+	s32 Status = XASUFW_FAILURE;
+	XKeyManager_AesKeyObject *KeyVaultKeyObjectPtr;
+
+	if (KeyObject == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	KeyVaultKeyObjectPtr = (XKeyManager_AesKeyObject* )XKeyManager_GetKeyObjectPtr(KeyObject->KeyId,
+									SubSystemId, KeyUsecase);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_AES_INVALID_KEY_ADDRESS;
+		goto END;
+	}
+	KeyObject->KeyAddress = (u64)(UINTPTR)KeyVaultKeyObjectPtr->Content;
+
+	KeyObject->KeySize = (((u32)KeyVaultKeyObjectPtr->Metadata.Length - XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET)
+				>> XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT);
+
+	Status = XASUFW_SUCCESS;
+
+END:
 	return Status;
 }
 
@@ -486,8 +574,6 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 	u32 KeyObjectSize = 0U;
 	u32 MaxKeySize = 0U;
 
-	/*TODO: Validate info from ParamsPtr .*/
-
 	/** Get vault pointer and sub-vault offset. */
 	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
 	SubVaultOffset = KeyVaultPtr->SubVaultHeaders[KeyType].Offset;
@@ -518,16 +604,6 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 	KeyMetadataPtr = (XKeyManager_KeyMetadata *)((u8 *)SubVaultBasePtr + (KeyObjectSize *
 							((u32)KeyId - XKEYMANAGER_KEY_INDEX_OFFSET)));
 
-	/** Populate key metadata fields. */
-	KeyMetadataPtr->AccessRights = ParamsPtr->AccessRights;
-	KeyMetadataPtr->KeyType = (u8)KeyType;
-	KeyMetadataPtr->EpochTime = ParamsPtr->EpochTime;
-	KeyMetadataPtr->UsageCount = ParamsPtr->UsageCount;
-	KeyMetadataPtr->Length = ParamsPtr->Length;
-	KeyMetadataPtr->KeyUseCase = ParamsPtr->KeyUseCase;
-	KeyMetadataPtr->VaultId = VaultId;
-	KeyMetadataPtr->KeyId = KeyId;
-
 	/** Calculate pointer to key content area. */
 	KeyContentPtr = (u8 *)KeyMetadataPtr + sizeof(XKeyManager_KeyMetadata);
 
@@ -538,6 +614,16 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
+
+	/** Populate key metadata fields. */
+	KeyMetadataPtr->AccessRights = ParamsPtr->AccessRights;
+	KeyMetadataPtr->KeyType = (u8)KeyType;
+	KeyMetadataPtr->EpochTime = ParamsPtr->EpochTime;
+	KeyMetadataPtr->UsageCount = ParamsPtr->UsageCount;
+	KeyMetadataPtr->Length = ParamsPtr->Length;
+	KeyMetadataPtr->KeyUseCase = ParamsPtr->KeyUseCase;
+	KeyMetadataPtr->VaultId = VaultId;
+	KeyMetadataPtr->KeyId = KeyId;
 
 	/** Generate composite KeyId from components which consists of Key Index, VaultId and Keytype. */
 	*KeyIdPtr = (u32)KeyId |
@@ -585,6 +671,68 @@ static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 *VaultIdPtr)
 			break;
 		}
 	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Validate key access rights and usage permissions for a given key.
+ *
+ * @param	SubSystemId	Subsystem identifier requesting key access.
+ * @param	SubVaultPtr	Pointer to the sub-vault containing the key.
+ * @param	KeyUseCase	Requested use case for the key.
+ * @param	VaultId		Identifier of the vault containing the key.
+ * @param	KeyType		Type of key being validated.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if key is valid and accessible for the requested use case.
+ * 	- XASUFW_KEYMANAGER_ACCESS_DENIED, if subsystem lacks access rights.
+ * 	- XASUFW_KEYMANAGER_KEY_EXPIRED, if key usage count is exhausted.
+ * 	- XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, if key use case is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 KeyUseCase, u8 VaultId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u8 Index = 0U;
+	XKeyManager_KeyMetadata *MetaDataPtr = (XKeyManager_KeyMetadata *)SubVaultPtr;
+	u8 AllowedAccessRights = 0U;
+
+	/** Check for access rights. */
+	if (VaultManager.VaultInfo[VaultId].SubSystemId != SubSystemId) {
+		AllowedAccessRights = MetaDataPtr->AccessRights;
+		for (Index = 0U; Index < XASUFW_MAX_CHANNELS_SUPPORTED; Index++) {
+			if (XKEYMANAGER_IS_BIT_SET(AllowedAccessRights, Index)) {
+				if (SubSystemId == XAsufw_GetSubsysIdFromIpiMask(XAsufw_GetIpiMask(Index))) {
+					break;
+				}
+			}
+		}
+		if (Index == XASUFW_MAX_CHANNELS_SUPPORTED) {
+			Status = XASUFW_KEYMANAGER_ACCESS_DENIED;
+			goto END;
+		}
+	}
+
+	/** Check for key use case. */
+	if ((MetaDataPtr->KeyUseCase & (XKEYMANAGER_KEYUSECASE_BITMASK(KeyUseCase))) == 0U) {
+		Status = XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR;
+		goto END;
+	}
+
+	/*TODO: Update checking with epoch time.*/
+	/** Decrement usage count if applicable. */
+	if (MetaDataPtr->UsageCount != XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE) {
+		if (MetaDataPtr->UsageCount == 0U) {
+			Status = XASUFW_KEYMANAGER_KEY_EXPIRED;
+			goto END;
+		}
+		MetaDataPtr->UsageCount -= XKEYMANAGER_USAGE_COUNT_DEC_VALUE;
+	}
+
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;

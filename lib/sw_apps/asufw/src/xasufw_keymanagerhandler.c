@@ -36,7 +36,7 @@
 #include "xasufw_util.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (2U)
+#define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (2U) /**< Offset to get key type from CmdId */
 
 /************************************** Type Definitions *****************************************/
 
@@ -272,7 +272,7 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Perform Key/IV generation operation. */
 	Status = XKeyManager_GenerateKeyIv(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutIdAddr,
 					SubsystemId,
-					(XKeyManager_SubVaultType)(CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET));
+					((XKeyManager_SubVaultType)CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
 	}
