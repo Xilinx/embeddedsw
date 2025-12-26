@@ -12,6 +12,23 @@
  * This file contains the example using Xilfpga library to transfer the user
  * provided Bitstream into zynqmp pl region.
  *
+ * Procedure to link and compile the example
+ * -----------------------------------------------------------------------------
+ * This example involves DMA operations, which requires memory from DDR or OCM.
+ * So, for this example to work, bss and stack should be placed in OCM/DDR as
+ * shown below,
+ *
+ *     .bss (NOLOAD) : {
+ *     . = ALIGN(4);
+ *     __bss_start__ = .;
+ *     *(.bss)
+ *     *(.bss.*)
+ *     *(.gnu.linkonce.b.*)
+ *     *(COMMON)
+ *     . = ALIGN(4);
+ *     __bss_end__ = .;
+ *     } > psu_ddr_0_MEM_0
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -38,6 +55,7 @@
  *                         Size(Bitstream size).
  * 6.1   Nava    09/13/21  Fixed compilation warning.
  * 6.9   Arvd    08/12/25  Fixed GCC warning
+ *       tvp     12/11/25  Add procedure to link and compile the example
  * </pre>
  *
  ******************************************************************************/
