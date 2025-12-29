@@ -741,6 +741,21 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
         switch(cRangeOut)
         {
           case XVIDC_CR_0_255:
+              RGB2YCC[0][0] = (s32) ( 0.212*(float)scale_factor);  //K11
+              RGB2YCC[0][1] = (s32) ( 0.715*(float)scale_factor);  //K12
+              RGB2YCC[0][2] = (s32) ( 0.072*(float)scale_factor);  //K13
+              RGB2YCC[1][0] = (s32) (-0.117*(float)scale_factor);  //K21
+              RGB2YCC[1][1] = (s32) (-0.394*(float)scale_factor);  //K22
+              RGB2YCC[1][2] = (s32) ( 0.511*(float)scale_factor);  //K23
+              RGB2YCC[2][0] = (s32) ( 0.511*(float)scale_factor);  //K31
+              RGB2YCC[2][1] = (s32) (-0.464*(float)scale_factor);  //K32
+              RGB2YCC[2][2] = (s32) (-0.047*(float)scale_factor);  //K33
+              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
+              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
+              break;
+
+          case XVIDC_CR_16_235:
               RGB2YCC[0][0] = (s32) ( 0.1826*(float)scale_factor);  //K11
               RGB2YCC[0][1] = (s32) ( 0.6142*(float)scale_factor);  //K12
               RGB2YCC[0][2] = (s32) ( 0.0620*(float)scale_factor);  //K13
@@ -755,21 +770,6 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
               RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
               break;
 
-          case XVIDC_CR_16_235:
-              RGB2YCC[0][0] = (s32) ( 0.212*(float)scale_factor);  //K11
-              RGB2YCC[0][1] = (s32) ( 0.715*(float)scale_factor);  //K12
-              RGB2YCC[0][2] = (s32) ( 0.072*(float)scale_factor);  //K13
-              RGB2YCC[1][0] = (s32) (-0.117*(float)scale_factor);  //K21
-              RGB2YCC[1][1] = (s32) (-0.394*(float)scale_factor);  //K22
-              RGB2YCC[1][2] = (s32) ( 0.511*(float)scale_factor);  //K23
-              RGB2YCC[2][0] = (s32) ( 0.51*(float)scale_factor);  //K31
-              RGB2YCC[2][1] = (s32) (-0.464*(float)scale_factor);  //K32
-              RGB2YCC[2][2] = (s32) (-0.047*(float)scale_factor);  //K33
-              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
-              RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
-              RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
-              break;
-
           case XVIDC_CR_16_240:
               RGB2YCC[0][0] = (s32) ( 0.2077*(float)scale_factor);  //K11
               RGB2YCC[0][1] = (s32) ( 0.6988*(float)scale_factor);  //K12
@@ -780,7 +780,7 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
               RGB2YCC[2][0] = (s32) ( 0.4997*(float)scale_factor);  //K31
               RGB2YCC[2][1] = (s32) (-0.4538*(float)scale_factor);  //K32
               RGB2YCC[2][2] = (s32) (-0.0458*(float)scale_factor);  //K33
-              RGB2YCC[0][3] =  0*bpcScale;                   //R Offset
+              RGB2YCC[0][3] =  16*bpcScale;                   //R Offset
               RGB2YCC[1][3] =  128*bpcScale;                  //G Offset
               RGB2YCC[2][3] =  128*bpcScale;                  //B Offset
               break;

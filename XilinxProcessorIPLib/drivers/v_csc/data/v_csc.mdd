@@ -13,6 +13,6 @@ BEGIN driver v_csc
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_csc;
- OPTION version = 2.7;
+ OPTION version = 2.8;
 
 END driver
