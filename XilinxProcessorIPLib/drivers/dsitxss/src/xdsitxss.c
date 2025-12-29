@@ -63,7 +63,7 @@ typedef struct {
 #ifndef SDT
 XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES];
 #else
-XDsiTxSs_SubCores DsiTxSsSubCores[];
+XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES];
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -78,8 +78,11 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr);
 #if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
 static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr);
 #endif
+
+#ifndef SDT
 static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 					u32 Offset, UINTPTR *BaseAddr);
+#endif
 
 /************************** Function Definitions ******************************/
 
@@ -695,7 +698,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 * @param	DsiTxSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If DPHY sub core is initialised sucessfully
+*		- XST_SUCCESS If DPHY sub core is initialised successfully
 *		- XST_FAILURE If DPHY sub core initialization failed
 *
 * @note		None
@@ -744,6 +747,8 @@ static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr)
 	return XST_SUCCESS;
 }
 #endif
+
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function computes the subcore absolute address on axi-lite interface
@@ -790,3 +795,4 @@ static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
 	return Status;
 }
 /** @} */
+#endif
