@@ -259,6 +259,7 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 *OutIdAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 KeyType;
 
 	OutIdAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
@@ -269,10 +270,12 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	KeyType = CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET;
+
 	/** Perform Key/IV generation operation. */
 	Status = XKeyManager_GenerateKeyIv(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutIdAddr,
 					SubsystemId,
-					((XKeyManager_SubVaultType)CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET));
+					((XKeyManager_SubVaultType)KeyType));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
 	}
