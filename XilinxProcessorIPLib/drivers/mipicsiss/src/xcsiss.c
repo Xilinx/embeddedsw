@@ -81,8 +81,10 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr);
 static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr);
 #endif
 
+#ifndef SDT
 static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 					u32 Offset, UINTPTR *BaseAddr);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -277,6 +279,8 @@ u32 XCsiSs_Reset(XCsiSs *InstancePtr)
 		if (Status == XST_FAILURE) {
 			xdbg_printf(XDBG_DEBUG_ERROR, "CSI SubSys Reset failed\n\r");
 		}
+	} else{
+		Status = XST_SUCCESS;
 	}
 
 	return Status;
