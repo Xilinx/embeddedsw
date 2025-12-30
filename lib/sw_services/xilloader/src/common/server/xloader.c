@@ -202,6 +202,7 @@
 *       sk  09/26/2025 Updated handling of UFS as secondary boot device
 *       sk  11/03/2025 Fixed logic to properly update pdisrc for UFS fallback boot
 *       sd  11/10/2025 Added support for VERSAL_2VP_P devices.
+* 2.4   tvp 26/12/2025 Allow secondary PDI loading after secure boot
 *
 * </pre>
 *
@@ -1099,10 +1100,30 @@ END:
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
+	u32 SbiJtagEn;
 
 	Status = XLoader_LoadAndStartSubSystemImages(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+	/*
+	 * Initialize SBI if JTAG is enabled to allow secondary PDI programming.
+	 * In case of SBI initialization failure, instead of treating it as
+	 * an error, just give a warning; PLM boot should continue.
+	 */
+	SbiJtagEn = XPlmi_In32(XPLMI_RTCFG_SEC_PDI_CFG) &
+			XPLMI_RTCFG_SEC_PDI_CFG_JTAG_EN_MASK;
+
+	if (((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
+	     (PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) &&
+	    (SbiJtagEn == XPLMI_RTCFG_SEC_PDI_CFG_JTAG_EN_MASK)) {
+		Status = XLoader_SbiInit(XLOADER_PDI_SRC_JTAG);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"Sbi Init failed with error: 0x%x\n\r", Status);
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"Secondary PDI load from JTAG may fail.\r\n");
+		}
 	}
 
 	Status = XLoader_LoadAndStartSecondaryPdi(PdiPtr);

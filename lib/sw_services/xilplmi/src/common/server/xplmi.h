@@ -70,6 +70,7 @@
 * 2.3   aa   06/19/2025 Updated SDK release version
 * 2.4   sk   09/27/2025 Added Boot Time config support to disable UART Logs
 *       aa   03/11/2025 Updated SDK release version
+*       tvp  24/12/2025 Added RTCA define for JTAG enablement for secondary PDI
 * </pre>
 *
 * @note
@@ -212,6 +213,7 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_TAMPER_RESP			(XPLMI_RTCFG_BASEADDR + 0x18CU)
 #define XPLMI_RTCFG_PLM_VERSION_ADDR		(XPLMI_RTCFG_BASEADDR + 0x320U)
 #define XPLMI_RTCFG_PLM_KAT_ADDR 		(XPLMI_RTCFG_SECURE_STATE_PLM_ADDR)
+#define XPLMI_RTCFG_SEC_PDI_CFG			(XPLMI_RTCFG_BASEADDR + 0x368U)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
@@ -225,6 +227,8 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK		(0x8U)
 /* Mask for Tamper response Secure lockdown 0 */
 #define XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK		(0x4U)
+/* Mask for secondary PDI configuration to enable JTAG */
+#define XPLMI_RTCFG_SEC_PDI_CFG_JTAG_EN_MASK	(0x1U)
 
 /* Shifts of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT	(0x10U)
