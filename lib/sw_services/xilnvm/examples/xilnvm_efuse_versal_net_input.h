@@ -15,6 +15,18 @@
 *
 *	User configurable parameters for Versal Net eFUSE
 *------------------------------------------------------------------------------
+* 	#define XNVM_EFUSE_PUF_REGEN_DIS		FALSE
+*	TRUE permanently disables PUF regeneration
+*	FALSE will not modify this control bit of efuse
+*
+* 	#define XNVM_EFUSE_PUF_HD_INVLD		FALSE
+*	TRUE permanently invalidates the PUF HD
+*	FALSE will not modify this control bit of efuse
+*
+* 	#define XNVM_EFUSE_PUF_REGIS_DIS		FALSE
+*	TRUE permanently disables PUF registration
+*	FALSE will not modify this control bit of efuse
+*
 *	#define XNVM_EFUSE_GLITCH_DET_WR_LOCK	FALSE
 *	TRUE permanently disables writing to ANLG_TRIM_3 row
 *	FALSE will not modify the bits in that row in eFUSE
@@ -514,6 +526,7 @@
 * Ver	Who	Date        Changes
 * ----- ------  ----------  ------------------------------------------------------
 * 1.0   har     07/01/2024  Initial release
+* 3.7   hae     12/29/2025  Added PUF secure control bit macros
 *
 * </pre>
 *
@@ -536,6 +549,14 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* Following defines should be defined either TRUE or FALSE */
+
+/**
+ * Following is the define to select if the user wants to program
+ * PUF Secure control bits
+ */
+#define XNVM_EFUSE_PUF_REGEN_DIS    FALSE
+#define XNVM_EFUSE_PUF_HD_INVLD     FALSE
+#define XNVM_EFUSE_PUF_REGIS_DIS    FALSE
 
 /**
  * Following is the define to select if the user wants to program

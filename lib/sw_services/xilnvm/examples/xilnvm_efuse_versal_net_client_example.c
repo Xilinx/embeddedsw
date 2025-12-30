@@ -58,6 +58,7 @@
 * 1.0   har     07/01/2024  Initial release
 * 3.5   kal     03/28/2025  Added support to show 384 ppk hash for versal_2ve_2vm
 * 3.5   vss     05/14/2025  Added validations for sysmon voltage and temp before writing into efuses.
+* 3.7   hae     12/29/2025  Added support to program PUF secure control bits.
  *
  * </pre>
  *
@@ -173,6 +174,7 @@ static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 static int XNvm_ValidateAesKey(const char *Key);
 static int XilNvm_WriteDmeRevoke(void);
 static int XilNvm_EfuseShowDmeRevokeId(void);
+static int XilNvm_EfuseWritePufSecCtrlBits(void);
 /*****************************************************************************/
 int main(void)
 {
@@ -1045,6 +1047,14 @@ static int XilNvm_WriteCtrlBits()
 	}
 
 	Status = XilNvm_EfuseWriteBootEnvCtrl();
+	if( Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XilNvm_EfuseWritePufSecCtrlBits();
+	if( Status != XST_SUCCESS) {
+		goto END;
+	}
 
 END:
 	return Status;
@@ -1606,6 +1616,47 @@ END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * This function writes PUF secure control bits to eFUSE.
+ * @return
+ *		- XST_SUCCESS - If PUF secure control bits are successfully
+ *			programmed.
+ *		- XNVM_EFUSE_ERR_WR_PUF_SEC_CTRL - Error while programming
+ *			PufSecCtrl eFUSE bits
+ *******************************************************************************/
+static int XilNvm_EfuseWritePufSecCtrlBits(void)
+{
+	int Status = XST_FAILURE;
+	u32 *PufCtrlBits = (u32*)(UINTPTR)&SharedMem[0U];
+
+	*PufCtrlBits = 0U;
+
+	if (XNVM_EFUSE_PUF_REGEN_DIS == TRUE) {
+		*PufCtrlBits = *PufCtrlBits | (XNVM_EFUSE_PUF_REGEN_DIS << XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGEN_DIS_SHIFT);
+	}
+	if (XNVM_EFUSE_PUF_HD_INVLD == TRUE) {
+		*PufCtrlBits = *PufCtrlBits | (XNVM_EFUSE_PUF_HD_INVLD << XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_HD_INVLD_SHIFT);
+	}
+	if (XNVM_EFUSE_PUF_REGIS_DIS == TRUE) {
+		*PufCtrlBits = *PufCtrlBits | (XNVM_EFUSE_PUF_REGIS_DIS << XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGIS_DIS_SHIFT);
+	}
+
+	if (*PufCtrlBits == 0U) {
+		Status = XST_SUCCESS;
+		return Status;
+	}
+
+	Xil_DCacheFlushRange((UINTPTR)PufCtrlBits, sizeof(u32));
+	Status = XNvm_EfuseWritePufCtrlBits(&NvmClientInstance, *PufCtrlBits, XNVM_EFUSE_ENV_MONITOR_DISABLE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in programming PUF Control bits %x\r\n", Status);
+	}
+	else {
+		xil_printf("Successfully programmed PUF Control bits %x\r\n", Status);
+	}
+	return Status;
+}
 
 /****************************************************************************/
 /**
