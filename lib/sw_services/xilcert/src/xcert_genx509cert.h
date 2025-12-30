@@ -25,6 +25,7 @@
 * 1.3   har  05/02/2024 Fixed doxygen warnings
 *       har  06/07/2023 Added support for Key index
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
+* 1.6   vm   12/18/2025 Add Error code for Insufficient Memory
 *
 *
 * </pre>
@@ -193,6 +194,8 @@ typedef enum {
 		/**< 0x46 Failed to get the signature stored */
 	XCERT_ERR_X509_KAT_FAILED,
 		/**< 0x47 KAT failure error */
+	XCERT_ERR_X509_INSUFFICIENT_MEMORY,
+		/**< 0x48 Insufficient input memory to store certificate */
 }XCert_ErrorStatus;
 
 /************************** Function Prototypes ******************************/

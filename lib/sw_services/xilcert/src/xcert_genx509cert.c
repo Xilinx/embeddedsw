@@ -39,6 +39,7 @@
 *       tvp  05/16/2025 Use SHA3 for Versal_2vp
 *       tvp  06/05/2025 Remove use of UEID and TCB Info extension for Versal_2vp
 *       tvp  09/18/2025 Remove use of DME extension for Versal_2vp
+* 1.6   vm   12/18/2025 Add validation for certificate size
 *
 * </pre>
 * @note
@@ -136,6 +137,8 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 							/**< Minimum length of app version in bytes */
 #define XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN	(XCERT_ECC_P384_PUBLIC_KEY_LEN + 1U)
 							/**< Length of uncompressed ECC public key */
+
+#define XCERT_MAX_CERT_SIZE			(2000U) /**< Maximum certificate size */
 
 /** @name Optional parameter tags
  * @{
@@ -257,6 +260,7 @@ u32* XCert_GetSpkId(void)
  *		 - XSECURE_KAT_MAJOR_ERROR  Failure in Sign Generate KAT
  *		 - XCERT_ERR_X509_CALC_SIGN  Failure in generating ephemeral key and signature
  *		 - XCERT_ERR_X509_UPDATE_ENCODED_LEN  Failure in updating encoded length
+ *		 - XCERT_ERR_X509_INSUFFICIENT_MEMORY Insufficient input memory to store certificate
  *		 - XST_FAILURE  In case of failure
  *
  * @note	Certificate  ::=  SEQUENCE  {
@@ -269,7 +273,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u8 X509CertBuf[2000];
+	u8 X509CertBuf[XCERT_MAX_CERT_SIZE];
 	u8* Start = X509CertBuf;
 	u8* Curr = Start;
 	u8* SequenceLenIdx;
@@ -284,7 +288,6 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	XCert_SignStore *SignStore = NULL;
 	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	u8 *TbsCertStart;
-	(void)MaxCertSize;
 
 	if (Cfg == NULL) {
 		Status = XST_INVALID_PARAM;
@@ -436,9 +439,15 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
 	}
 
-	*X509CertSize = Curr - Start;
-
-	XCert_CopyCertificate(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
+	/**
+	 * Validate the certificate size and copy the certificate to user buffer
+	 */
+	if ((u32)(Curr - Start) <= MaxCertSize) {
+		*X509CertSize = (u32)(Curr - Start);
+		XCert_CopyCertificate(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
+	} else {
+		Status = (int)XCERT_ERR_X509_INSUFFICIENT_MEMORY;
+	}
 
 END:
 	return Status;
