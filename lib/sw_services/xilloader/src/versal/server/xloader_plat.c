@@ -54,6 +54,7 @@
 *                       partitions
 *       pre  12/12/2025 Added warning message for user indication if PCR info
 *                       is added in BIF without enabling TPM feature.
+*       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
 *
 * </pre>
 *
@@ -1007,6 +1008,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
  * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP if IOCTL call to set RPU1
  * 			in lockstep mode fails.
  * 			- XLOADER_ERR_INVALID_TCM_ADDR on Invalid TCM address for A72 elfs.
+ * 			- XLOADER_ERR_INVALID_CPUID if invalid CPU id is selected.
  *
  *****************************************************************************/
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
@@ -1022,6 +1024,20 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u8 TcmComb;
 
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
+
+	/**
+	 * - Validate the destination CPU to ensure it's a supported type
+	 */
+	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_PSM) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_NONE)) {
+		Status = XLOADER_ERR_INVALID_CPUID;
+		goto END;
+	}
 
 	/**
 	 *

@@ -63,6 +63,7 @@
 *                       disabled
 *       tvp  07/30/2025 Added XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED error code
 *       sk   09/26/2025 Added error code for UFS speed change
+* 2.4   obs  12/31/2025 Added XLOADER_ERR_INVALID_CPUID error code
 *
 * </pre>
 *
@@ -372,7 +373,7 @@ typedef enum {
 					  checksum fails */
 	XLOADER_ERR_PRTNHDR,		/**< 0x304 - Error if partition header
 					  checksum fails */
-	XLOADER_ERR_INVALID_CPUID,		/**< 0x305 - XLoader Reserved Error 0 */
+	XLOADER_ERR_RESERVED_305, /**< 0x305 - XLOADER_ERR_RESERVED_305 */
 	XLOADER_ERR_RESERVED1,		/**< 0x306 - XLoader Reserved Error 1 */
 	XLOADER_ERR_RESERVED2,		/**< 0x307 - XLoader Reserved Error 2 */
 	XLOADER_ERR_RESERVED3,		/**< 0x308 - XLoader Reserved Error 3 */
@@ -589,6 +590,7 @@ typedef enum {
 						 device to PMCRAM */
 	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST, /**< 0x377 - Error when copying partition from
 							PMCRAM to destination */
+	XLOADER_ERR_INVALID_CPUID, /**< 0x378 - Invalid CPU ID in partition header */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */

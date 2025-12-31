@@ -69,6 +69,7 @@
 *       rmv  07/17/2025 Call XOcp_StoreSubsysDigest() to store subsystem digest for ASUFW
 *       tvp  08/13/2025 Code refactoring for Platform specific TRNG functions
 *       obs  08/26/2025 Added support for address range checks
+*       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
 *
 * </pre>
 *
@@ -702,6 +703,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
  * 			invalid.
  * 			- XLOADER_ERR_INVALID_R52_CLUSTER if invalid R52 cluster is
  * 			selected.
+ * 			- XLOADER_ERR_INVALID_CPUID if invalid CPU id is selected.
  *
  *****************************************************************************/
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
@@ -813,8 +815,16 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			break;
+		case XIH_PH_ATTRB_DSTN_CPU_ASU:
+			/* ASU already handled before switch statement */
+			Status = XST_SUCCESS;
+			break;
+		case XIH_PH_ATTRB_DSTN_CPU_NONE:
+			/* This case is for handling uboot handoff */
+			Status = XST_SUCCESS;
+			break;
 		default:
-			Status=XST_SUCCESS;
+			Status = XLOADER_ERR_INVALID_CPUID;
 			break;
 	}
 

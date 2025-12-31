@@ -137,6 +137,7 @@
 *                       disabled
 *       vss  08/20/2025 Marked metaheader authentication failure error code as reserved.
 *       pre  08/23/2025 Added error code for TPM initialization failure
+*       obs  10/07/2025 Added XLOADER_ERR_INVALID_CPUID error code
 *
 * </pre>
 *
@@ -656,6 +657,7 @@ typedef enum {
 						 device to PMCRAM */
 	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST, /**< 0x377 - Error when copying partition from
 							PMCRAM to destination */
+	XLOADER_ERR_INVALID_CPUID, /**< 0x378 - Invalid CPU ID in partition header */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 
