@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -22,6 +22,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.00  har  02/16/24 Initial release
+* 1.10  obs  12/31/25 Fixed GCC warnings
 *
 * </pre>
 *
@@ -166,7 +167,7 @@ static int GetOptDataFromPdi(XLoader_ClientInstance *InstancePtr)
 	u64 PdiAddr = PDI_SRC_ADDR;
 	u32 DestSize = OPT_DATA_BUFFER_SIZE_IN_BYTES;
 	XLoader_OptionalDataInfo OptDataParams;
-	int Idx;
+	u32 Idx;
 
 	OptDataParams.PdiSrc = PDI_SRC;
 	OptDataParams.DataId = DATA_ID;

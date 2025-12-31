@@ -35,6 +35,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  kd   09/06/25 Initial release
+ * 1.10  obs  12/31/25 Fixed GCC warnings
  *
  *************************************************************************************************/
 
@@ -78,9 +79,9 @@
  *            - Error code on failure.
  *
  *************************************************************************************************/
-u32 main(void)
+int main(void)
 {
-	u32 Status = (u32)XST_FAILURE;
+	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XLoader_ClientInstance LoaderClientInstance;
 
@@ -90,25 +91,25 @@ u32 main(void)
 		Xil_DCacheDisable();
 	#endif
 
-	#ifndef SDT
-	Status = XMailbox_Initialize(&MailboxInstance, 0U);
-	#else
-	Status = XMailbox_Initialize(&MailboxInstance, (UINTPTR)XPAR_XIPIPSU_0_BASEADDR);
-	#endif
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
+		#ifndef SDT
+		Status = (int)XMailbox_Initialize(&MailboxInstance, 0U);
+		#else
+		Status = (int)XMailbox_Initialize(&MailboxInstance, (UINTPTR)XPAR_XIPIPSU_0_BASEADDR);
+		#endif
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
-	Status = (u32)XLoader_ClientInit(&LoaderClientInstance, &MailboxInstance);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
+		Status = XLoader_ClientInit(&LoaderClientInstance, &MailboxInstance);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
-	Status = (u32)XLoader_AddImageStorePdi(&LoaderClientInstance, PDI_ID, PDI_LOW_ADDRESS,
-				PDI_SIZE_IN_WORDS);
+		Status = XLoader_AddImageStorePdi(&LoaderClientInstance, PDI_ID, PDI_LOW_ADDRESS,
+					PDI_SIZE_IN_WORDS);
 
 END:
-	if (Status == (u32)XST_SUCCESS) {
+	if (Status == XST_SUCCESS) {
 		xil_printf("\r\nSuccessfully ran add image store PDI client example....");
 	}
 	else {
