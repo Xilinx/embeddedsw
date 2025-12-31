@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *	vss  05/20/24 Added IPI support for AES key write
 *       ng   11/22/2024 Fixed doxygen grouping
 *       hj   03/20/2025 Move EFUSE_WRITE_AES_KEYS inside SECURITY_CRITICAL_EFUSE macro
+* 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
 *
 * </pre>
 *
@@ -94,6 +95,7 @@ static XPlmi_AccessPerm_t XNvm_AccessPermBuff[XNVM_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_AES_KEYS),
+	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC)
 };
 
 static XPlmi_Module XPlmi_Nvm =
@@ -165,6 +167,7 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 		case XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY:
 		case XNVM_API_ID_EFUSE_READ_DNA:
 		case XNVM_API_ID_EFUSE_READ_CACHE:
+		case XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC:
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
 		case XNVM_API_ID_EFUSE_WRITE_AES_KEYS:
 		case XNVM_API_ID_EFUSE_WRITE_IV:
@@ -248,6 +251,7 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XNVM_API(XNVM_API_ID_EFUSE_READ_PPK_HASH):
 		case XNVM_API(XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY):
 		case XNVM_API(XNVM_API_ID_EFUSE_READ_DNA):
+		case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 		case XNVM_API(XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE):
 		case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE):

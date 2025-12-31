@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
 *       vss  09/19/23 Fixed MISRA-C 8.3 violation
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
+* 3.7   mb   12/31/2025 Added client API to check AES key CRC
 *
 * </pre>
 *
@@ -1148,3 +1149,43 @@ END:
 	return Status;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to check given CRC is matched with calculated CRC
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	AesKeyCrc	CRC value of the AES key which needs to be checked
+ *
+ * @return
+ *		- XST_SUCCESS  If the CRC matches
+ *		- XST_INVALID_PARAM  If there is a input validation failure
+ *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseCheckAesKeyCrc(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+
+        /**
+	 *  Validate input parameters.
+	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC));
+	Payload[1U] = AesKeyCrc;
+
+        /**
+	 *  Send check AES key CRC CDO to PLM to check the given CRC.
+	 *  Return XST_FAILURE if IPI request processing fails in PLM.
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}

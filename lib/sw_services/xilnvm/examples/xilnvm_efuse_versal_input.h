@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -656,7 +656,6 @@
 *	Please make sure if intention is to check only CRC of the provided key
 *	and not programming AES key then do not modify XNVM_EFUSE_WRITE_AES_KEY
 *	(TRUE will Program key).
-*	This check is only applicable for server mode of eFuse example
 *
 *	#define XNVM_EFUSE_CHECK_USER_KEY_0_CRC			FALSE
 *	Default value is FALSE
@@ -774,6 +773,7 @@
 * 3.3   har    12/04/23 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 * 3.5   hj     14/04/25 Added support for unique PPK hash programming for each SLR
 * 3.6   hj     19/09/25 Program PUF_RSVD efuse as user data
+* 3.7   mb     12/06/26 Updated doxygen comment for XNVM_EFUSE_CHECK_AES_KEY_CRC macro
 *
 * </pre>
 *

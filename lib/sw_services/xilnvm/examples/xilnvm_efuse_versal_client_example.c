@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,8 +68,9 @@
  * 3.2   ng    07/05/2023 added support for system device tree flow
  *       vss   09/19/2023 Fixed MISRA-C Rule 2.5 violation
  * 3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
- * 3.4 Â  vss Â  09/11/2024 Corrected debug prints in XilNvm_EfuseShowSecCtrlBits function
+ * 3.4   vss   09/11/2024 Corrected debug prints in XilNvm_EfuseShowSecCtrlBits function
  * 3.5   obs   04/21/2025 Fixed GCC Warnings.
+ * 3.7   mb    12/31/2025 Added support to verify CRC of AES key after programming.
  *
  * </pre>
  *
@@ -155,6 +156,7 @@ static int XilNvm_EfuseShowPufSecCtrlBits(void);
 static int XilNvm_EfuseShowMiscCtrlBits(void);
 static int XilNvm_EfuseShowSecMisc1Bits(void);
 static int XilNvm_EfuseShowBootEnvCtrlBits(void);
+static int XilNvm_EfusePerformCrcChecks(void);
 static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 	XNvm_EfuseSecCtrlBits *SecCtrlBits);
 static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseDataAddr *WriteEfuse,
@@ -240,6 +242,11 @@ int main(void)
     }
 
 	Status = XilNvm_EfuseWriteFuses();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XilNvm_EfusePerformCrcChecks();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -2465,6 +2472,36 @@ static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)
 	}
 	else
 		return  XST_FAILURE;
+}
+/****************************************************************************/
+/**
+ * This function performs CRC validation of AES key.
+ *
+ * @return
+ *	- XST_SUCCESS - If the CRC checks are successful.
+ *	- Error code - On Failure
+ *
+ ******************************************************************************/
+static int XilNvm_EfusePerformCrcChecks(void)
+{
+	int Status = XST_FAILURE;
+
+	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
+		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
+			   XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		Status = XNvm_EfuseCheckAesKeyCrc(&NvmClientInstance,
+					       XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		if (Status != XST_SUCCESS) {
+			xil_printf("\r\nAES CRC check is failed\n\r");
+		} else {
+			xil_printf("\r\nAES CRC check is passed\n\r");
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 /****************************************************************************/

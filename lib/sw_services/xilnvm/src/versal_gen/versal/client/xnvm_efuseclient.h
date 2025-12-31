@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 3.1   skg  10/04/22 Added SlrIndex Constants
 * 3.2   vss  09/19/23 Fixed MISRA-C Rule 2.5 violaion
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
+* 3.7   mb   12/31/2025 Added client API XNvm_EfuseCheckAesKeyCrc to check AES key CRC
 *
 * </pre>
 *
@@ -80,6 +81,7 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType);
 int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr);
 int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr);
+int XNvm_EfuseCheckAesKeyCrc(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, u64 PufUserFuseAddr);
 int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);

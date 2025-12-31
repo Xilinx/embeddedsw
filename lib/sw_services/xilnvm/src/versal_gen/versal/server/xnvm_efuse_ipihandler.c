@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *	    vss  05/20/2024 Added IPI support for AES key write
 *       ng   11/22/2023 Fixed doxygen grouping
 * 3.6	obs  08/26/2025 Added support for Verifying Address Range
+* 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
 *
 * </pre>
 *
@@ -57,6 +58,7 @@
 #include "xnvm_utils.h"
 #include "xplmi_hw.h"
 #include "xplmi_plat.h"
+#include "xnvm_efuse_common_hw.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
@@ -82,6 +84,7 @@ static int XNvm_EfuseOffChipIdRead(u32 SubsystemId, XNvm_OffchipId IdNum, u32 Ad
 	u32 AddrHigh);
 static int XNvm_EfuseDecEfuseOnlyRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseDnaRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseAesCheckCrc(u32 Crc);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
@@ -206,6 +209,9 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_DNA):
 		Status = XNvm_EfuseDnaRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
+		Status = XNvm_EfuseAesCheckCrc(Pload[0U]);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -1167,6 +1173,28 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief       This function checks the CRC of the AES key
+ *
+ * @param	Crc	CRC value of the AES key
+ *
+ * @return
+ * 		- XST_SUCCESS  If the CRC matches
+ *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseAesCheckCrc(u32 Crc)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_REG_OFFSET,
+					XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
+					XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK,
+					Crc);
+
+	return Status;
+}
+/*****************************************************************************/
+/**
  * @brief	This function copies word aligned or non word aligned data
  * 		from source address to destination address.
  *
@@ -1311,7 +1339,6 @@ int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 S
 	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
 					  Size / XNVM_EFUSE_WORD_LEN, (u32 *)(UINTPTR)ReadDataAddr);
 
-END:
 	return Status;
 }
 

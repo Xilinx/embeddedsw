@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 3.3	vss  02/23/24 Added IPI support for eFuse read and write
 *	vss  05/20/24 Added IPI support for AES key write
 *       ng   11/22/24 Fixed doxygen grouping
+* 3.7   mb   12/31/25 Added API ID for XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC
 *
 * </pre>
 *
@@ -170,7 +171,8 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL,	/**< 34U */
 	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL,	/**< 35U */
 	XNVM_API_ID_EFUSE_WRITE_AES_KEYS,	/**< 36U */
-	XNVM_API_MAX,				/**< 37U */
+	XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC,		/**< 37U */
+	XNVM_API_MAX,				/**< 38U */
 } XNvm_ApiId;
 
 #ifdef __cplusplus
