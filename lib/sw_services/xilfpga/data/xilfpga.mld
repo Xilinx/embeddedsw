@@ -64,6 +64,10 @@
 # 6.6  adk   10/19/23  Added changes for NON_YOCTO variable specific to SDT flow
 # 6.7  oh    07/24/24  Added Versal_2VE_2VM specific processor in dependency list
 # 6.9 Arvd   08/12/25  Fixed GCC warnings
+# 7.0 Arvd   12/29/25  Skip crypto validation for signed bitstreams on unfused
+#                      boards when XSecure_AuthenticationHeaders returns
+#                      XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
+#                      uninitialized PartitionHdr structure.
 #
 ##############################################################################
 
@@ -76,7 +80,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 6.9;
+  OPTION VERSION = 7.0;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;

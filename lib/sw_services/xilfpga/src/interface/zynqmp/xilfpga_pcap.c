@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -131,6 +131,10 @@
  *                     MISRA-C ciolations for Rule 10.3
  * 6.6 ml    17/01/24  Removed None parameters from description to fix doxygen
  *                     warnings.
+ * 7.0 Arvd  12/29/25  Skip crypto validation for signed bitstreams on unfused
+ *                     boards when XSecure_AuthenticationHeaders returns
+ *                     XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
+ *                     uninitialized PartitionHdr structure.
  * </pre>
  *
  * @note
@@ -419,6 +423,12 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 			InstancePtr->WriteInfo.Flags &=
 				~(XFPGA_AUTHENTICATION_DDR_EN |
 				  XFPGA_AUTHENTICATION_OCM_EN);
+			/* XSecure_AuthenticationHeaders returns XSECURE_ONLY_BHDR_AUTH_ALLOWED
+			 * for signed bitstreams on unfused boards without initializing ImageInfo.
+			 * Set status to success and skip crypto validation to prevent accessing
+			 * the uninitialized PartitionHdr structure. */
+			Status = XFPGA_SUCCESS;
+			goto UPDATE;
 #ifdef XFPGA_SKIP_EFUSE_CHECK
 		} else if ((Status != XSECURE_AUTH_NOT_ENABLED) &&
 			   (Status != XSECURE_AUTH_ISCOMPULSORY)) {
