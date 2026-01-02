@@ -1,3 +1,4 @@
+
 Changes for 2025.2
 ===============================
 axicdma_v4_15:
@@ -18,7 +19,7 @@ Fix GCC warnings and update driver version
 
 csudma_v1_18:
 Replace occurences of #if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM) macro usage with #ifdef VERSAL_NET
-ospi/csudma: Add new compatible strings for spartanuplus device
+ospi/csudma: Add new compatible strings for spartanuplus devices
 
 ipipsu_v2_18:
 Fix GCC warning and update driver version
@@ -37,6 +38,10 @@ zdma_v1_21:
 Fix GCC warnings for zdma
 Revert "zdma: Fix the register reset values"
 Add PM support
+Revert "zdma: Add PM support"
+Revert "Revert "zdma: Fix the register reset values""
+zdma: update copy rights
+Add conditional cache ops for EL1_NS and EL3 modes
 
 xilffs_v5_5:
 Fix gcc warning
@@ -97,10 +102,6 @@ drivers: prc: Add VSM shift and count related properties
 prd_v2_3:
 prd: Improve self-test by validating control register read/write path
 
-scugic_v5_6:
-scugic: Fix ARMCLANG warning
-scugic: Fix GCC and ARMCLANG warnings
-
 spi_v4_15:
 Update driver version and fix GCC warnings
 
@@ -134,7 +135,7 @@ usbpsu: Fix array bounds checking
 usbpsu: Fix missing initializer field of structure
 usbpsu: Fix unused parameter warnings
 
-visp_ss_v1_1:
+visp_ss_v2_0:
 Add ISP LIMO/MIMO/LILO BareMetal driver & example support
 
 xilfpga_v6_9:
@@ -247,7 +248,7 @@ riscv: Handle exceptions using RISCV_ExceptionVectorTable
 standalone: Remove irrelevant comment
 riscv: Add support for exception handler registration
 
-rtcpsu_v_16:
+rtcpsu_v1_16:
 Remove redundant calibration register write in XRtcPsu_SetTime
 
 asufw:
@@ -285,6 +286,634 @@ Client interface and example support for OCP-DME
 Client updates related to IPI message filtering
 Support for one multi-update call per queue from client
 Moved ASUFW_IS_PRESENT polling to ASU RTCA instead of ASU_GLOBAL register
+
+coresightps_dcc_v1_13:
+coresightps_dcc: Fix ARMCLANG operand size warnings
+
+dfeofdm_v1_5:
+dfeofdm: Update comments about status and delay
+
+dfeprach_v1_8:
+dfeprach: Set phase offsets to 0 on startup
+dfeprach: Add missing parameter to yaml
+Correct initialization values
+
+emacps_v3_23:
+Update Versal_Gen2 name instances
+Optimize queue disable for Versal platforms
+Fix GCC warnings and C90/C99 compliance
+Replace 'ref-clk' with clocks property
+Add GEM clock frequency macros
+
+i3cpsx_v1_6:
+Fix GCC warnings and update driver version
+
+sd_fec_v1_4:
+sd_fec: Correcting compiler warnings
+
+tft_v6_7:
+bsp: standalone: Fix GCC warnings
+
+xdmapcie_v3_1:
+Refactor 32-bit BAR allocation to Improve code readability
+Fix GCC compiler warning
+Rename platform from versal to versal_2ve_2vm
+Add support for PCIe RP reset via GPIO expander
+Add conditional IICPS driver support for Versal IP's
+Add macro to differentiate VEK385 boards
+
+xilpuf_v2_6:
+For SpartanUP
+Updated PUF example to program 384 bit PUFHD hash.
+Updated IV endianness to Little endian.
+configured efuse clock sources
+Updated PUF shutter value
+Aligned printed PUF Helper Data size to 516 Bytes.
+Fix for GCC warnings.
+Fix for doxygen warnings.
+Fix for MISRA C violations.
+Fix for doxygen comments and RTF doc.
+
+sysmonpsu_v3_2:
+Fix GCC warnings.
+
+sysmonpsv_v5_2:
+Microblaze support added
+
+trngpsx_v1_5:
+Added support for SpartanUP
+
+xxvethernet_v1_12:
+Increment driver version.
+Fix GCC warnings in XXV MCDMA interrupt example.
+Fix GCC warnings in USXGMII MCDMA interrupt example.
+
+xilnvm_v3_6:
+For SpartanUP
+Added support to pragramming 384 bit PPK Hash
+converted IV’s to little endian format.
+Set lower 32 bits of Black IV to zeros.
+Initialized Efuse clock source control register.
+Added support to restrict booting from specific devices using boot mode disable eFUSE bits.
+For all platforms
+Additional ppks feature enabled.
+Added validation checks for SysMon temperature and voltage fuse values before programming.
+Updated IV validation logic to allow zero-value IVs as valid input.
+Removed checks that previously rejected IVs with all octets set to 0.
+Added support to program PUFHD_INVLD and DIS_SJTAG eFUSE bits to enhance security configuration options.
+Updated example to support programming SLR eFUSEs with unique values per SLR.
+Added support for programming the DME USER key.
+Enabled configuration of eFuse clock via BSP using RTCA settings or application-defined values.
+Included PUF_RSVD eFUSE in PUF user data programming.
+Extended valid index range from 1–127 to 0–127, increasing total user data eFUSEs to 128.
+Updated MetaHeader IV, PLM IV, and Data Partition IV eFUSE programming to use little-endian format, aligning with documentation.
+For VERSAL_2VE_2VM
+Restricted DME mode programming for VERSAL_2VE_2VM to prevent disabling required user fuse functionality.
+Fix MISRA C violations.
+Fix GCC warnings.
+Updated xilnvm.yaml
+Fix for doxygen comments and RTF doc.
+
+xilcert_v1_5:
+Added support for Versal_2VP
+
+xilocp_v1_6:
+For all platforms
+Extended access permissions for Apertures 26 and 27 to include PPU1 during DME operations.
+Skipped restoring configuration for PMC_XPPU_DYNAMIC_RECONFIG_APER_ADDR and PERM due to limitations post-DME response.
+Restored initial access permissions for Aperture 049 after DME challenge signature generation.
+Updated configuration values to follow even parity when parity check is enabled.
+Registered PCR_LOG_UPDATE events only after LoadBootPdi, ensuring notifications occur post-boot.
+Added new eFuse measurements to SW PCR1 across multiple indices to capture PPK, SPK, off-chip revocation, and miscellaneous eFuse data.
+Limited DevAK index values per subsystem to 0 and/or 1 to enforce fixed allocation.
+Updated PCR log handling to clear only the specified measurement index when the Overwrite flag is set, preserving previously extended data.
+Fixed logic to correctly mark Master ID apertures as modified only when register values differ from expected configuration.
+Fixed issue where EventId in PCR logs was cleared during SWPCR extension with Overwrite flag; now only the specified measurement index is cleared.
+Corrected XOCP_EFUSE_PPK_NUM_OF_BYTES macro to use 32 bytes instead of 48, preventing potential overflow.
+For Versal_2vp
+Added SDT build support and CMake config for Versal_2vp; plm_ocp disabled by default.
+Enabled xilocp client and server support for Versal_2vp, including DICE CDI and DME challenge APIs.
+Refactored XOcp_SecureConfig and defined platform-specific registers for Versal_2vp.
+Enabled xilocp and xilcert for Versal_2vp; disabled attestation with unwrapped key and OCP DS export.
+Switched to SHA3-384 for OCP on Versal_2vp.
+Restricted HW PCR and ShutdownHandler features to supported platforms.
+Refactored TRNG functions for platform scalability.
+For ASUFW
+Added support to send notifications to ASUFW based on subsystem state changes, with fallback scheduling if ASUFW is unavailable.
+Implemented ASU CDI generation API and exported CDI/SEED-related APIs for ASUFW OCP functionality.
+Added SHA management to store subsystem hashes using OCP subsystem IDs.
+Fix for RTF doc.
+Updated xilocp.yaml
+
+xilsecure_v5_6:
+Added support for Versal_2VP and SPARTANUPLUSAES1 devices
+For Versal_2VE_2VM added NIST-compliant software padding logic to handle SHA operations with zero data length or missing IsLast flag, ensuring valid digest generation in hardware auto-padding mode.
+bypassed AES and SHA initialization errors on export-control enabled boards where crypto engines are disabled.
+Fix for GCC warnings.
+Fix for MISRA C violations.
+Added error handling and updated error codes for better failure diagnostics.
+Integrated crypto algorithm version support for LMS, SHA2, and HMAC targeting VersalNet and Versal_2VE_2VM platforms.
+Ensured SHA initialization at the client side is performed unconditionally, regardless of its previous state, improving reliability and consistency.
+
+xilskey_v7_8:
+Fix GCC warnings
+Fix for efuse read status mask for Ultrascale devices
+
+dp21rxss_v1_5:
+When I2C is not enabled in the RX subsystem, an I2C dummy node is declared in the driver structure.
+Fixed the DP21 Rx only app changes.
+
+dp21txss_v2_6:
+Fix YUV format issues in SST mode
+Fixed the TxO and PT applications
+
+iic_v3_14:
+Fix GCC warnings and update driver version
+
+iicps_v3_22:
+Fix GCC Warning and update driver version
+
+spips_v3_13:
+Update driver version and fix GCC warnings
+Fix chip selection issues
+Fix flash status register check during erase
+Fix GCC warning
+Correct register masking logic
+
+scugic_v5_6:
+scugic: Fix ARMCLANG warning
+scugic: Fix GCC and ARMCLANG warnings
+
+uartlite_v3_12:
+Fix GCC warnings and update driver version
+Implementation of ASUFW specific outbyte function
+
+uartns550_v3_13:
+Fix GCC Warning and update driver version
+Implementation of ASUFW specific outbyte function
+
+uartps_v3_17:
+Fix GCC Warning and update driver version
+
+uartpsv_v1_13:
+Implementation of ASUFW specific outbyte function
+
+xilpm_v6_1:
+Added SDFEC BISR support
+Deprecate XPm_RequestSuspend API
+Added CPM6 isolation support
+Added support of bulk release of peripheral devices
+Enable power rail control feature as an option
+Skipped InitFinalize for devices without requirement
+Fix for MISRA C violations.
+Added support to clear NOC/DDRMC scan clear ISRs.
+Fix XPm_GetNodeStatus to get rpu current state
+
+xilsem_v1_12:
+Add support for Versal_2ve_2vm NPI Scan (HW SHA)
+Add support for Versal Segmented HW SHA & HW ECC
+Essential bit data classification support for Versal_2ve_2vm
+Add SMC client call support for Versal
+Fix GCC warnings and MISRA violations
+Fix incorrect status of DDRMC Calibration timeout warning in NPI scan
+Fix Uncorrectable and CRC error event issue in Versal_2ve_2vm
+
+versal_psmfw:
+Replace standard assert with Xil_Assert and add custom callback
+Changed XPsmFw_FpdPreHouseClean() return type to void and removed unnecessary failure handling for cleaner code.
+Remove unused failure condition from SetUpInterruptSystem()
+Add Doxygen comments for PSM_API_READ_ACCESS and PSM_API_MASK_WRITE_ACCESS
+Move Versal NET specific functions under VERSAL_NET macro
+
+zynqmp_pmufw:
+Fix canonical PMU register defines
+Reject config object without total section number
+Add configurable memory range validation support
+Add memory range check support for FPGA read-back and Crypto APIs
+Add condition check to verify address range for eFuse IP
+Add support for secure flag
+Update device status for PmGetNodeStatus
+Update PMUFW completion status
+Fix MISRA-C violations
+
+dfeccf_v1_9:
+Fix zero padding and GetActivSets
+
+trngpsv_v1_7:
+Update algorithm version
+
+dp21_v2_5:
+DP21 HDCP 1x & 2X driver MST (ECF) support added.
+Fixed the multiple issues: Blank screen issue with dynamic range initialization.
+Fixed the vphy CDR value.
+
+common_v1_4:
+Add a new macro XST_FEATURE_DEPRECATE that will be used for returning a feature deprecation status message from an already available driver/library API.
+
+csi2txss_v1_8:
+Fix subcore absolute address calculation
+
+csi_v1_8:
+Fix doxygen warnings
+
+dp14txss_v6_14:
+Removed the GT NPI programming
+
+dp14_v7_11:
+Fixed the GCC warnings
+
+dphy_v1_8:
+Fix doxygen warnings
+
+dsitxss_v2_6:
+Fix subcore absolute address calculation
+
+emaclite_v4_12:
+Fix ARP resolution and Endianness
+
+hdcp1x_v4_9:
+Added the MST HDCP1x support for DP21.
+
+hdcp22_tx_dp_v3_2:
+Added the HDCP2.4 support for DP21 MST ECF API’s.
+
+i2stx_v2_4:
+Fixed the code redundancy & GCC warnings.
+
+mipicsiss_v1_14:
+Fix subcore absolute address calculation
+Fix doxygen warnings
+Removed unused argument to resolve GCC warnings
+
+video_common_v4_18:
+Video_common: Removed GCC warning from this driver
+VIDEO_COMMON: Removed all GCC warnings from the driver
+
+vphy_v1_18:
+Update the vphy driver for dp21 support
+
+vprocss_v2_15:
+vprocss: Fix GCC warning
+vprocss: Fix doxygen warnings
+vprocss: Clean up commented code and obsolete comments
+
+v_csc_v2_7:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_deinterlacer_v7_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_frmbuf_rd_v5_1:
+v_frmbuf_rd: Fix GCC warning
+v_frmbuf_rd: Fix doxygen warnings
+v_frmbuf_rd: Clean up commented code and obsolete comments
+
+v_frmbuf_wr_v5_1:
+v_frmbuf_wr: Fix GCC warning
+v_frmbuf_wr: Fix doxygen warnings
+v_frmbuf_wr: Clean up commented code and obsolete comments
+v_frmbuf_wr: Low latency support is added
+
+v_hcresampler_v3_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_hdmiphy1_v2_11:
+v_hdmiphy1: Fix GCC warning
+v_hdmiphy1: Fix doxygen warnings
+v_hdmiphy1: Clean up commented code and obsolete comments
+
+v_hdmirx1_v1_10:
+v_hdmirx1: Clean up commented code and obsolete comments
+v_hdmirx1: Add TMDS-only mode support to reduce the driver footprint
+v_hdmirx1: Fix compilation issues with PT app
+v_hdmirx1: Fix SCDC initialization in TMDS only mode
+v_hdmirx1: Force FLT ready low in TMDS-only mode with FRL source
+v_hdmirx1: Clears IsFrl flags in cable disconnect handler
+
+v_hdmirxss1_v3_8:
+v_hdmirxss1: Clean up commented code and obsolete comments
+v_hdmirxss1: Fix compilation warnings
+v_hdmirxss1: example: Add raw buffer support to ReadEdid_extension
+v_hdmirxss1: Add TMDS-only mode support to reduce the driver footprint
+v_hdmirxss1: Fix compilation issue with PT app
+v_hdmirxss1: example: Fix xil_printf when compiled with SDT
+Added interrupt handling for SysTimer
+Updated the sequence for stream down event
+Updated placeholder for TMDS case
+v_hdmirxss1: Fix driver TMDS-only mode by relocating callback
+v_hdmirxss1: example: Add support for TMDS-only mode
+v_hdmirxss1: example: Update PT app to work with FRL monitor
+v_hdmirxss1: example: Dynamic HDR vivid update
+
+v_hdmirxss_v6_8:
+v_hdmirxss: xhdmi_example: Fix HDCP interrupt index for HDCP14 only
+
+v_hdmitx1_v2_6:
+v_hdmitx1: Fix GCC warnings
+v_hdmitx1: Clean up commented code and obsolete comments
+v_hdmitx1: Fix compilation warning
+
+v_hdmitxss1_v3_8:
+v_hdmitxss1: Fix GCC warnings
+v_hdmitxss1: Clean up commented code and obsolete comments
+v_hdmitxss1: Add raw buffer support to ReadEdid_extension function
+v_hdmitxss1: example: Add raw buffer support to ReadEdid_extension
+v_hdmitxss1: example: Fix xil_printf when compiled with SDT
+Added interrupt handling for SysTimer
+Updated the sequence for stream down event
+Updated placeholder for TMDS case
+v_hdmitxss1: examples: Add support for TMDS-only mode
+v_hdmitxss1: example: Update PT app to work with FRL monitor
+v_hdmitxss1: example: Dynamic HDR vivid update
+
+v_hdmitxss_v6_7:
+v_hdmitxss: Fix GCC warning
+v_hdmitxss: Add vtc driver in dependency list
+v_hdmitxss: Remove subcore absolute address calculation
+v_hdmitxss: xhdmi_example: Fix HDCP interrupt index for HDCP14 only
+
+v_hdmitx_v2_8:
+v_hdmitxss: Add vtc driver in dependency list
+
+v_hdmi_common_v1_9:
+v_hdmi_common: Fix GCC warning
+
+v_hscaler_v3_6:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_letterbox_v2_5:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_mix_v7_0:
+v_mix: Fix GCC warning
+v_mix: Fix doxygen warnings
+v_mix: Clean up commented code and obsolete comments
+v_mix: Tile format support is added
+
+v_sdirxss_v3_5:
+Added the sub core address calculation for multiple instances of SDI IP.
+
+v_sdirx_v2_6:
+Fixed SDI 6G Mode color bar issue for DBPC enabled case with wrong muxpattern enablement.
+Fix the PICXO design for YUV422 & YUv444 10 & 12-bit
+New feature Dynamic BPC is added.
+Fix the ST352 decoding issue for multiple modes. (3GA, 6G, 12G)
+
+v_sditxss_v4_6:
+Added the sub core address calculation for multiple instances of SDI IP.
+Updated the SI5324 reference in PICXO design applications.
+
+v_sditx_v3_4:
+Added the SDI Tx Dynamic BPC feature support.
+Fixed the muxpattern logic.
+
+v_vcresampler_v3_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+v_vscaler_v3_4:
+Fix GCC warning
+Fix doxygen warnings
+Clean up commented code and obsolete comments
+
+freertos10_xilinx_v1_18:
+freertos10_xilinx: Enable XPM support for freertos in SDT flow
+freertos10_xilinx: Fix unused function warning
+freertos10_xilinx: examples: Fix GCC warnings
+bsp: Extend FPU support in Standalone and FreeRTOS
+
+xilpm_ng:
+Added support for Subsystem restart and system shutdown.
+Added support for PLM in-place update.
+Added ADMA idle sequence in custom reset handler.
+Added PGGSx/GGSx RegNodes and depricated old PGGS/GGS logic.
+Added support for programming PLL runtime.
+Added support for AIE clock frequency scaling.
+Added BISR code of ISP, MMI, MMI_GTYP, GTYP, and DDRMC5E
+Added BISR for LPXC, FPXC, VCU, and AIE2ps.
+Add AIE OPS for TLAST error config
+Support for Voltage ID (VID).
+
+dcsub:
+Added examples for non live audio, SDP, Bypass (single stream), MST, 4kp60 with 8 channel audio
+Update examples to support MMCM clocking wizard config
+
+mmidp:
+Fix for HBR3 and 4 lanes link training
+Add Audio and MST support
+Refactor and code cleanup
+
+libmetal_xlnx_extension:
+New module that implements libmetal interfaces with xlnx BSP
+
+zynqmp_fsbl:
+Fixed FSBL hang during APU restart caused by UART usage without reinitialization. Added check in UART routine to skip execution based on reset type.
+Give an error while loading signed image and PPK is not available.
+Fixed intermittent POS failure on ZynqMP caused by FSBL stuck in UART transmit check. Boot flow updated to enter WFE state without UART wait for POS use case.
+Increased XFSBL_REQ_REPLY_LEN from 256 to 512 bytes to support larger USB descriptor replies, improving DFU compatibility with Windows 10/11.
+Fixed issue where commands >64 bytes transmitted incorrect byte (0th instead of 65th). Implemented offset tracking for correct continuation.
+
+sdps_v4_5:
+Add conditional cache ops for EL1_NS
+
+mcdma_v1_13:
+Add conditional cache ops for EL1_NS and EL3 modes
+
+nandpsu_v1_15:
+Add conditional cache ops for EL1_NS and EL3 modes
+
+qspipsu_v1_22:
+Add conditional cache ops for EL1_NS and EL3 modes
+Update driver version
+
+
+New Files Added For 2025.2:
+
+SPDX-License-Identifier: MIT
+
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_sha_hw.h
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_kat.h
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_kat.c
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_ipihandler.h
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat_ipihandler.c
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_error.h
+lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c
+lib/sw_services/xilsecure/src/server/versal_2vp/libxilsecure_pmc.a
+lib/sw_services/xilsecure/src/server/versal_2vp/Ecdsa.h
+lib/sw_services/xilsecure/src/server/versal_2vp/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h
+lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c
+lib/sw_services/xilsecure/src/server/core/trng/trngpsx/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h
+lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c
+lib/sw_services/xilsecure/src/server/core/trng/trngpsv/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h
+lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c
+lib/sw_services/xilsecure/src/server/core/kdf/CMakeLists.txt
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_hmacalginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_hmacalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_sha3alginfo.h
+lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_rsaalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h
+lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_ellipticalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_aesalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2vp/CMakeLists.txt
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_lmsalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_lmsalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_hmacalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_hmacalginfo.h
+lib/sw_services/xilpm_ng/src/xpm_memory_pools.ld.in
+lib/sw_services/xilpm_ng/src/xpm_memory_pools.h.in
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_vcu2.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_mmi.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_me2ps.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_lpd_fpd_pmxc.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_isp2.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_hardblock.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_ddrmc5e.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_bram_uram.c
+lib/sw_services/xilpm_ng/src/util/xpm_update.h
+lib/sw_services/xilpm_ng/src/util/xpm_update.c
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_status.h
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_ssit.h
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_plat.h
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_plat.c
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_hw.h
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_err.h
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_err.c
+lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_config.h
+lib/sw_services/xilplmi/src/versal_2vp_p/server/CMakeLists.txt
+lib/sw_services/xilplmi/src/versal_2vp_p/common/xplmi_error_node.h
+lib/sw_services/xilplmi/src/versal_2vp_p/common/CMakeLists.txt
+lib/sw_services/xilplmi/src/versal_2vp_p/CMakeLists.txt
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_wdt.h
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_wdt.c
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_status.h
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_plat.h
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_plat.c
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_hw.h
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.c
+lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_config.h
+lib/sw_services/xilplmi/src/versal_2vp/server/CMakeLists.txt
+lib/sw_services/xilplmi/src/versal_2vp/common/xplmi_error_node.h
+lib/sw_services/xilplmi/src/versal_2vp/common/CMakeLists.txt
+lib/sw_services/xilplmi/src/versal_2vp/CMakeLists.txt
+lib/sw_services/xilpdi/src/versal_2vp_p/xilpdi_plat.h
+lib/sw_services/xilpdi/src/versal_2vp_p/CMakeLists.txt
+lib/sw_services/xilocp/src/server/versal_net/xocp_sha.h
+lib/sw_services/xilocp/src/server/versal_net/xocp_plat.h
+lib/sw_services/xilocp/src/server/versal_net/xocp_plat.c
+lib/sw_services/xilocp/src/server/versal_net/xocp_hw.h
+lib/sw_services/xilocp/src/server/versal_net/xocp_dice_dme.h
+lib/sw_services/xilocp/src/server/versal_net/xocp_dice_dme.c
+lib/sw_services/xilocp/src/server/versal_net/CMakeLists.txt
+lib/sw_services/xilocp/src/server/versal_2vp/xocp_sha.h
+lib/sw_services/xilocp/src/server/versal_2vp/xocp_plat.h
+lib/sw_services/xilocp/src/server/versal_2vp/xocp_plat.c
+lib/sw_services/xilocp/src/server/versal_2vp/xocp_hw.h
+lib/sw_services/xilocp/src/server/versal_2vp/xocp_dice_dme.h
+lib/sw_services/xilocp/src/server/versal_2vp/xocp_dice_dme.c
+lib/sw_services/xilocp/src/server/versal_2vp/CMakeLists.txt
+lib/sw_services/xilocp/src/server/versal_2ve_2vm/xocp_sha.h
+lib/sw_services/xilocp/src/server/versal_2ve_2vm/xocp_plat.h
+lib/sw_services/xilocp/src/server/versal_2ve_2vm/xocp_plat.c
+lib/sw_services/xilocp/src/server/versal_2ve_2vm/xocp_hw.h
+lib/sw_services/xilocp/src/server/versal_2ve_2vm/xocp_dice_dme.h
+lib/sw_services/xilocp/src/server/versal_2ve_2vm/CMakeLists.txt
+lib/sw_services/xilloader/src/versal_2vp_p/server/xloader_plat_secure.h
+lib/sw_services/xilloader/src/versal_2vp_p/server/xloader_plat_secure.c
+lib/sw_services/xilloader/src/versal_2vp_p/server/xloader_plat.h
+lib/sw_services/xilloader/src/versal_2vp_p/server/xloader_plat.c
+lib/sw_services/xilloader/src/versal_2vp_p/server/CMakeLists.txt
+lib/sw_services/xilloader/src/versal_2vp_p/CMakeLists.txt
+lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat_secure.h
+lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat_secure.c
+lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat.h
+lib/sw_services/xilloader/src/versal_2vp/server/xloader_plat.c
+lib/sw_services/xilloader/src/versal_2vp/server/CMakeLists.txt
+lib/sw_services/xilloader/src/versal_2vp/CMakeLists.txt
+lib/sw_services/xilloader/src/common/server/xloader_auth_jtag.h
+lib/sw_services/xilloader/src/common/server/xloader_auth_jtag.h
+lib/sw_services/xilloader/src/common/server/xloader_auth_jtag.c
+lib/sw_services/xilloader/src/common/server/xloader_auth_jtag.c
+lib/sw_services/xilloader/examples/xilloader_remove_pdi_from_image_store_client_example.c
+lib/sw_services/xilloader/examples/xilloader_remove_pdi_from_image_store_client_example.c
+lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c
+lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c
+lib/sw_services/xilcert/src/versal_net/xcert_sha.h
+lib/sw_services/xilcert/src/versal_net/CMakeLists.txt
+lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h
+lib/sw_services/xilcert/src/versal_2vp/CMakeLists.txt
+lib/sw_services/xilasu/src/common/xasu_ocpinfo.h
+lib/sw_services/xilasu/src/common/xasu_ocp_common.h
+lib/sw_services/xilasu/src/common/xasu_ocp_common.c
+lib/sw_services/xilasu/src/common/xasu_kdf_common.h
+lib/sw_services/xilasu/src/common/xasu_kdf_common.c
+lib/sw_services/xilasu/src/client/xasu_ocp.h
+lib/sw_services/xilasu/src/client/xasu_ocp.c
+lib/sw_services/xilasu/examples/xasu_ocp_example.c
+lib/sw_services/xilasu/examples/xasu_ocp_dme_example.c
+lib/sw_services/xilasu/examples/xasu_dme_keys_enc_input_example.h
+lib/sw_services/xilasu/examples/xasu_dme_keys_enc_example.c
+lib/sw_apps/versal_plm/src/versal_2vp_p/xplm_plat.h
+lib/sw_apps/versal_plm/src/versal_2vp_p/xplm_plat.c
+lib/sw_apps/versal_plm/src/versal_2vp_p/xplm_hooks.c
+lib/sw_apps/versal_plm/src/versal_2vp_p/lscript.ld
+lib/sw_apps/versal_plm/src/versal_2vp_p/Makefile
+lib/sw_apps/versal_plm/src/versal_2vp_p/CMakeLists.txt
+lib/sw_apps/versal_plm/src/versal_2vp/xplm_plat.h
+lib/sw_apps/versal_plm/src/versal_2vp/xplm_plat.c
+lib/sw_apps/versal_plm/src/versal_2vp/xplm_hooks.c
+lib/sw_apps/versal_plm/src/versal_2vp/lscript.ld
+lib/sw_apps/versal_plm/src/versal_2vp/Makefile
+lib/sw_apps/versal_plm/src/versal_2vp/CMakeLists.txt
+lib/sw_apps/versal_plm/misc/versal_2vp_p/xpm_memory_pools.ld
+lib/sw_apps/versal_plm/misc/versal_2vp_p/xparameters.h
+lib/sw_apps/versal_plm/misc/versal_2vp_p/drivers.txt
+lib/sw_apps/versal_plm/misc/versal_2vp_p/dep.mk
+lib/sw_apps/versal_plm/misc/versal_2vp_p/copy_bsp.sh
+lib/sw_apps/versal_plm/misc/versal_2vp_p/config.make
+lib/sw_apps/versal_plm/misc/versal_2vp_p/Makefile
+lib/sw_apps/versal_plm/misc/versal_2vp/xparameters.h
+lib/sw_apps/versal_plm/misc/versal_2vp/drivers.txt
+lib/sw_apps/versal_plm/misc/versal_2vp/dep.mk
+lib/sw_apps/versal_plm/misc/versal_2vp/copy_bsp.sh
+lib/sw_apps/versal_plm/misc/versal_2vp/config.make
+lib/sw_apps/versal_plm/misc/versal_2vp/Makefile
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xpm_memory_pools.ld
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xpm_memory_pools.h
+lib/sw_apps/srec_spi_bootloader/src/bootloader_ospi.c
+lib/sw_apps/asufw/src/xasufw_plmeventschedular.h
+lib/sw_apps/asufw/src/xasufw_plmeventschedular.c
+lib/sw_apps/asufw/src/xasufw_plmeventhandler.h
+lib/sw_apps/asufw/src/xasufw_plmeventhandler.c
+lib/sw_apps/asufw/src/xasufw_ocphandler.h
+lib/sw_apps/asufw/src/xasufw_ocphandler.c
+lib/sw_apps/asufw/src/ocp/xocp_dme.h
+lib/sw_apps/asufw/src/ocp/xocp_dme.c
+lib/sw_apps/asufw/src/ocp/xocp.h
+lib/sw_apps/asufw/src/ocp/xocp.c
+lib/sw_apps/asufw/src/ocp/CMakeLists.txt
+lib/bsp/standalone/src/riscv/putnum.c
+ThirdParty/sw_services/libmetal_xlnx_extension/src/lib/CMakeLists.txt
 
 
 
@@ -406,12 +1035,12 @@ Avoid local header inclusion in CMake
 
 xilsfl_v1_1:
 Avoid local header inclusion in CMake
-Add condition to avoid dma read on Lassen
+Add condition to avoid dma read on SpartanUP
 Add support to get flash Type
 Add support for MT25QU128 qspi flash
 Add support for dynamic address size
 Add support for x2/x4 operation
-Add support for Lassen platform
+Add support for SpartanUP platform
 Add support to read in stig when DMA is not available
 Update AMD Copyright year and version number
 Update example to support reading unaligned bytes
@@ -693,7 +1322,7 @@ Add the compatible for mailbox
 
 mutex_v4_10:
 Update example to use MutexInstPtr in both xsct and sdt flow
-Update example to fix compilation warnings in Rigel flow
+Update example to fix compilation warnings in SDT flow
 Update the YAML to generate xparameters.h defines in alignment with the XSCT flow
 Add the compatible for mutex
 
@@ -1463,7 +2092,7 @@ Added register node to access PMC analog registers
 Remove check to restrict crypto access when crypto KAT enable efuse bit
 is blown and KAT is not ran during runtime requests
 Added support for handling PSM to PLM IPI events
-Add support for Authenticated JTAG for versal_aiepg2 devices
+Add support for Authenticated JTAG for VERSAL_2VE_2VM devices
 Change SSIT timeout for slave message events
 Added glitch detector support for PL microblaze
 Fix chunk boundary handling in KeyholeXfr logic
