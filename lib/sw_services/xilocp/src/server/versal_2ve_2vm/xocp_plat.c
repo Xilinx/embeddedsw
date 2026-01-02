@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -85,6 +85,7 @@ static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void);
 /********************************** Variable Definitions *****************************************/
 static u32 XOcpPlmAsufwEvent;
 static u8 XOcpAsuCdi[XOCP_CDI_SIZE_IN_BYTES];
+static u8 IsAsuCdiValid;
 
 /********************************** Function Definitions *****************************************/
 /*************************************************************************************************/
@@ -376,8 +377,13 @@ static int XOcp_GenerateAsuCdiSeed(void)
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
 	u32 PlmCdiAddr = (u32)(UINTPTR)&Seed[0];
 
+	/** Mark ASU CDI as invalid. */
+	IsAsuCdiValid = FALSE;
+
 	/** If CDI is not valid device key generation is skipped */
 	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
+		XOcp_Printf(DEBUG_GENERAL, "Valid CDI not found, OCP key management functionalities"
+					   " will be affected\n\r");
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -406,6 +412,12 @@ static int XOcp_GenerateAsuCdiSeed(void)
 	Status = XOcp_KeyGenDevAkSeed(PlmCdiAddr, XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)AsuHashAddr,
 				      XOCP_CDI_SIZE_IN_BYTES,
 				      (XSecure_HmacRes *)(UINTPTR)XOcpAsuCdi);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Mark ASU CDI as valid. */
+	IsAsuCdiValid = TRUE;
 
 END:
 	return Status;
@@ -426,9 +438,11 @@ int XOcp_GetAsuCdiSeed(u32 CdiAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = Xil_SMemCpy((void *)(UINTPTR)CdiAddr, XOCP_CDI_SIZE_IN_BYTES,
-			     (const void *)(UINTPTR)XOcpAsuCdi, XOCP_CDI_SIZE_IN_BYTES,
-			     XOCP_CDI_SIZE_IN_BYTES);
+	if (IsAsuCdiValid == TRUE) {
+		Status = Xil_SMemCpy((void *)(UINTPTR)CdiAddr, XOCP_CDI_SIZE_IN_BYTES,
+				     (const void *)(UINTPTR)XOcpAsuCdi, XOCP_CDI_SIZE_IN_BYTES,
+				     XOCP_CDI_SIZE_IN_BYTES);
+	}
 
 	return Status;
 }
