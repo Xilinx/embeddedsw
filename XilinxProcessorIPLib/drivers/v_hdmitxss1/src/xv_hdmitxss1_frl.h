@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,10 +52,12 @@ extern "C" {
 }
 #endif
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTxSs1_FrlConfigCallback(void *CallbackRef);
 void XV_HdmiTxSs1_FrlFfeCallback(void *CallbackRef);
 void XV_HdmiTxSs1_FrlStartCallback(void *CallbackRef);
 void XV_HdmiTxSs1_FrlStopCallback(void *CallbackRef);
+#endif
 void XV_HdmiTxSs1_TmdsConfigCallback(void *CallbackRef);
 
 #endif /* end of protection macro */

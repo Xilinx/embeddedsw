@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 #include "xv_hdmitxss1_frl.h"
 #include "xv_hdmitxss1.h"
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /************************** Function Prototypes ******************************/
 
 /************************** Function Definition ******************************/
@@ -218,6 +219,7 @@ void XV_HdmiTxSs1_FrlStopCallback(void *CallbackRef)
 	  HdmiTxSs1Ptr->FrlStopCallback(HdmiTxSs1Ptr->FrlStopRef);
 	}
 }
+#endif /* XPAR_XV_HDMI_TX_FRL_ENABLE */
 
 /*****************************************************************************/
 /**
@@ -246,6 +248,7 @@ void XV_HdmiTxSs1_TmdsConfigCallback(void *CallbackRef)
 	}
 }
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -470,3 +473,4 @@ void XV_HdmiTxSs1_SetFrlIntVidCke(XV_HdmiTxSs1 *InstancePtr)
 {
 	XV_HdmiTx1_FrlExtVidCkeSource(InstancePtr->HdmiTx1Ptr, FALSE);
 }
+#endif /* XPAR_XV_HDMI_TX_FRL_ENABLE */
