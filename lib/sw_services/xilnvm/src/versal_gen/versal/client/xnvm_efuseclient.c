@@ -74,7 +74,7 @@
 int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -85,14 +85,16 @@ int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_WRITE),
+				DataAddr,
+				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Sends EFUSE WRITE CDO to PLM through IPI. Return XST_FAILURE if IPI request of sending CDO not success.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "eFUSE programming Failed \r\n");
 	}
@@ -125,7 +127,7 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	u64 DataAddr;
 	u32 Size;
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -160,15 +162,17 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_WRITE),
+				DataAddr,
+				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Sends EFUSE WRITE IV CDO to PLM through IPI request.
 	 *  Return XST_FAILURE if IPI request is failed
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 END:
 	return Status;
 }
@@ -197,7 +201,7 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 	XNvm_EfuseMiscCtrlBits *MiscCtrlBits = NULL;
 	u64 DataAddr;
 	u32 Size;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseMiscCtrlBits);
 
         /**
@@ -262,14 +266,16 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_WRITE),
+				DataAddr,
+				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Sends CDO to PLM to write eFuses to revoke the user specified PPK. Return XST_FAILURE if IPI request not success
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 END:
 	return Status;
 }
@@ -300,7 +306,7 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 	u32 RevokeIdBit;
 	u64 DataAddr;
 	u32 Size;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseRevokeIds);
 
         /**
@@ -353,15 +359,17 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_WRITE),
+				DataAddr,
+				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send Revocation Id CDO to PLM to write to the user specified revocation eFuses.
 	 *  Return XST_FAILURE, if IPI request status is not success.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -390,7 +398,7 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 	XNvm_EfuseDataAddr *EfuseData = NULL;
 	u64 DataAddr;
 	u32 Size;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
         /**
@@ -426,15 +434,17 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_WRITE),
+				DataAddr,
+				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send eFUSE write CDO to PLM to write user specified user eFuses.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -459,7 +469,7 @@ END:
 int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -470,16 +480,18 @@ int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, c
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_IV));
-	Payload[1U] = (u32)IvType;
-	Payload[2U] = (u32)IvAddr;
-	Payload[3U] = (u32)(IvAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_IV),
+				IvType,
+				IvAddr,
+				(IvAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send Read IV CDO to PLM to read user specified IV from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -505,7 +517,7 @@ int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64
 			const XNvm_RevocationId RevokeIdNum)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -516,16 +528,18 @@ int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_REVOCATION_ID));
-	Payload[1U] = (u32)RevokeIdNum;
-	Payload[2U] = (u32)RevokeIdAddr;
-	Payload[3U] = (u32)(RevokeIdAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_REVOCATION_ID),
+				RevokeIdNum,
+				RevokeIdAddr,
+				(RevokeIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read revocation id CDO to PLM to read user specified Revocation ID from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -549,7 +563,7 @@ END:
 int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 UserFuseAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -560,15 +574,17 @@ int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 Us
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_USER_FUSES));
-	Payload[1U] = (u32)UserFuseAddr;
-	Payload[2U] = (u32)(UserFuseAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_USER_FUSES),
+				UserFuseAddr,
+				(UserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read use efuses CDO to PLM to read user specified user eFuses from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -592,7 +608,7 @@ END:
 int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -603,15 +619,17 @@ int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS));
-	Payload[1U] = (u32)MiscCtrlBits;
-	Payload[2U] = (u32)(MiscCtrlBits >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS),
+				MiscCtrlBits,
+				(MiscCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read misc_ctrl CDO to PLM to read miscellaneous control eFuses from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -635,7 +653,7 @@ END:
 int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -646,15 +664,17 @@ int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS));
-	Payload[1U] = (u32)SecCtrlBits;
-	Payload[2U] = (u32)(SecCtrlBits >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS),
+				SecCtrlBits,
+				(SecCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read sec_ctrl CDO to PLM to read security control eFuses from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -678,7 +698,7 @@ END:
 int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -689,15 +709,17 @@ int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS));
-	Payload[1U] = (u32)SecMisc1Bits;
-	Payload[2U] = (u32)(SecMisc1Bits >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS),
+				SecMisc1Bits,
+				(SecMisc1Bits >> XNVM_ADDR_HIGH_SHIFT));
 
          /**
 	  *  Send read misc1 ctrl CDO to PLM to read security and miscellaneous 1 control from eFuse cache.
 	  *  Return XST_FAILURE, if IPI request processing fails in PLM.
 	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 		return Status;
@@ -721,7 +743,7 @@ END:
 int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -732,16 +754,17 @@ int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const 
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS));
-	Payload[1U] = (u32)BootEnvCtrlBits;
-	Payload[2U] = (u32)(BootEnvCtrlBits >> 32U);
-
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS),
+				BootEnvCtrlBits,
+				(BootEnvCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
          /**
 	  *  Send read boot env ctrl CDO to PLM to read Boot Environment control bits from eFuse cache.
 	  *  Return XST_FAILURE if IPI request processing fails in PLM.
 	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -765,7 +788,7 @@ END:
 int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -776,16 +799,18 @@ int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS));
-	Payload[1U] = (u32)PufSecCtrlBits;
-	Payload[2U] = (u32)(PufSecCtrlBits >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS),
+				PufSecCtrlBits,
+				(PufSecCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
 
          /**
 	  *  Send read puf ctrl CDO to PLM to read user specified Puf security control eFuses from eFuse cache.
 	  *  Return XST_FAILURE if IPI request processing fails in PLM.
 	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -811,7 +836,7 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 	const XNvm_OffchipId OffChipIdNum)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -822,17 +847,18 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID));
-	Payload[1U] = (u32)OffChipIdNum;
-	Payload[2U] = (u32)OffChidIdAddr;
-	Payload[3U] = (u32)(OffChidIdAddr >> 32U);
-
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD3(Payload,  (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID),
+				OffChipIdNum,
+				OffChidIdAddr,
+				(OffChidIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
          /**
 	  *  Send read Offchip revoke CDO to PLM to read user specified Offchip revoke registers from eFuse cache.
 	  *  Return XST_FAILURE if IPI request processing fails in PLM.
 	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -857,7 +883,7 @@ END:
 int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -868,17 +894,19 @@ int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkH
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_PPK_HASH));
-	Payload[1U] = (u32)PpkHashType;
-	Payload[2U] = (u32)PpkHashAddr;
-	Payload[3U] = (u32)(PpkHashAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_PPK_HASH),
+				PpkHashType,
+				PpkHashAddr,
+				(PpkHashAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 
         /**
 	 *  Send read ppk hash CDO to PLM to read user specified PPK from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -902,7 +930,7 @@ END:
 int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -913,15 +941,17 @@ int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecO
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY));
-	Payload[1U] = (u32)DecOnlyAddr;
-	Payload[2U] = (u32)(DecOnlyAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY),
+				DecOnlyAddr,
+				(DecOnlyAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read dec_only CDO to PLM to read decrypt eFuse only bits from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -945,7 +975,7 @@ END:
 int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -956,15 +986,17 @@ int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_DNA));
-	Payload[1U] = (u32)DnaAddr;
-	Payload[2U] = (u32)(DnaAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_DNA),
+				DnaAddr,
+				(DnaAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read dna CDO to PLM to read DNA bits from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -990,7 +1022,7 @@ END:
 int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -1001,15 +1033,17 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE));
-	Payload[1U] = (u32)PufUserFuseAddr;
-	Payload[2U] = (u32)(PufUserFuseAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE),
+				PufUserFuseAddr,
+				(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send puf user fuses CDO to PLM to write user specified PUF data to corresponding eFuses.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1033,7 +1067,7 @@ END:
 int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -1044,15 +1078,17 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE));
-	Payload[1U] = (u32)PufUserFuseAddr;
-	Payload[2U] = (u32)(PufUserFuseAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE),
+				PufUserFuseAddr,
+				(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read puf user fuses CDO to PLM to read PUF data from corresponding eFuses.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1077,7 +1113,7 @@ END:
 int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
 	u64 DataAddr;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -1092,15 +1128,17 @@ int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAd
 
 	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE_PUF));
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_WRITE_PUF),
+				DataAddr,
+				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send write puf CDO to PLM to write PUF helper data to eFuses.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1124,7 +1162,7 @@ END:
  ******************************************************************************/
 int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -1135,15 +1173,17 @@ int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAdd
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_PUF));
-	Payload[1U] = (u32)PufHdAddr;
-	Payload[2U] = (u32)(PufHdAddr >> 32U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
+				| (u32)XNVM_API_ID_EFUSE_READ_PUF),
+				PufHdAddr,
+				(PufHdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
         /**
 	 *  Send read puf CDO to PLM to read PUF helper data from eFuse cache.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

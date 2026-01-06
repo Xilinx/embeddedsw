@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -49,8 +49,31 @@ extern "C" {
  * @cond xnvm_internal
  * @{
  */
+/* Payload Packets */
+#define XNVM_PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)		\
+	Payload[0U] = (u32)Arg0;						\
+	Payload[1U] = (u32)Arg1;						\
+	Payload[2U] = (u32)Arg2;						\
+	Payload[3U] = (u32)Arg3;						\
+	Payload[4U] = (u32)Arg4;						\
+	Payload[5U] = (u32)Arg5;
+
+#define XNVM_PACK_PAYLOAD0(Payload, ApiId) \
+	XNVM_PACK_PAYLOAD(Payload, Header(0UL, (ApiId)), 0U, 0U, 0U, 0U, 0U)
+#define XNVM_PACK_PAYLOAD1(Payload, ApiId, Arg1) \
+	XNVM_PACK_PAYLOAD(Payload, Header(1UL, (ApiId)), (Arg1), 0U, 0U, 0U, 0U)
+#define XNVM_PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
+	XNVM_PACK_PAYLOAD(Payload, Header(2UL, (ApiId)), (Arg1), (Arg2), 0U, 0U, 0U)
+#define XNVM_PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
+	XNVM_PACK_PAYLOAD(Payload, Header(3UL, (ApiId)), (Arg1), (Arg2), (Arg3), 0U, 0U)
+#define XNVM_PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
+	XNVM_PACK_PAYLOAD(Payload, Header(4UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), 0U)
+#define XNVM_PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
+	XNVM_PACK_PAYLOAD(Payload, Header(5UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), (Arg5))
+
 #define XILNVM_MODULE_ID			(11U)
 
+#define XNVM_ADDR_HIGH_SHIFT	(32U)	/**< Shift to get upper 32 bits of address */
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
 #define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,8 +46,6 @@
 #include "xnvm_defs.h"
 
 /************************** Constant Definitions *****************************/
-#define XNVM_ADDR_HIGH_SHIFT	(32U)	/**< Shift to get upper 32 bits of address */
-#define XNVM_MAX_PAYLOAD_LEN	(7U)	/**< Maximum IPI payload length */
 #if defined(__aarch64__)
 /** For 64 bit architecture get upper 32 bits from input address */
 #define XNVM_GET_HADDR(InputAddr, HighAddr) \
@@ -98,7 +96,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_EfuseWriteDataAddr *EfuseData = (XNvm_EfuseWriteDataAddr *)(UINTPTR)DataAddr;
 	XNvm_EfuseAesKeys *AesKeys = (XNvm_EfuseAesKeys *)(UINTPTR)EfuseData->AesKeyAddr;
 	XNvm_EfusePpkHash *EfusePpk = (XNvm_EfusePpkHash *)(UINTPTR)EfuseData->PpkHashAddr;
@@ -225,8 +223,9 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
 
 END:
@@ -257,7 +256,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 {
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_EfuseIvs *Ivs = NULL;
 	u32 Size;
 	u32 TotalSize = sizeof(XNvm_EfuseIvs);
@@ -360,8 +359,9 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
 
 END:
@@ -392,7 +392,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 {
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_Uds *Uds = (XNvm_Uds *)(UINTPTR)UdsAddr;
 	XNvm_UdsWriteCdo *UdsWriteCdo = (XNvm_UdsWriteCdo *)Payload;
 
@@ -430,8 +430,9 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
 
 END:
@@ -462,7 +463,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 {
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_DmeKey *DmeKey = (XNvm_DmeKey *)(UINTPTR)DmeKeyAddr;
 	XNvm_DmeKeyWriteCdo *DmeKeyWriteCdo = (XNvm_DmeKeyWriteCdo *)Payload;
 
@@ -505,8 +506,9 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
 
 END:
@@ -535,7 +537,7 @@ END:
 int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_DmeRevokeId *RevokeId = (XNvm_DmeRevokeId *)Payload;
 
 	/**
@@ -572,8 +574,9 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -598,7 +601,7 @@ END:
 int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_DmeModeWriteCdo *DmeModeWriteCdo = (XNvm_DmeModeWriteCdo *)Payload;
 
 	/**
@@ -632,8 +635,9 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -659,7 +663,7 @@ END:
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_SecCtrlBitsWriteCdo *SecCtrlBitsWrCdo = (XNvm_SecCtrlBitsWriteCdo *)Payload;
 
 	/**
@@ -693,8 +697,9 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -719,7 +724,7 @@ END:
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_PufCtrlBitsWriteCdo *PufCtrlBitsWrCdo = (XNvm_PufCtrlBitsWriteCdo *)Payload;
 
 	/**
@@ -753,8 +758,9 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -779,7 +785,7 @@ END:
 int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_MiscCtrlBitsWriteCdo *MiscCtrlBitsWrCdo = (XNvm_MiscCtrlBitsWriteCdo *)Payload;
 
 	/**
@@ -813,8 +819,9 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -839,7 +846,7 @@ END:
 int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDisBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_BootModeDisCdo *BootModeDisCdo = (XNvm_BootModeDisCdo *)Payload;
 
 	/**
@@ -873,8 +880,9 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -900,7 +908,7 @@ END:
 int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_SecMisc1BitsCdo *SecMisc1BitsCdo = (XNvm_SecMisc1BitsCdo *)Payload;
 
 	/**
@@ -934,8 +942,9 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -960,7 +969,7 @@ END:
 int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnvCtrlBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_BootEnvCtrlBitsCdo *BootEnvCtrlBitsCdo = (XNvm_BootEnvCtrlBitsCdo *)Payload;
 
 	/**
@@ -994,8 +1003,9 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1020,7 +1030,7 @@ END:
 int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RomRsvdBitsWriteCdo *RomRsvdBitsWriteCdo = (XNvm_RomRsvdBitsWriteCdo *)Payload;
 
 	/**
@@ -1053,8 +1063,9 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1079,7 +1090,7 @@ END:
 int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 GlitchCfgBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_GlitchConfigCdo *GlitchConfigCdo = (XNvm_GlitchConfigCdo *)Payload;
 
 	/**
@@ -1112,8 +1123,9 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1136,7 +1148,7 @@ END:
 int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_DisPlmUpdateCdo *DisPlmUpdateCdo = (XNvm_DisPlmUpdateCdo *)Payload;
 
 	/**
@@ -1168,8 +1180,9 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1192,7 +1205,7 @@ END:
 int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_DecOnlyCdo *DecOnlyCdo = (XNvm_DecOnlyCdo *)Payload;
 
 	/**
@@ -1224,8 +1237,9 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1250,7 +1264,7 @@ END:
 int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode, const u16 FipsVersion, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_FipsInfoCdo *FipsInfoCdo = (XNvm_FipsInfoCdo *)Payload;
 
 	/**
@@ -1284,8 +1298,9 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1309,7 +1324,7 @@ END:
 int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 RevokeIdNum, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RevokeIdCdo *RevokeIdCdo = (XNvm_RevokeIdCdo *)Payload;
 
 	/**
@@ -1341,8 +1356,9 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1366,7 +1382,7 @@ END:
 int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u32 OffChipRevokeIdNum, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_OffChipIdCdo *OffChipIdCdo = (XNvm_OffChipIdCdo *)Payload;
 
 	/**
@@ -1399,8 +1415,9 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1423,7 +1440,7 @@ END:
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 	XNvm_PufWriteCdo *PufWrCdo = (XNvm_PufWriteCdo *)Payload;
 	u32 HighAddr;
@@ -1463,8 +1480,9 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 
 	Status = XST_FAILURE;
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -1487,7 +1505,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 	u32 ReadPufHd[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS] = {0U};
@@ -1622,7 +1640,7 @@ int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	const XNvm_IvType IvType)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo = (XNvm_RdCacheCdo*)Payload;
 	u16 StartOffset = 0U;
 	u32 HighAddr;
@@ -1695,7 +1713,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 			const XNvm_RevocationId RevokeIdNum)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 StartOffset = 0U;
 	u32 HighAddr;
@@ -1750,7 +1768,7 @@ END:
 int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	XNvm_EfuseUserDataAddr *UserFuseData = (XNvm_EfuseUserDataAddr *)(UINTPTR)UserFuseAddr;
 	u16 StartOffset = XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET + UserFuseData->StartUserFuseNum * XNVM_WORD_LEN;
@@ -1807,7 +1825,7 @@ END:
 int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
 	XNvm_EfuseMiscCtrlBits *MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)(UINTPTR)MiscCtrlBits;
@@ -1906,7 +1924,7 @@ END:
 int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
 	XNvm_EfuseSecCtrlBits *SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)(UINTPTR)SecCtrlBits;
@@ -2040,7 +2058,7 @@ END:
 int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
 	XNvm_EfuseSecMisc1Bits *SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)(UINTPTR)SecMisc1Bits;
@@ -2119,7 +2137,7 @@ END:
 int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
 	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)(UINTPTR)BootEnvCtrlBits;
@@ -2206,7 +2224,7 @@ END:
 int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsvdBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
 	XNvm_EfuseRomRsvdBits *RomRsvdBitsData = (XNvm_EfuseRomRsvdBits *)(UINTPTR)RomRsvdBits;
@@ -2284,7 +2302,7 @@ END:
 int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsInfoBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadDmeFipsReg;
 	u32 ReadIpDisable0Reg;
@@ -2380,7 +2398,7 @@ END:
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadSecurityCtrlReg;
 	u32 ReadEccCtrlReg;
@@ -2482,7 +2500,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	const XNvm_OffchipId OffChipIdNum)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 StartOffset = 0U;
 	u32 HighAddr;
@@ -2538,7 +2556,7 @@ END:
 int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u16 StartOffset = 0U;
 	u32 HighAddr;
@@ -2606,7 +2624,7 @@ END:
 int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -2655,7 +2673,7 @@ END:
 int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -2703,7 +2721,7 @@ END:
 int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootModeDisAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -2751,7 +2769,7 @@ END:
 int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRevokeIdAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	XNvm_EfuseDmeRevokeId* DmeRevokeId = (XNvm_EfuseDmeRevokeId *)(UINTPTR)DmeRevokeIdAddr;
 	u64 ReadReg;
@@ -2810,7 +2828,7 @@ END:
 int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 HighAddr;
 	u32 LowAddr;
