@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,7 +53,7 @@
 int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -66,16 +66,16 @@ int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBuf
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_TRNG_GENERATE);
-	Payload[1U] = (u32)RandBufAddr;
-	Payload[2U] = (u32)(RandBufAddr >> 32);
-	Payload[3U] = Size;
+	XSECURE_PACK_PAYLOAD3(Payload, XSECURE_API_TRNG_GENERATE,
+				RandBufAddr,
+				(RandBufAddr >> XSECURE_ADDR_HIGH_SHIFT),
+				Size);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_TrngGenerateRandNum
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

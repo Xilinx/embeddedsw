@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -65,7 +65,7 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 	XSecure_AesDataBlockParams *AesParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -103,17 +103,17 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY);
-	Payload[1U] = (u32)Buffer;
-	Payload[2U] = (u32)(Buffer >> XSECURE_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)KeyAddr;
-	Payload[4U] = (u32)(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT);
+	XSECURE_PACK_PAYLOAD4(Payload, XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,
+				Buffer,
+				(Buffer >> XSECURE_ADDR_HIGH_SHIFT),
+				KeyAddr,
+				(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -59,7 +59,7 @@
 int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -67,14 +67,15 @@ int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_AES_DECRYPT_KAT;
+	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_AES_DECRYPT_KAT);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -97,7 +98,7 @@ END:
 int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -105,14 +106,15 @@ int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_AES_DECRYPT_CM_KAT;
+	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_AES_DECRYPT_CM_KAT);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecCmKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -134,7 +136,7 @@ END:
 int XSecure_RsaPublicEncKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -142,14 +144,15 @@ int XSecure_RsaPublicEncKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_RSA_PUB_ENC_KAT;
+	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_RSA_PUB_ENC_KAT);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaPubEncKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -171,7 +174,7 @@ END:
 int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -179,14 +182,15 @@ int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_SHA3_KAT;
+	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_SHA3_KAT);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -209,7 +213,7 @@ END:
 int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -217,15 +221,16 @@ int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_E
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT;
-	Payload[2U] = CurveClass;
+	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT,
+				CurveClass);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticSignVerifyKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -247,7 +252,7 @@ END:
 int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -255,14 +260,15 @@ int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_AES_ENCRYPT_KAT;
+	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_AES_ENCRYPT_KAT);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesEncKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -284,7 +290,7 @@ END:
 int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -292,14 +298,15 @@ int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_RSA_PRIVATE_DEC_KAT;
+	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_RSA_PRIVATE_DEC_KAT);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaPrivateDecKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -322,7 +329,7 @@ END:
 int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -330,15 +337,16 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_ELLIPTIC_SIGN_GEN_KAT;
-	Payload[2U] = CurveClass;
+	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_KAT),
+				XSECURE_API_ELLIPTIC_SIGN_GEN_KAT,
+				CurveClass);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticSignGenKat
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

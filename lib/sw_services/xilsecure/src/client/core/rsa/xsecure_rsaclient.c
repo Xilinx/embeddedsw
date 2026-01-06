@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -69,7 +69,7 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -96,18 +96,17 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-				| XSECURE_API_RSA_PRIVATE_DECRYPT);
-	Payload[1U] = (u32)BufferAddr;
-	Payload[2U] = (u32)(BufferAddr >> 32);
-	Payload[3U] = (u32)(OutDataAddr);
-	Payload[4U] = (u32)(OutDataAddr >> 32);
-
+	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_RSA_PRIVATE_DECRYPT),
+				BufferAddr,
+				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT),
+				OutDataAddr,
+				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDecrypt
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -142,7 +141,7 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -169,18 +168,18 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-				| XSECURE_API_RSA_PUBLIC_ENCRYPT);
-	Payload[1U] = (u32)BufferAddr;
-	Payload[2U] = (u32)(BufferAddr >> 32);
-	Payload[3U] = (u32)(OutDataAddr);
-	Payload[4U] = (u32)(OutDataAddr >> 32);
+	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_RSA_PUBLIC_ENCRYPT),
+				BufferAddr,
+				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT),
+				OutDataAddr,
+				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaEncrypt
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -210,7 +209,7 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	XSecure_RsaSignParams *SignParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	volatile u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
+	volatile u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -237,16 +236,16 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	XSecure_DCacheFlushRange(SignParams, sizeof(XSecure_RsaSignParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-				| XSECURE_API_RSA_SIGN_VERIFY);
-	Payload[1U] = (u32)BufferAddr;
-	Payload[2U] = (u32)(BufferAddr >> 32);
+	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_RSA_SIGN_VERIFY),
+				BufferAddr,
+				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaSignVerify
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

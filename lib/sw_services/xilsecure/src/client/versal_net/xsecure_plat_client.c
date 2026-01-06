@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -151,7 +151,7 @@ static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecu
 		u32 CryptoMask, u32 ApiId)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -164,15 +164,13 @@ static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecu
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, ApiId);
-	Payload[1U] = CryptoStatusOp;
-	Payload[2U] = CryptoMask;
+	XSECURE_PACK_PAYLOAD2(Payload, ApiId, CryptoStatusOp, CryptoMask);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_UpdateCryptoMask
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -195,7 +193,7 @@ END:
 int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 KeyWrapAddr;
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (KeyWrapData == NULL)) {
@@ -205,15 +203,15 @@ int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *
 
 	KeyWrapAddr = (u64)(UINTPTR)KeyWrapData;
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KEY_UNWRAP);
-	Payload[1U] = (u32)KeyWrapAddr;
-	Payload[2U] = (u32)(KeyWrapAddr >> 32U);
+	XSECURE_PACK_PAYLOAD2(Payload, XSECURE_API_KEY_UNWRAP,
+				KeyWrapAddr,
+				(KeyWrapAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_KeyUnwrapIpi
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -235,7 +233,7 @@ END:
 int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -243,13 +241,13 @@ int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_RSA_RELEASE_KEY);
+	XSECURE_PACK_PAYLOAD0(Payload, XSECURE_API_RSA_RELEASE_KEY);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDestroyKeyInUse
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
