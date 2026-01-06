@@ -1,6 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -472,7 +472,6 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			   XV_HDMIRX1_HANDLER_DYN_HDR,
 			  (void *)XV_HdmiRxSs1_DynHdrEvtCallback,
 			  (void *)InstancePtr);
-#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			   XV_HDMIRX1_HANDLER_DSC_STRM_CH,
 			  (void *)XV_HdmiRxSs1_DSCStreamChngCallback,
@@ -487,7 +486,6 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			   XV_HDMIRX1_HANDLER_DSC_STS_UPDT,
 			  (void *)XV_HdmiRxSs1_DSCStatusUpdateCallback,
 			  (void *)InstancePtr);
-#endif
   }
 
   return(XST_SUCCESS);
@@ -3207,7 +3205,6 @@ u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr)
 	return XV_HdmiRx1_DSC_IsEnableStream(InstancePtr->HdmiRx1Ptr);
 }
 
-#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -3321,4 +3318,3 @@ static void XV_HdmiRxSs1_DSCStatusUpdateCallback(void *CallbackRef)
 	if (HdmiRxSs1Ptr->DSCStsUpdtEvtCallback)
 		HdmiRxSs1Ptr->DSCStsUpdtEvtCallback(HdmiRxSs1Ptr->DSCStsUpdtEvtRef);
 }
-#endif
