@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2506,15 +2506,19 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     switch (Input) {
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	case 1 :
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	    XV_HdmiTxSs1_StartTmdsMode(&HdmiTxSs);
+#endif
 	    /* Display the prompt for the next input */
 	    xil_printf("Enter Selection -> ");
 	    break;
 
 	case 2 :
 	    if(HdmiTxSs.Config.MaxFrlRate == 6) {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
 			      XHDMIC_MAXFRLRATE_4X12GBITSPS);
+#endif
 		}else {
 			xil_printf("FRL Rate : 12Gbps @ 4 Lanes is not supported.\r\n");
 		}
@@ -2524,8 +2528,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 3 :
 	    if(HdmiTxSs.Config.MaxFrlRate >= 5) {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
 			      XHDMIC_MAXFRLRATE_4X10GBITSPS);
+#endif
 		}else {
 			xil_printf("FRL Rate : 10Gbps @ 4 Lanes is not supported.\r\n");
 		}
@@ -2535,8 +2541,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 4 :
 	    if(HdmiTxSs.Config.MaxFrlRate >= 4) {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
 			      XHDMIC_MAXFRLRATE_4X8GBITSPS);
+#endif
 		}else {
 			xil_printf("FRL Rate : 8Gbps @ 4 Lanes is not supported.\r\n");
 		}
@@ -2546,8 +2554,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 5 :
 	    if(HdmiTxSs.Config.MaxFrlRate >= 3) {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
 			      XHDMIC_MAXFRLRATE_4X6GBITSPS);
+#endif
 		}else {
 			xil_printf("FRL Rate : 6Gbps @ 4 Lanes is not supported.\r\n");
 		}
@@ -2557,8 +2567,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 6 :
 	    if(HdmiTxSs.Config.MaxFrlRate >= 2) {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
 			      XHDMIC_MAXFRLRATE_3X6GBITSPS);
+#endif
 		}else {
 			xil_printf("FRL Rate : 6Gbps @ 3 Lanes is not supported.\r\n");
 		}
@@ -2568,8 +2580,10 @@ static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 7 :
 	    if(HdmiTxSs.Config.MaxFrlRate >= 1) {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	       XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
 			      XHDMIC_MAXFRLRATE_3X3GBITSPS);
+#endif
 		}else {
 			xil_printf("FRL Rate : 3Gbps @ 3 Lanes is not supported.\r\n");
 		}
