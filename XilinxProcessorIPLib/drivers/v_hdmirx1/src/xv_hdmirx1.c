@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1251,11 +1251,13 @@ void XV_HdmiRx1_Info(XV_HdmiRx1 *InstancePtr)
 ******************************************************************************/
 void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
 {
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	u32 FrlStatus;
-	u32 Data;
 	u32 Data1;
-	u32 PioIn;
 	u32 DbgSta;
+#endif
+	u32 Data;
+	u32 PioIn;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
