@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -209,6 +209,7 @@ typedef struct {
 	u32			    DBMessage;
 } XV_HdmiTx1_Frl;
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -363,6 +364,7 @@ typedef struct {
 #define XV_HdmiTx1_FrlRateLockDisable(InstancePtr) \
 	(InstancePtr)->Stream.Frl.RateLock = FALSE
 
+#endif
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Declarations ****************************/

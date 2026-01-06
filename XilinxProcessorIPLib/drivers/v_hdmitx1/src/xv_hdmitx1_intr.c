@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +39,9 @@
 
 static void HdmiTx1_PioIntrHandler(XV_HdmiTx1 *InstancePtr);
 static void HdmiTx1_DdcIntrHandler(XV_HdmiTx1 *InstancePtr);
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 static void HdmiTx1_FrlIntrHandler(XV_HdmiTx1 *InstancePtr);
+#endif
 static void HdmiTx1_AuxIntrHandler(XV_HdmiTx1 *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -101,6 +103,7 @@ void XV_HdmiTx1_IntrHandler(void *InstancePtr)
 		HdmiTx1_DdcIntrHandler(HdmiTx1Ptr);
 	}
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	/* HDMI 2.1 Fixed Rate Link */
 	Data = XV_HdmiTx1_ReadReg(HdmiTx1Ptr->Config.BaseAddress,
 				  (XV_HDMITX1_FRL_STA_OFFSET)) &
@@ -111,7 +114,7 @@ void XV_HdmiTx1_IntrHandler(void *InstancePtr)
 		/* Jump to DDC handler */
 		HdmiTx1_FrlIntrHandler(HdmiTx1Ptr);
 	}
-
+#endif
 	/* Aux */
 	Data = XV_HdmiTx1_ReadReg(HdmiTx1Ptr->Config.BaseAddress,
 				  (XV_HDMITX1_AUX_STA_OFFSET)) &
@@ -222,7 +225,7 @@ int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
 		InstancePtr->StreamUpRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
-
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	/* FRL Config*/
 	case (XV_HDMITX1_HANDLER_FRL_CONFIG):
 		InstancePtr->FrlConfigCallback = (XV_HdmiTx1_Callback)CallbackFunc;
@@ -250,14 +253,14 @@ int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
 		InstancePtr->FrlStopRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
-
+#endif
 	/* TMDS Config*/
 	case (XV_HDMITX1_HANDLER_TMDS_CONFIG):
 		InstancePtr->TmdsConfigCallback = (XV_HdmiTx1_Callback)CallbackFunc;
 		InstancePtr->TmdsConfigRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
-
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	/* FRL LTS:L*/
 	case (XV_HDMITX1_HANDLER_FRL_LTSL):
 		InstancePtr->FrlLtsLCallback = (XV_HdmiTx1_Callback)CallbackFunc;
@@ -299,6 +302,7 @@ int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
 		InstancePtr->FrlLtsPRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
+#endif
 
 	/* CED_Update*/
 	case (XV_HDMITX1_HANDLER_CED_UPDATE):
@@ -370,14 +374,19 @@ static void HdmiTx1_PioIntrHandler(XV_HdmiTx1 *InstancePtr)
 		if ((Data) & (XV_HDMITX1_PIO_IN_HPD_MASK)) {
 			/* Note: placement of setting the HDMI mode can
 			 * be made more robust. */
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 			InstancePtr->Stream.IsFrl = FALSE;
+#endif
 			InstancePtr->Stream.IsHdmi = FALSE;
 			/* Set connected flag*/
 			InstancePtr->Stream.IsConnected = (TRUE);
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 		    	InstancePtr->Stream.Frl.TrainingState =
 					XV_HDMITX1_FRLSTATE_LTS_L;
 			XV_HdmiTx1_SetFrl10MicroSecondsTimer(InstancePtr);
+#endif
 		} else {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 			if (InstancePtr->Stream.IsFrl == TRUE) {
 				/* Check if user callback has been registered*/
 				if (InstancePtr->StreamDownCallback) {
@@ -392,6 +401,7 @@ static void HdmiTx1_PioIntrHandler(XV_HdmiTx1 *InstancePtr)
 				XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr);
 
 			}
+#endif
 			/* Clear connected flag*/
 			InstancePtr->Stream.IsConnected = (FALSE);
 
@@ -465,6 +475,7 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 			/* Note : An improved methodology could use states
 			 * instead of video modes to decide if aux needs
 			 * to be sent here or not*/
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 			if (InstancePtr->Stream.IsFrl == TRUE) {
 				/* Set stream status to up*/
 				InstancePtr->Stream.State = XV_HDMITX1_STATE_STREAM_UP;
@@ -474,6 +485,7 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 					XV_HdmiTx1_ExecFrlState(InstancePtr);
 				}
 			} else {
+#endif
 				/* Enable the AUX peripheral */
 				XV_HdmiTx1_AuxEnable(InstancePtr);
 
@@ -488,7 +500,9 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 					InstancePtr->StreamUpCallback(
 							InstancePtr->StreamUpRef);
 				}
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 			}
+#endif
 		} else {
 		/* Link down*/
 #ifdef DEBUG_TX_FRL_VERBOSITY
@@ -543,6 +557,7 @@ static void HdmiTx1_DdcIntrHandler(XV_HdmiTx1 *InstancePtr)
 	Data = Data; /*squash unused variable compiler warning*/
 }
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -586,6 +601,7 @@ static void HdmiTx1_FrlIntrHandler(XV_HdmiTx1 *InstancePtr)
 		XV_HdmiTx1_ExecFrlState(InstancePtr);
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**

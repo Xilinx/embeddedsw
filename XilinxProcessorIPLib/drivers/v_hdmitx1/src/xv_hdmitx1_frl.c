@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 #include "xv_hdmitx1.h"
 #include "string.h"
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /************************** Constant Definitions *****************************/
 #define Timer2MS			2
 #define Timer5MS			5
@@ -1596,3 +1597,4 @@ void XV_HdmiTx1_ClearFrlWrongLtp(XV_HdmiTx1 *InstancePtr)
 {
 	InstancePtr->Stream.Frl.DBSendWrongLTP = (FALSE);
 }
+#endif /* XPAR_XV_HDMI_TX_FRL_ENABLE */

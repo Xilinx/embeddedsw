@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -371,6 +371,7 @@ typedef struct {
 	void *StreamUpRef;                      /**< To be passed to the stream up
 	                                          *  callback */
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	XV_HdmiTx1_Callback FrlConfigCallback;  /**< Callback for FRL Config event
 	                                          *  interrupt */
 	void *FrlConfigRef;                     /**< To be passed to the FRL
@@ -390,12 +391,13 @@ typedef struct {
 	                                          *  interrupt */
 	void *FrlStopRef;                       /**< To be passed to the FRL
 	                                          *  Start interrupt callback */
-
+#endif
 	XV_HdmiTx1_Callback TmdsConfigCallback; /**< Callback for TMDS Config event
 	                                          *  interrupt */
 	void *TmdsConfigRef;                    /**< To be passed to the TMDS
 	                                          *  Config interrupt callback */
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	XV_HdmiTx1_Callback FrlLtsLCallback;	/**< Callback for FRL LTS:L
 						  *  callback */
 	void *FrlLtsLRef;			/**< To be passed to the link
@@ -425,7 +427,7 @@ typedef struct {
 						  *  callback */
 	void *FrlLtsPRef;			/**< To be passed to the
 						  *  link error callback */
-
+#endif
 	XV_HdmiTx1_Callback CedUpdateCallback;	/**< Callback for CED Update
 						  *  callback */
 	void *CedUpdateRef;			/**< To be passed to the
@@ -1567,6 +1569,7 @@ void XV_HdmiTx1_TMDSACRStart(XV_HdmiTx1 *InstancePtr);
 
 /* Fixed Rate Link */
 int XV_HdmiTx1_StartTmdsMode(XV_HdmiTx1 *InstancePtr);
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 int XV_HdmiTx1_StartFrlTraining(XV_HdmiTx1 *InstancePtr,
 		XHdmiC_MaxFrlRate FrlRate);
 void XV_HdmiTx1_SetFrlMaxFrlRate(XV_HdmiTx1 *InstancePtr,
@@ -1592,6 +1595,7 @@ u32 XV_HdmiTx1_GetFrlTimer(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_SetFrl10MicroSecondsTimer(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_SetFrlWrongLtp(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_ClearFrlWrongLtp(XV_HdmiTx1 *InstancePtr);
+#endif
 u8 *XV_HdmiTx1_GetScdcEdRegisters(XV_HdmiTx1 *InstancePtr);
 void  XV_HdmiTx1_Start(XV_HdmiTx1 *InstancePtr);
 void  XV_HdmiTx1_Stop(XV_HdmiTx1 *InstancePtr);

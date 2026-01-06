@@ -1,7 +1,7 @@
 /******************************************************************************
 * SPDX-License-Identifier: MIT
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -451,6 +451,7 @@ extern "C" {
 #define XV_HDMITX1_MASK_CTRL_RUN_MASK     (1<<0)  /**< MASK Control Run mask */
 #define XV_HDMITX1_MASK_CTRL_NOISE_MASK   (1<<2)  /**< MASK Control Noise */
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /* Fixed Rate Link (FRL) peripheral register offsets*/
 /* The FRL is the sixth peripheral on the local bus*/
 #define XV_HDMITX1_FRL_BASE              (6*64)
@@ -562,7 +563,7 @@ extern "C" {
 #define XV_HDMITX1_FRL_FEC_ERR_INJ_NUM_ERR_CB_SHIFT         8
 #define XV_HDMITX1_FRL_FEC_ERR_INJ_ERR_CB_LOC_MASK          0x3FF
 #define XV_HDMITX1_FRL_FEC_ERR_INJ_ERR_CB_LOC_SHIFT         16
-
+#endif /* XPAR_XV_HDMI_TX_FRL_ENABLE */
 /* Peripheral ID and General shift values.*/
 #define XV_HDMITX1_SHIFT_16  16  /**< 16 shift value */
 #define XV_HDMITX1_MASK_16   0xFFFF  /**< 16 bit mask value */
