@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,8 @@
 *                     Changed the prototype of XIic_CfgInitialize API.
 * 3.3   als  06/27/16 XIic_IsIicBusy now static inline in xiic.h.
 * 3.8	rna  11/30/20 Corrected the order of Assert in XIic_SetRecvHandler.
+* 3.15  vlt  12/04/25 Add AxiClkFreq and SerialClkDelay to XIic_CfgInitialize
+*                     API for clock configuration.
 * </pre>
 *
 ****************************************************************************/
@@ -167,6 +170,10 @@ int XIic_CfgInitialize(XIic *InstancePtr, XIic_Config * Config,
 	InstancePtr->GpOutWidth = Config->GpOutWidth;
 	InstancePtr->IsDynamic = FALSE;
 	InstancePtr->IsSlaveSetAckOff = FALSE;
+#ifdef SDT
+	InstancePtr->AxiClkFreq = Config->AxiClkFreq;
+	InstancePtr->SerialClkDelay = Config->SerialClkDelay;
+#endif
 
 	/*
 	 * Reset the device.

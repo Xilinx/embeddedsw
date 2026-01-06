@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,7 @@
 *                     XIic_DynRecv, XIic_DynSend and XIic_DynInit APIs.
 * 3.3   als  06/27/16 Added Low-level XIic_CheckIsBusBusy API.
 * 3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
+* 3.15  vlt  12/05/25 Add timing register offsets for clock configuration.
 * </pre>
 *
 *****************************************************************************/
@@ -95,6 +97,21 @@ extern "C" {
 #define XIIC_TBA_REG_OFFSET	0x11C /**< 10 Bit Address reg */
 #define XIIC_RFD_REG_OFFSET	0x120 /**< Rx FIFO Depth reg */
 #define XIIC_GPO_REG_OFFSET	0x124 /**< Output Register */
+/* @} */
+
+/*
+ * Timing register offsets from RegisterBase. These are used only for
+ * setting i2c clock frequency for the line.
+ * @{
+ */
+#define XIIC_TSUSTA_REG_OFFSET 0x128 /* TSUSTA Register */
+#define XIIC_TSUSTO_REG_OFFSET 0x12C /* TSUSTO Register */
+#define XIIC_THDSTA_REG_OFFSET 0x130 /* THDSTA Register */
+#define XIIC_TSUDAT_REG_OFFSET 0x134 /* TSUDAT Register */
+#define XIIC_TBUF_REG_OFFSET   0x138 /* TBUF Register */
+#define XIIC_THIGH_REG_OFFSET  0x13C /* THIGH Register */
+#define XIIC_TLOW_REG_OFFSET   0x140 /* TLOW Register */
+#define XIIC_THDDAT_REG_OFFSET 0x144 /* THDDAT Register */
 /* @} */
 
 

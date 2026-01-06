@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -287,6 +287,9 @@
 *                     for doxygen generation.
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.15  vlt  11/05/25 Add 64-bit Addressing support.
+* 3.15  vlt  12/04/25 Add AxiClkFreq and SerialClkDelay to structure for
+*                     clock configuration.And add XIic_SetClk API for
+*                     dynamic clock configuration.
 *
 * </pre>
 *
@@ -394,6 +397,8 @@ typedef struct {
 				 * trigger type and level flags */
 	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
+	u32 SerialClkDelay;  /**< SCL inertial delay */
+	u32 AxiClkFreq;     /**< AXI clock frequency in Hz */
 #endif
 } XIic_Config;
 
@@ -482,6 +487,10 @@ typedef struct {
 	void *SendCallBackRef;	  /**< Callback reference for send handler */
 	int IsDynamic;		  /**< TRUE when Dynamic control is used */
 	int IsSlaveSetAckOff;	  /**< TRUE when Slave has set the ACK Off */
+#ifdef SDT
+	u32 SerialClkDelay;     /**< Serial clock delay in clock cycles */
+	u32 AxiClkFreq;         /**< AXI clock frequency in Hz */
+#endif
 
 } XIic;
 
@@ -594,6 +603,10 @@ u32 XIic_IsIicBusy(XIic *InstancePtr);
  */
 void XIic_SetOptions(XIic *InstancePtr, u32 Options);
 u32 XIic_GetOptions(XIic *InstancePtr);
+#ifdef SDT
+u32 XIic_SetClk(XIic *InstancePtr, u32 FsclHz );
+#endif
+
 
 /*
  * Multi-master functions in xiic_multi_master.c
