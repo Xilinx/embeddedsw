@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -110,8 +110,10 @@ void XV_Tx_HdmiTrigCb_SetupAudioVideo(void *InstancePtr);
 void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr);
 void XV_Tx_HdmiTrigCb_VidSyncRecv(void *InstancePtr);
 void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr);
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 void XV_Tx_HdmiTrigCb_FrlFfeConfigDevice(void *InstancePtr);
 void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr);
+#endif
 void XV_Tx_HdmiTrigCb_ReadyToStartTransmit(void *InstancePtr);
 
 void XV_Tx_Hdcp_EnforceBlanking(void *InstancePtr);
@@ -559,6 +561,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 				XV_TX_TRIG_HANDLER_SETUP_TXTMDSREFCLK,
 				(void *)XV_Tx_HdmiTrigCb_SetupTxTmdsRefClk,
 				(void *)InstancePtr);
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 			    XV_TX_TRIG_HANDLER_SETUP_TXFRLREFCLK,
 				(void *)XV_Tx_HdmiTrigCb_SetupTxFrlRefClk,
@@ -567,6 +570,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 				XV_TX_GET_FRL_CLOCK,
 				(void *)XV_Tx_HdmiTrigCb_GetFRLClk,
 				(void *)InstancePtr);
+#endif
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_TRIG_HANDLER_SETUP_AUDVID,
 				(void *)XV_Tx_HdmiTrigCb_SetupAudioVideo,
@@ -591,6 +595,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 				XV_TX_TRIG_HANDLER_READYTOSTARTTX,
 				(void *)XV_Tx_HdmiTrigCb_ReadyToStartTransmit,
 				(void *)InstancePtr);
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_TRIG_HANDLER_FRL_FFE_CONFIG_DEVICE,
 				(void *)XV_Tx_HdmiTrigCb_FrlFfeConfigDevice,
@@ -599,6 +604,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 				XV_TX_TRIG_HANDLER_FRL_CONFIG_DEVICE_SETUP,
 				(void *)XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup,
 				(void *)InstancePtr);
+#endif
 #if defined(USE_HDCP_HDMI_TX)
 	Status |= XV_Tx_SetTriggerCallbacks(InstancePtr,
 				XV_TX_TRIG_HANDLER_HDCP_FORCE_BLANKING,
@@ -2242,6 +2248,12 @@ u32 Exdes_CheckDwnstrmSinkCaps()
 			XV_Tx_SetDviMode(&xhdmi_example_tx_controller);
 		}
 	} else {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
+			xil_printf(ANSI_COLOR_YELLOW"Set TX stream to HDMI TMDS,"
+					" sink is HDMI\r\n"
+					ANSI_COLOR_RESET"\r\n");
+			XV_Tx_SetHdmiTmdsMode(&xhdmi_example_tx_controller);
+#else
 		if (EdidHdmi_t.EdidCtrlParam.MaxFrlRateSupp !=
 		    XVIDC_MAXFRLRATE_NOT_SUPPORTED) {
 			xil_printf(ANSI_COLOR_YELLOW"Set TX stream to HDMI FRL,"
@@ -2254,6 +2266,8 @@ u32 Exdes_CheckDwnstrmSinkCaps()
 					ANSI_COLOR_RESET"\r\n");
 			XV_Tx_SetHdmiTmdsMode(&xhdmi_example_tx_controller);
 		}
+#endif
+
 	}
 
 	return Status;
@@ -4523,6 +4537,7 @@ void XV_Tx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 			__LINE__, xhdmi_exdes_ctrlr.SystemEvent);
 }
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -4604,6 +4619,7 @@ void XV_Tx_HdmiTrigCb_SetupTxFrlRefClk(void *InstancePtr)
 #endif
 
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -4965,7 +4981,11 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 
 	TxLineRate = XV_Tx_GetLineRate(XV_TxInst);
 
+#if defined(XPAR_XV_HDMI_RX_FRL_ENABLE)
 	u8 Lanes = XV_TxInst->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.Lanes;
+#else
+	u8 Lanes = 0;
+#endif
 
 	if (SinkReadyCheck(XV_TxInst->HdmiTxSs, &EdidHdmi_t)) {
 		EXDES_DBG_PRINT("Setting Cable Driver, TxLineRate = %d%d\r\n",
@@ -5144,6 +5164,7 @@ void XV_Tx_HdmiTrigCb_ReadyToStartTransmit(void *InstancePtr)
 	xhdmi_exdes_ctrlr.SystemEvent = TRUE;
 }
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -5248,6 +5269,7 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 #endif
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -7216,10 +7238,12 @@ int main()
 			XVIDC_CSF_RGB, XVIDC_BPC_8);
 
 	/* Declare the maximum FRL_Rate supported by TX */
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	XV_HdmiTxSs1_SetFrlMaxFrlRate(&HdmiTxSs, HdmiTxSs.Config.MaxFrlRate);
 
 	/* Declare the FFE_Levels supported by TX */
 	XV_HdmiTxSs1_SetFfeLevels(&HdmiTxSs, 0);
+#endif
 	XV_HdmiTxSs1_Start(&HdmiTxSs);
 #endif
 #if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)

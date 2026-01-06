@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -445,12 +445,16 @@ void XV_Tx_SetFrlEdidInfo(XV_Tx *InstancePtr, XV_VidC_Supp IsSCDCPresent,
 
 void XV_Tx_SetFrlIntVidCkeGen(XV_Tx *InstancePtr)
 {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	XV_HdmiTxSs1_SetFrlIntVidCke(InstancePtr->HdmiTxSs);
+#endif
 }
 
 void XV_Tx_SetFrlExtVidCkeGen(XV_Tx *InstancePtr)
 {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	XV_HdmiTxSs1_SetFrlExtVidCke(InstancePtr->HdmiTxSs);
+#endif
 }
 
 void XV_Tx_SetFRLCkeSrcToExternal(XV_Tx *InstancePtr, u32 Value)
@@ -473,11 +477,13 @@ u32 XV_Tx_StartFrlTraining (XV_Tx *InstancePtr,
 
 	u32 Status = XST_FAILURE;
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	if (MaxFrlRate > 0 && IsSCDCPresent == XVIDC_SUPPORTED) {
 		/* Need to be called from TXS. */
 		Status = XV_HdmiTxSs1_StartFrlTraining(InstancePtr->HdmiTxSs,
 				MaxFrlRate);
 	}
+#endif
 
 	if (Status == XST_FAILURE) {
 		XV_HdmiTxSS1_SetHdmiTmdsMode(InstancePtr->HdmiTxSs);
@@ -597,6 +603,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 		if (InstancePtr->SetupTxTmdsRefClkCb != NULL) {
 			InstancePtr->SetupTxTmdsRefClkCb(InstancePtr->SetupTxTmdsRefClkCbRef);
 		}
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	} else {
 		xdbg_xv_tx_new_stream_setup_print("Setting TX:Video On FRL Mode \r\n");
 		/* FRL Stream Stop */
@@ -628,6 +635,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 
 		/* FRL StreamStart */
 		XV_HdmiTxSs1_FrlStreamStart(InstancePtr->HdmiTxSs);
+#endif
 	}
 
 	if (Status != XST_SUCCESS) {
@@ -640,10 +648,11 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 u32 XV_Tx_GetNVal(XV_Tx *InstancePtr,
 		XHdmiC_SamplingFrequencyVal SampFreqVal)
 {
-	XHdmiC_SamplingFrequencyVal SampFreq;
+	XHdmiC_SamplingFrequency SampFreq;
 	XHdmiC_FRLCharRate FRLCharRate;
 	u32 NVal;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	if (InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.IsFrl == TRUE) {
 
 		switch (InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.LineRate) {
@@ -668,12 +677,15 @@ u32 XV_Tx_GetNVal(XV_Tx *InstancePtr,
 		}
 		NVal = XHdmiC_FRL_GetNVal(FRLCharRate, SampFreqVal);
 	} else {
+#endif
 		SampFreq = XHdmiC_GetAudIFSampFreq(SampFreqVal);
 		NVal =
 			XHdmiC_TMDS_GetNVal
 			(XV_HdmiTxSs1_GetTmdsClockFreqHz(InstancePtr->HdmiTxSs),
 					SampFreq);
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	}
+#endif
 	return NVal;
 
 }
@@ -744,6 +756,7 @@ u32 XV_Tx_SetTriggerCallbacks(XV_Tx *InstancePtr,
 		Status = XST_SUCCESS;
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_TRIG_HANDLER_FRL_FFE_CONFIG_DEVICE:
 		InstancePtr->TxFrlFfeConfigDeviceCb = Callback;
 		InstancePtr->TxFrlFfeConfigDeviceCbRef = CallbackRef;
@@ -753,6 +766,7 @@ u32 XV_Tx_SetTriggerCallbacks(XV_Tx *InstancePtr,
 		InstancePtr->TxFrlConfigDeviceSetupCb = Callback;
 		InstancePtr->TxFrlConfigDeviceSetupCbRef = CallbackRef;
 		break;
+#endif
 
 #ifdef USE_HDCP_HDMI_TX
 	case XV_TX_TRIG_HANDLER_HDCP_FORCE_BLANKING:
@@ -828,6 +842,7 @@ u32 XV_Tx_HdmiTxSs_Setup_Callbacks(XV_Tx *InstancePtr)
 			(void *)XV_Tx_HdmiTx_StreamUp_Cb,
 			(void *)InstancePtr);
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	Status |= XV_HdmiTxSs1_SetCallback(InstancePtr->HdmiTxSs,
 			XV_HDMITXSS1_HANDLER_FRL_CONFIG,
 			(void *)XV_Tx_HdmiTx_FrlConfig_Cb,
@@ -847,6 +862,7 @@ u32 XV_Tx_HdmiTxSs_Setup_Callbacks(XV_Tx *InstancePtr)
 			XV_HDMITXSS1_HANDLER_FRL_STOP,
 			(void *)XV_Tx_HdmiTx_FrlStop_Cb,
 			(void *)InstancePtr);
+#endif
 
 	Status |= XV_HdmiTxSs1_SetCallback(InstancePtr->HdmiTxSs,
 			XV_HDMITXSS1_HANDLER_TMDS_CONFIG,
@@ -1560,6 +1576,7 @@ static void XV_Tx_HdmiTx_StreamUp_Cb(void *CallbackRef)
 	XV_Tx_HdmiTx_SendEvent(txInst, XV_TX_HDMI_EVENT_STREAMUP);
 }
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 /*****************************************************************************/
 /**
 * This function implements the callback for the HDMI TX FRL configuration
@@ -1664,6 +1681,7 @@ static void XV_Tx_HdmiTx_FrlStop_Cb(void *CallbackRef)
 	 */
 	XV_Tx_HdmiTx_SendEvent(txInst, XV_TX_HDMI_EVENT_FRLSTOP);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1820,6 +1838,7 @@ void XV_Tx_HdmiTx_ProcessEvents(XV_Tx *InstancePtr,
 		XV_Tx_HdmiTx_StateStreamOff(InstancePtr, Event, &NextState);
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_STATE_FRLCONFIG:
 		XV_Tx_HdmiTx_StateFrlConfig(InstancePtr, Event, &NextState);
 		break;
@@ -1835,6 +1854,7 @@ void XV_Tx_HdmiTx_ProcessEvents(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_STATE_FRLSTOP:
 		XV_Tx_HdmiTx_StateFrlStop(InstancePtr, Event, &NextState);
 		break;
+#endif
 
 	case XV_TX_HDMI_STATE_TMDSCONFIG:
 		XV_Tx_HdmiTx_StateTmdsConfig(InstancePtr, Event, &NextState);
@@ -1892,6 +1912,7 @@ void XV_Tx_HdmiTx_StateEnter(XV_Tx *InstancePtr, XV_Tx_Hdmi_State State)
 		XV_Tx_HdmiTx_EnterStateStreamOff(InstancePtr);
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_STATE_FRLCONFIG:
 		XV_Tx_HdmiTx_EnterStateFrlConfig(InstancePtr);
 		break;
@@ -1907,6 +1928,7 @@ void XV_Tx_HdmiTx_StateEnter(XV_Tx *InstancePtr, XV_Tx_Hdmi_State State)
 	case XV_TX_HDMI_STATE_FRLSTOP:
 		XV_Tx_HdmiTx_EnterStateFrlStop(InstancePtr);
 		break;
+#endif
 
 	case XV_TX_HDMI_STATE_TMDSCONFIG:
 		XV_Tx_HdmiTx_EnterStateTmdsConfig(InstancePtr);
@@ -1968,6 +1990,7 @@ void XV_Tx_HdmiTx_StateDisconnected(XV_Tx *InstancePtr,
 
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_EVENT_FRLCONFIG:
 
 		break;
@@ -1983,6 +2006,7 @@ void XV_Tx_HdmiTx_StateDisconnected(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_EVENT_FRLSTOP:
 
 		break;
+#endif
 
 	case XV_TX_HDMI_EVENT_TMDSCONFIG:
 
@@ -2052,6 +2076,7 @@ void XV_Tx_HdmiTx_StateConnected(XV_Tx *InstancePtr,
 		*NextStatePtr = XV_TX_HDMI_STATE_STREAMOFF;
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_EVENT_FRLCONFIG:
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLCONFIG;
 		break;
@@ -2067,6 +2092,7 @@ void XV_Tx_HdmiTx_StateConnected(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_EVENT_FRLSTOP:
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLSTOP;
 		break;
+#endif
 
 	case XV_TX_HDMI_EVENT_TMDSCONFIG:
 		XV_HdmiTxSS1_SetHdmiTmdsMode(InstancePtr->HdmiTxSs);
@@ -2098,15 +2124,18 @@ void XV_Tx_HdmiTx_EnterStateConnected(XV_Tx *InstancePtr)
 #endif
 	XHdmiphy1_Hdmi20Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX);
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	/* Setting FRL link and video clocks to 0. */
 	XV_HdmiTx1_SetFrlLinkClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
 	XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
+#endif
 
 	if (InstancePtr->TxCableConnectionChange != NULL) {
 		InstancePtr->TxCableConnectionChange(
 			InstancePtr->TxCableConnectionChangeCallbackRef);
 	}
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	if (InstancePtr->ConfigInfo.IsFrl) {
 		FrlTrainingStatus = XV_Tx_StartFrlTraining(InstancePtr,
 				InstancePtr->ConfigInfo.FrlEdidInfo.IsSCDCPresent,
@@ -2120,11 +2149,14 @@ void XV_Tx_HdmiTx_EnterStateConnected(XV_Tx *InstancePtr)
 			}
 		}
 	} else {
+#endif
 		/* This means that tx is ready to start */
 		if (InstancePtr->TxReadyToStart != NULL) {
 			InstancePtr->TxReadyToStart(InstancePtr->TxReadyToStartCallbackRef);
 		}
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	}
+#endif
 
 #ifdef USE_HDCP_HDMI_TX
 	InstancePtr->HdcpConfig.DownstreamInstanceConnected = TRUE;
@@ -2171,6 +2203,7 @@ void XV_Tx_HdmiTx_StateBrdgUnlocked(XV_Tx *InstancePtr,
 		*NextStatePtr = XV_TX_HDMI_STATE_STREAMOFF;
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_EVENT_FRLCONFIG:
 		XV_HdmiTxSS1_SetHdmiFrlMode(InstancePtr->HdmiTxSs);
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLCONFIG;
@@ -2187,6 +2220,7 @@ void XV_Tx_HdmiTx_StateBrdgUnlocked(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_EVENT_FRLSTOP:
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLSTOP;
 		break;
+#endif
 
 	case XV_TX_HDMI_EVENT_TMDSCONFIG:
 		XV_HdmiTxSS1_SetHdmiTmdsMode(InstancePtr->HdmiTxSs);
@@ -2250,6 +2284,7 @@ void XV_Tx_HdmiTx_StateVSync(XV_Tx *InstancePtr,
 		*NextStatePtr = XV_TX_HDMI_STATE_STREAMOFF;
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_EVENT_FRLCONFIG:
 		XV_HdmiTxSS1_SetHdmiFrlMode(InstancePtr->HdmiTxSs);
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLCONFIG;
@@ -2266,6 +2301,7 @@ void XV_Tx_HdmiTx_StateVSync(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_EVENT_FRLSTOP:
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLSTOP;
 		break;
+#endif
 
 	case XV_TX_HDMI_EVENT_TMDSCONFIG:
 		XV_HdmiTxSS1_SetHdmiTmdsMode(InstancePtr->HdmiTxSs);
@@ -2380,6 +2416,7 @@ void XV_Tx_HdmiTx_StateStreamOn(XV_Tx *InstancePtr,
 
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_EVENT_FRLCONFIG:
 		XV_HdmiTxSS1_SetHdmiFrlMode(InstancePtr->HdmiTxSs);
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLCONFIG;
@@ -2396,6 +2433,7 @@ void XV_Tx_HdmiTx_StateStreamOn(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_EVENT_FRLSTOP:
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLSTOP;
 		break;
+#endif
 
 	case XV_TX_HDMI_EVENT_TMDSCONFIG:
 		XV_HdmiTxSS1_SetHdmiTmdsMode(InstancePtr->HdmiTxSs);
@@ -2433,7 +2471,9 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 	} else {
 		/* Downstream sink is HDMI or HDMI FRL */
 		if (XV_HdmiTxSs1_GetTransportMode(HdmiTxSs1Ptr) == TRUE) {
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 			XV_HdmiTxSS1_SetHdmiFrlMode(HdmiTxSs1Ptr);
+#endif
 		} else {
 			XV_HdmiTxSS1_SetHdmiTmdsMode(HdmiTxSs1Ptr);
 		}
@@ -2544,6 +2584,7 @@ void XV_Tx_HdmiTx_StateStreamOff(XV_Tx *InstancePtr,
 
 		break;
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 	case XV_TX_HDMI_EVENT_FRLCONFIG:
 		XV_HdmiTxSS1_SetHdmiFrlMode(InstancePtr->HdmiTxSs);
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLCONFIG;
@@ -2560,6 +2601,7 @@ void XV_Tx_HdmiTx_StateStreamOff(XV_Tx *InstancePtr,
 	case XV_TX_HDMI_EVENT_FRLSTOP:
 		*NextStatePtr = XV_TX_HDMI_STATE_FRLSTOP;
 		break;
+#endif
 
 	case XV_TX_HDMI_EVENT_TMDSCONFIG:
 		XV_HdmiTxSS1_SetHdmiTmdsMode(InstancePtr->HdmiTxSs);
@@ -2593,6 +2635,7 @@ void XV_Tx_HdmiTx_EnterStateStreamOff(XV_Tx *InstancePtr)
 	/* In the future, a stream statistics counter can be maintained here. */
 }
 
+#if defined(XPAR_XV_HDMI_TX_FRL_ENABLE)
 void XV_Tx_HdmiTx_StateFrlConfig(XV_Tx *InstancePtr,
 					XV_Tx_Hdmi_Events Event,
 					XV_Tx_Hdmi_State *NextStatePtr)
@@ -2927,6 +2970,7 @@ void XV_Tx_HdmiTx_EnterStateFrlStop(XV_Tx *InstancePtr)
 
 	/* Nothing to do here yet . */
 }
+#endif
 
 void XV_Tx_HdmiTx_StateTmdsConfig(XV_Tx *InstancePtr,
 					XV_Tx_Hdmi_Events Event,
@@ -3004,8 +3048,10 @@ void XV_Tx_HdmiTx_EnterStateTmdsConfig(XV_Tx *InstancePtr)
 	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi20Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX);
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	XV_HdmiTx1_SetFrlLinkClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
 	XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
+#endif
 
 	if (InstancePtr->ConfigInfo.IsHdmi == FALSE) {
 		/* If downstream sink only suports DVI, then we must
