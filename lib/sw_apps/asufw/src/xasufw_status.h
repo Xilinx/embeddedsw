@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -631,6 +631,8 @@ enum {
 	XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, /**< 0x1B7U - Error when key use case is invalid. */
 	XASUFW_KEYMANAGER_ACCESS_DENIED, /**< 0x1B8U - Error when access right violation occurs. */
 	XASUFW_KEYMANAGER_KEY_EXPIRED, /**< 0x1B9U - Error when key is expired. */
+	XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED, /**< 0x1BAU - Error when number of subsystems in CDO
+						exceeds maximum */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

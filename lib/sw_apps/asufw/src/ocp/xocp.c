@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -81,6 +81,7 @@ static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx);
  * @return
  *	- XASUFW_SUCCESS, if PLM event is handled successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_DEVIK_GENERATION_FAIL, if DevIk generation is failed.
  *	- XASUFW_OCP_DEVAK_GENERATION_FAIL, if DevAk generation is failed.
  *
@@ -163,6 +164,12 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 		goto END;
 	}
 
+	/** Validate data buffer. */
+	if ((OcpAttestParam->DataAddr == 0U) || (OcpAttestParam->DataLen == 0U)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Get subsystem index using subsystem ID. */
 	Status = XOcp_GetSubsytemIndex(SubsystemId, &SubsysIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -211,7 +218,6 @@ XOcp_DeviceKeys* XOcp_GetDevIk(void)
  * @return
  *	- XASUFW_SUCCESS, if DevIk key pair is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_GET_ASU_CDI_FAIL, if ASU CDI is not retrieved successfully.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- XASUFW_OCP_GEN_DEVIK_PVT_KEY_FAIL, if DevIk private key generation is failed.
@@ -287,7 +293,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevAk key pair is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
+ *	- XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED, if number of subsystems in CDO exceeds maximum.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, if subsystem index is invalid.
  *	- XASUFW_OCP_GEN_DEVAK_PVT_KEY_FAIL, if DevAk private key generation is failed.
  *	- XASUFW_OCP_GEN_DEVAK_PUB_KEY_FAIL, if DevAk public key generation is failed.
@@ -303,6 +309,12 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	u8 SwCdi[XOCP_DICE_CDI_SIZE_IN_BYTES];
 	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
 	const u8 *PersStr = NULL;
+
+	/** Validate number of subsystems provided in CDO. */
+	if (CdoData->NumSubsys > XOCP_MAX_OCP_SUBSYSTEMS) {
+		Status = XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED;
+		goto END;
+	}
 
 	/**
 	 * Generate DevAk key pair only if subsystem index doesn't exceed the maximum number of
@@ -459,6 +471,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if subsystem index is retrieved successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED, if number of subsystems in CDO exceeds maximum.
  *
  *************************************************************************************************/
 static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx)
@@ -466,6 +479,12 @@ static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
 	u32 Idx;
+
+	/** Validate number of subsystems provided in CDO. */
+	if (CdoData->NumSubsys > XOCP_MAX_OCP_SUBSYSTEMS) {
+		Status = XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED;
+		goto END;
+	}
 
 	/** Iterate through subsystem list and return an index if subsystem ID is matched. */
 	for (Idx = 0U; Idx < CdoData->NumSubsys; Idx++) {
@@ -624,7 +643,6 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if SW CDI is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_GET_ASU_CDI_FAIL, if ASU CDI is not retrieved successfully.
  *	- XASUFW_OCP_GET_SUBSYSTEM_HASH_FAIL, if subsystem hash is not retrieved successfully.
  *	- XASUFW_HMAC_INITIALIZATION_FAILED, if HMAC initialization is failed.
@@ -642,12 +660,6 @@ static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u3
 	u32 AsuCdiAddr = 0U;
 	u32 SwHashAddr = 0U;
 	u8 HmacOutput[XASU_SHA_384_HASH_LEN] = {0U};
-
-	/** Validate the input parameter. */
-	if (DmaPtr == NULL) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
 
 	/** Get ASU CDI seed */
 	Status = XOcp_GetAsuCdiAddr(&AsuCdiAddr);
