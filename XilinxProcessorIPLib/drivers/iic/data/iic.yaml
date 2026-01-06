@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -23,6 +23,10 @@ properties:
     description: Does device have 10 bit address decoding
   xlnx,gpo-width:
     description: Number of bits in general purpose output
+  xlnx,scl-inertial-delay:
+    description: Amount of delay in the scl clock cycle
+  xlnx,s-axi-aclk-freq-hz:
+    description: AXI Clock frequency in hertz
 
 config:
     - XIic_Config
@@ -34,6 +38,8 @@ required:
     - xlnx,gpo-width
     - interrupts
     - interrupt-parent
+    - xlnx,scl-inertial-delay
+    - xlnx,s-axi-aclk-freq-hz
 
 examples:
     xiic_eeprom_example.c:
