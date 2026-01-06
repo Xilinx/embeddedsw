@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -99,6 +99,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support
+* 3.15  vlt  12/04/25 Add XIic_SetClk API for dynamic clock configuration.
 *
 * </pre>
 *
@@ -155,7 +156,8 @@
  * address divided by 2.
  * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/
  * ML501/ML505/ML507/ML510 boards is 0x50. The 7 bit IIC Slave address of the
- * IIC EEPROM on the ML605/SP601/SP605/KC705/ZC702/ZC706 boards is 0x54.
+ * IIC EEPROM on the ML605/SP601/SP605/KC705/ZC702/ZC706/ZCU102/KCU105 boards
+ * is 0x54.
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
  */
@@ -167,8 +169,12 @@
  * address divided by 2.
  * The IIC Slaves on the KC705/ZC702/ZC706 boards are connected to an
  * IIC MUX.
- * IIC_EEPROM_CHANNEL is the Channel number of EEPROM for IIC Mux. On KC705 it
- * is 0x08 and ZC702 is 0x04.Please refer the User Guide's of the respective
+ * IIC_EEPROM_CHANNEL is the Channel number of EEPROM for IIC Mux.
+ * On ZC702 is 0x04.
+ * The ZCU102 board uses Mux Address 0x74 with EEPROM channel 0x01,the
+ * KCU105 board uses Mux Address 0x75 with EEPROM channel 0x07,and the KC705
+ * board uses Mux Address 0x74 with EEPROM channel 0x08.
+ * Please refer the User Guide's of the respective
  * boards for further information about the Channel number to use EEPROM.
  */
 #define IIC_MUX_ADDRESS 		0x74
