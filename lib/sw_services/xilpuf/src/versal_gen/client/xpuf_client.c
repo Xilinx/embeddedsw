@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -97,7 +97,7 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
 int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE
@@ -107,16 +107,17 @@ int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 		goto END;
 	}
 
-	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_REGISTRATION);
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> XPUF_ADDR_HIGH_SHIFT);
+	/** Fill IPI Payload */
+	XPUF_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
+				| XPUF_PUF_REGISTRATION),
+				DataAddr,
+				(DataAddr >> XPUF_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the XPuf_Registration CDO
 	 * command and return the status of the IPI response.
 	 */
-	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-				sizeof(Payload)/sizeof(u32));
+	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL, "PUF registration Failed \r\n");
 	}
@@ -141,7 +142,7 @@ END:
 int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE
@@ -151,16 +152,17 @@ int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 		goto END;
 	}
 
-	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex<< XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_REGENERATION);
-	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> XPUF_ADDR_HIGH_SHIFT);
+	/** Fill IPI Payload */
+	XPUF_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
+				| XPUF_PUF_REGENERATION),
+				DataAddr,
+				(DataAddr >> XPUF_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the XPuf_Regeneration CDO
 	 * command and return the status of the IPI response.
 	 */
-	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-				sizeof(Payload)/sizeof(u32));
+	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL, "PUF regeneration Failed \r\n");
 	}
@@ -183,7 +185,7 @@ END:
 int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE
@@ -193,14 +195,15 @@ int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex<< XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_CLEAR_PUF_ID);
+	/** Fill IPI Payload */
+	XPUF_PACK_PAYLOAD0(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
+				| XPUF_PUF_CLEAR_PUF_ID));
 
 	/**
 	 * Send an IPI request to the PLM by using the XPuf_ClearPufID CDO
 	 * command and return the status of the IPI response.
 	 */
-	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-						sizeof(Payload)/sizeof(u32));
+	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL, "Clear PUF ID Failed \r\n");
 	}
