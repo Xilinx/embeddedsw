@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -59,14 +59,37 @@ extern "C" {
  * @cond xsecure_internal
  * @{
  */
-#define XILSECURE_MODULE_ID			(0x05U)
-				/**< Module ID for xilsecure */
+
+ #define XILSECURE_MODULE_ID			(0x05U)
+				/**< Module ID for XilSecure */
+
+/* Payload Packets */
+#define XSECURE_PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\
+	Payload[0U] = (u32)Arg0;						\
+	Payload[1U] = (u32)Arg1;						\
+	Payload[2U] = (u32)Arg2;						\
+	Payload[3U] = (u32)Arg3;						\
+	Payload[4U] = (u32)Arg4;						\
+	Payload[5U] = (u32)Arg5;
 
 #define HEADER(len, ApiId) (((u32)len << 16U) | ((u32)XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
 				/**< Header for XilSecure Commands */
 
+#define XSECURE_PACK_PAYLOAD0(Payload, ApiId) \
+	XSECURE_PACK_PAYLOAD(Payload, HEADER(0UL, (ApiId)), 0U, 0U, 0U, 0U, 0U)
+#define XSECURE_PACK_PAYLOAD1(Payload, ApiId, Arg1) \
+	XSECURE_PACK_PAYLOAD(Payload, HEADER(1UL, (ApiId)), (Arg1), 0U, 0U, 0U, 0U)
+#define XSECURE_PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
+	XSECURE_PACK_PAYLOAD(Payload, HEADER(2UL, (ApiId)), (Arg1), (Arg2), 0U, 0U, 0U)
+#define XSECURE_PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
+	XSECURE_PACK_PAYLOAD(Payload, HEADER(3UL, (ApiId)), (Arg1), (Arg2), (Arg3), 0U, 0U)
+#define XSECURE_PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
+	XSECURE_PACK_PAYLOAD(Payload, HEADER(4UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), 0U)
+#define XSECURE_PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
+	XSECURE_PACK_PAYLOAD(Payload, HEADER(5UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), (Arg5))
+
 #define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
-	/**< 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
+	/**< 1 for Header + 5 for API arguments + 1 for reserved + 1 for CRC */
 
 #define RESPONSE_ARG_CNT		XIPIPSU_MAX_MSG_LEN
 	/**< 1 for status + 3 for values + 3 for reserved + 1 for CRC */
@@ -80,12 +103,7 @@ extern "C" {
 /* Maximum size of shared memory used to store the CDO command */
 #define XSECURE_SHARED_MEM_SIZE		(160U)
 					/**< Shared memory size */
-#define XSECURE_SLR_INDEX_SHIFT     (6U) /**< Slr index shift constant*/
-
-#define XSECURE_IPI_PAYLOAD_IDX_0	(0U) /**< IPI payload index 0 */
-#define XSECURE_IPI_PAYLOAD_IDX_1       (1U) /**< IPI payload index 1 */
-#define XSECURE_IPI_PAYLOAD_IDX_2	(2U) /**< IPI payload index 2 */
-
+#define XSECURE_SLR_INDEX_SHIFT		(6U)	/**< Slr index shift constant */
 
 /**************************** Type Definitions *******************************/
 /**

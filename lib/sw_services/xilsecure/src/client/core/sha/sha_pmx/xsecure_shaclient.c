@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -93,7 +93,7 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 {
 	volatile int Status = XST_FAILURE;
 	u32 Sha3InitializeMask = 0U;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -116,20 +116,16 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_SHA3_UPDATE);
-	Payload[1U] = (u32)InDataAddr;
-	Payload[2U] = (u32)(InDataAddr >> 32);
-	Payload[3U] = (u32)(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
-						(Sha3InitializeMask) | Size);
-	Payload[4U] = XSECURE_IPI_UNUSED_PARAM;
-	Payload[5U] = XSECURE_IPI_UNUSED_PARAM;
+	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
+				InDataAddr,
+				(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
+				(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT) | (Sha3InitializeMask) | Size))
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Update Failed \r\n");
 		goto END;
@@ -157,7 +153,7 @@ END:
 int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -176,19 +172,18 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_SHA3_UPDATE);
-	Payload[1U] = XSECURE_IPI_UNUSED_PARAM;
-	Payload[2U] = XSECURE_IPI_UNUSED_PARAM;
-	Payload[3U] = XSECURE_IPI_UNUSED_PARAM;
-	Payload[4U] = (u32)OutDataAddr;
-	Payload[5U] = (u32)(OutDataAddr >> 32);
+	XSECURE_PACK_PAYLOAD5(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
+				XSECURE_IPI_UNUSED_PARAM,
+				XSECURE_IPI_UNUSED_PARAM,
+				XSECURE_IPI_UNUSED_PARAM,
+				OutDataAddr,
+				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
 	 * API and it returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Finish Failed \r\n");
 		goto END;
@@ -220,7 +215,7 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 {
 	volatile int Status = XST_FAILURE;
 	u32 Sha3InitializeMask = 0U;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -240,20 +235,18 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	Sha3InitializeMask = ((u32)1U) << XSECURE_SHA_FIRST_PACKET_SHIFT;
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_SHA3_UPDATE);
-	Payload[1U] = (u32)InDataAddr;
-	Payload[2U] = (u32)(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
-	Payload[3U] = (Sha3InitializeMask) | Size;
-	Payload[4U] = (u32)OutDataAddr;
-	Payload[5U] = (u32)(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
+	XSECURE_PACK_PAYLOAD5(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
+				InDataAddr,
+				(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
+				(Sha3InitializeMask | Size),
+				OutDataAddr,
+				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
 	 * API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-				sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Digest Failed \r\n");

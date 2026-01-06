@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -48,7 +48,6 @@ extern "C" {
 #define XSECURE_MIN_KAT_MASK_LEN	(1U) /**< Minimum mask length*/
 
 #define XSECURE_WORD_LEN		(4U) /**< Word length */
-#define XSECURE_ADDR_HIGH_SHIFT		(32U) /**< Shift for getting higher address*/
 
 #define XSECURE_KEY_ID_LEN_IN_BYTES (128U) /**< Key id length in bytes */
 
