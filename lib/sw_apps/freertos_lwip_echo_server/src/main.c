@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -47,7 +47,7 @@ int IicPhyReset(void);
 #endif
 #endif
 
-int main_thread();
+void main_thread();
 void print_echo_app_header();
 void echo_application_thread(void *);
 
@@ -109,7 +109,7 @@ int main()
 	return 0;
 }
 
-void network_thread(void *p)
+void network_thread(void *p __attribute__((unused)))
 {
     struct netif *netif;
     /* the mac address of the board. this should be unique per board */
@@ -214,7 +214,7 @@ void network_thread(void *p)
     return;
 }
 
-int main_thread()
+void main_thread()
 {
 #if LWIP_DHCP==1
 	int mscnt = 0;
@@ -270,5 +270,5 @@ int main_thread()
 #endif
 #endif
     vTaskDelete(NULL);
-    return 0;
+    return;
 }

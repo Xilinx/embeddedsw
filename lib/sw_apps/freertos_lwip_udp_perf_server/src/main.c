@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -93,7 +93,7 @@ static void assign_default_ip(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 		xil_printf("Invalid default gateway address: %d\r\n", err);
 }
 
-void network_thread(void *p)
+void network_thread(void *p __attribute__((unused)))
 {
 #if LWIP_DHCP==1
 	int mscnt = 0;
@@ -136,7 +136,7 @@ void network_thread(void *p)
 #endif
 }
 
-int main_thread()
+void main_thread()
 {
 
 #if LWIP_DHCP==1
@@ -193,7 +193,7 @@ int main_thread()
 	start_application();
 
 	vTaskDelete(NULL);
-	return 0;
+	return;
 }
 
 int main()

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2018 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -59,7 +59,7 @@ int IicPhyReset(void);
 static int complete_nw_thread;
 static sys_thread_t main_thread_handle;
 
-void main_thread(void *p);
+void main_thread(void *p __attribute__((unused)));
 void print_app_header();
 void start_application();
 
@@ -108,7 +108,7 @@ static void assign_default_ip(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 }
 #endif /* LWIP_IPV6 */
 
-void network_thread(void *p)
+void network_thread(void *p __attribute__((unused)))
 {
 #if ((LWIP_IPV6==0) && (LWIP_DHCP==1))
 	int mscnt = 0;
@@ -167,7 +167,7 @@ void network_thread(void *p)
 	return;
 }
 
-void main_thread(void *p)
+void main_thread(void *p __attribute__((unused)))
 {
 
 #if ((LWIP_IPV6==0) && (LWIP_DHCP==1))
