@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -97,21 +97,18 @@ int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 	u64 ExtHashAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/** Fill IPI payload for XOCP_API_EXTEND_HWPCR command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_HWPCR);
-	Payload[1U] = PcrNum;
-	Payload[2U] = (u32)ExtHashAddr;
-	Payload[3U] = (u32)(ExtHashAddr >> 32);
-	Payload[4U] = Size;
+	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_EXTEND_HWPCR, PcrNum, ExtHashAddr,
+				(ExtHashAddr >> XOCP_ADDR_HIGH_SHIFT),
+				Size);
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-		sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -139,21 +136,18 @@ int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 	u32 PcrBufSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/** Fill IPI payload for XOCP_API_GET_HWPCR command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GET_HWPCR);
-	Payload[1U] = PcrMask;
-	Payload[2U] = (u32)PcrBufAddr;
-	Payload[3U] = (u32)(PcrBufAddr >> 32);
-	Payload[4U] = PcrBufSize;
+	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GET_HWPCR, PcrMask, PcrBufAddr,
+				(PcrBufAddr >> XOCP_ADDR_HIGH_SHIFT),
+				PcrBufSize);
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-		sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -177,22 +171,18 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
 		u32 NumOfLogEntries)
 {
 	volatile int Status = XST_FAILURE;
-        u32 Payload[XOCP_PAYLOAD_LEN_6U];
+        u32 Payload[PAYLOAD_ARG_CNT];
 
         if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
                 goto END;
         }
 
         /** Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server */
-        Payload[0U] = OcpHeader(0U, XOCP_API_GET_HWPCRLOG);
-        Payload[1U] = (u32)HwPcrEventAddr;
-        Payload[2U] = (u32)(HwPcrEventAddr >> 32);
-	Payload[3U] = (u32)HwPcrLogInfoAddr;
-        Payload[4U] = (u32)(HwPcrLogInfoAddr >> 32);
-        Payload[5U] = NumOfLogEntries;
+	XOCP_PACK_PAYLOAD5(Payload, XOCP_API_GET_HWPCRLOG, HwPcrEventAddr,
+				(HwPcrEventAddr >> XOCP_ADDR_HIGH_SHIFT), HwPcrLogInfoAddr,
+				(HwPcrLogInfoAddr >> XOCP_ADDR_HIGH_SHIFT), NumOfLogEntries);
 
-        Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-                sizeof(Payload)/sizeof(u32));
+        Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
         return Status;
@@ -214,7 +204,7 @@ END:
 int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *ExtendParams)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 ExtendParamsAddr = (u64)(UINTPTR)ExtendParams;
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -228,12 +218,10 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 		}
 	}
 	/** Fill IPI payload for XOCP_API_EXTEND_SWPCR command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_SWPCR);
-	Payload[1U] = (u32)ExtendParamsAddr;
-	Payload[2U] = (u32)(ExtendParamsAddr >> 32);
+	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_EXTEND_SWPCR, ExtendParamsAddr,
+				(ExtendParamsAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-		sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -261,7 +249,7 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 	u32 PcrBufSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 PcrBufAddr = (u64)(UINTPTR)PcrBuf;
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -269,14 +257,11 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 	}
 
 	/** Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCR);
-	Payload[1U] = PcrMask;
-	Payload[2U] = (u32)PcrBufAddr;
-	Payload[3U] = (u32)(PcrBufAddr >> 32);
-	Payload[4U] = PcrBufSize;
+	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GET_SWPCR, PcrMask, PcrBufAddr,
+				(PcrBufAddr >> XOCP_ADDR_HIGH_SHIFT),
+				PcrBufSize);
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-		sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,	PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -297,7 +282,7 @@ END:
 int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *LogParams)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 LogBufAddr = (u64)(UINTPTR)LogParams;
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -305,12 +290,10 @@ int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *Lo
 	}
 
 	/** Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCRLOG);
-	Payload[1U] = (u32)LogBufAddr;
-	Payload[2U] = (u32)(LogBufAddr >> 32);
+	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRLOG, LogBufAddr,
+				(LogBufAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-				sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -332,7 +315,7 @@ END:
 int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *DataParams)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 DataBufAddr = (u64)(UINTPTR)DataParams;
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -340,12 +323,10 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 	}
 
 	/** Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCRDATA);
-	Payload[1U] = (u32)DataBufAddr;
-	Payload[2U] = (u32)(DataBufAddr >> 32);
+	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRDATA, DataBufAddr,
+				(DataBufAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-				sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -371,21 +352,19 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 	u64 DmeStructResAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/** Fill IPI payload for XOCP_API_GENDMERESP command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GENDMERESP);
-	Payload[1U] = (u32)NonceAddr;
-	Payload[2U] = (u32)(NonceAddr >> 32);
-	Payload[3U] = (u32)DmeStructResAddr;
-	Payload[4U] = (u32)(DmeStructResAddr >> 32);
+	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GENDMERESP, NonceAddr,
+				(NonceAddr >> XOCP_ADDR_HIGH_SHIFT),
+				DmeStructResAddr,
+				(DmeStructResAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-		sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -406,19 +385,17 @@ END:
 int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/** Fill IPI payload for XOCP_API_GETX509CERT command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GETX509CERT);
-	Payload[1U] = (u32)GetX509CertAddr;
-	Payload[2U] = (u32)(GetX509CertAddr >> 32);
+	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GETX509CERT, GetX509CertAddr,
+				(GetX509CertAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-					sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -440,19 +417,17 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 				u64 AttestWithDevAk)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/** Fill IPI payload for XOCP_API_ATTESTWITHDEVAK command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_ATTESTWITHDEVAK);
-	Payload[1U] = (u32)AttestWithDevAk;
-	Payload[2U] = (u32)(AttestWithDevAk >> 32);
+	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_ATTESTWITHDEVAK, AttestWithDevAk,
+				(AttestWithDevAk >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-			sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -478,23 +453,19 @@ int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
 				u64 AttnPloadAddr, u32 AttnPloadSize, u32 PubKeyOffset, u64 SignatureAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XOCP_PAYLOAD_LEN_7U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/** Fill IPI payload for XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK command and send the request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK);
-	Payload[1U] = (u32)AttnPloadAddr;
-	Payload[2U] = (u32)(AttnPloadAddr >> XOCP_ADDR_HIGH_SHIFT);
-	Payload[3U] = AttnPloadSize;
-	Payload[4U] = PubKeyOffset;
-	Payload[5U] = (u32)SignatureAddr;
-	Payload[6U] = (u32)(SignatureAddr >> XOCP_ADDR_HIGH_SHIFT);
+	XOCP_PACK_PAYLOAD6(Payload, XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK,
+			AttnPloadAddr, (AttnPloadAddr >> XOCP_ADDR_HIGH_SHIFT),
+			AttnPloadSize, PubKeyOffset,
+			SignatureAddr, (SignatureAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-			sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -524,7 +495,7 @@ END:
 int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* PubKey, u8 *SharedSecret)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 PubKeyAddr = (u64)(UINTPTR)PubKey;
 	u64 SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
 
@@ -534,13 +505,12 @@ int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* Pu
 	}
 
 	/** Fill IPI Payload for XOCP_API_GEN_SHARED_SECRET and send request to Server */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GEN_SHARED_SECRET);
-	Payload[1U] = (u32)PubKeyAddr;
-	Payload[2U] = (u32)(PubKeyAddr >> XOCP_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)SharedSecretAddr;
-	Payload[4U] = (u32)(SharedSecretAddr >> XOCP_ADDR_HIGH_SHIFT);
+	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GEN_SHARED_SECRET, PubKeyAddr,
+				(PubKeyAddr >> XOCP_ADDR_HIGH_SHIFT),
+				SharedSecretAddr,
+				(SharedSecretAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
