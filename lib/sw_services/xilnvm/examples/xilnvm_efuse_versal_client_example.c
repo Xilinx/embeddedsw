@@ -71,6 +71,8 @@
  * 3.4   vss   09/11/2024 Corrected debug prints in XilNvm_EfuseShowSecCtrlBits function
  * 3.5   obs   04/21/2025 Fixed GCC Warnings.
  * 3.7   mb    12/31/2025 Added support to verify CRC of AES key after programming.
+ *       tbk   01/05/2026 Added support to check OffChip REVOKE_ID individually
+ *                        instead of common check.
  *
  * </pre>
  *
@@ -203,6 +205,9 @@ static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 static int XilNvm_EfusePrepareRevocationIds(XNvm_EfuseRevokeIds *RevokeIds,
 					    u32 RevocationId,
 					    const char *RevocationIdFuse);
+static int XilNvm_EfusePrepareOffChipRevokeIds(XNvm_EfuseOffChipIds *OffChipIds,
+					       u32 OffChipRevokeId,
+					       const char *OffChipRevokeIdFuse);
 /*****************************************************************************/
 int main(void)
 {
@@ -1508,72 +1513,73 @@ static int XilNvm_EfuseInitOffChipRevokeIds(XNvm_EfuseDataAddr *WriteEfuse,
 {
 	int Status = XST_FAILURE;
 
-	if ((XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6 |
-		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7) != 0U) {
-
-		OffChipIds->PrgmOffchipId = TRUE;
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_0,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
-	if (OffChipIds->PrgmOffchipId == TRUE) {
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_0],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_1,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_1],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_2,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_2],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_3,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_3],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_4,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_4],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_5,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_5],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_6,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_6],
-			XNVM_EFUSE_ROW_STRING_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES,
-			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_7],
-			XNVM_EFUSE_ROW_STRING_LEN);
+	}
+
+	if (XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7 == TRUE) {
+		Status = XilNvm_EfusePrepareOffChipRevokeIds(OffChipIds,
+				(u32)XNVM_EFUSE_OFFCHIP_REVOKE_ID_7,
+				(const char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2743,6 +2749,39 @@ static int XilNvm_EfusePrepareRevocationIds(XNvm_EfuseRevokeIds *RevokeIds,
 	RevokeIds->PrgmRevokeId = (u32)TRUE;
 	Status = XilNvm_PrepareRevokeIdsForWrite(RevocationIdFuse,
 			&RevokeIds->RevokeId[RevocationId],
+			XNVM_EFUSE_ROW_STRING_LEN);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseOffChipIds structure with user
+ * provided data and assign it to global structure XNvm_EfuseDataAddr to program
+ * provided OffChip_Revoke ID eFuse.
+ *
+ *
+ * @param	OffChipIds		Pointer to XNvm_EfuseOffChipIds
+ * 					structure
+ * @param	OffChipRevokeId		OffChip Revoke Id to write
+ * @param	OffChipRevokeIdFuse	Value to write in provided OffChip
+ * 					Revoke Id
+ *
+ * @return
+ *		- XST_SUCCESS - If the initialization of XNvm_EfuseOffChipIds
+ *				structure is successful
+ *		- Error Code - On Failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfusePrepareOffChipRevokeIds(XNvm_EfuseOffChipIds *OffChipIds,
+					       u32 OffChipRevokeId,
+					       const char *OffChipRevokeIdFuse)
+{
+	int Status = XST_FAILURE;
+
+	OffChipIds->PrgmOffchipId = (u32)TRUE;
+	Status = XilNvm_PrepareRevokeIdsForWrite(OffChipRevokeIdFuse,
+			&OffChipIds->OffChipId[OffChipRevokeId],
 			XNVM_EFUSE_ROW_STRING_LEN);
 
 	return Status;
