@@ -1,0 +1,790 @@
+---
+# ============================================================================
+# clang-format configuration for embeddedsw
+# ============================================================================
+#
+# Documentation: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html
+
+# ============================================================================
+# CONFIGURATION
+# ============================================================================
+
+# Language: Specifies the language used when parsing the code
+# Possible values: None, Cpp, Java, JavaScript, ObjC, Proto, TableGen, TextProto
+# C: Use C language parsing rules
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#language
+
+# BasedOnStyle: Base style to use for formatting
+# Possible values: LLVM, Chromium, Google, Mozilla, WebKit, Microsoft, GNU
+# LLVM: Use LLVM coding style as the base
+# This provides a starting point that can be overridden by other options
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#basedonstyle
+# BasedOnStyle: LLVM
+
+# ============================================================================
+# INDENTATION
+# ============================================================================
+
+# UseTab: Whether to use tabs for indentation
+# Possible values: Never, ForIndentation, ForContinuationAndIndentation, Always
+# Always: Always use tabs for indentation (never spaces)
+# This matches the Linux style where tabs are used throughout
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#usetab
+UseTab: Always
+
+# TabWidth: Number of columns used to represent a tab character
+# Possible values: Positive integer (typically 2, 4, or 8)
+# 8: Each tab character represents 8 spaces visually
+# This should match the editor's tab stop setting for consistent display
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#tabwidth
+TabWidth: 8
+
+# IndentWidth: Number of columns to use for indentation
+# Possible values: Positive integer (typically 2, 4, or 8)
+# 8: Use 8 columns for indentation (matches TabWidth when using tabs)
+# When UseTab is Always, this determines the visual width of tabs
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentwidth
+IndentWidth: 8
+
+# ContinuationIndentWidth: Number of columns to use for indentation of continuation lines
+# Possible values: Positive integer
+# 8: Use 8 columns for continuation indentation (matches IndentWidth)
+# Used when breaking long lines (function parameters, expressions, assignments)
+# Continuation lines are indented by this amount relative to the start of the statement
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#continuationindentwidth
+ContinuationIndentWidth: 8
+
+# IndentCaseLabels: Indent case labels in switch statements
+# Possible values: true, false
+# false: Don't indent case labels (e.g., "case VALUE:")
+# true: Indent case labels (e.g., "  case VALUE:")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentcaselabels
+IndentCaseLabels: false
+
+# IndentGotoLabels: Indent goto labels
+# Possible values: true, false
+# false: Don't indent goto labels (labels at column 0)
+# true: Indent goto labels (labels indented like code)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentgotolabels
+IndentGotoLabels: false
+
+# IndentPPDirectives: How to indent preprocessor directives
+# Possible values: None, AfterHash, BeforeHash
+# BeforeHash: Indent before the hash symbol (e.g., "  #define")
+# AfterHash: Indent after the hash symbol (e.g., "#  define")
+# None: Don't indent preprocessor directives
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentppdirectives
+IndentPPDirectives: None
+
+# IndentWrappedFunctionNames: Indent wrapped function names
+# Possible values: true, false
+# false: Don't indent function names when wrapped (function name at column 0)
+# true: Indent function names when wrapped
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentwrappedfunctionnames
+IndentWrappedFunctionNames: false
+
+# IndentExportBlock: Indent export blocks (C++20 modules)
+# Possible values: true, false
+# true: Indent export block contents
+# false: Don't indent export block contents
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentexportblock
+IndentExportBlock: true
+
+# NamespaceIndentation: How to indent namespaces
+# Possible values: None, Inner, All
+# None: Don't indent namespace contents
+# Inner: Indent nested namespace contents only
+# All: Indent all namespace contents
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#namespaceindentation
+NamespaceIndentation: None
+
+# ============================================================================
+# LINE LENGTH AND WRAPPING
+# ============================================================================
+
+# ColumnLimit: Column limit for a line
+# Possible values: 0 (no limit) or positive integer
+# 110: Lines exceeding 110 characters will be wrapped
+# A value of 0 disables line wrapping entirely
+# This helps maintain readability and consistency across the codebase
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#columnlimit
+ColumnLimit: 100
+
+# BreakBeforeBinaryOperators: Where to break before binary operators
+# Possible values: None, NonAssignment, All
+# None: Don't break before binary operators (break after instead)
+# This keeps operators at end of line (e.g., "x = a +")
+# NonAssignment: Break before non-assignment operators only
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforebinaryoperators
+BreakBeforeBinaryOperators: None
+
+# BreakBinaryOperations: How to break binary operations
+# Possible values: None, OnePerLine
+# OnePerLine: Put each binary operation on its own line
+# This ensures each operation is clearly visible
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbinaryoperations
+BreakBinaryOperations: OnePerLine
+
+# BreakBeforeTernaryOperators: Break before ternary operators
+# Possible values: true, false
+# true: Break before ? and : (e.g., "condition ? value1 : value2")
+# false: Break after ? and before : (e.g., "condition ? value1\n    : value2")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeternaryoperators
+BreakBeforeTernaryOperators: false
+
+# BreakBeforeInlineASMColon: Whether to break before inline assembly colon
+# Possible values: None, OnlyMultiline, Always
+# OnlyMultiline: Break before colon only for multiline inline assembly
+# This affects formatting of inline assembly blocks
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeinlineasmcolon
+BreakBeforeInlineASMColon: OnlyMultiline
+
+# BreakConstructorInitializers: Where to break constructor initializers
+# Possible values: BeforeColon, BeforeComma, AfterColon
+# BeforeColon: Break before colon (e.g., "Foo()\n    : member(0)")
+# This controls formatting of C++ constructor initialization lists
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakconstructorinitializers
+BreakConstructorInitializersBeforeComma: false
+BreakConstructorInitializers: BeforeComma
+
+# BreakInheritanceList: Where to break inheritance list
+# Possible values: BeforeColon, BeforeComma, AfterColon
+# BeforeColon: Break before colon (e.g., "class Foo\n    : public Bar")
+# BeforeComma: Break before comma in inheritance list
+# AfterColon: Break after colon
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakinheritancelist
+BreakInheritanceList: BeforeColon
+
+# BreakStringLiterals: Break string literals
+# Possible values: true, false
+# false: Don't break string literals (keep them intact)
+# true: Allow breaking string literals across lines
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakstringliterals
+BreakStringLiterals: false
+
+# AlwaysBreakAfterReturnType: Always break after return type
+# Possible values: None, All, TopLevel, AllDefinitions, TopLevelDefinitions, ExceptShortType
+# ExceptShortType: Break after return type except for short types
+# This controls whether function return types appear on their own line
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alwaysbreakafterreturntype
+AlwaysBreakAfterReturnType: ExceptShortType
+
+# AlwaysBreakBeforeMultilineStrings: Always break before multiline strings
+# Possible values: true, false
+# false: Don't force break before multiline strings
+# true: Always break before multiline string literals
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alwaysbreakbeforemultilinestrings
+AlwaysBreakBeforeMultilineStrings: false
+
+# CompactNamespaces: Compact nested namespaces
+# Possible values: true, false
+# false: Don't compact namespaces (each namespace on separate line)
+# true: Compact nested namespaces (e.g., "namespace A::B::C {")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#compactnamespaces
+CompactNamespaces: false
+
+# ============================================================================
+# BRACES
+# ============================================================================
+
+# BreakBeforeBraces: Defines the brace breaking rule to use
+# Possible values: Attach, Linux, Mozilla, Stroustrup, Allman, Whitesmiths, Custom
+# Linux: Use Linux kernel style (opening braces on same line for functions/classes,
+#        but on new line for namespaces)
+# This matches the Linux style
+# Note: When set to Custom, use BraceWrapping for fine-grained control
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforebraces
+BreakBeforeBraces: Custom
+
+# BraceWrapping: Fine-grained control over brace placement
+# Each option controls whether to break before/after specific constructs
+# Possible values for each: true (break), false (attach)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping
+BraceWrapping:
+  # AfterCaseLabel: Break after case labels in switch statements
+  # false: Don't break after case label (e.g., "case X: {")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-aftercaselabel
+  AfterCaseLabel: false
+
+  # AfterClass: Break after class keyword
+  # false: Opening brace on same line (e.g., "class Foo {")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-afterclass
+  AfterClass: false
+
+  # AfterControlStatement: Break after control statements (if/for/while/switch)
+  # false: Opening brace on same line (e.g., "if (condition) {")
+  # This maintains: "if (condition) {" style
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-aftercontrolstatement
+  AfterControlStatement: false
+
+  # AfterEnum: Break after enum keyword
+  # false: Opening brace on same line (e.g., "enum Color {")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-afterenum
+  AfterEnum: false
+
+  # AfterFunction: Break after function definition
+  # false: Opening brace on same line (e.g., "void func() {")
+  # This maintains: "void func() {" style
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-afterfunction
+  AfterFunction: true
+
+  # AfterNamespace: Break after namespace keyword
+  # false: Opening brace on same line (e.g., "namespace ns {")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-afternamespace
+  AfterNamespace: true
+
+  # AfterStruct: Break after struct keyword
+  # false: Opening brace on same line (e.g., "struct Point {")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-afterstruct
+  AfterStruct: false
+
+  # AfterUnion: Break after union keyword
+  # false: Opening brace on same line (e.g., "union Data {")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-afterunion
+  AfterUnion: false
+
+  # BeforeElse: Break before else keyword
+  # false: else on same line as closing brace (e.g., "} else {")
+  # This maintains: "} else {" style
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-beforeelse
+  BeforeElse: false
+
+  # IndentBraces: Indent braces themselves (not just their contents)
+  # false: Don't indent braces (braces align with construct keyword)
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-indentbraces
+  IndentBraces: false
+
+  # SplitEmptyFunction: Split empty function definitions across multiple lines
+  # false: Keep empty functions on one line (e.g., "void func() {}")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-splitemptyfunction
+  SplitEmptyFunction: true
+
+  # SplitEmptyRecord: Split empty record definitions across multiple lines
+  # false: Keep empty records on one line (e.g., "struct S {};")
+  # Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bracewrapping-splitemptyrecord
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# Cpp11BracedListStyle: Use C++11 braced list style
+# Possible values: true, false
+# false: Don't use C++11 braced list style (use traditional initialization)
+# true: Use C++11 braced list style (e.g., "vector<int> v{1, 2, 3}")
+# This affects how initializer lists are formatted
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#cpp11bracedliststyle
+Cpp11BracedListStyle: false
+
+# ============================================================================
+# SPACING
+# ============================================================================
+
+# SpaceAfterCStyleCast: Put space after C-style cast
+# Possible values: true, false
+# false: No space after cast (e.g., "(u32)Value" not "(u32) Value")
+# true: Space after cast (e.g., "(u32) Value")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spaceaftercstylecast
+SpaceAfterCStyleCast: false
+
+# SpaceAfterTemplateKeyword: Put space after template keyword
+# Possible values: true, false
+# true: Space after template keyword (e.g., "template <class T>")
+# false: No space after template keyword (e.g., "template<class T>")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spaceaftertemplatekeyword
+SpaceAfterTemplateKeyword: true
+
+# SpaceBeforeAssignmentOperators: Put space before assignment operators
+# Possible values: true, false
+# true: Space before = (e.g., "x = 5" not "x=5")
+# false: No space before = (e.g., "x=5")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacebeforeassignmentoperators
+SpaceBeforeAssignmentOperators: true
+
+# SpaceBeforeCpp11BracedList: Put space before C++11 braced list
+# Possible values: true, false
+# true: Space before braced list (e.g., "vector<int> v {1, 2, 3}")
+# false: No space before braced list (e.g., "vector<int> v{1, 2, 3}")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacebeforecpp11bracedlist
+SpaceBeforeCpp11BracedList: true
+
+# SpaceBeforeCtorInitializerColon: Put space before constructor initializer colon
+# Possible values: true, false
+# true: Space before colon (e.g., "Foo() : member(0)")
+# false: No space before colon (e.g., "Foo(): member(0)")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacebeforectorinitializercolon
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+
+# SpaceBeforeParens: Control space before parentheses
+# Possible values: Never, ControlStatements, Always, Custom
+# ControlStatements: Put space before parentheses only for control statements
+# This means: "if (condition)" but "func()" (no space after function name)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacebeforeparens
+SpaceBeforeParens: ControlStatementsExceptForEachMacros
+
+# SpaceBeforeRangeBasedForLoopColon: Put space before range-based for loop colon
+# Possible values: true, false
+# true: Space before colon (e.g., "for (auto x : range)")
+# false: No space before colon (e.g., "for (auto x: range)")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacebeforerangebasedforloopcolon
+SpaceBeforeRangeBasedForLoopColon: true
+
+# SpaceInEmptyParentheses: Put space inside empty parentheses
+# Possible values: true, false
+# false: No space (e.g., "func()" not "func( )")
+# true: Space inside empty parentheses (e.g., "func( )")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spaceinemptyparentheses
+SpaceInEmptyParentheses: false
+
+# SpacesBeforeTrailingComments: Number of spaces before trailing comments
+# Possible values: Positive integer
+# 1: One space before comment (e.g., "int x = 5; // comment")
+# This controls spacing for end-of-line comments
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacesbeforetrailingcomments
+SpacesBeforeTrailingComments: 1
+
+# SpacesInLineCommentPrefix: Control spaces at the start of line comments (//)
+# Minimum: Minimum number of spaces required after //
+# Maximum: Maximum number of spaces allowed after // (-1 means no limit)
+# One space is forced, but more spaces are possible
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacesinlinecommentprefix
+SpacesInLineCommentPrefix:
+  Minimum: 1
+  Maximum: -1
+
+# SpacesInCStyleCastParentheses: Put space inside C-style cast parentheses
+# Possible values: true, false
+# false: No space (e.g., "(u32)value" not "( u32 ) value")
+# true: Space inside parentheses (e.g., "( u32 ) value")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacesincstylecastparentheses
+SpacesInCStyleCastParentheses: false
+
+# SpacesInParentheses: Put space inside parentheses
+# Possible values: true, false
+# false: No space (e.g., "func(arg)" not "func( arg )")
+# true: Space inside parentheses (e.g., "func( arg )")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacesinparentheses
+SpacesInParentheses: false
+
+# SpacesInSquareBrackets: Put space inside square brackets
+# Possible values: true, false
+# false: No space (e.g., "array[0]" not "array[ 0 ]")
+# true: Space inside square brackets (e.g., "array[ 0 ]")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacesinsquarebrackets
+SpacesInSquareBrackets: false
+
+# BitFieldColonSpacing: How to handle spaces around bitfield colons
+# Possible values: None, Before, After, Both
+# Both: Space on both sides of colon (e.g., "unsigned bf : 2")
+# This affects formatting of bitfield declarations in structs/unions
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#bitfieldcolonspacing
+BitFieldColonSpacing: Both
+
+# SeparateDefinitionBlocks: Whether to separate definition blocks with empty lines
+# Possible values: Preserve, Always, Never
+# Always: Always add empty lines between definition blocks
+# This helps visually separate different logical sections of code
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#separatedefinitionblocks
+SeparateDefinitionBlocks: Always
+
+# ============================================================================
+# ALIGNMENT
+# ============================================================================
+
+# AlignAfterOpenBracket: Align after opening bracket
+# Possible values: Align, DontAlign, AlwaysBreak
+# Align: Align multi-line expressions after opening bracket
+# DontAlign: Don't align after opening bracket
+# AlwaysBreak: Always break after opening bracket
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignafteropenbracket
+AlignAfterOpenBracket: Align
+
+# AlignConsecutiveAssignments: Align consecutive assignments
+# Possible values: true, false, Consecutive, AcrossEmptyLines, AcrossComments, AcrossEmptyLinesAndComments
+# false: Don't align assignments
+# true: Align consecutive assignments
+# Consecutive: Align consecutive assignments only
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutiveassignments
+AlignConsecutiveAssignments: false
+
+# AlignConsecutiveDeclarations: Align consecutive declarations
+# Possible values: true, false, Consecutive, AcrossEmptyLines, AcrossComments, AcrossEmptyLinesAndComments
+# true: Align consecutive declarations (variable names align vertically)
+# false: Don't align declarations
+# This helps create visually aligned columns of variable names
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutivedeclarations
+AlignConsecutiveDeclarations: false
+
+# AlignConsecutiveBitFields: Align consecutive bitfield declarations
+# Possible values: true, false, Consecutive, AcrossEmptyLines, AcrossComments, AcrossEmptyLinesAndComments
+# Consecutive: Align consecutive bitfield declarations only
+# This aligns bitfield names and colons vertically
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutivebitfields
+AlignConsecutiveBitFields: Consecutive
+
+# AlignConsecutiveMacros: Align consecutive macro definitions
+# Possible values: true, false, Consecutive, AcrossEmptyLines, AcrossComments, AcrossEmptyLinesAndComments
+# AcrossEmptyLinesAndComments: Align macros even across empty lines and comments
+# This creates visually aligned columns of macro names
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutivemacros
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+
+# AlignConsecutiveShortCaseStatements: Align consecutive short case statements
+# Enabled: Enable alignment of short case statements
+# AcrossComments: Align even across comments
+# AlignCaseColons: Whether to align case colons
+# This helps align case labels in switch statements
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignconsecutiveshortcasestatements
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossComments: true
+  AlignCaseColons: false
+
+# AlignEscapedNewlines: Align escaped newlines
+# Possible values: Left, Right, DontAlign
+# Left: Align escaped newlines to the left
+# Right: Align escaped newlines to the right
+# DontAlign: Don't align escaped newlines
+# This affects formatting of multi-line macros with line continuations
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignescapednewlines
+AlignEscapedNewlines: Left
+
+# AlignOperands: Align operands of binary expressions
+# Possible values: true, false, DontAlign, AlignAfterOperator
+# true: Align operands vertically
+# false: Don't align operands
+# This creates visually aligned columns in multi-line expressions
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignoperands
+AlignOperands: true
+
+# AlignTrailingComments: Align trailing comments
+# Possible values: true, false
+# true: Align trailing comments to a common column
+# false: Don't align trailing comments
+# This creates visually aligned columns of comments
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#aligntrailingcomments
+AlignTrailingComments: true
+
+# AlignArrayOfStructures: Align array of structures
+# Possible values: None, Left, Right
+# None: Don't align structures (current setting)
+# Left: Align structures to the left
+# Right: Align structures to the right
+# This affects formatting of arrays containing structure initializers
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#alignarrayofstructures
+AlignArrayOfStructures: None
+
+# ============================================================================
+# SHORT CONSTRUCTS
+# ============================================================================
+
+# AllowShortIfStatementsOnASingleLine: Allow short if statements on single line
+# Possible values: Never, WithoutElse, OnlyFirstIf, AllIfsAndElse, Always
+# false (Never): Always break if statements across multiple lines
+# This ensures consistent formatting and readability
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowshortifstatementsonasingleline
+AllowShortIfStatementsOnASingleLine: false
+
+# AllowShortLoopsOnASingleLine: Allow short loops on single line
+# Possible values: true, false
+# false: Always break loops across multiple lines
+# true: Allow short loops on single line (e.g., "for (int i = 0; i < n; ++i) sum += i;")
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowshortloopsonasingleline
+AllowShortLoopsOnASingleLine: false
+
+# AllowShortFunctionsOnASingleLine: Allow short functions on single line
+# Possible values: None, InlineOnly, Empty, Inline, All
+# None: Never put short functions on single line
+# Other options allow different types of functions to be on one line
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowshortfunctionsonasingleline
+AllowShortFunctionsOnASingleLine: None
+
+# AllowShortBlocksOnASingleLine: Allow short blocks on single line
+# Possible values: Never, Empty, Always
+# false (Never): Always break blocks across multiple lines
+# This ensures consistent brace placement
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowshortblocksonasingleline
+AllowShortBlocksOnASingleLine: false
+
+# AllowShortLambdaStatementsOnASingleLine: Allow short lambda statements on single line
+# Possible values: None, Empty, Inline, All
+# Empty: Only allow empty lambdas on single line
+# Note: This option is available in clang-format 21.1.0
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#allowshortlambdastatementsonasingleline
+# AllowShortLambdaStatementsOnASingleLine: Empty
+
+# ============================================================================
+# FUNCTIONS AND DECLARATIONS
+# ============================================================================
+
+# BinPackArguments: Bin pack function arguments
+# Possible values: true, false
+# false: Don't bin pack arguments (one per line when wrapping)
+# true: Allow arguments to be on same line if they fit
+# When false, each argument goes on its own line when wrapping
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#binpackarguments
+BinPackArguments: true
+
+# BinPackParameters: Bin pack function parameters
+# Possible values: true, false, OnePerLine
+# OnePerLine: Put each parameter on its own line when wrapping
+# This ensures each parameter is clearly visible and easy to review
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#binpackparameters
+BinPackParameters: true
+
+# ============================================================================
+# INCLUDES
+# ============================================================================
+
+# SortIncludes: Sort includes alphabetically
+# Possible values: true, false, CaseSensitive, CaseInsensitive
+# true: Sort includes alphabetically (case-insensitive)
+# false: Don't sort includes (preserve order)
+# This helps maintain consistent include ordering
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#sortincludes
+SortIncludes: false
+
+# IncludeBlocks: How to group includes
+# Possible values: Preserve, Merge, Regroup
+# Preserve: Preserve existing include blocks (don't reorder)
+# Merge: Merge multiple include blocks into one
+# Regroup: Regroup includes according to IncludeCategories
+# This maintains the library's include organization
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#includeblocks
+IncludeBlocks: Preserve
+
+# IncludeCategories: Categorize includes for sorting
+# List of categories with regex patterns and priorities
+# Priority determines order when sorting is enabled
+# Lower priority = earlier in file (0 comes before 1, etc.)
+# Regex patterns match include paths to categorize them
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#includecategories
+IncludeCategories:
+  # System headers (.h files)
+  # Regex ".*" matches all includes
+  # Priority 0 means these come first when sorting
+  - Regex: ".*"
+    Priority: 0
+
+# ============================================================================
+# COMMENTS
+# ============================================================================
+
+# ReflowComments: Reflow comments
+# Possible values: true, false, IndentOnly
+# IndentOnly: Only reflow indentation of comments, not their content
+# true: Reflow comment text to fit within ColumnLimit
+# false: Don't reflow comments (preserve formatting)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#reflowcomments
+ReflowComments: IndentOnly
+
+# CommentPragmas: Regex matching comment pragmas
+# Comments matching this regex will not be reformatted
+# "^ IWYU pragma:" matches "IWYU pragma:" at the start of a comment
+# Used to prevent formatting of specific comments (e.g., include-what-you-use pragmas)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#commentpragmas
+CommentPragmas: "^ IWYU pragma:"
+
+# ============================================================================
+# POINTERS AND REFERENCES
+# ============================================================================
+
+# PointerAlignment: Pointer and reference alignment style
+# Possible values: Left, Right, Middle
+# Right: Align pointer/reference operators to the right (e.g., "int* ptr", "int& ref")
+# This matches the Linux style
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#pointeralignment
+PointerAlignment: Right
+
+# ReferenceAlignment: Reference alignment style (C++ only)
+# Possible values: Left, Right, Middle, Pointer
+# Right: Align reference operators to the right (e.g., "int& ref")
+# Pointer: Use PointerAlignment setting for references
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#referencealignment
+ReferenceAlignment: Right
+
+# ============================================================================
+# QUALIFIERS
+# ============================================================================
+
+# QualifierAlignment: How to align qualifiers (const, volatile, etc.)
+# Possible values: Leave, Left, Right, Custom
+# Leave: Leave qualifiers as-is (don't move them)
+# Left: Align qualifiers to the left (e.g., "const int*")
+# Right: Align qualifiers to the right (e.g., "int const*")
+# This preserves existing qualifier placement
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#qualifieralignment
+QualifierAlignment: Leave
+
+# ============================================================================
+# EMPTY LINES
+# ============================================================================
+
+# KeepEmptyLines: Control which empty lines to keep
+# AtEndOfFile: Keep empty lines at end of file
+# AtStartOfBlock: Keep empty lines at start of blocks
+# AtStartOfFile: Keep empty lines at start of file
+# Each can be true or false
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#keepemptylines
+KeepEmptyLines:
+  # AtEndOfFile: Keep empty lines at end of file
+  # false: Remove empty lines at end of file
+  AtEndOfFile: false
+
+  # AtStartOfBlock: Keep empty lines at start of blocks
+  # false: Remove empty lines at start of blocks
+  AtStartOfBlock: false
+
+  # AtStartOfFile: Keep empty lines at start of file
+  # false: Remove empty lines at start of file
+  AtStartOfFile: false
+
+# MaxEmptyLinesToKeep: Maximum consecutive empty lines
+# Possible values: Positive integer or 0
+# 1: Keep at most one empty line (remove extra consecutive empty lines)
+# 0: Remove all empty lines
+# This helps maintain consistent spacing
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#maxemptylinestokeep
+MaxEmptyLinesToKeep: 1
+
+# RemoveEmptyLinesInUnwrappedLines: Remove empty lines in unwrapped lines
+# Possible values: true, false
+# true: Remove empty lines in unwrapped (single-line) code blocks
+# false: Keep empty lines even in unwrapped lines
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#removeemptylinesinunwrappedlines
+RemoveEmptyLinesInUnwrappedLines: true
+
+# EmptyLineBeforeAccessModifier: Empty line before access modifiers
+# Possible values: Never, Leave, Always, LogicalBlock
+# LogicalBlock: Add empty line before access modifier if it starts a new logical block
+# This helps visually separate access control sections in classes
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#emptylinebeforeaccessmodifier
+EmptyLineBeforeAccessModifier: LogicalBlock
+
+# ============================================================================
+# PENALTIES
+# ============================================================================
+#
+# Penalty options control the cost of various formatting decisions.
+# Lower values make a formatting choice more likely, higher values make it less likely.
+# These are used internally by clang-format to decide between formatting alternatives.
+
+PenaltyBreakAssignment: 10
+
+# PenaltyBreakBeforeFirstCallParameter: Penalty for breaking before first call parameter
+# Possible values: Integer (typically 0-1000)
+# Lower values = more likely to break before first parameter
+# Higher values = less likely to break before first parameter
+# 200: Moderate penalty (prefers keeping first parameter on same line)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#penaltybreakbeforefirstcallparameter
+PenaltyBreakBeforeFirstCallParameter: 30
+PenaltyBreakComment: 10
+PenaltyBreakFirstLessLess: 0
+
+# PenaltyBreakString: Penalty for breaking string literal
+# Possible values: Integer (typically 0-1000)
+# Higher values = less likely to break string literals
+# 1000: Very high penalty (strongly prefer keeping strings intact)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#penaltybreakstring
+PenaltyBreakString: 10
+
+# PenaltyExcessCharacter: Penalty for exceeding column limit
+# Possible values: Integer (typically 0-1000)
+# Very high value = strongly prefer staying within column limit
+# 500: High penalty (strongly discourages exceeding ColumnLimit)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#penaltyexcesscharacter
+PenaltyExcessCharacter: 100
+
+# PenaltyReturnTypeOnItsOwnLine: Penalty for return type on its own line
+# Possible values: Integer (typically 0-1000)
+# Lower values = more likely to put return type on its own line
+# Higher values = less likely to put return type on its own line
+# 300: Moderate penalty (prefers return type on same line when possible)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#penaltyreturntypeonitsownline
+PenaltyReturnTypeOnItsOwnLine: 60
+
+# ============================================================================
+# MACROS
+# ============================================================================
+
+# DisableFormat: Disable formatting
+# Possible values: true, false
+# false: Enable formatting (normal operation)
+# true: Disable formatting entirely
+# This can be used to disable formatting for specific files or regions
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#disableformat
+DisableFormat: false
+
+# ForEachMacros: Macros that should be interpreted as foreach loops
+# List of macro names that should be treated like foreach loops
+# These macros will be formatted specially to preserve their structure
+# Each macro name should be listed as a separate item
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#foreachmacros
+ForEachMacros:
+  - LIST_FOREACH
+  - LIST_FOREACH_SAFE
+
+# TypenameMacros: Macros that should be interpreted as type names
+# List of macro names that should be treated as type names
+# These macros will be formatted like type names (e.g., with proper spacing)
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#typenamemacros
+TypenameMacros:
+  - CREATE_LIST
+
+MacroBlockBegin: ''
+MacroBlockEnd: ''
+
+# ============================================================================
+# LINE ENDINGS
+# ============================================================================
+
+# LineEnding: Line ending style
+# Possible values: LF, CRLF, CR, Unset
+# LF: Unix-style line endings (Linux/Mac) - single line feed character
+# CRLF: Windows-style line endings - carriage return + line feed
+# CR: Old Mac-style line endings - single carriage return
+# Unset: Use platform default
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#lineending
+LineEnding: LF
+
+# ============================================================================
+# MISCELLANEOUS
+# ============================================================================
+
+# FixNamespaceComments: Fix namespace comments
+# Possible values: true, false
+# true: Fix namespace end comments to match namespace name
+# false: Don't fix namespace comments
+# This ensures namespace closing comments match their opening names
+# Reference: https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html#fixnamespacecomments
+FixNamespaceComments: true
+
+
+
+
+# ============================================================================
+# NOTES
+# ============================================================================
+#
+# This configuration is specifically tailored for the embeddedsw
+# which use:
+# - Tab-based indentation (8 spaces per tab)
+# - Opening braces on same line (Linux style)
+# - Right-aligned pointers (int* ptr)
+# - Yoda-style comparisons (NULL == Ptr)
+# - Extensive use of goto error handling pattern
+# - Multi-line function declarations with tab-aligned parameters
+# - Designated struct initializers
+#
+# For more information on clang-format options, see:
+# https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormatStyleOptions.html
+#
+# For LLVM coding standards:
+# https://llvm.org/docs/CodingStandards.html
+#
+# To use this configuration:
+# 1. Save as .clang-format in your project root
+# 2. Run: clang-format -i <file> to format files
+# 3. Or integrate with your editor (VS Code, Vim, Emacs, etc.)
+#
+# Example usage:
+#   clang-format -i lib/sw_services/xilpm_ng/src/**/*.c
+#   clang-format -i lib/sw_services/xilpm_ng/src/**/*.h
