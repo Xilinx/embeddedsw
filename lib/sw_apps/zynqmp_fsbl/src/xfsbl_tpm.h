@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv  04/01/21 Initial release
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
+*       sd   01/08/25 Add PCR indices for partitions missing in the boot image
 *
 * </pre>
 *
@@ -54,12 +55,21 @@ extern "C" {
 
 #define XFSBL_TPM_CSU_ROM_PCR_INDEX		(0U)
 #define XFSBL_TPM_FSBL_PCR_INDEX		(1U)
-#define XFSBL_TPM_ATF_PCR_INDEX			(2U)
-#define XFSBL_TPM_UBOOT_PCR_INDEX		(3U)
-#define XFSBL_TPM_PMU_PCR_INDEX			(4U)
+#define XFSBL_TPM_PMU_PCR_INDEX			(2U)
+#define XFSBL_TPM_ATF_PCR_INDEX			(3U)
+#define XFSBL_TPM_UBOOT_PCR_INDEX		(4U)
+#define XFSBL_TPM_HYPERVISOR_PCR_INDEX	(5U)
 #define XFSBL_TPM_PL_PCR_INDEX			(6U)
-#define XFSBL_TPM_DATA_SIZE_INDEX	(5U)
-#define XFSBL_TPM_PCR_EXTEND_INDEX	(13U)
+#define XFSBL_TPM_TRUSTED_OS_PCR_INDEX	(17U)
+#define XFSBL_TPM_TRUSTED_APP_PCR_INDEX	(18U)
+#define XFSBL_TPM_RPU0_PCR_INDEX		(19U)
+#define XFSBL_TPM_RPU1_PCR_INDEX		(20U)
+#define XFSBL_TPM_DATA_SIZE_INDEX		(5U)
+#define XFSBL_TPM_PCR_EXTEND_INDEX		(13U)
+#define XFSBL_EL0_VAL			(0U)
+#define XFSBL_EL1_VAL			(2U)
+#define XFSBL_EL2_VAL			(4U)
+#define XFSBL_EL3_VAL			(6U)
 
 #define	XFSBL_TPM_DID_VID			(0x0F00U)
 #define	XFSBL_TPM_RID				(0x0F04U)

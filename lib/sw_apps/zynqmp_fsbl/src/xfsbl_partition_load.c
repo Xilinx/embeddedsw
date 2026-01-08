@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 * 6.1   ng   07/13/23 Added SDT support
 * 10.0  tvp  09/20/25 Give error if, image is authenticated but but no PPK
 *                     found in eFuse and bh_auth is not enabled
+*       sd   01/08/25 Add PCR indices for partitions missing in the boot image
 *
 * </pre>
 *
@@ -89,10 +90,6 @@
 #define XFSBL_FIRMWARE_STATE_UNKNOWN	0U
 #define XFSBL_FIRMWARE_STATE_SECURE	1U
 #define XFSBL_FIRMWARE_STATE_NONSECURE	2U
-#endif
-#ifdef XFSBL_TPM
-#define XFSBL_EL2_VAL		(4U)
-#define XFSBL_EL3_VAL		(6U)
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -2109,6 +2106,10 @@ static u8 XFsbl_GetPcrIndex(const XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	{
 		PcrIndex = XFSBL_TPM_PL_PCR_INDEX;
 	}
+	else if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_PMU)
+	{
+		PcrIndex = XFSBL_TPM_PMU_PCR_INDEX;
+	}
 	else if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_A53_0)
 	{
 		if (ElFlag == XFSBL_EL3_VAL)
@@ -2119,6 +2120,22 @@ static u8 XFsbl_GetPcrIndex(const XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		{
 			PcrIndex = XFSBL_TPM_UBOOT_PCR_INDEX;
 		}
+		else if (ElFlag == XFSBL_EL1_VAL)
+		{
+			PcrIndex = XFSBL_TPM_TRUSTED_OS_PCR_INDEX;
+		}
+		else if (ElFlag == XFSBL_EL0_VAL)
+		{
+			PcrIndex = XFSBL_TPM_TRUSTED_APP_PCR_INDEX;
+		}
+	}
+	else if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_0)
+	{
+		PcrIndex = XFSBL_TPM_RPU0_PCR_INDEX;
+	}
+	else if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_1)
+	{
+		PcrIndex = XFSBL_TPM_RPU1_PCR_INDEX;
 	}
 
 	return PcrIndex;
