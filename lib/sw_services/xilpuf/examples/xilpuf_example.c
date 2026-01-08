@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,8 @@
 		 vek  05/31/23  Added support for Programming PUF secure control bits
   *	  vss	11/22/23 Added header file required for SDT flow
   * 2.6   rpu  07/15/25 Fixed GCC warnings
+  * 2.7   bha  01/06/26 Fixed Doxygen warnings
+  * </pre>
   *@note
   *
  *****************************************************************************/
@@ -813,8 +815,6 @@ END:
  *
  * @param	InstancePtr Pointer to client instance
  *
- * @return	None.
- *
  ******************************************************************************/
 static void XPuf_ShowPufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 {
@@ -918,8 +918,6 @@ END:
  * @param	SwapPtr    - Pointer to the reversed data.
  * @param	Len        - Length of the data in bytes.
  *
- * @return	None
- *
  ******************************************************************************/
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
 {
@@ -940,8 +938,6 @@ static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
  *
  * @param	Data - Pointer to the data to be printed.
  * @param	Len  - Length of the data in bytes.
- *
- * @return	None
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8* Data, u32 Len)

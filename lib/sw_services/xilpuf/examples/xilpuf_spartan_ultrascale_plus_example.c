@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +50,8 @@
   *       mb   09/11/25 Added support for calculate 384 bit PUF HD hash
   *       mb   10/05/25 Minor updates in xilpuf library
   *       mb   11/06/25 Fix for PUF Regeneration on demand test case
+  * 2.7   bha  01/06/26 Fixed Doxygen warnings
+  * </pre>
   *
   *@note
   *
@@ -1013,8 +1015,6 @@ END:
  * @param	SwapPtr    - Pointer to the reversed data.
  * @param	Len        - Length of the data in bytes.
  *
- * @return	None
- *
  ******************************************************************************/
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len)
 {
@@ -1034,8 +1034,6 @@ static void XPuf_ReverseData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len)
  *
  * @param	Data - Pointer to the data to be printed.
  * @param	Len  - Length of the data in bytes.
- *
- * @return	None
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8 *Data, u32 Len)

@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
  /*****************************************************************************/
  /**
  *
- * @file xilpuf_versal_net_example.h.
+ * @file xilpuf_versal_net_example.h
  *
  * This example is supported for versal_net devices.It contains macros which needs
  * to be configured by user for xilpuf_versal_net_example.c
@@ -19,6 +19,7 @@
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
  * 1.0   har     07/05/22 First release
+ * 2.7   bha     01/06/26 Fixed Doxygen warnings
  *
  * </pre>
  *
@@ -32,12 +33,12 @@
  *
  * (I) GENERATE PUF KEK AND PUF ID
  *
- * #define XPUF_GENERATE_KEK_N_ID			(TRUE)
+ * \#define XPUF_GENERATE_KEK_N_ID			(TRUE)
  * This macro must be configured as TRUE to generate both PUF KEK and PUF ID. In order
  * to generate PUF ID only, it should be configured as FALSE. The default option is set
  * as TRUE to enable encryption of keys and UDS.
  *
- * #define XPUF_KEY_GENERATE_OPTION			(XPUF_REGISTRATION)
+ * \#define XPUF_KEY_GENERATE_OPTION			(XPUF_REGISTRATION)
  * 								OR
  * 							(XPUF_REGEN_ON_DEMAND)
  * This macro must be configured to select an option to generate PUF KEK. It can be configured
@@ -45,46 +46,46 @@
  * XPUF_REGISTRATION. This configuration is mandatory if XPUF_GENERATE_KEK_N_ID is selected
  * as TRUE.
  *
- * #define XPUF_READ_HD_OPTION				(XPUF_READ_FROM_RAM)
+ * \#define XPUF_READ_HD_OPTION				(XPUF_READ_FROM_RAM)
  * This selects the location from where the helper data must be read by the
  * application. This option must be configured if XPUF_KEY_GENERATE_OPTION
  * is configured as XPUF_REGEN_ON_DEMAND or if XPUF_GENERATE_KEK_N_ID is configured as
  * FALSE.
  *
- * #define XPUF_CHASH					(0x00000000)
+ * \#define XPUF_CHASH					(0x00000000)
  * CHASH value should be supplied if XPUF_READ_HD_OPTION is configured as
  * XPUF_READ_FROM_RAM.The length of CHASH should be 24 bits This can be obtained
  * by performing PUF registration and writing the helper data on the UART.
  *
- * #define XPUF_AUX					(0x00000000)
+ * \#define XPUF_AUX					(0x00000000)
  * AUX value should be supplied if XPUF_READ_HD_OPTION is configured as
  * XPUF_READ_FROM_RAM.The length of AUX should be 32 bits This can be obtained
  * by performing PUF registration and writing the helper data on the UART.
  *
- * #define XPUF_SYN_DATA_ADDRESS			(0x00000000)
+ * \#define XPUF_SYN_DATA_ADDRESS			(0x00000000)
  * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
  * configured as XPUF_READ_FROM_RAM.
  *
- * #define XPUF_GLBL_VAR_FLTR_OPTION			(TRUE)
+ * \#define XPUF_GLBL_VAR_FLTR_OPTION			(TRUE)
  * It is recommended to always enable this option to ensure entropy. It can
  * be configured as FALSE to disable Global Variation Filter.
  *
- * #define XPUF_RO_SWAP_VAL				(0x0U)
+ * \#define XPUF_RO_SWAP_VAL				(0x0U)
  * RO Swap Value should be supplied which will be used at time of PUF operation.
  *
  * (II) GENERATE BLACK KEY
  *
- * #define XPUF_ENCRYPT_RED_KEY				(FALSE)
+ * \#define XPUF_ENCRYPT_RED_KEY				(FALSE)
  * This option must be configured as TRUE to encrypt red key to get
  * the black key.
  *
- * #define XPUF_RED_KEY
+ * \#define XPUF_RED_KEY
  * 		"0000000000000000000000000000000000000000000000000000000000000000"
  * Red Key to be encrypted by PUF KEK should be provided in string format. It
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_RED_KEY_LEN				(XPUF_RED_KEY_SIZE_256)
+ * \#define XPUF_RED_KEY_LEN				(XPUF_RED_KEY_SIZE_256)
  *								(or)
  *							(XPUF_RED_KEY_SIZE_128)
  * XPUF_RED_KEY_LEN can be configured as one of the two provided options. This
@@ -94,48 +95,48 @@
  *
  * (III) GENERATE UDS PRIME
  *
- * #define XPUF_ENCRYPT_UDS				(FALSE)
+ * \#define XPUF_ENCRYPT_UDS				(FALSE)
  * This option must be configured as TRUE to encrypt UDS.
  *
- * #define XPUF_UDS
+ * \#define XPUF_UDS
  * 		"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
  * UDS to be encrypted by PUF KEK should be provided in string format. It
  * should be 96 characters long.
  *
  * (IV) GENERATE ENCRYPTED DME PRIVATE KEYS
  *
- * #define XPUF_ENCRYPT_DME_PRIV_KEY_0			(FALSE)
+ * \#define XPUF_ENCRYPT_DME_PRIV_KEY_0			(FALSE)
  * This option must be configured as TRUE to encrypt DME Private key 0.
  *
- * #define XPUF_DME_PRIV_KEY_0
+ * \#define XPUF_DME_PRIV_KEY_0
  * 		"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
  * DME Private Key 0 to be encrypted by PUF KEK should be provided in string format. It
  * should be 96 characters long.
 
- * #define XPUF_ENCRYPT_DME_PRIV_KEY_1			(FALSE)
+ * \#define XPUF_ENCRYPT_DME_PRIV_KEY_1			(FALSE)
  * This option must be configured as TRUE to encrypt DME Private key 1.
  *
-  #define XPUF_DME_PRIV_KEY_1
+  \#define XPUF_DME_PRIV_KEY_1
  * 		"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
  * DME Private Key 1 to be encrypted by PUF KEK should be provided in string format. It
  * should be 96 characters long.
  *
- * #define XPUF_ENCRYPT_DME_PRIV_KEY_2			(FALSE)
+ * \#define XPUF_ENCRYPT_DME_PRIV_KEY_2			(FALSE)
  * This option must be configured as TRUE to encrypt DME Private key 2.
  *
-  #define XPUF_DME_PRIV_KEY_2
+  \#define XPUF_DME_PRIV_KEY_2
  * 		"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
  * DME Private Key 2 to be encrypted by PUF KEK should be provided in string format. It
  * should be 96 characters long.
- * #define XPUF_ENCRYPT_DME_PRIV_KEY_3			(FALSE)
+ * \#define XPUF_ENCRYPT_DME_PRIV_KEY_3			(FALSE)
  * This option must be configured as TRUE to encrypt DME Private key 3.
   *
- * #define XPUF_DME_PRIV_KEY_3
+ * \#define XPUF_DME_PRIV_KEY_3
  * 		"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
  * DME Private Key 3 to be encrypted by PUF KEK should be provided in string format. It
  * should be 96 characters long.
  *
- * #define XPUF_IV				"000000000000000000000000"
+ * \#define XPUF_IV				"000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
@@ -151,37 +152,37 @@
  *
  * (IV) Program encrypted UDS, encrypted DME private keys and DME mode
  *
- * #define XPUF_ENV_MONITOR_DISABLE		(FALSE)
+ * \#define XPUF_ENV_MONITOR_DISABLE		(FALSE)
  *
  * TRUE will disable the temparature and voltage checks before eFuse programming.
  * FALSE will not disable the temparature and voltage checks before eFuse programming.
  * By default the value will be FALSE.
  *
- * #define XPUF_PRGM_UDS			(FALSE)
+ * \#define XPUF_PRGM_UDS			(FALSE)
  * If set as TRUE, the encrypted UDS will be programmed into eFuses.
  * By default the value is set to FALSE
  *
- * #define XPUF_PRGM_ENC_DME_PRIV_KEY_0		(FALSE)
+ * \#define XPUF_PRGM_ENC_DME_PRIV_KEY_0		(FALSE)
  * If set as TRUE, the encrypted DME private key 0 will be programmed into eFuses.
  * By default the value is set to FALSE
  *
- * #define XPUF_PRGM_ENC_DME_PRIV_KEY_1		(FALSE)
+ * \#define XPUF_PRGM_ENC_DME_PRIV_KEY_1		(FALSE)
  * If set as TRUE, the encrypted DME private key 1 will be programmed into eFuses.
  * By default the value is set to FALSE
  *
- * #define XPUF_PRGM_ENC_DME_PRIV_KEY_2		(FALSE)
+ * \#define XPUF_PRGM_ENC_DME_PRIV_KEY_2		(FALSE)
  * If set as TRUE, the encrypted DME private key 2 will be programmed into eFuses.
  * By default the value is set to FALSE
  *
- * #define XPUF_PRGM_ENC_DME_PRIV_KEY_3		(FALSE)
+ * \#define XPUF_PRGM_ENC_DME_PRIV_KEY_3		(FALSE)
  * If set as TRUE, the encrypted DME private key 3 will be programmed into eFuses.
  * By default the value is set to FALSE
  *
- * #define XPUF_PRGM_DME_MODE			(FALSE)
+ * \#define XPUF_PRGM_DME_MODE			(FALSE)
  * If set as TRUE, the DME mode specified in XPUF_DME_MODE_VAL will be programmed into eFuses.
  * FALSE will ignore the value provided in XPUF_DME_MODE_VAL.
  *
- * #define XPUF_DME_MODE_VAL			(0x0)
+ * \#define XPUF_DME_MODE_VAL			(0x0)
  * The value of DME mode which should be programmed into eFuses. The maximum allowed
  * value of DME mode is 0xF.
  *

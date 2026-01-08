@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
  /*****************************************************************************/
  /**
  *
- * @file xilpuf_example.h.
+ * @file xilpuf_example.h
  * This file contains macros which needs to configured by user for
  * xilpuf_example.cand based on the options selected by user operations will be
  * performed.
@@ -25,18 +25,19 @@
  * 1.3   har     05/20/21 Added option to program Black IV
  * 2.1   skg     12/14/22 Added enum for slr indexs
  * 2.5   hj      02/17/25 Added IV and red key macros for SSITs.
+ * 2.7   bha     01/06/26 Fixed Doxygen warnings
  *
  * </pre>
  *
  * User configurable parameters for PUF
  *------------------------------------------------------------------------------
- * #define XPUF_RED_KEY
+ * \#define XPUF_RED_KEY
  * 	      "0000000000000000000000000000000000000000000000000000000000000000"
  * Red Key to be encrypted by PUF KEY should be provided in string format.It
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_RED_KEY_LEN				(XPUF_RED_KEY_SIZE_256)
+ * \#define XPUF_RED_KEY_LEN				(XPUF_RED_KEY_SIZE_256)
  *							(or)
  *						(XPUF_RED_KEY_SIZE_128)
  * XPUF_RED_KEY_LEN can be configured as one of the two provided options. This
@@ -44,66 +45,66 @@
  * Only 128 bit and 256 bit key are supported. By default the length of red key is
  * configured as 256 bit.
  *
- * #define XPUF_RED_KEY0   \
+ * \#define XPUF_RED_KEY0   \
  * 	"0000000000000000000000000000000000000000000000000000000000000000"
  * SLR 0 Red Key to be encrypted by PUF KEY should be provided in string format.It
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_RED_KEY1   \
+ * \#define XPUF_RED_KEY1   \
  *	"0000000000000000000000000000000000000000000000000000000000000000"
  * SLR 1 Red Key to be encrypted by PUF KEY should be provided in string format.It
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_RED_KEY2   \
+ * \#define XPUF_RED_KEY2   \
  *	"0000000000000000000000000000000000000000000000000000000000000000"
  * SLR 2 Red Key to be encrypted by PUF KEY should be provided in string format.It
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_RED_KEY3   \
+ * \#define XPUF_RED_KEY3   \
  *      "0000000000000000000000000000000000000000000000000000000000000000"
  * SLR 3 Red Key to be encrypted by PUF KEY should be provided in string format.It
  * should be either 32 or 64 characters long as only 128 bit and 256 bit key
  * are supported.
  *
- * #define XPUF_IV				"000000000000000000000000"
+ * \#define XPUF_IV				"000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
  * with the AES-GCM cryptographic hardware in order to encrypt red key.
  *
- * #define XPUF_IV0                                "000000000000000000000000"
+ * \#define XPUF_IV0                                "000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
  * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 0.
  *
- * #define XPUF_IV1                                "000000000000000000000000"
+ * \#define XPUF_IV1                                "000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
  * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 1.
  *
- * #define XPUF_IV2                                "000000000000000000000000"
+ * \#define XPUF_IV2                                "000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
  * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 2.
  *
- * #define XPUF_IV3                                "000000000000000000000000"
+ * \#define XPUF_IV3                                "000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
  * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 3.
  *
- * #define XPUF_GENERATE_KEK_N_ID			(TRUE)
+ * \#define XPUF_GENERATE_KEK_N_ID			(TRUE)
  * This macro must be configured as TRUE to generate both PUF KEK and PUF ID. In order
  * to generate PUF ID only, it should be configured as FALSE. The default option is set
  * as TRUE to enable encryption of Red Key.
  *
- * #define XPUF_KEY_GENERATE_OPTION		(XPUF_REGISTRATION)
+ * \#define XPUF_KEY_GENERATE_OPTION		(XPUF_REGISTRATION)
  *							(or)
  *						(XPUF_REGEN_ON_DEMAND)
  * PUF Key can be generated by PUF registration or PUF on-demand
@@ -111,32 +112,32 @@
  * XPUF_REGISTRATION or XPUF_REGEN_ON_DEMAND to select the mode of PUF operation
  * to generate helper data. It should be configured only when XPUF_GENERATE_KEK_N_ID as TRUE.
  *
- * #define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
+ * \#define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
  *							(or)
  *						(XPUF_READ_FROM_EFUSE_CACHE)
  * This selects the location from where the helper data must be read by the
  * application. This option must be configured if XPUF_KEY_GENERATE_OPTION
  * is configured as XPUF_REGEN_ON_DEMAND.
  *
-  #define XPUF_CHASH				(0x00000000)
+  \#define XPUF_CHASH				(0x00000000)
  * CHASH value should be supplied if XPUF_READ_HD_OPTION is configured as
  * XPUF_READ_FROM_RAM.The length of CHASH should be 24 bits This can be obtained
  * by performing PUF registration and writing the helper data on the UART.
  *
- * #define XPUF_AUX				(0x00000000)
+ * \#define XPUF_AUX				(0x00000000)
  * AUX value should be supplied if XPUF_READ_HD_OPTION is configured as
  * XPUF_READ_FROM_RAM.The length of AUX should be 32 bits This can be obtained
  * by performing PUF registration and writing the helper data on the UART.
  *
- * #define XPUF_SYN_DATA_ADDRESS		(0x00000000)
+ * \#define XPUF_SYN_DATA_ADDRESS		(0x00000000)
  * Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
  * configured as XPUF_READ_FROM_RAM.
  *
- * #define XPUF_WRITE_HD_IN_EFUSE		(FALSE)
+ * \#define XPUF_WRITE_HD_IN_EFUSE		(FALSE)
  * If this option is configured as TRUE then PUF helper data is written into the
  * eFUSE.
  *
- * #define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
+ * \#define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
  *							(or)
  *						(XPUF_EFUSE_AES_KEY_N_IV)
  *							(or)
@@ -152,35 +153,35 @@
  * XPUF_EFUSE_USER_1_KEY then the Black key is programmed in the corresponding location
  * but Black IV is not programmed.
 
- * #define XPUF_READ_SEC_CTRL_BITS		(FALSE)
+ * \#define XPUF_READ_SEC_CTRL_BITS		(FALSE)
  * This option should be configured as TRUE to read secure control eFUSE bits
  * of PUF
  *
- * #define XPUF__SEC_CTRL_BITS		(FALSE)
+ * \#define XPUF__SEC_CTRL_BITS		(FALSE)
  * This option should be configured as TRUE to program secure control eFUSE bits
  * of PUF
  *
- * #define PUF_DIS				(FALSE)
+ * \#define PUF_DIS				(FALSE)
  * This option should be configured as TRUE to program the PUF_DIS eFUSE bit
  *
- * #define PUF_REGEN_DIS			(FALSE)
+ * \#define PUF_REGEN_DIS			(FALSE)
  * This option should be configured as TRUE to program the PUF_REGEN_DIS eFUSE bit
  *
- * #define PUF_HD_INVLD				(FALSE)
+ * \#define PUF_HD_INVLD				(FALSE)
  * This option should be configured as TRUE to program the PUF_HD_INVLD eFUSE bit
  *
- * #define PUF_SYN_LK				(FALSE)
+ * \#define PUF_SYN_LK				(FALSE)
  * This option should be configured as TRUE to program the PUF_SYN_LK eFUSE bit
  *
- * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+ * \#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
  * It is recommended to always enable this option to ensure entropy. It can
  * be configured as FALSE to disable Global Variation Filter.
  *
- * #define XPUF_ENV_MONITOR_DISABLE		(FALSE)
+ * \#define XPUF_ENV_MONITOR_DISABLE		(FALSE)
  * This option should be configured as TRUE to disable the temparature and voltage
  * checks before eFuses programming.
  *
- * #define SLR_INDEX	   (XPUF_SLR_INDEX_0)
+ * \#define SLR_INDEX	   (XPUF_SLR_INDEX_0)
  *							(or)
  *						(XPUF_SLR_INDEX_1)
  *							(or)

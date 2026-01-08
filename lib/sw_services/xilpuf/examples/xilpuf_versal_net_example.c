@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
   * 2.3	  vss	03/06/24 Removed server related APIs
   * 2.4   har   05/06/24 Fixed issue in case of regeneration from eFUSE cache
   * 2.6   rpu   07/15/25 Fixed GCC warnings
+  * 2.7   bha   01/06/26 Fixed Doxygen warnings
+  * </pre>
   *@note
   *
  *****************************************************************************/
@@ -806,8 +808,6 @@ static u32 XPuf_ReverseByteOrder(u32 Data)
  *
  * @param	Data - Pointer to the data to be printed.
  * @param	Len  - Length of the data in bytes.
- *
- * @return	None
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8* Data, u32 Len)

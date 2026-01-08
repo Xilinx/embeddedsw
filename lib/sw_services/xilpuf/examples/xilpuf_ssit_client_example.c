@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,8 @@
   * ----- ---  -------- -------------------------------------------------------
   * 2.5   hj   02/11/25 Initial release
   * 2.5   hj   03/25/25 Remove master and slave keywords
+  * 2.7   bha  01/06/26 Fixed Doxygen warnings
+  * </pre>
   *
   *@note
   *
@@ -154,8 +156,8 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput(XNvm_ClientInstance *InstancePtr);
-static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxPtr, u32 slr);
-static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr, u32 slr);
+static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxPtr, u32 SlrIdx);
+static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr, u32 SlrIdx);
 static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr);
 static void XPuf_ShowPufSecCtrlBits(XNvm_ClientInstance *InstancePtr);
 static void XPuf_ShowData(const u8* Data, u32 Len);
@@ -382,6 +384,7 @@ END:
  *
  * @param	InstancePtr Pointer to NVM client instance
  * @param	MailboxPtr  Pointer to mailbox instance
+ * @param	SlrIdx         SLR index
  *
  * @return
  *		- XST_SUCCESS - if PUF_KEY generation was successful.
@@ -401,7 +404,7 @@ END:
  *		- XST_FAILURE - if PUF KEY generation failed.
  *
  ******************************************************************************/
-static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxPtr, u32 slr)
+static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxPtr, u32 SlrIdx)
 {
 	int Status = XST_FAILURE;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
@@ -415,7 +418,7 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 		goto END;
 	}
 
-	Status = XPuf_SetSlrIndex(&PufClientInstance, slr);
+	Status = XPuf_SetSlrIndex(&PufClientInstance, SlrIdx);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Invalid SlrIndex %x\r\n", Status);
 		goto END;
@@ -563,6 +566,7 @@ END:
  * @brief	This function encrypts the red key with PUF KEY and IV.
  *
  * @param	MailboxPtr Pointer to mailbox instance
+ * @param	SlrIdx        SLR index
  *
  * @return
  * 		- XST_SUCCESS - if black key generation was successful
@@ -571,7 +575,7 @@ END:
  * 			AES Encrypt data and format AES key.
  *
  ******************************************************************************/
-static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr, u32 slr)
+static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr, u32 SlrIdx)
 {
 	int Status = XST_FAILURE;
 	XSecure_ClientInstance SecureClientInstance;
@@ -581,15 +585,15 @@ static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr, u32 slr)
 		goto END;
 	}
 
-	Status = XSecure_SetSlrIndex(&SecureClientInstance, slr);
+	Status = XSecure_SetSlrIndex(&SecureClientInstance, SlrIdx);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Invalid SlrIndex %x\r\n", Status);
 		goto END;
 	}
 
-	if (Xil_Strnlen(IvStr[slr], (XPUF_IV_LEN_IN_BYTES * 2U)) ==
+	if (Xil_Strnlen(IvStr[SlrIdx], (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 		(XPUF_IV_LEN_IN_BYTES * 2U)) {
-		Status = Xil_ConvertStringToHexBE((const char *)(IvStr[slr]), Iv,
+		Status = Xil_ConvertStringToHexBE((const char *)(IvStr[SlrIdx]), Iv,
 			XPUF_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			xil_printf("String Conversion error (IV):%08x !!!\r\n", Status);
@@ -601,9 +605,9 @@ static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr, u32 slr)
 		goto END;
 	}
 
-	if (Xil_Strnlen(RedKeyStr[slr], (XPUF_RED_KEY_LEN_IN_BYTES * 2U)) ==
+	if (Xil_Strnlen(RedKeyStr[SlrIdx], (XPUF_RED_KEY_LEN_IN_BYTES * 2U)) ==
 		(XPUF_RED_KEY_LEN_IN_BYTES * 2U)) {
-		Status = Xil_ConvertStringToHexBE((const char *) (RedKeyStr[slr]),
+		Status = Xil_ConvertStringToHexBE((const char *) (RedKeyStr[SlrIdx]),
 			RedKey, XPUF_RED_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			xil_printf("String Conversion error (Red Key):%08x \r\n", Status);
@@ -848,8 +852,6 @@ END:
  *
  * @param	InstancePtr Pointer to client instance
  *
- * @return	None.
- *
  ******************************************************************************/
 static void XPuf_ShowPufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 {
@@ -953,8 +955,6 @@ END:
  * @param	SwapPtr    - Pointer to the reversed data.
  * @param	Len        - Length of the data in bytes.
  *
- * @return	None
- *
  ******************************************************************************/
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
 {
@@ -975,8 +975,6 @@ static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
  *
  * @param	Data - Pointer to the data to be printed.
  * @param	Len  - Length of the data in bytes.
- *
- * @return	None
  *
  ******************************************************************************/
 static void XPuf_ShowData(const u8* Data, u32 Len)
