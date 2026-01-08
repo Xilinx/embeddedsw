@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       ng   09/04/23 Added SDT support
 * 1.2   kpt  01/09/24 Added error code XTRNGPSX_INVALID_BLOCKING_MODE
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
+* 1.6   hae  01/06/26 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -73,7 +74,7 @@ typedef enum {
 	XTRNGPSX_HRNG_MODE
 } XTrngpsx_Mode;
 
-/* This typedef contains configuration information for the device */
+/** This typedef contains configuration information for the device */
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;	/**< DeviceId is the unique ID of the device */
@@ -83,7 +84,7 @@ typedef struct {
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the device's registers */
 } XTrngpsx_Config;
 
-/* This typedef contains user configuration related to TRNG */
+/** This typedef contains user configuration related to TRNG */
 typedef struct {
 	XTrngpsx_Mode Mode; /**< TRNG mode */
 	u32 SeedLife;            /**< seed life */
@@ -94,12 +95,12 @@ typedef struct {
 	u8 IsBlocking; /**< Blocking or Non-Blocking reseed */
 } XTrngpsx_UserConfig;
 
-/* This typedef contains status related to TRNG */
+/** This typedef contains status related to TRNG */
 typedef struct {
 	u32 ElapsedSeedLife; /**< elapsed seed life */
 } XTrngpsx_Status;
 
-/* This typedef contains error status related to TRNG */
+/** This typedef contains different states of TRNG */
 typedef enum {
 	XTRNGPSX_UNHEALTHY = 1, /**< unhealthy state */
 	XTRNGPSX_HEALTHY,       /**< healthy state */
@@ -116,7 +117,7 @@ typedef enum {
 	XTRNGPSX_GENERATE_STATE		/**< Generate state */
 } XTrngpsx_State;
 
-/* This typedef contains all the information related to TRNG driver */
+/** This typedef contains all the information related to TRNG driver */
 typedef struct {
 	XTrngpsx_Config Config;   /**< device configuration */
 	XTrngpsx_UserConfig UserCfg;/**< user configuration */

@@ -1,6 +1,6 @@
 /***************************************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -25,6 +25,7 @@
  *       yog  08/04/23 Removed support for PKI instances
  * 1.01  ng   09/04/23 Added SDT support
  * 1.2   kpt  01/09/24 Updated option for non-blocking trng reseed
+ * 1.6   hae  01/06/26 Fixed doxygen warnings
  *
  *</pre>
  **************************************************************************************************/
@@ -185,11 +186,9 @@ END:
  * @brief
  * This function prints specified number of bytes from an address.
  *
- * @param	src is start address from where to print.
+ * @param	Src is start address from where to print.
  *
- * @param	size is size of buffer pointed by src.
- *
- * @return	None.
+ * @param	Size is size of buffer pointed by Src.
  *
  ************************************************************************************************/
 static void Trngpsx_PrintBytes(u8 *Src, u32 Size)

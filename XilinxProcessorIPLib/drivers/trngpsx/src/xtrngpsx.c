@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       kpt  02/14/24 Use correct offset during PRNG set and reset
 *	vss  08/02/24 Fixed comments on security best practices
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
+* 1.6   hae  01/06/26 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -612,7 +613,7 @@ END:
  * 		- XTRNGPSX_INVALID_STATE If state is not sequenced correctly
  * 		- XTRNGPSX_INVALID_MODE  If invalid mode is passed to this function
  * 		- XTRNGPSX_INVALID_BUF_SIZE If buffer is less that 256 bytes or NULL
- *      - XTRNG_PSX_INVALID_PREDRES_VALUE If invalid predication resistance value is passed to this function
+ *      	- XTRNG_PSX_INVALID_PREDRES_VALUE If invalid predication resistance value is passed to this function
  * 		- XTRNGPSX_UNHEALTHY_STATE If TRNG is in failure state, needs an uninstantiation
  * 			or KAT should be run if error is catastrophic
  * 		- XTRNGPSX_RESEED_REQUIRED_ERROR If elapsed seed life exceeds the requested seed life
@@ -1098,7 +1099,7 @@ static int XTrngpsx_WritePersString(XTrngpsx_Instance *InstancePtr, const u8 *Pe
  * @brief
  * Waits for an event to occur for a specified duration.
  *
- * @param	BaseAddress Address of register to be checked for event(s) occurrence.
+ * @param	Addr Address of register to be checked for event(s) occurrence.
  * @param	EventMask Mask indicating event(s) to be checked.
  * @param 	Event Specific event(s) value to be checked.
  * @param	Timeout Max number of microseconds to wait for an event(s).
@@ -1113,3 +1114,4 @@ static inline int XTrngpsx_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event,
 {
 	return (int)Xil_WaitForEvent(Addr, EventMask, Event, Timeout);
 }
+/** @} */

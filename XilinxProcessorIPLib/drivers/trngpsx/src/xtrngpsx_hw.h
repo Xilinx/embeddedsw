@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/23 Initial release
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
+* 1.6   hae  01/06/26 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -150,5 +151,5 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-
+/** @} */
 #endif /* __XTRNGPSX_HW_H_ */
