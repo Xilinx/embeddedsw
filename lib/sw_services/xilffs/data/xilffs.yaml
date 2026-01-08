@@ -42,3 +42,7 @@ examples:
                         - Versal
                         - Zynq
                         - VersalNet
+                        - Versal_2VE_2VM
+        xilffs_polled_ufs_example.c:
+                - supported_platforms:
+                        - Versal_2VE_2VM
