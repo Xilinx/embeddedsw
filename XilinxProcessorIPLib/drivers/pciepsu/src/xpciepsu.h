@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -77,18 +77,28 @@ typedef struct {
 	u64 BrigReg;  /**< Bridge Register base address */
         u64 PciReg;             /**< pcie Register base address */
         u64 Ecam;               /**< Ecam space base address */
+#if defined(ARMR5)
+	u32 NpMemBaseAddr;      /**< non prefetchable memory base address */
+	u32 NpMemMaxAddr;       /**< non prefetchable memory max base address*/
+#else
         u32     NpMemBaseAddr;          /**< non prefetchable memory base address */
         u32     NpMemMaxAddr;   /**< non prefetchable memory max base address*/
         u64     PMemBaseAddr;           /**< prefetchable memory base address */
         u64     PMemMaxAddr;    /**< prefetchable memory max base address */
+#endif
 #else
 	u64 BrigReg;  /**< Bridge Register base address */
 	u64 PciReg;		/**< pcie Register base address */
 	u64 Ecam;		/**< Ecam space base address */
+#if defined(ARMR5)
+	u32 NpMemBaseAddr;      /**< non prefetchable memory base address */
+	u32 NpMemMaxAddr;       /**< non prefetchable memory max base address*/
+#else
 	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
+#endif
 #endif
 	u32 DmaBaseAddr;	/**< DMA base address */
 	u8	PcieMode;		/**< pcie mode rc or endpoint */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -257,6 +257,15 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 				XPciePsu_ReadReg(CfgPtr->BrigReg,
 					XPCIEPSU_E_ECAM_CONTROL) |
 					(((u32)PSU_ECAM_VALUE_DEFAULT) << E_ECAM_SIZE_SHIFT));
+
+#if !(defined(__aarch64__) || defined(__arch64__))
+	/*
+	 * RPU cannot access the 40-bit ECAM region. Program a
+	 * 32-bit ECAM alias at 0xE000 0000 as per UG1085 PCIe
+	 * bridge initialization flow.
+	 */
+	CfgPtr->Ecam = CfgPtr->NpMemBaseAddr;
+#endif
 
 	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_BASE_LO,
 			  LOWER_32_BITS(CfgPtr->Ecam));
