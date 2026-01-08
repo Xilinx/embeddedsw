@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -74,6 +74,7 @@
  * 1.1   ssc  03/24/22 New error code XTRNGPSV_ERROR_GLITCH and doxygen fixes
  * 1.4   mmd  07/10/23 Included header file for crypto algorithm information
  *       ng   06/30/23 Added support for system device-tree flow
+ * 1.8   bha  01/07/26 Fixed Doxygen warnings
  * </pre>
  *
  ******************************************************************************/
@@ -194,7 +195,9 @@ typedef enum {
 	XTRNGPSV_PTRNG /**< 2 - Physical True RNG */
 } XTrngpsv_Mode;
 
-/* This typedef contains configuration information for the device */
+/**
+ * This structure contains configuration information for the TRNGPSV device.
+ */
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
@@ -206,10 +209,13 @@ typedef struct {
 					*  of the device's registers */
 } XTrngpsv_Config;
 
-/* This typedef contains config information for the device, which is used during Instantiation */
+/**
+ * This structure contains configuration information for the device,
+ * which is used during instantiation.
+ */
 typedef struct {
 	XTrngpsv_Mode Mode; /**< Mode of the TRNG - DRBG/PTRNG/HRNG */
-	u64 SeedLife; /**< #of Generate requests per seed (128 - 2^48)*/
+	u64 SeedLife; /**< Number of Generate requests per seed (128 - 2^48)*/
 	u32 PredResistanceEn; /**< Enables Prediction Resistance capability */
 	u32 PersStrPresent; /**< Used to indicate if Personalization string is
 	 present. FALSE => no personalization string */
@@ -224,15 +230,18 @@ typedef struct {
 	 on the input of the DF construct */
 } XTrngpsv_UsrCfg;
 
-/* This typedef contains statistics of the TRNGPSV driver */
+/**
+ * This structure contains statistics information for the TRNGPSV driver.
+ */
 typedef struct {
 	u64 RandBytes; /**< Number of random bytes provided since instantiate */
 	u64 RandBytesReseed; /**< Random bytes generated after last reseed */
 	u64 ElapsedSeedLife; /**< Generate requests done after last reseed */
 } XTrngpsv_Stats;
 
-/* This typedef contains the format in which the Block Cipher (DF) algorithm
- * expects the information
+/**
+ * This structure contains the format in which the Block Cipher (DF) algorithm
+ * expects the information.
  */
 typedef struct {
 	u32 IvCounter[DF_IP_IV_LEN]; /**< Counter/seq number */
@@ -245,7 +254,9 @@ typedef struct {
 	u8 PadData[DF_PAD_DATA_LEN]; /**< Padding to make structure, multiple of 16Bytes */
 } XTrngpsv_DFInput;
 
-/* This typedef contains main instance of the TRNGPSV driver */
+/**
+ * This structure contains all the data and state information for a TRNGPSV device instance.
+ */
 typedef struct {
 	XTrngpsv_Config Config; /**< Hardware Configuration */
 	XTrngpsv_UsrCfg UsrCfg; /**< Configuration from the user */

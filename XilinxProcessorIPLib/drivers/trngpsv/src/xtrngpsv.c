@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -26,6 +26,7 @@
  * 					XTrngpsv_Generate, moved Xil_SecureRMW32 to BSP.
  * 1.3   kpt  01/31/23 Fixed RGRG sequence
  * 1.4   ng   06/30/23 Added support for system device-tree flow
+ * 1.8   bha  01/07/26 Fixed Doxygen warnings
  *
  * </pre>
  *
@@ -694,8 +695,6 @@ END:
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
  *
- * @return	None.
- *
  **************************************************************************************************/
 static void XTrngpsv_Reset(const XTrngpsv *InstancePtr)
 {
@@ -713,8 +712,6 @@ static void XTrngpsv_Reset(const XTrngpsv *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
  *
- * @return	None.
- *
  **************************************************************************************************/
 static void XTrngpsv_SoftReset(const XTrngpsv *InstancePtr)
 {
@@ -731,8 +728,6 @@ static void XTrngpsv_SoftReset(const XTrngpsv *InstancePtr)
  * and TRNG_CTRL.PRNGsrst), both of which are asserted.
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
- *
- * @return	None.
  *
  **************************************************************************************************/
 static void XTrngpsv_HoldReset(const XTrngpsv *InstancePtr)
@@ -1236,10 +1231,14 @@ SET_ERR:
 /*************************************************************************************************/
 /**
  * @brief
- * This function waits for 4 words of data to be available in core ouput
+ * This function waits for 4 words of data to be available in core output
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be
  *			worked on
+ *
+ * @return
+ *		- XTRNGPSV_SUCCESS if event occurred.
+ *		- XTRNGPSV_FAILURE if timeout occurred.
  *
  *************************************************************************************************/
 static inline s32 __attribute__((always_inline)) XTrngpsv_WaitForData(const XTrngpsv *InstancePtr)
@@ -1365,8 +1364,6 @@ static inline u32 XTrngpsv_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
  * @param	RegOffset contains the offset from the base address of the device.
  * @param	RegValue is the value to be written to the register.
  *
- * @return	None.
- *
  **************************************************************************************************/
 static inline void XTrngpsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 RegValue)
 {
@@ -1382,8 +1379,6 @@ static inline void XTrngpsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Reg
  * @param	RegOffset contains the offset from the base address of the device.
  * @param	RegMask indicates the bits to be modified.
  * @param	RegValue is the value to be written to the register.
- *
- * @return	None.
  *
  **************************************************************************************************/
 static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMask, u32 RegValue)
