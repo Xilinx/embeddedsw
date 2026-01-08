@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 2.2   vss  09/07/2023 Fixed MISRA-C Rule 2.5 violation
 *       vss  09/21/2023 Fixed doxygen warnings
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
+* 2.7   bha  01/06/2026 Fixed Doxygen warnings
 *
 * </pre>
 *
@@ -152,7 +153,6 @@ extern "C" {
 #define XPUF_EFUSE_CTRL_WR_LOCK_VAL		(0x1U)
 					/**< Write lock value */
 
-/** @} */
 /***************** Macros (Inline Functions) Definitions ********************/
 /*****************************************************************************/
 /**

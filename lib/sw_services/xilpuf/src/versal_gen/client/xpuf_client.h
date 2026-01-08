@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.1   am   02/13/23 Fixed MISRA C violations
 * 2.3   ng   11/22/23 Fixed doxygen grouping
+* 2.7   bha  01/06/26 Fixed Doxygen warnings
 *
 * </pre>
 *
@@ -42,6 +43,10 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/**
+ * This structure contains PUF syndrome data, hash value, auxiliary data,
+ * PUF ID, and eFuse trimmed data used during PUF registration and regeneration.
+ */
 typedef struct {
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS]; /**<PUF syndrome data */
 	u32 Chash; /**< PUF Chash */

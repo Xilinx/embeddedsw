@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/21/2024 Initial release
 * 2.6   aa   07/14/2025 Removed unused macros
+* 2.7   bha  01/06/2026 Fixed Doxygen warnings
 *
 * </pre>
 *
@@ -107,7 +108,6 @@ extern "C" {
 /**< Clear PUF ID bit in PUF_STATUS register */
 #define XPUF_CLEAR_ID				(0x1U)
 
-/** @} */
 /***************** Macros (Inline Functions) Definitions ********************/
 /*****************************************************************************/
 /**
