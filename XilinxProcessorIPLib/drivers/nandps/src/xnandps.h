@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -161,6 +161,7 @@
 * 2.9  sb      01/03/24    Add FlashBbt array in nandps structure for partial read/write operations
 *                          while reading and writing bbt in flash.
 * 2.10 akm     10/04/24    Retrieve the 'reg' property value from smcc node 'ranges'
+* 2.11 vlt   12/30/25    Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -296,7 +297,7 @@ typedef struct {
 #ifndef SDT
 	u16  DeviceId;		/**< Instance ID of device */
 #else
-	char *Name;
+	char *Name;            /**< Name of the device */
 #endif
 	u32  SmcBase;		/**< SMC Base address */
 	u32  FlashBase;		/**< NAND base address */

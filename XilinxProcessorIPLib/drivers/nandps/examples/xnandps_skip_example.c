@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,8 @@
 * 1.01a nm   28/02/2012   Modified the test offsets.
 *       ms   04/10/17     Modified Comment lines to follow doxygen rules
 * 2.8  akm   07/06/23    Add support for system device-tree flow.
-*</pre>
+* 2.11 vlt   12/14/25    Update Doxygen comments to include SDT flow details.
+* </pre>
 *
 ******************************************************************************/
 
@@ -134,14 +135,20 @@ int main(void)
 *		into account.
 *	- Compare the data read against the data Written.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	NandDeviceId is the XPAR_<NAND_instance>_DEVICE_ID value
 *		from xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
+*
 *
 ****************************************************************************/
 #ifndef SDT
