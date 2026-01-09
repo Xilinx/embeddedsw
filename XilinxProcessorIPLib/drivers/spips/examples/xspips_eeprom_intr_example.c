@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,7 +30,8 @@
 *                     generation and also modified filename tag to include
 *                     the file in doxygen examples.
 * 3.9   sb   07/05/23 Added support for system device-tree flow.
-*</pre>
+* 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 *
 ******************************************************************************/
 
@@ -231,19 +232,24 @@ int main(void)
 * serial EEPROM.
 * This part must be present in the hardware to use this example.
 *
-* @param	IntcInstancePtr is a pointer to the GIC driver to use.
 * @param	SpiInstancePtr is a pointer to the SPI driver to use.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstancePtr is a pointer to the GIC driver to use.
 * @param	SpiDeviceId is the DeviceId of the Spi device.
 * @param	SpiIntrId is the Spi Interrupt Id.
+* @endif
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note
-*
-* This function calls functions which contain loops that may be infinite
-* if interrupts are not working such that it may not return. If the device
-* slave select is not correct and the device is not responding on bus it will
-* read a status of 0xFF for the status register as the bus is pulled up.
+* @note        - This function calls functions which contain loops that may
+*                be infinite if interrupts are not working such that it may
+*                not return. If the device slave select is not correct and
+*                the device is not responding on bus it will read a status of
+*                0xFF for the status register as the bus is pulled up.
+*              - In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 *****************************************************************************/
 #ifndef SDT

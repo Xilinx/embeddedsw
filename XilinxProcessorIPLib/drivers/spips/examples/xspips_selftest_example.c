@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *                       hard spips. This is fixed by renaming the
 *                       instance name from "Spi" to "SpiPs"
 * 3.9   sb   07/05/23   Added support for system device-tree flow.
+* 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *******************************************************************************/
@@ -109,12 +110,17 @@ int main(void)
 * XSpiPs driver.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<SPIPS_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None
+* @note		In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 ****************************************************************************/
 #ifndef SDT

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +39,8 @@
 *                     generation.
 * 3.9   sb   07/05/23 Added support for system device-tree flow.
 * 3.13  sb   09/09/25 Fix GCC warnings.
-*</pre>
+* 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 *
 ******************************************************************************/
 
@@ -146,13 +147,18 @@ int main(void)
 * device driver in Slave mode. This function reads data from a SPI Master
 * and will echo it back to the Master.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	SpiDeviceId is the Instance Id of SPI in the system.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
 *
-* @note		None
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 *
 *****************************************************************************/

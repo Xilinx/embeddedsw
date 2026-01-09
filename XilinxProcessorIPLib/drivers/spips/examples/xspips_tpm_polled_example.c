@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.00  sg  04/02/21 Initial release
 * 3.9   sb  07/05/23 Added support for system device-tree flow.
 *       pre 10/23/25 Fixed bug in TPM command transmission
+* 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 *</pre>
 *
@@ -215,11 +216,16 @@ int main(void)
 /**
 *
 * @param	SpiInstancePtr is a pointer to the Spi Instance.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	SpiDeviceId is the Device Id of Spi.
+* @endif
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 *
 *****************************************************************************/

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -240,6 +240,7 @@
 *                       example.
 * 3.9   sb     07/05/23 Added support for system device-tree flow.
 * 3.12  sb     12/03/24 Fixed GCC warnings.
+* 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -388,7 +389,8 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
+
 #endif
 	u32 BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
