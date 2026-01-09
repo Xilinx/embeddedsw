@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
 * 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
+* 4.6   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -45,18 +46,22 @@
 /*****************************************************************************/
 /**
 *
-* @brief
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XSdPs_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId Contains the ID of the device to look up the
-*		configuration for.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xsdps.h for the
+*               definition of XSdPs_Config.
 *
-* A pointer to the configuration found or NULL if the specified device ID was
-* not found. See xsdps.h for the definition of XSdPs_Config.
-*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
