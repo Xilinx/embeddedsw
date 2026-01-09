@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
 * 4.9   sd   07/07/23 Added SDT support.
+* 4.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
 *</pre>
 *
 ******************************************************************************/
@@ -102,16 +103,21 @@ int main(void)
 *
 * This is the entry point for the BRAM example.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<BRAM_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 *
 * @return
 *		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
-******************************************************************************/
+*****************************************************************************/
 #ifndef SDT
 int BramExample(u16 DeviceId)
 #else

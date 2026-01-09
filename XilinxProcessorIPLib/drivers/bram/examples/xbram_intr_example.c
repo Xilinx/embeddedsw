@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,7 +31,8 @@
 *                     them in case of peripheral test (CR#1108877)
 * 4.9   sd   07/07/23 Added SDT support.
 * 4.13  ml   07/14/25 Fix GCC warnings.
-*</pre>
+* 4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 *
 ******************************************************************************/
 
@@ -141,21 +142,26 @@ int main(void)
 * This is the entry function from the TestAppGen tool generated application
 * which tests the interrupts when enabled in the BRAM
 *
+* @param	InstancePtr is a reference to the BRAM driver Instance
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a reference to the Interrupt Controller
 *		driver Instance
-* @param	InstancePtr is a reference to the BRAM driver Instance
 * @param	DeviceId is the XPAR_<BRAM_instance>_DEVICE_ID
 *		value from xparameters.h
 * @param	IntrId is XPAR_<INTC_instance>_<BRAM_instance>_VEC_ID
 *		value from xparameters.h
+* @endif
 *
 * @return
 *		- XST_SUCCESS if the example is successful.
 *		- XST_FAILURE if the example failed.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
-******************************************************************************/
+*****************************************************************************/
 #ifndef SDT
 int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 		     u16 DeviceId, u16 IntrId)

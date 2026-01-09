@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.11a mta  03/21/07 Updated to new coding style
 * 4.2   ms   08/07/17 Fixed compilation warnings.
 * 4.9   sd   07/07/23 Added SDT support.
+* 4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -52,17 +53,23 @@ extern XBram_Config XBram_ConfigTable[];
 
 /*****************************************************************************/
 /**
-* Lookup the device configuration based on the unique device ID.  The table
-* ConfigTable contains the configuration info for each device in the system.
 *
-* @param	DeviceId is the device identifier to lookup.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XBram_ConfigTable[] contains the configuration info for each device
+* in the system.
 *
-* @return
-*		 - A pointer of data type XBram_Config which
-*		points to the device configuration if DeviceID is found.
-* 		- NULL if DeviceID is not found.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @note		None.
+* @return       A pointer to the configuration found or NULL if the
+*               specified device ID/BaseAddress was not found. See
+*               xbram.h for the definition of XBram_Config.
+*
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT

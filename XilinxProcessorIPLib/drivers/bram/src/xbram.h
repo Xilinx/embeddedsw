@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -103,6 +103,7 @@
 * 		     redefinition warnings when multiple lmb_bram_if_cntlr
 * 		     instances are present.
 * 4.9   sd  07/07/23 Added SDT support.
+* 4.14  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */
@@ -131,7 +132,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;			   /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;                       /**< Name of the device */
 	UINTPTR BaseAddress;		   /**< Device register base address.*/
 #endif
 	u32 DataWidth;			   /**< BRAM data width */
@@ -162,7 +163,7 @@ typedef struct {
 	UINTPTR CtrlHighAddress;		   /**< Device register base address.*/
 #ifdef SDT
 	u32 IntId;			   /**< Interrupt ID on GIC **/
-	UINTPTR IntrParent; 		   /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent; 		   /**< Bit[0] Interrupt parent type Bit[64/32:1]
 						 * Parent base address */
 #endif
 } XBram_Config;
