@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -93,6 +93,7 @@
 *                     mutex is configured for more then one axi interface.
 * 4.6   sd   02/09/20 Updated makefile for parallel execution.
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
+* 4.11  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -121,7 +122,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;	/**< Unique ID of device */
 #else
-	char *Name;
+	char *Name;     /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;/**< Register base address */
 	u32 NumMutex;	/**< Number of Mutexes in this device */
