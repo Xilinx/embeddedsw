@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -51,6 +51,7 @@
 * 1.20   sb  09/13/24 Updated examples to configure correct baud rate value
 * 1.21   sb  01/02/25 Fixed gcc and g++ warnings.
 * 1.21   bkv 04/04/25 Fixed g++ warnings.
+* 1.23   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 *
 *</pre>
 *
@@ -217,12 +218,18 @@ int main(void)
  *
  * @param       QspiPsuInstancePtr is a pointer to the instance of the QspiPsu
  *              device.
+ * @if SDT
+ * @param	BaseAddress contains the base address of the device
+ * @else
  * @param        QspiPsuDeviceId is the Device ID of the Qspi Device and is the
  *               XPAR_<QSPI_instance>_DEVICE_ID value from xparameters.h.
+ * @endif
+ *
+ * @note	In XSCT/classic flow, DeviceId is used to look up the device
+ *              configuration.
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
- * @note	None.
  *
  *****************************************************************************/
 #ifndef SDT

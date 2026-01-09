@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -258,13 +258,18 @@ int main(void)
  * @param	IntcInstancePtr is a pointer to the instance of the Intc device.
  * @param	QspiPsuInstancePtr is a pointer to the instance of the QspiPsu
  *		device.
+ * @if SDT
+ * @param	BaseAddress contains the base address of the device
+ * @else
  * @param	QspiPsuDeviceId is the Device ID of the Qspi Device and is the
  *		XPAR_<QSPI_instance>_DEVICE_ID value from xparameters.h.
+ * @endif
  * @param	QspiPsuIntrId is the interrupt Id for an QSPIPSU device.
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
- * @note	None.
+ * @note	In XSCT/classic flow, DeviceId is used to look up the device
+ *              configuration.
  *
  *****************************************************************************/
 #ifndef SDT
