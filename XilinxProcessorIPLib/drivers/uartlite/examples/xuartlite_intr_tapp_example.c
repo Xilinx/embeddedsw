@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 3.9   gm   07/08/23 Added SDT support
 * 3.9   gm   09/05/23 Corrected SDT support checks.
 * 3.12  bkv  07/07/25 Fixed GCC Warnings.
+* 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 ******************************************************************************/
@@ -205,21 +206,25 @@ int main(void)
 * the  UartLite driver in the interrupt handlers, should only use the
 * non-blocking calls.
 *
-* @param	IntcInstancePtr is a pointer to the instance of INTC driver.
 * @param	UartLiteInstPtr is a pointer to the instance of UartLite driver.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstancePtr is a pointer to the instance of INTC driver.
 * @param	UartLiteDeviceId is the Device ID of the UartLite Device and
 *		is the XPAR_<UARTLITE_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @param	UartLiteIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
-*
-* This function contains an infinite loop such that if interrupts are not
-* working it may never return.
+* @note	       - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
+*              - This function contains an infinite loop such that if
+*              interrupts are not working it may never return.
 *
 ****************************************************************************/
 #ifndef SDT

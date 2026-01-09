@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
+* 3.13  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -133,17 +134,21 @@ int main(void)
 *
 * This function polls the UartLite and does not require the use of interrupts.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device ID of the UartLite and is the
 *		XPAR_<uartlite_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 *
-* @note
-*
-* This function calls the UartLite driver functions in a blocking mode such that
-* if the transmit data does not loopback to the receive, this function may
-* not return.
+* @note       - In XSCT/classic flow, DeviceId is used to look up the device
+*             configuration.
+*             - This function calls the UartLite driver functions in a blocking
+*             mode such that if the transmit data does not loopback to the
+*             receive, this function may not return.
 *
 ****************************************************************************/
 #ifndef SDT

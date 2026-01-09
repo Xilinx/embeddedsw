@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,7 +128,8 @@
 * 		      designs don't pull the driver examples when uartlite is
 * 		      configured as a TMR SEM fix for CR-1121291, changes are
 * 		      made in the uartlite_tapp.tcl file.
-* 3.9	ht  07/18/23  Fixed GCC warnings.
+* 3.9	ht  07/18/23  Fixed GCC warnings.i
+* 3.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -191,7 +192,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;            /**< Name of the device */
 #endif
 	UINTPTR RegBaseAddr;	/**< Register base address */
 	u32 BaudRate;		/**< Fixed baud rate */
@@ -200,9 +201,9 @@ typedef struct {
 					when FALSE */
 	u8  DataBits;		/**< Fixed data bits */
 #ifdef SDT
-	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 				 * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 #endif
 } XUartLite_Config;
@@ -217,13 +218,13 @@ typedef struct {
 	UINTPTR RegBaseAddress;		/* Base address of registers */
 	u32 IsReady;			/* Device is initialized and ready */
 
-	XUartLite_Buffer SendBuffer;
-	XUartLite_Buffer ReceiveBuffer;
+	XUartLite_Buffer SendBuffer;   /**< Transmit buffer descriptor */
+	XUartLite_Buffer ReceiveBuffer; /**< Receive buffer descriptor */
 
-	XUartLite_Handler RecvHandler;
-	void *RecvCallBackRef;		/* Callback ref for recv handler */
-	XUartLite_Handler SendHandler;
-	void *SendCallBackRef;		/* Callback ref for send handler */
+	XUartLite_Handler RecvHandler;  /**< receive interrupt handler */
+	void *RecvCallBackRef;		/**< Callback ref for recv handler */
+	XUartLite_Handler SendHandler;  /**< send interrupt handler */
+	void *SendCallBackRef;		/**< Callback ref for send handler */
 } XUartLite;
 
 
