@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00  drg/jz 01/25/10 First release.
 * 3.11  akm    07/10/23 Add support for system device-tree flow for example.
+* 3.15  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *******************************************************************************/
@@ -104,12 +105,17 @@ int main(void)
 * XQspiPs driver.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<QSPIPS_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

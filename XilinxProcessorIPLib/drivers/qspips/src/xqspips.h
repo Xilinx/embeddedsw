@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -273,6 +273,7 @@
 * 3.8	akm 09/02/20 Updated the Makefile to support parallel make execution.
 * 3.11	akm 07/10/23 Update the driver to support for system device-tree flow.
 * 3.12	sb  02/20/24 Add missing parenthesis for macro expansions.
+* 3.15  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -490,7 +491,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	u32 BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
