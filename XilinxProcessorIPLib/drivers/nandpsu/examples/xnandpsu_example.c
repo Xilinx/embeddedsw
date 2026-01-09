@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022  Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*****************************************************************************/
@@ -27,6 +27,7 @@
 * 1.6  sd   31/03/2020  Fixed a gcc warning.
 * 1.9  akm  07/15/2021  Switch to best supported Data interface and Timing mode.
 * 1.12 akm  06/27/2023  Add support for system device-tree flow for example.
+* 1.16 vlt  12/18/25    Update Doxygen comments to include SDT flow details.
 *</pre>
 *
 ******************************************************************************/
@@ -136,15 +137,20 @@ Out:
 *	- Read back the data from the flash.
 *	- Compare the data read against the data Written.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
 *		from xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note
-*		None
+* @note	       In XSCT/classic flow, DeviceId is used to look up the
+*              device configuration.
+*
 *
 ****************************************************************************/
 #ifndef SDT
