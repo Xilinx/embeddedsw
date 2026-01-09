@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,6 +84,7 @@
 * 1.6 sd  7/07/23 Added ST support.
 * 1.8 sd  8/19/24 Added XClk_Wiz_SetRateHz.
 * 1.11 sd  9/27/25 Added XClk_Wiz_GetInputRate.
+* 1.11 vlt 12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -148,7 +149,7 @@ typedef struct {
 #ifndef SDT
 	u32 DeviceId;	         /**< Device Id */
 #else
-	char *Name;
+	char *Name;              /**< Name of the device */
 #endif
 	UINTPTR BaseAddr;        /**< Base address of CLK_WIZ Controller */
 	u32 EnableClkMon;        /**< It enables the Clock Monitor*/
@@ -174,7 +175,7 @@ typedef struct {
 	u32 NumClocks;		/**< Number of clocks */
 #ifdef SDT
 	u32 IntId;		/**< Interrupt ID on GIC **/
-	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 #endif
 } XClk_Wiz_Config;
@@ -227,10 +228,10 @@ typedef struct {
 					   *  for rest all errors */
 	void *ErrRef; /**< To be passed to the Error Call back */
 	u32 IsReady; /**< Driver is ready */
-	u32 MVal;	/* Multiplier valuer */
-	u32 DVal;	/* Divisor value */
-	u32  OVal;	/* Output Value */
-	u64 MinErr;	/* Min Error that is acceptable */
+	u32 MVal;	/**< Multiplier valuer */
+	u32 DVal;	/**< Divisor value */
+	u32  OVal;	/**< Output Value */
+	u64 MinErr;	/**< Min Error that is acceptable */
 } XClk_Wiz;
 
 /************************** Macros Definitions *******************************/

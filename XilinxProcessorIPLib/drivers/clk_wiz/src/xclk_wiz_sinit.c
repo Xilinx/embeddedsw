@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0 ram 02/12/16 Initial version for Clock Wizard
 * 1.6 sd  7/07/23 Added SDT support.
+* 1.11 vlt 12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -36,17 +37,25 @@
 
 /*****************************************************************************/
 /**
- * Look up the hardware configuration for a device instance
- *
- * @param	DeviceId is the unique device ID of the device to lookup for
- *
- * @return	The reference to the configuration record in the configuration
- * 		table (in xclk_wiz_g.c) corresponding to the Device ID or if
- *		not found, a NULL pointer is returned.
- *
- * @note	None
- *
- *****************************************************************************/
+*
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XClk_Wiz_ConfigTable[] contains the configuration info for each device
+* in the system.
+*
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
+*
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xclk_wiz.h for the
+*               definition of XClk_Wiz_Config.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*
+*****************************************************************************/
 #ifndef SDT
 XClk_Wiz_Config *XClk_Wiz_LookupConfig(u32 DeviceId)
 {

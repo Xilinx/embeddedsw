@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                  available in all examples. This is a fix for CR-965028.
 * 1.6 sd 7/7/23    Add SDT support.
 * 1.7 ml 11/15/23  Fix compilation errors reported with -std=c2x compiler flag
+* 1.11 vlt 12/17/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -535,19 +536,27 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 * XClk_Wiz driver. This function will set up the system with interrupts
 * handlers.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstancePtr is a pointer to the instance of the interrupt
+*		controller.
 * @param	DeviceId is the unique device ID of the CLK_WIZ
 *		Subsystem core.
+* @endif
 *
 * @return
 *		- XST_FAILURE if the system setup failed.
 *		- XST_SUCCESS should never return since this function, if setup
 *		was successful, is blocking.
 *
-* @note		If system setup was successful, this function is blocking in
-*		order to illustrate interrupt handling taking place for HPD
-*		events.
+* @note	      - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
+*             - If system setup was successful, this function is blocking in
+*               order to illustrate interrupt handling taking place for HPD
+*               events.
 *
-******************************************************************************/
+*****************************************************************************/
 #ifndef SDT
 u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId)
 #else

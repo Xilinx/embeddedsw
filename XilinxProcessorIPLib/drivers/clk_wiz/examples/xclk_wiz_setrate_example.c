@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -20,6 +20,7 @@
 * 1.6 sd 7/7/23   Add SDT support.
 * 1.8 sd 9/5/24   Add GetRate and multi clock support.
 * 1.10 sd 12/2/24 Remove an un-needed register write.
+* 1.11 vlt 12/17/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -115,14 +116,21 @@ int main()
 * This function is the main entry point for the example using the
 * XClk_Wiz driver.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device ID of the CLK_WIZ
 *		Subsystem core.
+* @endif
 *
 * @return
 *		- XST_FAILURE if the system setup failed.
 *		- XST_SUCCESS if successful.
 *
-******************************************************************************/
+* @note	       In XSCT/classic flow, DeviceId is used to look up the
+*              device configuration.
+*
+*****************************************************************************/
 #ifndef SDT
 u32 ClkWiz_Example(u32 DeviceId)
 #else
