@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,7 +109,7 @@
 * 2.4	sne 02/04/21 Fixed Doxygen warnings.
 * 2.5   asa 07/18/23 Added support for system device tree based workflow
 *                    decoupling flow.
-* </pre>
+* 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.          * </pre>
 *
 ******************************************************************************/
 #ifndef XSCUWDT_H		/**< prevent circular inclusions */
@@ -139,9 +139,9 @@ typedef struct {
 #endif
 	UINTPTR BaseAddr;	/**< Register base address */
 #ifdef SDT
-	u32 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	u32 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 				  * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 				  * Parent base address */
 #endif
 } XScuWdt_Config;

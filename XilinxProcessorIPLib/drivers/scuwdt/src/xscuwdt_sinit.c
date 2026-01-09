@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * 2.5   asa 07/18/23 Made updates to support system device tree based
 *                    workflow decoupling flow.
 * 2.6 	ht  06/03/24 Fix HIS_COMF violations.
+* 2.7   vlt 12/29/25 Update Doxygen comments to include SDT flow details.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -45,15 +47,23 @@
 
 /*****************************************************************************/
 /**
-* Lookup the device configuration based on the unique device ID. The table
-* contains the configuration info for each device in the system.
 *
-* @param	DeviceId is the unique device ID of the device being looked up.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XScuWdt_ConfigTable[] contains the configuration info for each device
+* in the system.
 *
-* @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @note		None.
+* @return    A pointer to the configuration found or NULL if the specified
+*            device ID/BaseAddress was not found. See xscuwdt.h for the
+*            definition of XScuWdt_Config.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

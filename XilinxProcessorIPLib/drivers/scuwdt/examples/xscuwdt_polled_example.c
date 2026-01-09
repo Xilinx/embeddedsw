@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 2.5   asa  07/18/23 Added support for workflow decouplig flow.
 *                     Interrupt wrapper support has also been added.
 * 2.5   dp   09/08/23 Update example to stop wdt at end of the test
+* 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
 *</pre>
 ******************************************************************************/
 
@@ -110,7 +111,11 @@ int main(void)
 * The purpose of this function is to illustrate how to use the XScuWdt driver.
 *
 * @param	WdtInstancePtr is a pointer to the instance of XScuWdt driver.
+* @if SDT
+* @param	BaseAddress contains the base address of the device.
+* @else
 * @param	DeviceId is the unique device id of the device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
