@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,6 +71,7 @@
 * 		      Added support for clock stretching and timeout support.
 * 3.18  gm   07/14/23 Added SDT support.
 * 	sd   09/06/23 Compile refclk for SDT
+* 3.23  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -165,7 +166,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;     /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;       /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;  /**< Base address of the device */
 	u32 InputClockHz; /**< Input clock frequency */

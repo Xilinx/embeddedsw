@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * 1.00a sdm 05/30/11 	First release
  * 3.13  rna 02/05/21   Changed XIicPs global variable name
  * 3.18  gm  07/14/23   Added SDT support.
+ * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
  *
  * </pre>
  *
@@ -102,12 +103,17 @@ int main(void)
 * how to use the XIicPs component.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device ID of the IicPs Device and is the
 *		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 *
 *******************************************************************************/

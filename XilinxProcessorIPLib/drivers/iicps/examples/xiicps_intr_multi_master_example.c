@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00a sg  03/09/19 First release
  * 3.18   gm   07/14/23 Added SDT support.
+ * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
  *
  * </pre>
  *
@@ -155,12 +156,17 @@ int main(void)
 * In case arbitration lost status will re-initiate the transfer
 * BufferSizes array contains length information
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device ID of the IicPs Device and is the
 *		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
+* @note  	In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 * This function contains an infinite loop such that if interrupts are not
 * working it may never return.
