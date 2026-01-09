@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +73,7 @@
 * 1.4  gm   10/07/24 Added functions for Enable, Resume, read response
 * 		     and set threshold for Tx, Rx and command.
 * 		     Update data type of Send and Recv byte counts.
+* 1.7   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -157,7 +158,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;     /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;       /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;  /**< Base address of the device */
 #ifdef SDT
@@ -172,10 +173,10 @@ typedef struct {
 } XI3cPsx_Config;
 
 typedef struct {
-	u32 TransCmd;
-	u32 TransArg;
-	void *RxBuf;
-	u8 Error;
+	u32 TransCmd;      /**< Transaction command code */
+	u32 TransArg;      /**< Argument associated with the transaction */
+	void *RxBuf;       /**< Pointer to receive buffer for incoming data */
+	u8 Error;          /**< Error status for the transaction */
 } XI3cPsx_Cmd;
 
 /**

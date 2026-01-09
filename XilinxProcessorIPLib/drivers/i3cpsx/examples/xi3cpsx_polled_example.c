@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -23,6 +23,7 @@
  * 1.00 sd   06/21/22 First release
  * 1.3  sd   11/17/23 Added support for system device-tree flow
  * 1.4  gm   10/06/24 Added return statements and remove resetfifos
+ * 1.7  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
  * </pre>
  *
  ****************************************************************************/
@@ -96,12 +97,17 @@ int main(void)
 *
 * This function uses polled driver mode of the I3C.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the Device ID of the I3cPsx Device and is the
 *		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 *******************************************************************************/
 #ifndef SDT

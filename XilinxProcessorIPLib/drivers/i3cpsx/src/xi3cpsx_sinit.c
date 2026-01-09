@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- ------ -------- --------------------------------------------
 * 1.00  sd      06/10/22 First release
 * 1.3   sd      11/17/23 Added support for system device-tree flow
+* 1.7   vlt     12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -45,18 +46,22 @@
 /*****************************************************************************/
 /**
 *
-* @brief
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XI3cPsx_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId contains the ID of the device to look up the
-*		configuration for.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration found or NULL if the specified
-*		device ID was not found. See xiicps.h for the definition of
-*		XI3cPsx_Config.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xi3cpsx.h for the
+*               definition of XI3cPsx_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
