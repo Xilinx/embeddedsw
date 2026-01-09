@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *</pre>
 ******************************************************************************/
 
@@ -144,15 +145,19 @@ int main(void)
 *
 *
 * @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	SpiDeviceId is the Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
-*
-* This function contains an infinite loop such that if the Spi device is not
-* working it may never return.
+* @note        - In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*              - This function contains an infinite loop such that if the Spi
+*              device is not working it may never return.
 *
 ******************************************************************************/
 #ifndef SDT

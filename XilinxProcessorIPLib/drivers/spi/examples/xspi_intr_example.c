@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 * 4.5	akm  07/12/19 Fixed compilation error by passing the correct interrupt
 *		      controller instance to SpiIntrExample() function.
 * 4.11	sb   07/11/23 Added support for system device-tree flow.
+* 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *</pre>
 ******************************************************************************/
 
@@ -198,22 +199,26 @@ int main(void)
 *
 * This function sends data and expects to receive the same data.
 *
-*
+* @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the INTC
 * 		component.
-* @param	SpiInstancePtr is a pointer to the instance of Spi component.
 * @param	SpiDeviceId is the Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 * @param	SpiIntrId is the interrupt Id and is typically
 *		XPAR_<INTC_instance>_<SPI_instance>_VEC_ID value from
 *		xparameters.h .
 *
+*
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
-*
-* This function contains an infinite loop such that if interrupts are not
-* working it may never return.
+* @note        - In XSCT/classic flow, DeviceId is used to look up the
+*              device configuration.
+*              - This function contains an infinite loop such that if
+*              interrupts are not working it may never return.
 *
 ******************************************************************************/
 #ifndef SDT

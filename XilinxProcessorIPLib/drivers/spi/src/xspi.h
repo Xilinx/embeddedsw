@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -290,6 +290,7 @@
 *                     Interrupt enabled.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
+* 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -395,7 +396,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< Base address of the device */
 	int HasFifos;		/**< Does device have FIFOs? */

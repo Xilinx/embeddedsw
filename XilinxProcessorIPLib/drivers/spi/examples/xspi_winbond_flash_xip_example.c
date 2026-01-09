@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,12 +117,17 @@ int main(void)
 *
 *
 * @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	SpiDeviceId is the Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None
+* @note  	In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT

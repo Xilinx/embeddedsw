@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.01a jvb  10/13/05 First release
 * 1.11a wgr  03/22/07 Converted to new coding style.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -49,18 +50,22 @@ extern XSpi_Config XSpi_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XSpi_ConfigTable[] contains the configuration info for each device in the
+* system.
 *
-* @param	DeviceId contains the ID of the device to look up the
-*		configuration for.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xspi.h for the
+*               definition of XSpi_Config.
 *
-* A pointer to the configuration found or NULL if the specified device ID was
-* not found. See xspi.h for the definition of XSpi_Config.
-*
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -108,10 +113,14 @@ XSpi_Config *XSpi_LookupConfig(UINTPTR BaseAddress)
 *	- Clock phase 0
 *
 * @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this XSpi
 *		instance. Passing in a device id associates the generic XSpi
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
+* @endif
 *
 * @return
 *
@@ -122,7 +131,8 @@ XSpi_Config *XSpi_LookupConfig(UINTPTR BaseAddress)
 *		  configuration such that initialization could not be
 *		  accomplished.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
