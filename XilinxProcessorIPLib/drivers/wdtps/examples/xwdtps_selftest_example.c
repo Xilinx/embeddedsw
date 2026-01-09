@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,8 @@
 * 1.00a sdm    05/27/11 First release
 * 3.6   sb     06/27/23 Added support for system device-tree flow.
 * 3.8   ht     06/18/24 Modify instance name to avoid multiple definition error.
-*</pre>
+* 3.9   vlt   12/18/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -106,11 +107,16 @@ int main(void)
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device id of the device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ****************************************************************************/
 #ifndef SDT

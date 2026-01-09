@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 3.1	sg	   08/20/18 Updated interrupt example to fix interrupt ID
 * 						conflict issue
 * 3.6	sb	   06/27/23 Added support for system device-tree flow.
+* 3.9   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -150,15 +151,20 @@ int main(void)
 * connected to the reset of the processor, otherwise, the timer will cause the
 * processor to reset when it expires.
 *
+* @param	WdtInstancePtr is a pointer to the instance of XWdtPs driver.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the XScuGic
 *		driver.
-* @param	WdtInstancePtr is a pointer to the instance of XWdtPs driver.
 * @param	WdtDeviceId is the Device ID of the XWdtPs device.
 * @param	WdtIntrId is the Interrupt Id of the XWdtPs device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
+* @note        In XSCT/classic flow, WdtDeviceId and WdtIntrId are used to
+*              look up the device configuration and set up interrupt handling.
 *
 ******************************************************************************/
 #ifndef SDT
