@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.9   gm   07/09/23 Added SDT support
+* 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -134,14 +135,20 @@ int main(void)
 *
 * This function polls the UART and does not require the use of interrupts.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<uartns550_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @note		This function polls the UART such that it may be not return
+* @note	       - This function polls the UART such that it may be not return
 *		if the hardware is not working correctly.
 *
+*              - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 ****************************************************************************/
 #ifndef SDT
 int UartNs550PolledExample(u16 DeviceId)

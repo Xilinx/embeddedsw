@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *                     CR-965028.
 * 3.9   gm   07/09/23 Added SDT support
 * 3.13  bkv  07/07/25 Fixed GCC Warnings.
+* 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 ******************************************************************************/
@@ -115,8 +116,12 @@ int main(void)
 *
 * This function polls the UART and does not require the use of interrupts.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<UARTNS550_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 *
 * @return
 *		- XST_FAILURE if the UART driver could not be initialized
@@ -124,7 +129,8 @@ int main(void)
 *		- A non-negative number indicating the number of characters
 *		sent.
 *
-* @note		None.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

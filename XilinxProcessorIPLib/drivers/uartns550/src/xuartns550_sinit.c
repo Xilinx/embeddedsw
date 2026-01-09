@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,8 +23,9 @@
 * 1.11a sv   03/20/07 Updated to use the new coding guidelines.
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
 * 3.9   gm   07/09/23 Added SDT support
+* 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
-* </pre>
+*</pre>
 *
 *****************************************************************************/
 
@@ -54,16 +55,21 @@
 /****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XUartNs550_ConfigTable[] contains the configuration info for each device
+* in the system.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @param	DeviceId contains the ID of the device to look up the
-*		configuration for.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xuartns550.h for the
+*               definition of XUartNs550_Config.
 *
-* @return	A pointer to the configuration found or NULL if the specified
-*		device ID was not found.
-*
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -110,21 +116,26 @@ XUartNs550_Config *XUartNs550_LookupConfig(UINTPTR BaseAddress)
 * driver is polled mode.
 *
 * @param	InstancePtr is a pointer to the XUartNs550 instance .
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this
 *		XUartNs550 instance. Passing in a device id associates the
 *		generic XUartNs550 instance to a specific device, as chosen
 *		by the caller or application developer.
+* @endif
 *
 * @return
 *
 * 		- XST_SUCCESS if initialization was successful
-* 		- XST_DEVICE_NOT_FOUND if the device ID could not be found in
-*		the configuration table
+* 		- XST_DEVICE_NOT_FOUND if the device ID/BaseAddress could not
+* 		be found in the configuration table
 * 		- XST_UART_BAUD_ERROR if the baud rate is not possible because
 *		the input clock frequency is not divisible with an acceptable
 *		amount of error
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 *****************************************************************************/
 #ifndef SDT

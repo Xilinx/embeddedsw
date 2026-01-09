@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -152,6 +152,7 @@
 * 3.9   gm   07/09/23 Added SDT support
 * 3.12  adk  06/02/25 Since PLM has custom implementation of outbyte() API
 *                     don't pull it for PLM template app case.
+* 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -335,15 +336,15 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< Base address of device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u32 DefaultBaudRate;	/**< Baud Rate in bps, ie 1200 */
 #ifdef SDT
-	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 				 * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 #endif
 } XUartNs550_Config;
@@ -353,9 +354,9 @@ typedef struct {
  * when sending and receiving data in the interrupt mode.
  */
 typedef struct {
-	u8 *NextBytePtr;
-	unsigned int RequestedBytes;
-	unsigned int RemainingBytes;
+	u8 *NextBytePtr;    /**< Pointer to next byte for transfer */
+	unsigned int RequestedBytes;  /**< Total bytes requested */
+	unsigned int RemainingBytes; /**< Bytes remaining to transfer */
 } XUartNs550Buffer;
 
 /**
@@ -422,7 +423,7 @@ typedef struct {
 	XUartNs550Buffer ReceiveBuffer; /**< Receive Buffer */
 
 	XUartNs550_Handler Handler; /**< Call back handler */
-	void *CallBackRef;	/* Callback reference for control handler */
+	void *CallBackRef;	/**< Callback reference for control handler */
 } XUartNs550;
 
 /***************** Macros (Inline Functions) Definitions ********************/

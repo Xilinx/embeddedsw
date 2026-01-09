@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *                     CR-965028.
 * 3.6   rna  01/06/20 Clean up options at end to get Success/Failure strings
 * 3.9   gm   07/09/23 Added SDT support.
+* 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -197,21 +198,25 @@ int main(void)
 *
 * This function uses interrupt driver mode of the UART.
 *
+* @param	UartInstancePtr is a pointer to the instance of the UART .
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the
 *		Interrupt Controller.
-* @param	UartInstancePtr is a pointer to the instance of the UART .
 * @param	UartDeviceId is the device Id and is typically
 *		XPAR_<UARTNS550_instance>_DEVICE_ID value from  xparameters.h.
 * @param	UartIntrId is the interrupt Id and is typically
 *		XPAR_<INTC_instance>_<UARTNS550_instance>_IP2INTC_IRPT_INTR
 *		value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
-*
-* This function contains an infinite loop such that if interrupts are not
-* working it may never return.
+* @note     - In XSCT/classic flow, DeviceId is used to look up the device
+*            configuration.
+*           - This function contains an infinite loop such that if interrupts
+*            are not working it may never return.
 *
 *******************************************************************************/
 #ifndef SDT
