@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -38,6 +38,7 @@
 * 1.11  sb  05/02/24 Add support for Macronix flash part mx66uw2g345gxrix0.
 * 1.12  akm 01/01/25  Pass valid write command in DAC mode.
 * 1.12  sb  03/12/25 Fixed gcc and g++ warnings.
+* 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
 *
 *</pre>
 *
@@ -203,12 +204,19 @@ int main(void)
 * device driver using OSPI flash devices greater than or equal to 128Mb.
 * This function reads data in either DMA or DAC mode.
 *
-* @param	OspiPsvInstancePtr is a pointer to the OSPIPSV driver component to use.
+* @param	OspiPsvInstancePtr is a pointer to the OSPIPSV driver component
+*               to use.
+* @if SDT
+* @param        BaseAddress contains the base address of the device
+* @else
 * @param        OspiPsvDeviceId is the Device ID of the OSpi Device and is the
 *               XPAR_<OSPI_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
+*
 *
 *****************************************************************************/
 #ifndef SDT

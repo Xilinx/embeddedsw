@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.0   hk  02/19/18 First release
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.9   sb  06/06/23 Added support for system device-tree flow.
+* 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -46,16 +47,23 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
 *
-* @param	DeviceId Contains the ID of the device to look up the
-*		configuration for.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XOspiPsv_ConfigTable[] contains the configuration info for each device
+* in the system.
 *
-* @return
-*		A pointer to the configuration found or NULL if the specified device ID
-* 		was not found. See XOspiPsv.h for the definition of XOspiPsv_Config.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
+*
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xospipsv.h for the
+*               definition of XOspiPsv_Config.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
