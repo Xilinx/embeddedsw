@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -186,6 +186,7 @@
 * 3.5 sne     06/29/20  Fix multiple packets send issue CR-1066438.
 * 3.5 sne     08/28/20  Modify Makefile to support parallel make execution.
 * 3.7 ht      06/28/23  Added support for system device-tree flow.
+* 3.12  vlt   12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -236,9 +237,9 @@ typedef struct {
 #endif
 	UINTPTR BaseAddr;	/**< Register base address */
 #ifdef SDT
-	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 				  * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 				  * Parent base address */
 #endif
 } XCanPs_Config;

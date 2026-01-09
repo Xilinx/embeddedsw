@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
 *              07/10/23 Updated conditional macros for interrupt headers.
 * 3.10  ht     12/13/24 Fix C++ compilation errors and warnings in SDT flow.
+* 3.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -202,20 +203,26 @@ int main(void)
 * sends multiple CAN frames and receives the same number of CAN frame's
 * using the Rx Watermark Interrupt.
 *
-* @param	IntcInstPtr is a pointer to the instance of the ScuGic driver.
 * @param	CanInstPtr is a pointer to the instance of the CAN driver which
 *		is going to be connected to the interrupt controller.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstPtr is a pointer to the instance of the ScuGic driver.
 * @param	CanDeviceId is the device Id of the CAN device and is typically
 *		XPAR_<CANPS_instance>_DEVICE_ID value from xparameters.h.
 * @param	CanIntrId is the interrupt Id and is typically
 *		XPAR_<CANPS_instance>_INTR value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *
-* @note		If the device is not working correctly, this function may enter
+* @note	      - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
+*	      - If the device is not working correctly, this function may enter
 *		an infinite loop and will never return to the caller.
 *
-******************************************************************************/
+*****************************************************************************/
 #ifndef SDT
 int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 			      u16 CanDeviceId, u16 CanIntrId)

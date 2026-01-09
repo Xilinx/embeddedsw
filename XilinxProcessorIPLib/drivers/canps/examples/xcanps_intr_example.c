@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *              07/10/23 Updated conditional macros for interrupt headers.
 * 3.8   rma    01/12/23 Update example code to fix compilation warnings.
 * 3.10  ht     12/13/24 Fix C++ compilation errors and warnings in SDT flow.
+* 3.12  vlt    12/17/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -208,20 +209,27 @@ int main(void)
 * The example configures the device for internal loop back mode, then
 * sends a CAN frame and receives the same CAN frame.
 *
-* @param	IntcInstPtr is a pointer to the instance of the INTC driver.
 * @param	CanInstPtr is a pointer to the instance of the CAN driver which
 *		is going to be connected to the interrupt controller.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstPtr is a pointer to the instance of the INTC driver.
 * @param	CanDeviceId is the device Id of the CAN device and is typically
 *		XPAR_<CANPS_instance>_DEVICE_ID value from xparameters.h.
 * @param	CanIntrId is the interrupt Id and is typically
 *		XPAR_<CANPS_instance>_INTR value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *
-* @note		If the device is not working correctly, this function may enter
-*		an infinite loop and will never return to the caller.
+* @note	      - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
-******************************************************************************/
+*             - If the device is not working correctly, this function may
+*               enter an infinite loop and will never return to the caller.
+*
+*****************************************************************************/
 #ifndef SDT
 int CanPsIntrExample(INTC *IntcInstPtr, XCanPs *CanInstPtr,
 		     u16 CanDeviceId, u16 CanIntrId)
