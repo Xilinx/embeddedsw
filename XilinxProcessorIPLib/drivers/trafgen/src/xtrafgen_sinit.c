@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a srt  01/24/13 First release
-*
+* 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -34,17 +34,25 @@
 
 /*****************************************************************************/
 /**
- * Look up the hardware configuration for a device instance
- *
- * @param	DeviceId is the unique device ID of the device to lookup for
- *
- * @return
- *		The configuration structure for the device. If the device ID is
- *		not found,a NULL pointer is returned.
- *
- * @note	None
- *
- ******************************************************************************/
+*
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XTrafGen_ConfigTable[] contains the configuration info for each device
+* in the system.
+*
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
+*
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xtrafgen.h for the
+*              definition of XTrafGen_Config.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*
+******************************************************************************/
 #ifndef SDT
 XTrafGen_Config *XTrafGen_LookupConfig(u32 DeviceId)
 {

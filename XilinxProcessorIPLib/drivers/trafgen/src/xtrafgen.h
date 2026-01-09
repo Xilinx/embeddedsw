@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -184,6 +184,7 @@
 * 4.4   sd   09/03/20 Updated makefile for parallel execution.
 * 4.7   ar   03/07/24 Modified trafgen intr examples added macro for Interrupt ID.
 * 4.8   ht   12/01/24 Fixed GCC warnings.
+* 4.9   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -310,7 +311,7 @@ typedef struct XTrafGen_Config {
 #ifndef SDT
 	u16 DeviceId;		/**< Device Id */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< Base Address */
 	u32 BusType;		/**< Atgmode */
@@ -319,7 +320,7 @@ typedef struct XTrafGen_Config {
 	u32 AddressWidth;	/**< AddressWidth */
 #ifdef SDT
 	u32 IntId[2]; /**< Interrupt ID on GIC **/
-	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 #endif
 } XTrafGen_Config;
@@ -356,7 +357,7 @@ typedef struct XTrafGen {
 
 	XTrafGen_CmdInfo CmdInfo; /**< Command Info structure */
 
-	int IsReady;	/* Device is initialized and ready */
+	int IsReady;	/**< Device is initialized and ready */
 } XTrafGen;
 
 /***************** Macros (Inline Functions) Definitions *********************/
