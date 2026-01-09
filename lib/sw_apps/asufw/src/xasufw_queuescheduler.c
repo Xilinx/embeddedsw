@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -72,9 +72,9 @@
 
 /**
  * When there are pending requests present in the queue, ASUFW triggers the task with the delay
- * of 100ms.
+ * of 10ms.
  */
-#define XASUFW_QUEUE_TASK_DELAY_TIME	100U /**< Queue task delay time. */
+#define XASUFW_QUEUE_TASK_DELAY_TIME	10U /**< Queue task delay time. */
 
 /************************************** Type Definitions *****************************************/
 
