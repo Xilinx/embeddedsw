@@ -276,8 +276,6 @@ int InitDpDmaSubsystem(Run_Config *RunCfgPtr)
 void SetupInterrupts(Run_Config *RunCfgPtr)
 {
 	XDpPsu *DpPsuPtr = RunCfgPtr->DpPsuPtr;
-	XScuGic		*IntrPtr = RunCfgPtr->IntrPtr;
-	XScuGic_Config	*IntrCfgPtr;
 	u32  IntrMask = XDPPSU_INTR_HPD_IRQ_MASK | XDPPSU_INTR_HPD_EVENT_MASK;
 
 	XDpPsu_WriteReg(DpPsuPtr->Config.BaseAddr, XDPPSU_INTR_DIS, 0xFFFFFFFF);
@@ -288,6 +286,8 @@ void SetupInterrupts(Run_Config *RunCfgPtr)
 
 #ifndef SDT
 	/* Initialize interrupt controller driver. */
+	XScuGic		* IntrPtr = RunCfgPtr->IntrPtr;
+	XScuGic_Config	*IntrCfgPtr;
 	IntrCfgPtr = XScuGic_LookupConfig(INTC_DEVICE_ID);
 	XScuGic_CfgInitialize(IntrPtr, IntrCfgPtr, IntrCfgPtr->CpuBaseAddress);
 
