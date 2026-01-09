@@ -127,7 +127,7 @@ int DpdmaVideoExample(Run_Config *RunCfgPtr)
 	}
 
 	xil_printf("Generating Overlay.....\n\r");
-	GraphicsOverlay(Frame, RunCfgPtr);
+	GraphicsOverlay(Frame);
 
 	/* Populate the FrameBuffer structure with the frame attributes */
 	FrameBuffer.Address = (INTPTR)Frame;
@@ -345,7 +345,7 @@ void SetupInterrupts(Run_Config *RunCfgPtr)
 * @note		None.
 *
 *****************************************************************************/
-u8 *GraphicsOverlay(u8* Frame, Run_Config *RunCfgPtr)
+u8 *GraphicsOverlay(u8 *Frame)
 {
 	u64 Index;
 	u32 *RGBA;
