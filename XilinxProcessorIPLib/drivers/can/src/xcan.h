@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -176,6 +176,7 @@ exclusion
 * 3.5	sne  08/28/20 Modify Makefile to support parallel make execution.
 * 3.7	ht   07/04/23 Added support for system device-tree flow.
 * 3.8   ht   12/13/23 Added support for ECC.
+* 3.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -281,48 +282,48 @@ typedef struct {
 
 	u8 EnableECC;		/**< ECC is enabled or disabled */
 
-	/** Callback for TXOK interrupt */
+	/**< Callback for TXOK interrupt */
 	XCan_SendRecvHandler SendHandler;
 
-	/** This will be passed to the TXOK interrupt callback */
+	/**< This will be passed to the TXOK interrupt callback */
 	void *SendRef;
 
-	/** Callback for RXOK/RXNEMP interrupts */
+	/**< Callback for RXOK/RXNEMP interrupts */
 	XCan_SendRecvHandler RecvHandler;
 
-	/** This will be passed to the RXOK/RXNEMP interrupt callback */
+	/**< This will be passed to the RXOK/RXNEMP interrupt callback */
 	void *RecvRef;
 
-	/** Callback for ERROR interrupt */
+	/**< Callback for ERROR interrupt */
 	XCan_ErrorHandler ErrorHandler;
 
-	/** This will be passed to the ERROR interrupt callback */
+	/**< This will be passed to the ERROR interrupt callback */
 	void *ErrorRef;
 
-	/** Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST
+	/**< Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST
 	 *  interrupts
 	 */
 	XCan_EventHandler EventHandler;
 
-	/** This will be passed to the EventHandler callback */
+	/**< This will be passed to the EventHandler callback */
 	void *EventRef;
 
-	/** TXTLFIFO 2bit ECC count */
+	/**< TXTLFIFO 2bit ECC count */
 	u64 ecc_2bit_txtlfifo_cnt;
 
-	/** TXTLFIFO 1bit ECC count */
+	/**< TXTLFIFO 1bit ECC count */
 	u64 ecc_1bit_txtlfifo_cnt;
 
-	/** TXOLFIFO 2bit ECC count */
+	/**< TXOLFIFO 2bit ECC count */
 	u64 ecc_2bit_txolfifo_cnt;
 
-	/** TXOLFIFO 1bit ECC count */
+	/**< TXOLFIFO 1bit ECC count */
 	u64 ecc_1bit_txolfifo_cnt;
 
-	/** RXFIFO 2bit ECC count */
+	/**< RXFIFO 2bit ECC count */
 	u64 ecc_2bit_rxfifo_cnt;
 
-	/** RXFIFO 1bit ECC count */
+	/**< RXFIFO 1bit ECC count */
 	u64 ecc_1bit_rxfifo_cnt;
 } XCan;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 3.7   ht   07/04/23 Added support for system device-tree flow.
 * 3.8   ht   12/13/23 Added support for ECC.
 * 3.11  sp   13/01/25 Fix GCC warnings.
+* 3.12  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -67,24 +68,29 @@ static void StubHandler(void);
 * XCan_VmInitialize() for detailed information.
 *
 * This initialization entails:
-* - Search for device configuration given the device ID.
+* - Search for device configuration based on the unique device ID/BaseAddress.
 * - Initialize Base Address field of the XCan structure using the device address
 *   in the found device configuration.
 * - Populate all other data fields in the XCan structure
 * - Reset the device.
 *
 * @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique ID of the device controlled by this XCan
 *		instance.  Passing in a device ID associates the generic XCan
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
+* @endif
 *
 * @return
-*	- XST_SUCCESS if initialization was successful
-* 	- XST_DEVICE_NOT_FOUND if device configuration information was not found
-* 	for a device with the supplied device ID.
+*       	- XST_SUCCESS if initialization was successful
+*       	- XST_DEVICE_NOT_FOUND if device configuration information was
+*       	  not found for a device with the supplied device ID/BaseAddress.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -138,17 +144,21 @@ int XCan_Initialize(XCan *InstancePtr, UINTPTR BaseAddress)
 * address space and passing it into this function.
 *
 * This initialization entails:
-* - Search for device configuration given the device ID.
+* - Search for device configuration based on the unique device ID/BaseAddress.
 * - Initialize Base Address field of the XCan structure using the given virtual
 *   address parameter value.
 * - Populate all other data fields in the XCan structure.
 * - Reset the device.
 *
 * @param 	InstancePtr is a pointer to the XCan instance to be worked on.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param 	DeviceId is the unique ID of the device controlled by this XCan
 *		instance.  Passing in a device ID associates the generic XCan
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
+* @endif
 * @param	VirtAddr is the device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from VirtAddr to the device physical base address
@@ -159,9 +169,10 @@ int XCan_Initialize(XCan *InstancePtr, UINTPTR BaseAddress)
 * @return
 * 		- XST_SUCCESS if initialization was successful
 * 		- XST_DEVICE_NOT_FOUND if device configuration information was
-*		not found for a device with the supplied device ID.
+*		not found for a device with the supplied device ID/BaseAddress.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -993,16 +1004,22 @@ void XCan_AcceptFilterGet(XCan *InstancePtr, u32 FilterIndex,
 /*****************************************************************************/
 /**
 *
-* This function looks for the device configuration based on the unique device
-* ID. The table XCan_ConfigTable[] contains the configuration information for
-* each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XCan_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId is the unique device ID of the device being looked up.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xcan.h for the
+*               definition of XCan_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
