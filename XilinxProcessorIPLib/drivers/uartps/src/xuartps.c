@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 3.5	NK     09/26/17 Fix the RX Buffer Overflow issue.
 * 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
 * 3.9   sd     02/06/20 Added clock support
+* 3.18  sd     01/08/26 Added a wait for the RX and TX reset
 * </pre>
 *
 *****************************************************************************/
@@ -599,6 +600,12 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_CR_OFFSET,
 				XUARTPS_CR_TXRST | XUARTPS_CR_RXRST);
 
+	if (Xil_WaitForEvent(((InstancePtr->Config.BaseAddress)
+					+ XUARTPS_CR_OFFSET), (XUARTPS_CR_TXRST | XUARTPS_CR_RXRST),
+					0, TIMEOUT_VAL) != (u32)XST_SUCCESS) {
+		XUartPs_EnableUart(InstancePtr);
+		return XST_UART_BAUD_ERROR;
+	}
 	/* Enable device */
 	XUartPs_EnableUart(InstancePtr);
 
