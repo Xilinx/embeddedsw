@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.12  sne 04/25/22 Added volatile keyword for IsAlarmGen variable.
 * 1.13  ht  06/22/23 Added support for system device-tree flow.
 * 1.15  ht  12/13/24 Fix C++ compilation warnings and errors in SDT flow.
+* 1.17  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ****************************************************************************/
 
@@ -126,20 +127,24 @@ int main(void)
 *
 * This function sets alarm for a specified time from the current time.
 *
-* @param	IntcInstPtr is a pointer to the instance of the ScuGic driver.
 * @param	RtcInstPtr is a pointer to the instance of the RTC driver
 *		which is going to be connected to the interrupt controller.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstPtr is a pointer to the instance of the ScuGic driver.
 * @param	DeviceId is the device Id of the RTC device and is typically
 *		XPAR_<RTCPSU_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 * @param	RtcIntrId is the interrupt Id and is typically
 *		XPAR_<RTCPSU_instance>_INTR value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
-*
-* This function contains an infinite loop such that if interrupts are not
-* working it may never return.
+* @note       - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
+*             - This function contains an infinite loop such that if interrupts
+*             are not working it may never return.
 *
 **************************************************************************/
 #ifndef SDT

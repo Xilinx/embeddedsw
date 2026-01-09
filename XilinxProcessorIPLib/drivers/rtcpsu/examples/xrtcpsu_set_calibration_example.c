@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.8   sg  07/17/19 Update example sequence for finding
 *			new calibration values
 * 1.13	ht  06/21/23 Added support for system device-tree flow.
+* 1.17  vlt    12/16/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 ******************************************************************************/
@@ -107,11 +108,16 @@ int main(void)
 *
 * This function updates the Calibration register value.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device id from hardware build.
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT
