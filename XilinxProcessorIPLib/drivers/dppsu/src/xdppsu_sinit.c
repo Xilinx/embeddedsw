@@ -62,7 +62,7 @@ extern XDpPsu_Config XDpPsu_ConfigTable[];
 #ifndef SDT
 XDpPsu_Config *XDpPsu_LookupConfig(u16 DeviceId)
 {
-	XDpPsu_Config *CfgPtr;
+	XDpPsu_Config *CfgPtr = NULL;
 	u32 Index;
 
 	for (Index = 0; Index < XPAR_XDPPSU_NUM_INSTANCES; Index++) {
@@ -77,7 +77,7 @@ XDpPsu_Config *XDpPsu_LookupConfig(u16 DeviceId)
 #else
 XDpPsu_Config *XDpPsu_LookupConfig(u32 BaseAddress)
 {
-	XDpPsu_Config *CfgPtr;
+	XDpPsu_Config *CfgPtr = NULL;
 	u32 Index;
 
     for (Index = 0; XDpPsu_ConfigTable[Index].Name != NULL; Index++) {
