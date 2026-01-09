@@ -290,6 +290,7 @@
 * 3.15  vlt  12/04/25 Add AxiClkFreq and SerialClkDelay to structure for
 *                     clock configuration.And add XIic_SetClk API for
 *                     dynamic clock configuration.
+* 3.15  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -387,15 +388,15 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;	  /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;        /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;  /**< Device base address */
 	int Has10BitAddr; /**< Does device have 10 bit address decoding */
 	u8 GpOutWidth;	  /**< Number of bits in general purpose output */
 #ifdef SDT
-	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 				 * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 	u32 SerialClkDelay;  /**< SCL inertial delay */
 	u32 AxiClkFreq;     /**< AXI clock frequency in Hz */

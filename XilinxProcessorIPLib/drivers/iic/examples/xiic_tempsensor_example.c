@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.14  bkv  07/07/25 Fixed GCC Warnings.
+* 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -179,8 +180,12 @@ int main(void)
 * for completion of the IIC processing such that it may not return if
 * interrupts or the hardware are not working.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IicDeviceId is the XPAR_<IIC_instance>_DEVICE_ID value from
 *		xparameters.h for the IIC Device
+* @endif
 * @param	TempSensorAddress is the address of the Temperature Sensor device
 *		on the IIC bus
 * @param	TemperaturePtr is the data byte read from the temperature sensor
@@ -188,7 +193,8 @@ int main(void)
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 *******************************************************************************/
 #ifndef SDT

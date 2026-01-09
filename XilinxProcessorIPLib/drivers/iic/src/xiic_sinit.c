@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *		      information
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.15  vlt  11/05/25 Add 64-bit Addressing support.
+* 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ****************************************************************************/
@@ -55,15 +56,22 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. The table
-* IicConfigTable contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XIic_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId is the unique device ID to look for
+* @if SDT
+* @param    BaseAddress contains the base address of the device
+* @else
+* @param    DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration data of the device,
-*		or NULL if no match is found.
+* @return   A pointer to the configuration found or NULL if the specified
+*           device ID/BaseAddress was not found. See xiic.h for the
+*           definition of XIic_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -121,19 +129,24 @@ XIic_Config *XIic_LookupConfig(UINTPTR BaseAddress)
 * XIic_Start() to allow the user to use an interrupt controller of their choice.
 *
 * @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique id of the device controlled by this XIic
 *		instance.  Passing in a device id associates the generic XIic
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS when successful
-*		- XST_DEVICE_NOT_FOUND indicates the given device id isn't found
+*		- XST_DEVICE_NOT_FOUND indicates the given device id/BaseAddress isn't found
 *		- XST_DEVICE_IS_STARTED indicates the device is started
 *		(i.e. interrupts enabled and messaging is possible).
 *		Must stop before re-initialization is allowed.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ****************************************************************************/
 #ifndef SDT

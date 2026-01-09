@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *******************************************************************************/
@@ -116,12 +117,17 @@ int main(void)
 * This function does a selftest on the IIC device and XIic driver as an
 * example.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<IIC_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 ****************************************************************************/
 #ifndef SDT
