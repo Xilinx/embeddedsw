@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 1.4   sd     12/02/21 Fix compilation warnings reported with "-Wundef" flag.
 * 1.5   sd     07/10/23 Added SDT support
 * 1.6   sd     11/03/23 Fix the redefinition of the PSS_REF frequency
+* 1.7   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -194,8 +195,8 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;                    /**< Unique ID of device */
 #else
-	char *Name;
-	u32 BaseAddress;
+	char *Name;                       /**< Name of the device */
+	u32 BaseAddress;                  /**< Base address of the device */
 #endif
 } XClockPs_Config;
 
