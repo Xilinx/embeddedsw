@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 4.0   sha  07/15/15 Defined macro XPAR_XGPIO_NUM_INSTANCES if not
 *		      defined in xparameters.h
 * 4.10  gm   07/11/23 Added SDT support.
+* 4.13  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -53,17 +54,23 @@
 
 /******************************************************************************/
 /**
-* Lookup the device configuration based on the unique device ID.  The table
-* ConfigTable contains the configuration info for each device in the system.
 *
-* @param	DeviceId Device identifier to lookup.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XGpio_ConfigTable[] contains the configuration info for each device in the
+* system.
 *
-* @return
-*		- A pointer of data type XGpio_Config which points to the
-*		  device configuration if DeviceID is found.
-*		- NULL if DeviceID is not found.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @note		None.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xgpio.h for the
+*               definition of XGpio_Config.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -102,8 +109,9 @@ XGpio_Config *XGpio_LookupConfig(UINTPTR BaseAddress)
 #endif
 /****************************************************************************/
 /**
+*
 * Initializes the XGpio instance provided by the caller based on the
-* given DeviceID.
+* device ID/BaseAddress.
 *
 * Only InstancePtr is initialized.
 *
@@ -111,17 +119,22 @@ XGpio_Config *XGpio_LookupConfig(UINTPTR BaseAddress)
 *		pointer references must be pre-allocated by the caller. Further
 *		calls to manipulate the instance/driver through the XGpio API
 *		must be made with this pointer.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId Unique ID of the device controlled by this XGpio
 *		instance. Passing in a device ID associates the generic XGpio
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if the initialization was successful.
 *		- XST_DEVICE_NOT_FOUND  if the device configuration data was not
-*		  found for a device with the supplied device ID.
+*		  found for a device with the supplied device ID/BaseAddress.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 *****************************************************************************/
 #ifndef SDT

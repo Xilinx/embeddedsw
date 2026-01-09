@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 * 4.10  gm   07/11/23 Added SDT support.
 * 4.11  gm   12/06/23 Added IER and GIER calls in SDT flow.
 * 4.13 vlt   12/02/25 Added GlobalIntrMask initialization for SDT flow.
+* 4.13  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *
 *</pre>
 *
@@ -219,11 +220,17 @@ int main(void)
 * This is the entry function from the TestAppGen tool generated application
 * which tests the interrupts when enabled in the GPIO
 *
+* @param	InstancePtr is a reference to the GPIO driver Instance
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstancePtr is a reference to the Interrupt Controller
 * @param	IntcInstancePtr is a reference to the Interrupt Controller
 *		driver Instance
-* @param	InstancePtr is a reference to the GPIO driver Instance
+*		driver Instance
 * @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 * @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
 *		value from xparameters.h
 * @param	IntrMask is the GPIO channel mask
@@ -234,7 +241,8 @@ int main(void)
 *		- XST_SUCCESS if the Test is successful
 *		- XST_FAILURE if the test is not successful
 *
-* @note		None.
+* @note  	In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 ******************************************************************************/
 #ifndef SDT

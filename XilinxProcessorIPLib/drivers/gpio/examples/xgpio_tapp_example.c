@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *                     CR-965028.
 * 4.10  gm   07/11/23 Added SDT support.
 * 4.10  gm   08/28/23 Update example to support peripheral tests.
+* 4.13  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -161,15 +162,21 @@ int main(void)
 * and driver as a example.
 *
 *
+* @if SDT
+* @param	GpioOutputPtr is a pointer to the GPIO driver Instance
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
 *		xparameters.h
 * @param	GpioWidth is the width of the GPIO
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if unsuccessful
 *
-* @note		None
+* @note	        In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -253,8 +260,12 @@ int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress)
 * This function  performs a test on the GPIO driver/device with the GPIO
 * configured as INPUT
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 * @param	DataRead is the pointer where the data read from GPIO Input is
 *		returned
 *
@@ -262,7 +273,8 @@ int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress)
 *		- XST_SUCCESS if the Test is successful
 *		- XST_FAILURE if the test is not successful
 *
-* @note	  	None.
+* @note	       In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

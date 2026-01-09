@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@
 * 4.8	sne  02/10/21 Fixed doxygen warnings.
 * 4.10  gm   07/11/23 Added SDT support.
 * 4.10  gm   08/28/23 Added Width member to XGpio_Config in SDT flow.
+* 4.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *****************************************************************************/
@@ -88,15 +89,15 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< Device base address */
 	int InterruptPresent;	/**< Are interrupts supported in h/w */
 	int IsDual;		/**< Are 2 channels supported in h/w */
 #ifdef SDT
-	u16 IntrId; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-	u16 Width;  /** Gpio width */
+	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 Width;  /**< Gpio width */
 #endif
 } XGpio_Config;
 
