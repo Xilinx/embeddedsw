@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,7 +150,7 @@
 * 3.9   sd     02/06/20 Added clock support
 * 3.12	gm     11/04/22 Added timeout support using Xil_WaitForEvent
 * 3.13	adk    14/04/23 Added support for system device-tree flow.
-*
+* 3.18  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -276,28 +276,28 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;	 /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;     /**< Name of the device */
 #endif
 	u32 BaseAddress; /**< Base address of device (IPIF) */
 	u32 InputClockHz;/**< Input clock frequency */
-	s32 ModemPinsConnected; /** Specifies whether modem pins are connected
+	s32 ModemPinsConnected; /**< Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
 #if defined  (XCLOCKING) || defined(SDT)
 	u32 RefClk;             /**< Input clock frequency */
 #endif
 #if defined(SDT)
-	u32 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	u32 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 				 * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
 #endif
 } XUartPs_Config;
 
 /* Keep track of state information about a data buffer in the interrupt mode. */
 typedef struct {
-	u8 *NextBytePtr;
-	u32 RequestedBytes;
-	u32 RemainingBytes;
+	u8 *NextBytePtr;     /**< Pointer to next byte for transfer */
+	u32 RequestedBytes;  /**< Total bytes requested */
+	u32 RemainingBytes;   /**< Bytes remaining to transfer */
 } XUartPsBuffer;
 
 /**

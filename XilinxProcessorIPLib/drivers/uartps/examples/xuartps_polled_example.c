@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,8 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00a  drg/jz 01/13/10 First Release
 * 1.03a  sg     07/16/12 Modified the device ID to use the first Device Id
-*			Removed the printf at the start of the main
+* 			Removed the printf at the start of the main
+* 3.18    vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -117,13 +118,18 @@ int main(void)
 * using the local loopback mode.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique device id from hardware build.
+* @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note
-* This function polls the UART, it may hang if the hardware is not
-* working correctly.
+* @note        - In XSCT/classic flow, DeviceId is used to look up the
+*              device configuration.
+*              - This function polls the UART, it may hang if the hardware
+*              is not working correctly.
 *
 ****************************************************************************/
 #ifndef SDT

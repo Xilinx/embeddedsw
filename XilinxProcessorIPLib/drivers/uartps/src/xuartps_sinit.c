@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00  drg/jz 01/13/10 First Release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.18  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -52,15 +53,22 @@ extern XUartPs_Config XUartPs_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. The table
-* contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XUartPs_ConfigTable[] contains the configuration info for each device
+* in the system.
 *
-* @param	DeviceId contains the ID of the device
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration structure or NULL if the
-*		specified device is not in the system.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xuartps.h for the
+*               definition of XUartPs_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

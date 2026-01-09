@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
 * 3.17  bkv    07/08/25 Fixed GCC Warning.
+* 3.18  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 ******************************************************************************/
@@ -114,7 +115,11 @@ int main(void)
 * The purpose of this function is to illustrate how to use the XUartPs driver.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique ID for the device from hardware build.
+* @endif
 *
 * @return
 *		- XST_FAILURE if the UART driver could not be initialized
@@ -122,7 +127,8 @@ int main(void)
 *		- A non-negative number indicating the number of characters
 *		  sent.
 *
-* @note		None.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

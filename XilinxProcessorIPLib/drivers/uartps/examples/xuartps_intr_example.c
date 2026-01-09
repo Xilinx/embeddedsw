@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *			 app case.
 * 3.12	gm	09/26/22 Corrected SetRecvTimeout description details.
 * 3.16	ht	10/28/24 Fix compilation warnings in SDT flow peripheral tests
+* 3.18  vlt     12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 ****************************************************************************/
@@ -176,20 +177,24 @@ int main(void)
 *
 * This function uses interrupt mode of the device.
 *
-* @param	IntcInstPtr is a pointer to the instance of the Scu Gic driver.
 * @param	UartInstPtr is a pointer to the instance of the UART driver
 *		which is going to be connected to the interrupt controller.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	IntcInstPtr is a pointer to the instance of the Scu Gic driver.
 * @param	DeviceId is the device Id of the UART device and is typically
 *		XPAR_<UARTPS_instance>_DEVICE_ID value from xparameters.h.
 * @param	UartIntrId is the interrupt Id and is typically
 *		XPAR_<UARTPS_instance>_INTR value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
-*
-* This function contains an infinite loop such that if interrupts are not
-* working it may never return.
+* @note        - In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*              - This function contains an infinite loop such that if
+*              interrupts are not working it may never return.
 *
 **************************************************************************/
 #ifndef SDT
