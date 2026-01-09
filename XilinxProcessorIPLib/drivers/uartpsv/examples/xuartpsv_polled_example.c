@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * ----- ----- -------- ----------------------------------------------
 * 1.0   sd    05/23/19 First Release
 * 1.2   rna   01/20/20 Add self test
+* 1.14  vlt   12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ****************************************************************************/
 
@@ -120,14 +121,19 @@ int main(void)
 * device using the local loopback mode.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the device Id of the UART device and is typically
 *		XPAR_<UartPsv_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note
-* This function polls the UART, it may hang if the hardware is not
-* working correctly.
+* @note        - This function polls the UART, it may hang if the hardware is
+*              not working correctly.
+*              - In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 **************************************************************************/
 #ifndef SDT

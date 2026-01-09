@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
+* 1.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 ******************************************************************************/
 
@@ -97,12 +98,17 @@ int main(void)
 * This function does a minimal test on the XUartPsv driver.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<UARTPSV_instance>_DEVICE_ID value from
 *			xparameters.h
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
-* @note 	None
+* @note 	In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

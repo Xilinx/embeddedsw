@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Add self test
 * 1.12 bkv  03/03/25  Fixed GCC Warning
+* 1.14 vlt 12/18/25  Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 ******************************************************************************/
@@ -112,7 +113,11 @@ int main(void)
 * driver.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the unique ID for the device from hardware build.
+* @endif
 *
 * @return
 *		- XST_FAILURE if the UART driver could not be initialized
@@ -120,7 +125,8 @@ int main(void)
 *		- A non-negative number indicating the number of characters
 *		  sent.
 *
-* @note 	None.
+* @note 	In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT
