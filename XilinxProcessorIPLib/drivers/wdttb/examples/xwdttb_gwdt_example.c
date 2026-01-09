@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 5.9	ht    07/22/24 Add support for peripheral tests in SDT flow.
 * 5.10  ht    10/28/24 Fix compilation warnings in SDT flow peripheral tests.
 * 5.11  bkv   07/08/25 Fixed GCC Warnings.
+* 5.12  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -109,13 +110,19 @@ int main(void)
  * In this function once we reach to Second window time out point
  * It means generating generic_wdt_reset ,We are going to Refresh.
  *
+ * @if SDT
+ * @param        WdtTbInstancePtr is a pointer to the instance of XWdtTb driver.
+ * @param        BaseAddress contains the base address of the device
+ * @else
  * @param        DeviceId is the XPAR_<WDTPSV_instance>_DEVICE_ID value from
  *                xparameters.h.
+ * @endif
  * @return
  *               - XST_SUCCESS, in window, there is no bad event.
  *               - XST_FAILURE, otherwise.
  *
- * @note         None.
+ * @note         In XSCT/classic flow, DeviceId is used to look up the device
+ *               configuration.
  *
  ****************************************************************************/
 

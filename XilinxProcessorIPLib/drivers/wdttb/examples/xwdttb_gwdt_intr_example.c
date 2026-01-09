@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 5.1   sne  06/01/20 Configured Generic watchdog offset value.
 * 5.7   sb   06/27/23 Correct the interrupt ID for Versal-net platform.
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
+* 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -148,21 +149,28 @@ int main(void)
 * connected to the reset of the processor. The function allows the watchdog
 * timer to timeout such that a reset will occur if it is connected.
 *
+* @param	GWdtInstancePtr is a pointer to the instance of WdtTb driver.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the XScuGic
 *		driver.
-* @param	GWdtInstancePtr is a pointer to the instance of WdtTb driver.
 * @param	GWdtDeviceId is the Device ID of the GWDT Device and is
 *		typically XPAR_<GWDT_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @param	GWdtIntrId is the Interrupt Id of the WatchDog and is typically
 *		XPAR_<FABRIC_instance>_<GWDT_instance>_INTERRUPT_VEC_ID
 *		value from xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
 *
-* @note		This example will not return if the interrupts are not working.
+* @note        -In XSCT/classic flow, GWdtDeviceId and GWdtIntrId are used to
+*               look up the device configuration and set up interrupt handling.
+*
+*              -This example will not return if the interrupts are not working.
 *
 ******************************************************************************/
 #ifndef SDT

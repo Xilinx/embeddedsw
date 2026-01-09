@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,8 @@
 * 		      condition
 * 4.0   sha  02/04/16 Added debug messages.
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
-*</pre>
+* 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -121,14 +122,13 @@ int main(void)
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
 *
-* @param	WdtTbBaseAddress is the base address of the device.
+* @param	WdtTbBaseAddress contains the base address of the device
 *
 * @return
 *		- XST_SUCCESS if WRS bit is not set in next two subsequent
 *		timer expiry state.
 *		- XST_FAILURE, otherwise.
-*
-* @note		None.
+*@note		None.
 *
 ****************************************************************************/
 #ifndef SDT

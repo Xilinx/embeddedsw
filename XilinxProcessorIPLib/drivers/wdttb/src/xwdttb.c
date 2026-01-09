@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +79,7 @@
 * 5.7  sb    07/12/23 Added support for system device-tree flow.
 * 5.7  sb    09/13/23 Fix MISRA-C violation 12.1.
 * 5.9  ht    05/15/23 Port XWdtTb_Initialize() to SDT flow
+* 5.12 vlt   12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -269,17 +270,23 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 *
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId Unique ID of the device controlled by this
 *		XWdtTb instance. Passing in a device id associates the generic
 *		XWdtTb instance to a specific device, as chosen by the caller
 *		or application developer.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
-*		- XST_DEVICE_NOT_FOUND if the configuration for device ID was
-*		not found
+*		- XST_DEVICE_NOT_FOUND if the configuration for device ID/
+*		BaseAddress was not found
 *
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

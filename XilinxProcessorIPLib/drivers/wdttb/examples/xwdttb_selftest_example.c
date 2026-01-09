@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 5.0	sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure mode.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow.
+* 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -124,14 +125,19 @@ int main(void)
 * because it waits for the watchdog timer to expire.
 *
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ****************************************************************************/
 #ifndef SDT

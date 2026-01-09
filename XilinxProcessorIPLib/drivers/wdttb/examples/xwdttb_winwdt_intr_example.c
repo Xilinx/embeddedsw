@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 5.7	sb   06/27/23 Correct the interrupt ID for Versal-net platform.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow
+* 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -184,21 +185,26 @@ int main(void)
 * Window Watchdog Timer to timeout such that a reset will occur if it is
 * connected.
 *
+* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is a pointer to the instance of the INTC
 *		driver.
-* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
 * @param	WdtTbDeviceId is the Device ID of the WdtTb Device and is
 *		typically XPAR_<WDTTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @param	WdtTbIntrId is the Interrupt Id of the WatchDog and is
 *		typically XPAR_<INTC_instance>_<WDTTB_instance>_WDT_
 *		INTERRUPT_VEC_ID value from xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if interrupt example run successfully.
 *		- XST_FAILURE, if reset has occurred.
 *
-* @note		None.
+* @note        In XSCT/classic flow, WdtTbDeviceId and WdtTbIntrId are used to
+*              look up the device configuration and set up interrupt handling.
 *
 ******************************************************************************/
 #ifndef SDT

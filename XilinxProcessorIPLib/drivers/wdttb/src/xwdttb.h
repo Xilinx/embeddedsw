@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,6 +106,7 @@
 * 5.9   ht   05/15/24 Port XWdtTb_Initialize() to SDT flow
 * 5.10  ht   04/01/25 Add MaxCountWidth, SstCountWidth in XWdtTb_Config to both
 * 		      the flows as it is required for Axi Timebase WDT.
+* 5.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details
 *
 * </pre>
 *
@@ -148,7 +149,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID of the device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddr;	/**< Base address of the device */
 	u32 EnableWinWdt;	/**< Flag for Window WDT enable */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,7 +37,8 @@
 * 5.9   ht  07/22/24  Add support for peripheral tests in SDT flow.
 * 5.10  ht  10/28/24  Fix compilation warnings in SDT flow peripheral tests.
 * 5.11  bkv 08/29/25  Fixed GCC Warning.
-*</pre>
+* 5.12  vlt 12/18/25  Update Doxygen comments to include SDT flow details.
+* </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -126,15 +127,21 @@ int main(void)
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
 *
+* @if SDT
+* @param	WdtTbInstancePtr is a pointer to the instance of XWdtTb driver.
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if WRS bit is not set in next two subsequent
 *		timer expiry state.
 *		- XST_FAILURE otherwise.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ****************************************************************************/
 #ifndef SDT
