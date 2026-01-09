@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,13 +29,14 @@
 * 1.00a bss    02/29/12 First release
 * 2.00a bss    06/23/12 Updated to support v2_00a version of IP.
 * 3.00a bss    09/03/12 Deleted XAxiPmon_SetAgent API to support
-*						v2_01a version of IP.
-* 3.01a bss	   10/25/12 Deleted XAxiPmon_EnableCountersData API to support
-*						new version of IP.
+*			v2_01a version of IP.
+* 3.01a bss    10/25/12 Deleted XAxiPmon_EnableCountersData API to support
+*			new version of IP.
 * 6.5   ms    01/23/17 Modified xil_printf statement in main function to
 *                      ensure that "Successfully ran" and "Failed" strings are
 *                      available in all examples. This is a fix for CR-965028.
 * 6.10  ht    06/23/23 Added support for system device-tree flow.
+* 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -89,7 +90,7 @@ static XAxiPmon AxiPmonInst;      /* System Monitor driver instance */
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note		None.
+* @note		None
 *
 *****************************************************************************/
 int main(void)
@@ -138,8 +139,12 @@ int main(void)
 *	- Disables Global Clock Counter and Metric Counters
 *	- Read Global Clock Counter and Metric Counter 0
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
 *		from xparameters.h.
+* @endif
 * @param	Metrics is an user referece variable in which computed metrics
 *			will be filled
 * @param	ClkCntHigh is an user referece variable in which Higher 64 bits
@@ -151,7 +156,8 @@ int main(void)
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note   	None
+* @note	        In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

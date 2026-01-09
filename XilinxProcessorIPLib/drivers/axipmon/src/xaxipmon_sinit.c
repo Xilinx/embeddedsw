@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.00a bss  06/23/12 Updated to support v2_00a version of IP.
 * 6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
+* 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -49,18 +50,22 @@ extern XAxiPmon_Config XAxiPmon_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* This function looks up the device configuration based on the unique device ID.
-* The table XAxiPmon_ConfigTable contains the configuration info for each device
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XAxiPmon_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
-* @param	DeviceId contains the ID of the device for which the
-*		device configuration pointer is to be returned.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return
-*		- A pointer to the configuration found.
-*		- NULL if the specified device ID was not found.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xaxipmon.h for the
+*               definition of XAxiPmon_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

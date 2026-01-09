@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *                     available in all examples. This is a fix for CR-965028.
 * 6.10  ht     06/23/23 Added support for system device-tree flow.
 * 6.13  sd     07/10/25 Fix a gcc warning.
+* 6.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -180,16 +181,21 @@ int main(void)
 *	- Reads Sampled Metric Counter 0
 *	- Disables Metric Counters
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
 *		from xparameters.h.
+* @endif
 * @param	Metrics is an user reference variable in which computed metrics
-*			will be filled
+*	        will be filled
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note   	None
+* @note	       In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
