@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -261,6 +261,7 @@ exclusion
 * 2.8	gm   06/22/23 Add XCanFd_stop to support release node.
 * 2.8	ht   07/18/23 Fixed GCC warnings.
 * 2.12  vlt  11/05/25 Add 64-bit Addressing support.
+* 2.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -341,7 +342,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	u32 Rx_Mode;			/**< 1-Mailbox 0-sequential */

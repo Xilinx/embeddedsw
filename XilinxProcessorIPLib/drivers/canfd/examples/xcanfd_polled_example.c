@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 * 2.8   ht     06/19/23 Added support for system device-tree flow.
 * 2.8   gm     06/22/23 Call XCanFd_stop to release canfd node.
 * 2.10  ht     01/09/25 Fix C++ warning.
+* 2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 ******************************************************************************/
@@ -165,19 +166,22 @@ int main(void)
 * configures the device for internal loopback mode, then sends a Can
 * frame, receives the same Can frame, and verifies the frame contents.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
-* @return
+* @return       XST_SUCCESS if successful, otherwise driver-specific error
+*               code.
 *
-* XST_SUCCESS if successful, otherwise driver-specific error code.
+* @note         - In XSCT/classic flow, DeviceId is used to look up the device
+* 		configuration.
+* 		- If the device is not working correctly, this function may
+* 		enter an infinite loop and will never return to the caller.
 *
-* @note
-*
-* If the device is not working correctly, this function may enter an infinite
-* loop and will never return to the caller.
-*
-******************************************************************************/
+*****************************************************************************/
 #ifndef SDT
 int XCanFdPolledExample(u16 DeviceId)
 #else
