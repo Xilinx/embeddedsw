@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
  * 2.17 ht 11/25/24  Update Max Message length to accommodate for CRC bytes
  *                   when IPI CRC is enabled
  *	jb 12/26/24 Fixed misrac warnings
+ * 2.19 vlt 12/30/25 Update Doxygen comments to include SDT flow details.
  * </pre>
  *
  *****************************************************************************/
@@ -138,7 +139,7 @@ typedef struct {
 #ifndef SDT
 	u32 DeviceId; /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name; /**< Name of the device */
 #endif
 	UINTPTR BaseAddress; /**< Base address of the device */
 	u32 BitMask; /**< BitMask to be used to identify this CPU */
