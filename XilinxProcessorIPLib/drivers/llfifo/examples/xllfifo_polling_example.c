@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
  *                      RDFO should be read before reading RLR. Reading RLR
  *                      first will result in the RDFO being reset to zero and
  *                      no data being received.
+ * 6.1   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
  * </pre>
  *
  * ***************************************************************************
@@ -155,13 +156,20 @@ int main()
 *
 * @param	InstancePtr is a pointer to the instance of the
 *		XLlFifo component.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is Device ID of the Axi Fifo Device instance,
 *		typically XPAR_<AXI_FIFO_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return
 *		-XST_SUCCESS to indicate success
 *		-XST_FAILURE to indicate failure
+*
+* @note	        In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
 *
 ******************************************************************************/
 #ifndef SDT
