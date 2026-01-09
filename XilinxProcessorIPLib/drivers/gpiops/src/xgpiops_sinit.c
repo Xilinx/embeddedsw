@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.00a sv   01/15/10 First Release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.12  gm   07/11/23 Added SDT support.
+* 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -47,16 +48,22 @@
 /*****************************************************************************/
 /**
 *
-* This function looks for the device configuration based on the unique device
-* ID. The table XGpioPs_ConfigTable[] contains the configuration information
-* for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XGpioPs_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId is the unique device ID of the device being looked up.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xgpiops.h for the
+*               definition of XGpioPs_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*****************************************************************************/
@@ -40,6 +40,7 @@
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
 * 3.9	sne  11/19/20 Added versal PmcGpio example support.
 * 3.12  gm   07/11/23 Added SDT support.
+* 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -144,8 +145,12 @@ int main(void)
 * The purpose of this function is to illustrate how to use the GPIO driver to
 * turn on/off an LED and read the inputs using the pin APIs.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
 *		xparameters.h
+* @endif
 * @param	DataRead is the pointer where the data read from GPIO Input is
 *		returned.
 *
@@ -153,7 +158,9 @@ int main(void)
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note		This function will not return if the test is running.
+* @note	       - This function will not return if the test is running.
+*	       - In XSCT/classic flow, DeviceId is used to look up the
+*	         device configuration.
 *
 ******************************************************************************/
 #ifndef SDT
