@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,6 +109,7 @@
 *                     definitions of tft in xparameters.h
 * 6.3   sd   02/09/20 Updated makefile for parallel execution.
 * 6.4   sd   07/08/23 Added SDT support.
+* 6.8   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *</pre>
 *
 ****************************************************************************/
@@ -156,7 +157,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;			/**< Unique ID of device */
 #else
-	char *Name;
+	char *Name;                     /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;		/**< Base address of device */
 	UINTPTR VideoMemBaseAddr;	/**< Video Memory Base address */

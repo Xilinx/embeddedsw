@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * -----  ----  --------  -----------------------------------------------
 * 1.00a  sg    03/24/08  First release
 * 6.4   sd     07/08/23  Added SDT support.
+* 6.8  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * </pre>
 *
 *****************************************************************************/
@@ -47,14 +48,22 @@ extern XTft_Config XTft_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* This function obtains the Configuration pointer of the device whose ID
-* is being passed as the parameter to the function.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XTft_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId is the unique number of the device.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	Configuration pointer of the Device whose ID is given.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xtft.h for the
+*               definition of XTft_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 *****************************************************************************/
 #ifndef SDT

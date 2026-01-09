@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *                       CR-965028.
 * 6.4   sd     07/08/23 Added SDT support.
 * 6.6   sd     12/16/24 Update the DDR_HIGH_ADDR to support BRAM..
+* 6.8   vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -169,13 +170,18 @@ int main()
 * - Scroll the screen once and draw a line
 * - Enable the TFT display
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	TftDeviceId is the unique Id of the device.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
 *
-* @note		None.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT
