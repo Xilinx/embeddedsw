@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
 * 4.2   ms   08/07/17 Fixed compilation warnings.
 * 4.6   ht   07/06/23 Added support for system device-tree flow.
+* 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 *
 * </pre>
 *
@@ -47,16 +48,22 @@ extern XMbox_Config XMbox_ConfigTable[];
 
 /*****************************************************************************
 *
-* Looks up the device configuration based on the unique device ID. The config
-* table contains the configuration info for each device in the system.
+* Looks up the device configuration based on the unique device ID/BaseAddress.
+* The XMbox_ConfigTable[] contains the configuration info for each device in
+* the system.
 *
-* @param	DeviceId is the unique device ID to search for in the config
-*		table.
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
+* @param	DeviceId contains the unique ID of the device
+* @endif
 *
-* @return	A pointer to the configuration that matches the given device ID,
-*		or NULL if no match is found.
+* @return       A pointer to the configuration found or NULL if the specified
+*               device ID/BaseAddress was not found. See xmbox.h for the
+*               definition of XMbox_Config.
 *
-* @note		None.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT

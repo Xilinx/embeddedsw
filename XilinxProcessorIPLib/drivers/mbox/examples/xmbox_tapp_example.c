@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,7 +56,8 @@
 * 4.8   ht   08/08/24 Optimize wait time with timeout reduction and usleep()
 *                     inclusion.
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
-*</pre>
+* 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 *****************************************************************************/
 
 /**************************** Include Files **********************************/
@@ -165,13 +166,20 @@ int main(void)
 * This function sends a message to and receives a message from the other
 * processor.
 *
+* @if SDT
+* @param	MboxInstancePtr is a pointer to the Mailbox instance
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	MboxDeviceID is the device Id of the MailBox.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if the test passes.
 *		- XST_FAILURE if the test fails.
 *
-* @note		None.
+* @note	        In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
+*
 *
 ******************************************************************************/
 #ifndef SDT

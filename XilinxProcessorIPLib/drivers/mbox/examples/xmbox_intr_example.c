@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +50,8 @@
 *                     examples.
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
-*</pre>
+* 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
+* </pre>
 *******************************************************************************/
 
 /***************************** Include Files **********************************/
@@ -191,16 +192,22 @@ int main(void)
 * processor. It also uses the interrupt to check whether the other processor
 * has started to send or receive.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device
+* @else
 * @param	IntcInstancePtr is the device instance of the interrupt
 *		controller that is being worked on.
 * @param	MboxDeviceId is the Mailbox device ID.
 * @param	MboxIntrId is the Mailbox interrupt ID.
+* @endif
 *
 * @return
 *		- XST_SUCCESS if the test passes
 *		- XST_FAILURE  if the test fails
 *
-* @note		None
+* @note  	In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
+*
 *
 *****************************************************************************/
 #ifndef SDT
