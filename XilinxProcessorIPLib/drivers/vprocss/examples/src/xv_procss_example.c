@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -812,7 +812,7 @@ int main(void)
 #ifndef XPS_BOARD_VCK190
 #if XPAR_XCLK_WIZ_NUM_INSTANCES
 		u32 ClockFreq = 0;
-		ClockFreq = (XVidC_GetPixelClockHzByVmId(VpssPtr->VidOut.VmId) / 1000000);
+		ClockFreq = (XVidC_GetPixelClockHzByVmId(VpssPtr->VidOut.VmId) / 1000000)/XPAR_XVPROCSS_0_SAMPLES_PER_CLK;
 		if (ClockFreq > 150) {
 			ClockFreq = 150;
 		}
