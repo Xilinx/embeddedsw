@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 5.2   ht   10/10/23    Added code for versioning of library.
+ * 5.6   an   11/12/25    Update the FatFS version to R0.16
  *
  *</pre>
  *
@@ -40,7 +41,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* Library version info */
 #define XILFFS_MAJOR_VERSION	5U
-#define XILFFS_MINOR_VERSION	5U
+#define XILFFS_MINOR_VERSION	6U
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

@@ -2,7 +2,7 @@
 /  Configurations of FatFs Module
 /---------------------------------------------------------------------------*/
 
-#define FFCONF_DEF	5380	/* Revision ID */
+#define FFCONF_DEF	80386	/* Revision ID */
 
 #ifdef __cplusplus
 extern "C" {
@@ -96,13 +96,13 @@ extern "C" {
 
 #define FF_PRINT_LLI	0
 #define FF_PRINT_FLOAT	0
-#define FF_STRF_ENCODE	3
-/* FF_USE_STRFUNC switches the string API functions, f_gets(), f_putc(), f_puts()
-/  and f_printf().
+#define FF_STRF_ENCODE	0
+/* FF_USE_STRFUNC switches string API functions, f_gets(), f_putc(), f_puts() and
+/  f_printf().
 /
 /   0: Disable. FF_PRINT_LLI, FF_PRINT_FLOAT and FF_STRF_ENCODE have no effect.
-/   1: Enable without LF - CRLF conversion.
-/   2: Enable with LF - CRLF conversion.
+/   1: Enable without LF-CRLF conversion.
+/   2: Enable with LF-CRLF conversion.
 /
 /  FF_PRINT_LLI = 1 makes f_printf() support long long argument and FF_PRINT_FLOAT = 1/2
 /  makes f_printf() support floating point argument. These features want C99 or later.
@@ -204,12 +204,24 @@ extern "C" {
 #else
 #define FF_FS_RPATH		0U
 #endif
-/* This option configures support for relative path.
+/* This option configures support for relative path feature.
 /
 /   0: Disable relative path and remove related API functions.
-/   1: Enable relative path. f_chdir() and f_chdrive() are available.
+/   1: Enable relative path and dot names. f_chdir() and f_chdrive() are available.
 /   2: f_getcwd() is available in addition to 1.
 */
+
+
+#define FF_PATH_DEPTH	10
+/*  This option defines maximum depth of directory in the exFAT volume. It is NOT
+/   relevant to FAT/FAT32 volume.
+/   For example, FF_PATH_DEPTH = 3 will able to follow a path "/dir1/dir2/dir3/file"
+/   but a sub-directory in the dir3 will not able to be followed and set current
+/   directory.
+/   The size of filesystem object (FATFS) increases FF_PATH_DEPTH * 24 bytes.
+/   When FF_FS_EXFAT == 0 or FF_FS_RPATH == 0, this option has no effect.
+*/
+
 
 
 /*---------------------------------------------------------------------------/
@@ -291,7 +303,7 @@ extern "C" {
 
 #define FF_FS_TINY		0
 /* This option switches tiny buffer configuration. (0:Normal or 1:Tiny)
-/  At the tiny configuration, size of file object (FIL) is shrinked FF_MAX_SS bytes.
+/  At the tiny configuration, size of file object (FIL) is reduced FF_MAX_SS bytes.
 /  Instead of private sector buffer eliminated from the file object, common sector
 /  buffer in the filesystem object (FATFS) is used for the file data transfer. */
 
@@ -307,9 +319,9 @@ extern "C" {
 
 
 #define FF_FS_NORTC		0
-#define FF_NORTC_MON	11
+#define FF_NORTC_MON	1
 #define FF_NORTC_MDAY	1
-#define FF_NORTC_YEAR	2024
+#define FF_NORTC_YEAR	2025
 /* The option FF_FS_NORTC switches timestamp feature. If the system does not have
 /  an RTC or valid timestamp is not needed, set FF_FS_NORTC = 1 to disable the
 /  timestamp feature. Every object modified by FatFs will have a fixed timestamp
@@ -320,9 +332,14 @@ extern "C" {
 /  These options have no effect in read-only configuration (FF_FS_READONLY = 1). */
 
 
+#define FF_FS_CRTIME	0
+/* This option enables(1)/disables(0) the timestamp of the file created. When
+/  set 1, the file created time is available in FILINFO structure. */
+
+
 #define FF_FS_NOFSINFO	0
-/* If you need to know correct free space on the FAT32 volume, set bit 0 of this
-/  option, and f_getfree() at the first time after volume mount will force
+/* If you need to know the correct free space on the FAT32 volume, set bit 0 of
+/  this option, and f_getfree() on the first time after volume mount will force
 /  a full FAT scan. Bit 1 controls the use of last allocated cluster number.
 /
 /  bit0=0: Use free cluster count in the FSINFO if available.
