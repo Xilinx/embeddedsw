@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,13 @@ extern "C" {
 
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
+
+/* Ioctl Permission bits for global general storage registers (pggs/ggs) */
+#define IOCTL_PERM_READ_WRITE_MASK \
+	((u32)1U << IOCTL_PERM_READ_SHIFT_NS) | \
+	((u32)1U << IOCTL_PERM_WRITE_SHIFT_NS) | \
+	((u32)1U << IOCTL_PERM_READ_SHIFT_S) | \
+	((u32)1U << IOCTL_PERM_WRITE_SHIFT_S)
 
 typedef struct XPm_Subsystem XPm_Subsystem;
 typedef struct XPm_Core XPm_Core;
