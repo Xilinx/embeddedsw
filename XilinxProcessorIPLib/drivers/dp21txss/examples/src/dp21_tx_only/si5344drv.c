@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,6 @@
 #include "si5344drv.h"
 
 /************************** Constant Definitions *****************************/
-#define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
@@ -40,6 +39,7 @@
 #define I2C_REPEATED_START XIIC_REPEATED_START
 #define I2C_STOP XIIC_STOP
 #endif
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/

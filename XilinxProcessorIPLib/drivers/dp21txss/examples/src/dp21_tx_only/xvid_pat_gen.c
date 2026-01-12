@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -248,6 +248,7 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 {
+	(void)InstancePtr;
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 		StreamOffset[Stream - 1], TestPatternControl,
 			(PIXEL_MODE | StreamPattern_vpg[Stream - 1]));
@@ -272,6 +273,7 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 ******************************************************************************/
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 {
+	(void)InstancePtr;
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 		StreamOffset[0], TestPatternControl,
 			(PIXEL_MODE | Pattern));
@@ -359,17 +361,14 @@ void Vpg_Audio_stop(void){
 static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 				u8 Stream, u8 VSplitMode, u8 first_time)
 {
+	(void)first_time;
+	(void)VSplitMode;
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
-	u32 UserPixelWidth;
-	u8 DSBypass;
-	XVidC_VideoMode VmId;
-//	u32 Status;
-    u32 Count = 0;
-	VmId = MsaConfig->Vtm.VmId;
 
-	/* Configure MSA values from the Display Monitor Timing (DMT) table.
+	/*
+	 * Configure MSA values from the Display Monitor Timing (DMT) table.
 	 * Will provide a way to optionally acquire these values from the EDID
 	 * of the sink.
 	 */
@@ -377,7 +376,6 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	VidgenConfig->VidClkSel =
 			(LinkConfig->LinkRate == (XDP_TX_LINK_BW_SET_270GBPS));
 
-	UserPixelWidth = MsaConfig->UserPixelWidth;
 	VidgenConfig->Misc0 = MsaConfig->Misc0;
 	VidgenConfig->Misc1 = MsaConfig->Misc1;
 	VidgenConfig->Timing.VActive = MsaConfig->Vtm.Timing.VActive;

@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +59,7 @@ typedef struct
 
 } si5344_revd;
 
-si5344_revd static const si5344_revd_registers[SI5344_REVD_CONFIG_NUM_REGS] =
+static si5344_revd const si5344_revd_registers[SI5344_REVD_CONFIG_NUM_REGS] =
 {
 
 		/* Start configuration preamble */

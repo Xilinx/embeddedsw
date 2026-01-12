@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 *
 ******************************************************************************/
 
-#include "xbasic_types.h"
+#include "xil_types.h"
 #include "xdptxss_dp21_tx.h"
 
 #ifdef PLATFORM_MB
@@ -36,19 +36,24 @@ typedef u8 AddressType;
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 u8 ReadBuffer[PAGE_SIZE];
 
-static void ReceiveHandler(XIic * InstancePtr)
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
         ReceiveComplete = 0;
 }
 
-static void SendHandler(XIic * InstancePtr)
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
         TransmitComplete = 0;
 }
 
-static void StatusHandler(XIic * InstancePtr, int Event)
+static void StatusHandler(void *CallBackRef, int Event)
 {
-
+	(void)CallBackRef;
+	(void)Event;
 }
 
 int iic_write(u16 ByteCount)
@@ -144,7 +149,6 @@ int iic_write(u16 ByteCount)
 int iic_read(AddressType addr, u8 *BufferPtr, u16 ByteCount)
 {
         int Status;
-//      AddressType Address = EEPROM_TEST_START_ADDRESS;
         AddressType Address;
         Address = addr;
 
@@ -157,7 +161,6 @@ int iic_read(AddressType addr, u8 *BufferPtr, u16 ByteCount)
         /*
          * Position the Pointer in EEPROM.
          */
-        //xil_printf("st11\r\n");
         if (sizeof(Address) == 1) {
                 WriteBuffer[0] = (u8) (Address);
         }
@@ -165,12 +168,14 @@ int iic_read(AddressType addr, u8 *BufferPtr, u16 ByteCount)
                 WriteBuffer[0] = (u8) (Address >> 8);
                 WriteBuffer[1] = (u8) (Address);
         }
+
         XIic_InterruptHandler(&IicInstance);
 
         Status = iic_write(sizeof(Address));
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
         }
+
         XIic_InterruptHandler(&IicInstance);
 
         /*
@@ -180,7 +185,7 @@ int iic_read(AddressType addr, u8 *BufferPtr, u16 ByteCount)
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
         }
-        //xil_printf("start read2\r\n");
+
         XIic_InterruptHandler(&IicInstance);
         /*
          * Receive the Data.
@@ -210,20 +215,20 @@ int iic_read(AddressType addr, u8 *BufferPtr, u16 ByteCount)
         return XST_SUCCESS;
 }
 
-int write_si570(u8 *UpdateBuffer)
+int Si570_Write(u8 *UpdateBuffer)
 {
 	u32 Index;
 	int Status;
 	AddressType Address = EEPROM_TEST_START_ADDRESS;
 	AddressType addr;
 
-	XIic_SetSendHandler(&IicInstance, &IicInstance,
-			    (XIic_Handler) SendHandler);
-	XIic_SetRecvHandler(&IicInstance, &IicInstance,
-			    (XIic_Handler) ReceiveHandler);
-	XIic_SetStatusHandler(&IicInstance, &IicInstance,
-			      (XIic_StatusHandler) StatusHandler);
-	/* Initialize the data to write and the read buffer. */
+	XIic_SetSendHandler(&IicInstance, &IicInstance, SendHandler);
+	XIic_SetRecvHandler(&IicInstance, &IicInstance, ReceiveHandler);
+	XIic_SetStatusHandler(&IicInstance, &IicInstance, StatusHandler);
+
+	/*
+	 * Initialize the data to write and the read buffer.
+	 */
 	if (sizeof(Address) == 1) {
 		WriteBuffer[0] = (u8) (Address);
 	} else {
@@ -232,98 +237,110 @@ int write_si570(u8 *UpdateBuffer)
 		ReadBuffer[Index] = 0;
 	}
 
-	/* Set the Slave address to the PCA9543A.*/
+	/*
+	 * Set the Slave address to the PCA9543A.
+	 */
 	Status = XIic_SetAddress(&IicInstance,
 				 XII_ADDR_TO_SEND_TYPE,
 				 I2C_MUX_ADDR2);
-	//xil_printf("set addr end\r\n");
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/* Write to the IIC Switch. */
-	WriteBuffer[0] = 0x01; /* Select Bus0 - U1 */
+	/*
+	 * Write to the IIC Switch.
+	 */
+	WriteBuffer[0] = 0x01; /**< Select Bus0 - U1 */
+
 	Status = iic_write(1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("eeprom write end\r\n");
 
-	/* Set the Slave address to the SI570 */
+	/*
+	 * Set the Slave address to the SI570
+	 */
 	Status = XIic_SetAddress(&IicInstance,
 				 XII_ADDR_TO_SEND_TYPE,
 				 IIC_SI570_ADDRESS);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("set addr end\r\n");
 
-	/* Write to the SI570 */
-	/* Set frequency back to default power-up value
+	/* Write to the SI570
+	 *
+	 * Set frequency back to default power-up value
 	 * In this case 156.250000 MHz
 	 * Freeze DCO bit in Reg 137
-	 * */
+	 */
 	WriteBuffer[0] = 137;
 	WriteBuffer[1] = 0x10;
+
 	Status = iic_write(sizeof(Address) + 1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("1 end\r\n");
 
-	/* Recall the 156.2500000 value from NVM
+	/*
+	 * Recall the 156.2500000 value from NVM
 	 * by setting RECALL (bit 0) = 1 in Reg 135
 	 */
 	WriteBuffer[0] = 135;
 	WriteBuffer[1] = 0x01;
+
 	Status = iic_write(sizeof(Address) + 1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("2 end\r\n");
 
-	/* Un-Freeze DCO bit in Reg 137 */
+	/*
+	 * Un-Freeze DCO bit in Reg 137
+	 */
 	WriteBuffer[0] = 137;
 	WriteBuffer[1] = 0x00;
+
 	Status = iic_write(sizeof(Address) + 1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("3 end\r\n");
 
-	/* Assert New Frequency bit in Reg 135 */
+	/*
+	 * Assert New Frequency bit in Reg 135
+	 */
 	WriteBuffer[0] = 135;
 	WriteBuffer[1] = 0x40;
+
 	Status = iic_write(sizeof(Address) + 1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("4 end\r\n");
 
-	/* Wait 10 ms */
-	//int zz,kk;
-	//for(kk= 0; kk<100000; kk++)
-	//        zz = kk+1;
+	/*
+	 * Wait 10 ms
+	 */
+
 	usleep(10000);
-	//udelay(1000);
-	//xil_printf("5 end\r\n");
 
-	/* Update to user requested frequency */
-	/* Freeze DCO bit in Reg 137 */
+	/*
+	 * Update to user requested frequency
+	 * Freeze DCO bit in Reg 137
+	 */
 	WriteBuffer[0] = 137;
 	WriteBuffer[1] = 0x10;
-	Status = iic_write(sizeof(Address) + 1);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-	//xil_printf("6 end\r\n");
-	Status = iic_write(sizeof(Address) + 1);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-	//xil_printf("7 end\r\n");
 
-	/* Set New Frequency to 400 MHz when starting from 156.25 MHz */
+	Status = iic_write(sizeof(Address) + 1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = iic_write(sizeof(Address) + 1);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Set New Frequency to 400 MHz when starting from 156.25 MHz
+	 */
 	WriteBuffer[0] = 7;
 	WriteBuffer[1] = UpdateBuffer[0];
 	WriteBuffer[2] = UpdateBuffer[1];
@@ -336,9 +353,10 @@ int write_si570(u8 *UpdateBuffer)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("8 end\r\n");
 
-	/* Un-Freeze DCO bit in Reg 137 */
+	/*
+	 * Un-Freeze DCO bit in Reg 137
+	 */
 	WriteBuffer[0] = 137;
 	WriteBuffer[1] = 0x00;
 
@@ -346,9 +364,10 @@ int write_si570(u8 *UpdateBuffer)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("9 end\r\n");
 
-	/* Assert New Frequency bit in Reg 135 */
+	/*
+	 * Assert New Frequency bit in Reg 135
+	 */
 	WriteBuffer[0] = 135;
 	WriteBuffer[1] = 0x40;
 
@@ -356,43 +375,47 @@ int write_si570(u8 *UpdateBuffer)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("a end\r\n");
 
-	/* Read from the SI570 */
-	//xil_printf("Reading data from SI570\r\n");
+	/*
+	 * Read from the SI570
+	 */
 	addr = 7;
+
 	Status = iic_read(addr, ReadBuffer, 6);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	//xil_printf("b end\r\n");
 
-	/* Display Read Buffer */
+	/*
+	 * Display Read Buffer
+	 */
 	for (Index = 0; Index < 6; Index++) {
-	//    xil_printf("ReadBuffer[%02d] = %02X\r\n",
-	//    		 Index, ReadBuffer[Index]);
+		xdbg_printf(XDBG_DEBUG_GENERAL, "ReadBuffer[%02d] = %02X\r\n", Index, ReadBuffer[Index]);
 	}
 
-	//Closing the IIC MUX
-	/* Set the Slave address to the PCA9543A.*/
+	/*
+	 * Closing the IIC MUX
+	 *
+	 * Set the Slave address to the PCA9543A.
+	 */
 	Status = XIic_SetAddress(&IicInstance,
 				 XII_ADDR_TO_SEND_TYPE,
 				 I2C_MUX_ADDR2);
-	//xil_printf("set addr end\r\n");
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/* Write to the IIC Switch. */
-	WriteBuffer[0] = 0x0; /* Select Bus0 - U1 */
+	/*
+	 * Write to the IIC Switch.
+	 */
+	WriteBuffer[0] = 0x0; /**< Select Bus0 - U1 */
+
 	Status = iic_write(1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-
 	return XST_SUCCESS;
 }
-
 #endif
 #endif

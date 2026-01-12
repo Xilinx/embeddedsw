@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
- * @file xdptxss_zcu102_tx.h
+ * @file xdptxss_dp21_tx.h
  *
  *
  * <pre>
@@ -14,16 +14,16 @@
  *
 * Ver  Who      Date      Changes
 * ---- ---      --------  --------------------------------------------------.
-* 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+* 1.00  ND	18/10/22  Common DP 2.1 tx only application for zcu102 and
 * 						  vcu118
-* 1.01	ND		26/02/24  Added support for 13.5 and 20G
-* 1.02  ND      24/03/25  Added support for PARRETO fmc
+* 1.01	ND	26/02/24  Added support for 13.5 and 20G
+* 1.02  ND	24/03/25  Added support for PARRETO fmc
  *</pre>
  *
 *****************************************************************************/
 
-#ifndef SRC_XDPTXSS_ZCU102_TX_H_
-#define SRC_XDPTXSS_ZCU102_TX_H_
+#ifndef SRC_XDPTXSS_DP21_TX_H_
+#define SRC_XDPTXSS_DP21_TX_H_
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -62,7 +62,6 @@ extern "C" {
 #include "xvidframe_crc.h"
 
 /************************** Constant Definitions *****************************/
-
 /*
 * The following constants map to the names of the hardware instances.
 * They are only defined here such that a user can easily change all the
@@ -148,25 +147,28 @@ extern "C" {
 #else
 #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
 #endif
-#define XVPHY_DEVICE_ID		XPAR_VPHY_0_DEVICE_ID
-#define CLK_WIZ_BASE      	XPAR_CLK_WIZ_0_BASEADDR
+
+#define XVPHY_DEVICE_ID			XPAR_VPHY_0_DEVICE_ID
+
 #ifndef SDT
-#define IIC_BASE_ADDR 		XPAR_IIC_0_BASEADDR
+#define IIC_BASE_ADDR 			XPAR_IIC_0_BASEADDR
 #else
-#define IIC_BASE_ADDR		XPAR_XIIC_0_BASEADDR
+#define IIC_BASE_ADDR			XPAR_XIIC_0_BASEADDR
 #endif
-#define IIC_DEVICE_ID       XPAR_IIC_0_DEVICE_ID
-#define PE_VS_ADJUST 1
+
+#define IIC_DEVICE_ID			XPAR_IIC_0_DEVICE_ID
+#define PE_VS_ADJUST			1
 #define XVPHY_DRP_CPLL_FBDIV		0x28
 #define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
-#define XVPHY_DRP_RXOUT_DIV			0x63
-#define XVPHY_DRP_RXCLK25			0x6D
-#define XVPHY_DRP_TXCLK25			0x7A
-#define XVPHY_DRP_TXOUT_DIV			0x7C
-#define XVPHY_DRP_PROGDIV           0x3E
+#define XVPHY_DRP_RXOUT_DIV		0x63
+#define XVPHY_DRP_RXCLK25		0x6D
+#define XVPHY_DRP_TXCLK25		0x7A
+#define XVPHY_DRP_TXOUT_DIV		0x7C
+#define XVPHY_DRP_PROGDIV		0x3E
 
-// The following are the PROGDIVCLK divider values when BufferBypass is
-// enabled
+/*
+ * The following are the PROGDIVCLK divider values when BufferBypass is enabled.
+ */
 #define DIVIDER_162                 57423
 #define DIVIDER_270                 57415
 #define DIVIDER_540                 57442
@@ -193,24 +195,23 @@ extern "C" {
 
 #define XVPHY_GTHE4_DIFF_SWING_DP_DP20 0xF
 
-#define COLOR_FORMAT_SHIFT 4
-#define BPC_SHIFT 8
-#define DYNAMIC_RANGE_SHIFT 15
+#define COLOR_FORMAT_SHIFT		4
+#define BPC_SHIFT			8
+#define DYNAMIC_RANGE_SHIFT		15
 
 #if (XPAR_TX_SUBSYSTEM_V_DP_TXSS2_0_DP_OCTA_PIXEL_ENABLE)
-#define CRC_CFG 0x5
+#define CRC_CFG				0x5
 #else
-#define CRC_CFG 0x4
+#define CRC_CFG				0x4
 #endif
-
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /**************************** Type Definitions *******************************/
 
-/*The structure defines Generic Frame Packet fields*/
+/*
+ * The structure defines Generic Frame Packet fields
+ */
 typedef struct
 {
         u32 frame_count;
@@ -218,10 +219,6 @@ typedef struct
         u8 Header[4];
         u8 Payload[32];
 } XilAudioExtFrame;
-
-//XilAudioExtFrame  SdpExtFrame;
-//XilAudioExtFrame  SdpExtFrame_q;
-
 
 typedef struct
 {
@@ -243,14 +240,13 @@ typedef struct
 
 
 /************************** Function Prototypes ******************************/
-void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128],
-		u16 res_update);
-void hpd_pulse_con(XDpTxSs *InstancePtr);
+void DpTxSs_HpdCon(XDpTxSs *InstancePtr, u8 Edid_org[128], u16 res_update);
+void DpTxSs_HpdPulseCon(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
-u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);
-u32 config_phy(int LineRate_init_tx, XVphy_PllType Tx_Pll, XVphy_ChannelId Tx_Channel);
+u32 DpTxSs_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_config);
+u32 DpTxSs_PhyConfig(int LineRate_init_tx, XVphy_PllType Tx_Pll, XVphy_ChannelId Tx_Channel);
 #ifdef PARRETO_FMC
 int i2c_write_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress,
                 u32 Value);
@@ -259,20 +255,16 @@ u8 i2c_read_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)
 int i2c_write_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value);
 #endif
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
-void sink_power_down(void);
-void sink_power_up(void);
+void DpTxSs_Sink_PowerDown(void);
+void DpTxSs_Sink_PowerUp(void);
 u8 get_LineRate(void);
 u8 get_Lanecounts(void);
-void sink_power_cycle(void);
-void DpPt_pe_vs_adjustHandler(void *InstancePtr);
+void DpTxSs_Sink_PowerCycle(void);
+void DpTxSs_Pe_Vs_AdjustHandler(void *InstancePtr);
 int VideoFMC_Init(void);
-int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
-		int FOut, u8 FreeRun);
-int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }
 #endif
-#endif /* SRC_XDPTXSS_ZCU102_TX_H_ */
+#endif /* SRC_XDPTXSS_DP21_TX_H_ */

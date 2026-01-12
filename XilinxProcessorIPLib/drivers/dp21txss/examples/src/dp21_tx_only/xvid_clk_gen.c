@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xil_types.h"
@@ -10,15 +10,16 @@
 #include "xclk_wiz.h"
 
 #ifndef SDT
-#define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
+#define CLK_WIZ_BASE		XPAR_CLK_WIZ_0_BASEADDR
 #else
-#define CLK_WIZ_BASE	XPAR_XCLK_WIZ_0_BASEADDR
+#define CLK_WIZ_BASE		XPAR_XCLK_WIZ_0_BASEADDR
 #endif
 #define CLK_LOCK                        1
 
-//Following limits are for ZCU102 US+ device
-//User to refer to DS and Switching char and update for
-//their design
+/*
+ * Following limits are for ZCU102 US+ device
+ * User to refer to DS and Switching char and update for their design
+ */
 #define VCO_MAX 1600000
 #define VCO_MIN 800000
 
@@ -128,7 +129,9 @@ void ComputeMandD(u32 VidFreq){
 		}
 	}
 
-	/* Progamming the clocking wizard */
+	/*
+	 * Progamming the clocking wizard
+	 */
 	u32 fail,error,count;
 	fail = error = count = 0;
 
@@ -143,26 +146,31 @@ void ComputeMandD(u32 VidFreq){
 	}
 
 
-/* SW reset applied */
+	/*
+	 * SW reset applied
+	 */
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x0, 0xA);
 
-	for(count=0; count<2000; count++);      /* Wait cycles after SW reset */
+	for(count=0; count<2000; count++);      /**< Wait cycles after SW reset */
+
 	fail = wait_for_lock();
-	if(fail)
-	{
+	if (fail) {
 		error++;
-	xil_printf(
-			"\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\r\n",
-			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
+		xil_printf("\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\r\n",
+				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 
-	/* Configuring Multiply and Divide values */
+	/*
+	 * Configuring Multiply and Divide values
+	 */
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x200, (MVal<<8)|DVal);
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x204, 0);
 
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x208, DivVal);
 
-	/* Load Clock Configuration Register values */
+	/*
+	 * Load Clock Configuration Register values
+	 */
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x07);
 
 	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
@@ -172,22 +180,25 @@ void ComputeMandD(u32 VidFreq){
 		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
 				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
-	/* Clock Configuration Registers are used for dynamic reconfiguration */
+
+	/*
+	 * Clock Configuration Registers are used for dynamic reconfiguration
+	 */
 	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x02);
 
 	fail = wait_for_lock();
 	if(fail)
 	{
 		error++;
-				xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\r\n",
+		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\r\n",
 				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 }
 
 void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 {
-	u32 Count = 0;
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
+
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
 }
