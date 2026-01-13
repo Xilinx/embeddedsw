@@ -2822,8 +2822,14 @@ static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr) {
         /*********************************************************
          * 420 Support
          *********************************************************/
+
          XV_HdmiRxSs1_BridgePixelDrop(InstancePtr, FALSE);
-         XV_HdmiRxSs1_BridgeYuv420(InstancePtr, TRUE);
+         if(HdmiRxSs1VidStreamPtr->IsDSCompressed) {
+		          XV_HdmiRxSs1_BridgeYuv420(InstancePtr, FALSE);
+         } else {
+		          XV_HdmiRxSs1_BridgeYuv420(InstancePtr, TRUE);
+         }
+
     }
     else {
         if (AviInfoFramePtr->PixelRepetition ==
