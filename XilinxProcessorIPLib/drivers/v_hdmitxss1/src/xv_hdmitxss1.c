@@ -903,7 +903,8 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
   VideoTiming.Interlaced = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsInterlaced;
 
     /* For YUV420 the line width is double there for double the blanking */
-    if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+    if ( (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) &&
+	      (!HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsDSCompressed)) {
     	/* If the parameters below are not divisible by the current PPC setting,
     	 * log an error as VTC does not support such video timing
     	 */
@@ -946,7 +947,8 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
         VideoTiming.HSyncWidth;
 
     /* For YUV420 the line width is double there for double the blanking */
-    if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+    if ( (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420)  &&
+        (!HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsDSCompressed)) {
         Vtc_Hblank *= 2;
     }
 
@@ -3430,7 +3432,11 @@ static void XV_HdmiTxSs1_ConfigBridgeMode(XV_HdmiTxSs1 *InstancePtr) {
          *********************************************************/
          XV_HdmiTxSs1_BridgePixelRepeat(InstancePtr, FALSE);
          AviInfoFramePtr->PixelRepetition = XHDMIC_PIXEL_REPETITION_FACTOR_1;
-         XV_HdmiTxSs1_BridgeYuv420(InstancePtr, TRUE);
+         if (HdmiTxSs1VidStreamPtr->IsDSCompressed) {
+            XV_HdmiTxSs1_BridgeYuv420(InstancePtr, FALSE);
+         } else {
+            XV_HdmiTxSs1_BridgeYuv420(InstancePtr, TRUE);
+         }
     }
     else {
         if ((AviInfoFramePtr->PixelRepetition ==
