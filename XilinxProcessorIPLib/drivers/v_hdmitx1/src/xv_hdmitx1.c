@@ -568,7 +568,8 @@ u64 XV_HdmiTx1_GetTmdsClk(XV_HdmiTx1 *InstancePtr)
 	InstancePtr->Stream.PixelClk = TmdsClock;
 
 	/* YUV420 */
-	if (InstancePtr->Stream.Video.ColorFormatId == (XVIDC_CSF_YCRCB_420)) {
+	if ( (InstancePtr->Stream.Video.ColorFormatId == (XVIDC_CSF_YCRCB_420)) &&
+	     (!InstancePtr->Stream.Video.IsDSCompressed)) {
 		/* In YUV420 the tmds clock is divided by two*/
 		TmdsClock = TmdsClock >> 1;
 	}
@@ -1470,23 +1471,28 @@ void XV_HdmiTx1_SetColorFormat(XV_HdmiTx1 *InstancePtr)
 			    (XV_HDMITX1_PIO_OUT_MSK_OFFSET),
 			    (XV_HDMITX1_PIO_OUT_COLOR_SPACE_MASK));
 
-	/* Check for color format */
-	switch (InstancePtr->Stream.Video.ColorFormatId) {
-	case (XVIDC_CSF_YCRCB_444):
-		RegValue = 1;
-		break;
-
-	case (XVIDC_CSF_YCRCB_422):
-		RegValue = 2;
-		break;
-
-	case (XVIDC_CSF_YCRCB_420):
-		RegValue = 3;
-		break;
-
-	default:
+	if (InstancePtr->Stream.Video.IsDSCompressed) {
+		/* For DSC, always use RGB (0) */
 		RegValue = 0;
-		break;
+	} else {
+		/* Check for color format */
+		switch (InstancePtr->Stream.Video.ColorFormatId) {
+		case (XVIDC_CSF_YCRCB_444):
+			RegValue = 1;
+			break;
+
+		case (XVIDC_CSF_YCRCB_422):
+			RegValue = 2;
+			break;
+
+		case (XVIDC_CSF_YCRCB_420):
+			RegValue = 3;
+			break;
+
+		default:
+			RegValue = 0;
+			break;
+		}
 	}
 
 	/* Write color space into PIO Out register */
@@ -1519,27 +1525,32 @@ void XV_HdmiTx1_SetColorDepth(XV_HdmiTx1 *InstancePtr)
 			    (XV_HDMITX1_PIO_OUT_MSK_OFFSET),
 			    (XV_HDMITX1_PIO_OUT_COLOR_DEPTH_MASK));
 
-	/* Color depth*/
-	switch (InstancePtr->Stream.Video.ColorDepth) {
-	/* 10 bits*/
-	case (XVIDC_BPC_10):
-		RegValue = 1;
-		break;
-
-	/* 12 bits*/
-	case (XVIDC_BPC_12):
-		RegValue = 2;
-		break;
-
-	/* 16 bits*/
-	case (XVIDC_BPC_16):
-		RegValue = 3;
-		break;
-
-	/* 8 bits*/
-	default:
+	if (InstancePtr->Stream.Video.IsDSCompressed) {
+		/* For DSC, always use 8 bits (0) */
 		RegValue = 0;
-		break;
+	} else {
+		/* Color depth*/
+		switch (InstancePtr->Stream.Video.ColorDepth) {
+		/* 10 bits*/
+		case (XVIDC_BPC_10):
+			RegValue = 1;
+			break;
+
+		/* 12 bits*/
+		case (XVIDC_BPC_12):
+			RegValue = 2;
+			break;
+
+		/* 16 bits*/
+		case (XVIDC_BPC_16):
+			RegValue = 3;
+			break;
+
+		/* 8 bits*/
+		default:
+			RegValue = 0;
+			break;
+		}
 	}
 
 	/* Write color depth into PIO Out register */
