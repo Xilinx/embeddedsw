@@ -24,6 +24,7 @@
  * 2.4	 vak 4/01/19  Fixed IAR data_alignment warnings
  * 2.9   nd  3/18/24  Fixed failures reported by CV test suite.
  * 2.10  ka  21/08/25 Fixed GCC warnings
+ * 2.11  ka  24/12/25 Fix EP0 STALL handling for invalid descriptor requests
  *</pre>
  ******************************************************************************/
 
@@ -275,7 +276,10 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 					 */
 					ReplyLen = XUsbPs_Ch9SetupDevDescReply(
 							   Reply, XUSBPS_REQ_REPLY_LEN);
-
+					if(ReplyLen == 0)
+					{
+					Error = 1;
+					} else {
 					ReplyLen = ReplyLen > SetupData->wLength ?
 						   SetupData->wLength : ReplyLen;
 
@@ -298,6 +302,7 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 						/* Failure case needs to be handled */
 						for (;;);
 					}
+					}
 					break;
 
 				case XUSBPS_TYPE_CONFIG_DESC:
@@ -307,7 +312,9 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 					 */
 					ReplyLen = XUsbPs_Ch9SetupCfgDescReply(
 							   Reply, XUSBPS_REQ_REPLY_LEN);
-
+					if(ReplyLen == 0) {
+						Error = 1;
+					} else {
 #ifdef CH9_DEBUG
 					printf("get config %d/%d\n", ReplyLen, SetupData->wLength);
 #endif
@@ -321,6 +328,7 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 						/* Failure case needs to be handled */
 						for (;;);
 					}
+					}
 					break;
 
 
@@ -332,7 +340,9 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 					ReplyLen = XUsbPs_Ch9SetupStrDescReply(
 							   Reply, XUSBPS_REQ_REPLY_LEN,
 							   SetupData->wValue & 0xFF);
-
+					if(ReplyLen == 0) {
+						Error = 1;
+					} else {
 					ReplyLen = ReplyLen > SetupData->wLength ?
 						   SetupData->wLength : ReplyLen;
 
@@ -341,6 +351,7 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 					if (XST_SUCCESS != Status) {
 						/* Failure case needs to be handled */
 						for (;;);
+					}
 					}
 					break;
 
