@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -23,6 +23,7 @@
  *		       example for all USB IPs.
  * 1.5	vak  13/02/19  Added support for versal
  * 1.5  vak  03/25/19  Fixed incorrect data_alignment pragma directive for IAR
+ * 1.6  ka   24/12/25  Fix EP0 STALL handling for invalid descriptor requests
  *
  * </pre>
  *
@@ -232,6 +233,9 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 						   Usb_Ch9SetupDevDescReply(
 							   InstancePtr, Reply,
 							   USB_REQ_REPLY_LEN);
+					if(ReplyLen == 0) {
+						Error = 1;
+					} else {
 
 					ReplyLen = ReplyLen > SetupData->wLength ?
 						   SetupData->wLength : ReplyLen;
@@ -258,6 +262,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 						/* Failure case needs to be handled */
 						for (;;);
 					}
+				    }
 					break;
 
 				case USB_TYPE_CONFIG_DESC:
@@ -269,7 +274,9 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 						   Usb_Ch9SetupCfgDescReply(
 							   InstancePtr, Reply,
 							   USB_REQ_REPLY_LEN);
-
+					if(ReplyLen == 0) {
+						Error = 1;
+					} else {
 #ifdef CH9_DEBUG
 					printf("GET CONFIG DESC %d/%d\r\n", ReplyLen,
 					       SetupData->wLength);
@@ -283,6 +290,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 						/* Failure case needs to be handled */
 						for (;;);
 					}
+				    }
 					break;
 
 				case USB_TYPE_STRING_DESC:
@@ -293,7 +301,9 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 						   Usb_Ch9SetupStrDescReply(
 							   InstancePtr, Reply, 128,
 							   SetupData->wValue & 0xFF);
-
+					if(ReplyLen == 0) {
+						Error = 1;
+					} else {
 #ifdef CH9_DEBUG
 					printf("GET STRING DESC %d/%d\r\n", ReplyLen,
 					       SetupData->wLength);
@@ -307,7 +317,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 						/* Failure case needs to be handled */
 						for (;;);
 					}
-
+					}
 					break;
 
 				case USB_TYPE_BOS_DESC:
@@ -317,7 +327,9 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 					ReplyLen = usb_data->ch9_func.
 						   Usb_Ch9SetupBosDescReply(Reply,
 									    USB_REQ_REPLY_LEN);
-
+					if(ReplyLen == 0) {
+						Error = 1;
+					} else {
 #ifdef CH9_DEBUG
 					printf("GET BOS DESC %d/%d\r\n", ReplyLen,
 					       SetupData->wLength);
@@ -331,6 +343,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 					if (XST_SUCCESS != Status) {
 						/* Failure case needs to be handled */
 						for (;;);
+					}
 					}
 					break;
 
