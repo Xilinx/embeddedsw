@@ -638,8 +638,8 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 				/* If the colorspace is YUV420, then the
 				 * frame rate must be doubled */
-				if (InstancePtr->Stream.Video.ColorFormatId ==
-						XVIDC_CSF_YCRCB_420) {
+				if ( (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420)  &&
+					(!InstancePtr->Stream.Video.IsDSCompressed) ) {
 					/* Calculate and set the frame rate field */
 					InstancePtr->Stream.Video.FrameRate =
 					   (XVidC_FrameRate) (XV_HdmiRx1_Divide((InstancePtr->Stream.PixelClk << 1),

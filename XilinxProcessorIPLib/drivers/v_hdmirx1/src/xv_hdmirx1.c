@@ -1963,7 +1963,8 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 
 	/* If the colorspace is YUV420, then the
 	 * horizontal parameters must be doubled*/
-	if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if ((InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) &&
+		(!DscEnabledStream)) {
 		YUV420_Correction = 2;
 	} else {
 		YUV420_Correction = 1;

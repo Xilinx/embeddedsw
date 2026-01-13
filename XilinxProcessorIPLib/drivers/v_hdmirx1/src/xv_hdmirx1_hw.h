@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,6 +128,7 @@ extern "C" {
 #define XV_HDMIRX1_PIO_OUT_SCRM_MASK                 (1<<12) /**< PIO Out Scrambler mask */
 #define XV_HDMIRX1_PIO_OUT_BRIDGE_YUV420_MASK        (1<<29) /**< PIO Out Bridge_YUV420 mask */
 #define XV_HDMIRX1_PIO_OUT_BRIDGE_PIXEL_MASK         (1<<30) /**< PIO Out Bridge_Pixel drop mask */
+#define XV_HDMIRX1_PIO_OUT_MANUAL_MASK         (1<<31)	/**< PIO Out manual mode mask */
 
 #define XV_HDMIRX1_PIO_OUT_INT_VRST_MASK             (1<<0)  /**< PIO Out INT_VRST
                                                                 * mask */
