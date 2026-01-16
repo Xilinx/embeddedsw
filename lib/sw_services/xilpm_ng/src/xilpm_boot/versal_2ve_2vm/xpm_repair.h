@@ -139,7 +139,17 @@ extern "C" {
 #define ISP2_NPI_0_ISP2_NPI_PCSR_STATUS_BISR_PASS_MASK	(0x00400000U)
 
 /*
- * AIE2PS BISR register defintions
+ * VIP BISR register definitions
+ */
+#define VIP_NPI_0_BASEADDR				(0xF6360000U)
+#define VIP_NPI_0_SSSS_BISR_CACHE_DATA_SSSS_0		(VIP_NPI_0_BASEADDR + (u32)0x00000204U)
+#define VIP_NPI_0_VIP_NPI_PCSR_MASK_BISR_TRIGGER_MASK	(0x01000000U)
+#define VIP_NPI_0_VIP_NPI_PCSR_CONTROL_BISR_TRIGGER_MASK	(0x01000000U)
+#define VIP_NPI_0_VIP_NPI_PCSR_STATUS_BISR_DONE_MASK	(0x00010000U)
+#define VIP_NPI_0_VIP_NPI_PCSR_STATUS_BISR_PASS_MASK	(0x00020000U)
+
+/*
+ * AIE2PS BISR register definitions
  */
 #define ME_BISR_EFUSE_OFFSET_SHIFT			(20U)
 #define AIE2PS_PL_MODULE_0_0_BASEADDR			(0x20000000000U)
@@ -151,7 +161,7 @@ extern "C" {
 #define AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_PASS_MASK	(0x00000002U)
 
 /*
- * MMI_GTYP BISR register defintions
+ * MMI_GTYP BISR register definitions
  */
 #define MMI_GTYP_CFG_REG_PCSR_MASK			(0xED900000U)
 #define MMI_GTYP_CFG_REG_PCSR_CONTROL			(0xED900004U)
@@ -165,7 +175,21 @@ extern "C" {
 #define MMI_GTYP_CFG_REG_PCSR_MASK_BISR_TRIGGER_MASK	(0x20000000U)
 
 /*
- * MMI BISR register defintions
+ * EIO BISR register definitions
+ */
+#define EIO_SLCR_WPROT0					(EIO_SLCR_BASEADDR + (u32)EIO_SLCR_WPROT0_OFFSET)
+#define EIO_SLCR_BISR_CACHE_STATUS			(EIO_SLCR_BASEADDR + (u32)0x0000044CU)
+#define EIO_SLCR_BISR_CACHE_CTRL			(EIO_SLCR_BASEADDR + (u32)0x00000450U)
+#define EIO_SLCR_BISR_CACHE_DATA_0			(EIO_SLCR_BASEADDR + (u32)0x00000454U)
+
+#define EIO_SLCR_BISR_CACHE_CTRL_CLR_MASK		(0x00000001U)
+#define EIO_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK		(0x00000002U)
+
+#define EIO_SLCR_BISR_CACHE_STATUS_PASS_MASK		(0x00000001U)
+#define EIO_SLCR_BISR_CACHE_STATUS_DONE_MASK		(0x00000002U)
+
+/*
+ * MMI BISR register definitions
  */
 #define MMI_SLCR_WPROTP					(MMI_SLCR_BASEADDR + (u32)MMI_SLCR_WPROTP_OFFSET)
 #define MMI_SLCR_BISR_CACHE_STATUS			(MMI_SLCR_BASEADDR + (u32)0x00000500U)
@@ -201,7 +225,7 @@ extern "C" {
 #define MMI_SLCR_BISR_CACHE_STATUS_PASS_PCIE_UDH_INTWRAP_MASK	(0x00000002U)
 
 /*
- * DDRMC5E Main BISR register defintions
+ * DDRMC5E Main BISR register definitions
  */
 #define DDRMC5E_UB_0_BASEADDR				(0xF6570000U)
 #define DDRMC5E_UB_0_CLK_GATE				(DDRMC5E_UB_0_BASEADDR + (u32)0x00000238U)
@@ -215,7 +239,7 @@ extern "C" {
 #define DDRMC5E_UB_0_BISR_CACHE_STATUS_PASS_MASK	(0x00000002U)
 
 /*
- * DDRMC5E CRYPTO BISR register defintions
+ * DDRMC5E CRYPTO BISR register definitions
  */
 #define DDRMC5E_UB_0_BISR_CACHE_DATA_CRYPTO_0		(DDRMC5E_UB_0_BASEADDR + (u32)0x00000404U)
 #define DDRMC5E_UB_0_BISR_CACHE_STATUS_CRYPTO		(DDRMC5E_UB_0_BASEADDR + (u32)0x00000414U)
@@ -227,7 +251,7 @@ extern "C" {
 #define DDRMC5E_UB_0_BISR_CACHE_STATUS_CRYPTO_PASS_MASK	(0x00000002U)
 
 /*
- * GTYP BISR register defintions
+ * GTYP BISR register definitions
  */
 #define GTYP_NPI_SLAVE_0_BASEADDR			(0xF68D0000U)
 #define GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0		(GTYP_NPI_SLAVE_0_BASEADDR + (u32)0x00000064U)
@@ -313,6 +337,8 @@ enum BISR_TAG_IDs {
 	LPXC_TAG_ID = 0x2C,		//  XPmRepair_Lpd
 	AIE2PS_TAG_ID = 0x2D,		//  XPmRepair_Aie2p_s
 	MMI_GTYP_TAG_ID = 0x2E,		//  XPmRepair_Mmi_Gtyp
+	VIP_TAG_ID = 0x33,		//  XPmRepair_Svip
+	EIO_TAG_ID = 0x34,		//  XPmRepair_Seio
 	MAX_BISR_TAG_NUM = 0x35
 };
 
@@ -333,6 +359,8 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr);
 XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr, u32 * TagDataAddr);
 XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr);
 XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Vip(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr);
 
 #ifdef __cplusplus
 }

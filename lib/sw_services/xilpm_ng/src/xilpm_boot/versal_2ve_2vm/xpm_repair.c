@@ -167,6 +167,12 @@ XStatus XPmBisr_Repair(u32 TagId)
 			case AIE2PS_TAG_ID:
 				Status = XPmRepair_Aie2p_s((u32 *)EfuseCurrAddr, &EfuseNextAddr);
 				break;
+			case VIP_TAG_ID:
+				Status = XPmRepair_Vip((u32 *)EfuseCurrAddr, &EfuseNextAddr);
+				break;
+			case EIO_TAG_ID:
+				Status = XPmRepair_Eio((u32 *)EfuseCurrAddr, &EfuseNextAddr);
+				break;
 			case MRMAC_TAG_ID:
 				EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
 				if (EfuseNextAddr != ~0U) {
