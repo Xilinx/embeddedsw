@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /******************************************************************************/
@@ -19,6 +19,7 @@
 *                      of pre calculated hash.
 * 5.6   tus  07/24/25  Add else clause in XSecure_GetLmsHashAlgo api with
 *                      appropriate error code
+* 5.7   har  01/13/26  Set Status to error before jumping to END label
 *
 * </pre>
 * @note
@@ -173,12 +174,14 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			(void*)&LmsOtsSignatureBuff[XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET],
 			XSECURE_LMS_C_FIELD_SIZE, XSECURE_LMS_C_FIELD_SIZE);
 		if (Status != XST_SUCCESS) {
+			Status = XSECURE_LMS_MEM_COPY_ERROR;
 			goto END;
 		}
 
 		/* initialize HASH to calculate digest */
 		Status = XSecure_ShaInitialize(ShaInstPtr, DmaPtr);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
@@ -232,6 +235,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		(void*)DigestPrefixFields.Fields.I, XSECURE_LMS_I_FIELD_SIZE,
 		XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_LMS_MEM_COPY_ERROR;
 		goto END;
 	}
 
@@ -249,8 +253,9 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		(void*)DigestPrefixFields.Fields.I,
 		XSECURE_LMS_I_FIELD_SIZE, XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
-                goto END;
-        }
+		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		goto END;
+	}
 
 
 	/* Copy 'q' from public key, Little Endian to Big Endian copy */
@@ -287,6 +292,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE,
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
 		if (Status != XST_SUCCESS) {
+			Status = XSECURE_LMS_MEM_COPY_ERROR;
 			goto END;
 		}
 
@@ -316,6 +322,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE,
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
 		if (Status != XST_SUCCESS) {
+			Status = XSECURE_LMS_MEM_COPY_ERROR;
 			goto END;
 		}
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - IntToOutLoopBuffIndex 0x%x\n\r", IntToOutLoopBuffIndex);
@@ -481,6 +488,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_I_FIELD_SIZE,
 				XSECURE_LMS_I_FIELD_SIZE);
 		if (Status != XST_SUCCESS) {
+			Status = XSECURE_LMS_MEM_COPY_ERROR;
 			goto END;
 		}
 	}
@@ -606,6 +614,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		XSECURE_LMS_I_FIELD_SIZE,
 		XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_LMS_MEM_COPY_ERROR;
 		goto END;
 	}
 
@@ -626,6 +635,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE,
 		XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE);	/* 32 bytes */
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_LMS_MEM_COPY_ERROR;
 		goto END;
 	}
 
@@ -670,6 +680,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
+				Status = XSECURE_LMS_MEM_COPY_ERROR;
 				goto END;
 			}
 
@@ -680,6 +691,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
+				Status = XSECURE_LMS_MEM_COPY_ERROR;
 				goto END;
 			}
 
@@ -699,6 +711,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
+				Status = XSECURE_LMS_MEM_COPY_ERROR;
 				goto END;
 			}
 			Status = Xil_SMemCpy(
@@ -708,6 +721,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
+				Status = XSECURE_LMS_MEM_COPY_ERROR;
 				goto END;
 			}
 
@@ -816,6 +830,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 
 	Status = Xil_SecureZeroize((u8 *)(UINTPTR)&AuthenticatedKey.Buff[0U], sizeof(XSecure_LmsPublicKey));
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR;
 		goto END;
 	}
 
@@ -1021,6 +1036,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		XSECURE_LMS_I_FIELD_SIZE,
 		XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_LMS_MEM_COPY_ERROR;
 		goto END;
 	}
 
@@ -1031,6 +1047,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		XSECURE_LMS_C_FIELD_SIZE,
 		XSECURE_LMS_C_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
+		Status = XSECURE_LMS_MEM_COPY_ERROR;
 		goto END;
 	}
 
@@ -1091,6 +1108,7 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	/* Start SHA to calculate digest */
 	Status = XSecure_ShaStart(ShaInstPtr, Mode);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1098,6 +1116,7 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	if (DataLen == 0U) {
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -1105,6 +1124,7 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	Status = XSecure_ShaUpdate(ShaInstPtr, (u64)(UINTPTR)DigestPrefixFields.Buff,
 		XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1112,10 +1132,12 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 		/* Process data now */
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 		Status = XSecure_ShaUpdate(ShaInstPtr, (u64)(UINTPTR)Data, DataLen);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}

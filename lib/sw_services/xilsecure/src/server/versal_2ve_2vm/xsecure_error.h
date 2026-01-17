@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
  *                       Added error code XSECURE_SHA_IPI_EVENT_HANDLER_FAILED_ERROR
  *       ng   09/19/2025 Fixed error descriptions
  *       obs  09/23/2025 Added XSECURE_ERR_INVALID_ADDR_RANGE
+ * 5.7   har  01/13/2026 Added XSECURE_LMS_MEM_COPY_ERROR and XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR
  *
  * </pre>
  *
@@ -339,6 +340,8 @@ enum {
 					/**< 0xD6 - ECC private key generation error */
 	XSECURE_HSS_SHA2_256_KAT_ERROR,			/**< 0xD7 - LMS SHA2-256 KAT error */
 	XSECURE_HSS_SHAKE_256_KAT_ERROR,		/**< 0xD8 - LMS SHAKE KAT error */
+	XSECURE_LMS_MEM_COPY_ERROR,	/**< 0xD9 - Error in copying from buffer in LMS operation */
+	XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR,	/**< 0xDA - Error in zeroizing LMS HSS key */
 
 	/* Error codes related to key unwrap */
 	XSECURE_ERR_KEY_STORE_SIZE = 0xE0, /**< 0xE0 - Key store size error */
