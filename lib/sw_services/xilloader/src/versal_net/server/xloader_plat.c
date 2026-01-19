@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 *       obs  08/26/2025 Added support for address range checks
 *       pre  12/16/2025 Handled PCR info invalid case in case of OCP key management disabled
 *       obs  12/30/2025 Added explicit CPU validation in XLoader_ProcessElf
+* 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
 *
 * </pre>
 *
@@ -1045,7 +1046,7 @@ int XLoader_DumpDdrmcRegisters(void)
 	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_7; DevId++) {
 
 		if(DevId > PM_DEV_DDRMC_3 && DevId < PM_DEV_DDRMC_4){
-			continue;
+			DevId = PM_DEV_DDRMC_4;
 		}
 
 		DevStatus.Status = (u32)XPM_DEVSTATE_UNUSED;
