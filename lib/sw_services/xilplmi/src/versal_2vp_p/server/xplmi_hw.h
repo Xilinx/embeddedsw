@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
+* 2.4   obs 01/19/26 Fixed GCC warnings
 *
 * </pre>
 *
@@ -484,32 +485,25 @@ extern "C" {
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_6_DEVICE_ID
 	#endif
 #else
-	#if defined(XPAR_XWDTTB_0_BASEADDR) && (XPAR_XWDTTB_0_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_0_ENABLE_WINDOW_WDT == 0U)
+	#if defined(XPAR_XWDTTB_0_BASEADDR) && (XPAR_XWDTTB_0_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_0_BASEADDR
-	#elif defined(XPAR_XWDTTB_1_BASEADDR) && (XPAR_XWDTTB_1_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_1_ENABLE_WINDOW_WDT == 0U)
+	#elif defined(XPAR_XWDTTB_1_BASEADDR) && (XPAR_XWDTTB_1_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_1_BASEADDR
-	#elif defined(XPAR_XWDTTB_2_BASEADDR) && (XPAR_XWDTTB_2_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_2_ENABLE_WINDOW_WDT == 0U)
+	#elif defined(XPAR_XWDTTB_2_BASEADDR) && (XPAR_XWDTTB_2_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_2_BASEADDR
-	#elif defined(XPAR_XWDTTB_3_BASEADDR) && (XPAR_XWDTTB_3_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_3_ENABLE_WINDOW_WDT == 0U)
+	#elif defined(XPAR_XWDTTB_3_BASEADDR) && (XPAR_XWDTTB_3_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_3_BASEADDR
-	#elif defined(XPAR_XWDTTB_4_BASEADDR) && (XPAR_XWDTTB_4_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_4_ENABLE_WINDOW_WDT == 0U)
+	#elif defined(XPAR_XWDTTB_4_BASEADDR) && (XPAR_XWDTTB_4_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_4_BASEADDR
-	#elif defined(XPAR_XWDTTB_5_BASEADDR) && (XPAR_XWDTTB_5_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_5_ENABLE_WINDOW_WDT == 0U)
+	#elif defined(XPAR_XWDTTB_5_BASEADDR) && (XPAR_XWDTTB_5_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_5_BASEADDR
-	#elif defined(XPAR_XWDTTB_6_BASEADDR) && (XPAR_XWDTTB_6_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
-			(XPAR_WDTTB_6_ENABLE_WINDOW_WDT == 0U)
+	#elif defined(XPAR_XWDTTB_6_BASEADDR) && (XPAR_XWDTTB_6_BASEADDR == XPLMI_PMC_WDT_BASEADDR)
 	#define XPLMI_PMC_WDT
 	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_6_BASEADDR
 	#endif
