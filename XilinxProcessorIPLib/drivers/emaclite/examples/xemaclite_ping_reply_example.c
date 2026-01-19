@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,7 +76,7 @@
 #define ARP_REQUEST 		0x0001	/* ARP Request bits in Rx packet */
 #define ARP_REPLY 		0x0002 	/* ARP status bits indicating reply */
 #define ARP_PACKET_SIZE 	0x3C    /* ARP packet len 60 Bytes */
-#define ICMP_PACKET_SIZE 	0x4A    /* ICMP packet length 74 Bytes
+#define ICMP_PACKET_SIZE 	0x62    /* ICMP packet length 98 Bytes
 					 * including Src and Dest MAC Address */
 #define BROADCAST_ADDR 		0xFFFF  /* Broadcast Address */
 #define CORRECT_CKSUM_VALUE	0xFFFF  /* Correct checksum value */
@@ -116,12 +116,12 @@
 #define ICMP_REQ_SRC_IP_LOC 	13 /* Src IP address location of ICMP request */
 #define ICMP_ECHO_FIELD_LOC 	17 /* Echo field location */
 #define ICMP_DATA_START_LOC 	17 /* Data field start location */
-#define ICMP_DATA_LEN 		18 /* ICMP data length */
+#define ICMP_DATA_LEN 		30 /* ICMP data length */
 #define ICMP_DATA_LOC 		19 /* ICMP data location including
 				      identifier number and sequence number */
-#define ICMP_DATA_CSUM_LOC_BACK 19 /* Data checksum location from end of
+#define ICMP_DATA_CSUM_LOC_BACK 31 /* Data checksum location from end of
 					frame */
-#define ICMP_DATA_FIELD_LEN 	20 /* Data field length */
+#define ICMP_DATA_FIELD_LEN 	32 /* Data field length */
 
 /**************************** Type Definitions *******************************/
 
