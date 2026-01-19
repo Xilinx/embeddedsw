@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1986 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -627,7 +627,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
             XV_mix_Set_HwReg_logoWidth(MixPtr,  Win->Width);
             XV_mix_Set_HwReg_logoHeight(MixPtr, Win->Height);
 
-            InstancePtr->Layer[LayerId].Win = *Win;
+            InstancePtr->LogoLayer.Win = *Win;
             Status = XST_SUCCESS;
          } else {
             Status = XVMIX_ERR_LAYER_WINDOW_INVALID;
@@ -835,8 +835,8 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
         XV_mix_Set_HwReg_logoStartX(MixPtr, StartX);
         XV_mix_Set_HwReg_logoStartY(MixPtr, StartY);
 
-        InstancePtr->Layer[LayerId].Win.StartX = StartX;
-        InstancePtr->Layer[LayerId].Win.StartY = StartY;
+        InstancePtr->LogoLayer.Win.StartX = StartX;
+        InstancePtr->LogoLayer.Win.StartY = StartY;
         Status = XST_SUCCESS;
       }
       break;
@@ -1604,9 +1604,9 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
             XV_mix_WriteReg(MixPtr->Config.BaseAddress, (BBaseAddr+(y*Width+x)), Bword);
           }
       }
-      InstancePtr->Layer[XVMIX_LAYER_LOGO].RBuffer = RBuffer;
-      InstancePtr->Layer[XVMIX_LAYER_LOGO].GBuffer = GBuffer;
-      InstancePtr->Layer[XVMIX_LAYER_LOGO].BBuffer = BBuffer;
+      InstancePtr->LogoLayer.RBuffer = RBuffer;
+      InstancePtr->LogoLayer.GBuffer = GBuffer;
+      InstancePtr->LogoLayer.BBuffer = BBuffer;
 
       Status = XVMix_SetLayerWindow(InstancePtr, XVMIX_LAYER_LOGO, Win, 0);
   }
@@ -1753,7 +1753,7 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
   u32 IsEnabled;
   u32 ReadVal;
   XVidC_VideoWindow Win;
-  XVidC_ColorFormat ColFormat;
+  XVidC_ColorFormat ColFormat = XVIDC_CSF_RGB;
   XVMix_LayerType LayerType;
   const char *Status[2] = {"Disabled", "Enabled"};
   const char *ScaleFactor[3] = {"1x", "2x", "4x"};

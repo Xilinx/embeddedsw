@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1986 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -309,7 +309,9 @@ typedef struct {
                                 callback */
 
     XVMix_Layer Layer[XVMIX_MAX_SUPPORTED_LAYERS];  /**< Layer configuration
-                                                         structure */
+                                                         structure for master
+                                                         and overlay layers */
+    XVMix_Layer LogoLayer;  /**< Logo layer configuration structure */
     XVMix_BackgroundId BkgndColor;
 
     XVidC_VideoStream Stream;    /**< Input AXIS */
@@ -568,14 +570,6 @@ void XVMix_InterruptHandler(void *InstancePtr);
 int XVMix_SetCallback(XV_Mix_l2 *InstancePtr, void *CallbackFunc, void *CallbackRef);
 void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr);
 void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr);
-static void XVMix_SetCoeffForYuvToRgb(XV_Mix_l2 *InstancePtr,
-		XVidC_ColorStd colorStandard,
-		XVidC_ColorRange colorRange,
-		u8 colorDepth);
-static void XVMix_SetCoeffForRgbToYuv(XV_Mix_l2 *InstancePtr,
-		XVidC_ColorStd ColorStd,
-		XVidC_ColorRange colorRange,
-		u8 colorDepth);
 u32 XVMix_SetCscCoeffs(XV_Mix_l2 *InstancePtr,
 		XVidC_ColorStd ColorStd,
 		XVidC_ColorRange colorRange,
