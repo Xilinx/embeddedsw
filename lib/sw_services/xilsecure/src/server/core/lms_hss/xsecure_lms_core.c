@@ -20,6 +20,8 @@
 * 5.6   tus  07/24/25  Add else clause in XSecure_GetLmsHashAlgo api with
 *                      appropriate error code
 * 5.7   har  01/13/26  Set Status to error before jumping to END label
+*       tvp  11/20/25  Code refactoring for platform specific LMS functionality
+*       tvp  12/29/25  Add LMS/LMS-HSS algorithm type macros for Versal_2vp_p
 *
 * </pre>
 * @note
@@ -48,8 +50,14 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes);
 
 /**************************** Type Definitions *******************************/
 
+#ifdef VERSAL_2VE_2VM
 #define XSECURE_PUB_ALGO_LMS_HSS	(4U)	/**< LMS/HSS public key algorithm */
 #define XSECURE_PUB_ALGO_LMS		(5U)	/**< LMS public key algorithm */
+#endif
+#ifdef VERSAL_2VP_P
+#define XSECURE_PUB_ALGO_LMS_HSS	(0x8U)	/**< LMS/HSS public key algorithm */
+#define XSECURE_PUB_ALGO_LMS		(0x10U)	/**< LMS public key algorithm */
+#endif
 #define XSECURE_LMS_PUB_KEY_TMP_BUF_ADJ_NODE_VAL_INDEX		(32U)
 		/**< LMS public key temporary buffer adjustment node value index */
 

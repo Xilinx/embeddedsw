@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 add_subdirectory(aes)
@@ -25,6 +25,7 @@ if(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM"))
   add_subdirectory(key_zeroize)
   add_subdirectory(trng)
   add_subdirectory(softsha1)
+  add_subdirectory(lms_hss)
 endif()
 if(("${CMAKE_MACHINE}" STREQUAL "Versal"))
   if("Versal_2VP" IN_LIST VARIANT)
@@ -38,5 +39,10 @@ if(("${CMAKE_MACHINE}" STREQUAL "Versal"))
     add_subdirectory(ecc_keypair)
     add_subdirectory(key_zeroize)
     add_subdirectory(trng)
+  endif()
+endif()
+if(("${CMAKE_MACHINE}" STREQUAL "Versal"))
+  if("Versal_2VP_P" IN_LIST VARIANT)
+    add_subdirectory(lms_hss)
   endif()
 endif()

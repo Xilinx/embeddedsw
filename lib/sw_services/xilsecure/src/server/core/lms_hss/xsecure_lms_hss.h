@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /******************************************************************************/
@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- ----------------------------------------------------------
 *  1.0  sak  08/015/23 Initial release
+*  5.7  tvp  11/20/25  Code refactoring for platform specific LMS functionality
 *
 * </pre>
 *
