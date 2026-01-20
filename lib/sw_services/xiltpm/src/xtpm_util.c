@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +19,7 @@
 *       pre  08/23/25 Did enhancements needed
 *       pre  09/23/25 Fixed misrac violations
 *       pre  10/23/25 Fixed bug in TPM command transmission
+* 1.2   pre  01/16/25 Updated comments for RTF documentation
 *
 * </pre>
 *
@@ -27,7 +28,7 @@
 ******************************************************************************/
 
 /**
- * @addtogroup xtpm_apis XilTpm APIs
+ * @addtogroup xtpm_apis XilTPM APIs
  * @{
  */
 
@@ -53,13 +54,13 @@ static XSpiPs SpiInstance;
 
 /*****************************************************************************/
 /**
- * @brief	This function gets TPM status.
+ * @brief	This function gets TPM status and write to the input address.
  *
- * @param	StatusPtr is pointer to read status
+ * @param	StatusPtr is pointer to location in which value read from status register gets stored
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if read is successful
+ * 			- Error code if read fails
  *
  ******************************************************************************/
 u32 XTpm_StatusGet(u8* StatusPtr)
@@ -69,13 +70,13 @@ u32 XTpm_StatusGet(u8* StatusPtr)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets the TPM status.
+ * @brief	This function sets the TPM status with the input value.
  *
- * @param	StatusVal is to be written to status register
+ * @param	StatusVal is value to be set in status register
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if write is successful
+ * 			- Error code if write fails
  *
  ******************************************************************************/
 u32 XTpm_StatusSet(u8 StatusVal)
@@ -85,13 +86,13 @@ u32 XTpm_StatusSet(u8 StatusVal)
 
 /*****************************************************************************/
 /**
- * @brief	This function gets TPM access configuration.
+ * @brief	This function gets TPM access configuration and writes to the input address.
  *
- * @param	AccessPtr is pointer to access configuration variable
+ * @param	AccessPtr is pointer to location in which value read from access configuration register gets stored
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if read is successful
+ * 			- Error code if read fails
  *
  ******************************************************************************/
 u32 XTpm_AccessGet(u8* AccessPtr)
@@ -103,11 +104,11 @@ u32 XTpm_AccessGet(u8* AccessPtr)
 /**
  * @brief	This function sets TPM access configuration.
  *
- * @param	Access is set access configuration value
+ * @param	Access is value to be set in access configuration register
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if write is successful
+ * 			- Error code if write fails
  *
  ******************************************************************************/
 u32 XTpm_AccessSet(u8 Access)
@@ -117,14 +118,14 @@ u32 XTpm_AccessSet(u8 Access)
 
 /*****************************************************************************/
 /**
- * @brief	This function reads data from TPM FIFO.
+ * @brief	This function reads data from TPM FIFO and writes to buffer at input address.
  *
- * @param	Data is to be read to data FIFO
- * @param	ByteCount is the number of bytes to read.
+ * @param	DataPtr is pointer to buffer in which data read from FIFO gets stored
+ * @param	ByteCount is the number of bytes to be read.
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if read is successful
+ * 			- Error code if read fails
  *
  ******************************************************************************/
 static inline u32 XTpm_FifoRead(u8* DataPtr, u8 ByteCount)
@@ -134,14 +135,14 @@ static inline u32 XTpm_FifoRead(u8* DataPtr, u8 ByteCount)
 
 /*****************************************************************************/
 /**
- * @brief	This function write the data TPM FIFO.
+ * @brief	This function writes data to the TPM FIFO from buffer at input address.
  *
- * @param	DataPtr is data pointer to be written to FIFO.
- * @param	ByteCount is the number of bytes to read.
+ * @param	DataPtr is pointer to buffer in which data to be written to FIFO is present.
+ * @param	ByteCount is the number of bytes to be written.
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if write is successful
+ * 			- Error code if write fails
  *
  ******************************************************************************/
 static inline u32 XTpm_FifoWrite(const u8* DataPtr, u8 ByteCount)
@@ -149,9 +150,9 @@ static inline u32 XTpm_FifoWrite(const u8* DataPtr, u8 ByteCount)
 	return XTpm_Transfer(XTPM_DATA_FIFO, DataPtr, NULL, ByteCount);
 }
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
- * @brief	This function initializes SPI interface required to communicate
+ * @brief	This function initializes SPI interface with required configuration to communicate
  * 			with TPM.
  *
  * @return
@@ -163,15 +164,15 @@ static inline u32 XTpm_FifoWrite(const u8* DataPtr, u8 ByteCount)
  * 			- XTPM_ERR_SPIPS_SET_CLK_PRESCALER in case of failure during clock prescalar setting
  * 			- XST_DEVICE_BUSY in case of failure during chip select assertion
  *
- ******************************************************************************/
+ *************************************************************************************************/
 u32 XTpm_SpiInit(void)
 {
 	u32 Status = (u32)XST_FAILURE;
 	const XSpiPs_Config *SpiConfig;
 
 	/**
-	 * - Initialize the SPI driver so that it is ready to use.
-	 * Return XTPM_ERR_SPIPS_CONFIG error if the configuration info is not found.
+	 * - Initializes the SPI driver so that it is ready to use.
+	 * Returns XTPM_ERR_SPIPS_CONFIG error if the configuration info is not found.
 	 */
 	SpiConfig = XSpiPs_LookupConfig(XTPM_SPI_DEVICE_ID);
 	if (NULL == SpiConfig) {
@@ -180,7 +181,7 @@ u32 XTpm_SpiInit(void)
 	}
 
 	/**
-	 * - Initialize SPI instance. Return XTPM_ERR_SPIPS_CFG_INIT error in case of failure.
+	 * - Initializes SPI instance. Returns XTPM_ERR_SPIPS_CFG_INIT error in case of failure.
 	 */
 	Status = (u32)XSpiPs_CfgInitialize(&SpiInstance, SpiConfig,
 		SpiConfig->BaseAddress);
@@ -190,8 +191,8 @@ u32 XTpm_SpiInit(void)
 	}
 
 	/**
-	 * - Perform a self-test to check hardware build.
-	 * Return XTPM_ERR_SPIPS_SELF_TEST error in case of failure.
+	 * - Performs a self-test to check hardware build.
+	 * Returns XTPM_ERR_SPIPS_SELF_TEST error in case of failure.
 	 */
 	Status = (u32)XSpiPs_SelfTest(&SpiInstance);
 	if (Status != (u32)XST_SUCCESS) {
@@ -200,8 +201,8 @@ u32 XTpm_SpiInit(void)
 	}
 
 	/**
-	 * - Set the SPI device as a master. External loopback is required.
-	 * Return XTPM_ERR_SPIPS_SET_OPTIONS in case of failure.
+	 * - Sets the SPI device as a master. External loopback is required.
+	 * Returns XTPM_ERR_SPIPS_SET_OPTIONS in case of failure.
 	 */
 	Status = (u32)XSpiPs_SetOptions(&SpiInstance, XSPIPS_MANUAL_START_OPTION |
 		XSPIPS_MASTER_OPTION | XSPIPS_FORCE_SSELECT_OPTION);
@@ -211,7 +212,7 @@ u32 XTpm_SpiInit(void)
 	}
 
 	/**
-	 * - Set clock pre-scalar. Return XTPM_ERR_SPIPS_SET_CLK_PRESCALER error
+	 * - Sets clock pre-scaler. Returns XTPM_ERR_SPIPS_SET_CLK_PRESCALER error
 	 * in case of failure.
 	 */
 	Status = (u32)XSpiPs_SetClkPrescaler(&SpiInstance, XSPIPS_CLK_PRESCALE_32);
@@ -221,7 +222,7 @@ u32 XTpm_SpiInit(void)
 	}
 
 	/**
-	 * - Assert the TPM chip select. Return XST_SUCCESS
+	 * - Asserts the TPM chip select. Returns XST_SUCCESS
 	 * if successful and error code in case of failure
 	 */
 	Status = (u32)XSpiPs_SetSlaveSelect(&SpiInstance, XTPM_SPI_SELECT);
@@ -230,30 +231,31 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
- * @brief	This function sends a command to TPM and reads response.
+ * @brief	This function sends a command to TPM and reads response received from TPM.
  *
- * @param	TxBuf is pointer to transmit buffer
- * @param	RxBuf is pointer to receive buffer
- * @param	Txlen is data transfer length
+ * @param	TxBuf is pointer to transmit buffer from which data to be transmitted is read
+ * @param	RxBuf is pointer to receive buffer to which received data gets stored
+ * @param	Txlen is data transfer length in bytes
  *
  * @return
  * 			- XST_SUCCESS if successful
- * 			- XTPM_ERR_SET_ACCESS if it fails during setting of access register with command ready/go request
+ * 			- XTPM_ERR_SET_ACCESS if it fails during setting of access register with command
+ * 			  ready/go request
  * 			- XTPM_ERR_GET_ACCESS if it fails during reading of access register
  * 			- XTPM_ERR_SPIPS_FIFO_WRITE if it fails to write to TPM
  * 			- XTPM_ERR_SPIPS_FIFO_READ if it fails to read from TPM
  * 			- XST_FAILURE if received response length is greater than 4096 bytes
  *
- ******************************************************************************/
+ *************************************************************************************************/
 u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u8 StatusVal = 0U;
 	u16 RxLen;
 
-	/** - Set command ready request. Return XTPM_ERR_SET_ACCESS error in case of failure */
+	/** - Sets command ready request. Returns XTPM_ERR_SET_ACCESS error in case of failure */
 	Status = XTpm_StatusSet(XTPM_STS_CMD_READY);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SET_ACCESS;
@@ -261,7 +263,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	}
 
 	do {
-		/** - Check for command ready status. Return XTPM_ERR_GET_ACCESS error in case of failure */
+		/** - Checks for command ready status. Returns XTPM_ERR_GET_ACCESS error in case of failure */
 		Status = XTpm_StatusGet(&StatusVal);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XTPM_ERR_GET_ACCESS;
@@ -269,14 +271,14 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 		}
 	} while ((StatusVal & XTPM_STS_CMD_READY) == 0U);
 
-	/** - Write Data to device. Return XTPM_ERR_SPIPS_FIFO_WRITE in case of failure */
+	/** - Writes Data to device. Returns XTPM_ERR_SPIPS_FIFO_WRITE error in case of failure */
 	Status = XTpm_FifoWrite(TxBuf, (u8)Txlen);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SPIPS_FIFO_WRITE;
 		goto END;
 	}
 
-	/** - Set command to go. Return XTPM_ERR_SET_ACCESS error in case of failure */
+	/** - Sets command to go. Returns XTPM_ERR_SET_ACCESS error in case of failure */
 	Status = XTpm_StatusSet(XTPM_STS_GO);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SET_ACCESS;
@@ -285,7 +287,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	StatusVal = 0U;
 	do {
 		/**
-		 * - Check for command ready and valid. Return XTPM_ERR_GET_ACCESS error
+		 * - Checks for command ready and valid. Returns XTPM_ERR_GET_ACCESS error
 		 * in case of failure
 		 */
 		Status = XTpm_StatusGet(&StatusVal);
@@ -297,14 +299,14 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 		(XTPM_STS_VALID | XTPM_STS_DATA_AVAIL)) !=
 		(XTPM_STS_VALID | XTPM_STS_DATA_AVAIL));
 
-	/** - Read Data from device. Return XTPM_ERR_SPIPS_FIFO_READ error in case of failure */
+	/** - Reads Data from device. Returns XTPM_ERR_SPIPS_FIFO_READ error in case of failure */
 	Status = XTpm_FifoRead(RxBuf, XTPM_RX_HEAD_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SPIPS_FIFO_READ;
 		goto END;
 	}
 
-	/* Read received response length */
+	/* Reads received response length */
 	RxLen = RxBuf[XTPM_DATA_SIZE_INDEX];
 	if (RxLen > (u16)XTPM_RESP_MAX_SIZE) {
 		Status = (u32)XST_FAILURE;
@@ -312,7 +314,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	}
 
 	/**
-	 * - Read received response data. Return XST_SUCCESS if
+	 * - Reads received response data. Returns XST_SUCCESS if
 	 * successful and XTPM_ERR_SPIPS_FIFO_READ in case of failure
 	 */
 	if (RxBuf[XTPM_DATA_SIZE_INDEX] > XTPM_RX_HEAD_SIZE) {
@@ -328,20 +330,20 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
- * @brief	This function transfers control information to TPM.
+ * @brief	This function transfers control information to TPM based on input(Txn/Recv).
  *
- * @param 	Address is register address
- * @param	TxBuf is pointer to transmit buffer
- * @param	RxBuf is pointer to receive buffer
- * @param	Len is transfer length
+ * @param 	Address is register address to which data is to be written/read
+ * @param	TxBuf is pointer to transmit buffer in which data to be transmitted is present
+ * @param	RxBuf is pointer to receive buffer in which received data gets stored
+ * @param	Len is length of data to be transferred in bytes
  *
  * @return
  * 			- XST_SUCCESS if successful
  * 			- Error code on failure
  *
- ******************************************************************************/
+ *************************************************************************************************/
 u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -350,9 +352,9 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 	u16 RxOffset = 0U;
 	u16 TxOffset = 0U;
 
-	/* Initialize transmit buffer */
+	/* Initializes transmit buffer */
 	static u8 TpmTxBuffer[XTPM_REQ_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
-	/* Initialize receive buffer */
+	/* Initializes receive buffer */
 	static u8 TpmRxBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
 
 	/**
@@ -364,12 +366,12 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 		goto END;
 	}
 
-	/* Transfer data */
+	/* Transfers data */
 	while (Length != 0U) {
 		TranLen = (u8)((Length <= XTPM_SPI_MAX_SIZE) ? Length :
 			XTPM_SPI_MAX_SIZE);
 
-		/* - Prepare data to be transferred */
+		/** - Prepares data to be transferred */
 		TpmTxBuffer[0U] = ((RxBuf != NULL) ? 0x80U : 0U) | (TranLen - XTPM_ACCESS_TX_LENGTH);
 		TpmTxBuffer[1U] = 0xD4U;
 		TpmTxBuffer[2U] = (u8)(Address >> 8U);
@@ -380,16 +382,18 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 			TxOffset += TranLen;
 		}
 
-		/** - Transfer data and receive response in polled mode. */
+		/**
+		 * - Transfers data and receive response in polled mode.
+		 * Returns XTPM_ERR_SPIPS_POLLING_TRANSFER in case of failure
+		 */
 		Status = (u32)XSpiPs_PolledTransfer(&SpiInstance, TpmTxBuffer,
 			TpmRxBuffer, (u32)(TranLen + XTPM_TX_HEAD_SIZE));
-		/** - Return XTPM_ERR_SPIPS_POLLING_TRANSFER in case of failure */
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XTPM_ERR_SPIPS_POLLING_TRANSFER;
 			goto END;
 		}
 
-		/** - Copies received response to receive buffer. Return XST_SUCCESS */
+		/** - Copies received response to receive buffer. Returns XST_SUCCESS */
 		if (RxBuf != NULL) {
 			(void)Xil_SMemCpy(&RxBuf[RxOffset], TranLen,
 				&TpmRxBuffer[XTPM_TX_HEAD_SIZE], TranLen, TranLen);
@@ -410,7 +414,4 @@ END:
 
 #endif	/* PLM_TPM */
 
-/**
- * @}
- * @endcond
- */
+/** @} End of xtpm_apis group */

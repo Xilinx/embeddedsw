@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,17 +18,13 @@
 * 1.00  tri  03/13/25 Initial release
 *       pre  08/23/25 Did enhancements needed
 *       pre  09/23/25 Fixed misrac violations
+* 1.2   pre  01/16/25 Updated comments for RTF documentation
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-
-/**
- * @addtogroup xtpm_apis XilTpm APIs
- * @{
- */
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
@@ -49,7 +45,12 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XTPM_PCR_EVENT_CMD_SIZE 		(29U) /**< PCR event command size */
+#define XTPM_PCR_EVENT_CMD_SIZE 		(29U) /**< PCR event command size in bytes */
+
+/**
+ * @addtogroup xtpm_apis XilTPM APIs
+ * @{
+ */
 
 /************************** Function Prototypes ******************************/
 static u32 XTpm_StartUp(void);
@@ -74,14 +75,14 @@ u32 XTpm_Init(void)
 	u32 Status = XST_FAILURE;
 	u8 Access = 0U;
 
-	/** - Initialize SPI. Return XTPM_ERR_SPIPS_INIT error if it fails. */
+	/** - Initializes SPI. Returns XTPM_ERR_SPIPS_INIT error if it fails. */
 	Status = XTpm_SpiInit();
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SPIPS_INIT;
 		goto END;
 	}
 
-	/** - Set access request to use. Return XTPM_ERR_SET_ACCESS error if it fails. */
+	/** - Sets access request to use. Returns XTPM_ERR_SET_ACCESS error if it fails. */
 	Status = XTpm_AccessSet(XTPM_ACCESS_REQ_USE);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SET_ACCESS;
@@ -90,8 +91,8 @@ u32 XTpm_Init(void)
 
 	do {
 		/**
-		 * - Check for access validity and locality.
-		 * Return XTPM_ERR_GET_ACCESS error in case of any failure.
+		 * - Checks for access validity and locality.
+		 * Returns XTPM_ERR_GET_ACCESS error in case of any failure.
 		 */
 		Status = XTpm_AccessGet(&Access);
 		if (Status != (u32)XST_SUCCESS) {
@@ -101,21 +102,21 @@ u32 XTpm_Init(void)
 	} while (!(((Access & XTPM_ACCESS_VALID) != 0U)
 			&& ((Access & XTPM_ACCESS_ACT_LOCAL) !=0U)));
 
-	/** - Startup of TPM. Return XTPM_ERR_START_UP error in case of any failure. */
+	/** - Startup of TPM. Returns XTPM_ERR_START_UP error in case of any failure. */
 	Status = XTpm_StartUp();
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_START_UP;
 		goto END;
 	}
 
-	/** - TPM self-test. Return XTPM_ERR_SELF_TEST error in case of any failure. */
+	/** - TPM self-test. Returns XTPM_ERR_SELF_TEST error in case of any failure. */
 	Status = XTpm_SelfTest();
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SELF_TEST;
 		goto END;
 	}
 
-	/** - Get capability of TPM. Return XST_SUCCESS on success. Otherwise, return error code. */
+	/** - Gets capability of TPM. Returns XST_SUCCESS on success. Otherwise, returns error code. */
 	Status = XTpm_GetCap();
 
 END:
@@ -143,8 +144,8 @@ static u32 XTpm_StartUp(void)
 	};
 
 	/**
-	 * - Send startup command to TPM and get response.
-	 * Return XST_SUCCESS on success. Otherwise, return error code.
+	 * - Sends startup command to TPM and gets response.
+	 * Returns XST_SUCCESS on success. Otherwise, returns error code.
 	 */
 	Status = XTpm_DataTransfer(TpmStartup, TpmRespBuffer,
 		TpmStartup[XTPM_DATA_SIZE_INDEX]);
@@ -173,8 +174,8 @@ static u32 XTpm_SelfTest(void)
 	};
 
 	/**
-	 * - Send self-test command to TPM and get response.
-	 * Return XST_SUCCESS on success. Otherwise, return error code.
+	 * - Sends self-test command to TPM and gets response.
+	 * Returns XST_SUCCESS on success. Otherwise, returns error code.
 	 */
 	Status = XTpm_DataTransfer(TpmSelfTest, TpmRespBuffer,
 		TpmSelfTest[XTPM_DATA_SIZE_INDEX]);
@@ -205,14 +206,14 @@ static u32 XTpm_GetCap(void)
 		0x00, 0x00, 0x01, 0x29, 0x00, 0x00, 0x00, 0x01 /* Property and property count */
 	};
 
-	/** - Send get capability command to TPM and get response. */
+	/** - Sends get capability command to TPM and gets response. */
 	Status = XTpm_DataTransfer(TpmGetCap, TpmRespBuffer, TpmGetCap[XTPM_DATA_SIZE_INDEX]);
-	/** - If the command is not successful, return error code */
+	/** - If the command is not successful, returns error code */
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
-	/** - Verify response. Return XST_SUCCESS on success response reception. Otherwise, return XTPM_ERR_RESP_POLLING error. */
+	/** - Verifies response. Returns XST_SUCCESS on success response reception. Otherwise, returns XTPM_ERR_RESP_POLLING error. */
 	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
 		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
 		Status = XTPM_ERR_RESP_POLLING;
@@ -246,8 +247,8 @@ int XTpm_MeasureRom(void)
 	}
 
 	/**
-	 * - Extend data to PCR using PCR_EVENT command and get response.
-	 * If the command is not successful, return error code.
+	 * - Extends data to PCR using PCR_EVENT command and gets response.
+	 * If the command is not successful, returns error code.
 	 */
 	Status = (int)XTpm_Event(XTPM_TPM_ROM_PCR_INDEX, XTPM_HASH_TYPE_SHA3, (const u8 *)ShaData, TpmRespBuffer);
 	if (Status != XST_SUCCESS) {
@@ -255,8 +256,8 @@ int XTpm_MeasureRom(void)
 	}
 
 	/**
-	 * - Verify response. Return XST_SUCCESS on success response reception.
-	 * Otherwise, return XTPM_ERR_RESP_POLLING error.
+	 * - Verifies response. Returns XST_SUCCESS on success response reception.
+	 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
 	 */
 	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
 		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
@@ -291,8 +292,8 @@ int XTpm_MeasurePlm(void)
 	}
 
 	/**
-	 * - Extend data to PCR using PCR_EVENT command and get response.
-	 * If the command is not successful, return error code.
+	 * - Extends data to PCR using PCR_EVENT command and gets response.
+	 * If the command is not successful, returns error code.
 	 */
 	Status = (int)XTpm_Event(XTPM_TPM_PLM_PCR_INDEX, XTPM_HASH_TYPE_SHA3, (const u8 *)ShaData, TpmRespBuffer);
 	if (Status != XST_SUCCESS) {
@@ -300,8 +301,8 @@ int XTpm_MeasurePlm(void)
 	}
 
 	/**
-	 * - Verify response. Return XST_SUCCESS on success response reception.
-	 * Otherwise, return XTPM_ERR_RESP_POLLING error
+	 * - Verifies response. Returns XST_SUCCESS on success response reception.
+	 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
 	 */
 	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
 		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
@@ -329,8 +330,8 @@ int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash)
 	int Status = (int)XTPM_ERR_MEASURE_PARTITION;
 
 	/**
-	 * - Extend data to PCR using PCR_EVENT command and get response.
-	 * If the command is not successful, return error code.
+	 * - Extends data to PCR using PCR_EVENT command and gets response.
+	 * If the command is not successful, returns error code.
 	 */
 	Status = (int)XTpm_Event(PcrIndex, XTPM_HASH_TYPE_SHA3, ImageHash, TpmRespBuffer);
 	if (Status != XST_SUCCESS) {
@@ -338,8 +339,8 @@ int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash)
 	}
 
 	/**
-	 * - Verify response. Return XST_SUCCESS on success response reception.
-	 * Otherwise, return XTPM_ERR_RESP_POLLING error
+	 * - Verifies response. Returns XST_SUCCESS on success response reception.
+	 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
 	 */
 	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
 		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
@@ -356,10 +357,10 @@ END:
  *
  * @brief	This function extends PCR with SHA3-384 digest
  *
- * @param	pcr_number is the PCR register to send
- * @param	size is size of SHA digest
- * @param	data is sha digest
- * @param	Response is TPM response buffer
+ * @param	PcrIndex is the number of the PCR register to which extension is to be done
+ * @param	size is size of SHA digest in bytes
+ * @param	data is pointer to buffer which contains SHA digest
+ * @param	Response is pointer to TPM response buffer in which response from TPM gets stored
  *
  * @return
  * 			- XST_SUCCESS if successful
@@ -385,7 +386,7 @@ u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response)
 	/* cmd_ptr points to const data TpmPcrEvent */
 	u8* cmd_ptr = TpmPcrEvent;
 
-	/** - Validate size of input data. Return XTPM_REQ_MAX_SIZE error if it exceeds 1024 bytes */
+	/** - Validates size of input data. Returns XTPM_REQ_MAX_SIZE error if it exceeds 1024 bytes */
 	if(size > XTPM_REQ_MAX_SIZE) {
 		goto END;
 	}
@@ -401,8 +402,8 @@ u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response)
 		}
 
 		/**
-		 * - Send PCR_EVENT command to TPM and get response.
-		 * If the command is not successful, return error code.
+		 * - Sends PCR_EVENT command to TPM and gets response.
+		 * If the command is not successful, returns error code.
 		 */
 		Status = XTpm_DataTransfer((const u8 *)TpmPcrEvent, Response, XTPM_PCR_EVENT_CMD_SIZE + size);
 		if (Status != (u32)XST_SUCCESS) {
@@ -414,9 +415,6 @@ END:
 	return Status;
 }
 
-#endif	/* PLM_TPM */
+/** @} End of xtpm_apis group */
 
-/**
- * @}
- * @endcond
- */
+#endif	/* PLM_TPM */

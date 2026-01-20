@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  tri  03/13/25 Initial release
  *       pre  09/23/25 Fixed misrac violations
+ * 1.2   pre  01/16/25 Updated comments
  *
  * </pre>
  *
@@ -44,13 +45,13 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XTPM_HASH_TYPE_SHA3			(48U)
-#define XTPM_TPM_ROM_PCR_INDEX		(0U)
-#define XTPM_TPM_PLM_PCR_INDEX		(1U)
-#define XTPM_DATA_SIZE_INDEX		(5U)
-#define XTPM_DATA_WORD_LENGTH		(4U)
-#define XTPM_ACCESS_TX_LENGTH		(1U)
-#define XTPM_PCR_EXTEND_INDEX		(13U)
+#define XTPM_HASH_TYPE_SHA3			(48U) /**< Length of SHA3 hash in bytes */
+#define XTPM_TPM_ROM_PCR_INDEX		(0U) /**< TPM PCR index for ROM measurement */
+#define XTPM_TPM_PLM_PCR_INDEX		(1U) /**< TPM PCR index for PLM measurement */
+#define XTPM_DATA_SIZE_INDEX		(5U) /**< Index for data size in PCR event command */
+#define XTPM_DATA_WORD_LENGTH		(4U) /**< Data word length in bytes */
+#define XTPM_ACCESS_TX_LENGTH		(1U) /**< Access command transmit length */
+#define XTPM_PCR_EXTEND_INDEX		(13U) /**< Index for PCR number in PCR event command */
 
 /************************** Function Prototypes ******************************/
 u32 XTpm_Init(void);
@@ -71,4 +72,3 @@ u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response);
 #endif
 #endif	/* PLM_TPM */
 #endif	/* XTPM_H */
-/* @} */

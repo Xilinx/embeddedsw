@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   tri  03/13/25 Initial release
 *       pre  09/23/25 Fixed misrac violations
+* 1.2   pre  01/16/25 Fixed a Doxygen warning
 *
 * </pre>
 *
@@ -29,18 +30,18 @@
 extern "C" {
 #endif
 
+/**
+ * @addtogroup xiltpm_error_codes XilTPM Error Codes
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
 /************************** Constant Definitions ****************************/
 
 /**
- * @addtogroup xiltpm_error_codes XilTpm Error Codes
- * @{
- */
-
-/**
- *  The following table lists the Versal Tpm library error codes.
+ *  The following table lists the Versal TPM library error codes.
  */
 #ifdef PLM_TPM
 enum {
@@ -53,10 +54,10 @@ enum {
 	XTPM_ERR_MEASURE_PLM,/**<0x8 - Error while PLM digest transfer to TPM */
 	XTPM_ERR_MEASURE_PARTITION,/**<0x9 - Error while PLM digest transfer to TPM */
 	XTPM_ERR_RESP_POLLING,/**<0xA - Error in polling response buffer */
-	XTPM_ERR_DATA_TRANSFER,/**<0xB - Failure at TPM module data transer */
+	XTPM_ERR_DATA_TRANSFER,/**<0xB - Failure at TPM module data transfer */
 	XTPM_ERR_SPIPS_CONFIG,/**<0xC - Failure at SPIPS configuration */
-	XTPM_ERR_SPIPS_CFG_INIT,/**<0xD - SPIPS cfg initialization failure */
-	XTPM_ERR_SPIPS_SELF_TEST,/**<0xE - SPIPS self test failure */
+	XTPM_ERR_SPIPS_CFG_INIT,/**<0xD - SPIPS configuration initialization failure */
+	XTPM_ERR_SPIPS_SELF_TEST,/**<0xE - SPIPS self-test failure */
 	XTPM_ERR_SPIPS_FIFO_WRITE,/**<0xF - SPIPS write failure to FIFO buffer */
 	XTPM_ERR_SPIPS_FIFO_READ,/**<0x10 - SPIPS read failure from FIFO buffer */
 	XTPM_ERR_DATA_TX_LENGTH_LIMIT,/**<0x11 - TPM module data transfer length limit error */
@@ -65,10 +66,11 @@ enum {
 	XTPM_ERR_SPIPS_SET_CLK_PRESCALER,/**<0x14 - SPIPS set clock prescaler failure */
 	XTPM_ERR_SPIPS_TRANSFER,/**<0x15 - Data transfer failure to TPM */
 };
+#endif	/* PLM_TPM */
+
+/** @} End of xiltpm_error_codes group */
 
 #ifdef __cplusplus
 }
 #endif
-#endif	/* PLM_TPM */
 #endif	/* XTPM_ERROR_H_ */
-/* @} */
