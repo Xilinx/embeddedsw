@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -8,6 +8,8 @@ maintainers:
   - Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
 
 type: driver
+
+device_type: emc
 
 properties:
   compatible:
