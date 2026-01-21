@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1551,7 +1551,11 @@ typedef enum {
 	XPM_NODEIDX_DEV_SEIO_SPI_2 = 0x142,
 	XPM_NODEIDX_DEV_SEIO_SPI_3 = 0x143,
 	XPM_NODEIDX_DEV_GPIO_SEIO = 0x144,
-	XPM_NODEIDX_DEV_MAX = 0x145,
+	XPM_NODEIDX_DEV_ADC_4 = 0x145,
+	XPM_NODEIDX_DEV_ADC_5 = 0x146,
+	XPM_NODEIDX_DEV_ADC_6 = 0x147,
+	XPM_NODEIDX_DEV_ADC_7 = 0x148,
+	XPM_NODEIDX_DEV_MAX = 0x149,
 	XPM_NODEIDX_DEV_ALL = 0xFFF
 } XPm_DeviceNodeIdx;
 

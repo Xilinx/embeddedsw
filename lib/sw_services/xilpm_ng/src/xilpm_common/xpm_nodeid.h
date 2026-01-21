@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*
@@ -983,6 +983,10 @@ extern "C" {
 #define PM_DEV_GTMPW_11				(0x1862C132U)
 #define PM_DEV_GTMPW_12				(0x1862C133U)
 #define PM_DEV_GTMPW_13				(0x1862C134U)
+#define PM_DEV_ADC_4 				(0x18658145U)
+#define PM_DEV_ADC_5 				(0x18658146U)
+#define PM_DEV_ADC_6 				(0x18658147U)
+#define PM_DEV_ADC_7 				(0x18658148U)
 /** @endcond */
 #define PM_DEV_ACPU_0_0				(0x1810C0AFU)
 #define PM_DEV_ACPU_0_1				(0x1810C0B0U)

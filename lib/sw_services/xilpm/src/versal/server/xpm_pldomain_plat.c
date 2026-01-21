@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +38,7 @@
 
 /* The current number of ADC devices. Used to run housecleaning for each. */
 #define XPM_NODEIDX_DEV_ADC_MIN		XPM_NODEIDX_DEV_ADC_0
-#define XPM_NODEIDX_DEV_ADC_MAX		XPM_NODEIDX_DEV_ADC_3
+#define XPM_NODEIDX_DEV_ADC_MAX		XPM_NODEIDX_DEV_ADC_7
 
 /* The current number of DAC devices. Used to run housecleaning for each. */
 #define XPM_NODEIDX_DEV_DAC_MIN		XPM_NODEIDX_DEV_DAC_0
@@ -1320,7 +1320,7 @@ static XStatus InitAdcDacAddrArr(u32 *AdcAddresses, u32 *DacAddresses, const u32
 		goto done;
 	}
 
-	for (i = (u32)XPM_NODEIDX_DEV_ADC_MIN; i <= (u32)XPM_NODEIDX_DEV_DAC_MAX; i++) {
+	for (i = (u32)XPM_NODEIDX_DEV_ADC_MIN; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
 		Device = XPmDevice_GetByIndex(i);
 		if ((NULL == Device) || (((u32)XPM_NODETYPE_DEV_ADC != NODETYPE(Device->Node.Id))
 			&& ((u32)XPM_NODETYPE_DEV_DAC != NODETYPE(Device->Node.Id)))) {
@@ -1398,6 +1398,7 @@ static XStatus DacUbEnable(const u32 *DacAddresses, u32 ArrLen){
 		if (DAC_NPI_PSCR_STATUS_SLEEP_UBLAZE_RFDC_MASK !=
 			(XPm_In32(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET) & DAC_NPI_PSCR_STATUS_SLEEP_UBLAZE_RFDC_MASK)) {
 			DbgErr = XPM_INT_ERR_SLEEP_UBLAZE;
+			Status = XST_FAILURE;
 			goto done;
 		}
 	}
