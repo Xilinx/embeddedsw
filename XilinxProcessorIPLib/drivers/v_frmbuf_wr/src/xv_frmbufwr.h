@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2023 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -93,6 +93,14 @@ typedef struct {
   u16 Y_U_V10En;            /**< Y_U_V10   support */
   u16 Y_U_V8_420En;         /**< Y_U_V8_420   support */
   u16 Y_U_V12En;            /**< Y_U_V12   support */
+  u16 Y_U_V10_16LEEn;       /**< Y_U_V10_16LE support */
+  u16 Y_UV10_16LEEn;        /**< Y_UV10_16LE support */
+  u16 Y_UV10_420_16LEEn;    /**< Y_UV10_420_16LE support */
+  u16 Y10_16LEEn;           /**< Y10_16LE support */
+  u16 Y_U_V12_16LEEn;       /**< Y_U_V12_16LE support */
+  u16 Y_UV12_16LEEn;        /**< Y_UV12_16LE support */
+  u16 Y_UV12_420_16LEEn;    /**< Y_UV12_420_16LE support */
+  u16 Y12_16LEEn;           /**< Y12_16LE support */
   u16 Interlaced;           /**< Interlaced support */
   u16 IsTileFormat;         /**< Tile format support */
   u16 EnSyncSignals;        /**< Low latency support */

@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -98,6 +98,22 @@ properties:
     description: y-u-v8-420 3 planar support
   xlnx,has-y-u-v12:
     description: y-u-v12 3 planar support
+  xlnx,has-y-u-v10-16le:
+    description: y-u-v10-16le 3 planar support
+  xlnx,has-y-uv10-16le:
+    description: y-u-v10-16le support
+  xlnx,has-y-uv10-420-16le:
+    description: y-uv10-420-16le support
+  xlnx,has-y10-16le:
+    description: y10-16le support
+  xlnx,has-y-u-v12-16le:
+    description: y-u-v12-16le 3 planar support
+  xlnx,has-y-uv12-16le:
+    description: y-uv12-16le support
+  xlnx,has-y-uv12-420-16le:
+    description: y-uv12-420-16le support
+  xlnx,has-y12-16le:
+    description: y12-16le support
   xlnx,has-interlaced:
     description: Interlaced support
   xlnx,is-tile-format:
@@ -151,6 +167,14 @@ required:
     - xlnx,has-y-u-v10
     - xlnx,has-y-u-v8-420
     - xlnx,has-y-u-v12
+    - xlnx,has-y-u-v10-16le
+    - xlnx,has-y-uv10-16le
+    - xlnx,has-y-uv10-420-16le
+    - xlnx,has-y10-16le
+    - xlnx,has-y-u-v12-16le
+    - xlnx,has-y-uv12-16le
+    - xlnx,has-y-uv12-420-16le
+    - xlnx,has-y12-16le
     - xlnx,has-interlaced
     - xlnx,is-tile-format
     - xlnx,enable-sync-signals

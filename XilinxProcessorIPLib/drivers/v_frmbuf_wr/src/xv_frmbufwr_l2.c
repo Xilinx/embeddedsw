@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -168,6 +168,30 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
 		case XVIDC_CSF_MEM_Y_U_V12 :
 			StrmFmt = XVIDC_CSF_YCRCB_444;
 			break;
+		case XVIDC_CSF_MEM_Y_U_V10_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_420_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y10_16LE :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V12_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_420_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y12_16LE :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
 		default:
 			StrmFmt = (XVidC_ColorFormat)~0;
 			break;
@@ -175,17 +199,21 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
 	return(StrmFmt);
 }
 
-/*****************************************************************************/
 /**
-* This function initializes the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  DeviceId is instance id of the core
-*
-* @return XST_SUCCESS if device is found and initialized
-*         XST_DEVICE_NOT_FOUND if device is not found
-*
-******************************************************************************/
+ * XVFrmbufWr_Initialize - Initializes the frame buffer write instance.
+ *
+ * This function initializes an XV_FrmbufWr_l2 instance, setting up its internal
+ * state and configuring the underlying hardware or driver instance. It clears
+ * the instance memory, initializes the lower-level frame buffer write driver,
+ * and sets the power-on default state if initialization is successful.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance to be initialized.
+ * @param DeviceId    Device ID of the frame buffer write core (used in non-SDT builds).
+ *
+ * @return
+ *   - XST_SUCCESS if initialization was successful.
+ *   - Error code otherwise.
+ */
 #ifndef SDT
 int XVFrmbufWr_Initialize(XV_FrmbufWr_l2 *InstancePtr, u16 DeviceId)
 #else
@@ -209,15 +237,20 @@ int XVFrmbufWr_Initialize(XV_FrmbufWr_l2 *InstancePtr, UINTPTR BaseAddress)
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function initializes the frame buffer write core instance to default state
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Sets the XV_FrmbufWr_l2 instance to its power-on default state.
+ *
+ * This function initializes the video stream parameters to default values,
+ * including resolution (1920x1080 @ 60Hz, progressive), color format (RGB),
+ * frame rate (60Hz), color depth, and pixels per clock based on the instance
+ * configuration. It also sets the hardware registers for frame width, height,
+ * stride, and memory video format. The function disables DONE and READY
+ * interrupts to configure the instance in polling mode.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance to initialize.
+ *
+ * @return None
+ */
 static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr)
 {
   XVidC_VideoStream VidStrm;
@@ -251,15 +284,19 @@ static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr)
   XVFrmbufWr_InterruptDisable(InstancePtr, IrqMask);
 }
 
-/*****************************************************************************/
 /**
-* This function enables interrupts in the core
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * Enables specific interrupts for the Frame Buffer Write core and globally enables interrupts.
+ * Also disables the auto-restart feature of the Frame Buffer Write core.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @param IrqMask     Bitmask specifying which interrupts to enable.
+ *
+ * This function asserts that the provided instance pointer is not NULL,
+ * enables the specified interrupts, globally enables interrupts for the core,
+ * and clears the auto-restart bit to prevent automatic restarts.
+ *
+ * @return none
+ */
 void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
 {
   Xil_AssertVoid(InstancePtr != NULL);
@@ -272,15 +309,21 @@ void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
   XV_frmbufwr_DisableAutoRestart(&InstancePtr->FrmbufWr);
 }
 
-/*****************************************************************************/
 /**
-* This function disables interrupts in the core
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * Disable specific interrupts for the Frame Buffer Write core and enable auto-restart.
+ *
+ * This function disables the interrupts specified by the IrqMask for the Frame Buffer Write
+ * instance pointed to by InstancePtr. It also globally disables all interrupts for the core,
+ * and sets the auto-restart bit to enable automatic restarting of the core after completion.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @param IrqMask is the interrupt mask the driver interrupt handler
+ * 	    	passes to the callback function.
+ *
+ * @note The function asserts that InstancePtr is not NULL.
+ *
+ * @return none
+ */
 void XVFrmbufWr_InterruptDisable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
 {
   Xil_AssertVoid(InstancePtr != NULL);
@@ -293,15 +336,17 @@ void XVFrmbufWr_InterruptDisable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
   XV_frmbufwr_EnableAutoRestart(&InstancePtr->FrmbufWr);
 }
 
-/*****************************************************************************/
 /**
-* This function starts the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * @brief Starts the Frame Buffer Write core.
+ *
+ * This function initiates the operation of the Frame Buffer Write (FrmbufWr) core
+ * for the given instance. It asserts that the provided instance pointer is not NULL,
+ * and then calls the lower-level start function for the hardware core.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance to be started.
+ *
+ * @return none
+ */
 void XVFrmbufWr_Start(XV_FrmbufWr_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
@@ -309,16 +354,20 @@ void XVFrmbufWr_Start(XV_FrmbufWr_l2 *InstancePtr)
   XV_frmbufwr_Start(&InstancePtr->FrmbufWr);
 }
 
-/*****************************************************************************/
 /**
-* This function stops the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return XST_SUCCESS if the core is stop state
-*         XST_FAILURE if the core is not in stop state
-*
-******************************************************************************/
+ * Stops the Frame Buffer Write core.
+ *
+ * This function disables the autostart feature and initiates a flush operation
+ * on the Frame Buffer Write core. It waits for the flush operation to complete
+ * or until a timeout occurs. If the flush does not complete within the allowed
+ * time, the function returns a failure status.
+ *
+ * @param  InstancePtr  Pointer to the XV_FrmbufWr_l2 instance.
+ *
+ * @return
+ *     - XST_SUCCESS if the flush operation completes successfully.
+ *     - XST_FAILURE if the flush operation does not complete within the timeout.
+ */
 int XVFrmbufWr_Stop(XV_FrmbufWr_l2 *InstancePtr)
 {
   int Status = XST_SUCCESS;
@@ -344,16 +393,21 @@ int XVFrmbufWr_Stop(XV_FrmbufWr_l2 *InstancePtr)
 
   return(Status);
 }
-/*****************************************************************************/
+
 /**
-* This function Waits for the core to reach idle state
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return XST_SUCCESS if the core is in idle state
-*         XST_FAILURE if the core is not in idle state
-*
-******************************************************************************/
+ * Waits for the Frame Buffer Write core to become idle.
+ *
+ * This function polls the status of the Frame Buffer Write hardware core
+ * until it becomes idle or a timeout occurs. It checks the idle status
+ * by calling XV_frmbufwr_IsIdle() in a loop, up to a maximum number of
+ * iterations defined by XVFRMBUFWR_IDLE_TIMEOUT.
+ *
+ * @param  InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ *
+ * @return
+ *     - XST_SUCCESS if the core becomes idle within the timeout period.
+ *     - XST_FAILURE if the core does not become idle before the timeout.
+ */
 int XVFrmbufWr_WaitForIdle(XV_FrmbufWr_l2 *InstancePtr)
 {
   int Status = XST_FAILURE;
@@ -371,18 +425,34 @@ int XVFrmbufWr_WaitForIdle(XV_FrmbufWr_l2 *InstancePtr)
 
   return Status;
 }
-/*****************************************************************************/
+
 /**
-* This function configures the frame buffer write memory output
-*
-* @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  StrideInBytes is the memory stride in bytes
-* @param  MemFormat is the video format written to memory
-* @param  StrmIn is the pointer to output stream configuration
-*
-* @return none
-*
-******************************************************************************/
+ * Configure the memory format and validate parameters for the frame buffer write instance.
+ *
+ * This function sets up the memory format for the frame buffer writer, validates the input parameters,
+ * and configures the hardware registers if all checks pass. It ensures that the video stream and memory
+ * format are compatible, the stride is properly aligned, and the selected memory format is supported
+ * by the hardware instance.
+ *
+ * @param InstancePtr    Pointer to the XV_FrmbufWr_l2 instance.
+ * @param StrideInBytes  Stride (in bytes) for each line in memory.
+ * @param MemFmt         Desired memory color format (XVidC_ColorFormat).
+ * @param StrmIn         Pointer to the input video stream structure (XVidC_VideoStream).
+ *
+ * @return
+ *   - XST_SUCCESS if the configuration is successful.
+ *   - XVFRMBUFWR_ERR_FRAME_SIZE_INVALID if the frame size is invalid for the selected format.
+ *   - XVFRMBUFWR_ERR_STRIDE_MISALIGNED if the stride is not properly aligned.
+ *   - XVFRMBUFWR_ERR_VIDEO_FORMAT_MISMATCH if the stream and memory formats do not match.
+ *   - XVFRMBUFWR_ERR_DISABLED_IN_HW if the selected memory format is not supported in hardware.
+ *
+ * @note
+ *   - The function asserts that InstancePtr and StrmIn are not NULL.
+ *   - The function copies the input stream structure to the instance.
+ *   - For 4:2:2 and 4:2:0 formats, width and/or height must be even.
+ *   - The stride must be aligned to 2 * PixPerClk * 4 bytes.
+ *   - The memory format must be enabled in the hardware configuration.
+ */
 int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
                             u32 StrideInBytes,
                             XVidC_ColorFormat MemFmt,
@@ -591,6 +661,46 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+			case XVIDC_CSF_MEM_Y_U_V10_16LE :
+                if (XVFrmbufWr_IsY_U_V10_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV10_16LE :
+                if (XVFrmbufWr_IsY_UV10_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV10_420_16LE :
+                if (XVFrmbufWr_IsY_UV10_420_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y10_16LE :
+                if (XVFrmbufWr_IsY10_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V12_16LE :
+                if (XVFrmbufWr_IsY_U_V12_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV12_16LE :
+                if (XVFrmbufWr_IsY_UV12_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV12_420_16LE :
+                if (XVFrmbufWr_IsY_UV12_420_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y12_16LE :
+                if (XVFrmbufWr_IsY12_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
       default :
          FmtValid = FALSE;
          break;
@@ -611,30 +721,39 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the pointer to the output stream configuration
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return  Pointer to output stream configuration
-*
-******************************************************************************/
+ * Retrieves a pointer to the video stream associated with the given Frame Buffer Write instance.
+ *
+ * @param  InstancePtr  Pointer to the XV_FrmbufWr_l2 instance.
+ *
+ * @return Pointer to the XVidC_VideoStream structure associated with the instance.
+ */
 XVidC_VideoStream *XVFrmbufWr_GetVideoStream(XV_FrmbufWr_l2 *InstancePtr)
 {
   return(&InstancePtr->Stream);
 }
 
-/*****************************************************************************/
 /**
-* This function sets the buffer address
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Addr is the absolute address of buffer in memory
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-******************************************************************************/
+ * Sets the frame buffer address for the Frame Buffer Write core.
+ *
+ * This function validates and sets the memory address for the frame buffer.
+ * The address must be aligned to the AXI-MM width, which is calculated as
+ * 2 * PixelsPerClock * 4 bytes. If the address is not properly aligned,
+ * the function returns an error code indicating misalignment.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @param Addr        Physical address to be set as the frame buffer base address.
+ *
+ * @return
+ *   - XST_SUCCESS if the address is valid and set successfully.
+ *   - XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED if the address is not properly aligned.
+ *   - XST_FAILURE for other failures.
+ *
+ * @note
+ *   - The function asserts that InstancePtr is not NULL and Addr is not zero.
+ *   - The alignment requirement is based on the AXI-MM interface and the
+ *     core's PixelsPerClock configuration.
+ */
 int XVFrmbufWr_SetBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
                              UINTPTR Addr)
 {
@@ -661,15 +780,18 @@ int XVFrmbufWr_SetBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the buffer address
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return Address of buffer in memory
-*
-******************************************************************************/
+ * Retrieves the current buffer address used by the frame buffer write instance.
+ *
+ * @param InstancePtr: Pointer to the XV_FrmbufWr_l2 instance.
+ *
+ * @return
+ *   The address (UINTPTR) of the current frame buffer.
+ *
+ * This function asserts that the provided instance pointer is not NULL,
+ * then reads and returns the hardware register value corresponding to the
+ * frame buffer address.
+ */
 UINTPTR XVFrmbufWr_GetBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
 {
   UINTPTR ReadVal = 0;
@@ -680,17 +802,26 @@ UINTPTR XVFrmbufWr_GetBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
   return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
-* This function sets the buffer address for the UV plane for semi-planar formats
-* or Only U Plane for 3 planar formats
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Addr is the absolute address of buffer in memory
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-******************************************************************************/
+ * Sets the chroma buffer address for the frame buffer write instance.
+ *
+ * This function sets the address of the chroma buffer for the given frame buffer write instance.
+ * It checks if the provided address is aligned to the required AXI memory width (2 * PixelsPerClock * 4 bytes).
+ * If the address is not properly aligned, the function returns an error code indicating misalignment.
+ * Otherwise, it updates the hardware register with the new chroma buffer address.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @param Addr        Address to be set for the chroma buffer.
+ *
+ * @return
+ *   - XST_SUCCESS if the address is valid and set successfully.
+ *   - XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED if the address is not properly aligned.
+ *   - XST_FAILURE for other failures.
+ *
+ * @note
+ *   The address must be aligned to (2 * PixelsPerClock * 4) bytes.
+ *   The function asserts that InstancePtr is not NULL and Addr is not zero.
+ */
 int XVFrmbufWr_SetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
                              UINTPTR Addr)
 {
@@ -717,16 +848,15 @@ int XVFrmbufWr_SetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the buffer address for the UV plane for semi-planar formats
-* or Only U plane for 3 planar formats
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return Address of buffer in memory
-*
-******************************************************************************/
+ * Retrieves the address of the chroma buffer for the given Frame Buffer Write instance.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @return The address (UINTPTR) of the chroma buffer.
+ *
+ * This function asserts that the provided instance pointer is not NULL,
+ * then reads and returns the chroma buffer address from the hardware register.
+ */
 UINTPTR XVFrmbufWr_GetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
 {
   UINTPTR ReadVal = 0;
@@ -737,16 +867,25 @@ UINTPTR XVFrmbufWr_GetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
   return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
-* This function sets the buffer address for the V plane for 3 planar formats
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Addr is the absolute address of buffer in memory
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-******************************************************************************/
+ * Sets the vertical chroma buffer address for the frame buffer write instance.
+ *
+ * This function sets the address for the vertical chroma buffer in the frame buffer write hardware.
+ * The address must be aligned to a specific boundary determined by the number of pixels per clock
+ * and the data width. If the address is not properly aligned, the function returns an error code.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @param Addr        Address to be set for the vertical chroma buffer.
+ *
+ * @return
+ *   - XST_SUCCESS if the address is valid and set successfully.
+ *   - XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED if the address is not properly aligned.
+ *   - XST_FAILURE for other failures.
+ *
+ * @note
+ *   The address alignment is calculated as 2 * PixPerClk * 4 bytes.
+ *   The function asserts that InstancePtr is not NULL and Addr is not zero.
+ */
 int XVFrmbufWr_SetVChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
                              UINTPTR Addr)
 {
@@ -769,15 +908,14 @@ int XVFrmbufWr_SetVChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the buffer address for the V plane for 3 planar formats
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return Address of buffer in memory
-*
-******************************************************************************/
+ * Retrieves the address of the chroma buffer (V component) for the given frame buffer write instance.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ * @return The address (UINTPTR) of the V chroma buffer.
+ *
+ * @note The function asserts that InstancePtr is not NULL.
+ */
 UINTPTR XVFrmbufWr_GetVChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
 {
   UINTPTR ReadVal = 0;
@@ -786,15 +924,18 @@ UINTPTR XVFrmbufWr_GetVChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
   return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the field ID
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return Field ID
-*
-******************************************************************************/
+ * Retrieves the current Field ID from the Frame Buffer Write hardware.
+ *
+ * @param InstancePtr: Pointer to the XV_FrmbufWr_l2 instance.
+ *
+ * This function asserts that the provided instance pointer is not NULL and that the
+ * Frame Buffer Write configuration is set to interlaced mode. It then reads and returns
+ * the current Field ID from the hardware register.
+ *
+ * @return
+ *   The current Field ID value read from the hardware.
+ */
 u32 XVFrmbufWr_GetFieldID(XV_FrmbufWr_l2 *InstancePtr)
 {
   u32 ReadVal = 0;
@@ -806,17 +947,29 @@ u32 XVFrmbufWr_GetFieldID(XV_FrmbufWr_l2 *InstancePtr)
   return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
-* This function reports the frame buffer write status
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-* @note   none
-*
-******************************************************************************/
+ * XVFrmbufWr_DbgReportStatus - Prints the current status and configuration of the Frame Buffer Write core.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance.
+ *
+ * This function prints a detailed debug report of the Frame Buffer Write (FrmbufWr) core's
+ * configuration and status registers to the standard output using xil_printf. The report includes:
+ *   - Pixels per clock
+ *   - Color depth and AXI-MM data width
+ *   - Enabled color formats (RGBX8, BGRX8, YUVX8, etc.)
+ *   - Interlaced and tile format enable status
+ *   - Control register value
+ *   - Current width, height, stride, video format
+ *   - Buffer addresses (luma, chroma, vchroma)
+ *
+ * The function asserts that the provided instance pointer is not NULL.
+ *
+ * This function is intended for debugging and diagnostic purposes.
+ * @return none
+ *
+ * @note   none
+ *
+ */
 void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
 {
   u32 ctrl;
