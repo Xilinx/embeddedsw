@@ -19,6 +19,8 @@
 
 #define CLK_LOCK			1
 #define PL_AUD_CLK_MULT			512
+#define NL_LATENCY			0x0138
+#define V_LINE_LATENCY			0x2
 #define UPDATE_ENABLE_SHIFT             8U
 #define IGNORE_DONE_SHIFT               9U
 #define LAST_DESC_SHIFT                 10U /* 16(ID) +  10 */
@@ -331,8 +333,8 @@ void InitDcSubPtr(RunConfig *RunCfgPtr)
 	XDcSub_EnableStream1Buffers(RunCfgPtr->DcSubPtr, 1, 15);
 	XDcSub_EnableStream2Buffers(RunCfgPtr->DcSubPtr, 1, 15);
 	XDcSub_VidClkSelect(RunCfgPtr->DcSubPtr, 0, 0);
-	XDcSub_SetVidFrameSwitch(RunCfgPtr->DcSubPtr, 0x3F);
-	XDcSub_SetNonLiveLatency(RunCfgPtr->DcSubPtr, 0x00120138);
+	XDcSub_SetVidFrameSwitch(RunCfgPtr->DcSubPtr, 0x30);
+	XDcSub_SetNonLiveLatency(RunCfgPtr->DcSubPtr, NL_LATENCY, V_LINE_LATENCY);
 
 	if(RunCfgPtr->SdpEnable)
 	{
