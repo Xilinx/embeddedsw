@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved..
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved..
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -453,6 +453,14 @@ typedef enum {
 	XVIDC_CSF_MEM_Y_U_V8,       // [7:0] Y:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_Y_U_V10,      // [9:0] Y:10, [9:0] U:10, [9:0] V:10
 	XVIDC_CSF_MEM_Y_U_V12,      // [11:0] Y:12, [11:0] U:12, [11:0] V:12
+	XVIDC_CSF_MEM_Y_U_V10_16LE,      // [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16
+	XVIDC_CSF_MEM_Y_UV10_16LE,       // [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16
+	XVIDC_CSF_MEM_Y_UV10_420_16LE,   // [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16
+	XVIDC_CSF_MEM_Y10_16LE,          // [31:0] Y1:Y0 16:16
+	XVIDC_CSF_MEM_Y_U_V12_16LE,      // [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16
+	XVIDC_CSF_MEM_Y_UV12_16LE,       // [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16
+	XVIDC_CSF_MEM_Y_UV12_420_16LE,   // [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16
+	XVIDC_CSF_MEM_Y12_16LE,          // [31:0] Y1:Y0 16:16
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */
