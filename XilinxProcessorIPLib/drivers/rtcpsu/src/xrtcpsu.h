@@ -95,7 +95,7 @@
  * 1.7   sne    03/01/19 Added Versal support.
  * 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
  *                       modified the code such as
- *                       No brackets to loop body,Declared the poiner param
+ *                       No brackets to loop body,Declared the pointer param
  *                       as Pointer to const,No brackets to then/else,
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *                       Array has no bounds specified,Logical conjunctions need brackets.
@@ -103,6 +103,7 @@
  * 1.11	 sne	04/23/21 Fixed doxygen warnings.
  * 1.13  ht	06/22/23 Added support for system device-tree flow.
  * 1.17  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+ * 1.17  ht     01/19/26 Add 3 macros (EPOCH_YEAR, EPOCH_WDAY, IS_LEAP_YEAR).
  * </pre>
  *
  ******************************************************************************/
@@ -214,6 +215,20 @@ typedef struct {
 extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/* Unix epoch constants */
+#define EPOCH_YEAR	1970U	/**< Unix epoch year (1970-01-01 00:00:00 UTC) */
+#define EPOCH_WDAY	4U	/**< Weekday of epoch (0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat) */
+
+/**
+ * Check if a year is a leap year using complete Gregorian calendar rules:
+ * - Divisible by 4: leap year
+ * - Exception: Divisible by 100: not a leap year
+ * - Exception to exception: Divisible by 400: leap year
+ * Examples: 2000 (leap), 2004 (leap), 2100 (not leap)
+ */
+#define IS_LEAP_YEAR(year) \
+	(((year) % 4U == 0U) && (((year) % 100U != 0U) || ((year) % 400U == 0U)))
 
 #define XRTC_CALIBRATION_VALUE 0x7FFFU	/**< Calibration value */
 #define XRTC_TYPICAL_OSC_FREQ 32768U	/**< Oscillator frequency */

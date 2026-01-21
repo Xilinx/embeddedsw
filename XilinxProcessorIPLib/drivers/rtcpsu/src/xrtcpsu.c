@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,13 +39,15 @@
  * 1.7   sne    03/01/19 Added Versal support.
  * 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
  *                       modified the code such as
- *                       No brackets to loop body,Declared the poiner param
+ *                       No brackets to loop body,Declared the pointer param
  *                       as Pointer to const,No brackets to then/else,
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *			 Array has no bounds specified,Logical conjunctions need brackets.
  * 1.8	 sg	07/13/19 Corrected calibration algorithm
  * 1.13	 ht	06/22/23 Added support for system device-tree flow.
  * 1.16  ht	09/26/25 Remove redundant calibration register write in XRtcPsu_SetTime.
+ * 1.17  ht	01/19/26 Modify XRtcPsu_SecToDateTime, XRtcPsu_DateTimeToSec to
+ *                       use 1970-01-01 as reference.
  * </pre>
  *
  ******************************************************************************/
@@ -301,9 +303,9 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
 /****************************************************************************/
 /**
  *
- *	This function translates time in seconds to a YEAR:MON:DAY HR:MIN:SEC
- *	format and saves it in the DT structure variable.
- *	It also reports the weekday.
+ * This function translates time in seconds to a YEAR:MON:DAY HR:MIN:SEC
+ * format and saves it in the DT structure variable.
+ * It also reports the weekday.
  *
  * @param	Seconds is the time value that has to be shown in DateTime
  *		format.
@@ -312,7 +314,17 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
  *
  * @return	None.
  *
- * @note	This API supports this century i.e., 2000 - 2099 years only.
+ * @note	This API uses Unix epoch (1970-01-01 00:00:00 UTC) as reference.
+ *		Supports years from 1970 to 2106 (unsigned 32-bit limit).
+ *
+ *		WEEKDAY CONVENTION:
+ *		WeekDay field follows POSIX standard:
+ *		  0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday,
+ *		  4=Thursday, 5=Friday, 6=Saturday
+ *		1970-01-01 (epoch) was Thursday, so WeekDay = 4.
+ *
+ *		For u32 input, overflow is impossible. Maximum timestamp
+ *		(0xFFFFFFFF) correctly converts to 2106-02-07 06:28:15.
  *
  *****************************************************************************/
 void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
@@ -322,6 +334,9 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	u32 DaysPerMonth;
 	u32 Leap = 0U;
 
+	Xil_AssertVoid(dt != NULL);
+
+	/* Extract time-of-day components */
 	CurrentTime = Seconds;
 	dt->Sec = CurrentTime % 60U;
 	CurrentTime /= 60U;
@@ -330,76 +345,94 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	dt->Hour = CurrentTime % 24U;
 	TempDays = CurrentTime / 24U;
 
-	if (TempDays == 0U) {
-		TempDays = 1U;
-	}
-	dt->WeekDay = TempDays % 7U;
+	/* Calculate weekday: POSIX convention (0=Sunday, 4=Thursday) */
+	dt->WeekDay = (TempDays + EPOCH_WDAY) % 7U;
 
-	for (dt->Year = 0U; dt->Year <= 99U; ++(dt->Year)) {
-		if ((dt->Year % 4U) == 0U) {
-			Leap = 1U;
-		} else {
-			Leap = 0U;
-		}
+	/* Calculate year by iterating from epoch (max 136 iterations) */
+	dt->Year = EPOCH_YEAR;
+	while (1) {
+		Leap = IS_LEAP_YEAR(dt->Year) ? 1U : 0U;
 
-		if (TempDays <= (365U + Leap)) {
+		if (TempDays < (365U + Leap))
 			break;
-		}
 
 		TempDays -= (365U + Leap);
+		dt->Year++;
 	}
 
-	for (dt->Month = 1U; dt->Month >= 1U; ++(dt->Month)) {
-		DaysPerMonth = DaysInMonth[dt->Month - (u32)1];
-		if ((Leap == 1U) && (dt->Month == 2U)) {
+	/* Calculate month: TempDays is 0-indexed (0=Jan 1st, 30=Jan 31st) */
+	dt->Month = 1U;
+	while (1) {
+		DaysPerMonth = DaysInMonth[dt->Month - 1U];
+
+		/* Adjust February for leap years */
+		if ((Leap == 1U) && (dt->Month == 2U))
 			DaysPerMonth++;
-		}
-		if (TempDays <= DaysPerMonth) {
+
+		if (TempDays < DaysPerMonth)
 			break;
-		}
 
 		TempDays -= DaysPerMonth;
+		dt->Month++;
 	}
 
-	dt->Day = TempDays;
-	dt->Year += 2000U;
+	/* Convert 0-indexed day to 1-indexed day-of-month */
+	dt->Day = TempDays + 1U;
 }
 
 /****************************************************************************/
 /**
  *
  * This function translates time in YEAR:MON:DAY HR:MIN:SEC format to
- * seconds.
+ * seconds since Unix epoch (1970-01-01 00:00:00 UTC).
  *
- * @param	dt is a pointer to a DatetTime format structure variable
- *		of time that has to be shown in seconds.
+ * @param	dt is a pointer to a DateTime format structure variable
+ *		of time that has to be converted to seconds.
  *
- * @return	Seconds value of provided in dt time.
+ * @return	Seconds value since Unix epoch (1970-01-01).
  *
- * @note		None.
+ * @note	This API uses Unix epoch (1970-01-01 00:00:00 UTC) as reference.
+ *		Input must be in range 1970-2106. The input structure is not
+ *		modified. This is the inverse of XRtcPsu_SecToDateTime().
  *
  *****************************************************************************/
 u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 {
-	u32 i;
-	u32 Days;
+	u32 Year;
+	u32 Month;
+	u32 TotalDays;
+	u32 DaysInYear;
 	u32 Seconds;
+	u32 i;
 
 	Xil_AssertNonvoid(dt != NULL);
 
-	if (dt->Year >= 2000U) {
-		dt->Year -= 2000U;
+	Year = dt->Year;
+	Month = dt->Month;
+
+	/* Calculate total days from epoch (1970-01-01) to start of target year */
+	TotalDays = 0U;
+	for (i = EPOCH_YEAR; i < Year; i++) {
+		DaysInYear = IS_LEAP_YEAR(i) ? 366U : 365U;
+		TotalDays += DaysInYear;
 	}
 
-	for (i = 1U; i < dt->Month; i++) {
-		dt->Day += (u32)DaysInMonth[i - (u32)1];
+	/* Add days for complete months in target year */
+	for (i = 1U; i < Month; i++) {
+		TotalDays += DaysInMonth[i - 1U];
+
+		/* Add leap day if February and target year is leap */
+		if ((i == 2U) && IS_LEAP_YEAR(Year))
+			TotalDays++;
 	}
-	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U)) {
-		dt->Day++;
-	}
-	Days = dt->Day + (365U * dt->Year) + ((dt->Year + 3U) / 4U);
-	Seconds = (((((Days * 24U) + dt->Hour) * 60U) + dt->Min) * 60U)
+
+	/* Add day of month (subtract 1 because Day is 1-indexed) */
+	TotalDays += (dt->Day - 1U);
+
+	/* Convert to seconds */
+	Seconds = (((((TotalDays * 24U) + dt->Hour) * 60U) + dt->Min) * 60U)
 		  + dt->Sec;
+
 	return Seconds;
 }
 
@@ -408,29 +441,27 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
  *
  * This function calculates the calibration value depending on the actual
  * realworld time and also helps in deriving new calibration value if
- * the user wishes to change his oscillator frequency.TimeReal is generally the
- * internet time with EPOCH time as reference i.e.,1/1/1970 1st second.
- * But this RTC driver assumes start time from 1/1/2000 1st second. Hence,if
- * the user maps the internet time InternetTimeInSecs, then he has to use
- * XRtcPsu_SecToDateTime(InternetTimeInSecs,&InternetTime),
- * TimeReal = XRtcPsu_DateTimeToSec(InternetTime)
- * consecutively to arrive at TimeReal value.
+ * the user wishes to change his oscillator frequency. TimeReal should be
+ * the accurate reference time in seconds since Unix epoch (1970-01-01
+ * 00:00:00 UTC). This matches standard internet time sources (NTP, GPS, etc.)
+ * and can be used directly without conversion.
  *
  * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	TimeReal is the actual realworld time generally an
- *		network time / Internet time in seconds.
+ * @param	TimeReal is the actual realworld time in seconds since Unix
+ *		epoch (1970-01-01). This can be obtained from network time
+ *		protocols (NTP) or other accurate time sources. The value
+ *		must be greater than the RTC's current time for calibration
+ *		to work correctly.
  *
  * @param	CrystalOscFreq is the Oscillator new frequency.
- *		Say, If the user is going with the typical
- *		32768Hz, then he inputs the same
- *		frequency value.
+ *		If using the typical 32768Hz crystal, then input
+ *		the same frequency value.
  *
  * @return	None.
  *
- * @note		After Calculating the calibration register,
- *			user / application has to
- *			call again CfgInitialize API to bring the
- *			new calibration into effect.
+ * @note	After calculating the calibration register value,
+ *		user / application must call CfgInitialize API again
+ *		to apply the new calibration into effect.
  *
  *****************************************************************************/
 void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
@@ -452,7 +483,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 	SetTime = XRtcPsu_GetLastSetTime(InstancePtr);
 	Calibration = XRtcPsu_GetCalibration(InstancePtr);
 	/*
-	 * When board gets reseted, Calibration value is zero
+	 * When board gets reset, Calibration value is zero
 	 * and Last setTime will be marked as 1st  second. This implies
 	 * CurrentTime to be in few seconds say something in tens. TimeReal will
 	 * be huge, say something in thousands. So to prevent
