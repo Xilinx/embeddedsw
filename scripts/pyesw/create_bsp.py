@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates a domain and a bsp for the passed processor, os and system
@@ -715,7 +715,7 @@ def create_domain(args):
     )
     utils.copy_file(libxil_cmake, f"{obj.libsrc_folder}/")
 
-    bsp_libsrc_cmake_subdirs = "libsrc standalone " + " ".join(lib_list)
+    bsp_libsrc_cmake_subdirs = "standalone libsrc " + " ".join(lib_list)
     cmake_extra_flags_append=f'''
         if(COMMAND split_string_by_length)
             split_string_by_length("Compiler FLAGS: ${{CMAKE_C_FLAGS}} ${{proc_extra_compiler_flags}} ${{CMAKE_C_FLAGS_RELEASE}}" 100 CHUNKS)
