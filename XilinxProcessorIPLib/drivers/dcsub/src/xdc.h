@@ -422,7 +422,7 @@ typedef struct {
 
 	u32 VidFrameSwitchCtrl;
 
-	u16 NonLiveLatency;
+	u32 NonLiveLatency;
 
 	u32 StcEn;
 	u32 StcInitVal;
