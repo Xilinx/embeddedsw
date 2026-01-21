@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -17,6 +17,7 @@ properties:
           - xlnx,v-mix-5.2
           - xlnx,v-mix-5.3
           - xlnx,v-mix-6.0
+          - xlnx,v-mix-6.1
 
   reg:
     description: Physical base address and size of the controller register map
