@@ -23,6 +23,7 @@
 * 1.00  kvn 05/12/15 First Release
 * 1.13  ht  06/21/23 Added support for system device-tree flow.
 * 1.17  vlt    12/16/25 Update Doxygen comments to include SDT flow details.
+* 1.17  ht  01/19/26 Fix the printf comment to use EPOCH time as reference.
 *
 * </pre>
 ******************************************************************************/
@@ -66,7 +67,7 @@ XRtcPsu Rtc_Psu;		/* Instance of the RTC Device */
 * Main function to call the Rtc Alarm Polled mode example.
 *
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
 * @note		None
 *
@@ -151,7 +152,7 @@ int RtcPsuAlarmPolledExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-	xil_printf("\n\rDay Convention : 0-Fri, 1-Sat, 2-Sun, 3-Mon, 4-Tue, 5-Wed, 6-Thur\n\r");
+	xil_printf("\n\rDay Convention : 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat\n\r");
 	xil_printf("Current RTC time is..\n\r");
 	CurrentTime = XRtcPsu_GetCurrentTime(&Rtc_Psu);
 	XRtcPsu_SecToDateTime(CurrentTime, &dt0);

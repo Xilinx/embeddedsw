@@ -24,6 +24,7 @@
 * 1.6	tjs 09/17/18 Fixed compilation warnings
 * 1.13	ht  06/21/23 Added support for system device-tree flow.
 * 1.17  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 1.17  ht  01/19/26 Fix the printf comment to use EPOCH time as reference.
 *
 * </pre>
 ******************************************************************************/
@@ -151,7 +152,7 @@ int RtcPsuSetTimeExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-	xil_printf("Day Convention : 0-Fri, 1-Sat, 2-Sun, 3-Mon, 4-Tue, 5-Wed, 6-Thur\n\r");
+	xil_printf("Day Convention : 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat\n\r");
 	xil_printf("Last set time for RTC is..\n\r");
 	LastSetTime = XRtcPsu_GetLastSetTime(&Rtc_Psu);
 	XRtcPsu_SecToDateTime(LastSetTime, &dt1);

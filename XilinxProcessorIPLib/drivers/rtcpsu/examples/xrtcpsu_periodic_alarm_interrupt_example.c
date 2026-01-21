@@ -188,7 +188,7 @@ int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-	xil_printf("\n\rDay Convention : 0-Fri, 1-Sat, 2-Sun, 3-Mon, 4-Tue, 5-Wed, 6-Thur\n\r");
+	xil_printf("\n\rDay Convention : 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat\n\r");
 	xil_printf("Current RTC time is..\n\r");
 	CurrentTime = XRtcPsu_GetCurrentTime(RtcInstPtr);
 	XRtcPsu_SecToDateTime(CurrentTime, &dt0);
