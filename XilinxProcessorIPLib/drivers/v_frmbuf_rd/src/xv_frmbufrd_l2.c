@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -168,6 +168,30 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
 		case XVIDC_CSF_MEM_Y_U_V12 :
             StrmFmt = XVIDC_CSF_YCRCB_444;
             break;
+		case XVIDC_CSF_MEM_Y_U_V10_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_420_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y10_16LE :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V12_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_420_16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y12_16LE :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
 		default:
 			StrmFmt = (XVidC_ColorFormat)~0;
 			break;
@@ -640,6 +664,46 @@ int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
 				break;
 			case XVIDC_CSF_MEM_Y_U_V12 :
                 if (XVFrmbufRd_IsY_U_V12Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V10_16LE :
+                if (XVFrmbufRd_IsY_U_V10_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV10_16LE :
+                if (XVFrmbufRd_IsY_UV10_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV10_420_16LE :
+                if (XVFrmbufRd_IsY_UV10_420_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y10_16LE :
+                if (XVFrmbufRd_IsY10_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V12_16LE :
+                if (XVFrmbufRd_IsY_U_V12_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV12_16LE :
+                if (XVFrmbufRd_IsY_UV12_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV12_420_16LE :
+                if (XVFrmbufRd_IsY_UV12_420_16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y12_16LE :
+                if (XVFrmbufRd_IsY12_16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;

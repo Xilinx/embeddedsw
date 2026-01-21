@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -17,6 +17,7 @@ properties:
         - enum:
           - xlnx,v-frmbuf-rd-2.5
           - xlnx,v-frmbuf-rd-3.0
+          - xlnx,v-frmbuf-rd-3.1
   reg:
     description: Physical base address and size of the controller register map
   xlnx,samples-per-clock:
@@ -97,6 +98,22 @@ properties:
     description: y-u-v8-420 3 planar support
   xlnx,has-y-u-v12:
     description: y-u-v12 3 planar support
+  xlnx,has-y-u-v10-16le:
+    description: y-u-v10-16le 3 planar support
+  xlnx,has-y-uv10-16le:
+    description: y-u-v10-16le support
+  xlnx,has-y-uv10-420-16le:
+    description: y-uv10-420-16le support
+  xlnx,has-y10-16le:
+    description: y10-16le support
+  xlnx,has-y-u-v12-16le:
+    description: y-u-v12-16le 3 planar support
+  xlnx,has-y-uv12-16le:
+    description: y-uv12-16le support
+  xlnx,has-y-uv12-420-16le:
+    description: y-uv12-420-16le support
+  xlnx,has-y12-16le:
+    description: y12-16le support
   xlnx,has-interlaced:
     description: Interlaced support
   xlnx,is-tile-format:
@@ -148,6 +165,14 @@ required:
     - xlnx,has-y-u-v10
     - xlnx,has-y-u-v8-420
     - xlnx,has-y-u-v12
+    - xlnx,has-y-u-v10-16le
+    - xlnx,has-y-uv10-16le
+    - xlnx,has-y-uv10-420-16le
+    - xlnx,has-y10-16le
+    - xlnx,has-y-u-v12-16le
+    - xlnx,has-y-uv12-16le
+    - xlnx,has-y-uv12-420-16le
+    - xlnx,has-y12-16le
     - xlnx,has-interlaced
     - xlnx,is-tile-format
     - interrupts
