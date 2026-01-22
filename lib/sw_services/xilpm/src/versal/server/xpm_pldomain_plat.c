@@ -1622,13 +1622,6 @@ static XStatus PlHouseCleanEarlyBoot(u16 *DbgErr)
 		*DbgErr = XPM_INT_ERR_MRMAC_BISR_REPAIR;
 		goto done;
 	}
-#if defined(XCVR1602) || defined(XCVR1652)
-	Status = XPmBisr_Repair2(SDFEC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		*DbgErr = XPM_INT_ERR_SDFEC_BISR_REPAIR;
-		goto done;
-	}
-#endif
 
 	/* BRAM/URAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_BRAM);
@@ -1645,6 +1638,14 @@ static XStatus PlHouseCleanEarlyBoot(u16 *DbgErr)
 		*DbgErr = XPM_INT_ERR_URAM_BISR_REPAIR;
 		goto done;
 	}
+
+#if defined(XCVR1602) || defined(XCVR1652)
+	Status = XPmBisr_Repair2(SDFEC_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_SDFEC_BISR_REPAIR;
+		goto done;
+	}
+#endif
 
 	/* HCLEAN type 0,1,2 */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_HCLEAN);
