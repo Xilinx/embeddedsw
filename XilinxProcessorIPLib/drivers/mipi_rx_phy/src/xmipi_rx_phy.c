@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -216,7 +216,6 @@ u32 XMipi_Rx_Phy_GetInfo(XMipi_Rx_Phy *InstancePtr, u8 Handle)
 {
 	u32 RegVal = 0;
 	UINTPTR RegAddr;
-	u32 MaxLanesPresent;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -224,7 +223,6 @@ u32 XMipi_Rx_Phy_GetInfo(XMipi_Rx_Phy *InstancePtr, u8 Handle)
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
 
 	RegAddr = (InstancePtr)->Config.BaseAddr;
-	MaxLanesPresent = InstancePtr->Config.MaxLanesPresent;
 
 	/* Based on Handle, return value from the corresponding registers */
 	switch (Handle) {
@@ -384,7 +382,7 @@ void XMipi_Rx_Phy_ClearDataLane(XMipi_Rx_Phy *InstancePtr, u8 DataLane, u32 Mask
 *
 * @param 	InstancePtr is the XMipi_Rx_Phy instance to operate on.
 *
-* @return 	Bitmask containing which of the events have occured along with
+* @return 	Bitmask containing which of the events have occurred along with
 * 		the mode of the Clock Lane in Phy
 *
 * @note 	None.
@@ -432,7 +430,7 @@ u32 XMipi_Rx_Phy_GetClkLaneMode(XMipi_Rx_Phy *InstancePtr)
 * @param	InstancePtr is the XMipi_Rx_Phy instance to operate on.
 * @param	DataLane for which the status is sought for.
 *
-* @return	Bitmask containing which of the events have occured along with
+* @return	Bitmask containing which of the events have occurred along with
 * 		the mode of the Data Lane in Phy
 *
 * @note		None.
@@ -490,7 +488,7 @@ u8 XMipi_Rx_Phy_GetDLCalibStatus(XMipi_Rx_Phy *InstancePtr, u8 DataLane)
 
 /****************************************************************************/
 /**
-* This is used to get specfic Lane mode information about a Data Lane.
+* This is used to get specific Lane mode information about a Data Lane.
 *
 * @param	InstancePtr is the XMipi_Rx_Phy instance to operate on.
 * @param	DataLane for which the mode info is requested.
