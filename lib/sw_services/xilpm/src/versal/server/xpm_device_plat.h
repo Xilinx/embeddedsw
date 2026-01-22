@@ -36,43 +36,18 @@ extern "C" {
 typedef struct XPm_DeviceNode XPm_Device;
 
 /************************** Function Prototypes ******************************/
-static u8 XPmDevice_IsExcluded(const u32 NodeId)
-{
-	u8 IsExcluded = 0U;
-
-	if (((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(NodeId)) ||
-	    ((u32)XPM_NODETYPE_DEV_XRAM == NODETYPE(NodeId)) ||
-	    ((u32)XPM_NODESUBCL_DEV_PHY == NODESUBCLASS(NodeId)) ||
-	    /**
-	    * PM_DEV_AIE is deprecated but must still be available for backwards
-	    * compatibility. This node is not requestable and should not have
-	    * any requirements.
-	    */
-	    ((u32)PM_DEV_AIE == NodeId) ||
-	    ((u32)PM_DEV_PMC_PROC == NodeId) ||
-	    /** TODO: FIXME: special conditions
-	     * - L2_BANK node needs special power handling sequence which seems to be missing
-	     * 		(L2_BANK currently is a stale node and can be removed from topology)
-	     * - AMS_ROOT is handled by PMC Subsystem and a user subsystem, i.e Default Subsystem
-	     * 		should not be allowed to request it.
-	     * - EFUSE node has no device drivers
-	    */
-	    ((u32)PM_DEV_L2_BANK_0 == NodeId) ||
-	    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(NodeId)) ||
-	    ((u32)PM_DEV_AMS_ROOT == NodeId)) {
-		IsExcluded = 1U;
-	}
-
-	return IsExcluded;
-}
-
 maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 {
 	u8 Requestable = 0U;
 
-	if (XPmDevice_IsExcluded(NodeId)) {
-		/* Excluded device is not requestable */
-		return Requestable;
+	/**
+	 * PM_DEV_AIE is deprecated but must still be available for backwards
+	 * compatibility. This node is not requestable and should not have
+	 * any requirements.
+	 */
+	if (PM_DEV_AIE == NodeId) {
+		Requestable = 0U;
+		goto done;
 	}
 
 	switch (NODESUBCLASS(NodeId)) {
@@ -89,6 +64,7 @@ maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 		break;
 	}
 
+done:
 	return Requestable;
 }
 
