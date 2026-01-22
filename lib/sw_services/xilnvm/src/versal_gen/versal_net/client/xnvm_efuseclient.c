@@ -30,6 +30,8 @@
 *                     before security critical calls
 * 3.6  rpu  07/21/25  Fixed GCC warnings
 *      vss  08/08/2025 Added DME support for versal_2ve_2vm.
+* 3.7  mb   01/13/2026 Added client API to check EFUSE AES keys CRC
+*
 * </pre>
 *
 * @note
@@ -3100,6 +3102,52 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo,
 			sizeof(XNvm_IvWriteCdo) / XNVM_WORD_LEN);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to check given CRC is matched with calculated CRC
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	AesKeyCrc	CRC value of the AES key which needs to be checked
+ * @param	AesKeyType	Type of AES key
+ * 				Supported key types:
+ * 				- XNVM_EFUSE_AES_KEY
+ * 				- XNVM_EFUSE_USER_KEY0
+ * 				- XNVM_EFUSE_USER_KEY1
+ *
+ * @return
+ *		- XST_SUCCESS  If the CRC matches
+ *		- XST_INVALID_PARAM  If there is a input validation failure
+ *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+
+        /**
+	 *  Validate input parameters.
+	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Payload[0U] = Header(0U, (u32)XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC);
+	Payload[1U] = AesKeyCrc;
+	Payload[2U] = (u32)AesKeyType;
+
+        /**
+	 *  Send check AES key CRC CDO to PLM to check the given CRC.
+	 *  Return XST_FAILURE if IPI request processing fails in PLM.
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
 END:
 	return Status;
 }

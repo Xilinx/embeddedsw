@@ -34,6 +34,7 @@
 *       vss  09/19/23 Fixed MISRA-C 8.3 violation
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
 * 3.7   mb   12/31/2025 Added client API to check AES key CRC
+*       mb   01/06/2026 Added client API to check USER key CRC
 *
 * </pre>
 *
@@ -1196,6 +1197,11 @@ END:
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	AesKeyCrc	CRC value of the AES key which needs to be checked
+ * @param	AesKeyType	Type of AES key
+ * 				Supported key types:
+ * 				- XNVM_EFUSE_AES_KEY
+ * 				- XNVM_EFUSE_USER_KEY0
+ * 				- XNVM_EFUSE_USER_KEY1
  *
  * @return
  *		- XST_SUCCESS  If the CRC matches
@@ -1203,10 +1209,10 @@ END:
  *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
  *
  ******************************************************************************/
-int XNvm_EfuseCheckAesKeyCrc(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc)
+int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
         /**
 	 *  Validate input parameters.
@@ -1219,6 +1225,7 @@ int XNvm_EfuseCheckAesKeyCrc(const XNvm_ClientInstance *InstancePtr, const u32 A
 
 	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC));
 	Payload[1U] = AesKeyCrc;
+	Payload[2U] = (u32)AesKeyType;
 
         /**
 	 *  Send check AES key CRC CDO to PLM to check the given CRC.

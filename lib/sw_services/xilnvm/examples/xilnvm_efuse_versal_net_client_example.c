@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -175,6 +175,7 @@ static int XNvm_ValidateAesKey(const char *Key);
 static int XilNvm_WriteDmeRevoke(void);
 static int XilNvm_EfuseShowDmeRevokeId(void);
 static int XilNvm_EfuseWritePufSecCtrlBits(void);
+static int XilNvm_EfusePerformCrcChecks(void);
 /*****************************************************************************/
 int main(void)
 {
@@ -208,6 +209,11 @@ int main(void)
 	}
 
 	Status = XilNvm_EfuseProgramFuses();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XilNvm_EfusePerformCrcChecks();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1230,7 +1236,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseWriteDataAddr *WriteEfuse,
 	AesKeys->PrgmUserKey1 = XNVM_EFUSE_WRITE_USER_KEY_1;
 
 	if (AesKeys->PrgmAesKey == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_AES_KEY,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_KEY,
 					(u8 *)AesKeys->AesKey,
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -1238,7 +1244,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseWriteDataAddr *WriteEfuse,
 		}
 	}
 	if (AesKeys->PrgmUserKey0 == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY_0,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY0,
 					(u8 *)AesKeys->UserKey0,
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -1246,7 +1252,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseWriteDataAddr *WriteEfuse,
 		}
 	}
 	if (AesKeys->PrgmUserKey1 == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY_1,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY1,
 					(u8 *)AesKeys->UserKey1,
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -2353,6 +2359,8 @@ END:
  *
  * @param	Len	Length of the IV in bits
  *
+ * @param	IvType	IvType MetaHeader IV or Blk IV or Plm IV or
+ * 			Data partition IV
  * @return
  *		- XST_SUCCESS - If validation and conversion of IV success
  *		- Error Code - On Failure.
@@ -2391,7 +2399,7 @@ END:
  *
  * @param	Hash - Pointer to PPK hash
  *
- * 		Len  - Length of the input string
+ * @param	Len  - Length of the input string
  *
  * @return
  *	- XST_SUCCESS	- On valid input Ppk Hash string
@@ -2457,8 +2465,8 @@ END:
  * This function reverses the data array
  *
  * @param	OrgDataPtr Pointer to the original data
- * 		SwapPtr    Pointer to the reversed data
- * 		Len        Length of the data in bytes
+ * @param	SwapPtr    Pointer to the reversed data
+ * @param	Len        Length of the data in bytes
  *
  ******************************************************************************/
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
@@ -2504,5 +2512,69 @@ END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * This function performs CRC validation of all AES keys.
+ *
+ * @return
+ *	- XST_SUCCESS - If the CRC checks are successful.
+ *	- Error code - On Failure
+ *
+ ******************************************************************************/
+static int XilNvm_EfusePerformCrcChecks(void)
+{
+	int Status = XST_FAILURE;
+
+	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
+		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
+			   XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		Status= XNvm_EfuseAesKeyCrcCheck(&NvmClientInstance,
+						 (const u32)XNVM_EFUSE_EXPECTED_AES_KEY_CRC,
+						 XNVM_EFUSE_AES_KEY);
+		if (Status != XST_SUCCESS) {
+			xil_printf("\r\nAES CRC check is failed\n\r");
+			goto END;
+		}
+		else {
+			xil_printf("\r\nAES CRC check is passed\n\r");
+		}
+	}
+
+	if (XNVM_EFUSE_CHECK_USER_KEY_0_CRC == TRUE) {
+		xil_printf("UserKey0 CRC provided for verification: %08x\n\r",
+			   XNVM_EFUSE_EXPECTED_USER_KEY0_CRC);
+
+		Status= XNvm_EfuseAesKeyCrcCheck(&NvmClientInstance,
+						 (const u32)XNVM_EFUSE_EXPECTED_USER_KEY0_CRC,
+						 XNVM_EFUSE_USER_KEY_0);
+		if (Status != XST_SUCCESS) {
+			xil_printf("\r\nUser Key 0 CRC check is failed\n\r");
+			goto END;
+		}
+		else {
+			xil_printf("\r\nUser Key 0 CRC check is passed\n\r");
+		}
+	}
+
+	if (XNVM_EFUSE_CHECK_USER_KEY_1_CRC == TRUE) {
+		xil_printf("UserKey1 CRC provided for verification: %08x\n\r",
+			   XNVM_EFUSE_EXPECTED_USER_KEY1_CRC);
+
+		Status= XNvm_EfuseAesKeyCrcCheck(&NvmClientInstance,
+						 (const u32)XNVM_EFUSE_EXPECTED_USER_KEY1_CRC,
+						 XNVM_EFUSE_USER_KEY_1);
+		if (Status != XST_SUCCESS) {
+			xil_printf("\r\nUser Key 1 CRC check is failed\n\r");
+			goto END;
+		}
+		else {
+			xil_printf("\r\nUser Key 1 CRC check is passed\n\r");
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
 /** //! [XNvm eFuse example] */
 /**@}*/

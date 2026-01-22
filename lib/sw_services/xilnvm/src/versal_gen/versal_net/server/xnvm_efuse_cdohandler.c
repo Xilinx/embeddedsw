@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *      yog   09/13/2023 Removed XNvm_EfuseMemCopy() API
 * 3.3  kpt   01/22/2024 Added support to extend secure state into SWPCR
 * 3.6  obs   08/26/2025 Added support for Verifying Address Range
+* 3.7  mb    01/13/2026 Added support for AES key CRC check
 *
 * </pre>
 *
@@ -47,6 +48,7 @@
 #include "xnvm_defs.h"
 #include "xnvm_utils.h"
 #include "xplmi_hw.h"
+#include "xnvm_efuse_common_hw.h"
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK 	(0x0000FFFFU)
@@ -84,6 +86,7 @@ static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
 static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
+static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType);
 
 /*************************** Function Definitions *****************************/
 
@@ -369,6 +372,9 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		DmeKeyWrPload = (XNvm_DmeKeyWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWriteDmeKey(Cmd->SubsystemId, (u32)DmeKeyWrPload->EnvDisFlag, (u32)DmeKeyWrPload->DmeKeyType,
 				DmeKeyWrPload->AddrLow, DmeKeyWrPload->AddrHigh);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
+		Status = XNvm_EfuseAesCheckCrc(Cmd->Payload[0U], Cmd->Payload[1U]);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -1206,6 +1212,54 @@ XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler)
 	}
 
 	return NvmOcpHandler;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function checks the CRC of the AES key
+ *
+ * @param	Crc		CRC value of the AES key
+ * @param	AesKeyType	Type of AES key
+ *				Supported key types are:
+ *				- XNVM_EFUSE_AES_KEY
+ *				- XNVM_EFUSE_USER_KEY0
+ *				- XNVM_EFUSE_USER_KEY1
+ * @return
+ * 		- XST_SUCCESS  If the CRC matches
+ *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType)
+{
+	volatile int Status = XST_FAILURE;
+	u32 CrcOffset = 0U;
+	u32 CrcDoneMask = 0U;
+	u32 CrcPassMask = 0U;
+
+	if (AesKeyType == XNVM_EFUSE_AES_KEY) {
+		CrcOffset = XNVM_EFUSE_AES_CRC_REG_OFFSET;
+		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK;
+		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK;
+	}
+	else if (AesKeyType == XNVM_EFUSE_USER_KEY_0) {
+		CrcOffset = XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET;
+		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK;
+		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK;
+	}
+	else if (AesKeyType == XNVM_EFUSE_USER_KEY_1) {
+		CrcOffset = XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET;
+		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK;
+		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK;
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XNvm_EfuseCheckAesKeyCrc(CrcOffset, CrcDoneMask, CrcPassMask, Crc);
+
+END:
+	return Status;
 }
 
 #endif

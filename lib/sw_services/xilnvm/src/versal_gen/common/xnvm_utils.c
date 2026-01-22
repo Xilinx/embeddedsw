@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -327,8 +327,8 @@ END:
  ******************************************************************************/
 int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc)
 {
-	int Status = XST_FAILURE;
-	int LockStatus = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int LockStatus = XST_FAILURE;
 	u32 ReadReg;
 	u32 IsUnlocked = FALSE;
 

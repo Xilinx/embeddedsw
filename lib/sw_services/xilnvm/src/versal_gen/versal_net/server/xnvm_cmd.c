@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       vek  05/31/2023 Added support for Programming PUF secure control bits
 *       bm   06/23/2023 Added access permissions for IPI commands
 * 3.3   kpt  02/21/2024 Added support to extend secure state
+* 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
 *
 * </pre>
 *
@@ -88,6 +89,7 @@ static XPlmi_AccessPerm_t XNvm_AccessPermBuff[XNVM_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_DME_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_READ_CACHE),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS),
+	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC),
 #ifdef VERSAL_2VE_2VM
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS),
 #endif
@@ -141,6 +143,7 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_REVOKE):
+	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -217,6 +220,7 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY):
+	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
 		Status = XNvm_EfuseCdoHandler(Cmd);
 		break;
 	default:

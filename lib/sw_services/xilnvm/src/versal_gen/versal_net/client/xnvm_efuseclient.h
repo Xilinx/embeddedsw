@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *   	vek  05/31/23 Added support for Programming PUF secure control bits
 * 3.6   vss  08/08/2025 Added DME support for versal_2ve_2vm.
+* 3.7   mb   01/13/2026 Added client API XNvm_EfuseCheckAesKeyCrc to check AES key CRC
 *
 * </pre>
 *
@@ -90,6 +91,7 @@ int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAdd
 int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsInfoBits);
 int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag);
 int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRevokeIdAddr);
+int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType);
 
 /************************** Variable Definitions *****************************/
 

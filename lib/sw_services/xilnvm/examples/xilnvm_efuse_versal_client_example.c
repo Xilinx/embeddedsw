@@ -73,6 +73,7 @@
  * 3.7   mb    12/31/2025 Added support to verify CRC of AES key after programming.
  *       tbk   01/05/2026 Added support to check OffChip REVOKE_ID individually
  *                        instead of common check.
+ *       mb    01/06/2026 Added support to verify CRC of AES USER keys after programming.
  *
  * </pre>
  *
@@ -917,7 +918,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseDataAddr *WriteEfuse,
 	AesKeys->PrgmUserKey1 = XNVM_EFUSE_WRITE_USER_KEY_1;
 
 	if (AesKeys->PrgmAesKey == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_AES_KEY,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_KEY,
 					(u8 *)AesKeys->AesKey,
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -925,7 +926,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseDataAddr *WriteEfuse,
 		}
 	}
 	if (AesKeys->PrgmUserKey0 == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY_0,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY0,
 					(u8 *)AesKeys->UserKey0,
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -933,7 +934,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseDataAddr *WriteEfuse,
 		}
 	}
 	if (AesKeys->PrgmUserKey1 == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY_1,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY1,
 					(u8 *)AesKeys->UserKey1,
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -2346,7 +2347,7 @@ static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr)
  *
  * @param	Hash - Pointer to PPK hash
  *
- * 		Len  - Length of the input string
+ * @param	Len  - Length of the input string
  *
  * @return
  *	- XST_SUCCESS	- On valid input Ppk Hash string
@@ -2412,8 +2413,8 @@ END:
  * This function reverses the data array
  *
  * @param	OrgDataPtr Pointer to the original data
- * 		SwapPtr    Pointer to the reversed data
- * 		Len        Length of the data in bytes
+ * @param	SwapPtr    Pointer to the reversed data
+ * @param	Len        Length of the data in bytes
  *
  ******************************************************************************/
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
@@ -2479,6 +2480,7 @@ static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)
 	else
 		return  XST_FAILURE;
 }
+
 /****************************************************************************/
 /**
  * This function performs CRC validation of AES key.
@@ -2495,20 +2497,55 @@ static int XilNvm_EfusePerformCrcChecks(void)
 	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
 			   XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
-		Status = XNvm_EfuseCheckAesKeyCrc(&NvmClientInstance,
-					       XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		Status= XNvm_EfuseAesKeyCrcCheck(&NvmClientInstance,
+						 (const u32)XNVM_EFUSE_EXPECTED_AES_KEY_CRC,
+						 XNVM_EFUSE_AES_KEY);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
-		} else {
+			goto END;
+		}
+		else {
 			xil_printf("\r\nAES CRC check is passed\n\r");
 		}
 	}
-	else {
-		Status = XST_SUCCESS;
+
+	if (XNVM_EFUSE_CHECK_USER_KEY_0_CRC == TRUE) {
+		xil_printf("UserKey0 CRC provided for verification: %08x\n\r",
+			   XNVM_EFUSE_EXPECTED_USER_KEY0_CRC);
+
+		Status= XNvm_EfuseAesKeyCrcCheck(&NvmClientInstance,
+						 (const u32)XNVM_EFUSE_EXPECTED_USER_KEY0_CRC,
+						 XNVM_EFUSE_USER_KEY_0);
+		if (Status != XST_SUCCESS) {
+			xil_printf("\r\nUser Key 0 CRC check is failed\n\r");
+			goto END;
+		}
+		else {
+			xil_printf("\r\nUser Key 0 CRC check is passed\n\r");
+		}
 	}
 
+	if (XNVM_EFUSE_CHECK_USER_KEY_1_CRC == TRUE) {
+		xil_printf("UserKey1 CRC provided for verification: %08x\n\r",
+			   XNVM_EFUSE_EXPECTED_USER_KEY1_CRC);
+
+		Status= XNvm_EfuseAesKeyCrcCheck(&NvmClientInstance,
+						 (const u32)XNVM_EFUSE_EXPECTED_USER_KEY1_CRC,
+						 XNVM_EFUSE_USER_KEY_1);
+		if (Status != XST_SUCCESS) {
+			xil_printf("\r\nUser Key 1 CRC check is failed\n\r");
+			goto END;
+		}
+		else {
+			xil_printf("\r\nUser Key 1 CRC check is passed\n\r");
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
 	return Status;
 }
+
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 /****************************************************************************/
 /**

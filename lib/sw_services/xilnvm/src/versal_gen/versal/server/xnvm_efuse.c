@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -100,6 +100,8 @@
 * 3.6   hj   04/15/2025 Remove zero IV check in dec_only fuse programming
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
 *       hj   09/19/2025 Program PUF_RSVD efuse as user data
+* 3.7   mb   01/10/2026 Removed extra lines in XNvm_EfusePgmAndVerifyRows function
+*
 * </pre>
 *
 *******************************************************************************/
@@ -4776,7 +4778,6 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u32 RowCount,
 	}
 
 	while (Count < RowCount) {
-
 		Data = DataPtr[Count];
 		Idx = 0U;
 		while ((Data != 0U) && (Idx < XNVM_EFUSE_MAX_BITS_IN_ROW)) {

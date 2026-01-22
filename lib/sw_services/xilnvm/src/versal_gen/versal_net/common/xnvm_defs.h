@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,7 +23,7 @@
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *    	vek  05/31/23 Added support for Programming PUF secure control bits
 * 3.6   vss  08/22/25 Added macros required to support DME in versal_2ve_2vm.
-*
+* 3.7   mb   01/19/26 Added IPI support for AES key CRC check
 * </pre>
 * @note
 *
@@ -558,6 +558,7 @@ typedef enum {
 #ifdef VERSAL_2VE_2VM
 	XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS,
 #endif
+	XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC,
 	XNVM_API_MAX,
 } XNvm_ApiId;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,9 @@
  *       vss   09/19/23 Fixed MISRA-C Rule 2.5 violation
  * 3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
  * 3.4   obs   04/21/2025 Fixed GCC Warnings.
+ * 3.7   mb    01/06/2026 Rename XNVM_EFUSE_AES_KEY to XNVM_EFUSE_KEY,
+ * 				XNVM_EFUSE_USER_KEY_0 to XNVM_EFUSE_USER_KEY0,
+ * 				XNVM_EFUSE_USER_KEY_1 to XNVM_EFUSE_USER_KEY1
  *
  * </pre>
  *
@@ -652,7 +655,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 	AesKeys->PrgmUserKey1 = XNVM_EFUSE_WRITE_USER_KEY_1;
 
 	if (AesKeys->PrgmAesKey == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_AES_KEY,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_KEY,
 					(u8 *)(AesKeys->AesKey),
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -660,7 +663,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 		}
 	}
 	if (AesKeys->PrgmUserKey0 == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY_0,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY0,
 					(u8 *)(AesKeys->UserKey0),
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -668,7 +671,7 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
 		}
 	}
 	if (AesKeys->PrgmUserKey1 == TRUE) {
-		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY_1,
+		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_USER_KEY1,
 					(u8 *)(AesKeys->UserKey1),
 					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {

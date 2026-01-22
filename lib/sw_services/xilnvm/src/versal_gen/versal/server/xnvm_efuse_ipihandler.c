@@ -84,7 +84,7 @@ static int XNvm_EfuseOffChipIdRead(u32 SubsystemId, XNvm_OffchipId IdNum, u32 Ad
 	u32 AddrHigh);
 static int XNvm_EfuseDecEfuseOnlyRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseDnaRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseAesCheckCrc(u32 Crc);
+static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
@@ -211,7 +211,7 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_EfuseDnaRead(Cmd->SubsystemId, Pload[0U], Pload[1U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
-		Status = XNvm_EfuseAesCheckCrc(Pload[0U]);
+		Status = XNvm_EfuseAesCheckCrc(Pload[0U], Pload[1U]);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -1175,24 +1175,50 @@ END:
 /**
  * @brief       This function checks the CRC of the AES key
  *
- * @param	Crc	CRC value of the AES key
- *
+ * @param	Crc		CRC value of the AES key
+ * @param	AesKeyType	Type of AES key
+ *				Supported key types are:
+ *				- XNVM_EFUSE_AES_KEY
+ *				- XNVM_EFUSE_USER_KEY0
+ *				- XNVM_EFUSE_USER_KEY1
  * @return
  * 		- XST_SUCCESS  If the CRC matches
  *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
  *
  ******************************************************************************/
-static int XNvm_EfuseAesCheckCrc(u32 Crc)
+static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType)
 {
 	volatile int Status = XST_FAILURE;
+	u32 CrcOffset = 0U;
+	u32 CrcDoneMask = 0U;
+	u32 CrcPassMask = 0U;
 
-	Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_REG_OFFSET,
-					XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
-					XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK,
-					Crc);
+	if (AesKeyType == XNVM_EFUSE_AES_KEY) {
+		CrcOffset = XNVM_EFUSE_AES_CRC_REG_OFFSET;
+		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK;
+		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK;
+	}
+	else if (AesKeyType == XNVM_EFUSE_USER_KEY_0) {
+		CrcOffset = XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET;
+		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK;
+		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK;
+	}
+	else if (AesKeyType == XNVM_EFUSE_USER_KEY_1) {
+		CrcOffset = XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET;
+		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK;
+		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK;
+	}
+	else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 
+	Status = XNvm_EfuseCheckAesKeyCrc(CrcOffset, CrcDoneMask, CrcPassMask, Crc);
+
+END:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
  * @brief	This function copies word aligned or non word aligned data
