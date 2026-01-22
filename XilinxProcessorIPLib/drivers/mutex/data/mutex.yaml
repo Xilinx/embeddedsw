@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -36,6 +36,9 @@ required:
     - reg: 1
     - xlnx,num-mutex
     - xlnx,enable-user
+
+additionalProperties:
+    - xlnx,enable-hw-prot
 
 examples:
         xmutex_tapp_example.c:

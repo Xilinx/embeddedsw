@@ -125,7 +125,7 @@ typedef struct {
 	char *Name;     /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;/**< Register base address */
-	u32 NumMutex;	/**< Number of Mutexes in this device */
+	u32 NumMutex;	/**< Number of Mutex locks in this device */
 	u8 UserReg;	/**< User Register, access not controlled by Mutex */
 } XMutex_Config;
 
