@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -17,20 +17,19 @@ version: 3.3
 description: Xilinx NVM Library provides interface to accessing eFUSE and BBRAM.
 
 supported_processors:
-  - psv_pmc
-  - psv_cortexa72
-  - psv_cortexr5
-  - microblaze
-  - psxl_pmc
-  - psxl_cortexa78
-  - psxl_cortexr52
-  - psx_pmc
-  - pmc
-  - psx_cortexa78
-  - cortexa78
-  - psx_cortexr52
-  - cortexr52
-  - microblaze_riscv
+  - condition : |
+      supported_processors = []
+      if platform in ["Versal"]:
+        supported_processors = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psv_pmc"]
+      elif platform in ["VersalNet"]:
+        supported_processors = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psx_pmc", "psxl_cortexa78",
+                                "psxl_pmc", "psxl_cortexr52"]
+      elif platform in ["Versal_2VE_2VM"]:
+        supported_processors = ["microblaze", "cortexa78", "cortexr52", "pmc"]
+      elif "spartanuplus" in variant:
+        supported_processors = ["microblaze", "microblaze_riscv"]
+      else:
+        supported_processors = []
 
 supported_os:
   - standalone
@@ -58,22 +57,29 @@ examples:
 
   condition : |
     examples = []
-    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"]:
-      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
-        examples += ["xilnvm_bbram_versal_client_example.c"]
-    if platform in ["VersalNet", "Versal_2VE_2VM"]:
-      if proc in ["microblaze", "psx_cortexa78", "psx_cortexr52", "cortexa78", "cortexr52"]:
-        examples += ["xilnvm_efuse_versal_net_client_example.c"]
-    if platform in ["Versal"]:
-      if proc in ["microblaze", "psv_cortexa72", "psv_cortexr5"]:
-        examples += ["xilnvm_bbram_versal_server_example.c", "xilnvm_efuse_versal_client_example.c",
+
+    versal_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5"]
+    versalnet_procs = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psxl_cortexa78", "psxl_cortexr52"]
+    versal_2ve_2vm_procs = ["microblaze", "cortexa78", "cortexr52"]
+    versal_all_family_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52",
+                               "psxl_cortexa78", "psxl_cortexr52", "cortexa78", "cortexr52"]
+    spartanuplus_procs = ["microblaze", "microblaze_riscv"]
+
+    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"] and proc in versal_all_family_procs:
+      examples += ["xilnvm_bbram_versal_client_example.c"]
+
+    if (platform == "VersalNet" and proc in versalnet_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
+      examples += ["xilnvm_efuse_versal_net_client_example.c"]
+
+    if platform in ["Versal"] and proc in versal_procs:
+      examples += ["xilnvm_bbram_versal_server_example.c", "xilnvm_efuse_versal_client_example.c",
                      "xilnvm_efuse_versal_server_example.c", "xilnvm_bbram_versal_ssit_client_example.c",
                      "xilnvm_efuse_versal_ssit_client_example.c"]
-    if platform in ["Versal_2VE_2VM"]:
-      if proc in ["microblaze", "cortexa78", "cortexr52"]:
-        examples += ["xilnvm_bbram_config_limiter_client_example.c"]
-    if "spartanuplus" in variant:
-      if proc in ["microblaze", "microblaze_riscv"]:
-        examples += ["xilnvm_efuse_spartan_ultrascale_plus_example.c"]
+
+    if platform in ["Versal_2VE_2VM"] and proc in versal_2ve_2vm_procs:
+      examples += ["xilnvm_bbram_config_limiter_client_example.c"]
+
+    if "spartanuplus" in variant and proc in spartanuplus_procs:
+      examples += ["xilnvm_efuse_spartan_ultrascale_plus_example.c"]
 
 ...
