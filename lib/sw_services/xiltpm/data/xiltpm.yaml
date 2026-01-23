@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -6,15 +6,19 @@
 title: Bindings for xiltpm library.
 
 maintainers:
-  - Triveni, Modugula <trivenim@amd.com>
+  - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
 
 type: library
 
 description: Xilinx TPM Library provides interface to external TPM module.
 
 supported_processors:
-  - psv_pmc
-  - microblaze
+  - condition : |
+      supported_processors = []
+      if platform in ["Versal"]:
+          supported_processors = ["psv_pmc"]
+      else:
+          supported_processors = []
 
 supported_os:
   - standalone
