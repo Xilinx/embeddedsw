@@ -52,7 +52,7 @@
 *       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
 *       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
 * 2.40  obs  12/31/2025 Fixed GCC warnings
-*
+*       sk   01/18/2026 Added define for Domain Init Status Register
 * </pre>
 *
 ******************************************************************************/
@@ -567,7 +567,10 @@ extern "C" {
 #define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
 #define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
 
-
+/*
+ * Register: PMC_GLOBAL_DOMAIN_INIT_STATUS_REG
+ */
+#define PMC_GLOBAL_DOMAIN_INIT_STATUS_REG	(PMC_GLOBAL_BASEADDR + 0X00000050U)
 /*****************************************************************************/
 /**
  * @brief        This function reads a 32-bit register
@@ -984,6 +987,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #endif
 #define CRP_RST_PS_PMC_SRST_MASK		(0X00000008U)
 #define CRP_RST_PS_PMC_POR_MASK		(0X00000080U)
+#define CRP_RST_PS_PS_SRST_MASK		(0X00000004U)
 
 /*
  * Register: CRP_NOCPLL_CTRL

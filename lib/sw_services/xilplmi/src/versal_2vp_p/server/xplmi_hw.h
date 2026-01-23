@@ -18,7 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 * 2.4   obs 01/19/26 Fixed GCC warnings
-*
+*       sk  01/23/2026 Added define for Domain Init Status Register
 * </pre>
 *
 
@@ -533,6 +533,10 @@ extern "C" {
 	#endif
 #endif
 
+/*
+ * Register: PMC_GLOBAL_DOMAIN_INIT_STATUS_REG
+ */
+#define PMC_GLOBAL_DOMAIN_INIT_STATUS_REG	(PMC_GLOBAL_BASEADDR + 0X00000050U)
 
 /**************************************************************************************************/
 /**
@@ -929,6 +933,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #endif
 #define CRP_RST_PS_PMC_SRST_MASK			(0X00000008U)
 #define CRP_RST_PS_PMC_POR_MASK				(0X00000080U)
+#define CRP_RST_PS_PS_SRST_MASK				(0X00000004U)
 
 /*
  * Register: CRP_NOCPLL_CTRL

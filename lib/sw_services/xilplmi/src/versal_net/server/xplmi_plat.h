@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,7 @@
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 * 		abh  07/21/2025 Fixed GCC warnings
 *       obs  08/26/2025 Added error codes and macros for handling verifying address range
+* 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
 *
 * </pre>
 *
@@ -129,6 +130,7 @@ extern "C" {
 #define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)	/**< Invalid reserved DDR address */
 #define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)	/**< Invalid reserved DDR size */
 #define XPLMI_REG_OFFSET_BYTE_4					(4U)  /**< Register Offset by 4 bytes */
+#define XPLMI_LPD_DOMAIN_INIT_MASK				(0x2U) /**< LPD Domain Init Status */
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
 #define XPLMI_MILLI_SEC_TIME_MULTIPLIER 		(0x10000U) /**< factor for ~1msec for 320MHz to 400MHz range */
@@ -820,6 +822,7 @@ int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd);
 int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd);
 
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
+void XPlmi_SaveLpdEAMInfo(void);
 
 /************************** Variable Definitions *****************************/
 

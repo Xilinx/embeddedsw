@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,8 @@
 * ====  ==== ======== ======================================================-
 * 1.00  sk   02/20/2025 Initial release
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
+* 2.4   sk   01/18/2026 Moved PSM EAM Reg Saving Code to PM Init Function.
+*                       Added function to save LPD EAM register info to RTCA on SRST
 *
 * </pre>
 *
@@ -219,7 +221,6 @@ int XPlmi_PsEmInit(void)
 				MASK32_ALL_HIGH);
 		PsmErrStatus[ErrIndex] = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS +
 					(ErrIndex * PSM_GLOBAL_REG_PSM_ERR_OFFSET));
-		XPlmi_Out32(GET_RTCFG_PSM_ERR_ADDR(ErrIndex), PsmErrStatus[ErrIndex]);
 		if (PsmErrStatus[ErrIndex] != 0U) {
 			XPlmi_Printf(DEBUG_GENERAL, "PSM_GLOBAL_REG_PSM_ERR%d_STATUS: "
 				"0x%08x\n\r", ErrIndex + 1U, PsmErrStatus[ErrIndex]);
@@ -256,4 +257,39 @@ int XPlmi_PsEmInit(void)
 	Status = XST_SUCCESS;
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Saves the PSM (Platform System Management) error status info for
+ * 		the LPD (Low Power Domain), reads the error status registers from
+ * 		the PSM, and stores error status values into the RTCFG memory.
+ *
+ * @note	This function is platform-specific.
+ *****************************************************************************/
+void XPlmi_SaveLpdEAMInfo(void)
+{
+	u32 PsmErrStatus[XPLMI_PSM_MAX_ERR_CNT];
+	u32 ErrIndex;
+	u32 LpdInitStatus;
+
+	LpdInitStatus = XPlmi_In32(PMC_GLOBAL_DOMAIN_INIT_STATUS_REG);
+
+	if (!(LpdInitStatus & XPLMI_LPD_DOMAIN_INIT_MASK)) {
+		goto END;
+	}
+
+	/** - Clear PS SRST */
+	XPlmi_UtilRMW(CRP_RST_PS, CRP_RST_PS_PS_SRST_MASK, 0x0U);
+
+	/** - Read PSM error status registers and store in RTCFG */
+	for (ErrIndex = 0U; ErrIndex < XPLMI_PSM_MAX_ERR_CNT; ErrIndex++) {
+		PsmErrStatus[ErrIndex] = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS +
+					(ErrIndex * PSM_GLOBAL_REG_PSM_ERR_OFFSET));
+		XPlmi_Out32(GET_RTCFG_PSM_ERR_ADDR(ErrIndex), PsmErrStatus[ErrIndex]);
+	}
+	/** - Restore PS SRST to previous state */
+	XPlmi_UtilRMW(CRP_RST_PS, CRP_RST_PS_PS_SRST_MASK, CRP_RST_PS_PS_SRST_MASK);
+END:
+	return;
 }

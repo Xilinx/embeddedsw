@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -826,7 +826,8 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 			CRP_RST_NONPS_SYS_RST_3_MASK;
 
 	if ((0U != (ResetReason & SysResetMask)) && ((u32)XPlmi_IsPlmUpdateDone() != 1U)) {
-
+		/** - Save LPD EAM error status before asserting POR */
+		XPlmi_SaveLpdEAMInfo();
 		XPm_DisableSkipHC();
 
 		/* Assert PL and PS POR */

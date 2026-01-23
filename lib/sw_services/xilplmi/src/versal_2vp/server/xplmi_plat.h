@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -21,7 +21,7 @@
 *       tvp  09/13/25 Add function prototype to get KAT status
 *       tvp  09/13/25 Added macro for TRNG KAT
 *       tvp  09/13/25 Added KAT mask for DEVIK/DEVAK/HMAC
-*
+* 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
 * </pre>
 *
 * @note
@@ -253,7 +253,7 @@ extern "C" {
 #define XPLMI_SSS_SHA_DMA1		(0x00070000U) /* SSS SHA DMA1 mask */
 #define XPLMI_SSS_AES_DMA0		(0x0000E000U) /* SSS AES DMA0 mask */
 #define XPLMI_SSS_AES_DMA1		(0x00005000U) /* SSS AES DMA1 mask */
-
+#define XPLMI_LPD_DOMAIN_INIT_MASK	(0x2U) /**< LPD Domain Init Status Mask */
 /************************************** Type Definitions ******************************************/
 /* Minor Error Codes */
 enum {
@@ -898,6 +898,7 @@ void XPlmi_SetXRamAvailable(void);
 void XPlmi_SssMask(u32 DmaSrc);
 XIOModule *XPlmi_GetIOModuleInst(void);
 u8 XPlmi_IsKatRan(u32 PlmKatMask);
+void XPlmi_SaveLpdEAMInfo(void);
 
 /************************************ Variable Definitions ****************************************/
 

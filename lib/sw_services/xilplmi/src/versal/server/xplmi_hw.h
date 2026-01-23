@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -105,6 +105,7 @@
 *                       576 bytes of memory
 *       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
 *       tri  03/13/2025 Added PMC_GLOBAL ROM_VALIDATION and FW_AUTH_HASH macros
+* 2.11  sk   01/18/2026 Added define for Domain Init Status Register
 *
 * </pre>
 *
@@ -507,6 +508,10 @@ extern "C" {
 
 /**< Address of Metaheader instance */
 #define METAHEADER_INSTANCE_ADDRESS                     (0xF2012000U)
+/*
+ * Register: PMC_GLOBAL_DOMAIN_INIT_STATUS_REG
+ */
+#define PMC_GLOBAL_DOMAIN_INIT_STATUS_REG	(PMC_GLOBAL_BASEADDR + 0X00000050U)
 
 /*****************************************************************************/
 /**
@@ -870,6 +875,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #endif
 #define CRP_RST_PS_PMC_SRST_MASK		(0X00000008U)
 #define CRP_RST_PS_PMC_POR_MASK		(0X00000080U)
+#define CRP_RST_PS_PS_SRST_MASK		(0X00000004U)
 
 /*
  * Register: CRP_NOCPLL_CTRL

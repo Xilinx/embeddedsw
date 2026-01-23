@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 * 2.3   obs  08/26/2025 Added error codes and macros for handling verifying address range
+* 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
 *
 * </pre>
 *
@@ -244,6 +245,7 @@ extern "C" {
 #define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK	 		(0x00000800U) /**< RSA private decrypt KAT mask */
 #define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK 	(0x00001000U) /**< ECC sign generation SHA3_384 KAT mask */
 #define XPLMI_SECURE_ECC_PWCT_KAT_MASK					(0x00002000U) /**< ECC PWCT KAT mask */
+#define XPLMI_LPD_DOMAIN_INIT_MASK				(0x2U) /**< LPD Domain Init Status Mask*/
 
 #define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK | \
 								XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK | XPLMI_SECURE_AES_DEC_KAT_MASK | \
@@ -678,6 +680,7 @@ void XPlmi_InterSlrSldHandshake(void);
 void XPlmi_SetXRamAvailable(void);
 void XPlmi_SssMask(u32 DmaSrc);
 XIOModule *XPlmi_GetIOModuleInst(void);
+void XPlmi_SaveLpdEAMInfo(void);
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 void XPlmi_CheckSlaveErrors(void);
 #endif
