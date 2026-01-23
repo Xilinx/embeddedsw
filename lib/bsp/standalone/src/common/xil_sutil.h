@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,10 +83,10 @@ extern "C" {
  ******************************************************************************/
 #define XSECURE_TEMPORAL_IMPL(Var, VarTmp, Function, ...) \
 	{ \
-		Var = XST_FAILURE; \
-		VarTmp = XST_FAILURE; \
-		Var = Function(__VA_ARGS__); \
-		VarTmp = Var; \
+		(Var) = XST_FAILURE; \
+		(VarTmp) = XST_FAILURE; \
+		(Var) = (Function(__VA_ARGS__)); \
+		(VarTmp) = (Var); \
 	}
 
 /******************************************************************************/
@@ -111,11 +111,11 @@ extern "C" {
 	{ \
 		volatile int StatusTmpVal; \
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmpVal, Function, __VA_ARGS__); \
-		if ((Status != XST_SUCCESS) || \
-		    (StatusTmpVal != XST_SUCCESS)) { \
+		if (((Status) != XST_SUCCESS) || \
+		    ((StatusTmpVal) != XST_SUCCESS)) { \
 			if (((Status) != (StatusTmpVal)) || \
-			    (Status == XST_SUCCESS)) { \
-				Status = XST_GLITCH_ERROR; \
+			    ((Status) == XST_SUCCESS)) { \
+				(Status) = XST_GLITCH_ERROR; \
 			}\
 			goto Label; \
 		} \
@@ -140,8 +140,8 @@ extern "C" {
  ******************************************************************************/
 #define XSECURE_REDUNDANT_CALL(Status, StatusTmp, Function, ...)   \
 	{ \
-		Status = Function(__VA_ARGS__); \
-		StatusTmp = Function(__VA_ARGS__); \
+		(Status) = (Function(__VA_ARGS__)); \
+		(StatusTmp) = (Function(__VA_ARGS__)); \
 	}
 
 /******************************************************************************/
