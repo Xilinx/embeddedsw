@@ -1833,7 +1833,7 @@ END:
  * 		- Error code on failure
  *
 *****************************************************************************/
-int XLoader_LoadLpdAndPsmElf()
+int XLoader_LoadLpdAndPsmElf(void)
 {
 	int Status = XST_FAILURE;
 	u64 PdiAddr = (u64)(XPlmi_GetUpdatePdiAddr());
