@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 #define DEV_SECURE			(0U)
 static XPmRuntime_DeviceOpsList* DevOpsList XPM_INIT_DATA(DevOpsList) = NULL;
 static const u32 IpiMasks[][2] = {
+	{ PM_DEV_IPI_ASU, ASU_IPI_MASK },
 	{ PM_DEV_IPI_0, IPI_0_MASK },
 	{ PM_DEV_IPI_1, IPI_1_MASK },
 	{ PM_DEV_IPI_2, IPI_2_MASK },

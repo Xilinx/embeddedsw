@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -848,8 +848,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 
 	/* If default subsystem is present, attempt to add its requirements */
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
-	if (((u32)0U == XPmSubsystem_GetMaxSubsysIdx()) &&
-	    (NULL != Subsystem) && ((u8)ONLINE == Subsystem->State)) {
+	if ((NULL != Subsystem) && ((u8)ONLINE == Subsystem->State)) {
 		Status = XPm_AddReqsDefaultSubsystem(Subsystem);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to add requirements to default subsystem\n\r");
@@ -886,7 +885,7 @@ static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 	(void)SubsystemId;
 
 	/* Return success if the target subsystem is PMC or ASU */
-	if (PM_SUBSYS_PMC == TargetSubsystemId || PM_SUBSYS_ASU == TargetSubsystemId) {
+	if (PM_SUBSYS_PMC == TargetSubsystemId) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
