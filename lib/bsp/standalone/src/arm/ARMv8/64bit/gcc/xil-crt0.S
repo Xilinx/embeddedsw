@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -37,6 +37,7 @@
 *                     PMCR_EL0 is 0 indicating that the event counters in PMU
 *                     are disabled.
 * 9.3   mus  02/13/25 Add support for domU guest in SDT flow.
+* 9.5   asa  01/23/26 Add support for cache coherency at EL3 for Versal Gen2.
 * </pre>
 *
 * @note
@@ -64,7 +65,63 @@
 	.quad	__bss_end__
 
 
-.set APU_PWRCTL,	0xFD5C0090
+.set APU_PWRCTL,				0xFD5C0090
+
+#if defined(VERSAL_2VE_2VM)
+.set MMUSECSID_CTRL_TBU,		0xEB510B28
+.set LPD_SECURE_SLCR_WPROT0,	0xEB510000
+
+ /* GEM0 AxProt Settings */
+.set IOU_AXIWPROT_GEM0,			0xF1A40000
+.set IOU_AXIRPROT_GEM0,			0xF1A40004
+
+ /* GEM1 AxProt Settings */
+.set IOU_AXIWPROT_GEM1,			0xF1A40010
+.set IOU_AXIRPROT_GEM1,			0xF1A40014
+
+ /* USB0 AxProt Settings */
+.set IOU_AXIPROT_USB0,			0xF1A40020
+
+ /* USB1 AxProt Settings */
+.set IOU_AXIPROT_USB1,			0xF1A40030
+
+ /* SD0 AxProt Settings */
+.set IOU_AXIWPROT_SD0,			0xF1070000
+.set IOU_AXIRPROT_SD0,			0xF1070004
+
+ /* eMMC AxProt Settings */
+.set IOU_AXIWPROT_EMMC0,		0xF1070010
+.set IOU_AXIRPROT_EMMC0,		0xF1070014
+
+ /* QSPI AxProt Settings */
+.set IOU_AXIWPROT_QSPI,			0xF1070020
+
+ /* OSPI AxProt Settings */
+.set IOU_AXIWPROT_OSPI,			0xF1070030
+
+ /* UFS AxProt Settings */
+.set IOU_AXIWPROT_UFS,			0xF10700D0
+.set IOU_AXIRPROT_UFS,			0xF10700D4
+
+ /* ADMA Trustzone */
+.set IOU_AXIPROT_ADMA0,			0xEB510080
+.set IOU_AXIPROT_ADMA1,			0xEB510084
+.set IOU_AXIPROT_ADMA2,			0xEB510088
+.set IOU_AXIPROT_ADMA3,			0xEB51008C
+.set IOU_AXIPROT_ADMA4,			0xEB510090
+.set IOU_AXIPROT_ADMA5,			0xEB510094
+.set IOU_AXIPROT_ADMA6,			0xEB510098
+.set IOU_AXIPROT_ADMA7,			0xEB51009C
+
+ /* MMI 10G */
+.set MMI_AXIPROT_10G,           0xEDC3019C
+
+.set SMMU_GBPA,                 0xEC000044
+.set SMMU_GBPA_SHCFG_SHIFT,     12
+.set SMMU_GBPA_SHCFG_MASK,      (0x3 << SMMU_GBPA_SHCFG_SHIFT)   // bits 13:12
+.set SMMU_GBPA_SHCFG_OSH,       (0x2 << SMMU_GBPA_SHCFG_SHIFT)   // 0b10 << 12
+
+#endif
 
 	.globl	_startup
 _startup:
@@ -161,6 +218,107 @@ _startup:
 	orr x1, x1, #(0x1 << 3)
 	msr PMCR_EL0, x1
 	isb
+
+#if defined(VERSAL_2VE_2VM) && (EL3 == 1)
+	/* Remove Write protection */
+	ldr     x0, =LPD_SECURE_SLCR_WPROT0
+    mov     w1, #0
+    str     w1, [x0]
+
+    /* Clear TBU default configuration */
+    ldr     x0, =MMUSECSID_CTRL_TBU
+    str     w1, [x0]
+
+    /* Apply back Write protection */
+    ldr     x0, =LPD_SECURE_SLCR_WPROT0
+    mov     w1, #1
+    str     w1, [x0]
+
+    /* Read current SMMU_GBPA */
+    ldr     x0, =SMMU_GBPA
+    ldr     w1, [x0]
+
+    /* Clear SHCFG[13:12] */
+    mov     w2, #SMMU_GBPA_SHCFG_MASK
+    bic     w1, w1, w2
+
+    /* Set SHCFG to Outer Shareable (0b10) */
+    mov     w2, #SMMU_GBPA_SHCFG_OSH
+    orr     w1, w1, w2
+
+    str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_GEM0
+	mov     w1, #0
+    str     w1, [x0]
+
+	ldr     x0, =IOU_AXIRPROT_GEM0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_GEM1
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIRPROT_GEM1
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_USB0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_USB1
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_SD0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIRPROT_SD0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_EMMC0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIRPROT_EMMC0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_QSPI
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_OSPI
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIWPROT_UFS
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIRPROT_UFS
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA0
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA1
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA2
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA3
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA4
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA5
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA6
+	str     w1, [x0]
+
+	ldr     x0, =IOU_AXIPROT_ADMA7
+	str     w1, [x0]
+
+	ldr     x0, =MMI_AXIPROT_10G
+	str     w1, [x0]
+
+#endif
 
 .jmptomain:
 	/* make sure argc and argv are valid */

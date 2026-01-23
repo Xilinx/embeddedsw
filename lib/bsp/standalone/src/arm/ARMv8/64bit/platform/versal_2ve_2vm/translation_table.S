@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -27,6 +27,11 @@
 * 9.3  adk  04/11/25 Updated the translation table to reflect DDR regions
 *		     in accordance with the design configuration.
 * 9.4  ml   06/12/25 Removed irrelevent comment
+* 9.5  asa  01/23/26 For Versal Gen2 use outer shareable as it is
+*                    generally more appropriate for baremetal use cases
+*                    using DMA or AMP use cases where multiple
+*                    applications are being run on separate CPUs which use
+*                    shared memory for passing information.
 ******************************************************************************/
 #include "bspconfig.h"
 
@@ -53,10 +58,15 @@
 
 	.set reserved,	0x0 					/* Fault*/
 	.set Memory_NonCacheable,	0x401 		/* normal non-cacheable */
+
+	#if !defined(VERSAL_2VE_2VM)
 	#if EL1_NONSECURE
 	.set Memory,	0x405 | (2 << 8) | (0x0)		/* normal writeback write allocate outer shared read write */
 	#else
 	.set Memory,	0x405 | (3 << 8) | (0x0)		/* normal writeback write allocate inner shared read write */
+	#endif
+	#else
+	.set Memory,	0x405 | (2 << 8) | (0x0)		/* normal writeback write allocate outer shared read write */
 	#endif
 	.set Device,	0x409 | (1 << 53)| (1 << 54) |(0x0)	/* strongly ordered read write non executable*/
 
