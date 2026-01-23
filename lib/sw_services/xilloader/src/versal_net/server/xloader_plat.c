@@ -1046,7 +1046,7 @@ int XLoader_DumpDdrmcRegisters(void)
 
 	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_7; DevId++) {
 
-		if(DevId > PM_DEV_DDRMC_3 && DevId < PM_DEV_DDRMC_4){
+		if((DevId > PM_DEV_DDRMC_3) && (DevId < PM_DEV_DDRMC_4)){
 			DevId = PM_DEV_DDRMC_4;
 		}
 

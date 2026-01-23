@@ -341,7 +341,7 @@ static int XLoader_RsaPssSignVeirfyKat(void) {
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_RsaPssSignVerify,
 			(u8*)MsgHash, RsaInstance, (u8*)RsaPssSign, XSECURE_RSA_2048_KEY_SIZE);
-	if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = (int)XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR;
 		XPlmi_Printf(DEBUG_GENERAL,"RSA Pss sign verification KAT failed with status:%02x",
 			Status);
