@@ -897,6 +897,11 @@ static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 		Status = XPM_INVALID_SUBSYSID;
 	}
 
+	/* TODO: Remove this workaround when ASU subsystem is added through CDO. */
+	if (PM_SUBSYS_ASU == TargetSubsystemId) {
+		Status = XST_SUCCESS;
+	}
+
 done:
 	PmInfo("Subsystem 0x%x activation status = 0x%x\n\r",
 		TargetSubsystemId, Status);
