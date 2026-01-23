@@ -1079,7 +1079,7 @@ int XLoader_DumpDdrmcRegisters(void)
 			continue;
 		}
 
-		Xloader_DdrmcRegisters DumpRegisters[DDRMC_ARRAY_SIZE] = {
+		const Xloader_DdrmcRegisters DumpRegisters[DDRMC_ARRAY_SIZE] = {
 			{"PCSR Status", DDRMC_PCSR_STATUS_OFFSET},
 			{"PCSR Control", DDRMC_PCSR_CONTROL_OFFSET},
 			{"Calibration Pointer", DDRMC_OFFSET_CAL_POINTER},
@@ -1263,7 +1263,7 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 	int Status = (int)XLOADER_ERR_HDR_MEASUREMENT;
 #ifdef PLM_OCP
 	XLoader_ImageMeasureInfo ImageInfo = {0U};
-	XilPdi_MetaHdr * MetaHdrPtr = PdiPtr->MetaHdr;
+	const XilPdi_MetaHdr * MetaHdrPtr = PdiPtr->MetaHdr;
 
 	/**
 	 * - Start the hash calculation for the meta header.
@@ -1755,7 +1755,7 @@ static int XLoader_InitTrngInstance(void)
 {
 	int Status = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	XTrngpsx_Config *CfgPtr = NULL;
+	const XTrngpsx_Config *CfgPtr = NULL;
 
 	CfgPtr = XTrngpsx_LookupConfig(0);
 	if (CfgPtr == NULL) {
