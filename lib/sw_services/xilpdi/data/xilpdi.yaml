@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -6,7 +6,6 @@ title: Bindings for xilpdi library.
 
 maintainers:
   - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
-  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
 
 type: library
 
@@ -15,20 +14,16 @@ version: 1.8
 description: Xilinx Programmable Device Image (PDI) Library.
 
 supported_processors:
-  - psv_pmc
-  - psu_cortexa72
-  - psv_cortexa72
-  - psv_cortexr5
-  - microblaze
-  - psxl_pmc
-  - psxl_cortexa78
-  - psxl_cortexr52
-  - psx_pmc
-  - pmc
-  - psx_cortexa78
-  - cortexa78
-  - psx_cortexr52
-  - cortexr52
+  - condition : |
+      supported_processors = []
+      if platform in ["Versal"]:
+        supported_processors = ["psv_pmc"]
+      elif platform in ["VersalNet"]:
+        supported_processors = ["psx_pmc", "psxl_pmc"]
+      elif platform in ["Versal_2VE_2VM"]:
+        supported_processors = ["pmc"]
+      else:
+        supported_processors = []
 
 supported_os:
   - standalone
