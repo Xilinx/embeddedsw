@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -204,13 +204,6 @@
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-	u32 JtagTimeOut;	/**< Timeout value set by user */
-	u8 JtagTimerEnabled;	/**< Enable JTAG timer */
-	volatile u8 AuthFailCounter;
-		/**< Counter for failed attempts to authenticate JTAG */
-	volatile u8 AuthFailCounterTmp;	/**< For temporal redundancy */
-} XLoader_AuthJtagStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef PLM_RSA_EXCLUDE
