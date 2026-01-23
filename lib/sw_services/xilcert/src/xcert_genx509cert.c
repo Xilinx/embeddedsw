@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -40,7 +40,7 @@
 *       tvp  06/05/2025 Remove use of UEID and TCB Info extension for Versal_2vp
 *       tvp  09/18/2025 Remove use of DME extension for Versal_2vp
 * 1.6   vm   12/18/2025 Add validation for certificate size
-*
+*       rpu  01/17/2026 Add Layer field to TCB Info extension
 * </pre>
 * @note
 *
@@ -150,6 +150,7 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 
 #define XCERT_OPTIONAL_PARAM_2_PRIMITIVE_TAG	(0x82U)
 #define XCERT_OPTIONAL_PARAM_3_PRIMITIVE_TAG	(0x83U)
+#define XCERT_OPTIONAL_PARAM_4_PRIMITIVE_TAG	(0x84U)
 
 /** @} */
 
@@ -169,6 +170,13 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 
 #define XCert_In32					(XPlmi_In32)
 			/**< Alias of XPlmi_In32 to be used in XilCert*/
+
+/** @name Layer in TCB info extension
+ * @{
+ */
+ /**< Macros related to Layer sub-field in TCB info extension */
+#define XCERT_LAYER_0				(0U)	/**< DevIK certificate */
+#define XCERT_LAYER_1				(1U)	/**< DevAk certificate */
 
 /************************** Type Definitions ******************************/
 typedef enum {
@@ -223,6 +231,7 @@ static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len,
 #if (!defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP))
 static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen);
 static int XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen);
+static int XCert_GenLayerField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *LayerLen);
 #endif
 
 /************************** Function Definitions *****************************/
@@ -1449,6 +1458,17 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	}
 	Curr = Curr + FieldLen;
 	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
+
+	*(Curr++) = XCERT_OPTIONAL_PARAM_4_PRIMITIVE_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
+	Status = XCert_GenLayerField(Curr, Cfg, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + FieldLen;
+	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
+
 #endif
 	*(Curr++) = XCERT_OPTIONAL_PARAM_6_CONSTRUCTED_TAG;
 	OptionalTagLenIdx = Curr++;
@@ -2691,7 +2711,42 @@ static int XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen)
 
 	return Status;
 }
-#endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function creates the Layer sub-field present in the TCB Info extension
+ *		of the TBS Certificate.
+ *
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the Layer
+ *                              field shall be added.
+ * @param	Cfg		Pointer to structure which includes configuration for the TBS Certificate.
+ * @param	LayerLen	Length of the Layer sub-field
+ *
+ * @return
+ *              - XST_SUCCESS  Successfully generated layer field
+ *              - XST_FAILURE  In case of failure
+ *
+ ******************************************************************************/
+static int XCert_GenLayerField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *LayerLen)
+{
+	int Status = XST_FAILURE;
+	u32 Layer;
+	u32 IntegerVal;
+	u8* Curr = TBSCertBuf;
+
+	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
+		Layer = XCERT_LAYER_0;
+	}
+	else {
+		Layer = XCERT_LAYER_1;
+	}
+
+	IntegerVal = Xil_EndianSwap32(Layer);
+	 Status = XCert_CreateIntegerFieldFromByteArray(Curr, (u8*)&IntegerVal, XCERT_WORD_LEN, LayerLen);
+
+	return Status;
+}
+#endif /* VERSAL_2VE_2VM */
 
 #endif  /* PLM_OCP_KEY_MNGMT */
 
