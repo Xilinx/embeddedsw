@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -7,7 +7,6 @@ title: Bindings for xilplmi library
 
 maintainers:
   - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
-  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
 
 type: library
 
@@ -16,20 +15,17 @@ version: 2.1
 description: Xilinx Versal Platform Loader and Manager Interface Library.
 
 supported_processors:
-  - psv_pmc
-  - psx_pmc
-  - pmc
-  - psxl_pmc
-  - psu_cortexa72
-  - psv_cortexa72
-  - psv_cortexr5
-  - microblaze
-  - psxl_cortexa78
-  - psxl_cortexr52
-  - psx_cortexa78
-  - cortexa78
-  - psx_cortexr52
-  - cortexr52
+  - condition : |
+      supported_processors = []
+      if platform in ["Versal"]:
+        supported_processors = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psv_pmc", "psu_cortexa72"]
+      elif platform in ["VersalNet"]:
+        supported_processors = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psx_pmc", "psxl_cortexa78",
+                                "psxl_pmc","psxl_cortexr52"]
+      elif platform in ["Versal_2VE_2VM"]:
+        supported_processors = ["microblaze", "cortexa78", "cortexr52", "pmc"]
+      else:
+        supported_processors = []
 
 supported_os:
   - standalone
