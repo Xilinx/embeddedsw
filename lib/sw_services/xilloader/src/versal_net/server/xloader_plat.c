@@ -1326,7 +1326,7 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 		" CDO is enabled with key hole write\n\r");
 END:
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_HDR_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_MEASUREMENT, Status);
 	}
 #else
 	(void)PdiPtr;
@@ -1529,7 +1529,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 	Status = XST_SUCCESS;
 END:
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CONFIG_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CONFIG_MEASUREMENT, Status);
 	}
 #else
 	(void)SecurePtr;

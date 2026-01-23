@@ -47,7 +47,7 @@
 *       prt  12/30/2024 Added support for ISSI 256MB flash part
 *		prt	 04/02/2025 Added support for Infineon OSPI flash parts
 *		prt  04/08/2025 Added support for skipping OSPI copy on zero byte length
-* 2.4	abh  10/09/2025 Fixed MISRA-C violations
+* 2.4	abh  12/17/2025 Fixed MISRA-C violations
 * </pre>
 *
 * @note
@@ -377,12 +377,20 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	/**
 	 * - Enable IDAC controller in OSPI.
 	*/
-	XOspiPsv_SetOptions(&OspiPsvInstance, XOSPIPSV_IDAC_EN_OPTION);
+	Status = (int)XOspiPsv_SetOptions(&OspiPsvInstance, XOSPIPSV_IDAC_EN_OPTION);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_IDAC_EN, Status);
+		goto END;
+	}
 
 	/**
 	 * - Set the prescaler for OSPIPSV clock.
 	*/
-	XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_6);
+	Status = (int)XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_6);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_PRESCALER_CLK, Status);
+		goto END;
+	}
 	Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_SEL_FLASH_CS0,
@@ -464,8 +472,10 @@ int XLoader_OspiInit(u32 DeviceFlags)
 			}
 		}
 
-		XOspiPsv_SetClkPrescaler(&OspiPsvInstance,
-			XOSPIPSV_CLK_PRESCALE_2);
+		Status = (int)(XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_2));
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_PRESCALER_CLK, Status);
+		}
 	}
 
 END1:
@@ -526,7 +536,11 @@ END1:
 	 * - Enter 4B address mode.
 	 */
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-		XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+		Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
+			goto END;
+		}
 		Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -534,7 +548,10 @@ END1:
 			goto END;
 		}
 	}
-	XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+	Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
+	}
 
 END:
 	return Status;

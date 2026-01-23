@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -22,6 +22,7 @@
 *       tvp  07/07/25 Added error codes for OCP support
 *       tvp  07/10/25 Added XLOADER_ERR_SECURE_CONFIG_MEASUREMENT error code
 *       tvp  07/10/25 Added XPLM_ERR_PUF_DISABLED error code
+* 2.4  	abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
 *
 * </pre>
 *
@@ -308,7 +309,7 @@ typedef enum {
 						  supported */
 	XLOADER_ERR_QSPI_INIT,	/**< 0x316 - Error when QSPI driver look up or cfg fails */
 	XLOADER_ERR_QSPI_MANUAL_START,	/**< 0x317 - Error when QSPI driver manual start fails */
-	XLOADER_ERR_QSPI_PRESCALER_CLK,	/**< 0x318 - Error when QSPI driver Prescalar setting
+	XLOADER_ERR_QSPI_PRESCALER_CLK,	/**< 0x318 - Error when QSPI driver Prescaler setting
 					  fails */
 	XLOADER_ERR_QSPI_CONNECTION,	/**< 0x319 - Error when invalid QSPI connection listed other
 					  than Single, Dual, stacked*/
@@ -466,6 +467,10 @@ typedef enum {
 						  device to PMCRAM */
 	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST,	/**< 0x377 - Error when copying partition
 							  from PMCRAM to destination */
+	XLOADER_ERR_OSPI_PRESCALER_CLK, /**< 0x378 - Error when OSPI driver
+						Prescaler setting fails */
+	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x379 - Error, failed to configure
+						 the IDAC controller in OSPI */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

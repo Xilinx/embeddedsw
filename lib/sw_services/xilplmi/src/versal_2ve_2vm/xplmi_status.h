@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,7 @@
 *       tvp  07/30/2025 Added XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED error code
 *       sk   09/26/2025 Added error code for UFS speed change
 * 2.4   obs  12/31/2025 Added XLOADER_ERR_INVALID_CPUID error code
+* 2.4  	abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
 *
 * </pre>
 *
@@ -413,7 +414,7 @@ typedef enum {
 	XLOADER_ERR_QSPI_MANUAL_START,	/**< 0x317 - Error when QSPI driver
 					  manual start fails */
 	XLOADER_ERR_QSPI_PRESCALER_CLK, /**< 0x318 - Error when QSPI driver
-					  Prescalar setting fails */
+					  Prescaler setting fails */
 	XLOADER_ERR_QSPI_CONNECTION,	/**< 0x319 - Error when invalid QSPI
 					  connection listed other than Single,
 					  Dual, stacked*/
@@ -591,6 +592,10 @@ typedef enum {
 	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST, /**< 0x377 - Error when copying partition from
 							PMCRAM to destination */
 	XLOADER_ERR_INVALID_CPUID, /**< 0x378 - Invalid CPU ID in partition header */
+	XLOADER_ERR_OSPI_PRESCALER_CLK, /**< 0x379 - Error when OSPI driver
+						Prescaler setting fails */
+	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x37A - Error, failed to configure
+						 the IDAC controller in OSPI */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */
