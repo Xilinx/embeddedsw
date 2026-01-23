@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,13 +38,6 @@ extern "C" {
 #define PmChkRegMask32(ADDR, MASK, VAL, STATUS)				\
 	do {									\
 		if (((u32)(VAL) & (u32)(MASK)) != ((u32)(XPm_In32((ADDR))) & (u32)(MASK))) {	\
-			(STATUS) = XPM_REG_WRITE_FAILED;			\
-		}								\
-	} while (XPM_FALSE_COND)								\
-
-#define PmChkRegOut32(ADDR, VAL, STATUS)					\
-	do {									\
-		if ((u32)(VAL) != XPm_In32((ADDR))) {				\
 			(STATUS) = XPM_REG_WRITE_FAILED;			\
 		}								\
 	} while (XPM_FALSE_COND)								\

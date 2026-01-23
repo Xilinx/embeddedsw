@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -493,6 +493,13 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 		goto label;\
 	}\
 }
+
+#define PmChkRegOut32(ADDR, VAL, STATUS)					\
+	do {									\
+		if ((u32)(VAL) != XPm_In32((ADDR))) {				\
+			(STATUS) = XPM_REG_WRITE_FAILED;			\
+		}								\
+	} while (XPM_FALSE_COND)
 
 void *XPm_AllocBytes(u32 SizeInBytes);
 

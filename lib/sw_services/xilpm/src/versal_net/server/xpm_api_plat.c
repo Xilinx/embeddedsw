@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -200,17 +200,23 @@ static XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value)
 	(void)XPm_In32(HNICX_NPI_0_BASEADDR +
 		       HNICX_NPI_0_NPI_CSR_WR_STATUS_OFFSET);
 
-	/* Write NPI data in NPI_CSR_WDATA register */
-	XPm_Out32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_WDATA_OFFSET,
-		  Value);
+	/* Write and verify NPI data in NPI_CSR_WDATA register */
+	XPm_OutVerify32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_WDATA_OFFSET,
+			Value, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		goto done;
+	}
 
 	/*
 	 * Write address + set command for data write in NPI_CSR_INST
 	 * register
 	 */
-	XPm_Out32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_INST_OFFSET,
-		  ((Address & HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_ADDR_MASK) |
-		  HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_CMD_WRITE));
+	XPm_OutVerify32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_INST_OFFSET,
+			((Address & HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_ADDR_MASK) |
+			HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_CMD_WRITE), Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		goto done;
+	}
 
 	/* Wait for a valid write response for the successful transaction */
 	Status = XPlmi_UtilPoll(HNICX_NPI_0_BASEADDR +
@@ -219,6 +225,7 @@ static XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value)
 				HNICX_NPI_0_NPI_CSR_WR_STATUS_VALID_RESP,
 				XPM_NPI_CSR_POLL_TIMEOUT, NULL);
 
+done:
 	return Status;
 }
 

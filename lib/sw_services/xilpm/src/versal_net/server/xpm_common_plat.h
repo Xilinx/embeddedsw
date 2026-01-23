@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -78,6 +78,13 @@ u32 XPm_GetByteBufferOffset(void);
 u32 XPm_GetSavedByteBufferAddress(void);
 u32 XPm_GetPrevByteBufferAddress(void);
 u32 XPm_ConvertToSavedAddress(u32 InputAddress);
+
+#define XPm_OutVerify32(ADDR, VAL, STATUS)					\
+	do {									\
+		XPm_Out32((ADDR), (VAL));					\
+		PmChkRegOut32((ADDR), (VAL), (STATUS));				\
+	} while (XPM_FALSE_COND)
+
 #ifdef __cplusplus
 }
 #endif
