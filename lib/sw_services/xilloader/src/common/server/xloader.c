@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -203,6 +203,7 @@
 *       sk  11/03/2025 Fixed logic to properly update pdisrc for UFS fallback boot
 *       sd  11/10/2025 Added support for VERSAL_2VP_P devices.
 * 2.4   tvp 26/12/2025 Allow secondary PDI loading after secure boot
+* 		abh 10/09/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -263,7 +264,7 @@
 						/**< PMC Subsystem ID */
 #define XLOADER_SUBSYTEM_ID_MASK			(0x1C00000FU)
 						/**< Mask to get subsystem ID */
-#define XLOADER_LOWEST_NIBBLE_MASK			(0xF)
+#define XLOADER_LOWEST_NIBBLE_MASK			(0xFU)
 						/**< Mask to get lowest nibble */
 #define XLOADER_MIN_APP_VERSION_OPT_DATA_ID		(0x2000U)
 			/**< Minimum value of optional data ID for app version */

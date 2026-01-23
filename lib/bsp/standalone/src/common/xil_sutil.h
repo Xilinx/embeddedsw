@@ -30,6 +30,7 @@
 * 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
 * 9.4   ml       07/24/25 Fixed GCC warnings
 *       har      10/10/25 Updated datatype of Len in Xil_ConvertStringToHex
+* 9.5   abh      10/11/25 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -62,7 +63,7 @@ extern "C" {
  * @return	32-bit version number
  *
  ******************************************************************************/
-#define XIL_BUILD_VERSION(Major, Minor)		((((u32)Major) << 16U) | (Minor))
+#define XIL_BUILD_VERSION(Major, Minor)		((((u32)Major) << 16U) | ((u32)Minor))
 
 #ifdef __GNUC__
 /******************************************************************************/

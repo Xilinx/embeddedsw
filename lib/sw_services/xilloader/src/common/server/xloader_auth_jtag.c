@@ -457,7 +457,7 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 				XLOADER_AC_AH_DNA_MASK);
 		UseDnaTmp = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
 				XLOADER_AC_AH_DNA_MASK);
-		if ((UseDna != FALSE) || (UseDnaTmp != FALSE)) {
+		if ((UseDna != (u8)FALSE) || (UseDnaTmp != (u8)FALSE)) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT,
 				SecureParams.AuthJtagMessagePtr->Dna,
 				XLOADER_EFUSE_DNA_LEN_IN_BYTES,

@@ -62,6 +62,7 @@
 * 1.13  sb  06/26/25 Set the required configurations for SpartanUp in
 *                    SDR-PHY & DDR-PHY mode.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
+* 	    abh 11/10/25 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -276,8 +277,8 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 /**
  * Macros to select CS0 and CS1.
  */
-#define XOSPIPSV_SELECT_FLASH_CS0	0
-#define XOSPIPSV_SELECT_FLASH_CS1	1
+#define XOSPIPSV_SELECT_FLASH_CS0	0U
+#define XOSPIPSV_SELECT_FLASH_CS1	1U
 /** @} */
 
 /**

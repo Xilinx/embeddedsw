@@ -350,7 +350,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 					RequestWakeup = (u32)TRUE;
 				}
 				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R52_0;
-				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
+				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2U) +
 						XLOADER_RPU_CORE0;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
 						" R52_0 wakeup\r\n", ClusterId);
@@ -363,7 +363,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 					RequestWakeup = (u32)TRUE;
 				}
 				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R52_0;
-				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
+				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2U) +
 						XLOADER_RPU_CORE1;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
 						" R52_1 wakeup\r\n", ClusterId);
@@ -376,7 +376,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 					RequestWakeup = (u32)TRUE;
 				}
 				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_0;
-				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4);
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4U);
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_0 wakeup\r\n", ClusterId);
 				break;
@@ -388,7 +388,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 					RequestWakeup = (u32)TRUE;
 				}
 				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_1;
-				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4U) +
 						XLOADER_APU_CORE1;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_1 wakeup\r\n", ClusterId);
@@ -401,7 +401,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 					RequestWakeup = (u32)TRUE;
 				}
 				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_2;
-				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4U) +
 						XLOADER_APU_CORE2;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_2 wakeup\r\n", ClusterId);
@@ -414,7 +414,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 					RequestWakeup = (u32)TRUE;
 				}
 				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_3;
-				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4U) +
 						XLOADER_APU_CORE3;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_3 wakeup\r\n", ClusterId);
@@ -432,7 +432,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = (int)XLOADER_ERR_INVALID_CPUID;
 				break;
 		}
-		if (RequestWakeup == TRUE) {
+		if (RequestWakeup == (u32)TRUE) {
 			Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId,
 				SetAddress, HandoffAddr, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -770,7 +770,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, (int)0);
 				goto END;
 			}
-			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE0;
+			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2U) + XLOADER_RPU_CORE0;
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_RPU_OPER_MODE,
 					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -783,7 +783,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, (int)0);
 				goto END;
 			}
-			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE1;
+			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2U) + XLOADER_RPU_CORE1;
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_RPU_OPER_MODE,
 					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -792,7 +792,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			XPmRpuCore_SetTcmBoot(DeviceId, (u8)TcmBootFlag);
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_0:
-			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4);
+			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4U);
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
 					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -800,7 +800,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_1:
-			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE1;
+			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4U) + XLOADER_APU_CORE1;
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
 					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -808,7 +808,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_2:
-			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE2;
+			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4U) + XLOADER_APU_CORE2;
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
 					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -816,7 +816,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_3:
-			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE3;
+			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4U) + XLOADER_APU_CORE3;
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
 					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -898,7 +898,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
 
 	/* Validate the given device id */
 	if ((NODESUBCLASS(DevId) != (u32)XPM_NODESUBCL_DEV_MEM_CTRLR) ||
-		(NODETYPE(DevId) != XPM_NODETYPE_DEV_DDR)) {
+		((XPm_DeviceNodeType)(NODETYPE(DevId)) != XPM_NODETYPE_DEV_DDR)) {
 		Status = XLOADER_ERR_DDR_DEVICE_ID;
 		goto END;
 	}
@@ -1507,7 +1507,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		MeasureIdx = MeasureIdx + 1;
+		MeasureIdx = MeasureIdx + 1U;
 
 	}
 	if ((IsEncrypted == (u8)TRUE) || (IsEncryptedTmp == (u8)TRUE)) {
@@ -1520,7 +1520,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			MeasureIdx = MeasureIdx + 1;
+			MeasureIdx = MeasureIdx + 1U;
 		}
 	}
 
@@ -1936,7 +1936,7 @@ int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId)
 			XILPDI_WORD_LEN_SHIFT);
 		AppVersionAddr = OptDataAddr + XLOADER_OPT_DATA_OFFSET;
 		AppVersionLen = OptDataLen - (XLOADER_OPT_DATA_HDR_LEN + XLOADER_OPT_DATA_CHECKSUM_LEN);
-		SubsystemId = XLOADER_DEFAULT_SUBSYSTEM_ID | (OptionalDataId & 0xF);
+		SubsystemId = XLOADER_DEFAULT_SUBSYSTEM_ID | (OptionalDataId & 0xFU);
 
 		Status = XOcp_SetAppVersion(SubsystemId, AppVersionAddr, AppVersionLen);
 		if (Status != XST_SUCCESS) {

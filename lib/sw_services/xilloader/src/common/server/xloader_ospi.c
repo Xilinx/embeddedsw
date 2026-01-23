@@ -618,7 +618,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				/*
 				 * Select lower flash
 				 */
-				if (ChipSelect == XOSPIPSV_SELECT_FLASH_CS1) {
+				if (ChipSelect == (u8)XOSPIPSV_SELECT_FLASH_CS1) {
 					ChipSelect = XOSPIPSV_SELECT_FLASH_CS0;
 					Status = (int)XOspiPsv_SelectFlash(
 						&OspiPsvInstance, ChipSelect);
@@ -640,7 +640,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				/*
 				 * Select upper flash
 				 */
-				if (ChipSelect == XOSPIPSV_SELECT_FLASH_CS0) {
+				if (ChipSelect == (u8)XOSPIPSV_SELECT_FLASH_CS0) {
 					ChipSelect = XOSPIPSV_SELECT_FLASH_CS1;
 					Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 					if (Status != XST_SUCCESS) {
@@ -1038,7 +1038,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		FlashMsg.Addrvalid = (u8)TRUE;
 		FlashMsg.Addrsize = AddrSize;
 		if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
-			FlashMsg.Addr = ConfigReg5[NumDie -1];
+			FlashMsg.Addr = ConfigReg5[NumDie -1U];
 		} else {
 			FlashMsg.Addr = Address;
 		}
@@ -1054,7 +1054,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		}
 		else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
 			FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
-			FlashMsg.Dummy += 8;
+			FlashMsg.Dummy += (u8)8;
 		}
 
 		if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) && (OspiFlashSize == XLOADER_FLASH_SIZE_2G)) {
@@ -1103,7 +1103,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		FlashMsg.Opcode = ReadRegOpcode;
 		FlashMsg.Addrsize = XLOADER_OSPI_READ_CFG_REG_CMD_ADDR_SIZE;
 		if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
-			FlashMsg.Addr = ConfigReg5[NumDie -1];
+			FlashMsg.Addr = ConfigReg5[NumDie -1U];
 		} else {
 			FlashMsg.Addr = Address;
 		}
@@ -1233,7 +1233,7 @@ static int XLoader_SpansionSetEccMode(XOspiPsv *OspiPsvPtr)
 		FlashMsg.Opcode = WriteRegOpcode;
 		FlashMsg.Addrvalid = TRUE;
 		FlashMsg.Addrsize = AddrSize;
-		FlashMsg.Addr = ConfigReg4[NumDie -1];
+		FlashMsg.Addr = ConfigReg4[NumDie -1U];
 		FlashMsg.TxBfrPtr = Data;
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = XLOADER_OSPI_SDR_MODE_BYTE_CNT;
@@ -1257,7 +1257,7 @@ static int XLoader_SpansionSetEccMode(XOspiPsv *OspiPsvPtr)
 
 		FlashMsg.Opcode = ReadRegOpcode;
 		FlashMsg.Addrsize = AddrSize;
-		FlashMsg.Addr = ConfigReg4[NumDie -1];
+		FlashMsg.Addr = ConfigReg4[NumDie -1U];
 		FlashMsg.Addrvalid = TRUE;
 		FlashMsg.TxBfrPtr = NULL;
 		FlashMsg.RxBfrPtr = ConfigReg;

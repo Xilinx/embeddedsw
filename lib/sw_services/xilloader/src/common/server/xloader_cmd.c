@@ -1236,7 +1236,7 @@ static int XLoader_VerifyDataAuth(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	if (Cmd->Payload[XLOADER_ISHDR_IDX] == TRUE) {
+	if (Cmd->Payload[XLOADER_ISHDR_IDX] == (u32)TRUE) {
 		Signature = (u8*)SecurePtr.AcPtr->IHTSignature;
 	}
 	else {
