@@ -140,6 +140,7 @@
 #define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT	(9U)
 	/**< AUTH_KEYS_TO_HASH eFuse bit shift */
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
+#define XLOADER_PCR_MEASUREMENT_INDEX_SHIFT     (16U)          /**< Shift for PCR Measurement index */
 /**
  * @cond DDR calibration errors
  */
@@ -154,6 +155,9 @@
 #define DDRMC_OFFSET_CAL_ERROR_DATA_LOC_1		(0x382A0U)
 #define DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1		(0x382C8U)
 #define DDRMC_ARRAY_SIZE						(10U)
+#define DDRMC_CAL_ERROR_DATA_COUNT              (10U)
+#define DDRMC_CAL_ERROR_PHY_LOC_COUNT           (12U)
+
 /**
  * @endcond
  */
@@ -473,7 +477,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 
-	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
 
 	ImageMeasureInfo.PcrInfo = PcrInfo;
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
@@ -1092,16 +1096,16 @@ int XLoader_DumpDdrmcRegisters(void)
 			{"CalibErrOctadData_11_9", DDRMC_OFFSET_CAL_ERROR_PHY_OCTAD_11_9},
 		};
 
-		for (LoopCount=0U ; LoopCount<DDRMC_ARRAY_SIZE ; LoopCount++) {
+		for (LoopCount=0U ; LoopCount < DDRMC_ARRAY_SIZE ; LoopCount++) {
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DumpRegisters[LoopCount].RegStr,
 			XPlmi_In32(BaseAddr + DumpRegisters[LoopCount].Offset));
 		}
 
-		for(LoopCount=0U; LoopCount<=9U; LoopCount++){
+		for(LoopCount=0U; LoopCount < DDRMC_CAL_ERROR_DATA_COUNT; LoopCount++){
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"CalibErrorDataLoc%d: 0x%0x\n\r",LoopCount+1U,
 			XPlmi_In32(BaseAddr + DDRMC_OFFSET_CAL_ERROR_DATA_LOC_1 + (LoopCount * 0x4U)));
 		}
-		for(LoopCount=0U; LoopCount<=11U; LoopCount++){
+		for(LoopCount=0U; LoopCount< DDRMC_CAL_ERROR_PHY_LOC_COUNT; LoopCount++){
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"CalibErrorPhyLoc%d: 0x%0x\n\r",LoopCount+1U,
 			XPlmi_In32(BaseAddr + DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1 + (LoopCount * 0x4U)));
 		}
@@ -1463,7 +1467,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 	volatile u32 IsAuthenticatedTmp = SecurePtr->IsAuthenticated;
 	volatile u32 IsEncrypted = SecurePtr->IsEncrypted;
 	volatile u32 IsEncryptedTmp = SecurePtr->IsEncrypted;
-	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> XOCP_PCR_MEASUREMENT_INDEX_SHIFT;
 	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	volatile u32 IsAuthKeysToHashEnabled = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS) &

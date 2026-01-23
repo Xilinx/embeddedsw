@@ -727,10 +727,10 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg.Proto = Proto;
 	FlashMsg.Dummy = Dummy;
 
-	if (OspiPsvInstance.DualByteOpcodeEn == 1U) {
+	if (OspiPsvInstance.DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
-	else if (OspiPsvInstance.DualByteOpcodeEn == 2U) {
+	else if (OspiPsvInstance.DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
 		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
 	}
 	/**

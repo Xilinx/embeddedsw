@@ -159,6 +159,7 @@
 *       tvp  09/17/2025 Store Block 0 partition hash to calculate subsystem image hash for versal_2vp
 *       pre  09/30/2025 Updated comments for rtf docs
 *       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
+* 2.4   abh  11/12/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -2572,7 +2573,7 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 		XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
 #ifdef VERSAL_NET
 	PufData->ShutterValue = PufData->ShutterValue &
-					~(1U << XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
+					~(XPLMI_BIT(XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT));
 	PufData->RoSwapVal = KeyDetails->PufRoSwapEn;
 #endif
 
