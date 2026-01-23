@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 2.1   ng   02/01/2024 u8 variables optimization
 *       kpt  02/08/2024 Added support to update secure state when DAP state is changed
 *       kpt  03/15/2024 Updated RSA KAT to use 2048-bit key
+* 2.4   abh  10/09/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -162,7 +163,7 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 
 	if (Status == XST_SUCCESS) {
 		if ((PdiKeySrc != PdiKeySrcTmp) || (*KeySrc == XSECURE_AES_INVALID_KEY)) {
-			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0U);
+			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, (int)0);
 		}
 	}
 	return Status;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,7 +90,7 @@
 * 2.3   tvp  07/07/2025 Do not include xplmi_ssit.h for versal_2vp
 *       obs  08/26/2025 Added support for address range checks
 *       aa   09/29/2025 Added emmc and ufs support as pdisrc option for partial PDI load
-*
+* 2.4	abh  10/09/2025 Fixed MISRA-C violations
 * </pre>
 *
 ******************************************************************************/
@@ -996,8 +996,8 @@ static int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
 	}
 
 	OptDataHdr = Xil_In64((UINTPTR)OptDataAddr);
-	OptDataLen = ((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
-		XILPDI_WORD_LEN_SHIFT;
+	OptDataLen = (u32)(((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
+		XILPDI_WORD_LEN_SHIFT);
 
 	if (OptDataLen > *TotalDataSize) {
 		/**

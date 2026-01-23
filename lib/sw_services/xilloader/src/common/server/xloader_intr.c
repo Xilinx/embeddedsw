@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,7 @@
 *       pre  09/30/2025 Added DMA1 reset and SBI reset in case of partial PDI failure.
 * 2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
 *       pre  10/25/2025 Made SBI and DMA1 reset logic specific to master SLR only for versal devices
+* 2.4	abh  11/01/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -334,7 +335,7 @@ int XLoader_PpdiEventHandling(PdiSrc_t PdiSrc, u64 PdiAddr, u32 IpiMask)
 		PpdiEventVars.IpiMask = IpiMask;
 		PpdiEventVars.PdiSrc = PdiSrc;
 		PpdiEventVars.PdiAddr = PdiAddr;
-		Status = XPLMI_CMD_IN_PROGRESS;
+		Status = (int)XPLMI_CMD_IN_PROGRESS;
 		goto END;
 	}
 

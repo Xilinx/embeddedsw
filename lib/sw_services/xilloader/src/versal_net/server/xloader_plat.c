@@ -63,6 +63,7 @@
 *       pre  12/16/2025 Handled PCR info invalid case in case of OCP key management disabled
 *       obs  12/30/2025 Added explicit CPU validation in XLoader_ProcessElf
 * 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
+* 		abh  10/09/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -327,7 +328,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u64 HandoffAddr;
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
-	u32 RequestWakeup = FALSE;
+	u32 RequestWakeup = (u32)FALSE;
 
 	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
@@ -338,17 +339,17 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		ClusterId >>= XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 		Status = XST_FAILURE;
-		RequestWakeup = FALSE;
+		RequestWakeup = (u32)FALSE;
 		/** - Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_R52_0:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_1) {
-					Status = XLOADER_ERR_WAKEUP_R52_0;
+					Status = (int)XLOADER_ERR_WAKEUP_R52_0;
 				} else {
-					RequestWakeup = TRUE;
+					RequestWakeup = (u32)TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_R52_0;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R52_0;
 				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
 						XLOADER_RPU_CORE0;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
@@ -357,11 +358,11 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 
 			case XIH_PH_ATTRB_DSTN_CPU_R52_1:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_1) {
-					Status = XLOADER_ERR_WAKEUP_R52_0;
+					Status = (int)XLOADER_ERR_WAKEUP_R52_0;
 				} else {
-					RequestWakeup = TRUE;
+					RequestWakeup = (u32)TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_R52_0;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R52_0;
 				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
 						XLOADER_RPU_CORE1;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
@@ -370,11 +371,11 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 
 			case XIH_PH_ATTRB_DSTN_CPU_A78_0:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
-					Status = XLOADER_ERR_WAKEUP_A78_0;
+					Status = (int)XLOADER_ERR_WAKEUP_A78_0;
 				} else {
-					RequestWakeup = TRUE;
+					RequestWakeup = (u32)TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_A78_0;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_0;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4);
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_0 wakeup\r\n", ClusterId);
@@ -382,11 +383,11 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 
 			case XIH_PH_ATTRB_DSTN_CPU_A78_1:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
-					Status = XLOADER_ERR_WAKEUP_A78_1;
+					Status = (int)XLOADER_ERR_WAKEUP_A78_1;
 				} else {
-					RequestWakeup = TRUE;
+					RequestWakeup = (u32)TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_A78_1;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_1;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
 						XLOADER_APU_CORE1;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
@@ -395,11 +396,11 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 
 			case XIH_PH_ATTRB_DSTN_CPU_A78_2:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
-					Status = XLOADER_ERR_WAKEUP_A78_2;
+					Status = (int)XLOADER_ERR_WAKEUP_A78_2;
 				} else {
-					RequestWakeup = TRUE;
+					RequestWakeup = (u32)TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_A78_2;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_2;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
 						XLOADER_APU_CORE2;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
@@ -408,11 +409,11 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 
 			case XIH_PH_ATTRB_DSTN_CPU_A78_3:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
-					Status = XLOADER_ERR_WAKEUP_A78_3;
+					Status = (int)XLOADER_ERR_WAKEUP_A78_3;
 				} else {
-					RequestWakeup = TRUE;
+					RequestWakeup = (u32)TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_A78_3;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A78_3;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
 						XLOADER_APU_CORE3;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
@@ -420,7 +421,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			case XIH_PH_ATTRB_DSTN_CPU_PSM:
-				RequestWakeup = TRUE;
+				RequestWakeup = (u32)TRUE;
 				DeviceId = PM_DEV_PSM_PROC;
 				ErrorCode = XLOADER_ERR_WAKEUP_PSM;
 				SetAddress = 0U;
@@ -428,7 +429,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			default:
-				Status = XLOADER_ERR_INVALID_CPUID;
+				Status = (int)XLOADER_ERR_INVALID_CPUID;
 				break;
 		}
 		if (RequestWakeup == TRUE) {
@@ -440,7 +441,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			}
 		}
 		else {
-			Status = XPlmi_UpdateStatus(Status, 0U);
+			Status = XPlmi_UpdateStatus((XPlmiStatus_t)Status, (int)0);
 			goto END;
 		}
 	}
@@ -457,7 +458,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function measures the partion hashes
+ * @brief	This function measures the Partition hashes
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *
@@ -481,10 +482,10 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
 		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU) ||
 		(PdiPtr->IsSubsystemRestart == (u8)TRUE)) {
-		ImageMeasureInfo.OverWrite = TRUE;
+		ImageMeasureInfo.OverWrite = (u32)TRUE;
 	}
 	else {
-		ImageMeasureInfo.OverWrite = FALSE;
+		ImageMeasureInfo.OverWrite = (u32)FALSE;
 	}
 	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	if (Status != XST_SUCCESS) {
@@ -709,12 +710,12 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 ClusterLockstep = 0U;
 	u32 DeviceId;
 	u32 Mode = 0U;
-	u32 TcmBootFlag = FALSE;
+	u32 TcmBootFlag = (u32)FALSE;
 
 		/** Check if TCM Boot Bit is set */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_TCM_BOOT_MASK) == XIH_PH_ATTRB_TCM_BOOT_ENABLED) {
 		XPlmi_Printf(DEBUG_DETAILED, "TCM Boot Enabled\n");
-		TcmBootFlag = TRUE;
+		TcmBootFlag = (u32)TRUE;
 	}
 
 	/**
@@ -766,7 +767,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	{
 		case XIH_PH_ATTRB_DSTN_CPU_R52_0:
 			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_1) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, (int)0);
 				goto END;
 			}
 			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE0;
@@ -779,7 +780,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_R52_1:
 			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_1) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, (int)0);
 				goto END;
 			}
 			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE1;
@@ -1268,7 +1269,7 @@ int XLoader_PlatInit(void)
  *****************************************************************************/
 int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 {
-	int Status = XLOADER_ERR_HDR_MEASUREMENT;
+	int Status = (int)XLOADER_ERR_HDR_MEASUREMENT;
 #ifdef PLM_OCP
 	XLoader_ImageMeasureInfo ImageInfo = {0U};
 	XilPdi_MetaHdr * MetaHdrPtr = PdiPtr->MetaHdr;
@@ -1348,7 +1349,7 @@ END:
  *****************************************************************************/
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
-	int Status = XLOADER_ERR_DATA_MEASUREMENT;
+	int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
 
 #ifdef PLM_OCP
 	XSecure_Sha *Sha3Instance = XSecure_GetSha3Instance(XSECURE_SHA_1_DEVICE_ID);;
@@ -1421,7 +1422,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
 			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 			/* Extend HW PCR */
-			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
+			Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
 			if (Status != XST_SUCCESS) {
 				goto END;
@@ -1465,7 +1466,7 @@ END:
  *****************************************************************************/
 int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 OverWrite)
 {
-	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
+	int Status = (int)XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 	volatile u32 IsAuthenticated = SecurePtr->IsAuthenticated;
 	volatile u32 IsAuthenticatedTmp = SecurePtr->IsAuthenticated;
@@ -1595,7 +1596,7 @@ static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 Dige
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
 			XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
                 goto END;
@@ -1646,7 +1647,7 @@ static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrNo, u32 Diges
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN);
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
                 goto END;
         }
@@ -1696,7 +1697,7 @@ static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrNo, 
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN);
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1767,7 +1768,7 @@ static int XLoader_InitTrngInstance(void)
 
 	CfgPtr = XTrngpsx_LookupConfig(0);
 	if (CfgPtr == NULL) {
-		Status = XLOADER_TRNG_INIT_FAIL;
+		Status = (int)XLOADER_TRNG_INIT_FAIL;
 		goto END;
 	}
 
@@ -1931,8 +1932,8 @@ int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId)
 			OptionalDataId);
 	if (OptDataAddr < OptionalDataEndAddr) {
 		OptDataHdr = XPlmi_In64((UINTPTR)OptDataAddr);
-		OptDataLen = ((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
-			XILPDI_WORD_LEN_SHIFT;
+		OptDataLen = (u32)(((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
+			XILPDI_WORD_LEN_SHIFT);
 		AppVersionAddr = OptDataAddr + XLOADER_OPT_DATA_OFFSET;
 		AppVersionLen = OptDataLen - (XLOADER_OPT_DATA_HDR_LEN + XLOADER_OPT_DATA_CHECKSUM_LEN);
 		SubsystemId = XLOADER_DEFAULT_SUBSYSTEM_ID | (OptionalDataId & 0xF);

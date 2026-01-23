@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 2.3   har  09/26/2025 Initial release
+* 2.4   abh  11/20/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -115,7 +116,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 			XPLMI_RTCFG_SECURESTATE_AHWROT);
 		if (Status != XST_SUCCESS) {
 			if (ReadAuthReg != SecureStateAHWRoT) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0U);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, (int)0);
 			}
 			else {
 				Status = XST_SUCCESS;
@@ -129,7 +130,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL,
 				XPLM_TASK_PRIORITY_1, NULL, XPLMI_PERIODIC_TASK);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus( XLOADER_ERR_ADD_TASK_SCHEDULER, 0U);
+				Status = XPlmi_UpdateStatus( XLOADER_ERR_ADD_TASK_SCHEDULER, (int)0);
 			}
 			else {
 				XPlmi_Printf(DEBUG_INFO, "Auth Jtag task added successfully\r\n");
@@ -334,7 +335,7 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 			(u64)(u32)SecureParams.AuthJtagMessagePtr,
 			XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DMA_XFR, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DMA_XFR, (int)0);
 		goto END;
 	}
 
@@ -346,7 +347,7 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 					XLOADER_AUTH_JTAG_DIS_MASK;
 	if ((AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) ||
 		(AuthJtagDisTmp == XLOADER_AUTH_JTAG_DIS_MASK)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, (int)0);
 		goto END;
 	}
 
@@ -360,18 +361,18 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	if (Status != XST_SUCCESS) {
 		XPLMI_STATUS_GLITCH_DETECT(Status);
 		if (ReadAuthReg != SecureStateAHWRoT) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0U);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, (int)0);
 		}
 		else {
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY, 0U);
+				XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY, (int)0);
 		}
 		goto END;
 	}
 
 	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecureParams.PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, (int)0);
 		goto END;
 	}
 
@@ -465,7 +466,7 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 				XLOADER_EFUSE_DNA_LEN_IN_BYTES);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_AUTH_JTAG_INVALID_DNA, 0U);
+					XLOADER_ERR_AUTH_JTAG_INVALID_DNA, (int)0);
 				goto END;
 			}
 		}
