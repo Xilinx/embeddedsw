@@ -836,10 +836,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			break;
 	}
 
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
 	/**
 	 * - Copy the partition to the load address.
 	 */
@@ -1189,11 +1185,6 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 		if (LoaderHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
 			goto END;
 		}
-		else if (LoaderHandlerState == XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE) {
-			Status = XST_SUCCESS;
-			goto END;
-		}
-
 		LoaderHandlerState = XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE;
 		Status = XST_SUCCESS;
 	}
