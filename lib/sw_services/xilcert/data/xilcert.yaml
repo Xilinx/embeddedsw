@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -8,7 +8,6 @@ maintainers:
   - Harsha, Harsha <harsha.harsha@amd.com>
   - Akula, Kalyani <kalyani.akula@amd.com>
   - Challa, Durga <durga.challa@amd.com>
-  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
 
 type: library
 
@@ -16,9 +15,12 @@ description: |
   Xilinx X.509 certificate generation library. Supported only for Versal Net.
 
 supported_processors:
-  - psx_pmc
-  - pmc
-  - psv_pmc
+  - condition : |
+      supported_processors = []
+      if platform in ["VersalNet"]:
+        supported_processors = ["psx_pmc"]
+      else:
+        supported_processors = []
 
 supported_os:
   - standalone
