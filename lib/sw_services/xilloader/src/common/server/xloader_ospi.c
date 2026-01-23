@@ -112,7 +112,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	u32 Index;
 	u8 *ReadBuffer = (u8 *)XPLMI_COPY_OPTIMIZATION_OSPI_FLASHREADID_BUFFER;
 	XOspiPsv_Msg FlashMsg = {0U};
-	u32 TempVal;
+	u32 IndexShift = 0U;
 
 	/**
 	 * - Read ID.
@@ -261,20 +261,15 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	 * - Populate Device Id Data.
 	 */
 	OspiPsvPtr->DeviceIdData = 0U;
-	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0))
-	{
-		for (Index = 0U, TempVal = 0U; Index < 4U;
-			++Index, TempVal += XLOADER_READ_ID_BYTES) {
-			OspiPsvPtr->DeviceIdData |=
-				(ReadBuffer[Index >> 1U] << TempVal);
-		}
+	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0)) {
+		IndexShift = 1U;
 	}
 	else {
-		for (Index = 0U, TempVal = 0U; Index < 4U;
-			++Index, TempVal += XLOADER_READ_ID_BYTES) {
-			OspiPsvPtr->DeviceIdData |=
-				(ReadBuffer[Index] << TempVal);
-		}
+		IndexShift = 0U;
+	}
+
+	for (Index = 0U; Index < XLOADER_BYTES_TO_READ; ++Index) {
+		OspiPsvPtr->DeviceIdData |= ((u32)ReadBuffer[Index >> IndexShift] << (Index * XLOADER_READ_ID_BYTES));
 	}
 
 END:

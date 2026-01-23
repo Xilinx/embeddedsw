@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       sk   03/15/2024 Added structure for flash info
 *       prt  12/30/2024 Added macro to support ISSI 256MB flash part
 *		prt	 04/02/2025 Added support for Infineon OSPI flash parts
+* 2.4	abh  10/09/2025 Added macros to be MISRA-C compliant
 *
 * </pre>
 *
@@ -136,6 +137,7 @@ extern "C" {
 #define XLOADER_OSPI_SDR_DUMMY_CYCLES	(8U)
 #define XLOADER_MACRONIX_OSPI_SET_DDR_DUMMY_CYCLES	(4U)
 #define XLOADER_READ_ID_BYTES		(8U)
+#define XLOADER_BYTES_TO_READ		(4U)
 #define XLOADER_OSPI_READ_ADDR_SIZE	(4U)
 #define XLOADER_OSPI_DDR_MODE_BYTE_CNT	(2U)
 #define XLOADER_OSPI_SDR_MODE_BYTE_CNT	(1U)
