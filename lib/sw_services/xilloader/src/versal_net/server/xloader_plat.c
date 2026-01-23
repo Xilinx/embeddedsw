@@ -1911,7 +1911,7 @@ int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId)
 {
 	int Status = XST_FAILURE;
 	u64 OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
-	u64 OptionalDataEndAddr = OptionalDataStartAddr + (OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
+	u64 OptionalDataEndAddr = OptionalDataStartAddr + ((u64)OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
 	u64 OptDataAddr;
 	u64 OptDataHdr;
 	u32 OptDataLen;
