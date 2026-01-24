@@ -31,15 +31,7 @@
 * should be either 32 or 64 characters long as only 128 bit and 256 bit key
 * are supported.
 *
-* \#define XPUF_RED_KEY_LEN				(XPUF_RED_KEY_SIZE_256)
-*							(or)
-*						(XPUF_RED_KEY_SIZE_128)
-* XPUF_RED_KEY_LEN can be configured as one of the two provided options. This
-* configuration should be done on the basis of the length of the red key in bits.
-* Only 128 bit and 256 bit key are supported. By default the length of red key is
-* configured as 256 bit.
-*
-* \#define XPUF_IV				"000000000000000000000000"
+* \#define XPUF_BLACK_KEY_IV		"000000000000000000000000"
 * IV should be provided in string format.It should be 24 characters long, valid
 * characters are 0-9,a-f,A-F. Any other character is considered as invalid
 * string.The value mentioned here will be converted to hex buffer.It is used
@@ -62,12 +54,12 @@
 * to generate helper data. It should be configured only when XPUF_GENERATE_KEK_N_ID as TRUE.
 *
 *
- \#define XPUF_CHASH				(0x00000000)
+* \#define XPUF_REGEN_CHASH				(0x00000000)
 * CHASH value should be supplied if XPUF_READ_HD_OPTION is configured as
 * XPUF_READ_FROM_RAM.The length of CHASH should be 24 bits This can be obtained
 * by performing PUF registration and writing the helper data on the UART.
 *
-* \#define XPUF_AUX				(0x00000000)
+* \#define XPUF_REGEN_AUX				(0x00000000)
 * AUX value should be supplied if XPUF_READ_HD_OPTION is configured as
 * XPUF_READ_FROM_RAM.The length of AUX should be 32 bits This can be obtained
 * by performing PUF registration and writing the helper data on the UART.
@@ -76,13 +68,17 @@
 * If this option is configured as TRUE then hash of PUF helper data is written into the
 * eFuse.
 *
+* \#define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
+* This option controls whether to program the encrypted black key and IV into eFUSE.
+* Set to TRUE to write the black key and IV generated from red key encryption into
+* non-volatile memory (eFUSE). Set to FALSE to only generate the black key without
+* programming it to eFUSE.
+* NOTE: This option is only effective when XPUF_GENERATE_KEK_N_ID is set to TRUE,
+* as black key generation must be enabled for this option to have any effect.
+*
 * \#define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 * It is recommended to always enable this option to ensure entropy. It can
 * be configured as FALSE to disable Global Variation Filter.
-*
-* \#define XPUF_PRGM_HASH_PUF_OR_KEY (FALSE)
-* If this option is configured as TRUE then PRGM_HASH_PUF_OR_KEY bit is programmed and will enforce
-* PUF hash to be compared with programmed hash in PPK2 during boot
 *
 ******************************************************************************/
 #ifndef XILPUF_SPARTAN_ULTRASCALE_PLUS_EXAMPLE_H_
@@ -101,29 +97,17 @@ extern "C" {
 		"0000000000000000000000000000000000000000000000000000000000000000"
 /**< Red key that is encrypted using PUF KEK to form a black key  */
 
-/*
- * Below macro values should match with enum XSecure_AesKeySize.
- * As preprocessor can't handle enums at preprocessing stage of compilation,
- * these macros are defined.
- */
-#define XPUF_RED_KEY_SIZE_128		(0U) /**< Keysize 128 */
-#define XPUF_RED_KEY_SIZE_256		(2U) /**< Keysize 256 */
-
-#define XPUF_RED_KEY_LEN		(XPUF_RED_KEY_SIZE_256)
-					/**< Value to indicate red key length that is
-					     used during black key generation */
 
 #define XPUF_REGISTRATION		0U /**< Value to indicate PUF registration */
 #define XPUF_REGEN_ON_DEMAND		1U /**< Value to indicate regeneration on demand */
 
 #define XPUF_RED_KEY_LEN_IN_BYTES 	(32U) /**< RED key length in bytes */
 
-#define XPUF_IV				"000000000000000000000000"
+#define XPUF_BLACK_KEY_IV		"000000000000000000000000"
 					/**< IV that is used during black key generation */
 
 #define XPUF_GENERATE_KEK_N_ID		(TRUE)
-					/**< This will enable/disable generating black key and
-				     it is only applicable during registration */
+					/**< This will enable/disable generating black key */
 
 #define XPUF_KEY_GENERATE_OPTION	(XPUF_REGISTRATION)
 					/**< PUF kEK generate option it can be either
@@ -132,15 +116,12 @@ extern "C" {
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE) /**< Enables/disables global variation filter
 						    during PUF registraton/regeneration */
 
-#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
-#define XPUF_CHASH			(0x00000000U) /**< PUF CHASH value */
-#define XPUF_AUX			(0x00000000U) /**< PUF AUX value and it is expected
-							   to provide as 0x0FFFFFFF0U */
-#elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
+#define XPUF_REGEN_CHASH		(0x00000000U) /**< PUF CHASH value and it is applicable only for Regeneration*/
+#define XPUF_REGEN_AUX			(0x00000000U) /**< PUF AUX value and it is expected
+							   to provide as 0x0FFFFFFF0U and it is applicable only for Regeneration*/
 #define XPUF_WRITE_PUF_HASH_IN_EFUSE		(FALSE) /**< Write PUF hash in efuse */
 #define XPUF_WRITE_IN_MEM			(FALSE) /**< This will enable writing PUFHD,CHASH,
 							    AUX and black key into the memory */
-#endif
 
 #define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
 			/**< For programming Secure control eFUSE bits of PUF */
