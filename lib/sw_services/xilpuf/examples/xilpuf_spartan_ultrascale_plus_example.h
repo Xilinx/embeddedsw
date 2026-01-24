@@ -72,10 +72,6 @@
 * XPUF_READ_FROM_RAM.The length of AUX should be 32 bits This can be obtained
 * by performing PUF registration and writing the helper data on the UART.
 *
-* \#define XPUF_SYN_DATA_ADDRESS		(0x00000000)
-* Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is
-* configured as XPUF_READ_FROM_RAM.
-*
 * \#define XPUF_WRITE_PUF_HASH_IN_EFUSE		(FALSE)
 * If this option is configured as TRUE then hash of PUF helper data is written into the
 * eFuse.
@@ -140,7 +136,6 @@ extern "C" {
 #define XPUF_CHASH			(0x00000000U) /**< PUF CHASH value */
 #define XPUF_AUX			(0x00000000U) /**< PUF AUX value and it is expected
 							   to provide as 0x0FFFFFFF0U */
-#define XPUF_SYN_DATA_ADDRESS		(0x00000000U) /**< PUF syndrome address */
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 #define XPUF_WRITE_PUF_HASH_IN_EFUSE		(FALSE) /**< Write PUF hash in efuse */
 #define XPUF_WRITE_IN_MEM			(FALSE) /**< This will enable writing PUFHD,CHASH,
@@ -150,28 +145,7 @@ extern "C" {
 #define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
 			/**< For programming Secure control eFUSE bits of PUF */
 
-#if (XPUF_WRITE_PUF_HASH_IN_EFUSE ==  TRUE)
-#define XPUF_PRGM_HASH_PUF_OR_KEY		(TRUE)
-						/**< This will enable programming HASH_PUF_OR_KEY
-						efuse when XPUF_WRITE_PUF_HASH_IN_EFUSE is TRUE */
-#else
-#define XPUF_PRGM_HASH_PUF_OR_KEY		(FALSE)
-						/**< This will enable/disable programming
-						HASH_PUF_OR_KEY efuse */
-#endif
-
 #define PUF_RO_SWAP				(0x00000000U) /**< PUF RO swap value */
-
-#if (XPUF_WRITE_IN_MEM == TRUE)
-#define XPUF_SYNDROME_DATA_WRITE_ADDR           (0x040BF368U)
-						/**< PUF syndrome data write address */
-#define XPUF_CHASH_DATA_WRITE_ADDR              (0x040BF564U)
-						/**< PUF CHASH data write address */
-#define XPUF_AUX_DATA_WRITE_ADDR                (0x040BF568U)
-						/**< PUF AUX data write address */
-#define XPUF_AES_BLK_KEY_WRITE_ADDR             (0x040A00A0U)
-						/**< PUF AES black key write address */
-#endif
 
 /**************************** Type Definitions *******************************/
 

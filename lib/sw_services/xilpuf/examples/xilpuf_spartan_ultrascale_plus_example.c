@@ -93,6 +93,16 @@
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U) /**< AES key size 128 in words */
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U) /**< AES key size 256 in words */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES     (32U) /**< AES key length in bytes */
+
+#define XPUF_SYNDROME_DATA_WRITE_ADDR           (0x040BF368U)
+						/**< PUF syndrome data write address */
+#define XPUF_CHASH_DATA_WRITE_ADDR              (0x040BF564U)
+						/**< PUF CHASH data write address */
+#define XPUF_AUX_DATA_WRITE_ADDR                (0x040BF568U)
+						/**< PUF AUX data write address */
+#define XPUF_AES_BLK_KEY_WRITE_ADDR             (0x040A00A0U)
+						/**< PUF AES black key write address */
+
 #ifndef SPARTANUPLUSAES1
 #define XPUF_PPK_HASH_SIZE_IN_BYTES		(32U) /**< PPK hash size in bytes */
 #define SHA_MODE				XSECURE_SHA3_256
@@ -106,6 +116,16 @@
 #ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
 #define	XPUF_EFUSE_SET_REF_CLK_FREQ		(33333000U) /**< Reference clock frequency for eFUSE */
 #define	XPUF_EFUSE_SET_CLK_SRC_OP		(0U) /**< Set Efuse clock source */
+#endif
+
+#if (XPUF_WRITE_PUF_HASH_IN_EFUSE ==  TRUE)
+#define XPUF_PRGM_HASH_PUF_OR_KEY		(TRUE)
+						/**< This will enable programming HASH_PUF_OR_KEY
+						efuse when XPUF_WRITE_PUF_HASH_IN_EFUSE is TRUE */
+#else
+#define XPUF_PRGM_HASH_PUF_OR_KEY		(FALSE)
+						/**< This will enable/disable programming
+						HASH_PUF_OR_KEY efuse */
 #endif
 
 /***************************** Type Definitions *******************************/
@@ -453,7 +473,7 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	(void)DmaPtr;
 	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES/ XPUF_WORD_LENGTH; Index++) {
 	        Xil_Out32((XPUF_PMC_GLOBAL_SYN_DATA_ADDR + (Index * XPUF_WORD_LENGTH)),
-                        Xil_In32((XPUF_SYN_DATA_ADDRESS + (Index * XPUF_WORD_LENGTH))));
+                        Xil_In32((XPUF_SYNDROME_DATA_WRITE_ADDR + (Index * XPUF_WORD_LENGTH))));
 	}
 
 	Status = XPuf_DecompressPufHd(XPUF_PMC_GLOBAL_SYN_DATA_ADDR, (u32*)(UINTPTR)&PufData.SyndromeData);
