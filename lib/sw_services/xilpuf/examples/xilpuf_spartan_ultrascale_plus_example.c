@@ -92,6 +92,7 @@
 
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U) /**< AES key size 128 in words */
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U) /**< AES key size 256 in words */
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES     (32U) /**< AES key length in bytes */
 #ifndef SPARTANUPLUSAES1
 #define XPUF_PPK_HASH_SIZE_IN_BYTES		(32U) /**< PPK hash size in bytes */
 #define SHA_MODE				XSECURE_SHA3_256
@@ -864,9 +865,9 @@ static int XPuf_ProgramBlackKeynIV()
 	}
 
 	Status = Xil_SMemCpy(AesKey.AesKey,
-			     XNVM_256_BITS_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
-			     XNVM_256_BITS_AES_KEY_LEN_IN_BYTES,
-			     XNVM_256_BITS_AES_KEY_LEN_IN_BYTES);
+			     XNVM_EFUSE_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
+			     XNVM_EFUSE_AES_KEY_LEN_IN_BYTES,
+			     XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
