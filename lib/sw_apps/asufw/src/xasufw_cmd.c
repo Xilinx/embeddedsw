@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -201,10 +201,9 @@ static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex)
 		goto END;
 	}
 
-	/** Get TrustZone status from the IPI channel's aperture permission register. */
-	ChannelPerm = XAsufw_ReadReg(LPD_XPPU_APERPERM_49 + (IpiBitPos * XASUFW_WORD_LEN_IN_BYTES));
-	ChannelPerm = (ChannelPerm & LPD_XPPU_APERPERM_49_TRUSTZONE_MASK) >>
-						LPD_XPPU_APERPERM_49_TRUSTZONE_SHIFT;
+	/** Get TrustZone status from the IPI aperture TZ register (bit corresponds to agent). */
+	ChannelPerm = XAsufw_ReadReg(IPI_APER_TZ_008);
+	ChannelPerm = (ChannelPerm >> IpiBitPos) & IPI_APER_TZ_008_AGENT_MASK;
 
 	/** If command permission is secure and channel permission is secure, return secure. */
 	if ((CmdPerm == XASU_CMD_SECURE) && (ChannelPerm == XASU_CMD_SECURE)) {

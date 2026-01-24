@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -152,17 +152,12 @@ extern "C" {
 #define EFUSE_CACHE_USERKEY_2_ADDR			(EFUSE_CACHE_BASEADDR + 0x000002A0U)
 
 /*
- * Definitions required from lpd_xppu.h
+ * Definitions required from ipi aperture registers
  */
-/** LPD_XPPU base address */
-#define LPD_XPPU_BASEADDR						(0xEB990000U)
-
-/** LPD_XPPU APERPERM 49 Address */
-#define LPD_XPPU_APERPERM_49					(LPD_XPPU_BASEADDR + 0x000010C4U)
-/** LPD_XPPU_APERPERM_49_TRUSTZONE mask value */
-#define LPD_XPPU_APERPERM_49_TRUSTZONE_MASK	(0x08000000U)
-/** LPD_XPPU_APERPERM_49_TRUSTZONE shift value */
-#define LPD_XPPU_APERPERM_49_TRUSTZONE_SHIFT	(27U)
+/** IPI_APER_TZ_008 register address - contains TZ settings for all IPI agents */
+#define IPI_APER_TZ_008							(0xEB3000DCU)
+/** IPI_APER_TZ_008 single bit mask for extracting agent TZ status */
+#define IPI_APER_TZ_008_AGENT_MASK				(0x00000001U)
 
 /*
  * Definitions required from ipi.h
