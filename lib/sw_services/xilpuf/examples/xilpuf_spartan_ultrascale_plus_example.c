@@ -267,6 +267,10 @@ END:
  * @brief	This function validates user input provided for programming
  * 			PUF helper data and black key.
  *
+ * @note	This function checks if PUF hash can be programmed to eFUSE.
+ * 			For detailed information about eFUSE register usage, refer to
+ * 			XNvm_EfuseReadSecCtrlBits() documentation in xnvm_efuse.c.
+ *
  * @return
  * 		- XST_SUCCESS - Successful validation of user input
  * 		- XST_FAILURE - If user input validation failed.
@@ -288,13 +292,13 @@ static int XPuf_ValidateUserInput()
 		}
 		if (SecCtrlBits.Ppk2Invld == TRUE) {
 			Status = XST_FAILURE;
-			xil_printf("PPK2 is invalidated \n\r");
+			xil_printf("PUF hash programming validation failed - Invalid bit is set \n\r");
 			goto END;
 		}
 
 		if (SecCtrlBits.Ppk2lck == TRUE) {
 			Status = XST_FAILURE;
-			xil_printf("PPK2 is locked \n\r");
+			xil_printf("PUF hash programming validation failed - lock bit is set \n\r");
 			goto END;
 		}
 
@@ -308,7 +312,7 @@ static int XPuf_ValidateUserInput()
 		for (Index = 0U; Index < XPUF_PPK_HASH_SIZE_IN_BYTES; Index++) {
 			if (PpkHash[Index] != 0U) {
 				Status = XST_FAILURE;
-				xil_printf("\r\n PPK2 hash is already programmed");
+				xil_printf("\r\n PUF hash programming validation failed - hash value is already programmed \n\r");
 				goto END;
 			}
 		}

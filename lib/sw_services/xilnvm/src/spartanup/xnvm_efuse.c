@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 *       mb    10/03/25 Update PPK macros for SPARTANUPLUSAES1
 *       mb    10/14/25 Update logic of XNvm_EfusePrgmSpkRevokeId function
 *       mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
+*3.7    bha   01/23/2026 Add note in function documentation explaining validation
+*                        purpose for efuse PUF hash programming
 *
 * </pre>
 *
@@ -2170,6 +2172,19 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
  *
  * @param	SecCtrlBits - Pointer to XNvm_EfuseSecCtrlBits where secure control
  *                        bits are read.
+ *
+ * @note	PPK2 eFUSE Register Sharing:
+ * 			The PPK2 eFUSE registers (Ppk2lck, Ppk2Invld) are shared between
+ * 			PPK2 hash and PUF hash storage. The HashPufOrKey bit determines
+ * 			which hash type is stored in these registers:
+ * 			- When HashPufOrKey = 0: PPK2 registers contain PPK2 hash
+ * 			- When HashPufOrKey = 1: PPK2 registers contain PUF hash
+ *
+ * 			When programming PUF hash:
+ * 			- Ppk2Invld must be 0 (PPK2 register not invalidated)
+ * 			- Ppk2lck must be 0 (PPK2 register not write-locked)
+ * 			- PPK2 registers must not be already programmed
+ * 			- HashPufOrKey must be set to 1 to indicate PUF hash usage
  *
  * @return
  * 		- XST_SUCCESS - Specified data read.
