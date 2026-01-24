@@ -421,13 +421,16 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	EfuseData.PpkHash = &PrgmPpkHash;
 #ifndef SPARTANUPLUSAES1
 	PrgmPpkHash.PrgmPpk2Hash = TRUE;
-#else
-	PrgmPpkHash.PrgmPpk1Hash = FALSE;
-#endif
-
 	Status = Xil_SMemCpy(PrgmPpkHash.Ppk2Hash, XPUF_PPK_HASH_SIZE_IN_BYTES, PufPpkHash,
 			     XPUF_PPK_HASH_SIZE_IN_BYTES,
 			     XPUF_PPK_HASH_SIZE_IN_BYTES);
+#else
+	PrgmPpkHash.PrgmPpk1Hash = TRUE;
+	Status = Xil_SMemCpy(PrgmPpkHash.Ppk1Hash, XPUF_PPK_HASH_SIZE_IN_BYTES, PufPpkHash,
+			     XPUF_PPK_HASH_SIZE_IN_BYTES,
+			     XPUF_PPK_HASH_SIZE_IN_BYTES);
+#endif
+
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
