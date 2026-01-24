@@ -21,6 +21,8 @@
 * 1.0   kpt     08/23/24 First release
 * 2.6   mb      10/27/25 Update doxygen comment for PUF_IV
 * 2.7   bha     01/06/26 Fixed Doxygen warnings
+*       bha     01/23/26 Fixed Compilation errors,Code clean-up and
+*                        added PUF-ID only Regeneration support
 * </pre>
 *
 * User configurable parameters for PUF
@@ -99,7 +101,6 @@ extern "C" {
 
 
 #define XPUF_REGISTRATION		0U /**< Value to indicate PUF registration */
-#define XPUF_REGEN_ON_DEMAND		1U /**< Value to indicate regeneration on demand */
 
 #define XPUF_RED_KEY_LEN_IN_BYTES 	(32U) /**< RED key length in bytes */
 

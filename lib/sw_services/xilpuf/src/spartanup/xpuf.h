@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 *       mb   07/08/2025 Update PUF shutter value
 *       aa   07/14/2025 Removed unused macros
 *       mb   09/26/2025 Update GlobalVarFilter type to u32
+* 2.7   bha  01/22/2026 Added ID - Only regeneration support
 *
 * </pre>
 *
@@ -77,6 +78,11 @@ extern "C" {
 
 #define XPUF_AUX_SHIFT_VALUE 				(4U) /**< No of bits aux has to shift*/
 
+#define XPUF_REGEN_ON_DEMAND				(0x1U)
+		/**< PUF Operation - PUF On demand regeneration */
+#define XPUF_REGEN_ID_ONLY				(0x2U)
+		/**< PUF Operation - PUF ID only regeneration */
+
 enum{
 	XPUF_ERROR_INVALID_PARAM = 0x02, /**< 0x02 - Error due to invalid parameter */
 	XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT,	/**< 0x03 - Error due to timeout while
@@ -109,6 +115,8 @@ typedef struct _XPuf_Data {
 	u32 TrimmedSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
 		/**< Trimmed syndrome data*/
 	u32 RoSwapVal; /**< PUF Ring Oscillator Swap setting */
+	u32 PufOperation;
+	/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
 } XPuf_Data;
 
 /**

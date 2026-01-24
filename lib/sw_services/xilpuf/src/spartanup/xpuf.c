@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 2.6   mb   06/25/2025 Updated doxygen comments
 *       aa   07/14/2025 Fixed MISRA-C violations
 *       mb   09/26/2025 Minor updates in xilpuf library
+* 2.7   bha  01/22/2026 Added ID - Only regeneration support
 *
 * </pre>
 *
@@ -492,9 +493,16 @@ static int XPuf_RegeneratePufKey(XPuf_Data *PufData)
 	/* - Request to capture Key & ID */
 	Status = XPUF_ERROR_KEY_NOT_CONVERGED;
 	if ((VarPufStatus & XPUF_PUF_KR_MASK) == XPUF_PUF_KR_MASK) {
-		Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
-			  (XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
-			   XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
+		if(PufData->PufOperation == XPUF_REGEN_ID_ONLY) {
+			Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
+				  XPUF_PMC_GLOBAL_PUF_ID_CAPTURE);
+		}
+		else if(PufData->PufOperation == XPUF_REGEN_ON_DEMAND) {
+			Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
+				  (XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
+				   XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
+		}
+
 		XPuf_CapturePufID(PufData);
 		Status = XST_SUCCESS;
 	}

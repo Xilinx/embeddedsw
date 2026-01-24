@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
   *
-  * @file xilpuf_example.c
+  * @file xilpuf_spartan_ultrascale_plus_example.c
   *
   * This file illustrates encryption of red key using PUF KEY and
   * programming the black key and helper data.
@@ -51,6 +51,8 @@
   *       mb   10/05/25 Minor updates in xilpuf library
   *       mb   11/06/25 Fix for PUF Regeneration on demand test case
   * 2.7   bha  01/06/26 Fixed Doxygen warnings
+  *       bha  01/23/26 Fixed Compilation errors,Code clean-up and
+  *                     added PUF-ID only Regeneration support
   * </pre>
   *
   *@note
@@ -438,6 +440,12 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	}
 	else if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND) {
 		(void)DmaPtr;
+		if(XPUF_KEY_GENERATE_OPTION == FALSE){
+			PufData.PufOperation = XPUF_REGEN_ID_ONLY;
+		}
+		else{
+			PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
+		}
 
 		Status = XPuf_DecompressPufHd(XPUF_SYNDROME_DATA_WRITE_ADDR, (u32*)(UINTPTR)&PufData.SyndromeData);
 		if (Status != XST_SUCCESS) {
@@ -452,7 +460,12 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 			xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 			goto END;
 		}
-		xil_printf("PUF On Demand regeneration is done!!\r\n");
+		if(PufData.PufOperation == XPUF_REGEN_ON_DEMAND){
+			xil_printf("PUF On Demand regeneration is done!!\r\n");
+		}
+		else{
+			xil_printf("PUF ID only regeneration is done!!\r\n");
+		}
 		xil_printf("PUF ID : ");
 		XPuf_ShowData((u8 *)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 	}
