@@ -112,15 +112,17 @@
 
 /************************** Variable Definitions ******************************/
 
-static XSecure_Aes AesInstance __attribute__ ((aligned (64)))
-						__attribute__ ((section (".data.AesInstance")));
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 u32 PUF_TrimHD[XPUF_HD_TRIM_PAD_LEN_IN_WORDS] __attribute__((aligned(32)))
         __attribute__ ((section (".data.PUF_TrimHD")));;
 #endif
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS] __attribute__((aligned(32)))
 __attribute__ ((section (".data.FormattedBlackKey")));
 static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
+static XSecure_Aes AesInstance __attribute__ ((aligned (64)))
+						__attribute__ ((section (".data.AesInstance")));
+#endif
 #if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE || XPUF_WRITE_PUF_HASH_IN_EFUSE == TRUE || \
 		XPUF_PRGM_HASH_PUF_OR_KEY == TRUE)
 static XNvm_EfuseData EfuseData __attribute__ ((section (".data.EfuseData")));;
@@ -132,6 +134,7 @@ static XNvm_EfusePpkHash PrgmPpkHash  __attribute__ ((section (".data.PrgmPpkHas
 static u8 PufPpkHash[XPUF_PPK_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.PufPpkHash")));
 #endif
 
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 #if defined (__GNUC__)
 static u8 RedKey[XPUF_RED_KEY_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 __attribute__ ((section (".data.RedKey")));
@@ -149,18 +152,21 @@ static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
 #pragma data_alignment = 64
 static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput();
 static int XPuf_GenerateKey(XPmcDma *DmaPtr);
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr);
-#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
+static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen);
+#endif
+#if (XPUF_GENERATE_KEK_N_ID == TRUE && XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 static int XPuf_ProgramBlackKeynIV();
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len);
 #endif
 static void XPuf_ShowPufSecCtrlBits();
 static void XPuf_ShowData(const u8 *Data, u32 Len);
-static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen);
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 SyndromeDataLen,
 				 u8 *PufPpkHash);
@@ -817,7 +823,7 @@ END:
 }
 #endif
 
-#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
+#if (XPUF_GENERATE_KEK_N_ID == TRUE && XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 /******************************************************************************/
 /**
  * @brief	This function programs black key into efuse or BBRAM.
@@ -1009,7 +1015,7 @@ END:
 	return Status;
 }
 #endif
-#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
+#if (XPUF_GENERATE_KEK_N_ID == TRUE && XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 /******************************************************************************/
 /**
  *
