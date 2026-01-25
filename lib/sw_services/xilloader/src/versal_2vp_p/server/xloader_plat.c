@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 *       pre 12/16/25 Handled PCR info invalid case in case of OCP key management disabled
+* 2.4   gnr 01/06/26 Added explicit CPU validation in XLoader_ProcessElf
 *
 * </pre>
 *
@@ -1006,6 +1007,20 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		goto END;
 	}
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
+
+	/**
+	 * - Validate the destination CPU to ensure it's a supported type
+	 */
+	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_PSM) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_NONE)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
+		goto END;
+	}
 
 	/**
 	 *

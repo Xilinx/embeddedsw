@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -23,6 +23,7 @@
 *       tvp  10/01/25 Handle data measurement for image with both authenticated/non-authenticated/
 *                     checksum enabled partitions
 *       pre  12/16/25 Handled PCR info invalid case in case of OCP key management disabled
+* 2.4   gnr  01/06/26 Added explicit CPU validation in XLoader_ProcessElf
 *
 * </pre>
 *
@@ -1160,6 +1161,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc, u64 *
  *		- XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP if IOCTL call to set RPU1 in lockstep mode
  *		  fails.
  *		- XLOADER_ERR_INVALID_TCM_ADDR on Invalid TCM address for A72 elfs.
+ * 		- XLOADER_ERR_INVALID_CPUID if invalid CPU id is selected.
  *
  **************************************************************************************************/
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
@@ -1175,6 +1177,20 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u8 TcmComb;
 
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
+
+	/**
+	 * - Validate the destination CPU to ensure it's a supported type
+	 */
+	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_PSM) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_NONE)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
+		goto END;
+	}
 
 	/**
 	 *

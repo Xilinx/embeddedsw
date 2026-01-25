@@ -658,11 +658,11 @@ typedef enum {
 						 device to PMCRAM */
 	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST, /**< 0x377 - Error when copying partition from
 							PMCRAM to destination */
-	XLOADER_ERR_INVALID_CPUID, /**< 0x378 - Invalid CPU ID in partition header */
-	XLOADER_ERR_OSPI_PRESCALER_CLK, /**< 0x379 - Error when OSPI driver
+	XLOADER_ERR_OSPI_PRESCALER_CLK, /**< 0x378 - Error when OSPI driver
 						Prescaler setting fails */
-	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x37A - Error, failed to configure
+	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x379 - Error, failed to configure
 						 the IDAC controller in OSPI */
+	XLOADER_ERR_INVALID_CPUID, /**< 0x37A - Invalid CPU ID in partition header */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

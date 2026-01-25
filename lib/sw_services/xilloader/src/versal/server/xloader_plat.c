@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1035,7 +1035,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1) &&
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_NONE)) {
-		Status = XLOADER_ERR_INVALID_CPUID;
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
 		goto END;
 	}
 

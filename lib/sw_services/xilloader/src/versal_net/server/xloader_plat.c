@@ -433,7 +433,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			default:
-				Status = (int)XLOADER_ERR_INVALID_CPUID;
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
 				break;
 		}
 		if (RequestWakeup == (u32)TRUE) {
@@ -836,7 +836,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			Status = XST_SUCCESS;
 			break;
 		default:
-			Status = XLOADER_ERR_INVALID_CPUID;
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
 			break;
 	}
 
