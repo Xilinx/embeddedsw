@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -43,7 +43,9 @@ else()
 endif()
 if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   collect(PROJECT_LIB_DEPS xilocp)
-  collect(PROJECT_LIB_DEPS xilcert)
+  if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
+    collect(PROJECT_LIB_DEPS xilcert)
+  endif()
 endif()
 collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
