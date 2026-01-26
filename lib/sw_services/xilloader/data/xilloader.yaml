@@ -33,7 +33,6 @@ supported_os:
 
 depends_libs:
   xilplmi: {}
-  xilpdi: {}
   xilffs: {}
   xilsecure: {}
 
