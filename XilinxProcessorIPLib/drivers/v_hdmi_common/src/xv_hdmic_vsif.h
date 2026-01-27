@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -262,7 +262,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
-/* Vendor Specific Infomation related functions */
+/* Vendor Specific Information related functions */
 int XV_HdmiC_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XHdmiC_VSIF  *VSIFPtr);
 XHdmiC_Aux XV_HdmiC_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr);
 XHdmiC_Aux XV_HdmiC_HF_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr);
