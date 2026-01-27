@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -204,7 +204,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xemaclite_l.h"
 
-#ifdef __ARMEL__
+#if defined(__ARMEL__) || defined(__riscv)
 #ifndef __LITTLE_ENDIAN__
 #define __LITTLE_ENDIAN__
 #endif
