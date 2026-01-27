@@ -88,7 +88,7 @@ extern "C" {
 
 /**
  * Frame/Line Mismatch Error
- * This is a typical DMA Internal Error, which on detection doesnt require
+ * This is a typical DMA Internal Error, which on detection does not require
  * a reset (as opposed to other errors). So a MSB bit is set to identify it,
  * from other DMA Internal Errors.
  *

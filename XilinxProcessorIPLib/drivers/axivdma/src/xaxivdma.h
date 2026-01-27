@@ -349,7 +349,7 @@ extern "C" {
 #define XAXIVDMA_ENABLE_DBG_ALL_FEATURES	0x0F
 
 /* Defined for backward compatibility.
- * This  is a typical DMA Internal Error, which on detection doesnt require a
+ * This  is a typical DMA Internal Error, which on detection does not require a
  * reset (as opposed to other errors). So user on seeing this need only to
  * reinitialize channels.
  *

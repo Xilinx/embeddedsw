@@ -51,7 +51,7 @@
  * 6.8   sk   07/07/20 Add frame data check support
  * 6.9	 sk   05/25/21 Modify the ReadSetup buffer initialization call and
  *		       CheckFrame to correct the example logic.
- * 6.9	 sk   05/25/21 Fix data comparison failure wtih optimization level 2.
+ * 6.9	 sk   05/25/21 Fix data comparison failure with optimization level 2.
  * 6.10  rsp  09/09/21 Fix read/write done count check in while loop.
  *                     Remove unused variable GCC warning in ReadSetup().
  * 6.11  rsp  03/16/21 After Wr/Rd channel reset ensure it's completed
@@ -244,7 +244,7 @@ volatile static u16 WriteCount;
 static XAxiVdma_DmaSetup ReadCfg;
 static XAxiVdma_DmaSetup WriteCfg;
 
-/* Transfer statics
+/* Transfer statistics
  */
 volatile static u32 ReadDone;
 volatile static u32 ReadError;
@@ -526,7 +526,7 @@ int main(void)
 		goto Done;
 	}
 
-	/* Wait for dma tranfer to complete or timeout */
+	/* Wait for dma transfer to complete or timeout */
 	Status = Xil_WaitForEvent((UINTPTR)&ReadDone, NUM_TEST_FRAME_SETS, NUM_TEST_FRAME_SETS, POLL_TIMEOUT_COUNTER);
 	if (Status != XST_SUCCESS) {
 		xil_printf("DMA read failed %d\r\n", Status);
@@ -541,7 +541,7 @@ int main(void)
 		goto Done;
 	}
 
-	/* Wait for dma tranfer to complete or timeout */
+	/* Wait for dma transfer to complete or timeout */
 	Status = Xil_WaitForEvent((UINTPTR)&WriteDone, NUM_TEST_FRAME_SETS, NUM_TEST_FRAME_SETS, POLL_TIMEOUT_COUNTER);
 	if (Status != XST_SUCCESS) {
 		xil_printf("DMA write failed %d\r\n", Status);
