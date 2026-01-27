@@ -352,7 +352,7 @@ typedef struct {
 *
 * @param	RingPtr is the channel instance to operate on.
 *
-* @return	Rrror bits in the status register, they should be interpreted
+* @return	Error bits in the status register, they should be interpreted
 *		with XAXIDMA_ERR_*_MASK defined in xaxidma_hw.h
 *
 * @note

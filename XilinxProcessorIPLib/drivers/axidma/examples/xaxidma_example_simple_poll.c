@@ -305,7 +305,7 @@ int XAxiDma_SimplePollExample(UINTPTR BaseAddress)
 			return XST_FAILURE;
 		}
 
-		/*Wait till tranfer is done or 1usec * 10^6 iterations of timeout occurs*/
+		/*Wait till transfer is done or 1usec * 10^6 iterations of timeout occurs*/
 		while (TimeOut) {
 			if (!(XAxiDma_Busy(&AxiDma, XAXIDMA_DEVICE_TO_DMA)) &&
 			    !(XAxiDma_Busy(&AxiDma, XAXIDMA_DMA_TO_DEVICE))) {
