@@ -212,7 +212,7 @@ void XCsuDma_DisableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /**
 *
 * This function returns the interrupt mask to know which interrupts are
-* enabled and which of them were disaled.
+* enabled and which of them were disabled.
 *
 * @param	InstancePtr Pointer to XCsuDma instance to be worked on.
 * @param	Channel Type of channel

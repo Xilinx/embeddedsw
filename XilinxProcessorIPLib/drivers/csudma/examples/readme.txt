@@ -10,7 +10,7 @@ For details, see xcsudma_selftest_example.c.
 
 @section ex2 xcsudma_intr_example.c
 Contains an example on how to use the XCsudma driver directly.
-This example shows the usage of the driver in interrrupt
+This example shows the usage of the driver in interrupt
 mode.It sends data and expects to receive the same data through the
 device using the local loop back mode.
 

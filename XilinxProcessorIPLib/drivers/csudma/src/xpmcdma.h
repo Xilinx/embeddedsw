@@ -933,7 +933,7 @@ static INLINE void XPmcDma_DisableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Cha
 /**
 *
 * Returns the interrupt mask to know which interrupts are
-* enabled and which of them were disaled.
+* enabled and which of them were disabled.
 *
 * @param	InstancePtr Pointer to XPmcDma instance to be worked on.
 * @param	Channel Represents the type of channel.

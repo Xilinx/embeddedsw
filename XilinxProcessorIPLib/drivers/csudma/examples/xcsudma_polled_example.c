@@ -54,7 +54,7 @@
 						  *  macro for PMCDMA1*/
 
 #define SIZE		0x100			/**< Size of the data to be
-						  *  transfered */
+						  *  transferred */
 #if defined(__ICCARM__)
 #pragma data_alignment = 64
 u32 SrcBuf[SIZE]; /**< Destination buffer */
@@ -223,7 +223,7 @@ int XCsuDma_PolledExample(UINTPTR BaseAddress)
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	/*
-	 * Verifying data of transfered by comparing data at source
+	 * Verifying data of transferred by comparing data at source
 	 * and address locations.
 	 */
 

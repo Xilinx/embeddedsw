@@ -926,7 +926,7 @@ static INLINE void XAsuDma_DisableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Cha
 /**
 *
 * This function returns the interrupt mask to know which interrupts are
-* enabled and which of them were disaled.
+* enabled and which of them were disabled.
 *
 * @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
 * @param	Channel represents the type of channel either it is Source or

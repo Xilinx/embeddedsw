@@ -269,9 +269,9 @@ extern "C" {
 							  *  AXI R/W CACHE */
 #define XCSUDMA_CTRL2_ROUTE_SHIFT	23U		/**< Shift for route */
 #define XCSUDMA_CTRL2_TIMEOUT_EN_SHIFT	22U		/**< Shift for Timeout
-							  *  enable feild */
+							  *  enable field */
 #define XCSUDMA_CTRL2_TIMEOUT_PRE_SHIFT	4U		/**< Shift for Timeout
-							  *  pre feild */
+							  *  pre field */
 /*@}*/
 
 /** @name MSB Address register bit masks and shifts

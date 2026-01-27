@@ -76,7 +76,7 @@ s32 XCsuDma_SelfTest(XCsuDma *InstancePtr)
 	Data = XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
 					(u32)(XCSUDMA_CTRL_OFFSET));
 
-	/* Changing Endianess of Source channel */
+	/* Changing Endianness of Source channel */
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 			(u32)(XCSUDMA_CTRL_OFFSET),
