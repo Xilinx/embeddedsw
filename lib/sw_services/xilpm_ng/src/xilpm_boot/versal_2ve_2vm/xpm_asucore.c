@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,7 @@ XStatus XPmAsuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	/* ASU is special, we don't need to do direct power on. Because it is never power off until POR */
 	if (1U == Core->isCoreUp) {
-		/* This should never happen but just incase */
+		/* This should never happen but just in case */
 		PmWarn("ASU core is already up.\r\n");
 		Status = XST_SUCCESS;
 		goto done;

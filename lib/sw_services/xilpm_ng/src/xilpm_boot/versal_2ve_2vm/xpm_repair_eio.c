@@ -17,7 +17,7 @@ XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 PassMask;
     u64 BisrDataDestAddr = (u64)EIO_SLCR_BISR_CACHE_DATA_0;
 
-    if(TagSize > 4U){/*Sanity check incase user enters incorrect data size*/
+    if(TagSize > 4U){/*Sanity check in case user enters incorrect data size*/
         Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
         goto done;
     }

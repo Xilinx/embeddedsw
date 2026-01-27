@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
  * @return XST_SUCCESS if successful else XST_NO_FEATURE.
  *
  * @note   Remove CDO-only commands from versioning as it is for internal
- * use only, so no need to consider for versioing.
+ * use only, so no need to consider for versioning.
  *
  ****************************************************************************/
 XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)

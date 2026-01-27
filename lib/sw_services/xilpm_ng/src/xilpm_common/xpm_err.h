@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,7 @@ extern "C" {
 #define XPM_PM_ABORT_SUSPEND                     (2005L) /**< Abort suspend not allowed */
 #define XPM_PM_TIMEOUT                           (2006L) /**< Timeout occurred */
 #define XPM_PM_NODE_USED                         (2007L) /**< Node is used and non-shareable */
-#define XPM_REG_WRITE_FAILED                     (2008L) /**< Register writting has failed*/
+#define XPM_REG_WRITE_FAILED                     (2008L) /**< Register writing has failed*/
 
 /****************************** Generic API Errors ***********************/
 /******************************  (2010L) - (2020L) ***********************/

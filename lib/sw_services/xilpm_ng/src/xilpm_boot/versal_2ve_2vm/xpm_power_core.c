@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_regs.h"
@@ -1201,7 +1201,7 @@ XStatus XPmPower_RpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAdd
 	/** We need this reset because all CPU settings are set at different state of the core asynchronously
 	 * This reset to make sure all the settings are "capture" by the core before power on and run
 	 * NOTE: this reset assertion and the deassertion later is not belong to power up sequence of the core
-	 * It is here because the implemetation issue of software. It should be removed in the future.
+	 * It is here because the implementation issue of software. It should be removed in the future.
 	 */
 	XPm_RMW32(Args->RstCtrlAddr, Args->RstCtrlMask, Args->RstCtrlMask);
 	if (0U != (ResumeAddr & 1ULL)) {

@@ -26,7 +26,7 @@ XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
 
     u32 BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);
     u64 BisrDataDestAddr =(u64)BaseAddr + (u64)GT_NPI_BISR_CACHE_DATA_OFFSET;
-    if(TagSize > 2U){ /*Sanity check incase user enters incorrect data size*/  /*Dest reg assumed to be GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0*/
+    if(TagSize > 2U){ /*Sanity check in case user enters incorrect data size*/  /*Dest reg assumed to be GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0*/
         Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
         goto done;
     }

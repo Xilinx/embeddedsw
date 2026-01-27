@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
-	u32 Children[MAX_POWERDOMAINS]; /**< List of depedent children Ids */
+	u32 Children[MAX_POWERDOMAINS]; /**< List of dependent children Ids */
 	u16 InitFlag; /**< Flag to indicate which Ops are performed */
 	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
 };

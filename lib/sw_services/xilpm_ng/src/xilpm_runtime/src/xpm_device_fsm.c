@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -265,7 +265,7 @@ const XPm_Fsm XPmGenericDeviceFsm = {
 XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 	XStatus Status = XST_FAILURE;
 	if (NULL == DevOps) {
-		PmErr("Runtime Device Ops is not initalized.");
+		PmErr("Runtime Device Ops is not initialized.");
 		Status = XST_FAILURE;
 		goto done;
 	}

@@ -453,7 +453,7 @@ static XStatus XPm_DoGetNodeStatus(XPlmi_Cmd* Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 NodeId = Cmd->Payload[0];
-	/* TODO: FIXME fix casting bellow */
+	/* TODO: FIXME fix casting below */
 	Status = XPm_GetDeviceStatus(SubsystemId, NodeId, (XPm_DeviceStatus*)(&Cmd->Response[1]));
 	Cmd->Response[0] = (u32)Status;
 	return Status;
@@ -1826,7 +1826,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*
-		 * Caller subystem may not be allowed to enact reset operation
+		 * Caller subsystem may not be allowed to enact reset operation
 		 * upon PM_RST_PMC. XPmReset_SystemReset uses PM_RST_PMC.
 		 */
 		Rst = XPmReset_GetById(PM_RST_PMC);

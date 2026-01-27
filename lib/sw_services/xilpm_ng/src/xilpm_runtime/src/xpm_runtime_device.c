@@ -806,7 +806,7 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 
 	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
-		PmErr("Runtime DevOps is not initalized, DeviceID=0x%x\n", Device->Node.Id);
+		PmErr("Runtime DevOps is not initialized, DeviceID=0x%x\n", Device->Node.Id);
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -815,7 +815,7 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 
 	/** HACK!! FIXME: Linux drivers can never request UART0 or UART1
 	 * after releasing them; therefore, we have do this hack:
-	 * Only make transition to RUNNING state for UART0 and UART1, any other state transtion will be ignored
+	 * Only make transition to RUNNING state for UART0 and UART1, any other state transition will be ignored
 	 */
 	if (((PM_DEV_UART_0 == Device->Node.Id) || (PM_DEV_UART_1 == Device->Node.Id)) && (1 != Capabilities)) {
 		PmInfo("Ignoring request for UART device: 0x%x\r\n", Device->Node.Id);
@@ -828,7 +828,7 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 	    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
 		((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
-		PmErr("Device 0x%x is busy, Sate: 0x%x\r\n", Device->Node.Id, Device->Node.State);
+		PmErr("Device 0x%x is busy, State: 0x%x\r\n", Device->Node.Id, Device->Node.State);
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -1110,7 +1110,7 @@ static XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
 	XStatus Status = XST_FAILURE;
 	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
-		PmErr("Runtime Device Ops is not initalized. Device ID = 0x%x\n", Device->Node.Id);
+		PmErr("Runtime Device Ops is not initialized. Device ID = 0x%x\n", Device->Node.Id);
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -1205,7 +1205,7 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 
 	if ((OldState != NextState) && (XST_SUCCESS == Status)) {
 		Device->Node.State = (u8)NextState;
-		/** TODO: Add Notificiation on this state transition*/
+		/** TODO: Add Notification on this state transition*/
 		// /* Send notification about device state change */
 		// XPmNotifier_Event(Device->Node.Id, (u32)EVENT_STATE_CHANGE);
 	}

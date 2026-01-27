@@ -73,7 +73,7 @@ XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 RegAddrOffset = (DDRMC5E_UB_0_BISR_CACHE_DATA_CRYPTO_0 - DDRMC5E_UB_0_BASEADDR); //    0x244U
     u32 BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);     // Module Base Address
     u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegAddrOffset;
-    if(TagSize > 2U){  /*Sanity check added incase user enters invalid data size*/
+    if(TagSize > 2U){  /*Sanity check added in case user enters invalid data size*/
         Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
         goto done;
     }

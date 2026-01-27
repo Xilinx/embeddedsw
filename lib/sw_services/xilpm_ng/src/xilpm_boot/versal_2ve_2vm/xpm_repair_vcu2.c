@@ -21,7 +21,7 @@ XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr, u32 * TagDataAddr)
 
 	u32 BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);     // Module Base Address
 	u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegAddrOffset;
-	if (TagSize > 8U) { /*Sanity check incase user enters incorrect data size*/
+	if (TagSize > 8U) { /*Sanity check in case user enters incorrect data size*/
 		Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
 		goto done;
 	}

@@ -19,7 +19,7 @@ XStatus XPmRepair_Vip(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 RegOffset = (VIP_NPI_0_SSSS_BISR_CACHE_DATA_SSSS_0 - VIP_NPI_0_BASEADDR);
     u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegOffset;
 
-    if(TagSize > 8U){ /*Sanity check incase user enters incorrect data size*/
+    if(TagSize > 8U){ /*Sanity check in case user enters incorrect data size*/
         Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
         goto done;
     }

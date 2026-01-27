@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -440,7 +440,7 @@ static XStatus Aie2ps_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 StartCol, u
 		/* BaseAddress for AIE2 column */
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
 
-		/* Eanble AXI-MM decode and slave error events */
+		/* Enable AXI-MM decode and slave error events */
 		AieRMW64(BaseAddress + AIE2PS_NOC_MODULE_ME_AXIMM_CONFIG_OFFSET,
 			 ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK,
 			 ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK);
@@ -541,10 +541,10 @@ static XStatus Aie2ps_NmuConfig(const XPm_Device *AieDev, u32 StartCol, u32 EndC
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
 
 		if (0U == Col) {
-			/* ColRout0 value should be writting to column 0 shim tile only  */
+			/* ColRout0 value should be writing to column 0 shim tile only  */
 			AieWrite64(BaseAddress + AIE2PS_PL_MODULE_NMU_SWITCHES_CONFIG_OFFSET, ColRoute0);
 		} else if (1U == Col) {
-			/* ColRout1 value should be writting to column 0 shim tile only  */
+			/* ColRout1 value should be writing to column 0 shim tile only  */
 			AieWrite64(BaseAddress + AIE2PS_PL_MODULE_NMU_SWITCHES_CONFIG_OFFSET, ColRoute1);
 		} else {
 			/* Operation is expected to only modify values for column0 and column1 */
@@ -643,7 +643,7 @@ static XStatus Aie2ps_EnbMemPriv(const XPm_Device *AieDev, u32 StartCol, u32 End
 		/* BaseAddress for AIE2 column */
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
 
-		/* Eanble privileged memory */
+		/* Enable privileged memory */
 		AieWrite64(BaseAddress + AIE2PS_UC_MODULE_MEMORY_PRIVILEGED_OFFSET, 1U);
 	}
 

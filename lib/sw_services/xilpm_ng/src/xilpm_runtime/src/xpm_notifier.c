@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -320,7 +320,7 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 	/* Check Subsystem is ready or not */
 	IpiAck = XPm_IpiPollForAck(SubSystem->IpiMask, XPM_NOTIFY_TIMEOUTCOUNT);
 	if (XST_SUCCESS == IpiAck) {
-		/* Serch and get pending event for given SubSystem from event
+		/* Search and get pending event for given SubSystem from event
 		 * sequence.
 		 */
 		while (Idx < PosEmptySpace) {
@@ -494,7 +494,7 @@ static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload
 				Notifier->PendEventCnt += 1U;
 
 				/* Store Index of PmNotifiers[] in Event sequence to get
-				 * order of event occurence in terms of Node-Id
+				 * order of event occurrence in terms of Node-Id
 				 */
 				Status = XPmNotifier_AddInEventSeq(Idx, NodeId);
 				if (XST_SUCCESS != Status) {

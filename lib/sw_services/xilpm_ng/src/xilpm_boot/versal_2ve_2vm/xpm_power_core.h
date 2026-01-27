@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,7 +67,7 @@ struct XPmFwPwrCtrl_t {
 	u32 CorePactiveMask; /**< Bit number in  Core P-Channel Pactive and Accept/Deny */
 	u32 WakeupIrqMask; /**< But number in WakeupIrg registers*/
 	u32 CacheCntrlMask; /**< But number in CacheCntrl registers*/
-	u32 VectTableAddr; /**< core vectore table address*/
+	u32 VectTableAddr; /**< core vector table address*/
 	u32 RstCtrlMask; /**< Bit number in reset control registers */
 	u32 RstCtrlAddr; /**< Reset control base address */
 
