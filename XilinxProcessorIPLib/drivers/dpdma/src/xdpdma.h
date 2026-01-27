@@ -75,7 +75,7 @@ typedef struct {
 	u32 LSB_Timestamp;		/**<	LSB of the Timestamp */
 	u32 MSB_Timestamp;		/**<	MSB of the Timestamp */
 	u32 ADDR_EXT;			/**<	[15:0] Next descriptor
-						extenstion
+						extension
 						[31:16] SRC address extemsion */
 	u32 NEXT_DESR;			/**<	Address of next descriptor */
 	u32 SRC_ADDR;			/**<	Source Address */
