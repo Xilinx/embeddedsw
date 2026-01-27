@@ -106,7 +106,7 @@ typedef struct {
 } XDmaPs_Config;
 
 
-/** DMA channle control structure. It's for AXI bus transaction.
+/** DMA channel control structure. It's for AXI bus transaction.
  * This struct will be translated into a 32-bit channel control register value.
  */
 typedef struct {
@@ -125,7 +125,7 @@ typedef struct {
 					 *   address */
 } XDmaPs_ChanCtrl;
 
-/** DMA block descriptor stucture.
+/** DMA block descriptor structure.
  */
 typedef struct {
 	u32 SrcAddr;		/**< Source starting address */
@@ -153,7 +153,7 @@ typedef struct {
 					  *  DMA program.
 					  */
 
-	void *GeneratedDmaProg;		/**< The DMA program genreated
+	void *GeneratedDmaProg;		/**< The DMA program generated
 					 * by the driver. This field will be
 					 * set if a user invokes the DMA
 					 * program generation function. Or
@@ -323,7 +323,7 @@ void XDmaPs_FaultISR(XDmaPs *InstPtr);
 
 
 /*
- * Static loopup function implemented in xdmaps_sinit.c
+ * Static lookup function implemented in xdmaps_sinit.c
  */
 #ifndef SDT
 XDmaPs_Config *XDmaPs_LookupConfig(u16 DeviceId);

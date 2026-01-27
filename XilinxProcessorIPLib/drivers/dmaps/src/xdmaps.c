@@ -152,7 +152,7 @@ int XDmaPs_CfgInitialize(XDmaPs *InstPtr,
 
 #ifdef SDT
 	InstPtr->Config.IntrParent = Config->IntrParent;
-	/*  Added one fault Inerrupt and eight per-channel Interrupt  */
+	/*  Added one fault Interrupt and eight per-channel Interrupt  */
 	for (Channel = 0; Channel < (XDMAPS_CHANNELS_PER_DEV + 1); Channel++) {
 		InstPtr->Config.IntrId[Channel] = Config->IntrId[Channel];
 	}
@@ -516,7 +516,7 @@ static INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
 * @param	DmaProg is the DMA program buffer, it's the starting address
 *		for the instruction being constructed
 * @param	Lc is the Loop counter register, can either be 0 or 1.
-* @param	LoopIterations: the number of interations, LoopInterations - 1
+* @param	LoopIterations: the number of iterations, LoopInterations - 1
 *		will be encoded in the DMALP instruction.
 *
 * @return 	The number of bytes for this instruction which is 2.
@@ -1279,11 +1279,11 @@ static int XDmaPs_BuildDmaProg(unsigned Channel, XDmaPs_Cmd *Cmd,
 
 		if (TailBytes) {
 			/*
-			 * for the rest, we'll tranfer in bytes
+			 * for the rest, we'll transfer in bytes
 			 */
 			/*
 			 * So far just to be safe, the tail bytes
-			 * are transfered in a loop. We can optimize a little
+			 * are transferred in a loop. We can optimize a little
 			 * to perform a burst.
 			 */
 			CCRValue = XDMAPS_CCR_SINGLE_BYTE
@@ -1450,7 +1450,7 @@ int XDmaPs_FreeDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
 * @param	HoldDmaProg is tag indicating whether the driver can release
 * 		the allocated DMA buffer or not. If a user wants to examine the
 * 		generated DMA program, the flag should be set to 1. After the
-* 		DMA program is finished, a user needs to explicity free the
+* 		DMA program is finished, a user needs to explicitly free the
 *		buffer.
 *
 * @return
@@ -1498,7 +1498,7 @@ int XDmaPs_Start(XDmaPs *InstPtr, unsigned int Channel,
 		/* enable the interrupt */
 		Inten = XDmaPs_ReadReg(InstPtr->Config.BaseAddress,
 				       XDMAPS_INTEN_OFFSET);
-		Inten |= 0x01 << Channel; /* set the correpsonding bit */
+		Inten |= 0x01 << Channel; /* set the corresponding bit */
 		XDmaPs_WriteReg(InstPtr->Config.BaseAddress,
 				XDMAPS_INTEN_OFFSET,
 				Inten);
@@ -1890,7 +1890,7 @@ static int XDmaPs_Exec_DMAGO(u32 BaseAddr, unsigned int Channel, u32 DmaProg)
 *
 * It's the generic Done ISR.
 * @param	InstPtr is the DMA instance.
-* @param	Channel is the DMA channel numer.
+* @param	Channel is the DMA channel number.
 *
 * @return	None.*
 *

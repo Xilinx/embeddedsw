@@ -42,8 +42,8 @@
 /*****************************************************************************/
 /**
 * This function perform the reset sequence to the given dmaps interface by
-* configuring the appropriate control bits in the dmaps specifc registers
-* the dmaps reset squence involves the following steps
+* configuring the appropriate control bits in the dmaps specific registers
+* the dmaps reset sequence involves the following steps
 *	Disable all the interuupts
 *	Clear the pending interrupts
 *	Kill all the active channel threads
@@ -54,7 +54,7 @@
 * @return N/A
 *
 * @note
-* This function will not modify the slcr registers that are relavant for
+* This function will not modify the slcr registers that are relevant for
 * dmaps controller
 ******************************************************************************/
 void XDmaPs_ResetHw(u32 BaseAddress)

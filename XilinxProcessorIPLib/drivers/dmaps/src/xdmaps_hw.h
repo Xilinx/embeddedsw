@@ -60,7 +60,7 @@ extern "C" {
 #define XDMAPS_FSM_OFFSET 	0x030 /* DMA Fault Status DMA Manager
 				       * Register
 				       */
-#define XDMAPS_FSC_OFFSET	0x034 /* DMA Fault Status DMA Chanel Register
+#define XDMAPS_FSC_OFFSET	0x034 /* DMA Fault Status DMA Channel Register
 				       */
 #define XDMAPS_FTM_OFFSET	0x038 /* DMA Fault Type DMA Manager Register */
 
