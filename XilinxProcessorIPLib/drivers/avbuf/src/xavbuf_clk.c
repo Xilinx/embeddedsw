@@ -30,7 +30,7 @@
 #include "xil_printf.h"
 
 /**************************** Constant Definitions ****************************/
-/*Input Frequency for the PLL with precision upto two decimals*/
+/*Input Frequency for the PLL with precision up to two decimals*/
 #define XAVBUF_INPUT_REF_CLK		3333333333
 
 /*Frequency of VCO before divider to meet jitter requirement*/
