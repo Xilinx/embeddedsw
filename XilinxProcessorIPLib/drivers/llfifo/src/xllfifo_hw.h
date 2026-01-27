@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *		       XLLF_INT_TFPE_MASK, XLLF_INT_RFPF_MASK and
 *		       XLLF_INT_RFPE_MASK for the new version of the
 *		       AXI4-Stream FIFO core (v2.01a and later)
+* 6.1  vlt   01/22/26  Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -150,7 +151,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XLlFifo_ReadReg returns the value of the register at the offet,
+* XLlFifo_ReadReg returns the value of the register at the offset,
 * <i>RegOffset</i>, from the memory mapped base address, <i>BaseAddress</i>.
 *
 * @param    BaseAddress specifies the base address of the device.
@@ -182,7 +183,7 @@ extern u32 _xllfifo_rr_value;
 /**
 *
 * XLlFifo_WriteReg writes the value, <i>Value</i>, to the register at the
-* offet, <i>RegOffset</i>, from the memory mapped base address,
+* offset, <i>RegOffset</i>, from the memory mapped base address,
 * <i>BaseAddress</i>.
 *
 * @param    BaseAddress specifies the base address of the device.
