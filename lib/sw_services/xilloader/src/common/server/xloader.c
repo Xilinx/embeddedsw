@@ -204,6 +204,7 @@
 *       sd  11/10/2025 Added support for VERSAL_2VP_P devices.
 * 2.4   tvp 26/12/2025 Allow secondary PDI loading after secure boot
 * 		abh 10/09/2025 Fixed MISRA-C violations
+*       tvp 01/23/2026 Run SHA KAT during boot
 *
 * </pre>
 *
@@ -534,6 +535,21 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	 * - Get the device copy function for the given boot mode.
 	 */
 	PdiPtr->MetaHdr->DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
+
+#ifndef PLM_SECURE_EXCLUDE
+	/**
+	 * - Verify SHA3 KAT. If CRYPTO accelerators are disabled, skip SHA KAT.
+	 */
+	Status = XSecure_CryptoCheck();
+	if (Status == XST_SUCCESS) {
+		Status = XST_FAILURE;
+		Status = XLoader_Sha3Kat(PdiPtr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
+			goto END;
+		}
+	}
+#endif
 
 	/**
 	 * - Read and validate all the headers in the PDI.

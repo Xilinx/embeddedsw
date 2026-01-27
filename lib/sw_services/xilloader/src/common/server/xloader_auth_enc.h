@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +67,7 @@
 *                     additional PPKs feature is enabled
 * 2.2   har  04/21/25 Removed XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK macro
 *       sd   11/10/25 Added support for VERSAL_2VP_P devices.
+* 2.4   tvp  01/23/26 Add XLoader_Sha3Kat definition
 *
 * </pre>
 *
@@ -762,6 +763,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 #endif
 int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
+int XLoader_Sha3Kat(XilPdi *PdiPtr);
 
 #ifdef __cplusplus
 }

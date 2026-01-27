@@ -160,6 +160,9 @@
 *       pre  09/30/2025 Updated comments for rtf docs
 *       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
 * 2.4   abh  11/12/2025 Fixed MISRA-C violations
+*       tvp  01/23/2026 Make XLoader_Sha3Kat non-static, as it is required from other file
+*                       Remove KAT execution from disributed place, as it
+*                       will be called durig boot from Pdi_Init.
 *
 * </pre>
 *
@@ -284,7 +287,6 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
 static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask);
-static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_ClearAesKeysOnCfg(void);
 
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
@@ -3374,20 +3376,19 @@ END:
 /**
 * @brief    This function runs SHA3 KAT
 *
-* @param    SecurePtr is pointer to the XLoader_SecureParams instance
+* @param    PdiPtr is pointer to the xilpdi instance
 *
 * @return
 * 	    - XST_SUCCESS on success
 * 	    - XLOADER_ERR_KAT_FAILED on kat failure
 *
 ******************************************************************************/
-static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
+int XLoader_Sha3Kat(XilPdi *PdiPtr) {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
 	/** - Update KAT status */
-	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SECURE_SHA3_KAT_MASK);
+	XLoader_ClearKatOnPPDI(PdiPtr, XPLMI_SECURE_SHA3_KAT_MASK);
 
 	/** - Set the data context of previous SHA operation */
 	Status = XSecure_SetDataContextLost(XPLMI_SHA3_CORE);
@@ -3395,7 +3396,7 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 		goto END;
 	}
 
-	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_SHA3_KAT_MASK) == 0U) {
+	if ((PdiPtr->PlmKatStatus & XPLMI_SECURE_SHA3_KAT_MASK) == 0U) {
 		/**
 		 * - Skip running the KAT for SHA3 if it is already run
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -3408,10 +3409,10 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
+		PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
 
 		/** - Update KAT status */
-		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+		XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
 	}
 	Status = XST_SUCCESS;
 END:
@@ -4156,15 +4157,6 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 	}
 
 	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		/** - Run SHA3 KAT */
-		Status = XST_FAILURE;
-		Status = XLoader_Sha3Kat(SecurePtr);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
-			XPlmi_Printf(DEBUG_INFO, "SHA KAT failed\n\r");
-			goto END;
-		}
-
 		/** - Read the MetaHeader HashBlock hash */
 		Status = XST_FAILURE;
 		Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
@@ -4769,13 +4761,6 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	Status = XLoader_Sha3Kat(SecurePtr);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO, "SHA3 KAT failed\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
-		goto END;
-	}
-
 	Status = XST_FAILURE;
 	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR,
 			(ImgHdrTbl->OptionalDataLen << XPLMI_WORD_LEN_SHIFT) + XIH_IHT_LEN,
@@ -5156,13 +5141,6 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 	volatile int StatusTmp = XST_FAILURE;
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		goto END;
-	}
-
-	Status = XLoader_Sha3Kat(SecurePtr);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO, "SHA3 KAT failed\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 		goto END;
 	}
 
