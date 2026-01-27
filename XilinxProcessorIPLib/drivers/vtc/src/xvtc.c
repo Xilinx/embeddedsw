@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -154,7 +154,7 @@
 * 			based on resolutions. Moved the hard coded values for SDI
 * 			NTSC resolution to SDI TXSS driver instead of in VTC
 * 			driver.
-* 	jsr    10/03/18	Corrected the VGA resoultion timing paramters w.r.t the
+* 	jsr    10/03/18	Corrected the VGA resolution timing parameters w.r.t the
 * 			timing values given in the VTC GUI for 640x480p
 * 8.2	rg     08/12/20	Implemented XVtc_SetAdaptiveSyncMode,
 *			XVtc_DisableAdaptiveSync and
@@ -1346,7 +1346,7 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 		 * As there is no vactive FIELD1 entry in the video common
 		 * library, program it separately. For resolutions where
 		 * vactive values are different, it should be taken care in
-		 * corrosponding driver. Otherwise program same values in
+		 * corresponding driver. Otherwise program same values in
 		 * FIELD0 and FIELD1 registers */
 		RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
 				XVTC_ASIZE_VERT_MASK;
@@ -1437,7 +1437,7 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 		 * As there is no vactive FIELD1 entry in the video common
 		 * library, program it separately. For resolutions where
 		 * vactive values are different, it should be taken care in
-		 * corrosponding driver. Otherwise program same values in
+		 * corresponding driver. Otherwise program same values in
 		 * FIELD0 and FIELD1 registers */
 		RegValue = ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
 				XVTC_ASIZE_VERT_MASK;

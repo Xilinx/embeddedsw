@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -93,7 +93,7 @@
 *                       "Xboolean" -> "int"
 *                       "XTEST_FAILED" -> "XST_FAILURE"
 *                       "XTEST_PASSED" -> "XST_SUCCESS"
-* 6.1   adk    08/23/14 Alligned doxygen tags.
+* 6.1   adk    08/23/14 Aligned doxygen tags.
 * 8.2   pg     04/03/20  Fixed Interrupt handler issue
 * </pre>
 *

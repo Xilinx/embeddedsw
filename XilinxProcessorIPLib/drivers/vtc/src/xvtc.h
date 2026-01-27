@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -238,7 +238,7 @@
 * 7.0   vns    02/25/15 Added Interlaced field to XVtc_Signal structure,
 *                       Removed XVtc_RegUpdate as there are is one more API,
 *                       XVtc_RegUpdateEnable with same functionality but
-*                       provided backward compatability.
+*                       provided backward compatibility.
 *
 *                       Modifications from xvtc.c file are:
 *                       Modified HActiveVideo value to 1920 for
@@ -267,7 +267,7 @@
 *                       First Release.
 *                       Implemented following function:
 *                       XVtc_SelfTest.
-* 7.1   vns    10/14/15 Added InterlacedMode feild to XVtc_SourceSelect
+* 7.1   vns    10/14/15 Added InterlacedMode field to XVtc_SourceSelect
 *                       structure
 * 7.2   sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
 *                       adding 64 bit support. CR# 867425.

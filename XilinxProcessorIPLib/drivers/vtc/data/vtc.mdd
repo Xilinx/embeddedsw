@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 # MODIFICATION HISTORY:
 #
@@ -9,7 +9,7 @@
 # 6.0     adk    10/12/13  Removed interrupt handler entry
 # 8.0     jsr    10/01/18  Removed hard coded programming of vactive size
 # 			   values from driver
-# 	  jsr    10/03/18  Corrected VGA resoution from 656x496 to 640x480
+# 	  jsr    10/03/18  Corrected VGA resolution from 656x496 to 640x480
 # 8.1     pg     04/03/20  Fixed interrupt handler issue
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -19,7 +19,7 @@ BEGIN driver vtc
   OPTION supported_peripherals = (v_tc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 8.7;
+  OPTION VERSION = 8.8;
   OPTION NAME = vtc;
 
 END driver
