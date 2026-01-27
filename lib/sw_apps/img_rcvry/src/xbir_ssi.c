@@ -26,8 +26,8 @@
 /************************** Constant Definitions *****************************/
 #define XBIR_SSI_JSON_OBJ_START			'{'
 #define XBIR_SSI_JSON_OBJ_END			'}'
-#define XBIR_SSI_JSON_OBJ_SEPERATOR		','
-#define XBIR_SSI_JSON_NAME_VAL_SEPERATOR	':'
+#define XBIR_SSI_JSON_OBJ_SEPARATOR		','
+#define XBIR_SSI_JSON_NAME_VAL_SEPARATOR	':'
 
 #define XBIR_SSI_JSON_SYS_BOARD_INFO_NAME	"SysBoardInfo"
 #define XBIR_SSI_JSON_CC_INFO_NAME		"CcInfo"
@@ -73,8 +73,8 @@ typedef int (*Xbir_WriteDevice) (u32 Offset, u8 *Data, u32 Size,
 static const char* Xbir_SsiStrRTrim (const char *Str);
 static const char* Xbir_SsiJsonGetName (const char *JsonStr, char *Name,
 	u16 NameLen);
-static const char* Xbir_SsiJsonGetSeperator (const char *JsonStr,
-	char *Seperator);
+static const char* Xbir_SsiJsonGetSeparator (const char *JsonStr,
+	char *Separator);
 static const char* Xbir_SsiJsonGetVal(const char *JsonStr, char *Val,
 	u16 ValLen);
 static int Xbir_SsiGetImgInfo (Xbir_HttpArg *HttpArg, u8 *HttpReq,
@@ -129,8 +129,8 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		14U + /* Number of spaces */
 		3U + /* Number of XBIR_SSI_JSON_OBJ_START */
 		3U + /* Number of XBIR_SSI_JSON_OBJ_END */
-		12U + /* Number of XBIR_SSI_JSON_OBJ_SEPERATOR */
-		12U + /* Number of XBIR_SSI_JSON_NAME_VAL_SEPERATOR */
+		12U + /* Number of XBIR_SSI_JSON_OBJ_SEPARATOR */
+		12U + /* Number of XBIR_SSI_JSON_NAME_VAL_SEPARATOR */
 		1U; /* NULL termination */
 
 	if (Len < TotalLen) {
@@ -149,36 +149,36 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c %c",
 		XBIR_SSI_JSON_SYS_BOARD_INFO_NAME,
 
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 
 		XBIR_SSI_JSON_OBJ_START,
 
 		XBIR_SSI_JSON_BRD_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		SysBoardInfo->BoardPrdName,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_REV_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		SysBoardInfo->RevNum,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_SERIAL_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		SysBoardInfo->BoardSerialNumber,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_PART_NO_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		SysBoardInfo->BoardPartNum,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_UUID_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		SysBoardInfo->UUID,
 
 		XBIR_SSI_JSON_OBJ_END,
-		XBIR_SSI_JSON_OBJ_SEPERATOR);
+		XBIR_SSI_JSON_OBJ_SEPARATOR);
 	Len -= strlen(Str);
 	Str += strlen(Str);
 
@@ -186,32 +186,32 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		"\"%s\"%c%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
 		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c %c",
 		XBIR_SSI_JSON_CC_INFO_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 
 		XBIR_SSI_JSON_OBJ_START,
 
 		XBIR_SSI_JSON_BRD_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		CcInfo->BoardPrdName,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_REV_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		CcInfo->RevNum,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_SERIAL_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		CcInfo->BoardSerialNumber,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_PART_NO_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 			CcInfo->BoardPartNum,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_UUID_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		CcInfo->UUID,
 
 		XBIR_SSI_JSON_OBJ_END,
@@ -264,22 +264,22 @@ int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen)
 		XBIR_SSI_JSON_OBJ_START,
 
 		XBIR_SSI_JSON_IMG_A_BOOTABLE_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		(BootImgStatus->ImgABootable != 0x00U) ? "true" : "false",
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_IMG_B_BOOTABLE_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		(BootImgStatus->ImgBBootable != 0x00U) ? "true" : "false",
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_REQ_IMG_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		(BootImgStatus->RequestedBootImg != 0x00U) ? "ImageB" : "ImageA",
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_SEPARATOR,
 
 		XBIR_SSI_JSON_LAST_BOOTABLE_IMG_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		(BootImgStatus->LastBootedImg != 0x00U) ? "ImageB" : "ImageA",
 
 		XBIR_SSI_JSON_OBJ_END);
@@ -330,7 +330,7 @@ int Xbir_SsiJsonBuildFlashEraseStatus(char *JsonStr, u16 JsonStrLen)
 		"%c \"%s\"%c%s %c",
 		XBIR_SSI_JSON_OBJ_START,
 		"Progress",
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPARATOR,
 		ProgressString,
 		XBIR_SSI_JSON_OBJ_END);
 
@@ -365,7 +365,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 	const char *Str;
 	char Name[XBIR_SSI_JSON_MAX_NAME_LEN + 1U];
 	char Val[XBIR_SSI_JSON_MAX_VALUE_LEN + 1U];
-	char Seperator;
+	char Separator;
 	u8 ImgABootable = 0xFFU;
 	u8 ImgBBootable = 0xFFU;
 	u8 ReqBootImg = 0xFFU;
@@ -393,8 +393,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 			break;
 		}
 
-		Str = Xbir_SsiJsonGetSeperator(Str, &Seperator);
-		if (Seperator != XBIR_SSI_JSON_NAME_VAL_SEPERATOR) {
+		Str = Xbir_SsiJsonGetSeparator(Str, &Separator);
+		if (Separator != XBIR_SSI_JSON_NAME_VAL_SEPARATOR) {
 			break;
 		}
 
@@ -444,8 +444,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 			}
 		}
 
-		Str = Xbir_SsiJsonGetSeperator(Str, &Seperator);
-		if (Seperator == XBIR_SSI_JSON_OBJ_END) {
+		Str = Xbir_SsiJsonGetSeparator(Str, &Separator);
+		if (Separator == XBIR_SSI_JSON_OBJ_END) {
 			if ((ImgABootable != 0xFFU) && (ImgABootable != 0xFFU) &&
 				(ReqBootImg != 0xFFU)) {
 				Status = XST_SUCCESS;
@@ -457,7 +457,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 			break;
 		}
 
-		if (Seperator != XBIR_SSI_JSON_OBJ_SEPERATOR) {
+		if (Separator != XBIR_SSI_JSON_OBJ_SEPARATOR) {
 			Xbir_Printf(DEBUG_INFO, " ERROR: Invalid JSON OBJ Separator\r\n");
 			Status = XBIR_ERROR_JSON_OBJ_SEPARATOR;
 			break;
@@ -665,7 +665,7 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 	const char *Str = JsonStr;
 	char Name[XBIR_SSI_JSON_MAX_NAME_LEN + 1U] = {0U};
 	char Val[XBIR_SSI_JSON_MAX_VALUE_LEN + 1U] = {0U};
-	char Seperator;
+	char Separator;
 	const Xbir_SysPersistentState *BootImgStatus;
 
 	if (*JsonStr == 0) {
@@ -686,8 +686,8 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 	if (strncmp(Name, "crc", strlen("crc")) != 0U) {
 		goto END;
 	}
-	Str = Xbir_SsiJsonGetSeperator(Str, &Seperator);
-	if (Seperator != XBIR_SSI_JSON_NAME_VAL_SEPERATOR) {
+	Str = Xbir_SsiJsonGetSeparator(Str, &Separator);
+	if (Separator != XBIR_SSI_JSON_NAME_VAL_SEPARATOR) {
 		goto END;
 	}
 
@@ -734,7 +734,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function returns a pointer to first occurance of non space and tab
+ * This function returns a pointer to first occurrence of non space and tab
  * character i.e. it returns pointer by skipping leading spaces and tabs
  * from input string.
  *
@@ -764,9 +764,9 @@ static const char* Xbir_SsiStrRTrim (const char *Str)
  * @param	Name	Pointer to string where Name will be stored
  * @param	NameLen	Maximum space available to store Name.
  *
- * @return	Pointer to remaining string after extrating the name
+ * @return	Pointer to remaining string after extracting the name
  *
- *****************************************************************************/
+ ****************************************************************************/
 static const char* Xbir_SsiJsonGetName (const char *JsonStr, char *Name,
 	u16 NameLen)
 {
@@ -806,23 +806,23 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function extracts the seperator (obj or name value pair seperator) from
+ * This function extracts the separator (obj or name value pair separator) from
  * the JSON string. It can also be used to read first non space character from
  * JSON string.
  *
  * @param	JsonStr		Pointer to input JSON string
- * @param	Seperator	Pointer where first non space character will be
+ * @param	Separator	Pointer where first non space character will be
  *				stored
- * @return	Pointer to string after seperator or non space character
+ * @return	Pointer to string after separator or non space character
  *
  *****************************************************************************/
-static const char* Xbir_SsiJsonGetSeperator (const char *JsonStr,
-	char *Seperator)
+static const char* Xbir_SsiJsonGetSeparator (const char *JsonStr,
+	char *Separator)
 {
 	const char *Str = JsonStr;
 
 	Str = Xbir_SsiStrRTrim(Str);
-	*Seperator = Str[0U];
+	*Separator = Str[0U];
 
 	return (Str + 1U);
 }
@@ -835,9 +835,9 @@ static const char* Xbir_SsiJsonGetSeperator (const char *JsonStr,
  * @param	JsonStr	Pointer to input JSON string
  * @param	Val	Pointer where value from name value pair will be stored
  *
- * @return	Pointer to remaining string after extrating the value
+ * @return	Pointer to remaining string after extracting the value
  *
- *****************************************************************************/
+ ****************************************************************************/
 static const char* Xbir_SsiJsonGetVal(const char *JsonStr, char *Val,
 	u16 ValLen)
 {

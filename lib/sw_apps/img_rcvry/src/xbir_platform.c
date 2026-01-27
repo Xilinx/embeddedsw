@@ -66,7 +66,7 @@ void dhcp_coarse_tmr();
 void Xbir_Platform_TimerCallback (void)
 {
 	/* We need to call tcp_fasttmr & tcp_slowtmr at intervals specified
-	 * by lwIP. It is not important that the timing is absoluetly accurate.
+	 * by lwIP. It is not important that the timing is absolutely accurate.
 	 */
 	static u8 Odd = 1U;
 #if LWIP_DHCP==1

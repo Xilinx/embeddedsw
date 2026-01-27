@@ -218,10 +218,10 @@ static u32 CalcCrc = 0xFFFFFFFFU;
  *
  * @param	None
  *
- * @return	XST_SUCCESS on successful intialization of the system devices
+ * @return	XST_SUCCESS on successful initialization of the system devices
  * 		Error code on failure
  *
- *****************************************************************************/
+ ****************************************************************************/
 int Xbir_SysInit (void)
 {
 	int Status = XST_FAILURE;
@@ -803,10 +803,10 @@ END:
  *
  * @param	BootImgId	Boot Image ID
  *
- * @return	XST_SUCCESS on successfule erasing of specified QSPI region
+ * @return	XST_SUCCESS on successful erasing of specified QSPI region
  *		Error code on failure
  *
- *****************************************************************************/
+ ****************************************************************************/
 int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 {
 	int Status = XBIR_ERROR_BOOT_IMG_ID;

@@ -68,7 +68,7 @@ int main (void)
 
 	Status = Xbir_SysInit();
 	if (XST_SUCCESS != Status) {
-		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: System intialization failed...");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: System initialization failed...");
 		goto END;
 	}
 

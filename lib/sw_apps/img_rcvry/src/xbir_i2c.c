@@ -165,11 +165,11 @@ END:
 
 /*****************************************************************************/
 /**
- * This function perform the initial configuration for the IIC Device.
+ * This function performs the initial configuration for the IIC Device.
  *
  * @param	None.
  *
- * @return	XST_SUCCESS on successful intialization
+ * @return	XST_SUCCESS on successful initialization
  * 		Error code on failure
  *
  ****************************************************************************/
