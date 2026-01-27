@@ -1105,6 +1105,16 @@ done:
 }
 
 
+/*****************************************************************************/
+/**
+ * @brief	Handle device state machine event.
+ *
+ * @param	Device	Pointer to the device structure.
+ * @param	Event	Event to be processed by the device FSM.
+ *
+ * @return	XST_SUCCESS if successful, XST_FAILURE otherwise.
+ *
+ *****************************************************************************/
 static XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
 {
 	XStatus Status = XST_FAILURE;

@@ -262,6 +262,15 @@ const XPm_Fsm XPmGenericDeviceFsm = {
 	DEFINE_DEV_TRANS(XPmGenericDevEventTransitions),
 };
 
+/*****************************************************************************/
+/**
+ * @brief	Initialize the device FSM for runtime device operations.
+ *
+ * @param	DevOps	Pointer to the runtime device operations structure.
+ *
+ * @return	XST_SUCCESS if successful, XST_FAILURE otherwise.
+ *
+ *****************************************************************************/
 XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 	XStatus Status = XST_FAILURE;
 	if (NULL == DevOps) {
