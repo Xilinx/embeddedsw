@@ -653,7 +653,7 @@ static u32 XDpPsu_AdjVswingPreemp(XDpPsu *InstancePtr)
 
 	/* Verify that the voltage swing and pre-emphasis combination is
 	 * allowed. Some combinations will result in a differential peak-to-peak
-	 * voltage that is outside the permissable range. See the VESA
+	 * voltage that is outside the permissible range. See the VESA
 	 * DisplayPort v1.2 Specification, section 3.1.5.2.
 	 * The valid combinations are:
 	 *      PE=0    PE=1    PE=2
@@ -916,7 +916,7 @@ static XDpPsu_TrainingState XDpPsu_TrainingStateAdjustLinkRate(XDpPsu *InstanceP
  *		- XDPPSU_TS_CHANNEL_EQUALIZATION if the clock recovery sequence
  *		  completed successfully.
  *		- XDPPSU_TS_FAILURE if writing the drive settings to the RX
- *		  device was unsuccesful.
+ *		  device was unsuccessful.
  *		- XDPPSU_TS_ADJUST_LINK_RATE if the clock recovery sequence
  *		  did not complete successfully.
  *
@@ -1111,7 +1111,7 @@ static u32 XDpPsu_CheckLaneAlign(XDpPsu *InstancePtr)
  *		- XST_ERROR_COUNT_MAX if the AUX request timed out.
  *		- XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
  *		  reply code or if the AUX transaction failed).
- *		- XST_DEVICE_NOT_FOUND if the sink is diconnected from the TX.
+ *		- XST_DEVICE_NOT_FOUND if the sink is disconnected from the TX.
  *
  * @note	None.
  *
@@ -1525,7 +1525,7 @@ u32 XDpPsu_EstablishLink(XDpPsu *InstancePtr)
 /******************************************************************************/
 /**
  * This function checks if the reciever's DisplayPort Configuration Data (DPCD)
- * indicates the reciever has achieved and maintained clock recovery, channel
+ * indicates the receiver has achieved and maintained clock recovery, channel
  * equalization, symbol lock, and interlane alignment for all lanes currently in
  * use.
  *

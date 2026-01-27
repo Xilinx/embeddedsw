@@ -176,7 +176,7 @@ typedef struct {
 	u32 TransferUnitSize;		/**< Size of the transfer unit in the
 						framing logic. In MST mode, this
 						is also the number of time slots
-						that are alloted in the payload
+						that are allotted in the payload
 						ID table. */
 	u32 InitWait;			/**< Number of initial wait cycles at
 						the start of a new line by

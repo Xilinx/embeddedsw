@@ -109,14 +109,14 @@ extern "C" {
 #define XDPPSU_TX_USER_FIFO_OVERFLOW	0x0110	/**< Indicates an overflow in
 							user FIFO. */
 #define XDPPSU_INTERRUPT_SIG_STATE	0x0130	/**< The raw signal values for
-							interupt events. */
+							interrupt events. */
 #define XDPPSU_AUX_REPLY_DATA		0x0134	/**< Reply data received during
 							the AUX reply. */
 #define XDPPSU_AUX_REPLY_CODE		0x0138	/**< Reply code received from
 							the most recent AUX
 							command. */
 #define XDPPSU_AUX_REPLY_COUNT		0x013C	/**< Number of reply
-							transactions receieved
+							transactions received
 							over AUX. */
 #define XDPPSU_REPLY_DATA_COUNT		0x0148	/**< Total number of data bytes
 							actually received during
