@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -381,7 +381,7 @@ int EmacLiteIntrExample(INTC *IntcInstancePtr,
 	Status = EmacLiteRecvFrame(EMACLITE_TEST_FRAME_SIZE);
 
 	/*
-	 *  Diasble the Loop Back.
+	 *  Disable the Loop Back.
 	 */
 	if (XEmacLite_IsMdioConfigured(EmacLiteInstPtr)) {
 		/*
