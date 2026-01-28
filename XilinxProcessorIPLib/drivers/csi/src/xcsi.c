@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -104,7 +104,7 @@ u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *CfgPtr,
 /*****************************************************************************/
 /**
 * This function will do a reset of the IP. This will reset the values
-* of all regiters except Core Config and Protocol Config registers.
+* of all registers except Core Config and Protocol Config registers.
 *
 * @param	InstancePtr is the XCsi instance to operate on.
 *
@@ -143,7 +143,7 @@ u32 XCsi_Reset(XCsi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Thsi function will enable/disable the IP Core to start processing.
+* This function will enable/disable the IP Core to start processing.
 *
 * @param	InstancePtr is the XCsi instance to operate on.
 * @param 	Flag will be used to indicate Enable or Disable action

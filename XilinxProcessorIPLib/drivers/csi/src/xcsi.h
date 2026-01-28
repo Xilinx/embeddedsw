@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,10 +22,10 @@
 * for Camera Serial Interface 2 (CSI-2) Version 1.1 ? 18 July 2012
 * with D-PHY v1.2.
 *
-* There is a provision for multi-lane support for upto 4 lanes for receiving
-* data upto 1.5 Gbps per lane. It supports both short and long packets.
+* There is a provision for multi-lane support for up to 4 lanes for receiving
+* data up to 1.5 Gbps per lane. It supports both short and long packets.
 * Most of the primary and secondary formats of images are supported along with
-* interleaving of data at packet or frame level for upto 4 virtual channels
+* interleaving of data at packet or frame level for up to 4 virtual channels
 * in the stream. The IP has capability to detect Start of Transmission, CRC,
 * ECC, etc type of errors and report them via interrupts.
 *
@@ -152,7 +152,7 @@ typedef struct {
 } XCsi_SPktData;
 
 /**
-* This typdef contains the structure for getting the information about
+* This typedef contains the structure for getting the information about
 * a Virtual Channel
 */
 typedef struct {
@@ -163,7 +163,7 @@ typedef struct {
 } XCsi_VCInfo;
 
 /**
-* This typdef contains the structure for getting the information about
+* This typedef contains the structure for getting the information about
 * the Clock Lane
 */
 typedef struct {
@@ -171,7 +171,7 @@ typedef struct {
 } XCsi_ClkLaneInfo;
 
 /**
-* This typdef contains the structure for getting the information about
+* This typedef contains the structure for getting the information about
 * the Data Lane
 */
 typedef struct {
@@ -549,7 +549,7 @@ static inline u32 XCsi_GetActiveLaneCount(XCsi *InstancePtr)
 *
 * @return
 *		- 1 - If the Short Packet FIFO Full
-*		- 0 - If the Short Packet FIFO avilable
+*		- 0 - If the Short Packet FIFO available
 *
 * @note		None
 *

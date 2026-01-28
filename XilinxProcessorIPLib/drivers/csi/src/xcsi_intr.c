@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -193,7 +193,7 @@ void XCsi_InterruptClear(XCsi *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is the XCsi instance to operate on
 * @param 	HandleType is the type of call back to be registered.
-* @param	Callbackfunc is the pointer to a call back funtion which
+* @param	Callbackfunc is the pointer to a call back function which
 * 		is called when a particular event occurs.
 * @param 	Callbackref is a void pointer to data to be referenced to
 * 		by the Callbackfunc
