@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -72,9 +72,9 @@ static int XSecure_ShaKat(void);
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If Cmd is NULL or invalid API ID is received.
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If Cmd is NULL or invalid API ID is received.
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
@@ -183,9 +183,9 @@ END:
  * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the KAT is successful
- *		 - XSECURE_AES_KAT_BUSY  If AES is busy
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the KAT is successful
+ *		 - XSECURE_AES_KAT_BUSY - If AES is busy
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecKat(void)
@@ -211,9 +211,9 @@ static int XSecure_AesDecKat(void)
  * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the KAT is successful
- *		 - XSECURE_AES_KAT_BUSY  If AES is busy
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the KAT is successful
+ *		 - XSECURE_AES_KAT_BUSY - If AES is busy
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecCmKat(void)
@@ -239,9 +239,9 @@ static int XSecure_AesDecCmKat(void)
  * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the KAT is successful
- *		 - XSECURE_AES_KAT_BUSY  If AES is busy
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the KAT is successful
+ *		 - XSECURE_AES_KAT_BUSY - If AES is busy
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesEncKat(void)
@@ -270,8 +270,8 @@ static int XSecure_AesEncKat(void)
  * @param	CurveClass	Is a class of elliptic curve
  *
  * @return
- *		 - XST_SUCCESS  If the elliptic KAT is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the elliptic KAT is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
@@ -297,8 +297,8 @@ static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
  * @param	CurveClass	Is a class of elliptic curve
  *
  * @return
- *		 - XST_SUCCESS  If the elliptic KAT is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the elliptic KAT is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
@@ -326,8 +326,8 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
  * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the Rsa Kat is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the Rsa Kat is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPubEncKat(void)
@@ -350,8 +350,8 @@ static int XSecure_RsaPubEncKat(void)
  * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the Rsa Kat is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the Rsa Kat is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPrivateDecKat(void)
@@ -377,9 +377,9 @@ static int XSecure_RsaPrivateDecKat(void)
  * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the sha update/fnish is successful
- *		 - XSECURE_SHA3_KAT_BUSY  If SHA3 is busy
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the sha update/fnish is successful
+ *		 - XSECURE_SHA3_KAT_BUSY - If SHA3 is busy
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaKat(void)

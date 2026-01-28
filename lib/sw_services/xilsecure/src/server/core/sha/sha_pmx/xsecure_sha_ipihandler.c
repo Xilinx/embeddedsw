@@ -79,10 +79,10 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd);
  * @param	Cmd	is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	XST_INVALID_PARAM - If cmd is NULL or if invalid API ID is received.
- *	-	XST_DEVICE_BUSY - If IPI channel is busy
- *	-	XST_FAILURE - If there is a failure
+ *		- XST_SUCCESS - If the handler execution is successful
+ *		- XST_INVALID_PARAM - If cmd is NULL or if invalid API ID is received.
+ *		- XST_DEVICE_BUSY - If IPI channel is busy
+ *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
@@ -127,8 +127,8 @@ END:
  * @brief	This function initializes SHA3 instance.
  *
  * @return
- *	-	XST_SUCCESS - If the initialization is successful
- *	-	XST_FAILURE - If there is a failure
+ *		- XST_SUCCESS - If the initialization is successful
+ *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha3Init(void)
@@ -165,8 +165,8 @@ END:
  * 				where hash to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the sha update/fnish is successful
- *	-	XST_FAILURE - If there is a failure
+ *		- XST_SUCCESS - If the sha update/fnish is successful
+ *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha3UpdateIpi(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
@@ -218,8 +218,8 @@ END:
  * @param	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the sha Update/Finish/Digest is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the sha Update/Finish/Digest is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)

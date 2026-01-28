@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -68,8 +68,8 @@ XSecure_TrngInstance *XSecure_GetTrngInstance(void)
  * @param	PersStr		Personalization string
  *
  * @return
- *		 - XST_SUCCESS  Upon success.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - Upon success.
+ *		 - XST_FAILURE - On failure.
  *
  **************************************************************************************************/
 int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *PersStr)
@@ -120,3 +120,4 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 END:
 	return Status;
 }
+/** @} */

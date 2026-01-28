@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,7 +23,10 @@
 * @note
 *
 *******************************************************************************/
-
+/**
+* @addtogroup xsecure_lms_server_apis XilSecure LMS Server APIs
+* @{
+*/
 /***************************** Include Files **********************************/
 #include "xil_io.h"
 #include "xsecure_lms.h"
@@ -49,8 +52,8 @@
 * 				parameter values are present @ref XSecure_LmsParam
 *
 * @return
-*	- XST_SUCCESS - Valid type is passed, and parameters are assigned
-*	- XST_FAILURE - If not a valid type is passed
+*		- XST_SUCCESS - Valid type is passed, and parameters are assigned
+*		- XST_FAILURE - If not a valid type is passed
 *******************************************************************************/
 int XSecure_LmsLookupParamSet(XSecure_LmsType Type,
 	XSecure_LmsParam** Parameters)
@@ -210,6 +213,7 @@ END:
 	/* No matter success or failure, call happened successfully */
 	return Status;
 }
+/** @} */
 
 
 /** @} */

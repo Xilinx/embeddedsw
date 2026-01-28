@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,8 +61,9 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
  * @param 	Cmd is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		- XST_SUCCESS - If the handler execution is successful
+ *		- XST_INVALID_PARAM - If Cmd is NULL or invalid API ID
+ *		- XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
@@ -127,8 +128,10 @@ END:
  * @param	AddrHigh		upper 32 bit address of XSecure_ShaOpParams
  * 					structure
  * @return
- *	-	XST_SUCCESS - If the SHA opearation is successful
- *	-	ErrorCode - If the SHA operation is a failure
+ *		- XST_SUCCESS - If the SHA operation is successful
+ *		- XST_INVALID_PARAM - If XSecureShaInstPtr is NULL
+ *		- XSECURE_ERR_INVALID_ADDR_RANGE - If address range validation fails
+ *		- XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh)

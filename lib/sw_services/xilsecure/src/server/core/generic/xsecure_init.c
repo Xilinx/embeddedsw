@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -77,8 +77,8 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
  * @brief	This function initializes AES and SHA hardware instances
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - error code  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_AesShaInit(void)
@@ -135,8 +135,8 @@ END:
  * @param   PpdiEventParamsPtr is the pointer to partial PDI event parameters
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - error code  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)

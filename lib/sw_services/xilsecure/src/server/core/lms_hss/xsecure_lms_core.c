@@ -27,7 +27,10 @@
 * @note
 *
 *******************************************************************************/
-
+/**
+* @addtogroup xsecure_lms_server_apis XilSecure LMS Server APIs
+* @{
+*/
 /***************************** Include Files **********************************/
 #include "xsecure_sha.h"
 #include "xsecure_lms_core.h"
@@ -89,7 +92,13 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes);
 * 					needs to be copied, assumed that has enough place
 *
 * @return
-*		- XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - If operation succeeds
+*		- XSECURE_LMS_INVALID_PARAM - If input parameters are invalid
+*		- XSECURE_LMS_OTS_PUB_KEY_SIGN_TYPE_MISMATCH_ERROR - If signature type mismatch
+*		- XSECURE_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR - If unsupported signature type
+*		- XSECURE_LMS_OTS_DIGEST_CHECKSUM_OP_FAILED_ERROR - If digest checksum operation fails
+*		- XSECURE_AUTH_LMS_DIGEST_CHECKSUM_FAILED_ERROR - If checksum computation fails
+*		- XST_FAILURE - On failure
 *******************************************************************************/
 static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
         XPmcDma *DmaPtr,
@@ -360,7 +369,23 @@ END:
 * @param	LmsSignVerifyParams	Pointer to LMS signature verification parameters
 *
 * @return
-*		XST_SUCCESS - if operation success, otherwise following errors
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_INVALID_PARAM - Invalid parameter provided
+*		- XSECURE_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR - Public key LMS type is unsupported
+*		- XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR - Expected public key length mismatch
+*		- XSECURE_LMS_SIGN_LEN_1_ERROR - Signature length is insufficient
+*		- XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR - OTS signature type mismatch with public key
+*		- XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR - OTS signature type is unsupported
+*		- XSECURE_LMS_SIGN_LEN_2_ERROR - Signature length error for OTS component
+*		- XSECURE_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR - LMS signature type mismatch with public key
+*		- XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR - LMS signature type is unsupported
+*		- XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR - Invalid node number in signature
+*		- XSECURE_LMS_SIGN_LEN_3_ERROR - Total signature length mismatch
+*		- XSECURE_LMS_SIGN_OTS_OP_ERROR - OTS signature computation operation failed
+*		- XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR - SHA digest failed for leaf node
+*		- XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR - Public key authentication failed
+*		- XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR - Public key authentication glitch detected
+*		- XST_FAILURE - On any other failure
 *
 *******************************************************************************/
 int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
@@ -787,7 +812,20 @@ END:
 * @param	HssInitParams	Pointer to HSS initialization parameters
 *
 * @return
-*		- XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_INVALID_PARAM - Invalid parameter provided
+*		- XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR - HSS public key length is invalid
+*		- XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR - HSS signature level is not supported
+*		- XSECURE_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR - HSS signature and public key level mismatch
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS type is unsupported
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS OTS type is unsupported
+*		- XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR - SHA algorithm mismatch at level 0
+*		- XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR - Level 0 signature length is invalid
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR - Level 0 public key authentication failed
+*		- XSECURE_LMS_PUB_OP_FAILED_ERROR - Public key operation failed
+*		- XSECURE_LMS_PUB_OP_FAILED_1_ERROR - Public key operation failed
+*		- XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR - Level 1 public key LMS type is unsupported
+*		- XST_FAILURE - On any other failure
 *******************************************************************************/
 int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitParams *HssInitParams)
 {
@@ -1101,7 +1139,10 @@ END:
 * @param	Mode	Mode of the SHA operation
 *
 * @return
-*		- XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR - Level 1 public key LMS type is unsupported
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS OTS type is unsupported
+*		- XST_FAILURE - On SHA operation failure
 *******************************************************************************/
 int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	u8* Data, u32 DataLen, XSecure_ShaMode Mode)
@@ -1170,7 +1211,13 @@ END:
 * @param	SignatureLen	Length of signature buffer
 *
 * @return
-*		- XST_SUCCESS - If operation success, otherwise following errors
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR - Level 1 public key LMS type is unsupported
+*		- XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Level 1 public key LMS OTS type is unsupported
+*		- XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR - OTS signature length is invalid
+*		- XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR - Level 1 signature length is invalid
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR - Level 0 public key authentication failed
+*		- XST_FAILURE - On signature verification failure
 *******************************************************************************/
 int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	XPmcDma *DmaPtr, u8* SignBuff,
@@ -1273,7 +1320,7 @@ END:
  * @param	bytes -  number of bytes to be extracted
  *
  * @return
- *		u32 - resultant value
+ *		- Resultant value
  *
  ******************************************************************************/
 static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes)
@@ -1298,9 +1345,10 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes)
 * @param	SignAlgo	Pointer to store the extracted LMS hash algorithm
 *
 * @return
-*		- XST_SUCCESS - If operation success, otherwise following errors
-*		- XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR
-*		- XSECURE_LMS_INVALID_PARAM - If an invalid public algorithm is provided
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS type is unsupported
+*		- XSECURE_LMS_INVALID_PARAM - Invalid public algorithm provided
+*		- XST_FAILURE - On parameter lookup failure
 *******************************************************************************/
 int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode *SignAlgo)
 {
@@ -1339,5 +1387,4 @@ END:
 	return Status;
 
 }
-
 /** @} */

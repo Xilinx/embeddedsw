@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -67,8 +67,8 @@ XSecure_TrngInstance *XSecure_GetTrngInstance(void)
  * @brief	This function initialize and configures the TRNG into DRNG/HRNG mode of operation.
  *
  * @return
- *		 - XST_SUCCESS  Upon success.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - Upon success.
+ *		 - XST_FAILURE - On failure.
  *
  **************************************************************************************************/
 int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *PersStr)
@@ -145,8 +145,8 @@ END:
  * @param	TrngInstance Pointer to XTrngpsv Instance.
  *
  * @return
- * 		- XST_SUCCESS On success
- * 		- Error Code On failure
+ *		- XST_SUCCESS - On success
+ *		- XST_FAILURE - On failure
  *
  **************************************************************************************************/
 int XSecure_PreOperationalSelfTests(XSecure_TrngInstance *TrngInstance)
@@ -172,3 +172,4 @@ int XSecure_PreOperationalSelfTests(XSecure_TrngInstance *TrngInstance)
 END:
 	return Status;
 }
+/** @} */

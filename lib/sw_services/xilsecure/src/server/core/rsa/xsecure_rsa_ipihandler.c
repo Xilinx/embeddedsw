@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,9 +63,9 @@ static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If Cmd is NULL or API ID is invalid
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If Cmd is NULL or API ID is invalid
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
@@ -117,8 +117,8 @@ END:
  * 				where encrypted data to be stored
  *
  * @return
- *		 - XST_SUCCESS  If the Rsa encryption is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the Rsa encryption is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaEncrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -176,8 +176,8 @@ END:
  * 				XSecure_RsaSignParams structure
  *
  * @return
- *		 - XST_SUCCESS  If the Rsa sign verification is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the Rsa sign verification is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)

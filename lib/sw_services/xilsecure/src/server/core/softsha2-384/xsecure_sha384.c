@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -49,8 +49,8 @@ sha384_context ShaCtx;
  * @param	Hash	Pointer to buffer which stores calculated SHA2 hash
  *
  * @return
- *		 - XST_SUCCESS  If digest calculation done successfully
- *		 - XSECURE_SHA384_INVALID_PARAM  On invalid parameter
+ *		 - XST_SUCCESS - If digest calculation done successfully
+ *		 - XSECURE_SHA384_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash)
@@ -89,8 +89,8 @@ void XSecure_Sha384Start(void)
  * @param	Size	Size of the input data
  *
  * @return
- *		 - XST_SUCCESS  If update done successfully
- *		 - XSECURE_SHA384_INVALID_PARAM  On invalid parameter
+ *		 - XST_SUCCESS - If update done successfully
+ *		 - XSECURE_SHA384_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XSecure_Sha384Update(u8* Data, u32 Size)
@@ -118,8 +118,8 @@ END:
  * @param	ResHash		Pointer to XSecure_Sha2Hash structure
  *
  * @return
- *		 - XST_SUCCESS  If digest calculation done successfully
- *		 - XSECURE_SHA384_INVALID_PARAM  On invalid parameter
+ *		 - XST_SUCCESS - If digest calculation done successfully
+ *		 - XSECURE_SHA384_INVALID_PARAM - On invalid parameter
  *
  ******************************************************************************/
 int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash)

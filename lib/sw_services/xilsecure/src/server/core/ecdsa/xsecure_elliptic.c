@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -108,10 +108,10 @@ static u32 XSecure_EllipticValidateAndGetCrvInfo(XSecure_EllipticCrvTyp CrvType,
  * @param	KeyAddr	Pointer to public key address
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  When elliptic Curve is not supported
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
- *		 - XSECURE_ELLIPTIC_GEN_KEY_ERR  Error in generating Public key
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve is not supported
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *		 - XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
@@ -201,9 +201,9 @@ END:
  * @param	Key	Pointer to public key
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  When elliptic Curve is not supported
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve is not supported
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
@@ -249,14 +249,14 @@ END:
  * @param	SignAddr	Pointer to signature address
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve data pointer is NULL
- *		 - XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM  When Bad random number used
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve data pointer is NULL
+ *		 - XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number used
  *						for sign generation
  *		 - XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN  Incorrect hash length for sign
  *							generation
- *		 - XST_FAILURE  On any other failures
+ *		 - XST_FAILURE - On any other failures
  *
  * @note
  * K, the ephemeral private key, shall be an unpredictable (cryptographically
@@ -400,8 +400,8 @@ END:
  * @param	Sign	Pointer to the signature
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
  *
  * @note
  * K, the ephemeral private key, shall be an unpredictable (cryptographically
@@ -466,13 +466,13 @@ END:
  * @param	KeyAddr	Pointer to public key address
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve data pointer is NULL
- *		 - XSECURE_ELLIPTIC_KEY_ZERO  When Public key is zero
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve data pointer is NULL
+ *		 - XSECURE_ELLIPTIC_KEY_ZERO - When Public key is zero
  *		 - XSECURE_ELLIPTIC_KEY_WRONG_ORDER  Wrong order of Public key
- *		 - XSECURE_ELLIPTIC_KEY_NOT_ON_CRV  When Key is not found on the curve
- *		 - XST_FAILURE  On any other failures
+ *		 - XSECURE_ELLIPTIC_KEY_NOT_ON_CRV - When Key is not found on the curve
+ *		 - XST_FAILURE - On any other failures
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
@@ -558,8 +558,8 @@ END:
  * @param	Key	Pointer to the public key
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
@@ -604,17 +604,17 @@ END:
  * @param	SignAddr	Pointer to signature address
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve data pointer is NULL
- *		 - XSECURE_ELLIPTIC_BAD_SIGN  When signature provided for verification is bad
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve data pointer is NULL
+ *		 - XSECURE_ELLIPTIC_BAD_SIGN - When signature provided for verification is bad
  *		 - XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN  Incorrect hash length
  *						for sign verification
  *		 - XSECURE_ELLIPTIC_VER_SIGN_R_ZERO  R set to zero
  *		 - XSECURE_ELLIPTIC_VER_SIGN_S_ZERO  S set to zero
  *		 - XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR  R is not within ECC order
  *		 - XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR  S is not within ECC order
- *		 - XST_FAILURE  On any other failures
+ *		 - XST_FAILURE - On any other failures
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
@@ -748,8 +748,8 @@ END:
  * @param	Sign	Pointer to the signature
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,

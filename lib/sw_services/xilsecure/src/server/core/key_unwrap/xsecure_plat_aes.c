@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,8 +60,8 @@ static int XSecure_AesEcbDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XST_FAILURE  On Failure
+ *		 - XST_SUCCESS - On Success
+ *		 - XST_FAILURE - On Failure
  *
  *****************************************************************************/
 static int XSecure_AesEcbDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
@@ -87,9 +87,9 @@ END:
  * @param	EcbModeFlag	Flag to enable/disable ECB mode
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XSECURE_AES_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_AES_STATE_MISMATCH_ERROR  On state mismatch
+ *		 - XST_SUCCESS - On Success
+ *		 - XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR - On state mismatch
  *
  *****************************************************************************/
 int XSecure_AesEcbCfg(XSecure_Aes *InstancePtr, u32 EcbModeFlag)
@@ -140,8 +140,8 @@ END:
  *				- 4 byte aligned when the data is the last chunk
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XST_FAILURE  On Failure
+ *		 - XST_SUCCESS - On Success
+ *		 - XST_FAILURE - On Failure
  *
  *****************************************************************************/
 int XSecure_AesEcbDecrypt(XSecure_Aes *InstancePtr, u64 KeyAddr, XSecure_AesKeySize KeySize, u64 InDataAddr,
@@ -201,10 +201,10 @@ END:
  *				- 4 byte aligned when the data is the last chunk
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED  If AES key size is invalid.
- *		 - XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR  If key unwrap is failed.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED - If AES key size is invalid.
+ *		 - XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR - If key unwrap is failed.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKeySize KeySize, u8 *AesWrapKey,

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,9 +52,9 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesPara
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful.
- *		 - XST_INVALID_PARAM  If input parameter is invalid.
- *		 - XST_FAILURE  If there is a failure.
+ *		 - XST_SUCCESS - If the handler execution is successful.
+ *		 - XST_INVALID_PARAM - If input parameter is invalid.
+ *		 - XST_FAILURE - If there is a failure.
  *
  ******************************************************************************/
 int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)

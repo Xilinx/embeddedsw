@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,9 +75,9 @@ static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If Cmd is NULL or API ID is invalid
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If Cmd is NULL or API ID is invalid
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
@@ -136,9 +136,9 @@ END:
  * @param	DstAddrHigh	Higher 32 bit address of the public key to be stored
  *
  * @return
- *		 - XST_SUCCESS  If the elliptic key generation is successful
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve size is 0
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the elliptic key generation is successful
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve size is 0
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_EllipticGenKey(u32 SubsystemId, u32 CurveType, u32 SrcAddrLow,
@@ -199,9 +199,9 @@ END:
  * @param	DstAddrHigh	Higher 32 bit address of the signature to be stored
  *
  * @return
- *		 - XST_SUCCESS  If the elliptic sign generation is successful
- *		 - XST_INVALID_PARAM  If curve size is 0
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the elliptic sign generation is successful
+ *		 - XST_INVALID_PARAM - If curve size is 0
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticGenSign(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -266,9 +266,9 @@ END:
  * @param	SrcAddrHigh	Higher 32 bit address of the public key
  *
  * @return
- *		 - XST_SUCCESS  If the elliptic key validation is successful
- *		 - XST_INVALID_PARAM  If curve size is 0
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the elliptic key validation is successful
+ *		 - XST_INVALID_PARAM - If curve size is 0
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticValidatePubKey(u32 SubsystemId, u32 CurveType, u32 SrcAddrLow,
@@ -310,9 +310,9 @@ END:
  * 				XSecure_EllipticSignVerifyParams structure
  *
  * @return
- *		 - XST_SUCCESS  If the elliptic sign verify is successful
- *		 - XST_INVALID_PARAM  If curve size is 0
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the elliptic sign verify is successful
+ *		 - XST_INVALID_PARAM - If curve size is 0
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)

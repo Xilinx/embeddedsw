@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,9 +73,9 @@ extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
  * @param	PrivateKey	is the pointer to XSecure_ElliptcPrivateKeyGen
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid
+ *		 - XST_FAILURE - On failure
  *
  * @note
  *	This API expects TRNG HW to be in HEALTHY state, This can
@@ -172,9 +172,9 @@ RET:
  * @param	EphemeralKeyAddr	Address of ephemeral key
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid
+ *		 - XST_FAILURE - On failure
  *
  * @note
  *	This API expects TRNG HW to be in HEALTHY state, This can
@@ -235,9 +235,9 @@ RET:
  * @param	Signature	is the pointer to the buffer where the ECC signature
  *				shall be stored.
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
@@ -297,10 +297,10 @@ END:
  * @param	SharedSecretAddr	64-bit address of buffer for storing shared secret
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
- *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If elliptic curve data received is NULL
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If elliptic curve data received is NULL
+ *		 - XST_FAILURE - On failure
  *
  * @note	Shared secret is calculated by performing scalar multiplication
  * 		on public key and private key provided as input.

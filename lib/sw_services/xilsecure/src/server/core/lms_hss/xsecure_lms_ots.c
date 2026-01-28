@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /******************************************************************************/
@@ -22,7 +22,10 @@
 * @note
 *
 *******************************************************************************/
-
+/**
+* @addtogroup xsecure_lms_server_apis XilSecure LMS Server APIs
+* @{
+*/
 /***************************** Include Files **********************************/
 #include "xsecure_sha.h"
 #include "xil_io.h"
@@ -71,7 +74,8 @@
  * 				i represents the index of digit
  * @param	w	Width in bits, for each digit allowed values
  *
- * @return	-	digit value.
+ * @return
+ *		- digit value.
 *******************************************************************************/
 u32 XSecure_LmsOtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w)
 {
@@ -104,8 +108,8 @@ u32 XSecure_LmsOtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w)
 * @param	Checksum Pointer to address, where computed checksum needs to be copied
 *
 * @return
-*	-	XST_SUCCESS - Valid type is passed, and parameters are assigned
-*	-	XST_FAILURE - If not a valid type is passed
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR - Invalid buffer length (zero length)
 *******************************************************************************/
 int XSecure_LmsOtsComputeChecksum(const u8* const Array,
 				const u32 ArrayLen,
@@ -149,8 +153,9 @@ END:
 * 		parameter values are present @ref XSecure_LmsOtsParam
 *
 * @return
-*	-	XST_SUCCESS - Valid type is passed, and parameters are assigned
-*	-	XST_FAILURE - If not a valid type is passed
+*		- XST_SUCCESS - On success
+*		- XSECURE_LMS_OTS_TYPE_UNSUPPORTED_ERROR - LMS OTS type is not supported
+*		- XSECURE_LMS_OTS_TYPE_LOOKUP_GLITCH_ERROR - Glitch detected during type lookup
 *******************************************************************************/
 int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 	XSecure_LmsOtsParam** Parameters)

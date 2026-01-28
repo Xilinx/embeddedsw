@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,9 +97,9 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  On invalid parameter
- *		 - XST_DEVICE_BUSY  If IPI channel is busy
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - On invalid parameter
+ *		 - XST_DEVICE_BUSY - If IPI channel is busy
  *
  ******************************************************************************/
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
@@ -197,8 +197,8 @@ END:
  * @brief	This function handler calls XSecure_AesInitialize Server API
  *
  * @return
- *		 - XST_SUCCESS  If the initialization is successful
- *		 - XST_FAILURE  If PMCDMA instance is NULL.
+ *		 - XST_SUCCESS - If the initialization is successful
+ *		 - XST_FAILURE - If PMCDMA instance is NULL.
  *
  ******************************************************************************/
 int XSecure_AesInit(void)
@@ -230,8 +230,8 @@ END:
  * 				structure.
  *
  * @return
- *		 - XST_SUCCESS  If the initialization is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the initialization is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesOperationInit(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -270,8 +270,8 @@ END:
  * @param	IsGmacEn	User choice to enable/disable GMAC
  *
  * @return
- *		 - XST_SUCCESS  If the AAD update is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the AAD update is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesAadUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn)
@@ -313,8 +313,8 @@ END:
  * 				where encrypted data to be stored
  *
  * @return
- *		 - XST_SUCCESS  If the encrypt update is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the encrypt update is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesEncUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -355,8 +355,8 @@ END:
  * 				to be stored.
  *
  * @return
- *		 - XST_SUCCESS  If the encrypt final is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the encrypt final is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesEncFinal(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh)
@@ -393,8 +393,8 @@ END:
  * 				where decrypted data to be stored
  *
  * @return
- *		 - XST_SUCCESS  If the decrypt update is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the decrypt update is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesDecUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -434,8 +434,8 @@ END:
  * @param	SrcAddrHigh	Higher 32 bit address of the GCM-TAG
  *
  * @return
- *		 - XST_SUCCESS  If the decrypt final is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the decrypt final is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesDecFinal(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -464,9 +464,9 @@ END:
  * @param	KeySrc	Key source to be zeroized
  *
  * @return
- *		 - XST_SUCCESS  If the key zeroize is successful
- *		 - XSECURE_AES_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the key zeroize is successful
+ *		 - XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_AesKeyZeroize(u32 KeySrc)
@@ -501,9 +501,9 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
  * @param	KeyAddrHigh	Higher 32 bit address of the Key
  *
  * @return
- *		 - XST_SUCCESS  If the key write is successful
- *		 - XSECURE_AES_INVALID_PARAM  For invalid parameter
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the key write is successful
+ *		 - XSECURE_AES_INVALID_PARAM - For invalid parameter
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_AesKeyWrite(u32 SubsystemId, u8 KeySize, u8 KeySrc,
@@ -542,9 +542,9 @@ END:
  * @param	IvAddrHigh	Higher 32 bit address of the IV
  *
  * @return
- *		 - XST_SUCCESS  If the decryption is successful
- *		 - XSECURE_AES_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  If timeout has occurred
+ *		 - XST_SUCCESS - If the decryption is successful
+ *		 - XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *		 - XST_FAILURE - If timeout has occurred
  *
  ******************************************************************************/
 static int XSecure_AesDecryptKek(u32 SubsystemId, u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
@@ -586,8 +586,8 @@ END:
  * @param	DpaCmCfg	User DpaCmCfg configuration
  *
  * @return
- *		 - XST_SUCCESS  If the Set DpaCm is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the Set DpaCm is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
@@ -610,8 +610,8 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
  * 				structure.
  *
  * @return
- *		 - XST_SUCCESS  If the initialization is successful
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If the initialization is successful
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -688,8 +688,8 @@ END:
  * @param	KeySrc	Aes key source
  *
  * @return
- *		 - XST_SUCCESS  If KeySrc is Valid
- *		 - XSECURE_AES_DEVICE_KEY_NOT_ALLOWED  If KeySrc is Invalid
+ *		 - XST_SUCCESS - If KeySrc is Valid
+ *		 - XSECURE_AES_DEVICE_KEY_NOT_ALLOWED - If KeySrc is Invalid
  *
  ******************************************************************************/
  static int XSecure_IsKeySrcValid(u32 KeySrc)
@@ -721,8 +721,8 @@ END:
  * @param	IvAddr	Iv address
  *
  * @return
- *		 - XST_SUCCESS  If AES configured successfully
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If AES configured successfully
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAddr)

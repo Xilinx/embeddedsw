@@ -24,7 +24,10 @@
 * @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_sha3_client_apis XilSecure SHA Versal_2ve_2vm Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_shaclient.h"
 
@@ -168,3 +171,4 @@ int XSecure_Sha2Kat(XSecure_ClientInstance *InstancePtr)
 END:
 	return Status;
 }
+/** @} */

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,7 +95,7 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
  * @param	Value		Register Value of SSS cfg register
  *
  * @return
- *		Mask	Mask value of corresponding InputSrc and OutputSrc
+ *		- Mask value of corresponding InputSrc and OutputSrc
  *
  * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
  *
@@ -249,7 +249,8 @@ void XSecure_ConfigureDmaByteSwap(u32 Op)
  * @param	IsLastChunk	Last chunk indication
  *
  * @return
- *		Always returns XST_SUCCESS
+ *		- XST_SUCCESS - On success
+ *		- XSECURE_AES_UNALIGNED_SIZE_ERROR - Size is not 16-byte aligned for non-last chunk
  *
  ******************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
@@ -285,9 +286,9 @@ END:
  * @param	BaseAddress	AES BaseAddress
  *
  * @return
- *		 - XST_SUCCESS  On successful configuration
- * 		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  On failure
+ *		- XST_SUCCESS - On successful configuration
+ *		- XSECURE_AES_INVALID_PARAM - Invalid input parameter provided
+ *		- XST_FAILURE - DMA transfer or timeout failure
  *
  ******************************************************************************/
 int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress)
@@ -393,9 +394,10 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  * @param	Size	Number of random bytes to be read
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *  		 - XST_FAILURE  On Failure
- *		 - XSECURE_ERR_GLITCH_DETECTED Error when glitch is detected
+ *		- XST_SUCCESS - On success
+ *		- XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)
+ *		- XSECURE_ERR_GLITCH_DETECTED - Glitch detected during random number generation
+ *		- XST_FAILURE - TRNG operation failure
  *
  *****************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
@@ -447,8 +449,10 @@ END:
  *		and it is applicable only for Versal_2Ve_2Vm
  *
  * @return
- *		- XST_SUCCESS  On Successful initialization
- *      	- XST_FAILURE  On Failure
+ *		- XST_SUCCESS - On successful initialization
+ *		- XSECURE_ERR_IN_TRNG_SELF_TESTS - TRNG self-test failure
+ *		- XSECURE_ERR_TRNG_INIT_N_CONFIG - TRNG initialization and configuration failure
+ *		- XST_FAILURE - On any other failure
  *
  *****************************************************************************/
 int XSecure_ECCRandInit(void)
@@ -490,8 +494,8 @@ END:
  * @brief	This function initiates the key transfer to ASU
  *
  * @return
- * 		- XST_SUCCESS  On successfull key transfer to ASU
- * 		- XSECURE_ERR_ASU_KTE_DONE_NOT_SET  On transfer failure
+ *		- XST_SUCCESS - On successful key transfer
+ *		- XSECURE_ERR_ASU_KTE_DONE_NOT_SET - Key transfer done bit not set within timeout
  *
  *****************************************************************************/
 int XSecure_InitiateASUKeyTransfer(void)
@@ -527,9 +531,8 @@ END:
  * @param	ShaMode		SHA Mode
  *
  * @return
- *		- XST_SUCCESS  Upon Success.
- *		- XST_FAILURE  Upon Failure.
- *		- XSECURE_SHA_INVALID_MODE_ERROR  In case of invalid sha mode config.
+ *		- XST_SUCCESS - Upon success
+ *		- XSECURE_SHA_INVALID_PARAM - Invalid SHA mode provided
  *
  ********************************************************************************/
 int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
@@ -600,9 +603,9 @@ END:
 * @param	Size		Input data size in words.
 * @param	IsLastUpdate	Last update flag
 *
-* @return
-*		 - XST_SUCCESS  Upon Success.
-*		 - XST_FAILURE  Upon Failure.
+ * @return
+ *		- XST_SUCCESS - Upon success
+ *		- XSECURE_SHA_INVALID_PARAM - Invalid parameter (DMA pointer is NULL or invalid IsLastUpdate value)
 *
  *******************************************************************************************/
 int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
@@ -642,8 +645,8 @@ END:
  * @param	Length		Size of memory to be copied in bytes.
  *
  * @return
- *		 - XST_SUCCESS  On success and error code on failure
- *		 - XST_FAILURE  In case of any failure
+ *		- XST_SUCCESS - On success
+ *		- XST_FAILURE - Memory copy or endianness reversal failure
  *
  *****************************************************************************/
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length)

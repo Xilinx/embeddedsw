@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -177,9 +177,9 @@ static int XSecure_FeaturesCmd(u32 ApiId)
  * @param	Cmd	Pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  Upon success
- *		 - XST_INVALID_PARAM  If any input parameter is invalid
- *		 - XSECURE_KAT_MAJOR_ERROR  If KAT fails
+ *		 - XST_SUCCESS - Upon success
+ *		 - XST_INVALID_PARAM - If any input parameter is invalid
+ *		 - XSECURE_KAT_MAJOR_ERROR - If KAT fails
  *
  *****************************************************************************/
 static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,9 +56,9 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If any input parameter is invalid
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
@@ -99,9 +99,9 @@ END:
  * @param	Size		Number of random bytes needs to be generated.
  *
  * @return
- *		 - XST_SUCCESS  If the generate is successful
- *		 - XTRNGPSX_INVALID_BUF_SIZE  If input size is invalid.
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the generate is successful
+ *		 - XTRNGPSX_INVALID_BUF_SIZE - If input size is invalid.
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -67,9 +67,9 @@ static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result);
  * @param	KeyLen		variable holds the length of the key.
  *
  * @return
- *		 - XST_SUCCESS  If initialization was successful.
- *		 - XSECURE_HMAC_INVALID_PARAM  If any input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - If initialization was successful.
+ *		 - XSECURE_HMAC_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
@@ -138,9 +138,9 @@ RET:
  * @param	Len		variable holds the length of data.
  *
  * @return
- *		 - XST_SUCCESS  If initialization was successful.
- *		 - XSECURE_HMAC_INVALID_PARAM  If any input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - If initialization was successful.
+ *		 - XSECURE_HMAC_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
@@ -178,9 +178,9 @@ END:
  * @param	Hmac		is the pointer of 48 bits which holds the resultant HMAC.
  *
  * @return
- *		 - XST_SUCCESS  If initialization was successful.
- *		 - XSECURE_HMAC_INVALID_PARAM  If any input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - If initialization was successful.
+ *		 - XSECURE_HMAC_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  * @note	Though HMAC can be truncated, as the truncation of data may
  *		lead to security implications, this function always fills the
@@ -262,8 +262,8 @@ RET:
  * @param	KeyOut		is the variable which holds the output key buffer's address
  *
  * @return
- *		 - XST_SUCCESS  If initialization was successful.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - If initialization was successful.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,

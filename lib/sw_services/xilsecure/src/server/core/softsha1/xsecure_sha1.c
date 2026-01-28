@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -349,7 +349,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS	In case of successful read
- * 		- XST_FAILURE 	Upon failure
+ * 		- XST_FAILURE - Upon failure
  *
  **************************************************************************************************/
 static s32 XSecure_ReadHash (const XSecure_Sha1Ctx* Ctx, u8 * const Hash)

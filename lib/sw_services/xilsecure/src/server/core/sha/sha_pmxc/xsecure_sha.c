@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 -2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,6 +29,10 @@
 * @note
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_apis XilSecure Versal_2Ve_2Vm Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_sha.h"
 #include "xsecure_error.h"
@@ -108,10 +112,10 @@ static const XSecure_ShaConfig *XSecure_ShaLookupConfig(u32 DeviceId)
 * @param	DmaPtr - Pointer to the DMA instance.
 *
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM_ERROR
-*		XSECURE_SHA_SSS_INIT_ERROR
+*		- XST_SUCCESS - Upon Success.
+*		- XST_FAILURE - Upon Failure.
+*		- XSECURE_SHA_INVALID_PARAM_ERROR
+*		- XSECURE_SHA_SSS_INIT_ERROR
 *
 ************************************************************************************/
 int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr)
@@ -162,10 +166,10 @@ END:
 * @param 	ShaMode - Indicates SHA3/SHA2 shall be operated in which sha mode
 * 			that is SHA-384/256/512
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM_ERROR
-*		XSECURE_SHA_NOT_INITIALIZED_ERROR
+*		- XST_SUCCESS - Upon Success.
+*		- XSECURE_SHA_INVALID_PARAM - Invalid parameter (InstancePtr is NULL or invalid SHA mode)
+*		- XSECURE_SHA_STATE_MISMATCH_ERROR - SHA engine is not in initialized state
+*		- XST_FAILURE - On crypto check failure
 *
 ******************************************************************************/
 int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
@@ -228,10 +232,10 @@ END:
 * @param	DataSize	Size of the input data in bytes.
 *
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM_ERROR
-*		XSECURE_SHA_NOT_STARTED_ERROR
+*		- XST_SUCCESS - Upon Success.
+*		- XST_FAILURE - Upon Failure.
+*		- XSECURE_SHA_INVALID_PARAM_ERROR
+*		- XSECURE_SHA_NOT_STARTED_ERROR
  *******************************************************************************************/
 int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 DataSize)
 {
@@ -298,10 +302,10 @@ END:
 * @param	HashBufSize - Size allocated for Hash Buffer
 *
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM_ERROR  - Upon invalid input parameter
-*		XSECURE_SHA_STATE_MISMATCH_ERROR - Upon sha state mismatch
+*		- XST_SUCCESS - Upon Success.
+*		- XST_FAILURE - Upon Failure.
+*		- XSECURE_SHA_INVALID_PARAM_ERROR  - Upon invalid input parameter
+*		- XSECURE_SHA_STATE_MISMATCH_ERROR - Upon sha state mismatch
 *
  ******************************************************************************/
 int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufSize)
@@ -383,9 +387,9 @@ END:
 * @param	InstancePtr - Pointer to the SHA instance.
 *
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM - Upon invalid SHA algorithm parameter.
+*		- XST_SUCCESS - Upon Success.
+*		- XST_FAILURE - Upon Failure.
+*		- XSECURE_SHA_INVALID_PARAM - Upon invalid SHA algorithm parameter.
 *
 * @note	This function applies algorithm-specific NIST padding and transfers data via DMA:
 *		SHA2 - 0x80 start byte + zero padding + message length in bits (big-endian)
@@ -497,8 +501,8 @@ END:
 * @param	IsLastUpdate - Flag indicating if this is the last data transfer.
 *
 * @return
-*		XST_SUCCESS - Upon successful data transfer completion.
-*		XST_FAILURE - Upon any failure during the transfer process.
+*		- XST_SUCCESS - Upon successful data transfer completion.
+*		- XST_FAILURE - Upon any failure during the transfer process.
 *
 ******************************************************************************/
 static int XSecure_ShaDmaTransfer(XSecure_Sha* const InstancePtr, u64 DataAddr, u32 Len, u32 IsLastUpdate)
@@ -548,10 +552,10 @@ END:
 * @param	HashBufSize	Size allocated for Hash Buffer
 *
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM_ERROR
-*		XSECURE_SHA_NOT_INITIALIZED_ERROR
+*		- XST_SUCCESS - Upon Success.
+*		- XST_FAILURE - Upon Failure.
+*		- XSECURE_SHA_INVALID_PARAM_ERROR
+*		- XSECURE_SHA_NOT_INITIALIZED_ERROR
  ******************************************************************************/
 int XSecure_ShaDigest(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode,
 u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
@@ -605,9 +609,9 @@ END:
  * @param	InstancePtr Pointer to the XSecure_Sha instance
  *
  * @return
- *		XST_SUCCESS - If last update can be accepted
- *		XSECURE_SHA_INVALID_PARAM - On invalid parameter
- *		XSECURE_SHA_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XST_SUCCESS - If last update can be accepted
+ *		- XSECURE_SHA_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  *****************************************************************************/
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
@@ -643,8 +647,8 @@ END:
 * @param	InstancePtr - Pointer to the SHA instance.
 *
 * @return
-*		XST_SUCCESS - Upon Success.
-*		XST_FAILURE - Upon Failure.
+*		- XST_SUCCESS - Upon Success.
+*		- XST_FAILURE - Upon Failure.
 ******************************************************************************/
 static int XSecure_ShaWaitForDone(const XSecure_Sha *InstancePtr)
 {
@@ -654,3 +658,4 @@ static int XSecure_ShaWaitForDone(const XSecure_Sha *InstancePtr)
 			XSECURE_SHA_DONE_VALUE,
 			XSECURE_SHA_TIMEOUT_MAX);
 }
+/** @} */

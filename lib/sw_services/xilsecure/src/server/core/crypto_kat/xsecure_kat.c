@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -606,21 +606,21 @@ u8* XSecure_GetKatEccEphemeralKey(XSecure_EllipticCrvTyp CrvType) {
  * @param 	AesInstance	Pointer to the XSecure_Aes instance
  *
  * @return
- *		 - XST_SUCCESS  When KAT Pass
- *		 - XSECURE_AESKAT_INVALID_PARAM  On invalid argument
- *		 - XSECURE_AES_KAT_BUSY  when AES is busy
- *		 - XSECURE_AES_STATE_MISMATCH_ERROR  If AES state is mismatched
- *		 - XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR  Error when AESDPACM data
+ *		 - XST_SUCCESS - When KAT Pass
+ *		 - XSECURE_AESKAT_INVALID_PARAM - On invalid argument
+ *		 - XSECURE_AES_KAT_BUSY - when AES is busy
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR - If AES state is mismatched
+ *		 - XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR - Error when AESDPACM data
  *						not matched with expected data
- *		 - XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR  Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR - Error when AESDPACM data
  *						not matched with expected data
- *		 - XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR  Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR - Error when AESDPACM data
  *						not matched with expected data
- *		 - XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR  Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR - Error when AESDPACM data
  *						not matched with expected data
- *		 - XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR  Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR - Error when AESDPACM data
  *						not matched with expected data
- *		 - XST_FAILURE  On failure
+ *		 - XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
@@ -731,8 +731,8 @@ END:
  * @param	S	is the pointer to the data array of size 4 words.
  *
  * @return
- *		 - XST_SUCCESS  When check is passed
- *		 - XST_FAILURE  when check is failed
+ *		 - XST_SUCCESS - When check is passed
+ *		 - XST_FAILURE - when check is failed
  *
  *****************************************************************************/
 static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
@@ -764,17 +764,17 @@ static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
  * @param	AesInstance	Pointer to the XSecure_Aes instance
  *
  * @return
- *		 - XST_SUCCESS  When KAT Pass
- *		 - XSECURE_AESKAT_INVALID_PARAM  Invalid Argument
- *		 - XSECURE_AES_KAT_BUSY  Error when AES is busy
- *		 - XSECURE_AES_STATE_MISMATCH_ERROR  Error when AES state is mismatched
- *		 - XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR  Error when AES key write fails
- *		 - XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR  Error when AES decrypt init fails
- *		 - XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR  Error when update AAD fails
- *		 - XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR  Error when decrypt update fails
- *		 - XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR  Error when GCM tag not matched
+ *		 - XST_SUCCESS - When KAT Pass
+ *		 - XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
+ *		 - XSECURE_AES_KAT_BUSY - Error when AES is busy
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR - Error when AES state is mismatched
+ *		 - XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR - Error when AES key write fails
+ *		 - XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR - Error when AES decrypt init fails
+ *		 - XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR - Error when update AAD fails
+ *		 - XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR - Error when decrypt update fails
+ *		 - XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR - Error when GCM tag not matched
  *			with user provided tag
- *		 - XSECURE_AES_KAT_DATA_MISMATCH_ERROR  Error when AES data not matched with
+ *		 - XSECURE_AES_KAT_DATA_MISMATCH_ERROR - Error when AES data not matched with
  *			expected data
  *
  *****************************************************************************/
@@ -881,18 +881,18 @@ END:
  * @param	AesInstance	Pointer to the XSecure_Aes instance
  *
  * @return
- *		 - XST_SUCCESS  When KAT Pass
- *		 - XSECURE_AESKAT_INVALID_PARAM  Invalid Argument
- *		 - XSECURE_AES_KAT_BUSY  Error when AES is busy
- *		 - XSECURE_AES_STATE_MISMATCH_ERROR  Error when AES state is mismatched
- *		 - XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR  Error when AES key write fails
- *		 - XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR  Error when AES encrypt init fails
- *		 - XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR  Error when update AAD fails
- *		 - XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR  Error when AES encrypt update fails
- *		 - XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR  Error when AES encrypt final fails
- *		 - XSECURE_KAT_GCM_TAG_MISMATCH_ERROR  Error when GCM tag not matched
+ *		 - XST_SUCCESS - When KAT Pass
+ *		 - XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
+ *		 - XSECURE_AES_KAT_BUSY - Error when AES is busy
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR - Error when AES state is mismatched
+ *		 - XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR - Error when AES key write fails
+ *		 - XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR - Error when AES encrypt init fails
+ *		 - XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR - Error when update AAD fails
+ *		 - XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR - Error when AES encrypt update fails
+ *		 - XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR - Error when AES encrypt final fails
+ *		 - XSECURE_KAT_GCM_TAG_MISMATCH_ERROR - Error when GCM tag not matched
  *			with user provided tag
- *		 - XSECURE_AES_KAT_DATA_MISMATCH_ERROR  Error when AES data not matched with
+ *		 - XSECURE_AES_KAT_DATA_MISMATCH_ERROR - Error when AES data not matched with
  *			expected data
  *
  *****************************************************************************/
@@ -1010,15 +1010,15 @@ END:
  * @param	SecureSha3	Pointer to the XSecure_Sha3 instance
  *
  * @return
- *		 - XST_SUCCESS  When KAT Pass
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid argument
- *		 - XSECURE_SHA3_KAT_BUSY  Error when SHA3 is busy
- *		 - XSECURE_SHA3_LAST_UPDATE_ERROR  Error when SHA3 last update fails
- *		 - XSECURE_SHA3_KAT_FAILED_ERROR  Error when SHA3 hash not matched with
+ *		 - XST_SUCCESS - When KAT Pass
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid argument
+ *		 - XSECURE_SHA3_KAT_BUSY - Error when SHA3 is busy
+ *		 - XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
+ *		 - XSECURE_SHA3_KAT_FAILED_ERROR - Error when SHA3 hash not matched with
  *					expected hash
- *		 - XSECURE_SHA3_PMC_DMA_UPDATE_ERROR  Error when DMA driver fails to update
+ *		 - XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
  *					the data to SHA3
- *		 - XSECURE_SHA3_FINISH_ERROR  Error when SHA3 finish fails
+ *		 - XSECURE_SHA3_FINISH_ERROR - Error when SHA3 finish fails
  *
  ******************************************************************************/
 int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
@@ -1098,10 +1098,10 @@ END:
  * @brief	This function performs KAT on RSA core
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_RSA_KAT_INIT_ERROR  Error when RSA init fails
- *		 - XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR  When RSA KAT fails
- *		 - XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR  Error when RSA data not
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_RSA_KAT_INIT_ERROR - Error when RSA init fails
+ *		 - XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
+ *		 - XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
  *							matched with expected data
  *
  *****************************************************************************/
@@ -1163,10 +1163,10 @@ END:
  * @param	CrvClass	Type of ECC curve class either prime or binary curve
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR  When elliptic key is invalid
- *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR  Error when input is invalid
- *		 - XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR  When signature is invalid
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key is invalid
+ *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR - Error when input is invalid
+ *		 - XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR - When signature is invalid
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
@@ -1205,10 +1205,10 @@ END:
  * @param	CrvClass	Type of ECC curve class either prime or binary class
  *
  * @return
- *		 - XST_SUCCESS  When KAT passes
- *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR  When input is invalid.
- *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_ERROR  When generate sign fails
- *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGNR_ERROR  When SignR is mismatched
+ *		 - XST_SUCCESS - When KAT passes
+ *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR - When input is invalid.
+ *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_ERROR - When generate sign fails
+ *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGNR_ERROR - When SignR is mismatched
  *
  *****************************************************************************/
 int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
@@ -1269,10 +1269,10 @@ END:
  * @param	PubKeyAddr	Address of ECC public key
  *
  * @return
- *		 - XST_SUCCESS  When KAT passes
- *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR  When input is invalid
- *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR  When generate signature fails
- *		 - XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR  When verify sign is invalid
+ *		 - XST_SUCCESS - When KAT passes
+ *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR - When input is invalid
+ *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR - When generate signature fails
+ *		 - XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR - When verify sign is invalid
  *
  *****************************************************************************/
 int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_EllipticKeyAddr *PubKeyAddr) {

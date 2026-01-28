@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,10 +97,10 @@ static u32 UpdatedFreeKeySlot = 0U;
  * @brief	This function updates the key free slot status address
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_ERR_KEY_STORE_SIZE  If key store size is invalid.
- *		 - XSECURE_ERR_NO_FREE_KEY_SLOT  If there is no free key slot.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_ERR_KEY_STORE_SIZE - If key store size is invalid.
+ *		 - XSECURE_ERR_NO_FREE_KEY_SLOT - If there is no free key slot.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_UpdateKeySlotStatusAddr(void)
@@ -175,11 +175,11 @@ static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
  * @param	KeyWrapData is pointer to the XSecure_KeyWrapData instance.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XST_INVALID_PARAM  If any input parameter is invalid.
- *		 - XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH  If wrapped key size is invalid.
- *		 - XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED  If AES key size is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XST_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH - If wrapped key size is invalid.
+ *		 - XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED - If AES key size is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -1398,11 +1398,11 @@ static u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE] = {
  * @param	SecureSha3	Pointer to SHA3 instance
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_HMAC_KAT_INIT_ERROR  If HMAC init fails
- *		 - XSECURE_HMAC_KAT_UPDATE_ERROR  If HMAC update fails
- *		 - XSECURE_HMAC_KAT_FINAL_ERROR  If HMAC final fails
- *		 - XSECURE_HMAC_KAT_ERROR  If HMAC KAT fails
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_HMAC_KAT_INIT_ERROR - If HMAC init fails
+ *		 - XSECURE_HMAC_KAT_UPDATE_ERROR - If HMAC update fails
+ *		 - XSECURE_HMAC_KAT_FINAL_ERROR - If HMAC final fails
+ *		 - XSECURE_HMAC_KAT_ERROR - If HMAC KAT fails
  *
  *****************************************************************************/
 int XSecure_HmacKat(XSecure_Sha *SecureSha3)
@@ -1466,10 +1466,10 @@ END:
  * @brief	This function performs private decrypt KAT on RSA core
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR  Error when RSA data not
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
  *							matched with expected data
- *		 - XST_FAILURE  On failure
+ *		 - XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_RsaPrivateDecryptKat(void)
@@ -1585,8 +1585,8 @@ END:
  * @param	SecureShake Pointer to the XSecure_Sha instance
  *
  * @return
- *		 - XST_SUCCESS     On success.
- *		 - XST_FAILURE     On KAT failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XST_FAILURE - On KAT failure.
  *
  ******************************************************************************/
 int XSecure_ShakeKat(XSecure_Sha *SecureShake)
@@ -1758,7 +1758,6 @@ END:
  *
  * @return
  *		- XST_SUCCESS - If LMS SHA2 256 KAT is passed.
- *		- ErrorCode - Upon failure.
  *
  ******************************************************************************/
 int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
@@ -1785,7 +1784,6 @@ int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
  *
  * @return
  *		 - XST_SUCCESS - If LMS SHAKE256 KAT is passed.
- *		 - ErrorCode - Upon failure.
  *
  ******************************************************************************/
 int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {

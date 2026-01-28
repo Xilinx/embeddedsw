@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,9 +65,9 @@
  * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  If any input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
@@ -111,9 +111,9 @@ END:
  * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  If any input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
@@ -158,9 +158,9 @@ END:
  * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  If any input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,8 +68,8 @@ static int XPlmi_FreeResourceTask(void *Data);
 * @param	ResourceSts is pointer to variable to which status has to be written
 *
 * @return
-* 			- XST_SUCCESS on success
-* 			- Error code on failure
+*		- XST_SUCCESS - On success
+*		- XST_INVALID_PARAM - If ResourceSts is NULL
 *
 **********************************************************************************/
 int XSecure_GetShaAndAesSts(XSecure_ResourceSts *ResourceSts)
@@ -111,8 +111,8 @@ END:
 * @param    Core is the core whose IPI events is being triggered
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS on success
+*		- XST_FAILURE on failure
 *
 **********************************************************************************/
 int XSecure_TriggerIpiEvent(XPlmi_CoreType Core)
@@ -160,8 +160,8 @@ END:
 * @param    Data is the core(AES/SHA) which is to be freed
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS - On success
+*		- XSECURE_INVALID_RESOURCE - If Data is invalid core
 *
 **********************************************************************************/
 static int XPlmi_FreeResourceTask(void *Data)
@@ -189,8 +189,9 @@ END:
 * @param    Core is the core whose IPI events is being notified
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS - On success
+*		- XST_FAILURE - If task node is NULL
+*		- XST_INVALID_PARAM - If Core is invalid
 *
 **********************************************************************************/
 int XSecure_NotifyIpiEvent(u32 BufIndex, XPlmi_CoreType Core)
@@ -228,8 +229,8 @@ END:
 *           free resource task
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS - On success
+*		- XST_INVALID_PARAM - If PpdiEventParamsPtr is NULL
 *
 **********************************************************************************/
 int XSecure_QueuesAndTaskInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
@@ -270,8 +271,8 @@ END:
 * @param    Core is the resource which is to be freed
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS - On success
+*		- XST_INVALID_PARAM - If Core is invalid
 *
 **********************************************************************************/
 int XSecure_MakeResFree(XPlmi_CoreType Core)
@@ -347,8 +348,9 @@ END:
 * @param    Core is the resource whose IPI events are to be handled
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS - On success
+*		- XST_INVALID_PARAM - If Cmd is NULL or Core is invalid
+*		- XPLMI_CMD_IN_PROGRESS - If command is in progress
 *
 **********************************************************************************/
 int XSecure_IpiEventHandling(XPlmi_Cmd *Cmd, XPlmi_CoreType Core)
@@ -390,8 +392,8 @@ END:
  * @param   Core is the SHA/AES source whose data context status has to be set
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XST_INVALID_PARAM  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XST_INVALID_PARAM - On failure
  *
  *************************************************************************************************/
 int XSecure_SetDataContextLost(XPlmi_CoreType Core) {
@@ -413,8 +415,7 @@ static u32 XSecure_DataContextLost[XPLMI_MAX_CORE];
 * @param    Core is the resource which is to be freed
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- Always returns XST_SUCCESS
 *
 **********************************************************************************/
 int XSecure_MakeResFree(XPlmi_CoreType Core)
@@ -433,8 +434,10 @@ int XSecure_MakeResFree(XPlmi_CoreType Core)
 * @param    Core is the resource whose IPI events are to be handled
 *
 * @return
-* 			- XST_SUCCESS on success
-*           - error code on failure
+*		- XST_SUCCESS - On success
+*		- XST_INVALID_PARAM - If Cmd is NULL or Core is invalid
+*		- XST_DEVICE_BUSY - If device is busy with different IPI mask
+*		- XST_DATA_LOST - If data context was lost
 *
 **********************************************************************************/
 int XSecure_IpiEventHandling(XPlmi_Cmd *Cmd, XPlmi_CoreType Core)
@@ -481,8 +484,8 @@ END:
  * @param   Core is the SHA/AES source whose data context status has to be set
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XST_INVALID_PARAM  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XST_INVALID_PARAM - If Core is invalid
  *
  *************************************************************************************************/
 int XSecure_SetDataContextLost(XPlmi_CoreType Core)

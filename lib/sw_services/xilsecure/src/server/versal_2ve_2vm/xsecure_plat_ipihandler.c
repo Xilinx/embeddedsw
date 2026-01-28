@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,9 +53,9 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
  * @param	Cmd	Pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If any input parameter is invalid
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
@@ -96,10 +96,10 @@ END:
  *					where decrypted data to be stored
  *
  * @return
- *		 - XST_SUCCESS  If the Rsa decryption is successful
- *		 - XST_INVALID_PARAM  If any input parameter is invalid
- *		 - XSECURE_RSA_GEN_SIGN_FAILED_ERROR  If RSA sign generation fails
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the Rsa decryption is successful
+ *		 - XST_INVALID_PARAM - If any input parameter is invalid
+ *		 - XSECURE_RSA_GEN_SIGN_FAILED_ERROR - If RSA sign generation fails
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, u32 RsaParamAddrHigh,

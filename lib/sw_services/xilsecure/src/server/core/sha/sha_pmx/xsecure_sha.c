@@ -88,8 +88,8 @@
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
  *
  * @return
- *		 - XST_SUCCESS  If the SHA3 completes its operation
- *		 - XST_FAILURE  If a timeout has occurred
+ *		 - XST_SUCCESS - If the SHA3 completes its operation
+ *		 - XST_FAILURE - If a timeout has occurred
  *
  ******************************************************************************/
 static inline int XSecure_Sha3WaitForDone(const XSecure_Sha3 *InstancePtr)
@@ -120,9 +120,9 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
  * @param	DmaPtr		Pointer to the XPmcDma instance
  *
  * @return
- *		 - XST_SUCCESS  If initialization was successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - If initialization was successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
@@ -179,9 +179,9 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
  *
  * @return
- *		 - XST_SUCCESS  If last update can be accepted
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
+ *		 - XST_SUCCESS - If last update can be accepted
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  *****************************************************************************/
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
@@ -217,9 +217,9 @@ END:
  * @param	MsgLen	Is the length of padding in bytes
  *
  * @return
- *		 - XST_SUCCESS  On successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
@@ -254,10 +254,10 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
  *
  * @return
- *		 - XST_SUCCESS  On successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
@@ -317,10 +317,10 @@ END:
  * @param	Size		Size of the input data in bytes
  *
  * @return
- *		 - XST_SUCCESS  If the update is successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  If there is a failure in SSS configuration
+ *		 - XST_SUCCESS - If the update is successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - If there is a failure in SSS configuration
  *
  ******************************************************************************/
 int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
@@ -393,10 +393,10 @@ END:
  * @param	Size		Size of the input data in bytes
  *
  * @return
- *		 - XST_SUCCESS  If the update is successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  If there is a failure in SSS configuration
+ *		 - XST_SUCCESS - If the update is successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - If there is a failure in SSS configuration
  *
  ******************************************************************************/
 int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
@@ -417,10 +417,10 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
  * 				XSecure_Sha3Hash structure
  *
  * @return
- *		 - XST_SUCCESS  If finished without any errors
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  If Sha3PadType is other than KECCAK or NIST
+ *		 - XST_SUCCESS - If finished without any errors
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
 int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
@@ -515,9 +515,9 @@ END:
  *				XSecure_Sha3Hash structure
  *
  * @return
- *		 - XST_SUCCESS  If digest calculation done successfully
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  If any error from Sha3Update or Sha3Finish
+ *		 - XST_SUCCESS - If digest calculation done successfully
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XST_FAILURE - If any error from Sha3Update or Sha3Finish
  *
  ******************************************************************************/
 int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
@@ -565,10 +565,10 @@ END:
  *				XSecure_Sha3Hash structure
  *
  * @return
- *		 - XST_SUCCESS  On successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
@@ -613,7 +613,7 @@ END:
  *				or not
  *
  * @return
- *		 - XST_SUCCESS  If the update is successful
+ *		 - XST_SUCCESS - If the update is successful
  *		 - XST_FAILURE  In case of an error
  *
  ******************************************************************************/
@@ -662,8 +662,8 @@ ENDF:
  *				or not
  *
  * @return
- *		 - XST_SUCCESS  If the update is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the update is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
@@ -744,8 +744,8 @@ END:
  * @param	DeviceId	Deviceid of the SHA3
  *
  * @return
- *		 - XST_SUCCESS  On successful initialization
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On successful initialization
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId) {
@@ -780,8 +780,8 @@ END:
  * @param	DmaPtr		Pointer to the XPmcDma instance
  *
  * @return
- *		 - XST_SUCCESS  If initialization was successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
+ *		 - XST_SUCCESS - If initialization was successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
  *
  *****************************************************************************/
 int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma* DmaPtr)
@@ -798,9 +798,9 @@ int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma* DmaPtr)
  * @param	ShaMode	SHA mode to be set
  *
  * @return
- *		 - XST_SUCCESS  On successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
+ *		 - XST_SUCCESS - On successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  ******************************************************************************/
 int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode)
@@ -821,10 +821,10 @@ int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode)
  * @param	DataSize	Size of the input data in bytes
  *
  * @return
- *		 - XST_SUCCESS  If the update is successful
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  If there is a failure in SSS configuration
+ *		 - XST_SUCCESS - If the update is successful
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - If there is a failure in SSS configuration
  *
  ******************************************************************************/
 int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 DataAddr, const u32 DataSize)
@@ -841,9 +841,9 @@ int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 DataAddr, const u32 DataSize
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance
  *
  * @return
- *		 - XST_SUCCESS  If last update can be accepted
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
+ *		 - XST_SUCCESS - If last update can be accepted
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *
  *****************************************************************************/
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
@@ -863,10 +863,10 @@ int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
  * @param	HashBufSize	Size of the hash in bytes
  *
  * @return
- *		 - XST_SUCCESS  If finished without any errors
- *		 - XSECURE_SHA3_INVALID_PARAM  On invalid parameter
- *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR  If State mismatch is occurred
- *		 - XST_FAILURE  If Sha3PadType is other than KECCAK or NIST
+ *		 - XST_SUCCESS - If finished without any errors
+ *		 - XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		 - XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		 - XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
 int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashBufSize)
@@ -891,8 +891,8 @@ int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashBufS
  * @param	HashBufSize	Size of the hash in bytes
  *
  * @return
- *		 - XST_SUCCESS  If digest calculation done successfully
- *		 - XST_FAILURE  If any error from Sha3Update or Sha3Finish
+ *		 - XST_SUCCESS - If digest calculation done successfully
+ *		 - XST_FAILURE - If any error from Sha3Update or Sha3Finish
  *
  ******************************************************************************/
 int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode,
@@ -914,8 +914,8 @@ int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode,
  * @param	DeviceId	DeviceId of Sha engine
  *
  * @return
- *		 - XST_SUCCESS  Upon Success
- *		 - XST_FAILURE  Upon Failure
+ *		 - XST_SUCCESS - Upon Success
+ *		 - XST_FAILURE - Upon Failure
  *
  ******************************************************************************/
 int XSecure_ShaLookupConfig(XSecure_Sha *InstancePtr, u32 DeviceId)

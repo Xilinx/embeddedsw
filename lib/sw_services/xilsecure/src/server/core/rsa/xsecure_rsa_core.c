@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -104,8 +104,8 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 
  * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_RSA_INVALID_PARAM  On invalid parameter
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_RSA_INVALID_PARAM - On invalid parameter
  *
 ******************************************************************************/
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
@@ -148,9 +148,9 @@ END:
  * @param	KeySize		Size of the key in bytes
  *
  * @return
- *		 - XST_SUCCESS  On success
- *		 - XSECURE_RSA_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On success
+ *		 - XSECURE_RSA_INVALID_PARAM - On invalid parameter
+ *		 - XST_FAILURE - On failure
  *
 ******************************************************************************/
 int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
@@ -511,8 +511,8 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XSECURE_RSA_INVALID_PARAM  On invalid parameter
+ *		 - XST_SUCCESS - On Success
+ *		 - XSECURE_RSA_INVALID_PARAM - On invalid parameter
  *
  *****************************************************************************/
 int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
@@ -590,8 +590,8 @@ u8* XSecure_RsaGetTPadding(void)
  * @param	BaseAddress	BaseAddress of RSA or ECDSA controller.
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XST_FAILURE  On Failure
+ *		 - XST_SUCCESS - On Success
+ *		 - XST_FAILURE - On Failure
  *
  *****************************************************************************/
 static int XSecure_RsaEcdsaZeroizeVerify(u32 BaseAddress)
@@ -634,8 +634,8 @@ END:
  * @param	BaseAddress	BaseAddress of ECDSA or RSA controller.
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XST_FAILURE  On Failure
+ *		 - XST_SUCCESS - On Success
+ *		 - XST_FAILURE - On Failure
  *
  *****************************************************************************/
 int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress)

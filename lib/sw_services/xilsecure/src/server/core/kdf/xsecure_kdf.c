@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -48,8 +48,9 @@
  * @param	KdfOutLen is the size of output.
  *
  * @return
- * 		- XST_SUCCESS on success.
- * 		- Error Code on failure.
+ *		- XST_SUCCESS - On success
+ *		- XSECURE_ERR_HKDF_INVALID_PARAM - If input parameters are invalid
+ *		- XST_FAILURE - On failure
  *
  **************************************************************************************************/
 int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
@@ -141,3 +142,4 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 END:
 	return Status;
 }
+/** @} */

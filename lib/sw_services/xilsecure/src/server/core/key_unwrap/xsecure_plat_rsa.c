@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -93,10 +93,10 @@ static int XSecure_GenerateRsaKeyPair(void* arg);
  * @param	OutputAddr	is address where the encoded data is stored.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
- *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN  On invalid message length.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.
+ *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN - On invalid message length.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr)
@@ -187,13 +187,13 @@ END:
  * @param	InputDataAddr	is the address where decrypted output data is stored.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
- *		 - XSECURE_RSA_OAEP_BYTE_MISMATCH_ERROR  If byte mismatch.
- *		 - XSECURE_RSA_OAEP_DATA_CPY_ERROR  If data copy fails.
- *		 - XSECURE_RSA_OAEP_DATA_CMP_ERROR  If data compare fails.
- *		 - XSECURE_RSA_OAEP_DB_MISMATCH_ERROR  If DB ia mismatched.
- *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN  On invalid message length.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.
+ *		 - XSECURE_RSA_OAEP_BYTE_MISMATCH_ERROR - If byte mismatch.
+ *		 - XSECURE_RSA_OAEP_DATA_CPY_ERROR - If data copy fails.
+ *		 - XSECURE_RSA_OAEP_DATA_CMP_ERROR - If data compare fails.
+ *		 - XSECURE_RSA_OAEP_DB_MISMATCH_ERROR - If DB ia mismatched.
+ *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN - On invalid message length.
  *		 - XST_FAILURE On failure.
  *
  ******************************************************************************/
@@ -300,9 +300,9 @@ END:
  * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_RsaOaepEncrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepParam)
@@ -336,9 +336,9 @@ END:
  * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *OaepParam)
@@ -380,8 +380,8 @@ END:
  * @brief	This function adds periodic task of generation RSA key pair to scheduler.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_ERR_ADD_TASK_SCHEDULER  If failed to add task to scheduler.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_ERR_ADD_TASK_SCHEDULER - If failed to add task to scheduler.
  *
  ******************************************************************************/
 int XSecure_AddRsaKeyPairGenerationToScheduler(void)
@@ -407,8 +407,8 @@ int XSecure_AddRsaKeyPairGenerationToScheduler(void)
  * @brief	This function removes keypair generation task from scheduler.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_ERR_REMOVE_TASK_SCHEDULER  If failed to remove task from scheduler.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_ERR_REMOVE_TASK_SCHEDULER - If failed to remove task from scheduler.
  *
  ******************************************************************************/
 static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void)
@@ -435,9 +435,9 @@ static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void)
  * @param	RsaKeyLen	Length of RSA key length in bytes.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_INVALID_PARAM  If input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_INVALID_PARAM - If input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaKeyGenInit(XSecure_RsaKeyGenParam* RsaParam, XSecure_RsaKeyPtr* KeyPairState, u32 RsaKeyLen)
@@ -503,9 +503,9 @@ END:
  *				i.e. Half-size RSA key.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_RSA_INVALID_PARAM  If input parameter is invalid.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_RSA_INVALID_PARAM - If input parameter is invalid.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaKeyGenerate(XSecure_RsaKeyPtr *KeyPairState, u32 QuantSize)
@@ -553,8 +553,8 @@ u32 XSecure_GetRsaKeyInUseIdx(void)
  * @brief	This function destroys the RSA key in use.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 int XSecure_RsaDestroyKeyInUse(void)
@@ -597,9 +597,9 @@ END:
  * @brief	This function performs the RSA key generation.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER  If RSA key pair generation fails.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER - If RSA key pair generation fails.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_GenerateRsaKeyPair(void* arg)
@@ -742,8 +742,8 @@ XSecure_RsaPubKey* XSecure_GetRsaPublicKey(u32 RsaIdx)
  * @param	RsaKeyStatus	Key status to be checked.
  *
  * @return
- *		 - XST_SUCCESS  On success.
- *		 - XST_FAILURE  On failure.
+ *		 - XST_SUCCESS - On success.
+ *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
 static int XSecure_GetRsaKeySlotIdx(u32 *RsaKeyIdx, u32 RsaKeyStatus)

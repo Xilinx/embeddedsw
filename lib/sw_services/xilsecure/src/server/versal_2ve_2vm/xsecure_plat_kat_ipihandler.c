@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,9 +53,9 @@ static int XSecure_Sha2Kat(void);
  * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If any input parameter is invalid
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If any input parameter is invalid
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
@@ -110,8 +110,8 @@ END:
  * 		address.
  *
  * @return
- *		 - XST_SUCCESS  If the KAT is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the KAT is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_TrngKat(void)
@@ -138,8 +138,8 @@ static int XSecure_TrngKat(void)
  * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
- *		 - XST_SUCCESS  If the SHA2 KAT is successful
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the SHA2 KAT is successful
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha2Kat(void)

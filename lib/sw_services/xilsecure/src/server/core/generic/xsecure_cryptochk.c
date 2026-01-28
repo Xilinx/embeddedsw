@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,9 +44,8 @@
  * 		programmed and PL loading is done
  *
  * @return
- *		 - XST_SUCCESS  When crypto accelerators are enabled
- *		 - XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED  When crypto accelerators
- *		are disabled
+ *		 - XST_SUCCESS - When crypto accelerators are enabled
+ *		 - XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED - When crypto accelerators are disabled
  *
  ******************************************************************************/
 int XSecure_CryptoCheck(void)

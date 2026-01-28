@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,9 +51,9 @@ static int XSecure_GenSharedSecret(u32 SrcAddrLow, u32 SrcAddrHigh);
  * @param	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - XST_INVALID_PARAM  If any parameter is invalid.
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_SUCCESS - If the handler execution is successful
+ *		 - XST_INVALID_PARAM - If any parameter is invalid.
+ *		 - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd)
@@ -93,8 +93,8 @@ END:
  * @param	SrcAddrHigh	Upper 32 bit address of the EcdhParams struture from client
  *
  * @return
- *		 - XST_SUCCESS  On Success
- *		 - XST_FAILURE  On failure
+ *		 - XST_SUCCESS - On Success
+ *		 - XST_FAILURE - On failure
  *
  ******************************************************************************/
 static int XSecure_GenSharedSecret(u32 SrcAddrLow, u32 SrcAddrHigh)
