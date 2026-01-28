@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,7 +68,7 @@
 *		      values are reduced for Zynq. One sleep is added after
 *		      MDIO divisor is set. Some of the prints are removed.
 * 1.01a asa 03/14/12  The SLCR divisor support for ENET1 is added.
-* 1.01a asa 04/15/12  The funcation calls to Xil_DisableMMU and Xil_EnableMMU
+* 1.01a asa 04/15/12  The function calls to Xil_DisableMMU and Xil_EnableMMU
 *		      are removed for setting the translation table
 *		      attributes for the BD memory region.
 * 1.05a asa 09/22/13 Cache handling is changed to fix an issue (CR#663885).
@@ -85,7 +85,7 @@
 *                    Enabled 1G speed for ZynqMP GEM.
 *                    Select GEM interrupt based on instance present.
 *                    Manage differences between emulation platform and silicon.
-* 3.2  mus  20/02/16.Added support for INTC interrupt controlller.
+* 3.2  mus  20/02/16.Added support for INTC interrupt controller.
 *                    Added support to access zynq emacps interrupt from
 *                    microblaze.
 * 3.3 kpc   12/09/16 Fixed issue when -O2 is enabled
@@ -996,7 +996,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	/*
 	 * There is no device status to check. If there was a DMA error,
 	 * it should have been reported to the error handler. Check the
-	 * receive lengthi against the transmitted length, then verify
+	 * receive length against the transmitted length, then verify
 	 * the data.
 	 */
 	if (GemVersion > 2) {
@@ -1045,7 +1045,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 * preference.
 * In many cases, an OS may have resources tied up in the descriptors.
 * Reinitializing in this case may bad for the OS since its resources may be
-* permamently lost.
+* permanently lost.
 *
 * @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.

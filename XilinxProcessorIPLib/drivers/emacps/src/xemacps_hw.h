@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -127,7 +127,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_IDR_OFFSET           0x0000002CU /**< Interrupt Disable reg */
 #define XEMACPS_IMR_OFFSET           0x00000030U /**< Interrupt Mask reg */
 
-#define XEMACPS_PHYMNTNC_OFFSET      0x00000034U /**< Phy Maintaince reg */
+#define XEMACPS_PHYMNTNC_OFFSET      0x00000034U /**< Phy Maintenance reg */
 #define XEMACPS_RXPAUSE_OFFSET       0x00000038U /**< RX Pause Time reg */
 #define XEMACPS_TXPAUSE_OFFSET       0x0000003CU /**< TX Pause Time reg */
 
@@ -156,9 +156,9 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_STRETCH_OFFSET       0x000000BCU /**< IPG Stretch reg */
 
-#define XEMACPS_OCTTXL_OFFSET        0x00000100U /**< Octects transmitted Low
+#define XEMACPS_OCTTXL_OFFSET        0x00000100U /**< Octets transmitted Low
                                                       reg */
-#define XEMACPS_OCTTXH_OFFSET        0x00000104U /**< Octects transmitted High
+#define XEMACPS_OCTTXH_OFFSET        0x00000104U /**< Octets transmitted High
                                                       reg */
 
 #define XEMACPS_TXCNT_OFFSET         0x00000108U /**< Error-free Frmaes
@@ -205,9 +205,9 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_TXCSENSECNT_OFFSET   0x0000014CU /**< Transmit Carrier Sense
                                                       Error Counter */
 
-#define XEMACPS_OCTRXL_OFFSET        0x00000150U /**< Octects Received register
+#define XEMACPS_OCTRXL_OFFSET        0x00000150U /**< Octets Received register
                                                       Low */
-#define XEMACPS_OCTRXH_OFFSET        0x00000154U /**< Octects Received register
+#define XEMACPS_OCTRXH_OFFSET        0x00000154U /**< Octets Received register
                                                       High */
 
 #define XEMACPS_RXCNT_OFFSET         0x00000158U /**< Error-free Frames

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,7 +102,7 @@ void XEmacPs_ResetHw(u32 BaseAddr)
 * The register offset of a specific queue register is returned by this function.
 *
 * @param   RegName  Basename of the register
-* @param   Queue    Corresponsing Queue
+* @param   Queue    Corresponding Queue
 *
 * @return  Register offset
 ******************************************************************************/

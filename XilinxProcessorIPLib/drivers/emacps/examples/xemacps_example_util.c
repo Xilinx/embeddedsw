@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -274,7 +274,7 @@ void EmacPsUtilFrameMemClear(EthernetFrame *FramePtr)
 /****************************************************************************/
 /**
 *
-* This function copies data from source to desitnation for n bytes.
+* This function copies data from source to destination for n bytes.
 *
 * @param    Destination is the targeted string to copy to.
 * @param    Source is the source string to copy from.

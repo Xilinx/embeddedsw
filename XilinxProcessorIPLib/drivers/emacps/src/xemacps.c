@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -242,7 +242,7 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 * Gracefully stop the Ethernet MAC as follows:
 *   - Disable all interrupts from this device
 *   - Stop DMA channels
-*   - Disable the tansmitter and receiver
+*   - Disable the transmitter and receiver
 *
 * Device options currently in effect are not changed.
 *

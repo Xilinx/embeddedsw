@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -233,7 +233,7 @@
  * facilitates communication between the driver and an OS.
  * This driver is intended to be RTOS and processor independent. Any needs for
  * dynamic memory management, threads or thread mutual exclusion, or cache
- * control must be satisfied bythe layer above this driver.
+ * control must be satisfied by the layer above this driver.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -703,7 +703,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* This macro triggers trasmit circuit to send data currently in TX buffer(s).
+* This macro triggers transmit circuit to send data currently in TX buffer(s).
 *
 * @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
