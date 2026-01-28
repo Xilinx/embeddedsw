@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -92,6 +92,10 @@ enum {
 /************************************ Function Prototypes ****************************************/
 static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode,
 			    const XAsufw_MgfInput *MgfInput);
+static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBlock, u32 HashLen,
+			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr);
+static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *HashBuffer,
+			    u32 HashLen, const XAsu_RsaOaepPaddingParams *PaddingParamsPtr);
 static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				 const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 HashAddr,
 				 u32 *HashLen, u8 OaepOp);
@@ -101,25 +105,16 @@ static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 /*************************************************************************************************/
 /**
  * @brief	This function performs RSA OAEP encoding for the provided message to output a padded
- * 		data of length equal to key size using RSA OAEP algorithm for padding.
+ *		data of length equal to key size using RSA OAEP algorithm for padding.
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
- * 					holds OAEP padding related parameters.
+ *					holds OAEP padding related parameters.
  *
  * @return
- *		- XASUFW_SUCCESS, if RSA OAEP encoding is successful.
- *		- XASUFW_FAILURE, in case of failure.
- *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if Public encryption error occurs after
- *		  OAEP padding.
- *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
- *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
- *		- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
- *		- XASUFW_RSA_RAND_GEN_ERROR, if random number generation fails.
- *		- XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, if mask generation for seed fails.
- *		- XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, if mask generation for data block fails.
+ *	- XASUFW_SUCCESS, if RSA OAEP encoding is successful.
+ *	- XASUFW_FAILURE, in case of failure.
  *
  *************************************************************************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -127,140 +122,24 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u32 KeySize = 0U;
-	u32 Len = 0U;
-	u32 HashLen = 0U;
-	u32 Index = 0U;
-	u32 DataBlockLen = 0U;
 	u8 *DataBlock = XRsa_GetDataBlockAddr();
-	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
-	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
-	u8 *MaskSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
-	u8 PaddedOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
-	XAsufw_MgfInput MgfInput;
-	u32 PadLen = 0U;
+	u32 HashLen = 0U;
 
 	/** Validating input parameters and calculating digest. */
 	Status = XRsa_OaepEncDecCommon(DmaPtr, ShaInstancePtr, PaddingParamsPtr,
 				       (u64)(UINTPTR)DataBlock, &HashLen, XRSA_OAEP_OP_ENCODE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
-		goto END;
-	}
-
-	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
-	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
-
-	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
-		 XRSA_DB_DELIMITER_LEN;
-
-	/** Append 0x00's of length (KeySize - Len - (2U * HashLen) - 2U) to data block. */
-	if (PadLen != 0U) {
+	if (Status == XASUFW_SUCCESS) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemSet(&DataBlock[HashLen], XRSA_MAX_DB_LEN, 0U, PadLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-			goto END;
-		}
+		Status = XRsa_OaepEncrypt(DmaPtr, ShaInstancePtr, DataBlock, HashLen,
+					  PaddingParamsPtr);
 	}
 
-	/** Append 0x01U to data block after the zeroized memory. */
-	DataBlock[KeySize - Len - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET]
-	= XRSA_DATA_BLOCK_DELIMITER;
-
-	/**
-	 * Calculate data block length which is KeySize - HashLen - 1 as it is
-	 * of the format Datablock = Hashofoptionallabel(HashLen) ||
-	 * 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
-	 */
-	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
-
-	/** Copy input data to server memory using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
-			       (u64)(UINTPTR)&DataBlock[DataBlockLen - Len], Len, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-		goto END;
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Zeroize local copy of all the parameters. */
+		ClearStatus = XAsufw_SMemSet(DataBlock,
+					     XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
-
-	/** Get random numbers for seed input. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_TrngGetRandomNumbers(SeedBuffer, HashLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_RAND_GEN_ERROR;
-		goto END;
-	}
-
-	/** Generate mask of required length for data block using MGF (Mask Generation Function). */
-	MgfInput.Output = DataBlockMask;
-	MgfInput.OutputLen = DataBlockLen;
-	MgfInput.Seed = SeedBuffer;
-	MgfInput.SeedLen = HashLen;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR);
-		goto END;
-	}
-
-	for (Index = 0U; Index < DataBlockLen; Index++) {
-		DataBlock[Index] ^= DataBlockMask[Index];
-	}
-
-	/** Generate mask of required length for seed block using MGF. */
-	MgfInput.Output = MaskSeedBuffer;
-	MgfInput.OutputLen = HashLen;
-	MgfInput.Seed = DataBlock;
-	MgfInput.SeedLen = DataBlockLen;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR);
-		goto END;
-	}
-
-	for (Index = 0U; Index < HashLen; Index++) {
-		PaddedOutputData[XRSA_PADDING_LEADING_ZERO_LEN + Index] =
-		SeedBuffer[Index] ^ MaskSeedBuffer[Index];
-	}
-
-	/** Append 0x00U to data block after masking the data. */
-	/** PaddedOutputData = 0x00 || maskedSeed || maskedDB. */
-	PaddedOutputData[XRSA_PADDING_LEADING_ZERO_IDX] = XRSA_PADDING_LEADING_ZERO;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Increment output data index by one after maskedseed and copy masked datablock to output. */
-	Status = Xil_SMemCpy(&PaddedOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET],
-			      XRSA_MAX_KEY_SIZE_IN_BYTES, DataBlock,
-			      XRSA_MAX_DB_LEN, DataBlockLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_MEM_COPY_FAIL;
-		goto END;
-	}
-
-	/** Perform public exponentiation encryption operation on padded data. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_PubExp(DmaPtr, KeySize,
-			     (u64)(UINTPTR)PaddedOutputData,
-			     PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
-			     PaddingParamsPtr->XAsu_RsaOpComp.KeyCompAddr,
-			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCRYPT_ERROR);
-	}
-
-END:
-	/** Zeroize local copy of all the parameters. */
-	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PaddedOutputData,
-					XRSA_MAX_KEY_SIZE_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	return Status;
 }
@@ -268,24 +147,18 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function performs RSA OAEP decode operation for the provided decrypted data
- * 		to extract the original message.
+ *		to extract the original message.
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the Sha instance.
  * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
- * 					holds OAEP padding related parameters.
+ *					holds OAEP padding related parameters.
  *
  * @return
- *		- XASUFW_SUCCESS, if OAEP decode operation is successful.
- *		- XASUFW_FAILURE, in case of failure.
- *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
- *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
- *		- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
- *		- XASUFW_RSA_OAEP_DECRYPT_ERROR, if OAEP decryption fails.
- *		- XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, if mask generation for seed fails.
- *		- XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, if mask generation for data block fails.
- *		- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
- *		please refer to xasufw_status.h.
+ *	- XASUFW_SUCCESS, if OAEP decode operation is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
+ *	  please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -293,155 +166,24 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u32 KeySize = 0U;
-	u32 Len = 0U;
-	u32 HashLen = 0U;
-	volatile u32 Index = 0U;
-	u32 DataBlockLen = 0U;
-	u32 MsgLen = 0U;
-	u8 *DataBlock = XRsa_GetDataBlockAddr();
-	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
-	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
-	u8 *MaskedSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
 	u8 HashBuffer[XASU_SHA_512_HASH_LEN];
-	u8 DecryptOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
-	XAsufw_MgfInput MgfInput;
-	XAsu_ShaOperationCmd ShaParamsInput;
-	u32 PadLen = 0U;
+	u32 HashLen = 0U;
 
 	/** Validating input parameters and calculating digest. */
 	Status = XRsa_OaepEncDecCommon(DmaPtr, ShaInstancePtr, PaddingParamsPtr,
 				       (u64)(UINTPTR)HashBuffer, &HashLen, XRSA_OAEP_OP_DECODE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
-		goto END;
+	if (Status == XASUFW_SUCCESS) {
+		Status = XRsa_OaepDecrypt(DmaPtr, ShaInstancePtr, HashBuffer, HashLen,
+					  PaddingParamsPtr);
 	}
 
-	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
-	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
-
-	/** Perform private exponentiation decryption operation. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_PvtExp(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.Len,
-			     PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
-			     (u64)(UINTPTR)DecryptOutputData,
-			     PaddingParamsPtr->XAsu_RsaOpComp.KeyCompAddr,
-			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
-	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECRYPT_ERROR);
-		goto END;
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Zeroize local copy of all the parameters. */
+		XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, HashBuffer,
+			  XASU_SHA_512_HASH_LEN);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
-	ReturnStatus = XASUFW_FAILURE;
-
-	/** Copy seed buffer and data block from decrypted output. */
-	/** EM = Y || maskedSeed || maskedDB . */
-	/** Increment output data index by one after maskedseed and point to masked datablock. */
-	MaskedSeedBuffer = &DecryptOutputData[XRSA_PADDING_LEADING_ZERO_LEN];
-	DataBlockMask = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
-
-	/**
-	 * Calculate data block length which is KeySize - HashLen - 1 as it is
-	 * of the format Datablock = Hashofoptionallabel(HashLen) ||
-	 * 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
-	 */
-	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
-
-	/** Generate mask of required length for seed block using MGF. */
-	MgfInput.Output = SeedBuffer;
-	MgfInput.OutputLen = HashLen;
-	MgfInput.Seed = DataBlockMask;
-	MgfInput.SeedLen = DataBlockLen;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR);
-		goto END;
-	}
-
-	for (Index = 0U; Index < HashLen; Index++) {
-		SeedBuffer[Index] ^= MaskedSeedBuffer[Index];
-	}
-
-	/** Generate mask of required length for data block using MGF. */
-	MgfInput.Output = DataBlock;
-	MgfInput.OutputLen = DataBlockLen;
-	MgfInput.Seed = SeedBuffer;
-	MgfInput.SeedLen = HashLen;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR);
-		goto END;
-	}
-
-	for (Index = 0U; Index < DataBlockLen; Index++) {
-		DataBlock[Index] ^= DataBlockMask[Index];
-	}
-
-	/**
-	* DB = lHash(hash of optional label) || 0x00(length= (KeySize - Len - (2U * HashLen) - 2U)
-	* || 0x01 || M.
-	*/
-
-	/**
-	* Iterate a loop until last but one index in data block to check for 0x01U from which
-	* original message is separated from rest of the data block.
-	*/
-	Index = HashLen;
-	while ((Index < (DataBlockLen - XASUFW_BUFFER_INDEX_ONE))
-		&& (DataBlock[Index] == XRSA_OAEP_ZERO_PADDING_DATA_VALUE)) {
-		Index++;
-	}
-	/**
-	* Check for OAEP decoding errors.
-	* a.Leading octet check in first byte of decrypted data to be zero.
-	* b.Compare generated hash from optional label with data block from index zero until
-	* hash length.
-	* c.Validating the padding string to have zeroes until 0x01U is found and copy data to
-	* output data address using DMA on successful comparison.
-	*/
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((DecryptOutputData[XRSA_PADDING_LEADING_ZERO_IDX] != 0U) ||
-		(XASUFW_SUCCESS != Xil_SMemCmp(DataBlock, XRSA_MAX_DB_LEN, HashBuffer,
-		XASU_SHA_512_HASH_LEN, HashLen)) || ((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
-		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE))) {
-		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
-		XFIH_GOTO(END);
-	}
-	Index++;
-	MsgLen = DataBlockLen - Index;
-	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
-		 XRSA_DB_DELIMITER_LEN;
-	/** Validate input length which should not be greater than KeySize – (2 * hashLen) – 2. */
-	if (MsgLen > PadLen) {
-		Status = XASUFW_RSA_OAEP_INVALID_LEN;
-		goto END;
-	}
-
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(&(DataBlock[Index])),
-				PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
-				MsgLen, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-	}
-
-END:
-	/** Zeroize local copy of all the parameters. */
-	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DataBlock,
-					XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, HashBuffer,
-			XASU_SHA_512_HASH_LEN);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DecryptOutputData,
-			XRSA_MAX_KEY_SIZE_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	return Status;
 }
@@ -1159,7 +901,6 @@ static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XAsu_ShaOperationCmd ShaParamsInput;
 
 	/** Validate the input parameters. */
@@ -1242,6 +983,330 @@ static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs RSA OAEP encryption operation on the padded data.
+ *
+ * @param	DmaPtr			Pointer to the AsuDma instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
+ * @param	DataBlock		Pointer to the data block buffer containing the hash of
+ *					optional label.
+ * @param	HashLen			Length of the hash in bytes.
+ * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
+ *					holds OAEP padding related parameters.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if RSA OAEP encryption is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ *	- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy fails.
+ *	- XASUFW_RSA_RAND_GEN_ERROR, if random number generation fails.
+ *	- XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, if mask generation for data block fails.
+ *	- XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, if mask generation for seed buffer fails.
+ *	- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if RSA public exponentiation encryption fails.
+ *
+ *************************************************************************************************/
+static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBlock, u32 HashLen,
+			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	u32 KeySize = 0U;
+	u32 Len = 0U;
+	u32 Index = 0U;
+	u32 DataBlockLen = 0U;
+	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
+	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
+	u8 *MaskSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
+	u8 PaddedOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
+	XAsufw_MgfInput MgfInput;
+	u32 PadLen = 0U;
+
+	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
+	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
+
+	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
+		 XRSA_DB_DELIMITER_LEN;
+
+	/** Append 0x00's of length (KeySize - Len - (2U * HashLen) - 2U) to data block. */
+	if (PadLen != 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemSet(&DataBlock[HashLen], XRSA_MAX_DB_LEN, 0U, PadLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
+	}
+
+	/** Append 0x01U to data block after the zeroized memory. */
+	DataBlock[KeySize - Len - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET]
+	= XRSA_DATA_BLOCK_DELIMITER;
+
+	/**
+	 * Calculate data block length which is KeySize - HashLen - 1 as it is
+	 * of the format Datablock = Hashofoptionallabel(HashLen) ||
+	 * 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
+	 */
+	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
+
+	/** Copy input data to server memory using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
+			       (u64)(UINTPTR)&DataBlock[DataBlockLen - Len], Len, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	/** Get random numbers for seed input. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_TrngGetRandomNumbers(SeedBuffer, HashLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_RAND_GEN_ERROR;
+		goto END;
+	}
+
+	/** Generate mask of required length for data block using MGF (Mask Generation Function). */
+	MgfInput.Output = DataBlockMask;
+	MgfInput.OutputLen = DataBlockLen;
+	MgfInput.Seed = SeedBuffer;
+	MgfInput.SeedLen = HashLen;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR);
+		goto END;
+	}
+
+	for (Index = 0U; Index < DataBlockLen; Index++) {
+		DataBlock[Index] ^= DataBlockMask[Index];
+	}
+
+	/** Generate mask of required length for seed block using MGF. */
+	MgfInput.Output = MaskSeedBuffer;
+	MgfInput.OutputLen = HashLen;
+	MgfInput.Seed = DataBlock;
+	MgfInput.SeedLen = DataBlockLen;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR);
+		goto END;
+	}
+
+	for (Index = 0U; Index < HashLen; Index++) {
+		PaddedOutputData[XRSA_PADDING_LEADING_ZERO_LEN + Index] =
+		SeedBuffer[Index] ^ MaskSeedBuffer[Index];
+	}
+
+	/** Append 0x00U to data block after masking the data. */
+	/** PaddedOutputData = 0x00 || maskedSeed || maskedDB. */
+	PaddedOutputData[XRSA_PADDING_LEADING_ZERO_IDX] = XRSA_PADDING_LEADING_ZERO;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/**
+	 * Increment output data index by one after maskedseed and copy masked datablock to
+	 * output.
+	 */
+	Status = Xil_SMemCpy(&PaddedOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET],
+			      XRSA_MAX_KEY_SIZE_IN_BYTES, DataBlock,
+			      XRSA_MAX_DB_LEN, DataBlockLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	/** Perform public exponentiation encryption operation on padded data. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_PubExp(DmaPtr, KeySize,
+			     (u64)(UINTPTR)PaddedOutputData,
+			     PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
+			     PaddingParamsPtr->XAsu_RsaOpComp.KeyCompAddr,
+			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCRYPT_ERROR);
+	}
+
+END:
+	/** Zeroize local copy of all the parameters. */
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PaddedOutputData,
+					XRSA_MAX_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs RSA OAEP decryption operation to extract the original
+ *		message from encrypted data.
+ *
+ * @param	DmaPtr			Pointer to the AsuDma instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
+ * @param	HashBuffer		Pointer to the buffer containing the hash of optional label.
+ * @param	HashLen			Length of the hash in bytes.
+ * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
+ *					holds OAEP padding related parameters.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if RSA OAEP decryption is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *	- XASUFW_RSA_OAEP_DECRYPT_ERROR, if RSA private exponentiation decryption fails.
+ *	- XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, if mask generation for seed buffer fails.
+ *	- XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, if mask generation for data block fails.
+ *	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decoding validation fails.
+ *	- XASUFW_RSA_OAEP_INVALID_LEN, if message length validation fails.
+ *	- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
+ *	  please refer to xasufw_status.h.
+ *
+ *************************************************************************************************/
+static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *HashBuffer,
+			    u32 HashLen, const XAsu_RsaOaepPaddingParams *PaddingParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u32 KeySize = 0U;
+	u32 Len = 0U;
+	volatile u32 Index = 0U;
+	u32 DataBlockLen = 0U;
+	u32 MsgLen = 0U;
+	u8 *DataBlock = XRsa_GetDataBlockAddr();
+	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
+	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
+	const u8 *MaskedSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
+	u8 DecryptOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
+	XAsufw_MgfInput MgfInput;
+	u32 PadLen = 0U;
+
+	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
+	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
+
+	/** Perform private exponentiation decryption operation. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_PvtExp(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.Len,
+			     PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
+			     (u64)(UINTPTR)DecryptOutputData,
+			     PaddingParamsPtr->XAsu_RsaOpComp.KeyCompAddr,
+			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECRYPT_ERROR);
+		goto END;
+	}
+	ReturnStatus = XASUFW_FAILURE;
+
+	/** Copy seed buffer and data block from decrypted output. */
+	/** EM = Y || maskedSeed || maskedDB . */
+	/** Increment output data index by one after maskedseed and point to masked datablock. */
+	MaskedSeedBuffer = &DecryptOutputData[XRSA_PADDING_LEADING_ZERO_LEN];
+	DataBlockMask = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
+
+	/**
+	 * Calculate data block length which is KeySize - HashLen - 1 as it is
+	 * of the format Datablock = Hashofoptionallabel(HashLen) ||
+	 * 0x00(length= (KeySize - Len - (2U * HashLen) - 2U) || 0x01 || M(Len).
+	 */
+	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
+
+	/** Generate mask of required length for seed block using MGF. */
+	MgfInput.Output = SeedBuffer;
+	MgfInput.OutputLen = HashLen;
+	MgfInput.Seed = DataBlockMask;
+	MgfInput.SeedLen = DataBlockLen;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR);
+		goto END;
+	}
+
+	for (Index = 0U; Index < HashLen; Index++) {
+		SeedBuffer[Index] ^= MaskedSeedBuffer[Index];
+	}
+
+	/** Generate mask of required length for data block using MGF. */
+	MgfInput.Output = DataBlock;
+	MgfInput.OutputLen = DataBlockLen;
+	MgfInput.Seed = SeedBuffer;
+	MgfInput.SeedLen = HashLen;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_MaskGenFunc(DmaPtr, ShaInstancePtr, PaddingParamsPtr->ShaMode, &MgfInput);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR);
+		goto END;
+	}
+
+	for (Index = 0U; Index < DataBlockLen; Index++) {
+		DataBlock[Index] ^= DataBlockMask[Index];
+	}
+
+	/**
+	* DB = lHash(hash of optional label) || 0x00(length= (KeySize - Len - (2U * HashLen) - 2U)
+	* || 0x01 || M.
+	*/
+
+	/**
+	* Iterate a loop until last but one index in data block to check for 0x01U from which
+	* original message is separated from rest of the data block.
+	*/
+	Index = HashLen;
+	while ((Index < (DataBlockLen - XASUFW_BUFFER_INDEX_ONE))
+		&& (DataBlock[Index] == XRSA_OAEP_ZERO_PADDING_DATA_VALUE)) {
+		Index++;
+	}
+	/**
+	* Check for OAEP decoding errors.
+	* a.Leading octet check in first byte of decrypted data to be zero.
+	* b.Compare generated hash from optional label with data block from index zero until
+	* hash length.
+	* c.Validating the padding string to have zeroes until 0x01U is found and copy data to
+	* output data address using DMA on successful comparison.
+	*/
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((DecryptOutputData[XRSA_PADDING_LEADING_ZERO_IDX] != 0U) ||
+		(XASUFW_SUCCESS != Xil_SMemCmp(DataBlock, XRSA_MAX_DB_LEN, HashBuffer,
+		XASU_SHA_512_HASH_LEN, HashLen)) ||
+		((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
+		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE))) {
+		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
+		XFIH_GOTO(END);
+	}
+	Index++;
+	MsgLen = DataBlockLen - Index;
+	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
+		 XRSA_DB_DELIMITER_LEN;
+	/** Validate input length which should not be greater than KeySize – (2 * hashLen) – 2. */
+	if (MsgLen > PadLen) {
+		Status = XASUFW_RSA_OAEP_INVALID_LEN;
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(&(DataBlock[Index])),
+				PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
+				MsgLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+	}
+
+END:
+	/** Zeroize local copy of all the parameters. */
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DataBlock,
+		  XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DecryptOutputData,
+		  XRSA_MAX_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 #endif /* XASU_RSA_PADDING_ENABLE */
