@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,7 @@
 * sequence for included sub-cores. Subsystem is assigned an address and range
 * on the axi-lite interface. This address space is condensed where-in each
 * sub-core is at a fixed offset from the subsystem base address. For processor
-* to be able to access the sub-core this offset needs to be transalted into a
+* to be able to access the sub-core this offset needs to be translated into a
 * absolute address within the subsystems addressable range
 *
 * <pre>
@@ -124,7 +124,7 @@ int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr)
       return(XST_FAILURE);
     }
 
-    // Load EDID
+/*  Load EDID */
     XV_HdmiRx_DdcLoadEdid(HdmiRxSsPtr->HdmiRxPtr, HdmiRxSsPtr->EdidPtr,
         HdmiRxSsPtr->EdidLength);
 
@@ -638,7 +638,7 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
 
   switch (Type)
   {
-    // HDCP 2.2. write message event
+/*  HDCP 2.2. write message event */
     case XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK:
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
       if (HdmiRxSsPtr->Hdcp22Ptr) {
@@ -647,7 +647,7 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
 #endif
       break;
 
-    // HDCP 2.2 read message event
+/*  HDCP 2.2 read message event */
     case XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK:
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
       if (HdmiRxSsPtr->Hdcp22Ptr) {
@@ -656,7 +656,7 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
 #endif
       break;
 
-    // HDCP 2.2 read not complete event
+/*  HDCP 2.2 read not complete event */
     case XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK:
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
       if (HdmiRxSsPtr->Hdcp22Ptr) {
@@ -665,7 +665,7 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
 #endif
       break;
 
-    // HDCP 1.4 Aksv event
+/*  HDCP 1.4 Aksv event */
     case XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK:
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (HdmiRxSsPtr->Hdcp14Ptr) {
@@ -674,7 +674,7 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
 #endif
       break;
 
-    // HDCP 1.4 protocol event
+/*  HDCP 1.4 protocol event */
     case XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK:
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
       if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr) {
@@ -685,7 +685,7 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
 #endif
       break;
 
-    // HDCP 2.2 protocol event
+/*  HDCP 2.2 protocol event */
     case XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK:
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
       if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr) {
@@ -745,7 +745,7 @@ static void XV_HdmiRxSs_LinkErrorCallback(void *RefPtr)
   XV_HdmiRxSs *HdmiRxSsPtr;
   HdmiRxSsPtr = (XV_HdmiRxSs*) RefPtr;
 
-  // HDCP 2.2
+/*  HDCP 2.2 */
   if (HdmiRxSsPtr->Hdcp22Ptr) {
     if (HdmiRxSsPtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22) {
       XHdcp22Rx_SetLinkError(HdmiRxSsPtr->Hdcp22Ptr);

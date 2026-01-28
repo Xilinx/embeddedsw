@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +50,7 @@
 *                       video bridge and controlled by HDMI core
 * 1.16  MMO    03/01/17 Add compiler option(XV_HDMIRXSS_LOG_ENABLE) to enable
 *                         Log
-*						Re-order the enumaration and data structure
+*						Re-order the enumeration and data structure
 *                       Move HDCP local API into _hdcp.h
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
@@ -125,11 +125,18 @@ extern "C" {
 * @{
 */
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+/** @name ANSI Color Codes for console output
+* @{
+*/
+#define ANSI_COLOR_RED     "\x1b[31m"	/**< ANSI color code for red */
+#define ANSI_COLOR_YELLOW  "\x1b[33m"	/**< ANSI color code for yellow */
+#define ANSI_COLOR_RESET   "\x1b[0m"	/**< ANSI color code to reset */
+/** @} */
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
+/**
+* This typedef defines the HDMI RX Subsystem log events.
+*/
 typedef enum {
 	XV_HDMIRXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
 	XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT,	/**< Log event HDMIRX Init. */
@@ -307,7 +314,7 @@ typedef struct
 #ifndef SDT
   u16 DeviceId;   /**< Device ID of the sub-core */
 #endif
-  UINTPTR AbsAddr; /**< Absolute Base Address of hte Sub-cores*/
+  UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
 }XV_HdmiRxSs_SubCore;
 
 /**
@@ -423,7 +430,7 @@ typedef struct
                                                detection */
    void *VicErrorRef;   /**< To be passed to the VIC error callback */
 
-  // Scratch pad
+/*  Scratch pad */
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
   u8 IsStreamUp;                /**< HDMI RX Stream Up */
   u8 AudioChannels;             /**< Number of Audio Channels */
@@ -573,10 +580,12 @@ void XV_HdmiRxSS_HdcpTimerIntrHandler(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSS_Hdcp22TimerIntrHandler(XV_HdmiRxSs *InstancePtr);
 #endif
 
-#endif // USE_HDCP_RX
+#endif /*  USE_HDCP_RX */
 
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 
 #endif /* end of protection macro */
