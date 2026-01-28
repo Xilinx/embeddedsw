@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -271,11 +271,11 @@ void XPfw_InterruptHandler(void)
 				l_index++) {
 			if ((l_IrqReg & g_TopLevelInterruptTable[l_index].Mask)
 					== g_TopLevelInterruptTable[l_index].Mask) {
-				/* Call the Handler */
-				g_TopLevelInterruptTable[l_index].Handler();
 				/* ACK the Interrupt */
 				XPfw_Write32(PMU_IOMODULE_IRQ_ACK,
 						g_TopLevelInterruptTable[l_index].Mask);
+				/* Call the Handler */
+				g_TopLevelInterruptTable[l_index].Handler();
 			}
 		}
 
