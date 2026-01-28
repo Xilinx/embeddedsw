@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,7 +117,7 @@
 *
 * For full checksum offloading (enabled while configuring the hardware), the
 * IPv4 checksum calculation and validation can also be offloaded at the
-* harwdare. Full checksum offload is supported only under certain conditions.
+* hardware. Full checksum offload is supported only under certain conditions.
 * IP checksum offload will be supported on valid IP datagrams that meet the
 * following conditions.
 *   - If present, the VLAN header is 4 bytes long
@@ -813,7 +813,7 @@ typedef struct XAxiEthernet_Config {
 	u8 AxiDmaTxIntr;/**< Axi DMA TX interrupt ID (unused if FIFO) */
 	u8 AxiMcDmaChan_Cnt;  /**< Axi MCDMA Channel Count */
 	u8 AxiMcDmaRxIntr[16]; /**< Axi MCDMA Rx interrupt ID (unused if AXI DMA or FIFO) */
-	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXIX DMA or FIFO) */
+	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXI DMA or FIFO) */
 #endif
 } XAxiEthernet_Config;
 
@@ -1439,7 +1439,7 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 /**
 *
 * XAxiEthernet_IsAvbConfigured returns determines if Ethernet AVB.is configured
-* in the harwdare or not.
+* in the hardware or not.
 *
 * @param	InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
@@ -1461,7 +1461,7 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 /**
 *
 * XAxiEthernet_IsSgmiiOverLvdsEnabled determines if SGMII over LVDS is enabled
-* in the harwdare or not.
+* in the hardware or not.
 *
 * @param	InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
@@ -1483,7 +1483,7 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 /**
 *
 * XAxiEthernet_IsStatsConfigured returns determines if Statistics gathering.
-* is configured in the harwdare or not.
+* is configured in the hardware or not.
 *
 * @param	InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.

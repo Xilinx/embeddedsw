@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xavb_rtc_sync.c
 *
 * The XAvb driver. Functions in this file all contain calculations which are
-* essential for the AVB (1588 based) Real Time Clock (RTC) Sychronisation.  In
+* essential for the AVB (1588 based) Real Time Clock (RTC) Synchronisation.  In
 * here are functions to measure the Link Delay (Master and Slave); to measure
 * and correct the current RTC error (Slave); to measure and correct the current
 * RTC increment rate error.
@@ -80,7 +80,7 @@ u32 XAvb_CaptureNanoSec(u32 BaseAddress, u32 PtpFrameBaseAddr) {
                                     XAVB_PTP_RX_PKT_TIMESTAMP_LOWER_OFFSET);
 
   /** Now re-arrange the data from the Words to obtain the required ns Timestamp
-   *  in binrary format */
+   *  in binary format */
   Timestamp = (XAvb_ReorderWord(BufferWordA)<<16) |
               (XAvb_ReorderWord(BufferWordB)>>16);
 
@@ -413,7 +413,7 @@ void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
      * RTC ns offset change by this to get the offset change in a
      * multiple of 8k clock periods, the add 1 so that we always round
      * up.  Then multiply this by XAVB_PERIOD_8KHZ again so that we are always
-     * phased aligned to the RTC master (only evey adjust in a multiple
+     * phased aligned to the RTC master (only every adjust in a multiple
      * of 8k periods.
      */
     ChangeIn8kPeriods = NewOffset / XAVB_PERIOD_8KHZ;

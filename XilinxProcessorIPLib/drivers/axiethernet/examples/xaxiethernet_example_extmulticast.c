@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -633,7 +633,7 @@ int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
 * This example sends and receives a single packet in loopback mode with
 * extended multicast address support.
 *
-* The transmit frame will be addressed one of programed multicast addresses.
+* The transmit frame will be addressed one of programmed multicast addresses.
 *
 * On receive, HW should pass the frame to receive interrupt handler for further
 * address checking.
@@ -1662,7 +1662,7 @@ void AxiEthernetErrorFastHandler(void)
 /*****************************************************************************/
 /**
 *
-* Fast Tramsmit Handler which calls TxIntrHandler.
+* Fast Transmit Handler which calls TxIntrHandler.
 *
 * @param	None
 *

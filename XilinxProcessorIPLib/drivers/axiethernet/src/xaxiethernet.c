@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1403,7 +1403,7 @@ u16 XAxiEthernet_GetOperatingSpeed(XAxiEthernet *InstancePtr)
  *
  * @return	- XST_SUCCESS on successful setting of speed.
  *		- XST_FAILURE, if the speed cannot be set for the present
- *		  harwdare configuration.
+ *		  hardware configuration.
  *
  * @note	None.
  *

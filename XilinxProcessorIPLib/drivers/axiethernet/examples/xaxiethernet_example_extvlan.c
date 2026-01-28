@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1535,7 +1535,7 @@ void AxiEthernetErrorFastHandler(void)
 /*****************************************************************************/
 /**
 *
-* Fast Tramsmit Handler which calls TxIntrHandler.
+* Fast Transmit Handler which calls TxIntrHandler.
 *
 * @param	None
 *
