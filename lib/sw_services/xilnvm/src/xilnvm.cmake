@@ -4,6 +4,21 @@
 # For PMC microblaze core in all Versal variants, mode is server.
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
   set(XILNVM_mode "server")
+
+  option(XILNVM_en_write_sec_crit_efuse "Enables write operation for Security Critical eFuses." OFF)
+  if(XILNVM_en_write_sec_crit_efuse)
+    set(XNVM_WRITE_SECURITY_CRITICAL_EFUSE " ")
+  endif()
+
+  option(XILNVM_en_write_user_efuse "Enables write operation for User eFuses." OFF)
+  if(XILNVM_en_write_user_efuse)
+    set(XNVM_WRITE_USER_EFUSE " ")
+  endif()
+
+  option(XILNVM_en_write_key_management_efuse "Enables write operation for Key Management eFuses." OFF)
+  if(XILNVM_en_write_key_management_efuse)
+    set(XNVM_WRITE_KEY_MANAGEMENT_EFUSE " ")
+  endif()
 endif()
 
 # XilNvm configuration options for Versal
@@ -15,21 +30,6 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
     if(XILNVM_cache_disable AND XILNVM_mode STREQUAL "client")
       set(XNVM_CACHE_DISABLE " ")
-    endif()
-
-    option(XILNVM_en_write_sec_crit_efuse "Enables write operation for Security Critical eFuses (server mode only)." OFF)
-    if(XILNVM_en_write_sec_crit_efuse)
-      set(XNVM_WRITE_SECURITY_CRITICAL_EFUSE " ")
-    endif()
-
-    option(XILNVM_en_write_user_efuse "Enables write operation for User eFuses (server mode only)." OFF)
-    if(XILNVM_en_write_user_efuse)
-      set(XNVM_WRITE_USER_EFUSE " ")
-    endif()
-
-    option(XILNVM_en_write_key_management_efuse "Enables write operation for Key Management eFuses (server mode only)." OFF)
-    if(XILNVM_en_write_key_management_efuse)
-      set(XNVM_WRITE_KEY_MANAGEMENT_EFUSE " ")
     endif()
   endif()
 
