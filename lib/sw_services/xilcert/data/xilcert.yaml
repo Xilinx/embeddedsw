@@ -19,6 +19,9 @@ supported_processors:
       supported_processors = []
       if platform in ["VersalNet"]:
         supported_processors = ["psx_pmc"]
+      elif platform in ["Versal"]:
+        if "Versal_2VP" in variant:
+          supported_processors = ["psv_pmc"]
       else:
         supported_processors = []
 
