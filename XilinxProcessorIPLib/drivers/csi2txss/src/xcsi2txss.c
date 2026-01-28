@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -290,7 +290,7 @@ u32 XCsi2TxSs_Reset(XCsi2TxSs *InstancePtr)
 
 	Status = XCsi2Tx_Reset(InstancePtr->CsiPtr);
 	if (Status == XST_FAILURE) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSI2TX SubSys Reset faild\n\r");
+		xdbg_printf(XDBG_DEBUG_ERROR, "CSI2TX SubSys Reset failed\n\r");
 	}
 
 	return Status;
@@ -363,7 +363,7 @@ void XCsi2TxSs_GetShortPacket(XCsi2TxSs *InstancePtr)
 * @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If CSI sub core is initialised sucessfully
+*		- XST_SUCCESS If CSI sub core is initialised successfully
 *		- XST_FAILURE If CSI sub core inititlization fails
 *
 * @note		None
@@ -424,7 +424,7 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 * @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If DPHY sub core is initialised sucessfully
+*		- XST_SUCCESS If DPHY sub core is initialised successfully
 *		- XST_FAILURE If DPHY sub core initialization failed
 *
 * @note		None

@@ -9,7 +9,7 @@ For details, see xcsi2txss_selftest_example.c.
 
 @section ex2 xcsi2txss_intr_example.c
 Contains an example on how to use the XCsi2txss driver directly.
-This example contains the csi2txss driver with interrrupts.
+This example contains the csi2txss driver with interrupts.
 
 For details, see xcsi2txss_intr_example.c.
 */
