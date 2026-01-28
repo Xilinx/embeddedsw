@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2026 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -372,7 +372,7 @@ u32 XVphy_GetVersion(XVphy *InstancePtr)
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
-* @param	LineRate is the line rate to configure software.
+* @param	LineRateHz is the line rate in Hz to configure software.
 *
 * @return
 *		- XST_SUCCESS if the reference clock type is valid.
@@ -902,7 +902,6 @@ u32 XVphy_SetPrbsSel(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID which to operate on.
-* @param	Dir is an indicator for TX or RX.
 * @param	ForceErr 0-No Error 1-Force Error
 *
 * @return
@@ -1021,12 +1020,12 @@ void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
-* This function will set the TX post-curosr value for a given channel.
+* This function will set the TX post-cursor value for a given channel.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
-* @param	Pe is the pre-emphasis value to write.
+* @param	Pc is the post-cursor value to write.
 *
 * @return	None.
 *
@@ -1291,6 +1290,7 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 * This function enables the TX or RX IBUFDS peripheral.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
 * @param	Dir is an indicator for TX or RX.
 * @param	Enable specifies TRUE/FALSE value to either enable or disable
 *		the IBUFDS, respectively.
@@ -1513,7 +1513,7 @@ void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		  (Rate == 0x14) ||
 		  (Rate == 0x0A) ||
 		  (Rate == 0x06) ) {
-          //write '1' to [bit 31] of x200; DP1.4 select /40 from MMCM
+          /* write '1' to [bit 31] of x200; DP1.4 select /40 from MMCM */
 	if (!Dir) {
           XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
 			  RegVal | 0x80000000);
@@ -1524,7 +1524,7 @@ void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			  RegVal | 0x40000000);
 	}
       } else {
-          //write '0' to bit[31] x200; DP2.0 select /32 from GT
+          /* write '0' to bit[31] x200; DP2.0 select /32 from GT */
 	if (!Dir) {
           XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
 			  RegVal & 0x7FFFFFFF);
@@ -1608,7 +1608,7 @@ void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	}
 	XVphy_WriteCfgRefClkSelReg(InstancePtr, QuadId);
 
-	//forcing CPLL for RX, QPLL for TX as of now for 10G
+	/* forcing CPLL for RX, QPLL for TX as of now for 10G */
 	if (!Dir) {
 		if (PllSelect == XVPHY_PLL_TYPE_CPLL) {
 			XVphy_ClkInitialize(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
@@ -1688,12 +1688,10 @@ u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_WriteReg(InstancePtr->Config.BaseAddr,
 				XVPHY_PLL_RESET_REG, 0x0);
 
-//		XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_TX,(TRUE));
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX,(TRUE));
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, (FALSE));
-//		XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_TX, (FALSE));
 		Status = XVphy_WaitForResetDone(InstancePtr, 0, ChId,
 				XVPHY_DIR_TX);
 		Status |= XVphy_WaitForPllLock(InstancePtr, 0, ChId);
@@ -1708,33 +1706,6 @@ u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			}
 		}
 
-//		XVphy_WriteReg(InstancePtr->Config.BaseAddr,
-//				XVPHY_PLL_RESET_REG,
-//				(XVPHY_PLL_RESET_QPLL0_MASK |
-//				 XVPHY_PLL_RESET_QPLL1_MASK)); // 0x06
-//		XVphy_WriteReg(InstancePtr->Config.BaseAddr,
-//				XVPHY_PLL_RESET_REG, 0x0);
-//
-//		XVphy_ResetGtPll(InstancePtr, QuadId,
-//				XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,(FALSE));
-//
-//		Status = XVphy_WaitForPmaResetDone(InstancePtr, 0,
-//				ChId, XVPHY_DIR_TX);
-//
-//		Status |= XVphy_WaitForPllLock(InstancePtr, 0, ChId);
-//
-//		Status |= XVphy_WaitForResetDone(InstancePtr, 0,
-//				ChId, XVPHY_DIR_TX);
-//
-//		XVphy_MmcmReset (InstancePtr, 0, XVPHY_DIR_TX, FALSE);
-//		Retry = 0;
-//		while (!XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
-//			Retry++;
-//			if (Retry > 2000) {
-//				Status = XST_FAILURE;
-//				break;
-//			}
-//		}
 
 	}
 	return Status;
@@ -1748,6 +1719,8 @@ u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 * from the same (RX) reference clock.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to check.
 *
 * @return	TRUE if the RX and TX are using the same PLL, FALSE otherwise.
 *

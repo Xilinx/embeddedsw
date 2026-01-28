@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,7 +28,7 @@
  * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR log event
  *                     Added Red & Yellow printing for errors and warnings
  *                     Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
- *                     Changed xil_printf new lines to \r\n
+ *                     Changed xil_printf new lines to carriage return
  *                     Added XVPHY_LOG_EVT_DRU_CLK_ERR log event
  * 1.7   gm   13/09/17 Added XVPHY_LOG_EVT_USRCLK_ERR event
  * </pre>

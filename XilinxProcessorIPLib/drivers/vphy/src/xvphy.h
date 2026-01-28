@@ -1,16 +1,15 @@
-/*******************************************************************************
+/*
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+*/
 
 /******************************************************************************/
-/**
+/*
  *
- * @file xvphy.h
- * @addtogroup vphy Overview
- * @{
- * @details
+ * xvphy.h
+ * Video PHY Controller Overview
+ *
  * This is main header file of the Xilinx Video PHY Controller driver
  *
  * <b>Video PHY Controller Overview</b>
@@ -281,7 +280,11 @@ typedef enum {
 	XVPHY_OUTCLKSEL_TYPE_PROGDIVCLK
 } XVphy_OutClkSelType;
 
-/* This typedef enumerates the possible states a transceiver can be in. */
+/**
+ * @enum XVphy_GtState
+ * @brief Transceiver GT state machine states for the VPHY controller.
+ * Enumerates the possible states a GT can be in within the VPHY controller.
+ */
 typedef enum {
 	XVPHY_GT_STATE_IDLE,		/**< Idle state. */
 	XVPHY_GT_STATE_LOCK,		/**< Lock state. */
@@ -291,6 +294,10 @@ typedef enum {
 } XVphy_GtState;
 
 #ifdef XV_VPHY_LOG_ENABLE
+/**
+ * This typedef enumerates the Video PHY log events.
+ * @ingroup vphy
+ */
 typedef enum {
 	XVPHY_LOG_EVT_NONE = 1,		/**< Log event none. */
 	XVPHY_LOG_EVT_QPLL_EN,		/**< Log event QPLL enable. */
@@ -360,14 +367,19 @@ typedef enum {
 } XVphy_LogEvent;
 #endif
 
-/* This typedef enumerates the different MMCM Dividers */
+/**
+ * This typedef enumerates the different MMCM Dividers.
+ */
 typedef enum {
-  MMCM_CLKFBOUT_MULT_F, /* M */
-  MMCM_DIVCLK_DIVIDE,   /* D */
-  MMCM_CLKOUT_DIVIDE    /* On */
+  MMCM_CLKFBOUT_MULT_F, /**< M - CLKFBOUT multiplier */
+  MMCM_DIVCLK_DIVIDE,   /**< D - DIVCLK divider */
+  MMCM_CLKOUT_DIVIDE    /**< On - CLKOUT divider */
 } XVphy_MmcmDivType;
 
-/* This typedef enumerates the possible error conditions. */
+/**
+ * This typedef enumerates the possible error conditions.
+ * @ingroup vphy
+ */
 typedef enum {
 	XVPHY_ERR_QPLL_CFG    = 0x1,	/**< QPLL CFG not found. */
 	XVPHY_ERR_CPLL_CFG    = 0x2,	/**< CPLL CFG not found. */
@@ -381,8 +393,11 @@ typedef enum {
 	XVPHY_ERR_USRCLK      = 0x200,	/**< USRCLK Error. */
 } XVphy_ErrType;
 
-/* This typedef enumerates the Linerate to TMDS Clock ratio
- * for HDMI TX TMDS Clock pattern generator. */
+/**
+ * This typedef enumerates the Linerate to TMDS Clock ratio
+ * for HDMI TX TMDS Clock pattern generator.
+ * @ingroup vphy
+ */
 typedef enum {
 	XVPHY_Patgen_Ratio_10    = 0x1,	/**< LR:Clock Ratio = 10 */
 	XVPHY_Patgen_Ratio_20    = 0x2,	/**< LR:Clock Ratio = 20 */
@@ -674,7 +689,7 @@ typedef struct {
 	XVphy_PllRefClkSelType TxRefClkSel; /**< TX REFCLK selection. */
 	XVphy_PllRefClkSelType RxRefClkSel; /**< RX REFCLK selection. */
 	XVphy_SysClkDataSelType TxSysPllClkSel; /**< TX SYSCLK selection. */
-	XVphy_SysClkDataSelType RxSysPllClkSel; /**< RX SYSCLK selectino. */
+	XVphy_SysClkDataSelType RxSysPllClkSel; /**< RX SYSCLK selection. */
 	u8 DruIsPresent;		/**< A data recovery unit (DRU) exists
 						in the design .*/
 	XVphy_PllRefClkSelType DruRefClkSel; /**< DRU REFCLK selection. */
@@ -684,8 +699,8 @@ typedef struct {
 						design. */
 	u8  HdmiFastSwitch;		/**< HDMI fast switching is enabled in the
 						design. */
-	u8  TransceiverWidth;	/**< Transceiver Width seeting in the design */
-	u32 ErrIrq;	            /**< Error IRQ is enalbed in design */
+	u8  TransceiverWidth;	/**< Transceiver Width setting in the design */
+	u32 ErrIrq;	            /**< Error IRQ is enabled in design */
 	u32 AxiLiteClkFreq;	    /**< AXI Lite Clock Frequency in Hz */
 	u32 DrpClkFreq;	        /**< DRP Clock Frequency in Hz */
 	u8  UseGtAsTxTmdsClk;	/**< Use 4th GT channel as TX TMDS clock */
@@ -1052,4 +1067,3 @@ void XVphy_RegisterDebug(XVphy *InstancePtr);
 #endif
 
 #endif /* XVPHY_H_ */
-/** @} */

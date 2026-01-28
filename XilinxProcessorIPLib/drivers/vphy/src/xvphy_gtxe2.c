@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,7 +28,7 @@
  *                       TxChReconfig
  *                     Added TX datawidth dynamic reconfiguration
  *                     Corrected the default return value of DRP encoding
- *                       APIs to prevent overwritting the reserved bits
+ *                       APIs to prevent overwriting the reserved bits
  * 1.6   gm   12/06/17 Changed XVphy_DrpRead with XVphy_DrpRd
  *                     Changed XVphy_DrpWrite with XVphy_DrpWr
  *                     Improved status return of APIs with DRP Rd and Wr

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -123,7 +123,7 @@ u32 XVphy_WriteCfgRefClkSelReg(XVphy *InstancePtr, u8 QuadId)
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
-* @param	SysClkDataSel is the reference clock selection to configure.
+* @param	RefClkSel is the reference clock selection to configure.
 *
 * @return	None.
 *
@@ -668,7 +668,6 @@ void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div)
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to power down the PLL for.
-* @param	Dir is an indicator for TX or RX.
 * @param	Hold is an indicator whether to "hold" the power down if set
 *		to 1. If set to 0: power down, then power back up.
 *
@@ -1012,7 +1011,7 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 /**
 * This function will translate from XVphy_PllType to XVphy_SysClkDataSelType.
 *
-* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	PllSelect is the PLL type to translate.
 *
 * @return	The reference clock type based on the PLL selection.
 *
@@ -1038,7 +1037,7 @@ XVphy_SysClkDataSelType Pll2SysClkData(XVphy_PllType PllSelect)
 /**
 * This function will translate from XVphy_PllType to XVphy_SysClkOutSelType.
 *
-* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	PllSelect is the PLL type to translate.
 *
 * @return	The reference clock type based on the PLL selection.
 *
@@ -1177,6 +1176,7 @@ calc_done:
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to calculate the VCO frequency for.
 * @param	Dir is an indicator for TX or RX.
 *
 * @return	PLL VCO frequency in Hz
@@ -1480,7 +1480,6 @@ u8 XVphy_IsHDMI(XVphy *InstancePtr, XVphy_DirectionType Dir)
 * This function is the error condition handler
 *
 * @param	InstancePtr is a pointer to the VPHY instance.
-* @param    ErrIrqType is the error type
 *
 * @return	None.
 *

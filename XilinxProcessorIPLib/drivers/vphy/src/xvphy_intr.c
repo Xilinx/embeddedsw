@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -253,8 +254,8 @@ void XVphy_InterruptHandler(XVphy *InstancePtr)
  * to generate an ERR_IRQ event
  *
  * @param	InstancePtr is a pointer to the XVphy instance.
- *          ErrIrq is the IRQ type as define in XVphy_ErrType
- *          Set is the flag to set or clear the ErrIrq param
+ * @param	ErrIrq is the IRQ type as defined in XVphy_ErrType.
+ * @param	Set is the flag to set or clear the ErrIrq param.
  *
  * @return	None.
  *

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,7 +26,7 @@
  *                        XVphy_DpInitialize API
  * 1.6   gm   30/06/17 Disable intelligent refclk selection for GTHE3 in
  *                        XVphy_DpInitialize
- *                     Changed xil_printf new lines to \r\n
+ *                     Changed xil_printf new lines to carriage return
  * </pre>
  *
 *******************************************************************************/

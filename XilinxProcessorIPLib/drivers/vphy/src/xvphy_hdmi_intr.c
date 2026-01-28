@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -123,7 +123,7 @@ void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function sets the appropriate HDMI interupt handlers.
+* This function sets the appropriate HDMI interrupt handlers.
 *
 * @param	InstancePtr is a pointer to the VPHY instance.
 *

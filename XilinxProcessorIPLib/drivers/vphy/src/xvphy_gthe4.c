@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -33,7 +33,7 @@
  *                     Added CPLL_CFGx reconfiguration in
  *                       XVphy_Gthe4ClkChReconfig API
  *                     Corrected the default return value of DRP encoding
- *                       APIs to prevent overwritting the reserved bits
+ *                       APIs to prevent overwriting the reserved bits
  * 1.5   gm   27/04/17 Updated the RXPI_CFG0 according to new GTWiz rules
  *                     Corrected RXCDR_CFG values for DP
  *                     Added XVphy_CfgCpllCalPeriodandTol API
@@ -726,7 +726,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x0002);
 
-//    		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x100, 0x0015);
 
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x2424);
 
@@ -745,7 +744,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x2004);
 
-//    		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x100, 0x0000);
 
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x4444);
 

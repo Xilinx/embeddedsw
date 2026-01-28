@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -55,124 +55,124 @@ extern "C" {
 /** @name VPHY core registers: General registers.
   * @{
   */
-#define XVPHY_VERSION_REG			0x000
-#define XVPHY_BANK_SELECT_REG		0x00C
-#define XVPHY_REF_CLK_SEL_REG		0x010
-#define XVPHY_PLL_RESET_REG			0x014
-#define XVPHY_PLL_LOCK_STATUS_REG	0x018
-#define XVPHY_TX_INIT_REG			0x01C
-#define XVPHY_TX_INIT_STATUS_REG	0x020
-#define XVPHY_RX_INIT_REG			0x024
-#define XVPHY_RX_INIT_STATUS_REG	0x028
-#define XVPHY_IBUFDS_GTXX_CTRL_REG	0x02C
-#define XVPHY_POWERDOWN_CONTROL_REG	0x030
-#define XVPHY_LOOPBACK_CONTROL_REG	0x038
-/* @} */
+#define XVPHY_VERSION_REG			0x000  /**< Version register offset */
+#define XVPHY_BANK_SELECT_REG		0x00C  /**< Bank select register offset */
+#define XVPHY_REF_CLK_SEL_REG		0x010  /**< Reference clock select register offset */
+#define XVPHY_PLL_RESET_REG			0x014  /**< PLL reset register offset */
+#define XVPHY_PLL_LOCK_STATUS_REG	0x018  /**< PLL lock status register offset */
+#define XVPHY_TX_INIT_REG			0x01C  /**< TX init register offset */
+#define XVPHY_TX_INIT_STATUS_REG	0x020  /**< TX init status register offset */
+#define XVPHY_RX_INIT_REG			0x024  /**< RX init register offset */
+#define XVPHY_RX_INIT_STATUS_REG	0x028  /**< RX init status register offset */
+#define XVPHY_IBUFDS_GTXX_CTRL_REG	0x02C  /**< IBUFDS GTXX control register offset */
+#define XVPHY_POWERDOWN_CONTROL_REG	0x030  /**< Power down control register offset */
+#define XVPHY_LOOPBACK_CONTROL_REG	0x038  /**< Loopback control register offset */
+/** @} */
 
 /** @name VPHY core registers: Dynamic reconfiguration port (DRP) registers.
   * @{
   */
-#define XVPHY_DRP_CONTROL_CH1_REG	0x040
-#define XVPHY_DRP_CONTROL_CH2_REG	0x044
-#define XVPHY_DRP_CONTROL_CH3_REG	0x048
-#define XVPHY_DRP_CONTROL_CH4_REG	0x04C
-#define XVPHY_DRP_STATUS_CH1_REG	0x050
-#define XVPHY_DRP_STATUS_CH2_REG	0x054
-#define XVPHY_DRP_STATUS_CH3_REG	0x058
-#define XVPHY_DRP_STATUS_CH4_REG	0x05C
-#define XVPHY_DRP_CONTROL_COMMON_REG	0x060
-#define XVPHY_DRP_STATUS_COMMON_REG	0x064
-#define XVPHY_DRP_CONTROL_TXMMCM_REG	0x124
-#define XVPHY_DRP_STATUS_TXMMCM_REG	0x128
-#define XVPHY_DRP_CONTROL_RXMMCM_REG	0x144
-#define XVPHY_DRP_STATUS_RXMMCM_REG	0x148
-/* @} */
+#define XVPHY_DRP_CONTROL_CH1_REG	0x040  /**< DRP control channel 1 register offset */
+#define XVPHY_DRP_CONTROL_CH2_REG	0x044  /**< DRP control channel 2 register offset */
+#define XVPHY_DRP_CONTROL_CH3_REG	0x048  /**< DRP control channel 3 register offset */
+#define XVPHY_DRP_CONTROL_CH4_REG	0x04C  /**< DRP control channel 4 register offset */
+#define XVPHY_DRP_STATUS_CH1_REG	0x050  /**< DRP status channel 1 register offset */
+#define XVPHY_DRP_STATUS_CH2_REG	0x054  /**< DRP status channel 2 register offset */
+#define XVPHY_DRP_STATUS_CH3_REG	0x058  /**< DRP status channel 3 register offset */
+#define XVPHY_DRP_STATUS_CH4_REG	0x05C  /**< DRP status channel 4 register offset */
+#define XVPHY_DRP_CONTROL_COMMON_REG	0x060  /**< DRP control common register offset */
+#define XVPHY_DRP_STATUS_COMMON_REG	0x064  /**< DRP status common register offset */
+#define XVPHY_DRP_CONTROL_TXMMCM_REG	0x124  /**< DRP control TX MMCM register offset */
+#define XVPHY_DRP_STATUS_TXMMCM_REG	0x128  /**< DRP status TX MMCM register offset */
+#define XVPHY_DRP_CONTROL_RXMMCM_REG	0x144  /**< DRP control RX MMCM register offset */
+#define XVPHY_DRP_STATUS_RXMMCM_REG	0x148  /**< DRP status RX MMCM register offset */
+/** @} */
 
 /** @name VPHY core registers: CPLL Calibration registers.
   * @{
   */
-#define XVPHY_CPLL_CAL_PERIOD_REG	0x068
-#define XVPHY_CPLL_CAL_TOL_REG		0x06C
-/* @} */
+#define XVPHY_CPLL_CAL_PERIOD_REG	0x068  /**< CPLL calibration period register offset */
+#define XVPHY_CPLL_CAL_TOL_REG		0x06C  /**< CPLL calibration tolerance register offset */
+/** @} */
 
 /** @name VPHY core registers: Transmitter function registers.
   * @{
   */
-#define XVPHY_TX_CONTROL_REG		0x070
-#define XVPHY_TX_BUFFER_BYPASS_REG	0x074
-#define XVPHY_TX_STATUS_REG			0x078
-#define XVPHY_TX_DRIVER_CH12_REG	0x07C
-#define XVPHY_TX_DRIVER_CH34_REG	0x080
-/* @} */
+#define XVPHY_TX_CONTROL_REG		0x070  /**< TX control register offset */
+#define XVPHY_TX_BUFFER_BYPASS_REG	0x074  /**< TX buffer bypass register offset */
+#define XVPHY_TX_STATUS_REG			0x078  /**< TX status register offset */
+#define XVPHY_TX_DRIVER_CH12_REG	0x07C  /**< TX driver channel 1-2 register offset */
+#define XVPHY_TX_DRIVER_CH34_REG	0x080  /**< TX driver channel 3-4 register offset */
+/** @} */
 
 /** @name VPHY core registers: Receiver function registers.
   * @{
   */
-#define XVPHY_RX_CONTROL_REG		0x100
-#define XVPHY_RX_STATUS_REG		    0x104
-#define XVPHY_RX_EQ_CDR_REG		    0x108
-#define XVPHY_RX_TDLOCK_REG		    0x10C
-/* @} */
+#define XVPHY_RX_CONTROL_REG		0x100  /**< RX control register offset */
+#define XVPHY_RX_STATUS_REG		    0x104  /**< RX status register offset */
+#define XVPHY_RX_EQ_CDR_REG		    0x108  /**< RX EQ CDR register offset */
+#define XVPHY_RX_TDLOCK_REG		    0x10C  /**< RX TD lock register offset */
+/** @} */
 
 /** @name VPHY core registers: Interrupt registers.
   * @{
   */
-#define XVPHY_ERR_IRQ			0x03C
-#define XVPHY_INTR_EN_REG		0x110
-#define XVPHY_INTR_DIS_REG		0x114
-#define XVPHY_INTR_MASK_REG		0x118
-#define XVPHY_INTR_STS_REG		0x11C
-/* @} */
+#define XVPHY_ERR_IRQ			0x03C  /**< Error IRQ register offset */
+#define XVPHY_INTR_EN_REG		0x110  /**< Interrupt enable register offset */
+#define XVPHY_INTR_DIS_REG		0x114  /**< Interrupt disable register offset */
+#define XVPHY_INTR_MASK_REG		0x118  /**< Interrupt mask register offset */
+#define XVPHY_INTR_STS_REG		0x11C  /**< Interrupt status register offset */
+/** @} */
 
 /** @name User clocking registers: MMCM and BUFGGT registers.
   * @{
   */
-#define XVPHY_MMCM_TXUSRCLK_CTRL_REG	0x0120
-#define XVPHY_MMCM_TXUSRCLK_REG1	0x0124
-#define XVPHY_MMCM_TXUSRCLK_REG2	0x0128
-#define XVPHY_MMCM_TXUSRCLK_REG3	0x012C
-#define XVPHY_MMCM_TXUSRCLK_REG4	0x0130
-#define XVPHY_BUFGGT_TXUSRCLK_REG 	0x0134
-#define XVPHY_MISC_TXUSRCLK_REG		0x0138
+#define XVPHY_MMCM_TXUSRCLK_CTRL_REG	0x0120  /**< MMCM TX user clock control register offset */
+#define XVPHY_MMCM_TXUSRCLK_REG1	0x0124  /**< MMCM TX user clock register 1 offset */
+#define XVPHY_MMCM_TXUSRCLK_REG2	0x0128  /**< MMCM TX user clock register 2 offset */
+#define XVPHY_MMCM_TXUSRCLK_REG3	0x012C  /**< MMCM TX user clock register 3 offset */
+#define XVPHY_MMCM_TXUSRCLK_REG4	0x0130  /**< MMCM TX user clock register 4 offset */
+#define XVPHY_BUFGGT_TXUSRCLK_REG 	0x0134  /**< BUFGGT TX user clock register offset */
+#define XVPHY_MISC_TXUSRCLK_REG		0x0138  /**< Misc TX user clock register offset */
 
-#define XVPHY_MMCM_RXUSRCLK_CTRL_REG	0x0140
-#define XVPHY_MMCM_RXUSRCLK_REG1	0x0144
-#define XVPHY_MMCM_RXUSRCLK_REG2	0x0148
-#define XVPHY_MMCM_RXUSRCLK_REG3	0x014C
-#define XVPHY_MMCM_RXUSRCLK_REG4	0x0150
-#define XVPHY_BUFGGT_RXUSRCLK_REG 	0x0154
-#define XVPHY_MISC_RXUSRCLK_REG		0x0158
-/* @} */
+#define XVPHY_MMCM_RXUSRCLK_CTRL_REG	0x0140  /**< MMCM RX user clock control register offset */
+#define XVPHY_MMCM_RXUSRCLK_REG1	0x0144  /**< MMCM RX user clock register 1 offset */
+#define XVPHY_MMCM_RXUSRCLK_REG2	0x0148  /**< MMCM RX user clock register 2 offset */
+#define XVPHY_MMCM_RXUSRCLK_REG3	0x014C  /**< MMCM RX user clock register 3 offset */
+#define XVPHY_MMCM_RXUSRCLK_REG4	0x0150  /**< MMCM RX user clock register 4 offset */
+#define XVPHY_BUFGGT_RXUSRCLK_REG 	0x0154  /**< BUFGGT RX user clock register offset */
+#define XVPHY_MISC_RXUSRCLK_REG		0x0158  /**< Misc RX user clock register offset */
+/** @} */
 
 /** @name Clock detector (HDMI) registers.
   * @{
   */
-#define XVPHY_CLKDET_CTRL_REG		0x0200
-#define XVPHY_CLKDET_STAT_REG		0x0204
-#define XVPHY_CLKDET_FREQ_TMR_TO_REG	0x0208
-#define XVPHY_CLKDET_FREQ_TX_REG	0x020C
-#define XVPHY_CLKDET_FREQ_RX_REG	0x0210
-#define XVPHY_CLKDET_TMR_TX_REG		0x0214
-#define XVPHY_CLKDET_TMR_RX_REG		0x0218
-#define XVPHY_CLKDET_FREQ_DRU_REG	0x021C
-/* @} */
+#define XVPHY_CLKDET_CTRL_REG		0x0200  /**< Clock detector control register offset */
+#define XVPHY_CLKDET_STAT_REG		0x0204  /**< Clock detector status register offset */
+#define XVPHY_CLKDET_FREQ_TMR_TO_REG	0x0208  /**< Clock detector frequency timer timeout register offset */
+#define XVPHY_CLKDET_FREQ_TX_REG	0x020C  /**< Clock detector TX frequency register offset */
+#define XVPHY_CLKDET_FREQ_RX_REG	0x0210  /**< Clock detector RX frequency register offset */
+#define XVPHY_CLKDET_TMR_TX_REG		0x0214  /**< Clock detector TX timer register offset */
+#define XVPHY_CLKDET_TMR_RX_REG		0x0218  /**< Clock detector RX timer register offset */
+#define XVPHY_CLKDET_FREQ_DRU_REG	0x021C  /**< Clock detector DRU frequency register offset */
+/** @} */
 
 /** @name Data recovery unit registers (HDMI).
   * @{
   */
-#define XVPHY_DRU_CTRL_REG		0x0300
-#define XVPHY_DRU_STAT_REG		0x0304
+#define XVPHY_DRU_CTRL_REG		0x0300  /**< DRU control register offset */
+#define XVPHY_DRU_STAT_REG		0x0304  /**< DRU status register offset */
 
-#define XVPHY_DRU_CFREQ_L_REG(Ch)	(0x0308 + (12 * (Ch - 1)))
-#define XVPHY_DRU_CFREQ_H_REG(Ch)	(0x030C + (12 * (Ch - 1)))
-#define XVPHY_DRU_GAIN_REG(Ch)		(0x0310 + (12 * (Ch - 1)))
-/* @} */
+#define XVPHY_DRU_CFREQ_L_REG(Ch)	(0x0308 + (12 * (Ch - 1)))  /**< DRU center frequency low register offset */
+#define XVPHY_DRU_CFREQ_H_REG(Ch)	(0x030C + (12 * (Ch - 1)))  /**< DRU center frequency high register offset */
+#define XVPHY_DRU_GAIN_REG(Ch)		(0x0310 + (12 * (Ch - 1)))  /**< DRU gain register offset */
+/** @} */
 
 /** @name TMDS Clock Pattern Generator registers (HDMI).
   * @{
   */
-#define XVPHY_PATGEN_CTRL_REG		0x0340
-/* @} */
+#define XVPHY_PATGEN_CTRL_REG		0x0340  /**< Pattern generator control register offset */
+/** @} */
 
 /******************************************************************************/
 
@@ -198,162 +198,233 @@ extern "C" {
 				0xFF000000	/**< Core major version. */
 #define XVPHY_VERSION_CORE_VER_MJR_SHIFT 24	/**< Shift bits for core major
 							version. */
-/* 0x00C: BANK_SELECT_REG */
-#define XVPHY_BANK_SELECT_TX_MASK	0x00F
-#define XVPHY_BANK_SELECT_RX_MASK	0xF00
-#define XVPHY_BANK_SELECT_RX_SHIFT	8
-/* 0x010: REF_CLK_SEL */
-#define XVPHY_REF_CLK_SEL_QPLL0_MASK	0x0000000F
-#define XVPHY_REF_CLK_SEL_CPLL_MASK	0x000000F0
-#define XVPHY_REF_CLK_SEL_CPLL_SHIFT	4
-#define XVPHY_REF_CLK_SEL_QPLL1_MASK	0x00000F00
-#define XVPHY_REF_CLK_SEL_QPLL1_SHIFT	8
-#define XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0 1
-#define XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1 2
-#define XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0 3
-#define XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK1 4
-#define XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK0 5
-#define XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK1 6
-#define XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK0 3
-#define XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK1 4
-#define XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK0 5
-#define XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK1 6
-#define XVPHY_REF_CLK_SEL_XPLL_GTGREFCLK 7
-#define XVPHY_REF_CLK_SEL_SYSCLKSEL_MASK 0x0F000000
-#define XVPHY_REF_CLK_SEL_SYSCLKSEL_SHIFT 24
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL0 0
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL1 1
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_CPLL 0
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL 1
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL0 3
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL1 2
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CH 0
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN 1
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN0 2
-#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN1 3
+/** @name 0x00C: BANK_SELECT_REG masks and shifts.
+  * @{
+  */
+#define XVPHY_BANK_SELECT_TX_MASK	0x00F  /**< TX bank select mask */
+#define XVPHY_BANK_SELECT_RX_MASK	0xF00  /**< RX bank select mask */
+#define XVPHY_BANK_SELECT_RX_SHIFT	8  /**< RX bank select shift */
+/** @} */
+
+/** @name 0x010: REF_CLK_SEL register masks and values.
+  * @{
+  */
+#define XVPHY_REF_CLK_SEL_QPLL0_MASK	0x0000000F  /**< QPLL0 refclk select mask */
+#define XVPHY_REF_CLK_SEL_CPLL_MASK	0x000000F0  /**< CPLL refclk select mask */
+#define XVPHY_REF_CLK_SEL_CPLL_SHIFT	4  /**< CPLL refclk select shift */
+#define XVPHY_REF_CLK_SEL_QPLL1_MASK	0x00000F00  /**< QPLL1 refclk select mask */
+#define XVPHY_REF_CLK_SEL_QPLL1_SHIFT	8  /**< QPLL1 refclk select shift */
+#define XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0 1  /**< GTREFCLK0 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1 2  /**< GTREFCLK1 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0 3  /**< GTNORTHREFCLK0 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK1 4  /**< GTNORTHREFCLK1 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK0 5  /**< GTSOUTHREFCLK0 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK1 6  /**< GTSOUTHREFCLK1 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK0 3  /**< GTEASTREFCLK0 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK1 4  /**< GTEASTREFCLK1 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK0 5  /**< GTWESTREFCLK0 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK1 6  /**< GTWESTREFCLK1 select value */
+#define XVPHY_REF_CLK_SEL_XPLL_GTGREFCLK 7  /**< GTGREFCLK select value */
+#define XVPHY_REF_CLK_SEL_SYSCLKSEL_MASK 0x0F000000  /**< SYSCLKSEL mask */
+#define XVPHY_REF_CLK_SEL_SYSCLKSEL_SHIFT 24  /**< SYSCLKSEL shift */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL0 0  /**< SYSGLKSEL data PLL0 value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL1 1  /**< SYSCLKSEL data PLL1 value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_CPLL 0  /**< SYSCLKSEL data CPLL value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL 1  /**< SYSCLKSEL data QPLL value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL0 3  /**< SYSCLKSEL data QPLL0 value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL1 2  /**< SYSCLKSEL data QPLL1 value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CH 0  /**< SYSCLKSEL out channel value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN 1  /**< SYSCLKSEL out common value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN0 2  /**< SYSCLKSEL out CMN0 value */
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN1 3  /**< SYSCLKSEL out CMN1 value */
+/** RX SYSCLKSEL out mask based on GT type. */
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 0x03000000 : 0x02000000)
+/** TX SYSCLKSEL out mask based on GT type. */
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 0x0C000000 : 0x08000000)
+/** RX SYSCLKSEL data mask based on GT type. */
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 0x30000000 : 0x01000000)
+/** TX SYSCLKSEL data mask based on GT type. */
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 0xC0000000 : 0x04000000)
+/** RX SYSCLKSEL out shift based on GT type. */
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 24 : 25)
+/** TX SYSCLKSEL out shift based on GT type. */
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 26 : 27)
+/** RX SYSCLKSEL data shift based on GT type. */
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 28 : 24)
+/** TX SYSCLKSEL data shift based on GT type. */
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT(G) \
 	((((G) == XVPHY_GT_TYPE_GTHE3) || \
         ((G) == XVPHY_GT_TYPE_GTHE4) || \
 		((G) == XVPHY_GT_TYPE_GTYE4)) ? 30 : 26)
-/* 0x014: PLL_RESET */
-#define XVPHY_PLL_RESET_CPLL_MASK	0x1
-#define XVPHY_PLL_RESET_QPLL0_MASK	0x2
-#define XVPHY_PLL_RESET_QPLL1_MASK	0x4
-/* 0x018: PLL_LOCK_STATUS */
+/** @} */
+
+/** @name 0x014: PLL_RESET register masks.
+  * @{
+  */
+#define XVPHY_PLL_RESET_CPLL_MASK	0x1  /**< CPLL reset mask */
+#define XVPHY_PLL_RESET_QPLL0_MASK	0x2  /**< QPLL0 reset mask */
+#define XVPHY_PLL_RESET_QPLL1_MASK	0x4  /**< QPLL1 reset mask */
+/** @} */
+
+/** @name 0x018: PLL_LOCK_STATUS register masks.
+  * @{
+  */
+/** CPLL lock status mask for channel. */
 #define XVPHY_PLL_LOCK_STATUS_CPLL_MASK(Ch) \
 		(0x01 << (Ch - 1))
-#define XVPHY_PLL_LOCK_STATUS_QPLL0_MASK	0x10
-#define XVPHY_PLL_LOCK_STATUS_QPLL1_MASK	0x20
+#define XVPHY_PLL_LOCK_STATUS_QPLL0_MASK	0x10  /**< QPLL0 lock status mask */
+#define XVPHY_PLL_LOCK_STATUS_QPLL1_MASK	0x20  /**< QPLL1 lock status mask */
+/** CPLL lock status mask for all channels. */
 #define XVPHY_PLL_LOCK_STATUS_CPLL_ALL_MASK \
 		(XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH1) | \
 		 XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH2) | \
 		 XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH3) | \
 		 XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH4))
+/** CPLL lock status mask for HDMI channels. */
 #define XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK \
 		(XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH1) | \
 		 XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH2) | \
 		 XVPHY_PLL_LOCK_STATUS_CPLL_MASK(XVPHY_CHANNEL_ID_CH3))
-/* 0x01C, 0x024: TX_INIT, RX_INIT */
+/** @} */
+
+/** @name 0x01C, 0x024: TX_INIT, RX_INIT register masks.
+  * @{
+  */
+/** GT reset mask for channel. */
 #define XVPHY_TXRX_INIT_GTRESET_MASK(Ch) \
 		(0x01 << (8 * (Ch - 1)))
+/** PMA reset mask for channel. */
 #define XVPHY_TXRX_INIT_PMARESET_MASK(Ch) \
 		(0x02 << (8 * (Ch - 1)))
+/** PCS reset mask for channel. */
 #define XVPHY_TXRX_INIT_PCSRESET_MASK(Ch) \
 		(0x04 << (8 * (Ch - 1)))
+/** TX user ready mask for channel. */
 #define XVPHY_TX_INIT_USERRDY_MASK(Ch) \
 		(0x08 << (8 * (Ch - 1)))
+/** RX user ready mask for channel. */
 #define XVPHY_RX_INIT_USERRDY_MASK(Ch) \
 		(0x40 << (8 * (Ch - 1)))
+/** PLL GT reset mask for channel. */
 #define XVPHY_TXRX_INIT_PLLGTRESET_MASK(Ch) \
 		(0x80 << (8 * (Ch - 1)))
+/** GT reset mask for all channels. */
 #define XVPHY_TXRX_INIT_GTRESET_ALL_MASK \
 		(XVPHY_TXRX_INIT_GTRESET_MASK(XVPHY_CHANNEL_ID_CH1) | \
 		 XVPHY_TXRX_INIT_GTRESET_MASK(XVPHY_CHANNEL_ID_CH2) | \
 		 XVPHY_TXRX_INIT_GTRESET_MASK(XVPHY_CHANNEL_ID_CH3) | \
 		 XVPHY_TXRX_INIT_GTRESET_MASK(XVPHY_CHANNEL_ID_CH4))
+/** TX user ready mask for all channels. */
 #define XVPHY_TX_INIT_USERRDY_ALL_MASK \
 		(XVPHY_TX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH1) | \
 		 XVPHY_TX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH2) | \
 		 XVPHY_TX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH3) | \
 		 XVPHY_TX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH4))
+/** RX user ready mask for all channels. */
 #define XVPHY_RX_INIT_USERRDY_ALL_MASK \
 		(XVPHY_RX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH1) | \
 		 XVPHY_RX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH2) | \
 		 XVPHY_RX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH3) | \
 		 XVPHY_RX_INIT_USERRDY_MASK(XVPHY_CHANNEL_ID_CH4))
+/** PLL GT reset mask for all channels. */
 #define XVPHY_TXRX_INIT_PLLGTRESET_ALL_MASK \
 		(XVPHY_TXRX_INIT_PLLGTRESET_MASK(XVPHY_CHANNEL_ID_CH1) | \
 		 XVPHY_TXRX_INIT_PLLGTRESET_MASK(XVPHY_CHANNEL_ID_CH2) | \
 		 XVPHY_TXRX_INIT_PLLGTRESET_MASK(XVPHY_CHANNEL_ID_CH3) | \
 		 XVPHY_TXRX_INIT_PLLGTRESET_MASK(XVPHY_CHANNEL_ID_CH4))
-/* 0x020, 0x028: TX_STATUS, RX_STATUS */
+/** @} */
+
+/** @name 0x020, 0x028: TX_STATUS, RX_STATUS register masks.
+  * @{
+  */
+/** Reset done mask for channel. */
 #define XVPHY_TXRX_INIT_STATUS_RESETDONE_MASK(Ch) \
 		(0x01 << (8 * (Ch - 1)))
+/** PMA reset done mask for channel. */
 #define XVPHY_TXRX_INIT_STATUS_PMARESETDONE_MASK(Ch) \
 		(0x02 << (8 * (Ch - 1)))
+/** Power good mask for channel. */
 #define XVPHY_TXRX_INIT_STATUS_POWERGOOD_MASK(Ch) \
 		(0x04 << (8 * (Ch - 1)))
+/** Reset done mask for all channels. */
 #define XVPHY_TXRX_INIT_STATUS_RESETDONE_ALL_MASK \
 	(XVPHY_TXRX_INIT_STATUS_RESETDONE_MASK(XVPHY_CHANNEL_ID_CH1) | \
 	 XVPHY_TXRX_INIT_STATUS_RESETDONE_MASK(XVPHY_CHANNEL_ID_CH2) | \
 	 XVPHY_TXRX_INIT_STATUS_RESETDONE_MASK(XVPHY_CHANNEL_ID_CH3) | \
 	 XVPHY_TXRX_INIT_STATUS_RESETDONE_MASK(XVPHY_CHANNEL_ID_CH4))
+/** PMA reset done mask for all channels. */
 #define XVPHY_TXRX_INIT_STATUS_PMARESETDONE_ALL_MASK \
 	(XVPHY_TXRX_INIT_STATUS_PMARESETDONE_MASK(XVPHY_CHANNEL_ID_CH1) | \
 	 XVPHY_TXRX_INIT_STATUS_PMARESETDONE_MASK(XVPHY_CHANNEL_ID_CH2) | \
 	 XVPHY_TXRX_INIT_STATUS_PMARESETDONE_MASK(XVPHY_CHANNEL_ID_CH3) | \
 	 XVPHY_TXRX_INIT_STATUS_PMARESETDONE_MASK(XVPHY_CHANNEL_ID_CH4))
-/* 0x02C: IBUFDS_GTXX_CTRL */
-#define XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK0_CEB_MASK	0x1
-#define XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK	0x2
-/* 0x030: POWERDOWN_CONTROL */
+/** @} */
+
+/** @name 0x02C: IBUFDS_GTXX_CTRL register masks.
+  * @{
+  */
+#define XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK0_CEB_MASK	0x1  /**< GTREFCLK0 CEB mask */
+#define XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK	0x2  /**< GTREFCLK1 CEB mask */
+/** @} */
+
+/** @name 0x030: POWERDOWN_CONTROL register masks.
+  * @{
+  */
+/** CPLL power down mask for channel. */
 #define XVPHY_POWERDOWN_CONTROL_CPLLPD_MASK(Ch) \
 		(0x01 << (8 * (Ch - 1)))
+/** QPLL0 power down mask for channel. */
 #define XVPHY_POWERDOWN_CONTROL_QPLL0PD_MASK(Ch) \
 		(0x02 << (8 * (Ch - 1)))
+/** QPLL1 power down mask for channel. */
 #define XVPHY_POWERDOWN_CONTROL_QPLL1PD_MASK(Ch) \
 		(0x04 << (8 * (Ch - 1)))
+/** RX power down mask for channel. */
 #define XVPHY_POWERDOWN_CONTROL_RXPD_MASK(Ch) \
 		(0x18 << (8 * (Ch - 1)))
+/** RX power down shift for channel. */
 #define XVPHY_POWERDOWN_CONTROL_RXPD_SHIFT(Ch) \
 		(3 + (8 * (Ch - 1)))
+/** TX power down mask for channel. */
 #define XVPHY_POWERDOWN_CONTROL_TXPD_MASK(Ch) \
 		(0x60 << (8 * (Ch - 1)))
+/** TX power down shift for channel. */
 #define XVPHY_POWERDOWN_CONTROL_TXPD_SHIFT(Ch) \
 		(5 + (8 * (Ch - 1)))
-/* 0x038: LOOPBACK_CONTROL */
+/** @} */
+
+/** @name 0x038: LOOPBACK_CONTROL register masks.
+  * @{
+  */
+/** Loopback control mask for channel. */
 #define XVPHY_LOOPBACK_CONTROL_CH_MASK(Ch) \
 		(0x03 << (8 * (Ch - 1)))
+/** Loopback control shift for channel. */
 #define XVPHY_LOOPBACK_CONTROL_CH_SHIFT(Ch) \
 		(8 * (Ch - 1))
+/** @} */
+
 /* 0x040, 0x044, 0x048, 0x04C, 0x060: DRP_CONTROL_CH[1-4], DRP_CONTROL_COMMON */
 #define XVPHY_DRP_CONTROL_DRPADDR_MASK	0x00000FFF
 #define XVPHY_DRP_CONTROL_DRPEN_MASK	0x00001000
@@ -583,16 +654,16 @@ extern "C" {
 /* 0x340 TMDS PATGEN */
 #define XVPHY_PATGEN_CTRL_RATIO_MASK		0x7
 #define XVPHY_PATGEN_CTRL_RATIO_SHIFT		0
-/* @} */
+/** @} */
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
   * @{
   */
-#define XVphy_In32 Xil_In32
-#define XVphy_Out32 Xil_Out32
-/* @} */
+#define XVphy_In32 Xil_In32  /**< Input operation macro for 32-bit reads */
+#define XVphy_Out32 Xil_Out32  /**< Output operation macro for 32-bit writes */
+/** @} */
 
 /******************************************************************************/
 /**
@@ -631,5 +702,6 @@ extern "C" {
 }
 #endif
 
-#endif /* XVPHY_HW_H_ */
 /** @} */
+
+#endif /* XVPHY_HW_H_ */

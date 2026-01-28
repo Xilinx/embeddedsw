@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,7 +35,7 @@
  * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
  *                     Added TX datawidth dynamic reconfiguration
  *                     Incorporated AXIlite Freq auto extraction
- *                     Added extra routine for 2/4 byte tranceiver modes
+ *                     Added extra routine for 2/4 byte transceiver modes
  *                     Added logging and register access for ERR_IRQ impl
  *                     Removed XVphy_HdmiMmcmStart API
  *                     Fixed c++ compiler warnings
@@ -52,7 +52,7 @@
  *						 XVphy_HdmiDebugInfo API
  *					   Fixed bug in HdmiCfgCalcMmcmParam when linerate exceeds
  *					     3.4 Gbps when oversampling is enabled
- *                     Changed xil_printf new lines to \r\n
+ *                     Changed xil_printf new lines to carriage return
  *                     Marked XVphy_HdmiInitialize deprecated and replaced by
  *                        XVphy_Hdmi_CfgInitialize
  *                     Added XVPHY_LOG_EVT_DRU_CLK_ERR error condition to
