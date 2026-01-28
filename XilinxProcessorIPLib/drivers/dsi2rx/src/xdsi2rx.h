@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -444,7 +444,7 @@ static inline u32 XDsi2Rx_GetIntrEnableStatus(XDsi2Rx *InstancePtr)
 *
 * This function is used to find out which events have triggered the interrupt
 * source, presently DSI supporting Undefined data type and pixel under flow
-* error, the ISR register bits will set when respecive interuupt triggers
+* error, the ISR register bits will set when respective interrupt triggers
 *
 * @param	InstancePtr is a pointer to the DSI Instance to be
 *		worked on.
