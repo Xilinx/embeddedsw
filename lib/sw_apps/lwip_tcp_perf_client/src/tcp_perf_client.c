@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2018 - 2019 Xilinx, Inc.
- * Copyright (C) 2019 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2019 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -175,7 +175,7 @@ static err_t tcp_send_perf_traffic(void)
 #ifdef __MICROBLAZE__
 	/* Zero-copy pbufs is used to get maximum performance for Microblaze.
 	 * For Zynq A9, ZynqMP A53 and R5 zero-copy pbufs does not give
-	 * significant improvement hense not used. */
+	 * significant improvement hence not used. */
 	apiflags = 0;
 #endif
 
