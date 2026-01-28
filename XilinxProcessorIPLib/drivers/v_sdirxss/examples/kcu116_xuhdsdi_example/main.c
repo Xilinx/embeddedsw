@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -287,7 +287,7 @@ static int I2cClk_SI5319(u32 InFreq, u32 OutFreq)
  *
  ******************************************************************************/
 void cls(void) {
-	/* Clear Sreen */
+	/* Clear Screen */
 	xil_printf("%c\[2J", 27);
 	/* Bring Cursor to 0,0 */
 	xil_printf("%c\033[0;0H", 27);
@@ -1425,7 +1425,7 @@ void ctrl_app(unsigned char inchar) {
 /**
  *
  * This function  Fetch input from UART then callback voip_contrl_app to
- * process the selction.
+ * process the selection.
  *
  * @return	None
  *

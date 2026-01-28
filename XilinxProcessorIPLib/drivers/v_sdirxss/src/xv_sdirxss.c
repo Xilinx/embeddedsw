@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020  Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -559,7 +559,7 @@ XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 	TMode =  InstancePtr->SdiRxPtr->Transport.TMode;
 
 	/* Following assertions make sure the IPSS is configured with in the
-	 * subsystem GUI paramter limit
+	 * subsystem GUI parameter limit
 	 */
 	Xil_AssertNonvoid(((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
 			(TMode <= XSDIVID_MODE_3GB)) ||

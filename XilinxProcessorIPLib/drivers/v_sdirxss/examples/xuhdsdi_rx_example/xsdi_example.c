@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -121,7 +121,7 @@ XSdi_Menu SdiMenu;			/**< Menu structure */
  ******************************************************************************/
 void ClearScreen(void)
 {
-	xil_printf("%c\[2J", 27);	/**< Clear Sreen */
+	xil_printf("%c\[2J", 27);	/**< Clear Screen */
 	xil_printf("%c\033[0;0H", 27);	/**< Bring Cursor to 0,0 */
 }
 
@@ -296,7 +296,7 @@ void RxUnderFlowCallback(void *CallbackRef)
  *
  * This function is called when assertion hits in the file.
  *
- * @param	File - File name where assertion occured.
+ * @param	File - File name where assertion occurred.
  * 		Line - Line number in this file.
  *
  * @return None.

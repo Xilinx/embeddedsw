@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -293,7 +293,7 @@ int Si5324_FindN2ls(si5324_settings_t *settings) {
 	settings->n2_ls *= 2;
 
 	/*
-	 * Rational approximation returns the smalles ratio possible.
+	 * Rational approximation returns the smallest ratio possible.
 	 * Upscaling might be needed when when one or both of the
 	 * numbers are too low.
 	 */

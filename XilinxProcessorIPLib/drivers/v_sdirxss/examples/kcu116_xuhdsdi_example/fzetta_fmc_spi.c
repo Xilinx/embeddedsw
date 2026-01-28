@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -90,7 +90,7 @@ int fzetta_fmc_spi_init(UINTPTR BaseAddress)
  * 		Byte 1: [7]=0 (wr) + [6:0]=Register Address
  * 		Byte 2: [7:0]= Register Data
  *
- * @param	spi_slave_sel  SPI Slave Slection.
+ * @param	spi_slave_sel  SPI Slave Selection.
  * @param	Slave_sel      Slave Selection.
  * @param       RegAddr        Register Address
  * @param       RegData        Register data
