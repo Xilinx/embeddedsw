@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -82,7 +82,7 @@ timer_callback()
 {
 	static int DetectEthLinkStatus = 0;
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified by lwIP.
-	 * It is not important that the timing is absoluetly accurate.
+	 * It is not important that the timing is absolutely accurate.
 	 */
 
 	static int Tcp_Fasttimer = 0;
