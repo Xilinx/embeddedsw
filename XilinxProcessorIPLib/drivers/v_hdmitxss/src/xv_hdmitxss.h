@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,7 +54,7 @@
 *                       video bridge and controlled by HDMI core
 * 1.16  mmo    03/01/17 Add compiler option(XV_HDMITXSS_LOG_ENABLE) to enable
 *                            Log
-*                       Re-order the enumation and data structure
+*                       Re-order the enumeration and data structure
 * 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
 *                             Segment Support and HDMI Compliance Test
 * 4.0   YH     19/07/17 Added Video Masking APIs
@@ -129,14 +129,21 @@ extern "C" {
 
 
 /****************************** Type Definitions ******************************/
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+/** @name ANSI Color Codes for console output
+* @{
+*/
+#define ANSI_COLOR_RED     "\x1b[31m"	/**< ANSI color code for red */
+#define ANSI_COLOR_YELLOW  "\x1b[33m"	/**< ANSI color code for yellow */
+#define ANSI_COLOR_RESET   "\x1b[0m"	/**< ANSI color code to reset */
+/** @} */
 
 /** @name Handler Types
 * @{
 */
 #ifdef XV_HDMITXSS_LOG_ENABLE
+/**
+* This typedef defines the HDMI TX Subsystem log events.
+*/
 typedef enum {
 	XV_HDMITXSS_LOG_EVT_NONE = 1,		  /**< Log event none. */
 	XV_HDMITXSS_LOG_EVT_HDMITX_INIT,	  /**< Log event HDMITX Init. */
@@ -181,10 +188,13 @@ typedef struct {
 } XV_HdmiTxSs_Log;
 #endif
 
+/**
+* This typedef defines the HPD tolerance types.
+*/
 typedef enum {
-	XV_HDMITXSS_LEADING_TOLERANCE,
-	XV_HDMITXSS_LAGGING_TOLERANCE,
-	XV_HDMITXSS_UNKNOWN
+	XV_HDMITXSS_LEADING_TOLERANCE,	/**< Leading edge tolerance */
+	XV_HDMITXSS_LAGGING_TOLERANCE,	/**< Lagging edge tolerance */
+	XV_HDMITXSS_UNKNOWN				/**< Unknown tolerance type */
 } XV_HdmiTxSs_HpdToleranceType;
 
 /**
@@ -596,5 +606,7 @@ void XV_HdmiTxSS_SetHpdTolerance(XV_HdmiTxSs *InstancePtr,
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 
 #endif /* end of protection macro */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@
 * 1.00         10/07/15 Initial release.
 * 1.01  MG     17/12/16 Fixed issue in function SetAudioChannels
 *                       Updated function XV_HdmiTxSs_SendAuxInfoframe
-* 1.02  yh     12/01/16 Check vtc existance before configuring it
+ * 1.02  yh     12/01/16 Check vtc existence before configuring it
 * 1.03  yh     15/01/16 Add 3D Support
 * 1.04  yh     20/01/16 Added remapper support
 * 1.05  yh     01/02/16 Added set_ppc api
@@ -77,7 +77,7 @@
 *                       Remove inclusion of the xenv.h and sleep.h as it not
 *                           used
 *                       Replaced "print" with "xil_printf"
-*                       Replace Carriage Return (\r) and Line Feed (\n) order,\
+*                       Replace Carriage Return and Line Feed order,
 *                           where the Carriage Return + Line Feed order is used.
 * 1.24  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
 *                             Segment Support and HDMI Compliance Test
@@ -228,6 +228,12 @@ static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr);
 * This macro selects the bridge YUV420 mode
 *
 * @param  InstancePtr is a pointer to the HDMI TX Subsystem
+* @param  Enable specifies TRUE/FALSE value to either enable or disable
+*         YUV420 mode.
+*
+* @return None.
+*
+* @note   None.
 *
 *****************************************************************************/
 #define XV_HdmiTxSs_BridgeYuv420(InstancePtr, Enable) \
@@ -240,6 +246,12 @@ static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr);
 * This macro selects the bridge pixel repeat mode
 *
 * @param  InstancePtr is a pointer to the HDMI TX Subsystem
+* @param  Enable specifies TRUE/FALSE value to either enable or disable
+*         pixel repeat mode.
+*
+* @return None.
+*
+* @note   None.
 *
 *****************************************************************************/
 #define XV_HdmiTxSs_BridgePixelRepeat(InstancePtr, Enable) \
@@ -418,14 +430,14 @@ static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr, u16 DevId)
   HdmiTxSsPtr->VtcPtr        = ((HdmiTxSsPtr->Config.Vtc.IsPresent)  \
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].Vtc) : NULL);
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-  // HDCP 1.4
+  /* HDCP 1.4 */
   HdmiTxSsPtr->Hdcp14Ptr       = ((HdmiTxSsPtr->Config.Hdcp14.IsPresent) \
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].Hdcp14) : NULL);
   HdmiTxSsPtr->HdcpTimerPtr  = ((HdmiTxSsPtr->Config.HdcpTimer.IsPresent) \
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].HdcpTimer) : NULL);
 #endif
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  // HDCP 2.2
+  /* HDCP 2.2 */
   HdmiTxSsPtr->Hdcp22Ptr       = ((HdmiTxSsPtr->Config.Hdcp22.IsPresent) \
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].Hdcp22) : NULL);
 #endif
@@ -506,7 +518,7 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
 
   /* Initialize all included sub_cores */
 
-  // HDCP 1.4
+  /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   if (HdmiTxSsPtr->Hdcp14Ptr) {
     if (XV_HdmiTxSs_SubcoreInitHdcp14(HdmiTxSsPtr) != XST_SUCCESS){
@@ -530,7 +542,7 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
   }
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  // HDCP 2.2
+  /* HDCP 2.2 */
   if (HdmiTxSsPtr->Hdcp22Ptr) {
     if (XV_HdmiTxSs_SubcoreInitHdcp22(HdmiTxSsPtr) != XST_SUCCESS){
       return(XST_FAILURE);
@@ -685,6 +697,7 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset is a flag to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
 *
@@ -702,6 +715,7 @@ void XV_HdmiTxSs_TXCore_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset is a flag to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
 *
@@ -719,6 +733,7 @@ void XV_HdmiTxSs_TXCore_LRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset is a flag to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
 *
@@ -736,6 +751,7 @@ void XV_HdmiTxSs_VRST(XV_HdmiTxSs *InstancePtr, u8 Reset)
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset is a flag to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
 *
@@ -952,24 +968,24 @@ static int XV_HdmiTxSs_VtcSetup(XV_HdmiTxSs *HdmiTxSsPtr)
     HdmiTxSsPtr->HdmiTxPtr->Stream.Video.Timing.HBackPorch;
 
   do {
-    // Calculate vtc horizontal blanking
+    /* Calculate vtc horizontal blanking */
     Vtc_Hblank = VideoTiming.HFrontPorch +
         VideoTiming.HBackPorch +
         VideoTiming.HSyncWidth;
 
-    // Quad pixel mode
+    /* Quad pixel mode */
     if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
       Vtc_Hblank *= 4;
     }
 
-    // Dual pixel mode
+    /* Dual pixel mode */
     else if (HdmiTxSsPtr->HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
       Vtc_Hblank *= 2;
     }
 
-    // Single pixel mode
+    /* Single pixel mode */
     else {
-      //Vtc_Hblank *= 1;
+      /*Vtc_Hblank *= 1; */
     }
 
     /* For YUV420 the line width is double there for double the blanking */
@@ -977,8 +993,10 @@ static int XV_HdmiTxSs_VtcSetup(XV_HdmiTxSs *HdmiTxSsPtr)
         Vtc_Hblank *= 2;
     }
 
-    // If the horizontal total blanking differs,
-    // then increment the Vtc horizontal front porch.
+    /*
+     * If the horizontal total blanking differs,
+     * then increment the Vtc horizontal front porch.
+     */
     if (Vtc_Hblank != HdmiTx_Hblank) {
       VideoTiming.HFrontPorch++;
     }
@@ -1002,7 +1020,7 @@ static int XV_HdmiTxSs_VtcSetup(XV_HdmiTxSs *HdmiTxSsPtr)
   Polarity.ActiveChromaPol = 1;
   Polarity.ActiveVideoPol = 1;
 
-  //Polarity.FieldIdPol = 0;
+  /*Polarity.FieldIdPol = 0; */
   if (VideoTiming.Interlaced) {
     Polarity.FieldIdPol = 1;
   }
@@ -1262,14 +1280,14 @@ static void XV_HdmiTxSs_VsCallback(void *CallbackRef)
    * the InfoFrame. Note: The APIs used here are deprecated.
    */
   if (HdmiTxSsPtr->AppMajVer == 0) {
-  	// AVI infoframe
+	  /* AVI infoframe */
   	XV_HdmiTxSs_SendAviInfoframe(HdmiTxSsPtr->HdmiTxPtr);
 
-  	// Vendor-Specific InfoFrame
+	/* Vendor-Specific InfoFrame */
 	XV_HdmiTxSs_SendVSInfoframe(HdmiTxSsPtr->HdmiTxPtr);
   }
 
-  // Check if user callback has been registered
+  /* Check if user callback has been registered */
   if (HdmiTxSsPtr->VsCallback) {
       HdmiTxSsPtr->VsCallback(HdmiTxSsPtr->VsRef);
   }
@@ -1574,21 +1592,21 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
 
     /* Check for handler type */
     switch (HandlerType) {
-        // Connect
+        /* Connect */
         case (XV_HDMITXSS_HANDLER_CONNECT):
             InstancePtr->ConnectCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->ConnectRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
-        // Toggle
+        /* Toggle */
         case (XV_HDMITXSS_HANDLER_TOGGLE):
             InstancePtr->ToggleCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->ToggleRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
-        // Bridge Unlocked
+        /* Bridge Unlocked */
         case (XV_HDMITXSS_HANDLER_BRDGUNLOCK):
             InstancePtr->BrdgUnlockedCallback =
 			    (XV_HdmiTxSs_Callback)CallbackFunc;
@@ -1596,7 +1614,7 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Bridge Overflow
+        /* Bridge Overflow */
         case (XV_HDMITXSS_HANDLER_BRDGOVERFLOW):
             InstancePtr->BrdgOverflowCallback =
 			    (XV_HdmiTxSs_Callback)CallbackFunc;
@@ -1604,7 +1622,7 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Bridge Underflow
+        /* Bridge Underflow */
         case (XV_HDMITXSS_HANDLER_BRDGUNDERFLOW):
             InstancePtr->BrdgUnderflowCallback =
 			    (XV_HdmiTxSs_Callback)CallbackFunc;
@@ -1612,14 +1630,14 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Vsync
+        /* Vsync */
         case (XV_HDMITXSS_HANDLER_VS):
             InstancePtr->VsCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->VsRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
-        // Stream down
+        /* Stream down */
         case (XV_HDMITXSS_HANDLER_STREAM_DOWN):
             InstancePtr->StreamDownCallback =
                 (XV_HdmiTxSs_Callback)CallbackFunc;
@@ -1627,14 +1645,14 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Stream up
+        /* Stream up */
         case (XV_HDMITXSS_HANDLER_STREAM_UP):
             InstancePtr->StreamUpCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->StreamUpRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
-        // HDCP authenticated
+        /* HDCP authenticated */
         case (XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED):
 #ifdef XPAR_XHDCP_NUM_INSTANCES
             /* Register HDCP 1.4 callbacks */
@@ -1658,7 +1676,7 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // HDCP downstream topology available
+        /* HDCP downstream topology available */
         case (XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE):
 #ifdef XPAR_XHDCP_NUM_INSTANCES
             /** Register HDCP 1.4 callbacks */
@@ -1682,7 +1700,7 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // HDCP unauthenticated
+        /* HDCP unauthenticated */
         case (XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED):
 #ifdef XPAR_XHDCP_NUM_INSTANCES
             /** Register HDCP 1.4 callbacks */
@@ -1719,7 +1737,12 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
 *
 * This function reads the HDMI Sink EDID.
 *
-* @return None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
+* @param  Buffer is a pointer to the buffer where EDID data will be stored.
+*
+* @return
+*   - XST_SUCCESS if EDID read was successful.
+*   - XST_FAILURE if EDID read failed.
 *
 * @note   None.
 *
@@ -1728,19 +1751,19 @@ int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *Buffer)
 {
     u32 Status;
 
-    // Default
+    /* Default */
     Status = (XST_FAILURE);
 
-    // Check if a sink is connected
+    /* Check if a sink is connected */
     if (InstancePtr->IsStreamConnected == (TRUE)) {
 
       *Buffer = 0x00;   // Offset zero
       Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x50, 1, Buffer,
         (FALSE));
 
-      // Check if write was successful
+      /* Check if write was successful */
       if (Status == (XST_SUCCESS)) {
-        // Read edid
+        /* Read edid */
         Status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x50, 256, Buffer,
             (TRUE));
       }
@@ -1753,7 +1776,13 @@ int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *Buffer)
 *
 * This function reads one block from the HDMI Sink EDID.
 *
-* @return None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
+* @param  Buffer is a pointer to the buffer where EDID data will be stored.
+* @param  segment is the EDID segment number to read.
+*
+* @return
+*   - XST_SUCCESS if EDID read was successful.
+*   - XST_FAILURE if EDID read failed.
 *
 * @note   None.
 *
@@ -1764,49 +1793,51 @@ int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment
 
     u8 dummy = 0;
 
-    // Default
+    /* Default */
     Status = (XST_FAILURE);
 
-    // Check if a sink is connected
+    /* Check if a sink is connected */
     if (InstancePtr->IsStreamConnected == (TRUE)) {
 
-	  // For multiple segment EDID read
-	  // First, read the first block, then read address 0x7e to know how many
-	  // blocks, if more than 2 blocks, then select segment after first 2 blocks
-	  // Use the following code to select segment
+	  /*
+	   * For multiple segment EDID read
+	   * First, read the first block, then read address 0x7e to know how many
+	   * blocks, if more than 2 blocks, then select segment after first 2 blocks
+	   * Use the following code to select segment
+	   */
 
 	  if(segment != 0) {
-        // Segment Pointer
+        /* Segment Pointer */
         Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x30, 1, &segment,
         (FALSE));
 	  }
 
-      // Read blocks
+      /* Read blocks */
       dummy = 0x00;   // Offset zero
       Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x50, 1, &dummy,
         (FALSE));
 
-      // Check if write was successful
+      /* Check if write was successful */
       if (Status == (XST_SUCCESS)) {
-        // Read edid
+        /* Read edid */
         Status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x50, 128, Buffer,
             (TRUE));
       }
 
 	  if(segment != 0) {
-        // Segment Pointer
+        /* Segment Pointer */
         Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x30, 1, &segment,
         (FALSE));
 	  }
 
-      // Read blocks
+      /* Read blocks */
       dummy = 0x80;   // Offset 128
       Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x50, 1, &dummy,
         (FALSE));
 
-      // Check if write was successful
+      /* Check if write was successful */
       if (Status == (XST_SUCCESS)) {
-        // Read edid
+        /* Read edid */
         Status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x50, 128, &Buffer[128],
             (TRUE));
       }
@@ -1822,6 +1853,8 @@ int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment
 /**
 *
 * This function shows the HDMI source edid.
+*
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return None.
 *
@@ -1839,16 +1872,16 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
 	u8 segment = 0;
     u8 ExtensionFlag = 0;
 
-    // Check if a sink is connected
+    /* Check if a sink is connected */
     if (InstancePtr->IsStreamConnected == (TRUE)) {
 
-      // Default
+      /* Default */
       Valid = (FALSE);
 
-      // Read Sink Edid Segment 0
+      /* Read Sink Edid Segment 0 */
       Status = XV_HdmiTxSs_ReadEdidSegment(InstancePtr, (u8*)&Buffer, segment);
 
-      // Check if read was successful
+      /* Check if read was successful */
       if (Status == (XST_SUCCESS)) {
         XVidC_EdidGetManName(&Buffer[0], (char *) EdidManName);
         xil_printf("\r\nMFG name : %S\r\n", EdidManName);
@@ -1863,7 +1896,7 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
       segment = 0;
 	  while (segment <= ExtensionFlag)
 	  {
-        // Check if read was successful
+        /* Check if read was successful */
         if (Status == (XST_SUCCESS)) {
           xil_printf("\r\n---- Segment %d ----\r\n", segment);
           xil_printf("----------------------------------------------------\r\n");
@@ -1898,6 +1931,8 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
 *
 * This function starts the HDMI TX stream
 *
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
+*
 * @return None.
 *
 * @note   None.
@@ -1907,25 +1942,25 @@ void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr)
 {
   u32 TmdsClk;
 
-  // Set TX pixel rate
+  /* Set TX pixel rate */
   XV_HdmiTx_SetPixelRate(InstancePtr->HdmiTxPtr);
 
-  // Set TX color depth
+  /* Set TX color depth */
   XV_HdmiTx_SetColorDepth(InstancePtr->HdmiTxPtr);
 
-  // Set TX color format
+  /* Set TX color format */
   XV_HdmiTx_SetColorFormat(InstancePtr->HdmiTxPtr);
 
-  // Set the TMDS Clock
+  /* Set the TMDS Clock */
   TmdsClk = XV_HdmiTxSS_SetTMDS(InstancePtr,
 				 InstancePtr->HdmiTxPtr->Stream.Video.VmId,
 				 InstancePtr->HdmiTxPtr->Stream.Video.ColorFormatId,
 				 InstancePtr->HdmiTxPtr->Stream.Video.ColorDepth);
 
-  // Set TX scrambler
+  /* Set TX scrambler */
   XV_HdmiTx_Scrambler(InstancePtr->HdmiTxPtr);
 
-  // Set TX clock ratio
+  /* Set TX clock ratio */
   XV_HdmiTx_ClockRatio(InstancePtr->HdmiTxPtr);
 #ifdef XV_HDMITXSS_LOG_ENABLE
   XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_STREAMSTART, 0);
@@ -1971,7 +2006,7 @@ void XV_HdmiTxSs_SetScrambler(XV_HdmiTxSs *InstancePtr, u8 Enable)
 		 * IsScrambled
 		 */
 		XV_HdmiTx_Scrambler(InstancePtr->HdmiTxPtr);
-		// Disable the override of the scrambler
+		/* Disable the override of the scrambler */
 		InstancePtr->HdmiTxPtr->Stream.OverrideScrambler = (FALSE);
 	} else {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
@@ -1985,7 +2020,8 @@ void XV_HdmiTxSs_SetScrambler(XV_HdmiTxSs *InstancePtr, u8 Enable)
 *
 * This function sends audio info frames.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
+* @param  Aux is a pointer to the auxiliary data to send.
 *
 * @return None.
 *
@@ -2039,12 +2075,12 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
   }
 
   else {
-      // Copy Audio Infoframe
+      /* Copy Audio Infoframe */
       if (tx_aux->Header.Byte[0] == 0x84) {
-        // Header
+        /* Header */
         InstancePtr->HdmiTxPtr->Aux.Header.Data = tx_aux->Header.Data;
 
-        // Data
+        /* Data */
         for (Index = 0; Index < 8; Index++) {
           InstancePtr->HdmiTxPtr->Aux.Data.Data[Index] =
             tx_aux->Data.Data[Index];
@@ -2061,7 +2097,8 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 *
 * This function sends generic info frames.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
+* @param  Aux is a pointer to the auxiliary data structure.
 *
 * @return
 *       - XST_SUCCESS if infoframes transmitted successfully.
@@ -2075,10 +2112,10 @@ u32 XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
   u8 Index;
   XHdmiC_Aux *tx_aux = (XHdmiC_Aux *)Aux;
 
-  // Header
+  /* Header */
   InstancePtr->HdmiTxPtr->Aux.Header.Data = tx_aux->Header.Data;
 
-  // Data
+  /* Data */
   for (Index = 0; Index < 8; Index++) {
     InstancePtr->HdmiTxPtr->Aux.Data.Data[Index] =
     tx_aux->Data.Data[Index];
@@ -2103,7 +2140,7 @@ u32 XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 ******************************************************************************/
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels)
 {
-	// Audio InfoFrame's channel count starts from 2ch = 1
+	/* Audio InfoFrame's channel count starts from 2ch = 1 */
 	InstancePtr->AudioInfoframe.ChannelCount = AudioChannels - 1;
     InstancePtr->AudioChannels = AudioChannels;
     XV_HdmiTx_SetAudioChannels(InstancePtr->HdmiTxPtr, AudioChannels);
@@ -2119,6 +2156,7 @@ void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels)
 *
 * This function set HDMI TX audio parameters
 *
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 * @param  Enable 0: Unmute the audio 1: Mute the audio.
 *
 * @return None.
@@ -2128,7 +2166,7 @@ void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels)
 ******************************************************************************/
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable)
 {
-  //Audio Mute Mode
+  /*Audio Mute Mode */
   if (Enable){
 	XV_HdmiTx_AudioDisable(InstancePtr->HdmiTxPtr);
 #ifdef XV_HDMITXSS_LOG_ENABLE
@@ -2274,9 +2312,13 @@ XHdmiC_DRMInfoFrame *XV_HdmiTxSs_GetDrmInfoframe(XV_HdmiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function set HDMI TX susbsystem stream parameters
+* This function set HDMI TX subsystem stream parameters
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
+* @param  VideoMode is the video mode to set.
+* @param  ColorFormat is the color format to set.
+* @param  Bpc is the bits per component (color depth).
+* @param  Info3D is a pointer to 3D information structure.
 *
 * @return Calculated TMDS Clock
 *
@@ -2330,9 +2372,9 @@ XVidC_VideoStream *XV_HdmiTxSs_GetVideoStream(XV_HdmiTxSs *InstancePtr)
 * This function Sets the HDMI TX SS video stream
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs instance
-* @param
+* @param  VidStream is the video stream properties to set.
 *
-* @return XVidC_VideoStream pointer
+* @return None.
 *
 * @note   None.
 *
@@ -2340,7 +2382,7 @@ XVidC_VideoStream *XV_HdmiTxSs_GetVideoStream(XV_HdmiTxSs *InstancePtr)
 void XV_HdmiTxSs_SetVideoStream(XV_HdmiTxSs *InstancePtr,
                                     XVidC_VideoStream VidStream)
 {
-    // Set Stream Properties
+    /* Set Stream Properties */
     InstancePtr->HdmiTxPtr->Stream.Video = VidStream;
 }
 
@@ -2368,7 +2410,7 @@ void XV_HdmiTxSs_SetSamplingRate(XV_HdmiTxSs *InstancePtr, u8 SamplingRate)
 * This function Sets the HDMI TX SS video Identification code
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs instance
-* @param  InstancePtr VIC Flag Value
+* @param  Vic is the Video Identification Code value to set.
 *
 * @return None.
 *
@@ -2386,7 +2428,7 @@ void XV_HdmiTxSs_SetVideoIDCode(XV_HdmiTxSs *InstancePtr, u8 Vic)
 * This function Sets the HDMI TX SS video stream type
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs instance
-* @param  InstancePtr VIC Value 1:HDMI 0:DVI
+* @param  StreamType specifies the stream type (1:HDMI 0:DVI)
 *
 * @return None.
 *
@@ -2395,7 +2437,7 @@ void XV_HdmiTxSs_SetVideoIDCode(XV_HdmiTxSs *InstancePtr, u8 Vic)
 ******************************************************************************/
 void XV_HdmiTxSs_SetVideoStreamType(XV_HdmiTxSs *InstancePtr, u8 StreamType)
 {
-    //InstancePtr->HdmiTxPtr->Stream.IsHdmi = StreamType;
+    /*InstancePtr->HdmiTxPtr->Stream.IsHdmi = StreamType; */
     if (StreamType) {
     	XV_HdmiTxSS_SetHdmiMode(InstancePtr);
     	XV_HdmiTxSs_AudioMute(InstancePtr, FALSE);
@@ -2471,12 +2513,11 @@ void XV_HdmiTxSs_SetTmdsClockRatio(XV_HdmiTxSs *InstancePtr, u8 Ratio)
 /*****************************************************************************/
 /**
 *
-* This function Sets the HDMI TX SS video Identification code
+* This function returns the HDMI TX SS TMDS clock frequency
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs instance
-* @param
 *
-* @return Stream Data Structure (TMDS Clock)
+* @return TMDS Clock frequency in Hz.
 *
 * @note   None.
 *
@@ -2510,9 +2551,9 @@ int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr)
 *
 * This function is called when HDMI TX SS TMDS clock changes
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
-* @return None
+* @return None.
 *
 * @note   None.
 *
@@ -2677,7 +2718,7 @@ static void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
   }
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-  // HDCP 1.4
+  /* HDCP 1.4 */
   if (InstancePtr->Hdcp14Ptr){
      Data = XHdcp1x_GetVersion(InstancePtr->Hdcp14Ptr);
      xil_printf("  HDCP 1.4 TX version : %02d.%02d (%04x)\r\n",
@@ -2686,7 +2727,7 @@ static void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  // HDCP 2.2
+  /* HDCP 2.2 */
   if (InstancePtr->Hdcp22Ptr) {
    Data = XHdcp22Tx_GetVersion(InstancePtr->Hdcp22Ptr);
    xil_printf("  HDCP 2.2 TX version : %02d.%02d (%04x)\r\n",
@@ -2702,7 +2743,7 @@ static void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
 *
 * This function prints the HDMI TX SS subcore versions
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return None.
 *
@@ -2732,7 +2773,7 @@ void XV_HdmiTxSs_ReportInfo(XV_HdmiTxSs *InstancePtr)
 *
 * This function checks if the video stream is up.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
 *   - TRUE if stream is up.
@@ -2754,7 +2795,7 @@ int XV_HdmiTxSs_IsStreamUp(XV_HdmiTxSs *InstancePtr)
 *
 * This function checks if the interface is connected.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
 *   - TRUE if the interface is connected.
@@ -2776,7 +2817,7 @@ int XV_HdmiTxSs_IsStreamConnected(XV_HdmiTxSs *InstancePtr)
 *
 * This function checks if the interface has toggled.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
 *   - TRUE if the interface HPD has toggled.
@@ -2813,7 +2854,7 @@ static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr) {
     XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
     AviInfoFramePtr = XV_HdmiTxSs_GetAviInfoframe(InstancePtr);
 
-    // Pixel Repetition factor of 3 and above are not supported by the bridge
+    /* Pixel Repetition factor of 3 and above are not supported by the bridge */
     if (AviInfoFramePtr->PixelRepetition > XHDMIC_PIXEL_REPETITION_FACTOR_2) {
 #ifdef XV_HDMITXSS_LOG_ENABLE
     	XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR,

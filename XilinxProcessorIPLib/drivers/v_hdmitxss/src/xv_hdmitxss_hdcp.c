@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +34,7 @@
 /**************************** Local Global ***********************************/
 
 /************************** Function Prototypes ******************************/
-// HDCP specific
+/* HDCP specific */
 #ifdef USE_HDCP_TX
 static XV_HdmiTxSs_HdcpEvent XV_HdmiTxSs_HdcpGetEvent(XV_HdmiTxSs *InstancePtr);
 static int XV_HdmiTxSs_HdcpProcessEvents(XV_HdmiTxSs *InstancePtr);
@@ -466,43 +467,44 @@ static int XV_HdmiTxSs_HdcpProcessEvents(XV_HdmiTxSs *InstancePtr)
   Event = XV_HdmiTxSs_HdcpGetEvent(InstancePtr);
   switch (Event) {
 
-    // Stream up
-    // Attempt authentication with downstream device
+    /* Stream up
+     * Attempt authentication with downstream device
+     */
     case XV_HDMITXSS_HDCP_STREAMUP_EVT :
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
-        // Set physical state
+        /* Set physical state */
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, TRUE);
-        // This is needed to ensure that the previous command is executed.
+        /* This is needed to ensure that the previous command is executed. */
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
       }
 #endif
       break;
 
-    // Stream down
+    /* Stream down */
     case XV_HDMITXSS_HDCP_STREAMDOWN_EVT :
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
-        // Set physical state
+        /* Set physical state */
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, FALSE);
-        // This is needed to ensure that the previous command is executed.
+        /* This is needed to ensure that the previous command is executed. */
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
       }
 #endif
       XV_HdmiTxSs_HdcpReset(InstancePtr);
       break;
 
-    // Connect
+    /* Connect */
     case XV_HDMITXSS_HDCP_CONNECT_EVT :
       break;
 
-    // Disconnect
-    // Reset both HDCP protocols
+    /* Disconnect */
+    /* Reset both HDCP protocols */
     case XV_HDMITXSS_HDCP_DISCONNECT_EVT :
       XV_HdmiTxSs_HdcpReset(InstancePtr);
       break;
 
-    // Authenticate
+    /* Authenticate */
     case XV_HDMITXSS_HDCP_AUTHENTICATE_EVT :
       XV_HdmiTxSs_HdcpAuthRequest(InstancePtr);
       break;
@@ -544,7 +546,7 @@ int XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr)
     XV_HdmiTxSs_HdcpProcessEvents(InstancePtr);
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     if (InstancePtr->Hdcp22Ptr) {
       if (XHdcp22Tx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
        XHdcp22Tx_Poll(InstancePtr->Hdcp22Ptr);
@@ -553,7 +555,7 @@ int XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     if (InstancePtr->Hdcp14Ptr) {
       if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
        XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
@@ -595,17 +597,17 @@ int XV_HdmiTxSs_HdcpSetProtocol(XV_HdmiTxSs *InstancePtr,
 
   int Status;
 
-  // Set protocol
+  /* Set protocol */
   InstancePtr->HdcpProtocol = Protocol;
 
-  // Reset both protocols
+  /* Reset both protocols */
   Status = XV_HdmiTxSs_HdcpReset(InstancePtr);
   if (Status != XST_SUCCESS) {
     InstancePtr->HdcpProtocol = XV_HDMITXSS_HDCP_NONE;
     return XST_FAILURE;
   }
 
-  // Enable the requested protocol
+  /* Enable the requested protocol */
   Status = XV_HdmiTxSs_HdcpEnable(InstancePtr);
   if (Status != XST_SUCCESS) {
     InstancePtr->HdcpProtocol = XV_HDMITXSS_HDCP_NONE;
@@ -641,7 +643,7 @@ int XV_HdmiTxSs_HdcpSetCapability(XV_HdmiTxSs *InstancePtr,
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(Protocol <= XV_HDMITXSS_HDCP_BOTH);
 
-  // Set protocol
+  /* Set protocol */
   InstancePtr->HdcpCapability = Protocol;
 
   return XST_SUCCESS;
@@ -705,7 +707,7 @@ int XV_HdmiTxSs_HdcpEnable(XV_HdmiTxSs *InstancePtr)
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
         Status1 = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
-        // This is needed to ensure that the previous command is executed.
+        /* This is needed to ensure that the previous command is executed. */
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
       }
 #endif
@@ -721,7 +723,7 @@ int XV_HdmiTxSs_HdcpEnable(XV_HdmiTxSs *InstancePtr)
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
         Status1 = XHdcp1x_Enable(InstancePtr->Hdcp14Ptr);
-        // This is needed to ensure that the previous command is executed.
+        /* This is needed to ensure that the previous command is executed. */
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
       }
       else {
@@ -742,7 +744,7 @@ int XV_HdmiTxSs_HdcpEnable(XV_HdmiTxSs *InstancePtr)
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
         Status1 = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
-        // This is needed to ensure that the previous command is executed.
+        /* This is needed to ensure that the previous command is executed. */
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
       }
 #endif
@@ -822,18 +824,18 @@ static int XV_HdmiTxSs_HdcpReset(XV_HdmiTxSs *InstancePtr)
   int Status = XST_SUCCESS;
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-  // HDCP 1.4
-  // Resetting HDCP 1.4 causes the state machine to be enabled, therefore
-  // disable must be called immediately after reset is called.
+  /* HDCP 1.4 */
+  /* Resetting HDCP 1.4 causes the state machine to be enabled, therefore */
+  /* disable must be called immediately after reset is called. */
   if (InstancePtr->Hdcp14Ptr) {
     Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
-    // This is needed to ensure that the previous command is executed.
+    /* This is needed to ensure that the previous command is executed. */
     XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
     if (Status != XST_SUCCESS)
       return XST_FAILURE;
 
     Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
-    // This is needed to ensure that the previous command is executed.
+    /* This is needed to ensure that the previous command is executed. */
     XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
     if (Status != XST_SUCCESS)
       return XST_FAILURE;
@@ -841,7 +843,7 @@ static int XV_HdmiTxSs_HdcpReset(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  // HDCP 2.2
+  /* HDCP 2.2 */
   if (InstancePtr->Hdcp22Ptr) {
     Status = XHdcp22Tx_Reset(InstancePtr->Hdcp22Ptr);
     if (Status != XST_SUCCESS)
@@ -853,7 +855,7 @@ static int XV_HdmiTxSs_HdcpReset(XV_HdmiTxSs *InstancePtr)
   }
 #endif
 
-  // Set defaults
+  /* Set defaults */
   XV_HdmiTxSs_HdcpDisableEncryption(InstancePtr);
 
   return Status;
@@ -1473,24 +1475,24 @@ void XV_HdmiTxSs_HdcpSetKey(XV_HdmiTxSs *InstancePtr,
   switch (KeyType) {
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2 LC128
+    /* HDCP 2.2 LC128 */
     case XV_HDMITXSS_KEY_HDCP22_LC128 :
       InstancePtr->Hdcp22Lc128Ptr = KeyPtr;
       break;
 
-    // HDCP 2.2 SRM
+    /* HDCP 2.2 SRM */
     case XV_HDMITXSS_KEY_HDCP22_SRM :
       InstancePtr->Hdcp22SrmPtr = KeyPtr;
       break;
 #endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_KEY_HDCP14 :
       InstancePtr->Hdcp14KeyPtr = KeyPtr;
       break;
 
-    // HDCP 1.4 SRM
+    /* HDCP 1.4 SRM */
     case XV_HDMITXSS_KEY_HDCP14_SRM :
       InstancePtr->Hdcp14SrmPtr = KeyPtr;
       break;
@@ -1526,16 +1528,16 @@ void XV_HdmiTxSs_HdcpInfo(XV_HdmiTxSs *InstancePtr)
       break;
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14 :
       if (InstancePtr->Hdcp14Ptr) {
         if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
           xil_printf("\r\nHDCP 1.4 TX Info\r\n");
 
-          // Route debug output to xil_printf
+          /* Route debug output to xil_printf */
           XHdcp1x_SetDebugPrintf(xil_printf);
 
-          // Display info
+          /* Display info */
           XHdcp1x_Info(InstancePtr->Hdcp14Ptr);
         }
         else {
@@ -1546,7 +1548,7 @@ void XV_HdmiTxSs_HdcpInfo(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22 :
       if (InstancePtr->Hdcp22Ptr) {
         if (XHdcp22Tx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
@@ -1589,28 +1591,28 @@ void XV_HdmiTxSs_HdcpSetInfoDetail(XV_HdmiTxSs *InstancePtr, u8 Verbose)
 
   if (Verbose) {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     if (InstancePtr->Hdcp14Ptr) {
       XHdcp1x_SetDebugLogMsg(xil_printf);
     }
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     if (InstancePtr->Hdcp22Ptr) {
       XHdcp22Tx_LogReset(InstancePtr->Hdcp22Ptr, TRUE);
     }
 #endif
   } else {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     if (InstancePtr->Hdcp14Ptr) {
       XHdcp1x_SetDebugLogMsg(NULL);
     }
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     if (InstancePtr->Hdcp22Ptr) {
       XHdcp22Tx_LogReset(InstancePtr->Hdcp22Ptr, FALSE);
     }
@@ -1642,7 +1644,7 @@ void *XV_HdmiTxSs_HdcpGetTopology(XV_HdmiTxSs *InstancePtr)
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         RepeaterTopologyPtr = XHdcp1x_GetTopology(InstancePtr->Hdcp14Ptr);
@@ -1651,7 +1653,7 @@ void *XV_HdmiTxSs_HdcpGetTopology(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         RepeaterTopologyPtr = XHdcp22Tx_GetTopology(InstancePtr->Hdcp22Ptr);
@@ -1690,7 +1692,7 @@ u8 *XV_HdmiTxSs_HdcpGetTopologyReceiverIdList(XV_HdmiTxSs *InstancePtr)
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         ListPtr = XHdcp1x_GetTopologyKSVList(InstancePtr->Hdcp14Ptr);
@@ -1699,7 +1701,7 @@ u8 *XV_HdmiTxSs_HdcpGetTopologyReceiverIdList(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         ListPtr = XHdcp22Tx_GetTopologyReceiverIdList(InstancePtr->Hdcp22Ptr);
@@ -1778,7 +1780,7 @@ static u32 XV_HdmiTxSs_HdcpGetTopologyDepth(XV_HdmiTxSs *InstancePtr)
 
   switch (InstancePtr->HdcpProtocol)
   {
-    // HDCP 1.4
+    /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
@@ -1789,7 +1791,7 @@ static u32 XV_HdmiTxSs_HdcpGetTopologyDepth(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Depth = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
@@ -1829,7 +1831,7 @@ static u32 XV_HdmiTxSs_HdcpGetTopologyDeviceCnt(XV_HdmiTxSs *InstancePtr)
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         DeviceCnt = XHdcp1x_GetTopologyField(InstancePtr->Hdcp14Ptr,
@@ -1839,7 +1841,7 @@ static u32 XV_HdmiTxSs_HdcpGetTopologyDeviceCnt(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         DeviceCnt = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
@@ -1882,7 +1884,7 @@ static u8 XV_HdmiTxSs_HdcpGetTopologyMaxDevsExceeded(XV_HdmiTxSs *InstancePtr)
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         Flag = XHdcp1x_GetTopologyField(InstancePtr->Hdcp14Ptr,
@@ -1892,7 +1894,7 @@ static u8 XV_HdmiTxSs_HdcpGetTopologyMaxDevsExceeded(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Flag = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
@@ -1936,7 +1938,7 @@ u8 XV_HdmiTxSs_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs *InstancePtr)
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         Flag = XHdcp1x_GetTopologyField(InstancePtr->Hdcp14Ptr,
@@ -1946,7 +1948,7 @@ u8 XV_HdmiTxSs_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Flag = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
@@ -1990,7 +1992,7 @@ u8 XV_HdmiTxSs_HdcpGetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiTxSs *InstanceP
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         Flag = FALSE;
@@ -1999,7 +2001,7 @@ u8 XV_HdmiTxSs_HdcpGetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiTxSs *InstanceP
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Flag = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
@@ -2043,7 +2045,7 @@ static
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         Flag = TRUE;
@@ -2052,7 +2054,7 @@ static
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Flag = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
@@ -2091,12 +2093,12 @@ void XV_HdmiTxSs_HdcpSetContentStreamType(XV_HdmiTxSs *InstancePtr,
 
   switch (InstancePtr->HdcpProtocol)
   {
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       break;
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         XHdcp22Tx_SetContentStreamType(InstancePtr->Hdcp22Ptr,
@@ -2137,7 +2139,7 @@ int XV_HdmiTxSs_HdcpIsRepeater(XV_HdmiTxSs *InstancePtr)
   switch (InstancePtr->HdcpProtocol)
   {
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-    // HDCP 1.4
+    /* HDCP 1.4 */
     case XV_HDMITXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         Status = XHdcp1x_IsRepeater(InstancePtr->Hdcp14Ptr);
@@ -2146,7 +2148,7 @@ int XV_HdmiTxSs_HdcpIsRepeater(XV_HdmiTxSs *InstancePtr)
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-    // HDCP 2.2
+    /* HDCP 2.2 */
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Status = XHdcp22Tx_IsRepeater(InstancePtr->Hdcp22Ptr);
@@ -2184,14 +2186,14 @@ int XV_HdmiTxSs_HdcpSetRepeater(XV_HdmiTxSs *InstancePtr, u8 Set)
   Xil_AssertNonvoid(InstancePtr != NULL);
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-  // HDCP 1.4
+  /* HDCP 1.4 */
   if (InstancePtr->Hdcp14Ptr) {
     XHdcp1x_SetRepeater(InstancePtr->Hdcp14Ptr, Set);
   }
 #endif
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  // HDCP 2.2
+  /* HDCP 2.2 */
   if (InstancePtr->Hdcp22Ptr) {
     XHdcp22Tx_SetRepeater(InstancePtr->Hdcp22Ptr, Set);
   }

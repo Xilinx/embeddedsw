@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,8 +17,8 @@
 * sequence for included sub-cores. Subsystem is assigned an address and range
 * on the axi-lite interface. This address space is condensed where-in each
 * sub-core is at a fixed offset from the subsystem base address. For processor
-* to be able to access the sub-core this offset needs to be transalted into a
-* absolute address within the subsystems addressable range
+ * to be able to access the sub-core this offset needs to be translated into a
+ * absolute address within the subsystems addressable range
 *
 * <pre>
 * MODIFICATION HISTORY:
