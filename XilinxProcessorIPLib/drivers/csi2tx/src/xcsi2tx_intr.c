@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -220,7 +220,7 @@ void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is the XCsi2Tx instance to operate on
 * @param 	HandleType is the type of call back to be registered.
-* @param	Callbackfunc is the pointer to a call back funtion which
+* @param	Callbackfunc is the pointer to a call back function which
 * 		is called when a particular event occurs.
 * @param 	Callbackref is a void pointer to data to be referenced to
 * 		by the Callbackfunc
@@ -340,7 +340,7 @@ void XCsi2Tx_IntrHandler(void *InstancePtr)
 	 * Line Count Status per Virtual Channel.
 	 */
 	if (XCsiPtr->Config.FEGenEnabled) {
-		/* Check if the no. of lines recieved is different from
+		/* Check if the no. of lines received is different from
 		 * the value configured in corresponding VC register.
 		 * To clear the interrupt, we need to write 0x3 in the
 		 * corresponding bitfield of ISR.
