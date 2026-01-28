@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -371,7 +371,7 @@ typedef struct XXxvEthernet {
 /**
 *
 * XXxvEthernet_IsStatsConfigured returns determines if Statistics gathering.
-* is configured in the harwdare or not.
+* is configured in the hardware or not.
 *
 * @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
