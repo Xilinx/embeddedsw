@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,27 +44,27 @@ extern "C" {
 /** @name Vendor Specific InfoFrame Field Masks and Shifts.
  * @{
  */
-#define XV_HDMIRX_VSIF_VIDEO_FORMAT_SHIFT 5
-#define XV_HDMIRX_VSIF_VIDEO_FORMAT_MASK (0x7 << XV_HDMIRX_VSIF_VIDEO_FORMAT_SHIFT)
+#define XV_HDMIRX_VSIF_VIDEO_FORMAT_SHIFT 5 /**< VSIF Video Format Shift value */
+#define XV_HDMIRX_VSIF_VIDEO_FORMAT_MASK (0x7 << XV_HDMIRX_VSIF_VIDEO_FORMAT_SHIFT) /**< VSIF Video Format Mask */
 
-#define XV_HDMIRX_3D_STRUCT_SHIFT 4
-#define XV_HDMIRX_3D_STRUCT_MASK (0xF << XV_HDMIRX_3D_STRUCT_SHIFT)
+#define XV_HDMIRX_3D_STRUCT_SHIFT 4 /**< 3D Structure Shift value */
+#define XV_HDMIRX_3D_STRUCT_MASK (0xF << XV_HDMIRX_3D_STRUCT_SHIFT) /**< 3D Structure Mask */
 
-#define XV_HDMIRX_3D_SAMP_METHOD_SHIFT 6
-#define XV_HDMIRX_3D_SAMP_METHOD_MASK (0x3 << XV_HDMIRX_3D_SAMP_METHOD_SHIFT)
+#define XV_HDMIRX_3D_SAMP_METHOD_SHIFT 6 /**< 3D Sampling Method Shift value */
+#define XV_HDMIRX_3D_SAMP_METHOD_MASK (0x3 << XV_HDMIRX_3D_SAMP_METHOD_SHIFT) /**< 3D Sampling Method Mask */
 
-#define XV_HDMIRX_3D_SAMP_POS_SHIFT 4
-#define XV_HDMIRX_3D_SAMP_POS_MASK (0x3 << XV_HDMIRX_3D_SAMP_POS_SHIFT)
+#define XV_HDMIRX_3D_SAMP_POS_SHIFT 4 /**< 3D Sampling Position Shift value */
+#define XV_HDMIRX_3D_SAMP_POS_MASK (0x3 << XV_HDMIRX_3D_SAMP_POS_SHIFT) /**< 3D Sampling Position Mask */
 
-#define XV_HDMIRX_3D_META_PRESENT_SHIFT 3
-#define XV_HDMIRX_3D_META_PRESENT_MASK (0x1 << XV_HDMIRX_3D_META_PRESENT_SHIFT)
+#define XV_HDMIRX_3D_META_PRESENT_SHIFT 3 /**< 3D Metadata Present Shift value */
+#define XV_HDMIRX_3D_META_PRESENT_MASK (0x1 << XV_HDMIRX_3D_META_PRESENT_SHIFT) /**< 3D Metadata Present Mask */
 
-#define XV_HDMIRX_3D_META_TYPE_SHIFT 5
-#define XV_HDMIRX_3D_META_TYPE_MASK (0x7 << XV_HDMIRX_3D_META_TYPE_SHIFT)
+#define XV_HDMIRX_3D_META_TYPE_SHIFT 5 /**< 3D Metadata Type Shift value */
+#define XV_HDMIRX_3D_META_TYPE_MASK (0x7 << XV_HDMIRX_3D_META_TYPE_SHIFT) /**< 3D Metadata Type Mask */
 
-#define XV_HDMIRX_3D_META_LENGTH_SHIFT 0
-#define XV_HDMIRX_3D_META_LENGTH_MASK (0x1F << XV_HDMIRX_3D_META_LENGTH_SHIFT)
-/* @} */
+#define XV_HDMIRX_3D_META_LENGTH_SHIFT 0 /**< 3D Metadata Length Shift value */
+#define XV_HDMIRX_3D_META_LENGTH_MASK (0x1F << XV_HDMIRX_3D_META_LENGTH_SHIFT) /**< 3D Metadata Length Mask */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -88,7 +89,7 @@ typedef enum {
     XV_HDMIRX_3D_STRUCT_L_DEPTH              = 4, /**<L + depth */
     XV_HDMIRX_3D_STRUCT_L_DEPTH_GRAPH_GDEPTH = 5, /**<L + depth + graphics + graphics-depth */
     XV_HDMIRX_3D_STRUCT_TOP_AND_BOTTOM       = 6, /**<Top-and-bottom */
-    // 7 is reserved for future use
+    /* 7 is reserved for future use */
     XV_HDMIRX_3D_STRUCT_SIDE_BY_SIDE_HALF    = 8, /**<Side-by-side (half) */
     XV_HDMIRX_3D_STRUCT_UNKNOWN
 } XV_HdmiRx_3D_Struct_Field;
@@ -122,7 +123,7 @@ typedef enum {
 } XV_HdmiRx_3D_MetaData_Type;
 
 
-// 8 is the maximum size for currently defined meta types (HDMI 1.4a)
+/* 8 is the maximum size for currently defined meta types (HDMI 1.4a) */
 #define XV_HDMIRX_3D_META_MAX_SIZE 8 /**<Maximum 3D Metadata size in bytes */
 
 /**

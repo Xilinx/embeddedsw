@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,12 +54,12 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-// VER (Version Interface) peripheral register offsets
+/* VER (Version Interface) peripheral register offsets */
 #define XV_HDMIRX_VER_BASE                          (0*64)
 #define XV_HDMIRX_VER_ID_OFFSET                     ((XV_HDMIRX_VER_BASE)+(0*4))    /**< VER Identification *  Register offset */
 #define XV_HDMIRX_VER_VERSION_OFFSET                    ((XV_HDMIRX_VER_BASE)+(1*4))    /**< VER Version Register *  offset */
 
-// PIO (Parallel Interface) peripheral register offsets
+/* PIO (Parallel Interface) peripheral register offsets */
 #define XV_HDMIRX_PIO_BASE                          (1*64)
 #define XV_HDMIRX_PIO_ID_OFFSET                     ((XV_HDMIRX_PIO_BASE)+(0*4))    /**< PIO Identification register offset */
 #define XV_HDMIRX_PIO_CTRL_OFFSET                   ((XV_HDMIRX_PIO_BASE)+(1*4))    /**< PIO Control register offset */
@@ -75,15 +75,15 @@ extern "C" {
 #define XV_HDMIRX_PIO_IN_EVT_RE_OFFSET              ((XV_HDMIRX_PIO_BASE)+(11*4))   /**< PIO In Event Rising Edge Register offset */
 #define XV_HDMIRX_PIO_IN_EVT_FE_OFFSET              ((XV_HDMIRX_PIO_BASE)+(12*4))   /**< PIO In Event Falling Edge Register offset */
 
-// PIO peripheral Control register masks
+/* PIO peripheral Control register masks */
 #define XV_HDMIRX_PIO_CTRL_RUN_MASK                 (1<<0)  /**< PIO Control Run mask */
 #define XV_HDMIRX_PIO_CTRL_IE_MASK                  (1<<1)  /**< PIO Control Interrupt Enable mask */
 
-// PIO peripheral Status register masks
+/* PIO peripheral Status register masks */
 #define XV_HDMIRX_PIO_STA_IRQ_MASK                  (1<<0)  /**< PIO Status Interrupt mask */
 #define XV_HDMIRX_PIO_STA_EVT_MASK                  (1<<1)  /**< PIO Status Event mask */
 
-// PIO peripheral PIO Out register masks and shifts
+/* PIO peripheral PIO Out register masks and shifts */
 #define XV_HDMIRX_PIO_OUT_RESET_MASK                    (1<<0)  /**< PIO Out Reset mask */
 #define XV_HDMIRX_PIO_OUT_LNK_EN_MASK               (1<<1)  /**< PIO Out video enable mask */
 #define XV_HDMIRX_PIO_OUT_VID_EN_MASK               (1<<2)  /**< PIO Out video enable mask */
@@ -110,7 +110,7 @@ extern "C" {
 #define XV_HDMIRX_PIO_OUT_EXT_SYSRST_MASK           (1<<22) /**< PIO Out EXT_SYSRST
                                                          * mask */
 
-// PIO peripheral PIO In register masks
+/* PIO peripheral PIO In register masks */
 #define XV_HDMIRX_PIO_IN_DET_MASK                   (1<<0) /**< PIO In cable detect mask */
 #define XV_HDMIRX_PIO_IN_LNK_RDY_MASK               (1<<1) /**< PIO In link ready mask */
 #define XV_HDMIRX_PIO_IN_VID_RDY_MASK               (1<<2) /**< PIO In video ready mask */
@@ -123,7 +123,7 @@ extern "C" {
 #define XV_HDMIRX_PIO_IN_ALIGNER_LOCK_MASK			(1<<9) /**< PIO In alinger lock mask */
 #define XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK         (1<<10) /**< PIO In bridge overflow mask */
 
-// Timer peripheral register offsets
+/* Timer peripheral register offsets */
 #define XV_HDMIRX_TMR_BASE                          (2*64)
 #define XV_HDMIRX_TMR_ID_OFFSET                     ((XV_HDMIRX_TMR_BASE)+(0*4))    /**< TMR Identification register offset */
 #define XV_HDMIRX_TMR_CTRL_OFFSET                   ((XV_HDMIRX_TMR_BASE)+(1*4))    /**< TMR Control register offset */
@@ -132,15 +132,15 @@ extern "C" {
 #define XV_HDMIRX_TMR_STA_OFFSET                        ((XV_HDMIRX_TMR_BASE)+(4*4))    /**< TMR Status Register offset */
 #define XV_HDMIRX_TMR_CNT_OFFSET                        ((XV_HDMIRX_TMR_BASE)+(5*4))    /**< TMR Counter Register offset */
 
-// Timer peripheral Control register masks
+/* Timer peripheral Control register masks */
 #define XV_HDMIRX_TMR_CTRL_RUN_MASK                 (1<<0)  /**< TMR Control Run mask */
 #define XV_HDMIRX_TMR_CTRL_IE_MASK                  (1<<1)  /**< TMR Control Interrupt Enable mask */
 
-// Timer peripheral Status register masks
+/* Timer peripheral Status register masks */
 #define XV_HDMIRX_TMR_STA_IRQ_MASK                  (1<<0)  /**< TMR Status Interrupt mask */
 #define XV_HDMIRX_TMR_STA_CNT_EVT_MASK              (1<<1)  /**< TMR Status counter Event mask */
 
-// Video Timing Detector (VTD) peripheral register offsets.
+/* Video Timing Detector (VTD) peripheral register offsets. */
 #define XV_HDMIRX_VTD_BASE                          (3*64)
 #define XV_HDMIRX_VTD_ID_OFFSET                     ((XV_HDMIRX_VTD_BASE)+(0*4))    /**< VTD Identification Register offset */
 #define XV_HDMIRX_VTD_CTRL_OFFSET                   ((XV_HDMIRX_VTD_BASE)+(1*4))    /**< VTD Control Register offset */
@@ -158,7 +158,7 @@ extern "C" {
 #define XV_HDMIRX_VTD_HFP_OFFSET                        ((XV_HDMIRX_VTD_BASE)+(13*4))   /**< VTD Horizontal Front Porch Register offset */
 #define XV_HDMIRX_VTD_HBP_OFFSET                        ((XV_HDMIRX_VTD_BASE)+(14*4))   /**< VTD Horizontal Back Porch Register offset */
 
-// Video timing detector peripheral Control register masks and shift
+/* Video timing detector peripheral Control register masks and shift */
 #define XV_HDMIRX_VTD_CTRL_RUN_MASK                 (1<<0)  	/**< VTD Control Run mask */
 #define XV_HDMIRX_VTD_CTRL_IE_MASK                  (1<<1)  	/**< VTD Control Interrupt Enable mask */
 #define XV_HDMIRX_VTD_CTRL_FIELD_POL_MASK           (1<<2)  	/**< VTD Control field polarity mask */
@@ -166,7 +166,7 @@ extern "C" {
 #define XV_HDMIRX_VTD_CTRL_TIMEBASE_SHIFT          	8      		/**< VTD Control timebase shift */
 #define XV_HDMIRX_VTD_CTRL_TIMERBASE_MASK          	0xffffff    /**< VTD Control timebase mask */
 
-// Video timing detector peripheral Status register masks
+/* Video timing detector peripheral Status register masks */
 #define XV_HDMIRX_VTD_STA_IRQ_MASK                  (1<<0)  /**< VTD Status Interrupt mask */
 #define XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK        	(1<<1)  /**< VTD Status timebase event mask */
 #define XV_HDMIRX_VTD_STA_VS_POL_MASK               (1<<3)  /**< VTD Status Vsync Polarity mask */
@@ -174,7 +174,7 @@ extern "C" {
 #define XV_HDMIRX_VTD_STA_FMT_MASK                  (1<<5)  /**< VTD Status Format mask */
 #define XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK        (1<<6)  /**< VTD Status Sync Loss mask */
 
-// DDC (Display Data Channel) peripheral register offsets.
+/* DDC (Display Data Channel) peripheral register offsets. */
 #define XV_HDMIRX_DDC_BASE                          (4*64)
 #define XV_HDMIRX_DDC_ID_OFFSET                     ((XV_HDMIRX_DDC_BASE)+(0*4))    /**< DDC Identification Register offset */
 #define XV_HDMIRX_DDC_CTRL_OFFSET                   ((XV_HDMIRX_DDC_BASE)+(1*4))    /**< DDC Control Register offset */
@@ -190,7 +190,7 @@ extern "C" {
 #define XV_HDMIRX_DDC_HDCP_ADDRESS_OFFSET           ((XV_HDMIRX_DDC_BASE)+(12*4))   /**< DDC Read HDCP address offset */
 #define XV_HDMIRX_DDC_HDCP_DATA_OFFSET              ((XV_HDMIRX_DDC_BASE)+(13*4))   /**< DDC Read HDCP data offset */
 
-// DDC peripheral Control register masks
+/* DDC peripheral Control register masks */
 #define XV_HDMIRX_DDC_CTRL_RUN_MASK                 (1<<0)  /**< DDC Control Run mask */
 #define XV_HDMIRX_DDC_CTRL_IE_MASK                  (1<<1)  /**< DDC Control Interrupt enable mask */
 #define XV_HDMIRX_DDC_CTRL_EDID_EN_MASK             (1<<2)  /**< DDC Control EDID enable mask */
@@ -201,7 +201,7 @@ extern "C" {
 #define XV_HDMIRX_DDC_CTRL_RMSG_CLR_MASK            (1<<7)  /**< DDC Control read message clear mask */
 #define XV_HDMIRX_DDC_CTRL_HDCP_MODE_MASK           (1<<8)  /**< DDC Control HDCP mode mask */
 
-// DDC peripheral Status register masks
+/* DDC peripheral Status register masks */
 #define XV_HDMIRX_DDC_STA_IRQ_MASK                  (1<<0)  /**< DDC Status Interrupt mask */
 #define XV_HDMIRX_DDC_STA_EVT_MASK                  (1<<1)  /**< DDC Status Event mask */
 #define XV_HDMIRX_DDC_STA_BUSY_MASK                 (1<<2)  /**< DDC Status Busy mask */
@@ -224,7 +224,7 @@ extern "C" {
 #define XV_HDMIRX_DDC_STA_HDCP_RMSG_WORDS_SHIFT     16      /**< DDC Status HDCP 2.2 read message buffer words shift */
 #define XV_HDMIRX_DDC_STA_HDCP_RMSG_EP_MASK         (1<<27) /**< DDC Status HDCP 2.2 read message buffer empty mask */
 
-// Auxiliary (AUX) peripheral register offsets.
+/* Auxiliary (AUX) peripheral register offsets. */
 #define XV_HDMIRX_AUX_BASE                          (5*64)
 #define XV_HDMIRX_AUX_ID_OFFSET                     ((XV_HDMIRX_AUX_BASE)+(0*4))    /**< AUX Identification Register offset */
 #define XV_HDMIRX_AUX_CTRL_OFFSET                   ((XV_HDMIRX_AUX_BASE)+(1*4))    /**< AUX Control Register offset */
@@ -233,11 +233,11 @@ extern "C" {
 #define XV_HDMIRX_AUX_STA_OFFSET                        ((XV_HDMIRX_AUX_BASE)+(4*4))    /**< AUX Status Register offset */
 #define XV_HDMIRX_AUX_DAT_OFFSET                        ((XV_HDMIRX_AUX_BASE)+(5*4))    /**< AUX Data Register offset */
 
-// AUX peripheral Control register masks
+/* AUX peripheral Control register masks */
 #define XV_HDMIRX_AUX_CTRL_RUN_MASK                 (1<<0)  /**< AUX Control Run mask */
 #define XV_HDMIRX_AUX_CTRL_IE_MASK                  (1<<1)  /**< AUX Control Interrupt Enable mask */
 
-// AUX peripheral Status register masks and shifts
+/* AUX peripheral Status register masks and shifts */
 #define XV_HDMIRX_AUX_STA_IRQ_MASK                  (1<<0)  /**< AUX Status Interrupt mask */
 #define XV_HDMIRX_AUX_STA_NEW_MASK                  (1<<1)  /**< AUX Status New Packet mask */
 #define XV_HDMIRX_AUX_STA_ERR_MASK					(1<<2)	/**< AUX Status New Packet mask */
@@ -259,7 +259,7 @@ extern "C" {
 #define XV_HDMIRX_AUX_STA_GCP_PP_SHIFT              28      /**< AUX Status GCP pixel phase Shift */
 
 
-// Audio (AUD) peripheral register offsets.
+/* Audio (AUD) peripheral register offsets. */
 #define XV_HDMIRX_AUD_BASE                          (6*64)
 #define XV_HDMIRX_AUD_ID_OFFSET                     ((XV_HDMIRX_AUD_BASE)+(0*4))    /**< AUD Identification Register offset */
 #define XV_HDMIRX_AUD_CTRL_OFFSET                   ((XV_HDMIRX_AUD_BASE)+(1*4))    /**< AUD Control Register offset */
@@ -269,11 +269,11 @@ extern "C" {
 #define XV_HDMIRX_AUD_CTS_OFFSET                        ((XV_HDMIRX_AUD_BASE)+(5*4))    /**< AUD CTS Register offset */
 #define XV_HDMIRX_AUD_N_OFFSET                      ((XV_HDMIRX_AUD_BASE)+(6*4))    /**< AUD N Register offset */
 
-// Audio peripheral Control register masks
+/* Audio peripheral Control register masks */
 #define XV_HDMIRX_AUD_CTRL_RUN_MASK                 (1<<0)  /**< AUD Control Run mask */
 #define XV_HDMIRX_AUD_CTRL_IE_MASK                  (1<<1)  /**< AUD Control Interrupt Enable mask */
 
-// AUD peripheral Status register masks and shift
+/* AUD peripheral Status register masks and shift */
 #define XV_HDMIRX_AUD_STA_IRQ_MASK                  (1<<0)  /**< AUD Status Interrupt mask */
 #define XV_HDMIRX_AUD_STA_ACT_EVT_MASK              (1<<1)  /**< AUD Status Event mask */
 #define XV_HDMIRX_AUD_STA_CH_EVT_MASK               (1<<2)  /**< AUD Status Event mask */
@@ -284,7 +284,7 @@ extern "C" {
 #define XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT             13      /**< AUD Status Audio Format Shift */
 
 
-// Link Status (LNKSTA) peripheral register offsets.
+/* Link Status (LNKSTA) peripheral register offsets. */
 #define XV_HDMIRX_LNKSTA_BASE                       (7*64)
 #define XV_HDMIRX_LNKSTA_ID_OFFSET                  ((XV_HDMIRX_LNKSTA_BASE)+(0*4)) /**< LNKSTA Identification Register offset */
 #define XV_HDMIRX_LNKSTA_CTRL_OFFSET                    ((XV_HDMIRX_LNKSTA_BASE)+(1*4)) /**< LNKSTA Control Register offset */
@@ -295,21 +295,21 @@ extern "C" {
 #define XV_HDMIRX_LNKSTA_LNK_ERR1_OFFSET                ((XV_HDMIRX_LNKSTA_BASE)+(6*4)) /**< LNKSTA Link Error Counter Channel 1 Register offset */
 #define XV_HDMIRX_LNKSTA_LNK_ERR2_OFFSET                ((XV_HDMIRX_LNKSTA_BASE)+(7*4)) /**< LNKSTA Link Error Counter Channel 2 Register offset */
 
-// Link Status (LNKSTA) peripheral Control register masks
+/* Link Status (LNKSTA) peripheral Control register masks */
 #define XV_HDMIRX_LNKSTA_CTRL_RUN_MASK              (1<<0)  /**< LNKSTA Control Run mask */
 #define XV_HDMIRX_LNKSTA_CTRL_IE_MASK               (1<<1)  /**< LNKSTA Control Interrupt Enable mask */
 #define XV_HDMIRX_LNKSTA_CTRL_ERR_CLR_MASK          (1<<2)  /**< LNKSTA Control Error Clear mask */
 
-// Link Status (LNKSTA) peripheral Status register masks
+/* Link Status (LNKSTA) peripheral Status register masks */
 #define XV_HDMIRX_LNKSTA_STA_IRQ_MASK               (1<<0)  /**< LNKSTA Status Interrupt mask */
 #define XV_HDMIRX_LNKSTA_STA_ERR_MAX_MASK           (1<<1)  /**< LNKSTA Status Maximum Errors mask */
 
-// Peripheral ID and General shift values.
+/* Peripheral ID and General shift values. */
 #define XV_HDMIRX_SHIFT_16      16  /**< 16 shift value */
 #define XV_HDMIRX_MASK_16       0xFFFF  /**< 16 bit mask value */
 #define XV_HDMIRX_PIO_ID            0x2200  /**< PIO ID */
 
-// SCDC BRAM Offset register
+/* SCDC BRAM Offset register */
 #define XV_HDMIRX_SCDC_BRAM_OFFSET 0x138 /**<SCDC BRAM Offset */
 
 /**************************** Type Definitions *******************************/
@@ -375,5 +375,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 
 #endif /* end of protection macro */

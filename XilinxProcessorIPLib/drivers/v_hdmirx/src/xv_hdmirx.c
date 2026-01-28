@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -172,10 +172,10 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);
 
-    // Clear connected flag
+    /* Clear connected flag */
     InstancePtr->Stream.IsConnected = (FALSE);
 
-    // Reset all peripherals
+    /* Reset all peripherals */
     XV_HdmiRx_PioDisable(InstancePtr);
     XV_HdmiRx_TmrDisable(InstancePtr);
     XV_HdmiRx_VtdDisable(InstancePtr);
@@ -233,10 +233,10 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
         Video Timing detector peripheral
     */
 
-    // Set timebase - 16 ms
+    /* Set timebase - 16 ms */
     XV_HdmiRx_VtdSetTimebase(InstancePtr, XV_HdmiRx_GetTime16Ms(InstancePtr));
 
-    // The VTD run flag is set in the armed state
+    /* The VTD run flag is set in the armed state */
 
     /*
         DDC peripheral
@@ -245,13 +245,11 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     /* Enable DDC */
     XV_HdmiRx_DdcEnable(InstancePtr);
 
-    /* Enable DDC peripheral interrupt */
-    //XV_HdmiRx_DdcIntrEnable(InstancePtr);
 
-    // Enable SCDC
+    /* Enable SCDC */
     XV_HdmiRx_DdcScdcEnable(InstancePtr);
 
-    // Clear BRAM address
+    /* Clear BRAM address */
     for(int bramaddress = 0; bramaddress < MAXSCDCADDRESS; bramaddress++) {
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,XV_HDMIRX_SCDC_BRAM_OFFSET,bramaddress);
     }
@@ -260,8 +258,6 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
         AUX peripheral
     */
 
-    // The aux peripheral will be enabled in the RX init done callback
-    //XV_HdmiRx_AuxEnable(InstancePtr);
 
     /* Enable AUX peripheral interrupt */
     XV_HdmiRx_AuxIntrEnable(InstancePtr);
@@ -270,8 +266,6 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
         Audio peripheral
     */
 
-    // The audio peripheral willl be enabled in the RX init done callback
-    //XV_HdmiRx_AudioEnable(InstancePtr);
 
     /* Enable AUD peripheral interrupt */
     XV_HdmiRx_AudioIntrEnable(InstancePtr);
@@ -279,8 +273,6 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     /* Enable Link Status */
     XV_HdmiRx_LnkstaEnable(InstancePtr);
 
-    /* Enable Link Status peripheral interrupt */
-    //XV_HdmiRx_LinkIntrEnable(InstancePtr);
 
     /* Reset the hardware and set the flag to indicate the driver is ready */
     InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
@@ -307,11 +299,11 @@ void XV_HdmiRx_Clear(XV_HdmiRx *InstancePtr)
     /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 
-    InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_DOWN;            // The stream is down
+    InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_DOWN;            /* The stream is down */
     InstancePtr->Stream.IsHdmi = (FALSE);
-    InstancePtr->Stream.Video.ColorFormatId = (XVIDC_CSF_RGB);          // Default RGB
+    InstancePtr->Stream.Video.ColorFormatId = (XVIDC_CSF_RGB);          /* Default RGB */
     InstancePtr->Stream.Video.IsInterlaced = 0;
-    InstancePtr->Stream.Video.ColorDepth = (XVIDC_BPC_8);               // Default 8 bits
+    InstancePtr->Stream.Video.ColorDepth = (XVIDC_BPC_8);               /* Default 8 bits */
     InstancePtr->Stream.Video.PixPerClk = (XVIDC_PPC_2);
     InstancePtr->Stream.Video.VmId = (XVIDC_VM_NO_INPUT);
     InstancePtr->Stream.Video.Is3D = FALSE;
@@ -333,8 +325,8 @@ void XV_HdmiRx_Clear(XV_HdmiRx *InstancePtr)
     InstancePtr->Stream.Video.Timing.F1VTotal = 0;
     InstancePtr->Stream.Video.Timing.VSyncPolarity = 0;
     InstancePtr->Stream.Vic = 0;
-    InstancePtr->Stream.Audio.Active = (FALSE);                             // Idle stream
-    InstancePtr->Stream.Audio.Channels = 2;                             // 2 channels
+    InstancePtr->Stream.Audio.Active = (FALSE);                             /* Idle stream */
+    InstancePtr->Stream.Audio.Channels = 2;                             /* 2 channels */
     InstancePtr->Stream.GetVideoPropertiesTries = 0;
 
     /* AUX */
@@ -348,7 +340,7 @@ void XV_HdmiRx_Clear(XV_HdmiRx *InstancePtr)
     InstancePtr->AudN = 0;
     InstancePtr->AudFormat = 0;
 
-    // Call stream down callback
+    /* Call stream down callback */
     if (InstancePtr->IsStreamDownCallbackSet) {
         InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
     }
@@ -664,13 +656,13 @@ int XV_HdmiRx_SetHpd(XV_HdmiRx *InstancePtr, u8 SetClr)
 * This function write data to SCDC register
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRx core instance.
-* @param    data specifies address of BRAM, and data to be written
+* @param    address specifies the SCDC register address to write to.
+* @param    data specifies the data to be written.
 *
-* @return  None
+* @return   None.
 *
-*
-* @note    SCDC register 0x01,0x02,0x10,0x20,0x21,0x40 are handled by H/W directly
-*          These registers should not be written by User application
+* @note     SCDC register 0x01,0x02,0x10,0x20,0x21,0x40 are handled by H/W directly.
+*           These registers should not be written by User application.
 *
 ******************************************************************************/
 void XV_HdmiRx_WriteScdcRegister(XV_HdmiRx *InstancePtr, u8 address, u8 data)
@@ -840,10 +832,10 @@ u16 XV_HdmiRx_DdcGetEdidWords(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_EDID_STA_OFFSET));
     Data >>= XV_HDMIRX_DDC_STA_EDID_WORDS_SHIFT;
     Data &= XV_HDMIRX_DDC_STA_EDID_WORDS_MASK;
@@ -871,28 +863,28 @@ int XV_HdmiRx_DdcLoadEdid(XV_HdmiRx *InstancePtr, u8 *EdidData, u16 Length)
     u8 Data;
     u16 Index;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Check if the EDID data fits in the DDC slave EDID buffer
+    /* Check if the EDID data fits in the DDC slave EDID buffer */
     if (XV_HdmiRx_DdcGetEdidWords(InstancePtr) >= Length)
     {
-        // Clear EDID write pointer
+        /* Clear EDID write pointer */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_EDID_WP_OFFSET), 0);
 
-        // Copy EDID data
+        /* Copy EDID data */
         for (Index = 0; Index < Length; Index++) {
             Data = *(EdidData + Index);
             XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_EDID_DATA_OFFSET), (Data));
         }
 
-        // Enable EDID
+        /* Enable EDID */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_EDID_EN_MASK));
 
         return (XST_SUCCESS);
     }
 
-    // The EDID data is larger than the DDC slave EDID buffer size
+    /* The EDID data is larger than the DDC slave EDID buffer size */
     else
     {
         xdbg_printf(XDBG_DEBUG_GENERAL,"The EDID data structure is too large to be stored in the DDC peripheral (%0d).\r\n", Length);
@@ -917,10 +909,10 @@ int XV_HdmiRx_DdcLoadEdid(XV_HdmiRx *InstancePtr, u8 *EdidData, u16 Length)
 ******************************************************************************/
 void XV_HdmiRx_DdcHdcpSetAddress(XV_HdmiRx *InstancePtr, u32 Address)
 {
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 
-    // Write Address
+    /* Write Address */
     XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_ADDRESS_OFFSET), (Address));
 }
 
@@ -941,10 +933,10 @@ void XV_HdmiRx_DdcHdcpSetAddress(XV_HdmiRx *InstancePtr, u32 Address)
 ******************************************************************************/
 void XV_HdmiRx_DdcHdcpWriteData(XV_HdmiRx *InstancePtr, u32 Data)
 {
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 
-    // Write data
+    /* Write data */
     XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_DATA_OFFSET), (Data));
 }
 
@@ -966,7 +958,7 @@ u32 XV_HdmiRx_DdcHdcpReadData(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
     Data = XV_HdmiRx_ReadReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_DATA_OFFSET));
@@ -990,10 +982,10 @@ u16 XV_HdmiRx_DdcGetHdcpWriteMessageBufferWords(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_STA_OFFSET));
     Data >>= XV_HDMIRX_DDC_STA_HDCP_WMSG_WORDS_SHIFT;
     Data &= XV_HDMIRX_DDC_STA_HDCP_WMSG_WORDS_MASK;
@@ -1019,10 +1011,10 @@ int XV_HdmiRx_DdcIsHdcpWriteMessageBufferEmpty(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_STA_OFFSET));
     if (Data & XV_HDMIRX_DDC_STA_HDCP_WMSG_EP_MASK)
         return (TRUE);
@@ -1047,10 +1039,10 @@ u16 XV_HdmiRx_DdcGetHdcpReadMessageBufferWords(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_STA_OFFSET));
     Data >>= XV_HDMIRX_DDC_STA_HDCP_RMSG_WORDS_SHIFT;
     Data &= XV_HDMIRX_DDC_STA_HDCP_RMSG_WORDS_MASK;
@@ -1076,10 +1068,10 @@ int XV_HdmiRx_DdcIsHdcpReadMessageBufferEmpty(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_STA_OFFSET));
     if (Data & XV_HDMIRX_DDC_STA_HDCP_RMSG_EP_MASK)
         return (TRUE);
@@ -1230,10 +1222,10 @@ u8 XV_HdmiRx_GetAviVic(XV_HdmiRx *InstancePtr)
 {
     u32 Data;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET));
     Data >>= XV_HDMIRX_AUX_STA_AVI_VIC_SHIFT;
     Data &= XV_HDMIRX_AUX_STA_AVI_VIC_MASK;
@@ -1257,10 +1249,10 @@ XVidC_ColorFormat XV_HdmiRx_GetAviColorSpace(XV_HdmiRx *InstancePtr)
     u32 Data;
     XVidC_ColorFormat ColorSpace;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET));
     Data >>= XV_HDMIRX_AUX_STA_AVI_CS_SHIFT;
     Data &= XV_HDMIRX_AUX_STA_AVI_CS_MASK;
@@ -1302,10 +1294,10 @@ XVidC_ColorDepth XV_HdmiRx_GetGcpColorDepth(XV_HdmiRx *InstancePtr)
     u32 Data;
     XVidC_ColorDepth ColorDepth;
 
-    // Verify argument.
+    /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Read status register
+    /* Read status register */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET));
     Data >>= XV_HDMIRX_AUX_STA_GCP_CD_SHIFT;
     Data &= XV_HDMIRX_AUX_STA_GCP_CD_MASK;
@@ -1397,26 +1389,26 @@ int XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr)
 {
 	u32 Status;
 
-	// Read AUX peripheral status register
+	/* Read AUX peripheral status register */
 	Status =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET));
 
-	// Check if AVI ready flag has been set
+	/* Check if AVI ready flag has been set */
 	if ((Status) & (XV_HDMIRX_AUX_STA_AVI_MASK)) {
 
-		// Get AVI colorspace
+		/* Get AVI colorspace */
 		InstancePtr->Stream.Video.ColorFormatId = XV_HdmiRx_GetAviColorSpace(InstancePtr);
 
-		// Get AVI Vic
+		/* Get AVI Vic */
 		InstancePtr->Stream.Vic = XV_HdmiRx_GetAviVic(InstancePtr);
 
-		// Get GCP colordepth
-		// In HDMI the colordepth in YUV422 is always 12 bits (although on the link itself it is being transmitted as 8-bits.
-		// Therefore if the colorspace is YUV422, then force the colordepth to 12 bits.
+		/* Get GCP colordepth */
+		/* In HDMI the colordepth in YUV422 is always 12 bits (although on the link itself it is being transmitted as 8-bits. */
+		/* Therefore if the colorspace is YUV422, then force the colordepth to 12 bits. */
 		if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
 			InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_12;
 		}
 
-		// Else read the colordepth from the general control packet
+		/* Else read the colordepth from the general control packet */
 		else {
 			InstancePtr->Stream.Video.ColorDepth = XV_HdmiRx_GetGcpColorDepth(InstancePtr);
 		}
@@ -1425,26 +1417,26 @@ int XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr)
 
 	else {
 
-		// If we tried more than 8 times and still haven't received any AVI infoframes,
-		// then the source is DVI.
-		// In this case the video properties are forced to RGB and 8 bpc.
+		/* If we tried more than 8 times and still haven't received any AVI infoframes, */
+		/* then the source is DVI. */
+		/* In this case the video properties are forced to RGB and 8 bpc. */
 		if (InstancePtr->Stream.GetVideoPropertiesTries > 7) {
 
-			// Force AVI colorspace to RGB
+			/* Force AVI colorspace to RGB */
 			InstancePtr->Stream.Video.ColorFormatId = XVIDC_CSF_RGB;
 
-			// Set AVI vic to zero
+			/* Set AVI vic to zero */
 			InstancePtr->Stream.Vic = 0;
 
-			// Force color depth to 8 bpc
+			/* Force color depth to 8 bpc */
 			InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_8;
 
 			return (XST_SUCCESS);
 		}
 
-		// Return
+		/* Return */
 		else {
-			// Increment tries
+			/* Increment tries */
 			InstancePtr->Stream.GetVideoPropertiesTries++;
 			return (XST_FAILURE);
 		}
@@ -1469,13 +1461,12 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
     XVidC_VideoStream VidStreamCopy;
 
-    // Local timing parameters
+    /* Local timing parameters */
     u16 HActive;
     u16 HFrontPorch;
     u16 HSyncWidth;
     u16 HBackPorch;
     u16 HTotal;
-    // u16 HSyncPolarity; //squash unused variable compiler warning
     u16 VActive;
     u16 F0PVFrontPorch;
     u16 F0PVSyncWidth;
@@ -1491,14 +1482,14 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
     InstancePtr->Stream.Video.VmId = XVIDC_VM_NOT_SUPPORTED;
 
-    // If the colorspace is YUV420, then the horizontal parameters must be doubled
+    /* If the colorspace is YUV420, then the horizontal parameters must be doubled */
     if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
         YUV420_Correction = 2;
     } else {
         YUV420_Correction = 1;
     }
 
-    // First we read the video parameters from the VTD and store them in a local variable
+    /* First we read the video parameters from the VTD and store them in a local variable */
     /* Read Total Pixels */
     HTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_PIX_OFFSET)) * YUV420_Correction;
 
@@ -1554,8 +1545,8 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
         IsInterlaced = 0;
     }
 
-    // Next, we compare these values with the previous stored values
-    // By default the match is true
+    /* Next, we compare these values with the previous stored values */
+    /* By default the match is true */
     Match = TRUE;
 
     if (!HActive | !HFrontPorch | !HSyncWidth | !HBackPorch | !HTotal | !VActive |
@@ -1576,72 +1567,72 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 		}
 	}
 
-    // Htotal
+    /* Htotal */
     if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
         Match = FALSE;
     }
 
-    // HActive
+    /* HActive */
     if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
         Match = FALSE;
     }
 
-    // HSyncWidth
+    /* HSyncWidth */
     if (HSyncWidth != InstancePtr->Stream.Video.Timing.HSyncWidth) {
         Match = FALSE;
     }
 
-    // HFrontPorch
+    /* HFrontPorch */
     if (HFrontPorch != InstancePtr->Stream.Video.Timing.HFrontPorch) {
         Match = FALSE;
     }
 
-    // HBackPorch
+    /* HBackPorch */
     if (HBackPorch != InstancePtr->Stream.Video.Timing.HBackPorch) {
         Match = FALSE;
     }
 
-    // F0PVTotal
+    /* F0PVTotal */
     if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal) {
         Match = FALSE;
     }
 
-    // F1VTotal
+    /* F1VTotal */
     if (F1VTotal != InstancePtr->Stream.Video.Timing.F1VTotal) {
         Match = FALSE;
     }
 
-    // VActive
+    /* VActive */
     if (VActive != InstancePtr->Stream.Video.Timing.VActive) {
         Match = FALSE;
     }
 
-    // F0PVSyncWidth
+    /* F0PVSyncWidth */
     if (F0PVSyncWidth != InstancePtr->Stream.Video.Timing.F0PVSyncWidth) {
         Match = FALSE;
     }
 
-    // F1VSyncWidth
+    /* F1VSyncWidth */
     if (F1VSyncWidth != InstancePtr->Stream.Video.Timing.F1VSyncWidth) {
         Match = FALSE;
     }
 
-    // F0PVFrontPorch
+    /* F0PVFrontPorch */
     if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch) {
         Match = FALSE;
     }
 
-    // F1VFrontPorch
+    /* F1VFrontPorch */
     if (F1VFrontPorch != InstancePtr->Stream.Video.Timing.F1VFrontPorch) {
         Match = FALSE;
     }
 
-    // F0PVBackPorch
+    /* F0PVBackPorch */
     if (F0PVBackPorch != InstancePtr->Stream.Video.Timing.F0PVBackPorch) {
         Match = FALSE;
     }
 
-    // F1VBackPorch
+    /* F1VBackPorch */
     if (F1VBackPorch != InstancePtr->Stream.Video.Timing.F1VBackPorch) {
         Match = FALSE;
     }
@@ -1654,7 +1645,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
         Match = FALSE;
     }
 
-    // Then we store the timing parameters regardless if there was a match
+    /* Then we store the timing parameters regardless if there was a match */
     /* Read Total Pixels */
     InstancePtr->Stream.Video.Timing.HTotal =  HTotal;
 
@@ -1697,8 +1688,8 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
     /* Read VBack Porch field 2 */
     InstancePtr->Stream.Video.Timing.F1VBackPorch =  F1VBackPorch;
 
-    // Do we have a match?
-    // Yes, then continue processing
+    /* Do we have a match? */
+    /* Yes, then continue processing */
     if (Match) {
 
         /* Read Status register */
@@ -1747,14 +1738,14 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
             InstancePtr->Stream.Video.FrameRate >>= 1;
         }
 
-        // Lookup the video mode id
+        /* Lookup the video mode id */
         InstancePtr->Stream.Video.VmId =
         XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
 			InstancePtr->Stream.Video.FrameRate,
 			InstancePtr->Stream.Video.IsInterlaced,
 			(TRUE));
 
-        //If video mode not found in the table tag it as custom
+        /* If video mode not found in the table tag it as custom */
         if (InstancePtr->Stream.Video.VmId == XVIDC_VM_NOT_SUPPORTED) {
             InstancePtr->Stream.Video.VmId = XVIDC_VM_CUSTOM;
         }
@@ -1776,11 +1767,11 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
                                  VidStreamCopy.PixPerClk);
         }
 
-        // Return success
+        /* Return success */
         return (XST_SUCCESS);
     }
 
-    // No match
+    /* No match */
     else {
         return (XST_FAILURE);
     }

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,7 +117,7 @@
 *                           XV_HdmiRx_VSIF_3DStructToString,
 *                           XV_HdmiRx_VSIF_3DSampMethodToString and
 *                           XV_HdmiRx_VSIF_3DSampPosToString APIs
-*       MMO    08/02/18 Added XV_HdmiRx_SyncStatus enumaration, and as
+*       MMO    08/02/18 Added XV_HdmiRx_SyncStatus enumeration, and as
 *                           an element in XV_HdmiRx_Stream for Sync Loss
 *                           handling
 * 2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
@@ -178,10 +178,10 @@ typedef enum {
 	XV_HDMIRX_HANDLER_TMDS_CLK_RATIO, /**< Interrupt type for TMDS clock ratio */
 	XV_HDMIRX_HANDLER_VIC_ERROR	/**< Interrupt type for VIC error */
 } XV_HdmiRx_HandlerType;
-/*@}*/
+/** @} */
 
-/** @name HDMI RX stream status
-* @{
+/**
+* This typedef defines the HDMI RX stream status states.
 */
 typedef enum {
 	XV_HDMIRX_STATE_STREAM_DOWN,			/**< Stream down */
@@ -193,22 +193,22 @@ typedef enum {
 	XV_HDMIRX_STATE_STREAM_UP				/**< Stream up */
 } XV_HdmiRx_State;
 
-/** @name HDMI RX sync status
-* @{
+/**
+* This typedef defines the HDMI RX sync status states.
 */
 typedef enum {
 	XV_HDMIRX_SYNCSTAT_SYNC_LOSS,			/**< Sync Loss */
 	XV_HDMIRX_SYNCSTAT_SYNC_EST,			/**< Sync Lock */
 } XV_HdmiRx_SyncStatus;
 
-/** @name HDMI RX audio format
-* @{
+/**
+* This typedef defines the HDMI RX audio format types.
 */
 typedef enum {
-	XV_HDMIRX_AUDFMT_UNKNOWN = 0,
-	XV_HDMIRX_AUDFMT_LPCM,	// L-PCM
-	XV_HDMIRX_AUDFMT_HBR,	// HBR
-	XV_HDMIRX_AUDFMT_3D	// 3D Audio
+	XV_HDMIRX_AUDFMT_UNKNOWN = 0,	/**< Unknown audio format */
+	XV_HDMIRX_AUDFMT_LPCM,			/**< L-PCM audio format */
+	XV_HDMIRX_AUDFMT_HBR,			/**< HBR audio format */
+	XV_HDMIRX_AUDFMT_3D				/**< 3D Audio format */
 } XV_HdmiRx_AudioFormatType;
 
 
@@ -234,7 +234,7 @@ typedef struct {
 * This typedef contains HDMI RX audio stream specific data structure.
 */
 typedef struct {
-	u8	Active;			/**< Active flag. This flag is set when an acitve audio
+	u8	Active;			/**< Active flag. This flag is set when an active audio
 						* stream was detected */
 	u8 	Channels;		/**< Channels */
 } XV_HdmiRx_AudioStream;
@@ -565,7 +565,7 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
 * @param	SetClr specifies TRUE/FALSE value to either enable or disable the
-*		Pixel Repitition.
+*		Pixel Repetition.
 *
 * @return	None.
 *
@@ -589,16 +589,12 @@ typedef struct {
 * This macro asserts or clears the AXIS enable output port.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
-* @param	Reset specifies TRUE/FALSE value to either assert or
-*		release HDMI RX reset.
+* @param	Enable specifies TRUE/FALSE value to either enable or
+*		disable the AXIS output.
 *
 * @return	None.
 *
-* @note		The reset output of the PIO is inverted. When the system is
-*		in reset, the PIO output is cleared and this will reset the
-*		HDMI RX. Therefore, clearing the PIO reset output will assert
-*		the HDMI link and video reset.
-*		C-style signature:
+* @note		C-style signature:
 *		void XV_HdmiRx_AxisEnable(InstancePtr, Enable)
 *
 ******************************************************************************/
@@ -746,11 +742,12 @@ typedef struct {
 * This macro starts the HDMI RX timer peripheral.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param	Value is the timer counter value to load.
 *
 * @return	None.
 *
 * @note		C-style signature:
-*		void XV_HdmiRx_TmrStart(XV_HdmiRx *InstancePtr)
+*		void XV_HdmiRx_TmrStart(XV_HdmiRx *InstancePtr, u32 Value)
 *
 ******************************************************************************/
 #define XV_HdmiRx_TmrStart(InstancePtr, Value) \
@@ -826,11 +823,12 @@ typedef struct {
 * This macro sets the timebase in the HDMI RX Timing Detector peripheral.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param	Value is the timebase value to set.
 *
 * @return	None.
 *
 * @note		C-style signature:
-*		void XV_HdmiRx_VtdSetTimebase(XV_HdmiRx *InstancePtr, Value)
+*		void XV_HdmiRx_VtdSetTimebase(XV_HdmiRx *InstancePtr, u32 Value)
 *
 ******************************************************************************/
 #define XV_HdmiRx_VtdSetTimebase(InstancePtr, Value) \
@@ -1322,7 +1320,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
 		void *CallbackFunc,
 		void *CallbackRef);
 
-/* Vendor Specific Infomation related functions in xv_hdmirx_vsif.c */
+/* Vendor Specific Information related functions in xv_hdmirx_vsif.c */
 int XV_HdmiRx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr);
 void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr);
 char* XV_HdmiRx_VSIF_3DStructToString(XV_HdmiRx_3D_Struct_Field Item);

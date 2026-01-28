@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -247,7 +247,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Ddc
+        /* Ddc */
         case (XV_HDMIRX_HANDLER_DDC):
             InstancePtr->DdcCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->DdcRef = CallbackRef;
@@ -255,7 +255,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Stream down
+        /* Stream down */
         case (XV_HDMIRX_HANDLER_STREAM_DOWN):
             InstancePtr->StreamDownCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->StreamDownRef = CallbackRef;
@@ -263,7 +263,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Stream Init
+        /* Stream Init */
         case (XV_HDMIRX_HANDLER_STREAM_INIT):
             InstancePtr->StreamInitCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->StreamInitRef = CallbackRef;
@@ -271,7 +271,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Stream up
+        /* Stream up */
         case (XV_HDMIRX_HANDLER_STREAM_UP):
             InstancePtr->StreamUpCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->StreamUpRef = CallbackRef;
@@ -279,7 +279,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // HDCP
+        /* HDCP */
         case (XV_HDMIRX_HANDLER_HDCP):
             InstancePtr->HdcpCallback = (XV_HdmiRx_HdcpCallback)CallbackFunc;
             InstancePtr->HdcpRef = CallbackRef;
@@ -287,7 +287,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // HDCP 1.4 Event
+        /* HDCP 1.4 Event */
         case (XV_HDMIRX_HANDLER_DDC_HDCP_14_PROT):
             InstancePtr->Hdcp14ProtEvtCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->Hdcp14ProtEvtRef = CallbackRef;
@@ -295,7 +295,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // HDCP 2.2 Event
+        /* HDCP 2.2 Event */
         case (XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT):
             InstancePtr->Hdcp22ProtEvtCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->Hdcp22ProtEvtRef = CallbackRef;
@@ -310,7 +310,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Bridge FIFO Overflow
+        /* Bridge FIFO Overflow */
         case (XV_HDMIRX_HANDLER_BRDG_OVERFLOW):
             InstancePtr->BrdgOverflowCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->BrdgOverflowRef = CallbackRef;
@@ -318,7 +318,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Sync Loss
+        /* Sync Loss */
         case (XV_HDMIRX_HANDLER_SYNC_LOSS):
             InstancePtr->SyncLossCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->SyncLossRef = CallbackRef;
@@ -326,7 +326,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Mode
+        /* Mode */
         case (XV_HDMIRX_HANDLER_MODE):
             InstancePtr->ModeCallback = (XV_HdmiRx_Callback)CallbackFunc;
             InstancePtr->ModeRef = CallbackRef;
@@ -334,7 +334,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // TMDS clock ratio
+        /* TMDS clock ratio */
         case (XV_HDMIRX_HANDLER_TMDS_CLK_RATIO):
             InstancePtr->TmdsClkRatioCallback =
                                   (XV_HdmiRx_Callback)CallbackFunc;
@@ -343,7 +343,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Vic Error
+        /* Vic Error */
         case (XV_HDMIRX_HANDLER_VIC_ERROR):
             InstancePtr->VicErrorCallback =
                                   (XV_HdmiRx_Callback)CallbackFunc;
@@ -385,15 +385,15 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for time base event */
     if ((Status) & (XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
 			(XV_HDMIRX_VTD_STA_OFFSET),
 			(XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK));
 
-        // Check if we are in lock state
+        /* Check if we are in lock state */
         if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_LOCK) {
 
-            // Read video timing
+            /* Read video timing */
             Status = XV_HdmiRx_GetVideoTiming(InstancePtr);
 
             if (Status == XST_SUCCESS) {
@@ -412,45 +412,38 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
                     }
                 }
 
-                // Enable AXI Stream output
+                /* Enable AXI Stream output */
                 XV_HdmiRx_AxisEnable(InstancePtr, (TRUE));
 
-                // Set stream status to up
+                /* Set stream status to up */
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;
 
-                // Set stream sync status to est
+                /* Set stream sync status to est */
                 InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
 
-                // Enable sync loss
-                //XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
-                //  (XV_HDMIRX_VTD_CTRL_SET_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
-
-                // Call stream up callback
+                /* Call stream up callback */
                 if (InstancePtr->IsStreamUpCallbackSet) {
                     InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
                 }
             }
         }
 
-        // Check if we are in stream up state
+        /* Check if we are in stream up state */
         else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_UP) {
 
-            // Read video timing
+            /* Read video timing */
             Status = XV_HdmiRx_GetVideoTiming(InstancePtr);
 
             if (Status != XST_SUCCESS) {
-                // Disable sync loss
-                //XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
-                //  (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
 
-                // Set stream status to up
+                /* Set stream status to up */
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
 
             } else if (InstancePtr->Stream.SyncStatus == XV_HDMIRX_SYNCSTAT_SYNC_LOSS) {
-            	// Sync Est/Recover Flag
+		/* Sync Est/Recover Flag */
             	InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_EST;
 
-				// Call sync lost callback
+				/* Call sync lost callback */
 				if (InstancePtr->IsSyncLossCallbackSet) {
 					InstancePtr->SyncLossCallback(InstancePtr->SyncLossRef);
 				}
@@ -462,14 +455,14 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for sync loss event */
     else if ((Status) & (XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK));
 
         if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_UP) {
-        	// Enable the Stream Up + Sync Loss Flag
+		/* Enable the Stream Up + Sync Loss Flag */
         	InstancePtr->Stream.SyncStatus = XV_HDMIRX_SYNCSTAT_SYNC_LOSS;
 
-			// Call sync lost callback
+			/* Call sync lost callback */
 			if (InstancePtr->IsSyncLossCallbackSet) {
 				InstancePtr->SyncLossCallback(InstancePtr->SyncLossRef);
 			}
@@ -499,7 +492,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for HDCP write event */
     if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK));
 
         /* Callback */
@@ -511,7 +504,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for HDCP read event */
     if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK));
 
         /* Callback */
@@ -523,7 +516,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for HDCP read not complete event */
     if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK));
 
         /* Callback */
@@ -535,7 +528,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for HDCP 1.4 Aksv event */
     if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK));
 
         /* Callback */
@@ -547,7 +540,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for HDCP 1.4 protocol event */
     if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK));
 
         /* Callback */
@@ -559,7 +552,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for HDCP 2.2 protocol event */
     if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK));
 
         /* Callback */
@@ -596,52 +589,53 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
     /* Read data */
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_IN_OFFSET));
 
-    // Cable detect event has occurred
+    /* Cable detect event has occurred */
     if ((Event) & (XV_HDMIRX_PIO_IN_DET_MASK)) {
 
-        // Cable is connected
+        /* Cable is connected */
         if ((Data) & (XV_HDMIRX_PIO_IN_DET_MASK)) {
-            // Set connected flag
+            /* Set connected flag */
             InstancePtr->Stream.IsConnected = (TRUE);
         }
 
-        // Cable is disconnected
+        /* Cable is disconnected */
         else {
-            // Clear connected flag
+            /* Clear connected flag */
             InstancePtr->Stream.IsConnected = (FALSE);
 
 	    /* Set SCDC variables */
 	    XV_HdmiRx_DdcScdcSet(InstancePtr);
-            // Clear SCDC variables
+            /* Clear SCDC variables */
             XV_HdmiRx_DdcScdcClear(InstancePtr);
         }
 
-        // Check if user callback has been registered
+        /* Check if user callback has been registered */
         if (InstancePtr->IsConnectCallbackSet) {
             InstancePtr->ConnectCallback(InstancePtr->ConnectRef);
         }
     }
 
-    // Link ready event has occurred
+    /* Link ready event has occurred */
     if ((Event) & (XV_HDMIRX_PIO_IN_LNK_RDY_MASK)) {
+	    /* Set stream status to idle */
+        InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;            /* The stream idle */
 
-    // Set stream status to idle
-        InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;            // The stream idle
-
-        // Load timer
+        /* Load timer */
         XV_HdmiRx_TmrStart(InstancePtr,
-			XV_HdmiRx_GetTime10Ms(InstancePtr)); // 10 ms
+			XV_HdmiRx_GetTime10Ms(InstancePtr)); /* 10 ms */
     }
 
-    // Video ready event has occurred
+    /* Video ready event has occurred */
     if ((Event) & (XV_HDMIRX_PIO_IN_VID_RDY_MASK)) {
 
-        // Ready
+        /* Ready */
         if ((Data) & (XV_HDMIRX_PIO_IN_VID_RDY_MASK)) {
 
-            // Check the previous state
-            // The link can only change to up when the previous state was init
-            // Else there was a glitch on the video ready input
+            /*
+	     * Check the previous state
+	     * The link can only change to up when the previous state was init */
+            /* Else there was a glitch on the video ready input
+	     */
             if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_INIT) {
 
 				/* Toggle video reset for HDMI RX core */
@@ -654,16 +648,16 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
 				XV_HdmiRx_EXT_VRST(InstancePtr, FALSE);
 				XV_HdmiRx_EXT_SYSRST(InstancePtr, FALSE);
 
-            // Set stream status to arm
-                InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_ARM;         // The stream is armed
+            /* Set stream status to arm */
+                InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_ARM;         /* The stream is armed */
 
-                // Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)
+                /* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames) */
                 XV_HdmiRx_TmrStart(InstancePtr,
 				XV_HdmiRx_GetTime200Ms(InstancePtr));
             }
         }
 
-        // Stream down
+        /* Stream down */
         else {
 			/* Assert HDMI RX core resets */
 			XV_HdmiRx_INT_VRST(InstancePtr, TRUE);
@@ -672,61 +666,62 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             /* Clear variables */
             XV_HdmiRx_Clear(InstancePtr);
 
-            // Disable aux and audio peripheral
-            // At this state the link clock is not stable.
-            // Therefore these two peripheral are disabled to prevent any glitches.
+            /* Disable aux and audio peripheral
+	     * At this state the link clock is not stable.
+	     * Therefore these two peripheral are disabled to prevent any glitches.
+	     */
             XV_HdmiRx_AuxDisable(InstancePtr);
             XV_HdmiRx_AudioDisable(InstancePtr);
 
             /* Disable VTD */
             XV_HdmiRx_VtdDisable(InstancePtr);
 
-            // Disable link
+            /* Disable link */
             XV_HdmiRx_LinkEnable(InstancePtr, (FALSE));
 
-            // Disable video
-            // MH AI: Don't reset bridge when clock is not stable
+            /* Disable video */
+            /* MH AI: Don't reset bridge when clock is not stable */
             XV_HdmiRx_VideoEnable(InstancePtr, (TRUE));
 
             XV_HdmiRx_AxisEnable(InstancePtr, (FALSE));
 
-            // Set stream status to down
+            /* Set stream status to down */
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_DOWN;
 
-            // Disable sync loss
+            /* Disable sync loss */
             XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
                 (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
 
-            // Call stream down callback
+            /* Call stream down callback */
             if (InstancePtr->IsStreamDownCallbackSet) {
                 InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
             }
         }
     }
 
-    // SCDC Scrambler Enable
+    /* SCDC Scrambler Enable */
     if ((Event) & (XV_HDMIRX_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK)) {
 
-        // Enable scrambler
+        /* Enable scrambler */
         if ((Data) & (XV_HDMIRX_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK)) {
             XV_HdmiRx_SetScrambler(InstancePtr, (TRUE));
         }
 
-        // Disable scrambler
+        /* Disable scrambler */
         else {
             XV_HdmiRx_SetScrambler(InstancePtr, (FALSE));
         }
     }
 
-    // Mode
+    /* Mode */
     if ((Event) & (XV_HDMIRX_PIO_IN_MODE_MASK)) {
 
-        // HDMI Mode
+        /* HDMI Mode */
         if ((Data) & (XV_HDMIRX_PIO_IN_MODE_MASK)) {
             InstancePtr->Stream.IsHdmi = (TRUE);
         }
 
-        // DVI Mode
+        /* DVI Mode */
         else {
             InstancePtr->Stream.IsHdmi = (FALSE);
         }
@@ -736,23 +731,23 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             /* Clear variables */
             XV_HdmiRx_Clear(InstancePtr);
 
-        	// Set stream status to idle
+	    /* Set stream status to idle */
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_IDLE;
 
-            // Load timer
+            /* Load timer */
             XV_HdmiRx_TmrStart(InstancePtr,
-			XV_HdmiRx_GetTime10Ms(InstancePtr)); // 10 ms
+			XV_HdmiRx_GetTime10Ms(InstancePtr)); /* 10 ms */
         }
 
-        // Call mode callback
+        /* Call mode callback */
         if (InstancePtr->IsModeCallbackSet) {
             InstancePtr->ModeCallback(InstancePtr->ModeRef);
         }
     }
 
-    // TMDS clock ratio
+    /* TMDS clock ratio */
     if ((Event) & (XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)) {
-        // Call TMDS Ratio callback
+        /* Call TMDS Ratio callback */
         if (InstancePtr->IsTmdsClkRatioCallbackSet) {
             InstancePtr->TmdsClkRatioCallback(InstancePtr->TmdsClkRatioRef);
         }
@@ -760,7 +755,7 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
 
     /* Bridge Overflow event has occurred */
     if ((Event) & (XV_HDMIRX_PIO_IN_BRDG_OVERFLOW_MASK)) {
-        // Check if user callback has been registered
+        /* Check if user callback has been registered */
         if (InstancePtr->IsBrdgOverflowCallbackSet) {
             InstancePtr->BrdgOverflowCallback(InstancePtr->BrdgOverflowRef);
         }
@@ -790,14 +785,15 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
     /* Check for counter event */
     if ((Status) & (XV_HDMIRX_TMR_STA_CNT_EVT_MASK)) {
 
-        // Clear counter event
+        /* Clear counter event */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_TMR_STA_OFFSET), (XV_HDMIRX_TMR_STA_CNT_EVT_MASK));
 
-        // Idle state
+        /* Idle state */
         if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_IDLE) {
 
-            // The link is stable now
-            // Then the aux and audio peripherals can be enabled
+            /* The link is stable now
+	     * Then the aux and audio peripherals can be enabled
+	     */
             XV_HdmiRx_AuxEnable(InstancePtr);
             XV_HdmiRx_AudioEnable(InstancePtr);
 
@@ -805,34 +801,35 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 			XV_HdmiRx_INT_VRST(InstancePtr, FALSE);
 			XV_HdmiRx_INT_LRST(InstancePtr, FALSE);
 
-            // Enable link
+            /* Enable link */
             XV_HdmiRx_LinkEnable(InstancePtr, (TRUE));
 
-            // Set stream status to init
-            InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_INIT;    // The stream init
+            /* Set stream status to init */
+            InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_INIT;    /* The stream init */
 
-            // Clear GetVideoPropertiesTries
+            /* Clear GetVideoPropertiesTries */
             InstancePtr->Stream.GetVideoPropertiesTries = 0;
 
-            // Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)
+            /* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames) */
             XV_HdmiRx_TmrStart(InstancePtr,
 			XV_HdmiRx_GetTime200Ms(InstancePtr));
         }
 
-        // Init state
+        /* Init state */
         else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_INIT) {
 
-            // Read video properties
+            /* Read video properties */
             if (XV_HdmiRx_GetVideoProperties(InstancePtr) == XST_SUCCESS) {
 
-            // Now we know the reference clock and color depth,
-            // the pixel clock can be calculated
-            // In case of YUV 422 the reference clock is the pixel clock
+            /* Now we know the reference clock and color depth,
+	     * the pixel clock can be calculated
+	     * In case of YUV 422 the reference clock is the pixel clock
+	     */
             if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
                 InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk;
             }
 
-            // For the other color spaces the pixel clock needs to be adjusted
+            /* For the other color spaces the pixel clock needs to be adjusted */
             else {
 
                 switch (InstancePtr->Stream.Video.ColorDepth) {
@@ -854,20 +851,20 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
                 }
             }
 
-				// Call stream init callback
+				/* Call stream init callback */
 				if (InstancePtr->IsStreamInitCallbackSet) {
 					InstancePtr->StreamInitCallback(InstancePtr->StreamInitRef);
 				}
 			}
 
             else {
-		// Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)
+		/* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames) */
                 XV_HdmiRx_TmrStart(InstancePtr,
 				XV_HdmiRx_GetTime200Ms(InstancePtr));
             }
         }
 
-        // Armed state
+        /* Armed state */
         else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_ARM) {
 
             /* Enable VTD */
@@ -876,7 +873,7 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
             /* Enable interrupt */
             XV_HdmiRx_VtdIntrEnable(InstancePtr);
 
-            // Set stream status to lock
+            /* Set stream status to lock */
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
         }
     }
@@ -914,7 +911,7 @@ static void HdmiRx_AuxIntrHandler(XV_HdmiRx *InstancePtr)
 
     /* Check for new packet */
     if ((Status) & (XV_HDMIRX_AUX_STA_NEW_MASK)) {
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET), (XV_HDMIRX_AUX_STA_NEW_MASK));
 
         /* Set HDMI flag */
@@ -961,64 +958,64 @@ static void HdmiRx_AudIntrHandler(XV_HdmiRx *InstancePtr)
 {
     u32 Status;
 
-    // Read Status register
+    /* Read Status register */
     Status = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUD_STA_OFFSET));
 
-    // Check for active stream event
+    /* Check for active stream event */
     if ((Status) & (XV_HDMIRX_AUD_STA_ACT_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUD_STA_OFFSET), (XV_HDMIRX_AUD_STA_ACT_EVT_MASK));
 
         InstancePtr->Stream.Audio.Active = (TRUE);
     }
 
-    // Check for audio channel event
+    /* Check for audio channel event */
     if ((Status) & (XV_HDMIRX_AUD_STA_CH_EVT_MASK)) {
 
-        // Clear event flag
+        /* Clear event flag */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUD_STA_OFFSET), (XV_HDMIRX_AUD_STA_CH_EVT_MASK));
 
-        // Active channels
+        /* Active channels */
 	switch ((Status >> XV_HDMIRX_AUD_STA_AUD_CH_SHIFT) &
 			XV_HDMIRX_AUD_STA_AUD_CH_MASK) {
-            // 32 channels
+            /* 32 channels */
 	case 6 :
 		InstancePtr->Stream.Audio.Channels = 32;
 		break;
 
-	// 24 channels
+	/* 24 channels */
 	case 5 :
 		InstancePtr->Stream.Audio.Channels = 24;
 		break;
 
-	// 12 channels
+	/* 12 channels */
 	case 4 :
 		InstancePtr->Stream.Audio.Channels = 12;
 		break;
 
-	// 8 channels
+	/* 8 channels */
 	case 3 :
 		InstancePtr->Stream.Audio.Channels = 8;
 		break;
 
-	// 6 channels
+	/* 6 channels */
 	case 2 :
 		InstancePtr->Stream.Audio.Channels = 6;
 		break;
 
-	// 4 channels
+	/* 4 channels */
 	case 1 :
 		InstancePtr->Stream.Audio.Channels = 4;
 		break;
 
-	// 2 channels
+	/* 2 channels */
 	default :
 		InstancePtr->Stream.Audio.Channels = 2;
 		break;
 	}
 
-        // Audio Format
+        /* Audio Format */
         InstancePtr->AudFormat = (XV_HdmiRx_AudioFormatType)((Status >> XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT) & XV_HDMIRX_AUD_STA_AUD_FMT_MASK);
 
         /* Callback */
