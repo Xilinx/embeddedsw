@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -158,7 +158,7 @@ void XDsi2RxSs_InterruptEnable(void *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is the XDsi2Rx instance to operate on
 * @param 	HandlerType is the type of call back to be registered.
-* @param	CallbackFunc is the pointer to a call back funtion which
+* @param	CallbackFunc is the pointer to a call back function which
 *	 	is called when a particular event occurs.
 * @param 	CallbackRef is a void pointer to data to be referenced to
 *	 	by the CallbackFunc

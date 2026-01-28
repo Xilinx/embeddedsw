@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,7 +68,7 @@
 *
 * <b>Interrupt Service</b>
 *
-* The DSI RX subsytem supports 2 interrupts
+* The DSI RX subsystem supports 2 interrupts
 * 1. Unsupported Data Type
 * 2. Pixel Under flow error
 * For Handling these interrupts, The users of this
