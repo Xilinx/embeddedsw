@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
@@ -289,7 +289,7 @@ int main() {
 	xil_printf("\n\r IIC initialization Failed \n\r");
 	return XST_FAILURE;
   }
-  xil_printf("IIC Initializtion Done \n\r");
+  xil_printf("IIC Initialization Done \n\r");
 #ifndef SDT
   //Initialize FMC Interrupt System
   Status = SetupFmcInterruptSystem(&IicFmc);

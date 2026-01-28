@@ -1,6 +1,6 @@
  /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -168,7 +168,7 @@ void InitImageProcessingPipe(u32 width, u32 height)
 
 /*****************************************************************************/
 /**
- * This function programs MIPI DSI SS with the required timing paramters.
+ * This function programs MIPI DSI SS with the required timing parameters.
  *
  * @return	None.
  *

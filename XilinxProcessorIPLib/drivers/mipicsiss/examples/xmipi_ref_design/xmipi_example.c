@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -916,7 +916,7 @@ void Reset_IP_Pipe(void)
 /*****************************************************************************/
 /**
  *
- * Main function to initialize the video pipleline and process user input
+ * Main function to initialize the video pipeline and process user input
  *
  * @return	XST_SUCCESS if MIPI example was successful else XST_FAILURE
  *

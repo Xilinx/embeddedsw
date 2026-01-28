@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -937,7 +937,7 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 /*****************************************************************************/
 /**
  *
- * Main function to initialize the video pipleline and process user input
+ * Main function to initialize the video pipeline and process user input
  *
  * @return	XST_SUCCESS if MIPI example was successful else XST_FAILURE
  *
@@ -1310,7 +1310,7 @@ void DisableDSI(void)
 
 /*****************************************************************************/
 /**
- * This function programs MIPI DSI SS with the required timing paramters.
+ * This function programs MIPI DSI SS with the required timing parameters.
  *
  * @return	None.
  *

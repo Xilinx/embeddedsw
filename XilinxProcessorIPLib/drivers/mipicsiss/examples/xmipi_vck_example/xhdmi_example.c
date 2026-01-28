@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -81,7 +81,7 @@
 *                             or HDMI sink based on EDID-HDMI VSDB.
 *                       Fixed system flow to avoid RX Buffer Overflow during
 *                              transition.
-*                       Code Clean-Up on comments and 80 Characted per line.
+*                       Code Clean-Up on comments and 80 character per line.
 *                       Improve audio configuration during Pass-through mode.
 *                       Disable HDMI RX Video Stream when EnableColorBar API
 *                              is called.
@@ -912,7 +912,7 @@ void TxConnectCallback(void *CallbackRef) {
 		TxCableConnect = (TRUE);
 
 		/* Set Flag when the cable is connected
-		 * this call back take in to account two scneario
+		 * this call back take in to account two scenario
 		 * cable connect and cable disconnect
 		 * Stable RX stream is available
 		 */
@@ -1995,7 +1995,7 @@ int config_hdmi() {
         xil_printf("ERR:: Unable to register HDMI TX interrupt handler");
 		xil_printf("ERR:: HDMI TX SS initialization error\r\n");
 		return XST_FAILURE; }
-    /* disable intterupt. enable only if switched to HDMI */
+    /* disable interrupt. enable only if switched to HDMI */
     disable_hdmi_interrupt();
 #endif
 	xil_printf("---------------------------------\r\n");

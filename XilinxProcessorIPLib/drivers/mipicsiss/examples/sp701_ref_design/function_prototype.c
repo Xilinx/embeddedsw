@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
@@ -357,7 +357,7 @@ void videoIpConfig(XVidC_VideoMode videoMode)
 
 /***************************************************************************/
 /**
- * This function programs MIPI DSI SS with the required timing paramters.
+ * This function programs MIPI DSI SS with the required timing parameters.
  *
  * @return      None.
  *
@@ -421,7 +421,7 @@ u32 SetupDSI(void)
 
 /***************************************************************************/
 /**
- * This function programs MIPI CSI SS with the required timing paramters.
+ * This function programs MIPI CSI SS with the required timing parameters.
  *
  * @return      None.
  *
@@ -473,7 +473,7 @@ void EnableCSI(void)
 
 /*****************************************************************************/
 /**
- * This function programs MIPI DSI SS with the required timing paramters.
+ * This function programs MIPI DSI SS with the required timing parameters.
  *
  * @return	None.
  *
@@ -1867,7 +1867,7 @@ static int StartTransfer(XAxiVdma *InstancePtr)
 *
 * This function wait until the DMA channel halts
 *
-* @param	VdmaChannel specifes VdmaChannel is MM2S or S2MM
+* @param	VdmaChannel specifies VdmaChannel is MM2S or S2MM
 *.@param	VdmaBaseAddr VDMA base address
 *
 * @return

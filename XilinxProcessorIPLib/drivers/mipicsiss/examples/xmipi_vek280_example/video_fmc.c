@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -585,7 +585,7 @@ int Vfmc_PowerDownTiLMK03318(XVfmc *VfmcPtr, u8 Powerdown)
 	int ByteCount;
 	void *IicPtr = VfmcPtr->IicPtr;
 
-	/* Read IO Expander ouput register */
+	/* Read IO Expander output register */
 	ByteCount = Vfmc_I2cRecv(IicPtr, VFMC_I2C_IOEXP_1_ADDR,
 			(u8 *)&Buffer, 1, I2C_STOP);
 
@@ -610,7 +610,7 @@ int Vfmc_PowerDownTiLMK03318(XVfmc *VfmcPtr, u8 Powerdown)
 *
 * This function Turns on or off the VFMC LED.
 *
-* @param  Led - LED position based on XVfmc_Gpio_Led typdef.
+* @param  Led - LED position based on XVfmc_Gpio_Led typedef.
 * @param  On  - TRUE=On ; FALSE=Off.
 *
 * @return None.
@@ -640,8 +640,7 @@ void Vfmc_Gpio_Led_On(XVfmc *VfmcPtr, XVfmc_Gpio_Led Led, u8 On)
 * This function Sets the clock or data selection for channel 4 of the
 * TX or RX mezzanine cards.
 *
-* @param  DataClkSel - Ch4 Selection based on  XVfmc_Gpio_Ch4_DataClkSel
-*                      typdef.
+* @param  DataClkSel - Ch4 Selection based on  XVfmc_Gpio_Ch4_DataClkSel typedef.
 *                      TX
 *                      --> VFMC_GPIO_TX_CH4_As_DataAndClock
 *                      --> VFMC_GPIO_TX_CH4_As_ClockOut
@@ -845,7 +844,7 @@ u32 Vfmc_Mezz_HdmiRxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_RxRefClkSel Sel)
 *
 * @param  Source of ref clock
 *
-* @return XST_SUCCESS if the ref clock source is successfuly set.
+* @return XST_SUCCESS if the ref clock source is successfully set.
 *         XST_FAILURE otherwise.
 *
 * @note   None.

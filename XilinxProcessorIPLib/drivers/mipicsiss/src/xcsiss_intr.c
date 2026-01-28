@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,13 +95,13 @@ void XCsiSs_IntrHandler(void *InstancePtr)
 * XCSISS_HANDLER_SHORTPACKET A Short packet has been received or the
 *                            Short Packet FIFO is full.
 * XCSISS_HANDLER_FRAMERECVD  A Frame has been received
-* XCSISS_HANDLER_OTHERERROR  Any other type of interrupt has occured like
+* XCSISS_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
 *                            Stream Line Buffer Full, Incorrect Lanes, etc
 * </pre>
 *
 * @param	InstancePtr is the XCsi instance to operate on
 * @param	HandlerType is the type of call back to be registered.
-* @param	CallbackFunc is the pointer to a call back funtion which
+* @param	CallbackFunc is the pointer to a call back function which
 *		is called when a particular event occurs.
 * @param	CallbackRef is a void pointer to data to be referenced to
 *		by the CallBackFunc
