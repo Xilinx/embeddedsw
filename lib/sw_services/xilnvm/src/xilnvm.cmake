@@ -1,61 +1,80 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR
-   "${CMAKE_MACHINE}" STREQUAL "spartanuplus")
+# For PMC microblaze core in all Versal variants, mode is server.
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
   set(XILNVM_mode "server")
-elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-  # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
-  set(XILNVM_mode "client")
-else()
-  set(XILNVM_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilNvm library for Versal")
-  set_property(CACHE XILNVM_mode PROPERTY STRINGS "client" "server")
 endif()
 
-option(XILNVM_use_puf_hd_as_user_efuse "Enables API's to use PUF Helper data efuses as user efuses." OFF)
-if(XILNVM_use_puf_hd_as_user_efuse)
-  set(XNVM_ACCESS_PUF_USER_DATA " ")
-endif()
+# XilNvm configuration options for Versal
+if("${CMAKE_MACHINE}" STREQUAL "Versal")
+  if(NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
+    set(XILNVM_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilNvm library for Versal.")
+    set_property(CACHE XILNVM_mode PROPERTY STRINGS "client" "server")
 
-option(XILNVM_en_write_sec_crit_efuse "Enables write operation for Security Critical eFuses." OFF)
-if(XILNVM_en_write_sec_crit_efuse)
-  set(XNVM_WRITE_SECURITY_CRITICAL_EFUSE " ")
-endif()
+    option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
+    if(XILNVM_cache_disable AND XILNVM_mode STREQUAL "client")
+      set(XNVM_CACHE_DISABLE " ")
+    endif()
 
-option(XILNVM_en_write_user_efuse "Enables write operation for User eFuses." OFF)
-if(XILNVM_en_write_user_efuse)
-  set(XNVM_WRITE_USER_EFUSE " ")
-endif()
+    option(XILNVM_en_write_sec_crit_efuse "Enables write operation for Security Critical eFuses (server mode only)." OFF)
+    if(XILNVM_en_write_sec_crit_efuse)
+      set(XNVM_WRITE_SECURITY_CRITICAL_EFUSE " ")
+    endif()
 
-option(XILNVM_en_write_key_management_efuse "Enables write operation for Key Management eFuses." OFF)
-if(XILNVM_en_write_key_management_efuse)
-  set(XNVM_WRITE_KEY_MANAGEMENT_EFUSE " ")
-endif()
+    option(XILNVM_en_write_user_efuse "Enables write operation for User eFuses (server mode only)." OFF)
+    if(XILNVM_en_write_user_efuse)
+      set(XNVM_WRITE_USER_EFUSE " ")
+    endif()
 
-option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
-if(XILNVM_mode STREQUAL "client")
-  if(XILNVM_cache_disable)
-    set(XNVM_CACHE_DISABLE " ")
+    option(XILNVM_en_write_key_management_efuse "Enables write operation for Key Management eFuses (server mode only)." OFF)
+    if(XILNVM_en_write_key_management_efuse)
+      set(XNVM_WRITE_KEY_MANAGEMENT_EFUSE " ")
+    endif()
+  endif()
+
+  option(XILNVM_use_puf_hd_as_user_efuse "Enables APIs to use PUF Helper data eFuses as user eFuses." OFF)
+  if(XILNVM_use_puf_hd_as_user_efuse)
+    set(XNVM_ACCESS_PUF_USER_DATA " ")
+  endif()
+
+  option(XILNVM_en_add_ppks "Enables/Disables additional PPKs." OFF)
+  #Part list for which additional PPK support is not enabled by default
+  set(part_list "vc1502" "vc1702" "vc1802" "vc1902" "vc2602" "vc2802" "ve1752" "ve2202" "ve2302" "ve2602" "ve2802" "vh1522" "vh1542" "vh1582" "vh1742" "vh1782" "vp1102" "vp1202" "vp1402" "vp1502" "vp1552" "vp1702" "vp1802" "vp2502" "vp2802" "vm1102" "vm1302" "vm1402" "vm1502" "vm1802" "vm2202" "vm2302" "vm2502" "vm2902" "vn3716")
+  string(SUBSTRING "${DEVICE_ID}" 2 -1 PartName)
+  list(FIND part_list "${PartName}" index)
+
+  if (XILNVM_en_add_ppks OR (index EQUAL -1))
+    set(XNVM_EN_ADD_PPKS " ")
   endif()
 endif()
 
+# XilNvm configuration options for VersalNet
+if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+  if(NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
+    # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
+    set(XILNVM_mode "client")
+
+    option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
+    if(XILNVM_cache_disable)
+      set(XNVM_CACHE_DISABLE " ")
+    endif()
+  endif()
+
+  option(XILNVM_use_puf_hd_as_user_efuse "Enables APIs to use PUF Helper data eFuses as user eFuses." OFF)
+  if(XILNVM_use_puf_hd_as_user_efuse)
+    set(XNVM_ACCESS_PUF_USER_DATA " ")
+  endif()
+endif()
+
+# XilNvm configuration options for SpartanUltra+
 if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
-  option(XILNVM_en_efuse_clk_freq_rtca "Efuse clock frequency and clock source selection: ON to get from RTCA , OFF to get from application. Default is ON." ON)
+  set(XILNVM_mode "server")
+
+  option(XILNVM_en_efuse_clk_freq_rtca "eFuse clock frequency and clock source selection: ON to get from RTCA, OFF to get from application. Default is ON." ON)
   if(XILNVM_en_efuse_clk_freq_rtca)
     set(XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA " ")
   endif()
-endif()
-
-option(XILNVM_en_add_ppks "Enables or Disables additional PPKs" OFF)
-#Part list for which additional PPK support is not enabled by default
-set(part_list "vc1502" "vc1702" "vc1802" "vc1902" "vc2602" "vc2802" "ve1752" "ve2202" "ve2302" "ve2602" "ve2802"
-    "vh1522" "vh1542" "vh1582" "vh1742" "vh1782" "vp1102" "vp1202" "vp1402" "vp1502" "vp1552" "vp1702" "vp1802"
-    "vp2502" "vp2802" "vm1102" "vm1302" "vm1402" "vm1502" "vm1802" "vm2202" "vm2302" "vm2502" "vm2902" "vn3716")
-string(SUBSTRING "${DEVICE_ID}" 2 -1 PartName)
-list(FIND part_list "${PartName}" index)
-
-if (XILNVM_en_add_ppks OR (index EQUAL -1))
-  set(XNVM_EN_ADD_PPKS " ")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xilnvm_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xilnvm_bsp_config.h)
