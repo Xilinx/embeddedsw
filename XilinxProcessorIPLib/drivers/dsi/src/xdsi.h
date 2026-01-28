@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -112,7 +112,7 @@ typedef enum {
 } XDsi_VideoMode;
 
 /**
-* DSI Long packet supports upto 255 word counts - i.e
+* DSI Long packet supports up to 255 word counts - i.e
 * 64 writes into data fifo
 *
 */
@@ -123,7 +123,7 @@ typedef enum {
 typedef struct {
 	u32 LongPktData[NUM_PACKETS];	/**< Long packet data in command mode */
 	XDsi_CmdModePktType CmdPkt; /**< Packet type in command mode */
-	XDsi_ShortPacket SpktData; /**< Short packet strucute to
+	XDsi_ShortPacket SpktData; /**< Short packet structure to
 					send short packet */
 } XDsiTx_CmdModePkt;
 /**
@@ -690,7 +690,7 @@ static inline void XDsi_IntrDisable(XDsi *InstancePtr, u32 Mask)
 *
 * This function is used to find out which events have triggered the interrupt
 * source, presently DSI supporting Undefined data type and pixel under flow
-* error, the ISR register bits will set when respecive interuupt triggers
+* error, the ISR register bits will set when respective interrupt triggers
 *
 * @param	InstancePtr is a pointer to the DSI Instance to be
 *		worked on.

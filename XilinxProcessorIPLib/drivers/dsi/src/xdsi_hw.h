@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -242,13 +242,13 @@ extern "C" {
  */
 #define XDSI_ISR_CMDQ_FIFO_FULL_MASK	0x00000004 /**< Command queue vacancy
 							full */
-#define XDSI_ISR_DATA_ID_ERR_MASK	0x00000002  /**< Unsupport datatype
+#define XDSI_ISR_DATA_ID_ERR_MASK	0x00000002  /**< Unsupported datatype
 						      *  Error */
 #define XDSI_ISR_PXL_UNDR_RUN_MASK	0x00000001  /**< Pixel under run
 						      *  error */
 #define XDSI_ISR_ALLINTR_MASK   	0x00000007 /**< All interrupts mask */
 #define XDSI_ISR_DATA_ID_ERR_SHIFT	1  /**< Shift for
-						Unsupport Data Type */
+						Unsupported Data Type */
 #define XDSI_ISR_PXL_UNDR_RUN_SHIFT	0  /**< Shift for
 						Pixel under run*/
 
@@ -267,7 +267,7 @@ extern "C" {
 #define XDSI_IER_ALLINTR_MASK   	0x00000007 /**< All interrupts mask */
 
 #define XDSI_IER_DATA_ID_ERR_SHIFT	1   	   /**< Shift for
-						     *  Unsupport data type */
+						     *  Unsupported data type */
 #define XDSI_IER_PXL_UNDR_RUN_SHIFT	0   /**< Shift for
 						Pixel under run */
 /*@}*/
@@ -281,7 +281,7 @@ extern "C" {
 #define XDSI_SPKTR_DT_MASK	0x0000003F /**< Data Type */
 #define XDSI_SPKTR_VC_MASK	0x000000C0 /**< Virtual channel number */
 #define XDSI_SPKTR_BYTE1_MASK	0x0000FF00 /**< BYTE1 mask */
-#define XDSI_SPKTR_BYTE2_MASK	0x00FF0000 /**< BYTE2 maks */
+#define XDSI_SPKTR_BYTE2_MASK	0x00FF0000 /**< BYTE2 mask */
 
 #define XDSI_SPKTR_DT_SHIFT	0 /**< Shift for DataType */
 #define XDSI_SPKTR_VC_SHIFT	6 /**< Shift for VC */
