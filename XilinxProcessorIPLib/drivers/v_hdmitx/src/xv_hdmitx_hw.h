@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,16 +101,16 @@ extern "C" {
 #define XV_HDMITX_CONNECT_CONF_OFFSET   ((XV_HDMITX_PIO_BASE)+(15*4))/**< PIO
                                         * HPD Config. *  Register offset */
 
-// PIO peripheral Control register masks
+/*  PIO peripheral Control register masks */
 #define XV_HDMITX_PIO_CTRL_RUN_MASK     (1<<0)  /**< PIO Control Run mask */
 #define XV_HDMITX_PIO_CTRL_IE_MASK      (1<<1)  /**< PIO Control Interrupt
                                                 * Enable mask */
 
-// PIO peripheral Status register masks
+/*  PIO peripheral Status register masks */
 #define XV_HDMITX_PIO_STA_IRQ_MASK      (1<<0) /**< PIO Status Interrupt mask */
 #define XV_HDMITX_PIO_STA_EVT_MASK      (1<<1) /**< PIO Status Event mask */
 
-// PIO peripheral PIO Out register masks and shifts
+/*  PIO peripheral PIO Out register masks and shifts */
 #define XV_HDMITX_PIO_OUT_RST_MASK          (1<<0)  /**< PIO Out Reset mask */
 #define XV_HDMITX_PIO_OUT_MODE_MASK         (1<<3)  /**< PIO Out Mode mask */
 #define XV_HDMITX_PIO_OUT_COLOR_DEPTH_MASK  0x30    /**< PIO Out Color Depth
@@ -148,7 +149,7 @@ extern "C" {
                                                          * mask */
 
 
-// PIO peripheral PIO In register masks
+/*  PIO peripheral PIO In register masks */
 #define XV_HDMITX_PIO_IN_LNK_RDY_MASK       (1<<0)  /**< PIO In link ready
                                                     * mask */
 #define XV_HDMITX_PIO_IN_VID_RDY_MASK       (1<<1)  /**< PIO In video ready
@@ -186,7 +187,7 @@ extern "C" {
 #define XV_HDMITX_DDC_DAT_OFFSET            ((XV_HDMITX_DDC_BASE)+(6*4))/**< DDC
                                 * Data Register *  offset */
 
-// DDC peripheral Control register masks and shift
+/*  DDC peripheral Control register masks and shift */
 #define XV_HDMITX_DDC_CTRL_RUN_MASK         (1<<0)  /**< DDC Control Run mask */
 #define XV_HDMITX_DDC_CTRL_IE_MASK          (1<<1)  /**< DDC Control Interrupt
                                                     *  Enable mask */
@@ -195,7 +196,7 @@ extern "C" {
 #define XV_HDMITX_DDC_CTRL_CLK_DIV_SHIFT    16  /**< DDC Control Clock
                                                 *Divider shift */ /*@}*/
 
-// DDC peripheral Status register masks
+/*  DDC peripheral Status register masks */
 #define XV_HDMITX_DDC_STA_IRQ_MASK      (1<<0)  /**< DDC Status IRQ mask */
 #define XV_HDMITX_DDC_STA_EVT_MASK      (1<<1)  /**< DDC Status Event mask */
 #define XV_HDMITX_DDC_STA_BUSY_MASK     (1<<2)  /**< DDC Status Busy mask */
@@ -213,14 +214,14 @@ extern "C" {
 #define XV_HDMITX_DDC_STA_DAT_WRDS_MASK     0xFF /**< Data fifo words mask */
 #define XV_HDMITX_DDC_STA_DAT_WRDS_SHIFT    24  /**< Data fifo words shift */
 
-// DDC peripheral token
+/*  DDC peripheral token */
 #define XV_HDMITX_DDC_CMD_STR_TOKEN     (0x100) /**< Start token */
 #define XV_HDMITX_DDC_CMD_STP_TOKEN     (0x101) /**< Stop token */
 #define XV_HDMITX_DDC_CMD_RD_TOKEN      (0x102) /**< Read token */
 #define XV_HDMITX_DDC_CMD_WR_TOKEN      (0x103) /**< Write token */
 
-// Auxiliary (AUX) peripheral register offsets
-// The AUX is the third peripheral on the local bus
+/*  Auxiliary (AUX) peripheral register offsets */
+/*  The AUX is the third peripheral on the local bus */
 #define XV_HDMITX_AUX_BASE              (3*64)
 #define XV_HDMITX_AUX_ID_OFFSET         ((XV_HDMITX_AUX_BASE)+(0*4)) /**< AUX
                                 * Identification *  Register offset */
@@ -235,12 +236,12 @@ extern "C" {
 #define XV_HDMITX_AUX_DAT_OFFSET        ((XV_HDMITX_AUX_BASE)+(5*4)) /**< AUX
                                 * Data Register *  offset */
 
-// Auxiliary peripheral Control register masks
+/*  Auxiliary peripheral Control register masks */
 #define XV_HDMITX_AUX_CTRL_RUN_MASK         (1<<0)  /**< AUX Control Run mask */
 #define XV_HDMITX_AUX_CTRL_IE_MASK          (1<<1)  /**< AUX Control Interrupt
                                                     * Enable mask */
 
-// Auxiliary peripheral Status register masks and shift
+/*  Auxiliary peripheral Status register masks and shift */
 #define XV_HDMITX_AUX_STA_IRQ_MASK          (1<<0)  /**< AUX Status Interrupt
                                                     *  mask */
 #define XV_HDMITX_AUX_STA_FIFO_EMT_MASK     (1<<1)  /**< AUX Status FIFO Empty
@@ -255,8 +256,8 @@ extern "C" {
                                                     *  Packets shift */
 
 
-// Audio (AUD) peripheral register offsets
-// The AUD is the forth peripheral on the local bus
+/*  Audio (AUD) peripheral register offsets */
+/*  The AUD is the forth peripheral on the local bus */
 #define XV_HDMITX_AUD_BASE              (4*64)
 #define XV_HDMITX_AUD_ID_OFFSET         ((XV_HDMITX_AUD_BASE)+(0*4)) /**< AUD
                                 * Identification *  Register offset */
@@ -273,7 +274,7 @@ extern "C" {
 #define XV_HDMITX_AUD_ACR_N_OFFSET      ((XV_HDMITX_AUD_BASE)+(6*4)) /**< AUD
                                 * Clock Regeneration N *  Register offset */
 
-// Audio peripheral Control register masks
+/*  Audio peripheral Control register masks */
 #define XV_HDMITX_AUD_CTRL_RUN_MASK     (1<<0)  /**< AUD Control Run mask */
 #define XV_HDMITX_AUD_CTRL_IE_MASK      (1<<1)  /**< AUD Control Interrupt
                                                 * Enable mask */
@@ -284,11 +285,11 @@ extern "C" {
 #define XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT 9   /**< AUD Control AUD Format
                                               * shift */
 
-// Audio peripheral Status register masks
+/*  Audio peripheral Status register masks */
 #define XV_HDMITX_AUD_STA_IRQ_MASK      (1<<0) /**< AUD Status Interrupt mask */
 
-// Video Mask (MASK) peripheral register offsets
-// The mask is the fifth peripheral on the local bus
+/*  Video Mask (MASK) peripheral register offsets */
+/*  The mask is the fifth peripheral on the local bus */
 #define XV_HDMITX_MASK_BASE              (5*64)
 #define XV_HDMITX_MASK_ID_OFFSET         ((XV_HDMITX_MASK_BASE)+(0*4)) /**< MASK
                                 * Identification *  Register offset */
@@ -307,11 +308,11 @@ extern "C" {
 #define XV_HDMITX_MASK_BLUE_OFFSET        ((XV_HDMITX_MASK_BASE)+(7*4)) /**< MASK
                                 * Blue Component Register *  offset */
 
-// Video mask peripheral Control register masks
+/*  Video mask peripheral Control register masks */
 #define XV_HDMITX_MASK_CTRL_RUN_MASK     (1<<0)  /**< MASK Control Run mask */
 #define XV_HDMITX_MASK_CTRL_NOISE_MASK   (1<<2)  /**< MASK Control Noise */
 
-// Peripheral ID and General shift values.
+/*  Peripheral ID and General shift values. */
 #define XV_HDMITX_SHIFT_16  16  /**< 16 shift value */
 #define XV_HDMITX_MASK_16   0xFFFF  /**< 16 bit mask value */
 #define XV_HDMITX_PIO_ID    0x2200  /**< TX's PIO ID */
@@ -321,7 +322,7 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-// Register access macro definition
+/*  Register access macro definition */
 #define XV_HdmiTx_In32  Xil_In32    /**< Input Operations */
 #define XV_HdmiTx_Out32 Xil_Out32   /**< Output Operations */
 

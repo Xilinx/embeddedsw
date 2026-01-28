@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -186,7 +187,7 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Stream down
+        /*  Stream down */
         case (XV_HDMITX_HANDLER_STREAM_DOWN):
             InstancePtr->StreamDownCallback = (XV_HdmiTx_Callback)CallbackFunc;
             InstancePtr->StreamDownRef = CallbackRef;
@@ -194,7 +195,7 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
-        // Stream up
+        /*  Stream up */
         case (XV_HDMITX_HANDLER_STREAM_UP):
             InstancePtr->StreamUpCallback = (XV_HdmiTx_Callback)CallbackFunc;
             InstancePtr->StreamUpRef = CallbackRef;
@@ -247,7 +248,7 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* HPD event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK)) {
 
-        // Check if user callback has been registered
+        /*  Check if user callback has been registered */
         if (InstancePtr->IsToggleCallbackSet) {
             InstancePtr->ToggleCallback(InstancePtr->ToggleRef);
         }
@@ -256,13 +257,13 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* HPD event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_HPD_MASK)) {
 
-        // Check the HPD status
+        /*  Check the HPD status */
         if ((Data) & (XV_HDMITX_PIO_IN_HPD_MASK))
-            InstancePtr->Stream.IsConnected = (TRUE);   // Set connected flag
+            InstancePtr->Stream.IsConnected = (TRUE);   /*  Set connected flag */
         else
-            InstancePtr->Stream.IsConnected = (FALSE);  // Clear connected flag
+            InstancePtr->Stream.IsConnected = (FALSE);  /*  Clear connected flag */
 
-        // Check if user callback has been registered
+        /*  Check if user callback has been registered */
         if (InstancePtr->IsConnectCallbackSet) {
             InstancePtr->ConnectCallback(InstancePtr->ConnectRef);
         }
@@ -271,7 +272,7 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* Bridge Unlocked event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK)) {
 
-        // Check if user callback has been registered
+        /*  Check if user callback has been registered */
         if (InstancePtr->IsBrdgUnlockedCallbackSet) {
             InstancePtr->BrdgUnlockedCallback(InstancePtr->BrdgUnlockedRef);
         }
@@ -280,7 +281,7 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* Bridge Overflow event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK)) {
 
-        // Check if user callback has been registered
+        /*  Check if user callback has been registered */
         if (InstancePtr->IsBrdgOverflowCallbackSet) {
             InstancePtr->BrdgOverflowCallback(InstancePtr->BrdgOverflowRef);
         }
@@ -289,7 +290,7 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* Bridge Underflow event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK)) {
 
-        // Check if user callback has been registered
+        /*  Check if user callback has been registered */
         if (InstancePtr->IsBrdgUnderflowCallbackSet) {
             InstancePtr->BrdgUnderflowCallback(InstancePtr->BrdgUnderflowRef);
         }
@@ -298,7 +299,7 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* Vsync event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_VS_MASK)) {
 
-        // Check if user callback has been registered
+        /*  Check if user callback has been registered */
         if (InstancePtr->IsVsCallbackSet) {
             InstancePtr->VsCallback(InstancePtr->VsRef);
         }
@@ -307,9 +308,9 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* Link ready event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_LNK_RDY_MASK)) {
 
-        // Check the link status
+        /*  Check the link status */
         if ((Data) & (XV_HDMITX_PIO_IN_LNK_RDY_MASK)) {
-            // Set stream status to up
+            /*  Set stream status to up */
             InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_UP;
 
             /* Enable the AUX peripheral */
@@ -318,18 +319,16 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
             /* Enable the AUX peripheral interrupt */
             XV_HdmiTx_AuxIntrEnable(InstancePtr);
 
-            /* Enable audio */
-            //XV_HdmiTx_AudioEnable(InstancePtr);
 
-            // Check if user callback has been registered
+            /*  Check if user callback has been registered */
             if (InstancePtr->IsStreamUpCallbackSet) {
                 InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
             }
         }
 
-        // Link down
+        /*  Link down */
         else {
-            // Set stream status to down
+            /*  Set stream status to down */
             InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_DOWN;
 
             /* Disable Audio */
@@ -338,7 +337,7 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
             /* Disable AUX */
             XV_HdmiTx_AuxDisable(InstancePtr);
 
-            // Check if user callback has been registered
+            /*  Check if user callback has been registered */
             if (InstancePtr->IsStreamDownCallbackSet) {
                 InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
             }
@@ -369,5 +368,5 @@ static void HdmiTx_DdcIntrHandler(XV_HdmiTx *InstancePtr)
     /* Read DDC Status register */
     Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                             (XV_HDMITX_DDC_STA_OFFSET));
-    Data = Data; //squash unused variable compiler warning
+    Data = Data; /* squash unused variable compiler warning */
 }

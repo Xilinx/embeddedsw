@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -141,11 +142,11 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     /* Disable scrambler override function */
     InstancePtr->Stream.OverrideScrambler = (FALSE);
 
-    // Set stream status
+    /*  Set stream status */
     InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_DOWN;
-    // The stream is down
+    /*  The stream is down */
 
-    // Clear connected flag
+    /*  Clear connected flag */
     InstancePtr->Stream.IsConnected = (FALSE);
 
     /* Reset all peripherals */
@@ -215,14 +216,6 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
 
     /* Set HDMI mode */
     XV_HdmiTx_SetHdmiMode(InstancePtr);
-
-    /* Enable the AUX peripheral */
-    /* The aux peripheral is enabled at stream up */
-    //XV_HdmiTx_AuxEnable(InstancePtr);
-
-    /* Enable audio */
-    /* The audio peripheral is enabled at stream up */
-    //XV_HdmiTx_AudioEnable(InstancePtr);
 
     /* Reset the hardware and set the flag to indicate the driver is ready */
     InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
@@ -414,22 +407,22 @@ u32 XV_HdmiTx_GetTmdsClk (XV_HdmiTx *InstancePtr,
 
         switch (Bpc) {
 
-            // 10-bits
+            /*  10-bits */
             case XVIDC_BPC_10 :
                 TmdsClock = TmdsClock * 5 / 4;
                 break;
 
-            // 12-bits
+            /*  12-bits */
             case XVIDC_BPC_12 :
                 TmdsClock = TmdsClock * 3 / 2;
                 break;
 
-            // 16-bits
+            /*  16-bits */
             case XVIDC_BPC_16 :
                 TmdsClock = TmdsClock * 2;
                 break;
 
-            // 8-bits
+            /*  8-bits */
             default:
                 TmdsClock = TmdsClock;
                 break;
@@ -461,55 +454,55 @@ int XV_HdmiTx_Scrambler(XV_HdmiTx *InstancePtr) {
     /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Check if the sink is HDMI 2.0
-    // Check if the TMDS Clock is higher than 340MHz
-    // Check scrambler flag
+    /*  Check if the sink is HDMI 2.0 */
+    /*  Check if the TMDS Clock is higher than 340MHz */
+    /*  Check scrambler flag */
 	if (InstancePtr->Stream.IsHdmi20 &&
 			((InstancePtr->Stream.TMDSClock > 340000000 &&
 					InstancePtr->Stream.OverrideScrambler != (TRUE))
 					|| InstancePtr->Stream.IsScrambled)) {
 		XV_HdmiTx_SetScrambler(InstancePtr, (TRUE));
 	}
-	// Clear
+	/*  Clear */
 	else {
 		XV_HdmiTx_SetScrambler(InstancePtr, (FALSE));
 	}
 
-    // Update TMDS configuration
-    // Only when it is a HDMI 2.0 sink device
+    /*  Update TMDS configuration */
+    /*  Only when it is a HDMI 2.0 sink device */
     if (InstancePtr->Stream.IsHdmi20) {
 
-        DdcBuf[0] = 0x20;   // Offset scrambler status
+        DdcBuf[0] = 0x20;   /*  Offset scrambler status */
         Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1,
         (u8*)&DdcBuf, (FALSE));
 
-        // Check if write was successful
+        /*  Check if write was successful */
         if (Status == (XST_SUCCESS)) {
 
-            // Read TMDS configuration
+            /*  Read TMDS configuration */
             Status = XV_HdmiTx_DdcRead(InstancePtr, 0x54, 1,
             (u8*)&DdcBuf, (TRUE));
 
-            // The result is in ddc_buf[0]
-            // Clear scrambling enable bit
+            /*  The result is in ddc_buf[0] */
+            /*  Clear scrambling enable bit */
             DdcBuf[0] &= 0xfe;
 
-            // Set scrambler bit if scrambler is enabled
+            /*  Set scrambler bit if scrambler is enabled */
             if (InstancePtr->Stream.IsScrambled)
                 DdcBuf[0] |= 0x01;
 
-            // Copy buf[0] to buf[1]
+            /*  Copy buf[0] to buf[1] */
             DdcBuf[1] = DdcBuf[0];
 
-            // Offset
-            DdcBuf[0] = 0x20;   // Offset scrambler status
+            /*  Offset */
+            DdcBuf[0] = 0x20;   /*  Offset scrambler status */
 
-            // Write back TMDS configuration
+            /*  Write back TMDS configuration */
             Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 2,
             (u8*)&DdcBuf, (TRUE));
         }
 
-        // Write failed
+        /*  Write failed */
         else {
             return XST_FAILURE;
         }
@@ -539,22 +532,22 @@ int XV_HdmiTx_ClockRatio(XV_HdmiTx *InstancePtr) {
     /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Update TMDS configuration
-    // Only when it is a HDMI 2.0 sink device
+    /*  Update TMDS configuration */
+    /*  Only when it is a HDMI 2.0 sink device */
     if (InstancePtr->Stream.IsHdmi20) {
 
-        DdcBuf[0] = 0x20;   // Offset scrambler status
+        DdcBuf[0] = 0x20;   /*  Offset scrambler status */
         Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (FALSE));
 
-        // Check if write was successful
+        /*  Check if write was successful */
         if (Status == (XST_SUCCESS)) {
 
-            // Read TMDS configuration
+            /*  Read TMDS configuration */
             Status = XV_HdmiTx_DdcRead(InstancePtr, 0x54, 1,
                 (u8*)&DdcBuf, (TRUE));
 
-            // The result is in ddc_buf[0]
-            // Clear TMDS clock ration bit (1)
+            /*  The result is in ddc_buf[0] */
+            /*  Clear TMDS clock ration bit (1) */
             DdcBuf[0] &= 0xfd;
 
             /* Set the TMDS clock ratio bit if the bandwidth is
@@ -563,13 +556,13 @@ int XV_HdmiTx_ClockRatio(XV_HdmiTx *InstancePtr) {
                 DdcBuf[0] |= 0x02;
             }
 
-            // Copy buf[0] to buf[1]
+            /*  Copy buf[0] to buf[1] */
             DdcBuf[1] = DdcBuf[0];
 
-            // Offset
-            DdcBuf[0] = 0x20;   // Offset scrambler status
+            /*  Offset */
+            DdcBuf[0] = 0x20;   /*  Offset scrambler status */
 
-            // Write back TMDS configuration
+            /*  Write back TMDS configuration */
             Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 2,
                 (u8*)&DdcBuf, (TRUE));
         }
@@ -706,6 +699,7 @@ void XV_HdmiTx_ShowSCDC(XV_HdmiTx *InstancePtr)
 *       - 1 = XVIDC_PPC_1
 *       - 2 = XVIDC_PPC_2
 *       - 4 = XVIDC_PPC_4
+* @param    Info3D is a pointer to 3D info structure or NULL for 2D.
 *
 * @return   TmdsClock, reference clock calculated based on the input
 *       parameters.
@@ -749,13 +743,13 @@ XVidC_3DInfo *Info3D)
     InstancePtr->Stream.Vic = XV_HdmiTx_LookupVic(
         InstancePtr->Stream.Video.VmId);
 
-    // Set TX pixel rate
+    /*  Set TX pixel rate */
     XV_HdmiTx_SetPixelRate(InstancePtr);
 
-    // Set TX color space
+    /*  Set TX color space */
     XV_HdmiTx_SetColorFormat(InstancePtr);
 
-    // Set TX color depth
+    /*  Set TX color depth */
     XV_HdmiTx_SetColorDepth(InstancePtr);
 
     /* Calculate reference clock. First calculate the pixel clock */
@@ -1081,15 +1075,15 @@ void XV_HdmiTx_SetSampleRate(XV_HdmiTx *InstancePtr, u8 SampleRate)
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(SampleRate < 0xFF);
 
-    // Store sample rate in structure
+    /*  Store sample rate in structure */
     InstancePtr->Stream.SampleRate = SampleRate;
 
-    // Mask PIO Out Mask register
+    /*  Mask PIO Out Mask register */
     XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_MSK_OFFSET),
         (XV_HDMITX_PIO_OUT_SAMPLE_RATE_MASK));
 
-    // Check for sample rate
+    /*  Check for sample rate */
     switch (SampleRate) {
         case 2:
             RegValue = 2;
@@ -1108,7 +1102,7 @@ void XV_HdmiTx_SetSampleRate(XV_HdmiTx *InstancePtr, u8 SampleRate)
             break;
     }
 
-    // Write sample rate into PIO Out register
+    /*  Write sample rate into PIO Out register */
     XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_OFFSET),
         (RegValue << (XV_HDMITX_PIO_OUT_SAMPLE_RATE_SHIFT)));
@@ -1186,24 +1180,24 @@ void XV_HdmiTx_SetColorDepth(XV_HdmiTx *InstancePtr)
     XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
         (XV_HDMITX_PIO_OUT_MSK_OFFSET), (XV_HDMITX_PIO_OUT_COLOR_DEPTH_MASK));
 
-    // Color depth
+    /*  Color depth */
     switch (InstancePtr->Stream.Video.ColorDepth) {
-        // 10 bits
+        /*  10 bits */
         case (XVIDC_BPC_10):
             RegValue = 1;
             break;
 
-        // 12 bits
+        /*  12 bits */
         case (XVIDC_BPC_12):
             RegValue = 2;
             break;
 
-        // 16 bits
+        /*  16 bits */
         case (XVIDC_BPC_16):
             RegValue = 3;
             break;
 
-        // 8 bits
+        /*  8 bits */
         default:
             RegValue = 0;
             break;
@@ -1252,6 +1246,8 @@ void XV_HdmiTx_DdcInit(XV_HdmiTx *InstancePtr, u32 Frequency)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
+* @return   Acknowledge flag value from DDC status register.
+*
 * @note     None.
 *
 ******************************************************************************/
@@ -1259,7 +1255,7 @@ int XV_HdmiTx_DdcGetAck(XV_HdmiTx *InstancePtr)
 {
     u32 Status;
 
-    // Read status register
+    /*  Read status register */
     Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
         (XV_HDMITX_DDC_STA_OFFSET));
     return (Status & XV_HDMITX_DDC_STA_ACK_MASK);
@@ -1272,6 +1268,10 @@ int XV_HdmiTx_DdcGetAck(XV_HdmiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
+* @return
+*       - XST_SUCCESS if done flag is set.
+*       - XST_FAILURE if timeout occurred.
+*
 * @note     None.
 *
 ******************************************************************************/
@@ -1283,32 +1283,32 @@ int XV_HdmiTx_DdcWaitForDone(XV_HdmiTx *InstancePtr)
 
     Exit = (FALSE);
 
-    // Default status, assume failure
+    /*  Default status, assume failure */
     Status = XST_FAILURE;
 
     do {
-        // Read control register
+        /*  Read control register */
         Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
             (XV_HDMITX_DDC_CTRL_OFFSET));
 
         if (Data & (XV_HDMITX_DDC_CTRL_RUN_MASK)) {
 
-            // Read status register
+            /*  Read status register */
             Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                 (XV_HDMITX_DDC_STA_OFFSET));
 
-            // Done
+            /*  Done */
             if (Data & (XV_HDMITX_DDC_STA_DONE_MASK)) {
-                // Clear done flag
+                /*  Clear done flag */
                 XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
                     (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_DONE_MASK));
                 Exit = (TRUE);
                 Status = XST_SUCCESS;
             }
 
-            // Time out
+            /*  Time out */
             else if (Data & (XV_HDMITX_DDC_STA_TIMEOUT_MASK)) {
-                // Clear time out flag
+                /*  Clear time out flag */
                 XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
                     (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_TIMEOUT_MASK));
                 Exit = (TRUE);
@@ -1331,6 +1331,9 @@ int XV_HdmiTx_DdcWaitForDone(XV_HdmiTx *InstancePtr)
 * This function writes data into the command fifo.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Cmd is the command value to write to the DDC command FIFO.
+*
+* @return   None.
 *
 * @note     None.
 *
@@ -1343,19 +1346,19 @@ void XV_HdmiTx_DdcWriteCommand(XV_HdmiTx *InstancePtr, u32 Cmd)
     Exit = (FALSE);
 
     do {
-        // Read control register
+        /*  Read control register */
         Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
             (XV_HDMITX_DDC_CTRL_OFFSET));
 
         if (Status & (XV_HDMITX_DDC_CTRL_RUN_MASK)) {
-            // Read status register
+            /*  Read status register */
             Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                 (XV_HDMITX_DDC_STA_OFFSET));
 
-            // Mask command fifo full flag
+            /*  Mask command fifo full flag */
             Status &= XV_HDMITX_DDC_STA_CMD_FULL;
 
-            // Check if the command fifo isn't full
+            /*  Check if the command fifo isn't full */
             if (!Status) {
                 XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
                     (XV_HDMITX_DDC_CMD_OFFSET), (Cmd));
@@ -1376,6 +1379,8 @@ void XV_HdmiTx_DdcWriteCommand(XV_HdmiTx *InstancePtr, u32 Cmd)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
+* @return   Data byte read from the DDC data FIFO.
+*
 * @note     None.
 *
 ******************************************************************************/
@@ -1388,19 +1393,19 @@ u8 XV_HdmiTx_DdcReadData(XV_HdmiTx *InstancePtr)
     Exit = (FALSE);
 
     do {
-        // Read control register
+        /*  Read control register */
         Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
             (XV_HDMITX_DDC_CTRL_OFFSET));
 
         if (Data & (XV_HDMITX_DDC_CTRL_RUN_MASK)) {
-            // Read status register
+            /*  Read status register */
             Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                 (XV_HDMITX_DDC_STA_OFFSET));
 
-            // Mask data fifo empty flag
+            /*  Mask data fifo empty flag */
             Status &= XV_HDMITX_DDC_STA_DAT_EMPTY;
 
-            // Check if the data fifo has data
+            /*  Check if the data fifo has data */
             if (!Status) {
                 Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                     (XV_HDMITX_DDC_DAT_OFFSET));
@@ -1455,91 +1460,91 @@ int XV_HdmiTx_DdcWrite(XV_HdmiTx *InstancePtr, u8 Slave,
      */
     XV_HdmiTx_PioIntrDisable(InstancePtr);
 
-    // Status default, assume failure
+    /*  Status default, assume failure */
     Status = XST_FAILURE;
 
-    // Enable DDC peripheral
+    /*  Enable DDC peripheral */
     XV_HdmiTx_DdcEnable(InstancePtr);
 
-    // Disable interrupt in DDC peripheral
-    // Polling is used
+    /*  Disable interrupt in DDC peripheral */
+    /*  Polling is used */
     XV_HdmiTx_DdcIntrDisable(InstancePtr);
 
-    // Write start token
+    /*  Write start token */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, (XV_HDMITX_DDC_CMD_STR_TOKEN));
 
-    // First check if the slave can be addressed
-    // Write write token
+    /*  First check if the slave can be addressed */
+    /*  Write write token */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, (XV_HDMITX_DDC_CMD_WR_TOKEN));
 
-    // Write length (high)
+    /*  Write length (high) */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, 0);
 
-    // Write length (low)
+    /*  Write length (low) */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, 1);
 
-    // Slave address
+    /*  Slave address */
     Data = Slave << 1;
 
-    // Set write bit (low)
+    /*  Set write bit (low) */
     Data &= 0xFE;
 
-    // Write slave address
+    /*  Write slave address */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, (Data));
 
-    // Wait for done flag
+    /*  Wait for done flag */
     if (XV_HdmiTx_DdcWaitForDone(InstancePtr) == XST_SUCCESS) {
 
-        // Check acknowledge
+        /*  Check acknowledge */
         if (XV_HdmiTx_DdcGetAck(InstancePtr)) {
 
-            // Now write the data
-            // Write write token
+            /*  Now write the data */
+            /*  Write write token */
             XV_HdmiTx_DdcWriteCommand(InstancePtr,
                 (XV_HDMITX_DDC_CMD_WR_TOKEN));
 
-            // Write length (high)
+            /*  Write length (high) */
             Data = ((Length >> 8) & 0xFF);
             XV_HdmiTx_DdcWriteCommand(InstancePtr, Data);
 
-            // Write length (low)
+            /*  Write length (low) */
             Data = (Length & 0xFF);
             XV_HdmiTx_DdcWriteCommand(InstancePtr, Data);
 
-            // Write Data
+            /*  Write Data */
             for (Index = 0; Index < Length; Index++) {
                 XV_HdmiTx_DdcWriteCommand(InstancePtr, *Buffer++);
             }
 
-            // Wait for done flag
+            /*  Wait for done flag */
             if (XV_HdmiTx_DdcWaitForDone(InstancePtr) == XST_SUCCESS) {
 
-                // Check acknowledge
-                // ACK
+                /*  Check acknowledge */
+                /*  ACK */
                 if (XV_HdmiTx_DdcGetAck(InstancePtr)) {
 
-                    // Stop condition
+                    /*  Stop condition */
                     if (Stop) {
-                        // Write stop token
+                        /*  Write stop token */
                         XV_HdmiTx_DdcWriteCommand(InstancePtr,
                             (XV_HDMITX_DDC_CMD_STP_TOKEN));
 
-                        // Wait for done flag
+                        /*  Wait for done flag */
                         XV_HdmiTx_DdcWaitForDone(InstancePtr);
 
                     }
 
-                // Update status flag
+                /*  Update status flag */
                 Status = XST_SUCCESS;
                 }
             }
         }
     }
 
-    // Disable DDC peripheral
+    /*  Disable DDC peripheral */
     XV_HdmiTx_DdcDisable(InstancePtr);
 
-    // Enable the interrupts which were disabled earlier
+    /*  Enable the interrupts which were disabled earlier */
     XV_HdmiTx_PioIntrEnable(InstancePtr);
 
     return Status;
@@ -1584,85 +1589,85 @@ int XV_HdmiTx_DdcRead(XV_HdmiTx *InstancePtr, u8 Slave, u16 Length,
      */
     XV_HdmiTx_PioIntrDisable(InstancePtr);
 
-    // Status default, assume failure
+    /*  Status default, assume failure */
     Status = XST_FAILURE;
 
-    // Enable DDC peripheral
+    /*  Enable DDC peripheral */
     XV_HdmiTx_DdcEnable(InstancePtr);
 
-    // Disable interrupt in DDC peripheral
-    // Polling is used
+    /*  Disable interrupt in DDC peripheral */
+    /*  Polling is used */
     XV_HdmiTx_DdcIntrDisable(InstancePtr);
 
-    // Write start token
+    /*  Write start token */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, (XV_HDMITX_DDC_CMD_STR_TOKEN));
 
-    // First check if the slave can be addressed
-    // Write write token
+    /*  First check if the slave can be addressed */
+    /*  Write write token */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, (XV_HDMITX_DDC_CMD_WR_TOKEN));
 
-    // Write length (high)
+    /*  Write length (high) */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, 0);
 
-    // Write length (low)
+    /*  Write length (low) */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, 1);
 
-    // Slave address
+    /*  Slave address */
     Data = Slave << 1;
 
-    // Set read bit (high)
+    /*  Set read bit (high) */
     Data |= 0x01;
 
-    // Write slave address
+    /*  Write slave address */
     XV_HdmiTx_DdcWriteCommand(InstancePtr, (Data));
 
-    // Wait for done flag
+    /*  Wait for done flag */
     if (XV_HdmiTx_DdcWaitForDone(InstancePtr) == XST_SUCCESS) {
 
-        // Check acknowledge
+        /*  Check acknowledge */
         if (XV_HdmiTx_DdcGetAck(InstancePtr)) {
 
-            // Write read token
+            /*  Write read token */
             XV_HdmiTx_DdcWriteCommand(InstancePtr,
                 (XV_HDMITX_DDC_CMD_RD_TOKEN));
 
-            // Write read length (high)
+            /*  Write read length (high) */
             Data = (Length >> 8) & 0xFF;
             XV_HdmiTx_DdcWriteCommand(InstancePtr, (Data));
 
-            // Write read length (low)
+            /*  Write read length (low) */
             Data = Length & 0xFF;
             XV_HdmiTx_DdcWriteCommand(InstancePtr, (Data));
 
-            // Read Data
+            /*  Read Data */
             for (Index = 0; Index < Length; Index++) {
                 *Buffer++ = XV_HdmiTx_DdcReadData(InstancePtr);
             }
 
-            // Wait for done flag
+            /*  Wait for done flag */
             if (XV_HdmiTx_DdcWaitForDone(InstancePtr) == XST_SUCCESS) {
 
-                // Stop condition
+                /*  Stop condition */
                 if (Stop) {
-                    // Write stop token
+                    /*  Write stop token */
                     XV_HdmiTx_DdcWriteCommand(InstancePtr,
                         (XV_HDMITX_DDC_CMD_STP_TOKEN));
 
-                    // Wait for done flag
+                    /*  Wait for done flag */
                     XV_HdmiTx_DdcWaitForDone(InstancePtr);
 
                 }
 
-                // Update status
+                /*  Update status */
                 Status = XST_SUCCESS;
             }
         }
     }
 
-    // Disable DDC peripheral
+    /*  Disable DDC peripheral */
     XV_HdmiTx_DdcDisable(InstancePtr);
 
-    // Enable the interrupts which were disabled earlier
+    /*  Enable the interrupts which were disabled earlier */
     XV_HdmiTx_PioIntrEnable(InstancePtr);
 
     return Status;
@@ -1691,17 +1696,17 @@ u32 XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr)
     /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    // Default
+    /*  Default */
 	Status = (XST_FAILURE);
 
     /* Read the AUX status register */
     RegValue = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
         (XV_HDMITX_AUX_STA_OFFSET));
 
-    // First check if the AUX packet is ready
+    /*  First check if the AUX packet is ready */
     if (RegValue & (XV_HDMITX_AUX_STA_PKT_RDY_MASK)) {
 
-	// Check if the fifo is full
+	/*  Check if the fifo is full */
 		if (RegValue & (XV_HDMITX_AUX_STA_FIFO_FUL_MASK)) {
 			RegValue = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
 			        (XV_HDMITX_AUX_STA_OFFSET));
@@ -1803,10 +1808,11 @@ int XV_HdmiTx_IsStreamConnected(XV_HdmiTx *InstancePtr)
 * This function sets the active audio channels
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Value is the number of active audio channels (2, 4, 6, 8, 12, 24, 32).
 *
 * @return
 *       - XST_SUCCESS if active channels were set.
-*       - XST_FAILURE if no active channles were set.
+*       - XST_FAILURE if no active channels were set.
 *
 * @note     None.
 *
@@ -1823,49 +1829,49 @@ int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value)
 
     AudioStatus = AudioCtrl & XV_HDMITX_AUD_CTRL_RUN_MASK;
 
-    // Stop peripheral
+    /*  Stop peripheral */
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK));
     AudioCtrl &= ~((u32)XV_HDMITX_AUD_CTRL_RUN_MASK);
 
     switch (Value) {
-	// 32 Channels
+	/*  32 Channels */
 	case 32:
             Data = 6;
             Status = (XST_SUCCESS);
             break;
 
-	// 24 Channels
+	/*  24 Channels */
 	case 24:
             Data = 5;
             Status = (XST_SUCCESS);
             break;
 
-	// 12 Channels
+	/*  12 Channels */
 	case 12:
             Data = 4;
             Status = (XST_SUCCESS);
             break;
 
-        // 8 Channels
+        /*  8 Channels */
         case 8:
             Data = 3;
             Status = (XST_SUCCESS);
             break;
 
-        // 6 Channels
+        /*  6 Channels */
         case 6:
             Data = 2;
             Status = (XST_SUCCESS);
             break;
 
-        // 4 Channels
+        /*  4 Channels */
         case 4:
             Data = 1;
             Status = (XST_SUCCESS);
             break;
 
-        // 2 Channels
+        /*  2 Channels */
         case 2:
             Data = 0;
             Status = (XST_SUCCESS);
@@ -1884,14 +1890,14 @@ int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value)
 			XV_HDMITX_AUD_CTRL_CH_SHIFT));
         AudioCtrl |= Data;
 
-        // Set active channels
+        /*  Set active channels */
         XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
             (XV_HDMITX_AUD_CTRL_OFFSET), (AudioCtrl));
 
-        // Store active channel in structure
+        /*  Store active channel in structure */
         (InstancePtr)->Stream.Audio.Channels = Value;
 
-        // Start peripheral
+        /*  Start peripheral */
         if (AudioStatus) {
 			XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 					(XV_HDMITX_AUD_CTRL_SET_OFFSET),
@@ -1908,10 +1914,11 @@ int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value)
 * This function sets the active audio format
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Value is the audio format type to set.
 *
 * @return
-*       - XST_SUCCESS if active channels were set.
-*       - XST_FAILURE if no active channles were set.
+*       - XST_SUCCESS if audio format was set.
+*       - XST_FAILURE if audio format was not set.
 *
 * @note     None.
 *
@@ -1928,7 +1935,7 @@ int XV_HdmiTx_SetAudioFormat(XV_HdmiTx *InstancePtr, XV_HdmiTx_AudioFormatType V
 
     Data = Value;
 
-    // Stop peripheral
+    /*  Stop peripheral */
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
         (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK));
 
@@ -1945,7 +1952,7 @@ int XV_HdmiTx_SetAudioFormat(XV_HdmiTx *InstancePtr, XV_HdmiTx_AudioFormatType V
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
                 (XV_HDMITX_AUD_CTRL_OFFSET), (AudioCtrl));
 
-    // Start peripheral
+    /*  Start peripheral */
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 		    (XV_HDMITX_AUD_CTRL_SET_OFFSET),
 		    (XV_HDMITX_AUD_CTRL_RUN_MASK));

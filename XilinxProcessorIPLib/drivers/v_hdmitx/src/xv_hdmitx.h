@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -164,32 +164,34 @@ extern "C" {
 * interrupt requests from peripheral.
 */
 typedef enum {
-	XV_HDMITX_HANDLER_CONNECT = 1,  // Handler for connect
-	XV_HDMITX_HANDLER_TOGGLE,       // Handler for toggle
-	XV_HDMITX_HANDLER_BRDGUNLOCK,   // Handler for bridge unlocked
-	XV_HDMITX_HANDLER_BRDGOVERFLOW, // Handler for bridge overflow
-	XV_HDMITX_HANDLER_BRDGUNDERFLOW,// Handler for bridge underflow
-	XV_HDMITX_HANDLER_VS,           // Handler for vsync
-	XV_HDMITX_HANDLER_STREAM_DOWN,  // Handler for stream down
-	XV_HDMITX_HANDLER_STREAM_UP     // Handler for stream up
+	XV_HDMITX_HANDLER_CONNECT = 1,  /*  Handler for connect */
+	XV_HDMITX_HANDLER_TOGGLE,       /*  Handler for toggle */
+	XV_HDMITX_HANDLER_BRDGUNLOCK,   /*  Handler for bridge unlocked */
+	XV_HDMITX_HANDLER_BRDGOVERFLOW, /*  Handler for bridge overflow */
+	XV_HDMITX_HANDLER_BRDGUNDERFLOW,/*  Handler for bridge underflow */
+	XV_HDMITX_HANDLER_VS,           /*  Handler for vsync */
+	XV_HDMITX_HANDLER_STREAM_DOWN,  /*  Handler for stream down */
+	XV_HDMITX_HANDLER_STREAM_UP     /*  Handler for stream up */
 } XV_HdmiTx_HandlerType;
-/*@}*/
+/** @} */
 
-/** @name HDMI TX stream status
-* @{
+/**
+* @enum XV_HdmiTx_State
+* This typedef defines the HDMI TX stream status states.
 */
 typedef enum {
-    XV_HDMITX_STATE_STREAM_DOWN,    // Stream down
-    XV_HDMITX_STATE_STREAM_UP       // Stream up
+    XV_HDMITX_STATE_STREAM_DOWN,    /**< Stream down */
+    XV_HDMITX_STATE_STREAM_UP       /**< Stream up */
 } XV_HdmiTx_State;
 
-/** @name HDMI TX audio format
-* @{
+/**
+* @enum XV_HdmiTx_AudioFormatType
+* This typedef defines the HDMI TX audio format types.
 */
 typedef enum {
-    XV_HDMITX_AUDFMT_LPCM = 0,    // L-PCM
-    XV_HDMITX_AUDFMT_HBR,         // HBR
-    XV_HDMITX_AUDFMT_3D           // 3D Audio
+    XV_HDMITX_AUDFMT_LPCM = 0,    /**< L-PCM audio format */
+    XV_HDMITX_AUDFMT_HBR,         /**< HBR audio format */
+    XV_HDMITX_AUDFMT_3D           /**< 3D Audio format */
 } XV_HdmiTx_AudioFormatType;
 
 /**
@@ -211,7 +213,7 @@ typedef struct {
 * This typedef contains audio stream specific data structure
 */
 typedef struct {
-    u8 Channels;            //< Video Identification code */
+    u8 Channels;            /**< Video Identification code */
 } XV_HdmiTx_AudioStream;
 
 /**
@@ -456,7 +458,7 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XHdmi_Tx core instance.
 * @param	SetClr specifies TRUE/FALSE value to either enable or disable the
-*		Pixel Repitition Support.
+*		Pixel Repetition Support.
 *
 * @return	None.
 *
@@ -1125,8 +1127,6 @@ void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr);
 char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item);
 char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item);
 char* XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_3D_Sampling_Position Item);
-
-/************************** Variable Declarations ****************************/
 
 /************************** Variable Declarations ****************************/
 
