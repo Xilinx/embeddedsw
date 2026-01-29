@@ -24,6 +24,9 @@
 #include "xparameters.h"
 #include "xscugic.h"
 
+#ifdef FREERTOS_BSP
+#include "FreeRTOS.h"
+#endif
 /* System Device Tree (SDT) flow does not have the files generated. */
 #if (defined(__aarch64__) || defined(ARMA53_32)) && !defined(SDT)
 
@@ -58,6 +61,13 @@ static struct metal_irq irqs[MAX_IRQS]; /**< Linux IRQs array */
 static void metal_xlnx_irq_set_enable(struct metal_irq_controller *irq_cntr,
 				      int irq, unsigned int state);
 
+/*
+ * Forward declaration of functions used
+ * in metal_xlnx_irq_set_enable.
+ */
+void sys_irq_enable(unsigned int vector);
+void sys_irq_disable(unsigned int vector);
+
 /**< Xilinx common platform IRQ controller */
 METAL_IRQ_CONTROLLER_DECLARE(xlnx_irq_cntr,
 			     0, MAX_IRQS,
@@ -74,22 +84,28 @@ static void metal_xlnx_irq_set_enable(struct metal_irq_controller *irq_cntr,
 			  __func__, irq);
 		return;
 	} else if (state == METAL_IRQ_ENABLE) {
-		XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,
-				   (unsigned int)irq);
+		sys_irq_enable((unsigned int)irq);
 	} else {
-		XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,
-				    (unsigned int)irq);
+		sys_irq_disable((unsigned int)irq);
 	}
 }
 
 void sys_irq_enable(unsigned int vector)
 {
+#ifdef FREERTOS_BSP
+	vPortEnableInterrupt(vector);
+#else
 	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+#endif
 }
 
 void sys_irq_disable(unsigned int vector)
 {
+#ifdef FREERTOS_BSP
+	vPortDisableInterrupt(vector);
+#else
 	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+#endif
 }
 
 void sys_irq_restore_enable(unsigned int flags)
