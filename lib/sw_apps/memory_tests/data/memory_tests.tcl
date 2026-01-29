@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (c) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -264,7 +264,7 @@ proc get_program_code_memory { proctype mem_ranges } {
 	}
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of BRAM/OCM to place code sections";
+    error "This application requires at least [expr $required_mem_size/1024] KB of BRAM/OCM to place code sections";
 }
 
 proc get_program_data_memory { proctype mem_ranges } {
@@ -323,7 +323,7 @@ proc get_program_data_memory { proctype mem_ranges } {
 	}
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of BRAM/OCM to place data sections";
+    error "This application requires at least [expr $required_mem_size/1024] KB of BRAM/OCM to place data sections";
 }
 
 # for microblaze, we need 8k of memory.
@@ -400,7 +400,7 @@ proc generate_memory_config { fname } {
 	    # Determine the port num by matching the base addr of this
 	    # memory against the base addr of memories connected to all
 	    # the ports and then use this port num with C_MEMx_TYPE to
-	    # detemine the memory type.
+	    # determine the memory type.
 	    set emc_port 0
 	    for {set i 0} {$i < 4} {incr i} {
 		set _base [common::get_property [format CONFIG.C_S_AXI_MEM%d_BASEADDR $i] [hsi::get_cells -hier [dict get $data mem]]]
