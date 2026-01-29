@@ -539,7 +539,9 @@ XV_HdmiTxSs1_Config *XV_HdmiTxSs1_LookupConfig(u32 DeviceId);
 XV_HdmiTxSs1_Config *XV_HdmiTxSs1_LookupConfig(UINTPTR BaseAddress);
 u32 XV_HdmiTxSs1_GetDrvIndex(UINTPTR BaseAddress);
 #endif
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTxSS1_SetHdmiFrlMode(XV_HdmiTxSs1 *InstancePtr);
+#endif
 void XV_HdmiTxSS1_SetHdmiTmdsMode(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSS1_SetDviMode(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSS1_HdmiTx1IntrHandler(XV_HdmiTxSs1 *InstancePtr);
@@ -722,13 +724,22 @@ void XV_HdmiTxSS1_SetBackgroundColor(XV_HdmiTxSs1 *InstancePtr,
 					XVMaskColorId  ColorId);
 u8 XV_HdmiTxSS1_IsMasked(XV_HdmiTxSs1 *InstancePtr);
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTxSs1_SetFfeLevels(XV_HdmiTxSs1 *InstancePtr, u8 FfeLevel);
 u8 XV_HdmiTxSs1_GetTxFfe(XV_HdmiTxSs1 *InstancePtr, u8 Lane);
+#endif
 #ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 u8 XV_HdmiTxSs1_GetFrlLineRate(XV_HdmiTxSs1 *InstancePtr);
 u8 XV_HdmiTxSs1_GetFrlRate(XV_HdmiTxSs1 *InstancePtr);
 u8 XV_HdmiTxSs1_GetFrlLanes(XV_HdmiTxSs1 *InstancePtr);
 #endif
+/**
+ * Start TMDS mode.
+ *
+ * @param InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ */
 int XV_HdmiTxSs1_StartTmdsMode(XV_HdmiTxSs1 *InstancePtr);
 #ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 int XV_HdmiTxSs1_StartFrlTraining(XV_HdmiTxSs1 *InstancePtr,
@@ -738,6 +749,13 @@ void XV_HdmiTxSs1_SetFrlMaxFrlRate(XV_HdmiTxSs1 *InstancePtr,
 int XV_HdmiTxSs1_FrlStreamStart(XV_HdmiTxSs1 *InstancePtr);
 int XV_HdmiTxSs1_FrlStreamStop(XV_HdmiTxSs1 *InstancePtr);
 #endif
+/**
+ * Start legacy HDMI TMDS mode.
+ *
+ * @param InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+ *
+ * @return XST_SUCCESS if TMDS mode is successfully started, XST_FAILURE otherwise.
+ */
 int XV_HdmiTxSs1_TmdsStart(XV_HdmiTxSs1 *InstancePtr);
 #ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTxSs1_SetFrlWrongLtp(XV_HdmiTxSs1 *InstancePtr);
@@ -753,6 +771,9 @@ u8 *XV_HdmiTxSs1_GetScdcEdRegisters(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSS1_SetHpdTolerance(XV_HdmiTxSs1 *InstancePtr,
 				 XV_HdmiTxSs1_HpdToleranceType Type,
 				 u16 ToleranceVal);
+
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif

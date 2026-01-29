@@ -1861,6 +1861,8 @@ int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 *
 * @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
 * @param   EdidCtrlParam is a pointer to the EDID control parameter structure.
+* @param   BufferPtr is a pointer to the buffer to store the EDID data.
+* @param   BufferSize is the size of the buffer in bytes.
 *
 * @return  XST_SUCCESS if EDID is read successfully, otherwise XST_FAILURE.
 *

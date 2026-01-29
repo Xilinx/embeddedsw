@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xv_hdmitxss1_coreinit.h
-* @addtogroup v_hdmitxss1 Overview
-* @{
-* @details
+* @ingroup v_hdmitxss1
 *
 * This header file contains the hdmi tx subsystem sub-cores
 * initialization routines and helper functions.
@@ -50,4 +48,3 @@ int XV_HdmiTxSs1_SubcoreInitHdcp22(XV_HdmiTxSs1 *HdmiTxSs1Ptr);
 #endif
 
 #endif
-/** @} */
