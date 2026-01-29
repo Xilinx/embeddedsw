@@ -1,18 +1,18 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file	xilsecure_sha_client_example.c
+* @file	xilsecure_versal_2ve_2vm_sha_client_example.c
 * @addtogroup xsecure_sha_example_apis XilSecure SHA API Example Usage
 * @{
 * This example illustrates the SHA3/2 hash calculation.
 * To build this application, xilmailbox library must be included in BSP and xilsecure
 * must be in client mode
-* This example is supported for Versal and Versal Net devices.
+* This example is supported for Versal_2Ve_2Vm devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs

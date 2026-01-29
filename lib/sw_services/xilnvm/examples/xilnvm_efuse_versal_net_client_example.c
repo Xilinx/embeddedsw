@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,7 +13,7 @@
  * This file illustrates Basic eFuse read/write using rows.
  * To build this application, xilmailbox library must be included in BSP and
  * xilnvm library must be in client mode
- * This example is supported for Versal Net devices.
+ * This example is supported for Versal Net and Versal_2Ve_2Vm devices.
  *
  * Procedure to link and compile the example for the default ddr less designs
  * ------------------------------------------------------------------------------------------------------------

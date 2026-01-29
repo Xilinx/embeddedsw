@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,7 @@
 * key.
 * To build this application, xilmailbox library must be included in BSP and
 * xilocp must be in client mode.
+* This example is supported for Versal Net devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs

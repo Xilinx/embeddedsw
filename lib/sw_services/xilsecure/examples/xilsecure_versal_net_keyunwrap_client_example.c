@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,6 +12,7 @@
 * This example illustrates on how to unwrap the wrapped key using IPI calls.
 * To build this application, xilmailbox library must be included in BSP and xilsecure
 * must be in client mode
+* This example is supported for Versal Net devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs
