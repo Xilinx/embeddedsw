@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -186,7 +186,7 @@ typedef enum {
 						     bit 0 Status_Update bit set by
 						     HDMI Source */
 } XV_HdmiRx1_HandlerType;
-/*@}*/
+/** @}*/
 
 /** @name HDMI RX stream status
 * @{
@@ -204,19 +204,19 @@ typedef enum {
 	XV_HDMIRX1_STATE_STREAM_RDY,		/**< Stream ready */
 	XV_HDMIRX1_STATE_STREAM_UP		/**< Stream up */
 } XV_HdmiRx1_State;
-/*@}*/
+/** @}*/
 
 /** @name HDMI RX sync status
 * @{
 */
 /**
-* These constants specifies the sycn lock status.
+* These constants specifies the sync lock status.
 */
 typedef enum {
 	XV_HDMIRX1_SYNCSTAT_SYNC_LOSS,		/**< Sync Loss */
 	XV_HDMIRX1_SYNCSTAT_SYNC_EST,		/**< Sync Lock */
 } XV_HdmiRx1_SyncStatus;
-/*@}*/
+/** @}*/
 
 /** @name HDMI RX audio format
 * @{
@@ -231,7 +231,7 @@ typedef enum {
 	XV_HDMIRX1_AUDFMT_HBR,      /* HBR*/
 	XV_HDMIRX1_AUDFMT_3D,	    /* 3D Audio */
 } XV_HdmiRx1_AudioFormatType;
-/*@}*/
+/** @}*/
 
 /** @name HDMI RX EDID RAM Size
 * @{
@@ -245,7 +245,7 @@ typedef enum {
 	XV_HDMIRX1_EDID_SIZE_1024B = 1024,
 	XV_HDMIRX1_EDID_SIZE_4096B = 4096
 } XV_HdmiRx1_EdidSize;
-/*@}*/
+/** @}*/
 
 
 /**************************** Type Definitions *******************************/
@@ -278,7 +278,7 @@ typedef struct {
 */
 typedef struct {
 	u8	Active;		/**< Active flag. This flag is set when
-				  *  an acitve audio stream was detected */
+				  *  an active audio stream was detected */
 	u8	Channels;	/**< Channels */
 } XV_HdmiRx1_AudioStream;
 
@@ -337,6 +337,8 @@ typedef struct {
 	u16 pkt_length; /* Packet length */
 	u8 gof;		/* Graphics Overlay Flag */
 } XV_HdmiRx1_DynHDR_Info;
+
+/** @}*/
 
 /**
 * Callback type for interrupt.
@@ -2159,6 +2161,19 @@ void XV_HdmiRx1_FrlScdcInit(XV_HdmiRx1 *InstancePtr);
 /* Log specific functions */
 void XV_HdmiRx1_Info(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr);
+
+/*****************************************************************************/
+/**
+*
+* This function prints out HDMI RX register
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
 void XV_HdmiRx1_RegisterDebug(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_DdcRegDump(XV_HdmiRx1 *InstancePtr);
 

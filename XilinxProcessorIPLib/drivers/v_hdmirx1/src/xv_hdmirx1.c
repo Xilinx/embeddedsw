@@ -2798,7 +2798,6 @@ u32 XV_HdmiRx1_DSC_IsEnableStream(XV_HdmiRx1 *InstancePtr)
 	return ((tmp & XV_HDMIRX1_PIO_IN_DSC_EN_STRM_MASK) ? 1 : 0);
 }
 
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -2853,4 +2852,3 @@ int XV_HdmiRx1_DSC_SetDscFrlMax(XV_HdmiRx1 *InstancePtr)
 					   XV_HDMIRX1_SCDCFIELD_DSC_FRL_MAX,
 					   1);
 }
-#endif
