@@ -9,7 +9,7 @@ maintainers:
 
 type: driver
 
-device_type: ospi
+device_type: spi
 
 properties:
   compatible:
