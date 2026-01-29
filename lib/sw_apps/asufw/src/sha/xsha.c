@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -901,17 +901,9 @@ static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen)
 		Buf[0U] = XSHA_SHA2_START_NIST_PADDING_MASK;
 		MsgLenInBits = (InstancePtr->ShaLen << XSHA_BYTES_TO_BITS_CONVERSION_SHIFT);
 
-		if (InstancePtr->ShaMode == XASU_SHA_MODE_256) {
-			for (Index = 1U; Index <= XSHA_SHA2_256_LENGTH_FIELD_SIZE; Index++) {
-				Buf[PadLen - Index] = (u8)((MsgLenInBits >>
-						((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);
-			}
-		}
-		else {
-			for (Index = 1U; Index <= XASUFW_U64_IN_BYTES; Index++) {
-				Buf[PadLen - Index] = (u8)((MsgLenInBits >>
-						((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);
-			}
+		for (Index = 1U; Index <= XASUFW_U64_IN_BYTES; Index++) {
+			Buf[PadLen - Index] = (u8)((MsgLenInBits >>
+					((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);
 		}
 	}
 

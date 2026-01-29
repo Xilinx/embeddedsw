@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -61,7 +61,7 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
-XAsufw_LogInfo *DebugLog = (XAsufw_LogInfo *)(UINTPTR)XASU_RTCA_DBG_LOG_BUF_INFO_ADDR;
+static XAsufw_LogInfo *DebugLog = (XAsufw_LogInfo *)(UINTPTR)XASU_RTCA_DBG_LOG_BUF_INFO_ADDR;
 
 /*************************************************************************************************/
 /**

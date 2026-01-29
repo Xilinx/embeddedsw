@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -99,7 +99,7 @@ typedef struct {
  * This is a configuration table to configure the curve type and curve class for all curves
  * based on index.
  */
-XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
+static XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
 	{ (u16)ECDSA_NIST_P256, (u16)ECDSA_PRIME },
 	{ (u16)ECDSA_NIST_P384, (u16)ECDSA_PRIME },
 	{ (u16)ECDSA_NIST_P192, (u16)ECDSA_PRIME },

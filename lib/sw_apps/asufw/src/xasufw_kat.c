@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -1338,7 +1338,7 @@ END:
 	/** Zeroize local copy of buffers. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	ClearStatus |= Xil_SecureZeroize((u8 *)(UINTPTR)AesTag, XASUFW_AES_TAG_LEN_IN_BYTES);
-	if ((Status == XASUFW_SUCCESS) && (Status == XASUFW_SUCCESS)) {
+	if (Status == XASUFW_SUCCESS) {
 		Status = ClearStatus;
 	}
 	else {
@@ -1564,7 +1564,7 @@ END:
 	/** Zeroize local copy of buffers. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Output0, XASUFW_AES_CM_DATA_LEN_IN_BYTES);
 	ClearStatus |= Xil_SecureZeroize((u8 *)(UINTPTR)Output1, XASUFW_AES_CM_DATA_LEN_IN_BYTES);
-	if ((Status == XASUFW_SUCCESS) && (Status == XASUFW_SUCCESS)) {
+	if (Status == XASUFW_SUCCESS) {
 		Status = ClearStatus;
 	}
 	else {
