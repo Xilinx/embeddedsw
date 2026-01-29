@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,9 @@
 /**
 *
 * @file xhdcp22_mmult.h
-* @addtogroup hdcp22_mmult Overview
-* @{
-* @details
+* @addtogroup hdcp22_mmult
 *
-* This is the main header file for the Xilinx HDCP 2.2 Montgomery Multipler
+* This is the main header file for the Xilinx HDCP 2.2 Montgomery Multiplier
 * device driver.
 *
 * <pre>
@@ -181,5 +179,3 @@ u32 XHdcp22_mmult_InterruptGetStatus(XHdcp22_mmult *InstancePtr);
 #endif
 
 #endif
-
-/** @} */

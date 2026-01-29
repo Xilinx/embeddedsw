@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xhdcp22_mmult_linux.c
-* @addtogroup hdcp22_mmult Overview
-* @{
-* @details
+* @addtogroup hdcp22_mmult
 *
 * This file contains the linux support for the driver associated with
 * the Xilinx HDCP22 Montgomery Multiplier (Mmult) core.
@@ -168,5 +166,3 @@ int XHdcp22_mmult_Release(XHdcp22_mmult *InstancePtr) {
 }
 
 #endif
-
-/** @} */
