@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -707,7 +707,7 @@ typedef struct {
                                  design. */
     u8  HdmiFastSwitch;     /**< HDMI fast switching is enabled in the
                                  design. */
-    u8  TransceiverWidth;   /**< Transceiver Width seeting in the design */
+    u8  TransceiverWidth;   /**< Transceiver Width setting in the design */
     u32 ErrIrq;             /**< Error IRQ is enabled in design */
     u32 AxiLiteClkFreq;     /**< AXI Lite Clock Frequency in Hz */
     u32 DrpClkFreq;         /**< DRP Clock Frequency in Hz */

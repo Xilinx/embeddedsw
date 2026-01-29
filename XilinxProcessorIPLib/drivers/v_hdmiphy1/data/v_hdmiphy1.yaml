@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -71,7 +71,7 @@ properties:
   xlnx,rx-clk-primitive:
     description: rx clock primitive value
   xlnx,speedgrade:
-    desciption: FPGA device speed grade
+    description: FPGA device speed grade
   interrupts:
     description: Interrupt number
   interrupt-parent:

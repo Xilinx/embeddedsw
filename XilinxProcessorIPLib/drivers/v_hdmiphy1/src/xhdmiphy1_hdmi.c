@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -3265,8 +3265,6 @@ static const XHdmiphy1_GtHdmiChars Gtye5HdmiChars = {
 * This function returns a pointer to the HDMI parameters based on the GT type.
 *
 * @param	InstancePtr is a pointer to the Hdmiphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
 *
 * @return
 *		- A pointer to the HDMI GT characteristics.

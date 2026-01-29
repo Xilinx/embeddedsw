@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -65,7 +65,7 @@ extern "C" {
 #define XHDMIPHY1_IBUFDS_GTXX_CTRL_REG   0x02C  /**< IBUFDS GT control register */
 #define XHDMIPHY1_POWERDOWN_CONTROL_REG  0x030  /**< Power down control register */
 #define XHDMIPHY1_LOOPBACK_CONTROL_REG   0x038  /**< Loopback control register */
-/* @} */
+/** @} */
 
 /** @name HDMIPHY core registers: Dynamic reconfiguration port (DRP) registers.
   * @{
@@ -98,7 +98,7 @@ extern "C" {
 #define XHDMIPHY1_DRP_CONTROL_RXMMCM_REG 0x144
 /** DRP status register for RX MMCM (0x148) */
 #define XHDMIPHY1_DRP_STATUS_RXMMCM_REG  0x148
-/* @} */
+/** @} */
 
 /** @name HDMIPHY core registers: CPLL Calibration registers.
   * @{
@@ -107,7 +107,7 @@ extern "C" {
 #define XHDMIPHY1_CPLL_CAL_PERIOD_REG    0x068
 /** CPLL calibration tolerance register (0x06C) */
 #define XHDMIPHY1_CPLL_CAL_TOL_REG       0x06C
-/* @} */
+/** @} */
 /** @name HDMIPHY core registers: GT Debug INTF registers.
   * @{
   */
@@ -115,7 +115,7 @@ extern "C" {
 #define XHDMIPHY1_GT_DBG_GPI_REG         0x068
 /** GT debug GPO register (0x06C) */
 #define XHDMIPHY1_GT_DBG_GPO_REG         0x06C
-/* @} */
+/** @} */
 
 /** @name HDMIPHY core registers: Transmitter function registers.
   * @{
@@ -136,7 +136,7 @@ extern "C" {
 #define XHDMIPHY1_TX_RATE_CH12_REG       0x08C
 /** TX rate register for channels 3 and 4 (0x090) */
 #define XHDMIPHY1_TX_RATE_CH34_REG       0x090
-/* @} */
+/** @} */
 
 /** @name HDMIPHY core registers: Receiver function registers.
   * @{
@@ -153,7 +153,7 @@ extern "C" {
 #define XHDMIPHY1_RX_EQ_CDR_REG          0x108
 /** RX TDLOCK register (0x10C) */
 #define XHDMIPHY1_RX_TDLOCK_REG          0x10C
-/* @} */
+/** @} */
 
 /** @name HDMIPHY core registers: Interrupt registers.
   * @{
@@ -166,7 +166,7 @@ extern "C" {
 #define XHDMIPHY1_INTR_MASK_REG          0x118
 /** Interrupt status register (0x11C) */
 #define XHDMIPHY1_INTR_STS_REG           0x11C
-/* @} */
+/** @} */
 
 /** @name User clocking registers: MMCM and BUFGGT registers.
   * @{
@@ -200,7 +200,7 @@ extern "C" {
 #define XHDMIPHY1_BUFGGT_RXUSRCLK_REG    0x0154
 /** Miscellaneous RX user clock register (0x0158) */
 #define XHDMIPHY1_MISC_RXUSRCLK_REG      0x0158
-/* @} */
+/** @} */
 
 /** @name Clock detector (HDMI) registers.
   * @{
@@ -226,7 +226,7 @@ extern "C" {
 /** Clock detector RX FRL frequency register (0x0234) */
 #define XHDMIPHY1_CLKDET_FREQ_RX_FRL_REG 0x0234
 
-/* @} */
+/** @} */
 
 /** @name Data recovery unit registers (HDMI).
   * @{
@@ -256,14 +256,14 @@ extern "C" {
  * @return Register address for the specified channel.
  */
 #define XHDMIPHY1_DRU_GAIN_REG(Ch)       (0x0310 + (12 * (Ch - 1)))
-/* @} */
+/** @} */
 
 /** @name TMDS Clock Pattern Generator registers (HDMI).
   * @{
   */
 /** PATGEN control register (0x0340) */
 #define XHDMIPHY1_PATGEN_CTRL_REG        0x0340
-/* @} */
+/** @} */
 
 /******************************************************************************/
 
@@ -732,6 +732,10 @@ extern "C" {
  */
 #define XHDMIPHY1_TX_GPO_MASK_ALL(NCh) \
 		((NCh == 3) ? 0x7 : 0xF)
+/**
+ * @brief TX GPO shift value.
+ * @return TX GPO shift value.
+ */
 #define XHDMIPHY1_TX_GPO_SHIFT 0
 /**
  * @brief RX GPO mask for specific channel.
@@ -1181,7 +1185,7 @@ extern "C" {
  */
 #define XHDMIPHY1_RX_STATUS_RXLPMHFOVRDEN_MASK(Ch) \
         (0x10 << (8 * (Ch - 1)))
-/* @} */
+/** @} */
 /** RX LPM enable mask for all channels */
 #define XHDMIPHY1_RX_CONTROL_RXLPMEN_ALL_MASK \
         (XHDMIPHY1_RX_CONTROL_RXLPMEN_MASK(XHDMIPHY1_CHANNEL_ID_CH1) | \
@@ -1359,7 +1363,7 @@ extern "C" {
 #define XHDMIPHY1_PATGEN_CTRL_RATIO_MASK     0x7
 /** PATGEN control ratio shift */
 #define XHDMIPHY1_PATGEN_CTRL_RATIO_SHIFT        0
-/* @} */
+/** @} */
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
@@ -1387,7 +1391,7 @@ extern "C" {
  * @param Data 32-bit value to write to the specified address.
  */
 #define XHdmiphy1_Out32 Xil_Out32
-/* @} */
+/** @} */
 
 /******************************************************************************/
 /**
