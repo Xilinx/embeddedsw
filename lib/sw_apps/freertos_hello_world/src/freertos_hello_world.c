@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
     Copyright (c) 2012 - 2022 Xilinx, Inc. All Rights Reserved.
-    Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+    Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 	SPDX-License-Identifier: MIT
 
 
@@ -61,7 +61,7 @@ int main( void )
 
 #if ( configSUPPORT_STATIC_ALLOCATION == 0 ) /* Normal or standard use case */
 	/* Create the two tasks.  The Tx task is given a lower priority than the
-	Rx task, so the Rx task will leave the Blocked state and pre-empt the Tx
+	Rx task, so the Rx task will leave the Blocked state and preempt the Tx
 	task as soon as the Tx task places an item in the queue. */
 	xTaskCreate( 	prvTxTask, 					/* The function that implements the task. */
 					( const char * ) "Tx", 		/* Text name for the task, provided to assist debugging only. */
