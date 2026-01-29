@@ -55,6 +55,8 @@
 
 #define XOCP_SUBSYS_EVENT_MASK		(0x01U)		/**< Subsystem event mask */
 #define XOCP_SUBSYS_EVENT_SHIFT		(1U)		/**< Subsystem event size */
+#define XOCP_VALID_CDI_VALUE		(7U)		/**< Valid ASU CDI value */
+#define XOCP_INVALID_CDI_VALUE		(0U)		/**< Invalid ASU CDI value */
 
 /************************************ Type Definitions *******************************************/
 
@@ -770,10 +772,10 @@ static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	static const u8 XOcpAsuCdi[XOCP_DICE_CDI_SIZE_IN_BYTES] = {0U};
-	static u8 AsuCdiValid = (u8)XASU_FALSE;
+	static u8 AsuCdiValid = (u8)XOCP_INVALID_CDI_VALUE;
 
 	/** Send IPI request to PLM if ASU CDI is not available. */
-	if (AsuCdiValid != (u8)XASU_TRUE) {
+	if (AsuCdiValid != (u8)XOCP_VALID_CDI_VALUE) {
 		Status = XOcp_GetAsuCdiFromPlm(XOcpAsuCdi);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_OCP_GET_ASU_CDI_FROM_PLM_FAIL;
@@ -784,7 +786,7 @@ static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr)
 	Status = XASUFW_SUCCESS;
 
 	/** Mark ASU CDI as valid. */
-	AsuCdiValid = (u8)XASU_TRUE;
+	AsuCdiValid = (u8)XOCP_VALID_CDI_VALUE;
 
 	/** Provide ASU CDI address to caller. */
 	*AsuCdiAddr = (u32)XOcpAsuCdi;
