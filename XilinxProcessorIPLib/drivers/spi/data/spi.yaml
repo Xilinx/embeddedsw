@@ -9,6 +9,8 @@ maintainers:
 
 type: driver
 
+device_type: spi
+
 properties:
   compatible:
     OneOf:
