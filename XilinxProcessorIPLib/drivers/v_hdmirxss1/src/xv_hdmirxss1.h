@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -307,7 +307,7 @@ typedef enum {
 					   bit 0 Status_Update bit set by
 					   HDMI Source */
 } XV_HdmiRxSs1_HandlerType;
-/*@}*/
+/** @}*/
 
 /**
  * Sub-Core Configuration Table
@@ -573,6 +573,7 @@ typedef struct {
 	u16 pkt_length; /* Packet length */
 	u8 gof;		/* Graphics Overlay Flag */
 } XV_HdmiRxSs1_DynHDR_Info;
+/** @}*/
 
 /************************** Macros Definitions *******************************/
 #ifdef USE_HDCP_RX
@@ -587,23 +588,23 @@ XV_HdmiRxSs1_Config* XV_HdmiRxSs1_LookupConfig(UINTPTR BaseAddress);
 u32 XV_HdmiRxSs1_GetDrvIndex(UINTPTR BaseAddress);
 #endif
 void XV_HdmiRxSs1_SetUserTimerHandler(XV_HdmiRxSs1 *InstancePtr,
-	XVidC_DelayHandler CallbackFunc, void *CallbackRef);
-void XV_HdmiRxSS1_HdmiRxIntrHandler(XV_HdmiRxSs1 *InstancePtr);
+	XVidC_DelayHandler CallbackFunc, void *CallbackRef); /**< Set user timer handler */
+void XV_HdmiRxSS1_HdmiRxIntrHandler(XV_HdmiRxSs1 *InstancePtr); /**< HDMI RX interrupt handler */
 int XV_HdmiRxSs1_CfgInitialize(XV_HdmiRxSs1 *InstancePtr,
 	XV_HdmiRxSs1_Config *CfgPtr,
-	UINTPTR EffectiveAddr);
+	UINTPTR EffectiveAddr); /**< Initialize subsystem */
 void XV_HdmiRxSS1_SetAppVersion(XV_HdmiRxSs1 *InstancePtr, u8 maj, u8 min);
-void XV_HdmiRxSs1_Start(XV_HdmiRxSs1 *InstancePtr);
-void XV_HdmiRxSs1_Stop(XV_HdmiRxSs1 *InstancePtr);
-void XV_HdmiRxSs1_Reset(XV_HdmiRxSs1 *InstancePtr);
-void XV_HdmiRxSs1_RXCore_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
-void XV_HdmiRxSs1_RXCore_LRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
-void XV_HdmiRxSs1_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
-void XV_HdmiRxSs1_SYSRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
+void XV_HdmiRxSs1_Start(XV_HdmiRxSs1 *InstancePtr); /**< Start subsystem */
+void XV_HdmiRxSs1_Stop(XV_HdmiRxSs1 *InstancePtr); /**< Stop subsystem */
+void XV_HdmiRxSs1_Reset(XV_HdmiRxSs1 *InstancePtr); /**< Reset subsystem */
+void XV_HdmiRxSs1_RXCore_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset); /**< RX core video reset - TRUE to assert, FALSE to release */
+void XV_HdmiRxSs1_RXCore_LRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset); /**< RX core link reset - TRUE to assert, FALSE to release */
+void XV_HdmiRxSs1_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset); /**< Video reset - TRUE to assert, FALSE to release */
+void XV_HdmiRxSs1_SYSRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset); /**< System reset - TRUE to assert, FALSE to release */
 int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
 		XV_HdmiRxSs1_HandlerType HandlerType,
 		void *CallbackFunc,
-		void *CallbackRef);
+		void *CallbackRef); /**< Set event callback */
 int XV_HdmiRxSs1_SetLogCallback(XV_HdmiRxSs1 *InstancePtr,
 	u64 *CallbackFunc,
 	void *CallbackRef);
@@ -633,8 +634,8 @@ XV_HdmiRx1_AudioFormatType XV_HdmiRxSs1_GetAudioFormat(XV_HdmiRxSs1 *InstancePtr
 u32 XV_HdmiRxSs1_GetAudioAcrCtsVal(XV_HdmiRxSs1 *InstancePtr);
 u32 XV_HdmiRxSs1_GetAudioAcrNVal(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_RefClockChangeInit(XV_HdmiRxSs1 *InstancePtr);
-void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr);
-void XV_HdmiRxSs1_RegisterDebug(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr); /**< Report subsystem info */
+void XV_HdmiRxSs1_RegisterDebug(XV_HdmiRxSs1 *InstancePtr); /**< Display register contents */
 int  XV_HdmiRxSs1_IsStreamUp(XV_HdmiRxSs1 *InstancePtr);
 int  XV_HdmiRxSs1_IsStreamConnected(XV_HdmiRxSs1 *InstancePtr);
 
@@ -655,7 +656,7 @@ u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr);
 int XV_HdmiRxSs1_DSC_SetDecodeFail(XV_HdmiRxSs1 *InstancePtr);
 int XV_HdmiRxSs1_DSC_SetDscFrlMax(XV_HdmiRxSs1 *InstancePtr);
 
-void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr); /**< Report core info */
 void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_DdcRegDump(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr);
@@ -679,8 +680,8 @@ void XV_HdmiRxSs1_FrlLinkRetrain(XV_HdmiRxSs1 *InstancePtr, u8 LtpThreshold,
 void XV_HdmiRxSs1_FrlModeEnable(XV_HdmiRxSs1 *InstancePtr, u8 LtpThreshold,
 				XV_HdmiRx1_FrlLtp DefaultLtp, u8 FfeSuppFlag);
 #endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
-void XV_HdmiRxSs1_SetFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr);
-void XV_HdmiRxSs1_ClearFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_SetFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr); /**< @param InstancePtr - Subsystem instance pointer. Set FRL FLT no timeout */
+void XV_HdmiRxSs1_ClearFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr); /**< @param InstancePtr - Subsystem instance pointer. Clear FRL FLT no timeout */
 
 #ifdef USE_HDCP_RX
 void XV_HdmiRxSs1_HdcpSetKey(XV_HdmiRxSs1 *InstancePtr, XV_HdmiRxSs1_HdcpKeyType KeyType, u8 *KeyPtr);

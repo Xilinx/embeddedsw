@@ -18,6 +18,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  EB   22/05/18 Initial release.
+* </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -114,6 +116,7 @@ static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr);
 * This macros selects the bridge pixel repeat mode
 *
 * @param  InstancePtr is a pointer to the HDMI RX Subsystem
+* @param  Enable enables or disables pixel drop mode
 *
 *****************************************************************************/
 #define XV_HdmiRxSs1_BridgePixelDrop(InstancePtr,Enable) \
@@ -825,6 +828,7 @@ void XV_HdmiRxSs1_RXCore_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset)
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset specifies TRUE/FALSE value to either assert or release reset.
 *
 * @return None
 *
@@ -842,6 +846,7 @@ void XV_HdmiRxSs1_RXCore_LRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset)
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset specifies TRUE/FALSE value to either assert or release reset.
 *
 * @return None
 *
@@ -1533,11 +1538,11 @@ static void XV_HdmiRxSs1_StreamUpCallback(void *CallbackRef)
 * (XV_HDMIRXSS1_HANDLER_VS)                  VsCallback
 * (XV_HDMIRXSS1_HANDLER_STREAM_DOWN)         StreamDownCallback
 * (XV_HDMIRXSS1_HANDLER_STREAM_UP)           StreamUpCallback
-* (XV_HDMIRXSS1_HANDLER_HDCP_AUTHENTICATED)
-* (XV_HDMIRXSS1_HANDLER_HDCP_UNAUTHENTICATED)
-* (XV_HDMIRXSS1_HANDLER_HDCP_AUTHENTICATION_REQUEST)
-* (XV_HDMIRXSS1_HANDLER_HDCP_STREAM_MANAGE_REQUEST)
-* (XV_HDMIRXSS1_HANDLER_HDCP_TOPOLOGY_UPDATE)
+* (XV_HDMIRXSS1_HANDLER_HDCP_AUTHENTICATED)  HdcpAuthenticatedCallback
+* (XV_HDMIRXSS1_HANDLER_HDCP_UNAUTHENTICATED) HdcpUnauthenticatedCallback
+* (XV_HDMIRXSS1_HANDLER_HDCP_AUTHENTICATION_REQUEST) HdcpAuthenticationRequestCallback
+* (XV_HDMIRXSS1_HANDLER_HDCP_STREAM_MANAGE_REQUEST) HdcpStreamManageRequestCallback
+* (XV_HDMIRXSS1_HANDLER_HDCP_TOPOLOGY_UPDATE) HdcpTopologyUpdateCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.

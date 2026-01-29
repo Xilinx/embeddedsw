@@ -1,6 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xv_hdmirxss1_sinit.c
-* @addtogroup v_hdmirxss1 Overview
-* @{
-* @details
+* @addtogroup v_hdmirxss1
 *
 * This file contains the implementation of the HDMI RX Subsystem
 * driver's static initialization functionality.
@@ -115,4 +113,3 @@ u32 XV_HdmiRxSs1_GetDrvIndex(UINTPTR BaseAddress)
 }
 
 #endif
-/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-# Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -196,7 +196,7 @@ void XV_HdmiRxSs1_ClearFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr)
 * This function is called when during FRL link training, it is decided to
 * fallback to the legacy HDMI TMDS mode.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *

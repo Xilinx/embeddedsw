@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -22,7 +22,7 @@ properties:
   xlnx,input-pixels-per-clock:
     description: Number of Pixels Per Clock processed by Subsystem
   xlnx,max-bits-per-component:
-    description: Maxmimum supported color depth
+    description: Maximum supported color depth
   xlnx,max-frl-rate:
     description: Maximum FRL Rate supported
   xlnx,dynamic-hdr:
