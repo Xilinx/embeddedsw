@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1390,13 +1390,13 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet
 	XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR)&RxFrame);
 #ifndef SDT
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
-	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame));
+	XAxiDma_BdSetLength(BdPtr, XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame),
+	XAxiDma_BdSetLength(BdPtr, XAE_MAX_JUMBO_FRAME_SIZE,
 			RxRingPtr->MaxTransferLen);
 #endif
 #else
-	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame),
+	XAxiDma_BdSetLength(BdPtr, XAE_MAX_JUMBO_FRAME_SIZE,
 			RxRingPtr->MaxTransferLen);
 #endif
 
@@ -1478,6 +1478,15 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet
 	Status = XAxiDma_BdRingToHw(TxRingPtr, 1, BdPtr);
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Error committing TxBD to HW");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Start DMA TX channel. Transmission starts
+	 */
+	Status = XAxiDma_BdRingStart(TxRingPtr);
+	if (Status != XST_SUCCESS) {
+		AxiEthernetUtilErrorTrap("Error starting TX DMA channel");
 		return XST_FAILURE;
 	}
 
@@ -1842,13 +1851,13 @@ int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet
 	XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR)&RxFrame);
 #ifndef SDT
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
-	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame));
+	XAxiDma_BdSetLength(BdPtr, XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame),
+	XAxiDma_BdSetLength(BdPtr, XAE_MAX_JUMBO_FRAME_SIZE,
 				RxRingPtr->MaxTransferLen);
 #endif
 #else
-	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame),
+	XAxiDma_BdSetLength(BdPtr, XAE_MAX_JUMBO_FRAME_SIZE,
 				RxRingPtr->MaxTransferLen);
 #endif
 
@@ -1912,6 +1921,15 @@ int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet
 	Status = XAxiDma_BdRingToHw(TxRingPtr, 1, BdPtr);
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Error committing TxBD to HW");
+		return XST_FAILURE;
+	}
+
+	/*
+	* Start DMA TX channel. Transmission starts.
+	*/
+	Status = XAxiDma_BdRingStart(TxRingPtr);
+	if (Status != XST_SUCCESS) {
+		AxiEthernetUtilErrorTrap("Error starting TX DMA channel");
 		return XST_FAILURE;
 	}
 
