@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2004 - 2021 Xilinx, Inc.  All rights reserved.
-#* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+#* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -135,7 +135,7 @@ proc require_memory {memsize} {
         }
     }
 
-    error "This application requires atleast $memsize bytes of memory.";
+    error "This application requires at least $memsize bytes of memory.";
 }
 
 proc swapp_is_supported_hw {} {
@@ -145,7 +145,7 @@ proc swapp_is_supported_hw {} {
     # check for axi timer
     check_axi_timer_hw;
 
-    # we require atleast 30k memory
+    # we require at least 30k memory
     require_memory "30000";
 }
 
