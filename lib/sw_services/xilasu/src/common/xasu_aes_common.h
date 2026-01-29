@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -47,6 +47,11 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+/** Modes that always require block-aligned data */
+#define XASU_AES_MODE_REQUIRES_ALIGNMENT(mode) \
+	(((mode) == XASU_AES_ECB_MODE) || \
+	((mode) == XASU_AES_CBC_MODE) || \
+	((mode) == XASU_AES_CFB_MODE))
 
 /************************************ Variable Definitions ***************************************/
 

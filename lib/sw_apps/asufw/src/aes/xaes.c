@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -795,9 +795,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	 * For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or more
 	 * complete data blocks.
 	 */
-	if (((InstancePtr->EngineMode == XASU_AES_ECB_MODE) ||
-			(InstancePtr->EngineMode == XASU_AES_CBC_MODE) ||
-			(InstancePtr->EngineMode == XASU_AES_CFB_MODE)) &&
+	if ((XASU_AES_MODE_REQUIRES_ALIGNMENT(InstancePtr->EngineMode)) &&
 			((DataLength % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
 		Status = XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH;
 		goto END;

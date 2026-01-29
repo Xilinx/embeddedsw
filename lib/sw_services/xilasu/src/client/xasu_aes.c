@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -167,11 +167,15 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 			goto END;
 		}
 
-		/** Plaintext must be a sequence of one or more complete data blocks. */
+		/** Validate the input data alignment. */
 		if ((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
-			Status = XASU_INVALID_ARGUMENT;
-			goto END;
+			if (XASU_AES_MODE_REQUIRES_ALIGNMENT(AesClientParamPtr->EngineMode) ||
+					((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL)) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
 		}
+
 		/** Validate IsLast flag. */
 		if ((AesClientParamPtr->IsLast != XASU_TRUE) && (AesClientParamPtr->IsLast != XASU_FALSE)) {
 			Status = XASU_INVALID_ARGUMENT;
@@ -481,13 +485,20 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 		 * block size aligned within limit.
 		 */
 		if ((AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
-				(AesClientParamPtr->AadAddr == 0U) ||
-				((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
+				(AesClientParamPtr->AadAddr == 0U)) {
 			goto END;
 		}
+
 		Status = XAsu_IsModeValidForAad(AesClientParamPtr->EngineMode);
 		if (Status != XST_SUCCESS) {
 			goto END;
+		}
+
+		if ((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
+			if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
 		}
 	} else {
 		/** If AAD Length is zero, AAD address must also be zero. */
