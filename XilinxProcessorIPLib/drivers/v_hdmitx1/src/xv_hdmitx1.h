@@ -168,7 +168,7 @@ typedef enum {
 	XV_HDMITX1_HANDLER_DYNHDR_MWT,
 	XV_HDMITX1_HANDLER_DSCDECODE_FAIL,
 } XV_HdmiTx1_HandlerType;
-/*@}*/
+/** @}*/
 
 /** @name HDMI TX stream status
 * @{
@@ -181,6 +181,7 @@ typedef enum {
 	XV_HDMITX1_STATE_STREAM_DOWN,    /* Stream down*/
 	XV_HDMITX1_STATE_STREAM_UP       /* Stream up*/
 } XV_HdmiTx1_State;
+/** @}*/
 
 /** @name HDMI TX audio format
 * @{
@@ -194,6 +195,7 @@ typedef enum {
 	XV_HDMITX1_AUDFMT_HBR,         /* HBR*/
 	XV_HDMITX1_AUDFMT_3D,           /* 3D Audio */
 } XV_HdmiTx1_AudioFormatType;
+/** @}*/
 
 /** @name HDMI TX SCDC Fields
 * @{
@@ -217,6 +219,7 @@ typedef enum {
 	XV_HDMITX1_SCDCFIELD_FLT_NO_RETRAIN,	/* FLT_no_retrain */
 	XV_HDMITX1_SCDCFIELD_SIZE
 } XV_HdmiTx1_ScdcFieldType;
+/** @}*/
 
 /** @name HDMI TX CTS and N Source
 * @{
@@ -230,6 +233,7 @@ typedef enum {
 	XV_HDMITX1_EXTERNAL_CTS_N = 0,
 	XV_HDMITX1_INTERNAL_CTS_N,
 } XV_HdmiTx1_CTSNSource;
+/** @}*/
 
 /**
 * This typedef contains DDC registers offset, mask, shift.
@@ -1501,13 +1505,22 @@ XV_HdmiTx1_Config *XV_HdmiTx1_LookupConfig(UINTPTR BaseAddress);
 int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr,
 			     XV_HdmiTx1_Config *CfgPtr,
 			     UINTPTR EffectiveAddr);
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTx1_SetHdmiFrlMode(XV_HdmiTx1 *InstancePtr);
+#endif
 void XV_HdmiTx1_SetHdmiTmdsMode(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_SetDviMode(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_AuxEnable(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_AudioEnable(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_Clear(XV_HdmiTx1 *InstancePtr);
 u8 XV_HdmiTx1_LookupVic(XVidC_VideoMode VideoMode);
+/**
+ * Get video mode from VIC (Video Identification Code).
+ *
+ * @param Vic is the Video Identification Code.
+ *
+ * @return XVidC_VideoMode corresponding to the VIC.
+ */
 XVidC_VideoMode XV_HdmiTx1_GetVideoModeFromVic(u8 Vic);
 u32 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		XVidC_VideoTiming VideoTiming,
@@ -1564,10 +1577,19 @@ XV_HdmiTx1_AudioFormatType
 XV_HdmiTx1_GetAudioFormat(XV_HdmiTx1 *InstancePtr);
 u32 XV_HdmiTxSs1_GetAudioCtsVal(XV_HdmiTx1 *InstancePtr);
 u32 XV_HdmiTxSs1_GetAudioNVal(XV_HdmiTx1 *InstancePtr);
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTx1_FRLACRStart(XV_HdmiTx1 *InstancePtr);
+#endif
 void XV_HdmiTx1_TMDSACRStart(XV_HdmiTx1 *InstancePtr);
 
 /* Fixed Rate Link */
+/**
+ * Start TMDS mode.
+ *
+ * @param InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ */
 int XV_HdmiTx1_StartTmdsMode(XV_HdmiTx1 *InstancePtr);
 #ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 int XV_HdmiTx1_StartFrlTraining(XV_HdmiTx1 *InstancePtr,

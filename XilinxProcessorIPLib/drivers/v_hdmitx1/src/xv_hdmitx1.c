@@ -280,6 +280,7 @@ void XV_HdmiTx1_SetAxiClkFreq(XV_HdmiTx1 *InstancePtr, u32 ClkFreq)
 	XV_HdmiTx1_DdcInit(InstancePtr, InstancePtr->CpuClkFreq);
 }
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -287,13 +288,11 @@ void XV_HdmiTx1_SetAxiClkFreq(XV_HdmiTx1 *InstancePtr, u32 ClkFreq)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
 *
-* @return
-*
+* @return   None.
 *
 * @note     This is required after a reset or init.
 *
 ******************************************************************************/
-#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTx1_SetHdmiFrlMode(XV_HdmiTx1 *InstancePtr)
 {
 
@@ -324,8 +323,7 @@ void XV_HdmiTx1_SetHdmiFrlMode(XV_HdmiTx1 *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
 *
-* @return
-*
+* @return   None.
 *
 * @note     This is required after a reset or init.
 *
@@ -2543,6 +2541,7 @@ int XV_HdmiTx1_IsStreamConnected(XV_HdmiTx1 *InstancePtr)
 	return (InstancePtr->Stream.IsConnected);
 }
 
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -2553,7 +2552,6 @@ int XV_HdmiTx1_IsStreamConnected(XV_HdmiTx1 *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 void XV_HdmiTx1_FRLACRStart(XV_HdmiTx1 *InstancePtr)
 {
 	XHdmiC_FRLCharRate FRLCharRate;
@@ -2628,7 +2626,7 @@ void XV_HdmiTx1_FRLACRStart(XV_HdmiTx1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function Starts the internal ACR module for FRL
+* This function Starts the internal ACR module for TMDS
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
 *
@@ -2873,7 +2871,7 @@ u32 XV_HdmiTxSs1_GetAudioNVal(XV_HdmiTx1 *InstancePtr)
 *
 * @return
 *       - XST_SUCCESS if active channels were set.
-*       - XST_FAILURE if no active channles were set.
+*       - XST_FAILURE if no active channels were set.
 *
 * @note     None.
 *
