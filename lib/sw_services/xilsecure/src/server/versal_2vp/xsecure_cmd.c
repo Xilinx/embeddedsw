@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.6   tvp  07/07/25 Initial release
+* 5.7   tvp  11/18/25 Added support for generating shared secret
 *
 * </pre>
 *
@@ -36,6 +37,7 @@
 #include "xsecure_aes_ipihandler.h"
 #ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic_ipihandler.h"
+#include "xsecure_plat_elliptic_ipihandler.h"
 #endif
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa_ipihandler.h"
@@ -83,6 +85,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_SET_DPA_CM),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_KAT),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_GEN_SHARED_SECRET),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -165,6 +168,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 	case XSECURE_API(XSECURE_API_KAT):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
+	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 #endif
 		Status = XSecure_CryptoCheck();
 		if (Status != XST_SUCCESS) {
@@ -230,6 +234,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 		/**   - @ref XSecure_EllipticIpiHandler */
 		Status = XSecure_EllipticIpiHandler(Cmd);
+		break;
+	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
+		Status = XSecure_PlatEllipticIpiHandler(Cmd);
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_AES_INIT):

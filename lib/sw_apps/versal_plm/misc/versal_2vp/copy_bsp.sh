@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -112,8 +112,7 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/util/* $BSP_DIR/libsrc/xilsecure/s
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/sha_pmx/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/softsha2-384/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/hmac/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/kdf/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/trngpsv/* $BSP_DIR/libsrc/xilsecure/src/

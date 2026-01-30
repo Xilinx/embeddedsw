@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.6   tvp  07/07/25 Initial release
 *       tvp  07/07/25 Added XSECURE_WORD_LEN
+* 5.7   tvp  11/18/25 Added support for generating shared secret
 *
 * </pre>
 *
@@ -69,7 +70,9 @@ typedef enum {
 	XSECURE_API_KAT,			/**< 21U */
 	/**< 22U reserved for versal_net*/
 	XSECURE_API_AES_PERFORM_OPERATION = 23U, /**< 23U */
-	XSECURE_API_MAX,			/**< 24U */
+	/**< 24U to 32U reserved for versal_net*/
+	XSECURE_API_GEN_SHARED_SECRET = 33U,	/**< 33U */
+	XSECURE_API_MAX,			/**< 34U */
 } XSecure_ApiId;
 
 /** XilSecure API KAT ids */
