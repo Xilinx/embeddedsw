@@ -73,7 +73,8 @@
 * 1.4  gm   10/07/24 Added functions for Enable, Resume, read response
 * 		     and set threshold for Tx, Rx and command.
 * 		     Update data type of Send and Recv byte counts.
-* 1.7   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 1.7  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+*      vlt  01/27/26 Fixed codespell issues.
 * </pre>
 *
 ******************************************************************************/
@@ -112,7 +113,7 @@ extern "C" {
 #define XI3CPSX_EVENT_FRAME		0x0003U  /**< Frame Errors */
 #define XI3CPSX_EVENT_IBA_NACK		0x0004U  /**< IBA NACK */
 #define XI3CPSX_EVENT_ADDRESS_NACK		0x0005U  /**< Address NACK */
-#define XI3CPSX_EVENT_TXOVR_OR_RXUNF		0x0006U  /**< Recieve Buffer Underflow or Transmit buffer Overflow */
+#define XI3CPSX_EVENT_TXOVR_OR_RXUNF		0x0006U  /**< Receive Buffer Underflow or Transmit buffer Overflow */
 #define XI3CPSX_EVENT_TRANSF_ABORT		0x0008U  /**< Transfer abort */
 #define XI3CPSX_EVENT_SLV_WR_NACK		0x0009U  /**< I2C Slave write data NACK */
 #define XI3CPSX_EVENT_PEC			0x000CU  /**< PEC */
@@ -329,7 +330,7 @@ static inline void XI3cPsx_Resume(XI3cPsx *InstancePtr)
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 *
 * @return
-*		- Response code on sucess.
+*		- Response code on success.
 *		- XST_TIMEOUT on timeout.
 *
 * @note

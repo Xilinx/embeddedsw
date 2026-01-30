@@ -10,7 +10,7 @@
 * This file consists of a slave mode design example which uses the Xilinx
 * I3C device in slave mode in a loopback setup.
 *
-* The master recives the data and also sends the data to the slave.
+* The master receives the data and also sends the data to the slave.
 *
 * This code assumes that no Operating System is being used.
 *
@@ -29,6 +29,7 @@
 * 1.4   gm   10/06/24 Added return statements, remove resetfifos and remove
 *                     hard coded values.
 * 1.7   vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+*       vlt  01/27/26 Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
