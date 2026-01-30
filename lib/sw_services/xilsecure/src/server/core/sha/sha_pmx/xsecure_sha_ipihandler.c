@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *       pre   03/02/2025 Implemented task based event notification functionality for SHA IPI events
 * 5.6   mb    09/09/2025 Return error code on SHA IPI event handling failure
 *   	obs   09/23/2025 Added support for Verifying Address Range
+* 5.7   mb   01/28/26 Fixed input buffer address truncation on 64-bit address
 *
 * </pre>
 *
@@ -241,7 +242,7 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 		InputSize = InputSize & (~XSECURE_IPI_CONTINUE_MASK) &
 			(~XSECURE_IPI_FIRST_PACKET_MASK);
 		/** Calculate the SHA-3 digest on the given input data */
-		Status = XSecure_Sha3Digest(XSecureSha3InstPtr, (UINTPTR)DataAddr, InputSize,
+		Status = XSecure_Sha3Digest(XSecureSha3InstPtr, DataAddr, InputSize,
 				(XSecure_Sha3Hash *)&Hash);
 		if (XST_SUCCESS == Status) {
 			/* Initiate and complete the DMA to DMA transfer */

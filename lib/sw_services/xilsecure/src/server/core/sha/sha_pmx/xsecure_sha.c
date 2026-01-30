@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -55,6 +55,7 @@
 *       kal  07/24/24 Code refactoring for versal_2ve_2vm
 *       pre  03/02/25 Removed data context lost setting
 * 5.6   rpu  08/11/25 Added crypto check in XSecure_Sha3Start.
+* 5.7   mb   01/28/26 Fixed input buffer data truncation on 64-bit address
 * </pre>
 *
 ******************************************************************************/
@@ -398,11 +399,11 @@ END:
  *		 - XST_FAILURE  If there is a failure in SSS configuration
  *
  ******************************************************************************/
-int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
 						const u32 Size)
 {
 	/** Update input data to SHA3 engine */
-	return XSecure_Sha3Update64Bit(InstancePtr, (u64)InDataAddr, Size);
+	return XSecure_Sha3Update64Bit(InstancePtr, InDataAddr, Size);
 }
 
 /*****************************************************************************/
@@ -519,7 +520,7 @@ END:
  *		 - XST_FAILURE  If any error from Sha3Update or Sha3Finish
  *
  ******************************************************************************/
-int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
 					const u32 Size, XSecure_Sha3Hash *Sha3Hash)
 {
 	volatile int Status = XST_FAILURE;
@@ -901,7 +902,7 @@ int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode ShaMode,
 	(void)HashBufSize;
 	(void)ShaMode;
 
-	return XSecure_Sha3Digest(InstancePtr, (UINTPTR)DataAddr,
+	return XSecure_Sha3Digest(InstancePtr, DataAddr,
 				DataSize, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
 }
 

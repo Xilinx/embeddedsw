@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 * 5.2   am   05/03/23 Added KAT before crypto usage
 *       pre  08/29/24 Added SSIT support
 * 5.6   vss  09/06/25 Updated file name in comments
+* 5.7   mb   01/28/26 Fixed input buffer data truncation on 64-bit address
 *
 * </pre>
 ******************************************************************************/
@@ -204,7 +205,8 @@ static u32 SecureSha3Example(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("SHA3-384 KAT failed, Status = %x \r\n ", Status);
 	}
-	Status = XSecure_Sha3Digest(&SecureClientInstance, (UINTPTR)&Data, DstAddr, Size);
+
+	Status = XSecure_Sha3Digest(&SecureClientInstance, (u64)(UINTPTR)&Data, DstAddr, Size);
 	if(Status != XST_SUCCESS) {
 		xil_printf("Calculation of SHA digest failed, Status = %x \n\r", Status);
 		goto END;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -107,7 +107,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma *DmaPtr);
 int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
 /* Data Transfer */
-int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
 		       const u32 Size);
 int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 			const u32 Size);
@@ -115,7 +115,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
 
 /* Complete SHA digest calculation */
-int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
 		       const u32 Size, XSecure_Sha3Hash *Sha3Hash);
 
 int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
