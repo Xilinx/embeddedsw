@@ -440,10 +440,10 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	}
 	else if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND) {
 		(void)DmaPtr;
-		if(XPUF_KEY_GENERATE_OPTION == FALSE){
+		if (XPUF_GENERATE_KEK_N_ID == FALSE) {
 			PufData.PufOperation = XPUF_REGEN_ID_ONLY;
 		}
-		else{
+		else {
 			PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
 		}
 
@@ -460,10 +460,10 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 			xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 			goto END;
 		}
-		if(PufData.PufOperation == XPUF_REGEN_ON_DEMAND){
+		if (PufData.PufOperation == XPUF_REGEN_ON_DEMAND) {
 			xil_printf("PUF On Demand regeneration is done!!\r\n");
 		}
-		else{
+		else {
 			xil_printf("PUF ID only regeneration is done!!\r\n");
 		}
 		xil_printf("PUF ID : ");
