@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 option(XILSECURE_secure_environment "Enables trusted execution environment to allow device key usage(post boot) in ZynqMP for IPI response/Linux/U-boot calls valid only for PMUFW BSP" OFF)
@@ -36,8 +36,8 @@ endif()
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR "${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(XILSECURE_mode "server")
   set(XILSECURE_INCLUDE_XPLMI_BSP_CONFIG_H "")
-elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-  # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
+elseif(("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR ("Versal_2VP" IN_LIST VARIANT))
+  # For APU/RPU/PL microblaze cores in Versal_Net, Versal_2VE_2VM, and Versal_2VP mode is client.
   set(XILSECURE_mode "client")
 else()
   set(XILSECURE_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilSecure library for Versal")
