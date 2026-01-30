@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/XilsecureExample.cmake)
@@ -23,7 +23,12 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     if("${XILSECURE_mode}" STREQUAL "server")
         SET(COMMON_EXAMPLES xilsecure_versal_aes_server_example.c;xilsecure_versal_ecdsa_server_example.c;xilsecure_versal_rsa_server_example.c;xilsecure_versal_sha_server_example.c;)
     else()
-        SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;)
+        if("Versal_2VP" IN_LIST VARIANT)
+	    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
+            xilsecure_versal_net_ecdh_client_example.c;)
+        else()
+	    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;)
+        endif()
     endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
     SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
