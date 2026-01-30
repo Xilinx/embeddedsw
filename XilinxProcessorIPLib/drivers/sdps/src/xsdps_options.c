@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup sdps_api SDPS APIs
 * @{
 *
-* The xsdps_options.c file ontains APIs for changing the various options in host and card.
+* The xsdps_options.c file contains APIs for changing the various options in host and card.
 * See xsdps.h for a detailed description of the device and driver.
 *
 * <pre>
@@ -65,6 +65,7 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
+* 4.6   vlt    01/28/26 Fixed codespell issues
 *
 * </pre>
 *
@@ -92,7 +93,7 @@
 * @return	None
 *
 * @note		This API will change clock frequency to the value less than
-*		or equal to the given value using the permissible dividors.
+*		or equal to the given value using the permissible dividers.
 *
 ******************************************************************************/
 s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
