@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +49,7 @@
 *		      to the user callback (CR: 828504).
 * 3.7  rna  10/06/20 Flush the RxFIFO in NAAS handler only when the FIFO is not
 *                    empty and the controller is still in NAAS state.
+* 3.15 vlt  01/27/26 Fixed codespell issues.
 * </pre>
 *
 ****************************************************************************/
@@ -205,7 +207,7 @@ int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 *  - NAAS interrupt will not signal when message is complete as the
 *    master may want to write or read another message with this device.
 *
-* To prevent throttling, the slave must contine to read discard the data
+* To prevent throttling, the slave must continue to read discard the data
 * when the receive buffer is full. When unexpected bytes are received, No Ack
 * must be set and the Rx buffer continually read until either NAAS
 * or Bus Not Busy BND interrupt signals the master is no longer

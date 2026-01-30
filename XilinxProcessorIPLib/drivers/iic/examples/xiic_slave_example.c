@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,7 @@
 *
 * The example is tested on ML300/ML310/ML403/ML501 Xilinx boards.
 *
-* The IIC devices that are present on the Xilinx boards donot support the Master
+* The IIC devices that are present on the Xilinx boards do not support the Master
 * functionality. This example has been tested with an off board external IIC
 * Master device and the IIC device configured as a Slave.
 *
@@ -43,6 +43,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.15  vlt  01/27/26 Fixed codespell issues.
 *
 * </pre>
 *

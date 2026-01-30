@@ -59,6 +59,7 @@
 * 3.3   als  06/27/16 Added Low-level XIic_CheckIsBusBusy API.
 * 3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
 * 3.15  vlt  12/05/25 Add timing register offsets for clock configuration.
+*       vlt  01/27/26 Fixed codespell issues
 * </pre>
 *
 *****************************************************************************/
@@ -240,7 +241,7 @@ extern "C" {
  */
 #define XIIC_STOP		0x00 /**< Send a stop on the IIC bus after
 					* the current data transfer */
-#define XIIC_REPEATED_START	0x01 /**< Donot Send a stop on the IIC bus after
+#define XIIC_REPEATED_START	0x01 /**< Do not Send a stop on the IIC bus after
 					* the current data transfer */
 
 /***************** Macros (Inline Functions) Definitions *********************/

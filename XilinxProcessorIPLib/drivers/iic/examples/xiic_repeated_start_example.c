@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
 * The XIic_MasterSend() API is used to transmit the data and XIic_MasterRecv()
 * API is used to receive the data.
 *
-* The IIC devices that are present on the Xilinx boards donot support the
+* The IIC devices that are present on the Xilinx boards do not support the
 * repeated start option. These examples have been tested with an IIC
 * device external to the boards.
 *
@@ -41,6 +41,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support
+* 3.15  vlt  01/27/26 Fixed codespell issues
 *
 * </pre>
 *
