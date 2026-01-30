@@ -74,6 +74,7 @@
  *       tbk   01/05/2026 Added support to check OffChip REVOKE_ID individually
  *                        instead of common check.
  *       mb    01/06/2026 Added support to verify CRC of AES USER keys after programming.
+ *       nik   01/30/2026 Corrected PUF user fuse readback print statement to display correct programmed values for all rows.
  *
  * </pre>
  *
@@ -2677,7 +2678,7 @@ static int XilNvm_EfuseReadPufFuses(void)
 			XNVM_EFUSE_READ_NUM_OF_PUF_FUSES); Row++) {
 		xil_printf("User eFuse(PufHd)%d:%08x\n\r",
 			Row, *(u32 *)(UINTPTR)(PufFuses->PufFuseDataAddr +
-			Row - XNVM_EFUSE_READ_PUF_FUSE_NUM));
+			(Row - XNVM_EFUSE_READ_PUF_FUSE_NUM) * sizeof(u32)));
 	}
 
 	Status = XST_SUCCESS;
