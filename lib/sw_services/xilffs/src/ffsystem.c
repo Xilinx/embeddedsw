@@ -53,7 +53,7 @@ static mtxid Mutex[FF_VOLUMES + 1];		/* Table of mutex ID */
 
 #elif OS_TYPE == 2	/* uc/OS-II */
 #include "includes.h"
-static OS_EVENT *Mutex[FF_VOLUMES + 1];	/* Table of mutex pinter */
+static OS_EVENT *Mutex[FF_VOLUMES + 1];	/* Table of mutex pointer */
 
 #elif OS_TYPE == 3	/* FreeRTOS */
 #include "FreeRTOS.h"

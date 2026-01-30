@@ -36,6 +36,7 @@
 *       sk   07/11/24 Update drive number calculation logic to support multiple
 *                     digit drive numbers.
 * 5.6   an   11/12/25 Update the FatFS version to R0.16
+* 5.6   vlt  01/30/26 Fixed codespell errors
 ******************************************************************************/
 #include "xparameters.h"
 #include "xstatus.h"
@@ -2587,7 +2588,7 @@ static void gen_numname (
 		seq = (WORD)crc_sreg;
 	}
 
-	/* Make suffix (~ + 4-digit hexdecimal) */
+	/* Make suffix (~ + 4-digit hexadecimal) */
 	i = 7;
 	do {
 		c = (BYTE)((seq % 16) + '0');
