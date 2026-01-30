@@ -21,7 +21,7 @@
 *   to send messages in a FIFO fashion, where the receiver is intended to be
 *   software on another processor.
 * - The mailbox implementation provides for a way to "send" and "receive" in
-*   an atomic fashion using seperate FIFOs in the mailbox core.
+*   an atomic fashion using separate FIFOs in the mailbox core.
 * - The API itself does not stop the use case where there is more than one
 *   sender on the transmit side and more than one receiver on the receiving side
 *   (just like TCP/IP sockets). However, unless there is a protocol implemented
@@ -141,6 +141,7 @@
 * 4.5   sd   09/03/20 Updated makefile for parallel execution.
 * 4.6   ht   07/06/23 Added support for system device-tree flow.
 * 4.10  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+*       vlt  01/28/26 Fixed codespell issues.
 * </pre>
 *
 ******************************************************************************/
