@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -247,7 +247,7 @@ typedef struct {
 	u16 TEr;			/**< Typical page read time for
 					  EZ NAND */
 	u8 NVDDR2Features;		/**< NVDDR2 Features */
-	u8 NVDDR2WarmupCycles;		/**< NVDDR2 Warmup Cycles */
+	u8 NVDDR2WarmupCycles;		/**< NVDDR2 Warm up Cycles */
 	u8 Reserved4[4];		/**< Reserved (160 - 163) */
 	/* Vendor block */
 	u16 VendorRevisionNum;		/**< Vendor specific revision number */

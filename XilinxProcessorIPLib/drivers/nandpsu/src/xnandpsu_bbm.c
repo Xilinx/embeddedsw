@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -338,7 +338,7 @@ static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
 
 /*****************************************************************************/
 /**
-* This function searches the Bad Bloock Table(BBT) in flash and loads into the
+* This function searches the Bad Block Table(BBT) in flash and loads into the
 * memory based Bad Block Table(BBT).
 *
 * @param	InstancePtr is the pointer to the XNandPsu instance.
