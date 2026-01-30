@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -251,7 +251,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		Status = XFLASH_CFI_QUERY_ERROR;
 	} else {
 		/*
-		 * 13h-14h : Primary vender command set.
+		 * 13h-14h : Primary vendor command set.
 		 */
 		XFL_CFI_POSITION_PTR(DataPtr, BaseAddress, Interleave, 0x13);
 		InstancePtr->Properties.PartID.CommandSet =
