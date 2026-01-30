@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -29,7 +30,7 @@
 ##		CR565336
 ##     06/15/11 hvm Updated tcl with bypassing the external interrupt definition
 ##		in xredefine_intc function. CR613925.
-##     01/19/12 Updated the intc_define_use_dcr function so that it doesnot
+##     01/19/12 Updated the intc_define_use_dcr function so that it does not
 ##              error out if there is more than one bus interface to the
 ##              intc controller. The new common::version of the AXI_INTC can have two
 ##              bus interfaces to support the fast interrupt for MicroBlaze.
@@ -68,7 +69,7 @@
 ##     05/28/20 mus Added support for software interrupts.
 ##     06/15/20 mus Added checks to see if IP property value is empty string,
 ##                  if so, variable which is storing that value will be set to 0, to
-##                  avoid failure in arithmatic calculations. It fixes CR#1067679.
+##                  avoid failure in arithmetic calculations. It fixes CR#1067679.
 ##     07/11/20 mus Fix tcl failures for design with more than one AXI INTC, chained
 ##                  to the GIC. It fixes CR#1069891
 ##     07/15/20 mus Fixed designs where external interrupt port is connected

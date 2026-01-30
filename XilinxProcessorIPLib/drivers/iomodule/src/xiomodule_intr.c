@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -218,7 +218,7 @@ void XIOModule_SetHandler(XIOModule * InstancePtr,
 /**
 *
 * Interrupt Service Routine (ISR) for the driver.  This function only performs
-* processing for the Programmable Interval Timere and does not save and restore
+* processing for the Programmable Interval Timer and does not save and restore
 * the interrupt context.
 *
 * @param	InstancePtr contains a pointer to the IO Module instance for

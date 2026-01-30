@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -169,7 +169,7 @@
 *                     PPI interrupts. It was missing for GICv3 based controllers.
 * 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID by changic logic to get
 *                     CPU ID, it will be read from affinity register of processor
-*                     who is caling SCUGIC driver API's.
+*                     who is calling SCUGIC driver API's.
 * 5.2   ml   09/07/23 Typecasting with u32 to fix MISRA-C_RULE_10.3 violation.
 * 5.2   ml   09/07/23 Compared with zero to fix MISRA-C_RULE_14.4 violation.
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.

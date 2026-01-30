@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,7 +90,7 @@
 * 2.01a sdm  04/27/10 Updated the tcl so that the definitions are generated in
 *		      the xparameters.h to know whether the optional registers
 *		      SIE, CIE and IVR are enabled in the HW - Refer CR 555392.
-*		      This driver doesnot make use of these definitions and does
+*		      This driver does not make use of these definitions and does
 *		      not use the optional registers.
 * 2.03a hvm  05/24/11 Updated the tcl to generate vector Ids for external
 *		      interrupts. CR565336
