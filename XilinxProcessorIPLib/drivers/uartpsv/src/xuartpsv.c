@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.5  sd   05/04/22  Update the loop XUartPsv_ReceiveBuffer
 * 1.8  sd   10/20/22  Add XUartPsv_CleanupRx and XUartPsv_CleanupTx to reset rx
 * 		      and Tx buffers.
+* 1.14 vlt  01/27/26  Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -760,7 +761,7 @@ void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
 /*****************************************************************************/
 /**
 *
-* This function is a cleanup function to  allow reseting Rx NextBytePtr, RemainingBytes and
+* This function is a cleanup function to  allow resetting Rx NextBytePtr, RemainingBytes and
 * RequestedBytes.
 *
 * @return	None.
@@ -779,7 +780,7 @@ void XUartPsv_CleanupRx(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is a cleanup function to  allow reseting Tx NextBytePtr, RemainingBytes and
+* This function is a cleanup function to  allow resetting Tx NextBytePtr, RemainingBytes and
 * RequestedBytes.
 *
 * @return	None.
