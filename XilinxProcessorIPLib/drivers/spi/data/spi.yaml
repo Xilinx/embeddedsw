@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -37,7 +37,7 @@ properties:
   xlnx,xipmode:
     description: 0 if Non-XIP, 1 if XIP Mode
   xlnx,startup-block:
-    description: 1 if Starup block is used in h/w
+    description: 1 if Startup block is used in h/w
   interrupts:
     description: interrupt id
   interrupt-parent:

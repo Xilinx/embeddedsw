@@ -408,7 +408,7 @@ typedef struct {
 	u32 AxiFullBaseAddress;	/**< AXI Full Interface Base address of
 					the device */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
-	u8 Use_Startup;		/**< 1 if Starup block is used in h/w */
+	u8 Use_Startup;		/**< 1 if Startup block is used in h/w */
 	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 #ifdef SDT
 	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]

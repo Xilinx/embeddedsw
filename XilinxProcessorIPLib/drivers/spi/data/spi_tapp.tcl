@@ -1,6 +1,6 @@
 ###############################################################################
-# Copyright (C) 2005 - 2023 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -15,7 +15,7 @@
 
 ## BEGIN_CHANGELOG EDK_L_SP4
 ##
-##  - Removed the checking of the parametr C_INTERRUPT_PRESENT as
+##  - Removed the checking of the parameter C_INTERRUPT_PRESENT as
 ##    this is not present in the core
 ##
 ## END_CHANGELOG
