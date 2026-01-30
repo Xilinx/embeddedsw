@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 * 5.0	sne  02/27/20 Reorganize the driver source.
 * 5.0	sne  03/09/20 Fixed MISRA-C violations.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
+* 5.12  vlt  01/28/26 Fixed codespell issues.
 *
 * </pre>
 *
@@ -59,7 +60,7 @@
 #define XWT_FW_COUNT			0x0U	    /**< Fist Window count */
 #define XWT_SW_COUNT			0x10000U    /**< Second window count */
 #define XWT_GWOR_COUNT			0x00001000U /**< Generic Watchdog
-						     * Offset Regiser */
+						     * Offset Register */
 /**************************** Type Definitions *******************************/
 
 
