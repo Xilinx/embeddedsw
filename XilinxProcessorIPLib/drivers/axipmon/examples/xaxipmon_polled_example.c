@@ -37,6 +37,7 @@
 *                      available in all examples. This is a fix for CR-965028.
 * 6.10  ht    06/23/23 Added support for system device-tree flow.
 * 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+*       vlt  01/27/26 Fixed codespell issues.
 * </pre>
 *
 *****************************************************************************/
@@ -145,11 +146,11 @@ int main(void)
 * @param	AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
 *		from xparameters.h.
 * @endif
-* @param	Metrics is an user referece variable in which computed metrics
+* @param	Metrics is an user reference variable in which computed metrics
 *			will be filled
-* @param	ClkCntHigh is an user referece variable in which Higher 64 bits
+* @param	ClkCntHigh is an user reference variable in which Higher 64 bits
 *			of Global Clock Counter are filled
-* @param	ClkCntLow is an user referece variable in which Lower 64 bits
+* @param	ClkCntLow is an user reference variable in which Lower 64 bits
 *			of Global Clock Counter are filled
 *
 * @return

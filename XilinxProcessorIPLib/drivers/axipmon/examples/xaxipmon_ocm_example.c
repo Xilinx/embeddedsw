@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                       ensure that "Successfully ran" and "Failed" strings are
 *                       available in all examples. This is a fix for CR-965028.
 * 6.10  ht     06/23/23 Added support for system device-tree flow.
+* 6.14  vlt    01/27/26 Fixed codespell issues
 * </pre>
 *
 *****************************************************************************/
@@ -243,7 +244,7 @@ int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 {
 	int Status;
 
-	/* reset Metric conter and Global counters */
+	/* reset Metric counter and Global counters */
 	XAxiPmon_ResetMetricCounter(InstancePtr);
 	XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 
