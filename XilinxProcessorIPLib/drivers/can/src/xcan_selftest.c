@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
+* 3.12  vlt  01/28/26 Fixed codespell issues.
 * </pre>
 *
 *****************************************************************************/
@@ -52,7 +53,7 @@ static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS]; /**< RxFrame Buffer */
 /************************** Function Prototypes *****************************/
 
 /* Message Id Constant. */
-#define TEST_MESSAGE_ID	1024  /**< Mesage ID */
+#define TEST_MESSAGE_ID	1024  /**< Message ID */
 
 /* CAN Dlc Value */
 #define TEST_CAN_DLC	8     /**< DLC length */
