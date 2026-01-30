@@ -1610,7 +1610,7 @@ u32 GetRealAddr(XQspiPs *QspiPtr, u32 Address)
 		RealAddr = Address / 2;
 		break;
 	default:
-		/* RealAddr wont be assigned in this case; */
+		/* RealAddr won't be assigned in this case; */
 	break;
 
 	}

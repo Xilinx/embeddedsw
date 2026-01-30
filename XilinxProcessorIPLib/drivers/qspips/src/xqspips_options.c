@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 *		     Master mode (XQSPIPS_MASTER_OPTION) and
 *		     Flash interface mode (XQSPIPS_FLASH_MODE_OPTION) option
 *		     as the QSPI driver supports the Master mode
-*		     and Flash Interface mode. The driver doesnot support
+*		     and Flash Interface mode. The driver doesn't support
 *		     Slave mode or the legacy mode.
 * 		     Added the option for setting the Holdb_dr bit in the
 *		     configuration options, XQSPIPS_HOLD_B_DRIVE_OPTION

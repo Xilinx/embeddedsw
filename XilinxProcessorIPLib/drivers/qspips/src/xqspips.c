@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,7 @@
 *		     Master mode (XQSPIPS_MASTER_OPTION) and
 *		     Flash interface mode (XQSPIPS_FLASH_MODE_OPTION) option
 *		     as the QSPI driver supports the Master mode
-*		     and Flash Interface mode and doesnot support
+*		     and Flash Interface mode and doesn't support
 *		     Slave mode or the legacy mode.
 *		     Modified the XQspiPs_PolledTransfer and XQspiPs_Transfer
 *		     APIs so that the last argument (IsInst) specifying whether
