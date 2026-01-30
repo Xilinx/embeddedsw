@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.00  gm  02/09/24 First release
+* 1.3   vlt 01/30/26 Fixed codespell errors.
 * </pre>
 *
 ******************************************************************************/
@@ -40,7 +41,7 @@
 * @param	InstancePtr is a pointer to the XI3c instance.
 *
 * @return
-*		- Response code on sucess.
+*		- Response code on success.
 *		- XST_TIMEOUT on timeout.
 *
 * @note
@@ -167,7 +168,7 @@ s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 	}
 
 	/*
-	 * Eanble response fifo not empty interrupt
+	 * Enable response fifo not empty interrupt
 	 */
 	XI3c_EnableREInterrupts(InstancePtr->Config.BaseAddress,
 				XI3C_INTR_RESP_NOT_EMPTY_MASK);

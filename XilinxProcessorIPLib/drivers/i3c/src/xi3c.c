@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.00 	gm   02/09/24 First release
+* 1.3   vlt  01/27/26 Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -208,7 +209,7 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 						XI3C_INTR_HJ_MASK);
 	} else {	/**< Slave mode */
 		/*
-		 * Eanble response fifo not empty interrupt
+		 * Enable response fifo not empty interrupt
 		 */
 		XI3c_EnableREInterrupts(InstancePtr->Config.BaseAddress,
 					XI3C_INTR_RESP_NOT_EMPTY_MASK);
