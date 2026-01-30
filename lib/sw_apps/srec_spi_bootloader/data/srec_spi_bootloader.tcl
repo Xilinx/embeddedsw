@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2024 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -173,7 +173,7 @@ proc get_program_code_memory {} {
         }
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of BRAM memory for code.";
+    error "This application requires at least [expr $required_mem_size/1024] KB of BRAM memory for code.";
 }
 
 proc get_program_data_memory {} {
@@ -205,7 +205,7 @@ proc get_program_data_memory {} {
         }
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of BRAM memory for data.";
+    error "This application requires at least [expr $required_mem_size/1024] KB of BRAM memory for data.";
 }
 
 proc swapp_get_linker_constraints {} {
