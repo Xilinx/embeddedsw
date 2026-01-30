@@ -128,6 +128,43 @@ u32 XVphy_Gthe4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 #define XVPHY_GTHE4_DRP_QPLL0_CFG2_G3	0x1B
 #define XVPHY_GTHE4_DRP_QPLL0_CFG4	0x30
 
+/* GTHE4 Common DRP Register Addresses for CMN1 (QPLL1/PPF1) */
+#define XVPHY_GTHE4_DRP_QPLL1_CLKOUT_RATE	0x8E
+#define XVPHY_GTHE4_DRP_QPLL1_PPF_CFG	0x8D
+#define XVPHY_GTHE4_DRP_QPLL1_CFG2	0x91
+#define XVPHY_GTHE4_DRP_QPLL1_LPF	0x99
+#define XVPHY_GTHE4_DRP_QPLL1_CFG2_G3	0x9B
+#define XVPHY_GTHE4_DRP_QPLL1_CFG4	0xB0
+
+/* GTHE4 Channel DRP Register Addresses from UG576 */
+#define XVPHY_GTHE4_CHANNEL_CH_HSPMUX                      0x116
+#define XVPHY_GTHE4_CHANNEL_PCIE_PLL_SEL_MODE_GEN12        0xAD
+#define XVPHY_GTHE4_CHANNEL_PCIE_PLL_SEL_MODE_GEN3         0xAD
+#define XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST                 0xFB
+#define XVPHY_GTHE4_CHANNEL_RXCDR_CFG2                     0x10
+#define XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2                0xAF
+#define XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3                0xA4
+#define XVPHY_GTHE4_CHANNEL_RXCDR_CFG3                     0x11
+#define XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2                0xAF
+#define XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3                0xA5
+#define XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING               0xE0
+#define XVPHY_GTHE4_CHANNEL_RXOUT_DIV                      0x63
+#define XVPHY_GTHE4_CHANNEL_RXPI_CFG0                      0x9D
+#define XVPHY_GTHE4_CHANNEL_RXPI_CFG1                      0x100
+#define XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA                 0x8A
+#define XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV                   0x6D
+#define XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR                0x66
+#define XVPHY_GTHE4_CHANNEL_TXOUT_DIV                      0x7C
+#define XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1                   0x6F
+#define XVPHY_GTHE4_CHANNEL_TXPH_CFG                       0x73
+#define XVPHY_GTHE4_CHANNEL_TXPI_CFG                       0xFF
+#define XVPHY_GTHE4_CHANNEL_TXPI_CFG0                      0x9C
+#define XVPHY_GTHE4_CHANNEL_TXPI_CFG1                      0x9C
+#define XVPHY_GTHE4_CHANNEL_TXPI_CFG3                      0x9C
+#define XVPHY_GTHE4_CHANNEL_TXPI_CFG4                      0x9C
+#define XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV                   0x7A
+#define XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET                  0xFB
+
 const u8 Gthe4CpllDivsM[]	= {1, 2, 0};
 const u8 Gthe4CpllDivsN1[]	= {4, 5, 0};
 const u8 Gthe4CpllDivsN2[]	= {1, 2, 3, 4, 5, 8, 0};
@@ -458,6 +495,7 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	u32 QpllxVcoRateMHz;
 	u32 QpllxClkOutMHz;
     u32 Status = XST_SUCCESS;
+	u64 LineRateHz;
 
 	/* Obtain current DRP register value for QPLLx_FBDIV. */
 	Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
@@ -487,17 +525,152 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x18 : 0x98, DrpVal);
 
-	if (InstancePtr->Config.DpRxProtocol == 1 ||
-			InstancePtr->Config.DpTxProtocol == 1) {
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN0, XVPHY_GTHE4_DRP_QPLL0_PPF_CFG, 0x900);
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN0, XVPHY_GTHE4_DRP_QPLL0_CFG2, 0xFC3);
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN0, XVPHY_GTHE4_DRP_QPLL0_CFG2_G3, 0xFC3);
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN0, XVPHY_GTHE4_DRP_QPLL0_CFG4, 0x2);
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN0, XVPHY_GTHE4_DRP_QPLL0_LPF, 0x21F);
-	}
+    if (InstancePtr->Config.DpRxProtocol == 1 ||
+            InstancePtr->Config.DpTxProtocol == 1) {
+        LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, CmnId);
 
+        if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_135GBPS) {
+		/* 13.5 Gbps */
+            /* PPF0_CFG */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                  XVPHY_GTHE4_DRP_QPLL0_PPF_CFG, 0x900);
+            /* QPLL0_CFG4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                  XVPHY_GTHE4_DRP_QPLL0_CFG4, 0x4);
+            /* QPLL0_LPF */
+            Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                  XVPHY_GTHE4_DRP_QPLL0_LPF, &DrpVal);
+            DrpVal &= ~(0x3FF);
+            DrpVal |= 0x21F;
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                  XVPHY_GTHE4_DRP_QPLL0_LPF, DrpVal);
+        } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_10GBPS) {
+		/* 10.0 Gbps */
+            /* PPF0_CFG / PPF1_CFG */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+				(CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_PPF_CFG
+                                : XVPHY_GTHE4_DRP_QPLL1_PPF_CFG,
+				(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x600 : 0x800);
+            /* QPLL0_CFG4 / QPLL1_CFG4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_CFG4
+                                : XVPHY_GTHE4_DRP_QPLL1_CFG4,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x3 : 0x4);
+            /* QPLL0_LPF / QPLL1_LPF */
+            Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, &DrpVal);
+            DrpVal &= ~(0x3FF);
+            DrpVal |= (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x27F : 0x37F;
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, DrpVal);
+          } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+		/* 8.1 Gbps */
+            /* PPF0_CFG / PPF1_CFG */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                            (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                            ? XVPHY_GTHE4_DRP_QPLL0_PPF_CFG
+                            : XVPHY_GTHE4_DRP_QPLL1_PPF_CFG,
+                            (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0xF00 : 0x800);
+            /* QPLL0_CFG4 / QPLL1_CFG4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+						(CmnId == XVPHY_CHANNEL_ID_CMN0)
+								? XVPHY_GTHE4_DRP_QPLL0_CFG4
+                                : XVPHY_GTHE4_DRP_QPLL1_CFG4,
+						(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x45 : 0x4);
+            /* QPLL0_LPF / QPLL1_LPF */
+            Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, &DrpVal);
+            DrpVal &= ~(0x3FF);
+            DrpVal |= (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x37F : 0x21F;
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, DrpVal);
+          } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_540GBPS) {
+		/* 5.4 Gbps */
+            /* PPF0_CFG / PPF1_CFG */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+					(CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_PPF_CFG
+                                : XVPHY_GTHE4_DRP_QPLL1_PPF_CFG,
+				(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x600 : 0x800);
+            /* QPLL0_CFG4 / QPLL1_CFG4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_CFG4
+                                : XVPHY_GTHE4_DRP_QPLL1_CFG4,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x3 : 0x4);
+            /* QPLL0_LPF / QPLL1_LPF */
+            Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, &DrpVal);
+            DrpVal &= ~(0x3FF);
+            DrpVal |= (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x37F : 0x33F;
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, DrpVal);
+        } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_270GBPS) {
+			/* 2.7 Gbps */
+            /* PPF0_CFG / PPF1_CFG */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+				(CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_PPF_CFG
+                                : XVPHY_GTHE4_DRP_QPLL1_PPF_CFG,
+				(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x600 : 0x800);
+            /* QPLL0_CFG4 / QPLL1_CFG4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_CFG4
+                                : XVPHY_GTHE4_DRP_QPLL1_CFG4,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x3 : 0x4);
+            /* QPLL0_LPF / QPLL1_LPF */
+            Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, &DrpVal);
+            DrpVal &= ~(0x3FF);
+            DrpVal |= (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x37F : 0x33F;
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, DrpVal);
+        } else {
+		/* 1.62 Gbps */
+            /* PPF0_CFG / PPF1_CFG */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_PPF_CFG
+                                : XVPHY_GTHE4_DRP_QPLL1_PPF_CFG, 0x800);
+            /* QPLL0_CFG4 / QPLL1_CFG4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_CFG4
+                                : XVPHY_GTHE4_DRP_QPLL1_CFG4, 0x4);
+            /* QPLL0_LPF / QPLL1_LPF */
+            Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, &DrpVal);
+            DrpVal &= ~(0x3FF);
+            DrpVal |= 0x3FF;
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+                                (CmnId == XVPHY_CHANNEL_ID_CMN0)
+                                ? XVPHY_GTHE4_DRP_QPLL0_LPF
+                                : XVPHY_GTHE4_DRP_QPLL1_LPF, DrpVal);
+        }
+    }
 
-	if ((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) ||
+    if ((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) ||
 		(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX))) {
 
 		QpllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, CmnId,
@@ -621,6 +794,31 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	u32 Status = XST_SUCCESS;
 	u64 LineRateHz;
 
+	/* Determine PLL type. */
+	PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId);
+	/* Determine which channel(s) to operate on. */
+	switch (PllType) {
+		case XVPHY_PLL_TYPE_QPLL:
+		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
+			ChIdPll = XVPHY_CHANNEL_ID_CMN0;
+			PllxClkOutDiv = 2;
+			break;
+		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
+			ChIdPll = XVPHY_CHANNEL_ID_CMN1;
+			PllxClkOutDiv = 2;
+			break;
+		default:
+			ChIdPll = ChId;
+			PllxClkOutDiv = 1;
+			break;
+	}
+
+	PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
+			XVPHY_DIR_RX) / 1000000;
+	PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
+
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
 
 	/* RXCDR_CFG(CfgIndex) */
@@ -641,122 +839,539 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (InstancePtr->Config.DpRxProtocol == 1) {
-		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
-		if (LineRateHz==XVPHY_DP_LINK_RATE_HZ_135GBPS) {
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x8A, &DrpVal);
-		DrpVal &= ~(0x100);
-		WriteVal = 0x0;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x8A, DrpVal);
+    if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
+        if (InstancePtr->Config.DpRxProtocol == 1) {
+            LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
+            if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_135GBPS) {
+                /* CH_HSPMUX - RX bits [7:0] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0x00FF);
+                WriteVal = (0x44 & 0xFF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* PREIQ_FREQ_BST */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                DrpVal &= ~(0x30);
+                WriteVal = (0x1 & 0x3) << 4;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                /* RXCDR_CFG2_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                DrpVal &= ~(0x3FF);
+                WriteVal = (0x269 & 0x3FF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                /* RXCDR_CFG2_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
+                /* RXCDR_CFG3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0010);
+                /* RXCDR_CFG3_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
+                DrpVal &= ~(0xFC00);
+                WriteVal = (0x10 & 0x3F) << 10;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
+                /* RXCDR_CFG3_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0010);
+                /* RXDFE_PWR_SAVING */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
+                DrpVal &= ~(0x200);
+                WriteVal = (0x0 & 0x1) << 9;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, DrpVal);
+                /* RXPI_CFG0 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x0104);
+                /* RXPI_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0000);
+                /* RXSYNC_SKIP_DA */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, &DrpVal);
+                DrpVal &= ~(0x100);
+                WriteVal = (0x0 & 0x1) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, DrpVal);
+                /* RX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF8);
+                WriteVal = (0x10 & 0x1F) << 3;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, DrpVal);
+                /* RX_WIDEMODE_CDR */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, &DrpVal);
+                DrpVal &= ~(0xC);
+                WriteVal = (0x1 & 0x3) << 2;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, DrpVal);
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_10GBPS) {
+                /* CH_HSPMUX - RX bits [7:0] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0x00FF);
+                WriteVal = (0x24 & 0xFF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* PREIQ_FREQ_BST */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                DrpVal &= ~(0x30);
+                WriteVal = (0x0 & 0x3) << 4;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                /* RXCDR_CFG2_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                DrpVal &= ~(0x3FF);
+                WriteVal = (0x269 & 0x3FF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                /* RXCDR_CFG2_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
+                /* RXCDR_CFG3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
+                /* RXCDR_CFG3_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
+                DrpVal &= ~(0xFC00);
+                WriteVal = (0x12 & 0x3F) << 10;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
+                /* RXCDR_CFG3_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
+                /* RXDFE_PWR_SAVING */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
+                DrpVal &= ~(0x200);
+                WriteVal = (0x1 & 0x1) << 9;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, DrpVal);
+                /* RXPI_CFG0 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x0102);
+                /* RXPI_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0015);
+                /* RXSYNC_SKIP_DA */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, &DrpVal);
+                DrpVal &= ~(0x100);
+                WriteVal = (0x0 & 0x1) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, DrpVal);
+                /* RX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF8);
+                WriteVal = (0x10 & 0x1F) << 3;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, DrpVal);
+                /* RX_WIDEMODE_CDR */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, &DrpVal);
+                DrpVal &= ~(0xC);
+                WriteVal = (0x1 & 0x3) << 2;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, DrpVal);
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+                /* CH_HSPMUX - RX bits [7:0] */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                    DrpVal &= ~(0x00FF);
+                    WriteVal = (0x68 & 0xFF) << 0;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                    DrpVal &= ~(0x00FF);
+                    WriteVal = (0x24 & 0xFF) << 0;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                }
+                /* PREIQ_FREQ_BST */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                    DrpVal &= ~(0x30);
+                    WriteVal = (0x1 & 0x3) << 4;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                    DrpVal &= ~(0x30);
+                    WriteVal = (0x0 & 0x3) << 4;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                }
+                /* RXCDR_CFG2_GEN2 */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                    DrpVal &= ~(0x3FF);
+                    WriteVal = (0x259 & 0x3FF) << 0;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                    DrpVal &= ~(0x3FF);
+                    WriteVal = (0x269 & 0x3FF) << 0;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                }
+                /* RXCDR_CFG2_GEN3 */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0259);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
+                }
+                /* RXCDR_CFG3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
+                /* RXCDR_CFG3_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
+                DrpVal &= ~(0xFC00);
+                WriteVal = (0x12 & 0x3F) << 10;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
+                /* RXCDR_CFG3_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
+                /* RXDFE_PWR_SAVING */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
+                DrpVal &= ~(0x200);
+                WriteVal = (0x1 & 0x1) << 9;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, DrpVal);
+                /* RXPI_CFG0 */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x0004);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                     Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x2102);
+                }
+                /* RXPI_CFG1 */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0000);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0045);
+                }
+                /* RXSYNC_SKIP_DA */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, &DrpVal);
+                DrpVal &= ~(0x100);
+                WriteVal = (0x0 & 0x1) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, DrpVal);
+                /* RX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF8);
+                WriteVal = (0x5 & 0x1F) << 3;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, DrpVal);
+                /* RX_WIDEMODE_CDR */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, &DrpVal);
+                DrpVal &= ~(0xC);
+                WriteVal = (0x1 & 0x3) << 2;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, DrpVal);
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_540GBPS) {
+                /* CH_HSPMUX - RX bits [7:0] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0x00FF);
+                WriteVal = (0x24 & 0xFF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* PREIQ_FREQ_BST */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                DrpVal &= ~(0x30);
+                WriteVal = (0x0 & 0x3) << 4;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                /* RXCDR_CFG2_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                DrpVal &= ~(0x3FF);
+                WriteVal = (0x259 & 0x3FF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                /* RXCDR_CFG2_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0259);
+                /* RXCDR_CFG3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
+                /* RXCDR_CFG3_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
+                DrpVal &= ~(0xFC00);
+                WriteVal = (0x12 & 0x3F) << 10;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
+                /* RXCDR_CFG3_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
+                /* RXDFE_PWR_SAVING */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
+                DrpVal &= ~(0x200);
+                WriteVal = (0x1 & 0x1) << 9;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, DrpVal);
+                /* RXPI_CFG0 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x0002);
+                /* RXPI_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0015);
+                /* RXSYNC_SKIP_DA */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, &DrpVal);
+                DrpVal &= ~(0x100);
+                WriteVal = (0x0 & 0x1) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, DrpVal);
+                /* RX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF8);
+                WriteVal = (0xB & 0x1F) << 3;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, DrpVal);
+                /* RX_WIDEMODE_CDR */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, &DrpVal);
+                DrpVal &= ~(0xC);
+                WriteVal = (0x0 & 0x3) << 2;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, DrpVal);
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_270GBPS) {
+                /* CH_HSPMUX - RX bits [7:0] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0x00FF);
+                WriteVal = (0x24 & 0xFF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* PREIQ_FREQ_BST */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                DrpVal &= ~(0x30);
+                WriteVal = (0x0 & 0x3) << 4;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                /* RXCDR_CFG2_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                DrpVal &= ~(0x3FF);
+                WriteVal = (0x249 & 0x3FF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                /* RXCDR_CFG2_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0249);
+                /* RXCDR_CFG3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
+                /* RXCDR_CFG3_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
+                DrpVal &= ~(0xFC00);
+                WriteVal = (0x12 & 0x3F) << 10;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
+                /* RXCDR_CFG3_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
+                /* RXDFE_PWR_SAVING */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
+                DrpVal &= ~(0x200);
+                WriteVal = (0x1 & 0x1) << 9;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, DrpVal);
+                /* RXPI_CFG0 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x0002);
+                /* RXPI_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0015);
+                /* RXSYNC_SKIP_DA */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, &DrpVal);
+                DrpVal &= ~(0x100);
+                WriteVal = (0x0 & 0x1) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, DrpVal);
+                /* RX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF8);
+                WriteVal = (0xB & 0x1F) << 3;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, DrpVal);
+                /* RX_WIDEMODE_CDR */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, &DrpVal);
+                DrpVal &= ~(0xC);
+                WriteVal = (0x0 & 0x3) << 2;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, DrpVal);
+            } else {
+                /* CH_HSPMUX - RX bits [7:0] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0x00FF);
+                WriteVal = (0x44 & 0xFF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* PREIQ_FREQ_BST */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, &DrpVal);
+                DrpVal &= ~(0x30);
+                WriteVal = (0x1 & 0x3) << 4;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
+                /* RXCDR_CFG2_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
+                DrpVal &= ~(0x3FF);
+                WriteVal = (0x239 & 0x3FF) << 0;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
+                /* RXCDR_CFG2_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0239);
+                /* RXCDR_CFG3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
+                /* RXCDR_CFG3_GEN2 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
+                DrpVal &= ~(0xFC00);
+                WriteVal = (0x12 & 0x3F) << 10;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
+                /* RXCDR_CFG3_GEN3 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
+                /* RXDFE_PWR_SAVING */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
+                DrpVal &= ~(0x200);
+                WriteVal = (0x1 & 0x1) << 9;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, DrpVal);
+                /* RXPI_CFG0 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG0, 0x2004);
+                /* RXPI_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXPI_CFG1, 0x0000);
+                /* RXSYNC_SKIP_DA */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, &DrpVal);
+                DrpVal &= ~(0x100);
+                WriteVal = (0x1 & 0x1) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RXSYNC_SKIP_DA, DrpVal);
+                /* RX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF8);
+                WriteVal = (0xB & 0x1F) << 3;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_CLK25_DIV, DrpVal);
+                /* RX_WIDEMODE_CDR */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, &DrpVal);
+                DrpVal &= ~(0xC);
+                WriteVal = (0x0 & 0x3) << 2;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_RX_WIDEMODE_CDR, DrpVal);
+            }
+        }
+    }
 
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x0104);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x4444);
-
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0xFB, &DrpVal);
-		DrpVal &= ~(0x30);
-		WriteVal = 0x1 << 4;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
-
-		} else if (LineRateHz==XVPHY_DP_LINK_RATE_HZ_10GBPS) {
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x8A, &DrpVal);
-		DrpVal &= ~(0x100);
-		WriteVal = 0x0;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x8A, DrpVal);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x0102);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x100, 0x0015);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x2424);
-
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0xFB, &DrpVal);
-		DrpVal &= ~(0x30);
-		WriteVal = 0x0 << 4;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
-
-		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x8A, &DrpVal);
-		DrpVal &= ~(0x100);
-		WriteVal = 0x0;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x8A, DrpVal);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x0004);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x100, 0x0000);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x6868);
-
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0xFB, &DrpVal);
-		DrpVal &= ~(0x30);
-		WriteVal = 0x1 << 4;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
-
-		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x8A, &DrpVal);
-		DrpVal &= ~(0x100);
-		WriteVal = 0x0;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x8A, DrpVal);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x0002);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x100, 0x0015);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x2424);
-
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0xFB, &DrpVal);
-		DrpVal &= ~(0x30);
-		WriteVal = 0x0 << 4;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
-
-		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x8A, &DrpVal);
-		DrpVal &= ~(0x100);
-		WriteVal = 0x0;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x8A, DrpVal);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x0002);
-
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x2424);
-
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0xFB, &DrpVal);
-		DrpVal &= ~(0x30);
-		WriteVal = 0x0 << 4;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
-
-		} else {
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x8A, &DrpVal);
-		DrpVal &= ~(0x100);
-		WriteVal = 0x1;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x8A, DrpVal);
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x9D, 0x2004);
-
-
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x116, 0x4444);
-
-		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0xFB, &DrpVal);
-		DrpVal &= ~(0x30);
-		WriteVal = 0x1 << 4;
-		DrpVal |= WriteVal;
-		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
-
-		}
-	}
-
-	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
+    if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		/* RX_INT_DATAWIDTH */
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x66, &DrpVal);
 		DrpVal &= ~(0x3);
@@ -771,31 +1386,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		WriteVal <<= 5;
 		DrpVal |= WriteVal;
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x03, DrpVal);
-
-		/* Determine PLL type. */
-		PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId);
-		/* Determine which channel(s) to operate on. */
-		switch (PllType) {
-			case XVPHY_PLL_TYPE_QPLL:
-			case XVPHY_PLL_TYPE_QPLL0:
-			case XVPHY_PLL_TYPE_PLL0:
-				ChIdPll = XVPHY_CHANNEL_ID_CMN0;
-				PllxClkOutDiv = 2;
-				break;
-			case XVPHY_PLL_TYPE_QPLL1:
-			case XVPHY_PLL_TYPE_PLL1:
-				ChIdPll = XVPHY_CHANNEL_ID_CMN1;
-				PllxClkOutDiv = 2;
-				break;
-			default:
-				ChIdPll = ChId;
-				PllxClkOutDiv = 1;
-				break;
-		}
-
-		PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
-				XVPHY_DIR_RX) / 1000000;
-		PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
 
 		/* CH_HSPMUX_RX */
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x116, &DrpVal);
@@ -919,9 +1509,12 @@ u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	u32 PllxClkOutMHz;
 	u32 PllxClkOutDiv;
     u32 Status = XST_SUCCESS;
+	u64 LineRateHz;
 
 	ReturnVal = XVphy_Gthe4TxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
-	if (!XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
+	if (!((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) || \
+		(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP && \
+		InstancePtr->Config.DpTxProtocol == 1))) {
 		return ReturnVal;
 	}
 
@@ -946,9 +1539,373 @@ u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			break;
 	}
 
-	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
+    PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
+				XVPHY_DIR_TX) / 1000000;
+	PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
 
-		ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
+    ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
+
+    if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP) {
+        if (InstancePtr->Config.DpTxProtocol == 1) {
+            LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
+            if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_135GBPS) {
+              for (ChId = 1; ChId <= 4; ChId++) {
+                /* CH_HSPMUX - TX bits [15:8] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0xFF00);
+                WriteVal = (0x44 & 0xFF) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* TXPHDLY_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1, 0x000E);
+                /* TXPH_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0323);
+                /* TXPI_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0000);
+                /* TXPI_CFG3 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, &DrpVal);
+                DrpVal &= ~(0x40);
+                WriteVal = (0x0 & 0x1) << 6;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, DrpVal);
+                /* TXPI_CFG4 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                DrpVal &= ~(0x20);
+                WriteVal = (0x1 & 0x1) << 5;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                /* TX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF800);
+                WriteVal = (0x10 & 0x1F) << 11;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, DrpVal);
+                /* TX_PI_BIASSET */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                DrpVal &= ~(0x6);
+                WriteVal = (0x2 & 0x3) << 1;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+		}
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_10GBPS) {
+              for (ChId = 1; ChId <= 4; ChId++) {
+                /* CH_HSPMUX - TX bits [15:8] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0xFF00);
+                WriteVal = (0x24 & 0xFF) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* TXPHDLY_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1, 0x000E);
+                /* TXPH_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0323);
+                /* TXPI_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0054);
+                /* TXPI_CFG3 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, &DrpVal);
+                DrpVal &= ~(0x40);
+                WriteVal = (0x0 & 0x1) << 6;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, DrpVal);
+                /* TXPI_CFG4 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                DrpVal &= ~(0x20);
+                WriteVal = (0x1 & 0x1) << 5;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                /* TX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF800);
+                WriteVal = (0x10 & 0x1F) << 11;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, DrpVal);
+                /* TX_PI_BIASSET */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                DrpVal &= ~(0x6);
+                WriteVal = (0x1 & 0x3) << 1;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+		}
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+              for (ChId = 1; ChId <= 4; ChId++) {
+                /* CH_HSPMUX - TX bits [15:8] */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                    DrpVal &= ~(0xFF00);
+                    WriteVal = (0x68 & 0xFF) << 8;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                    DrpVal &= ~(0xFF00);
+                    WriteVal = (0x24 & 0xFF) << 8;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                }
+                /* TXPHDLY_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1, 0x000E);
+                /* TXPH_CFG */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0723);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                         XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0323);
+                }
+                /* TXPI_CFG */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0000);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0054);
+                }
+                /* TXPI_CFG3 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, &DrpVal);
+                DrpVal &= ~(0x40);
+                WriteVal = (0x0 & 0x1) << 6;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, DrpVal);
+                /* TXPI_CFG4 */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                    DrpVal &= ~(0x20);
+                    WriteVal = (0x0 & 0x1) << 5;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                    DrpVal &= ~(0x20);
+                    WriteVal = (0x1 & 0x1) << 5;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                }
+                /* TX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF800);
+                WriteVal = (0xB & 0x1F) << 11;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, DrpVal);
+                /* TX_PI_BIASSET */
+                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                    DrpVal &= ~(0x6);
+                    WriteVal = (0x3 & 0x3) << 1;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
+                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                    DrpVal &= ~(0x6);
+                    WriteVal = (0x1 & 0x3) << 1;
+                    DrpVal |= WriteVal;
+                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                          XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+                }
+		}
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_540GBPS) {
+              for (ChId = 1; ChId <= 4; ChId++) {
+                /* CH_HSPMUX - TX bits [15:8] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0xFF00);
+                WriteVal = (0x24 & 0xFF) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* TXPHDLY_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1, 0x000E);
+                /* TXPH_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0723);
+                /* TXPI_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0054);
+                /* TXPI_CFG3 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, &DrpVal);
+                DrpVal &= ~(0x40);
+                WriteVal = (0x0 & 0x1) << 6;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, DrpVal);
+                /* TXPI_CFG4 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                DrpVal &= ~(0x20);
+                WriteVal = (0x0 & 0x1) << 5;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                /* TX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF800);
+                WriteVal = (0xB & 0x1F) << 11;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, DrpVal);
+                /* TX_PI_BIASSET */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                DrpVal &= ~(0x6);
+                WriteVal = (0x1 & 0x3) << 1;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+		}
+            } else if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_270GBPS) {
+              for (ChId = 1; ChId <= 4; ChId++) {
+                /* CH_HSPMUX - TX bits [15:8] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0xFF00);
+                WriteVal = (0x24 & 0xFF) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* TXPHDLY_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1, 0x000F);
+                /* TXPH_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0723);
+                /* TXPI_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0054);
+                /* TXPI_CFG3 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, &DrpVal);
+                DrpVal &= ~(0x40);
+                WriteVal = (0x0 & 0x1) << 6;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, DrpVal);
+                /* TXPI_CFG4 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                DrpVal &= ~(0x20);
+                WriteVal = (0x0 & 0x1) << 5;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                /* TX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF800);
+                WriteVal = (0xB & 0x1F) << 11;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, DrpVal);
+                /* TX_PI_BIASSET */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                DrpVal &= ~(0x6);
+                WriteVal = (0x1 & 0x3) << 1;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+		}
+            } else {
+              for (ChId = 1; ChId <= 4; ChId++) {
+                /* CH_HSPMUX - TX bits [15:8] */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, &DrpVal);
+                DrpVal &= ~(0xFF00);
+                WriteVal = (0x44 & 0xFF) << 8;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_CH_HSPMUX, DrpVal);
+                /* TXPHDLY_CFG1 */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPHDLY_CFG1, 0x000F);
+                /* TXPH_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPH_CFG, 0x0723);
+                /* TXPI_CFG */
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG, 0x0000);
+                /* TXPI_CFG3 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, &DrpVal);
+                DrpVal &= ~(0x40);
+                WriteVal = (0x1 & 0x1) << 6;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG3, DrpVal);
+                /* TXPI_CFG4 */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, &DrpVal);
+                DrpVal &= ~(0x20);
+                WriteVal = (0x0 & 0x1) << 5;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TXPI_CFG4, DrpVal);
+                /* TX_CLK25_DIV */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, &DrpVal);
+                DrpVal &= ~(0xF800);
+                WriteVal = (0xB & 0x1F) << 11;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_CLK25_DIV, DrpVal);
+                /* TX_PI_BIASSET */
+                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, &DrpVal);
+                DrpVal &= ~(0x6);
+                WriteVal = (0x2 & 0x3) << 1;
+                DrpVal |= WriteVal;
+                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
+                                      XVPHY_GTHE4_CHANNEL_TX_PI_BIASSET, DrpVal);
+		}
+            }
+        }
+    }
+
+    if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
+
 		/* TX_INT_DATAWIDTH */
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x85, &DrpVal);
 		DrpVal &= ~(0x3 << 10);
@@ -963,10 +1920,6 @@ u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		WriteVal = (Xvphy_DrpEncodeDataWidth(ChPtr->TxDataWidth) & 0xF);
 		DrpVal |= WriteVal;
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7A, DrpVal);
-
-		PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
-				XVPHY_DIR_TX) / 1000000;
-		PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
 
 		/* TXPI_CFG */
 		if (PllxClkOutMHz >= 5500) {
