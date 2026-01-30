@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.3   vlt 01/27/26 Fixed codespell issues
  *
  * </pre>
  *
@@ -98,7 +99,7 @@ u32 XSfl_FlashRegisterReadWrite(XSfl_Interface *SflInstancePtr, u8 *RxBfrPtr,u8 
  * This API can be used to transfer the command to the flash.
  *
  * @param	SflInstancePtr is a pointer to the interface driver component to use.
- * @param	Cmd is the command to be transfered to the flash.
+ * @param	Cmd is the command to be transferred to the flash.
  *
  * @return	XST_SUCCESS if successful, else error code.
  *
