@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -152,7 +152,7 @@ extern "C" {
  */
 #define ONFI_ID_LEN		4		/**< ONFI ID Length */
 #define ONFI_CRC_INIT		0x4F4E		/**< ONFI CRC16
-						  Inititialization constant */
+						  Initialization constant */
 #define ONFI_CRC_POLYNOM	0x8005		/**< ONFI CRC16 polynomial */
 #define ONFI_CRC_ORDER		16		/**< ONFI CRC16 order */
 #define ONFI_PARAM_PAGE_LEN	256		/**< ONFI Parameter page length
