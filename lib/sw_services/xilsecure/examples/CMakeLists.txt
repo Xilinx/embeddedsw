@@ -25,7 +25,7 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     else()
         if("Versal_2VP" IN_LIST VARIANT)
 	    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
-            xilsecure_versal_net_ecdh_client_example.c;)
+            xilsecure_versal_net_ecdh_client_example.c; xilsecure_versal_net_trng_client_example.c)
         else()
 	    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;)
         endif()
