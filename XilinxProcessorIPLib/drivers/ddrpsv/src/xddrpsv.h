@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,7 +30,7 @@
  *                     In case, if more than 1 NOC IP in design is connected to
  *                     same DDR segment through different address range,
  *                     generated #defines could be wrong, as existing logic
- *                     doesnt generate unique #define, so names would be
+ *                     doesn't generate unique #define, so names would be
  *                     repeated and values would be wrong in certain scenarios.
  *
  *                     Now, new logic is adding 2 major enhancements. First
@@ -69,6 +69,7 @@
  *                     psv_psm processor. As macros exported by this tcl are
  *                     consumed by only ARM based BSP's, we can skip
  *                     it for firmware processor BSP. It fixes CR#1105828.
+ *1.8    vlt  01/30/26 Fixed codespell errors
  *
  * </pre>
  *

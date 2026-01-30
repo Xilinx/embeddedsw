@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -18,7 +18,7 @@
 #                          In case, if more than 1 NOC IP in design is connected
 #                          to same DDR segment through different address range,
 #                          generated #defines could be wrong, as existing logic
-#                          doesnt generate unique #define, so names would be
+#                          doesn't generate unique #define, so names would be
 #                          repeated and values would be wrong in certain
 #                          scenarios.
 #
@@ -66,6 +66,7 @@
 #                          DDR block names without C*_ prefix. Update
 #                          define_addr_params and define_addr_params_versal_net
 #                          to check for block names without C*_ as well.
+#1.8   vlt    01/30/26     Fixed code spell errors.
 #
 ###############################################################################
 set file_handle 0
@@ -122,7 +123,7 @@ proc generate {drv_handle} {
 	      IP_NAME=="psx_cortexr52" || IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
 
       # define_addr_params macro proc exports macros related to available DDR regions to
-      # xparameters.h. Those macro's are comsumed by MPU/MMU tables in ARM based BSPs.
+      # xparameters.h. Those macro's are consumed by MPU/MMU tables in ARM based BSPs.
       if { $proctype != "psv_pmc" && $proctype != "psv_psm" && \
 	      $proctype != "psx_pmc" && $proctype != "psx_psm" } {
 		if {[llength $is_versal_net] > 0} {
