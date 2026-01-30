@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 2.1	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
 *                     Configuration regarding the Baud Rate and bit timing
 *                     for both Arbitration and Data Phase.
+* 2.12  vlt  01/27/26 Fixed codespell issues
 *
 * </pre>
 *
@@ -60,7 +61,7 @@ static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< RxFrame Buffer */
 #define TEST_CANFD_DLC	8	/**< DLC Value */
 
 /* CAN FD FilterIndex Value */
-#define TEST_MAIL_BOX_MASK 0xFFFFFFFFU	/**< Mailbox Fileter Index Value */
+#define TEST_MAIL_BOX_MASK 0xFFFFFFFFU	/**< Mailbox Filter Index Value */
 
 #define TEST_BRPR_BAUD_PRESCALAR	29 /**< Baud Rate Prescalar */
 

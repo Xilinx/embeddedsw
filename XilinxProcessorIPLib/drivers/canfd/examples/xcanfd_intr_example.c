@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +48,7 @@
 *		      Bus Off EventHandler.
 * 2.8	ht   06/19/23 Added support for system device-tree flow
 * 2.10	ht   12/01/24 Fixed GCC warnings
-*
+* 2.12  vlt  01/27/26 Fixed codespell issues
 *
 * </pre>
 *
@@ -505,7 +505,7 @@ static void RecvHandler(void *CallBackRef)
 		Status = XCanFd_Recv_Sequential(CanPtr, RxFrame);
 	}
 
-	/* Get the Dlc inthe form of bytes */
+	/* Get the Dlc in the form of bytes */
 	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
 				EDL_CANFD);
 	if (Status != XST_SUCCESS) {
@@ -685,7 +685,7 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 	}
 	if (IntrMask & XCANFD_IXR_TXCRS_MASK) {
 		/*
-		 * Code to handle Tx Cancelation Request Served Interrupt
+		 * Code to handle Tx Cancellation Request Served Interrupt
 		 * should be put here.
 		 */
 	}

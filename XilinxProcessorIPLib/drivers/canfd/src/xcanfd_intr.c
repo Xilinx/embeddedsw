@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *					   XCanFd_SetRxIntrWatermark : This function has been
 *					   moved to xcanfd_intr.c
 *       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
+* 2.12  vlt  01/27/26 Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -407,7 +408,7 @@ void XCanFd_IntrHandler(void *InstancePtr)
 	 *      - RX FIFO Underflow
 	 *      - Rx Match Not Finished
 	 *      - Rx Buffer Overflow for Buffer Index(Mail Box)
-	 *      - Transmit Cancelation Request served
+	 *      - Transmit Cancellation Request served
 	 *      - Transmit Ready Request Served
 	 *      - Wake up from sleep mode
 	 *      - Rx Buffer Full(Mail Box)

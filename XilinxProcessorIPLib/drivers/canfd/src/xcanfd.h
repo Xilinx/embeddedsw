@@ -262,6 +262,7 @@ exclusion
 * 2.8	ht   07/18/23 Fixed GCC warnings.
 * 2.12  vlt  11/05/25 Add 64-bit Addressing support.
 * 2.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+*       vlt  01/27/26 Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -1010,7 +1011,7 @@ typedef struct {
 /**
 *
 * This routine returns Number of RxBuffers
-* user can Desing RxBuffers as 48,32,16.
+* user can Design RxBuffers as 48,32,16.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *

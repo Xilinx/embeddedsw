@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
 *		      and CONTROL_STATUS_3.
 * 2.8   ht   06/19/23 Added support for system device-tree flow.
+* 2.12  vlt  01/27/26 Fixed codespell issues
 *
 * </pre>
 *
@@ -487,7 +488,7 @@ Mask/Acceptance Filter ID)
 #define XCANFD_IDR_ID1_MASK	0xFFE00000U  /**< Standard Messg Ident Mask */
 #define XCANFD_IDR_ID1_SHIFT	21U	    /**< Standard Messg Ident Shift */
 #define XCANFD_IDR_SRR_MASK	0x00100000U  /**< Substitute Remote TX Req */
-#define XCANFD_IDR_SRR_SHIFT	20U	     /**< Substitue Remote TX Shift */
+#define XCANFD_IDR_SRR_SHIFT	20U	     /**< Substitute Remote TX Shift */
 #define XCANFD_IDR_IDE_MASK	0x00080000U  /**< Identifier Extension Mask */
 #define XCANFD_IDR_IDE_SHIFT	19U	    /**< Identifier Extension Shift */
 #define XCANFD_IDR_ID2_MASK	0x0007FFFEU  /**< Extended Message Ident Mask */
