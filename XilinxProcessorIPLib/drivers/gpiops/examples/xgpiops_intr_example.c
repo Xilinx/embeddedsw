@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
 * 3.9	sne  11/19/20 Added versal PmcGpio example support.
 * 3.12  gm   07/11/23 Added SDT support.
+* 3.15  vlt  01/27/26 Fixed codespell issues
 *
 *</pre>
 *
@@ -158,7 +159,7 @@ int main(void)
 
 /****************************************************************************/
 /**
-* This function shows the usage of interrupt fucntionality of the GPIO device.
+* This function shows the usage of interrupt functionality of the GPIO device.
 * It is responsible for initializing the GPIO device, setting up interrupts and
 * providing a foreground loop such that interrupts can occur in the background.
 *
