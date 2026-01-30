@@ -26,12 +26,13 @@
 * 1.7   sne    03/01/19 Added Versal support.
 * 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
 *                       modified the code such as
-*                       No brackets to loop body,Declared the poiner param
+*                       No brackets to loop body,Declared the pointer param
 *                       as Pointer to const,No brackets to then/else,
 *                       Literal value requires a U suffix,Casting operation to a pointer
 *                       Array has no bounds specified,Logical conjunctions need brackets.
 * 1.13  ht     06/22/23 Added support for system device-tree flow.
 * 1.17  vlt    12/16/25 Update Doxygen comments to include SDT flow details.
+*       vlt    01/30/26 Fixed codespell errors.
 * </pre>
 *
 ******************************************************************************/

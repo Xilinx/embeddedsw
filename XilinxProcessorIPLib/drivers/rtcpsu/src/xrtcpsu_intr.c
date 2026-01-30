@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,10 +25,11 @@
 * 1.7   sne    03/01/19 Added Versal support.
 * 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
 *                       modified the code such as
-*                       No brackets to loop body,Declared the poiner param
+*                       No brackets to loop body,Declared the pointer param
 *                       as Pointer to const,No brackets to then/else,
 *                       Literal value requires a U suffix,Casting operation to a pointer
 *                       Array has no bounds specified,Logical conjunctions need brackets.
+* 1.17  vlt    01/30/26 Fixed codespell errors.
 * </pre>
 *
 ******************************************************************************/
@@ -56,7 +57,7 @@
 *
 * @param	InstancePtr is a pointer to the XRtcPsu instance
 * @param	Mask contains the interrupts to be enabled.
-*		A '1' enables an interupt, and a '0' disables.
+*		A '1' enables an interrupt, and a '0' disables.
 *
 * @return	None.
 *
