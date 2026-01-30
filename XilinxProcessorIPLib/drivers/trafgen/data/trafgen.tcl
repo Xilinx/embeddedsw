@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -15,12 +16,13 @@
 # ----- ---- -------- -------------------------------------------------------
 # 1.00a srt  01/20/13 First release 
 # 1.01a adk  03/09/13 Updated tcl to differentiate Different Modes in AXI 
-#		      Traffic Genrator.
+#		      Traffic Generator.
 # 3.0   adk  12/10/13 Updated as per the New Tcl API's
 # 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 # 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
 #                     definitions of trafgen in xparameters.h
-# </pre>
+# 4.9  vlt   01/27/26 Fixed codespell issues.
+#</pre>
 #
 ##############################################################################
 

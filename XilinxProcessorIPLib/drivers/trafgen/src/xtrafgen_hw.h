@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *		      (XTG_MCNTL_LOOPEN_MASK).
 * 3.1   adk  28/04/14 Fixed CR:782131 Incorrect Mask value for the loopenable
 *		      bit.
+* 4.9   vlt  01/27/26 Fixed codespell issues.
 *
 * </pre>
 
@@ -69,7 +70,7 @@ extern "C" {
 #define XTG_STREAM_TL_OFFSET	0x38    /**< Streaming Transfer Length */
 
 /**
- *  Static Mode Register Descrptions
+ *  Static Mode Register Descriptions
  */
 #define XTG_STATIC_CNTL_OFFSET	0x60	/**< Static Control */
 #define XTG_STATIC_LEN_OFFSET	0x64	/**< Static Length */

@@ -30,7 +30,7 @@
 * command settings programmed. The core updates the Status registers and
 * asserts interrupts on the completion of issuing programmed commands.
 *
-* The Axi Traffic Genrator has five different modes:
+* The Axi Traffic Generator has five different modes:
 *
 * - Advanced Mode: Advanced Mode allows full control over the traffic generation
 *   Control registers are provided to you to program the core to generate
@@ -185,6 +185,7 @@
 * 4.7   ar   03/07/24 Modified trafgen intr examples added macro for Interrupt ID.
 * 4.8   ht   12/01/24 Fixed GCC warnings.
 * 4.9   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+*       vlt  01/27/25 Fixed codespell issues.
 * </pre>
 ******************************************************************************/
 

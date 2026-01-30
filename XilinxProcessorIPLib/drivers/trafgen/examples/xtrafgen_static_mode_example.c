@@ -15,7 +15,7 @@
  * interconnect connected in the system.
  *
  * This example demonstrates  how to use the Static mode in the Axi Traffic 
- * Genrator.In Static mode the core continuously generates fixed address and 
+ * Generator.In Static mode the core continuously generates fixed address and
  * fixed INCR type read and write transfers based on the burst length 
  * configured.
  * 
@@ -33,6 +33,7 @@
  *       ms   04/05/17 Added tabspace for return statements in functions for
  *                     proper documentation while generating doxygen.
  * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+ *      vlt  01/27/26 Fixed codespell issues.
  * </pre>
  *
  * ***************************************************************************

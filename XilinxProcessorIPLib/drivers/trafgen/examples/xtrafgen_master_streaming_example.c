@@ -14,7 +14,7 @@
  * generate AXI4 traffic which can be used to stress different modules/
  * interconnect connected in the system. 
  *
- * This example demonstrates how to use Streaming mode in Axi Traffic Genrator
+ * This example demonstrates how to use Streaming mode in Axi Traffic Generator
  * When Configured in Master only mode.In this mode the core generates Streaming 
  * Traffic based on the transfer length and transfer count configured.
  * To test this example hardware Must contain a Streaming FIFO and the 
@@ -45,6 +45,7 @@
  *                     modified filename tag to include the file in doxygen
  *                     examples.
  * 4.9 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+ *     vlt  01/27/26 Fixed codespell issues.
  * </pre>
  *
  * ***************************************************************************
