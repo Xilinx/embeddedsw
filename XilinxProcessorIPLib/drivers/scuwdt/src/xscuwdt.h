@@ -103,14 +103,15 @@
 *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                    generation.
 * 2.3   mus 08/31/20 Updated makefile to support parallel make and
-*                    incremental builds. It would help to reduce compilaton
+*                    incremental builds. It would help to reduce compilation
 *                    time.
 * 2.3	sne 09/16/20 Fixed MISRA-C violations.
 * 2.4	sne 02/04/21 Fixed Doxygen warnings.
 * 2.5   asa 07/18/23 Added support for system device tree based workflow
 *                    decoupling flow.
-* 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.          * </pre>
-*
+* 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
+*       vlt  01/27/26 Fixed codespell issues.
+* </pre>
 ******************************************************************************/
 #ifndef XSCUWDT_H		/**< prevent circular inclusions */
 #define XSCUWDT_H		/**< by using protection macros */
