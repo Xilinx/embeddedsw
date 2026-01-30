@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.05a hk     08/22/13 Added reset function
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 4.00  sd     02/02/24 Added wait for transmission done function
+* 3.18  vlt    01/27/26 Fixed codespell issues
 * </pre>
 *
 *****************************************************************************/
@@ -118,7 +119,7 @@ void XUartPs_ResetHw(u32 BaseAddress)
 	XUartPs_WriteReg(BaseAddress, XUARTPS_CR_OFFSET,
 				((u32)XUARTPS_CR_TXRST | (u32)XUARTPS_CR_RXRST));
 
-	/* Clear status flags - SW reset wont clear sticky flags. */
+	/* Clear status flags - SW reset won't clear sticky flags. */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_ISR_OFFSET, XUARTPS_IXR_MASK);
 
 	/*
@@ -138,7 +139,7 @@ void XUartPs_ResetHw(u32 BaseAddress)
 	XUartPs_WriteReg(BaseAddress, XUARTPS_RXTOUT_OFFSET,
 				XUARTPS_RXTOUT_DISABLE);
 
-	/* Baud rate generator and dividor reset values */
+	/* Baud rate generator and divider reset values */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_BAUDGEN_OFFSET,
 				XUARTPS_BAUDGEN_RESET_VAL);
 	XUartPs_WriteReg(BaseAddress, XUARTPS_BAUDDIV_OFFSET,
