@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
 * 1.5   sk     11/30/21 Fix compilation warnings reported with "-Wundef" flag.
 * 1.6   sd     07/07/23 Added SDT support.
+* 1.8   vlt    01/27/26 Fixed codespell issues.
 * </pre>
 *
 ******************************************************************************/
@@ -991,7 +992,7 @@ XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
 	u32 RegBitmask;
 	u32 RegValue;
 
-	/* Ignoring Nodes that doesnot support assert */
+	/* Ignoring Nodes that does not support assert */
 	if (!XRESETPS_CHK_ASSERT_SUPPORT(ResetMap[ResetID].SupportedActions)) {
 		return XST_NO_FEATURE;
 	}
@@ -1109,7 +1110,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	u32 RegValue;
 	u32 TimeOut;
 
-	/* Ignoring Nodes that donot support pulse reset */
+	/* Ignoring Nodes that do not support pulse reset */
 	if (!XRESETPS_CHK_PULSE_SUPPORT(ResetMap[ResetID].SupportedActions)) {
 		return XST_NO_FEATURE;
 	}
@@ -1212,7 +1213,7 @@ XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
 	u32 RegBitmask;
 	u32 RegValue;
 
-	/* Ignoring Nodes that donot support reset status */
+	/* Ignoring Nodes that do not support reset status */
 	if (!XRESETPS_CHK_STATUS_SUPPORT(ResetMap[ResetID].SupportedActions)) {
 		return XST_NO_FEATURE;
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.00  cjp    09/05/17 First release
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 * 1.2   sd     07/20/18 Fixed Doxygen warnings
+* 1.8   vlt    01/27/26 Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +52,7 @@
  * device in the system.
  *
  * Note:
- * This is a dummy instance since reset system doesnot have a dedicated
+ * This is a dummy instance since reset system does not have a dedicated
  * controller
  */
 XResetPs_Config XResetPs_ConfigTable[XPAR_XRESETPS_NUM_INSTANCES] = {

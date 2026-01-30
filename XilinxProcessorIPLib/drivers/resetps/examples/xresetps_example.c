@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
 * has a peripheral reset ID, a register address that is to be modified, value
 * to be modified and value after reset for that register. The register provided
 * for a peripheral block is modified with the value provided. The peripheral is
-* then reset and the register value is cerified with reset value.
+* then reset and the register value is certified with reset value.
 *
 * @note
 *
@@ -26,6 +26,7 @@
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 *       mus    02/28/19 Initialized FailCnt variable
 * 1.6   sd     07/07/23 Added SDT support.
+* 1.8   vlt    01/27/26 Fixed codespell issues.
 * </pre>
 *
 ******************************************************************************/
