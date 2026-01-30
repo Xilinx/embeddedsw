@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -15,7 +15,7 @@
 #                     of ipipsu in xparameters.h
 # 2.5  sd   04/01/19  Added support for the the no buffer ipi
 #      sd   09/03/19  Add support for versal ip name
-# 2.8  nsk  12/14/20  Modified the tcl to not to gnerate the instance
+# 2.8  nsk  12/14/20  Modified the tcl to not to generate the instance
 #                     names.
 # 2.8  nsk  01/19/21  Updated to use IP_NAME for IPIs mapped.
 # 2.10  sd  07/02/21  Updated tcl logic to read BASEADDRESS
@@ -28,6 +28,7 @@
 # 2.13  sd  11/03/22 Add hack to support cores
 # 2.15  sd  11/03/23 Add support for name change of ACP
 # 2.15  ap  12/11/23 Added support for microblaze risc-v
+# 2.19  vlt 01/27/26 Fixed codespell issues.
 ##############################################################################
 
 #uses "xillib.tcl"
