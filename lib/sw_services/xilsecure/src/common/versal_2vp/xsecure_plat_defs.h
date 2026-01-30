@@ -18,6 +18,7 @@
 * 5.6   tvp  07/07/25 Initial release
 *       tvp  07/07/25 Added XSECURE_WORD_LEN
 * 5.7   tvp  11/18/25 Added support for generating shared secret
+*       tvp  11/18/25 Added support for trng operations
 *
 * </pre>
 *
@@ -68,7 +69,7 @@ typedef enum {
 	XSECURE_API_AES_KEK_DECRYPT,		/**< 19U */
 	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
 	XSECURE_API_KAT,			/**< 21U */
-	/**< 22U reserved for versal_net*/
+	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION = 23U, /**< 23U */
 	/**< 24U to 32U reserved for versal_net*/
 	XSECURE_API_GEN_SHARED_SECRET = 33U,	/**< 33U */
@@ -85,6 +86,7 @@ typedef enum {
 	XSECURE_API_AES_ENCRYPT_KAT,			/**< 5U */
 	XSECURE_API_RSA_PRIVATE_DEC_KAT,		/**< 6U */
 	XSECURE_API_ELLIPTIC_SIGN_GEN_KAT,		/**< 7U */
+	XSECURE_API_TRNG_KAT,				/**< 8U */
 } XSecure_KatId;
 
 #ifdef __cplusplus

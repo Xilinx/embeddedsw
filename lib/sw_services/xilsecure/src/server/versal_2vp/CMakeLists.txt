@@ -11,6 +11,8 @@ collect (PROJECT_LIB_HEADERS xsecure_plat_kat.h)
 collect (PROJECT_LIB_SOURCES xsecure_plat_ipihandler.c)
 collect (PROJECT_LIB_HEADERS xsecure_plat_ipihandler.h)
 collect (PROJECT_LIB_SOURCES xsecure_cmd.c)
+collect (PROJECT_LIB_SOURCES xsecure_plat_kat_ipihandler.c)
+collect (PROJECT_LIB_HEADERS xsecure_plat_kat_ipihandler.h)
 
 if (${YOCTO})
     set (STATIC_XILSECURE_LIB ${CMAKE_LIBRARY_PATH}/libxilsecure.a)

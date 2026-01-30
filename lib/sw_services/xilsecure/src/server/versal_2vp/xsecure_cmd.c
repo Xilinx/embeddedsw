@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.6   tvp  07/07/25 Initial release
 * 5.7   tvp  11/18/25 Added support for generating shared secret
+*       tvp  11/18/25 Added support for trng operations
 *
 * </pre>
 *
@@ -43,10 +44,11 @@
 #include "xsecure_rsa_ipihandler.h"
 #endif
 #include "xsecure_sha_ipihandler.h"
-#include "xsecure_kat_ipihandler.h"
+#include "xsecure_plat_kat_ipihandler.h"
 #include "xsecure_plat_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xsecure_cryptochk.h"
+#include "xsecure_trng_ipihandler.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -86,6 +88,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_KAT),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_GEN_SHARED_SECRET),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_TRNG_GENERATE),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -169,6 +172,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_KAT):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
+	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
 #endif
 		Status = XSecure_CryptoCheck();
 		if (Status != XST_SUCCESS) {
@@ -254,11 +258,14 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		/**   - @ref XSecure_AesIpiHandler */
 		Status = XSecure_AesIpiHandler(Cmd);
 		break;
+	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
+		Status = XSecure_TrngIpiHandler(Cmd);
+		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
 		/**   - @ref XSecure_KatIpiHandler */
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(XSECURE_KAT_MAJOR_ERROR,
-			Status, StatusTmp, XSecure_KatIpiHandler, Cmd)
+			Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
 		break;
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
