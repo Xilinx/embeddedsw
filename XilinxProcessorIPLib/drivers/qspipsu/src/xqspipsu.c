@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -77,14 +77,14 @@
  * 1.15 akm 10/21/21 Fix MISRA-C violations.
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
  * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
- * 1.17 akm 01/07/23 Fixed hang issue while reading large data chuncks.
- * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
+ * 1.17 akm 01/07/23 Fixed hang issue while reading large data chunks.
+ * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy variable
  *                   to volatile.
  * 1.18 ht  07/18/23 Fixed GCC warnings.
  * 1.18 sb  08/01/23 Added support for Feed back clock
  * 1.18 sb  08/29/23 Updated PolledTransfer and InterruptHandler functions as modular.
  * 1.18 sb  09/11/23 Fix MISRA-C violation 8.13.
- * 1.19 sb  01/12/24 Added support for baud rate divisior
+ * 1.19 sb  01/12/24 Added support for baud rate divisor
  * 1.22 sb  10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *
  * </pre>
@@ -334,7 +334,7 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 	 * QSPI Controller takes few clock cycles to update the RX_FIFO_Empty,
 	 * TX_FIFO_Empty and GEN_FIFO_Empty status bit. Checking the GQSPI FIFO
 	 * Control register bits gives enough time for the QSPI controller to
-	 * update the status bit. The opeartion timesout, if the status bit are
+	 * update the status bit. The operation timesout, if the status bit are
 	 * not updated after 10secs.
 	 */
 	if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XQSPIPSU_FIFO_CTRL_OFFSET),

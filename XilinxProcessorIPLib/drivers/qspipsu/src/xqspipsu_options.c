@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -386,7 +386,7 @@ END:
 * Used to tell the QSPIPSU driver the hardware flash
 * configuration being used. This API should be called at least once in the
 * application. If desired, it can be called multiple times when switching
-* between communicating to different flahs devices/using different configs.
+* between communicating to different flash devices/using different configs.
 *
 * @param	InstancePtr Pointer to the XQspiPsu instance.
 * @param	FlashCS  Flash Chip Select.

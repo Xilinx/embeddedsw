@@ -73,7 +73,7 @@
 * 1.18  sb  06/07/23 Added support for system device-tree flow.
 * 1.18  sb  07/24/23 Fix wrong init sequence for spansion byte ID.
 * 1.18  sb  08/02/23 Add status check for XQspiPsu_SetClkPrescaler API.
-* 1.19  sb  01/12/24 Added support to set QSPI clock based on baud rate divisior
+* 1.19  sb  01/12/24 Added support to set QSPI clock based on baud rate divisor
 * 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
 * 1.21  sb  01/02/25 Fixed gcc and g++ warnings.
 * 1.21  bkv 04/04/25 Fixed g++ warnings.

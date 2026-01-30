@@ -127,7 +127,7 @@
  *                   to volatile.
  * 1.18 ht  07/18/23 Fixed GCC warnings.
  * 1.18 sb  08/01/23 Added support for Feed back clock
- * 1.19 sb  01/12/24 Added support for baud rate divisior
+ * 1.19 sb  01/12/24 Added support for baud rate divisor
  * 1.20 ht  09/27/24 Fix IAR warning.
  * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
  *

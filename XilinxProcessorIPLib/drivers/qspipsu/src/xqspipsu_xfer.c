@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.18   sb  08/29/2023 Restructured the code for more modularity
- * 1.18   sb  08/29/2023 Upadte XQspiPsu_PolledRecvData api to fix MISRA-C warnings.
+ * 1.18   sb  08/29/2023 Update XQspiPsu_PolledRecvData api to fix MISRA-C warnings.
  * 1.22   sb  10/24/2025 Added cache invalidate when EL1_NONSECURE is not defined.
  *
  * </pre>
