@@ -704,7 +704,7 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr)
 	u8 WriteEnable[] = { WRITE_ENABLE_CMD };
 	u8 ulbpr[] = { GLOBAL_BLK_PROT_UNLK };
 
-	/* send wite enable */
+	/* send write enable */
 	Status = XSpiPs_PolledTransfer(SpiInstancePtr, WriteEnable, NULL, sizeof(WriteEnable));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
