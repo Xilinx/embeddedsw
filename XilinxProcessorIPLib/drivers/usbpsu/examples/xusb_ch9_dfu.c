@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 iAdvanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 iAdvanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -22,6 +22,7 @@
  *		       changes for all USB IPs
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.17  ka   20/01/25 Fixed C++ warnings and errors
+ * 1.18  ka   01/29/26 Fix codespell errors.
  *</pre>
  ******************************************************************************/
 
@@ -317,7 +318,7 @@ DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
 		0x04					/* iInterface */
 	},
 	{/*
-		 * DFU functional discriptor
+		 * DFU functional descriptor
 		 */
 		sizeof(USB_DFU_FUNC_DESC),	/* bLength*/
 		USB_TYPE_DFUFUNC_DESC,	/* bDescriptorType */
@@ -366,7 +367,7 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 		0x04					/* iInterface */
 	},
 	{/*
-		 * DFU functional discriptor
+		 * DFU functional descriptor
 		 */
 		sizeof(USB_DFU_FUNC_DESC),	/* bLength*/
 		USB_TYPE_DFUFUNC_DESC,	/* bDescriptorType */

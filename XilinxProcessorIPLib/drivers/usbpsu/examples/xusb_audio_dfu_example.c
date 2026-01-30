@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,7 +20,7 @@
  * 1.8   pm   15/09/20 Fixed C++ Compilation error.
  * 1.14  pm   21/06/23 Added support for system device-tree flow.
  * 1.18  ka   21/08/25 Fixed GCC warnings.
- *
+ * 1.19  ka   01/29/26 Fix codespell errors.
  * </pre>
  *
  *****************************************************************************/
@@ -341,7 +341,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 
 /****************************************************************************/
 /**
-* This function is implementing USB AUDIO-DFU composte example.
+* This function is implementing USB AUDIO-DFU composite example.
 *
 * @param	UsbInstPtr USB instance pointer.
 *		IntrInstPtr Interrupt controller instance pointer

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -34,6 +34,7 @@
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.15  pm   12/15/23 Added support for system device-tree flow.
  * 1.18  ka   21/08/25 Fixed GCC warnings
+ * 1.19  ka   01/29/26 Fix codespell errors.
  *
  * </pre>
  *
@@ -278,7 +279,7 @@ static void prvMainTask(void *pvParameters)
 #endif
 
 	if (Status == XST_FAILURE) {
-		xil_printf("FreeRTOS USB MASS STORGE Example failed\r\n");
+		xil_printf("FreeRTOS USB MASS STORAGE Example failed\r\n");
 		vTaskDelete(NULL);
 	}
 }
