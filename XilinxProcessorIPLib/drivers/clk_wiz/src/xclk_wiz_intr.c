@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.0 ram 02/12/16 Initial version for Clock Wizard
 * 1.2 ms  03/02/17 Fixed compilation errors. Fix for CR-970507.
 * 1.6 sd  07/07/23 Added SDT support.
+* 1.11 vlt 01/27/26 Fixed codespell issues
 * </pre>
 ******************************************************************************/
 
@@ -189,7 +190,7 @@ void XClk_Wiz_InterruptClear(XClk_Wiz *InstancePtr, u32 Mask)
 *
 * @param 	HandleType is the type of call back to be registered.
 *
-* @param	CallBackFunc is the pointer to a call back funtion which
+* @param	CallBackFunc is the pointer to a call back function which
 * 		is called when a particular event occurs.
 *
 * @param 	CallBackRef is a void pointer to data to be referenced to
