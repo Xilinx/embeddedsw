@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,7 @@
 *                     register and update the error stats.
 * 3.8	gm   09/25/22 Use XUartLite_GetSR instead of accessing status register
 *                     directly.
+* 3.13  vlt  01/27/26 Fixed codespell issues
 *
 * </pre>
 *
@@ -628,7 +629,7 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 *
 * This function reads the status register and updates the error stats, before
 * returning the status register value. The status register is a clear on read
-* register, so the errors if occurred have to be recorded everytime status
+* register, so the errors if occurred have to be recorded every time status
 * register is read. This function is designed to be an internal function for
 * the XUartLite component such that it may be called from wherever the status
 * register needs to be read from the other driver functions.
@@ -646,7 +647,7 @@ u8 XUartLite_GetSR(XUartLite *InstancePtr)
 
 	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
 	/*
-	 * Update Stats everytime status reg is read as it is a clear on read
+	 * Update Stats every time status reg is read as it is a clear on read
 	 * register and as a result, there is a chance of missing the errors.
 	 */
 	XUartLite_UpdateStats(InstancePtr, StatusRegister);
