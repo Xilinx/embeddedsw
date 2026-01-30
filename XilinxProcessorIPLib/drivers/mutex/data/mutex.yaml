@@ -24,7 +24,7 @@ properties:
       Number of mutexes available.
   xlnx,enable-user:
     description: |
-      If Enabled user register can be used to store arbitary data.
+      If Enabled user register can be used to store arbitrary data.
 
 config:
     - XMutex_Config
