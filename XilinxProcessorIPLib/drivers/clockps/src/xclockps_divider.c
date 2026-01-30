@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
+* 1.7   vlt    01/27/26 Fixed codespell issues
 * </pre>
 *
 ******************************************************************************/
@@ -459,7 +460,7 @@ static XStatus XClock_DivFetchIdx(XClock_OutputClks ClockId, u8 *DivIndex)
 /*****************************************************************************/
 /*
 *
-* This function fetchs the parent based on index in database.
+* This function fetches the parent based on index in database.
 *
 * @param	ClockId is the identifier for output clock.
 * @param	NodeType is the pointer holding type of the node.
