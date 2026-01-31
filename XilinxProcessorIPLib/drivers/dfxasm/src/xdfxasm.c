@@ -1,8 +1,9 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -12,7 +13,7 @@
 * @{
 *
 * This file contains the implementation of the interface functions for the
-* XDfxasm driver. Refer xdfxsm.h for a detailed description of the driver.
+* XDfxasm driver. Refer xdfxasm.h for a detailed description of the driver.
 *
 * <pre>
 *
@@ -22,6 +23,7 @@
 * --- ----- ----------  -----------------------------------------------
 * 1.0  dp    07/14/2020     First release
 * 1.2  Nava  06/22/2023     Added support for system device-tree flow.
+* 1.3  Arvd  01/31/2026     Fixed codespell errors.
 * </pre>
 *
 ******************************************************************************/
@@ -96,7 +98,7 @@ s32 XDfxasm_CfgInitialize(XDfxasm *InstancePtr, XDfxasm_Config *ConfigPtr,
 * @return	None
 *
 * @note		When Shutdown manager is in shutdown mode it blocks the axi traffic
-*               thats going to the Reconfigurable partition from static logic
+*               that's going to the Reconfigurable partition from static logic
 *               while Partial Reconfiguration occurs.
 *
 ******************************************************************************/

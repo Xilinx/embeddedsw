@@ -1,8 +1,9 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -21,6 +22,7 @@
 * Ver   Who      Date         Changes
 * ----- -----  -----------  ----------------------------------------------
 * 1.0   dp     07/14/2020    First release
+* 1.3   Arvd   01/31/2026    Fixed codespell errors.
 *
 * </pre>
 *
@@ -44,7 +46,7 @@ extern "C" {
  */
 #define XDFX_ASM_CTRL_OFFSET		(0x000)	/**< Control register Offset
 						  *  and status register is
-						  *  also mappped to same
+						  *  also mapped to same
 						  *  address as Control
 						  *  register*/
 /*@}*/
