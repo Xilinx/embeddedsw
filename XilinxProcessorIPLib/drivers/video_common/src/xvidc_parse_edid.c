@@ -302,11 +302,9 @@ static void xvidc_parse_displayid_vendor_specific(const u8 *x, XV_VidC_EdidCntrl
 *
 * This function parse EDID on General Data & VESA Data
 *
-* @param    data is a pointer to the EDID array.
+* @param    edid is a pointer to the EDID structure.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   API Define below here are CEA861 routines
 *
@@ -701,21 +699,19 @@ xvidc_disp_edid1(const struct edid * const edid,
 
 
 
+#if XVIDC_EDID_VERBOSITY > 1
 /*****************************************************************************/
 /**
 *
 * This function parse EDID on CEA 861 Audio Data
 *
-* @param    data is a pointer to the EDID array.
+* @param    adb is a pointer to the CEA 861 audio data block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   API Define below here are CEA861 routines
 *
 ******************************************************************************/
-#if XVIDC_EDID_VERBOSITY > 1
 static void
 xvidc_disp_cea861_audio_data(
                   const struct xvidc_cea861_audio_data_block * const adb,
@@ -837,11 +833,9 @@ xvidc_disp_cea861_audio_data(
 *
 * This function parse EDID on CEA 861 Extended Data
 *
-* @param    data is a pointer to the EDID array.
+* @param    edb is a pointer to the CEA 861 extended data block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   None.
 *
@@ -1138,13 +1132,11 @@ xvidc_disp_cea861_video_data(
 /*****************************************************************************/
 /**
 *
-* This function parse EDID on CEA 861 Vendor Specific Data
+* This function parse EDID on CEA 861 HDMI Forum Sink Capability Data Block
 *
-* @param    data is a pointer to the EDID array.
+* @param    edb is a pointer to the CEA 861 extended data block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   None.
 *
@@ -1330,11 +1322,9 @@ xvidc_disp_cea861_hf_sink_capability_data(
 *
 * This function parse EDID on CEA 861 HDMI Forum Extension Override Data Block(HF-EEODB)
 *
-* @param    data is a pointer to the EDID array.
+* @param    edb is a pointer to the CEA 861 extended data block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   None.
 *
@@ -1367,11 +1357,9 @@ xvidc_disp_cea861_hf_edid_ext_override_data(
 *
 * This function parse EDID on CEA 861 Vendor Specific Data
 *
-* @param    data is a pointer to the EDID array.
+* @param    vsdb is a pointer to the vendor specific data block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   None.
 *
@@ -1600,11 +1588,9 @@ xvidc_disp_cea861_vendor_data(
 *
 * This function parse EDID on CEA 861 Speaker Allocation
 *
-* @param    data is a pointer to the EDID array.
+* @param    sadb is a pointer to the CEA 861 speaker allocation data block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   None.
 *
@@ -1662,11 +1648,9 @@ xvidc_disp_cea861_speaker_allocation_data(
 *
 * This function Parse and Display the CEA-861
 *
-* @param    data is a pointer to the EDID array.
+* @param    ext is a pointer to the EDID extension block.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
 *
 * @note   None.
 *
@@ -1866,7 +1850,10 @@ xvidc_disp_cea861(const struct xvidc_edid_extension * const ext,
 *
 ******************************************************************************/
 static const struct xvidc_edid_extension_handler {
-    /** Pointer to EDID extension information display function */
+    /** Pointer to EDID extension information display function
+     *  @param arg1 Pointer to EDID extension structure
+     *  @param EdidCtrlParam Pointer to EDID control parameters
+     *  @param VerboseEn Verbosity enable flag */
     void (* const inf_disp)(const struct xvidc_edid_extension * const,
            XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
 } xvidc_edid_extension_handlers[] = {
@@ -1885,20 +1872,6 @@ static const struct xvidc_edid_extension_handler {
 	[XVIDC_EDID_EXTENSION_DDDB]           = { NULL },
 };
 
-/*****************************************************************************/
-/**
-*
-* This function parse and print the EDID of the Sink
-*
-* @param    data is a pointer to the EDID array.
-* @param    EdidCtrlParam is a pointer the EDID Control parameter
-* @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-*
-* @return None
-*
-* @note   None.
-*
-******************************************************************************/
 void
 XV_VidC_parse_edid(const u8 * const data,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
@@ -1930,6 +1903,19 @@ XV_VidC_parse_edid(const u8 * const data,
     }
 }
 
+/*****************************************************************************/
+/**
+*
+* This function handles a single EDID extension block by calling the
+* appropriate handler based on the extension tag.
+*
+* @param    extension is a pointer to the EDID extension block.
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output for debugging.
+*
+* @note   None.
+*
+******************************************************************************/
 void XV_VidC_handle_extension(const struct xvidc_edid_extension *extension,
 		XV_VidC_EdidCntrlParam *EdidCtrlParam,
 		XV_VidC_Verbose VerboseEn) {
@@ -1949,22 +1935,6 @@ void XV_VidC_handle_extension(const struct xvidc_edid_extension *extension,
 	}
 }
 
-/*****************************************************************************/
-/**
-*
-* This function parse and print the EDID of the Sink and handles the EDID data
-* segment wise.
-*
-* @param    data is a pointer to the EDID array.
-* @param    EdidCtrlParam is a pointer the EDID Control parameter
-* @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-* @param    SegmentNum is a segment number of EDID
-*
-* @return None
-*
-* @note   None.
-*
-******************************************************************************/
 void
 XV_VidC_parse_edid_extension(const u8 * const data,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
@@ -2005,8 +1975,6 @@ XV_VidC_parse_edid_extension(const u8 * const data,
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_product_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2040,8 +2008,6 @@ xvidc_parse_displayid_product_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPa
 * @param    x is a pointer to the parameters block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -2101,8 +2067,6 @@ xvidc_parse_displayid_parameters(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPa
 * @param    x is a pointer to the color block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -2213,8 +2177,6 @@ xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam 
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2308,8 +2270,6 @@ xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2384,8 +2344,6 @@ xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2432,8 +2390,6 @@ xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_dmt_timings_4(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2475,8 +2431,6 @@ xvidc_parse_displayid_dmt_timings_4(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_dmt_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2517,8 +2471,6 @@ xvidc_parse_displayid_dmt_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
 * @param    x is a pointer to the CTA timings block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -2573,8 +2525,6 @@ xvidc_parse_displayid_cta_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_timing_range(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2611,8 +2561,6 @@ xvidc_parse_displayid_timing_range(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrl
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_serial_number(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2647,8 +2595,6 @@ xvidc_parse_displayid_serial_number(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_ascii_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2682,8 +2628,6 @@ xvidc_parse_displayid_ascii_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrl
 * @param    x is a pointer to the device data block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -2733,8 +2677,6 @@ xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_power_sequencing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2769,8 +2711,6 @@ xvidc_parse_displayid_power_sequencing(const u8 *x, XV_VidC_EdidCntrlParam *Edid
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_transfer_characteristics(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2800,8 +2740,6 @@ xvidc_parse_displayid_transfer_characteristics(const u8 *x, XV_VidC_EdidCntrlPar
 * @param    x is a pointer to the interface features block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -2915,8 +2853,6 @@ xvidc_parse_displayid_interface_features(const u8 *x, XV_VidC_EdidCntrlParam *Ed
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_stereo_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -2951,8 +2887,6 @@ xvidc_parse_displayid_stereo_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCt
 * @param    x is a pointer to the short timings 5 block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -3000,8 +2934,6 @@ xvidc_parse_displayid_short_timings_5(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 * @param    x is a pointer to the tiled display block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -3054,8 +2986,6 @@ xvidc_parse_displayid_tiled_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -3107,8 +3037,6 @@ xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *Ed
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -3153,8 +3081,6 @@ xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 * @param    x is a pointer to the detailed timings 7 block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -3213,8 +3139,6 @@ xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *Ed
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -3245,8 +3169,6 @@ xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *Edid
 * @param    x is a pointer to the unicode string block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -3300,8 +3222,6 @@ xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCt
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -3331,8 +3251,6 @@ xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPar
 * @param    x is a pointer to the container ID block data
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void
@@ -3386,8 +3304,6 @@ xvidc_parse_displayid_container_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrl
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
 *
-* @return None
-*
 ******************************************************************************/
 static void
 xvidc_parse_displayid_vendor_specific(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
@@ -3424,8 +3340,6 @@ xvidc_parse_displayid_vendor_specific(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 * @param    ext is a pointer to the EDID extension
 * @param    EdidCtrlParam is a pointer to the EDID Control parameter
 * @param    VerboseEn enables verbose output
-*
-* @return None
 *
 ******************************************************************************/
 static void

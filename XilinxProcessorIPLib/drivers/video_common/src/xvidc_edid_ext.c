@@ -7,9 +7,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdmi_edid.h
+* @file xvidc_edid_ext.c
 *
-* <b>Software Initalization & Configuration</b>
+* <b>Software Initialization & Configuration</b>
 *
 * <b>Interrupts </b>
 *
@@ -52,8 +52,22 @@
 
 static XV_VidC_PicAspectRatio xv_vidc_getPicAspectRatio(u16 hres, u16 vres);
 
+/*****************************************************************************/
+/**
+*
+* This function calculates the picture aspect ratio from horizontal and
+* vertical resolution values.
+*
+* @param    hres is the horizontal resolution in pixels.
+* @param    vres is the vertical resolution in pixels.
+*
+* @return   XV_VidC_PicAspectRatio structure containing the width and height
+*           aspect ratio values (16:10, 4:3, 5:4, 16:9, or 0:0 if no match).
+*
+******************************************************************************/
 static XV_VidC_PicAspectRatio xv_vidc_getPicAspectRatio(u16 hres, u16 vres) {
     XV_VidC_PicAspectRatio ar;
+/** Macro to check if horizontal/vertical resolution matches specified aspect ratio */
 #define HAS_RATIO_OF(x, y)  (hres == (vres*(x)/(y))&&!((vres*(x))%(y)))
     if (HAS_RATIO_OF(16, 10)) {
         ar.width = 16;
@@ -91,169 +105,169 @@ void XV_VidC_EdidCtrlParamInit (XV_VidC_EdidCntrlParam *EdidCtrlParam) {
 	(void)memset((void *)EdidCtrlParam,  0,
 			sizeof(XV_VidC_EdidCntrlParam));
 
-	EdidCtrlParam->IsHdmi                = XVIDC_ISDVI;
-    EdidCtrlParam->IsYCbCr444Supp        = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsYCbCr420Supp        = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsYCbCr422Supp        = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsYCbCr444DeepColSupp = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->Is30bppSupp           = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->Is36bppSupp           = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->Is48bppSupp           = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsYCbCr420dc30bppSupp = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsYCbCr420dc36bppSupp = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsYCbCr420dc48bppSupp = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->MaxFrlLineRateSupp    = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->MaxFrlLanesSupp       = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsSCDCReadRequestReady= XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->IsSCDCPresent         = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->MaxFrameRateSupp      = 0;
-    EdidCtrlParam->MaxTmdsMhz            = 0;
+	EdidCtrlParam->IsHdmi                = XVIDC_ISDVI; /**< HDMI or DVI mode flag */
+    EdidCtrlParam->IsYCbCr444Supp        = XVIDC_NOT_SUPPORTED; /**< YCbCr 4:4:4 color space support */
+    EdidCtrlParam->IsYCbCr420Supp        = XVIDC_NOT_SUPPORTED; /**< YCbCr 4:2:0 color space support */
+    EdidCtrlParam->IsYCbCr422Supp        = XVIDC_NOT_SUPPORTED; /**< YCbCr 4:2:2 color space support */
+    EdidCtrlParam->IsYCbCr444DeepColSupp = XVIDC_NOT_SUPPORTED; /**< Deep color support for YCbCr 4:4:4 */
+    EdidCtrlParam->Is30bppSupp           = XVIDC_NOT_SUPPORTED; /**< 30 bits per pixel support */
+    EdidCtrlParam->Is36bppSupp           = XVIDC_NOT_SUPPORTED; /**< 36 bits per pixel support */
+    EdidCtrlParam->Is48bppSupp           = XVIDC_NOT_SUPPORTED; /**< 48 bits per pixel support */
+    EdidCtrlParam->IsYCbCr420dc30bppSupp = XVIDC_NOT_SUPPORTED; /**< YCbCr 4:2:0 30bpp deep color support */
+    EdidCtrlParam->IsYCbCr420dc36bppSupp = XVIDC_NOT_SUPPORTED; /**< YCbCr 4:2:0 36bpp deep color support */
+    EdidCtrlParam->IsYCbCr420dc48bppSupp = XVIDC_NOT_SUPPORTED; /**< YCbCr 4:2:0 48bpp deep color support */
+    EdidCtrlParam->MaxFrlLineRateSupp    = XVIDC_NOT_SUPPORTED; /**< Maximum Fixed Rate Link line rate */
+    EdidCtrlParam->MaxFrlLanesSupp       = XVIDC_NOT_SUPPORTED; /**< Maximum FRL lanes supported */
+    EdidCtrlParam->IsSCDCReadRequestReady= XVIDC_NOT_SUPPORTED; /**< SCDC read request ready flag */
+    EdidCtrlParam->IsSCDCPresent         = XVIDC_NOT_SUPPORTED; /**< SCDC presence flag */
+    EdidCtrlParam->MaxFrameRateSupp      = 0; /**< Maximum supported frame rate */
+    EdidCtrlParam->MaxTmdsMhz            = 0; /**< Maximum TMDS clock in MHz */
     /* DisplayID/EDID 2.0 initialization */
-    EdidCtrlParam->IsDispIdPresent       = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdVersion         = 0;
-    EdidCtrlParam->DispIdProductType     = 0;
-    EdidCtrlParam->DispIdExtensionCount  = 0;
+    EdidCtrlParam->IsDispIdPresent       = XVIDC_NOT_SUPPORTED; /**< DisplayID presence flag */
+    EdidCtrlParam->DispIdVersion         = 0; /**< DisplayID version number */
+    EdidCtrlParam->DispIdProductType     = 0; /**< DisplayID product type */
+    EdidCtrlParam->DispIdExtensionCount  = 0; /**< DisplayID extension count */
     /* Product Identification */
-    (void)memset(EdidCtrlParam->DispIdManufacturer, 0, sizeof(EdidCtrlParam->DispIdManufacturer));
-    EdidCtrlParam->DispIdProductCode     = 0;
-    EdidCtrlParam->DispIdSerialNumber    = 0;
-    EdidCtrlParam->DispIdModelYear       = 0;
-    EdidCtrlParam->DispIdModelWeek       = 0;
-    (void)memset(EdidCtrlParam->DispIdProductString, 0, sizeof(EdidCtrlParam->DispIdProductString));
-    EdidCtrlParam->DispIdProductStringLen = 0;
+    (void)memset(EdidCtrlParam->DispIdManufacturer, 0, sizeof(EdidCtrlParam->DispIdManufacturer)); /**< DisplayID manufacturer ID */
+    EdidCtrlParam->DispIdProductCode     = 0; /**< DisplayID product code */
+    EdidCtrlParam->DispIdSerialNumber    = 0; /**< DisplayID serial number */
+    EdidCtrlParam->DispIdModelYear       = 0; /**< DisplayID model year */
+    EdidCtrlParam->DispIdModelWeek       = 0; /**< DisplayID model week */
+    (void)memset(EdidCtrlParam->DispIdProductString, 0, sizeof(EdidCtrlParam->DispIdProductString)); /**< DisplayID product name string */
+    EdidCtrlParam->DispIdProductStringLen = 0; /**< Product string length */
     /* Display Parameters */
-    EdidCtrlParam->DispIdImageWidthMm    = 0;
-    EdidCtrlParam->DispIdImageHeightMm   = 0;
-    EdidCtrlParam->DispIdNativeWidth     = 0;
-    EdidCtrlParam->DispIdNativeHeight    = 0;
-    EdidCtrlParam->DispIdFeatureSupportFlags = 0;
-    EdidCtrlParam->DispIdGamma           = 0xFF;  /* Not defined */
-    EdidCtrlParam->DispIdAspectRatio     = 0;
-    EdidCtrlParam->DispIdBitDepthNative  = 0;
-    EdidCtrlParam->DispIdBitDepthOverall = 0;
-    EdidCtrlParam->DispIdScanOrientation = 0;
-    EdidCtrlParam->DispIdTechnology      = 0;
-    EdidCtrlParam->DispIdAudioSupport    = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdSeparateAudio   = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdAudioOverride   = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdPowerSequenceReq = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdFixedPixelFormat = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdDeinterlacing   = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdImageWidthMm    = 0; /**< Display image width in mm */
+    EdidCtrlParam->DispIdImageHeightMm   = 0; /**< Display image height in mm */
+    EdidCtrlParam->DispIdNativeWidth     = 0; /**< Native horizontal resolution */
+    EdidCtrlParam->DispIdNativeHeight    = 0; /**< Native vertical resolution */
+    EdidCtrlParam->DispIdFeatureSupportFlags = 0; /**< Feature support flags */
+    EdidCtrlParam->DispIdGamma           = 0xFF;  /**< Gamma value (0xFF = not defined) */
+    EdidCtrlParam->DispIdAspectRatio     = 0; /**< Display aspect ratio */
+    EdidCtrlParam->DispIdBitDepthNative  = 0; /**< Native bit depth */
+    EdidCtrlParam->DispIdBitDepthOverall = 0; /**< Overall bit depth */
+    EdidCtrlParam->DispIdScanOrientation = 0; /**< Scan orientation */
+    EdidCtrlParam->DispIdTechnology      = 0; /**< Display technology type */
+    EdidCtrlParam->DispIdAudioSupport    = XVIDC_NOT_SUPPORTED; /**< Audio support flag */
+    EdidCtrlParam->DispIdSeparateAudio   = XVIDC_NOT_SUPPORTED; /**< Separate audio inputs flag */
+    EdidCtrlParam->DispIdAudioOverride   = XVIDC_NOT_SUPPORTED; /**< Audio input override flag */
+    EdidCtrlParam->DispIdPowerSequenceReq = XVIDC_NOT_SUPPORTED; /**< Power management sequence required */
+    EdidCtrlParam->DispIdFixedPixelFormat = XVIDC_NOT_SUPPORTED; /**< Fixed pixel format flag */
+    EdidCtrlParam->DispIdDeinterlacing   = XVIDC_NOT_SUPPORTED; /**< Deinterlacing support */
     /* Color Characteristics */
-    EdidCtrlParam->DispIdColorDepth      = 0;
-    EdidCtrlParam->DispIdColorEncoding   = 0;
+    EdidCtrlParam->DispIdColorDepth      = 0; /**< Color depth */
+    EdidCtrlParam->DispIdColorEncoding   = 0; /**< Color encoding format */
     /* DisplayID Interface Color Depth Support */
-    EdidCtrlParam->DispIdRgbColorDepth     = 8; /* Default to 8 bpc */
-    EdidCtrlParam->DispIdYCbCr444ColorDepth = 8; /* Default to 8 bpc */
-    EdidCtrlParam->DispIdYCbCr422ColorDepth = 8; /* Default to 8 bpc */
-    EdidCtrlParam->DispIdYCbCr420ColorDepth = 8; /* Default to 8 bpc */
-    EdidCtrlParam->DispIdPrimaryRedX     = 0;
-    EdidCtrlParam->DispIdPrimaryRedY     = 0;
-    EdidCtrlParam->DispIdPrimaryGreenX   = 0;
-    EdidCtrlParam->DispIdPrimaryGreenY   = 0;
-    EdidCtrlParam->DispIdPrimaryBlueX    = 0;
-    EdidCtrlParam->DispIdPrimaryBlueY    = 0;
-    EdidCtrlParam->DispIdWhitePointX     = 0;
-    EdidCtrlParam->DispIdWhitePointY     = 0;
-    EdidCtrlParam->DispIdMinLuminance    = 0;
-    EdidCtrlParam->DispIdMaxLuminance    = 0;
-    EdidCtrlParam->DispIdMaxFullFrameLum = 0;
+    EdidCtrlParam->DispIdRgbColorDepth     = 8; /**< RGB interface color depth (default 8 bpc) */
+    EdidCtrlParam->DispIdYCbCr444ColorDepth = 8; /**< YCbCr 4:4:4 interface color depth (default 8 bpc) */
+    EdidCtrlParam->DispIdYCbCr422ColorDepth = 8; /**< YCbCr 4:2:2 interface color depth (default 8 bpc) */
+    EdidCtrlParam->DispIdYCbCr420ColorDepth = 8; /**< YCbCr 4:2:0 interface color depth (default 8 bpc) */
+    EdidCtrlParam->DispIdPrimaryRedX     = 0; /**< Red primary chromaticity X */
+    EdidCtrlParam->DispIdPrimaryRedY     = 0; /**< Red primary chromaticity Y */
+    EdidCtrlParam->DispIdPrimaryGreenX   = 0; /**< Green primary chromaticity X */
+    EdidCtrlParam->DispIdPrimaryGreenY   = 0; /**< Green primary chromaticity Y */
+    EdidCtrlParam->DispIdPrimaryBlueX    = 0; /**< Blue primary chromaticity X */
+    EdidCtrlParam->DispIdPrimaryBlueY    = 0; /**< Blue primary chromaticity Y */
+    EdidCtrlParam->DispIdWhitePointX     = 0; /**< White point chromaticity X */
+    EdidCtrlParam->DispIdWhitePointY     = 0; /**< White point chromaticity Y */
+    EdidCtrlParam->DispIdMinLuminance    = 0; /**< Minimum luminance */
+    EdidCtrlParam->DispIdMaxLuminance    = 0; /**< Maximum luminance */
+    EdidCtrlParam->DispIdMaxFullFrameLum = 0; /**< Maximum full frame luminance */
     /* Timing Range Data (0x09) */
-    EdidCtrlParam->DispIdTimingRangeMinHfreq = 0;
-    EdidCtrlParam->DispIdTimingRangeMaxHfreq = 0;
-    EdidCtrlParam->DispIdTimingRangeMinVfreq = 0;
-    EdidCtrlParam->DispIdTimingRangeMaxVfreq = 0;
-    EdidCtrlParam->DispIdTimingRangeMaxPixclk = 0;
-    EdidCtrlParam->DispIdTimingRangeFlags = 0;
+    EdidCtrlParam->DispIdTimingRangeMinHfreq = 0; /**< Timing range minimum horizontal frequency */
+    EdidCtrlParam->DispIdTimingRangeMaxHfreq = 0; /**< Timing range maximum horizontal frequency */
+    EdidCtrlParam->DispIdTimingRangeMinVfreq = 0; /**< Timing range minimum vertical frequency */
+    EdidCtrlParam->DispIdTimingRangeMaxVfreq = 0; /**< Timing range maximum vertical frequency */
+    EdidCtrlParam->DispIdTimingRangeMaxPixclk = 0; /**< Timing range maximum pixel clock */
+    EdidCtrlParam->DispIdTimingRangeFlags = 0; /**< Timing range flags */
     /* Serial Number String (0x0A) */
-    (void)memset(EdidCtrlParam->DispIdSerialString, 0, sizeof(EdidCtrlParam->DispIdSerialString));
-    EdidCtrlParam->DispIdSerialStringLen = 0;
+    (void)memset(EdidCtrlParam->DispIdSerialString, 0, sizeof(EdidCtrlParam->DispIdSerialString)); /**< DisplayID serial number string */
+    EdidCtrlParam->DispIdSerialStringLen = 0; /**< Serial string length */
     /* ASCII String (0x0B) */
-    (void)memset(EdidCtrlParam->DispIdAsciiString, 0, sizeof(EdidCtrlParam->DispIdAsciiString));
-    EdidCtrlParam->DispIdAsciiStringLen = 0;
+    (void)memset(EdidCtrlParam->DispIdAsciiString, 0, sizeof(EdidCtrlParam->DispIdAsciiString)); /**< DisplayID ASCII string */
+    EdidCtrlParam->DispIdAsciiStringLen = 0; /**< ASCII string length */
     /* Device Data (0x0C) */
-    EdidCtrlParam->DispIdDeviceType = 0;
-    EdidCtrlParam->DispIdDeviceColorSpace = 0;
-    EdidCtrlParam->DispIdDeviceHorSize = 0;
-    EdidCtrlParam->DispIdDeviceVerSize = 0;
+    EdidCtrlParam->DispIdDeviceType = 0; /**< Device type */
+    EdidCtrlParam->DispIdDeviceColorSpace = 0; /**< Device color space */
+    EdidCtrlParam->DispIdDeviceHorSize = 0; /**< Device horizontal size */
+    EdidCtrlParam->DispIdDeviceVerSize = 0; /**< Device vertical size */
     /* Power Sequencing (0x0D) */
-    EdidCtrlParam->DispIdPowerSeqT1 = 0;
-    EdidCtrlParam->DispIdPowerSeqT2 = 0;
-    EdidCtrlParam->DispIdPowerSeqT3 = 0;
-    EdidCtrlParam->DispIdPowerSeqT4 = 0;
+    EdidCtrlParam->DispIdPowerSeqT1 = 0; /**< Power sequence timing T1 */
+    EdidCtrlParam->DispIdPowerSeqT2 = 0; /**< Power sequence timing T2 */
+    EdidCtrlParam->DispIdPowerSeqT3 = 0; /**< Power sequence timing T3 */
+    EdidCtrlParam->DispIdPowerSeqT4 = 0; /**< Power sequence timing T4 */
     /* Transfer Characteristics (0x0E) */
-    EdidCtrlParam->DispIdTransferType = 0;
-    EdidCtrlParam->DispIdTransferFlags = 0;
-    EdidCtrlParam->DispIdOecfEotfData[0] = 0;
-    EdidCtrlParam->DispIdOecfEotfData[1] = 0;
+    EdidCtrlParam->DispIdTransferType = 0; /**< Transfer characteristics type */
+    EdidCtrlParam->DispIdTransferFlags = 0; /**< Transfer characteristics flags */
+    EdidCtrlParam->DispIdOecfEotfData[0] = 0; /**< OECF/EOTF data byte 0 */
+    EdidCtrlParam->DispIdOecfEotfData[1] = 0; /**< OECF/EOTF data byte 1 */
     /* Short Timings */
-    (void)memset(EdidCtrlParam->DispIdShortTiming, 0, sizeof(EdidCtrlParam->DispIdShortTiming));
-    EdidCtrlParam->DispIdNumShortTimings = 0;
+    (void)memset(EdidCtrlParam->DispIdShortTiming, 0, sizeof(EdidCtrlParam->DispIdShortTiming)); /**< DisplayID short timing descriptors */
+    EdidCtrlParam->DispIdNumShortTimings = 0; /**< Number of short timing descriptors */
     /* DMT Timings */
-    (void)memset(EdidCtrlParam->DispIdDmtTiming, 0, sizeof(EdidCtrlParam->DispIdDmtTiming));
-    EdidCtrlParam->DispIdNumDmtTimings = 0;
+    (void)memset(EdidCtrlParam->DispIdDmtTiming, 0, sizeof(EdidCtrlParam->DispIdDmtTiming)); /**< DisplayID DMT timing codes */
+    EdidCtrlParam->DispIdNumDmtTimings = 0; /**< Number of DMT timing codes */
     /* CVT Timings */
-    (void)memset(EdidCtrlParam->DispIdCvtTiming, 0, sizeof(EdidCtrlParam->DispIdCvtTiming));
-    EdidCtrlParam->DispIdNumCvtTimings = 0;
+    (void)memset(EdidCtrlParam->DispIdCvtTiming, 0, sizeof(EdidCtrlParam->DispIdCvtTiming)); /**< DisplayID CVT timing codes */
+    EdidCtrlParam->DispIdNumCvtTimings = 0; /**< Number of CVT timing codes */
     /* Video Timing Modes */
-    EdidCtrlParam->DispIdNumTimings      = 0;
+    EdidCtrlParam->DispIdNumTimings      = 0; /**< Total number of video timing modes */
     /* Supported Timing Modes */
-    (void)memset(EdidCtrlParam->DispIdType6Timing, 0, sizeof(EdidCtrlParam->DispIdType6Timing));
-    EdidCtrlParam->DispIdNumType6Timings = 0;
-    (void)memset(EdidCtrlParam->DispIdType7Timing, 0, sizeof(EdidCtrlParam->DispIdType7Timing));
-    EdidCtrlParam->DispIdNumType7Timings = 0;
-    (void)memset(EdidCtrlParam->DispIdType8Timing, 0, sizeof(EdidCtrlParam->DispIdType8Timing));
-    EdidCtrlParam->DispIdNumType8Timings = 0;
-    (void)memset(EdidCtrlParam->DispIdType9Timing, 0, sizeof(EdidCtrlParam->DispIdType9Timing));
-    EdidCtrlParam->DispIdNumType9Timings = 0;
-    (void)memset(EdidCtrlParam->DispIdType10Timing, 0, sizeof(EdidCtrlParam->DispIdType10Timing));
-    EdidCtrlParam->DispIdNumType10Timings = 0;
+    (void)memset(EdidCtrlParam->DispIdType6Timing, 0, sizeof(EdidCtrlParam->DispIdType6Timing)); /**< DisplayID Type VI timing descriptors */
+    EdidCtrlParam->DispIdNumType6Timings = 0; /**< Number of Type VI timing descriptors */
+    (void)memset(EdidCtrlParam->DispIdType7Timing, 0, sizeof(EdidCtrlParam->DispIdType7Timing)); /**< DisplayID Type VII timing descriptors */
+    EdidCtrlParam->DispIdNumType7Timings = 0; /**< Number of Type VII timing descriptors */
+    (void)memset(EdidCtrlParam->DispIdType8Timing, 0, sizeof(EdidCtrlParam->DispIdType8Timing)); /**< DisplayID Type VIII timing descriptors */
+    EdidCtrlParam->DispIdNumType8Timings = 0; /**< Number of Type VIII timing descriptors */
+    (void)memset(EdidCtrlParam->DispIdType9Timing, 0, sizeof(EdidCtrlParam->DispIdType9Timing)); /**< DisplayID Type IX timing descriptors */
+    EdidCtrlParam->DispIdNumType9Timings = 0; /**< Number of Type IX timing descriptors */
+    (void)memset(EdidCtrlParam->DispIdType10Timing, 0, sizeof(EdidCtrlParam->DispIdType10Timing)); /**< DisplayID Type X timing descriptors */
+    EdidCtrlParam->DispIdNumType10Timings = 0; /**< Number of Type X timing descriptors */
     /* Display Interface Features */
-    EdidCtrlParam->DispIdInterfaceType   = 0;
-    EdidCtrlParam->DispIdNumLanes        = 0;
-    EdidCtrlParam->DispIdInterfaceVersion = 0;
-    EdidCtrlParam->DispIdContentProtection = 0;
-    EdidCtrlParam->DispIdSpreadSpectrum  = 0;
-    EdidCtrlParam->DispIdColorFormats    = 0;
-    EdidCtrlParam->DispIdMinPixelClkMhz  = 0;
-    EdidCtrlParam->DispIdMaxPixelClkMhz  = 0;
+    EdidCtrlParam->DispIdInterfaceType   = 0; /**< Display interface type */
+    EdidCtrlParam->DispIdNumLanes        = 0; /**< Number of interface lanes */
+    EdidCtrlParam->DispIdInterfaceVersion = 0; /**< Interface version */
+    EdidCtrlParam->DispIdContentProtection = 0; /**< Content protection support */
+    EdidCtrlParam->DispIdSpreadSpectrum  = 0; /**< Spread spectrum clocking support */
+    EdidCtrlParam->DispIdColorFormats    = 0; /**< Supported color formats */
+    EdidCtrlParam->DispIdMinPixelClkMhz  = 0; /**< Minimum pixel clock in MHz */
+    EdidCtrlParam->DispIdMaxPixelClkMhz  = 0; /**< Maximum pixel clock in MHz */
     /* Stereo Display Interface */
-    EdidCtrlParam->DispIdStereoInterface = 0;
-    EdidCtrlParam->DispIdStereoPolarity  = 0;
+    EdidCtrlParam->DispIdStereoInterface = 0; /**< Stereo display interface type */
+    EdidCtrlParam->DispIdStereoPolarity  = 0; /**< Stereo polarity */
     /* Tiled Display Topology */
-    EdidCtrlParam->DispIdIsTiled         = XVIDC_NOT_SUPPORTED;
-    EdidCtrlParam->DispIdTileRows        = 0;
-    EdidCtrlParam->DispIdTileCols        = 0;
-    EdidCtrlParam->DispIdTileLocH        = 0;
-    EdidCtrlParam->DispIdTileLocV        = 0;
-    EdidCtrlParam->DispIdTileWidth       = 0;
-    EdidCtrlParam->DispIdTileHeight      = 0;
-    EdidCtrlParam->DispIdTileBezelTop    = 0;
-    EdidCtrlParam->DispIdTileBezelBottom = 0;
-    EdidCtrlParam->DispIdTileBezelLeft   = 0;
-    EdidCtrlParam->DispIdTileBezelRight  = 0;
-    EdidCtrlParam->DispIdTileCapabilities = 0;
-    (void)memset(EdidCtrlParam->DispIdTileSerialNum, 0, sizeof(EdidCtrlParam->DispIdTileSerialNum));
+    EdidCtrlParam->DispIdIsTiled         = XVIDC_NOT_SUPPORTED; /**< Tiled display flag */
+    EdidCtrlParam->DispIdTileRows        = 0; /**< Number of tile rows */
+    EdidCtrlParam->DispIdTileCols        = 0; /**< Number of tile columns */
+    EdidCtrlParam->DispIdTileLocH        = 0; /**< Tile horizontal location */
+    EdidCtrlParam->DispIdTileLocV        = 0; /**< Tile vertical location */
+    EdidCtrlParam->DispIdTileWidth       = 0; /**< Tile width in pixels */
+    EdidCtrlParam->DispIdTileHeight      = 0; /**< Tile height in pixels */
+    EdidCtrlParam->DispIdTileBezelTop    = 0; /**< Tile bezel width - top */
+    EdidCtrlParam->DispIdTileBezelBottom = 0; /**< Tile bezel width - bottom */
+    EdidCtrlParam->DispIdTileBezelLeft   = 0; /**< Tile bezel width - left */
+    EdidCtrlParam->DispIdTileBezelRight  = 0; /**< Tile bezel width - right */
+    EdidCtrlParam->DispIdTileCapabilities = 0; /**< Tile capabilities */
+    (void)memset(EdidCtrlParam->DispIdTileSerialNum, 0, sizeof(EdidCtrlParam->DispIdTileSerialNum)); /**< Tile serial number */
     /* Container ID */
-    (void)memset(EdidCtrlParam->DispIdContainerId, 0, sizeof(EdidCtrlParam->DispIdContainerId));
+    (void)memset(EdidCtrlParam->DispIdContainerId, 0, sizeof(EdidCtrlParam->DispIdContainerId)); /**< Container ID UUID */
     /* Vendor Specific */
-    (void)memset(EdidCtrlParam->DispIdVendorTag, 0, sizeof(EdidCtrlParam->DispIdVendorTag));
-    (void)memset(EdidCtrlParam->DispIdVendorData, 0, sizeof(EdidCtrlParam->DispIdVendorData));
-    EdidCtrlParam->DispIdVendorDataLen   = 0;
+    (void)memset(EdidCtrlParam->DispIdVendorTag, 0, sizeof(EdidCtrlParam->DispIdVendorTag)); /**< Vendor-specific data block tag */
+    (void)memset(EdidCtrlParam->DispIdVendorData, 0, sizeof(EdidCtrlParam->DispIdVendorData)); /**< Vendor-specific data */
+    EdidCtrlParam->DispIdVendorDataLen   = 0; /**< Vendor data length */
     /* CTA DisplayID */
-    EdidCtrlParam->DispIdCtaPresent      = XVIDC_NOT_SUPPORTED;
-    (void)memset(EdidCtrlParam->DispIdCtaVic, 0, sizeof(EdidCtrlParam->DispIdCtaVic));
-    EdidCtrlParam->DispIdNumCtaVic       = 0;
-    EdidCtrlParam->DispIdCtaBlockTag     = 0;
-    EdidCtrlParam->DispIdCtaBlockPayloadSize = 0;
+    EdidCtrlParam->DispIdCtaPresent      = XVIDC_NOT_SUPPORTED; /**< CTA DisplayID presence flag */
+    (void)memset(EdidCtrlParam->DispIdCtaVic, 0, sizeof(EdidCtrlParam->DispIdCtaVic)); /**< CTA Video Identification Codes */
+    EdidCtrlParam->DispIdNumCtaVic       = 0; /**< Number of CTA VICs */
+    EdidCtrlParam->DispIdCtaBlockTag     = 0; /**< CTA data block tag */
+    EdidCtrlParam->DispIdCtaBlockPayloadSize = 0; /**< CTA data block payload size */
     /* Adaptive Refresh Rate */
-    EdidCtrlParam->DispIdAdaptiveRefreshFlags = 0;
+    EdidCtrlParam->DispIdAdaptiveRefreshFlags = 0; /**< Adaptive refresh rate flags */
     /* Unicode String */
-    (void)memset(EdidCtrlParam->DispIdUnicodeString, 0, sizeof(EdidCtrlParam->DispIdUnicodeString));
-    EdidCtrlParam->DispIdUnicodeStringLen = 0;
+    (void)memset(EdidCtrlParam->DispIdUnicodeString, 0, sizeof(EdidCtrlParam->DispIdUnicodeString)); /**< Unicode string */
+    EdidCtrlParam->DispIdUnicodeStringLen = 0; /**< Unicode string length */
     /* Detailed Timing Type 7 */
-    (void)memset(EdidCtrlParam->DispIdDetailedTiming7Data, 0, sizeof(EdidCtrlParam->DispIdDetailedTiming7Data));
-    EdidCtrlParam->DispIdDetailedTiming7Len = 0;
+    (void)memset(EdidCtrlParam->DispIdDetailedTiming7Data, 0, sizeof(EdidCtrlParam->DispIdDetailedTiming7Data)); /**< Detailed timing type 7 data */
+    EdidCtrlParam->DispIdDetailedTiming7Len = 0; /**< Detailed timing type 7 data length */
 }
 
 XV_VidC_TimingParam
@@ -286,6 +300,18 @@ XV_VidC_timing
 }
 
 #if XVIDC_EDID_VERBOSITY > 1
+/*****************************************************************************/
+/**
+*
+* This function converts a double-precision floating point value into integer
+* and decimal components for display purposes (available when verbosity > 1).
+*
+* @param    in_val is the double-precision floating point value to convert.
+*
+* @return   XV_VidC_DoubleRep structure containing the integer part and
+*           decimal part (scaled by 10000).
+*
+******************************************************************************/
 XV_VidC_DoubleRep Double2Int (double in_val) {
 	XV_VidC_DoubleRep DR;
 

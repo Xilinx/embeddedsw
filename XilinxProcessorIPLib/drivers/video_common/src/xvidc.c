@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -77,7 +77,7 @@ static u8 XVidC_IsVtmRb(const char *VideoModeStr, u8 RbN);
  *		timing table to register.
  * @param	NumElems is the number of video modes supported by CustomTable.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the custom table was successfully registered.
  *		- XST_FAILURE if an existing custom table is already present.
  *
@@ -113,8 +113,6 @@ u32 XVidC_RegisterCustomTimingModes(const XVidC_VideoTimingMode *CustomTable,
 /**
  * This function unregisters the user-defined custom video mode timing table
  * previously registered by XVidC_RegisterCustomTimingModes().
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -225,10 +223,8 @@ XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId)
  *
  * @param	VmId specifies the resolution ID from the video timings table.
  *
- * @return
- *		- 1 if the video timing with the supplied table ID is
- *		  interlaced.
- *		- 0 if the video timing is progressive.
+ * @return	1 if the video timing with the supplied table ID is interlaced;
+ *		0 if the video timing is progressive.
  *
  * @note	None.
  *
@@ -908,7 +904,7 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
  * @param	Bpc specifies the color depth/bits per color component.
  * @param	Ppc specifies the pixels per clock.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the timing for the supplied ID was found.
  *		- XST_FAILURE, otherwise.
  *
@@ -971,13 +967,9 @@ u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
  * @param	Ppc specifies the pixels per clock.
  * @param	Info3DPtr is a pointer to a XVidC_3DInfo structure.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the timing for the supplied ID was found.
  *		- XST_FAILURE, otherwise.
- *
- * @return
- *		- XST_SUCCESS
- *		- XST_FAILURE
  *
  * @note	None.
  *
@@ -1055,8 +1047,6 @@ u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
  *
  * @param	Stream is a pointer to video stream.
  *
- * @return	None.
- *
  * @note	None.
  *
 *******************************************************************************/
@@ -1064,7 +1054,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 {
 	if (!XVidC_GetVideoModeData(Stream->VmId) &&
 			(Stream->VmId != XVIDC_VM_CUSTOM)) {
-		xil_printf("\tThe stream ID (%d) is not supported.\r\n",
+		xil_printf("\t The stream ID (%d) is not supported.\r\n",
 				Stream->VmId);
 		return;
 	}
@@ -1124,8 +1114,6 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
  * @param	Timing is a pointer to Video Timing structure of the stream.
  * @param	IsInterlaced is a TRUE/FALSE flag that denotes the timing
  *		parameter is for interlaced/progressive stream.
- *
- * @return	None.
  *
  * @note	None.
  *

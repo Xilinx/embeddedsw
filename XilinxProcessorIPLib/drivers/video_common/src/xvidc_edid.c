@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -57,8 +57,6 @@ static int XVidC_CalculateBinaryFraction_QFormat(u16 Val, u8 DecPtIndex);
  *		name from.
  * @param	ManName is the string that will be modified to hold the
  *		retrieved manufacturer name.
- *
- * @return	None.
  *
  * @note	The ManName argument is modified with the manufacturer name.
  *
@@ -376,7 +374,7 @@ u16 XVidC_EdidGetStdTimingsV(const u8 *EdidRaw, u8 StdTimingsNum)
  * @param	EdidRaw is the supplied base EDID to check the timing against.
  * @param	VtMode is the video timing mode to check for support.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the video timing mode is supported as specified
  *		  in the supplied base EDID.
  *		- XST_FAILURE otherwise.
@@ -418,7 +416,7 @@ u32 XVidC_EdidIsVideoTimingSupported(const u8 *EdidRaw,
  * @param	EdidRaw is the supplied base EDID to check the timing against.
  * @param	VtMode is the video timing mode to check for support.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the video timing mode is the preferred timing
  *		  as specified in the base EDID.
  *		- XST_FAILURE otherwise.
@@ -463,7 +461,7 @@ static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(const u8 *EdidRaw,
  * @param	EdidRaw is the supplied base EDID to check the timing against.
  * @param	VtMode is the video timing mode to check for support.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the video timing mode is supported in the
  *		  base EDID's established timings field.
  *		- XST_FAILURE otherwise.
@@ -592,7 +590,7 @@ static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(const u8 *EdidRaw,
  * @param	EdidRaw is the supplied base EDID to check the timing against.
  * @param	VtMode is the video timing mode to check for support.
  *
- * @return
+ * @return	Status code.
  *		- XST_SUCCESS if the video timing mode is supported in the
  *		  base EDID's standard timings fields.
  *		- XST_FAILURE otherwise.
