@@ -1723,7 +1723,17 @@ xvidc_disp_cea861(const struct xvidc_edid_extension * const ext,
 #if XVIDC_EDID_VERBOSITY > 1
     dtd = (struct xvidc_edid_detailed_timing_descriptor *)
                                             ((u8 *) ctb + ctb->dtd_offset);
-    for (i = 0; dtd->pixel_clock; i++, dtd++) {
+    u32 dtd_offset_bytes = ctb->dtd_offset;
+    u32 dtd_size = sizeof(struct xvidc_edid_detailed_timing_descriptor);
+
+    if (dtd_offset_bytes < 128 && (dtd_offset_bytes + dtd_size) <= 128) {
+        u32 max_dtds = (128 - dtd_offset_bytes) / dtd_size;
+
+        for (i = 0; i < max_dtds && dtd && dtd->pixel_clock; i++, dtd++) {
+            u32 current_offset = dtd_offset_bytes + (i * dtd_size);
+            if (current_offset + dtd_size > 128) {
+                break;
+            }
 
         timing_params = XV_VidC_timing(dtd);
         if (VerboseEn) {
