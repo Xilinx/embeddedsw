@@ -1,7 +1,7 @@
-/* vim: set et fde fdm=syntax ft=c.doxygen ts=4 sts=4 sw=4 : */
+﻿/* vim: set et fde fdm=syntax ft=c.doxygen ts=4 sts=4 sw=4 : */
 /*
  * Copyright © 2021 Saleem Abdulrasool <compnerd@compnerd.org>.
- * Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,6 +46,7 @@
  * </pre>
  *
  ******************************************************************************/
+
 #include "string.h"
 #include "stdlib.h"
 #include "stddef.h"
@@ -63,6 +64,151 @@
 #if XVIDC_EDID_VERBOSITY > 0
 #define HZ_2_MHZ(hz)                            ((hz) / 1000000)
 #endif
+
+
+/* DisplayID Data Block Length Macros */
+/** DisplayID parameters block length in bytes */
+#define XVIDC_DISPLAYID_PARAMETERS_BLOCK_LEN        (12)
+/** DisplayID timing range minimum length in bytes */
+#define XVIDC_DISPLAYID_TIMING_RANGE_MIN_LEN        (8)
+/** DisplayID device data minimum length in bytes */
+#define XVIDC_DISPLAYID_DEVICE_DATA_MIN_LEN         (5)
+/** DisplayID power sequence minimum length in bytes */
+#define XVIDC_DISPLAYID_POWER_SEQ_MIN_LEN           (4)
+/** DisplayID transfer characteristics minimum length in bytes */
+#define XVIDC_DISPLAYID_TRANSFER_CHAR_MIN_LEN       (1)
+/** DisplayID container ID minimum length in bytes */
+#define XVIDC_DISPLAYID_CONTAINER_ID_MIN_LEN        (16)
+/** DisplayID string maximum length */
+#define XVIDC_DISPLAYID_STRING_MAX_LEN              (255)
+
+/* DisplayID Timing Mode Macros */
+/** Maximum number of DisplayID timing modes */
+#define XVIDC_DISPLAYID_MAX_TIMING_MODES            (8)
+/** Maximum number of DisplayID short timings */
+#define XVIDC_DISPLAYID_MAX_SHORT_TIMINGS           (16)
+/** DisplayID timing descriptor length in bytes */
+#define XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN       (20)
+/** DisplayID short timing length in bytes */
+#define XVIDC_DISPLAYID_SHORT_TIMING_LEN            (3)
+/** Maximum DisplayID detailed timing buffer size */
+#define XVIDC_DISPLAYID_DETAILED_TIMING_BUFFER_MAX  (32)
+/** Maximum DisplayID block data size */
+#define XVIDC_DISPLAYID_BLOCK_DATA_MAX              (128)
+/** DisplayID refresh rate base value in Hz */
+#define XVIDC_DISPLAYID_REFRESH_RATE_BASE           (60)
+/** DisplayID pixel clock multiplier */
+#define XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER      (10)
+/** DisplayID detailed timing minimum length in bytes */
+#define XVIDC_DISPLAYID_DETAILED_TIMING_MIN_LEN     (7)
+
+/* DisplayID Color Characteristics Macros */
+/** DisplayID color characteristics minimum length in bytes */
+#define XVIDC_DISPLAYID_COLOR_CHAR_MIN_LEN          (4)
+/** DisplayID color characteristics legacy length in bytes */
+#define XVIDC_DISPLAYID_COLOR_CHAR_LEGACY_LEN       (13)
+/** DisplayID color characteristics extended length in bytes */
+#define XVIDC_DISPLAYID_COLOR_CHAR_EXTENDED_LEN     (19)
+/** DisplayID color primary size in bytes */
+#define XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE          (3)
+/** DisplayID color white point size in bytes */
+#define XVIDC_DISPLAYID_COLOR_WHITEPOINT_SIZE       (3)
+/** DisplayID color coordinate divisor for precision */
+#define XVIDC_DISPLAYID_COLOR_COORDINATE_DIVISOR    (4096.0)
+/** DisplayID color depth offset */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_OFFSET          (8)
+/** DisplayID parameters bits per color length */
+#define XVIDC_DISPLAYID_PARAMETERS_BPC_LEN          (12)
+/** CIE 1931 color space year identifier */
+#define XVIDC_DISPLAYID_CIE_YEAR_1931               (1931)
+/** CIE 1976 color space year identifier */
+#define XVIDC_DISPLAYID_CIE_YEAR_1976               (1976)
+/** Maximum standard colorspace index */
+#define XVIDC_DISPLAYID_STD_COLORSPACE_MAX          (9)
+/** DisplayID vendor specific minimum length in bytes */
+#define XVIDC_DISPLAYID_VENDOR_SPEC_MIN_LEN         (3)
+/** DisplayID Unicode language code length in bytes */
+#define XVIDC_DISPLAYID_UNICODE_LANG_LEN            (3)
+/** DisplayID maximum block size in bytes */
+#define XVIDC_DISPLAYID_BLOCK_SIZE_MAX              (128)
+
+/* DisplayID Data Block Header */
+/** DisplayID data block header length in bytes */
+#define XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN       (3)
+
+/* DisplayID Bit Masks */
+/** DisplayID CIE year bit mask */
+#define XVIDC_DISPLAYID_CIE_YEAR_MASK               (0x80)
+/** DisplayID transfer function ID bit mask */
+#define XVIDC_DISPLAYID_XFER_ID_MASK                (0x0F)
+/** DisplayID transfer function ID bit shift */
+#define XVIDC_DISPLAYID_XFER_ID_SHIFT               (3)
+/** DisplayID temporal color bit mask */
+#define XVIDC_DISPLAYID_TEMPORAL_COLOR_MASK         (0x80)
+/** DisplayID number of primaries bit mask */
+#define XVIDC_DISPLAYID_NUM_PRIMARIES_MASK          (0x07)
+/** DisplayID number of primaries bit shift */
+#define XVIDC_DISPLAYID_NUM_PRIMARIES_SHIFT         (4)
+/** DisplayID number of white points bit mask */
+#define XVIDC_DISPLAYID_NUM_WHITEPOINTS_MASK        (0x0F)
+/** DisplayID color lower nibble bit mask */
+#define XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK     (0x0F)
+/** DisplayID color upper nibble bit mask */
+#define XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK     (0xF0)
+/** DisplayID color upper nibble bit shift */
+#define XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT    (4)
+/** DisplayID bits per color bit mask */
+#define XVIDC_DISPLAYID_BPC_MASK                    (0x0F)
+/** DisplayID bits per color bit shift */
+#define XVIDC_DISPLAYID_BPC_SHIFT                   (4)
+
+/* DisplayID Interface Features Macros */
+/** DisplayID interface minimum length in bytes */
+#define XVIDC_DISPLAYID_INTERFACE_MIN_LEN           (3)
+/** DisplayID interface extended length in bytes */
+#define XVIDC_DISPLAYID_INTERFACE_EXTENDED_LEN      (10)
+/** DisplayID interface color depth length in bytes */
+#define XVIDC_DISPLAYID_INTERFACE_COLOR_DEPTH_LEN   (8)
+/** DisplayID interface pixel clock length in bytes */
+#define XVIDC_DISPLAYID_INTERFACE_PIXEL_CLK_LEN     (4)
+/** DisplayID interface maximum clock length in bytes */
+#define XVIDC_DISPLAYID_INTERFACE_MAX_CLK_LEN       (6)
+/** DisplayID maximum interface count */
+#define XVIDC_DISPLAYID_INTERFACE_MAX_COUNT         (4)
+/** DisplayID default minimum pixel clock in MHz */
+#define XVIDC_DISPLAYID_DEFAULT_MIN_PIXEL_CLK       (25)
+/** DisplayID interface type for HDMI */
+#define XVIDC_DISPLAYID_INTERFACE_TYPE_HDMI         (116)
+/** DisplayID maximum pixel clock divisor */
+#define XVIDC_DISPLAYID_MAX_PIXEL_CLK_DIVISOR       (10)
+
+/* DisplayID Interface Color Depth Bit Masks */
+/** DisplayID color depth 6 bits per color bit mask */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_6BPC_MASK       (0x01)
+/** DisplayID color depth 8 bits per color bit mask */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_8BPC_MASK       (0x02)
+/** DisplayID color depth 10 bits per color bit mask */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_10BPC_MASK      (0x04)
+/** DisplayID color depth 12 bits per color bit mask */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_12BPC_MASK      (0x08)
+/** DisplayID color depth 14 bits per color bit mask */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_14BPC_MASK      (0x10)
+/** DisplayID color depth 16 bits per color bit mask */
+#define XVIDC_DISPLAYID_COLOR_DEPTH_16BPC_MASK      (0x20)
+/** DisplayID timing descriptor length in bytes (duplicate definition) */
+#define XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN       (20)
+/** DisplayID detailed timing divisor */
+#define XVIDC_DISPLAYID_DETAILED_TIMING_DIVISOR     (20)
+
+/** EDID block size in bytes */
+#define XVIDC_EDID_SIZE                             (128)
+/** Maximum number of DisplayID CVT timings */
+#define XVIDC_DISPLAYID_MAX_CVT_TIMINGS             (8)
+/** DisplayID interface count bit mask */
+#define XVIDC_DISPLAYID_INTERFACE_COUNT_MASK        (0x07)
+/** DisplayID interface version bit mask */
+#define XVIDC_DISPLAYID_INTERFACE_VERSION_MASK      (0x0F)
+
 #if XVIDC_EDID_VERBOSITY > 1
 static void
 xvidc_disp_cea861_audio_data(
@@ -113,9 +259,43 @@ xvidc_disp_cea861(const struct xvidc_edid_extension * const ext,
                   XV_VidC_Verbose VerboseEn);
 
 static void
+xvidc_dispid_block(const struct xvidc_edid_extension * const ext,
+                  XV_VidC_EdidCntrlParam *EdidCtrlParam,
+                  XV_VidC_Verbose VerboseEn);
+
+static void
 xvidc_disp_edid1(const struct edid * const edid,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn);
+
+/* Forward declarations for DisplayID parsing functions - ordered by DisplayID block tag (0x00-0x20) */
+static void xvidc_parse_displayid_product_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_parameters(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_dmt_timings_4(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_dmt_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_cta_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_timing_range(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_serial_number(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_ascii_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_power_sequencing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_transfer_characteristics(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_interface_features(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_stereo_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_short_timings_5(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_tiled_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_container_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
+static void xvidc_parse_displayid_vendor_specific(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
 
 /*****************************************************************************/
 /**
@@ -1676,6 +1856,7 @@ xvidc_disp_cea861(const struct xvidc_edid_extension * const ext,
 *
 ******************************************************************************/
 static const struct xvidc_edid_extension_handler {
+    /** Pointer to EDID extension information display function */
     void (* const inf_disp)(const struct xvidc_edid_extension * const,
            XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn);
 } xvidc_edid_extension_handlers[] = {
@@ -1686,6 +1867,7 @@ static const struct xvidc_edid_extension_handler {
 	[XVIDC_EDID_EXTENSION_DI]             = { NULL },
 	[XVIDC_EDID_EXTENSION_LS]             = { NULL },
 	[XVIDC_EDID_EXTENSION_MI]             = { NULL },
+	[XVIDC_EDID_EXTENSION_DID]            = { xvidc_dispid_block },
 	[XVIDC_EDID_EXTENSION_DTCDB_1]        = { NULL },
 	[XVIDC_EDID_EXTENSION_DTCDB_2]        = { NULL },
 	[XVIDC_EDID_EXTENSION_DTCDB_3]        = { NULL },
@@ -1747,6 +1929,7 @@ void XV_VidC_handle_extension(const struct xvidc_edid_extension *extension,
 	if (!handler->inf_disp) {
 #if XVIDC_EDID_VERBOSITY > 0
 		if (VerboseEn) {
+			u32 block_num = 0;  /* Extension block counter */
 			xil_printf("WARNING: block %u contains unknown extension (%#04x)\r\n",
 					block_num, extension->tag);
 		}
@@ -1765,7 +1948,7 @@ void XV_VidC_handle_extension(const struct xvidc_edid_extension *extension,
 * @param    data is a pointer to the EDID array.
 * @param    EdidCtrlParam is a pointer the EDID Control parameter
 * @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
-* @param    Segment is a segment number of EDID
+* @param    SegmentNum is a segment number of EDID
 *
 * @return None
 *
@@ -1801,4 +1984,1691 @@ XV_VidC_parse_edid_extension(const u8 * const data,
 
 	XV_VidC_handle_extension(extension, EdidCtrlParam, VerboseEn);
     }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Product Identification data block
+*
+* @param    x is a pointer to the product ID block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_product_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    EdidCtrlParam->DispIdProductCode = x[6] | (x[7] << 8);
+    EdidCtrlParam->DispIdSerialNumber = x[8] | (x[9] << 8) | (x[10] << 16) | (x[11] << 24);
+    EdidCtrlParam->DispIdModelWeek = x[12];
+    EdidCtrlParam->DispIdModelYear = 2000 + x[13];
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Product Code: %u\r\n", EdidCtrlParam->DispIdProductCode);
+        if (EdidCtrlParam->DispIdSerialNumber)
+            xil_printf("    Serial Number: %u\r\n", EdidCtrlParam->DispIdSerialNumber);
+        xil_printf("    %s: %u",
+            EdidCtrlParam->DispIdModelWeek == 0xff ? "Model Year" : "Year of Manufacture",
+            EdidCtrlParam->DispIdModelYear);
+        if (EdidCtrlParam->DispIdModelWeek && EdidCtrlParam->DispIdModelWeek <= 0x36)
+            xil_printf(", Week %u", EdidCtrlParam->DispIdModelWeek);
+        xil_printf("\r\n");
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Display Parameters data block
+*
+* @param    x is a pointer to the parameters block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_parameters(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    u8 length = x[2];
+    VerboseEn = VerboseEn;
+
+    if (length < XVIDC_DISPLAYID_PARAMETERS_BLOCK_LEN)
+        return;
+
+    EdidCtrlParam->DispIdImageWidthMm = x[3] | (x[4] << 8);
+    EdidCtrlParam->DispIdImageHeightMm = x[5] | (x[6] << 8);
+    EdidCtrlParam->DispIdNativeWidth = x[7] | (x[8] << 8);
+    EdidCtrlParam->DispIdNativeHeight = x[9] | (x[10] << 8);
+    EdidCtrlParam->DispIdFeatureSupportFlags = x[11];
+    EdidCtrlParam->DispIdGamma = x[12];
+    EdidCtrlParam->DispIdAspectRatio = x[13];
+
+    if (length >= XVIDC_DISPLAYID_PARAMETERS_BPC_LEN) {
+        u8 bpc_byte = x[14];
+        EdidCtrlParam->DispIdDynamicBpcNative = bpc_byte & XVIDC_DISPLAYID_BPC_MASK;
+        EdidCtrlParam->DispIdDynamicBpcOverall = (bpc_byte >> XVIDC_DISPLAYID_BPC_SHIFT) & XVIDC_DISPLAYID_BPC_MASK;
+    } else {
+        EdidCtrlParam->DispIdDynamicBpcNative = 0;
+        EdidCtrlParam->DispIdDynamicBpcOverall = 0;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        float gamma_val = (EdidCtrlParam->DispIdGamma + 100) / 100.0f;
+        float aspect_val = (EdidCtrlParam->DispIdAspectRatio + 100) / 100.0f;
+        u16 width_mm = EdidCtrlParam->DispIdImageWidthMm;
+        u16 height_mm = EdidCtrlParam->DispIdImageHeightMm;
+
+        xil_printf("  Display Parameters Data Block\r\n");
+        xil_printf("    Image size............... %u.%u mm x %u.%u mm\r\n",
+                   width_mm/10, width_mm%10, height_mm/10, height_mm%10);
+        xil_printf("    Native resolution........ %ux%u\r\n",
+                   EdidCtrlParam->DispIdNativeWidth, EdidCtrlParam->DispIdNativeHeight);
+        xil_printf("    Feature support flags.... 0x%02x\r\n", EdidCtrlParam->DispIdFeatureSupportFlags);
+        xil_printf("    Gamma.................... %u.%02u\r\n", (u16)gamma_val,
+                   (u16)((gamma_val - (u16)gamma_val) * 100));
+        xil_printf("    Aspect ratio............. %u.%02u\r\n", (u16)aspect_val,
+                   (u16)((aspect_val - (u16)aspect_val) * 100));
+        xil_printf("    Dynamic bpc native....... %u\r\n", EdidCtrlParam->DispIdDynamicBpcNative);
+        xil_printf("    Dynamic bpc overall...... %u\r\n", EdidCtrlParam->DispIdDynamicBpcOverall);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Color Characteristics data block
+*
+* @param    x is a pointer to the color block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    unsigned cie_year = (x[1] & XVIDC_DISPLAYID_CIE_YEAR_MASK) ? XVIDC_DISPLAYID_CIE_YEAR_1976 : XVIDC_DISPLAYID_CIE_YEAR_1931;
+    unsigned xfer_id = (x[1] >> XVIDC_DISPLAYID_XFER_ID_SHIFT) & XVIDC_DISPLAYID_XFER_ID_MASK;
+    unsigned num_whitepoints = x[3] & XVIDC_DISPLAYID_NUM_WHITEPOINTS_MASK;
+    unsigned num_primaries = (x[3] >> XVIDC_DISPLAYID_NUM_PRIMARIES_SHIFT) & XVIDC_DISPLAYID_NUM_PRIMARIES_MASK;
+    bool temporal_color = x[3] & XVIDC_DISPLAYID_TEMPORAL_COLOR_MASK;
+    unsigned offset = XVIDC_DISPLAYID_COLOR_CHAR_MIN_LEN;
+    cie_year = cie_year;
+    xfer_id = xfer_id;
+    temporal_color = temporal_color;
+
+    EdidCtrlParam->DispIdColorDepth = x[3] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK;
+    EdidCtrlParam->DispIdColorEncoding = (x[3] >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK;
+
+    if (!num_primaries && length > XVIDC_DISPLAYID_COLOR_CHAR_MIN_LEN) {
+        offset++;
+    }
+
+    if (num_primaries >= 3 && length >= (offset + (3 * XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE))) {
+        unsigned idx = offset;
+        EdidCtrlParam->DispIdPrimaryRedX = x[idx] | ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK) << 8);
+        EdidCtrlParam->DispIdPrimaryRedY = ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK) >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) | (x[idx + 2] << 4);
+
+        idx += XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE;
+        EdidCtrlParam->DispIdPrimaryGreenX = x[idx] | ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK) << 8);
+        EdidCtrlParam->DispIdPrimaryGreenY = ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK) >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) | (x[idx + 2] << 4);
+
+        idx += XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE;
+        EdidCtrlParam->DispIdPrimaryBlueX = x[idx] | ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK) << 8);
+        EdidCtrlParam->DispIdPrimaryBlueY = ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK) >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) | (x[idx + 2] << 4);
+    } else if (length >= XVIDC_DISPLAYID_COLOR_CHAR_LEGACY_LEN) {
+        EdidCtrlParam->DispIdPrimaryRedX = x[4] | (x[5] << 8);
+        EdidCtrlParam->DispIdPrimaryRedY = x[6] | (x[7] << 8);
+        EdidCtrlParam->DispIdPrimaryGreenX = x[8] | (x[9] << 8);
+        EdidCtrlParam->DispIdPrimaryGreenY = x[10] | (x[11] << 8);
+        EdidCtrlParam->DispIdPrimaryBlueX = x[12] | (x[13] << 8);
+        EdidCtrlParam->DispIdPrimaryBlueY = x[14] | (x[15] << 8);
+    }
+
+    offset += XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE * num_primaries;
+    if (num_whitepoints >= 1 && length >= (offset + XVIDC_DISPLAYID_COLOR_WHITEPOINT_SIZE)) {
+        unsigned idx = offset;
+        EdidCtrlParam->DispIdWhitePointX = x[idx] | ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK) << 8);
+        EdidCtrlParam->DispIdWhitePointY = ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK) >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) | (x[idx + 2] << 4);
+    } else if (length >= XVIDC_DISPLAYID_COLOR_CHAR_EXTENDED_LEN) {
+        EdidCtrlParam->DispIdWhitePointX = x[16] | (x[17] << 8);
+        EdidCtrlParam->DispIdWhitePointY = x[18] | (x[19] << 8);
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Color Characteristics Data Block\r\n");
+        xil_printf("    Uses %s color\r\n", temporal_color ? "temporal" : "spatial");
+        xil_printf("    Uses %u CIE (x, y) coordinates\r\n", cie_year);
+        if (xfer_id)
+            xil_printf("    Associated with Transfer Characteristics Data Block with Identifier %u\r\n", xfer_id);
+
+        offset = XVIDC_DISPLAYID_COLOR_CHAR_MIN_LEN;
+        if (!num_primaries) {
+            static const char *std_colorspace_ids[] = {
+                "sRGB", "BT.601", "BT.709", "Adobe RGB", "DCI-P3", "NTSC", "EBU", "Adobe Wide Gamut RGB", "DICOM"
+            };
+            xil_printf("    Uses color space %s\r\n",
+                x[4] >= XVIDC_DISPLAYID_STD_COLORSPACE_MAX ? "Reserved" : std_colorspace_ids[x[4]]);
+            offset++;
+        }
+
+        for (unsigned i = 0; i < num_primaries; i++) {
+            unsigned idx = offset + XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE * i;
+            xil_printf("    Primary #%u: (%.4f, %.4f)\r\n", i,
+                (double)(x[idx] | ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK) << 8)) / XVIDC_DISPLAYID_COLOR_COORDINATE_DIVISOR,
+                (double)(((x[idx + 1] & XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK) >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) | (x[idx + 2] << 4)) / XVIDC_DISPLAYID_COLOR_COORDINATE_DIVISOR);
+        }
+        offset += XVIDC_DISPLAYID_COLOR_PRIMARY_SIZE * num_primaries;
+        for (unsigned i = 0; i < num_whitepoints; i++) {
+            unsigned idx = offset + XVIDC_DISPLAYID_COLOR_WHITEPOINT_SIZE * i;
+            xil_printf("    White point #%u: (%.4f, %.4f)\r\n", i,
+                (double)(x[idx] | ((x[idx + 1] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK) << 8)) / XVIDC_DISPLAYID_COLOR_COORDINATE_DIVISOR,
+                (double)(((x[idx + 1] & XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_MASK) >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) | (x[idx + 2] << 4)) / XVIDC_DISPLAYID_COLOR_COORDINATE_DIVISOR);
+        }
+
+        xil_printf("    Stored Color Depth: %u-bit\r\n", EdidCtrlParam->DispIdColorDepth + XVIDC_DISPLAYID_COLOR_DEPTH_OFFSET);
+        xil_printf("    Stored Color Encoding: 0x%x\r\n", EdidCtrlParam->DispIdColorEncoding);
+        if (EdidCtrlParam->DispIdPrimaryRedX || EdidCtrlParam->DispIdPrimaryRedY) {
+            xil_printf("    Stored Red Primary: (0x%04x, 0x%04x)\r\n", EdidCtrlParam->DispIdPrimaryRedX, EdidCtrlParam->DispIdPrimaryRedY);
+            xil_printf("    Stored Green Primary: (0x%04x, 0x%04x)\r\n", EdidCtrlParam->DispIdPrimaryGreenX, EdidCtrlParam->DispIdPrimaryGreenY);
+            xil_printf("    Stored Blue Primary: (0x%04x, 0x%04x)\r\n", EdidCtrlParam->DispIdPrimaryBlueX, EdidCtrlParam->DispIdPrimaryBlueY);
+        }
+        if (EdidCtrlParam->DispIdWhitePointX || EdidCtrlParam->DispIdWhitePointY) {
+            xil_printf("    Stored White Point: (0x%04x, 0x%04x)\r\n", EdidCtrlParam->DispIdWhitePointX, EdidCtrlParam->DispIdWhitePointY);
+        }
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Video Timing Mode 1 data block
+*
+* @param    x is a pointer to the timing mode 1 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN) : 0;
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u32 i;
+
+    EdidCtrlParam->DispIdNumTimings = (num_timings > XVIDC_DISPLAYID_MAX_TIMING_MODES) ? XVIDC_DISPLAYID_MAX_TIMING_MODES : num_timings;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("  Video Timing Modes Type 1 - Detailed Timings Data Block\r\n");
+        xil_printf("    Number of timings........ %u\r\n\r\n", num_timings);
+    }
+#endif
+
+    for (i = 0; i < num_timings && offset + (XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN - 1) < XVIDC_DISPLAYID_BLOCK_DATA_MAX && i < XVIDC_DISPLAYID_MAX_TIMING_MODES; i++) {
+        u32 pixel_clock_10khz = x[offset] | (x[offset+1] << 8) | (x[offset+2] << 16);
+        u16 h_active_encoded = x[offset+4] | (x[offset+5] << 8);
+        u16 h_active = h_active_encoded + 1;
+        u16 v_active_encoded = x[offset+12] | (x[offset+13] << 8);
+        u16 v_active = v_active_encoded + 1;
+        u16 h_blank = x[offset+6] | (x[offset+7] << 8);
+        u16 v_blank = x[offset+10] | (x[offset+11] << 8);
+
+        if (h_active < 1024 || h_active > 7680 || v_active < 576 || v_active > 4320) {
+#if XVIDC_EDID_VERBOSITY > 0
+            if (VerboseEn) {
+                xil_printf("      WARNING: Parsed resolution out of valid range: %u x %u\r\n", h_active, v_active);
+            }
+#endif
+        }
+
+        if (pixel_clock_10khz == 0 || h_active == 0 || v_active == 0) {
+#if XVIDC_EDID_VERBOSITY > 0
+            if (VerboseEn) {
+                xil_printf("      Invalid timing data\r\n");
+            }
+#endif
+            offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
+            continue;
+        }
+
+        EdidCtrlParam->DispIdTiming[i].hres = h_active;
+        EdidCtrlParam->DispIdTiming[i].vres = v_active;
+        EdidCtrlParam->DispIdTiming[i].pixclk = pixel_clock_10khz;
+
+        u32 h_total = (u32)h_active + h_blank;
+        u32 v_total = (u32)v_active + v_blank;
+        u32 pixel_clock_hz = pixel_clock_10khz * 10000UL;
+        u32 refresh_rate = 0;
+
+        if (h_total > 0 && v_total > 0) {
+            u64 total_pixels = (u64)h_total * v_total;
+            if (total_pixels > 0) {
+                refresh_rate = (u32)(pixel_clock_hz / total_pixels);
+            }
+        }
+
+        u32 pixel_clock_mhz = (pixel_clock_10khz + 50) / 100;
+        pixel_clock_mhz = pixel_clock_mhz;
+	refresh_rate = refresh_rate;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      Pixel Clock.............. %u MHz\r\n", pixel_clock_mhz);
+            xil_printf("      Resolution............... %u x %u\r\n", h_active, v_active);
+            if (refresh_rate > 0) {
+                xil_printf("      Refresh Rate............. %u Hz\r\n", refresh_rate);
+            }
+            xil_printf("      Horizontal: Active=%u, Blank=%u, Total=%u\r\n",
+                       h_active, h_blank, h_total);
+            xil_printf("      Vertical: Active=%u, Blank=%u, Total=%u\r\n",
+                       v_active, v_blank, v_total);
+            xil_printf("\r\n");
+        }
+#endif
+        offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Video Timing Mode 2 data block
+*
+* @param    x is a pointer to the timing mode 2 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN) : 0;
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u32 i;
+    u8 start_idx = EdidCtrlParam->DispIdNumTimings;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Video Timing Mode 2 Data Block\r\n");
+        xil_printf("    Number of Timings: %u\r\n", num_timings);
+    }
+#endif
+
+    for (i = 0; i < num_timings && offset + (XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN - 1) < XVIDC_DISPLAYID_BLOCK_DATA_MAX && (start_idx + i) < XVIDC_DISPLAYID_MAX_TIMING_MODES; i++) {
+        u32 pixel_clock_10khz = x[offset] | (x[offset+1] << 8) | (x[offset+2] << 16);
+        u16 h_active = (x[offset+4] << 8) | x[offset+3];
+        u16 h_blank = (x[offset+6] << 8) | x[offset+5];
+        u16 v_active = (x[offset+8] << 8) | x[offset+7];
+        u16 v_blank = (x[offset+10] << 8) | x[offset+9];
+        u16 h_total = h_active + h_blank;
+        u16 v_total = v_active + v_blank;
+
+        /* Convert pixel clock to Hz for calculations */
+        u32 pixel_clock_hz = pixel_clock_10khz * 10000UL;
+
+        /* Calculate refresh rate if timing values are valid */
+        u16 refresh_rate = 0;
+        if (h_total > 0 && v_total > 0) {
+            refresh_rate = (u16)((pixel_clock_hz + (h_total * v_total / 2)) / (h_total * v_total));
+        }
+
+        /* Convert pixel clock to MHz for display purposes */
+        u32 pixel_clock_mhz = (pixel_clock_10khz + 50) / 100;
+
+        pixel_clock_mhz = pixel_clock_mhz;
+	refresh_rate = refresh_rate;
+
+        /* Store timing in DispIdTiming array */
+        EdidCtrlParam->DispIdTiming[start_idx + i].hres = h_active;
+        EdidCtrlParam->DispIdTiming[start_idx + i].vres = v_active;
+        EdidCtrlParam->DispIdTiming[start_idx + i].pixclk = pixel_clock_10khz;
+        EdidCtrlParam->DispIdNumTimings = start_idx + i + 1;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("    Timing #%u:\r\n", i+1);
+            xil_printf("      Pixel Clock.............. %u MHz\r\n", pixel_clock_mhz);
+            xil_printf("      Resolution............... %u x %u\r\n", h_active, v_active);
+            xil_printf("      Refresh Rate............. %u Hz\r\n", refresh_rate);
+            xil_printf("      Horizontal: Active=%u, Blank=%u, Total=%u\r\n",
+                       h_active, h_blank, h_total);
+            xil_printf("      Vertical: Active=%u, Blank=%u, Total=%u\r\n",
+                       v_active, v_blank, v_total);
+            xil_printf("\r\n");
+        }
+#endif
+        offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Short Timings Type 3 data block
+*
+* @param    x is a pointer to the short timings 3 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_SHORT_TIMING_LEN) : 0;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Short Timings Type 3 Data Block\r\n");
+        xil_printf("    Number of Timings: %u\r\n", num_timings);
+    }
+#endif
+
+    /* Parse short timing descriptors - each is 3 bytes */
+    for (i = 0; i < num_timings && offset + (XVIDC_DISPLAYID_SHORT_TIMING_LEN - 1) < XVIDC_DISPLAYID_BLOCK_DATA_MAX && i < XVIDC_DISPLAYID_MAX_SHORT_TIMINGS; i++) {
+        u8 timing_idx = x[offset];
+        u8 asp_ratio = (x[offset+1] >> 4) & 0x0f;
+        u8 refresh = (x[offset+1] & 0x0f) + XVIDC_DISPLAYID_REFRESH_RATE_BASE;
+        timing_idx = timing_idx;
+
+        EdidCtrlParam->DispIdShortTiming[i].AspectRatio = asp_ratio;
+        EdidCtrlParam->DispIdShortTiming[i].RefreshRate = refresh;
+        EdidCtrlParam->DispIdNumShortTimings = i + 1;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      Timing %u: Index %u, Aspect %u, Refresh %u Hz\r\n", i+1, timing_idx, asp_ratio, refresh);
+        }
+#endif
+        offset += XVIDC_DISPLAYID_SHORT_TIMING_LEN;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID DMT Timings Type 4 data block
+*
+* @param    x is a pointer to the DMT timings 4 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_dmt_timings_4(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u8 num_dmt_ids = length;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    DMT Timings Type 4 Data Block\r\n");
+        xil_printf("    Number of DMT IDs: %u\r\n", num_dmt_ids);
+    }
+#endif
+
+    EdidCtrlParam->DispIdNumDmtTimings = 0;
+    for (i = 0; i < num_dmt_ids && offset < 128 && i < 16; i++) {
+        u8 dmt_id = x[offset];
+
+        EdidCtrlParam->DispIdDmtTiming[i] = dmt_id;
+        EdidCtrlParam->DispIdNumDmtTimings++;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      DMT ID %u: 0x%02x\r\n", i+1, dmt_id);
+        }
+#endif
+        offset++;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID DMT Timings data block
+*
+* @param    x is a pointer to the DMT timings block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_dmt_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u8 num_dmt_ids = length;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    DMT Timings Data Block (Type 7)\r\n");
+        xil_printf("    Number of DMT IDs: %u\r\n", num_dmt_ids);
+    }
+#endif
+
+    EdidCtrlParam->DispIdNumDmtTimings = 0;
+    for (i = 0; i < num_dmt_ids && offset < 128 && i < 16; i++) {
+        u8 dmt_id = x[offset];
+
+        EdidCtrlParam->DispIdDmtTiming[i] = dmt_id;
+        EdidCtrlParam->DispIdNumDmtTimings++;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      DMT ID %u: 0x%02x\r\n", i+1, dmt_id);
+        }
+#endif
+        offset++;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID CTA Timings data block
+*
+* @param    x is a pointer to the CTA timings block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_cta_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    u8 length = x[2];
+    u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u8 num_vics = length;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    CTA Timings Data Block\r\n");
+        xil_printf("    Number of VICs: %u\r\n", num_vics);
+    }
+#endif
+
+    /* Parse CTA VIC codes - each is 1 byte */
+    EdidCtrlParam->DispIdNumCtaVic = 0;
+    for (i = 0; i < num_vics && offset < 128 && i < 16; i++) {
+        u8 vic = x[offset] & 0x7f;
+        u8 native = (x[offset] >> 7) & 0x01;
+        native = native;
+
+        /* Bounds check: VIC must be within valid array range (1-124) */
+        if (vic > 124 || vic == 0) {
+            if (VerboseEn) {
+                xil_printf("      Reserved VIC %u (out of supported range)\r\n", vic);
+            }
+            offset++;
+            continue;
+        }
+
+        /* Store CTA VIC */
+        EdidCtrlParam->DispIdCtaVic[i] = vic;
+        EdidCtrlParam->DispIdNumCtaVic++;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      VIC %u%s\r\n", vic, native ? " (Native)" : "");
+        }
+#endif
+        offset++;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Video Timing Range data block
+*
+* @param    x is a pointer to the timing range block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_timing_range(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+
+    if (length < XVIDC_DISPLAYID_TIMING_RANGE_MIN_LEN) return;
+
+    EdidCtrlParam->DispIdMinPixelClkMhz = x[3] | (x[4] << 8) | (x[5] << 16);
+    EdidCtrlParam->DispIdMaxPixelClkMhz = x[6] | (x[7] << 8) | (x[8] << 16);
+    EdidCtrlParam->DispIdTimingRangeMinHfreq = x[9] | (x[10] << 8);
+    EdidCtrlParam->DispIdTimingRangeMaxHfreq = x[11] | (x[12] << 8);
+    EdidCtrlParam->DispIdTimingRangeMinVfreq = x[13];
+    EdidCtrlParam->DispIdTimingRangeMaxVfreq = x[14];
+    EdidCtrlParam->DispIdTimingRangeFlags = 1;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Video Timing Range Data Block\r\n");
+        xil_printf("    Pixel Clock Range........ %u - %u MHz\r\n", EdidCtrlParam->DispIdMinPixelClkMhz, EdidCtrlParam->DispIdMaxPixelClkMhz);
+        xil_printf("    Horizontal Frequency Range %u - %u Hz\r\n", EdidCtrlParam->DispIdTimingRangeMinHfreq, EdidCtrlParam->DispIdTimingRangeMaxHfreq);
+        xil_printf("    Vertical Frequency Range. %u - %u Hz\r\n", EdidCtrlParam->DispIdTimingRangeMinVfreq, EdidCtrlParam->DispIdTimingRangeMaxVfreq);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Product Serial Number data block
+*
+* @param    x is a pointer to the serial number block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_serial_number(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u32 i = 0;
+
+    while (i < XVIDC_DISPLAYID_STRING_MAX_LEN && offset < (u32)(length + 3) && offset < 128 && x[offset] != 0x0A && x[offset] != 0x00) {
+        EdidCtrlParam->DispIdProductString[i] = x[offset];
+        i++;
+        offset++;
+    }
+    EdidCtrlParam->DispIdProductString[i] = 0x00;
+    EdidCtrlParam->DispIdProductStringLen = i;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Serial Number Data Block\r\n");
+        xil_printf("    Value: %s\r\n", EdidCtrlParam->DispIdProductString);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID GP ASCII String data block
+*
+* @param    x is a pointer to the ASCII string block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_ascii_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u32 i = 0;
+
+    while (i < XVIDC_DISPLAYID_STRING_MAX_LEN && offset < (u32)(length + 3) && offset < 128 && x[offset] != 0x0A && x[offset] != 0x00) {
+        EdidCtrlParam->DispIdAsciiString[i] = x[offset];
+        i++;
+        offset++;
+    }
+    EdidCtrlParam->DispIdAsciiString[i] = 0x00;
+    EdidCtrlParam->DispIdAsciiStringLen = i;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    ASCII String Data Block\r\n");
+        xil_printf("    Value: %s\r\n", (char*)EdidCtrlParam->DispIdAsciiString);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Display Device Data data block
+*
+* @param    x is a pointer to the device data block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    u8 length = x[2];
+    VerboseEn = VerboseEn;
+    u8 device_type, orientation, rotation, bezel_type;
+    u16 width_mm, height_mm, depth_mm;
+
+    if (length < XVIDC_DISPLAYID_DEVICE_DATA_MIN_LEN) return;
+
+    device_type = x[3];
+    orientation = (x[4] >> 5) & 0x07;
+    rotation = (x[4] >> 2) & 0x07;
+    bezel_type = x[4] & 0x03;
+
+    width_mm = x[5] | (x[6] << 8);
+    height_mm = x[7] | (x[8] << 8);
+    depth_mm = x[9] | (x[10] << 8);
+    rotation = rotation;
+    bezel_type = bezel_type;
+    depth_mm = depth_mm;
+
+    EdidCtrlParam->DispIdDeviceType = device_type;
+    EdidCtrlParam->DispIdScanOrientation = orientation;
+    EdidCtrlParam->DispIdDeviceHorSize = width_mm;
+    EdidCtrlParam->DispIdDeviceVerSize = height_mm;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Display Device Data Block\r\n");
+        xil_printf("    Device Type: %u\r\n", EdidCtrlParam->DispIdDeviceType);
+        xil_printf("    Orientation: %u, Rotation: %u\r\n", EdidCtrlParam->DispIdScanOrientation, rotation);
+        xil_printf("    Bezel Type: %u\r\n", bezel_type);
+        xil_printf("    Device Size: %u x %u x %u mm\r\n", EdidCtrlParam->DispIdDeviceHorSize, EdidCtrlParam->DispIdDeviceVerSize, depth_mm);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Interface Power Sequencing data block
+*
+* @param    x is a pointer to the power sequencing block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_power_sequencing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u8 power_on_delay, power_off_delay;
+
+    if (length < XVIDC_DISPLAYID_POWER_SEQ_MIN_LEN) return;
+
+    power_on_delay = x[3];
+    power_off_delay = x[4];
+
+    EdidCtrlParam->DispIdPowerSeqT1 = power_on_delay * 50;
+    EdidCtrlParam->DispIdPowerSeqT2 = power_off_delay * 50;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Power Sequencing Data Block\r\n");
+        xil_printf("    Power On Delay: %u ms\r\n", EdidCtrlParam->DispIdPowerSeqT1);
+        xil_printf("    Power Off Delay: %u ms\r\n", EdidCtrlParam->DispIdPowerSeqT2);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Transfer Characteristics data block
+*
+* @param    x is a pointer to the transfer characteristics block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_transfer_characteristics(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+    u8 length = x[2];
+    u8 transfer_type;
+
+    if (length < XVIDC_DISPLAYID_TRANSFER_CHAR_MIN_LEN) return;
+
+    transfer_type = x[3];
+    EdidCtrlParam->DispIdTransferType = transfer_type;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Transfer Characteristics Data Block\r\n");
+        xil_printf("    Transfer Type: %u\r\n", EdidCtrlParam->DispIdTransferType);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Display Interface Features data block
+*
+* @param    x is a pointer to the interface features block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_interface_features(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+
+    if (length >= XVIDC_DISPLAYID_INTERFACE_MIN_LEN) {
+        EdidCtrlParam->DispIdInterfaceType = x[3];
+
+        if (length >= XVIDC_DISPLAYID_INTERFACE_EXTENDED_LEN) {
+            u8 count_byte = x[6];
+            u8 version_byte = x[7];
+
+            EdidCtrlParam->DispIdNumInterfaces = (count_byte & XVIDC_DISPLAYID_INTERFACE_COUNT_MASK) + 1;
+            if (EdidCtrlParam->DispIdNumInterfaces > XVIDC_DISPLAYID_INTERFACE_MAX_COUNT)
+                EdidCtrlParam->DispIdNumInterfaces = XVIDC_DISPLAYID_INTERFACE_MAX_COUNT;
+
+            EdidCtrlParam->DispIdInterfaceVersion = version_byte & XVIDC_DISPLAYID_INTERFACE_VERSION_MASK;
+
+            if (length >= XVIDC_DISPLAYID_INTERFACE_COLOR_DEPTH_LEN) {
+                u8 rgb_support = x[5];
+                u8 ycbcr444_support = x[6];
+                u8 ycbcr422_support = x[7];
+
+                if (rgb_support & XVIDC_DISPLAYID_COLOR_DEPTH_16BPC_MASK) EdidCtrlParam->DispIdRgbColorDepth = 16;
+                else if (rgb_support & XVIDC_DISPLAYID_COLOR_DEPTH_14BPC_MASK) EdidCtrlParam->DispIdRgbColorDepth = 14;
+                else if (rgb_support & XVIDC_DISPLAYID_COLOR_DEPTH_12BPC_MASK) EdidCtrlParam->DispIdRgbColorDepth = 12;
+                else if (rgb_support & XVIDC_DISPLAYID_COLOR_DEPTH_10BPC_MASK) EdidCtrlParam->DispIdRgbColorDepth = 10;
+                else if (rgb_support & XVIDC_DISPLAYID_COLOR_DEPTH_8BPC_MASK) EdidCtrlParam->DispIdRgbColorDepth = 8;
+                else if (rgb_support & XVIDC_DISPLAYID_COLOR_DEPTH_6BPC_MASK) EdidCtrlParam->DispIdRgbColorDepth = 6;
+                else EdidCtrlParam->DispIdRgbColorDepth = 8;
+
+                if (ycbcr444_support & XVIDC_DISPLAYID_COLOR_DEPTH_16BPC_MASK) EdidCtrlParam->DispIdYCbCr444ColorDepth = 16;
+                else if (ycbcr444_support & XVIDC_DISPLAYID_COLOR_DEPTH_14BPC_MASK) EdidCtrlParam->DispIdYCbCr444ColorDepth = 14;
+                else if (ycbcr444_support & XVIDC_DISPLAYID_COLOR_DEPTH_12BPC_MASK) EdidCtrlParam->DispIdYCbCr444ColorDepth = 12;
+                else if (ycbcr444_support & XVIDC_DISPLAYID_COLOR_DEPTH_10BPC_MASK) EdidCtrlParam->DispIdYCbCr444ColorDepth = 10;
+                else if (ycbcr444_support & XVIDC_DISPLAYID_COLOR_DEPTH_8BPC_MASK) EdidCtrlParam->DispIdYCbCr444ColorDepth = 8;
+                else if (ycbcr444_support & XVIDC_DISPLAYID_COLOR_DEPTH_6BPC_MASK) EdidCtrlParam->DispIdYCbCr444ColorDepth = 6;
+                else EdidCtrlParam->DispIdYCbCr444ColorDepth = 8;
+
+                if (ycbcr422_support & XVIDC_DISPLAYID_COLOR_DEPTH_16BPC_MASK) EdidCtrlParam->DispIdYCbCr422ColorDepth = 16;
+                else if (ycbcr422_support & XVIDC_DISPLAYID_COLOR_DEPTH_14BPC_MASK) EdidCtrlParam->DispIdYCbCr422ColorDepth = 14;
+                else if (ycbcr422_support & XVIDC_DISPLAYID_COLOR_DEPTH_12BPC_MASK) EdidCtrlParam->DispIdYCbCr422ColorDepth = 12;
+                else if (ycbcr422_support & XVIDC_DISPLAYID_COLOR_DEPTH_10BPC_MASK) EdidCtrlParam->DispIdYCbCr422ColorDepth = 10;
+                else if (ycbcr422_support & XVIDC_DISPLAYID_COLOR_DEPTH_8BPC_MASK) EdidCtrlParam->DispIdYCbCr422ColorDepth = 8;
+                else EdidCtrlParam->DispIdYCbCr422ColorDepth = 8;
+
+                EdidCtrlParam->DispIdYCbCr420ColorDepth = EdidCtrlParam->DispIdYCbCr444ColorDepth;
+            } else {
+                EdidCtrlParam->DispIdRgbColorDepth = 8;
+                EdidCtrlParam->DispIdYCbCr444ColorDepth = 8;
+                EdidCtrlParam->DispIdYCbCr422ColorDepth = 8;
+                EdidCtrlParam->DispIdYCbCr420ColorDepth = 8;
+            }
+        } else {
+            EdidCtrlParam->DispIdNumInterfaces = 1;
+            EdidCtrlParam->DispIdInterfaceVersion = 1;
+            EdidCtrlParam->DispIdRgbColorDepth = 8;
+            EdidCtrlParam->DispIdYCbCr444ColorDepth = 8;
+            EdidCtrlParam->DispIdYCbCr422ColorDepth = 8;
+            EdidCtrlParam->DispIdYCbCr420ColorDepth = 8;
+        }
+    }
+    if (length >= XVIDC_DISPLAYID_INTERFACE_PIXEL_CLK_LEN) {
+        EdidCtrlParam->DispIdPixelClockRatio = x[4];
+    }
+    if (length >= XVIDC_DISPLAYID_INTERFACE_MAX_CLK_LEN) {
+        u16 raw_max_clock = x[5] | (x[6] << 8);
+
+        EdidCtrlParam->DispIdMaxPixelClock = raw_max_clock;
+
+        EdidCtrlParam->DispIdMinPixelClkMhz = XVIDC_DISPLAYID_DEFAULT_MIN_PIXEL_CLK;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("  Display Interface Data Block\r\n");
+        xil_printf("    Number of Interfaces..... %u\r\n", EdidCtrlParam->DispIdNumInterfaces);
+        xil_printf("    Interface Version........ %u\r\n", EdidCtrlParam->DispIdInterfaceVersion);
+
+        const char* interface_name = "Unknown";
+        u8 interface_code = 0x00;
+        if (EdidCtrlParam->DispIdInterfaceType == XVIDC_DISPLAYID_INTERFACE_TYPE_HDMI) {
+            interface_name = "HDMI";
+            interface_code = 0x21;
+        }
+
+        xil_printf("    Interface Type........... %s (0x%02X)\r\n", interface_name, interface_code);
+        xil_printf("    Color Depth Support:\r\n");
+        xil_printf("      RGB..................... %u bpc\r\n", EdidCtrlParam->DispIdRgbColorDepth);
+        xil_printf("      YCbCr 4:4:4............. %u bpc\r\n", EdidCtrlParam->DispIdYCbCr444ColorDepth);
+        xil_printf("      YCbCr 4:2:2............. %u bpc\r\n", EdidCtrlParam->DispIdYCbCr422ColorDepth);
+        xil_printf("      YCbCr 4:2:0............. %u bpc\r\n", EdidCtrlParam->DispIdYCbCr420ColorDepth);
+
+        u16 realistic_max_clock = EdidCtrlParam->DispIdMaxPixelClock / XVIDC_DISPLAYID_MAX_PIXEL_CLK_DIVISOR;
+        xil_printf("    Pixel Clock Range......... %u - %u MHz\r\n\r\n",
+                   EdidCtrlParam->DispIdMinPixelClkMhz, realistic_max_clock);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Stereo Display Interface data block
+*
+* @param    x is a pointer to the stereo display block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_stereo_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u8 interface, polarity = 0;
+
+    if (length >= XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) {
+
+        interface = (x[XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN] >> 4) & 0x0F;
+        polarity = x[XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN] & 0x0F;
+
+        EdidCtrlParam->DispIdStereoInterface = interface;
+        EdidCtrlParam->DispIdStereoPolarity = polarity;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Stereo Display Data Block\r\n");
+        xil_printf("    Stereo Interface: 0x%02x, Polarity: 0x%02x\r\n", interface, polarity);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Short Timings Type 5 data block
+*
+* @param    x is a pointer to the short timings 5 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_short_timings_5(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    u8 length = x[2];
+    u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    VerboseEn = VerboseEn;
+
+    u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) : 0;
+
+    EdidCtrlParam->DispIdNumCvtTimings = 0;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Short Timings Type 5 (CVT-R2) Data Block\r\n");
+        xil_printf("    Number of Timings: %u\r\n", num_timings);
+    }
+#endif
+
+    for (i = 0; i < num_timings && offset + 2 < XVIDC_EDID_SIZE && i < XVIDC_DISPLAYID_MAX_CVT_TIMINGS; i++) {
+        u8 timing_idx = x[offset];
+        u16 h_active = ((x[offset+1] & 0x0F) << 8) | (x[offset+2]);
+        u8 aspect_refresh = x[offset+1] >> 4;
+        timing_idx = timing_idx;
+
+        EdidCtrlParam->DispIdCvtTiming[i].HActive = h_active;
+        EdidCtrlParam->DispIdCvtTiming[i].RefreshRate = aspect_refresh;
+        EdidCtrlParam->DispIdNumCvtTimings++;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      Timing %u: HActive %u, Aspect/Refresh 0x%02x\r\n", i+1, h_active, aspect_refresh);
+        }
+#endif
+        offset += XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Tiled Display Topology data block
+*
+* @param    x is a pointer to the tiled display block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_tiled_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    u8 length = x[2];
+    u8 flags, h_tiles, v_tiles, h_position, v_position;
+    VerboseEn = VerboseEn;
+
+    u16 pixel_width, pixel_height;
+
+    if (length < 10) return;
+
+    EdidCtrlParam->DispIdIsTiled = XVIDC_SUPPORTED;
+
+    flags = x[3];
+    h_tiles = x[4] & 0x1f;
+    v_tiles = x[5] & 0x1f;
+    h_position = (x[5] >> 5) & 0x07;
+    v_position = (x[6] >> 5) & 0x07;
+    flags = flags;
+
+    pixel_width = x[7] | (x[8] << 8);
+    pixel_height = x[9] | ((x[10] & 0x0f) << 8);
+
+    EdidCtrlParam->DispIdTileCols = h_tiles + 1;
+    EdidCtrlParam->DispIdTileRows = v_tiles + 1;
+    EdidCtrlParam->DispIdTileWidth = pixel_width;
+    EdidCtrlParam->DispIdTileHeight = pixel_height;
+    EdidCtrlParam->DispIdTileLocH = h_position;
+    EdidCtrlParam->DispIdTileLocV = v_position;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Tiled Display Topology Data Block\r\n");
+        xil_printf("    Tile Layout: %u x %u tiles\r\n", EdidCtrlParam->DispIdTileCols, EdidCtrlParam->DispIdTileRows);
+        xil_printf("    Tile Position: (%u, %u)\r\n", EdidCtrlParam->DispIdTileLocH, EdidCtrlParam->DispIdTileLocV);
+        xil_printf("    Tile Size: %u x %u pixels\r\n", EdidCtrlParam->DispIdTileWidth, EdidCtrlParam->DispIdTileHeight);
+        xil_printf("    Flags: 0x%02x\r\n", flags);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Detailed Timings Type 6 data block
+*
+* @param    x is a pointer to the detailed timings 6 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    u8 length = x[2];
+    u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_DETAILED_TIMING_DIVISOR) : 0;
+    VerboseEn = VerboseEn;
+
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u32 i;
+
+    EdidCtrlParam->DispIdNumType6Timings = 0;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Detailed Timings Type 6 Data Block\r\n");
+        xil_printf("    Number of Timings: %u\r\n", num_timings);
+    }
+#endif
+
+    /* Parse detailed timing descriptors - each is 20 bytes */
+    for (i = 0; i < num_timings && offset + (XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN - 1) < XVIDC_DISPLAYID_BLOCK_DATA_MAX && i < XVIDC_DISPLAYID_MAX_TIMING_MODES; i++) {
+        u32 pixel_clock = x[offset] | (x[offset+1] << 8) | (x[offset+2] << 16);
+        u16 h_active = x[offset+3] | (x[offset+4] << 8);
+        u16 v_active = x[offset+7] | (x[offset+8] << 8);
+        pixel_clock = pixel_clock;
+        h_active = h_active;
+        v_active = v_active;
+
+        /* Store timing index/marker for Type 6 */
+        EdidCtrlParam->DispIdType6Timing[i] = i;
+        EdidCtrlParam->DispIdNumType6Timings++;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      Timing %u: %u x %u @ %u kHz\r\n", i+1, h_active, v_active, pixel_clock * XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER);
+        }
+#endif
+        offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Detailed Timing data block
+*
+* @param    x is a pointer to the detailed timing block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u32 i;
+
+    if (length < XVIDC_DISPLAYID_DETAILED_TIMING_MIN_LEN) return;
+
+    /* Store detailed timing in DispIdDetailedTiming7Data */
+    if (length <= XVIDC_DISPLAYID_DETAILED_TIMING_BUFFER_MAX) {
+        for (i = 0; i < length; i++) {
+            EdidCtrlParam->DispIdDetailedTiming7Data[i] = x[i];
+        }
+        EdidCtrlParam->DispIdDetailedTiming7Len = length;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        u32 pixel_clock = EdidCtrlParam->DispIdDetailedTiming7Data[3] |
+                          (EdidCtrlParam->DispIdDetailedTiming7Data[4] << 8) |
+                          (EdidCtrlParam->DispIdDetailedTiming7Data[5] << 16);
+        u16 h_active = EdidCtrlParam->DispIdDetailedTiming7Data[6] |
+                       ((EdidCtrlParam->DispIdDetailedTiming7Data[7] & 0x0f) << 8);
+        u16 v_active = ((EdidCtrlParam->DispIdDetailedTiming7Data[7] >> 4) & 0x0f) |
+                       (EdidCtrlParam->DispIdDetailedTiming7Data[8] << 4);
+
+        xil_printf("    Detailed Timing Data Block (Type 1)\r\n");
+        xil_printf("    Resolution: %u x %u\r\n", h_active, v_active);
+        xil_printf("    Pixel Clock: %u kHz\r\n", pixel_clock * XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Detailed Timings Type 7 data block
+*
+* @param    x is a pointer to the detailed timings 7 block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_DETAILED_TIMING_DIVISOR) : 0;
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u32 i, data_idx = 0;
+
+    /* Store detailed timing data (up to 32 bytes) */
+    EdidCtrlParam->DispIdDetailedTiming7Len = 0;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Detailed Timings Type 7 Data Block\r\n");
+        xil_printf("    Number of Timings: %u\r\n", num_timings);
+    }
+#endif
+
+    /* Copy detailed timing descriptors to buffer - each is 20 bytes */
+    for (i = 0; i < num_timings && offset + (XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN - 1) < XVIDC_DISPLAYID_BLOCK_DATA_MAX && data_idx < XVIDC_DISPLAYID_DETAILED_TIMING_BUFFER_MAX; i++) {
+        u32 pixel_clock = x[offset] | (x[offset+1] << 8) | (x[offset+2] << 16);
+        u16 h_active = x[offset+3] | (x[offset+4] << 8);
+        u16 v_active = x[offset+7] | (x[offset+8] << 8);
+        u32 j;
+        pixel_clock = pixel_clock;
+        h_active = h_active;
+        v_active = v_active;
+
+        /* Store up to 20 bytes per timing, respecting 32-byte buffer limit */
+        for (j = 0; j < XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN && data_idx < XVIDC_DISPLAYID_DETAILED_TIMING_BUFFER_MAX; j++) {
+            EdidCtrlParam->DispIdDetailedTiming7Data[data_idx] = x[offset + j];
+            data_idx++;
+        }
+        EdidCtrlParam->DispIdDetailedTiming7Len = data_idx;
+        EdidCtrlParam->DispIdNumType7Timings = i + 1;
+
+#if XVIDC_EDID_VERBOSITY > 0
+        if (VerboseEn) {
+            xil_printf("      Timing %u: %u x %u @ %u kHz\r\n", i+1, h_active, v_active, pixel_clock * XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER);
+        }
+#endif
+        offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
+    }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Adaptive Refresh Rate data block
+*
+* @param    x is a pointer to the adaptive refresh block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u8 flags = 0;
+
+    if (length >= XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) {
+        flags = x[XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN];
+        EdidCtrlParam->DispIdAdaptiveRefreshFlags = flags;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Adaptive Refresh Rate Data Block\r\n");
+        xil_printf("    Flags: 0x%02x\r\n", flags);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Bilingual Unicode String data block
+*
+* @param    x is a pointer to the unicode string block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
+    u8 lang_code = 0;
+    u32 i = 0;
+
+    if (length >= XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) {
+        lang_code = x[XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN];
+        EdidCtrlParam->DispIdUnicodeStringLen = (length - XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN > XVIDC_DISPLAYID_STRING_MAX_LEN) ? XVIDC_DISPLAYID_STRING_MAX_LEN : (length - XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN);
+        lang_code = lang_code;
+
+        /* Store unicode string bytes (up to XVIDC_DISPLAYID_STRING_MAX_LEN bytes) */
+        offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN + 1;
+        while (i < EdidCtrlParam->DispIdUnicodeStringLen && offset < (u32)(length + XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) && offset < XVIDC_EDID_SIZE) {
+            EdidCtrlParam->DispIdUnicodeString[i] = x[offset];
+            i++;
+            offset++;
+        }
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Bilingual Unicode String Data Block\r\n");
+        xil_printf("    Language Code: 0x%02x\r\n", lang_code);
+        xil_printf("    Length: %u bytes\r\n", EdidCtrlParam->DispIdUnicodeStringLen);
+        xil_printf("    Value: ");
+
+        /* Print unicode string (simplified - just print ASCII range) */
+        for (i = 0; i < EdidCtrlParam->DispIdUnicodeStringLen; i++) {
+            if (EdidCtrlParam->DispIdUnicodeString[i] >= 32 && EdidCtrlParam->DispIdUnicodeString[i] <= 126) {
+                xil_printf("%c", EdidCtrlParam->DispIdUnicodeString[i]);
+            }
+        }
+        xil_printf("\r\n");
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID CTA DisplayID 2.0 Data Block
+*
+* @param    x is a pointer to the CTA block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u8 cta_block_header = (length > 0) ? x[3] : 0;
+
+    EdidCtrlParam->DispIdCtaBlockTag = (cta_block_header >> 5) & 0x07;
+    EdidCtrlParam->DispIdCtaBlockPayloadSize = cta_block_header & 0x1f;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    CTA DisplayID 2.0 Data Block\r\n");
+        xil_printf("    CTA Version: %u\r\n", EdidCtrlParam->DispIdCtaBlockTag);
+        xil_printf("    CTA Block Payload Size: %u\r\n", EdidCtrlParam->DispIdCtaBlockPayloadSize);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Container ID data block
+*
+* @param    x is a pointer to the container ID block data
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_container_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u32 container_id_1, container_id_2, container_id_3, container_id_4;
+
+    if (length < XVIDC_DISPLAYID_CONTAINER_ID_MIN_LEN) return;
+
+    container_id_1 = x[3] | (x[4] << 8) | (x[5] << 16) | (x[6] << 24);
+    container_id_2 = x[7] | (x[8] << 8) | (x[9] << 16) | (x[10] << 24);
+    container_id_3 = x[11] | (x[12] << 8) | (x[13] << 16) | (x[14] << 24);
+    container_id_4 = x[15] | (x[16] << 8) | (x[17] << 16) | (x[18] << 24);
+
+    /* Store container ID bytes in array */
+    EdidCtrlParam->DispIdContainerId[0] = container_id_1 & 0xFF;
+    EdidCtrlParam->DispIdContainerId[1] = (container_id_1 >> 8) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[2] = (container_id_1 >> 16) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[3] = (container_id_1 >> 24) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[4] = container_id_2 & 0xFF;
+    EdidCtrlParam->DispIdContainerId[5] = (container_id_2 >> 8) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[6] = (container_id_2 >> 16) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[7] = (container_id_2 >> 24) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[8] = container_id_3 & 0xFF;
+    EdidCtrlParam->DispIdContainerId[9] = (container_id_3 >> 8) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[10] = (container_id_3 >> 16) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[11] = (container_id_3 >> 24) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[12] = container_id_4 & 0xFF;
+    EdidCtrlParam->DispIdContainerId[13] = (container_id_4 >> 8) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[14] = (container_id_4 >> 16) & 0xFF;
+    EdidCtrlParam->DispIdContainerId[15] = (container_id_4 >> 24) & 0xFF;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Container ID Data Block\r\n");
+        xil_printf("    Container ID: 0x%08x-%08x-%08x-%08x\r\n",
+                   container_id_1, container_id_2, container_id_3, container_id_4);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Vendor-Specific Data Block
+*
+* @param    x is a pointer to the vendor-specific data block
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_parse_displayid_vendor_specific(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
+{
+    EdidCtrlParam = EdidCtrlParam;
+    VerboseEn = VerboseEn;
+
+    u8 length = x[2];
+    u8 vendor_id[3];
+
+    if (length < 3) return;
+
+    /* Extract vendor ID (IEEE OUI) */
+    vendor_id[0] = x[3];
+    vendor_id[1] = x[4];
+    vendor_id[2] = x[5];
+    vendor_id[0] = vendor_id[0];
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("    Vendor-Specific Data Block\r\n");
+        xil_printf("    Vendor ID (IEEE OUI): 0x%02x%02x%02x\r\n",
+                   vendor_id[2], vendor_id[1], vendor_id[0]);
+        xil_printf("    Data length: %d bytes\r\n", length - 3);
+    }
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parses DisplayID Extension Block
+*
+* @param    ext is a pointer to the EDID extension
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn enables verbose output
+*
+* @return None
+*
+******************************************************************************/
+static void
+xvidc_dispid_block(const struct xvidc_edid_extension * const ext,
+                  XV_VidC_EdidCntrlParam *EdidCtrlParam,
+                  XV_VidC_Verbose VerboseEn)
+{
+    const u8 *data = (const u8 *)ext;
+    u8 index = 5;
+    u8 block_length = data[2];
+    u8 end_index = 5 + block_length;
+    u8 max_iterations = 64;
+
+    /* Validate DisplayID extension tag */
+    if (data[0] != XVIDC_EDID_EXTENSION_DID) {
+        return;
+    }
+
+    /* Extract header information */
+    u8 version_major = (data[1] >> 4) & 0x0f;
+    u8 version_minor = data[1] & 0x0f;
+    EdidCtrlParam->DispIdProductType = data[3];
+    EdidCtrlParam->DispIdExtensionCount = data[4];
+
+    /* Set DisplayID presence and version */
+    EdidCtrlParam->IsDispIdPresent = XVIDC_SUPPORTED;
+    EdidCtrlParam->DispIdVersion = (version_major << 4) | version_minor;
+
+    /* Determine DisplayID version for proper block tag mapping */
+    u8 is_displayid_2_0 = (version_major == 2 && version_minor == 0);
+
+    /* Extract product information from base EDID (first 128 bytes) */
+    const u8 *base_edid = (const u8 *)ext - 128;
+    if (base_edid[0] == 0x00 && base_edid[1] == 0xFF) {
+        u16 mfg_id = (base_edid[8] << 8) | base_edid[9];
+        u16 product_code = base_edid[10] | (base_edid[11] << 8);
+        u32 serial_number = (base_edid[15] << 24) | (base_edid[14] << 16) |
+                           (base_edid[13] << 8) | base_edid[12];
+        u8 mfg_week = base_edid[16];
+        u8 mfg_year = base_edid[17];
+
+        /* Store in EdidCtrlParam for later use */
+        EdidCtrlParam->ManufacturerId = mfg_id;
+        EdidCtrlParam->DispIdProductCode = product_code;
+        EdidCtrlParam->DispIdSerialNumber = serial_number;
+        EdidCtrlParam->ManufactureWeek = mfg_week;
+        EdidCtrlParam->ManufactureYear = mfg_year + 1990;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("DisplayID Extension Block\r\n");
+        xil_printf("  Version byte (raw)....... 0x%02x\r\n", data[1]);
+        xil_printf("  Version.................. DisplayID %u.%u\r\n", version_major, version_minor);
+        xil_printf("  Section Length........... %u\r\n", block_length);
+        xil_printf("  Product Type............. 0x%02x\r\n", EdidCtrlParam->DispIdProductType);
+        xil_printf("  Extension Count.......... %u\r\n\r\n", EdidCtrlParam->DispIdExtensionCount);
+
+        /* Print Product Identification from stored EdidCtrlParam data */
+        if (EdidCtrlParam->ManufacturerId) {
+            char mfg_str[4];
+            mfg_str[0] = ((EdidCtrlParam->ManufacturerId >> 10) & 0x1F) + '@';
+            mfg_str[1] = ((EdidCtrlParam->ManufacturerId >> 5) & 0x1F) + '@';
+            mfg_str[2] = (EdidCtrlParam->ManufacturerId & 0x1F) + '@';
+            mfg_str[3] = '\0';
+
+            xil_printf("  Product Identification\r\n");
+            xil_printf("    Manufacturer............. %s\r\n", mfg_str);
+            xil_printf("    Product Code............. 0x%04X\r\n", EdidCtrlParam->DispIdProductCode);
+            xil_printf("    Serial Number............ 0x%08X\r\n", EdidCtrlParam->DispIdSerialNumber);
+            xil_printf("    Year of Manufacture...... %u", EdidCtrlParam->ManufactureYear);
+            if (EdidCtrlParam->ManufactureWeek > 0 && EdidCtrlParam->ManufactureWeek <= 53) {
+                xil_printf(", Week %u", EdidCtrlParam->ManufactureWeek);
+            }
+            xil_printf("\r\n\r\n");
+        }
+    }
+#endif
+
+    while ((index < end_index) && (max_iterations > 0)) {
+        max_iterations--;
+
+        if (index + 3 > end_index) {
+            break;
+        }
+
+        u8 tag = data[index];
+        u8 len = data[index + 2];
+
+        if (len == 0) {
+            index += 3;
+            continue;
+        }
+
+        if (index + 3 + len > end_index) {
+#if XVIDC_EDID_VERBOSITY > 0
+            if (VerboseEn) {
+                xil_printf("  WARNING: Data block extends beyond section\r\n");
+            }
+#endif
+            break;
+        }
+
+        /* Use different block tag mappings based on DisplayID version */
+        if (is_displayid_2_0) {
+            /* DisplayID 2.0 block tag mapping */
+            switch (tag) {
+                case 0x20:
+                    xvidc_parse_displayid_product_id(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x21:
+                    xvidc_parse_displayid_parameters(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x22:
+                    xvidc_parse_displayid_timing_mode_1(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x23:
+                    xvidc_parse_displayid_dmt_timings_4(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x24:
+                    xvidc_parse_displayid_short_timings_5(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x25:
+                    xvidc_parse_displayid_timing_range(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x26:
+                    xvidc_parse_displayid_interface_features(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x27:
+                    xvidc_parse_displayid_stereo_display(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x28:
+                    xvidc_parse_displayid_tiled_display(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x29:
+                    xvidc_parse_displayid_container_id(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x7E:
+                    xvidc_parse_displayid_vendor_specific(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x81:
+                    xvidc_parse_displayid_cta_block(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                default:
+#if XVIDC_EDID_VERBOSITY > 0
+                    if (VerboseEn) {
+                        xil_printf("  Unknown DisplayID 2.0 block tag: 0x%02x\r\n", tag);
+                    }
+#endif
+                    break;
+            }
+        } else {
+            /* DisplayID 1.x block tag mapping (backward compatibility) */
+            switch (tag) {
+                case 0x00:
+                    xvidc_parse_displayid_product_id(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x01:
+                    xvidc_parse_displayid_parameters(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x02:
+                    xvidc_parse_displayid_color_characteristics(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x03:
+                    xvidc_parse_displayid_timing_mode_1(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x04:
+                    xvidc_parse_displayid_timing_mode_2(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x05:
+                    xvidc_parse_displayid_short_timings_3(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x06:
+                    xvidc_parse_displayid_dmt_timings_4(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x07:
+                    xvidc_parse_displayid_dmt_timings(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x08:
+                    xvidc_parse_displayid_detailed_timings_6(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x09:
+                    xvidc_parse_displayid_cta_timings(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x0A:
+                    xvidc_parse_displayid_serial_number(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x0B:
+                    xvidc_parse_displayid_ascii_string(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x0C:
+                    xvidc_parse_displayid_device_data(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x0D:
+                    xvidc_parse_displayid_power_sequencing(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x0E:
+                    xvidc_parse_displayid_transfer_characteristics(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x0F:
+                    xvidc_parse_displayid_interface_features(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x10:
+                    xvidc_parse_displayid_stereo_display(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x11:
+                    xvidc_parse_displayid_short_timings_5(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x12:
+                    xvidc_parse_displayid_tiled_display(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x13:
+                    xvidc_parse_displayid_detailed_timing(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x14:
+                    xvidc_parse_displayid_detailed_timings_7(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x15:
+                    xvidc_parse_displayid_adaptive_refresh(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x16:
+                    xvidc_parse_displayid_unicode_string(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x17:
+                    xvidc_parse_displayid_cta_block(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                /* Cases 0x18-0x1F are reserved in DisplayID specification - not implemented */
+                case 0x20:
+                    xvidc_parse_displayid_container_id(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x21:
+                    xvidc_parse_displayid_timing_range(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                case 0x7F:
+                    xvidc_parse_displayid_vendor_specific(&data[index], EdidCtrlParam, VerboseEn);
+                    break;
+                default:
+#if XVIDC_EDID_VERBOSITY > 1
+                    if (VerboseEn) {
+                        xil_printf("    Unknown DisplayID 1.x block tag: 0x%02X (length: %u)\r\n",
+                                   tag, len);
+                    }
+#endif
+                    break;
+            }
+        }
+
+        index += 3 + len;
+    }
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("\r\n");
+    }
+#endif
 }

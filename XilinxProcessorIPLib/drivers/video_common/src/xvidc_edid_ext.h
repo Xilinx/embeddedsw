@@ -2,6 +2,8 @@
 /*
  * Copyright © 2010-2021 Saleem Abdulrasool <compnerd@compnerd.org>.
  * All rights reserved.
+ * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -62,6 +64,7 @@ enum xvidc_edid_extension_type {
                                                           Extension (LS-EXT) */
     XVIDC_EDID_EXTENSION_MI               = 0x60, /* Microdisplay Interface
                                                           Extension (MI-EXT) */
+    XVIDC_EDID_EXTENSION_DID              = 0x70, /* Display ID Extension */
     XVIDC_EDID_EXTENSION_DTCDB_1          = 0xA7, /* Display Transfer
                                           Characteristics Data Block (DTCDB) */
     XVIDC_EDID_EXTENSION_DTCDB_2          = 0xAF,
@@ -116,6 +119,49 @@ enum xvidc_edid_monitor_descriptor_type {
 enum xvidc_edid_secondary_timing_support {
     XVIDC_EDID_SECONDARY_TIMING_NOT_SUPPORTED,
     XVIDC_EDID_SECONDARY_TIMING_GFT           = 0x02,
+};
+
+/* DisplayID 2.0 Block Tags (VESA DisplayID 2.0 Standard) */
+enum xvidc_displayid_2_0_block_tag {
+    XVIDC_DISPLAYID_2_0_PRODUCT_ID            = 0x20, /* Product Identification (mandatory) */
+    XVIDC_DISPLAYID_2_0_DISPLAY_PARAMS        = 0x21, /* Display Parameters (mandatory) */
+    XVIDC_DISPLAYID_2_0_TYPE_VII_TIMING       = 0x22, /* Type VII Detailed Timings */
+    XVIDC_DISPLAYID_2_0_TYPE_VIII_TIMING      = 0x23, /* Type VIII Enumerated Timing Code */
+    XVIDC_DISPLAYID_2_0_TYPE_IX_TIMING        = 0x24, /* Type IX Formula-based Timings */
+    XVIDC_DISPLAYID_2_0_DYNAMIC_TIMING_RANGE  = 0x25, /* Dynamic Video Timing Range */
+    XVIDC_DISPLAYID_2_0_INTERFACE_FEATURES    = 0x26, /* Display Interface Features (mandatory) */
+    XVIDC_DISPLAYID_2_0_STEREO_INTERFACE      = 0x27, /* Stereo Display Interface */
+    XVIDC_DISPLAYID_2_0_TILED_TOPOLOGY        = 0x28, /* Tiled Display Topology */
+    XVIDC_DISPLAYID_2_0_CONTAINER_ID          = 0x29, /* Container ID */
+    XVIDC_DISPLAYID_2_0_VENDOR_SPECIFIC       = 0x7E, /* Vendor-specific Data */
+    XVIDC_DISPLAYID_2_0_CTA_DISPLAYID         = 0x81, /* CTA DisplayID */
+};
+
+/* DisplayID 1.x Block Tags (Legacy - for backward compatibility) */
+enum xvidc_displayid_1_x_block_tag {
+    XVIDC_DISPLAYID_1_X_PRODUCT_ID            = 0x00, /* Product Identification */
+    XVIDC_DISPLAYID_1_X_DISPLAY_PARAMS        = 0x01, /* Display Parameters */
+    XVIDC_DISPLAYID_1_X_COLOR_CHARS           = 0x02, /* Color Characteristics */
+    XVIDC_DISPLAYID_1_X_TYPE_I_TIMING         = 0x03, /* Type I Detailed Timings */
+    XVIDC_DISPLAYID_1_X_TYPE_II_TIMING        = 0x04, /* Type II Detailed Timings */
+    XVIDC_DISPLAYID_1_X_TYPE_III_TIMING       = 0x05, /* Type III Short Timings */
+    XVIDC_DISPLAYID_1_X_TYPE_IV_TIMING        = 0x06, /* Type IV Short Timings (DMT ID) */
+    XVIDC_DISPLAYID_1_X_VESA_TIMING           = 0x07, /* VESA Timing Standard */
+    XVIDC_DISPLAYID_1_X_CEA_TIMING            = 0x08, /* CEA Timing Standard */
+    XVIDC_DISPLAYID_1_X_TIMING_RANGE          = 0x09, /* Video Timing Range Limits */
+    XVIDC_DISPLAYID_1_X_SERIAL_NUMBER         = 0x0A, /* Product Serial Number */
+    XVIDC_DISPLAYID_1_X_ASCII_STRING          = 0x0B, /* General Purpose ASCII String */
+    XVIDC_DISPLAYID_1_X_DEVICE_DATA           = 0x0C, /* Display Device Data */
+    XVIDC_DISPLAYID_1_X_POWER_SEQUENCING      = 0x0D, /* Interface Power Sequencing */
+    XVIDC_DISPLAYID_1_X_TRANSFER_CHARS        = 0x0E, /* Transfer Characteristics */
+    XVIDC_DISPLAYID_1_X_INTERFACE_DATA        = 0x0F, /* Display Interface Data */
+    XVIDC_DISPLAYID_1_X_STEREO_INTERFACE      = 0x10, /* Stereo Display Interface */
+    XVIDC_DISPLAYID_1_X_TYPE_V_TIMING         = 0x11, /* Type V Short Timings */
+    XVIDC_DISPLAYID_1_X_TILED_TOPOLOGY        = 0x12, /* Tiled Display Topology */
+    XVIDC_DISPLAYID_1_X_TYPE_VI_TIMING        = 0x13, /* Type VI Detailed Timings */
+    XVIDC_DISPLAYID_1_X_CONTAINER_ID          = 0x20, /* Container ID (in 1.x mapping) */
+    XVIDC_DISPLAYID_1_X_VENDOR_SPECIFIC_7E    = 0x7E, /* Vendor-specific Data */
+    XVIDC_DISPLAYID_1_X_VENDOR_SPECIFIC_7F    = 0x7F, /* Vendor-specific Data */
 };
 
 
@@ -681,6 +727,169 @@ typedef struct {
     XV_VidC_Supp	IsVesaDsc12aSupp;
     u8			DscTotalChunkBytes;
     u8			Extensions;
+    /* DisplayID/EDID 2.0 Support */
+    XV_VidC_Supp	IsDispIdPresent;           /**< DisplayID present flag */
+    u8			DispIdVersion;                /**< DisplayID version number */
+    u8			DispIdProductType;            /**< DisplayID product type */
+    u8			DispIdExtensionCount;         /**< DisplayID extension count */
+    /* Product Identification */
+    u16			ManufacturerId;               /**< Manufacturer ID from base EDID */
+    u8			ManufactureWeek;              /**< Manufacture week from base EDID */
+    u16			ManufactureYear;              /**< Manufacture year from base EDID */
+    u8			DispIdManufacturer[4];        /**< DisplayID manufacturer code */
+    u16			DispIdProductCode;            /**< DisplayID product code */
+    u32			DispIdSerialNumber;           /**< DisplayID serial number */
+    u16			DispIdModelYear;              /**< DisplayID model year */
+    u8			DispIdModelWeek;              /**< DisplayID model week */
+    u8			DispIdProductString[32];      /**< DisplayID product string */
+    u8			DispIdProductStringLen;       /**< DisplayID product string length */
+    /* Display Parameters */
+    u16			DispIdImageWidthMm;           /**< Image width in 0.1mm units */
+    u16			DispIdImageHeightMm;          /**< Image height in 0.1mm units */
+    u16			DispIdNativeWidth;            /**< Native horizontal resolution */
+    u16			DispIdNativeHeight;           /**< Native vertical resolution */
+    u8			DispIdFeatureSupportFlags;    /**< Feature support flags */
+    u8			DispIdGamma;                  /**< Gamma value: (value + 100) / 100, 0xFF = not defined */
+    u8			DispIdAspectRatio;            /**< Aspect ratio: (value + 100) / 100 */
+    u8			DispIdBitDepthNative;         /**< Native bit depth */
+    u8			DispIdBitDepthOverall;        /**< Overall bit depth */
+    u8			DispIdScanOrientation;        /**< Scan orientation */
+    u8			DispIdTechnology;             /**< Display technology type */
+    XV_VidC_Supp	DispIdAudioSupport;           /**< Audio support flag */
+    XV_VidC_Supp	DispIdSeparateAudio;          /**< Separate audio inputs flag */
+    XV_VidC_Supp	DispIdAudioOverride;          /**< Audio input override flag */
+    XV_VidC_Supp	DispIdPowerSequenceReq;       /**< Power sequencing required flag */
+    XV_VidC_Supp	DispIdFixedPixelFormat;       /**< Fixed pixel format flag */
+    XV_VidC_Supp	DispIdDeinterlacing;          /**< De-interlacing support flag */
+    /* Color Characteristics */
+    u8			DispIdColorDepth;             /**< Color depth */
+    u8			DispIdColorEncoding;          /**< Color encoding format */
+    /* DisplayID Interface Color Depth Support */
+    u8			DispIdRgbColorDepth;          /**< RGB color depth support */
+    u8			DispIdYCbCr444ColorDepth;     /**< YCbCr 4:4:4 color depth support */
+    u8			DispIdYCbCr422ColorDepth;     /**< YCbCr 4:2:2 color depth support */
+    u8			DispIdYCbCr420ColorDepth;     /**< YCbCr 4:2:0 color depth support */
+    u16			DispIdPrimaryRedX;            /**< Red primary X coordinate */
+    u16			DispIdPrimaryRedY;            /**< Red primary Y coordinate */
+    u16			DispIdPrimaryGreenX;          /**< Green primary X coordinate */
+    u16			DispIdPrimaryGreenY;          /**< Green primary Y coordinate */
+    u16			DispIdPrimaryBlueX;           /**< Blue primary X coordinate */
+    u16			DispIdPrimaryBlueY;           /**< Blue primary Y coordinate */
+    u16			DispIdWhitePointX;            /**< White point X coordinate */
+    u16			DispIdWhitePointY;            /**< White point Y coordinate */
+    u16			DispIdMinLuminance;           /**< Minimum luminance */
+    u16			DispIdMaxLuminance;           /**< Maximum luminance */
+    u16			DispIdMaxFullFrameLum;        /**< Maximum full frame luminance */
+    /* Timing Range Data (0x09) */
+    u16			DispIdTimingRangeMinHfreq;    /**< Minimum horizontal frequency in kHz */
+    u16			DispIdTimingRangeMaxHfreq;    /**< Maximum horizontal frequency in kHz */
+    u16			DispIdTimingRangeMinVfreq;    /**< Minimum vertical frequency in Hz */
+    u16			DispIdTimingRangeMaxVfreq;    /**< Maximum vertical frequency in Hz */
+    u16			DispIdTimingRangeMaxPixclk;   /**< Maximum pixel clock */
+    u8			DispIdTimingRangeFlags;       /**< Timing range flags */
+    /* Serial Number String (0x0A) */
+    u8			DispIdSerialString[256];      /**< Serial number string */
+    u16			DispIdSerialStringLen;        /**< Serial string length */
+    /* ASCII String (0x0B) */
+    u8			DispIdAsciiString[256];       /**< ASCII string */
+    u16			DispIdAsciiStringLen;         /**< ASCII string length */
+    /* Device Data (0x0C) */
+    u8			DispIdDeviceType;             /**< Device type */
+    u8			DispIdDeviceColorSpace;       /**< Device color space */
+    u16			DispIdDeviceHorSize;          /**< Device horizontal size */
+    u16			DispIdDeviceVerSize;          /**< Device vertical size */
+    /* Power Sequencing (0x0D) */
+    u8			DispIdPowerSeqT1;             /**< Power sequencing T1 timing */
+    u8			DispIdPowerSeqT2;             /**< Power sequencing T2 timing */
+    u8			DispIdPowerSeqT3;             /**< Power sequencing T3 timing */
+    u8			DispIdPowerSeqT4;             /**< Power sequencing T4 timing */
+    /* Transfer Characteristics (0x0E) */
+    u8			DispIdTransferType;           /**< Transfer characteristics type */
+    u8			DispIdTransferFlags;          /**< Transfer characteristics flags */
+    u8			DispIdOecfEotfData[2];        /**< OECF/EOTF data */
+    /* Short Timings Structure */
+    struct {
+        u16 HActive;                          /**< Horizontal active pixels */
+        u8  RefreshRate;                      /**< Refresh rate in Hz */
+        u8  AspectRatio;                      /**< Aspect ratio */
+    } DispIdShortTiming[16];
+    u8			DispIdNumShortTimings;        /**< Number of short timings */
+    /* DMT Timings */
+    u8			DispIdDmtTiming[16];          /**< DMT timing codes */
+    u8			DispIdNumDmtTimings;          /**< Number of DMT timings */
+    /* CVT Timings */
+    struct {
+        u16 HActive;                          /**< Horizontal active pixels */
+        u8  RefreshRate;                      /**< Refresh rate in Hz */
+    } DispIdCvtTiming[8];
+    u8			DispIdNumCvtTimings;          /**< Number of CVT timings */
+    /* Video Timing Modes */
+    XV_VidC_TimingParam DispIdTiming[8];     /**< DisplayID timing modes */
+    u8			DispIdNumTimings;             /**< Number of timing modes */
+    /* Supported Timing Modes */
+    u8			DispIdType6Timing[8];         /**< Type 6 timing codes */
+    u8			DispIdNumType6Timings;        /**< Number of type 6 timings */
+    u8			DispIdType7Timing[8];         /**< Type 7 timing codes */
+    u8			DispIdNumType7Timings;        /**< Number of type 7 timings */
+    u8			DispIdType8Timing[8];         /**< Type 8 timing codes */
+    u8			DispIdNumType8Timings;        /**< Number of type 8 timings */
+    u8			DispIdType9Timing[8];         /**< Type 9 timing codes */
+    u8			DispIdNumType9Timings;        /**< Number of type 9 timings */
+    u8			DispIdType10Timing[8];        /**< Type 10 timing codes */
+    u8			DispIdNumType10Timings;       /**< Number of type 10 timings */
+    /* Display Interface Features */
+    u8			DispIdInterfaceType;          /**< Interface type */
+    u8			DispIdNumLanes;               /**< Number of lanes */
+    u8			DispIdInterfaceVersion;       /**< Interface version */
+    u8			DispIdContentProtection;      /**< Content protection type */
+    u8			DispIdSpreadSpectrum;         /**< Spread spectrum support */
+    u8			DispIdColorFormats;           /**< Supported color formats */
+    u16			DispIdMinPixelClkMhz;         /**< Minimum pixel clock in MHz */
+    u16			DispIdMaxPixelClkMhz;         /**< Maximum pixel clock in MHz */
+    /* Extended Interface Features */
+    u8			DispIdNumInterfaces;          /**< Number of interfaces */
+    u8			DispIdPixelClockRatio;        /**< Pixel clock ratio */
+    u16			DispIdMaxPixelClock;          /**< Maximum pixel clock */
+    /* Display Parameters Extended */
+    u8			DispIdDynamicBpcNative;       /**< Dynamic native bits per color */
+    u8			DispIdDynamicBpcOverall;      /**< Dynamic overall bits per color */
+    /* Stereo Display Interface */
+    u8			DispIdStereoInterface;        /**< Stereo interface type */
+    u8			DispIdStereoPolarity;         /**< Stereo polarity */
+    /* Tiled Display Topology */
+    XV_VidC_Supp	DispIdIsTiled;                /**< Tiled display flag */
+    u8			DispIdTileRows;               /**< Number of tile rows */
+    u8			DispIdTileCols;               /**< Number of tile columns */
+    u8			DispIdTileLocH;               /**< Tile horizontal location */
+    u8			DispIdTileLocV;               /**< Tile vertical location */
+    u16			DispIdTileWidth;              /**< Tile width in pixels */
+    u16			DispIdTileHeight;             /**< Tile height in pixels */
+    u8			DispIdTileBezelTop;           /**< Top bezel thickness */
+    u8			DispIdTileBezelBottom;        /**< Bottom bezel thickness */
+    u8			DispIdTileBezelLeft;          /**< Left bezel thickness */
+    u8			DispIdTileBezelRight;         /**< Right bezel thickness */
+    u8			DispIdTileCapabilities;       /**< Tile capabilities flags */
+    u8			DispIdTileSerialNum[16];      /**< Tile serial number */
+    /* Container ID */
+    u8			DispIdContainerId[16];        /**< Container ID */
+    /* Vendor Specific */
+    u8			DispIdVendorTag[3];           /**< Vendor tag */
+    u8			DispIdVendorData[28];         /**< Vendor specific data */
+    u8			DispIdVendorDataLen;          /**< Vendor data length */
+    /* CTA DisplayID Data Block */
+    XV_VidC_Supp	DispIdCtaPresent;             /**< CTA data block present flag */
+    u8			DispIdCtaVic[16];             /**< CTA VIC codes */
+    u8			DispIdNumCtaVic;              /**< Number of CTA VIC codes */
+    u8			DispIdCtaBlockTag;            /**< CTA block tag */
+    u8			DispIdCtaBlockPayloadSize;    /**< CTA block payload size */
+    /* Adaptive Refresh Rate */
+    u8			DispIdAdaptiveRefreshFlags;   /**< Adaptive refresh rate flags */
+    /* Unicode String */
+    u8			DispIdUnicodeString[256];     /**< Unicode string */
+    u8			DispIdUnicodeStringLen;       /**< Unicode string length */
+    /* Detailed Timing Type 7 */
+    u8			DispIdDetailedTiming7Data[32];/**< Detailed timing type 7 data */
+    u8			DispIdDetailedTiming7Len;     /**< Detailed timing type 7 length */
 } XV_VidC_EdidCntrlParam;
 
 

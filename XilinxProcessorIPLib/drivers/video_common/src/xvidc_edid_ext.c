@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -108,6 +108,152 @@ void XV_VidC_EdidCtrlParamInit (XV_VidC_EdidCntrlParam *EdidCtrlParam) {
     EdidCtrlParam->IsSCDCPresent         = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->MaxFrameRateSupp      = 0;
     EdidCtrlParam->MaxTmdsMhz            = 0;
+    /* DisplayID/EDID 2.0 initialization */
+    EdidCtrlParam->IsDispIdPresent       = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdVersion         = 0;
+    EdidCtrlParam->DispIdProductType     = 0;
+    EdidCtrlParam->DispIdExtensionCount  = 0;
+    /* Product Identification */
+    (void)memset(EdidCtrlParam->DispIdManufacturer, 0, sizeof(EdidCtrlParam->DispIdManufacturer));
+    EdidCtrlParam->DispIdProductCode     = 0;
+    EdidCtrlParam->DispIdSerialNumber    = 0;
+    EdidCtrlParam->DispIdModelYear       = 0;
+    EdidCtrlParam->DispIdModelWeek       = 0;
+    (void)memset(EdidCtrlParam->DispIdProductString, 0, sizeof(EdidCtrlParam->DispIdProductString));
+    EdidCtrlParam->DispIdProductStringLen = 0;
+    /* Display Parameters */
+    EdidCtrlParam->DispIdImageWidthMm    = 0;
+    EdidCtrlParam->DispIdImageHeightMm   = 0;
+    EdidCtrlParam->DispIdNativeWidth     = 0;
+    EdidCtrlParam->DispIdNativeHeight    = 0;
+    EdidCtrlParam->DispIdFeatureSupportFlags = 0;
+    EdidCtrlParam->DispIdGamma           = 0xFF;  /* Not defined */
+    EdidCtrlParam->DispIdAspectRatio     = 0;
+    EdidCtrlParam->DispIdBitDepthNative  = 0;
+    EdidCtrlParam->DispIdBitDepthOverall = 0;
+    EdidCtrlParam->DispIdScanOrientation = 0;
+    EdidCtrlParam->DispIdTechnology      = 0;
+    EdidCtrlParam->DispIdAudioSupport    = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdSeparateAudio   = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdAudioOverride   = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdPowerSequenceReq = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdFixedPixelFormat = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdDeinterlacing   = XVIDC_NOT_SUPPORTED;
+    /* Color Characteristics */
+    EdidCtrlParam->DispIdColorDepth      = 0;
+    EdidCtrlParam->DispIdColorEncoding   = 0;
+    /* DisplayID Interface Color Depth Support */
+    EdidCtrlParam->DispIdRgbColorDepth     = 8; /* Default to 8 bpc */
+    EdidCtrlParam->DispIdYCbCr444ColorDepth = 8; /* Default to 8 bpc */
+    EdidCtrlParam->DispIdYCbCr422ColorDepth = 8; /* Default to 8 bpc */
+    EdidCtrlParam->DispIdYCbCr420ColorDepth = 8; /* Default to 8 bpc */
+    EdidCtrlParam->DispIdPrimaryRedX     = 0;
+    EdidCtrlParam->DispIdPrimaryRedY     = 0;
+    EdidCtrlParam->DispIdPrimaryGreenX   = 0;
+    EdidCtrlParam->DispIdPrimaryGreenY   = 0;
+    EdidCtrlParam->DispIdPrimaryBlueX    = 0;
+    EdidCtrlParam->DispIdPrimaryBlueY    = 0;
+    EdidCtrlParam->DispIdWhitePointX     = 0;
+    EdidCtrlParam->DispIdWhitePointY     = 0;
+    EdidCtrlParam->DispIdMinLuminance    = 0;
+    EdidCtrlParam->DispIdMaxLuminance    = 0;
+    EdidCtrlParam->DispIdMaxFullFrameLum = 0;
+    /* Timing Range Data (0x09) */
+    EdidCtrlParam->DispIdTimingRangeMinHfreq = 0;
+    EdidCtrlParam->DispIdTimingRangeMaxHfreq = 0;
+    EdidCtrlParam->DispIdTimingRangeMinVfreq = 0;
+    EdidCtrlParam->DispIdTimingRangeMaxVfreq = 0;
+    EdidCtrlParam->DispIdTimingRangeMaxPixclk = 0;
+    EdidCtrlParam->DispIdTimingRangeFlags = 0;
+    /* Serial Number String (0x0A) */
+    (void)memset(EdidCtrlParam->DispIdSerialString, 0, sizeof(EdidCtrlParam->DispIdSerialString));
+    EdidCtrlParam->DispIdSerialStringLen = 0;
+    /* ASCII String (0x0B) */
+    (void)memset(EdidCtrlParam->DispIdAsciiString, 0, sizeof(EdidCtrlParam->DispIdAsciiString));
+    EdidCtrlParam->DispIdAsciiStringLen = 0;
+    /* Device Data (0x0C) */
+    EdidCtrlParam->DispIdDeviceType = 0;
+    EdidCtrlParam->DispIdDeviceColorSpace = 0;
+    EdidCtrlParam->DispIdDeviceHorSize = 0;
+    EdidCtrlParam->DispIdDeviceVerSize = 0;
+    /* Power Sequencing (0x0D) */
+    EdidCtrlParam->DispIdPowerSeqT1 = 0;
+    EdidCtrlParam->DispIdPowerSeqT2 = 0;
+    EdidCtrlParam->DispIdPowerSeqT3 = 0;
+    EdidCtrlParam->DispIdPowerSeqT4 = 0;
+    /* Transfer Characteristics (0x0E) */
+    EdidCtrlParam->DispIdTransferType = 0;
+    EdidCtrlParam->DispIdTransferFlags = 0;
+    EdidCtrlParam->DispIdOecfEotfData[0] = 0;
+    EdidCtrlParam->DispIdOecfEotfData[1] = 0;
+    /* Short Timings */
+    (void)memset(EdidCtrlParam->DispIdShortTiming, 0, sizeof(EdidCtrlParam->DispIdShortTiming));
+    EdidCtrlParam->DispIdNumShortTimings = 0;
+    /* DMT Timings */
+    (void)memset(EdidCtrlParam->DispIdDmtTiming, 0, sizeof(EdidCtrlParam->DispIdDmtTiming));
+    EdidCtrlParam->DispIdNumDmtTimings = 0;
+    /* CVT Timings */
+    (void)memset(EdidCtrlParam->DispIdCvtTiming, 0, sizeof(EdidCtrlParam->DispIdCvtTiming));
+    EdidCtrlParam->DispIdNumCvtTimings = 0;
+    /* Video Timing Modes */
+    EdidCtrlParam->DispIdNumTimings      = 0;
+    /* Supported Timing Modes */
+    (void)memset(EdidCtrlParam->DispIdType6Timing, 0, sizeof(EdidCtrlParam->DispIdType6Timing));
+    EdidCtrlParam->DispIdNumType6Timings = 0;
+    (void)memset(EdidCtrlParam->DispIdType7Timing, 0, sizeof(EdidCtrlParam->DispIdType7Timing));
+    EdidCtrlParam->DispIdNumType7Timings = 0;
+    (void)memset(EdidCtrlParam->DispIdType8Timing, 0, sizeof(EdidCtrlParam->DispIdType8Timing));
+    EdidCtrlParam->DispIdNumType8Timings = 0;
+    (void)memset(EdidCtrlParam->DispIdType9Timing, 0, sizeof(EdidCtrlParam->DispIdType9Timing));
+    EdidCtrlParam->DispIdNumType9Timings = 0;
+    (void)memset(EdidCtrlParam->DispIdType10Timing, 0, sizeof(EdidCtrlParam->DispIdType10Timing));
+    EdidCtrlParam->DispIdNumType10Timings = 0;
+    /* Display Interface Features */
+    EdidCtrlParam->DispIdInterfaceType   = 0;
+    EdidCtrlParam->DispIdNumLanes        = 0;
+    EdidCtrlParam->DispIdInterfaceVersion = 0;
+    EdidCtrlParam->DispIdContentProtection = 0;
+    EdidCtrlParam->DispIdSpreadSpectrum  = 0;
+    EdidCtrlParam->DispIdColorFormats    = 0;
+    EdidCtrlParam->DispIdMinPixelClkMhz  = 0;
+    EdidCtrlParam->DispIdMaxPixelClkMhz  = 0;
+    /* Stereo Display Interface */
+    EdidCtrlParam->DispIdStereoInterface = 0;
+    EdidCtrlParam->DispIdStereoPolarity  = 0;
+    /* Tiled Display Topology */
+    EdidCtrlParam->DispIdIsTiled         = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->DispIdTileRows        = 0;
+    EdidCtrlParam->DispIdTileCols        = 0;
+    EdidCtrlParam->DispIdTileLocH        = 0;
+    EdidCtrlParam->DispIdTileLocV        = 0;
+    EdidCtrlParam->DispIdTileWidth       = 0;
+    EdidCtrlParam->DispIdTileHeight      = 0;
+    EdidCtrlParam->DispIdTileBezelTop    = 0;
+    EdidCtrlParam->DispIdTileBezelBottom = 0;
+    EdidCtrlParam->DispIdTileBezelLeft   = 0;
+    EdidCtrlParam->DispIdTileBezelRight  = 0;
+    EdidCtrlParam->DispIdTileCapabilities = 0;
+    (void)memset(EdidCtrlParam->DispIdTileSerialNum, 0, sizeof(EdidCtrlParam->DispIdTileSerialNum));
+    /* Container ID */
+    (void)memset(EdidCtrlParam->DispIdContainerId, 0, sizeof(EdidCtrlParam->DispIdContainerId));
+    /* Vendor Specific */
+    (void)memset(EdidCtrlParam->DispIdVendorTag, 0, sizeof(EdidCtrlParam->DispIdVendorTag));
+    (void)memset(EdidCtrlParam->DispIdVendorData, 0, sizeof(EdidCtrlParam->DispIdVendorData));
+    EdidCtrlParam->DispIdVendorDataLen   = 0;
+    /* CTA DisplayID */
+    EdidCtrlParam->DispIdCtaPresent      = XVIDC_NOT_SUPPORTED;
+    (void)memset(EdidCtrlParam->DispIdCtaVic, 0, sizeof(EdidCtrlParam->DispIdCtaVic));
+    EdidCtrlParam->DispIdNumCtaVic       = 0;
+    EdidCtrlParam->DispIdCtaBlockTag     = 0;
+    EdidCtrlParam->DispIdCtaBlockPayloadSize = 0;
+    /* Adaptive Refresh Rate */
+    EdidCtrlParam->DispIdAdaptiveRefreshFlags = 0;
+    /* Unicode String */
+    (void)memset(EdidCtrlParam->DispIdUnicodeString, 0, sizeof(EdidCtrlParam->DispIdUnicodeString));
+    EdidCtrlParam->DispIdUnicodeStringLen = 0;
+    /* Detailed Timing Type 7 */
+    (void)memset(EdidCtrlParam->DispIdDetailedTiming7Data, 0, sizeof(EdidCtrlParam->DispIdDetailedTiming7Data));
+    EdidCtrlParam->DispIdDetailedTiming7Len = 0;
 }
 
 XV_VidC_TimingParam
