@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -40,6 +40,9 @@ properties:
 
   xlnx,num-streams:
     description: Total number of MST streams supported by this Subsystem core
+
+  xlnx,video-interface:
+    description: The value 0 is for AXI stream and 1 for Native video interface
 
   hdcp-timer-present:
     description: Sub-core instance presence
@@ -186,6 +189,9 @@ config:
     - XDpTxSs_Config
 
 xparam_prefix: DpTXSS
+
+additionalProperties:
+    - xlnx,video-interface
 
 depends:
     video_common: []
