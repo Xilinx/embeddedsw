@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       rmv  07/17/2025 Move declaration of XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() APIs
 *			from xocp_keymgmt.h file to xocp.h file as exported function.
 *       tvp  08/23/2025 Enable hardware PCR functionality only if PLM_HW_PCR is defined
+* 1.7   rmv  01/30/2026 Refactor xilocp library
 *
 * </pre>
 *
@@ -47,250 +48,32 @@ extern "C" {
 #include "xplmi_config.h"
 
 #ifdef PLM_OCP
-#include "xstatus.h"
 #include "xocp_common.h"
+#include "xocp_hw.h"
+#include "xocp_init.h"
+#include "xocp_generic.h"
+#include "xocp_pcr.h"
+#include "xocp_dme.h"
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#include "xocp_asufw.h"
+#endif
+#ifdef PLM_OCP_KEY_MGMT
+#include "xocp_keymgmt_common.h"
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#include "xocp_keymgmt_native.h"
+#endif
+#endif
 #include "xocp_plat.h"
-#include "xplmi_debug.h"
-#include "xsecure_hmac.h"
 
 /************************** Constant Definitions *****************************/
-/** @cond xocp_internal
- * @{
- */
-#define XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL		(0x03FF0246U)
-							/**< PPU0 SMID */
-#define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x83FF0247U)
-							/**< PPU1 SMID with parity protection bit set*/
-#define XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL		(0x10000001U)
-							/**< PPU0 configuration value */
-#define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x88000003U)
-							/**< PPU1 configuration value with parity bit and trustzone settings enabled */
-#define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
-							  /**< Dynamic reconfiguration set value */
-#define XOCP_XPPU_DYNAMIC_RECONFIG_DISABLE_VAL		(0x0U)
-							  /**< Dynamic reconfiguration disable value */
-#define XOCP_PMC_XPPU_CTRL_ENABLE_VAL			(0x1U) /**< XPPU enable value */
-#define XOCP_PMC_XPPU_CTRL_DISABLE_VAL			(0x0U) /**< XPPU disable value */
-#define XOcp_MemCopy								XPlmi_DmaXfr
-							/**< Data transfer through DMA */
-#define XOcp_Printf								XPlmi_Printf
-							/**< XILOCP print function */
-#define XOCP_WORD_LEN					(0x4U) /**< Word length */
-#define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU) /**< Number mask value */
-#define XOCP_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
-#define XOCP_PCR_MEASUREMENT_INDEX_SHIFT 		(16U)
-							 /**< Measurement index mask value */
-#define XOCP_PCR_INVALID_VALUE 				(0xFFFFFFFFU) /**< PCR invalid value */
-#define XOCP_PCR_HASH_SIZE_IN_BYTES			(48U) /**< Hash size in bytes */
-
-#define XOCP_EFUSE_CACHE_BOOT_ENV_CTRL			(0xF1250094U) /**< Boot environmental register address */
-#define XOCP_PMC_LOCAL_BOOT_MODE_DIS			(0xF00441D0U) /**< Boot mode register address */
-#define XOCP_EFUSE_CACHE_MISC_CTRL			(0xF12500A0U) /**< MISC control register address */
-#define XOCP_EFUSE_CACHE_ANLG_TRIM_3			(0xF1250010U) /**< Analog Trim3 registe address */
-#define XOCP_EFUSE_CACHE_IP_DISABLE_0			(0xF1250018U) /**< IP disable 0 register address */
-#define XOCP_EFUSE_CACHE_IP_DISABLE_1			(0xF125001CU) /**< IP disable 1 register address */
-#define XOCP_EFUSE_CACHE_CAHER_1				(0xF12500F0U) /**< Caher1 register address */
-#define XOCP_EFUSE_CACHE_SECURITY_MISC_0		(0xF12500E4U) /**< MISC 0 control register address */
-#define XOCP_EFUSE_CACHE_SECURITY_CONTROL		(0xF12500ACU) /**< security control register address */
-#define XOCP_EFUSE_CACHE_SECURITY_MISC_1		(0xF12500E8U) /**< security misc 1 control register address */
-#define XOCP_EFUSE_CACHE_DME_FIPS				(0xF1250234U) /**< DME FIPS register address */
-#define XOCP_EFUSE_CACHE_ROM_RSVD				(0xF1250090U) /**< ROM reseved register address */
-#define XOCP_EFUSE_CACHE_RO_SWAP_EN				(0xF12500D0U) /**< RO SWAP enable address */
-
-#define XOCP_CAHER_1_MEASURED_MASK				(0x00000F00U) /**< HNIC DIS| DDR XTS export
-																	| HNIC DDR export | DDR XTS GCM DIS */
-#define XOCP_DEC_ONLY_MEASURED_MASK				(0x0000FFFFU) /**< Decrypt only mask */
-#define XOCP_SEC_CTRL_MEASURED_MASK				(0x03FF001FU) /**< Security control measured mask */
-#define XOCP_PMC_LOCAL_BOOT_MODE_DIS_FULLMASK	(0x0000FFFFU) /**< PMC local disable mask */
-#define XOCP_MISC_CTRL_MEASURED_MASK			(0xE018C100U) /**< MISC control mask */
-#define XOCP_DME_FIPS_MEASURED_MASK				(0xFF00000FU) /**< DME FIPS mask */
-#define XOCP_IP_DISABLE0_MEASURED_MASK			(0xF0000F04U) /**< IP disable mask */
-#define XOCP_ROM_RSVD_MEASURED_MASK				(0x000007C0U) /**< ROM reserved mask */
-#define XOCP_PMC_TAP_DAP_CFG_OFFSET				(0xF11B0008U) /**< DAP CFG register address */
-#define XOCP_PMC_TAP_INST_MASK_0_OFFSET			(0xF11B0000U) /**< Instruction Mask 0 register address */
-#define XOCP_PMC_TAP_INST_MASK_1_OFFSET			(0xF11B0004U) /**< Instruction Mask 1 register address */
-#define XOCP_PMC_TAP_DAP_SECURITY_OFFSET		(0xF11B000CU) /**< DAP security register address */
-
-#define XOCP_EFUSE_PPK_0_HASH_START_OFFSET		(0xF1250100U) /**< PPK Hash 0 cache start offset */
-#define XOCP_EFUSE_PPK_1_HASH_START_OFFSET		(0xF1250120U) /**< PPK Hash 1 cache start offset */
-#define XOCP_EFUSE_PPK_2_HASH_START_OFFSET		(0xF1250140U) /**< PPK Hash 2 cache start offset */
-#define XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET		(0xF12500B0U) /**< Revocation ID 0 cache start offset */
-#define XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET		(0xF1250160U) /**< OffChip Id 0 cache start offset */
-
-#define XOCP_EFUSE_PPK0_WR_LK_MASK			(0x00000040U) /**< PPK 0 write lock eFuse mask */
-#define XOCP_EFUSE_PPK1_WR_LK_MASK			(0x00000080U) /**< PPK 1 write lock eFuse mask */
-#define XOCP_EFUSE_PPK2_WR_LK_MASK			(0x00000100U) /**< PPK 2 write lock eFuse mask */
-
-#define XOCP_EFUSE_PPK0_INVLD_1_0_MASK			(0x0000000CU) /**< PPK 0 invalid eFuse mask */
-#define XOCP_EFUSE_PPK1_INVLD_1_0_MASK			(0x00000030U) /**< PPK 1 invalid eFuse mask */
-#define XOCP_EFUSE_PPK2_INVLD_1_0_MASK			(0x000000C0U) /**< PPK 2 invalid eFuse mask */
-
-#define XOCP_EFUSE_DME_REVOKE_0_MASK			(0x00000030U) /**< DME revoke 0 eFuse mask */
-#define XOCP_EFUSE_DME_REVOKE_1_MASK			(0x000000C0U) /**< DME revoke 1 eFuse mask */
-#define XOCP_EFUSE_DME_REVOKE_2_MASK			(0x00000300U) /**< DME revoke 2 eFuse mask */
-#define XOCP_EFUSE_DME_REVOKE_3_MASK			(0x00000C00U) /**< DME revoke 3 eFuse mask */
-
-#define XOCP_EFUSE_UDS_WR_LK_MASK			(0x00000010U) /**< UDS write lock eFuse mask */
-#define XOCP_EFUSE_HWTST_BIT_DIS_MASK			(0x00000008U) /**< HWTST bit disable eFuse mask */
-#define XOCP_EFUSE_PUF_DIS_MASK				(0x00040000U) /**< PUF Disable eFuse mask */
-#define XOCP_EFUSE_PMC_SC_EN_MASK			(0x03800000U) /**< PMC_SC_EN eFuse mask */
-#define XOCP_EFUSE_SYSMON_TEMP_MON_EN_MASK		(0x00000003U) /**< SYSMON_TEMP_MON_EN eFuse mask */
-#define XOCP_EFUSE_DME_MODE_MASK			(0x0000000FU) /**< DME_MODE eFuse mask */
-
-
-#define XOCP_PMC_PLM_HASH_ADDR					(0xF1110750U) /**< PLM hash address */
-#define XOCP_PMC_ROM_HASH_ADDR					(0xF1110704U) /**< ROM hash address */
-
-#define XOCP_SW_PCR_NUM_0  (0U)    /**< SW PCR number 0 */
-#define XOCP_SW_PCR_NUM_1  (1U)    /**< SW PCR number 1 */
-#define XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX  (0U) /**< Measurement index for secure state extension */
-#define XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX (1U) /**< Measurement index for efuse ppk config extension */
-#define XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX (2U) /**< Measurement index for efuse spk revoke config extension */
-#define XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX (3U) /**< Measurement index for efuse revoke other config extension */
-#define XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX (4U) /**< Measurement index for efuse misc config extension */
-
-
-
-/** XilOcp Module Data Structure Ids*/
-#define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U)	/**< DevAk Subsystem Hash data structure ID */
-#define XOCP_SWPCR_CONFIG_DS_ID			(2U)	/**< SW PCR config data structure ID */
-#define XOCP_SWPCR_STORE_DS_ID			(3U)	/**< SW PCR store data structure ID */
-#define XOCP_HWPCR_LOG_DS_ID			(4U)	/**< HW PCR log data structure ID */
-
-#define XOCP_CDI_SIZE_IN_BYTES			(48U)	/**< CDI size in bytes */
-#define XOCP_CDI_SIZE_IN_WORDS			(12U)	/**< CDI size in words */
-
-/** Efuse number of rows */
-#define XOCP_EFUSE_PPK_NUM_OF_BYTES		(32U)	/**< PPK Hash number of bytes */
-#define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS		(XOCP_EFUSE_PPK_NUM_OF_BYTES / XOCP_WORD_LEN)
-							/**< PPK Hash number of words */
-#define XOCP_EFUSE_REVOCATION_NO_OF_WORDS	(8U)	/**< Revocation ID number of words */
-#define XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES	(32U)	/**< Revocation ID number of bytes */
-/** @}
- * @endcond
- */
 
 /**************************** Type Definitions *******************************/
-/**
- * SW PCR Config
- */
-typedef struct {
-	u8 DigestsForPcr[XOCP_NUM_OF_SWPCRS];		/**< Max digests for each SW PCR */
-	u8 PcrDigestsConfigured[XOCP_NUM_OF_SWPCRS];	/**< Configured no of digests */
-	u8 PcrIdxInLog[XOCP_NUM_OF_SWPCRS];		/**< Each SW PCR index in log */
-	u8 IsPcrConfigReceived;				/**< SW PCR config received */
-	u8 Reserved[3U];                    /**< Reserved bytes */
-} XOcp_SwPcrConfig;
-
-/*
- * SW PCR Data per event
- */
-typedef struct {
-	XOcp_PcrMeasurement Measurement;		/**< XOcp_PcrMeasurement structure */
-	u32 IsReqExtended;				/**< Is request extended */
-	u64 DataAddr;					/**< Address of the data buffer */
-	u8 DataToExtend[XOCP_PCR_SIZE_BYTES];		/**< Data to extend */
-} XOcp_SwPcrData;
-
-/**
- * SW PCR log
- */
-typedef struct {
-	XOcp_SwPcrData Data[XOCP_MAX_NUM_OF_SWPCRS];	/**< SW PCR log store with max no of events */
-	u8 CountPerPcr[XOCP_NUM_OF_SWPCRS];		/**< Number of digests extended for each SW PCR */
-} XOcp_SwPcrStore;
-
-/**
- * Dme XPPU config
- */
-typedef struct {
-	u32 XppuAperAddr; /**< XPPU MASTER IDs and Aperture address */
-	u32 XppuAperWriteCfgVal; /**< Required configurations */
-	u32 XppuAperReadCfgVal; /**< Initial values of Apertures and Master IDs */
-	u32 IsModified; /**< Is XPPU Configuration modified */
-}XOcp_DmeXppuCfg;
-
-typedef struct {
-	u32 DapCfg;			/**< Dap configuration */
-	u32 InstMask0;		/**< Inst mask 0 */
-	u32 InstMask1;		/**< Inst mask 1 */
-	u32 DapSecurity;	/**< DAP security */
-	u32 BootDevice;		/**< Boot Device */
-} XOcp_SecureTapConfig;
-
-typedef struct {
-	u32 Ppk0WrLk;		/**< PPK0 WR LK eFuse */
-	u32 Ppk1WrLk;		/**< PPK1 WR LK eFuse */
-	u32 Ppk2WrLk;		/**< PPK2 WR LK eFuse */
-	u32 Ppk0Invld;		/**< PPK0 INVALID eFuse */
-	u32 Ppk1Invld;		/**< PPK1 INVALID eFuse */
-	u32 Ppk2Invld;		/**< PPK2 INVALID eFuse */
-	u32 Ppk0Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK0 Hash eFuse */
-	u32 Ppk1Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK1 Hash eFuse */
-	u32 Ppk2Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK2 Hash eFuse */
-} XOcp_PpkEfuseConfig;
-
-typedef struct {
-	u32 RevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /**< REVOCATION_ID eFuses */
-} XOcp_RevocationSpkEfuseConfig;
-
-typedef struct {
-	u32 DmeRevoke0;	/**< DME_REVOKE_0 eFuse */
-	u32 DmeRevoke1; /**< DME_REVOKE_1 eFuse */
-	u32 DmeRevoke2; /**< DME_REVOKE_2 eFuse */
-	u32 DmeRevoke3; /**< DME_REVOKE_3 eFuse */
-	u32 OffChipRevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /**< OFFCHIP Revocation ID eFuses */
-} XOcp_RevocationOtherEfuseConfig;
-
-typedef struct {
-	u32 UdsWrLk; 			/**< UDS_WR_LK eFuse */
-	u32 HwTstBitsDis; 		/**< HWTST_DIS eFuse */
-	u32 PufDis;			/**< PUF_DIS eFuse */
-	u32 PmcScEn;	 		/**< PMC_SC_EN eFuses */
-	u32 SysmonTempMonEn; 		/**< SYSMON_TEMP_MON_EN eFuses */
-	u32 DmeMode;			/**< DME_MODE eFuses */
-} XOcp_MiscEfuseConfig;
-
-typedef struct {
-	u8 RomHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Rom hash */
-	u8 PlmHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Plm hash */
-	u8 SecureConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Secure config hash */
-	u8 TapConfigHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Tap config hash */
-} XOcp_SecureStateHash;
-
-typedef struct {
-	u32 DmeSignatureR[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp R */
-	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */
-} XOcp_DmeSignature;
-
-typedef struct {
-	u32 DevIkPubX[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key X */
-	u32 DevIkPubY[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key Y */
-} XOcp_DevPubIk;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-#ifdef PLM_HW_PCR
-int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
-int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
-int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries);
-#endif
-int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr);
-int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize, u32 OverWrite);
-int XOcp_StoreSwPcrConfigAndExtendSwPcr_0_1(u32 *Pload, u32 Len);
-int XOcp_GetSwPcrLog(u64 Addr);
-int XOcp_GetSwPcrData(u64 Addr);
-int XOcp_GetSwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
-int XOcp_CheckAndExtendSecureState(void);
-int XOcp_MeasureSecureStateAndExtendSwPcr(void);
-XOcp_DmeResponse* XOcp_GetDmeResponse(void);
-u32 XOcp_IsDmeChlAvail(void);
-int XOcp_ValidateDiceCdi(void);
-int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSecure_HmacRes *Out);
-void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
 
 #ifdef __cplusplus
 }

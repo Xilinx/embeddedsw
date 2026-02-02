@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
 *       tvp  10/01/2025 Add Image authentication state enum to handle data
 *                       measurement for image with authenticated/
 *                       non-authenticated/checksum enabled partitions
+* 2.4   rmv  01/30/2026 Renamed OCP keymanagment macro
 *
 * </pre>
 *
@@ -446,7 +447,7 @@ static inline int XLoader_CheckAndUpdateSecureState(void)
 	return XST_SUCCESS;
 }
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 /*****************************************************************************/
 /**
  * @brief	This function gets the app version from the optional data and

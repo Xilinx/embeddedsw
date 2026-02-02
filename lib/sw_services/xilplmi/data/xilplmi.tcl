@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -36,6 +36,7 @@
 #       pre  03/17/2024 Added configurable option for AES and SHA events queuing
 # 2.3   obs  08/21/2025 Added configurable options for address range validation
 #                      and redundant call verification
+# 2.4   rmv  01/30/2026 Refactor OCP library
 #
 ##############################################################################
 
@@ -401,10 +402,10 @@ proc xgen_opts_file {libhandle} {
 	}
 
 	# Get plm_ocp_key_mgmt value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.plm_ocp_asufw_key_mgmt_en $libhandle]
+	set value [common::get_property CONFIG.plm_ocp_key_mgmt_en $libhandle]
 	if {$value == false} {
-		puts $file_handle "\n/* OCP ASUFW key management disable */"
-		puts $file_handle "#define PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE"
+		puts $file_handle "\n/* OCP key management disable */"
+		puts $file_handle "#define PLM_OCP_KEY_MGMT_EXCLUDE"
 	}
 
 	# Check if hsi::get_current_part is available

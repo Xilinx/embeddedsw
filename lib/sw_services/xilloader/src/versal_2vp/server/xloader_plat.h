@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -20,6 +20,7 @@
 *       tvp  07/10/25 Define XLoader_SecureConfigMeasurement if PLM_OCP is enabled
 *       tvp  10/01/25 Add Image authentication state enum to handle data measurement for image
 *                     with authenticated/non-authenticated/checksum enabled partitions
+* 2.4   rmv  01/30/26 Renamed OCP keymanagment macro
 *
 * </pre>
 *
@@ -413,7 +414,7 @@ static inline int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
 	return XST_SUCCESS;
 }
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 /**************************************************************************************************/
 /**
  * @brief	This function gets the app version from the optional data and stores it with the

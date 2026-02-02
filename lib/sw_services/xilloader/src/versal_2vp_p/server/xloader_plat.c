@@ -18,6 +18,7 @@
 * 2.3   sd  10/13/25 Initial release
 *       pre 12/16/25 Handled PCR info invalid case in case of OCP key management disabled
 * 2.4   gnr 01/06/26 Added explicit CPU validation in XLoader_ProcessElf
+*       rmv 01/30/26 Renamed OCP header files and keymanagment macro
 *
 * </pre>
 *
@@ -46,9 +47,6 @@
 #include "xsecure_trng.h"
 #include "xocp.h"
 #include "xloader_secure.h"
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
 #endif
 
 /************************************ Constant Definitions ****************************************/
@@ -65,7 +63,7 @@
 									index */
 #define XLOADER_PCR_MEASUREMENT_INDEX_SHIFT		(16U) /**< PCR Measurement index shift */
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 
@@ -703,7 +701,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 #endif
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 
 	Status = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID, DevAkIndex);
@@ -752,7 +750,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		if ((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX) ||
 			(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX)) {
 			/* Generate DEVAK */
@@ -762,7 +760,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				goto END;
 			}
 		}
-#endif /* PLM_OCP_KEY_MNGMT */
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
 			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 

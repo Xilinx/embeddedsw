@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.5   tvp  06/05/25 Initial release
+* 1.7   rmv  01/30/26 Refactor OCP library
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
 
 #include "xplmi_config.h"
 #ifdef PLM_OCP
-#include "xocp.h"
+#include "xocp_generic.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_sha.h"
 

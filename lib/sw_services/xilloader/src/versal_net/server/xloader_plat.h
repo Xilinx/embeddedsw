@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,7 @@
 *                       to update DataMeasurement
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *  2.01 kd   09/02/2025 Added XLOADER_ERR_PSM_FW_NOT_FOUND error code
+*  2.04 rmv  01/30/2026 Renamed OCP keymanagment macro
 *
 * </pre>
 *
@@ -464,7 +465,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId);
 #endif
 void XLoader_ShaInstance1Reset(void);

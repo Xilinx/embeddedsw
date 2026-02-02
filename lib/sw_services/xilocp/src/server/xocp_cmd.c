@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       har  06/04/24 Added support to get Key Index as part of DevAkInput CDO command
 *       rmv  07/17/25 Added support to store OCP subsystem IDs for ASUFW
 *       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
+* 1.7   rmv  01/30/26 Refactor xilocp library
 *
 * </pre>
 *
@@ -48,14 +49,15 @@
 #include "xocp_ipihandler.h"
 #include "xocp_def.h"
 #include "xocp_cmd.h"
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#include "xocp_keymgmt_native.h"
 #include "xcert_genx509cert.h"
 #endif
-#include "xocp.h"
+#include "xocp_generic.h"
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
-#include "xocp_plat.h"
+#include "xocp_asufw.h"
 #endif
+#include "xocp_pcr.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -79,7 +81,7 @@
 
 /************************** Function Prototypes ******************************/
 static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd);
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 static int XOcp_DevAkInput(const XPlmi_Cmd *Cmd);
 static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd);
 #endif
@@ -106,17 +108,19 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 	int Status = XST_INVALID_PARAM;
 
 	switch (ApiId) {
+#ifdef PLM_HW_PCR
 		case XOCP_API(XOCP_API_EXTEND_HWPCR):
 		case XOCP_API(XOCP_API_GET_HWPCR):
 		case XOCP_API(XOCP_API_GET_HWPCRLOG):
+#endif
 		case XOCP_API(XOCP_API_GENDMERESP):
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 		case XOCP_API(XOCP_API_GETCERTUSERCFG):
 		case XOCP_API(XOCP_API_GETX509CERT):
 		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
 		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
-#ifndef PLM_RSA_EXCLUDE
+#ifdef PLM_OCP_KEY_WRAP
 		case XOCP_API(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK):
 #endif
 #endif
@@ -169,15 +173,17 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_FEATURES):
 			Status = XOcp_FeaturesCmd(Pload[0]);
 			break;
+#ifdef PLM_HW_PCR
 		case XOCP_API(XOCP_API_EXTEND_HWPCR):
 		case XOCP_API(XOCP_API_GET_HWPCR):
 		case XOCP_API(XOCP_API_GET_HWPCRLOG):
+#endif
 		case XOCP_API(XOCP_API_GENDMERESP):
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		case XOCP_API(XOCP_API_GETX509CERT):
 		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
 		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
-#ifndef PLM_RSA_EXCLUDE
+#ifdef PLM_OCP_KEY_WRAP
 		case XOCP_API(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK):
 #endif
 #endif
@@ -190,7 +196,7 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
 			Status = XOcp_SetSwPcrConfig(Cmd);
 			break;
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 			Status = XOcp_DevAkInput(Cmd);
 			break;
@@ -230,20 +236,24 @@ void XOcp_CmdsInit(void)
 	static XPlmi_AccessPerm_t XOcp_AccessPermBuff[XOCP_API_MAX] =
 	{
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_FEATURES),
+#ifdef PLM_HW_PCR
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_EXTEND_HWPCR),
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_HWPCR),
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_HWPCRLOG),
+#endif
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GENDMERESP),
 		XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_DEVAKINPUT),
 		XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_GETCERTUSERCFG),
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GETX509CERT),
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_ATTESTWITHDEVAK),
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GEN_SHARED_SECRET),
-#ifndef PLM_RSA_EXCLUDE
+#ifdef PLM_OCP_KEY_WRAP
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK),
-#endif
-#endif
+#else
+		XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK),
+#endif /* PLM_OCP_KEY_WRAP */
+#endif /*PLM_OCP_NATIVE_KEY_MGMT */
 		XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_SET_SWPCRCONFIG),
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_EXTEND_SWPCR),
 		XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCR),
@@ -258,8 +268,8 @@ void XOcp_CmdsInit(void)
 		XOCP_API(XOCP_API_MAX),
 		NULL,
 		XOcp_AccessPermBuff,
-#ifndef VERSAL_2VP
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef VERSAL_NET
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		XOcp_ShutdownHandler
 #else
 		NULL
@@ -303,7 +313,7 @@ static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd)
 	return Status;
 }
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 /*****************************************************************************/
 /**
  * @brief	This function processes XilOcp DEVAK input personalised string and
@@ -366,7 +376,7 @@ static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd)
 
 	return Status;
 }
-#endif	/* PLM_OCP_KEY_MNGMT */
+#endif	/* PLM_OCP_NATIVE_KEY_MGMT */
 
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 /*****************************************************************************/

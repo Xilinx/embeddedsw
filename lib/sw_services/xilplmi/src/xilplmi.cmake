@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
@@ -132,10 +132,10 @@ if(("${CMAKE_MACHINE}" STREQUAL "Versal") AND ("Versal_2VP" IN_LIST VARIANT))
   endif()
 endif()
 
-if ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
-  option(XILPLMI_plm_ocp_asufw_key_mgmt_en "Enables or Disables OCP ASUFW key management" OFF)
-  if (NOT XILPLMI_plm_ocp_asufw_key_mgmt_en)
-    set(PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE " ")
+if((NOT ("${CMAKE_MACHINE}" STREQUAL "Versal")) OR ("Versal_2VP" IN_LIST VARIANT))
+  option(XILPLMI_plm_ocp_key_mgmt_en "Enables or Disables OCP key management" ON)
+  if (NOT XILPLMI_plm_ocp_key_mgmt_en)
+    set(PLM_OCP_KEY_MGMT_EXCLUDE " ")
   endif()
 endif()
 

@@ -163,6 +163,7 @@
 *       tvp  01/23/2026 Make XLoader_Sha3Kat non-static, as it is required from other file
 *                       Remove KAT execution from disributed place, as it
 *                       will be called durig boot from Pdi_Init.
+*       rmv  01/30/2026 Renamed OCP keymanagment macro
 *
 * </pre>
 *
@@ -199,7 +200,7 @@
 #include "xsecure_plat_kat.h"
 #endif
 #ifdef VERSAL_NET
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #include "xcert_genx509cert.h"
 #endif
 #endif
@@ -4739,7 +4740,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 #ifdef VERSAL_NET
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32* SpkId = XCert_GetSpkId();
 #endif
 #endif
@@ -4787,7 +4788,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 			"successful\n\r");
 
 #ifdef VERSAL_NET
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	*SpkId = SecurePtr->AcPtr->SpkId;
 #endif
 #endif

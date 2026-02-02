@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  05/16/25 Initial release
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig from xocp.c to platform file
+* 1.7   rmv  01/30/26 Refactor OCP library
 *
 * </pre>
 *
@@ -26,13 +27,23 @@
 #include "xplmi_config.h"
 
 #ifdef PLM_OCP
-#include "xocp.h"
+#include "xocp_generic.h"
+#include "xocp_common.h"
 #include "xocp_plat.h"
 #include "xocp_hw.h"
 
 /************************************ Constant Definitions ****************************************/
 
 /************************************** Type Definitions ******************************************/
+typedef struct {
+	u32 DevIkPubX[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key X */
+	u32 DevIkPubY[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key Y */
+} XOcp_DevPubIk;
+
+typedef struct {
+	u32 DmeSignatureR[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp R */
+	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */
+} XOcp_DmeSignature;
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
 

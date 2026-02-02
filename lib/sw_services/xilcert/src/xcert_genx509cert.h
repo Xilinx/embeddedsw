@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       har  06/07/2023 Added support for Key index
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
 * 1.6   vm   12/18/2025 Add Error code for Insufficient Memory
+*       rmv  01/30/2026 Renamed OCP keymanagment macro
 *
 *
 * </pre>
@@ -43,7 +44,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #include "xplmi_debug.h"
 #include "xsecure_elliptic.h"
 
@@ -206,6 +207,6 @@ u32* XCert_GetSpkId(void);
 #ifdef __cplusplus
 }
 #endif
-#endif  /* PLM_OCP_KEY_MNGMT */
+#endif  /* PLM_OCP_NATIVE_KEY_MGMT */
 #endif  /* XCERT_GENX509CERT_H */
 /* @} */

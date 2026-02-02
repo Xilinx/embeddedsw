@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,7 @@
 *       obs  08/26/2025 Passed XPm_IsMemAddressValid function as
 *                       an arguement to XPlmi_Init function.
 *       tvp  08/27/2025 Generate CDI before generating DevIK from XPlm_ModuleInit for Versal_2vp
+* 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *
 * </pre>
 *
@@ -105,21 +106,14 @@
 #include "xplm_stl.h"
 #endif
 #ifdef PLM_OCP
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
-#include "xocp_init.h"
+#include "xocp.h"
 #endif
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 #include "xplm_ssitcomm.h"
 #endif
 #ifdef VERSAL_2VE_2VM
 #include "xplmi_asu_cmd.h"
-#include "xocp_plat.h"
 #include "xloader_plat.h"
-#endif
-#ifdef VERSAL_2VP
-#include "xocp_dice_dme.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -227,7 +221,7 @@ int XPlm_ModuleInit(void *Arg)
 
 	/* OCP module is applicable only for Versalnet and Versal_2vp */
 #ifdef PLM_OCP
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #ifdef VERSAL_2VP
 	/** - Generate DICE CDI */
 	XOcp_GenerateDiceCdi();

@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -19,6 +19,7 @@
 * 1.5   tvp  06/05/25 Initial release
 *       sd   11/07/25 Update condition to reflect the revised function return value
 * 1.7   tvp  12/10/25 Add required header file
+*       rmv  01/30/26 Refactor OCP library
 *
 * </pre>
 *
@@ -28,10 +29,9 @@
 
 #include "xplmi_config.h"
 #ifdef PLM_OCP
-#include "xocp.h"
 #include "xocp_hw.h"
 #include "xocp_sha.h"
-#include "xocp_keymgmt.h"
+#include "xocp_keymgmt_native.h"
 #include "xocp_dice_dme.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -47,6 +47,8 @@
 #include "xpuf.h"
 #include "xpuf_hw.h"
 #include "xsecure_init.h"
+#include "xocp_pcr.h"
+#include "xocp_dme.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -874,7 +876,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile int SStatus = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha3Hash Sha3Hash_Instance;
@@ -891,13 +893,13 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 		goto RET;
 	}
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus,
 							   XSecure_Sha3Kat, ShaInstPtr);
-			if ((SStatus != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+			if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 				Status |= SStatus;
 				goto RET;
 			}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 *       tvp  08/23/2025 Define PLM_HW_PCR macro
 *       vss  10/09/2025 Added PLM_ENABLE_SHA_AES_EVENTS_QUEUING macro
 *       sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
+* 2.4   rmv  01/30/2026 Refactor OCP library
 *
 * </pre>
 *
@@ -140,7 +141,8 @@ extern "C" {
  *	- PLM_PUF_EXCLUDE PUF handlers will be excluded (excluded by default)
  *	- PLM_OCP_EXCLUDE entire OCP code(PCR, DME and Key Management) will be excluded
  *	- PLM_OCP OCP code(PCR, DME) will be included
- *	- PLM_OCP_KEY_MNGMT OCP code(Key Management) will be included
+ *	- PLM_OCP_KEY_MGMT_EXCLUDE OCP code(Key Management) will be excluded
+ *	- PLM_OCP_KEY_MGMT OCP code(Key Management) will be included
  *
  * Please note that below are defined in xparameters.h based on the
  * xilplmi library configuration, hence all the below are commented out here.
@@ -163,14 +165,16 @@ extern "C" {
 #define PLM_PUF
 #endif
 
+
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
 #define PLM_HW_PCR
-#endif
-
-#if (!defined(PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE)) && (defined(PLM_OCP))
+#if (!defined(PLM_OCP_KEY_MGMT_EXCLUDE)) && (!defined(PLM_OCP_KEY_MGMT))
+#define PLM_OCP_KEY_MGMT
 #define PLM_OCP_ASUFW_KEY_MGMT
-#endif
+#endif /* PLM_OCP_KEY_MGMT */
+#endif /* PLM_OCP */
+
 
 #if (!defined(PLM_SECURE_EXCLUDE)) && (!defined(PLM_AUTH_JTAG_EXCLUDE))
 #define PLM_AUTH_JTAG

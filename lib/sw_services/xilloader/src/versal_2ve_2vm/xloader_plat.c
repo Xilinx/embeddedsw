@@ -71,6 +71,7 @@
 *       obs  08/26/2025 Added support for address range checks
 *       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
 * 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
+*       rmv  01/30/2026 Renamed OCP header files
 *
 * </pre>
 *
@@ -95,9 +96,6 @@
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
 #include "xocp.h"
-#ifdef PLM_OCP_ASUFW_KEY_MGMT
-#include "xocp_plat.h"
-#endif
 #include "xsecure_sha.h"
 #include "xsecure_init.h"
 #endif
@@ -453,6 +451,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		goto END;
 	}
 
+#ifdef PLM_OCP
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	if ((PcrInfo == XOCP_PCR_INVALID_VALUE) && (XOcp_IsOcpSubsystem(SubsystemID) == FALSE)) {
 #else
@@ -461,6 +460,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		Status = XST_SUCCESS;
 		goto END;
 	}
+#endif
 
 	ImageMeasureInfo.PcrInfo = PcrInfo;
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;

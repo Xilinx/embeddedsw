@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Added support for DME extension
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
+* 1.6   rmv  01/30/2026 Renamed OCP keymanagment macro
 *
 * </pre>
 * @note
@@ -37,7 +38,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
@@ -99,6 +100,6 @@ int XCert_BuildPlmVersionAndCreateRawField(u8* DataBuf, const u32 IntegerVal, u3
 #ifdef __cplusplus
 }
 #endif
-#endif  /* PLM_OCP_KEY_MNGMT */
+#endif  /* PLM_OCP_NATIVE_KEY_MGMT */
 #endif  /* XCERT_CREATEFIELD_H */
 /* @} */

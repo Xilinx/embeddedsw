@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -22,6 +22,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
+* 2.4   rmv 01/30/26 Refactor OCP library
 *
 * </pre>
 *
@@ -105,6 +106,8 @@ extern "C" {
  *	- PLM_PUF_EXCLUDE PUF handlers will be excluded (excluded by default)
  *	- PLM_ECDSA_EXCLUDE handlers will be excluded (included by default)
  *	- PLM_RSA_EXCLUDE handlers will be excluded (included by default)
+ *	- PLM_OCP_KEY_MGMT_EXCLUDE OCP code(Key Management) will be excluded
+ *	- PLM_OCP_KEY_MGMT OCP code(Key Management) will be included
  *
  * Please note that below are defined in xparameters.h based on the xilplmi library configuration,
  * hence all the below are commented out here.
@@ -131,11 +134,11 @@ extern "C" {
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP)) && (!defined(PLM_SECURE_EXCLUDE))
 #define PLM_OCP
-#endif
-
-#if (!defined(PLM_ECDSA_EXCLUDE)) && (defined(PLM_OCP))
-#define PLM_OCP_KEY_MNGMT
-#endif
+#if (!defined(PLM_OCP_KEY_MGMT_EXCLUDE)) && (!defined(PLM_OCP_KEY_MGMT)) && (!defined(PLM_ECDSA_EXCLUDE))
+#define PLM_OCP_KEY_MGMT
+#define PLM_OCP_NATIVE_KEY_MGMT
+#endif /* PLM_OCP_KEY_MGMT */
+#endif /* PLM_OCP */
 
 /**
  * @name PLM DEBUG MODE options

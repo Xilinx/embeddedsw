@@ -1,17 +1,26 @@
-# Copyright (C) 2024 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xocp.h)
+collect (PROJECT_LIB_HEADERS xocp_generic.h)
+collect (PROJECT_LIB_HEADERS xocp_dme.h)
 collect (PROJECT_LIB_HEADERS xocp_cmd.h)
 collect (PROJECT_LIB_HEADERS xocp_init.h)
 collect (PROJECT_LIB_HEADERS xocp_ipihandler.h)
-collect (PROJECT_LIB_HEADERS xocp_keymgmt.h)
+collect (PROJECT_LIB_HEADERS xocp_pcr.h)
+collect (PROJECT_LIB_HEADERS xocp_keymgmt_native.h)
+collect (PROJECT_LIB_HEADERS xocp_keymgmt_common.h)
+collect (PROJECT_LIB_HEADERS xocp_asufw.h)
 
-collect (PROJECT_LIB_SOURCES xocp.c)
+collect (PROJECT_LIB_SOURCES xocp_generic.c)
+collect (PROJECT_LIB_SOURCES xocp_dme.c)
 collect (PROJECT_LIB_SOURCES xocp_cmd.c)
 collect (PROJECT_LIB_SOURCES xocp_init.c)
 collect (PROJECT_LIB_SOURCES xocp_ipihandler.c)
-collect (PROJECT_LIB_SOURCES xocp_keymgmt.c)
+collect (PROJECT_LIB_SOURCES xocp_keymgmt_native.c)
+collect (PROJECT_LIB_SOURCES xocp_keymgmt_common.c)
+collect (PROJECT_LIB_SOURCES xocp_pcr.c)
+collect (PROJECT_LIB_SOURCES xocp_asufw.c)
 
 if(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM"))
 	add_subdirectory(versal_2ve_2vm)

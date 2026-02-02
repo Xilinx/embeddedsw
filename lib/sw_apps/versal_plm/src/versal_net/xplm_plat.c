@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       obs  12/18/2024 Fixed GCC Warnings
 * 1.12  kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
+* 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *
 * </pre>
 *
@@ -50,9 +51,6 @@
 #include "xloader.h"
 #include "xloader_plat.h"
 #ifdef PLM_OCP
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
 #include "xocp.h"
 #endif
 #ifdef XPLMI_IPI_DEVICE_ID
@@ -320,7 +318,7 @@ int XPlm_PostPlmUpdate(void)
 #endif
 	/* Regenerate DEVAK keys of the sub-systems */
 #ifdef PLM_OCP
-	#ifdef PLM_OCP_KEY_MNGMT
+	#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	Status = XOcp_RegenSubSysDevAk();
 	if (Status != XST_SUCCESS) {
 		goto END;

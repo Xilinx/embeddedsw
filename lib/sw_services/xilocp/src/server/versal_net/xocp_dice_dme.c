@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.5   tvp  06/05/25 Initial release
 *       sd   11/07/25 Update condition to reflect the revised function return value
+* 1.7   rmv  01/30/26 Refactor OCP library
 *
 * </pre>
 *
@@ -26,25 +27,57 @@
 
 #include "xplmi_config.h"
 #ifdef PLM_OCP
-#include "xocp.h"
 #include "xocp_plat.h"
 #include "xocp_hw.h"
 #include "xocp_sha.h"
-#include "xocp_keymgmt.h"
+#include "xocp_keymgmt_native.h"
 #include "xocp_dice_dme.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_plat_kat.h"
 #include "xsecure_kat.h"
+#include "xocp_dme.h"
 
 /************************************ Constant Definitions ****************************************/
-#define XOCP_XPPU_MAX_APERTURES		(19U) /**< Maximum XPPU apertures */
-#define XOCP_XPPU_ENABLED		(0x46E56A7CU) /**< XPPU enabled */
-#define XOCP_XPPU_DISABLED		(~XOCP_XPPU_ENABLED) /**< XPPU disabled */
-#define XOCP_XPPU_MASTER_ID_0		(17U) /**< XPPU master id 0 */
-#define XOCP_XPPU_MASTER_ID_1		(18U) /**< XPPU master id 1 */
 
+/** @cond xocp_internal
+ * @{
+ */
+
+#define XOCP_XPPU_MAX_APERTURES				(19U) /**< Maximum XPPU apertures */
+#define XOCP_XPPU_ENABLED				(0x46E56A7CU) /**< XPPU enabled */
+#define XOCP_XPPU_DISABLED				(~XOCP_XPPU_ENABLED) /**< XPPU disabled */
+#define XOCP_XPPU_MASTER_ID_0				(17U) /**< XPPU master id 0 */
+#define XOCP_XPPU_MASTER_ID_1				(18U) /**< XPPU master id 1 */
+
+#define XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL		(0x03FF0246U)
+							/**< PPU0 SMID */
+#define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x83FF0247U)
+							/**< PPU1 SMID with parity protection bit set*/
+#define XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL		(0x10000001U)
+							/**< PPU0 configuration value */
+#define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x88000003U)
+							/**< PPU1 configuration value with parity bit and trustzone settings enabled */
+#define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
+							  /**< Dynamic reconfiguration set value */
+#define XOCP_XPPU_DYNAMIC_RECONFIG_DISABLE_VAL		(0x0U)
+							  /**< Dynamic reconfiguration disable value */
+#define XOCP_PMC_XPPU_CTRL_ENABLE_VAL			(0x1U) /**< XPPU enable value */
+#define XOCP_PMC_XPPU_CTRL_DISABLE_VAL			(0x0U) /**< XPPU disable value */
+/** @}
+ * @endcond
+ */
 /************************************** Type Definitions ******************************************/
+/**
+ * Dme XPPU config
+ */
+typedef struct {
+	u32 XppuAperAddr; /**< XPPU MASTER IDs and Aperture address */
+	u32 XppuAperWriteCfgVal; /**< Required configurations */
+	u32 XppuAperReadCfgVal; /**< Initial values of Apertures and Master IDs */
+	u32 IsModified; /**< Is XPPU Configuration modified */
+} XOcp_DmeXppuCfg;
+
 static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
 {
 	{PMC_XPPU_APERPERM_017, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
@@ -121,7 +154,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile u32 RegValtmp = XOCP_PMC_XPPU_CTRL_DISABLE_VAL;
 	int ClearStatus = XST_FAILURE;
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
 	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
 #endif
@@ -150,7 +183,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 		goto RET;
 	}
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != TRUE) {

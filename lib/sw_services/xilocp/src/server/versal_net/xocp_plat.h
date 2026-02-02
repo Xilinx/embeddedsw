@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  05/16/25 Initial release
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig to platform file
+* 1.7   rmv  01/30/26 Refactor OCP library
 *
 * </pre>
 *
@@ -33,8 +34,21 @@ extern "C" {
 
 #ifdef PLM_OCP
 #include "xocp_hw.h"
+#include "xocp_generic.h"
 
 /************************************ Constant Definitions ****************************************/
+/** @cond xocp_internal
+ * @{
+ */
+/** Efuse number of rows */
+#define XOCP_EFUSE_PPK_NUM_OF_BYTES			(32U)	/**< PPK Hash number of bytes */
+#define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS			(XOCP_EFUSE_PPK_NUM_OF_BYTES / XOCP_WORD_LEN)
+								/**< PPK Hash number of words */
+#define XOCP_EFUSE_REVOCATION_NO_OF_WORDS		(8U)	/**< Revocation ID number of words */
+#define XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES		(32U)	/**< Revocation ID number of bytes */
+/** @}
+ * @endcond
+ */
 
 /************************************** Type Definitions ******************************************/
 /**

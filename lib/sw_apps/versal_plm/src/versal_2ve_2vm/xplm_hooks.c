@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.14  sk   03/25/2025 Updated platform name
 *	rmv  07/17/2025 Added call to XOcp_NotifyAsu()
 * 1.15  tt  08/20/2025 Add IPI re-init after IPU(Impactless PLM Update)
+* 1.16  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *
 * </pre>
 *
@@ -52,8 +53,8 @@
 #else
 #include "xpm_alloc.h"
 #endif
-#ifdef PLM_OCP_ASUFW_KEY_MGMT
-#include "xocp_plat.h"
+#ifdef PLM_OCP
+#include "xocp.h"
 #endif
 
 /************************** Constant Definitions *****************************/

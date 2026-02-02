@@ -1,162 +1,110 @@
-/******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+/**************************************************************************************************
+* Copyright (c) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+**************************************************************************************************/
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
 *
-* @file xocp.c
-* @addtogroup xilocp_server_apis XilOcp Server APIs
+* @file xocp_pcr.c
+* @addtogroup xilocp_pcr_apis XilOcp PCR APIs
 * @{
 *
-* This file contains the implementation of the interface functions for DME
+* This file contains implementation of PCR functionalities.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.0   vns  06/26/22 Initial release
-* 1.1   kal  01/05/23 Added PCR Extend and Pcr Logging functions
-*       am   01/10/23 Modified function argument type to u64 in
-*                     XOcp_GenerateDmeResponse().
-* 1.2   kpt  06/02/23 Fixed circular buffer issues during HWPCR logging
-*       kal  06/02/23 Added SW PCR extend and logging functions
-*       yog  08/07/23 Replaced trng API calls using trngpsx driver
-* 1.3   kpt  11/06/23 Add support to run SHA384 KAT during DME
-*       kal  12/09/23 Added a check for DataAddr if size > 48 bytes for SWPCR
-*       am   01/31/24 Moved Key Management operations under PLM_OCP_KEY_MNGMT macro
-*       kpt  01/22/24 Added support to extend secure state into SWPCR
-*       kpt  02/21/24 Add support for DME CSR extension
-*	vss  03/16/24 Fixed review comments of XOcp_DmeXppuConfig
-*	vss  03/21/24 Clearing memory buffer in XOcp_GetPcr
-*	vss  04/01/24 Fix for XOcp_GetSwPcrData
-*       kpt  03/28/24 Fix DME failure
-*       har  04/12/24 Fix size of buffer passed to XPlmi_MemSet
-*       har  06/10/24 Support to retain PCR log after In Place PLM update
-*       kal  06/27/24 Clearing first measurement in XOcp_GetSwPcrLog
-*       kal  07/24/2024 Code refactoring updates for versal_2ve_2vm
-*	vss  09/23/24 Modified code as per security best practices
-* 1.4   vss  10/24/24 Modified xppu disabled macro and it's corresponding code as per security best practices
-*       vss  10/24/24 Added redundancy checks for dynamic reconfiguration as per security best practices
-* 1.6   rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
-*                     file to xocp.c file as exported function.
-*       har  09/13/25 Fix bug in the logic to modify aperture values in XOcp_GenerateDmeResponse()
-*       tvp  05/13/25 Code refactoring for Platform specific TRNG functions
-*       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
-*       tvp  05/16/25 Use SHA3 for Versal_2vp
-*       tvp  05/16/25 Don't export OCP DS for Versal_2vp
-*       tvp  05/16/25 Use XOcp_GetRegSpace to get OCP related registers
-*       tvp  05/16/25 Move XOcp_ReadSecureConfig to platform specific files
-*       tvp  06/05/25 Add GenerateDmeResponse support for Versal_2vp
-*  1.7  Nik  11/21/25 Removed UINTPTR typecast of 64 bit variable to avoid truncation risks
-*
+* ----- ---- -------- -----------------------------------------------------------------------------
+* 1.7   rmv  01/30/26 Refactor OCP library
 *
 * </pre>
-* @note
 *
-******************************************************************************/
+**************************************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
 #ifdef PLM_OCP
 #include "xil_types.h"
-#include "xocp.h"
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
-#include "xocp_hw.h"
-#include "xplmi_hw.h"
 #include "xplmi.h"
-#include "xplmi_dma.h"
-#include "xil_util.h"
 #include "xocp_sha.h"
-#include "xplmi_status.h"
-#include "xsecure_init.h"
-#include "xsecure_trng.h"
 #include "xil_error_node.h"
 #include "xplmi_err.h"
-#include "xplmi_tamper.h"
-#include "xsecure_plat_kat.h"
-#include "xsecure_kat.h"
-#include "xocp_plat.h"
-#include "xocp_dice_dme.h"
+#include "xocp_pcr.h"
+#include "xsecure_init.h"
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions *****************************/
 /** @cond xocp_internal
  * @{
  */
-#define XOCP_SHA3_LEN_IN_BYTES		(48U) /**< Length of Sha3 hash in bytes */
-#define XOCP_PCR_IN_BYTE1_OF_PLOAD_MASK	(0x0000FF00U) /**< Payload mask of PCR in byte 1 */
-#define XOCP_PCR_IN_BYTE3_OF_PLOAD_MASK	(0xFF000000U) /**< Payload mask of PCR in byte 3 */
-#define XOCP_DIGESTS_IN_BYTE0_PLOAD_MASK (0x000000FFU) /**< Payload mask of digests in byte 0 */
-#define XOCP_DIGESTS_IN_BYTE2_PLOAD_MASK (0x00FF0000U) /**< Payload mask of digests in byte 2 */
-#define XOCP_MEASUREIDX_IN_PLOAD_MASK (0x000000FFU) /**< Payload mask of measure id */
-#define XOCP_HALF_WORD_SHIFT_LEN	(16U) /**< Used in the extraction of data of half word */
-#define XOCP_SINGLE_BYTE_SHIFT		(8U) /**< To shift 8-bit */
-#define XOCP_PAYLOAD_START_INDEX	(1U) /**< Start index of payload */
-#define XOCP_DOUBLE_NUM_OF_WORDS	(2U) /**< To double number of words */
-#define XOCP_GET_ALL_PCR_MASK           (0x000000FFU) /**< All PCR read mask */
-#define XOCP_HW_PCR                     (0x0U)  /**< HW PCR type */
-#define XOCP_SW_PCR                     (0x1U)  /**< SW PCR type */
+#define XOCP_GET_ALL_PCR_MASK			(0x000000FFU)	/* All PCR read mask */
+#define XOCP_SW_PCR				(0x1U)		/* SW PCR type */
+#define XOCP_HW_PCR				(0x0U)		/* HW PCR type */
 
-#define XOCP_SWPCR_CONFIG_LCVERSION	(1U)   /**< SW PCR LC version */
-#define XOCP_SWPCR_CONFIG_VERSION	(1U)   /**< SW PCR version */
-#define XOCP_SWPCR_STORE_LCVERSION	(1U)   /**< SW PCR store LC version */
-#define XOCP_SWPCR_STORE_VERSION	(1U)   /**< SW PCR store version */
-#define XOCP_HWPCR_LOG_LCVERSION	(1U)   /**< HW PCR log LC version */
-#define XOCP_HWPCR_LOG_VERSION		(1U)   /**< HW PCR log version */
+#define XOCP_PCR_IN_BYTE1_OF_PLOAD_MASK		(0x0000FF00U)	/* Payload mask of PCR in byte 1 */
+#define XOCP_DIGESTS_IN_BYTE0_PLOAD_MASK	(0x000000FFU)	/* Payload mask of digests in byte 0 */
+#define XOCP_MEASUREIDX_IN_PLOAD_MASK		(0x000000FFU)	/* Payload mask of measure id */
+#define XOCP_HALF_WORD_SHIFT_LEN		(16U)		/* Extraction of data of half word */
+#define XOCP_SINGLE_BYTE_SHIFT			(8U)		/* Shift 8-bit */
+#define XOCP_PAYLOAD_START_INDEX		(1U)		/* Start index of payload */
+#define XOCP_DOUBLE_NUM_OF_WORDS		(2U)		/* Double number of words */
+#define XOCP_EVENT_ID_VERSION_LEN_IN_BYTES	(8U)		/* EVENT_ID + Version length */
+#define XOCP_SWPCR_CONFIG_LCVERSION		(1U)   /* SW PCR LC version */
+#define XOCP_SWPCR_CONFIG_VERSION		(1U)   /* SW PCR version */
+#define XOCP_SWPCR_STORE_LCVERSION		(1U)   /* SW PCR store LC version */
+#define XOCP_SWPCR_STORE_VERSION		(1U)   /* SW PCR store version */
+#define XOCP_MIN_NUM_OF_DIGESTS_FOR_SW_PCR1	(5U)  /* Min number of digests for SW PCR1 */
 
-#define XOCP_MIN_NUM_OF_DIGESTS_FOR_SW_PCR1 (5U) /**< Minimum number of digests for SW PCR1 */
-#define XOCP_EVENT_ID_VERSION_LEN_IN_BYTES	(8U) /**< Length of EVENT_ID + Length of Version */
+#ifdef PLM_HW_PCR
+#define XOCP_HWPCR_LOG_LCVERSION		(1U)   /* HW PCR log LC version */
+#define XOCP_HWPCR_LOG_VERSION			(1U)   /* HW PCR log version */
+#endif
+
 /** @}
  * @endcond
  */
-
-/**************************** Type Definitions *******************************/
-
-/***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 #ifdef PLM_HW_PCR
 static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
 static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void);
 #endif
-static u32 XOcp_CountNumOfOnesInWord(u32 Num);
-static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash);
-static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum);
 static XOcp_SwPcrStore *XOcp_GetSwPcrInstance(void);
 static XOcp_SwPcrConfig *XOcp_GetSwPcrConfigInstance(void);
-static void XOcp_PrintData(const u8 *Data, u32 Size, char *Str, u32 LogLevel);
 static int XOcp_CalculateSwPcr(u32 PcrNum, u8 *ExtendedHash);
+static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx);
+static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash);
 static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum);
 static int XOcp_StoreNoOfDigestPerPcr(u32 PcrNum, u32 NumOfDigests);
-static int XOcp_StoreEventIdConfig(u32 *Pload, u32 CurrIdx, u32 DigestCount, u32 Len);
-static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx);
-static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
 static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
-static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig);
-static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig);
-static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* RevokeOtherEfuseConfig);
-static void XOcp_ReadMiscConfig(XOcp_MiscEfuseConfig* MiscConfig);
-static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig);
-static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig);
-static int XOcp_CheckAndUpdatePpkConfigState(u32 *MeasurePpkConfig);
-static int XOcp_CheckAndUpdateSpkRevokeConfigState(u32 *MeasureSpkRevokeConfig);
-static int XOcp_CheckAndUpdateOtherRevokeConfigState(u32 *MeasureOtherRevokeConfig);
+static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum);
 static int XOcp_CheckAndUpdateMiscConfigState(u32 *MeasureMiscConfig);
+static int XOcp_CheckAndUpdateOtherRevokeConfigState(u32 *MeasureOtherRevokeConfig);
+static int XOcp_CheckAndUpdatePpkConfigState(u32 *MeasurePpkConfig);
+static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig);
+static int XOcp_CheckAndUpdateSpkRevokeConfigState(u32 *MeasureSpkRevokeConfig);
+static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig);
 static int XOcp_MeasureSecureState(void);
+static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig);
+static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* RevokeOtherEfuseConfig);
+static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig);
+static void XOcp_ReadMiscConfig(XOcp_MiscEfuseConfig* MiscConfig);
+static void XOcp_PrintData(const u8 *Data, u32 Size, char *Str, u32 LogLevel);
+static int XOcp_StoreEventIdConfig(u32 *Pload, u32 CurrIdx, u32 DigestCount, u32 Len);
+static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
+static u32 XOcp_CountNumOfOnesInWord(u32 Num);
 
 /************************** Variable Definitions *****************************/
-
 /**< Secure state hash */
 static XOcp_SecureStateHash SecureStateHash;
-
 /**< Secure efuse configuration */
 static XOcp_SecureConfig SecureConfig;
-
 /**< Secure tap configuration */
 static XOcp_SecureTapConfig SecureTapConfig;
 /**< PPK efuse configuration */
@@ -167,10 +115,6 @@ static XOcp_RevocationSpkEfuseConfig RevocationSpkEfuseConfig;
 static XOcp_RevocationOtherEfuseConfig RevocationOtherEfuseConfig;
 /**< Miscellaneous efuse configuration */
 static XOcp_MiscEfuseConfig MiscEfuseConfig;
-
-/**< DME challenge available */
-static u32 IsDmeChlAvail = FALSE;
-
 /**< Is this first request to extend the PCR */
 static u32 FirstExtendReq = FALSE;
 
@@ -267,8 +211,6 @@ int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 END:
 	return Status;
 }
-
-
 
 /*****************************************************************************/
 /**
@@ -369,7 +311,93 @@ int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize)
 {
 	return XOcp_GetPcr(PcrMask, PcrBuf, PcrBufSize, XOCP_HW_PCR);
 }
-#endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates the HWPCR log.
+ *
+ * @param	PcrNum		PCR register number
+ * @param	ExtHashAddr	Address of the hash to be extended
+ * @param	DataSize	Size of the Data
+ *
+ * @return
+ *		- XST_SUCCESS - If log update is successful
+ *		- XST_FAILURE - Upon failure
+ *
+ ******************************************************************************/
+static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
+{
+	volatile int Status = XST_FAILURE;
+	XOcp_HwPcrLog *HwPcrLog = XOcp_GetHwPcrLogInstance();
+
+	/** If number of PCR events is greater than XOCP_MAX_NUM_OF_HWPCR_EVENTS
+	 * update overflow count as true and  decrement number of PCR events for
+	 * new update and update the tail index.
+	 */
+	if (HwPcrLog->LogInfo.RemainingHwPcrEvents >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		HwPcrLog->LogInfo.OverflowCntSinceLastRd++;
+		if (HwPcrLog->HeadIndex == HwPcrLog->TailIndex) {
+			XOcp_UpdateHwPcrIndex(&HwPcrLog->TailIndex, 1U);
+		}
+		HwPcrLog->LogInfo.RemainingHwPcrEvents--;
+	}
+
+	HwPcrLog->Buffer[HwPcrLog->HeadIndex].PcrNo = (u8)PcrNum;
+	Status = XOcp_MemCopy(ExtHashAddr,
+		(u64)(UINTPTR)HwPcrLog->Buffer[HwPcrLog->HeadIndex].Hash,
+		DataSize / XOCP_WORD_LEN, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		if (Status == XST_SUCCESS) {
+			Status = (int)XST_GLITCH_ERROR;
+		}
+		goto END;
+	}
+
+	Status = XOcp_MemCopy(((u64)(UINTPTR)XOCP_PMC_GLOBAL_PCR_0_0 +
+		((u64)PcrNum * XOCP_PCR_SIZE_BYTES)),
+		(u64)(UINTPTR)HwPcrLog->Buffer[HwPcrLog->HeadIndex].PcrValue,
+		XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		if (Status == XST_SUCCESS) {
+			Status = (int)XST_GLITCH_ERROR;
+		}
+		goto END;
+	}
+
+	HwPcrLog->LogInfo.RemainingHwPcrEvents++;
+	HwPcrLog->LogInfo.TotalHwPcrLogEvents++;
+	XOcp_UpdateHwPcrIndex(&HwPcrLog->HeadIndex, 1U);
+
+	if (XPlmi_IsLoadBootPdiDone() == TRUE) {
+		/** Send Notification to the subscriber about the log update */
+		XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+				XIL_EVENT_ERROR_PCR_LOG_UPDATE);
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function provides the pointer to the XOcp_HwPcrLog
+ *		instance which has to be used across the file to store the
+ *		HW PCR log.
+ *
+ * @return
+ *		Pointer to the XOcp_HwPcrLog instance
+ *
+ ******************************************************************************/
+static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void)
+{
+	static XOcp_HwPcrLog HwPcrLog __attribute__ ((aligned(4U))) = {0U};
+
+	EXPORT_OCP_DS(HwPcrLog, XOCP_HWPCR_LOG_DS_ID,
+		XOCP_HWPCR_LOG_VERSION, XOCP_HWPCR_LOG_LCVERSION,
+		sizeof(HwPcrLog), (u32)(UINTPTR)&HwPcrLog);
+
+	return &HwPcrLog;
+}
+#endif /* PLM_HW_PCR */
 
 /*****************************************************************************/
 /**
@@ -392,82 +420,85 @@ int XOcp_GetSwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize)
 
 /*****************************************************************************/
 /**
- * @brief	This function gets the PCR value from requested SW PCR/HW PCR.
+ * @brief	This function reads the data extended to specified SW PCR
+ * 		at specified measurement index.
  *
- * @param	PcrMask Mask to tell which PCRs to read
- * @param	PcrBuf 	Address of the 48 bytes buffer to store the
- * 		requested PCR contents
- * @param	PcrBufSize Size of the PCR buffer provided
- * @param	PcrType	HW PCR or SW PCR
+ * @param	Addr  64 bit address of the XOcp_SwPcrReadData
  *
  * @return
- *		- XST_SUCCESS - If PCR contents are copied
+ *		- XST_SUCCESS - Upon success
  *		- XST_FAILURE - Upon failure
- *		- XST_INVALID_PARAM - if parameter is invalid
  *
  ******************************************************************************/
-static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
+int XOcp_GetSwPcrData(u64 Addr)
 {
 	int Status = XST_FAILURE;
-	u8 ExtendedHash[XOCP_PCR_HASH_SIZE_IN_BYTES] = {0U};
-	u32 NumOfBitsSetInMask;
-	u32 Mask = PcrMask;
-	u32 PcrOffset = 0U;
-	u32 BufOffset = 0U;
-	u32 PcrNum = 0U;
+	XOcp_SwPcrReadData Data;
+	XOcp_SwPcrStore *SwPcr = XOcp_GetSwPcrInstance();
+	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
+	u8 ReturnedBytesOffset = (u8)(u32)&(((XOcp_SwPcrReadData *)0)->ReturnedBytes);
+	u32 ReturnedBytes;
+	u32 DigestIdx;
+	u32 CurrDataLen;
 
-	NumOfBitsSetInMask = XOcp_CountNumOfOnesInWord(Mask);
-	if (PcrBufSize < (NumOfBitsSetInMask * XOCP_PCR_SIZE_BYTES)) {
-		Status = (int)XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM;
-		goto END;
-	}
-	if (NumOfBitsSetInMask == 0U) {
-		Status = (int)XST_INVALID_PARAM;
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Data, Addr, sizeof(Data));
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (Mask > XOCP_GET_ALL_PCR_MASK) {
+	/** Validate input parameters. */
+	/** If SW PCR number is more than 7, throw an error */
+	if (Data.PcrNum > (u32)XOCP_PCR_7) {
 		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
 		goto END;
 	}
 
-	while (Mask != 0x0U) {
-		if ((Mask & 0x01U) != 0U) {
-			if (PcrType == XOCP_SW_PCR) {
-				Status = XOcp_CalculateSwPcr(PcrNum, ExtendedHash);
-				if (Status != XST_SUCCESS) {
-					break;
-				}
-				PcrOffset = (u32)(UINTPTR)&ExtendedHash;
-			}
-			else {
-#ifdef PLM_HW_PCR
-				PcrOffset = XOCP_PMC_GLOBAL_PCR_0_0 + (u32)(PcrNum * XOCP_PCR_SIZE_BYTES);
-				if (PcrOffset > XOCP_PMC_GLOBAL_PCR_7_0) {
-					Status = (int)XOCP_PCR_ERR_PCR_SELECT;
-					goto END;
-				}
-#else
-				Status = XST_INVALID_PARAM;
-				goto END;
-#endif
-			}
-			Status = XOcp_MemCopy(PcrOffset,
-					PcrBuf + BufOffset,
-					XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
-			if (Status != XST_SUCCESS) {
-				break;
-			}
+	/** If Data buffer size is zero, throw an error */
+	if (Data.BufSize == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 
-			Status = Xil_SecureZeroize(ExtendedHash, XOCP_PCR_SIZE_BYTES);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
+	/** If MeasurementIdx is greater than number of digests
+	 * configured, throw an error.
+	 */
+	if (Data.MeasurementIdx >= SwPcrConfig->DigestsForPcr[Data.PcrNum]) {
+		Status = (int)XOCP_PCR_ERR_MEASURE_IDX_SELECT;
+		goto END;
+	}
 
-			BufOffset += XOCP_PCR_SIZE_BYTES;
-		}
-		Mask = Mask >> 1U;
-		PcrNum++;
+	/** Calculate the Digest index in the log using SW PCR number
+	 * and measurement index
+	 */
+	DigestIdx = XOcp_GetPcrOffsetInLog(Data.PcrNum) + Data.MeasurementIdx;
+	CurrDataLen = SwPcr->Data[DigestIdx].Measurement.DataLength;
+	if (Data.DataStartIdx > (CurrDataLen - 1U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (Data.BufSize < (CurrDataLen - Data.DataStartIdx)) {
+		ReturnedBytes = Data.BufSize;
+	} else {
+		ReturnedBytes = CurrDataLen - Data.DataStartIdx;
+	}
+
+	/** Copy the number of returned bytes to user provided buffer address */
+	Status = XPlmi_MemCpy64((Addr + (u64)ReturnedBytesOffset),
+                                (u64)(UINTPTR)&ReturnedBytes, XOCP_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Copy the Data with DataStartIdx to the user provided buffer address */
+	if (CurrDataLen > XOCP_PCR_HASH_SIZE_IN_BYTES) {
+		Status = XPlmi_MemCpy64(Data.BufAddr,
+			(u64)(UINTPTR)SwPcr->Data[DigestIdx].DataAddr + Data.DataStartIdx,
+			ReturnedBytes);
+	} else {
+		Status = XPlmi_MemCpy64(Data.BufAddr,
+			(u64)(UINTPTR)&SwPcr->Data[DigestIdx].DataToExtend[Data.DataStartIdx],
+			ReturnedBytes);
 	}
 
 END:
@@ -619,93 +650,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function reads the data extended to specified SW PCR
- * 		at specified measurement index.
- *
- * @param	Addr  64 bit address of the XOcp_SwPcrReadData
- *
- * @return
- *		- XST_SUCCESS - Upon success
- *		- XST_FAILURE - Upon failure
- *
- ******************************************************************************/
-int XOcp_GetSwPcrData(u64 Addr)
-{
-	int Status = XST_FAILURE;
-	XOcp_SwPcrReadData Data;
-	XOcp_SwPcrStore *SwPcr = XOcp_GetSwPcrInstance();
-	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
-	u8 ReturnedBytesOffset = (u8)(u32)&(((XOcp_SwPcrReadData *)0)->ReturnedBytes);
-	u32 ReturnedBytes;
-	u32 DigestIdx;
-	u32 CurrDataLen;
-
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Data, Addr, sizeof(Data));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Validate input parameters. */
-	/** If SW PCR number is more than 7, throw an error */
-	if (Data.PcrNum > (u32)XOCP_PCR_7) {
-		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
-		goto END;
-	}
-
-	/** If Data buffer size is zero, throw an error */
-	if (Data.BufSize == 0U) {
-		Status = (int)XST_INVALID_PARAM;
-		goto END;
-	}
-
-	/** If MeasurementIdx is greater than number of digests
-	 * configured, throw an error.
-	 */
-	if (Data.MeasurementIdx >= SwPcrConfig->DigestsForPcr[Data.PcrNum]) {
-		Status = (int)XOCP_PCR_ERR_MEASURE_IDX_SELECT;
-		goto END;
-	}
-
-	/** Calculate the Digest index in the log using SW PCR number
-	 * and measurement index
-	 */
-	DigestIdx = XOcp_GetPcrOffsetInLog(Data.PcrNum) + Data.MeasurementIdx;
-	CurrDataLen = SwPcr->Data[DigestIdx].Measurement.DataLength;
-	if (Data.DataStartIdx > (CurrDataLen - 1U)) {
-		Status = (int)XST_INVALID_PARAM;
-		goto END;
-	}
-
-	if (Data.BufSize < (CurrDataLen - Data.DataStartIdx)) {
-		ReturnedBytes = Data.BufSize;
-	} else {
-		ReturnedBytes = CurrDataLen - Data.DataStartIdx;
-	}
-
-	/** Copy the number of returned bytes to user provided buffer address */
-	Status = XPlmi_MemCpy64((Addr + (u64)ReturnedBytesOffset),
-                                (u64)(UINTPTR)&ReturnedBytes, XOCP_WORD_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Copy the Data with DataStartIdx to the user provided buffer address */
-	if (CurrDataLen > XOCP_PCR_HASH_SIZE_IN_BYTES) {
-		Status = XPlmi_MemCpy64(Data.BufAddr,
-			(u64)(UINTPTR)SwPcr->Data[DigestIdx].DataAddr + Data.DataStartIdx,
-			ReturnedBytes);
-	} else {
-		Status = XPlmi_MemCpy64(Data.BufAddr,
-			(u64)(UINTPTR)&SwPcr->Data[DigestIdx].DataToExtend[Data.DataStartIdx],
-			ReturnedBytes);
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function reads the SW PCR log of the specified PCR.
  * 		SW PCR log contains information about digests extended to all
  * 		the SW PCRs. Here the request is for one SW PCR.
@@ -781,48 +725,6 @@ int XOcp_GetSwPcrLog(u64 Addr)
 		}
 	}
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function returns pointer to XOcp_DmeResponse
- *
- * @return
- *		- DmeRespone Pointer to XOcp_DmeResponse
- *
- ******************************************************************************/
-XOcp_DmeResponse* XOcp_GetDmeResponse(void)
-{
-	static XOcp_DmeResponse DmeResponse = {0U};
-
-	return &DmeResponse;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This is wrapper function to generate DME response.
- *
- * @param	NonceAddr holds the address of 32 bytes buffer Nonce,
- *		which shall be used to fill one of the member of DME structure.
- * @param	DmeStructResAddr is the address to the 224 bytes buffer,
- *		which is used to store the response to DME challenge request of
- *		type XOcp_DmeResponse.
- *
- * @return
- *		- XST_SUCCESS on success.
- *		- Error code in case of failure.
- *
- ******************************************************************************/
-int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
-{
-	int Status = XST_FAILURE;
-
-	Status = XOcp_GenerateDmeResponseImpl(NonceAddr, DmeStructResAddr);
-	if (Status == XST_SUCCESS) {
-		IsDmeChlAvail = TRUE;
-	}
-
 	return Status;
 }
 
@@ -942,258 +844,6 @@ int XOcp_MeasureSecureStateAndExtendSwPcr(void)
 	}
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function compares the secure state configuration and
- *          updates the secure state
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure
- *
-*****************************************************************************/
-int XOcp_CheckAndExtendSecureState(void)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
-	u32 MeasureSecureConfig = TRUE;
-	u32 MeasureTapConfig = TRUE;
-	u32 MeasurePpkConfig = TRUE;
-	u32 MeasureSpkRevokeConfig = TRUE;
-	u32 MeasureOtherRevokeConfig = TRUE;
-	u32 MeasureMiscConfig = TRUE;
-
-	if (SwPcrConfig->IsPcrConfigReceived != TRUE) {
-		XPlmi_Printf(DEBUG_INFO,"Secure State Measurement is not configured \r\n");
-		Status = XST_SUCCESS;
-		goto END;
-	}
-
-	Status = XOcp_CheckAndUpdateSecConfigState(&MeasureSecureConfig);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_SECURE_EFUSE_CONFIG;
-		goto END;
-	}
-
-	Status = XOcp_CheckAndUpdateTapConfigState(&MeasureTapConfig);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_SECURE_TAP_CONFIG;
-		goto END;
-	}
-
-	if ((MeasureSecureConfig == TRUE) || (MeasureTapConfig == TRUE)) {
-
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XOcp_MeasureSecureState);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			Status = (int)XOCP_ERR_SECURE_STATE_MEASUREMENT;
-			goto END;
-		}
-		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
-					(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	Status = XOcp_CheckAndUpdatePpkConfigState(&MeasurePpkConfig);
-        if (Status != XST_SUCCESS) {
-                Status = (int)XOCP_ERR_SECURE_PPK_CONFIG;
-                goto END;
-        }
-
-	Status = XOcp_CheckAndUpdateSpkRevokeConfigState(&MeasureSpkRevokeConfig);
-        if (Status != XST_SUCCESS) {
-                Status = (int)XOCP_ERR_SECURE_SPK_REVOKE_CONFIG;
-                goto END;
-        }
-
-	Status = XOcp_CheckAndUpdateOtherRevokeConfigState(&MeasureOtherRevokeConfig);
-        if (Status != XST_SUCCESS) {
-                Status = (int)XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG;
-                goto END;
-        }
-
-	Status = XOcp_CheckAndUpdateMiscConfigState(&MeasureMiscConfig);
-        if (Status != XST_SUCCESS) {
-                Status = (int)XOCP_ERR_SECURE_MISC_CONFIG;
-                goto END;
-        }
-
-	/** Any change in PPK eFuses, SPK revocation eFuses, Offchip revocation
-	  * eFuses and miscellaneous eFuses extend the new configuration to
-	  * respective measurement indices of SW PCR 1
-	  */
-	if (MeasurePpkConfig == TRUE) {
-		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
-				XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX,
-				(u64)(UINTPTR)&PpkEfuseConfig,
-				sizeof(XOcp_PpkEfuseConfig), TRUE);
-		if (Status != XST_SUCCESS) {
-			Status = (int)XOCP_ERR_IN_EXTEND_PPK_CONFIG;
-			goto END;
-		}
-	}
-	if (MeasureSpkRevokeConfig == TRUE) {
-		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
-				XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX,
-				(u64)(UINTPTR)&RevocationSpkEfuseConfig,
-				sizeof(XOcp_RevocationSpkEfuseConfig), TRUE);
-		if (Status != XST_SUCCESS) {
-			Status = (int)XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG;
-			goto END;
-		}
-	}
-	if (MeasureOtherRevokeConfig == TRUE) {
-		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
-				XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX,
-				(u64)(UINTPTR)&RevocationOtherEfuseConfig,
-				sizeof(XOcp_RevocationOtherEfuseConfig), TRUE);
-		if (Status != XST_SUCCESS) {
-			Status = (int)XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG;
-			goto END;
-		}
-	}
-	if (MeasureMiscConfig == TRUE) {
-		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
-				XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX,
-				(u64)(UINTPTR)&MiscEfuseConfig,
-				sizeof(XOcp_MiscEfuseConfig), TRUE);
-		if (Status != XST_SUCCESS) {
-			Status = (int)XOCP_ERR_IN_EXTEND_MISC_CONFIG;
-		}
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function returns the status of Dme challenge response
- *
- ******************************************************************************/
-u32 XOcp_IsDmeChlAvail(void)
-{
-	return IsDmeChlAvail;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function validates the DICE CDI stored in PMC global register.
- *
- * @return
- *      - XST_SUCCESS, if DICE CDI is validated successfully.
- *      - XOCP_DICE_CDI_SEED_ZERO, if DICE CDI seed value is zero.
- *      - XOCP_DICE_CDI_PARITY_ERROR, if DICE CDI parity is not zero.
- *      - XOCP_ERR_GLITCH_DETECTED, if DICE CDI size is invalid.
- *
- ******************************************************************************/
-int XOcp_ValidateDiceCdi(void)
-{
-	volatile int Status = (int)XOCP_DICE_CDI_SEED_ZERO;
-	volatile u32 Index;
-	volatile u32 CdiParity = 0U;
-	volatile u32 CdiParityTmp = 0U;
-	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
-
-	/** Upon DICE CDI SEED zeroize, if CDI valid bit is not cleared in Versal Net.
-	 *  Check whether DICE CDI SEED is non zero or not.
-	 */
-	for (Index = 0U; Index < XOCP_CDI_SIZE_IN_WORDS; Index++) {
-		if (XPlmi_In32(XOcp_Reg->DiceCdiSeedAddr +
-			(Index * XSECURE_WORD_LEN)) != 0x0U) {
-			CdiParity = XPlmi_In32(XOcp_Reg->DiceCdiSeedParityAddr) &
-				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
-			CdiParityTmp = XPlmi_In32(XOcp_Reg->DiceCdiSeedParityAddr) &
-				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
-			if ((CdiParity != 0x0U) || (CdiParityTmp != 0x0U)) {
-				Status = (int)XOCP_DICE_CDI_PARITY_ERROR;
-				goto END;
-			} else {
-				Status = XST_SUCCESS;
-				break;
-			}
-		}
-	}
-	if (Index > XOCP_CDI_SIZE_IN_WORDS) {
-		Status = (int)XOCP_ERR_GLITCH_DETECTED;
-	} else {
-		Status = XST_SUCCESS;
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function generates the seed for DEVAK key generation.
- *
- * @param	KeyAddr holds the address of key to be used for HMAC.
- * @param	KeyLen specifies the length of the key.
- * @param	DataAddr holds the data address to be updated to HMAC.
- * @param	DataLen specifies the length of the data to be updated to HMAC.
- * @param	Out is a pointer of type XSecure_HmacRes where the resultant gets
- *		updated.
- *
- * @return
- *	- XST_SUCCESS, if DevAk seed generated successfully.
- *	- XST_FAILURE, in case of failure.
- *
- ******************************************************************************/
-int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSecure_HmacRes *Out)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	volatile int RetStatus = XST_GLITCH_ERROR;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XSecure_Hmac HmacInstance;
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp,
-				XSecure_Sha3Kat, Sha3InstPtr);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			Status |= StatusTmp;
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
-	}
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_HMAC_KAT_MASK) != TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp,
-				XSecure_HmacKat, Sha3InstPtr);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			Status |= StatusTmp;
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_HMAC_KAT_MASK);
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_HmacInit(&HmacInstance, Sha3InstPtr, CdiAddr, CdiLen);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_HmacUpdate(&HmacInstance, (u64)DataAddr, DataLen);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_HmacFinal(&HmacInstance, Out);
-	RetStatus = Status;
-
-END:
-	if ((RetStatus != XST_SUCCESS) && (Status != XST_SUCCESS)) {
-		RetStatus = Status;
-	}
-
-	return RetStatus;
 }
 
 /*****************************************************************************/
@@ -1500,30 +1150,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function prints the given data on the console
- *
- * @param   Data	Pointer to any given data buffer
- * @param   Size	Size of the given buffer
- * @param   Str		Pointer to the data that is printed along the data
- * @param   LogLevel 	Printing of the array will happen as defined by the debug type
- *
- *****************************************************************************/
-static void XOcp_PrintData(const u8 *Data, u32 Size, char *Str, u32 LogLevel)
-{
-	u32 Index;
-
-	if (((LogLevel) & XPlmiDbgCurrentTypes) != 0U) {
-		XPlmi_Printf_WoTS(LogLevel,"%s START:\n\r", Str);
-		for (Index = 0U; Index < Size; Index++) {
-			XPlmi_Printf_WoTS(LogLevel,"%02x", Data[Index]);
-		}
-		XPlmi_Printf_WoTS(LogLevel,"\r\n");
-		XPlmi_Printf_WoTS(LogLevel,"%s END\n\r", Str);
-	}
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function performs data measurement as part of SW PCR
  * 		calculation.
  * 		That is (Event Id || Version || Data) for a specific digest.
@@ -1670,96 +1296,6 @@ static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum)
 	return SwPcrConfig->PcrIdxInLog[PcrNum];
 }
 
-#ifdef PLM_HW_PCR
-/*****************************************************************************/
-/**
- * @brief	This function updates the HWPCR log.
- *
- * @param	PcrNum		PCR register number
- * @param	ExtHashAddr	Address of the hash to be extended
- * @param	DataSize	Size of the Data
- *
- * @return
- *		- XST_SUCCESS - If log update is successful
- *		- XST_FAILURE - Upon failure
- *
- ******************************************************************************/
-static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
-{
-	volatile int Status = XST_FAILURE;
-	XOcp_HwPcrLog *HwPcrLog = XOcp_GetHwPcrLogInstance();
-
-	/** If number of PCR events is greater than XOCP_MAX_NUM_OF_HWPCR_EVENTS
-	 * update overflow count as true and  decrement number of PCR events for
-	 * new update and update the tail index.
-	 */
-	if (HwPcrLog->LogInfo.RemainingHwPcrEvents >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
-		HwPcrLog->LogInfo.OverflowCntSinceLastRd++;
-		if (HwPcrLog->HeadIndex == HwPcrLog->TailIndex) {
-			XOcp_UpdateHwPcrIndex(&HwPcrLog->TailIndex, 1U);
-		}
-		HwPcrLog->LogInfo.RemainingHwPcrEvents--;
-	}
-
-	HwPcrLog->Buffer[HwPcrLog->HeadIndex].PcrNo = (u8)PcrNum;
-	Status = XOcp_MemCopy(ExtHashAddr,
-		(u64)(UINTPTR)HwPcrLog->Buffer[HwPcrLog->HeadIndex].Hash,
-		DataSize / XOCP_WORD_LEN, XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		if (Status == XST_SUCCESS) {
-			Status = (int)XST_GLITCH_ERROR;
-		}
-		goto END;
-	}
-
-	Status = XOcp_MemCopy(((u64)(UINTPTR)XOCP_PMC_GLOBAL_PCR_0_0 +
-		((u64)PcrNum * XOCP_PCR_SIZE_BYTES)),
-		(u64)(UINTPTR)HwPcrLog->Buffer[HwPcrLog->HeadIndex].PcrValue,
-		XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		if (Status == XST_SUCCESS) {
-			Status = (int)XST_GLITCH_ERROR;
-		}
-		goto END;
-	}
-
-	HwPcrLog->LogInfo.RemainingHwPcrEvents++;
-	HwPcrLog->LogInfo.TotalHwPcrLogEvents++;
-	XOcp_UpdateHwPcrIndex(&HwPcrLog->HeadIndex, 1U);
-
-	if (XPlmi_IsLoadBootPdiDone() == TRUE) {
-		/** Send Notification to the subscriber about the log update */
-		XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-				XIL_EVENT_ERROR_PCR_LOG_UPDATE);
-	}
-END:
-	return Status;
-}
-#endif
-
-/*****************************************************************************/
-/**
- * @brief	This function counts number of 1's in the given number.
- *
- * @param	Num	Given number to check number of set bits
- *
- * @return	Returns Count number of bits set
- *
- ******************************************************************************/
-static u32 XOcp_CountNumOfOnesInWord(u32 Num)
-{
-	u32 NumTmp = Num;
-	u32 Count = 0U;
-
-	while (NumTmp != 0U)
-	{
-		NumTmp = NumTmp & (NumTmp - 1U);
-		Count++;
-	}
-
-	return Count;
-}
-
 /*****************************************************************************/
 /**
  * @brief       This function provides the pointer to the XOcp_SwPcr
@@ -1808,134 +1344,128 @@ static XOcp_SwPcrConfig *XOcp_GetSwPcrConfigInstance(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function reads tap configuration
- *
- * @param TapConfig Pointer to XOcp_SecureTapConfig
- *
-*****************************************************************************/
-void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig)
-{
-	TapConfig->DapCfg = Xil_In32(XOCP_PMC_TAP_DAP_CFG_OFFSET);
-	TapConfig->InstMask0 = Xil_In32(XOCP_PMC_TAP_INST_MASK_0_OFFSET);
-	TapConfig->InstMask1 = Xil_In32(XOCP_PMC_TAP_INST_MASK_1_OFFSET);
-	TapConfig->DapSecurity = Xil_In32(XOCP_PMC_TAP_DAP_SECURITY_OFFSET);
-	TapConfig->BootDevice = Xil_In32(CRP_BOOT_MODE_USER) &
-			CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function reads PPK eFuse configuration such as
- * 		PPK Hash 0/1/2 , PPK_WR_LK 0/1/2 and PPK_INVALID 0/1/2.
- *
- * @param 	PpkConfig Pointer to XOcp_PpkEfuseConfig
+ * @brief	This function compares the secure state configuration and
+ *          updates the secure state
  *
  * @return
  * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ * 		- Error code on failure
  *
 *****************************************************************************/
-static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
-{
-	int Status = XST_FAILURE;
-	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
-	u32 MiscCtrl = Xil_In32(XOCP_EFUSE_CACHE_MISC_CTRL);
-
-	PpkConfig->Ppk0WrLk = SecureCtrl & XOCP_EFUSE_PPK0_WR_LK_MASK;
-	PpkConfig->Ppk1WrLk = SecureCtrl & XOCP_EFUSE_PPK1_WR_LK_MASK;
-	PpkConfig->Ppk2WrLk = SecureCtrl & XOCP_EFUSE_PPK2_WR_LK_MASK;
-	PpkConfig->Ppk0Invld = MiscCtrl & XOCP_EFUSE_PPK0_INVLD_1_0_MASK;
-	PpkConfig->Ppk1Invld = MiscCtrl & XOCP_EFUSE_PPK1_INVLD_1_0_MASK;
-	PpkConfig->Ppk2Invld = MiscCtrl & XOCP_EFUSE_PPK2_INVLD_1_0_MASK;
-
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk0Hash,
-			(u64)(UINTPTR)XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
-			XOCP_EFUSE_PPK_NUM_OF_BYTES);
-        if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_IN_MEMCPY;
-                goto END;
-        }
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk1Hash,
-			(u64)(UINTPTR)XOCP_EFUSE_PPK_1_HASH_START_OFFSET,
-			XOCP_EFUSE_PPK_NUM_OF_BYTES);
-        if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_IN_MEMCPY;
-                goto END;
-        }
-
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk2Hash,
-			(u64)(UINTPTR)XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
-			XOCP_EFUSE_PPK_NUM_OF_BYTES);
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function reads SPK revocation id eFuse configuration
- *
- * @param 	SpkEfuseConfig Pointer to XOcp_RevocationSpkEfuseConfig
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
- *
-*****************************************************************************/
-static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig)
-{
-	return XPlmi_MemCpy64((u64)(UINTPTR)SpkEfuseConfig->RevocationId,
-			(u64)(UINTPTR)XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET,
-			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function reads OffChip revocation and DmeRevoke eFuse
- * 		configuration
- *
- * @param 	RevokeOtherEfuseConfig Pointer to XOcp_RevocationOtherEfuseConfig
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
- *
-*****************************************************************************/
-static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* RevokeOtherEfuseConfig)
+int XOcp_CheckAndExtendSecureState(void)
 {
 	volatile int Status = XST_FAILURE;
-	u32 DmeFips = Xil_In32(XOCP_EFUSE_CACHE_DME_FIPS);
+	volatile int StatusTmp = XST_FAILURE;
+	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
+	u32 MeasureSecureConfig = TRUE;
+	u32 MeasureTapConfig = TRUE;
+	u32 MeasurePpkConfig = TRUE;
+	u32 MeasureSpkRevokeConfig = TRUE;
+	u32 MeasureOtherRevokeConfig = TRUE;
+	u32 MeasureMiscConfig = TRUE;
 
-	RevokeOtherEfuseConfig->DmeRevoke0 = DmeFips & XOCP_EFUSE_DME_REVOKE_0_MASK;
-	RevokeOtherEfuseConfig->DmeRevoke1 = DmeFips & XOCP_EFUSE_DME_REVOKE_1_MASK;
-	RevokeOtherEfuseConfig->DmeRevoke2 = DmeFips & XOCP_EFUSE_DME_REVOKE_2_MASK;
-	RevokeOtherEfuseConfig->DmeRevoke3 = DmeFips & XOCP_EFUSE_DME_REVOKE_3_MASK;
+	if (SwPcrConfig->IsPcrConfigReceived != TRUE) {
+		XPlmi_Printf(DEBUG_INFO,"Secure State Measurement is not configured \r\n");
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)RevokeOtherEfuseConfig->OffChipRevocationId,
-                        (u64)(UINTPTR)XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET,
-			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
+	Status = XOcp_CheckAndUpdateSecConfigState(&MeasureSecureConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_SECURE_EFUSE_CONFIG;
+		goto END;
+	}
+
+	Status = XOcp_CheckAndUpdateTapConfigState(&MeasureTapConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_SECURE_TAP_CONFIG;
+		goto END;
+	}
+
+	if ((MeasureSecureConfig == TRUE) || (MeasureTapConfig == TRUE)) {
+
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XOcp_MeasureSecureState);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = (int)XOCP_ERR_SECURE_STATE_MEASUREMENT;
+			goto END;
+		}
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
+					(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	Status = XOcp_CheckAndUpdatePpkConfigState(&MeasurePpkConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_PPK_CONFIG;
+                goto END;
+        }
+
+	Status = XOcp_CheckAndUpdateSpkRevokeConfigState(&MeasureSpkRevokeConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_SPK_REVOKE_CONFIG;
+                goto END;
+        }
+
+	Status = XOcp_CheckAndUpdateOtherRevokeConfigState(&MeasureOtherRevokeConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG;
+                goto END;
+        }
+
+	Status = XOcp_CheckAndUpdateMiscConfigState(&MeasureMiscConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_MISC_CONFIG;
+                goto END;
+        }
+
+	/** Any change in PPK eFuses, SPK revocation eFuses, Offchip revocation
+	  * eFuses and miscellaneous eFuses extend the new configuration to
+	  * respective measurement indices of SW PCR 1
+	  */
+	if (MeasurePpkConfig == TRUE) {
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&PpkEfuseConfig,
+				sizeof(XOcp_PpkEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_PPK_CONFIG;
+			goto END;
+		}
+	}
+	if (MeasureSpkRevokeConfig == TRUE) {
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&RevocationSpkEfuseConfig,
+				sizeof(XOcp_RevocationSpkEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG;
+			goto END;
+		}
+	}
+	if (MeasureOtherRevokeConfig == TRUE) {
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&RevocationOtherEfuseConfig,
+				sizeof(XOcp_RevocationOtherEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG;
+			goto END;
+		}
+	}
+	if (MeasureMiscConfig == TRUE) {
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&MiscEfuseConfig,
+				sizeof(XOcp_MiscEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_MISC_CONFIG;
+		}
+	}
+
+END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function reads miscellaneous eFuse configuration those are
- * 		UdsWrLk, HwTstBitsDis, PufDis, PmcScEn, SysmonTempMonEn and DmeMode.
- *
- * @param 	MiscConfig Pointer to XOcp_MiscEfuseConfig
- *
-*****************************************************************************/
-static void XOcp_ReadMiscConfig(XOcp_MiscEfuseConfig* MiscConfig)
-{
-	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
-
-	MiscConfig->UdsWrLk = SecureCtrl & XOCP_EFUSE_UDS_WR_LK_MASK;
-	MiscConfig->HwTstBitsDis = SecureCtrl & XOCP_EFUSE_HWTST_BIT_DIS_MASK;
-	MiscConfig->PufDis = SecureCtrl & XOCP_EFUSE_PUF_DIS_MASK;
-	MiscConfig->PmcScEn = SecureCtrl & XOCP_EFUSE_PMC_SC_EN_MASK;
-	MiscConfig->SysmonTempMonEn = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1) &
-					XOCP_EFUSE_SYSMON_TEMP_MON_EN_MASK;
-	MiscConfig->DmeMode = Xil_In32(XOCP_EFUSE_CACHE_DME_FIPS) &
-					XOCP_EFUSE_DME_MODE_MASK;
 }
 
 /*****************************************************************************/
@@ -1974,6 +1504,7 @@ static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig)
 END:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
  * @brief	This function compares tap configuration with previous configuration
@@ -2235,28 +1766,250 @@ END:
 	return Status;
 }
 
-#ifdef PLM_HW_PCR
 /*****************************************************************************/
 /**
- * @brief       This function provides the pointer to the XOcp_HwPcrLog
- *		instance which has to be used across the file to store the
- *		HW PCR log.
+ * @brief	This function reads PPK eFuse configuration such as
+ * 		PPK Hash 0/1/2 , PPK_WR_LK 0/1/2 and PPK_INVALID 0/1/2.
+ *
+ * @param 	PpkConfig Pointer to XOcp_PpkEfuseConfig
  *
  * @return
- *		Pointer to the XOcp_HwPcrLog instance
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
  *
- ******************************************************************************/
-static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void)
+*****************************************************************************/
+static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 {
-	static XOcp_HwPcrLog HwPcrLog __attribute__ ((aligned(4U))) = {0U};
+	int Status = XST_FAILURE;
+	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
+	u32 MiscCtrl = Xil_In32(XOCP_EFUSE_CACHE_MISC_CTRL);
 
-	EXPORT_OCP_DS(HwPcrLog, XOCP_HWPCR_LOG_DS_ID,
-		XOCP_HWPCR_LOG_VERSION, XOCP_HWPCR_LOG_LCVERSION,
-		sizeof(HwPcrLog), (u32)(UINTPTR)&HwPcrLog);
+	PpkConfig->Ppk0WrLk = SecureCtrl & XOCP_EFUSE_PPK0_WR_LK_MASK;
+	PpkConfig->Ppk1WrLk = SecureCtrl & XOCP_EFUSE_PPK1_WR_LK_MASK;
+	PpkConfig->Ppk2WrLk = SecureCtrl & XOCP_EFUSE_PPK2_WR_LK_MASK;
+	PpkConfig->Ppk0Invld = MiscCtrl & XOCP_EFUSE_PPK0_INVLD_1_0_MASK;
+	PpkConfig->Ppk1Invld = MiscCtrl & XOCP_EFUSE_PPK1_INVLD_1_0_MASK;
+	PpkConfig->Ppk2Invld = MiscCtrl & XOCP_EFUSE_PPK2_INVLD_1_0_MASK;
 
-	return &HwPcrLog;
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk0Hash,
+			(u64)(UINTPTR)XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+        if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+                goto END;
+        }
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk1Hash,
+			(u64)(UINTPTR)XOCP_EFUSE_PPK_1_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+        if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+                goto END;
+        }
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk2Hash,
+			(u64)(UINTPTR)XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+END:
+	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function reads SPK revocation id eFuse configuration
+ *
+ * @param 	SpkEfuseConfig Pointer to XOcp_RevocationSpkEfuseConfig
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig)
+{
+	return XPlmi_MemCpy64((u64)(UINTPTR)SpkEfuseConfig->RevocationId,
+			(u64)(UINTPTR)XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads OffChip revocation and DmeRevoke eFuse
+ * 		configuration
+ *
+ * @param 	RevokeOtherEfuseConfig Pointer to XOcp_RevocationOtherEfuseConfig
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* RevokeOtherEfuseConfig)
+{
+	volatile int Status = XST_FAILURE;
+	u32 DmeFips = Xil_In32(XOCP_EFUSE_CACHE_DME_FIPS);
+
+	RevokeOtherEfuseConfig->DmeRevoke0 = DmeFips & XOCP_EFUSE_DME_REVOKE_0_MASK;
+	RevokeOtherEfuseConfig->DmeRevoke1 = DmeFips & XOCP_EFUSE_DME_REVOKE_1_MASK;
+	RevokeOtherEfuseConfig->DmeRevoke2 = DmeFips & XOCP_EFUSE_DME_REVOKE_2_MASK;
+	RevokeOtherEfuseConfig->DmeRevoke3 = DmeFips & XOCP_EFUSE_DME_REVOKE_3_MASK;
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)RevokeOtherEfuseConfig->OffChipRevocationId,
+                        (u64)(UINTPTR)XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads miscellaneous eFuse configuration those are
+ * 		UdsWrLk, HwTstBitsDis, PufDis, PmcScEn, SysmonTempMonEn and DmeMode.
+ *
+ * @param 	MiscConfig Pointer to XOcp_MiscEfuseConfig
+ *
+*****************************************************************************/
+static void XOcp_ReadMiscConfig(XOcp_MiscEfuseConfig* MiscConfig)
+{
+	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
+
+	MiscConfig->UdsWrLk = SecureCtrl & XOCP_EFUSE_UDS_WR_LK_MASK;
+	MiscConfig->HwTstBitsDis = SecureCtrl & XOCP_EFUSE_HWTST_BIT_DIS_MASK;
+	MiscConfig->PufDis = SecureCtrl & XOCP_EFUSE_PUF_DIS_MASK;
+	MiscConfig->PmcScEn = SecureCtrl & XOCP_EFUSE_PMC_SC_EN_MASK;
+	MiscConfig->SysmonTempMonEn = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1) &
+					XOCP_EFUSE_SYSMON_TEMP_MON_EN_MASK;
+	MiscConfig->DmeMode = Xil_In32(XOCP_EFUSE_CACHE_DME_FIPS) &
+					XOCP_EFUSE_DME_MODE_MASK;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function prints the given data on the console
+ *
+ * @param   Data	Pointer to any given data buffer
+ * @param   Size	Size of the given buffer
+ * @param   Str		Pointer to the data that is printed along the data
+ * @param   LogLevel 	Printing of the array will happen as defined by the debug type
+ *
+ *****************************************************************************/
+static void XOcp_PrintData(const u8 *Data, u32 Size, char *Str, u32 LogLevel)
+{
+	u32 Index;
+
+	if (((LogLevel) & XPlmiDbgCurrentTypes) != 0U) {
+		XPlmi_Printf_WoTS(LogLevel,"%s START:\n\r", Str);
+		for (Index = 0U; Index < Size; Index++) {
+			XPlmi_Printf_WoTS(LogLevel,"%02x", Data[Index]);
+		}
+		XPlmi_Printf_WoTS(LogLevel,"\r\n");
+		XPlmi_Printf_WoTS(LogLevel,"%s END\n\r", Str);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets the PCR value from requested SW PCR/HW PCR.
+ *
+ * @param	PcrMask Mask to tell which PCRs to read
+ * @param	PcrBuf 	Address of the 48 bytes buffer to store the
+ * 		requested PCR contents
+ * @param	PcrBufSize Size of the PCR buffer provided
+ * @param	PcrType	HW PCR or SW PCR
+ *
+ * @return
+ *		- XST_SUCCESS - If PCR contents are copied
+ *		- XST_FAILURE - Upon failure
+ *		- XST_INVALID_PARAM - if parameter is invalid
+ *
+ ******************************************************************************/
+static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
+{
+	int Status = XST_FAILURE;
+	u8 ExtendedHash[XOCP_PCR_HASH_SIZE_IN_BYTES] = {0U};
+	u32 NumOfBitsSetInMask;
+	u32 Mask = PcrMask;
+	u32 PcrOffset = 0U;
+	u32 BufOffset = 0U;
+	u32 PcrNum = 0U;
+
+	NumOfBitsSetInMask = XOcp_CountNumOfOnesInWord(Mask);
+	if (PcrBufSize < (NumOfBitsSetInMask * XOCP_PCR_SIZE_BYTES)) {
+		Status = (int)XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM;
+		goto END;
+	}
+	if (NumOfBitsSetInMask == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (Mask > XOCP_GET_ALL_PCR_MASK) {
+		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
+		goto END;
+	}
+
+	while (Mask != 0x0U) {
+		if ((Mask & 0x01U) != 0U) {
+			if (PcrType == XOCP_SW_PCR) {
+				Status = XOcp_CalculateSwPcr(PcrNum, ExtendedHash);
+				if (Status != XST_SUCCESS) {
+					break;
+				}
+				PcrOffset = (u32)(UINTPTR)&ExtendedHash;
+			}
+			else {
+#ifdef PLM_HW_PCR
+				PcrOffset = XOCP_PMC_GLOBAL_PCR_0_0 + (u32)(PcrNum * XOCP_PCR_SIZE_BYTES);
+				if (PcrOffset > XOCP_PMC_GLOBAL_PCR_7_0) {
+					Status = (int)XOCP_PCR_ERR_PCR_SELECT;
+					goto END;
+				}
+#else
+				Status = XST_INVALID_PARAM;
+				goto END;
 #endif
-#endif /* PLM OCP */
+			}
+			Status = XOcp_MemCopy(PcrOffset,
+					PcrBuf + BufOffset,
+					XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
+			if (Status != XST_SUCCESS) {
+				break;
+			}
+
+			Status = Xil_SecureZeroize(ExtendedHash, XOCP_PCR_SIZE_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+			BufOffset += XOCP_PCR_SIZE_BYTES;
+		}
+		Mask = Mask >> 1U;
+		PcrNum++;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function counts number of 1's in the given number.
+ *
+ * @param	Num	Given number to check number of set bits
+ *
+ * @return	Returns Count number of bits set
+ *
+ ******************************************************************************/
+static u32 XOcp_CountNumOfOnesInWord(u32 Num)
+{
+	u32 NumTmp = Num;
+	u32 Count = 0U;
+
+	while (NumTmp != 0U)
+	{
+		NumTmp = NumTmp & (NumTmp - 1U);
+		Count++;
+	}
+
+	return Count;
+}
+#endif /* PLM_OCP */
 /** @} */

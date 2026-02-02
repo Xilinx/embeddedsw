@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       tvp  05/15/25 Enable hardware PCR functionality only if PLM_HW_PCR is defined
 *       tvp  05/15/25 Disable attestation with unwrapped key for Versal_2vp
 * 1.7   Nik  11/21/25 Removed UINTPTR typecast of 64 bit variable to avoid truncation risks
+*       rmv  01/30/26 Refactor xilocp library
 *
 * </pre>
 *
@@ -42,10 +43,10 @@
 #include "xplmi_config.h"
 
 #ifdef PLM_OCP
-#include "xocp.h"
+#include "xocp_generic.h"
 #include "xocp_ipihandler.h"
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#include "xocp_keymgmt_native.h"
 #endif
 #include "xocp_common.h"
 #include "xocp_def.h"
@@ -55,9 +56,11 @@
 #include "xsecure_defs.h"
 #include "xsecure_ellipticplat.h"
 #include "xsecure_elliptic.h"
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
+#ifdef PLM_OCP_KEY_WRAP
 #include "xsecure_plat_rsa.h"
 #endif
+#include "xocp_pcr.h"
+#include "xocp_dme.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -72,10 +75,10 @@ static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
 			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries);
 #endif
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow, u32 GetX509CertAddrHigh, u32 SubSystemID);
 static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow, u32 AttestWithDevAkHigh, u32 SubSystemID);
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
+#ifdef PLM_OCP_KEY_WRAP
 static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAddrHigh, u32 AttnPloadSize,
 	u32 PubKeyOffset, u32 SignatureAddrLow, u32 SignatureAddrHigh, u32 SubSystemID);
 #endif
@@ -124,7 +127,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		case XOCP_API(XOCP_API_GETX509CERT):
 			Status = XOcp_GetX509CertificateIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
@@ -137,7 +140,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_GenSharedSecretWithDevAkIpi(Cmd->SubsystemId, Pload[0], Pload[1],
 				Pload[2], Pload[3]);
 			break;
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
+#ifdef PLM_OCP_KEY_WRAP
 		case XOCP_API(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK):
 			Status = XOcp_AttestWithKeyWrapDevAkIpi(Pload[0], Pload[1],
 				Pload[2], Pload[3], Pload[4], Pload[5], Cmd->SubsystemId);
@@ -285,7 +288,7 @@ END:
 	return Status;
 }
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 /*****************************************************************************/
 /**
  * @brief   This function handler calls XOcp_GetX509Certificate server API to
@@ -388,7 +391,7 @@ static int XOcp_GenSharedSecretWithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 	return Status;
 }
 
-#if !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP)
+#ifdef PLM_OCP_KEY_WRAP
 /*****************************************************************************/
 /**
  * @brief	This function handler calls XOcp_AttestWithKeyWrapDevAk server API to
@@ -466,7 +469,7 @@ END:
 }
 
 #endif
-#endif /* PLM_OCP_KEY_MNGMT */
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 
 /*****************************************************************************/
 /**

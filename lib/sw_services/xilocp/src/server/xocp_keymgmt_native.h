@@ -1,23 +1,21 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
 *
-* @file xocp_keymgmt.h
+* @file xocp_keymgmt_native.h
 * @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
 * @{
-*
-* @cond xocp_internal
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date         Changes
-* ----- ---- ----------   -------------------------------------------------------
+* Ver   Who  Date     Changes
+* ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   vns  07/08/2022   Initial release
 *       vns  01/10/2023   Adds logic to generate the DEVA on subsystem based.
 * 1.2   har  02/24/2023   Added macro XOCP_INVALID_USR_CFG_INDEX
@@ -31,15 +29,13 @@
 *			  from xocp_keymgmt.h file to xocp.h file as exported function.
 *       tvp  05/14/2025   Use platform independent TRNG related macros
 *       tvp  05/15/2025   XOcp_ShutdownHandler is not applicable for Versal_2vp
+* 1.7   rmv  01/30/2026   Refactor OCP library
 *
 * </pre>
 *
-* @note
-* @endcond
-*
-******************************************************************************/
-#ifndef XOCPKEYMGMT_SERVER_H
-#define XOCPKEYMGMT_SERVER_H
+**************************************************************************************************/
+#ifndef XOCP_KEYMGMT_NATIVE_H
+#define XOCP_KEYMGMT_NATIVE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,9 +44,11 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp.h"
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#include "xocp_generic.h"
 #include "xocp_common.h"
+#include "xocp_dice_dme.h"
+#include "xplmi_plat.h"
 #include "xsecure_sha.h"
 #include "xsecure_trng.h"
 
@@ -58,7 +56,6 @@ extern "C" {
 /** @cond xocp_internal
  * @{
  */
-#define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U) /**< DNA cache */
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_WORDS		(4U) /**< DNA size in words */
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(16U) /**< DNA size in bytes */
 #define XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES		(48U) /**< Trng seed size in bytes */
@@ -146,14 +143,13 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);
 #endif
 int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr);
-#ifndef VERSAL_2VE_2VM
 int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen);
-#endif
+
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* PLM_OCP_KEY_MNGMT */
-#endif /* XOCPKEYMGMT_SERVER_H */
+#endif /* XOCP_KEYMGMT_NATIVE_H */
 /** @} */

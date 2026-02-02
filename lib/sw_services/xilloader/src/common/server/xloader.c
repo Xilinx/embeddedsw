@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -205,6 +205,7 @@
 * 2.4   tvp 26/12/2025 Allow secondary PDI loading after secure boot
 * 		abh 10/09/2025 Fixed MISRA-C violations
 *       tvp 01/23/2026 Run SHA KAT during boot
+*       rmv 01/30/2026 Renamed OCP header files and keymanagment macro
 *
 * </pre>
 *
@@ -242,7 +243,7 @@
 #include "xloader_plat.h"
 #include "xplmi_err.h"
 #ifdef VERSAL_NET
-#include "xocp_keymgmt.h"
+#include "xocp.h"
 #endif
 #include "xpm_device.h"
 #include "xpm_pldevice.h"
@@ -260,7 +261,7 @@
 		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info
 					     tables in the available buffer */
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #define XLOADER_PMC_SUBSYSTEM_ID			(0x1C000001U)
 						/**< PMC Subsystem ID */
 #define XLOADER_SUBSYTEM_ID_MASK			(0x1C00000FU)
@@ -611,7 +612,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	volatile u32 DecKeySrcTmp;
 #endif
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32 Index;
 #endif
 
@@ -937,7 +938,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		goto END;
 	}
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	for (Index = 0; Index < PdiPtr->MetaHdr->ImgHdrTbl.NoOfImgs; Index++) {
 
 		if (PdiPtr->MetaHdr->ImgHdr[Index].ImgID == XLOADER_PMC_SUBSYSTEM_ID) {

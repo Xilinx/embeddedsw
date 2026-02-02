@@ -1,23 +1,23 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
 *
-* @file xocp_keymgmt.c
+* @file xocp_keymgmt_native.c
 * @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
 * @{
 *
-* This file contains the implementation of the interface functions for key
-* management related to DEVIK and DEVAK.
+* This file contains the XilOcp KeyMgmt APIs.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
+* ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   vns  07/08/22 Initial release
 * 1.1   vns  12/27/22 Skips the device key generation if CDI is not valid
 *       vns  01/10/23 Adds logic to generate the DEVAK on subsystem based.
@@ -46,38 +46,30 @@
 *       tvp  05/16/25 Use SHA3 for Versal_2vp
 *       tvp  05/16/25 Don't export OCP DS for Versal_2vp
 *       tvp  05/16/25 Add support for Versal_2vp
+* 1.7   rmv  01/30/26 Refactor OCP library
 *
 * </pre>
-* @note
 *
-******************************************************************************/
+**************************************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#include "xocp_hw.h"
-#include "xocp_def.h"
-#include "xocp_common.h"
-#include "xplmi_dma.h"
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#include "xocp_keymgmt_native.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
-#include "xsecure_hmac.h"
-#include "xsecure_elliptic.h"
-#include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_ellipticplat.h"
 #include "xil_util.h"
-#include "xsecure_init.h"
-#include "xsecure_plat_kat.h"
 #include "xcert_genx509cert.h"
-#include "xsecure_defs.h"
 #include "xocp_sha.h"
 #ifndef VERSAL_2VP
 #include "xplmi_update.h"
 #endif
-#include "xsecure_trng.h"
 #include "xsecure_kat.h"
+#include "xocp_keymgmt_common.h"
+#include "xocp_dme.h"
+#include "xocp_plat.h"
 
 /************************** Constant Definitions *****************************/
 /** @cond xocp_internal
@@ -767,7 +759,7 @@ END:
 	return Status;
 }
 
-#ifndef VERSAL_2VP
+#ifdef VERSAL_NET
 /*****************************************************************************/
 /**
  * @brief	This function zeroizes DEVIK and CDI SEED during OCP module shutdown.
@@ -1100,7 +1092,6 @@ END:
 	return Status;
 }
 
-#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief	This function stores the app version for the given subsystem ID
@@ -1158,8 +1149,6 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
 END:
 	return Status;
 }
-#endif
 
-
-#endif /* PLM_OCP_KEY_MNGMT */
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 /** @} */

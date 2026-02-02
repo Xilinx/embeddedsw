@@ -64,6 +64,7 @@
 *       obs  12/30/2025 Added explicit CPU validation in XLoader_ProcessElf
 * 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
 * 		abh  10/09/2025 Fixed MISRA-C violations
+*       rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *
 * </pre>
 *
@@ -89,9 +90,6 @@
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
 #include "xocp.h"
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
 #include "xsecure_sha.h"
 #include "xsecure_init.h"
 #endif
@@ -125,7 +123,7 @@
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
 #endif
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #define XLOADER_OPT_DATA_HDR_LEN			(4U)	/**< Length of optional data header in bytes*/
 #define XLOADER_OPT_DATA_CHECKSUM_LEN			(4U)	/**< Length of optional data checksum in bytes*/
@@ -1354,7 +1352,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 #endif /* PLM_SECURE_EXCLUDE */
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 
 	Status = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID, DevAkIndex);
@@ -1373,7 +1371,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		Status = XST_SUCCESS;
 		goto END;
 	}
-#endif /* PLM_OCP_KEY_MNGMT */
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 
 #ifndef PLM_SECURE_EXCLUDE
 	Status = XLoader_RunSha3Engine1Kat(PdiPtr);
@@ -1402,7 +1400,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 		if ((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX) ||
 			(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX)) {
 			/* Generate DEVAK */
@@ -1412,7 +1410,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				goto END;
 			}
 		}
-#endif /* PLM_OCP_KEY_MNGMT */
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
 			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
@@ -1898,7 +1896,7 @@ int XLoader_CheckAndUpdateSecureState(void)
 	return Status;
 }
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 /*****************************************************************************/
 /**
  * @brief	This function gets the app version from the optional data and

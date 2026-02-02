@@ -1,5 +1,5 @@
 /******************************************************************************
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPLMI_BSP_CONFIG_H
@@ -38,7 +38,7 @@
 #cmakedefine    PLM_BANNER_TIMESTAMP_EXCLUDE
 #cmakedefine    PLM_ENABLE_RESTORE_MULTIBOOT
 #cmakedefine    PLM_TPM_EXCLUDE
-#cmakedefine    PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE
+#cmakedefine    PLM_OCP_KEY_MGMT_EXCLUDE
 #cmakedefine    PLM_CFG_LIMITER_EN
 #cmakedefine    PLM_ENABLE_ADDR_RANGE_VALIDATION
 #cmakedefine    PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT

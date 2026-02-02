@@ -41,6 +41,7 @@
 *       tvp  09/18/2025 Remove use of DME extension for Versal_2vp
 * 1.6   vm   12/18/2025 Add validation for certificate size
 *       rpu  01/17/2026 Add Layer field to TCB Info extension
+*       rmv  01/30/2026 Renamed OCP keymanagment macro
 * </pre>
 * @note
 *
@@ -52,7 +53,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #include "xsecure_ellipticplat.h"
 #include "xcert_sha.h"
 #include "xcert_genx509cert.h"
@@ -2748,7 +2749,7 @@ static int XCert_GenLayerField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *LayerLen)
 }
 #endif /* VERSAL_2VE_2VM */
 
-#endif  /* PLM_OCP_KEY_MNGMT */
+#endif  /* PLM_OCP_NATIVE_KEY_MGMT */
 
 /**
  * @}
