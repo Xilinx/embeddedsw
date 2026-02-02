@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -85,8 +85,6 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_Init(void);
 static s32 XAsufw_ModulesInit(void);
-static void XAsufw_StartKatTasks(void);
-static void XAsufw_StartKeyTransferTasks(void);
 static void XAsufw_SetAsufwPresentBit(void);
 
 /************************************ Variable Definitions ***************************************/
@@ -135,20 +133,20 @@ int main(void)
 		goto END;
 	}
 
-	/** Create and trigger KAT task. */
-	XAsufw_StartKatTasks();
-
-	/**
-	 * Create and trigger task created for Key transfer and DME KEK derivation if PUF
-	 * regeneration is successful.
-	 */
-	XAsufw_StartKeyTransferTasks();
-
 	/**
 	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register and RTCA address reserved for FW_IS_PRSNT.
 	 * Clients need to check the bit in RTCA area before sending any requests to ASUFW.
 	 */
 	XAsufw_SetAsufwPresentBit();
+
+	/** Run KATs for all crypto modules. */
+	XAsufw_RunCryptoKats();
+
+	/**
+	 * Run key transfer and PUF regeneration.
+	 * Run DME KEK derivation if PUF regeneration is successful.
+	 */
+	XAsufw_RunKeyTransfer();
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
@@ -361,42 +359,6 @@ static s32 XAsufw_ModulesInit(void)
 
 END:
 	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function creates KAT tasks and triggers them, the task will be deleted after
- * 		the execution of the KATs.
- *
- *************************************************************************************************/
-static void XAsufw_StartKatTasks(void)
-{
-	XTask_TaskNode *KatTask = XTask_Create(XTASK_PRIORITY_0, XAsufw_RunKatTaskHandler, NULL,
-		0U);
-
-	if (KatTask != NULL) {
-		/* Self-reference for deletion. */
-		KatTask->PrivData = KatTask;
-		XTask_TriggerNow(KatTask);
-	}
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function creates key transfer tasks and triggers them, the task will be deleted
- * 		after the execution of the key transfer tasks.
- *
- *************************************************************************************************/
-static void XAsufw_StartKeyTransferTasks(void)
-{
-	XTask_TaskNode *KeyTransferTask = XTask_Create(XTASK_PRIORITY_0,
-		XAsufw_RunKeyTransferTaskHandler, NULL, 0U);
-
-	if (KeyTransferTask != NULL) {
-		/* Self-reference for deletion. */
-		KeyTransferTask->PrivData = KeyTransferTask;
-		XTask_TriggerNow(KeyTransferTask);
-	}
 }
 
 /*************************************************************************************************/

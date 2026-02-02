@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -70,7 +70,7 @@ void XAsufw_PrintAsuTimeStamp(void);
 void XAsufw_RtcaInit(void);
 s32 XAsufw_PmcKeyTransfer(void);
 void XAsufw_UpdateModulesInfo(void);
-s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask);
+s32 XAsufw_RunKeyTransfer(void);
 
 /************************************ Variable Definitions ***************************************/
 

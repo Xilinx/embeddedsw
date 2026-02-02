@@ -476,19 +476,17 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function executes the key transfer task handler.
- *
- * @param	KeyTransferTask		Pointer to the key transfer task instance.
+ * @brief	This function executes the key transfer and generates DME KEK if PUF regeneration
+ * 		is successful.
  *
  * @return
- *	- XASUFW_SUCCESS, if key transfer task is handled successfully.
+ *	- XASUFW_SUCCESS, if key transfer is successful.
  *	- XASUFW_FAILURE, in case of failure.
  *
  *************************************************************************************************/
-s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
+s32 XAsufw_RunKeyTransfer(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	XTask_TaskNode *SelfKeyTransferTask = (XTask_TaskNode *)KeyTransferTask;
 	u8 AesKatStatus = *XAsu_GetKatStatusPtr(XASU_MODULE_AES_ID);
 
 	/** Get keys from PMC. */
@@ -514,9 +512,6 @@ s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
 	}
 
 END:
-	/** Delete self task after completion. */
-	XTask_Delete(SelfKeyTransferTask);
-
 	return Status;
 }
 

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -97,7 +97,7 @@ static inline u8 *XAsu_GetKatStatusPtr(u32 ModuleId)
 	(GetModuleInfoPtr()[ModuleId].KatStatus == XASUFW_KAT_STATUS_PASS)
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_RunKatTaskHandler(void *KatTask);
+s32 XAsufw_RunCryptoKats(void);
 s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resource ShaResource,
 	u32 ShaMode);
 #ifdef XASU_RSA_PADDING_ENABLE
