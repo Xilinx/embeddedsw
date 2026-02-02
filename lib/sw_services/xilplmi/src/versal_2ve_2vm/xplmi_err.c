@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -455,7 +455,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_LPX_AFIFM_NONFATAL_ERR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_ASU_FATAL] =
-	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SLD_WITH_IO_TRI, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_ASU_NON_FATAL] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPX_AFIFS_CORR_ERR] =
