@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -158,7 +158,6 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 	}
 
 	/** Check if there is any pending IPI message. */
-	/* TODO: Need to change timeout value */
 	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
@@ -210,7 +209,6 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 	}
 
 	/** Check if the IPI interrupt is processed. */
-	/* TODO: Need to change timeout value */
 	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);

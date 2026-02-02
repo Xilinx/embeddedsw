@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -212,7 +212,7 @@ s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/* TODO: Validate Delay with max value */
+	/** Validate task handler. */
 	if (Task->TaskHandler == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
 		goto END;

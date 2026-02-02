@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -49,7 +49,6 @@
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
 #define XECC_TIMEOUT_MAX		(5000U) /**< ECC done timeout of 5ms */
-						/* TBD: need to calculate as part of VNC */
 #define XECC_DOUBLE_CURVE_LENGTH_SHIFT	(0x1U) /**< Shift value to double the curve length */
 #define XECC_SUPPRESS_SCP_SCP2_MASK	(XECC_CTRL_SUPPRESS_SCP_MASK | \
 		XECC_CTRL_SUPPRESS_SCP2_MASK)  /**< Mask for enabling suppress SCP and SCP2 */

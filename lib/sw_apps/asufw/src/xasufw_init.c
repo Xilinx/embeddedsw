@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -136,8 +136,6 @@ static void XAsufw_ExceptionEnable(void)
 		Xil_ExceptionRegisterHandler(Index, XAsufw_ExceptionHandler, (void *)Status);
 	}
 
-	/* TODO: Register separate handler for illegal instruction trap to execute secure lockdown */
-
 	/** Register the IO module interrupt handler with the exception table. */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
@@ -164,13 +162,8 @@ static void XAsufw_ExceptionHandler(void *Data)
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x, "
 			"CSR(mtval): 0x%x\r\n", csrr(mstatus), csrr(mcause), csrr(mtval));
 
-	/** Trigger Fatal error to PLM. */
+	/** Trigger Fatal error to PLM which performs secure lockdown with IO tri-state. */
 	XAsufw_SendErrorToPlm(XASUFW_FATAL_ERROR, (s32)Data);
-
-	/*
-	 * TODO: Need to add an illegal instruction trap here so that its respective handler will be
-	 * called which will execute secure lockdown
-	 */
 
 	/** Enters infinite loop just in case if control reaches here. */
 	while (XASU_TRUE) {
