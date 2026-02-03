@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 * 1.10  ng   07/06/2023 Added support for SDT flow
 *       pre  14/12/2023 Fixed compilation warnings
 *       pre  09/08/2025 Limited printtobuf to lower nibble only
+* 2.4	abh  10/27/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -77,7 +78,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#if (XPLMI_UART_NUM_INSTANCES)
+#if (XPLMI_UART_NUM_INSTANCES > 0U)
 #define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U) /**< SPP Input Clk Freq
 						should be 25 MHz */
 #define XPLMI_UART_SELECT_CURRENT	(0U) /**< Flag indicates current uart is selected */
