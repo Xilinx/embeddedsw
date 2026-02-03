@@ -21,6 +21,7 @@
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 * 2.4   sk   01/18/2026 Moved PSM EAM Reg Saving Code to PM Init Function.
 *                       Added function to save LPD EAM register info to RTCA on SRST
+* 2.4   abh  10/27/2025 Fixed MISRA-C violation
 *
 * </pre>
 *
@@ -54,7 +55,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask);
 * 			- None
 *
 ****************************************************************************/
-void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
+static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId;
 	XPlmi_EventType ErrorNodeType = (XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId);
