@@ -428,12 +428,12 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 		/* Disable all the Error Actions */
 		for (Index = 0U; Index < XPLMI_PMC_MAX_ERR_CNT; Index++) {
 			(void)EmDisableErrAction(
-			GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)),
+			(u32)GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)),
 			MASK32_ALL_HIGH);
 		}
 		for (Index = 0U; Index < XPLMI_LPDSLCR_MAX_ERR_CNT; Index++) {
 			(void)XPlmi_EmDisableLpdSlcrErrors(
-			GET_LPDSLCR_PMC3_ERR_MASK(Index), MASK32_ALL_HIGH);
+			(u32)GET_LPDSLCR_PMC3_ERR_MASK(Index), MASK32_ALL_HIGH);
 		}
 
 		/* Disable & Acknowledge Interrupts */
@@ -812,7 +812,7 @@ int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
 		Status = (int)XPLMI_ERR_INVALID_ROM_INT_REQ;
 		goto END;
 	}
-	IntrMask = (u32)1 << RomServiceReq;
+	IntrMask = (u32)1 << (u32)RomServiceReq;
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
 	/* Generate ROM interrupt */
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT, IntrMask);
