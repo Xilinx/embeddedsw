@@ -1590,7 +1590,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihAesCtxClear;
-	u32 Index;
+	volatile u32 Index = 0U;
 
 	/** Validate the input arguments.*/
 	if (InstancePtr == NULL) {
@@ -1634,6 +1634,11 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_MASK_IN_0_OFFSET +
 			(Index * XASUFW_WORD_LEN_IN_BYTES), AesContext.IvMaskOut[Index]);
 #endif
+	}
+
+	if (Index != XASUFW_BUFFER_INDEX_FOUR) {
+		Status = XASUFW_AES_ERR_CTX_RESTORE_GLITCH;
+		goto END;
 	}
 
 	/** Trigger IV Load. */

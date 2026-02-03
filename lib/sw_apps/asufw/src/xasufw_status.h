@@ -633,6 +633,9 @@ enum {
 	XASUFW_KEYMANAGER_KEY_EXPIRED, /**< 0x1B9U - Error when key is expired. */
 	XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED, /**< 0x1BAU - Error when number of subsystems in CDO
 						exceeds maximum */
+	XASUFW_AES_ERR_CTX_RESTORE_GLITCH, /**< 0x1BBU - Error when AES context restore did not
+						complete, possibly due to glitch or control flow
+						disruption. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */
