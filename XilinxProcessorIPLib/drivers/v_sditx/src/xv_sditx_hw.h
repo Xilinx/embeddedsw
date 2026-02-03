@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -118,7 +118,7 @@ extern "C" {
 #define XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT		21
 #define XV_SDITX_MDL_CTRL_VID_FRMTYUV444_SHIFT		22
 
-/* Global interrupt Enable regiser masks */
+/* Global interrupt Enable register masks */
 #define XV_SDITX_GIER_GIE_MASK				(1<<0)
 #define XV_SDITX_GIER_GIE_SHIFT				0
 #define XV_SDITX_GIER_SET				1

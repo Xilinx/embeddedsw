@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C)2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +48,7 @@
 /**
 *
 * Runs a self-test on the driver/device. This test checks if the mode control
-* register valus have the default values.
+* register values have the default values.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx instance.
 *

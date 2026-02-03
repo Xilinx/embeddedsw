@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -894,7 +894,7 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 * @param    DataStream specifies the stream which ST352 payload id is to be
 *	inserted.
-* @param    Payload specfies the data to be sent out as ST352 payload id.
+* @param    Payload specifies the data to be sent out as ST352 payload id.
 *
 * @return   None.
 *
@@ -1062,8 +1062,8 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 #endif
 	/*
 	 * Dynamic BPC Configuration in SDI Tx.
-	 * Note: Pass throgh app directly passing the structure.
-	 * to make application to work seemlessly adding the Dynamic
+	 * Note: Pass through app directly passing the structure.
+	 * to make application to work seamlessly adding the Dynamic
 	 * configuration in below.
 	 */
 	#ifdef XPAR_XV_SDITX_0_DBPC
@@ -1099,7 +1099,7 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 	u32 Data;
 
 	/* Following assertions make sure the IP is configured with in the
-	 * subcore GUI paramter limit
+	 * subcore GUI parameter limit
 	 */
 	Xil_AssertVoid(((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_3G) &&
 			(SdiMode <= XSDIVID_MODE_3GB)) ||
@@ -1153,7 +1153,7 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
 * @return
-*		- XST_SUCCESS if register write is successfule for SDI stop
+*		- XST_SUCCESS if register write is successful for SDI stop
 *		- XST_FAILURE if SDI stop write is failed
 *
 * @note		None.
@@ -1239,7 +1239,7 @@ void XV_SdiTx_ST352CStreamEnable(XV_SdiTx *InstancePtr)
 * @param	ColorFormat is a variable of type XVidC_ColorFormat.
 *
 * @return
-*		- XST_SUCCESS if register write is successfule for SDI stop
+*		- XST_SUCCESS if register write is successful for SDI stop
 *		- XST_FAILURE if SDI stop write is failed
 *
 * @note		None.
