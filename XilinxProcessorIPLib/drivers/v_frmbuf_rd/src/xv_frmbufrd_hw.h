@@ -1,6 +1,6 @@
 // ==============================================================
-// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 /**
@@ -82,36 +82,94 @@ extern "C" {
 // 0x6c : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
+ /* Control register address - Start, status, and configuration bits */
 #define XV_FRMBUFRD_CTRL_ADDR_AP_CTRL                  	0x00
+
+/** Bit position for flush operation in control register */
 #define XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT_POS	      	   	(5)
+
+/** Flush bit mask - Write 1 to flush pending AXI transactions */
 #define XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT		           	(1 << XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT_POS)
+
+/** Bit position for flush done status in control register */
 #define XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT_POS      	(6)
+
+/** Flush done status bit mask - Read 1 when flush operation completes */
 #define XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT          	(1 << XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT_POS)
+
+/** Global Interrupt Enable register address */
 #define XV_FRMBUFRD_CTRL_ADDR_GIE                      	0x04
+
+/** Interrupt Enable register address - Enable specific interrupt channels */
 #define XV_FRMBUFRD_CTRL_ADDR_IER                      	0x08
+
+/** Interrupt Status register address - Read/clear interrupt status */
 #define XV_FRMBUFRD_CTRL_ADDR_ISR                      	0x0c
+
+/** Frame width register address */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA         	0x10
+
+/** Frame width bit width (16 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_WIDTH_DATA         	16
+
+/** Frame height register address */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA        	0x18
+
+/** Frame height bit width (16 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_HEIGHT_DATA        	16
+
+/** Frame stride (line width in bytes) register address */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA        	0x20
+
+/** Frame stride bit width (16 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_STRIDE_DATA        	16
+
+/** Video format register address */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA  	0x28
+
+/** Video format bit width (16 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA  	16
+
+/** Frame buffer base address register (lower 32 bits at 0x30, upper 32 bits at 0x34) */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA  	0x30
+
+/** Frame buffer address bit width (64 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER_V_DATA  	64
+
+/** Second frame buffer base address register (lower 32 bits at 0x3c, upper 32 bits at 0x40) */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA 	0x3c
+
+/** Second frame buffer address bit width (64 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER2_V_DATA 	64
+
+/** Field ID input register address - Specifies current field (top/bottom) */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA      	0x48
+
+/** Field ID bit width (1 bit) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FIELD_ID_DATA      	0x1
+
+/** Field ID output mode configuration register address */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIDOUTMODE_DATA     0x50
+
+/** Field ID output mode bit width (2 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FIDOUTMODE_DATA     0x3
+
+/** Field ID error input register address */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FID_ERROR_DATA     	0x58
+
+/** Field ID error bit width (1 bit) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FID_ERROR_DATA     	0x1
+
+/** Field output status register address - Read current output field */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_OUT_DATA 	0x60
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FIELD_OUT_DATA 	0x1
+
+/** Third frame buffer base address register (lower 32 bits at 0x74, upper 32 bits at 0x78) */
 #define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA  0x74
+
+/** Third frame buffer address bit width (64 bits) */
 #define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER3_V_DATA  64
+
 
 #ifdef __cplusplus
 }

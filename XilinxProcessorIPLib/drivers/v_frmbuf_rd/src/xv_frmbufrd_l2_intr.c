@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2017-2022 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -105,8 +105,6 @@ int XVFrmbufRd_SetCallback(XV_FrmbufRd_l2 *InstancePtr, u32 HandlerType,
  *
  * @param    InstancePtr is a pointer to the core instance that just
  *           interrupted.
- *
- * @return   None.
  *
  * @note     None.
  *

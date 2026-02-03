@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
+* Copyright (C) 2017-2022 Xilinx, Inc. All Rights Reserved.
 * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -301,7 +301,6 @@ static void SetPowerOnDefaultState(XV_FrmbufRd_l2 *InstancePtr)
  * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
  * @param IrqMask     is the interrupt mask the driver interrupt handler
  * 	      			  passes to the callback function.
- * @return None.
  *
  * @note The InstancePtr must not be NULL.
  */
@@ -328,7 +327,6 @@ void XVFrmbufRd_InterruptEnable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask)
  * @param  InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
  * @param  IrqMask is the interrupt mask the driver interrupt handler
  * 	       passes to the callback function.
- * @return None.
  *
  * @note The InstancePtr must not be NULL.
  */
@@ -352,8 +350,6 @@ void XVFrmbufRd_InterruptDisable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask)
  * that the provided instance pointer is not NULL before proceeding.
  *
  * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
- *
- * @return none
  */
 void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr)
 {
@@ -1091,8 +1087,6 @@ u32 XVFrmbufRd_Get_FieldOut(XV_FrmbufRd_l2 *InstancePtr)
  *
  * Preconditions:
  * - InstancePtr must not be NULL.
- *
- * @return none
  */
 void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr)
 {

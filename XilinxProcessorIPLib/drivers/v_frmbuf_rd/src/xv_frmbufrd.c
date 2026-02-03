@@ -1,6 +1,6 @@
 // ==============================================================
-// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -57,8 +57,6 @@ int XV_frmbufrd_CfgInitialize(XV_frmbufrd *InstancePtr,
  * and sets the start bit to begin processing.
  *
  * @param InstancePtr Pointer to the XV_frmbufrd instance.
- *
- * @return None.
  */
 void XV_frmbufrd_Start(XV_frmbufrd *InstancePtr) {
     u32 Data;
@@ -144,8 +142,6 @@ u32 XV_frmbufrd_IsReady(XV_frmbufrd *InstancePtr) {
  * instance pointer is valid and that the core is ready.
  *
  * @param InstancePtr Pointer to the XV_frmbufrd instance.
- *
- * @return None.
  */
 void XV_frmbufrd_EnableAutoRestart(XV_frmbufrd *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -354,8 +350,6 @@ u32 XV_frmbufrd_Get_HwReg_stride(XV_frmbufrd *InstancePtr) {
  *
  * @param  InstancePtr Pointer to the XV_frmbufrd instance.
  * @param  Data        The video format data to be written to the hardware register.
- *
- * @return none
  */
 void XV_frmbufrd_Set_HwReg_video_format(XV_frmbufrd *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -398,8 +392,6 @@ u32 XV_frmbufrd_Get_HwReg_video_format(XV_frmbufrd *InstancePtr) {
  * Preconditions:
  *   - InstancePtr must not be NULL.
  *   - InstancePtr->IsReady must be set to XIL_COMPONENT_IS_READY.
- *
- * @return None.
  */
 void XV_frmbufrd_Set_HwReg_frm_buffer_V(XV_frmbufrd *InstancePtr, u64 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -445,8 +437,6 @@ u64 XV_frmbufrd_Get_HwReg_frm_buffer_V(XV_frmbufrd *InstancePtr) {
  * Preconditions:
  *   - InstancePtr must not be NULL.
  *   - InstancePtr->IsReady must be set to XIL_COMPONENT_IS_READY.
- *
- * @return None.
  */
 void XV_frmbufrd_Set_HwReg_frm_buffer2_V(XV_frmbufrd *InstancePtr, u64 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -571,7 +561,6 @@ u32 XV_frmbufrd_Get_HwReg_field_id(XV_frmbufrd *InstancePtr) {
  * @param InstancePtr Pointer to the XV_frmbufrd instance.
  * @param Data        The value to be written to the HWREG_FIDOUTMODE register.
  *
- * @return None.
  * @note The InstancePtr must be initialized and ready before calling this function.
  */
 void XV_frmbufrd_Set_HwReg_fidOutMode(XV_frmbufrd *InstancePtr, u32 Data) {
@@ -655,8 +644,6 @@ u32 XV_frmbufrd_Get_HwReg_field_out(XV_frmbufrd *InstancePtr) {
  * instance pointer is valid and that the core is ready before enabling the interrupt.
  *
  * @param InstancePtr Pointer to the XV_frmbufrd instance.
- *
- * @return None.
  */
 void XV_frmbufrd_InterruptGlobalEnable(XV_frmbufrd *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -675,7 +662,6 @@ void XV_frmbufrd_InterruptGlobalEnable(XV_frmbufrd *InstancePtr) {
  *
  * @note The instance pointer must be valid and the core must be ready before
  *       calling this function.
- * @return None.
  */
 void XV_frmbufrd_InterruptGlobalDisable(XV_frmbufrd *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -695,7 +681,6 @@ void XV_frmbufrd_InterruptGlobalDisable(XV_frmbufrd *InstancePtr) {
  * @param Mask        Bitmask of interrupts to enable.
  *
  * @note The InstancePtr must be initialized and ready before calling this function.
- * @return None.
  */
 void XV_frmbufrd_InterruptEnable(XV_frmbufrd *InstancePtr, u32 Mask) {
     u32 Register;
@@ -718,7 +703,6 @@ void XV_frmbufrd_InterruptEnable(XV_frmbufrd *InstancePtr, u32 Mask) {
  * @param Mask        Bitmask of interrupts to disable.
  *
  * @note The InstancePtr must be initialized and ready before calling this function.
- * @return None.
  */
 void XV_frmbufrd_InterruptDisable(XV_frmbufrd *InstancePtr, u32 Mask) {
     u32 Register;
@@ -740,7 +724,6 @@ void XV_frmbufrd_InterruptDisable(XV_frmbufrd *InstancePtr, u32 Mask) {
  * @param Mask        Bitmask indicating which interrupt(s) to clear.
  *
  * @note The InstancePtr must be initialized and ready before calling this function.
- * @return None.
  */
 void XV_frmbufrd_InterruptClear(XV_frmbufrd *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
