@@ -685,7 +685,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = SrcAddrLow;
 
-	if ((DestAddr >> 32U) == 0U) {
+	if ((SHIFT_TO_LOWER_U32(DestAddr)) == 0U) {
 		FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
 	}
 	else {
@@ -796,7 +796,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			FlashMsg.Proto = Proto;
 			FlashMsg.Dummy = Dummy;
 
-			if ((DestAddr >> 32U) == 0U) {
+			if ((SHIFT_TO_LOWER_U32(DestAddr)) == 0U) {
 				FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
 			}
 			else {

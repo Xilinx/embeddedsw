@@ -974,11 +974,11 @@ static int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
 	}
 	else {
 		SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
-				(SrcAddr << 32U);
+				(SHIFT_TO_UPPER_U32(SrcAddr));
 	}
 
 	DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
-			(DestAddr << 32U);
+			(SHIFT_TO_UPPER_U32(DestAddr));
 
 	Status = XLoader_InitPdiInstanceForExtractMHAndOptData(Cmd, PdiPtr, SrcAddr, DestAddr, DestSize);
 	if (Status != XST_SUCCESS) {
@@ -1221,9 +1221,9 @@ static int XLoader_VerifyDataAuth(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 HashAddr = Cmd->Payload[XLOADER_HASH_HIGH_ADDR_IDX];
-	HashAddr = (u64)(Cmd->Payload[XLOADER_HASH_LOW_ADDR_IDX] | (HashAddr << 32));
+	HashAddr = (u64)(Cmd->Payload[XLOADER_HASH_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(HashAddr)));
 	u64 AcAddr = Cmd->Payload[XLOADER_AC_HIGH_ADDR_IDX];
-	AcAddr = (u64)(Cmd->Payload[XLOADER_AC_LOW_ADDR_IDX] | (AcAddr << 32));
+	AcAddr = (u64)(Cmd->Payload[XLOADER_AC_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(AcAddr)));
 	XLoader_SecureParams SecurePtr = {0U};
 	u8* Hash = (u8*)(UINTPTR)HashAddr;
 	u8* Signature = NULL;

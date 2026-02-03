@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 1.08  sd   02/19/2025 Added multiboot store and restore APIs for platforms
 *                       with A/B firmware
 *       sd   03/17/2025 Added multiboot clear API for platforms with A/B firmware
+* 2.4   abh  11/10/2025 Added macros to support MISRA-C violations
 *
 * </pre>
 *
@@ -71,6 +72,16 @@ extern "C" {
 #define XPLMI_TIME_OUT_DEFAULT	(0x10000000U)
 #define XPLMI_WORD_LEN			(4U)
 #define XPLMI_BIT(pos)			((u32)0x1U << (pos))
+#define INDEX_ZERO				(0U)
+#define INDEX_ONE				(1U)
+#define INDEX_TWO				(2U)
+#define INDEX_THREE				(3U)
+#define INDEX_FOUR				(4U)
+#define INDEX_FIVE				(5U)
+#define INDEX_SIX				(6U)
+#define SHIFT_TO_UPPER_U32(val)   ((u64)(val) << 32U)
+#define SHIFT_TO_LOWER_U32(val)   ((u64)(val) >> 32U)
+
 /************************** Function Prototypes ******************************/
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);

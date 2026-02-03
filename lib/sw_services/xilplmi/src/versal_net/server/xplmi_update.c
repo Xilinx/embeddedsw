@@ -665,7 +665,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	DbStartAddr = DdrRsvdAddr;
 	DbEndAddr = DdrRsvdAddr + DdrRsvdSize - 1U;
 
-	Flag = (Cmd->Payload[0U] & XPLMI_UPDATE_FLAG_MASK);
+	Flag = (Cmd->Payload[INDEX_ZERO] & XPLMI_UPDATE_FLAG_MASK);
 
 	/* Check if Update via PDI Id in Image Store */
 	if (Flag == XPLMI_UPDATE_USING_IMAGE_STORE) {
@@ -675,7 +675,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 
-		PdiId = Cmd->Payload[1U];
+		PdiId = Cmd->Payload[INDEX_ONE];
 		Status = XPlmi_IsPdiAddrLookup(PdiId, (u64*)&PdiAddr );
 		if (Status != XST_SUCCESS) {
 			Status = XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
@@ -685,7 +685,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		UpdatePdiAddr = (u32)PdiAddr;
 	} else {
 		/* Update from DDR location */
-		UpdatePdiAddr = Cmd->Payload[1U];
+		UpdatePdiAddr = Cmd->Payload[INDEX_ONE];
 	}
 #ifdef VERSAL_2VE_2VM
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM "

@@ -102,7 +102,7 @@ void XPlmi_SetAddrBufferList(void)
 	static XPlmi_BufferData AddressBuffers[XPLMI_MAX_ADDR_BUFFERS + 1U] = {0U};
 
 	AddressBufferList.Data = AddressBuffers;
-	AddressBufferList.Data[0U].Addr = (u32)(UINTPTR)AddrBuffer;
+	AddressBufferList.Data[INDEX_ZERO].Addr = (u32)(UINTPTR)AddrBuffer;
 	AddressBufferList.BufferMemSize = (u16)sizeof(AddrBuffer);
 	AddressBufferList.IsBufferMemAvailable = (u8)TRUE;
 	AddressBufferList.MaxBufferCount = XPLMI_MAX_ADDR_BUFFERS;
@@ -234,8 +234,8 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 		/* Latch on the first address of psm_sequence */
 		Cmd->ResumeData[1U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 		/* Check if new proc length fits in the proc allocated memory */
-		if ((Cmd->ResumeData[1U] + (Cmd->Len * XPLMI_WORD_LEN)) >
-			((u32)BufferList->Data[0U].Addr + BufferList->BufferMemSize)) {
+		if ((Cmd->ResumeData[INDEX_ONE] + (Cmd->Len * XPLMI_WORD_LEN)) >
+			((u32)BufferList->Data[INDEX_ZERO].Addr + BufferList->BufferMemSize)) {
 			XPlmi_Printf(DEBUG_GENERAL,"psm_sequence too large \
 				to fit in BufferList.\n\r");
 			Status = XPLMI_UNSUPPORTED_PROC_LENGTH;
@@ -306,7 +306,7 @@ int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd)
 		}
 
 		/* Save value at very first part of the split */
-		Cmd->ResumeData[0U] = Cmd->Payload[0U];
+		Cmd->ResumeData[INDEX_ZERO] = Cmd->Payload[INDEX_ZERO];
 		/* Also the start index of the address[i] is 1 in first part */
 		StartIndex = 1U;
 	} else {
@@ -364,8 +364,8 @@ int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
 		}
 
 		/* Save values at very first part of the split */
-		Cmd->ResumeData[0U] = Cmd->Payload[0U];
-		Cmd->ResumeData[1U] = Cmd->Payload[1U];
+		Cmd->ResumeData[INDEX_ZERO] = Cmd->Payload[INDEX_ZERO];
+		Cmd->ResumeData[INDEX_ONE] = Cmd->Payload[INDEX_ONE];
 		/* Also the start index of the address[i] is 2 in first part */
 		StartIndex = 2U;
 	} else {
@@ -418,13 +418,13 @@ int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	FipsKatMask->RomKatMask = Cmd->Payload[0U] & XPLMI_ROM_KAT_MASK;
-	FipsKatMask->PlmKatMask = Cmd->Payload[1U] & XPLMI_KAT_MASK;
-	FipsKatMask->DDRKatMask = Cmd->Payload[2U];
-	FipsKatMask->HnicCpm5NPcideKatMask = Cmd->Payload[3U] & XPLMI_HNIC_CPM5N_PCIDE_KAT_MASK;
-	FipsKatMask->PKI0KatMask = Cmd->Payload[4U];
-	FipsKatMask->PKI1KatMask = Cmd->Payload[5U];
-	FipsKatMask->PKI2KatMask = Cmd->Payload[6U] & XPLMI_PKI_KAT_MASK;
+	FipsKatMask->RomKatMask = Cmd->Payload[INDEX_ZERO] & XPLMI_ROM_KAT_MASK;
+	FipsKatMask->PlmKatMask = Cmd->Payload[INDEX_ONE] & XPLMI_KAT_MASK;
+	FipsKatMask->DDRKatMask = Cmd->Payload[INDEX_TWO];
+	FipsKatMask->HnicCpm5NPcideKatMask = Cmd->Payload[INDEX_THREE] & XPLMI_HNIC_CPM5N_PCIDE_KAT_MASK;
+	FipsKatMask->PKI0KatMask = Cmd->Payload[INDEX_FOUR];
+	FipsKatMask->PKI1KatMask = Cmd->Payload[INDEX_FIVE];
+	FipsKatMask->PKI2KatMask = Cmd->Payload[INDEX_SIX] & XPLMI_PKI_KAT_MASK;
 
 	Status = XPlmi_CheckAndUpdateFipsState();
 END:
@@ -450,7 +450,7 @@ int XPlmi_RunProc(XPlmi_Cmd *Cmd)
 			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
 	/* Execute Proc with the given Proc ID */
-	Status = XPlmi_ExecuteProc(Cmd->Payload[0U]);
+	Status = XPlmi_ExecuteProc(Cmd->Payload[INDEX_ZERO]);
 
 	return Status;
 }
@@ -478,7 +478,7 @@ int XPlmi_ListSet(XPlmi_Cmd *Cmd)
 		 * data is spread across multiple chunks.
 		 * Note: ResumeData entry 0 can't be used, as Store buffer is using it.
 		 */
-		Cmd->ResumeData[XPLMI_LIST_ID_INDEX] = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >>
+		Cmd->ResumeData[XPLMI_LIST_ID_INDEX] = ((Cmd->Payload[INDEX_ZERO] & XPLMI_LIST_ID_MASK) >>
 			XPLMI_LIST_ID_SHIFT);
 	}
 
@@ -502,13 +502,13 @@ int XPlmi_ListSet(XPlmi_Cmd *Cmd)
 int XPlmi_ListWrite(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
-	u32 Value = Cmd->Payload[1U];
+	u32 ListId = ((Cmd->Payload[INDEX_ZERO] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
+	u32 Value = Cmd->Payload[INDEX_ONE];
 	u64 BufAddr;
 	const u32 *BufPtr;
 	u32 BufLen;
 	u32 Index;
-	u32 AddressOffset = (Cmd->Payload[0U] & XPLMI_ADDRESS_OFFSET_MASK);
+	u32 AddressOffset = (Cmd->Payload[INDEX_ZERO] & XPLMI_ADDRESS_OFFSET_MASK);
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
@@ -544,14 +544,14 @@ END:
 int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
-	u32 Mask = Cmd->Payload[1U];
-	u32 Value = Cmd->Payload[2U];
+	u32 ListId = ((Cmd->Payload[INDEX_ZERO] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
+	u32 Mask = Cmd->Payload[INDEX_ONE];
+	u32 Value = Cmd->Payload[INDEX_TWO];
 	u64 BufAddr;
 	const u32 *BufPtr;
 	u32 BufLen;
 	u32 Index;
-	u32 AddressOffset = (Cmd->Payload[0U] & XPLMI_ADDRESS_OFFSET_MASK);
+	u32 AddressOffset = (Cmd->Payload[INDEX_ZERO] & XPLMI_ADDRESS_OFFSET_MASK);
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_MASK_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
@@ -587,12 +587,12 @@ END:
 int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
+	u32 ListId = ((Cmd->Payload[INDEX_ZERO] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
 	u64 BufAddr;
 	const u32 *BufPtr;
 	u32 BufLen;
 	u32 Index;
-	u32 AddressOffset = (Cmd->Payload[0U] & XPLMI_ADDRESS_OFFSET_MASK);
+	u32 AddressOffset = (Cmd->Payload[INDEX_ZERO] & XPLMI_ADDRESS_OFFSET_MASK);
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_SIX);
