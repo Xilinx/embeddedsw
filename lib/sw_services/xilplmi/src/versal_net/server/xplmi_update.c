@@ -459,7 +459,7 @@ int XPlmi_RestoreDataBackup(void)
 		goto END;
 	}
 
-	DsAddr = DbStartAddr + DbHdr->HdrSize;
+	DsAddr = (u64)(DbStartAddr + (u32)DbHdr->HdrSize);
 	EndAddr = DsAddr + (DbHdr->DbSize * XPLMI_WORD_LEN);
 
 	if (EndAddr > DbEndAddr) {
@@ -522,7 +522,7 @@ static int XPlmi_StoreDataBackup(void)
 	DsCnt = XPLMI_DS_CNT;
 	DbHdr->HdrVersion = XPLMI_UPDATE_DB_VERSION;
 	DbHdr->HdrSize = (u8)sizeof(XPlmi_DbHdr);
-	DsAddr = DbStartAddr + DbHdr->HdrSize;
+	DsAddr = (u64)(DbStartAddr + (u32)DbHdr->HdrSize);
 
 	for (Index = 0; Index < DsCnt; Index++) {
 		if (DsEntry[Index].Handler == NULL) {
