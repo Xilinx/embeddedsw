@@ -254,7 +254,7 @@ u32 XPlmi_GetEmSubsystemId(void);
 int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
-void XPlmi_PORHandler(void);
+void __attribute__((noreturn)) XPlmi_PORHandler(void);
 u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask);
 int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask);
 int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask);
@@ -262,7 +262,7 @@ int XPlmi_EmConfig(XPlmi_EventType NodeType, u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId);
 u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask);
 int XPlmi_ErrorTaskHandler(void *Data);
-void XPlmi_SoftResetHandler(void);
+void __attribute__((noreturn)) XPlmi_SoftResetHandler(void);
 void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 

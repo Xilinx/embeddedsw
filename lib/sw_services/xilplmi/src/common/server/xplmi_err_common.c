@@ -373,7 +373,7 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
  * @brief	This function triggers Power on Reset.
  *
  *****************************************************************************/
-void XPlmi_PORHandler(void) {
+void __attribute__((noreturn)) XPlmi_PORHandler(void) {
 	XPlmi_SysmonClkSetIro();
 	XPlmi_UtilRMW(CRP_RST_PS, CRP_RST_PS_PMC_POR_MASK,
 		CRP_RST_PS_PMC_POR_MASK);
@@ -1368,7 +1368,7 @@ static void XPlmi_DumpRegisters(void)
  * the device.
  *
  *****************************************************************************/
-void XPlmi_SoftResetHandler(void)
+void __attribute__((noreturn)) XPlmi_SoftResetHandler(void)
 {
 	XPlmi_SysmonClkSetIro();
 	/* Make sure every thing completes */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       pre  05/05/2025 Clearing SSS configuration before handing off to ROM to trigger
 *                       secure lockdown
+* 2.4   abh  12/24/2025 Fixed MISRA-C Violations
 *
 * </pre>
 *
@@ -78,7 +79,7 @@
 /************************** Function Prototypes ******************************/
 static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		const u32 ErrorMask);
-static int XPlmi_ProcessTamperResponse(void *Data);
+static int __attribute__((noreturn)) XPlmi_ProcessTamperResponse(void *Data);
 
 /************************** Variable Definitions *****************************/
 /**
@@ -162,7 +163,7 @@ END:
  * 			- No status return, waits forever for ROM to complete secure lockdown.
  *
  *****************************************************************************/
-static int XPlmi_ProcessTamperResponse(void *Data)
+static int __attribute__((noreturn)) XPlmi_ProcessTamperResponse(void *Data)
 {
 	int Status = XST_FAILURE;
 	u32 CfuDivisor;
@@ -240,8 +241,6 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 	while(1U) {
 		;
 	}
-
-	return Status;
 }
 
 /*****************************************************************************/
