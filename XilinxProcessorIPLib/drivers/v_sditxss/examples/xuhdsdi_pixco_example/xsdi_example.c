@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -210,7 +210,7 @@ u8 PayloadStatus;
  ******************************************************************************/
 void ClearScreen(void)
 {
-	xil_printf("%c\[2J", 27);	/**< Clear Sreen */
+	xil_printf("%c\[2J", 27);	/**< Clear Screen */
 	xil_printf("%c\033[0;0H", 27);	/**< Bring Cursor to 0,0 */
 }
 
@@ -438,7 +438,7 @@ void RxStreamDownCallback(void *CallbackRef)
  *
  * This function is called when assertion hits in the file.
  *
- * @param	File - File name where assertion occured.
+ * @param	File - File name where assertion occurred.
  *
  * @param	Line - Line number in this file.
  *
@@ -553,7 +553,7 @@ void StartTxAfterRx(void)
  * a interrupt for change in the presence of audio groups in the incoming
  * SDI stream.
  *
- * This handler provides an example of what needs to be done when gorup change
+ * This handler provides an example of what needs to be done when group change
  * interrupt is detected in the received SDI audio stream by the SDI extract IP
  * block, but is application specific.
  *

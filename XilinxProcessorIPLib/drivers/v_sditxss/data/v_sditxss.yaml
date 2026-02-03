@@ -1,4 +1,4 @@
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -23,7 +23,7 @@ properties:
   xlnx,sdiline-rate:
     description: SDI supported line rate like 3G/6G/12G..etc
   xlnx,Isstd_352:
-    description: SDI standarad st_352 or not
+    description: SDI standard st_352 or not
   xlnx,bpp:
     description: SDI BPP.
   xlnx,smpte_uhdsdi_tx_present:
