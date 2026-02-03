@@ -1,8 +1,8 @@
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: Bindings for SDI Audio deriver.
+title: Bindings for SDI Audio driver.
 
 maintainers:
   - katta Dhanunjanrao <katta.dhanunjanrao@amd.com>

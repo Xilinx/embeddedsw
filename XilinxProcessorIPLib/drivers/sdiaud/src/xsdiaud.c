@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -439,7 +439,7 @@ void XSdiAud_GetActGrpStatus(XSdiAud *InstancePtr, XSdiAud_ActGrpSt *GrpSt)
 /*****************************************************************************/
 /**
  * This function sets the channel valid register. Based on the mask provided
- * the corresponding channels are embeddded/extracted onto sdi.
+ * the corresponding channels are embedded/extracted onto sdi.
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  * @param  XSdiAudSetChMask is the 32 bit mask used to set the specific

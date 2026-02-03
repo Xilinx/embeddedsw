@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -533,7 +533,7 @@ void XSdiAud_MuteCh(XSdiAud *InstancePtr, u32 XSdiAudMuteChMask);
 /* Function reads the FIFO overflow status register field */
 u8 XSdiAud_Ext_GetFIFOOvFlwStatus(XSdiAud *InstancePtr);
 
-/* Function reads the active channle status register field */
+/* Function reads the active channel status register field */
 void XSdiAud_Ext_GetAcChStatus(XSdiAud *InstancePtr, XSdiAud_ActChSt *ActChSt);
 
 /* Function reads the sample rate status register field */
