@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who	Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm	20/02/20 First release
+* 2.11  ka      29/01/26 Fix codespell errors.
 *
 * </pre>
 *
@@ -649,12 +650,12 @@ typedef struct {
 #define MAX_AUDIO_FREQ			0x04
 
 /*
- * Bytes per Audio transfered frame
+ * Bytes per Audio transferred frame
  */
 #define AUDIO_FRAME_SIZE		0x02
 
 /*
- * Bits per Audio transfered frame
+ * Bits per Audio transferred frame
  */
 #define BIT_RESOLUTION			((AUDIO_FRAME_SIZE) * (0x08))
 

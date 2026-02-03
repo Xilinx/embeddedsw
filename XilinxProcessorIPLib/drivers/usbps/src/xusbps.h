@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,7 +90,7 @@
  * The user can register one handler function for the generic interrupts and
  * two handler functions for each endpoint, one for the RX (OUT) and one for
  * the TX (IN) direction. For some applications it may be useful to register a
- * single endpoint handler function for muliple endpoints/directions.
+ * single endpoint handler function for multiple endpoints/directions.
  *
  * When a callback function is called by the driver, parameters identifying the
  * type of the interrupt will be passed into the handler functions. For general
@@ -165,6 +165,7 @@
  * 2.5   pm  02/20/20 Added ISO support for usb 2.0 and ch9 common framework
  * 			calls.
  * 2.8   pm  07/07/23 Added support for system device-tree flow.
+ * 2.11  ka  01/29/26 Fix codespell errors.
  * </pre>
  *
  ******************************************************************************/

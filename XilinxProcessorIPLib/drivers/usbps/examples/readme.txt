@@ -92,7 +92,7 @@ play/record audio:
 For details, see xusbps_audio_example.c.
 
 @section ex13 xusbps_audiodata.h
-This headerfile contains the dummy audio data which is to be transfered to host
+This headerfile contains the dummy audio data which is to be transferred to host
 when UAC1 Microphone specification is selected in USB Audio example.
 
 For details, see xusbps_audiodata.h.

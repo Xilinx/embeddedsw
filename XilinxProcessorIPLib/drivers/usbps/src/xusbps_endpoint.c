@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
  *            (moving of dTD Head/Tail Pointers)and CR#873974(invalidate
  *            Caches After Buffer Receive in Endpoint Buffer Handler...)
  * 2.5   pm  02/20/20 Added ISO endpoint support.
+ * 2.11  ka  01/29/26 Fix codespell errors.
  * </pre>
  ******************************************************************************/
 
@@ -1246,7 +1247,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
  *		- XST_FAILURE: An error occurred.
- *		- XST_USB_BUF_TOO_BIG: The provided buffer is bigger than tha
+ *		- XST_USB_BUF_TOO_BIG: The provided buffer is bigger than the
  *		maximum allowed buffer size (16k).
  *
  * @note

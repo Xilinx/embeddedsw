@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.05a kpc  10/10/10 first version
+ * 2.11  ka   01/29/26 Fix codespell errors.
  * </pre>
  *
  *****************************************************************************/
@@ -66,7 +67,7 @@ void XUsbPs_ResetHw(u32 BaseAddress)
 	/* Host and device mode */
 	/* Disable the interrupts */
 	XUsbPs_WriteReg(BaseAddress, XUSBPS_IER_OFFSET, 0x0);
-	/* Clear the interuupt status */
+	/* Clear the interrupt status */
 	RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_ISR_OFFSET);
 	XUsbPs_WriteReg(BaseAddress, XUSBPS_ISR_OFFSET, RegVal);
 
