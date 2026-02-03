@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
  * 			when DMA is enabled.(CR 640005)
  * 5.6   pm   07/05/23 Removed powerpc support.
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
+ * 5.8   ka   01/29/26 Fixed codespell errors.
  *
  * </pre>
  *****************************************************************************/
@@ -72,7 +73,7 @@ static int SetupInterruptSystem(XUsb *InstancePtr);
 
 /*****************************************************************************/
 /**
- * This main function starts the USB Intrerrupt example.
+ * This main function starts the USB Interrupt example.
  *
  *
  * @param	None.

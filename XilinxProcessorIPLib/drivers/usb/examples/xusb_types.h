@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
  * 1.00a hvm  2/22/07 First release
  * 4.00a hvm  12/20/10 Updated with the Audio device definitions.
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
+ * 5.8   ka   01/29/26 Fixed codespell errors.
  *
  * </pre>
  *****************************************************************************/
@@ -345,7 +346,7 @@ typedef struct {
 } USB_FEATURE_UNIT_DESC;
 
 /*
- * USB class specific audio class specific AS General Inerface descriptor
+ * USB class specific audio class specific AS General Interface descriptor
  */
 typedef struct {
 	u8 bLength;
