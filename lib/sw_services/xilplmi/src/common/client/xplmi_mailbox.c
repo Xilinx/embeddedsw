@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *       am   04/04/24 Fixed doxygen warnings
  *       pre  07/10/24 Added SSIT support
  *       pre  09/30/25 Updated comments for rtf docs
+ * 2.4   abh  10/10/25 Fixed MISRA-C violations
  *
  * </pre>
  *
@@ -63,7 +64,7 @@ int XPlmi_ProcessMailbox(XPlmi_ClientInstance *ClientPtr, u32 *MsgPtr, u32 MsgLe
 	 * - Send IPI CDO to PLM. Return XST_FAILURE if sending data failed
 	 */
 	Status = (int)XMailbox_SendData((XMailbox *)ClientPtr->MailboxPtr, XPLMI_TARGET_IPI_INT_MASK,
-				MsgPtr, MsgLen, XILMBOX_MSG_TYPE_REQ, TRUE);
+				MsgPtr, MsgLen, XILMBOX_MSG_TYPE_REQ, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

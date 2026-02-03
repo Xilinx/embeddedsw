@@ -103,7 +103,7 @@ void XPlmi_SetAddrBufferList(void)
 
 	AddressBufferList.Data = AddressBuffers;
 	AddressBufferList.Data[0U].Addr = (u32)(UINTPTR)AddrBuffer;
-	AddressBufferList.BufferMemSize = sizeof(AddrBuffer);
+	AddressBufferList.BufferMemSize = (u16)sizeof(AddrBuffer);
 	AddressBufferList.IsBufferMemAvailable = (u8)TRUE;
 	AddressBufferList.MaxBufferCount = XPLMI_MAX_ADDR_BUFFERS;
 }

@@ -193,7 +193,7 @@ XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void)
  *****************************************************************************/
 u8 XPlmi_GetTopLevelIntrTblSize(void)
 {
-	return XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
+	return (u8)XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
 }
 
 /*****************************************************************************/
@@ -661,8 +661,8 @@ static u32 XPlmi_IsMporHpPart(void) {
 int XPlmi_SetPmcIroFreq(void)
 {
 	int Status = XST_FAILURE;
-	volatile u32 FastfreqFlag = FALSE;
-	volatile u32 FastfreqFlagTmp = FALSE;
+	volatile u32 FastfreqFlag = (u32)FALSE;
+	volatile u32 FastfreqFlagTmp = (u32)FALSE;
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 
 	/* Selection based on IRO trim fuse select */
@@ -809,7 +809,7 @@ int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
 
 	if ((RomServiceReq >= XPLMI_INVALID_INT) ||
 		(RomServiceReq == XPLMI_PLM_UPDT_REQ)) {
-		Status = XPLMI_ERR_INVALID_ROM_INT_REQ;
+		Status = (int)XPLMI_ERR_INVALID_ROM_INT_REQ;
 		goto END;
 	}
 	IntrMask = (u32)1 << RomServiceReq;
@@ -851,7 +851,7 @@ END:
  *****************************************************************************/
 u32 XPlmi_IsFipsModeEn(void)
 {
-	u32 FipsModeEn = TRUE;
+	u32 FipsModeEn = (u32)TRUE;
 
 	FipsModeEn = ((XPlmi_In32(EFUSE_CACHE_DME_FIPS_CTRL) & EFUSE_CACHE_DME_FIPS_MODE_MASK) >>
 					XPLMI_EFUSE_FIPS_MODE_SHIFT);

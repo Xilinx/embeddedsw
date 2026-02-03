@@ -329,17 +329,17 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 	XPlmi_DsEntry *DsEntry = (XPlmi_DsEntry *)Data;
 
 	if (DsEntry == NULL) {
-		Status = XPLMI_ERR_INVALID_DS_ENTRY;
+		Status = (int)XPLMI_ERR_INVALID_DS_ENTRY;
 		goto END;
 	}
 
 	if (DsEntry->DsHdr.Len % XPLMI_WORD_LEN) {
-		Status = XPLMI_ERR_DS_ALIGNMENT_INCORRECT;
+		Status = (int)XPLMI_ERR_DS_ALIGNMENT_INCORRECT;
 		goto END;
 	}
 
 	if ((Addr + XPLMI_DS_HDR_SIZE + DsEntry->DsHdr.Len) > DbEndAddr) {
-		Status = XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW;
+		Status = (int)XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW;
 		goto END;
 	}
 
@@ -349,7 +349,7 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 			DsEntry->DsHdr.Len, (void *)(UINTPTR)DsEntry->Addr,
 			DsEntry->DsHdr.Len, DsEntry->DsHdr.Len);
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_ERR_MEMCPY_STORE_DB;
+			Status = (int)XPLMI_ERR_MEMCPY_STORE_DB;
 			goto END;
 		}
 		/* Copy header to given address */
@@ -364,7 +364,7 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 					DsEntry->DsHdr.Len - Len, 0U,
 					DsEntry->DsHdr.Len - Len);
 			if (Status != XST_SUCCESS) {
-				Status = XPLMI_ERR_MEMSET_RESTORE_DB;
+				Status = (int)XPLMI_ERR_MEMSET_RESTORE_DB;
 				goto END;
 			}
 		}
@@ -372,12 +372,12 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 		Status = Xil_SMemCpy((void *)(UINTPTR)DsEntry->Addr, Len,
 			(void *)(UINTPTR)(Addr + XPLMI_DS_HDR_SIZE), Len, Len);
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_ERR_MEMCPY_RESTORE_DB;
+			Status = (int)XPLMI_ERR_MEMCPY_RESTORE_DB;
 			goto END;
 		}
 	}
 	else {
-		Status = XPLMI_ERR_PLM_UPDATE_INVALID_OP;
+		Status = (int)XPLMI_ERR_PLM_UPDATE_INVALID_OP;
 		goto END;
 	}
 
@@ -450,12 +450,12 @@ int XPlmi_RestoreDataBackup(void)
 	u64 EndAddr;
 
 	if (DbHdr->HdrVersion != XPLMI_UPDATE_DB_VERSION) {
-		Status = XPLMI_ERR_DB_HDR_VERSION_MISMATCH;
+		Status = (int)XPLMI_ERR_DB_HDR_VERSION_MISMATCH;
 		goto END;
 	}
 
 	if (DbHdr->HdrSize != sizeof(XPlmi_DbHdr)) {
-		Status = XPLMI_ERR_DB_HDR_SIZE_MISMATCH;
+		Status = (int)XPLMI_ERR_DB_HDR_SIZE_MISMATCH;
 		goto END;
 	}
 
@@ -463,7 +463,7 @@ int XPlmi_RestoreDataBackup(void)
 	EndAddr = DsAddr + (DbHdr->DbSize * XPLMI_WORD_LEN);
 
 	if (EndAddr > DbEndAddr) {
-		Status = XPLMI_ERR_DB_ENDADDR_INVALID;
+		Status = (int)XPLMI_ERR_DB_ENDADDR_INVALID;
 		goto END;
 	}
 
@@ -472,7 +472,7 @@ int XPlmi_RestoreDataBackup(void)
 				(XPlmi_DsVer *)(UINTPTR)DsAddr);
 		if (DsEntry != NULL) {
 			if (DsEntry->Handler == NULL) {
-				Status = XPLMI_ERR_INVALID_RESTORE_DS_HANDLER;
+				Status = (int)XPLMI_ERR_INVALID_RESTORE_DS_HANDLER;
 				break;
 			}
 			Status = DsEntry->Handler(XPLMI_RESTORE_DATABASE,
@@ -516,17 +516,17 @@ static int XPlmi_StoreDataBackup(void)
 	Status = Xil_SMemSet((void *)DbHdr, sizeof(XPlmi_DbHdr), (int)0x0U,
 			sizeof(XPlmi_DbHdr));
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_MEMSET_DBHDR;
+		Status = (int)XPLMI_ERR_MEMSET_DBHDR;
 		goto END;
 	}
 	DsCnt = XPLMI_DS_CNT;
 	DbHdr->HdrVersion = XPLMI_UPDATE_DB_VERSION;
-	DbHdr->HdrSize = sizeof(XPlmi_DbHdr);
+	DbHdr->HdrSize = (u8)sizeof(XPlmi_DbHdr);
 	DsAddr = DbStartAddr + DbHdr->HdrSize;
 
 	for (Index = 0; Index < DsCnt; Index++) {
 		if (DsEntry[Index].Handler == NULL) {
-			Status = XPLMI_ERR_INVALID_STORE_DS_HANDLER;
+			Status = (int)XPLMI_ERR_INVALID_STORE_DS_HANDLER;
 			break;
 		}
 		Status = DsEntry[Index].Handler(XPLMI_STORE_DATABASE,
@@ -560,7 +560,7 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
 	int Status = XST_FAILURE;
 	int Index;
 
-	for (Index = XPLMI_ALL_MODULES_MAX - 1U; Index >= 0; --Index) {
+	for (Index = (int)(XPLMI_ALL_MODULES_MAX - 1U); Index >= 0; --Index) {
 		if (Modules[Index] == NULL) {
 			continue;
 		}

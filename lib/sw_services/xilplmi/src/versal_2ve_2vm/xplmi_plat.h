@@ -785,7 +785,7 @@ static inline void XPlmi_InterSlrSldHandshake(void)
 static inline __attribute__((always_inline)) void XPlmi_AckIpi(u32 PlmErr, u32 RomErr)
 {
 	if ((XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) == XPLMI_INVALID_RESP_BUFF_ADDR) ||
-		(XPlmi_In32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK) == XPLMI_INVALID_IPI_MASK)))
+		(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK) == XPLMI_INVALID_IPI_MASK))
 	{
 		return;
 	}
