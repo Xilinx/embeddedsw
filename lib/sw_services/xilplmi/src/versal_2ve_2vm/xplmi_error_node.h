@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.00  sk   08/26/2024 Initial release EAM Table
 *       sk   09/20/2024 Added defines for errors in LPDSLCR
 *       sk   09/23/2025 Added additional HBMON Error ID's
+* 2.4   abh  10/14/2025 Fixed MISRAC Violations
 *
 * </pre>
 *
@@ -321,18 +322,18 @@ typedef enum {
 #define XPLMI_ERROR_LPDSLCR_ERR_MAX		XPLMI_ERROR_LPDSLCR_ERR3_MAX
 #define XPLMI_ERROR_PMCERR_MAX			XPLMI_ERROR_PMCERR3_MAX
 #define GET_LPDSLCR_ERR_START(ErrIndex)		(XPLMI_ERROR_PS_SW_CR + \
-						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+						((ErrIndex) * XPLMI_REG_MAX_ERRORS))
 #define GET_LPDSLCR_ERR_END(ErrIndex)		(XPLMI_ERROR_LPDSLCRERR0_MAX + \
-						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+						((ErrIndex) * XPLMI_REG_MAX_ERRORS))
 
 #define GET_LPDSLCR_PMC3_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC3_ERR0_MASK + \
-						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+						((ErrIndex) * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
 #define GET_LPDSLCR_PMC2_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC2_ERR0_MASK + \
-						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+						((ErrIndex) * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
 #define GET_LPDSLCR_PMC1_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC1_ERR0_MASK + \
-						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+						((ErrIndex) * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
 #define GET_LPDSLCR_PMC0_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC0_ERR0_MASK + \
-						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+						((ErrIndex) * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

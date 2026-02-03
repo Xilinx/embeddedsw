@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,6 +69,7 @@
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 * 	    abh  07/21/2025 Fixed GCC warnings
 *       obs  08/26/2025 Added error codes and macros for handling verifying address range
+* 2.4	abh  10/14/2025 Fixed MISRAC Violations
 * </pre>
 *
 * @note
@@ -585,12 +586,12 @@ typedef enum {
 #define XPLMI_PLM_CRYPTO_MASK           (XPLMI_SECURE_AES_MASK | XPLMI_SECURE_RSA_MASK | XPLMI_SECURE_ECDSA_MASK | \
 					XPLMI_SECURE_SHA3_384_MASK | XPLMI_SECURE_TRNG_MASK) /**< PLM crypto mask */
 
-#define GET_RTCFG_PMC_ERR_ADDR(Index)	(Index > 1U) ? \
+#define GET_RTCFG_PMC_ERR_ADDR(Index)	(((Index) > 1U) ? \
 			(XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR) : \
-			(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
-#define GET_RTCFG_LPDSLCR_ERR_ADDR(Index)		(Index > 1U) ? \
-			(XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR + ((Index - 2U) * 4U)) : \
-			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration LPDSCLR error address */
+			(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + ((Index) * 4U))) /**< Runtime configuration PMC error address */
+#define GET_RTCFG_LPDSLCR_ERR_ADDR(Index)		(((Index) > 1U) ? \
+			(XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR + (((Index) - 2U) * 4U)) : \
+			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + ((Index) * 4U))) /**< Runtime configuration LPDSCLR error address */
 
 #define XPLMI_STATUS_GLITCH_DETECT(Status)		XSECURE_STATUS_CHK_GLITCH_DETECT(Status) /**< Glitch check on Status.  */
 

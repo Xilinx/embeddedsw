@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       am   04/10/2024 Fixed doxygen warnings
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
+* 2.4   abh  10/14/2025 Fixed MISRAC Violations
 *
 * </pre>
 *
@@ -131,9 +132,9 @@ typedef int (*XPlmi_CheckPsmPresenceInOD_t)(u32 PdiAddr);
 			XPLMI_INIT_DS_VER_HDR(Mid, Did, ver, LCVer);\
 	static XPlmi_DsEntry Name##_DsEntry DSENTRY_ATTR = {\
 		.DsHdr.Ver = XPLMI_INIT_DS_VER_HDR(Mid, Did, ver, LCVer),\
-		.DsHdr.Len = Size,\
-		.Addr = Address,\
-		.Handler = handler} /**< Data structure with custom write handler */
+		.DsHdr.Len = (Size),\
+		.Addr = (Address),\
+		.Handler = (handler)} /**< Data structure with custom write handler */
 
 /* Macro to export Data structure with default handler */
 /* The below macro has following arguments:

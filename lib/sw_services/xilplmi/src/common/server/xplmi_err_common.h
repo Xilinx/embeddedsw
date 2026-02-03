@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +73,7 @@
 * 1.12  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       sk   02/20/2025 Added declaration for PSM handlers
 *       pre  09/08/2025 Added XPLMI_REG_OFFSET4 macro
+* 2.4   abh  10/14/2025 Fixed MISRAC Violations
 * </pre>
 *
 * @note
@@ -140,14 +141,14 @@ extern "C" {
 #define XPLMI_PMC_PSM_ERR2_REG_OFFSET		(0x10U)
 
 #define GET_PMC_ERR_START(ErrIndex)		(XPLMI_ERROR_BOOT_CR + \
-						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+						((ErrIndex) * XPLMI_REG_MAX_ERRORS))
 #define GET_PMC_ERR_END(ErrIndex)		(XPLMI_ERROR_PMCERR1_MAX + \
-						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+						((ErrIndex) * XPLMI_REG_MAX_ERRORS))
 #define GET_PSM_ERR_START(ErrIndex)		(XPLMI_ERROR_PS_SW_CR + \
-						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+						((ErrIndex) * XPLMI_REG_MAX_ERRORS))
 #define GET_PSM_ERR_END(ErrIndex)		(XPLMI_ERROR_PSMERR1_MAX + \
-						(ErrIndex * XPLMI_REG_MAX_ERRORS))
-#define GET_PSM_ERR_ACTION_OFFSET(Index)	(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET)
+						((ErrIndex) * XPLMI_REG_MAX_ERRORS))
+#define GET_PSM_ERR_ACTION_OFFSET(Index)	((Index) * XPLMI_PMC_PSM_ERR2_REG_OFFSET)
 
 /* Event error Indexes */
 #define XPLMI_NODETYPE_EVENT_PMC_INDEX		(0x0U)

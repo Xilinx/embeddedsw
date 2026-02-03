@@ -63,6 +63,7 @@
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 * 2.3   obs  08/26/2025 Added error codes and macros for handling verifying address range
 * 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
+* 		abh  10/14/2025 Fixed MISRAC Violations
 *
 * </pre>
 *
@@ -444,8 +445,8 @@ enum {
 #define XPlmi_ListMaskWrite		NULL /**< List Mask Write */
 #define XPlmi_ListMaskPoll		NULL /**< List Mask Poll */
 
-#define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
-#define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
+#define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + ((Index) * 4U)) /**< Runtime configuration PMC error address */
+#define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + ((Index) * 4U)) /**< Runtime configuration PSM error address */
 
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
 
