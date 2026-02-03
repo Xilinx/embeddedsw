@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *       ma   03/15/2024 Do not stop PIT3 timer during In-place PLM update
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
+* 2.4   abh  12/02/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -731,7 +732,7 @@ END:
 ****************************************************************************/
 static void XPlmi_DisableClearIOmodule(void)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	XIomodule_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, 0U);
 	XIomodule_Out32(IOModule->BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFFU);
@@ -744,7 +745,7 @@ static void XPlmi_DisableClearIOmodule(void)
 ****************************************************************************/
 static void XPlmi_DisableIOmodule(void)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	XIomodule_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, 0U);
 }
@@ -759,7 +760,7 @@ static void XPlmi_DisableIOmodule(void)
 *****************************************************************************/
 static u32 XPlmi_GetIoIntrMask(void)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	return (IOModule->CurrentIER);
 }
@@ -773,7 +774,7 @@ static u32 XPlmi_GetIoIntrMask(void)
 *****************************************************************************/
 static void XPlmi_SetIoIntrMask(u32 Value)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	XPlmi_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, Value);
 }
@@ -994,7 +995,7 @@ XPlmi_FipsKatMask* XPlmi_GetFipsKatMaskInstance(void)
 static int XPlmi_UpdateFipsState(void)
 {
 	int Status = XST_FAILURE;
-	XPlmi_FipsKatMask *FipsKatMask = XPlmi_GetFipsKatMaskInstance();
+	const XPlmi_FipsKatMask *FipsKatMask = XPlmi_GetFipsKatMaskInstance();
 	u32 RomKatStatus = XPlmi_GetRomKatStatus();
 	u32 PlmKatStatus = XPlmi_GetKatStatus();
 	u32 DDRKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_DDR_KAT_ADDR);

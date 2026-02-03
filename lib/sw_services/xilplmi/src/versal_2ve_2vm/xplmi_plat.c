@@ -702,7 +702,7 @@ END:
 ****************************************************************************/
 static void XPlmi_DisableClearIOmodule(void)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	XIomodule_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, 0U);
 	XIomodule_Out32(IOModule->BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFFU);
@@ -718,7 +718,7 @@ static void XPlmi_DisableClearIOmodule(void)
 *****************************************************************************/
 static u32 XPlmi_GetIoIntrMask(void)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	return (IOModule->CurrentIER);
 }
@@ -732,7 +732,7 @@ static u32 XPlmi_GetIoIntrMask(void)
 *****************************************************************************/
 static void XPlmi_SetIoIntrMask(u32 Value)
 {
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	XPlmi_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, Value);
 }
@@ -948,7 +948,7 @@ XPlmi_FipsKatMask* XPlmi_GetFipsKatMaskInstance(void)
 static int XPlmi_UpdateFipsState(void)
 {
 	int Status = XST_FAILURE;
-	XPlmi_FipsKatMask *FipsKatMask = XPlmi_GetFipsKatMaskInstance();
+	const XPlmi_FipsKatMask *FipsKatMask = XPlmi_GetFipsKatMaskInstance();
 	u32 RomKatStatus = XPlmi_GetRomKatStatus();
 	u32 PlmKatStatus = XPlmi_GetKatStatus();
 	u32 DDRKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_DDR_KAT_ADDR);

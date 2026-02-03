@@ -1169,7 +1169,7 @@ static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask)
 	u32 Index;
 	u32 ErrIndex;
 	u32 ErrRegMask;
-	XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
+	const XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
 
 	(void)ErrorNodeId;
 	(void)RegMask;
@@ -1290,7 +1290,7 @@ int XPlmi_LpdSlcrEmInit(void)
 	volatile u32 ErrIndex;
 	u32 LpdSlcrErrStatus[XPLMI_LPDSLCR_MAX_ERR_CNT];
 	u32 RegMask;
-	XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
+	const XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_LPDSLCR_MAX_ERR_CNT; ErrIndex++) {
 		/**

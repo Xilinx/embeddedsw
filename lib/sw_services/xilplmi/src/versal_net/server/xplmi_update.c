@@ -326,7 +326,7 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 	int Status = XST_FAILURE;
 	u32 Len = 0U;
 	XPlmi_DsHdr *RestoreDsHdr = (XPlmi_DsHdr *)(UINTPTR)Addr;
-	XPlmi_DsEntry *DsEntry = (XPlmi_DsEntry *)Data;
+	const XPlmi_DsEntry *DsEntry = (XPlmi_DsEntry *)Data;
 
 	if (DsEntry == NULL) {
 		Status = (int)XPLMI_ERR_INVALID_DS_ENTRY;
@@ -445,7 +445,7 @@ int XPlmi_RestoreDataBackup(void)
 	int Status = XST_FAILURE;
 	XPlmi_DsEntry *DsEntry = NULL;
 	XPlmi_DsHdr *DsHdr = NULL;
-	XPlmi_DbHdr *DbHdr = (XPlmi_DbHdr *)DbStartAddr ;
+	const XPlmi_DbHdr *DbHdr = (XPlmi_DbHdr *)DbStartAddr ;
 	u64 DsAddr;
 	u64 EndAddr;
 
@@ -585,7 +585,7 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
  *****************************************************************************/
 static inline u32 XPlmi_GetPlmDbSize(void)
 {
-	XPlmi_DsEntry *DsEntry = __data_struct_start;
+	const XPlmi_DsEntry *DsEntry = __data_struct_start;
 	u32 DsCnt = XPLMI_DS_CNT;
 	u32 Index = 0U;
 	u32 Size = sizeof(XPlmi_DbHdr);
