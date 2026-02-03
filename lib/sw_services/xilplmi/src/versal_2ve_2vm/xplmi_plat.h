@@ -779,19 +779,20 @@ static inline void XPlmi_InterSlrSldHandshake(void)
  * @param	PlmErr value of Plm error
  * @param	RomErr value of ROM error
  *
- * @return	None
- *
  *****************************************************************************/
 static inline __attribute__((always_inline)) void XPlmi_AckIpi(u32 PlmErr, u32 RomErr)
 {
-	if ((XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) == XPLMI_INVALID_RESP_BUFF_ADDR) ||
-		(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK) == XPLMI_INVALID_IPI_MASK))
+	/*	Check if IPI response buffer address and IPI mask are valid
+		If either the response buffer or IPI mask is invalid, no action is taken */
+	if (!((XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) == XPLMI_INVALID_RESP_BUFF_ADDR) ||
+		(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK) == XPLMI_INVALID_IPI_MASK)))
 	{
-		return;
+		/*	writes the error code to the respective register and
+			Triggers the IPI interrupt by writing the mask to PMC ISR register */
+		XPlmi_Out32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF), PlmErr);
+		XPlmi_Out32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) + XPLMI_REG_OFFSET_BYTE_4, RomErr);
+		XPlmi_Out32(XPLMI_IPI_PMC_ISR_ADDR, XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK));
 	}
-	XPlmi_Out32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF), PlmErr);
-	XPlmi_Out32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) + XPLMI_REG_OFFSET_BYTE_4, RomErr);
-	XPlmi_Out32(XPLMI_IPI_PMC_ISR_ADDR, XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK));
 }
 
 /*****************************************************************************/
