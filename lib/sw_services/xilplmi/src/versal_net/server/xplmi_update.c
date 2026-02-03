@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,7 +46,7 @@
 *                       PLM build failure in no IPI cases.
 *       sk   08/25/2025 Update in-place update print for versal 2VE and 2VM Devices
 *       kd   09/02/2025 Added psm firmware presence check for In-Place PLM Update
-*
+* 2.4   abh  10/14/2025 Fixed MISRA-C Violations
 * </pre>
 *
 ******************************************************************************/
@@ -560,7 +560,7 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
 	int Status = XST_FAILURE;
 	int Index;
 
-	for (Index = XPLMI_ALL_MODULES_MAX - 1; Index >= 0; --Index) {
+	for (Index = XPLMI_ALL_MODULES_MAX - 1U; Index >= 0; --Index) {
 		if (Modules[Index] == NULL) {
 			continue;
 		}

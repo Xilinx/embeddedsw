@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,7 +55,7 @@
 *       ng   01/28/2024 optimized u8 variables
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *       ma   09/20/2024 Increase scheduler frequency to 100ms for COSIM
-*
+* 2.4   abh  10/17/2025 Fixed MISRA-C violations
 * </pre>
 *
 ******************************************************************************/
@@ -370,7 +370,7 @@ int XPlmi_SetUpInterruptSystem(void)
 		++IntrNum;
 	}
 	++IntrNum;
-	while (IntrNum < XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE) {
+	while (IntrNum < (u8)XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE) {
 		Status = XIOModule_Connect(IOModule, IntrNum,
 			(XInterruptHandler)XPlmi_IntrHandler,
 			(void *)(u32)IntrNum);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -149,6 +149,7 @@
 *                       moved PSM code to separate source file
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 *       pre  09/03/2025 Added logic to avoid flooding of log buffer with repeated error messages
+* 2.4   abh  10/14/2025 Fixed MISRA-C Violations
 *
 * </pre>
 *
@@ -1015,7 +1016,7 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 #else
 	case XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_LPDSLCR_ERR0;
-		if (IrqAction == TRUE) {
+		if (IrqAction == (u8)TRUE) {
 			Status = EmEnableLpdSlcrErrAction(GET_LPDSLCR_PMC3_ERR_MASK(Index),
 							RegMask);
 		 } else {

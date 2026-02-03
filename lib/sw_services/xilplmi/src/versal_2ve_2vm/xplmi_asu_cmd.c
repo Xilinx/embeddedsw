@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *		      subsystem hash to provided address.
 *       rmv  08/26/25 Use callback functions instead of xilocp library functions
 *       rmv  09/11/25 Fix GCC warning when PLM_OCP_ASUFW_KEY_MGMT is disabled
+* 2.4	abh  11/30/25 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -165,7 +166,7 @@ static int XPlmi_CmdAsuKeyTransfer(XPlmi_Cmd * Cmd)
 	}
 
 	Cmd->Response[XPLMI_CMD_ID_ASU_RESPONSE_INDEX] = PufRegenStatusFlag;
-	if (PufRegenStatusFlag == XST_SUCCESS) {
+	if (PufRegenStatusFlag == (u8)XST_SUCCESS) {
 		Addr = AsuGetKEKIvAddr();
 
 		Status = Xil_SMemCpy((u8*)(UINTPTR)Cmd->Payload[0U], XPLMI_BH_KEK_IV_SIZE_IN_BYTES,

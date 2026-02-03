@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       jb   03/19/2024 Updated XPLMI_MAX_ADDR_BUFFERS count from 1 to 3
 *       am   04/04/2024 Fixed doxygen warnings
+* 2.4   abh  10/10/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -228,7 +229,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	if (Cmd->ProcessedLen == 0){
+	if (Cmd->ProcessedLen == 0U){
 		/* This is the beginning of the CMD execution. */
 		/* Latch on the first address of psm_sequence */
 		Cmd->ResumeData[1U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;

@@ -53,6 +53,8 @@
 *       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
 * 2.40  obs  12/31/2025 Fixed GCC warnings
 *       sk   01/18/2026 Added define for Domain Init Status Register
+*    	abh  10/10/2025 Fixed MISRA-C violations
+*
 * </pre>
 *
 ******************************************************************************/
@@ -542,7 +544,7 @@ extern "C" {
 #define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK		(0x4U)
 #define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE2_MASK		(0x8U)
 #define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE3_MASK		(0x10U)
-#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_CDX_ERR_MASK		(0x40000)
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_CDX_ERR_MASK		(0x40000U)
 
 #define CPM5N_SLCR_PS_UNCORR_IR_MASK				(0xE4A10324U)
 #define CPM5N_SLCR_CDX_IR_STATUS				(0xE4A102F0U)

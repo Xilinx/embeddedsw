@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +60,7 @@
 *       obs 04/11/2025 Removed HNIC and PKI related code in XPlmi_UpdateFipsState
 * 2.3   abh 07/21/2025 Fixed GCC warnings
 *       sk  09/26/2025 Removed unused IRO Freq define
+* 2.4   abh 10/10/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -520,7 +521,7 @@ void XPlmi_IpiIntrHandler(void *CallbackRef)
 	 * Check IPI source channel and add channel specific task to
 	 * task queue according to the channel priority
 	 */
-	for (IpiIndex = 0U; IpiIndex < XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
+	for (IpiIndex = 0U; IpiIndex < (u8)XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
 		IpiIndexMask = (u16)1U << IpiIndex;
 		if (((IpiIntrVal & IpiIndexMask) != 0U) &&
 			((IpiMaskVal & IpiIndexMask) == 0U)) {
@@ -909,7 +910,7 @@ void XPlmi_ClearSSSCfgErr(void)
 	static u32 SSSCfgErrCleared = (u32)FALSE;
 	u32 PmcIsr;
 
-	if ((SSSCfgErrCleared != TRUE) && (XPlmi_IsPlmUpdateDone() != TRUE)) {
+	if ((SSSCfgErrCleared != (u32)TRUE) && (XPlmi_IsPlmUpdateDone() != (u8)TRUE)) {
 		PmcIsr = XPlmi_In32(PMC_GLOBAL_ISR);
 		if ((PmcIsr & PMC_GLOBAL_SSS_CFG_ERR_MASK) ==
 				PMC_GLOBAL_SSS_CFG_ERR_MASK) {

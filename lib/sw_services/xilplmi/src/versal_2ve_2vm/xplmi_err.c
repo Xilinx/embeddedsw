@@ -28,6 +28,7 @@
 *       pre  07/04/2025 Throwing error code for PMC's FW_CR err action change
 *       pre  09/08/2025 Replaced magic number with macro
 *       sk   09/23/2025 Added additional HBMON Error ID's
+* 2.4   abh  10/17/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -1134,7 +1135,7 @@ int XPlmi_Versal2Ve2VmEAMHandler(void *Data)
 					XPlmi_ErrLPDSlcrIntrHandler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 						(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 				}
-				XPlmi_EmClearError((XPlmi_EventType)(XPLMI_NODETYPE_EVENT_PMC_ERR1 + ErrIndex),
+				XPlmi_EmClearError((XPlmi_EventType)((u32)XPLMI_NODETYPE_EVENT_PMC_ERR1 + ErrIndex),
 						Index);
 			}
 		}

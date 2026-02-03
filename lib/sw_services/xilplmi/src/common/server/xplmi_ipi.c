@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,6 +95,7 @@
  *       pre  03/02/2025 Added handling for XPLMI_CMD_IN_PROGRESS status
  *       pre  03/24/2024 Executing invalid command handler registered for STL module
  *                       irrespective of SLR index field
+ * 2.4   abh  10/17/2025 Fixed MISRA-C violations
  *
  * </pre>
  *
@@ -474,13 +475,13 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
 
-	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
+	for (MaskIndex = 0U; MaskIndex < (u32)XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
 			break;
 		}
 	}
 
-	if (MaskIndex != XPLMI_IPI_MASK_COUNT) {
+	if (MaskIndex != (u32)XPLMI_IPI_MASK_COUNT) {
 		if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
 			Status = XST_SUCCESS;
 			goto END;
