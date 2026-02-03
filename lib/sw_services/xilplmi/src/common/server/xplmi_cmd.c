@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,8 @@
 *       mss  03/13/2024 Fix MISRA-C violation 10.3
 *       bs   07/15/2024 Updated Cmd Resume to return error in 0x2XXX format
 *       pre  03/02/2025 Modified error throwing condition after exiting from command handler
+* 2.4   abh  10/27/2025 Fixed MISRA-C violations
+*
 * </pre>
 *
 * @note
@@ -101,7 +103,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 
 	/** - Validate the module handler. */
 	ModuleCmd = &Module->CmdAry[ApiId];
-	if (ModuleCmd == NULL || ModuleCmd->Handler == NULL) {
+	if ((ModuleCmd == NULL) || (ModuleCmd->Handler == NULL)) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_HANDLER_NULL, 0);
 		goto END;
 	}

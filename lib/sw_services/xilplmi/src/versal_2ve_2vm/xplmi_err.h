@@ -31,7 +31,8 @@
 *                       to handle restoring of the error actions after IPU
 * 1.02  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       sk   02/20/2025 Added defines for Versal 2VE and 2VM Devices EAM handler
-* 1.03  abh  10/10/2025 Fixed MISRA-C violations
+* 2.4   abh  10/17/2025 Fixed MISRA-C violations
+*
 * </pre>
 *
 * @note
@@ -55,14 +56,14 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define GET_PMC_ERR_ACTION_OFFSET(Index)	((Index == 2U) ? \
-			((0xFU) * XPLMI_PMC_PSM_ERR2_REG_OFFSET) : \
-			(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))  /**< PMC error action offset */
+#define GET_PMC_ERR_ACTION_OFFSET(Index)	(((Index) == 2U) ? \
+			(0xFU * XPLMI_PMC_PSM_ERR2_REG_OFFSET) : \
+			((Index) * XPLMI_PMC_PSM_ERR2_REG_OFFSET))  /**< PMC error action offset */
 
-#define GET_PMC_ERR_ACTION_ADDR(PmcMask, Index)	((Index == 2U) ? \
-			(PmcMask + ((0xFU) * XPLMI_PMC_PSM_ERR2_REG_OFFSET - \
-			 ((PmcMask - PMC_GLOBAL_PMC_ERR_OUT1_MASK) / 2U))) :\
-			(PmcMask + (Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))) /**< PMC error action address */
+#define GET_PMC_ERR_ACTION_ADDR(PmcMask, Index)	(((Index) == 2U) ? \
+			((PmcMask) + ((0xFU * XPLMI_PMC_PSM_ERR2_REG_OFFSET) - \
+			 (((PmcMask) - PMC_GLOBAL_PMC_ERR_OUT1_MASK) / 2U))) :\
+			((PmcMask) + ((Index) * XPLMI_PMC_PSM_ERR2_REG_OFFSET))) /**< PMC error action address */
 
 
 #define GET_PMC_ERR_OUT_MASK(RegOffset)	(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_ERR_OUT3_MASK) :\
