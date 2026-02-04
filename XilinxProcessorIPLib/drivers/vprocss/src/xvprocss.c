@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,10 +65,9 @@
 #define XVPROCSS_RSTMASK_VIDEO_IN   (0x01) /**< Reset line going out of vpss */
 #define XVPROCSS_RSTMASK_IP_AXIS    (0x02) /**< Reset line for vpss internal video IP blocks */
 #define XVPROCSS_RSTMASK_IP_AXIMM   (0x01) /**< Reset line for vpss internal AXI-MM blocks */
-/*@}*/
-
 #define XVPROCSS_RSTMASK_ALL_BLOCKS (XVPROCSS_RSTMASK_VIDEO_IN  | \
-                                     XVPROCSS_RSTMASK_IP_AXIS)
+                                     XVPROCSS_RSTMASK_IP_AXIS) /**< Mask for all AXIS-connected reset lines in the subsystem */
+/** @}*/
 
 /**************************** Type Definitions *******************************/
 /**
@@ -92,11 +91,11 @@ typedef struct
 }XVprocSs_SubCores;
 
 /**************************** Local Global ***********************************/
-//Define Driver instance of all sub-core included in the design */
+/** Driver instance of all sub-cores included in the design */
 #ifndef SDT
-XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES];
+XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES]; /**< Subcore repository indexed by device instance */
 #else
-XVprocSs_SubCores subcoreRepo[];
+XVprocSs_SubCores subcoreRepo[]; /**< Subcore repository */
 #endif
 
 static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
@@ -126,12 +125,14 @@ static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
  *  - Pixels/Clock         = 1, 2, 4
  *  - Color Depth          = 8, 10, 12, 16   (4 variations)
  */
+/** Pixel horizontal step lookup table indexed by [Pixels/Clock][Color Depth variation] */
 const u16 XVprocSs_PixelHStep[3][4] =
 {
   {16,   4,  32,   8}, //XVIDC_PPC_1
   {16,   4,  64,  16}, //XVIDC_PPC_2
   {32, 128, 128,  32}  //XVIDC_PPC_4
 };
+/** @}*/
 
 /************************** Function Prototypes ******************************/
 static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr);
@@ -177,9 +178,7 @@ static __inline u32 XVprocSs_GetResetState(XGpio *pReset, u32 channel)
 * @param  channel is number of reset channel to work upon
 * @param  ipBlock is the reset line(s) to be activated
 *
-* @return None
-*
-* @note If reset block is not included in the subsystem instance function does
+*\n*\n* @note If reset block is not included in the subsystem instance function does
 *       not do anything
 ******************************************************************************/
 static __inline void XVprocSs_EnableBlock(XGpio *pReset, u32 channel, u32 ipBlock)
@@ -202,9 +201,7 @@ static __inline void XVprocSs_EnableBlock(XGpio *pReset, u32 channel, u32 ipBloc
 * @param  channel is number of reset channel to work upon
 * @param  ipBlock is the reset line(s) to be asserted
 *
-* @return None
-*
-* @note If reset block is not included in the subsystem instance function does
+*\n*\n* @note If reset block is not included in the subsystem instance function does
 *       not do anything
 ******************************************************************************/
 static __inline void XVprocSs_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock)
@@ -228,9 +225,7 @@ static __inline void XVprocSs_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock
 * @param  XVprocSsPtr is a pointer to the subsystem instance
 * @param  msec is delay required
 *
-* @return None
-*
-******************************************************************************/
+*\n*\n******************************************************************************/
 static __inline void WaitUs(XVprocSs *XVprocSsPtr, u32 MicroSeconds)
 {
   if(MicroSeconds == 0)
@@ -259,8 +254,6 @@ static __inline void WaitUs(XVprocSs *XVprocSsPtr, u32 MicroSeconds)
 * @param  CallbackRef is the pointer to timer instance used by the delay
 *         function
 *
-* @return None
-*
 ******************************************************************************/
 void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
                                   XVidC_DelayHandler CallbackFunc,
@@ -284,9 +277,7 @@ void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
 *
 * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
-******************************************************************************/
+*\n*\n******************************************************************************/
 static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 {
 #ifndef SDT
@@ -353,8 +344,6 @@ static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  addr is the base address of the video frame buffers
-*
-* @return None
 *
 ******************************************************************************/
 void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, UINTPTR addr)
@@ -545,9 +534,7 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 *
 * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
-******************************************************************************/
+*\n*\n******************************************************************************/
 static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
 {
   XVidC_VideoStream vidStrmIn;
@@ -653,8 +640,6 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
 * started from back to front
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
 * @note Cores are started only if the corresponding start flag in the scratch
 *       pad memory is set. This allows to selectively start only those cores
 *       included in the processing chain
@@ -708,8 +693,6 @@ void XVprocSs_Start(XVprocSs *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
 ******************************************************************************/
 void XVprocSs_Stop(XVprocSs *InstancePtr)
 {
@@ -755,9 +738,7 @@ void XVprocSs_Stop(XVprocSs *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
-*   XVprocSs_Reset,_Start controls vpss resets as shown
+*\n*\n*   XVprocSs_Reset,_Start controls vpss resets as shown
 *    axis_int ----_______________________--------------------------------
 *    axis_ext ----________________________________________________-------
 *    aximm    -----------_______-----------------------------------------
@@ -889,8 +870,6 @@ int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
 * @note This function must be called only after the respective mode (PIP/Zoom)
 *       has been enabled and user wants to move window to a new location
 *       This function is not applicable in Subsystem Stream Mode Configuration
@@ -939,8 +918,6 @@ void XVprocSs_UpdateZoomPipWindow(XVprocSs *InstancePtr)
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  mode is feature to be updated PIP or ZOOM
 * @param  win is structure that contains window coordinates and size
-*
-* @return None
 *
 * @note For Zoom mode RD client window is written in scratch pad memory
 *       For Pip mode WR client window is written in scratch pad memory
@@ -1061,8 +1038,6 @@ void XVprocSs_GetZoomPipWindow(XVprocSs *InstancePtr,
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  OnOff is the action required
 *
-* @return None
-*
 * @note User must call XVprocSs_ConfigureSubsystem() for change to take effect
 *       This call has not been added here such that it provides an opportunity
 *       to make the change during vertical blanking at system level. This
@@ -1096,8 +1071,6 @@ void XVprocSs_SetZoomMode(XVprocSs *InstancePtr, u8 OnOff)
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  OnOff is the action required
-*
-* @return None
 *
 * @note User must call XVprocSs_ConfigureSubsystem() for change to take effect
 *       This call has not been added here such that it provides an opportunity
@@ -1925,8 +1898,6 @@ s32 XVprocSs_GetPictureBrightness(XVprocSs *InstancePtr)
 * @param  NewValue is the new value to be written
 * 			- Range: 0-100
 *
-* @return None
-*
 * @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
@@ -1973,9 +1944,7 @@ s32 XVprocSs_GetPictureContrast(XVprocSs *InstancePtr)
 * @param  NewValue is the new value to be written
 * 			- Range: 0-100
 *
-* @return None
-*
-* @note   Applicable only if CSC core is included in the subsystem
+*\n*\n* @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPictureContrast(XVprocSs *InstancePtr, s32 NewValue)
@@ -2021,9 +1990,7 @@ s32 XVprocSs_GetPictureSaturation(XVprocSs *InstancePtr)
 * @param  NewValue is the new value to be written
 * 			- Range: 0-100
 *
-* @return None
-*
-* @note   Applicable only if CSC core is included in the subsystem
+*\n*\n* @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPictureSaturation(XVprocSs *InstancePtr, s32 NewValue)
@@ -2089,9 +2056,7 @@ s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr, XVprocSs_ColorChannel ChId)
 * @param  NewValue is the new value to be written
 * 			- Range: 0-100
 *
-* @return none
-*
-* @note   Applicable only if CSC core is included in the subsystem
+*\n*\n* @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPictureGain(XVprocSs *InstancePtr,
@@ -2184,9 +2149,7 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr)
 *		    - XVIDC_BT_709
 *		    - XVIDC_BT_601
 *
-* @return None
-*
-* @note   Applicable only if CSC core is included in the subsystem
+*\n*\n* @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
@@ -2219,9 +2182,7 @@ void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
 *		    - XVIDC_BT_709
 *		    - XVIDC_BT_601
 *
-* @return None
-*
-* @note   Applicable only if CSC core is included in the subsystem
+*\n*\n* @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
@@ -2278,9 +2239,7 @@ XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr)
 *	    	- XVIDC_CR_16_240
 *		    - XVIDC_CR_0_255
 *
-* @return None
-*
-* @note   Applicable only if CSC core is included in the subsystem
+*\n*\n* @note   Applicable only if CSC core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
@@ -2366,9 +2325,7 @@ int XVprocSs_SetPictureDemoWindow(XVprocSs *InstancePtr,
 *           - XLBOX_BKGND_GREEN
 *           - XLBOX_BKGND_BLUE
 *
-* @return None
-*
-* @note   Applicable only if Letterbox core is included in the subsystem
+*\n*\n* @note   Applicable only if Letterbox core is included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
@@ -2405,9 +2362,7 @@ void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
 * @param  num_taps is the effective taps to be used by Scaler
 * @param  Coeff is the pointer to the filter table to be loaded
 *
-* @return None
-*
-* @note   Applicable only if Scaler cores are included in the subsystem
+*\n*\n* @note   Applicable only if Scaler cores are included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
@@ -2466,9 +2421,7 @@ void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
 * @param  num_taps is the taps of the resampler hw instance
 * @param  Coeff is the pointer to the filter table to be loaded
 *
-* @return None
-*
-* @note   Applicable only if Resampler cores are included in the subsystem
+*\n*\n* @note   Applicable only if Resampler cores are included in the subsystem
 *
 ******************************************************************************/
 void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
@@ -2533,9 +2486,7 @@ void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
 *           - XVPROCSS_SUBCORE_CSC
 *           - XVPROCSS_SUBCORE_DEINT
 *
-* @return None
-*
-******************************************************************************/
+*\n*\n******************************************************************************/
 void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
 		                          u32 SubcoreId)
 {
@@ -2594,9 +2545,7 @@ void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
 *
 * @param  InstancePtr is a pointer to the Subsystem instance.
 *
-* @return None
-*
-******************************************************************************/
+*\n*\n******************************************************************************/
 void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
 {
   const char *topology[XVPROCSS_TOPOLOGY_NUM_SUPPORTED] = {
@@ -2685,9 +2634,7 @@ void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
-******************************************************************************/
+*\n*\n******************************************************************************/
 void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 {
   XVidC_VideoWindow win;

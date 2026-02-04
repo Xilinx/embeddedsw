@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -42,8 +42,6 @@
 *
 * @param	InstancePtr is a pointer to the XVprocSs core instance.
 *
-* @return	None.
-*
 * @note		HeadIndex == TailIndex means that the log is empty.
 *
 ******************************************************************************/
@@ -66,8 +64,6 @@ void XVprocSs_LogReset(XVprocSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XVprocSs core instance.
 * @param	Evt is the event type to log.
 * @param	Data is the associated data for the event.
-*
-* @return	None.
 *
 * @note		The DataBuffer is circular.  If full, new events will overwrite
 *           oldest events.
@@ -154,8 +150,6 @@ u16 XVprocSs_LogRead(XVprocSs *InstancePtr)
 * This function will read and print the entire event log.
 *
 * @param	InstancePtr is a pointer to the XVprocSs core instance.
-*
-* @return	None.
 *
 * @note		After reading out all events, the log will be empty.
 *

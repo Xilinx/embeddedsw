@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -406,8 +406,6 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 *
 * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
-*
 ******************************************************************************/
 void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr)
 {
@@ -446,8 +444,6 @@ void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr)
 * All remaining cores stay disabled
 *
 * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
-*
-* @return None
 *
 ******************************************************************************/
 void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)

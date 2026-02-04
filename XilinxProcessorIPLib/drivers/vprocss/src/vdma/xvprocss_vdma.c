@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,8 +47,6 @@
  *
  * @param XVprocSsPtr Pointer to the XVprocSs instance containing the VDMA configuration.
  *
- * @return None.
- *
 *******************************************************************************/
 void XVprocSs_VdmaStart(XVprocSs *XVprocSsPtr)
 {
@@ -69,8 +67,6 @@ void XVprocSs_VdmaStart(XVprocSs *XVprocSsPtr)
  *
  * @param XVprocSsPtr Pointer to the XVprocSs instance containing the VDMA configuration.
  *
- * @return None.
-*
 *******************************************************************************/
 void XVprocSs_VdmaStop(XVprocSs *XVprocSsPtr)
 {
@@ -86,8 +82,6 @@ void XVprocSs_VdmaStop(XVprocSs *XVprocSsPtr)
 * This function resets Read and Write channels.
 *
 * @param  XVprocSsPtr is the pointer to the VPSS instance
-*
-* @return None
 *
 *******************************************************************************/
 void XVprocSs_VdmaReset(XVprocSs *XVprocSsPtr)
@@ -376,8 +370,6 @@ int XVprocSs_VdmaStartTransfer(XVprocSs *XVprocSsPtr)
 * @param  XVprocSsPtr is the pointer to the VPSS instance.
 * @param  updateCh defines VDMA channel (RD/WR or RD+WR) to update
 *
-* @return None
-*
 ******************************************************************************/
 void XVprocSs_VdmaSetWinToDnScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
 {
@@ -447,8 +439,6 @@ void XVprocSs_VdmaSetWinToDnScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
 * @param  XVprocSsPtr is the pointer to the VPSS instance.
 * @param  updateCh defines VDMA channel (RD/WR or RD+WR) to update
 *
-* @return None
-*
 ******************************************************************************/
 void XVprocSs_VdmaSetWinToUpScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
 {
@@ -517,8 +507,6 @@ void XVprocSs_VdmaSetWinToUpScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
  *
  * @param XVprocSsPtr: Pointer to the XVprocSs instance containing the VDMA pointer.
  * @param PixelWidthInBits: The width of a pixel in bits, used to calculate bytes per pixel and interpret register values.
- *
- * @return : None.
  */
 
 void XVprocSs_VdmaDbgReportStatus(XVprocSs *XVprocSsPtr, u32 PixelWidthInBits)

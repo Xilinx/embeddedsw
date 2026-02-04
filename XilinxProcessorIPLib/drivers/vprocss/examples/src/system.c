@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -178,8 +178,6 @@ int XSys_SetStreamParam(XVprocSs *pVprocss, u16 Direction, u16 Width,
 *
 * @param	pPeriph is a pointer to the peripherals instance
 * @param	pVprocss is a pointer to the video proc subsystem instance
-*
-* @return   None
 *
 * @note		None.
 *

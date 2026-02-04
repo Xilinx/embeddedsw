@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,18 +35,18 @@
  * @{
  * The following constants define various reset lines in the subsystem
  */
-#define XPER_HLSIP_RESET       (0x00)
-#define XPER_HLSIP_ENABLE      (0x01)
+#define XPER_HLSIP_RESET       (0x00) /**< Assert HLS IP reset line */
+#define XPER_HLSIP_ENABLE      (0x01) /**< Deassert reset, enable HLS IP */
 /*@}*/
 
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
-/* Peripheral IP driver Instance */
-XV_tpg Tpg;
-XVtc Vtc;
-XGpio VidLocMonitor;
-XGpio HlsIpReset;
+/** Peripheral IP driver instances */
+XV_tpg Tpg; /**< Test Pattern Generator (TPG) driver instance */
+XVtc Vtc; /**< Video Timing Controller (VTC) driver instance */
+XGpio VidLocMonitor; /**< Video lock monitor GPIO instance */
+XGpio HlsIpReset; /**< HLS IP reset GPIO instance */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -256,8 +256,6 @@ void XPeriph_ConfigTpg(XPeriph *InstancePtr)
  * @param	Cformat		Color format for the test pattern (of type XVidC_ColorFormat).
  * @param	Pattern		Pattern type to be generated.
  * @param	IsInterlaced	Flag indicating whether the output should be interlaced (1) or progressive (0).
- *
- * @return	None
  */
 
 void XPeriph_SetTpgParams(XPeriph *InstancePtr,
@@ -292,9 +290,6 @@ void XPeriph_DisableTpg(XPeriph *InstancePtr)
  * This function reports TPG Status
  *
  * @param  InstancePtr is a pointer to the peripheral instance
- *
- * @return None.
- *
  *****************************************************************************/
 void XPeriph_TpgDbgReportStatus(XPeriph *InstancePtr)
 {
@@ -345,8 +340,6 @@ void XPeriph_TpgDbgReportStatus(XPeriph *InstancePtr)
  * @param InstancePtr Pointer to the XPeriph instance to configure.
  * @param StreamPtr Pointer to the XVidC_VideoStream structure containing timing information.
  * @param PixPerClk Number of pixels processed per clock cycle.
- *
- * @return None.
  */
 void XPeriph_ConfigVtc(XPeriph *InstancePtr,
 		               XVidC_VideoStream *StreamPtr,
@@ -437,3 +430,4 @@ void XPeriph_ConfigVtc(XPeriph *InstancePtr,
   XVtc_EnableGenerator(InstancePtr->VtcPtr);
   XVtc_RegUpdateEnable(InstancePtr->VtcPtr);
 }
+/** @} */
