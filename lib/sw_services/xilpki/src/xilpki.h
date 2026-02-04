@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
  * 2.0   Nava  09/11/23  Fixed doxygen warnings.
  * 2.1   Nava  12/27/23  Updated the XPki_DeQueueData() API to return the proper error
  *                       status for CopyEcdsa* operations.
+ * 2.4   Arvd  02/04/26  Fixed codespell errors.
  *
  * </pre>
  *
@@ -182,7 +183,7 @@ extern "C" {
 #define XPKI_INVALID_QUEUE_ID		0x4U /**< Invalid Queue ID */
 #define XPKI_UNSUPPORTED_OPS		0x5U /**< Unsupported operation */
 #define XPKI_QUEUE_FULL			0x6U /**< Queue full */
-#define XPKI_SLOT_SIZE_ERR		0x7U /**< For incompatiable slot size */
+#define XPKI_SLOT_SIZE_ERR		0x7U /**< For incompatible slot size */
 #define XPKI_INVALID_REQ_ID		0x8U /**< Invalid request ID */
 #define XPKI_SIGN_COPY_ERR		0x9U /**< Failed to copy the signature into the user pointed buffer */
 #define XPKI_PRIV_KEY_COPY_ERR		0xAU /**< Failed to copy the private-key into the user pointed buffer */
@@ -235,7 +236,7 @@ typedef enum {
 /** PKI Request info struct */
 typedef struct {
 	void *PtrInputData;	/**< Pointer to the input data */
-	void *PtrOutputData;	/**< Pointer to the outout data */
+	void *PtrOutputData;	/**< Pointer to the output data */
 	Xpki_OpsType OpsType;	/**< ECC operation type */
 	void (*XPki_CompletionCallBack)(u32 RequestID, u32 Status); /**< Request completion callback function pointer */
 } XPki_Request_Info;

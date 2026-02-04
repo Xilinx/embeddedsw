@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -12,6 +12,7 @@
 # 2.0   Nava  06/21/23   Added PKI multi-queue support for ECC operations.
 # 2.1   Nava  12/07/23   Corrected the PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD value.
 # 2.2   Nava  06/12/24   Added support for system device-tree flow.
+# 2.4   Arvd  02/04/26   Fixed codespell errors.
 #
 ##############################################################################
 
@@ -24,6 +25,6 @@ BEGIN LIBRARY xilpki
   OPTION SUPPORTED_PERIPHERALS = (psx_cortexa78);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpki,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilPKI library provides an interface to the PKI engine to perform the secure operations";
-  OPTION VERSION = 2.3;
+  OPTION VERSION = 2.4;
   OPTION NAME = xilpki;
 END LIBRARY

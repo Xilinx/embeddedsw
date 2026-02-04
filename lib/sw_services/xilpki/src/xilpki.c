@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
  * 2.1   Nava  01/03/24  Fixed security issues relevant to instance pointer NULL check.
  * 2.2   kpt   01/09/24  Updated option for non-blocking trng reseed
  * 2.2   Nava  06/12/24  Added support for system device-tree flow.
+ * 2.4   Arvd  02/04/26  Fixed codespell errors.
  *
  *</pre>
  *
@@ -1770,7 +1771,7 @@ END:
  * @param	CrvType  Type of ECC curve (NIST-P192, 256, P384, and P521)
  *
  * @return
- *		ECC Curve lenth.
+ *		ECC Curve length.
  *
  *****************************************************************************/
 static u8 XPki_GetEccCurveLen(XPki_EcdsaCrvType CrvType)
@@ -1863,7 +1864,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief       This function is used to prepare the descriptor data for the
- *		requested crypto opration.
+ *		requested crypto operation.
  *
  * @param       InstancePtr  Pointer to the XPki instance
  * @param       Ops  Type of the crypto operation
@@ -1927,7 +1928,7 @@ static inline int XPki_GetFreeSlot(XPki_Instance *InstancePtr,
  * @brief       This function is used to get the Queue ID.
  *
  * @param   InstancePtr   Pointer to the XPki instance
- * @param	OpSize Crypto Opration size.
+ * @param	OpSize Crypto Operation size.
  * @param    QueueID  Pointer to the QueueID(0/1/2/3)
  *
  * @return
@@ -2102,7 +2103,7 @@ static void XPki_IntrHandler(XPki_Instance *InstancePtr)
 /******************************************************************************/
 /**
 *
-* This function is use to notify the user if the submited request completed.
+* This function is use to notify the user if the submitted request completed.
 *
 * @param	InstancePtr	Pointer to the XPki instance
 * @param	Id Queue ID(0/1/2/3)

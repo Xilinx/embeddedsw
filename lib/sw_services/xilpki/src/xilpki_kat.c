@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -22,6 +22,7 @@
  * 1.0   Nava  12/05/22  Initial Release
  * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
  * 2.0   Nava  09/11/23  Fixed doxygen warnings.
+ * 2.4   Arvd  02/04/26  Fixed codespell errors.
  *
  *</pre>
  *
@@ -40,7 +41,7 @@
 #define XPKI_MAX_WAIT_COUNT		1000000U
 
 /************************** Function Prototypes ******************************/
-static void XPki_SignGenearte_CompletionCallBack(u32 RequestID, u32 Status);
+static void XPki_SignGenerate_CompletionCallBack(u32 RequestID, u32 Status);
 static void XPki_SignVerify_CompletionCallBack(u32 RequestID, u32 Status);
 static void XPki_PrivKeyGen_CompletionCallBack(u32 RequestID, u32 Status);
 static void XPki_PubKeyGen_CompletionCallBack(u32 RequestID, u32 Status);
@@ -572,7 +573,7 @@ END:
 /**
  * @brief It is a callback API for Signature Verification Request.
  *
- * @param  RequestID  Unique ID for the submited request
+ * @param  RequestID  Unique ID for the submitted request
  * @param   Status  Status of the request
  *
  * @return
@@ -644,7 +645,7 @@ int XPki_EcdsaSignGenerateKat(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *Crv
 
 	Request_Info.PtrInputData = (void *)&SignParams;
 	Request_Info.PtrOutputData = (void *)&GeneratedSign;
-	Request_Info.XPki_CompletionCallBack = XPki_SignGenearte_CompletionCallBack;
+	Request_Info.XPki_CompletionCallBack = XPki_SignGenerate_CompletionCallBack;
 
 	RQ_SignGen_Status = 0U;
 	RQ_SignGen_State = XPKI_REQ_SUBMITTED;
@@ -686,7 +687,7 @@ END:
 /**
  * @brief	It is a callback API for Signature Generation Request.
  *
- * @param  RequestID  Unique ID for the submited request
+ * @param  RequestID  Unique ID for the submitted request
  * @param  Status  Status of the request
  *
  * @return
@@ -694,7 +695,7 @@ END:
  *		- XST_FAILURE - On failure
  *
 ******************************************************************************/
-static void XPki_SignGenearte_CompletionCallBack(u32 RequestID, u32 Status)
+static void XPki_SignGenerate_CompletionCallBack(u32 RequestID, u32 Status)
 {
 	RQ_SignGen_State = XPKI_REQ_COMPLETED;
 	RQ_SignGenCallBack_Rid = RequestID;
@@ -759,7 +760,7 @@ int XPki_EcdsaPwct(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo, XPki_
 
 	Request_Info.PtrInputData = (void *)&SignParams;
 	Request_Info.PtrOutputData = (void *)&GeneratedSign;
-	Request_Info.XPki_CompletionCallBack = XPki_SignGenearte_CompletionCallBack;
+	Request_Info.XPki_CompletionCallBack = XPki_SignGenerate_CompletionCallBack;
 
 	RQ_SignGen_Status = 0U;
 	RQ_SignGen_State = XPKI_REQ_SUBMITTED;
@@ -936,7 +937,7 @@ END:
  * @brief       It is a completion callback API for Private-key generation
  *		Request.
  *
- * @param       RequestID       Unique ID for the submited request
+ * @param       RequestID       Unique ID for the submitted request
  * @param       Status          Status of the Request
  *
  * @return
@@ -955,7 +956,7 @@ static void XPki_PrivKeyGen_CompletionCallBack(u32 RequestID, u32 Status)
  * @brief       It is a completion callback API for Public-key generation
  *              request.
  *
- * @param RequestID  Unique ID for the submited request
+ * @param RequestID  Unique ID for the submitted request
  * @param Status  Status of the request
  *
  * @return

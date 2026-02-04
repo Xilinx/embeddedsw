@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * 1.0   Nava  12/05/22  Initial Release
  * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
  * 2.0   Nava  09/11/23  Fixed doxygen warnings.
+ * 2.4   Arvd  02/04/26  Fixed codespell errors.
  *
  * </pre>
  *
@@ -46,10 +47,10 @@ extern "C" {
 */
 #define XPKI_ECDSA_NON_SUPPORTED_CRV		0x1U	/**< Unsupported curve */
 #define XPKI_ECDSA_INVALID_PARAM		0x2U	/**< Invalid parameters */
-#define XPKI_ECDSA_SIGN_GEN_ERR			0x3U	/**< Ecdsa signature gneration error */
+#define XPKI_ECDSA_SIGN_GEN_ERR			0x3U	/**< Ecdsa signature generation error */
 #define XPKI_ECDSA_SIGN_VERIFY_ERR		0x4U	/**< Ecdsa signature verification error */
 #define XPKI_ECDSA_POINT_MULT_ERR		0x5U	/**< Ecc point multiplication error */
-#define XPKI_MOD_ADD_ERR			0x6U	/**< Modulus Addtion error */
+#define XPKI_MOD_ADD_ERR			0x6U	/**< Modulus Addition error */
 #define XPKI_DONE_STATUS_ERR			0x7U	/**< PKI done status error */
 /** @endcond*/
 /**************************** Type Definitions *******************************/
@@ -92,7 +93,7 @@ typedef struct {
 	XPki_EcdsaCrvType CrvType; /**< ECC Curve type */
 	u8 Hashlen;		 /**< Data hash length */
 	u8 Dlen;		/**< ECC Private key length */
-	u8 Klen;		/**< ECC ephemeral key lenth */
+	u8 Klen;		/**< ECC ephemeral key length */
 	const u8 *Hash;		/**< Pointer to the data hash */
 	const u8 *D;		/**< Pointer to the private key */
 	const u8 *K;		/**< Pointer to the ephemeral key */
@@ -108,7 +109,7 @@ typedef struct {
 
 typedef struct {
 	XPki_EcdsaCrvType CrvType;	/**< ECC Curve type */
-	XPki_EcdsaGpoint Gpoint;	/**< Structure to the ECC genetator points */
+	XPki_EcdsaGpoint Gpoint;	/**< Structure to the ECC generator points */
 	u8 Dlen;			/**< ECC Private key length */
 	const u8 *D;			/**< Pointer to the private key */
 } XPki_EcdsaPointMultiInputData;

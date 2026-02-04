@@ -1,11 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
- * This example will demonstrate how to generate the ECDSA KeyPair's and
+ * This example will demonstrate how to generate the ECDSA key pairs and
  * verification(Pairwise consistency test) using PKI library APIs.
  *
  * <pre>
@@ -15,6 +15,7 @@
  * ----- ------  --------  -----------------------------------------------------
  * 1.0   Nava    10/25/22  First release
  * 2.0   Nava    06/21/23  Added PKI multi-queue support for ECC operations.
+ * 2.4   Arvd    02/04/26  Fixed codespell errors.
  *
  * </pre>
  *
@@ -53,10 +54,10 @@ int main(void)
 
 	Status = XPki_EcdsaGenerateKeyPair(&InstanceParam, ECC_NIST_P192, &PubKey, PrivKey);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ECDSA P192 KeyPair generation failed with error: 0x%x\r\n", Status);
+		xil_printf("ECDSA P192 key pair generation failed with error: 0x%x\r\n", Status);
 		goto END;
 	} else {
-		xil_printf("ECDSA P192 KeyPair generation test ran Successfully\r\n");
+		xil_printf("ECDSA P192 key pair generation test ran Successfully\r\n");
 	}
 
 	CrvInfo.CrvType = ECC_NIST_P192;
@@ -71,10 +72,10 @@ int main(void)
 
 	Status = XPki_EcdsaGenerateKeyPair(&InstanceParam, ECC_NIST_P256, &PubKey, PrivKey);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ECDSA P256 KeyPair generation failed with error: 0x%x\r\n", Status);
+		xil_printf("ECDSA P256 key pair generation failed with error: 0x%x\r\n", Status);
 		goto END;
 	} else {
-		xil_printf("ECDSA P256 KeyPair generation test ran Successfully\r\n");
+		xil_printf("ECDSA P256 key pair generation test ran Successfully\r\n");
 	}
 
 	CrvInfo.CrvType = ECC_NIST_P256;
@@ -90,10 +91,10 @@ int main(void)
 
 	Status = XPki_EcdsaGenerateKeyPair(&InstanceParam, ECC_NIST_P384, &PubKey, PrivKey);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ECDSA P384 KeyPair generation failed with error: 0x%x\r\n", Status);
+		xil_printf("ECDSA P384 key pair generation failed with error: 0x%x\r\n", Status);
 		goto END;
 	} else {
-		xil_printf("ECDSA P384 KeyPair generation test ran Successfully\r\n");
+		xil_printf("ECDSA P384 key pair generation test ran Successfully\r\n");
 	}
 
 	CrvInfo.CrvType = ECC_NIST_P384;
@@ -109,10 +110,10 @@ int main(void)
 
 	Status = XPki_EcdsaGenerateKeyPair(&InstanceParam, ECC_NIST_P521, &PubKey, PrivKey);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ECDSA P521 KeyPair generation failed with error: 0x%x\r\n", Status);
+		xil_printf("ECDSA P521 key pair generation failed with error: 0x%x\r\n", Status);
 		goto END;
 	} else {
-		xil_printf("ECDSA P521 KeyPair generation test ran Successfully\r\n");
+		xil_printf("ECDSA P521 key pair generation test ran Successfully\r\n");
 	}
 
 	CrvInfo.CrvType = ECC_NIST_P521;
