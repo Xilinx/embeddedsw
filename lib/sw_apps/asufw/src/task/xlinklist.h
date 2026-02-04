@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -122,10 +122,10 @@ static inline void XLinkList_AddItemLast(XLinkList *Item, XLinkList *List)
 
 /*************************************************************************************************/
 /**
- * @brief   This function concatinates given two linked lists.
+ * @brief   This function concatenates given two linked lists.
  *
- * @param   List1   First linked list to be concatinated with second list
- * @param   List2   Second linked list to be concatinated at the end of first list
+ * @param   List1   First linked list to be concatenated with second list
+ * @param   List2   Second linked list to be concatenated at the end of first list
  *
  *************************************************************************************************/
 static inline void XLinkList_Concat(XLinkList *List1, const XLinkList *List2)

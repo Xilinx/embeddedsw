@@ -460,7 +460,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function measures the Partition hashes
+ * @brief	This function measures the partition hashes
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *

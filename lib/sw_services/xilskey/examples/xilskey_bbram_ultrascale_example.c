@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -333,7 +334,7 @@ int XilSKey_Bbram_ProgramSLR(XilSKey_Bbram *BbramInstancePtr)
 		return XST_FAILURE;
 	}
 	xil_printf("Successfully programmed and verified Ultrascale"
-						" BBRAM key for SLR of config oder index %d\r\n",
+						" BBRAM key for SLR of config order index %d\r\n",
 				(BbramInstancePtr->SlrConfigOrderIndex));
 	return XST_SUCCESS;
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -54,8 +54,8 @@
  *
  * #define XOCP_ENV_MONITOR_DISABLE		(FALSE)
  *
- * TRUE will disable the temparature and voltage checks before eFuse programming.
- * FALSE will not disable the temparature and voltage checks before eFuse programming.
+ * TRUE will disable the temperature and voltage checks before eFuse programming.
+ * FALSE will not disable the temperature and voltage checks before eFuse programming.
  * By default the value will be FALSE.
  *
  * #define XOCP_PRGM_ENC_DME_PRIV_KEY_0		(FALSE)

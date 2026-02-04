@@ -27,7 +27,7 @@
 *                       de-featured
 *       ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
-* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+* 1.03  bsv  07/07/2020 Made functions used in single translation unit as
 *						static
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors

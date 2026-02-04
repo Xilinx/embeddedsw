@@ -246,7 +246,7 @@ END:
  * @param	IvAddr		Address of the IV to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *                      when set to true it will not check for voltage
- *                      and temparature limits.
+ *                      and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -383,7 +383,7 @@ END:
  * @param	UdsAddr		Address of the UDS to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *                      when set to true it will not check for voltage
- *                      and temparature limits.
+ *                      and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -454,7 +454,7 @@ END:
  * @param	DmeKeyAddr	Address of the encrypted DME private key to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *                      when set to true it will not check for voltage
- *                      and temparature limits.
+ *                      and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -529,7 +529,7 @@ END:
  * @param	DmeRevokeNum DME revoke id to be revoked.
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *                      when set to true it will not check for voltage
- *                      and temparature limits.
+ *                      and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -593,7 +593,7 @@ END:
  * @param	DmeMode		Value of DME mode to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -655,7 +655,7 @@ END:
  * @param	SecCtrlBits	Value of Secure Control  Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -716,7 +716,7 @@ END:
  * @param	PufCtrlBits	Value of Puf Control  Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -777,7 +777,7 @@ END:
  * @param	MiscCtrlBits	Value of Misc Control Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -838,7 +838,7 @@ END:
  * @param	BootModeDisBits	Value of Boot mode disable Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -900,7 +900,7 @@ END:
  * @param	SecMisc1Bits	Value of Sec Misc 1 Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -961,7 +961,7 @@ END:
  * @param	BootEnvCtrlBits	Value of BootEnvCtrl Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1022,7 +1022,7 @@ END:
  * @param	RomRsvdBits	Value of ROM Rsvd Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1082,7 +1082,7 @@ END:
  * @param	GlitchCfgBits	Value of Glitch Cfg Bits to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1140,7 +1140,7 @@ END:
  * @param	InstancePtr	Pointer to the client instance
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1197,7 +1197,7 @@ END:
  * @param	InstancePtr	Pointer to the client instance
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1256,7 +1256,7 @@ END:
  * @param	FipsVersion	FIPS version which needs to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1316,7 +1316,7 @@ END:
  * @param	RevokeIdNum	Revocation ID number which needs to be programmed
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
  *				When set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -1374,7 +1374,7 @@ END:
  * @param	OffChipRevokeIdNum	Off Chip Revocation ID number which needs to be programmed
  * @param	EnvDisFlag		Environmental monitoring flag set by the user.
  *					When set to true it will not check for voltage
- *					and temparature limits.
+ *					and temperature limits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful

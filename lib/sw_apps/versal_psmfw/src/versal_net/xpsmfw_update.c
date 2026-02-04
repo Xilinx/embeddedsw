@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -231,7 +231,7 @@ XStatus XPsmFw_ReStoreData(void){
 		goto done;
 	}
 
-	/** Retore Apu Cluster State*/
+	/** Restore Apu Cluster State*/
 	Status = Xil_SMemCpy((u8 *)ApuClusterState, NumApuCluster,\
 		(const u8 *)XPSM_DATA_SAVED_START + Position, NumApuCluster, NumApuCluster);
 	Position += NumApuCluster;

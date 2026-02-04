@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,7 @@
 * 5.3   am   12/18/23 Fixed assignment of status to success for invalid mod data
 *       kpt  03/04/24 Updated parameter description for XSecure_IsNonZeroBuffer
 * 5.4   yog  04/29/24 Fixed doxygen warnings
-*       kal  07/29/24 Code refactoring for versal_2ve_2vm, seperated xsecure_rsa
+*       kal  07/29/24 Code refactoring for versal_2ve_2vm, separated xsecure_rsa
 *                     for zynqmp and versal_gen.
 *
 * </pre>

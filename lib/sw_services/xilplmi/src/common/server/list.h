@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2015-2022 Xilinx, Inc. and Contributors. All rights reserved.
- * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2015 - 2022 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022 -2026 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -28,7 +28,7 @@ struct metal_list {
 };
 
 /*
- * METAL_INIT_LIST - used for initializing an list elmenet in a static struct
+ * METAL_INIT_LIST - used for initializing an list element in a static struct
  * or global
  */
 #define METAL_INIT_LIST(name) { .next = &name, .prev = &name }

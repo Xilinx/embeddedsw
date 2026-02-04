@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +24,7 @@
 *                       from u8* to UINTPTR for versal SHA3 function call
 *       har    10/12/20 Addressed security review comments
 *       kal    03/23/21 Removed versal support in this example and created
-*       		a seperate example for the same
+*       		a separate example for the same
 *
 * </pre>
 ******************************************************************************/

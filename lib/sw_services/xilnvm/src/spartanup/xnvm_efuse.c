@@ -1128,7 +1128,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 
 	/**
 	 * Read Boot mode disable bits from eFUSE cache before programming.
-	 * Return error incase of failure.
+	 * Return error in case of failure.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_MODE_DIS_OFFSET, &BootModeDisVal);
 	if (Status != XST_SUCCESS) {
@@ -1260,7 +1260,7 @@ int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits)
 
 	/**
 	 * Read Boot mode disable bits from eFUSE cache before programming.
-	 * Return error incase of failure.
+	 * Return error in case of failure.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_MODE_DIS_OFFSET, &BootModeDisVal);
 	if (Status != XST_SUCCESS) {

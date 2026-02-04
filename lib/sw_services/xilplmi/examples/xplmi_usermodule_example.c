@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -169,7 +169,7 @@ static u32 UserModuleSend(void)
 		goto END;
 	}
 
-	xil_printf("Request message sent sucessfully\n\r");
+	xil_printf("Request message sent successfully\n\r");
 
 	if(Error){
 		xil_printf("Error Occurred During IPI Transfer\n\r");
@@ -228,7 +228,7 @@ static u32 UserModuleSendRecv(void)
 		goto END;
 	}
 
-	xil_printf("Request message sent sucessfully\n\r");
+	xil_printf("Request message sent successfully\n\r");
 
 	while(!Error && !RecvDone);
 
@@ -246,7 +246,7 @@ static u32 UserModuleSendRecv(void)
 		xil_printf("Reading an IPI Resp message Failed\n\r");
 		goto END;
 	}
-	xil_printf("Response Message Read sucessfully\r\n");
+	xil_printf("Response Message Read successfully\r\n");
 
 	xil_printf("DONE\n\r");
 
@@ -255,7 +255,7 @@ END:
 }
 /*************************************************************************************************/
 /**
- * @brief	When IPI channel Sends Response message from PLM which intialized in user module this
+ * @brief	When IPI channel Sends Response message from PLM which initialized in user module this
 			function will be called and changes the status of RecvDone to 1 .
  *
  * @param	CallBackRef is the reference pointer to callback function.
@@ -271,7 +271,7 @@ static void DoneHandler(void *CallBackRef)
  * @brief	This Function will be called if any error occur during IPI transfer.
  *
  * @param	CallBackRef is the reference pointer to callback function.
- * @param	ErrorStatus is the Error occured during IPI transfer.
+ * @param	ErrorStatus is the Error occurred during IPI transfer.
  *
  *************************************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 ErrorStatus)

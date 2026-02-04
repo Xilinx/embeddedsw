@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -62,7 +62,7 @@
 *       gm   07/16/21 Added APIs to support 64-bit address
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 * 5.4   yog  04/29/24 Fixed doxygen grouping
-* 	kal  07/24/24 Code refactoring for versal_2ve_2vm, seperated xsecure_rsa
+* 	kal  07/24/24 Code refactoring for versal_2ve_2vm, separated xsecure_rsa
 *                     for zynqmp and versal_gen.
 *
 * </pre>

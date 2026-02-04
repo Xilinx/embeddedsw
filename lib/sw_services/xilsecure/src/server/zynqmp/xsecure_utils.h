@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,7 +128,7 @@ static inline void XSecure_WriteReg(u32 BaseAddress,
 
 /*****************************************************************************/
 /**
- * @brief        This function reads data from 64-bit addresss
+ * @brief        This function reads data from 64-bit address
  *
  * @param        Addr is the address
  *

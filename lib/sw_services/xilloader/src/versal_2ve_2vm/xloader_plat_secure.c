@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -473,7 +473,7 @@ END:
 *
 * @param	PpkHash is pointer to the PPK hash.
 *
-* @return	XST_FAILURE always return failue, as this api is not applicable for
+* @return	XST_FAILURE always return failure, as this api is not applicable for
 * versal_net
 *
 ******************************************************************************/
@@ -493,7 +493,7 @@ int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
 * @param	InvalidMask Pointer to the PPK invalid mask
 * @param	PpkOffset   Pointer to the efuse cache PPK start offset
 *
-* @return	XST_FAILURE always return failue, as this api is not applicable for
+* @return	XST_FAILURE always return failure, as this api is not applicable for
 * versal_net
 *
 ******************************************************************************/

@@ -555,10 +555,10 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function dispalys Data of specified length.
+* This function displays Data of specified length.
 *
-* @param 	Data 	Pointer to the data to be dispalyed
-* @param	Len	Length of the data to be disaplyed
+* @param 	Data 	Pointer to the data to be displayed
+* @param	Len	Length of the data to be displayed
 *
 ******************************************************************************/
 static void XSecure_ShowData(const u8* Data, u32 Len)

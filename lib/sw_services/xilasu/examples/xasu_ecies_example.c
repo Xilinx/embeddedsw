@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -222,7 +222,7 @@ int main(void)
 		XilAsu_Printf("%02x", OutDecData[Index]);
 	}
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("Decrypted Output comparision failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Decrypted Output comparison failed, Status = %x \n\r", Status);
 	}
 
 END:

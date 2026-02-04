@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,13 +21,13 @@
 * 2.2   vns  07/06/17 Added doxygen tags
 * 3.0   vns  01/23/18 Added NIST SHA3 support.
 *                     Added SSS configuration before every CSU DMA transfer
-* 3.2   ka   04/30/18 Modified SHa3 hash calculation fuctionality to
+* 3.2   ka   04/30/18 Modified SHa3 hash calculation functionality to
 * 		      support the following features:
 *                     - To support byte aligned data,
 *                     - To support non-word aligned address
 *                     - And also fixed limitation of input data,
 *                     	now size of input can be of any size.
-*                     	not limitted to 512MB.
+*                     	not limited to 512MB.
 * 4.0	arc  12/18/18 Fixed MISRA-C violations.
 *       arc  03/06/19 Added asserts to validate input params.
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
@@ -175,7 +175,7 @@ END:
  * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
  *
  * @return	XST_SUCCESS if pad selection is successful.
- * 		XST_FAILURE if pad selecction is failed.
+ * 		XST_FAILURE if pad selection is failed.
  *
  * @note	The default provides support for NIST SHA-3. If a user wants
  * 			to change the padding to Keccak SHA-3, this function

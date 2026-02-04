@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     09/16/21 Initial Release
-* 4.6   har     09/16/21 Updated relase version to 4.6
+* 4.6   har     09/16/21 Updated release version to 4.6
 * 5.1   har     01/23/23 Corrected the value of XSECURE_CRP_RST_PS_PS_SRST_MASK
 *
 * </pre>

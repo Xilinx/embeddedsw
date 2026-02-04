@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -654,7 +654,7 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 
 	Status = XSecure_ClientInit(&SecureClientInstance, InstancePtr->MailboxPtr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error occured in XSecure_Client Initialization, Status = %x \r\n", Status);
+		xil_printf("Error occurred in XSecure_Client Initialization, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -663,30 +663,30 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 	 */
 	Status =  XSecure_RsaPublicEncKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error occured in XSecure_RsaPublicEncKat test, Status = 0x%x \r\n", Status);
+		xil_printf("Error occurred in XSecure_RsaPublicEncKat test, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	Status =  XSecure_Sha3Kat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error occured in XSecure_Sha3Kat test, Status = 0x%x \r\n", Status);
+		xil_printf("Error occurred in XSecure_Sha3Kat test, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	Status = XSecure_EllipticSignVerifyKat(&SecureClientInstance, XSECURE_ECC_PRIME);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error occured in XSecure_EllipticSignVerifyKat test, Status = 0x%x \r\n", Status);
+		xil_printf("Error occurred in XSecure_EllipticSignVerifyKat test, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	if (PdiType != XLOADER_PDI_TYPE_PARTIAL) {
 		Status = XLoader_ValidateBhAndPlmNPmcCdoAuth(InstancePtr, PdiAddr, &MhOffset);
 		if (Status != XST_SUCCESS) {
-			xil_printf("Error occured in XLoader_Validate Bootheader And PlmNPmc Cdo Authentication, Status = 0x%x \r\n", Status);
+			xil_printf("Error occurred in XLoader_Validate Bootheader And PlmNPmc Cdo Authentication, Status = 0x%x \r\n", Status);
 			goto END;
 		}
 		/**
-		 * Fpr full PDI Partition 0 is PLM. Hence Idx starts from 1 for PLM loadable partitions
+		 * For full PDI Partition 0 is PLM. Hence Idx starts from 1 for PLM loadable partitions
 		 */
 		PrtnIdx = 1U;
 	}

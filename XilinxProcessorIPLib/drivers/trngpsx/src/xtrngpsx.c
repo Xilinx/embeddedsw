@@ -373,7 +373,7 @@ END:
  * @param	UserCfg Pointer to the XTrngpsx_UserConfig
  *
  * @return
- * 		- XST_SUCCESS On successful instantation
+ * 		- XST_SUCCESS On successful instantiation
  * 		- XTRNGPSX_INVALID_PARAM If invalid parameter(s) passed to this function.
  * 		- XTRNGPSX_INVALID_SEED_VALUE If provide seed is NULL in DRBG mode
  * 		- XTRNGPSX_INVALID_STATE If state is not in uninstantiate state
@@ -388,7 +388,7 @@ END:
  * 		- XTRNGPSX_TIMEOUT_ERROR If timeout occurred waiting for done bit
  * 		- XTRNGPSX_CATASTROPHIC_CTF_ERROR If CTF bit asserted in STATUS register.
  * 		- XTRNGPSX_ERROR_WRITE On write failure
- * 		- XTRNGPSX_INVALID_BLOCKING_MODE If invalid blocking mode is choosen
+ * 		- XTRNGPSX_INVALID_BLOCKING_MODE If invalid blocking mode is chosen
  * 		- XST_FAILURE On unexpected failure
  *
  **************************************************************************************************/

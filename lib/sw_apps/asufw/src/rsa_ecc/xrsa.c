@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -45,7 +45,7 @@
 #define XRSA_RESET_REG_OFFSET		(0x40U)		/**< RSA reset register offset */
 
 /* Errors from third-party library */
-#define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA third-party keypair compare error */
+#define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA third-party key pair compare error */
 #define XRSA_RAND_GEN_ERROR		(2)		/**< RSA third-party random number
 								generation error */
 

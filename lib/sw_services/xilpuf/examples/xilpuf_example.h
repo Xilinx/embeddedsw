@@ -23,7 +23,7 @@
  * 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
  * 1.2   am      08/14/20 Changed unsigned to signed enum object.
  * 1.3   har     05/20/21 Added option to program Black IV
- * 2.1   skg     12/14/22 Added enum for slr indexs
+ * 2.1   skg     12/14/22 Added enum for slr indexes
  * 2.5   hj      02/17/25 Added IV and red key macros for SSITs.
  * 2.7   bha     01/06/26 Fixed Doxygen warnings
  *
@@ -178,7 +178,7 @@
  * be configured as FALSE to disable Global Variation Filter.
  *
  * \#define XPUF_ENV_MONITOR_DISABLE		(FALSE)
- * This option should be configured as TRUE to disable the temparature and voltage
+ * This option should be configured as TRUE to disable the temperature and voltage
  * checks before eFuses programming.
  *
  * \#define SLR_INDEX	   (XPUF_SLR_INDEX_0)

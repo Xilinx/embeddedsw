@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,7 +57,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kpt    05/22/24 Initial release.
-* 5.4   kpt    06/28/24 Fix compilation failure and remove unused varialbe
+* 5.4   kpt    06/28/24 Fix compilation failure and remove unused variable
 *       kpt    06/30/24 Removed endianness changes
 *
 * </pre>

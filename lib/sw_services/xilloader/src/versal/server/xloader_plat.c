@@ -998,7 +998,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_INVALID_ELF_LOAD_ADDR if the load address of the
  * 			elf is invalid.
- * 			- XLOADER_ERR_PM_DEV_PSM_PROC if device requet for PSM is failed.
+ * 			- XLOADER_ERR_PM_DEV_PSM_PROC if device request for PSM is failed.
  * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT if IOCTL call to set RPU0 in
  * 			split mode fails.
  * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT if IOCTL call to set RPU1 in

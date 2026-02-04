@@ -68,7 +68,7 @@
 * Default value is (0x00000004)
 *
 * XOCP_READ_NUM_OF_LOG_ENTRIES Number of PcrLog entries to read into buffer.
-* Default value is 1 and maximum value is upto 32.
+* Default value is 1 and maximum value is up to 32.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -245,7 +245,7 @@ static int XOcp_HwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 	}
 	xil_printf("\n\rHW PCR Log status:\n\r");
 	xil_printf("No of requested HWPCR log events:%d \n\r",XOCP_READ_NUM_OF_LOG_ENTRIES);
-	xil_printf("No of read HWPCR log events occured:%d \n\r",HwPcrLogInfo.HwPcrEventsRead);
+	xil_printf("No of read HWPCR log events occurred:%d \n\r",HwPcrLogInfo.HwPcrEventsRead);
 	xil_printf("No of pending HWPCR read log events:%d \n\r",HwPcrLogInfo.RemainingHwPcrEvents);
 	xil_printf("Total No of update HWPCR log events:%d \n\r",HwPcrLogInfo.TotalHwPcrLogEvents);
 	xil_printf("HWPCR log overflow count since last read:%d \n\r",HwPcrLogInfo.OverflowCntSinceLastRd);

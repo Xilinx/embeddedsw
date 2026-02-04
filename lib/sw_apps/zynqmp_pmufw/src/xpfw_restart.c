@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,9 +83,9 @@ static XWdtPs WdtInstance;
 /* TTC driver instance used within this file */
 static XTtcPs FpdTtcInstance;
 
-/* Data strcuture to track restart phases for a Master */
+/* Data structure to track restart phases for a Master */
 typedef struct XPfwRestartTracker {
-	u32 WdtBaseAddress; /* Base address for WDT assigend to this master */
+	u32 WdtBaseAddress; /* Base address for WDT assigned to this master */
 	u8 RestartState; /* Track different phases in restart cycle */
 	u8 RestartScope; /* Restart scope upon WDT */
 	u8 WdtTimeout; /* Timeout value for WDT */

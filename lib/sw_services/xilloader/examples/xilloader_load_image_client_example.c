@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,7 +17,7 @@
  *
  * Procedure to run the example.
  * ------------------------------------------------------------------------------------------------
- * Procedure to run the exmaple through image store.
+ * Procedure to run the example through image store.
  * Load the Image store Pdi.
  * Select the target.
  * Download the example elf into the target.

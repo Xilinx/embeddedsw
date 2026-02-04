@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,7 +19,7 @@
 * Once authentication of the block is completed successfully, again each chunk
 * of the block will be read from external memory and calculates hash on chunk
 * and compares with the stored hash. If matched each chunk will be sent to AES
-* if decryption exists or to PCAP throught CSUDMA.
+* if decryption exists or to PCAP through CSUDMA.
 * The above process will be repeated for all the blocks of bitstream.
 *
 * <pre>

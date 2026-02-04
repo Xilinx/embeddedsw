@@ -182,7 +182,7 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function get X.509 certificate of Device Indentity Public Key.
+* @brief	This function get X.509 certificate of Device Identity Public Key.
 *
 * @param	OcpClientInsPtr pointer to the OCP client instance.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,9 +90,9 @@ extern "C" {
 #define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)  /**< Value when Configuration Limiter feature is enabled */
 
 #define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x79FFF8C1U)
-		/**< Mask to enable required instrcutions in Instruction Mask 0 register */
+		/**< Mask to enable required instructions in Instruction Mask 0 register */
 #define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x070BFF91U)
-		/**< Mask to enable required instrcutions in Instruction Mask 1 register */
+		/**< Mask to enable required instructions in Instruction Mask 1 register */
 /**************************** Type Definitions *******************************/
 typedef enum {
 	/* Add platform specific error codes from 0xA0 */

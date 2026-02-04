@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,12 +11,12 @@
  * @{
  *
  * This file illustrates Basic eFuse read/write using rows.
- * This example is supported for spartan ultrascale plus devices.
+ * This example is supported for Spartan ultrascale plus devices.
  *
  * To build this application, xilnvm library must be in server mode.
- * This example is supported for spartan ultrascale plus devices.
+ * This example is supported for Spartan ultrascale plus devices.
  *
- * Procedure to link and compile the example for the default ddr less designs
+ * Procedure to link and compile the example for the default DDR-less designs
  * ------------------------------------------------------------------------------------------------------------
  * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
  * any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.
@@ -54,7 +54,7 @@
  *       mb    08/20/2025 Add support to program the boot mode disable eFUSE bits.
  *       mb    10/05/2025 Convert IV endianness to little endian format.
  *       mb    09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
- *       mb    10/14/2025 Update logic for programing Revoke ID's
+ *       mb    10/14/2025 Update logic for programming Revoke ID's
  * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
  *
  * </pre>
@@ -151,10 +151,10 @@ int main(void)
 
 END:
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\nspartan ultrascale pluse  Efuse example failed with err: %08x\n\r",
+		xil_printf("\r\nspartan ultrascale plus Efuse example failed with err: %08x\n\r",
 			   Status);
 	} else {
-		xil_printf("\r\nSuccessfully ran spartan ultrascale pluse Efuse example");
+		xil_printf("\r\nSuccessfully ran spartan ultrascale plus Efuse example");
 	}
 	return Status;
 }

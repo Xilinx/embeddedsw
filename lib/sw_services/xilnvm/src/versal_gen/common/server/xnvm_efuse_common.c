@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -820,7 +820,7 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 				IntegralPart, FractionalPart);
 		/**
 		 * Check for voltage operating limits.
-		 * Return error if voltage is not withing operating limits.
+		 * Return error if voltage is not within operating limits.
 		 */
 		Status = XNvm_EfusePmcVoltageCheck(Voltage);
 		if (Status != XST_SUCCESS) {

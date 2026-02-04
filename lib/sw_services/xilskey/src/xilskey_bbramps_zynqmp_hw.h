@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -299,7 +300,7 @@ extern "C" {
 							  *  width */
 #define XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_MASK	0x00000001U
 							/**< ISR APB slave err
-							  *  maks */
+							  *  mask */
 #define XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_DEFVAL		0x0U
 							/**< ISR APB slave err
 							  *  def value */
@@ -320,7 +321,7 @@ extern "C" {
 							  *  width */
 #define XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_MASK	0x00000001U
 							/**< IMR APB slave err
-							  *  maks */
+							  *  mask */
 #define XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_DEFVAL		0x1U
 							/**< IMR APB slave err
 							  *  def value */

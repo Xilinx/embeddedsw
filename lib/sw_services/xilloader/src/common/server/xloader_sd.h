@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 *       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
 *       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
 *       bsv  03/14/2020 Added eMMC0 FS and raw boot mode support
-*       bsv  03/17/2020 Changes relatd to multiple partitions in SD/eMMC boot
+*       bsv  03/17/2020 Changes related to multiple partitions in SD/eMMC boot
 *       bsv  02/04/2020 Reset file system instance in init functions for LPD off
 *						suspend and resume to work
 * 1.02  bsv  04/09/2020 Code clean up

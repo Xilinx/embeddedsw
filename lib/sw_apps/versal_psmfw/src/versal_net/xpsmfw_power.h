@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -239,7 +239,7 @@ struct XPsmFwPwrCtrl_t {
 	enum ClusteId ClusterId; /**< Specific cluster ID */
 	u32 PcilIsrAddr; /**< PCIL ISR Register */
 	u8 Pactive1Mask; /**< Pactive1 bit number */
-	u32 VectTableAddr; /**< Core vectore table address */
+	u32 VectTableAddr; /**< Core vector table address */
 
 };
 

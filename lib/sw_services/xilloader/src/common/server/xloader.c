@@ -844,7 +844,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 
 	/**
 	 * Authenticate Image Header Table, this is applicable for only Versal and VersalNet
-	 * platforms. For Versal_2ve_2vm platform whole MetaHeader is autheticated with
+	 * platforms. For Versal_2ve_2vm platform whole MetaHeader is authenticated with
 	 * HashBlock signature.
 	 */
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)

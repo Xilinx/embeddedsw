@@ -19,7 +19,7 @@
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     06/13/24 Added AES key unwrap with padding support.
 * 5.6	tus	10/10/25 Move XSecure_AesEcbDecryptInit() inside the unwrap
-*			 loop to properly initilise AES state before each
+*			 loop to properly initialise AES state before each
 *			 independent ECB decrypt operation
 * </pre>
 *

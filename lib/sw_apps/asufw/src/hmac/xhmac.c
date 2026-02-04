@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -440,7 +440,7 @@ END:
 /**
  *
  * @brief	This function preprocesses the key to SHA block length as per the standard based
- * 		on the length comparision between provided KeyLen and the SHA block length.
+ * 		on the length comparison between provided KeyLen and the SHA block length.
  *
  * @param	InstancePtr	Pointer to the XHmac instance.
  * @param	AsuDmaPtr	Pointer to the XAsufw_Dma instance.

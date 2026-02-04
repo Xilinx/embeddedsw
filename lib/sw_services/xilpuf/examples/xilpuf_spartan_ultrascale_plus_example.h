@@ -108,7 +108,8 @@ extern "C" {
 					/**< IV that is used during black key generation */
 
 #define XPUF_GENERATE_KEK_N_ID		(TRUE)
-					/**< This will enable/disable generating black key */
+					/**< This will enable/disable generating black key and
+				     it is only applicable during registration */
 
 #define XPUF_KEY_GENERATE_OPTION	(XPUF_REGISTRATION)
 					/**< PUF kEK generate option it can be either

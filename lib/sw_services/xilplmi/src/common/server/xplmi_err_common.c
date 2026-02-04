@@ -28,7 +28,7 @@
 *                       de-featured
 *       ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
-* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+* 1.03  bsv  07/07/2020 Made functions used in single translation unit as
 *						static
 *       kc   08/11/2020 Added disabling and clearing of error which has actions
 *                       selected as subsystem shutdown or restart or custom.
@@ -271,7 +271,7 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 
 			XPlmi_DumpRegisters();
 			/**
-			 * - If boot mode is jtag, donot reset. This is to keep
+			 * - If boot mode is jtag, do not reset. This is to keep
 			 * the system state intact for further debug.
 			 */
 #ifndef PLM_DEBUG_MODE

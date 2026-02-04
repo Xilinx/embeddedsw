@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -968,7 +968,7 @@ END:
  * @param	AddrLow		Lower 32-bit linear memory space of single
  *		partition non-bitstream image.
  * @param	KupAddrHigh	Higher 32-bit linear memory space of KUP key.
- * @param	KupAddrLow	Ligher 32-bit linear memory space of KUP key.
+ * @param	KupAddrLow	lower 32-bit linear memory space of KUP key.
  * @param	Addr		Location of the secure image loaded after validation.
  *
  * @return	Returns Status

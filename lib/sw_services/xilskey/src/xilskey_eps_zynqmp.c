@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,7 +74,7 @@
 *       kpt   03/17/20 Replaced direct eFuse reads with cache reads
 *                      and Error code is returned when user chooses
 *                      read option as eFuse.
-*       ana   04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
+*       ana   04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variables,
 *                      as these are not required with only sha3 support.
 *       kal   04/09/20 Added Temp and Voltage checks before unlocking the
 *                      controller.

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 * 1.01  ma   08/01/2019 Added LPD init code
 * 1.02  kc   02/19/2020 Moved code to support PLM banner from PLM app
 *       bsv  04/04/2020 Code clean up
-* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+* 1.03  bsv  07/07/2020 Made functions used in single translation unit as
 *						static
 *       kc   07/28/2020 Added WDT MACRO to indicate WDT initialized
 *       skd  07/29/2020 Added device copy macros

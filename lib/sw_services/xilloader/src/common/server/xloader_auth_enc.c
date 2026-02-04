@@ -3657,7 +3657,7 @@ static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
-	/** - Autheticate HashBlock corresponding to MetaHeader */
+	/** - Authenticate HashBlock corresponding to MetaHeader */
 	Status = XLoader_AuthenticateHashBlock(SecurePtr, HBSignParams);
 	if (Status != XST_SUCCESS) {
 		goto END;

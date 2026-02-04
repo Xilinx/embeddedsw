@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,7 @@
 * 1.00  kc   07/12/2018 Initial release
 * 1.01  kc   04/08/2019 Added code to request UART if debug prints
 *                       are enabled
-*       kc   05/09/2019 Addeed code to disable CFRAME isolation
+*       kc   05/09/2019 Added code to disable CFRAME isolation
 *                       as soon as we boot in PLM
 *       ma   08/01/2019 Removed LPD module init related code from PLM app
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi

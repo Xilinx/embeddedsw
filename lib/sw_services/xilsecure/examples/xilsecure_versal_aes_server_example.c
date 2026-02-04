@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,7 +67,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/* Harcoded KUP key for encryption of data */
+/* Hardcoded KUP key for encryption of data */
 #define	XSECURE_AES_KEY	\
 	"F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000"
 

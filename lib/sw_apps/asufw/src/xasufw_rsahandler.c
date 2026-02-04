@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -210,7 +210,7 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Do nothing */
 	}
 
-	/** Allocate TRNG resoource for commands which are dependent on TRNG HW. */
+	/** Allocate TRNG resource for commands which are dependent on TRNG HW. */
 	if (((ReqResources & XASUFW_TRNG_RESOURCE_MASK) == XASUFW_TRNG_RESOURCE_MASK) &&
 		((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RANDOM_BYTES_MASK)
 		== XASUFW_TRNG_RANDOM_BYTES_MASK)) {
@@ -232,7 +232,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_RSA_PUB_OP_ERROR, if public encryption operaiton fails.
+ * 	- XASUFW_RSA_PUB_OP_ERROR, if public encryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -266,7 +266,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation is successful.
- * 	- XASUFW_RSA_PVT_OP_ERROR, if private exponentiation decryption operaiton fails.
+ * 	- XASUFW_RSA_PVT_OP_ERROR, if private exponentiation decryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -301,7 +301,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation using CRT is successful.
- * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operaiton fails.
+ * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -339,7 +339,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
- * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operaiton fails.
+ * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -384,7 +384,7 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
- * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operaiton fails.
+ * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -429,7 +429,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
- * 	- XASUFW_RSA_PSS_SIGN_GEN_ERROR, if sign generation operaiton fails.
+ * 	- XASUFW_RSA_PSS_SIGN_GEN_ERROR, if sign generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -474,7 +474,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
- * 	- XASUFW_RSA_PSS_SIGN_VER_ERROR, if sign verification operaiton fails.
+ * 	- XASUFW_RSA_PSS_SIGN_VER_ERROR, if sign verification operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/

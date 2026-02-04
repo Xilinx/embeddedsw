@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +48,7 @@ typedef struct PmWakeEvent PmWakeEvent;
 #define pm_printf	xil_printf
 
 /*
- * PM log levels. The configured log level should be specifid with:
+ * PM log levels. The configured log level should be specified with:
  * -DPM_LOG_LEVEL=X where X is one of the numbers defined below
  */
 #define PM_ALERT	1U

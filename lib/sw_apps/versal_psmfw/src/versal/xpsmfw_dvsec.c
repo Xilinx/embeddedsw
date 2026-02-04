@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -140,7 +140,7 @@ void XPsmFw_DvsecWrite(void)
 
 /****************************************************************************/
 /**
- * @brief       Execute PSM->PL handoff on recieving a PL Ready interrupt
+ * @brief       Execute PSM->PL handoff on receiving a PL Ready interrupt
  *
  * @return      None
  *
@@ -293,7 +293,7 @@ void XPsmFw_Cpm5DvsecHandler(void)
 
 /****************************************************************************/
 /**
- * @brief	Execute PSM->PL handoff on recieving a PL Ready interrupt
+ * @brief	Execute PSM->PL handoff on receiving a PL Ready interrupt
  *
  * @return	None
  *

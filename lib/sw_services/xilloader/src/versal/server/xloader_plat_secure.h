@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -175,9 +175,9 @@ typedef struct {
 #endif /**< END OF PLM_EN_ADD_PPKS*/
 
 #define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x7DFFF8C1U)
-		/**< Mask to enable required instrcutions in Instruction Mask 0 register */
+		/**< Mask to enable required instructions in Instruction Mask 0 register */
 #define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x071BFF91U)
-		/**< Mask to enable required instrcutions in Instruction Mask 1 register */
+		/**< Mask to enable required instructions in Instruction Mask 1 register */
 
 /*****************************************************************************/
 /**

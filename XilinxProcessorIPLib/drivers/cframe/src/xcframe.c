@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,7 +58,7 @@ typedef enum
 #define XCFRAME_LAST_FRAME_BOT_OFFSET         (0x220U) /**< Offset of LAST_FRAME_BOT register */
 #define XCFRAME_MAX_BLKTYPE_IN_FAR_BOT        (4U) /**< Maximum value of block type in FAR_BOT
                                                   register*/
-#define XCFRAME_FAR_TOP_OFFSET_WRT_BOT        (0x10U) /**< Offset of CFRAME_FAR_TOP regiter w.r.t
+#define XCFRAME_FAR_TOP_OFFSET_WRT_BOT        (0x10U) /**< Offset of CFRAME_FAR_TOP register w.r.t
                                                     CFRAME_FAR_BOT*/
 #define XCFRAME_128BIT_IN_WORDS               (4U) /**< Size of 128bit in words */
 #define XCFRAME_BLKTYPE0_MASK                 (0xFFFFFU) /**< Mask to read blocktype 0 values */

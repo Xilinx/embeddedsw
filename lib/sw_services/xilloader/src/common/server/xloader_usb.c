@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ****************************************************************************/
 
@@ -22,7 +22,7 @@
 *       skd  07/14/2020 XLoader_UsbCopy prototype changed
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 * 1.02  bsv  08/31/2021 Code clean up
-* 1.03  ma   01/17/2022 Enable SLVERR for USB registes
+* 1.03  ma   01/17/2022 Enable SLVERR for USB registers
 *       bsv  01/21/2022 Reduce stack usage
 * 1.04  bm   07/06/2022 Refactor versal and versal_net code
 * 1.05  ng   11/11/2022 Updated doxygen comments

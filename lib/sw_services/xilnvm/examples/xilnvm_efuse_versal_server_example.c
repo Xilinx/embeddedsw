@@ -621,7 +621,7 @@ END:
 /****************************************************************************/
 /**
  * This function is used to initialize XNvm_EfuseAesKeys structure with user
- * provided data and assign it to global struture XNvm_EfuseData to program
+ * provided data and assign it to global structure XNvm_EfuseData to program
  * below eFuses.
  * - AES key
  * - AES User keys
@@ -692,7 +692,7 @@ END:
 /****************************************************************************/
 /**
  * This function is used to initialize the XNvm_EfusePpkHash structure with
- * user provided data and assign it to global struture XNvm_EfuseData to
+ * user provided data and assign it to global structure XNvm_EfuseData to
  * program PPK0/PPK1/PPK2 hash eFuses
  *
  * typedef struct {
@@ -779,7 +779,7 @@ END:
 /****************************************************************************/
 /**
  * This function is used to initialize the XNvm_EfuseDecOnly structure with
- * user provided data and assign the same to global struture XNvm_EfuseData to
+ * user provided data and assign the same to global structure XNvm_EfuseData to
  * program DEC_ONLY eFuses.
  *
  * typedef struct {
@@ -2299,10 +2299,10 @@ END:
 
 /******************************************************************************/
 /**
- * This function dispalys Data of specified length.
+ * This function displays Data of specified length.
  *
- * @param	Data	Pointer to the data to be dispalyed
- * @param	Len	Length of the data to be dispalyed
+ * @param	Data	Pointer to the data to be displayed
+ * @param	Len	Length of the data to be displayed
  *
  ******************************************************************************/
 static void XilNvm_ShowData(const u8* Data, u32 Len)

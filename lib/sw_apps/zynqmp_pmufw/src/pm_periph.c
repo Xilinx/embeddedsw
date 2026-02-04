@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -552,7 +552,7 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 	}
 
 	if ((0U == enable) && ethWake->wakeEnabled) {
-		/* Disable GEM Rx in network contorl register */
+		/* Disable GEM Rx in network control register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
 			   ~ETH_RECV_ENABLE_MASK);
 
@@ -633,7 +633,7 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 		ethWake->receiveHighptr = XPfw_Read32(ethWake->baseAddr +
 						    ETH_RECV_HIGH_PTR_OFFSET);
 
-		/* Disable GEM Rx in network contorl register */
+		/* Disable GEM Rx in network control register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
 			   ~ETH_RECV_ENABLE_MASK);
 

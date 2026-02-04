@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,7 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   04/18/24 Initial release
  *       ma   05/20/24 Add error code for module registration and SHA initialization failure
- *       vns  06/07/24 Splitted Data address low and high
+ *       vns  06/07/24 Split Data address low and high
  *       ma   06/14/24 Add support for SHAKE256 XOF and also modify SHA APIs to take DMA pointer
  *                     for every update
  *       ma   07/08/24 Add task based approach at queue level
@@ -271,7 +271,7 @@ END:
  * @brief	This function is a handler for SHA3 KAT command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Reqest Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.

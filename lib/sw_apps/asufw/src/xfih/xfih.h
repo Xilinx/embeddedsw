@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,7 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------
 * 1.0   mmd  06/16/23 Initial release
 * 1.1   sak  06/19/23 Added code comments
-* 1.2   mmd  09/04/23 Fixed review comments, seperated FIH interface from core
+* 1.2   mmd  09/04/23 Fixed review comments, separated FIH interface from core
 *                     functionality
 *
 * </pre>

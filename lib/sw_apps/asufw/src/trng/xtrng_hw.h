@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -73,7 +73,7 @@ extern "C" {
 #define XASU_TRNG_AUTOPROC_OFFSET		            (0x00000028U)
             /**< TRNG AUTOPROC register offset */
 #define XASU_TRNG_AUTOPROC_ENABLE_MASK	            (0x1U)
-            /**< TRNG AUTOPROC regsiter enable mask */
+            /**< TRNG AUTOPROC register enable mask */
 #define XASU_TRNG_AUTOPROC_DISABLE_MASK	            (0x0U)
             /**< TRNG AUTOPROC register disable mask */
 
@@ -141,7 +141,7 @@ extern "C" {
 #define XASU_TRNG_CONF1_DLEN_SHIFT			        (0U)
             /**< TRNG CONF1 register DLEN shift value */
 #define XASU_TRNG_CONF1_ADAPTPROPTESTCUTOFF_MASK	(0x0003ff00U)
-            /**< TRNG CONF1 regsiter ADAPTPROTESTCUTOFF mask */
+            /**< TRNG CONF1 register ADAPTPROTESTCUTOFF mask */
 #define XASU_TRNG_CONF1_ADAPTPROPTESTCUTOFF_SHIFT	(8U)
             /**< TRNG CONF1 ADAPTPROPTESTCUTOFF shift value */
 

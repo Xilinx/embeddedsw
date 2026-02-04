@@ -49,7 +49,7 @@
 #define XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET			(0x02U)	/**< RSA Padding
 								random string index offset value */
 #define XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE	(0x01U)	/**< RSA OAEP
-						output data block seperation value from msg */
+						output data block separation value from msg */
 #define XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET		(0x01U)	/**< RSA OAEP
 								zero padding index offset value */
 #define XRSA_OAEP_ZERO_PADDING_DATA_VALUE			(0x00U)	/**< RSA OAEP
@@ -658,7 +658,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		& XRSA_PSS_MSB_PADDING_MASK;
 	/**
 	* Check for 0x00's of length KeySize - SaltLen - HashLen - 2 in data block and then
-	* check 0x01U and seperate salt if available i.e of the form DB = PS || 0x01 || salt.
+	* check 0x01U and separate salt if available i.e of the form DB = PS || 0x01 || salt.
 	*/
 
 	/** Check for zeroes of length which is KeySize - SaltLen - HashLen - 2 which is PS. */

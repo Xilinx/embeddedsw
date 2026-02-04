@@ -330,9 +330,9 @@ END:
  *          generate response with the DME signature
  *
  * @param   AttestWithDevAkLow - Lower 32 bit address of
- *			XOcp_AttestWithDevAk strucure
+ *			XOcp_AttestWithDevAk structure
  * @param   AttestWithDevAkHigh - Higher 32 bit address of
- *			XOcp_AttestWithDevAk strucure
+ *			XOcp_AttestWithDevAk structure
  *
  * @return
  *          - XST_SUCCESS - Upon success

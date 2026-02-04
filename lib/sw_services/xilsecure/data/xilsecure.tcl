@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -33,7 +33,7 @@
 # 5.4   mb   04/23/24 Added xsecure_elliptic_p192_support parameter to enable/disable P192 curve
 #       mb   04/23/24 Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
 #       kpt  06/13/24 Added xsecure_key_slot_addr
-#       kal  07/24/24 Code refactoring for versal_2ve_2vm plaform
+#       kal  07/24/24 Code refactoring for versal_2ve_2vm platform
 #       kal  09/25/24 Remove deleting folders which are set in secure_drc
 #       pre  03/02/25 Deleting xsecure_resourcehandling files for client processor in server mode
 #

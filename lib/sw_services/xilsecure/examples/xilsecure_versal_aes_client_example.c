@@ -200,7 +200,7 @@ int main(void)
 	Key = &SharedMem[0U];
 	Iv = (Key + XSECURE_KEY_SIZE);
 
-	/* Covert strings to buffers */
+	/* Convert strings to buffers */
 	Status = Xil_ConvertStringToHexBE((const char *) (XSECURE_AES_KEY),
 			Key, XSECURE_KEY_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {

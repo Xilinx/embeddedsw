@@ -104,7 +104,7 @@ typedef struct {
 typedef enum {
 	XTRNGPSX_UNHEALTHY = 1, /**< unhealthy state */
 	XTRNGPSX_HEALTHY,       /**< healthy state */
-	XTRNGPSX_CATASTROPHIC,  /**< catastropic state */
+	XTRNGPSX_CATASTROPHIC,  /**< catastrophic state */
 	XTRNGPSX_ERROR,         /**< error state */
 	XTRNGPSX_STARTUP_TEST   /**< startup test */
 } XTrngpsx_ErrorState;

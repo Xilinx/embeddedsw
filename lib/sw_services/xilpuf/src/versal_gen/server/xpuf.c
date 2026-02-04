@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1103,7 +1103,7 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated)
 
 	*IroFreqUpdated = FALSE;
 	/**
-	 * Read IRO frequeny, If IRO frequency is different from required frequency,
+	 * Read IRO frequency, If IRO frequency is different from required frequency,
 	 * then set the IRO frequency to required frequency(either 320 MHz or 400 MHz).
 	 */
 	ReadIroFreq = XPuf_ReadIroFreq();

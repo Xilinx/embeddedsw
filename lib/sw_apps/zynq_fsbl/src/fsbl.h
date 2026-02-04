@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,7 +101,7 @@
 * 						724166 FSBL doesn’t use PPK authenticated by Boot ROM
 * 						 for authenticating the Partition images
 * 						Resolution: FSBL now uses the PPK left by Boot ROM in
-* 						OCM for authencating the SPK
+* 						OCM for authenticating the SPK
 *
 * 						724165 Partition Header used by FSBL is not
 * 						authenticated
@@ -157,7 +157,7 @@
 *						configuration
 *						Resolution: Reverted back the changes of 724620. PCAP_MODE
 *						and PCAP_PR bits are not changed
-* 8.00a kc  01/16/13    767798 Fsbl MD5 Checksum failiure for encrypted images
+* 8.00a kc  01/16/13    767798 Fsbl MD5 Checksum failure for encrypted images
 * 						Resolution: For checksum enabled partitions, total 
 *						total partition image length is copied now.
 *						761895 FSBL should authenticate image only if

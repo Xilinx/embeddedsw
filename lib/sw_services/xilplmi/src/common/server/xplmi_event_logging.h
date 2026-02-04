@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -98,7 +98,7 @@ void XPlmi_InitDebugLogBuffer(void);
 #define XPLMI_TRACE_LOG_LOAD_IMAGE		(0x1U)
 
 #define XPLMI_PRINTTOBUFF_MASK    (0x0FU) /* Print to buffer mask */
-#define XPLMI_DISCARDLOG_BIT_POS (0x04U) /* Dicard logs start bit position */
+#define XPLMI_DISCARDLOG_BIT_POS (0x04U) /* Discard logs start bit position */
 
 /*
  * Trace log functions

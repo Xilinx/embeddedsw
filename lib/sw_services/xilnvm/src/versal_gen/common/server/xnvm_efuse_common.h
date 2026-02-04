@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,7 +58,7 @@ extern "C" {
 /** @} */
 
 /**
- *  @{ Temaperature limits defination for versal Efuses
+ *  @{ Temperature limits definition for versal Efuses
  */
 #define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f)
 #define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f)
@@ -70,13 +70,13 @@ extern "C" {
 #define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f)
 #define XNVM_EFUSE_TEMP_HP_MAX		(125.0f)
 
-/**< eFuse Range check  definations*/
+/**< eFuse Range check  definitions*/
 #define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)
 #define XNVM_EFUSE_LP_RANGE_CHECK		(1U)
 #define XNVM_EFUSE_MP_RANGE_CHECK		(2U)
 #define XNVM_EFUSE_HP_RANGE_CHECK		(3U)
 
-/**< eFuse volatage limits definations*/
+/**< eFuse voltage limits definitions*/
 #define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f)
 #define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f)
 #define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f)

@@ -68,7 +68,7 @@
 *       kal  07/25/2021 Moved XNvm_Printf definition to xnvm_def.h
 *       kpt  08/03/2021 Added XNvm_EfuseResetReadMode in
 *                       XNvm_EfuseWritePufAsUserFuses
-*       kal  08/13/2021 Add most restrictive range check for device temparature
+*       kal  08/13/2021 Add most restrictive range check for device temperature
 *                       before eFuse programming
 *       har  09/16/2021 Removed magic numbers in XNvm_EfuseWriteSecCtrl function
 *                       Check for Trim2 instead of Trim3 before programming
@@ -292,7 +292,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	if ((WriteNvm->EnvMonitorDis != TRUE)) {
 		/**
                  * NULL for SysMonInstPtr indicates, no need to check for
-                 * Temparature and Voltage before eFUSE programming.
+                 * temperature and Voltage before eFUSE programming.
                  * Non-NULL indicates, perform Temp and Volt monitoring.
                  */
 		if (WriteNvm->SysMonInstPtr == NULL) {
@@ -904,7 +904,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	if (PufHelperData->EnvMonitorDis != TRUE) {
 		/**
                  * NULL for SysMonInstPtr indicates, no need to check for
-                 * Temparature and Voltage before eFUSE programming
+                 * temperature and Voltage before eFUSE programming
                  * Non-NULL indicates, perform Temp and Volt monitoring.
                  */
 		if (PufHelperData->SysMonInstPtr == NULL) {
@@ -1481,7 +1481,7 @@ int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
 
 	/**
 	 * NULL for SysMonInstPtr indicates, no need to check for
-	 * Temparature and Voltage before eFUSE programming.
+	 * temperature and Voltage before eFUSE programming.
 	 * Non-NULL indicates, perform Temp and Volt monitoring.
 	 */
 	if (SysMonInstPtr == NULL) {
@@ -1875,7 +1875,7 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
 	}
 	/**
 	 * NULL for SysMonInstPtr indicates, no need to check for
-	 * Temparature and Voltage before eFUSE programming
+	 * temperature and Voltage before eFUSE programming
 	 * Non-NULL indicates, perform Temp and Volt monitoring
 	 */
 	if (SysMonInstPtr == NULL) {
@@ -1947,7 +1947,7 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 	if (SysMonInstPtr == NULL) {
 		/**
 		 * NULL for SysMonInstPtr indicates, no need to check for
-		 * Temparature and Voltage before eFUSE programming.
+		 * temperature and Voltage before eFUSE programming.
 		 * Non-NULL indicates, perform Temp and Volt monitoring.
 		 */
 		EfuseData.EnvMonitorDis = TRUE;
@@ -2145,7 +2145,7 @@ int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
 
 	/**
 	 * NULL for SysMonInstPtr indicates, no need to check for
-	 * Temparature and Voltage before eFUSE programming.
+	 * temperature and Voltage before eFUSE programming.
 	 * Non-NULL indicates, perform Temp and Volt monitoring.
 	 */
 	if (SysMonInstPtr == NULL) {

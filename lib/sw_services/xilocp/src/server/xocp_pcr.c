@@ -988,7 +988,7 @@ static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx)
 
 	/** Clear the data of DigestIdx from the log except EventId and Version info.
 	 * EventId is configured from CDO and Version is fixed currently and may change
-	 * in furture as per the request from the customer.
+	 * in future as per the request from the customer.
 	 */
 	Status = Xil_SMemSet((void *)(UINTPTR)&SwPcr->Data[DigestIdx].Measurement.DataLength,
 			ClearDataLen, 0U, ClearDataLen);

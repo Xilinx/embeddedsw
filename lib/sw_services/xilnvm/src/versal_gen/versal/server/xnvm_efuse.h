@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,7 +34,7 @@
 *			and reading
 *	kal  01/28/2021 Added new error code for glitch detection
 *	kal  02/20/2021 Added new error codes for detecting voltage and
-*			temparature out of range cases
+*			temperature out of range cases
 *	har  04/21/2021 Fixed warnings for R5 processor
 *       kpt  05/12/2021 Added sysmon instance to the function prototype of
 *                   individual write API's
@@ -74,11 +74,11 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 
-/**< PUF syndrome length definations for Versal eFuse*/
+/**< PUF syndrome length definitions for Versal eFuse*/
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
 #define XNVM_PUF_ROW_UPPER_NIBBLE_MASK              (0xF0000000U)
 
-/**< User efuses start, end and number of efuses definations*/
+/**< User efuses start, end and number of efuses definitions*/
 #define XNVM_USER_FUSE_START_NUM			(1U) /**< User eFuse start number*/
 
 #ifdef XNVM_EN_ADD_PPKS
@@ -115,7 +115,7 @@ extern "C" {
 /**
  * @{ eFuse control bits
  */
- /**< This structer defines Security control bits*/
+ /**< This structure defines Security control bits*/
 typedef enum {
 	XNVM_EFUSE_SEC_AES_DIS = 0, /**< Aes disable*/
 	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS, /**< Jtag error out disable*/

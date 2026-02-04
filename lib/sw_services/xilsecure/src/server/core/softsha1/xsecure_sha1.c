@@ -252,7 +252,7 @@ END:
  **************************************************************************************************/
 static void XSecure_Sha1Init (XSecure_Sha1Ctx* Ctx)
 {
-	/* Set the intial state of the context */
+	/* Set the initial state of the context */
 	Ctx->State[0] = H0;
 	Ctx->State[1] = H1;
 	Ctx->State[2] = H2;

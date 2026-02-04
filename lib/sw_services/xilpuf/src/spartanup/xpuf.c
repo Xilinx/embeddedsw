@@ -267,7 +267,7 @@ END:
  *		- XPUF_ERROR_INVALID_PARAM  PufData is NULL
  *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT  Timeout occurred while
  *			waiting for PUF Syndrome data
- *		- XPUF_ERROR_PUF_OVERFLOW When PUF overflow error has occured
+ *		- XPUF_ERROR_PUF_OVERFLOW When PUF overflow error has occurred
  *		- XPUF_ERROR_SYN_DATA_ERROR Error when syndrome data is not generated
  *      		properly
  *		- XST_FAILURE  Unexpected event
@@ -314,7 +314,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 */
 	if ((Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS) &&
 	    ((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY)) {
-		/** Check for overflow and return XPUF_ERROR_PUF_OVERFLOW incase of error */
+		/** Check for overflow and return XPUF_ERROR_PUF_OVERFLOW in case of error */
 		if ((PufStatus & XPUF_OV_MASK_VALUE) != 0U) {
 			Status = XPUF_ERROR_PUF_OVERFLOW;
 			goto END;
@@ -367,7 +367,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 
 	/**
 	 * Run PUF regeneration through iterative convergence
-	 * - Check for the syndrom data is ready or not in the given timeout value.
+	 * - Check for the syndrome data is ready or not in the given timeout value.
 	 *   if not, return XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT
 	 * - Capture the Key and ID. Return XPUF_ERROR_KEY_NOT_CONVERGED on failure.
 	 * - Once the Key and ID are captured, reset the PUF

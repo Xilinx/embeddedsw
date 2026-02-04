@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -16,7 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  06/04/24 Initial release
- *       ss   08/13/24 Changed XAsu_ClientInit function prototype and addded XAsu_ClientParams
+ *       ss   08/13/24 Changed XAsu_ClientInit function prototype and added XAsu_ClientParams
  *                     structure
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       vns  09/30/24 Added support for asynchronous communication

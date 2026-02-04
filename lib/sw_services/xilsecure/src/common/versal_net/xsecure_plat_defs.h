@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,7 +30,7 @@
 * 5.3   mb   04/01/24 Updated minor version
 *       mb   04/15/24 Updated SHA2 minor version
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
-*       kpt  05/14/24 Fix backward compatabilty issue
+*       kpt  05/14/24 Fix backward compatibility issue
 *       kpt  05/26/24 Add support for RSA CRT and RRN operation
 *       kpt  06/13/24 Add support for XSECURE_API_RSA_RELEASE_KEY
 *       kpt  06/30/24 Updated version number

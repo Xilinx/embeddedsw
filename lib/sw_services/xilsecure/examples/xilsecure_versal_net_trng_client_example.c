@@ -58,7 +58,7 @@
 *       yog    08/07/23 Added Xil_DCacheInvalidateRange before
 *                       XSecure_TrngGenerareRandNum function call
 *       yog    09/05/23 Added Xil_DCacheInvalidateRange before
-*                       XSecure_TrngPrintRandomNum functon call
+*                       XSecure_TrngPrintRandomNum function call
 *
 * </pre>
 ******************************************************************************/

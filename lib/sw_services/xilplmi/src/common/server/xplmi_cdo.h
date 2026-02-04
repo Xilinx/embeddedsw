@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,7 @@
 * 1.02  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 * 						subsystem information
 *       kc   06/23/2020 Added code print command details for errors
-*       bsv  07/07/2020 Made functions used in single transaltion unit as
+*       bsv  07/07/2020 Made functions used in single translation unit as
 *						static
 *       bsv  09/30/2020 Fix typo
 *       bm   10/14/2020 Code clean up
@@ -93,7 +93,7 @@ typedef struct {
 	u32 BufLen;		/**< Buffer length */
 	u32 CdoLen;		/**< CDO length */
 	u32 ProcessedCdoLen;	/**< Processed CDO length */
-	u32 PartitionOffset;	/**< Current parition offset */
+	u32 PartitionOffset;	/**< Current partition offset */
 	u32 CopiedCmdLen;	/**< Copied Command length */
 	u32 *TempCmdBuf;	/**< Temporary buffer to store commands
 				 between iterations */

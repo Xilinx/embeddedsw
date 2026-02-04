@@ -1554,7 +1554,7 @@ int XSecure_Sha2256Kat(XSecure_Sha *SecureSha2)
 		goto END_RST;
 	}
 
-	/* Comparision of expected hash */
+	/* Comparison of expected hash */
 	for (Index = 0U; Index < XSECURE_SHA2_256_HASH_LEN; Index++) {
 		if (Sha2Hash[Index] != ExpSha256Hash[Index]) {
 			Status = XST_FAILURE;

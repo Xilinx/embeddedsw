@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -24,7 +24,7 @@
  * ---- --- -------- -------------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Minor doxygen related fixes
- *       mb   09/14/23 Fix MISRA-C vioaltion 2.5
+ *       mb   09/14/23 Fix MISRA-C violation 2.5
  * 1.5   kpt  03/06/24 Fix doxygen warnings
  *
  * </pre>

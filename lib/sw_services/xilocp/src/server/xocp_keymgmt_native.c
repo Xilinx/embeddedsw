@@ -230,7 +230,7 @@ RET:
 /*****************************************************************************/
 /**
  * @brief	This function regenerates the DEVAK ECC private and public
- *		key pair of the susbsytems after in place PLM update.
+ *		key pair of the subsystems after in place PLM update.
  *
  * @return
  *	-	XST_SUCCESS - If whole operation is success

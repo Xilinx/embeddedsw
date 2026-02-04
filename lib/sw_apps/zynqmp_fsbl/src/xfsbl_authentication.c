@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,7 +22,7 @@
 *                     RSA authentication is enabled
 * 3.0   vns  09/08/17 Added PPK revoke check.
 * 4.0   vns  01/23/18 Added KECCAK SHA3 padding selection for SPK signature
-*                     verification and PPK hash caclulation, however partition
+*                     verification and PPK hash calculation, however partition
 *                     will be authenticated with NIST SHA3 padding
 *       vns  03/07/18 Added API to do boot header authentication, removed
 *                     PPK verification for every partition instead saving
@@ -720,7 +720,7 @@ u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
 {
 	u32 Status = XFSBL_SUCCESS;
 	/**
-	 * bitstream partion in DDR less system, Chunk by chunk copy
+	 * bitstream partition in DDR less system, Chunk by chunk copy
 	 * into OCM and update SHA module
 	 */
 	u32 NumChunks = 0U;

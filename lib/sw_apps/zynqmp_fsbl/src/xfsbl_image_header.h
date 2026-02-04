@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +29,7 @@
 *                     parameter for ResetType
 * 3.0   vns  01/03/18 In structure XFsblPs_PartitionHeader 8 bits from
 *                     reserved bits are used for storing last 8 bits of IV
-*                     IV from boot header should be added with thes 8 bits.
+*                     IV from boot header should be added with these 8 bits.
 *       vns  03/07/18 Added BHDR attribute mask for PUF and macros for
 *                     boot header size.
 *       bsv  07/05/19 Remove MD5 checksum related macro

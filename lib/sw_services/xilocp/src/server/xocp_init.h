@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xocp_init.h
- * @addtogroup xocp_init_apis XilOcp Intialize APIs
+ * @addtogroup xocp_init_apis XilOcp Initialize APIs
  * @{
  * @cond xocp_internal
  * <pre>

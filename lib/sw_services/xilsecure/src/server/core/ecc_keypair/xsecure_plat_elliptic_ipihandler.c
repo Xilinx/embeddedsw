@@ -89,8 +89,8 @@ END:
  * 		XSecure_EcdhGetSecret server API to generate the shared secret
  * 		using ECDH.
  *
- * @param	SrcAddrLow	Lower 32 bit address of the EcdhParams struture from client
- * @param	SrcAddrHigh	Upper 32 bit address of the EcdhParams struture from client
+ * @param	SrcAddrLow	Lower 32 bit address of the EcdhParams structure from client
+ * @param	SrcAddrHigh	Upper 32 bit address of the EcdhParams structure from client
  *
  * @return
  *		 - XST_SUCCESS - On Success

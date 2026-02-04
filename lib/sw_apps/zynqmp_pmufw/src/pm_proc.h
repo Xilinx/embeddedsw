@@ -1,12 +1,12 @@
 /*
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
 
 /*********************************************************************
- * Contains all functions, datas and definitions needed for
+ * Contains all functions, data and definitions needed for
  * managing processor's states.
  *********************************************************************/
 

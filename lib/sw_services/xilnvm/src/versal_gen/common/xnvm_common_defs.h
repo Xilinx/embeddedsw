@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -248,7 +248,7 @@ typedef struct {
 	u32 UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
 } XNvm_EfuseAesKeys;
 
-/** Struture for Ppk hash data */
+/** Structure for Ppk hash data */
 typedef struct {
 	u8 PrgmPpk0Hash;
 	u8 PrgmPpk1Hash;

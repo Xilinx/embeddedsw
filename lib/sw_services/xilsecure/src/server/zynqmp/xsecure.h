@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -193,9 +193,9 @@ extern "C" {
 #define XSECURE_SPK_SIZE			(512U+512U+64U) /**< SPK size */
 #define XSECURE_PPK_SIZE			(XSECURE_SPK_SIZE) /**< PPK size */
 #define XSECURE_PPK_MOD_SIZE			(512U) /**< PPK module size */
-#define XSECURE_PPK_MOD_EXT_SIZE		(512U) /**< PPK module extention size */
+#define XSECURE_PPK_MOD_EXT_SIZE		(512U) /**< PPK module extension size */
 #define XSECURE_SPK_MOD_SIZE			XSECURE_PPK_MOD_SIZE /**< SPK module size */
-#define XSECURE_SPK_MOD_EXT_SIZE		XSECURE_PPK_MOD_EXT_SIZE /**< SPK module extention size */
+#define XSECURE_SPK_MOD_EXT_SIZE		XSECURE_PPK_MOD_EXT_SIZE /**< SPK module extension size */
 #define XSECURE_SPK_SIG_SIZE			(512U) /**< SPK signature size */
 #define XSECURE_BHDR_SIG_SIZE			(512U) /**< Boot header signature size */
 #define XSECURE_PARTITION_SIG_SIZE		(512U) /**< partition signature size */

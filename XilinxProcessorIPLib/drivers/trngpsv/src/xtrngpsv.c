@@ -1344,7 +1344,7 @@ END:
  * @brief
  * Read from the register.
  *
- * @param	BaseAddress cntains the base address of the device.
+ * @param	BaseAddress contains the base address of the device.
  * @param	RegOffset contains the offset from the base address of the device.
  *
  * @return	The value read from the register.

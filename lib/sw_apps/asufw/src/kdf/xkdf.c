@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -154,7 +154,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		}
 
 		/**
-		 * - HMAC output size is the SHA algorithm hash length. KDF key output can be any legnth.
+		 * - HMAC output size is the SHA algorithm hash length. KDF key output can be any length.
 		 * Copy the final HMAC of each iteration to the destination key output buffer.
 		 * In last iteration, data to be copied to the destination can be less than or equal to
 		 * SHA algorithm hash length which varies based on the requested key output length.

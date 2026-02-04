@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -16,7 +16,7 @@
  * ------------------------------------------------------------------------------------------------
  * The default linker settings places a software stack, heap and data in DDR memory.
  * For this example to work, any data shared between client running on A78/R52/PL and server
- * running on ASU, should be placed in area which is acccessible to both client and server.
+ * running on ASU, should be placed in area which is accessible to both client and server.
  *
  * Following is the procedure to compile the example on any memory region which can be accessed
  * by the server.

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,7 +43,7 @@
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
 * 6.8   psl     07/30/19 Fixed MISRA-C violations.
 * 6.9   kal     03/16/20 Added macro for AES key offset for IPI calls.
-*       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
+*       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variables,
 *                        as these are not required with only sha3 support.
 * 7.0	am	    10/04/20 Resolved MISRA C violations
 * 7.1	kal	    02/28/21 Added new macro for number of eFuse rows per page

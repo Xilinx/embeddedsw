@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -339,7 +339,7 @@ END:
  *
  * @param   InstancePtr - Pointer to the client instance
  * @param   NonceAddr - pointer to 48 bytes buffer which holds the Nonce,
- *          which shall be used to fill one of the member of DME sturcture
+ *          which shall be used to fill one of the member of DME structure
  * @param   DmeStructResAddr - pointer to 224 bytes buffer, which is used to
  *          store the response DME structure of type XOcp_DmeResponseStructure
  *

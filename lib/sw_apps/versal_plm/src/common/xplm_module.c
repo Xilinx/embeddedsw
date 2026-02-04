@@ -62,7 +62,7 @@
 *       pre  08/21/2025 Removed TPM initialization here to add it after LPD initialization
 *       rmv  08/26/2025 Add ASU OCP functionality related callbacks to XPlmi_AsuModuleInit()
 *       obs  08/26/2025 Passed XPm_IsMemAddressValid function as
-*                       an arguement to XPlmi_Init function.
+*                       an argument to XPlmi_Init function.
 *       tvp  08/27/2025 Generate CDI before generating DevIK from XPlm_ModuleInit for Versal_2vp
 * 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *

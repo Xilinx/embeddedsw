@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +50,7 @@
 * 						encryption with E-Fuse - Enhancement
 * 11.00a ka 10/12/18    Fix for CR#1006294 Zynq FSBL - Zynq FSBL does not check
 * 						USE_AES_ONLY eFuse
-* 12.0  vns 03/18/22    Fixed CR#1125470 to authenticate the parition header buffer
+* 12.0  vns 03/18/22    Fixed CR#1125470 to authenticate the partition header buffer
 *                       which is being used instead of one from DDR.
 *                       Deleted GetImageHeaderAndSignature() and added
 *                       GetNAuthImageHeader()

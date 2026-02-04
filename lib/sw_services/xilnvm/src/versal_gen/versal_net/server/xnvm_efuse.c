@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 *                       behaviour
 *       skg  11/08/2022 Added In Body comments for APIs
 * 3.2   har  02/22/2023 Added API to program ROM Rsvd eFUSEs.
-*       vss  03/14/2023 Fixed compilation warining
+*       vss  03/14/2023 Fixed compilation warning
 *       kum  04/11/2023 Added Env monitor before efuse programming
 *       kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
 *       kpt  07/26/2023 Fix security review comments
@@ -232,7 +232,7 @@ static int XNvm_EfuseValidateCrc(void);
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user.
  * 				when set to true it will not check for voltage
- * 				and temparature limits.
+ * 				and temperature limits.
  * @param	KeyType - Type of key to be programmed(AesKey/UserKey0/UserKey1)
  * @param	EfuseKey - Pointer to the XNvm_AesKey structure, which holds
  * 			Aes key to be programmed to eFuse.
@@ -329,7 +329,7 @@ END:
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user.
  * 				when set to true it will not check for voltage
- * 				and temparature limits.
+ * 				and temperature limits.
  * @param	PpkType - Type of ppk hash to be programmed(PPK0/PPK1/PPK2)
  * @param	EfuseHash - Pointer to the XNvm_PpkHash structure which holds
  * 			PPK hash to be programmed to eFuse.
@@ -427,7 +427,7 @@ END:
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user.
  * 				when set to true it will not check for voltage
- * 				and temparature limits.
+ * 				and temperature limits.
  * @param	IvType - Type of IV eFuses to be programmmed
  * @param	EfuseIv - Pointer to the XNvm_EfuseIvs structure which holds IV
  * 			to be programmed to eFuse.
@@ -523,7 +523,7 @@ END:
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user.
  * 				when set to true it will not check for voltage
- * 				and temparature limits.
+ * 				and temperature limits.
  * @param	GlitchConfig - Pointer to the Glitch configuration
  *
  * @return
@@ -630,7 +630,7 @@ END:
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
- *				and temparature limits.
+ *				and temperature limits.
  *
  * @return
  *		- XST_SUCCESS  If DEC_ONLY eFuse is programmed successfully.

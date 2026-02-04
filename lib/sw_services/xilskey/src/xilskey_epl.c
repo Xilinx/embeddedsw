@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@
 * 4.0   vns     10/01/15 provided conditional compilation to support
 *                        ZynqMp platform also.
 *                        Corrected error code names of Ultrascale efuse PL
-* 5.0   vns     07/01/16 Verificaion of programming bits is done by
+* 5.0   vns     07/01/16 Verification of programming bits is done by
 *                        performing all Margin reads.
 *                        Added conditions for programming control and
 *                        secure bits.
@@ -1804,7 +1804,7 @@ static INLINE u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
 
 /****************************************************************************/
 /**
-* Reads the given normal or reduntant row of PL efuse key for Ultrascale.
+* Reads the given normal or redundant row of PL efuse key for Ultrascale.
 *
 *
 * @param	Row is the row number of Fuse array.
@@ -2047,7 +2047,7 @@ static INLINE u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 
 /****************************************************************************/
 /**
-* Programs the bit of given normal or reduntant row of PL efuse key for
+* Programs the bit of given normal or redundant row of PL efuse key for
 * Ultrascale.
 *
 *

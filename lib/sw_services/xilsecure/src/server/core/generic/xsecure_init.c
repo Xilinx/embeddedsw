@@ -29,7 +29,7 @@
 * 5.1   dc  12/27/2022 Added SHA1 instance
 * 5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
 * 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
-*       kpt 07/17/2024 Remove RSA keypair generation support on QEMU
+*       kpt 07/17/2024 Remove RSA key pair generation support on QEMU
 *       kal 07/24/2024 Code refactoring for versal_2ve_2vm
 *       pre 03/02/2025 Modified XSecure_Init for initialization of AES and SHA in server mode
 *       sd  04/30/2025 Make XSecure_AesShaInit as non static function and move

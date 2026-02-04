@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -52,7 +52,7 @@ extern "C" {
 #define XAES_STATUS_OFFSET				(0x00000000U)
 	/**< AES status register offset */
 #define XAES_STATUS_BUSY_MASK				(0x00000001U)
-	/**< AES engine is ready to accept the data from the stream swtich */
+	/**< AES engine is ready to accept the data from the stream switch */
 #define XAES_STATUS_READY_MASK				(0x00000002U)
 	/**< AES engine is busy with an encrypt or decrypt operation */
 /** @} */

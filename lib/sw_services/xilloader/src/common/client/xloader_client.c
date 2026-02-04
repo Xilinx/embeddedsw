@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -193,7 +193,7 @@ END:
  * @param	InstancePtr Pointer to the client instance.
  * @param	Buff_Addr	Buffer address to copy the ImageInfo.
  * @param	Maxsize		Maximum size requires in bytes.
- * @param	NumEntries	To get the number of enteries returned.
+ * @param	NumEntries	To get the number of entries returned.
  *
  * @return
  *			 - XST_SUCCESS on success.

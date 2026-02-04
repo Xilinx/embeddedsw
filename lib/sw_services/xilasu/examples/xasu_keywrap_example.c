@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -185,7 +185,7 @@ int main(void)
 	Xil_DCacheDisable();
 #endif
 
-	/* Initialize client parametrs */
+	/* Initialize client parameters */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_KeywrapunwrapCallBackRef);

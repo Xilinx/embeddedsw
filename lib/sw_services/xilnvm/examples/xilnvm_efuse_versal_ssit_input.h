@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -162,9 +162,9 @@
 * 	FALSE will not modify this control bit of efuse.
 *
 * 	#define XNVM_EFUSE_SLR_X_SYSMON_TEMP_HOT		FALSE
-* 	TRUE will burn the boot time temparature upper limit provided
+* 	TRUE will burn the boot time temperature upper limit provided
 * 	in XNVM_EFUSE_SLR_X_SYSMON_TEMP_HOT_FUSES.
-*	FALSE will ignore the boot time temparature upper limit provided
+*	FALSE will ignore the boot time temperature upper limit provided
 *	in XNVM_EFUSE_SLR_X_SYSMON_TEMP_HOT_FUSES.
 *
 *	#define XNVM_EFUSE_SLR_X_SYSMON_VOLT_PMC		FALSE
@@ -187,9 +187,9 @@
 *	0x1: HP voltage level
 *
 *	#define XNVM_EFUSE_SLR_X_SYSMON_TEMP_COLD		FALSE
-*	TRUE will burn the boot time temparature lower limit provided
+*	TRUE will burn the boot time temperature lower limit provided
 *	in XNVM_EFUSE_SLR_X_SYSMON_TEMP_COLD_FUSES.
-*	FALSE will ignore the boot time temparature lower limit provided
+*	FALSE will ignore the boot time temperature lower limit provided
 *	in XNVM_EFUSE_SLR_X_SYSMON_TEMP_COLD_FUSES.
 *
 * 	#define XNVM_EFUSE_SLR_X_LPD_MBIST_EN			FALSE
@@ -318,7 +318,7 @@
 *
 * 	#define XNVM_EFUSE_SLR_X_SYSMON_TEMP_HOT_FUSES		0
 *	The value mentioned in this will be used to set the boot time
-*	temparature upper limit. Valid values are 0/1/2/3
+*	temperature upper limit. Valid values are 0/1/2/3
 *	0: 125C
 *	1: 100C
 *	2: 110C
@@ -347,7 +347,7 @@
 *
 *	#define XNVM_EFUSE_SLR_X_SYSMON_TEMP_COLD_FUSES		0
 *	The value mentioned in this will be used to set the boot time
-*	temparature lower limit. Valid values are 0/1/2/3
+*	temperature lower limit. Valid values are 0/1/2/3
 *	0: -55C
 *	1: 0C
 *	2: -40C
@@ -382,9 +382,9 @@
 *	By default it reads XNVM_EFUSE_SLR_X_NUM_OF_USER_FUSES
 *
 *	#define XNVM_EFUSE_SLR_X_ENV_MONITOR_DISABLE			FALSE
-*	TRUE will disable the temparature and voltage checks before eFuse
+*	TRUE will disable the temperature and voltage checks before eFuse
 *	programming.
-*	FALSE will not disable the temparature and voltage checks before eFuse
+*	FALSE will not disable the temperature and voltage checks before eFuse
 *	programming.
 *	By default the value will be FALSE.
 *

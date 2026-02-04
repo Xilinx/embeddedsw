@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@
 *       mb   20/08/2025 Add EfuseCClkFreq and EfuseClkSrc to XNvm_EfuseData structure
 *       mb   08/24/2025 Add support to program boot mode disable efuses
 *       mb   10/04/2025 PPKs updates for SPARTANUPLUSAES1
-*       mb   10/14/2025 Update logic for programing Revoke ID's
+*       mb   10/14/2025 Update logic for programming Revoke ID's
 *       mb   11/11/2025 Add support for JTAG Boot mode disable efuse programming
 *
 * </pre>
@@ -104,7 +104,7 @@ extern "C" {
 #define XNVM_EFUSE_DIS_SJTAG_ROW		(50) /**< DIS_SJTAG start row */
 #define XNVM_EFUSE_DIS_SJTAG_COL		(12) /**< DIS_SJTAG column */
 
-/**< PPK Efuse programing related macros */
+/**< PPK Efuse programming related macros */
 #ifndef SPARTANUPLUSAES1
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(256U) /**< PPK hash length in bits */
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
@@ -198,7 +198,7 @@ typedef enum {
 /**
  * @{ eFuse control bits
  */
-/**< This structer defines Security control bits*/
+/**< This structure defines Security control bits*/
 
 typedef struct {
 	u8 HashPufOrKey; /**< Flag to read or program hash of PUF syndrome data or PPK */

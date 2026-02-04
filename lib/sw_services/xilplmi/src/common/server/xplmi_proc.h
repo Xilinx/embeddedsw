@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,7 @@
 * 		td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
-* 1.05  bm   07/12/2021 Updated IRO freqency defines
+* 1.05  bm   07/12/2021 Updated IRO frequency defines
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Removed unnecessary structure
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code

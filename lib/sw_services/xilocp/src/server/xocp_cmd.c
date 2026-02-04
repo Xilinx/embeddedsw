@@ -73,7 +73,7 @@
 #define XOCP_CERT_USER_IN_KEYINDEX_SHIFT				(24U)
 			/**< Shift for Key Index in Payload of Get Certificate User Cfg CDO command*/
 #define XOCP_DEV_AK_INPUT_PLOAD_KEYIDX_INDEX			(1U + 12U)
-		/**< Index of KeyIdx in Payload of DevAkInput comamnd
+		/**< Index of KeyIdx in Payload of DevAkInput command
 		 * Payload -> Subsystem ID (1 word) + Personlization string(12 words) + KeyIdx*/
 #define XOCP_DEV_AK_INPUT_KEYIDX_MASK				(0x3U)
 			/**< Mask for KeyIdx in Payload of DevAkInput CDO command */
@@ -206,7 +206,7 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 #else
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 		case XOCP_API(XOCP_API_GETCERTUSERCFG):
-			XOcp_Printf(DEBUG_GENERAL, "CMD: Key Management Operaion is disabled\r\n");
+			XOcp_Printf(DEBUG_GENERAL, "CMD: Key Management Operation is disabled\r\n");
 			Status = XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED;
 			break;
 #endif

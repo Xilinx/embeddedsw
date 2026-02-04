@@ -75,7 +75,7 @@
 *                      BBRAM programming, added Bbram_Init_Ultra,
 *                      Bbram_ProgramKey_Ultra, Bbram_VerifyKey_Ultra
 *                      and Bbram_DeInit_Ultra APIs.
-*                      Verificaion of programming bits are verified by
+*                      Verification of programming bits are verified by
 *                      performing all Margin reads.
 *                      Added conditions for programming control and
 *                      secure bits for Ultrascale efuse.
@@ -119,7 +119,7 @@
 * 6.3    vns  07/12/17 Added support for programming eFUSE and BBRAM of kintex
 *                      Ultrascale plus.
 * 6.4    vns  02/19/18 Added XilSKey_ZynqMp_EfusePs_CacheLoad() call in
-*                      XilSKey_ZynqMp_EfusePs_Write(), on successul programming
+*                      XilSKey_ZynqMp_EfusePs_Write(), on successful programming
 *                      of all requested efuse bits updated efuse can directly
 *                      read from eufse cache.
 *        vns  02/27/18 Added support for virtex ultrascale and untrascale plus
@@ -149,7 +149,7 @@
 *                      Added Debug define for dummy programming for microblaze
 *                      Initialized Status variables to XST_FAILURE
 *                      Added support to access ZU+ PL efuse and BBRAM
-*                      Aligned spaces in dependecies.props
+*                      Aligned spaces in dependencies.props
 *                      Removed Tbits programming code in ZU+
 *                      Added sysmon override or not option under BSP settings
 *                      for ZU+, added master SLR number in user device adding

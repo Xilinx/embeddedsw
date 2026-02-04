@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -92,7 +92,7 @@ int main(void)
 {
 	int Status;
 
-	/* Covert strings to buffers */
+	/* Convert strings to buffers */
 	Status = Secure_ConvertStringToHexBE(
 			(const char *) (XSECURE_AES_KEY),
 				Key, XSECURE_KEY_SIZE * 2);

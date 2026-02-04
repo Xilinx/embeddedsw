@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -64,7 +64,7 @@ extern "C" {
 #define XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES	(96U) /**< Size of P384 public key in bytes */
 
 #define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U) /**< Maximum number of hardware pcr events */
-#define XOCP_SHA3_LEN_IN_BYTES          	(48U) /**< Lenght of sha3 hash in bytes */
+#define XOCP_SHA3_LEN_IN_BYTES          	(48U) /**< Length of sha3 hash in bytes */
 #define XOCP_MAX_NUM_OF_SWPCRS			(0x40U) /**< Maximum number of software pcrs */
 #define XOCP_NUM_OF_SWPCRS			(0x8U) /**< Number of software pcrs */
 #define XOCP_EVENT_ID_NUM_OF_BYTES		(4U) /**< Number of bytes of pcr event ID*/

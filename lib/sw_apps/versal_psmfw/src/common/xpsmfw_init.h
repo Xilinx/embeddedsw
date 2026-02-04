@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2021 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2021 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,7 +61,7 @@ extern "C" {
 /** @} */
 
 /**
- * @defgroup plat_info Different platform informations
+ * @defgroup plat_info Different platform information
  * @{
  */
 

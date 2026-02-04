@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -265,7 +265,7 @@ u32* XCert_GetSpkId(void)
  *		 - XST_SUCCESS  Successfully generated X.509 certificate/CSR
  *		 - XST_INVALID_PARAM  Invalid function arguments
  *		 - XCERT_ERR_X509_KAT_FAILED  Failure of SHA384 KAT
- *		 - XCERT_ERR_X509_GEN_TBSCERT_DIGEST  Failure in SHA 384 digest calcuation for TBS certificate
+ *		 - XCERT_ERR_X509_GEN_TBSCERT_DIGEST  Failure in SHA 384 digest calculation for TBS certificate
  *		 - XCERT_ERR_X509_GET_SIGN  Failure in getting stored signature
  *		 - XSECURE_KAT_MAJOR_ERROR  Failure in Sign Generate KAT
  *		 - XCERT_ERR_X509_CALC_SIGN  Failure in generating ephemeral key and signature

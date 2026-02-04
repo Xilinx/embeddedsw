@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -1321,7 +1321,7 @@ static void PmSecureImage(const PmMaster *const master,
 		}
 	} else {
 		/**
-		 * In case of KUP key absense,
+		 * In case of KUP key absence,
 		 * Total len of Secure image = TotalDataWordLength  + DataWordOffset
 		 * TotalDataWordLength and DataWordOffset are Partition Header attributes.
 		 */
@@ -2320,7 +2320,7 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 
 /**
  * PmFeatureCheck() - This function returns supported version of API. It
- *		      also returns bit mask of supproted IOCTL IDs and QUERY
+ *		      also returns bit mask of supported IOCTL IDs and QUERY
  *		      IDs
  * @master	Master that initiated the call
  * @apiId	API ID to check

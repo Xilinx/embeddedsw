@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -46,7 +47,7 @@ extern "C" {
  * @powerDown Handler for powering down the node
  * @pwrDnLatency Latency (in us) for transition to OFF state
  * @pwrUpLatency Latency (in us) for transition to ON state
- * @childCnt Number of childs in children array
+ * @childCnt Number of children in children array
  * @forcePerms  ORed masks of masters which are allowed to force power down this
  *              power node
  * @useCount    How many nodes currently use this power node

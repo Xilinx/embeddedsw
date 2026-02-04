@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -542,7 +542,7 @@ END:
  *
  * @param HandoffAddress is handoff address for the FSBL running cpu
  *
- * @param Flags is to determine whether to handoff to applicatio or
+ * @param Flags is to determine whether to handoff to application or
  * 			to be in wfe state
  *
  * @return None
