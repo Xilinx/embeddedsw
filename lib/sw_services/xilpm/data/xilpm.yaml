@@ -1,5 +1,5 @@
 # Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -39,7 +39,7 @@ supported_os:
 #       Reasons:
 #               - For other drivers have no effect of "depends" list while
 #               getting added as dependencies.
-#               - Implementation of architecture dependant driver dependency
+#               - Implementation of architecture dependent driver dependency
 #               is pending.
 #       List of remaining drivers:
 #               1) cframe

@@ -20,7 +20,7 @@ extern "C" {
 
 #define PMC_TAP_VERSION_PLATFORM_MASK		(0x0F000000U)
 
-/* @TODO: Added below macro as workaorund to compile for VERSAL_2VE_2VM platform
+/* @TODO: Added below macro as workaround to compile for VERSAL_2VE_2VM platform
  * Since it doesn't have PSM, this macro should not be required for the platform
  * Fix this during code cleanup
  */

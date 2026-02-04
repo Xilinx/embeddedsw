@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,7 +94,7 @@ struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	const struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
-	u32 Children[MAX_POWERDOMAINS]; /**< List of depedent children Ids */
+	u32 Children[MAX_POWERDOMAINS]; /**< List of dependent children Ids */
 	u16 InitFlag; /**< Flag to indicate which Ops are performed */
 	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
 };

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1215,7 +1215,7 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 		/* Get parent power domain and save it.
 		 * This is to request GPIO device during power domain init.
 		 * Request device prevents power domain powering down and
-		 * keeps the GPIO configuration (direction, oen) live.
+		 * keeps the GPIO configuration (direction, one) live.
 		 */
 		Device = (XPm_Device *)XPmDevice_GetById(DomainCtrl->ParentId);
 		if (NULL == Device) {

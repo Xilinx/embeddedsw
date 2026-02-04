@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -136,7 +136,7 @@ static XStatus LpdMioFlush(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XPm_Out32(LPD_IOU_SLCR_MIO_MST_TRI0, SaveTri0 | LPD_MIO_0_FLUSH_MASK);
 	/* save TX DATA */
 	SaveData0 = Xil_In32(LPD_GPIO_DATA_0_ADDR);
-	/* Deassert Tristate to allow LPD_GPIO controller to control the OEN */
+	/* Deassert Tristate to allow LPD_GPIO controller to control the ONE */
 	XPm_Out32(LPD_IOU_SLCR_MIO_MST_TRI0, SaveTri0 & (~LPD_MIO_0_FLUSH_MASK));
 	/* Set all MIO to GPIO output */
 	XPm_Out32(LPD_GPIO_DIRM_0_ADDR, SaveDirm0 | LPD_MIO_0_FLUSH_MASK);

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -734,7 +734,7 @@ static XStatus Class_Power_Restore(XPm_Power *SavedNode, XPm_Power *Node)
 	case XPM_NODETYPE_POWER_ISLAND_XRAM:
 	case XPM_NODETYPE_POWER_DOMAIN_ME:
 	default:
-		PmWarn("Warning: IPU unsupport power domain node. Id: %x.\n\r", NodeId);
+		PmWarn("Warning: IPU unsupported power domain node. Id: %x.\n\r", NodeId);
 		Status = XST_SUCCESS;
 		break;
 	}
@@ -766,7 +766,7 @@ static XStatus Class_Clock_Restore(XPm_ClockNode *SavedNode, XPm_ClockNode *Node
 		break;
 	case XPM_NODETYPE_CLOCK_SUBNODE:
 	default:
-		PmWarn("Warning: IPU unsupport clock node. Id: %x.\n\r", NodeId);
+		PmWarn("Warning: IPU unsupported clock node. Id: %x.\n\r", NodeId);
 		Status = XST_SUCCESS;
 		break;
 	}
@@ -839,7 +839,7 @@ static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
 	case XPM_NODETYPE_DEV_HB_MON :
 	case XPM_NODETYPE_DEV_BFRB :
 	default:
-		PmWarn("Warning: IPU unsupport device node. NodeId: %x.\n\r", NodeId);
+		PmWarn("Warning: IPU unsupported device node. NodeId: %x.\n\r", NodeId);
 		Status = XST_SUCCESS;
 		break;
 	}
@@ -911,7 +911,7 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 		case XPM_NODECLASS_MONITOR:
 		case XPM_NODECLASS_REGNODE:
 		default:
-			PmWarn("Warning: IPU unsupport node. NodeId: %x.\n\r", NodeId);
+			PmWarn("Warning: IPU unsupported node. NodeId: %x.\n\r", NodeId);
 			Status = XST_SUCCESS;
 		}
 		if (XST_SUCCESS != Status) {

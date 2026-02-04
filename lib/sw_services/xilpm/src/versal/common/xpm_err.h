@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2025 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00	Amit   05/08/2019 Initial release
 * 2.00	Ravi   04/22/2020 Use decimal values to align with ZU+
+* 3.00	HG     02/03/2026 Fix codespell errors
 *
 * </pre>
 *
@@ -61,7 +62,7 @@ extern "C" {
 #define XPM_PM_ABORT_SUSPEND			 (2005L) /**< Abort suspend not allowed */
 #define XPM_PM_TIMEOUT				 (2006L) /**< Timeout occurred */
 #define XPM_PM_NODE_USED			 (2007L) /**< Node is used and non-shareable */
-#define XPM_REG_WRITE_FAILED			 (2008L) /**< Register writting has failed*/
+#define XPM_REG_WRITE_FAILED			 (2008L) /**< Register writing has failed*/
 
 /****************************** Generic API Errors ***********************/
 /******************************  (2010L) - (2020L) ***********************/

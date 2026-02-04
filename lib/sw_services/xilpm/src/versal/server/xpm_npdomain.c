@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -86,7 +86,7 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/*
-	 * If device is xcvm2152/xcvr1602/xcvr1652, DDRMC5 has crypto blcok so set local flag.
+	 * If device is xcvm2152/xcvr1602/xcvr1652, DDRMC5 has crypto block so set local flag.
 	 * NOTE: This is a temporary solution until topology support is
 	 * available.
 	 */
@@ -340,7 +340,7 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	/* This block of code is removed during unit tests becuase there currently
+	/* This block of code is removed during unit tests because there currently
 	   is no support for write-to-clear register simulation. */
 	#ifndef CPPUTEST
 	/* PMC_ERR1_STATUS is the write-to-clear register */
@@ -436,7 +436,7 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
-	/* This block of code is removed during unit tests becuase there currently
+	/* This block of code is removed during unit tests because there currently
 	   is no support for write-to-clear register simulation. */
 	#ifndef CPPUTEST
 	/*
@@ -1086,7 +1086,7 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function turns the NOC clock off/on by gateing the clock.
+ * @brief  This function turns the NOC clock off/on by gating the clock.
  *
  * @param  Node		Node pointer of a device or a power domain that depends
  *			on NOC power domain

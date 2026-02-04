@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,7 +57,7 @@ static XStatus PmcMioFlush(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Extract information from RTCA register */
 	u32 PMC_MIO_0_FLUSH_MASK =  Xil_In32(XPLMI_RTCFG_MIO_WA_BANK_500_ADDR);
 	u32 PMC_MIO_1_FLUSH_MASK =  Xil_In32(XPLMI_RTCFG_MIO_WA_BANK_501_ADDR);
-	/* Save GPIO reset vallue */
+	/* Save GPIO reset value */
 	u32 SaveRst = Xil_In32(CRP_RST_GPIO);
 	XPlmi_Printf(MIO_FLUSH_DEBUG,"Starting PMC MIO flush ...\n\r");
 	/* Deassert GPIO reset */
@@ -96,7 +96,7 @@ static XStatus PmcMioFlush(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Save TX DATA */
 	SaveData0 = Xil_In32(PMC_GPIO_DATA_0_ADDR);
 	SaveData1 = Xil_In32(PMC_GPIO_DATA_1_ADDR);
-	/* Deassert Tristate to allow PMC_GPIO controller to control the OEN */
+	/* Deassert Tristate to allow PMC_GPIO controller to control the ONE */
 	XPm_Out32(PMC_IOU_SLCR_MIO_MST_TRI0, SaveTri0 & (~PMC_MIO_0_FLUSH_MASK));
 	XPm_Out32(PMC_IOU_SLCR_MIO_MST_TRI1, SaveTri1 & (~PMC_MIO_1_FLUSH_MASK));
 	/* Set all MIO to GPIO output */

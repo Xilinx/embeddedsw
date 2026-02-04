@@ -337,7 +337,7 @@ XStatus XPm_PlatInit(void)
 	/* Assert PS_PL_SRST */
 	/* NOTE: other resets are already asserted in versal_common XPm_Init*/
 	XPm_RMW32(CRP_RST_PS, CRP_RST_PS_PL_SRST_MASK, CRP_RST_PS_PL_SRST_MASK);
-	/* Reenable all domain isolation in PMC_GLOBAL*/
+	/* Re-enable all domain isolation in PMC_GLOBAL*/
 	XPm_Write32(PMC_GLOBAL_DOMAIN_ISO_CNTRL, DefaultDomainIsoMask);
 	return XST_SUCCESS;
 }

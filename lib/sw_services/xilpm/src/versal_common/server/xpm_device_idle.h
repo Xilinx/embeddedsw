@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -130,7 +130,7 @@ typedef struct XPmDevice_SoftResetInfo {
     #endif
 #endif
 
-/* Define the XILPM device macro based on canonical defination. */
+/* Define the XILPM device macro based on canonical definition. */
 /* XILPM_USB_0 */
 #ifdef VERSAL_NET
 #if (!defined(XILPM_USB_EXCLUDE) && defined(WRAPPER_XUSBPSU_0_DEVICE_ID) && \

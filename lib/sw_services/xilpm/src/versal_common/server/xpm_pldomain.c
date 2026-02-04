@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -82,7 +82,7 @@ done:
  *
  * @note	This function, instead of right shifting one bit,
  *		utilizes a stored variable to restore the original clock frequency back.
- *		It also checks the exisitng CFU clk setting to make sure
+ *		It also checks the existing CFU clk setting to make sure
  *		the frequency is as expected, and returns an error if not.
  *
  *****************************************************************************/
@@ -104,7 +104,7 @@ XStatus RestoreCfuClkFreq(void)
 
 	/* Check if CFU clk divider is at expected (double) value */
 	if ((SavedCfuDivider << 1U) != CfuDivider) {
-		PmErr("[Error]Cfu clock divider value is unxpected. Expect: %d \
+		PmErr("[Error]Cfu clock divider value is unexpected. Expect: %d \
 			Actual: %d.\n\r", SavedCfuDivider << 1U, CfuDivider);
 		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_CFU_CLK_DIVIDER;

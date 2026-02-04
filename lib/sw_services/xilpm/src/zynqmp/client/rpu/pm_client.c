@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,7 @@ done:
 
 /**
  * pm_get_master_by_node() - returns pointer to the master structure
- * @param  nid ndoe id of the cpu master
+ * @param  nid node id of the cpu master
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */

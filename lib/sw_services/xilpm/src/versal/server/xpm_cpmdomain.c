@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -199,7 +199,7 @@ static XStatus Cpm6InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumofArgs;
 
-	/* TODO: Ensure vccint_cpm6 supply rail is withing correct operating range */
+	/* TODO: Ensure vccint_cpm6 supply rail is within correct operating range */
 
 	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
 		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &

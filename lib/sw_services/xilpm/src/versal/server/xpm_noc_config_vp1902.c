@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include <xpm_common.h>
@@ -153,8 +153,8 @@ done:
 
 /**********************************************************************************
  * @brief	This function calculates offset addresses from base based on output
- *		and input ports, configues swith (NPS) and removes isolation, then
- *		configues NIDBs required.
+ *		and input ports, configures switch (NPS) and removes isolation, then
+ *		configures NIDBs required.
  *
  * @param	SlrType if the current SLR is 1, 2 or 3
  *
@@ -195,9 +195,9 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 		case SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP:
 		{
 			/**
-			 * NOC Conifiguration Security Modifications
+			 * NOC Configuration Security Modifications
 			 *
-			 * Temproal check added
+			 * Temporal check added
 			 */
 			XSECURE_TEMPORAL_CHECK(
 				done, Status, XPm_NpsTurn_vp1902, NPS_13_BASE_ADDRESS,
@@ -207,9 +207,9 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 					SLR3_NPS_13_RESPONSE_PATH_WRITE_VALUE);
 
 			/**
-			 * NOC Conifiguration Security Modifications
+			 * NOC Configuration Security Modifications
 			 *
-			 * Temproal check added
+			 * Temporal check added
 			 */
 			XSECURE_TEMPORAL_CHECK(
 				done, Status, XPm_NpsTurn_vp1902, NPS_12_BASE_ADDRESS,
@@ -237,9 +237,9 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 		case SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_NTOP:
 		{
 			/**
-			 * NOC Conifiguration Security Modifications
+			 * NOC Configuration Security Modifications
 			 *
-			 * Temproal check added
+			 * Temporal check added
 			 */
 			XSECURE_TEMPORAL_CHECK(
 				done, Status, XPm_NpsTurn_vp1902, NPS_13_BASE_ADDRESS,
@@ -249,9 +249,9 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 					SLR1_NPS_13_RESPONSE_PATH_WRITE_VALUE);
 
 			/**
-			 * NOC Conifiguration Security Modifications
+			 * NOC Configuration Security Modifications
 			 *
-			 * Temproal check added
+			 * Temporal check added
 			 */
 			XSECURE_TEMPORAL_CHECK(
 				done, Status, XPm_NpsTurn_vp1902, NPS_12_BASE_ADDRESS,

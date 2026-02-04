@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0  rpoolla	 23/01/18 Initial release
 * 2.0  tnt	 01/11/22 Porting to xilpm
+* 3.0  Harshil	 02/03/26 Fix codespell errors
 *
 * </pre>
 *
@@ -189,7 +190,7 @@ static XStatus XPm_NocSwitchConfig(u32 SlrType)
 		NsuID = NSU_ID_SLR1;
 	}
 	/**
-	 * Temproal check added
+	 * Temporal check added
 	 */
 	XSECURE_TEMPORAL_CHECK(END, Status,
 		XPm_SlvSlrBootNocCfg,
@@ -222,7 +223,7 @@ static XStatus XPm_SlvSlrBootNocCfg(u32 NirAddr,
 	NidbAddr = (NirAddr + RelNpsAddr - NIDB_OFFSET_DIFFERENCE);
 
 	/**
-	 * Temproal check added
+	 * Temporal check added
 	 */
 
 	XSECURE_TEMPORAL_CHECK(END, Status,

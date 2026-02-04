@@ -3698,7 +3698,7 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
  * @return XST_SUCCESS if successful else XST_NO_FEATURE.
  *
  * @note   Remove CDO-only commands from versioning as it is for internal
- * use only, so no need to consider for versioing.
+ * use only, so no need to consider for versioning.
  *
  ****************************************************************************/
 XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
@@ -4560,7 +4560,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*
-		 * Caller subystem may not be allowed to enact reset operation
+		 * Caller subsystem may not be allowed to enact reset operation
 		 * upon PM_RST_PMC. XPmReset_SystemReset uses PM_RST_PMC.
 		 */
 		Rst = XPmReset_GetById(PM_RST_PMC);

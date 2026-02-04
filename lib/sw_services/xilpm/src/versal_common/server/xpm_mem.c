@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -242,7 +242,7 @@ done:
 
 /**
  * @brief  Checks whether given address range (addr + size) is contained
- * 		within specificed Memory Region or going beyond (for potential overlap)
+ * 		within specified Memory Region or going beyond (for potential overlap)
  * @param  RegionStart 	Start Address of the Region to compare
  * @param  RegionEnd 	End Address of the Region to compare
  * @param  StartAddr 	Start Address of the Memory Range
