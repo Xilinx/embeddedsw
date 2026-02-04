@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 cmake_minimum_required (VERSION 3.15)
 if (POLICY CMP0048)
   cmake_policy(SET CMP0048 NEW)
@@ -10,50 +10,59 @@ endif()
 
 project (libmetal_amp_demod C)
 
-string(REGEX MATCH "r5" r5 "${CMAKE_SYSTEM_PROCESSOR}")
-if (r5)
-  set (MACHINE "xlnx_r5" CACHE STRING "" FORCE)
-  set (CROSS_PREFIX "armr5-none-eabi-" CACHE STRING "" FORCE)
-  set (CMAKE_SYSTEM_PROCESSOR "arm" CACHE STRING "" FORCE)
-  set (PROJECT_MACHINE "xlnx_r5" CACHE STRING "" FORCE)
-  add_definitions( -DWITH_DOC=OFF )
-  add_definitions( -DWITH_EXAMPLES=ON )
-  add_definitions( -DXPAR_SCUGIC_0_DEVICE_ID=XPAR_SCUGIC_SINGLE_DEVICE_ID )
-  add_definitions( -DXPAR_SCUGIC_0_DIST_BASEADDR=XPAR_SCUGIC_DIST_BASEADDR )
-  add_definitions( -DSDT=1 )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -specs=${CMAKE_SPECS_FILE} " )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${CMAKE_INCLUDE_PATH} " )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${proc_extra_compiler_flags}" )
 
-  set( DEMO_LINK_FLAGS " -lxil -lxilstandalone -lxiltimer -lgcc" )
-  if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
-    set( DEMO_LINK_FLAGS "${DEMO_LINK_FLAGS} -lxilpm_ng" )
-  else()
-    set( DEMO_LINK_FLAGS "${DEMO_LINK_FLAGS} -lxilpm" )
-  endif()
+set (APP_BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/openamp-system-reference")
+set (CMAKE_UTIL_DIR "${APP_BASE_DIR}/examples/legacy_apps/cmake")
+set (WITH_LIBMETAL_FIND OFF)
+set (WITH_OPENAMP_FIND OFF)
 
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -specs=${CMAKE_SPECS_FILE} " )
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${CMAKE_INCLUDE_PATH} " )
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${proc_extra_compiler_flags}" )
-endif()
-
-set (LIBMETAL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libmetal")
-
-list (APPEND CMAKE_MODULE_PATH
-      "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
-      "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"
-      "${CMAKE_CURRENT_SOURCE_DIR}/cmake/platforms")
-
-include (libmetal/cmake/syscheck.cmake)
+include (${CMAKE_UTIL_DIR}/syscheck.cmake)
 include (CheckIncludeFiles)
 include (CheckCSourceCompiles)
-include (libmetal/cmake/collect.cmake)
-include (libmetal/cmake/options.cmake)
+include (${CMAKE_UTIL_DIR}/collect.cmake)
+include (${CMAKE_UTIL_DIR}/depends.cmake)
+
 set_property (GLOBAL PROPERTY "PROJECT_EC_FLAGS" -Wall -Wextra)
-set_property (GLOBAL PROPERTY HAS_SYSTEM_DT ON)
+set_property (GLOBAL PROPERTY DEMO_CFG_FILE "${APP_BASE_DIR}/examples/libmetal/machine/remote/amd_rpu/rpu.cmake")
+
+include(CheckSymbolExists)
+check_symbol_exists(VERSAL_AIEPG2 "bspconfig.h" IS_VERSAL2)
+check_symbol_exists(VERSAL_NET "bspconfig.h" IS_VERSAL_NET)
+check_symbol_exists(VERSAL "bspconfig.h" IS_VERSAL)
+
+if (IS_VERSAL2)
+  set_property(GLOBAL PROPERTY SOC "VERSAL2")
+elseif (IS_VERSAL_NET)
+  set_property(GLOBAL PROPERTY SOC "VERSAL_NET")
+elseif (IS_VERSAL)
+  set_property(GLOBAL PROPERTY SOC "VERSAL")
+else()
+  set_property(GLOBAL PROPERTY SOC "ZYNQMP")
+endif()
+
+# Lopper plugin can generate linker meta data in below file
+# This can define RSC_TABLE so include before
+file (GLOB LINKER_METADATA_FILE "${CMAKE_CURRENT_SOURCE_DIR}/*Example.cmake")
+if (EXISTS ${LINKER_METADATA_FILE})
+  set_property(GLOBAL PROPERTY LINKER_METADATA_FILE ${LINKER_METADATA_FILE})
+  message("Libmetal: Linker will be configured using file: ${LINKER_METADATA_FILE}")
+else()
+  message(FATAL_ERROR "Libmetal: Linker gen failed")
+endif()
 
 foreach(_inc_path ${CMAKE_INCLUDE_PATH})
   collect (PROJECT_INC_DIRS "${_inc_path}")
 endforeach()
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/")
-add_subdirectory (libmetal/examples)
 
+set(ROLE "remote" CACHE STRING "")
+set(DEMO "irq_shmem_demo" CACHE STRING "")
+set(PROJECT_MACHINE "amd_rpu" CACHE STRING "")
+string (TOLOWER ${CMAKE_SYSTEM_NAME} CMAKE_SYSTEM_NAME_LOWER)
+set (PROJECT_SYSTEM "${CMAKE_SYSTEM_NAME_LOWER}" CACHE STRING "")
+add_subdirectory (openamp-system-reference/examples/libmetal)
 # vim: expandtab:ts=2:sw=2:smartindent

@@ -93,9 +93,8 @@ def create_app(args):
         if 'LOCAL_LIBMETAL_DEMO_REPO' in os.environ:
             srcdir = os.environ.get('LOCAL_LIBMETAL_DEMO_REPO')
             print(f"[INFO]: LOCAL_LIBMETAL_DEMO_REPO variable is set to {srcdir}")
-
         utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'CMakeLists.txt'), dstdir)
-        dstdir = os.path.join(dstdir, 'libmetal')
+        dstdir = os.path.join(dstdir, 'openamp-system-reference')
 
     # Make it easier for user to replace the upstream openamp-system-reference demo area
     # by having it in its own subdirectory.
@@ -153,7 +152,7 @@ def create_app(args):
     bsp_obj = BSP(args)
     overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
 
-    if obj.template in openamp_app_names.keys():
+    if obj.template in openamp_app_names.keys() or obj.template == 'libmetal_echo_demo':
         bsp_obj = BSP(args)
         original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
 

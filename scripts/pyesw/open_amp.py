@@ -121,14 +121,21 @@ def create_openamp_app(obj, esw_app_dir):
     openamp_app_configure_common(obj, esw_app_dir)
 
     # Point to correct demo to build
-    utils.replace_line(os.path.join(obj.app_src_dir, "openamp-system-reference", "examples", "legacy_apps", "CMakeLists.txt"),
-                       f'project (osr_legacy_apps C)',
+    original_src = os.path.join(obj.app_src_dir, "openamp-system-reference", "examples", "legacy_apps", "CMakeLists.txt")
+
+    utils.replace_line(original_src, f'project (osr_legacy_apps C)',
                        f'set (OPENAMP_APP_NAME \"' + open_amp_app_name(obj.template) + '\")\n')
 
     # Specify app name if applicable
     if obj.app_name:
         utils.replace_line(os.path.join(obj.app_src_dir, "CMakeLists.txt"),
                            f'project(openamp_sys_ref)', f'project ({obj.app_name} C)\n')
+
+    # by default these are on. set to OFF by removing them. unfortunately repeat runs will pull in
+    # BSP toolchain file so just remove the option set here. There is different workflow
+    # for Vitis tooling anyway.
+    for i in [ "WITH_TESTS", "WITH_EXAMPLES", "tests", "examples" ]:
+        utils.replace_line(original_src, i, "")
 
 def create_libmetal_app(obj, esw_app_dir):
     """
@@ -145,6 +152,8 @@ def create_libmetal_app(obj, esw_app_dir):
                     silent_discard=True)
 
     openamp_app_configure_common(obj, esw_app_dir)
+    utils.replace_line(os.path.join(obj.app_src_dir, "openamp-system-reference", "examples", "libmetal", "CMakeLists.txt"),
+                       "project (libmetal_apps C)", "")
 
     # Specify app name if applicable
     if obj.app_name:
@@ -163,11 +172,25 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     Returns:
         None
     """
+    fname = ''
+    header_location = os.path.join(obj.app_src_dir, "openamp-system-reference", "examples")
+    imux = "lop-r52-imux.dts" if "cortexr52" in obj.proc else "lop-r5-imux.dts"
     overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
     output_sdt = os.path.join(obj.app_src_dir, "openamp-system-reference", "openamp_output.dts")
-    fname = 'amd_platform_info.h'
-    header_location = os.path.join(obj.app_src_dir, "openamp-system-reference", 'examples',
-                                   'legacy_apps', 'machine', 'zynqmp_r5')
+    cmd1 = (f"LOPPER_DTC_FLAGS=\"-b 0 -@\" lopper -f --enhanced --permissive -i lop-xlate-yaml.dts "
+            f"-i {overlay_dst} -i {imux} "
+            f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} ")
+    cmd2 = f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} -- openamp "
+
+    if obj.template == 'libmetal_echo_demo':
+        fname = 'rpu.cmake'
+        header_location = os.path.join(header_location, "libmetal", "machine", "remote", "amd_rpu")
+        cmd2 += " --libmetal_output_file --compatible-string=libmetal,ipc-v1 "
+        cmd2 += f" --processor={obj.proc} --openamp_output_filename={fname} --os=baremetal_dt "
+    else:
+        fname = 'amd_platform_info.h'
+        header_location = os.path.join(header_location, 'legacy_apps', 'machine', 'xlnx', 'zynqmp_r5')
+        cmd2 += f"-- openamp --openamp_header_only --openamp_output_filename={fname} --openamp_remote={obj.proc} "
 
     if os.path.exists(overlay_dst):
         logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
@@ -175,15 +198,8 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
         utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', 'openamp-metadata', f"openamp-overlay-{soc}.yaml"),
                         overlay_dst)
 
-    cmd1 = (f"lopper -f --enhanced --permissive -i lop-xlate-yaml.dts "
-            f"-i {overlay_dst} -i lop-r5-imux.dts "
-            f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} ")
     utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create an openamp DT for remote")
-
-    cmd2 = (f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} "
-            f"-- openamp --openamp_header_only --openamp_output_filename={fname} "
-            f"--openamp_remote={obj.proc} ")
-    utils.runcmd(cmd2, log_message="OpenAMP Lopper Run 2 - Generate Header")
+    utils.runcmd(cmd2, log_message="OpenAMP Lopper Run 2 - Generate Header or Config object")
 
     if utils.is_file(fname):
         utils.copy_file(fname, os.path.join(header_location, fname))

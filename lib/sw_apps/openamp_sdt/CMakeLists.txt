@@ -1,3 +1,11 @@
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 cmake_minimum_required(VERSION 3.24)
 project(openamp_sys_ref)
+set (WITH_LIBMETAL_FIND OFF)
+set (WITH_OPENAMP_FIND OFF)
+set (PROJECT_VENDOR "xlnx" CACHE STRING "")
+set (MACHINE "zynqmp_r5" CACHE STRING "")
+set (_AMD_GENERATED_ ON CACHE STRING "")
+string (TOLOWER ${CMAKE_SYSTEM_NAME} CMAKE_SYSTEM_NAME_LOWER)
+set (PROJECT_SYSTEM "${CMAKE_SYSTEM_NAME_LOWER}" CACHE STRING "")
 add_subdirectory (openamp-system-reference/examples/legacy_apps)
