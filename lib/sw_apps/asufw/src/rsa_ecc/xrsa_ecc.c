@@ -1339,6 +1339,7 @@ s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashLen)
  * @return
  *	- XASUFW_SUCCESS, if Hash calculation is successful.
  *	- XASUFW_SHA_INVALID_PARAM, if ShaInstancePtr is NULL.
+ *	- XASUFW_RSA_ECC_INVALID_PARAM, if CurveType is invalid.
  *
  *************************************************************************************************/
 static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
@@ -1352,11 +1353,15 @@ static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u
 		/** For Ed25519ph, get the SHA2 instance for SHA512 mode. */
 		ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 		ShaOperation.ShaMode = XASU_SHA_MODE_512;
-	} else {
+	} else if (CurveType == (u32)ECDSA_ED448) {
 		/** For Ed448ph, get the SHA3 instance for SHAKE256 mode. */
 		ShaInstancePtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 		ShaOperation.ShaMode = XASU_SHA_MODE_SHAKE256;
+	} else {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
+		goto END;
 	}
+
 	/** Validate the SHA instance pointer. */
 	if (ShaInstancePtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
