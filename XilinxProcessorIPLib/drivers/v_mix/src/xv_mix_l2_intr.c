@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,8 +76,6 @@ int XVMix_SetCallback(XV_Mix_l2 *InstancePtr, void *CallbackFunc, void *Callback
 *
 * @param	InstancePtr is a pointer to the core instance that just
 *		    interrupted.
-*
-* @return	None.
 *
 * @note		None.
 *

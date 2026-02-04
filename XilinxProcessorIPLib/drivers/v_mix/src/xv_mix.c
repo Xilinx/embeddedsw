@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -56,7 +56,6 @@ int XV_mix_CfgInitialize(XV_mix *InstancePtr,
  *
  * @param InstancePtr Pointer to the XV_mix instance to be started.
  *
- * @return None.
  */
 void XV_mix_Start(XV_mix *InstancePtr) {
     u32 Data;
@@ -144,7 +143,6 @@ u32 XV_mix_IsReady(XV_mix *InstancePtr) {
  * - InstancePtr must not be NULL.
  * - The XV_mix instance must be ready (IsReady == XIL_COMPONENT_IS_READY).
  *
- * @return   None.
  */
 void XV_mix_EnableAutoRestart(XV_mix *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -166,7 +164,6 @@ void XV_mix_EnableAutoRestart(XV_mix *InstancePtr) {
  *   - InstancePtr must not be NULL.
  *   - The XV_mix instance must be ready (IsReady == XIL_COMPONENT_IS_READY).
  *
- * @return   None.
  */
 void XV_mix_DisableAutoRestart(XV_mix *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
@@ -186,7 +183,6 @@ void XV_mix_DisableAutoRestart(XV_mix *InstancePtr) {
  *
  * @note The function asserts that the InstancePtr is not NULL and that the hardware
  *       instance is ready before performing the operation.
- * @return   None.
  */
 void XV_mix_SetFlushbit(XV_mix *InstancePtr) {
     u32 Data;

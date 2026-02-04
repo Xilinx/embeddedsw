@@ -33,7 +33,7 @@
 *             08/16/16   Add check for stream and logo layer minimum width and
 *                        height
 *2.10   rco   11/15/16   Add a check for logo layer enable before loading logo
-*                        pixel alpha. IP confguration can have logo feature
+*                        pixel alpha. IP configuration can have logo feature
 *                        disabled but logo pixel alpha enabled
 *             01/26/16   Bug fix - Read power on default video stream
 *                        properties from IP configuration
@@ -241,7 +241,6 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
  *
  * @param InstancePtr Pointer to the XV_Mix_l2 instance.
  *
- * @return none
  */
 void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr)
 {
@@ -265,7 +264,6 @@ void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr)
  *
  * @param InstancePtr Pointer to the XV_Mix_l2 instance.
  *
- * @return none
  * @note The InstancePtr must not be NULL.
  */
 void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr)
@@ -290,7 +288,6 @@ void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr)
  * @param InstancePtr
  *   Pointer to the XV_Mix_l2 instance to be started.
  *
- * @return none
  */
 void XVMix_Start(XV_Mix_l2 *InstancePtr)
 {
@@ -315,7 +312,6 @@ void XVMix_Start(XV_Mix_l2 *InstancePtr)
  *      with a timeout to prevent indefinite waiting.
  *   5. Returns early if the flush operation does not complete within the timeout.
  *
- * @return none
  */
 void XVMix_Stop(XV_Mix_l2 *InstancePtr)
 {
@@ -387,8 +383,6 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
  *
  * @param InstancePtr Pointer to the XV_Mix_l2 instance.
  * @param StrmIn      Pointer to the input XVidC_VideoStream structure.
- *
- * @return None.
  *
  * @note The function asserts that the input pointers are valid and that the
  *       resolution is within the supported range.
@@ -529,8 +523,6 @@ int XVMix_IsLayerEnabled(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  ColorId is requested background color
 * @param  bpc is color depth
-*
-* @return none
 *
 * @note   none
 *
@@ -1687,7 +1679,6 @@ int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
  * The function asserts that the provided instance pointer is not NULL.
  * It is intended for debugging and diagnostic purposes.
  *
- * @return None.
  */
 void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr)
 {
@@ -1742,8 +1733,6 @@ void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr)
  *
  * The function uses xil_printf for output and is intended for debugging purposes.
  * Assertions are used to validate input parameters.
- *
- * @return none
  *
  * @note   none
  */

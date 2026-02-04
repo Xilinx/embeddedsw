@@ -97,7 +97,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   10/29/15   Initial Release
 *             12/14/15   Added interrupt handler
-*             02/12/16   Added Stride and memory Alignement requirements
+*             02/12/16   Added Stride and memory Alignment requirements
 *             02/25/16   Replace GetColorFromat function with a macro
 *             03/08/16   Replace GetColorFromat macro with function and added
 *                        master layer video format
@@ -169,7 +169,7 @@ typedef enum
 * [4] http://en.wikipedia.org/wiki/YCbCr
 * Coefficient table supports BT601 / BT709 / BT2020 encoding schemes
 * and 16-235 / 16-240 / 0-255 range.
-* These are defined in signed interger format and divided with 10000
+* These are defined in signed integer format and divided with 10000
 * to get fractional values.
 */
 
