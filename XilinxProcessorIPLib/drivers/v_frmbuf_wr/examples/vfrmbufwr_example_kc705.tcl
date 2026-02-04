@@ -1,4 +1,10 @@
-# This tcl file creates BSP and Application and targetted for kc705 board.
+# ==============================================================
+# Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+# ==============================================================
+
+# This tcl file creates BSP and Application and targeted for kc705 board.
 
 
 proc vfrmbufwr_example args {

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
+* Copyright (C) 2017-2022 Xilinx Inc. All rights reserved.
 * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -294,8 +294,6 @@ static void SetPowerOnDefaultState(XV_FrmbufWr_l2 *InstancePtr)
  * This function asserts that the provided instance pointer is not NULL,
  * enables the specified interrupts, globally enables interrupts for the core,
  * and clears the auto-restart bit to prevent automatic restarts.
- *
- * @return none
  */
 void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
 {
@@ -321,8 +319,6 @@ void XVFrmbufWr_InterruptEnable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
  * 	    	passes to the callback function.
  *
  * @note The function asserts that InstancePtr is not NULL.
- *
- * @return none
  */
 void XVFrmbufWr_InterruptDisable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
 {
@@ -344,8 +340,6 @@ void XVFrmbufWr_InterruptDisable(XV_FrmbufWr_l2 *InstancePtr, u32 IrqMask)
  * and then calls the lower-level start function for the hardware core.
  *
  * @param InstancePtr Pointer to the XV_FrmbufWr_l2 instance to be started.
- *
- * @return none
  */
 void XVFrmbufWr_Start(XV_FrmbufWr_l2 *InstancePtr)
 {
@@ -965,10 +959,8 @@ u32 XVFrmbufWr_GetFieldID(XV_FrmbufWr_l2 *InstancePtr)
  * The function asserts that the provided instance pointer is not NULL.
  *
  * This function is intended for debugging and diagnostic purposes.
- * @return none
  *
  * @note   none
- *
  */
 void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
 {

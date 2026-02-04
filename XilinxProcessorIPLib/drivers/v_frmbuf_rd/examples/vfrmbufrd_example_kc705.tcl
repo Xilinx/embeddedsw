@@ -1,4 +1,10 @@
-# This scripts creates bsp and application, targetted for kc705
+# ==============================================================
+# Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+# ==============================================================
+
+# This scripts creates bsp and application, targeted for kc705
 
 proc vfrmbufrd_example args {
 
