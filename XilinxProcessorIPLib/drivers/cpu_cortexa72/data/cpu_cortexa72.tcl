@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2021  Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -15,6 +16,7 @@
 #                     required for dependency files configuration
 # 1.3   mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
 #                     to memset conversions. It fixes CR#1090083.
+# 1.6   ml   02/03/26 Fix codespell warnings
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -99,7 +101,7 @@ proc xdefine_cortexa72_params {drvhandle} {
     set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
     if {$is_zynqmp_fsbl_bsp == true} {
 		set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-		#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
+		#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previously.
 		if {[string first "-flto" $extra_flags] == -1 } {
 			append extra_flags " -Os -flto -ffat-lto-objects"
 			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]

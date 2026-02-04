@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *             T0INT flag
 * 4.5   cjp  03/22/18 Added macros for timer/counter instance number and max
 *                     load value.
+* 4.15  ml   02/03/26 Fix codespell warnings
 * </pre>
 *
 ******************************************************************************/
@@ -97,7 +98,7 @@ extern "C" {
 #define XTC_CSR_ENABLE_PWM_MASK		0x00000200 /**< Enables the Pulse Width
 							Modulation */
 #define XTC_CSR_INT_OCCURED_MASK	0x00000100 /**< If bit is set, an
-							interrupt has occured.
+							interrupt has occurred.
 							If set and '1' is
 							written to this bit
 							position, bit is

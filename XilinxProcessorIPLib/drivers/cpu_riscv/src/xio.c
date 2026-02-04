@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -18,7 +18,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sa   11/22/19 Initial version
-*
+* 1.3   ml   02/03/26 Fix codespell warnings
 * </pre>
 *
 * @note
@@ -48,7 +48,7 @@
 /*****************************************************************************/
 /**
 *
-* Performs a 16-bit endian converion.
+* Performs a 16-bit endian conversion.
 *
 * @param	Source contains the value to be converted.
 * @param	DestPtr contains a pointer to the location to put the
@@ -67,7 +67,7 @@ void XIo_EndianSwap16(u16 Source, u16 *DestPtr)
 /*****************************************************************************/
 /**
 *
-* Performs a 32-bit endian converion.
+* Performs a 32-bit endian conversion.
 *
 * @param	Source contains the value to be converted.
 * @param	DestPtr contains a pointer to the location to put the

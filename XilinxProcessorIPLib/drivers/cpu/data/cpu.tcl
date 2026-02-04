@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -69,8 +69,9 @@
 ## 2.17  adk  30/09/22 Updated tcl to copy proper libraries when fpu is enabled
 ##		       (C_USE_FPU > 0) and when processor is configured with
 ##		       MUL64 support(C_USE_HW_MUL = 2).
-##      bm    01/25/22 Update mcpu version of versal_net microblaze to v11
-# uses xillib.tcl
+##       bm   01/25/22 Update mcpu version of versal_net microblaze to v11
+##                     uses xillib.tcl
+## 2.19  ml   02/03/26 Fix codespell warnings
 
 ########################################
 # Make file writable
@@ -471,7 +472,7 @@ proc generate {drv_handle} {
     if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0 || [string compare "psx_pmc" $proctype] == 0} {
 
         set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-        #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previoulsy
+        #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previously
         if {[string first "-flto" $extra_flags] == -1 } {
                 append extra_flags " -Os -flto -ffat-lto-objects"
                 common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]

@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,11 +9,11 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 2.0     adk    12/10/13 Updated as per the New Tcl API's
-# 3.0     nsk    12/14/20 Modified the tcl to genrate canonical
+# 3.0     nsk    12/14/20 Modified the tcl to generate canonical
 #                         and peripheral defines for CIPS3
 #                         designs
 #         nsk    01/06/21 Modified the generate proc to check
-#                         the hier prop if cips is present
+#                         the hier prop if CIPS is present
 # 3.0     nsk    02/26/21 Modified the generate proc to
 #                         generate both canonical and
 #                         peripheral defines
@@ -21,6 +22,7 @@
 #                         support SSIT devices. Now get_param_value
 #                         proc would be used instead of get_property
 #                         proc to read those parameters.
+# 3.2     ml     02/03/26 Fix codespell warnings
 ###############################################################
 
 #----------------------------------------------------

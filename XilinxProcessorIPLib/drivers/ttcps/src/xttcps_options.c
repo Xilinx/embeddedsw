@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,9 +22,10 @@
 * 1.01a nm     03/05/2012 Removed break statement after return to remove
 *                         compilation warnings.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-* 3.10  aru    05/16/19 Removed the redudant code from XTtcPs_SetOptions().
+* 3.10  aru    05/16/19 Removed the redundant code from XTtcPs_SetOptions().
 * 3.18  ml     09/08/23 Updated code to fix MISRA-C violation for Rule 14.3
 * 3.18  ml     09/08/23 Added comments to fix HIS COMF violations.
+* 3.23  ml     02/03/26 Fix codespell warnings
 * </pre>
 *
 ******************************************************************************/

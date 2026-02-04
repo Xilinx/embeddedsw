@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   adk  16/04/14 Initial release.
+* 1.8   ml   03/02/26 Fix codespell warnings
 *
 ******************************************************************************/
 
@@ -138,7 +139,7 @@ extern "C" {
 #define XSRIO_DEV_INFO_CAR_MINREV_MASK    0x000000F0  /**< Minor Revision Mask */
 #define XSRIO_DEV_INFO_CAR_MAJREV_MASK    0x00000F00  /**< Major Revision Mask */
 #define XSRIO_DEV_INFO_CAR_DEVREV_MASK    0x000F0000  /**< Device Revision 
-						       * Lable Mask
+						       * Label Mask
 						       */
 /*@}*/
 

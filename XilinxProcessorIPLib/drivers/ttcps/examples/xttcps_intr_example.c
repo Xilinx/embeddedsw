@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,7 +36,7 @@
 *                      XTtcPs_CalcIntervalFromFreq
 * 3.10 mus    05/20/19 Update example to make it generic to run on any
 *                      intended TTC device
-*      aru    05/30/19 Updated the exapmle to use XTtcPs_InterruptHandler().
+*      aru    05/30/19 Updated the example to use XTtcPs_InterruptHandler().
 * 3.12 mus    07/13/20 Updated SettingsTable, to hold settings for PWM and tick
 *                       timer device setting at correct indices. It fixes
 *                       CR#1069191.
@@ -48,6 +48,7 @@
 * 3.22 ml     07/24/25 Fixed ARMCC compilation error
 * 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
 *                      documentation.
+* 3.23 ml     02/03/26 Fix codespell warnings
 *</pre>
 ******************************************************************************/
 

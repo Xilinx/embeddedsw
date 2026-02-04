@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 4.14  ml   07/14/25 Fixed GCC warnings.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.15  ml   02/03/26 Fix codespell warnings
 *</pre>
 ******************************************************************************/
 
@@ -244,7 +245,7 @@ int TmrCtrPwmExample(XTmrCtr *TmrCtrInstancePtr, UINTPTR BaseAddr)
 	/*
 	 * We start with the fixed divisor and after every CYCLE_PER_DUTYCYCLE
 	 * decrement the divisor by 1, as a result Duty cycle increases
-	 * proportionally. This is done until duty cycle is reached upto
+	 * proportionally. This is done until duty cycle is reached up to
 	 * MAX_DUTYCYCLE
 	 */
 	Div = DUTYCYCLE_DIVISOR;

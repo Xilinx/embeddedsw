@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -26,6 +26,7 @@
 # 1.9   mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
 #                     to memset conversions. It fixes CR#1090083.
 # 2.2   mus  03/15/24 Export flag ZYNQMP_R5_FSBL_BSP to identify R5 FSBL BSP.
+# 2.4   ml   02/03/26 Fix codespell warnings
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -152,7 +153,7 @@ proc xdefine_cortexr5_params {drvhandle} {
 			close $file_handle
 
 			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-			#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
+			#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previously.
 			if {[string first "-flto" $extra_flags] == -1 } {
 				append extra_flags " -Os -flto -ffat-lto-objects"
 				common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]

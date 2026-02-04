@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,7 @@
  * Inorder to test this example external loopback is required at the boardlevel
  * Between the SRIO Tx and Rx pins.
  * 
- * H/W Requirments:
+ * H/W Requirements:
  * Inorder to test this example at the h/w level the the SRIO Initiator Request 
  * is connected to the AXI DMA MM2S Channel and SRIO Target Request is connected
  * to the AXI DMA S2MM Channel.
@@ -28,7 +28,7 @@
  * 1) The system consists of two different memories.Processor runs this example
  *    Code in one memory and the SRIO packet is formed in another memory. 
  * 2) The SRIO Packet is framed in the Memory
- * 3) Configure the AXI DMA MM2S source address and S2MM for Destiantion address
+ * 3) Configure the AXI DMA MM2S source address and S2MM for Destination address
  *    and specify the byte count for both the channels and then start the dma.
  * 4) Compare the Data.
  *
@@ -45,6 +45,7 @@
  *       ms   04/05/17  Added tabspace for return statements in functions for
  *                      proper documentation while generating doxygen.
  * 1.6   adk  06/02/24	Added support for system device-tree flow.
+ * 1.8   ml   02/03/26  Fix codespell warnings
  * </pre>
  *
  * ***************************************************************************

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -88,6 +88,7 @@
 *                     incremental builds. It would help to reduce compilation
 *                     time
 * 1.6   adk  06/02/24 Added support for system device-tree flow.
+* 1.8   ml   03/02/26 Fix codespell warnings
 * </pre>
 ******************************************************************************/
 
@@ -318,7 +319,7 @@ typedef struct XSrio {
 *
 * @return
 *		- TRUE If the System Supports CRF.
-*		- FALSE If the System Wont Support CRF.
+*		- FALSE If the System Won't Support CRF.
 *
 * @note         C-style signature:
 *               u8 XSrio_IsCRFSupported(XSrio *InstancePtr)

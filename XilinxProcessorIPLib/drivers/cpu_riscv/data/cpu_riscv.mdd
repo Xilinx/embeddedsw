@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -18,13 +18,13 @@ BEGIN driver cpu_riscv
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze_riscv);
-OPTION default_os = "standalone_v7_3";
-OPTION VERSION = 1.2;
+OPTION default_os = "standalone_v9_5";
+OPTION VERSION = 1.3;
 OPTION NAME = cpu_riscv;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = riscv64-unknown-elf-gcc;
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = riscv64-unknown-elf-ar;
-PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail bacause there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
+PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail because there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
 PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-ffunction-sections -fdata-sections -Wall -Wextra";
 
 END driver

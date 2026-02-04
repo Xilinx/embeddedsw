@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *		      processing for CR 584557.
 * 4.8   dp   02/12/21 Fix compilation errors that arise when -Werror=conversion
 *                     is enabled in compilation flags.
+* 4.15  ml   02/03/26 Fix codespell warnings
 * </pre>
 *
 ******************************************************************************/
@@ -129,7 +130,7 @@ void XTmrCtr_InterruptHandler(void *InstancePtr)
 		if (ControlStatusReg & XTC_CSR_ENABLE_INT_MASK) {
 
 			/*
-			 * Check if timer expired and interrupt occured
+			 * Check if timer expired and interrupt occurred
 			 */
 			if (ControlStatusReg & XTC_CSR_INT_OCCURED_MASK) {
 				/*

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
 *                     is enabled in compilation flags.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.15  ml   02/03/26 Fix codespell warnings
 * </pre>
 *
 ******************************************************************************/
@@ -115,7 +116,7 @@ void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
-* (Re-)initialzes all timer counters which aren't started already.
+* (Re-)initializes all timer counters which aren't started already.
 *
 * @param	InstancePtr is a pointer to the XTmrCtr instance.
 *

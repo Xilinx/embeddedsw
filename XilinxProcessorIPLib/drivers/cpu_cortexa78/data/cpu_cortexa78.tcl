@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2021 - 2022  Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,6 +11,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0	mus  12/07/21 Initial version
 # 1.1   mus  11/07/22 Updated logic to handle -DENABLE_MINIMAL_XLAT_TBL flag.
+# 1.4   ml   02/03/26 Fix codespell warnings
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -104,7 +105,7 @@ proc xdefine_cortexa78_params {drvhandle} {
     set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
     if {$is_zynqmp_fsbl_bsp == true} {
 		set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-		#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
+		#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previously.
 		if {[string first "-flto" $extra_flags] == -1 } {
 			append extra_flags " -Os -flto -ffat-lto-objects"
 			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
