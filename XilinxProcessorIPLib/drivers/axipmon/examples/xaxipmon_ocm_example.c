@@ -118,7 +118,7 @@ int main(void)
 
 	/*
 	 * 1 32 bit write transaction from A53 to OCM i.e, 4 bytes
-	 * 1 read trasaction i.e, 16 bytes at OCM (128 bit data bus)
+	 * 1 read transaction i.e, 16 bytes at OCM (128 bit data bus)
 	 * A53 -> Interconnect -> APM -> OCM
 	 */
 	Status = ApmCheck(MetricsBuffer, 1, 4, 1, 16);
