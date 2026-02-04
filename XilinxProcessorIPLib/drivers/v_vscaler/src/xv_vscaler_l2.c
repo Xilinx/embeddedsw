@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,8 +128,8 @@ void XV_VScalerStop(XV_Vscaler_l2 *InstancePtr)
 * storage based on the selected TAP configuration
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  WidthIn is the input stream height
-* @param  Widthout is the output stream height
+* @param  HeightIn is the input stream height
+* @param  HeightOut is the output stream height
 
 * @return None
 *

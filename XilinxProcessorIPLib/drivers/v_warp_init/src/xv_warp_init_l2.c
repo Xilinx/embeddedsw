@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -176,7 +176,7 @@ int XVWarpInit_ProgramDescriptor(XV_warp_init *InstancePtr,
 	desc.width_Q4 = desc.width << REMAP_FIX_ACC;
 	desc.height_Q4 = desc.height << REMAP_FIX_ACC;
 
-	if (desc.warp_type == DISTORTION_ARBITARY) {
+	if (desc.warp_type == DISTORTION_ARBITRARY) {
 		XVWarpInit_AllocArbMem(&arbit_param, ConfigPtr->num_ctrl_pts,
 				desc.width, desc.height);
 		XVWarpInit_ParseMeshInfo(&arbit_param, ConfigPtr->ctr_pts,
@@ -276,7 +276,7 @@ void XVWarpInit_Stop(XV_warp_init *InstancePtr)
 /*****************************************************************************/
 /*****************************************************************************/
 /**
-* This function creates alligned void memory pointer.
+* This function creates aligned void memory pointer.
 *
 * @param	align is the alignment size.
 * @param	size, it is the size of pointer to be created.
@@ -415,13 +415,13 @@ static void XVWarpInit_SetDescriptor(XVWarpInitVector_Hw_Aligned *descptr,
 
 /*****************************************************************************/
 /**
-* This function sets fixed point format for 3x3 cofficients of projection transform.
+* This function sets fixed point format for 3x3 coefficients of projection transform.
 *
 * @param	proj_trans, projective transform matrix of size 3x3.
 *
-* @return	h, fixed point representation of 3x2 of coefficents of proj_trans
+* @return	h, fixed point representation of 3x2 of coefficients of proj_trans
 *           i.e first two columns
-* @return	h_trans, fixed point representation of 3x1 of coefficents of proj_trans
+* @return	h_trans, fixed point representation of 3x1 of coefficients of proj_trans
 *           i.e last column
 * @return	h_Qbits, fixed point type of each coefficient of proj_trans i.e 3x3
 *
@@ -609,7 +609,7 @@ static void XVWarpInit_OneTimeCalcs(XVWarpInitVector_Hw *initvector_hw,
 *
 * @param	knots_x, Grid control points in x direction.
 * @param	knots_y, Grid control points in y direction.
-* @param	grid_pts, Number of gird control points.
+* @param	grid_pts, Number of grid control points.
 * @param	len, length of row vector.
 *
 * @return	remap_row, remap vectors of the row vector
@@ -703,7 +703,7 @@ static void apply_arbt_warp_line(short *knots_x, short *knots_y,
 *
 * @param	src_ctrl_pts, dispaced control points.
 * @param	fr_size, frame size.
-* @param	grid_size, Number of gird control points.
+* @param	grid_size, Number of grid control points.
 *
 * @return	src_tangents, tangent points of source input
 *
@@ -828,10 +828,10 @@ static void creat_src_tangents(unsigned short *src_ctrl_pts, int *src_tangents,
 
 /*****************************************************************************/
 /**
-* This function does all the ontime calculation for Arbitary distortion which
+* This function does all the ontime calculation for Arbitrary distortion which
 * to be done for each input configs change.
 *
-* @param	arbitrary_param is the pointer to input Arbitary parameters.
+* @param	arbitrary_param is the pointer to input Arbitrary parameters.
 * @param	fr_width is the frame width.
 * @param	fr_height is the frame height.
 *
@@ -915,11 +915,11 @@ static void XVWarpInit_OnetimeCalcsArbt(XVWarpInit_ArbParam *arbitrary_param,
 
 /*****************************************************************************/
 /**
-* This function allocates the required memory for intermediate arbitary
+* This function allocates the required memory for intermediate arbitrary
 * variables/calculation.
 *
-* @param	arbitrary_param is the pointer to input Arbitary parameters.
-* @param	grid_size is the grid size for the arbitary distortion.
+* @param	arbitrary_param is the pointer to input Arbitrary parameters.
+* @param	grid_size is the grid size for the arbitrary distortion.
 * @param	fr_width is the frame width.
 * @param	fr_height is the frame height.
 *
@@ -954,9 +954,9 @@ static void XVWarpInit_AllocArbMem(XVWarpInit_ArbParam *arbitrary_param,
 
 /*****************************************************************************/
 /**
-* This function parses the input mesinfo for arbitary distartion.
+* This function parses the input mesinfo for arbitrary distartion.
 *
-* @param	arbitrary_param is the pointer to input Arbitary parameters.
+* @param	arbitrary_param is the pointer to input Arbitrary parameters.
 * @param	ctrl_pts is the pointer to the input mesh information.
 * @param	fr_width is the frame width.
 * @param	fr_height is the frame height.

@@ -1,6 +1,6 @@
 // ==============================================================
-// Copyright (c) 2015 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (c) 2015 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -129,7 +129,7 @@ extern "C" {
 // 0xd0 : Data signal of FieldId
 //        bit 0  - progressive/interlaced (Read/Write)
 //        bit 1  - polarity bit (Read/Write)
-//        bit 2  - fid value passthrough enalbe (Read/Write)
+//        bit 2  - fid value passthrough enable (Read/Write)
 //        others  - reserved
 //        bit [2:0] -
 //		0x0 - Progressive mode

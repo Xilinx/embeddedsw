@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -312,7 +312,7 @@ s32 XVWarpFilter_Stop(XV_warp_filter *InstancePtr)
 /*****************************************************************************/
 /*****************************************************************************/
 /**
-* This function creates alligned void memory pointer.
+* This function creates aligned void memory pointer.
 *
 * @param	align is the alignment size.
 * @param	size, it is the size of pointer to be created.

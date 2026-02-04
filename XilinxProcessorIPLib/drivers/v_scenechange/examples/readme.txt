@@ -24,7 +24,7 @@ Application is trying to write different patterns into the buffer
 address with the some delay and waiting for scenechange detection.
 
 SceneChange driver notifies the SAD with stream number(on which
-stream scene change has happend) with the help of callback
+stream scene change has happened) with the help of callback
 function.
 
 Procedure to test Scenechange IP in Stream mode:

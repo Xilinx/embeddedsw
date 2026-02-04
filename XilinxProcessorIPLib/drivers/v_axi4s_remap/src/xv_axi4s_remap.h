@@ -1,6 +1,6 @@
 // ==============================================================
-// Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (c) 2015 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -54,7 +54,7 @@ typedef struct {
   u16 MaxHeight;           /**< Maximum rows supported by core instance */
   u16 PixPerClkIn;         /**< Input Samples Per Clock */
   u16 PixPerClkOut;        /**< Output Samples Per Clock */
-  u16 IsPixPerClockConvEn; /**< Samples Per Clock Coversion Feature Enable*/
+  u16 IsPixPerClockConvEn; /**< Samples Per Clock Conversion Feature Enable*/
   u16 MaxDataWidthIn;      /**< Input Maximum Data width of each channel */
   u16 MaxDataWidthOut;     /**< Output Maximum Data width of each channel */
   u16 IsHdmi420InEn;       /**< HDMI 420 to AXIS 420 converter block En */

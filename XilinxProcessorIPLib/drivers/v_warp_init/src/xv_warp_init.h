@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 #ifndef XV_WARP_INIT_H
@@ -49,7 +49,7 @@ typedef struct {
     u8  warp_type;			/*Supported warp type*/
     u16 axi_mm_data_width;	/*Axi MM port data width*/
     u16 bpc;				/*Max bits per component supported*/
-    u16 max_control_pts;	/*Max supported control points for arbitary warp*/
+    u16 max_control_pts;	/*Max supported control points for arbitrary warp*/
 #ifdef SDT
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
@@ -71,7 +71,7 @@ typedef struct {
 typedef u32 word_type;
 typedef enum {
 	DISTORTION_LENS = 0,
-	DISTORTION_ARBITARY = 1
+	DISTORTION_ARBITRARY = 1
 }XV_warp_init_warp_type;
 
 /***************** Macros (Inline Functions) Definitions *********************/

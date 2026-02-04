@@ -1,6 +1,6 @@
 // ==============================================================
-// Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (c) 2015 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -43,7 +43,7 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 #else
 /**
-* This typedef contains configuration information for the horziontal
+* This typedef contains configuration information for the horizontal
 * chroma resampler core. Each core instance should have a configuration
 * structure associated.
 */

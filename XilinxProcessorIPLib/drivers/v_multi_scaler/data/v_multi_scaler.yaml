@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -26,7 +26,7 @@ properties:
   max-rows:
     description: Maximum rows supported by core instance
   xlnx,phase-shift:
-    description: Max Phase shift of colour convertions
+    description: Max Phase shift of colour conversion
   xlnx,scale-mode:
     description: Scaling mode if applicable.
   xlnx,taps:

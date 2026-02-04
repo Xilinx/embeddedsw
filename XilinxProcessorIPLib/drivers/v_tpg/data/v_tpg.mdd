@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2021 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -14,6 +14,6 @@ BEGIN driver v_tpg
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_tpg;
- OPTION version = 8.6;
+ OPTION version = 8.7;
 
 END driver

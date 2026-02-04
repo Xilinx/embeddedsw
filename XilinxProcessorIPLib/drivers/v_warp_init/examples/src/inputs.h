@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 #include "xwarp_input_configs.h"
 
 /*
- * Mesh info for 1920x1080 with no arbitary distortion
+ * Mesh info for 1920x1080 with no arbitrary distortion
  * control points - 8
  */
 XVWarpInit_ArbParam_MeshInfo ctrl8_1080_nodist[] = {
@@ -101,7 +101,7 @@ XVWarpInit_ArbParam_MeshInfo ctrl8_1080_nodist[] = {
 /*input configurations for warping*/
 /*Lens distortion*/
 WARP_CFG input_configs = {
-	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitary) */
+	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitrary) */
 	   1920       , 1080        , 0        ,
 
 	/* Lens parameters */
@@ -116,7 +116,7 @@ WARP_CFG input_configs = {
 	/* scale_x, scale_y, rotation, trans_x, trans_y, zoom */
 	   1.0    , 1.0    , 0.0     , 0.0    , 0.0    , 1.0 ,
 
-	/* Arbitary parameters */
+	/* Arbitrary parameters */
 	/* num_ctrl_pts, ctrl_pts */
 	   8           , ctrl8_1080_nodist
 };
@@ -125,7 +125,7 @@ WARP_CFG input_configs = {
 #if 0
 /*Lens distortion*/
 WARP_CFG input_configs = {
-	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitary) */
+	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitrary) */
 	   1920       , 1080        , 0        ,
 
 	/* Lens parameters */
@@ -140,14 +140,14 @@ WARP_CFG input_configs = {
 	/* scale_x, scale_y, rotation, trans_x, trans_y, zoom */
 	   1.0    , 1.0    , 0.0     , 0.0    , 0.0    , 1.0 ,
 
-	/* Arbitary parameters */
+	/* Arbitrary parameters */
 	/* num_ctrl_pts, ctrl_pts */
 	   8           , ctrl8_1080_nodist
 };
 
 /* Keystone distortion*/
 WARP_CFG input_configs = {
-	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitary) */
+	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitrary) */
 	   1920       , 1080        , 0        ,
 
 	/* Lens parameters*/
@@ -162,14 +162,14 @@ WARP_CFG input_configs = {
 	/* scale_x, scale_y, rotation, trans_x, trans_y, zoom */
 	   1.0    , 1.0    , 0.0     , 0.0    , 0.0    , 1.0 ,
 
-	/*Arbitary parameters*/
+	/*Arbitrary parameters*/
 	/* num_ctrl_pts, ctrl_pts */
 	   8           , ctrl8_1080_nodist
 };
 
 /*Lens + Keystone distortion*/
 WARP_CFG input_configs = {
-	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitary) */
+	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitrary) */
 	   1920       , 1080        , 0        ,
 
 	/* Lens parameters*/
@@ -184,14 +184,14 @@ WARP_CFG input_configs = {
 	/* scale_x, scale_y, rotation, trans_x, trans_y, zoom */
 	   1.0    , 1.0    , 0.0     , 0.0    , 0.0    , 1.0 ,
 
-	/*Arbitary parameters*/
+	/*Arbitrary parameters*/
 	/* num_ctrl_pts, ctrl_pts */
 	   8           , ctrl8_1080_nodist
 };
 
-/*Arbitary distortion*/
+/*Arbitrary distortion*/
 WARP_CFG input_configs = {
-	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitary) */
+	/* frame_width, frame_height, warp_type(0 -> L+H, 1 -> Arbitrary) */
 	   1920       , 1080        , 1        ,
 
 	/* Lens parameters*/
@@ -206,7 +206,7 @@ WARP_CFG input_configs = {
 	/* scale_x, scale_y, rotation, trans_x, trans_y, zoom */
 	   1.0    , 1.0    , 0.0     , 0.0    , 0.0    , 1.0 ,
 
-	/* Arbitary parameters*/
+	/* Arbitrary parameters*/
 	/* num_ctrl_pts, ctrl_pts */
 	   8           , ctrl8_1080_nodist
 };

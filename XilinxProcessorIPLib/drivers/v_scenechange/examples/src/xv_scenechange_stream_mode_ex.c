@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.      All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 /*
  * scd_stream_mode_ex.c: scenechange IP in stream mode test application.
  *
- * This application configures SceneChange IP to caluclate SAD values between
+ * This application configures SceneChange IP to calculate SAD values between
  * consecutive streams. The driver accepts the threshold values per stream and
  * calls the registered callback with SAD value and stream id.
  *

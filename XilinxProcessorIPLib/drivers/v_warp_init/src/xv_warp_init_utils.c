@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 
 /*****************************************************************************/
 /**
-* Look up table of exponential values between 0 and 8 representated in Q10 format
+* Look up table of exponential values between 0 and 8 represented in Q10 format
 *
 ******************************************************************************/
 static unsigned int exp_neg_int_lut[12] = {
@@ -19,7 +19,7 @@ static unsigned int exp_neg_int_lut[12] = {
 
 /*****************************************************************************/
 /**
-* Look up table of exponential values between 0 and -12 representated in Q17 format
+* Look up table of exponential values between 0 and -12 represented in Q17 format
 *
 ******************************************************************************/
 static unsigned int exp_pos_int_lut[8] = {
@@ -28,7 +28,7 @@ static unsigned int exp_pos_int_lut[8] = {
 /*****************************************************************************/
 /**
 * Look up table of exponential values between 0 and  1 in steps of
-* 0.0078125 representated in Q14 format
+* 0.0078125 represented in Q14 format
 *
 ******************************************************************************/
 static unsigned short exp_pos_fract_lut1[129] = {
@@ -49,7 +49,7 @@ static unsigned short exp_pos_fract_lut1[129] = {
 /*****************************************************************************/
 /**
 * Look up table of exponential values between 0 and 0.0078125 in steps of
-* 0.0000019073486328125 representated in Q22 format
+* 0.0000019073486328125 represented in Q22 format
 *
 ******************************************************************************/
 static unsigned short exp_pos_fract_lut2[4101] = {
@@ -1149,7 +1149,7 @@ unsigned short XVWarpInit_Inverse(unsigned short x, int M, char* N) {
 
 /*****************************************************************************/
 /**
-* This function computes sqaure root of positive integer
+* This function computes square root of positive integer
 *
 * @param  v, integer value for calculating square root.
 *

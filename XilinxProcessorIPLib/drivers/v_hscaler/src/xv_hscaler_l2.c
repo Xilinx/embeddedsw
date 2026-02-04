@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -136,7 +136,7 @@ void XV_HScalerStop(XV_Hscaler_l2 *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function determines the internal coeffiecient table to be used based on
+* This function determines the internal coefficient table to be used based on
 * scaling ratio and loads the filter coefficients in the scaler coefficient
 * storage.
 *

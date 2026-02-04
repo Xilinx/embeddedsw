@@ -1,6 +1,6 @@
 // ==============================================================
-// Copyright (c) 2015 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (c) 2015 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -367,7 +367,7 @@ void XV_tpg_Set_colorFormat(XV_tpg *InstancePtr, u32 Data) {
  * *
  * * @param  InstancePtr is a pointer to core instance to be worked upon
  * *
- * * @return color forat used.
+ * * @return color format used.
  * *
  * ******************************************************************************/
 u32 XV_tpg_Get_colorFormat(XV_tpg *InstancePtr) {
