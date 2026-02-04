@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- --- -------- ---------------------------------------------
 * 2.04a kpc 10/07/13 First release
 * 3.8  Nava 06/21/23 Added support for system device-tree flow.
+* 3.10 Arvd 02/04/26 Fixed codespell errors
 * </pre>
 *
 ******************************************************************************/
@@ -40,19 +41,19 @@
 /*****************************************************************************/
 /**
 * This function perform the reset sequence to the given devcfg interface by
-* configuring the appropriate control bits in the devcfg specifc registers
-* the devcfg reset squence involves the following steps
-*	Disable all the interuupts
+* configuring the appropriate control bits in the devcfg specific registers
+* the devcfg reset sequence involves the following steps
+*	Disable all the interrupts
 *	Clear the status
 *	Update relevant config registers with reset values
-*	Disbale the looopback mode and pcap rate enable
+*	Disable the loopback mode and pcap rate enable
 *
 * @param   BaseAddress of the interface
 *
 * @return N/A
 *
 * @note
-* This function will not modify the slcr registers that are relavant for
+* This function will not modify the slcr registers that are relevant for
 * devcfg controller
 ******************************************************************************/
 void XDcfg_ResetHw(u32 BaseAddr)
@@ -62,7 +63,7 @@ void XDcfg_ResetHw(u32 BaseAddr)
 	/* Mask the interrupts  */
 	XDcfg_WriteReg(BaseAddr, XDCFG_INT_MASK_OFFSET,
 		       XDCFG_IXR_ALL_MASK);
-	/* Clear the interuupt status */
+	/* Clear the interrupt status */
 	Regval = XDcfg_ReadReg(BaseAddr, XDCFG_INT_STS_OFFSET);
 	XDcfg_WriteReg(BaseAddr, XDCFG_INT_STS_OFFSET, Regval);
 	/* Clear the source address register */
