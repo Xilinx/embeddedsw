@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 *       ms    04/05/2017     Modified comment lines notation in functions to
 *                            avoid unnecessary description displayed
 *                            while generating doxygen.
+* 2.4   Arvd  02/04/2026     Fixed codespell errors
 *
 * </pre>
 *
@@ -280,7 +282,7 @@ u32 XPrc_Example(u16 DeviceId)
 				break;
 			}
 
-			/* Work out what USR_ACCESS shoudl change to */
+			/* Work out what USR_ACCESS should change to */
 			ExpectedId = (VsmId << 16 ) | RmId;
 
 			/* Get the USR_ACCESS setting from the GPIO */
@@ -387,7 +389,7 @@ u32 Xprc_Check_User_Command(u16 VsmId, XGpio ShiftVsmGpio, XGpio CountVsmGpio)
 
 			/*
 			 * What signals will be enabled?
-			 * RM_SHUTOWN, RM_DECOUPLE and RM_RESET are alwas
+			 * RM_SHUTOWN, RM_DECOUPLE and RM_RESET are always
 			 * enabled SW_SHUTDOWN and SW_STARTUP are only enabled
 			 * if there's some kind of control interface.  Of
 			 * course, there will be or else we'd never be able to

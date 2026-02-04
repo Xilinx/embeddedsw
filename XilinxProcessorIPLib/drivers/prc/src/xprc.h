@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,13 +107,14 @@
 *                           definitions of prc in xparameters.h
 *       ms     08/01/17     Added a new parameter "Cp_Compression" to
 *                           XPrc_Config structure and also inline function
-*                           related to this paramter.
+*                           related to this parameter.
 *                           Modified xprc.c, prc.tcl, xprc_hw.h to add a
 *                           new parameter "Cp_Compression" and status error
 *                           flags. Added the Updated api.tcl to data folder.
 * 1.2  Nava   29/03/19      Updated the tcl logic to generated the
 *                           XPrc_ConfigTable properly.
 * 2.2  Nava   07/04/23      Added support for system device-tree flow.
+* 2.4  Arvd   02/04/26      Fixed codespell errors
 * </pre>
 *
 ******************************************************************************/
@@ -276,7 +277,7 @@ typedef struct {
 	/**< Whether each VSM has an
 	  *  Axi4 Control Channel */
 	u16 Skip_Rm_Startup_After_Reset[XPRC_MAX_NUMBER_OF_VSMS];
-	/**< Whether each VSM shoud
+	/**< Whether each VSM should
 	  *  Skip Rm Startup after
 	  *  Reset */
 	u16 Num_Hw_Triggers[XPRC_MAX_NUMBER_OF_VSMS];

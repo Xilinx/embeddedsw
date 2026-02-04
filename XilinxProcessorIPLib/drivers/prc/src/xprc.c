@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.2  Nava   29/03/19      Updated the tcl logic to generated the
 *                           XPrc_ConfigTable properly.
 * 2.2  Nava   07/04/23      Added support for system device-tree flow.
+* 2.4  Arvd   02/04/26      Fixed codespell errors
 * </pre>
 *
 ******************************************************************************/
@@ -689,7 +690,7 @@ void XPrc_GetRmControl(XPrc *InstancePtr, u16 VsmId, u16 RmId,
 * @param	VsmId is the identifier of the VSM to access.
 * @param	BsIndex is the row number in the Bitstream Information register
 *		bank that holds information about the bitstream.
-* @param	BsId is the identifier of the bitstream referenced by BsIdex.
+* @param	BsId is the identifier of the bitstream referenced by BsIndex.
 *
 * @return	None.
 *
@@ -728,7 +729,7 @@ void XPrc_SetBsId(XPrc *InstancePtr, u16 VsmId, u16 BsIndex, u16 BsId)
 *		bank that holds information about the bitstream.
 *
 * @return	BsId, which is the identifier of the bitstream referenced by
-*		BsIdex.
+*		BsIndex.
 *
 * @note		When the device being managed is 7 Series or UltraScale+,
 *		BsID can only be 0.
