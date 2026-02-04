@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 *
 * It is capable of synchronous transfer at high speed mode at 80-1500 Mbps
 * It has one clock lane and up to 4 data lanes. These lanes are unidirectional.
-* It can do asynchronous transfer at upto 10 Mbps in low power mode. The clock
+* It can do asynchronous transfer at up to 10 Mbps in low power mode. The clock
 * lane can be in low power mode or high speed mode whereas the data lanes
 * can be in Low power, High power or Escape mode.
 *
@@ -119,7 +119,7 @@ extern "C" {
 #define XMIPI_TX_PHY_ESCAPE_MODE	2 /**< Lane in Escape Mode */
 #define XMIPI_TX_PHY_MODE_MAX 		2 /**< Upper Limit for mode */
 #define XMIPI_TX_PHY_MAX_LANES_V10	4 /**< V1.0 supports 4 Lanes */
-/*@}*/
+/** @}*/
 
 /** @name mipi_tx_phy Info Handles
  * @{
@@ -134,28 +134,33 @@ extern "C" {
 #define XMIPI_TX_PHY_HANDLE_DLANE2		7 /**< Handle for Data Lane 2 */
 #define XMIPI_TX_PHY_HANDLE_DLANE3		8 /**< Handle for Data Lane 3 */
 #define XMIPI_TX_PHY_HANDLE_MAX 		9 /**< Upper Bound for XMIPI_TX_PHY_HANDLE */
-/*@}*/
+/** @}*/
 
 /**************************** Macros Definitions *****************************/
 /** @name mipi_tx_phy HSTIMEOUT range
  * @{
 */
+/** Minimum value for HS timeout counter @ingroup mipi_tx_phy */
 #define XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE	10000UL
+/** Maximum value for HS timeout counter @ingroup mipi_tx_phy */
 #define XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE	65541UL
-/*@}*/
+/** @}*/
 
 /** @name mipi_tx_phy HSSETTLE range
  * @{
 */
+/** Maximum value for HS settle time @ingroup mipi_tx_phy */
 #define XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE	0x1FF
-/*@}*/
+/** @}*/
 
 /** @name mipi_tx_phy Flags to Enable or Disable core
  * @{
 */
+/** Flag to enable MIPI TX PHY core @ingroup mipi_tx_phy */
 #define XMIPI_TX_PHY_ENABLE_FLAG 	1
+/** Flag to disable MIPI TX PHY core @ingroup mipi_tx_phy */
 #define XMIPI_TX_PHY_DISABLE_FLAG 	0
-/*@}*/
+/** @}*/
 
 /************************* Bit field operations ****************************/
 
@@ -250,21 +255,29 @@ static inline void XMipi_Tx_Phy_SetBitField(UINTPTR BaseAddress, u32 RegisterOff
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * @brief Programmable Sequence Symbol Position enumeration
+ *
+ * This enumeration defines the symbol positions for the programmable sequence
+ * registers in CPHY mode.
+ *
+ * @ingroup mipi_tx_phy
+ */
 typedef enum {
-	PRG_SEQ_SYM_0 = 0,
-	PRG_SEQ_SYM_1,
-	PRG_SEQ_SYM_2,
-	PRG_SEQ_SYM_3,
-	PRG_SEQ_SYM_4,
-	PRG_SEQ_SYM_5,
-	PRG_SEQ_SYM_6,
-	PRG_SEQ_SYM_7,
-	PRG_SEQ_SYM_8,
-	PRG_SEQ_SYM_9,
-	PRG_SEQ_SYM_10,
-	PRG_SEQ_SYM_11,
-	PRG_SEQ_SYM_12,
-	PRG_SEQ_SYM_13
+	PRG_SEQ_SYM_0 = 0,  /**< Programmable sequence symbol position 0 */
+	PRG_SEQ_SYM_1,      /**< Programmable sequence symbol position 1 */
+	PRG_SEQ_SYM_2,      /**< Programmable sequence symbol position 2 */
+	PRG_SEQ_SYM_3,      /**< Programmable sequence symbol position 3 */
+	PRG_SEQ_SYM_4,      /**< Programmable sequence symbol position 4 */
+	PRG_SEQ_SYM_5,      /**< Programmable sequence symbol position 5 */
+	PRG_SEQ_SYM_6,      /**< Programmable sequence symbol position 6 */
+	PRG_SEQ_SYM_7,      /**< Programmable sequence symbol position 7 */
+	PRG_SEQ_SYM_8,      /**< Programmable sequence symbol position 8 */
+	PRG_SEQ_SYM_9,      /**< Programmable sequence symbol position 9 */
+	PRG_SEQ_SYM_10,     /**< Programmable sequence symbol position 10 */
+	PRG_SEQ_SYM_11,     /**< Programmable sequence symbol position 11 */
+	PRG_SEQ_SYM_12,     /**< Programmable sequence symbol position 12 */
+	PRG_SEQ_SYM_13      /**< Programmable sequence symbol position 13 */
 } XMipi_Tx_Phy_ProgSeq;
 
 /**
@@ -279,7 +292,7 @@ typedef struct {
 	u32 IsDphy; /**< CPHY or DPHY Mode */
 	u32 IsRegisterPresent; /**< Is register access allowed */
 	u32 MaxLanesPresent; /**< Number of Lanes. Range 1 - 4 */
-	u32 EscClkPeriod; /**< Escape Clock Peroid */
+	u32 EscClkPeriod; /**< Escape Clock Period */
 	u32 EscTimeout; /**< Escape Timeout */
 	u32 HSLineRate; /**< High Speed Line Rate */
 	u32 HSTimeOut; /**< Max Frame Length  */

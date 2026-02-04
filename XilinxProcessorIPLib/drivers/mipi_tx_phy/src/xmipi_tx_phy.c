@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -137,7 +137,20 @@ u32 XMipi_Tx_Phy_Configure(XMipi_Tx_Phy *InstancePtr, u8 Handle, u32 Value)
 	return Status;
 }
 
-
+/*****************************************************************************/
+/**
+* This function programs the programmable sequence data register for CPHY mode.
+*
+* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
+* @param	bitpos is the symbol position to program (0-13).
+* @param	Value is the 3-bit symbol value to program.
+*
+* @return	XST_SUCCESS if successful, XST_FAILURE otherwise.
+*
+* @note		This function is only valid for CPHY mode.
+*
+* @ingroup mipi_tx_phy
+******************************************************************************/
 u32 XMipi_Tx_Phy_Prog_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bitpos, u32 Value)
 {
 
@@ -177,6 +190,19 @@ u32 XMipi_Tx_Phy_Prog_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq b
 
 }
 
+/*****************************************************************************/
+/**
+* This function reads the programmable sequence data register for CPHY mode.
+*
+* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
+* @param	bitpos is the symbol position to read (0-13).
+*
+* @return	The value of the programmable sequence data register.
+*
+* @note		This function is only valid for CPHY mode.
+*
+* @ingroup mipi_tx_phy
+******************************************************************************/
 u32 XMipi_Tx_Phy_Get_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bitpos)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -195,6 +221,18 @@ u32 XMipi_Tx_Phy_Get_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bi
 	}
 }
 
+/*****************************************************************************/
+/**
+* This function enables the programmable sequence control for CPHY mode.
+*
+* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
+*
+* @return	XST_SUCCESS if successful.
+*
+* @note		This function is only valid for CPHY mode.
+*
+* @ingroup mipi_tx_phy
+******************************************************************************/
 u32 XMipi_Tx_Phy_En_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -208,6 +246,18 @@ u32 XMipi_Tx_Phy_En_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* This function disables the programmable sequence control for CPHY mode.
+*
+* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
+*
+* @return	XST_SUCCESS if successful.
+*
+* @note		This function is only valid for CPHY mode.
+*
+* @ingroup mipi_tx_phy
+******************************************************************************/
 u32 XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -221,6 +271,18 @@ u32 XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* This function reads the programmable sequence control register for CPHY mode.
+*
+* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
+*
+* @return	The value of the programmable sequence control register.
+*
+* @note		This function is only valid for CPHY mode.
+*
+* @ingroup mipi_tx_phy
+******************************************************************************/
 u32 XMipi_Tx_Phy_Get_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -330,8 +392,6 @@ u32 XMipi_Tx_Phy_GetInfo(XMipi_Tx_Phy *InstancePtr, u8 Handle)
 *
 * @param 	InstancePtr is the XMipi_Tx_Phy instance to operate on.
 *
-* @return 	None
-*
 * @note		None.
 *****************************************************************************/
 void XMipi_Tx_Phy_Reset(XMipi_Tx_Phy *InstancePtr)
@@ -378,8 +438,6 @@ void XMipi_Tx_Phy_Reset(XMipi_Tx_Phy *InstancePtr)
 * @param 	DataLane represents which Data Lane to act upon
 * @param 	Mask contains information about which bits to reset
 *
-* @return 	None
-*
 * @note     	None.
 *****************************************************************************/
 void XMipi_Tx_Phy_ClearDataLane(XMipi_Tx_Phy *InstancePtr, u8 DataLane, u32 Mask)
@@ -405,7 +463,7 @@ void XMipi_Tx_Phy_ClearDataLane(XMipi_Tx_Phy *InstancePtr, u8 DataLane, u32 Mask
 *
 * @param 	InstancePtr is the XMipi_Tx_Phy instance to operate on.
 *
-* @return 	Bitmask containing which of the events have occured along with
+* @return 	Bitmask containing which of the events have occurred along with
 * 		the mode of the Clock Lane in DPhy
 *
 * @note 	None.
@@ -453,7 +511,7 @@ u32 XMipi_Tx_Phy_GetClkLaneMode(XMipi_Tx_Phy *InstancePtr)
 * @param	InstancePtr is the XMipi_Tx_Phy instance to operate on.
 * @param	DataLane for which the status is sought for.
 *
-* @return	Bitmask containing which of the events have occured along with
+* @return	Bitmask containing which of the events have occurred along with
 * 		the mode of the Data Lane in DPhy
 *
 * @note		None.
@@ -511,7 +569,7 @@ u8 XMipi_Tx_Phy_GetDLCalibStatus(XMipi_Tx_Phy *InstancePtr, u8 DataLane)
 
 /****************************************************************************/
 /**
-* This is used to get specfic Lane mode information about a Data Lane.
+* This is used to get specific Lane mode information about a Data Lane.
 *
 * @param	InstancePtr is the XMipi_Tx_Phy instance to operate on.
 * @param	DataLane for which the mode info is requested.
@@ -590,8 +648,6 @@ u32 XMipi_Tx_Phy_GetVersionReg(XMipi_Tx_Phy *InstancePtr)
 *
 * @param	InstancePtr is the XMipi_Tx_Phy instance to operate on.
 * @param	Flag denoting whether to enable or disable the Mipi_Tx_Phy core
-*
-* @return	None.
 *
 * @note 	None.
 *****************************************************************************/
