@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@
  *			XFpga_PL_BitStream_Load()
  *			to avoid the unwanted blocking conditions.
  * 3.0   Nava  05/12/17 Added PL configuration registers readback support.
- * 4.0   Nava  02/08/18 Added Authenticated and Encypted Bitstream
+ * 4.0   Nava  02/08/18 Added Authenticated and Encrypted Bitstream
  *			loading	support.
  * 4.0   Nava  03/02/18 Added the legacy bit file loading feature support
  *			from U-boot.
@@ -131,10 +131,11 @@
  *                     MISRA-C ciolations for Rule 10.3
  * 6.6 ml    17/01/24  Removed None parameters from description to fix doxygen
  *                     warnings.
- * 7.0 Arvd  12/29/25  Skip crypto validation for signed bitstreams on unfused
+ * 6.10 Arvd 12/29/25  Skip crypto validation for signed bitstreams on unfused
  *                     boards when XSecure_AuthenticationHeaders returns
  *                     XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
  *                     uninitialized PartitionHdr structure.
+ * 6.10 Arvd 02/04/26  Fixed codespell errors
  * </pre>
  *
  * @note

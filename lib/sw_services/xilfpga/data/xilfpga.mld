@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -15,7 +15,7 @@
 # 		       XFpga_PL_BitStream_Load()
 # 		       to avoid the unwanted blocking conditions.
 # 3.0   Nava  05/12/17 Added PL configuration registers readback support.
-# 4.0   Nava  02/08/18 Added Authenticated and Encypted Bitstream loading support.
+# 4.0   Nava  02/08/18 Added Authenticated and Encrypted Bitstream loading support.
 #       srm   02/26/18 Updated to pick up latest freertos port 10.0
 # 4.1  Nava   03/27/18 For Secure Bitstream loading to avoid the Security violations
 #                      Need to Re-validate the User Crypto flags with the Image
@@ -64,10 +64,11 @@
 # 6.6  adk   10/19/23  Added changes for NON_YOCTO variable specific to SDT flow
 # 6.7  oh    07/24/24  Added Versal_2VE_2VM specific processor in dependency list
 # 6.9 Arvd   08/12/25  Fixed GCC warnings
-# 7.0 Arvd   12/29/25  Skip crypto validation for signed bitstreams on unfused
+# 6.10 Arvd  12/29/25  Skip crypto validation for signed bitstreams on unfused
 #                      boards when XSecure_AuthenticationHeaders returns
 #                      XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
 #                      uninitialized PartitionHdr structure.
+# 6.10 Arvd  02/04/26  Fixed codespell errors
 #
 ##############################################################################
 
@@ -80,7 +81,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 7.0;
+  OPTION VERSION = 6.10;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;

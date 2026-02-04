@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xilfpga.c
- * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  * This file contains the definitions of Bitstream loading functions.
  *
  * @{
@@ -35,7 +35,7 @@
  * 5.0 Nava   02/26/19  Update the data handling logic to avoid the code
  *		        duplication
  * 5.0 sne    03/27/19  Fixed misra-c violations.
- * 5.0 Nava   03/29/19  Removed vesal platform related changes.As per the new
+ * 5.0 Nava   03/29/19  Removed versal platform related changes.As per the new
  *                      design, the Bitstream loading for versal platform is
  *                      done by PLM based on the CDO's data exists in the PDI
  *                      images. So there is no need of xilfpga API's for versal
@@ -76,6 +76,7 @@
  * 6.5 Nava   08/18/23  Resolved the doxygen issues.
  * 6.5 Nava   09/04/23  Added proper ifdef platform checks for user-accessible APIs.
  * 6.6 Nava   10/20/23  Added proper validations checks for input parameters.
+ * 6.10 Arvd  02/04/26  Fixed codespell errors
  * </pre>
  *
  *****************************************************************************/
@@ -95,7 +96,7 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 /* @endcond */
 /************************** Variable Definitions *****************************/
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /**The API is used to load the bitstream file into the PL region.
  * It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and
@@ -202,7 +203,7 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /**
  * This function is used to validate the bitstream image.
@@ -273,7 +274,7 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /**This function prepares the FPGA to receive configuration data.
  *
@@ -307,7 +308,7 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /**This function writes the count bytes of configuration data into the PL.
  *
@@ -377,7 +378,7 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /*****************************************************************************/
 /** This function sets the FPGA to the operating state after writing.
@@ -558,7 +559,7 @@ END:
 #endif
 
 #ifdef XFPGA_GET_VERSION_INFO
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /** This function is used to read xilfpga library version info.
  *
@@ -589,7 +590,7 @@ END:
 #endif
 
 #ifdef XFPGA_GET_FEATURE_LIST
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  @{ */
 /**
  * This function is used to Get xilfpga component supported feature list

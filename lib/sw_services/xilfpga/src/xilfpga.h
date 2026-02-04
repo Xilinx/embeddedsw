@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,7 @@
  * Lower level Errors + Interface specific Errors + Xilfpga top layer Errors
  *----------------------------------------------------------------------------
  * Lower level Errors | Interface Specific Errors | Xilfpga top layer Errors
- * (other libarier    |     (PCAP Interface)      |
+ * (other libraries   |     (PCAP Interface)      |
  * or drivers         |                           |
  * Used by xilfpga)   |                           |
  * ----------------------------------------------------------------------------
@@ -57,7 +57,7 @@
  * 5.0  Nava  02/26/19  Update the data handling logic to avoid the code
  *                      duplication
  * 5.0  sne   03/27/19  Fixed misra-c violations.
- * 5.0  Nava  03/29/19  Removed vesal platform related changes.As per the new
+ * 5.0  Nava  03/29/19  Removed versal platform related changes.As per the new
  *                      design, the Bitstream loading for versal platform is
  *                      done by PLM based on the CDO's data exists in the PDI
  *                      images. So there is no need of xilfpga API's for versal
@@ -88,6 +88,7 @@
  * 6.5  Nava  08/02/23  Updated version info macro to align with the library mld version.
  * 6.5  Nava  09/04/23  Added proper ifdef platform checks for user-accessible APIs.
  * 6.6  AC	  04/04/24  Resolved the doxygen issues.
+ * 6.10 Arvd  02/04/26  Fixed codespell errors
  * </pre>
  *
  *
@@ -114,7 +115,7 @@ extern "C" {
  */
 typedef struct XFpgatag{
 	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr); /**< Validate the bitstream header before programming the PL */
-	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr); /**<Prepare the FPGA to receive confuration data */
+	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr); /**<Prepare the FPGA to receive configuration data */
 	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr); /**< Write count bytes of configuration data to the FPGA */
 	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr); /**< Set FPGA to operating state after writing is done */
 	u32 (*XFpga_GetFeatureList)(struct XFpgatag *InstancePtr); /**< Gets the feature list that xilfpga library supports */

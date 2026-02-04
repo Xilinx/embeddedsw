@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 if (${zynqmp_secure_env})
     collect (PROJECT_LIB_SOURCES xilfpga_ipi_pcap.c)

@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2016 - 20222 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -15,7 +15,7 @@
 #                      XFpga_PL_BitStream_Load()
 #                      to avoid the unwanted blocking conditions.
 # 3.0   Nava  05/12/17 Added PL configuration registers readback support.
-# 4.0   Nava  02/08/18 Added Authenticated and Encypted Bitstream loading support.
+# 4.0   Nava  02/08/18 Added Authenticated and Encrypted Bitstream loading support.
 # 4.1	Nava  03/27/18 For Secure Bitstream loading to avoid the Security violations
 #                      Need to Re-validate the User Crypto flags with the Image
 #                      Crypto operation by using the internal memory.To Fix this
@@ -45,6 +45,7 @@
 #                       xilfpga version and supported feature list info.
 # 6.2  Nava   01/19/22  Added build time flag to skip eFUSE checks.
 # 6.4  Nava   01/23/22  Added Versalnet support.
+# 6.10 Arvd   02/04/26  Fixed codespell errors
 #
 ##############################################################################
 

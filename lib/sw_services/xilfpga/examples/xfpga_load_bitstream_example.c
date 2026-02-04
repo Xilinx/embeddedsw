@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +40,7 @@
  *                         different PL programming Interfaces.
  * 4.2	 adk	 08/23/18  Added bitstream size define.
  * 5.0   Nava	 02/06/19  Updated the example to sync with 5.0 version API's
- * 5.0	 Nava 	 03/16/19  Typical bitstram size of zcu102 board is 26MB.So
+ * 5.0	 Nava 	 03/16/19  Typical bitstream size of zcu102 board is 26MB.So
  *			   updated the bitstream size macro value for the same.
  * 5.2   Nava	 02/14/20  Removed unwanted header file inclusion.
  * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
@@ -56,6 +56,7 @@
  * 6.1   Nava    09/13/21  Fixed compilation warning.
  * 6.9   Arvd    08/12/25  Fixed GCC warning
  *       tvp     12/11/25  Add procedure to link and compile the example
+ * 6.10  Arvd    02/04/26  Fixed codespell errors
  * </pre>
  *
  ******************************************************************************/
