@@ -22,4 +22,5 @@ depends_libs:
     libmetal: {}
     openamp:
         OPENAMP_WITH_PROXY: ON
+    libmetal_xlnx_extension: {}
 ...

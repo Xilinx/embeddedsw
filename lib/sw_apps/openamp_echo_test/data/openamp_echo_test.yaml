@@ -21,4 +21,5 @@ depends_libs:
     xiltimer: {}
     libmetal: {}
     openamp: {}
+    libmetal_xlnx_extension: {}
 ...

@@ -22,4 +22,5 @@ depends_libs:
     xilpm: {}
     xilpm_ng: {}
     libmetal: {}
+    libmetal_xlnx_extension: {}
 ...
