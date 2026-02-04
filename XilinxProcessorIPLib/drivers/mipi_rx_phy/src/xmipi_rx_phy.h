@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 *
 * It is capable of synchronous transfer at high speed mode at 80-1500 Mbps
 * It has one clock lane and up to 4 data lanes. These lanes are unidirectional.
-* It can do asynchronous transfer at upto 10 Mbps in low power mode. The clock
+* It can do asynchronous transfer at up to 10 Mbps in low power mode. The clock
 * lane can be in low power mode or high speed mode whereas the data lanes
 * can be in Low power, High power or Escape mode.
 *
@@ -268,7 +268,7 @@ typedef struct {
 	u32 IsDphy; /**< CPHY or DPHY Mode */
 	u32 IsRegisterPresent; /**< Is register access allowed */
 	u32 MaxLanesPresent; /**< Number of Lanes. Range 1 - 4 */
-	u32 EscClkPeriod; /**< Escape Clock Peroid */
+	u32 EscClkPeriod; /**< Escape Clock Period */
 	u32 EscTimeout; /**< Escape Timeout */
 	u32 HSLineRate; /**< High Speed Line Rate */
 	u32 HSTimeOut; /**< Max Frame Length  */

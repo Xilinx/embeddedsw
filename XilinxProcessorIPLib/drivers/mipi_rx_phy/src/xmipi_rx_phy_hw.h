@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,7 +117,7 @@ extern "C" {
  * escape mode.
  * @{
  */
-#define XMIPI_RX_PHY_ESCTIMEOUT_REG_VAL_MASK 0xFFFFFFFF /**< Escape Timout Value */
+#define XMIPI_RX_PHY_ESCTIMEOUT_REG_VAL_MASK 0xFFFFFFFF /**< Escape Timeout Value */
 #define XMIPI_RX_PHY_ESCTIMEOUT_REG_VAL_OFFSET 0 /**< Bit offset for Escape Timeout */
 /*@}*/
 
