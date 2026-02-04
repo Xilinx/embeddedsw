@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,7 +66,7 @@ void Init_MPU(void) __attribute__((__section__(".boot")));
  *		0x3FFFFFFF,
  *		NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW
  *  },
- *  // Other MPU region definitions follow as decided bu user
+ *  // Other MPU region definitions follow as decided by user
  * }
  */
 

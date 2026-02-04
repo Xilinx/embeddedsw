@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -186,7 +186,7 @@ extern "C" {
  */
 /** Error event mask for General purpose PMC error,
  * can be triggered by any of the following peripherals:,
- * - PMC Global Regsiters,- PMC Clock & Reset (CRP),- PMC IOU Secure SLCR,
+ * - PMC Global Registers,- PMC Clock & Reset (CRP),- PMC IOU Secure SLCR,
  * - PMC IOU SLCR,- BBRAM Controller,- PMC Analog Control Registers,
  * - RTC Control Registers. */
 #define XIL_EVENT_ERROR_MASK_PMCAPB		(0x00000001U)
@@ -478,25 +478,25 @@ extern "C" {
 /** Error event mask for Memory Errors for Splitter0. */
 #define XIL_EVENT_ERROR_MASK_MEM_SPLITTER0	(0x00000010U)
 
-/** Error event mask for Consolidated Errror indicating AXI parity Error for Splitter0. */
+/** Error event mask for Consolidated Error indicating AXI parity Error for Splitter0. */
 #define XIL_EVENT_ERROR_MASK_AXI_PAR_SPLITTER0	(0x00000020U)
 
 /** Error event mask for Memory Errors for Splitter1. */
 #define XIL_EVENT_ERROR_MASK_MEM_SPLITTER1	(0x00000040U)
 
-/** Error event mask for Consolidated Errror indicating AXI parity Error for Splitter1. */
+/** Error event mask for Consolidated Error indicating AXI parity Error for Splitter1. */
 #define XIL_EVENT_ERROR_MASK_AXI_PAR_SPLITTER1	(0x00000080U)
 
 /** Error event mask for Memory Errors for Splitter2. */
 #define XIL_EVENT_ERROR_MASK_MEM_SPLITTER2	(0x00000100U)
 
-/** Error event mask for Consolidated Errror indicating AXI parity Error for Splitter2. */
+/** Error event mask for Consolidated Error indicating AXI parity Error for Splitter2. */
 #define XIL_EVENT_ERROR_MASK_AXI_PAR_SPLITTER2	(0x00000200U)
 
 /** Error event mask for Memory Errors for Splitter3. */
 #define XIL_EVENT_ERROR_MASK_MEM_SPLITTER3    	(0x00000400U)
 
-/** Error event mask for Consolidated Errror indicating AXI parity Error for Splitter3. */
+/** Error event mask for Consolidated Error indicating AXI parity Error for Splitter3. */
 #define XIL_EVENT_ERROR_MASK_AXI_PAR_SPLITTER3	(0x00000800U)
 
 /** Error event mask for APU Cluster 0 error. */

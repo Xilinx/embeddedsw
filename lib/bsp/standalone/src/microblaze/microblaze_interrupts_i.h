@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +20,7 @@
 * Ver   Date     Changes
 * ----- -------- -----------------------------------------------
 * 1.00b 10/03/03 First release
-* 8.0	03/17/22 Add MB_InterruptVectorTableEntry decalration to
+* 8.0	03/17/22 Add MB_InterruptVectorTableEntry declaration to
 * 		 fix misra_c_2012_rule_8_5 violation.
 * </pre>
 *

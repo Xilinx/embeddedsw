@@ -1,6 +1,6 @@
 ###############################################################################
-# Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -15,7 +15,7 @@
 # 2.0   ml    08/04/24 Add support for sleep and tick timers
 # 2.0   ml    15/05/24 Add support to use canonical definitions for
 #                      sleep and interval timers
-#
+# 2.5   ml    03/02/26 Fix codespell warnings
 ##############################################################################
 
 set sleep_timer_is_ttc 0
@@ -46,7 +46,7 @@ proc xtimer_drc {lib_handle} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-	set default_dir "src/core/defalut/"
+	set default_dir "src/core/default_timer/"
 	set ttcps_dir "src/core/ttcps/"
 	set axitmr_dir "src/core/axi_timer/"
 	set scutimer_dir "src/core/scutimer/"

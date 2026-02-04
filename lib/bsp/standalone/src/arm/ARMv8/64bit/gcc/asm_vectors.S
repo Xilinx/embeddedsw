@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -25,10 +25,9 @@
 *                        is completed, before any subsequent instruction.
 * 7.5   mus  05/20/21 Fixed speculative execution past ERET and BR instructions.
 *                     As per CVE-2020-13844, Cortex-A72 is affected with
-*                     vulnearability, hence changes are targeted only for Cortex-A72.
+*                     vulnerability, hence changes are targeted only for Cortex-A72.
 *                     It fixes CR#1083649.
 * 7.7.  asa     03/22/22  Updated FIQ handler to also handle floating/SIMD context.
-*
 * </pre>
 *
 * @note
@@ -224,7 +223,7 @@ SynchronousInterruptHandler:
 	bne	synchronoushandler
 
 /*
- * If excpetion occurred due to floating point access, Enable the floating point
+ * If exception occurred due to floating point access, Enable the floating point
  * access i.e. do not trap floating point instruction
  */
  .if (EL3 == 1)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,7 @@
 *                         Xil_DisableNestedInterrupts macros for ARMv8.
 *                         For Cortexa72, these macro's would not be supported
 *                         at EL3, as Cortexa72 is using GIC-500(GICv3),  which
-*                         triggeres only FIQ at EL3. Fix for CR#1062506
+*                         triggers only FIQ at EL3. Fix for CR#1062506
 * 7.6   mus      09/17/21 Updated flag checking to fix warning reported with
 *                         -Wundef compiler option CR#1110261
 * 7.7   mus      01/31/22 Few of the #defines in xil_exception.h in are treated

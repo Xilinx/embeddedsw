@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -450,7 +450,7 @@ END:
  *
  * @return
  *		XST_SUCCESS - If specified number of bytes matches
- * 		XST_FAILURE - If there is a mistmatch found during comparison
+ * 		XST_FAILURE - If there is a mismatch found during comparison
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
@@ -490,7 +490,7 @@ s32 Xil_SMemCmp(const void *Src1, const u32 Src1Size,
  *
  * @return
  *		XST_SUCCESS - If specified number of bytes matches
- * 		XST_FAILURE - If mistmatch
+ * 		XST_FAILURE - If mismatch
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
@@ -541,7 +541,7 @@ s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
  * @brief	This is wrapper function to memcpy function. This function
  *		takes size of two memory regions to make sure not read from
  *		or write to out of bound memory region. Since 0 is valid address,
-*		Src and Dest paramemter are not checked for NULL
+*		Src and Dest parameter are not checked for NULL
  *
  * @param	Dest      - Pointer to destination memory
  * @param	DestSize  - Memory available at destination

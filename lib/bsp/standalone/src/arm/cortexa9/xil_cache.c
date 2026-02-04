@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -286,7 +286,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
 * 			(across standalone and Linux), the second option is implemented.
 * 			This being the case, following needs to be taken care of:
 * 			1. Whenever possible, the addresses must be cache line aligned.
-* 			Please nore that, not just start address, even the end address must
+* 			Please note that, not just start address, even the end address must
 * 			be cache line aligned. If that is taken care of, this will always
 *			work.
 * 			2. Avoid situations where invalidation has to be done after the
@@ -1178,7 +1178,7 @@ void Xil_L1ICacheInvalidateLine(u32 adr)
 /****************************************************************************/
 /**
 * @brief	Invalidate the level 1 instruction cache for the given address
-* 			range. If the instrucions specified by the address range are cached
+* 			range. If the instructions specified by the address range are cached
 *			by the instruction cache, the cacheline containing those bytes are
 *			invalidated.
 *

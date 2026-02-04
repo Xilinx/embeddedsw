@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,8 +23,8 @@
 * 8.0	sk   03/17/22 Delete MB_ExceptionVectorTableEntry structure to fix
 * 		      misra_c_2012_rule_5_6 violation.
 * 8.0	sk   03/17/22 Move MB_ExceptionVectorTableEntry and MB_InterruptVector
-* 		      TableEntry decalrations to header files and delete
-* 		      interrupts and excpetion disable and enable declarations
+* 		      TableEntry declarations to header files and delete
+* 		      interrupts and exception disable and enable declarations
 * 		      to fix misra_c_2012_rule_8_5 violations.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.2   mus  07/30/24 Fix bug in microblaze_disable_interrupts API in SDT flow.

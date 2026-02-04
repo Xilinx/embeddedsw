@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @{
 * @details
 *
-* Crypto algotithm information structure declaration.
+* Crypto algorithm information structure declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:

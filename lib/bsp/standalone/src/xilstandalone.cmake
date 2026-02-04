@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/common/StandaloneExample.cmake NO_POLICY_SCOPE)
@@ -267,7 +267,7 @@ set(standalone_enable_sw_intrusive_profiling "None" CACHE STRING "This option is
 SET_PROPERTY(CACHE standalone_enable_sw_intrusive_profiling PROPERTY STRINGS "None")
 set(standalone_profile_timer "None" CACHE STRING "This option is not supported in the Unified Vitis IDE in this version. Change to the classic IDE if you want to use this option")
 SET_PROPERTY(CACHE standalone_profile_timer PROPERTY STRINGS "None")
-# Processor CMake Cache entires
+# Processor CMake Cache entries
 cmake_path(GET CMAKE_C_COMPILER_AR FILENAME compiler_ar)
 set(proc_archiver ${compiler_ar} CACHE STRING "Archiver used to archive libraries for both BSP generation as well as applications.")
 cmake_path(GET CMAKE_ASM_COMPILER FILENAME asm_compiler)

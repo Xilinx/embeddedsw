@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +30,6 @@
 * 		      fix misra_c_2012_rule_8_2 violation.
 * 7.7	sk   01/10/22 Add braces for the if statement to make it a compound
 * 		      statement and fix misra_c_2012_rule_15_6 violation.
-*
 * </pre>
 *****************************************************************************/
 
@@ -124,7 +124,7 @@ void XTime_StartTTCTimer(void)
 		if ((TimerCntrl & XSLEEP_TIMER_TTC_CNT_CNTRL_DIS_MASK) == 0U) {
 		    TimerPrescalar = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
 					       XSLEEP_TIMER_TTC_CLK_CNTRL_OFFSET);
-		/* check if Timer is configured with proper functionalty for sleep */
+		/* check if Timer is configured with proper functionality for sleep */
 		   if ((TimerPrescalar & XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK) == 0U) {
 						return;
 		   }

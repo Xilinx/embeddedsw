@@ -123,7 +123,7 @@
  *		       (poll reg7_?cache_?sync). This fixes CR #700542.
  * 3.10a asa  05/20/13 Added API/Macros for enabling and disabling nested
  *		       interrupts for ARM. These are done to fix the CR#699680.
- * 3.10a srt  05/20/13 Made changes in cache maintenance APIs to do a proper cach
+ * 3.10a srt  05/20/13 Made changes in cache maintenance APIs to do a proper cache
  *		       sync operation. This fixes the CR# 716781.
  * 3.11a asa  09/07/13 Updated armcc specific BSP files to have proper support
  *		       for armcc toolchain.
@@ -398,7 +398,7 @@
  * 6.1 mus   11/03/16  Added APIs handle_stdin_parameter and handle_stdout_parameter in standalone tcl.
  *                     ::hsi::utils::handle_stdin and ::hsi::utils::handle_stdout are taken as a base for
  *                     these APIs and modifications are done on top of it to handle stdout/stdin
- *                     parameters for design which doesnt have UART.It fixes CR#953681
+ *                     parameters for design which does not have UART.It fixes CR#953681
  * 6.1 nsk   11/07/16  Added two new files xil_mem.c and xil_mem.h for xil_memcpy
  * 6.2 pkp   12/14/16  Updated cortexa53/64bit/translation_table.S for upper ps DDR. The 0x800000000 -
  *		       0xFFFFFFFFF range is marked normal memory for the DDR size defined in hdf
@@ -562,7 +562,7 @@
  * 6.8 aru    07/04/18	Optimized the code to use a loop and to remove redundant code
  *			in Xil_DCacheFlush() and Xil_DCacheInvalidate()
  *			of xil_cache.c for A53-32.
- * 6.8 aru    07/26/18  added support in xil_printf.c to print u64 variabbles
+ * 6.8 aru    07/26/18  added support in xil_printf.c to print u64 variables
  *                      correctly in 32 bit processor.It fixes CR#1007207.
  * 6.8 aru    09/03/18  Optimized the code to use a single function and removed
  *                      code redundancy in xil_printf.c . It Fixes CR#1009654.
@@ -570,9 +570,9 @@
  *                      It fixes CR#1008309.
  * 6.8 mus    09/20/18  Updated CortexR5 boot code to initialize CortexR5 core with LOVEC
  *                      on reset. It fixes CR#1010656.
- * 6.8 mus    10/04/18  Updated microblaze sleep functinality to execute default method of
+ * 6.8 mus    10/04/18  Updated microblaze sleep functionality to execute default method of
  *                      sleep implementation, in case of FreeRTOS BSP.
- * 6.8 mus    10/25/18  Updated assembly code for cache APIs and inline assemby macros to
+ * 6.8 mus    10/25/18  Updated assembly code for cache APIs and inline assembly macros to
  *                      to support 64 bit addresses.
  * 6.8 asa    10/11/18  Updated the A53 32 bit cache APIs for Xil_DCacheFlush and
  *                      Xil_DCacheInvalidate to fix various issues. These issues were not
@@ -649,7 +649,7 @@
  *     mus   03/23/21   Added new set of Xil_TestMem32, Xil_TestMem16 and Xil_TestMem8
  *                      APIs to support memory test for memory regions mapped at extended
 *                       addresses (addresses > 4 GB) in case of 32 bit Miroblaze processor.
- *     mus   03/26/21   Added weak implemantation of clock function for ARM processors.
+ *     mus   03/26/21   Added weak implementation of clock function for ARM processors.
  *     mus   04/15/21   Fixed warnings reported by doxygen tool.
  *     mus   04/22/21   Updated sleep routines from Microblaze BSP to keep them in sync
  *                      with Microblaze processor frequency. This is done to avoid incorrect
@@ -690,9 +690,9 @@
  *                      Also, used xdbg_printf instead of xil_printf to print the warning, so that warning would be printed only
  *                      when DEBUG flag is enabled.
  *     dp     03/08/22  Update Init_MPU (arm/cortexr5/platform/ZynqMP/mpu.c) to use new macros for mpu init as these macros
- *                      represent the lowest DDR address and highest DDR address mapped to CortexR5, incase if there are are
- *                      mutiple DDR regions assigned to CortexR5 in the HW design. Assigning multiple mpu regions of DDR is
- *                      not possible as we have limited mpu entries in case of R5. Note that these macros doesnt consider the
+ *                      represent the lowest DDR address and highest DDR address mapped to CortexR5, in case if there are are
+ *                      multiple DDR regions assigned to CortexR5 in the HW design. Assigning multiple mpu regions of DDR is
+ *                      not possible as we have limited mpu entries in case of R5. Note that these macros does not consider the
  *                      holes in between the regions.
  *     asa     03/22/22 Updated FIQ handling in ARMv8 vectors (arm/ARMv8/64bit/<gcc/armclang>/asm_vectors.S) to save and
  *                      restore the SIMD register contexts.

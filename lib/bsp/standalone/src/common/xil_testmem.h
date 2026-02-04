@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,7 @@
 * as the test value for memory.
 *
 *  - XIL_TESTMEM_FIXEDPATTERN: Also known as the fixed pattern test.
-* This test uses the provided patters as the test value for memory.
+* This test uses the provided patterns as the test value for memory.
 * If zero is provided as the pattern the test uses '0xDEADBEEF".
 *
 * @warning

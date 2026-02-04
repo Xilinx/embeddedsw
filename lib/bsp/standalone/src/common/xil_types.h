@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +28,7 @@
 * 7.1   aru  08/19/19 Shift the value in UPPER_32_BITS only if it
 *                     is 64-bit processor
 * 8.1   dp   12/23/22 Updated UINTPTR and INTPTR to point to 64bit data types
-*                     incase of microblaze 32-bit with extended address enabled
+*                     in case of microblaze 32-bit with extended address enabled
 * 9.0   ml   04/14/23 Add parenthesis on sub-expression to fix misra-c violation.
 * 9.2   ml   09/26/24 Removed checks to fix below compilation warning
 *                     XPAR_MICROBLAZE_ADDR_SIZE is not defined, evaluates to 0
@@ -68,10 +68,10 @@ extern "C" {
 #endif
 
 #define XIL_COMPONENT_IS_READY     0x11111111U  /**< In device drivers, This macro will be
-                                                 assigend to "IsReady" member of driver
+                                                 assigned to "IsReady" member of driver
 												 instance to indicate that driver
 												 instance is initialized and ready to use. */
-#define XIL_COMPONENT_IS_STARTED   0x22222222U  /**< In device drivers, This macro will be assigend to
+#define XIL_COMPONENT_IS_STARTED   0x22222222U  /**< In device drivers, This macro will be assigned to
                                                  "IsStarted" member of driver instance
 												 to indicate that driver instance is
 												 started and it can be enabled. */

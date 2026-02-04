@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -29,7 +29,7 @@ proc swapp_is_supported_sw {} {
              return 1;
         }
     }
-    error "Peripheral tests require atleast $typical_testapp_size bytes of memory."
+    error "Peripheral tests require at least $typical_testapp_size bytes of memory."
     return 0;
 }
 

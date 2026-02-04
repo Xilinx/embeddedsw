@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -163,7 +163,7 @@ u32 XGetPSVersion_Info(void)
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide infomation about core id of the
+* @brief    This API is used to provide information about core id of the
 *           CPU core from which it is executed.
 *
 * @return   Core id of the core on which API is executed.
@@ -210,7 +210,7 @@ u8 XGetCoreId(void)
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide infomation about cluster id of the
+* @brief    This API is used to provide information about cluster id of the
 *           CPU core from which it is executed.
 *
 * @return   Cluster id of the core on which API is executed.

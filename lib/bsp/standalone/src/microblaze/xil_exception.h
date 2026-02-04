@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,7 @@
 * The xil_exception.h file, available in the <install-directory>/src/microblaze folder,
 * contains Microblaze specific exception related APIs and macros. Application programs
 * can use these APIs for various exception related operations. For example, enable exception,
-* disable exception, register exception hander.
+* disable exception, register exception handler.
 *
 * @note To use exception related functions, xil_exception.h must be added in source code
 *

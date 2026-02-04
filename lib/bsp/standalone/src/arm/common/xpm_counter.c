@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -292,7 +292,7 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
 /**
  *
  * Reads the counter value for the requested counter ID. This is used to read
- * the number of events that has been counted for the requsted event ID.
+ * the number of events that has been counted for the requested event ID.
  * This can only be called after a call to Xpm_SetUpAnEvent.
  *
  *

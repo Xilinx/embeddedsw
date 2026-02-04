@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -185,7 +185,7 @@ extern "C" {
  */
 /** Error event mask for General purpose PMC error,
  * can be triggered by any of the following peripherals:,
- * - PMC Global Regsiters,- PMC Clock & Reset (CRP),- PMC IOU Secure SLCR,
+ * - PMC Global Registers,- PMC Clock & Reset (CRP),- PMC IOU Secure SLCR,
  * - PMC IOU SLCR,- BBRAM Controller,- PMC Analog Control Registers,
  * - RTC Control Registers. */
 #define XIL_EVENT_ERROR_MASK_PMCAPB		(0x00000001U)

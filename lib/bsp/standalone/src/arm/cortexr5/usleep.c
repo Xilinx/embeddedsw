@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,7 @@
 *		of TTC specifically and when TTC3 is absent, usleep is implemented
 *      	        using assembly instructions which is tested with instruction and
 *		data caches enabled and it gives proper delay. It may give more
-*		delay than exepcted when caches are disabled. If interrupt comes
+*		delay than expected when caches are disabled. If interrupt comes
 *		when usleep using assembly instruction is being executed, the delay
 *		may be greater than what is expected since once the interrupt is
 *		served count resumes from where it was interrupted unlike the case

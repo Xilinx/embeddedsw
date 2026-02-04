@@ -183,7 +183,7 @@ _startup:
 	 * configured as device memory, updating attributes
 	 * of GIC region as strongly ordered, RW, non executable
 	 * through Xil_SetTlbAttributes API. Below code snippet
-	 * in assemby is equivalent to,
+	 * in assembly is equivalent to,
 	 * Xil_SetTlbAttributes(XPAR_SCUGIC_0_DIST_BASEADDR,
 	 * 			STRONG_ORDERED | EXECUTE_NEVER)
 	 */

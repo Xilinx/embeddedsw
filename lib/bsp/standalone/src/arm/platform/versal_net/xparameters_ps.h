@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,7 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 8.0 	mus     11/26/21 First release
-* 8.0   dp      07/11/22 Add TTC interrupt Id macros thats needed for
+* 8.0   dp      07/11/22 Add TTC interrupt Id macros that's needed for
 *                        interrupt wrapper.
 * 8.0	sb	05/10/23 Add Interrupt Id's for WWDT.
 * 9.0   dp      05/19/23 Update Interrupt IDs for USB

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -592,7 +592,7 @@ void Xil_EnableMPU(void)
 /*****************************************************************************/
 /**
 * @brief    Disable MPU for Cortex R52 processors. This function invalidates I
-*           cache and flushes the D Caches, and then disabes the MPU.
+*           cache and flushes the D Caches, and then disables the MPU.
 *
 * @return	None.
 *

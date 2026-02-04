@@ -26,7 +26,7 @@
 *                    normal memory.
 * 9.3  adk  04/11/25 Updated the translation table to reflect DDR regions
 *		     in accordance with the design configuration.
-* 9.4  ml   06/12/25 Removed irrelevent comment
+* 9.4  ml   06/12/25 Removed irrelevant comment
 * 9.5  asa  01/23/26 For Versal Gen2 use outer shareable as it is
 *                    generally more appropriate for baremetal use cases
 *                    using DMA or AMP use cases where multiple

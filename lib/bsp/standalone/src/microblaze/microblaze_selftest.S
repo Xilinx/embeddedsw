@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -813,7 +814,7 @@ L_microblaze_selftest_end:
 
 /*****************************************************************************
 *      Temporary storage used by this routine
-*      MSR followd by registers r1 - r31
+*      MSR followed by registers r1 - r31
 ******************************************************************************/
 	.data
 	.align	3

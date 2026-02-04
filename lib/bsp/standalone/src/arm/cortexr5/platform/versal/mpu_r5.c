@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,7 +49,7 @@
 * 9.2   ml   20/09/24 Add support for AXI NOC2 DDR region in MPU initialization
 * 9.2   mus  01/10/24 Existing configuration of MPU region for DDR in Init_MPU is incorrect.
 *                     In certain scenarios, where DDR is mapped at address other
-*                     than 0, some portion at the end of DDR is not being inclued.
+*                     than 0, some portion at the end of DDR is not being included.
 *                     For example, if 1 GB of DDR is mapped at address starting from
 *                     0x10_0000, said API configures MPU region with start address
 *                     0x0 and end address 0x3FFF_FFFF, so 1 MB of DDR region is not
@@ -298,7 +298,7 @@ void Init_MPU(void)
 	RegNum++;
 
 	/**
-	 * 1G of remapped adddress space from 0x40000000 to 0x7FFFFFFF for AIE.
+	 * 1G of remapped address space from 0x40000000 to 0x7FFFFFFF for AIE.
 	 * The number of allocated MPU regions would be 12, 4 being free for
 	 * the user.
 	 * TODO: The value assigned to Addr must be parsed from XSA if the
