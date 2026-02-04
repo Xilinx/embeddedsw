@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,7 +12,11 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 XStatus IOModuleSelfTestExample(u16 DeviceId);
+#else
+XStatus IOModuleSelfTestExample(u32 DeviceId);
+#endif
 
 #ifdef SDT
 XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr,
