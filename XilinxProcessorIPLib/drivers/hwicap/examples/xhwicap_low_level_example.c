@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,8 +38,8 @@
 *		      modifications
 * 5.00a hvm  02/08/10 Added support for S6
 * 5.00a hvm  04/28/10 Added Check for the control bit clearance in the CR
-*			register for regsiter read and write operations.
-* 5.00a hvm  05/04/10 Updated the example to read Id twice so as to igonore
+*			register for register read and write operations.
+* 5.00a hvm  05/04/10 Updated the example to read Id twice so as to ignore
 *			the first read.
 * 5.00a hvm  05/21/10 Updated the ID sequence to be consistent across V4/V5/V6
 *			devices. Added an extra NOP before Type1 Read device ID
@@ -60,6 +60,7 @@
 * 11.7 Nava 02/06/25  Updated HWICAP_BASEADDR to use XPAR_HWICAP_0_BASEADDR
 *                     instead of XPAR_XHWICAP_0_BASEADDR to align with YAML
 *                     changes.
+* 11.8 Arvd 02/04/26  Fixed codespell errors.
 * </pre>
 *
 ******************************************************************************/

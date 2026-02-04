@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,7 @@
 * 3) Reading or writing to columns containing SRL16's or LUT RAM's can cause
 * corruption of data in those elements. Avoid reading or writing to columns
 * containing SRL16's or LUT RAM's.
-* 4) Only the LUT and SRL are accesible, all other features of the slice are
+* 4) Only the LUT and SRL are accessible, all other features of the slice are
 * not available through this interface.
 * 5) The Spartan6 devices access is 16-bit access and is 32 bit for all
 * other devices.
@@ -105,7 +105,7 @@
 * 5.01a hvm  07/06/10 In XHwIcap_DeviceRead function, a read bit mask
 *		      verification is added after all the data bytes are read
 *		      from READ FIFO.The Verification of the read bit mask
-*		      at the begining of reading of bytes is removed.
+*		      at the beginning of reading of bytes is removed.
 *		      Removed the code that adds wrong data byte before the
 *		      CRC bytes in the XHwIcap_DeviceWriteFrame function for S6
 *		      (CR560534).
@@ -167,6 +167,7 @@
 * 11.7 Nava   12/02/24 Fixed mismatch between IDCODE array size and initialization value.
 * 11.7 Nava   02/06/25 Added missing xlnx,icap-dwidth and xlnx,mode to YAML to
 *                      align with the driver config struct.
+* 11.8 Arvd   02/04/26 Fixed codespell errors.
 *
 * </pre>
 *

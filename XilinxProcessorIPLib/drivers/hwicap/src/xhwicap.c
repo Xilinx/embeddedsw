@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +40,7 @@
 * 5.01a hvm  07/06/10  In XHwIcap_DeviceRead function, a read bit mask
 *		       verification is added after all the data bytes are read
 *		       from READ FIFO.The Verification of the read bit mask
-*		       at the begining of reading of bytes is removed.
+*		       at the beginning of reading of bytes is removed.
 * 5.03a hvm  15/4/11   Updated with V6 CXT device definitions.
 * 6.00a hvm  08/01/11  Added support for K7 devices.
 * 7.00a bss  03/14/12  Added support for 8/16/32 ICAP Data Widths - CR 620085
@@ -69,6 +69,7 @@
 * 11.7  Nava  04/01/25 Updates the series_ultra_plus_idcodes array to include
 *                      the ID code for UltraScale+ FPGAs, ensuring accurate
 *                      identification and compliance with the latest UG570 Doc.
+* 11.8  Arvd  02/04/26 Fixed codespell errors.
 *
 * </pre>
 *
@@ -271,7 +272,7 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 * In the polled mode, this function will write the specified number of words
 * into the FIFO before returning.
 *
-* In the interrupt mode, this function will write the words upto the size
+* In the interrupt mode, this function will write the words up to the size
 * of the Write FIFO and starts the transfer, then subsequent transfer of the
 * data is performed by the interrupt service routine until the entire buffer
 * has been transferred. The status callback function is called when the entire
@@ -694,7 +695,7 @@ void XHwIcap_Reset(XHwIcap *InstancePtr)
 			 RegData | XHI_CR_SW_RESET_MASK);
 
 	/*
-	 * Reset pulse of atleast 3 slower clock cycle
+	 * Reset pulse of at least 3 slower clock cycle
 	 */
 	usleep(10);
 
@@ -735,7 +736,7 @@ void XHwIcap_FlushFifo(XHwIcap *InstancePtr)
 			 RegData | XHI_CR_FIFO_CLR_MASK);
 
 	/*
-	 * Reset pulse of atleast 3 slower clock cycle
+	 * Reset pulse of at least 3 slower clock cycle
 	 */
 	usleep(10);
 

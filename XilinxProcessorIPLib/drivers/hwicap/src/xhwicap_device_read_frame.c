@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 11.0  MNK  6/12/14  Added support for 8-series family devices.
 * 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 * 11.6  Nava 06/28/23 Added support for system device-tree flow.
+* 11.8  Arvd 02/04/26 Fixed codespell errors.
 * </pre>
 *
 *****************************************************************************/
@@ -135,7 +136,7 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 
 	/*
 	 * Setup read data packet header.
-	 * The frame will be preceeded by a dummy frame, and we need to read one
+	 * The frame will be preceded by a dummy frame, and we need to read one
 	 * extra word for V4 and V5 devices.
 	 */
 	switch (InstancePtr->DeviceFamily) {

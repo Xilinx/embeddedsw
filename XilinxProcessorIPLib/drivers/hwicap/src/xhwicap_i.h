@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
 *                     Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
 * 11.5 Nava  09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 * 11.6 Nava  06/28/23 Added support for system device-tree flow.
+* 11.8 Arvd  02/04/26 Fixed codespell errors.
 * </pre>
 *
 *****************************************************************************/
@@ -315,7 +316,7 @@ extern "C" {
 *
 * @return	Type 1 packet header to write the FAR
 *
-* @note         We are retaining this Macro for Backwards compatiblity
+* @note         We are retaining this Macro for Backwards compatibility
 *               Use the XHwIcap_SetupFar macro.
 *
 *****************************************************************************/
