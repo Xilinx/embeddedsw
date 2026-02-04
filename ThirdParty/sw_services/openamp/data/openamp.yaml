@@ -25,4 +25,5 @@ supported_os:
 
 depends_libs:
     libmetal: {}
+    libmetal_xlnx_extension: {}
 ...

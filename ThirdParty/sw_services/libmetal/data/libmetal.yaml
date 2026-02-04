@@ -29,6 +29,7 @@ supported_os:
 
 depends_libs:
     xiltimer: {}
+    libmetal_xlnx_extension: {}
 depends:
     ipipsu: []
 ...
