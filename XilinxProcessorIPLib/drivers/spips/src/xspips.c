@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -130,6 +130,7 @@ static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 *   - Clock phase 0
 *
 * @param	InstancePtr is a pointer to the XSpiPs instance.
+* 		Must be zero‑initialized before calling this function.
 * @param	ConfigPtr is a reference to a structure containing information
 *		about a specific SPI device. This function initializes an
 *		InstancePtr object for a specific device specified by the
