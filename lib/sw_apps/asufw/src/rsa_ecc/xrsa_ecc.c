@@ -118,7 +118,7 @@ static XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XRsa_EccHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
+static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
 		u32 DataSize);
 
 /************************************ Variable Definitions ***************************************/
@@ -554,7 +554,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		if (Crv->Class == ECDSA_ED_PH) {
 			/** - Calculate the hash for the input message for Hash-based EdDSA mode. */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XRsa_EccHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
+			Status = XRsa_EccEdHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
 					HashLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
@@ -807,7 +807,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		if (Crv->Class == ECDSA_ED_PH) {
 			/** Calculate the hash for the input message for Hash-based EdDSA mode. */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XRsa_EccHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
+			Status = XRsa_EccEdHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
 					HashLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
@@ -1341,7 +1341,7 @@ s32 XRsa_EccPrepareHashForSignature(u8* HashPtr, u32 CurveSize, u32 HashLen)
  *	- XASUFW_SHA_INVALID_PARAM, if ShaInstancePtr is NULL.
  *
  *************************************************************************************************/
-static s32 XRsa_EccHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
+static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
 			u32 DataSize)
 {
 	s32 Status = XASUFW_FAILURE;
