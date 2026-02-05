@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,6 +66,7 @@
 #include "xil_cache.h"
 #include "xil_exception.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
@@ -75,6 +76,14 @@
 #ifdef XPAR_XUARTNS550_NUM_INSTANCES
 #include "xuartns550_l.h"
 #endif
+#else
+#include "xinterrupt_wrap.h"
+
+#if defined(XPAR_STDIN_IS_UARTNS550)
+#include "xuartns550_l.h"
+#endif
+#define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
+#endif
 /*************************** Constant Definitions ****************************/
 
 /*
@@ -82,6 +91,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID
 #define FIFO_DEVICE_ID		XPAR_AXI_FIFO_0_DEVICE_ID
@@ -93,6 +103,7 @@
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define AXIETHERNET_IRPT_INTR	XPAR_FABRIC_AXIETHERNET_0_VEC_ID
 #define FIFO_IRPT_INTR		XPAR_FABRIC_LLFIFO_0_VEC_ID
+#endif
 #endif
 #endif
 
@@ -125,6 +136,7 @@ static XLlFifo FifoInstance;
 #endif
 
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -136,7 +148,9 @@ static XLlFifo FifoInstance;
 #ifndef TESTAPP_GEN
 static INTC IntcInstance;
 #endif
+#endif
 
+#ifndef SDT
 #if XPAR_INTC_0_HAS_FAST == 1
 
 /* Variables for Fast Interrupt Handlers */
@@ -155,6 +169,10 @@ static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet);
 static void FifoHandler(XLlFifo *Fifo);
 
 #endif
+#else
+static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet);
+static void FifoHandler(XLlFifo *Fifo);
+#endif
 
 
 /*************************** Function Prototypes *****************************/
@@ -162,12 +180,18 @@ static void FifoHandler(XLlFifo *Fifo);
 /*
  * The different examples given in this file
  */
+#ifndef SDT
 int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 			 XAxiEthernet *AxiEthernetInstancePtr,
 			 XLlFifo *FifoInstancePtr,
 			 u16 AxiEthernetDeviceId,
 			 u16 FifoDeviceId, u16 AxiEthernetIntrId,
 			 u16 FifoIntrId);
+#else
+int AxiEthernetFifoIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
+			 XLlFifo *FifoInstancePtr,
+			 UINTPTR AxiEthernetBaseAddress);
+#endif
 int AxiEthernetSingleFrameIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 				XLlFifo *FifoInstancePtr);
 int AxiEthernetSingleFrameNonContIntrExample(XAxiEthernet
@@ -179,12 +203,14 @@ int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 /*
  * The Interrupt setup and callbacks
  */
+#ifndef SDT
 static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 				XAxiEthernet *AxiEthernetInstancePtr,
 				XLlFifo *FifoInstancePtr,
 				u16 AxiEthernetIntrId, u16 FifoIntrId);
 static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
 				   u16 AxiEthernetIntrId, u16 FifoIntrId);
+#endif
 
 static void FifoRecvHandler(XLlFifo *Fifo);
 
@@ -236,6 +262,7 @@ int main(void)
 	 * Call the Axi Ethernet interrupt example , specify the parameters
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = AxiEthernetFifoIntrExample(&IntcInstance,
 					&AxiEthernetInstance,
 					&FifoInstance,
@@ -243,6 +270,11 @@ int main(void)
 					FIFO_DEVICE_ID,
 					AXIETHERNET_IRPT_INTR, FIFO_IRPT_INTR);
 
+#else
+	Status = AxiEthernetFifoIntrExample(&AxiEthernetInstance,
+					&FifoInstance,
+					XAXIETHERNET_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Axiethernet intr fifo Example Failed\r\n");
 	} else {
@@ -296,18 +328,29 @@ int main(void)
 *		initialization would reset AxiEthernet.
 *
 ******************************************************************************/
+#ifndef SDT
 int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 			 XAxiEthernet *AxiEthernetInstancePtr,
 			 XLlFifo *FifoInstancePtr,
 			 u16 AxiEthernetDeviceId,
 			 u16 FifoDeviceId, u16 AxiEthernetIntrId,
 			 u16 FifoIntrId)
+#else
+int AxiEthernetFifoIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
+			 XLlFifo *FifoInstancePtr,
+			 UINTPTR AxiEthernetBaseAddress)
+#endif
 {
 	int Status;
 	XAxiEthernet_Config *MacCfgPtr;
 	int LoopbackSpeed;
 
 
+#ifdef SDT
+	int AxiDevType;
+	UINTPTR FifoBaseAddress;
+	XLlFifo_Config *FifoConfig;
+#endif
 	/*************************************/
 	/* Setup device for first-time usage */
 	/*************************************/
@@ -315,12 +358,22 @@ int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 	/*
 	 *  Get the configuration of AxiEthernet hardware.
 	 */
+#ifndef SDT
 	MacCfgPtr = XAxiEthernet_LookupConfig(AxiEthernetDeviceId);
 
+#else
+	MacCfgPtr = XAxiEthernet_LookupConfig(AxiEthernetBaseAddress);
+	AxiDevType = MacCfgPtr->AxiDevBaseAddress & XAE_AXIDEVTYPE_MASK;
+	FifoBaseAddress = MacCfgPtr->AxiDevBaseAddress & XAE_AXIBASEADDR_MASK;
+#endif
 	/*
 	 * Check whether AXIFIFO is present or not
 	 */
+#ifndef SDT
 	if(MacCfgPtr->AxiDevType != XPAR_AXI_FIFO) {
+#else
+	if(AxiDevType != XPAR_AXI_FIFO) {
+#endif
 		AxiEthernetUtilErrorTrap
 			("Device HW not configured for FIFO mode\r\n");
 		return XST_FAILURE;
@@ -332,7 +385,17 @@ int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 	 * reset, and since AXIFIFO reset line is connected to AxiEthernet,
 	 * this would ensure a reset of AxiEthernet.
 	 */
+#ifndef SDT
 	XLlFifo_Initialize(FifoInstancePtr, MacCfgPtr->AxiDevBaseAddress);
+#else
+	FifoConfig = XLlFfio_LookupConfig(FifoBaseAddress);
+	Status = XLlFifo_CfgInitialize(FifoInstancePtr, FifoConfig,
+                                    FifoConfig->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		AxiEthernetUtilErrorTrap("FIFO initialization failed\r\n");
+		return XST_FAILURE;
+	}
+#endif
 
 	/*
 	 * Initialize AxiEthernet hardware.
@@ -358,8 +421,13 @@ int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 	 * Set PHY to loopback, speed depends on phy type.
 	 * MII is 100 and all others are 1000.
 	 */
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(AxiEthernetInstancePtr) ==
 							XAE_PHY_TYPE_MII) {
+#else
+	if (XAxiEthernet_Get_Phy_Interface(AxiEthernetInstancePtr) ==
+							XAE_PHY_TYPE_MII) {
+#endif
 		LoopbackSpeed = AXIETHERNET_LOOPBACK_SPEED;
 	} else {
 		LoopbackSpeed = AXIETHERNET_LOOPBACK_SPEED_1G;
@@ -395,10 +463,30 @@ int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Connect to the interrupt controller and enable interrupts
 	 */
+#ifndef SDT
 	Status = AxiEthernetSetupIntrSystem(IntcInstancePtr,
 				      AxiEthernetInstancePtr,
 				      FifoInstancePtr, AxiEthernetIntrId,
 				      FifoIntrId);
+#else
+	Status = XSetupInterruptSystem(AxiEthernetInstancePtr,
+				      &AxiEthernetErrorHandler,
+				      AxiEthernetInstancePtr->Config.IntrId,
+				      AxiEthernetInstancePtr->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = XSetupInterruptSystem(FifoInstancePtr,
+				      &FifoHandler,
+				      FifoInstancePtr->IntId,
+				      FifoInstancePtr->IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
 
 	/****************************/
 	/* Run through the examples */
@@ -439,8 +527,16 @@ int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Disable the interrupts for the AxiEthernet device
 	 */
+#ifndef SDT
 	AxiEthernetDisableIntrSystem(IntcInstancePtr, AxiEthernetIntrId,
 								FifoIntrId);
+#else
+	XDisconnectInterruptCntrl(AxiEthernetInstancePtr->Config.IntrId,
+			AxiEthernetInstancePtr->Config.IntrParent);
+	XDisconnectInterruptCntrl(FifoInstancePtr->IntId,
+			FifoInstancePtr->IntrParent);
+#endif
+
 
 
 	/*
@@ -1158,6 +1254,7 @@ static int AxiEthernetResetDevice(XAxiEthernet *AxiEthernetInstancePtr,
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -1301,7 +1398,9 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -1343,6 +1442,7 @@ static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
 	XScuGic_Disconnect(IntcInstancePtr, FifoIntrId);
 #endif
 }
+#endif
 
 #if XPAR_INTC_0_HAS_FAST == 1
 
