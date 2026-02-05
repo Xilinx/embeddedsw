@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -682,9 +682,7 @@ typedef struct {
  * This function macro enables MST audio on a given stream on the main link.
  *
  * @param      InstancePtr is a pointer to the XDpRxSs core instance.
- * @param      Stream Id to be enabled audio
- *
- * @return     None.
+ * @param      StreamId to be enabled audio
  *
  * @note       C-style signature:
  *             void XDpRxSs_Mst_AudioEnable(XDpRxSs *InstancePtr, u8 StreamId)
