@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 * @file xhdcp22_rx.c
 * @addtogroup hdcp22_rx Overview
 * @{
-* @details
 *
 * This file contains the main implementation of the Xilinx HDCP 2.2 Receiver
 * device driver.
@@ -24,7 +23,7 @@
 *                     static. Replaced function XHdcp22Rx_SetDdcHandles
 *                     with XHdcp22Rx_SetCallback. Added callback for
 *                     authenticated event.
-* 1.02  MH   03/02/16 Updated to perform Montgomery NPrime calcuation
+* 1.02  MH   03/02/16 Updated to perform Montgomery NPrime calculation
 *                     when XHdcp22Rx_LoadPrivateKey is called.
 *                     Added function XHDCP22Rx_GetVersion.
 * 1.03  MH   03/15/16 Fixed XHdcp22Rx_SetLinkError and XHdcp22Rx_SetDdcError
@@ -134,7 +133,7 @@ static u32  XHdcp22_Rx_StubGetHandler(void *HandlerRef);
 *			The memory the pointer references must be pre-allocated by
 *			the caller. Further calls to manipulate the driver through
 *			the HDCP22-RX API must be made with this pointer.
-* @param	Config is a reference to a structure containing information
+* @param	ConfigPtr is a reference to a structure containing information
 *			about a specific HDCP22-RX device. This function
 *			initializes an InstancePtr object for a specific device
 *			specified by the contents of Config. This function can
@@ -799,7 +798,6 @@ u8 XHdcp22Rx_IsRepeater(XHdcp22_Rx *InstancePtr)
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param  Set is TRUE to enable repeater mode and FALSE to disable.
 *
-* @return None.
 *
 ******************************************************************************/
 void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set)
@@ -828,7 +826,6 @@ void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	None.
 *
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
@@ -855,8 +852,6 @@ void XHdcp22Rx_SetLinkError(XHdcp22_Rx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	None.
-*
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
 void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr)
@@ -881,8 +876,6 @@ void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	None.
-*
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
 void XHdcp22Rx_SetWriteMessageAvailable(XHdcp22_Rx *InstancePtr)
@@ -904,7 +897,6 @@ void XHdcp22Rx_SetWriteMessageAvailable(XHdcp22_Rx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	None.
 *
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
@@ -928,7 +920,6 @@ void XHdcp22Rx_SetReadMessageComplete(XHdcp22_Rx *InstancePtr)
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param	Lc128Ptr is a pointer to an array.
 *
-* @return	None.
 *
 * @note		None.
 ******************************************************************************/
@@ -948,7 +939,6 @@ void XHdcp22Rx_LoadLc128(XHdcp22_Rx *InstancePtr, const u8 *Lc128Ptr)
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param	PublicCertPtr is a pointer to an array.
 *
-* @return	None.
 *
 * @note		None.
 ******************************************************************************/
@@ -968,7 +958,7 @@ void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr)
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param	PrivateKeyPtr is a pointer to an array.
 *
-* @return	- XST_SUCCESS if MMULT keys are calcualted correctly.
+* @return	- XST_SUCCESS if MMULT keys are calculated correctly.
 * 			- XST_FAILURE if MMULT keys are not calculated correctly.
 *
 * @note		None.
@@ -1048,7 +1038,6 @@ XTmrCtr* XHdcp22Rx_GetTimer(XHdcp22_Rx *InstancePtr)
 * @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param    TopologyPtr is a pointer to the repeater topology table.
 *
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1074,7 +1063,6 @@ void XHdcp22Rx_SetTopology(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_Topology *T
 * @param    ListSize is the number of Receiver IDs in the list. The
 *           list size cannot exceed 31 devices.
 *
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1095,8 +1083,6 @@ void XHdcp22Rx_SetTopologyReceiverIdList(XHdcp22_Rx *InstancePtr, const u8 *List
 * @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param    Field indicates what field of the topology structure to update.
 * @param    Value is the value assigned to the field of the topology structure.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1139,8 +1125,6 @@ void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyFiel
 * have been updated.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -2267,7 +2251,7 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 * interface ports of the HDCP Repeater to enter one of the following states:
 * Unconnected (State P0), Unauthenticated (State P1), Authenticated (State F5),
 * or ReceiverIdListAck (State F8). This state checks if the topology table
-* is available for upstream propogation based on the flag set in the function
+* is available for upstream propagation based on the flag set in the function
 * XHdcp22Rx_SetTopologyUpdate by the higher level repeater function.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
@@ -3769,7 +3753,6 @@ static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx *InstancePtr, 
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param	Verbose allows to add debug logging.
 *
-* @return	None.
 *
 * @note		None.
 ******************************************************************************/
@@ -3822,7 +3805,6 @@ u32 XHdcp22Rx_LogGetTimeUSecs(XHdcp22_Rx *InstancePtr)
 * @param	Data specifies the information that gets written into log
 *			buffer.
 *
-* @return	None.
 *
 * @note		None.
 ******************************************************************************/
@@ -3926,7 +3908,6 @@ XHdcp22_Rx_LogItem* XHdcp22Rx_LogRd(XHdcp22_Rx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	None.
 *
 * @note		None.
 ******************************************************************************/
@@ -4163,7 +4144,6 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return None.
 *
 * @note   None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 * @file xhdcp22_rx_sinit.c
 * @addtogroup hdcp22_rx Overview
 * @{
-* @details
 *
 * This file contains static initialization method for Xilinx HDCP 2.2 Receiver.
 *

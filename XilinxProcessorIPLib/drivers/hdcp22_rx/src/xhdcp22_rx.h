@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 * @file xhdcp22_rx.h
 * @addtogroup hdcp22_rx Overview
 * @{
-* @details
 *
 * This is the main header file for the Xilinx HDCP 2.2 Receiver device
 * driver. The HDCP 2.2 Receiver driver implements the authentication
@@ -25,7 +24,7 @@
 * The application needs to do the following steps to run the Receiver.
 * - Call XHdcp22Rx_LookupConfig using the device ID to find the
 *   core configuration instance.
-* - Call XHdcp22Rx_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Rx_CfgInitialize to initialize the device instance.
 * - Call XHdcp22Rx_SetCallback to set the pointers to the callback
 *   functions defined by the enumerated type XHdcp22_Rx_HandlerType.
 * - Call XHdcp22Rx_LoadPublicCert to load the DCP public certificate.
@@ -204,7 +203,7 @@ typedef enum {
 	XHDCP22_RX_LOG_EVT_NONE,          /** Log Event None */
 	XHDCP22_RX_LOG_EVT_INFO,          /** Log General Info Event */
 	XHDCP22_RX_LOG_EVT_INFO_STATE,    /** Log State Info Event */
-	XHDCP22_RX_LOG_EVT_INFO_MESSAGE,  /** Log Messsage Info Event */
+	XHDCP22_RX_LOG_EVT_INFO_MESSAGE,  /** Log Message Info Event */
 	XHDCP22_RX_LOG_EVT_DEBUG,         /** Log Debug Event */
 	XHDCP22_RX_LOG_EVT_ERROR,         /** Log Error Event */
 	XHDCP22_RX_LOG_EVT_USER,          /** User logging */
@@ -415,7 +414,7 @@ typedef struct {
 	u16 LogEvent;
 	/** Optional data */
 	u16 Data;
-	/** Timestamp on when event occured. Only used for time critical events */
+	/** Timestamp on when event occurred. Only used for time critical events */
 	u32 TimeStamp;
 } XHdcp22_Rx_LogItem;
 
@@ -460,9 +459,9 @@ typedef struct
 	u8  TimerReasonId;
 	/** Keep track of the start value of the timer. */
 	u32 TimerInitialTicks;
-	/** Counter for repeater topology upstream propogation */
+	/** Counter for repeater topology upstream propagation */
 	u32 SeqNumV;
-	/** Flag indicated that content stream management info messsage has been processed */
+	/** Flag indicated that content stream management info message has been processed */
 	u8  HasStreamManagementInfo;
 	/** State machine current state */
 	XHdcp22_Rx_StateType CurrentState;
@@ -518,7 +517,7 @@ typedef struct
 	    indicates presence of an HDCP2.1-compliant Device in the topology. */
 	u8 Hdcp2LegacyDeviceDownstream;
 	/** Flag used to indicate topology information. When set to one,
-	    indicates precense of an HDCP1.x-compliant device in the topology. */
+	    indicates presence of an HDCP1.x-compliant device in the topology. */
 	u8 Hdcp1DeviceDownstream;
 } XHdcp22_Rx_Topology;
 
