@@ -1,9 +1,9 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module for all the other modules. It
 contains APIs for small use cases to avoid rewriting of code for those
-generic requirements. It doesnt have any main() function and running
+generic requirements. It doesn't have any main() function and running
 this module independently is not intended.
 """
 
@@ -184,7 +184,7 @@ def copy_file(src: str, dest: str, follow_symlinks: bool = True, silent_discard:
         | src: source file path
         | dest: destination file path
         | follow_symlinks: maintain the symlink while copying
-        | silent_discard: Dont raise exception if the source file doesnt exist
+        | silent_discard: Dont raise exception if the source file doesn't exist
     """
     is_file(src, silent_discard)
     try:
@@ -252,13 +252,13 @@ def reset(path: str) -> None:
 
 def validate_if_not_exist(config_file: str, dir_type: str, dir_path: str) -> None:
     """
-    Raise valid assertion when a file doesnt exist
+    Raise valid assertion when a file doesn't exist
 
     Args:
         | config_file : File Path that needs to be checked
         | dir_type, dir_name: Being used for raising a meaningful assertion.
     """
-    assert is_file(config_file), f"{dir_type.title()} at {dir_path} doesnt exist. Create the {dir_type} first."
+    assert is_file(config_file), f"{dir_type.title()} at {dir_path} doesn't exist. Create the {dir_type} first."
 
 def validate_if_exist(config_file: str, dir_type: str, dir_path: str) -> None:
     """
@@ -321,7 +321,7 @@ def update_yaml(filepath: str, dir_type: str, key: str, data: Optional[dict], ac
     """
     Update the already created yaml file. Supports the add and remove option
     to add any new data or remove the existing data in the yaml. Raises assertion
-    if the yaml doesnt exist.
+    if the yaml doesn't exist.
 
     Args:
         | filepath: the yaml path
@@ -582,7 +582,7 @@ def get_high_precedence_path(repo_paths_list, file_type, *argv):
         if is_file(path) or is_dir(path):
             break
     if not path:
-        logger.error(f"Couldnt find the {file_type} in any of esw paths passed")
+        logger.error(f"Couldn't find the {file_type} in any of esw paths passed")
         sys.exit(1)
     return path
 
@@ -620,7 +620,7 @@ def find_compiler_path(compiler_name):
     else:
         command = "which"
         # When the workspace is copied from Windows, the CMake cache contains the windows
-        # compiler name which ends with .exe. 'which' command in linux doesnt recognize
+        # compiler name which ends with .exe. 'which' command in linux doesn't recognize
         # binaries ending with .exe as valid executables. Therefore, strip '.exe' from the compiler_name.
         if compiler_name.endswith(".exe"):
             logger.info("Detected Windows based compiler executable in Cache on a Linux based system")

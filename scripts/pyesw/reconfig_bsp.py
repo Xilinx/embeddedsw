@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 import argparse
@@ -35,7 +35,7 @@ def reconfig_bsp(args):
 
     """
     From 2024.2 release on wards cmake default generator moved to ninja as a part
-    of performance enhancment in case of old release workspace delete the build folder.
+    of performance enhancement in case of old release workspace delete the build folder.
     """
     is_ninja_build = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp", "build.ninja")
     if utils.is_file(is_ninja_build):
@@ -66,9 +66,9 @@ def reconfig_bsp(args):
     if bsp_domain_path != obj.domain_path or not utils.is_dir(build_metadata):
         domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
 
-        # Apply the Old software configuraiton
+        # Apply the Old software configuration
         cmake_cmd_append = ""
-        # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
+        # cmake syntax is using 'ON/OFF' option, 'True/False' is legacy entry.
         bool_match = {"true": "ON", "false": "OFF"}
         lib_list = list(domain_data["lib_config"].keys()) + [obj.proc, obj.os]
         bsp_lib_config = domain_data["lib_config"]

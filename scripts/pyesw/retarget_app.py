@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module updates the application meta-data app.yaml and CMakeLists.txt
@@ -101,7 +101,7 @@ def retarget_app(args):
 
             """
             From 2024.2 release on wards cmake default generator moved to ninja as a part
-            of performance enhancment in case of old release workspace update app CMakeLists.txt
+            of performance enhancement in case of old release workspace update app CMakeLists.txt
             to inline with ninja generator.
             """
             is_ninja_build = os.path.join(app_build_dir, "build.ninja")

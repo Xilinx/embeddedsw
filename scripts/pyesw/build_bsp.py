@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module builds archive files (.a) for the created bsp. These archive files
@@ -19,7 +19,7 @@ class BSP:
     inside all the cmake build area and builds the archive (.a) files for
     baremetal.
     Platform/BSP build configuration has 3 states default, reconfig and None.
-    After create bsp platfom cofiguration will be in default state, once platform
+    After create bsp platform configuration will be in default state, once platform
     build is triggered platform configuration will be moved to None state, During
     addlib or configlib  platform configuration will be moved to reconfig state so
     that cmake reconfiguration happens during platform build.

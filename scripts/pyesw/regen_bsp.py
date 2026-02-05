@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module re creates the bsp for a given domain and system device-tree.
@@ -99,10 +99,10 @@ class RegenBSP(BSP, Library):
         os_config = domain_data["os_config"]
         proc_config = domain_data["proc_config"]
 
-        # Apply the Old software configuraiton
+        # Apply the Old software configuration
         logger.debug("Applying previous BSP software configuration.")
         cmake_cmd_append = ""
-        # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
+        # cmake syntax is using 'ON/OFF' option, 'True/False' is legacy entry.
         bool_match = {"true": "ON", "false": "OFF"}
         for lib in self.lib_list:
             for key, value in self.bsp_lib_config[lib].items():

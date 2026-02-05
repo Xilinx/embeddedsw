@@ -587,7 +587,7 @@ def create_domain(args):
            drv_lib_dep.extend(list(schema["depends_libs"].keys()))
 
         if not drv_path:
-            logger.error(f"Couldnt find the src directory for {drv}. {drv_path} doesnt exist.")
+            logger.error(f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist.")
             sys.exit(1)
         cmake_drv_path_list += f"{drv_path};"
         lop_cmds.append([drvsrc, "module,baremetalconfig_xlnx", f"{obj.proc} {drv_srcdir}"])
@@ -599,7 +599,7 @@ def create_domain(args):
         if driver != "None":
             drv_path = obj.get_comp_dir(driver, obj.sdt_folder)
             if not drv_path:
-                logger.error(f"Couldnt find the src directory for {drv}. {drv_path} doesnt exist.")
+                logger.error(f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist.")
                 sys.exit(1)
             obj.drv_info[ip] = {'driver': driver,
                                 'ip_name': data[0],
@@ -610,7 +610,7 @@ def create_domain(args):
 
     """
     Create a dictionary that will contain the current status of the domain.
-    This data will later be used during bsp configuartion, bsp build and
+    This data will later be used during bsp configuration, bsp build and
     app creation stages.
     """
     data = {
@@ -838,7 +838,7 @@ endfunction(_my_hook_end_of_configure)
 
     '''
     There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
-    clang server doesnt recognise for Code Intellisense. To get over this
+    clang server doesn't recognise for Code Intellisense. To get over this
     "Unknown Argument" Error of clang, a .clangd file with below content is
     to be kept in parallel to compile_commands.json file.
     '''

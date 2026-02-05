@@ -1,10 +1,10 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module to get/set library related information
 inside the bsp. It helps in validating the library input, generating the
-library paramters database and adding/modifying the library when all the
-criteria are met. It doesnt have any main() function and running this
+library parameters database and adding/modifying the library when all the
+criteria are met. It doesn't have any main() function and running this
 module independently is not intended.
 """
 
@@ -204,7 +204,7 @@ class Library(Repo):
                     param_name = line_entries[line_index].split(":")[0]
                     # In cmake there are just two types of params: option and string.
                     param_type = line_entries[line_index].split(":")[1].split("=")[0]
-                    # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
+                    # cmake syntax is using 'ON/OFF' option, 'True/False' is legacy entry.
                     bool_match = {"ON": "true", "OFF": "false"}
                     param_opts = []
                     try:
@@ -355,7 +355,7 @@ class Library(Repo):
         lib_config = {}
         family = self.domain_data['family']
         if schema and schema.get("depends_libs", {}):
-            # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
+            # cmake syntax is using 'ON/OFF' option, 'True/False' is legacy entry.
             bool_match = {True: "ON", False: "OFF"}
             # If the passed template has any lib dependency, add those dependencies.
             for name, props in schema["depends_libs"].items():

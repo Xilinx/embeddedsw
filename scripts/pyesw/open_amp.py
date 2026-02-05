@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module enables utilities for OpenAMP and Libmetal. This includes
@@ -34,7 +34,7 @@ def open_amp_copy_lib_src(libdir, dstdir, lib):
 
     Args:
         libdir (str): location for library in embeddedsw for cmake info.
-        dstdir (str): destionation to copy lib sources to
+        dstdir (str): destination to copy lib sources to
 
     Returns:
         None

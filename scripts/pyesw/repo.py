@@ -1,9 +1,9 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module for all the other modules. It helps
 in validating the embeddedsw repo set in the environment and sets up the
-correct path for different components within embeddedsw. It doesnt have
+correct path for different components within embeddedsw. It doesn't have
 any main() function and running this module independently is not intended.
 """
 
@@ -72,13 +72,13 @@ class Repo:
                     if yaml_file_abs:
                         comp_dir = utils.get_dir_path(utils.get_dir_path(yaml_file_abs[0]))
                         return self.validate_comp_path(comp_dir, comp_name)
-            logger.error(f"Couldnt find the src directory for {comp_name}")
+            logger.error(f"Couldn't find the src directory for {comp_name}")
             sys.exit(1)
 
     def validate_comp_path(self, comp_dir, comp_name):
         assert utils.is_dir(
             comp_dir
-        ), f"{comp_dir} doesnt exist. Not able to fetch the dir for {comp_name}"
+        ), f"{comp_dir} doesn't exist. Not able to fetch the dir for {comp_name}"
         return comp_dir
 
 

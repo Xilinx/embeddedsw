@@ -1,10 +1,10 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module to validate required hardware
 present for a given component. It reads the component yaml dependencies
 and creates a lops file which calls the lopper validate assist.
-It doesnt have any main() function and running this module independently
+It doesn't have any main() function and running this module independently
 is not intended.
 """
 

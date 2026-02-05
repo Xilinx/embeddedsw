@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module facilitates the validation of a created BSP with respect to a
@@ -112,7 +112,7 @@ class Validation(BSP, Library):
 
     def validate_template_for_bsp(self):
         """
-        This fucntion validates the library dependency of the passed template
+        This function validates the library dependency of the passed template
         within the bsp. If the required libs are not available in the bsp, it
         throws the suitable assertion.
         """

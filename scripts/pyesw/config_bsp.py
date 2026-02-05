@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module configures the bsp as per the passed library and os related
@@ -20,7 +20,7 @@ logger = utils.get_logger(__name__)
 class Bsp_config(BSP, Library):
     """
     This class contains attributes and functions that help in configuring the
-    created bsp. This makes use of BSP and Library class attirbutes and
+    created bsp. This makes use of BSP and Library class attributes and
     functions to fetch the bsp confiration data and the supporting lib funcs.
     """
 
@@ -59,7 +59,7 @@ def configure_bsp(args):
             if not utils.is_dir(os.path.join(lib_path,"src")):
                 logger.error(f"""
                 Wrong inputs passed while adding the library.
-                {os.path.join(lib_path,"src")} doesnt exist..
+                {os.path.join(lib_path,"src")} doesn't exist..
                 Please pass the library name and path in
                 the below format
                     -al <lib_name>:<path to library>
@@ -306,21 +306,21 @@ def main(arguments=None):
         nargs='+',
         action="store",
         default=[],
-        help="Specify libaries that needs to be added if any",
+        help="Specify libraries that needs to be added if any",
     )
     group.add_argument(
         "-rl",
         "--rmlib",
         action="store",
         default="",
-        help="Specify libaries that needs to be removed if any",
+        help="Specify libraries that needs to be removed if any",
     )
     group.add_argument(
         "-st",
         "--set_property",
         nargs="*",
         action="store",
-        help="Specify libaries with the params that need to be configured",
+        help="Specify libraries with the params that need to be configured",
     )
     group.add_argument(
         "-sr",
