@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,7 +66,6 @@ void XDsi_InterruptEnable(void *InstancePtr, u32 Mask);
 * @param	InstancePtr is a pointer to the XDsiTxSs core instance that
 *		just interrupted.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -89,7 +88,6 @@ void XDsiTxSs_IntrHandler(void *InstancePtr)
 *
 * @param	InstancePtr is the XDsiTxSs instance to operate on
 *
-* @return	None
 *
 * @note		None.
 *
@@ -113,7 +111,6 @@ void XDsiTxSs_SetGlobalInterrupt(void *InstancePtr)
 * @param	InstancePtr is the XDsiTxSs instance to operate on
 * @param	Mask is the interrupt mask which need to be enabled in core
 *
-* @return	None
 *
 ****************************************************************************/
 void XDsiTxSs_InterruptEnable(void *InstancePtr, u32 Mask)
@@ -139,7 +136,7 @@ void XDsiTxSs_InterruptEnable(void *InstancePtr, u32 Mask)
 * XDSI_HANDLER_UNSUPPORT_DATATYPE	Un support data type detected
 * XDSI_HANDLER_PIXELDATA_UNDERRUN Byte	Stream FIFO starves for Pixel during
 *					 HACT transmission
-* XDSI_HANDLER_OTHERERROR  Any other type of interrupt has occured like
+* XDSI_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
 * 			Stream Line Buffer Full, Incorrect Lanes, etc
 * XDSI_HANDLER_CMDQ_FIFOFULL	Command queue FIFO Full
 *
@@ -147,7 +144,7 @@ void XDsiTxSs_InterruptEnable(void *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is the XDsi instance to operate on
 * @param 	HandlerType is the type of call back to be registered.
-* @param	CallbackFunc is the pointer to a call back funtion which
+* @param	CallbackFunc is the pointer to a call back function which
 *	 	is called when a particular event occurs.
 * @param 	CallbackRef is a void pointer to data to be referenced to
 *	 	by the CallbackFunc

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -139,7 +140,7 @@ volatile u32 *VdmaMM2SFrameBuffer0Reg = (u32 *)(VDMA_BASEADDR + 0x5C);
 *
 * This function wait until the DMA channel halts
 *
-* @param	VdmaChannel specifes VdmaChannel is MM2S or S2MM
+* @param	VdmaChannel specifies VdmaChannel is MM2S or S2MM
 *.@param	VdmaBaseAddr VDMA base address
 *
 * @return
@@ -207,7 +208,7 @@ void ResetVDMA()
 *
 * This function to setup Horizontal size and stride
 *
-* @param	VdmaChannel specifes VdmaChannel is MM2S or S2MM
+* @param	VdmaChannel specifies VdmaChannel is MM2S or S2MM
 *
 * @return	None
 *
@@ -251,7 +252,7 @@ void ConfigureChannel(u32 VdmaChannel)
 *
 * This function to setup the VDMA Control Register
 *
-* @param	VdmaChannel specifes VdmaChannel is MM2S or S2MM
+* @param	VdmaChannel specifies VdmaChannel is MM2S or S2MM
 * @param	FrameCount specifies number of frames to transfer
 *
 * @return	None
@@ -276,8 +277,8 @@ void SetupVdmaCR(s32 VdmaChannel, s32 FrameCount)
 *
 * This function to start mm2s or s2mm VdmaChannel - write the vertical size
 *
-* @param	VdmaChannel specifes VdmaChannel is MM2S or S2MM
-* @param	VerticalSize specifes No of lines
+* @param	VdmaChannel specifies VdmaChannel is MM2S or S2MM
+* @param	VerticalSize specifies No of lines
 *
 * @return	None
 *

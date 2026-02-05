@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -233,7 +233,6 @@ int XDsiTxSs_Activate(XDsiTxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return	None
 *
 * @note		None.
 *
@@ -258,7 +257,6 @@ void XDsiTxSs_Reset(XDsiTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the DSI TX Subsystem instance.
 *
-* @return	None
 *
 * @note		None.
 *
@@ -351,7 +349,6 @@ int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr)
 *
 * @param	InstancePtr is the XDsiTxSs instance to operate on
 *
-* @return	None
 *
 * @note		None.
 *
@@ -369,8 +366,6 @@ void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr)
 * This function will get the information from the GUI settings
 *
 * @param	InstancePtr is the XDsi instance to operate on
-*
-* @return 	None
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -66,9 +66,9 @@ proc generate {drv_handle} {
 	cd $orig_dir
 }
 
-# The below procedure will enumerate hierachical properities and
+# The below procedure will enumerate hierarchical properties and
 # add DPHY presence, Device Id values, Base address to the
-# *_g.c file. It also populate the strcuture in *_g.c file
+# *_g.c file. It also populate the structure in *_g.c file
 
 proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set args [::hsi::utils::get_exact_arg_list $args]
