@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -54,7 +54,6 @@
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
@@ -122,7 +121,6 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
@@ -185,7 +183,6 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
@@ -246,7 +243,6 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
@@ -275,6 +271,58 @@ s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr)
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to perform key deletion from the
+ * 		vault for the requested subsystem.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ * 				client input parameters.
+ * @param	KeyId		Composite key identifier containing VaultId (bits [23:16]),
+ *				KeyType (bits [31:24]), and KeyIndex (bits [15:0]).
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmDeleteKey(XAsu_ClientParams *ClientParamPtr, u32 KeyId)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate KeyId is not zero. */
+	if (KeyId == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_DELETE_KEY_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, &KeyId, XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, Header);
 
 END:
 	return Status;

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -50,6 +50,7 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr);
+s32 XAsu_KmDeleteKey(XAsu_ClientParams *ClientParamPtr, u32 KeyId);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

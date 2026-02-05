@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -176,7 +176,7 @@ u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase)
 	/** Get vault base address from vault info. */
 	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
 
-	if (KeyIndex >= KeyVaultPtr->SubVaultHeaders[KeyType].Capacity) {
+	if (KeyIndex > KeyVaultPtr->SubVaultHeaders[KeyType].Capacity) {
 		goto END;
 	}
 
@@ -319,26 +319,199 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function deletes the key vault and its sub-vault headers.
+ * @brief	This function deletes the key vault and compacts memory by shifting subsequent
+ *		vaults to fill the gap.
  *
- * @param	ParamsPtr	Pointer to the XAsu_KeyManagerSubVaultParams.
  * @param	SubsystemId	Subsystem ID for which the vault is being deleted.
  *
  * @return
  * 	- XASUFW_SUCCESS, if key vault deletion is successful.
+ * 	- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if vault for subsystem is not found.
+ * 	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails during compaction.
+ * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroization fails.
  *
  *************************************************************************************************/
-s32 XKeyManager_DeleteKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId)
+s32 XKeyManager_DeleteKeyVault(u32 SubsystemId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 VaultId = 0U;
+	u8 Index = 0U;
+	u32 DelVaultSize = 0U;
+	u32 *DelVaultBasePtr = NULL;
+	u8 *ResidualDataPtr = NULL;
+	u8 *ShiftSrcPtr = NULL;
+	u32 ShiftSize = 0U;
+	u8 *VaultBaseAddr = NULL;
 
-	(void)ParamsPtr;
-	(void)SubsystemId;
+	/** Find the vault ID for the given subsystem. */
+	Status = XKeyManager_GetVaultId(SubsystemId, &VaultId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Store vault information before deletion. */
+	DelVaultSize = VaultManager.VaultInfo[VaultId].VaultSize;
+	DelVaultBasePtr = VaultManager.VaultInfo[VaultId].VaultBasePtr;
+
+	/** Calculate vault memory region boundaries. */
+	VaultBaseAddr = (u8 *)(XAsufw_ReadReg(XASU_RTCA_KEYVAULT_BASEADDR_LOW));
+
+	/**
+	 * Compact memory with a single contiguous copy.
+	 * Shift all data after the target vault down to fill the gap.
+	 */
+	ShiftSrcPtr = (u8 *)DelVaultBasePtr + DelVaultSize;
+	ShiftSize = (u32)((VaultBaseAddr + VaultManager.TotalVaultSize - VaultManager.RemainingVaultSize) -
+			ShiftSrcPtr);
+
+	if (ShiftSize > 0U) {
+		/** Copy all subsequent vault data in one operation. */
+		Status = Xil_SMemCpy(DelVaultBasePtr, ShiftSize, ShiftSrcPtr, ShiftSize, ShiftSize);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+
+		/** Update base pointers for all vaults that were shifted. */
+		for (Index = 0U; Index < XKEYMANAGER_MAX_VAULTS; Index++) {
+			if ((Index != VaultId) && (VaultManager.VaultInfo[Index].VaultSize != 0U)) {
+				if (VaultManager.VaultInfo[Index].VaultBasePtr > DelVaultBasePtr) {
+					VaultManager.VaultInfo[Index].VaultBasePtr =
+						(u32 *)((u8 *)VaultManager.VaultInfo[Index].VaultBasePtr -
+							DelVaultSize);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Securely zeroize the freed region at the end to clear residual data.
+	 * After compaction, freed space is at: (used area end) for DelVaultSize bytes.
+	 */
+	ResidualDataPtr = VaultBaseAddr + VaultManager.TotalVaultSize - VaultManager.RemainingVaultSize -
+			DelVaultSize;
+
+	/** Return the vault size back to available space. */
+	VaultManager.RemainingVaultSize += DelVaultSize;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SecureZeroize(ResidualDataPtr, DelVaultSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+	}
+
+	/** Clear the vault's info entry. */
+	if (Xil_SMemSet(&VaultManager.VaultInfo[VaultId], sizeof(XKeyManager_VaultInfo),
+				0U, sizeof(XKeyManager_VaultInfo)) != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+	}
+
+	if (Status != XASUFW_SUCCESS) {
+		XFIH_GOTO(END);
+	}
 
 	Status = XASUFW_SUCCESS;
 
-	/*TODO: To implement key vault deletion.*/
+END:
+	return Status;
+}
 
+/*************************************************************************************************/
+/**
+ * @brief	This function deletes a single key from the vault. Only the vault owner can
+ *		delete keys from the vault.
+ *
+ * @param	KeyId		Composite key identifier containing VaultId (bits [23:16]),
+ *				KeyType (bits [31:24]), and KeyIndex (bits [15:0]).
+ * @param	SubSystemId	Subsystem ID requesting the deletion (must be vault owner).
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if key deletion is successful.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if input parameters are invalid.
+ * 	- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if vault is not found.
+ * 	- XASUFW_KEYMANAGER_ACCESS_DENIED, if subsystem is not the vault owner.
+ * 	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if key is not found or already deleted.
+ * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroization fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XKeyManager *KeyVaultPtr = NULL;
+	u32 VaultId = XKEYMANAGER_EXTRACT_VAULTID(KeyId);
+	u32 KeyType = XKEYMANAGER_EXTRACT_KEYTYPE(KeyId);
+	u32 KeyIndex = XKEYMANAGER_EXTRACT_KEYINDEX(KeyId);
+	u32 KeyObjectSize = 0U;
+	u8 *KeyObjectPtr = NULL;
+	XKeyManager_KeyMetadata *MetadataPtr = NULL;
+
+	/** Validate composite KeyId and extracted components. */
+	if ((KeyId == 0U) || (VaultId >= XKEYMANAGER_MAX_VAULTS) ||
+	    (KeyType >= XKEYMANAGER_MAX_SUB_VAULTS) || (KeyIndex == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate vault exists. */
+	if (VaultManager.VaultInfo[VaultId].VaultSize == 0U) {
+		Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+		goto END;
+	}
+
+	/** Check ownership - only vault owner can delete keys. */
+	if (VaultManager.VaultInfo[VaultId].SubSystemId != SubSystemId) {
+		Status = XASUFW_KEYMANAGER_ACCESS_DENIED;
+		goto END;
+	}
+
+	/** Get vault base address. */
+	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
+
+	/** Validate key index is within sub-vault capacity. */
+	if (KeyIndex > KeyVaultPtr->SubVaultHeaders[KeyType].Capacity) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get size of key object for this key type. */
+	KeyObjectSize = XKeyManager_KeyObjectSizeLookup[KeyType];
+	if (KeyObjectSize == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_KEY_TYPE;
+		goto END;
+	}
+
+	/** Calculate pointer to key object within sub-vault. */
+	KeyObjectPtr = (u8 *)KeyVaultPtr + KeyVaultPtr->SubVaultHeaders[KeyType].Offset +
+			(KeyObjectSize * (KeyIndex - XKEYMANAGER_KEY_INDEX_OFFSET));
+
+	/** Check if key exists (KeyId in metadata should match the key index). */
+	MetadataPtr = (XKeyManager_KeyMetadata *)KeyObjectPtr;
+	if (MetadataPtr->KeyId != KeyIndex) {
+		Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
+		goto END;
+	}
+
+	/** Update sub-vault header counters based on key state. */
+	if (MetadataPtr->UsageCount > 0U) {
+		/** Key is active (has remaining uses or is non-depleting). */
+		KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys--;
+	} else {
+		/** Key was deactivated (expired). */
+		KeyVaultPtr->SubVaultHeaders[KeyType].Deactivatedkeys--;
+	}
+
+	/** Securely zeroize the entire key object (metadata + content). */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SecureZeroize(KeyObjectPtr, KeyObjectSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		XFIH_GOTO(END);
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
 	return Status;
 }
 
@@ -625,6 +798,9 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 	KeyMetadataPtr->VaultId = VaultId;
 	KeyMetadataPtr->KeyId = KeyId;
 
+	/** Increment active keys counter in sub-vault header. */
+	KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys++;
+
 	/** Generate composite KeyId from components which consists of Key Index, VaultId and Keytype. */
 	*KeyIdPtr = (u32)KeyId |
 		((u32)VaultId << XKEYMANAGER_VAULT_ID_SHIFT_VAL) |
@@ -684,7 +860,6 @@ END:
  * @param	SubVaultPtr	Pointer to the sub-vault containing the key.
  * @param	KeyUseCase	Requested use case for the key.
  * @param	VaultId		Identifier of the vault containing the key.
- * @param	KeyType		Type of key being validated.
  *
  * @return
  * 	- XASUFW_SUCCESS, if key is valid and accessible for the requested use case.
@@ -699,6 +874,7 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 Key
 	u8 Index = 0U;
 	XKeyManager_KeyMetadata *MetaDataPtr = (XKeyManager_KeyMetadata *)SubVaultPtr;
 	u8 AllowedAccessRights = 0U;
+	XKeyManager *KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
 
 	/** Check for access rights. */
 	if (VaultManager.VaultInfo[VaultId].SubSystemId != SubSystemId) {
@@ -730,6 +906,12 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 Key
 			goto END;
 		}
 		MetaDataPtr->UsageCount -= XKEYMANAGER_USAGE_COUNT_DEC_VALUE;
+
+		/** If usage count reaches zero, update counters (key transitions to deactivated). */
+		if (MetaDataPtr->UsageCount == 0U) {
+			KeyVaultPtr->SubVaultHeaders[MetaDataPtr->KeyType].ActiveKeys--;
+			KeyVaultPtr->SubVaultHeaders[MetaDataPtr->KeyType].Deactivatedkeys++;
+		}
 	}
 
 	Status = XASUFW_SUCCESS;

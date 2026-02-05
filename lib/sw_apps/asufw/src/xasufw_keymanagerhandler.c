@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -36,7 +36,7 @@
 #include "xasufw_util.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (2U) /**< Offset to get key type from CmdId */
+#define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
 
 /************************************** Type Definitions *****************************************/
 
@@ -46,6 +46,7 @@
 static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
@@ -68,6 +69,7 @@ s32 XAsufw_KeyManagerInit(void)
 	static const XAsufw_ModuleCmd XAsufw_KeyManagerCmds[] = {
 		[XASU_KM_CREATE_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerCreateKeyVault),
 		[XASU_KM_DELETE_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerDeleteKeyVault),
+		[XASU_KM_DELETE_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerDeleteKey),
 		[XASU_KM_GEN_AES_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerGenKeyIv),
 		[XASU_KM_GEN_AES_IV_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerGenKeyIv),
 	};
@@ -76,6 +78,7 @@ s32 XAsufw_KeyManagerInit(void)
 	static XAsufw_ResourcesRequired XAsufw_KeyManagerResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyManagerCmds)] = {
 		[XASU_KM_CREATE_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
 		[XASU_KM_DELETE_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
+		[XASU_KM_DELETE_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
 		[XASU_KM_GEN_AES_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_KM_GEN_AES_IV_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
@@ -86,6 +89,7 @@ s32 XAsufw_KeyManagerInit(void)
 	static XAsufw_AccessPerm_t XAsufw_KeyManagerAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyManagerCmds)] = {
 		[XASU_KM_CREATE_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_CREATE_KEYVAULT_CMD_ID),
 		[XASU_KM_DELETE_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_DELETE_KEYVAULT_CMD_ID),
+		[XASU_KM_DELETE_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_DELETE_KEY_CMD_ID),
 		[XASU_KM_GEN_AES_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_AES_KEY_CMD_ID),
 		[XASU_KM_GEN_AES_IV_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_AES_IV_CMD_ID),
 	};
@@ -211,9 +215,10 @@ END:
 static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsu_KeyManagerSubVaultParams *Cmd = (const XAsu_KeyManagerSubVaultParams *)ReqBuf->Arg;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	(void)ReqBuf;
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
@@ -223,7 +228,7 @@ static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Delete the key vault owned by the requesting subsystem. */
-	Status = XKeyManager_DeleteKeyVault(Cmd, SubsystemId);
+	Status = XKeyManager_DeleteKeyVault(SubsystemId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_VAULT_DELETE_ERROR);
 	}
@@ -286,6 +291,48 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for single key deletion operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if key deletion operation is successful.
+ * 	- XASUFW_KEYMANAGER_KEY_DELETE_ERROR, if key deletion operation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 KeyId = *(const u32 *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	/** Delete the key from the vault owned by the requesting subsystem. */
+	Status = XKeyManager_DeleteKey(KeyId, SubsystemId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_DELETE_ERROR);
+	}
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
 
 	return Status;
 }

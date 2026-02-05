@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -43,8 +43,9 @@ extern "C" {
 /* KeyManager module command IDs */
 #define XASU_KM_CREATE_KEYVAULT_CMD_ID		(0U) /**< Command ID for key vault creation */
 #define XASU_KM_DELETE_KEYVAULT_CMD_ID		(1U) /**< Command ID for key vault deletion */
-#define XASU_KM_GEN_AES_KEY_CMD_ID		(2U) /**< Command ID for AES key generation */
-#define XASU_KM_GEN_AES_IV_CMD_ID		(3U) /**< Command ID for AES IV generation */
+#define XASU_KM_DELETE_KEY_CMD_ID		(2U) /**< Command ID for key deletion */
+#define XASU_KM_GEN_AES_KEY_CMD_ID		(3U) /**< Command ID for AES key generation */
+#define XASU_KM_GEN_AES_IV_CMD_ID		(4U) /**< Command ID for AES IV generation */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
 

@@ -636,6 +636,8 @@ enum {
 	XASUFW_AES_ERR_CTX_RESTORE_GLITCH, /**< 0x1BBU - Error when AES context restore did not
 						complete, possibly due to glitch or control flow
 						disruption. */
+	XASUFW_KEYMANAGER_KEY_NOT_FOUND, /**< 0x1BCU - Error when specified key is not found in vault. */
+	XASUFW_KEYMANAGER_KEY_DELETE_ERROR, /**< 0x1BDU - Error when key deletion fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

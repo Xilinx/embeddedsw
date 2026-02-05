@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -145,7 +145,7 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 s32 XKeyManager_CfgInitialize(void);
 s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId);
-s32 XKeyManager_DeleteKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId);
+s32 XKeyManager_DeleteKeyVault(u32 SubsystemId);
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
 			XKeyManager_SubVaultType KeyType);
