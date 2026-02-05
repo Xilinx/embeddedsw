@@ -28,6 +28,16 @@ if(XILPLMI_sem_override_dbg_lvl)
   set(PLM_SEM_PRINT_OVERRIDE " ")
 endif()
 
+if(("${CMAKE_MACHINE}" STREQUAL "Versal") AND (NOT(("Versal_2VP" IN_LIST VARIANT) OR ("Versal_2VP_P" IN_LIST VARIANT))))
+  option(XILPLMI_macronix_ospi_ddr_en "Enables or Disables Macronix OSPI DDR mode for Versal" OFF)
+  if(XILPLMI_macronix_ospi_ddr_en)
+    set(PLM_MACRONIX_OSPI_DDR " ")
+  endif()
+else()
+  set(PLM_MACRONIX_OSPI_DDR " ")
+endif()
+
+
 if("${XILPLMI_plm_dbg_lvl}" STREQUAL "level0")
   set(PLM_PRINT_LEVEL0 " ")
 elseif("${XILPLMI_plm_dbg_lvl}" STREQUAL "level1")

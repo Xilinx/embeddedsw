@@ -138,7 +138,8 @@
 *       vss  08/20/2025 Marked metaheader authentication failure error code as reserved.
 *       pre  08/23/2025 Added error code for TPM initialization failure
 *       obs  10/07/2025 Added XLOADER_ERR_INVALID_CPUID error code
-* 2.4  	abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
+* 2.4   abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
+*       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *
 * </pre>
 *
@@ -663,6 +664,8 @@ typedef enum {
 	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x379 - Error, failed to configure
 						 the IDAC controller in OSPI */
 	XLOADER_ERR_INVALID_CPUID, /**< 0x37A - Invalid CPU ID in partition header */
+	XLOADER_ERR_OSPI_DUMMY_CFG,	/**< 0x37B - Error when OSPI Macronix
+						 dummy cycle configuration fails */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

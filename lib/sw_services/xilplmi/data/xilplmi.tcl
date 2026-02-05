@@ -37,6 +37,7 @@
 # 2.3   obs  08/21/2025 Added configurable options for address range validation
 #                      and redundant call verification
 # 2.4   rmv  01/30/2026 Refactor OCP library
+#       aa   02/04/2026 Added configurable option for Macronix OSPI DDR support
 #
 ##############################################################################
 
@@ -294,8 +295,16 @@ proc xgen_opts_file {libhandle} {
 	set sem_print_flag [common::get_property CONFIG.sem_override_dbg_lvl $libhandle]
 	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_MEM_SCAN]
 	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_NPI_SCAN]
+
+	set macronix_ospi_ddr_en [common::get_property CONFIG.plm_macronix_ospi_ddr_en $libhandle]
+	if {($macronix_ospi_ddr_en == true) || ($proc_type != "psv_pmc")} {
+		puts $file_handle "\n/* Macronix OSPI DDR support enable */"
+		puts $file_handle "#define PLM_MACRONIX_OSPI_DDR"
+	}
+
 	puts $file_handle "\n/* Debug level option */"
-	if {((($sem_cfrscan_en > 0) || ($sem_npiscan_en > 0)) && ($sem_print_flag == true))} {
+	if {((($sem_cfrscan_en > 0) || ($sem_npiscan_en > 0)) && ($sem_print_flag == true)) || \
+	    ($proc_type == "psv_pmc" && $macronix_ospi_ddr_en == true)} {
 		puts "Level_0 is selected"
 		puts $file_handle "#define PLM_PRINT"
 	} elseif {$value == "level0"} {

@@ -65,6 +65,7 @@
 *       sk   09/26/2025 Added error code for UFS speed change
 * 2.4   obs  12/31/2025 Added XLOADER_ERR_INVALID_CPUID error code
 * 2.4  	abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
+*       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *
 * </pre>
 *
@@ -596,6 +597,8 @@ typedef enum {
 	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x379 - Error, failed to configure
 						 the IDAC controller in OSPI */
 	XLOADER_ERR_INVALID_CPUID, /**< 0x37A - Invalid CPU ID in partition header */
+	XLOADER_ERR_OSPI_DUMMY_CFG,	/**< 0x37B - Error when OSPI Macronix
+						 dummy cycle configuration fails */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */

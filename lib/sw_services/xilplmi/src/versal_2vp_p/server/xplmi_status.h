@@ -20,6 +20,7 @@
 * 2.3   sd  10/13/25 Initial release
 * 2.4  	abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
 *       gnr  01/06/26 Added XLOADER_ERR_INVALID_CPUID error code
+*       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *
 * </pre>
 *
@@ -502,6 +503,8 @@ typedef enum {
 	XLOADER_ERR_OSPI_IDAC_EN,	/**< 0x379 - Error, failed to configure
 							 the IDAC controller in OSPI */
 	XLOADER_ERR_INVALID_CPUID,	/**< 0x37A - Invalid CPU ID in partition header */
+	XLOADER_ERR_OSPI_DUMMY_CFG,	/**< 0x37B - Error when OSPI Macronix
+						 dummy cycle configuration fails */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

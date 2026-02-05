@@ -36,8 +36,9 @@
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *       sk   03/15/2024 Added structure for flash info
 *       prt  12/30/2024 Added macro to support ISSI 256MB flash part
-*		prt	 04/02/2025 Added support for Infineon OSPI flash parts
-* 2.4	abh  10/09/2025 Added macros to be MISRA-C compliant
+*       prt  04/02/2025 Added support for Infineon OSPI flash parts
+* 2.4   abh  10/09/2025 Added macros to be MISRA-C compliant
+*       aa   02/03/2026 Added Macro for Macronix flash
 *
 * </pre>
 *
@@ -82,6 +83,7 @@ extern "C" {
 #define CONFIG_REG_5_DIE_2_ADDR_SPN	(0x08800006U)
 #define CONFIG_REG_5_DIE_3_ADDR_SPN	(0x10800006U)
 #define CONFIG_REG_5_DIE_4_ADDR_SPN	(0x18800006U)
+#define CONFIG_REG_2_ADDR_MX		(0x00000300U)
 
 /*
  * Identification of Flash
