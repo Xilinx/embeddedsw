@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -452,7 +452,6 @@ u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 *
 * @param 	InstancePtr is the XDphy instance to operate on.
 *
-* @return 	None
 *
 * @note		None.
 *****************************************************************************/
@@ -500,7 +499,6 @@ void XDphy_Reset(XDphy *InstancePtr)
 * @param 	DataLane represents which Data Lane to act upon
 * @param 	Mask contains information about which bits to reset
 *
-* @return 	None
 *
 * @note     	None.
 *****************************************************************************/
@@ -527,7 +525,7 @@ void XDphy_ClearDataLane(XDphy *InstancePtr, u8 DataLane, u32 Mask)
 *
 * @param 	InstancePtr is the XDphy instance to operate on.
 *
-* @return 	Bitmask containing which of the events have occured along with
+* @return 	Bitmask containing which of the events have occurred along with
 * 		the mode of the Clock Lane in DPhy
 *
 * @note 	None.
@@ -573,7 +571,7 @@ u32 XDphy_GetClkLaneMode(XDphy *InstancePtr)
 * @param	InstancePtr is the XDphy instance to operate on.
 * @param	DataLane for which the status is sought for.
 *
-* @return	Bitmask containing which of the events have occured along with
+* @return	Bitmask containing which of the events have occurred along with
 * 		the mode of the Data Lane in DPhy
 *
 * @note		None.
@@ -631,7 +629,7 @@ u8 XDphy_GetDLCalibStatus(XDphy *InstancePtr, u8 DataLane)
 
 /****************************************************************************/
 /**
-* This is used to get specfic Lane mode information about a Data Lane.
+* This is used to get specific Lane mode information about a Data Lane.
 *
 * @param	InstancePtr is the XDphy instance to operate on.
 * @param	DataLane for which the mode info is requested.
@@ -690,7 +688,6 @@ u16 XDphy_GetPacketCount(XDphy *InstancePtr, u8 DataLane)
 * @param	InstancePtr is the XDphy instance to operate on.
 * @param	Flag denoting whether to enable or disable the DPhy core
 *
-* @return	None.
 *
 * @note 	None.
 *****************************************************************************/
