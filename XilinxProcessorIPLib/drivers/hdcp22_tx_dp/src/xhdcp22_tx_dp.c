@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_tx_dp.c
 * @addtogroup hdcp22_tx_dp Overview
 * @{
-* @details
 *
 * This file contains the main implementation of the Xilinx HDCP 2.2 Transmitter
 * device driver.
@@ -63,8 +62,6 @@ typedef XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateFuncType(XHdcp22_Tx_Dp *InstanceP
 *
 * @param  InstancePtr is a pointer to the XHdcp22_Tx_Dp core instance.
 *
-* @return None.
-*
 * @note   None.
 *
 */
@@ -105,7 +102,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA9_1(XHdcp22_Tx_Dp *InstancePtr);
 
 /* State transition handling functions are used to do initial code before
 * entering a new state. This is used in cases that a state is executed
-* repeatedly due to the polling mechanism. A state transisition ensures in
+* repeatedly due to the polling mechanism. A state transition ensures in
 * this case that the code is executed only once during authentication.
 */
 static void XHdcp22Tx_A1A0(XHdcp22_Tx_Dp *InstancePtr);
@@ -467,8 +464,6 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx_Dp *InstancePtr)
 * @param	InstancePtr is a pointer to the XHdcp22_Tx_Dp core instance.
 * @param	Lc128Ptr is a pointer to an array.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -799,8 +794,6 @@ u32 XHdcp22Tx_Dp_GetTopologyField(XHdcp22_Tx_Dp *InstancePtr, XHdcp22_Tx_Dp_Topo
 * @param  InstancePtr is a pointer to the XHdcp22_Tx_Dp instance.
 * @param  StreamType specifies the content stream type.
 *
-* @return None
-*
 ******************************************************************************/
 void XHdcp22Tx_Dp_SetContentStreamType(XHdcp22_Tx_Dp *InstancePtr, XHdcp22_Tx_Dp_ContentStreamType StreamType)
 {
@@ -1107,9 +1100,6 @@ int XHdcp22Tx_Dp_DisableEncryption(XHdcp22_Tx_Dp *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
-* @return - XST_SUCCESS if authenticated is started successfully.
-*         - XST_FAIL if the state machine is disabled.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -1126,9 +1116,6 @@ void XHdcp22Tx_Dp_EnableBlank(XHdcp22_Tx_Dp *InstancePtr)
 * This function disables the blank output for the cipher.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
-*
-* @return - XST_SUCCESS if authenticated is started successfully.
-*         - XST_FAIL if the state machine is disabled.
 *
 * @note   None.
 *
@@ -1167,8 +1154,6 @@ u8 XHdcp22Tx_Dp_IsRepeater(XHdcp22_Tx_Dp *InstancePtr)
 * @param  InstancePtr is a pointer to the XHdcp22_Tx_Dp instance.
 * @param  Set is TRUE to enable the repeater mode and FALSE to disable.
 *
-* @return None.
-*
 ******************************************************************************/
 void XHdcp22Tx_Dp_SetRepeater(XHdcp22_Tx_Dp *InstancePtr, u8 Set)
 {
@@ -1199,7 +1184,6 @@ u8 XHdcp22Tx_Dp_IsEnabled (XHdcp22_Tx_Dp *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function returns the current encryption enabled state.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
@@ -1436,7 +1420,7 @@ XTmrCtr* XHdcp22Tx_Dp_GetTimer(XHdcp22_Tx_Dp *InstancePtr)
 *
 * This function is the implementation of the HDCP transmit H0 state.
 * According protocol this is the reset state that is entered initially.
-* As soon as hot plug is detected and Rx is available, a transisition to state h1 is
+* As soon as hot plug is detected and Rx is available, a transition to state h1 is
 * performed. Since hotplug detect is controlled by the user,
 * the next state is always state H1.
 *
@@ -1458,7 +1442,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateH0(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function is the implementation of the HDCP transmit H1 state.
-* As soon as hot plug is detected and Rx is available, a transisition to
+* As soon as hot plug is detected and Rx is available, a transition to
 * this state is performed. Hotplug detection if controlled by the user of this core.
 * This means that this state is practically the entry state.
 *
@@ -1669,7 +1653,7 @@ XHdcp22_Tx_Dp_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx_Dp *InstancePtr)
 
 	/* SRM and revocation check are only performed by the top-level HDCP transmitter */
 	if (InstancePtr->Config.Mode == XHDCP22_TX_TRANSMITTER) {
-		/* Check to see wether there is a valid SRM loaded */
+		/* Check to see whether there is a valid SRM loaded */
 		if (InstancePtr->Info.IsRevocationListValid == FALSE) {
 			/* No valid revocation list loaded. According to
 			 * the HDCP spec, authentication has to be aborted */
@@ -1677,7 +1661,7 @@ XHdcp22_Tx_Dp_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx_Dp *InstancePtr)
 			return XHDCP22_TX_STATE_A0;
 		}
 
-		/* Check to see wether the Receiver ID is in the revocation list */
+		/* Check to see whether the Receiver ID is in the revocation list */
 		if (XHdcp22Tx_Dp_IsDeviceRevoked(InstancePtr, MsgPtr->Message.AKESendCert.CertRx.ReceiverId)) {
 			XHdcp22Tx_Dp_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 				XHDCP22_TX_LOG_DBG_DEVICE_IS_REVOKED);
@@ -1696,7 +1680,7 @@ XHdcp22_Tx_Dp_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx_Dp *InstancePtr)
 		XHDCP22_TX_RCVID_SIZE);
 	InstancePtr->Topology.DeviceCnt = 1;
 
-	/* Check to see wether the Receiver is an HDCP Repeater */
+	/* Check to see whether the Receiver is an HDCP Repeater */
 	if (MsgPtr->Message.AKESendCert.RxCaps[2] & 0x1) { /* big endian! */
 		InstancePtr->Info.IsReceiverRepeater = TRUE;
 	}
@@ -2164,7 +2148,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA3(XHdcp22_Tx_Dp *InstancePtr)
 	XHdcp22Tx_Dp_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 	                XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE);
 
-	/* Write encrypted sesssion key */
+	/* Write encrypted session key */
 	Result = XHdcp22Tx_WriteSkeSendEks(InstancePtr, EdkeyKs, Riv);
 
 	if (Result != XST_SUCCESS) {
@@ -2353,7 +2337,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA5(XHdcp22_Tx_Dp *InstancePtr)
 *
 * This function executes the states A6, A7 and A8 of the HDCP2.2 TX protocol.
 * Within these states the HDCP2.2 TX receives and verifies the receiver ID list.
-* The HDCP2.2 TX is required to send a respons within 2 seconds after the
+* The HDCP2.2 TX is required to send a response within 2 seconds after the
 * HDCP2.2 repeater has made the receiver ID list available.
 * These states have been grouped in order to guarantee that the HDCP2.2 TX
 * responds as fast as it can.
@@ -2451,7 +2435,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx_Dp *InstancePt
 
 	/* Compare VPrime with the most significant 128-bits of V */
 	if (memcmp(MsgPtr->Message.RepeatAuthSendRecvIDList.VPrime, V, XHDCP22_TX_V_PRIME_SIZE) != 0) {
-		/* Missmatch V MSB and VPrime. Go to state A0 */
+		/* Mismatch V MSB and VPrime. Go to state A0 */
 		XHdcp22Tx_Dp_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_COMPARE_V_FAIL);
 		return XHDCP22_TX_STATE_A0;
 	}
@@ -2465,7 +2449,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx_Dp *InstancePt
 
 		/* SRM and revocation check are only performed by the top-level HDCP transmitter */
 		if (InstancePtr->Config.Mode == XHDCP22_TX_TRANSMITTER) {
-			/* Check to see wether the receiver ID is revoked */
+			/* Check to see whether the receiver ID is revoked */
 			if (XHdcp22Tx_Dp_IsDeviceRevoked(InstancePtr,
 				MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs[i])) {
 				InstancePtr->Info.IsDeviceRevoked = TRUE;
@@ -2688,12 +2672,12 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA9_1(XHdcp22_Tx_Dp *InstancePtr)
 	}
 
 	/* Verify the received MPrime */
-	/* We've allready calculated and stored the expected value in the
+	/* We've already calculated and stored the expected value in the
 	 * XHdcp22Tx_WriteRepeaterAuth_Stream_Manage function */
 	/* Compare MPrime with M */
 	if (memcmp(MsgPtr->Message.RepeatAuthStreamReady.MPrime, InstancePtr->Info.M,
 		XHDCP22_TX_M_PRIME_SIZE) != 0) {
-		/* Missmatch M and MPrime. Go to state A9 for a retry */
+		/* Mismatch M and MPrime. Go to state A9 for a retry */
 		InstancePtr->Info.ContentStreamManageFailed = TRUE;
 		return XHDCP22_TX_STATE_A9;
 	}
@@ -2713,7 +2697,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA9_1(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function executes on transition from state A1 or one of its sub states
-* to A0, which means that an error in authentication has occured.
+* to A0, which means that an error in authentication has occurred.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -2751,7 +2735,7 @@ static void XHdcp22Tx_A1A2(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function executes on transition from state A2 or one of its substates
-* to A0, which means that an error in authentication has occured.
+* to A0, which means that an error in authentication has occurred.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -2769,7 +2753,7 @@ static void XHdcp22Tx_A2A0(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function executes on transition from state A3 to A0, which means that
-* an error in authetication has occured.
+* an error in authentication has occurred.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -2798,7 +2782,7 @@ static void XHdcp22Tx_A3A0(XHdcp22_Tx_Dp *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_A3A4(XHdcp22_Tx_Dp *InstancePtr)
 {
-	/* Check to see wether the Receiver is an HDCP Repeater */
+	/* Check to see whether the Receiver is an HDCP Repeater */
 	if (InstancePtr->Info.IsReceiverRepeater) {
 		/* Start timer for receiving the Receiver ID list */
 		XHdcp22Tx_StartTimer(InstancePtr, 3000, XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST);
@@ -2809,7 +2793,7 @@ static void XHdcp22Tx_A3A4(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function executes on transition from state A4 to A5, which means that
-* an authetication has succeeded and state A5 is executed the first time.
+* an authentication has succeeded and state A5 is executed the first time.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -2827,7 +2811,7 @@ static void XHdcp22Tx_A4A5(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function executes on transition from state A6 or A7 to A0, which means that
-* an error in authetication has occured.
+* an error in authentication has occurred.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -2845,7 +2829,7 @@ static void XHdcp22Tx_A6A7A0(XHdcp22_Tx_Dp *InstancePtr)
 /**
 *
 * This function executes on transition from state A9 to A0, which means that
-* an error in the content stream management has occured.
+* an error in the content stream management has occurred.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -3144,8 +3128,6 @@ static u32 XHdcp22Tx_GetTimerCount(XHdcp22_Tx_Dp *InstancePtr)
 * @param  CallbackRef refers to a XHdcp22_Tx_Dp structure
 * @param  TmrCntNumber the number of used timer.
 *
-* @return None.
-*
 * @note   For dp design, this will be called form the Tx subsystem's
 * 		  timer handler so it should be a public function.
 *
@@ -3187,9 +3169,6 @@ void XHdcp22Tx_Dp_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 *         - 1 : Poll after 1ms
 *         - 2 : Poll after 2ms
 *         - 3 : Poll after 3ms etc...
-*
-* @return None.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -4013,9 +3992,7 @@ static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx_Dp *InstancePtr,
 * This function adds a ReceiverID to RevocationList
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
-* @param  ReceiverId is a pointer to a 5-byte receiver Id.
-*
-* @return None.
+* @param  ReceiverIdPtr is a pointer to a 5-byte receiver Id.
 *
 * @note Supposed to be called by Upstream Content Control Function
 *
@@ -4181,8 +4158,6 @@ static u32 XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(XHdcp22_Tx_Dp *InstancePtr
 * @param  InstancePtr is a pointer to the XHdcp22_Tx_Dp core instance.
 * @param  Verbose allows to add debug logging.
 *
-* @return None.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -4234,8 +4209,6 @@ u32 XHdcp22Tx_Dp_LogGetTimeUSecs(XHdcp22_Tx_Dp *InstancePtr)
 *         #XHdcp22_Tx_Dp_LogEvt enum in xhdcp22_tx_dp.h.
 * @param  Data specifies the information that gets written into log
 *         buffer.
-*
-* @return None.
 *
 * @note   None.
 *
@@ -4331,8 +4304,6 @@ XHdcp22_Tx_Dp_LogItem* XHdcp22Tx_Dp_LogRd(XHdcp22_Tx_Dp *InstancePtr)
 * This function prints the content of log buffer.
 *
 * @param  InstancePtr is a pointer to the HDCP22 TX core instance.
-*
-* @return None.
 *
 * @note   None.
 *
@@ -4515,8 +4486,6 @@ void XHdcp22Tx_Dp_LogDisplay(XHdcp22_Tx_Dp *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the HDCP22 TX core instance.
 *
-* @return None.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -4612,7 +4581,7 @@ void XHdcp22Tx_Dp_SetHdcp22OverProtocol(XHdcp22_Tx_Dp *InstancePtr,
 
 /*****************************************************************************/
 /**
- * This function is to attache the HDCP22 timer instance to DP TX
+ * This function is to attach the HDCP22 timer instance to DP TX
  * subsystem's timer. For the DP design the timer is being used
  * from the DP TX subsystem. So the HDCP22 timer instance will be
  * attached in DpTxSs initialization.
@@ -4640,7 +4609,7 @@ void XHdcp22Tx_Dp_timer_attach(XHdcp22_Tx_Dp *InstancePtr, XTmrCtr *TmrCtrPtr)
 
 /*****************************************************************************/
 /**
- * This function is to read the RX_STATUS when a cp_irq recieved.
+ * This function is to read the RX_STATUS when a cp_irq received.
  *
  * @param	InstancePtr is a pointer to the XHdcp22_Tx_Dp core instance.
  *

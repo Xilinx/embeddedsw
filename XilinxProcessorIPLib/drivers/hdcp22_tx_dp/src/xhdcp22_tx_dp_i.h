@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_tx_dp_i.h
 * @addtogroup hdcp22_tx_dp Overview
 * @{
-* @details
 *
 * This file contains data which is shared between files and internal to the
 * XIntc component. It is intended for internal use only.
@@ -182,12 +181,12 @@ extern "C" {
 #define XHDCP22_TX_TEST_V1              0x00000040
 /** Use a M_Prime test vector. */
 #define XHDCP22_TX_TEST_M1              0x00000080
-/** AKE is forced using a stored Km scenarion. Pairing info is pre-loaded
+/** AKE is forced using a stored Km scenario. Pairing info is pre-loaded
 * with test vectors that forces Stored Km scenario.*/
 #define XHDCP22_TX_TEST_STORED_KM       0x00000100
 /** Disable timeout checking. this is mainly used to check the HDCP RX core in
 * loopback mode in case it cannot meet timing requirements (no offloading to
-* hardware) and reponsetimes need to be logged.*/
+* hardware) and response times need to be logged.*/
 #define XHDCP22_TX_TEST_NO_TIMEOUT      0x00000200
 /** Pairing info is cleared, to force a non-stored Km scenario */
 #define XHDCP22_TX_TEST_CLR_PAIRINGINFO 0x00000400
@@ -198,9 +197,18 @@ extern "C" {
 #define XHDCP22_TX_DDC_BASE_ADDRESS     0x3A
 
 /**************************** Type Definitions *******************************/
+
 /**
-* These constants are used to set the core into testing mode with #XHdcp22Tx_TestSetMode.
-*/
+ * @brief HDCP 2.2 transmitter test mode enumeration.
+ *
+ * This enumeration defines the various test modes available for the HDCP 2.2
+ * DisplayPort transmitter. These modes are used for testing and debugging
+ * purposes during development and validation.
+ *
+ * @note When using XHDCP22_TX_TESTMODE_USE_TESTKEYS, the keys used are from
+ *       the HDCP specification errata and should only be used for testing,
+ *       never in production.
+ */
 typedef enum {
 	XHDCP22_TX_TESTMODE_DISABLED,       /**< Testmode is disabled. */
 	XHDCP22_TX_TESTMODE_SW_RX,          /**< Actual HDCP2.2 RX component is connected. */
