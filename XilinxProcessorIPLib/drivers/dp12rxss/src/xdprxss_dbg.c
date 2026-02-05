@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,8 +57,6 @@
 * This function reports list of sub-cores included in DisplayPort RX Subsystem.
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -121,8 +119,6 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -182,8 +178,6 @@ void XDpRxSs_ReportLinkInfo(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -242,8 +236,6 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -262,8 +254,6 @@ void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr)
 * This function prints the debug display info of the HDCP interface.
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
 *
 * @note		None.
 *

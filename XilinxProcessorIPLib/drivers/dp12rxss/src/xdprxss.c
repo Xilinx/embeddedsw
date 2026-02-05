@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -395,8 +395,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		IIC needs to be reinitialized after reset.
 *
 ******************************************************************************/
@@ -660,8 +658,6 @@ u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 * @param	UserPixelWidth is the user pixel width to be configured.
-*
-* @return	None.
 *
 * @note		None.
 *

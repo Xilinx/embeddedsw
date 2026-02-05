@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -158,7 +159,7 @@ void ComputeMandD(XDp *InstancePtr, u32 VidFreq)
 
 //	xil_printf("MVal = %d, DivVal = %d, DVal = %d \r\n", MVal, DivVal, DVal);
 
-	/* Progamming the clocking wizard */
+	/* Programming the clocking wizard */
 	u32 fail,error,count;
 	fail = error = count = 0;
 
@@ -268,7 +269,7 @@ void ComputeMandD_txlnk(u32 VidFreq, u16 Link_rate)
 	}
 
 
-	/* Progamming the clocking wizard */
+	/* Programming the clocking wizard */
 	u32 fail,error,count;
 	fail = error = count = 0;
 
@@ -423,7 +424,7 @@ void ComputeMandD_rxlnk(u32 VidFreq, u16 Link_rate)
 
 //	xil_printf("MVal = %d, DivVal = %d, DVal = %d \r\n", MVal, DivVal, DVal);
 
-	/* Progamming the clocking wizard */
+	/* Programming the clocking wizard */
 	u32 fail,error,count;
 	fail = error = count = 0;
 
