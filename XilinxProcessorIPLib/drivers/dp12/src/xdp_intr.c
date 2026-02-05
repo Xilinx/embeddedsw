@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -62,8 +62,6 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr);
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  *
- * @return	None.
- *
  * @note	None.
  *
 *******************************************************************************/
@@ -96,8 +94,6 @@ void XDp_InterruptHandler(XDp *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	DurationUs is the duration of the HPD pulse, in microseconds.
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -494,8 +490,6 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
  * then decides which callback function to invoke.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
- *
- * @return	None.
  *
  * @note	None.
  *

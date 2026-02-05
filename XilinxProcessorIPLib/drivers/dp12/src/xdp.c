@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -148,7 +148,6 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
  *		space. If the address translation is not used, then the physical
  *		address is passed.
  *
- * @return	None.
  *
  * @note	Unexpected errors may occur if the address mapping is changed
  *		after this function is invoked.
@@ -1660,8 +1659,6 @@ void XDp_RxAudioReset(XDp *InstancePtr)
  *		will be passed to the custom sleep/delay function when it is
  *		invoked.
  *
- * @return	None.
- *
  * @note	None.
  *
 *******************************************************************************/
@@ -1690,8 +1687,6 @@ void XDp_SetUserTimerHandler(XDp *InstancePtr, XDp_TimerHandler CallbackFunc,
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	MicroSeconds is the number of microseconds to delay/sleep for.
- *
- * @return	None.
  *
  * @note	None.
  *
