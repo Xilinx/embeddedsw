@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 * @file xhdcp22_rx_dp_i.h
 * @addtogroup hdcp22_rx_dp Overview
 * @{
-* @details
 *
 * This header file contains internal data types and functions declarations
 * for the Xilinx HDCP 2.2 Receiver.
@@ -72,11 +71,11 @@ extern "C" {
 #define XHDCP22_RX_MAX_DEVICE_COUNT       31            /** Repeater maximum devices */
 #define XHDCP22_RX_MAX_DEPTH              4             /** Repeater maximum depth */
 
-#define XHDCP22_RX_DDC_VERSION_REG        0x50          /** Address of DDC version regiser */
-#define XHDCP22_RX_DDC_WRITE_REG          0x60          /** Address of DDC write message regiser */
+#define XHDCP22_RX_DDC_VERSION_REG        0x50          /** Address of DDC version register */
+#define XHDCP22_RX_DDC_WRITE_REG          0x60          /** Address of DDC write message register */
 #define XHDCP22_RX_DDC_RXSTATUS0_REG      0x70          /** Address of first DDC RxStatus register */
 #define XHDCP22_RX_DDC_RXSTATUS1_REG      0x71          /** Address of second DDC RxStatus register */
-#define XHDCP22_RX_DDC_READ_REG           0x80          /** Address of DDC read message regiser */
+#define XHDCP22_RX_DDC_READ_REG           0x80          /** Address of DDC read message register */
 #define XHDCP22_RX_TMR_CTR_0              0             /** First timer counter, used for log timestamps */
 #define XHDCP22_RX_TMR_CTR_1              1             /** Second timer counter, used for protocol timeout*/
 
@@ -360,7 +359,7 @@ typedef struct
 } XHdcp22_Rx_LCInit;
 
 /**
- * This typdef is the LC_Send_L_prime message definition.
+ * This typedef is the LC_Send_L_prime message definition.
  */
 typedef struct
 {

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,13 +9,12 @@
 * @file xhdcp22_rx_dp_test.c
 * @addtogroup hdcp22_rx_dp Overview
 * @{
-* @details
 *
 * This file contains the implementation of the test framework used to
 * perform standalone receiver testing and software loopback testing
 * for the Xilinx HDCP 2.2 Receiver. The test vectors and keys contained
 * in this file are from the Errata to HDCP on HDMI Specification
-* Revision 2.2, Feburary 09, 2015.
+* Revision 2.2, February 09, 2015.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -710,7 +709,7 @@ static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventI
 *             into the receiver through the DDC stub interface. Stimulation
 *             of the receiver is the responsibility of the transmitter.
 *             This mode is useful for software loopback testing.
-* @param	TestFlag is only relavent when the TestMode is set to
+* @param	TestFlag is only relevant when the TestMode is set to
 *           XHDCP22_RX_TESTMODE_NO_TX, and defines the test vector
 *           used to drive the receiver.
 * @return   XST_SUCCESS or XST_FAILURE.
@@ -823,7 +822,7 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_TestMode TestMo
 *
 * @note		If a transmitter wants to perform authentication while
 * 			the test keys are loaded it must use the test DCP public keys
-*			defined in the errata; otherise, authentication is expected to
+*			defined in the errata; otherwise, authentication is expected to
 *			fail.
 *****************************************************************************/
 int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx_Dp *InstancePtr)
@@ -2692,7 +2691,7 @@ static u32 XHdcp22Rx_TestDdcGetWriteBufferSizeCallback(XHdcp22_Rx_Dp *InstancePt
 
 /****************************************************************************/
 /**
-* This function is used to check if the write message buffer is emtpy.
+* This function is used to check if the write message buffer is empty.
 *
 * @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *

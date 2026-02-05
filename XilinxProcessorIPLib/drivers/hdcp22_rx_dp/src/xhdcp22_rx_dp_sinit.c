@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 * @file xhdcp22_rx_dp_sinit.c
 * @addtogroup hdcp22_rx_dp Overview
 * @{
-* @details
 *
 * This file contains static initialization method for Xilinx HDCP 2.2 Receiver.
 *
@@ -21,7 +20,7 @@
 * 1.00  JB   02/19/19 First Release.
 * 3.00  JB   12/24/21 File name changed from xhdcp22_rx_sinit.c to
 *                     xhdcp22_rx_dp_sinit.c, Also all the APIs and
-*                     sructure names are added with suffix _dp.
+*                     structure names are added with suffix _dp.
 *</pre>
 *
 *****************************************************************************/

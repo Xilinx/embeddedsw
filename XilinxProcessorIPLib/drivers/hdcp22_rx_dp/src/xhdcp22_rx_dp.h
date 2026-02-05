@@ -1,15 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xhdcp22_rx.h
+* @file xhdcp22_rx_dp.h
 * @addtogroup hdcp22_rx_dp Overview
 * @{
-* @details
 *
 * This is the main header file for the Xilinx HDCP 2.2 Receiver device
 * driver. The HDCP 2.2 Receiver driver implements the authentication
@@ -25,7 +24,7 @@
 * The application needs to do the following steps to run the Receiver.
 * - Call XHdcp22Rx_Dp_LookupConfig using the device ID to find the
 *   core configuration instance.
-* - Call XHdcp22Rx_Dp_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Rx_Dp_CfgInitialize to initialize the device instance.
 * - Call XHdcp22Rx_Dp_SetCallback to set the pointers to the callback
 *   functions defined by the enumerated type XHdcp22_Rx_Dp_HandlerType.
 * - Call XHdcp22Rx_Dp_LoadPublicCert to load the DCP public certificate.
@@ -71,7 +70,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  JB   02/19/19 First Release.
 * 3.00  JB   12/24/21 File name changed from xhdcp22_rx.h to xhdcp22_rx_dp.h,
-*                     Also all the APIs and sructure names are added with
+*                     Also all the APIs and structure names are added with
 *                     suffix _dp.
 *</pre>
 *
@@ -217,7 +216,7 @@ typedef enum
 	XHDCP22_RX_HANDLER_DP_AUX_READ,		  /**< Get the DP AUX register data*/
 	XHDCP22_RX_HANDLER_DP_AUX_WRITE,	  /**< Set the DP AUX register data*/
 	XHDCP22_RX_HANDLER_DP_CP_IRQ_SET,	  /**< To raise CP_IRQ from DP Rx*/
-	XHDCP22_RX_HANDLER_DP_AUX_DEFER_SET_CLR, /**< To Set or clear AUX DEFFERS for HDCP22 msgs*/
+	XHDCP22_RX_HANDLER_DP_AUX_DEFER_SET_CLR, /**< To Set or clear AUX DEFERS for HDCP22 msgs*/
 	XHDCP22_RX_HANDLER_SKE_SEND_EKS,     /**< Executed when  Ks message is received*/
 	XHDCP22_RX_HANDLER_INVALID                /**< Invalid */
 } XHdcp22_Rx_Dp_HandlerType;
@@ -267,7 +266,7 @@ typedef enum {
 	XHDCP22_RX_LOG_EVT_NONE,          /** Log Event None */
 	XHDCP22_RX_LOG_EVT_INFO,          /** Log General Info Event */
 	XHDCP22_RX_LOG_EVT_INFO_STATE,    /** Log State Info Event */
-	XHDCP22_RX_LOG_EVT_INFO_MESSAGE,  /** Log Messsage Info Event */
+	XHDCP22_RX_LOG_EVT_INFO_MESSAGE,  /** Log Message Info Event */
 	XHDCP22_RX_LOG_EVT_DEBUG,         /** Log Debug Event */
 	XHDCP22_RX_LOG_EVT_ERROR,         /** Log Error Event */
 	XHDCP22_RX_LOG_EVT_USER,          /** User logging */
@@ -516,7 +515,7 @@ typedef struct {
 	u16 LogEvent;
 	/** Optional data */
 	u16 Data;
-	/** Timestamp on when event occured. Only used for time critical events */
+	/** Timestamp on when event occurred. Only used for time critical events */
 	u32 TimeStamp;
 } XHdcp22_Rx_Dp_LogItem;
 
@@ -563,9 +562,9 @@ typedef struct
 	u8  TimerReasonId;
 	/** Keep track of the start value of the timer. */
 	u32 TimerInitialTicks;
-	/** Counter for repeater topology upstream propogation */
+	/** Counter for repeater topology upstream propagation */
 	u32 SeqNumV;
-	/** Flag indicated that content stream management info messsage has been processed */
+	/** Flag indicated that content stream management info message has been processed */
 	u8  HasStreamManagementInfo;
 	/** State machine current state */
 	XHdcp22_Rx_Dp_StateType CurrentState;
@@ -621,7 +620,7 @@ typedef struct
 	    indicates presence of an HDCP2.1-compliant Device in the topology. */
 	u8 Hdcp2LegacyDeviceDownstream;
 	/** Flag used to indicate topology information. When set to one,
-	    indicates precense of an HDCP1.x-compliant device in the topology. */
+	    indicates presence of an HDCP1.x-compliant device in the topology. */
 	u8 Hdcp1DeviceDownstream;
 } XHdcp22_Rx_Dp_Topology;
 
