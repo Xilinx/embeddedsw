@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_tx_i.h
 * @addtogroup hdcp22_tx Overview
 * @{
-* @details
 *
 * This file contains data which is shared between files and internal to the
 * XIntc component. It is intended for internal use only.
@@ -185,7 +184,7 @@ extern "C" {
 #define XHDCP22_TX_TEST_V1              0x00000040
 /** Use a M_Prime test vector. */
 #define XHDCP22_TX_TEST_M1              0x00000080
-/** AKE is forced using a stored Km scenarion. Pairing info is pre-loaded
+/** AKE is forced using a stored Km scenario. Pairing info is pre-loaded
 * with test vectors that forces Stored Km scenario.*/
 #define XHDCP22_TX_TEST_STORED_KM       0x00000100
 /** Disable timeout checking. this is mainly used to check the HDCP RX core in
@@ -202,8 +201,16 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
-* These constants are used to set the core into testing mode with #XHdcp22Tx_TestSetMode.
-*/
+ * @brief HDCP 2.2 transmitter test mode enumeration.
+ *
+ * This enumeration defines the various test modes available for the HDCP 2.2
+ * transmitter driver. These modes are used for testing and validation purposes
+ * during development and integration.
+ *
+ * @note The test modes should be used carefully and are primarily intended for
+ *       development and debugging scenarios.
+ */
+
 typedef enum {
 	XHDCP22_TX_TESTMODE_DISABLED,       /**< Testmode is disabled. */
 	XHDCP22_TX_TESTMODE_SW_RX,          /**< Actual HDCP2.2 RX component is connected. */

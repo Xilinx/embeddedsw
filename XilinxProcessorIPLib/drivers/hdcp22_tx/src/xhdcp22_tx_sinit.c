@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_tx_sinit.c
 * @addtogroup hdcp22_tx Overview
 * @{
-* @details
 *
 * This file contains static initialization method for Xilinx HDCP 2.2
 * Transmitter driver.

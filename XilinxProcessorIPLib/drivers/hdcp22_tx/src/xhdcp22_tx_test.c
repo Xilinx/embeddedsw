@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_tx_test.c
 * @addtogroup hdcp22_tx Overview
 * @{
-* @details
 *
 * This is a test and logging file for the Xilinx HDCP 2.2 transmitter core.
 * Testing is done by acting as a stub for the DDC handlers. Some
@@ -601,7 +600,7 @@ static void XHdcp22Tx_TestReadMsg(u8* BufferPtr, u32 TestFlags)
 * DDCRead handler that is used in test mode, and emulates responses from a
 * HDCP22 receiver.
 *
-* @param  DeviceAddress is the addres to use. Normally set to 0x74.
+* @param  DeviceAddress is the address to use. Normally set to 0x74.
 * @param  ByteCount is the amount of bytes to read.
 * @param  BufferPtr contains room for dsata to read. The first byte always refers to
 *         the address to read.
@@ -676,7 +675,7 @@ static int XHdcp22Tx_TestDdcRead(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
 * DDCWrite handler that is used in test mode, and emulates responses from a
 * HDCP22 receiver. It also checks when possible on errors, which are logged.
 *
-* @param  DeviceAddress is the addres to use.
+* @param  DeviceAddress is the address to use.
 * @param  ByteCount is the amount of bytes to write.
 * @param  BufferPtr contains data to write. The first byte always refers to
 *         the address to write to.
@@ -684,8 +683,8 @@ static int XHdcp22Tx_TestDdcRead(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
 *         structure.
 *
 * @return
-*         - XST_SUCCESS if reading succeeded.
-*         - XST_FAILURE if reading failed.
+*         - XST_SUCCESS if writing succeeded.
+*         - XST_FAILURE if writing failed.
 *
 * @note   None.
 *

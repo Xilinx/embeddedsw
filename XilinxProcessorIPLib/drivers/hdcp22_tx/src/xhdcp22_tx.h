@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,9 +10,8 @@
 * @file xhdcp22_tx.h
 * @addtogroup hdcp22_tx Overview
 * @{
-* @details
 *
-* This is the main header file for Xilinx HDCP 2.2 Transmiter device driver.
+* This is the main header file for Xilinx HDCP 2.2 Transmitter device driver.
 * The HDCP 2.2 Transmitter driver implements the authentication state machine.
 * It consists of:
 * - A state machine handling the states as specified in the HDCP revision 2.2
@@ -87,7 +86,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**
-* This value is the default polling interval defined in millseconds.
+* This value is the default polling interval defined in milliseconds.
 * The polling interval defines the amount of time to wait between
 * successive reads of the RxStatus register.
 */
@@ -500,13 +499,13 @@ typedef struct
 	u8 IsReceiverHDCP2Capable;
 
 	/** Function pointer for reading DDC (Rx HDCP DeviceAddress: 0x74)
-	    using the XHdcp22_Tx_Ddc stucture as parameter. */
+	    using the XHdcp22_Tx_Ddc structure as parameter. */
 	XHdcp22_Tx_DdcHandler DdcRead;
 	/** Set if DdcRead handler is defined. */
 	u8 IsDdcReadSet;
 
 	/** Function pointer for writing DDC (Rx HDCP DeviceAddress: 0x74)
-	    using the XHdcp22_Tx_Ddc stucture as parameter. */
+	    using the XHdcp22_Tx_Ddc structure as parameter. */
 	XHdcp22_Tx_DdcHandler DdcWrite;
 	/** Set if DdcWrite handler is defined. */
 	u8 IsDdcWriteSet;
