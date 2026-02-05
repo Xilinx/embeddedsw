@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1508,7 +1508,7 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 #endif
                     //This module tracks for refresh rate change. Many GPUs
                     // do not re-train when the refresh is change This
-                    // tracks the refresh rate ans restarts the TX if needed.
+                    // tracks the refresh rate and restarts the TX if needed.
 				if (start_tracking == 1) {
 					if (count_track < 5000) {
 						count_track = count_track + 1;
@@ -3008,7 +3008,7 @@ if (internal_rx_tx == 0) {
 								XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
         Status1 = XVphy_WaitForPllLock(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA);
 
-        Status1 += Status2; // only to surpress warnings
+        Status1 += Status2; // only to suppress warnings
         xdbg_printf (XDBG_DEBUG_GENERAL,"%d %d\r\n", Status1, Status2);
 
 #if (ENABLE_HDCP_IN_DESIGN && SET_RX_TO_2BYTE==1)
@@ -3925,7 +3925,7 @@ void hpd_pulse_con()
 //				XHdcp1xExample_Poll();
 
 				/* Re-start authentication (the expectation is
-				 * that HDCP is already in the authetnicated state. )*/
+				 * that HDCP is already in the authenticated state. )*/
 				// Post EVENT_DWNSTMREADY instead of authenticate
 //				XDpTxSs_ReadDownstream(&DpTxSsInst);
 //				XDpTxSs_Authenticate(&DpTxSsInst);
@@ -4505,7 +4505,7 @@ if (Status != XST_SUCCESS) {
 int zz,kk;
 for(kk= 0; kk<100000; kk++)
         zz = kk+1;
-kk += zz; // Only to surpress warning
+kk += zz; // Only to suppress warning
 //udelay(1000);
 //xil_printf("5 end\r\n");
 // Update to user requested frequency
@@ -4582,7 +4582,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
     u32 temp;
     u8 RSVD=0;
 
-    //Fixed paramaters
+    //Fixed parameters
     u8  dp_version   = 0x11;
 
         //Write #1
@@ -4704,7 +4704,7 @@ void prog_bb (u8 bw, u8 is_tx) {
 	}
   }
 
-#else // for 4B the clocks to be genrated are half of 2B
+#else // for 4B the clocks to be generated are half of 2B
       if (is_tx == 1) { // TX only path using refclk0 of 135Mhz
 		if (bw == 0x14) { //135Mhz
             VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;

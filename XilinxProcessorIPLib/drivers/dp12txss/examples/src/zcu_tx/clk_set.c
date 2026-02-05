@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -250,7 +250,7 @@ static void double2hex(double dnum, u8 *hnum)
    double pwr_2;
 
    /*
-    *  Find binary values for [37:0] by successive substraction
+    *  Find binary values for [37:0] by successive subtraction
     */
    pwr_2 = two_to_37;
    for (i=37;i>=0;i--){
@@ -262,7 +262,7 @@ static void double2hex(double dnum, u8 *hnum)
       pwr_2=pwr_2/2;
    }
    /*
-    * Caculate 5 HEX values to represent [37:0]
+    * Calculate 5 HEX values to represent [37:0]
     */
    hnum[0]=                             bnum[37]*32 + bnum[36]*16 +
            bnum[35]*8   + bnum[34]*4  + bnum[33]*2  + bnum[32];

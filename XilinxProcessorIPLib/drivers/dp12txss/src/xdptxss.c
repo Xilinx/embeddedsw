@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -363,7 +363,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -616,7 +615,6 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -660,8 +658,6 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 *
 * @param        InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return
-*               - void.
 *
 * @note         None.
 *
@@ -681,8 +677,6 @@ void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
 *
 * @param        InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return
-*               - void.
 *
 * @note         None.
 *
@@ -769,7 +763,6 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
  * @param	InstancePtr is a pointer to the XDpTxSs instance.
  * @param	Stream is the stream number for which to set the MSA values for.
  *
- * @return	None.
  *
  * @note	None.
  *
@@ -1134,8 +1127,6 @@ u32 XDpTxSs_CheckLinkStatus(XDpTxSs *InstancePtr)
 * @param	UserPixelWidth is the user pixel width to be configured.
 * @param	StreamId is the stream number.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -1219,7 +1210,6 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr)
 *		1 = Set redriver in the DisplayPort output path.
 *		0 = Unset redriver in the DisplayPort output path.
 *
-* @return	None.
 *
 * @note		Set the redriver in the DisplayPort output path before
 *		starting the training.

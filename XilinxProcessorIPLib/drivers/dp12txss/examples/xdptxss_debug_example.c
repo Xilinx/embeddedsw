@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1094,7 +1094,7 @@ void DpTxSs_EdidPtm(u8 *EdidRaw)
 *
 * This function calculates the EDID checksum.
 *
-* @param	Data is a pointer to u8 variable that will be used to retrive
+* @param	Data is a pointer to u8 variable that will be used to retrieve
 *		data.
 * @param	Size specifies the number of bytes.
 *

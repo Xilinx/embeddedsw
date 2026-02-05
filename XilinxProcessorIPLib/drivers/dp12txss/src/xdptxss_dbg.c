@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,6 @@
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -230,7 +229,6 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -296,8 +294,6 @@ void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -345,7 +341,6 @@ void XDpTxSs_ReportSplitterInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -405,7 +400,6 @@ void XDpTxSs_ReportVtcInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -462,8 +456,6 @@ void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr)
 * TX core.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -553,7 +545,6 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *

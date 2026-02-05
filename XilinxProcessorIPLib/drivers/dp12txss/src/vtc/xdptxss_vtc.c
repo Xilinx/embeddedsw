@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +59,7 @@
 * @param	InstancePtr is a pointer to the XVtc instance.
 * @param	MsaConfig is a pointer to main stream attributes structure
 *		that will be used to extract timing values.
+* @param   VtcAdjustBs is a flag to adjust blanking symbols for CVT-RB timing.
 *
 * @return
 *		- XST_SUCCESS if video timing parameters set successfully.

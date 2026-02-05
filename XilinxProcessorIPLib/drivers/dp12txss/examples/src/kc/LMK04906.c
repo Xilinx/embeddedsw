@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,7 +96,7 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 	    if(Rx_Data_Read() != Count){
 	        SPI_Option  &= (u32)0xFFFFFFFE;
 	        Set_Option( SPI_Option);
-		xil_printf("Internal LoopBack FAILD \n\r");
+		xil_printf("Internal LoopBack FAILED\n\r");
 		return 1;
 	    }
 	}

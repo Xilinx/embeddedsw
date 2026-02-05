@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1521,7 +1521,7 @@ int main(void)
                     }
 #endif
 //This module tracks for refresh rate change. Many GPUs do not re-train
-// when the refresh is change. This tracks the refresh rate ans
+// when the refresh is change. This tracks the refresh rate and
 // restarts the TX if needed.
 				if (start_tracking == 1) {
 					if (count_track < 5000) {
@@ -3070,7 +3070,7 @@ void Dprx_InterruptHandlerPllReset(void *InstancePtr)
         Status1 = XVphy_WaitForPllLock(&VPhy_Instance, 0,
 						XVPHY_CHANNEL_ID_CHA);
 
-        Status1 += Status2; // only to surpress warning
+        Status1 += Status2; // only to suppress warning
 //xil_printf ("%d %d\r\n", Status1, Status2);
 
 #if (ENABLE_HDCP_IN_DESIGN && SET_RX_TO_2BYTE==1)
@@ -3965,7 +3965,7 @@ void hpd_pulse_con()
 //				XHdcp1xExample_Poll();
 
 				/* Re-start authentication (the expectation is
-				 * that HDCP is already in the authetnicated state. )*/
+				 * that HDCP is already in the authenticated  state. )*/
 				// Post EVENT_DWNSTMREADY instead of authenticate
 //				XDpTxSs_ReadDownstream(&DpTxSsInst);
 //				XDpTxSs_Authenticate(&DpTxSsInst);
@@ -4582,7 +4582,7 @@ if (Status != XST_SUCCESS) {
 int zz,kk;
 for(kk= 0; kk<100000; kk++)
         zz = kk+1;
-zz += kk; // only to surpress warning
+zz += kk; // only to suppress warning
 //udelay(1000);
 //xil_printf("5 end\r\n");
 // Update to user requested frequency
@@ -4659,7 +4659,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
     u32 temp;
     u8 RSVD=0;
 
-    //Fixed paramaters
+    //Fixed parameters
     u8  dp_version   = 0x11;
 
         //Write #1
@@ -4776,7 +4776,7 @@ VPhy_Instance.Quads[0].TxMmcm.ClkOut0Frac  = 0;
       }
 }
 
-#else // for 4B the clocks to be genrated are half of 2B
+#else // for 4B the clocks to be generated are half of 2B
     if (is_tx == 1) { // TX only path using refclk0 of 270Mhz
               if (bw == 0x14) { //135Mhz
                 VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;

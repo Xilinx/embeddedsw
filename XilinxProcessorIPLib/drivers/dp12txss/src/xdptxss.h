@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,7 +95,7 @@
 * 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
-*                   Added HPD user data stucture XDpTxSs_UsrHpdPulseData
+*                   Added HPD user data structure XDpTxSs_UsrHpdPulseData
 *                   and XDpTxSs_UsrHpdEventData
 * </pre>
 *
