@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,6 +95,7 @@
 *       pre      08/29/24 Fixed compilation warning
 *       kpt      10/17/24 Move API's used in secure libs to xil_sutil.c
 * 9.4   ml       07/24/25 Fixed GCC warnings
+* 9.5   hj       30/01/26 Remove zero address check from all API's
 * </pre>
 *
 *****************************************************************************/
@@ -148,9 +149,6 @@ u32 Xil_IsValidHexChar(const char *Ch)
 {
 	u32 Status = XST_FAILURE;
 
-	if (NULL == Ch) {
-		goto END;
-	}
 	if (((*Ch >= '0') && (*Ch <= '9')) ||
 	    ((*Ch >= 'a') && (*Ch <= 'f')) ||
 	    ((*Ch >= 'A') && (*Ch <= 'F'))) {
@@ -180,10 +178,6 @@ u32 Xil_ValidateHexStr(const char *HexStr)
 	u32 Idx;
 	u32 Len;
 	u32 Status = XST_INVALID_PARAM;
-
-	if (NULL == HexStr) {
-		goto END;
-	}
 
 	Len = Xil_Strnlen(HexStr, XIL_MAX_HEX_STR_LEN + 1U);
 	if (Len > XIL_MAX_HEX_STR_LEN) {
@@ -216,20 +210,6 @@ END:
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
- *	TDD Test Cases:
- *	---Initialization---
- *	Len is odd
- *	Len is zero
- *	Str is NULL
- *	Buf is NULL
- *	---Functionality---
- *	Str input with only numbers
- *	Str input with All values in A-F
- *	Str input with All values in a-f
- *	Str input with values in a-f, 0-9, A-F
- *	Str input with values in a-z, 0-9, A-Z
- *	Boundary Cases
- *	Memory Bounds of buffer checking
  * ****************************************************************************/
 u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 {
@@ -237,11 +217,6 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 	u8 LowerNibble = 0U;
 	u8 UpperNibble = 0U;
 	u32 Status = (u32)XST_FAILURE;
-
-	if ((Str == NULL) || (Buf == NULL)) {
-		Status = (u32)XST_INVALID_PARAM;
-		goto END;
-	}
 
 	if ((Len == 0U) || ((Len % XIL_SIZE_OF_BYTE_IN_BITS) != 0U)) {
 		Status = (u32)XST_INVALID_PARAM;
@@ -299,11 +274,6 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 	u32 StrIndex;
 	u32 Status = XST_FAILURE;
 
-	if ((NULL == Str) || (NULL == Buf)) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
 	if ((Len == 0U) || ((Len % XIL_SIZE_OF_BYTE_IN_BITS) != 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
@@ -356,10 +326,6 @@ u32 Xil_Strnlen(const char *Str, u32 MaxLen)
 	const char *InStr = Str;
 	u32 StrLen = 0U;
 
-	if (NULL == Str) {
-		goto END;
-	}
-
 	while (StrLen < MaxLen) {
 		if ('\0' == *InStr) {
 			break;
@@ -390,7 +356,7 @@ s32 Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size)
 	int Status = XST_FAILURE;
 	u32 Count;
 
-	if ((SrcPtr == NULL) || (DestPtr == NULL) || (Size == 0U)) {
+	if (Size == 0U) {
 		goto END;
 	}
 
@@ -431,11 +397,6 @@ s32 Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 	int Status = XST_FAILURE;
 	u32 SrcLength;
 	u32 Index;
-
-	if ((Src == NULL) || (Dest == NULL)) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
 
 	if ((To >= MaxSrcLen) || (To < From)) {
 		Status = XST_INVALID_PARAM;
@@ -482,7 +443,7 @@ s32 Xil_Strcat(char *Str1Ptr, const char *Str2Ptr, const u32 Size)
 	u32 Count = 0U;
 	u32 CountTmp = 0U;
 
-	if ((Str1Ptr == NULL) || (Str2Ptr == NULL) || (Size == 0U)) {
+	if (Size == 0U) {
 		goto END;
 	}
 
@@ -528,7 +489,7 @@ s32 Xil_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)
 	u32 Size = Len;
 
 	/* Assert validates the input arguments */
-	if ((Buf1 == NULL) || (Buf2 == NULL) || (Len == 0x0U)) {
+	if (Len == 0x0U) {
 		goto END;
 	}
 
