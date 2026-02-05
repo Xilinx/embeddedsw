@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -837,7 +837,7 @@ void dprx_tracking (void) {
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);
 #endif
-	    // retoring unplug counter
+	    // restoring unplug counter
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_CDR_CONTROL_CONFIG,
 			        XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159);

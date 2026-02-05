@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,8 +52,6 @@
 * This function prints the capabilities of the DisplayPort sink.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -230,8 +228,6 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -296,7 +292,6 @@ void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -344,8 +339,6 @@ void XDpTxSs_ReportSplitterInfo(XDpTxSs *InstancePtr)
 * This function prints the current VTC timing information.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -405,8 +398,6 @@ void XDpTxSs_ReportVtcInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -463,7 +454,6 @@ void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -567,8 +557,6 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 * This function prints the debug display info of the HDCP interface.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
-*
-* @return	None.
 *
 * @note		None.
 *

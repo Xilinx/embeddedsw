@@ -130,7 +130,7 @@ void ComputeMandD(u32 VidFreq){
 	}
 
 	/*
-	 * Progamming the clocking wizard
+	 * Programming the clocking wizard
 	 */
 	u32 fail,error,count;
 	fail = error = count = 0;

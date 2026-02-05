@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -842,9 +842,9 @@ u32 config_phy (XVphy *InstancePtr, int LineRate, XVphy_PllType Pll, XVphy_Chann
 			Refclk = VPHY_REFCLK_SEL_400;
 	}
 
-	//QPLL1 doesnt support 13.5g
+	//QPLL1 doesn't support 13.5g
 	 if((LineRate == XDP_TX_LINK_BW_SET_UHBR135) && (Pll == XVPHY_PLL_TYPE_QPLL1)){
-		xil_printf("QPLL1 doesnt support 13.5G..skipping\r\n");
+		xil_printf("QPLL1 doesn't support 13.5G..skipping\r\n");
 		return Status;
 	 }
 

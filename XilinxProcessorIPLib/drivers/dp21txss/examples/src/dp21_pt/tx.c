@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -573,7 +573,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		DpTxSubsystem_Start(&DpTxSsInst, Msa);
 	}
 
-	/* Mask Unsued Interrupts
+	/* Mask Unused Interrupts
 	 *
 	 */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -723,7 +723,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			return (XST_FAILURE);
 		}
 	}
-	/* Mask unsused interrupts
+	/* Mask unused interrupts
 	 *
 	 */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,

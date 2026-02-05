@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xss_dualsplitter.h
+* @file xdptxss_dualsplitter.h
 *
 * This is the header file for Xilinx DisplayPort Transmitter Subsystem
 * sub-core, is Dual Splitter.

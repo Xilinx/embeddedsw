@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -137,7 +137,7 @@ char inbyte_local(void){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *
@@ -171,7 +171,7 @@ u32 xil_gethex(u8 num_chars){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *

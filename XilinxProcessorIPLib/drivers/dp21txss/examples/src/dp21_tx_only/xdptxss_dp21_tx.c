@@ -1626,7 +1626,7 @@ void DpTxSs_HpdCon(XDpTxSs *InstancePtr, u8 Edid_org[128], u16 ResUpdate)
 			&& MaxCapLanesNew != 2
 			&& MaxCapLanesNew != 4) {
 		/*
-		 * Soemthing wrong. Read again
+		 * Something wrong. Read again
 		 */
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
 				&MaxCapLanesNew);
@@ -1659,7 +1659,7 @@ void DpTxSs_HpdCon(XDpTxSs *InstancePtr, u8 Edid_org[128], u16 ResUpdate)
 			}
 		} else {
 			/*
-			 * soemthing wrong. Read again
+			 * something wrong. Read again
 			 */
 			XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1, &MaxCapNew);
 		}

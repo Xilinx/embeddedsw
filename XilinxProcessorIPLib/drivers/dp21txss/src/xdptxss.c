@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,7 +44,7 @@
 * 		    both HDCP1x and 22.
 * 6.2  jb  02/14/20 The DP Tx subsystems assumes that the HDCP configuration is
 * 		    same for all the instances in multiple subsystems in the
-* 		    design. This driver wont support for different configuration
+* 		    design. This driver won't support for different configuration
 * 		    of the subsystems.
 * 6.4  rg  09/26/20 Added below list of APIs related to VSC extended packets
 *                   XDpTxSs_CheckVscColorimetrySupport,
@@ -444,7 +444,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -744,7 +743,6 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -788,8 +786,6 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 *
 * @param        InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return
-*               - void.
 *
 * @note         None.
 *
@@ -809,8 +805,6 @@ void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
 *
 * @param        InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return
-*               - void.
 *
 * @note         None.
 *
@@ -867,8 +861,10 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc)
  * This function gets the MSA values for the specified video format.
  *
  * @param	InstancePtr is a pointer to the XDpTxSs instance.
- * @param	VidStream is one of the enumerated standard video modes that is
- *		used to determine the MSA values to be used.
+ * @param	msa_tx is the structure that will be used to copy the
+ *		  main stream attributes into (from
+ * 		  InstancePtr->DpPtr->TxInstance.MsaConfig).
+ *
  *
  * @return
  *		- XST_SUCCESS, if MSA values read successfully.
@@ -952,8 +948,8 @@ u32 XDPTxss_SetMsa(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream, u8 Stream
  *
  * @param	InstancePtr is a pointer to the XDpTxSs instance.
  * @param	VidStream is one of the enumerated standard video modes that is
- *		used to determine the MSA values to be used.
- * @Stream	Streamnumber to set the video params
+ *		  used to determine the MSA values to be used.
+ * @param   Stream	Streamnumber to set the video params
  *
  * @return
  *		- XST_SUCCESS, if video mode set successfully.
@@ -1045,7 +1041,6 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
  * @param	InstancePtr is a pointer to the XDpTxSs instance.
  * @param	Stream is the stream number for which to change the Polarity.
  *
- * @return	None.
  *
  * @note	None.
  *
@@ -1069,10 +1064,6 @@ void XDpTxSs_OverrideSyncPolarity(XDpTxSs *InstancePtr, u8 Stream)
  * core.
  *
  * @param	InstancePtr is a pointer to the XDpTxSs instance.
- * @param	LinkRate is the rate at which link needs to be driven.
- *		- XDPTXSS_LINK_BW_SET_162GBPS = 0x06(for a 1.62 Gbps data rate)
- *		- XDPTXSS_LINK_BW_SET_270GBPS = 0x0A(for a 2.70 Gbps data rate)
- *		- XDPTXSS_LINK_BW_SET_540GBPS = 0x14(for a 5.40 Gbps data rate)
  *
  * @return
  *		- XST_SUCCESS if setting the new lane rate was successful.
@@ -1360,8 +1351,9 @@ u32 XDpTxSs_GetRxCapabilities(XDpTxSs *InstancePtr)
  * DisplayPort Configuration Data (DPCD).
  *
  * @param			InstancePtr is a pointer to the XDp instance.
- * @SinkCap			Downstream Capabilities.
- * @SinkExtendedCap	Downstream Extended Capabilities.
+ * @param           SinkCap			Downstream Capabilities.
+ * @param           SinkExtendedCap	Downstream Extended Capabilities.
+ * @param           MaxLinkrate_128B	Maximum Link Rate supported by Sink.
  *
  * @return
  *		- XST_SUCCESS if the DisplayPort Configuration Data was read
@@ -1533,8 +1525,6 @@ u32 XDpTxSs_CheckLinkStatus(XDpTxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 * @param	UserPixelWidth is the user pixel width to be configured.
 * @param	StreamId is the stream number.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1712,7 +1702,6 @@ u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt
  *       - 0 = Disable the sending colorimetry through VSC packet else enable
  *             Enable the sending colorimetry through VSC packet
  *
- * @return
  *
  * @note	None.
  *
@@ -1736,8 +1725,6 @@ void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable)
 *		path.
 *		1 = Set redriver in the DisplayPort output path.
 *		0 = Unset redriver in the DisplayPort output path.
-*
-* @return	None.
 *
 * @note		Set the redriver in the DisplayPort output path before
 *		starting the training.
@@ -2406,7 +2393,6 @@ u32 XDpTxSs_ReadDownstream(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2677,7 +2663,6 @@ static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *

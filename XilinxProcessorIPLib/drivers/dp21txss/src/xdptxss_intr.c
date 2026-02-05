@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,8 +80,6 @@
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -108,8 +106,6 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -139,7 +135,6 @@ void XDpTxSs_HdcpIntrHandler(void *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -165,7 +160,6 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -268,7 +262,6 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -354,7 +347,6 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -560,7 +552,6 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 *		will be passed to the custom sleep/delay function when it is
 *		invoked.
 *
-* @return	None.
 *
 * @note		None.
 *

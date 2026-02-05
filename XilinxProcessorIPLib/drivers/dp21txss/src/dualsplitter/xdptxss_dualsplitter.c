@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +54,7 @@
 * number of streams.
 *
 * @param	InstancePtr is a pointer to the XDualSplitter core instance.
-* @param	VertSplit specifies a TURE/FALSE flag to indicate whether the
+* @param	VertSplit specifies a TRUE/FALSE flag to indicate whether the
 *		core need to program in split mode or bypass mode respectively.
 * @param	MsaConfig is a pointer to main stream attributes structure
 *		that will be used to extract timing values.

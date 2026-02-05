@@ -1067,7 +1067,7 @@ static char inbyte_local(void)
  * @param	timeout_ms
  *
  * @return
- *		- received charactor
+ *		- received character
  *
  * @note		None.
  *
@@ -1131,7 +1131,7 @@ static char RecvByte_NonBlocking()
  * @param	timeout_ms
  *
  * @return
- *		- received charactor
+ *		- received character
  *
  * @note		None.
  *
