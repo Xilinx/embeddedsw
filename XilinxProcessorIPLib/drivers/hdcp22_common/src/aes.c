@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +11,7 @@
 * This code is the implementation of the AES algorithm and
 * the CTR, CBC, and CCM modes of operation it can be used in.
 * AES is, specified by the NIST in in publication FIPS PUB 197,
-* availible at:
+* available at:
 * - http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf .
 * The CBC and CTR modes of operation are specified by
 * NIST SP 800-38 A, available at:
@@ -247,11 +248,9 @@ static void AesDecryptCtr(const u8 In[], size_t InLen, u8 Out[],
 *
 * This function encrypts 128 bits data with a key of size 128 bits.
 *
-* @param	Input is the 16 byte plaintext
+* @param	Data is the 16 byte plaintext
 * @param	Key is the user supplied input key
 * @param	Output is the 16 byte ciphertext
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -271,11 +270,9 @@ void XHdcp22Cmn_Aes128Encrypt(const u8 *Data, const u8 *Key, u8 *Output)
 *
 * This function encrypts 128 bits data with a key of size 128 bits.
 *
-* @param	Input is the 16 byte ciphertext
+* @param	Data is the 16 byte ciphertext
 * @param	Key is the user supplied input key
 * @param	Output is the 16 byte plaintext
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -286,7 +283,7 @@ void XHdcp22Cmn_Aes128Decrypt(const u8 *Data, const u8 *Key, u8 *Output)
 
 	/* Setup the AES internal key */
 	AesKeySetup(Key, KeySchedule, 128);
-	/* Encrypt 128-bits*/
+	/* Decrypt 128-bits*/
 	AesDecrypt(Data, Output, KeySchedule, 128);
 }
 
@@ -590,9 +587,9 @@ static void AesInvShiftRows(u8 State[][4])
 *
 * This function Performs the MixColums step.
 * The State is multiplied by itself using matrix
-* multiplication in a Galios Field 2^8. All multiplication is pre-computed in a table.
-* Addition is equivilent to XOR. (Must always make a copy of the column as the original
-* values will be destoyed.)
+* multiplication in a Galois Field 2^8. All multiplication is pre-computed in a table.
+* Addition is equivalent to XOR. (Must always make a copy of the column as the original
+* values will be destroyed.)
 *
 * @param	State are the statevalues of the AES conversion.
 *

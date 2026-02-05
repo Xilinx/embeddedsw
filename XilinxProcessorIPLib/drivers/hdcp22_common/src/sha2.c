@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,8 +76,6 @@ static void Sha256Final(Sha256Type *Ctx, u8 *Hash);
 * @param  Data is the data on which a hash is calculated.
 * @param  DataSize is the size of the data array..
 * @param  HashedData is a 256-bits size hash.
-*
-* @return None.
 *
 * @note   None.
 *
