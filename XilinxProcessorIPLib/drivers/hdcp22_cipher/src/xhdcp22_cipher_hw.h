@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_cipher_hw.h
 * @addtogroup hdcp22_cipher Overview
 * @{
-* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx HDCP 2.2 Cipher core.
@@ -166,7 +165,7 @@ extern "C" {
 *
 * This macro reads the status register from the HDCP22 Cipher.
 *
-* @param  IBaseAddress is the base address of the HDCP22 Cipher core instance.
+* @param  BaseAddress is the base address of the HDCP22 Cipher core instance.
 *
 * @return A 32-bit value representing the contents of the status register.
 *

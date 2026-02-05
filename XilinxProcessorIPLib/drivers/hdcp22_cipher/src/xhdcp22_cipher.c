@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,11 +100,9 @@ int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr,
 /**
 * This function sets the Ks key in the HDCP22 Cipher core.
 *
-* @param  BaseAddress is the base address of the HDCP22 Cipher core instance.
+* @param  InstancePtr is the base address of the HDCP22 Cipher core instance.
 * @param  KsPtr is a pointer to the Ks key.
 * @param  Length indicates the number of bytes.
-*
-* @return None.
 *
 * @note   The Ks should be in big endian notation.
 *
@@ -121,7 +119,7 @@ void XHdcp22Cipher_SetKs(XHdcp22_Cipher *InstancePtr, const u8 *KsPtr, u16 Lengt
 
 	u8 Buf[16];
 	/* The HDCP cipher expects the Ks to be written in little endian format */
-	/* Swap the endianess */
+	/* Swap the endianness */
 	for (i=0; i<16; i++){
 		Buf[(15-i)] = KsPtr[i];
 	}
@@ -140,11 +138,9 @@ void XHdcp22Cipher_SetKs(XHdcp22_Cipher *InstancePtr, const u8 *KsPtr, u16 Lengt
 /**
 * This function sets the Lc128 key in the HDCP22 Cipher core.
 *
-* @param  BaseAddress is the base address of the HDCP22 Cipher core instance.
+* @param  InstancePtr is the base address of the HDCP22 Cipher core instance.
 * @param  Lc128Ptr is a pointer to the LC128 key.
 * @param  Length indicates the number of bytes.
-*
-* @return None.
 *
 * @note   The Lc128 should be in big endian notation.
 *
@@ -160,7 +156,7 @@ void XHdcp22Cipher_SetLc128(XHdcp22_Cipher *InstancePtr, const u8 *Lc128Ptr,  u1
 
 	u8 Buf[16];
 	/* The HDCP cipher expects the Ks to be written in little endian format */
-	/* Swap the endianess */
+	/* Swap the endianness */
 	for (i=0; i<16; i++){
 		Buf[(15-i)] = Lc128Ptr[i];
 	}
@@ -179,11 +175,9 @@ void XHdcp22Cipher_SetLc128(XHdcp22_Cipher *InstancePtr, const u8 *Lc128Ptr,  u1
 /**
 * This function sets the Riv key in the HDCP22 Cipher core.
 *
-* @param  BaseAddress is the base address of the HDCP22 Cipher core instance.
+* @param  InstancePtr is the base address of the HDCP22 Cipher core instance.
 * @param  RivPtr is a pointer to the Riv key.
 * @param  Length indicates the number of bytes.
-*
-* @return None.
 *
 * @note   The Riv should be in big endian notation.
 *
@@ -199,7 +193,7 @@ void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Le
 
 	u8 Buf[8];
 	/* The HDCP cipher expects the Riv to be written in little endian format */
-	/* Swap the endianess */
+	/* Swap the endianness */
 	for (i=0; i<8; i++)
 	{
 		Buf[(7-i)] = RivPtr[i];

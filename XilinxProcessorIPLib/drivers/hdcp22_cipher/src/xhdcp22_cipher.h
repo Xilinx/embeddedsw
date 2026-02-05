@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,8 @@
 * @file xhdcp22_cipher.h
 * @addtogroup hdcp22_cipher Overview
 * @{
-* @details
+*
+*
 *
 * This is the main header file of the Xilinx HDCP 2.2 Cipher device driver.
 * The Cipher implements the AES-128 standard for encrypting and decrypting
@@ -26,7 +27,7 @@
 * The application needs to do the following steps to run the Cipher.
 * - Call XHdcp22Cipher_LookupConfig using the device ID to find the
 *   core configuration instance.
-* - Call XHdcp22Cipher_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Cipher_CfgInitialize to initialize the device instance.
 * - Call XHdcp22Cipher_SetTxMode or XHdcp22Cipher_SetRxMode to setup
 *   the Cipher as either a transmitter or receiver.
 * - Call XHdcp22Cipher_Enable to enable the cipher.
