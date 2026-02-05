@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -170,7 +170,7 @@
  * appropriate interrupt handler.
  *
  * The DisplayPort RX's XDP_RX_INTERRUPT_CAUSE register indicates the type of
- * interrupt that has occured, and the XDp_RxInterruptHandler will use this
+ * interrupt that has occurred, and the XDp_RxInterruptHandler will use this
  * information to decide which handler to call.
  *
  * The handlers are set up using the XDp_RxSetIntr* functions.
@@ -631,12 +631,12 @@ typedef struct {
 	u8 LaneEqAlignStatus[6];	/*This is a raw read of the RX device's
 					 *lane equalization align status registers.This bits ensures
 					 *receiver is properly detected and  aligned to 128B/132B
-					 *boudaries
+					 *boundaries
 					 */
 	u8 CdsAlignStatus[6];	/*This is a raw read of the RX device's
 				 *cds align status registers.This bits ensures the
 				 *receiver is properly detected and aligned to 128B/132B
-				 *boudaries.
+				 *boundaries.
 				 */
 } XDp_TxSinkConfig;
 
@@ -751,7 +751,7 @@ typedef struct {
 	u8 TransferUnitSize;		/**< Size of the transfer unit in the
 						framing logic. In MST mode, this
 						is also the number of time slots
-						that are alloted in the payload
+						that are allotted in the payload
 						ID table. */
 	u32 StartTs;		/**< Starting timeslot for payload
 								allocation */
@@ -849,7 +849,7 @@ typedef struct {
 						DisplayPort Configuration Data
 						(DPCD). For this device to
 						support MST features, this value
-						must represent a protocl version
+						must represent a protocol version
 						greater or equal to 1.2. */
 	u8 MsgCapStatus;		/**< This device is capable of sending
 						and receiving sideband
