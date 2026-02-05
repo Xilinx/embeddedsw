@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009 - 2019 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -49,8 +50,8 @@ void print_app_header()
 	xil_printf("TCP packets sent to port 6001 will be echoed back\n\r");
 }
 
-err_t recv_callback(void *arg, struct tcp_pcb *tpcb,
-                               struct pbuf *p, err_t err)
+err_t recv_callback(void *arg __attribute__((unused)), struct tcp_pcb *tpcb,
+                               struct pbuf *p, err_t err __attribute__((unused)))
 {
 	/* do not read the packet if we are not in ESTABLISHED state */
 	if (!p) {
@@ -75,7 +76,7 @@ err_t recv_callback(void *arg, struct tcp_pcb *tpcb,
 	return ERR_OK;
 }
 
-err_t accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err)
+err_t accept_callback(void *arg __attribute__((unused)), struct tcp_pcb *newpcb, err_t err __attribute__((unused)))
 {
 	static int connection = 1;
 

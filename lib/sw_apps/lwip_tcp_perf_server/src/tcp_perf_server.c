@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -150,7 +150,7 @@ static void tcp_server_close(struct tcp_pcb *pcb)
 }
 
 /** Error callback, tcp session aborted */
-static void tcp_server_err(void *arg, err_t err)
+static void tcp_server_err(void *arg __attribute__((unused)), err_t err)
 {
 	LWIP_UNUSED_ARG(err);
 	u64_t now = get_time_ms();
@@ -163,8 +163,8 @@ static void tcp_server_err(void *arg, err_t err)
 
 
 /** Receive data on a tcp session */
-static err_t tcp_recv_perf_traffic(void *arg, struct tcp_pcb *tpcb,
-		struct pbuf *p, err_t err)
+static err_t tcp_recv_perf_traffic(void *arg __attribute__((unused)), struct tcp_pcb *tpcb,
+		struct pbuf *p, err_t err __attribute__((unused)))
 {
 	static u64_t now;
 	if (p == NULL) {
@@ -203,7 +203,7 @@ static err_t tcp_recv_perf_traffic(void *arg, struct tcp_pcb *tpcb,
 	return ERR_OK;
 }
 
-static err_t tcp_server_accept(void *arg, struct tcp_pcb *newpcb, err_t err)
+static err_t tcp_server_accept(void *arg __attribute__((unused)), struct tcp_pcb *newpcb, err_t err)
 {
 	if ((err != ERR_OK) || (newpcb == NULL)) {
 		return ERR_VAL;
