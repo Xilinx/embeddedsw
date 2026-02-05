@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xhdcp22_cipher_dp_sinit.c
 * @addtogroup hdcp22_cipher_dp Overview
 * @{
-* @details
 *
 * This file contains the static initialization methods for the Xilinx
 * HDCP 2.2 Cipher core.
