@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -175,7 +175,7 @@
 * encryption, and link monitoring processes as requested by the client
 * application software.
 *
-* The state machines co-ordinate the operation of the cipher, port device(s),
+* The state machines coordinate the operation of the cipher, port device(s),
 * and the physical video interface (HDMI or DisplayPort), and rely upon the
 * proper programming and availability of HDCP device keys.
 *
@@ -608,7 +608,7 @@
 * authentication.
 *
 * If the authentication fails and the upstream device triggers the
-* authentication again, then the entire authenitcation process is re-started.
+* authentication again, then the entire authentication process is re-started.
 *
 * <b> HDCP (Repeater) Callback functions </b>
 * - Transmitter
@@ -636,7 +636,7 @@
 * - XHdcp1xInst.Rx.RepeaterDownstreamAuthCallback
 *   - XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH
 *   - RepeaterDownstreamAuthCallback has to be defined by the user in order
-*     to ensure that the downstream is ready to begin afer 1st part of
+*     to ensure that the downstream is ready to begin after 1st part of
 *     authentication is completed on the RX side. The user must ensure that
 *     TX is not in physical-layer-down state and consequently post the
 *     EVENT_AUTHENTICATE to the TX interface in order to begin the
@@ -654,7 +654,7 @@
 * - XHdcp1xInst.Rx.TopologyUpdateCallback
 *   - XHDCP1X_HANDLER_TOPOLOGY_UPDATE
 *   - The TopologyUpdateCallback should be set by the user to handle changes
-*     in downstream topology. This is currently not supprted for hdcp 1.4.
+*     in downstream topology. This is currently not supported for hdcp 1.4.
 * - XHdcp1xInst.Rx.EncryptionUpdateCallback
 *   - XHDCP1X_HANDLER_ENCRYPTION_UPDATE
 *   - The EncryptionUpdateCallback needs to be set by the user and is called
@@ -696,7 +696,7 @@
 * 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
 * 4.1   yas    08/03/17 Added flag IsAuthReqPending to the XHdcp1x_Tx data
 *                       structure to track any pending authentication requests.
-* 4.2   yas    08/13/18 Addded hdcp14_PropagateTopoErrUpstream flag to track
+* 4.2   yas    08/13/18 Added hdcp14_PropagateTopoErrUpstream flag to track
 *                       topology failures and ready the topology for the
 *                       repeater application to read.
 * 4.3   yas    08/16/19 Added support for HDMI 2.1 Rx and Tx.

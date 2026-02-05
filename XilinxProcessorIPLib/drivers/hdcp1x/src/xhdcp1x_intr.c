@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,8 +95,6 @@ int XHdcp1x_SetCallback(XHdcp1x *InstancePtr, XHdcp1x_HandlerType HandlerType,
 *
 * @param	InstancePtr is the device instance that just interrupted.
 *
-* @return	None.
-*
 * @note		This function just forwards the interrupt along to the
 *		corresponding cipher core.
 *
@@ -119,8 +117,6 @@ void XHdcp1x_CipherIntrHandler(void *InstancePtr)
 *
 * @param	InstancePtr is the device instance that just interrupted.
 * @param	IntCause is the interrupt cause bit map.
-*
-* @return	None.
 *
 * @note		This function just forwards the interrupt along to the
 *		corresponding cipher core.

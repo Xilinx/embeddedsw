@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@
 *                       XHdcp1x_RxSetCallBack.
 * 3.1   yas    07/28/16 Repeater functionality extended to support HDMI.
 *                       Removed the XHdcp1x_RxDownstreamReadyCallback.
-*                       Added fucntions,
+*                       Added functions,
 *                       XHdcp1x_RxSetRepeaterBcaps,XHdcp1x_RxIsInComputations,
 *                       XHdcp1x_RxIsInWaitforready, XHdcp1x_RxHandleTimeout,
 *                       XHdcp1x_RxStartTimer, XHdcp1x_RxStopTimer,

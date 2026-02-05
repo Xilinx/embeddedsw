@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 * 1.00  fidus  07/16/15 Initial release.
 * 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortDpRxEnable support
 *                       HDCP Repeater functionality.
-* 3.1   yas    07/28/16 Added fucntion XHdcp1x_PortDpRxSetRepeater
+* 3.1   yas    07/28/16 Added function XHdcp1x_PortDpRxSetRepeater
 * 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
 *                       of DisplayPort DPCD registers
 * </pre>

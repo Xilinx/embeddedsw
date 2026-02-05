@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@
 *                       Added functions:
 *                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
 *                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream
-* 4.0   yas    07/30/16 Addded function:
+* 4.0   yas    07/30/16 Added function:
 *                       XHdcp1x_SetRepeater, XHdcp1x_IsInComputations,
 *                       XHdcp1x_IsInWaitforready, XHdcp1x_IsDwnstrmCapable,
 *                       XHdcp1x_GetTopology, XHdcp1x_DisableBlank,
@@ -363,6 +363,7 @@ int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
 * This function enables an HDCP MST ECF Field.
 *
 * @param	InstancePtr is the interface to enable.
+* @param	timeslots is the time slots to be enabled for ECF.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -395,7 +396,7 @@ int XHdcp1x_Enable_ECF_Slots(XHdcp1x *InstancePtr, u64 timeslots)
 * This function sets the Repeater functionality for an HDCP interface.
 *
 * @param	InstancePtr is the interface to disable.
-* @param	State is etiher TRUE or FALSE
+* @param	State is either TRUE or FALSE
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -641,7 +642,7 @@ int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 * This function sets the MST/ SST of a hdcp interface
 *
 * @param	InstancePtr is the interface to update.
-* @param	Mode determines the MST/ SST configuration.
+* @param	mode determines the MST/ SST configuration.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -1140,8 +1141,6 @@ int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
 *
 * @param	InstancePtr is the interface.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1176,8 +1175,6 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 *
 * @param	PrintfFunc is the printf function.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1191,8 +1188,6 @@ void XHdcp1x_SetDebugPrintf(XHdcp1x_Printf PrintfFunc)
 * This function sets the debug log message function for the module.
 *
 * @param	LogFunc is the debug logging function.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1208,8 +1203,6 @@ void XHdcp1x_SetDebugLogMsg(XHdcp1x_LogMsg LogFunc)
 *
 * @param	RevokeCheckFunc is the KSV revocation list check function.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1224,8 +1217,6 @@ void XHdcp1x_SetKsvRevokeCheck(XHdcp1x_KsvRevokeCheck RevokeCheckFunc)
 *
 * @param	InstancePtr is the pointer to the HDCP interface.
 * @param	TimerStartFunc is the timer start function.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1245,8 +1236,6 @@ void XHdcp1x_SetTimerStart(XHdcp1x *InstancePtr, XHdcp1x_TimerStart TimerStartFu
 * @param	InstancePtr is the pointer to the HDCP interface.
 * @param	TimerStopFunc is the timer stop function.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1264,8 +1253,6 @@ void XHdcp1x_SetTimerStop(XHdcp1x *InstancePtr, XHdcp1x_TimerStop TimerStopFunc)
 *
 * @param	InstancePtr is the pointer to the HDCP interface.
 * @param	TimerDelayFunc is the timer busy delay function.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1321,8 +1308,6 @@ u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 *
 * @param	InstancePtr is the interface to display.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1355,8 +1340,6 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 * This function processes the AKsv.
 *
 * @param	InstancePtr is the interface to display.
-*
-* @return	None
 *
 * @note		None.
 *
@@ -1422,8 +1405,6 @@ void *XHdcp1x_GetTopology(XHdcp1x *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XHdcp14 core instance.
 *
-* @return   None.
-*
 * @note     None.
 *
 ******************************************************************************/
@@ -1446,8 +1427,6 @@ void XHdcp1x_DisableBlank(XHdcp1x *InstancePtr)
 * This function enables the blank output for the cipher.
 *
 * @param    InstancePtr is a pointer to the XHdcp14 core instance.
-*
-* @return   None.
 *
 * @note     None.
 *
@@ -1534,8 +1513,6 @@ u8 *XHdcp1x_GetTopologyBKSV(XHdcp1x *InstancePtr)
 * @param    InstancePtr is a pointer to the XHdcp1x core instance.
 * @param    Field indicates what field of the topology structure to update.
 * @param    Value is the value assigned to the field of the topology structure.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1668,8 +1645,6 @@ int XHdcp1x_IsRepeater(XHdcp1x *InstancePtr)
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    TopologyPtr is a pointer to the Repeater Info value(s).
 *
-* @return   None.
-*
 * @note     None.
 ******************************************************************************/
 void XHdcp1x_SetTopology(XHdcp1x *InstancePtr,
@@ -1700,8 +1675,6 @@ void XHdcp1x_SetTopology(XHdcp1x *InstancePtr,
 * @param    ListPtr is a pointer to the KSV list.
 * @param    ListSize is the number of KSVs in the list.
 *
-* @return   None.
-*
 * @note     None.
 ******************************************************************************/
 void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
@@ -1731,8 +1704,6 @@ void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 * after the topology has been set.
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1767,8 +1738,6 @@ void XHdcp1x_SetTopologyUpdate(XHdcp1x *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param	Value is the truth-value.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -205,8 +205,6 @@ int XHdcp1x_CipherSetRiUpdate(XHdcp1x *InstancePtr, int IsEnabled)
 * This function is the interrupt handler for the cipher core driver.
 *
 * @param	InstancePtr is the cipher core instance.
-*
-* @return	None.
 *
 * @note		None.
 *

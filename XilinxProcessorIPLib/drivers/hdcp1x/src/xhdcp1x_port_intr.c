@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,8 +97,6 @@ int XHdcp1x_PortSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
 *
 * @param	InstancePtr is the device to write to.
 * @param	IntCause is the interrupt cause bit map.
-*
-* @return	None.
 *
 * @note		None.
 *

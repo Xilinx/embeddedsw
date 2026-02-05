@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
-* 3.10  yas    07/28/16 Added fucntion XHdcp1x_PortSetRepeater
+* 3.10  yas    07/28/16 Added function XHdcp1x_PortSetRepeater
 * </pre>
 *
 *****************************************************************************/
@@ -172,6 +172,8 @@ int XHdcp1x_PortEnable(XHdcp1x *InstancePtr)
 * This function enables encryption/decyption for all timeslots.
 *
 * @param	InstancePtr is the device to enables.
+*
+* @param	timeslots is the timeslot configuration value.
 *
 * @return
 *		- XST_SUCCESS if successful.

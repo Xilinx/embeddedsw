@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,7 +31,7 @@
 *                       XHdcp1x_TxTriggerDownstreamAuth,
 *                       XHdcp1x_TxSetRepeaterInfo.
 * 3.1   yas    06/15/16 Repeater functionality extended to support HDMI.
-*                       Added fucntions,
+*                       Added functions,
 *                       XHdcp1x_TxIsInComputations,XHdcp1x_TxIsInWaitforready,
 *                       XHdcp1x_TxIsDownstrmCapable, XHdcp1x_TxIsRepeater,
 *                       XHdcp1x_TxEnableBlank, XHdcp1x_TxDisableBlank,
@@ -297,8 +297,6 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 *
 * @param	InstancePtr is the receiver instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -538,8 +536,10 @@ int XHdcp1x_TxSetMSTMode(XHdcp1x *InstancePtr, int mode)
 *
 * @param	InstancePtr is the receiver instance.
 *
-* @return	None.
+* @param    timeslots is the ECF timeslots to be enabled.
 *
+* @return
+*		- XST_SUCCESS if successful.
 * @note		None.
 *
 ******************************************************************************/
@@ -833,7 +833,7 @@ int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 *
 * @param	InstancePtr is the transmitter instance.
 *
-* @return	None.
+* @param Value The mode value to set (typically 1 for HDMI, 0 for DVI).
 *
 * @note		None.
 *
@@ -859,8 +859,6 @@ void XHdcp1x_TxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 * This function handles a timeout on an HDCP interface.
 *
 * @param	InstancePtr is the transmitter instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -989,8 +987,6 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the Hdcp1.4 core instance.
 *
-* @return None.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -1006,8 +1002,6 @@ void XHdcp1x_TxEnableBlank(XHdcp1x *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the Hdcp1.4 core instance.
 *
-* @return None.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -1022,8 +1016,6 @@ void XHdcp1x_TxDisableBlank(XHdcp1x *InstancePtr)
 *
 * @param	InstancePtr is the receiver instance.
 * @param	LogMsg is the message to log.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1055,8 +1047,6 @@ static void XHdcp1x_TxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 * @param	InstancePtr is the transmitter instance.
 * @param	Event is the event to post.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1082,8 +1072,6 @@ static void XHdcp1x_TxPostEvent(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 * @param	InstancePtr is the state machine.
 * @param	TimeoutInMs is the timeout in milli-seconds.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1098,8 +1086,6 @@ static void XHdcp1x_TxStartTimer(XHdcp1x *InstancePtr, u16 TimeoutInMs)
 * This function stops a state machine's timer.
 *
 * @param	InstancePtr is the state machine.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1116,8 +1102,6 @@ static void XHdcp1x_TxStopTimer(XHdcp1x *InstancePtr)
 *
 * @param	InstancePtr is the state machine.
 * @param	DelayInMs is the delay time in milli-seconds.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1157,8 +1141,6 @@ static void XHdcp1x_TxReauthenticateCallback(void *Parameter)
 *
 * @param	Parameter is the parameter specified during registration.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1175,8 +1157,6 @@ void XHdcp1x_TxTriggerDownstreamAuth(void *Parameter)
 * This function acts as the check link callback for a state machine.
 *
 * @param	Parameter is the parameter specified during registration.
-*
-* @return	Mpme/
 *
 * @note		None.
 *
@@ -1195,8 +1175,6 @@ static void XHdcp1x_TxCheckLinkCallback(void *Parameter)
 *
 * @param	InstancePtr is the HDCP state machine.
 * @param	IsEnabled is truth value indicating on/off.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1331,7 +1309,7 @@ static void XHdcp1x_TxDisableState(XHdcp1x *InstancePtr)
 	/* Disable the hdcp port */
 	XHdcp1x_PortDisable(InstancePtr);
 
-	/* Disable the cryto engine */
+	/* Disable the crypto engine */
 	XHdcp1x_CipherDisable(InstancePtr);
 
 	/* Disable the timer */
@@ -2556,7 +2534,7 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		 * the downstream HDCP device */
 		InstancePtr->RepeaterValues.DeviceCount = (Buf & 0x007F);
 		/* Increment the device count by 1 to account for
-		 * the HDCP Repeater system itsef */
+		 * the HDCP Repeater system itself */
 		InstancePtr->RepeaterValues.DeviceCount++;
 #else
 		/* Get the Depth read from the downstream HDCP device */
@@ -2572,7 +2550,7 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		InstancePtr->RepeaterValues.DeviceCount = (RepeaterInfo & 0x007F);
 
 		/* Increment the device count by 1 to account for
-		 * the HDCP Repeater system itsef */
+		 * the HDCP Repeater system itself */
 		InstancePtr->RepeaterValues.DeviceCount++;
 #endif
 
@@ -3609,7 +3587,7 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 *
 * @param	InstancePtr is the receiver instance.
 *
-* @return	None.
+* @param	timeslots is the number of timeslots to enable ECF for.
 *
 * @note		None.
 *
@@ -3624,8 +3602,6 @@ void XHdcp1x_TxEnableEcf(XHdcp1x *InstancePtr, u64 timeslots)
 * This function processes the events pending on a state machine.
 *
 * @param	InstancePtr is the receiver instance.
-*
-* @return	None.
 *
 * @note		None.
 *

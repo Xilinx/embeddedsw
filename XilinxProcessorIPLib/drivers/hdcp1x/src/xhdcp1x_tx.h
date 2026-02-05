@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@
 *                       XHdcp1x_TxReadDownstream, XHdcp1x_TxSetCallBack,
 *                       XHdcp1x_TxTriggerDownstreamAuth.
 * 3.1   yas    06/15/16 Repeater functionality extended to support HDMI.
-*                       Added fucntions,
+*                       Added functions,
 *                       XHdcp1x_TxIsInComputations,XHdcp1x_TxIsInWaitforready,
 *                       XHdcp1x_TxIsDownstrmCapable, XHdcp1x_TxIsRepeater,
 *                       XHdcp1x_TxEnableBlank, XHdcp1x_TxDisableBlank,

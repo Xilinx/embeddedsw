@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,8 +51,6 @@
 * This function initializes an HDCP cipher.
 *
 * @param	InstancePtr is the device to initialize.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1270,8 +1268,6 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr)
  *
  * @param	InstancePtr is the device to query.
  *
- * @return	None.
- *
  * @note	None.
  *
  *****************************************************************************/
@@ -1302,8 +1298,6 @@ void XHdcp1x_CipherEnableBlank(XHdcp1x *InstancePtr)
  *  This function sets the cipher blank select to FALSE
  *
  * @param	InstancePtr is the device to query.
- *
- * @return	None.
  *
  * @note	None.
  *

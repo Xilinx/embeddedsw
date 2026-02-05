@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,7 +37,7 @@
 *                       XHdcp1x_RxDoTheState.
 * 3.1   yas    07/28/16 Repeater functionality extended to support HDMI.
 *                       Removed the XHdcp1x_RxDownstreamReadyCallback.
-*                       Added fucntions,
+*                       Added functions,
 *                       XHdcp1x_RxSetRepeaterBcaps,XHdcp1x_RxIsInComputations,
 *                       XHdcp1x_RxIsInWaitforready, XHdcp1x_RxHandleTimeout,
 *                       XHdcp1x_RxStartTimer, XHdcp1x_RxStopTimer,
@@ -328,8 +328,6 @@ void XHdcp1x_RxLoadBksvToBuf(XHdcp1x *InstancePtr)
 * This function initializes a HDCP receiver state machine.
 *
 * @param	InstancePtr is the receiver instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -753,8 +751,6 @@ u64 XHdcp1x_RxGetEncryption(const XHdcp1x *InstancePtr)
 * This function handles a timeout on an HDCP interface.
 *
 * @param	InstancePtr is the receiver instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1264,7 +1260,7 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
      (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
     (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
      (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
-		/* No reset required in the sofware for HDMI. KSV fifo
+		/* No reset required in the software for HDMI. KSV fifo
 		 * pointer reset is implemented in the hardware. */
 
 #else
@@ -1434,8 +1430,6 @@ static int XHdcp1x_RxCalculateSHA1Value(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 *
-* @return   None.
-*
 * @note     None.
 ******************************************************************************/
 void XHdcp1x_RxSetTopologyUpdate(XHdcp1x *InstancePtr)
@@ -1450,8 +1444,6 @@ void XHdcp1x_RxSetTopologyUpdate(XHdcp1x *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    TopologyPtr is the pointer to topology information.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1470,8 +1462,6 @@ void XHdcp1x_RxSetTopology(XHdcp1x *InstancePtr,
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    ListPtr is a pointer to the KSV list.
 * @param    ListSize is the number of KSVs in the list.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1494,8 +1484,6 @@ void XHdcp1x_RxSetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    Value is the Depth value.
 *
-* @return   None.
-*
 * @note     None.
 ******************************************************************************/
 void XHdcp1x_RxSetTopologyDepth(XHdcp1x *InstancePtr, u32 Value)
@@ -1510,8 +1498,6 @@ void XHdcp1x_RxSetTopologyDepth(XHdcp1x *InstancePtr, u32 Value)
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    Value is the device count value.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1528,8 +1514,6 @@ void XHdcp1x_RxSetTopologyDeviceCnt(XHdcp1x *InstancePtr, u32 Value)
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    Value is either TRUE or FALSE.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1571,8 +1555,6 @@ void XHdcp1x_RxSetTopologyMaxCascadeExceeded(XHdcp1x *InstancePtr, u8 Value)
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
 * @param    Value is either TRUE or FALSE.
-*
-* @return   None.
 *
 * @note     None.
 ******************************************************************************/
@@ -1619,8 +1601,6 @@ void XHdcp1x_RxSetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr, u8 Value)
 * @param	InstancePtr is a pointer to the Hdcp1x core instance.
 * @param	Value is the truth-value.
 *
-* @return	None.
-*
 * @note		None.
 ******************************************************************************/
 void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
@@ -1656,8 +1636,6 @@ void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 *
 * @param	InstancePtr is the receiver instance.
 * @param	NextStatePtr is the next state.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1908,8 +1886,6 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 * @param	InstancePtr is the receiver instance.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		This function has to save the value of Ri (in RememberRi) as
 *		the macro that converts from a uint16 to a HDCP buffer
 *		destroys the original value.
@@ -1962,8 +1938,6 @@ static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr)
 * @param	InstancePtr is the receiver instance.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1984,8 +1958,6 @@ static void XHdcp1x_RxCheckLinkIntegrity(XHdcp1x *InstancePtr,
 * the HDCP cipher has changed.
 *
 * @param	InstancePtr is the receiver instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -2019,8 +1991,6 @@ static void XHdcp1x_RxCheckEncryptionChange(XHdcp1x *InstancePtr)
 * @param	InstancePtr is the receiver instance.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2052,8 +2022,6 @@ static void XHdcp1x_RxReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
 * @param	InstancePtr is the receiver instance.
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -2096,8 +2064,6 @@ static void XHdcp1x_RxRunDisabledState(XHdcp1x *InstancePtr,
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2138,8 +2104,6 @@ static void XHdcp1x_RxRunUnauthenticatedState(XHdcp1x *InstancePtr,
 * @param	InstancePtr is the receiver instance.
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -2185,8 +2149,6 @@ static void XHdcp1x_RxRunComputationsState(XHdcp1x *InstancePtr,
 * @param	InstancePtr is the receiver instance.
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -2258,8 +2220,6 @@ static void XHdcp1x_RxRunWaitForDownstreamState(XHdcp1x *InstancePtr,
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2327,8 +2287,6 @@ static void XHdcp1x_RxRunAssembleKsvListState(XHdcp1x *InstancePtr,
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2384,8 +2342,6 @@ static void XHdcp1x_RxRunAuthenticatedState(XHdcp1x *InstancePtr,
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2431,8 +2387,6 @@ static void XHdcp1x_RxRunLinkIntegrityFailedState(XHdcp1x *InstancePtr,
 * @param	Event is the event to process.
 * @param	NextStatePtr is the next state.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2468,8 +2422,6 @@ static void XHdcp1x_RxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
 * @param	InstancePtr is the receiver instance.
 * @param	State is the state to enter.
 * @param	NextStatePtr is the next state.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -2551,8 +2503,6 @@ static void XHdcp1x_RxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 *
 * @param	InstancePtr is the receiver instance.
 * @param	State is the state to exit.
-*
-* @return	None.
 *
 * @note		None.
 *

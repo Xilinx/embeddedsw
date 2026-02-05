@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
-*                       Added macro defintions for:
+*                       Added macro definitions for:
 *                       XHDCP1X_PORT_HDCP_RESET_KSV,
 *                       XHDCP1X_PORT_SIZE_HDCP_RESET_KSV and
 *                       XHDCP1X_PORT_HDCP_RESET_KSV_RST.
