@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       har  03/05/24 Fixed doxygen warnings
  *       pre  08/22/24 Added XLOADER_CFI_SEL_READBACK_ID
  *       pre  10/26/24 Made XLOADER_CMD_ID_LOAD_READBACK_PDI command ID as reserved
+ * 2.4   gnr  02/06/26 Removed conditional inclusion for XLOADER_CMD_ID_DATA_AUTH
  *
  * </pre>
  *
@@ -59,9 +60,7 @@ extern "C" {
 #define XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS (15U)
                                                 /**< command id for read DDR crypto  counters */
 #define XLOADER_CMD_ID_I2C_HANDSHAKE            (16U) /**< command id for I2C handshake */
-#ifdef VERSAL_NET
 #define XLOADER_CMD_ID_DATA_AUTH		        (17U) /**< API ID for Data authentication */
-#endif
 #define XLOADER_CFI_SEL_READBACK_ID             (18U) /**< command id for CFI selective readback */
 
 #define XLOADER_HEADER_LEN_1			(1U) /**< Header length 1 */
