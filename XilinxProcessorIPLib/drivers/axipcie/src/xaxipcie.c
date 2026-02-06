@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -689,7 +689,7 @@ void XAxiPcie_ReadLocalConfigSpace(XAxiPcie *InstancePtr, u16 Offset,
 * configuration space.
 *
 * @param 	InstancePtr is the PCIe component to operate on.
-* @param 	Offset from begininng of IP own configuration space.
+* @param 	Offset from beginning of IP own configuration space.
 * @param 	Data to be written to the specified location.
 *
 * @return 	None
