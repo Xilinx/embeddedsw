@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -384,8 +384,8 @@ void XI2s_Rx_JustifyEnable(XI2s_Rx *InstancePtr, u8 Enable)
  * This function is to enable right/left justification.
  *
  * @param  InstancePtr is a pointer to the XI2s Receiver instance.
- * @param  Justify is a enum to select the left or right justfication.
- *    - XI2S_RX_JUSTIFY_LEFT : Left justication
+ * @param  Justify is a enum to select the left or right justification.
+ *    - XI2S_RX_JUSTIFY_LEFT : Left justification
  *    - XI2S_RX_JUSTIFY_RIGHT : Right justification
  *
  * @return None.

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  * ****************************************************************************/
 
@@ -100,7 +100,7 @@ extern "C" {
 	/**< Alphanumeric channel origin data register(s) byte2 mask */
 
 #define XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE2_SHIFT (16)
-	/**< Alphanumeric channel origin data egister(s) byte2 shift */
+	/**< Alphanumeric channel origin data register(s) byte2 shift */
 
 #define XI2S_RX_AES_STS_ALPHANUM_CH_ORG_DATA_BYTE3_MASK (0XFF000000)
 	/**< Alphanumeric channel origin data register(s) byte3 mask */
