@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1148,7 +1148,7 @@ static XVidC_VideoMode Dp_GetPreferredVm(u8 *EdidPtr)
 /*****************************************************************************/
 /**
  *
- * This function configures DisplayPort video packaing clock control bit (
+ * This function configures DisplayPort video packaging clock control bit (
  * VIDEO_PACKING_CLOCK_CONTROL) if bpc is 12/16.
  *
  * @param	InstancePtr is a pointer to the XDp instance.

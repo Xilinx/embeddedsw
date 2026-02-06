@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2906,7 +2906,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
     u32 temp;
     u8 RSVD=0;
 
-    //Fixed paramaters
+    //Fixed parameters
     u8  dp_version   = xilInfoFrame->version;
 
         //Write #1

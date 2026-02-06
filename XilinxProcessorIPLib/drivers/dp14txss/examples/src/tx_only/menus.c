@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -891,7 +891,7 @@ void main_loop(){
 				xil_printf("Sink supports VSC\r\n");
 			}
 			else{
-				xil_printf("Sink doesnt support VSC\r\n");
+				xil_printf("Sink doesn't support VSC\r\n");
 				break;
 			}
 
@@ -1305,7 +1305,7 @@ static char inbyte_local(void){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *
@@ -1369,7 +1369,7 @@ static char RecvByte_NonBlocking(){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1959,7 +1959,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	if(max_cap_lanes_new != 1
 			&& max_cap_lanes_new != 2
 			&& max_cap_lanes_new != 4){
-		// soemthing wrong. Read again
+		// something wrong. Read again
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
 														&max_cap_lanes_new);
 	}
@@ -1969,7 +1969,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 			&& max_cap_new != XDP_TX_LINK_BW_SET_540GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_270GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS) {
-		// soemthing wrong. Read again
+		// something wrong. Read again
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
 														&max_cap_new);
 	}

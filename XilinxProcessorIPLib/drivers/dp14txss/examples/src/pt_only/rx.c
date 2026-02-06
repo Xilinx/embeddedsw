@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -62,7 +63,7 @@ extern XClk_Wiz ClkWiz_Dynamic_rx;
 
 
 //extern u8 audio_info_avail;
-u32 infofifo[64]; //RX and TX can store upto 4 infoframes each. fifo of 8
+u32 infofifo[64]; //RX and TX can store up to 4 infoframes each. fifo of 8
 u8 endindex = 0;
 u8 fifocount = 0;
 u32 hdrframe[9];

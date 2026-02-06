@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,7 +44,7 @@
 * 		    both HDCP1x and 22.
 * 6.2  jb  02/14/20 The DP Tx subsystems assumes that the HDCP configuration is
 * 		    same for all the instances in multiple subsystems in the
-* 		    design. This driver wont support for different configuration
+* 		    design. This driver won't support for different configuration
 * 		    of the subsystems.
 * 6.4  rg  09/26/20 Added below list of APIs related to VSC extended packets
 *                   XDpTxSs_CheckVscColorimetrySupport,
@@ -441,7 +441,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -706,7 +705,6 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -750,8 +748,6 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 *
 * @param        InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return
-*               - void.
 *
 * @note         None.
 *
@@ -771,8 +767,6 @@ void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
 *
 * @param        InstancePtr is a pointer to the XDpTxSs core instance.
 *
-* @return
-*               - void.
 *
 * @note         None.
 *
@@ -863,8 +857,6 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
  *
  * @param	InstancePtr is a pointer to the XDpTxSs instance.
  * @param	Stream is the stream number for which to change the Polarity.
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -1232,8 +1224,6 @@ u32 XDpTxSs_CheckLinkStatus(XDpTxSs *InstancePtr)
 * @param	UserPixelWidth is the user pixel width to be configured.
 * @param	StreamId is the stream number.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -1410,8 +1400,6 @@ u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt
  *       - 0 = Disable the sending colorimetry through VSC packet else enable
  *             Enable the sending colorimetry through VSC packet
  *
- * @return
- *
  * @note	None.
  *
 *******************************************************************************/
@@ -1434,8 +1422,6 @@ void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable)
 *		path.
 *		1 = Set redriver in the DisplayPort output path.
 *		0 = Unset redriver in the DisplayPort output path.
-*
-* @return	None.
 *
 * @note		Set the redriver in the DisplayPort output path before
 *		starting the training.

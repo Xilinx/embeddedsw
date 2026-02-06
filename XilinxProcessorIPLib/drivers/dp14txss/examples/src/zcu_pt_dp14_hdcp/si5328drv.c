@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 22020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1396,7 +1397,7 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
     n2_ls_div_n3 = settings->fosc / (settings->fin >> 28) / settings->n2_hs / 2;
     Si5328_RatApprox(n2_ls_div_n3, settings->n3_max, &(settings->n2_ls), &(settings->n3));
     settings->n2_ls *= 2;
-    // Rational approximation returns the smalles ratio possible. Upscaling
+    // Rational approximation returns the smallest ratio possible. Upscaling
     // might be needed when when one or both of the numbers are too low.
     if (settings->n2_ls < settings->n2_ls_min) {
         mult =  settings->n2_ls_min / settings->n2_ls;

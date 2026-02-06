@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1065,7 +1066,7 @@ void main_loop(){
 			/*Not a default option*/
 //			DpTxSsInst.UsrOpt.VtcAdjustBs = 1;
 
-			/* Read Sink Capablity*/
+			/* Read Sink Capability*/
 			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
 					DPCD_MAX_LINE_RATE, 2, &Data);
 			Sink_MaxLinkRate = 0x1E; //Data[0];
@@ -1467,7 +1468,7 @@ static char inbyte_local(void){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *
@@ -1523,7 +1524,7 @@ static char XUartPs_RecvByte_NonBlocking(){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *

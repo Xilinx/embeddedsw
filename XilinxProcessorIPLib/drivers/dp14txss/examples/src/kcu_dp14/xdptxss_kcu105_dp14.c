@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -2084,7 +2084,7 @@ int main(void)
 					/* EDID pass-thorugh changer. */
 					case 'q':
 						if (use_monitor_edid == 1) {
-							/* change the mode to none-pass-through mdoe. */
+							/* change the mode to none-pass-through mode. */
 							use_monitor_edid = 0;
 							xil_printf("Set as EDID non-pass-through mode\r\n");
 						} else {
@@ -2789,7 +2789,7 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000000);
 
 	/* Checking the sink line capability.
-	 * if both soruce/sink support DP1.4, go as DP1.4 mode
+	 * if both source/sink support DP1.4, go as DP1.4 mode
 	 * */
 	if(max_cap_org < dp_conf.LineRate) {
 		Status = XDpTxSs_SetLinkRate(&DpTxSsInst,
@@ -3998,10 +3998,19 @@ void clk_wiz_locked() {
 /*****************************************************************************/
 /**
  * This is for Tx only mode
- * This function will start outputing internal video patern image
- * Setup GT, DP, patern and generator.
+ * This function will start outputting internal video pattern image
+ * Setup GT, DP, pattern and generator.
  *
- * @return None
+ * @param line_rate      Link rate setting for the DisplayPort transmission
+ * @param lane_count     Number of lanes to use for transmission
+ * @param res_table      Video resolution mode from the resolution table
+ * @param bpc           Bits per color component (e.g., 8, 10, 12)
+ * @param pat           Pattern type identifier (unused parameter)
+ * @param pat_update    Pattern update flag to select video pattern
+ *
+ * @note This function configures the DisplayPort TX subsystem with the
+ *       specified parameters, trains the link, and starts video output
+ *       with the selected internal pattern generator settings.
  *
  *****************************************************************************/
 void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
@@ -4172,7 +4181,7 @@ void prog_bb (u8 bw, u8 is_tx)
 		}
 	}
 
-#else // for 4B the clocks to be genrated are half of 2B
+#else // for 4B the clocks to be generated are half of 2B
 	if (is_tx == 1) { // TX only path using refclk0 of 270Mhz
 	          if (bw == 0x14) { //135Mhz
 	            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
@@ -4363,7 +4372,7 @@ void video_change_detect(u32 *count_track, u32 *rxMsamisc0_track,
 {
 	/* This module tracks for refresh rate change. Many GPUs do not
 	 * re-train when the refresh is change. This tracks the refresh
-	 * rate ans restarts the TX if needed.
+	 * rate and restarts the TX if needed.
 	 * */
 	u32 format_change_track=0;
 	u8 colormode=0;
@@ -4548,7 +4557,7 @@ void detect_rx_video_and_startTx(int *track_count1)
 /*****************************************************************************/
 /**
  * This function will be used when no incoming video at pass-through mode
- * If no video, switching to internal patern generator
+ * If no video, switching to internal pattern generator
  *
  * @return None
  *

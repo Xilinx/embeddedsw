@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -369,7 +370,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 
 static void Edid_Print_ColorChar(u8 *EdidRaw)
 {
-//	xil_printf("Color characterisitics:\n\r");
+//	xil_printf("Color characteristics :\n\r");
 //	xil_printf("Red_x:%d.%09d +- 0.0005\n\r",
 //		(u32)XEDID_GET_CC_REDX(EdidRaw),
 //		FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDX(EdidRaw), 1000000000));

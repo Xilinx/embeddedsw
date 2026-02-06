@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +18,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------------
 * X.XX  XX      YY/MM/DD
-* 1.00  Nishant 19/12/20 Added suppport for vck190
+* 1.00  Nishant 19/12/20 Added support for vck190
 * </pre>
 *
 ******************************************************************************/

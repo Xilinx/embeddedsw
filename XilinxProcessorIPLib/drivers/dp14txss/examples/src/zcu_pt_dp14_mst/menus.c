@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -983,7 +983,7 @@ void pt_loop(){
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
 	XDpTxSs_Stop(&DpTxSsInst);
-	//isue HPD
+	//issue HPD
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_HPD_INTERRUPT,0xFBB80001);
 #ifndef SDT
     XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
@@ -1304,7 +1304,7 @@ static char inbyte_local(void){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *
@@ -1360,7 +1360,7 @@ static char XUartPs_RecvByte_NonBlocking(){
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *
@@ -1549,7 +1549,7 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 
 	sink_power_cycle();
 
-	//Setting to 0x6 improves the perfomance on some
+	//Setting to 0x6 improves the performance on some
 	//Dell monitors, which otherwise give multiple HPD pulse
 	XDpTxSs_SetLinkRate(&DpTxSsInst, XDPTXSS_LINK_BW_SET_162GBPS);
 	set_vphy(max_cap_org);

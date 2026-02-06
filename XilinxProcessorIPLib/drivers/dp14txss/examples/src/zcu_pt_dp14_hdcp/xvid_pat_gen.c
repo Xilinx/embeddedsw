@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -794,7 +795,7 @@ void ComputeMandD_vidGen(u32 VidFreq)
 		}
 	}
 
-	/* Progamming the clocking wizard */
+	/* Programming the clocking wizard */
 	u32 fail,error,count;
 	fail = error = count = 0;
 

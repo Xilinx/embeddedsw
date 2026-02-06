@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -741,7 +741,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 //				XHdcp1xExample_Poll();
 
 				/* Re-start authentication (the expectation is
-				 * that HDCP is already in the authetnicated state. )*/
+				 * that HDCP is already in the authenticated  state. )*/
 				// Post EVENT_DWNSTMREADY instead of authenticate
 //				XDpTxSs_ReadDownstream(&DpTxSsInst);
 //				XDpTxSs_Authenticate(&DpTxSsInst);
@@ -1066,7 +1066,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	if(enable_tx_vsc_mode){
 		//Enable Colorimetry through VSC for Tx
 		XDpTxss_EnableVscColorimetry(&DpTxSsInst, 1);
-		//copy the Vsc data recieved from Rx to Tx
+		//copy the Vsc data received from Rx to Tx
 		XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, VscPkt);
 	}
 	else{

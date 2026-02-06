@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -476,7 +476,7 @@ int I2cMux_Ps(u8 mux)
 	  Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1,
 			  I2C_MUX_ADDR);
 
-	  /* open the othe rmux for Si5328 */
+	  /* open the other mux for Si5328 */
 	  Buffer = 0x10;
 	  Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 1,
 			  I2C_MUX_ADDR_SI);

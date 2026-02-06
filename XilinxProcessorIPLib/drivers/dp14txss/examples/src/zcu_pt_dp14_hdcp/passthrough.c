@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -711,7 +711,7 @@ void DpPt_Main(void){
 
 //				case 'q' :
 //					if(use_monitor_edid == 1){
-//						// change the mode to none-pass-through mdoe
+//						// change the mode to none-pass-through mode
 //						use_monitor_edid = 0;
 //						xil_printf(
 //						"Set as EDID non-pass-through mode\r\n");
