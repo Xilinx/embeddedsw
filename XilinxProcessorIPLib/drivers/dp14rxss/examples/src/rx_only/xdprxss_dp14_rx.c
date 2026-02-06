@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2486,7 +2486,7 @@ void Print_ExtPkt()
 * @param	timeout_ms
 *
 * @return
-*		- received charactor
+*		- received character
 *
 * @note		None.
 *

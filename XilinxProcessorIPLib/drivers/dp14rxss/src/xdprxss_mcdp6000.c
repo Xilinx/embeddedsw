@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file mcdp6000.c
+* @file xdprxss_mcdp6000.c
 * @addtogroup dprxss Overview
 * @{
 *
@@ -1075,7 +1075,6 @@ int XDpRxSs_MCDP6000_Read_ErrorCounters(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)
 * @param DpRxSsPtr is a pointer to the XDpRxSs core instance.
 * @param I2CSlaveAddress is the 7-bit I2C slave address.
 *
-* @return None
 *
 * @note None.
 *

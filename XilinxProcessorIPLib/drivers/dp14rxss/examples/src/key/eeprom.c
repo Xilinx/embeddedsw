@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,7 +97,7 @@ int SetGPOMuxReset(int resetn){
 
 
 /*
- * This funciton sets the handlers for Send, Recieve and Event for the IIC
+ * This function sets the handlers for Send, Receive and Event for the IIC
  */
 int IicSetHandler(){
 

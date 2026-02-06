@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file mcdp6000.c
+* @file xdprxss_mcdp6000.h
 * @addtogroup dprxss Overview
 * @{
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,7 +46,7 @@
 * 6.0  rg  11/19/19 Added support to use PS I2C instance too.
 * 6.0  jb  02/14/20 The DP Rx subsystems assumes that the HDCP configuration is
 * 		    same for all the instances in multiple subsystems in the
-* 		    design. This driver wont support for different configuration
+* 		    design. This driver won't support for different configuration
 * 		    of the subsystems.
 * 6.1  rg  08/13/20 Added below list APIs related to Adaptive-Sync feature.
 * 					XDpRxSs_SetAdaptiveSyncCaps
@@ -589,8 +589,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		IIC needs to be reinitialized after reset.
 *
 ******************************************************************************/
@@ -872,7 +870,6 @@ u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 * @param	UserPixelWidth is the user pixel width to be configured.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2222,7 +2219,6 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2388,8 +2384,6 @@ void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
  * @param Enable is to enable/disable the Adaptive-Sync
  *        capabilities in DisplayPort Rx Subsystem
  *
- * @return XST_SUCCESS
- *
  * @note   None.
  *
  ******************************************************************************/
@@ -2420,7 +2414,7 @@ void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr, u32 Enable)
  * from DisplayPort RX Subsystem
  *
  * @param InstancePtr is a pointer to the XDpRxSs instance.
- * @param Interrupts to mask
+ * @param Mask Interrupts to mask
  *
  * @note   None.
  *
@@ -2445,7 +2439,7 @@ void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask)
  * from DisplayPort RX Subsystem
  *
  * @param InstancePtr is a pointer to the XDpRxSs instance.
- * @param Interrupts to unmask
+ * @param Mask Interrupts to unmask
  *
  * @note   None.
  *
@@ -2470,7 +2464,7 @@ void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask)
 * the incoming video stream.
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
-* @Stream	Stream is the stream number to get the vblank.
+* @param    Stream	Stream is the stream number to get the vblank.
 *
 * @return
 *		- The current vblank value
@@ -2511,7 +2505,7 @@ int XDpRxSs_GetVblank(XDpRxSs *InstancePtr, u8 Stream)
 * the incoming video stream.
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
-* @Stream	Stream is the stream number to get the vtotal.
+* @param    Stream	Stream is the stream number to get the vtotal.
 *
 * Note: This function has to be called after
 * assertion Bit-30 of XDP_RX_INTERRUPT_CAUSE_2 register
