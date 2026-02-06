@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_kdf_client_example.c
+* @file	xasu_kdf_example.c
 * @addtogroup xasu_kdf_client_example ASU KDF API Example Generic Usage
 * @{
 * This example illustrates the KDF calculation.

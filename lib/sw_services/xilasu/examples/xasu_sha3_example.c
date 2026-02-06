@@ -1,12 +1,12 @@
 /**************************************************************************************************
-* Copyright (c) 2024 -2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_sha3_client_example.c
+* @file	xasu_sha3_example.c
 * @addtogroup xasu_sha3_client_example ASU SHA3 API Example Generic Usage
 * @{
 * This example illustrates the SHA3 hash calculation.

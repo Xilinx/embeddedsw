@@ -170,6 +170,7 @@ END:
  *
  * @param	Data	Pointer to data array.
  * @param	DataLen	Length of the data to be printed on console.
+ * @param	BufName		Name/description of the buffer
  *
  *************************************************************************************************/
 static void XAsu_OcpDmePrintData(const u8 *Data, u32 DataLen, const char *BufName)
@@ -201,3 +202,5 @@ static void XAsu_OcpDmeCallBackRef(void *CallBackRef, u32 Status)
 	/* Update the variable to notify the callback */
 	Notify = 1U;
 }
+
+/** @} */

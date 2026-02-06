@@ -101,8 +101,6 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 *
 * @brief	Main function to call the XAsu_EciesEncrypt() API and XAsu_EciesDecrypt() API.
 *
-* @param	None
-*
 * @return
 *		- XST_SUCCESS if example runs successfully
 *		- ErrorCode if the example fails.
@@ -256,3 +254,5 @@ static void XAsu_EciesCallBackRef(void *CallBackRef, u32 Status)
 	/* Update the variable to notify the callback */
 	Notify = 1U;
 }
+
+/** @} */

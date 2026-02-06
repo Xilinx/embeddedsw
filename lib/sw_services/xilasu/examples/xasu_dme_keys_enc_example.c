@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 -2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -183,9 +183,9 @@ END:
 /**
  * @brief	This function encrypts the DME private keys and program them to efuses.
  *
- * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds the client
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
- * @param	NvmClientInstance	Pointer to XilNvm client instance.
+ * @param	NvmClientInstancePtr	Pointer to XilNvm client instance.
  * @param	EncFlag			Flag to indicate whether to encrypt the key.
  * @param	PrgmFlag		Flag to indicate whether to program the key.
  * @param	DmePvtKey		Pointer to the DME private key data.
@@ -330,3 +330,5 @@ static void XAsu_OcpDmeKeyCallBackRef(void *CallBackRef, u32 Status)
 	/* Update the variable to notify the callback */
 	Notify = 1U;
 }
+
+/** @} */

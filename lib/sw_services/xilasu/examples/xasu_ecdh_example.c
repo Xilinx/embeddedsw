@@ -1,12 +1,12 @@
 /**************************************************************************************************
-* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_ecdh_client_example.c
+* @file	xasu_ecdh_example.c
 * @addtogroup xasufw_ecdh_client_example ECDH API Example Generic Usage
 * @{
 *
@@ -92,8 +92,6 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 /**
 *
 * @brief	Main function to call the XAsu_EcdhGenSharedSecret() API
-*
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if example runs successfully
@@ -241,3 +239,5 @@ END:
 	/* Update the variable to notify the callback */
 	Notify = 1U;
  }
+
+/** @} */

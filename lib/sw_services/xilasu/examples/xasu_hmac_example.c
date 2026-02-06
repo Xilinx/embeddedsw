@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_hmac_client_example.c
+* @file	xasu_hmac_example.c
 * @addtogroup xasu_hmac_client_example ASU HMAC API Example Generic Usage
 * @{
 * This example illustrates the HMAC calculation.

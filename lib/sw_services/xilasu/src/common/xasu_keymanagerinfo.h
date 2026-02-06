@@ -64,6 +64,7 @@ typedef struct {
 	u64 KeyIdAddr; /**< Address where generated key ID is stored. */
 } XAsu_KeyManagerParams;
 
+/** This structure contains info for different sub vault capacities. */
 typedef struct {
 	u16 AESKeyVaultCapacity; /**< Count for the AES key vault. */
 	u16 IVVaultCapacity; /**< Count for the IV vault. */

@@ -289,7 +289,7 @@ END:
 /**
  * @brief	This function prints the given output on the console.
  *
- * @param	Hash	Pointer to given array.
+ * @param	Output	Pointer to given array.
  *
  *************************************************************************************************/
 static void Asu_TrngPrintOutput(const u8 *Output)
@@ -358,3 +358,5 @@ END:
 	Notify = 1U;
 }
 #endif /** XASU_TRNG_ENABLE_DRBG_MODE */
+
+/** @} */

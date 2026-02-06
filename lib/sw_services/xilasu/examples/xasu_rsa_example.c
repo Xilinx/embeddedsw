@@ -1,12 +1,12 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
 *
-* @file	xasufw_rsa_client_example.c
+* @file	xasu_rsa_example.c
 * @addtogroup xasufw_rsa_client_example XilAsu RSA API Example Generic Usage
 * @{
 *
@@ -368,3 +368,5 @@ END:
 	Notify = 1U;
 
  }
+
+/** @} */

@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_sha2_client_example.c
+* @file	xasu_sha2_example.c
 * @addtogroup xasu_sha2_client_example ASU SHA2 API Example Generic Usage
 * @{
 * This example illustrates the SHA2 hash calculation.

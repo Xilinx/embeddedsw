@@ -1,12 +1,12 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_ecc_client_example.c
+* @file	xasu_ecc_example.c
 * @addtogroup xasufw_ecc_client_example ECC API Example Generic Usage
 * @{
 *
@@ -300,3 +300,5 @@ static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status)
 	/* Update the variable to notify the callback */
 	Notify = 1U;
 }
+
+/** @} */

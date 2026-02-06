@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file	xasu_keywrap_client_example.c
+* @file	xasu_keywrap_example.c
 * @addtogroup xasu_keywrap_client_example XilAsu Key wrap unwrap API Example Generic Usage
 * @{
 *
@@ -327,3 +327,5 @@ END:
 	Notify = 1U;
 
  }
+
+/** @} */
