@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -15,6 +15,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ss   02/04/25 Initial Release
+*       yog  01/28/26 Added KeyParamAddr parameter to RSA padding functions.
 *
 * </pre>
 *
@@ -45,13 +46,13 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr);
+		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
 s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr);
+		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
 s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		   const XAsu_RsaPaddingParams *PaddingParamsPtr);
+		   const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
 s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		   const XAsu_RsaPaddingParams *PaddingParamsPtr);
+		   const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
 
 /************************************ Variable Definitions ***************************************/
 #endif /* XASU_RSA_PADDING_ENABLE */

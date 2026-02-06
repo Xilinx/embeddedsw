@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -15,6 +15,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ss   02/24/25 Initial release
+*       yog  01/28/26 Added support for RSA key ID in key wrap/unwrap operations.
 *
 * </pre>
 *
@@ -51,7 +52,7 @@ extern "C" {
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
                 XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr, u32 SubsystemId);
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-                XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
+                XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr, u32 SubsystemId);
 #endif /* XASU_KEYWRAP_ENABLE */
 
 #ifdef __cplusplus

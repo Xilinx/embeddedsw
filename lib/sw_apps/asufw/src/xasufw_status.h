@@ -638,6 +638,10 @@ enum {
 						disruption. */
 	XASUFW_KEYMANAGER_KEY_NOT_FOUND, /**< 0x1BCU - Error when specified key is not found in vault. */
 	XASUFW_KEYMANAGER_KEY_DELETE_ERROR, /**< 0x1BDU - Error when key deletion fails. */
+	XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, /**< 0x1BEU - Error when updating private key fails. */
+	XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, /**< 0x1BFU - Error when updating public key fails. */
+	XASUFW_RSA_KEY_PAIR_GENERATION_FAIL, /**< 0x1C0U - Error when RSA key pair generation fails. */
+	XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, /**< 0x1C1U - Error when getting key object pointer fails. */
 
 	/* Additional status success codes */
 	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */

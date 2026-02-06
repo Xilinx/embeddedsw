@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * 1.0   ss   07/11/24 Initial release
  *       ss   08/20/24 Added 64-bit address support
  *       ss   09/26/24 Fixed doxygen comments
+ *       yog  01/28/26 Added RSA key pair generation API.
  *
  * </pre>
  *
@@ -43,6 +44,12 @@ extern "C" {
 #define XRSA_MAX_KEY_SIZE_IN_BYTES	(512U)		/**< RSA max key size in bytes */
 #define XRSA_MAX_PARAM_SIZE_IN_BYTES	(XRSA_TOTAL_PARAMS * XRSA_MAX_KEY_SIZE_IN_BYTES) /**< Size
 							of memory allocated for RSA parameters */
+#define XRSA_NO_PRIME_NO_TOT_PRSNT	(0U)		/**< Indicates no prime num or totient
+								is present as parameter for private decryption operation */
+#define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
+								parameter for private decryption operation */
+#define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
+								parameter for private decryption operation */
 
 /************************************** Type Definitions *****************************************/
 
@@ -61,6 +68,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 		u64 KeyParamAddr, u64 ExpoAddr);
 u8 *XRsa_GetDataBlockAddr(void);
+s32 XRsa_KeyPairGeneration(XAsufw_Dma *DmaPtr, u32 Len);
 
 /************************************ Variable Definitions ***************************************/
 

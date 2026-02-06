@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -196,6 +196,7 @@ END:
  * 	- XASUFW_SUCCESS, if operation is successful.
  * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, if operation fails
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -222,6 +223,7 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL);
 	}
 
+END:
 	XAsufw_KeyWrapModule.AsuDmaPtr = NULL;
 	XAsufw_KeyWrapModule.ShaPtr = NULL;
 	XAsufw_KeyWrapModule.AesPtr = NULL;
@@ -231,7 +233,6 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 
-END:
 	return Status;
 }
 
@@ -245,8 +246,9 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if operation is successful.
- * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, if operation fails
+ * 	- XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL, if operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -254,16 +256,26 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
 	u32 *OutLenAddr;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
 
 	/** Perform Key unwrap operation using given SHA crypto engine. */
 	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
 	Status = XKeyUnwrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
-				XAsufw_KeyWrapModule.AesPtr, OutLenAddr);
+				XAsufw_KeyWrapModule.AesPtr, OutLenAddr, SubsystemId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL);
 	}
 
+END:
 	XAsufw_KeyWrapModule.AsuDmaPtr = NULL;
 	XAsufw_KeyWrapModule.ShaPtr = NULL;
 	XAsufw_KeyWrapModule.AesPtr = NULL;

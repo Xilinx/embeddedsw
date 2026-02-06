@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
+ *       yog  01/28/26 Added key management support for RSA.
  *
  * </pre>
  *
@@ -36,6 +37,7 @@ extern "C" {
 #include "xasu_aesinfo.h"
 #include "xasu_keymanagerinfo.h"
 #include "xasufw_dma.h"
+#include "xasu_rsainfo.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_MAX_SUB_VAULTS	(9U) /**< Total number of supported sub-vaults */
@@ -51,6 +53,14 @@ extern "C" {
 #define XKEYMANAGER_AES_KEY_WRAP_USE_CASE	(2U)	/**< Data key wrap use case */
 #define XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE	(3U)	/**< Data key unwrap use case */
 #define XKEYMANAGER_AES_AUTH_USE_CASE		(4U)	/**< Data key unwrap use case */
+
+#define XKEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE		(0U)	/**< RSA private key sign use case */
+#define XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE		(1U)	/**< RSA private key decryption use case */
+#define XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE	(2U)	/**< RSA private key key transport use case */
+
+#define XKEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE		(0U)	/**< RSA public key sign verification use case */
+#define XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE		(1U)	/**< RSA public key encryption use case */
+#define XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE	(2U)	/**< RSA public key key transport use case */
 
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
@@ -118,6 +128,19 @@ typedef struct {
 	u8 Content[XASU_AES_IV_SIZE_128BIT_IN_BYTES];	/**< IV data. */
 } XKeyManager_IvObject;
 
+/** This structure contains RSA private key object information. */
+typedef struct {
+	XKeyManager_KeyMetadata Metadata;	/**< Key metadata. */
+	XAsu_RsaKeyPairObject RsaPvtKeyPair;	/**< RSA private key pair structure. */
+} XKeyManager_RsaPvtKeyObject;
+
+/** This structure contains RSA public key object information. */
+typedef struct {
+	XKeyManager_KeyMetadata Metadata;	/**< Key metadata. */
+	u8 Modulus[XRSA_4096_KEY_SIZE];	/**< Modulus buffer. */
+	u32 PubExp;			/**< Public exponent value. */
+} XKeyManager_RsaPubKeyObject;
+
 /** This structure contains key manager vault and sub vault header information. */
 typedef struct {
 	XKeyManager_VaultHeader Header;	/**< Vault header. */
@@ -153,6 +176,14 @@ u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase);
 s32 XKeyManager_GetVaultId(u32 SubSystemId, u8 *VaultIdPtr);
 s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject, u32 SubSystemId,
 			u8 KeyUsecase);
+s32 XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
+s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
+s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
+s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
+			u32 *KeyIdPtr, u32 SubSystemId);
 
 /************************************ Variable Definitions ***************************************/
 

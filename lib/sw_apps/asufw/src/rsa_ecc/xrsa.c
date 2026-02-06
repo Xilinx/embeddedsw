@@ -21,6 +21,7 @@
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
  *       kd   07/23/25 Fixed gcc warnings
+ *       yog  01/28/26 Added RSA key pair generation API.
  *
  * </pre>
  *
@@ -48,19 +49,11 @@
 #define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA third-party key pair compare error */
 #define XRSA_RAND_GEN_ERROR		(2)		/**< RSA third-party random number
 								generation error */
-
 #define XRSA_MAX_PRIME_SIZE_IN_BYTES	(256U)		/**< RSA max prime size in bytes */
 #define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
 
 #define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
 #define XRSA_BYTE_TO_BIT(x)		(((u32)(x) << 3U)) /**< Byte to bit conversion */
-
-#define XRSA_NO_PRIME_NO_TOT_PRSNT	(0U)		/**< Indicates no prime num or totient
-								is present as parameter for private decryption operation */
-#define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
-								parameter for private decryption operation */
-#define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
-								parameter for private decryption operation */
 
 #define XRSA_PUB_EXP_INVALID_ZERO_VALUE		(0U)	/**< Indicates invalid public exponent
 								value of zero */
@@ -380,13 +373,16 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy key parameters to ASU memory using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
-			       sizeof(XAsu_RsaPvtKeyComp), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-		goto END;
+	/** If key parameters are already in RSA reserved memory, no need to copy. */
+	if (KeyParamAddr != (u64)(UINTPTR)KeyPtr) {
+		/** Else, copy key parameters to RSA reserved memory using DMA. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
+				       sizeof(XAsu_RsaPvtKeyComp), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
 	}
 
 	/** Copy public exponent to pointer. */
@@ -667,13 +663,16 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy key parameters to ASU memory using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
-			       sizeof(XAsu_RsaPubKeyComp), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-		goto END;
+	/** Key parameters are already in RSA reserved memory, no need to copy. */
+	if (KeyParamAddr != (u64)(UINTPTR)KeyPtr) {
+		/** Copy key parameters to ASU memory using DMA if from different location. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
+				       sizeof(XAsu_RsaPubKeyComp), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
 	}
 
 	/** Copy public exponent to pointer. */
@@ -791,6 +790,27 @@ u8 *XRsa_GetDataBlockAddr(void)
 	static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
 
 	return Rsa_Data;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates an RSA key pair using a third-party cryptographic library.
+ *
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	Len		Length of the RSA key in bytes (256, 384, or 512 bytes for
+ * 				2048, 3072, or 4096-bit keys respectively).
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if RSA key pair generation is successful.
+ *
+ *************************************************************************************************/
+/* TODO: Add support for RSA key pair generation.*/
+s32 XRsa_KeyPairGeneration(XAsufw_Dma *DmaPtr, u32 Len)
+{
+	(void)DmaPtr;
+	(void)Len;
+
+	return XASUFW_SUCCESS;
 }
 
 /*************************************************************************************************/

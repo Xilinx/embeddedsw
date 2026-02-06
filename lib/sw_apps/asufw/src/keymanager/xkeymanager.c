@@ -22,6 +22,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
+ *       yog  01/28/26 Added key management support for RSA.
  *
  * </pre>
  *
@@ -38,6 +39,7 @@
 #include "xasufw_debug.h"
 #include "xasufw_trnghandler.h"
 #include "xasufw_queuescheduler.h"
+#include "xrsa.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_HEADER_SIZE			(12U) /**< Size of the key vault header */
@@ -52,6 +54,8 @@
 #define XKEYMANAGER_KEY_INDEX_OFFSET		(1U) /**< Offset for key index */
 #define XKEYMANAGER_USAGE_COUNT_DEC_VALUE	(1U) /**< Usage count decrement
 							value per access */
+#define XKEYMANAGER_RSA_PVT_KEY_ID_OFFSET	(1U) /**< Offset to update private key ID in
+							RSA key pair generation */
 
 #define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & (1U << (Index))) != 0U) /**< Check if a bit is set */
 #define XKEYMANAGER_KEYUSECASE_BITMASK(KeyUseCase) (1U << (KeyUseCase)) /**< Generate bitmask for a use case */
@@ -64,6 +68,9 @@
 									ID from composite KeyId */
 #define XKEYMANAGER_EXTRACT_KEYINDEX(KeyId) ((KeyId) & XKEYMANAGER_KEY_INDEX_MASK_VAL)	/**< Extract
 								key index from composite KeyId */
+#define XKEYMANAGER_RSA_PUB_EXP_VALUE	(0x1000100U) /**< RSA public exponent value 65537
+								in little-endian format. */
+#define XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES	(2304U) /**< Max private key size in bytes */
 
 /************************************** Type Definitions *****************************************/
 
@@ -86,8 +93,8 @@ XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for 
 static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XKEYMANAGER_AES_SUBVAULT_ID] = sizeof(XKeyManager_AesKeyObject),
 	[XKEYMANAGER_IV_SUBVAULT_ID] = sizeof(XKeyManager_IvObject),
-	[XKEYMANAGER_RSA_PVT_SUBVAULT_ID] = 0U,
-	[XKEYMANAGER_RSA_PUB_SUBVAULT_ID] = 0U,
+	[XKEYMANAGER_RSA_PVT_SUBVAULT_ID] = sizeof(XKeyManager_RsaPvtKeyObject),
+	[XKEYMANAGER_RSA_PUB_SUBVAULT_ID] = sizeof(XKeyManager_RsaPubKeyObject),
 	[XKEYMANAGER_ECC_PVT_SUBVAULT_ID] = 0U,
 	[XKEYMANAGER_ECC_PUB_SUBVAULT_ID] = 0U,
 	[XKEYMANAGER_KDF_SUBVAULT_ID] = 0U,
@@ -234,8 +241,8 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	/** Calculate total size needed for all sub-vaults based on their capacities. */
 	TotalSubVaultSize = (ParamsPtr->AESKeyVaultCapacity * sizeof(XKeyManager_AesKeyObject)) +
 			    (ParamsPtr->IVVaultCapacity * sizeof(XKeyManager_IvObject)) +
-			    ParamsPtr->RSAPvtKeyVaultCapacity +
-			    ParamsPtr->RSAPubKeyVaultCapacity +
+			    (ParamsPtr->RSAPvtKeyVaultCapacity * sizeof(XKeyManager_RsaPvtKeyObject)) +
+			    (ParamsPtr->RSAPubKeyVaultCapacity * sizeof(XKeyManager_RsaPubKeyObject)) +
 			    ParamsPtr->ECCPvtKeyVaultCapacity +
 			    ParamsPtr->ECCPubKeyVaultCapacity +
 			    ParamsPtr->KDFKeyVaultCapacity +
@@ -637,6 +644,115 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	Generate an RSA key pair and optionally export it via DMA.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ParamsPtr	Pointer to XAsu_KeyManagerParams.
+ * @param	KeyIdPtr	Pointer to the output Key IDs.
+ * @param	SubSystemId	Subsystem ID for which the key is being generated.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, when the key is generated and transferred or updated in the vault.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ * 	- XASUFW_RSA_KEY_PAIR_GENERATION_FAIL, if RSA key pair generation fails.
+ * 	- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if the vault for the subsystem is not found.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, if updating private key in vault fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, if updating public key in vault fails.
+ * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroization fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
+			u32 *KeyIdPtr, u32 SubSystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihRsaKey = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	u8 VaultId = 0U;
+	XAsu_RsaKeyPairObject *RsaKeyPairObjectPtr = NULL;
+	u8 *ModulusArr = XRsa_GetDataBlockAddr();
+
+	/** Validate the input parameters. */
+	if ((ParamsPtr == NULL) || (DmaPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeyIdPtr == NULL) && (ParamsPtr->KeyObjectAddr == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	RsaKeyPairObjectPtr = (XAsu_RsaKeyPairObject *)(UINTPTR)ParamsPtr->KeyObjectAddr;
+
+	/** Generate RSA key pair. */
+	Status = XRsa_KeyPairGeneration(DmaPtr, ParamsPtr->Length);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_KEY_PAIR_GENERATION_FAIL);
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (ParamsPtr->KeyObjectAddr != 0U) {
+		/**
+		 * If KeyObjectAddr is provided, copy the key to the provided address using DMA.
+		 */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)ModulusArr,
+				       (u64)(UINTPTR)RsaKeyPairObjectPtr->Modulus,
+				       XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	} else {
+		Status = XAsu_KmValidateVaultParams(ParamsPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END_CLR;
+		}
+		/**
+		 * Else, store the key in the vault.
+		 *  - Get Vault ID for the subsystem.
+		 */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_GetVaultId(SubSystemId, &VaultId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+			goto END_CLR;
+		}
+
+		/** - Update the private key to key vault and store the KeyId to (KeyIdPtr + 1U). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(XKEYMANAGER_RSA_PVT_SUBVAULT_ID, ParamsPtr,
+					ModulusArr, (KeyIdPtr + XKEYMANAGER_RSA_PVT_KEY_ID_OFFSET),
+					VaultId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+			goto END_CLR;
+		}
+
+		/** - Update the public key to key vault and store the KeyId to KeyIdPtr. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(XKEYMANAGER_RSA_PUB_SUBVAULT_ID, ParamsPtr,
+					ModulusArr, KeyIdPtr, VaultId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
+		}
+	}
+
+END_CLR:
+	/* Securely zeroize key data. */
+	XFIH_CALL(Xil_SecureZeroize, XFihRsaKey, ClearStatus, (u8 *)(UINTPTR)ModulusArr,
+			XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	Resolve key object from key vault if KeyId is provided.
  *
  * @param	KeyObject		Pointer to the XAsu_AesKeyObject structure.
@@ -669,6 +785,219 @@ s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject, u32 Su
 
 	KeyObject->KeySize = (((u32)KeyVaultKeyObjectPtr->Metadata.Length - XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET)
 				>> XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT);
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Resolve key object from key vault if KeyId is provided for RSA public key.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	KeyObjectAddr		Address of XAsu_RsaPubKeyComp structure.
+ * @param	SubSystemId		Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase		Requested use case for the key.
+ * @param	KeyId			Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+			u32 SubSystemId, u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XKeyManager_RsaPubKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_RsaPubKeyComp *KeyObject;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	KeyObject = (XAsu_RsaPubKeyComp *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_RsaPubKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/** Copy the key object XAsu_RsaPubKeyComp from key vault to the provided address using DMA. */
+	KeyObject->Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->Modulus,
+			       (u64)(UINTPTR)KeyObject->Modulus, KeyObject->Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	KeyObject->PubExp = XKEYMANAGER_RSA_PUB_EXP_VALUE;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Resolve key object from key vault if KeyId is provided for RSA private key.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	KeyObjectAddr		Address of XAsu_RsaPvtKeyComp structure.
+ * @param	SubSystemId		Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase		Requested use case for the key.
+ * @param	KeyId			Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+			u32 SubSystemId, u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XKeyManager_RsaPvtKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_RsaPvtKeyComp *KeyObject;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	KeyObject = (XAsu_RsaPvtKeyComp *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_RsaPvtKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/** Copy the key object XAsu_RsaPvtKeyComp from key vault to the provided address using DMA. */
+	KeyObject->PubKeyComp.PubExp = XKEYMANAGER_RSA_PUB_EXP_VALUE;
+	KeyObject->PubKeyComp.Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Modulus,
+			       (u64)(UINTPTR)KeyObject->PubKeyComp.Modulus, KeyObject->PubKeyComp.Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	KeyObject->PrimeCompOrTotientPrsnt = XRSA_PRIME_NUM_IS_PRSNT;
+
+	/* Copy Prime1 and Prime2 from key vault to key object. */
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Prime1,
+			       (u64)(UINTPTR)KeyObject->PrimeCompOrTotient, KeyObject->PubKeyComp.Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.PvtExp,
+			       (u64)(UINTPTR)KeyObject->PvtExp, KeyObject->PubKeyComp.Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Resolve key object from key vault if KeyId is provided for RSA CRT private key.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	KeyObjectAddr		Address of XAsu_RsaCrtKeyComp structure.
+ * @param	SubSystemId		Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase		Requested use case for the key.
+ * @param	KeyId			Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+			u32 SubSystemId, u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XKeyManager_RsaPvtKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_RsaCrtKeyComp *KeyObject;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	KeyObject = (XAsu_RsaCrtKeyComp *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_RsaPvtKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/** Copy the key object XAsu_RsaCrtKeyComp from key vault to the provided address using DMA. */
+	KeyObject->PubKeyComp.PubExp = XKEYMANAGER_RSA_PUB_EXP_VALUE;
+	KeyObject->PubKeyComp.Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Modulus,
+			       (u64)(UINTPTR)KeyObject->PubKeyComp.Modulus, KeyObject->PubKeyComp.Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	/* Copy Prime1 and Prime2 from key vault to key object. */
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Prime1,
+			       (u64)(UINTPTR)KeyObject->Prime1, KeyObject->PubKeyComp.Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	/* Copy Dp and Dq from key vault to key object. */
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.DP,
+			       (u64)(UINTPTR)KeyObject->DP, KeyObject->PubKeyComp.Keysize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.QInv,
+			       (u64)(UINTPTR)KeyObject->QInv,
+			       (KeyObject->PubKeyComp.Keysize/XASUFW_VALUE_TWO), 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
 
 	Status = XASUFW_SUCCESS;
 
@@ -746,6 +1075,7 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 	u16 KeyId = 0U;
 	u32 KeyObjectSize = 0U;
 	u32 MaxKeySize = 0U;
+	u32 KeyCopyLength = 0U;
 
 	/** Get vault pointer and sub-vault offset. */
 	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
@@ -761,11 +1091,17 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 		goto END;
 	}
 
+	KeyCopyLength = ParamsPtr->Length;
 	/* Determine maximum key size based on key type. */
 	if (KeyType == XKEYMANAGER_AES_SUBVAULT_ID) {
 		MaxKeySize = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
 	} else if (KeyType == XKEYMANAGER_IV_SUBVAULT_ID) {
 		MaxKeySize = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
+	} else if (KeyType == XKEYMANAGER_RSA_PVT_SUBVAULT_ID) {
+		MaxKeySize = XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES;
+		KeyCopyLength = XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES;
+	} else if (KeyType == XKEYMANAGER_RSA_PUB_SUBVAULT_ID) {
+		MaxKeySize = XRSA_4096_KEY_SIZE;
 	} else {
 		/* Do nothing */
 	}
@@ -782,7 +1118,7 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 
 	/** Copy key data to vault. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Xil_SMemCpy(KeyContentPtr, MaxKeySize, KeyData, MaxKeySize, ParamsPtr->Length);
+	Status = Xil_SMemCpy(KeyContentPtr, MaxKeySize, KeyData, MaxKeySize, KeyCopyLength);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -17,6 +17,7 @@
  * 1.0   ss   02/24/25 Initial release
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
  *       kd   07/23/25 Fixed gcc warnings
+ *       yog  01/28/26 Added support for RSA key ID in key wrap/unwrap operations.
  *
  * </pre>
  *
@@ -74,9 +75,10 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	AesInstancePtr		Pointer to the AES instance.
  * @param	OutDataLenPtr		Pointer to the variable to store the actual output length.
+ * @param	SubsystemId		Subsystem ID for vault access and key resolution.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization is successful.
+ * 	- XASUFW_SUCCESS, if key wrap operation is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
  * 	- XASUFW_RAND_GEN_ERROR, if ephemeral AES key using TRNG generation fails.
  * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
@@ -84,6 +86,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
  * 	- XASUFW_KEYWRAP_AES_WRAPPED_KEY_ERROR, if AES key wrap fails.
  * 	- XASUFW_DMA_COPY_FAIL, if coping wrapped key to user provided address using DMA fails.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
  *
  *************************************************************************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
@@ -105,6 +108,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	u8 EphemeralAesKey[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];
 	XAsu_RsaOaepPaddingParams PaddingParams;
 	XAsu_AesKeyObject AesKeyObj;
+	u64 RsaKeyParamAddr = 0U;
 
 	/** Validate input parameters. */
 	if ((KeyWrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (ShaInstancePtr == NULL)
@@ -136,7 +140,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	}
 
 	/** Generate ephemeral AES key using TRNG. */
-	if (KeyWrapParamsPtr->KeyId == 0U) {
+	if (KeyWrapParamsPtr->AesKeyId == 0U) {
 		AesKeySizeInBytes = (u8)((KeyWrapParamsPtr->AesKeySize << XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT) +
 				XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET);
 		Status = XAsufw_TrngGetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
@@ -148,7 +152,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
 		AesKeyObj.KeyId = 0U;
 	} else {
-		AesKeyObj.KeyId = KeyWrapParamsPtr->KeyId;
+		AesKeyObj.KeyId = KeyWrapParamsPtr->AesKeyId;
 		Status = XKeyManager_UpdateAesKeyObjectFromVault(&AesKeyObj, SubsystemId,
 							XKEYMANAGER_AES_KEY_WRAP_USE_CASE);
 		if (Status != XASUFW_SUCCESS) {
@@ -161,6 +165,24 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
+	if (KeyWrapParamsPtr->RsaKeyId == 0U) {
+		/** If RSA key ID is zero, use the provided key component address directly. */
+		RsaKeyParamAddr = KeyWrapParamsPtr->KeyCompAddr;
+	} else {
+		/**
+		 * Else, calculate address in RSA reserved memory where key shall be stored and
+		 * copy the key object from key vault to this address.
+		 */
+		RsaKeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(AsuDmaPtr,
+				RsaKeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE,
+				KeyWrapParamsPtr->RsaKeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+	}
 	/**
 	 * Update RSA OAEP related parameters for encryption of generated AES Key and perform RSA OAEP
 	 * encode operation.
@@ -168,7 +190,8 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	PaddingParams.XAsu_RsaOpComp.InputDataAddr = AesKeyObj.KeyAddress;
 	PaddingParams.XAsu_RsaOpComp.OutputDataAddr = KeyWrapParamsPtr->OutputDataAddr;
 	PaddingParams.XAsu_RsaOpComp.ExpoCompAddr = KeyWrapParamsPtr->ExpoCompAddr;
-	PaddingParams.XAsu_RsaOpComp.KeyCompAddr= KeyWrapParamsPtr->KeyCompAddr;
+	PaddingParams.XAsu_RsaOpComp.KeyCompAddr = RsaKeyParamAddr;
+	PaddingParams.XAsu_RsaOpComp.KeyId = KeyWrapParamsPtr->RsaKeyId;
 	PaddingParams.XAsu_RsaOpComp.Len = AesKeySizeInBytes;
 	PaddingParams.XAsu_RsaOpComp.KeySize = KeyWrapParamsPtr->RsaKeySize;
 	PaddingParams.OptionalLabelAddr = KeyWrapParamsPtr->OptionalLabelAddr;
@@ -176,7 +199,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	PaddingParams.ShaMode = KeyWrapParamsPtr->ShaMode;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_OaepEncode(AsuDmaPtr, ShaInstancePtr, &PaddingParams);
+	Status = XRsa_OaepEncode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, RsaKeyParamAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
 		goto END;
@@ -245,18 +268,20 @@ END:
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	AesInstancePtr		Pointer to the AES instance.
  * @param	OutDataLenPtr		Pointer to the variable to store the actual output length.
+ * @param	SubsystemId		Subsystem ID for vault access and key resolution.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization is successful.
+ * 	- XASUFW_SUCCESS, if key unwrap operation is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
  * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
  * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
  * 	- XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, if AES key unwrap fails.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
  *
  *************************************************************************************************/
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-			XSha *ShaInstancePtr, XAes *AesInstancePtr,  u32 *OutDataLenPtr)
+			XSha *ShaInstancePtr, XAes *AesInstancePtr,  u32 *OutDataLenPtr, u32 SubsystemId)
 {
 	/**
 	 * Capture the start time of the key unwrap operation, if performance measurement is
@@ -270,6 +295,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	u8 AesKeyOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];
 	XAsu_RsaOaepPaddingParams PaddingParams;
 	XAsu_AesKeyObject AesKeyObj;
+	u64 RsaKeyParamAddr = 0U;
 
 	/** Validate input parameters. */
 	if ((KeyUnwrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (ShaInstancePtr == NULL)
@@ -284,6 +310,24 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		goto END;
 	}
 
+	if (KeyUnwrapParamsPtr->RsaKeyId == 0U) {
+		/** If RSA key ID is zero, use the provided key component address directly. */
+		RsaKeyParamAddr = KeyUnwrapParamsPtr->KeyCompAddr;
+	} else {
+		/**
+		 * Else, calculate address in RSA reserved memory where key shall be stored and
+		 * copy the key object from key vault to this address.
+		 */
+		RsaKeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(AsuDmaPtr,
+				RsaKeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE,
+				KeyUnwrapParamsPtr->RsaKeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+	}
 	/**
 	 * Update RSA OAEP related parameters for decryption of provided input to extract AES key
 	 * and perform RSA OAEP decode operation.
@@ -291,7 +335,8 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	PaddingParams.XAsu_RsaOpComp.InputDataAddr = KeyUnwrapParamsPtr->InputDataAddr;
 	PaddingParams.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)AesKeyOut;
 	PaddingParams.XAsu_RsaOpComp.ExpoCompAddr = KeyUnwrapParamsPtr->ExpoCompAddr;
-	PaddingParams.XAsu_RsaOpComp.KeyCompAddr= KeyUnwrapParamsPtr->KeyCompAddr;
+	PaddingParams.XAsu_RsaOpComp.KeyCompAddr = RsaKeyParamAddr;
+	PaddingParams.XAsu_RsaOpComp.KeyId = KeyUnwrapParamsPtr->RsaKeyId;
 	PaddingParams.XAsu_RsaOpComp.Len = KeyUnwrapParamsPtr->RsaKeySize;
 	PaddingParams.XAsu_RsaOpComp.KeySize = KeyUnwrapParamsPtr->RsaKeySize;
 	PaddingParams.OptionalLabelAddr = KeyUnwrapParamsPtr->OptionalLabelAddr;
@@ -299,7 +344,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	PaddingParams.ShaMode = KeyUnwrapParamsPtr->ShaMode;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_OaepDecode(AsuDmaPtr, ShaInstancePtr, &PaddingParams);
+	Status = XRsa_OaepDecode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, RsaKeyParamAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		goto END;

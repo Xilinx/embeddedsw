@@ -36,6 +36,7 @@
  *       ss   02/24/25 Added Key wrap unwrap KAT
  *       am   03/14/25 Fix code spell warning
  *       LP   04/07/25 Added HKDF KAT
+ *       yog  01/28/26 Updated RSA padding KAT calls with KeyParamAddr parameter.
  *
  * </pre>
  *
@@ -810,8 +811,10 @@ s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaOaepPaddingParam.ShaMode = XASU_SHA_MODE_256;
 	RsaOaepPaddingParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
 	RsaOaepPaddingParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
+	RsaOaepPaddingParam.XAsu_RsaOpComp.KeyId = 0U;
 
-	Status = XRsa_OaepEncode(AsuDmaPtr, Sha2Ptr, &RsaOaepPaddingParam);
+	Status = XRsa_OaepEncode(AsuDmaPtr, Sha2Ptr, &RsaOaepPaddingParam,
+				RsaOaepPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
 		goto END;
@@ -822,7 +825,8 @@ s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaOaepPaddingParam.XAsu_RsaOpComp.InputDataAddr = (u64)(UINTPTR)OutputVal;
 	RsaOaepPaddingParam.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)&OutputVal[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES];
 
-	Status = XRsa_OaepDecode(AsuDmaPtr, Sha2Ptr, &RsaOaepPaddingParam);
+	Status = XRsa_OaepDecode(AsuDmaPtr, Sha2Ptr, &RsaOaepPaddingParam,
+				RsaOaepPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		goto END;
@@ -901,8 +905,10 @@ s32 XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaPaddingParam.XAsu_RsaOpComp.InputDataAddr = (u64)(UINTPTR)RsaData;
 	RsaPaddingParam.XAsu_RsaOpComp.Len = XASUFW_RSA_INPUT_LEN_IN_BYTES;
 	RsaPaddingParam.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)OutputVal;
+	RsaPaddingParam.XAsu_RsaOpComp.KeyId = 0U;
 
-	Status = XRsa_PssSignGenerate(AsuDmaPtr, Sha2Ptr, &RsaPaddingParam);
+	Status = XRsa_PssSignGenerate(AsuDmaPtr, Sha2Ptr, &RsaPaddingParam,
+					RsaPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_PSS_SIGN_GEN_ERROR;
 		goto END;
@@ -912,7 +918,8 @@ s32 XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaPaddingParam.XAsu_RsaOpComp.KeyCompAddr = (u64)(UINTPTR)&PvtKeyParam.PubKeyComp;
 	RsaPaddingParam.SignatureDataAddr = (u64)(UINTPTR)OutputVal;
 
-	Status = XRsa_PssSignVerify(AsuDmaPtr, Sha2Ptr, &RsaPaddingParam);
+	Status = XRsa_PssSignVerify(AsuDmaPtr, Sha2Ptr, &RsaPaddingParam,
+					RsaPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_PSS_SIGN_VER_ERROR;
 	}
@@ -1836,7 +1843,8 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
-	KwpunwpParam.KeyId = 0U;
+	KwpunwpParam.AesKeyId = 0U;
+	KwpunwpParam.RsaKeyId = 0U;
 
 	/** Perform key wrap operation with known inputs. */
 	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal, 0U);
@@ -1860,7 +1868,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
 
 	/** Perform key unwrap operation with known inputs. */
-	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal);
+	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL;
 		goto END;

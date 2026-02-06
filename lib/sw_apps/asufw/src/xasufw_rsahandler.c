@@ -39,6 +39,9 @@
 #include "xfih.h"
 #include "xsha_hw.h"
 #include "xrsa_padding.h"
+#include "xkeymanager.h"
+#include "xrsa.h"
+#include "xasu_keymanager_common.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -232,22 +235,62 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
  * 	- XASUFW_RSA_PUB_OP_ERROR, if public encryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaParams *Cmd = (const XAsu_RsaParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->KeyCompAddr == 0U) && (Cmd->KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
+				Cmd->KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->KeyCompAddr;
+	}
 
 	/** Perform public exponentiation encryption operation. */
 	Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
-			     Cmd->OutputDataAddr, Cmd->KeyCompAddr, Cmd->ExpoCompAddr);
+			     Cmd->OutputDataAddr, KeyParamAddr, Cmd->ExpoCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PUB_OP_ERROR);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -266,22 +309,62 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation is successful.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
  * 	- XASUFW_RSA_PVT_OP_ERROR, if private exponentiation decryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaParams *Cmd = (const XAsu_RsaParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->KeyCompAddr == 0U) && (Cmd->KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
+				Cmd->KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->KeyCompAddr;
+	}
 
 	/** Perform private exponentiation decryption operation. */
 	Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
-			     Cmd->OutputDataAddr, Cmd->KeyCompAddr, Cmd->ExpoCompAddr);
+			     Cmd->OutputDataAddr, KeyParamAddr, Cmd->ExpoCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PVT_OP_ERROR);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -301,22 +384,62 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation using CRT is successful.
- * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operation fails.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
+ * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaParams *Cmd = (const XAsu_RsaParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->KeyCompAddr == 0U) && (Cmd->KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
+				Cmd->KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->KeyCompAddr;
+	}
 
 	/** Perform private CRT decryption operation. */
 	Status = XRsa_CrtOp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
-			    Cmd->OutputDataAddr, Cmd->KeyCompAddr);
+			    Cmd->OutputDataAddr, KeyParamAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_CRT_OP_ERROR);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -337,19 +460,58 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
  * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaOaepPaddingParams *Cmd = (const XAsu_RsaOaepPaddingParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->XAsu_RsaOpComp.KeyCompAddr == 0U) && (Cmd->XAsu_RsaOpComp.KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
+				Cmd->XAsu_RsaOpComp.KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->XAsu_RsaOpComp.KeyCompAddr;
+	}
 
 	/** Perform OAEP encryption operation. */
-	Status = XRsa_OaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
+	Status = XRsa_OaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -359,6 +521,7 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCODE_ERROR);
 		}
+END:
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -381,20 +544,59 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Queue Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_SUCCESS, if private decryption operation is successful.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
  * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaOaepPaddingParams *Cmd = (const XAsu_RsaOaepPaddingParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->XAsu_RsaOpComp.KeyCompAddr == 0U) && (Cmd->XAsu_RsaOpComp.KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
+				Cmd->XAsu_RsaOpComp.KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->XAsu_RsaOpComp.KeyCompAddr;
+	}
 
 	/** Perform OAEP decryption operation. */
-	Status = XRsa_OaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
+	Status = XRsa_OaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -404,6 +606,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECODE_ERROR);
 		}
+END:
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -427,19 +630,58 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
  * 	- XASUFW_RSA_PSS_SIGN_GEN_ERROR, if sign generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->XAsu_RsaOpComp.KeyCompAddr == 0U) && (Cmd->XAsu_RsaOpComp.KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
+				Cmd->XAsu_RsaOpComp.KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->XAsu_RsaOpComp.KeyCompAddr;
+	}
 
 	/** Perform RSA PSS signature generation. */
-	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
+	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -449,6 +691,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_GEN_ERROR);
 		}
+END:
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -472,19 +715,58 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
  * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *    non-blocking mode.
  * 	- XASUFW_RSA_PSS_SIGN_VER_ERROR, if sign verification operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
+ * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u64 KeyParamAddr;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	if ((Cmd->XAsu_RsaOpComp.KeyCompAddr == 0U) && (Cmd->XAsu_RsaOpComp.KeyId != 0U)) {
+		/**
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
+		 * shall be stored and copy the key object from key vault to this address.
+		 */
+		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
+				Cmd->XAsu_RsaOpComp.KeyId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	} else {
+		/** Else, use the provided KeyCompAddr. */
+		KeyParamAddr = Cmd->XAsu_RsaOpComp.KeyCompAddr;
+	}
 
 	/** Perform RSA PSS signature verification. */
-	Status = XRsa_PssSignVerify(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
+	Status = XRsa_PssSignVerify(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -494,6 +776,7 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_VER_ERROR);
 		}
+END:
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
