@@ -13,7 +13,7 @@
 * @{
 *
 * This file contains the implementation of the interface functions for audio
-* formater driver. Refer to the header file xaudioformatter.h for more detailed
+* formatter driver. Refer to the header file xaudioformatter.h for more detailed
 * information.
 *
 ******************************************************************************/

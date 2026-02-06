@@ -20,7 +20,7 @@
  * reads it and send to i2s transmitter for playback. In this example we wait
  * for IOC interrupts from the audio formatter S2MM and MM2S cores and on
  * receiving both the interrupts along with i2srx and i2stx interrupts we
- * stop audio formatter and print the test is successfull.
+ * stop audio formatter and print the test is successful.
  *
  ******************************************************************************/
 
@@ -321,7 +321,7 @@ void *XMM2SAFCallback(void *data)
 
 /*****************************************************************************/
 /**
- * This function does the lookup and intialization of the I2S transmitter.
+ * This function does the lookup and initialization of the I2S transmitter.
  *
  * @param	I2sTxInstancePtr is a pointer to the I2sTx driver instance
  *
@@ -395,7 +395,7 @@ u32 InitializeI2sTx(XI2s_Tx *I2sTxInstancePtr)
 
 /*****************************************************************************/
 /**
- * This function does the lookup and intialization of the I2S receiver.
+ * This function does the lookup and initialization of the I2S receiver.
  *
  * @param	I2sRxInstancePtr is a pointer to the I2sRx driver instance
  *
@@ -463,7 +463,7 @@ u32 InitializeI2sRx(XI2s_Rx *I2sRxInstancePtr)
 
 /*****************************************************************************/
 /**
- * This function does the lookup and intialization of the audio formatter.
+ * This function does the lookup and initialization of the audio formatter.
  *
  * @param	AFInstancePtr is a pointer to audio formatter driver instance
  *
@@ -635,7 +635,7 @@ int main(void)
 		IntrCount++;
 	}
 	if (RxStatus == XST_SUCCESS && TxStatus == XST_SUCCESS)
-		xil_printf("\nAudio Formatter Test successfull\n");
+		xil_printf("\nAudio Formatter Test successful\n");
 	else
 		xil_printf("\nAudio Formatter Test Failed\n");
 	return Status;

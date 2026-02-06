@@ -20,11 +20,11 @@ properties:
   xlnx,include-mm2s:
     description: Whether audio formatter connected to mm2s or not
   xlnx,include-s2mm:
-    description: whether audio formatter ip connetced to s2mm or not
+    description: whether audio formatter ip connected to s2mm or not
   xlnx,max-num-channels-mm2s:
-    description: whether audio formatter ip connetced to s2mm or not
+    description: whether audio formatter ip connected to s2mm or not
   xlnx,max-num-channels-s2mm:
-    description: whether audio formatter ip connetced to s2mm or not
+    description: whether audio formatter ip connected to s2mm or not
   xlnx,mm2s-addr-width:
     description: Audio formatter mm2s configured address width
   xlnx,mm2s-dataformat:
