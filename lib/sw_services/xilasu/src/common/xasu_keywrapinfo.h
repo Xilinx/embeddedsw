@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   02/24/25 Initial release
+ *       yog  01/28/26 Added RSA key ID parameter to key wrap structures.
  *
  * </pre>
  *
@@ -75,7 +76,9 @@ typedef struct {
 	u8 ShaMode;	/**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
 		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
-	u8 KeyId;	/**< Key ID, if the key to be used from ASU key vault */
+	u8 Reserved;	/**< Reserved for future use */
+	u32 AesKeyId;	/**< AES Key ID, if the AES key to be used from ASU key vault */
+	u32 RsaKeyId;	/**< RSA Key ID, if the RSA key to be used from ASU key vault */
 } XAsu_KeyWrapParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  * 1.0   ss   08/20/24 Initial release
  *       ss   09/26/24 Fixed doxygen comments
  *       ss   02/04/25 Added client API's for RSA padding scheme
+ *       yog  01/28/26 Added RSA key ID validation in RSA operations.
  *
  * </pre>
  *
@@ -79,7 +80,7 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->KeyCompAddr == 0U))) {
+	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U)))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -147,9 +148,9 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 		goto END;
 	}
 
-	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
+	if ((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->KeyCompAddr == 0U))) {
+	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -221,7 +222,7 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 	/** Validations of inputs. */
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->KeyCompAddr == 0U))) {
+	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U)))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

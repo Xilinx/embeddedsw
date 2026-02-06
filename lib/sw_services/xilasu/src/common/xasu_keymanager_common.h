@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -39,6 +39,7 @@ extern "C" {
 /************************** Constant Definitions *************************************************/
 #define XASU_KM_AES_KEYTYPE     (0U)    /**< Key type identifier for AES key */
 #define XASU_KM_IV_KEYTYPE      (1U)    /**< Key type identifier for IV */
+#define XASU_KM_RSA_KEYTYPE     (2U)    /**< Key type identifier for RSA key */
 
 /************************************** Type Definitions *****************************************/
 
@@ -49,6 +50,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr);
 s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8 KeyType);
+s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId);
 
 #ifdef __cplusplus
 }

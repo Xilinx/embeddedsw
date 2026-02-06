@@ -286,6 +286,7 @@ int main(void)
 	RsaClientParam.OutputDataAddr = (u64)(UINTPTR)EncResult;
 	RsaClientParam.KeyCompAddr = (u64)(UINTPTR)&PubKeyParam;
 	RsaClientParam.ExpoCompAddr = 0U;
+	RsaClientParam.KeyId = 0U;
 	Status = XAsu_RsaEnc(&ClientParam, &RsaClientParam);
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("\r\n Encrypt operation Status = %08x", Status);
@@ -317,6 +318,7 @@ int main(void)
 	RsaClientParam.OutputDataAddr = (u64)(UINTPTR)DecResult;
 	RsaClientParam.KeyCompAddr =  (u64)(UINTPTR)&PvtKeyParam;
 	RsaClientParam.ExpoCompAddr = 0U;
+	RsaClientParam.KeyId = 0U;
 	Status = XAsu_RsaDec(&ClientParam, &RsaClientParam);
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);

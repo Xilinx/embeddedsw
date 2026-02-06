@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
+ *       yog  01/28/26 Added RSA key pair generation client API.
  *
  * </pre>
  *
@@ -51,6 +52,8 @@ s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr);
 s32 XAsu_KmDeleteKey(XAsu_ClientParams *ClientParamPtr, u32 KeyId);
+s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

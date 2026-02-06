@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -63,7 +63,9 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 	}
 
 	/** Validate at least one output destination is provided. */
-	if ((KmParamsPtr->KeyObjectAddr == 0U) && (KmParamsPtr->KeyIdAddr == 0U)) {
+	Status = XAsu_KmValidateKeyAddrNdKeyId(KmParamsPtr->KeyObjectAddr,
+				(u32)(KmParamsPtr->KeyIdAddr));
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -110,6 +112,42 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 		    (KmSubVaultParamPtr->Length > XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
 			goto END;
 		}
+	}
+
+	/** Validate key length is either 2048-bit or 3072-bit or 4096-bit for RSA. */
+	if (KeyType == XASU_KM_RSA_KEYTYPE) {
+		if ((KmSubVaultParamPtr->Length != XRSA_2048_KEY_SIZE) &&
+		   (KmSubVaultParamPtr->Length != XRSA_3072_KEY_SIZE) &&
+		   (KmSubVaultParamPtr->Length != XRSA_4096_KEY_SIZE)) {
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates that either KeyCompAddr or KeyId is provided.
+ *
+ * @param	KeyCompAddr	Address of the key component structure.
+ * @param	KeyId		Composite key identifier for vault-based key retrieval.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if at least one parameter (KeyCompAddr or KeyId) is provided.
+ * 	- XASUFW_RSA_INVALID_PARAM, if both KeyCompAddr and KeyId are zero.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId)
+{
+	s32 Status = XST_FAILURE;
+
+	/** Validate that either KeyCompAddr or KeyId is provided. */
+	if ((KeyCompAddr == 0U) && (KeyId == 0U)) {
+		goto END;
 	}
 
 	Status = XST_SUCCESS;

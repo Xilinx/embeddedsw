@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   02/24/25 Initial release
+ *       yog  01/28/26 Added RSA key ID validation.
  *
  * </pre>
  *
@@ -66,7 +67,7 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 
 	/** Validate that the addresses of all input and output buffers are non-zero. */
 	if ((KwpunwpParamsPtr->InputDataAddr == 0U) || (KwpunwpParamsPtr->OutputDataAddr == 0U)
-	    || (KwpunwpParamsPtr->KeyCompAddr == 0U)
+	    || ((KwpunwpParamsPtr->KeyCompAddr == 0U) && (KwpunwpParamsPtr->RsaKeyId == 0U))
 	    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U) ||
 	       (KwpunwpParamsPtr->ActualOutuputDataLenAddr == 0U)) {
 		goto END;

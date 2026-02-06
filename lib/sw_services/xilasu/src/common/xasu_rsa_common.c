@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   02/04/25 Initial release
+ *       yog  01/28/26 Added RSA key ID validation.
  *
  * </pre>
  *
@@ -27,6 +28,7 @@
 
 /***************************** Include Files *****************************************************/
 #include "xasu_rsa_common.h"
+#include "xasu_keymanager_common.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -57,12 +59,11 @@ s32 XAsu_RsaValidateInputParams(const XAsu_RsaParams *RsaParamsPtr)
 	volatile s32 Status = XST_FAILURE;
 
 	/** Validate that the addresses of all input buffers are non-zero. */
-	if ((RsaParamsPtr->InputDataAddr == 0U) ||
-	    (RsaParamsPtr->KeyCompAddr == 0U)) {
+	if (RsaParamsPtr->InputDataAddr == 0U) {
 		goto END;
 	}
 
-	Status = XST_SUCCESS;
+	Status = XAsu_KmValidateKeyAddrNdKeyId(RsaParamsPtr->KeyCompAddr, RsaParamsPtr->KeyId);
 
 END:
 	return Status;

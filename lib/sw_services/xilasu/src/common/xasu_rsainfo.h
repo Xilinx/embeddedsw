@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  * 1.0   ss   08/20/24 Initial release
  *       ss   09/23/24 Fixed doxygen comments
  *       ss   02/04/25 Added client support for RSA padding scheme
+ *       yog  01/28/26 Added RSA key ID parameter and key pair structures.
  *
  * </pre>
  *
@@ -135,6 +136,7 @@ typedef struct {
 						  *	XAsu_RsaPvtKeyComp - for private key operations  */
 	u32 Len;			/**< Data Len */
 	u32 KeySize;		/**< Key Size */
+	u32 KeyId;		/**< Key ID */
 } XAsu_RsaParams;
 
 /** This structure contains RSA PSS padding params info. */
