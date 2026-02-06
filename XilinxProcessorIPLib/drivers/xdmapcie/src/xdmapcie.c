@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1626,11 +1626,11 @@ u32 XDmaPcie_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 * @param 	InstancePtr is the PCIe component to operate on.
 * @param        Bus is the external PCIe function's Bus number.
 * @param        ATUConfigDataType is the TYPE to Modify Outgoing TLP's
-* @param        ATURegionCntrl is the Region EN for Address Transalation
+* @param        ATURegionCntrl is the Region EN for Address Translation
 * @param        ATUAddress is the IATU Base Address
 * @param        ATULimitAddress is the IATU Limit Address
 * @param        PCIeAddress is the Target address to be mapped
-* @param        RegionSize is the IATU Address Transalation Size
+* @param        RegionSize is the IATU Address Translation Size
 
 * @return       None
 *

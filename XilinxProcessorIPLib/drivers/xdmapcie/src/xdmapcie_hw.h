@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -327,7 +327,7 @@ extern "C" {
 
 /* versal_2ve_2vm */
 
-#define XDMAPCIE_IATU_REGION_CNTRL_OFFSET	0x004 /**<EN/DE IATU transalation*/
+#define XDMAPCIE_IATU_REGION_CNTRL_OFFSET	0x004 /**<EN/DE IATU translation*/
 #define XDMAPCIE_IATU_LWR_BASE_ADDR_OFFSET	0x008 /**<ATU Lower Base Address*/
 #define XDMAPCIE_IATU_UPPER_BASE_ADDR_OFFSET	0x00C /**<ATU Upper Base Address*/
 #define XDMAPCIE_IATU_LIMIT_ADDR_OFFSET 	0x010 /**<ATU Lmit Address*/
@@ -342,7 +342,7 @@ extern "C" {
  */
 #define XDMAPCIE_CFG_TLP_TYPE0	0x4 /**<TYPE 0 to Config TLP*/
 #define XDMAPCIE_CFG_TLP_TYPE1	0x5 /**<TYPE 1 to Config TLP*/
-#define XDMAPCIE_REGION_EN 	0x90000000 /**<EN for IATU Address Transalation*/
+#define XDMAPCIE_REGION_EN 	0x90000000 /**<EN for IATU Address Translation*/
 /*@}*/
 
 

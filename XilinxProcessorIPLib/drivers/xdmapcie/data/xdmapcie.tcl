@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -436,13 +436,13 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 	#Revision is CPM5
 	if {($cpm_rev == "1")} {
 	     if {($cpm_cntrl == "0")} {
-			#Controller 1 Bridge base address for CPM5 QDMA defined seperately
+			#Controller 1 Bridge base address for CPM5 QDMA defined separately
 			set cpm5n_qdma_bridge_off 0xea0000
 			set arg_val [::hsi::utils::get_param_value [hsi::get_cells -hier versal_cips_0_cpm_0_psv_cpm] "C_S_AXI_BASEADDR"]
 			set arg_val [expr {$arg_val + $cpm5n_qdma_bridge_off}]
 			puts -nonewline $config_file [format "%s\t\t0x%x" $comma $arg_val]
 		} else {
-			#Controller 0 Bridge base address for CPM5 QDMA defined seperately
+			#Controller 0 Bridge base address for CPM5 QDMA defined separately
 			set cpm5_qdma_bridge_off 0xe20000
 			set arg_val [::hsi::utils::get_param_value [hsi::get_cells -hier versal_cips_0_cpm_0_psv_cpm] "C_S_AXI_BASEADDR"]
 			set arg_val [expr {$arg_val + $cpm5_qdma_bridge_off}]
