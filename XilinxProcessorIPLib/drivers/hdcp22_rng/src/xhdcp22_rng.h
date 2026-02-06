@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 * The application needs to do the following steps to run the RNG.
 * - Call XHdcp22Rng_LookupConfig using the device ID to find the
 *   core configuration instance.
-* - Call XHdcp22Rng_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Rng_CfgInitialize to initialize the device instance.
 * - Call XHdcp22Rng_Enable to enable the device.
 * - Call XHdcp22Rng_GetRandom to get random words.
 *
