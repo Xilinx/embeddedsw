@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
 * 2.0   bvikram  09/20/20 Fix USB boot issue
+* 3.0   sd       02/02/26 Added the required macros to implement the DDR
+*                         boundary check.
 *
 * </pre>
 *
@@ -219,6 +222,7 @@ typedef struct {
 #define DFU_MAX_TRANSFER			1024U
 /* DFU status */
 #define DFU_STATUS_OK               0x00U
+#define DFU_STATUS_ERROR            0x01U
 /* DFU commands */
 #define DFU_DETACH      			0x0U
 #define DFU_DNLOAD      			0x1U
@@ -234,6 +238,10 @@ typedef struct {
 #define STATE_DFU_DOWNLOAD_BUSY     0x04U
 #define STATE_DFU_DOWNLOAD_IDLE     0x05U
 #define STATE_DFU_ERROR             0x0AU
+
+/* Offset to calculate last byte address */
+#define DDR_LAST_BYTE_OFFSET        0x01U
+
 /************************** Function Prototypes ******************************/
 
 #endif/*XFSBL_USB*/

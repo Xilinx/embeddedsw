@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 6.0   bkm  04/10/18 Added error codes for FMC_VADJ
 * 7.0	bsv	 08/27/19 Added error code for invalid image header size
 * 10.0  tvp  09/20/25 Added error code PPK unavailability
+* 11.0  sd   02/05/26 Added error code for USB boot image DDR overflow
 *
 * </pre>
 *
@@ -192,6 +193,7 @@ extern "C" {
 #define XFSBL_ERROR_SHA2_NOT_SUPPORTED				(0x78U)
 #define XFSBL_ERROR_IMAGE_HEADER_SIZE				(0x79U)
 #define XFSBL_ERROR_PPK_NOT_AVAILABLE				(0x80U)
+#define XFSBL_ERROR_USB_IMAGE_DDR_OVERFLOW			(0x81U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/

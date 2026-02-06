@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *******************************************************************************/
 
@@ -20,6 +21,8 @@
 * 2.0   bvikram  09/30/20 Fix USB boot mode
 * 3.0   bvikram  03/24/21 Fix compilation warnings
 * 4.0   bvikram  06/09/21 Add support for delayed enumeration of DFU device
+* 5.0   sd       02/02/26 Add DDR boundary check to prevent USB boot image
+*                         overflow
 *
 * </pre>
 *
@@ -32,6 +35,7 @@
 #include "xparameters.h"	/* XPAR parameters */
 #include "xusbpsu.h"		/* USB controller driver */
 #include "xfsbl_usb.h"
+#include "xfsbl_main.h"		/* For XFsbl_ErrorLockDown() */
 
 /************************** Constant Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -600,6 +604,10 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 	int Result = XST_FAILURE;
 	u32 RxBytesLeft;
 	static u8 DfuReply[DFU_STATUS_SIZE] = {0,};
+#ifdef XFSBL_PS_DDR_END_ADDRESS
+	u64 DfuBaseAddr;
+	u64 WriteEndAddr;
+#endif
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SetupData != NULL);
@@ -627,6 +635,27 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 			RxBytesLeft = SetupData->wLength;
 
 			if(RxBytesLeft > 0U) {
+#ifdef XFSBL_PS_DDR_END_ADDRESS
+				DfuBaseAddr = (u64)((UINTPTR)DfuVirtFlash);
+				WriteEndAddr = DfuBaseAddr + (u64)DfuObj.TotalBytesDnloaded
+								+ (u64)RxBytesLeft - DDR_LAST_BYTE_OFFSET;
+				/* Check if the download will overflow DDR bounds */
+				if (WriteEndAddr > (u64)XFSBL_PS_DDR_END_ADDRESS) {
+					XFsbl_Printf(DEBUG_GENERAL, "USB boot image exceeds DDR boundary\r\n");
+					XFsbl_Printf(DEBUG_GENERAL, "Write would end at 0x%0lx, DDR ends at 0x%0x\r\n",
+							WriteEndAddr, XFSBL_PS_DDR_END_ADDRESS);
+					XFsbl_Printf(DEBUG_GENERAL, "Image size: %lu bytes, buffer start: 0x%0lx\r\n",
+							(u64)DfuObj.TotalBytesDnloaded + (u64)RxBytesLeft, DfuBaseAddr);
+					/* Set DFU error state and stall endpoint */
+					DfuObj.CurrState = STATE_DFU_ERROR;
+					DfuObj.CurrStatus = DFU_STATUS_ERROR;
+					XUsbPsu_Ep0StallRestart(
+							(struct XUsbPsu*)InstancePtr->PrivateData);
+					/* Halt execution - this is a critical security violation */
+					XFsbl_ErrorLockDown(XFSBL_ERROR_STAGE_2 |
+						XFSBL_ERROR_USB_IMAGE_DDR_OVERFLOW);
+				}
+#endif
 				Result = XUsbPsu_EpBufferRecv(
 					(struct XUsbPsu*)InstancePtr->PrivateData,
 					0U, &DfuVirtFlash[DfuObj.TotalBytesDnloaded],
