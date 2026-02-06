@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,7 +20,7 @@
 *  - Initialize a PS PCIe root complex
 *  - Enumerate PCIe end points in the system
 *  - Assign BARs to endpoints
-*  - find capablities on end point
+*  - find capabilities on end point
 *
 * Please note that this example enumerates and initializes PCIe end points
 * only.

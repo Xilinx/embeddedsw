@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,7 +37,7 @@
 /******************************************************************************/
 /*******************************************************************************/
 /**
-* This function calculates the Capability List Start Address from the Capabilty
+* This function calculates the Capability List Start Address from the Capability
 * Pointer Offset value. As per spec, of the first 16 bits in this offset,
 * least 2 significant bits must be ignored, hence the additional shifting.
 *
