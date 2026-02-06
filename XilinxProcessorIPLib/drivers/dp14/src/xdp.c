@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -156,7 +156,6 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
  *		space. If the address translation is not used, then the physical
  *		address is passed.
  *
- * @return	None.
  *
  * @note	Unexpected errors may occur if the address mapping is changed
  *		after this function is invoked.
@@ -1900,7 +1899,6 @@ void XDp_RxVSCDis(XDp *InstancePtr)
  *		will be passed to the custom sleep/delay function when it is
  *		invoked.
  *
- * @return	None.
  *
  * @note	None.
  *
@@ -1930,8 +1928,6 @@ void XDp_SetUserTimerHandler(XDp *InstancePtr, XDp_TimerHandler CallbackFunc,
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	MicroSeconds is the number of microseconds to delay/sleep for.
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -3945,7 +3941,7 @@ void XDp_GenerateCpIrq(XDp *InstancePtr) {
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  *
- * @retun	None
+ * @return	None
  *
  * @note	This function will enable or disable AUX_DEFFERS
  * 			for below DPCD offsets

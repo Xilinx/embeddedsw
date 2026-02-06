@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -152,7 +153,7 @@ u32 Dptx_TimerExample(XDp *InstancePtr, u16 DeviceId,
  * For MicroBlaze systems, the XDp_WaitUs driver function's default behavior
  * is to use the MB_Sleep function from microblaze_sleep.h, which is implemented
  * in software and only has millisecond accuracy. For this reason, using a
- * hardware timer is preferrable. For ARM/Zynq SoC systems, the SoC's timer is
+ * hardware timer is preferable. For ARM/Zynq SoC systems, the SoC's timer is
  * used - XDp_WaitUs will ignore this custom timer handler.
  *
  * @param	InstancePtr is a pointer to the XDp instance.

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -56,12 +56,12 @@ extern "C" {
 /** @name Protocol Selection definitions : DP 1.1, DP 1.2, DP 1.4.
  * @{
  */
-#define XDP_PROTOCOL_DP_1_1		0
-#define XDP_PROTOCOL_DP_1_2		1
-#define XDP_PROTOCOL_DP_1_4		2
+#define XDP_PROTOCOL_DP_1_1		0	/**< DisplayPort protocol version 1.1. */
+#define XDP_PROTOCOL_DP_1_2		1	/**< DisplayPort protocol version 1.2. */
+#define XDP_PROTOCOL_DP_1_4		2	/**< DisplayPort protocol version 1.4. */
 /* @} */
 
-/** @name DP generic definitions: Link bandwith and lane count.
+/** @name DP generic definitions: Link bandwidth and lane count.
   * @{
   */
 /* 0x000: LINK_BW_SET */
@@ -1784,7 +1784,7 @@ extern "C" {
 #define XDP_RX_INTERRUPT_MASK_1_TPS4 \
 					0x80000000 /**< Mask the interrupt
 							assertion for start of
-							training patter 4. */
+							training pattern 4. */
 /* DP 1.4 definitions end. */
 /* 0x048: INTERRUPT_CAUSE_1 */
 #define XDP_RX_INTERRUPT_CAUSE_1_EXT_PKT_STREAM234_MASK(Stream) \
@@ -1846,7 +1846,7 @@ extern "C" {
 	XDP_RX_INTERRUPT_MASK_1_TPS4 /**< Interrupt
 							caused by detection
 							of a valid
-							training patter 4
+							training pattern 4
 							event. */
 /* DP 1.4 definitions end. */
 /* 0x050: HSYNC_WIDTH */
@@ -2368,176 +2368,176 @@ extern "C" {
 /** @name DisplayPort Configuration Data: Receiver capability field.
   * @{
   */
-#define XDP_DPCD_REV						0x00000
-#define XDP_DPCD_MAX_LINK_RATE					0x00001
-#define XDP_EDID_DPCD_MAX_LINK_RATE				0x02201
-#define XDP_DPCD_FEATURE_ENUMERATION_LIST			0x02210
-#define XDP_DPCD_MAX_LANE_COUNT					0x00002
-#define XDP_DPCD_MAX_DOWNSPREAD					0x00003
-#define XDP_DPCD_NORP_PWR_V_CAP					0x00004
-#define XDP_DPCD_DOWNSP_PRESENT					0x00005
-#define XDP_DPCD_ML_CH_CODING_CAP				0x00006
-#define XDP_DPCD_DOWNSP_COUNT_MSA_OUI				0x00007
-#define	XDP_DPCD_RX_PORT0_CAP_0					0x00008
-#define	XDP_DPCD_RX_PORT0_CAP_1					0x00009
-#define	XDP_DPCD_RX_PORT1_CAP_0					0x0000A
-#define	XDP_DPCD_RX_PORT1_CAP_1					0x0000B
-#define XDP_DPCD_I2C_SPEED_CTL_CAP				0x0000C
-#define XDP_DPCD_EDP_CFG_CAP					0x0000D
-#define XDP_DPCD_TRAIN_AUX_RD_INTERVAL				0x0000E
-#define XDP_DPCD_ADAPTER_CAP					0x0000F
-#define XDP_DPCD_MSTM_CAP					0x00021
-#define XDP_DPCD_NUM_AUDIO_EPS					0x00022
-#define	XDP_DPCD_AV_GRANULARITY					0x00023
-#define XDP_DPCD_AUD_DEC_LAT_7_0				0x00024
-#define XDP_DPCD_AUD_DEC_LAT_15_8				0x00025
-#define XDP_DPCD_AUD_PP_LAT_7_0					0x00026
-#define XDP_DPCD_AUD_PP_LAT_15_8				0x00027
-#define XDP_DPCD_VID_INTER_LAT					0x00028
-#define XDP_DPCD_VID_PROG_LAT					0x00029
-#define XDP_DPCD_REP_LAT					0x0002A
-#define XDP_DPCD_AUD_DEL_INS_7_0				0x0002B
-#define XDP_DPCD_AUD_DEL_INS_15_8				0x0002C
-#define XDP_DPCD_AUD_DEL_INS_23_16				0x0002D
-#define XDP_DPCD_GUID						0x00030
-#define XDP_DPCD_RX_GTC_VALUE_7_0				0x00054
-#define XDP_DPCD_RX_GTC_VALUE_15_8				0x00055
-#define XDP_DPCD_RX_GTC_VALUE_23_16				0x00056
-#define XDP_DPCD_RX_GTC_VALUE_31_24				0x00057
-#define XDP_DPCD_RX_GTC_MSTR_REQ				0x00058
-#define XDP_DPCD_RX_GTC_FREQ_LOCK_DONE				0x00059
-#define XDP_DPCD_DOWNSP_0_CAP					0x00080
-#define XDP_DPCD_DOWNSP_1_CAP					0x00081
-#define XDP_DPCD_DOWNSP_2_CAP					0x00082
-#define XDP_DPCD_DOWNSP_3_CAP					0x00083
-#define XDP_DPCD_DOWNSP_0_DET_CAP				0x00080
-#define XDP_DPCD_DOWNSP_1_DET_CAP				0x00084
-#define XDP_DPCD_DOWNSP_2_DET_CAP				0x00088
-#define XDP_DPCD_DOWNSP_3_DET_CAP				0x0008C
+#define XDP_DPCD_REV						0x00000	/**< DPCD revision. */
+#define XDP_DPCD_MAX_LINK_RATE					0x00001	/**< Maximum link rate. */
+#define XDP_EDID_DPCD_MAX_LINK_RATE				0x02201	/**< EDID DPCD maximum link rate. */
+#define XDP_DPCD_FEATURE_ENUMERATION_LIST			0x02210	/**< Feature enumeration list. */
+#define XDP_DPCD_MAX_LANE_COUNT					0x00002	/**< Maximum lane count. */
+#define XDP_DPCD_MAX_DOWNSPREAD					0x00003	/**< Maximum downspread. */
+#define XDP_DPCD_NORP_PWR_V_CAP					0x00004	/**< Number of receiver ports and power voltage capability. */
+#define XDP_DPCD_DOWNSP_PRESENT					0x00005	/**< Downstream port present. */
+#define XDP_DPCD_ML_CH_CODING_CAP				0x00006	/**< Main link channel coding capability. */
+#define XDP_DPCD_DOWNSP_COUNT_MSA_OUI				0x00007	/**< Downstream port count MSA OUI. */
+#define	XDP_DPCD_RX_PORT0_CAP_0					0x00008	/**< Receiver port 0 capability 0. */
+#define	XDP_DPCD_RX_PORT0_CAP_1					0x00009	/**< Receiver port 0 capability 1. */
+#define	XDP_DPCD_RX_PORT1_CAP_0					0x0000A	/**< Receiver port 1 capability 0. */
+#define	XDP_DPCD_RX_PORT1_CAP_1					0x0000B	/**< Receiver port 1 capability 1. */
+#define XDP_DPCD_I2C_SPEED_CTL_CAP				0x0000C	/**< I2C speed control capability. */
+#define XDP_DPCD_EDP_CFG_CAP					0x0000D	/**< eDP configuration capability. */
+#define XDP_DPCD_TRAIN_AUX_RD_INTERVAL				0x0000E	/**< Training AUX read interval. */
+#define XDP_DPCD_ADAPTER_CAP					0x0000F	/**< Adapter capability. */
+#define XDP_DPCD_MSTM_CAP					0x00021	/**< MST capability. */
+#define XDP_DPCD_NUM_AUDIO_EPS					0x00022	/**< Number of audio endpoints. */
+#define	XDP_DPCD_AV_GRANULARITY					0x00023	/**< AV granularity. */
+#define XDP_DPCD_AUD_DEC_LAT_7_0				0x00024	/**< Audio decoder latency bits 7:0. */
+#define XDP_DPCD_AUD_DEC_LAT_15_8				0x00025	/**< Audio decoder latency bits 15:8. */
+#define XDP_DPCD_AUD_PP_LAT_7_0					0x00026	/**< Audio processing latency bits 7:0. */
+#define XDP_DPCD_AUD_PP_LAT_15_8				0x00027	/**< Audio processing latency bits 15:8. */
+#define XDP_DPCD_VID_INTER_LAT					0x00028	/**< Video interlaced latency. */
+#define XDP_DPCD_VID_PROG_LAT					0x00029	/**< Video progressive latency. */
+#define XDP_DPCD_REP_LAT					0x0002A	/**< Repeater latency. */
+#define XDP_DPCD_AUD_DEL_INS_7_0				0x0002B	/**< Audio delay insertion bits 7:0. */
+#define XDP_DPCD_AUD_DEL_INS_15_8				0x0002C	/**< Audio delay insertion bits 15:8. */
+#define XDP_DPCD_AUD_DEL_INS_23_16				0x0002D	/**< Audio delay insertion bits 23:16. */
+#define XDP_DPCD_GUID						0x00030	/**< Global unique identifier. */
+#define XDP_DPCD_RX_GTC_VALUE_7_0				0x00054	/**< RX GTC value bits 7:0. */
+#define XDP_DPCD_RX_GTC_VALUE_15_8				0x00055	/**< RX GTC value bits 15:8. */
+#define XDP_DPCD_RX_GTC_VALUE_23_16				0x00056	/**< RX GTC value bits 23:16. */
+#define XDP_DPCD_RX_GTC_VALUE_31_24				0x00057	/**< RX GTC value bits 31:24. */
+#define XDP_DPCD_RX_GTC_MSTR_REQ				0x00058	/**< RX GTC master request. */
+#define XDP_DPCD_RX_GTC_FREQ_LOCK_DONE				0x00059	/**< RX GTC frequency lock done. */
+#define XDP_DPCD_DOWNSP_0_CAP					0x00080	/**< Downstream port 0 capability. */
+#define XDP_DPCD_DOWNSP_1_CAP					0x00081	/**< Downstream port 1 capability. */
+#define XDP_DPCD_DOWNSP_2_CAP					0x00082	/**< Downstream port 2 capability. */
+#define XDP_DPCD_DOWNSP_3_CAP					0x00083	/**< Downstream port 3 capability. */
+#define XDP_DPCD_DOWNSP_0_DET_CAP				0x00080	/**< Downstream port 0 detailed capability. */
+#define XDP_DPCD_DOWNSP_1_DET_CAP				0x00084	/**< Downstream port 1 detailed capability. */
+#define XDP_DPCD_DOWNSP_2_DET_CAP				0x00088	/**< Downstream port 2 detailed capability. */
+#define XDP_DPCD_DOWNSP_3_DET_CAP				0x0008C	/**< Downstream port 3 detailed capability. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link configuration field.
-  * @{
-  */
-#define XDP_DPCD_LINK_BW_SET					0x00100
-#define XDP_DPCD_LANE_COUNT_SET					0x00101
-#define XDP_DPCD_TP_SET						0x00102
-#define XDP_DPCD_TRAINING_LANE0_SET				0x00103
-#define XDP_DPCD_TRAINING_LANE1_SET				0x00104
-#define XDP_DPCD_TRAINING_LANE2_SET				0x00105
-#define XDP_DPCD_TRAINING_LANE3_SET				0x00106
-#define XDP_DPCD_DOWNSPREAD_CTRL				0x00107
-#define XDP_DPCD_ML_CH_CODING_SET				0x00108
-#define XDP_DPCD_I2C_SPEED_CTL_SET				0x00109
-#define XDP_DPCD_EDP_CFG_SET					0x0010A
-#define XDP_DPCD_LINK_QUAL_LANE0_SET				0x0010B
-#define XDP_DPCD_LINK_QUAL_LANE1_SET				0x0010C
-#define XDP_DPCD_LINK_QUAL_LANE2_SET				0x0010D
-#define XDP_DPCD_LINK_QUAL_LANE3_SET				0x0010E
-#define XDP_DPCD_TRAINING_LANE0_1_SET2				0x0010F
-#define XDP_DPCD_TRAINING_LANE2_3_SET2				0x00110
-#define XDP_DPCD_MSTM_CTRL					0x00111
-#define XDP_DPCD_AUDIO_DELAY_7_0				0x00112
-#define XDP_DPCD_AUDIO_DELAY_15_8				0x00113
-#define XDP_DPCD_AUDIO_DELAY_23_6				0x00114
-#define XDP_DPCD_UPSTREAM_DEVICE_DP_PWR_NEED			0x00118
-#define XDP_DPCD_FAUX_MODE_CTRL					0x00120
-#define XDP_DPCD_FAUX_FORWARD_CH_DRIVE_SET			0x00121
-#define XDP_DPCD_BACK_CH_STATUS					0x00122
-#define XDP_DPCD_FAUX_BACK_CH_SYMBOL_ERROR_COUNT		0x00123
-#define XDP_DPCD_FAUX_BACK_CH_TRAINING_PATTERN_TIME		0x00125
-#define XDP_DPCD_TX_GTC_VALUE_7_0				0x00154
-#define XDP_DPCD_TX_GTC_VALUE_15_8				0x00155
-#define XDP_DPCD_TX_GTC_VALUE_23_16				0x00156
-#define XDP_DPCD_TX_GTC_VALUE_31_24				0x00157
-#define XDP_DPCD_RX_GTC_VALUE_PHASE_SKEW_EN			0x00158
-#define XDP_DPCD_TX_GTC_FREQ_LOCK_DONE				0x00159
-#define XDP_DPCD_ADAPTER_CTRL					0x001A0
-#define XDP_DPCD_BRANCH_DEVICE_CTRL				0x001A1
-#define XDP_DPCD_PAYLOAD_ALLOCATE_SET				0x001C0
-#define XDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT		0x001C1
-#define XDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT		0x001C2
+	* @{
+	*/
+#define XDP_DPCD_LINK_BW_SET					0x00100	/**< Link bandwidth set. */
+#define XDP_DPCD_LANE_COUNT_SET					0x00101	/**< Lane count set. */
+#define XDP_DPCD_TP_SET						0x00102	/**< Training pattern set. */
+#define XDP_DPCD_TRAINING_LANE0_SET				0x00103	/**< Training lane 0 set. */
+#define XDP_DPCD_TRAINING_LANE1_SET				0x00104	/**< Training lane 1 set. */
+#define XDP_DPCD_TRAINING_LANE2_SET				0x00105	/**< Training lane 2 set. */
+#define XDP_DPCD_TRAINING_LANE3_SET				0x00106	/**< Training lane 3 set. */
+#define XDP_DPCD_DOWNSPREAD_CTRL				0x00107	/**< Downspread control. */
+#define XDP_DPCD_ML_CH_CODING_SET				0x00108	/**< Main link channel coding set. */
+#define XDP_DPCD_I2C_SPEED_CTL_SET				0x00109	/**< I2C speed control set. */
+#define XDP_DPCD_EDP_CFG_SET					0x0010A	/**< eDP configuration set. */
+#define XDP_DPCD_LINK_QUAL_LANE0_SET				0x0010B	/**< Link quality lane 0 set. */
+#define XDP_DPCD_LINK_QUAL_LANE1_SET				0x0010C	/**< Link quality lane 1 set. */
+#define XDP_DPCD_LINK_QUAL_LANE2_SET				0x0010D	/**< Link quality lane 2 set. */
+#define XDP_DPCD_LINK_QUAL_LANE3_SET				0x0010E	/**< Link quality lane 3 set. */
+#define XDP_DPCD_TRAINING_LANE0_1_SET2				0x0010F	/**< Training lane 0 and 1 set 2. */
+#define XDP_DPCD_TRAINING_LANE2_3_SET2				0x00110	/**< Training lane 2 and 3 set 2. */
+#define XDP_DPCD_MSTM_CTRL					0x00111	/**< MST control. */
+#define XDP_DPCD_AUDIO_DELAY_7_0				0x00112	/**< Audio delay bits 7:0. */
+#define XDP_DPCD_AUDIO_DELAY_15_8				0x00113	/**< Audio delay bits 15:8. */
+#define XDP_DPCD_AUDIO_DELAY_23_6				0x00114	/**< Audio delay bits 23:16. */
+#define XDP_DPCD_UPSTREAM_DEVICE_DP_PWR_NEED			0x00118	/**< Upstream device DP power need. */
+#define XDP_DPCD_FAUX_MODE_CTRL					0x00120	/**< FAUX mode control. */
+#define XDP_DPCD_FAUX_FORWARD_CH_DRIVE_SET			0x00121	/**< FAUX forward channel drive set. */
+#define XDP_DPCD_BACK_CH_STATUS					0x00122	/**< Back channel status. */
+#define XDP_DPCD_FAUX_BACK_CH_SYMBOL_ERROR_COUNT		0x00123	/**< FAUX back channel symbol error count. */
+#define XDP_DPCD_FAUX_BACK_CH_TRAINING_PATTERN_TIME		0x00125	/**< FAUX back channel training pattern time. */
+#define XDP_DPCD_TX_GTC_VALUE_7_0				0x00154	/**< TX GTC value bits 7:0. */
+#define XDP_DPCD_TX_GTC_VALUE_15_8				0x00155	/**< TX GTC value bits 15:8. */
+#define XDP_DPCD_TX_GTC_VALUE_23_16				0x00156	/**< TX GTC value bits 23:16. */
+#define XDP_DPCD_TX_GTC_VALUE_31_24				0x00157	/**< TX GTC value bits 31:24. */
+#define XDP_DPCD_RX_GTC_VALUE_PHASE_SKEW_EN			0x00158	/**< RX GTC value phase skew enable. */
+#define XDP_DPCD_TX_GTC_FREQ_LOCK_DONE				0x00159	/**< TX GTC frequency lock done. */
+#define XDP_DPCD_ADAPTER_CTRL					0x001A0	/**< Adapter control. */
+#define XDP_DPCD_BRANCH_DEVICE_CTRL				0x001A1	/**< Branch device control. */
+#define XDP_DPCD_PAYLOAD_ALLOCATE_SET				0x001C0	/**< Payload allocate set. */
+#define XDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT		0x001C1	/**< Payload allocate start time slot. */
+#define XDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT		0x001C2	/**< Payload allocate time slot count. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field.
-  * @{
-  */
-#define XDP_DPCD_SINK_COUNT					0x00200
-#define XDP_DPCD_DEVICE_SERVICE_IRQ				0x00201
-#define XDP_DPCD_STATUS_LANE_0_1				0x00202
-#define XDP_DPCD_STATUS_LANE_2_3				0x00203
-#define XDP_DPCD_LANE_ALIGN_STATUS_UPDATED			0x00204
-#define XDP_DPCD_SINK_STATUS					0x00205
-#define XDP_DPCD_ADJ_REQ_LANE_0_1				0x00206
-#define XDP_DPCD_ADJ_REQ_LANE_2_3				0x00207
-#define XDP_DPCD_TRAINING_SCORE_LANE_0				0x00208
-#define XDP_DPCD_TRAINING_SCORE_LANE_1				0x00209
-#define XDP_DPCD_TRAINING_SCORE_LANE_2				0x0020A
-#define XDP_DPCD_TRAINING_SCORE_LANE_3				0x0020B
-#define XDP_DPCD_ADJ_REQ_PC2					0x0020C
-#define XDP_DPCD_FAUX_FORWARD_CH_SYMBOL_ERROR_COUNT		0x0020D
-#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_0			0x00210
-#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_1			0x00212
-#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_2			0x00214
-#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_3			0x00216
+	* @{
+	*/
+#define XDP_DPCD_SINK_COUNT					0x00200	/**< Sink count. */
+#define XDP_DPCD_DEVICE_SERVICE_IRQ				0x00201	/**< Device service IRQ. */
+#define XDP_DPCD_STATUS_LANE_0_1				0x00202	/**< Status lane 0 and 1. */
+#define XDP_DPCD_STATUS_LANE_2_3				0x00203	/**< Status lane 2 and 3. */
+#define XDP_DPCD_LANE_ALIGN_STATUS_UPDATED			0x00204	/**< Lane align status updated. */
+#define XDP_DPCD_SINK_STATUS					0x00205	/**< Sink status. */
+#define XDP_DPCD_ADJ_REQ_LANE_0_1				0x00206	/**< Adjust request lane 0 and 1. */
+#define XDP_DPCD_ADJ_REQ_LANE_2_3				0x00207	/**< Adjust request lane 2 and 3. */
+#define XDP_DPCD_TRAINING_SCORE_LANE_0				0x00208	/**< Training score lane 0. */
+#define XDP_DPCD_TRAINING_SCORE_LANE_1				0x00209	/**< Training score lane 1. */
+#define XDP_DPCD_TRAINING_SCORE_LANE_2				0x0020A	/**< Training score lane 2. */
+#define XDP_DPCD_TRAINING_SCORE_LANE_3				0x0020B	/**< Training score lane 3. */
+#define XDP_DPCD_ADJ_REQ_PC2					0x0020C	/**< Adjust request post-cursor 2. */
+#define XDP_DPCD_FAUX_FORWARD_CH_SYMBOL_ERROR_COUNT		0x0020D	/**< FAUX forward channel symbol error count. */
+#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_0			0x00210	/**< Symbol error count lane 0. */
+#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_1			0x00212	/**< Symbol error count lane 1. */
+#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_2			0x00214	/**< Symbol error count lane 2. */
+#define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_3			0x00216	/**< Symbol error count lane 3. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Automated testing sub-field.
-  * @{
-  */
-#define XDP_DPCD_FAUX_FORWARD_CH_STATUS				0x00280
-#define XDP_DPCD_FAUX_BACK_CH_DRIVE_SET				0x00281
-#define XDP_DPCD_FAUX_BACK_CH_SYM_ERR_COUNT_CTRL		0x00282
-#define XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS			0x002C0
+	* @{
+	*/
+#define XDP_DPCD_FAUX_FORWARD_CH_STATUS				0x00280	/**< FAUX forward channel status. */
+#define XDP_DPCD_FAUX_BACK_CH_DRIVE_SET				0x00281	/**< FAUX back channel drive set. */
+#define XDP_DPCD_FAUX_BACK_CH_SYM_ERR_COUNT_CTRL		0x00282	/**< FAUX back channel symbol error count control. */
+#define XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS			0x002C0	/**< Payload table update status. */
 #define XDP_DPCD_VC_PAYLOAD_ID_SLOT(SlotNum) \
-			(XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS + SlotNum)
+			(XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS + SlotNum)	/**< Virtual channel payload ID slot. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Sink control field.
-  * @{
-  */
-#define XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE			0x00600
+	* @{
+	*/
+#define XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE			0x00600	/**< Set power DP power voltage. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Sideband message buffers.
-  * @{
-  */
-#define XDP_DPCD_DOWN_REQ					0x01000
-#define XDP_DPCD_UP_REP						0x01200
-#define XDP_DPCD_DOWN_REP					0x01400
-#define XDP_DPCD_UP_REQ						0x01600
+	* @{
+	*/
+#define XDP_DPCD_DOWN_REQ					0x01000	/**< Downstream request. */
+#define XDP_DPCD_UP_REP						0x01200	/**< Upstream reply. */
+#define XDP_DPCD_DOWN_REP					0x01400	/**< Downstream reply. */
+#define XDP_DPCD_UP_REQ						0x01600	/**< Upstream request. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Event status indicator field.
-  * @{
-  */
-#define XDP_DPCD_SINK_COUNT_ESI					0x02002
-#define XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0		0x02003
-#define XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI1		0x02004
-#define XDP_DPCD_SINK_LINK_SERVICE_IRQ_VECTOR_ESI0		0x02005
-#define XDP_DPCD_SINK_LANE0_1_STATUS				0x0200C
-#define XDP_DPCD_SINK_LANE2_3_STATUS				0x0200D
-#define XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI			0x0200E
-#define XDP_DPCD_SINK_STATUS_ESI				0x0200F
+	* @{
+	*/
+#define XDP_DPCD_SINK_COUNT_ESI					0x02002	/**< Sink count ESI. */
+#define XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0		0x02003	/**< Sink device service IRQ vector ESI0. */
+#define XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI1		0x02004	/**< Sink device service IRQ vector ESI1. */
+#define XDP_DPCD_SINK_LINK_SERVICE_IRQ_VECTOR_ESI0		0x02005	/**< Sink link service IRQ vector ESI0. */
+#define XDP_DPCD_SINK_LANE0_1_STATUS				0x0200C	/**< Sink lane 0 and 1 status. */
+#define XDP_DPCD_SINK_LANE2_3_STATUS				0x0200D	/**< Sink lane 2 and 3 status. */
+#define XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI			0x0200E	/**< Sink align status updated ESI. */
+#define XDP_DPCD_SINK_STATUS_ESI				0x0200F	/**< Sink status ESI. */
 /* @} */
 
 /** @name DisplayPort Extended Configuration Data Registers.
-  * @{
-  */
-#define XDP_DPCD_EXT_DPCD_REV					0x02200
-#define XDP_DPCD_EXT_DPCD_MAX_LINK_RATE				0x02201
+	* @{
+	*/
+#define XDP_DPCD_EXT_DPCD_REV					0x02200	/**< Extended DPCD revision. */
+#define XDP_DPCD_EXT_DPCD_MAX_LINK_RATE				0x02201	/**< Extended DPCD maximum link rate. */
 
 /* @} */
 
 /** @name DisplayPort Configuration Data: Field addresses and sizes.
-  * @{
-  */
-#define XDP_DPCD_RECEIVER_CAP_FIELD_START		XDP_DPCD_REV
-#define XDP_DPCD_RECEIVER_CAP_FIELD_SIZE			0x100
-#define XDP_DPCD_LINK_CFG_FIELD_START		XDP_DPCD_LINK_BW_SET
-#define XDP_DPCD_LINK_CFG_FIELD_SIZE				0x100
-#define XDP_DPCD_LINK_SINK_STATUS_FIELD_START	XDP_DPCD_SINK_COUNT
-#define XDP_DPCD_LINK_SINK_STATUS_FIELD_SIZE			0x17
+	* @{
+	*/
+#define XDP_DPCD_RECEIVER_CAP_FIELD_START		XDP_DPCD_REV	/**< Receiver capability field start. */
+#define XDP_DPCD_RECEIVER_CAP_FIELD_SIZE			0x100	/**< Receiver capability field size. */
+#define XDP_DPCD_LINK_CFG_FIELD_START		XDP_DPCD_LINK_BW_SET	/**< Link configuration field start. */
+#define XDP_DPCD_LINK_CFG_FIELD_SIZE				0x100	/**< Link configuration field size. */
+#define XDP_DPCD_LINK_SINK_STATUS_FIELD_START	XDP_DPCD_SINK_COUNT	/**< Link sink status field start. */
+#define XDP_DPCD_LINK_SINK_STATUS_FIELD_SIZE			0x17	/**< Link sink status field size. */
 /* @} */
 
 /******************************************************************************/
@@ -2547,376 +2547,375 @@ extern "C" {
   * @{
   */
 /* 0x00000: DPCD_REV */
-#define XDP_DPCD_REV_MNR_MASK					0x0F
-#define XDP_DPCD_REV_MJR_MASK					0xF0
-#define XDP_DPCD_REV_MJR_SHIFT					4
+#define XDP_DPCD_REV_MNR_MASK					0x0F	/**< DPCD revision minor mask. */
+#define XDP_DPCD_REV_MJR_MASK					0xF0	/**< DPCD revision major mask. */
+#define XDP_DPCD_REV_MJR_SHIFT					4	/**< Shift bits for DPCD revision major. */
 /* 0x00001: MAX_LINK_RATE */
-#define XDP_DPCD_MAX_LINK_RATE_162GBPS				0x06
-#define XDP_DPCD_MAX_LINK_RATE_270GBPS				0x0A
-#define XDP_DPCD_MAX_LINK_RATE_540GBPS				0x14
+#define XDP_DPCD_MAX_LINK_RATE_162GBPS				0x06	/**< Maximum link rate 1.62 Gbps. */
+#define XDP_DPCD_MAX_LINK_RATE_270GBPS				0x0A	/**< Maximum link rate 2.70 Gbps. */
+#define XDP_DPCD_MAX_LINK_RATE_540GBPS				0x14	/**< Maximum link rate 5.40 Gbps. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_MAX_LINK_RATE_810GBPS				0x1E
+#define XDP_DPCD_MAX_LINK_RATE_810GBPS				0x1E	/**< Maximum link rate 8.10 Gbps. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x00002: MAX_LANE_COUNT */
-#define XDP_DPCD_MAX_LANE_COUNT_MASK				0x1F
-#define XDP_DPCD_MAX_LANE_COUNT_1				0x01
-#define XDP_DPCD_MAX_LANE_COUNT_2				0x02
-#define XDP_DPCD_MAX_LANE_COUNT_4				0x04
+#define XDP_DPCD_MAX_LANE_COUNT_MASK				0x1F	/**< Maximum lane count mask. */
+#define XDP_DPCD_MAX_LANE_COUNT_1				0x01	/**< Maximum lane count 1. */
+#define XDP_DPCD_MAX_LANE_COUNT_2				0x02	/**< Maximum lane count 2. */
+#define XDP_DPCD_MAX_LANE_COUNT_4				0x04	/**< Maximum lane count 4. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_POST_LT_ADJ_REQ_SUPPORT_MASK	0x20
+#define XDP_DPCD_POST_LT_ADJ_REQ_SUPPORT_MASK			0x20	/**< Post link training adjust request support mask. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
-#define XDP_DPCD_TPS3_SUPPORT_MASK				0x40
-#define XDP_DPCD_ENHANCED_FRAME_SUPPORT_MASK			0x80
-#define VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED		0x08
+#define XDP_DPCD_TPS3_SUPPORT_MASK				0x40	/**< Training pattern 3 support mask. */
+#define XDP_DPCD_ENHANCED_FRAME_SUPPORT_MASK			0x80	/**< Enhanced frame support mask. */
+#define VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED		0x08	/**< VSC SDP extension for colorimetry supported. */
 /* 0x00003: MAX_DOWNSPREAD */
-#define XDP_DPCD_MAX_DOWNSPREAD_MASK				0x01
-#define XDP_DPCD_NO_AUX_HANDSHAKE_LINK_TRAIN_MASK		0x40
+#define XDP_DPCD_MAX_DOWNSPREAD_MASK				0x01	/**< Maximum downspread mask. */
+#define XDP_DPCD_NO_AUX_HANDSHAKE_LINK_TRAIN_MASK		0x40	/**< No AUX handshake link training mask. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_TPS4_SUPPORT_MASK					0x80
+#define XDP_DPCD_TPS4_SUPPORT_MASK				0x80	/**< Training pattern 4 support mask. */
 /* 0x00004: NORP & DP_PWR_VOLTAGE_CAP */
-#define XDP_DPCD_NORP_MASK						0x01
-#define XDP_DPCD_NORP_TYPE_1RP_MASK				0
-#define XDP_DPCD_NORP_TYPE_G2RP_MASK			1
-#define XDP_DPCD_5V_DP_PWR_CAP_MASK				0x20
-#define XDP_DPCD_12V_DP_PWR_CAP_MASK			0x40
-#define XDP_DPCD_18V_DP_PWR_CAP_MASK			0x80
+#define XDP_DPCD_NORP_MASK					0x01	/**< Number of receiver ports mask. */
+#define XDP_DPCD_NORP_TYPE_1RP_MASK				0	/**< Number of receiver ports type 1RP mask. */
+#define XDP_DPCD_NORP_TYPE_G2RP_MASK				1	/**< Number of receiver ports type G2RP mask. */
+#define XDP_DPCD_5V_DP_PWR_CAP_MASK				0x20	/**< 5V DP power capability mask. */
+#define XDP_DPCD_12V_DP_PWR_CAP_MASK				0x40	/**< 12V DP power capability mask. */
+#define XDP_DPCD_18V_DP_PWR_CAP_MASK				0x80	/**< 18V DP power capability mask. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x00005: DOWNSP_PRESENT */
-#define XDP_DPCD_DOWNSP_PRESENT_MASK				0x01
-#define XDP_DPCD_DOWNSP_TYPE_MASK				0x06
-#define XDP_DPCD_DOWNSP_TYPE_SHIFT				1
-#define XDP_DPCD_DOWNSP_TYPE_DP					0x0
-#define XDP_DPCD_DOWNSP_TYPE_AVGA_ADVII				0x1
-#define XDP_DPCD_DOWNSP_TYPE_DVI_HDMI_DPPP			0x2
-#define XDP_DPCD_DOWNSP_TYPE_OTHERS				0x3
-#define XDP_DPCD_DOWNSP_FORMAT_CONV_MASK			0x08
-#define XDP_DPCD_DOWNSP_DCAP_INFO_AVAIL_MASK			0x10
+#define XDP_DPCD_DOWNSP_PRESENT_MASK				0x01	/**< Downstream port present mask. */
+#define XDP_DPCD_DOWNSP_TYPE_MASK				0x06	/**< Downstream port type mask. */
+#define XDP_DPCD_DOWNSP_TYPE_SHIFT				1	/**< Shift bits for downstream port type. */
+#define XDP_DPCD_DOWNSP_TYPE_DP					0x0	/**< Downstream port type DisplayPort. */
+#define XDP_DPCD_DOWNSP_TYPE_AVGA_ADVII				0x1	/**< Downstream port type analog VGA/DVI-I. */
+#define XDP_DPCD_DOWNSP_TYPE_DVI_HDMI_DPPP			0x2	/**< Downstream port type DVI/HDMI/DP++. */
+#define XDP_DPCD_DOWNSP_TYPE_OTHERS				0x3	/**< Downstream port type others. */
+#define XDP_DPCD_DOWNSP_FORMAT_CONV_MASK			0x08	/**< Downstream port format conversion mask. */
+#define XDP_DPCD_DOWNSP_DCAP_INFO_AVAIL_MASK			0x10	/**< Downstream port detailed capability info available mask. */
 /* 0x00006, 0x00108: ML_CH_CODING_SUPPORT, ML_CH_CODING_SET */
-#define XDP_DPCD_ML_CH_CODING_MASK				0x01
+#define XDP_DPCD_ML_CH_CODING_MASK				0x01	/**< Main link channel coding mask. */
 /* 0x00007: DOWNSP_COUNT_MSA_OUI */
-#define XDP_DPCD_DOWNSP_COUNT_MASK				0x0F
-#define XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK			0x40
-#define XDP_DPCD_OUI_SUPPORT_MASK				0x80
+#define XDP_DPCD_DOWNSP_COUNT_MASK				0x0F	/**< Downstream port count mask. */
+#define XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK			0x40	/**< MSA timing parameters ignored mask. */
+#define XDP_DPCD_OUI_SUPPORT_MASK				0x80	/**< OUI support mask. */
 /* 0x00008, 0x0000A: RX_PORT[0-1]_CAP_0 */
-#define XDP_DPCD_RX_PORTX_CAP_0_LOCAL_EDID_PRESENT_MASK		0x02
-#define XDP_DPCD_RX_PORTX_CAP_0_ASSOC_TO_PRECEDING_PORT_MASK	0x04
+#define XDP_DPCD_RX_PORTX_CAP_0_LOCAL_EDID_PRESENT_MASK		0x02	/**< RX port local EDID present mask. */
+#define XDP_DPCD_RX_PORTX_CAP_0_ASSOC_TO_PRECEDING_PORT_MASK	0x04	/**< RX port associated to preceding port mask. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_RX_PORTX_CAP_0_HBLACK_EXPANSION_CAPABLE_MASK	0x08
-#define XDP_DPCD_RX_PORTX_CAP_0_BUFFER_SIZE_UNIT_MASK			0x10
-#define XDP_DPCD_RX_PORTX_CAP_0_BUFFER_SIZE_PER_PORT_MASK		0x20
+#define XDP_DPCD_RX_PORTX_CAP_0_HBLACK_EXPANSION_CAPABLE_MASK	0x08	/**< RX port horizontal black expansion capable mask. */
+#define XDP_DPCD_RX_PORTX_CAP_0_BUFFER_SIZE_UNIT_MASK		0x10	/**< RX port buffer size unit mask. */
+#define XDP_DPCD_RX_PORTX_CAP_0_BUFFER_SIZE_PER_PORT_MASK	0x20	/**< RX port buffer size per port mask. */
 /* 0x00009 & 0x0000B: RX_PORT[0-1]_CAP_1 */
-#define XDP_DPCD_RX_PORTX_CAP_1_BUFFER_SIZE_MASK	0xFF
+#define XDP_DPCD_RX_PORTX_CAP_1_BUFFER_SIZE_MASK		0xFF	/**< RX port buffer size mask. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x0000C, 0x00109: I2C_SPEED_CTL_CAP, I2C_SPEED_CTL_SET */
-#define XDP_DPCD_I2C_SPEED_CTL_NONE				0x00
-#define XDP_DPCD_I2C_SPEED_CTL_1KBIPS				0x01
-#define XDP_DPCD_I2C_SPEED_CTL_5KBIPS				0x02
-#define XDP_DPCD_I2C_SPEED_CTL_10KBIPS				0x04
-#define XDP_DPCD_I2C_SPEED_CTL_100KBIPS				0x08
-#define XDP_DPCD_I2C_SPEED_CTL_400KBIPS				0x10
-#define XDP_DPCD_I2C_SPEED_CTL_1MBIPS				0x20
+#define XDP_DPCD_I2C_SPEED_CTL_NONE				0x00	/**< I2C speed control none. */
+#define XDP_DPCD_I2C_SPEED_CTL_1KBIPS				0x01	/**< I2C speed control 1 Kbps. */
+#define XDP_DPCD_I2C_SPEED_CTL_5KBIPS				0x02	/**< I2C speed control 5 Kbps. */
+#define XDP_DPCD_I2C_SPEED_CTL_10KBIPS				0x04	/**< I2C speed control 10 Kbps. */
+#define XDP_DPCD_I2C_SPEED_CTL_100KBIPS				0x08	/**< I2C speed control 100 Kbps. */
+#define XDP_DPCD_I2C_SPEED_CTL_400KBIPS				0x10	/**< I2C speed control 400 Kbps. */
+#define XDP_DPCD_I2C_SPEED_CTL_1MBIPS				0x20	/**< I2C speed control 1 Mbps. */
 /* 0x0000D: eDP_CONFIGURATION_CAP - read only register */
 /* 0x0000E: TRAIN_AUX_RD_INTERVAL */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_TRAIN_AUX_RD_INT_MASK				0x7F
+#define XDP_DPCD_TRAIN_AUX_RD_INT_MASK				0x7F	/**< Training AUX read interval mask. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
-#define XDP_DPCD_TRAIN_AUX_RD_INT_100_400US			0x00
-#define XDP_DPCD_TRAIN_AUX_RD_INT_4MS				0x01
-#define XDP_DPCD_TRAIN_AUX_RD_INT_8MS				0x02
-#define XDP_DPCD_TRAIN_AUX_RD_INT_12MS				0x03
-#define XDP_DPCD_TRAIN_AUX_RD_INT_16MS				0x04
+#define XDP_DPCD_TRAIN_AUX_RD_INT_100_400US			0x00	/**< Training AUX read interval 100-400 us. */
+#define XDP_DPCD_TRAIN_AUX_RD_INT_4MS				0x01	/**< Training AUX read interval 4 ms. */
+#define XDP_DPCD_TRAIN_AUX_RD_INT_8MS				0x02	/**< Training AUX read interval 8 ms. */
+#define XDP_DPCD_TRAIN_AUX_RD_INT_12MS				0x03	/**< Training AUX read interval 12 ms. */
+#define XDP_DPCD_TRAIN_AUX_RD_INT_16MS				0x04	/**< Training AUX read interval 16 ms. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK		0x80
+#define XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK	0x80	/**< Training AUX read extended RX capability field present mask. */
 /* 0x0000F: DPCD_ADAPTOR_CAP */
-#define XDP_DPCD_ADAPTOR_CAP_FORCE_LOAD_SENSE_MASK	0x1
-#define XDP_DPCD_ADAPTOR_CAP_ALT_I2C_PATTERN_MASK	0x2
+#define XDP_DPCD_ADAPTOR_CAP_FORCE_LOAD_SENSE_MASK		0x1	/**< Adaptor capability force load sense mask. */
+#define XDP_DPCD_ADAPTOR_CAP_ALT_I2C_PATTERN_MASK		0x2	/**< Adaptor capability alternate I2C pattern mask. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x00020: DPCD_FAUX_CAP (deprecated in DP 1.4.) */
-#define XDP_DPCD_FAUX_CAP_MASK					0x01
+#define XDP_DPCD_FAUX_CAP_MASK					0x01	/**< FAUX capability mask. */
 /* 0x00021: MSTM_CAP */
-#define XDP_DPCD_MST_CAP_MASK					0x01
+#define XDP_DPCD_MST_CAP_MASK					0x01	/**< MST capability mask. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
 /* 0x00021: DPCD_NUM_OF_AUDIO_ENDPOINTS - read only register. */
 /* 0x00023: DPCD_AV_SYNC_DATA_BLOCK_AV_GRANULARITY */
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_MASK	0xF
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_3MS		0x0
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_2MS		0x1
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_1MS		0x2
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_500US	0x3
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_200US	0x4
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_100US	0x5
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_10US	0x6
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_1US		0x7
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_MASK	0xF0
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_3MS 	0x0
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_2MS 	0x1
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_1MS 	0x2
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_500US 	0x3
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_200US 	0x4
-#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_100US 	0x5
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_MASK	0xF	/**< AV sync data block audio granularity factor mask. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_3MS	0x0	/**< AV sync data block audio granularity factor 3 ms. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_2MS	0x1	/**< AV sync data block audio granularity factor 2 ms. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_1MS	0x2	/**< AV sync data block audio granularity factor 1 ms. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_500US	0x3	/**< AV sync data block audio granularity factor 500 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_200US	0x4	/**< AV sync data block audio granularity factor 200 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_100US	0x5	/**< AV sync data block audio granularity factor 100 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_10US	0x6	/**< AV sync data block audio granularity factor 10 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_AG_FACTOR_1US	0x7	/**< AV sync data block audio granularity factor 1 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_MASK	0xF0	/**< AV sync data block video granularity factor mask. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_3MS	0x0	/**< AV sync data block video granularity factor 3 ms. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_2MS	0x1	/**< AV sync data block video granularity factor 2 ms. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_1MS	0x2	/**< AV sync data block video granularity factor 1 ms. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_500US	0x3	/**< AV sync data block video granularity factor 500 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_200US	0x4	/**< AV sync data block video granularity factor 200 us. */
+#define XDP_DPCD_AV_SYNC_DATA_BLK_AV_GRAN_VG_FACTOR_100US	0x5	/**< AV sync data block video granularity factor 100 us. */
 /* 0x00024, 0x00025: DPCD_AV_SYNC_DATA_BLOCK_BYTE0 and BYTE1 */
-#define XDP_DPCD_AV_SYNC_DATA_BLOCK_01_AUD_DEC_LAT_MASK	0xFF
+#define XDP_DPCD_AV_SYNC_DATA_BLOCK_01_AUD_DEC_LAT_MASK		0xFF	/**< AV sync data block audio decoder latency mask. */
 /* 0x00026, 0x00027: DPCD_AV_SYNC_DATA_BLOCK_BYTE2 and BYTE3 */
-#define XDP_DPCD_AV_SYNC_DATA_BLOCK_23_AUD_PP_LAT_MASK	0xFF
+#define XDP_DPCD_AV_SYNC_DATA_BLOCK_23_AUD_PP_LAT_MASK		0xFF	/**< AV sync data block audio processing latency mask. */
 /* 0x00028: DPCD_AV_SYNC_DATA_BLOCK_BYTE4 */
-#define XDP_DPCD_AV_SYNC_DATA_BLOCK_4_VID_INTER_LAT_MASK 	0xFF
+#define XDP_DPCD_AV_SYNC_DATA_BLOCK_4_VID_INTER_LAT_MASK	0xFF	/**< AV sync data block video interlaced latency mask. */
 /* 0x00029: DPCD_AV_SYNC_DATA_BLOCK_BYTE5 */
-#define XDP_DPCD_AV_SYNC_DATA_BLOCK_5_VID_PROG_LAT_MASK 	0xFF
+#define XDP_DPCD_AV_SYNC_DATA_BLOCK_5_VID_PROG_LAT_MASK		0xFF	/**< AV sync data block video progressive latency mask. */
 /* 0x0002A: DPCD_AV_SYNC_DATA_BLOCK_BYTE6 */
-#define XDP_DPCD_AV_SYNC_DATA_BLOCK_6_REP_LAT_MASK 	0xFF
+#define XDP_DPCD_AV_SYNC_DATA_BLOCK_6_REP_LAT_MASK		0xFF	/**< AV sync data block repeater latency mask. */
 /* 0x0002B, 0x0002C, 0x0002D: DPCD_AV_SYNC_DATA_BLOCK_BYTE7, BYTE8 and BYTE9 */
-#define XDP_DPCD_AV_SYNC_DATA_BLOCK_789_AUD_DEL_INS_MASK 	0xFF
+#define XDP_DPCD_AV_SYNC_DATA_BLOCK_789_AUD_DEL_INS_MASK	0xFF	/**< AV sync data block audio delay insertion mask. */
 /* 0x00030 - 0x0003F: DPCD_GUID */
 /* 0x00040: DPCD_DOCKPORT_CAP */
 /* 0x00041: DPCD_DISPLAYPORT_SPEEVERMAJ */
 /* 0x00042: DPCD_DISPLAYPORT_SPEEVERMIN */
 /* 0x00054, 0x00055, 0x00056, 0x00057: DPCD_RX_GTC_VALUE_[0-4] */
 /* RX_GTC_VALUE[7:0-31:24] */
-#define XDP_DPCD_RX_GTC_VALUE_X_RX_GTC_VALUE		0xFF
+#define XDP_DPCD_RX_GTC_VALUE_X_RX_GTC_VALUE			0xFF	/**< RX GTC value mask. */
 /* 0x00058: DPCD_RX_MSTR_REQ */
-#define XDP_DPCD_RX_MSTR_REQ_RX_GTC_MSTR_REQ_MASK	0x1
-#define XDP_DPCD_RX_MSTR_REQ_TX_GTC_VALUE_PAHSE_SKEW_EN_MASK	0x2
+#define XDP_DPCD_RX_MSTR_REQ_RX_GTC_MSTR_REQ_MASK		0x1	/**< RX GTC master request mask. */
+#define XDP_DPCD_RX_MSTR_REQ_TX_GTC_VALUE_PAHSE_SKEW_EN_MASK	0x2	/**< TX GTC value phase skew enable mask. */
 /* 0x00059: DPCD_RX_GTC_FREQ_LOCK_DONE */
-#define XDP_DPCD_RX_GTC_FREQ_LOCK_DONE_MASK 		0x1
+#define XDP_DPCD_RX_GTC_FREQ_LOCK_DONE_MASK			0x1	/**< RX GTC frequency lock done mask. */
 /* 0x0005A, 0x0005B: DPCD_GTC_PHASE_SKEW_OFFSET_[0-1] */
-#define XDP_DPCD_GTC_PHASE_SKEW_OFFSET_X_MASK		0xFF
+#define XDP_DPCD_GTC_PHASE_SKEW_OFFSET_X_MASK			0xFF	/**< GTC phase skew offset mask. */
 
 /* 0x00060: DPCD_DSC_SUPPORT */
-#define XDP_DPCD_DSC_SUPPORT_MASK 		0x1
+#define XDP_DPCD_DSC_SUPPORT_MASK 		0x1	/**< DSC support mask. */
 /* 0x00061: DPCD_DSC_ALGORITHM_REVISION */
-#define XDP_DPCD_DSC_ALGO_REV_DSC_REV_MAJOR_MASK 		0xF
-#define XDP_DPCD_DSC_ALGO_REV_DSC_REV_MINOR_MASK 		0xF0
+#define XDP_DPCD_DSC_ALGO_REV_DSC_REV_MAJOR_MASK 		0xF	/**< DSC algorithm revision major mask. */
+#define XDP_DPCD_DSC_ALGO_REV_DSC_REV_MINOR_MASK 		0xF0	/**< DSC algorithm revision minor mask. */
 /* 0x00062: DPCD_DSC_RC_BUFFER_BLOCK_SIZE */
-#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_MASK 		0x3
-#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_1KB			0x0
-#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_4KB			0x1
-#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_16KB			0x2
-#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_64KB			0x3
+#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_MASK 		0x3	/**< DSC RC buffer block size mask. */
+#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_1KB			0x0	/**< DSC RC buffer block size 1KB. */
+#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_4KB			0x1	/**< DSC RC buffer block size 4KB. */
+#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_16KB			0x2	/**< DSC RC buffer block size 16KB. */
+#define XDP_DPCD_DSC_RC_BUF_BLK_SZ_64KB			0x3	/**< DSC RC buffer block size 64KB. */
 /* 0x00063: DPCD_DSC_RC_BUFFER_SIZE */
-#define XDP_DPCD_DSC_RC_BUF_SZ_MASK 		0xF
+#define XDP_DPCD_DSC_RC_BUF_SZ_MASK 		0xF	/**< DSC RC buffer size mask. */
 /* 0x00064: DPCD_DSC_SLICE_CAPABILITIES_1 */
-#define XDP_DPCD_DSC_SLICE_CAP_1SL_PER_DP_DSC_SINK_DEV_MASK 	0x1
-#define XDP_DPCD_DSC_SLICE_CAP_2SL_PER_DP_DSC_SINK_DEV_MASK 	0x2
-#define XDP_DPCD_DSC_SLICE_CAP_4SL_PER_DP_DSC_SINK_DEV_MASK 	0x8
-#define XDP_DPCD_DSC_SLICE_CAP_6SL_PER_DP_DSC_SINK_DEV_MASK 	0x10
-#define XDP_DPCD_DSC_SLICE_CAP_8SL_PER_DP_DSC_SINK_DEV_MASK 	0x20
-#define XDP_DPCD_DSC_SLICE_CAP_10SL_PER_DP_DSC_SINK_DEV_MASK 	0x40
-#define XDP_DPCD_DSC_SLICE_CAP_12SL_PER_DP_DSC_SINK_DEV_MASK 	0x80
+#define XDP_DPCD_DSC_SLICE_CAP_1SL_PER_DP_DSC_SINK_DEV_MASK 	0x1	/**< DSC 1 slice per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_2SL_PER_DP_DSC_SINK_DEV_MASK 	0x2	/**< DSC 2 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_4SL_PER_DP_DSC_SINK_DEV_MASK 	0x8	/**< DSC 4 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_6SL_PER_DP_DSC_SINK_DEV_MASK 	0x10	/**< DSC 6 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_8SL_PER_DP_DSC_SINK_DEV_MASK 	0x20	/**< DSC 8 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_10SL_PER_DP_DSC_SINK_DEV_MASK 	0x40	/**< DSC 10 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_12SL_PER_DP_DSC_SINK_DEV_MASK 	0x80	/**< DSC 12 slices per DP DSC sink device mask. */
 /* 0x00065: DPCD_DSC_LINE_BUFFER_BIT_DEPTH */
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_MASK 	0xF
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_9BITS	0x0
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_10BITS	0x1
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_11BITS	0x2
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_12BITS	0x3
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_13BITS	0x4
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_14BITS	0x5
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_15BITS	0x6
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_16BITS	0x7
-#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_8BITS	0x8
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_MASK 	0xF	/**< DSC line buffer bit depth mask. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_9BITS	0x0	/**< DSC line buffer bit depth 9 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_10BITS	0x1	/**< DSC line buffer bit depth 10 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_11BITS	0x2	/**< DSC line buffer bit depth 11 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_12BITS	0x3	/**< DSC line buffer bit depth 12 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_13BITS	0x4	/**< DSC line buffer bit depth 13 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_14BITS	0x5	/**< DSC line buffer bit depth 14 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_15BITS	0x6	/**< DSC line buffer bit depth 15 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_16BITS	0x7	/**< DSC line buffer bit depth 16 bits. */
+#define XDP_DPCD_DSC_LINE_BUFFER_BIT_DEPTH_8BITS	0x8	/**< DSC line buffer bit depth 8 bits. */
 /* 0x00066: DPCD_DSC_BLOCK_PREDICTION_SUPPORT */
-#define XDP_DPCD_DSC_BLOCK_PREDICTION_SUPPORT_MASK 	0x1
+#define XDP_DPCD_DSC_BLOCK_PREDICTION_SUPPORT_MASK 	0x1	/**< DSC block prediction support mask. */
 /* 0x00069: DPCD_DSC_DECODER_COLOR_FORMAT_CAPABILITIES */
-#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_RGB_MASK 				0x1
-#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB444_MASK 		0x2
-#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB422_SIMPLE_MASK 	0x4
-#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB422_NATIVE_MASK 	0x8
-#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB420_NATIVE_MASK 	0x10
+#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_RGB_MASK 				0x1	/**< DSC decoder RGB color format capability mask. */
+#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB444_MASK 		0x2	/**< DSC decoder YCrCb 4:4:4 color format capability mask. */
+#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB422_SIMPLE_MASK 	0x4	/**< DSC decoder YCrCb 4:2:2 simple color format capability mask. */
+#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB422_NATIVE_MASK 	0x8	/**< DSC decoder YCrCb 4:2:2 native color format capability mask. */
+#define XDP_DPCD_DSC_DECODER_CLR_FRMT_CAP_YCRCB420_NATIVE_MASK 	0x10	/**< DSC decoder YCrCb 4:2:0 native color format capability mask. */
 /* 0x0006A: DPCD_DSC_DECODER_COLOR_DEPTH_CAPABILITIES */
-#define XDP_DPCD_DSC_DECODER_CLR_DEPTH_CAP_8BPC_MASK		0x2
-#define XDP_DPCD_DSC_DECODER_CLR_DEPTH_CAP_10BPC_MASK		0x4
-#define XDP_DPCD_DSC_DECODER_CLR_DEPTH_CAP_12BPC_MASK		0x8
+#define XDP_DPCD_DSC_DECODER_CLR_DEPTH_CAP_8BPC_MASK		0x2	/**< DSC decoder 8 bits per color capability mask. */
+#define XDP_DPCD_DSC_DECODER_CLR_DEPTH_CAP_10BPC_MASK		0x4	/**< DSC decoder 10 bits per color capability mask. */
+#define XDP_DPCD_DSC_DECODER_CLR_DEPTH_CAP_12BPC_MASK		0x8	/**< DSC decoder 12 bits per color capability mask. */
 /* 0x0006B: DPCD_PEAK_DSC_THROUGHPUT */
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODE0_MASK		0xF
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODE1_MASK		0xF0
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_NOT_SUPPORTED	0
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_340MPS			1
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_400MPS			2
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_450MPS			3
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_500MPS			4
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_550MPS			5
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_600MPS			6
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_650MPS			7
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_700MPS			8
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_750MPS			9
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_800MPS			10
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_850MPS			11
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_900MPS			12
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_950MPS			13
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_1000MPS			14
-#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_RSVD				15
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODE0_MASK		0xF	/**< Peak DSC throughput mode 0 mask. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODE1_MASK		0xF0	/**< Peak DSC throughput mode 1 mask. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_NOT_SUPPORTED	0	/**< Peak DSC throughput mode not supported. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_340MPS			1	/**< Peak DSC throughput 340 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_400MPS			2	/**< Peak DSC throughput 400 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_450MPS			3	/**< Peak DSC throughput 450 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_500MPS			4	/**< Peak DSC throughput 500 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_550MPS			5	/**< Peak DSC throughput 550 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_600MPS			6	/**< Peak DSC throughput 600 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_650MPS			7	/**< Peak DSC throughput 650 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_700MPS			8	/**< Peak DSC throughput 700 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_750MPS			9	/**< Peak DSC throughput 750 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_800MPS			10	/**< Peak DSC throughput 800 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_850MPS			11	/**< Peak DSC throughput 850 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_900MPS			12	/**< Peak DSC throughput 900 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_950MPS			13	/**< Peak DSC throughput 950 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_1000MPS			14	/**< Peak DSC throughput 1000 Mpixels/s. */
+#define XDP_DPCD_PEAK_DSC_THROUGHPUT_MODEX_RSVD				15	/**< Peak DSC throughput mode reserved. */
 /* 0x0006C: DPCD_DSC_MAXIMUM_SLICE_WIDTH */
-#define XDP_DPCD_DSC_MAX_SLICE_WIDTH_MASK		0xFF
+#define XDP_DPCD_DSC_MAX_SLICE_WIDTH_MASK		0xFF	/**< DSC maximum slice width mask. */
 /* 0x00064: DPCD_DSC_SLICE_CAPABILITIES_2 */
-#define XDP_DPCD_DSC_SLICE_CAP_16SL_PER_DP_DSC_SINK_DEV_MASK 	0x1
-#define XDP_DPCD_DSC_SLICE_CAP_20SL_PER_DP_DSC_SINK_DEV_MASK 	0x2
-#define XDP_DPCD_DSC_SLICE_CAP_24SL_PER_DP_DSC_SINK_DEV_MASK 	0x4
+#define XDP_DPCD_DSC_SLICE_CAP_16SL_PER_DP_DSC_SINK_DEV_MASK 	0x1	/**< DSC 16 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_20SL_PER_DP_DSC_SINK_DEV_MASK 	0x2	/**< DSC 20 slices per DP DSC sink device mask. */
+#define XDP_DPCD_DSC_SLICE_CAP_24SL_PER_DP_DSC_SINK_DEV_MASK 	0x4	/**< DSC 24 slices per DP DSC sink device mask. */
 /* 0x0006C: DPCD_BITS_PER_PIXEL_INCREMENT */
-#define XDP_DPCD_DSC_BPP_INCREMENT_MASK		0x7
-#define XDP_DPCD_DSC_BPP_INCREMENT_1H16BPP		0x0
-#define XDP_DPCD_DSC_BPP_INCREMENT_1H8BPP		0x1
-#define XDP_DPCD_DSC_BPP_INCREMENT_1H4BPP		0x2
-#define XDP_DPCD_DSC_BPP_INCREMENT_1H2BPP		0x3
-#define XDP_DPCD_DSC_BPP_INCREMENT_1BPP		0x4
+#define XDP_DPCD_DSC_BPP_INCREMENT_MASK		0x7	/**< DSC bits per pixel increment mask. */
+#define XDP_DPCD_DSC_BPP_INCREMENT_1H16BPP		0x0	/**< DSC bits per pixel increment 1/16 bpp. */
+#define XDP_DPCD_DSC_BPP_INCREMENT_1H8BPP		0x1	/**< DSC bits per pixel increment 1/8 bpp. */
+#define XDP_DPCD_DSC_BPP_INCREMENT_1H4BPP		0x2	/**< DSC bits per pixel increment 1/4 bpp. */
+#define XDP_DPCD_DSC_BPP_INCREMENT_1H2BPP		0x3	/**< DSC bits per pixel increment 1/2 bpp. */
+#define XDP_DPCD_DSC_BPP_INCREMENT_1BPP		0x4	/**< DSC bits per pixel increment 1 bpp. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x00080, 0x00081|4, 0x00082|8, 0x00083|C: DOWNSP_X_(DET_)CAP */
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_MASK				0x07
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_DP				0x0
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_AVGA				0x1
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_DVI				0x2
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_HDMI				0x3
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_OTHERS			0x4
-#define XDP_DPCD_DOWNSP_X_CAP_TYPE_DPPP				0x5
-#define XDP_DPCD_DOWNSP_X_CAP_HPD_MASK				0x80
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_MASK		0xF0
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_SHIFT		4
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_720_480_I_60	0x1
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_720_480_I_50	0x2
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1920_1080_I_60	0x3
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1920_1080_I_50	0x4
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1280_720_P_60	0x5
-#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1280_720_P_50	0x7
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_MASK				0x07	/**< Downstream port capability type mask. */
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_DP				0x0	/**< Downstream port type DisplayPort. */
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_AVGA				0x1	/**< Downstream port type analog VGA. */
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_DVI				0x2	/**< Downstream port type DVI. */
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_HDMI				0x3	/**< Downstream port type HDMI. */
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_OTHERS			0x4	/**< Downstream port type others. */
+#define XDP_DPCD_DOWNSP_X_CAP_TYPE_DPPP				0x5	/**< Downstream port type DP++. */
+#define XDP_DPCD_DOWNSP_X_CAP_HPD_MASK				0x80	/**< Downstream port HPD awareness mask. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_MASK		0xF0	/**< Downstream port non-EDID attribute mask. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_SHIFT		4	/**< Downstream port non-EDID attribute shift. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_720_480_I_60	0x1	/**< Downstream port 720x480i @ 60Hz. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_720_480_I_50	0x2	/**< Downstream port 720x480i @ 50Hz. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1920_1080_I_60	0x3	/**< Downstream port 1920x1080i @ 60Hz. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1920_1080_I_50	0x4	/**< Downstream port 1920x1080i @ 50Hz. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1280_720_P_60	0x5	/**< Downstream port 1280x720p @ 60Hz. */
+#define XDP_DPCD_DOWNSP_X_CAP_NON_EDID_ATTR_1280_720_P_50	0x7	/**< Downstream port 1280x720p @ 50Hz. */
 /* 0x00082, 0x00086, 0x0008A, 0x0008E: DOWNSP_X_(DET_)CAP2 */
-#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_MASK			0x03
-#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_8			0x0
-#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_10			0x1
-#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_12			0x2
-#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_16			0x3
+#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_MASK			0x03	/**< Downstream port maximum bits per color mask. */
+#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_8			0x0	/**< Downstream port maximum 8 bits per color. */
+#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_10			0x1	/**< Downstream port maximum 10 bits per color. */
+#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_12			0x2	/**< Downstream port maximum 12 bits per color. */
+#define XDP_DPCD_DOWNSP_X_DCAP_MAX_BPC_16			0x3	/**< Downstream port maximum 16 bits per color. */
 /* 0x00082, 0x00086, 0x0008A, 0x0008E: DOWNSP_X_(DET_)CAP2 */
-#define XDP_DPCD_DOWNSP_X_DCAP_HDMI_DPPP_FS2FP_MASK		0x01
-#define XDP_DPCD_DOWNSP_X_DCAP_DVI_DL_MASK			0x02
-#define XDP_DPCD_DOWNSP_X_DCAP_DVI_HCD_MASK			0x04
+#define XDP_DPCD_DOWNSP_X_DCAP_HDMI_DPPP_FS2FP_MASK		0x01	/**< Downstream port HDMI/DP++ frame sequential to frame pack mask. */
+#define XDP_DPCD_DOWNSP_X_DCAP_DVI_DL_MASK			0x02	/**< Downstream port DVI dual-link mask. */
+#define XDP_DPCD_DOWNSP_X_DCAP_DVI_HCD_MASK			0x04	/**< Downstream port DVI high color depth mask. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link configuration field masks,
-  *       shifts, and register values.
-  * @{
-  */
+	*       shifts, and register values.
+	* @{
+	*/
 /* 0x00100: XDP_DPCD_LINK_BW_SET */
-#define XDP_DPCD_LINK_BW_SET_162GBPS				0x06
-#define XDP_DPCD_LINK_BW_SET_270GBPS				0x0A
-#define XDP_DPCD_LINK_BW_SET_540GBPS				0x14
+#define XDP_DPCD_LINK_BW_SET_162GBPS				0x06	/**< Link bandwidth 1.62 Gbps. */
+#define XDP_DPCD_LINK_BW_SET_270GBPS				0x0A	/**< Link bandwidth 2.70 Gbps. */
+#define XDP_DPCD_LINK_BW_SET_540GBPS				0x14	/**< Link bandwidth 5.40 Gbps. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_LINK_BW_SET_810GBPS				0x1E
+#define XDP_DPCD_LINK_BW_SET_810GBPS				0x1E	/**< Link bandwidth 8.10 Gbps. */
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x00101: LANE_COUNT_SET */
-#define XDP_DPCD_LANE_COUNT_SET_MASK				0x1F
-#define XDP_DPCD_LANE_COUNT_SET_1				0x01
-#define XDP_DPCD_LANE_COUNT_SET_2				0x02
-#define XDP_DPCD_LANE_COUNT_SET_4				0x04
-#define XDP_DPCD_ENHANCED_FRAME_EN_MASK				0x80
+#define XDP_DPCD_LANE_COUNT_SET_MASK				0x1F	/**< Lane count set mask. */
+#define XDP_DPCD_LANE_COUNT_SET_1				0x01	/**< Lane count set to 1. */
+#define XDP_DPCD_LANE_COUNT_SET_2				0x02	/**< Lane count set to 2. */
+#define XDP_DPCD_LANE_COUNT_SET_4				0x04	/**< Lane count set to 4. */
+#define XDP_DPCD_ENHANCED_FRAME_EN_MASK				0x80	/**< Enhanced frame enable mask. */
 /* 0x00102: TP_SET */
-#define XDP_DPCD_TP_SEL_MASK					0x03
-#define XDP_DPCD_TP_SEL_OFF					0x0
-#define XDP_DPCD_TP_SEL_TP1					0x1
-#define XDP_DPCD_TP_SEL_TP2					0x2
-#define XDP_DPCD_TP_SEL_TP3					0x3
+#define XDP_DPCD_TP_SEL_MASK					0x03	/**< Training pattern select mask. */
+#define XDP_DPCD_TP_SEL_OFF					0x0	/**< Training pattern off. */
+#define XDP_DPCD_TP_SEL_TP1					0x1	/**< Training pattern 1. */
+#define XDP_DPCD_TP_SEL_TP2					0x2	/**< Training pattern 2. */
+#define XDP_DPCD_TP_SEL_TP3					0x3	/**< Training pattern 3. */
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
-#define XDP_DPCD_TP_SEL_TP4					0x7
+#define XDP_DPCD_TP_SEL_TP4					0x7	/**< Training pattern 4. */
 /* *** DP 1.4 :: DPCD definitions end. */
-
-#define XDP_DPCD_TP_SET_LQP_MASK				0x06
-#define XDP_DPCD_TP_SET_LQP_SHIFT				2
-#define XDP_DPCD_TP_SET_LQP_OFF					0x0
-#define XDP_DPCD_TP_SET_LQP_D102_TEST				0x1
-#define XDP_DPCD_TP_SET_LQP_SER_MES				0x2
-#define XDP_DPCD_TP_SET_LQP_PRBS7				0x3
-#define XDP_DPCD_TP_SET_REC_CLK_OUT_EN_MASK			0x10
-#define XDP_DPCD_TP_SET_SCRAMB_DIS_MASK				0x20
-#define XDP_DPCD_TP_SET_SE_COUNT_SEL_MASK			0xC0
-#define XDP_DPCD_TP_SET_SE_COUNT_SEL_SHIFT			6
-#define XDP_DPCD_TP_SET_SE_COUNT_SEL_DE_ISE			0x0
-#define XDP_DPCD_TP_SET_SE_COUNT_SEL_DE				0x1
-#define XDP_DPCD_TP_SET_SE_COUNT_SEL_ISE			0x2
+#define XDP_DPCD_TP_SET_LQP_MASK				0x06	/**< Link quality pattern mask. */
+#define XDP_DPCD_TP_SET_LQP_SHIFT				2	/**< Shift bits for link quality pattern. */
+#define XDP_DPCD_TP_SET_LQP_OFF					0x0	/**< Link quality pattern off. */
+#define XDP_DPCD_TP_SET_LQP_D102_TEST				0x1	/**< D10.2 test pattern. */
+#define XDP_DPCD_TP_SET_LQP_SER_MES				0x2	/**< Symbol error rate measurement pattern. */
+#define XDP_DPCD_TP_SET_LQP_PRBS7				0x3	/**< PRBS7 pattern. */
+#define XDP_DPCD_TP_SET_REC_CLK_OUT_EN_MASK			0x10	/**< Recovered clock output enable mask. */
+#define XDP_DPCD_TP_SET_SCRAMB_DIS_MASK				0x20	/**< Scrambler disable mask. */
+#define XDP_DPCD_TP_SET_SE_COUNT_SEL_MASK			0xC0	/**< Symbol error count select mask. */
+#define XDP_DPCD_TP_SET_SE_COUNT_SEL_SHIFT			6	/**< Shift bits for symbol error count select. */
+#define XDP_DPCD_TP_SET_SE_COUNT_SEL_DE_ISE			0x0	/**< Disparity error and illegal symbol error. */
+#define XDP_DPCD_TP_SET_SE_COUNT_SEL_DE				0x1	/**< Disparity error only. */
+#define XDP_DPCD_TP_SET_SE_COUNT_SEL_ISE			0x2	/**< Illegal symbol error only. */
 /* 0x00103-0x00106: TRAINING_LANE[0-3]_SET */
-#define XDP_DPCD_TRAINING_LANEX_SET_VS_MASK			0x03
-#define XDP_DPCD_TRAINING_LANEX_SET_MAX_VS_MASK			0x04
-#define XDP_DPCD_TRAINING_LANEX_SET_PE_MASK			0x18
-#define XDP_DPCD_TRAINING_LANEX_SET_PE_SHIFT			3
-#define XDP_DPCD_TRAINING_LANEX_SET_MAX_PE_MASK			0x20
+#define XDP_DPCD_TRAINING_LANEX_SET_VS_MASK			0x03	/**< Voltage swing mask. */
+#define XDP_DPCD_TRAINING_LANEX_SET_MAX_VS_MASK			0x04	/**< Maximum voltage swing reached mask. */
+#define XDP_DPCD_TRAINING_LANEX_SET_PE_MASK			0x18	/**< Pre-emphasis mask. */
+#define XDP_DPCD_TRAINING_LANEX_SET_PE_SHIFT			3	/**< Shift bits for pre-emphasis. */
+#define XDP_DPCD_TRAINING_LANEX_SET_MAX_PE_MASK			0x20	/**< Maximum pre-emphasis reached mask. */
 /* 0x00107: DOWNSPREAD_CTRL */
-#define XDP_DPCD_SPREAD_AMP_MASK				0x10
-#define XDP_DPCD_MSA_TIMING_PAR_IGNORED_EN_MASK			0x80
+#define XDP_DPCD_SPREAD_AMP_MASK				0x10	/**< Spread amplitude mask. */
+#define XDP_DPCD_MSA_TIMING_PAR_IGNORED_EN_MASK			0x80	/**< MSA timing parameters ignored enable mask. */
 /* 0x00108: ML_CH_CODING_SET - Same as 0x00006: ML_CH_CODING_SUPPORT */
 /* 0x00109: I2C_SPEED_CTL_SET - Same as 0x0000C: I2C_SPEED_CTL_CAP */
 /* 0x0010F-0x00110: TRAINING_LANE[0_1-2_3]_SET2 */
-#define XDP_DPCD_TRAINING_LANE_0_2_SET_PC2_MASK			0x03
-#define XDP_DPCD_TRAINING_LANE_0_2_SET_MAX_PC2_MASK		0x04
-#define XDP_DPCD_TRAINING_LANE_1_3_SET_PC2_MASK			0x30
-#define XDP_DPCD_TRAINING_LANE_1_3_SET_PC2_SHIFT		4
-#define XDP_DPCD_TRAINING_LANE_1_3_SET_MAX_PC2_MASK		0x40
+#define XDP_DPCD_TRAINING_LANE_0_2_SET_PC2_MASK			0x03	/**< Post-cursor2 for lane 0/2 mask. */
+#define XDP_DPCD_TRAINING_LANE_0_2_SET_MAX_PC2_MASK		0x04	/**< Maximum post-cursor2 for lane 0/2 reached mask. */
+#define XDP_DPCD_TRAINING_LANE_1_3_SET_PC2_MASK			0x30	/**< Post-cursor2 for lane 1/3 mask. */
+#define XDP_DPCD_TRAINING_LANE_1_3_SET_PC2_SHIFT		4	/**< Shift bits for post-cursor2 lane 1/3. */
+#define XDP_DPCD_TRAINING_LANE_1_3_SET_MAX_PC2_MASK		0x40	/**< Maximum post-cursor2 for lane 1/3 reached mask. */
 /* 0x00111: MSTM_CTRL */
-#define XDP_DPCD_MST_EN_MASK					0x01
-#define XDP_DPCD_UP_REQ_EN_MASK					0x02
-#define XDP_DPCD_UP_IS_SRC_MASK					0x04
+#define XDP_DPCD_MST_EN_MASK					0x01	/**< MST enable mask. */
+#define XDP_DPCD_UP_REQ_EN_MASK					0x02	/**< Upstream request enable mask. */
+#define XDP_DPCD_UP_IS_SRC_MASK					0x04	/**< Upstream is source mask. */
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,
-  *       and register values.
-  * @{
-  */
+	*       and register values.
+	* @{
+	*/
 /* 0x00200: SINK_COUNT */
-#define XDP_DPCD_SINK_COUNT_LOW_MASK				0x3F
-#define XDP_DPCD_SINK_CP_READY_MASK				0x40
-#define XDP_DPCD_SINK_COUNT_HIGH_MASK				0x80
-#define XDP_DPCD_SINK_COUNT_HIGH_LOW_SHIFT			1
+#define XDP_DPCD_SINK_COUNT_LOW_MASK				0x3F	/**< Sink count low bits mask. */
+#define XDP_DPCD_SINK_CP_READY_MASK				0x40	/**< Sink content protection ready mask. */
+#define XDP_DPCD_SINK_COUNT_HIGH_MASK				0x80	/**< Sink count high bit mask. */
+#define XDP_DPCD_SINK_COUNT_HIGH_LOW_SHIFT			1	/**< Shift bits for sink count high/low. */
 /* 0x00202: STATUS_LANE_0_1 */
-#define XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK			0x01
-#define XDP_DPCD_STATUS_LANE_0_CE_DONE_MASK			0x02
-#define XDP_DPCD_STATUS_LANE_0_SL_DONE_MASK			0x04
-#define XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK			0x10
-#define XDP_DPCD_STATUS_LANE_1_CE_DONE_MASK			0x20
-#define XDP_DPCD_STATUS_LANE_1_SL_DONE_MASK			0x40
+#define XDP_DPCD_STATUS_LANE_0_CR_DONE_MASK			0x01	/**< Lane 0 clock recovery done mask. */
+#define XDP_DPCD_STATUS_LANE_0_CE_DONE_MASK			0x02	/**< Lane 0 channel equalization done mask. */
+#define XDP_DPCD_STATUS_LANE_0_SL_DONE_MASK			0x04	/**< Lane 0 symbol lock done mask. */
+#define XDP_DPCD_STATUS_LANE_1_CR_DONE_MASK			0x10	/**< Lane 1 clock recovery done mask. */
+#define XDP_DPCD_STATUS_LANE_1_CE_DONE_MASK			0x20	/**< Lane 1 channel equalization done mask. */
+#define XDP_DPCD_STATUS_LANE_1_SL_DONE_MASK			0x40	/**< Lane 1 symbol lock done mask. */
 /* 0x00202: STATUS_LANE_2_3 */
-#define XDP_DPCD_STATUS_LANE_2_CR_DONE_MASK			0x01
-#define XDP_DPCD_STATUS_LANE_2_CE_DONE_MASK			0x02
-#define XDP_DPCD_STATUS_LANE_2_SL_DONE_MASK			0x04
-#define XDP_DPCD_STATUS_LANE_3_CR_DONE_MASK			0x10
-#define XDP_DPCD_STATUS_LANE_3_CE_DONE_MASK			0x20
-#define XDP_DPCD_STATUS_LANE_3_SL_DONE_MASK			0x40
+#define XDP_DPCD_STATUS_LANE_2_CR_DONE_MASK			0x01	/**< Lane 2 clock recovery done mask. */
+#define XDP_DPCD_STATUS_LANE_2_CE_DONE_MASK			0x02	/**< Lane 2 channel equalization done mask. */
+#define XDP_DPCD_STATUS_LANE_2_SL_DONE_MASK			0x04	/**< Lane 2 symbol lock done mask. */
+#define XDP_DPCD_STATUS_LANE_3_CR_DONE_MASK			0x10	/**< Lane 3 clock recovery done mask. */
+#define XDP_DPCD_STATUS_LANE_3_CE_DONE_MASK			0x20	/**< Lane 3 channel equalization done mask. */
+#define XDP_DPCD_STATUS_LANE_3_SL_DONE_MASK			0x40	/**< Lane 3 symbol lock done mask. */
 /* 0x00204: LANE_ALIGN_STATUS_UPDATED */
 #define XDP_DPCD_LANE_ALIGN_STATUS_UPDATED_IA_DONE_MASK \
-								0x01
+								0x01	/**< Interlane align done mask. */
 #define XDP_DPCD_LANE_ALIGN_STATUS_UPDATED_DOWNSP_STATUS_CHANGED_MASK \
-								0x40
+								0x40	/**< Downstream port status changed mask. */
 #define XDP_DPCD_LANE_ALIGN_STATUS_UPDATED_LINK_STATUS_UPDATED_MASK \
-								0x80
+								0x80	/**< Link status updated mask. */
 /* 0x00205: SINK_STATUS */
-#define XDP_DPCD_SINK_STATUS_RX_PORT0_SYNC_STATUS_MASK		0x01
-#define XDP_DPCD_SINK_STATUS_RX_PORT1_SYNC_STATUS_MASK		0x02
+#define XDP_DPCD_SINK_STATUS_RX_PORT0_SYNC_STATUS_MASK		0x01	/**< RX port 0 sync status mask. */
+#define XDP_DPCD_SINK_STATUS_RX_PORT1_SYNC_STATUS_MASK		0x02	/**< RX port 1 sync status mask. */
 
 /* 0x00206, 0x00207: ADJ_REQ_LANE_[0,2]_[1,3] */
-#define XDP_DPCD_ADJ_REQ_LANE_0_2_VS_MASK			0x03
-#define XDP_DPCD_ADJ_REQ_LANE_0_2_PE_MASK			0x0C
-#define XDP_DPCD_ADJ_REQ_LANE_0_2_PE_SHIFT			2
-#define XDP_DPCD_ADJ_REQ_LANE_1_3_VS_MASK			0x30
-#define XDP_DPCD_ADJ_REQ_LANE_1_3_VS_SHIFT			4
-#define XDP_DPCD_ADJ_REQ_LANE_1_3_PE_MASK			0xC0
-#define XDP_DPCD_ADJ_REQ_LANE_1_3_PE_SHIFT			6
+#define XDP_DPCD_ADJ_REQ_LANE_0_2_VS_MASK			0x03	/**< Voltage swing adjust request for lane 0/2 mask. */
+#define XDP_DPCD_ADJ_REQ_LANE_0_2_PE_MASK			0x0C	/**< Pre-emphasis adjust request for lane 0/2 mask. */
+#define XDP_DPCD_ADJ_REQ_LANE_0_2_PE_SHIFT			2	/**< Shift bits for pre-emphasis lane 0/2. */
+#define XDP_DPCD_ADJ_REQ_LANE_1_3_VS_MASK			0x30	/**< Voltage swing adjust request for lane 1/3 mask. */
+#define XDP_DPCD_ADJ_REQ_LANE_1_3_VS_SHIFT			4	/**< Shift bits for voltage swing lane 1/3. */
+#define XDP_DPCD_ADJ_REQ_LANE_1_3_PE_MASK			0xC0	/**< Pre-emphasis adjust request for lane 1/3 mask. */
+#define XDP_DPCD_ADJ_REQ_LANE_1_3_PE_SHIFT			6	/**< Shift bits for pre-emphasis lane 1/3. */
 /* 0x0020C: ADJ_REQ_PC2 */
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_0_MASK			0x03
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_1_MASK			0x0C
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_1_SHIFT			2
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_2_MASK			0x30
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_2_SHIFT			4
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_3_MASK			0xC0
-#define XDP_DPCD_ADJ_REQ_PC2_LANE_3_SHIFT			6
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_0_MASK			0x03	/**< Post-cursor2 adjust request for lane 0 mask. */
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_1_MASK			0x0C	/**< Post-cursor2 adjust request for lane 1 mask. */
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_1_SHIFT			2	/**< Shift bits for post-cursor2 lane 1. */
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_2_MASK			0x30	/**< Post-cursor2 adjust request for lane 2 mask. */
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_2_SHIFT			4	/**< Shift bits for post-cursor2 lane 2. */
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_3_MASK			0xC0	/**< Post-cursor2 adjust request for lane 3 mask. */
+#define XDP_DPCD_ADJ_REQ_PC2_LANE_3_SHIFT			6	/**< Shift bits for post-cursor2 lane 3. */
 /* @} */
 
 /******************************************************************************/
@@ -2928,63 +2927,63 @@ extern "C" {
  *
 *******************************************************************************/
 /** @name Extended Display Identification Data: Field addresses and sizes.
-  * @{
-  */
-#define XDP_SEGPTR_ADDR						0x30
-#define XDP_EDID_ADDR						0x50
-#define XDP_EDID_BLOCK_SIZE					128
-#define XDP_EDID_DTD_DD(Num)				(0x36 + (18 * Num))
-#define XDP_EDID_PTM					XDP_EDID_DTD_DD(0)
-#define XDP_EDID_EXT_BLOCK_COUNT				0x7E
+	* @{
+	*/
+#define XDP_SEGPTR_ADDR						0x30	/**< Segment pointer address. */
+#define XDP_EDID_ADDR						0x50	/**< EDID base address. */
+#define XDP_EDID_BLOCK_SIZE					128	/**< EDID block size in bytes. */
+#define XDP_EDID_DTD_DD(Num)				(0x36 + (18 * Num))	/**< Detailed timing descriptor address. */
+#define XDP_EDID_PTM					XDP_EDID_DTD_DD(0)	/**< Preferred timing mode. */
+#define XDP_EDID_EXT_BLOCK_COUNT				0x7E	/**< Extension block count offset. */
 /* @} */
 
 /** @name Extended Display Identification Data: Register offsets for the
-  *       Detailed Timing Descriptor (DTD).
-  * @{
-  */
-#define XDP_EDID_DTD_PIXEL_CLK_KHZ_LSB				0x00
-#define XDP_EDID_DTD_PIXEL_CLK_KHZ_MSB				0x01
-#define XDP_EDID_DTD_HRES_LSB					0x02
-#define XDP_EDID_DTD_HBLANK_LSB					0x03
-#define XDP_EDID_DTD_HRES_HBLANK_U4				0x04
-#define XDP_EDID_DTD_VRES_LSB					0x05
-#define XDP_EDID_DTD_VBLANK_LSB					0x06
-#define XDP_EDID_DTD_VRES_VBLANK_U4				0x07
-#define XDP_EDID_DTD_HFPORCH_LSB				0x08
-#define XDP_EDID_DTD_HSPW_LSB					0x09
-#define XDP_EDID_DTD_VFPORCH_VSPW_L4				0x0A
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2				0x0B
-#define XDP_EDID_DTD_HIMGSIZE_MM_LSB				0x0C
-#define XDP_EDID_DTD_VIMGSIZE_MM_LSB				0x0D
-#define XDP_EDID_DTD_XIMGSIZE_MM_U4				0x0E
-#define XDP_EDID_DTD_HBORDER					0x0F
-#define XDP_EDID_DTD_VBORDER					0x10
-#define XDP_EDID_DTD_SIGNAL					0x11
+	*       Detailed Timing Descriptor (DTD).
+	* @{
+	*/
+#define XDP_EDID_DTD_PIXEL_CLK_KHZ_LSB				0x00	/**< Pixel clock LSB in kHz. */
+#define XDP_EDID_DTD_PIXEL_CLK_KHZ_MSB				0x01	/**< Pixel clock MSB in kHz. */
+#define XDP_EDID_DTD_HRES_LSB					0x02	/**< Horizontal resolution LSB. */
+#define XDP_EDID_DTD_HBLANK_LSB					0x03	/**< Horizontal blanking LSB. */
+#define XDP_EDID_DTD_HRES_HBLANK_U4				0x04	/**< Horizontal resolution/blanking upper 4 bits. */
+#define XDP_EDID_DTD_VRES_LSB					0x05	/**< Vertical resolution LSB. */
+#define XDP_EDID_DTD_VBLANK_LSB					0x06	/**< Vertical blanking LSB. */
+#define XDP_EDID_DTD_VRES_VBLANK_U4				0x07	/**< Vertical resolution/blanking upper 4 bits. */
+#define XDP_EDID_DTD_HFPORCH_LSB				0x08	/**< Horizontal front porch LSB. */
+#define XDP_EDID_DTD_HSPW_LSB					0x09	/**< Horizontal sync pulse width LSB. */
+#define XDP_EDID_DTD_VFPORCH_VSPW_L4				0x0A	/**< Vertical front porch/sync width lower 4 bits. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2				0x0B	/**< Horizontal/vertical front porch/sync width upper 2 bits. */
+#define XDP_EDID_DTD_HIMGSIZE_MM_LSB				0x0C	/**< Horizontal image size in mm LSB. */
+#define XDP_EDID_DTD_VIMGSIZE_MM_LSB				0x0D	/**< Vertical image size in mm LSB. */
+#define XDP_EDID_DTD_XIMGSIZE_MM_U4				0x0E	/**< Horizontal/vertical image size upper 4 bits. */
+#define XDP_EDID_DTD_HBORDER					0x0F	/**< Horizontal border. */
+#define XDP_EDID_DTD_VBORDER					0x10	/**< Vertical border. */
+#define XDP_EDID_DTD_SIGNAL					0x11	/**< Signal characteristics. */
 
 /** @name Extended Display Identification Data: Masks, shifts, and register
-  *       values.
-  * @{
-  */
-#define XDP_EDID_DTD_XRES_XBLANK_U4_XBLANK_MASK			0x0F
-#define XDP_EDID_DTD_XRES_XBLANK_U4_XRES_MASK			0xF0
-#define XDP_EDID_DTD_XRES_XBLANK_U4_XRES_SHIFT			4
-#define XDP_EDID_DTD_VFPORCH_VSPW_L4_VSPW_MASK			0x0F
-#define XDP_EDID_DTD_VFPORCH_VSPW_L4_VFPORCH_MASK		0xF0
-#define XDP_EDID_DTD_VFPORCH_VSPW_L4_VFPORCH_SHIFT		4
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HFPORCH_MASK		0xC0
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HSPW_MASK			0x30
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_VFPORCH_MASK		0x0C
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_VSPW_MASK			0x03
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HFPORCH_SHIFT		6
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HSPW_SHIFT			4
-#define XDP_EDID_DTD_XFPORCH_XSPW_U2_VFPORCH_SHIFT		2
-#define XDP_EDID_DTD_XIMGSIZE_MM_U4_VIMGSIZE_MM_MASK		0x0F
-#define XDP_EDID_DTD_XIMGSIZE_MM_U4_HIMGSIZE_MM_MASK		0xF0
-#define XDP_EDID_DTD_XIMGSIZE_MM_U4_HIMGSIZE_MM_SHIFT		4
-#define XDP_EDID_DTD_SIGNAL_HPOLARITY_MASK			0x02
-#define XDP_EDID_DTD_SIGNAL_VPOLARITY_MASK			0x04
-#define XDP_EDID_DTD_SIGNAL_HPOLARITY_SHIFT			1
-#define XDP_EDID_DTD_SIGNAL_VPOLARITY_SHIFT			2
+	*       values.
+	* @{
+	*/
+#define XDP_EDID_DTD_XRES_XBLANK_U4_XBLANK_MASK			0x0F	/**< Horizontal/vertical blanking upper bits mask. */
+#define XDP_EDID_DTD_XRES_XBLANK_U4_XRES_MASK			0xF0	/**< Horizontal/vertical resolution upper bits mask. */
+#define XDP_EDID_DTD_XRES_XBLANK_U4_XRES_SHIFT			4	/**< Shift bits for resolution upper bits. */
+#define XDP_EDID_DTD_VFPORCH_VSPW_L4_VSPW_MASK			0x0F	/**< Vertical sync pulse width lower bits mask. */
+#define XDP_EDID_DTD_VFPORCH_VSPW_L4_VFPORCH_MASK		0xF0	/**< Vertical front porch lower bits mask. */
+#define XDP_EDID_DTD_VFPORCH_VSPW_L4_VFPORCH_SHIFT		4	/**< Shift bits for vertical front porch. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HFPORCH_MASK		0xC0	/**< Horizontal front porch upper bits mask. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HSPW_MASK			0x30	/**< Horizontal sync pulse width upper bits mask. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_VFPORCH_MASK		0x0C	/**< Vertical front porch upper bits mask. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_VSPW_MASK			0x03	/**< Vertical sync pulse width upper bits mask. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HFPORCH_SHIFT		6	/**< Shift bits for horizontal front porch upper bits. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_HSPW_SHIFT			4	/**< Shift bits for horizontal sync width upper bits. */
+#define XDP_EDID_DTD_XFPORCH_XSPW_U2_VFPORCH_SHIFT		2	/**< Shift bits for vertical front porch upper bits. */
+#define XDP_EDID_DTD_XIMGSIZE_MM_U4_VIMGSIZE_MM_MASK		0x0F	/**< Vertical image size upper bits mask. */
+#define XDP_EDID_DTD_XIMGSIZE_MM_U4_HIMGSIZE_MM_MASK		0xF0	/**< Horizontal image size upper bits mask. */
+#define XDP_EDID_DTD_XIMGSIZE_MM_U4_HIMGSIZE_MM_SHIFT		4	/**< Shift bits for horizontal image size upper bits. */
+#define XDP_EDID_DTD_SIGNAL_HPOLARITY_MASK			0x02	/**< Horizontal sync polarity mask. */
+#define XDP_EDID_DTD_SIGNAL_VPOLARITY_MASK			0x04	/**< Vertical sync polarity mask. */
+#define XDP_EDID_DTD_SIGNAL_HPOLARITY_SHIFT			1	/**< Shift bits for horizontal sync polarity. */
+#define XDP_EDID_DTD_SIGNAL_VPOLARITY_SHIFT			2	/**< Shift bits for vertical sync polarity. */
 /* @} */
 
 
@@ -3062,52 +3061,52 @@ extern "C" {
 /** @name Stream identification.
   * @{
   */
-#define XDP_TX_STREAM_ID1			1
-#define XDP_TX_STREAM_ID2			2
-#define XDP_TX_STREAM_ID3			3
-#define XDP_TX_STREAM_ID4			4
+#define XDP_TX_STREAM_ID1			1	/**< Stream ID 1. */
+#define XDP_TX_STREAM_ID2			2	/**< Stream ID 2. */
+#define XDP_TX_STREAM_ID3			3	/**< Stream ID 3. */
+#define XDP_TX_STREAM_ID4			4	/**< Stream ID 4. */
 
-#define XDP_TX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
+#define XDP_TX_AUDIO_CONTROL_LANEX_SET_SHIFT   4	/**< Shift bits for audio control lane set. */
 
-#define XDP_RX_STREAM_ID1                       1
-#define XDP_RX_STREAM_ID2                       2
-#define XDP_RX_STREAM_ID3                       3
-#define XDP_RX_STREAM_ID4                       4
+#define XDP_RX_STREAM_ID1                       1	/**< Stream ID 1. */
+#define XDP_RX_STREAM_ID2                       2	/**< Stream ID 2. */
+#define XDP_RX_STREAM_ID3                       3	/**< Stream ID 3. */
+#define XDP_RX_STREAM_ID4                       4	/**< Stream ID 4. */
 /* @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
-  * @{
-  */
-#define XDP_SBMSG_LINK_ADDRESS			0x01
-#define XDP_SBMSG_CONNECTION_STATUS_NOTIFY	0x02
-#define XDP_SBMSG_ENUM_PATH_RESOURCES		0x10
-#define XDP_SBMSG_ALLOCATE_PAYLOAD		0x11
-#define XDP_SBMSG_QUERY_PAYLOAD			0x12
-#define XDP_SBMSG_RESOURCE_STATUS_NOTIFY	0x13
-#define XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE	0x14
-#define XDP_SBMSG_REMOTE_DPCD_READ		0x20
-#define XDP_SBMSG_REMOTE_DPCD_WRITE		0x21
-#define XDP_SBMSG_REMOTE_I2C_READ		0x22
-#define XDP_SBMSG_REMOTE_I2C_WRITE		0x23
-#define XDP_SBMSG_POWER_UP_PHY			0x24
-#define XDP_SBMSG_POWER_DOWN_PHY		0x25
-#define XDP_SBMSG_SINK_EVENT_NOTIFY		0x30
-#define XDP_SBMSG_QUERY_STREAM_ENCRYPT_STATUS	0x38
+	* @{
+	*/
+#define XDP_SBMSG_LINK_ADDRESS			0x01	/**< Link address message. */
+#define XDP_SBMSG_CONNECTION_STATUS_NOTIFY	0x02	/**< Connection status notify message. */
+#define XDP_SBMSG_ENUM_PATH_RESOURCES		0x10	/**< Enumerate path resources message. */
+#define XDP_SBMSG_ALLOCATE_PAYLOAD		0x11	/**< Allocate payload message. */
+#define XDP_SBMSG_QUERY_PAYLOAD			0x12	/**< Query payload message. */
+#define XDP_SBMSG_RESOURCE_STATUS_NOTIFY	0x13	/**< Resource status notify message. */
+#define XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE	0x14	/**< Clear payload ID table message. */
+#define XDP_SBMSG_REMOTE_DPCD_READ		0x20	/**< Remote DPCD read message. */
+#define XDP_SBMSG_REMOTE_DPCD_WRITE		0x21	/**< Remote DPCD write message. */
+#define XDP_SBMSG_REMOTE_I2C_READ		0x22	/**< Remote I2C read message. */
+#define XDP_SBMSG_REMOTE_I2C_WRITE		0x23	/**< Remote I2C write message. */
+#define XDP_SBMSG_POWER_UP_PHY			0x24	/**< Power up PHY message. */
+#define XDP_SBMSG_POWER_DOWN_PHY		0x25	/**< Power down PHY message. */
+#define XDP_SBMSG_SINK_EVENT_NOTIFY		0x30	/**< Sink event notify message. */
+#define XDP_SBMSG_QUERY_STREAM_ENCRYPT_STATUS	0x38	/**< Query stream encryption status message. */
 /* @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
-  * @{
-  */
-#define XDP_SBMSG_NAK_REASON_WRITE_FAILURE	0x01
-#define XDP_SBMSG_NAK_REASON_INVALID_RAD	0x02
-#define XDP_SBMSG_NAK_REASON_CRC_FAILURE	0x03
-#define XDP_SBMSG_NAK_REASON_BAD_PARAM		0x04
-#define XDP_SBMSG_NAK_REASON_DEFER		0x05
-#define XDP_SBMSG_NAK_REASON_LINK_FAILURE	0x06
-#define XDP_SBMSG_NAK_REASON_NO_RESOURCES	0x07
-#define XDP_SBMSG_NAK_REASON_DPCD_FAIL		0x08
-#define XDP_SBMSG_NAK_REASON_I2C_NAK		0x09
-#define XDP_SBMSG_NAK_REASON_ALLOCATE_FAIL	0x0A
+	* @{
+	*/
+#define XDP_SBMSG_NAK_REASON_WRITE_FAILURE	0x01	/**< NAK reason: Write failure. */
+#define XDP_SBMSG_NAK_REASON_INVALID_RAD	0x02	/**< NAK reason: Invalid RAD. */
+#define XDP_SBMSG_NAK_REASON_CRC_FAILURE	0x03	/**< NAK reason: CRC failure. */
+#define XDP_SBMSG_NAK_REASON_BAD_PARAM		0x04	/**< NAK reason: Bad parameter. */
+#define XDP_SBMSG_NAK_REASON_DEFER		0x05	/**< NAK reason: Defer. */
+#define XDP_SBMSG_NAK_REASON_LINK_FAILURE	0x06	/**< NAK reason: Link failure. */
+#define XDP_SBMSG_NAK_REASON_NO_RESOURCES	0x07	/**< NAK reason: No resources. */
+#define XDP_SBMSG_NAK_REASON_DPCD_FAIL		0x08	/**< NAK reason: DPCD failure. */
+#define XDP_SBMSG_NAK_REASON_I2C_NAK		0x09	/**< NAK reason: I2C NAK. */
+#define XDP_SBMSG_NAK_REASON_ALLOCATE_FAIL	0x0A	/**< NAK reason: Allocate failure. */
 /* @} */
 
 #define XDP_RX_NUM_I2C_ENTRIES_PER_PORT		3 /**< The number of I2C user-
@@ -3124,7 +3123,9 @@ extern "C" {
 /** @name Register access macro definitions.
   * @{
   */
+/** Macro for reading 32-bit values from a DisplayPort register address. */
 #define XDp_In32 Xil_In32
+/** Macro for writing 32-bit values to a DisplayPort register address. */
 #define XDp_Out32 Xil_Out32
 /* @} */
 
