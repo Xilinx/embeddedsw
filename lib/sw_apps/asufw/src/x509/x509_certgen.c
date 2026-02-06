@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.0   rmv  05/19/25 Initial release
 *       rmv  08/06/25 Move X509_CERTIFICATE_MAX_SIZE_IN_BYTES macro to header file
 *       rmv  09/08/25 Move parameter validation to exported function instead of static function
+*       vm   02/04/26 Replace magic number with named constant
 *
 * </pre>
 *
@@ -67,6 +68,9 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									signature */
 #define X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN		(97U)	/**< ECC uncompressed public
 									key length */
+#define X509_ECDSA_SIG_R_S_SIZE_DIVISOR				(2U)	/**< Divisor to split ECDSA
+									signature into R and S
+									components */
 
 /************************************ Type Definitions *******************************************/
 /**
@@ -1890,14 +1894,15 @@ static s32 X509_GenSignField(const u8 *Signature, u32 SignLen)
 	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
 	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
-	Status = X509_Asn1CreateInteger(Signature, (SignLen / 2U));
+	Status = X509_Asn1CreateInteger(Signature, (SignLen / X509_ECDSA_SIG_R_S_SIZE_DIVISOR));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_INTEGER_FIELD_FAIL);
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_Asn1CreateInteger((Signature + (SignLen / 2U)), (SignLen / 2U));
+	Status = X509_Asn1CreateInteger((Signature + (SignLen / X509_ECDSA_SIG_R_S_SIZE_DIVISOR)),
+					(SignLen / X509_ECDSA_SIG_R_S_SIZE_DIVISOR));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_INTEGER_FIELD_FAIL);
 		goto END;
