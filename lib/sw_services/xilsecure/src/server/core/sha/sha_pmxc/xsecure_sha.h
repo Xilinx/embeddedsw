@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*****************************************************************************/
@@ -24,6 +24,8 @@
 * 5.6   vss  06/17/25 Removed dead code
 * 5.6   aa   07/21/25 Removed unused macros
 *       tus  08/06/25 Add macro for disabling auto padding mode
+*       sd   11/21/25 Updated SHA Mode and Auto padding register offsets
+*                     for Versal_2vp_p devices
 *
 * </pre>
 *
@@ -49,8 +51,13 @@ extern "C" {
  * @{
  */
 #define XSECURE_SHA_RESET_OFFSET            	(0x04U) /**< Reset Register */
+#ifndef VERSAL_2VP_P
 #define XSECURE_SHA_MODE_OFFSET             	(0xA0U) /**< SHA Mode Register */
 #define XSECURE_SHA_AUTO_PADDING_OFFSET     	(0xA4U) /**< SHA Auto Padding Register */
+#else
+#define XSECURE_SHA_MODE_OFFSET             	(0xC0U) /**< SHA Mode Register */
+#define XSECURE_SHA_AUTO_PADDING_OFFSET     	(0xC4U) /**< SHA Auto Padding Register */
+#endif
 #define XSECURE_SHA_DONE_OFFSET             	(0x08U) /**< SHA Done Register */
 #define	XSECURE_SHA_START_VALUE			(1U)	/**< SHA Start Value */
 #define	XSECURE_SHA_DONE_VALUE			(1U)	/**< SHA Done Value */
