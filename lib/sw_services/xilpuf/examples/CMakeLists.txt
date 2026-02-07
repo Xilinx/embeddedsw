@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/XilpufExample.cmake)
@@ -26,7 +26,7 @@ if (NOT("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))
         SET(COMMON_EXAMPLES xilpuf_client_example.c;xilpuf_enc_dec_data_client_example.c;xilpuf_ssit_client_example.c;)
     endif()
 else()
-    SET(COMMON_EXAMPLES xilpuf_spartan_ultrascale_plus_example.c;)
+    SET(COMMON_EXAMPLES xilpuf_spartan_ultrascale_plus_example.c;xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c;)
 endif()
 
 linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/")

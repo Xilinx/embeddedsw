@@ -43,6 +43,7 @@ examples:
   xilpuf_versal_net_example.c:
     - dependency_files:
       - xilpuf_versal_net_example.h
+  xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c:
   xilpuf_spartan_ultrascale_plus_example.c:
     - dependency_files:
       - xilpuf_spartan_ultrascale_plus_example.h
@@ -70,4 +71,4 @@ examples:
       examples += ["xilpuf_enc_dec_data_example.c", "xilpuf_example.c", "xilpuf_ssit_client_example.c"]
 
     if "spartanuplus" in variant and proc in spartanuplus_procs:
-      examples += ["xilpuf_spartan_ultrascale_plus_example.c"]
+      examples += ["xilpuf_spartan_ultrascale_plus_example.c", "xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c"]
