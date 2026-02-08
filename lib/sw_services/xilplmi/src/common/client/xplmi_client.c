@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -22,6 +22,7 @@
  *       pre  10/19/24 Fixed compilation warning
  *       pre  01/13/25 Added command to set access status of DDRMC main registers
  *       obs  03/17/25 Fixed GCC warnings
+ * 2.00  sk   01/23/26 Updated event logging for all sub commands
  *
  * </pre>
  *
@@ -174,19 +175,22 @@ END:
  * @brief	This function sends IPI request to Event Logging
  *
  * @param	InstancePtr Pointer to the client instance
- * @param	sub_cmd		To configure the debug information
- * @param	Addr		Address where the event has to happen
- * @param	Len			Length of the buffer
+ * @param	sub_cmd	To configure the debug information
+ * @param	Arg Arguments to be passed for the sub command,
+ * 		for all sub commands Arg holds Address, whereas
+ *		uart sub command Arg holds Arg1, Arg2 in upper and
+ *		lower 32bit respectively
+ * @param	Len Length of the buffer
  *
  * @return
  *			 - XST_SUCCESS on success.
  *			 - XST_FAILURE on failure.
  *
  *************************************************************************************************/
-int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr, u32 Len)
+int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, u32 Len)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U] = {0};
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -198,10 +202,54 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr,
     Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_4, (InstancePtr->SlrIndex <<
 	                              XPLMI_SLR_INDEX_SHIFT) | (u32)XPLMI_EVENT_LOGGING_CMD_ID);
     Payload[1U] = sub_cmd;
-    Payload[2U] = (u32)(Addr >> XPLMI_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)(Addr);
-	Payload[4U] = Len;
+	switch (sub_cmd) {
+		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
+			Payload[2U] = (u32)Arg;
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
+			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
+			Payload[3U] = (u32)(Arg);
+			Payload[4U] = Len;
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
+			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
+			Payload[3U] = (u32)(Arg);
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
+			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
+			Payload[3U] = (u32)(Arg);
+			Payload[4U] = Len;
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
+			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
+			Payload[3U] = (u32)(Arg);
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
+			Status = XST_SUCCESS;
+			break;
+		case XPLMI_LOGGING_CMD_CONFIG_UART:
+			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
+			Payload[3U] = (u32)(Arg);
+			Status = XST_SUCCESS;
+			break;
+		default:
+			xil_printf("Received invalid event logging command: 0x%x\n\r", sub_cmd);
+			Status = XST_FAILURE;
+			break;
+	}
 
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XST_FAILURE;
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_EventLogging CDO command
 	 * Wait for IPI response from PLM with a timeout.
@@ -209,6 +257,14 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr,
 	 * response.
 	 */
 	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+
+	if ((Status == XST_SUCCESS) && ((sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO) ||
+			(sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO))) {
+				xil_printf("Received Data: 0x%x 0x%x 0x%x 0x%x 0x%x,\n\r",
+				InstancePtr->Response[1], InstancePtr->Response[2],
+				InstancePtr->Response[3], InstancePtr->Response[4],
+				InstancePtr->Response[5]);
+		}
 END:
 	return Status;
 }

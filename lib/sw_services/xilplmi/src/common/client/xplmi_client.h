@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 -2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       pre  07/10/24 Added support for configure secure communication command
  *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
  *       pre  01/13/25 Added client API for command to set access status of DDRMC main registers
+ * 2.00  sk   01/23/26 Added defines for event logging sub command IDs
  *
  * </pre>
  *
@@ -48,6 +49,15 @@ extern "C" {
 #define XPLMI_SLR_INDEX_2 (2U) /**< SLR Index 2 */
 #define XPLMI_SLR_INDEX_3 (3U) /**< SLR Index 3 */
 
+/**< Event Logging sub command IDs */
+#define XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL		(0x1U)
+#define XPLMI_LOGGING_CMD_CONFIG_LOG_MEM			(0x2U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA		(0x3U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO	(0x4U)
+#define XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM		(0x5U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA	(0x6U)
+#define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO	(0x7U)
+#define XPLMI_LOGGING_CMD_CONFIG_UART			(0x8U)
 /************************************** Type Definitions *****************************************/
 typedef struct {
         u32 IdCode; /**< Id code */
