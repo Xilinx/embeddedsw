@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 # Define XILPM library options with default values
@@ -56,7 +56,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xpm_config.h.in ${CMAKE_BINARY_DIR}/i
 
 # Memory Pool Configuration
 
-set(XILPM_NG_TOPO_POOL_SIZE "0xA800" CACHE STRING "Topology pool size")  # Topology pool size 42KB
+set(XILPM_NG_TOPO_POOL_SIZE "0xAD00" CACHE STRING "Topology pool size")  # Topology pool size 43KB
 set(XILPM_NG_SUBSYS_POOL_SIZE "0x400" CACHE STRING "Subsystem pool size") # Subsystem pool size 1KB
 set(XILPM_NG_REQM_POOL_SIZE "0x3800" CACHE STRING "Requirement pool size") # Requirement pool size 14KB
 set(XILPM_NG_DEVOPS_POOL_SIZE "0x1400" CACHE STRING "DevOps pool size") # DevOps pool size 5KB

@@ -792,6 +792,50 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+
+		/**
+		 * Add PS Mem-Regns for Default Subsystem
+		 * - The following Mem-Regns are an exact 1-to-1 mapping
+		 * of their parent memory controller devices extracted
+		 * from device topology.
+		 *
+		 * Supported PS Mem-Regns are:
+		 * - OCM
+		 * - TCM
+		 *
+		 * Note: DDR Mem-Regns are added in the later part
+		 * 		of the boot sequence
+		 * Note: This is an important fix to perform memory flushing
+		 * 		during subsystem restarts
+		*/
+		u32 SubClass = NODESUBCLASS(Device->Node.Id);
+		u32 Type = NODETYPE(Device->Node.Id);
+		if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
+			(((u32)XPM_NODETYPE_DEV_OCM == Type) ||
+			((u32)XPM_NODETYPE_DEV_TCM == Type))) {
+			const XPm_MemDevice *MemDevice = (XPm_MemDevice *)Device;
+			u64 StartAddress = (u64)MemDevice->StartAddress;
+			u64 EndAddress = (u64)MemDevice->EndAddress;
+			u64 Size = EndAddress - StartAddress + 1U;
+
+			u32 MemRegnIndx = XPmDevice_GetMemRegnCount();
+			u32 MemRegnDeviceId = MEMREGN_DEVID(MemRegnIndx);
+
+			PmDbg("DeviceId: (0x%x) -> MemRegnDeviceId: (0x%x)\r\n", Device->Node.Id, MemRegnDeviceId);
+			Status = XPm_AddMemRegnDevice(MemRegnDeviceId, StartAddress, Size);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Status = XPmRequirement_Add(Subsystem, XPmDevice_GetById(MemRegnDeviceId),
+				REQUIREMENT_FLAGS(1U,
+				(u32)REQ_ACCESS_SECURE_NONSECURE,
+				(u32)REQ_NO_RESTRICTION),
+				(u32)PM_CAP_ACCESS, XPM_DEF_QOS);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
 	}
 
 	/* Add reset permissions */
