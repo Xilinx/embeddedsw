@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,8 @@
 * 4.0   bvikram  06/09/21 Added support for delayed enumeration of DFU devices
 * 6.1   ng       07/13/23 Added SDT support
 * 6.2   ka       09/24/25 Increase USB control reply buffer size for FSBL
+* 6.3   sd       02/06/26 Implement USB download timeout to prevent indefinite
+*                         waiting during PDI download operations
 *
 * </pre>
 *
@@ -51,6 +53,8 @@
 
 #define XFSBL_REQ_REPLY_LEN		512U	/**< Max size of reply buffer. */
 #define XFSBL_DOWNLOAD_COMPLETE		3U
+#define XFSBL_USB_MAX_ITERATIONS 1200000U  /**< Max iterations (20 minutes @ 1ms poll) */
+#define XFSBL_USB_POLL_INTERVAL_US	1000U	/**< USB polling interval - 1ms */
 
 
 /************************** Function Prototypes ******************************/
@@ -84,6 +88,7 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 	u32 Status;
 	s32 SStatus;
 	XUsbPsu_Config *UsbConfigPtr;
+	u32 TimeoutCounter = 0U;
 
 	Status = XFsbl_CheckTempDfuMemory(0);
 	if(Status == XFSBL_FAILURE){
@@ -145,11 +150,17 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 	}
 
 	while ((DownloadDone < XFSBL_DOWNLOAD_COMPLETE) && \
-		(DfuObj.CurrStatus != STATE_DFU_ERROR)) {
+		(DfuObj.CurrStatus != STATE_DFU_ERROR) && \
+		(TimeoutCounter < XFSBL_USB_MAX_ITERATIONS)) {
 		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstance.PrivateData);
+		usleep(XFSBL_USB_POLL_INTERVAL_US);
+		TimeoutCounter++;
 	}
 
-	if(DownloadDone == XFSBL_DOWNLOAD_COMPLETE) {
+	if (TimeoutCounter >= XFSBL_USB_MAX_ITERATIONS) {
+		XFsbl_Printf(DEBUG_GENERAL, "USB download timeout error\r\n");
+		Status = XFSBL_FAILURE;
+	} else if(DownloadDone == XFSBL_DOWNLOAD_COMPLETE) {
 		Status = XFSBL_SUCCESS;
 	}
 	else
