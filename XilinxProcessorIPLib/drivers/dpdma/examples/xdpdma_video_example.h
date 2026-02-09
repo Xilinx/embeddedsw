@@ -82,7 +82,7 @@ int DpdmaVideoExample(Run_Config *RunCfgPtr);
 void InitRunConfig(Run_Config *RunCfgPtr);
 int InitDpDmaSubsystem(Run_Config *RunCfgPtr);
 void SetupInterrupts(Run_Config *RunCfgPtr);
-u8* GraphicsOverlay(u8* Frame, Run_Config *RunCfgPtr);
+u8* GraphicsOverlay(u8* Frame);
 
 /* DisplayPort interrupt related functions */
 void DpPsu_SetupVideoStream(Run_Config *RunCfgPtr);
