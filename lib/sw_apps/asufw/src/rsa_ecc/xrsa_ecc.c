@@ -1279,6 +1279,11 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL);
 	}
+	/*
+	 * Pair Wise Consistency Test validates the key pair during key generation.
+	 * Here, the ReturnStatus is from signature verification, checked internally and
+	 * does not need to be exposed to the client, so it is reset to XASUFW_FAILURE.
+	 */
 	ReturnStatus = XASUFW_FAILURE;
 
 END_CLR:
