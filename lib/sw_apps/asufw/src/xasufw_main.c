@@ -103,6 +103,7 @@ static void XAsufw_SetAsufwPresentBit(void);
 int main(void)
 {
 	s32 Status = XASUFW_FAILURE;
+	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
 	/** Initializes the debug log buffer for ASUFW. */
 	XAsufw_InitDebugLogBuffer();
@@ -146,7 +147,7 @@ int main(void)
 	 * Run key transfer and PUF regeneration.
 	 * Run DME KEK derivation if PUF regeneration is successful.
 	 */
-	XAsufw_RunKeyTransfer();
+	XFIH_CALL(XAsufw_RunKeyTransfer, FihVar, Status);
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
