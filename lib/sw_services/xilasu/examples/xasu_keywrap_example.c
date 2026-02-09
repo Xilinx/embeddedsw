@@ -233,7 +233,8 @@ int main(void)
 	KwpunwpClientParam.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KwpunwpClientParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpClientParam.ShaMode = XASU_SHA_MODE_256;
-	KwpunwpClientParam.KeyId = 0U;
+	KwpunwpClientParam.AesKeyId = 0U;
+	KwpunwpClientParam.RsaKeyId = 0U;
 
 	/* Perform key wrap operation */
 	Status = XAsu_KeyWrap(&ClientParam, &KwpunwpClientParam);
@@ -271,6 +272,8 @@ int main(void)
 	KwpunwpClientParam.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KwpunwpClientParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpClientParam.ShaMode = XASU_SHA_MODE_256;
+	KwpunwpClientParam.AesKeyId = 0U;
+	KwpunwpClientParam.RsaKeyId = 0U;
 
 	/* Perform key unwrap operation */
 	Status = XAsu_KeyUnwrap(&ClientParam, &KwpunwpClientParam);
