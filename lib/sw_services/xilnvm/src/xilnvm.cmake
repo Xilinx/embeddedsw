@@ -68,7 +68,7 @@ if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   endif()
 endif()
 
-# XilNvm configuration options for SpartanUltra+
+# XilNvm configuration options for SpartanUltraScale+
 if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(XILNVM_mode "server")
 
