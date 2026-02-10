@@ -8,7 +8,7 @@
 *
 * @file xilpuf_spartan_ultrascale_plus_example.h
 * This file contains macros which needs to configured by user for
-* xilpuf_example.cand based on the options selected by user operations will be
+* xilpuf_example.c and based on the options selected by user operations will be
 * performed.
 *
 * This example is supported for spartan ultrascale plus devices.
@@ -116,11 +116,11 @@ extern "C" {
 					     registration/regeneration on demand */
 
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE) /**< Enables/disables global variation filter
-						    during PUF registraton/regeneration */
+						    during PUF registration/regeneration */
 
 #define XPUF_REGEN_CHASH		(0x00000000U) /**< PUF CHASH value and it is applicable only for Regeneration*/
 #define XPUF_REGEN_AUX			(0x00000000U) /**< PUF AUX value and it is expected
-							   to provide as 0x0FFFFFFF0U and it is applicable only for Regeneration*/
+							   to provide as 0xFFFFFFF0U and it is applicable only for Regeneration*/
 #define XPUF_WRITE_PUF_HASH_IN_EFUSE		(FALSE) /**< Write PUF hash in efuse */
 #define XPUF_WRITE_IN_MEM			(FALSE) /**< This will enable writing PUFHD,CHASH,
 							    AUX and black key into the memory */
