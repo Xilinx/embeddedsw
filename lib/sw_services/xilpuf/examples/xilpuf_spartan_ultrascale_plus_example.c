@@ -560,7 +560,8 @@ static int  XPuf_DecompressPufHd(u32 SynAddress, u32 *DeSynData)
 	volatile const u32* SynData;
 
 	SynData = (u32*)SynAddress;
-	Status = Xil_SMemSet(DeSynData, sizeof(DeSynData), 0U, sizeof(DeSynData));
+	Status = Xil_SMemSet(DeSynData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH, 0U,
+			XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	if (Status != XST_SUCCESS) {
 			goto END;
 	}
