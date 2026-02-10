@@ -138,11 +138,11 @@
 static XSecure_Aes AesInstance __attribute__ ((aligned (64)))
 						__attribute__ ((section (".data.AesInstance")));
 u32 PUF_TrimHD[XPUF_HD_TRIM_PAD_LEN_IN_WORDS] __attribute__((aligned(32)))
-        __attribute__ ((section (".data.PUF_TrimHD")));;
+        __attribute__ ((section (".data.PUF_TrimHD")));
 static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS] __attribute__((aligned(32)))
 __attribute__ ((section (".data.FormattedBlackKey")));
 static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
-static XNvm_EfuseData EfuseData __attribute__ ((section (".data.EfuseData")));;
+static XNvm_EfuseData EfuseData __attribute__ ((section (".data.EfuseData")));
 static XNvm_EfusePpkHash PrgmPpkHash  __attribute__ ((section (".data.PrgmPpkHash")));
 static u8 PufPpkHash[XPUF_PPK_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.PufPpkHash")));
 
