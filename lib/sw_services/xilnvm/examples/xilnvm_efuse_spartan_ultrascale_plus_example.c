@@ -646,7 +646,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
 					     XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if (Status != XST_SUCCESS) {
-			xil_printf("Ppk1Hash string validation failed\r\n");
+			xil_printf("Ppk2Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK2_HASH,
@@ -1130,24 +1130,24 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 		xil_printf("Writing to PPK0 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.Ppk2lck == TRUE) {
-		xil_printf("Locks writing to PPK1 efuse\n\r");
+		xil_printf("Locks writing to PPK2 efuse\n\r");
 	} else {
-		xil_printf("Writing to PPK1 efuse is not locked\n\r");
+		xil_printf("Writing to PPK2 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.AesRdlk == TRUE) {
-		xil_printf("AES read/write lock is enabled \n\r");
+		xil_printf("AES read/write lock is enabled\n\r");
 	} else {
-		xil_printf("AES read/write lock is enabled \n\r");
+		xil_printf("AES read/write lock is disabled\n\r");
 	}
 	if (SecCtrlBits.UserWrlk == TRUE) {
 		xil_printf("User write lock is enabled\n\r");
 	} else {
-		xil_printf("User write lock is enabled\n\r");
+		xil_printf("User write lock is disabled\n\r");
 	}
 	if (SecCtrlBits.DftDis == TRUE) {
 		xil_printf("DFT boot mode is disabled\n\r");
 	} else {
-		xil_printf("DFT boot mode is disabled\n\r");
+		xil_printf("DFT boot mode is enabled\n\r");
 	}
 	if (SecCtrlBits.CrcEn == TRUE) {
 		xil_printf("EFUSE CRC is enabled\n\r");
@@ -1155,9 +1155,9 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 		xil_printf("EFUSE CRC is disabled\n\r");
 	}
 	if (SecCtrlBits.HashPufOrKey == TRUE) {
-		xil_printf("PUF hash is enabled \n\r");
+		xil_printf("PUF hash is enabled\n\r");
 	} else {
-		xil_printf("PUF hash is disabled \n\r");
+		xil_printf("PUF hash is disabled\n\r");
 	}
 	if (SecCtrlBits.Lckdwn == TRUE) {
 		xil_printf("secure lockdown is enabled\n\r");
@@ -1167,18 +1167,18 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	if (SecCtrlBits.Ppk0Invld == TRUE) {
 		xil_printf("PPK0 is invalid\n\r");
 	} else {
-		xil_printf("PPK0 is valid \n\r");
+		xil_printf("PPK0 is valid\n\r");
 	}
 	if (SecCtrlBits.Ppk2Invld == TRUE) {
 		xil_printf("PPK2 is invalid\n\r");
 	} else {
-		xil_printf("PPK2 is valid \n\r");
+		xil_printf("PPK2 is valid\n\r");
 	}
 #ifndef SPARTANUPLUSAES1
 	if (SecCtrlBits.Ppk1Invld == TRUE) {
 		xil_printf("PPK1 is invalid\n\r");
 	} else {
-		xil_printf("PPK1 is valid \n\r");
+		xil_printf("PPK1 is valid\n\r");
 	}
 	if (SecCtrlBits.Ppk1lck == TRUE) {
 		xil_printf("Locks writing to PPK1 efuse\n\r");
@@ -1189,27 +1189,27 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	if (SecCtrlBits.PufTes2Dis == TRUE) {
 		xil_printf("PUF test2 mode is disabled\n\r");
 	} else {
-		xil_printf("PUF test2 mode is enabled \n\r");
+		xil_printf("PUF test2 mode is enabled\n\r");
 	}
 	if (SecCtrlBits.RmaDis == TRUE) {
 		xil_printf("RMA disable bits are programmed\n\r");
 	} else {
-		xil_printf("RMA disable bits are not programmed \n\r");
+		xil_printf("RMA disable bits are not programmed\n\r");
 	}
 	if (SecCtrlBits.CrcRmaDis == TRUE) {
 		xil_printf("CRC RMA disable bit is programmed\n\r");
 	} else {
-		xil_printf("CRC RMA disable bit is not programmed \n\r");
+		xil_printf("CRC RMA disable bit is not programmed\n\r");
 	}
 	if (SecCtrlBits.RmaEn == TRUE) {
 		xil_printf("RMA enable bits are programmed\n\r");
 	} else {
-		xil_printf("RMA enable bits are not programmed \n\r");
+		xil_printf("RMA enable bits are not programmed\n\r");
 	}
 	if (SecCtrlBits.CrcRmaEn == TRUE) {
 		xil_printf("CRC RMA enable bit is programmed\n\r");
 	} else {
-		xil_printf("CRC RMA enable bit is not programmed \n\r");
+		xil_printf("CRC RMA enable bit is not programmed\n\r");
 	}
 
 	Status = XST_SUCCESS;
