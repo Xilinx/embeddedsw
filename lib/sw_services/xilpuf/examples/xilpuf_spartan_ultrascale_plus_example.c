@@ -758,7 +758,7 @@ static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr)
 			goto END;
 		}
 		/**
-		 * Set lower 4 bytes to 0
+		 *  Set last 4 bytes (lower 32 bits) of IV to 0
 		 */
 		Status = Xil_SMemSet(Iv + (2 * XNVM_EFUSE_WORD_LEN), XNVM_EFUSE_WORD_LEN, 0U, XNVM_EFUSE_WORD_LEN);
 		if (Status != XST_SUCCESS) {
