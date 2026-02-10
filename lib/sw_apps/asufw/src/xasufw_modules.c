@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -30,6 +30,7 @@
 #include "xil_types.h"
 #include "xasufw_status.h"
 #include "xasufw_memory.h"
+#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_ACCESS_PERM_CMD_CNT_MASK			0xFFFF0000U
@@ -115,6 +116,7 @@ XAsufw_Module *XAsufw_GetModule(u32 ModuleId)
 s32 XAsufw_UpdateAccessPermissions(void)
 {
 	s32 Status = XASUFW_FAILURE;
+	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 CmdCnt;
 	u32 ModuleId;
 	const u32 *CmdPermBuf = (const u32 *)(UINTPTR)(XASUFW_RTCA_ACCESS_PERM_ADDR);
@@ -156,13 +158,12 @@ s32 XAsufw_UpdateAccessPermissions(void)
 		}
 
 		/** - Copy the access permissions buffer to the module's access permissions buffer. */
-		Status = Xil_SMemCpy(Module->AccessPermBufferPtr,
-				Module->CmdCnt * sizeof(XAsufw_AccessPerm_t), CmdPermBuf,
-				CmdCnt * sizeof(XAsufw_AccessPerm_t), CmdCnt * sizeof(XAsufw_AccessPerm_t));
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED;
-			goto END;
-		}
+		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SMemCpy,
+						   XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED,
+						   FihVar, Status, END, Module->AccessPermBufferPtr,
+						   Module->CmdCnt * sizeof(XAsufw_AccessPerm_t),
+						   CmdPermBuf, CmdCnt * sizeof(XAsufw_AccessPerm_t),
+						   CmdCnt * sizeof(XAsufw_AccessPerm_t));
 
 		CmdPermBuf += CmdCnt;
 	}
