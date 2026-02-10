@@ -125,6 +125,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
 	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPubKeyComp);
 	u32 HashLen = 0U;
 
@@ -144,7 +145,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Zeroize local copy of all the parameters. */
-		ClearStatus = XAsufw_SMemSet(DataBlock,
+		ClearStatus = XAsufw_SMemSet(DataBlockStart,
 					     XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
@@ -239,6 +240,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 HashLen = 0U;
 	u32 DataBlockLen = 0U;
 	u32 Index = 0U;
+	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
 	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPvtKeyComp);
 	u8 *MPrime = DataBlock + XRSA_MAX_DB_LEN;
 	u8 *HashBuffer = MPrime + XRSA_PSS_MAX_MSG_LEN;
@@ -462,7 +464,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, DataBlock,
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, DataBlockStart,
 					XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
@@ -509,6 +511,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 KeySize = 0U;
 	u32 HashLen = 0U;
 	u32 DataBlockLen = 0U;
+	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
 	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPubKeyComp);
 	u8 *MaskedDataBlock = DataBlock + XRSA_MAX_DB_LEN;
 	u8 *MsgBlock = MaskedDataBlock + XRSA_MAX_DB_LEN;
@@ -755,7 +758,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
+	ClearStatus = XAsufw_SMemSet(DataBlockStart, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, HashedInputData,
@@ -1196,6 +1199,7 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 	volatile u32 Index = 0U;
 	u32 DataBlockLen = 0U;
 	u32 MsgLen = 0U;
+	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
 	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPvtKeyComp);
 	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
 	u8 *SeedBuffer = DataBlockMask + XRSA_MAX_DB_LEN;
@@ -1316,7 +1320,7 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DataBlock,
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DataBlockStart,
 		  XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
