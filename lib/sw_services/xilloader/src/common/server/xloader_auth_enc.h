@@ -68,6 +68,7 @@
 * 2.2   har  04/21/25 Removed XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK macro
 *       sd   11/10/25 Added support for VERSAL_2VP_P devices.
 * 2.4   tvp  01/23/26 Add XLoader_Sha3Kat definition
+* 2.4   vss  02/01/26 Updated PPK revoke error logic.
 *
 * </pre>
 *
@@ -556,8 +557,9 @@ typedef enum {
 	XLOADER_PPK_SEL_2,	/**< 2 - PPK 2 */
 #ifdef PLM_EN_ADD_PPKS
 	XLOADER_PPK_SEL_3,	/**< 3 - PPK 3 */
-	XLOADER_PPK_SEL_4	/**< 4 - PPK 4 */
+	XLOADER_PPK_SEL_4,	/**< 4 - PPK 4 */
 #endif
+	XLOADER_PPK_SEL_MAX /**< Max PPK Selector */
 } XLoader_PpkSel;
 
 /**
@@ -739,10 +741,12 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
 void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
-int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
-int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);
-int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset);
+int XLoader_IsPpkValid(const u8 *PpkHash);
 int XLoader_ClearAesKey(u32 *DecKeySrc);
+int XLoader_IsPpkRevoked(u32 PpkInvldMask);
+int XLoader_ValidatePpkHash(const u8 *PpkHash, u32 PpkOffset);
+int XLoader_GetPpkInvalidMaskAndOffset(XLoader_PpkSel PpkSelect,
+		u32 *InvalidMask, u32 *PpkOffset);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);

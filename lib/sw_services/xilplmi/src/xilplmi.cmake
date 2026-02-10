@@ -169,10 +169,12 @@ set(part_list "vc1502" "vc1702" "vc1802" "vc1902" "vc2602" "vc2802" "ve1752" "ve
 string(SUBSTRING "${DEVICE_ID}" 2 -1 PartName)
 list(FIND part_list "${PartName}" index)
 
-if (XILPLMI_plm_add_ppks_en OR (index EQUAL -1))
+# Enable additional PPKs for Versal except for 2VP_P and 2VP variants.
+if("${CMAKE_MACHINE}" STREQUAL "Versal" AND NOT ("Versal_2VP_P" IN_LIST VARIANT) AND NOT ("Versal_2VP" IN_LIST VARIANT))
+  if (XILPLMI_plm_add_ppks_en OR (index EQUAL -1))
   set(PLM_EN_ADD_PPKS " ")
+  endif()
 endif()
-
 option(XILPLMI_plm_ecdsa_en "Enables or Disables ECDSA handlers" ON)
 if (NOT XILPLMI_plm_ecdsa_en)
   set(PLM_ECDSA_EXCLUDE " ")

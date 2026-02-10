@@ -34,6 +34,7 @@
 * 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
 *                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
 * 2.3   rpu  09/05/2025 Removed Configuration Limiter functions
+* 2.4   vss  02/01/2026 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
 * </pre>
 *
 *
@@ -81,8 +82,8 @@ typedef enum {
 			/**< 0x03 PPK Hash calculation failed */
 	XLOADER_SEC_ALL_PPK_REVOKED_ERR,
 			/**< 0x04 All PPKs are revoked */
-	XLOADER_SEC_PPK_INVALID_BIT_ERR,
-			/**< 0x05 PPK Invalid bit is set */
+	XLOADER_SEC_SEL_PPK_REVOKED_ERR,
+			/**< 0x05 When selected PPK is revoked */
 	XLOADER_SEC_PPK_HASH_ALLZERO_INVLD,
 			/**< 0x06 PPK HAsh is all zero hence inavalid */
 	XLOADER_SEC_PPK_HASH_COMPARE_FAIL,

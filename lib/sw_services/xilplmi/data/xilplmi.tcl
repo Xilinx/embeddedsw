@@ -443,8 +443,10 @@ proc xgen_opts_file {libhandle} {
 
 		#Enable Additional PPKs for M50 or later designs
 		set PartName [string range $part 2 [expr {[string first "-" $part] - 1}]]
-		if {[lsearch -exact $part_list $PartName] == -1} {
-			set IsAddPpkEn true
+		if {$proc_type == "psv_pmc"} {
+			if {[lsearch -exact $part_list $PartName] == -1} {
+				set IsAddPpkEn true
+			}
 		}
 	}
 

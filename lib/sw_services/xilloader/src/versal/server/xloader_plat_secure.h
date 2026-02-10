@@ -32,6 +32,7 @@
 * 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
 *                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
 * 2.3   rpu  09/05/2025 Removed Configuration Limiter functions
+* 2.4   vss  02/01/2026 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
 * </pre>
 *
 ******************************************************************************/
@@ -65,8 +66,8 @@ typedef enum {
 			/**< 0x03 PPK Hash calculation failed */
 	XLOADER_SEC_ALL_PPK_REVOKED_ERR,
 			/**< 0x04 All PPKs are revoked */
-	XLOADER_SEC_PPK_INVALID_BIT_ERR,
-			/**< 0x05 PPK Invalid bit is set */
+	XLOADER_SEC_SEL_PPK_REVOKED_ERR,
+			/**< 0x05 When selected PPK is revoked */
 	XLOADER_SEC_PPK_HASH_ALLZERO_INVLD,
 			/**< 0x06 PPK HAsh is all zero hence inavalid */
 	XLOADER_SEC_PPK_HASH_COMPARE_FAIL,
@@ -172,6 +173,10 @@ typedef struct {
                     /**< PPK3 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD              (0x00001800U)
 					/**< PPK4 invalid value */
+#define XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK       (0X00030000U)
+                    /**< PPK 3&4 Enable bits mask*/
+#define XLOADER_EFUSE_PPK3_START_OFFSET                 (0xF12502C0U)
+                    /**< PPK3 start register address */
 #endif /**< END OF PLM_EN_ADD_PPKS*/
 
 #define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x7DFFF8C1U)
@@ -199,6 +204,9 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input);
+#endif
+#ifdef PLM_EN_ADD_PPKS
+int XLoader_IsAdditionalPpkFeatureEnabled(void);
 #endif
 
 /************************** Variable Definitions *****************************/

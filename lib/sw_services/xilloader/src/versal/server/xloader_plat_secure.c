@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 * 2.1   pre  01/11/2024 Removed unused macro
 *       ng   02/01/2024 u8 variables optimization
 *       sk   03/13/24 Fixed doxygen comments format
+* 2.4   vss  02/01/2026 Updated PPK revoke error logic.
 *
 * </pre>
 *
@@ -62,19 +63,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifdef PLM_EN_ADD_PPKS
-#define XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK       (0X00030000U)
-                    /**< PPK 3&4 Enable bits mask*/
-#define XLOADER_EFUSE_PPK3_START_OFFSET                 (0xF12502C0U)
-                    /**< PPK3 start register address */
-#endif /* END OF PLM_EN_ADD_PPKS*/
 
 /************************** Function Prototypes ******************************/
-
-#ifdef PLM_EN_ADD_PPKS
-static int XLoader_IsAdditionalPpkFeatureEnabled(void);
-#endif
-
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
@@ -259,91 +249,6 @@ END:
 }
 #endif
 
-/*****************************************************************************/
-/**
-* @brief	This function verifies whether the additional PPK is valid.
-*
-* @param	PpkHash is pointer to the PPK hash.
-*
-* @return
-* 			- XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
-#ifdef PLM_EN_ADD_PPKS
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-
-	/** - Read Additional PPks enable bits*/
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsAdditionalPpkFeatureEnabled);
-	if((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)){
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
-				XLOADER_PPK_SEL_3, PpkHash);
-		if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
-				XLOADER_PPK_SEL_4, PpkHash);
-			if ((Status == XST_SUCCESS) &&
-			(	StatusTmp == XST_SUCCESS)) {
-				/* Selection matched with PPK4 HASH */
-				XPlmi_Printf(DEBUG_INFO, "PPK4 is valid\n\r");
-			}
-		}
-		else {
-			/* Selection matched with PPK3 HASH */
-			XPlmi_Printf(DEBUG_INFO, "PPK3 is valid\n\r");
-		}
-	}
-	Status |= StatusTmp;
-#else
-	int Status = XST_FAILURE;
-	(void)PpkHash;
-#endif
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks for the additional PPK select and returns the
- *           PPK invalid mask and PPK efuse cache start offset if PPK is valid.
- *
- * @param	PpkSelect	PPK selection of eFUSE.
- * @param    InvalidMask Pointer to the PPK invalid mask
- * @param    PpkOffset   Pointer to the efuse cache PPK start offset
- *
- * @return
- * 			- XST_SUCCESS on success and error code on failure
- *
- ******************************************************************************/
-int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset)
-{
-	int Status = XST_FAILURE;
-
-#ifdef PLM_EN_ADD_PPKS
-	switch ((u32)PpkSelect) {
-		case XLOADER_PPK_SEL_3:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK3_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_4:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK4_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		default:
-			Status = XST_FAILURE;
-			break;
-	}
-#else
-	(void)PpkSelect;
-	(void)InvalidMask;
-	(void)PpkOffset;
-#endif
-
-	return Status;
-}
-
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /*****************************************************************************/
 /**
@@ -418,7 +323,7 @@ END:
  * 			not enabled.
  *
  ******************************************************************************/
-static int XLoader_IsAdditionalPpkFeatureEnabled(void)
+int XLoader_IsAdditionalPpkFeatureEnabled(void)
 {
 	int Status = XST_FAILURE;
 		volatile u32 ReadReg;
