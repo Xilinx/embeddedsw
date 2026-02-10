@@ -26,6 +26,7 @@
 *					  Interrupt wrapper support has also been added.
 * 2.5   dp   09/08/23 Update example to stop wdt at end of the test
 * 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
+* 2.7   ht   02/10/26 Fix unused parameter warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -434,6 +435,7 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 ******************************************************************************/
 static void WdtIntrHandler(void *CallBackRef)
 {
+	(void)CallBackRef;
 	/*
 	 * WDT timed out and interrupt occurred, let main test loop know.
 	 */
