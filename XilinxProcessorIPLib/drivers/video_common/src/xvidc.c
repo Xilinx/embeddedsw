@@ -1054,7 +1054,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 {
 	if (!XVidC_GetVideoModeData(Stream->VmId) &&
 			(Stream->VmId != XVIDC_VM_CUSTOM)) {
-		xil_printf("\t The stream ID (%d) is not supported.\r\n",
+		xil_printf("\t the stream ID (%d) is not supported.\r\n",
 				Stream->VmId);
 		return;
 	}
@@ -1120,7 +1120,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 *******************************************************************************/
 void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced)
 {
-	xil_printf("\r\n\tHSYNC Timing: hav=%04d, hfp=%02d, hsw=%02d(hsp=%d), "
+	xil_printf("\r\n\tHSYNC Timing: Horizontal Active Vertical(hav)=%04d, hfp=%02d, hsw=%02d(hsp=%d), "
 			"hbp=%03d, htot=%04d \r\n", Timing->HActive,
 			Timing->HFrontPorch, Timing->HSyncWidth,
 			Timing->HSyncPolarity,
