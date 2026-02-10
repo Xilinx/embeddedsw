@@ -35,6 +35,7 @@
 *       ng   11/22/2023 Fixed doxygen grouping
 * 3.6	obs  08/26/2025 Added support for Verifying Address Range
 * 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
+*       ng   02/10/2026 Fixed undefined END label usage in XNvm_EfuseRead
 *
 * </pre>
 *
@@ -1365,6 +1366,9 @@ int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 S
 	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
 					  Size / XNVM_EFUSE_WORD_LEN, (u32 *)(UINTPTR)ReadDataAddr);
 
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
+END:
+#endif
 	return Status;
 }
 
