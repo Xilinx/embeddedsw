@@ -115,7 +115,6 @@ typedef enum {
 	XVIDC_VM_640x480_72_P,  /**< 640x480 @ 72Hz progressive */
 	XVIDC_VM_640x480_75_P,  /**< 640x480 @ 75Hz progressive */
 	XVIDC_VM_640x480_85_P,  /**< 640x480 @ 85Hz progressive */
-	XVIDC_VM_640x400_85_P,  /**< 640x400 @ 85Hz progressive */
 	XVIDC_VM_720x400_85_P,  /**< 720x400 @ 85Hz progressive */
 	XVIDC_VM_720x480_60_P,  /**< 720x480 @ 60Hz progressive */
 	XVIDC_VM_720x480_120_P,  /**< 720x480 @ 120Hz progressive */
