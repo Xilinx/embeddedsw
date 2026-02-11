@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -831,6 +831,9 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_5		(0x00000800U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_6		(0x00001000U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_7		(0x00002000U)
+
+/** OCP subsystem update events */
+#define XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE	(0x00004000U)
 /**
  * @}
  */
