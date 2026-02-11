@@ -239,7 +239,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
 	const XAsufw_Module *Module = NULL;
-	u32 AccessPerm = XASUFW_NO_IPI_ACCESS;
+	volatile u32 AccessPerm = XASUFW_NO_IPI_ACCESS;
 	u32 ReqType = XASU_CMD_NON_SECURE;
 
 	/** Validate channel index. */
@@ -281,7 +281,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 							(XASUFW_ACCESS_PERM_SHIFT * ChannelIndex);
 		AccessPerm &= XASUFW_ACCESS_PERM_MASK;
 		/** - If the requested command is not given IPI access, return error. */
-		if (AccessPerm == XASUFW_NO_IPI_ACCESS) {
+		if ((AccessPerm == XASUFW_NO_IPI_ACCESS) && (AccessPerm == XASUFW_NO_IPI_ACCESS)) {
 			Status = XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS;
 			goto END;
 		}
