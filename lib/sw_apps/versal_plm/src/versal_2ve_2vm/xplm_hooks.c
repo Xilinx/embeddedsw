@@ -28,6 +28,7 @@
 *	rmv  07/17/2025 Added call to XOcp_NotifyAsu()
 * 1.15  tt  08/20/2025 Add IPI re-init after IPU(Impactless PLM Update)
 * 1.16  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
+*	rmv  01/30/2025 Removed call to XOcp_NotifyAsu()
 *
 * </pre>
 *
@@ -146,10 +147,6 @@ int XPlm_HookAfterBootPdi(void *Arg)
 	/* Call XilPM hook */
 	Status = XPm_HookAfterBootPdi();
 	(void)XPm_DumpMemUsage();
-
-#ifdef PLM_OCP_ASUFW_KEY_MGMT
-	Status = XOcp_NotifyAsu();
-#endif
 
 	return Status;
 }
