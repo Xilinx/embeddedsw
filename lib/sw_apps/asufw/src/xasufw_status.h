@@ -642,9 +642,57 @@ enum {
 	XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, /**< 0x1BFU - Error when updating public key fails. */
 	XASUFW_RSA_KEY_PAIR_GENERATION_FAIL, /**< 0x1C0U - Error when RSA key pair generation fails. */
 	XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, /**< 0x1C1U - Error when getting key object pointer fails. */
+	XASUFW_SHA_DIGEST_CALC_FAILED, /**< 0x1C2U - Error when SHA digest calculation is failed. */
+	XASUFW_SHA_START_FAILED, /**< 0x1C3U - Error when SHA start operation fails. */
+	XASUFW_LMS_INVALID_PARAM, /**< 0x1C4U - LMS invalid parameter error */
+	XASUFW_LMS_OTS_PUB_KEY_SIGN_TYPE_MISMATCH_ERROR, /**< 0x1C5U - LMS OTS public key and signature type mismatch */
+	XASUFW_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR, /**< 0x1C6U - LMS OTS signature unsupported type */
+	XASUFW_LMS_OTS_DIGEST_CHECKSUM_OP_FAILED_ERROR, /**< 0x1C7U - LMS OTS digest checksum operation failed */
+	XASUFW_LMS_DIGEST_CHECKSUM_FAILED_ERROR, /**< 0x1C8U - LMS digest checksum failed */
+	XASUFW_LMS_OTS_SIGN_SHA_DIGEST_FAILED_ERROR, /**< 0x1C9U - LMS OTS signature SHA digest failed */
+	XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR, /**< 0x1CAU - LMS public key unsupported type 1 */
+	XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR, /**< 0x1CBU - LMS signature expected public key length error 2 */
+	XASUFW_LMS_SIGN_LEN_1_ERROR, /**< 0x1CCU - LMS signature length error 1 */
+	XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR, /**< 0x1CDU - LMS OTS public key and LMS OTS signature type mismatch */
+	XASUFW_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR, /**< 0x1CEU - LMS signature unsupported OTS type 1 */
+	XASUFW_LMS_SIGN_LEN_2_ERROR, /**< 0x1CFU - LMS signature length error 2 */
+	XASUFW_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR, /**< 0x1D0U - LMS public key and LMS signature type mismatch */
+	XASUFW_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR, /**< 0x1D1U - LMS signature unsupported type 1 */
+	XASUFW_LMS_SIGN_INVALID_NODE_NUMBER_ERROR, /**< 0x1D2U - LMS signature invalid node number */
+	XASUFW_LMS_SIGN_LEN_3_ERROR, /**< 0x1D3U - LMS signature length error 3 */
+	XASUFW_LMS_SIGN_OTS_OP_ERROR, /**< 0x1D4U - LMS signature OTS operation error */
+	XASUFW_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR, /**< 0x1D5U - LMS signature verification SHA digest leaf failed */
+	XASUFW_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR, /**< 0x1D6U - LMS public key authentication failed */
+	XASUFW_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR, /**< 0x1D7U - LMS public key authentication glitch error */
+	XASUFW_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR, /**< 0x1D8U - LMS HSS public key invalid length 2 */
+	XASUFW_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR, /**< 0x1D9U - LMS HSS signature level unsupported */
+	XASUFW_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR, /**< 0x1DAU - LMS HSS signature public key level mismatch */
+	XASUFW_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR, /**< 0x1DBU - LMS HSS L0 public key LMS type unsupported */
+	XASUFW_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR, /**< 0x1DCU - LMS HSS L0 public key LMS OTS type unsupported */
+	XASUFW_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR, /**< 0x1DDU - LMS signature verify BH and type SHA algo mismatch L0 */
+	XASUFW_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR, /**< 0x1DEU - LMS HSS L0 signature invalid length 2 */
+	XASUFW_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR, /**< 0x1DFU - LMS HSS L0 public key authentication failed */
+	XASUFW_LMS_PUB_OP_FAILED_ERROR, /**< 0x1E0U - LMS public operation failed */
+	XASUFW_LMS_PUB_OP_FAILED_1_ERROR, /**< 0x1E1U - LMS public operation failed 1 */
+	XASUFW_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR, /**< 0x1E2U - LMS HSS L1 public key LMS type 1 unsupported */
+	XASUFW_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR, /**< 0x1E3U - LMS HSS L1 public key LMS type 2 unsupported */
+	XASUFW_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR, /**< 0x1E4U - LMS HSS L1 public key LMS OTS type unsupported */
+	XASUFW_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR, /**< 0x1E5U - LMS HSS OTS signature invalid length 1 */
+	XASUFW_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR, /**< 0x1E6U - LMS HSS L1 signature invalid length 2 */
+	XASUFW_LMS_MODULE_REGISTRATION_FAILED, /**< 0x1E7U - LMS module registration failed */
+	XASUFW_LMS_SIGN_VERIFY_FAILED, /**< 0x1E8U - LMS signature verification failed */
+	XASUFW_HSS_SIGN_VERIFY_FAILED, /**< 0x1E9U - HSS signature verification failed */
+	XASUFW_LMS_TYPE_LOOKUP_GLITCH_ERROR, /**< 0x1EAU - LMS OTS type lookup glitch error */
+	XASUFW_LMS_TYPE_UNSUPPORTED_ERROR, /**< 0x1EBU - LMS type unsupported error */
+	XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR, /**< 0x1ECU - LMS OTS type unsupported error */
+	XASUFW_LMS_KAT_FAILED, /**< 0x1EDU - LMS KAT failed */
+	XASUFW_LMS_KAT_COMPARISON_FAILED, /**< 0x1EEU - LMS KAT comparison failed */
+	XASUFW_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR, /**< 0x1EFU - LMS OTS checksum buffer invalid length */
+	XASUFW_LMS_SIGN_INPUT_VALIDATION_FAILED, /**< 0x1F0U - LMS signature input validation failed */
 
 	/* Additional status success codes */
-	XASUFW_RSA_ECDH_SUCCESS = 0x3F9, /**< 0x3F9U - RSA ECDH operation is successful */
+	XASUFW_LMS_SIGNATURE_VERIFIED = 0x3F8, /**< 0x3F8U - LMS signature verification is successful */
+	XASUFW_RSA_ECDH_SUCCESS, /**< 0x3F9U - RSA ECDH operation is successful */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
 	XASUFW_RSA_DECRYPTION_SUCCESS, /**< 0x3FBU - Successfully decrypted RSA provided

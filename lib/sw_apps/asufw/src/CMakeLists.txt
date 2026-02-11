@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -75,6 +75,8 @@ collect (PROJECT_LIB_SOURCES xasufw_ocphandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_ocphandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_keymanagerhandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_keymanagerhandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_lmshandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_lmshandler.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
@@ -117,6 +119,7 @@ add_subdirectory(keywrap)
 add_subdirectory(x509)
 add_subdirectory(ocp)
 add_subdirectory(keymanager)
+add_subdirectory(lms)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))

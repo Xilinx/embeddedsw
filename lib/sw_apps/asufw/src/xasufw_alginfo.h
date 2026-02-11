@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -68,6 +68,9 @@ extern "C" {
 
 #define XASUFW_KEYWRAP_MAJOR_VERSION		(1U) /**< Major version number of Keywrap module */
 #define XASUFW_KEYWRAP_MINOR_VERSION		(0U) /**< Minor version number of Keywrap module */
+
+#define XASUFW_LMS_MAJOR_VERSION		(1U) /**< Major version number of LMS module */
+#define XASUFW_LMS_MINOR_VERSION		(0U) /**< Minor version number of LMS module */
 
 #define XASUFW_NIST_COMPLIANT			(0xFFU) /**< Indicates that the algorithm is
 								NIST compliant */

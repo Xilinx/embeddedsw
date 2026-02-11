@@ -75,6 +75,7 @@
 #include "xasufw_ocphandler.h"
 #include "xasufw_kat.h"
 #include "xasufw_keymanagerhandler.h"
+#include "xasufw_lmshandler.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -331,6 +332,14 @@ static s32 XAsufw_ModulesInit(void)
 #ifdef XASU_KEYWRAP_ENABLE
 	/** Key wrap unwrap module initialization. */
 	Status = XAsufw_KeyWrapInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_LMS_ENABLE
+	/** LMS module initialization. */
+	Status = XAsufw_LmsInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

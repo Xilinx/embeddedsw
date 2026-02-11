@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -515,6 +515,7 @@
 #define XASU_KEYWRAP_ENABLE
 #define XASU_RSA_PADDING_ENABLE
 #define XASU_OCP_ENABLE
+#define XASU_LMS_ENABLE /**< Macro to enable/disable support of LMS algorithm */
 
 /* Macros to enable / disable support of NIST and Brainpool curves */
 /**< Macro to enable/disable support of NIST P-192 curve */

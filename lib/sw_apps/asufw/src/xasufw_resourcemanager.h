@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -68,6 +68,7 @@ extern "C" {
 #define XASUFW_PLM_RESOURCE_MASK        0x4000U /**< PLM resource mask */
 #define XASUFW_OCP_RESOURCE_MASK        0x8000U /**< OCP resource mask */
 #define XASUFW_KEYMANAGER_RESOURCE_MASK	0x10000U /**< KeyVault resource mask */
+#define XASUFW_LMS_RESOURCE_MASK	0x20000U /**< LMS resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -91,7 +92,8 @@ typedef enum {
 	XASUFW_PLM,	/**< 14: PLM */
 	XASUFW_OCP,	/**< 15: OCP */
 	XASUFW_KEYMANAGER, /**< 16: KeyManager */
-	XASUFW_INVALID,	/**< 17: Invalid */
+	XASUFW_LMS,	/**< 17: LMS */
+	XASUFW_INVALID,	/**< 18: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

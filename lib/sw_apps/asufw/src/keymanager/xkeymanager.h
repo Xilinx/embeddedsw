@@ -184,6 +184,7 @@ s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObj
 			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
+s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 
 /************************************ Variable Definitions ***************************************/
 

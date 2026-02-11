@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -284,5 +284,36 @@ u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len)
 	}
 
 	return Val;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function extracts bytes from the input buffer, converts them to an
+ * 		unsigned integer, and changes the endianness.
+ *
+ * @param	Source - Pointer to source buffer
+ * @param	Bytes -  Number of bytes to be extracted
+ *
+ * @return
+ *		u32 - resultant value
+ *
+ *************************************************************************************************/
+u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes)
+{
+	const u8* const Buf = Source;
+	u32 Result = 0U;
+	u32 i;
+
+	/**
+	 * Convert Big Endian byte array to Little Endian unsigned integer.
+	 * Process bytes from most significant (index 0) to least significant.
+	 * Each iteration shifts existing result left by 8 bits (multiply by 256)
+	 * and adds the next byte value.
+	 */
+	for (i = 0; i < Bytes; i++) {
+		Result = ((XASUFW_BYTE_MULTIPLIER * Result) + (Buf[i] & XASUFW_BYTE_MASK));
+	}
+
+	return Result;
 }
 /** @} */

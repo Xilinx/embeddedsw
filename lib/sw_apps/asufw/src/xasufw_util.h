@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -100,6 +100,12 @@ extern "C" {
 
 #define XASUFW_U64_IN_BYTES			(8U)	/**< U64 value in bytes */
 
+#define XASUFW_ALLFS				(0xFFFFFFFFU)	/**< All 0xF value */
+#define XASUFW_IS_ODD(x)			((x) & 1U)	/**< Check if odd */
+#define XASUFW_BYTE_MASK			(0xFFU)		/**< Single byte mask */
+#define XASUFW_TWO_BYTE_MASK			(0x00FFU)	/**< Lower byte mask (16-bit) */
+#define XASUFW_BYTE_MULTIPLIER			(256U)		/**< Byte multiplier for endianness swap */
+
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START() \
 	StartTime = XAsufw_GetTimerValue()
@@ -188,6 +194,7 @@ s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
         u32 NumOfWords);
 u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len);
+u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes);
 
 /************************************ Variable Definitions ***************************************/
 /** @cond xasufw_util_internal */
