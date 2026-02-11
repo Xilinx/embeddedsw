@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -55,12 +55,13 @@ extern "C" {
 #define XASU_MODULE_AES_ID			(5U) /**< AES module ID */
 #define XASU_MODULE_HMAC_ID			(6U) /**< HMAC module ID */
 #define XASU_MODULE_KDF_ID			(7U) /**< KDF module ID */
-#define XASU_MODULE_ECIES_ID			(8U) /**< ECIES module ID */
-#define XASU_MODULE_KEYWRAP_ID			(9U) /**< Key wrap unwrap module ID */
+#define XASU_MODULE_ECIES_ID		(8U) /**< ECIES module ID */
+#define XASU_MODULE_KEYWRAP_ID		(9U) /**< Key wrap unwrap module ID */
 #define XASU_MODULE_PLM_ID			(10U) /**< PLM module ID */
 #define XASU_MODULE_OCP_ID			(11U) /**< OCP module ID */
-#define XASU_MODULE_KEYMANAGER_ID		(12U) /**< KeyManager module ID */
-#define XASU_MAX_MODULES			(13U) /**< Maximum supported modules in ASU */
+#define XASU_MODULE_KEYMANAGER_ID	(12U) /**< KeyManager module ID */
+#define XASU_MODULE_LMS_ID			(13U) /**< LMS module ID */
+#define XASU_MAX_MODULES			(14U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */

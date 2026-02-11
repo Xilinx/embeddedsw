@@ -1,5 +1,5 @@
 /******************************************************************************
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XASU_BSP_CONFIG_H
@@ -28,5 +28,6 @@
 #cmakedefine    XASU_ECC_SUPPORT_EDWARD_P25519
 #cmakedefine    XASU_ECC_SUPPORT_EDWARD_P448
 #cmakedefine    XASU_TRIGGER_SLD_ON_KAT_FAILURE
+#cmakedefine    XASU_LMS_ENABLE
 
 #endif /* XASU_BSP_CONFIG_H */

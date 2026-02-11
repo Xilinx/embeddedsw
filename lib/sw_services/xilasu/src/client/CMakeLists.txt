@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if (NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS))
@@ -34,3 +34,5 @@ collect (PROJECT_LIB_SOURCES xasu_ocp.c)
 collect (PROJECT_LIB_HEADERS xasu_ocp.h)
 collect (PROJECT_LIB_SOURCES xasu_keymanager.c)
 collect (PROJECT_LIB_HEADERS xasu_keymanager.h)
+collect (PROJECT_LIB_SOURCES xasu_lms.c)
+collect (PROJECT_LIB_HEADERS xasu_lms.h)

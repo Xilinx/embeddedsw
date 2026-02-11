@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
@@ -121,6 +121,10 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     option(XILASU_secure_lockdown_on_kat_failure "Enables/Disables secure lockdown on failure of KAT." OFF)
     if(XILASU_secure_lockdown_on_kat_failure )
         set(XASU_TRIGGER_SLD_ON_KAT_FAILURE " ")
+    endif()
+    option(XILASU_lms_support "Enables/Disables LMS algorithm in ASUFW." ON)
+    if(XILASU_lms_support )
+        set(XASU_LMS_ENABLE " ")
     endif()
 endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xasu_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h)

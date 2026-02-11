@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xasu_aesinfo.h)
@@ -30,3 +30,4 @@ collect (PROJECT_LIB_SOURCES xasu_generic.c)
 collect (PROJECT_LIB_HEADERS xasu_keymanagerinfo.h)
 collect (PROJECT_LIB_HEADERS xasu_keymanager_common.h)
 collect (PROJECT_LIB_SOURCES xasu_keymanager_common.c)
+collect (PROJECT_LIB_HEADERS xasu_lmsinfo.h)
