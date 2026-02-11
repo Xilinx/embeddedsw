@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -135,11 +135,20 @@ static s32 XAsufw_GenerateDeviceKeys(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	u32 EventMask = ReqBuf->Arg[XASUFW_BUFFER_INDEX_ZERO];
 
+	/** Get OCP event mask from PLM. */
+	Status = XOcp_GetOcpEventMaskFromPlm(&EventMask);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GET_EVENT_MASK_FAILED);
+		goto END;
+	}
+
+	/** Generate device keys based on OCP event mask. */
 	Status = XOcp_GenerateDeviceKeys(XAsufw_PlmEvtModule.AsuDmaPtr, EventMask);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PLM_DEV_KEYS_GEN_FAIL);
 	}
 
+END:
 	/** Release the allocated resources. */
 	if (XAsufw_ReleaseResource(XASUFW_PLM, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2024, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 # This script will copy the required bsp directories
@@ -51,6 +51,7 @@ fi
 
 # copy bsp standalone code
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/common/versal_2ve_2vm/* $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/common/clocking/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/riscv/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/

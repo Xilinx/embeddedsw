@@ -75,6 +75,53 @@ static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx);
 
 /*************************************************************************************************/
 /**
+ * @brief	This function provides OCP event mask after getting from PLM.
+ *
+ * @param	EventMask	Pointer to store event mask.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if event mask retrieved successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_SEND_IPI_REQ_FAIL, if IPI request is failed.
+ *	- XASUFW_OCP_READ_IPI_RESP_FAIL, if IPI read response is failed.
+ *
+ *************************************************************************************************/
+s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Payload[XOCP_GET_OCP_EVENT_MASK_PAYLOAD_SIZE];
+	u32 Response[XOCP_GET_OCP_EVENT_MASK_PAYLOAD_RESP_SIZE] = {0U};
+
+	/** Prepare IPI request payload. */
+	Payload[XASUFW_BUFFER_INDEX_ZERO] =
+			XASUFW_PLM_IPI_HEADER(XOCP_GET_OCP_EVENT_MASK_CMD_LEN,
+					      XASUFW_PLM_CMD_ID_GET_OCP_EVENT_MASK,
+					      XASUFW_PLM_ASU_MODULE_ID);
+
+	/** Send IPI request to PLM to get OCP event mask. */
+	Status = XAsufw_SendIpiToPlm(Payload, XOCP_GET_OCP_EVENT_MASK_PAYLOAD_SIZE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SEND_IPI_REQ_FAIL);
+		goto END;
+	}
+
+	/** Read response received from PLM. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ReadIpiRespFromPlm(Response, XOCP_GET_OCP_EVENT_MASK_PAYLOAD_RESP_SIZE);
+	if ((Status != XASUFW_SUCCESS) ||
+	    (Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_READ_IPI_RESP_FAIL);
+		goto END;
+	}
+
+	*EventMask = Response[XASUFW_BUFFER_INDEX_ONE];
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function generates device keys based on event mask.
  *
  * @param	DmaPtr		Pointer to allocated DMA resource.
@@ -125,6 +172,8 @@ s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask)
 		EvtMask = EvtMask >> XOCP_SUBSYS_EVENT_SHIFT;
 		Idx++;
 	}
+
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;

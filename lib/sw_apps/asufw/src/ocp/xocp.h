@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -113,6 +113,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
 			 u32 SubsystemId);
 XOcp_DeviceKeys* XOcp_GetDevIk(void);
+s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask);
 
 /************************************ Variable Definitions ***************************************/
 

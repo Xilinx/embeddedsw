@@ -689,6 +689,12 @@ enum {
 	XASUFW_LMS_KAT_COMPARISON_FAILED, /**< 0x1EEU - LMS KAT comparison failed */
 	XASUFW_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR, /**< 0x1EFU - LMS OTS checksum buffer invalid length */
 	XASUFW_LMS_SIGN_INPUT_VALIDATION_FAILED, /**< 0x1F0U - LMS signature input validation failed */
+	XASUFW_OCP_GET_EVENT_MASK_FAILED, /**< 0x1F1U - Error when getting ASU event from PLM
+						fails */
+	XASUFW_REGISTER_NOTIFIER_SEND_IPI_FAILED, /**< 0x1F2U - Error when sending IPI to
+							register notifier fails */
+	XASUFW_REGISTER_NOTIFIER_READ_IPI_FAILED, /**< 0x1F3U - Error when reading IPI response
+							for register notifier fails */
 
 	/* Additional status success codes */
 	XASUFW_LMS_SIGNATURE_VERIFIED = 0x3F8, /**< 0x3F8U - LMS signature verification is successful */

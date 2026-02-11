@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -40,6 +40,7 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASU_OCP_GEN_DEV_KEYS_CMD_ID		(0U)	/**< Command ID for device key generation */
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_PlmInit(void);

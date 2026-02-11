@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -27,12 +27,14 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_def.h"
 #include "xasufw_plmeventschedular.h"
+#include "xasufw_plmeventhandler.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
 #include "xil_types.h"
 #include "xasufw_util.h"
 #include "xasufw_cmd.h"
 #include "xasufw_ipi.h"
+#include "xil_error_node.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -48,8 +50,7 @@ static s32 XAsufw_PlmEventTaskHandler(void *Arg);
 
 /************************************ Variable Definitions ***************************************/
 static XTask_TaskNode *XAsufwPlmNotificationTask;	/**< Pointer to PLM notification task */
-static u32 XAsufw_EventMask[XASUFW_MAX_PLM_CMDS];	/**< Event mask for respective
-								command ID*/
+static u32 XAsufw_Event[XASUFW_MAX_PLM_CMDS];		/**< Event for respective command ID */
 
 /*************************************************************************************************/
 /**
@@ -67,7 +68,7 @@ s32 XAsufw_PlmEventInit(void)
 
 	/** Create a task to handle PLM notification. */
 	XAsufwPlmNotificationTask = XTask_Create(0U, XAsufw_PlmEventTaskHandler,
-						 (void *)XAsufw_EventMask, 0x0U);
+						 (void *)XAsufw_Event, 0x0U);
 	if (XAsufwPlmNotificationTask == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
 		goto END;
@@ -88,11 +89,8 @@ END:
 void XAsufw_HandlePlmEvent(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsufw_Module *Module = NULL;
 	u32 Payload[XASUFW_IPI_MAX_MSG_LEN] = {0U};
-	u32 ReqId;
-	u32 ModuleId;
-	u32 CmdId;
+	u32 EventMask;
 
 	/** Read IPI message form PLM. */
 	Status = XAsufw_ReadIpiMsgFromPlm(Payload, XASUFW_IPI_MAX_MSG_LEN);
@@ -100,44 +98,12 @@ void XAsufw_HandlePlmEvent(void)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_READ_IPI_MSG_FROM_PLM_FAIL);
 		goto END;
 	}
+	EventMask = Payload[XASUFW_BUFFER_INDEX_TWO];
 
-	/** Extract request ID from IPI command header. */
-	ReqId = (Payload[XASUFW_BUFFER_INDEX_ZERO] & XASU_UNIQUE_REQ_ID_MASK) >>
-		 XASU_UNIQUE_REQ_ID_SHIFT;
-	if (ReqId != XASUFW_PLM_REQ_ID) {
-		Status = XASUFW_PLM_INVALID_CMD_HEADER;
-		goto END;
+	if ((EventMask & XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE) == XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE) {
+		/** Update the pending event for a given command. */
+		XAsufw_Event[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = 0x1;
 	}
-
-	/** Extract module ID from IPI command header. */
-	ModuleId = (Payload[XASUFW_BUFFER_INDEX_ZERO] & XASU_MODULE_ID_MASK) >>
-		    XASU_MODULE_ID_SHIFT;
-	if (ModuleId != XASU_MODULE_PLM_ID) {
-		Status = XASUFW_PLM_INVALID_CMD_HEADER;
-		goto END;
-	}
-
-	/** Get module from the module ID received in the command header and validate. */
-	Module = XAsufw_GetModule(ModuleId);
-	if (Module == NULL) {
-		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
-		goto END;
-	}
-
-	/** Extract command ID from IPI command header. */
-	CmdId = (Payload[XASUFW_BUFFER_INDEX_ZERO] & XASU_COMMAND_ID_MASK);
-
-	/**
-	 * Check if command ID received in the command header is greater than the max supported
-	 * commands by the module.
-	 */
-	if ((CmdId >= Module->CmdCnt) || (CmdId >= XASUFW_MAX_PLM_CMDS)) {
-		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
-		goto END;
-	}
-
-	/** Update the pending event mask for a given command. */
-	XAsufw_EventMask[CmdId] |= Payload[XASUFW_BUFFER_INDEX_ONE];
 
 	/** Trigger PLM notification task. */
 	XTask_TriggerNow(XAsufwPlmNotificationTask);
@@ -167,7 +133,7 @@ static s32 XAsufw_PlmEventTaskHandler(void *Arg)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsufw_Module *Module = NULL;
-	XAsu_ReqBuf ReqBuf;
+	XAsu_ReqBuf ReqBuf = {0U};
 	u32 *EventMask = (u32 *)Arg;
 	u32 SchedulelTask = XASU_FALSE;
 	u32 Idx;
@@ -179,7 +145,7 @@ static s32 XAsufw_PlmEventTaskHandler(void *Arg)
 		goto END;
 	}
 
-	for (Idx = 0; Idx < Module->CmdCnt; Idx++) {
+	for (Idx = 0U; Idx < Module->CmdCnt; Idx++) {
 		if (EventMask[Idx] == 0U) {
 			/** No event to process, continue to next command. */
 			continue;
@@ -199,7 +165,6 @@ static s32 XAsufw_PlmEventTaskHandler(void *Arg)
 				 XASU_MODULE_ID_MASK) | ((((u32)XASUFW_PLM_REQ_ID) <<
 				 XASU_UNIQUE_REQ_ID_SHIFT) & XASU_UNIQUE_REQ_ID_MASK) |
 				 (Idx & XASU_COMMAND_ID_MASK);
-		ReqBuf.Arg[XASUFW_BUFFER_INDEX_ZERO] = EventMask[Idx];
 
 		/** Check availability of resources. */
 		Status = XAsufw_CheckAndAllocateResources(&ReqBuf, XASUFW_PLM_REQ_ID);
@@ -208,15 +173,15 @@ static s32 XAsufw_PlmEventTaskHandler(void *Arg)
 			continue;
 		}
 
+		/** Clear the event mask bits which are to be served. */
+		EventMask[Idx] = 0U;
+
 		/** Call the command handler for the requested command. */
 		Status = Module->Cmds[Idx].CmdHandler(&ReqBuf, XASUFW_PLM_REQ_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PLM_EVENT_HANDLING_FAIL);
 			goto END;
 		}
-
-		/** Clear the event mask bits which are served. */
-		EventMask[Idx] &= ~(ReqBuf.Arg[XASUFW_BUFFER_INDEX_ZERO]);
 	}
 
 	if (SchedulelTask == XASU_TRUE) {
