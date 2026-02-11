@@ -1220,6 +1220,54 @@ END1:
 
 /*****************************************************************************/
 /**
+ * @brief	This function gets the Action for a given Error Node ID and Error Mask.
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	ErrorMasks is the register mask of the error
+ * @param	ActionIdPtr is the pointer to store the action ID
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
+ * 			- XPLMI_INVALID_ERROR_ID on invalid error ID.
+ * 			- XST_INVALID_PARAM on invalid parameter.
+ *
+ *****************************************************************************/
+int XPlmi_EmGetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 *ActionIdPtr)
+{
+	int Status = XST_FAILURE;
+	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
+	u32 ErrorId;
+
+	/** - Validate parameters. */
+	if (ActionIdPtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+	if ((ErrorNodeId & (~XPLMI_NODE_TYPE_MASK)) != XIL_NODETYPE_EVENT_ERROR_ID_ENCODING) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END;
+	}
+
+	/** - Get Error ID from the Error node ID and mask. */
+	ErrorId = XPlmi_GetErrorId(ErrorNodeId, ErrorMasks);
+
+	/** - Check for valid Error ID. */
+	if (ErrorId >= XPLMI_ERROR_SW_ERR_MAX) {
+		Status = XPLMI_INVALID_ERROR_ID;
+		goto END;
+	}
+
+	/** - Get the action for the error. */
+	*ActionIdPtr = ErrorTable[ErrorId].Action;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function initializes the error module. Disables all the error
  * 			actions and registers default action.
  *

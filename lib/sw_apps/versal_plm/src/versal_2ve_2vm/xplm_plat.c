@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -272,7 +272,12 @@ int XPlm_PostPlmUpdate(void)
 #endif
 	/* Regenerate DEVAK keys of the sub-systems */
 #ifdef PLM_OCP
-	/* TBD: Notify ASUFW to regenerate device keys. */
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	Status = XOcp_PostPlmUpdateNotify();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	/* Restore secure state configuration and extend SWPCR */
 	Status = XOcp_MeasureSecureStateAndExtendSwPcr();

@@ -572,6 +572,11 @@ void XPlmi_ReconfigErrActions(void)
 	XPlmi_EventType NodeType;
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_ARRAY_SIZE(ErrorTable); ErrIndex++) {
+		/* Skip reconfiguration for XPLMI_ERROR_OCP_SUBSYS_UPDATE event */
+		if (ErrIndex == XPLMI_ERROR_OCP_SUBSYS_UPDATE) {
+			continue;
+		}
+
 		ErrorTable[ErrIndex].Handler = NULL;
 		if ((ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_CUSTOM)) {
 				/* Set error action to NONE for all other errors */

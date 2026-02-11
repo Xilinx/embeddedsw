@@ -49,6 +49,9 @@
 				/**< Command Id of ASU CDI transfer features */
 #define XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER	(3U)
 				/**< Command Id of subsystem hash transfer features */
+#define XPLMI_CMD_ID_GET_OCP_EVENT_MASK	(4U)
+				/**< Command Id to get OCP event mask */
+
 /* Command Id index */
 #define XPLMI_CMD_ID_ASU_FEATURES_INDEX		(0U)
 				/**< ASU module features index */
@@ -78,6 +81,8 @@ static int (* AsuGetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr) = NULL
 	/** Static function pointer which holds address of XOcp_GetSubsysDigest. */
 static u32 (* AsuGetKEKIvAddr)(void) = NULL;
 	/** Static function pointer which holds address of XLoader_GetBootHeaderIvAddr. */
+static void (*AsuGetOcpEventMask)(u32 *EventMask) = NULL;
+	/** Static function pointer which holds address of XOcp_GetOcpEventMask. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -251,6 +256,43 @@ static int XPlmi_CmdAsuSubsystemHashTransfer(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the OCP event mask.
+ *
+ * @param	Cmd	Pointer to the command structure
+ *
+ * @return
+ *	- XST_SUCCESS, if OCP request is completed successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *****************************************************************************/
+static int XPlmi_CmdAsuGetOcpEventMask(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 EventMask = 0U;
+
+	/* Validate input parameter. */
+	if (Cmd == NULL) {
+		goto END;
+	}
+
+	if (AsuGetOcpEventMask != NULL) {
+		/* Get OCP event mask. */
+		AsuGetOcpEventMask(&EventMask);
+
+		/* Provide OCP event mask as command response. */
+		Cmd->Response[XPLMI_CMD_ID_ASU_RESPONSE_INDEX] = EventMask;
+
+		Status = XST_SUCCESS;
+	}
+
+END:
+	Cmd->Response[XPLMI_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+
+	return Status;
+}
 #endif
 
 /**
@@ -269,7 +311,9 @@ static const XPlmi_ModuleCmd XPlmi_AsuCmds[] =
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuCdiTransfer),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuSubsystemHashTransfer),
+	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuGetOcpEventMask),
 #else
+	{ NULL },
 	{ NULL },
 	{ NULL },
 #endif
@@ -287,9 +331,11 @@ static XPlmi_AccessPerm_t XPlmi_AsuAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_AsuCmds
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
 	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
+	XPLMI_ASU_IPI_FULL_ACCESS(XPLMI_CMD_ID_GET_OCP_EVENT_MASK),
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
 	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
+	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_GET_OCP_EVENT_MASK),
 #endif
 };
 
@@ -319,13 +365,15 @@ static XPlmi_Module XPlmi_AsuModule =
  * @param	GetAsuCdiSeed - Pointer to the function which provides ASU CDI.
  * @param	GetSubsysDigest - Pointer to the function which provides subsystem digest.
  * @param	GetKEKIv - Pointer to the Get KEK IV address function.
+ * @param	GetOcpEventMask - Pointer to the Get OCP event mask function.
  *
  *****************************************************************************/
 void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	int (* const InitiateKeyXfer)(void),
 	int (* const GetAsuCdiSeed)(u32 CdiAddr),
 	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr),
-	u32 (* const GetKEKIvAddr)(void))
+	u32 (* const GetKEKIvAddr)(void),
+	void (* const GetOcpEventMask)(u32 *EventMask))
 {
 	XPlmi_ModuleRegister(&XPlmi_AsuModule);
 
@@ -335,6 +383,7 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	AsuGetAsuCdiSeed = GetAsuCdiSeed;
 	AsuGetSubsysDigest = GetSubsysDigest;
 	AsuGetKEKIvAddr = GetKEKIvAddr;
+	AsuGetOcpEventMask = GetOcpEventMask;
 }
 /**
  * @}

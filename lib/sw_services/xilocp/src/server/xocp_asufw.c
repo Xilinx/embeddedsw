@@ -35,8 +35,16 @@
 #include "xplmi_ipi.h"
 #include "xplmi_modules.h"
 #include "xplmi_scheduler.h"
+#include "xplmi_err_common.h"
+#include "xplmi_update.h"
 
 /********************************** Constant Definitions *****************************************/
+#define XOCP_SUBSYS_INFO_VERSION			(1U) /**< Subsystem info version */
+#define XOCP_SUBSYS_INFO_LCVERSION			(1U) /**< Subsystem info lowest compatible
+								version */
+#define XOCP_ACTIVE_SUBSYS_MASK_VERSION			(1U) /**< Active subsystem mask version */
+#define XOCP_ACTIVE_SUBSYS_MASK_LCVERSION		(1U) /**< Active subsystem mask lowest
+								compatible version */
 
 /************************************ Type Definitions *******************************************/
 /*
@@ -56,39 +64,46 @@ typedef struct {
 							(including ASU subsystem) */
 
 #define XOCP_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
+#define XOCP_PMC_SUBSYSTEM_ID			(0x1C000001U)	/**< PMC subsystem ID */
 #define XOCP_INVALID_SUBSYSTEM_ID		(0x00000000U)	/**< Invalid subsystem ID */
 
-#define XOCP_ASUFW_IPI_MASK			(0x00000001U)	/**< ASUFW IPI mask */
 #define XOCP_PLM_ASUFW_EVENT_MASK		(0x00000001U)	/**< PLM to ASU event mask */
-#define XOCP_ASUFW_EVENT_PAYLOAD_SIZE		(2U)	/**< ASUFW event payload size */
-#define XOCP_ASUFW_NOTIFICATION_TASK_DELAY	(100U)	/**< Notify ASUFW task delay in
-							milliseconds */
-#define XOCP_ASUFW_MAX_TASK_COUNT		(3U)	/**< Maximum count to schedule task if
-							ASUFW is not present */
-#define XOCP_ASU_GLOBAL_BASEADDR			(0xEBF80000U)
-								/** ASU_GLOBAL base address */
-#define XOCP_ASU_GLOBAL_GLOBAL_CNTRL			(XOCP_ASU_GLOBAL_BASEADDR + 0x00000000U)
-								/** ASU_GLOBAL GLOBAL_CNTRL register
-								address */
-#define XOCP_ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
-								/** ASU_GLOBAL GLOBAL_CNTRL
-								FW_Is_Present mask */
 /** @}
  * @endcond
  */
 
 /************************************ Function Prototypes ****************************************/
-static int XOcp_NotifyAsuTask(void *Arg);
 static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr);
 static int XOcp_GenerateAsuCdiSeed(void);
+static int XOcp_GenerateCdiAndNotify(u32 SubsystemId);
 static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void);
 
 /********************************** Variable Definitions *****************************************/
-static u32 XOcpPlmAsufwEvent;
 static u8 XOcpAsuCdi[XOCP_CDI_SIZE_IN_BYTES];
 static u8 IsAsuCdiValid;
+static u32 OcpEventMask;
 
 /********************************** Function Definitions *****************************************/
+/*************************************************************************************************/
+/**
+ * @brief	This function provides a pointer to the OCP active subsystem mask.
+ *
+ * @return
+ *	- Pointer to the OCP active subsystem mask.
+ *
+ *************************************************************************************************/
+static u32 *XOcp_OcpActiveSubsysMask(void)
+{
+	static u32 OcpActiveSubsysMask __attribute__ ((aligned(4U))) = 0U;
+
+	EXPORT_OCP_DS(OcpActiveSubsysMask, XOCP_ACTIVE_SUBSYS_MASK_DS_ID,
+		      XOCP_ACTIVE_SUBSYS_MASK_VERSION, XOCP_ACTIVE_SUBSYS_MASK_LCVERSION,
+		      sizeof(OcpActiveSubsysMask), (u32)(UINTPTR)&OcpActiveSubsysMask);
+
+
+	return &OcpActiveSubsysMask;
+}
+
 /*************************************************************************************************/
 /**
  * @brief	This function stores the subsystem IDs which requires OCP support. Based on the
@@ -141,6 +156,7 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 {
 	volatile int Status = XST_FAILURE;
 	XOcp_SubsysInfo *OcpSubsysInfo = XOcp_GetOcpSubsysInfoDb();
+	u32 *OcpActiveSubsysMask = XOcp_OcpActiveSubsysMask();
 	u32 Idx;
 
 	/** Validate input parameters. */
@@ -156,84 +172,14 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			XOcpPlmAsufwEvent |= XPLMI_BIT(Idx);
+			OcpEventMask |= XPLMI_BIT(Idx);
+			*OcpActiveSubsysMask |= XPLMI_BIT(Idx);
 			break;
 		}
 	}
-	Status = XST_SUCCESS;
 
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function sends a notification to the ASU system.
- *
- * @return
- *	- XST_SUCCESS, if notification is sent to ASUFW or the notification task is scheduled
- *		       successfully.
- *	- XST_FAILURE, in case of failure.
- *
- *************************************************************************************************/
-int XOcp_NotifyAsu(void)
-{
-	XStatus Status = XST_FAILURE;
-	u32 Payload[XOCP_ASUFW_EVENT_PAYLOAD_SIZE] = {0U};
-	u32 IsAsuPresent = 0U;
-	u32 PlmAsufwEvent = XOcpPlmAsufwEvent;
-	static u32 TaskCount = 0U;
-
-	if (XOcpPlmAsufwEvent == 0U) {
-		/**
-		 * No pending ASUFW events to notify. Return success as there is
-		 * no notification required at this time.
-		 */
-		Status = XST_SUCCESS;
-		goto END;
-	}
-
-	/**
-	 * Check if ASUFW is present or not. If ASUFW is not present, schedule
-	 * task to notify ASUFW later.
-	 */
-	IsAsuPresent = (XPlmi_In32(XOCP_ASU_GLOBAL_GLOBAL_CNTRL)) &
-			XOCP_ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK;
-	if (IsAsuPresent == 0U) {
-		if (TaskCount < XOCP_ASUFW_MAX_TASK_COUNT) {
-			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILOCP_ID, XOcp_NotifyAsuTask,
-					NULL, XOCP_ASUFW_NOTIFICATION_TASK_DELAY,
-					XPLM_TASK_PRIORITY_0, NULL, XPLMI_NON_PERIODIC_TASK);
-		}
-		TaskCount++;
-		goto END;
-	}
-	XOcpPlmAsufwEvent = 0U;
-
-	/** If ASUFW event is set, generate ASU CDI seed and copy device DNA. */
-	if ((PlmAsufwEvent & XOCP_PLM_ASUFW_EVENT_MASK) != 0U) {
-		Status = XOcp_GenerateAsuCdiSeed();
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
-	}
-
-	/** Assign PLM event based on subsystem state changes. */
-	Payload[0U] = XOCP_PLM_ASUFW_CMD_HDR;
-	Payload[1U] = PlmAsufwEvent;
-
-	/** Write the IPI payload buffer. */
-	Status = XPlmi_IpiWrite(XOCP_ASUFW_IPI_MASK, Payload, XOCP_ASUFW_EVENT_PAYLOAD_SIZE,
-				XIPIPSU_BUF_TYPE_MSG);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-	/** Trigger the IPI to notify ASUFW. */
-	Status = XPlmi_IpiTrigger(XOCP_ASUFW_IPI_MASK);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
+	/** Process subsystem and notify ASUFW. */
+	Status = XOcp_GenerateCdiAndNotify(SubsystemId);
 
 END:
 	return Status;
@@ -275,25 +221,17 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function triggers an ASU task notification.
- *
- * @param	Arg
+ * @brief	This function handles post-PLM update operations for OCP subsystem.
+ *		It generates CDI seed and sends event notification to ASUFW for PMC subsystem.
  *
  * @return
- *	- XST_SUCCESS, if the ASU task is triggered successfully.
+ *	- XST_SUCCESS, if post-PLM update operations are completed successfully.
  *	- XST_FAILURE, in case of failure.
  *
  *************************************************************************************************/
-static int XOcp_NotifyAsuTask(void *Arg)
+int XOcp_PostPlmUpdateNotify(void)
 {
-	XStatus Status = XST_FAILURE;
-
-	(void)Arg;
-
-	/** Notify ASUFW with the event mask stored in XOcpPlmAsufwEvent. */
-	Status = XOcp_NotifyAsu();
-
-	return Status;
+	return XOcp_GenerateCdiAndNotify(XOCP_PMC_SUBSYSTEM_ID);
 }
 
 /*************************************************************************************************/
@@ -357,6 +295,67 @@ int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr)
 			     (const void *)(UINTPTR)SubsystemHash,
 			     XOCP_SHA3_LEN_IN_BYTES,
 			     XOCP_SHA3_LEN_IN_BYTES);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function provides an ASU event mask.
+ *
+ * @param	EventMask	ASU event mask.
+ *
+ *************************************************************************************************/
+void XOcp_GetOcpEventMask(u32 *EventMask)
+{
+	*EventMask = OcpEventMask;
+	OcpEventMask = 0U;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates CDI seed and sends event notification to ASUFW.
+ *		For ASU subsystem, it generates CDI seed and copies device DNA.
+ *		For all subsystems, it sends event notification if ASUFW is ready.
+ *
+ * @param	SubsystemId	Subsystem ID.
+ *
+ * @return
+ *	- XST_SUCCESS, if CDI generation and notification is completed successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static int XOcp_GenerateCdiAndNotify(u32 SubsystemId)
+{
+	volatile int Status = XST_FAILURE;
+	u8 ActionId = 0U;
+	const u32 *OcpActiveSubsysMask = XOcp_OcpActiveSubsysMask();
+
+	/** For ASU subsystem, generate ASU CDI seed and copy device DNA. */
+	if ((SubsystemId == XOCP_ASU_SUBSYSTEM_ID) || (SubsystemId == XOCP_PMC_SUBSYSTEM_ID)) {
+		if (((OcpEventMask & XOCP_PLM_ASUFW_EVENT_MASK) == XOCP_PLM_ASUFW_EVENT_MASK) ||
+		    (SubsystemId == XOCP_PMC_SUBSYSTEM_ID)) {
+			Status = XOcp_GenerateAsuCdiSeed();
+			if (XST_SUCCESS != Status) {
+				goto END;
+			}
+		}
+		OcpEventMask = *OcpActiveSubsysMask;
+	}
+
+	/** Send event notification if error action is CUSTOM. */
+	Status = XPlmi_EmGetAction(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+				   XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE, &ActionId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	if (ActionId == XPLMI_EM_ACTION_CUSTOM) {
+		XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+				    XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE);
+	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -434,7 +433,7 @@ END:
  *	- XST_SUCCESS, if ASU CDI is copied successfully.
  *	- XST_FAILURE, in case of failure.
  *
- **************************************************************************************************/
+ *************************************************************************************************/
 int XOcp_GetAsuCdiSeed(u32 CdiAddr)
 {
 	volatile int Status = XST_FAILURE;
@@ -458,7 +457,11 @@ int XOcp_GetAsuCdiSeed(u32 CdiAddr)
  *************************************************************************************************/
 static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void)
 {
-	static XOcp_SubsysInfo OcpSubsysInfo[XOCP_ASUFW_MAX_SUBSYS_SUPPORT] = {0U};
+	static XOcp_SubsysInfo OcpSubsysInfo[XOCP_ASUFW_MAX_SUBSYS_SUPPORT] __attribute__ ((aligned(4U))) = {0U};
+
+	EXPORT_OCP_DS(OcpSubsysInfo, XOCP_OCP_SUBSYSTEM_INFO_DS_ID,
+		      XOCP_SUBSYS_INFO_VERSION, XOCP_SUBSYS_INFO_LCVERSION,
+		      sizeof(OcpSubsysInfo), (u32)(UINTPTR)&OcpSubsysInfo[0]);
 
 	return &OcpSubsysInfo[0];
 }

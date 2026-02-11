@@ -57,6 +57,9 @@ extern "C" {
 #define XOCP_SWPCR_CONFIG_DS_ID			(2U)	/**< SW PCR config data structure ID */
 #define XOCP_SWPCR_STORE_DS_ID			(3U)	/**< SW PCR store data structure ID */
 #define XOCP_HWPCR_LOG_DS_ID			(4U)	/**< HW PCR log data structure ID */
+#define XOCP_ACTIVE_SUBSYS_MASK_DS_ID		(5U)	/**< Active OCP subsystem mask data
+							structure ID */
+#define XOCP_OCP_SUBSYSTEM_INFO_DS_ID		(6U)	/**< OCP subsystem info data structure ID */
 
 #define XOCP_CDI_SIZE_IN_BYTES			(48U)	/**< CDI size in bytes */
 #define XOCP_CDI_SIZE_IN_WORDS			(12U)	/**< CDI size in words */

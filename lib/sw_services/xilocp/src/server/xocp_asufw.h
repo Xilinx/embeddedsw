@@ -87,6 +87,8 @@ int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr);
 int XOcp_GetAsuCdiSeed(u32 CdiAddr);
 int XOcp_NotifyAsu(void);
 u8 XOcp_IsOcpSubsystem(u32 SubsystemId);
+void XOcp_GetOcpEventMask(u32 *EventMask);
+int XOcp_PostPlmUpdateNotify(void);
 
 /********************************** Variable Definitions *****************************************/
 

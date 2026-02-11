@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +43,8 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	int (* const InitiateKeyXfer)(void),
 	int (* const GetAsuCdiSeed)(u32 CdiAddr),
 	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr),
-	u32 (* const GetKEKIvAddr)(void));
+	u32 (* const GetKEKIvAddr)(void),
+	void (* const GetOcpEventMask)(u32 *EventMask));
 
 /************************** Variable Definitions *****************************/
 

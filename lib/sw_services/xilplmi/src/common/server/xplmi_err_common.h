@@ -265,6 +265,7 @@ int XPlmi_ErrorTaskHandler(void *Data);
 void __attribute__((noreturn)) XPlmi_SoftResetHandler(void);
 void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
+int XPlmi_EmGetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 *ActionIdPtr);
 
 #ifndef VERSAL_2VE_2VM
 void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);

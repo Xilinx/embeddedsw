@@ -212,10 +212,11 @@ int XPlm_ModuleInit(void *Arg)
 #ifdef VERSAL_2VE_2VM
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer,
-			    XOcp_GetAsuCdiSeed, XOcp_GetSubsysDigest, XLoader_GetBootHeaderIvAddr);
+			    XOcp_GetAsuCdiSeed, XOcp_GetSubsysDigest, XLoader_GetBootHeaderIvAddr,
+			    XOcp_GetOcpEventMask);
 #else
 	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer,
-			    NULL, NULL, XLoader_GetBootHeaderIvAddr);
+			    NULL, NULL, XLoader_GetBootHeaderIvAddr, NULL);
 #endif
 #endif
 
