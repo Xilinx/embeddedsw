@@ -31,6 +31,7 @@
  * 5.2   Nava   02/14/20  Removed unwanted header file inclusion.
  * 5.3   Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
  * 6.9   Arvd   08/12/25  Fixed GCC warning
+ * 6.10  Arvd   02/11/26  Fixed Doxygen warnings
  *</pre>
  ******************************************************************************/
 
@@ -40,7 +41,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * Mask For IDCODE
  */
 #define IDCODE_MASK   0x0FFFFFFF
@@ -59,8 +60,6 @@ static int Xfpga_RegReadExample(XFpga *InstancePtr);
 /**
  *
  * Main function to call the Xfpga Reg Read example.
- *
- * @param	None.
  *
  * @return
  *		- XST_SUCCESS if successful

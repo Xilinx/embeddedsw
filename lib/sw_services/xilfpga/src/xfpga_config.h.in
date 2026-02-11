@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef _XFPGA_CONFIG_H
+/** Header guard for xfpga_config.h */
 #define _XFPGA_CONFIG_H
 
 #include <xilfpga.h>
@@ -10,15 +11,25 @@
 @PCAP_COMMON_INCLUDE@
 @VERSAL_INCLUDE@
 
+/** On-Chip Memory address */
 #cmakedefine XFPGA_OCM_ADDRESS	@XFPGA_OCM_ADDRESS@U
+/** Base address for FPGA operations */
 #cmakedefine XFPGA_BASE_ADDRESS	@XFPGA_BASE_ADDRESS@U
+/** Enable secure mode */
 #cmakedefine XFPGA_SECURE_MODE	@XFPGA_SECURE_MODE@
 #cmakedefine01 XFPGA_DEBUG	@XFPGA_DEBUG@
+/** Enable secure readback mode */
 #cmakedefine XFPGA_SECURE_READBACK_MODE @XFPGA_SECURE_READBACK_MODE@
+/** Enable secure IPI mode */
 #cmakedefine XFPGA_SECURE_IPI_MODE_EN @XFPGA_SECURE_IPI_MODE_EN@
+/** Read configuration register */
 #cmakedefine XFPGA_READ_CONFIG_REG @XFPGA_READ_CONFIG_REG@
+/** Read configuration data */
 #cmakedefine XFPGA_READ_CONFIG_DATA @XFPGA_READ_CONFIG_DATA@
+/** Get version information */
 #cmakedefine XFPGA_GET_VERSION_INFO @XFPGA_GET_VERSION_INFO@
+/** Get feature list */
 #cmakedefine XFPGA_GET_FEATURE_LIST @XFPGA_GET_FEATURE_LIST@
+/** Skip eFUSE check */
 #cmakedefine XFPGA_SKIP_EFUSE_CHECK @XFPGA_SKIP_EFUSE_CHECK@
 #endif /* XFPGA_CONFIG_H */

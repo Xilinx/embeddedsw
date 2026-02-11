@@ -10,13 +10,12 @@
  * @file xilfpga_pcap.h
  *
  * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
- *
+ * @{
  *
  * The XILFPGA library provides the interface to the application to configure
  * the programmable logic (PL) though the PS.
  *
- * @{
- * @details
+ * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who    Date        Changes
@@ -71,6 +70,7 @@
  * 6.0   Nava   02/22/21 Fixed doxygen issues.
  * 6.3   Nava   08/05/22 Added doxygen tags.
  * 6.10  Arvd   02/04/26 Fixed codespell errors
+ * 6.10  Arvd   02/11/26 Fixed Doxygen warnings
  * </pre>
  *
  * @note

@@ -10,10 +10,7 @@
  * @file xilfpga_pcap_common.h
  *
  * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
- *
  * @{
- * @details
- *
  *
  * The XILFPGA library provides the interface to the application to configure
  * the programmable logic (PL) though the PS.
@@ -46,7 +43,6 @@
  * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
  * and load the Bitstream.
  *
- * @{
  * @cond xilfpga_internal
  * <pre>
  * MODIFICATION HISTORY:
@@ -64,7 +60,9 @@
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
  * 6.3  Nava  08/05/22  Added doxygen tags.
+ * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * </pre>
+ * @endcond
  *
  * @note
  *

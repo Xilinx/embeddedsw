@@ -10,7 +10,6 @@
  * @file xilfpga_versal.h
  * @addtogroup xilfpga_versal XilFPGA APIs for Versal Adaptive SoCs
  * @{
- * @details
  *
  * <pre>
  * The XILFPGA library for AMD Versal Adaptive SoCs provides the interface to the application to
@@ -54,6 +53,7 @@
  * 6.3  Nava 08/05/22  Added doxygen tags.
  * 6.5  Nava 08/18/23  Resolved the doxygen issues.
  * 6.6  AC	 04/04/24  Resolved the doxygen issues.
+ * 6.10 Arvd 02/11/26  Fixed Doxygen warnings.
  * </pre>
  *
  *

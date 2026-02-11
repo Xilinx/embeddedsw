@@ -9,12 +9,9 @@
  *
  * @file xilfpga.c
  * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- * This file contains the definitions of Bitstream loading functions.
- *
  * @{
- * @details
  *
- *
+ * This file contains the definitions of Bitstream loading functions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -77,6 +74,7 @@
  * 6.5 Nava   09/04/23  Added proper ifdef platform checks for user-accessible APIs.
  * 6.6 Nava   10/20/23  Added proper validations checks for input parameters.
  * 6.10 Arvd  02/04/26  Fixed codespell errors
+ * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -96,8 +94,6 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 /* @endcond */
 /************************** Variable Definitions *****************************/
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /**The API is used to load the bitstream file into the PL region.
  * It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and
  * Bootgen-generated bitstream (*.bin) loading, Passing valid
@@ -203,8 +199,6 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /**
  * This function is used to validate the bitstream image.
  *
@@ -274,8 +268,6 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /**This function prepares the FPGA to receive configuration data.
  *
  * @param InstancePtr is the pointer to the XFpga.
@@ -308,8 +300,6 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /**This function writes the count bytes of configuration data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure
@@ -378,8 +368,6 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /*****************************************************************************/
 /** This function sets the FPGA to the operating state after writing.
  *
@@ -415,8 +403,6 @@ END:
 }
 
 #ifndef versal
-/** @addtogroup xilfpga_zynqMP XilFPGA APIs for Zynq UltraScale+ MPSoC
- @{ */
 /*****************************************************************************/
 /**
  * This function provides functionality to read back the PL configuration data
@@ -462,8 +448,6 @@ END:
 	return Status;
 }
 
-/** @addtogroup xilfpga_zynqMP XilFPGA APIs for Zynq UltraScale+ MPSoC
- @{ */
 /*****************************************************************************/
 /**
  * This function provides PL specific configuration register values
@@ -523,8 +507,6 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 END:
 	return Status;
 }
-/** @addtogroup xilfpga_zynqMP XilFPGA APIs for Zynq UltraScale+ MPSoC
- @{ */
 /*****************************************************************************/
 /** This function provides the status of the PL programming interface
  *
@@ -559,8 +541,6 @@ END:
 #endif
 
 #ifdef XFPGA_GET_VERSION_INFO
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /** This function is used to read xilfpga library version info.
  *
  * @param Version xilfpga library version to read
@@ -590,8 +570,6 @@ END:
 #endif
 
 #ifdef XFPGA_GET_FEATURE_LIST
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- @{ */
 /**
  * This function is used to Get xilfpga component supported feature list
  *

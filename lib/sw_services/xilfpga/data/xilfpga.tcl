@@ -46,12 +46,15 @@
 # 6.2  Nava   01/19/22  Added build time flag to skip eFUSE checks.
 # 6.4  Nava   01/23/22  Added Versalnet support.
 # 6.10 Arvd   02/04/26  Fixed codespell errors
+# 6.10 Arvd   02/11/26  Fixed Doxygen warnings
 #
 ##############################################################################
 
 #---------------------------------------------
 # fpga_drc
 #---------------------------------------------
+## Perform design rule checks for xilfpga library
+# @param libhandle Library handle
 proc fpga_drc {libhandle} {
 	# check processor type
 	set proc_instance [hsi::get_sw_processor];
@@ -61,6 +64,9 @@ proc fpga_drc {libhandle} {
 
 }
 
+## Open include file for appending
+# @param file_name Name of the include file to open
+# @return File handle for the opened include file
 proc xfpga_open_include_file {file_name} {
     set filename [file join "../../include/" $file_name]
     if {[file exists $filename]} {
@@ -72,6 +78,8 @@ proc xfpga_open_include_file {file_name} {
     return $config_inc
 }
 
+## Generate xilfpga library configuration files
+# @param lib_handle Library handle
 proc generate {lib_handle} {
 
     file copy "src/xilfpga.h"  "../../include/xilfpga.h"

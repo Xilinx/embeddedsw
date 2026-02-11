@@ -10,11 +10,9 @@
  * @file xilfpga_pcap.c
  *
  * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
- * This file contains the definitions of bitstream loading functions.
- *
  * @{
- * @details
  *
+ * This file contains the definitions of bitstream loading functions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -136,6 +134,7 @@
  *                     XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
  *                     uninitialized PartitionHdr structure.
  * 6.10 Arvd 02/04/26  Fixed codespell errors
+ * 6.10 Arvd 02/11/26  Fixed Doxygen warnings
  * </pre>
  *
  * @note
@@ -2583,7 +2582,7 @@ static u32 XFpga_GetFirmwareState(void)
  *
  * @param Buf  Linear memory image base address
  * @param Size Size of the Bitstream Image(Number of bytes).
- * @Param Pos Bitstream First Dummy Word position.
+ * @param Pos Bitstream First Dummy Word position.
  *
  * @return
  *	- XFPGA_SUCCESS if successful

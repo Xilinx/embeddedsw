@@ -57,6 +57,7 @@
  * 6.9   Arvd    08/12/25  Fixed GCC warning
  *       tvp     12/11/25  Add procedure to link and compile the example
  * 6.10  Arvd    02/04/26  Fixed codespell errors
+ * 6.10  Arvd    02/11/26  Fixed Doxygen warnings
  * </pre>
  *
  ******************************************************************************/
@@ -75,12 +76,20 @@
  */
 
 /* For Versal platform Passing the below definition is Optional */
-#define BITSTREAM_SIZE 0x1A00000U /* Bin or bit or PDI image size */
+/** Bin or bit or PDI image size */
+#define BITSTREAM_SIZE 0x1A00000U
 #ifdef versal
 #define PDI_LOAD        0U
 #endif
 
 /*****************************************************************************/
+/**
+ * @brief Main function to load bitstream
+ *
+ * This function demonstrates loading a bitstream from DDR into the PL
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE otherwise
+ */
 int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;

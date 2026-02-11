@@ -8,10 +8,10 @@
 /**
  *
  * @file xilfpga.h
- * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
- *
+ * @mainpage XilFPGA Library
  * @{
- * @details
+ *
+ * XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  *
  * <pre>
  * Xilfpga Error format:
@@ -89,6 +89,7 @@
  * 6.5  Nava  09/04/23  Added proper ifdef platform checks for user-accessible APIs.
  * 6.6  AC	  04/04/24  Resolved the doxygen issues.
  * 6.10 Arvd  02/04/26  Fixed codespell errors
+ * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * </pre>
  *
  *
@@ -244,7 +245,7 @@ u32 XFpga_GetFeatureList(XFpga *InstancePtr, u32 *FeatureList);
 u32 XFpga_GetVersion(u32 *Version);
 #endif
 
-u32 XFpga_Initialize(XFpga *InstancePtr); /* This API, when called, initializes the XFPGA interface with default settings.*/
+u32 XFpga_Initialize(XFpga *InstancePtr);
 u32 XFpga_ValidateImage(XFpga *InstancePtr,
 			UINTPTR BitstreamImageAddr,
 			UINTPTR KeyAddr, u32 Size, u32 Flags);

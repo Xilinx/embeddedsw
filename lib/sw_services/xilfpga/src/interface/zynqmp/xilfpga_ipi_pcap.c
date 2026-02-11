@@ -8,12 +8,10 @@
 /**
  *
  * @file xilfpga_ipi_pcap.c
+ * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
+ * @{
  *
  * This file contains the definitions of bitstream loading functions.
- *
- * @{
- * @details
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -44,6 +42,7 @@
  *                      lib functions with Xilinx maintained functions.
  * 6.3  Nava  08/05/22  Added doxygen tags.
  * 6.5 Nava   08/18/23  Resolved the doxygen issues.
+ * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * </pre>
  *
  * @note

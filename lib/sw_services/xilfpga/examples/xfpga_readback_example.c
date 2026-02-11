@@ -29,6 +29,7 @@
  * 5.2   Nava 02/14/20 Removed unwanted header file inclusion.
  * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
  * 6.9   Arvd 08/12/25 Fixed GCC warning
+ * 6.10  Arvd 02/11/26 Fixed Doxygen warnings
  *</pre>
  ******************************************************************************/
 
@@ -42,14 +43,21 @@
  * IDCODE -- 0x484A093 DeviceId -- XCKU9P.
  * For more details refer ug570 Table 1-4.
  */
+/** Total number of frames */
 #define FRAMES		71261
+/** Number of words per frame */
 #define WORDS_PER_FRAME 93
+/** Number of pad frames */
 #define PAD_FRAMES	25
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 static int XFpga_ReadExample(XFpga *InstancePtr);
+/**
+ * @brief Print bitstream data
+ * @param NumFrames Number of frames to print
+ */
 void PrintBitStream(u32 NumFrames);
 /************************** Variable Definitions *****************************/
 u32 readback_buffer[WORDS_PER_FRAME*FRAMES + PAD_FRAMES];
@@ -59,8 +67,6 @@ u32 readback_buffer[WORDS_PER_FRAME*FRAMES + PAD_FRAMES];
  *
  * Main function to call the XFpga Read example.
  * This example performs the read back of PL configuration data frames.
- *
- * @param	None.
  *
  * @return
  *		- XST_SUCCESS if successful
@@ -102,7 +108,7 @@ int main(void)
  *
  * This function reads the fpga configuration data.
  *
- * @param	DeviceId is the unique device id of the device.
+ * @param	InstancePtr is a pointer to the XFpga instance.
  *
  * @return
  *		- XST_SUCCESS if successful

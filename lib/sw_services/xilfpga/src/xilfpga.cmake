@@ -16,6 +16,7 @@ SET(XILFPGA_ocm_address 0xfffc0000 CACHE STRING "OCM Address which is used for B
 SET(XILFPGA_base_address 0x80000 CACHE STRING "Bitstream Image Base Address")
 
 set(zynqmp_secure_env 0)
+## Configure platform-specific includes based on machine type
 if (("${CMAKE_MACHINE}" STREQUAL "Versal") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
     set(VERSAL_INCLUDE "#include <xilfpga_versal.h>")
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")

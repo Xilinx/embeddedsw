@@ -8,13 +8,11 @@
 /**
  *
  * @file xilfpga_versal.c
- *
  * @addtogroup xilfpga_versal XilFPGA APIs for Versal Adaptive SoCs
+ * @{
  *
  * This file contains the definitions of bitstream loading functions.
  *
- * @{
- * @details
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -49,6 +47,7 @@
  *                      pointer validation checks.
  * 6.5  Nava  08/18/23  Resolved the doxygen issues.
  * 6.6  Nava  10/20/23  Removed unwanted branching statements.
+ * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * </pre>
  *
  * @note
