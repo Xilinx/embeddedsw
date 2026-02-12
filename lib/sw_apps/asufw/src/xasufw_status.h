@@ -696,6 +696,13 @@ enum {
 	XASUFW_REGISTER_NOTIFIER_READ_IPI_FAILED, /**< 0x1F3U - Error when reading IPI response
 							for register notifier fails */
 
+	XASUFW_AES_GHASHCAL_FAILED, /**< 0x1F4U - Error while calculating GHASH. */
+	XASUFW_AES_WRITE_WITH_ENDIAN_SWAP_FAIL, /**< 0x1F5U - Error when writing data with endian swap fail. */
+	XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, /**< 0x1F6U - When wait for done timed out */
+	XASUFW_AES_READ_TAG_FAIL, /**< 0x1F7U - Error when reading AES tag fails. */
+	XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, /**< 0x1F8U - Error when finalizing AAD update fails. */
+	XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, /**< 0x1F9U - Error when configuring SSS with DMA and transfering data fails. */
+
 	/* Additional status success codes */
 	XASUFW_LMS_SIGNATURE_VERIFIED = 0x3F8, /**< 0x3F8U - LMS signature verification is successful */
 	XASUFW_RSA_ECDH_SUCCESS, /**< 0x3F9U - RSA ECDH operation is successful */
