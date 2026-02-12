@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,8 +20,9 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.00  sd  06/10/22 First release
-* 1.4   gm  10/07/24 Added macros for reading write and read fifo leves,
+* 1.4   gm  10/07/24 Added macros for reading write and read fifo levels,
 * 		     enable and disable interrupts, and register offset.
+* 1.7   vlt 01/27/26 Fixed codespell issues.
 *
 * </pre>
 *
