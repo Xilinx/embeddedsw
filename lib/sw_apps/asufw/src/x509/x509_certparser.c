@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -723,13 +723,19 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u16 Tmp;
 	u8 ZeroTimeOffset;
+	u32 Value = 0U;
 
 	/**
 	 * Convert year from ASCII to integer. Year length can be 2 according to UTC time format or
 	 * 4 according GENERALIZED time format in digits.
 	 */
-	DateTime->Year = (u16)XAsufw_AsciiToInt(
-			  &X509_CertInstance.Buf[X509_CertInstance.Offset], YearLen);
+	Status = XAsufw_AsciiToInt(
+			  &X509_CertInstance.Buf[X509_CertInstance.Offset], YearLen, &Value);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR;
+		goto END;
+	}
+	DateTime->Year = (u16)Value;
 
 	if (YearLen == X509_ASN1_YEAR_LEN_UTC_BYTES) {
 		Tmp = (DateTime->Year < X509_ASN1_THRESHOLD_YEARS) ?
@@ -737,6 +743,7 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 		DateTime->Year += Tmp;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(YearLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
@@ -744,8 +751,15 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 	}
 
 	/** Convert month, day, hour, min and sec from ASCII to integer. */
-	DateTime->Month = (u8)XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
-						X509_ASN1_TIME_SEGMENT_LEN);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
+						X509_ASN1_TIME_SEGMENT_LEN, &Value);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR;
+		goto END;
+	}
+	DateTime->Month = (u8)Value;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(X509_ASN1_TIME_SEGMENT_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -753,8 +767,15 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 		goto END;
 	}
 
-	DateTime->Day = (u8)XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
-					      X509_ASN1_TIME_SEGMENT_LEN);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
+					      X509_ASN1_TIME_SEGMENT_LEN, &Value);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR;
+		goto END;
+	}
+	DateTime->Day = (u8)Value;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(X509_ASN1_TIME_SEGMENT_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -762,8 +783,15 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 		goto END;
 	}
 
-	DateTime->Hour = (u8)XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
-					       X509_ASN1_TIME_SEGMENT_LEN);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
+					       X509_ASN1_TIME_SEGMENT_LEN, &Value);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR;
+		goto END;
+	}
+	DateTime->Hour = (u8)Value;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(X509_ASN1_TIME_SEGMENT_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -771,8 +799,15 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 		goto END;
 	}
 
-	DateTime->Min = (u8)XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
-					      X509_ASN1_TIME_SEGMENT_LEN);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
+					      X509_ASN1_TIME_SEGMENT_LEN, &Value);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR;
+		goto END;
+	}
+	DateTime->Min = (u8)Value;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(X509_ASN1_TIME_SEGMENT_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -780,8 +815,15 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 		goto END;
 	}
 
-	DateTime->Sec = (u8)XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
-					      X509_ASN1_TIME_SEGMENT_LEN);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_AsciiToInt(&X509_CertInstance.Buf[X509_CertInstance.Offset],
+					      X509_ASN1_TIME_SEGMENT_LEN, &Value);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR;
+		goto END;
+	}
+	DateTime->Sec = (u8)Value;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(X509_ASN1_TIME_SEGMENT_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -802,6 +844,7 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime)
 	}
 
 	/** Validate date and time. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_ValidateTimeAndDate(DateTime);
 
 END:

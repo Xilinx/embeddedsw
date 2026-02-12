@@ -193,7 +193,7 @@ s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
         u32 NumOfWords);
-u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len);
+s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value);
 u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes);
 
 /************************************ Variable Definitions ***************************************/

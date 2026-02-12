@@ -60,6 +60,9 @@
 #define XASUFW_ENDIANNESS_SWAP_OFFSET			(1U) /**< Position offset for swapping */
 #define XASUFW_ENDIANNESS_SWAP_MIN_LENGTH		(2U) /**< Minimum length to make a swap */
 
+#define XASUFW_MAX_ASCII_TO_INT_LEN	(9U) /**< Max ASCII digits for u32 conversion */
+#define XASUFW_ASCII_TO_INT_BASE	(10U) /**< Decimal base for ASCII to integer conversion */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -265,25 +268,42 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
  *
  * @param	Buf	Pointer to Data buffer.
  * @param	Len	Length of ascii value.
+ * @param	Value	Pointer to variable where converted integer value will be stored.
  *
  * @return
- *	- ASCII to integer converted value.
+ *	- XASUFW_SUCCESS, if ASCII to integer conversion is successful.
+ *	- XASUFW_FAILURE, if ASCII to integer conversion fails.
  *
  *************************************************************************************************/
-u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len)
+s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value)
 {
-	u32 Val = 0U;
+	s32 Status = XASUFW_FAILURE;
 	u32 Idx = 0U;
 	u32 LenTmp = Len;
 
+	/* Initialize output value to zero before conversion. */
+	*Value = 0U;
+
+	/* Limit length to max 9 digits to support 999,999,999. */
+	if (Len > XASUFW_MAX_ASCII_TO_INT_LEN) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Convert ASCII value to integer. */
 	while (LenTmp != 0U) {
-		Val = ((Val * 10U) + (Buf[Idx] - (u8)'0'));
+		if ((Buf[Idx] < (u8)'0') || (Buf[Idx] > (u8)'9')) {
+			*Value = 0U;
+			goto END;
+		}
+		*Value = (((*Value) * XASUFW_ASCII_TO_INT_BASE) + (Buf[Idx] - (u8)'0'));
 		Idx++;
 		LenTmp--;
 	}
 
-	return Val;
+	Status = XASUFW_SUCCESS;
+END:
+	return Status;
 }
 
 /*************************************************************************************************/

@@ -456,7 +456,7 @@ enum {
 							failed */
 	XASUFW_X509_UNSUPPORTED_CURVE_TYPE, /**< 0x138U - Error when curve type is unsupported */
 	XASUFW_X509_UNSUPPORTED_SIGN_TYPE, /**< 0x139U - Error when signature type in unsupported */
-	RESERVED0, /**< 0x13AU - Reserved */
+	XASUFW_X509_PARSER_ASCII_TO_INT_CONV_ERROR, /**< 0x13AU - Error when ASCII to integer conversion failed during x509 parsing */
 	XASUFW_X509_GEN_SIGN_ECC_FAIL, /**< 0x13BU - Error when ECC key generation is failed */
 	XASUFW_X509_SHA_DIGEST_FAIL, /**< 0x13CU - Error when SHA digest calculation is failed */
 	XASUFW_X509_DMA_RELEASE_FAIL, /**< 0x13DU - Error when DMA release is failed */
