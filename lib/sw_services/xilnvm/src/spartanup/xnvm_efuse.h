@@ -31,6 +31,7 @@
 *       mb   10/04/2025 PPKs updates for SPARTANUPLUSAES1
 *       mb   10/14/2025 Update logic for programming Revoke ID's
 *       mb   11/11/2025 Add support for JTAG Boot mode disable efuse programming
+* 3.7   mb   02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
 *
 * </pre>
 *
@@ -190,37 +191,40 @@ typedef struct {
 	u32 SkipVerify; /**< Flag to check if eFuse bit should be verified after programming */
 } XNvm_EfusePrgmInfo;
 
+/**
+ * @brief eFuse IV type
+ */
 typedef enum {
 	XNVM_EFUSE_AES_IV_RANGE, /**< IV range */
 	XNVM_EFUSE_BLACK_IV /**< Black IV */
 } XNvm_EfuseIvType;
 
 /**
- * @{ eFuse control bits
+ * @brief eFuse security control bits
+ *
+ * This structure defines security control bits for eFuse programming and reading
  */
-/**< This structure defines Security control bits*/
-
 typedef struct {
 	u8 HashPufOrKey; /**< Flag to read or program hash of PUF syndrome data or PPK */
 	u8 RmaDis; /**< Flag to read or program RMA disable */
 	u8 RmaEn; /**< Flag to read or program RMA enable */
-	u8 CrcEn; /**< Flag to read or program CRC enable */
 	u8 DftDis; /**< Flag to read or program DFT disable */
 	u8 Lckdwn; /**< Flag to read or program lockdown enable */
 	u8 PufTes2Dis; /**< Flag to read or program PUF test2 disable */
-	u8 Ppk0Invld; /**< Flag to read or program PPK0 invalid */
-	u8 Ppk2Invld; /**< Flag to read or program PPK2 invalid */
 	u8 AesRdlk; /**< Flag to read or program AES read lock */
-	u8 Ppk0lck; /**< Flag to read or program PPK0 read/write lock */
-	u8 Ppk2lck; /**< Flag to read or program PPK2 read/write lock */
 	u8 JtagDis; /**< Flag to read or program JTAG disable */
 	u8 AesDis; /**< Flag to read or program AES disable */
-#ifndef SPARTANUPLUSAES1
+	u8 Ppk0lck; /**< Flag to read or program PPK0 read/write lock */
+	u8 Ppk0Invld; /**< Flag to read or program PPK0 invalid */
 	u8 Ppk1lck; /**< Flag to read or program PPK1 read/write lock */
 	u8 Ppk1Invld; /**< Flag to read or program PPK1 invalid */
+#ifndef SPARTANUPLUSAES1
+	u8 Ppk2lck; /**< Flag to read or program PPK2 read/write lock */
+	u8 Ppk2Invld; /**< Flag to read or program PPK2 invalid */
 #endif
 	u8 UserWrlk; /**< Flag to read or program user efuse write lock */
 	u8 JtagErrDis; /**< Flag to read or program JTAG error out disable */
+	u8 CrcEn; /**< Flag to read or program CRC enable */
 	u8 CrcRmaDis; /**< Flag to read or program RMA disable using CRC */
 	u8 CrcRmaEn; /**< Flag to read or program RMA enable using CRC */
 } XNvm_EfuseSecCtrlBits;
@@ -379,7 +383,7 @@ enum {
 	XNVM_EFUSE_ERR_RSVD_1 = 0x80,  /**< 0x80 - RSVD error */
 	XNVM_EFUSE_ERR_DEC_ONLY_HASH_OR_PUF_KEY_MUST_BE_PRGMD = 0x90, /**< 0x90 - Error hash or puf key must be programmed */
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xA0,  /**< 0xA0 - Error bit can't revert */
-	XNVM_EFUSE_ERR_FUSE_PROTECTED = 0xF0, /**< 0xA0 - Error fuse protected */
+	XNVM_EFUSE_ERR_FUSE_PROTECTED = 0xF0, /**< 0xF0 - Error fuse protected */
 	XNVM_EFUSE_ERR_WRITE_AES_KEY = 0x8000, /**< 0x8000 - Error write AES key */
 	XNVM_EFUSE_ERR_WRITE_PPK0_HASH = 0x8100, /**< 0x8100 - Error write PPK0 hash */
 	XNVM_EFUSE_ERR_WRITE_PPK1_HASH = 0x8200, /**< 0x8200 - Error write PPK1 hash */
@@ -426,7 +430,6 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_DIS_SJTAG = 0xAB00, /**< 0xAB00 - Error write DIS_SJTAG detected */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY = 0xD000, /**< 0xD000 - Error Invalid Clock Frequency */
-	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
 	XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS = 0xB000, /**< 0xB000 - Error read Boot mode disable bits from cache */
 	XNVM_EFUSE_ERR_WRITE_QSPI24_BOOT_MODE_DIS = 0xB100, /**< 0xB100 - Error write QSPI24 Boot mode disable */
 	XNVM_EFUSE_ERR_WRITE_QSPI32_BOOT_MODE_DIS = 0xB200, /**< 0xB200 - Error write QSPI32 Boot mode disable */
@@ -437,6 +440,7 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_1 = 0xB700, /**< 0xB700 - Error write rma disable1 */
 	XNVM_EFUSE_ERR_WRITE_LCK_DWN = 0xB800, /**< 0xB800 - Error write lock down */
 	XNVM_EFUSE_ERR_WRITE_JTAG_BOOT_MODE_DIS = 0xB900, /**< 0xB900 - Error write JTAG Boot mode disable */
+	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
 };
 
 /*************************** Function Prototypes ******************************/

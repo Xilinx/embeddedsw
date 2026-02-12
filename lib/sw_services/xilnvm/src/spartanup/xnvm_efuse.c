@@ -39,6 +39,7 @@
 *       mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
 *3.7    bha   01/23/2026 Add note in function documentation explaining validation
 *                        purpose for efuse PUF hash programming
+* 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
 *
 * </pre>
 *
@@ -453,15 +454,9 @@ static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *PpkHash)
 	/**
 	 * Check if the requested PPK1 hash is already programmed
 	 * and check PPK1 write lock bit is set.
-	 * PPK2_WR_LK bit should be checked before programming PPK1 HASH into efuses on SPARTANUPLUSAES1,
-	 * PPK1_WR_LK bit should be checked before programming PPK1 HASH into efuses on SPARTANUPLUS.
 	 */
 	if (PpkHash->PrgmPpk1Hash == (u8)TRUE) {
-#ifndef SPARTANUPLUSAES1
 		if (ReadSecCtrlBits.Ppk1lck == (u8)TRUE) {
-#else
-		if (ReadSecCtrlBits.Ppk2lck == (u8)TRUE) {
-#endif
 			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
 				  XNVM_EFUSE_ERR_WRITE_PPK1_HASH);
 			goto END;
@@ -1144,7 +1139,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	    ((BootModeDisVal & XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK))
 	{
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_60,
-				      XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL_15, FALSE);
+				      XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL, FALSE);
 
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_QSPI24_BOOT_MODE_DIS;
@@ -1160,7 +1155,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	    ((BootModeDisVal & XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK))
 	{
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
-				      XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL_8, FALSE);
+				      XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL, FALSE);
 
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_QSPI32_BOOT_MODE_DIS;
@@ -1176,7 +1171,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	    ((BootModeDisVal & XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK))
 	{
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
-				      XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL_9, FALSE);
+				      XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL, FALSE);
 
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_OSPI_BOOT_MODE_DIS;
@@ -1192,7 +1187,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	    ((BootModeDisVal & XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK))
 	{
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
-				      XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL_11, FALSE);
+				      XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL, FALSE);
 
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_JTAG_BOOT_MODE_DIS;
@@ -1208,7 +1203,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	    ((BootModeDisVal & XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK))
 	{
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
-				      XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL_12, FALSE);
+				      XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL, FALSE);
 
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_SMAP_BOOT_MODE_DIS;
@@ -1224,7 +1219,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 	    ((BootModeDisVal & XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK))
 	{
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
-				      XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL_13, FALSE);
+				      XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL, FALSE);
 
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_SERIAL_BOOT_MODE_DIS;
@@ -1336,11 +1331,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->AesDis == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_AES_DIS_MASK) != XNVM_EFUSE_SEC_CTRL_AES_DIS_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_AES_DIS_COL_30, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_AES_DIS_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_AES_DIS;
 				goto END;
@@ -1349,11 +1342,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->RmaDis == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_MASK) != XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL_3, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_0;
 				goto END;
@@ -1362,11 +1353,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->RmaEn == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_MASK) != XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL_4, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_RMA_ENABLE_0;
 				goto END;
@@ -1375,11 +1364,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->JtagDis == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_JTAG_DIS_MASK) != XNVM_EFUSE_SEC_CTRL_JTAG_DIS_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_JTAG_DIS_COL_29, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_JTAG_DIS_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_JTAG_DIS;
 				goto END;
@@ -1388,11 +1375,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->PufTes2Dis == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_MASK) != XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_COL_24, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS;
 				goto END;
@@ -1401,11 +1386,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->HashPufOrKey == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_MASK) != XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL_6, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_HASH_PUF_OR_KEY;
 				goto END;
@@ -1413,83 +1396,10 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->Ppk2lck == (u8)TRUE) {
-		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_COL_28, FALSE);
-
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK2_WR_LCK;
-				goto END;
-			}
-		}
-	}
-
-	if (SecCtrl->Ppk2Invld == (u8)TRUE) {
-
-		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK) != XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_0_COL_29, FALSE);
-
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_0;
-				goto END;
-			}
-		}
-
-		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK) != XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_1_COL_30, FALSE);
-
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_1;
-				goto END;
-			}
-		}
-	}
-#ifndef SPARTANUPLUSAES1
-	if (SecCtrl->Ppk1lck == (u8)TRUE) {
-
-		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL_27, FALSE);
-
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK1_WR_LCK;
-				goto END;
-			}
-		}
-	}
-
-	if (SecCtrl->Ppk1Invld == (u8)TRUE) {
-
-		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL_27, FALSE);
-
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_0;
-				goto END;
-		}
-	}
-
-		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL_28, FALSE);
-
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_1;
-				goto END;
-			}
-		}
-	}
-#endif
 	if (SecCtrl->Ppk0lck == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_COL_26, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK0_WR_LCK;
 				goto END;
@@ -1497,12 +1407,21 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->Ppk0Invld == (u8)TRUE) {
+	if (SecCtrl->Ppk1lck == (u8)TRUE) {
+		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
+				XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL, FALSE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK1_WR_LCK;
+				goto END;
+			}
+		}
+	}
 
+	if (SecCtrl->Ppk0Invld == (u8)TRUE) {
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_MASK) != XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_0_COL_25, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_0_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK0_INVLD_0;
 				goto END;
@@ -1511,8 +1430,7 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_MASK) != XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_1_COL_26, FALSE);
-
+				XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_1_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK0_INVLD_1;
 				goto END;
@@ -1520,11 +1438,62 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->AesRdlk == (u8)TRUE) {
+	if (SecCtrl->Ppk1Invld == (u8)TRUE) {
+		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
+				XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL, FALSE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_0;
+				goto END;
+			}
+		}
 
+		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK) != XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
+				XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL, FALSE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_1;
+				goto END;
+			}
+		}
+	}
+
+#ifndef SPARTANUPLUSAES1
+	if (SecCtrl->Ppk2lck == (u8)TRUE) {
+		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
+				XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_COL, FALSE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK2_WR_LCK;
+				goto END;
+			}
+		}
+	}
+
+	if (SecCtrl->Ppk2Invld == (u8)TRUE) {
+		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK) != XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
+				XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_0_COL, FALSE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_0;
+				goto END;
+			}
+		}
+
+		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK) != XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
+				XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_1_COL, FALSE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = Status | XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_1;
+				goto END;
+			}
+		}
+	}
+#endif
+	if (SecCtrl->AesRdlk == (u8)TRUE) {
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_MASK) != XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_MASK){
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_COL_24, FALSE);
+				XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_AES_RD_WR_LCK0;
 				goto END;
@@ -1533,7 +1502,7 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 
 	    if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_MASK) != XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_COL_25, FALSE);
+				XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_AES_RD_WR_LCK1;
 				goto END;
@@ -1542,10 +1511,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->JtagErrDis == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_MASK) != XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
-				XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL_14, FALSE);
+				XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL, FALSE);
 
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_JTAG_ERR_OUT_DIS;
@@ -1555,10 +1523,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->UserWrlk == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_USER_WR_LK_MASK) != XNVM_EFUSE_SEC_CTRL_USER_WR_LK_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
-				XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL_15, FALSE);
+				XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL, FALSE);
 
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_USER_WR_LK;
@@ -1573,10 +1540,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->CrcEn == (u8)TRUE) {
-
 		if((SecCtrlCrcVal & XNVM_EFUSE_SEC_CTRL_CRC_EN_MASK) != XNVM_EFUSE_SEC_CTRL_CRC_EN_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
-				XNVM_EFUSE_SEC_CTRL_CRC_EN_COL_24, FALSE);
+				XNVM_EFUSE_SEC_CTRL_CRC_EN_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_CRC_EN;
 				goto END;
@@ -1585,10 +1551,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->DftDis == (u8)TRUE) {
-
 		if ((SecCtrlCrcVal & XNVM_EFUSE_SEC_CTRL_DFT_DIS_0_MASK) != XNVM_EFUSE_SEC_CTRL_DFT_DIS_0_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
-				XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_0_COL_25, FALSE);
+				XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_0_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_DFT_DIS_0;
 				goto END;
@@ -1597,7 +1562,7 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 
 		if ((SecCtrlCrcVal & XNVM_EFUSE_SEC_CTRL_DFT_DIS_1_MASK) != XNVM_EFUSE_SEC_CTRL_DFT_DIS_1_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
-				XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_1_COL_26, FALSE);
+				XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_1_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_DFT_DIS_1;
 				goto END;
@@ -1606,10 +1571,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->Lckdwn == (u8)TRUE) {
-
 		if ((SecCtrlCrcVal & XNVM_EFUSE_SEC_CTRL_LCKDOWN_MASK) != XNVM_EFUSE_SEC_CTRL_LCKDOWN_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
-				XNVM_EFUSE_SEC_CTRL_LCKDOWN_COL_27, FALSE);
+				XNVM_EFUSE_SEC_CTRL_LCKDOWN_COL, FALSE);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_LCK_DWN;
 				goto END;
@@ -1618,10 +1582,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->CrcRmaDis == (u8)TRUE) {
-
 		if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_MASK) != XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
-				XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_COL_28, FALSE);
+				XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_COL, FALSE);
 
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_RMA_DISABLE_1;
@@ -1631,10 +1594,9 @@ static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	}
 
 	if (SecCtrl->CrcRmaEn == (u8)TRUE) {
-
 	    if ((SecCtrlVal & XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_MASK) != XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_MASK) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
-				XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_COL_29, FALSE);
+				XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_COL, FALSE);
 
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = Status | XNVM_EFUSE_ERR_WRITE_RMA_ENABLE_1;
@@ -2173,21 +2135,40 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
  * @param	SecCtrlBits - Pointer to XNvm_EfuseSecCtrlBits where secure control
  *                        bits are read.
  *
- * @note	PPK2 eFUSE Register Sharing:
- * 			The PPK2 eFUSE registers (Ppk2lck, Ppk2Invld) are shared between
- * 			PPK2 hash and PUF hash storage. The HashPufOrKey bit determines
- * 			which hash type is stored in these registers:
- * 			- When HashPufOrKey = 0: PPK2 registers contain PPK2 hash
- * 			- When HashPufOrKey = 1: PPK2 registers contain PUF hash
+ * @note	Device-specific behavior:
  *
- * 			When programming PUF hash:
- * 			- Ppk2Invld must be 0 (PPK2 register not invalidated)
- * 			- Ppk2lck must be 0 (PPK2 register not write-locked)
- * 			- PPK2 registers must not be already programmed
- * 			- HashPufOrKey must be set to 1 to indicate PUF hash usage
+ * 		**SPARTANUPLUS devices:**
+ * 		- Supports PPK0, PPK1, and PPK2 (three PPK hashes)
+ * 		- PPK hash size: 256 bits (32 bytes)
+ * 		- Reads Ppk2lck and Ppk2Invld bits for PPK2
+ * 		- PPK2 eFUSE registers are shared between PPK2 hash and PUF hash storage
+ * 		- The HashPufOrKey bit determines which hash type is stored:
+ * 		  * When HashPufOrKey = 0: PPK2 registers contain PPK2 hash
+ * 		  * When HashPufOrKey = 1: PPK2 registers contain PUF hash
+ * 		- When programming PUF hash:
+ * 		  * Ppk2Invld must be 0 (PPK2 register not invalidated)
+ * 		  * Ppk2lck must be 0 (PPK2 register not write-locked)
+ * 		  * PPK2 registers must not be already programmed
+ * 		  * HashPufOrKey must be set to 1 to indicate PUF hash usage
+ *
+ * 		**SPARTANUPLUSAES1 devices:**
+ * 		- Supports only PPK0 and PPK1 (two PPK hashes)
+ * 		- PPK hash size: 384 bits (48 bytes)
+ * 		- Ppk2lck and Ppk2Invld fields are not available
+ * 		- Reads Ppk1lck and Ppk1Invld bits for PPK1
+ * 		- PPK1 eFUSE registers are shared between PPK1 hash and PUF hash storage
+ * 		- The HashPufOrKey bit determines which hash type is stored:
+ * 		  * When HashPufOrKey = 0: PPK1 registers contain PPK1 hash
+ * 		  * When HashPufOrKey = 1: PPK1 registers contain PUF hash
+ * 		- When programming PUF hash:
+ * 		  * Ppk1Invld must be 0 (PPK1 register not invalidated)
+ * 		  * Ppk1lck must be 0 (PPK1 register not write-locked)
+ * 		  * PPK1 registers must not be already programmed
+ * 		  * HashPufOrKey must be set to 1 to indicate PUF hash usage
  *
  * @return
  * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid parameter.
  * 		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
@@ -2212,17 +2193,17 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 	SecCtrlBits->JtagDis = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_JTAG_DIS_SHIFT);
 	SecCtrlBits->PufTes2Dis = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_SHIFT);
 	SecCtrlBits->HashPufOrKey = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_SHIFT);
-	SecCtrlBits->Ppk2lck = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT);
-	SecCtrlBits->Ppk2Invld = (u8)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT) ||
-	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT));
-#ifndef SPARTANUPLUSAES1
-	SecCtrlBits->Ppk1lck = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT);
-	SecCtrlBits->Ppk1Invld = (u8)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT) ||
-	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT));
-#endif
 	SecCtrlBits->Ppk0lck = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_SHIFT);
 	SecCtrlBits->Ppk0Invld = (u8)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_SHIFT) ||
 	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT));
+	SecCtrlBits->Ppk1lck = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT);
+	SecCtrlBits->Ppk1Invld = (u8)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT) ||
+	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT));
+#ifndef SPARTANUPLUSAES1
+	SecCtrlBits->Ppk2lck = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT);
+	SecCtrlBits->Ppk2Invld = (u8)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT) ||
+	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT));
+#endif
 	SecCtrlBits->AesRdlk = (u8)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_SHIFT) ||
 	                             XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_SHIFT));
 	SecCtrlBits->JtagErrDis = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_SHIFT);

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +16,7 @@
 *------------------------------------------------------------------------------
 *
 *	Following has to be set for programming required keys/data
-*------------------------------------------------------------------------------
+*
 *	#define XNVM_EFUSE_WRITE_AES_KEY		FALSE
 *	TRUE will burn the AES key provided in XNVM_EFUSE_AES_KEY.
 *	FALSE will ignore the key provided in XNVM_EFUSE_AES_KEY.
@@ -204,6 +204,37 @@
 *	The number of revocation ID which needs to be programmed.
 *	The value should be between 0 and 95.
 *
+*	#define XNVM_EFUSE_XNVM_JTAG_DIS		FALSE
+*	TRUE will disable all JTAG instructions
+*
+*	#define XNVM_EFUSE_XNVM_PPK0_LK			FALSE
+*	TRUE permanently disables writing to PPK0 eFuse.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define XNVM_EFUSE_XNVM_PPK1_LK			FALSE
+*	TRUE permanently disables writing to PPK1 eFuse.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define XNVM_EFUSE_XNVM_PPK2_LK			FALSE
+*	TRUE permanently disables writing to PPK2 eFuse.
+*	FALSE will not modify this control bit of eFuse.
+*	NOTE: PPK2 read/write lock bits is not applicable
+*	for SPARTANUPLUSAES1 devices.
+*
+*	#define XNVM_EFUSE_XNVM_PPK0_INVLD		FALSE
+*	TRUE invalidates the PPK0 hash stored in eFuses.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define XNVM_EFUSE_XNVM_PPK1_INVLD		FALSE
+*	TRUE invalidates the PPK1 hash stored in eFuses.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define XNVM_EFUSE_XNVM_PPK2_INVLD		FALSE
+*	TRUE invalidates the PPK2 hash stored in eFuses.
+*	FALSE will not modify this control bit of eFuse.
+*	NOTE: PPK2 invalid bits are not applicable for
+*	SPARTANUPLUSAES1 devices.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -218,6 +249,7 @@
 *       mb     08/24/25 Add support to program boot mode disable efuses
 *       mb     09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
 * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
+* 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
 *
 * </pre>
 *
@@ -239,34 +271,35 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/* Following defines should be defined either TRUE or FALSE */
-
-/**
- * Following is the define to select if the user wants to program
- * Secure control bits
+/** @name Secure control bits programming selection
+ *  @brief Defines to select whether the user wants to program secure control bits.
+ *  @{
  */
+/**< Following defines should be defined either TRUE or FALSE */
 #define XNVM_EFUSE_XNVM_EFUSE_AES_DIS           FALSE
 #define XNVM_EFUSE_XNVM_AES_RD_LK               FALSE
-#define XNVM_EFUSE_XNVM_PPK0_LK                 FALSE
-#define XNVM_EFUSE_XNVM_PPK2_LK                 FALSE
 #define XNVM_EFUSE_XNVM_JTAG_DIS                FALSE
 #define XNVM_EFUSE_XNVM_USER_WR_LK              FALSE
 #define XNVM_EFUSE_XNVM_JTAG_ERR_DIS            FALSE
 #define XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY         FALSE
 #define XNVM_EFUSE_XNVM_RMA_DIS                 FALSE
 #define XNVM_EFUSE_XNVM_RMA_EN                  FALSE
-#define XNVM_EFUSE_XNVM_CRC_EN                  FALSE
 #define XNVM_EFUSE_XNVM_DFT_DIS                 FALSE
 #define XNVM_EFUSE_XNVM_LCKDWN_EN               FALSE
 #define XNVM_EFUSE_XNVM_PUF_TEST_2_DIS          FALSE
-#define XNVM_EFUSE_XNVM_PPK0_INVLD              FALSE
-#define XNVM_EFUSE_XNVM_PPK2_INVLD              FALSE
+#define XNVM_EFUSE_XNVM_CRC_EN                  FALSE
 #define XNVM_EFUSE_XNVM_CRC_RMA_DIS             FALSE
 #define XNVM_EFUSE_XNVM_CRC_RMA_EN              FALSE
-#ifndef SPARTANUPLUSAES1
+#define XNVM_EFUSE_XNVM_PPK0_LK                 FALSE
+#define XNVM_EFUSE_XNVM_PPK0_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK1_LK                 FALSE
 #define XNVM_EFUSE_XNVM_PPK1_INVLD              FALSE
+#ifndef SPARTANUPLUSAES1
+#define XNVM_EFUSE_XNVM_PPK2_LK                 FALSE
+#define XNVM_EFUSE_XNVM_PPK2_INVLD              FALSE
 #endif
+
+/** @} */
 
 /**
  * Following is the define to select if the user wants to select
@@ -339,14 +372,15 @@ extern "C" {
 #define XNVM_EFUSE_WRITE_REVOCATION_ID_NUM	(0U)
 
 #ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
-#define XNVM_EFUSE_SET_REF_CLK_FREQ  (0U) /* Set Efuse reference clock frequency */
-#define XNVM_EFUSE_SET_CLK_SRC_OP   (0U) /* Set Efuse clock source */
+#define XNVM_EFUSE_SET_REF_CLK_FREQ  (0U) /**< Set Efuse reference clock frequency */
+#define XNVM_EFUSE_SET_CLK_SRC_OP   (0U) /**< Set Efuse clock source */
 #endif
 
 /* Checks CRC of provided AES key if TRUE */
 #define XNVM_EFUSE_CHECK_AES_KEY_CRC		FALSE
 
 #define XNVM_EFUSE_EXPECTED_AES_KEY_CRC		XNVM_EFUSE_CRC_AES_ZEROS
+						/**< Expected AES key CRC */
 
 #ifdef __cplusplus
 }

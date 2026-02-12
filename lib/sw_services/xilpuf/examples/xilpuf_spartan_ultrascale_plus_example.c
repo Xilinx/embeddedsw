@@ -53,6 +53,7 @@
   * 2.7   bha  01/06/26 Fixed Doxygen warnings
   *       bha  01/23/26 Fixed Compilation errors,Code clean-up and
   *                     added PUF-ID only Regeneration support
+  * 3.7   mb   02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
   * </pre>
   *
   *@note
@@ -90,7 +91,7 @@
 #define XPUF_CHASH_AND_AUX_IN_WORDS		(2U) /**< CHASH + AUX size in words  */
 #define XPUF_FORMATTED_HD_IN_WORDS		(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS + \
 						XPUF_CHASH_AND_AUX_IN_WORDS)
-						/* 127U Syn_data + 1 Aux + 1 Chash */
+						/**< 127U Syn_data + 1 Aux + 1 Chash */
 
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U) /**< AES key size 128 in words */
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U) /**< AES key size 256 in words */
@@ -107,7 +108,7 @@
 
 #ifndef SPARTANUPLUSAES1
 #define XPUF_PPK_HASH_SIZE_IN_BYTES		(32U) /**< PPK hash size in bytes */
-#define SHA_MODE				XSECURE_SHA3_256
+#define SHA_MODE				XSECURE_SHA3_256 /**< SHA mode */
 #else
 #define XPUF_PPK_HASH_SIZE_IN_BYTES		(48U) /**< PPK hash size in bytes */
 #define SHA_MODE				XSECURE_SHA3_384
@@ -292,6 +293,7 @@ static int XPuf_ValidateUserInput()
 			xil_printf("\r\n Error in reading secure control bits");
 			goto END;
 		}
+#ifndef SPARTANUPLUSAES1
 		if (SecCtrlBits.Ppk2Invld == TRUE) {
 			Status = XST_FAILURE;
 			xil_printf("PUF hash programming validation failed - Invalid bit is set \n\r");
@@ -303,6 +305,19 @@ static int XPuf_ValidateUserInput()
 			xil_printf("PUF hash programming validation failed - lock bit is set \n\r");
 			goto END;
 		}
+#else
+		if (SecCtrlBits.Ppk1Invld == TRUE) {
+			Status = XST_FAILURE;
+			xil_printf("PUF hash programming validation failed - Invalid bit is set \n\r");
+			goto END;
+		}
+
+		if (SecCtrlBits.Ppk1lck == TRUE) {
+			Status = XST_FAILURE;
+			xil_printf("PUF hash programming validation failed - lock bit is set \n\r");
+			goto END;
+		}
+#endif
 
 		Status = XNvm_EfuseReadPpkHash(XNVM_EFUSE_PPK_END, (u32 *)(UINTPTR)PpkHash,
 						XPUF_PPK_HASH_SIZE_IN_BYTES);

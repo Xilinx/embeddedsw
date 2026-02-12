@@ -56,6 +56,7 @@
  *       mb    09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
  *       mb    10/14/2025 Update logic for programming Revoke ID's
  * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
+ * 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
  *
  * </pre>
  *
@@ -68,19 +69,21 @@
 #include "xil_util.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-#define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
-#define XNVM_EFUSE_ROW_STRING_LEN			    (8U)
-#define XNVM_EFUSE_IV_LEN_IN_BITS               (96U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS          (256U)
+#define XNVM_EFUSE_AES_KEY_STRING_LEN		(64U) /**< AES Key string length in bytes */
+#define XNVM_EFUSE_ROW_STRING_LEN		(8U) /**< eFuse Row string length in bytes */
+#define XNVM_EFUSE_IV_LEN_IN_BITS               (96U) /**< IV length in bits */
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS          (256U) /**< AES Key length in bits */
 #define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
+					/**< 256-bit AES Key length in bytes */
 #define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (\
-	XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
+	XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U) /**< 256-bit AES Key length in characters */
 #define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
+					/**< 128-bit AES Key length in bytes */
 #define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (\
-	XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
-#define XNVM_IV_STRING_LEN				(24U)
+	XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U) /**< 128-bit AES Key length in characters */
+#define XNVM_IV_STRING_LEN			(24U) /**< IV string length in bytes */
 #define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
+					/**< Max AES Key length in characters */
 
 /**************************** Type Definitions *******************************/
 
@@ -98,22 +101,22 @@ static int XilNvm_EfuseShowDecOnly(void);
 static int XilNvm_EfuseShowUserFuses(void);
 static int XilNvm_EfuseShowCtrlBits(void);
 static int XilNvm_EfuseShowSecCtrlBits(void);
-static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 				   XNvm_EfuseSecCtrlBits *SecCtrl);
 static void XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
 				       XNvm_EfuseSpkRevokeId *SpkRevokeId);
 static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
 				       XNvm_EfuseAesRevokeId *AesRevokeId);
-static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitIVs(XNvm_EfuseData *EfuseData,
 			       XNvm_EfuseAesIvs *Ivs);
-static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *EfuseData,
 				   XNvm_EfuseAesKeys *AesKeys);
-static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 				   XNvm_EfusePpkHash *PpkHash);
-static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
+static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *EfuseData,
 				   XNvm_EfuseDecOnly *DecOnly);
-static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
-				     XNvm_EfuseUserFuse *Data);
+static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *EfuseData,
+				     XNvm_EfuseUserFuse *UserFuse);
 static int XilNvm_EfusePerformCrcChecks(void);
 static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
 static int XilNvm_PrepareAesKeyForWrite(const char *KeyStr, u8 *Dst, u32 Len);
@@ -133,6 +136,14 @@ static int XilNvm_EfuseInitBootModeDis(XNvm_EfuseData *EfuseData,
 static int XilNvm_EfuseShowBootModeDisBits(void);
 #endif
 /*****************************************************************************/
+/**
+ * @brief	Main function to initialize and perform eFuse operations.
+ *
+ * @return
+ *		- XST_SUCCESS - On successful eFuse operations.
+ *		- Error code - On failure.
+ *
+ ******************************************************************************/
 int main(void)
 {
 	int Status = XST_FAILURE;
@@ -542,7 +553,7 @@ END:
  *	u32 AesKey[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
  * }XNvm_EfuseAesKeys;
  *
- * @param	WriteEfuse	Pointer to XNvm_EfuseDataAddr structure.
+ * @param	EfuseData	Pointer to XNvm_EfuseDataAddr structure.
  *
  * @param 	AesKeys		Pointer to XNvm_EfuseAesKeys structure.
  *
@@ -590,7 +601,7 @@ END:
  *	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
  * }XNvm_EfusePpkHash;
  *
- * @param	WriteEfuse	Pointer to XNvm_EfuseDataAddr structure.
+ * @param	EfuseData	Pointer to XNvm_EfuseDataAddr structure.
  *
  * @param 	PpkHash		Pointer to XNvm_EfusePpkHash structure.
  *
@@ -677,7 +688,7 @@ END:
  *	u8 PrgmDecOnly;
  * }XNvm_EfuseDecOnly;
  *
- * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
+ * @param	EfuseData	Pointer to XNvm_EfuseData structure.
  *
  * @param 	DecOnly		Pointer to XNvm_EfuseDecOnly structure.
  *
@@ -728,7 +739,7 @@ typedef struct {
 	u8 CrcRmaEn;
 } XNvm_EfuseSecCtrl;
  *
- * @param	WriteEfuse	Pointer to XNvm_EfuseData structure.
+ * @param	EfuseData	Pointer to XNvm_EfuseData structure.
  *
  * @param 	SecCtrl	Pointer to XNvm_EfuseSecCtrl structure.
  *
@@ -745,8 +756,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 
 	SecCtrl->AesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
 	SecCtrl->AesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
-	SecCtrl->Ppk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
-	SecCtrl->Ppk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
 	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
 	SecCtrl->UserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
 	SecCtrl->JtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
@@ -754,23 +763,23 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->HashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
 	SecCtrl->RmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
 	SecCtrl->RmaEn = XNVM_EFUSE_XNVM_RMA_EN;
-	SecCtrl->CrcEn = XNVM_EFUSE_XNVM_CRC_EN;
 	SecCtrl->DftDis = XNVM_EFUSE_XNVM_DFT_DIS;
 	SecCtrl->Lckdwn = XNVM_EFUSE_XNVM_LCKDWN_EN;
 	SecCtrl->PufTes2Dis = XNVM_EFUSE_XNVM_PUF_TEST_2_DIS;
+	SecCtrl->Ppk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
 	SecCtrl->Ppk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
-#ifndef SPARTANUPLUSAES1
 	SecCtrl->Ppk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
 	SecCtrl->Ppk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
-#endif
+#ifndef SPARTANUPLUSAES1
+	SecCtrl->Ppk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
 	SecCtrl->Ppk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
+#endif
+	SecCtrl->CrcEn = XNVM_EFUSE_XNVM_CRC_EN;
 	SecCtrl->CrcRmaDis = XNVM_EFUSE_XNVM_CRC_RMA_DIS;
 	SecCtrl->CrcRmaEn = XNVM_EFUSE_XNVM_CRC_RMA_EN;
 
 	if ((SecCtrl->AesDis == TRUE) ||
 	    (SecCtrl->AesRdlk == TRUE) ||
-	    (SecCtrl->Ppk0lck == TRUE) ||
-	    (SecCtrl->Ppk2lck == TRUE) ||
 	    (SecCtrl->JtagDis == TRUE) ||
 	    (SecCtrl->UserWrlk == TRUE) ||
 	    (SecCtrl->JtagErrDis == TRUE) ||
@@ -778,16 +787,18 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	    (SecCtrl->HashPufOrKey == TRUE) ||
 	    (SecCtrl->RmaDis == TRUE) ||
 	    (SecCtrl->RmaEn == TRUE) ||
-	    (SecCtrl->CrcEn == TRUE) ||
 	    (SecCtrl->DftDis == TRUE) ||
 	    (SecCtrl->Lckdwn == TRUE) ||
 	    (SecCtrl->PufTes2Dis == TRUE) ||
+	    (SecCtrl->Ppk0lck == TRUE) ||
 	    (SecCtrl->Ppk0Invld == TRUE) ||
-#ifndef SPARTANUPLUSAES1
 	    (SecCtrl->Ppk1lck == TRUE) ||
 	    (SecCtrl->Ppk1Invld == TRUE) ||
-#endif
+#ifndef SPARTANUPLUSAES1
+	    (SecCtrl->Ppk2lck == TRUE) ||
 	    (SecCtrl->Ppk2Invld == TRUE) ||
+#endif
+	    (SecCtrl->CrcEn == TRUE) ||
 	    (SecCtrl->CrcRmaDis == TRUE) ||
 	    (SecCtrl->CrcRmaEn == TRUE)) {
 		EfuseData->SecCtrlBits = SecCtrl;
@@ -842,7 +853,7 @@ static void XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
  *
  * @param	EfuseData      Pointer to XNvm_EfuseData structure
  *
- * @param 	SpkRevokeId	Pointer to XNvm_EfuseAesRevokeId structure
+ * @param 	AesRevokeId	Pointer to XNvm_EfuseAesRevokeId structure
  *
  * @return
  *		- XST_SUCCESS - If the initialization of XNvm_EfuseRevokeIds
@@ -964,9 +975,9 @@ static int XilNvm_EfuseInitXilinxCtrl(XNvm_EfuseData *EfuseData,
  *	u64 UserFuseDataAddr;
  * }XNvm_EfuseUserDataAddr;
  *
- * @param	WriteEfuse      Pointer to XNvm_EfuseDataAddr structure
+ * @param	EfuseData      Pointer to XNvm_EfuseDataAddr structure
  *
- * @param 	Data		Pointer to XNvm_UserEfuseData structure
+ * @param 	UserFuse	Pointer to XNvm_UserEfuseData structure
  *
  * @return
  *		- XST_SUCCESS - If the initialization of XNvm_UserEfuseData
@@ -1124,16 +1135,6 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	} else {
 		xil_printf("JTAG is not disabled\n\r");
 	}
-	if (SecCtrlBits.Ppk0lck == TRUE) {
-		xil_printf("Locks writing to PPK0 efuse\n\r");
-	} else {
-		xil_printf("Writing to PPK0 efuse is not locked\n\r");
-	}
-	if (SecCtrlBits.Ppk2lck == TRUE) {
-		xil_printf("Locks writing to PPK2 efuse\n\r");
-	} else {
-		xil_printf("Writing to PPK2 efuse is not locked\n\r");
-	}
 	if (SecCtrlBits.AesRdlk == TRUE) {
 		xil_printf("AES read/write lock is enabled\n\r");
 	} else {
@@ -1164,26 +1165,36 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	} else {
 		xil_printf("secure lockdown is disabled\n\r");
 	}
-	if (SecCtrlBits.Ppk0Invld == TRUE) {
-		xil_printf("PPK0 is invalid\n\r");
+	if (SecCtrlBits.Ppk0lck == TRUE) {
+		xil_printf("Locks writing to PPK0 efuse\n\r");
 	} else {
-		xil_printf("PPK0 is valid\n\r");
-	}
-	if (SecCtrlBits.Ppk2Invld == TRUE) {
-		xil_printf("PPK2 is invalid\n\r");
-	} else {
-		xil_printf("PPK2 is valid\n\r");
-	}
-#ifndef SPARTANUPLUSAES1
-	if (SecCtrlBits.Ppk1Invld == TRUE) {
-		xil_printf("PPK1 is invalid\n\r");
-	} else {
-		xil_printf("PPK1 is valid\n\r");
+		xil_printf("Writing to PPK0 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.Ppk1lck == TRUE) {
 		xil_printf("Locks writing to PPK1 efuse\n\r");
 	} else {
 		xil_printf("Writing to PPK1 efuse is not locked\n\r");
+	}
+	if (SecCtrlBits.Ppk0Invld == TRUE) {
+		xil_printf("PPK0 is invalid\n\r");
+	} else {
+		xil_printf("PPK0 is valid \n\r");
+	}
+	if (SecCtrlBits.Ppk1Invld == TRUE) {
+		xil_printf("PPK1 is invalid\n\r");
+	} else {
+		xil_printf("PPK1 is valid \n\r");
+	}
+#ifndef SPARTANUPLUSAES1
+	if (SecCtrlBits.Ppk2lck == TRUE) {
+		xil_printf("Locks writing to PPK2 efuse\n\r");
+	} else {
+		xil_printf("Writing to PPK2 efuse is not locked\n\r");
+	}
+	if (SecCtrlBits.Ppk2Invld == TRUE) {
+		xil_printf("PPK2 is invalid\n\r");
+	} else {
+		xil_printf("PPK2 is valid \n\r");
 	}
 #endif
 	if (SecCtrlBits.PufTes2Dis == TRUE) {
@@ -1415,8 +1426,7 @@ static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr)
  * This function is used to validate the input string contains valid PPK hash
  *
  * @param	Hash - Pointer to PPK hash
- *
- * 		Len  - Length of the input string
+ * @param	Len  - Length of the input string
  *
  * @return
  *	- XST_SUCCESS	- On valid input Ppk Hash string
@@ -1482,8 +1492,8 @@ END:
  * This function reverses the data array
  *
  * @param	OrgDataPtr Pointer to the original data
- * 		SwapPtr    Pointer to the reversed data
- * 		Len        Length of the data in bytes
+ * @param	SwapPtr    Pointer to the reversed data
+ * @param	Len        Length of the data in bytes
  *
  ******************************************************************************/
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len)

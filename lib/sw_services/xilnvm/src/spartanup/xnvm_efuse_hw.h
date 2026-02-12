@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,9 +49,9 @@ extern "C" {
  * @{
  */
 /**< Write lock register offsets and definitions */
-#define XNVM_EFUSE_WR_LOCK_OFFSET	0x00000000U
+#define XNVM_EFUSE_WR_LOCK_OFFSET	0x00000000U /**< Efuse Write lock offset */
 
-#define XNVM_EFUSE_WR_UNLOCK_VALUE	0xDF0DU
+#define XNVM_EFUSE_WR_UNLOCK_VALUE	0xDF0DU /**< Efuse Write unlock value */
 /** @} */
 
 /**
@@ -59,12 +59,12 @@ extern "C" {
  * @{
  */
 /**< Configuration register offsets and definitions */
-#define XNVM_EFUSE_CFG_OFFSET		0x00000004U
-#define XNVM_EFUSE_CFG_MARGIN_RD_MASK	0x0000000cU
-#define XNVM_EFUSE_CFG_NORMAL_RD	0x00U
-#define XNVM_EFUSE_CFG_MARGIN_2_RD	0x02U
-#define XNVM_EFUSE_CFG_MARGIN_RD_SHIFT	2U
-#define XNVM_EFUSE_CFG_PGM_EN_SHIFT	1U
+#define XNVM_EFUSE_CFG_OFFSET		0x00000004U /**< Efuse Configuration offset */
+#define XNVM_EFUSE_CFG_MARGIN_RD_MASK	0x0000000cU /**< Efuse Margin Read mask */
+#define XNVM_EFUSE_CFG_NORMAL_RD	0x00U /**< Efuse Normal Read */
+#define XNVM_EFUSE_CFG_MARGIN_2_RD	0x02U /**< Efuse Margin 2 Read */
+#define XNVM_EFUSE_CFG_MARGIN_RD_SHIFT	2U /**< Efuse Margin Read shift */
+#define XNVM_EFUSE_CFG_PGM_EN_SHIFT	1U /**< Efuse Program Enable shift */
 
 /** @} */
 
@@ -73,13 +73,13 @@ extern "C" {
  * @{
  */
 /**< Status register offsets and definitions */
-#define XNVM_EFUSE_STS_OFFSET		0x00000008U
+#define XNVM_EFUSE_STS_OFFSET		0x00000008U /**< Efuse Status register offset */
 
-#define XNVM_EFUSE_STS_AES_CRC_PASS_MASK	0x00000080U
+#define XNVM_EFUSE_STS_AES_CRC_PASS_MASK	0x00000080U /**< Efuse AES CRC Pass mask */
 
-#define XNVM_EFUSE_STS_AES_CRC_DONE_MASK	0x00000040U
+#define XNVM_EFUSE_STS_AES_CRC_DONE_MASK	0x00000040U /**< Efuse AES CRC Done mask */
 
-#define XNVM_EFUSE_STS_0_TBIT_SHIFT		0U
+#define XNVM_EFUSE_STS_0_TBIT_SHIFT		0U /**< Efuse 0 TBIT shift */
 
 /** @} */
 
@@ -88,7 +88,7 @@ extern "C" {
  * @{
  */
 /**< program address register offsets and definitions */
-#define XNVM_EFUSE_PGM_ADDR_OFFSET	0x0000000CU
+#define XNVM_EFUSE_PGM_ADDR_OFFSET	0x0000000CU /**< Efuse Program Address offset */
 /** @} */
 
 /**
@@ -96,7 +96,7 @@ extern "C" {
  * @{
  */
 /**< Read address register offsets and definitions */
-#define XNVM_EFUSE_RD_ADDR_OFFSET	0x00000010U
+#define XNVM_EFUSE_RD_ADDR_OFFSET	0x00000010U /**< Efuse Read Address offset */
 /** @} */
 
 /**
@@ -104,7 +104,7 @@ extern "C" {
  * @{
  */
 /**< Read data register offsets and definitions */
-#define XNVM_EFUSE_RD_DATA_OFFSET	0x00000014U
+#define XNVM_EFUSE_RD_DATA_OFFSET	0x00000014U /**< Efuse Read Data offset */
 /** @} */
 
 /**
@@ -112,7 +112,7 @@ extern "C" {
  * @{
  */
 /**< TPGM register offsets and definitions */
-#define XNVM_EFUSE_TPGM_OFFSET		0x00000018U
+#define XNVM_EFUSE_TPGM_OFFSET		0x00000018U /**< Efuse TPGM offset */
 /** @} */
 
 /**
@@ -120,7 +120,7 @@ extern "C" {
  * @{
  */
 /**< TRD register offsets and definitions */
-#define XNVM_EFUSE_TRD_OFFSET		0x0000001CU
+#define XNVM_EFUSE_TRD_OFFSET		0x0000001CU /**< Efuse TRD offset */
 /** @} */
 
 /**
@@ -128,7 +128,7 @@ extern "C" {
  * @{
  */
 /**< TSU_H_PS register offsets and definitions */
-#define XNVM_EFUSE_TSU_H_PS_OFFSET	0x00000020U
+#define XNVM_EFUSE_TSU_H_PS_OFFSET	0x00000020U /**< Efuse TSU_H_PS offset */
 /** @} */
 
 /**
@@ -136,7 +136,7 @@ extern "C" {
  * @{
  */
 /**< TSU_H_PS_CS register offsets and definitions */
-#define XNVM_EFUSE_TSU_H_PS_CS_OFFSET	0x00000024U
+#define XNVM_EFUSE_TSU_H_PS_CS_OFFSET	0x00000024U /**< Efuse TSU_H_PS_CS offset */
 /** @} */
 
 /**
@@ -144,7 +144,7 @@ extern "C" {
  * @{
  */
 /**< TSU_H_CS register offsets and definitions */
-#define XNVM_EFUSE_TSU_H_CS_OFFSET	0x0000002CU
+#define XNVM_EFUSE_TSU_H_CS_OFFSET	0x0000002CU /**< Efuse TSU_H_CS offset */
 /** @} */
 
 /**
@@ -152,9 +152,9 @@ extern "C" {
  * @{
  */
 /**< ISR register offsets and definitions */
-#define XNVM_EFUSE_ISR_OFFSET		0x00000030U
+#define XNVM_EFUSE_ISR_OFFSET		0x00000030U /**< Efuse ISR offset */
 
-#define XNVM_EFUSE_ISR_CACHE_ERR_MASK	0x00000010U
+#define XNVM_EFUSE_ISR_CACHE_ERR_MASK	0x00000010U /**< Efuse ISR Cache Error mask */
 /** @} */
 
 /**
@@ -162,8 +162,8 @@ extern "C" {
  * @{
  */
 /**< Cache load register offsets and definitions */
-#define XNVM_EFUSE_CACHE_LOAD_OFFSET	0x00000044U
-#define XNVM_EFUSE_CACHE_LOAD_MASK	0x00000001U
+#define XNVM_EFUSE_CACHE_LOAD_OFFSET	0x00000044U /**< Efuse Cache Load offset */
+#define XNVM_EFUSE_CACHE_LOAD_MASK	0x00000001U /**< Efuse Cache Load mask */
 /** @} */
 
 /**
@@ -171,7 +171,7 @@ extern "C" {
  * @{
  */
 /**< AES CRC register offsets and definitions */
-#define XNVM_EFUSE_AES_CRC_OFFSET	0x0000004CU
+#define XNVM_EFUSE_AES_CRC_OFFSET	0x0000004CU /**< Efuse AES CRC offset */
 /** @} */
 
 /**
@@ -179,7 +179,7 @@ extern "C" {
  * @{
  */
 /**< Tbits programming enable register offsets and definitions */
-#define XNVM_EFUSE_TEST_CTRL_REG_OFFSET	0x00000100U
+#define XNVM_EFUSE_TEST_CTRL_REG_OFFSET	0x00000100U /**< Efuse Test Control Register offset */
 /** @} */
 
 /**
@@ -200,12 +200,6 @@ extern "C" {
 #define XNVM_EFUSE_SPK_REVOKE_ID_END_OFFSET	0x0000112CU /**< SPK revoke id cache end offset */
 #define XNVM_EFUSE_AES_REVOKE_ID_OFFSET		0x0000113CU /**< AES revoke id cache offset */
 #define XNVM_EFUSE_XILINX_CTRL_OFFSET		0x00001000U /**< Xilinx Control cache offset */
-#ifndef SPARTANUPLUSAES1
-#define XNVM_EFUSE_PPK1_START_OFFSET		(0x000010A0U) /**< PPK1 cache start offset */
-#else
-#define XNVM_EFUSE_PPK1_START_OFFSET		(0x000010B0U) /**< PPK1 cache start offset */
-#define XNVM_EFUSE_BOOT_MODE_DIS_OFFSET		(0x0000104CU) /**< Boot mode disable cache offset */
-#endif
 
 /** @} */
 
@@ -214,39 +208,39 @@ extern "C" {
  * @{
  */
 /**< Boot mode disable Efuse bits programming related macros */
-#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_60	(60U) /* Boot mode disable row 60 */
-#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_61	(61U) /* Boot mode disable row 61 */
+#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_60	(60U) /**< Boot mode disable row 60 */
+#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_61	(61U) /**< Boot mode disable row 61 */
 
-#define  XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL_8	(8U) /* QSPI32 Boot mode disable bit column value: 8 */
-#define  XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL_9	(9U) /* OSPI Boot mode disable bit column value: 9 */
-#define  XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL_11	(11U) /* JTAG Boot mode disable bit column value: 11 */
-#define  XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL_12	(12U) /* SMAP Boot mode disable bit column value: 12 */
-#define  XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL_13	(13U) /* Serial Boot mode disable bit column value: 13 */
-#define  XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL_15	(15U) /* QSPI24 Boot mode disable bit column value: 15 */
+#define  XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL	(8U) /**< QSPI32 Boot mode disable bit column value: 8 */
+#define  XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL	(9U) /**< OSPI Boot mode disable bit column value: 9 */
+#define  XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL	(11U) /**< JTAG Boot mode disable bit column value: 11 */
+#define  XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL	(12U) /**< SMAP Boot mode disable bit column value: 12 */
+#define  XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL	(13U) /**< Serial Boot mode disable bit column value: 13 */
+#define  XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL	(15U) /**< QSPI24 Boot mode disable bit column value: 15 */
 
-#define XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK	(0x00000002U) /* QSPI24 Boot mode disable Mask */
-#define XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK	(0x00000004U) /* QSPI32 Boot mode disable Mask */
-#define XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK	(0x00000008U) /* OSPI Boot mode disable Mask */
-#define XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK	(0x00000020U) /* JTAG Boot mode disable Mask */
-#define XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK	(0x00000040U) /* SMAP Boot mode disable Mask */
-#define XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK	(0x00000080U) /* Serial Boot mode disable Mask */
+#define XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK	(0x00000002U) /**< QSPI24 Boot mode disable Mask */
+#define XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK	(0x00000004U) /**< QSPI32 Boot mode disable Mask */
+#define XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK	(0x00000008U) /**< OSPI Boot mode disable Mask */
+#define XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK	(0x00000020U) /**< JTAG Boot mode disable Mask */
+#define XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK	(0x00000040U) /**< SMAP Boot mode disable Mask */
+#define XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK	(0x00000080U) /**< Serial Boot mode disable Mask */
 
-#define XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS		(0x01U) /*Boot mode disable efuse bits */
-#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT	(0x1U) /* QSPI24 Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT	(0x2U) /* QSPI32 Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT	(0x3U) /* OSPI Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_JTAG_EFUSE_SHIFT	(0x5U) /* JTAG Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT	(0x6U) /* SMAP Boot mode disable shift */
-#define XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT	(0x7U) /* Serial Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS		(0x01U) /**< Boot mode disable efuse bits */
+#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT	(0x1U) /**< QSPI24 Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT	(0x2U) /**< QSPI32 Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT	(0x3U) /**< OSPI Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_JTAG_EFUSE_SHIFT	(0x5U) /**< JTAG Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT	(0x6U) /**< SMAP Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT	(0x7U) /**< Serial Boot mode disable shift */
 
-#define XNVM_PLM_CONFIG_BASE_ADDRESS	(0x0402B200U)
-#define XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET	(0x0000002CU)
-#define XNVM_EFUSE_CLK_CTRL_ADDR	(0x040A003CU)
-#define XNVM_EFUSE_IO_CTRL_ADDR		(0x040A00E8U)
-#define XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE	(0x1U)
-#define XNVM_EMCCLK_MIN_FREQUENCY	(25000000U)
-#define XNVM_EMCCLK_MAX_FREQUENCY	(200000000U)
-#define XNVM_EFUSE_EMC_CLK_EN_VAL	(1U << 1U)
+#define XNVM_PLM_CONFIG_BASE_ADDRESS	(0x0402B200U) /**< eFuse PLM configuration base address */
+#define XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET	(0x0000002CU) /**< eFuse RTC clock frequency offset */
+#define XNVM_EFUSE_CLK_CTRL_ADDR	(0x040A003CU) /**< eFuse clock control address */
+#define XNVM_EFUSE_IO_CTRL_ADDR		(0x040A00E8U) /**< eFuse I/O control address */
+#define XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE	(0x1U) /**< eFuse clock source EMCCLK value */
+#define XNVM_EMCCLK_MIN_FREQUENCY	(25000000U) /**< eFuse EMC clock minimum frequency */
+#define XNVM_EMCCLK_MAX_FREQUENCY	(200000000U) /**< eFuse EMC clock maximum frequency */
+#define XNVM_EFUSE_EMC_CLK_EN_VAL	(1U << 1U) /**< eFuse EMC clock enable value */
 /** @} */
 
 /**
@@ -262,18 +256,12 @@ extern "C" {
 #define XNVM_EFUSE_SEC_CTRL_JTAG_DIS_SHIFT		(8U) /**< JTAG disable shift */
 #define XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_SHIFT		(9U) /**< PUF test 2 disable shift */
 #define XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_SHIFT	(10U) /**< Hash PUF or key shift */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT		(11U) /**< PPK2 write lock shift */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT		(12U) /**< PPK2 invalidation 0 shift */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT		(13U) /**< PPK1 write lock shift */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT		(14U) /**< PPK1 invalidation 0 shift */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_SHIFT		(15U) /**< PPK0 write lock shift */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_SHIFT		(16U) /**< PPK0 invalidation 0 shift */
 #define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_SHIFT	(17U) /**< AES read/write lock 0 shift */
 #define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_SHIFT	(18U) /**< AES read/write lock 1 shift */
 #define XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_SHIFT	(26U) /**< JTAG error output disable shift */
 #define XNVM_EFUSE_SEC_CTRL_USER_WR_LK_SHIFT		(27U) /**< User write lock shift */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT		(29U) /**< PPK2 invalidation 1 shift */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT		(30U) /**< PPK1 invalidation 1 shift */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT		(31U) /**< PPK0 invalidation 1 shift */
 
 #define XNVM_EFUSE_SEC_CTRL_AES_DIS_MASK		(0x00000002U) /**< AES disable mask */
@@ -282,18 +270,12 @@ extern "C" {
 #define XNVM_EFUSE_SEC_CTRL_JTAG_DIS_MASK		(0x00000100U) /**< JTAG disable mask */
 #define XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_MASK		(0x00000200U) /**< PUF test 2 disable mask */
 #define XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_MASK	(0x00000400U) /**< Hash PUF or key mask */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK		(0x00000800U) /**< PPK2 write lock mask */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK		(0x00001000U) /**< PPK2 invalidation 0 mask */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK		(0x00002000U) /**< PPK1 write lock mask */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK		(0x00004000U) /**< PPK1 invalidation 0 mask */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK		(0x00008000U) /**< PPK0 write lock mask */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_MASK		(0x00010000U) /**< PPK0 invalidation 0 mask */
 #define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_MASK		(0x00020000U) /**< AES read/write lock 0 mask */
 #define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_MASK		(0x00040000U) /**< AES read/write lock 1 mask */
 #define XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_MASK	(0x04000000U) /**< JTAG error output disable mask */
 #define XNVM_EFUSE_SEC_CTRL_USER_WR_LK_MASK		(0x08000000U) /**< User write lock mask */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK		(0x20000000U) /**< PPK2 invalidation 1 mask */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK		(0x40000000U) /**< PPK1 invalidation 1 mask */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_MASK		(0x80000000U) /**< PPK0 invalidation 1 mask */
 
 #define XNVM_EFUSE_SEC_CTRL_ROW_0			(0U) /**< Secure Control Row 0 */
@@ -302,25 +284,19 @@ extern "C" {
 #define XNVM_EFUSE_SEC_CTRL_ROW_3			(3U) /**< Secure Control Row 3 */
 #define XNVM_EFUSE_SEC_CTRL_ROW_4			(18U) /**< Secure Control Row 4 */
 
-#define	XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL_3		(3U) /**< RMA disable 0 bit column value: 3 */
-#define	XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL_4		(4U) /**< RMA enable 0 bit column value: 4 */
-#define	XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL_6	(6U) /**< Hash PUF or PPK bit column value: 6 */
-#define XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL_14	(14U) /**< JTAG error out disable bit column value: 14 */
-#define XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL_15		(15U) /**< User write lock bit column value: 15 */
-#define XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_COL_24	(24U) /**< PUF test2 disable bit column value: 24 */
-#define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_0_COL_25		(25U) /**< PPK0 invalid 0 bit column value: 25 */
-#define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_1_COL_26		(26U) /**< PPK0 invalid 1 bit column value: 26 */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL_27		(27U) /**< PPK1 invalid 0 bit column value: 27 */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL_28		(28U) /**< PPK1 invalid 1 bit column value: 28 */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_0_COL_29		(29U) /**< PPK2 invalid 0 bit column value: 29 */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_1_COL_30		(30U) /**< PPK2 invalid 1 bit column value: 30 */
-#define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_COL_24	(24U) /**< AES read/write lock bit 0 column value: 24 */
-#define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_COL_25	(25U) /**< AES read/write lock bit 1 column value: 25 */
-#define XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_COL_26		(26U) /**< PPK0 write lock bit column value: 26 */
-#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL_27		(27U) /**< PPK1 write lock bit column value: 27 */
-#define XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_COL_28		(28U) /**< PPK2 write lock bit column value: 28 */
-#define XNVM_EFUSE_SEC_CTRL_JTAG_DIS_COL_29		(29U) /**< AES JTAG disable bit column value: 29 */
-#define XNVM_EFUSE_SEC_CTRL_AES_DIS_COL_30		(30U) /**< AES disable bit column value: 30 */
+#define	XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL		(3U) /**< RMA disable 0 bit column value: 3 */
+#define	XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL		(4U) /**< RMA enable 0 bit column value: 4 */
+#define	XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL		(6U) /**< Hash PUF or PPK bit column value: 6 */
+#define XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL	(14U) /**< JTAG error out disable bit column value: 14 */
+#define XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL		(15U) /**< User write lock bit column value: 15 */
+#define XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_COL		(24U) /**< PUF test2 disable bit column value: 24 */
+#define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_0_COL		(25U) /**< PPK0 invalid 0 bit column value: 25 */
+#define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_1_COL		(26U) /**< PPK0 invalid 1 bit column value: 26 */
+#define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_COL		(24U) /**< AES read/write lock bit 0 column value: 24 */
+#define XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_COL		(25U) /**< AES read/write lock bit 1 column value: 25 */
+#define XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_COL		(26U) /**< PPK0 write lock bit column value: 26 */
+#define XNVM_EFUSE_SEC_CTRL_JTAG_DIS_COL		(29U) /**< AES JTAG disable bit column value: 29 */
+#define XNVM_EFUSE_SEC_CTRL_AES_DIS_COL			(30U) /**< AES disable bit column value: 30 */
 
 /** @} */
 
@@ -344,14 +320,50 @@ extern "C" {
 #define XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_MASK		(0X00000010U) /**< RMA disable 1 mask */
 #define XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_MASK		(0X00000020U) /**< RMA enable 1 mask */
 
-#define	XNVM_EFUSE_SEC_CTRL_CRC_EN_COL_24		(24U) /**< Efuse CRC enable bit column value: 24 */
-#define	XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_0_COL_25	(25U) /**< DFT disable 0 bit column value: 25 */
-#define	XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_1_COL_26	(26U) /**< DFT disable 1 bit column value: 26 */
-#define	XNVM_EFUSE_SEC_CTRL_LCKDOWN_COL_27		(27U) /**< Lockdown enable bit column value: 27 */
-#define	XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_COL_28	(28U) /**< RMA disable 1 bit column value: 28 */
-#define	XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_COL_29		(29U) /**< RMA enable 1 bit column value: 29 */
+#define	XNVM_EFUSE_SEC_CTRL_CRC_EN_COL			(24U) /**< Efuse CRC enable bit column value: 24 */
+#define	XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_0_COL		(25U) /**< DFT disable 0 bit column value: 25 */
+#define	XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_1_COL		(26U) /**< DFT disable 1 bit column value: 26 */
+#define	XNVM_EFUSE_SEC_CTRL_LCKDOWN_COL			(27U) /**< Lockdown enable bit column value: 27 */
+#define	XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_COL		(28U) /**< RMA disable 1 bit column value: 28 */
+#define	XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_COL		(29U) /**< RMA enable 1 bit column value: 29 */
 
 /** @} */
+
+/** Macro defines which are different for SPARTANUPLUS and SPARTANUPLUSAES1 */
+#ifndef SPARTANUPLUSAES1
+#define XNVM_EFUSE_PPK1_START_OFFSET			(0x000010A0U) /**< PPK1 cache start offset */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT		(13U) /**< PPK1 write lock shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT		(14U) /**< PPK1 invalidation 0 shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT		(30U) /**< PPK1 invalidation 1 shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK		(0x00002000U) /**< PPK1 write lock mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK		(0x00004000U) /**< PPK1 invalidation 0 mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK		(0x40000000U) /**< PPK1 invalidation 1 mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT		(11U) /**< PPK2 write lock shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT		(12U) /**< PPK2 invalidation 0 shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT		(29U) /**< PPK2 invalidation 1 shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK		(0x00000800U) /**< PPK2 write lock mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK		(0x00001000U) /**< PPK2 invalidation 0 mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK		(0x20000000U) /**< PPK2 invalidation 1 mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL		(27U) /**< PPK1 invalid 0 bit column value: 27 */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL		(28U) /**< PPK1 invalid 1 bit column value: 28 */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL		(27U) /**< PPK1 write lock bit column value: 27 */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_0_COL		(29U) /**< PPK2 invalid 0 bit column value: 29 */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_1_COL		(30U) /**< PPK2 invalid 1 bit column value: 30 */
+#define XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_COL		(28U) /**< PPK2 write lock bit column value: 28 */
+
+#else
+#define XNVM_EFUSE_PPK1_START_OFFSET			(0x000010B0U) /**< PPK1 cache start offset */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT		(11U) /**< PPK1 write lock shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT		(12U) /**< PPK1 invalidation 0 shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT		(29U) /**< PPK1 invalidation 1 shift */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK		(0x00000800U) /**< PPK1 write lock mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK		(0x00001000U) /**< PPK1 invalidation 0 mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK		(0x20000000U) /**< PPK1 invalidation 1 mask */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL		(29U) /**< PPK1 invalid 0 bit column value: 29 */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL		(30U) /**< PPK1 invalid 1 bit column value: 30 */
+#define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL		(28U) /**< PPK1 write lock bit column value: 28 */
+#define XNVM_EFUSE_BOOT_MODE_DIS_OFFSET			(0x0000104CU) /**< Boot mode disable cache offset */
+#endif
 
 #ifdef __cplusplus
 }
