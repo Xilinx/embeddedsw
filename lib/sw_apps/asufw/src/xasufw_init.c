@@ -98,7 +98,7 @@
 	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].Version = \
 		XASUFW_ALG_BUILD_VERSION(XASUFW_##MODULE##_MAJOR_VERSION, XASUFW_##MODULE##_MINOR_VERSION); \
 	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].NistStatus = XASUFW_NIST_FLAG; \
-	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].KatStatus = XASUFW_KAT_STATUS_NOT_RUN;
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].KatStatus = XASU_STATUS_NOT_RUN;
 
 /************************************** Type Definitions *****************************************/
 
@@ -499,7 +499,7 @@ s32 XAsufw_RunKeyTransfer(void)
 	/** Generate DME KEK if PUF KEK generation and AES KAT are successful. */
 	if (PufKekFlag == XASUFW_PUF_KEK_GEN_SUCCESS) {
 #ifdef XASU_OCP_ENABLE
-		if (AesKatStatus == XASUFW_KAT_STATUS_PASS) {
+		if (AesKatStatus == XASU_STATUS_PASS) {
 			Status = XOcp_GenerateDmeKek();
 			if (Status != XASUFW_SUCCESS) {
 				XAsufw_Printf(DEBUG_GENERAL, "ASUFW DME KEK generation failed. Error: 0x%x\r\n", Status);

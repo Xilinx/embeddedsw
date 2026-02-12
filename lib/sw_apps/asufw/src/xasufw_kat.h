@@ -58,9 +58,6 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XASUFW_KAT_STATUS_NOT_RUN	(0x0U) /** KAT not run status. */
-#define XASUFW_KAT_STATUS_FAIL		(0x1U) /** KAT failed status. */
-#define XASUFW_KAT_STATUS_PASS		(0x3U) /** KAT passed status. */
 
 /**
  * @brief	Gets pointer to module information array.
@@ -86,15 +83,15 @@ static inline u8 *XAsu_GetKatStatusPtr(u32 ModuleId)
 
 /** Set KAT status as passed. */
 #define XASUFW_SET_KAT_PASSED(ModuleId) \
-	(GetModuleInfoPtr()[ModuleId].KatStatus = XASUFW_KAT_STATUS_PASS)
+	(GetModuleInfoPtr()[ModuleId].KatStatus = XASU_STATUS_PASS)
 
 /** Mark KAT status as failed. */
 #define XASUFW_MARK_KAT_FAILED(ModuleId) \
-	(GetModuleInfoPtr()[ModuleId].KatStatus = XASUFW_KAT_STATUS_FAIL)
+	(GetModuleInfoPtr()[ModuleId].KatStatus = XASU_STATUS_FAIL)
 
 /** Check whether KAT status is passed or not. */
 #define XASUFW_IS_KAT_PASSED(ModuleId) \
-	(GetModuleInfoPtr()[ModuleId].KatStatus == XASUFW_KAT_STATUS_PASS)
+	(GetModuleInfoPtr()[ModuleId].KatStatus == XASU_STATUS_PASS)
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_RunCryptoKats(void);
