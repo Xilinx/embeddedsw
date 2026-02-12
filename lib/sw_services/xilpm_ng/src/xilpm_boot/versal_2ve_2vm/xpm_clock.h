@@ -90,7 +90,7 @@ struct XPm_ClockNode {
 	u8 NumParents;
 	u8 Flags;
 	u16 ParentIdx;
-	u8 UseCount;
+	u16 UseCount;
 	u32 ClkRate;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	XPm_Power *PwrDomain;

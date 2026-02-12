@@ -67,7 +67,7 @@ typedef struct XPmRuntime_DeviceOps XPmRuntime_DeviceOps;
  */
 struct XPm_DeviceNode {
 	XPm_Node Node; /**< Node: Base class */
-	u8 WfPwrUseCnt; /**< Pending power use count */
+	u16 WfPwrUseCnt; /**< Pending power use count */
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
 	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */
