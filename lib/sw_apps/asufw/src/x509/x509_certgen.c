@@ -21,6 +21,8 @@
 *       rmv  08/06/25 Move X509_CERTIFICATE_MAX_SIZE_IN_BYTES macro to header file
 *       rmv  09/08/25 Move parameter validation to exported function instead of static function
 *       vm   02/04/26 Replace magic number with named constant
+*       vm   02/02/26 Assigned proper suffix to integer constants to fix MISRA-C
+*                     violation for Rule 7.2
 *
 * </pre>
 *
@@ -62,7 +64,7 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 #define X509_LOWER_NIBBLE_MASK					(0xFU)	/**< Mask to get lower
 									nibble */
 #define X509_NULL_VALUE						(0x00U)	/**< Value of NULL */
-#define X509_HASH_MAX_SIZE_IN_BYTES				(48)	/**< Maximum length of
+#define X509_HASH_MAX_SIZE_IN_BYTES				(48U)	/**< Maximum length of
 									hash */
 #define X509_SIGNATURE_MAX_SIZE_IN_BYTES			(96U)	/**< Maximum length of
 									signature */
