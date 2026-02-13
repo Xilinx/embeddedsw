@@ -55,7 +55,7 @@
 #include "xasu_def.h"
 #include "xasufw_alginfo.h"
 #include "xasufw_kat.h"
-#include "xocp_dme.h"
+#include "xocp_ude.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
@@ -476,7 +476,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function executes the key transfer and generates DME KEK if PUF regeneration
+ * @brief	This function executes the key transfer and generates UDE KEK if PUF regeneration
  * 		is successful.
  *
  * @return
@@ -496,18 +496,18 @@ s32 XAsufw_RunKeyTransfer(void)
 		goto END;
 	}
 
-	/** Generate DME KEK if PUF KEK generation and AES KAT are successful. */
+	/** Generate UDE KEK if PUF KEK generation and AES KAT are successful. */
 	if (PufKekFlag == XASUFW_PUF_KEK_GEN_SUCCESS) {
 #ifdef XASU_OCP_ENABLE
 		if (AesKatStatus == XASU_STATUS_PASS) {
-			Status = XOcp_GenerateDmeKek();
+			Status = XOcp_GenerateUdeKek();
 			if (Status != XASUFW_SUCCESS) {
-				XAsufw_Printf(DEBUG_GENERAL, "ASUFW DME KEK generation failed. Error: 0x%x\r\n", Status);
+				XAsufw_Printf(DEBUG_GENERAL, "ASUFW UDE KEK generation failed. Error: 0x%x\r\n", Status);
 			}
 		}
 #else
 		(void)AesKatStatus;
-		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "ASUFW DME KEK generation failed as OCP is disabled\r\n");
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "ASUFW UDE KEK generation failed as OCP is disabled\r\n");
 #endif
 	}
 

@@ -16,7 +16,7 @@
  * Ver   Who  Date       Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  07/16/25 Initial release
- *       yog  08/21/25 Added OCP-DME support
+ *       yog  08/21/25 Added OCP-UDE support
  *
  * </pre>
  *

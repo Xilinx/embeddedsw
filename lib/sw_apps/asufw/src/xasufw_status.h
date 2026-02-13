@@ -570,21 +570,21 @@ enum {
 	XASUFW_UPDATE_ACCESS_PERM_INVALID_MODULE_INFO, /**< 0x181U - Error when module information is
 						invalid */
 	XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED, /**< 0x182U - Error when updating access permissions */
-	XASUFW_OCP_DME_ALL_PVT_KEYS_REVOKED, /**< 0x183U - Error when all DME private keys are revoked */
+	XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED, /**< 0x183U - Error when all UDE private keys are revoked */
 	RESERVED1, /**< 0x184U - Reserved */
 	XASUFW_OCP_DEVICE_ID_CALC_FAIL, /**< 0x185U - Error when device ID calculation is failed */
 	XASUFW_OCP_NONCE_UPDATE_FAIL, /**< 0x186U - Error when nonce update is failed */
 	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */
-	XASUFW_OCP_DME_SIGNATURE_GEN_FAIL, /**< 0x188U - Error when DME signature generation is failed */
+	XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, /**< 0x188U - Error when UDE signature generation is failed */
 	XASUFW_OCP_AES_WRITE_KEY_FAILURE, /**< 0x189U - Error when AES write key operation fails */
-	XASUFW_OCP_DME_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when DME key encryption is failed */
-	XASUFW_OCP_DME_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when DME key decryption is failed */
-	XASUFW_DME_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x18CU - Error when DME decrypts black key 0 fails */
-	XASUFW_DME_CMAC_KDF_FAIL, /**< 0x18DU - Error when DME CMAC KDF operation fails */
-	XASUFW_OCP_DME_AES_COMPUTE_FAIL, /**< 0x18EU - Error when DME AES compute operation fails */
-	XASUFW_OCP_DME_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when DME challenge response operation fails */
+	XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when UDE key encryption is failed */
+	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
+	XASUFW_UDE_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x18CU - Error when UDE decrypts black key 0 fails */
+	XASUFW_UDE_CMAC_KDF_FAIL, /**< 0x18DU - Error when UDE CMAC KDF operation fails */
+	XASUFW_OCP_UDE_AES_COMPUTE_FAIL, /**< 0x18EU - Error when UDE AES compute operation fails */
+	XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when UDE challenge response operation fails */
 	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */
-	XASUFW_OCP_DME_CHANGE_ENDIANNESS_ERROR, /**< 0x191U - Error when DME change endianness operation fails */
+	XASUFW_OCP_UDE_CHANGE_ENDIANNESS_ERROR, /**< 0x191U - Error when UDE change endianness operation fails */
 	XASUFW_X509_PARSER_TBS_FAIL, /**< 0x192U - Error when TBS parsing is failed. */
 	XASUFW_X509_PARSER_SIGN_INFO_FAIL, /**< 0x193U - Error when signature information parsing
 							is failed. */
@@ -594,7 +594,7 @@ enum {
 
 	XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, /**< 0x196U - Error when public key validation fails
 						in ECIES */
-	XASUFW_OCP_DME_KEK_NOT_PRESENT, /**< 0x197U - Error when DME KEK is not present */
+	XASUFW_OCP_UDE_KEK_NOT_PRESENT, /**< 0x197U - Error when UDE KEK is not present */
 
 	XASUFW_AES_CONTEXT_SAVE_FAIL, /**< 0x198U - Error when AES context saving fails */
 	XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, /**< 0x199U - Error when AES context user key restore fails */
@@ -609,8 +609,8 @@ enum {
 	XASUFW_INVALID_CMD_STAGE, /**< 0x1A2U - Error for invalid command stage. */
 	XASUFW_OCP_GET_ASU_CDI_FROM_PLM_FAIL, /**< 0x1A3U - Error when getting ASU CDI from PLM
 						fails. */
-	XASUFW_OCP_DME_KEY_NOT_PROGRAMMED, /**< 0x1A4U - Error when DME key is not programmed in eFuses. */
-	XASUFW_OCP_DME_PUBLIC_KEY_GEN_FAIL, /**< 0x1A5U - Error when DME public key generation fails. */
+	XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED, /**< 0x1A4U - Error when UDE key is not programmed in eFuses. */
+	XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL, /**< 0x1A5U - Error when UDE public key generation fails. */
 	XASUFW_KEYMANAGER_INVALID_PARAM, /**< 0x1A6U - Invalid parameters to Keyvault APIs. */
 	XASUFW_KEYMANAGER_MODULE_REGISTRATION_FAILED, /**< 0x1A7U - Error when Keyvault module registration fails. */
 	XASUFW_KEYMANAGER_KEY_VAULT_DDR_INIT_FAILED, /**< 0x1A8U - Error when Keyvault DDR initialization fails. */

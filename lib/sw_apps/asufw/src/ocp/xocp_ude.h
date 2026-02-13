@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -21,11 +21,11 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xocp_dme_server_apis OCP DME server APIs
+* @addtogroup xocp_ude_server_apis OCP UDE server APIs
 * @{
 */
-#ifndef XOCP_DME_H_
-#define XOCP_DME_H_
+#ifndef XOCP_UDE_H_
+#define XOCP_UDE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,9 +44,9 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XOcp_GenerateDmeKek(void);
-s32 XOcp_GenerateDmeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeParams *OcpDmeParamsPtr);
-s32 XOcp_EncryptDmeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeKeyEncrypt *OcpDmeKeyEnc);
+s32 XOcp_GenerateUdeKek(void);
+s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr);
+s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -55,5 +55,5 @@ s32 XOcp_EncryptDmeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeKeyEncrypt *OcpDmeK
 #endif
 
 #endif /* XASU_OCP_ENABLE */
-#endif /* XOCP_DME_H_ */
+#endif /* XOCP_UDE_H_ */
 /** @} */

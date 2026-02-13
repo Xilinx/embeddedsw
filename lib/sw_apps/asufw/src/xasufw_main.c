@@ -152,7 +152,7 @@ int main(void)
 
 	/**
 	 * Run key transfer and PUF regeneration.
-	 * Run DME KEK derivation if PUF regeneration is successful.
+	 * Run UDE KEK derivation if PUF regeneration is successful.
 	 */
 	XFIH_CALL(XAsufw_RunKeyTransfer, FihVar, Status);
 

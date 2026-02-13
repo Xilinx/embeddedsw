@@ -46,5 +46,5 @@ ocp_devik_x509_cert_gen,OCP(0xB),0xB00,3,3,3,3,3,3,3,3,Performs DevIK X509 certi
 ocp_devak_x509_cert_gen,OCP(0xB),0xB01,3,3,3,3,3,3,3,3,Performs DevAK X509 certificate generation operation
 ocp_devik_csr_x509_cert_gen,OCP(0xB),0xB02,3,3,3,3,3,3,3,3,Performs DevIK CSR X509 certificate generation operation
 ocp_devak_attestation,OCP(0xB),0xB03,3,3,3,3,3,3,3,3,Performs DevAK attestation operation
-ocp_dme_challenge_req,OCP(0xB),0xB04,3,3,3,3,3,3,3,3,Performs DME challenge request operation
-ocp_dme_pvt_key_encrypt,OCP(0xB),0xB05,3,3,3,3,3,3,3,3,Performs DME private keys encryption operation
+ocp_ude_challenge_req,OCP(0xB),0xB04,3,3,3,3,3,3,3,3,Performs UDE challenge request operation
+ocp_ude_pvt_key_encrypt,OCP(0xB),0xB05,3,3,3,3,3,3,3,3,Performs UDE private keys encryption operation
