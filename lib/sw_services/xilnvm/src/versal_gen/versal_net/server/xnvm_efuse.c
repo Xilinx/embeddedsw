@@ -41,6 +41,7 @@
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
 *       vss  08/08/2025 Added DME support for versal_2ve_2vm.
 *       ng   09/19/2025 Replaced XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR with XST_FAILURE
+* 3.7   nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 * </pre>
 *
 *******************************************************************************/
@@ -84,10 +85,12 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col,
 static int XNvm_EfuseCloseController(void);
 static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion);
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey);
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
 static int XNvm_EfuseWritePufChash(u32 Chash);
 static int XNvm_EfuseWritePufAux(u32 Aux);
 static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap);
+#endif
 static int XNvm_UdsCrcCalc(const u32 *Uds);
 static int XNvm_EfuseCacheReloadAndProtectionChecks(void);
 static int XNvm_EfusePrgmProtectionBits(void);
@@ -96,6 +99,9 @@ static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 static u32 XNvm_EfuseCalculateCrc32(const u8* Data, u32 Len);
 static int XNvm_EfuseValidateCrc(void);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U) /**< Byte shift used in error code */
@@ -2035,7 +2041,7 @@ END_CLS_CONTROLLER:
 END:
 	return Status;
 }
-
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 /******************************************************************************/
 /**
  * @brief	This function programs PUF ctrl and PUF helper data, Chash and
@@ -2178,6 +2184,7 @@ END_CLS_CONTROLLER:
 END:
 	return Status;
 }
+#endif /* XNVM_ACCESS_PUF_USER_DATA */
 
 /******************************************************************************/
 /**
@@ -2403,7 +2410,7 @@ END_CLS_CONTROLLER:
 END:
 	return Status;
 }
-
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 /******************************************************************************/
 /**
  * @brief	This function programs the eFUSEs with the PUF syndrome data.
@@ -2533,7 +2540,269 @@ static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap)
 	return Status;
 }
 
+#endif /* XNVM_ACCESS_PUF_USER_DATA */
 
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+
+/******************************************************************************/
+/**
+ * @brief	This function Programs PUF eFuses as user data.
+ *
+ * @param	WritePufFuses - Pointer to the XNvm_EfusePufFuse structure.
+ *
+ * @return
+ *		- XST_SUCCESS  If programming is successful.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
+ *		- XNVM_ERR_WRITE_PUF_USER_DATA  On Invalid user data
+ *
+ * @note By default PUF eFuses are used for PUF helper data.
+ *       To program PUF eFuses as general purpose efuses user needs to enable
+ *       compile time macro XNVM_ACCESS_PUF_USER_DATA.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
+	u32 PufFusesDataToPrgm[XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS] = {0U};
+	u32 CacheValue;
+	u32 Row = 0U;
+	u32 StartRowCache;
+	u32 EndRowCache;
+	u32 DataIndex;
+	u32 StartRow;
+	u32 ToBeProgrammed;
+	u32 DataOffset = 0U;
+	const u32 *DataPtr;
+
+	if (WritePufFuses == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Validate input parameters
+	 */
+	StartRowCache = (XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET / XNVM_WORD_LEN) +
+			WritePufFuses->StartPufFuseRow;
+	EndRowCache = StartRowCache + WritePufFuses->NumOfPufFusesRows;
+
+	/**
+	 * Validate PufFuses before programming
+	 */
+	for (Row = StartRowCache; Row < EndRowCache; Row++) {
+		CacheValue = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Row * XNVM_WORD_LEN);
+
+		DataIndex = Row - StartRowCache;
+		if ((CacheValue & WritePufFuses->PufFuseData[DataIndex]) != CacheValue) {
+			Status = (int)XNVM_EFUSE_ERR_BIT_CANT_REVERT;
+			goto END;
+		}
+	}
+
+	/**
+	 * Compute programmable bits
+	 */
+	Status = XNvm_EfuseComputeProgrammableBits(WritePufFuses->PufFuseData,
+							PufFusesDataToPrgm,
+							StartRowCache * XNVM_WORD_LEN,
+							(EndRowCache - 1U) * XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Program PUF fuses in chunks of page size
+	 */
+	StartRow = WritePufFuses->StartPufFuseRow;
+	ToBeProgrammed = WritePufFuses->NumOfPufFusesRows;
+	DataPtr = PufFusesDataToPrgm;
+
+	/**
+	 * Setup common programming parameters for PUF fuses
+	 */
+	EfusePrgmInfo.ColStart = XNVM_EFUSE_PUF_SYN_DATA_START_COL_NUM;
+	EfusePrgmInfo.ColEnd = XNVM_EFUSE_PUF_SYN_DATA_END_COL_NUM;
+	EfusePrgmInfo.SkipVerify = XNVM_EFUSE_PROGRAM_VERIFY;
+
+	while (ToBeProgrammed > 0U) {
+		u32 RowOffset;
+		u32 RowsRemainingInPage;
+		u32 NumRows;
+
+		/**
+		 * Least significant 6 bits are index in page
+		 */
+		RowOffset = StartRow & XNVM_EFUSE_PUF_PAGE_ROW_OFFSET_MASK;
+		/**
+		 * Rows remaining in current page
+		 */
+		RowsRemainingInPage = XNVM_EFUSE_PUF_ROWS_PER_PAGE - RowOffset;
+
+		/**
+		 * Setup programming parameters based on page.
+		 * Least significant 6 bits are index in page, 7th bit is page index.
+		 */
+		EfusePrgmInfo.StartRow = XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_ROW + RowOffset;
+		/* 7th bit determines page (0 or 1) */
+		EfusePrgmInfo.EfuseType = (XNvm_EfuseType)(StartRow >> XNVM_EFUSE_PUF_PAGE_ROW_INDEX_BITS);
+
+		/**
+		 * Program up to end of page or remaining eFuses, whichever is smaller
+		 */
+		NumRows = (ToBeProgrammed < RowsRemainingInPage) ? ToBeProgrammed : RowsRemainingInPage;
+		EfusePrgmInfo.NumOfRows = NumRows;
+
+		/**
+		 * Program the eFuses for this page chunk
+		 */
+		Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &DataPtr[DataOffset]);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/**
+		 * Update counters and offsets for next iteration
+		 */
+		ToBeProgrammed -= NumRows;
+		StartRow += NumRows;
+		DataOffset += NumRows;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function programs PUF HD eFuses as general purpose eFuses.
+ *
+ * @param	PufFuse - Pointer to the XNvm_EfusePufFuse structure
+ *
+ * @return
+ *		- XST_SUCCESS If programs successfully.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD  Puf Syn data already programmed.
+ *		- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD  Puf chash already programmed.
+ *		- XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD  Puf Aux is already programmed.
+ *		- XNVM_EFUSE_ERR_WRITE_PUF_FUSES  Error in writing PUF user fuses
+ *
+ * @note By default PUF eFuses are used for PUF helper data.
+ *       To program PUF eFuses as general purpose efuses user needs to enable
+ *       compile time macro XNVM_ACCESS_PUF_USER_DATA.
+ *
+ ******************************************************************************/
+int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int LockStatus = XST_FAILURE;
+	volatile int ResetStatus = XST_FAILURE;
+	volatile int DisableStatus = XST_FAILURE;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+
+	/**
+	 *  Validate input parameters.
+	 */
+	if (PufFuse == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (PufFuse->StartPufFuseRow > (XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS - 1U)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PufFuse->NumOfPufFusesRows < 1U) ||
+		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PufFuse->StartPufFuseRow + PufFuse->NumOfPufFusesRows) >
+		 XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (PufFuse->PufFuseData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	*  Validate PUF user fuse access (checks PUF_SYN_LK, CHASH, AUX, DEC_ONLY)
+	*/
+	Status = XNvm_EfuseValidatePufUserFuseAccess();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 *  Monitor voltage and temperature if EnvMonitorDis is TRUE.
+	 */
+	if (PufFuse->EnvMonitorDis != TRUE) {
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (int)Status | (int)XNVM_EFUSE_ERR_BEFORE_PROGRAMMING;
+			goto END;
+		}
+	}
+
+	/**
+	 *  Unlock the eFUSE controller. On failure return appropriate failure code.
+	 *  Set reference clock.
+	 *  Set read mode.
+	 */
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
+					   XNVM_EFUSE_MARGIN_RD);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 *  Program PUF Fuses if it set by user.
+	 */
+	if (PufFuse->PrgmPufFuse == TRUE) {
+		Status = XNvm_EfusePrgmPufFuses(PufFuse);
+		if (Status != XST_SUCCESS) {
+			Status = (int)Status | (int)XNVM_EFUSE_ERR_WRITE_PUF_FUSES;
+			goto END;
+		}
+	}
+
+	/**
+	 *  Reload the cache once programming of all eFuses requested are programmed.
+	 */
+	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
+
+END:
+	/**
+	 *  Reset Read mode.
+	 */
+	ResetStatus = XNvm_EfuseResetReadMode();
+	if (XST_SUCCESS == Status) {
+		Status = ResetStatus;
+	}
+	/**
+	 *  Disable eFuse Programming mode.
+	 */
+	DisableStatus = XNvm_EfuseDisableProgramming();
+	if (XST_SUCCESS == Status) {
+		Status = DisableStatus;
+	}
+
+	/**
+	 *  Lock eFuse controller
+	 */
+	LockStatus = XNvm_EfuseLockController();
+	if (XST_SUCCESS == Status) {
+		Status = LockStatus;
+	}
+	return Status;
+}
+
+#endif /* XNVM_ACCESS_PUF_USER_DATA */
 /******************************************************************************/
 /**
  * @brief	This function programs DME userkey eFuses.

@@ -24,6 +24,8 @@
 *    	vek  05/31/23 Added support for Programming PUF secure control bits
 * 3.6   vss  08/22/25 Added macros required to support DME in versal_2ve_2vm.
 * 3.7   mb   01/19/26 Added IPI support for AES key CRC check
+*       nik  01/06/26 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+*
 * </pre>
 * @note
 *
@@ -92,6 +94,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 #define XNVM_UDS_SIZE_IN_WORDS          (12U) /** UDS size in words */
 #define XNVM_DME_USER_KEY_SIZE_IN_WORDS	(12U) /** DME key size in words */
+#define XNVM_ADDR_HIGH_SHIFT    	(32U)  /**< Shift to extract upper 32 bits */
 
 /**************************** Type Definitions *******************************/
 /** Structure for RomRsvd eFuses */
@@ -497,6 +500,7 @@ typedef struct {
 	XNvm_BootEnvCtrlBits Pload;
 } XNvm_BootEnvCtrlBitsCdo;
 
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 /** Structure for PUF HD, PUF_CTRL, CHASH, AUX and RoSwap */
 typedef struct {
 	u32 PufSecCtrlBits;
@@ -507,6 +511,7 @@ typedef struct {
 	u32 Aux;
 	u32 RoSwap;
 } XNvm_EfusePufHdAddr;
+#endif
 
 /** Structure for addresses of AES, PPK Hash and IV data structures */
 typedef struct {
@@ -515,6 +520,22 @@ typedef struct {
 	u64 PpkHashAddr;
 	u64 IvAddr;
 } XNvm_EfuseWriteDataAddr;
+
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+
+/**
+ * @brief PUF user data address structure for IPI/CDO communication
+ */
+typedef struct {
+	u32 AddrLow;	/**< PufUserFuseData lower Address */
+	u32 AddrHigh;	/**< PufUserFuseData higher Address */
+	u32 StartPufFuseRow;	/**< Start Puf user eFuse row number (0-127) */
+	u32 NumOfPufFusesRows;	/**< Number of Puf user eFuses to be programmed */
+	u32 EnvMonitorDis;	/**< Environmental Monitor disable flag */
+	u32 PrgmPufFuse;		/**< Program flag TRUE/FALSE */
+} XNvm_EfusePufFuseAddr;
+
+#endif
 
 /** XilNVM API ids */
 typedef enum {
@@ -555,6 +576,9 @@ typedef enum {
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_ID_EFUSE_WRITE_UDS,
 	XNVM_API_ID_EFUSE_WRITE_DME_KEY,
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+	XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE,
+#endif
 #ifdef VERSAL_2VE_2VM
 	XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS,
 #endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 3.0   har  07/21/22 Initial release
 * 3.2   yog  09/13/23 Added XNvm_IsDmeModeEn() API
 * 3.6   vss  08/08/25 Added DME OCP support for versal_2ve_2vm.
+* 3.7   nik  01/29/26 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *
 * </pre>
 * @note
@@ -57,6 +58,9 @@ int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion);
 int XNvm_IsDmeModeEn(void);
 #endif
 int XNvm_EfuseIsPufHelperDataEmpty(void);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+int XNvm_EfuseValidatePufUserFuseAccess(void);
+#endif
 
 /**
  * @}

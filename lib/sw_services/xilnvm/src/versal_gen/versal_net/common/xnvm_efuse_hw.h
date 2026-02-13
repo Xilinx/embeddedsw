@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 3.2   har  02/22/2023 Added macros related to ROM Rsvd bits
 *       yog  09/13/2023 Moved XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK
 *                       macro to xnvm_validate.c
+* 3.7   nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *
 * </pre>
 *
@@ -44,6 +45,7 @@ extern "C" {
 
 /**
  *  @name eFUSE Cache Register Offsets
+ * @{
  */
 /**< eFUSE Cache Register Offsets */
 #define XNVM_EFUSE_CACHE_IP_DISABLE_OFFSET		(0x00000018U)
@@ -55,6 +57,7 @@ extern "C" {
 
 /**
  * @name Register: IP_DISABLE_0
+ * @{
  */
 /**< IP_DISABLE_0 Masks and Shifts */
 #define XNVM_EFUSE_FIPS_VERSION_0_MASK				(0x00000004U)
@@ -66,6 +69,7 @@ extern "C" {
 
 /**
  * @name Register: DME_FIPS
+ * @{
  */
 /**< DME_FIPS Masks and Shifts */
 #define XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK		(0xFF000000U)
@@ -74,6 +78,7 @@ extern "C" {
 
 /**
  * @name Register: ANLG_TRIM_3
+* @{
  */
 /**< ANLG_TRIM_3 Masks and Shifts */
 #define XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK			(0x7FFFFFFFU)
@@ -81,6 +86,7 @@ extern "C" {
 
 /**
  * @name Register: SECURITY_CONTROL
+* @{
  */
 /**< SECURITY_CONTROL Masks and shifts */
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_MASK	(0x00000010U)
@@ -88,6 +94,7 @@ extern "C" {
 
 /**
  * @name Register: ME_ID_CODE
+ * @{
  */
 /**< ME_ID_CODE Masks and shifts */
 #define XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK		(0xFF000000U)
@@ -112,6 +119,7 @@ extern "C" {
 
 /**
  *  @name eFUSE Ctrl Register Offsets
+* @{
  */
 /**< eFUSE Ctrl Register Offsets */
 #define XNVM_EFUSE_CTRL_UDS_DICE_CRC_OFFSET			(0x00000070U)
@@ -327,7 +335,8 @@ extern "C" {
 #define XNVM_EFUSE_ROM_RSVD_END_COL			(31U)
 /** @} */
 
-/** @name eFuse number of rows
+/**
+ * @defgroup eFuse number of rows
  * @{
  */
 /**< eFuse number of rows */
@@ -365,6 +374,10 @@ extern "C" {
 #define XNVM_EFUSE_CRC_SALT_NUM_OF_ROWS			(1U)
 #define XNVM_EFUSE_ROM_RSVD_NUM_OF_ROWS			(4U)
 /** @} */
+
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+#define XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS		(128U)  /**< PUF SYN + RSVD rows (127+1) */
+#endif
 
 #ifdef __cplusplus
 }

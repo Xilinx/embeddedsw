@@ -22,6 +22,7 @@
 *   	vek  05/31/23 Added support for Programming PUF secure control bits
 * 3.6   vss  08/08/2025 Added DME support for versal_2ve_2vm.
 * 3.7   mb   01/13/2026 Added client API XNvm_EfuseCheckAesKeyCrc to check AES key CRC
+*       nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *
 * </pre>
 *
@@ -71,8 +72,13 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode, const u16 FipsVersion, const u32 EnvDisFlag);
 int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 RevokeIdNum, const u32 EnvDisFlag);
 int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u32 OffChipRevokeIdNum, const u32 EnvDisFlag);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
+int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
+#else
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);
 int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr);
+#endif
 int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType);
 int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr, const XNvm_RevocationId RevokeIdNum);
 int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr);

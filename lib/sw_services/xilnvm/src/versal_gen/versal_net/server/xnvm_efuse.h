@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
  *	 kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
  *   vss  12/31/2023 Added support for Program the eFuse protection bits only once
+ * 3.7   nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
  *
  * </pre>
  *
@@ -40,6 +41,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /**
  * @name  EFUSE masks
+ * @{
  */
 /**< Protection bit masks of various eFuses */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM) |      \
@@ -56,8 +58,22 @@ extern "C" {
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM)
 /** @} */
 
-/**************************** Type Definitions *******************************/
 
+#define XNVM_EFUSE_PUF_ROWS_PER_PAGE			(64U) /**< Number of PUF SYN user-data rows per page */
+#define XNVM_EFUSE_PUF_PAGE_ROW_INDEX_BITS		(6U) /**< Bits representing PUF row index within a page; shift by 6 => page index */
+#define XNVM_EFUSE_PUF_PAGE_ROW_OFFSET_MASK		(0x3FU) /**< Mask to extract in-page PUF row offset (LSB 6 bits: 0..63) */
+
+
+/**************************** Type Definitions *******************************/
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+typedef struct {
+	u32 EnvMonitorDis;
+	u32 PrgmPufFuse;
+	u32 StartPufFuseRow;
+	u32 NumOfPufFusesRows;
+	u32 *PufFuseData;
+}XNvm_EfusePufFuse;
+#endif
 /************************** Function Prototypes ******************************/
 int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *EfuseKey);
 int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *EfuseHash);
@@ -78,10 +94,15 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum);
 int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag);
 int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask);
 int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode);
-int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData);
 int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc);
 int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits);
 int XNvm_EfuseWritePufSecCtrl(u32 EnvDisFlag,u32 PufCtrlBits);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+/* Function prototypes for PUF as user data */
+int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse);
+#else
+int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData);
+#endif
 
 #ifdef __cplusplus
 }

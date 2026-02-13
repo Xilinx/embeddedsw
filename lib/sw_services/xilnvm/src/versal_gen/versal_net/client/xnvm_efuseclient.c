@@ -31,7 +31,7 @@
 * 3.6  rpu  07/21/25  Fixed GCC warnings
 *      vss  08/08/2025 Added DME support for versal_2ve_2vm.
 * 3.7  mb   01/13/2026 Added client API to check EFUSE AES keys CRC
-*
+*      nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 * </pre>
 *
 * @note
@@ -70,7 +70,9 @@ static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_A
 static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh);
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow, u32 AddrHigh);
+#endif
 static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePtr, XNvm_AesKeyWriteCdo *KeyWrCdo,
 		XNvm_AesKeyType KeyType, u64 Addr, u32 EnvMonDis);
 static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePtr, XNvm_PpkWriteCdo *PpkWrCdo,
@@ -1424,7 +1426,116 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 END:
 	return Status;
 }
+#ifdef XNVM_ACCESS_PUF_USER_DATA
 
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program Puf as User eFuses
+ * 		requested by the user
+ *
+ * @param	InstancePtr Pointer to the client instance
+ * @param	PufUserFuseAddr	Address of the XNvm_EfusePufFuseAddr structure
+ * 				where the user provided data to be programmed
+ *
+ * @return
+ *		- XST_SUCCESS  If the programming is successful
+ *		- XST_INVALID_PARAM  If there is a input validation failure
+ *		- XST_FAILURE  If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	/**
+	 *  Validate input parameters.
+	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	XNVM_PACK_PAYLOAD2(Payload, XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE,
+		(u32)PufUserFuseAddr, (u32)(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
+
+	/**
+	 *  Send PUF user fuses CDO to PLM to write user specified PUF data to corresponding eFuses.
+	 *  Return XST_FAILURE if IPI request processing fails in PLM.
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "PUF user fuses write failed; Error Code = %x\r\n", Status);
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to read Puf User eFuses
+ * 		requested by the user
+ *
+ * @param	InstancePtr Pointer to the client instance
+ * @param	PufUserFuseAddr	Address of the output buffer to store the
+ * 				Puf User eFuses data
+ *
+ * @return
+ *		- XST_SUCCESS  If the read is successful
+ *		- XST_INVALID_PARAM  If there is a input validation failure
+ *		- XST_FAILURE  If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+	XNvm_RdCacheCdo* RdCacheCdo = (XNvm_RdCacheCdo*)Payload;
+	XNvm_EfusePufFuseAddr *PufFuseAddrInfo;
+	u16 StartOffset;
+	u32 HighAddr;
+	u32 LowAddr;
+
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM, if input parameters are invalid.
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Get PUF fuse address structure */
+	PufFuseAddrInfo = (XNvm_EfusePufFuseAddr *)(UINTPTR)PufUserFuseAddr;
+
+	/* Calculate cache offset: PUF SYN data starts at row 192, each row = 4 bytes */
+	StartOffset = XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET + (PufFuseAddrInfo->StartPufFuseRow * XNVM_WORD_LEN);
+
+	/* Use address fields directly from structure */
+	HighAddr = PufFuseAddrInfo->AddrHigh;
+	LowAddr = PufFuseAddrInfo->AddrLow;
+
+	/* Create read cache CDO using unified API */
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, (u8)PufFuseAddrInfo->NumOfPufFusesRows,
+			LowAddr, HighAddr);
+
+	/**
+	 * @{ Send XNvm_EfuseReadPufAsUserFuses CDO over IPI request to the PLM.
+	 * Wait for IPI response from PLM with a default timeout of 300 seconds.
+	 * If the timeout exceeds return error else return the status of the IPI response.
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
+			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "PUF user fuses read failed; Error Code = %x\r\n", Status);
+	}
+
+END:
+	return Status;
+}
+#else
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Puf helper data
@@ -1622,7 +1733,7 @@ END:
 
 	return RetStatus;
 }
-
+#endif
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read IV eFuses
@@ -2860,7 +2971,7 @@ int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 END:
 	return Status;
 }
-
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 /*****************************************************************************/
 /**
  * @brief	This function creates payload for Write PUF CDO.
@@ -2876,7 +2987,7 @@ static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow,
 	PufWrCdo->Pload.AddrLow = AddrLow;
 	PufWrCdo->Pload.AddrHigh = AddrHigh;
 }
-
+#endif
 /*****************************************************************************/
 /**
  * @brief	This function creates payload for Write AES Key CDO.

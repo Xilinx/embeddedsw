@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
  *       kpt  09/11/2023 Added error code XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS
  * 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
  * 3.6   ng   09/19/2025 Fixed error code overlap with other errors
- *
+ * 3.7   nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
  * </pre>
  *
  * @note
@@ -178,6 +178,8 @@ typedef enum {
 							  * value written into CRC SALT efuse
 							  * does not match.
 							  */
+	XNVM_EFUSE_ERR_RD_PUF_FUSES = 0xFF00, /**< 0xFF00
+						* Error reading PUF user fuses */
 } XNvm_EfuseVersalNetErrorCodes;
 
 #ifdef __cplusplus

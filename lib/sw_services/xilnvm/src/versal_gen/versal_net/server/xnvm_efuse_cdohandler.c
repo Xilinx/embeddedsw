@@ -26,6 +26,7 @@
 * 3.3  kpt   01/22/2024 Added support to extend secure state into SWPCR
 * 3.6  obs   08/26/2025 Added support for Verifying Address Range
 * 3.7  mb    01/13/2026 Added support for AES key CRC check
+*      nik   01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *
 * </pre>
 *
@@ -49,11 +50,16 @@
 #include "xnvm_utils.h"
 #include "xplmi_hw.h"
 #include "xnvm_efuse_common_hw.h"
+#include "xnvm_validate.h"
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK 	(0x0000FFFFU)
 #define XNVM_EFUSE_CACHE_BASEADDR		(0xF1250000U)
 #define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)
+
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+#define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U) /**< Total number of PUF fuses available */
+#endif
 
 /************************** Function Prototypes *****************************/
 static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *Key);
@@ -80,14 +86,18 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyTyp
 static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum);
 static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag);
 static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask);
-static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
 static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits);
-static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
 static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
 static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType);
 
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+#else
+static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
+#endif
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -131,7 +141,9 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_Crc *Crc = NULL;
 	XNvm_DmeMode *DmeMode = NULL;
 	XNvm_RomRsvdBitsWritePload *RomRsvd = NULL;
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 	XNvm_PufHDInfoDirectPload *PufData = NULL;
+#endif
 	XNvm_PufCtrlDirectPload *PufSecData = NULL;
 	XNvm_UdsWritePload *UdsWrPload = NULL;
 	XNvm_DmeKeyWritePload *DmeKeyWrPload = NULL;
@@ -140,7 +152,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_OcpHandler OcpHandler;
 	u32 ApiId = Cmd->CmdId & XNVM_API_ID_MASK;
 
-    /**
+	/**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
 	 */
 	if (NULL == Cmd) {
@@ -148,7 +160,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-    /**
+	/**
 	 *  Calls the respective handler based on API ID. Return error code upon failure
 	 */
 	switch (ApiId) {
@@ -226,10 +238,18 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_EfuseRead(Cmd->SubsystemId, RdCachePload->RegCount, RdCachePload->StartOffset, RdCachePload->AddrLow,
 			RdCachePload->AddrHigh);
 		break;
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE):
+		WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
+		Status = XNvm_EfusePufUserDataWrite(Cmd->SubsystemId, WrPufPload->AddrLow,
+				WrPufPload->AddrHigh);
+		break;
+#else
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
 		WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufData(Cmd->SubsystemId, WrPufPload->AddrLow, WrPufPload->AddrHigh);
 		break;
+#endif
 	case XNVM_API(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS):
 		Status =  XNvm_EfuseCacheLoadNPrgmProtBits();
 		break;
@@ -333,6 +353,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		DmeMode = (XNvm_DmeMode *)Cmd->Payload;
 		Status = XNvm_EfuseWriteDmeModeVal((u32)DmeMode->EnvDisFlag, DmeMode->EfuseDmeMode);
 		break;
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD):
 		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
 		if (Cmd->ProcessedLen == 0U){
@@ -355,6 +376,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 			CdoChunkData.MemClear = TRUE;
 		}
 		break;
+#endif
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
@@ -1094,7 +1116,7 @@ static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode)
 
 	return Status;
 }
-
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 /*****************************************************************************/
 /**
  * @brief       This function programs Puf helper data, Chash, Aux, Puf Ctrl
@@ -1126,7 +1148,7 @@ static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData)
 
 	return Status;
 }
-
+#endif
 static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
@@ -1138,6 +1160,82 @@ static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCt
 }
 
 
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+/*****************************************************************************/
+/**
+ * @brief       This function programs PUF helper data as user eFuses by
+ *              calling the XNvm_EfuseWritePufAsUserFuses API.
+ *
+ * @param       SubsystemId  Subsystem ID
+ * @param 	AddrLow      Lower 32-bit address of XNvm_EfusePufFuseAddr structure
+ * @param       AddrHigh     Upper 32-bit address of XNvm_EfusePufFuseAddr structure
+ *
+ * @return
+ * 		- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - On failure
+ *
+ ******************************************************************************/
+static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
+{
+	int Status = XST_FAILURE;
+	u64 Addr = ((u64)AddrHigh << XNVM_ADDR_HIGH_SHIFT) | (u64)AddrLow;
+	XNvm_EfusePufFuseAddr PufFuseAddr = {0U};
+	XNvm_EfusePufFuse PufUserFuse = {0U};
+	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES] = {0U};
+	u64 PufDataAddr;
+	u32 DataSize;
+
+	/**
+	 * Validate the address range for PufFuseAddr structure
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PufFuseAddr, Addr, sizeof(PufFuseAddr));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Extract the 64-bit address where actual PUF fuse data is located
+	 */
+	PufDataAddr = ((u64)PufFuseAddr.AddrHigh << XNVM_ADDR_HIGH_SHIFT) | (u64)PufFuseAddr.AddrLow;
+
+	/**
+	 * Calculate the size of PUF fuse data to be read
+	 */
+	DataSize = PufFuseAddr.NumOfPufFusesRows * XNVM_WORD_LEN;
+
+	/**
+	 * Validate internal address field for PUF fuse data
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, DataSize, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
+	/**
+	 * Copying PUF fuse data from the provided address
+	 */
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PufFusesArr, PufDataAddr, DataSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Populate PufUserFuse structure with configuration parameters
+	 */
+	PufUserFuse.EnvMonitorDis = PufFuseAddr.EnvMonitorDis;
+	PufUserFuse.PrgmPufFuse = PufFuseAddr.PrgmPufFuse;
+	PufUserFuse.StartPufFuseRow = PufFuseAddr.StartPufFuseRow;
+	PufUserFuse.NumOfPufFusesRows = PufFuseAddr.NumOfPufFusesRows;
+	PufUserFuse.PufFuseData = PufFusesArr;
+
+	/**
+	 * Program the PUF eFuses as general-purpose user eFuses
+	 */
+	Status = XNvm_EfuseWritePufAsUserFuses(&PufUserFuse);
+
+END:
+	return Status;
+}
+#else
 /*****************************************************************************/
 /**
 
@@ -1170,7 +1268,7 @@ static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 END:
 	return Status;
 }
-
+#endif
 /*****************************************************************************/
 /**
  * @brief       This function programs ROM Rsvd eFuses

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 3.5   har  12/04/2024 Split check for AES disable and key write lock in XNvm_EfuseValidateAesKeyWriteReq
 * 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
 * 3.6   vss  08/08/2025 Added required OCP support for versal_2ve_2vm.
+* 3.7   nik  01/29/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *
 * </pre>
 *
@@ -596,6 +597,74 @@ int XNvm_IsDmeModeEn(void)
 	if (DmeMode != 0U) {
 		Status = (XNVM_EFUSE_ERROR_DME_MODE_SET |
 				XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif
+
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+/******************************************************************************/
+/**
+ * @brief	This function validates PUF user fuse access by checking security
+ *          control bits (PUF_SYN_LK, CHASH, AUX, and DEC_ONLY).
+ *
+ * @return
+ *		- XST_SUCCESS - If validation is successful
+ * 		- XNVM_EFUSE_ERR_FUSE_PROTECTED | XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD
+ *            If PUF syndrome is locked
+ * 		- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD - If CHASH is programmed
+ * 		- XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD - If AUX is programmed
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD - If DEC_ONLY is set
+ *
+ ******************************************************************************/
+int XNvm_EfuseValidatePufUserFuseAccess(void)
+{
+	int Status = XST_FAILURE;
+	u32 PufSecurityCtrlReg = 0U;
+	u32 RowDataVal = 0U;
+	u32 IsDecOnly = 0U;
+
+	/**
+	 *  Read security control register to check PUF syndrome lock
+	 */
+	PufSecurityCtrlReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
+
+	/* Check for PUF syndrome lock status */
+	if ((PufSecurityCtrlReg & XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK) != 0x0U) {
+		Status = XNVM_EFUSE_ERR_FUSE_PROTECTED | XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
+		goto END;
+	}
+
+	/* Check for non-zero PUF Chash */
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET,
+			XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD;
+		goto END;
+	}
+
+	/* Check for non-zero PUF AUX */
+	RowDataVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET);
+
+	if ((RowDataVal & XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK) != 0x00U) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD;
+		goto END;
+	}
+
+	/**
+	 *  Check for DEC_ONLY bits.
+	 */
+	IsDecOnly = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
+	if ((IsDecOnly & XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK) != 0x00U) {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
 		goto END;
 	}
 

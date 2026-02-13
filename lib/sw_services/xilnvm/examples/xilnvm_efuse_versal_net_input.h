@@ -564,6 +564,26 @@
 *	This is expected crc of the programmed user key1 given in hexa decimal.
 *	Default is XNVM_EFUSE_CRC_AES_ZEROS Crc of the zero key
 *
+*	\#define XNVM_EFUSE_WRITE_PUF_FUSES		FALSE
+*	TRUE will program user data provided in XNVM_EFUSE_PUF_FUSES into PUF syndrome data
+*	efuse bits.
+*	If set as FALSE, the user data will not be programmed into PUF Syndrome data efuse bits
+*
+*	\#define	XNVM_EFUSE_PRGM_PUF_FUSE_NUM		0U
+*	The value mentioned in this is start index of PUF efuse to be programmed
+*	Valid value for this index is 0 to 127
+*
+*	\#define XNVM_EFUSE_NUM_OF_PUF_FUSES		1U
+*	The value mentioned in this is number of 32 bit efuses to be programmed
+*	Valid value for this index is 1 to 128.
+*
+*	\#define XNVM_EFUSE_PUF_FUSES		"00000000"
+*	The value will be converted to a hex buffer and will be written
+*	into the Versal net eFuse array. It should be XNVM_EFUSE_NUM_OF_PUF_FUSES * 8 characters long.
+*	This value should be given in string format. Valid characters are 0-9,a-f,A-F.
+*	Any other character is considered invalid and will not burn the PUF efuse.
+*
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -571,6 +591,7 @@
 * ----- ------  ----------  ------------------------------------------------------
 * 1.0   har     07/01/2024  Initial release
 * 3.7   hae     12/29/2025  Added PUF secure control bit macros
+* 3.7   nik     01/06/2026  Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *
 * </pre>
 *
@@ -783,6 +804,19 @@ extern "C" {
 #define XNVM_EFUSE_EXPECTED_AES_KEY_CRC		XNVM_EFUSE_CRC_AES_ZEROS
 #define XNVM_EFUSE_EXPECTED_USER_KEY0_CRC	XNVM_EFUSE_CRC_AES_ZEROS
 #define XNVM_EFUSE_EXPECTED_USER_KEY1_CRC	XNVM_EFUSE_CRC_AES_ZEROS
+
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+#define XNVM_EFUSE_WRITE_PUF_FUSES		FALSE /**< program PUF fuses */
+#define XNVM_EFUSE_PRGM_PUF_FUSE_NUM		0U /**< start index of PUF fuses to be programmed */
+#define XNVM_EFUSE_NUM_OF_PUF_FUSES		1U /**< number of PUF fuses to be programmed */
+#define XNVM_EFUSE_PUF_FUSES			"00000000"
+						/**< PUF fuses value in hex string format. Length should be XNVM_EFUSE_NUM_OF_PUF_FUSES * 8 characters long */
+#define XNVM_EFUSE_READ_PUF_FUSE_NUM		XNVM_EFUSE_PRGM_PUF_FUSE_NUM
+						/**< start index of PUF fuses to be read */
+#define XNVM_EFUSE_READ_NUM_OF_PUF_FUSES	XNVM_EFUSE_NUM_OF_PUF_FUSES
+						/**< number of PUF fuses to be read */
+
+#endif /* XNVM_ACCESS_PUF_USER_DATA */
 
 #ifdef __cplusplus
 }
