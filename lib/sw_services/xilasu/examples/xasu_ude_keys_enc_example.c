@@ -6,11 +6,11 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasu_dme_keys_enc_example.c
+ * @file xasu_ude_keys_enc_example.c
  * @addtogroup Overview
  * @{
  *
- * This example illustrates the usage of ASU OCP-DME challenge request client APIs.
+ * This example illustrates the usage of ASU OCP-UDE challenge request client APIs.
  *
  * Procedure to link and compile the example for the default ddr less designs
  * ------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@
 #include "xasu_ocp.h"
 #include "xil_cache.h"
 #include "xil_util.h"
-#include "xasu_dme_keys_enc_input_example.h"
+#include "xasu_ude_keys_enc_input_example.h"
 #include "xnvm_efuseclient.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -77,26 +77,28 @@
 #define XASU_VALUE_EIGHT	(8U)	/**< Value Eight */
 
 /************************************ Function Prototypes ****************************************/
-static void XAsu_OcpDmeKeyCallBackRef(void *CallBackRef, u32 Status);
-static void XAsu_OcpDmeKeyPrintData(const u8 *Data, u32 DataLen);
-static s32 XAsu_OcpDmeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data, u32 DataLen,
-	u8* OutputData, u32 DmeKeyId);
-static s32 XAsu_OcpDmeEncNdPrgmDmeKey(XAsu_ClientParams *ClientParamPtr,
-	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, char* DmePvtKey,
-	u8 DmeKeyId);
+static void XAsu_OcpUdeKeyCallBackRef(void *CallBackRef, u32 Status);
+static void XAsu_OcpUdeKeyPrintData(const u8 *Data, u32 DataLen);
+static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data, u32 DataLen,
+	u8* OutputData, u32 UdeKeyId);
+static s32 XAsu_OcpUdeEncNdPrgmUdeKey(XAsu_ClientParams *ClientParamPtr,
+	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, char* UdePvtKey,
+	u8 UdeKeyId);
 
 /************************************ Variable Definitions ***************************************/
 static u8 Notify = 0;			/**< To notify the call back from client library */
-static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP-DME operation from
+static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP-UDE operation from
 					client library and gets updated during callback. */
-static u8 DmePvtKey[XASU_OCP_DME_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.DmePvtKey")));
-static u8 EncDmeKey[XASU_OCP_DME_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.EncDmeKey")));
+/** UDE private key buffer for storing converted hex data */
+static u8 UdePvtKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.UdePvtKey")));
+/** Encrypted UDE private key buffer for storing encrypted output */
+static u8 EncUdeKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.EncUdeKey")));
 
 /************************************ Function Definitions ***************************************/
 
 /*************************************************************************************************/
 /**
- * @brief	This main function to perform DME private keys encryption and updates to efuses.
+ * @brief	This main function to perform UDE private keys encryption and updates to efuses.
  *
  * @return
  *	- XST_SUCCESS, if example is run successfully.
@@ -136,44 +138,44 @@ int main(void)
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
-	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpDmeKeyCallBackRef);
+	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpUdeKeyCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 
-	Status = XAsu_OcpDmeEncNdPrgmDmeKey(&ClientParam, &NvmClientInstance,
-		XOCP_ENCRYPT_DME_PRIV_KEY_0, XOCP_PRGM_ENC_DME_PRIV_KEY_0,
-		XOCP_DME_PRIV_KEY_0, XASU_OCP_DME_USER_KEY_0_ID);
+	Status = XAsu_OcpUdeEncNdPrgmUdeKey(&ClientParam, &NvmClientInstance,
+		XOCP_ENCRYPT_UDE_PRIV_KEY_0, XOCP_PRGM_ENC_UDE_PRIV_KEY_0,
+		XOCP_UDE_PRIV_KEY_0, XASU_OCP_UDE_USER_KEY_0_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n OCP-DME Encrypt and Program DME Key 0 failed with Status = %08x",
+		xil_printf("\r\n OCP-UDE Encrypt and Program UDE Key 0 failed with Status = %08x",
 			Status);
 		goto END;
 	}
 
-	Status = XAsu_OcpDmeEncNdPrgmDmeKey(&ClientParam, &NvmClientInstance,
-		XOCP_ENCRYPT_DME_PRIV_KEY_1, XOCP_PRGM_ENC_DME_PRIV_KEY_1,
-		XOCP_DME_PRIV_KEY_1, XASU_OCP_DME_USER_KEY_1_ID);
+	Status = XAsu_OcpUdeEncNdPrgmUdeKey(&ClientParam, &NvmClientInstance,
+		XOCP_ENCRYPT_UDE_PRIV_KEY_1, XOCP_PRGM_ENC_UDE_PRIV_KEY_1,
+		XOCP_UDE_PRIV_KEY_1, XASU_OCP_UDE_USER_KEY_1_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n OCP-DME Encrypt and Program DME Key 1 failed with Status = %08x",
+		xil_printf("\r\n OCP-UDE Encrypt and Program UDE Key 1 failed with Status = %08x",
 			Status);
 		goto END;
 	}
 
-	Status = XAsu_OcpDmeEncNdPrgmDmeKey(&ClientParam, &NvmClientInstance,
-		XOCP_ENCRYPT_DME_PRIV_KEY_2, XOCP_PRGM_ENC_DME_PRIV_KEY_2,
-		XOCP_DME_PRIV_KEY_2, XASU_OCP_DME_USER_KEY_2_ID);
+	Status = XAsu_OcpUdeEncNdPrgmUdeKey(&ClientParam, &NvmClientInstance,
+		XOCP_ENCRYPT_UDE_PRIV_KEY_2, XOCP_PRGM_ENC_UDE_PRIV_KEY_2,
+		XOCP_UDE_PRIV_KEY_2, XASU_OCP_UDE_USER_KEY_2_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n OCP-DME Encrypt and Program DME Key 2 failed with Status = %08x",
+		xil_printf("\r\n OCP-UDE Encrypt and Program UDE Key 2 failed with Status = %08x",
 			Status);
 	}
 
 END:
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n DME private keys enc and efuse update failed with Status = %08x",
+		xil_printf("\r\n UDE private keys enc and efuse update failed with Status = %08x",
 			Status);
 	} else if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("\r\n DME private keys enc and efuse update failed with error from server = %08x", ErrorStatus);
+		xil_printf("\r\n UDE private keys enc and efuse update failed with error from server = %08x", ErrorStatus);
 	} else {
-		xil_printf("\r\n Successfully encrypted DME private keys and updated to efuses.");
+		xil_printf("\r\n Successfully encrypted UDE private keys and updated to efuses.");
 	}
 
 	return Status;
@@ -181,44 +183,44 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function encrypts the DME private keys and program them to efuses.
+ * @brief	This function encrypts the UDE private keys and program them to efuses.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
  * @param	NvmClientInstancePtr	Pointer to XilNvm client instance.
  * @param	EncFlag			Flag to indicate whether to encrypt the key.
  * @param	PrgmFlag		Flag to indicate whether to program the key.
- * @param	DmePvtKey		Pointer to the DME private key data.
- * @param	DmeKeyId		ID of the DME key.
+ * @param	UdePvtKey		Pointer to the UDE private key data.
+ * @param	UdeKeyId		ID of the UDE key.
  *
  * @return
- *		- XST_SUCCESS - On successfully programming encrypted DME private keys
+ *		- XST_SUCCESS - On successfully programming encrypted UDE private keys
  *		- XST_FAILURE - On Failure.
  *
  *************************************************************************************************/
-static s32 XAsu_OcpDmeEncNdPrgmDmeKey(XAsu_ClientParams *ClientParamPtr,
-	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, char* DmePvtKey,
-	u8 DmeKeyId)
+static s32 XAsu_OcpUdeEncNdPrgmUdeKey(XAsu_ClientParams *ClientParamPtr,
+	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, char* UdePvtKey,
+	u8 UdeKeyId)
 {
 	s32 Status = XST_FAILURE;
 
 	if (EncFlag == TRUE) {
-		Status = XAsu_OcpDmeEncryptData(ClientParamPtr, DmePvtKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES,
-			EncDmeKey, DmeKeyId);
+		Status = XAsu_OcpUdeEncryptData(ClientParamPtr, UdePvtKey, XASU_OCP_UDE_KEY_SIZE_IN_BYTES,
+			EncUdeKey, UdeKeyId);
 		if(Status != XST_SUCCESS) {
-			xil_printf("\r\n DME Priv Key encryption failed");
+			xil_printf("\r\n UDE Priv Key encryption failed");
 			goto END;
 		}
 	}
 
 	if (PrgmFlag == TRUE) {
-		Status = XNvm_WriteDmePrivateKey(NvmClientInstancePtr, DmeKeyId, (u64)(UINTPTR)EncDmeKey, XOCP_ENV_MONITOR_DISABLE);
+		Status = XNvm_WriteUdePrivateKey(NvmClientInstancePtr, UdeKeyId, (u64)(UINTPTR)EncUdeKey, XOCP_ENV_MONITOR_DISABLE);
 		if (Status != XST_SUCCESS) {
-			xil_printf("\r\n Failed to program encrypted DME private key 0 into eFuses: Status = %08x", Status);
+			xil_printf("\r\n Failed to program encrypted UDE private key 0 into eFuses: Status = %08x", Status);
 			goto END;
 		}
 		else {
-			xil_printf("\r\n Successfully programmed encrypted DME private key 0 into eFuses");
+			xil_printf("\r\n Successfully programmed encrypted UDE private key 0 into eFuses");
 		}
 	}
 
@@ -228,13 +230,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function encrypts the data using DME KEK in ASUFW.
+ * @brief	This function encrypts the data using UDE KEK in ASUFW.
  *
  * @param	ClientParamPtr	Pointer to XAsu_ClientParams instance
  * @param	Data		Pointer to data to be encrypted
  * @param	DataLen		Length of data to be encrypted in bytes
  * @param	OutputData	Pointer to buffer where encrypted data will be stored
- * @param	DmeKeyId	Identifier for the DME key
+ * @param	UdeKeyId	Identifier for the UDE key
  *
  * @return
  *		- XST_SUCCESS - if encryption was successful
@@ -242,15 +244,15 @@ END:
  *			AES Encrypt data.
  *
  *************************************************************************************************/
-static s32 XAsu_OcpDmeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data, u32 DataLen,
-	u8* OutputData, u32 DmeKeyId)
+static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data, u32 DataLen,
+	u8* OutputData, u32 UdeKeyId)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_OcpDmeKeyEncrypt OcpDmeKeyEncParam;
+	XAsu_OcpUdeKeyEncrypt OcpUdeKeyEncParam;
 
 	if (Xil_Strnlen(Data, (DataLen * XASU_VALUE_TWO)) == (DataLen * XASU_VALUE_TWO)) {
 		Status = Xil_ConvertStringToHexBE((const char *)Data,
-			DmePvtKey, DataLen * XASU_VALUE_EIGHT);
+			UdePvtKey, DataLen * XASU_VALUE_EIGHT);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\n String Conversion error (Data):%08x", Status);
 			goto END;
@@ -262,19 +264,19 @@ static s32 XAsu_OcpDmeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data,
 	}
 
 	xil_printf("\r\n Data to be encrypted: ");
-	XAsu_OcpDmeKeyPrintData(DmePvtKey, DataLen);
+	XAsu_OcpUdeKeyPrintData(UdePvtKey, DataLen);
 
-	Xil_DCacheFlushRange((UINTPTR)DmePvtKey, DataLen);
+	Xil_DCacheFlushRange((UINTPTR)UdePvtKey, DataLen);
 
 	ErrorStatus = XST_FAILURE;
-	OcpDmeKeyEncParam.DmePvtKeyAddr = (u64)(UINTPTR)DmePvtKey;
-	OcpDmeKeyEncParam.DmeEncPvtKeyAddr = (u64)(UINTPTR)OutputData;
-	OcpDmeKeyEncParam.DmeKeyId = DmeKeyId;
+	OcpUdeKeyEncParam.UdePvtKeyAddr = (u64)(UINTPTR)UdePvtKey;
+	OcpUdeKeyEncParam.UdeEncPvtKeyAddr = (u64)(UINTPTR)OutputData;
+	OcpUdeKeyEncParam.UdeKeyId = UdeKeyId;
 
-	/** Generate DME Response. */
-	Status = XAsu_OcpDmeKeysEncrypt(ClientParamPtr, &OcpDmeKeyEncParam);
+	/** Generate UDE Response. */
+	Status = XAsu_OcpUdeKeysEncrypt(ClientParamPtr, &OcpUdeKeyEncParam);
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("\r\n DME Challenge request failed:Status = %08x", Status);
+		XilAsu_Printf("\r\n UDE Challenge request failed:Status = %08x", Status);
 		goto END;
 	}
 
@@ -286,10 +288,10 @@ static s32 XAsu_OcpDmeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data,
 
 END:
 	if ((ErrorStatus == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-		XilAsu_Printf("\r\n OCP-DME private key encryption of Key ID %02x successful. Encrypted private key:", DmeKeyId);
-		XAsu_OcpDmeKeyPrintData((u8*)EncDmeKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES);
+		XilAsu_Printf("\r\n OCP-UDE private key encryption of Key ID %02x successful. Encrypted private key:", UdeKeyId);
+		XAsu_OcpUdeKeyPrintData((u8*)EncUdeKey, XASU_OCP_UDE_KEY_SIZE_IN_BYTES);
 	} else {
-		XilAsu_Printf("\r\n OCP-DME private key encryption of Key ID %02x failed", DmeKeyId);
+		XilAsu_Printf("\r\n OCP-UDE private key encryption of Key ID %02x failed", UdeKeyId);
 	}
 
 	return Status;
@@ -303,7 +305,7 @@ END:
  * @param	DataLen	Length of the data to be printed on console.
  *
  *************************************************************************************************/
-static void XAsu_OcpDmeKeyPrintData(const u8 *Data, u32 DataLen)
+static void XAsu_OcpUdeKeyPrintData(const u8 *Data, u32 DataLen)
 {
 	u32 Index;
 
@@ -321,7 +323,7 @@ static void XAsu_OcpDmeKeyPrintData(const u8 *Data, u32 DataLen)
  * @param	Status		Status of the request is passed as an argument during callback.
  *
  *************************************************************************************************/
-static void XAsu_OcpDmeKeyCallBackRef(void *CallBackRef, u32 Status)
+static void XAsu_OcpUdeKeyCallBackRef(void *CallBackRef, u32 Status)
 {
 	(void)CallBackRef;
 

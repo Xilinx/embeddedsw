@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -279,11 +279,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends command to ASUFW to generate DME challenge response.
+ * @brief	This function sends command to ASUFW to generate UDE challenge response.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
- * @param	OcpDmeParamsPtr		Pointer to the XAsu_OcpDmeParams structure.
+ * @param	OcpUdeParamsPtr		Pointer to the XAsu_OcpUdeParams structure.
  *
  * @return
  *	- XST_SUCCESS, if IPI request to ASUFW is sent successfully.
@@ -292,26 +292,26 @@ END:
  *	- XST_FAILURE, in case of failure.
  *
  *************************************************************************************************/
-s32 XAsu_OcpDmeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeParams *OcpDmeParamsPtr)
+s32 XAsu_OcpUdeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeParams *OcpUdeParamsPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
 
 	/** Validate OCP client parameters. */
-	if (OcpDmeParamsPtr == NULL) {
+	if (OcpUdeParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (OcpDmeParamsPtr->OcpDmeResponseAddr == 0U) {
+	if (OcpUdeParamsPtr->OcpUdeResponseAddr == 0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
 	/** Validate the Nonce buffer to be non-zero. */
-	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)OcpDmeParamsPtr->NonceAddr,
-		XASU_OCP_DME_NONCE_SIZE_IN_BYTES);
+	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)OcpUdeParamsPtr->NonceAddr,
+		XASU_OCP_UDE_NONCE_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -331,12 +331,12 @@ s32 XAsu_OcpDmeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeParams
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_OCP_DME_CHALLENGE_REQ_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
+	Header = XAsu_CreateHeader(XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
 				   0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpDmeParamsPtr,
-					(u32)(sizeof(XAsu_OcpDmeParams)), Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpUdeParamsPtr,
+					(u32)(sizeof(XAsu_OcpUdeParams)), Header);
 
 END:
 	return Status;
@@ -344,12 +344,12 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends command to ASUFW to perform DME key encryption operation.
+ * @brief	This function sends command to ASUFW to perform UDE key encryption operation.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  *					client input parameters.
- * @param	OcpDmeKeyEnc		Pointer to XAsu_OcpDmeKeyEncrypt structure which holds the
- *					parameters of DME key arguments.
+ * @param	OcpUdeKeyEnc		Pointer to XAsu_OcpUdeKeyEncrypt structure which holds the
+ *					parameters of UDE key arguments.
  *
  * @return
  *	- XST_SUCCESS, if IPI request to ASUFW is sent successfully.
@@ -358,14 +358,14 @@ END:
  *	- XST_FAILURE, in case of failure.
  *
  *************************************************************************************************/
-s32 XAsu_OcpDmeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeKeyEncrypt *OcpDmeKeyEnc)
+s32 XAsu_OcpUdeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
 
 	/** Validate OCP client parameter. */
-	if (OcpDmeKeyEnc == NULL) {
+	if (OcpUdeKeyEnc == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -376,14 +376,14 @@ s32 XAsu_OcpDmeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeKeyEncr
 		goto END;
 	}
 
-	if ((OcpDmeKeyEnc->DmePvtKeyAddr == 0U) || (OcpDmeKeyEnc->DmeEncPvtKeyAddr == 0U)) {
+	if ((OcpUdeKeyEnc->UdePvtKeyAddr == 0U) || (OcpUdeKeyEnc->UdeEncPvtKeyAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((OcpDmeKeyEnc->DmeKeyId != XASU_OCP_DME_USER_KEY_0_ID) &&
-	    (OcpDmeKeyEnc->DmeKeyId != XASU_OCP_DME_USER_KEY_1_ID) &&
-	    (OcpDmeKeyEnc->DmeKeyId != XASU_OCP_DME_USER_KEY_2_ID)) {
+	if ((OcpUdeKeyEnc->UdeKeyId != XASU_OCP_UDE_USER_KEY_0_ID) &&
+	    (OcpUdeKeyEnc->UdeKeyId != XASU_OCP_UDE_USER_KEY_1_ID) &&
+	    (OcpUdeKeyEnc->UdeKeyId != XASU_OCP_UDE_USER_KEY_2_ID)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -396,12 +396,12 @@ s32 XAsu_OcpDmeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeKeyEncr
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
+	Header = XAsu_CreateHeader(XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
 				   0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
-	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpDmeKeyEnc,
-					(u32)(sizeof(XAsu_OcpDmeKeyEncrypt)), Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpUdeKeyEnc,
+					(u32)(sizeof(XAsu_OcpUdeKeyEncrypt)), Header);
 
 END:
 	return Status;

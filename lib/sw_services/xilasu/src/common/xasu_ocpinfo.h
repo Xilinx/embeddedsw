@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -48,24 +48,24 @@ extern "C" {
 #define XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID	(2U)	/**< Command ID for DevIk CSR x509
 							certificate generation */
 #define XASU_OCP_DEVAK_ATTESTATION_CMD_ID	(3U)	/**< Command ID for DevAk attestation */
-#define XASU_OCP_DME_CHALLENGE_REQ_CMD_ID	(4U)	/**< Command ID for DME challenge request */
-#define XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID	(5U)	/**< Command ID for DME private keys encryption */
+#define XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID	(4U)	/**< Command ID for UDE challenge request */
+#define XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID	(5U)	/**< Command ID for UDE private keys encryption */
 
-#define XASU_OCP_DME_DEVICE_ID_SIZE_IN_WORDS	(12U)	/**< Device ID size in words */
-#define XASU_OCP_DME_NONCE_SIZE_IN_WORDS	(8U)	/**< Nonce size in words */
-#define XASU_OCP_DME_MEASUREMENT_SIZE_IN_WORDS	(12U)	/**< Measurement size in words */
-#define XASU_OCP_DME_DEVICE_ID_SIZE_IN_BYTES	((XASU_OCP_DME_DEVICE_ID_SIZE_IN_WORDS) << 2U)
+#define XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS	(12U)	/**< Device ID size in words */
+#define XASU_OCP_UDE_NONCE_SIZE_IN_WORDS	(8U)	/**< Nonce size in words */
+#define XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS	(12U)	/**< Measurement size in words */
+#define XASU_OCP_UDE_DEVICE_ID_SIZE_IN_BYTES	((XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS) << 2U)
 							/**< Device ID size in bytes */
-#define XASU_OCP_DME_NONCE_SIZE_IN_BYTES	((XASU_OCP_DME_NONCE_SIZE_IN_WORDS) << 2U)
+#define XASU_OCP_UDE_NONCE_SIZE_IN_BYTES	((XASU_OCP_UDE_NONCE_SIZE_IN_WORDS) << 2U)
 							/**< Nonce size in bytes */
-#define XASU_OCP_DME_MEASUREMENT_SIZE_IN_BYTES	((XASU_OCP_DME_MEASUREMENT_SIZE_IN_WORDS) << 2U)
+#define XASU_OCP_UDE_MEASUREMENT_SIZE_IN_BYTES	((XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS) << 2U)
 							/**< Measurement size in bytes */
 #define XASU_OCP_ECC_P384_SIZE_IN_WORDS		(12U)	/**< P-384 size in words */
-#define XASU_OCP_DME_KEY_SIZE_IN_BYTES		(48U)	/**< DME key size in bytes */
-#define XASU_OCP_DME_IV_SIZE_IN_BYTES		(12U)	/**< DME Iv size in bytes */
-#define XASU_OCP_DME_USER_KEY_0_ID		(0U)	/**< DME User Key 0 ID */
-#define XASU_OCP_DME_USER_KEY_1_ID		(1U)	/**< DME User Key 1 ID */
-#define XASU_OCP_DME_USER_KEY_2_ID		(2U)	/**< DME User Key 2 ID */
+#define XASU_OCP_UDE_KEY_SIZE_IN_BYTES		(48U)	/**< UDE key size in bytes */
+#define XASU_OCP_UDE_IV_SIZE_IN_BYTES		(12U)	/**< UDE Iv size in bytes */
+#define XASU_OCP_UDE_USER_KEY_0_ID		(0U)	/**< UDE User Key 0 ID */
+#define XASU_OCP_UDE_USER_KEY_1_ID		(1U)	/**< UDE User Key 1 ID */
+#define XASU_OCP_UDE_USER_KEY_2_ID		(2U)	/**< UDE User Key 2 ID */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -98,38 +98,38 @@ typedef struct {
 } XAsu_OcpDevAkAttest;
 
 /**
- * This structure contains information related to DME challenge parameters buffers.
+ * This structure contains information related to UDE challenge parameters buffers.
  */
 typedef struct {
-	u32 DeviceId[XASU_OCP_DME_DEVICE_ID_SIZE_IN_WORDS]; /**< Device ID buffer */
-	u32 Nonce[XASU_OCP_DME_NONCE_SIZE_IN_WORDS]; /**< Nonce buffer */
-	u32 Measurement[XASU_OCP_DME_MEASUREMENT_SIZE_IN_WORDS]; /**< Measurement buffer */
-} XAsu_OcpDme;
+	u32 DeviceId[XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS]; /**< Device ID buffer */
+	u32 Nonce[XASU_OCP_UDE_NONCE_SIZE_IN_WORDS]; /**< Nonce buffer */
+	u32 Measurement[XASU_OCP_UDE_MEASUREMENT_SIZE_IN_WORDS]; /**< Measurement buffer */
+} XAsu_OcpUde;
 
-/** DME response */
+/** UDE response */
 typedef struct {
-	XAsu_OcpDme Dme;					/**< DME */
-	u32 DmeSignatureR[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Signature comp R */
-	u32 DmeSignatureS[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Signature comp S */
-	u32 DmePublicKeyX[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Public key component X */
-	u32 DmePublicKeyY[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Public key component Y */
-} XAsu_OcpDmeResponse;
+	XAsu_OcpUde Ude;					/**< UDE */
+	u32 UdeSignatureR[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Signature comp R */
+	u32 UdeSignatureS[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Signature comp S */
+	u32 UdePublicKeyX[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Public key component X */
+	u32 UdePublicKeyY[XASU_OCP_ECC_P384_SIZE_IN_WORDS];	/**< Public key component Y */
+} XAsu_OcpUdeResponse;
 
-/** This structure contains information related to DME challenge parameters. */
+/** This structure contains information related to UDE challenge parameters. */
 typedef struct {
 	u64 NonceAddr;	/**< Address of the Nonce buffer */
-	u64 OcpDmeResponseAddr;	/**< Address of the DME response structure */
-} XAsu_OcpDmeParams;
+	u64 OcpUdeResponseAddr;	/**< Address of the UDE response structure */
+} XAsu_OcpUdeParams;
 
 /**
- * This structure contains information related to DME private key encryption.
+ * This structure contains information related to UDE private key encryption.
  */
 typedef struct {
-	u64 DmePvtKeyAddr; /**< Address of the DME Private Key */
-	u64 DmeEncPvtKeyAddr; /**< Address of the DME Encrypted Private Key */
-	u32 DmeKeyId; /**< ID of the DME Key either 3/4/5 */
+	u64 UdePvtKeyAddr; /**< Address of the UDE Private Key */
+	u64 UdeEncPvtKeyAddr; /**< Address of the UDE Encrypted Private Key */
+	u32 UdeKeyId; /**< ID of the UDE Key either 3/4/5 */
 	u32 Reserved; /**< Reserved */
-} XAsu_OcpDmeKeyEncrypt;
+} XAsu_OcpUdeKeyEncrypt;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

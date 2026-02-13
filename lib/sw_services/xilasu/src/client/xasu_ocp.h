@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -52,8 +52,8 @@ s32 XAsu_OcpGetDevIkCsr(XAsu_ClientParams *ClientParamPtr,
 			XAsu_OcpCertParams *OcpCertClientParamPtr);
 s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 			     XAsu_OcpDevAkAttest *OcpDevAkAttestParamPtr);
-s32 XAsu_OcpDmeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeParams *OcpDmeParamsPtr);
-s32 XAsu_OcpDmeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeKeyEncrypt *OcpDmeKeyEnc);
+s32 XAsu_OcpUdeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeParams *OcpUdeParamsPtr);
+s32 XAsu_OcpUdeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

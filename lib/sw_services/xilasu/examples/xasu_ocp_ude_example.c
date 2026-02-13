@@ -6,11 +6,11 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasu_ocp_dme_example.c
+ * @file xasu_ocp_ude_example.c
  * @addtogroup Overview
  * @{
  *
- * This example illustrates the usage of ASU OCP-DME challenge request client APIs.
+ * This example illustrates the usage of ASU OCP-UDE challenge request client APIs.
  *
  * Procedure to link and compile the example for the default ddr less designs
  * ------------------------------------------------------------------------------------------------
@@ -73,14 +73,14 @@
 #define XASU_CACHE_DISABLE
 
 /************************************ Function Prototypes ****************************************/
-static void XAsu_OcpDmeCallBackRef(void *CallBackRef, u32 Status);
-static void XAsu_OcpDmePrintData(const u8 *Data, u32 DataLen, const char *BufName);
+static void XAsu_OcpUdeCallBackRef(void *CallBackRef, u32 Status);
+static void XAsu_OcpUdePrintData(const u8 *Data, u32 DataLen, const char *BufName);
 
 /************************************ Variable Definitions ***************************************/
 static u8 Notify = 0;			/**< To notify the call back from client library */
-static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP-DME operation from
+static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP-UDE operation from
 					client library and gets updated during callback. */
-static u8 NonceBuff[XASU_OCP_DME_NONCE_SIZE_IN_BYTES] __attribute__ ((section (".data.Nonce"))) =
+static u8 NonceBuff[XASU_OCP_UDE_NONCE_SIZE_IN_BYTES] __attribute__ ((section (".data.Nonce"))) =
 {
 	0x70,0x69,0x77,0x35,0x0b,0x93,
 	0x92,0xa0,0x48,0x2c,0xd8,0x23,
@@ -108,8 +108,8 @@ int main(void)
 	s32 Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpDmeResponse OcpDmeResponse;
-	XAsu_OcpDmeParams OcpDmeParams = {0U};
+	XAsu_OcpUdeResponse OcpUdeResponse;
+	XAsu_OcpUdeParams OcpUdeParams = {0U};
 
 #ifdef	XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
@@ -131,17 +131,17 @@ int main(void)
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
-	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpDmeCallBackRef);
+	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpUdeCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 
 	ErrorStatus = XST_FAILURE;
-	OcpDmeParams.NonceAddr = (u64)(UINTPTR)NonceBuff;
-	OcpDmeParams.OcpDmeResponseAddr = (u64)(UINTPTR)(&OcpDmeResponse);
-	/** Generate DME Response. */
-	Status = XAsu_OcpDmeChallengeReq(&ClientParam, &OcpDmeParams);
+	OcpUdeParams.NonceAddr = (u64)(UINTPTR)NonceBuff;
+	OcpUdeParams.OcpUdeResponseAddr = (u64)(UINTPTR)(&OcpUdeResponse);
+	/** Generate UDE Response. */
+	Status = XAsu_OcpUdeChallengeReq(&ClientParam, &OcpUdeParams);
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("\r\n DME Challenge request failed:Status = %08x", Status);
+		XilAsu_Printf("\r\n UDE Challenge request failed:Status = %08x", Status);
 		goto END;
 	}
 
@@ -151,14 +151,14 @@ int main(void)
 
 END:
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n OCP-DME Challenge request failed with Status = %08x", Status);
+		xil_printf("\r\n OCP-UDE Challenge request failed with Status = %08x", Status);
 	} else if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("\r\n OCP-DME Challenge request failed with error from server = %08x",
+		xil_printf("\r\n OCP-UDE Challenge request failed with error from server = %08x",
 				ErrorStatus);
 	} else {
-		XAsu_OcpDmePrintData((u8*)OcpDmeResponse.DmeSignatureR,
-					(2U * XASU_OCP_DME_KEY_SIZE_IN_BYTES), "DmeSign");
-		xil_printf("\r\n Successfully ran OCP-DME Challenge request ");
+		XAsu_OcpUdePrintData((u8*)OcpUdeResponse.UdeSignatureR,
+					(2U * XASU_OCP_UDE_KEY_SIZE_IN_BYTES), "UdeSign");
+		xil_printf("\r\n Successfully ran OCP-UDE Challenge request ");
 	}
 
 	return Status;
@@ -173,7 +173,7 @@ END:
  * @param	BufName		Name/description of the buffer
  *
  *************************************************************************************************/
-static void XAsu_OcpDmePrintData(const u8 *Data, u32 DataLen, const char *BufName)
+static void XAsu_OcpUdePrintData(const u8 *Data, u32 DataLen, const char *BufName)
 {
 	u32 Index;
 
@@ -193,7 +193,7 @@ static void XAsu_OcpDmePrintData(const u8 *Data, u32 DataLen, const char *BufNam
  * @param	Status		Status of the request is passed as an argument during callback.
  *
  *************************************************************************************************/
-static void XAsu_OcpDmeCallBackRef(void *CallBackRef, u32 Status)
+static void XAsu_OcpUdeCallBackRef(void *CallBackRef, u32 Status)
 {
 	(void)CallBackRef;
 

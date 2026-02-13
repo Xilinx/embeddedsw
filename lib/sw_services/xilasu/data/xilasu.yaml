@@ -29,10 +29,10 @@ examples:
   xasu_ecies_example.c: []
   xasu_keywrap_example.c: []
   xasu_ocp_example.c: []
-  xasu_ocp_dme_example.c: []
-  xasu_dme_keys_enc_example.c:
+  xasu_ocp_ude_example.c: []
+  xasu_ude_keys_enc_example.c:
     - dependency_files:
-      - xasu_dme_keys_enc_input_example.h
+      - xasu_ude_keys_enc_input_example.h
   xasu_lms_example.c: []
 
   condition : |
@@ -44,4 +44,4 @@ examples:
                 "xasu_ecdh_example.c", "xasu_hmac_example.c",
                 "xasu_kdf_example.c", "xasu_trng_example.c",
                 "xasu_ecies_example.c", "xasu_keywrap_example.c",
-                "xasu_ocp_example.c", "xasu_ocp_dme_example.c", "xasu_dme_keys_enc_example.c", "xasu_lms_example.c"]
+                "xasu_ocp_example.c", "xasu_ocp_ude_example.c", "xasu_ude_keys_enc_example.c", "xasu_lms_example.c"]
