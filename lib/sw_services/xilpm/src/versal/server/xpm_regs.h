@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -758,13 +758,21 @@ extern "C" {
 /**
  * DDRMC Registers
  */
+#if defined(VERSAL_2VP) || defined(VERSAL_2VP_P)
+#define DDRMC_MAIN_UB_OFFSET					(0x30000U)
+#define DDRMC_MAIN_REG_COM_4_OFFSET				(0xCC8U)
+#define DDRMC_UB_PMC2UB_INTERRUPT_OFFSET			(0x220U)
+#define DDRMC_UB_UB2PMC_ACK_OFFSET				(0x224U)
+#define DDRMC_UB_UB2PMC_DONE_OFFSET				(0x228U)
+#else
 #define DDRMC_MAIN_UB_OFFSET					(0x40000U)
 #define DDRMC_MAIN_REG_COM_4_OFFSET				(0xC18U)
-#define DDRMC_MAIN_DRAM_MODE_REPORT_MASK			(0x1FU)
-#define DDRMC_MAIN_SELF_REFRESH_MODE				BIT(2U)
 #define DDRMC_UB_PMC2UB_INTERRUPT_OFFSET			(0x228U)
 #define DDRMC_UB_UB2PMC_ACK_OFFSET				(0x22CU)
 #define DDRMC_UB_UB2PMC_DONE_OFFSET				(0x230U)
+#endif
+#define DDRMC_MAIN_DRAM_MODE_REPORT_MASK			(0x1FU)
+#define DDRMC_MAIN_SELF_REFRESH_MODE				BIT(2U)
 #define DDRMC_UB_PMC2UB_INTERRUPT_SPARE_0_MASK			BIT(2U)
 #define DDRMC_UB_UB2PMC_ACK_SPARE_0_MASK			BIT(2U)
 #define DDRMC_UB_UB2PMC_DONE_SPARE_0_MASK			BIT(2U)
