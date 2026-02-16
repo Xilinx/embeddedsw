@@ -1,8 +1,14 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_warp_filter_hw.h
+ * @addtogroup v_warp_filter Overview
+ */
+
 // control
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -59,36 +65,65 @@
 // 0x60 : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/** Control register address offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_AP_CTRL          0x00
+/** Global Interrupt Enable register address offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_GIE              0x04
+/** Interrupt Enable Register address offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_IER              0x08
+/** Interrupt Status Register address offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_ISR              0x0c
+/** Descriptor address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_DESC_ADDR_DATA   0x10
+/** Descriptor address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_DESC_ADDR_DATA   64
+/** AXI master read address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_MAXI_READ_DATA   0x1c
+/** AXI master read address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_MAXI_READ_DATA   64
+/** AXI master reads address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_MAXI_READS_DATA  0x28
+/** AXI master reads address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_MAXI_READS_DATA  64
+/** AXI master write address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_MAXI_WRITE_DATA  0x34
+/** AXI master write address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_MAXI_WRITE_DATA  64
+/** AXI master read1 address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_MAXI_READ1_DATA  0x40
+/** AXI master read1 address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_MAXI_READ1_DATA  64
+/** AXI master read1s address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_MAXI_READ1S_DATA 0x4c
+/** AXI master read1s address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_MAXI_READ1S_DATA 64
+/** AXI master write1 address register offset */
 #define XV_WARP_FILTER_CONTROL_ADDR_MAXI_WRITE1_DATA 0x58
+/** AXI master write1 address data width in bits */
 #define XV_WARP_FILTER_CONTROL_BITS_MAXI_WRITE1_DATA 64
 
-/* Bit masks for AP_CTRL*/
+/** Start bit mask in AP_CTRL register */
 #define AP_CTRL_START_MASK		0x01
+/** Done bit mask in AP_CTRL register */
 #define AP_CTRL_DONE_MASK		0x02
+/** Idle bit mask in AP_CTRL register */
 #define AP_CTRL_IDLE_MASK		0x04
+/** Ready bit mask in AP_CTRL register */
 #define AP_CTRL_READY_MASK		0x08
+/** Auto-restart bit mask in AP_CTRL register */
 #define AP_CTRL_AUTO_RST_MASK	0x80
+/** Flush bit position in AP_CTRL register */
 #define AP_CTRL_BITS_FLUSH_BIT_POS		       (5)
+/** Flush bit mask in AP_CTRL register */
 #define AP_CTRL_BITS_FLUSH_BIT			       (1 << AP_CTRL_BITS_FLUSH_BIT_POS)
+/** Flush status bit position in AP_CTRL register */
 #define AP_CTRL_BITS_FLUSH_STATUSBIT_POS	   (6)
+/** Flush status bit mask in AP_CTRL register */
 #define AP_CTRL_BITS_FLUSH_STATUSBIT		   (1 << AP_CTRL_BITS_FLUSH_STATUSBIT_POS)
 
-/* Bit masks for IER, ISR, GIE*/
+/** AP_DONE interrupt mask for IER, ISR, and GIE registers */
 #define XV_WARP_FILTER_INTR_AP_DONE_MASK		0x01
+/** AP_READY interrupt mask for IER, ISR, and GIE registers */
 #define XV_WARP_FILTER_INTR_AP_READY_MASK		0x02

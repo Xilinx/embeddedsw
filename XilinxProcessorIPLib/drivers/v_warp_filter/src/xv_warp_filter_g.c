@@ -6,7 +6,7 @@
 * DO NOT EDIT.
 *
 * Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *
@@ -14,15 +14,22 @@
 *
 *******************************************************************/
 
+/**
+ * @file xv_warp_filter_g.c
+ * @addtogroup v_warp_filter Overview
+ */
+
+/***************************** Include Files *********************************/
 #ifndef SDT
 #include "xparameters.h"
 #endif
 #include "xv_warp_filter.h"
 
-/*
-* The configuration table for devices
-*/
-
+/************************** Variable Definitions *****************************/
+/**
+ * Configuration table for warp filter devices.
+ * Each entry represents a configured instance in the system.
+ */
 XV_warp_filter_Config XV_warp_filter_ConfigTable[] =
 {
 	{

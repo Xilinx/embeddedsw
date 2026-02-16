@@ -3,6 +3,10 @@
 * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file xv_warp_filter_l2.c
+ * @addtogroup v_warp_filter Overview
+ */
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -11,33 +15,47 @@
 #include <stdlib.h>
 
 /************************** Constant Definitions *****************************/
+/** Pointer offset size for aligned memory allocation */
 #define PTR_OFFSET_SZ sizeof(u16)
+/** Wait time for flush done operation (in iterations) */
+#define XV_WAIT_FOR_FLUSH_DONE		         (25)
+/** Timeout value for flush done operation (in microseconds) */
+#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT		 (2000)
+/** Warp filter address width in bits */
+#define WARP_FILTER_ADDR_WIDTH				 128
+
+/**************************** Type Definitions *******************************/
+/** Offset type for aligned memory management */
 typedef u16 offset_t;
+
+/***************** Macros (Inline Functions) Definitions *********************/
+/** Macro to align a number up to the specified alignment boundary */
 #ifndef align_up
 #define align_up(num, align) \
     (((num) + ((align) - 1)) & ~((align) - 1))
 #endif
 
-#define XV_WAIT_FOR_FLUSH_DONE		         (25)
-#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT		 (2000)
-#define WARP_FILTER_ADDR_WIDTH				 128
-
-/**************************Static Function Prototypes ************************/
+/************************** Function Prototypes ******************************/
 static void *XVWarpFilter_AlignedMalloc(size_t align, size_t size);
 static void XVWarpFilter_AlignedFree(void * ptr);
 
 /************************** Function Definitions *****************************/
-/*****************************************************************************/
 /**
-* This function creates the descriptors.
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  num_desc is the number of descriptors to be created
-*
-* @return XST_SUCCESS if Descriptors created successfully
-*         XST_FAILURE if Descriptors creation failed
-*
-******************************************************************************/
+ * @brief Creates the descriptors for the warp filter.
+ *
+ * This function allocates and initializes a chain of descriptors for the
+ * warp filter operation. Each descriptor is aligned to the address width
+ * requirement and linked together in a chain.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  num_descriptors is the number of descriptors to be created.
+ *
+ * @return XST_SUCCESS if descriptors created successfully.
+ *         XST_FAILURE if descriptor creation failed.
+ *
+ * @note   Descriptors are allocated with aligned memory and linked in a chain.
+ *
+ ******************************************************************************/
 s32 XVWarpFilter_SetNumOfDescriptors(XV_warp_filter *InstancePtr,
 		u32 num_descriptors)
 {
@@ -70,13 +88,19 @@ s32 XVWarpFilter_SetNumOfDescriptors(XV_warp_filter *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function clears and de-allocates all the descriptors.
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * @brief Clears and de-allocates all descriptors.
+ *
+ * This function traverses the descriptor chain and frees all allocated
+ * memory for each descriptor, then resets the base address and count.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ *
+ * @return None.
+ *
+ * @note   This function must be called before the instance is destroyed to
+ *         prevent memory leaks.
+ *
+ ******************************************************************************/
 void XVWarpFilter_ClearNumOfDescriptors(XV_warp_filter *InstancePtr)
 {
 	XVWarpFilter_Desc *head, *tmpptr;
@@ -98,22 +122,28 @@ void XVWarpFilter_ClearNumOfDescriptors(XV_warp_filter *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function programs a descriptor with given configurations.
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Descnum is the descriptor number which to be configured
-* @param  ConfigPtr is the input configuration pointer which to be configured
-* 					into the descriptor
-* @param  valid_seg is the number of valid segs in the remap vector
-* @param  lblock_count is the number of output blocks decoded by the first warp
-* 					   filter core.
-* @param  line_num is the line number from which the second warp filter core
-* 				   starts reading the source image
-*
-* @return XST_SUCCESS if programming descriptor is successful
-*         XST_FAILURE if Descriptor is not valid.
-*
-******************************************************************************/
+ * @brief Programs a descriptor with given configurations.
+ *
+ * This function locates the specified descriptor and configures it with
+ * the provided input parameters including dimensions, addresses, and
+ * processing parameters.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  DescNum is the descriptor number to be configured.
+ * @param  configPtr is the input configuration pointer containing the
+ *         configuration parameters.
+ * @param  valid_seg is the number of valid segments in the remap vector.
+ * @param  lblock_count is the number of output blocks decoded by the first
+ *         warp filter core.
+ * @param  line_num is the line number from which the second warp filter core
+ *         starts reading the source image.
+ *
+ * @return XST_SUCCESS if programming descriptor is successful.
+ *         XST_FAILURE if descriptor is not valid.
+ *
+ * @note   Descriptor number must be less than the total number of descriptors.
+ *
+ ******************************************************************************/
 s32 XVWarpFilter_ProgramDescriptor(XV_warp_filter *InstancePtr, u32 DescNum,
 		XVWarpFilter_InputConfigs *configPtr, u32 valid_seg,
 		u32 lblock_count, u32 line_num)
@@ -150,18 +180,22 @@ s32 XVWarpFilter_ProgramDescriptor(XV_warp_filter *InstancePtr, u32 DescNum,
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
 /**
-* This function sets the src frame buffer address.
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Descnum is the descriptor number which to be configured
-* @param  src_buf_addr is the address of the source frame buffer
-*
-* @return XST_SUCCESS if programming descriptor is successful
-*         XST_FAILURE if Descriptor is not valid.
-*
-******************************************************************************/
+ * @brief Sets the source frame buffer address in a descriptor.
+ *
+ * This function locates the specified descriptor and updates its source
+ * frame buffer address with the provided value.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  Descnum is the descriptor number to be configured.
+ * @param  src_buf_addr is the address of the source frame buffer.
+ *
+ * @return XST_SUCCESS if programming descriptor is successful.
+ *         XST_FAILURE if descriptor is not valid.
+ *
+ * @note   Descriptor number must be less than the total number of descriptors.
+ *
+ ******************************************************************************/
 s32 XVWarpFilter_update_src_frame_addr(XV_warp_filter *InstancePtr,
 		u32 Descnum, u64 src_buf_addr)
 {
@@ -189,16 +223,21 @@ s32 XVWarpFilter_update_src_frame_addr(XV_warp_filter *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function sets the destination frame buffer address.
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Descnum is the descriptor number which to be configured
-* @param  dst_buf_addr is the address of the destination frame buffer
-*
-* @return XST_SUCCESS if programming descriptor is successful
-*         XST_FAILURE if Descriptor is not valid.
-*
-******************************************************************************/
+ * @brief Sets the destination frame buffer address in a descriptor.
+ *
+ * This function locates the specified descriptor and updates its destination
+ * frame buffer address with the provided value.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  Descnum is the descriptor number to be configured.
+ * @param  dest_buf_addr is the address of the destination frame buffer.
+ *
+ * @return XST_SUCCESS if programming descriptor is successful.
+ *         XST_FAILURE if descriptor is not valid.
+ *
+ * @note   Descriptor number must be less than the total number of descriptors.
+ *
+ ******************************************************************************/
 s32 XVWarpFilter_update_dst_frame_addr(XV_warp_filter *InstancePtr,
 		u32 Descnum, u64 dest_buf_addr)
 {
@@ -221,14 +260,19 @@ s32 XVWarpFilter_update_dst_frame_addr(XV_warp_filter *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function Enables the Interrupts for the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Mask is the Interrupt enable mask
-*
-* @return none
-*
-******************************************************************************/
+ * @brief Enables interrupts for the core instance.
+ *
+ * This function enables the specified interrupts and the global interrupt
+ * enable for the warp filter core.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  Mask is the interrupt enable mask.
+ *
+ * @return None.
+ *
+ * @note   Both the specific interrupt and global interrupt enable are set.
+ *
+ ******************************************************************************/
 void XVWarpFilter_InterruptEnable(XV_warp_filter *InstancePtr,
 		u32 Mask)
 {
@@ -240,13 +284,19 @@ void XVWarpFilter_InterruptEnable(XV_warp_filter *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function disables interrupts in the core
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * @brief Disables interrupts in the core.
+ *
+ * This function disables the specified interrupts and the global interrupt
+ * enable for the warp filter core.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  IrqMask is the interrupt disable mask.
+ *
+ * @return None.
+ *
+ * @note   Both the specific interrupt and global interrupt enable are cleared.
+ *
+ ******************************************************************************/
 void XVWarpFilter_InterruptDisable(XV_warp_filter *InstancePtr, u32 IrqMask)
 {
   Xil_AssertVoid(InstancePtr);
@@ -259,13 +309,17 @@ void XVWarpFilter_InterruptDisable(XV_warp_filter *InstancePtr, u32 IrqMask)
 
 /*****************************************************************************/
 /**
-* This function starts the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * @brief Starts the core instance.
+ *
+ * This function initiates the warp filter core processing.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
 void XVWarpFilter_Start(XV_warp_filter *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr);
@@ -275,14 +329,19 @@ void XVWarpFilter_Start(XV_warp_filter *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function stops the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return XST_SUCCESS if the core is stop state
-*         XST_FAILURE if the core is not in stop state
-*
-******************************************************************************/
+ * @brief Stops the core instance.
+ *
+ * This function stops the warp filter core by clearing the autostart bit,
+ * setting the flush bit, and waiting for the flush operation to complete.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ *
+ * @return XST_SUCCESS if the core entered stop state successfully.
+ *         XST_FAILURE if the core failed to stop (flush timeout).
+ *
+ * @note   The function waits for a flush done signal with timeout.
+ *
+ ******************************************************************************/
 s32 XVWarpFilter_Stop(XV_warp_filter *InstancePtr)
 {
   int Status = XST_SUCCESS;
@@ -310,16 +369,22 @@ s32 XVWarpFilter_Stop(XV_warp_filter *InstancePtr)
 }
 
 /*****************************************************************************/
-/*****************************************************************************/
 /**
-* This function creates aligned void memory pointer.
-*
-* @param	align is the alignment size.
-* @param	size, it is the size of pointer to be created.
-*
-* @return	ptr is memory pointer to be returned.
-*
-******************************************************************************/
+ * @brief Allocates aligned memory.
+ *
+ * This function allocates memory aligned to the specified boundary. It stores
+ * an offset value before the returned pointer to enable proper deallocation.
+ * The alignment must be a power of two.
+ *
+ * @param  align is the alignment size (must be power of two).
+ * @param  size is the size of memory to allocate in bytes.
+ *
+ * @return Pointer to the aligned memory block, or NULL if allocation fails
+ *         or invalid arguments are provided.
+ *
+ * @note   The allocated memory must be freed using XVWarpFilter_AlignedFree().
+ *
+ ******************************************************************************/
 static void * XVWarpFilter_AlignedMalloc(size_t align, size_t size)
 {
     void * ptr = NULL;
@@ -363,15 +428,20 @@ static void * XVWarpFilter_AlignedMalloc(size_t align, size_t size)
     return ptr;
 }
 
-/*****************************************************************************/
 /**
-* This function frees the allocated aligned memory.
-*
-* @param	ptr is the memory pointer to be free.
-*
-* @return	None
-*
-******************************************************************************/
+ * @brief Frees aligned memory.
+ *
+ * This function frees memory that was allocated using XVWarpFilter_AlignedMalloc().
+ * It uses the stored offset to locate the original pointer returned by malloc().
+ *
+ * @param  ptr is the aligned memory pointer to be freed.
+ *
+ * @return None.
+ *
+ * @note   Only use this function to free memory allocated by
+ *         XVWarpFilter_AlignedMalloc().
+ *
+ ******************************************************************************/
 static void XVWarpFilter_AlignedFree(void * ptr)
 {
     /*

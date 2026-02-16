@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -21,21 +21,26 @@
 #include "xv_warp_filter_hw.h"
 #include "xv_warp_filter.h"
 
-/*****************************************************************************/
+/************************** Variable Definitions *****************************/
+
+
 /**
- **
- ** This function installs an asynchronous callback function:
- **
- ** @param    InstancePtr is a pointer to the v_warp_filter IP instance.
- ** @param    CallbackFunc is the address of the callback function.
- ** @param    CallbackRef is a user data item that will be passed to the
- **       callback function when it is invoked.
- **
- ** @return      None.
- **
- ** @note     Invoking this function for a handler that already has been
- **       installed replaces it with the new handler.
- **
+ * @brief Installs an asynchronous callback function for frame done events.
+ *
+ * This function registers a callback function that will be invoked when a
+ * frame processing is complete. Invoking this function for a handler that
+ * has already been installed replaces it with the new handler.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance.
+ * @param  CallbackFunc is the address of the callback function.
+ * @param  CallbackRef is a user data item that will be passed to the
+ *         callback function when it is invoked.
+ *
+ * @return None.
+ *
+ * @note   Invoking this function for a handler that already has been
+ *         installed replaces it with the new handler.
+ *
  ******************************************************************************/
 void XVWarpFilter_SetCallback(XV_warp_filter *InstancePtr,
 		void *CallbackFunc, void *CallbackRef)
@@ -51,23 +56,21 @@ void XVWarpFilter_SetCallback(XV_warp_filter *InstancePtr,
 
 /*****************************************************************************/
 /**
- **
- ** This function is the interrupt handler for the Warp core
- ** driver.
- **
- ** This handler clears the pending interrupt and determines if the source is
- ** frame done signal. If yes, calls the registered callback function.
- **
- ** The application is responsible for connecting this function to the interrupt
- ** system.
- **
- ** @param    InstancePtr is a pointer to the core instance that just
- **           interrupted.
- **
- ** @return   None.
- **
- ** @note     None.
- **
+ * @brief Interrupt handler for the Warp Filter core.
+ *
+ * This handler clears the pending interrupt and determines if the source is
+ * the frame done signal. If yes, it calls the registered callback function.
+ * The application is responsible for connecting this function to the interrupt
+ * system.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_filter instance that just
+ *         interrupted.
+ *
+ * @return None.
+ *
+ * @note   The application is responsible for connecting this function to the
+ *         interrupt system.
+ *
  *****************************************************************************/
 void XVWarpFilter_IntrHandler(void *InstancePtr)
 {

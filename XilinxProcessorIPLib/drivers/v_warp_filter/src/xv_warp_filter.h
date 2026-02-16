@@ -1,8 +1,14 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_warp_filter.h
+ * @addtogroup v_warp_filter Overview
+ */
+
 #ifndef XV_WARP_FILTER_H
 #define XV_WARP_FILTER_H
 
@@ -32,61 +38,90 @@ extern "C" {
 
 /**************************** Type Definitions ******************************/
 #ifdef __linux__
+/** 8-bit unsigned integer type for Linux */
 typedef uint8_t u8;
+/** 16-bit unsigned integer type for Linux */
 typedef uint16_t u16;
+/** 32-bit unsigned integer type for Linux */
 typedef uint32_t u32;
+/** 64-bit unsigned integer type for Linux */
 typedef uint64_t u64;
 #else
+/**
+ * @brief Warp Filter configuration structure.
+ *
+ * This structure contains the configuration information for the
+ * Warp Filter IP instance.
+ */
 typedef struct {
 #ifndef SDT
     u16 DeviceId;             /**< Unique ID of device */
 #else
-    char *Name;
+    char *Name;               /**< Device name string */
 #endif
-    UINTPTR Control_BaseAddress;
-    u16 max_width; 			/*Maximum width*/
-    u16 max_height;			/*Maximum height*/
-    u16 axi_mm_data_width;	/*Axi MM port data width*/
-    u16 perf_level; 		/*Performance Level*/
-    u16 bpc;				/*Max bits per component supported*/
+    UINTPTR Control_BaseAddress;  /**< Base address of control registers */
+    u16 max_width;            /**< Maximum width supported */
+    u16 max_height;           /**< Maximum height supported */
+    u16 axi_mm_data_width;    /**< AXI MM port data width in bits */
+    u16 perf_level;           /**< Performance level configuration */
+    u16 bpc;                  /**< Maximum bits per component supported */
 #ifdef SDT
-    u16 IntrId; 		    /**< Interrupt ID */
-    UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+    u16 IntrId;               /**< Interrupt ID */
+    UINTPTR IntrParent;       /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XV_warp_filter_Config;
 #endif
 
+/** Callback function type for frame done event */
 typedef void (*XV_warp_filter_Callback)(void *CallbackRef);
+
+/**
+ * @brief Warp Filter driver instance structure.
+ *
+ * This structure contains all the state and configuration information
+ * for a Warp Filter driver instance.
+ */
 typedef struct {
-	XV_warp_filter_Config *config;
-	UINTPTR Control_BaseAddress;
-    u32 IsReady;
-	XV_warp_filter_Callback FrameDoneCallback;
-    void *CallbackRef;
-	UINTPTR WarpFilterDesc_BaseAddr;
-	u32 NumDescriptors;
+	XV_warp_filter_Config *config;       /**< Pointer to device configuration */
+	UINTPTR Control_BaseAddress;         /**< Base address of control registers */
+    u32 IsReady;                         /**< Device initialization status flag */
+	XV_warp_filter_Callback FrameDoneCallback;  /**< Frame done callback function pointer */
+    void *CallbackRef;                   /**< Callback reference pointer */
+	UINTPTR WarpFilterDesc_BaseAddr;     /**< Base address of descriptor chain */
+	u32 NumDescriptors;                   /**< Number of descriptors in chain */
 } XV_warp_filter;
 
+/** Word type definition for register access */
 typedef u32 word_type;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/** Macro to write a 32-bit value to a register */
 #define XV_warp_filter_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+/** Macro to read a 32-bit value from a register */
 #define XV_warp_filter_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/** Macro to write a 32-bit value to a register (Linux) */
 #define XV_warp_filter_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+/** Macro to read a 32-bit value from a register (Linux) */
 #define XV_warp_filter_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/** Assertion macro for void functions (Linux) */
 #define Xil_AssertVoid(expr)    assert(expr)
+/** Assertion macro for non-void functions (Linux) */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/** Success return status */
 #define XST_SUCCESS             0
+/** Device not found error status */
 #define XST_DEVICE_NOT_FOUND    2
+/** Open device failed error status */
 #define XST_OPEN_DEVICE_FAILED  3
+/** Component is ready flag value */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 
