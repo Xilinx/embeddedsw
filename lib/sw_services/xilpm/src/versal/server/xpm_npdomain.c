@@ -22,11 +22,26 @@
 #include "xplmi.h"
 #include "xpm_ams_trim.h"
 
+/**
+ * @name MEMIC type-specific index bounds (inclusive)
+ * Bounds used by XPmNpDomain_MemIcInit() to validate node type vs. index:
+ *  - NMU (type 0x0): [0x00–0x35] and [0x68–0x93]
+ *  - NSU (type 0x1): [0x36–0x67] and [0x94–0x9B]
+ *  - NPS (type 0x2): [0x9C–0x102]
+ * @{
+ */
 #define XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN	XPM_NODEIDX_MONITOR_SYSMON_NPD_0
-#define XPM_NODEIDX_MEMIC_NSU_MIN1		XPM_NODEIDX_MEMIC_NSU_0
-#define XPM_NODEIDX_MEMIC_NSU_MAX1		XPM_NODEIDX_MEMIC_NSU_49
-#define XPM_NODEIDX_MEMIC_NSU_MIN2		XPM_NODEIDX_MEMIC_NSU_50
-#define XPM_NODEIDX_MEMIC_NSU_MAX2		XPM_NODEIDX_MEMIC_NSU_57
+#define XPM_NODEIDX_MEMIC_NSU_MIN1		XPM_NODEIDX_MEMIC_NSU_0    /**< NSU range #1: inclusive min (0x36) */
+#define XPM_NODEIDX_MEMIC_NSU_MAX1		XPM_NODEIDX_MEMIC_NSU_49   /**< NSU range #1: inclusive max (0x67) */
+#define XPM_NODEIDX_MEMIC_NSU_MIN2		XPM_NODEIDX_MEMIC_NSU_50   /**< NSU range #2: inclusive min (0x94) */
+#define XPM_NODEIDX_MEMIC_NSU_MAX2		XPM_NODEIDX_MEMIC_NSU_57   /**< NSU range #2: inclusive max (0x9B) */
+#define XPM_NODEIDX_MEMIC_NMU_MIN1		XPM_NODEIDX_MEMIC_NMU_0    /**< NMU range #1: inclusive min (0x00) */
+#define XPM_NODEIDX_MEMIC_NMU_MAX1		XPM_NODEIDX_MEMIC_NMU_53   /**< NMU range #1: inclusive max (0x35) */
+#define XPM_NODEIDX_MEMIC_NMU_MIN2		XPM_NODEIDX_MEMIC_NMU_54   /**< NMU range #2: inclusive min (0x68) */
+#define XPM_NODEIDX_MEMIC_NMU_MAX2		XPM_NODEIDX_MEMIC_NMU_97   /**< NMU range #2: inclusive max (0x93) */
+#define XPM_NODEIDX_MEMIC_NPS_MIN		XPM_NODEIDX_MEMIC_NPS_0    /**< NPS range: inclusive min (0x9C) */
+#define XPM_NODEIDX_MEMIC_NPS_MAX		XPM_NODEIDX_MEMIC_NPS_102  /**< NPS range: inclusive max (0x102) */
+/** @} */
 
 static u32 IsCrypto = 0U;
 
@@ -944,13 +959,51 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	u32 Type = NODETYPE(DeviceId);
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	/* Validate the valid MEMIC types and index is within overall MEMIC bounds */
 	if ((((u32)XPM_NODETYPE_MEMIC_SLAVE != Type) &&
 	    ((u32)XPM_NODETYPE_MEMIC_MASTER != Type) &&
-		((u32)XPM_NODETYPE_MEMIC_NPS != Type)) ||
+	    ((u32)XPM_NODETYPE_MEMIC_NPS != Type)) ||
 	    ((u32)XPM_NODEIDX_MEMIC_MAX <= Idx)) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
+	}
+
+	/* Validate index matches the type - NSU indices are non-contiguous */
+	if ((u32)XPM_NODETYPE_MEMIC_SLAVE == Type) {
+		/* NSU nodes occupy two ranges:
+		 * NSU_0-49:  0x36 to 0x67
+		 * NSU_50-57: 0x94 to 0x9B
+		 */
+		if (!(((Idx >= (u32)XPM_NODEIDX_MEMIC_NSU_MIN1) &&
+		       (Idx <= (u32)XPM_NODEIDX_MEMIC_NSU_MAX1)) ||
+		      ((Idx >= (u32)XPM_NODEIDX_MEMIC_NSU_MIN2) &&
+		       (Idx <= (u32)XPM_NODEIDX_MEMIC_NSU_MAX2)))) {
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	} else if ((u32)XPM_NODETYPE_MEMIC_NPS == Type) {
+		/* NPS nodes: single contiguous range 0x9C to 0x102 */
+		if ((Idx < (u32)XPM_NODEIDX_MEMIC_NPS_MIN) ||
+		    (Idx > (u32)XPM_NODEIDX_MEMIC_NPS_MAX)) {
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	} else {
+		/* NMU nodes occupy two ranges:
+		 * NMU_0-53:  0x0 to 0x35
+		 * NMU_54-97: 0x68 to 0x93
+		 */
+		if (!(((Idx >= (u32)XPM_NODEIDX_MEMIC_NMU_MIN1) &&
+		       (Idx <= (u32)XPM_NODEIDX_MEMIC_NMU_MAX1)) ||
+		      ((Idx >= (u32)XPM_NODEIDX_MEMIC_NMU_MIN2) &&
+		       (Idx <= (u32)XPM_NODEIDX_MEMIC_NMU_MAX2)))) {
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
 	}
 
 	/* Store Node Type in MSB, This will be used to identify the type of node using addresses*/
