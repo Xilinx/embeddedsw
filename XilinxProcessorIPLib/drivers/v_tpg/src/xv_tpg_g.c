@@ -1,13 +1,21 @@
 /*******************************************************************
 * Copyright (C) 2010-2021 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
+/**
+ * @file xv_tpg_g.c
+ * @addtogroup v_tpg Overview
+ */
+
+/***************************** Include Files *********************************/
 
 #ifndef SDT
 #include "xparameters.h"
 #endif
 #include "xv_tpg.h"
+
+/************************** Variable Definitions *****************************/
 
 /*
 * The configuration table for devices

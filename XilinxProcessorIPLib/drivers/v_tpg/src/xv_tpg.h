@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 2015 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_tpg.h
+ * @addtogroup v_tpg Overview
+ */
 
 #ifndef XV_TPG_H
 #define XV_TPG_H
@@ -40,38 +45,54 @@ typedef uint32_t u32;
 #else
 
 /**
- * This typedef enumerates the different patterns supported by TPG
+ * @brief Enumeration of test patterns supported by the TPG.
+ *
+ * This enumeration defines all the test pattern types that can be generated
+ * by the Test Pattern Generator.
  */
 typedef enum
 {
-  XTPG_BKGND_H_RAMP = 1,
-  XTPG_BKGND_V_RAMP,
-  XTPG_BKGND_TEMPORAL_RAMP,
-  XTPG_BKGND_SOLID_RED,
-  XTPG_BKGND_SOLID_GREEN,
-  XTPG_BKGND_SOLID_BLUE,
-  XTPG_BKGND_SOLID_BLACK,
-  XTPG_BKGND_SOLID_WHITE,
-  XTPG_BKGND_COLOR_BARS,
-  XTPG_BKGND_ZONE_PLATE,
-  XTPG_BKGND_TARTAN_COLOR_BARS,
-  XTPG_BKGND_CROSS_HATCH,
-  XTPG_BKGND_RAINBOW_COLOR,
-  XTPG_BKGND_HV_RAMP,
-  XTPG_BKGND_CHECKER_BOARD,
-  XTPG_BKGND_PBRS,
-  XTPG_BKGND_DP_COLOR_RAMP,
-  XTPG_BKGND_DP_BW_VERTICAL_LINE,
-  XTPG_BKGND_DP_COLOR_SQUARE,
-  XTPG_BKGND_LAST
+  XTPG_BKGND_H_RAMP = 1,          /**< Horizontal ramp pattern */
+  XTPG_BKGND_V_RAMP,              /**< Vertical ramp pattern */
+  XTPG_BKGND_TEMPORAL_RAMP,       /**< Temporal ramp pattern */
+  XTPG_BKGND_SOLID_RED,           /**< Solid red color */
+  XTPG_BKGND_SOLID_GREEN,         /**< Solid green color */
+  XTPG_BKGND_SOLID_BLUE,          /**< Solid blue color */
+  XTPG_BKGND_SOLID_BLACK,         /**< Solid black color */
+  XTPG_BKGND_SOLID_WHITE,         /**< Solid white color */
+  XTPG_BKGND_COLOR_BARS,          /**< Color bars pattern */
+  XTPG_BKGND_ZONE_PLATE,          /**< Zone plate pattern */
+  XTPG_BKGND_TARTAN_COLOR_BARS,   /**< Tartan color bars pattern */
+  XTPG_BKGND_CROSS_HATCH,         /**< Cross hatch pattern */
+  XTPG_BKGND_RAINBOW_COLOR,       /**< Rainbow color pattern */
+  XTPG_BKGND_HV_RAMP,             /**< Horizontal and vertical ramp pattern */
+  XTPG_BKGND_CHECKER_BOARD,       /**< Checker board pattern */
+  XTPG_BKGND_PBRS,                /**< Pseudo-random binary sequence pattern */
+  XTPG_BKGND_DP_COLOR_RAMP,       /**< DisplayPort color ramp pattern */
+  XTPG_BKGND_DP_BW_VERTICAL_LINE, /**< DisplayPort black/white vertical line pattern */
+  XTPG_BKGND_DP_COLOR_SQUARE,     /**< DisplayPort color square pattern */
+  XTPG_BKGND_LAST                 /**< Last pattern ID (used for validation) */
 }XTpg_PatternId;
 
+/**
+ * @brief Callback function pointer type for TPG events.
+ *
+ * @param  InstancePtr is a pointer to the XV_tpg instance.
+ */
 typedef void (*XVTpg_Callback)(void *InstancePtr);
 
 /************************** Constant Definitions *****************************/
+/** Interrupt mask for frame processing done event */
 #define XVTPG_IRQ_DONE_MASK            (0x01)
+/** Interrupt mask for ready for next frame event */
 #define XVTPG_IRQ_READY_MASK           (0x02)
 
+/**
+ * @brief Enumeration of interrupt handler types.
+ *
+ * This enumeration defines the types of interrupt handlers that can be
+ * registered for TPG events.
+ */
 typedef enum {
   XVTPG_HANDLER_DONE = 1,  /**< Handler for ap_done */
   XVTPG_HANDLER_READY      /**< Handler for ap_ready */
@@ -114,32 +135,42 @@ typedef struct {
 typedef struct {
     XV_tpg_Config Config;  /**< Hardware Configuration */
     u32 IsReady;           /**< Device is initialized and ready */
-    XVTpg_Callback FrameDoneCallback;
+    XVTpg_Callback FrameDoneCallback;  /**< Callback for frame done event */
     void *CallbackDoneRef;     /**< To be passed to the connect interrupt
                                 callback */
-    XVTpg_Callback FrameReadyCallback;
+    XVTpg_Callback FrameReadyCallback; /**< Callback for frame ready event */
     void *CallbackReadyRef;     /**< To be passed to the connect interrupt
                                 callback */
 } XV_tpg;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/** Write a value to a register */
 #define XV_tpg_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+/** Read a value from a register */
 #define XV_tpg_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/** Write a value to a register (Linux) */
 #define XV_tpg_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+/** Read a value from a register (Linux) */
 #define XV_tpg_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/** Assertion macro for void functions */
 #define Xil_AssertVoid(expr)    assert(expr)
+/** Assertion macro for non-void functions */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/** Success status code */
 #define XST_SUCCESS             0
+/** Device not found status code */
 #define XST_DEVICE_NOT_FOUND    2
+/** Failed to open device status code */
 #define XST_OPEN_DEVICE_FAILED  3
+/** Component is ready flag */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 

@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2018 - 2021 Xilinx, Inc.	All rights reserved.
- * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -25,12 +25,14 @@
  ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xil_printf.h"
 #include "xv_tpg_hw.h"
 #include "xv_tpg.h"
 
 /*****************************************************************************/
 /**
+ * @brief Install an asynchronous callback function for interrupt handling
  *
  * This function installs an asynchronous callback function for the given
  * HandlerType:
@@ -42,11 +44,12 @@
  * (XVTPG_HANDLER_READY)      ReadyCallback
  *
  * @param    InstancePtr is a pointer to the tpg IP instance.
+ * @param    HandlerType is the type of handler to be installed (DONE or READY).
  * @param    CallbackFunc is the address of the callback function.
  * @param    CallbackRef is a user data item that will be passed to the
  *       callback function when it is invoked.
  *
- * @return	None.
+ * @return	None
  *
  * @note     Invoking this function for a handler that already has been
  *       installed replaces it with the new handler.

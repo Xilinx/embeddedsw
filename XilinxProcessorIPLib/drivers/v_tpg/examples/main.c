@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file main.c
+* @addtogroup v_tpg Overview
 *
 * This file demonstrates the example usage of TPG IP available in catalogue
 * Please refer v_tpg example design guide for details on HW setup
@@ -27,11 +28,30 @@
 *
 ******************************************************************************/
 
+/***************************** Include Files *********************************/
+
 #include "xparameters.h"
 #include "sleep.h"
 #include "xv_tpg.h"
 #include "xvtc.h"
 #include "xvidc.h"
+
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/**
+ * Macro to write to Video Clock Generator register
+ */
+#define VideoClockGen_WriteReg(RegOffset, Data) \
+    Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset), (u32)(Data))
+
+/**
+ * Macro to read from Video Clock Generator register
+ */
+#define VideoClockGen_ReadReg(RegOffset) \
+    Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset))
+
+/************************** Variable Definitions *****************************/
 
 XV_tpg_Config		*tpg_Config;
 XV_tpg				tpg;
@@ -46,11 +66,20 @@ XVtc_Timing			vtc_timing;
 u32 volatile		*gpio_hlsIpReset;
 u32 volatile		*gpio_videoLockMonitor;
 
-#define VideoClockGen_WriteReg(RegOffset, Data) \
-    Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset), (u32)(Data))
-#define VideoClockGen_ReadReg(RegOffset) \
-    Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset))
-
+/*****************************************************************************/
+/**
+ * @brief Initialize VTC and TPG driver instances
+ *
+ * This function looks up the configuration for VTC and both TPG instances,
+ * then initializes them with their respective base addresses.
+ *
+ * @return XST_SUCCESS if initialization succeeds
+ *         XST_DEVICE_NOT_FOUND if device lookup fails
+ *         XST_FAILURE if initialization fails
+ *
+ * @note This function must be called before using any VTC or TPG functionality
+ *
+ *******************************************************************************/
 int driverInit()
 {
 	int status;
@@ -109,6 +138,21 @@ int driverInit()
 	return(XST_SUCCESS);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configure video IP cores for specified video mode
+ *
+ * This function configures both TPG instances and VTC with timing parameters
+ * for the specified video mode. TPG0 generates color bars, TPG1 is configured
+ * for passthrough mode, and VTC generates timing signals.
+ *
+ * @param  videoMode Video mode to configure (e.g., 1080p60, 4K30, 4K60)
+ *
+ * @return None
+ *
+ * @note Video clock must be configured before calling this function
+ *
+ *******************************************************************************/
 void videoIpConfig(XVidC_VideoMode videoMode)
 {
 	XVidC_VideoTiming const *timing = XVidC_GetTimingInfo(videoMode);
@@ -151,6 +195,22 @@ void videoIpConfig(XVidC_VideoMode videoMode)
 	XVtc_RegUpdateEnable(&vtc);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configure video clock generator for specified video mode
+ *
+ * This function programs the video clock wizard with appropriate PLL settings
+ * to generate the required pixel clock for the specified video mode and
+ * pixels-per-clock configuration.
+ *
+ * @param  videoMode Video mode that determines clock frequency requirements
+ *
+ * @return XST_SUCCESS if clock configuration and lock succeeds
+ *         XST_FAILURE if video mode is unsupported or clock fails to lock
+ *
+ * @note Supports 1080p60, 4K30, and 4K60 modes with 1/2/4/8 pixels per clock
+ *
+ *******************************************************************************/
 int videoClockConfig(XVidC_VideoMode videoMode)
 {
 	u32 DIVCLK_DIVIDE = 4;
@@ -229,6 +289,18 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 
 }
 
+/*****************************************************************************/
+/**
+ * @brief Reset video IP cores
+ *
+ * This function asserts and then releases reset for all HLS-based video IP
+ * cores in the system using GPIO control.
+ *
+ * @return None
+ *
+ * @note Reset is held for 300ms before release, followed by 300ms settling time
+ *
+ *******************************************************************************/
 void resetIp(void)
 {
 	*gpio_hlsIpReset = 0; //reset IPs
@@ -241,6 +313,20 @@ void resetIp(void)
 
 }
 
+/*****************************************************************************/
+/**
+ * @brief Main function to test TPG video pipeline
+ *
+ * This function tests the TPG video pipeline by sequentially running tests
+ * for different video modes (1080p60, 4K30, and optionally 4K60). Each test
+ * configures the clock, video IPs, and verifies video lock status.
+ *
+ * @return XST_SUCCESS if all tests pass
+ *         XST_FAILURE if any test fails
+ *
+ * @note 4K60 test only runs if TPG is configured for 2/4/8 pixels per clock
+ *
+ *******************************************************************************/
 int main()
 {
 	int status;
