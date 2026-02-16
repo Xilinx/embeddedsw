@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates the template application using the domain information
@@ -251,7 +251,7 @@ def create_app(args):
 
         '''
         There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
-        clang server doesnt recognise for Code Intellisense. To get over this
+        clang server does not recognise for Code Intellisense. To get over this
         "Unknown Argument" Error of clang, a .clangd file with below content is
         to be kept in parallel to compile_commands.json file.
         '''
