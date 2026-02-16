@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_gamma_lut.h
+ * @addtogroup v_gamma_lut Overview
+ */
 
 #ifndef XV_GAMMA_LUT_H
 #define XV_GAMMA_LUT_H
@@ -12,6 +17,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+/* Section contains header files that are required to compile this file */
 #ifndef __linux__
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -32,6 +38,7 @@ extern "C" {
 #include "xv_gamma_lut_hw.h"
 
 /**************************** Type Definitions ******************************/
+/* Section contains different type definitions used by the driver */
 #ifdef __linux__
 typedef uint8_t u8;
 typedef uint16_t u16;
@@ -41,12 +48,26 @@ typedef uint32_t u32;
 typedef void (*XVGamma_Lut_Callback)(void *InstancePtr);
 
 /************************** Constant Definitions *****************************/
+/* Section contains constant definitions that are shared across the driver */
+
+/**
+ * Interrupt Done mask (bit 0)
+ */
 #define XVGAMMA_LUT_IRQ_DONE_MASK            (0x01)
+
+/**
+ * Interrupt Ready mask (bit 1)
+ */
 #define XVGAMMA_LUT_IRQ_READY_MASK           (0x02)
 
+/**
+ * @brief Interrupt handler types
+ *
+ * Enumeration defines the types of interrupt handlers that can be registered.
+ */
 typedef enum {
-  XVGAMMA_LUT_HANDLER_DONE = 1,  /**< Handler for ap_done */
-  XVGAMMA_LUT_HANDLER_READY      /**< Handler for ap_ready */
+  XVGAMMA_LUT_HANDLER_DONE = 1,  /**< Handler for ap_done interrupt */
+  XVGAMMA_LUT_HANDLER_READY      /**< Handler for ap_ready interrupt */
 } XVGAMMA_LUT_HandlerType;
 
 /**
@@ -55,18 +76,18 @@ typedef enum {
 */
 typedef struct {
 #ifndef SDT
-    u16 DeviceId;          /**< Unique ID  of device */
+    u16 DeviceId;          /**< Unique ID of device */
 #else
-  char *Name;
+  char *Name;              /**< Device name string */
 #endif
-    UINTPTR BaseAddress;   /**< The base address of the core instance. */
+    UINTPTR BaseAddress;   /**< The base address of the core instance */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
     u16 MaxHeight;         /**< Maximum rows supported by core instance */
     u16 MaxDataWidth;      /**< Maximum Data width of each channel */
 #ifdef SDT
-  u16 IntrId; 		    /**< Interrupt ID */
-  UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+  u16 IntrId; 		       /**< Interrupt ID */
+  UINTPTR IntrParent; 	   /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XV_gamma_lut_Config;
 #endif
@@ -75,38 +96,79 @@ typedef struct {
 * Driver instance data. An instance must be allocated for each core in use.
 */
 typedef struct {
-    XV_gamma_lut_Config Config;  /**< Hardware Configuration */
-    u32 IsReady;                 /**< Device is initialized and ready */
-    XVGamma_Lut_Callback FrameDoneCallback;
-    void *CallbackDoneRef;     /**< To be passed to the connect interrupt
-                                callback */
-    XVGamma_Lut_Callback FrameReadyCallback;
-    void *CallbackReadyRef;     /**< To be passed to the connect interrupt
-                                callback */
+    XV_gamma_lut_Config Config;            /**< Hardware Configuration */
+    u32 IsReady;                           /**< Device is initialized and ready */
+    XVGamma_Lut_Callback FrameDoneCallback;  /**< Callback function for frame done interrupt */
+    void *CallbackDoneRef;                 /**< Reference pointer passed to frame done callback */
+    XVGamma_Lut_Callback FrameReadyCallback; /**< Callback function for frame ready interrupt */
+    void *CallbackReadyRef;                /**< Reference pointer passed to frame ready callback */
 } XV_gamma_lut;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/* Section contains macros and inline function definitions */
+
 #ifndef __linux__
+/**
+ * Write to gamma lut register (bare-metal)
+ */
 #define XV_gamma_lut_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+/**
+ * Read from gamma lut register (bare-metal)
+ */
 #define XV_gamma_lut_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/**
+ * Write to gamma lut register (Linux)
+ */
 #define XV_gamma_lut_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+
+/**
+ * Read from gamma lut register (Linux)
+ */
 #define XV_gamma_lut_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/**
+ * Assert macro for void functions (Linux)
+ */
 #define Xil_AssertVoid(expr)    assert(expr)
+
+/**
+ * Assert macro for non-void functions (Linux)
+ */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/**
+ * Success return status
+ */
 #define XST_SUCCESS             0
+
+/**
+ * Device not found error status
+ */
 #define XST_DEVICE_NOT_FOUND    2
+
+/**
+ * Open device failed error status
+ */
 #define XST_OPEN_DEVICE_FAILED  3
+
+/**
+ * Component ready status
+ */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 
 /************************** Function Prototypes *****************************/
+/* Section contains function prototypes for the driver API */
+
+/************************** Variable Definitions *****************************/
+/* Section contains global variable definitions, if any */
+
 #ifndef __linux__
 #ifndef SDT
 int XV_gamma_lut_Initialize(XV_gamma_lut *InstancePtr, u16 DeviceId);

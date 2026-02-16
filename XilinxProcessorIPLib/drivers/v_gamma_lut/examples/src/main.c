@@ -1,10 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file main.c
+ * @addtogroup v_gamma_lut Overview
+ */
 
-
+/***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "sleep.h"
 #include "xv_gamma_lut.h"
@@ -12,6 +16,17 @@
 #include "xvtc.h"
 #include "xvidc.h"
 
+/***************** Macros (Inline Functions) Definitions *********************/
+/** Writes a value to the Video Clock Generator register */
+#define VideoClockGen_WriteReg(RegOffset, Data) \
+    Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset), (u32)(Data))
+
+/** Reads a value from the Video Clock Generator register */
+#define VideoClockGen_ReadReg(RegOffset) \
+    Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset))
+
+
+/************************** Variable Definitions *****************************/
 XV_tpg_Config       *tpg_Config;
 XV_tpg              tpg;
 
@@ -25,11 +40,22 @@ XVtc_Timing         vtc_timing;
 u32 volatile        *gpio_hlsIpReset;
 u32 volatile        *gpio_videoLockMonitor;
 
-#define VideoClockGen_WriteReg(RegOffset, Data) \
-    Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset), (u32)(Data))
-#define VideoClockGen_ReadReg(RegOffset) \
-    Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset))
+/************************** Function Definitions *****************************/
 
+/*****************************************************************************/
+/**
+ * @brief Initializes video pipeline IP drivers.
+ *
+ * This function initializes the VTC (Video Timing Controller), TPG (Test
+ * Pattern Generator), and Gamma LUT IP cores by looking up their
+ * configurations and performing configuration initialization.
+ *
+ * @return XST_SUCCESS on successful initialization, XST_DEVICE_NOT_FOUND if
+ *         any device is not found, or XST_FAILURE if initialization fails.
+ *
+ * @note This function supports both SDT and non-SDT build configurations.
+ *
+ *******************************************************************************/
 int driverInit()
 {
 	int status;
@@ -88,6 +114,22 @@ int driverInit()
 	return(XST_SUCCESS);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configures video IP cores for the specified video mode.
+ *
+ * This function configures the TPG (Test Pattern Generator), Gamma LUT, and
+ * VTC (Video Timing Controller) for the specified video resolution and timing.
+ * It sets up the frame dimensions, color format, pattern type, and timing
+ * parameters based on the requested video mode.
+ *
+ * @param videoMode The video mode identifier (e.g., 1080p60, 4K30, 4K60).
+ *
+ * @return None
+ *
+ * @note The TPG is configured to generate color bars pattern.
+ *
+ *******************************************************************************/
 void videoIpConfig(XVidC_VideoMode videoMode)
 {
 	XVidC_VideoTiming const *timing = XVidC_GetTimingInfo(videoMode);
@@ -125,6 +167,24 @@ void videoIpConfig(XVidC_VideoMode videoMode)
 	XVtc_RegUpdateEnable(&vtc);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configures the video clock generator for the specified video mode.
+ *
+ * This function programs the Video Clock Wizard IP to generate the appropriate
+ * pixel clock frequency for the requested video mode. It configures the PLL
+ * parameters (dividers, multipliers, and fractional values) based on the video
+ * resolution and pixels-per-clock setting, then waits for PLL lock.
+ *
+ * @param videoMode The video mode identifier (e.g., 1080p60, 4K30, 4K60).
+ *
+ * @return XST_SUCCESS if clock configuration succeeds and PLL locks,
+ *         XST_FAILURE if the video mode is not supported or PLL fails to lock.
+ *
+ * @note Supports 1080p60, 4K30, and 4K60 video modes with variable pixels-per-
+ *       clock configurations (1, 2, 4, or 8 PPC).
+ *
+ *******************************************************************************/
 int videoClockConfig(XVidC_VideoMode videoMode)
 {
 	u32 DIVCLK_DIVIDE = 4;
@@ -202,6 +262,20 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 
 }
 
+/*****************************************************************************/
+/**
+ * @brief Resets all video processing IP cores.
+ *
+ * This function performs a hardware reset of all video IP cores in the
+ * pipeline by asserting the reset signal, waiting for stabilization, then
+ * releasing the reset signal.
+ *
+ * @return None
+ *
+ * @note The reset is applied via GPIO and includes appropriate delays for
+ *       hardware stabilization.
+ *
+ *******************************************************************************/
 void resetIp(void)
 {
 	*gpio_hlsIpReset = 0; //reset IPs
@@ -214,6 +288,21 @@ void resetIp(void)
 
 }
 
+/*****************************************************************************/
+/**
+ * @brief Main test application for Gamma LUT video pipeline.
+ *
+ * This function tests the video pipeline with Gamma LUT processing across
+ * multiple video resolutions (1080p60, 4K30, 4K60) based on the hardware
+ * capabilities. It initializes all IP drivers, configures the video clock
+ * and IP cores for each test mode, and verifies video lock status.
+ *
+ * @return 0 (XST_SUCCESS) if all tests pass, XST_FAILURE if any test fails.
+ *
+ * @note 4K30 and 4K60 tests are conditionally executed based on the TPG's
+ *       pixels-per-clock configuration capability.
+ *
+ *******************************************************************************/
 int main()
 {
 	int status;

@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_gamma_lut_hw.h
+ * @addtogroup v_gamma_lut Overview
+ */
 
 #ifndef XV_GAMMA_LUT_HW_H_  /* prevent circular inclusions */
 #define XV_GAMMA_LUT_HW_H_  /* by using protection macros  */
@@ -10,6 +15,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 
 // CTRL
 // 0x0000 : Control signals
@@ -56,27 +62,49 @@ extern "C" {
 //                   bit [31:16] - HwReg_gamma_lut_2[2n+1]
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
+/** Control register address */
 #define XV_GAMMA_LUT_CTRL_ADDR_AP_CTRL                 0x0000
+/** Global Interrupt Enable register address */
 #define XV_GAMMA_LUT_CTRL_ADDR_GIE                     0x0004
+/** Interrupt Enable register address */
 #define XV_GAMMA_LUT_CTRL_ADDR_IER                     0x0008
+/** Interrupt Status register address */
 #define XV_GAMMA_LUT_CTRL_ADDR_ISR                     0x000c
+/** Width register data address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_WIDTH_DATA        0x0010
+/** Width register data bit width */
 #define XV_GAMMA_LUT_CTRL_BITS_HWREG_WIDTH_DATA        16
+/** Height register data address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_HEIGHT_DATA       0x0018
+/** Height register data bit width */
 #define XV_GAMMA_LUT_CTRL_BITS_HWREG_HEIGHT_DATA       16
+/** Video format register data address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA 0x0020
+/** Video format register data bit width */
 #define XV_GAMMA_LUT_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA 16
+/** Gamma LUT 0 base address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE  0x0800
+/** Gamma LUT 0 high address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH  0x0fff
+/** Gamma LUT 0 data width */
 #define XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_0      16
+/** Gamma LUT 0 depth */
 #define XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_0      1024
+/** Gamma LUT 1 base address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE  0x1000
+/** Gamma LUT 1 high address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH  0x17ff
+/** Gamma LUT 1 data width */
 #define XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_1      16
+/** Gamma LUT 1 depth */
 #define XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_1      1024
+/** Gamma LUT 2 base address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE  0x1800
+/** Gamma LUT 2 high address */
 #define XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH  0x1fff
+/** Gamma LUT 2 data width */
 #define XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_2      16
+/** Gamma LUT 2 depth */
 #define XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_2      1024
 
 #ifdef __cplusplus

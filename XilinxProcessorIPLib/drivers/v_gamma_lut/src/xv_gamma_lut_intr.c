@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2018 - 2022 Xilinx, Inc.	All rights reserved.
- * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -31,6 +31,7 @@
 
 /*****************************************************************************/
 /**
+ * @brief Installs an asynchronous callback function for the given handler type
  *
  * This function installs an asynchronous callback function for the given
  * HandlerType:
@@ -40,15 +41,17 @@
  * -----------------------         --------------------------------------------------
  * (XVGAMMA_LUT_HANDLER_DONE)       DoneCallback
  * (XVGAMMA_LUT_HANDLER_READY)      ReadyCallback
+ * </pre>
  *
- * @param    InstancePtr is a pointer to the GammaLut IP instance.
- * @param    CallbackFunc is the address of the callback function.
- * @param    CallbackRef is a user data item that will be passed to the
- *       callback function when it is invoked.
+ * @param  InstancePtr is a pointer to the GammaLut IP instance.
+ * @param  HandlerType specifies the type of handler (DONE or READY).
+ * @param  CallbackFunc is the address of the callback function.
+ * @param  CallbackRef is a user data item that will be passed to the
+ *         callback function when it is invoked.
  *
- * @return	None.
+ * @return None
  *
- * @note     Invoking this function for a handler that already has been
+ * @note Invoking this function for a handler that already has been
  *       installed replaces it with the new handler.
  *
  ******************************************************************************/
@@ -83,24 +86,24 @@ void XVGammaLut_SetCallback(XV_gamma_lut *InstancePtr, u32 HandlerType,
 
 /*****************************************************************************/
 /**
+ * @brief Interrupt handler for the Gamma LUT core driver
  *
  * This function is the interrupt handler for the Gamma Lut core driver.
- *
  * This handler clears the pending interrupt and determined if the source is
  * frame done signal. If yes, starts the next frame processing and calls the
- * registered callback function
+ * registered callback function.
  *
  * The application is responsible for connecting this function to the interrupt
  * system. Application beyond this driver is also responsible for providing
  * callbacks to handle interrupts and installing the callbacks using
  * XVGammaLut_SetCallback() during initialization phase.
  *
- * @param    InstancePtr is a pointer to the core instance that just
- *           interrupted.
+ * @param  InstancePtr is a pointer to the core instance that just
+ *         interrupted.
  *
- * @return   None.
+ * @return None
  *
- * @note     None.
+ * @note None
  *
  ******************************************************************************/
 void XVGammaLut_InterruptHandler(XV_gamma_lut *InstancePtr)
