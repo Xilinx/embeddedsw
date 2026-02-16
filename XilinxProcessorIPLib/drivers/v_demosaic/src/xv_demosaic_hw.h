@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_demosaic_hw.h
+ * @addtogroup v_demosaic Overview
+ */
 
 #ifndef XV_DEMOSAIC_HW_H_  /* prevent circular inclusions */
 #define XV_DEMOSAIC_HW_H_  /* by using protection macros  */
@@ -44,15 +49,25 @@ extern "C" {
 // 0x2c : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
+/** Control register address - AP control signals */
 #define XV_DEMOSAIC_CTRL_ADDR_AP_CTRL                0x00
+/** Global interrupt enable register address */
 #define XV_DEMOSAIC_CTRL_ADDR_GIE                    0x04
+/** Interrupt enable register address */
 #define XV_DEMOSAIC_CTRL_ADDR_IER                    0x08
+/** Interrupt status register address */
 #define XV_DEMOSAIC_CTRL_ADDR_ISR                    0x0c
+/** Hardware register width data address */
 #define XV_DEMOSAIC_CTRL_ADDR_HWREG_WIDTH_DATA       0x10
+/** Hardware register width data bit width */
 #define XV_DEMOSAIC_CTRL_BITS_HWREG_WIDTH_DATA       16
+/** Hardware register height data address */
 #define XV_DEMOSAIC_CTRL_ADDR_HWREG_HEIGHT_DATA      0x18
+/** Hardware register height data bit width */
 #define XV_DEMOSAIC_CTRL_BITS_HWREG_HEIGHT_DATA      16
+/** Hardware register Bayer phase data address */
 #define XV_DEMOSAIC_CTRL_ADDR_HWREG_BAYER_PHASE_DATA 0x28
+/** Hardware register Bayer phase data bit width */
 #define XV_DEMOSAIC_CTRL_BITS_HWREG_BAYER_PHASE_DATA 16
 
 #ifdef __cplusplus

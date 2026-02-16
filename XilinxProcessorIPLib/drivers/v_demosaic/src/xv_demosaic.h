@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_demosaic.h
+ * @addtogroup v_demosaic Overview
+ */
 
 #ifndef XV_DEMOSAIC_H
 #define XV_DEMOSAIC_H
@@ -31,79 +36,109 @@ extern "C" {
 #endif
 #include "xv_demosaic_hw.h"
 
-/**************************** Type Definitions ******************************/
+/************************** Constant Definitions *****************************/
+#ifndef __linux__
+/** Interrupt mask for frame processing done event */
+#define XVDEMOSAIC_IRQ_DONE_MASK            (0x01)
+
+/** Interrupt mask for frame ready event */
+#define XVDEMOSAIC_IRQ_READY_MASK           (0x02)
+#endif
+
+/**************************** Type Definitions ********************************/
 #ifdef __linux__
+/** 8-bit unsigned integer type for Linux */
 typedef uint8_t u8;
+
+/** 16-bit unsigned integer type for Linux */
 typedef uint16_t u16;
+
+/** 32-bit unsigned integer type for Linux */
 typedef uint32_t u32;
 #else
-
+/** Callback function type for Demosaic interrupt events */
 typedef void (*XVDemosaic_Callback)(void *InstancePtr);
 
-/************************** Constant Definitions *****************************/
-#define XVDEMOSAIC_IRQ_DONE_MASK            (0x01)
-#define XVDEMOSAIC_IRQ_READY_MASK           (0x02)
-
+/** Interrupt handler types for Demosaic IP */
 typedef enum {
-  XVDEMOSAIC_HANDLER_DONE = 1,  /**< Handler for ap_done */
-  XVDEMOSAIC_HANDLER_READY      /**< Handler for ap_ready */
+  XVDEMOSAIC_HANDLER_DONE = 1,  /**< Handler for processing done event (ap_done) */
+  XVDEMOSAIC_HANDLER_READY      /**< Handler for ready event (ap_ready) */
 } XVDEMOSAIC_HandlerType;
 
 /**
-* This typedef contains configuration information for the demosaic core
-* Each core instance should have a configuration structure associated.
-*/
+ * @brief Configuration structure for the Demosaic IP core.
+ *
+ * This structure contains configuration information for the Demosaic core.
+ * Each core instance should have a configuration structure associated with it.
+ */
 typedef struct {
 #ifndef SDT
-  u16 DeviceId;             /**< Unique ID of device */
+  u16 DeviceId;             /**< Unique device ID of the Demosaic instance */
 #else
-  char *Name;
+  char *Name;               /**< Device name string for SDT builds */
 #endif
-  UINTPTR BaseAddress;      /**< The base address of the core instance. */
-  u16 PixPerClk;            /**< Samples Per Clock */
-  u16 MaxWidth;             /**< Maximum columns supported by core instance */
-  u16 MaxHeight;            /**< Maximum rows supported by core instance */
-  u16 MaxDataWidth;         /**< Maximum Data width of each channel */
-  u16 Algorithm;            /**< Interpolation method */
+  UINTPTR BaseAddress;      /**< Base address of the core instance registers */
+  u16 PixPerClk;            /**< Number of pixels processed per clock cycle */
+  u16 MaxWidth;             /**< Maximum frame width in pixels supported by hardware */
+  u16 MaxHeight;            /**< Maximum frame height in lines supported by hardware */
+  u16 MaxDataWidth;         /**< Maximum data width in bits for each color channel */
+  u16 Algorithm;            /**< Demosaicing interpolation algorithm used */
 #ifdef SDT
-  u16 IntrId; 		    /**< Interrupt ID */
-  UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+  u16 IntrId;               /**< Interrupt ID for SDT builds */
+  UINTPTR IntrParent;       /**< Interrupt parent: Bit[0]=type, Bit[64/32:1]=base address */
 #endif
 } XV_demosaic_Config;
 #endif
 
 /**
-* Driver instance data. An instance must be allocated for each core in use.
-*/
+ * @brief Driver instance structure for the Demosaic IP.
+ *
+ * This structure contains the driver instance data. An instance must be
+ * allocated for each Demosaic core in use.
+ */
 typedef struct {
-    XV_demosaic_Config Config;    /**< Hardware Configuration */
-    u32 IsReady;                  /**< Device is initialized and ready */
-    XVDemosaic_Callback FrameDoneCallback;
-    void *CallbackDoneRef;     /**< To be passed to the connect interrupt
-                                callback */
-    XVDemosaic_Callback FrameReadyCallback;
-    void *CallbackReadyRef;     /**< To be passed to the connect interrupt
-                                callback */
+    XV_demosaic_Config Config;           /**< Hardware configuration parameters */
+    u32 IsReady;                         /**< Device initialization status (XIL_COMPONENT_IS_READY when ready) */
+    XVDemosaic_Callback FrameDoneCallback;  /**< Callback function for frame processing done event */
+    void *CallbackDoneRef;               /**< User reference pointer passed to done callback */
+    XVDemosaic_Callback FrameReadyCallback; /**< Callback function for frame ready event */
+    void *CallbackReadyRef;              /**< User reference pointer passed to ready callback */
 } XV_demosaic;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/** Writes a value to a Demosaic IP register (bare-metal/RTOS) */
 #define XV_demosaic_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+/** Reads a value from a Demosaic IP register (bare-metal/RTOS) */
 #define XV_demosaic_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/** Writes a value to a Demosaic IP register (Linux) */
 #define XV_demosaic_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+
+/** Reads a value from a Demosaic IP register (Linux) */
 #define XV_demosaic_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/** Assertion macro for void functions (Linux) */
 #define Xil_AssertVoid(expr)    assert(expr)
+
+/** Assertion macro for non-void functions (Linux) */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/** Return value indicating successful operation */
 #define XST_SUCCESS             0
+
+/** Return value indicating device not found */
 #define XST_DEVICE_NOT_FOUND    2
+
+/** Return value indicating device open failed */
 #define XST_OPEN_DEVICE_FAILED  3
+
+/** Component ready status flag */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 

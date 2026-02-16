@@ -1,10 +1,9 @@
 /******************************************************************************
  * Copyright (C) 2018 - 2021 Xilinx, Inc.	All rights reserved.
- * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
-/*****************************************************************************/
 /**
  *
  * @file xv_demosaic_intr.c
@@ -31,27 +30,23 @@
 
 /*****************************************************************************/
 /**
+ * @brief Installs an asynchronous callback function for the given handler type.
  *
- * This function installs an asynchronous callback function for the given
- * HandlerType:
+ * This function registers callback functions for different interrupt events.
+ * Supported handler types include frame done (XVDEMOSAIC_HANDLER_DONE) and
+ * frame ready (XVDEMOSAIC_HANDLER_READY) events.
  *
- * <pre>
- * HandlerType                     Callback Function Type
- * -----------------------         --------------------------------------------------
- * (XVDEMOSAIC_HANDLER_DONE)       DoneCallback
- * (XVDEMOSAIC_HANDLER_READY)      ReadyCallback
+ * @param InstancePtr Pointer to the Demosaic IP instance.
+ * @param HandlerType Type of handler (XVDEMOSAIC_HANDLER_DONE or XVDEMOSAIC_HANDLER_READY).
+ * @param CallbackFunc Address of the callback function to be invoked.
+ * @param CallbackRef User data item passed to the callback function when invoked.
  *
- * @param    InstancePtr is a pointer to the Demosaic IP instance.
- * @param    CallbackFunc is the address of the callback function.
- * @param    CallbackRef is a user data item that will be passed to the
- *       callback function when it is invoked.
+ * @return None
  *
- * @return	None.
+ * @note Invoking this function for a handler that already has been installed
+ *       replaces it with the new handler.
  *
- * @note     Invoking this function for a handler that already has been
- *       installed replaces it with the new handler.
- *
- ******************************************************************************/
+ *******************************************************************************/
 void XVDemosaic_SetCallback(XV_demosaic *InstancePtr, u32 HandlerType,
 		void *CallbackFunc, void *CallbackRef)
 {
@@ -83,26 +78,21 @@ void XVDemosaic_SetCallback(XV_demosaic *InstancePtr, u32 HandlerType,
 
 /*****************************************************************************/
 /**
-*
-* This function is the interrupt handler for the Sensor Demosaic core driver.
-*
-* This handler clears the pending interrupt and determined if the source is
-* frame done signal. If yes, starts the next frame processing and calls the
-* registered callback function
-*
-* The application is responsible for connecting this function to the interrupt
-* system. Application beyond this driver is also responsible for providing
-* callbacks to handle interrupts and installing the callbacks using
-* XVDemosaic_SetCallback() during initialization phase.
-*
-* @param    InstancePtr is a pointer to the core instance that just
-*           interrupted.
-*
-* @return   None.
-*
-* @note     None.
-*
-******************************************************************************/
+ * @brief Interrupt handler for the Demosaic IP core.
+ *
+ * This handler clears pending interrupts and determines if the source is a
+ * frame done or frame ready signal. If the interrupt is valid, it calls the
+ * registered callback function for the corresponding event.
+ *
+ * @param InstancePtr Pointer to the Demosaic IP instance that just interrupted.
+ *
+ * @return None
+ *
+ * @note The application is responsible for connecting this function to the
+ *       interrupt system and providing callbacks using XVDemosaic_SetCallback()
+ *       during initialization phase.
+ *
+ ******************************************************************************/
 void XVDemosaic_InterruptHandler(XV_demosaic *InstancePtr)
 {
 	u32 Status;
