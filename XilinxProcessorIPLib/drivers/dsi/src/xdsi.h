@@ -58,14 +58,17 @@ extern "C" {
 /*
  * Interrupt Types for setting Callbacks
 */
-#define XDSI_HANDLER_UNSUPPORT_DATATYPE		1
-#define XDSI_HANDLER_PIXELDATA_UNDERRUN		2
-#define XDSI_HANDLER_OTHERERROR			3
-#define XDSI_HANDLER_CMDQ_FIFOFULL		4
+#define XDSI_HANDLER_UNSUPPORT_DATATYPE		1 /**< Interrupt handler type for unsupported data type */
+#define XDSI_HANDLER_PIXELDATA_UNDERRUN		2 /**< Interrupt handler type for pixel data underrun */
+#define XDSI_HANDLER_OTHERERROR			3 /**< Interrupt handler type for other errors */
+#define XDSI_HANDLER_CMDQ_FIFOFULL		4 /**< Interrupt handler type for command queue FIFO full */
 
+/**
+ * DSI Controller Enable/Disable Selection
+ */
 typedef enum {
-	XDSI_DISABLE, /* DSI Tx controller Disable */
-	XDSI_ENABLE   /* DSI Tx controller Disable */
+	XDSI_DISABLE, /**< DSI Tx controller Disable */
+	XDSI_ENABLE   /**< DSI Tx controller Enable */
 } XDsi_Selection;
 
 /**************************** Type Definitions *******************************/
@@ -77,8 +80,7 @@ typedef enum {
 */
 typedef struct {
       u8 VcId;		/**< VcId indicates one of four channels */
-      u8 DataType;	/**< Short Hand command issue
-			from application */
+      u8 DataType;	/**< Short Hand command issue from application */
       u8 Data0;		/**< First data byte*/
       u8 Data1;		/**< Second data byte*/
 } XDsi_ShortPacket;
@@ -86,37 +88,30 @@ typedef struct {
 
 
 /**
- * * This typedef contains the DSI mode selection
- * *
- * */
+ * This typedef contains the DSI mode selection
+ */
 typedef enum {
-        XDSI_VIDEO_MODE = 0,
-        XDSI_COMMAND_MODE
+        XDSI_VIDEO_MODE = 0,   /**< Video mode */
+        XDSI_COMMAND_MODE      /**< Command mode */
 } XDsi_DsiModeType;
 /**
- * * This typedef contains the type of Command mode Packet
- * *
- * */
+ * This typedef contains the type of Command mode Packet
+ */
 typedef enum {
-        XDSI_CMD_MODE_SHORT_PKT,
-        XDSI_CMD_MODE_LONG_PKT
+        XDSI_CMD_MODE_SHORT_PKT,  /**< Command mode short packet */
+        XDSI_CMD_MODE_LONG_PKT    /**< Command mode long packet */
 } XDsi_CmdModePktType;
 /**
  * Video Timing Mode by default Non-burst mode with Sync Events
  */
 typedef enum {
-	XDSI_VM_NON_BURST_SYNC_PULSES,
-	XDSI_VM_NON_BURST_SYNC_EVENT,
-	XDSI_VM_BURST_MODE,
-	XDSI_VM_NUM_SUPPORTED
+	XDSI_VM_NON_BURST_SYNC_PULSES,  /**< Non-burst mode with sync pulses */
+	XDSI_VM_NON_BURST_SYNC_EVENT,   /**< Non-burst mode with sync event */
+	XDSI_VM_BURST_MODE,             /**< Burst mode */
+	XDSI_VM_NUM_SUPPORTED           /**< Number of supported video modes */
 } XDsi_VideoMode;
 
-/**
-* DSI Long packet supports up to 255 word counts - i.e
-* 64 writes into data fifo
-*
-*/
-#define NUM_PACKETS	64
+#define NUM_PACKETS	64 /**< Number of packets for long packet data in command mode */
 /**
  * MIPI DSI Command Mode configuration structure.
  */
@@ -198,7 +193,7 @@ typedef struct {
 * @note		None.
 *
  *****************************************************************************/
-typedef void (*XDsi_Callback) (void *CallbackRef, u32 Mask);
+typedef void (*XDsi_Callback) (void *CallBackRef, u32 Mask);
 
 /**
 * The XDsi driver instance data.

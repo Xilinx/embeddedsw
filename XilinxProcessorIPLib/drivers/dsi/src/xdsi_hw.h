@@ -63,6 +63,7 @@ extern "C" {
 #define XDSI_LTIME_OFFSET	0x00000060  /**< Total Line Timing Offset */
 #define XDSI_BLLP_TIME_OFFSET	0x00000064  /**< BLLP Time duration Offset */
 #define XDSI_TIME5_OFFSET	0x0000006C  /**< Time 5 Offset */
+/** @} */
 
 /** @name Core configuration register masks and shifts
  *
@@ -92,7 +93,7 @@ extern "C" {
 						  *  Soft reset */
 #define XDSI_CCR_COREENB_SHIFT		0	/**< Shift for
 						  *  Core Enable*/
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and shifts of Protocol control register
  *
@@ -126,6 +127,8 @@ extern "C" {
 #define XDSI_PCR_ACTLANES_SHIFT 	0  /**< Shift for
 						Active Lanes */
 
+/** @} */
+
 /** @name Bitmasks and shift of XDSI_STSTUS_OFFSET
  *
  * This register used to get Command Queue Vacancy
@@ -149,7 +152,7 @@ extern "C" {
 #define XDSI_RDY_FOR_SHORTPKT_SHIFT	6	/**< Command Queue Vacancy*/
 #define XDSI_CMDQ_SHIFT		0		/**< Shift for Command Queue */
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and shift of XDSI_TIME1_OFFSET
  *
@@ -164,7 +167,7 @@ extern "C" {
 #define XDSI_TIME1_HSA_SHIFT    	16  /**< Shift for HSA*/
 #define XDSI_TIME1_BLLP_BURST_SHIFT	 0  /**< Shift for BLLP*/
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and shift of XDSI_TIME2_OFFSET
  *
@@ -178,7 +181,7 @@ extern "C" {
 #define XDSI_TIME2_HACT_SHIFT	16	   /**< Shift for HACT*/
 #define XDSI_TIME2_VACT_SHIFT	0	   /**< Shift for VACT*/
 
-/*@}*/
+/** @} */
 /** @name Bitmasks and shift of XDSI_TIME3_OFFSET
  *
  * This register used to set timing parameters
@@ -191,7 +194,7 @@ extern "C" {
 
 #define XDSI_TIME3_HBP_SHIFT	16	/**< Shift for HBP*/
 #define XDSI_TIME3_HFP_SHIFT	0	/**< Shift for HFP*/
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offset of XDSI_TIME4_OFFSET
  *
@@ -208,7 +211,7 @@ extern "C" {
 #define XDSI_TIME4_VSA_SHIFT	16	/**< Shift for VSA*/
 #define XDSI_TIME4_VBP_SHIFT	8	/**< Shift for VBP*/
 #define XDSI_TIME4_VFP_SHIFT	0	/**< Shift for VFP*/
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offset of XDSI_TIME5_OFFSET
  *
@@ -219,7 +222,7 @@ extern "C" {
 #define XDSI_TIME5_VFP_MASK	0x000000FF  /**< Vertical extended timing
 						parameter1 VFP*/
 #define XDSI_TIME5_VFP_SHIFT	0	/**< Shift for VFP*/
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XDSI_GIER_OFFSET register
  *
@@ -229,11 +232,15 @@ extern "C" {
 #define XDSI_GIER_GIE_MASK	0x00000001  /**< Global Interrupt Enable bit */
 #define XDSI_GIER_GIE_SHIFT	0	   /**< Shift bits for Global Interrupt
 					     *  Enable */
+/** @} */
 
+/** @name Global interrupt control values
+ * @{
+ */
 #define XDSI_GIER_SET	1	/**< Enable the Global Interrupts */
 #define XDSI_GIER_RESET 0	/**< Disable the Global Interrupts */
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XDSI_ISR_OFFSET register
  *
@@ -252,7 +259,7 @@ extern "C" {
 #define XDSI_ISR_PXL_UNDR_RUN_SHIFT	0  /**< Shift for
 						Pixel under run*/
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XDSI_IER_OFFSET register
  *
@@ -270,7 +277,7 @@ extern "C" {
 						     *  Unsupported data type */
 #define XDSI_IER_PXL_UNDR_RUN_SHIFT	0   /**< Shift for
 						Pixel under run */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XDSI_COMMAND_OFFSET register
  *
@@ -288,7 +295,7 @@ extern "C" {
 #define XDSI_SPKTR_BYTE1_SHIFT	8 /**< Shift for BYTE1 */
 #define XDSI_SPKTR_BYTE2_SHIFT	16 /**< Shift for BYTE2 */
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XDSI_LTIME_OFFSET register
  *
@@ -298,7 +305,7 @@ extern "C" {
 #define XDSI_LTIME_MASK 	0xFFFFFFFF  /**< Total Line time */
 
 #define XDSI_LTIME_SHIFT	0 	/**< Shift for DataType */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XDSI_BBLP_SIZE_OFFSET register
  *
@@ -308,9 +315,13 @@ extern "C" {
 #define XDSI_BLLP_TIME_MASK	0xFFFFFFFF  /**< BLLP Size*/
 
 #define XDSI_BLLP_TIME_SHIFT	0 /**< Shift for BLLP */
-/*@}*/
+/** @} */
 
+/** @name Core capabilities
+ * @{
+ */
 #define XDSI_MAX_LANES		4	/**< Max Lanes supported by DSI */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -356,5 +367,6 @@ static inline void XDsi_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
 }
 #endif
 
-#endif
 /** @} */
+
+#endif

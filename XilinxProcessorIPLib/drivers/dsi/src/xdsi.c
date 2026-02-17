@@ -56,22 +56,28 @@ static void StubErrCallback(void *CallbackRef, u32 ErrorMask);
 
 /****************************************************************************/
 /**
-* Initialize the XDsi instance provided by the caller based on the
-* given Config structure.
+* Initialize the XDsi instance provided by the caller based on the given
+* Config structure.
+*
+* @brief Initializes the DSI controller instance with hardware configuration
+* information and sets up default callback handlers.
 *
 * @param	InstancePtr is the XDsi instance to operate on.
-* @param	CfgPtr is the device configuration structure containing
-*		information about a specific DSI.
+* @param	CfgPtr is the device configuration structure containing information
+*		about a specific DSI controller (base address, lanes, FIFO size, etc.)
 * @param	EffectiveAddr is the base address of the device. If address
 *		translation is being used, then this parameter must reflect the
-*		virtual base address. Otherwise, the physical address should be
-*		used.
+*		virtual base address. Otherwise, the physical address should be used.
 *
 * @return
-*		- XST_SUCCESS Initialization was successful.
-*		- XST_FAILURE Initialization was unsuccessful.
+*		- XST_SUCCESS if initialization was successful.
+*		- XST_FAILURE if initialization failed.
 *
-* @note		None.
+* @note	All callback handlers are initialized to stub functions that will
+*		assert on invocation. Application must set actual callback handlers
+*		using XDsi_SetCallback() if interrupt handling is required.
+*
+* @see XDsi_SetCallback
 *****************************************************************************/
 u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *CfgPtr,
 					 UINTPTR EffectiveAddr)
@@ -101,16 +107,14 @@ u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *CfgPtr,
 
 /*****************************************************************************/
 /**
-* This function will do a reset of the IP. Register ISR gets reset.
-* Internal FIFO(command queue) gets flushed. FSM stops processing further
-* packets. Controller gracefully ends by waiting for the current sub-block in
-* operation to complete its task and mark next byte as LP byte to end the
-* transfer. Once soft reset is released, controller start from VSS packet.
-*(that is new video frame)
+* Perform a soft reset of the DSI controller.
+*
+* @brief Resets the DSI controller including interrupt status registers,
+* command queue FIFO, and state machine. The controller gracefully waits for
+* current operations to complete before resetting. After reset is released,
+* controller starts from VSS (Vertical Sync Start) packet (new video frame).
 *
 * @param	InstancePtr is the XDsi instance to operate on.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -127,15 +131,26 @@ void XDsi_Reset(XDsi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function will configure protocol reg with video mode, Blank packet mode,
-* Blank packet Type, End of Transmisstion packet
+* Configure default DSI protocol settings.
 *
-* @param	InstancePtr is the XDsi instance to operate on.
+* @brief Configures the DSI controller protocol register with video mode,
+* blank packet mode, blank packet type, and End-of-Transmission (EoTP) packet
+* settings based on the instance parameters. This function sets up the
+* Protocol Control Register (PCR) with the instance VideoMode, BlankPacketType,
+* BLLPMode, and EoTp configuration values.
+*
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized via XDsi_CfgInitialize().
 *
 * @return
-* 		- XST_SUCCESS On enabling the core.
+* 		- XST_SUCCESS if configuration was successful.
 *
-* @note		None.
+* @note	This function assumes the instance is already initialized. The
+*		instance member variables (VideoMode, BlankPacketType, BLLPMode,
+*		EoTp) must be set before calling this function or it will use
+*		default/uninitialized values.
+*
+* @see XDsi_CfgInitialize, XDsi_Activate
 *
 ****************************************************************************/
 u32 XDsi_DefaultConfigure(XDsi *InstancePtr)
@@ -170,17 +185,29 @@ u32 XDsi_DefaultConfigure(XDsi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function will enable/disable the IP Core to start processing.
+* Enable or disable the DSI controller core.
 *
-* @param	InstancePtr is the XDsi instance to operate on.
+* @brief Activates or deactivates the DSI controller IP core. When enabling
+* (Flag=XDSI_ENABLE), the global interrupt output is set and the core is
+* enabled for packet processing. When disabling (Flag=XDSI_DISABLE), the
+* global interrupt is reset and the core is disabled.
 *
-* @param 	Flag will be used to indicate Enable or Disable action.
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized via XDsi_CfgInitialize().
+*
+* @param 	Flag indicates the desired action:
+*		- XDSI_ENABLE: Enable global interrupt and activate DSI core
+*		- XDSI_DISABLE: Reset global interrupt and disable DSI core
 *
 * @return
-* 		- XST_SUCCESS On enabling/disabling the core.
-*		- XST_INVALID_PARAM if user passes invalid parameter.
+* 		- XST_SUCCESS if enable/disable operation was successful.
+*		- XST_INVALID_PARAM if an invalid Flag value is provided.
 *
-* @note		None.
+* @note	Must be called after XDsi_CfgInitialize() and XDsi_DefaultConfigure().
+*		The core must be configured with video mode or command mode settings
+*		before activation.
+*
+* @see XDsi_CfgInitialize, XDsi_DefaultConfigure, XDsi_SetMode
 *
 ****************************************************************************/
 u32 XDsi_Activate(XDsi *InstancePtr, XDsi_Selection Flag)
@@ -204,17 +231,28 @@ u32 XDsi_Activate(XDsi *InstancePtr, XDsi_Selection Flag)
 
 /*****************************************************************************/
 /**
-* This function will send the short packet to DSI controller
-* Generic Short Packet Register. Application will fill up this structure and
-* use this API to send short packet
+* Send a DSI short packet to the controller.
 *
-* @param	InstancePtr is the XDsi instance to operate on
-* @param	ShortPacket is going to be filled up by this function
-* 		and returned to the caller.
+* @brief Sends a DSI short packet (up to 2 data bytes) to the DSI controller
+* via the Generic Short Packet Register. The function packs the Virtual Channel
+* ID, Data Type, and two data bytes into the command register format and writes
+* to the XDSI_COMMAND_OFFSET register. Short packets are typically used for
+* commands and status updates.
 *
-* @return	None.
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized and activated.
+* @param	ShortPacket is a pointer to the XDsi_ShortPacket structure containing:
+*		- VcId: Virtual channel identifier (0-3)
+*		- DataType: DSI data type code for the packet
+*		- Data0: First data byte
+*		- Data1: Second data byte
 *
-* @note		None.
+* @note	This function does not wait for transmission to complete. The caller
+*		must check controller status if synchronization is needed. Only valid
+*		for sending up to 2 bytes of data; use XDsi_SendLongPacket() for
+*		longer payloads.
+*
+* @see XDsi_SendLongPacket, XDsi_SendCmdModePkt
 *
 ****************************************************************************/
 void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket)
@@ -237,16 +275,28 @@ void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket)
 
 /*****************************************************************************/
 /**
- * * This function will send the long packet.
- * *
- * * @param        InstancePtr is the XDsiTxSs instance to operate on
- * * @param        CmdPacket is the cmd mode long packet structure to operate on
- * *
- * * @return       None
- * *
- * * @note         None.
- * *
- * ****************************************************************************/
+* Send a DSI long packet to the controller.
+*
+* @brief Sends a DSI long packet (>2 data bytes, up to 255 bytes) to the DSI
+* controller. The function writes the payload data to the XDSI_DATA_OFFSET
+* register in 32-bit chunks, then sends the packet header as a short packet.
+* Long packets are used for bulk data transfers such as image data or command
+* sequences in command mode.
+*
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized and activated.
+* @param	CmdPacket is a pointer to the XDsiTx_CmdModePkt structure containing:
+*		- LongPktData[]: Array of up to 64 32-bit words with payload data
+*		- SpktData: Short packet header with VcId, DataType, and packet info
+*
+* @note	Payload size must be specified in CmdPacket->SpktData.Data0 (word
+*		count). The function calculates the number of 32-bit writes needed.
+*		Data is padded automatically to 32-bit boundary. Maximum payload is
+*		255 bytes (64 32-bit words).
+*
+* @see XDsi_SendShortPacket, XDsi_SendCmdModePkt
+*
+****************************************************************************/
 void XDsi_SendLongPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPacket)
 {
 	u32 i;
@@ -272,19 +322,33 @@ void XDsi_SendLongPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPacket)
 
 /*****************************************************************************/
 /**
- * * This function sets the mode to send short packet.
- * *
- * * @param        InstancePtr is the XDsiTxSs instance to operate on
- * * @param        CmdPacket is the cmd mode short pkt structure to operate on
- * *
- * * @return
- *	           - XST_SUCCESS is returned if DSI mode packet was
- *		     successfully sent
- *		   - XST_FAILURE is returned if DSI mode packet is not found
- * *
- * * @note         None.
- * *
- * ****************************************************************************/
+* Send a DSI command mode packet (short or long).
+*
+* @brief Sends a DSI packet in command mode. This function supports both short
+* packets (up to 2 bytes) and long packets (up to 255 bytes). It waits for the
+* controller to be ready for the appropriate packet type before transmission.
+* For short packets, waits on XDSI_GetReadyForShortPkt(); for long packets,
+* waits on XDSI_GetReadyForLongPkt().
+*
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized, activated, and switched to command mode via
+*		XDsi_SetMode(XDSI_COMMAND_MODE).
+* @param	CmdPktData is a pointer to the XDsiTx_CmdModePkt structure specifying:
+*		- CmdPkt: Packet type (XDSI_CMD_MODE_SHORT_PKT or XDSI_CMD_MODE_LONG_PKT)
+*		- SpktData: Short packet header information
+*		- LongPktData: Payload for long packets
+*
+* @return
+*		- XST_SUCCESS if the DSI packet was successfully sent.
+*		- XST_FAILURE if DSI is not enabled or not in command mode.
+*
+* @note	This function blocks waiting for the controller to be ready.
+*		Ensure controller is in command mode before calling. The appropriate
+*		packet type must be selected in CmdPktData->CmdPkt.
+*
+* @see XDsi_SetMode, XDsi_SendShortPacket, XDsi_SendLongPacket
+*
+****************************************************************************/
 int XDsi_SendCmdModePkt(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData)
 {
 	/* Verify arguments */
@@ -308,19 +372,32 @@ int XDsi_SendCmdModePkt(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData)
 
 /*****************************************************************************/
 /**
- * * This function sets the mode to send short packet.
- * *
- * * @param        InstancePtr is the XDsiTxSs instance to operate on
- * * @param        mode is the DSI mode (video or command) to operate on
- * *
- * * @return
- *	           - XST_SUCCESS is returned if DSI mode(command/video) was
- *		     successfully set
- *		   - XST_INVALID_PARAM is returned if DSI mode is not found
- * *
- * * @note         None.
- * *
- * ****************************************************************************/
+* Switch DSI controller between video and command modes.
+*
+* @brief Configures the DSI controller to operate in either video mode or
+* command mode. In video mode, the controller processes continuous video frame
+* data streams with synchronization packets. In command mode, the controller
+* accepts individual short and long packets sent by the application. Transitions
+* between modes include appropriate waits for pending operations to complete.
+*
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized via XDsi_CfgInitialize().
+* @param	mode is the desired DSI mode:
+*		- XDSI_VIDEO_MODE: Configure for continuous video stream processing
+*		- XDSI_COMMAND_MODE: Configure for packet-based command transmission
+*
+* @return
+*		- XST_SUCCESS if mode switch was successful.
+*		- XST_INVALID_PARAM if the requested mode is invalid or an invalid
+*		  transition is attempted.
+*
+* @note	Certain mode transitions are not allowed by the hardware. For example,
+*		cannot switch from video mode to command mode directly while in progress.
+*		The function waits for XDsi_GetInProgress() to clear before switching.
+*
+* @see XDsi_CfgInitialize, XDsi_SendCmdModePkt
+*
+****************************************************************************/
 int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode)
 {
 	/* Verify arguments */
@@ -349,17 +426,32 @@ int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode)
 }
 /*****************************************************************************/
 /**
-* This function will get the information from the GUI settings and other
-* protocol control register values like video mode, Blank packet type,
-* Packet Mode, EOTP value
+* Read current DSI controller configuration parameters.
 *
-* @param	InstancePtr is the XDsi instance to operate on
-* @param	ConfigInfo is going to be filled up by this function
-* 		and returned to the caller.
+* @brief Reads the current configuration settings from the DSI controller
+* hardware registers and the driver instance. This includes the protocol
+* control settings (video mode, blank packet type, BLLP mode, EoTP), timing
+* parameters (HSA, VACT, blanking intervals, etc.), and line/BLLP timing.
+* All settings are populated into the provided ConfigInfo structure.
 *
-* @return 	None.
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized via XDsi_CfgInitialize().
+* @param	ConfigInfo is a pointer to the XDsi_ConfigParameters structure to
+*		be filled with current configuration. The structure will contain:
+*		- Config: GUI configuration settings
+*		- VideoMode: Current video transmission mode
+*		- BlankPacketType: Blanking packet type for BLLP
+*		- BLLPMode: Blank packet mode selection
+*		- EoTp: End-of-Transmission packet enable status
+*		- Timing: All horizontal/vertical timing parameters
+*		- LineTime, BLLPTime: Total line and BLLP timing values
 *
-* @note		None.
+* @note	This function performs multiple register reads. The caller must
+*		ensure the controller is in a stable state before reading. Timing
+*		parameters reflect current register values which may differ from
+*		hard-coded configuration if modified at runtime.
+*
+* @see XDsi_CfgInitialize, XDsi_DefaultConfigure
 *
 ****************************************************************************/
 void XDsi_GetConfigParams(XDsi *InstancePtr,
@@ -441,20 +533,36 @@ void XDsi_GetConfigParams(XDsi *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function Set Timning mode and Resolution as per that it
-* populate with Peripheral Timing Parameters from the video common library
+* Configure video interface timing based on standard resolution.
 *
-* @param	InstancePtr is the XDsi instance to operate on
-* @param	VideoMode Specifies mode of Interfacing
-* @param	Resolution sets the resolution
-* @param	BurstPacketSize sets the packet size
+* @brief Sets the DSI controller video interface timing parameters based on a
+* specified video mode and standard resolution. Looks up timing parameters
+* from the video common library (XVidC_GetVideoModeData), including horizontal
+* and vertical synchronization, active regions, and blanking intervals. The
+* burst packet size is set for burst mode operations. This function is
+* typically called for standard video resolutions (e.g., 1920x1080@60Hz).
+*
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized via XDsi_CfgInitialize().
+* @param	VideoMode specifies the DSI video transmission mode:
+*		- XDSI_VM_NON_BURST_SYNC_PULSES: Non-burst with sync pulses
+*		- XDSI_VM_NON_BURST_SYNC_EVENT: Non-burst with sync events
+*		- XDSI_VM_BURST_MODE: Burst mode transmission
+* @param	Resolution specifies the video resolution to configure (e.g.,
+*		XVIDC_VM_1920x1080_60_P for 1920x1080@60Hz progressive).
+* @param	BurstPacketSize specifies the packet size for burst mode blanking.
 *
 * @return
-*		- XST_SUCCESS is returned if Video interfacing was
-*		  successfully set
-*		- XST_FAILURE is returned if TimingMode is not found
+*		- XST_SUCCESS if video interface timing was successfully configured.
+*		- XST_FAILURE if the requested resolution is not supported or timing
+*		  information cannot be retrieved.
 *
-* @note		None.
+* @note	This function looks up timing data from the video common library.
+*		The requested resolution must be supported by the library. For
+*		custom resolutions not in the library, use
+*		XDsi_SetCustomVideoInterfaceTiming().
+*
+* @see XDsi_SetCustomVideoInterfaceTiming, XVidC_GetVideoModeData
 *
 ****************************************************************************/
 s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
@@ -523,17 +631,38 @@ s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
 
 /*****************************************************************************/
 /**
-* XDsi_SetCustomVideoInterfaceTiming Set Timning mode and Resolution as
-* per user input
-* @param	InstancePtr is the XDsi instance to operate on
-* @param	VideoMode Specifies mode of Interfacing
-* @param	Timing Video Timing parameters
+* Configure video interface timing with custom parameters.
+*
+* @brief Sets the DSI controller video interface timing parameters using
+* user-provided custom timing values. Unlike XDsi_SetVideoInterfaceTiming()
+* which uses standard resolutions from the video library, this function
+* allows arbitrary custom timing configurations. Horizontal and vertical
+* synchronization, active region, and blanking parameters are all
+* configurable. Burst packet size is only applied in burst mode.
+*
+* @param	InstancePtr is the XDsi instance to operate on. The instance must
+*		have been initialized via XDsi_CfgInitialize().
+* @param	VideoMode specifies the DSI video transmission mode:
+*		- XDSI_VM_NON_BURST_SYNC_PULSES: Non-burst with sync pulses
+*		- XDSI_VM_NON_BURST_SYNC_EVENT: Non-burst with sync events
+*		- XDSI_VM_BURST_MODE: Burst mode (burst packet size applies)
+* @param	Timing is a pointer to the XDsi_VideoTiming structure containing
+*		custom timing parameters:
+*		- HActive: Active horizontal pixels/bytes per line
+*		- HFrontPorch, HSyncWidth, HBackPorch: Horizontal blanking intervals
+*		- VActive: Active vertical lines
+*		- VFrontPorch, VSyncWidth, VBackPorch: Vertical blanking intervals
+*		- BLLPBurst: Burst packet size (only used in burst mode)
 *
 * @return
-*		- XST_SUCCESS is returned if Video interfacing was
-*		  successfully set.
+*		- XST_SUCCESS if video interface timing was successfully configured.
 *
-* @note		None.
+* @note	This function allows maximum flexibility but does not validate timing
+*		parameters for spec compliance. Burst packet size is only written in
+*		burst mode; non-burst modes override it to 0. Ensure custom timing
+*		values comply with DSI and display controller specifications.
+*
+* @see XDsi_SetVideoInterfaceTiming
 *
 ****************************************************************************/
 s32 XDsi_SetCustomVideoInterfaceTiming(XDsi *InstancePtr,
@@ -621,8 +750,6 @@ s32 XDsi_SetCustomVideoInterfaceTiming(XDsi *InstancePtr,
 * @param 	ErrorMask is a bit mask indicating the cause of the error. Its
 *		value equals 'OR'ing one or more XDSI_ISR_*_MASK values defined
 *		in xdsi_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *

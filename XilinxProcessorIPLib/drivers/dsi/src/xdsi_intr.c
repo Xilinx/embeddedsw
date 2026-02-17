@@ -55,8 +55,6 @@
 * @param	InstancePtr is the XDsi instance to operate on
 * @param	Mask is the interrupt mask which need to be enabled in core
 *
-* @return	None
-*
 * @note		None
 *
 ****************************************************************************/
@@ -79,8 +77,6 @@ void XDsi_InterruptEnable(XDsi *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is the XDsi instance to operate on
 * @param	Mask is the interrupt mask which need to be enabled in core
-*
-* @return	None
 *
 * @note		None
 *
@@ -153,8 +149,6 @@ u32 XDsi_InterruptGetStatus(XDsi *InstancePtr)
 * @param	InstancePtr is the XDsi instance to operate on
 * @param	Mask is Interrupt Mask with bits set for corresponding interrupt
 * 		to be cleared in the Interrupt Status register
-*
-* @return 	None
 *
 * @note		None
 *
@@ -258,8 +252,6 @@ s32 XDsi_SetCallback(XDsi *InstancePtr, u32 HandleType,
 * XDsi_SetCallback() during initialization phase.
 *
 * @param	InstancePtr is a pointer to the XDsi core instance.
-*
-* @return	None.
 *
 * @note		Interrupt should be enabled to execute interrupt handler.
 *
