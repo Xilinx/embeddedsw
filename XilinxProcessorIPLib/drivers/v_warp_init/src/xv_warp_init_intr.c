@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -21,22 +21,28 @@
 #include "xv_warp_init.h"
 #include "xv_warp_init_hw.h"
 
+
+/************************** Variable Definitions *****************************/
+
 /*****************************************************************************/
 /**
- **
- ** This function installs an asynchronous callback function:
- **
- ** @param    InstancePtr is a pointer to the v_warp_init IP instance.
- ** @param    CallbackFunc is the address of the callback function.
- ** @param    CallbackRef is a user data item that will be passed to the
- **       callback function when it is invoked.
- **
- ** @return      None.
- **
- ** @note     Invoking this function for a handler that already has been
- **       installed replaces it with the new handler.
- **
- ******************************************************************************/
+ * @brief Install asynchronous callback function
+ *
+ * This function installs an asynchronous callback function for the
+ * v_warp_init IP instance. The callback will be invoked when a frame
+ * done interrupt occurs.
+ *
+ * @param  InstancePtr is a pointer to the XV_warp_init IP instance
+ * @param  CallbackFunc is the address of the callback function
+ * @param  CallbackRef is a user data item that will be passed to the
+ *         callback function when it is invoked
+ *
+ * @return None
+ *
+ * @note   Invoking this function for a handler that already has been
+ *         installed replaces it with the new handler
+ *
+ *******************************************************************************/
 void XVWarpInit_SetCallback(XV_warp_init *InstancePtr,
 		void *CallbackFunc, void *CallbackRef)
 {
@@ -51,24 +57,20 @@ void XVWarpInit_SetCallback(XV_warp_init *InstancePtr,
 
 /*****************************************************************************/
 /**
- **
- ** This function is the interrupt handler for the GenerateRemapVector core
- ** driver.
- **
- ** This handler clears the pending interrupt and determines if the source is
- ** frame done signal. If yes, calls the registered callback function.
- **
- ** The application is responsible for connecting this function to the interrupt
- ** system.
- **
- ** @param    InstancePtr is a pointer to the core instance that just
- **           interrupted.
- **
- ** @return   None.
- **
- ** @note     None.
- **
- *****************************************************************************/
+ * @brief Interrupt handler for v_warp_init core
+ *
+ * This function is the interrupt handler for the v_warp_init core driver.
+ * It clears the pending interrupt and determines if the source is a frame
+ * done signal. If yes, it calls the registered callback function.
+ *
+ * @param  InstancePtr is a pointer to the core instance that just interrupted
+ *
+ * @return None
+ *
+ * @note   The application is responsible for connecting this function to
+ *         the interrupt system
+ *
+ *******************************************************************************/
 void XVWarpInit_IntrHandler(void *InstancePtr)
 {
 	XV_warp_init *GenRemapVectPtr = (XV_warp_init *) InstancePtr;

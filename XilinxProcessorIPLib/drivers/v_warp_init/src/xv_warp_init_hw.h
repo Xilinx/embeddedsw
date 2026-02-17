@@ -1,8 +1,14 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_warp_init_hw.h
+ * @addtogroup v_warp_init Overview
+ */
+
 // CTRL
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -37,29 +43,115 @@
 // 0x40 : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
+/**
+ * Control register address - AP control signals
+ */
 #define XV_WARP_INIT_CTRL_ADDR_AP_CTRL              0x00
+
+/**
+ * Global Interrupt Enable register address
+ */
 #define XV_WARP_INIT_CTRL_ADDR_GIE                  0x04
+
+/**
+ * Interrupt Enable Register address
+ */
 #define XV_WARP_INIT_CTRL_ADDR_IER                  0x08
+
+/**
+ * Interrupt Status Register address
+ */
 #define XV_WARP_INIT_CTRL_ADDR_ISR                  0x0c
+
+/**
+ * Descriptor address data register address
+ */
 #define XV_WARP_INIT_CTRL_ADDR_DESC_ADDR_DATA       0x10
+
+/**
+ * Descriptor address data width in bits
+ */
 #define XV_WARP_INIT_CTRL_BITS_DESC_ADDR_DATA       64
+
+/**
+ * AXI master read/write address register address
+ */
 #define XV_WARP_INIT_CTRL_ADDR_MAXI_READ_WRITE_DATA 0x20
+
+/**
+ * AXI master read/write address width in bits
+ */
 #define XV_WARP_INIT_CTRL_BITS_MAXI_READ_WRITE_DATA 64
+
+/**
+ * IP status register address
+ */
 #define XV_WARP_INIT_CTRL_ADDR_IP_STATUS_REG_DATA   0x30
+
+/**
+ * IP status register width in bits
+ */
 #define XV_WARP_INIT_CTRL_BITS_IP_STATUS_REG_DATA   32
 
+/**************************** Type Definitions *******************************/
 
-/* Bit masks for AP_CTRL*/
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/* Bit masks for AP_CTRL register */
+
+/**
+ * AP control start bit mask
+ */
 #define AP_CTRL_START_MASK		0x01
+
+/**
+ * AP control done bit mask
+ */
 #define AP_CTRL_DONE_MASK		0x02
+
+/**
+ * AP control idle bit mask
+ */
 #define AP_CTRL_IDLE_MASK		0x04
+
+/**
+ * AP control ready bit mask
+ */
 #define AP_CTRL_READY_MASK		0x08
+
+/**
+ * AP control auto-restart bit mask
+ */
 #define AP_CTRL_AUTO_RST_MASK	0x80
+
+/**
+ * AP control flush bit position
+ */
 #define AP_CTRL_FLUSH_BIT_POS			(5)
+
+/**
+ * AP control flush bit mask
+ */
 #define AP_CTRL_FLUSH_BIT				(1 << AP_CTRL_FLUSH_BIT_POS)
+
+/**
+ * AP control flush status bit position
+ */
 #define AP_CTRL_FLUSH_STATUSBIT_POS		(6)
+
+/**
+ * AP control flush status bit mask
+ */
 #define AP_CTRL_FLUSH_STATUSBIT			(1 << AP_CTRL_FLUSH_STATUSBIT_POS)
 
-/* Bit masks for IER, ISR, GIE*/
+/* Bit masks for IER, ISR, GIE registers */
+
+/**
+ * Interrupt mask for AP done signal
+ */
 #define XV_WARP_INIT_INTR_AP_DONE_MASK		0x01
+
+/**
+ * Interrupt mask for AP ready signal
+ */
 #define XV_WARP_INIT_INTR_AP_READY_MASK		0x02

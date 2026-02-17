@@ -1,14 +1,22 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+ * @file xwarp_input_configs.c
+ * @addtogroup v_warp_init Overview
+ */
 
+/***************************** Include Files *********************************/
 #include <math.h>
 #include <string.h>
 #include "xwarp_input_configs.h"
 
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
 enum remap_err_type {
 	REMAP_NO_ERR,
 	REMAP_MEM_ERR,
@@ -18,7 +26,9 @@ enum remap_err_type {
 	REMAP_UDE_ERR
 };
 
-/*********************Static Declarations************************/
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
 static enum remap_err_type get_affine2d(struct Geometric_info_fl *geometric_info, float *h);
 static void matrix_multiply(float *m1, int h1, int w1,
 	float *m2, int h2, int w2, float *m3);
@@ -30,8 +40,26 @@ static void matrix_inv_3x3(float *src, float *dst);
 static float my_fabs(float abs);
 static float my_cos(float angle);
 static float my_sin(float angle);
+static int est_geometric_transform(struct Geometric_info_fl *geometric_info);
+static void config_warp_convert_float_fixed(struct Geometric_info_fl *geometric_info_fl,
+		warp_driver_Configs *drvconfigs);
 
-/***************************************************************************/
+/************************** Variable Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief Estimate geometric transformation matrix
+ *
+ * This function computes the complete geometric transformation by combining
+ * affine and projective transforms based on keystone parameters.
+ *
+ * @param  geometric_info is a pointer to geometric information structure
+ *
+ * @return 0 on success
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static int est_geometric_transform(struct Geometric_info_fl *geometric_info)
 {
 	enum remap_err_type ret = REMAP_NO_ERR;
@@ -86,6 +114,21 @@ static int est_geometric_transform(struct Geometric_info_fl *geometric_info)
 	return 0;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Convert float configuration to fixed-point
+ *
+ * This function converts floating-point geometric parameters to fixed-point
+ * representation for hardware configuration.
+ *
+ * @param  geometric_info_fl is a pointer to floating-point geometric info
+ * @param  drvconfigs is a pointer to driver configuration structure
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void config_warp_convert_float_fixed(struct Geometric_info_fl *geometric_info_fl,
 		warp_driver_Configs *drvconfigs)
 {
@@ -110,6 +153,21 @@ static void config_warp_convert_float_fixed(struct Geometric_info_fl *geometric_
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief Compute 3x3 matrix inverse
+ *
+ * This function computes the inverse of a 3x3 matrix using the adjoint
+ * method and determinant calculation.
+ *
+ * @param  src is a pointer to source 3x3 matrix
+ * @param  dst is a pointer to destination inverse matrix
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void matrix_inv_3x3(float *src, float *dst) {
 	float det;
 
@@ -155,6 +213,21 @@ static void matrix_inv_3x3(float *src, float *dst) {
 	dst[8] *= det;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Perform Gaussian elimination on matrix
+ *
+ * This function performs Gaussian elimination with partial pivoting to solve
+ * a system of linear equations.
+ *
+ * @param  a is a pointer to the augmented matrix
+ * @param  n is the number of columns in the matrix
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void gaussianElimination(float *a, int n) {
 	int       i = 0;
 	int       j = 0;
@@ -200,6 +273,22 @@ static void gaussianElimination(float *a, int n) {
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief Estimate projective transformation matrix
+ *
+ * This function estimates a 3x3 projective transformation matrix from
+ * four point correspondences using Gaussian elimination.
+ *
+ * @param  src_pts is a pointer to source points array (8 values)
+ * @param  dst_pts is a pointer to destination points array (8 values)
+ * @param  transform is a pointer to output transformation matrix (9 values)
+ *
+ * @return REMAP_NO_ERR on success
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static enum remap_err_type estimate_projective_transform(short *src_pts,
 	short *dst_pts, float *transform) {
 	enum remap_err_type ret = REMAP_NO_ERR;
@@ -224,6 +313,22 @@ static enum remap_err_type estimate_projective_transform(short *src_pts,
 	return ret;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Apply affine transformation to points
+ *
+ * This function applies a 2D affine transformation matrix to an array of
+ * keystone points.
+ *
+ * @param  h is a pointer to the affine transformation matrix
+ * @param  keystone_pts is a pointer to input keystone points
+ * @param  proj_pts is a pointer to output projected points
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void apply_affine(float *h, short *keystone_pts, float *proj_pts) {
 	int i;
 
@@ -233,6 +338,25 @@ static void apply_affine(float *h, short *keystone_pts, float *proj_pts) {
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief Multiply two matrices
+ *
+ * This function performs matrix multiplication: m3 = m1 * m2.
+ *
+ * @param  m1 is a pointer to first matrix
+ * @param  h1 is the height (rows) of first matrix
+ * @param  w1 is the width (columns) of first matrix
+ * @param  m2 is a pointer to second matrix
+ * @param  h2 is the height (rows) of second matrix
+ * @param  w2 is the width (columns) of second matrix
+ * @param  m3 is a pointer to result matrix
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void matrix_multiply(float *m1, int h1, int w1,
 	float *m2, int h2, int w2, float *m3) {
 	int i, j, k;
@@ -245,14 +369,53 @@ static void matrix_multiply(float *m1, int h1, int w1,
 			}
 }
 
+/*****************************************************************************/
+/**
+ * @brief Calculate sine of angle
+ *
+ * This is a placeholder function for sine calculation.
+ *
+ * @param  angle is the angle value
+ *
+ * @return Sine value (currently returns 0)
+ *
+ * @note This is a stub implementation
+ *
+ *******************************************************************************/
 static float my_sin(float angle) {
 	return 0;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Calculate cosine of angle
+ *
+ * This is a placeholder function for cosine calculation.
+ *
+ * @param  angle is the angle value
+ *
+ * @return Cosine value (currently returns 0)
+ *
+ * @note This is a stub implementation
+ *
+ *******************************************************************************/
 static float my_cos(float angle) {
 	return 0;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Calculate absolute value of float
+ *
+ * This function returns the absolute value of a floating-point number.
+ *
+ * @param  abs is the input value
+ *
+ * @return Absolute value of input
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static float my_fabs(float abs) {
 	if (abs < 0)
 		return (-1 * abs);
@@ -260,6 +423,21 @@ static float my_fabs(float abs) {
 		return abs;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Compute 2D affine transformation matrix
+ *
+ * This function computes a 2D affine transformation matrix based on
+ * scale, rotation, translation, and zoom parameters.
+ *
+ * @param  geometric_info is a pointer to geometric information structure
+ * @param  h is a pointer to output transformation matrix
+ *
+ * @return REMAP_NO_ERR on success
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static enum remap_err_type get_affine2d(struct Geometric_info_fl *geometric_info, float *h) {
 	enum remap_err_type ret = REMAP_NO_ERR;
 	float angle = (geometric_info->affine_param.rot_angle * WI_PI) / 180.0;
@@ -302,7 +480,21 @@ static enum remap_err_type get_affine2d(struct Geometric_info_fl *geometric_info
 }
 
 /*****************************************************************************/
-
+/**
+ * @brief Get initialization vector input configurations
+ *
+ * This function converts user-provided warp configuration parameters into
+ * driver-specific configuration format for both warp initialization and
+ * warp filter operations.
+ *
+ * @param  drvconfigs is a pointer to driver configuration structure
+ * @param  InputConfigs is a pointer to input warp configuration
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 void get_init_vect_input_configs(warp_driver_Configs *drvconfigs, WARP_CFG *InputConfigs)
 {
 	struct Geometric_info_fl geo_param_fl;

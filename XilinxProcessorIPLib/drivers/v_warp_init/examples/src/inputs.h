@@ -4,11 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+ * @file inputs.h
+ * @addtogroup v_warp_init Overview
+ */
 
 #ifndef INPUTS_H
 #define INPUTS_H
 
+/***************************** Include Files *********************************/
 #include "xwarp_input_configs.h"
+
+/************************** Variable Definitions *****************************/
 
 /*
  * Mesh info for 1920x1080 with no arbitrary distortion

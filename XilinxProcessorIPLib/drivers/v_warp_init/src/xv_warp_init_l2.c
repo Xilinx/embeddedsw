@@ -3,6 +3,10 @@
 * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file xv_warp_init_l2.c
+ * @addtogroup v_warp_init Overview
+ */
 
 /***************************** Include Files *********************************/
 #include "xv_warp_init_l2.h"
@@ -12,18 +16,34 @@
 #include <stdlib.h>
 
 /************************** Constant Definitions *****************************/
+/** Size of pointer offset in bytes */
 #define PTR_OFFSET_SZ sizeof(u16)
+
+/** Fixed-point accuracy bits for remap calculations */
+#define REMAP_FIX_ACC					4
+
+/** Descriptor size in bytes */
+#define REMAP_DESCRIPTOR_SIZE			256
+
+/** Address width in bits */
+#define REMAP_ADDR_WIDTH				32
+
+/** Wait iteration count for flush done */
+#define XV_WAIT_FOR_FLUSH_DONE		    (25)
+
+/** Timeout for flush done in microseconds */
+#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT	(2000)
+
+/**************************** Type Definitions *******************************/
+/** Offset type definition */
 typedef u16 offset_t;
+
+/***************** Macros (Inline Functions) Definitions *********************/
+/** Macro to align a number up to the nearest multiple of align */
 #ifndef align_up
 #define align_up(num, align) \
     (((num) + ((align) - 1)) & ~((align) - 1))
 #endif
-
-#define REMAP_FIX_ACC					4
-#define REMAP_DESCRIPTOR_SIZE			256
-#define REMAP_ADDR_WIDTH				32
-#define XV_WAIT_FOR_FLUSH_DONE		    (25)
-#define XV_WAIT_FOR_FLUSH_DONE_TIMEOUT	(2000)
 
 /************************** Function Prototypes ******************************/
 static void *XVWarpInit_aligned_malloc(size_t align, size_t size);
@@ -41,8 +61,8 @@ static int XVWarpInit_ParseMeshInfo(XVWarpInit_ArbParam *arbitrary_param,
 static int XVWarpInit_ValidateInputConfigs(XV_warp_init *InstancePtr,
 		XVWarpInit_InputConfigs *ConfigPtr);
 
+
 /************************** Function Definitions *****************************/
-/*****************************************************************************/
 /**
 * This function Enables the Interrupts for the core instance
 *
@@ -207,7 +227,24 @@ int XVWarpInit_ProgramDescriptor(XV_warp_init *InstancePtr,
 * This function starts the IP core with a selected descriptor configuration.
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Descnum is the descriptor number with which configurations the IP
+* @param  descnum is the descriptor number with which configurations the IP
+ {
+		desc.k_pre	= ConfigPtr->k_pre;
+		desc.k_post	= ConfigPtr->k_post;
+		XVWarpInit_OneTimeCalcs(&desc, ConfigPtr->h);
+	}
+
+	XVWarpInit_SetDescriptor(descptr, &desc);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function starts the IP core with a selected descriptor configuration.
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  descnum is the descriptor number with which configurations the IP
 * 					shall start
 *
 * @return XST_SUCCESS if IP core start successful
@@ -260,7 +297,7 @@ void XVWarpInit_Stop(XV_warp_init *InstancePtr)
   Xil_AssertVoid(InstancePtr);
 
   /* Flush the core bit */
-  XV_warp_init_SetFlushbit(InstancePtr);
+  XV_warp_init_SetFlushiInstancePtr);
 
   do {
     Data = XV_warp_init_Get_FlushDone(InstancePtr);
@@ -399,31 +436,32 @@ static void XVWarpInit_SetDescriptor(XVWarpInitVector_Hw_Aligned *descptr,
 	descptr->src_tangents_x = initvector_hw->src_tangents_x;
 	descptr->src_tangents_y = initvector_hw->src_tangents_y;
 	descptr->interm_x = initvector_hw->interm_x;
-	descptr->interm_y = initvector_hw->interm_y;
+	descptr->interm_y = initvector_hw->interm_;
 
-	descptr->num_ctrl_pts = initvector_hw->num_ctrl_pts;
+	descptr->num_ctrl_pts = initvector_hw->num_ctrl_pts
 	descptr->bytes_per_pixel = initvector_hw->bytes_per_pixel;
 	descptr->warp_type = initvector_hw->warp_type;
 
-	u32 *ptr = (u32 *)descptr;
+	u32 *tr = (u32 *)descptr;
 	u32 checksum = 0;
 	for (int i=0; i<=52; i++) {
 		checksum ^= ptr[i];
 	}
-	descptr->driver_checksum = checksum;
+	descptr->driverchecksum = checksum;
 }
 
 /*****************************************************************************/
 /**
-* This function sets fixed point format for 3x3 coefficients of projection transform.
+* This function converts projective transform coefficients to fixed-point format.
+* Processes the first two columns (6 coefficients) and last column (3 coefficients)
+* of a 3x3 projective transformation matrix separately with different Q-bit ranges.
 *
-* @param	proj_trans, projective transform matrix of size 3x3.
+* @param	proj_trans is the 3x3 projective transformation matrix (9 elements).
+* @param	h is output fixed-point representation of first 2 columns (6 coefficients).
+* @param	h_trans is output fixed-point representation of last column (3 coefficients).
+* @param	h_Qbits is output Q-bit position for each of the 6 h coefficients.
 *
-* @return	h, fixed point representation of 3x2 of coefficients of proj_trans
-*           i.e first two columns
-* @return	h_trans, fixed point representation of 3x1 of coefficients of proj_trans
-*           i.e last column
-* @return	h_Qbits, fixed point type of each coefficient of proj_trans i.e 3x3
+* @return	None
 *
 ******************************************************************************/
 static void estimate_projtrans_Qbits(int *proj_trans, short *h, int *h_trans,
@@ -605,15 +643,25 @@ static void XVWarpInit_OneTimeCalcs(XVWarpInitVector_Hw *initvector_hw,
 
 /*****************************************************************************/
 /**
-* This function calculates remap vectors of a row vector.
-*
-* @param	knots_x, Grid control points in x direction.
-* @param	knots_y, Grid control points in y direction.
-* @param	grid_pts, Number of grid control points.
-* @param	len, length of row vector.
-*
-* @return	remap_row, remap vectors of the row vector
-*
+ * apply_arbt_warp_line - Apply arbitrary warp transformation to a line using cubic interpolation
+ * @param knots_x Array of x-coordinate control points (knots)
+ * @param knots_y Array of y-coordinate control points (knots)
+ * @param grid_pts Number of grid points/control points
+ * @param len Length of the line to process (number of output samples)
+ * @param remap_row Output array containing the warped x-coordinates for each pixel
+ *
+ * This function applies a cubic spline-based warp transformation to remap pixel positions
+ * along a horizontal line. It uses piecewise cubic interpolation with control points
+ * (knots) to compute non-linear coordinate transformations.
+ *
+ * The algorithm:
+ * - Iterates through each output pixel position
+ * - For each segment between consecutive knots, computes cubic coefficients (a0, a1, a2, a3)
+ * - Uses fixed-point arithmetic with bit-shifting for efficient inverse calculations
+ * - Evaluates the cubic polynomial at each point to determine the remapped x-coordinate
+ *
+ * @return None Results are stored in the remap_row output array.
+ *
 ******************************************************************************/
 static void apply_arbt_warp_line(short *knots_x, short *knots_y,
 		int grid_pts, int len, int *remap_row)
@@ -699,14 +747,22 @@ static void apply_arbt_warp_line(short *knots_x, short *knots_y,
 
 /*****************************************************************************/
 /**
-* This function calculates tangent vectors source control points
-*
-* @param	src_ctrl_pts, dispaced control points.
-* @param	fr_size, frame size.
-* @param	grid_size, Number of grid control points.
-*
-* @return	src_tangents, tangent points of source input
-*
+ * This function creates tangent vectors for source control points.
+ * It calculates tangent values used in cubic spline interpolation for arbitrary
+ * warp transformations. The function handles two cases: uniform and non-uniform
+ * control point spacing.
+ *
+ * @param	src_ctrl_pts Pointer to source control points array to be populated
+ * @param	src_tangents Pointer to output tangent values array (stores 3 values per segment)
+ * @param	fr_size Frame size (width or height depending on usage)
+ * @param	grid_size Number of grid divisions/control point segments
+ *
+ * @return	None. Results are stored in src_ctrl_pts and src_tangents arrays
+ *
+ *
+ * Note: Tangent values are encoded as 16-bit value with 8-bit Q-bit position
+ *       stored in lower 8 bits, and the actual tangent coefficient in upper bits
+ *
 ******************************************************************************/
 static void creat_src_tangents(unsigned short *src_ctrl_pts, int *src_tangents,
 							short fr_size, short grid_size) {

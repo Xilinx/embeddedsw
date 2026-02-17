@@ -3,34 +3,33 @@
 * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file xv_warp_init_utils.c
+ * @addtogroup v_warp_init Overview
+ */
 
 /***************************** Include Files *********************************/
 #include "xv_warp_init_utils.h"
 #include "math.h"
 
-/*****************************************************************************/
+/************************** Variable Definitions *****************************/
 /**
-* Look up table of exponential values between 0 and 8 represented in Q10 format
-*
-******************************************************************************/
+ * Look up table of exponential values between 0 and 8 represented in Q10 format
+ */
 static unsigned int exp_neg_int_lut[12] = {
 				131072,48219,17739,6526,2401,883,325,120,44,16,
 				6,2 };
 
-/*****************************************************************************/
 /**
-* Look up table of exponential values between 0 and -12 represented in Q17 format
-*
-******************************************************************************/
+ * Look up table of exponential values between 0 and -12 represented in Q17 format
+ */
 static unsigned int exp_pos_int_lut[8] = {
 				1024,2783,7566,20567,55908,151975,413111,1122952 };
 
-/*****************************************************************************/
 /**
-* Look up table of exponential values between 0 and  1 in steps of
-* 0.0078125 represented in Q14 format
-*
-******************************************************************************/
+ * Look up table of exponential values between 0 and 1 in steps of
+ * 0.0078125 represented in Q14 format
+ */
 static unsigned short exp_pos_fract_lut1[129] = {
 				16384,16512,16642,16772,16904,17036,17170,17304,17440,17577,
 				17715,17854,17994,18135,18277,18421,18565,18711,18857,19005,
@@ -46,12 +45,10 @@ static unsigned short exp_pos_fract_lut1[129] = {
 				38693,38997,39303,39611,39922,40235,40550,40868,41189,41512,
 				41838,42166,42496,42830,43166,43504,43845,44189,44536 };
 
-/*****************************************************************************/
 /**
-* Look up table of exponential values between 0 and 0.0078125 in steps of
-* 0.0000019073486328125 represented in Q22 format
-*
-******************************************************************************/
+ * Look up table of exponential values between 0 and 0.0078125 in steps of
+ * 0.0000019073486328125 represented in Q22 format
+ */
 static unsigned short exp_pos_fract_lut2[4101] = {
 				0,8,16,24,32,40,48,56,64,72,
 				80,88,96,104,112,120,128,136,144,152,
@@ -465,11 +462,9 @@ static unsigned short exp_pos_fract_lut2[4101] = {
 				32847,32856,32864,32872,32880,32888,32896,32896,32896,32896,
 				32896 };
 
-/*****************************************************************************/
 /**
-* Look up table for division in Q16 format
-*
-******************************************************************************/
+ * Look up table for division in Q16 format
+ */
 static unsigned short division_lut[] = {
 				65535,65520,65504,65488,65472,65456,65440,65424,65408,65392,
 				65376,65360,65344,65328,65312,65296,65280,65265,65249,65233,
@@ -882,15 +877,21 @@ static unsigned short division_lut[] = {
 				32832,32828,32824,32820,32816,32812,32808,32804,32800,32796,
 				32792,32788,32784,32780,32776,32772,32772 };
 
+/************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
-* This function computes exponental of positive values e^x represented in Q12 format
-*
-* @param  gval, positive short value of x represented in Q12 format
-*
-* @return returns positive integer of fixed point format of Q22 format
-*
-******************************************************************************/
+ * @brief Compute exponential of positive values in fixed-point Q12 format
+ *
+ * This function computes e^x for positive values where x is represented
+ * in Q12 fixed-point format. Uses lookup tables for fast calculation.
+ *
+ * @param  gval Positive short value of x represented in Q12 format
+ *
+ * @return Positive integer in Q22 fixed-point format representing e^x
+ *
+ * @note Input range is limited to prevent overflow (maximum ~6.9)
+ *
+ ******************************************************************************/
 //exp_pos_int_lut --> Q10
 //exp_pos_fract_lut1 --> Q14
 //exp_pos_fract_lut2 --> Q22
@@ -923,13 +924,18 @@ unsigned int XVWarpInit_ExponentialPos(unsigned short gval) {
 
 /*****************************************************************************/
 /**
-* This function computes exponental of negative values e^-x represented in Q12 format
-*
-* @param  gval, positive short value of -x represented in Q12 format
-*
-* @return returns positive integer of fixed point format of Q31 format
-*
-******************************************************************************/
+ * @brief Compute exponential of negative values in fixed-point Q12 format
+ *
+ * This function computes e^(-x) for negative values where x is represented
+ * in Q12 fixed-point format. Uses lookup tables for fast calculation.
+ *
+ * @param  gval Positive short value of -x represented in Q12 format
+ *
+ * @return Positive integer in Q31 fixed-point format representing e^(-x)
+ *
+ * @note Input range is limited to prevent underflow (maximum -11)
+ *
+ ******************************************************************************/
 //exp_neg_int_lut --> Q17 (but within 16bits)
 //exp_neg_fract_lut1 --> Q16
 //exp_neg_fract_lut2 --> Q22
@@ -963,16 +969,21 @@ unsigned int XVWarpInit_ExponentialNeg(unsigned short gval) {
 
 /*****************************************************************************/
 /**
-* This function computes exponental of fractional number given in fixed point value
-*
-* @param  exp_value, integer value for calculating e^x. x is Q_fact fixed point format
-* @param  k_type, exp_value type +ve or -ve.
-* @param  Q_fact, fixed point format.
-*
-* @return Q_exp, return fixed point format.
-* @return returns positive integer of fixed point format of Q_exp
-*
-******************************************************************************/
+ * @brief Compute exponential of fractional number in fixed-point format
+ *
+ * This function computes e^x for fractional numbers given in fixed-point
+ * format. Handles both positive and negative exponents.
+ *
+ * @param  exp_value Integer value for calculating e^x in Q_fact fixed-point
+ * @param  k_type Exponent type: positive (+ve) or negative (-ve)
+ * @param  Q_fact Fixed-point format of exp_value
+ * @param  Q_exp Pointer to return the fixed-point format of result
+ *
+ * @return Positive integer in Q_exp fixed-point format representing e^x
+ *
+ * @note Function automatically clamps input values to valid range
+ *
+ ******************************************************************************/
 unsigned int XVWarpInit_ExponentialFact(unsigned exp_value, short k_type,
 		unsigned int Q_fact, char *Q_exp) {
 	unsigned int fract, exp_factor;
@@ -1018,13 +1029,18 @@ unsigned int XVWarpInit_ExponentialFact(unsigned exp_value, short k_type,
 
 /*****************************************************************************/
 /**
-* This function counts leading zeros in given positive integer
-*
-* @param  val, integer value
-*
-* @return returns number of leading zeros
-*
-******************************************************************************/
+ * @brief Count leading zeros in a positive integer
+ *
+ * This function counts the number of leading zeros in the given positive
+ * integer value, effectively finding the position of the most significant bit.
+ *
+ * @param  val Integer value to analyze
+ *
+ * @return Number of leading zeros (0-32)
+ *
+ * @note Can use built-in compiler intrinsic if USE_BUILTIN_CLZ is defined
+ *
+ ******************************************************************************/
 unsigned char XVWarpInit_DominantBit(unsigned int val) {
 	unsigned char cnt = 0;
 #if USE_BUILTIN_CLZ
@@ -1118,15 +1134,20 @@ unsigned char XVWarpInit_DominantBit(unsigned int val) {
 
 /*****************************************************************************/
 /**
-* This function computes inverse of positive short
-*
-* @param  x, integer value for calculating 1/x. x is QM.(16-M) fixed point format
-* @param  M, integer part of the value x.
-*
-* @return N, Fractional bits in return value.
-* @return returns inverse of value x in Q(16-N).N fixed point format
-*
-******************************************************************************/
+ * @brief Compute inverse of a positive short value
+ *
+ * This function computes 1/x for positive short values in fixed-point format
+ * using a lookup table for efficient calculation.
+ *
+ * @param  x Integer value for calculating 1/x in QM.(16-M) fixed-point format
+ * @param  M Integer part bit count of value x
+ * @param  N Pointer to return fractional bits in result
+ *
+ * @return Inverse of value x in Q(16-N).N fixed-point format
+ *
+ * @note Returns maximum value from lookup table if x is zero
+ *
+ ******************************************************************************/
 unsigned short XVWarpInit_Inverse(unsigned short x, int M, char* N) {
 	//assert((M <= 16) && "Integer part of x should always be less than or equal to 16 bits.");
 	unsigned short val = 0;
@@ -1149,13 +1170,18 @@ unsigned short XVWarpInit_Inverse(unsigned short x, int M, char* N) {
 
 /*****************************************************************************/
 /**
-* This function computes square root of positive integer
-*
-* @param  v, integer value for calculating square root.
-*
-* @return square root of input v
-*
-******************************************************************************/
+ * @brief Compute square root of a positive integer
+ *
+ * This function computes the square root of a positive integer using a
+ * digit-by-digit calculation algorithm for integer values.
+ *
+ * @param  v Integer value for calculating square root
+ *
+ * @return Square root of input v
+ *
+ * @note Uses iterative binary search algorithm for 16-bit precision
+ *
+ ******************************************************************************/
 unsigned int XVWarpInit_Sqrt(unsigned int v)
 {
 	unsigned int t, q, b, r, i;

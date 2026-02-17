@@ -3,6 +3,12 @@
 // Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_warp_init.h
+ * @addtogroup v_warp_init Overview
+ */
+
 #ifndef XV_WARP_INIT_H
 #define XV_WARP_INIT_H
 
@@ -37,61 +43,90 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 #else
+/**
+ * Configuration structure for warp init IP core
+ */
 typedef struct {
 #ifndef SDT
     u16 DeviceId;             /**< Unique ID of device */
 #else
-    char *Name;
+    char *Name;               /**< Device name string */
 #endif
-    UINTPTR Ctrl_BaseAddress;
-    u16 max_width; 			/*Maximum width*/
-    u16 max_height;			/*Maximum height*/
-    u8  warp_type;			/*Supported warp type*/
-    u16 axi_mm_data_width;	/*Axi MM port data width*/
-    u16 bpc;				/*Max bits per component supported*/
-    u16 max_control_pts;	/*Max supported control points for arbitrary warp*/
+    UINTPTR Ctrl_BaseAddress; /**< Control interface base address */
+    u16 max_width;            /**< Maximum supported width */
+    u16 max_height;           /**< Maximum supported height */
+    u8  warp_type;            /**< Supported warp type */
+    u16 axi_mm_data_width;    /**< AXI MM port data width */
+    u16 bpc;                  /**< Maximum bits per component supported */
+    u16 max_control_pts;      /**< Maximum supported control points for arbitrary warp */
 #ifdef SDT
-    u16 IntrId; 		    /**< Interrupt ID */
-    UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+    u16 IntrId;               /**< Interrupt ID */
+    UINTPTR IntrParent;       /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XV_warp_init_Config;
 #endif
 
+/** Callback function pointer type */
 typedef void (*XV_warp_init_Callback)(void *CallbackRef);
+
+/**
+ * Driver instance structure for warp init IP core
+ */
 typedef struct {
-	XV_warp_init_Config *config;
-	UINTPTR Ctrl_BaseAddress;
-    u32 IsReady;
-    XV_warp_init_Callback FrameDoneCallback;
-    void *CallbackRef;
-    UINTPTR RemapVectorDesc_BaseAddr;
-    u32 NumDescriptors;
+	XV_warp_init_Config *config;          /**< Pointer to configuration structure */
+	UINTPTR Ctrl_BaseAddress;             /**< Control interface base address */
+    u32 IsReady;                          /**< Device is initialized and ready */
+    XV_warp_init_Callback FrameDoneCallback; /**< Frame done callback function */
+    void *CallbackRef;                    /**< Callback reference pointer */
+    UINTPTR RemapVectorDesc_BaseAddr;     /**< Remap vector descriptor base address */
+    u32 NumDescriptors;                   /**< Number of descriptors configured */
 } XV_warp_init;
 
+/** Word type definition */
 typedef u32 word_type;
+
+/**
+ * Warp type enumeration
+ */
 typedef enum {
-	DISTORTION_LENS = 0,
-	DISTORTION_ARBITRARY = 1
+	DISTORTION_LENS = 0,      /**< Lens distortion warp type */
+	DISTORTION_ARBITRARY = 1  /**< Arbitrary distortion warp type */
 }XV_warp_init_warp_type;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/** Write a value to a register at the specified offset */
 #define XV_warp_init_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+/** Read a value from a register at the specified offset */
 #define XV_warp_init_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/** Write a value to a register at the specified offset (Linux version) */
 #define XV_warp_init_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+
+/** Read a value from a register at the specified offset (Linux version) */
 #define XV_warp_init_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/** Assert macro for void functions */
 #define Xil_AssertVoid(expr)    assert(expr)
+
+/** Assert macro for non-void functions */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/** Success return status code */
 #define XST_SUCCESS             0
+
+/** Device not found error code */
 #define XST_DEVICE_NOT_FOUND    2
+
+/** Open device failed error code */
 #define XST_OPEN_DEVICE_FAILED  3
+
+/** Component is ready status flag */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 

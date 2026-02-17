@@ -1,9 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+ * @file xwarp_example.c
+ * @addtogroup v_warp_init Overview
+ */
 
 /***************************** Include Files *********************************/
 #include <stdio.h>
@@ -27,19 +31,34 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-/************************** Local Constants *********************************/
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/**
+ * Write to HLS IP register at specified offset
+ */
+#define XHls_IP_WriteReg(BaseAddress, RegOffset, Data) \
+    Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+/**
+ * Read from HLS IP register at specified offset
+ */
+#define XHls_IP_ReadReg(BaseAddress, RegOffset) \
+    Xil_In32((BaseAddress) + (RegOffset))
+
+/************************** Function Prototypes ******************************/
+static void XBInterruptHandler(void *CallbackRef);
+static int SetupInterruptSystem(void);
+static void XWarpInit_callback(void *CallbackRef);
+static void start_timer(void);
+static void stop_timer(void)
+
+/************************** Variable Definitions *****************************/
 XGpio              Gpio_WarpInit_resetn;
 XGpio_Config       *Gpio_WarpInit_resetn_ConfigPtr;
 
 XGpio              Gpio_Filter_resetn;
 XGpio_Config       *Gpio_Filter_resetn_ConfigPtr;
-/***************** Macros (Inline Functions) Definitions *********************/
-#define XHls_IP_WriteReg(BaseAddress, RegOffset, Data) \
-    Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
-#define XHls_IP_ReadReg(BaseAddress, RegOffset) \
-    Xil_In32((BaseAddress) + (RegOffset))
 
-/************************** Variable Definitions *****************************/
 XScuGic					Intc;
 XV_warp_filter			WarpInst;
 XVWarpFilter_Desc				warp_descriptor;
@@ -57,13 +76,17 @@ u32 *tmrctr_tcr1_ptr =	(u32 *)0xA0000018;
 u32 tmrctr_value, tmrctr_1_value;
 
 /*****************************************************************************/
-static void XBInterruptHandler(void *CallbackRef);
-static int SetupInterruptSystem(void);
-static void XV_Reset_Warp(void);
-static void XWarpInit_callback(void *CallbackRef);
-static void start_timer(void);
-static void stop_timer(void);
-
+/**
+ * @brief Reset Warp Initializer IP
+ *
+ * This function performs a hardware reset of the Warp Initializer IP by
+ * toggling the GPIO reset signal.
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 void ResetWarpInit(void)
 {
 	XGpio_SetDataDirection(&Gpio_WarpInit_resetn, 1, 0);
@@ -74,6 +97,18 @@ void ResetWarpInit(void)
 	usleep(1000);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Reset Warp Filter IP
+ *
+ * This function performs a hardware reset of the Warp Filter IP by
+ * toggling the GPIO reset signal.
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 void ResetFilter(void)
 {
 	XGpio_SetDataDirection(&Gpio_Filter_resetn, 1, 0);
@@ -86,6 +121,18 @@ void ResetFilter(void)
 
 
 /*****************************************************************************/
+/**
+ * @brief Main function for Warp example application
+ *
+ * This function initializes the Warp Initializer and Warp Filter IPs,
+ * configures interrupts, generates remap vectors, and processes a frame
+ * through the warp pipeline.
+ *
+ * @return XST_SUCCESS if successful, otherwise XST_FAILURE or error code
+ *
+ * @note None
+ *
+ *******************************************************************************/
 int main(void)
 {
 	u32 status, error = 0;
@@ -288,7 +335,19 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/***********************Staic Funtction definitions***************************/
+/***********************Static Function Definitions***************************/
+/*****************************************************************************/
+/**
+ * @brief Start timer for performance measurement
+ *
+ * This function initializes and starts the AXI timer counter for measuring
+ * execution time.
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void start_timer(void)
 {
 	*tmrctr_tcsr0_ptr = 0x820;
@@ -296,6 +355,18 @@ static void start_timer(void)
 	*tmrctr_tcsr0_ptr = 0x880;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Stop timer and read counter values
+ *
+ * This function stops the AXI timer counter and reads the counter values
+ * for performance measurement.
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void stop_timer(void)
 {
 	*tmrctr_tcsr0_ptr = 0x00;
@@ -303,6 +374,20 @@ static void stop_timer(void)
 	tmrctr_value = *tmrctr_tcr0_ptr;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Callback function for Warp Initializer interrupt
+ *
+ * This function is called when the Warp Initializer completes remap vector
+ * generation.
+ *
+ * @param  CallbackRef is a pointer to the callback reference
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void XWarpInit_callback(void *CallbackRef)
 {
 	gen_remap_vec_int = 1;
@@ -310,8 +395,17 @@ static void XWarpInit_callback(void *CallbackRef)
 
 /*****************************************************************************/
 /**
+ * @brief Interrupt handler for Warp Filter frame done
  *
- ******************************************************************************/
+ * This function is called when the Warp Filter completes processing a frame.
+ *
+ * @param  CallbackRef is a pointer to the callback reference
+ *
+ * @return None
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static void XBInterruptHandler(void *CallbackRef)
 {
 	frame_done_interrupt = 1;
@@ -396,20 +490,3 @@ static int SetupInterruptSystem(void)
 }
 #endif
 
-#if 0
-static void XV_Reset_Warp(void)
-{
-	XHls_IP_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
-        XGPIOPS_MASK_DATA_3_LSW_OFFSET, 0xFFFF0000);
-	XHls_IP_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
-        XGPIOPS_DIRM_3_OFFSET, 0xFFFFFFFF);
-	XHls_IP_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
-        XGPIOPS_OEN_3_OFFSET, 0xFFFFFFFF);
-	XHls_IP_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
-        XGPIOPS_DATA_3_OFFSET, 0x00000001);
-	XHls_IP_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
-        XGPIOPS_DATA_3_OFFSET, 0x00000000);
-	XHls_IP_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
-        XGPIOPS_DATA_3_OFFSET, 0x00000001);
-}
-#endif
