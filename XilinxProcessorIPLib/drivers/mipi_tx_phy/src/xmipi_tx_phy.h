@@ -119,7 +119,7 @@ extern "C" {
 #define XMIPI_TX_PHY_ESCAPE_MODE	2 /**< Lane in Escape Mode */
 #define XMIPI_TX_PHY_MODE_MAX 		2 /**< Upper Limit for mode */
 #define XMIPI_TX_PHY_MAX_LANES_V10	4 /**< V1.0 supports 4 Lanes */
-/** @}*/
+/** @} */
 
 /** @name mipi_tx_phy Info Handles
  * @{
@@ -134,33 +134,28 @@ extern "C" {
 #define XMIPI_TX_PHY_HANDLE_DLANE2		7 /**< Handle for Data Lane 2 */
 #define XMIPI_TX_PHY_HANDLE_DLANE3		8 /**< Handle for Data Lane 3 */
 #define XMIPI_TX_PHY_HANDLE_MAX 		9 /**< Upper Bound for XMIPI_TX_PHY_HANDLE */
-/** @}*/
+/** @} */
 
 /**************************** Macros Definitions *****************************/
 /** @name mipi_tx_phy HSTIMEOUT range
  * @{
 */
-/** Minimum value for HS timeout counter @ingroup mipi_tx_phy */
-#define XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE	10000UL
-/** Maximum value for HS timeout counter @ingroup mipi_tx_phy */
-#define XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE	65541UL
-/** @}*/
+#define XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE	10000UL /**< Minimum HS timeout value */
+#define XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE	65541UL /**< Maximum HS timeout value */
+/** @} */
 
 /** @name mipi_tx_phy HSSETTLE range
  * @{
 */
-/** Maximum value for HS settle time @ingroup mipi_tx_phy */
-#define XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE	0x1FF
-/** @}*/
+#define XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE	0x1FF /**< Maximum HS settle value (9-bit) */
+/** @} */
 
 /** @name mipi_tx_phy Flags to Enable or Disable core
  * @{
 */
-/** Flag to enable MIPI TX PHY core @ingroup mipi_tx_phy */
-#define XMIPI_TX_PHY_ENABLE_FLAG 	1
-/** Flag to disable MIPI TX PHY core @ingroup mipi_tx_phy */
-#define XMIPI_TX_PHY_DISABLE_FLAG 	0
-/** @}*/
+#define XMIPI_TX_PHY_ENABLE_FLAG 	1 /**< Flag to enable PHY core */
+#define XMIPI_TX_PHY_DISABLE_FLAG 	0 /**< Flag to disable PHY core */
+/** @} */
 
 /************************* Bit field operations ****************************/
 
@@ -256,12 +251,11 @@ static inline void XMipi_Tx_Phy_SetBitField(UINTPTR BaseAddress, u32 RegisterOff
 /**************************** Type Definitions *******************************/
 
 /**
- * @brief Programmable Sequence Symbol Position enumeration
+ * @brief Programmable sequence symbol positions for C-PHY mode.
  *
- * This enumeration defines the symbol positions for the programmable sequence
- * registers in CPHY mode.
- *
- * @ingroup mipi_tx_phy
+ * Enumeration of symbol indices used to program the C-PHY programmable
+ * sequence registers. Symbols 0-9 map to DATA0 register, symbols 10-13
+ * map to DATA1 register.
  */
 typedef enum {
 	PRG_SEQ_SYM_0 = 0,  /**< Programmable sequence symbol position 0 */
@@ -296,8 +290,8 @@ typedef struct {
 	u32 EscTimeout; /**< Escape Timeout */
 	u32 HSLineRate; /**< High Speed Line Rate */
 	u32 HSTimeOut; /**< Max Frame Length  */
-	u32 LPXPeriod;
-	u32 StableClkPeriod;
+	u32 LPXPeriod; /**< Low Power Transmit (LPX) period in nanoseconds */
+	u32 StableClkPeriod; /**< Stable clock period in nanoseconds */
 } XMipi_Tx_Phy_Config;
 
 /**

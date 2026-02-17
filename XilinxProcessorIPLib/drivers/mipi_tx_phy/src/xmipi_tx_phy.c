@@ -32,7 +32,9 @@
 
 
 /************************** Macros Definitions *****************************/
-#define XMIPI_TX_PHY_SOFTRESET_TIMEOUT 	5000UL
+#define XMIPI_TX_PHY_SOFTRESET_TIMEOUT 	5000UL /**< Timeout value in loop iterations
+						* for soft reset completion. Ensures at least 20 core clock
+						* cycles forreset to take effect. */
 
 /************************** Function Prototypes ******************************/
 
@@ -137,20 +139,28 @@ u32 XMipi_Tx_Phy_Configure(XMipi_Tx_Phy *InstancePtr, u8 Handle, u32 Value)
 	return Status;
 }
 
-/*****************************************************************************/
+
+/****************************************************************************/
 /**
-* This function programs the programmable sequence data register for CPHY mode.
-*
-* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
-* @param	bitpos is the symbol position to program (0-13).
-* @param	Value is the 3-bit symbol value to program.
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE otherwise.
-*
-* @note		This function is only valid for CPHY mode.
-*
-* @ingroup mipi_tx_phy
-******************************************************************************/
+ * Program a symbol value into the programmable sequence table.
+ *
+ * This helper masks in the 3-bit symbol value into the correct programmable
+ * sequence register (DATA0 or DATA1) based on the requested symbol index. The
+ * programmable sequence control is temporarily disabled to avoid partial
+ * writes.
+ *
+ * @param	InstancePtr is the XMipi_Tx_Phy instance.
+ * @param	bitpos is the programmable sequence symbol index.
+ * @param	Value is the 3-bit symbol value to program.
+ *
+ * @return
+ *		- XST_SUCCESS if the symbol was programmed.
+ *		- XST_FAILURE if the control register remained enabled and the write
+ *		  was aborted.
+ *
+ * @note	The core must be configured for C-PHY mode (IsDphy == 0) and
+ *		register access must be enabled.
+ ****************************************************************************/
 u32 XMipi_Tx_Phy_Prog_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bitpos, u32 Value)
 {
 
@@ -192,17 +202,16 @@ u32 XMipi_Tx_Phy_Prog_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq b
 
 /*****************************************************************************/
 /**
-* This function reads the programmable sequence data register for CPHY mode.
-*
-* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
-* @param	bitpos is the symbol position to read (0-13).
-*
-* @return	The value of the programmable sequence data register.
-*
-* @note		This function is only valid for CPHY mode.
-*
-* @ingroup mipi_tx_phy
-******************************************************************************/
+ * Read a programmable sequence register.
+ *
+ * @param	InstancePtr is the XMipi_Tx_Phy instance.
+ * @param	bitpos is the programmable sequence symbol index.
+ *
+ * @return	Register contents of DATA0 (symbols 0-9) or DATA1 (symbols 10-13).
+ *
+ * @note	The core must be configured for C-PHY mode (IsDphy == 0) and
+ *		register access must be enabled.
+ ****************************************************************************/
 u32 XMipi_Tx_Phy_Get_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bitpos)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -223,16 +232,15 @@ u32 XMipi_Tx_Phy_Get_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bi
 
 /*****************************************************************************/
 /**
-* This function enables the programmable sequence control for CPHY mode.
-*
-* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
-*
-* @return	XST_SUCCESS if successful.
-*
-* @note		This function is only valid for CPHY mode.
-*
-* @ingroup mipi_tx_phy
-******************************************************************************/
+ * Enable programmable sequence control.
+ *
+ * @param	InstancePtr is the XMipi_Tx_Phy instance.
+ *
+ * @return	XST_SUCCESS always.
+ *
+ * @note	The core must be configured for C-PHY mode (IsDphy == 0) and
+ *		register access must be enabled.
+ ****************************************************************************/
 u32 XMipi_Tx_Phy_En_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -248,16 +256,15 @@ u32 XMipi_Tx_Phy_En_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function disables the programmable sequence control for CPHY mode.
-*
-* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
-*
-* @return	XST_SUCCESS if successful.
-*
-* @note		This function is only valid for CPHY mode.
-*
-* @ingroup mipi_tx_phy
-******************************************************************************/
+ * Disable programmable sequence control.
+ *
+ * @param	InstancePtr is the XMipi_Tx_Phy instance.
+ *
+ * @return	XST_SUCCESS always.
+ *
+ * @note	The core must be configured for C-PHY mode (IsDphy == 0) and
+ *		register access must be enabled.
+ ****************************************************************************/
 u32 XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -273,16 +280,15 @@ u32 XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function reads the programmable sequence control register for CPHY mode.
-*
-* @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
-*
-* @return	The value of the programmable sequence control register.
-*
-* @note		This function is only valid for CPHY mode.
-*
-* @ingroup mipi_tx_phy
-******************************************************************************/
+ * Read the programmable sequence control register.
+ *
+ * @param	InstancePtr is the XMipi_Tx_Phy instance.
+ *
+ * @return	Current contents of the programmable sequence control register.
+ *
+ * @note	The core must be configured for C-PHY mode (IsDphy == 0) and
+ *		register access must be enabled.
+ ****************************************************************************/
 u32 XMipi_Tx_Phy_Get_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);

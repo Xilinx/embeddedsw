@@ -62,7 +62,7 @@ extern "C" {
 #define XMIPI_TX_PHY_PROG_SEQ_DATA0_OFFSET 	0x0000003C  /**< Prog Seq Data Register 0 */
 #define XMIPI_TX_PHY_PROG_SEQ_DATA1_OFFSET 	0x00000040  /**< Prog Seq Data Register 1 */
 
-/** @}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XMIPI_TX_PHY_CTRL_REG_OFFSET register
  *
@@ -78,7 +78,7 @@ extern "C" {
 
 #define XMIPI_TX_PHY_PROG_SEQ_EN_MASK 0x1	/**< Enable/Disable Prog Seq */
 
-/** @}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XMIPI_TX_PHY_HSEXIT_IDELAY_REG_OFFSET register
  *
@@ -86,7 +86,7 @@ extern "C" {
  * In IDELAY mode, it is used to calibrate input delay per lane
  * @{
  */
-/** @}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XMIPI_TX_PHY_INIT_REG_OFFSET register
  *
@@ -97,7 +97,7 @@ extern "C" {
 #define XMIPI_TX_PHY_INIT_REG_VAL_MASK 0xFFFFFFFF /**< Init Timer value in ns */
 
 #define XMIPI_TX_PHY_INIT_REG_VAL_OFFSET 0 /**< Bit offset for Init Timer */
-/** @}*/
+/** @} */
 
 /** @name Bitmask and offset of XMIPI_TX_PHY_HSTIMEOUT_REG_OFFSET register
  *
@@ -110,7 +110,7 @@ extern "C" {
 								Received */
 
 #define XMIPI_TX_PHY_HSTIMEOUT_REG_TIMEOUT_OFFSET 0 /**< Bit offset for Timeout */
-/** @}*/
+/** @} */
 
 /** @name Bitmask and offset of XMIPI_TX_PHY_ESCTIMEOUT_REG_OFFSET register
  *
@@ -120,7 +120,7 @@ extern "C" {
  */
 #define XMIPI_TX_PHY_ESCTIMEOUT_REG_VAL_MASK 0xFFFFFFFF /**< Escape Timeout Value */
 #define XMIPI_TX_PHY_ESCTIMEOUT_REG_VAL_OFFSET 0 /**< Bit offset for Escape Timeout */
-/** @}*/
+/** @} */
 
 /** @name Bitmask and offset of XMIPI_TX_PHY_CLSTATUS_REG_OFFSET register
  *
@@ -136,12 +136,15 @@ extern "C" {
 #define XMIPI_TX_PHY_CLSTATUS_REG_ULPS_MASK 0x00000004 /**< Set in ULPS mode */
 #define XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK 0x00000003 /**< Low, High, Esc mode */
 
-/** Combined mask for all clock lane status bits @ingroup mipi_tx_phy */
+/**< Combined mask of all clock lane status bits including error control,
+ * stop state, initialization done, ULPS, and mode bits */
 #define XMIPI_TX_PHY_CLSTATUS_ALLMASK 	 (XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_MASK |\
 					XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_MASK |\
 					XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_MASK |\
 					XMIPI_TX_PHY_CLSTATUS_REG_ULPS_MASK |\
-					XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK)
+					XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK) /**< Combined mask of all clock
+					* lane status bits including error control, stop state,
+					* initialization done, ULPS, and mode bits */
 
 #define XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_OFFSET 5 /**< Bit offset for Control Error
 					      *  on Clock*/
@@ -181,7 +184,10 @@ extern "C" {
 					XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_MASK |\
 					XMIPI_TX_PHY_DLXSTATUS_REG_STOP_MASK |\
 					XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK |\
-					XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK)
+					XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK) /**< Combined mask of
+					* all data lane status bits including mode, ULPS,
+					* initialization done, HS abort, escape abort, stop state,
+					* calibration status, and calibration complete bits */
 
 #define XMIPI_TX_PHY_DLXSTATUS_REG_PACKCOUNT_OFFSET 16 /**<Bit offset packet count*/
 #define XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_OFFSET 8 /**<Bit offset calib status*/
@@ -194,7 +200,7 @@ extern "C" {
 							Initialization done */
 #define XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_OFFSET 2 /**< Bit offset for ULPS */
 #define XMIPI_TX_PHY_DLXSTATUS_REG_MODE_OFFSET 0 /**< Bit offset for Modes */
-/** @}*/
+/** @} */
 
 /** @name Bitmask and offset of XMIPI_TX_PHY_HSSETTLE_REG_OFFSET register
  *
@@ -205,10 +211,9 @@ extern "C" {
  */
 #define XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_MASK	0x1FF	/**< HS_SETTLE value */
 #define XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_OFFSET 0 /**< Bit offset for HS_SETTLE */
-/** @}*/
+/** @} */
 
-/** Data lane register offset increment @ingroup mipi_tx_phy */
-#define DL_LANE_OFFSET	4
+#define DL_LANE_OFFSET	4 /**< Register offset between consecutive data lane status registers */
 
 /**************************** Type Definitions *******************************/
 
