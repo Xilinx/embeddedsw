@@ -45,7 +45,7 @@
 #ifdef SDT
 #include "xinterrupt_wrap.h"
 #endif
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include <xuartps_hw.h>
 #include "xscugic.h"
 #include "xiicps.h"
@@ -73,7 +73,7 @@
 #define INTRNAME_DPRX		0
 #endif
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP21RXSS_0_VEC_ID
 #define XINTC 			XScuGic
@@ -192,7 +192,7 @@ XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 /*
  * These are the REFCLK sources for VCU118 and ZCU102
  */
-#ifdef PLATFORM_MB	/**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
+#if defined (PLATFORM_MB) || defined (__riscv)	/**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
 #else			/**< ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0) */
@@ -255,7 +255,7 @@ XilAudioInfoFrame AudioinfoFrame;
 XilAudioExtFrame  SdpExtFrame;
 XilAudioExtFrame  SdpExtFrame_q;
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 XIicPs Ps_Iic0;
 XIicPs_Config *XIic0Ps_ConfigPtr;
 #define PS_IIC_CLK 100000
@@ -410,7 +410,7 @@ int VideoFMC_Init(void)
 	/*
 	 * Set the I2C Mux to select the HPC FMC
 	 */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x01;
 #else
 	Buffer[0] = 0x02;
@@ -864,7 +864,7 @@ u32 DpRxSs_PlatformInit(void)
 	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #ifndef SDT
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
 #else
@@ -1166,7 +1166,7 @@ u32 DpRxSs_SetupIntrSystem(void)
 	 */
 	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	/*
 	 * The configuration parameters of the interrupt controller
 	 */
@@ -1977,7 +1977,7 @@ void ReportVideoCRC()
 	XVidFrameCrc_Report();
 }
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 /*****************************************************************************/
 /**
 *
@@ -2475,7 +2475,7 @@ char xil_getc(u32 timeout_ms)
 		XTmrCtr_Start(&TmrCtr, 0);
 	}
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	while ((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)) {
 #else
 	while (XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)) {
@@ -2493,7 +2493,7 @@ char xil_getc(u32 timeout_ms)
 	if (timeout == 1) {
 		c = 0;
 	} else {
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 		c = XUartPs_RecvByte_NonBlocking();
 #else
 		c = XUartLite_RecvByte(STDIN_BASEADDRESS);
