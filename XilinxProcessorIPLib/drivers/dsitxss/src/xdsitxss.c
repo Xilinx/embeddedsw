@@ -46,20 +46,28 @@
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef declares the driver instances of all the cores in the subsystem
+ * @brief DSI TX Subsystem sub-core driver instances container.
+ *
+ * This structure aggregates all driver instances for sub-cores included in
+ * the MIPI DSI TX Subsystem, including the DSI controller core, optional
+ * MIPI TX PHY, and optional DPHY core.
  */
 typedef struct {
-	XDsi DsiInst;
+	XDsi DsiInst; /**< DSI controller driver instance */
 #if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
-	XMipi_Tx_Phy MipiTxPhyInst;
+	XMipi_Tx_Phy MipiTxPhyInst; /**< MIPI TX PHY driver instance */
 #endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	XDphy DphyInst;
+	XDphy DphyInst; /**< DPHY driver instance */
 #endif
 } XDsiTxSs_SubCores;
 
 /**************************** Variable Definitions ***********************************/
-/**< Define Driver instance of all sub-core included in the design */
+/**
+ * Global array of DSI TX Subsystem sub-core instances. Each array element
+ * contains the driver instances for all sub-cores (DSI, MIPI TX PHY, DPHY)
+ * associated with an instance of the DSI TX Subsystem.
+ */
 #ifndef SDT
 XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES];
 #else
@@ -192,7 +200,7 @@ u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param	core is used to denote the subcore of subsystem
-* @param        Flag is used to denote whether to enable or disable the subsystem
+* @param	Flag is used to denote whether to enable or disable the subsystem
 *
 * @return	XST_SUCCESS is returned if subcore(DSI/DPHY) was
 *			successfully enabled or disabled

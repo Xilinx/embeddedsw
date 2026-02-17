@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -140,33 +140,40 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * Sub-Core Configuration Table
+ * @brief Sub-core configuration information structure.
+ *
+ * Contains configuration details for a sub-core (DSI, DPHY, or MIPI TX PHY)
+ * including its presence in the design, device ID, and memory offset.
  */
 typedef struct {
-	u32 IsPresent;  /**< Flag to indicate if sub-core is present
-			in the design */
+	u32 IsPresent;  /**< Flag indicating if sub-core is present
+				*  in the design */
 #ifndef SDT
 	u32 DeviceId;   /**< Device ID of the sub-core */
-	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
+	u32 AddrOffset;	/**< Sub-core offset from subsystem base address */
 #else
-	UINTPTR AddrOffset;
+	UINTPTR AddrOffset; /**< Sub-core address offset (SDT mode) */
 #endif
 } DsiTxSsSubCore;
 
 /**
- * Subsystem Enable/Disable
+ * @brief DSI TX Subsystem enable/disable selection enumeration.
+ *
+ * Specifies whether to enable or disable the DSI TX Subsystem core.
  */
 typedef enum {
-	XDSITXSS_DISABLE,  /* DSI TX subsystem Disable */
-	XDSITXSS_ENABLE	   /* DSI TX subsystem Enable */
+	XDSITXSS_DISABLE = 0, /**< Disable DSI TX subsystem */
+	XDSITXSS_ENABLE = 1   /**< Enable DSI TX subsystem */
 } XDsiSS_Selection;
 
 /**
- * Sub-Core Enable/Disable
+ * @brief DSI TX Subsystem sub-core selection enumeration.
+ *
+ * Specifies which sub-core (DSI or DPHY) within the subsystem to operate on.
  */
 typedef enum {
-	XDSITXSS_DSI,	/* DSI Core */
-	XDSITXSS_PHY	/* DPHY */
+	XDSITXSS_DSI = 0, /**< DSI Core */
+	XDSITXSS_PHY = 1  /**< DPHY Core */
 } XDsiSS_Subcore;
 
 /**

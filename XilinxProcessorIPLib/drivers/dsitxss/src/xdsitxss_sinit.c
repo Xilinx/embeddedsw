@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,12 @@
 
 /************************** Variable Definitions *****************************/
 
+/**
+ * Configuration table containing hardware configuration information for each
+ * XDsiTxSs instance in the system. This table is populated by the platform
+ * configuration tool and is referenced by XDsiTxSs_LookupConfig during
+ * device initialization.
+ */
 extern XDsiTxSs_Config XDsiTxSs_ConfigTable[];
 
 /************************** Function Definitions ******************************/
@@ -95,11 +101,11 @@ XDsiTxSs_Config* XDsiTxSs_LookupConfig(UINTPTR BaseAddress)
 /**
 * This function returns the Index number of config table using BaseAddress.
 *
-* @param  A pointer to the instance structure
+* @param	InstancePtr pointer to the instance structure
 *
-* @param  Base address of the instance
+* @param	BaseAddress address of the instance
 *
-* @return Index number of the config table
+* @return	Index number of the config table
 *
 *
 *******************************************************************************/

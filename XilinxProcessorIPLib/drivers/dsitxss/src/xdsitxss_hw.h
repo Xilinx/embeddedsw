@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,24 +102,31 @@ static inline void XDsiTxSs_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
 
 /************************** Variable Declarations ****************************/
 
-/** MIPI DSI Tx Subsystem core DSI system interrupt handlers
- *  User will register specific interrupts handler and enable
- *  interrupts by below defining macros
- */
+/** @name Interrupt handler identifiers
+ * Map DSITxSS handler IDs to the underlying DSI core handler IDs.
+ * @{ */
+#define XDSITXSS_HANDLER_UNSUPPORT_DATATYPE	XDSI_HANDLER_UNSUPPORT_DATATYPE /**< Unsupported data type handler ID */
+#define XDSITXSS_HANDLER_PIXELDATA_UNDERRUN	XDSI_HANDLER_PIXELDATA_UNDERRUN /**< Pixel data underrun handler ID */
+#define XDSITXSS_HANDLER_CMDQ_FIFOFULL		XDSI_HANDLER_CMDQ_FIFOFULL /**< Command queue FIFO full handler ID */
+#define XDSITXSS_HANDLER_OTHERERROR		XDSI_HANDLER_OTHERERROR /**< Other error handler ID */
+/** @} */
 
-#define XDSITXSS_HANDLER_UNSUPPORT_DATATYPE	XDSI_HANDLER_UNSUPPORT_DATATYPE
-#define XDSITXSS_HANDLER_PIXELDATA_UNDERRUN	XDSI_HANDLER_PIXELDATA_UNDERRUN
-#define XDSITXSS_HANDLER_CMDQ_FIFOFULL		XDSI_HANDLER_CMDQ_FIFOFULL
-#define XDSITXSS_HANDLER_OTHERERROR		XDSI_HANDLER_OTHERERROR
+/** @name Interrupt status masks
+ * Mapped DSITxSS interrupt status masks from the DSI core.
+ * @{ */
+#define XDSITXSS_ISR_DATAIDERR_MASK		XDSI_ISR_DATA_ID_ERR_MASK /**< Data ID error interrupt status mask */
+#define XDSITXSS_ISR_PIXELUNDERRUN_MASK		XDSI_ISR_PXL_UNDR_RUN_MASK /**< Pixel underrun interrupt status mask */
+#define XDSITXSS_ISR_CMDQ_FIFO_FULL_MASK	XDSI_ISR_CMDQ_FIFO_FULL_MASK /**< Command queue FIFO full interrupt status mask */
+/** @} */
 
-#define XDSITXSS_ISR_DATAIDERR_MASK		XDSI_ISR_DATA_ID_ERR_MASK
-#define XDSITXSS_ISR_PIXELUNDERRUN_MASK		XDSI_ISR_PXL_UNDR_RUN_MASK
-#define XDSITXSS_ISR_CMDQ_FIFO_FULL_MASK	XDSI_ISR_CMDQ_FIFO_FULL_MASK
-
-#define XDSITXSS_IER_DATAIDERR_MASK		XDSI_IER_DATA_ID_ERR_MASK
-#define XDSITXSS_IER_PIXELUNDERRUN_MASK		XDSI_IER_PXL_UNDR_RUN_MASK
-#define XDSITXSS_IER_CMDQ_FIFO_FULL_MASK	XDSI_IER_CMDQ_FIFO_FULL_MASK
-#define XDSITXSS_IER_ALLINTR_MASK		XDSI_IER_ALLINTR_MASK
+/** @name Interrupt enable masks
+ * Mapped DSITxSS interrupt enable masks from the DSI core.
+ * @{ */
+#define XDSITXSS_IER_DATAIDERR_MASK		XDSI_IER_DATA_ID_ERR_MASK /**< Data ID error interrupt enable mask */
+#define XDSITXSS_IER_PIXELUNDERRUN_MASK		XDSI_IER_PXL_UNDR_RUN_MASK /**< Pixel underrun interrupt enable mask */
+#define XDSITXSS_IER_CMDQ_FIFO_FULL_MASK	XDSI_IER_CMDQ_FIFO_FULL_MASK /**< Command queue FIFO full interrupt enable mask */
+#define XDSITXSS_IER_ALLINTR_MASK		XDSI_IER_ALLINTR_MASK /**< Enable all supported interrupts mask */
+/** @} */
 
 #ifdef __cplusplus
 }

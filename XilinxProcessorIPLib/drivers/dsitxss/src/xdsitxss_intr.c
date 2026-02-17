@@ -86,7 +86,7 @@ void XDsiTxSs_IntrHandler(void *InstancePtr)
 * This function will enable the interrupts present in the interrupt
 * mask passed onto the function
 *
-* @param	InstancePtr is the XDsiTxSs instance to operate on
+* @param	InstancePtr is the XDsiTxSs instance to operate on.
 *
 *
 * @note		None.
