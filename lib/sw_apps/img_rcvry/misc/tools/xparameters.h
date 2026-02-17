@@ -347,19 +347,26 @@ extern "C" {
 #define XPAR_XEMACPS_0_ENET_TSU_CLK_FREQ_HZ XPAR_PSU_ETHERNET_3_ENET_TSU_CLK_FREQ_HZ
 #define XPAR_XEMACPS_0_IS_CACHE_COHERENT XPAR_PSU_ETHERNET_3_IS_CACHE_COHERENT
 
-/* Definitions for peripheral PSU_ETHERNET_1 */
-#define XPAR_PSU_ETHERNET_1_DEVICE_ID 1
-#define XPAR_PSU_ETHERNET_1_BASEADDR 0xFF0C0000
-#define XPAR_PSU_ETHERNET_1_HIGHADDR 0xFF0CFFFF
-#define XPAR_PSU_ETHERNET_1_ENET_CLK_FREQ_HZ 124998749
-#define XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 12
-#define XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 1
-#define XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV0 60
-#define XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV1 1
-#define XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV0 75
-#define XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV1 8
-#define XPAR_PSU_ETHERNET_1_ENET_TSU_CLK_FREQ_HZ 249997498
-#define XPAR_PSU_ETHERNET_1_IS_CACHE_COHERENT 0
+/**
+ * @name PSU Ethernet Controller 1 (GEM1) Configuration Parameters
+ * Hardware configuration parameters for the PS Gigabit Ethernet MAC (GEM1)
+ * peripheral including base addresses, clock frequencies, and divider settings
+ * for different speed modes (10/100/1000 Mbps).
+ * @{
+ */
+#define XPAR_PSU_ETHERNET_1_DEVICE_ID 1                        /**< Device instance identifier */
+#define XPAR_PSU_ETHERNET_1_BASEADDR 0xFF0C0000                /**< Base address of GEM1 register space */
+#define XPAR_PSU_ETHERNET_1_HIGHADDR 0xFF0CFFFF                /**< High address of GEM1 register space */
+#define XPAR_PSU_ETHERNET_1_ENET_CLK_FREQ_HZ 124998749        /**< Ethernet clock frequency in Hz (~125 MHz) */
+#define XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 8         /**< Clock divider 0 for 1000 Mbps (Gigabit) mode */
+#define XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 1         /**< Clock divider 1 for 1000 Mbps (Gigabit) mode */
+#define XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV0 40         /**< Clock divider 0 for 100 Mbps (Fast Ethernet) mode */
+#define XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV1 1          /**< Clock divider 1 for 100 Mbps (Fast Ethernet) mode */
+#define XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV0 50          /**< Clock divider 0 for 10 Mbps (Ethernet) mode */
+#define XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV1 8           /**< Clock divider 1 for 10 Mbps (Ethernet) mode */
+#define XPAR_PSU_ETHERNET_1_ENET_TSU_CLK_FREQ_HZ 249997498    /**< Time Stamp Unit clock frequency in Hz (~250 MHz) */
+#define XPAR_PSU_ETHERNET_1_IS_CACHE_COHERENT 0                /**< Cache coherency support (0=disabled, 1=enabled) */
+/** @} */
 
 /* Canonical definitions for peripheral PSU_ETHERNET_1 */
 #define XPAR_XEMACPS_1_DEVICE_ID XPAR_PSU_ETHERNET_1_DEVICE_ID

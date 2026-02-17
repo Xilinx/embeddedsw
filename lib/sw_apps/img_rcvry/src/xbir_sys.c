@@ -73,13 +73,21 @@
 #define XBIR_SYS_PRODUCT_NAME_LEN	(3U)
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
 
-/* GEM clock related macros */
-#define CRL_APB_GEM1_REF_CTRL_OFFSET	(0XFF5E0054U)
-#define CRL_APB_GEM3_REF_CTRL_OFFSET	(0XFF5E005CU)
-#define IOU_SLCR_GEM_CTRL_OFFSET	(0XFF180360U)
-#define IOU_SLCR_GEM_CLK_CTRL_OFFSET	(0XFF180308U)
-#define CRL_APB_GEM_TSU_REF_CTRL_OFFSET		(0XFF5E0100U)
-#define CRL_APB_SDIO0_REF_CTRL_OFFSET		(0XFF5E006CU)
+/**
+ * @name GEM Clock Control Register Offsets
+ * Register offsets for configuring Gigabit Ethernet MAC (GEM) clocks
+ * and related peripherals in the Clock Reset LPD (CRL_APB) and
+ * I/O Unit System Level Control Registers (IOU_SLCR).
+ * @{
+ */
+#define CRL_APB_GEM0_REF_CTRL_OFFSET	(0XFF5E0050U)  /**< GEM0 reference clock control register offset */
+#define CRL_APB_GEM1_REF_CTRL_OFFSET	(0XFF5E0054U)  /**< GEM1 reference clock control register offset */
+#define CRL_APB_GEM3_REF_CTRL_OFFSET	(0XFF5E005CU)  /**< GEM3 reference clock control register offset */
+#define IOU_SLCR_GEM_CTRL_OFFSET	(0XFF180360U)  /**< GEM control register offset in IOU SLCR */
+#define IOU_SLCR_GEM_CLK_CTRL_OFFSET	(0XFF180308U)  /**< GEM clock control register offset in IOU SLCR */
+#define CRL_APB_GEM_TSU_REF_CTRL_OFFSET	(0XFF5E0100U)  /**< GEM Time Stamp Unit reference clock control offset */
+#define CRL_APB_SDIO0_REF_CTRL_OFFSET	(0XFF5E006CU)  /**< SDIO0 reference clock control register offset */
+/** @} */
 
 /* MIO related macros */
 #define IOU_SLCR_MIO_PIN_13_OFFSET	(0XFF180034U)
@@ -412,11 +420,11 @@ static int Xbir_KREthInit (void)
 #endif
 #endif
 
-	/* GEM clock settings */
+	/* GEM1 clock settings from DT - RGMII mode, DIV0=8 */
 	Xbir_MaskWrite(CRL_APB_GEM1_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
 	Xbir_MaskWrite(IOU_SLCR_GEM_CTRL_OFFSET, 0x00000003U, 0x00000001U);
 	Xbir_MaskWrite(IOU_SLCR_GEM_CLK_CTRL_OFFSET, 0x00000006U, 0x00000006U);
-	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010400U);
 
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xFFFFFFFFU, 0xD4000000U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0xFFFFFFFFU, 0x00B3F020U);
