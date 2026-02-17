@@ -24,7 +24,7 @@
 #include "xil_types.h"
 #include "xdptxss_dp21_tx.h"
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #if ENABLE_AUDIO
 volatile u8 TransmitComplete;   /* Flag to check completion of Transmission */
 volatile u8 ReceiveComplete;    /* Flag to check completion of Reception */

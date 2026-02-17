@@ -43,7 +43,7 @@ extern volatile u8 HpdPulseConEvent;
 volatile u8 PrevLineRate;	/**< This previous line rate to keep previous info
 				  to compare with new line rate request */
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 XScuGic IntcInst;
 #else
 XIntc IntcInst;
@@ -54,7 +54,7 @@ XIntc IntcInst;
 extern XDpTxSs DpTxSsInst;	/**< The DPTX Subsystem instance */
 extern XTmrCtr TmrCtr;		/**< Timer instance */
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 XIic  IicPtr;
 typedef u8 AddressType;
 
@@ -145,7 +145,7 @@ XVphy_ChannelId VPHY_TX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 /*
  * These are the REFCLK sources for VCU118 and ZCU102
  */
-#ifdef PLATFORM_MB /**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
+#if defined (PLATFORM_MB) || defined (__riscv) /**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
 XVphy_PllRefClkSelType VPHY_TX_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_TX_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
 #else /**< ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0) */
@@ -226,7 +226,7 @@ int main()
 	return XST_SUCCESS;
 }
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 int I2cMux_Ps(u8 Data)
 {
 	u8 Buffer;
@@ -246,7 +246,7 @@ int I2cMux_Ps(u8 Data)
 static int DpTxSs_ConfigAudioClock(u32 AudioClkHz)
 {
 	int Status = XST_SUCCESS;
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	u8 i;
 #endif
 
@@ -255,7 +255,7 @@ static int DpTxSs_ConfigAudioClock(u32 AudioClkHz)
 	 * Si570 device address : 0x5D
 	 * setting Si570 on zcu102 to be 24.576MHz for audio
 	 */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	/*
 	 * opening the mux for on board Si570 programming
 	 */
@@ -504,7 +504,7 @@ u32 DpTxSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 #endif
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #ifndef SDT
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
 #else
@@ -595,7 +595,7 @@ void DpTxSs_SetUserCallBackHandlers(void)
 u32 DpTxSs_SetupIntrSystem(void)
 {
 	u32 Status;
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	XINTC *IntcInstPtr = &IntcInst;
 #else
 	XIntc *IntcInstPtr = &IntcInst;
@@ -606,7 +606,7 @@ u32 DpTxSs_SetupIntrSystem(void)
 	 */
 	DpTxSs_SetUserCallBackHandlers();
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	/*
 	 * The configuration parameters of the interrupt controller
 	 */
@@ -2120,7 +2120,7 @@ int VideoFMC_Init(void)
 	/*
 	 * Set the I2C Mux to select the HPC FMC
 	 */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x01; /**< Enable HPC0 */
 #else
 	Buffer[0] = 0x02; /**< Enable HPC0 */

@@ -29,13 +29,13 @@ extern "C" {
 #endif
 /***************************** Include Files *********************************/
 
+#include <bspconfig.h>
 #include "xdptxss.h"
-
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include "xscugic.h"
 #else
 #include "xintc.h"
@@ -43,7 +43,7 @@ extern "C" {
 
 #include "xvphy.h"
 #include "xvphy_i.h"
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include "xuartps_hw.h"
 #include "xiicps.h"
 #else
@@ -69,7 +69,7 @@ extern "C" {
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP21TXSS_0_VEC_ID
 
@@ -142,7 +142,7 @@ extern "C" {
 #define NUM_MODES                       7
 #define NUM_CLOCK_REGS                  6
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #else
 #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID

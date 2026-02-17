@@ -198,7 +198,7 @@ XVidC_VideoMode resolution_table[] =
 static char inbyte_local(void);
 static u32 xil_gethex(u8 num_chars);
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 static char RecvByte_NonBlocking(void);
 #endif
 
@@ -1034,7 +1034,7 @@ void main_loop(){
 
 }
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 u8 XUartLite_RecvByte_local(u32 BaseAddress)
 {
 	do
@@ -1047,7 +1047,7 @@ u8 XUartLite_RecvByte_local(u32 BaseAddress)
 
 static char inbyte_local(void)
 {
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	char c=0;
 
 	c = RecvByte_NonBlocking();
@@ -1106,7 +1106,7 @@ static u32 xil_gethex(u8 num_chars){
  * @note        None.
  *
  ******************************************************************************/
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 static char RecvByte_NonBlocking()
 {
 	u32 RecievedByte;
@@ -1149,7 +1149,7 @@ char xil_getc(u32 timeout_ms){
 		XTmrCtr_Start(&TmrCtr, 0);
 	}
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	while((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
 #else
 	while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)){
@@ -1169,7 +1169,7 @@ char xil_getc(u32 timeout_ms){
 	if(timeout == 1){
 		c = 0;
 	} else {
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 		c = RecvByte_NonBlocking();
 #else
 		c = XUartLite_RecvByte(STDIN_BASEADDRESS);
