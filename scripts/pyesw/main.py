@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 import os
@@ -11,10 +11,12 @@ if os.environ.get("LOCAL_EMPYRO_SCRIPTS"):
 
 from build_app import main as build_app_main
 from build_bsp import main as build_bsp_main
+from build_lib_template import build_lib_template
 from config_bsp import main as config_bsp_main
 from create_app import main as create_app_main
 from create_bsp import main as create_bsp_main
 from create_example import main as create_example_main
+from create_lib_template import create_lib_template
 from get_template_data import main as get_template_data_main
 from load_example import main as load_example_main
 from reconfig_bsp import main as reconfig_bsp_main
@@ -35,6 +37,8 @@ List of COMMANDS
   create_app          Create a template application for the given BSP
   create_bsp          Create BSP for the given sdt, os, processor and template
                       application
+  create_lib_template Create a static library
+  build_lib_template  Build a static library
   build_app           Build the given application.
                       It expects either -w <app ws path> or
                       --src_dir <app src dir path> and --build_dir <app build
@@ -74,12 +78,22 @@ Create BSP and hello world application using:
   # Build BSP and hello world application
   empyro build_app -w hello_world_app
 
+Create static library using:
+
+  # Create a static library
+  empyro create_lib_template -d bsp_path -n my_custom_lib -w lib_workspace
+
+  # Build the static library
+  empyro build_lib_template -w lib_workspace
+
 Use "empyro [COMMAND] -h" for [OPTIONS] available with [COMMAND].
 """
     print(info)
 
 func_map={"create_app" : create_app_main,
     "create_bsp" : create_bsp_main,
+    "create_lib_template" : create_lib_template,
+    "build_lib_template" : build_lib_template,
     "build_app" : build_app_main,
     "build_bsp" : build_bsp_main,
     "config_bsp" : config_bsp_main,
