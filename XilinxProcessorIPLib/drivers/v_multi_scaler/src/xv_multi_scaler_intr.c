@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -21,21 +21,25 @@
 #include "xv_multi_scaler_hw.h"
 #include "xv_multi_scaler.h"
 
+
 /*****************************************************************************/
 /**
- **
- ** This function installs an asynchronous callback function:
- **
- ** @param    InstancePtr is a pointer to the MultiScaler IP instance.
- ** @param    CallbackFunc is the address of the callback function.
- ** @param    CallbackRef is a user data item that will be passed to the
- **       callback function when it is invoked.
- **
- ** @return      None.
- **
- ** @note     Invoking this function for a handler that already has been
- **       installed replaces it with the new handler.
- **
+ * @brief Install an asynchronous callback function for MultiScaler events.
+ *
+ * This function registers a user-defined callback function that will be
+ * invoked when the MultiScaler IP generates an interrupt. The callback
+ * is typically used to handle frame processing completion notifications.
+ *
+ * @param  InstancePtr is a pointer to the MultiScaler IP instance.
+ * @param  CallbackFunc is the address of the callback function.
+ * @param  CallbackRef is a user data item that will be passed to the
+ *         callback function when it is invoked.
+ *
+ * @return None
+ *
+ * @note   Invoking this function for a handler that already has been
+ *         installed replaces it with the new handler.
+ *
  ******************************************************************************/
 void XVMultiScaler_SetCallback(XV_multi_scaler *InstancePtr, void *CallbackFunc,
 	void *CallbackRef)

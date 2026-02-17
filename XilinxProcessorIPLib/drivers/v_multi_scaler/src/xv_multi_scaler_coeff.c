@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.	All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,12 +12,40 @@
 * @{
 * @details
 *
-* This file provides the default fixed coefficient sets for supported taps
+* This file provides the default fixed coefficient sets for scaling filters.
+* The coefficients are pre-calculated polyphase filter banks that enable
+* high-quality image scaling operations. Multiple tap configurations are
+* supported (6-tap, 8-tap, 10-tap, 12-tap) with different coefficient
+* array formats (6C, 8C, 10C, 12C) to accommodate various hardware
+* configurations.
 *
 ******************************************************************************/
+
+/***************************** Include Files *********************************/
 #include "xv_multi_scaler_l2.h"
 
-/* Fixed 64 phase, 6 tap filter */
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+
+/************************** Variable Definitions *****************************/
+
+/**
+ * Fixed coefficient table for 6-tap polyphase filter (12 coefficient format)
+ *
+ * This table contains a 64-phase, 6-tap FIR filter bank for vertical and
+ * horizontal scaling. The 12-coefficient format includes zero-padding to
+ * match hardware requirements. Each row represents one of 64 interpolation
+ * phases, allowing smooth sub-pixel precision during scaling operations.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]
+ * Phases: 64
+ * Active taps: 6 (with padding zeros)
+ */
 const short XV_multiscaler_fixedcoeff_taps6_12C[XV_MULTISCALER_MAX_V_PHASES]
 					   [XV_MULTISCALER_TAPS_12] = {
 	{0, 0, 0, -132,  236,   3824,   236,  -132,    64, 0, 0, 0 },
@@ -86,7 +114,17 @@ const short XV_multiscaler_fixedcoeff_taps6_12C[XV_MULTISCALER_MAX_V_PHASES]
 	{0, 0, 0,  64,   -144,   292,  3816,   184,  -116, 0, 0, 0 }
 
 };
-const short XV_multiscaler_fixedcoeff_taps6_6C[XV_MULTISCALER_MAX_V_PHASES]
+/**
+ * Fixed coefficient table for 6-tap polyphase filter (6 coefficient format)
+ *
+ * This table contains a 64-phase, 6-tap FIR filter bank optimized for
+ * hardware implementations that support exactly 6 coefficients per phase.
+ * This is a compact version of the 12C format without padding zeros.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6]
+ * Phases: 64
+ * Active taps: 6
+ */const short XV_multiscaler_fixedcoeff_taps6_6C[XV_MULTISCALER_MAX_V_PHASES]
 					   [XV_MULTISCALER_TAPS_6] = {
 	{ -132,  236,   3824,   236,  -132,    64 },
 	{ -116,  184,   3816,   292,  -144,    64 },
@@ -155,8 +193,18 @@ const short XV_multiscaler_fixedcoeff_taps6_6C[XV_MULTISCALER_MAX_V_PHASES]
 
 };
 
-
-/* Fixed 64 phase, 8 tap filter */
+/**
+ * Fixed coefficient table for 8-tap polyphase filter (12 coefficient format)
+ *
+ * This table contains a 64-phase, 8-tap FIR filter bank providing higher
+ * quality scaling compared to 6-tap filters. The 12-coefficient format
+ * includes zero-padding for hardware alignment. 8-tap filters offer improved
+ * frequency response and reduced aliasing artifacts.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]
+ * Phases: 64
+ * Active taps: 8 (with padding zeros)
+ */
 const short XV_multiscaler_fixedcoeff_taps8_12C[XV_MULTISCALER_MAX_V_PHASES]
 					   [XV_MULTISCALER_TAPS_12] = {
 	{0,  0,  -5,  309, 1023, 1445, 1034, 317, -3, -24,  0,  0 },
@@ -225,7 +273,19 @@ const short XV_multiscaler_fixedcoeff_taps8_12C[XV_MULTISCALER_MAX_V_PHASES]
 	{0,  0,  -24, -3, 317, 1034, 1445, 1023, 309, -5,  0,  0  },
 
 };
- const short XV_multiscaler_fixedcoeff_taps8_8C[XV_MULTISCALER_MAX_V_PHASES]
+
+/**
+ * Fixed coefficient table for 8-tap polyphase filter (8 coefficient format)
+ *
+ * This table contains a 64-phase, 8-tap FIR filter bank in compact format
+ * without padding zeros. Optimized for hardware that supports exactly 8
+ * coefficients per phase.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8]
+ * Phases: 64
+ * Active taps: 8
+ */
+const short XV_multiscaler_fixedcoeff_taps8_8C[XV_MULTISCALER_MAX_V_PHASES]
 					   [XV_MULTISCALER_TAPS_8] = {
 	{ -5,  309, 1023, 1445, 1034, 317, -3, -24 },
 	{ -6,  300, 1011, 1445, 1045, 326, -1, -24 },
@@ -292,10 +352,20 @@ const short XV_multiscaler_fixedcoeff_taps8_12C[XV_MULTISCALER_MAX_V_PHASES]
 	{ -24, -1, 326, 1045, 1445, 1011, 300, -6 },
 	{ -24, -3, 317, 1034, 1445, 1023, 309, -5 },
 
-  };
+};
 
-
-/* Fixed 64 phase, 10 tap filter */
+/**
+ * Fixed coefficient table for 10-tap polyphase filter (12 coefficient format)
+ *
+ * This table contains a 64-phase, 10-tap FIR filter bank offering superior
+ * scaling quality. The 12-coefficient format includes minimal padding.
+ * 10-tap filters provide excellent frequency response characteristics and
+ * minimal ringing artifacts, suitable for professional image processing.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]
+ * Phases: 64
+ * Active taps: 10 (with minimal padding)
+ */
 const short XV_multiscaler_fixedcoeff_taps10_12C[XV_MULTISCALER_MAX_V_PHASES]
 					    [XV_MULTISCALER_TAPS_12] = {
 	{0, 59, 224, 507, 790, 911, 793, 512, 227, 61, 13, 0 },
@@ -363,7 +433,19 @@ const short XV_multiscaler_fixedcoeff_taps10_12C[XV_MULTISCALER_MAX_V_PHASES]
 	{0, 13, 62, 231, 516, 797, 911, 786, 502, 220, 58, 0 },
 	{0, 13, 61, 227, 512, 793, 911, 790, 507, 224, 59, 0 },
 };
- const short XV_multiscaler_fixedcoeff_taps10_10C[XV_MULTISCALER_MAX_V_PHASES]
+
+/**
+ * Fixed coefficient table for 10-tap polyphase filter (10 coefficient format)
+ *
+ * This table contains a 64-phase, 10-tap FIR filter bank in compact format
+ * without padding zeros. Optimized for hardware that supports exactly 10
+ * coefficients per phase.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10]
+ * Phases: 64
+ * Active taps: 10
+ */
+const short XV_multiscaler_fixedcoeff_taps10_10C[XV_MULTISCALER_MAX_V_PHASES]
 					    [XV_MULTISCALER_TAPS_10]= {
 	{ 59, 224, 507, 790, 911, 793, 512, 227, 61, 13 },
 	{ 58, 220, 502, 786, 911, 797, 516, 231, 62, 13 },
@@ -429,9 +511,21 @@ const short XV_multiscaler_fixedcoeff_taps10_12C[XV_MULTISCALER_MAX_V_PHASES]
 	{ 13, 64, 235, 521, 800, 911, 783, 497, 216, 56 },
 	{ 13, 62, 231, 516, 797, 911, 786, 502, 220, 58 },
 	{ 13, 61, 227, 512, 793, 911, 790, 507, 224, 59 },
-  };
+};
 
-/* Fixed 64 phase, 12 tap filter */
+/**
+ * Fixed coefficient table for 12-tap polyphase filter (12 coefficient format)
+ *
+ * This table contains a 64-phase, 12-tap FIR filter bank providing the
+ * highest quality scaling among all supported tap configurations. With no
+ * padding required, all 12 coefficients are active. 12-tap filters deliver
+ * exceptional frequency response, minimal aliasing, and superior image
+ * quality for demanding applications.
+ *
+ * Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]
+ * Phases: 64
+ * Active taps: 12
+ */
 const short XV_multiscaler_fixedcoeff_taps12_12C[XV_MULTISCALER_MAX_V_PHASES]
 					    [XV_MULTISCALER_TAPS_12] = {
 	{48, 143, 307, 504, 667, 730, 669, 507, 310, 145, 49, 18, },

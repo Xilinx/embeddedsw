@@ -1,8 +1,13 @@
 /*************************************************************************
  * Copyright (c) 1986 - 2022 Xilinx, Inc. All Rights Reserved.
- * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+ * @file xv_multi_scaler.h
+ * @addtogroup v_multi_scaler Overview
+ */
 
 #ifndef XV_MULTI_SCALER_H
 #define XV_MULTI_SCALER_H
@@ -31,114 +36,172 @@ extern "C" {
 #endif
 #include "xv_multi_scaler_hw.h"
 
-/**************************** Type Definitions ******************************/
+/************************** Constant Definitions *****************************/
+#ifndef __linux__
+/** Maximum number of output channels supported */
+#define XV_MAX_OUTS 8
+/** Clear all status bits */
+#define XV_MULTI_SCALER_CLEAR_BIT_MASK 0x0
+/** AP control start bit mask */
+#define XV_MULTI_SCALER_AP_START_BIT_MASK 0x1
+/** AP done status bit offset */
+#define XV_MULTI_SCALER_AP_DONE_OFFSET 1
+/** AP done status bit mask */
+#define XV_MULTI_SCALER_AP_DONE_BIT_MASK \
+	(1 << XV_MULTI_SCALER_AP_DONE_OFFSET)
+/** AP idle status bit offset */
+#define XV_MULTI_SCALER_AP_IDLE_OFFSET 2
+/** AP idle status bit mask */
+#define XV_MULTI_SCALER_AP_IDLE_BIT_MASK \
+	(1 << XV_MULTI_SCALER_AP_IDLE_OFFSET)
+/** AP ready status bit offset */
+#define XV_MULTI_SCALER_AP_READY_OFFSET 3
+/** AP ready status bit mask */
+#define XV_MULTI_SCALER_AP_READY_BIT_MASK \
+	(1 << XV_MULTI_SCALER_AP_READY_OFFSET)
+/** AP auto-restart control bit offset */
+#define XV_MULTI_SCALER_AP_AUTO_RESTART_OFFSET 7
+/** AP auto-restart control bit mask */
+#define XV_MULTI_SCALER_AP_AUTO_RESTART_BIT_MASK \
+	(1 << XV_MULTI_SCALER_AP_AUTO_RESTART_OFFSET)
+/** Interrupt status register done bit mask */
+#define XV_MULTI_SCALER_ISR_DONE_BIT_MASK 0x1
+/** Interrupt status register ready bit offset */
+#define XV_MULTI_SCALER_ISR_READY_OFFSET 1
+/** Interrupt status register ready bit mask */
+#define XV_MULTI_SCALER_ISR_READY_BIT_MASK \
+	(1 << XV_MULTI_SCALER_ISR_READY_OFFSET)
+/** Macro to generate function name for setting input width of channel x */
+#define XV_MULTI_SCALER_WIDTH_IN(x) XV_multi_scaler_Set_HwReg_WidthIn_##x
+/** Macro to generate function name for setting output width of channel x */
+#define XV_MULTI_SCALER_WIDTH_OUT(x) XV_multi_scaler_Set_HwReg_WidthOut_##x
+/** Macro to generate function name for setting input height of channel x */
+#define XV_MULTI_SCALER_HEIGHT_IN(x) XV_multi_scaler_Set_HwReg_HeightIn_##x
+/** Macro to generate function name for setting output height of channel x */
+#define XV_MULTI_SCALER_HEIGHT_OUT(x) XV_multi_scaler_Set_HwReg_HeightOut_##x
+/** Macro to generate function name for setting input stride of channel x */
+#define XV_MULTI_SCALER_STRIDE_IN(x) XV_multi_scaler_Set_HwReg_InStride_##x
+/** Macro to generate function name for setting output stride of channel x */
+#define XV_MULTI_SCALER_STRIDE_OUT(x) XV_multi_scaler_Set_HwReg_OutStride_##x
+/** Macro to generate function name for setting line rate of channel x */
+#define XV_MULTI_SCALER_LINE_RATE(x) XV_multi_scaler_Set_HwReg_LineRate_##x
+/** Macro to generate function name for setting pixel rate of channel x */
+#define XV_MULTI_SCALER_PIXEL_RATE(x) XV_multi_scaler_Set_HwReg_PixelRate_##x
+/** Macro to generate function name for setting input pixel format of channel x */
+#define XV_MULTI_SCALER_IN_PIXEL_FMT(x) \
+				XV_multi_scaler_Set_HwReg_InPixelFmt_##x
+/** Macro to generate function name for setting output pixel format of channel x */
+#define XV_MULTI_SCALER_OUT_PIXEL_FMT(x) \
+				XV_multi_scaler_Set_HwReg_OutPixelFmt_##x
+/** Macro to generate function name for setting source image buffer 0 of channel x */
+#define XV_MULTI_SCALER_SRC_IMG_BUF_0(x) \
+				XV_multi_scaler_Set_HwReg_srcImgBuf0_##x##_V
+/** Macro to generate function name for setting source image buffer 1 of channel x */
+#define XV_MULTI_SCALER_SRC_IMG_BUF_1(x) \
+				XV_multi_scaler_Set_HwReg_srcImgBuf1_##x##_V
+/** Macro to generate function name for setting destination image buffer 0 of channel x */
+#define XV_MULTI_SCALER_DST_IMG_BUF_0(x) \
+				XV_multi_scaler_Set_HwReg_dstImgBuf0_##x##_V
+/** Macro to generate function name for setting destination image buffer 1 of channel x */
+#define XV_MULTI_SCALER_DST_IMG_BUF_1(x) \
+				XV_multi_scaler_Set_HwReg_dstImgBuf1_##x##_V
+#endif
+
+/**************************** Type Definitions *******************************/
 #ifdef __linux__
+/** Linux platform type definitions */
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
-#define XV_MAX_OUTS 8
-#define XV_MULTI_SCALER_CLEAR_BIT_MASK 0x0
-#define XV_MULTI_SCALER_AP_START_BIT_MASK 0x1
-#define XV_MULTI_SCALER_AP_DONE_OFFSET 1
-#define XV_MULTI_SCALER_AP_DONE_BIT_MASK \
-	(1 << XV_MULTI_SCALER_AP_DONE_OFFSET)
-#define XV_MULTI_SCALER_AP_IDLE_OFFSET 2
-#define XV_MULTI_SCALER_AP_IDLE_BIT_MASK \
-	(1 << XV_MULTI_SCALER_AP_IDLE_OFFSET)
-#define XV_MULTI_SCALER_AP_READY_OFFSET 3
-#define XV_MULTI_SCALER_AP_READY_BIT_MASK \
-	(1 << XV_MULTI_SCALER_AP_READY_OFFSET)
-#define XV_MULTI_SCALER_AP_AUTO_RESTART_OFFSET 7
-#define XV_MULTI_SCALER_AP_AUTO_RESTART_BIT_MASK \
-	(1 << XV_MULTI_SCALER_AP_AUTO_RESTART_OFFSET)
-#define XV_MULTI_SCALER_ISR_DONE_BIT_MASK 0x1
-#define XV_MULTI_SCALER_ISR_READY_OFFSET 1
-#define XV_MULTI_SCALER_ISR_READY_BIT_MASK \
-	(1 << XV_MULTI_SCALER_ISR_READY_OFFSET)
-#define XV_MULTI_SCALER_WIDTH_IN(x) XV_multi_scaler_Set_HwReg_WidthIn_##x
-#define XV_MULTI_SCALER_WIDTH_OUT(x) XV_multi_scaler_Set_HwReg_WidthOut_##x
-#define XV_MULTI_SCALER_HEIGHT_IN(x) XV_multi_scaler_Set_HwReg_HeightIn_##x
-#define XV_MULTI_SCALER_HEIGHT_OUT(x) XV_multi_scaler_Set_HwReg_HeightOut_##x
-#define XV_MULTI_SCALER_STRIDE_IN(x) XV_multi_scaler_Set_HwReg_InStride_##x
-#define XV_MULTI_SCALER_STRIDE_OUT(x) XV_multi_scaler_Set_HwReg_OutStride_##x
-#define XV_MULTI_SCALER_LINE_RATE(x) XV_multi_scaler_Set_HwReg_LineRate_##x
-#define XV_MULTI_SCALER_PIXEL_RATE(x) XV_multi_scaler_Set_HwReg_PixelRate_##x
-#define XV_MULTI_SCALER_IN_PIXEL_FMT(x) \
-				XV_multi_scaler_Set_HwReg_InPixelFmt_##x
-#define XV_MULTI_SCALER_OUT_PIXEL_FMT(x) \
-				XV_multi_scaler_Set_HwReg_OutPixelFmt_##x
-#define XV_MULTI_SCALER_SRC_IMG_BUF_0(x) \
-				XV_multi_scaler_Set_HwReg_srcImgBuf0_##x##_V
-#define XV_MULTI_SCALER_SRC_IMG_BUF_1(x) \
-				XV_multi_scaler_Set_HwReg_srcImgBuf1_##x##_V
-#define XV_MULTI_SCALER_DST_IMG_BUF_0(x) \
-				XV_multi_scaler_Set_HwReg_dstImgBuf0_##x##_V
-#define XV_MULTI_SCALER_DST_IMG_BUF_1(x) \
-				XV_multi_scaler_Set_HwReg_dstImgBuf1_##x##_V
+/**
+ * Multi Scaler device configuration structure
+ */
 typedef struct {
 #ifndef SDT
-    u16 DeviceId;
+    u16 DeviceId;                /**< Unique device ID from xparameters.h */
 #else
-    char *Name;
+    char *Name;                  /**< Device name string */
 #endif
-    u32 Ctrl_BaseAddress;
-    u32 SamplesPerClock;
-    u32 MaxDataWidth;
-    u32 MaxCols;
-    u32 MaxRows;
-    u32 PhaseShift;
-    u32 ScaleMode;
-    u32 NumTaps;
-    u32 MaxOuts;
+    u32 Ctrl_BaseAddress;        /**< Control register base address */
+    u32 SamplesPerClock;         /**< Samples per clock (pixels processed per cycle) */
+    u32 MaxDataWidth;            /**< Maximum bit width of video data */
+    u32 MaxCols;                 /**< Maximum number of columns (frame width) */
+    u32 MaxRows;                 /**< Maximum number of rows (frame height) */
+    u32 PhaseShift;              /**< Phase shift for polyphase filters */
+    u32 ScaleMode;               /**< Scaling mode (bilinear, bicubic, polyphase) */
+    u32 NumTaps;                 /**< Number of filter taps */
+    u32 MaxOuts;                 /**< Maximum number of output channels */
 #ifdef SDT
-    u16 IntrId; 		    /**< Interrupt ID */
-    UINTPTR IntrParent;		/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+    u16 IntrId;                  /**< Interrupt ID */
+    UINTPTR IntrParent;          /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XV_multi_scaler_Config;
-extern XV_multi_scaler_Config XV_multi_scaler_ConfigTable[];
 #endif
 
+/** Multi Scaler callback function type */
 typedef void (*XVMultiScaler_Callback)(void *CallbackRef);
+
+/**
+ * Multi Scaler driver instance structure
+ */
 typedef struct {
-    XV_multi_scaler_Config Config;
-    u32 Ctrl_BaseAddress;
-    u32 IsReady;
-    u32 SamplesPerClock;
-    u32 MaxDataWidth;
-    u32 MaxRows;
-    u32 MaxCols;
-    u32 MaxOuts;
-    u32 NumTaps;
-    u32 PhaseShift;
-    u32 ScaleMode;
-    XVMultiScaler_Callback FrameDoneCallback;
-    void *CallbackRef;
-    u8 OutBitMask;
+    XV_multi_scaler_Config Config;     /**< Hardware configuration */
+    u32 Ctrl_BaseAddress;              /**< Control register base address */
+    u32 IsReady;                       /**< Device initialization status (XIL_COMPONENT_IS_READY when initialized) */
+    u32 SamplesPerClock;               /**< Samples per clock (pixels processed per cycle) */
+    u32 MaxDataWidth;                  /**< Maximum bit width of video data */
+    u32 MaxRows;                       /**< Maximum number of rows (frame height) */
+    u32 MaxCols;                       /**< Maximum number of columns (frame width) */
+    u32 MaxOuts;                       /**< Maximum number of output channels */
+    u32 NumTaps;                       /**< Number of filter taps */
+    u32 PhaseShift;                    /**< Phase shift for polyphase filters */
+    u32 ScaleMode;                     /**< Scaling mode (bilinear, bicubic, polyphase) */
+    XVMultiScaler_Callback FrameDoneCallback; /**< User callback for frame done interrupt */
+    void *CallbackRef;                 /**< User callback reference pointer */
+    u8 OutBitMask;                     /**< Output channel enable bitmask */
 } XV_multi_scaler;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/** Macro to write a 32-bit value to a register at the specified offset */
 #define XV_multi_scaler_WriteReg(BaseAddress, RegOffset, Data) \
-    Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+	Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+/** Macro to read a 32-bit value from a register at the specified offset */
 #define XV_multi_scaler_ReadReg(BaseAddress, RegOffset) \
-    Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (RegOffset))
 #else
+/** Macro to write a 32-bit value to a register at the specified offset */
 #define XV_multi_scaler_WriteReg(BaseAddress, RegOffset, Data) \
-    *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+	*(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+/** Macro to read a 32-bit value from a register at the specified offset */
 #define XV_multi_scaler_ReadReg(BaseAddress, RegOffset) \
-    *(volatile u32*)((BaseAddress) + (RegOffset))
+	*(volatile u32*)((BaseAddress) + (RegOffset))
 
+/** Assert macro for void functions - evaluates expression and asserts if false */
 #define Xil_AssertVoid(expr)    assert(expr)
+/** Assert macro for non-void functions - evaluates expression and asserts if false */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/** Success status code returned by functions */
 #define XST_SUCCESS             0
+/** Error code indicating device not found */
 #define XST_DEVICE_NOT_FOUND    2
+/** Error code indicating device open operation failed */
 #define XST_OPEN_DEVICE_FAILED  3
+/** Status flag indicating component is ready for use */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 
+/************************** Variable Definitions *****************************/
+#ifndef __linux__
+/** Configuration table for multi-scaler devices */
+extern XV_multi_scaler_Config XV_multi_scaler_ConfigTable[];
+#endif
+
 /************************** Function Prototypes *****************************/
+
+/* Initialization and Configuration Functions */
 #ifndef __linux__
 #ifndef SDT
 int XV_multi_scaler_Initialize(XV_multi_scaler *InstancePtr, u16 DeviceId);
@@ -155,6 +218,7 @@ int XV_multi_scaler_Initialize(XV_multi_scaler *InstancePtr,
 int XV_multi_scaler_Release(XV_multi_scaler *InstancePtr);
 #endif
 
+/* Core Control Functions */
 void XV_multi_scaler_Start(XV_multi_scaler *InstancePtr);
 u32 XV_multi_scaler_IsDone(XV_multi_scaler *InstancePtr);
 u32 XV_multi_scaler_IsIdle(XV_multi_scaler *InstancePtr);
@@ -162,9 +226,12 @@ u32 XV_multi_scaler_IsReady(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_EnableAutoRestart(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_DisableAutoRestart(XV_multi_scaler *InstancePtr);
 
+/* Number of Outputs Register Access */
 void XV_multi_scaler_Set_HwReg_num_outs(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_num_outs(XV_multi_scaler *InstancePtr);
+
+/* Channel 0 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_0(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_0(XV_multi_scaler *InstancePtr);
@@ -207,6 +274,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_0_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_0_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 1 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_1(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_1(XV_multi_scaler *InstancePtr);
@@ -249,6 +318,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_1_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_1_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_1_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 2 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_2(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_2(XV_multi_scaler *InstancePtr);
@@ -291,6 +362,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_2_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_2_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_2_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 3 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_3(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_3(XV_multi_scaler *InstancePtr);
@@ -333,6 +406,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_3_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_3_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_3_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 4 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_4(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_4(XV_multi_scaler *InstancePtr);
@@ -375,6 +450,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_4_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_4_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_4_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 5 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_5(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_5(XV_multi_scaler *InstancePtr);
@@ -417,6 +494,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_5_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_5_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_5_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 6 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_6(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_6(XV_multi_scaler *InstancePtr);
@@ -459,6 +538,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_6_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_6_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_6_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 7 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_7(XV_multi_scaler *InstancePtr,
 	u32 Data);
 u32 XV_multi_scaler_Get_HwReg_WidthIn_7(XV_multi_scaler *InstancePtr);
@@ -501,6 +582,8 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_7_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_7_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_7_V(XV_multi_scaler *InstancePtr);
+
+/* Channel 0 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_0_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_0_HighAddress(XV_multi_scaler
@@ -519,6 +602,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_0_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_0_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 0 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_0_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_0_HighAddress(XV_multi_scaler
@@ -537,6 +622,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_0_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_0_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 1 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_1_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_1_HighAddress(XV_multi_scaler
@@ -555,6 +642,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_1_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_1_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 1 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_1_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_1_HighAddress(XV_multi_scaler
@@ -573,6 +662,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_1_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_1_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 2 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_2_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_2_HighAddress(XV_multi_scaler
@@ -591,6 +682,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_2_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_2_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 2 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_2_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_2_HighAddress(XV_multi_scaler
@@ -609,6 +702,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_2_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_2_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 3 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_3_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_3_HighAddress(XV_multi_scaler
@@ -627,6 +722,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_3_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_3_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 3 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_3_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_3_HighAddress(XV_multi_scaler
@@ -645,6 +742,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_3_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_3_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 4 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_4_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_4_HighAddress(XV_multi_scaler
@@ -663,6 +762,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_4_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_4_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 4 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_4_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_4_HighAddress(XV_multi_scaler
@@ -681,6 +782,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_4_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_4_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 5 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_5_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_5_HighAddress(XV_multi_scaler
@@ -699,6 +802,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_5_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_5_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 5 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_5_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_5_HighAddress(XV_multi_scaler
@@ -717,6 +822,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_5_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_5_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 6 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_6_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_6_HighAddress(XV_multi_scaler
@@ -735,6 +842,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_6_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_6_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 6 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_6_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_6_HighAddress(XV_multi_scaler
@@ -753,6 +862,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_6_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_6_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 7 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_7_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_7_HighAddress(XV_multi_scaler
@@ -771,6 +882,8 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_7_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_7_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
+
+/* Channel 7 Horizontal Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_7_BaseAddress(XV_multi_scaler
 	*InstancePtr);
 u32 XV_multi_scaler_Get_HwReg_mm_hfltCoeff_7_HighAddress(XV_multi_scaler
@@ -790,6 +903,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_7_Bytes(XV_multi_scaler
 u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_7_Bytes(XV_multi_scaler
 	*InstancePtr, int offset, char *data, int length);
 
+/* Interrupt Control Functions */
 void XV_multi_scaler_InterruptGlobalEnable(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_InterruptGlobalDisable(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_InterruptEnable(XV_multi_scaler *InstancePtr,

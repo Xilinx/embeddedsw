@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xmulti_scaler_example.c
+* @file xv_multi_scaler_example.c
+* @addtogroup v_multi_scaler Overview
 *
 * This is main file for the MultiScaler example design.
 *
@@ -29,6 +30,7 @@
 *
 ******************************************************************************/
 
+/***************************** Include Files *********************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,17 +43,33 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-/************************** Local Constants *********************************/
+/************************** Constant Definitions *****************************/
+/** MultiScaler software version */
 #define XMULTISCALER_SW_VER "v1.00"
+
+/** GPIO PS register offsets */
+/** GPIO PS register offset for masked data write of bank 3 */
 #define XGPIOPS_MASK_DATA_3_LSW_OFFSET	0x00000018
-#define XGPIOPS_DIRM_3_OFFSET	0x000002C4
-#define XGPIOPS_OEN_3_OFFSET	0x000002C8
-#define XGPIOPS_DATA_3_OFFSET	0x0000004C
+/** GPIO PS register offset for direction mode of bank 3 */
+#define XGPIOPS_DIRM_3_OFFSET		0x000002C4
+/** GPIO PS register offset for output enable of bank 3 */
+#define XGPIOPS_OEN_3_OFFSET		0x000002C8
+/** GPIO PS register offset for data of bank 3 */
+#define XGPIOPS_DATA_3_OFFSET		0x0000004C
+
+/** Number of test use cases */
 #define USECASE_COUNT 1
+
+/** Number of scaler outputs */
 #define XNUM_OUTPUTS 2
+
+/** Source buffer start address */
 #define SRC_BUF_START_ADDR 0x10000000
+
+/** Destination buffer start address */
 #define DST_BUF_START_ADDR 0x30000000
 
+/** Define GIC Device ID based on platform */
 #if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
 #define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
 #elif defined XPAR_SCUGIC_0_DEVICE_ID
@@ -60,20 +78,42 @@
 #warning No GIC Device ID found
 #endif
 
+/** GPIO base address */
 #if defined XPAR_GPIO_0_BASEADDR
 #define GPIO_BASE XPAR_GPIO_0_BASEADDR
 #endif
 
+/** SDT GPIO base address mapping */
 #ifdef SDT
 #define XPAR_PSU_GPIO_0_BASEADDR XPAR_GPIO_BASEADDR
 #endif
 
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+#ifndef SDT
+static int SetupInterruptSystem(void);
+#endif
+void XV_Reset_MultiScaler(void);
+void *XVMultiScalerCallback(void *data);
+static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width);
+
+/************************** Variable Definitions *****************************/
+/** Global interrupt controller instance */
 XScuGic Intc;
+
+/** MultiScaler instance */
 XV_multi_scaler MultiScalerInst;
+
+/** Pointer to current test case */
 XV_multi_scaler_Video_Config *thisCase;
+
+/** Interrupt flag for synchronization */
 u32 interrupt_flag;
 
-/* list of use cases */
+/** List of test use cases with video configuration parameters */
 XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 	{
 		{
@@ -95,22 +135,28 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 	}
 };
 
+/*****************************************************************************/
+/*                       Function Implementations                            */
+/*****************************************************************************/
+
 #ifndef SDT
 /*****************************************************************************/
 /**
+ * @brief Setup the interrupt system for the MultiScaler core
  *
- * This function setups the interrupt system so interrupts can occur for the
- * multiscaler core.
+ * This function initializes the interrupt controller driver and registers
+ * the interrupt handler for the MultiScaler core. It configures the GIC
+ * (Generic Interrupt Controller) and sets up exception handling.
  *
  * @return
  *	- XST_SUCCESS if interrupt setup was successful.
  *	- A specific error code defined in "xstatus.h" if an error
  *	occurs.
  *
- * @note	This function assumes a Microblaze or ARM system and no
- *	operating system is used.
+ * @note   This function assumes a Microblaze or ARM system and no operating
+ *         system is used.
  *
- ******************************************************************************/
+ *******************************************************************************/
 static int SetupInterruptSystem(void)
 {
 	int Status;
@@ -149,15 +195,18 @@ static int SetupInterruptSystem(void)
 
 /*****************************************************************************/
 /**
+ * @brief Reset the MultiScaler core
  *
- * This function drives the reset pin of core high to start multiscaler core.
+ * This function drives the reset pin of the MultiScaler core by toggling
+ * the appropriate GPIO register. It performs a reset sequence to initialize
+ * the core to a known state.
  *
- * @return
+ * @return None
  *
- * @note	This function assumes a Microblaze or ARM system and no
- *	operating system is used.
+ * @note   On systems with XPAR_GPIO_0_BASEADDR, uses AXI GPIO. Otherwise,
+ *         uses PS GPIO (XGPIOPS) registers.
  *
- ******************************************************************************/
+ *******************************************************************************/
 void XV_Reset_MultiScaler(void)
 {
 #if defined XPAR_GPIO_0_BASEADDR
@@ -186,22 +235,25 @@ void XV_Reset_MultiScaler(void)
 
 /*****************************************************************************/
 /**
+ * @brief Callback function for MultiScaler interrupt handling
  *
- * This function is called from the interrupt handler of multiscaler core.
- * After the first interrupt is received the interrupt_flag is set here and
- * it stops the multi scaler core.
+ * This function is called from the interrupt handler of the MultiScaler core
+ * when processing completes. It clears the interrupt flag, disables interrupts,
+ * and stops the MultiScaler core.
  *
- * @return
+ * @param  data Pointer to callback data (MultiScaler instance)
  *
- * @note	This function assumes a Microblaze or ARM system and no
- *	operating system is used.
+ * @return None
  *
- ******************************************************************************/
+ * @note   This callback is registered during initialization and is invoked
+ *         when the MultiScaler completes a frame processing operation.
+ *
+ *******************************************************************************/
 void *XVMultiScalerCallback(void *data)
 {
 	xil_printf("\nMultiScaler interrupt received. \n\r");
 
-	/* clear interrupt flag */
+	/* Clear interrupt flag to signal completion */
 	interrupt_flag = 0;
 
 	XV_multi_scaler_InterruptGlobalDisable(&MultiScalerInst);
@@ -211,11 +263,21 @@ void *XVMultiScalerCallback(void *data)
 
 /*****************************************************************************/
 /**
- * This function calculates the stride
+ * @brief Calculate the stride for a given color format and width
  *
- * @returns stride in bytes
+ * This function calculates the memory stride (line pitch) in bytes based on
+ * the color format, AXI memory-mapped data width, and image width. It accounts
+ * for different bits-per-pixel ratios and ensures proper alignment.
  *
- *****************************************************************************/
+ * @param  Cfmt Color format identifier (e.g., XV_MULTI_SCALER_RGB8)
+ * @param  AXIMMDataWidth AXI memory-mapped data width in bits
+ * @param  width Image width in pixels
+ *
+ * @return Stride value in bytes
+ *
+ * @note   The calculated stride is aligned to the AXI data width boundary.
+ *
+ *******************************************************************************/
 static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width)
 {
 	u32 stride;
@@ -258,6 +320,29 @@ static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width)
 	return stride;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Main function for MultiScaler example
+ *
+ * This function demonstrates the MultiScaler IP functionality by executing
+ * predefined test cases. It initializes the system, configures the MultiScaler,
+ * processes test frames, and verifies the output. The function performs the
+ * following steps:
+ * 1. Disable caches and exceptions
+ * 2. Initialize the MultiScaler IP
+ * 3. Setup interrupt system
+ * 4. Execute test cases
+ * 5. Verify output data integrity
+ *
+ *
+ * @return
+ *  - XST_SUCCESS if all test cases pass successfully
+ *  - XST_FAILURE if initialization or any test case fails
+ *
+ * @note   This example assumes the MultiScaler IP is present in the hardware
+ *         design and memory buffers are accessible at defined addresses.
+ *
+ *******************************************************************************/
 int main(void)
 {
 	XV_multi_scaler *MultiScalerPtr;

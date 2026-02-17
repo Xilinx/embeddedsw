@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.	All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,11 +22,11 @@
 #include "xv_multi_scaler_l2.h"
 #include "xvidc.h"
 
-/************************** Constant Definitions *****************************/
+/************************** Function Prototypes ******************************/
+static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
+				   XV_multi_scaler_Video_Config *MS_cfg);
 
-/**************************** Type Definitions *******************************/
-
-/**************************** Local Global *******************************/
+/************************** Variable Definitions *****************************/
 static const u32 (*XV_MS_Get_WidthIn[XV_MAX_OUTS])(XV_multi_scaler
 	*InstancePtr) = { XV_multi_scaler_Get_HwReg_WidthIn_0,
 	XV_multi_scaler_Get_HwReg_WidthIn_1,
@@ -262,19 +262,21 @@ static const void (*XV_MS_Set_DstImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_6_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_7_V};
 
-/************************** Function Prototypes ******************************/
-static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
-				   XV_multi_scaler_Video_Config *MS_cfg);
-
 /*****************************************************************************/
 /**
-* This function starts the multi scaler core
-*
-* @param	InstancePtr is a pointer to the core instance to be worked on.
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Start the multi scaler core operation.
+ *
+ * This function enables auto-restart mode and starts the multi scaler core.
+ * It validates that the number of outputs is configured correctly and that
+ * all output channels specified by the output bit mask are properly configured.
+ *
+ * @param  InstancePtr is a pointer to the core instance to be worked on.
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ******************************************************************************/
 void XV_MultiScalerStart(XV_multi_scaler *InstancePtr)
 {
 	u32 status = XST_SUCCESS;
@@ -293,13 +295,18 @@ void XV_MultiScalerStart(XV_multi_scaler *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function stops the multi scaler core
-*
-* @param	InstancePtr is a pointer to the core instance to be worked on.
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Stop the multi scaler core operation.
+ *
+ * This function disables auto-restart mode on the multi scaler core,
+ * effectively stopping its operation after the current frame completes.
+ *
+ * @param  InstancePtr is a pointer to the core instance to be worked on.
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ******************************************************************************/
 void XV_MultiScalerStop(XV_multi_scaler *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -309,13 +316,18 @@ void XV_MultiScalerStop(XV_multi_scaler *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function returns the number of outputs
-*
-* @param	InstancePtr is a pointer to the core instance to be worked on.
-*
-* @return number of outputs
-*
-******************************************************************************/
+ * @brief Get the number of output channels configured.
+ *
+ * This function retrieves the current number of output channels that are
+ * configured for the multi scaler core.
+ *
+ * @param  InstancePtr is a pointer to the core instance to be worked on.
+ *
+ * @return Number of configured output channels (u32).
+ *
+ * @note   None
+ *
+ ******************************************************************************/
 u32 XV_MultiScalerGetNumOutputs(XV_multi_scaler *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -325,14 +337,20 @@ u32 XV_MultiScalerGetNumOutputs(XV_multi_scaler *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function sets the number of outputs
-*
-* @param	InstancePtr is a pointer to the core instance to be worked on.
-* @param	NumOuts is the number of output channels.
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Set the number of output channels to be used.
+ *
+ * This function configures the number of output channels for the multi scaler
+ * core. The number must be between 1 and the maximum number of outputs supported
+ * by the hardware instance. The output bit mask is reset when this function is called.
+ *
+ * @param  InstancePtr is a pointer to the core instance to be worked on.
+ * @param  NumOuts is the number of output channels to configure.
+ *
+ * @return None
+ *
+ * @note   NumOuts must be greater than 0 and less than or equal to MaxOuts.
+ *
+ ******************************************************************************/
 void XV_MultiScalerSetNumOutputs(XV_multi_scaler *InstancePtr, u32 NumOuts)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -345,15 +363,23 @@ void XV_MultiScalerSetNumOutputs(XV_multi_scaler *InstancePtr, u32 NumOuts)
 
 /*****************************************************************************/
 /**
-* This function programs the computed filter coefficients and phase data into
-* core registers
-*
-* @param	MscPtr is a pointer to the core instance to be worked on.
-* @param	NumOut is the output channel number.
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Program filter coefficients for scaling operation.
+ *
+ * This function selects and programs the appropriate fixed filter coefficients
+ * into the multi scaler core registers based on the scaling ratio. The coefficients
+ * are chosen from predefined tables based on the vertical and horizontal scaling
+ * factors (HeightIn/HeightOut and WidthIn/WidthOut). Different coefficient sets
+ * are used for different scaling ranges to optimize image quality.
+ *
+ * @param  MscPtr is a pointer to the core instance to be worked on.
+ * @param  MS_cfg is a pointer to the channel configuration structure containing
+ *         scaling parameters.
+ *
+ * @return None
+ *
+ * @note   This is a static (internal) function called by XV_MultiScalerSetChannelConfig.
+ *
+ ******************************************************************************/
 static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
 		XV_multi_scaler_Video_Config *MS_cfg)
 {
@@ -495,16 +521,22 @@ static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
 
 /*****************************************************************************/
 /**
-* This function reads the channel configuration. The ChannelId of the channel
-* for which the configuration info is needed has to be filled by the application
-* in the MS_cfg structure.
-*
-* @param	InstancePtr is a pointer to the core instance to be worked on.
-* @param	MS_cfg is a pointer to the multi scaler config structure.
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Read the configuration of a specific channel.
+ *
+ * This function retrieves the current configuration settings for a specified
+ * output channel. The application must set the ChannelId field in the MS_cfg
+ * structure before calling this function. The function reads all channel
+ * parameters including dimensions, color formats, strides, and buffer addresses.
+ *
+ * @param  InstancePtr is a pointer to the core instance to be worked on.
+ * @param  MS_cfg is a pointer to the multi scaler config structure. The ChannelId
+ *         field must be pre-filled by the application.
+ *
+ * @return None
+ *
+ * @note   The ChannelId in MS_cfg must be set before calling this function.
+ *
+ ******************************************************************************/
 void XV_MultiScalerGetChannelConfig(XV_multi_scaler *InstancePtr,
 	XV_multi_scaler_Video_Config *MS_cfg)
 {
@@ -536,15 +568,25 @@ void XV_MultiScalerGetChannelConfig(XV_multi_scaler *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function configures the scaler core registers with the specified
-* configuration parameters
-*
-* @param	InstancePtr is a pointer to the core instance to be worked on.
-* @param	MS_cfg is a pointer to the multi scaler config structure.
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Configure a channel with the specified scaling parameters.
+ *
+ * This function programs all configuration parameters for a specific output
+ * channel including input/output dimensions, color formats, strides, buffer
+ * addresses, and scaling rates. It also handles optional cropping window
+ * configuration and automatically programs the appropriate filter coefficients
+ * based on the scaling ratio. Extensive validation is performed on all parameters
+ * to ensure valid configuration.
+ *
+ * @param  InstancePtr is a pointer to the core instance to be worked on.
+ * @param  MS_cfg is a pointer to the multi scaler config structure containing
+ *         all channel configuration parameters.
+ *
+ * @return None
+ *
+ * @note   All configuration parameters are validated via assertions. Buffer
+ *         addresses must not overlap to prevent data corruption.
+ *
+ ******************************************************************************/
 void XV_MultiScalerSetChannelConfig(XV_multi_scaler *InstancePtr,
 	XV_multi_scaler_Video_Config *MS_cfg)
 {

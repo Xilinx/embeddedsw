@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx, Inc. All Rights Reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+* @file xv_multi_scaler_hw.h
+* @addtogroup v_multi_scaler Overview
+*/
 
 // CTRL
 // 0x00000 : Control signals
@@ -494,298 +499,688 @@
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on
 // Handshake)
 
+#ifndef XV_MULTI_SCALER_HW_H
+#define XV_MULTI_SCALER_HW_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/************************** Constant Definitions *****************************/
+
+/** Control register address - AP control signals (start, done, idle, ready, auto_restart) */
 #define XV_MULTI_SCALER_CTRL_ADDR_AP_CTRL                   0x00000
+
+/** Global Interrupt Enable (GIE) register address */
 #define XV_MULTI_SCALER_CTRL_ADDR_GIE                       0x00004
+
+/** IP Interrupt Enable Register (IER) address */
 #define XV_MULTI_SCALER_CTRL_ADDR_IER                       0x00008
+
+/** IP Interrupt Status Register (ISR) address */
 #define XV_MULTI_SCALER_CTRL_ADDR_ISR                       0x0000c
+
+/** Number of active output channels register address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_NUM_OUTS_DATA       0x00010
+
+/** Number of bits for num_outs register (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_NUM_OUTS_DATA       8
+
+/*
+ * Channel 0 Configuration Registers
+ */
+
+/** Input image width register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_0_DATA      0x00100
+
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_0_DATA      16
+
+/** Output image width register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_0_DATA     0x00108
+
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_0_DATA     16
+
+/** Input image height register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_0_DATA     0x00110
+
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_0_DATA     16
+
+/** Output image height register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_0_DATA    0x00118
+
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_0_DATA    16
+
+/** Line rate register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_0_DATA     0x00120
+
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_0_DATA     32
+
+/** Pixel rate register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_0_DATA    0x00128
+
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_0_DATA    32
+
+/** Input pixel format register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_0_DATA   0x00130
+
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_0_DATA   8
+
+/** Output pixel format register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_0_DATA  0x00138
+
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_0_DATA  8
+
+/** Input stride register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_0_DATA     0x00150
+
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_0_DATA     16
+
+/** Output stride register address for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_0_DATA    0x00158
+
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_0_DATA    16
+
+/** Source image buffer 0 address register for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_0_V_DATA 0x00160
+
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_0_V_DATA 32
+
+/** Source image buffer 1 address register for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_0_V_DATA 0x00170
+
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_0_V_DATA 32
+
+/** Destination image buffer 0 address register for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_0_V_DATA 0x00190
+
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_0_V_DATA 32
+
+/** Destination image buffer 1 address register for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_0_V_DATA 0x00200
+
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_0_V_DATA 32
+
+/*
+ * Channel 1 Configuration Registers (Base Address: 0x00300)
+ */
+/** Input image width register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_1_DATA      0x00300
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_1_DATA      16
+/** Output image width register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_1_DATA     0x00308
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_1_DATA     16
+/** Input image height register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_1_DATA     0x00310
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_1_DATA     16
+/** Output image height register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_1_DATA    0x00318
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_1_DATA    16
+/** Line rate configuration register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_1_DATA     0x00320
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_1_DATA     32
+/** Pixel rate configuration register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_1_DATA    0x00328
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_1_DATA    32
+/** Input pixel format register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_1_DATA   0x00330
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_1_DATA   8
+/** Output pixel format register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_1_DATA  0x00338
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_1_DATA  8
+/** Input image stride register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_1_DATA     0x00350
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_1_DATA     16
+/** Output image stride register address for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_1_DATA    0x00358
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_1_DATA    16
+/** Source image buffer 0 address register for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_1_V_DATA 0x00360
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_1_V_DATA 32
+/** Source image buffer 1 address register for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_1_V_DATA 0x00370
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_1_V_DATA 32
+/** Destination image buffer 0 address register for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_1_V_DATA 0x00390
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_1_V_DATA 32
+/** Destination image buffer 1 address register for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_1_V_DATA 0x00400
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_1_V_DATA 32
+
+/*
+ * Channel 2 Configuration Registers (Base Address: 0x00500)
+ */
+/** Input image width register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_2_DATA      0x00500
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_2_DATA      16
+/** Output image width register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_2_DATA     0x00508
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_2_DATA     16
+/** Input image height register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_2_DATA     0x00510
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_2_DATA     16
+/** Output image height register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_2_DATA    0x00518
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_2_DATA    16
+/** Line rate configuration register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_2_DATA     0x00520
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_2_DATA     32
+/** Pixel rate configuration register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_2_DATA    0x00528
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_2_DATA    32
+/** Input pixel format register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_2_DATA   0x00530
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_2_DATA   8
+/** Output pixel format register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_2_DATA  0x00538
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_2_DATA  8
+/** Input image stride register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_2_DATA     0x00550
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_2_DATA     16
+/** Output image stride register address for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_2_DATA    0x00558
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_2_DATA    16
+/** Source image buffer 0 address register for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_2_V_DATA 0x00560
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_2_V_DATA 32
+/** Source image buffer 1 address register for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_2_V_DATA 0x00570
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_2_V_DATA 32
+/** Destination image buffer 0 address register for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_2_V_DATA 0x00590
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_2_V_DATA 32
+/** Destination image buffer 1 address register for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_2_V_DATA 0x00600
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_2_V_DATA 32
+
+/*
+ * Channel 3 Configuration Registers (Base Address: 0x00700)
+ */
+/** Input image width register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_3_DATA      0x00700
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_3_DATA      16
+/** Output image width register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_3_DATA     0x00708
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_3_DATA     16
+/** Input image height register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_3_DATA     0x00710
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_3_DATA     16
+/** Output image height register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_3_DATA    0x00718
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_3_DATA    16
+/** Line rate configuration register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_3_DATA     0x00720
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_3_DATA     32
+/** Pixel rate configuration register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_3_DATA    0x00728
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_3_DATA    32
+/** Input pixel format register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_3_DATA   0x00730
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_3_DATA   8
+/** Output pixel format register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_3_DATA  0x00738
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_3_DATA  8
+/** Input image stride register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_3_DATA     0x00750
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_3_DATA     16
+/** Output image stride register address for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_3_DATA    0x00758
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_3_DATA    16
+/** Source image buffer 0 address register for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_3_V_DATA 0x00760
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_3_V_DATA 32
+/** Source image buffer 1 address register for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_3_V_DATA 0x00770
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_3_V_DATA 32
+/** Destination image buffer 0 address register for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_3_V_DATA 0x00790
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_3_V_DATA 32
+/** Destination image buffer 1 address register for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_3_V_DATA 0x00800
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_3_V_DATA 32
+
+/*
+ * Channel 4 Configuration Registers (Base Address: 0x00900)
+ */
+/** Input image width register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_4_DATA      0x00900
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_4_DATA      16
+/** Output image width register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_4_DATA     0x00908
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_4_DATA     16
+/** Input image height register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_4_DATA     0x00910
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_4_DATA     16
+/** Output image height register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_4_DATA    0x00918
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_4_DATA    16
+/** Line rate configuration register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_4_DATA     0x00920
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_4_DATA     32
+/** Pixel rate configuration register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_4_DATA    0x00928
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_4_DATA    32
+/** Input pixel format register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_4_DATA   0x00930
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_4_DATA   8
+/** Output pixel format register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_4_DATA  0x00938
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_4_DATA  8
+/** Input image stride register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_4_DATA     0x00950
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_4_DATA     16
+/** Output image stride register address for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_4_DATA    0x00958
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_4_DATA    16
+/** Source image buffer 0 address register for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_4_V_DATA 0x00960
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_4_V_DATA 32
+/** Source image buffer 1 address register for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_4_V_DATA 0x00970
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_4_V_DATA 32
+/** Destination image buffer 0 address register for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_4_V_DATA 0x00990
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_4_V_DATA 32
+/** Destination image buffer 1 address register for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_4_V_DATA 0x01000
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_4_V_DATA 32
+
+/*
+ * Channel 5 Configuration Registers (Base Address: 0x01100)
+ */
+/** Input image width register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_5_DATA      0x01100
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_5_DATA      16
+/** Output image width register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_5_DATA     0x01108
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_5_DATA     16
+/** Input image height register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_5_DATA     0x01110
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_5_DATA     16
+/** Output image height register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_5_DATA    0x01118
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_5_DATA    16
+/** Line rate configuration register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_5_DATA     0x01120
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_5_DATA     32
+/** Pixel rate configuration register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_5_DATA    0x01128
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_5_DATA    32
+/** Input pixel format register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_5_DATA   0x01130
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_5_DATA   8
+/** Output pixel format register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_5_DATA  0x01138
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_5_DATA  8
+/** Input image stride register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_5_DATA     0x01150
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_5_DATA     16
+/** Output image stride register address for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_5_DATA    0x01158
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_5_DATA    16
+/** Source image buffer 0 address register for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_5_V_DATA 0x01160
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_5_V_DATA 32
+/** Source image buffer 1 address register for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_5_V_DATA 0x01170
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_5_V_DATA 32
+/** Destination image buffer 0 address register for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_5_V_DATA 0x01190
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_5_V_DATA 32
+/** Destination image buffer 1 address register for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_5_V_DATA 0x01200
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_5_V_DATA 32
+
+/*
+ * Channel 6 Configuration Registers (Base Address: 0x01300)
+ */
+/** Input image width register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_6_DATA      0x01300
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_6_DATA      16
+/** Output image width register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_6_DATA     0x01308
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_6_DATA     16
+/** Input image height register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_6_DATA     0x01310
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_6_DATA     16
+/** Output image height register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_6_DATA    0x01318
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_6_DATA    16
+/** Line rate configuration register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_6_DATA     0x01320
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_6_DATA     32
+/** Pixel rate configuration register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_6_DATA    0x01328
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_6_DATA    32
+/** Input pixel format register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_6_DATA   0x01330
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_6_DATA   8
+/** Output pixel format register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_6_DATA  0x01338
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_6_DATA  8
+/** Input image stride register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_6_DATA     0x01350
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_6_DATA     16
+/** Output image stride register address for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_6_DATA    0x01358
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_6_DATA    16
+/** Source image buffer 0 address register for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_6_V_DATA 0x01360
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_6_V_DATA 32
+/** Source image buffer 1 address register for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_6_V_DATA 0x01370
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_6_V_DATA 32
+/** Destination image buffer 0 address register for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_6_V_DATA 0x01390
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_6_V_DATA 32
+/** Destination image buffer 1 address register for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_6_V_DATA 0x01400
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_6_V_DATA 32
+
+/*
+ * Channel 7 Configuration Registers (Base Address: 0x01500)
+ */
+/** Input image width register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHIN_7_DATA      0x01500
+/** Input width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHIN_7_DATA      16
+/** Output image width register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_WIDTHOUT_7_DATA     0x01508
+/** Output width bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_WIDTHOUT_7_DATA     16
+/** Input image height register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTIN_7_DATA     0x01510
+/** Input height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTIN_7_DATA     16
+/** Output image height register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_HEIGHTOUT_7_DATA    0x01518
+/** Output height bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_HEIGHTOUT_7_DATA    16
+/** Line rate configuration register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_LINERATE_7_DATA     0x01520
+/** Line rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_LINERATE_7_DATA     32
+/** Pixel rate configuration register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_PIXELRATE_7_DATA    0x01528
+/** Pixel rate bit width (32-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_PIXELRATE_7_DATA    32
+/** Input pixel format register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INPIXELFMT_7_DATA   0x01530
+/** Input pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INPIXELFMT_7_DATA   8
+/** Output pixel format register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTPIXELFMT_7_DATA  0x01538
+/** Output pixel format bit width (8-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTPIXELFMT_7_DATA  8
+/** Input image stride register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_INSTRIDE_7_DATA     0x01550
+/** Input stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_INSTRIDE_7_DATA     16
+/** Output image stride register address for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_OUTSTRIDE_7_DATA    0x01558
+/** Output stride bit width (16-bit value) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_OUTSTRIDE_7_DATA    16
+/** Source image buffer 0 address register for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_7_V_DATA 0x01560
+/** Source buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF0_7_V_DATA 32
+/** Source image buffer 1 address register for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_7_V_DATA 0x01570
+/** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_7_V_DATA 32
+/** Destination image buffer 0 address register for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_7_V_DATA 0x01590
+/** Destination buffer 0 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF0_7_V_DATA 32
+/** Destination image buffer 1 address register for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_7_V_DATA 0x01600
+/** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_7_V_DATA 32
+
+/*
+ * Filter Coefficient Memory Regions
+ * Each channel has vertical and horizontal filter coefficient memories
+ * for polyphase scaling operations. Each memory region stores up to 384 coefficients
+ * organized as 16-bit values.
+ */
+
+/** Channel 0: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE 0x02000
+/** Channel 0: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_HIGH 0x023ff
+/** Channel 0: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_0     16
+/** Channel 0: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_0     384
+/** Channel 0: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE 0x02800
+/** Channel 0: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_HIGH 0x02bff
+/** Channel 0: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_0     16
+/** Channel 0: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_0     384
+
+/** Channel 1: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_1_BASE 0x04000
+/** Channel 1: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_1_HIGH 0x043ff
+/** Channel 1: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_1     16
+/** Channel 1: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_1     384
+/** Channel 1: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_1_BASE 0x04800
+/** Channel 1: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_1_HIGH 0x04bff
+/** Channel 1: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_1     16
+/** Channel 1: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_1     384
+
+/** Channel 2: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_2_BASE 0x06000
+/** Channel 2: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_2_HIGH 0x063ff
+/** Channel 2: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_2     16
+/** Channel 2: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_2     384
+/** Channel 2: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_2_BASE 0x06800
+/** Channel 2: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_2_HIGH 0x06bff
+/** Channel 2: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_2     16
+/** Channel 2: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_2     384
+
+/** Channel 3: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_3_BASE 0x08000
+/** Channel 3: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_3_HIGH 0x083ff
+/** Channel 3: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_3     16
+/** Channel 3: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_3     384
+/** Channel 3: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_3_BASE 0x08800
+/** Channel 3: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_3_HIGH 0x08bff
+/** Channel 3: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_3     16
+/** Channel 3: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_3     384
+
+/** Channel 4: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_4_BASE 0x0a000
+/** Channel 4: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_4_HIGH 0x0a3ff
+/** Channel 4: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_4     16
+/** Channel 4: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_4     384
+/** Channel 4: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_4_BASE 0x0a800
+/** Channel 4: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_4_HIGH 0x0abff
+/** Channel 4: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_4     16
+/** Channel 4: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_4     384
+
+/** Channel 5: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_5_BASE 0x0c000
+/** Channel 5: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_5_HIGH 0x0c3ff
+/** Channel 5: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_5     16
+/** Channel 5: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_5     384
+/** Channel 5: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_5_BASE 0x0c800
+/** Channel 5: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_5_HIGH 0x0cbff
+/** Channel 5: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_5     16
+/** Channel 5: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_5     384
+
+/** Channel 6: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_6_BASE 0x0e000
+/** Channel 6: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_6_HIGH 0x0e3ff
+/** Channel 6: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_6     16
+/** Channel 6: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_6     384
+/** Channel 6: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_6_BASE 0x0e800
+/** Channel 6: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_6_HIGH 0x0ebff
+/** Channel 6: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_6     16
+/** Channel 6: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_6     384
+
+/** Channel 7: Vertical filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_7_BASE 0x10000
+/** Channel 7: Vertical filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_7_HIGH 0x103ff
+/** Channel 7: Vertical filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_VFLTCOEFF_7     16
+/** Channel 7: Vertical filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_VFLTCOEFF_7     384
+/** Channel 7: Horizontal filter coefficient memory base address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_7_BASE 0x10800
+/** Channel 7: Horizontal filter coefficient memory high address */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_7_HIGH 0x10bff
+/** Channel 7: Horizontal filter coefficient data width (16-bit) */
 #define XV_MULTI_SCALER_CTRL_WIDTH_HWREG_MM_HFLTCOEFF_7     16
+/** Channel 7: Horizontal filter coefficient memory depth (384 entries) */
 #define XV_MULTI_SCALER_CTRL_DEPTH_HWREG_MM_HFLTCOEFF_7     384
 
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XV_MULTI_SCALER_HW_H */
