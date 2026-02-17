@@ -160,6 +160,13 @@ def create_libmetal_app(obj, esw_app_dir):
         utils.replace_line(os.path.join(obj.app_src_dir, "CMakeLists.txt"),
                            f'project (libmetal_amp_demod C)', f'project ({obj.app_name} C)')
 
+        new_str = "include(${CMAKE_SOURCE_DIR}/UserConfig.cmake)\n"
+        new_str += "set (_elf_name ${CMAKE_PROJECT_NAME})\n"
+        utils.replace_line(os.path.join(obj.app_src_dir, "openamp-system-reference",
+                           "examples", "libmetal", "machine", "remote",
+                           "amd_rpu", "CMakeLists.txt"), "set (_elf_name ${DEMO})",
+                           new_str)
+
 def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     """
     Run Lopper upon OpenAMP YAML information if present.
@@ -181,21 +188,24 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
             f"-i {overlay_dst} -i {imux} "
             f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} ")
     cmd2 = f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} -- openamp "
+    overlay_prefix = ""
 
     if obj.template == 'libmetal_echo_demo':
         fname = 'rpu.cmake'
         header_location = os.path.join(header_location, "libmetal", "machine", "remote", "amd_rpu")
         cmd2 += " --libmetal_output_file --compatible-string=libmetal,ipc-v1 "
         cmd2 += f" --processor={obj.proc} --openamp_output_filename={fname} --os=baremetal_dt "
+        overlay_prefix = "libmetal"
     else:
         fname = 'amd_platform_info.h'
         header_location = os.path.join(header_location, 'legacy_apps', 'machine', 'xlnx', 'zynqmp_r5')
         cmd2 += f"-- openamp --openamp_header_only --openamp_output_filename={fname} --openamp_remote={obj.proc} "
+        overlay_prefix = "openamp"
 
     if os.path.exists(overlay_dst):
         logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
     else:
-        utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', 'openamp-metadata', f"openamp-overlay-{soc}.yaml"),
+        utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', f"{overlay_prefix}-metadata", f"{overlay_prefix}-overlay-{soc}.yaml"),
                         overlay_dst)
 
     utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create an openamp DT for remote")
