@@ -1931,11 +1931,19 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	u8 *FormattedIv;
 
 	/**
+	 * AES-CMAC (NIST SP 800-38B): Initial chaining value C0 = 0^128.
+	 * AES-CMAC does not use a user-provided IV.
+	 * Program a 128-bit zero block into IV registers before triggering IV load.
+	 */
+	if (InstancePtr->EngineMode == XASU_AES_CMAC_MODE) {
+		IvLength = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
+	}
+	/**
 	 * For AES-GCM mode, if the IV length is not 96 bits, calculate GHASH and
 	 * generate a new IV.
 	 * In all other cases, copy IV from 64-bit address space to local array using ASU DMA.
 	 */
-	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
+	else if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
 			(IvLength != XASU_AES_IV_SIZE_96BIT_IN_BYTES)) {
 		Status = XAes_GHashCal(InstancePtr, IvAddr, (u32)Iv, IvLength);
 		if (Status != XASUFW_SUCCESS) {
