@@ -815,7 +815,7 @@ s32 XRsa_KeyPairGeneration(XAsufw_Dma *DmaPtr, u32 Len)
 
 /*************************************************************************************************/
 /**
- * @brief	This function maps the status returned from IP cores to the respective error
+ * @brief	This function maps the status returned from third-party library to the respective error
  * 		from xasufw_status.h.
  *
  * @param	Status	Status returned from third-party library.

@@ -56,36 +56,37 @@
 #define XECDH_SHARED_SEC_OBJ_ID_SIZE		(0X4U)
 						/**< Size of shared secret object ID in bytes */
 
-/* Return value in case of success from IP Cores */
-#define XRSA_ECC_SUCCESS			ELLIPTIC_SUCCESS /**< Success from IP Cores */
-/* Validate Public Key error codes from IP Cores */
+/* Return value in case of success from third-party library */
+#define XRSA_ECC_SUCCESS			ELLIPTIC_SUCCESS /**< Success from third-party library */
+/* Validate Public Key error codes from third-party library */
 #define XRSA_ECC_KEY_ZERO			ELLIPTIC_KEY_ZERO
-							/**< Error from IP Cores if key is zero */
+							/**< Error from third-party library if key is zero */
 #define XRSA_ECC_KEY_WRONG_ORDER		ELLIPTIC_KEY_WRONG_ORDER
-							/**< Error from IP Cores if key is in wrong order */
+							/**< Error from third-party library if key is in wrong order */
 #define XRSA_ECC_KEY_NOT_ON_CRV			ELLIPTIC_KEY_NOT_ON_CRV
-							/**< Error from IP Cores if key point is not on curve */
-/* Verify Sign error codes from IP Cores */
-#define XRSA_ECC_BAD_SIGN			ELLIPTIC_BAD_SIGN /**< Error from IP Cores if bad sign */
+							/**< Error from third-party library if key point is not on curve */
+/* Verify Sign error codes from third-party library */
+#define XRSA_ECC_BAD_SIGN			ELLIPTIC_BAD_SIGN
+							/**< Error from third-party library if bad sign */
 #define XRSA_ECC_VER_SIGN_INCORRECT_HASH_LEN	ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN
-							/**< Error from IP Cores if hash length is incorrect */
-#define XRSA_ECC_VER_SIGN_R_ZERO		ELLIPTIC_VER_SIGN_R_ZERO /**< Error from IP Cores
-									  * if sign R is zero */
-#define XRSA_ECC_VER_SIGN_S_ZERO		ELLIPTIC_VER_SIGN_S_ZERO /**< Error from IP Cores
-									  * if sign S is zero */
+							/**< Error from third-party library if hash length is incorrect */
+#define XRSA_ECC_VER_SIGN_R_ZERO		ELLIPTIC_VER_SIGN_R_ZERO /**< Error from third-party
+									  * library if sign R is zero */
+#define XRSA_ECC_VER_SIGN_S_ZERO		ELLIPTIC_VER_SIGN_S_ZERO /**< Error from third-party
+									  * library if sign S is zero */
 #define XRSA_ECC_VER_SIGN_R_ORDER_ERROR		ELLIPTIC_VER_SIGN_R_ORDER_ERROR
-							/**< Error from IP Cores if sign R is in wrong order */
+							/**< Error from third-party library if sign R is in wrong order */
 #define XRSA_ECC_VER_SIGN_S_ORDER_ERROR		ELLIPTIC_VER_SIGN_S_ORDER_ERROR
-							/**< Error from IP Cores if sign S is in wrong order */
-/* Generate sign error codes from IP Cores */
+							/**< Error from third-party library if sign S is in wrong order */
+/* Generate sign error codes from third-party library */
 #define XRSA_ECC_GEN_SIGN_BAD_R			ELLIPTIC_GEN_SIGN_BAD_R
-							/**< Error from IP Cores
+							/**< Error from third-party library
 							 * if generated sign has bad R. */
 #define XRSA_ECC_GEN_SIGN_BAD_S			ELLIPTIC_GEN_SIGN_BAD_S
-							/**< Error from IP Cores if generated sign has bad S */
+							/**< Error from third-party library if generated sign has bad S */
 #define XRSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN	ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN
-							/**< Error from IP Cores if hash length is incorrect */
-#define XRSA_ECC_GEN_POINT_INVALID		(0x01)	/**< Error from IP Cores
+							/**< Error from third-party library if hash length is incorrect */
+#define XRSA_ECC_GEN_POINT_INVALID		(0x01)	/**< Error from third-party library
 							 * if generated point is invalid */
 
 /************************************** Type Definitions *****************************************/
