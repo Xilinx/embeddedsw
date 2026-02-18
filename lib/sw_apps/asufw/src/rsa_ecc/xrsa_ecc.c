@@ -95,25 +95,6 @@ typedef struct {
 	u16 CurveClass; /**< Class of the curve */
 } XRsa_EccCrvIndex;
 
-/**
- * This is a configuration table to configure the curve type and curve class for all curves
- * based on index.
- */
-static XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
-	{ (u16)ECDSA_NIST_P256, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_NIST_P384, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_NIST_P192, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_NIST_P224, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_NIST_P521, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_BRAINPOOL_P256, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_BRAINPOOL_P320, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_BRAINPOOL_P384, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_BRAINPOOL_P512, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_ED25519, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_ED448, (u16)ECDSA_PRIME },
-	{ (u16)ECDSA_ED25519, (u16)ECDSA_ED_PH },
-	{ (u16)ECDSA_ED448, (u16)ECDSA_ED_PH }
-};
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -1011,6 +992,25 @@ END:
  *************************************************************************************************/
 EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType)
 {
+	/**
+	 * This is a configuration table to configure the curve type and curve class for all curves
+	 * based on index.
+	 */
+	static const XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
+		{ (u16)ECDSA_NIST_P256, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_NIST_P384, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_NIST_P192, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_NIST_P224, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_NIST_P521, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_BRAINPOOL_P256, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_BRAINPOOL_P320, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_BRAINPOOL_P384, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_BRAINPOOL_P512, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_ED25519, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_ED448, (u16)ECDSA_PRIME },
+		{ (u16)ECDSA_ED25519, (u16)ECDSA_ED_PH },
+		{ (u16)ECDSA_ED448, (u16)ECDSA_ED_PH }
+	};
 	u32 Index;
 	EcdsaCrvInfo *Crv = NULL;
 	u32 TotalCurves = XRsa_EccCrvsGetCount();
