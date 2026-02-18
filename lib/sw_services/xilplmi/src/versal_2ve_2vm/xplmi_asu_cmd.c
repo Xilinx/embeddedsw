@@ -148,7 +148,7 @@ static int XPlmi_CmdAsuFeatures(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_CmdAsuKeyTransfer(XPlmi_Cmd * Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Addr = 0U;
 	u8 PufRegenStatusFlag = XST_FAILURE;
 
@@ -160,10 +160,7 @@ static int XPlmi_CmdAsuKeyTransfer(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	Status = AsuGeneratePufKEK(&PufRegenStatusFlag);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, AsuGeneratePufKEK, &PufRegenStatusFlag);
 
 	Status = AsuInitiateKeyXfer();
 	if (Status != XST_SUCCESS) {
