@@ -41,6 +41,7 @@
  * Ver   Who   Date     Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0   nik  01/20/26 Initial release
+ *       rpu  02/17/26 Added spacing around __attribute__
  *
  * </pre>
  * @note
@@ -142,18 +143,18 @@ static XPuf_Data PufData;
 static XPmcDma PmcDmaInstance;
 static XSecure_Aes AesInstance __attribute__ ((aligned (64)))
 	__attribute__ ((section (".data.AesInstance")));
-static u32 PUF_TrimHD[XPUF_FORMATTED_HD_IN_WORDS] __attribute__((aligned(32)))
+static u32 PUF_TrimHD[XPUF_FORMATTED_HD_IN_WORDS] __attribute__ ((aligned(32)))
 	__attribute__ ((section (".data.PUF_TrimHD")));
-static u8 Iv[XPUF_IV_LEN_IN_BYTES]__attribute__ ((aligned (64)))
+static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((aligned (64)))
 	__attribute__ ((section (".data.Iv")));
 #if defined (__GNUC__)
-static u8 Data[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
+static u8 Data[XPUF_DATA_LEN_IN_BYTES] __attribute__ ((aligned (64)))
 	__attribute__ ((section (".data.Data")));
-static u8 DecData[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
+static u8 DecData[XPUF_DATA_LEN_IN_BYTES] __attribute__ ((aligned (64)))
 	__attribute__ ((section (".data.DecData")));
-static u8 EncData[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
+static u8 EncData[XPUF_DATA_LEN_IN_BYTES] __attribute__ ((aligned (64)))
 	__attribute__ ((section (".data.EncData")));
-static u8 GcmTag[XPUF_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
+static u8 GcmTag[XPUF_GCM_TAG_SIZE] __attribute__ ((aligned (64)))
 	__attribute__ ((section (".data.GcmTag")));
 #elif defined (__ICCARM__)
 #pragma data_alignment = 64
