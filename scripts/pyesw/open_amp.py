@@ -205,6 +205,10 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     if os.path.exists(overlay_dst):
         logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
     else:
+        r52_socs = { "versalnet": "versal-net", "versal_2ve_2vm": "versal-2ve-2vm" }
+        if soc in r52_socs.keys():
+            soc = r52_socs[soc]
+
         utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', f"{overlay_prefix}-metadata", f"{overlay_prefix}-overlay-{soc}.yaml"),
                         overlay_dst)
 
