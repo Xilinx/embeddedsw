@@ -220,10 +220,11 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
 	if (IssuerPubKeyInfo == NULL) {
 		IssuerPubKeyInfo = &PubKeyInfo;
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Check whether public key is uncompressed or not. */
 		if (CertInfo->PublicKey.PubKey[XASUFW_BUFFER_INDEX_ZERO] !=
 		    X509_UNCOMPRESSED_PUB_KEY) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_INVALID_DATA);
+			Status = XASUFW_X509_INVALID_DATA;
 			goto END;
 		}
 		/** Store the public key after skipping compression indicator. */
@@ -271,14 +272,13 @@ static s32 X509_VerifySignature(const u8 *Data, u32 DataLen, const X509_PublicKe
 
 	/** Validate public key length. */
 	if (IssuerPubKeyInfo->PubKeyLen != X509_ECC_PUB_KEY_LEN) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_INVALID_DATA);
+		Status = XASUFW_X509_INVALID_DATA;
 		goto END;
 	}
 
 	/** Validate digest and signature callbacks. */
 	if ((InitData->VerifySignature == NULL) || (InitData->GenerateDigest == NULL)) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-						  XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED);
+		Status = XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED;
 		goto END;
 	}
 
@@ -376,6 +376,7 @@ static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen)
 	}
 
 	/** Extract the information for S component of signature. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	SignSLen = X509_CertInstance.FieldLen;
 	SignS = &X509_CertInstance.Buf[X509_CertInstance.Offset];
 	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
@@ -397,7 +398,7 @@ static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen)
 		Status = Xil_SMemCpy(Sign, SignLen, SignR, SignRLen,
 				     XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MEM_COPY_FAIL);
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 	} else {
@@ -418,7 +419,7 @@ static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen)
 		Status = Xil_SMemCpy(Sign + XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, SignLen, SignS,
 				     SignSLen, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MEM_COPY_FAIL);
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 	} else {
@@ -504,6 +505,7 @@ static s32 X509_ParseSignInfo(void)
 	}
 
 	/** Identify algorithm type from OID using helper. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GetSignAlgotype(&AlgoType);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_SIGN_ALGO_FAIL);
@@ -1490,7 +1492,6 @@ static s32 X509_ParseTbs(X509_CertInfo *CertInfo)
 	u8 Version = 0U;
 
 	/** Get version. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GetVersion(&Version);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_GET_VERSION_FAIL);
@@ -1635,7 +1636,6 @@ static s32 X509_GetFieldLen(u32 *Len)
 			goto END;
 		}
 		*Len = 0U;
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = X509_UpdateOffsetToNextField(X509_SINGLE_BYTE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
