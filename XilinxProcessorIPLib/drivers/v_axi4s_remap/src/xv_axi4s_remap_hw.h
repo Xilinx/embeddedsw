@@ -1,10 +1,17 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
-#ifndef XV_AXI4S_REMAP_HW_H_  /* prevent circular inclusions */
-#define XV_AXI4S_REMAP_HW_H_  /* by using protection macros  */
+
+/**
+ * @file xv_axi4s_remap_hw.h
+ * @addtogroup v_axi4s_remap Overview
+ */
+
+#ifndef XV_AXI4S_REMAP_HW_H_  /* prevent circular inclusions by using protection macros  */
+/* Define header guard macro to prevent multiple inclusion */
+#define XV_AXI4S_REMAP_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,27 +74,60 @@ extern "C" {
 // 0x54 : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
+/* Control and Status Registers */
+/** AP control register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL           0x00
+/** Global interrupt enable register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_GIE               0x04
+/** Interrupt enable register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_IER               0x08
+/** Interrupt status register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_ISR               0x0c
+
+/* Video Dimension Registers */
+/** Frame height register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_HEIGHT_DATA       0x10
+/** Frame height bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_HEIGHT_DATA       16
+/** Frame width register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_WIDTH_DATA        0x18
+/** Frame width bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_WIDTH_DATA        16
+
+/* Video Format Configuration Registers */
+/** Color format register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_COLORFORMAT_DATA  0x20
+/** Color format bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_COLORFORMAT_DATA  8
+
+/* Pixel Clock Configuration Registers */
+/** Input pixels per clock register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_INPIXCLK_DATA     0x28
+/** Input pixels per clock bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_INPIXCLK_DATA     8
+/** Output pixels per clock register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXCLK_DATA    0x30
+/** Output pixels per clock bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_OUTPIXCLK_DATA    8
+
+/* HDMI 4:2:0 Mode Configuration Registers */
+/** Input HDMI 4:2:0 mode register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_INHDMI420_DATA    0x38
+/** Input HDMI 4:2:0 mode bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_INHDMI420_DATA    8
+/** Output HDMI 4:2:0 mode register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_OUTHDMI420_DATA   0x40
+/** Output HDMI 4:2:0 mode bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_OUTHDMI420_DATA   8
+
+/* Pixel Manipulation Configuration Registers */
+/** Input pixel drop register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_INPIXDROP_DATA    0x48
+/** Input pixel drop bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_INPIXDROP_DATA    8
+/** Output pixel repeat register offset */
 #define XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXREPEAT_DATA 0x50
+/** Output pixel repeat bit width */
 #define XV_AXI4S_REMAP_CTRL_BITS_OUTPIXREPEAT_DATA 8
 
 #ifdef __cplusplus

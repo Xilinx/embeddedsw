@@ -4,6 +4,11 @@
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
+/**
+ * @file xv_axi4s_remap.h
+ * @addtogroup v_axi4s_remap Overview
+ */
+
 #ifndef XV_AXI4S_REMAP_H
 #define XV_AXI4S_REMAP_H
 
@@ -31,46 +36,53 @@ extern "C" {
 #endif
 #include "xv_axi4s_remap_hw.h"
 
-/**************************** Type Definitions ******************************/
+
+/**************************** Type Definitions *******************************/
 #ifdef __linux__
+/** Linux platform type definitions */
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
 
 /**
-* This typedef contains configuration information for the mixer core
-* Each core instance should have a configuration structure associated.
-*/
+ * AXI4-Stream Remap device configuration structure
+ *
+ * This structure contains configuration information for the AXI4-Stream Remap
+ * core instance. Each core instance should have a configuration structure
+ * associated with it.
+ */
 typedef struct {
 #ifndef SDT
   u16 DeviceId;             /**< Unique ID of device */
 #else
-  char *Name;		    /**< Unique Name of device */
+  char *Name;               /**< Unique Name of device */
 #endif
-  UINTPTR BaseAddress;     /**< The base address of the core instance. */
-  u16 NumVidComponents;    /**< Number of Video Components */
-  u16 MaxWidth;            /**< Maximum columns supported by core instance */
-  u16 MaxHeight;           /**< Maximum rows supported by core instance */
-  u16 PixPerClkIn;         /**< Input Samples Per Clock */
-  u16 PixPerClkOut;        /**< Output Samples Per Clock */
-  u16 IsPixPerClockConvEn; /**< Samples Per Clock Conversion Feature Enable*/
-  u16 MaxDataWidthIn;      /**< Input Maximum Data width of each channel */
-  u16 MaxDataWidthOut;     /**< Output Maximum Data width of each channel */
-  u16 IsHdmi420InEn;       /**< HDMI 420 to AXIS 420 converter block En */
-  u16 IsHdmi420OutEn;      /**< AXIS 420 to HDMI 420 converter block En */
-  u16 IsInPixelDropEn;     /**< Input Pixel Drop block En */
-  u16 IsOutPixelRepeatEn;  /**< Output Pixel Repeat block En */
+  UINTPTR BaseAddress;      /**< The base address of the core instance */
+  u16 NumVidComponents;     /**< Number of Video Components */
+  u16 MaxWidth;             /**< Maximum columns supported by core instance */
+  u16 MaxHeight;            /**< Maximum rows supported by core instance */
+  u16 PixPerClkIn;          /**< Input Samples Per Clock */
+  u16 PixPerClkOut;         /**< Output Samples Per Clock */
+  u16 IsPixPerClockConvEn;  /**< Samples Per Clock Conversion Feature Enable */
+  u16 MaxDataWidthIn;       /**< Input Maximum Data width of each channel */
+  u16 MaxDataWidthOut;      /**< Output Maximum Data width of each channel */
+  u16 IsHdmi420InEn;        /**< HDMI 420 to AXIS 420 converter block Enable */
+  u16 IsHdmi420OutEn;       /**< AXIS 420 to HDMI 420 converter block Enable */
+  u16 IsInPixelDropEn;      /**< Input Pixel Drop block Enable */
+  u16 IsOutPixelRepeatEn;   /**< Output Pixel Repeat block Enable */
 #ifdef SDT
-  u16 IntrId; 		    /**< Interrupt ID */
-  UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+  u16 IntrId;               /**< Interrupt ID */
+  UINTPTR IntrParent;       /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XV_axi4s_remap_Config;
 #endif
 
 /**
-* Driver instance data. An instance must be allocated for each core in use.
-*/
+ * AXI4-Stream Remap driver instance structure
+ *
+ * Driver instance data. An instance must be allocated for each core in use.
+ */
 typedef struct {
   XV_axi4s_remap_Config Config; /**< Hardware Configuration */
   u32 IsReady;                  /**< Device is initialized and ready */
@@ -78,26 +90,38 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/** Write to AXI4-Stream Remap register (bare-metal) */
 #define XV_axi4s_remap_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+/** Read from AXI4-Stream Remap register (bare-metal) */
 #define XV_axi4s_remap_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/** Write to AXI4-Stream Remap register (Linux) */
 #define XV_axi4s_remap_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+/** Read from AXI4-Stream Remap register (Linux) */
 #define XV_axi4s_remap_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/** Assert macro for void functions (Linux) */
 #define Xil_AssertVoid(expr)    assert(expr)
+/** Assert macro for non-void functions (Linux) */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/** Success return code */
 #define XST_SUCCESS             0
+/** Device not found error code */
 #define XST_DEVICE_NOT_FOUND    2
+/** Open device failed error code */
 #define XST_OPEN_DEVICE_FAILED  3
+/** Component ready flag */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 
-/************************** Function Prototypes *****************************/
+/************************** Function Prototypes ******************************/
+
+/* Initialization Functions */
 #ifndef __linux__
 #ifndef SDT
 int XV_axi4s_remap_Initialize(XV_axi4s_remap *InstancePtr, u16 DeviceId);
@@ -140,6 +164,7 @@ u32 XV_axi4s_remap_Get_inPixDrop(XV_axi4s_remap *InstancePtr);
 void XV_axi4s_remap_Set_outPixRepeat(XV_axi4s_remap *InstancePtr, u32 Data);
 u32 XV_axi4s_remap_Get_outPixRepeat(XV_axi4s_remap *InstancePtr);
 
+/* Interrupt Management Functions */
 void XV_axi4s_remap_InterruptGlobalEnable(XV_axi4s_remap *InstancePtr);
 void XV_axi4s_remap_InterruptGlobalDisable(XV_axi4s_remap *InstancePtr);
 void XV_axi4s_remap_InterruptEnable(XV_axi4s_remap *InstancePtr, u32 Mask);

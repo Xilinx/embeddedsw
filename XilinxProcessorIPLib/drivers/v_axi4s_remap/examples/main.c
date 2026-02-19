@@ -1,8 +1,14 @@
 /******************************************************************************
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+ * @file main.c
+ * @addtogroup v_axi4s_remap Overview
+ */
+
+/***************************** Include Files *********************************/
 #include "xparameters.h"
 #ifndef SDT
 #include "microblaze_sleep.h"
@@ -14,6 +20,26 @@
 #include "xvtc.h"
 #include "xvidc.h"
 
+/************************** Constant Definitions *****************************/
+#ifdef XPAR_V_AXI4S_REMAP_0_S_AXI_CTRL_BASEADDR
+#define XPAR_V_AXI4S_REMAP_0_BASEADDR XPAR_V_AXI4S_REMAP_0_S_AXI_CTRL_BASEADDR
+#endif
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * Macro to write a 32-bit value to the Video Clock Generator register at the specified offset
+ */
+#define VideoClockGen_WriteReg(RegOffset, Data) \
+    Xil_Out32((XPAR_VIDEO_CLK_BASEADDR) + (RegOffset), (u32)(Data))
+/**
+ * Macro to read a 32-bit value from the Video Clock Generator register at the specified offset
+ */
+#define VideoClockGen_ReadReg(RegOffset) \
+    Xil_In32((XPAR_VIDEO_CLK_BASEADDR) + (RegOffset))
+
+/************************** Variable Definitions *****************************/
 XV_tpg_Config           *tpg_Config;
 XV_tpg                  tpg;
 
@@ -27,15 +53,23 @@ XVtc_Timing             vtc_timing;
 u32 volatile            *gpio_hlsIpReset;
 u32 volatile            *gpio_videoLockMonitor;
 
-#ifdef XPAR_V_AXI4S_REMAP_0_S_AXI_CTRL_BASEADDR
-#define XPAR_V_AXI4S_REMAP_0_BASEADDR XPAR_V_AXI4S_REMAP_0_S_AXI_CTRL_BASEADDR
-#endif
 
-#define VideoClockGen_WriteReg(RegOffset, Data) \
-    Xil_Out32((XPAR_VIDEO_CLK_BASEADDR) + (RegOffset), (u32)(Data))
-#define VideoClockGen_ReadReg(RegOffset) \
-    Xil_In32((XPAR_VIDEO_CLK_BASEADDR) + (RegOffset))
-
+/****************************  FUNCTION IMPLEMENTATIONS   *************************************/
+/**
+ * @brief Initialize video pipeline driver instances
+ *
+ * This function initializes the VTC, TPG, and AXI4S Remap driver instances
+ * by looking up their configurations and performing configuration initialization.
+ * All three drivers must be successfully initialized for the video pipeline
+ * to function correctly.
+ *
+ * @return XST_SUCCESS if all drivers initialized successfully
+ *         XST_DEVICE_NOT_FOUND if any device configuration lookup fails
+ *         XST_FAILURE if any driver initialization fails
+ *
+ * @note This function must be called before using any video IP functions
+ *
+ *******************************************************************************/
 int driverInit()
 {
     int status;
@@ -93,6 +127,23 @@ int driverInit()
     return(XST_SUCCESS);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configure video IP cores for specified video mode
+ *
+ * This function configures the AXI4S Remap, TPG, and VTC IP cores with timing
+ * parameters appropriate for the specified video mode. It sets resolution,
+ * color format, pixel clock parameters, and timing generator settings.
+ *
+ * @param  videoMode Video mode enumeration specifying the desired resolution
+ *                   and frame rate (e.g., 1080p60, 4K30, 4K60)
+ *
+ * @return None
+ *
+ * @note The video clock generator must be configured and locked before
+ *       calling this function
+ *
+ *******************************************************************************/
 void videoIpConfig(XVidC_VideoMode videoMode)
 {
     XVidC_VideoTiming const *timing = XVidC_GetTimingInfo(videoMode);
@@ -138,6 +189,25 @@ void videoIpConfig(XVidC_VideoMode videoMode)
     XVtc_RegUpdateEnable(&vtc);
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configure video clock generator for specified video mode
+ *
+ * This function configures the programmable video clock generator to produce
+ * the appropriate pixel clock frequency for the specified video mode. It
+ * calculates and programs the PLL divider and multiplier values, then waits
+ * for the PLL to achieve lock.
+ *
+ * @param  videoMode Video mode enumeration specifying the target resolution
+ *                   and frame rate for clock generation
+ *
+ * @return XST_SUCCESS if clock generator configured and locked successfully
+ *         XST_FAILURE if unsupported video mode or PLL lock timeout
+ *
+ * @note Supports 1080p60, 4K30, and 4K60 video modes with 1, 2, or 4 pixels
+ *       per clock configurations
+ *
+ *******************************************************************************/
 int videoClockConfig(XVidC_VideoMode videoMode)
 {
     u32 DIVCLK_DIVIDE = 4;
@@ -227,9 +297,21 @@ int videoClockConfig(XVidC_VideoMode videoMode)
     xil_printf("Video Clock Generator locked\r\n");
 
     return(XST_SUCCESS);
-
 }
 
+/*****************************************************************************/
+/**
+ * @brief Reset HLS IP cores in the video pipeline
+ *
+ * This function performs a hardware reset of the HLS IP cores by asserting
+ * and then releasing the reset signal through GPIO. It includes appropriate
+ * delays to ensure the reset is properly applied and released.
+ *
+ * @return None
+ *
+ * @note Reset signal is active low (0 = reset asserted, 1 = reset released)
+ *
+ *******************************************************************************/
 void resetIp(void)
 {
     *gpio_hlsIpReset = 0; //reset IPs
@@ -247,18 +329,30 @@ void resetIp(void)
 #else
     msleep(300);
 #endif
-
 }
 
+/*****************************************************************************/
+/**
+ * @brief Main test application for video pipeline
+ *
+ * This is the main entry point for the video pipeline test application.
+ * It initializes all video driver instances, tests three video modes
+ * (1080p60, 4K30, and optionally 4K60), and verifies video lock for each mode.
+ * The test validates proper operation of the complete video processing chain.
+ *
+ * @return XST_SUCCESS (0) if all tests pass
+ *         XST_FAILURE if any initialization or test fails
+ *
+ * @note 4K60 test is only executed if the IP is configured for 2 or 4
+ *       pixels per clock to support the required bandwidth
+ *
+ *******************************************************************************/
 int main()
 {
     int status;
     XVidC_VideoMode TestMode;
 
-    printf("Start test\r\n");
-
-//    printf("hit any key\r\n");
-//    inbyte();
+    xil_printf("Start test\r\n");
 
     gpio_hlsIpReset = (u32*)XPAR_HLS_IP_RESET_BASEADDR;
     gpio_videoLockMonitor = (u32*)XPAR_VIDEO_LOCK_MONITOR_BASEADDR;
