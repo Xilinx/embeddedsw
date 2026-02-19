@@ -192,6 +192,7 @@ END:
 }
 #endif /* XASU_KDF_ENABLE */
 
+#ifdef XASU_OCP_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function performs KDF generate operation using CMAC as pseudorandom function with
@@ -353,4 +354,5 @@ END_CLR:
 END:
 	return Status;
 }
+#endif /* XASU_OCP_ENABLE */
 /** @} */

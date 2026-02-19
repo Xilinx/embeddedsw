@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -49,8 +49,11 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams);
-s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 AesKeySrc);
 #endif /* XASU_KDF_ENABLE */
+
+#ifdef XASU_OCP_ENABLE
+s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 AesKeySrc);
+#endif /* XASU_OCP_ENABLE */
 
 #ifdef __cplusplus
 }
