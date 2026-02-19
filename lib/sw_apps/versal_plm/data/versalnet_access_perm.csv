@@ -190,6 +190,7 @@ write_image_store_pdi,0x70d,0,0,0,0,0,0,0,0,CDO,Write PDI into Image Store while
 config_jtag_state,0x70e,1,1,1,1,1,1,0,1,IPI,Config Jtag State
 read_ddr_crypto_counters,0x70f,3,3,3,3,3,3,0,3,IPI,Read Ddr Crypto Counters
 i2c_handshake,0x710,3,3,3,3,3,3,0,3,IPI,Handshake
+data_auth,0x711,3,3,3,3,3,3,0,3,IPI,Data Authentication
 Cfi_selective_readback,0x712,0,0,0,0,0,0,0,0,IPI,Reads given number of cframes from the start frame given
 em_features,0x800,3,3,3,3,3,3,0,3,CDO/IPI,Error Management Features
 em_set_action,0x801,3,3,3,3,3,3,0,3,CDO/IPI,Set Error Action
