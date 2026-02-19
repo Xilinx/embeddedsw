@@ -506,6 +506,7 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	XAsu_AesKeyObject KeyObject;
 	u8 TagBuf[XASU_OCP_UDE_TAG_SIZE_IN_BYTES];
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
 	KeyObject.KeySize = (u32)XASU_AES_KEY_SIZE_256_BITS;
 	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
@@ -544,7 +545,8 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 
 END:
 	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
-	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(AesInstancePtr, KeyObject.KeySrc));
+	XFIH_CALL(XAes_KeyClear, XFihUde, ClearStatus, AesInstancePtr, KeyObject.KeySrc);
+	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
 
 	/** Zeroize the key object. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
