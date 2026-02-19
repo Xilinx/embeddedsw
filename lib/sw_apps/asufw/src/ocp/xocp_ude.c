@@ -518,7 +518,13 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 		goto END;
 	}
 
-	/* Initialize AES parameters structure for encryption/decryption operation. */
+	/**
+	 * Initialize AES parameters structure. AES compute is always performed in encrypt mode
+	 * for both encryption and decryption of UDE private keys.
+	 * Decryption of the UDE encrypted private key is as follows:
+	 *  - Encrypt the zero data with the UDE KEK and updated IV.
+	 *  - XOR the resultant data with the UDE user key data (UDE encrypted private key).
+	 */
 	AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
