@@ -47,7 +47,6 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XOCP_X509_CERT_FIELD_LEN		(4U)	/**< Certificate size field length */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -170,9 +169,6 @@ END:
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
- *	- XASUFW_OCP_X509_DEVIK_CSR_GEN_FAIL, if CSR generation is failed.
- *	- XASUFW_OCP_INVALID_BUF_SIZE, if buffer size is not sufficient.
- *	- XASUFW_DMA_COPY_FAIL, if DMA transfer is failed.
  *
  *************************************************************************************************/
 static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -181,7 +177,6 @@ static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
 	XOcp_CertData CertData;
-	u32 CertSize;
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
 	/** Validate client parameter. */
@@ -199,32 +194,11 @@ static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CertData.DevKeyType = OcpCertParam->DevKeySel;
 	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
 	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-	CertData.CertActualSize = &CertSize;
 
 	/** Generate DevIk CSR(Certificate Signing Request) for ASU subsystem. */
 	Status = XOcp_GetX509Cert(XASUFW_SUBSYTEM_ID, &CertData, (void *)(UINTPTR)&PlatData,
-				  XASU_TRUE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_X509_DEVIK_CSR_GEN_FAIL);
-		goto END;
-	}
-
-	/** Copy generated CSR to destination address using DMA. */
-	if (OcpCertParam->CertBufLen < CertSize) {
-		Status = XASUFW_OCP_INVALID_BUF_SIZE;
-		goto END;
-	}
-
-	Status = XAsufw_DmaXfr(XAsufw_OcpModule.AsuDmaPtr, (u64)(UINTPTR)CertBuf,
-			       OcpCertParam->CertBufAddr, CertSize, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_DMA_COPY_FAIL);
-		goto END;
-	}
-
-	/** Copy actual size of CSR to destination address using DMA. */
-	Status = XAsufw_DmaXfr(XAsufw_OcpModule.AsuDmaPtr, (UINTPTR)&CertSize,
-			       (UINTPTR)OcpCertParam->CertActualSize, XOCP_X509_CERT_FIELD_LEN, 0U);
+				  XASU_TRUE, OcpCertParam->CertBufAddr, OcpCertParam->CertBufLen,
+				  (u64)(UINTPTR)OcpCertParam->CertActualSize);
 
 END:
 	/** Release resources. */
@@ -249,9 +223,6 @@ END:
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
- *	- XASUFW_OCP_X509_DEVIK_CERT_GEN_FAIL, if DevIk certificate generation is failed.
- *	- XASUFW_OCP_INVALID_BUF_SIZE, if buffer size is not sufficient.
- *	- XASUFW_DMA_COPY_FAIL, if DMA transfer is failed.
  *
  *************************************************************************************************/
 static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -260,7 +231,6 @@ static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
 	XOcp_CertData CertData;
-	u32 CertSize;
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
 	/** Validate client parameter. */
@@ -278,32 +248,11 @@ static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CertData.DevKeyType = OcpCertParam->DevKeySel;
 	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
 	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-	CertData.CertActualSize = &CertSize;
 
 	/** Generate DevIk certificate for ASU subsystem. */
 	Status = XOcp_GetX509Cert(XASUFW_SUBSYTEM_ID, &CertData, (void *)(UINTPTR)&PlatData,
-				  XASU_FALSE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_X509_DEVIK_CERT_GEN_FAIL);
-		goto END;
-	}
-
-	/** Copy generated certificate to destination address using DMA. */
-	if (OcpCertParam->CertBufLen < CertSize) {
-		Status = XASUFW_OCP_INVALID_BUF_SIZE;
-		goto END;
-	}
-
-	Status = XAsufw_DmaXfr(XAsufw_OcpModule.AsuDmaPtr, (u64)(UINTPTR)CertBuf,
-			       OcpCertParam->CertBufAddr, CertSize, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_DMA_COPY_FAIL);
-		goto END;
-	}
-
-	/** Copy actual size of generated certificate to destination address using DMA. */
-	Status = XAsufw_DmaXfr(XAsufw_OcpModule.AsuDmaPtr, (UINTPTR)&CertSize,
-			       (UINTPTR)OcpCertParam->CertActualSize, XOCP_X509_CERT_FIELD_LEN, 0U);
+				  XASU_FALSE, OcpCertParam->CertBufAddr, OcpCertParam->CertBufLen,
+				  (u64)(UINTPTR)OcpCertParam->CertActualSize);
 
 END:
 	/** Release resources. */
@@ -329,9 +278,6 @@ END:
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
- *	- XASUFW_OCP_X509_DEVAK_CERT_GEN_FAIL, if DevAk certificate generation is failed.
- *	- XASUFW_OCP_INVALID_BUF_SIZE, if buffer size is not sufficient.
- *	- XASUFW_DMA_COPY_FAIL, if DMA transfer is failed.
  *
  *************************************************************************************************/
 static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -340,7 +286,6 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
 	XOcp_CertData CertData;
-	u32 CertSize;
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
@@ -367,31 +312,11 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CertData.DevKeyType = OcpCertParam->DevKeySel;
 	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
 	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-	CertData.CertActualSize = &CertSize;
 
 	/** Generate DevAk certificate for given subsystem. */
-	Status = XOcp_GetX509Cert(SubsystemId, &CertData, (void *)(UINTPTR)&PlatData, XASU_FALSE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_X509_DEVAK_CERT_GEN_FAIL);
-		goto END;
-	}
-
-	/** Copy generated certificate to destination address using DMA. */
-	if (OcpCertParam->CertBufLen < CertSize) {
-		Status = XASUFW_OCP_INVALID_BUF_SIZE;
-		goto END;
-	}
-
-	Status = XAsufw_DmaXfr(XAsufw_OcpModule.AsuDmaPtr, (u64)(UINTPTR)CertBuf,
-			       OcpCertParam->CertBufAddr, CertSize, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_DMA_COPY_FAIL);
-		goto END;
-	}
-
-	/** Copy actual size of generated certificate to destination address using DMA. */
-	Status = XAsufw_DmaXfr(XAsufw_OcpModule.AsuDmaPtr, (UINTPTR)&CertSize,
-			       (UINTPTR)OcpCertParam->CertActualSize, XOCP_X509_CERT_FIELD_LEN, 0U);
+	Status = XOcp_GetX509Cert(SubsystemId, &CertData, (void *)(UINTPTR)&PlatData, XASU_FALSE,
+				  OcpCertParam->CertBufAddr, OcpCertParam->CertBufLen,
+				  (u64)(UINTPTR)OcpCertParam->CertActualSize);
 
 END:
 	/** Release resources. */

@@ -552,12 +552,9 @@ enum {
 	XASUFW_OCP_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
-	XASUFW_OCP_X509_DEVIK_CERT_GEN_FAIL, /**< 0x178U - Error when DevIk certificate generation
-						is failed */
-	XASUFW_OCP_X509_DEVIK_CSR_GEN_FAIL, /**< 0x179U - Error when DevIk CSR generation is
-						failed */
-	XASUFW_OCP_X509_DEVAK_CERT_GEN_FAIL, /**< 0x17AU - Error when DevAk certificate generation
-						is failed */
+	RESERVED2, /**< 0x178U - Reserved */
+	RESERVED3, /**< 0x179U - Reserved */
+	RESERVED4, /**< 0x17AU - Reserved */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
 	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when IPI access is not available */

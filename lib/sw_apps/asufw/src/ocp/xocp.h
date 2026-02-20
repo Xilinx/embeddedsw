@@ -104,13 +104,12 @@ typedef struct {
 	u32 DevKeyType;			/**< Device key type */
 	u64 CertAddr;			/**< X.509 certificate address */
 	u32 CertMaxSize;		/**< Maximum size of X.509 certificate */
-	u32 *CertActualSize;		/**< Pointer to stores the actual size of X.509
-					certificate */
 } XOcp_CertData;
 
 /************************************ Function Prototypes ****************************************/
 s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask);
-s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatData, u8 IsCsr);
+s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatData, u8 IsCsr,
+		     u64 CertBufAddr, u32 CertBufLen, u64 CertActualSizeAddr);
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
 			 u32 SubsystemId);
 XOcp_DeviceKeys* XOcp_GetDevIk(void);
