@@ -687,6 +687,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_X509_CERT_GEN_FAIL);
 		goto END;
 	}
+
 	/** Validate Certificate buffer length */
 	if (CertBufLen < CertSize) {
 		Status = XASUFW_OCP_INVALID_BUF_SIZE;
@@ -705,6 +706,12 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, (u64)(UINTPTR)&CertSize, CertActualSizeAddr,
 			       XOCP_X509_CERT_FIELD_LEN, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	ReturnStatus = XASUFW_OCP_CERT_GENERATION_SUCCESS;
 
 END:
 	return Status;

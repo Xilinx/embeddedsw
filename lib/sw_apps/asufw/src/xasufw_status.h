@@ -701,7 +701,9 @@ enum {
 	XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, /**< 0x1F9U - Error when configuring SSS with DMA and transfering data fails. */
 
 	/* Additional status success codes */
-	XASUFW_LMS_SIGNATURE_VERIFIED = 0x3F8, /**< 0x3F8U - LMS signature verification is successful */
+	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
+							  successful */
+	XASUFW_LMS_SIGNATURE_VERIFIED,	/**< 0x3F8U - LMS signature verification is successful */
 	XASUFW_RSA_ECDH_SUCCESS, /**< 0x3F9U - RSA ECDH operation is successful */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
