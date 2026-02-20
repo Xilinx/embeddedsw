@@ -46,6 +46,13 @@
 				/**< Value to unlock write to PMC_TAP registers */
 #define XLOADER_AUTH_JTAG_INT_STATUS_WAIT_TIMEOUT	(1000000U)
 	/**< Timeout to wait for authenticated JTAG interrupt status bit to be set */
+#define XLOADER_AUTH_JTAG_MAX_MSG_SIZE			(0x8000U)
+		/**< The Authenticated JTAG message is stored in XPLMI_PMCRAM_CHUNK_MEMORY_1
+		which is 32KB in size. Hence, the maximum acceptable length of
+		Authenticated JTAG message can be 32KB (for buffer overflow checks) */
+#define XLOADER_MIN_VALID_AUTH_JTAG_MSG_SIZE		(0x1E0)
+		/**< For all the supported algorithms, the least possible size of the authenticated
+		JTAG message is for ECDSA P-384 algorithm i.e 0x1E0. */
 #endif
 
 #define XLOADER_INVALID_REVOCATION_ID		(XLOADER_REVOCATION_IDMAX + 1U)
@@ -564,6 +571,24 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	}
 
 	MsgLenInBytes = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET);
+
+	/**
+	 * - Validate message length:
+	 *   It should not be zero
+	 *   It should not exceed the maximum buffer size allocated for authenticated JTAG message (32KB)
+	 *   It should be a multiple of word length (4 bytes) since data is read in word chunks from PMC TAP
+	 *   It should be at least the minimum size required for the supported algorithms
+	 *   (0x1E0 bytes for ECDSA P-384, which is the smallest of all supported algorithms)
+	*/
+	if ((MsgLenInBytes == 0U) ||
+		(MsgLenInBytes > XLOADER_AUTH_JTAG_MAX_MSG_SIZE) ||
+		((MsgLenInBytes % XPLMI_WORD_LEN) != 0U) ||
+		(MsgLenInBytes < XLOADER_MIN_VALID_AUTH_JTAG_MSG_SIZE)) {
+
+		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Invalid message length 0x%x\r\n", MsgLenInBytes);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_INVALID_MSG_LEN, 0U);
+		goto END;
+	}
 
 	/** - Store initial values */
 	SecureParams.AuthJtagMessagePtr->IdWord = IdWord;

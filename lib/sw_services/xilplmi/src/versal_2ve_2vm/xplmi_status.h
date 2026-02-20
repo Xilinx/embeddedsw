@@ -800,6 +800,7 @@ typedef enum {
 	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x657 Error when the configuration limiter update failed */
 	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x658 Error when authentication of keys is failed */
 	XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL, /**< 0x659 Error in verifying hash block signature */
+	XLOADER_ERR_AUTH_JTAG_INVALID_MSG_LEN, /**< 0x65A Invalid message length for JTAG authentication */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
