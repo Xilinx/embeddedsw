@@ -322,6 +322,17 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	volatile u8 UseDnaTmp;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
+	/** - Check efuse bits for secure debug disable */
+	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+					XLOADER_AUTH_JTAG_DIS_MASK;
+	AuthJtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+					XLOADER_AUTH_JTAG_DIS_MASK;
+	if ((AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) ||
+		(AuthJtagDisTmp == XLOADER_AUTH_JTAG_DIS_MASK)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, (int)0);
+		goto END;
+	}
+
 	/**
 	 * -To reduce stack usage, instance of XLoader_AuthJtagMessage is moved to
 	 * a structure called XLoader_StoreSecureData which resides at
@@ -346,18 +357,6 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 			XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DMA_XFR, (int)0);
-		goto END;
-	}
-
-
-	/** - Check efuse bits for secure debug disable */
-	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-					XLOADER_AUTH_JTAG_DIS_MASK;
-	AuthJtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-					XLOADER_AUTH_JTAG_DIS_MASK;
-	if ((AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) ||
-		(AuthJtagDisTmp == XLOADER_AUTH_JTAG_DIS_MASK)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, (int)0);
 		goto END;
 	}
 
@@ -548,6 +547,17 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	XLoader_AuthJtagData KeyData;
 	u32* CurrPtr;
 
+	/** - Check efuse bits for secure debug disable */
+	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+					XLOADER_AUTH_JTAG_DIS_MASK;
+	AuthJtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+					XLOADER_AUTH_JTAG_DIS_MASK;
+	if ((AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) ||
+		(AuthJtagDisTmp == XLOADER_AUTH_JTAG_DIS_MASK)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, 0U);
+		goto END;
+	}
+
 	/**
 	 * - To reduce stack usage, instance of XLoader_AuthJtagMessage is moved to
 	 * a structure called XLoader_StoreSecureData which resides at
@@ -651,17 +661,6 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		/** - Clear Auth Jtag Interrupt Status register in PMC TAP module */
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
-	}
-
-	/** - Check efuse bits for secure debug disable */
-	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-					XLOADER_AUTH_JTAG_DIS_MASK;
-	AuthJtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-					XLOADER_AUTH_JTAG_DIS_MASK;
-	if ((AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) ||
-		(AuthJtagDisTmp == XLOADER_AUTH_JTAG_DIS_MASK)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, 0U);
-		goto END;
 	}
 
 	/**
