@@ -48,6 +48,9 @@
 	/**< Timeout to wait for authenticated JTAG interrupt status bit to be set */
 #endif
 
+#define XLOADER_INVALID_REVOCATION_ID		(XLOADER_REVOCATION_IDMAX + 1U)
+			/**< Invalid Revocation ID used for initialization */
+
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u32 JtagTimeOut;	/**< Timeout value set by user */
@@ -303,7 +306,7 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	int ClearStatus = XST_FAILURE;
 	volatile u32 AuthJtagDis = 0U;
 	volatile u32 AuthJtagDisTmp = 0U;
-	u32 RevokeId = 0U;
+	volatile u32 RevokeId = XLOADER_INVALID_REVOCATION_ID;
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
@@ -520,7 +523,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	int ClearStatus = XST_FAILURE;
 	volatile u32 AuthJtagDis = 0U;
 	volatile u32 AuthJtagDisTmp = 0U;
-	u32 RevokeId = 0U;
+	volatile u32 RevokeId = XLOADER_INVALID_REVOCATION_ID;
 	static XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u32 ReadAuthReg;
