@@ -1237,6 +1237,7 @@ static s32 X509_GetBool(u8 *Value)
 	Status = X509_ValidateTag(X509_ASN1_TAG_BOOLEAN);
 	if (Status == XASUFW_X509_UNEXPECTED_TAG) {
 		Status = XASUFW_X509_BOOLEAN_TAG_NOT_FOUND;
+		*Value = (u8)XASU_FALSE;
 		goto END;
 	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
@@ -1330,7 +1331,7 @@ static s32 X509_GetExtensions(u32 Len, X509_CertInfo *CertInfo)
 		}
 
 		/** Check whether extension is critical or not. */
-		IsCritical = 0U;
+		IsCritical = (u8)XASU_TRUE;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = X509_GetBool(&IsCritical);
 		if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_X509_BOOLEAN_TAG_NOT_FOUND)) {
