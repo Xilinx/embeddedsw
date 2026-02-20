@@ -70,7 +70,9 @@ enum {
  * functionalities and these codes should not be used for failures in client
  */
 enum {
-	XASU_LMS_SIGNATURE_VERIFIED = 0x3F8, /**< 0x3F8U - LMS signature verification is successful */
+	XASU_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
+							successful */
+	XASU_LMS_SIGNATURE_VERIFIED, /**< 0x3F8U - LMS signature verification is successful */
 	XASU_RSA_ECDH_SUCCESS, /**< 0x3F9U - RSA ECDH operation is successful */
 	XASU_RSA_PSS_SIGNATURE_VERIFIED, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */

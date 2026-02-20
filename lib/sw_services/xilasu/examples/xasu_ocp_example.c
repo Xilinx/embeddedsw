@@ -199,6 +199,7 @@ static int XOcp_GetX509DevIK(void)
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
+	ClientParam.AdditionalStatus = XST_FAILURE;
 
 	/* OCP parameters structure initialization for DevIk X.509 certificate generation. */
 	OcpDevIkCertClientParam.CertBufAddr = (u64)(UINTPTR)X509Cert;
@@ -217,7 +218,8 @@ static int XOcp_GetX509DevIK(void)
 	/* Wait for the operation to be completed. */
 	while (!Notify);
 	Notify = 0;
-	if (ErrorStatus != (u32)XST_SUCCESS) {
+	if ((ErrorStatus != (u32)XST_SUCCESS) ||
+	    (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
 		goto END;
 	}
 
@@ -227,9 +229,10 @@ static int XOcp_GetX509DevIK(void)
 END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("DevIk certificate generation failed with Status = %08x\n", Status);
-	} else if (ErrorStatus != XST_SUCCESS) {
-		XilAsu_Printf("DevIk certificate generation failed with error from server = %08x\n",
-			      ErrorStatus);
+	} else if ((ErrorStatus != XST_SUCCESS) ||
+		   (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
+		XilAsu_Printf("DevIk certificate generation failed with error from server = %08x and "
+			      "additional error of %08x\n", ErrorStatus, ClientParam.AdditionalStatus);
 	} else {
 		XilAsu_Printf("Successfully generated X.509 DevIk certificate\n");
 	}
@@ -259,6 +262,7 @@ static int XOcp_GetX509DevAK(void)
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
+	ClientParam.AdditionalStatus = XST_FAILURE;
 
 	/* OCP parameters structure initialization for DevAk X.509 certificate generation. */
 	OcpDevAkCertClientParam.CertBufAddr = (u64)(UINTPTR)X509Cert;
@@ -276,7 +280,8 @@ static int XOcp_GetX509DevAK(void)
 	/* Wait for the operation to be completed. */
 	while (!Notify);
 	Notify = 0;
-	if (ErrorStatus != XST_SUCCESS) {
+	if ((ErrorStatus != (u32)XST_SUCCESS) ||
+	    (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
 		goto END;
 	}
 
@@ -286,9 +291,10 @@ static int XOcp_GetX509DevAK(void)
 END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("DevAk certificate generation failed with Status = %08x\n", Status);
-	} else if (ErrorStatus != XST_SUCCESS) {
-		XilAsu_Printf("DevAk certificate generation failed with error from server = %08x\n",
-			      ErrorStatus);
+	} else if ((ErrorStatus != XST_SUCCESS) ||
+		   (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
+		XilAsu_Printf("DevAk certificate generation failed with error from server = %08x and "
+			      "additional error of %08x\n", ErrorStatus, ClientParam.AdditionalStatus);
 	} else {
 		XilAsu_Printf("Successfully generated X.509 DevAk certificate\n");
 	}
@@ -318,6 +324,7 @@ static int XOcp_GetX509DevIkCsr(void)
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
+	ClientParam.AdditionalStatus = XST_FAILURE;
 
 	/* OCP parameters structure initialization for DevIk CSR generation. */
 	OcpDevIkCsrClientParam.CertBufAddr = (u64)(UINTPTR)X509Cert;
@@ -335,7 +342,8 @@ static int XOcp_GetX509DevIkCsr(void)
 	/* Wait for the operation to be completed. */
 	while (!Notify);
 	Notify = 0;
-	if (ErrorStatus != XST_SUCCESS) {
+	if ((ErrorStatus != (u32)XST_SUCCESS) ||
+	    (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
 		goto END;
 	}
 
@@ -345,9 +353,10 @@ static int XOcp_GetX509DevIkCsr(void)
 END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("DevIk CSR generation failed with Status = %08x\n", Status);
-	} else if (ErrorStatus != XST_SUCCESS) {
-		XilAsu_Printf("DevIk CSR generation failed with error from server = %08x\n",
-			      ErrorStatus);
+	} else if ((ErrorStatus != XST_SUCCESS) ||
+		   (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
+		XilAsu_Printf("DevIk CSR generation failed with error from server = %08x and "
+			      "additional error of %08x\n", ErrorStatus, ClientParam.AdditionalStatus);
 	} else {
 		XilAsu_Printf("Successfully generated X.509 DevIk CSR\n");
 	}
