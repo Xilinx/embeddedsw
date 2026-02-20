@@ -363,6 +363,9 @@ u64 XAsufw_GetTimerValue(void)
  * @param	TimerValStart 	Timer value captured at the beginning.
  * @param	PerfTime	Variable to hold the time elapsed
  *
+ * @note The PIT timer starts with higher value and counts down. So TimerValStart will be
+ * 		greater than TimerValEnd.
+ *
  *************************************************************************************************/
 void XAsufw_MeasurePerfTime(u64 TimerValStart, XAsufw_PerfTime *PerfTime)
 {
