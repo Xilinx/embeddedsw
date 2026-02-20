@@ -53,6 +53,8 @@
 #define XLOADER_MIN_VALID_AUTH_JTAG_MSG_SIZE		(0x1E0)
 		/**< For all the supported algorithms, the least possible size of the authenticated
 		JTAG message is for ECDSA P-384 algorithm i.e 0x1E0. */
+#define XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS	(2U)
+				/**< IdWord + MsgLength */
 #endif
 
 #define XLOADER_INVALID_REVOCATION_ID		(XLOADER_REVOCATION_IDMAX + 1U)
@@ -608,14 +610,14 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	 * - Total words to copy includes IdWord and Length which have been already read
 	 *   Remaining words to copy is total words minus the 2 words already read
 	 */
-	MsgLenInWords = MsgLenInBytes / 4U;
-	RemainingWords = MsgLenInWords - 2U;
+	MsgLenInWords = MsgLenInBytes / XPLMI_WORD_LEN;
+	RemainingWords = MsgLenInWords - XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS;
 
 	/**
 	 * - Set current pointer to start after IdWord and Length
 	 */
 	CurrPtr = (u32*)SecureParams.AuthJtagMessagePtr;
-	CurrPtr += 2U;
+	CurrPtr += XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS;
 
 	/**
 	 * - Read remaining authenticated JTAG data in chunks from PMC TAP
@@ -641,7 +643,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		 *   Otherwise, copy all remaining words
 		 */
 		if (RemainingWords >= XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS) {
-			CopyLen = XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS - 2U;
+			CopyLen = XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS - XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS;
 		}
 		else {
 			CopyLen = RemainingWords;
@@ -696,10 +698,10 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	}
 
 	KeyData.PpkData = (u32*)SecureParams.AuthJtagMessagePtr->AuthJtagData;
-	KeyData.SpkHeader = (XLoader_SpkHeader *)(KeyData.PpkData + (SecureParams.AuthJtagMessagePtr->TotalPpkSize / 4U));
-	KeyData.SpkData = (u32*)((u32 *)(KeyData.SpkHeader) + (XLOADER_SPK_HEADER_SIZE / 4U));
-	KeyData.SPKSignature = (u32*)(KeyData.SpkData + (KeyData.SpkHeader->TotalSPKSize / 4U));
-	KeyData.EnableJtagSignature = (u32*)(KeyData.SPKSignature + (KeyData.SpkHeader->TotalSignatureSize / 4U));
+	KeyData.SpkHeader = (XLoader_SpkHeader *)(KeyData.PpkData + (SecureParams.AuthJtagMessagePtr->TotalPpkSize / XPLMI_WORD_LEN));
+	KeyData.SpkData = (u32*)((u32 *)(KeyData.SpkHeader) + (XLOADER_SPK_HEADER_SIZE / XPLMI_WORD_LEN));
+	KeyData.SPKSignature = (u32*)(KeyData.SpkData + (KeyData.SpkHeader->TotalSPKSize / XPLMI_WORD_LEN));
+	KeyData.EnableJtagSignature = (u32*)(KeyData.SPKSignature + (KeyData.SpkHeader->TotalSignatureSize / XPLMI_WORD_LEN));
 
 	/** - Verify PPK in the authenticated JTAG data. */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams, SecureParams.AuthJtagMessagePtr->ActualPpkSize);
