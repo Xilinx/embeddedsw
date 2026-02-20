@@ -753,6 +753,8 @@ typedef enum {
 		/**< 0x638 Error while zeroizing digest table */
 	XLOADER_ERR_SEC_AES_INIT_FAIL,
 		/**< 0x639 Error when AES initialization is failed */
+	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
+		/**< 0x65B Invalid parameter passed for JTAG authentication */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */

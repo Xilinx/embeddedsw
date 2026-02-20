@@ -807,6 +807,8 @@ typedef enum {
 		/**< Partition hash not present, data measurement not possible */
 	XLOADER_MEASURE_ROM_FAILURE,	/**< Error while ROM digest transfer to TPM */
 	XLOADER_MEASURE_PLM_FAILURE,	/**< Error while PLM digest transfer to TPM */
+	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
+		/**< 0x65B Invalid parameter passed for JTAG authentication */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,

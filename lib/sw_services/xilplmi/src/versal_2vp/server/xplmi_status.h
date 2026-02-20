@@ -264,7 +264,7 @@ typedef enum {
 					  RAM */
 	XPLM_ERR_STL_DIAG_TASK_CREATE,	/**< 0x20B - Error while creating STL diagnostic task */
 	XPLM_ERR_STL_DIAG_TASK_REMOVE,	/**< 0x20C - Error while removing STL diagnostic task */
-	XPLM_ERR_PUF_DISABLED,          /**< 0x20D - Error while puf regneration task due to
+	XPLM_ERR_PUF_DISABLED,          /**< 0x20D - Error while puf regeneration task due to
 					  disabled puf */
 
 	/** Status codes used in XLOADER */
@@ -579,6 +579,8 @@ typedef enum {
 	XLOADER_PRTN_HASH_NOT_PRESENT,	/**< Partition hash not present, data measurement not
 					  possible */
 	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< Error in Secure config measurement */
+	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
+				/**< 0x65B Invalid parameter passed for JTAG authentication */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,	/**< 0x6A0 Additional PPks are not

@@ -289,6 +289,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS on success.
+ *		- XLOADER_ERR_AUTH_JTAG_INVALID_PARAM if TimeOut pointer is NULL.
  *		- XLOADER_ERR_AUTH_JTAG_DMA_XFR if failed to get authenticated JTAG
  *		data with DMA transfer.
  *		- XLOADER_ERR_AUTH_JTAG_DISABLED if JTAG authentication disable
@@ -298,6 +299,7 @@ END:
  *		programmed JTAG authentication fails.
  *		- XLOADER_ERR_AUTH_JTAG_GET_DMA if failed to get DMA instance for
  *		JTAG authentication.
+ *		- XLOADER_ERR_KAT_FAILED if KAT (Known Answer Test) fails.
  *		- XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL if failed to verify PPK,
  *		during JTAG authentication.
  *		- XLOADER_ERR_AUTH_JTAG_SPK_REVOKED if revoke ID is programmed,
@@ -306,6 +308,7 @@ END:
  *		hash.
  *		- XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL if failed to verify
  *		signature.
+ *		- XLOADER_ERR_AUTH_JTAG_INVALID_DNA if DNA validation fails.
  *
  ******************************************************************************/
 static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
@@ -323,6 +326,12 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	volatile u8 UseDna;
 	volatile u8 UseDnaTmp;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+
+	/** - Validate TimeOut pointer */
+	if (TimeOut == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_INVALID_PARAM, 0);
+		goto END;
+	}
 
 	/** - Check efuse bits for secure debug disable */
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
@@ -505,23 +514,31 @@ END:
  *
  * @return
  *		- XST_SUCCESS on success.
- *		- XLOADER_ERR_AUTH_JTAG_DMA_XFR if failed to get authenticated JTAG
- *		data with DMA transfer.
+ *		- XLOADER_ERR_AUTH_JTAG_INVALID_PARAM if TimeOut pointer is NULL.
  *		- XLOADER_ERR_AUTH_JTAG_DISABLED if JTAG authentication disable
  *		bit is set in efuse.
+ *		- XLOADER_ERR_AUTH_JTAG_INVALID_IDWORD if IdWord in authenticated
+ *		JTAG message is invalid.
+ *		- XLOADER_ERR_AUTH_JTAG_INVALID_MSG_LEN if message length is
+ *		invalid or out of bounds.
+ *		- XLOADER_ERR_AUTH_JTAG_DMA_XFR if failed to get authenticated JTAG
+ *		data with DMA transfer.
  *		- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
  *		- XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY if PPK is not
  *		programmed JTAG authentication fails.
  *		- XLOADER_ERR_AUTH_JTAG_GET_DMA if failed to get DMA instance for
  *		JTAG authentication.
+ *		- XLOADER_ERR_KAT_FAILED if KAT (Known Answer Test) fails.
  *		- XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL if failed to verify PPK,
  *		during JTAG authentication.
+ *		- XLOADER_ERR_SPK_HASH_CALC_FAIL if SPK hash calculation fails.
  *		- XLOADER_ERR_AUTH_JTAG_SPK_REVOKED if revoke ID is programmed,
  *		during JTAG authentication.
  *		- XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL if failed to calculate
  *		hash.
  *		- XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL if failed to verify
  *		signature.
+ *		- XLOADER_ERR_AUTH_JTAG_INVALID_DNA if DNA validation fails.
  *
  ******************************************************************************/
 static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
@@ -548,6 +565,12 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	u32 RemainingWords;
 	XLoader_AuthJtagData KeyData;
 	u32* CurrPtr;
+
+	/** - Validate TimeOut pointer */
+	if (TimeOut == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_INVALID_PARAM, 0U);
+		goto END;
+	}
 
 	/** - Check efuse bits for secure debug disable */
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
@@ -578,7 +601,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	IdWord = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET);
 	if (IdWord != XLOADER_AUTH_JTAG_IDWORD) {
 		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Invalid ID word 0x%x\r\n", IdWord);
-		Status = XST_FAILURE;
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_INVALID_IDWORD, 0U);
 		goto END;
 	}
 
