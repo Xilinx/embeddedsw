@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
+*       rmv  02/18/26 Increase value of maximum OCP subsystems
 *
 * </pre>
 *
@@ -60,8 +61,9 @@ typedef struct {
 /** @cond xocp_internal
  * @{
  */
-#define XOCP_ASUFW_MAX_SUBSYS_SUPPORT		(5U)	/**< Maximum number of OCP subsystems
-							(including ASU subsystem) */
+#define XOCP_MAX_USER_OCP_SUBSYS		(6U)	/**< Maximum number of user OCP subsystem */
+#define XOCP_TOTAL_OCP_SUBSYS			(XOCP_MAX_USER_OCP_SUBSYS + 1U)
+				/**< Total number of OCP subsystems (including ASU subsystem) */
 
 #define XOCP_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
 #define XOCP_PMC_SUBSYSTEM_ID			(0x1C000001U)	/**< PMC subsystem ID */
@@ -126,7 +128,7 @@ int XOcp_StoreOcpSubsysIDs(u32 SubsystemIdListLen, const u32 *SubsystemIdList)
 	u32 Idx;
 
 	/** Validate input parameters. */
-	if ((SubsystemIdListLen > XOCP_ASUFW_MAX_SUBSYS_SUPPORT) || (SubsystemIdList == NULL)) {
+	if ((SubsystemIdListLen > XOCP_TOTAL_OCP_SUBSYS) || (SubsystemIdList == NULL)) {
 		goto END;
 	}
 
@@ -165,7 +167,7 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 	}
 
 	/** Copy hash if OCP support is required for the subsystem, else ignore it. */
-	for (Idx = 0; Idx < XOCP_ASUFW_MAX_SUBSYS_SUPPORT; Idx++) {
+	for (Idx = 0; Idx < XOCP_TOTAL_OCP_SUBSYS; Idx++) {
 		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)OcpSubsysInfo[Idx].SubsystemHash,
 						Hash, XOCP_SHA3_LEN_IN_BYTES);
@@ -208,7 +210,7 @@ u8 XOcp_IsOcpSubsystem(u32 SubsystemId)
 	}
 
 	/** Check if given subsystem ID is in OCP subsystems list or not. */
-	for (Idx = 0U; Idx < XOCP_ASUFW_MAX_SUBSYS_SUPPORT; Idx++) {
+	for (Idx = 0U; Idx < XOCP_TOTAL_OCP_SUBSYS; Idx++) {
 		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
 			IsOcpSubsystem = TRUE;
 			break;
@@ -255,7 +257,7 @@ static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr)
 	u32 Idx;
 
 	/** Get the address of subsystem digest using subsystem ID. */
-	for (Idx = 0; Idx < XOCP_ASUFW_MAX_SUBSYS_SUPPORT; Idx++) {
+	for (Idx = 0; Idx < XOCP_TOTAL_OCP_SUBSYS; Idx++) {
 		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
 			*SubsysHashAddrPtr = (u32)(UINTPTR)(OcpSubsysInfo[Idx].SubsystemHash);
 			Status = XST_SUCCESS;
@@ -457,7 +459,7 @@ int XOcp_GetAsuCdiSeed(u32 CdiAddr)
  *************************************************************************************************/
 static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void)
 {
-	static XOcp_SubsysInfo OcpSubsysInfo[XOCP_ASUFW_MAX_SUBSYS_SUPPORT] __attribute__ ((aligned(4U))) = {0U};
+	static XOcp_SubsysInfo OcpSubsysInfo[XOCP_TOTAL_OCP_SUBSYS] __attribute__ ((aligned(4U))) = {0U};
 
 	EXPORT_OCP_DS(OcpSubsysInfo, XOCP_OCP_SUBSYSTEM_INFO_DS_ID,
 		      XOCP_SUBSYS_INFO_VERSION, XOCP_SUBSYS_INFO_LCVERSION,
