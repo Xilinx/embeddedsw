@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  07/16/25 Initial release
  *       yog  08/21/25 Added OCP-UDE support
+ *       rmv  02/18/26 Increase value of maximum OCP subsystems
  *
  * </pre>
  *
@@ -46,7 +47,7 @@ extern "C" {
 /** Starting from this memory address, 8K of memory is reserved for OCP CDO in the linker script. */
 #define XOCP_CDO_DATA_ADDR		(0xEBE5BC00U)	/**< User data address */
 
-#define XOCP_MAX_OCP_SUBSYSTEMS		(4U)	/**< Maximum number of OCP subsystems */
+#define XOCP_MAX_USER_OCP_SUBSYS	(6U)	/**< Maximum number of user OCP subsystems */
 #define XOCP_USER_SUBSYS_START_INDEX	(1U)	/**< Start index for OCP subsystem */
 
 #define XOCP_PERSONAL_STRING_LEN		(48U)	/**< Personalised string length */
@@ -91,9 +92,9 @@ typedef struct {
  * This structure contains information related to CDO data.
  */
 typedef struct {
-	XOcp_SubsystemData AsuSubsysData;			/**< ASU Subsystem data */
-	XOcp_SubsystemData SubsysData[XOCP_MAX_OCP_SUBSYSTEMS];	/**< Subsystem data */
 	u32 NumSubsys;						/**< Total number of subsystems */
+	XOcp_SubsystemData AsuSubsysData;			/**< ASU Subsystem data */
+	XOcp_SubsystemData SubsysData[XOCP_MAX_USER_OCP_SUBSYS];	/**< Subsystem data */
 } XOcp_CdoData;
 
 /**

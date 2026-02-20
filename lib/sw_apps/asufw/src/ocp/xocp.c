@@ -61,7 +61,7 @@
 
 /********************************** Variable Definitions *****************************************/
 static XOcp_DeviceKeys DevIkData;	/**< Device identity key data */
-static XOcp_DeviceKeys DevAkData[XOCP_MAX_OCP_SUBSYSTEMS];	/**< Device attestation key data */
+static XOcp_DeviceKeys DevAkData[XOCP_MAX_USER_OCP_SUBSYS];	/**< Device attestation key data */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo);
@@ -361,7 +361,7 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	const u8 *PersStr = NULL;
 
 	/** Validate number of subsystems provided in CDO. */
-	if (CdoData->NumSubsys > XOCP_MAX_OCP_SUBSYSTEMS) {
+	if (CdoData->NumSubsys > XOCP_MAX_USER_OCP_SUBSYS) {
 		Status = XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED;
 		goto END;
 	}
@@ -370,7 +370,7 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	 * Generate DevAk key pair only if subsystem index doesn't exceed the maximum number of
 	 * DevAk supported.
 	 */
-	if (SubsysIdx >= XOCP_MAX_OCP_SUBSYSTEMS) {
+	if (SubsysIdx >= XOCP_MAX_USER_OCP_SUBSYS) {
 		Status = XASUFW_OCP_INVALID_SUBSYSTEM_INDEX;
 		goto END;
 	}
@@ -531,7 +531,7 @@ static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx)
 	u32 Idx;
 
 	/** Validate number of subsystems provided in CDO. */
-	if (CdoData->NumSubsys > XOCP_MAX_OCP_SUBSYSTEMS) {
+	if (CdoData->NumSubsys > XOCP_MAX_USER_OCP_SUBSYS) {
 		Status = XASUFW_OCP_MAX_SUBSYSTEMS_EXCEEDED;
 		goto END;
 	}
