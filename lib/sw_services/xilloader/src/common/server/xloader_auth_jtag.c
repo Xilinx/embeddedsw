@@ -410,17 +410,6 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 		goto END;
 	}
 
-	/** - Verify if SPK Id is revoked or not. */
-	RevokeId = SecureParams.AuthJtagMessagePtr->RevocationIdMsgType &
-			XLOADER_AC_AH_REVOKE_ID_MASK;
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
-		RevokeId);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
-			Status);
-		goto END;
-	}
-
 	/**
 	 * - Calculate hash of the Authentication Header in the authenticated
 	 * JTAG data.
@@ -471,28 +460,40 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
+		goto END;
 	}
-	else {
-		UseDna = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
-				XLOADER_AC_AH_DNA_MASK);
-		UseDnaTmp = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
-				XLOADER_AC_AH_DNA_MASK);
-		if ((UseDna != (u8)FALSE) || (UseDnaTmp != (u8)FALSE)) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT,
-				SecureParams.AuthJtagMessagePtr->Dna,
-				XLOADER_EFUSE_DNA_LEN_IN_BYTES,
-				(void *)XLOADER_EFUSE_DNA_START_OFFSET,
-				XLOADER_EFUSE_DNA_LEN_IN_BYTES,
-				XLOADER_EFUSE_DNA_LEN_IN_BYTES);
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_AUTH_JTAG_INVALID_DNA, (int)0);
-				goto END;
-			}
+
+	UseDna = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
+			XLOADER_AC_AH_DNA_MASK);
+	UseDnaTmp = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
+			XLOADER_AC_AH_DNA_MASK);
+	if ((UseDna != (u8)FALSE) || (UseDnaTmp != (u8)FALSE)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT,
+			SecureParams.AuthJtagMessagePtr->Dna,
+			XLOADER_EFUSE_DNA_LEN_IN_BYTES,
+			(void *)XLOADER_EFUSE_DNA_START_OFFSET,
+			XLOADER_EFUSE_DNA_LEN_IN_BYTES,
+			XLOADER_EFUSE_DNA_LEN_IN_BYTES);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_AUTH_JTAG_INVALID_DNA, (int)0);
+			goto END;
 		}
-		Status = XLoader_EnableJtag((u32)XLOADER_CONFIG_DAP_STATE_ALL_DBG);
-		*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 	}
+
+	/** - Verify if SPK Id is revoked or not. */
+	RevokeId = SecureParams.AuthJtagMessagePtr->RevocationIdMsgType &
+			XLOADER_AC_AH_REVOKE_ID_MASK;
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
+		RevokeId);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
+			Status);
+		goto END;
+	}
+
+	Status = XLoader_EnableJtag((u32)XLOADER_CONFIG_DAP_STATE_ALL_DBG);
+	*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 
 END:
 	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
@@ -734,17 +735,6 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		goto END;
 	}
 
-	/** - Verify if SPK Id is revoked or not. */
-	RevokeId = SecureParams.AuthJtagMessagePtr->RevocationIdMsgType &
-			XLOADER_AC_AH_REVOKE_ID_MASK;
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
-		RevokeId);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
-			Status);
-		goto END;
-	}
-
 	/** - Run KAT before verifying AUTH JTAG message */
 	Status = XST_FAILURE;
 	Status = XLoader_AuthKat(&SecureParams);
@@ -769,6 +759,14 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, &SecureParams,
 			(u8 *)&SpkHash, (XLoader_RsaKey *)KeyData.PpkData, (u8*)KeyData.SPKSignature);
+	}
+
+	/** - Verify if SPK Id is revoked or not. */
+	RevokeId = KeyData.SpkHeader->SPKId;
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId, RevokeId);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_SPK_REVOKED, Status);
+		goto END;
 	}
 
 	/** - Calculate hash for Authenticated JTAG signature */
