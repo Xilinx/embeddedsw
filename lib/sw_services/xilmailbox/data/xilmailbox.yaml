@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -37,8 +37,18 @@ depends:
     ipipsu:
         - reg
         - xlnx,ipi-bitmask
-        - interrupts
 
 examples:
-        xilmailbox_example.c: []
+  xilmailbox_example.c:
+
+  condition: |
+    examples = []
+
+    interrupt_supported_procs = ["psu_cortexa53", "psu_cortexr5",
+                                "psv_cortexa72", "psv_cortexr5",
+                                "psx_cortexa78", "psx_cortexr52",
+                                "cortexa78", "cortexr52"]
+
+    if proc in interrupt_supported_procs:
+      examples += ["xilmailbox_example.c"]
 ...
