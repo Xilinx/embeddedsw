@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.	All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -29,6 +29,30 @@
 #include "xv_scenechange_hw.h"
 #include "xv_scenechange.h"
 
+
+
+/************************** Function Prototypes ******************************/
+static u32 XV_scenechange_get_sad(XV_scenechange *InstancePtr, u8 streamid);
+static void XV_scenechange_handler(XV_scenechange *ScdPtr);
+
+
+/************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief Read SAD value for a specific stream
+ *
+ * This function reads the Sum of Absolute Differences (SAD) value for the
+ * specified stream from the hardware register.
+ *
+ * @param  InstancePtr is a pointer to the XV_scenechange instance
+ * @param  streamid is the stream identifier (0-7)
+ *
+ * @return SAD value read from the hardware register
+ *
+ * @note None
+ *
+ *******************************************************************************/
 static u32 XV_scenechange_get_sad(XV_scenechange *InstancePtr, u8 streamid)
 {
 	u32 Data, RegAddr;
@@ -44,6 +68,21 @@ static u32 XV_scenechange_get_sad(XV_scenechange *InstancePtr, u8 streamid)
 	return Data;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Internal handler for scene change detection processing
+ *
+ * This function processes all enabled streams, calculates the normalized
+ * SAD threshold factor, and triggers the callback if a scene change is
+ * detected on any stream.
+ *
+ * @param  ScdPtr is a pointer to the XV_scenechange instance
+ *
+ * @return None
+ *
+ * @note This is an internal handler called by the interrupt service routine
+ *
+ *******************************************************************************/
 static void XV_scenechange_handler(XV_scenechange *ScdPtr)
 {
 	u32 index, Data, SADTF, SAD;

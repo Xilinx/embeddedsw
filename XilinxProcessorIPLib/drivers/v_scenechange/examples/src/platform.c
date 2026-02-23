@@ -1,12 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.      All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+ * @file platform.c
+ * @addtogroup v_scenechange Overview
+ */
+
+/***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_cache.h"
-
 #include "platform_config.h"
 
 /*
@@ -19,10 +24,29 @@
 
 #ifdef STDOUT_IS_16550
  #include "xuartns550_l.h"
-
- #define UART_BAUD 9600
 #endif
 
+/************************** Constant Definitions *****************************/
+#ifdef STDOUT_IS_16550
+ #define UART_BAUD 9600  /**< UART baud rate for 16550 UART */
+#endif
+
+
+/*****************************************************************************/
+/**
+ * @brief Enable instruction and data caches for the platform
+ *
+ * This function enables the instruction and data caches based on the
+ * processor architecture. For PowerPC, it enables both I-cache and D-cache
+ * using region masks. For MicroBlaze, it enables caches if they are
+ * configured in the hardware design.
+ *
+ * @return None
+ *
+ * @note This function uses conditional compilation to handle different
+ *       processor architectures (PowerPC, MicroBlaze).
+ *
+ *******************************************************************************/
 void
 enable_caches()
 {
@@ -39,6 +63,20 @@ enable_caches()
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * @brief Disable instruction and data caches for the platform
+ *
+ * This function disables the instruction and data caches for MicroBlaze
+ * architecture if they are configured in the hardware design. This is
+ * typically called during platform cleanup.
+ *
+ * @return None
+ *
+ * @note This function only affects MicroBlaze processors. PowerPC cache
+ *       disabling is not implemented in this function.
+ *
+ *******************************************************************************/
 void
 disable_caches()
 {
@@ -52,6 +90,20 @@ disable_caches()
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * @brief Initialize the UART for the platform
+ *
+ * This function initializes the UART based on the platform configuration.
+ * For 16550 UART (when STDOUT_IS_16550 is defined), it configures the baud
+ * rate and line control register for 8 data bits. For PS7/PSU UART, the
+ * bootrom/BSP configures it to 115200 bps by default.
+ *
+ * @return None
+ *
+ * @note For 16550 UART, the baud rate is set to UART_BAUD (9600).
+ *
+ *******************************************************************************/
 void
 init_uart()
 {
@@ -62,6 +114,22 @@ init_uart()
     /* Bootrom/BSP configures PS7/PSU UART to 115200 bps */
 }
 
+/*****************************************************************************/
+/**
+ * @brief Initialize the platform
+ *
+ * This function performs platform initialization including enabling caches
+ * and initializing UART. If running outside of SDK, it can also call
+ * ps7_init() or psu_init() for Zynq-7000 or Zynq UltraScale+ respectively
+ * (requires uncommenting and including appropriate header files).
+ *
+ * @return None
+ *
+ * @note For Zynq platforms running outside SDK, uncomment ps7_init() or
+ *       psu_init() calls and include the corresponding header files and
+ *       source files in the compilation.
+ *
+ *******************************************************************************/
 void
 init_platform()
 {
@@ -78,6 +146,20 @@ init_platform()
     init_uart();
 }
 
+/*****************************************************************************/
+/**
+ * @brief Cleanup the platform
+ *
+ * This function performs platform cleanup by disabling the instruction and
+ * data caches. It should be called before exiting the application to ensure
+ * proper system state.
+ *
+ * @return None
+ *
+ * @note This function is typically called at the end of the application
+ *       execution.
+ *
+ *******************************************************************************/
 void
 cleanup_platform()
 {

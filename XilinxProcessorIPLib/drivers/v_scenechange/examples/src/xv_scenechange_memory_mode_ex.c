@@ -4,8 +4,13 @@
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
+ /**
+ * @file xv_scenechange_memory_mode_ex.c
+ * @addtogroup v_scenechange Overview
+ */
+
 /*
- * scd_memory_mode_ex.c: scenechange IP in memory mode test application.
+ * xv_scenechange_memory_mode_ex.c: scenechange IP in memory mode test application.
  *
  * This application configures SceneChange IP to calculate SAD values between
  * consecutive streams. The driver accepts the threshold values per stream and
@@ -23,8 +28,10 @@
  *			 software to flush pending transactions.IP is expecting
  *			 a hard reset, when flushing is done.(There is a flush
  *			 status bit and is asserted when the flush is done).
- * <pre>
+ * </pre>
  */
+
+/***************************** Include Files *********************************/
 #include "xparameters.h"
 #include <stdio.h>
 #include "platform.h"
@@ -39,12 +46,24 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-/*Reset all IPs in pipeline */
+/************************** Constant Definitions *****************************/
+
+
+/**
+ * Mask for IP reset operations
+ */
 #define IP_RESET_MASK		0xF
-/************** User Configurable Data for testing*******************************/
+/**
+ *  Bitmask to enable SceneChange streams
+ */
 #define	SCD_STREAMS_ENABLE	1
-/* users is changing the data in Layer 0 */
+/**
+ * Layer index for the first SceneChange stream
+ */
 #define SCD_LAYER_0		0
+/**
+ * Maximum number of test patterns to cycle through
+ */
 #define MAX_PATTERNS		8
 
 #if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
@@ -59,6 +78,16 @@
 #define GPIO_BASE XPAR_GPIO_0_BASEADDR
 #endif
 
+
+/************************** Function Prototypes ******************************/
+void SceneChangeDetectedCallback(void *CallbackRef);
+#ifndef SDT
+static int SetupInterruptSystem(void);
+#endif
+int XV_SceneChange_init(void);
+void reset_pipe(void);
+
+/************************** Variable Definitions *****************************/
 /* Different patterns to write in the memory location for the streams */
 volatile u32 local_mem[8] = {0xFF00FF, 0xFFFF00, 0xFF0000, 0x00FFFF,
 	0xFFFF00, 0xFF00FF, 0x00FFFF, 0xFF0000};
@@ -78,18 +107,22 @@ u32 scd_histbits[XV_SCD_IP_MAX_STREAMS]	= {16, 0, 0, 0, 0, 0, 0, 0};
 u32 scd_clrfmt[XV_SCD_IP_MAX_STREAMS]	= {XV_SCD_HAS_Y8, 0, 0, 0, 0, 0, 0, 0};
 u32 scd_threshold[XV_SCD_IP_MAX_STREAMS] = {1, 0, 0, 0, 0, 0, 0, 0};
 
-/************************** Variable Definitions *****************************/
-
 volatile u8 is_detected, sc_detected;
 XScuGic    Intc;
 XV_scenechange ScdPtr;
 
-/************************** Function Prototypes ******************************/
-
-void SceneChangeDetectedCallback(void *CallbackRef);
-
-/************************** Function Definitions *****************************/
-
+/*****************************************************************************/
+/**
+ * @brief Clear the terminal screen
+ *
+ * This function clears the terminal screen and resets the cursor to the
+ * home position (0,0) using ANSI escape sequences.
+ *
+ * @return None
+ *
+ * @note Uses ANSI escape sequences which may not work on all terminals.
+ *
+ *******************************************************************************/
 void ClearScreen(void)
 {
 	xil_printf("%c\[2J", 27);
@@ -97,6 +130,21 @@ void ClearScreen(void)
 }
 
 #ifndef SDT
+/*****************************************************************************/
+/**
+ * @brief Setup the interrupt system for SceneChange
+ *
+ * This function initializes the GIC (Generic Interrupt Controller) and
+ * registers the exception handler. It configures the interrupt controller
+ * to handle interrupts from the SceneChange IP.
+ *
+ * @return XST_SUCCESS if interrupt system setup succeeds
+ *         XST_DEVICE_NOT_FOUND if interrupt controller not found
+ *         XST_FAILURE if initialization fails
+ *
+ * @note This function is only used in non-SDT builds.
+ *
+ *******************************************************************************/
 static int SetupInterruptSystem(void)
 {
 	int Status;
@@ -127,6 +175,21 @@ static int SetupInterruptSystem(void)
 }
 #endif
 
+/*****************************************************************************/
+/**
+ * @brief Callback function for scene change detection
+ *
+ * This function is called when a scene change is detected by the IP.
+ * It prints the layer ID and SAD (Sum of Absolute Differences) value,
+ * and sets the detection flag.
+ *
+ * @param  CallbackRef Pointer to callback reference (not used)
+ *
+ * @return None
+ *
+ * @note This callback is registered with XV_scenechange_SetCallback().
+ *
+ *******************************************************************************/
 void SceneChangeDetectedCallback(void *CallbackRef)
 {
 	xil_printf("IN CB: Layer:%d SAD:%X\r\n", ScdPtr.ScdDetLayerId,
@@ -134,6 +197,21 @@ void SceneChangeDetectedCallback(void *CallbackRef)
 	is_detected = 1;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Initialize the SceneChange IP
+ *
+ * This function initializes the SceneChange IP, configures all enabled
+ * streams with their parameters (height, width, stride, color format,
+ * histogram bits, threshold), sets up interrupts, registers the callback,
+ * and starts the IP in auto-restart mode.
+ *
+ * @return XST_SUCCESS if initialization succeeds
+ *         XST_FAILURE if any initialization step fails
+ *
+ * @note This function expects memory-based mode. It will fail for stream mode.
+ *
+ *******************************************************************************/
 int XV_SceneChange_init()
 {
 	XV_scenechange_Config *ScdConfig;
@@ -222,6 +300,20 @@ int XV_SceneChange_init()
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Reset the video pipeline
+ *
+ * This function performs a hardware reset of the video processing pipeline.
+ * For GPIO-based systems, it toggles the GPIO reset signal. For other
+ * systems, it uses register writes to perform the reset sequence.
+ *
+ * @return None
+ *
+ * @note The reset sequence includes setting reset, clearing it, and setting
+ *       it again to ensure proper IP initialization.
+ *
+ *******************************************************************************/
 void reset_pipe(void)
 {
 
@@ -244,7 +336,23 @@ void reset_pipe(void)
 
 	xil_printf("Reset SCD - Done.\r\n");
 }
-
+/*****************************************************************************/
+/**
+ * @brief Main function for SceneChange memory mode test application
+ *
+ * This application configures the SceneChange IP in memory mode to calculate
+ * SAD values between consecutive frames. It initializes the platform,
+ * configures the IP with test patterns, and monitors for scene change
+ * detections. The test cycles through different memory patterns to trigger
+ * scene changes.
+ *
+ * @return XST_SUCCESS if scene change is detected and test passes
+ *         XST_FAILURE if initialization fails or no scene change detected
+ *
+ * @note The test expects at least one scene change detection within
+ *       MAX_PATTERNS iterations.
+ *
+ *******************************************************************************/
 int main()
 {
 	u8 state;

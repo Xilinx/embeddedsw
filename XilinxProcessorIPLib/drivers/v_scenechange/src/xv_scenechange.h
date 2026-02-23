@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 1986-2022 Xilinx, Inc. All Rights Reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_scenechange.h
+ * @addtogroup v_scenechange Overview
+ */
 
 #ifndef XV_SCENECHANGE_H
 #define XV_SCENECHANGE_H
@@ -32,20 +37,57 @@ extern "C" {
 #include "xv_scenechange_hw.h"
 #include "sleep.h"
 
+/************************** Constant Definitions *****************************/
+
+/**
+ * Layer offset for scene change detection IP
+ */
 #define XV_SCD_LAYER_OFFSET		(0x100)
+
+/**
+ * Maximum number of streams supported by scene change IP
+ */
 #define XV_SCD_IP_MAX_STREAMS		8
+
+/**
+ * Wait count for flush done operation
+ */
 #define XV_SCD_WAIT_FOR_FLUSH_DONE	(25)
+
+/**
+ * Delay in microseconds for flush operation
+ */
 #define XV_SCD_WAIT_FOR_FLUSH_DELAY	(2000)
+
+/**
+ * Idle timeout in microseconds for scene change IP
+ */
 #define XV_SCD_IDLE_TIMEOUT		(1000000)
+
+/**
+ * Memory based mode for scene change detection
+ */
 #define XV_SCD_MEMORY_MODE		1
+
+/**
+ * Stream mode for scene change detection
+ */
 #define XV_SCD_STREAM_MODE		0
 
 /**************************** Type Definitions ******************************/
 
 /* Please check Xilinx SceneChange PG*/
+
+/**
+ * @typedef XVScdClrFmt
+ * @brief Enumeration for video color format support in scene change detection.
+ *
+ * Defines the supported color formats for the scene change detection IP core.
+ * These values correspond to the hardware register bits that indicate format capabilities.
+ */
 typedef enum {
-	XV_SCD_HAS_Y8  = 24,
-	XV_SCD_HAS_Y10 = 25
+    XV_SCD_HAS_Y8  = 24,  /**< Y8 (8-bit grayscale) format support enabled */
+    XV_SCD_HAS_Y10 = 25   /**< Y10 (10-bit grayscale) format support enabled */
 } XVScdClrFmt;
 
 #ifdef __linux__
@@ -53,20 +95,31 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
+/**
+ * @struct XV_scenechange_Config
+ * @brief Configuration structure for the Scene Change Detection IP core.
+ *
+ * This structure contains the configuration parameters for the Xilinx Scene Change
+ * Detection video processing IP. It includes device identification, memory addressing,
+ * format support settings, and resource constraints.
+ *
+ * @note The structure uses conditional compilation (SDT - Scoped Device Tree) to support
+ *       both legacy and device tree based configurations.
+ */
 typedef struct {
 #ifndef SDT
     u16 DeviceId;		/**< Unique ID of device */
 #else
     char *Name;			/**< Unique Name of device */
 #endif
-    UINTPTR Ctrl_BaseAddress;
-    u8	MemoryBased;
-    u8	NumStreams;
-    u32	HistogramBits;
-    u8  EnableY8;
-    u8  EnableY10;
-    u32 Cols;
-    u32	Rows;
+    UINTPTR Ctrl_BaseAddress;	/**< Base address of the control registers */
+    u8	MemoryBased;		/**< Memory-based mode flag (1=memory, 0=stream) */
+    u8	NumStreams;		/**< Number of streams supported by the IP */
+    u32	HistogramBits;		/**< Number of histogram bits */
+    u8  EnableY8;		/**< Y8 format support enabled flag */
+    u8  EnableY10;		/**< Y10 format support enabled flag */
+    u32 Cols;			/**< Maximum number of columns supported */
+    u32	Rows;			/**< Maximum number of rows supported */
 #ifdef SDT
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
@@ -74,61 +127,106 @@ typedef struct {
 } XV_scenechange_Config;
 #endif
 
-/**
-* Callback type for interrupt.
-*
-* @param    CallbackRef is a callback reference passed in by the upper
-*           layer when setting the callback functions, and passed back to
-*           the upper layer when the callback is invoked.
-*
-* @return   None.
-*
-* @note     None.
-*
-*/
 
+
+/**
+ * @typedef XVSceneChange_Callback
+ * @brief Callback function pointer type for scene change detection events.
+ *
+ * This typedef defines the signature for callback functions that are invoked
+ * when a scene change is detected by the XVSceneChange driver.
+ *
+ * @param InstancePtr Pointer to the XVSceneChange instance that triggered the callback.
+ *                    This allows the callback handler to identify which scene change
+ *                    detector instance generated the event.
+ *
+ * @return void
+ *
+ * @note The callback function should not perform time-consuming operations as it
+ *       may be called from an interrupt context.
+ */
 typedef void (*XVSceneChange_Callback)(void *InstancePtr);
+
+/*Scene Change Detection Layer Configuration Structure*/
 typedef struct {
-    u64 BufferAddr;
-    u32 SAD;
-    u32 Threshold;
-    u32 Width;
-    u32 Height;
-    u32 Stride;
-    u32 SubSample;
-    u8  LayerId;
-    u8  StreamEnable;
-    XVScdClrFmt VFormat;
+    u64 BufferAddr;           /**< Frame buffer address for scene change detection */
+    u32 SAD;                  /**< Sum of Absolute Differences result */
+    u32 Threshold;            /**< Scene change detection threshold value */
+    u32 Width;                /**< Frame width in pixels */
+    u32 Height;               /**< Frame height in pixels */
+    u32 Stride;               /**< Frame stride/line width in bytes */
+    u32 SubSample;            /**< Subsampling factor for processing */
+    u8  LayerId;              /**< Layer identifier (0-7) */
+    u8  StreamEnable;         /**< Stream enable flag */
+    XVScdClrFmt VFormat;      /**< Video format (Y8 or Y10) */
 } XVScdLayerConfig;
+
+/*Main structure for scene change detection IP driver instance*/
 typedef struct {
-    UINTPTR Ctrl_BaseAddress;
-    u32 IsReady;
-    u32 ScdDetLayerId;
-    u32 ScdLayerDetSAD;
-    void *CallbackRef;
-    XV_scenechange_Config *ScdConfig;
-    XVScdLayerConfig LayerConfig[XV_SCD_IP_MAX_STREAMS];
-    XVSceneChange_Callback FrameDoneCallback;
+    UINTPTR Ctrl_BaseAddress;              /**< Base address of the control registers */
+    u32 IsReady;                           /**< Initialization status flag */
+    u32 ScdDetLayerId;                     /**< Current detected scene change layer ID */
+    u32 ScdLayerDetSAD;                    /**< Sum of Absolute Differences for detected layer */
+    void *CallbackRef;                     /**< User-defined callback reference pointer */
+    XV_scenechange_Config *ScdConfig;      /**< Pointer to device configuration structure */
+    XVScdLayerConfig LayerConfig[XV_SCD_IP_MAX_STREAMS];  /**< Layer configurations for all streams */
+    XVSceneChange_Callback FrameDoneCallback;  /**< Callback function invoked on frame processing completion */
 } XV_scenechange;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
+/**
+ * Write to register at specified offset
+ */
 #define XV_scenechange_WriteReg(BaseAddress, RegOffset, Data) \
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+/**
+ * Read from register at specified offset
+ */
 #define XV_scenechange_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 #else
+/**
+ * Write to register at specified offset (Linux)
+ */
 #define XV_scenechange_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+
+/**
+ * Read from register at specified offset (Linux)
+ */
 #define XV_scenechange_ReadReg(BaseAddress, RegOffset) \
     *(volatile u32*)((BaseAddress) + (RegOffset))
 
+/**
+ * Assert void expression
+ */
 #define Xil_AssertVoid(expr)    assert(expr)
+
+/**
+ * Assert non-void expression
+ */
 #define Xil_AssertNonvoid(expr) assert(expr)
 
+/**
+ * Success status code
+ */
 #define XST_SUCCESS             0
+
+/**
+ * Device not found error code
+ */
 #define XST_DEVICE_NOT_FOUND    2
+
+/**
+ * Open device failed error code
+ */
 #define XST_OPEN_DEVICE_FAILED  3
+
+/**
+ * Component is ready status
+ */
 #define XIL_COMPONENT_IS_READY  1
 #endif
 

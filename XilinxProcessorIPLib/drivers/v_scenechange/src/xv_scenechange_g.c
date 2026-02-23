@@ -1,19 +1,30 @@
 
 /*******************************************************************
 * Copyright (c) 2010-2022 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
+/**
+ * @file xv_scenechange_g.c
+ * @addtogroup v_scenechange Overview
+ */
+
+/***************************** Include Files *********************************/
 #ifndef SDT
 #include "xparameters.h"
 #endif
 #include "xv_scenechange.h"
 
-/*
-* The configuration table for devices
-*/
 
+/************************** Variable Definitions *****************************/
+/**
+ * Configuration table for SceneChange devices
+ *
+ * This table contains the configuration information for each SceneChange
+ * device in the system. Each entry includes device ID, base address,
+ * operational mode (memory/stream), and IP capabilities.
+ */
 XV_scenechange_Config XV_scenechange_ConfigTable[] =
 {
 	{
