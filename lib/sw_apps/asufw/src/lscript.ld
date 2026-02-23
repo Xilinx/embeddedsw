@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -34,40 +34,40 @@ SECTIONS
    __text.init_start = .;
    *(.text.init)
    __text.init_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .text : {
    . = ALIGN(2048);
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .note.gnu.build-id : {
    KEEP (*(.note.gnu.build-id))
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .init : {
    KEEP (*(.init))
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .fini : {
    KEEP (*(.fini))
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .init_array : {
   __init_array_start = .;
   KEEP (*(SORT(.init_array.*)))
   KEEP (*(.init_array))
   __init_array_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .fini_array : {
   __fini_array_start = .;
   KEEP (*(SORT(.fini_array.*)))
   KEEP (*(.fini_array))
   __fini_array_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -78,7 +78,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -89,7 +89,7 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .rodata : {
    __rodata_start = .;
@@ -97,13 +97,13 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .srodata : {
    __srodata_start = .;
    *(.srodata)
    __srodata_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .sdata2 : {
    __sdata2_start = .;
@@ -111,7 +111,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .sbss2 : {
    __sbss2_start = .;
@@ -119,7 +119,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .data : {
    __data_start = .;
@@ -127,31 +127,31 @@ SECTIONS
    *(.data.*)
    *(.gnu.linkonce.d.*)
    _edata = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .got : {
    *(.got)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .got1 : {
    *(.got1)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .got2 : {
    *(.got2)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .eh_frame : {
    *(.eh_frame)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .jcr : {
    *(.jcr)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .sdata : {
    __sdata_start = .;
@@ -159,7 +159,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .sbss (NOLOAD) : {
    __sbss_start = .;
@@ -167,7 +167,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .tdata : {
    __tdata_start = .;
@@ -175,7 +175,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .tbss : {
    __tbss_start = .;
@@ -183,7 +183,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .bss (NOLOAD) : {
    __bss_start = .;
@@ -192,7 +192,7 @@ SECTIONS
    *(.gnu.linkonce.b.*)
    *(COMMON)
    __bss_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .rsa_data_block (NOLOAD):
 {
@@ -224,7 +224,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _heap_start = .;
    . += _HEAP_SIZE;
    _heap_end = .;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 .stack (NOLOAD) : {
    _stack_end = .;
@@ -232,7 +232,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(8);
    _stack = .;
    __stack = _stack;
-} > tmr_ram_cntlr_Mem
+} > tmr_ram_instr_cntlr_Mem
 
 __global_pointer$ = MIN(__sdata_start + 0x800, MAX(__data_start + 0x800, __bss_end - 0x800));
 _end = .;
