@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -54,7 +54,6 @@
  * @param  I2srx_DstBuf is the destination buffer to store the
  *         24 bytes.
  *
- * @return void.
  *
  *****************************************************************************/
 void XI2s_Rx_SetAesChStat(u32 I2srx_SrcBuf[], u8 I2srx_DstBuf[])

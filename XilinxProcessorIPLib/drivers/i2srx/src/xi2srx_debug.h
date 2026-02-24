@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -57,7 +57,7 @@ typedef enum {
 		XI2S_RX_AUD_OVERFLOW_EVT,    //!< Audio Overflow Detected Event
 		XI2S_RX_LOG_EVT_INVALID      //!< Invalid Log Event
 } XI2s_Rx_LogEvt;
-/*@}*/
+/** @} */
 
 /**
  * @brief This structure is used to store log events

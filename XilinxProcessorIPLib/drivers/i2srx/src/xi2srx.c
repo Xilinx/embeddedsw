@@ -107,7 +107,6 @@ int XI2s_Rx_CfgInitialize(XI2s_Rx *InstancePtr,
  * @param  Enable specifies TRUE/FALSE value to either enable or disable
  *         the XI2s Receiver.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Rx_Enable(XI2s_Rx *InstancePtr, u8 Enable)
@@ -135,7 +134,6 @@ void XI2s_Rx_Enable(XI2s_Rx *InstancePtr, u8 Enable)
  *
  * @param  InstancePtr is a pointer to the XI2s Receiver instance.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Rx_LatchAesChannelStatus(XI2s_Rx *InstancePtr)
@@ -156,8 +154,6 @@ void XI2s_Rx_LatchAesChannelStatus(XI2s_Rx *InstancePtr)
  *
  * @param  InstancePtr is a pointer to the XI2s Receiver instance.
  * @param  Mask is a bit mask of the interrupts to be enabled.
- *
- * @return None.
  *
  * @see XI2srx_HW for the available interrupt masks.
  *
@@ -181,7 +177,6 @@ void XI2s_Rx_IntrEnable(XI2s_Rx *InstancePtr, u32 Mask)
  * @param  InstancePtr is a pointer to the XI2s Receiver instance.
  * @param  Mask is a bit mask of the interrupts to be disabled.
  *
- * @return None.
  *
  * @see XI2s_Receiver_HW for the available interrupt masks.
  *
@@ -306,7 +301,6 @@ u32 XI2s_Rx_SetSclkOutDiv(XI2s_Rx *InstancePtr, u32 MClk, u32 Fs)
  * @param  AesChStatusBuf is a pointer to a buffer containing the
  *         AES channel status bits.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Rx_SetAesChStatus(XI2s_Rx *InstancePtr, u8 *AesChStatusBuf)
@@ -332,7 +326,6 @@ void XI2s_Rx_SetAesChStatus(XI2s_Rx *InstancePtr, u8 *AesChStatusBuf)
  *
  * @param InstancePtr is a pointer to the XI2s_Rx core instance.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Rx_ClrAesChStatRegs(XI2s_Rx *InstancePtr)
@@ -360,7 +353,6 @@ void XI2s_Rx_ClrAesChStatRegs(XI2s_Rx *InstancePtr)
  * @param  Enable specifies TRUE/FALSE value to either enable or disable
  *         the justification.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Rx_JustifyEnable(XI2s_Rx *InstancePtr, u8 Enable)
@@ -388,7 +380,6 @@ void XI2s_Rx_JustifyEnable(XI2s_Rx *InstancePtr, u8 Enable)
  *    - XI2S_RX_JUSTIFY_LEFT : Left justification
  *    - XI2S_RX_JUSTIFY_RIGHT : Right justification
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Rx_Justify(XI2s_Rx *InstancePtr, XI2s_Rx_Justification Justify)

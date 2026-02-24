@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -58,7 +58,7 @@ typedef enum {
 		XI2S_RX_HANDLER_AUD_OVRFLW, //!< Audio Overflow Detected Handler
 		XI2S_RX_NUM_HANDLERS        //!< Number of handler types
 } XI2s_Rx_HandlerType;
-
+/** @} */
 /** @name Handler Types
  * @{
  */
@@ -73,23 +73,23 @@ typedef enum {
 		XI2S_RX_NUM_CHANNELS //!<Number of Channel ID's
 } XI2s_Rx_ChannelId;
 
-/*@}*/
+/** @} */
 
 /**
- * Callback function data type for handling interrupt requests
- * from the XI2s Receiver peripheral. The application using this driver is
- * expected to define a handler of this type to support interrupt driven mode.
- * The handler is called in an interrupt context such that minimal processing
- * should be performed.
+ * @brief Callback function pointer type for I2S RX events.
  *
- * @param CallBackRef is a callback reference passed in by the upper
- *        layer when setting the callback functions, and passed back
- *        to the upper layer when the callback is invoked.
+ * This typedef defines the signature for callback functions that handle
+ * I2S receiver (RX) events. The callback is invoked when specific I2S RX
+ * events occur during operation.
  *
- * @return None
+ * @param CallbackRef A void pointer to user-defined callback reference data.
+ *                    This pointer is typically used to pass context or state
+ *                    information to the callback handler.
  *
- * @note None
+ * @note The actual callback implementation should cast CallbackRef to the
+ *       appropriate data type as needed for application-specific processing.
  */
+
 	typedef void (*XI2s_Rx_Callback)(void *CallbackRef);
 
 /**

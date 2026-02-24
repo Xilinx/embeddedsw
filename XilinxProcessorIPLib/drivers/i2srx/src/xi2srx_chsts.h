@@ -5,10 +5,13 @@
  * ****************************************************************************/
 
 /*****************************************************************************/
-/*
- * @file xi2srx_chsts.h
+/**
+ *
+ *
+ *	@file xi2srx_chsts.c
  * @addtogroup i2srx Overview
  * @{
+ *
  * Format status related offsets & masks definitions related to the channel
  * status format.For formats/line protocols check the AES standard
  * specifications document
@@ -31,8 +34,9 @@ extern "C" {
 #include "xi2srx.h"
 
 /************************** Constant Definitions *****************************/
-/** @name AES Status and Register Masks and Shifts @{ */
-
+/** @name AES Status and Register Masks and Shifts
+ * @{
+ */
 #define XI2S_RX_AES_STS_USE_OF_CH_STS_BLK_SHIFT (0)
 	/**< Use of Channel Status Block bit shift */
 
@@ -169,8 +173,7 @@ extern "C" {
 	/**< Time-of-day sample address code register(s) byte3 mask */
 
 #define XI2S_RX_AES_STS_TIME_OF_DAY_SAMPLE_ADDRESS_CODE_BYTE3_SHIFT (24)
-	/*< Time-of-day sample address code register(s) byte3 shift */
-
+	/**< Time-of-day sample address code register(s) byte3 shift */
 /** @} */
 /***************** Macros (Inline Functions) Definitions *********************/
 

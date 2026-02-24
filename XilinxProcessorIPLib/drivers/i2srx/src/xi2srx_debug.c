@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -43,8 +43,6 @@
  * @param InstancePtr is a pointer to the XI2s_Rx instance.
  * @param Event is the log event type.
  * @param Data is the log data.
- *
- * @return None.
  *
  * @note Log write is done only if the log is enabled.
  *
@@ -115,7 +113,7 @@ XI2s_Rx_LogItem* XI2s_Rx_LogRead(XI2s_Rx *InstancePtr)
 /**
  * This function clears the contents of the logging buffer.
  * @param InstancePtr is a pointer to the XI2s_Rx instance.
- * @return None.
+ *
  * @note None.
  *****************************************************************************/
 void XI2s_Rx_LogReset(XI2s_Rx *InstancePtr)
@@ -132,7 +130,6 @@ void XI2s_Rx_LogReset(XI2s_Rx *InstancePtr)
 /**
  * This function prints the contents of the logging buffer.
  * @param InstancePtr is a pointer to the XI2s_Rx instance.
- * @return None.
  * @note None.
  *
  *****************************************************************************/
