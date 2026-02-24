@@ -51,6 +51,7 @@
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 * 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
+* 4.10  ht   02/17/26 Fix GCC warnings for unused parameter.
 * </pre>
 *******************************************************************************/
 
@@ -81,8 +82,6 @@
 #else
 #define MY_CPU_ID XPAR_CPU_ID
 #endif /* XPAR_CPU_ID != 0 */
-
-int Timeout;
 
 #define MSGSIZ  1024
 
@@ -218,9 +217,6 @@ int MailboxExample(UINTPTR BaseAddress)
 {
 	XMbox_Config *ConfigPtr;
 	int Status;
-	u32 Nbytes;
-	u32 BytesSent;
-	u32 BytesRcvd;
 
 	/*
 	 * Lookup configuration data in the device configuration table.
@@ -324,6 +320,7 @@ int MailboxExample_Wait(volatile int *Count, char *Name, int Threshold)
 	while (*Count <= Threshold) {
 		Timeout++;
 		if (Timeout > TIMEOUT_MAX_COUNT) {
+			printf("MailboxExample_Wait: Timeout waiting for %s\r\n", Name);
 			return XST_FAILURE;
 		}
 	}
@@ -352,7 +349,9 @@ int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 	int Status;
 	u32 Nbytes;
 	u32 BytesSent;
-	u32 BytesRcvd;
+
+	printf("CPU %d: Sending message (%s)\r\n", CPU_Id,
+	       Blocking ? "blocking" : "non-blocking");
 
 	Nbytes = 0;
 	if (Blocking) {
@@ -395,9 +394,11 @@ int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 {
 	int Status;
 	u32 Nbytes;
-	u32 BytesSent;
 	u32 BytesRcvd;
 	int Timeout;
+
+	printf("CPU %d: Receiving message (%s)\r\n", CPU_Id,
+	       Blocking ? "blocking" : "non-blocking");
 
 	Nbytes = 0;
 	Timeout = 0;

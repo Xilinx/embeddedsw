@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 *                     examples.
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
+* 4.10  ht   02/17/26 Fix GCC warnings for unused parameter.
 *</pre>
 *******************************************************************************/
 
@@ -111,7 +112,7 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		printf ("PRODCON :\t mbox Example Failed.\r\n");
 	} else {
-		printf ("PRODCON :Successfully ran mbox Example\r\n");
+		printf ("PRODCON :\tSuccessfully ran mbox Example\r\n");
 	}
 
 	printf ("PRODCON :\tEnds.\r\n");
@@ -138,10 +139,6 @@ int ProdCon ()
 	XMbox Mbox;
 	XMbox_Config *ConfigPtr;
 	int Status;
-	u32 NumBytes;
-	u32 Sent;
-	u32  Rcvd;
-	int Index;
 
 	printf ("(%s):\tStarts.\r\n", Role[MY_CPU_ID]);
 
@@ -198,13 +195,11 @@ int ProdCon ()
 
 	printf ("(%s):\tSuccessfully Rcvd the message --> \r\n\r\n\t--[%s]--\r\n\r\n", Role[MY_CPU_ID], RecvMsg);
 #else
-	/* First recv the hello */
-	NumBytes = 0;
 	/* Write a message to the Mbox */
 	printf ("CPU 1 WriteBlocking call\n");
 	XMbox_WriteBlocking (&Mbox, (u32 *)((u8 *)rhello), HELLO_SIZE);
 
-	printf ("(%s):\tsent %d bytes.\r\n", Role[MY_CPU_ID], Sent);
+	printf ("(%s):\tsent %d bytes.\r\n", Role[MY_CPU_ID], HELLO_SIZE);
 
 	printf ("(%s):\tSuccessfully sent the message --> \r\n\r\n\t--[%s]--\r\n\r\n",
 		Role[MY_CPU_ID], rhello);
