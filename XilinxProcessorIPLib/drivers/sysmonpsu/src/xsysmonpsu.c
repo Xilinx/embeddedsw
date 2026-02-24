@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,8 +47,8 @@
 * 2.8   cog    10/21/20 Fixed isues where ADCCLK divisor was not updated.
 * 2.9   cog    07/20/23 Added support for SDT flow.
 * 3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
-*                       robust error handling, this required the API protoype
-*                       to be chnaged.
+*                       robust error handling, this required the API prototype
+*                       to be changed.
 *       se     07/22/24 Alarm threshold set and get functions updated to adapt
 *                       of Lower alarm registers thresholds mode bit masking.
 *       se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
@@ -56,6 +56,7 @@
 *       se     08/08/24 Missing null pointer assert check added on
 *                       XSysMonPsu_UpdateAdcClkDivisor.
 * 3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
+* 3.3   dc     02/18/26 Correct spelling errors
 * </pre>
 *
 ******************************************************************************/
@@ -1930,7 +1931,7 @@ void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr)
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
 *
 * @return	Returns the monitor status. See XSYSMONPSU_MON_STS_*_MASK
-* 		definations present in xsysmonpsu_hw.h for knowing the status.
+* 		definitions present in xsysmonpsu_hw.h for knowing the status.
 *
 * @note		None
 *

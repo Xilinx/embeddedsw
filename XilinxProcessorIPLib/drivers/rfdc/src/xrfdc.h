@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -228,7 +228,7 @@
 *       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
 *                       Also, add new XRFdc_DSA_Settings structure.
 *       cog    09/12/19 Swapped MIXER_TYPE_OFF and MIXER_TYPE_DISABLED macros.
-*       cog    09/18/19 Minumum output divider is now 1 for Gen 3 devices.
+*       cog    09/18/19 Minimum output divider is now 1 for Gen 3 devices.
 *       cog    09/18/19 Changed clock distribution macros, also removed prototype for a function
 *                       that is now static.
 *       cog    10/02/19 Added macros for the clock divider.
@@ -240,7 +240,7 @@
 *       cog    01/08/20 Added programmable hysteresis counters for ADC signal detector.
 *       cog    01/23/20 Calibration modes for Gen 3 were inverted.
 * 8.0   cog    02/10/20 Updated addtogroup and added s16 typedef.
-*       cog    02/10/20 Added Silicon revison to dirver structures to allow discrimation
+*       cog    02/10/20 Added Silicon revision to driver structures to allow discrimation
 *                       between engineering sample & production silicon.
 *       cog    02/17/20 Driver now gets tile/path enables from the bitfile.
 *       cog    02/20/20 Added macros for Clock Gater handling.
@@ -256,7 +256,7 @@
 *       cog    08/04/20 Added multiband macros.
 *       cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
 *                       four LSBs of the CS Gain.
-*       cog    09/28/20 Change XRFdc_IsHighSpeedADC to accomodate 43dr parts.
+*       cog    09/28/20 Change XRFdc_IsHighSpeedADC to accommodate 43dr parts.
 *       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
 *                       consumption.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
@@ -293,6 +293,7 @@
 *       cog    07/14/23 Fix issues with SDT flow.
 *       cog    07/27/23 Add NCO frequency to config structures.
 * 12.3  cog    07/09/24 Corrected GEN3 maximum ADC VCO frequency.
+* 13.1  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

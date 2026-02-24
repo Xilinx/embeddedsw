@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,8 +12,8 @@
 * @{
 *
 * Contains the interface functions of the Analogue Path Settings in XRFdc driver.
-* Although these features are digital in reality, due to thier position in the
-* datapath (being between the crossbar and the converter) they are refered to as
+* Although these features are digital in reality, due to their position in the
+* datapath (being between the crossbar and the converter) they are referred to as
 * "analogue path" blocks.
 * See xrfdc.h for a detailed description of the device and driver.
 *
@@ -43,6 +43,7 @@
 * 13.0  cog    01/15/25 Fixed VOP VCM Drop issue.
 *       cog    01/25/25 QMC needs to take the XBar settings into account
 *                       for HSADCs.
+* 13.1  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -1847,7 +1848,7 @@ u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Requested fuctionality not available for this IP in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
 * 5.2   se     08/24/25 Microblaze support added
+* 5.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -784,7 +785,7 @@ void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
 *
 * @return
 *               TRUE if enabled.
-*               FALSE if disbaled.
+*               FALSE if disabled.
 *               XSYSMONPSV_INVALID if invalid SupplyValue.
 *
 *

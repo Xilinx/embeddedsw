@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +43,7 @@
 * This value is relative to the bitfield start address.
 *
 * Note:
-* In the case where a bitfield fieled/width/value is common to a set of
+* In the case where a bitfield field/width/value is common to a set of
 * registers, the highest level naming is used.
 * e.g. XDFEOFDM_TRIGGERS_SOURCE_OFFSET applies to all
 *      XDFEOFDM_TRIGGERS_<register>_OFFSET registers, hence
@@ -59,9 +59,10 @@
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
 *       dc     06/28/23 Add phase compensation calculation
-* 1.2   dc     10/16/23 Doxygen documenatation update
+* 1.2   dc     10/16/23 Doxygen documentation update
 *       dc     10/17/23 Support for FFT size 512
 * 1.3   dc     09/23/24 Add frequency range MODEL_PARAM
+* 1.6   dc     02/18/26 Correct spelling errors
 * </pre>
 *
 ******************************************************************************/

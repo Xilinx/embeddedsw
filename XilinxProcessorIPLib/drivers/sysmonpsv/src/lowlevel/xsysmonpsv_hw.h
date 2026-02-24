@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,10 +25,11 @@
 * 2.0   aad    10/12/20 MISRAC Violations
 * 2.1   aad    02/24/21 Added additional macro to support production silicon.
 * 2.3   aad    07/26/21 Added doxygen comments for Macros
-*       aad    07/26/21 Removed unsed Macros
+*       aad    07/26/21 Removed unused Macros
 * 3.0   cog    03/25/21 Driver Restructure
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
+* 5.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

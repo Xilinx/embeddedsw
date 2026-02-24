@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
 * Functions in the xsysmonpsv_common.h file are basic driver functions which will be used in the
-* in servies or directly by the user.
+* in services or directly by the user.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,6 +19,7 @@
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
 * 5.2   se     08/24/25 Microblaze support added
+* 5.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ extern "C" {
 #define twoscomp(val)                                                          \
 	((((val) ^ 0xFFFF) + 1) & 0x0000FFFF) /**< Macro for 2's compliment */
 #define ALARM_REG(address)                                                     \
-	((address) / 32U) /**< Alarm Register offet for supply */
+	((address) / 32U) /**< Alarm Register offset for supply */
 #define ALARM_SHIFT(address)                                                   \
 	((address) % 32U) /**< Supply bit in Alarm Register */
 #define GET_BIT(nr) (1UL << (nr)) /**< Macro for bit shifter */

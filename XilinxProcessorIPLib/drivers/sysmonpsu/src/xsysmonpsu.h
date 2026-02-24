@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -160,10 +160,11 @@
 *       aad    17/12/20 Removed undefined function.
 * 2.9   cog    07/20/23 Added support for SDT flow.
 * 3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
-*                       robust error handling, this required the API protoype
-*                       to be chnaged.
+*                       robust error handling, this required the API prototype
+*                       to be changed.
 *       se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
 *                       to enable over-temperature default value override.
+* 3.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

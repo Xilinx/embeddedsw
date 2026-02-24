@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,6 +87,7 @@
 *       cog    07/04/23 Add support for SDT
 * 1.7   cog    02/21/24 Fixed SDT runtime issue
 * 1.8   dc     12/08/25 Update doxygen comments
+*       dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @endcond
@@ -456,14 +457,14 @@ typedef struct {
  */
 typedef struct {
 	u32 Stage; /**< [0-3] Earliest stage in which overflow occurred. */
-	u32 Antenna; /**< [0-7] Antenna on which overflow occured, with lowest
+	u32 Antenna; /**< [0-7] Antenna on which overflow occurred, with lowest
 		antenna taking priority. */
 	u32 NcoId; /**< [0-15] Number of NCO associated with overflowing channel,
 		with lowest taking priority. */
 	u32 Mode; /** [0-1] In Switchable the mode of core when the overflow
-		occured.
-		- 0 = DOWNLINK: Overflow occured while core is in downlink.
-		- 1 = UPLINK: Overflow occured while core is in uplink. */
+		occurred.
+		- 0 = DOWNLINK: Overflow occurred while core is in downlink.
+		- 1 = UPLINK: Overflow occurred while core is in uplink. */
 } XDfeMix_DUCDDCStatus;
 
 /**
@@ -481,13 +482,13 @@ typedef struct {
 			and has been saturated. Downlink MAX_CCIDs > 8 Only. */
 	u32 Antenna; /**< [0-7] Lowest numbered antenna in which overflow
 		occurred. */
-	u32 NcoId; /**< [0-15] NCO on which overflow occured, with lowest
+	u32 NcoId; /**< [0-15] NCO on which overflow occurred, with lowest
 		antenna taking priority (only relevant to overflow in
 		COMPLEX_MULT stage). */
 	u32 Mode; /**< [0-1] In Switchable the mode of core when the overflow
-		occured.
-		- 0 = DOWNLINK: Overflow occured while core is in downlink.
-		- 1 = UPLINK: Overflow occured while core is in uplink. */
+		occurred.
+		- 0 = DOWNLINK: Overflow occurred while core is in downlink.
+		- 1 = UPLINK: Overflow occurred while core is in uplink. */
 } XDfeMix_MixerStatus;
 
 /**

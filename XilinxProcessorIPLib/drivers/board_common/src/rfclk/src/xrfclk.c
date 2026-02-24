@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.3   dc     03/10/20 update LMK/LMX config for MTS
 * 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
 * 2.0   dc     24/03/25 Update BM for SDT
+* 2.1   dc     02/18/26 Correct spelling errors
 * </pre>
 *
 ******************************************************************************/
@@ -594,7 +595,7 @@ static int XRFClk_SetBusSwitchI2C1()
 /****************************************************************************/
 /**
 *
-* This function is HAL API for I2c read. If attempt failes function will
+* This function is HAL API for I2c read. If attempt fails function will
 * repeate IIC write protocol again for DELAY_100uS microseconds multiplied by
 * a loop index number. The procedure will be repeated NUM_IIC_RETRIES times.
 *
@@ -639,7 +640,7 @@ static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
 		if (mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
 			break;
 		} else {
-			PRINTF("warrning: i2c1 MUX status change");
+			PRINTF("warning: i2c1 MUX status change");
 			/* Add delay before the next attempt */
 			usleep(DELAY_100uS * (i + 1));
 		}
@@ -654,7 +655,7 @@ static int XRFClk_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len)
 /****************************************************************************/
 /**
 *
-* This function is HAL API for I2c write. If attempt failes function will
+* This function is HAL API for I2c write. If attempt fails function will
 * repeate IIC write protocol again for DELAY_100uS microseconds multiplied by
 * a loop index number. The procedure will be repeated NUM_IIC_RETRIES times.
 *
@@ -699,7 +700,7 @@ static int XRFClk_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len)
 		if (mux == I2C_SWITCH_SELECT_I2C2SPI_BRIDGE) {
 			break;
 		} else {
-			PRINTF("warrning: i2c1 MUX status change");
+			PRINTF("warning: i2c1 MUX status change");
 			/* Add delay before the next attempt */
 			usleep(DELAY_100uS * (i + 1));
 		}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 * 2.3   mn     07/09/18 Fix Doxygen warning
 * 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
 * 2.7   cog    07/24/23 Added support for SDT flow
+* 2.8   dc     02/18/26 Correct spelling errors
 *
 *
 * </pre>
@@ -523,7 +524,7 @@ u8 XAdcPs_GetAvg(XAdcPs *InstancePtr)
 * the single channel mode.
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
-* @param	Channel is the channel number for the singel channel mode.
+* @param	Channel is the channel number for the single channel mode.
 *		The valid channels are 0 to 6, 8, and 13 to 31.
 *		If the external Mux is used then this specifies the channel
 *		oonnected to the external Mux. Please read the Device Spec
@@ -831,7 +832,7 @@ u16 XAdcPs_GetCalibEnables(XAdcPs *InstancePtr)
 *		- One pass through sequence (XADCPS_SEQ_MODE_ONEPASS)
 *		- Continuous channel sequencing (XADCPS_SEQ_MODE_CONTINPASS)
 *		- Single Channel/Sequencer off (XADCPS_SEQ_MODE_SINGCHAN)
-*		- Simulataneous sampling mode (XADCPS_SEQ_MODE_SIMUL_SAMPLING)
+*		- Simultaneous sampling mode (XADCPS_SEQ_MODE_SIMUL_SAMPLING)
 *		- Independent mode (XADCPS_SEQ_MODE_INDEPENDENT)
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
@@ -883,7 +884,7 @@ void XAdcPs_SetSequencerMode(XAdcPs *InstancePtr, u8 SequencerMode)
 *		- XADCPS_SEQ_MODE_ONEPASS : One pass through sequence
 *		- XADCPS_SEQ_MODE_CONTINPASS : Continuous channel sequencing
 *		- XADCPS_SEQ_MODE_SINGCHAN : Single channel/Sequencer off
-*		- XADCPS_SEQ_MODE_SIMUL_SAMPLING : Simulataneous sampling mode
+*		- XADCPS_SEQ_MODE_SIMUL_SAMPLING : Simultaneous sampling mode
 *		- XADCPS_SEQ_MODE_INDEPENDENT : Independent mode
 *
 *
@@ -981,7 +982,7 @@ u8 XAdcPs_GetAdcClkDivisor(XAdcPs *InstancePtr)
 *
 * This function enables the specified channels in the ADC Channel Selection
 * Sequencer Registers. The sequencer must be disabled before writing to these
-* regsiters.
+* registers.
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
 * @param	ChEnableMask is the bit mask of all the channels to be enabled.
@@ -1080,7 +1081,7 @@ u32 XAdcPs_GetSeqChEnables(XAdcPs *InstancePtr)
 *
 * This function enables the averaging for the specified channels in the ADC
 * Channel Averaging Enable Sequencer Registers. The sequencer must be disabled
-* before writing to these regsiters.
+* before writing to these registers.
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
 * @param	AvgEnableChMask is the bit mask of all the channels for which
@@ -1175,7 +1176,7 @@ u32 XAdcPs_GetSeqAvgEnables(XAdcPs *InstancePtr)
 *
 * This function sets the Analog input mode for the specified channels in the ADC
 * Channel Analog-Input Mode Sequencer Registers. The sequencer must be disabled
-* before writing to these regsiters.
+* before writing to these registers.
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
 * @param	InputModeChMask is the bit mask of all the channels for which
@@ -1273,7 +1274,7 @@ u32 XAdcPs_GetSeqInputMode(XAdcPs *InstancePtr)
 *
 * This function sets the number of Acquisition cycles in the ADC Channel
 * Acquisition Time Sequencer Registers. The sequencer must be disabled
-* before writing to these regsiters.
+* before writing to these registers.
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
 * @param	AcqCyclesChMask is the bit mask of all the channels for which
@@ -1665,7 +1666,7 @@ void XAdcPs_SetMuxMode(XAdcPs *InstancePtr, int MuxMode, u8 Channel)
 * @param 	Mode specifies the Power Down Mode
 *		- XADCPS_PD_MODE_NONE specifies NO Power Down (Both ADC A and
 *		ADC B are enabled)
-*		- XADCPS_PD_MODE_ADCB specfies the Power Down of ADC B
+*		- XADCPS_PD_MODE_ADCB specifies the Power Down of ADC B
 *		- XADCPS_PD_MODE_XADC specifies the Power Down of
 *		both ADC A and ADC B.
 *
@@ -1711,7 +1712,7 @@ void XAdcPs_SetPowerdownMode(XAdcPs *InstancePtr, u32 Mode)
 * @return	Mode specifies the Power Down Mode
 *		- XADCPS_PD_MODE_NONE specifies NO Power Down (Both ADC A and
 *		ADC B are enabled)
-*		- XADCPS_PD_MODE_ADCB specfies the Power Down of ADC B
+*		- XADCPS_PD_MODE_ADCB specifies the Power Down of ADC B
 *		- XADCPS_PD_MODE_XADC specifies the Power Down of
 *		both ADC A and ADC B.
 *

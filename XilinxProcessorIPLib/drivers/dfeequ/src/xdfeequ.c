@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 * 1.4   dc     04/06/22 Update documentation
 * 1.5   cog    07/04/23 Add support for SDT
 * 1.6   cog    01/29/24 Yocto SDT support
+* 1.7   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @addtogroup dfeequ Overview
@@ -247,7 +248,7 @@ static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
 	u32 NumValues = EqCoeffs->Num;
 	u32 NumUnits;
 
-	/* Nuber of units */
+	/* Number of units */
 	NumUnits = (NumValues + (XDFEEQU_COEFF_UNIT_SIZE - 1U)) /
 		   XDFEEQU_COEFF_UNIT_SIZE;
 
@@ -300,7 +301,7 @@ XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 	u32 NumValues = EqCoeffs->Num;
 	u32 NumUnits;
 
-	/* Nuber of units */
+	/* Number of units */
 	NumUnits = (NumValues + (XDFEEQU_COEFF_UNIT_SIZE - 1U)) /
 		   XDFEEQU_COEFF_UNIT_SIZE;
 
@@ -411,7 +412,7 @@ static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 	u32 NumValues = EqCoeffs->Num;
 	u32 NumUnits;
 
-	/* Nuber of units */
+	/* Number of units */
 	NumUnits = (NumValues + (XDFEEQU_COEFF_UNIT_SIZE - 1U)) /
 		   XDFEEQU_COEFF_UNIT_SIZE;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *                     recognize it as documentation block for doxygen
 *                     generation.
 * 7.8   cog  07/20/23 Added support for SDT flow
+* 7.11  dc   02/18/26 Correct spelling errors
 * </pre>
 *
 *****************************************************************************/
@@ -391,7 +392,7 @@ static int SysMonIntrExample(INTC* IntcInstPtr, XSysMon* SysMonInstPtr,
 	/*
 	 * Set up Alarm threshold registers for the on-chip temperature and
 	 * VCCAUX/VCCINT High limit and lower limit so that the alarms
-	 * DONOT occur.
+	 * DO NOT occur.
 	 */
 	XSysMon_SetAlarmThreshold(SysMonInstPtr, XSM_ATR_TEMP_UPPER,
 				XSysMon_TemperatureToRaw(TEST_TEMP_UPPER));
@@ -643,8 +644,8 @@ static int SysMonIntrExample(INTC* IntcInstPtr, XSysMon* SysMonInstPtr,
 *	- End of Conversion
 *	- JTAG Locked
 *	- JATG Modified
-*	- Over Temperature DeActive
-*	- ALARM 0 DeActive
+*	- Over Temperature deactive
+*	- ALARM 0 deactive
 *
 * This function only handles ALARM 0, ALARM 1 and ALARM 2 interrupts.
 * User of this code may need to modify the code to meet the needs of the

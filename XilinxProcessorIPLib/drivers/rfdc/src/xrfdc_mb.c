@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,7 +32,7 @@
 *       cog    08/04/20 Refactor multiband for Dual DAC tiles.
 *       cog    08/28/20 Prevent datapaths in bypass mode from being
 *                       configured for multiband.
-*       cog    10/12/20 Check generation before cheching datapath mode.
+*       cog    10/12/20 Check generation before checking datapath mode.
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
@@ -42,6 +43,7 @@
 *       cog    01/18/22 Added safety checks.
 *       cog    01/18/22 Use single read access API rather than using
 *                       XRFdc_GetMultibandConfig in XRFdc_UpdateMBConfig.
+* 13.1  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

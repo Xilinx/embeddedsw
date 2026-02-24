@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 * 1.5   dc     09/12/22 Update handling overflow status
+* 1.10  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -122,8 +123,8 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 *
 * @param    InstancePtr Pointer to the channel filter instance.
 * @param    Status Clear event status container.
-*           - 0 - does not clear coresponding event status
-*           - 1 - clears coresponding event status
+*           - 0 - does not clear corresponding event status
+*           - 1 - clears corresponding event status
 *
 ****************************************************************************/
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
@@ -156,8 +157,8 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
 *
 * @param    InstancePtr Pointer to the channel filter instance.
 * @param    Mask Interrupt mask value.
-*           - 0 - does not mask coresponding interrupt
-*           - 1 - masks coresponding interrupt
+*           - 0 - does not mask corresponding interrupt
+*           - 1 - masks corresponding interrupt
 *
 ****************************************************************************/
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,

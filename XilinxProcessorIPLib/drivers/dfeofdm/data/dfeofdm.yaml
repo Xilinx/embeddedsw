@@ -20,13 +20,13 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
   xlnx,frequency-range-int:
-    decription: Frequency range
+    description: Frequency range
   xlnx,num-antenna:
-    decription: Number of antenna
+    description: Number of antenna
   xlnx,antenna-interleave:
-    decription: Antenna interleave
+    description: Antenna interleave
   xlnx,phase-compensation:
-    decription: Disabled (0) Enabled (1)
+    description: Disabled (0) Enabled (1)
 
 config:
     - XDfeOfdm_Config

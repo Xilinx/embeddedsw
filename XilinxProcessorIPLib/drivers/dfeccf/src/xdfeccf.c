@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@
 *       dc     03/01/24 Update version number in makefiles
 * 1.9   dc     10/16/25 Fix zero padding and GetActivSets
 * 1.10  dc     12/10/25 Add IsCcfOperational API
+*       dc     02/18/26 Correct spelling errors
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -549,7 +550,7 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 	   "mapped" ID. This is the ID value used by the hard block. Provides
 	   the facility to use any of the CCID values defined at the system
 	   level and map to them to the available hardware IDs. The available
-	   hardware IDs are contrained based IP parameters and are required to
+	   hardware IDs are constrained by IP parameters and are required to
 	   be enumerated from 0. */
 	for (Index = 0U; Index < InstancePtr->Config.NumCCPerAntenna; Index++) {
 		Used[Index] = 0U;
@@ -2146,7 +2147,7 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 			continue;
 		}
 
-		/* CC is enabled, than activate coeficients */
+		/* CC is enabled, than activate coefficients */
 		Offset = XDFECCF_SEQUENCE_CURRENT + (sizeof(u32) * Index);
 		CCID = XDfeCcf_ReadReg(InstancePtr, Offset);
 		Offset = XDFECCF_CARRIER_CONFIGURATION_CURRENT +

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,12 +52,13 @@
 * 1.1   dc     04/05/23 Update documentation
 *       dc     05/22/23 State and status upgrades
 *       dc     06/28/23 Add phase compensation calculation
-* 1.2   dc     10/16/23 Doxygen documenatation update
+* 1.2   dc     10/16/23 Doxygen documentation update
 *       dc     10/17/23 Support for FFT size 512
 *       cog    02/21/24 Fixed SDT runtime issue
 * 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
 *       dc     09/23/24 Add frequency range MODEL_PARAM
 * 1.5   dc     07/14/25 Update comments about status and delay
+* 1.6   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @endcond

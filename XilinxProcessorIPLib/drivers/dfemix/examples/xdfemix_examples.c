@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@
 * 1.0   dc     12/06/20 Initial version
 *       dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
-*       dc     02/15/21 align driver to curent specification
+*       dc     02/15/21 align driver to current specification
 *       dc     02/22/21 include HW in versioning
 *       dc     04/06/21 Register with full node name
 *       dc     04/08/21 Set sequence length only once
@@ -37,6 +37,7 @@
 * 1.3   dc     03/21/22 Add prefix to global variables
 * 1.6   cog    07/18/23 Modify example for SDT flow
 * 1.7   cog    04/20/24 Configure si570 in Linux examples
+* 1.8   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

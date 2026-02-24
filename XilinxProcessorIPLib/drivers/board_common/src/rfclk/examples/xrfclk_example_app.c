@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
 * 1.6   dc     19/01/24 Correct linux gpio ID
 * 2.0   dc     24/03/25 Update BM for SDT
+* 2.1   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -146,9 +147,9 @@ int main()
 #endif
 #else
 	/* The argument in XRFClk_Init is a gpioID.
-	   Note: gpioID must be detected manualy, first find a gpio base
+	   Note: gpioID must be detected manually, first find a gpio base
 	         address in device tree (currently is 0xa0205000), second
-	         check which gpio device has this address alocated, eg.:
+	         check which gpio device has this address allocated, eg.:
 	             xilinx-zcu216:~$ cat /sys/class/gpio/gpiochip481/label
 	             a0205000.gpio
 	        the gpio ID value is 481.

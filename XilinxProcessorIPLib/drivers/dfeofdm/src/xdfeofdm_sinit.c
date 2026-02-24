@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,9 +25,10 @@
 *       dc     02/20/23 Update hw version
 * 1.1   dc     05/22/23 State and status upgrades
 *       cog    07/04/23 Add support for SDT
-* 1.2   dc     10/16/23 Doxygen documenatation update
+* 1.2   dc     10/16/23 Doxygen documentation update
 *       dc     03/22/24 Update hw version
 * 1.3   dc     09/23/24 Add frequency range MODEL_PARAM
+* 1.6   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @addtogroup dfeofdm Overview

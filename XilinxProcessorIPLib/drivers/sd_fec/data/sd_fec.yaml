@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -22,7 +22,7 @@ properties:
   xlnx,drv-standard:
     description: Driver standard
   xlnx,drv-initialization-params:
-    description: Initialization paramaters for sdfec
+    description: Initialization parameters for sdfec
 
 config:
     - XSdFec_Config

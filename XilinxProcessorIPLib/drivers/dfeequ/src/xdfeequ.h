@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,7 @@
 * 1.4   dc     04/06/22 Update documentation
 * 1.5   cog    07/04/23 Add support for SDT
 * 1.6   cog    02/21/24 Fixed SDT runtime issue
+* 1.7   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @endcond
@@ -128,7 +129,7 @@ extern "C" {
 #define XDFEEQU_CHANNEL_NUM (8U) /**< Maximum channel number */
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX (0x3U) /**< Complex units number */
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL (0x6U) /**< Real units number */
-#define XDFEEQU_NUM_COEFF (24U) /**< Maximum number of coefficents */
+#define XDFEEQU_NUM_COEFF (24U) /**< Maximum number of coefficients */
 #define XDFEEQU_DATAPATH_MODE_REAL (0U) /**< Real mode */
 #define XDFEEQU_DATAPATH_MODE_COMPLEX (1U) /**< Complex mode */
 /**

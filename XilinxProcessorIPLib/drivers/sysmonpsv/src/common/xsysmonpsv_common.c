@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
 * Functions in the xsysmonpsv_common.c file are basic driver functions which will be used in the
-* in servies or directly by the user.
+* in services or directly by the user.
 *
 *
 * <pre>
@@ -21,8 +21,9 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
-*		se	   10/27/22 Secure and Non-Secure mode integration
+*       se     10/27/22 Secure and Non-Secure mode integration
 * 5.1   se     03/03/25 Compiler warnings fixed
+* 5.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -182,7 +183,7 @@ void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2)
 * Converts Celsius To Q8P7.
 *
 * @param	RawData Raw Temperature Data.
-* @param	Val Numerator for covnersion to deg C.
+* @param	Val Numerator for conversion to deg C.
 * @param	Val2 Denominator for conversion to deg C in Q8.7 format.
 *
 * @return	None.

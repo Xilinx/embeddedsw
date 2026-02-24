@@ -48,7 +48,7 @@ properties:
   xlnx,slice-enable:
     description: slice enabled status
   xlnx,invsinc-ctrl:
-    description: (DAC only) invers sinc filter enabled status
+    description: (DAC only) inverse sinc filter enabled status
   xlnx,mixer-mode:
     description: mixer mode
   xlnx,decoder-mode:

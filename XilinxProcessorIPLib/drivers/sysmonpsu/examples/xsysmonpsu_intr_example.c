@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 * 2.6  aad     11/21/19 Removed reading of AUX channels
 *      aad     11/22/19 Added support for PL_EXAMPLE
 * 2.9   cog    07/20/23 Added support for SDT flow
+* 3.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -337,7 +338,7 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 	/*
 	 * Set up Alarm threshold registers for the on-chip temperature and
 	 * Supply 1/Supply 3 High limit and lower limit so that the alarms
-	 * DONOT occur.
+	 * DO NOT occur.
 	 */
 	XSysMonPsu_SetAlarmThreshold(SysMonInstPtr, XSM_ATR_TEMP_UPPER,
 				XSysMonPsu_TemperatureToRaw_OnChip(TEST_TEMP_UPPER), XSYSMON_TYPE);

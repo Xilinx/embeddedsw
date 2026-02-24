@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,7 +36,7 @@
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/26/21 Assert RachChan equal RCId
 *       dc     12/17/21 Update after documentation review
-* 1.3   dc     01/11/22 Compilation warrning fix
+* 1.3   dc     01/11/22 Compilation warning fix
 *       dc     01/19/22 Assert RachUpdate trigger
 *       dc     01/31/22 Add CORE_SETTINGS register
 *       dc     02/17/22 Physical channel index RACH config array
@@ -57,6 +57,7 @@
 * 1.8   dc     06/12/25 Set phase offsets to 0 on startup
 *       dc     08/23/25 Add missing  parameter to yaml
 * 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
+*       dc     02/18/26 Correct spelling errors
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -382,7 +383,7 @@ static u32 XDfePrach_AddCCIDAndTranslateSeq(XDfePrach *InstancePtr, s32 CCID,
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set in CCSeqBitmap to 1 avaliable (-1)*/
+	/* Check are bits set in CCSeqBitmap to 1 available (-1)*/
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
 		if (0U != (CCSeqBitmap & Mask)) {
@@ -2003,7 +2004,7 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 	XDfePrach_DisableLowPowerTrigger(InstancePtr);
 
 	/* Enable Activate trigger (toggles state between operational
-	   and intialized) */
+	   and initialized) */
 	XDfePrach_EnableDeactivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEPRACH_STATE_INITIALISED;

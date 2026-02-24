@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,10 +57,10 @@
 *		driven sampling mode in the single channel mode.
 *   - <b> Simultaneous Sampling Mode</b>: In this mode the XADC Channel
 *		Sequencer will automatically sequence through eight fixed pairs
-*		of auxiliary analog input channels for simulataneous conversion.
+*		of auxiliary analog input channels for simultaneous conversion.
 *   - <b> Independent ADC mode</b>: In this mode the first ADC (A) is used to
 *		is used to implement a fixed monitoring mode similar to the
-*		default mode but the alarm fucntions ar eenabled.
+*		default mode but the alarm functions ar eenabled.
 *		The second ADC (B) is available to be used with external analog
 *		input channels only.
 *
@@ -159,6 +159,7 @@
 *       aad    12/17/20 Added missing function declarations and removed
 *			functions with no definitions.
 * 2.7   cog    07/24/23 Added support for SDT flow
+* 2.8   dc     02/18/26 Correct spelling errors
 *
 *
 * </pre>

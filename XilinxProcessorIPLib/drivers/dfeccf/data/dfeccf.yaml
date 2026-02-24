@@ -19,13 +19,13 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
   xlnx,num-antenna:
-    decription: Number of antennas
+    description: Number of antennas
   xlnx,num-cc-per-antenna:
-    decription: Number of CCs per antenna
+    description: Number of CCs per antenna
   xlnx,antenna-interleave:
-    decription: Number of antenna slots
+    description: Number of antenna slots
   xlnx,switchable-int:
-    decription: If 1 DL/UL switching is supported
+    description: If 1 DL/UL switching is supported
 
 config:
     - XDfeCcf_Config

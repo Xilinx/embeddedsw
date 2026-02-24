@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +38,7 @@
 *       cog    01/20/20 Changes for MTS Gen 1/2 compatibility mode.
 *       cog    01/29/20 Fixed metal log typos.
 * 8.0   cog    02/10/20 Updated addtogroup.
-*       cog    02/20/20 Apply applicable clock gated offets to marker counter.
+*       cog    02/20/20 Apply applicable clock gated offsets to marker counter.
 *       cog    02/20/20 Double sysref frequency if in IQ mode.
 * 8.1   cog    06/24/20 Upversion.
 * 9.0   cog    11/25/20 Upversion.
@@ -58,6 +58,7 @@
 *       cog    01/18/22 Initialize DatapathMode in XRFdc_MTS_Latency.
 * 13.0  cog    01/22/25 Only check datapath mode for Gen3/DFE devices in
 *                       XRFdc_MTS_Latency.
+* 13.1  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,13 +24,14 @@
 *       dc     07/27/23 Output delay in ccid slots
 *       dc     07/31/23 Antenna interleave delay reorder
 *       dc     08/28/23 Remove immediate trigger
-* 1.2   dc     10/16/23 Doxygen documenatation update
+* 1.2   dc     10/16/23 Doxygen documentation update
 *       dc     10/17/23 Support for FFT size 512
 *       dc     02/29/24 Correct sw major/minor version numbers
 *       dc     03/22/24 Update hw version
 * 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
 *       dc     09/23/24 Add frequency range MODEL_PARAM
 * 1.5   dc     07/14/25 Update comments about status and delay
+* 1.6   dc     02/18/26 Correct spelling errors
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -1657,7 +1658,7 @@ void XDfeOfdm_SetNextCCCfg(const XDfeOfdm *InstancePtr,
 	/* Sequence Length should remain the same, so take the sequence length
 	   from InstancePtr->SequenceLength and decrement for 1. The following
 	   if statement is to distinguish how to calculate length in case
-	   InstancePtr->SequenceLength = 0 or 1 whih both will put 0 in the
+	   InstancePtr->SequenceLength = 0 or 1 which both will put 0 in the
 	   CURRENT seqLength register */
 	if (InstancePtr->CCSequenceLength == 0) {
 		SeqLength = 0U;

@@ -19,25 +19,25 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
   xlnx,mode:
-    decription: 0=downlink, 1=uplink, 2=switchable
+    description: 0=downlink, 1=uplink, 2=switchable
   xlnx,num-antenna:
-    decription: Number of antenna
+    description: Number of antenna
   xlnx,max-useable-ccids:
-    decription: Max usable CC Ids
+    description: Max usable CC Ids
   xlnx,lanes:
-    decription: Number of lanes
+    description: Number of lanes
   xlnx,antenna-interleave:
-    decription: Number of antenna slots
+    description: Number of antenna slots
   xlnx,mixer-cps:
-    decription: Mixer Cps
+    description: Mixer Cps
   xlnx,num-auxiliary:
-    decription: Num auxiliary
+    description: Num auxiliary
   xlnx,data-iwidth:
-    decription: 16 for 16-bit sample data and 24 for 18-bit sample data
+    description: 16 for 16-bit sample data and 24 for 18-bit sample data
   xlnx,data-owidth:
-    decription: 16 for 16-bit sample data and 24 for 18-bit sample data
+    description: 16 for 16-bit sample data and 24 for 18-bit sample data
   xlnx,tuser-width:
-    decription: Tuser width
+    description: Tuser width
 
 config:
     - XDfeMix_Config

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +53,7 @@
 * 7.0   cog    07/25/19 Updated example for new metal register API.
 * 7.1   cog    01/24/20 Updated example for Gen3 and libmetal 2.0.
 * 8.0   cog    04/09/20 Fixed baremetal compilation bug.
+* 13.1  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -391,7 +393,7 @@ printf("\n Configuring the Clock \r\n");
 	/* Map Stimulus device IO region */
 	io_stim = metal_device_io_region(device_stim, 0);
 	if (!io_stim) {
-		printf("ERROR: Failed to map Stimulus regio for %s.\r\n",
+		printf("ERROR: Failed to map Stimulus region for %s.\r\n",
 			  device_stim->name);
 		return XRFDC_FAILURE;
 	}
@@ -406,7 +408,7 @@ printf("\n Configuring the Clock \r\n");
 	/* Map Data Capture device IO region */
 	io_cap = metal_device_io_region(device_cap, 0);
 	if (!io_cap) {
-		printf("ERROR: Failed to map Capture regio for %s.\r\n",
+		printf("ERROR: Failed to map Capture region for %s.\r\n",
 			  device_cap->name);
 		return XRFDC_FAILURE;
 	}

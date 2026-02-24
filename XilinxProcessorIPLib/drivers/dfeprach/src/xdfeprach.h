@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,7 @@
 *   8 antennas or 400MHz oBW over 4 antennas).
 * - Support for up to 16 PRACH channels per antenna with a maximum aggregated
 *   down-sampling rate of up to 122.88MSPS. The 16 channels can be dynamically
-*   allocated accross up to 8 component carriers.
+*   allocated across up to 8 component carriers.
 * - UL Input TDM pattern programmed via register interface.
 * - Output TDM pattern is driven by the RACH primitive. There is no option to
 *   programme the order. The expectation is that the buffering in the PRACH FFT
@@ -81,6 +81,7 @@
 * 1.7   dc     11/29/23 Add continuous scheduling
 *       cog    02/19/24 Fixed SDT runtime issue
 * 1.9   dc     11/25/25 Update doxygen comments, remove not needed code
+*       dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @endcond
@@ -570,7 +571,7 @@ typedef struct {
 		which first mixer overflow occurred. */
 	u32 FirstRCIdOverflowing; /**< [0-15] Lowest physical mixer number on
 		which the first mixer overflow occurred. Each mixer handles 4
-		RACH channels, and the overflow indicator is agregated, so an
+		RACH channels, and the overflow indicator is aggregated, so an
 		overflow on physical channel 0-3 will indicate as an overflow
 		on Channel 0, 4-7 on channel 1, etc. */
 } XDfePrach_MixerStatusOverflow;

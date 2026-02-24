@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.03a bss    11/01/13 Modified macros to use correct Register offsets
 *			CR#749687
 * 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
+* 2.8   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -272,7 +273,7 @@ extern "C" {
 #define XADCPS_CFR1_SEQ_ONEPASS_MASK	  0x00001000U /**< Onepass through Seq */
 #define XADCPS_CFR1_SEQ_CONTINPASS_MASK	     0x00002000U /**< Continuous Cycling Seq */
 #define XADCPS_CFR1_SEQ_SINGCHAN_MASK	     0x00003000U /**< Single channel - No Seq */
-#define XADCPS_CFR1_SEQ_SIMUL_SAMPLING_MASK  0x00004000U /**< Simulataneous Sampling Mask */
+#define XADCPS_CFR1_SEQ_SIMUL_SAMPLING_MASK  0x00004000U /**< Simultaneous Sampling Mask */
 #define XADCPS_CFR1_SEQ_INDEPENDENT_MASK  0x00008000U /**< Independent Mode */
 #define XADCPS_CFR1_SEQ_SHIFT		  12U     /**< Sequence bit shift */
 #define XADCPS_CFR1_ALM_VCCPDRO_MASK	  0x00000800U /**< Alm 6 - VCCPDRO, Zynq  */

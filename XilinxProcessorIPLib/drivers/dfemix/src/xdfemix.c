@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,7 @@
 * 1.7   cog    01/29/24 Yocto SDT support
 *       dc     03/01/24 Update version number in makefiles
 * 1.8   dc     12/08/25 Update doxygen comments
+*       dc     02/18/26 Correct spelling errors
 * </pre>
 * @addtogroup dfemix Overview
 * @{
@@ -1048,7 +1049,7 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 	/* Sequence Length should remain the same, so take the sequence length
 	   from InstancePtr->SequenceLength and decrement for 1. The following
 	   if statement is to distinguish how to calculate length in case
-	   InstancePtr->SequenceLength = 0 or 1 whih both will put 0 in the
+	   InstancePtr->SequenceLength = 0 or 1 which both will put 0 in the
 	   CURRENT seqLength register */
 	if (InstancePtr->SequenceLength == 0) {
 		SeqLength = 0U;

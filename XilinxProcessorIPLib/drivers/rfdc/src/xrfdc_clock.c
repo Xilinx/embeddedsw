@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,10 +32,10 @@
 *       cog    09/18/19 XRFdc_GetClockSourceAPI must handle GEN 3 devices differently
 *                       to previous generations.
 *       cog    09/18/19 Account for different PLL settings for GEN 3 devices.
-*       cog    09/18/19 Fixed issues with clock distribution functionallity.
+*       cog    09/18/19 Fixed issues with clock distribution functionality.
 *       cog    10/02/19 Updated PLL VCO ranges and reset divide bits while bypassing
 *                       PLL output divider.
-*       cog    10/02/19 Moved new external clock output divider functionallity from
+*       cog    10/02/19 Moved new external clock output divider functionality from
 *                       the clock distribution to XRFdc_DynamicPLLConfig() API.
 *       cog    10/02/19 Refactor of XRFdc_GetClkDistribution() API.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
@@ -83,6 +83,7 @@
 *       cog    01/12/22 Fix compiler warnings.
 *       cog    01/24/22 Fix static analysis errors.
 * 13.0  cog    01/15/25 Allow changing of single tile PLL frequency.
+* 13.1  dc     02/18/26 Correct spelling errors
 * </pre>
 *
 ******************************************************************************/
@@ -542,7 +543,7 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Requested fuctionality not available for this IP in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	memset(&DistributionSettingsPtr->Info, 0, sizeof(DistributionSettingsPtr->Info));
@@ -921,7 +922,7 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_System_Setti
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Requested fuctionality not available for this IP in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	memset(DistributionSystemPtr, 0, sizeof(XRFdc_Distribution_System_Settings));

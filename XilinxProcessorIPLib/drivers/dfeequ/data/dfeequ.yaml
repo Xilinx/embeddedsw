@@ -19,13 +19,13 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
   xlnx,num-channels:
-    decription: Number of channels
+    description: Number of channels
   xlnx,sample-width:
-    decription: Sample width
+    description: Sample width
   xlnx,complex-mode:
-    decription: complex mode flag
+    description: complex mode flag
   xlnx,tuser-width:
-    decription: Tuser width
+    description: Tuser width
 
 config:
     - XDfeEqu_Config

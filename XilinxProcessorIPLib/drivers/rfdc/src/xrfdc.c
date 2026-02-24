@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -162,7 +162,7 @@
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *       cog    11/15/19 Added calibration mode support for Gen 3 devices and fixed issue with going
 *                       to calibration mode 1 when in real mode.
-*       cog    11/28/19 Datapath "Mode 2" is now half bandwith with low pass IMR (previously it was
+*       cog    11/28/19 Datapath "Mode 2" is now half bandwidth with low pass IMR (previously it was
 *                       full bandwidth, no IMR, even Nyquist zone).
 *       cog    11/28/19 Set defalult compatibility setting when moving to Bypass Mode (Mode 4).
 *       cog    11/28/19 Prevent setting non compliant interpolation rates when in the bypass
@@ -213,6 +213,7 @@
 * 12.1  cog    07/04/23 Add support for SDT.
 *       cog    07/27/23 Add NCO frequency to config structures.
 * 12.2  cog    01/29/24 Yocto SDT support.
+* 13.1  dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *

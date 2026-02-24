@@ -13,7 +13,7 @@ Examples are:
     - close the driver
 3. Configure channel filter to one NR100 carrier and three NR20
      - initialise driver from reset to activation
-     - configure filters with the precalculated coeficients
+     - configure filters with the precalculated coeffficients
      - add 4 carriers CCID={0,1,2,3}, 1xNR100(122.88Msps) and 3xNR20(30.72Msps)
      - at this point filters are set and readu to operate
      - close the driver

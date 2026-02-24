@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
-* 1.2   dc     10/16/23 Doxygen documenatation update
+* 1.2   dc     10/16/23 Doxygen documentation update
+* 1.6   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @addtogroup dfeofdm Overview

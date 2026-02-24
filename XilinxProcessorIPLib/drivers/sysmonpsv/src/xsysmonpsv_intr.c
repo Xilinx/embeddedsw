@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *                       arch64 architecture
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.2   se     08/24/25 Microblaze support added
+* 5.3   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -366,7 +367,7 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Determine what kind of interrupt occured */
+	/* Determine what kind of interrupt occurred */
 	IntrStatus = XSysMonPsv_IntrGetStatus(InstancePtr);
 
 	/* Clear interrupt status register */

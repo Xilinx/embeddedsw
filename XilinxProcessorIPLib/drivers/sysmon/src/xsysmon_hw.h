@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +43,8 @@
 * 7.2   asa     03/11/16 Made changes so that XSM_CFR3_OFFSET is
 *             visible only for Ultrasacle. Fix for CR#910905.
 * 7.8   cog     07/20/23 Added support for SDT flow
-* 7.10   cog    03/13/24 Fixed issue with interrupt masks.
+* 7.10  cog     03/13/24 Fixed issue with interrupt masks.
+* 7.11  dc      02/18/26 Correct spelling errors
 *
 * </pre>
 *
@@ -420,8 +421,8 @@ extern "C" {
  */
 #define XSM_IPIXR_VBRAM_MASK	      0x00000400 /**< ALM3 - VBRAM Output Mask
 						   *  - 7 Series  and Zynq */
-#define XSM_IPIXR_TEMP_DEACTIVE_MASK  0x00000200 /**< Alarm 0 DEACTIVE */
-#define XSM_IPIXR_OT_DEACTIVE_MASK    0x00000100 /**< Over Temp DEACTIVE */
+#define XSM_IPIXR_TEMP_DEACTIVE_MASK  0x00000200 /**< Alarm 0 DEACTIVATE */
+#define XSM_IPIXR_OT_DEACTIVE_MASK    0x00000100 /**< Over Temp DEACTIVATE */
 #define XSM_IPIXR_JTAG_MODIFIED_MASK  0x00000080 /**< JTAG Modified */
 #define XSM_IPIXR_JTAG_LOCKED_MASK    0x00000040 /**< JTAG Locked */
 #define XSM_IPIXR_EOC_MASK	      0x00000020 /**< End Of Conversion */

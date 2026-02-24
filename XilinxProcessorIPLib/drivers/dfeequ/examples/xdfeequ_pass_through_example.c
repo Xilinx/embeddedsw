@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * 1.2   dc     11/19/21 Update doxygen documentation
 * 1.3   dc     01/19/22 Assert Update trigger
 *       dc     01/24/22 Auto-compute number of units
+* 1.7   dc     02/18/26 Correct spelling errors
 *
 * </pre>
 * @addtogroup dfeequ Overview
@@ -114,7 +116,7 @@ int XDfeEqu_PassThroughExample()
 	/* Activate - disable low power */
 	XDfeEqu_Activate(InstancePtr, false);
 
-	/* Set coefficents */
+	/* Set coefficients */
 	Shift = 5;
 	Coeffs.Coefficients[0] = (1 << 15) - 1;
 	XDfeEqu_LoadCoefficients(InstancePtr, ChannelField, Mode, Shift,

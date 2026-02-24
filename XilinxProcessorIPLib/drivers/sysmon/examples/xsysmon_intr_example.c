@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 7.8   cog  07/20/23 Added support for SDT flow
+* 7.11  dc   02/18/26 Correct spelling errors
 * </pre>
 *
 *****************************************************************************/
@@ -339,7 +340,7 @@ int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
 
 	/*
 	 * Set up Alarm threshold registers for the on-chip temperature and
-	 * VCCAUX High limit and lower limit so that the alarms DONOT occur.
+	 * VCCAUX High limit and lower limit so that the alarms DO NOT occur.
 	 */
 	XSysMon_SetAlarmThreshold(SysMonInstPtr, XSM_ATR_TEMP_UPPER, 0xFFFF);
 	XSysMon_SetAlarmThreshold(SysMonInstPtr, XSM_ATR_TEMP_LOWER, 0xFFFF);
