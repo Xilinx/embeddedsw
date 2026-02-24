@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -40,6 +40,8 @@ examples:
         xmbox_intr_example.c:
                 - interrupts
         xmbox_example.c:
+                - dependency_files:
+                    - data.c
                 - reg
         xmbox_tapp_example.c:
                 - reg
