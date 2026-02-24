@@ -8,6 +8,7 @@ from build_bsp import BSP
 
 logger = utils.get_logger(__name__)
 
+
 class ReconfigBSP(BSP):
     """
     This class contains attributes and functions to Reconfig the bsp.
@@ -20,6 +21,7 @@ class ReconfigBSP(BSP):
         self.domain_path = utils.get_abs_path(args.get("domain_path"))
         BSP.__init__(self, args)
 
+
 def reconfig_bsp(args):
     """
     Function to reconfig the bsp for the user input domain path.
@@ -27,7 +29,7 @@ def reconfig_bsp(args):
     obj = ReconfigBSP(args)
 
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
-    if utils.fetch_yaml_data(obj.domain_config_file, "path").get('path', {}):
+    if utils.fetch_yaml_data(obj.domain_config_file, "path").get("path", {}):
         bsp_domain_path = utils.fetch_yaml_data(obj.domain_config_file, "path")["path"]
     else:
         bsp_domain_path = obj.domain_path
@@ -37,14 +39,20 @@ def reconfig_bsp(args):
     From 2024.2 release on wards cmake default generator moved to ninja as a part
     of performance enhancement in case of old release workspace delete the build folder.
     """
-    is_ninja_build = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp", "build.ninja")
+    is_ninja_build = os.path.join(
+        obj.libsrc_folder, "build_configs", "gen_bsp", "build.ninja"
+    )
     if utils.is_file(is_ninja_build):
         cmake_cache = os.path.join(build_metadata, "CMakeCache.txt")
         if utils.is_file(cmake_cache):
-            current_compiler_ar_path = utils.find_line_in_file(cmake_cache, "CMAKE_ASM_COMPILER_AR:FILEPATH")
+            current_compiler_ar_path = utils.find_line_in_file(
+                cmake_cache, "CMAKE_ASM_COMPILER_AR:FILEPATH"
+            )
             if current_compiler_ar_path:
                 # Extract the path and name
-                current_compiler_ar_path = current_compiler_ar_path.split("=")[-1].strip()
+                current_compiler_ar_path = current_compiler_ar_path.split("=")[
+                    -1
+                ].strip()
                 current_compiler_ar_path = os.path.normpath(current_compiler_ar_path)
                 compiler_ar_name = os.path.basename(current_compiler_ar_path)
                 # Find the updated path
@@ -76,23 +84,26 @@ def reconfig_bsp(args):
         bsp_lib_config.update(domain_data["proc_config"])
         for lib in lib_list:
             for key, value in bsp_lib_config[lib].items():
-                val = value['value']
+                val = value["value"]
                 if val in bool_match:
                     val = bool_match[val]
                 cmake_cmd_append += f' -D{key}="{val}"'
 
         utils.remove(build_metadata)
         utils.mkdir(build_metadata)
-        obj.cmake_paths_append = obj.cmake_paths_append.replace('\\','/')
-        obj.domain_path = obj.domain_path.replace('\\','/')
+        obj.cmake_paths_append = obj.cmake_paths_append.replace("\\", "/")
+        obj.domain_path = obj.domain_path.replace("\\", "/")
         utils.runcmd(
             f'cmake -G "{obj.cmake_generator}" {obj.domain_path} -DSUBDIR_LIST="ALL" {obj.cmake_paths_append} {cmake_cmd_append}',
-            cwd = build_metadata,
-            log_message = "Configuring CMake with updated BSP configurations",
-            error_message = "Failed to configure CMake with updated BSP configurations",
-            verbose_level = 0
+            cwd=build_metadata,
+            log_message="Configuring CMake with updated BSP configurations",
+            error_message="Failed to configure CMake with updated BSP configurations",
+            verbose_level=0,
         )
-        utils.update_yaml(obj.domain_config_file, "path", "path", obj.domain_path, action="add")
+        utils.update_yaml(
+            obj.domain_config_file, "path", "path", obj.domain_path, action="add"
+        )
+
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -109,15 +120,12 @@ def main(arguments=None):
         required=True,
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
     reconfig_bsp(args)
+
 
 if __name__ == "__main__":
     main()

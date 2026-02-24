@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module loads the driver example meta-data
@@ -11,8 +11,11 @@ from build_bsp import BSP
 
 logger = utils.get_logger(__name__)
 
-def cmake_drv_custom_target(proc, libsrc_folder, sdt, cmake_drv_name_list, cmake_drv_path_list):
-    cmake_cmd = f'''
+
+def cmake_drv_custom_target(
+    proc, libsrc_folder, sdt, cmake_drv_name_list, cmake_drv_path_list
+):
+    cmake_cmd = f"""
 set(DRIVER_TARGETS {cmake_drv_name_list})
 set(DRIVER_LOCATIONS {cmake_drv_path_list})
 
@@ -29,8 +32,9 @@ while(${{index}} LESS ${{no_of_drivers}})
         BYPRODUCTS x${{drv}}_exlist.yaml)
     MATH(EXPR index "${{index}}+1")
 endwhile()
-'''
+"""
     return cmake_cmd
+
 
 class LoadExample(BSP):
     """
@@ -38,6 +42,7 @@ class LoadExample(BSP):
     bsp.yaml file, It takes the domain as input, reads the domain configuration
     file present in the path to get the required inputs and updates the bsp.yaml.
     """
+
     def __init__(self, args):
         self.domain_path = utils.get_abs_path(args.get("domain_path"))
         BSP.__init__(self, args)
@@ -56,13 +61,13 @@ class LoadExample(BSP):
         driver_path_list = []
         for ip in domain_data["drv_info"]:
             if domain_data["drv_info"][ip] != "None":
-                driver_name_list.append(domain_data["drv_info"][ip].get('driver',{}))
-                driver_path_list.append(domain_data["drv_info"][ip].get('path',{}))
+                driver_name_list.append(domain_data["drv_info"][ip].get("driver", {}))
+                driver_path_list.append(domain_data["drv_info"][ip].get("path", {}))
 
         driver_name_list = list(dict.fromkeys(driver_name_list))
-        cmake_drv_name_list = ';'.join(driver_name_list)
+        cmake_drv_name_list = ";".join(driver_name_list)
         driver_path_list = list(dict.fromkeys(driver_path_list))
-        cmake_drv_path_list = ';'.join(driver_path_list)
+        cmake_drv_path_list = ";".join(driver_path_list)
 
         # Create top level CMakeLists.txt inside domain dir
         cmake_file = os.path.join(build_metadata, "CMakeLists.txt")
@@ -76,39 +81,50 @@ project(bsp)
 link_directories(${CMAKE_LIBRARY_PATH})
         """
         cmake_file_cmds = cmake_header
-        cmake_file_cmds += cmake_drv_custom_target(self.proc, self.libsrc_folder, self.sdt, cmake_drv_name_list, cmake_drv_path_list)
+        cmake_file_cmds += cmake_drv_custom_target(
+            self.proc,
+            self.libsrc_folder,
+            self.sdt,
+            cmake_drv_name_list,
+            cmake_drv_path_list,
+        )
 
-        self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
-        cmake_file_cmds = cmake_file_cmds.replace('\\', '/')
+        self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
+        cmake_file_cmds = cmake_file_cmds.replace("\\", "/")
         utils.write_into_file(cmake_file, cmake_file_cmds)
         utils.runcmd(
             f'cmake -G "{self.cmake_generator}" {build_metadata} {self.cmake_paths_append}',
-            cwd = build_metadata,
-            log_message = "Configuring CMake to gather examples metadata",
-            error_message = "Failed to configure CMake to gather examples metadata"
+            cwd=build_metadata,
+            log_message="Configuring CMake to gather examples metadata",
+            error_message="Failed to configure CMake to gather examples metadata",
         )
 
         dump = utils.discard_dump()
         utils.runcmd(
             f"cmake --build . --parallel 22 --verbose > {dump}",
-            cwd = build_metadata,
-            log_message = "Gathering examples metadata",
-            error_message = "Failed to gather examples metadata ",
-            verbose_level = 0
+            cwd=build_metadata,
+            log_message="Gathering examples metadata",
+            error_message="Failed to gather examples metadata ",
+            verbose_level=0,
         )
-        for ip,data in domain_data['drv_info'].items():
+        for ip, data in domain_data["drv_info"].items():
             if data != "None":
-                driver = data['driver']
-                drv_ex_list_yaml = os.path.join(self.libsrc_folder, driver, f"{driver}_exlist.yaml")
+                driver = data["driver"]
+                drv_ex_list_yaml = os.path.join(
+                    self.libsrc_folder, driver, f"{driver}_exlist.yaml"
+                )
                 if utils.is_file(drv_ex_list_yaml):
                     driver_ex = utils.load_yaml(drv_ex_list_yaml)
                     if len(driver_ex) != 0 and ip in driver_ex.keys():
-                        domain_data["drv_info"][ip].update({"examples":driver_ex[ip]})
+                        domain_data["drv_info"][ip].update({"examples": driver_ex[ip]})
 
-        utils.update_yaml(self.domain_config_file, "domain", "drv_info", domain_data["drv_info"])
+        utils.update_yaml(
+            self.domain_config_file, "domain", "drv_info", domain_data["drv_info"]
+        )
         for drv in driver_name_list:
-            utils.remove(os.path.join(self.libsrc_folder, drv,  "*.cmake"), pattern=True)
+            utils.remove(os.path.join(self.libsrc_folder, drv, "*.cmake"), pattern=True)
             utils.remove(os.path.join(self.libsrc_folder, drv, "*.yaml"), pattern=True)
+
 
 def load_bsp(args):
     """
@@ -116,7 +132,8 @@ def load_bsp(args):
     """
     obj = LoadExample(args)
     obj.update_example()
-    logger.info( "Successfully loaded all the valid examples for the BSP" )
+    logger.info("Successfully loaded all the valid examples for the BSP")
+
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -133,16 +150,13 @@ def main(arguments=None):
         required=True,
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
-    logger.info( "Loading Valid Example names for BSP" )
+    logger.info("Loading Valid Example names for BSP")
     load_bsp(args)
+
 
 if __name__ == "__main__":
     main()

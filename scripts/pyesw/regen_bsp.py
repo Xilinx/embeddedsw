@@ -14,6 +14,7 @@ from library_utils import Library
 
 logger = utils.get_logger(__name__)
 
+
 class RegenBSP(BSP, Library):
     """
     This class contains attributes and functions to regenerate the bsp.
@@ -33,12 +34,12 @@ class RegenBSP(BSP, Library):
             self.compiler = domain_data["compiler"]
         else:
             self.compiler = "gcc"
-        if args.get('sdt'):
+        if args.get("sdt"):
             self.sdt = utils.get_abs_path(args["sdt"])
         if utils.is_file(os.path.join(self.domain_path, ".repo.yaml")):
             self.repo_info = os.path.join(self.domain_path, ".repo.yaml")
         else:
-            self.repo_info = args['repo_info']
+            self.repo_info = args["repo_info"]
 
         Library.__init__(
             self,
@@ -48,20 +49,22 @@ class RegenBSP(BSP, Library):
             self.sdt,
             self.cmake_paths_append,
             self.libsrc_folder,
-            self.repo_info
+            self.repo_info,
         )
 
     def modify_bsp(self, args):
-        args.update({
-            'ws_dir':self.domain_path,
-            'proc':self.proc,
-            'os':self.os,
-            'template':self.template,
-            'sdt':self.sdt,
-            'repo_info':self.repo_info,
-            'mode': self.proc_mode,
-            'compiler': self.compiler
-        })
+        args.update(
+            {
+                "ws_dir": self.domain_path,
+                "proc": self.proc,
+                "os": self.os,
+                "template": self.template,
+                "sdt": self.sdt,
+                "repo_info": self.repo_info,
+                "mode": self.proc_mode,
+                "compiler": self.compiler,
+            }
+        )
 
         # Remove existing folder structure
         utils.remove(self.libsrc_folder)
@@ -106,28 +109,28 @@ class RegenBSP(BSP, Library):
         bool_match = {"true": "ON", "false": "OFF"}
         for lib in self.lib_list:
             for key, value in self.bsp_lib_config[lib].items():
-                val = value['value']
+                val = value["value"]
                 if lib == self.proc:
-                    proc_config[lib][key]['value'] = val
+                    proc_config[lib][key]["value"] = val
                 elif lib == self.os:
-                    os_config[lib][key]['value'] = val
+                    os_config[lib][key]["value"] = val
                 else:
-                    lib_config[lib][key]['value'] = val
+                    lib_config[lib][key]["value"] = val
                 if val in bool_match:
                     val = bool_match[val]
                 cmake_cmd_append += f' -D{key}="{val}"'
         logger.debug(" Updating library configurations from old BSP ")
 
         self.lib_list.remove(self.proc)
-        if self.os == 'freertos':
+        if self.os == "freertos":
             self.lib_list.remove("freertos")
             self.lib_list.append("freertos10_xilinx")
         cmake_subdir_list = ";".join(self.lib_list)
         utils.runcmd(
             f'cmake {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_subdir_list}" {cmake_cmd_append}',
             cwd=build_metadata,
-            log_message = "Reconfiguring CMake configurations",
-            error_message = "Error while executing CMake command"
+            log_message="Reconfiguring CMake configurations",
+            error_message="Error while executing CMake command",
         )
         utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
         utils.update_yaml(self.domain_config_file, "domain", "proc_config", proc_config)
@@ -142,7 +145,9 @@ class RegenBSP(BSP, Library):
             if del_drv_list:
                 logger.info(f"Drivers {*del_drv_list,} got deleted")
             if ignored_lib_list:
-                logger.info(f"Libraries {*ignored_lib_list,} ignored due to incompatible with new system device-tree")
+                logger.info(
+                    f"Libraries {*ignored_lib_list,} ignored due to incompatible with new system device-tree"
+                )
 
 
 def regenerate_bsp(args):
@@ -152,6 +157,7 @@ def regenerate_bsp(args):
     obj = RegenBSP(args)
     obj.modify_bsp(args)
     logger.info("Regenerated BSP successfully.")
+
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -171,26 +177,23 @@ def main(arguments=None):
         "-s",
         "--sdt",
         action="store",
-        help="Specify the System device-tree path (till system-top.dts file)"
+        help="Specify the System device-tree path (till system-top.dts file)",
     )
     parser.add_argument(
         "-r",
         "--repo_info",
         action="store",
         help="Specify the .repo.yaml absolute path to use the set repo info",
-        default='.repo.yaml',
+        default=".repo.yaml",
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
     logger.info("Regenerating bsp")
     regenerate_bsp(args)
+
 
 if __name__ == "__main__":
     main()

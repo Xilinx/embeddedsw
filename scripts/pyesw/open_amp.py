@@ -15,10 +15,11 @@ import utils
 logger = utils.get_logger(__name__)
 
 openamp_app_names = {
-    'openamp_echo_test': 'echo',
-    'openamp_matrix_multiply': 'matrix_multiply',
-    'openamp_rpc_demo': 'rpc_demo'
+    "openamp_echo_test": "echo",
+    "openamp_matrix_multiply": "matrix_multiply",
+    "openamp_rpc_demo": "rpc_demo",
 }
+
 
 def open_amp_app_name(app_name):
     if app_name not in openamp_app_names.keys():
@@ -26,6 +27,7 @@ def open_amp_app_name(app_name):
         sys.exit(1)
 
     return openamp_app_names[app_name]
+
 
 def open_amp_copy_lib_src(libdir, dstdir, lib):
     """
@@ -41,26 +43,30 @@ def open_amp_copy_lib_src(libdir, dstdir, lib):
     """
     # copy specific cmake files
     srcdir = os.path.join(libdir, "src", "sdt")
-    top_srcdir = os.path.join(srcdir, 'top-CMakeLists.txt')
+    top_srcdir = os.path.join(srcdir, "top-CMakeLists.txt")
 
-    top_dstdir = os.path.join(dstdir, 'CMakeLists.txt')
+    top_dstdir = os.path.join(dstdir, "CMakeLists.txt")
     utils.copy_file(top_srcdir, top_dstdir)
 
     # Add this file to specify cleanup properly of the library
     new_lib_cmake = os.path.join(libdir, "src", "sdt", "lib-CMakeLists.txt")
     utils.copy_file(new_lib_cmake, os.path.join(dstdir, "lib", "CMakeLists.txt"))
 
-    if lib == 'openamp':
+    if lib == "openamp":
         new_depends_cmake = os.path.join(libdir, "src", "sdt", "depends.cmake")
-        utils.copy_file(new_depends_cmake, os.path.join(dstdir, "cmake", "depends.cmake"))
+        utils.copy_file(
+            new_depends_cmake, os.path.join(dstdir, "cmake", "depends.cmake")
+        )
 
-    lib_cmakelist = os.path.join(dstdir, 'lib')
-    lib_cmakelist = os.path.join(lib_cmakelist, 'CMakeLists.txt')
-    with open(lib_cmakelist, 'r', encoding='utf-8') as file:
+    lib_cmakelist = os.path.join(dstdir, "lib")
+    lib_cmakelist = os.path.join(lib_cmakelist, "CMakeLists.txt")
+    with open(lib_cmakelist, "r", encoding="utf-8") as file:
         content = file.read()
         # Tell CMake build to install headers in BSP include area
-        content = content.replace("DESTINATION include RENAME ${PROJECT_NAME}/${f})",
-                                  "DESTINATION ${CMAKE_INCLUDE_PATH}/ RENAME ${PROJECT_NAME}/${f})")
+        content = content.replace(
+            "DESTINATION include RENAME ${PROJECT_NAME}/${f})",
+            "DESTINATION ${CMAKE_INCLUDE_PATH}/ RENAME ${PROJECT_NAME}/${f})",
+        )
         # Tell CMake build to install library in BSP library area
 
         # libmetal specific logic. Only picked up in case of libmetal
@@ -68,21 +74,22 @@ def open_amp_copy_lib_src(libdir, dstdir, lib):
         new = "install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})"
         content = content.replace(orig, new)
         # open-amp specific logic. Only picked up in case of open-amp
-        orig = "install (DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}/include/openamp\" "
+        orig = 'install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" '
         orig += "DESTINATION include)"
-        new = "install (DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}/include/openamp\" "
+        new = 'install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" '
         new += "DESTINATION ${CMAKE_INCLUDE_PATH}/)"
         content = content.replace(orig, new)
-        orig = "install (DIRECTORY \"${PROJECT_BINARY_DIR}/include/generated/openamp\" "
+        orig = 'install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" '
         orig += "DESTINATION include)"
-        new = "install (DIRECTORY \"${PROJECT_BINARY_DIR}/include/generated/openamp\" "
+        new = 'install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" '
         new += "DESTINATION ${CMAKE_INCLUDE_PATH}/)"
         content = content.replace(orig, new)
 
-    lib_dstdir = os.path.join(dstdir, 'lib')
-    lib_dstdir = os.path.join(lib_dstdir, 'CMakeLists.txt')
-    with open(lib_dstdir, 'w', encoding='utf-8') as file:
+    lib_dstdir = os.path.join(dstdir, "lib")
+    lib_dstdir = os.path.join(lib_dstdir, "CMakeLists.txt")
+    with open(lib_dstdir, "w", encoding="utf-8") as file:
         file.write(content)
+
 
 def openamp_app_configure_common(obj, esw_app_dir):
     """
@@ -95,17 +102,20 @@ def openamp_app_configure_common(obj, esw_app_dir):
         None
     """
     if obj.template in openamp_app_names.keys():
-        obj.cmake_paths_append += ' -DOPENAMP_APP_NAME=' + openamp_app_names[obj.template]
+        obj.cmake_paths_append += (
+            " -DOPENAMP_APP_NAME=" + openamp_app_names[obj.template]
+        )
         obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
         obj.cmake_paths_append += " -DWITH_OPENAMP_FIND=OFF "
         obj.cmake_paths_append += " -DWITH_VENDOR_CMAKE_SCRIPT=ON "
 
-    obj.cmake_paths_append += " -DPROJECT_VENDOR=\"xlnx\" "
+    obj.cmake_paths_append += ' -DPROJECT_VENDOR="xlnx" '
     obj.cmake_paths_append += " -DWITH_DOC=OFF "
     obj.cmake_paths_append += " -DWITH_LIBMETAL_FIND=OFF "
 
     if obj.os == "freertos":
         obj.cmake_paths_append += " -DUSE_FREERTOS=ON"
+
 
 def create_openamp_app(obj, esw_app_dir):
     """
@@ -121,21 +131,34 @@ def create_openamp_app(obj, esw_app_dir):
     openamp_app_configure_common(obj, esw_app_dir)
 
     # Point to correct demo to build
-    original_src = os.path.join(obj.app_src_dir, "openamp-system-reference", "examples", "legacy_apps", "CMakeLists.txt")
+    original_src = os.path.join(
+        obj.app_src_dir,
+        "openamp-system-reference",
+        "examples",
+        "legacy_apps",
+        "CMakeLists.txt",
+    )
 
-    utils.replace_line(original_src, f'project (osr_legacy_apps C)',
-                       f'set (OPENAMP_APP_NAME \"' + open_amp_app_name(obj.template) + '\")\n')
+    utils.replace_line(
+        original_src,
+        f"project (osr_legacy_apps C)",
+        f'set (OPENAMP_APP_NAME "' + open_amp_app_name(obj.template) + '")\n',
+    )
 
     # Specify app name if applicable
     if obj.app_name:
-        utils.replace_line(os.path.join(obj.app_src_dir, "CMakeLists.txt"),
-                           f'project(openamp_sys_ref)', f'project ({obj.app_name} C)\n')
+        utils.replace_line(
+            os.path.join(obj.app_src_dir, "CMakeLists.txt"),
+            f"project(openamp_sys_ref)",
+            f"project ({obj.app_name} C)\n",
+        )
 
     # by default these are on. set to OFF by removing them. unfortunately repeat runs will pull in
     # BSP toolchain file so just remove the option set here. There is different workflow
     # for Vitis tooling anyway.
-    for i in [ "WITH_TESTS", "WITH_EXAMPLES", "tests", "examples" ]:
+    for i in ["WITH_TESTS", "WITH_EXAMPLES", "tests", "examples"]:
         utils.replace_line(original_src, i, "")
+
 
 def create_libmetal_app(obj, esw_app_dir):
     """
@@ -147,25 +170,50 @@ def create_libmetal_app(obj, esw_app_dir):
     Returns:
         None
     """
-    utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'CMakeLists.txt'),
-                    os.path.join(obj.app_src_dir, 'CMakeLists.txt'),
-                    silent_discard=True)
+    utils.copy_file(
+        os.path.join(esw_app_dir, "src", "sdt", "CMakeLists.txt"),
+        os.path.join(obj.app_src_dir, "CMakeLists.txt"),
+        silent_discard=True,
+    )
 
     openamp_app_configure_common(obj, esw_app_dir)
-    utils.replace_line(os.path.join(obj.app_src_dir, "openamp-system-reference", "examples", "libmetal", "CMakeLists.txt"),
-                       "project (libmetal_apps C)", "")
+    utils.replace_line(
+        os.path.join(
+            obj.app_src_dir,
+            "openamp-system-reference",
+            "examples",
+            "libmetal",
+            "CMakeLists.txt",
+        ),
+        "project (libmetal_apps C)",
+        "",
+    )
 
     # Specify app name if applicable
     if obj.app_name:
-        utils.replace_line(os.path.join(obj.app_src_dir, "CMakeLists.txt"),
-                           f'project (libmetal_amp_demod C)', f'project ({obj.app_name} C)')
+        utils.replace_line(
+            os.path.join(obj.app_src_dir, "CMakeLists.txt"),
+            f"project (libmetal_amp_demod C)",
+            f"project ({obj.app_name} C)",
+        )
 
         new_str = "include(${CMAKE_SOURCE_DIR}/UserConfig.cmake)\n"
         new_str += "set (_elf_name ${CMAKE_PROJECT_NAME})\n"
-        utils.replace_line(os.path.join(obj.app_src_dir, "openamp-system-reference",
-                           "examples", "libmetal", "machine", "remote",
-                           "amd_rpu", "CMakeLists.txt"), "set (_elf_name ${DEMO})",
-                           new_str)
+        utils.replace_line(
+            os.path.join(
+                obj.app_src_dir,
+                "openamp-system-reference",
+                "examples",
+                "libmetal",
+                "machine",
+                "remote",
+                "amd_rpu",
+                "CMakeLists.txt",
+            ),
+            "set (_elf_name ${DEMO})",
+            new_str,
+        )
+
 
 def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     """
@@ -179,41 +227,65 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     Returns:
         None
     """
-    fname = ''
-    header_location = os.path.join(obj.app_src_dir, "openamp-system-reference", "examples")
+    fname = ""
+    header_location = os.path.join(
+        obj.app_src_dir, "openamp-system-reference", "examples"
+    )
     imux = "lop-r52-imux.dts" if "cortexr52" in obj.proc else "lop-r5-imux.dts"
     overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
-    output_sdt = os.path.join(obj.app_src_dir, "openamp-system-reference", "openamp_output.dts")
-    cmd1 = (f"LOPPER_DTC_FLAGS=\"-b 0 -@\" lopper -f --enhanced --permissive -i lop-xlate-yaml.dts "
-            f"-i {overlay_dst} -i {imux} "
-            f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} ")
+    output_sdt = os.path.join(
+        obj.app_src_dir, "openamp-system-reference", "openamp_output.dts"
+    )
+    cmd1 = (
+        f'LOPPER_DTC_FLAGS="-b 0 -@" lopper -f --enhanced --permissive -i lop-xlate-yaml.dts '
+        f"-i {overlay_dst} -i {imux} "
+        f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} "
+    )
     cmd2 = f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} -- openamp "
     overlay_prefix = ""
 
-    if obj.template == 'libmetal_echo_demo':
-        fname = 'rpu.cmake'
-        header_location = os.path.join(header_location, "libmetal", "machine", "remote", "amd_rpu")
+    if obj.template == "libmetal_echo_demo":
+        fname = "rpu.cmake"
+        header_location = os.path.join(
+            header_location, "libmetal", "machine", "remote", "amd_rpu"
+        )
         cmd2 += " --libmetal_output_file --compatible-string=libmetal,ipc-v1 "
         cmd2 += f" --processor={obj.proc} --openamp_output_filename={fname} --os=baremetal_dt "
         overlay_prefix = "libmetal"
     else:
-        fname = 'amd_platform_info.h'
-        header_location = os.path.join(header_location, 'legacy_apps', 'machine', 'xlnx', 'zynqmp_r5')
+        fname = "amd_platform_info.h"
+        header_location = os.path.join(
+            header_location, "legacy_apps", "machine", "xlnx", "zynqmp_r5"
+        )
         cmd2 += f"-- openamp --openamp_header_only --openamp_output_filename={fname} --openamp_remote={obj.proc} "
         overlay_prefix = "openamp"
 
     if os.path.exists(overlay_dst):
-        logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
+        logger.info(
+            "%s already exists. not copying in a new one. please remove this file if you want default one copied in."
+            % overlay_dst
+        )
     else:
-        r52_socs = { "versalnet": "versal-net", "versal_2ve_2vm": "versal-2ve-2vm" }
+        r52_socs = {"versalnet": "versal-net", "versal_2ve_2vm": "versal-2ve-2vm"}
         if soc in r52_socs.keys():
             soc = r52_socs[soc]
 
-        utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', f"{overlay_prefix}-metadata", f"{overlay_prefix}-overlay-{soc}.yaml"),
-                        overlay_dst)
+        utils.copy_file(
+            os.path.join(
+                os.environ.get("XILINX_VITIS"),
+                "data",
+                f"{overlay_prefix}-metadata",
+                f"{overlay_prefix}-overlay-{soc}.yaml",
+            ),
+            overlay_dst,
+        )
 
-    utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create an openamp DT for remote")
-    utils.runcmd(cmd2, log_message="OpenAMP Lopper Run 2 - Generate Header or Config object")
+    utils.runcmd(
+        cmd1, log_message="OpenAMP Lopper Run 1 - create an openamp DT for remote"
+    )
+    utils.runcmd(
+        cmd2, log_message="OpenAMP Lopper Run 2 - Generate Header or Config object"
+    )
 
     if utils.is_file(fname):
         utils.copy_file(fname, os.path.join(header_location, fname))
@@ -227,8 +299,6 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
 
         return linker_cmd
     else:
-        logger.error('OpenAMP Lopper run failed.')
+        logger.error("OpenAMP Lopper run failed.")
         sys.exit(1)
     return 0
-
-

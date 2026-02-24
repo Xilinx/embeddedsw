@@ -27,8 +27,9 @@ from retarget_app import main as retarget_app_main
 from validate_bsp import main as validate_bsp_main
 from utils import is_file
 
+
 def info():
-    info=f"""\bUsage: empyro [COMMAND] [OPTIONS]...
+    info = f"""\bUsage: empyro [COMMAND] [OPTIONS]...
 Create, Configure, Organize and Build the BSP and the Applications
 targeted for AMD-Xilinx SOCs and FPGAs
 
@@ -90,23 +91,26 @@ Use "empyro [COMMAND] -h" for [OPTIONS] available with [COMMAND].
 """
     print(info)
 
-func_map={"create_app" : create_app_main,
-    "create_bsp" : create_bsp_main,
-    "create_lib_template" : create_lib_template,
-    "build_lib_template" : build_lib_template,
-    "build_app" : build_app_main,
-    "build_bsp" : build_bsp_main,
-    "config_bsp" : config_bsp_main,
-    "create_example" : create_example_main,
-    "get_template_data" : get_template_data_main,
-    "load_example" : load_example_main,
-    "reconfig_bsp" : reconfig_bsp_main,
-    "regen_linker" : regen_liner_main,
-    'repo' : repo_main,
-    "retarget_app" : retarget_app_main,
-    "validate_bsp" : validate_bsp_main,
-    "regen_bsp" : regen_bsp_main,
+
+func_map = {
+    "create_app": create_app_main,
+    "create_bsp": create_bsp_main,
+    "create_lib_template": create_lib_template,
+    "build_lib_template": build_lib_template,
+    "build_app": build_app_main,
+    "build_bsp": build_bsp_main,
+    "config_bsp": config_bsp_main,
+    "create_example": create_example_main,
+    "get_template_data": get_template_data_main,
+    "load_example": load_example_main,
+    "reconfig_bsp": reconfig_bsp_main,
+    "regen_linker": regen_liner_main,
+    "repo": repo_main,
+    "retarget_app": retarget_app_main,
+    "validate_bsp": validate_bsp_main,
+    "regen_bsp": regen_bsp_main,
 }
+
 
 def main():
     # Check if a command is provided
@@ -118,15 +122,17 @@ def main():
     command = sys.argv[1]
 
     # Route to appropriate module's main function based on command
-    if command in ("-h","--help"):
+    if command in ("-h", "--help"):
         info()
     elif command in ("--version"):
-        version_file_path=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'VERSION')
-        if (is_file(version_file_path)):
-            with open(version_file_path, 'r') as f:
+        version_file_path = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "VERSION"
+        )
+        if is_file(version_file_path):
+            with open(version_file_path, "r") as f:
                 version = f.read().strip()
         else:
-            version="1.0"
+            version = "1.0"
         print(version)
     elif command in func_map.keys():
         func_map[command](sys.argv[2:])
@@ -135,5 +141,6 @@ def main():
         info()
         sys.exit(255)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

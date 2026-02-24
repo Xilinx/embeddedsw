@@ -15,8 +15,9 @@ from repo import Repo
 
 logger = utils.get_logger(__name__)
 
+
 def lop_create_target(lop_cmds):
-    lop_file = f'''
+    lop_file = f"""
 /dts-v1/;
 / {{
         compatible = "system-device-tree-v1,lop";
@@ -25,9 +26,9 @@ def lop_create_target(lop_cmds):
                         compatible = "system-device-tree-v1,lop,load";
                         load = "assists/baremetal_validate_comp_xlnx.py";
                 }};
-    '''
-    for index,cmd in enumerate(lop_cmds, 1):
-        lop_file += f'''
+    """
+    for index, cmd in enumerate(lop_cmds, 1):
+        lop_file += f"""
                 lop_{index} {{
                     compatible = "system-device-tree-v1,lop,assist-v1";
                     node = "/";
@@ -35,12 +36,13 @@ def lop_create_target(lop_cmds):
                     id = "{cmd[1]}";
                     options = "{cmd[2]}";
                 }};
-        '''
-    lop_file += f'''
+        """
+    lop_file += f"""
         }};
     }};
-    '''
-    return lop_file.replace('\\', '/')
+    """
+    return lop_file.replace("\\", "/")
+
 
 class ValidateHW(Repo):
     """
@@ -48,10 +50,8 @@ class ValidateHW(Repo):
     esw component for a required hardware is present or not.
     """
 
-    def __init__(
-        self, domain_path, proc, bsp_os, sdt, name, repo_info
-    ):
-        super().__init__(repo_yaml_path= repo_info)
+    def __init__(self, domain_path, proc, bsp_os, sdt, name, repo_info):
+        super().__init__(repo_yaml_path=repo_info)
         self.domain_dir = domain_path
         self.proc = proc
         self.os = bsp_os
@@ -86,24 +86,34 @@ class ValidateHW(Repo):
             if schema:
                 if self.os == "freertos":
                     comp_list.append("freertos10_xilinx")
-                if schema.get("depends") or schema.get("required_mem") or ("library" in schema.get("type")):
+                if (
+                    schema.get("depends")
+                    or schema.get("required_mem")
+                    or ("library" in schema.get("type"))
+                ):
                     comp_list.append(self.name)
-                comp_list += list(schema.get("depends_libs",{}).keys())
-                if 'xiltimer' in comp_list:
-                    comp_list.remove('xiltimer')
+                comp_list += list(schema.get("depends_libs", {}).keys())
+                if "xiltimer" in comp_list:
+                    comp_list.remove("xiltimer")
             lop_cmds = []
             config_lops_file = os.path.join(self.domain_dir, "lop-config.dts")
             for comp in comp_list:
                 comp_path = self.get_comp_dir(comp)
                 comp_srcdir = os.path.join(comp_path, "src")
-                lop_cmds.append([self.domain_dir, "module,baremetal_validate_comp_xlnx", f"{self.proc} {comp_srcdir} {self.repo_yaml_path}"])
+                lop_cmds.append(
+                    [
+                        self.domain_dir,
+                        "module,baremetal_validate_comp_xlnx",
+                        f"{self.proc} {comp_srcdir} {self.repo_yaml_path}",
+                    ]
+                )
 
             if comp_list:
                 utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
                 utils.runcmd(
                     f"lopper -O {self.domain_dir} -i {config_lops_file} -f {self.sdt}",
-                    cwd = self.domain_dir,
-                    log_message = "HW validation assist",
-                    error_message = "HW validation assist failed"
+                    cwd=self.domain_dir,
+                    log_message="HW validation assist",
+                    error_message="HW validation assist failed",
                 )
                 utils.remove(config_lops_file)

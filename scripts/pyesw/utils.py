@@ -25,11 +25,12 @@ from typing import Any, Dict, List, Optional, Union
 
 import yaml
 
+
 def get_logger(name):
     return logging.getLogger(name)
 
-logger = get_logger(__name__)
 
+logger = get_logger(__name__)
 
 
 def log_time(func):
@@ -39,14 +40,16 @@ def log_time(func):
         result = func(*args, **kwargs)
         end_time = time.time()
         duration = end_time - start_time
-        if 'log_message' in kwargs:
-            log_message = kwargs['log_message']
+        if "log_message" in kwargs:
+            log_message = kwargs["log_message"]
             if log_message != None:
                 logger.debug(f"{log_message} took {duration:.2f} seconds")
         else:
             logger.debug(f"Function {func.__name__} took {duration:.2f} seconds")
         return result
+
     return wrapper
+
 
 def delete_keys_from_dict(dictionary: dict, keys: str) -> dict:
     """
@@ -88,6 +91,7 @@ def is_file(filepath: str, silent_discard: bool = True) -> bool:
     else:
         return False
 
+
 def is_dir(dirpath: str, silent_discard: bool = True) -> bool:
     """Checks if directory exists.
 
@@ -108,7 +112,7 @@ def is_dir(dirpath: str, silent_discard: bool = True) -> bool:
         return False
 
 
-def remove(path: str, silent_discard: bool = True, pattern: bool=False) -> None:
+def remove(path: str, silent_discard: bool = True, pattern: bool = False) -> None:
     """Removes any file or folder recursively, if it exists else reports error message based on user demand.
 
     Args:
@@ -133,7 +137,13 @@ def remove(path: str, silent_discard: bool = True, pattern: bool=False) -> None:
     except Exception as e:
         assert silent_discard, e
 
-def remove_directory(dir: str, file_list: list = [], silent_discard: bool = True, force_remove: bool = True) -> None:
+
+def remove_directory(
+    dir: str,
+    file_list: list = [],
+    silent_discard: bool = True,
+    force_remove: bool = True,
+) -> None:
     """Removes any file or folder from the given list, if it exists else reports error message based on user demand.
 
     Args:
@@ -156,6 +166,7 @@ def remove_directory(dir: str, file_list: list = [], silent_discard: bool = True
     except Exception as e:
         assert silent_discard, e
 
+
 def mkdir(folderpath: str, silent_discard: bool = True) -> None:
     """Create the folder structure, raises Error Message on demand.
 
@@ -176,7 +187,10 @@ def mkdir(folderpath: str, silent_discard: bool = True) -> None:
             logger.error(f"{folderpath} Unable to create directory")
             sys.exit(1)
 
-def copy_file(src: str, dest: str, follow_symlinks: bool = True, silent_discard: bool = False) -> None:
+
+def copy_file(
+    src: str, dest: str, follow_symlinks: bool = True, silent_discard: bool = False
+) -> None:
     """
     copies the file from source to destination.
 
@@ -194,6 +208,7 @@ def copy_file(src: str, dest: str, follow_symlinks: bool = True, silent_discard:
         change_permission(dest, 0o644)
     except Exception as e:
         assert silent_discard, e
+
 
 def change_permission(directory_path, permissions):
     """
@@ -250,6 +265,7 @@ def reset(path: str) -> None:
     remove(path)
     mkdir(path)
 
+
 def validate_if_not_exist(config_file: str, dir_type: str, dir_path: str) -> None:
     """
     Raise valid assertion when a file doesn't exist
@@ -258,7 +274,10 @@ def validate_if_not_exist(config_file: str, dir_type: str, dir_path: str) -> Non
         | config_file : File Path that needs to be checked
         | dir_type, dir_name: Being used for raising a meaningful assertion.
     """
-    assert is_file(config_file), f"{dir_type.title()} at {dir_path} doesn't exist. Create the {dir_type} first."
+    assert is_file(
+        config_file
+    ), f"{dir_type.title()} at {dir_path} doesn't exist. Create the {dir_type} first."
+
 
 def validate_if_exist(config_file: str, dir_type: str, dir_path: str) -> None:
     """
@@ -268,7 +287,10 @@ def validate_if_exist(config_file: str, dir_type: str, dir_path: str) -> None:
         | config_file : File Path that needs to be checked
         | dir_type, dir_path: Being used for raising a meaningful assertion.
     """
-    assert not is_file(config_file), f"{dir_type.title()} at {dir_path} already exists. Cannot create a new {dir_type} with same name."
+    assert not is_file(
+        config_file
+    ), f"{dir_type.title()} at {dir_path} already exists. Cannot create a new {dir_type} with same name."
+
 
 def fetch_yaml_data(config_file: str, dir_type: str) -> Optional[dict]:
     """
@@ -281,9 +303,12 @@ def fetch_yaml_data(config_file: str, dir_type: str) -> Optional[dict]:
     Returns:
         data: The read data from yaml file
     """
-    assert is_file(config_file), f"Could not find valid {dir_type} at {get_dir_path(config_file)}"
+    assert is_file(
+        config_file
+    ), f"Could not find valid {dir_type} at {get_dir_path(config_file)}"
     data = load_yaml(config_file)
     return data
+
 
 def load_yaml(filepath: str, silent_discard: bool = False) -> Optional[dict]:
     """Read yaml file data and returns data in a dict format.
@@ -306,6 +331,7 @@ def load_yaml(filepath: str, silent_discard: bool = False) -> Optional[dict]:
     else:
         return None
 
+
 def write_yaml(filepath: str, data):
     """
     Write the data into a yaml file format
@@ -314,10 +340,13 @@ def write_yaml(filepath: str, data):
         | filepath: the yaml file path
         | data: the data
     """
-    with open(filepath, 'w') as outfile:
+    with open(filepath, "w") as outfile:
         yaml.dump(data, outfile, default_flow_style=False, sort_keys=False)
 
-def update_yaml(filepath: str, dir_type: str, key: str, data: Optional[dict], action: str="add"):
+
+def update_yaml(
+    filepath: str, dir_type: str, key: str, data: Optional[dict], action: str = "add"
+):
     """
     Update the already created yaml file. Supports the add and remove option
     to add any new data or remove the existing data in the yaml. Raises assertion
@@ -335,7 +364,7 @@ def update_yaml(filepath: str, dir_type: str, key: str, data: Optional[dict], ac
     if action == "add":
         try:
             if isinstance(data, dict):
-                new_data[key] = {**new_data[key] , **data}
+                new_data[key] = {**new_data[key], **data}
             elif isinstance(data, list):
                 new_data[key] += data
             else:
@@ -347,6 +376,7 @@ def update_yaml(filepath: str, dir_type: str, key: str, data: Optional[dict], ac
 
     write_yaml(filepath, new_data)
 
+
 def add_newline(File: str, newline: str) -> None:
     """
     Add a new line at the end of the file.
@@ -357,6 +387,7 @@ def add_newline(File: str, newline: str) -> None:
     """
     with open(File, "a") as fd:
         fd.write(newline + "\n")
+
 
 def remove_line(File: str, match_string: str) -> None:
     """
@@ -373,6 +404,7 @@ def remove_line(File: str, match_string: str) -> None:
             if match_string not in line:
                 f.write(line)
         f.truncate()
+
 
 def replace_line(File: str, search_string: str, add_line: str) -> None:
     """
@@ -392,6 +424,7 @@ def replace_line(File: str, search_string: str, add_line: str) -> None:
     else:
         err_msg = f"No such file exists: {File}"
         raise FileNotFoundError(err_msg)
+
 
 def replace_string(File, search_string: str, replace_string: str) -> None:
     """
@@ -413,8 +446,16 @@ def replace_string(File, search_string: str, replace_string: str) -> None:
         err_msg = f"No such file exists: {File}"
         raise FileNotFoundError(err_msg)
 
+
 @log_time
-def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = None, capture_output= False):
+def runcmd(
+    cmd,
+    cwd=None,
+    log_message=None,
+    error_message=None,
+    verbose_level=None,
+    capture_output=False,
+):
     """
     Run the shell commands.
 
@@ -429,9 +470,17 @@ def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = 
         if not capture_output:
             subprocess.check_call(cmd, cwd=cwd, shell=True)
         else:
-            with subprocess.Popen(cmd, shell =True, encoding='utf-8', stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=cwd) as process:
+            with subprocess.Popen(
+                cmd,
+                shell=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                cwd=cwd,
+            ) as process:
                 for line in process.stdout:
-                    print(line.strip('\n'))
+                    print(line.strip("\n"))
                 if process.wait() != 0:
                     raise subprocess.CalledProcessError(process.returncode, cmd)
     except subprocess.CalledProcessError as exc:
@@ -439,6 +488,7 @@ def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = 
         if error_message is not None:
             logger.error(error_message)
         sys.exit(1)
+
 
 def get_base_name(fpath):
     """
@@ -462,6 +512,7 @@ def get_dir_path(fpath):
         string: Full Directory path of the passed path
     """
     return os.path.dirname(fpath.rstrip(os.path.sep))
+
 
 def get_abs_path(fpath):
     """
@@ -516,6 +567,7 @@ def find_file(search_file: str, search_path: str):
     for File in Path(search_path).glob(f"**/{search_file}"):
         return File
 
+
 def find_files(search_pattern, search_path):
     """
     This api find the files matching regex directories and returns absolute
@@ -531,8 +583,8 @@ def find_files(search_pattern, search_path):
 
     return glob.glob(f"{search_path}/{search_pattern}")
 
-def check_if_line_in_file(
-    file_name: str, line_to_search: str) -> bool:
+
+def check_if_line_in_file(file_name: str, line_to_search: str) -> bool:
     """Check if line exist in file or not"""
     with open(file_name, "r") as read_obj:
         file_data = read_obj.readlines()
@@ -541,12 +593,15 @@ def check_if_line_in_file(
                 return True
     return False
 
+
 def write_into_file(out_file, content):
-    with open(out_file, 'w') as f:
+    with open(out_file, "w") as f:
         f.write(content)
+
 
 def get_cmake_generator():
     return "Ninja"
+
 
 def discard_dump():
     if os.name == "nt":
@@ -554,37 +609,41 @@ def discard_dump():
     else:
         return "/dev/null"
 
+
 def touch(filepath: str):
     Path(filepath).touch()
+
 
 def get_domain_name(proc_name: str, yaml_file: str):
     schema = fetch_yaml_data(yaml_file, "domains")["domains"]
     for subsystem in schema:
         if schema[subsystem].get("domains", {}):
             for dom in schema[subsystem]["domains"]:
-                domain_name = schema[subsystem]["domains"][dom]["cpus"][0]["cluster_cpu"]
+                domain_name = schema[subsystem]["domains"][dom]["cpus"][0][
+                    "cluster_cpu"
+                ]
                 if domain_name == proc_name:
                     return dom
         elif schema[subsystem]:
             if schema[subsystem].get("cpus", {}):
                 domain_name = schema[subsystem]["cpus"][0]["cluster_cpu"]
                 if domain_name == proc_name:
-                    return f'/domains/{subsystem}'
+                    return f"/domains/{subsystem}"
 
     return None
+
 
 def get_high_precedence_path(repo_paths_list, file_type, *argv):
     path = ""
     for entries in repo_paths_list:
-        path = os.path.join(
-            entries, *argv
-        )
+        path = os.path.join(entries, *argv)
         if is_file(path) or is_dir(path):
             break
     if not path:
         logger.error(f"Couldn't find the {file_type} in any of esw paths passed")
         sys.exit(1)
     return path
+
 
 def load_json(filepath: str, silent_discard: bool = True) -> Optional[dict]:
     """Read json file data and returns data in a dict format.
@@ -604,8 +663,8 @@ def load_json(filepath: str, silent_discard: bool = True) -> Optional[dict]:
         assert silent_discard, f"{filepath} reading failed"
         return None
 
-def find_line_in_file(
-    file_name: str, line_to_search: str) -> bool:
+
+def find_line_in_file(file_name: str, line_to_search: str) -> bool:
     """Check if line exist in file or not"""
     with open(file_name, "r") as read_obj:
         file_data = read_obj.readlines()
@@ -613,6 +672,7 @@ def find_line_in_file(
             if line_to_search in data:
                 return data
     return None
+
 
 def find_compiler_path(compiler_name):
     if os.name == "nt":
@@ -623,9 +683,14 @@ def find_compiler_path(compiler_name):
         # compiler name which ends with .exe. 'which' command in linux doesn't recognize
         # binaries ending with .exe as valid executables. Therefore, strip '.exe' from the compiler_name.
         if compiler_name.endswith(".exe"):
-            logger.info("Detected Windows based compiler executable in Cache on a Linux based system")
-            compiler_name = compiler_name.rstrip('.exe')
-    return subprocess.check_output([command, compiler_name], stderr=subprocess.STDOUT, text=True).strip()
+            logger.info(
+                "Detected Windows based compiler executable in Cache on a Linux based system"
+            )
+            compiler_name = compiler_name.rstrip(".exe")
+    return subprocess.check_output(
+        [command, compiler_name], stderr=subprocess.STDOUT, text=True
+    ).strip()
+
 
 def setup_log(verbose_level):
     """
@@ -633,9 +698,12 @@ def setup_log(verbose_level):
     """
 
     if verbose_level >= 1:
-        logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - [%(levelname)s]: %(message)s')
+        logging.basicConfig(
+            level=logging.DEBUG, format="%(asctime)s - [%(levelname)s]: %(message)s"
+        )
     else:
-        logging.basicConfig(level=logging.INFO,format='[%(levelname)s]: %(message)s')
+        logging.basicConfig(level=logging.INFO, format="[%(levelname)s]: %(message)s")
+
 
 def get_cmake_verbosity(verbose=0):
     """
@@ -646,6 +714,7 @@ def get_cmake_verbosity(verbose=0):
     else:
         verbosity = ""
     return verbosity
+
 
 # valid templates
 VALID_TEMPLATES = [

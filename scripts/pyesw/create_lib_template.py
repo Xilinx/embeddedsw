@@ -12,6 +12,7 @@ from repo import Repo
 
 logger = utils.get_logger(__name__)
 
+
 class StaticLibrary(BSP, Repo):
     """
     This class creates a standalone static library workspace from BSP.
@@ -20,16 +21,16 @@ class StaticLibrary(BSP, Repo):
 
     def __init__(self, args):
         BSP.__init__(self, args)
-        Repo.__init__(self, repo_yaml_path=args.get('repo_info', '.repo.yaml'))
+        Repo.__init__(self, repo_yaml_path=args.get("repo_info", ".repo.yaml"))
         self.lib_name = args.get("name")
-        self.repo_paths_list = self.repo_schema['paths']
+        self.repo_paths_list = self.repo_schema["paths"]
         self._build_dir_struct(args)
 
     def _build_dir_struct(self, args):
         """Creates the directory structure for library."""
         self.lib_dir = utils.get_abs_path(args["ws_dir"])
 
-        if args.get('src_dir'):
+        if args.get("src_dir"):
             self.lib_src_dir = utils.get_abs_path(args["src_dir"])
         else:
             self.lib_src_dir = os.path.join(self.lib_dir, "src")
@@ -100,6 +101,7 @@ endif()
 
         logger.info(f"Created library sources at: {self.lib_src_dir}")
 
+
 def create_lib_template(args):
     """
     Function that uses the StaticLibrary class to create the template library.
@@ -108,21 +110,37 @@ def create_lib_template(args):
         args: Command line arguments
     """
     parser = argparse.ArgumentParser(description="Create standalone library from BSP")
-    parser.add_argument('-d', '--domain_path', required=True, help='BSP directory path')
-    parser.add_argument('-n', '--name', help='Library name (default: custom)', default='custom')
-    parser.add_argument('-w', '--ws_dir', help='Workspace directory (Default: Current Work Directory)', default='.')
-    parser.add_argument('--src_dir', help='Library source directory (Default: <ws_dir>/src)')
-    parser.add_argument('-r', '--repo_info', default='.repo.yaml', help='Specify the .repo.yaml absolute path to use the set repo info')
-    parser.add_argument('-v', '--verbose', action='count', default=0, help='Increase output verbosity')
+    parser.add_argument("-d", "--domain_path", required=True, help="BSP directory path")
+    parser.add_argument(
+        "-n", "--name", help="Library name (default: custom)", default="custom"
+    )
+    parser.add_argument(
+        "-w",
+        "--ws_dir",
+        help="Workspace directory (Default: Current Work Directory)",
+        default=".",
+    )
+    parser.add_argument(
+        "--src_dir", help="Library source directory (Default: <ws_dir>/src)"
+    )
+    parser.add_argument(
+        "-r",
+        "--repo_info",
+        default=".repo.yaml",
+        help="Specify the .repo.yaml absolute path to use the set repo info",
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
+    )
 
     parsed = parser.parse_args(args)
     args_dict = {
-        'domain_path': parsed.domain_path,
-        'name': parsed.name,
-        'ws_dir': parsed.ws_dir,
-        'src_dir': parsed.src_dir,
-        'repo_info': parsed.repo_info,
-        'verbose': parsed.verbose
+        "domain_path": parsed.domain_path,
+        "name": parsed.name,
+        "ws_dir": parsed.ws_dir,
+        "src_dir": parsed.src_dir,
+        "repo_info": parsed.repo_info,
+        "verbose": parsed.verbose,
     }
 
     utils.setup_log(args_dict["verbose"])

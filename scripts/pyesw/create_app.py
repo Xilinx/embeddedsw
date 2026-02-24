@@ -13,14 +13,19 @@ import textwrap
 
 import utils
 from build_bsp import BSP
-from open_amp import (create_libmetal_app, create_openamp_app,
-                      openamp_lopper_run, openamp_app_names)
+from open_amp import (
+    create_libmetal_app,
+    create_openamp_app,
+    openamp_lopper_run,
+    openamp_app_names,
+)
 from repo import Repo
 from utils import log_time
 from validate_bsp import Validation
 from validate_hw import ValidateHW
 
 logger = utils.get_logger(__name__)
+
 
 class App(BSP, Repo):
     """
@@ -31,18 +36,18 @@ class App(BSP, Repo):
 
     def __init__(self, args):
         BSP.__init__(self, args)
-        Repo.__init__(self, repo_yaml_path=args['repo_info'])
+        Repo.__init__(self, repo_yaml_path=args["repo_info"])
         self._build_dir_struct(args)
         self.app_name = args.get("name")
         self.template = args.get("template")
-        self.repo_paths_list = self.repo_schema['paths']
+        self.repo_paths_list = self.repo_schema["paths"]
 
     def _build_dir_struct(self, args):
         """
         Creates the directory structure for Apps.
         """
         self.app_dir = utils.get_abs_path(args["ws_dir"])
-        if args.get('src_dir'):
+        if args.get("src_dir"):
             self.app_src_dir = utils.get_abs_path(args["src_dir"])
         else:
             self.app_src_dir = os.path.join(self.app_dir, "src")
@@ -55,6 +60,7 @@ class App(BSP, Repo):
         # App directory needs to have its own yaml configuration
         # (for compiler flags, linker flags etc.)
         self.app_config_file = os.path.join(self.app_src_dir, "app.yaml")
+
 
 @log_time
 def create_app(args):
@@ -69,8 +75,7 @@ def create_app(args):
     if os.environ.get("VALIDATE_ARGS") == "True":
         logger.info("Validating inputs")
         validate_obj = ValidateHW(
-            obj.domain_path, obj.proc, obj.os, obj.sdt,
-            obj.template, obj.repo_yaml_path
+            obj.domain_path, obj.proc, obj.os, obj.sdt, obj.template, obj.repo_yaml_path
         )
         validate_obj.validate_hw()
 
@@ -79,22 +84,26 @@ def create_app(args):
     srcdir = os.path.join(esw_app_dir, "src")
     dstdir = obj.app_src_dir
     if obj.template in openamp_app_names.keys():
-        srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
-        srcdir = os.path.join(srcdir, 'openamp-system-reference')
-        if 'LOCAL_OPENAMP_DEMO_REPO' in os.environ:
-            srcdir = os.environ.get('LOCAL_OPENAMP_DEMO_REPO')
+        srcdir = os.path.join(os.environ.get("XILINX_VITIS"), "data")
+        srcdir = os.path.join(srcdir, "openamp-system-reference")
+        if "LOCAL_OPENAMP_DEMO_REPO" in os.environ:
+            srcdir = os.environ.get("LOCAL_OPENAMP_DEMO_REPO")
             print(f"[INFO]: LOCAL_OPENAMP_DEMO_REPO variable is set to {srcdir}")
 
-        utils.copy_file(os.path.join(esw_app_dir, '..', 'openamp_sdt', 'CMakeLists.txt'), dstdir)
-        dstdir = os.path.join(dstdir, 'openamp-system-reference')
-    elif obj.template == 'libmetal_echo_demo':
-        srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
-        srcdir = os.path.join(srcdir, 'libmetal')
-        if 'LOCAL_LIBMETAL_DEMO_REPO' in os.environ:
-            srcdir = os.environ.get('LOCAL_LIBMETAL_DEMO_REPO')
+        utils.copy_file(
+            os.path.join(esw_app_dir, "..", "openamp_sdt", "CMakeLists.txt"), dstdir
+        )
+        dstdir = os.path.join(dstdir, "openamp-system-reference")
+    elif obj.template == "libmetal_echo_demo":
+        srcdir = os.path.join(os.environ.get("XILINX_VITIS"), "data")
+        srcdir = os.path.join(srcdir, "libmetal")
+        if "LOCAL_LIBMETAL_DEMO_REPO" in os.environ:
+            srcdir = os.environ.get("LOCAL_LIBMETAL_DEMO_REPO")
             print(f"[INFO]: LOCAL_LIBMETAL_DEMO_REPO variable is set to {srcdir}")
-        utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'CMakeLists.txt'), dstdir)
-        dstdir = os.path.join(dstdir, 'openamp-system-reference')
+        utils.copy_file(
+            os.path.join(esw_app_dir, "src", "sdt", "CMakeLists.txt"), dstdir
+        )
+        dstdir = os.path.join(dstdir, "openamp-system-reference")
 
     # Make it easier for user to replace the upstream openamp-system-reference demo area
     # by having it in its own subdirectory.
@@ -104,21 +113,21 @@ def create_app(args):
         src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
         utils.replace_line(
             src_cmake,
-            f'APP_NAME {obj.template}',
-            f'set(APP_NAME {obj.app_name})',
+            f"APP_NAME {obj.template}",
+            f"set(APP_NAME {obj.app_name})",
         )
 
     # in case of library update link libraries
-    if domain_data['lib_info']:
+    if domain_data["lib_info"]:
         src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
-        lib_list = list(domain_data['lib_info'].keys())
+        lib_list = list(domain_data["lib_info"].keys())
         # Special handling for libmetal
-        lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
+        lib_list = [lib.replace("libmetal", "metal") for lib in lib_list]
         # Special handling for openamp
-        lib_list = [lib.replace('openamp', 'open_amp') for lib in lib_list]
+        lib_list = [lib.replace("openamp", "open_amp") for lib in lib_list]
         # FixME: Link the math library by default for libmetal dependent drivers
-        if 'metal' in lib_list:
-            lib_list.append('m')
+        if "metal" in lib_list:
+            lib_list.append("m")
         if obj.os == "freertos":
             lib_list.append(obj.os)
         cpu_list_file = os.path.join(obj.domain_path, "cpulist.yaml")
@@ -126,11 +135,11 @@ def create_app(args):
         proc_ip_name = avail_cpu_data[obj.proc]
         if "microblaze_riscv" in proc_ip_name or "microblaze" in proc_ip_name:
             lib_list.append("gloss")
-        cmake_lib_list = ';'.join(lib_list)
+        cmake_lib_list = ";".join(lib_list)
         utils.replace_line(
             src_cmake,
-            f'PROJECT_LIB_DEPS xilstandalone',
-            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
+            f"PROJECT_LIB_DEPS xilstandalone",
+            f"collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})",
         )
 
     # Checks if the app depends on any driver, if yest, generates the corresponding metadata
@@ -140,63 +149,63 @@ def create_app(args):
         if app_schema.get("depends"):
             utils.runcmd(
                 f"lopper -O {obj.app_src_dir} {obj.sdt} -- bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}",
-                log_message = f"Generating Hardware Metadata for {obj.template}",
-                error_message = f"Failed to generate Hardware Meta-data for {obj.template}",
-                verbose_level = 0
+                log_message=f"Generating Hardware Metadata for {obj.template}",
+                error_message=f"Failed to generate Hardware Meta-data for {obj.template}",
+                verbose_level=0,
             )
 
     # Generates the metadata for linker script
-    linker_cmd = (
-        f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetallinker_xlnx {obj.proc} {srcdir}"
-    )
+    linker_cmd = f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetallinker_xlnx {obj.proc} {srcdir}"
     bsp_obj = BSP(args)
-    overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
+    overlay_path = os.path.join(bsp_obj.domain_path, "hw_artifacts", "domain.yaml")
 
-    if obj.template in openamp_app_names.keys() or obj.template == 'libmetal_echo_demo':
+    if obj.template in openamp_app_names.keys() or obj.template == "libmetal_echo_demo":
         bsp_obj = BSP(args)
-        original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
+        original_sdt = os.path.join(bsp_obj.domain_path, "hw_artifacts", "sdt.dts")
 
         # Note that lopper command to generate linker script will be updated
         # here to use OpenAMP SDT. To generate OpenAMP SDT, need original SDT
-        linker_cmd = openamp_lopper_run(original_sdt, linker_cmd, obj, esw_app_dir, domain_data['family'].lower())
+        linker_cmd = openamp_lopper_run(
+            original_sdt, linker_cmd, obj, esw_app_dir, domain_data["family"].lower()
+        )
 
     if obj.template == "memory_tests":
         utils.runcmd(
             f"{linker_cmd} memtest",
-            log_message = "Generating Linker Script for memory_tests",
-            error_message = "Failed to generate Linker Script for memory_tests",
-            verbose_level = 0
+            log_message="Generating Linker Script for memory_tests",
+            error_message="Failed to generate Linker Script for memory_tests",
+            verbose_level=0,
         )
 
     elif obj.template != "versal_plm":
         utils.runcmd(
             linker_cmd,
-            log_message = f"Generating Linker script for {obj.template}",
-            error_message = f"Failed to generate Linker script for {obj.template}",
-            verbose_level = 0
+            log_message=f"Generating Linker script for {obj.template}",
+            error_message=f"Failed to generate Linker script for {obj.template}",
+            verbose_level=0,
         )
 
     # Copy the static linker files from embeddedsw to the app src dir
     linker_dir = os.path.join(obj.app_src_dir, "linker_files")
     linker_src = utils.get_high_precedence_path(
-            obj.repo_paths_list, "Linker file directory", "scripts", "linker_files"
-        )
+        obj.repo_paths_list, "Linker file directory", "scripts", "linker_files"
+    )
     utils.copy_directory(linker_src, linker_dir)
     # Copy the User Configuration cmake file to the app src dir
     user_config_cmake = utils.get_high_precedence_path(
-            obj.repo_paths_list, "UserConfig.cmake file", "cmake", "UserConfig.cmake"
-        )
+        obj.repo_paths_list, "UserConfig.cmake file", "cmake", "UserConfig.cmake"
+    )
     utils.copy_file(user_config_cmake, obj.app_src_dir)
 
     # Generate the CMake file specifically for peripheral app
     if obj.template == "peripheral_tests":
-        if domain_data['os_config'][obj.os]:
-            stdin = domain_data['os_config'][obj.os][f'{obj.os}_stdin']['value']
+        if domain_data["os_config"][obj.os]:
+            stdin = domain_data["os_config"][obj.os][f"{obj.os}_stdin"]["value"]
         utils.runcmd(
             f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetal_gentestapp_xlnx {obj.proc} {obj.repo_yaml_path} {stdin}",
-            log_message = "Generating meta-data for peripheral tests",
-            error_message = "Peripheral test meta-data generation failed.",
-            verbose_level = 0
+            log_message="Generating meta-data for peripheral tests",
+            error_message="Peripheral test meta-data generation failed.",
+            verbose_level=0,
         )
 
     # Copy psu_init* files for zynq and zynqmp fsbl app
@@ -217,62 +226,68 @@ def create_app(args):
 
     if obj.template in openamp_app_names.keys():
         create_openamp_app(obj, esw_app_dir)
-    elif obj.template == 'libmetal_echo_demo':
+    elif obj.template == "libmetal_echo_demo":
         create_libmetal_app(obj, esw_app_dir)
 
     # Add domain path entry in the app configuration file.
-    data = {"domain_path": obj.domain_path,
-            "app_src_dir": esw_app_dir,
-            "template": obj.template,
-            "lang": args["lang"]
-        }
+    data = {
+        "domain_path": obj.domain_path,
+        "app_src_dir": esw_app_dir,
+        "template": obj.template,
+        "lang": args["lang"],
+    }
     utils.write_yaml(obj.app_config_file, data)
 
     if not args["no_clangd"]:
         # Create a dummy folder to get compile_commands.json
         compile_commands_dir = os.path.join(obj.app_src_dir, ".compile_commands")
         utils.mkdir(compile_commands_dir)
-        obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
-        obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
+        obj.app_src_dir = obj.app_src_dir.replace("\\", "/")
+        obj.cmake_paths_append = obj.cmake_paths_append.replace("\\", "/")
         dump = utils.discard_dump()
         utils.runcmd(
             f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}',
-            cwd = compile_commands_dir,
-            log_message = "Dummy cmake call for compile_commands.json",
-            error_message = "Failed to generate compile_commands.json"
+            cwd=compile_commands_dir,
+            log_message="Dummy cmake call for compile_commands.json",
+            error_message="Failed to generate compile_commands.json",
         )
 
-        '''
+        """
         compile_commands.json file needs to be kept inside src directory.
         Silent_discard needs to be true as for Empty Application, this file
         is not created.
-        '''
-        utils.copy_file(os.path.join(compile_commands_dir, "compile_commands.json"), obj.app_src_dir, silent_discard=True)
+        """
+        utils.copy_file(
+            os.path.join(compile_commands_dir, "compile_commands.json"),
+            obj.app_src_dir,
+            silent_discard=True,
+        )
 
-        '''
+        """
         There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
         clang server does not recognise for Code Intellisense. To get over this
         "Unknown Argument" Error of clang, a .clangd file with below content is
         to be kept in parallel to compile_commands.json file.
-        '''
-        clangd_ignore_content = f'''
+        """
+        clangd_ignore_content = f"""
 CompileFlags:
     Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]
     Remove: [-m*, -f*]
-'''
+"""
         clangd_ignore_file = os.path.join(obj.app_src_dir, ".clangd")
         utils.write_into_file(clangd_ignore_file, clangd_ignore_content)
 
-        '''
+        """
         The generated compile_commands.json file has the directory path (where it
         was created originally) in it. That directory needs to be maintained to
         avoid clang error.
-        '''
+        """
         utils.remove(os.path.join(compile_commands_dir, "*"), pattern=True)
 
     # Success prints if everything went well till this point.
     if utils.is_file(obj.app_config_file):
         logger.info(f"Successfully Created Application sources at {obj.app_src_dir}")
+
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -289,21 +304,26 @@ def main(arguments=None):
         required=True,
     )
     parser.add_argument(
-        "-w", "--ws_dir", action="store", help="Workspace directory (Default: Current Work Directory)", default='.'
+        "-w",
+        "--ws_dir",
+        action="store",
+        help="Workspace directory (Default: Current Work Directory)",
+        default=".",
     )
     parser.add_argument(
-        "-s", "--src_dir", action="store", help="App source directory (Default: <Current Work Directory>/src)"
+        "-s",
+        "--src_dir",
+        action="store",
+        help="App source directory (Default: <Current Work Directory>/src)",
     )
-    parser.add_argument(
-        "-n", "--name", action="store", help="App name"
-    )
+    parser.add_argument("-n", "--name", action="store", help="App name")
     required_argument.add_argument(
         "-t",
         "--template",
         action="store",
         required=True,
         help=textwrap.dedent(
-             f"""\
+            f"""\
         Specify template app name. Available names are as below. Please note that
         these template names are maintained statically, they don't contain the custom templates.
 {'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
@@ -315,14 +335,10 @@ def main(arguments=None):
         "--repo_info",
         action="store",
         help="Specify the .repo.yaml absolute path to use the set repo info",
-        default='.repo.yaml',
+        default=".repo.yaml",
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     parser.add_argument(
         "--no_clangd",
@@ -343,6 +359,7 @@ def main(arguments=None):
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
     create_app(args)
+
 
 if __name__ == "__main__":
     main()

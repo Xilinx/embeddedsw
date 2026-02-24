@@ -17,6 +17,7 @@ from validate_hw import ValidateHW
 
 logger = utils.get_logger(__name__)
 
+
 class Validation(BSP, Library):
     """
     This class contains attributes and functions to validate the given bsp
@@ -35,7 +36,7 @@ class Validation(BSP, Library):
             self.sdt,
             self.cmake_paths_append,
             self.libsrc_folder,
-            args['repo_info']
+            args["repo_info"],
         )
         self.template = args.get("template", self.template)
         self.proc_data = self._get_template_lib_data(args.get("app_list_yaml"))
@@ -66,8 +67,8 @@ class Validation(BSP, Library):
             if not utils.is_file(app_list_file):
                 utils.runcmd(
                     f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
-                    log_message = "Fetching list of supported apps and libs",
-                    error_message = "Failed to fetch list of supported apps and libs"
+                    log_message="Fetching list of supported apps and libs",
+                    error_message="Failed to fetch list of supported apps and libs",
                 )
         proc_data = utils.fetch_yaml_data(app_list_file, "app_list")[self.proc]
         return proc_data
@@ -120,8 +121,12 @@ class Validation(BSP, Library):
             self.domain_path, self.proc_data, self.os, self.template
         )
         validate_obj = ValidateHW(
-            self.domain_path, self.proc, self.os, self.sdt,
-            self.template, self.repo_yaml_path
+            self.domain_path,
+            self.proc,
+            self.os,
+            self.sdt,
+            self.template,
+            self.repo_yaml_path,
         )
         validate_obj.validate_hw()
         required_libs = self.app_data[self.template].get("depends_libs", [])
@@ -145,15 +150,20 @@ class Validation(BSP, Library):
         app_lib_info = utils.fetch_yaml_data(app_yaml_file, "depends_libs")
         diff_lib_data = {}
         if app_lib_info["depends_libs"]:
-            for lib,lib_data in app_lib_info["depends_libs"].items():
+            for lib, lib_data in app_lib_info["depends_libs"].items():
                 if lib_data:
-                    for param,value in lib_data.items():
-                        if not isinstance(value,dict):
-                            if str(value).casefold() != domain_data["lib_config"][lib][param]['value'].casefold():
+                    for param, value in lib_data.items():
+                        if not isinstance(value, dict):
+                            if (
+                                str(value).casefold()
+                                != domain_data["lib_config"][lib][param][
+                                    "value"
+                                ].casefold()
+                            ):
                                 if not lib in diff_lib_data:
-                                    diff_lib_data[lib] = {param:value}
+                                    diff_lib_data[lib] = {param: value}
                                 else:
-                                    diff_lib_data[lib].update({param:value})
+                                    diff_lib_data[lib].update({param: value})
 
         if diff_lib_data:
             message = f"[ERROR]: For {self.template} the following library config param values are expected:\n"
@@ -205,6 +215,7 @@ class Validation(BSP, Library):
 
         logger.info(f"Available Templates for the given BSP are {template_possible}.")
 
+
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to validate the given BSP for a given template",
@@ -225,7 +236,7 @@ def main(arguments=None):
         action="store",
         default="",
         help=textwrap.dedent(
-             f"""\
+            f"""\
         Specify template app name. Available names are as below. Please note that
         these template names are maintained statically, they don't contain the custom templates.
 {'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
@@ -251,14 +262,10 @@ def main(arguments=None):
         "--repo_info",
         action="store",
         help="Specify the .repo.yaml absolute path to use the set repo info",
-        default='.repo.yaml',
+        default=".repo.yaml",
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
@@ -269,6 +276,7 @@ def main(arguments=None):
         obj.validate_template_for_bsp()
     else:
         assert False, "Either use get_apps option or provide a template name."
+
 
 if __name__ == "__main__":
     main()

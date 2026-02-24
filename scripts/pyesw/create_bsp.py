@@ -20,6 +20,7 @@ from validate_hw import ValidateHW
 
 logger = utils.get_logger(__name__)
 
+
 class Domain(Repo):
     """
     This class helps in creating a software domain. This contains functions
@@ -43,7 +44,7 @@ class Domain(Repo):
         self.libsrc_folder = os.path.join(self.domain_dir, "libsrc")
         self.sdt_folder = os.path.join(self.domain_dir, "hw_artifacts")
         self.domain_config_file = os.path.join(self.domain_dir, "bsp.yaml")
-        self.repo_paths_list = self.repo_schema['paths']
+        self.repo_paths_list = self.repo_schema["paths"]
         self.drv_info = {}
         self.os_info = {}
         self.proc_mode = args["mode"]
@@ -88,14 +89,20 @@ class Domain(Repo):
         if not utils.is_file(cpu_list_file):
             utils.runcmd(
                 f"lopper --werror -f -O {self.domain_dir} -i lop-cpulist.dts {self.sdt}",
-                cwd = self.domain_dir,
-                log_message = "Generating CPU list",
-                error_message = "CPU List generation failed."
+                cwd=self.domain_dir,
+                log_message="Generating CPU list",
+                error_message="CPU List generation failed.",
             )
-        cpulist_metafiles = ["cpulist.yaml","lop-cpulist.dts.dtb","lop-cpulist.dts.pp"]
+        cpulist_metafiles = [
+            "cpulist.yaml",
+            "lop-cpulist.dts.dtb",
+            "lop-cpulist.dts.pp",
+        ]
         avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
         if self.proc not in avail_cpu_data.keys():
-            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+            utils.remove_directory(
+                self.domain_dir, cpulist_metafiles, force_remove=False
+            )
             logger.error(
                 f"Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
             )
@@ -103,25 +110,27 @@ class Domain(Repo):
 
         proc_ip_name = avail_cpu_data[self.proc]
         if proc_ip_name in ("cortexa78", "cortexr52") and "freertos" in self.os:
-            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+            utils.remove_directory(
+                self.domain_dir, cpulist_metafiles, force_remove=False
+            )
             logger.error(
                 f"Invalid os selection, {self.os} is not supported for the {self.proc} processor"
             )
             sys.exit(1)
 
         if "a53" not in self.proc and self.proc_mode == "32-bit":
-            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+            utils.remove_directory(
+                self.domain_dir, cpulist_metafiles, force_remove=False
+            )
             logger.error(
                 f"Invalid mode configuration, 32-bit mode configuration is applicable only for ZynqMP A53 processors"
             )
             sys.exit(1)
 
-        if all([
-            "a53" in self.proc,
-            self.proc_mode == "32-bit",
-            "freertos" in self.os
-        ]):
-            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+        if all(["a53" in self.proc, self.proc_mode == "32-bit", "freertos" in self.os]):
+            utils.remove_directory(
+                self.domain_dir, cpulist_metafiles, force_remove=False
+            )
             logger.error(
                 f"Invalid OS selection: {self.os} is unsupported for {self.proc} processor in {self.proc_mode} mode"
             )
@@ -133,9 +142,9 @@ class Domain(Repo):
         if not utils.is_file(app_list_file) or not utils.is_file(lib_list_file):
             utils.runcmd(
                 f"lopper --werror -f -O {self.domain_dir} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
-                cwd = self.domain_dir,
-                log_message = "Getting supported component list",
-                error_message = "Could not get the supported component list"
+                cwd=self.domain_dir,
+                log_message="Getting supported component list",
+                error_message="Could not get the supported component list",
             )
         if os.environ.get("VALIDATE_ARGS") == "True":
             logger.info("Validating inputs")
@@ -145,8 +154,12 @@ class Domain(Repo):
             )
         if self.app:
             validate_obj = ValidateHW(
-                self.domain_dir, self.proc, self.os, self.sdt,
-                self.app, self.repo_yaml_path
+                self.domain_dir,
+                self.proc,
+                self.os,
+                self.sdt,
+                self.app,
+                self.repo_yaml_path,
             )
             validate_obj.validate_hw()
         return avail_cpu_data[self.proc]
@@ -159,9 +172,17 @@ class Domain(Repo):
         utils.mkdir(self.lib_folder)
         utils.mkdir(self.libsrc_folder)
         utils.mkdir(self.sdt_folder)
-        if utils.is_dir(os.path.join(utils.get_dir_path(self.sdt), "drivers"), silent_discard=True) and self.app != "versal_plm":
-            utils.copy_directory(os.path.join(utils.get_dir_path(self.sdt), "drivers"),
-                                 os.path.join((self.sdt_folder), "drivers"))
+        if (
+            utils.is_dir(
+                os.path.join(utils.get_dir_path(self.sdt), "drivers"),
+                silent_discard=True,
+            )
+            and self.app != "versal_plm"
+        ):
+            utils.copy_directory(
+                os.path.join(utils.get_dir_path(self.sdt), "drivers"),
+                os.path.join((self.sdt_folder), "drivers"),
+            )
             logger.info("Found HLS driver within SDT, copying the sources")
 
         if self.family == "ZynqMP":
@@ -172,10 +193,17 @@ class Domain(Repo):
             init_file = ""
 
         if init_file:
-            utils.copy_file(os.path.join(utils.get_dir_path(self.sdt), f"{init_file}.c"),
-                            os.path.join(self.sdt_folder, f"{init_file}.c"), silent_discard=True)
-            utils.copy_file(os.path.join(utils.get_dir_path(self.sdt), f"{init_file}.h"),
-                            os.path.join(self.sdt_folder, f"{init_file}.h"), silent_discard=True)
+            utils.copy_file(
+                os.path.join(utils.get_dir_path(self.sdt), f"{init_file}.c"),
+                os.path.join(self.sdt_folder, f"{init_file}.c"),
+                silent_discard=True,
+            )
+            utils.copy_file(
+                os.path.join(utils.get_dir_path(self.sdt), f"{init_file}.h"),
+                os.path.join(self.sdt_folder, f"{init_file}.h"),
+                silent_discard=True,
+            )
+
     def toolchain_intr_mapping(self):
         """
         We have reference toolchain files in embeddedsw which contains default
@@ -219,48 +247,57 @@ class Domain(Repo):
         # Save unpruned SDT as it may be used later
         ori_sdt_path = os.path.join(self.sdt_folder, "sdt.dts")
         if self.app != "versal_plm":
-            utils.runcmd(f"lopper -f -O {self.domain_dir} --enhanced  --permissive {self.sdt} {ori_sdt_path} > {dump}",
-                         log_message = "Generating Flat DT from SDT (Unpruned)",
-                         error_message = "Flat DT generation (Unpruned) failed"
+            utils.runcmd(
+                f"lopper -f -O {self.domain_dir} --enhanced  --permissive {self.sdt} {ori_sdt_path} > {dump}",
+                log_message="Generating Flat DT from SDT (Unpruned)",
+                error_message="Flat DT generation (Unpruned) failed",
             )
 
         toolchain_file_copy = None
         for val in proc_lops_specs_map.keys():
             if val in self.proc_ip_name:
                 if "gcc" in self.compiler:
-                    toolchain_file_name = f"{proc_lops_specs_map[val][0]}_toolchain.cmake"
+                    toolchain_file_name = (
+                        f"{proc_lops_specs_map[val][0]}_toolchain.cmake"
+                    )
                 else:
-                    toolchain_file_name = f"{proc_lops_specs_map[val][0]}_{self.compiler}_toolchain.cmake"
+                    toolchain_file_name = (
+                        f"{proc_lops_specs_map[val][0]}_{self.compiler}_toolchain.cmake"
+                    )
                 toolchain_file_path = utils.get_high_precedence_path(
-                    self.repo_paths_list, "toolchain File", "cmake", "toolchainfiles", toolchain_file_name
+                    self.repo_paths_list,
+                    "toolchain File",
+                    "cmake",
+                    "toolchainfiles",
+                    toolchain_file_name,
                 )
                 if proc_lops_specs_map[val][1]:
                     lops_file = f"{proc_lops_specs_map[val][1]}.dts"
                 toolchain_file_copy = os.path.join(self.domain_dir, toolchain_file_name)
                 utils.copy_file(toolchain_file_path, toolchain_file_copy)
                 specs_file = utils.get_high_precedence_path(
-                    self.repo_paths_list, "Xilinx.spec File", "scripts", "specs", proc_lops_specs_map[val][2], "Xilinx.spec"
+                    self.repo_paths_list,
+                    "Xilinx.spec File",
+                    "scripts",
+                    "specs",
+                    proc_lops_specs_map[val][2],
+                    "Xilinx.spec",
                 )
-                specs_copy_file = os.path.join(self.domain_dir, 'Xilinx.spec')
+                specs_copy_file = os.path.join(self.domain_dir, "Xilinx.spec")
                 utils.copy_file(specs_file, specs_copy_file)
                 break
 
         if self.proc in ["psx_pmc_0", "psx_psm_0", "pmc_0", "asu"]:
-            updated_string = '''
+            updated_string = """
 set( CMAKE_MACHINE "VersalNet" CACHE STRING "cmake machine" FORCE)
 set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
-'''
+"""
             if self.proc == "asu":
-                utils.add_newline(
-                    toolchain_file_copy,
-                    updated_string
-                    )
+                utils.add_newline(toolchain_file_copy, updated_string)
             else:
                 utils.replace_line(
-                    toolchain_file_copy,
-                    'CMAKE_MACHINE "Versal',
-                    updated_string
-                    )
+                    toolchain_file_copy, 'CMAKE_MACHINE "Versal', updated_string
+                )
 
         if "r5" in self.proc and "ZynqMP" in self.family:
             utils.replace_line(
@@ -284,10 +321,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             )
 
         if self.app:
-            utils.add_newline(
-                toolchain_file_copy,
-                f'set(TEMPLATE "{self.app}")'
-            )
+            utils.add_newline(toolchain_file_copy, f'set(TEMPLATE "{self.app}")')
 
         # freertos needs a separate CMAKE_SYSTEM_NAME
         if "freertos" in self.os:
@@ -306,8 +340,8 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 # Convert ISS to domain YAML
                 utils.runcmd(
                     f"lopper -f -O {self.sdt_folder} --enhanced {self.sdt} -- isospec --audit {iss_file} {domain_yaml}",
-                    log_message = "Isospec processing",
-                    error_message = "Isospec processing failed"
+                    log_message="Isospec processing",
+                    error_message="Isospec processing failed",
                 )
                 if utils.is_file(domain_yaml, silent_discard=True):
                     domain_name = utils.get_domain_name(self.proc, domain_yaml)
@@ -316,35 +350,35 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                         if lops_file:
                             utils.runcmd(
                                 f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -i lop-ttc-split.dts -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}",
-                                log_message = "Processing domain_yaml",
-                                error_message = "Could not process the domain_yaml"
+                                log_message="Processing domain_yaml",
+                                error_message="Could not process the domain_yaml",
                             )
                         else:
                             utils.runcmd(
                                 f"lopper -f -O {self.sdt_folder} --enhanced -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}",
-                                log_message = "Processing domain_yaml",
-                                error_message ="Could not process the domain_yaml"
+                                log_message="Processing domain_yaml",
+                                error_message="Could not process the domain_yaml",
                             )
             if not domain_dts:
                 if lops_file:
                     utils.runcmd(
                         f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
-                        log_message = f"Generating Domain-specific DTS for {self.proc}",
-                        error_message = f"Domain specific DT generation for {self.proc} failed",
-                        verbose_level = 0
+                        log_message=f"Generating Domain-specific DTS for {self.proc}",
+                        error_message=f"Domain specific DT generation for {self.proc} failed",
+                        verbose_level=0,
                     )
                 else:
                     utils.runcmd(
                         f"lopper -f --enhanced -O {self.domain_dir} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
-                        log_message = f"Generating Domain-specific DTS for {self.proc}",
-                        error_message = f"Domain specific DT generation for {self.proc} failed",
-                        verbose_level = 0
+                        log_message=f"Generating Domain-specific DTS for {self.proc}",
+                        error_message=f"Domain specific DT generation for {self.proc} failed",
+                        verbose_level=0,
                     )
         else:
             out_dts_path = self.sdt
 
         if self.proc_ip_name in ["microblaze", "microblaze_riscv", "asu", "pmc_riscv"]:
-            if self.proc_ip_name in ["microblaze_riscv", "asu", "pmc_riscv"] :
+            if self.proc_ip_name in ["microblaze_riscv", "asu", "pmc_riscv"]:
                 lops_file = "lop-microblaze-riscv.dts"
                 processor = "riscv"
             else:
@@ -353,14 +387,13 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
 
             utils.runcmd(
                 f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {out_dts_path} > {dump}",
-                cwd = self.domain_dir,
-                log_message = f"Executing {lops_file}",
-                error_message = f"{lops_file} execution failed"
+                cwd=self.domain_dir,
+                log_message=f"Executing {lops_file}",
+                error_message=f"{lops_file} execution failed",
             )
             cflags_file = os.path.join(self.domain_dir, "cflags.yaml")
             avail_cflag_data = utils.fetch_yaml_data(cflags_file, "cflags")
             cflags = avail_cflag_data.get("cflags")
-
 
             utils.replace_line(
                 toolchain_file_copy,
@@ -380,13 +413,19 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 relative_libpath = avail_cflag_data.get("libpath")
                 vitis_path = os.environ.get("XILINX_VITIS")
                 if os.name == "nt":
-                    libpath = os.path.join(vitis_path, "gnu", processor, "nt", relative_libpath)
+                    libpath = os.path.join(
+                        vitis_path, "gnu", processor, "nt", relative_libpath
+                    )
                 else:
-                    libpath = os.path.join(vitis_path, "gnu", processor, "lin", relative_libpath)
+                    libpath = os.path.join(
+                        vitis_path, "gnu", processor, "lin", relative_libpath
+                    )
 
-                libpath = libpath.replace('\\', '/')
+                libpath = libpath.replace("\\", "/")
 
-                assert utils.is_dir(libpath), f"{processor} compiler library path {libpath} is not found."
+                assert utils.is_dir(
+                    libpath
+                ), f"{processor} compiler library path {libpath} is not found."
 
                 utils.replace_line(
                     toolchain_file_copy,
@@ -416,7 +455,9 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
         """
         compiler_flags = ""
         if app_name:
-            app_yaml_dict = utils.load_yaml(os.path.join(self.get_comp_dir(app_name), "data", f"{app_name}.yaml"))
+            app_yaml_dict = utils.load_yaml(
+                os.path.join(self.get_comp_dir(app_name), "data", f"{app_name}.yaml")
+            )
             if app_yaml_dict.get("extra_compiler_flags"):
                 utils.replace_line(
                     toolchain_file,
@@ -434,7 +475,9 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 if "r5" in proc:
                     compiler_flags = "-Os -flto -ffat-lto-objects -DARMR5"
             else:
-                compiler_flags = "-march=armv7-a -DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard"
+                compiler_flags = (
+                    "-march=armv7-a -DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard"
+                )
 
             utils.add_newline(
                 toolchain_file,
@@ -450,8 +493,9 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             )
         return compiler_flags
 
+
 def lop_create_target(lop_cmds):
-    lop_file = f'''
+    lop_file = f"""
 /dts-v1/;
 / {{
         compatible = "system-device-tree-v1,lop";
@@ -472,9 +516,9 @@ def lop_create_target(lop_cmds):
                         compatible = "system-device-tree-v1,lop,load";
                         load = "assists/baremetal_xparameters_xlnx.py";
                 }};
-    '''
-    for index,cmd in enumerate(lop_cmds, 4):
-        lop_file += f'''
+    """
+    for index, cmd in enumerate(lop_cmds, 4):
+        lop_file += f"""
                 lop_{index} {{
                     compatible = "system-device-tree-v1,lop,assist-v1";
                     node = "/";
@@ -482,12 +526,13 @@ def lop_create_target(lop_cmds):
                     id = "{cmd[1]}";
                  options = "{cmd[2]}";
                 }};
-        '''
-    lop_file += f'''
+        """
+    lop_file += f"""
         }};
     }};
-    '''
-    return lop_file.replace('\\', '/')
+    """
+    return lop_file.replace("\\", "/")
+
 
 @log_time
 def create_domain(args):
@@ -499,7 +544,7 @@ def create_domain(args):
 
     # Initialize the Domain class
     obj = Domain(args)
-    logger.info( "Starting domain creation" )
+    logger.info("Starting domain creation")
 
     # Create the bsp directory structure.
     obj.build_dir_struct()
@@ -524,18 +569,26 @@ def create_domain(args):
     bspsrc = os.path.join(obj.libsrc_folder, "standalone", "src")
     bspcomsrc = os.path.join(obj.libsrc_folder, "standalone", "src", "common")
     utils.copy_directory(os_srcdir, bspsrc)
-    obj.os_info['standalone'] = {'path': os_dir_path}
+    obj.os_info["standalone"] = {"path": os_dir_path}
 
     # Create lops file
     config_lops_file = os.path.join(obj.domain_dir, "lop-config.dts")
     lop_cmds = []
-    lop_cmds.append([bspsrc, "module,baremetal_bspconfig_xlnx", f"{obj.proc} {os_srcdir} {obj.app}"])
-    lop_cmds.append([bspcomsrc, "module,bmcmake_metadata_xlnx", f"{obj.proc} {os_srcdir} hwcmake_metadata {obj.repo_yaml_path}"])
+    lop_cmds.append(
+        [bspsrc, "module,baremetal_bspconfig_xlnx", f"{obj.proc} {os_srcdir} {obj.app}"]
+    )
+    lop_cmds.append(
+        [
+            bspcomsrc,
+            "module,bmcmake_metadata_xlnx",
+            f"{obj.proc} {os_srcdir} hwcmake_metadata {obj.repo_yaml_path}",
+        ]
+    )
 
     # Copy cmake file that contains cmake utility APIs to a common location.
     find_common_cmake_path = utils.get_high_precedence_path(
-            obj.repo_paths_list, "Findcommon.cmake", "cmake", "Findcommon.cmake"
-        )
+        obj.repo_paths_list, "Findcommon.cmake", "cmake", "Findcommon.cmake"
+    )
     find_common_domain_path = os.path.join(obj.domain_dir, "Findcommon.cmake")
     utils.copy_file(
         find_common_cmake_path,
@@ -558,8 +611,8 @@ def create_domain(args):
     """
     utils.runcmd(
         f"lopper -O {obj.libsrc_folder} -f {obj.sdt} -- baremetaldrvlist_xlnx {obj.proc} {obj.repo_yaml_path}",
-        log_message = "Generating driver list",
-        error_message = "Could not generate the Driver list, baremetaldrvlist_xlnx failed"
+        log_message="Generating driver list",
+        error_message="Could not generate the Driver list, baremetaldrvlist_xlnx failed",
     )
 
     # Read the driver list available in libsrc folder
@@ -584,29 +637,32 @@ def create_domain(args):
         yaml_file = os.path.join(drv_path, "data", f"{drv}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema and schema.get("depends_libs", {}):
-           drv_lib_dep.extend(list(schema["depends_libs"].keys()))
+            drv_lib_dep.extend(list(schema["depends_libs"].keys()))
 
         if not drv_path:
-            logger.error(f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist.")
+            logger.error(
+                f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist."
+            )
             sys.exit(1)
         cmake_drv_path_list += f"{drv_path};"
-        lop_cmds.append([drvsrc, "module,baremetalconfig_xlnx", f"{obj.proc} {drv_srcdir}"])
+        lop_cmds.append(
+            [drvsrc, "module,baremetalconfig_xlnx", f"{obj.proc} {drv_srcdir}"]
+        )
 
     ip_drv_map_file = os.path.join(obj.libsrc_folder, "ip_drv_map.yaml")
     ip_drv_map = utils.load_yaml(ip_drv_map_file)
-    for ip,data in ip_drv_map.items():
+    for ip, data in ip_drv_map.items():
         driver = data[1]
         if driver != "None":
             drv_path = obj.get_comp_dir(driver, obj.sdt_folder)
             if not drv_path:
-                logger.error(f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist.")
+                logger.error(
+                    f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist."
+                )
                 sys.exit(1)
-            obj.drv_info[ip] = {'driver': driver,
-                                'ip_name': data[0],
-                                'path' : drv_path}
+            obj.drv_info[ip] = {"driver": driver, "ip_name": data[0], "path": drv_path}
         else:
             obj.drv_info[ip] = "None"
-
 
     """
     Create a dictionary that will contain the current status of the domain.
@@ -633,7 +689,7 @@ def create_domain(args):
         "libsrc_folder": utils.get_rel_path(obj.libsrc_folder, obj.domain_dir),
         "drv_info": obj.drv_info,
         "lib_info": {},
-        "lib_config": {}
+        "lib_config": {},
     }
 
     # Write the domain specific data as a configuration file in yaml format.
@@ -644,7 +700,13 @@ def create_domain(args):
     lib_list = ["xiltimer"]
     cmake_cmd_append = ""
     lib_obj = Library(
-        obj.domain_dir, obj.proc, obj.os, obj.sdt, cmake_paths_append, obj.libsrc_folder, obj.repo_yaml_path
+        obj.domain_dir,
+        obj.proc,
+        obj.os,
+        obj.sdt,
+        cmake_paths_append,
+        obj.libsrc_folder,
+        obj.repo_yaml_path,
     )
 
     if obj.app:
@@ -656,10 +718,10 @@ def create_domain(args):
         lib_obj.copy_lib_src("xiltimer")
 
     if drv_lib_dep:
-        #Remove duplicate entries
+        # Remove duplicate entries
         drv_lib_dep = list(set(drv_lib_dep))
         for lib in drv_lib_dep:
-            #Validate the lib before copying to the libsrc
+            # Validate the lib before copying to the libsrc
             if lib_obj.is_valid_lib(lib):
                 lib_list.append(lib)
                 lib_obj.copy_lib_src(lib)
@@ -670,9 +732,8 @@ def create_domain(args):
         os_srcdir = os.path.join(os_dir_path, "src")
         bspsrc = os.path.join(obj.libsrc_folder, "freertos10_xilinx/src")
         utils.copy_directory(os_srcdir, bspsrc)
-        obj.os_info['freertos10_xilinx'] = {'path': os_dir_path}
+        obj.os_info["freertos10_xilinx"] = {"path": os_dir_path}
         lib_list.append("freertos10_xilinx")
-
 
     if lib_list:
         for lib in lib_list:
@@ -680,43 +741,64 @@ def create_domain(args):
             srcdir = os.path.join(lib_dir_path, "src")
             dstdir = os.path.join(obj.libsrc_folder, f"{lib}/src")
             outfile = f"{lib}Example.cmake"
-            lop_cmds.append([dstdir, "module,bmcmake_metadata_xlnx", f"{obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}"])
+            lop_cmds.append(
+                [
+                    dstdir,
+                    "module,bmcmake_metadata_xlnx",
+                    f"{obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}",
+                ]
+            )
             if ("xilpm" in lib) and ("ZynqMP" in obj.family):
-                dstdir = os.path.join(obj.libsrc_folder, lib, "src", "zynqmp", "client", "common")
+                dstdir = os.path.join(
+                    obj.libsrc_folder, lib, "src", "zynqmp", "client", "common"
+                )
                 ori_sdt_path = os.path.join(obj.sdt_folder, "sdt.dts")
-                #TODO: Update bsp.yaml before running the below command so that,
+                # TODO: Update bsp.yaml before running the below command so that,
                 #      the default properties of lib get updated successfully.
                 lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {obj.proc}"
                 utils.runcmd(
-                    lopper_cmd, cwd = dstdir,
-                    log_message = "generate_config_object for PM use case",
-                    error_message = "Failed to generate the config object for PM use cases"
+                    lopper_cmd,
+                    cwd=dstdir,
+                    log_message="generate_config_object for PM use case",
+                    error_message="Failed to generate the config object for PM use cases",
                 )
 
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
     utils.mkdir(build_metadata)
 
-    lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path} {obj.app}"])
+    lop_cmds.append(
+        [
+            obj.include_folder,
+            "module,baremetal_xparameters_xlnx",
+            f"{obj.proc} {obj.repo_yaml_path} {obj.app}",
+        ]
+    )
     utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
     utils.runcmd(
         f"lopper -O {obj.domain_dir} -i {config_lops_file} -f {obj.sdt}",
-        log_message = "Generating required metadata from domain specific DT",
-        error_message = "Overall metadata generation failed",
-        verbose_level = 0
+        log_message="Generating required metadata from domain specific DT",
+        error_message="Overall metadata generation failed",
+        verbose_level=0,
     )
 
     # Copy the common cmake meta-data file to domain directory so that other modules can consume it
-    cmake_metadata = os.path.join(obj.libsrc_folder, "standalone", "src", "common", "StandaloneExample.cmake")
+    cmake_metadata = os.path.join(
+        obj.libsrc_folder, "standalone", "src", "common", "StandaloneExample.cmake"
+    )
     utils.copy_file(cmake_metadata, f"{obj.domain_dir}/Findcommonmeta.cmake")
     # Copy the actual drivers cmake file in the libsrc folder.
     # This is to compile all the available driver sources.
     libxil_cmake = utils.get_high_precedence_path(
-        obj.repo_paths_list, "Driver compilation CMake File", "XilinxProcessorIPLib", "drivers", "CMakeLists.txt"
+        obj.repo_paths_list,
+        "Driver compilation CMake File",
+        "XilinxProcessorIPLib",
+        "drivers",
+        "CMakeLists.txt",
     )
     utils.copy_file(libxil_cmake, f"{obj.libsrc_folder}/")
 
     bsp_libsrc_cmake_subdirs = "standalone libsrc " + " ".join(lib_list)
-    cmake_extra_flags_append=f'''
+    cmake_extra_flags_append = f"""
         if(COMMAND split_string_by_length)
             split_string_by_length("Compiler FLAGS: ${{CMAKE_C_FLAGS}} ${{proc_extra_compiler_flags}} ${{CMAKE_C_FLAGS_RELEASE}}" 100 CHUNKS)
         else()
@@ -732,13 +814,13 @@ def create_domain(args):
             COMMAND ${{CMAKE_COMMAND}} -E echo "** The above flags are BSP level flags. Increase verbosity to see component specific flags **"
             COMMAND ${{CMAKE_COMMAND}} -E echo "==========================================="
             COMMENT "========== BSP Build Information =========="
-        )'''
+        )"""
     if args.get("verbose") > 1:
-        cmake_extra_flags_append = ''
+        cmake_extra_flags_append = ""
 
     # Create new CMakeLists.txt
     cmake_file = os.path.join(obj.domain_dir, "CMakeLists.txt")
-    cmake_file_cmds = f'''
+    cmake_file_cmds = f"""
 cmake_minimum_required(VERSION 3.15)
 project(bsp)
 find_package(common)
@@ -778,7 +860,7 @@ function(_my_hook_end_of_configure)
     set(SUBDIR_LIST "ALL" CACHE STRING "sub dir list" FORCE)
 endfunction(_my_hook_end_of_configure)
 {cmake_extra_flags_append}
-    '''
+    """
 
     utils.write_into_file(cmake_file, cmake_file_cmds)
 
@@ -792,26 +874,26 @@ endfunction(_my_hook_end_of_configure)
         lib_obj.config_lib(None, lib_list, "", is_app=False)
 
     # Run cmake configuration with all the default cache entries
-    cmake_paths_append = cmake_paths_append.replace('\\', '/')
-    build_metadata = build_metadata.replace('\\', '/')
+    cmake_paths_append = cmake_paths_append.replace("\\", "/")
+    build_metadata = build_metadata.replace("\\", "/")
 
     if obj.os == "freertos":
         os_config = lib_obj.get_default_lib_params(build_metadata, ["freertos"])
     else:
         os_config = lib_obj.get_default_lib_params(build_metadata, ["standalone"])
-    proc_config = lib_obj.get_default_lib_params(build_metadata,[obj.proc])
+    proc_config = lib_obj.get_default_lib_params(build_metadata, [obj.proc])
 
     if lib_obj.os_config:
         props = lib_obj.os_config.items()
         if props:
             for key, value in props:
                 if os_config[obj.os].get(key, {}):
-                    os_config[obj.os][key]['value'] = value
+                    os_config[obj.os][key]["value"] = value
 
     if "microblaze" in obj.proc_ip_name:
         cmake_config = lib_obj.get_default_lib_params(build_metadata, ["cmake"])
-        if cmake_config['cmake'].get('CMAKE_MACHINE', {}):
-            obj.family = cmake_config['cmake']['CMAKE_MACHINE']['value']
+        if cmake_config["cmake"].get("CMAKE_MACHINE", {}):
+            obj.family = cmake_config["cmake"]["CMAKE_MACHINE"]["value"]
             utils.update_yaml(obj.domain_config_file, "domain", "family", obj.family)
 
     if "a53" in obj.proc and obj.proc_mode == "32-bit":
@@ -831,32 +913,35 @@ endfunction(_my_hook_end_of_configure)
     utils.remove(os.path.join(obj.domain_dir, "*.dtb"), pattern=True)
     utils.remove(os.path.join(obj.domain_dir, "*.pp"), pattern=True)
 
-    '''
+    """
     compile_commands.json file needs to be kept inside libsrc directory.
-    '''
-    utils.copy_file(os.path.join(build_metadata, "compile_commands.json"), obj.libsrc_folder)
+    """
+    utils.copy_file(
+        os.path.join(build_metadata, "compile_commands.json"), obj.libsrc_folder
+    )
 
-    '''
+    """
     There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
     clang server doesn't recognise for Code Intellisense. To get over this
     "Unknown Argument" Error of clang, a .clangd file with below content is
     to be kept in parallel to compile_commands.json file.
-    '''
+    """
     if "gcc" in obj.compiler:
         cmd_to_add = "Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]"
     else:
         cmd_to_add = "Add: [-Wno-unknown-warning-option, -U__linux__]"
-    clangd_ignore_content = f'''
+    clangd_ignore_content = f"""
 CompileFlags:
     {cmd_to_add}
     Remove: [-m*, -f*]
-'''
+"""
     clangd_ignore_file = os.path.join(obj.libsrc_folder, ".clangd")
     utils.write_into_file(clangd_ignore_file, clangd_ignore_content)
 
     # Success prints if everything went well till this point
     if utils.is_file(obj.domain_config_file):
         logger.info(f"Successfully created Domain at {obj.domain_dir}")
+
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -884,7 +969,7 @@ def main(arguments=None):
         "--ws_dir",
         action="store",
         help="Workspace directory where domain will be created (Default: Current Work Directory)",
-        default='.',
+        default=".",
     )
     parser.add_argument(
         "-o",
@@ -900,7 +985,7 @@ def main(arguments=None):
         action="store",
         default="",
         help=textwrap.dedent(
-             f"""\
+            f"""\
         Specify template app name. Available names are as below. Please note that
         these template names are maintained statically, they don't contain the custom templates.
 {'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
@@ -912,7 +997,7 @@ def main(arguments=None):
         "--repo_info",
         action="store",
         help="Specify the .repo.yaml absolute path to use the set repo info",
-        default='.repo.yaml',
+        default=".repo.yaml",
     )
     parser.add_argument(
         "-m",
@@ -923,11 +1008,7 @@ def main(arguments=None):
         choices=["32-bit", "64-bit"],
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     parser.add_argument(
         "-c",
@@ -941,6 +1022,7 @@ def main(arguments=None):
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
     create_domain(args)
+
 
 if __name__ == "__main__":
     main()

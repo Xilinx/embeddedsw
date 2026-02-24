@@ -11,6 +11,7 @@ import utils
 
 logger = utils.get_logger(__name__)
 
+
 class BSP:
     """
     This class contains attributes and functions to build the created bsp.
@@ -47,9 +48,7 @@ class BSP:
         self.toolchain_file = os.path.join(
             self.domain_path, domain_data["toolchain_file"]
         )
-        self.specs_file = os.path.join(
-            self.domain_path, domain_data["specs_file"]
-        )
+        self.specs_file = os.path.join(self.domain_path, domain_data["specs_file"])
         self.cmake_paths_append = f" -DCMAKE_LIBRARY_PATH={self.lib_folder} \
 -DCMAKE_INCLUDE_PATH={self.include_folder} \
 -DCMAKE_MODULE_PATH={self.domain_path} \
@@ -74,36 +73,36 @@ class BSP:
                 'option(NON_YOCTO "Non Yocto embeddedsw FLOW" OFF)',
                 'option(NON_YOCTO "Non Yocto embeddedsw FLOW" ON)',
             )
-	#Below code was added for backward compatibility.
+        # Below code was added for backward compatibility.
         try:
             self.config = domain_data["config"]
         except KeyError:
             self.config = "default"
             utils.update_yaml(self.domain_config_file, "domain", "config", "default")
             cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
-            cmake_cmd = f'''
+            cmake_cmd = f"""
 cmake_language(DEFER DIRECTORY ${{CMAKE_SOURCE_DIR}} CALL _my_hook_end_of_configure())
 function(_my_hook_end_of_configure)
     set(SUBDIR_LIST "ALL" CACHE STRING "sub dir list" FORCE)
 endfunction(_my_hook_end_of_configure)
-'''
+"""
             utils.add_newline(cmake_file, cmake_cmd)
 
     def build_bsp(self):
         cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
-        self.libsrc_folder = self.libsrc_folder.replace('\\','/')
+        self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
         build_libxil = os.path.join(self.libsrc_folder, "build_configs/gen_bsp")
         if not os.path.isdir(build_libxil):
             utils.mkdir(build_libxil)
-        self.domain_path = self.domain_path.replace('\\','/')
-        self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
-        build_libxil = build_libxil.replace('\\','/')
+        self.domain_path = self.domain_path.replace("\\", "/")
+        self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
+        build_libxil = build_libxil.replace("\\", "/")
         if self.config == "default":
             utils.runcmd(
                 f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
-                cwd = build_libxil,
-                log_message = "Configuring cmake build area with all library subdir list",
-                error_message = "Failed to configure cmake build area with all library subdir list"
+                cwd=build_libxil,
+                log_message="Configuring cmake build area with all library subdir list",
+                error_message="Failed to configure cmake build area with all library subdir list",
             )
             utils.update_yaml(self.domain_config_file, "domain", "config", "None")
         elif self.config == "reconfig":
@@ -112,33 +111,40 @@ endfunction(_my_hook_end_of_configure)
             utils.update_yaml(self.domain_config_file, "domain", "config", "None")
         verbosity = utils.get_cmake_verbosity(self.verbose)
         capture_output = True if verbosity == "" else False
-        cmake_cmd = f'cmake --build . --parallel 22 {verbosity}'
+        cmake_cmd = f"cmake --build . --parallel 22 {verbosity}"
         utils.runcmd(
             cmake_cmd,
-            cwd = build_libxil,
-            log_message = "Building BSP",
-            error_message = "Failed to build the BSP",
-            verbose_level = 0,
-            capture_output = capture_output
+            cwd=build_libxil,
+            log_message="Building BSP",
+            error_message="Failed to build the BSP",
+            verbose_level=0,
+            capture_output=capture_output,
         )
         # Redirecting output to NUL
-        dump = f' > {utils.discard_dump()}'
+        dump = f" > {utils.discard_dump()}"
         if self.verbose > 1:
             dump = ""
 
         utils.runcmd(
             f"cmake --install . {dump}",
-            cwd = build_libxil,
-            log_message = "Copying headers and built archives",
-            error_message = "Failed to copy headers and built archives, cmake install failed",
-            verbose_level = 0
+            cwd=build_libxil,
+            log_message="Copying headers and built archives",
+            error_message="Failed to copy headers and built archives, cmake install failed",
+            verbose_level=0,
         )
-        archives = [os.path.basename(archive) for archive in utils.find_files("*.a", os.path.join(self.domain_path, "lib"))]
+        archives = [
+            os.path.basename(archive)
+            for archive in utils.find_files(
+                "*.a", os.path.join(self.domain_path, "lib")
+            )
+        ]
         logger.info(f"Successfully built BSP. Generated {', '.join(archives)}")
 
     def clean_bsp(self):
         self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
-        cmake_cache = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt")
+        cmake_cache = os.path.join(
+            self.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt"
+        )
         if not utils.is_file(cmake_cache):
             logger.info("Nothing to clean build the BSP first")
         else:
@@ -146,10 +152,10 @@ endfunction(_my_hook_end_of_configure)
             utils.update_yaml(self.domain_config_file, "domain", "config", "default")
             utils.runcmd(
                 "cmake --build . --target clean",
-                cwd = build_libxil,
-                log_message = "Cleaning the BSP",
-                error_message = "Failed to clean the BSP",
-                verbose_level = 0
+                cwd=build_libxil,
+                log_message="Cleaning the BSP",
+                error_message="Failed to clean the BSP",
+                verbose_level=0,
             )
             utils.remove(cmake_cache)
 
@@ -158,12 +164,13 @@ endfunction(_my_hook_end_of_configure)
         drvlist = []
         for ip in domain_data["drv_info"].keys():
             if domain_data["drv_info"][ip] != "None":
-                drvlist.append(domain_data["drv_info"][ip].get('driver',{}))
+                drvlist.append(domain_data["drv_info"][ip].get("driver", {}))
 
         if drvlist:
             # Remove duplicate references
             drvlist = list(dict.fromkeys(drvlist))
         return drvlist
+
 
 def generate_bsp(args):
     """
@@ -176,6 +183,7 @@ def generate_bsp(args):
     else:
         obj.build_bsp()
 
+
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Build the created bsp",
@@ -183,11 +191,7 @@ def main(arguments=None):
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     required_argument = parser.add_argument_group("Required arguments")
     required_argument.add_argument(
@@ -197,16 +201,12 @@ def main(arguments=None):
         help="Domain directory Path",
         required=True,
     )
-    parser.add_argument(
-        "--clean",
-        action="store_true",
-        help="Clean the BSP"
-    )
-
+    parser.add_argument("--clean", action="store_true", help="Clean the BSP")
 
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
     generate_bsp(args)
+
 
 if __name__ == "__main__":
     main()

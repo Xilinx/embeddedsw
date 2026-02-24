@@ -16,6 +16,7 @@ import utils
 
 logger = utils.get_logger(__name__)
 
+
 class Repo:
     """
     This is the base class to get the embeddedsw repo path. This checks if the
@@ -45,7 +46,8 @@ class Repo:
                 logger.info("Found ESW_REPO in environment")
                 resolve_paths([shell_esw_repo])
             else:
-                logger.error(f"""\b
+                logger.error(
+                    f"""\b
                     Please set the Embeddedsw directory path.
                     Usage:
                         empyro repo -st <the ESW_REPO_PATH>
@@ -67,10 +69,18 @@ class Repo:
                 has_drivers = os.path.join(sdt_path, "drivers")
                 logger.debug("Checking for drivers inside SDT folder ")
                 if utils.is_dir(has_drivers, silent_discard=False):
-                    yaml_list = glob.glob(has_drivers + '/**/data/*.yaml', recursive=True)
-                    yaml_file_abs = [yaml for yaml in yaml_list if f"{comp_name}.yaml" ==  os.path.basename(yaml)]
+                    yaml_list = glob.glob(
+                        has_drivers + "/**/data/*.yaml", recursive=True
+                    )
+                    yaml_file_abs = [
+                        yaml
+                        for yaml in yaml_list
+                        if f"{comp_name}.yaml" == os.path.basename(yaml)
+                    ]
                     if yaml_file_abs:
-                        comp_dir = utils.get_dir_path(utils.get_dir_path(yaml_file_abs[0]))
+                        comp_dir = utils.get_dir_path(
+                            utils.get_dir_path(yaml_file_abs[0])
+                        )
                         return self.validate_comp_path(comp_dir, comp_name)
             logger.error(f"Couldn't find the src directory for {comp_name}")
             sys.exit(1)
@@ -93,15 +103,11 @@ Rules that decide the priority order:
 4. For multiple versioned paths having the same versions, priority shifts
     from left to right of the entered paths, left one having the higher priority.
 """
+
+
 def resolve_paths(args):
-    repo_paths = args['set_repo_path']
-    path_dict = {
-        'paths' : {},
-        'os'    : {},
-        'driver'  : {},
-        'library' : {},
-        'apps'    : {}
-        }
+    repo_paths = args["set_repo_path"]
+    path_dict = {"paths": {}, "os": {}, "driver": {}, "library": {}, "apps": {}}
     comp_list = []
     for path in repo_paths:
         abs_path = utils.get_abs_path(path)
@@ -109,13 +115,13 @@ def resolve_paths(args):
         if not utils.is_dir(path):
             logger.error(f"Directory path {abs_path} doesn't exist")
             sys.exit(1)
-        elif abs_path not in path_dict['paths'].keys():
-            path_dict['paths'].update({abs_path : {}})
+        elif abs_path not in path_dict["paths"].keys():
+            path_dict["paths"].update({abs_path: {}})
         else:
             logger.debug(f"Path already exists in path_dict, skipping.")
             continue
 
-        files = sorted(glob.glob(abs_path + '/**/data/*.yaml', recursive=True))
+        files = sorted(glob.glob(abs_path + "/**/data/*.yaml", recursive=True))
         for entries in files:
             dir_path = utils.get_dir_path(utils.get_dir_path(entries))
             comp_name = utils.get_base_name(dir_path)
@@ -130,28 +136,37 @@ def resolve_paths(args):
 
             yaml_data = utils.load_yaml(entries, silent_discard=True)
             if yaml_data is None:
-                logger.warning(f"Failed to read {entries}, {comp_name} from this location will not be available")
+                logger.warning(
+                    f"Failed to read {entries}, {comp_name} from this location will not be available"
+                )
                 continue
 
-            if not yaml_data.get('type'):
-                logger.warning(f"Invalid or missing 'type' field in {entries}, {comp_name} from this location will not be available")
+            if not yaml_data.get("type"):
+                logger.warning(
+                    f"Invalid or missing 'type' field in {entries}, {comp_name} from this location will not be available"
+                )
                 continue
 
-            if not path_dict[yaml_data['type']].get(comp_name):
-                path_dict[yaml_data['type']][comp_name] = [(comp_version, dir_path)]
+            if not path_dict[yaml_data["type"]].get(comp_name):
+                path_dict[yaml_data["type"]][comp_name] = [(comp_version, dir_path)]
             else:
-                path_dict[yaml_data['type']][comp_name] += [(comp_version, dir_path)]
+                path_dict[yaml_data["type"]][comp_name] += [(comp_version, dir_path)]
 
-    for comp_type in ['os','driver','library','apps']:
+    for comp_type in ["os", "driver", "library", "apps"]:
         for comp_name, version_path_tuple in path_dict[comp_type].items():
             comp_path_list = []
-            sorted_version_path_tuple = sorted(version_path_tuple, key=lambda x: x[0], reverse=True)
+            sorted_version_path_tuple = sorted(
+                version_path_tuple, key=lambda x: x[0], reverse=True
+            )
             for version_path_comb in sorted_version_path_tuple:
                 comp_path_list += [version_path_comb[1]]
-            path_dict[comp_type][comp_name] = {'path': comp_path_list}
+            path_dict[comp_type][comp_name] = {"path": comp_path_list}
 
-    utils.write_yaml('.repo.yaml', path_dict)
-    logger.info("Successfully set the EmbeddedSW path, refer .repo.yaml for more details.")
+    utils.write_yaml(".repo.yaml", path_dict)
+    logger.info(
+        "Successfully set the EmbeddedSW path, refer .repo.yaml for more details."
+    )
+
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -163,22 +178,19 @@ def main(arguments=None):
     required_argument.add_argument(
         "-st",
         "--set_repo_path",
-        nargs='+',
+        nargs="+",
         help="Embeddedsw directory Path",
         required=True,
     )
     parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help='Increase output verbosity'
+        "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
     )
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
-    logger.info( "Initializing repositories" )
+    logger.info("Initializing repositories")
 
     resolve_paths(args)
+
 
 if __name__ == "__main__":
     main()

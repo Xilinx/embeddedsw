@@ -19,6 +19,7 @@ from utils import log_time
 
 logger = utils.get_logger(__name__)
 
+
 class Library(Repo):
     """
     This class contains attributes and functions that help in validating
@@ -26,9 +27,16 @@ class Library(Repo):
     """
 
     def __init__(
-        self, domain_path, proc, bsp_os, sdt, cmake_paths_append, libsrc_folder, repo_info
+        self,
+        domain_path,
+        proc,
+        bsp_os,
+        sdt,
+        cmake_paths_append,
+        libsrc_folder,
+        repo_info,
     ):
-        super().__init__(repo_yaml_path= repo_info)
+        super().__init__(repo_yaml_path=repo_info)
         self.domain_path = domain_path
         self.proc = proc
         self.os = bsp_os
@@ -37,7 +45,10 @@ class Library(Repo):
         self.cmake_paths_append = cmake_paths_append
         self.libsrc_folder = libsrc_folder
         self.domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
-        self.lib_list = list(self.domain_data["lib_config"].keys()) + [self.proc, self.os]
+        self.lib_list = list(self.domain_data["lib_config"].keys()) + [
+            self.proc,
+            self.os,
+        ]
         self.bsp_lib_config = self.domain_data["lib_config"]
         self.bsp_lib_config.update(self.domain_data["os_config"])
         self.bsp_lib_config.update(self.domain_data["proc_config"])
@@ -53,7 +64,7 @@ class Library(Repo):
         Returns:
             lib_list.yaml (file): List of libraries available for the given proc and os
         """
-        #FiX ME: This is a workaround for the issue where the bare-metal BSP does not work with the older flow
+        # FiX ME: This is a workaround for the issue where the bare-metal BSP does not work with the older flow
         # Check if lib_list.yaml exists and has the example key
         # If not regenerate the lib_list.yaml.
         # This is required for the bare-metal BSP to work correctly with the older flow.
@@ -64,9 +75,7 @@ class Library(Repo):
         else:
             # After obj.proc, obj.os is a key, under which there are multiple libs as keys.
             # Check if any of these libs contain "examples" as a key.
-            schema=utils.fetch_yaml_data(
-                lib_list_yaml_path, "lib_list"
-                )
+            schema = utils.fetch_yaml_data(lib_list_yaml_path, "lib_list")
             libs_dict = schema.get(self.proc, {}).get(self.os, {})
             if not any("examples" in libs_dict.get(lib, {}) for lib in libs_dict):
                 recreate_lib_list_yaml = True
@@ -75,8 +84,9 @@ class Library(Repo):
                 f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
                 log_message="Extracting and validating supported bare-metal components for processor",
                 error_message="Could not fetch the required supported component info",
-                verbose_level=0
-                    )
+                verbose_level=0,
+            )
+
     def validate_lib_name(self, lib):
         """
         Checks if the passed library name from the user is valid for the sdt
@@ -105,8 +115,13 @@ class Library(Repo):
         Args:
             lib (str): Library name that needs to be validated
         """
-        if os.environ.get("VALIDATE_ARGS") == "True" and lib not in self.bsp_lib_config.keys():
-            logger.error(f"{lib} is not added to the bsp. Add it first using -al/--addlib")
+        if (
+            os.environ.get("VALIDATE_ARGS") == "True"
+            and lib not in self.bsp_lib_config.keys()
+        ):
+            logger.error(
+                f"{lib} is not added to the bsp. Add it first using -al/--addlib"
+            )
             sys.exit(1)
 
     def validate_lib_param(self, lib, lib_param):
@@ -143,22 +158,21 @@ class Library(Repo):
         """
         libdir = self.get_comp_dir(lib) if lib_path is None else lib_path
         srcdir = os.path.join(libdir, "src")
-        if lib in ['libmetal', 'openamp']:
+        if lib in ["libmetal", "openamp"]:
             if lib_path is None:
-                srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
-            if lib == 'openamp':
+                srcdir = os.path.join(os.environ.get("XILINX_VITIS"), "data")
+            if lib == "openamp":
                 # cached library name differs from directory name in repo.
-                srcdir = os.path.join(srcdir, 'open-amp')
-            else: # no workaround needed for libmetal
+                srcdir = os.path.join(srcdir, "open-amp")
+            else:  # no workaround needed for libmetal
                 srcdir = os.path.join(srcdir, lib)
-
 
         dstdir = os.path.join(self.libsrc_folder, lib, "src")
         utils.copy_directory(srcdir, dstdir)
-        if lib in ['libmetal', 'openamp']:
+        if lib in ["libmetal", "openamp"]:
             open_amp_copy_lib_src(libdir, dstdir, lib)
 
-        self.lib_info[lib] = {'path': libdir}
+        self.lib_info[lib] = {"path": libdir}
         return libdir, srcdir, dstdir
 
     def get_default_lib_params(self, build_lib_dir, lib_list):
@@ -199,8 +213,9 @@ class Library(Repo):
                 # lib name is lwip220.
                 prefix = "lwip" if lib == "lwip220" else lib
                 proc_prefix = "proc" if lib == self.proc else lib
-                if (re.search(f"^{prefix}", line_entries[line_index], re.I) or
-                   re.search(f"^{proc_prefix}", line_entries[line_index], re.I)):
+                if re.search(f"^{prefix}", line_entries[line_index], re.I) or re.search(
+                    f"^{proc_prefix}", line_entries[line_index], re.I
+                ):
                     param_name = line_entries[line_index].split(":")[0]
                     # In cmake there are just two types of params: option and string.
                     param_type = line_entries[line_index].split(":")[1].split("=")[0]
@@ -221,7 +236,12 @@ class Library(Repo):
                             param_opts = ["true", "false"]
                         elif param_type == "STRING":
                             # read only params
-                            read_only_param = ["proc_archiver", "proc_assembler", "proc_compiler", "proc_compiler_flags"]
+                            read_only_param = [
+                                "proc_archiver",
+                                "proc_assembler",
+                                "proc_compiler",
+                                "proc_compiler_flags",
+                            ]
                             if param_name in read_only_param:
                                 permission = "readonly"
                             # Showing it as integer (legacy entry)
@@ -268,14 +288,18 @@ class Library(Repo):
         yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema.get("depends"):
-            schema["depends"].pop("condition",None)
+            schema["depends"].pop("condition", None)
             dep_drvlist = list(schema["depends"].keys())
             valid_lib = [drv for drv in dep_drvlist if drv in drvlist]
             """
             Since sleep related implementation is part of xiltimer library
             it needs to be pulled irrespective of the hardware dependency.
             """
-            if valid_lib or re.search("xiltimer", comp_name) or re.search("xilflash", comp_name):
+            if (
+                valid_lib
+                or re.search("xiltimer", comp_name)
+                or re.search("xilflash", comp_name)
+            ):
                 return True
             else:
                 return False
@@ -301,7 +325,9 @@ class Library(Repo):
         yaml_file = os.path.join(app_dir, "data", f"{lib_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema and schema.get("depends_libs", {}):
-            logger.info(f"{lib_name} library depends on the following libraries: {list(schema.get('depends_libs', {}).keys())}")
+            logger.info(
+                f"{lib_name} library depends on the following libraries: {list(schema.get('depends_libs', {}).keys())}"
+            )
             for name, props in schema["depends_libs"].items():
                 if not self.is_valid_lib(name, silent_discard=False):
                     continue
@@ -309,7 +335,6 @@ class Library(Repo):
                 self.get_depends_libs(name, lib_list)
 
         return lib_list
-
 
     @log_time
     def add_lib_for_apps(self, app_name):
@@ -324,8 +349,9 @@ class Library(Repo):
                 copies their source to the libsrc and it fetches the req
                 library configurations for those libs
         """
-        def _add_lib_config(props,cmake_cmd_append,bool_match,family):
-            """"Adds the config depends libs from the yaml,
+
+        def _add_lib_config(props, cmake_cmd_append, bool_match, family):
+            """ "Adds the config depends libs from the yaml,
                 helps to add device level config based on device family
             Args:
                 props(dict)            : Property values
@@ -334,9 +360,11 @@ class Library(Repo):
                 family(str)            : Device family name
             """
             for key, value in props.items():
-                if isinstance(value,dict):
+                if isinstance(value, dict):
                     if key == family:
-                        cmake_cmd_append = _add_lib_config(value,cmake_cmd_append,bool_match,family)
+                        cmake_cmd_append = _add_lib_config(
+                            value, cmake_cmd_append, bool_match, family
+                        )
                     else:
                         continue
                 else:
@@ -353,7 +381,7 @@ class Library(Repo):
         yaml_file = os.path.join(app_dir, "data", f"{app_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         lib_config = {}
-        family = self.domain_data['family']
+        family = self.domain_data["family"]
         if schema and schema.get("depends_libs", {}):
             # cmake syntax is using 'ON/OFF' option, 'True/False' is legacy entry.
             bool_match = {True: "ON", False: "OFF"}
@@ -365,14 +393,18 @@ class Library(Repo):
                 _, _, _ = self.copy_lib_src(name)
                 if props:
                     # If the template needs specific config param of the lib.
-                    cmake_cmd_append = _add_lib_config(props,cmake_cmd_append,bool_match,family)
+                    cmake_cmd_append = _add_lib_config(
+                        props, cmake_cmd_append, bool_match, family
+                    )
         if app_name == "zynqmp_fsbl":
             cmake_cmd_append += " -Dstandalone_zynqmp_fsbl_bsp=ON"
         # for freertos os we need to enable interval timer always
         if "freertos" in self.os:
             cmake_cmd_append += " -DXILTIMER_en_interval_timer=ON"
-            toolchain_file = os.path.join(self.domain_path, self.domain_data['toolchain_file'])
-            utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-DFREERTOS_BSP)')
+            toolchain_file = os.path.join(
+                self.domain_path, self.domain_data["toolchain_file"]
+            )
+            utils.add_newline(toolchain_file, "ADD_DEFINITIONS(-DFREERTOS_BSP)")
 
         if schema and schema.get("os_config", {}):
             if schema.get("os_config", {})[self.os]:
@@ -390,40 +422,46 @@ class Library(Repo):
         if lib_list:
             # Run cmake configuration with all the default cache entries
             build_metadata = os.path.join(self.libsrc_folder, "build_configs/gen_bsp")
-            if ("libmetal" in lib_list):
-                toolchain_file = os.path.join(self.domain_path, self.domain_data['toolchain_file'])
-                utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-DXLNX_PLATFORM)')
-                if ("standalone" in self.domain_data['os']):
-                    utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-D__BAREMETAL__)')
-            self.cmake_paths_append = self.cmake_paths_append.replace('\\', '/')
-            self.domain_path = self.domain_path.replace('\\', '/')
-            build_metadata = build_metadata.replace('\\', '/')
+            if "libmetal" in lib_list:
+                toolchain_file = os.path.join(
+                    self.domain_path, self.domain_data["toolchain_file"]
+                )
+                utils.add_newline(toolchain_file, "ADD_DEFINITIONS(-DXLNX_PLATFORM)")
+                if "standalone" in self.domain_data["os"]:
+                    utils.add_newline(
+                        toolchain_file, "ADD_DEFINITIONS(-D__BAREMETAL__)"
+                    )
+            self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
+            self.domain_path = self.domain_path.replace("\\", "/")
+            build_metadata = build_metadata.replace("\\", "/")
             cmake_lib_list = ";".join(lib_list)
             try:
                 # BSP_LIBSRC_SUBDIRS needs to be modified to avoid checking dependency chain
                 # during regen_bsp
-                self.modify_cmake_subdirs(lib_list, action='add')
+                self.modify_cmake_subdirs(lib_list, action="add")
                 if is_app:
-                    cmake_cmd_append = cmake_cmd_append.replace('\\', '/')
+                    cmake_cmd_append = cmake_cmd_append.replace("\\", "/")
                     utils.runcmd(
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt',
-                        cwd = build_metadata,
-                        log_message = f"Running CMake Configuration with {cmake_lib_list}",
-                        error_message = f"Failed to run CMake Configuration with {cmake_lib_list}"
+                        cwd=build_metadata,
+                        log_message=f"Running CMake Configuration with {cmake_lib_list}",
+                        error_message=f"Failed to run CMake Configuration with {cmake_lib_list}",
                     )
                 else:
                     utils.runcmd(
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
-                        cwd = build_metadata,
-                        log_message = f"Running CMake Configuration with {cmake_lib_list}",
-                        error_message = f"Failed to run CMake Configuration with {cmake_lib_list}"
+                        cwd=build_metadata,
+                        log_message=f"Running CMake Configuration with {cmake_lib_list}",
+                        error_message=f"Failed to run CMake Configuration with {cmake_lib_list}",
                     )
-                    utils.update_yaml(self.domain_config_file, "domain", "config", "reconfig")
+                    utils.update_yaml(
+                        self.domain_config_file, "domain", "config", "reconfig"
+                    )
             except:
                 lib_path = os.path.join(self.libsrc_folder, comp_name)
                 # Remove library src folder from libsrc
                 utils.remove(lib_path)
-                self.modify_cmake_subdirs(lib_list, action='remove')
+                self.modify_cmake_subdirs(lib_list, action="remove")
                 sys.exit(1)
 
             # Get the default cmake entries into yaml configuration file
@@ -443,98 +481,114 @@ class Library(Repo):
                             continue
                         if props:
                             for key, value in props.items():
-                                if not isinstance(value,dict):
+                                if not isinstance(value, dict):
                                     lib_config[name][key]["value"] = str(value)
             yaml_file = os.path.join(self.domain_path, "lib_list.yaml")
             schema = utils.load_yaml(yaml_file)
             for lib in lib_list:
                 # Update examples if any for the library
-                example_dict={}
+                example_dict = {}
                 try:
                     example_dict = schema[self.proc][self.os][lib]["examples"]
                 except KeyError:
-                    logger.warning(f"Example key is missing for this combination {self.proc}-{self.os}-{lib} in lib_list.yaml file")
-                self.lib_info[lib].update({"examples":example_dict})
+                    logger.warning(
+                        f"Example key is missing for this combination {self.proc}-{self.os}-{lib} in lib_list.yaml file"
+                    )
+                self.lib_info[lib].update({"examples": example_dict})
             # Update the yaml config file with new entries.
-            utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
-            utils.update_yaml(self.domain_config_file, "domain", "lib_info", self.lib_info)
+            utils.update_yaml(
+                self.domain_config_file, "domain", "lib_config", lib_config
+            )
+            utils.update_yaml(
+                self.domain_config_file, "domain", "lib_info", self.lib_info
+            )
 
     def gen_lib_metadata(self, lib, lib_path=None):
-        _, src_dir, dst_dir = self.copy_lib_src(lib,lib_path)
+        _, src_dir, dst_dir = self.copy_lib_src(lib, lib_path)
         lopper_cmd = f"lopper -O {dst_dir} -f {self.sdt} -- bmcmake_metadata_xlnx {self.proc} {src_dir} hwcmake_metadata {self.repo_yaml_path}"
         utils.runcmd(
             lopper_cmd,
-            cwd = dst_dir,
-            log_message = f"Generating CMake Metadata for {lib} ",
-            error_message = f"Failed to generate CMake Metadata for {lib}"
+            cwd=dst_dir,
+            log_message=f"Generating CMake Metadata for {lib} ",
+            error_message=f"Failed to generate CMake Metadata for {lib}",
         )
-        if ("xilpm" in lib) and ("ZynqMP" in self.domain_data['family']):
-            dstdir = os.path.join(self.libsrc_folder, lib, "src", "zynqmp", "client", "common")
+        if ("xilpm" in lib) and ("ZynqMP" in self.domain_data["family"]):
+            dstdir = os.path.join(
+                self.libsrc_folder, lib, "src", "zynqmp", "client", "common"
+            )
             ori_sdt_path = os.path.join(self.domain_path, "hw_artifacts", "sdt.dts")
-            #TODO: Update bsp.yaml before running the below command so that,
+            # TODO: Update bsp.yaml before running the below command so that,
             #      the default properties of lib get updated successfully.
             lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} -- generate_config_object pm_cfg_obj.c {self.proc}"
             utils.runcmd(
                 lopper_cmd,
-                cwd = dst_dir,  # Ensure dst_dir is defined correctly
-                log_message = "Generating PM config object",
-                error_message = "Failed to generate PM config object"
+                cwd=dst_dir,  # Ensure dst_dir is defined correctly
+                log_message="Generating PM config object",
+                error_message="Failed to generate PM config object",
             )
 
     def modify_cmake_subdirs(self, lib_list, action="add"):
         cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
         cmake_lines = []
         bsp_sudirs_substr = "set (BSP_LIBSRC_SUBDIRS "
-        with open(cmake_file, 'r') as file:
+        with open(cmake_file, "r") as file:
             cmake_lines = file.readlines()
-        for line_index in range(0,len(cmake_lines)):
+        for line_index in range(0, len(cmake_lines)):
             if cmake_lines[line_index].startswith(bsp_sudirs_substr):
                 subdir_line = cmake_lines[line_index]
-                subdir_space_sep_str = re.search(rf'{re.escape(bsp_sudirs_substr)}(.+?)\)', subdir_line)
+                subdir_space_sep_str = re.search(
+                    rf"{re.escape(bsp_sudirs_substr)}(.+?)\)", subdir_line
+                )
                 subdir_list = subdir_space_sep_str.group(1).split()
-                if action=='add':
+                if action == "add":
                     subdir_list = list(dict.fromkeys(subdir_list + lib_list))
-                elif action=='remove':
+                elif action == "remove":
                     for lib_name in lib_list:
                         if lib_name in subdir_list:
                             subdir_list.remove(lib_name)
-                cmake_lines[line_index] = f'{bsp_sudirs_substr}{" ".join(subdir_list)})\n'
+                cmake_lines[line_index] = (
+                    f'{bsp_sudirs_substr}{" ".join(subdir_list)})\n'
+                )
                 break
-        with open(cmake_file, 'w') as file:
+        with open(cmake_file, "w") as file:
             file.writelines(cmake_lines)
 
     def remove_lib(self, lib):
         self.validate_lib_in_bsp(lib)
         lib_path = os.path.join(self.libsrc_folder, lib)
-        base_lib_build_dir = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
+        base_lib_build_dir = os.path.join(
+            self.libsrc_folder, "build_configs", "gen_bsp"
+        )
         lib_build_dir = os.path.join(base_lib_build_dir, "libsrc", lib)
-        targetdir_list = os.path.join(base_lib_build_dir, "CMakeFiles", "TargetDirectories.txt")
-        has_lib_cmake_cache = utils.check_if_line_in_file(targetdir_list, f'{lib}.dir')
+        targetdir_list = os.path.join(
+            base_lib_build_dir, "CMakeFiles", "TargetDirectories.txt"
+        )
+        has_lib_cmake_cache = utils.check_if_line_in_file(targetdir_list, f"{lib}.dir")
         if not has_lib_cmake_cache:
-            self.domain_path = self.domain_path.replace('\\','/')
-            self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
+            self.domain_path = self.domain_path.replace("\\", "/")
+            self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
             utils.runcmd(
                 f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
-                cwd = base_lib_build_dir,
-                log_message = "Configuring CMake with all Subdir list",
-                error_message = "CMake Configuration with all Subdir list failed"
+                cwd=base_lib_build_dir,
+                log_message="Configuring CMake with all Subdir list",
+                error_message="CMake Configuration with all Subdir list failed",
             )
 
         # Run make clean to remove the respective headers and .a from lib and include folder.
         if os.name == "nt":
-            base_lib_build_dir = base_lib_build_dir.replace('\\', '/')
+            base_lib_build_dir = base_lib_build_dir.replace("\\", "/")
             utils.runcmd(
                 r'cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake',
-                cwd = base_lib_build_dir,
-                log_message = "Running CMake clean ",
-                error_message = "Failed to run CMake clean "
+                cwd=base_lib_build_dir,
+                log_message="Running CMake clean ",
+                error_message="Failed to run CMake clean ",
             )
         else:
             utils.runcmd(
                 'cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake',
-                cwd = base_lib_build_dir,
-                log_message = "Running CMake clean ",
-                error_message = "Failed to run CMake clean "
+                cwd=base_lib_build_dir,
+                log_message="Running CMake clean ",
+                error_message="Failed to run CMake clean ",
             )
         # Remove library src folder from libsrc
         utils.remove(lib_path)
@@ -545,8 +599,8 @@ class Library(Repo):
         dump = utils.discard_dump()
         utils.runcmd(
             f"ninja CMakeFiles/rebuild_cache.util > {dump}",
-            cwd = base_lib_build_dir,
-            log_message = " Rebuilding CMake cache.util ",
-            error_message = " Failed to rebuild CMake cache.util "
+            cwd=base_lib_build_dir,
+            log_message=" Rebuilding CMake cache.util ",
+            error_message=" Failed to rebuild CMake cache.util ",
         )
         self.modify_cmake_subdirs([lib], action="remove")
