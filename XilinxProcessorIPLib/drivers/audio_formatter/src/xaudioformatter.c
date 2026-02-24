@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,8 +34,6 @@
 * This function soft resets the audio formatter DMA core.
 *
 * @param	InstancePtr is a pointer to the XAudioFormatter instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -110,9 +108,7 @@ u32 XAudioFormatter_CfgInitialize(XAudioFormatter *InstancePtr,
 * This function clears the interrupts for audio formatter core.
 *
 * @param	InstancePtr is a pointer to the XAudioFormatter instance.
-* @param	offset this is the offset to S2MM or MM2S.
-*
-* @return	None.
+* @param	mask is the interrupt mask.
 *
 * @note		None.
 *
@@ -146,8 +142,6 @@ void XAudioFormatter_InterruptClear(XAudioFormatter *InstancePtr, u32 mask)
 * @param	InstancePtr is a pointer to the XAudioFormatter instance.
 * @param	Mask is the interrupt mask.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -180,7 +174,6 @@ void XAudioFormatter_InterruptEnable(XAudioFormatter *InstancePtr, u32 Mask)
 * @param	InstancePtr is a pointer to the XAudioFormatter instance.
 * @param	Mask is the interrupt mask.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -213,8 +206,6 @@ void XAudioFormatter_InterruptDisable(XAudioFormatter *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XAudioFormatter instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -245,8 +236,6 @@ void XAudioFormatterDMAStart(XAudioFormatter *InstancePtr)
 * This function stops the dma for audio formatter core.
 *
 * @param	InstancePtr is a pointer to the XAudioFormatter instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -281,8 +270,6 @@ void XAudioFormatterDMAStop(XAudioFormatter *InstancePtr)
 * @param	hw_params is a pointer to the XAudioFormatterHwParams structure
 *		which contains the no. of channels, bit width, no. of periods,
 *		bytes per period, bytes per channel and buffer address.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -391,8 +378,6 @@ u32 XAudioFormatterGetDMATransferCount(XAudioFormatter *InstancePtr)
  ** @param  TimeOut is the Timeout value after which all the data is flushed to
  **         memory if there is no incoming data from any channel.
  **
- ** @return - None
- **
  ******************************************************************************/
 void XAudioFormatterSetS2MMTimeOut(XAudioFormatter *InstancePtr, u32 TimeOut)
 {
@@ -408,10 +393,8 @@ void XAudioFormatterSetS2MMTimeOut(XAudioFormatter *InstancePtr, u32 TimeOut)
  ** This function calculates the Fs multiplier value.
  **
  ** @param  InstancePtr is a pointer to the Audio Formatter instance.
- ** @param  MClk is the frequency of the MClk.
+ ** @param  Mclk is the frequency of the MMclk.
  ** @param  Fs is the sampling frequency of the system.
- **
- ** @return - None
  **
  ******************************************************************************/
 void XAudioFormatterSetFsMultiplier(XAudioFormatter *InstancePtr, u32 Mclk,
@@ -434,8 +417,6 @@ void XAudioFormatterSetFsMultiplier(XAudioFormatter *InstancePtr, u32 Mclk,
  **
  ** @param  InstancePtr is a pointer to the Audio Formatter instance.
  ** @param  ChStatBuf is a pointer to a buffer.
- **
- ** @return None.
  **
  *******************************************************************************/
 void XSdiAud_GetChStat(XAudioFormatter *InstancePtr, u8 *ChStatBuf)
