@@ -34,6 +34,7 @@
 *       har      10/10/25 Updated datatype of Len in Xil_ConvertStringToHex
 *       hj       14/10/25 Remove zero address check in Xil_SMemCpy
 * 9.5   hj       30/01/26 Remove zero address check from all API's
+* 9.5   hae      05/02/26 Replaced standard memcpy with Xil_MemCpy in Xil_SMemCpy
 *
 * </pre>
 *
@@ -565,7 +566,7 @@ s32 Xil_SMemCpy(void *Dest, const u32 DestSize,
 	} else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
 		Status =  XST_INVALID_PARAM;
 	} else {
-		(void)memcpy(DestTemp, SrcTemp, CopyLen);
+		Xil_MemCpy(DestTemp, SrcTemp, CopyLen);
 		Status = XST_SUCCESS;
 	}
 
