@@ -1,6 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 			  violations.
 * 7.7	sk	 01/10/22 Include xil_mem.h header file to fix Xil_MemCpy
 * 			  prototype misra_c_2012_rule_8_4 violation.
+* 9.5	hae	 05/02/26 Fixed alignment issue in Xil_MemCpy
 *
 * </pre>
 *
@@ -31,6 +33,10 @@
 
 #include "xil_types.h"
 #include "xil_mem.h"
+
+/************************** Constant Definitions ****************************/
+#define XIL_FOUR_BYTES_ALIGN_MASK	(0x3U)	/**< 4-byte alignment mask */
+#define XIL_TWO_BYTES_ALIGN_MASK	(0x1U)	/**< 2-byte alignment mask */
 
 /***************** Inline Functions Definitions ********************/
 /*****************************************************************************/
@@ -49,13 +55,13 @@ void Xil_MemCpy(void* dst, const void* src, u32 cnt)
 	char *d = (char*)(void *)dst;
 	const char *s = src;
 
-	while (cnt >= sizeof (s32)) {
+	while (((((UINTPTR)d | (UINTPTR)s) & XIL_FOUR_BYTES_ALIGN_MASK) == 0x0U) && (cnt >= sizeof (s32))) {
 		*(s32*)d = *(s32*)s;
 		d += sizeof (s32);
 		s += sizeof (s32);
 		cnt -= sizeof (s32);
 	}
-	while (cnt >= sizeof (u16)) {
+	while (((((UINTPTR)d | (UINTPTR)s) & XIL_TWO_BYTES_ALIGN_MASK) == 0x0U) && (cnt >= sizeof (u16))) {
 		*(u16*)d = *(u16*)s;
 		d += sizeof (u16);
 		s += sizeof (u16);
