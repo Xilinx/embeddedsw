@@ -135,8 +135,7 @@ static int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id);
 /**
 * This function is the main function for the mailbox example.
 *
-* @param	None.
-*
+
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note		None.

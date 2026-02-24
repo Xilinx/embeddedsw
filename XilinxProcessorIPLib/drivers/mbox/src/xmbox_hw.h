@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *			Renamed _mIsEmpty to _IsEmptyHw and _mIsFull
 *			to _IsFullHw.
 * 4.3   sa   04/20/17   Added CTRL register definitions.
+* 4.10  ht   02/24/26   Fix doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +76,7 @@ extern "C" {
 #define XMB_IP_REG_OFFSET	0x28	/**< Mbox interrupt pending register */
 #define XMB_CTRL_REG_OFFSET	0x2C	/**< Mbox control register */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Status register bit definitions
@@ -88,7 +89,7 @@ extern "C" {
 #define XMB_STATUS_STA		0x00000004 /**< Send FIFO Threshold Status */
 #define XMB_STATUS_RTA		0x00000008 /**< Receive FIFO Threshold Status */
 
-/* @} */
+/** @} */
 
 /**
  * @name Interrupt Registers(s) bits definitions.
@@ -107,7 +108,7 @@ extern "C" {
 #define XMB_IX_ERR		0x04 /**< Mailbox Error, when read on empty or
 					write on full */
 
-/* @} */
+/** @} */
 
 /**
  * @name Error bits definition.
@@ -117,7 +118,7 @@ extern "C" {
 #define XMB_ERROR_FIFO_EMPTY	0x00000001 /**< Receive FIFO is Empty */
 #define XMB_ERROR_FIFO_FULL	0x00000002 /**< Send FIFO is Full */
 
-/* @} */
+/** @} */
 
 /**
  * @name Control register bits definition.
@@ -127,7 +128,7 @@ extern "C" {
 #define XMB_CTRL_RESET_SEND_FIFO       	0x00000001 /**< Clear Send FIFO */
 #define XMB_CTRL_RESET_RECV_FIFO       	0x00000002 /**< Clear Receive FIFO */
 
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -323,11 +324,61 @@ Full;					\
 
 #else
 
-/* these definitions allow the PPC version to compile, empty calls */
-
+/*****************************************************************************/
+/**
+* Stub implementation of XMbox_FSLReadMBox for non-MicroBlaze platforms.
+*
+* @param	ID is unused.
+*
+* @return	Always returns 0.
+*
+* @note		This is an empty stub to allow compilation on non-MicroBlaze
+*		platforms. FSL access is only available on MicroBlaze.
+*
+******************************************************************************/
 #define XMbox_FSLReadMBox(ID)			0
+
+/*****************************************************************************/
+/**
+* Stub implementation of XMbox_FSLWriteMBox for non-MicroBlaze platforms.
+*
+* @param	ID is unused.
+* @param	ValueToWrite is unused.
+*
+* @return	None.
+*
+* @note		This is an empty stub to allow compilation on non-MicroBlaze
+*		platforms. FSL access is only available on MicroBlaze.
+*
+******************************************************************************/
 #define XMbox_FSLWriteMBox(ID, ValueToWrite)
+
+/*****************************************************************************/
+/**
+* Stub implementation of XMbox_FSLIsEmpty for non-MicroBlaze platforms.
+*
+* @param	ID is unused.
+*
+* @return	Always returns 0.
+*
+* @note		This is an empty stub to allow compilation on non-MicroBlaze
+*		platforms. FSL access is only available on MicroBlaze.
+*
+******************************************************************************/
 #define XMbox_FSLIsEmpty(ID) 			0
+
+/*****************************************************************************/
+/**
+* Stub implementation of XMbox_FSLIsFull for non-MicroBlaze platforms.
+*
+* @param	ID is unused.
+*
+* @return	Always returns 0.
+*
+* @note		This is an empty stub to allow compilation on non-MicroBlaze
+*		platforms. FSL access is only available on MicroBlaze.
+*
+******************************************************************************/
 #define XMbox_FSLIsFull(ID)			0
 
 #endif /* __MICROBLAZE__ */
@@ -340,5 +391,6 @@ Full;					\
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+
+#endif /* end of protection macro */

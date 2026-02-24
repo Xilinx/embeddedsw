@@ -51,10 +51,13 @@
 
 /************************** Constant Definitions *****************************/
 
-#define MSGSIZ  1024	/* Size of the actual Message */
+/** Size of the actual Message */
+#define MSGSIZ  1024
 
-#define HELLO_SIZE 40	/* Size of the Hello Message */
+/** Size of the Hello Message */
+#define HELLO_SIZE 40
 
+/** CPU ID definition for multi-processor systems */
 #if XPAR_CPU_ID == 2
 #define MY_CPU_ID 1
 #else
@@ -69,7 +72,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define printf xil_printf	/* A smaller footprint printf */
+/** A smaller footprint printf */
+#define printf xil_printf
 
 /************************** Variable Definitions *****************************/
 
@@ -79,6 +83,7 @@ char *Role[2] = { "PRODUCER",
 
 extern char data[];
 char *SendMsg = data;
+/* Buffer for storing received message, aligned to 4-byte boundary */
 char RecvMsg[MSGSIZ] __attribute__ ((aligned(4)));
 
 u32 temp1pad = 0;
@@ -93,8 +98,6 @@ int ProdCon (void);
 /*****************************************************************************/
 /**
 * This function is the main function for the mailbox example.
-*
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
@@ -126,8 +129,6 @@ int main(void)
 *
 * This function performs the producer and consumer console functionality.
 * At compile time the role, producer or consumer, is determined.
-*
-* @param	None.
 *
 * @return	XST_SUCCESS.
 *

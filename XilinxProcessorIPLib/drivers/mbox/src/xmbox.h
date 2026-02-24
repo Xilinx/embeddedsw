@@ -49,7 +49,7 @@
 *     replaces the physical address present in the configuration structure.
 *     The EffectiveAddress argument is required regardless of operating system
 *     environment, i.e. in standalone, CfgPtr->BaseAddress is recommended, not
-*     the xparameters.h #define.
+*     the xparameters.h.
 *
 *
 * <b>Interrupts</b>
@@ -142,6 +142,7 @@
 * 4.6   ht   07/06/23 Added support for system device-tree flow.
 * 4.10  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/28/26 Fixed codespell issues.
+* 4.10  ht   02/24/26 Fix doxygen warnings
 * </pre>
 *
 ******************************************************************************/

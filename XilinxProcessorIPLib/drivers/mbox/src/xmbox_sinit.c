@@ -23,7 +23,7 @@
 * 4.2   ms   08/07/17 Fixed compilation warnings.
 * 4.6   ht   07/06/23 Added support for system device-tree flow.
 * 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
-*
+* 4.10  ht   02/24/26 Fix doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -46,7 +46,8 @@ extern XMbox_Config XMbox_ConfigTable[];
 
 /*************************** Function Prototypes *****************************/
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XMbox_ConfigTable[] contains the configuration info for each device in

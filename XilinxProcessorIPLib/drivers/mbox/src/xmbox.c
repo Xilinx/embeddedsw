@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +38,7 @@
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XMbox_CfgInitialize API.
 * 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
-*
+* 4.10  ht   02/24/26 Fix doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -65,9 +65,9 @@
 * Initializes a specific mailbox.
 *
 * @param	InstancePtr is a pointer to the XMbox instance to be worked on.
-* @param	CfgPtr is the device configuration structure containing
+* @param	ConfigPtr is the device configuration structure containing
 *		required HW build data.
-* @param	EffectiveAddr is the Physical address of the hardware in a
+* @param	EffectiveAddress is the Physical address of the hardware in a
 *		Virtual Memory operating system environment. It is the Base
 *		Address in a stand alone environment.
 *
@@ -189,8 +189,6 @@ int XMbox_Read(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,
 *		aligned to a word boundary.
 * @param	RequestedBytes is the number of bytes of data requested.
 *
-* @return	None.
-*
 * @note		The call blocks until the number of bytes requested are
 *		available.
 *
@@ -254,7 +252,7 @@ void XMbox_ReadBlocking(XMbox *InstancePtr, u32 *BufferPtr,
 * @param	BufferPtr is the source data buffer, aligned to a word
 *		boundary.
 * @param	RequestedBytes is the number of bytes requested to be written.
-* @param	BytesRecvdPtr points to memory which is updated with the actual
+* @param	BytesSentPtr points to memory which is updated with the actual
 *		number of bytes written, return value.
 * @return
 *
@@ -336,8 +334,6 @@ int XMbox_Write(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,
 * @param	InstancePtr is a pointer to the XMbox instance to be worked on.
 * @param	BufferPtr is the source data buffer, aligned to a word boundary.
 * @param	RequestedBytes is the number of bytes requested to be written.
-*
-* @return	None.
 *
 * @note		The call blocks until the number of bytes requested are written.
 *		The provided buffer pointed to by BufferPtr must be aligned to a
@@ -480,8 +476,6 @@ int XMbox_Flush(XMbox *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XMbox instance to be worked on.
 *
-* @return	None.
-*
 * @note		Use XMbox_Flush instead for FSL based access.
 *
 ******************************************************************************/
@@ -509,8 +503,6 @@ void XMbox_ResetFifos(XMbox *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the instance to be worked on.
 * @param	Mask is a logical OR of XMB_IX_* constants found in xmbox_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -609,8 +601,6 @@ void XMbox_ClearInterrupt(XMbox *InstancePtr, u32 Mask)
 * @param	Value is a value to set for the SIT. Only lower
 *		Log2(FIFO Depth) bits are used.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -633,8 +623,6 @@ void XMbox_SetSendThreshold(XMbox *InstancePtr, u32 Value)
 * @param	InstancePtr is a pointer to the instance to be worked on.
 * @param	Value is a value to set for the RIT. Only lower
 *		Log2(FIFO Depth) bits are used.
-*
-* @return	None.
 *
 * @note		None.
 *
