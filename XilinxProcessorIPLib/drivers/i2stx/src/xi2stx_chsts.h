@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -178,7 +178,7 @@ extern "C" {
 /** @} */
 
 /**************************** Type Definitions *******************************/
-/** @} */
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

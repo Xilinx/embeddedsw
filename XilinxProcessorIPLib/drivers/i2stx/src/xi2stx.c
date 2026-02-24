@@ -112,7 +112,6 @@ int XI2s_Tx_CfgInitialize(XI2s_Tx *InstancePtr,
  * @param  Enable specifies TRUE/FALSE value to either enable or disable
  *         the I2s Transmitter.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Tx_Enable(XI2s_Tx *InstancePtr, u8 Enable)
@@ -141,7 +140,6 @@ void XI2s_Tx_Enable(XI2s_Tx *InstancePtr, u8 Enable)
  * @param  InstancePtr is a pointer to the I2s Transmitter instance.
  * @param  Mask is a bit mask of the interrupts to be enabled.
  *
- * @return None.
  *
  * @see XI2stx_hw.h for the available interrupt masks.
  *
@@ -159,18 +157,19 @@ void XI2s_Tx_IntrEnable(XI2s_Tx *InstancePtr, u32 Mask)
 			XI2S_TX_IRQCTRL_OFFSET,
 			RegValue);
 }
-/*****************************************************************************/
 /**
- * This function disables the specified interrupt of the I2s Transmitter.
+ * @brief Disables interrupts for the I2S Transmitter instance.
  *
- * @param  InstancePtr is a pointer to the I2s Transmitter instance.
- * @param  Mask is a bit mask of the interrupts to be disabled.
+ * This function disables one or more interrupts for the specified I2S Transmitter
+ * instance based on the provided interrupt mask.
  *
- * @return None.
+ * @param	 InstancePtr Pointer to the XI2s_Tx instance to be worked on.
+ * @param	 Mask A bitmask specifying which interrupts to disable. Each bit in the
+ *             mask corresponds to a specific interrupt source.
  *
- * @see XI2stx_HW for the available interrupt masks.
- *
- *****************************************************************************/
+ * @note The caller is responsible for ensuring that InstancePtr is a valid
+ *       pointer to an initialized XI2s_Tx instance.
+ */
 void XI2s_Tx_IntrDisable(XI2s_Tx *InstancePtr, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -289,8 +288,6 @@ u32 XI2s_Tx_SetSclkOutDiv(XI2s_Tx *InstancePtr, u32 MClk, u32 Fs)
  *         the AES Channel Status bits, this needs to be allocated by
  *         user application
  *
- * @return None.
- *
  *****************************************************************************/
 void XI2s_Tx_GetAesChStatus(XI2s_Tx *InstancePtr,
 		u8 *AesChStatusBuf)
@@ -315,7 +312,6 @@ void XI2s_Tx_GetAesChStatus(XI2s_Tx *InstancePtr,
  *
  * @param InstancePtr is a pointer to the XI2s_Tx core instance.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Tx_ClrAesChStatRegs(XI2s_Tx *InstancePtr)
@@ -343,7 +339,6 @@ void XI2s_Tx_ClrAesChStatRegs(XI2s_Tx *InstancePtr)
  * @param  Enable specifies TRUE/FALSE value to either enable or disable
  *         the justification.
  *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Tx_JustifyEnable(XI2s_Tx *InstancePtr, u8 Enable)
@@ -369,8 +364,6 @@ void XI2s_Tx_JustifyEnable(XI2s_Tx *InstancePtr, u8 Enable)
  * @param  Justify is a enum to select the left or right justification.
  *    - XI2S_TX_JUSTIFY_LEFT : Left justification
  *    - XI2S_TX_JUSTIFY_RIGHT : Right justification
- *
- * @return None.
  *
  *****************************************************************************/
 void XI2s_Tx_Justify(XI2s_Tx *InstancePtr, XI2s_Tx_Justification Justify)

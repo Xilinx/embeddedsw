@@ -62,7 +62,7 @@ typedef enum {
 		XI2S_TX_AUD_UNDRFLW_EVT,   /**< Audio Underflow Detected Event*/
 		XI2S_TX_LOG_EVT_INVALID      /**< Invalid Log Event */
 } XI2s_Tx_LogEvt;
-/*@}*/
+/** @} */
 
 /**
  * This structure is used to store log events

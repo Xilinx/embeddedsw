@@ -63,7 +63,7 @@ extern "C" {
 #define XI2S_TX_AES_CHSTS4_OFFSET 0x60 /**< AES Channel Status 4 Register */
 #define XI2S_TX_AES_CHSTS5_OFFSET 0x64 /**< AES Channel Status 5 Register */
 
-/* @} */
+/** @} */
 /**
 * @name Core Configuration Register masks and shifts
 * @{
@@ -81,7 +81,7 @@ extern "C" {
 #define XI2S_TX_REG_CFG_DWDTH_SHIFT (16) /**< I2S Data Width bit shift */
 #define XI2S_TX_REG_CFG_DWDTH_MASK  \
 	(1 << XI2S_TX_REG_CFG_DWDTH_SHIFT) /**< I2S Data Width mask */
-/* @} */
+/** @} */
 /**
 * @name Core Control Register masks and shifts
 * @{
@@ -97,7 +97,7 @@ extern "C" {
 //!< Left or Right Justification shift
 #define XI2S_TX_REG_CTRL_LORJF_MASK (1 << XI2S_TX_REG_CTRL_LORJF_SHIFT)
 //!< Left or Right Justification mask
-/* @} */
+/** @} */
 /**
 * @name Interrupt masks and shifts
 * @{
@@ -130,7 +130,7 @@ extern "C" {
 					      Enable bit shift */
 #define XI2S_TX_GINTR_EN_MASK          \
 	(1 << XI2S_TX_GINTR_EN_SHIFT) /**< Global Interrupt Enable mask */
-/* @} */
+/** @} */
 /**
 * @name I2S Timing Control Register masks and shifts
 * @{
@@ -138,7 +138,7 @@ extern "C" {
 #define XI2S_TX_REG_TMR_SCLKDIV_SHIFT (0) /**< SClk Divider bit shift */
 #define XI2S_TX_REG_TMR_SCLKDIV_MASK  \
 	(0xF << XI2S_TX_REG_TMR_SCLKDIV_SHIFT) /**< SClk Divider mask */
-/* @} */
+/** @} */
 
 /**
 * @name Audio Channel Control Register masks and shifts
@@ -147,7 +147,7 @@ extern "C" {
 #define XI2S_TX_REG_CHCTRL_CHMUX_SHIFT (0) /**< Channel MUX bit shift */
 #define XI2S_TX_REG_CHCTRL_CHMUX_MASK  \
 	(0x7 << XI2S_TX_REG_CHCTRL_CHMUX_SHIFT) /**< Channel MUX mask */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -203,7 +203,7 @@ extern "C" {
 #define XI2s_Tx_WriteReg(BaseAddress, RegOffset, Data) \
 	XI2s_Tx_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 
-/*@}*/
+/** @} */
 
 /************************** Function Prototypes ******************************/
 

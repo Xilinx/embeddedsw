@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -68,7 +68,7 @@ typedef enum {
 	XI2S_TX_HANDLER_AUD_UNDRFLW, /**< Audio Underflow Detected Handler */
 		XI2S_TX_NUM_HANDLERS /**< Number of handler types */
 } XI2s_Tx_HandlerType;
-/*@}*/
+/** @} */
 
 /**
  * These constants specify different channel ID's
@@ -81,7 +81,6 @@ typedef enum {
 	XI2S_TX_NUM_CHANNELS //!<Number of Channel ID's
 } XI2s_Tx_ChannelId;
 
-/*@}*/
 
 /**
  * @brief This typedef specifies the justification of the the XI2s Transmitter.
@@ -91,23 +90,25 @@ typedef enum {
 		XI2S_TX_JUSTIFY_RIGHT     //!< Right Justification is enabled.
 } XI2s_Tx_Justification;
 
-/*@}*/
+
 
 /**
- * Callback function data type for handling interrupt requests
- * from the I2s Transmitter peripheral. The application using this driver is
- * expected to define a handler of this type to support interrupt driven mode.
- * The handler is called in an interrupt context such that minimal processing
- * should be performed.
+ * @typedef XI2s_Tx_Callback
+ * @brief Callback function pointer type for I2S Transmitter events.
  *
- * @param CallBackRef is a callback reference passed in by the upper
- *        layer when setting the callback functions, and passed back
- *        to the upper layer when the callback is invoked.
+ * This typedef defines the signature for callback functions that are invoked
+ * in response to I2S transmitter events or interrupts.
  *
- * @return None
+ * @param CallbackRef A void pointer to user-defined callback reference data.
+ *                    This parameter allows the callback to access context-specific
+ *                    information passed during callback registration.
  *
- * @note None
+ * @note The callback function should not perform blocking operations or
+ *       lengthy computations, as it may be called from an interrupt context.
+ *
+ * @see XI2s_Tx_SetCallback
  */
+
 typedef void (*XI2s_Tx_Callback)(void *CallbackRef);
 
 /**
@@ -183,7 +184,7 @@ typedef enum {
 	XI2S_TX_CHMUX_AXIS_67,      /**< AXI-Stream Audio Channel 6 and 7 */
 	XI2S_TX_CHMUX_WAVEGEN,      /**< Wave Generator */
 } XI2s_Tx_ChMuxInput;
-/*@}*/
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -278,7 +279,22 @@ int XI2s_Tx_SetChMux(XI2s_Tx *InstancePtr, XI2s_Tx_ChannelId ChID,
 		XI2s_Tx_ChMuxInput InputSource);
 u32 XI2s_Tx_SetSclkOutDiv(XI2s_Tx *InstancePtr, u32 MClk, u32 Fs);
 
+
 void XI2s_Tx_IntrEnable(XI2s_Tx *InstancePtr, u32 Mask);
+
+/**
+ * @brief Disables interrupts for the I2S Transmitter instance.
+ *
+ * This function disables one or more interrupts for the specified I2S Transmitter
+ * instance based on the provided interrupt mask.
+ *
+ * @param InstancePtr Pointer to the XI2s_Tx instance to be worked on.
+ * @param Mask A bitmask specifying which interrupts to disable. Each bit in the
+ *             mask corresponds to a specific interrupt source.
+ *
+ * @note The caller is responsible for ensuring that InstancePtr is a valid
+ *       pointer to an initialized XI2s_Tx instance.
+ */
 void XI2S_Tx_IntrDisable(XI2s_Tx *InstancePtr, u32 Mask);
 
 /* Justification related functions in XI2stx.c */

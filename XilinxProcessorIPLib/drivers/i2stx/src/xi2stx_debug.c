@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -54,10 +54,7 @@
  * @param Event is the log event type.
  * @param Data is the log data.
  *
- * @return None.
- *
  * @note Log write can be done only if the log is enabled.
- *
  ******************************************************************************/
 void XI2s_Tx_LogWrite(XI2s_Tx *InstancePtr, XI2s_Tx_LogEvt Event, u8 Data)
 {
@@ -134,10 +131,8 @@ XI2s_Tx_LogItem* XI2s_Tx_LogRead(XI2s_Tx *InstancePtr)
  *
  * @param InstancePtr is a pointer to the XI2s_Tx instance.
  *
- * @return None.
  *
  * @note None.
- *
  *****************************************************************************/
 void XI2s_Tx_LogReset(XI2s_Tx *InstancePtr)
 {
@@ -155,10 +150,7 @@ void XI2s_Tx_LogReset(XI2s_Tx *InstancePtr)
  *
  * @param InstancePtr is a pointer to the XI2s_Tx instance.
  *
- * @return None.
- *
  * @note None.
- *
  *****************************************************************************/
 void XI2s_Tx_LogDisplay(XI2s_Tx *InstancePtr)
 {
