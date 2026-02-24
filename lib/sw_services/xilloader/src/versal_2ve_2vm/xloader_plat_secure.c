@@ -524,7 +524,7 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 ******************************************************************************/
 int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 	u32 ReadCfgLimiterReg;
 	u32 ClMode;
