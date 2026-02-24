@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -50,10 +50,7 @@
  *
  * @param InstancePtr is a pointer to the XSpdif instance.
  *
- * @return None.
- *
  * @note None.
- *
  ******************************************************************************/
 void XSpdif_IntrHandler(void *InstancePtr)
 {

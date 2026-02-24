@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -29,6 +29,27 @@
 #include "xil_assert.h"
 #include "xspdif_hw.h"
 #include "xstatus.h"
+
+/**
+ * @brief Performs a self-test on the SPDIF instance.
+ *
+ * This function executes a series of self-tests on the specified SPDIF
+ * (Sony/Philips Digital Interface Format) instance to verify that the
+ * hardware is functioning correctly.
+ *
+ * @param InstancePtr Pointer to the XSpdif instance to be tested.
+ *                    This parameter must not be NULL.
+ *
+ * @return Returns XST_SUCCESS if the self-test passes successfully.
+ *         Returns an error code (XST_FAILURE or other error constants)
+ *         if the self-test fails.
+ *
+ * @note The instance must be initialized before calling this function.
+ *       This function may temporarily affect the state of the SPDIF
+ *       device during testing.
+ *
+ * @see XSpdif_Initialize() for instance initialization.
+ */
 
 int XSpdif_SelfTest(XSpdif *InstancePtr)
 {

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -102,8 +102,6 @@ int XSpdif_CfgInitialize(XSpdif *InstancePtr,
  * @param  Enable specifies TRUE/FALSE value to either enable or disable
  *         the XSpdif.
  *
- * @return None.
- *
  ******************************************************************************/
 void XSpdif_Enable(XSpdif *InstancePtr, u8 Enable)
 {
@@ -129,7 +127,6 @@ void XSpdif_Enable(XSpdif *InstancePtr, u8 Enable)
  * This function is used to soft reset the interrupt registers
  *
  * @param  InstancePtr is a pointer to the XSPDIF instance.
- * @return None.
  *
  ******************************************************************************/
 void XSpdif_SoftReset(XSpdif *InstancePtr)
@@ -145,7 +142,6 @@ void XSpdif_SoftReset(XSpdif *InstancePtr)
  * This function resets the Fifo
  *
  * @param  InstancePtr is a pointer to the XSpdif instance.
- * @return None.
  *
  ******************************************************************************/
 void XSpdif_ResetFifo(XSpdif *InstancePtr)
@@ -172,7 +168,6 @@ void XSpdif_ResetFifo(XSpdif *InstancePtr)
  * @param  Clk_DivNum is the clock division number.
  *         Clk_DivNum value can be only 4,8,16,24,32,48,or 64.
  *
- * @return -none
  *
  ******************************************************************************/
 void XSpdif_SetClkConfig(XSpdif *InstancePtr, u8 Clk_DivNum)
@@ -249,7 +244,6 @@ u32 XSpdif_GetFs(XSpdif *InstancePtr, u32 AudClk)
  * @param  InstancePtr is a pointer to the XSpdif instance.
  * @param  ChStatBuf is a pointer to a buffer.
  *
- * @return None.
  *
  ******************************************************************************/
 void XSpdif_Rx_GetChStat(XSpdif *InstancePtr, u8 *ChStatBuf)
@@ -274,7 +268,6 @@ void XSpdif_Rx_GetChStat(XSpdif *InstancePtr, u8 *ChStatBuf)
  * @param  InstancePtr is a pointer to the XSPDIF instance.
  * @param  ChA_UserDataBuf is a pointer to a buffer.
  *
- * @return None.
  *
  ******************************************************************************/
 void XSpdif_Rx_GetChA_UserData(XSpdif *InstancePtr, u8 *ChA_UserDataBuf)
@@ -299,7 +292,6 @@ void XSpdif_Rx_GetChA_UserData(XSpdif *InstancePtr, u8 *ChA_UserDataBuf)
  * @param  InstancePtr is a pointer to the XSPDIF instance.
  * @param  ChB_UserDataBuf is a pointer to a buffer.
  *
- * @return None.
  *
  ******************************************************************************/
 void XSpdif_Rx_GetChB_UserData(XSpdif *InstancePtr, u8 *ChB_UserDataBuf)

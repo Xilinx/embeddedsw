@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -57,22 +57,27 @@ typedef enum {
 		XSPDIF_HANDLER_PREAMBLE_ERROR, //!< Preamble error
 		XSPDIF_NUM_HANDLERS //!< Number of handler types
 } XSpdif_HandlerType;
-/*@}*/
+/** @} */
+
 
 /**
-* Callback function data type for handling interrupt requests
-* from the XSpdif peripheral. The application using this driver is
-* expected to define a handler of this type to support interrupt driven mode.
-* The handler is called in an interrupt context such that minimal processing
-* should be performed.
-*
-* @param CallBackRef is a callback reference passed in by the upper
-*        layer when setting the callback functions, and passed back
-*        to the upper layer when the callback is invoked.
-*
-* @return None
-* @note None
-*/
+ * @typedef XSpdif_Callback
+ * @brief Callback function pointer type for SPDIF driver events.
+ *
+ * This typedef defines the function signature for callback functions used by
+ * the SPDIF driver to notify the application of asynchronous events.
+ *
+ * @param CallbackRef A void pointer to user-defined callback reference data.
+ *                    This parameter is typically used to pass context information
+ *                    or a pointer to the instance structure associated with the
+ *                    callback.
+ *
+ * @note The callback function should complete execution promptly to avoid
+ *       blocking interrupt processing.
+ *
+ * @see XSpdif_SetCallback
+ */
+
 typedef void (*XSpdif_Callback)(void *CallbackRef);
 /**
 * @brief This typedef contains configuration information for the XSpdif.
@@ -157,10 +162,7 @@ void XSpdif_ResetFifo(XSpdif *InstancePtr);
 * @param Mask is a bit mask of the interrupts to be cleared.
 * @see xspdif_hw.h file for the available interrupt masks.
 *
-* @return None.
-*
 ******************************************************************************/
-
 static inline void XSpdif_IntrClear(XSpdif *InstancePtr, u32 Mask)
 {
 		Xil_AssertVoid(InstancePtr != NULL);
@@ -173,7 +175,6 @@ static inline void XSpdif_IntrClear(XSpdif *InstancePtr, u32 Mask)
 *
 * @param  InstancePtr is a pointer to the XSpdif instance.
 *
-* @return None.
 *
 ******************************************************************************/
 static inline void XSpdif_Global_IntEnable(XSpdif *InstancePtr)

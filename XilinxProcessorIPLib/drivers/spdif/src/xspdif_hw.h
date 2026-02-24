@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -64,7 +64,7 @@ extern "C" {
 
 #define XSPDIF_CHANNEL_B_USER_DATA_REGISTER0_OFFSET      0x7C
 //!< Channel B user data bits 0 to 31
-/* @} */
+/** @} */
 
 /**
 * @name Core Configuration Register masks and shifts
@@ -92,6 +92,7 @@ extern "C" {
     //!< XSPDIF sample clock count shift.
 #define XSPDIF_SAMPLE_CLOCK_COUNT_MASK ((0X3FF) << XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT)
     //!< XSPDIF sample clock count mask.
+/** @} */
 /**
 * @name Interrupt masks and shifts
 * @{
@@ -131,7 +132,7 @@ extern "C" {
 
 #define XSPDIF_GINTR_ENABLE_MASK (1 << XSPDIF_GINTR_ENABLE_SHIFT)
 //!< Global interrupt enable bit mask
-/* @} */
+/** @} */
 #define XSPDIF_CLK_4 4
        //!< Clock divide by 4
 #define XSPDIF_CLK_8 8
@@ -200,7 +201,7 @@ extern "C" {
 #define XSpdif_WriteReg(BaseAddress, RegOffset, Data) \
 	XSpdif_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 
-/*@}*/
+/** @} */
 
 /************************** Function Prototypes ******************************/
 
