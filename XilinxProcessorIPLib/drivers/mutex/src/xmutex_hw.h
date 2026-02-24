@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
 * 3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
 *			and xil_assert.
+* 4.11  ht   02/24/26 Fix doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -52,7 +53,7 @@ extern "C" {
 #define XMU_MUTEX_REG_OFFSET	0 /**< Mutex register */
 #define XMU_USER_REG_OFFSET	4 /**< User register */
 
-/* @} */
+/** @} */
 
 
 
@@ -69,7 +70,7 @@ extern "C" {
 				     *  the ID the processor holding the lock.
 				     */
 #define OWNER_SHIFT	0x00000001 /**< This is CPU_ID Shift */
-/* @} */
+/** @} */
 
 
 /*

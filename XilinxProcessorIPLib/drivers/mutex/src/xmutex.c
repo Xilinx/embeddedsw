@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                     Changed the prototype of XMutex_CfgInitialize API.
 * 4.2   mi   09/22/16 Fixed compilation warnings.
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
+* 4.11  ht   02/24/26 Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -106,8 +107,6 @@ int XMutex_CfgInitialize(XMutex *InstancePtr, XMutex_Config *ConfigPtr,
 *		operate on. Each device may contain multiple Mutex locks.
 *		The Mutex number is a zero based number  with a range of
 *		0 - (InstancePtr->Config.NumMutex - 1).
-*
-* @return	None
 *
 * @note
 *		- XMutex_Trylock is a blocking call. This call blocks until the
@@ -269,8 +268,6 @@ int XMutex_IsLocked(XMutex *InstancePtr, u8 MutexNumber)
 *.		If the Mutex is locked, the memory pointed to by 'Owner' is
 *		updated to reflect the CPU ID that has currently locked this
 *		Mutex.
-*
-* @return	None.
 *
 * @note		None.
 *

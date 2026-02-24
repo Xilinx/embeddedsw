@@ -46,9 +46,10 @@
 *                       CR-965028.
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
 * 4.10  ht   04/09/25 Fix parameter unused compilation warning.
+*
 * 4.11  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues
-*
+*       ht   02/24/26 Fix doxygen warnings
 *</pre>
 *******************************************************************************/
 
@@ -103,8 +104,6 @@ int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress);
 /**
 *
 * This function is the main function for the Mutex example.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful.
