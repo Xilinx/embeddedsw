@@ -26,6 +26,7 @@
 #include "sleep.h"
 #include "xv_hdmirxss1.h"
 #include "xv_hdmirxss1_coreinit.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -47,11 +48,7 @@ typedef struct
 
 /**************************** Local Global ***********************************/
 /** Define Driver instance of all sub-core included in the design */
-#ifndef SDT
 XV_HdmiRxSs1_SubCores XV_HdmiRxSs1_SubCoreRepo[XPAR_XV_HDMIRXSS1_NUM_INSTANCES];
-#else
-XV_HdmiRxSs1_SubCores XV_HdmiRxSs1_SubCoreRepo[];
-#endif
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
@@ -3048,7 +3045,7 @@ void XV_HdmiRxSs1_DynHDR_DM_Disable(XV_HdmiRxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the buffer address for Dyanamic HDR
+* This function sets the buffer address for Dynamic HDR
 *
 * @param  InstancePtr pointer to XV_HdmiRXSs instance
 *
@@ -3078,7 +3075,7 @@ void XV_HdmiRxSs1_DynHDR_SetAddr(XV_HdmiRxSs1 *InstancePtr, u64 Addr)
 /*****************************************************************************/
 /**
 *
-* This function sets the buffer address for Dyanamic HDR
+* This function sets the buffer address for Dynamic HDR
 *
 * @param  InstancePtr pointer to XV_HdmiRXSs instance
 *
