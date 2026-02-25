@@ -201,7 +201,6 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
 *
 * @note		This is required after a reset or init.
 *
@@ -233,7 +232,7 @@ void XV_SdiRx_ResetStream(XV_SdiRx *InstancePtr)
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 * @param	SelId specifies which debug information to be printed out
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -444,7 +443,7 @@ int XV_SdiRx_Stop(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -468,7 +467,7 @@ void XV_SdiRx_FramerEnable(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -501,7 +500,7 @@ void XV_SdiRx_FramerDisable(XV_SdiRx *InstancePtr)
 *		- 10 = XV_SDIRX_MULTISEARCHMODE where the supported modes will be
 *				enabled by XV_SdiRx_EnableMode function
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -588,7 +587,7 @@ u32 XV_SdiRx_ReportDetectedError(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 ******************************************************************************/
 
@@ -614,7 +613,7 @@ void XV_SdiRx_SetYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 ******************************************************************************/
 void XV_SdiRx_ClearYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
@@ -639,7 +638,7 @@ void XV_SdiRx_ClearYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -663,7 +662,7 @@ void XV_SdiRx_VidBridgeEnable(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -687,7 +686,7 @@ void XV_SdiRx_VidBridgeDisable(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -712,7 +711,7 @@ void XV_SdiRx_Axi4sBridgeEnable(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -887,7 +886,7 @@ u32 XV_SdiRx_GetSdiMode(XV_SdiRx *InstancePtr)
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 * @param	Data specifies the clock period.
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -926,7 +925,7 @@ void XV_SdiRx_SetVidLckWindow(XV_SdiRx *InstancePtr, u32 Data)
 *		- Bit 14 = AP Unknown Error Status error
 *		- Bit 15 = EDH packet checksum-error
 *
-* @return	None.
+*
 *
 * @note		None.
 *
@@ -954,7 +953,7 @@ void XV_SdiRx_SetEdhErrCntTrigger(XV_SdiRx *InstancePtr, u32 Enable)
 * @param	SupportModes specifies which SDI mode is to be supported from SDI
 *			mode detection logic.
 *
-* @return	None.
+*
 *
 * @note		XV_SDIRX_MULTISEARCHMODE must be selected in the XV_SdiRx_Start
 *			function.
@@ -986,7 +985,7 @@ void XV_SdiRx_EnableMode(XV_SdiRx *InstancePtr,
 * @param	RemoveModes specifies which SDI mode is to be removed from SDI mode
 *			detection logic.
 *
-* @return	None.
+*
 *
 * @note         None.
 *
@@ -1008,7 +1007,7 @@ void XV_SdiRx_DisableMode(XV_SdiRx *InstancePtr,
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 * @param	BitDepth specifies which BitDepth to be set
 *
-* @return	None.
+*
 *
 * @note         None.
 *
@@ -1030,7 +1029,6 @@ void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth)
 * 			0 is to disable
 * 			1 is to enable
 *
-* @return	None
 *
 ******************************************************************************/
 void XV_SdiRx_HandleNoPayload(XV_SdiRx *InstancePtr, u8 enable)
@@ -1057,7 +1055,7 @@ void XV_SdiRx_HandleNoPayload(XV_SdiRx *InstancePtr, u8 enable)
 *		layer when setting the callback functions, and passed back to
 *		the upper layer when the callback is invoked.
 *
-* @return	None.
+*
 *
 * @note		None.
 *

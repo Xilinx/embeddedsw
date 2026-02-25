@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -115,8 +115,6 @@ u32 XV_SdiRx_GetIntrStatus(XV_SdiRx *InstancePtr)
 * @param	Mask is Interrupt Mask with bits set for corresponding interrupt
 *		to be cleared in the Interrupt Status register
 *
-* @return	None
-*
 * @note		None
 *
 ****************************************************************************/
@@ -151,8 +149,6 @@ void XV_SdiRx_InterruptClear(XV_SdiRx *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx instance that just
 *		interrupted.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -318,7 +314,6 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 * @param	Mask is the interrupt mask which need to be enabled in core.
 *
-* @return	None.
 *
 * @note         None.
 *
@@ -343,8 +338,6 @@ void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask)
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 * @param	Mask is the interrupt mask which need to be disabled in core.
 *
-* @return	None.
-*
 * @note         None.
 *
 ******************************************************************************/
@@ -367,7 +360,7 @@ void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
+*
 *
 * @note		Derive the VmId of incoming Rx stream from either SDI Rx registers
 *		(for SD/HD modes) or st352 payload registers (for >= 3GA modes).
@@ -1556,7 +1549,6 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -1581,8 +1573,6 @@ static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1601,7 +1591,6 @@ static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -1622,7 +1611,6 @@ static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 *
-* @return	None.
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -365,7 +365,7 @@ extern "C" {
 ******************************************************************************/
 #define XV_SdiRx_WriteReg(BaseAddress, RegOffset, Data) \
     XV_SdiRx_Out32((BaseAddress) + (RegOffset), (u32)(Data))
-/*@}*/
+
 
 /************************** Function Prototypes ******************************/
 
@@ -378,3 +378,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,24 +56,33 @@ typedef enum {
 	XV_SDIRX_HANDLER_UNDERFLOW,
 	XV_SDIRX_HANDLER_VSYNC,
 } XV_SdiRx_HandlerType;
-/*@}*/
+/** @} */
 
 /** @name SDI Transport Mode
 * @{
 */
+/**
+ * SDI Transport Modes
+ * Enumeration of supported SDI transport modes
+ */
 typedef enum {
-	XV_SDIRX_MODE_HD = 0,
-	XV_SDIRX_MODE_SD,
-	XV_SDIRX_MODE_3G,
-	XV_SDIRX_MODE_UNKNOWN,
-	XV_SDIRX_MODE_6G,
-	XV_SDIRX_MODE_12G,
-	XV_SDIRX_MODE_NUM_SUPPORTED
+	XV_SDIRX_MODE_HD = 0,        /**< HD mode */
+	XV_SDIRX_MODE_SD,            /**< SD mode */
+	XV_SDIRX_MODE_3G,            /**< 3G mode */
+	XV_SDIRX_MODE_UNKNOWN,       /**< Unknown mode */
+	XV_SDIRX_MODE_6G,            /**< 6G mode */
+	XV_SDIRX_MODE_12G,           /**< 12G mode */
+	XV_SDIRX_MODE_NUM_SUPPORTED  /**< Number of supported modes */
 } XV_SdiRx_Modes;
+/**	@} */
 
 /** @name SDI Debug Settings
 * @{
 */
+/**
+ * SDI Debug Selection IDs
+ * Used to select which debug information to display
+ */
 typedef enum {
 	XV_SDIRX_DBGSELID_STRMINFO = 0,
 	XV_SDIRX_DBGSELID_TIMINGINFO,
@@ -81,18 +90,24 @@ typedef enum {
 	XV_SDIRX_DBGSELID_SDIDBGINFO,
 	XV_SDIRX_DBGSELID_REGDUMP
 } XV_SdiRx_DebugSelId;
+/** @} */
 
 /** @name SDI Transport Family Encoding
 * @{
 */
-typedef enum {
-	XV_SDIRX_SMPTE_ST_274    = 0,
-	XV_SDIRX_SMPTE_ST_296    = 1,
-	XV_SDIRX_SMPTE_ST_2048_2 = 2,
-	XV_SDIRX_SMPTE_ST_295    = 3,
-	XV_SDIRX_NTSC            = 8,
-	XV_SDIRX_PAL             = 9,
-} XV_SdiRx_Family_Encoding;
+	/**
+	 * SDI Transport Family Encoding
+	 * Enumeration of supported SDI transport family encodings
+	 */
+	typedef enum {
+		XV_SDIRX_SMPTE_ST_274    = 0,	/**< SMPTE ST 274 standard */
+		XV_SDIRX_SMPTE_ST_296    = 1,	/**< SMPTE ST 296 standard */
+		XV_SDIRX_SMPTE_ST_2048_2 = 2,	/**< SMPTE ST 2048-2 standard */
+		XV_SDIRX_SMPTE_ST_295    = 3,	/**< SMPTE ST 295 standard */
+		XV_SDIRX_NTSC            = 8,	/**< NTSC format */
+		XV_SDIRX_PAL             = 9,	/**< PAL format */
+	} XV_SdiRx_Family_Encoding;
+	/** @} */
 
 /**
 * SDI Search Modes
@@ -120,10 +135,14 @@ typedef enum {
 	XV_SDIRX_SUPPORT_12GF = 32,		/**< Sdi 12G Fractional Framerate*/
 	XV_SDIRX_SUPPORT_ALL = 63
 } XV_SdiRx_SupportedModes;
-
+/** @} */
 /** @name SDI Transport Rate
 * @{
 */
+/**
+ * SDI Transport Rate
+ * Enumeration of supported SDI transport rates
+ */
 typedef enum {
 	XV_SDIRX_FR_NONE    = 0,
 	XV_SDIRX_FR_96HZ,
@@ -143,13 +162,14 @@ typedef enum {
 	XV_SDIRX_FR_120_F_HZ,
 	XV_SDIRX_FR_NUM_SUPPORTED
 } XV_SdiRx_FrameRate;
-
+/** @} */
 /**************************** Type Definitions *******************************/
 
 /**
 * This typedef contains configuration information for the SDI RX core.
 * Each SDI RX device should have a configuration structure associated.
 */
+
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the SDI RX core */
@@ -221,21 +241,21 @@ typedef struct {
 } XV_SdiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XSDIRX_BIT(n)		(1 << (n))
 
-/*****************************************************************************/
+/** Generates a bitmask with the nth bit set to 1. */
+#define XSDIRX_BIT(n)		(1 << (n))
 /**
-*
-* This macro reads the RX version
-*
-* @param  InstancePtr is a pointer to the XSdi_RX core instance.
-*
-* @return RX version.
-*
-* *note	C-style signature:
-*		u32 XV_SdiRx_GetVersion(XV_SdiRx *InstancePtr)
-*
-******************************************************************************/
+ * @brief Retrieves the version of the SDI Rx instance.
+ *
+ * This macro reads and returns the version register value of the specified
+ * SDI Rx instance by accessing the version offset register at the instance's
+ * base address.
+ *
+ * @param InstancePtr Pointer to the XV_SdiRx instance.
+ *
+ * @return The version register value of the SDI Rx instance.
+ */
+
 #define XV_SdiRx_GetVersion(InstancePtr) \
 	XV_SdiRx_ReadReg((InstancePtr)->Config.BaseAddress, (XV_SDIRX_VER_OFFSET))
 
@@ -250,11 +270,25 @@ typedef struct {
 		(XV_SDIRX_INT_STS_VID_UNLOCK_MASK))
 
 /************************** Function Prototypes ******************************/
-
 /* Initialization function in xv_sdirx_sinit.c */
 #ifndef SDT
+
+
 XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId);
 #else
+/**
+ * @brief Looks up the device configuration for a SDI Rx core based on its base address.
+ *
+ * @param BaseAddress The base address of the SDI Rx core to search for.
+ *
+ * @return Pointer to the XV_SdiRx_Config structure corresponding to the given
+ *         BaseAddress. Returns NULL if a matching configuration is not found.
+ *
+ * @note This function searches the configuration table for a device matching
+ *       the specified BaseAddress and returns a pointer to its configuration
+ *       structure. The configuration structure contains all hardware-specific
+ *       parameters needed to initialize the SDI Rx core.
+ */
 XV_SdiRx_Config *XV_SdiRx_LookupConfig(UINTPTR BaseAddress);
 #endif
 

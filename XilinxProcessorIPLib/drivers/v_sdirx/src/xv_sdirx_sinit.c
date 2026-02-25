@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -88,6 +88,19 @@ XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId)
 	return (XV_SdiRx_Config *)CfgPtr;
 }
 #else
+/**
+ * @brief Look up the configuration for an SDI Rx device based on its base address.
+ *
+ * @param BaseAddress The base address of the SDI Rx device to look up.
+ *
+ * @return A pointer to the XV_SdiRx_Config structure for the device at the
+ *         specified base address, or NULL if no matching configuration is found.
+ *
+ * @note This function searches the configuration table for a device matching
+ *       the provided base address and returns the corresponding configuration.
+ *       If no match is found, NULL is returned.
+ */
+
 XV_SdiRx_Config *XV_SdiRx_LookupConfig(UINTPTR BaseAddress)
 {
 	XV_SdiRx_Config *CfgPtr = NULL;
