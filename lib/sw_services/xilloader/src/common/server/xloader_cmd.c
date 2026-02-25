@@ -92,6 +92,7 @@
 *       aa   09/29/2025 Added emmc and ufs support as pdisrc option for partial PDI load
 * 2.4	abh  10/09/2025 Fixed MISRA-C violations
 *       gnr  02/06/2026 Fixed IPI access permissions order per XLoader_Cmds order
+*       gnr  02/09/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2ve_2vm
 * </pre>
 *
 ******************************************************************************/
@@ -1304,14 +1305,11 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI),
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && !(defined(VERSAL_2VE_2VM))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET) || defined(VERSAL_2VE_2VM))
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
-#else
-	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
-#endif
-#ifdef VERSAL_NET
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
 #else
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
 #endif
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE),

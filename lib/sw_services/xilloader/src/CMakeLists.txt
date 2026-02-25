@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -28,7 +28,7 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
   endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   add_subdirectory(versal_net)
-  if(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM") AND ("${XILLOADER_mode}" STREQUAL "server"))
+  if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
     add_subdirectory(versal_2ve_2vm)
   endif()
 endif()
