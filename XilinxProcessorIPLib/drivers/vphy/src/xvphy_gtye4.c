@@ -1138,17 +1138,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x269 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0004);
@@ -1254,17 +1243,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x269 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0000);
@@ -1370,17 +1348,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x269 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0000);
@@ -1516,32 +1483,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                     Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                           XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
                 }
-                /* RXCDR_CFG2_GEN2 */
-                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
-                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                    DrpVal &= ~(0x3FF);
-                    WriteVal = (0x259 & 0x3FF) << 0;
-                    DrpVal |= WriteVal;
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
-                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                    DrpVal &= ~(0x3FF);
-                    WriteVal = (0x269 & 0x3FF) << 0;
-                    DrpVal |= WriteVal;
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                }
-                /* RXCDR_CFG2_GEN3 */
-                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0259);
-                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
-                }
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0000);
@@ -1652,17 +1593,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x259 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0259);
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0000);
@@ -1768,17 +1698,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x249 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0249);
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0000);
@@ -1884,17 +1803,6 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x239 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTYE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0239);
                 /* RXCKCAL1_IQ_LOOP_RST_CFG */
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTYE4_CHANNEL_RXCKCAL1_IQ_LOOP_RST_CFG, 0x0000);

@@ -859,31 +859,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x269 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
-                /* RXCDR_CFG3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0010);
-                /* RXCDR_CFG3_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
-                DrpVal &= ~(0xFC00);
-                WriteVal = (0x10 & 0x3F) << 10;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
-                /* RXCDR_CFG3_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0010);
                 /* RXDFE_PWR_SAVING */
                 Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
@@ -939,31 +914,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x269 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
-                /* RXCDR_CFG3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
-                /* RXCDR_CFG3_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
-                DrpVal &= ~(0xFC00);
-                WriteVal = (0x12 & 0x3F) << 10;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
-                /* RXCDR_CFG3_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
                 /* RXDFE_PWR_SAVING */
                 Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
@@ -1039,46 +989,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                     Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                           XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
                 }
-                /* RXCDR_CFG2_GEN2 */
-                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
-                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                    DrpVal &= ~(0x3FF);
-                    WriteVal = (0x259 & 0x3FF) << 0;
-                    DrpVal |= WriteVal;
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
-                    Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                    DrpVal &= ~(0x3FF);
-                    WriteVal = (0x269 & 0x3FF) << 0;
-                    DrpVal |= WriteVal;
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                }
-                /* RXCDR_CFG2_GEN3 */
-                if (PllType == XVPHY_PLL_TYPE_QPLL0) {
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0259);
-                } else if (PllType == XVPHY_PLL_TYPE_QPLL1) {
-                    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                          XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0269);
-                }
-                /* RXCDR_CFG3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
-                /* RXCDR_CFG3_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
-                DrpVal &= ~(0xFC00);
-                WriteVal = (0x12 & 0x3F) << 10;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
-                /* RXCDR_CFG3_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
                 /* RXDFE_PWR_SAVING */
                 Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
@@ -1144,31 +1054,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x259 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0259);
-                /* RXCDR_CFG3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
-                /* RXCDR_CFG3_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
-                DrpVal &= ~(0xFC00);
-                WriteVal = (0x12 & 0x3F) << 10;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
-                /* RXCDR_CFG3_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
                 /* RXDFE_PWR_SAVING */
                 Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
@@ -1224,31 +1109,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x249 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0249);
-                /* RXCDR_CFG3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
-                /* RXCDR_CFG3_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
-                DrpVal &= ~(0xFC00);
-                WriteVal = (0x12 & 0x3F) << 10;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
-                /* RXCDR_CFG3_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
                 /* RXDFE_PWR_SAVING */
                 Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
@@ -1304,31 +1164,6 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
                 DrpVal |= WriteVal;
                 Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_PREIQ_FREQ_BST, DrpVal);
-                /* RXCDR_CFG2_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, &DrpVal);
-                DrpVal &= ~(0x3FF);
-                WriteVal = (0x239 & 0x3FF) << 0;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN2, DrpVal);
-                /* RXCDR_CFG2_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG2_GEN3, 0x0239);
-                /* RXCDR_CFG3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3, 0x0012);
-                /* RXCDR_CFG3_GEN2 */
-                Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, &DrpVal);
-                DrpVal &= ~(0xFC00);
-                WriteVal = (0x12 & 0x3F) << 10;
-                DrpVal |= WriteVal;
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN2, DrpVal);
-                /* RXCDR_CFG3_GEN3 */
-                Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-                                      XVPHY_GTHE4_CHANNEL_RXCDR_CFG3_GEN3, 0x0012);
                 /* RXDFE_PWR_SAVING */
                 Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId,
                                       XVPHY_GTHE4_CHANNEL_RXDFE_PWR_SAVING, &DrpVal);
