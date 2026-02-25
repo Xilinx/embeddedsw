@@ -297,7 +297,7 @@ void XVWarpInit_Stop(XV_warp_init *InstancePtr)
   Xil_AssertVoid(InstancePtr);
 
   /* Flush the core bit */
-  XV_warp_init_SetFlushiInstancePtr);
+  XV_warp_init_SetFlushbit(InstancePtr);
 
   do {
     Data = XV_warp_init_Get_FlushDone(InstancePtr);
@@ -436,18 +436,18 @@ static void XVWarpInit_SetDescriptor(XVWarpInitVector_Hw_Aligned *descptr,
 	descptr->src_tangents_x = initvector_hw->src_tangents_x;
 	descptr->src_tangents_y = initvector_hw->src_tangents_y;
 	descptr->interm_x = initvector_hw->interm_x;
-	descptr->interm_y = initvector_hw->interm_;
+	descptr->interm_y = initvector_hw->interm_y;
 
-	descptr->num_ctrl_pts = initvector_hw->num_ctrl_pts
+	descptr->num_ctrl_pts = initvector_hw->num_ctrl_pts;
 	descptr->bytes_per_pixel = initvector_hw->bytes_per_pixel;
 	descptr->warp_type = initvector_hw->warp_type;
 
-	u32 *tr = (u32 *)descptr;
+	u32 *ptr = (u32 *)descptr;
 	u32 checksum = 0;
 	for (int i=0; i<=52; i++) {
 		checksum ^= ptr[i];
 	}
-	descptr->driverchecksum = checksum;
+	descptr->driver_checksum = checksum;
 }
 
 /*****************************************************************************/
