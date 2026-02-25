@@ -70,6 +70,7 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
+#include "xdp_hw.h"
 #include "xdprxss_mcdp6000.h"
 #include "string.h"
 #include "xdebug.h"
@@ -1063,16 +1064,33 @@ XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
 			(XDp_MainStreamAttributes *)&DpRxSsInst->DpPtr->RxInstance.MsaConfig;
 
 	for (Stream = 1; Stream <= DpRxSsInst->Config.NumMstStreams; Stream++) {
-		while ((DpHres == 0 || i < 300) && DpRxSsInst->link_up_trigger == 1) {
+		/* Reset values for each stream to read fresh data */
+		DpHres = 0;
+		DpVres = 0;
+		DpHres_total = 0;
+		DpVres_total = 0;
+		rxMsamisc0 = 0;
+		rxMsamisc1 = 0;
+		rxMsaMVid = 0;
+		rxMsaNVid = 0;
+		i = 0;
+		bpc =0;
+
+		while ((DpHres == 0 && i < 300) && DpRxSsInst->link_up_trigger == 1) {
 			DpHres = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
-					     XDP_RX_MSA_HRES);
+						 XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_HRES);
 			i++;
+			usleep(1000);
 		}
-		while ((DpVres == 0 || i < 300) && DpRxSsInst->link_up_trigger == 1) {
+		i =0;
+
+		while ((DpVres == 0 && i < 300) && DpRxSsInst->link_up_trigger == 1) {
 			DpVres = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
-					     XDP_RX_MSA_VHEIGHT);
+						XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_VHEIGHT);
 			i++;
+			usleep(1000);
 		}
+
 
 		DpHres_total =
 		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
@@ -1139,42 +1157,54 @@ XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
 			recv_clk_freq =
 					(((int)DpRxSsInst->UsrOpt.LinkRate*27)*rxMsaMVid)/rxMsaNVid;
 
-			recv_frame_clk =
-				(int)( (recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total) < 0.0 ?
-						(recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total) :
-						(recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total)+0.9
-						);
+			recv_frame_clk = (recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total);
+
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].IsRxDp21 = 0;
 		}else{	//dp2.1 linkrates
+		u32 stream_offset = (Stream - 1) * XDP_VFREQ_STREAM_OFFSET;
 			u32 VFreq_lower = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
-										0x1608);
+							XDP_TX_VFREQ_STREAM1_LOW + stream_offset);
 			u32 VFreq_higher = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
-										0x160C);
+							XDP_TX_VFREQ_STREAM1_HIGH + stream_offset);
 			u64 VFreq = 0;
 			VFreq = VFreq_higher;
 			VFreq = (VFreq << 24) | VFreq_lower;
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].VFreq = VFreq;
 		    DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].IsRxDp21 = 1;
 
-			recv_frame_clk =
-				(int)( (VFreq*1.0)/(DpHres_total * DpVres_total) < 0.0 ?
-						(VFreq*1.0)/(DpHres_total * DpVres_total) :
-						(VFreq*1.0)/(DpHres_total * DpVres_total)+0.9
-						);
+			recv_frame_clk = (VFreq*1.0)/(DpHres_total * DpVres_total);
 		}
 
-		XVidC_FrameRate recv_frame_clk_int = recv_frame_clk;
-		//Doing Approximation here
-		if (recv_frame_clk_int == 49 || recv_frame_clk_int == 51) {
-			recv_frame_clk_int = 50;
-		} else if (recv_frame_clk_int == 59 || recv_frame_clk_int == 61) {
-			recv_frame_clk_int = 60;
-		} else if (recv_frame_clk_int == 29 || recv_frame_clk_int == 31) {
-			recv_frame_clk_int = 30;
-		} else if (recv_frame_clk_int == 76 || recv_frame_clk_int == 74) {
-			recv_frame_clk_int = 75;
-		} else if (recv_frame_clk_int == 121 || recv_frame_clk_int == 119) {
-			recv_frame_clk_int = 120;
+		/* Snap to common refresh rates if within tolerance
+		 * Note: UCD (Video source) may generate slightly inaccurate frame rates
+		 * (e.g., 58.8Hz instead of 60Hz, 48.1Hz instead of 50Hz). This logic
+		 * snaps measured rates to standard video timing specifications.
+		 */
+		XVidC_FrameRate recv_frame_clk_int;
+		if (recv_frame_clk >= 142.0 && recv_frame_clk <= 146.0) {
+			recv_frame_clk_int = 144;  /* Snap to 144Hz (142-146) */
+		} else if (recv_frame_clk >= 118.0 && recv_frame_clk <= 122.0) {
+			recv_frame_clk_int = 120;  /* Snap to 120Hz (118-122) */
+		} else if (recv_frame_clk >= 98.0 && recv_frame_clk <= 102.0) {
+			recv_frame_clk_int = 100;  /* Snap to 100Hz (98-102) */
+		} else if (recv_frame_clk >= 83.0 && recv_frame_clk <= 87.0) {
+			recv_frame_clk_int = 85;   /* Snap to 85Hz (83-87) */
+		} else if (recv_frame_clk >= 73.0 && recv_frame_clk <= 77.0) {
+			recv_frame_clk_int = 75;   /* Snap to 75Hz (73-77) */
+		} else if (recv_frame_clk >= 58.0 && recv_frame_clk <= 62.0) {
+			recv_frame_clk_int = 60;   /* Snap to 60Hz (58-62) */
+		} else if (recv_frame_clk >= 49.0 && recv_frame_clk <= 52.0) {
+			recv_frame_clk_int = 50;   /* Snap to 50Hz (49-52) */
+		} else if (recv_frame_clk >= 47.0 && recv_frame_clk <= 49.0) {
+			recv_frame_clk_int = 48;   /* Snap to 48Hz (47-49) */
+		} else if (recv_frame_clk >= 28.0 && recv_frame_clk <= 32.0) {
+			recv_frame_clk_int = 30;   /* Snap to 30Hz (28-32) */
+		} else if (recv_frame_clk >= 24.5 && recv_frame_clk <= 26.5) {
+			recv_frame_clk_int = 25;   /* Snap to 25Hz (24.5-26.5) - PAL */
+		} else if (recv_frame_clk >= 23.0 && recv_frame_clk <= 24.5) {
+			recv_frame_clk_int = 24;   /* Snap to 24Hz (23.0-24.5) - Cinema */
+		} else {
+			recv_frame_clk_int = recv_frame_clk + 0.5;  /* Normal rounding */
 		}
 
 
@@ -1186,6 +1216,26 @@ XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		XVidC_GetVideoModeId(DpHres, DpVres,
 				     DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate,
 				     XDpRxss_GetInterlace(DpRxSsInst, Stream));
+
+		/* Read Audio values based on encoding type */
+		if (DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].IsRxDp21) {
+			/* DP 2.1 (128b/132b): Read 48-bit AFREQ (audio frequency in Hz) */
+			u32 AFreq_Low = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr, XDP_RX_AUDIO_AFREQ_LOW);
+			u32 AFreq_High = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr, XDP_RX_AUDIO_AFREQ_HIGH);
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].AudioAFreq =
+				((u64)(AFreq_High & 0x00FFFFFF) << 24) | (AFreq_Low & 0x00FFFFFF);
+			/* Clear MAud/NAud for DP 2.1 */
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].AudioMAud = 0;
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].AudioNAud = 0;
+		} else {
+			/* DP 1.4 (8b/10b): Read MAud/NAud from 0x324/0x328 */
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].AudioMAud =
+				XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr, XDP_RX_AUDIO_MAUD);
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].AudioNAud =
+				XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr, XDP_RX_AUDIO_NAUD);
+			/* Clear AFreq for DP 1.4 */
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].AudioAFreq = 0;
+		}
 
 		if (color_mode == 0) {
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream -1].ComponentFormat =
