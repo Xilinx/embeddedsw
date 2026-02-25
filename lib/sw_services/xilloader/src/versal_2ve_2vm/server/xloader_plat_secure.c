@@ -38,6 +38,7 @@
 *       sk   03/05/2025 Added redundancy check for AHwRotStatus & SHwRotStatus
 * 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       har  10/16/2025 Updated code to extract CL mode
+* 2.4   gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 * </pre>
 *
 ******************************************************************************/

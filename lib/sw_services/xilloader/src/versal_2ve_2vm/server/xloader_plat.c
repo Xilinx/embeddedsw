@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xloader_plat.c
+* @file versal_2ve_2vm/server/xloader_plat.c
 *
 * This file contains the versal_2ve_2vm specific code related to PDI image loading.
 *
@@ -72,6 +72,7 @@
 *       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
 * 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
 *       rmv  01/30/2026 Renamed OCP header files
+*       gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *
 * </pre>
 *
@@ -131,7 +132,7 @@
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
 #endif
-#define XLOADER_TRNG_DEVICE_ID				(0U)
+#define XLOADER_TRNG_DEVICE_ID				(0U)	/**< TRNG Device Id */
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
 #define XLOADER_PCR_MEASUREMENT_INDEX_SHIFT		(16U)		/**< Shift for PCR measurement index */
 #define XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS		(0xF1250090U)	/**< ROM Reserved eFuse cache offset */

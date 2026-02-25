@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xloader_plat.h
+* @file versal_2ve_2vm/server/xloader_plat.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,6 +52,7 @@
 *       tvp  07/28/2025 Add wrapper function XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
+* 2.4   gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *
 * </pre>
 *
@@ -108,13 +109,13 @@ extern "C" {
 #define XLOADER_RPU_CORE0	(0U) /**< RPU core 0 */
 #define XLOADER_RPU_CORE1	(1U) /**< RPU core 1 */
 
-/* Macro to calculate the Device Id for RPU core0 based on cluster */
+/**< Macro to calculate the Device Id for RPU core0 based on cluster */
 #define XLOADER_GET_RPU0_DEVICE_ID(ClusterId) (ClusterId <= XIH_ATTRB_DSTN_CLUSTER_1) ? \
 				(PM_DEV_RPU_A_0 + (ClusterId * 2) + XLOADER_RPU_CORE0) \
 			: (PM_DEV_RPU_C_0 + ((ClusterId - XLOADER_RPU_CLUSTERC_IDX) * 2) + \
 					XLOADER_RPU_CORE0);
 
-/* Macro to calculate the Device Id for RPU core1 based on cluster */
+/**< Macro to calculate the Device Id for RPU core1 based on cluster */
 #define XLOADER_GET_RPU1_DEVICE_ID(ClusterId) (ClusterId <= XIH_ATTRB_DSTN_CLUSTER_1) ? \
 				(PM_DEV_RPU_A_0 + (ClusterId * 2) + XLOADER_RPU_CORE1) \
 			: (PM_DEV_RPU_C_0 + ((ClusterId - XLOADER_RPU_CLUSTERC_IDX) * 2) + \
@@ -500,7 +501,6 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
-int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.01  sk  03/28/2025 Added define for Multiboot index
 *       sk  09/26/2025 Added drive number define for UFS
 *       sk  10/24/2025 Added ffs header for multi part define
+* 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *
 * </pre>
 *

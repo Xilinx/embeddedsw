@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.01  sk  03/28/2025 Updated UFS init and release calls using PM dev nodes
 * 1.02 	abh	07/21/2025 Fixed GCC warnings
 *       sk  09/26/2025 Added UFS speed change config
+* 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *
 * </pre>
 *

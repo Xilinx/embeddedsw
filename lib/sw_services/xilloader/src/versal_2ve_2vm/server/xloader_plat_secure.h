@@ -37,6 +37,7 @@
 *       har  08/21/2025 Added XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE macro
 *       har  10/16/2025 Added XLOADER_BBRAM_CL_MODE_SHIFT macro
 * 2.4   vss  02/01/2026 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
+*       gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *
 * </pre>
 *
@@ -95,6 +96,9 @@ extern "C" {
 #define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x070BFF91U)
 		/**< Mask to enable required instructions in Instruction Mask 1 register */
 /**************************** Type Definitions *******************************/
+/**
+ * Structure to hold SEC error codes
+ */
 typedef enum {
 	/* Add platform specific error codes from 0xA0 */
 	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02,

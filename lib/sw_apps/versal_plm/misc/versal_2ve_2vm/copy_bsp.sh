@@ -78,10 +78,9 @@ cp -r $BSP_DIR/libsrc/xilpuf/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilloader/src
 cp -r $SERVICES_DIR/xilloader/src/Makefile $BSP_DIR/libsrc/xilloader/src
-cp -r $SERVICES_DIR/xilloader/src/versal_2ve_2vm/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $SERVICES_DIR/xilloader/src/versal_2ve_2vm/server/* $BSP_DIR/libsrc/xilloader/src/
 cp -r $SERVICES_DIR/xilloader/src/common/server/* $BSP_DIR/libsrc/xilloader/src/
 cp -r $SERVICES_DIR/xilloader/src/common/common/* $BSP_DIR/libsrc/xilloader/src/
-cp -r $SERVICES_DIR/xilloader/src/versal_2ve_2vm/*.h $BSP_DIR/include/
 cp -r $BSP_DIR/libsrc/xilloader/src/*.h $BSP_DIR/include/
 
 
