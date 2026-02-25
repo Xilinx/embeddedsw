@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -58,12 +58,12 @@ extern "C" {
  * to decode the exact cause of interrupt and handle it accordingly.
  * @{
  */
-#define XV_SDIRXSS_IER_VIDEO_LOCK_MASK		XV_SDIRX_IER_VIDEO_LOCK_MASK
-#define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK
-#define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK
-#define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK
-#define XV_SDIRXSS_IER_VSYNC_MASK		XV_SDIRX_IER_VSYNC_MASK
-#define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK
+#define XV_SDIRXSS_IER_VIDEO_LOCK_MASK		XV_SDIRX_IER_VIDEO_LOCK_MASK	/**< Video lock interrupt mask */
+#define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK	/**< Video unlock interrupt mask */
+#define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK	/**< Overflow interrupt mask */
+#define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK	/**< Underflow interrupt mask */
+#define XV_SDIRXSS_IER_VSYNC_MASK		XV_SDIRX_IER_VSYNC_MASK		/**< Vsync interrupt mask */
+#define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK	/**< All interrupts mask */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -109,7 +109,7 @@ typedef enum {
 	XV_SDIRXSS_HANDLER_UNDERFLOW,		/**< Handler for under flow event */
 	XV_SDIRXSS_HANDLER_VSYNC,		/**< Handler for vsync event */
 } XV_SdiRxSs_HandlerType;
-/*@}*/
+/** @} */
 
 /**
  * Sub-Core Configuration Table

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -36,10 +36,8 @@
 *
 * @param	InstancePtr is a pointer to the xv_sdirxss core instance.
 *
-* @return	None.
 *
 * @note		None.
-*
 ******************************************************************************/
 void XV_SdiRxSs_LogReset(XV_SdiRxSs *InstancePtr)
 {
@@ -52,16 +50,13 @@ void XV_SdiRxSs_LogReset(XV_SdiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function will insert an event in the driver's logginc mechanism.
+* This function will insert an event in the driver's logging mechanism.
 *
 * @param	InstancePtr is a pointer to the XV_SdiRxSs core instance.
 * @param	Evt is the event type to log.
 * @param	Data is the associated data for the event.
 *
-* @return	None.
-*
 * @note		None.
-*
 ******************************************************************************/
 void XV_SdiRxSs_LogWrite(XV_SdiRxSs *InstancePtr, XV_SdiRxSs_LogEvent Evt, u8 Data)
 {
@@ -139,10 +134,7 @@ u16 XV_SdiRxSs_LogRead(XV_SdiRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiRxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
-*
 ******************************************************************************/
 void XV_SdiRxSs_LogDisplay(XV_SdiRxSs *InstancePtr)
 {

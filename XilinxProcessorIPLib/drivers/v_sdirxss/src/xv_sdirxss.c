@@ -87,8 +87,7 @@ void XV_SdiRxSS_SdiRxIntrHandler(XV_SdiRxSs *InstancePtr)
 *
 * @param InstancePtr is a pointer to the Subsystem instance.
 *
-* @return None
-*
+* @note None.
 ******************************************************************************/
 void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr)
 {
@@ -242,9 +241,7 @@ XV_SdiRxSs_Config *CfgPtr, UINTPTR EffectiveAddr)
 *
 * This function is called when the RX stream is down.
 *
-* @param	None.
-*
-* @return	None.
+* @param	CallbackRef is a pointer to the callback reference provided during callback
 *
 * @note		None.
 *
@@ -275,9 +272,8 @@ static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef)
 *
 * This function is called when the Rx Over Flow occurs.
 *
-* @param	None.
-*
-* @return	None.
+* @param	CallbackRef is a pointer to the callback reference provided
+*						during callback
 *
 * @note		None.
 *
@@ -298,10 +294,8 @@ static void XV_SdiRxSs_OverFlowCallback(void *CallbackRef)
 *
 * This function is called when the Rx Under Flow occurs.
 *
-* @param	None.
-*
-* @return	None.
-*
+* @param	CallbackRef is a pointer to the callback reference provided
+*						during callback
 * @note		None.
 *
 ******************************************************************************/
@@ -321,9 +315,8 @@ static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef)
 *
 * This function is called when the Rx Vsync occurs.
 *
-* @param	None.
-*
-* @return	None.
+* @param	CallbackRef is a pointer to the callback reference provided
+*						during callback
 *
 * @note		None.
 *
@@ -344,9 +337,8 @@ static void XV_SdiRxSs_VsyncCallback(void *CallbackRef)
 *
 * This function is called when the RX stream is up.
 *
-* @param	None.
-*
-* @return	None.
+* @param	CallbackRef is a pointer to the callback reference provided
+*						during callback
 *
 * @note		None.
 *
@@ -373,8 +365,6 @@ static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef)
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -390,8 +380,6 @@ void XV_SdiRxSs_StreamFlowEnable(XV_SdiRxSs *InstancePtr)
 * This function disables the AXIS and video bridges.
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -418,8 +406,6 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr)
 *		- 10 = XV_SDIRX_MULTISEARCHMODE where the supported modes will be
 *				enabled by XV_SdiRx_EnableMode function
 *
-* @return	None.
-*
 * @note   None.
 *
 ******************************************************************************/
@@ -440,7 +426,7 @@ void XV_SdiRxSs_Start(XV_SdiRxSs *InstancePtr, XV_SdiRx_SearchMode Mode)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return	None
+* @note		None.
 *
 ******************************************************************************/
 void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr)
@@ -543,15 +529,56 @@ void *CallbackFunc, void *CallbackRef)
 	return Status;
 }
 
+
+/**
+ * @brief Retrieves the payload ID for a specified stream in the SDI Rx subsystem.
+ *
+ * This function returns the payload identifier associated with the given stream
+ * in the SDI Receiver subsystem instance.
+ *
+ * @param InstancePtr Pointer to the XV_SdiRxSs instance to be worked on.
+ * @param StreamId The stream identifier for which the payload ID is to be retrieved.
+ *
+ * @return Pointer to u32 containing the payload ID for the specified stream.
+ *         Returns NULL if the InstancePtr is invalid or StreamId is out of range.
+ *
+ * @note The caller must ensure that InstancePtr is a valid and initialized
+ *       XV_SdiRxSs instance before calling this function.
+ */
 u32 *XV_SdiRxSs_GetPayloadId(XV_SdiRxSs *InstancePtr, u8 StreamId)
 {
 	return &InstancePtr->SdiRxPtr->Stream[StreamId].PayloadId;
 }
 
+/**
+ * @brief Gets the Transport information from the SDI Rx subsystem.
+ *
+ * @param InstancePtr Pointer to the XV_SdiRxSs instance.
+ *
+ * @return Pointer to the XSdiVid_Transport structure containing transport information.
+ */
 XSdiVid_Transport *XV_SdiRxSs_GetTransport(XV_SdiRxSs *InstancePtr)
 {
 	return &InstancePtr->SdiRxPtr->Transport;
 }
+
+
+/**
+ * @brief Gets the transport mode of the SDI receiver subsystem.
+ *
+ * This function retrieves the current transport mode configuration of the
+ * SDI (Serial Digital Interface) receiver subsystem instance.
+ *
+ * @param InstancePtr Pointer to the XV_SdiRxSs instance to query.
+ *                    Must not be NULL.
+ *
+ * @return XSdiVid_TransMode The current transport mode of the SDI receiver.
+ *                           Returns the transport mode enumeration value
+ *                           indicating the data transport configuration.
+ *
+ * @note The InstancePtr must point to a valid and initialized XV_SdiRxSs
+ *       instance.
+ */
 
 XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 {
@@ -571,6 +598,19 @@ XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 	return InstancePtr->SdiRxPtr->Transport.TMode;
 }
 
+/**
+ * @brief Gets the transport bit rate information from the SDI Rx subsystem.
+ *
+ * This function retrieves the transport bit rate information of the SDI (Serial Digital Interface)
+ * receiver subsystem instance. It indicates whether the transport is operating in fractional mode or not.
+ *
+ * @param InstancePtr Pointer to the XV_SdiRxSs instance to query.
+ *                    Must not be NULL.
+ *
+ * @return u8 Returns 1 if the transport is operating in fractional mode, otherwise returns 0.
+ *
+ * @note The InstancePtr must point to a valid and initialized XV_SdiRxSs instance.
+ */
 u8 XV_SdiRxSs_GetTransportBitRate(XV_SdiRxSs *InstancePtr)
 {
 	return InstancePtr->SdiRxPtr->Transport.IsFractional;
@@ -595,6 +635,21 @@ XVidC_VideoStream *XV_SdiRxSs_GetVideoStream(XV_SdiRxSs *InstancePtr,
 	return &InstancePtr->SdiRxPtr->Stream[StreamId].Video;
 }
 
+/*******************************************************************************/
+/**
+ *
+ * @brief Reports detected errors in the SDI Rx Subsystem.
+ *
+ * This function examines the SDI Rx Subsystem instance and reports any
+ * detected errors that have occurred during SDI reception operations.
+ * The function can be used for debugging and error handling purposes.
+ *
+ * @param InstancePtr Pointer to the XV_SdiRxSs instance to be operated on.
+ *
+ * @note The caller must ensure that InstancePtr is a valid pointer to an
+ *       initialized XV_SdiRxSs instance before calling this function.
+ *****************************************************************************/
+
 void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr)
 {
 	/* Verify arguments. */
@@ -611,7 +666,6 @@ void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr)
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return	None
 *
 ******************************************************************************/
 void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
@@ -631,7 +685,6 @@ void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return	None
 *
 ******************************************************************************/
 void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
@@ -649,8 +702,6 @@ void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
 * This function prints the SDI RX SS information.
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -681,7 +732,7 @@ void XV_SdiRxSs_ReportInfo(XV_SdiRxSs *InstancePtr)
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return	None.
+
 *
 * @note		None.
 *
@@ -708,8 +759,6 @@ void XV_SdiRxSs_ReportDebugInfo(XV_SdiRxSs *InstancePtr)
 * This function prints the SDI RX SS timing information
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -750,9 +799,6 @@ int XV_SdiRxSs_IsStreamUp(XV_SdiRxSs *InstancePtr)
 * @param	InstancePtr pointer to XV_SdiRxSs instance
 * @param	IntrMask Indicates Mask for enable interrupts.
 *
-* @return
-*		None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -779,8 +825,6 @@ void XV_SdiRxSs_IntrEnable(XV_SdiRxSs *InstancePtr, u32 IntrMask)
 * @param	InstancePtr pointer to XV_SdiRxSs instance
 * @param	IntrMask Indicates Mask for disabling interrupts.
 *
-* @return
-*		None.
 *
 * @note		None.
 *
@@ -834,7 +878,6 @@ u32 XV_SdiRxSs_WaitforPayLoad(XV_SdiRxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XV_SdiRxSs core instance.
 * @param	enable is to enable/disable the Handling of nopayload case
 *
-* @return	None
 *
 ******************************************************************************/
 void XV_SdiRxSs_HandleNoPayload(XV_SdiRxSs *InstancePtr, u8 enable)
