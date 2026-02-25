@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+* 2.4   aa   02/24/2026 Replace XPlm_UtilRMW with XPlmi_Out32 for WTC/WO registers
 *
 * </pre>
 *
@@ -112,9 +113,9 @@ void XPlmi_GicIntrClearStatus(u32 GicPVal, u32 GicPxVal)
 	GicPMask = (u32)1U << GicPVal;
 	GicPxMask = (u32)1U << GicPxVal;
 	/** - Clear interrupt by writing 1 to the interrupt bit. */
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, GicPMask, GicPMask);
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicPVal * XPLMI_GICPX_LEN),
-		GicPxMask, GicPxMask);
+	XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicPVal * XPLMI_GICPX_LEN),
+		GicPxMask);
+	XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, GicPMask);
 }
 
 /*****************************************************************************/
@@ -135,9 +136,9 @@ void XPlmi_GicIntrEnable(u32 GicPVal, u32 GicPxVal)
 	GicPxMask = (u32)1U << GicPxVal;
 
 	/** - Enable interrupt by writing 1 to the interrupt bit. */
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE, GicPMask, GicPMask);
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal * XPLMI_GICPX_LEN),
-		GicPxMask, GicPxMask);
+	XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE, GicPMask);
+	XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal * XPLMI_GICPX_LEN),
+		GicPxMask);
 }
 
 /*****************************************************************************/
@@ -155,8 +156,8 @@ void XPlmi_GicIntrDisable(u32 GicPVal, u32 GicPxVal)
 	/** - Get the GicP mask. */
 	GicPxMask = (u32)1U << GicPxVal;
 	/** - Disable interrupt by writing 1 to the interrupt bit. */
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal * XPLMI_GICPX_LEN),
-		GicPxMask, GicPxMask);
+	XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal * XPLMI_GICPX_LEN),
+		GicPxMask);
 }
 
 /*****************************************************************************/
