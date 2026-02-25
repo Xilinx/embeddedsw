@@ -1801,7 +1801,9 @@ int XV_HdmiTx1_DdcWrite(XV_HdmiTx1 *InstancePtr, u8 Slave,
 	u32 Status;
 	u32 Data;
 	u32 Index;
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	u32 TempTimer;
+#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1823,8 +1825,6 @@ int XV_HdmiTx1_DdcWrite(XV_HdmiTx1 *InstancePtr, u8 Slave,
 	if (TempTimer != 0) {
 		XV_HdmiTx1_SetFrlTimerClockCycles(InstancePtr, 0);
 	}
-#else
-	TempTimer = 0;
 #endif
 
 	/* Status default, assume failure*/
@@ -1959,7 +1959,9 @@ int XV_HdmiTx1_DdcRead(XV_HdmiTx1 *InstancePtr, u8 Slave, u16 Length,
 	u32 Status;
 	u32 Data;
 	u32 Index;
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	u32 TempTimer;
+#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1981,8 +1983,6 @@ int XV_HdmiTx1_DdcRead(XV_HdmiTx1 *InstancePtr, u8 Slave, u16 Length,
 	if (TempTimer != 0) {
 		XV_HdmiTx1_SetFrlTimerClockCycles(InstancePtr, 0);
 	}
-#else
-	TempTimer = 0;
 #endif
 
 	/* Status default, assume failure*/
@@ -2367,7 +2367,9 @@ void XV_HdmiTx1_DebugInfo(XV_HdmiTx1 *InstancePtr)
 {
 	u32 Data;
 	u32 Data1;
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	u32 FrlCtrl;
+#endif
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
