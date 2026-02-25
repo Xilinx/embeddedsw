@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -13,7 +13,7 @@
  * To build this application, xilmailbox library must be included in BSP and
  * xilloader library must be in client mode
  *
- * This example is supported for Versal Net devices.
+ * This example is supported for Versal Net and Versal 2VE 2VM devices.
  *
  * Procedure to run the example.
  * ------------------------------------------------------------------------------------------------
@@ -50,7 +50,11 @@
 /************************************ Constant Definitions ***************************************/
 
 /* - Example defines below, update with required values*/
+#if defined(VERSAL_2VE_2VM)
+#define DEVICE_ID		(0x185200DFU) /**< DDR device id */
+#else
 #define DEVICE_ID		(0x185200E2U) /**< DDR device id */
+#endif
 
 /************************************** Type Definitions *****************************************/
 
@@ -64,7 +68,7 @@ static int ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr);
 
 /*************************************************************************************************/
 /**
- * @brief	Main function to call the verssalnet example functions.
+ * @brief	Main function to call the versalnet or versal_2ve_2vm example functions.
  *
  * @return
  *			 - XST_SUCCESS on success.
