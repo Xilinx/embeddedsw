@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -316,7 +316,7 @@ typedef struct {
 			       *  detection of a new rx stream or a new
 			       *  tx sink. */
 	u8 TxStartTransmit;  /**< This flag allows the example design to
-			       *  hold/allow the tranmission of a new
+			       *  hold/allow the transmission of a new
 			       *  stream on the transmitter. */
 	u8 TxBusy;           /**< This flag is set while the TX is initialized.
 			       * This flag is used by the menu to check if TX operations

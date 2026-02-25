@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -193,7 +193,7 @@ u8 SinkReadyCheck (XV_HdmiTxSs1          *HdmiTxSs1Ptr,
         							== READINTERVAL) {
             /* Re-Read the EDID */
             EdidScdcCheck(HdmiTxSs1Ptr,CheckHdmiParam);
-            /*High Priority iif the Sink EDID not Ready */
+            /*High Priority if the Sink EDID not Ready */
             if (CheckHdmiParam->IsReReadSinkEdid) {
             	CheckHdmiParam->IsReReadSinkEdidRetry =
             			CheckHdmiParam->IsReReadSinkEdidRetry + 1;

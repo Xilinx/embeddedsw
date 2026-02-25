@@ -35,7 +35,7 @@ extern "C" {
     void aes256_init(aes256_context *, uint8_t * /* key */);
     void aes256_done(aes256_context *);
     void aes256_encrypt_ecb(aes256_context *, uint8_t * /* plaintext */);
-    void aes256_decrypt_ecb(aes256_context *, uint8_t * /* cipertext */);
+    void aes256_decrypt_ecb(aes256_context *, uint8_t * /* ciphertext */);
 
 #ifdef __cplusplus
 }

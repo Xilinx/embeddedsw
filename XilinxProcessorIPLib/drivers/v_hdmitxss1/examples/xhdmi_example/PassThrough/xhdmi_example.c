@@ -398,7 +398,7 @@ VideoFormats ColorFormats[NUM_MEMORY_COLOR_FORMATS] =
 /**
 *
 * This function is used to enable and additional debugging prints
-* in the applicaiton.
+* in the application.
 *
 * @param  Printfunc is the function to enable printing.
 *
@@ -416,7 +416,7 @@ void Exdes_SetDebugPrintf(Exdes_Debug_Printf PrintFunc)
 /**
 *
 * This function is used to enable and additional debugging prints
-* for the Aux Fifo operations in the applicaiton.
+* for the Aux Fifo operations in the application.
 *
 * @param  Printfunc is the function to enable printing.
 *
@@ -434,7 +434,7 @@ void Exdes_SetAuxFifoDebugPrintf(Exdes_Debug_Printf PrintFunc)
 /**
 *
 * This function is used to enable and additional debugging prints
-* for the HDCP operations in the applicaiton.
+* for the HDCP operations in the application.
 *
 * @param  Printfunc is the function to enable printing.
 *
@@ -451,7 +451,7 @@ void Exdes_SetHdcpDebugPrintf(Exdes_Debug_Printf PrintFunc)
 /*****************************************************************************/
 /**
 *
-* This function is used to initialize the TX controller data strucuture
+* This function is used to initialize the TX controller data structure
 * for the HDMI 2.1 TX interrupt controller layer (see xhdmi_example_tx_sm.c/.h)
 * Here the interrupt ids of the HDMI 2.1 TX SS and related cores are set and
 * the HDMI 2.1 TX interrupt controller layer is initialized.
@@ -620,7 +620,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 /*****************************************************************************/
 /**
 *
-* This function is used to initialize the RX controller data strucuture
+* This function is used to initialize the RX controller data structure
 * for the HDMI 2.1 RX interrupt controller layer (see xhdmi_example_rx_sm.c/.h)
 * Here the interrupt ids of the HDMI 2.1 RX SS and related cores are set and
 * the HDMI 2.1 RX interrupt controller layer is initialized.
@@ -874,8 +874,8 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 /*****************************************************************************/
 /**
 *
-* This function is used to initialize the example desing controller
-* data strucuture that is used to track the presence and instances
+* This function is used to initialize the example design controller
+* data structure that is used to track the presence and instances
 * of the hdmi 2.1 receiver and transmitter.
 *
 * @param  InstancePtr is the instance of the example design handle
@@ -1035,7 +1035,7 @@ void Exdes_StartSysTmr(XHdmi_Exdes *InstancePtr, u32 IntervalInMs)
 	NumTicks = Exdes_UsToTicks((IntervalInMs * 1000),
 			InstancePtr->SysTmrInst.Config.SysClockFreqHz);
 
-	/* Calculate the number of maximum pulses that can counted upto
+	/* Calculate the number of maximum pulses that can counted up to
 	 * at which point we need to reset the counters.
 	 */
 	InstancePtr->SysTmrPulseIntervalinMs = IntervalInMs;
@@ -2577,7 +2577,7 @@ void Exdes_AudioConfig_Passthru()
 		AudioFormat = XV_HDMITX1_AUDFMT_LPCM;
 	}
 
-	/* Set tha audio format and channels. */
+	/* Set the audio format and channels. */
 	XV_Tx_SetAudioFormatAndChannels(&xhdmi_example_tx_controller,
 				AudioFormat,
 				XV_HdmiRxSs1_GetAudioChannels(&HdmiRxSs));
@@ -3300,7 +3300,7 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 			Exdes_CopyRxVidParamstoTx(&HdmiRxSs, &HdmiTxSs);
 			XV_Tx_SetVic(&xhdmi_example_tx_controller,
 					XV_HdmiRxSs1_GetVideoIDCode(&HdmiRxSs));
-			xil_printf(ANSI_COLOR_YELLOW "Entering pass-thru. Setting"
+			xil_printf(ANSI_COLOR_YELLOW "Entering pass-through. Setting"
 					" TX stream to RX stream. Rx.IsFrl = %d\r\n"
 					ANSI_COLOR_RESET "\r\n",
 					XV_HdmiRxSs1_GetTransportMode(&HdmiRxSs));
@@ -3353,7 +3353,7 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 /**
 *
 * This function is used to determine the source for tx stream based on
-* the configuration of the system and the presence/absence of rx and tx steams.
+* the configuration of the system and the presence/absence of rx and tx streams.
 *
 * @param  None.
 *
@@ -3739,7 +3739,7 @@ void SendVSInfoframe(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 	 */
 	if (Status != (XST_SUCCESS)) {
 		/* Enable this print to profile the overflow of HW AUX Fifo.
-		 * However, in case of overlow this print will flood
+		 * However, in case of overflow this print will flood
 		 * the UART output port.
 		 * xil_printf(ANSI_COLOR_RED "%s,%d. HW Aux Full"
 		 *            ANSI_COLOR_RESET "\r\n", __func__, __LINE__);
@@ -4649,7 +4649,7 @@ void XV_Tx_HdmiTrigCb_SetupTxTmdsRefClk(void *InstancePtr)
 #endif
 
 #if 0
-	/* Reset the AUX fifo so it is cleared of any previous TX Vsync upates,
+	/* Reset the AUX fifo so it is cleared of any previous TX Vsync updates,
 	 * written either from Rx AUX in pass-through or set in Tx Only.
 	 *
 	 * This will ensure that from Tx clock starting to Tx Vsync the
@@ -4665,7 +4665,7 @@ void XV_Tx_HdmiTrigCb_SetupTxTmdsRefClk(void *InstancePtr)
 				"rate = %d.\r\n",__func__,
 				Hdmiphy1.HdmiTxSampleRate);
 		/* We use the Rx reference clock to set the clock alignment
-		 * betweent the RX and the TX in pass-through mode.
+		 * between the RX and the TX in pass-through mode.
 		 * Starting the reference clock for the Hdmi Tx with the
 		 * Hdmi Rx Reference clock and a multiplying factor
 		 * of the Tx oversampling rate.
@@ -4950,7 +4950,7 @@ void XV_Tx_HdmiTrigCb_VidSyncRecv(void *InstancePtr)
 	} else {
 		/* To ensure that the downstream is DVI, or never transitions
 		 * to HDMI use the following print to check.
-		 * Additonally, re-check the videomode of the stream here.
+		 * Additionally, re-check the videomode of the stream here.
 		 * EXDES_DBG_PRINT("%s,%d. Downstream is not HDMI !!\r\n",
 		 *		__func__, __LINE__);
 		 */
@@ -6217,8 +6217,8 @@ void UpdateFrameRate(XHdmiphy1       *Hdmiphy1Ptr,
 *
 * This is the callback for assertion error.
 *
-* @param File is string name of the file where the assertion failure occured.
-* @param LIne is the line wheer the assertion failure occured.
+* @param File is string name of the file where the assertion failure occurred.
+* @param LIne is the line wheer the assertion failure occurred.
 *
 * @return None.
 *
@@ -6238,7 +6238,7 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line)
 * @param  ps_iic0_deviceid is the device id of the ps iic device.
 * @param  ps_iic1_deviceid is the device id of the ps iic device.
 *
-* @return XST_SUCCESS if the clock source is successfuly set.
+* @return XST_SUCCESS if the clock source is successfully set.
 *         XST_FAILURE otherwise.
 *
 * @note   None.
@@ -6405,7 +6405,7 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_baseaddr, u32 ps_iic1_baseaddr)
 * @param  IicPtr is the on board iic device used to access the hdcp keys
 *         from storage.
 *
-* @return XST_SUCCESS if the clock source is successfuly set.
+* @return XST_SUCCESS if the clock source is successfully set.
 *         XST_FAILURE otherwise.
 *
 * @note   None.
@@ -6608,7 +6608,7 @@ int SetupInterruptSystem(void)
 * @param  inremap_deviceid is the In Remapper Device ID
 * @param  outremap_deviceid is the Out Remapper Device ID
 *
-* @return XST_SUCCESS if the clock source is successfuly set.
+* @return XST_SUCCESS if the clock source is successfully set.
 *         XST_FAILURE otherwise.
 *
 * @note   None.
@@ -6664,10 +6664,10 @@ u32 Exdes_RemapInitialize(u32 inremap_deviceid, u32 outremap_baseaddr)
 *
 * This function initialized the TPG.
 *
-* @param  Gpio_tpg_resetn_deviceid is the GPIO devive id used to reset the TPG.
-* @param  tpg_deviceid is the TPG devive id.
+* @param  Gpio_tpg_resetn_deviceid is the GPIO device id used to reset the TPG.
+* @param  tpg_deviceid is the TPG device id.
 *
-* @return XST_SUCCESS if the clock source is successfuly set.
+* @return XST_SUCCESS if the clock source is successfully set.
 *         XST_FAILURE otherwise.
 *
 * @note   None.
@@ -6729,10 +6729,10 @@ u32 Exdes_TpgInitialize(UINTPTR Gpio_tpg_resetn_baseaddr, UINTPTR tpg_baseaddr)
 *
 * This function initialized the AXI Stream Switch.
 *
-* @param  Gpio_tpg_resetn_deviceid is the GPIO devive id used to reset the TPG.
-* @param  tpg_deviceid is the TPG devive id.
+* @param  Gpio_tpg_resetn_deviceid is the GPIO device id used to reset the TPG.
+* @param  tpg_deviceid is the TPG device id.
 *
-* @return XST_SUCCESS if the clock source is successfuly set.
+* @return XST_SUCCESS if the clock source is successfully set.
 *         XST_FAILURE otherwise.
 *
 * @note   None.
@@ -6799,7 +6799,7 @@ int main()
 
 	/**
 	 * Reset the Fifo buffer which will be used for holding
-	 * incoming auxillary packets.
+	 * incoming auxiliary packets.
 	 */
 	ResetAuxFifo();
 #endif
