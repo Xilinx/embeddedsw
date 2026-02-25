@@ -1,4 +1,4 @@
-# Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -20,6 +20,10 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
 
   if((XILASU_kdf_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as KDF depends on HMAC" FORCE)
+  endif()
+
+  if((XILASU_ocp_support) AND NOT ((XILASU_hmac_support)))
+    set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as OCP depends on HMAC" FORCE)
   endif()
 
   if((XILASU_ecies_support) AND NOT ((XILASU_hmac_support)))
