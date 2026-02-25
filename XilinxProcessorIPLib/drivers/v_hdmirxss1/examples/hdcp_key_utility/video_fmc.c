@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -390,7 +390,7 @@ int Vfmc_PowerDownTiLMK03318(void *IicPtr, u8 Powerdown)
 	u8 Buffer;
 	int ByteCount;
 
-	/* Read IO Expander ouput register */
+	/* Read IO Expander output register */
 	ByteCount = Vfmc_I2cRecv(IicPtr, VFMC_I2C_IOEXP_1_ADDR,
 			(u8 *)&Buffer, 1, I2C_STOP);
 
@@ -415,7 +415,7 @@ int Vfmc_PowerDownTiLMK03318(void *IicPtr, u8 Powerdown)
 *
 * This function Turns on or off the VFMC LED.
 *
-* @param  Led - LED position based on XVfmc_Gpio_Led typdef.
+* @param  Led - LED position based on XVfmc_Gpio_Led typedef.
 * @param  On  - TRUE=On ; FALSE=Off.
 *
 * @return None.
@@ -446,7 +446,7 @@ void Vfmc_Gpio_Led_On(XVfmc_Gpio_Led Led, u8 On)
 * TX or RX mezzanine cards.
 *
 * @param  DataClkSel - Ch4 Selection based on  XVfmc_Gpio_Ch4_DataClkSel
-*                      typdef.
+*                      typedef.
 *                      TX
 *                      --> VFMC_GPIO_TX_CH4_As_DataAndClock
 *                      --> VFMC_GPIO_TX_CH4_As_ClockOut

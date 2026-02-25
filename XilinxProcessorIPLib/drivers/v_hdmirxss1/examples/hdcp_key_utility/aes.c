@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +11,7 @@
 * This code is the implementation of the AES algorithm and
 * the CTR, CBC, and CCM modes of operation it can be used in.
 * AES is, specified by the NIST in in publication FIPS PUB 197,
-* availible at:
+* available at:
 * - http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf .
 * The CBC and CTR modes of operation are specified by
 * NIST SP 800-38 A, available at:
@@ -591,8 +592,8 @@ static void AesInvShiftRows(u8 State[][4])
 * This function Performs the MixColums step.
 * The State is multiplied by itself using matrix
 * multiplication in a Galios Field 2^8. All multiplication is pre-computed in a table.
-* Addition is equivilent to XOR. (Must always make a copy of the column as the original
-* values will be destoyed.)
+* Addition is equivalent to XOR. (Must always make a copy of the column as the original
+* values will be destroyed.)
 *
 * @param	State are the statevalues of the AES conversion.
 *

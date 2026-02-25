@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -301,7 +301,7 @@ void XV_Rx_Hdcp_Poll(XV_Rx *InstancePtr)
 	 *
 	 * As the Poll does the 'process event' for the HDMIRXSS HDCP
 	 * state machine, we must always keep calling it and react
-	 * to the upstream access, regarless of the stream status. */
+	 * to the upstream access, regardless of the stream status. */
 	/* if (XV_HdmiRxSs1_HdcpIsReady(InstancePtr->HdmiRxSs)) { */
 		XV_HdmiRxSs1_HdcpPoll(InstancePtr->HdmiRxSs);
 	/* } */
@@ -347,7 +347,7 @@ u8 XV_Rx_Hdcp_GetStreamType(XV_Rx *InstancePtr)
 
 	return InstancePtr->HdcpConfig.StreamType;
 
-	/* ALthernatively, the stream type can be retrived from the RX SS,
+	/* ALthernatively, the stream type can be retrieved from the RX SS,
 	 *	u8 StreamType;
 	 *	StreamType = XV_HdmiRxSs1_HdcpGetContentStreamType(
 	 *					InstancePtr->HdmiRxSs);
@@ -566,7 +566,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(InstancePtr->HdmiRxSs);
 	CorePpc =  XV_HdmiRxSs1_GetCorePpc(InstancePtr->HdmiRxSs);
 
-	/* An additonal check can be added here, to ensure that the input
+	/* An additional check can be added here, to ensure that the input
 	 * for mmcm params are valid here.
 	 */
 
@@ -1317,7 +1317,7 @@ static void XV_Rx_Hdcp_Unauthenticated_Cb(void *CallbackRef)
 
 /*****************************************************************************/
 /**
-* This function implements the callback for HDCP encyption update event.
+* This function implements the callback for HDCP encryption update event.
 *
 * @param    InstancePtr is the callback reference to the HDMI RX SS instance.
 *

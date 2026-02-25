@@ -237,7 +237,7 @@ void XV_Tx_Hdcp_Poll(XV_Tx *InstancePtr)
 #ifdef USE_HDCP_HDMI_TX
 	/* Ensuring two thing before polling HDCP :-
 	 * 1. The HDCP IP is ready in the Tx SS.
-	 * 2. !!DONOT!! wait for authentication to start on the
+	 * 2. !!DO NOT!! wait for authentication to start on the
 	 *    downstream interface to poll, as the polling
 	 *    will process the connect, disconnect, stream up
 	 *    and stream down events in the HDMI TX SS
@@ -2711,7 +2711,7 @@ void XV_Tx_HdmiTx_EnterStateFrlConfig(XV_Tx *InstancePtr)
 	u64 LineRate = ((u64)(InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.LineRate)) *
 			((u64)(1e9));
 	u8 NChannels = InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.Lanes;
-	/* For addtional information, print out linerate and nchannel,
+	/* For additional information, print out linerate and nchannel,
 	 * xdbg_xv_tx_print("LineRate: %lu, NChannels: %d\r\n",
 	 *			 LineRate, NChannels);
 	 */
@@ -3054,7 +3054,7 @@ void XV_Tx_HdmiTx_EnterStateTmdsConfig(XV_Tx *InstancePtr)
 #endif
 
 	if (InstancePtr->ConfigInfo.IsHdmi == FALSE) {
-		/* If downstream sink only suports DVI, then we must
+		/* If downstream sink only supports DVI, then we must
 		 * set the HDMI mode to DVI.
 		 */
 		XV_HdmiTxSS1_SetDviMode(InstancePtr->HdmiTxSs);
