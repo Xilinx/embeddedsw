@@ -63,7 +63,7 @@ s - Color space
 p - Pass-through
        => Passes the sink input to source output.
 l - GT PLL layout
-       => Select GT tranceiver PLL layout.
+       => Select GT transceiver PLL layout.
 z - GT & HDMI TX/RX log
        => Shows log information for GT & HDMI TX/RX.
 e - Edid

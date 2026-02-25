@@ -2821,7 +2821,7 @@ static int mpModExp_windowed(u32 yout[], const u32 g[],
 					if (ISODD(lkabuf))
 						break;
 				}
-				/* Set next multipler to use */
+				/* Set next multiplier to use */
 				/* idx = (value(buf) - 1) / 2 */
 				idxmult = lkabuf >> 1;
 

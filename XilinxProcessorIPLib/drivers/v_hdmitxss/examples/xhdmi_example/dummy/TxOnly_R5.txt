@@ -59,7 +59,7 @@ d - Color depth
 s - Color space
        => Change the color space of the colorbar.
 l - GT PLL layout
-       => Select GT tranceiver PLL layout.
+       => Select GT transceiver PLL layout.
 z - GT & HDMI TX/RX log
        => Shows log information for GT & HDMI TX/RX.
 e - Edid

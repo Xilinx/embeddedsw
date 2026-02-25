@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -81,7 +81,7 @@
 *                             or HDMI sink based on EDID-HDMI VSDB.
 *                       Fixed system flow to avoid RX Buffer Overflow during
 *                              transition.
-*                       Code Clean-Up on comments and 80 Characted per line.
+*                       Code Clean-Up on comments and 80 Character per line.
 *                       Improve audio configuration during Pass-through mode.
 *                       Disable HDMI RX Video Stream when EnableColorBar API
 *                              is called.
@@ -1145,7 +1145,7 @@ void TxConnectCallback(void *CallbackRef) {
 		TxCableConnect = (TRUE);
 
 		/* Set Flag when the cable is connected
-		 * this call back take in to account two scneario
+		 * this call back take in to account two scenario
 		 * cable connect and cable disconnect
 		 * Stable RX stream is available
 		 */
@@ -1388,7 +1388,7 @@ void RxConnectCallback(void *CallbackRef) {
 
 #if(LOOPBACK_MODE_EN != 1)
 		/* Check for Pass-through:
-		 * Doesnt require to restart colorbar
+		 * Does not require to restart colorbar
 		 * if the system is in colorbar mode
 		 */
 		if (IsPassThrough) {
@@ -1813,7 +1813,7 @@ void RxStreamDownCallback(void *CallbackRef) {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	ResetAuxFifo();
 	/* Check for Pass-through
-	* Doesnt require to restart colorbar
+	* Does not require to restart colorbar
 	* if the system is in colorbar mode
 	*/
 	if (IsPassThrough) {

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,8 +56,8 @@
 * @param	KeySize is the size of the hash key.
 * @param	HashedData is the output of this function.
 *
-* @return	- XST_SUCCESS if no errors occured
-*			- XST_FAILURE if the datasize execeeds the size of the local buffer.
+* @return	- XST_SUCCESS if no errors occurred
+*			- XST_FAILURE if the datasize exceeds the size of the local buffer.
 *
 * @note		None.
 *

@@ -26,7 +26,7 @@ For details, see xhdmi_example.c and xhdcp.c.
 * This application implements the HDCP Professional, Revision 2.2
   specification.
 * The application implements the HDCP Professional Repeater built on a
-  HDCP Repeater. In this implmentation, by default, HDMI TX is to transmit
+  HDCP Repeater. In this implementation, by default, HDMI TX is to transmit
   HDMI stream received from the SOURCE by the RX to the SINK.
 * If Color Bar module is selected (via UART menu), a test pattern generator IP
   will generate video stream according to user selection (via UART), then HDMI

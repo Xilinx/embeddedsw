@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -330,7 +331,7 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /*
-    The stream-up even pushes an authenticaiton request, but
+    The stream-up even pushes an authentication request, but
     some sinks are not immediately HDCP capable; therefore,
     we must periodically attempt to authenticate. We delay the
     authentication using a interval count to avoid stalling
@@ -1243,7 +1244,7 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
         continue;
       }
 
-      /* Increment downstream inferface connected count */
+      /* Increment downstream interface connected count */
       DownstreamCnt++;
 
       /* Check if downstream interface has topology information available.
@@ -1456,7 +1457,7 @@ static void XHdcp_EnforceBlank(XHdcp_Repeater *InstancePtr)
         switch (Status) {
 
           /* HDCP 2.2
-             Allow content under the following conditons:
+             Allow content under the following conditions:
              - Stream type is 0
              - Stream type is 1, and no HDCP 1.x devices are downstream,
                and no HDCP2 legacy devices are downstream. */
