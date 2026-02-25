@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -392,7 +393,7 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /*
-    The stream-up even pushes an authenticaiton request, but
+    The stream-up even pushes an authentication request, but
     some sinks are not immediately HDCP capable; therefore,
     we must periodically attempt to authenticate. We delay the
     authentication using a interval count to avoid stalling
@@ -1560,7 +1561,7 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
            continue;
         }
 
-        /* Increment downstream inferface connected count */
+        /* Increment downstream interface connected count */
         DownstreamCnt++;
 
         /* Check if downstream interface has topology information available.
@@ -1787,7 +1788,7 @@ static void XHdcp_EnforceBlank(XHdcp_Repeater *InstancePtr)
         switch (Status) {
 
           /* HDCP 2.2
-             Allow content under the following conditons:
+             Allow content under the following conditions:
              - Stream type is 0
              - Stream type is 1, and no HDCP 1.x devices are downstream,
                and no HDCP2 legacy devices are downstream. */
@@ -1899,7 +1900,7 @@ static int XHdcpPro_VerifyTimestamp(XHdcp_Repeater *InstancePtr)
 	/* Get latest date */
 	XHdcpPro_Get_MostRecentDateOfPub(InstancePtr, &m_r_d);
 
-	/* Check if the Timestamp year preceeds the most recent timestamp
+	/* Check if the Timestamp year precedes the most recent timestamp
 	 * and the system time and date. */
 	if (InstancePtr->HdcpProTimestamp.DateTime.Year < m_r_d.Year
 #if ENABLE_SYS_TIME
@@ -1911,7 +1912,7 @@ static int XHdcpPro_VerifyTimestamp(XHdcp_Repeater *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* Check if the Timestamp month preceeds the most recent timestamp
+	/* Check if the Timestamp month precedes the most recent timestamp
 	 * and the system date month. */
 	if ((InstancePtr->HdcpProTimestamp.DateTime.Month < m_r_d.Month ||
 	     (InstancePtr->HdcpProTimestamp.DateTime.Month == m_r_d.Month &&

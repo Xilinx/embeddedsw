@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +17,7 @@
 	       for HDMI 1.4 data rates
 	v1.2 - Added Reset to I2C controller before issuing new transaction
 	v1.3 - Changed printf usage to xil_printf
-	v1.4 - Update vswing setting to recommened values to pass compliance
+	v1.4 - Update vswing setting to recommended values to pass compliance
 	v1.5 - Update the register setting sequence to write 0x0A the last
            to set APPLY_RXTX_CHANGES
 */
