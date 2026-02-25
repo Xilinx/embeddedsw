@@ -26,6 +26,7 @@
 #include "xv_hdmitxss1.h"
 #include "xv_hdmitxss1_coreinit.h"
 #include "xvidc_edid_ext.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 /* Pixel definition in 8 bit resolution in YUV color space*/
@@ -69,11 +70,7 @@ typedef struct
 }XV_HdmiTxSs1_SubCores;
 
 /**************************** Local Global ***********************************/
-#ifndef SDT
 XV_HdmiTxSs1_SubCores XV_HdmiTxSs1_SubCoreRepo[XPAR_XV_HDMITXSS1_NUM_INSTANCES];
-#else
-XV_HdmiTxSs1_SubCores XV_HdmiTxSs1_SubCoreRepo[];
-#endif
                 /**< Define Driver instance of all sub-core
                                     included in the design */
 
@@ -2689,9 +2686,11 @@ u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 			   XVidC_3DInfo *Info3D,
 			   u64 *TmdsClock)
 {
+#ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
 	u32 PixelRate = 0;
 	u64 LnkClock;
 	u64 VidClock;
+#endif
 	u8 Error = 0;
 	u32 Status;
 
