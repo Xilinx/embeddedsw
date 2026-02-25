@@ -460,6 +460,11 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	if ((Status != XASUFW_SUCCESS ) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_ENCRYPT_ERROR);
 	}
+	/**
+	 * This API is calling XRsa_PvtExp which sets ReturnStatus to non-zero success value.
+	 * ReturnStatus is getting validated above. As this is internal API call, ReturnStatus needs
+	 * to be validated and set back to default failure value.
+	 */
 	ReturnStatus = XASUFW_FAILURE;
 
 END:
@@ -1221,6 +1226,11 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECRYPT_ERROR);
 		goto END;
 	}
+	/**
+	 * This API is calling XRsa_PvtExp which sets ReturnStatus to non-zero success value.
+	 * ReturnStatus is getting validated above. As this is internal API call, ReturnStatus needs
+	 * to be validated and set back to default failure value.
+	 */
 	ReturnStatus = XASUFW_FAILURE;
 
 	/** Copy seed buffer and data block from decrypted output. */
