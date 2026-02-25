@@ -775,6 +775,9 @@ typedef struct {
 						and vertical sync polarity */
 	u64 VFreq;
 	u8 IsRxDp21;
+	u32 AudioMAud;			/**< M value of audio stream (DP 1.4) */
+	u32 AudioNAud;			/**< N value of audio stream (DP 1.4) */
+	u64 AudioAFreq;			/**< Audio Frequency in Hz (DP 2.1 - 128b/132b only) */
 } XDp_MainStreamAttributes;
 
 typedef XDp_MainStreamAttributes XDp_TxMainStreamAttributes;
