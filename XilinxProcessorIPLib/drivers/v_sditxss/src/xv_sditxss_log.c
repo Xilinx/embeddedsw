@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -36,7 +36,6 @@
 *
 * @param	InstancePtr is a pointer to the xv_sditxss core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -58,7 +57,6 @@ void XV_SdiTxSs_LogReset(XV_SdiTxSs *InstancePtr)
 * @param	Evt is the event type to log.
 * @param	Data is the associated data for the event.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -140,7 +138,6 @@ u16 XV_SdiTxSs_LogRead(XV_SdiTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *

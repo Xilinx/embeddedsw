@@ -107,7 +107,6 @@ void XV_SdiTxSS_SdiTxIntrHandler(XV_SdiTxSs *InstancePtr)
 *
 * @param  InstancePtr is a pointer to the Subsystem instance.
 *
-* @return None
 *
 ******************************************************************************/
 static void XV_SdiTxSs_ReportCoreInfo(XV_SdiTxSs *InstancePtr)
@@ -182,7 +181,6 @@ static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr)
 *
 * @param  SdiTxSsPtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
 *
 ******************************************************************************/
 #ifndef SDT
@@ -308,7 +306,7 @@ UINTPTR EffectiveAddr)
 * @param    CallbackRef is a user data item that will be passed to the
 *			callback function when it is invoked.
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -335,7 +333,7 @@ static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef)
 * @param    CallbackRef is a user data item that will be passed to the
 *			callback function when it is invoked.
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -359,7 +357,7 @@ static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef)
 *
 * @param    CallbackRef is a user data item that will be passed to the
 *			callback function when it is invoked.
-* @return None.
+*
 *
 * @note   None.
 *
@@ -384,7 +382,7 @@ static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef)
 * @param    CallbackRef is a user data item that will be passed to the
 *			callback function when it is invoked.
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -409,7 +407,7 @@ static void XV_SdiTxSs_CeAlignErrCallback(void *CallbackRef)
 * @param    CallbackRef is a user data item that will be passed to the
 *			callback function when it is invoked.
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -516,10 +514,7 @@ void *CallbackFunc, void *CallbackRef)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
-*
 ******************************************************************************/
 void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 {
@@ -551,10 +546,7 @@ void XV_SdiTxSs_Stop(XV_SdiTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
-*
 ******************************************************************************/
 void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr)
 {
@@ -570,10 +562,7 @@ void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
-*
 ******************************************************************************/
 void XV_SdiTxSs_ST352CStreamEnable(XV_SdiTxSs *InstancePtr)
 {
@@ -590,10 +579,9 @@ void XV_SdiTxSs_ST352CStreamEnable(XV_SdiTxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
 * @param	ColorFormat is a variable of type XVidC_ColorFormat.
 *
-* @return	None.
-*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+
 * @note		None.
-*
 ******************************************************************************/
 int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFormat)
 {
@@ -608,10 +596,9 @@ int XV_SdiTxSs_SetColorFormat(XV_SdiTxSs *InstancePtr, XVidC_ColorFormat ColorFo
 * @param	XVtcPtr is a pointer to the XVtc core instance.
 * @param	SdiTxPtr is a pointer to the XV_SdiTx core instance.
 *
-* @return None.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note   None.
-*
 ******************************************************************************/
 static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 {
@@ -826,7 +813,7 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 *
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -869,7 +856,7 @@ void XV_SdiTxSs_StreamStart(XV_SdiTxSs *InstancePtr)
 *
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -1007,7 +994,6 @@ XVidC_VideoStream *XV_SdiTxSs_GetVideoStream(XV_SdiTxSs *InstancePtr,
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 * @param  VidStream specifies the settings for the video stream
 *
-* @return XVidC_VideoStream pointer
 *
 * @note   None.
 *
@@ -1025,7 +1011,7 @@ XVidC_VideoStream VidStream)
 *
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -1045,7 +1031,7 @@ void XV_SdiTxSs_ReportDetectedError(XV_SdiTxSs *InstancePtr)
 *
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -1091,7 +1077,7 @@ void XV_SdiTxSs_ReportInfo(XV_SdiTxSs *InstancePtr)
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 * @param  VtcFlag specifies if VTC block is currently stable or not.
 *
-* @return None.
+*
 *
 * @note   A known issue on the VTC causes it to require a stable clock before
 *		  the registers may be access. VtcFlag is used to decide whether VTC
@@ -1136,7 +1122,7 @@ void XV_SdiTxSs_ReportDebugInfo(XV_SdiTxSs *InstancePtr, u32 VtcFlag)
 *
 * @param  InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -1173,7 +1159,7 @@ void XV_SdiTxSs_ReportStreamInfo(XV_SdiTxSs *InstancePtr)
 *
 * @param	InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return None.
+*
 *
 * @note   None.
 *
@@ -1214,9 +1200,6 @@ int XV_SdiTxSs_IsStreamUp(XV_SdiTxSs *InstancePtr)
 * @param	InstancePtr pointer to XV_SdiTxSs instance
 * @param	IntrMask Indicates Mask for enable interrupts.
 *
-* @return
-*		None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1242,9 +1225,6 @@ void XV_SdiTxSs_IntrEnable(XV_SdiTxSs *InstancePtr, u32 IntrMask)
 *
 * @param	InstancePtr pointer to XV_SdiTxSs instance
 * @param	IntrMask Indicates Mask for disabling interrupts.
-*
-* @return
-*		None.
 *
 * @note		None.
 *
@@ -1273,9 +1253,6 @@ void XV_SdiTxSs_IntrDisable(XV_SdiTxSs *InstancePtr, u32 IntrMask)
 * @param	InstancePtr pointer to XV_SdiTxSs instance
 * @param	Eotf is a variable of type XVidC_Eotf
 * @param	Colorimetry is a variable of type XVidC_ColorStd
-*
-* @return
-*		None.
 *
 * @note	None.
 *
@@ -1398,8 +1375,6 @@ u32 XV_SdiTxSs_SetStream(XV_SdiTxSs *InstancePtr, XV_SdiTx_StreamSelId SelId,
 *       - 7 = XV_SDITXSS_CORESELID_INSERTEDH
 * @param    Data specifies what data to be set for the selected parameter.
 *
-* @return
-*
 *
 * @note     None.
 *
@@ -1450,7 +1425,7 @@ void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_CoreSelId Se
 *
 * @param	InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return	None
+*
 *
 ******************************************************************************/
 void XV_SdiTxSs_SetYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)
@@ -1470,7 +1445,7 @@ void XV_SdiTxSs_SetYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)
 *
 * @param	InstancePtr pointer to XV_SdiTxSs instance
 *
-* @return	None
+*
 *
 ******************************************************************************/
 void XV_SdiTxSs_ClearYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)

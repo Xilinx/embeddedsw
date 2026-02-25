@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,12 +62,12 @@ extern "C" {
  * to decode the exact cause of interrupt and handle it accordingly.
  * @{
  */
-#define XV_SDITXSS_IER_GTTX_RSTDONE_MASK	XV_SDITX_IER_GTTX_RSTDONE_MASK
-#define XV_SDITXSS_IER_TX_CE_ALIGN_ERR_MASK	XV_SDITX_IER_TX_CE_ALIGN_ERR_MASK
-#define XV_SDITXSS_IER_AXI4S_VID_LOCK_MASK	XV_SDITX_IER_AXI4S_VID_LOCK_MASK
-#define XV_SDITXSS_IER_OVERFLOW_MASK		XV_SDITX_IER_OVERFLOW_MASK
-#define XV_SDITXSS_IER_UNDERFLOW_MASK		XV_SDITX_IER_UNDERFLOW_MASK
-#define XV_SDITXSS_IER_ALLINTR_MASK		XV_SDITX_IER_ALLINTR_MASK
+#define XV_SDITXSS_IER_GTTX_RSTDONE_MASK	XV_SDITX_IER_GTTX_RSTDONE_MASK	/**< GT TX reset done mask */
+#define XV_SDITXSS_IER_TX_CE_ALIGN_ERR_MASK	XV_SDITX_IER_TX_CE_ALIGN_ERR_MASK	/**< TX CE align error mask */
+#define XV_SDITXSS_IER_AXI4S_VID_LOCK_MASK	XV_SDITX_IER_AXI4S_VID_LOCK_MASK	/**< AXI4S video lock mask */
+#define XV_SDITXSS_IER_OVERFLOW_MASK		XV_SDITX_IER_OVERFLOW_MASK	/**< Overflow mask */
+#define XV_SDITXSS_IER_UNDERFLOW_MASK		XV_SDITX_IER_UNDERFLOW_MASK	/**< Underflow mask */
+#define XV_SDITXSS_IER_ALLINTR_MASK		XV_SDITX_IER_ALLINTR_MASK	/**< All interrupts mask */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -115,7 +115,7 @@ typedef enum {
     XV_SDITXSS_HANDLER_CEALIGN,			/**< Handler for CE align event */
     XV_SDITXSS_HANDLER_AXI4SVIDLOCK		/**< Handler for axi4s vid lock event */
 } XV_SdiTxSs_HandlerType;
-/*@}*/
+/** @} */
 
 /**
  * Sub-Core Configuration Table
@@ -200,6 +200,10 @@ typedef struct {
 /** @name SDITxSs Core Configurable Settings
 * @{
 */
+/**
+ * Enum for SDI TX core configurable settings selections.
+ * Defines various configuration options for ST352, CRC, synchronization, and ancillary data insertion.
+ */
 typedef enum {
 	XV_SDITXSS_CORESELID_INSERTCRC,
 	XV_SDITXSS_CORESELID_INSERTST352,
@@ -299,3 +303,4 @@ void XV_SdiTxSs_ClearYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr);
 #endif
 
 #endif /* End of protection macro */
+/** @} */
