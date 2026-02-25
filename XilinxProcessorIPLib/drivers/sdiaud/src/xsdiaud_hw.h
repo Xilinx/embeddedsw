@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -91,7 +91,7 @@ extern "C" {
 
 #define XSDIAUD_GUI_PARAM_REG_OFFSET 0XFC
 	//!< SDI Audio GUI parameters register offset
-/* @} */
+/** @} */
 
 /**
  * @name Core Configuration register masks and shifts of XSdiAud device
@@ -355,7 +355,7 @@ extern "C" {
 	//!< SDI Audio GUI Channel status extract parameter shift
 #define XSDIAUD_GUI_CHSTAT_EXTR_MASK (1 << XSDIAUD_GUI_CHSTAT_EXTR_SHIFT)
 	//!< SDI Audio GUI channel status extract parameter mask
-
+/** @} */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (In-line Functions) Definitions *********************/
@@ -366,50 +366,40 @@ extern "C" {
 #define XSdiAud_In32   Xil_In32        //!< Input Operations
 #define XSdiAud_Out32  Xil_Out32       //!< Output Operations
 
-/*****************************************************************************
+/**
+ * @brief Reads a 32-bit value from a register in the SDI Audio hardware.
  *
- * This macro reads a value from a XSdiAud register.
- * A 32 bit read is performed.
- * If the component is implemented in a smaller width, only the least
- * significant data is read from the register. The most significant data
- * will be read as 0.
+ * @param BaseAddress The base address of the SDI Audio device.
+ * @param RegOffset The offset of the register to read from the base address.
  *
- * @param  BaseAddress is the base address of the XSdiAud core instance.
- * @param  RegOffset is the register offset of the register (defined at
- *         the top of this file).
+ * @return The 32-bit value read from the specified register.
  *
- * @return The 32-bit value of the register.
- *
- * @note   C-style signature:
- *         u32 XSdiAud_ReadReg(u32 BaseAddress, u32 RegOffset)
- *
- *****************************************************************************/
+ * @note This is a macro that directly accesses hardware registers.
+ *       Ensure that BaseAddress is valid and RegOffset is within
+ *       the valid register address range.
+ */
+
 #define XSdiAud_ReadReg(BaseAddress, RegOffset) \
 	XSdiAud_In32((BaseAddress) + ((u32)RegOffset))
 
-/*****************************************************************************
- *****************************************************************************
+
+/*****************************************************************************/
+/**
+ * This function writes a 32-bit value to a register in the SDI Audio hardware.
  *
+ * @param BaseAddress The base address of the SDI Audio device.
+ * @param RegOffset The offset of the register to write to from the base address.
+ * @param Data The 32-bit value to write to the specified register.
  *
- * This macro writes a value to a XSdiAud register.
- * A 32 bit write is performed.
- * If the component is implemented in a smaller width, only the least
- * significant data is written.
- *
- * @param  BaseAddress is the base address of the XSdiAud core instance.
- * @param  RegOffset is the register offset of the register (defined at
- *         the top of this file) to be written.
- * @param  Data is the 32-bit value to write into the register.
- *
- * @return None.
- *
- * @note   C-style signature:
- *         void XSdiAud_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
- *
- *****************************************************************************/
+ * @note This is a macro that directly accesses hardware registers.
+ *       Ensure that BaseAddress is valid and RegOffset is within
+ *       the valid register address range.
+ *       This macro does not perform any error checking on the input parameters.
+ *       Use with caution to avoid unintended side effects on the hardware.
+ */
 #define XSdiAud_WriteReg(BaseAddress, RegOffset, Data) \
 	XSdiAud_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
-/*@}*/
+/** @} */
 
 /************************** Function Prototypes ******************************/
 

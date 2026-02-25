@@ -116,8 +116,6 @@ int XSdiAud_CfgInitialize(XSdiAud *InstancePtr,
  * @param  Enable specifies TRUE/FALSE value to either enable or disable
  *         the XSdiAud.
  *
- * @return None.
- *
  ******************************************************************************/
 
 void XSdiAud_Enable(XSdiAud *InstancePtr, u8 Enable)
@@ -145,8 +143,6 @@ void XSdiAud_Enable(XSdiAud *InstancePtr, u8 Enable)
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  * @param  ChStatBuf is a pointer to a buffer.
- *
- * @return None.
  *
  ******************************************************************************/
 void XSdiAud_GetChStat(XSdiAud *InstancePtr, u8 *ChStatBuf)
@@ -215,8 +211,6 @@ u32 XSdiAud_GetIntStat(XSdiAud *InstancePtr)
  *         001 - 44.1 KHz,
  *         010 - 32 KHz
  *
- * @return none
- *
  ******************************************************************************/
 void XSdiAud_Emb_SetSmpRate(XSdiAud *InstancePtr, XSdiAud_SampRate XSdiAud_SRate)
 {
@@ -241,8 +235,7 @@ void XSdiAud_Emb_SetSmpRate(XSdiAud *InstancePtr, XSdiAud_SampRate XSdiAud_SRate
  *         it can be 0 or 1.
  *         0 - 20 Bit
  *         1 - 24 Bit
- *
- * @return none
+
  *
  ******************************************************************************/
 void XSdiAud_Emb_SetSmpSize(XSdiAud *InstancePtr, XSdiAud_SampSize XSdiAud_SSize)
@@ -270,8 +263,6 @@ void XSdiAud_Emb_SetSmpSize(XSdiAud *InstancePtr, XSdiAud_SampSize XSdiAud_SSize
  *         0 - Synchronous audio
  *         1 - Asynchronous audio
  *
- * @return none
- *
  ******************************************************************************/
 void XSdiAud_Emb_SetAsx(XSdiAud *InstancePtr, XSdiAud_Asx
 			XSdiAud_Async_data_flag)
@@ -297,8 +288,6 @@ void XSdiAud_Emb_SetAsx(XSdiAud *InstancePtr, XSdiAud_Asx
  * @param  XSdiAud_ACP is the async data flag, it is enum
  *         XSdiAud_AesChPair, it can be any value between 0 to 16.
  *
- * @return none
- *
  ******************************************************************************/
 void XSdiAud_SetAesChPair(XSdiAud *InstancePtr,
 				XSdiAud_AesChPair XSdiAud_ACP)
@@ -323,8 +312,6 @@ void XSdiAud_SetAesChPair(XSdiAud *InstancePtr,
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  * @param  XSdiAud_VP is the struct containing the video family, rate and
  *         video scan information.
- *
- * @return none
  *
  ******************************************************************************/
 void XSdiAud_Emb_SetVidProps(XSdiAud *InstancePtr,
@@ -368,8 +355,6 @@ void XSdiAud_Emb_SetVidProps(XSdiAud *InstancePtr,
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  * @param  XSdiAud_En can be 0 or 1, 0 is to disable and 1 is to enable
  *
- * @return none
- *
  ******************************************************************************/
 void XSdiAud_Emb_EnExtrnLine(XSdiAud *InstancePtr, u8 XSdiAud_En)
 {
@@ -391,8 +376,6 @@ void XSdiAud_Emb_EnExtrnLine(XSdiAud *InstancePtr, u8 XSdiAud_En)
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  * @param  XSdiAud_SetClkP enables the use of clock phase data, 0 is to enable
  *         1 is to disable
- *
- * @return none
  *
  ******************************************************************************/
 void XSdiAud_Ext_DisableClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)
@@ -417,7 +400,6 @@ void XSdiAud_Ext_DisableClkPhase(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)
  * @param  GrpSt is a pointer tp no. of active groups and also which groups are
  * 	   active.
  *
- * @return None.
  *
  ******************************************************************************/
 void XSdiAud_GetActGrpStatus(XSdiAud *InstancePtr, XSdiAud_ActGrpSt *GrpSt)
@@ -445,8 +427,6 @@ void XSdiAud_GetActGrpStatus(XSdiAud *InstancePtr, XSdiAud_ActGrpSt *GrpSt)
  * @param  XSdiAudSetChMask is the 32 bit mask used to set the specific
  *         channels.
  *
- * @return none
- *
  ******************************************************************************/
 void XSdiAud_SetCh(XSdiAud *InstancePtr, u32 XSdiAudSetChMask)
 {
@@ -463,8 +443,6 @@ void XSdiAud_SetCh(XSdiAud *InstancePtr, u32 XSdiAudSetChMask)
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
  * @param  XSdiAudMuteChMask is a 32 bit mask used to mute specific channels.
- *
- * @return none
  *
  ******************************************************************************/
 void XSdiAud_MuteCh(XSdiAud *InstancePtr, u32 XSdiAudMuteChMask)
@@ -509,8 +487,6 @@ u8 XSdiAud_Ext_GetFIFOOvFlwStatus(XSdiAud *InstancePtr)
 * @param  ActChSt is the pointer to no. of active channels and the channels
 * 	  active in each group.
 *
-* @return None.
-*
 ******************************************************************************/
 void XSdiAud_Ext_GetAcChStatus(XSdiAud *InstancePtr, XSdiAud_ActChSt *ActChSt)
 {
@@ -536,7 +512,6 @@ void XSdiAud_Ext_GetAcChStatus(XSdiAud *InstancePtr, XSdiAud_ActChSt *ActChSt)
 * @param  InstancePtr is a pointer to the XSdiAud instance.
 * @param  SRSt is a pointer to the sample rate information of each channel pair.
 *
-* @return None.
 *
 ******************************************************************************/
 void XSdiAud_Ext_GetSRStatus(XSdiAud *InstancePtr, XSdiAud_SRSt *SRSt)
@@ -565,8 +540,6 @@ void XSdiAud_Ext_GetSRStatus(XSdiAud *InstancePtr, XSdiAud_SRSt *SRSt)
 * @param  InstancePtr is a pointer to the XSdiAud instance.
 * @param  AsxSt is a pointer to the Asx status information of each channel pair.
 *
-* @return None.
-*
 ******************************************************************************/
 void XSdiAud_Ext_GetAsxStatus(XSdiAud *InstancePtr, XSdiAud_AsxSt *AsxSt)
 {
@@ -589,8 +562,6 @@ void XSdiAud_Ext_GetAsxStatus(XSdiAud *InstancePtr, XSdiAud_AsxSt *AsxSt)
  * configuration registers.
  *
  * @param  InstancePtr is a pointer to the XSdiAud instance.
- *
- * @return None.
  *
  ******************************************************************************/
 void XSdiAud_ConfigReset(XSdiAud *InstancePtr)
@@ -615,8 +586,6 @@ void XSdiAud_ConfigReset(XSdiAud *InstancePtr)
  * @param  RstCoreEnable is to enable or disable. When set to 1(i.e.enable),
  *         it resets the embedded core. When set to 0, it clears the reset
  *         (i.e.disable).
- *
- * @return None.
  *
  ******************************************************************************/
 void XSdiAud_CoreReset(XSdiAud *InstancePtr, u8 RstCoreEnable)

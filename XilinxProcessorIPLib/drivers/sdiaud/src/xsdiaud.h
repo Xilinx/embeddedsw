@@ -79,7 +79,7 @@ typedef enum {
 	//!< Checksum error detect handler
 	XSDIAUD_NUM_HANDLERS //!< Number of handler types
 	} XSdiAud_HandlerType;
-
+ /** @} */
 /** Group numbers
  * @{
  */
@@ -92,7 +92,7 @@ typedef enum {
 	XSDIAUD_GROUP3,      //!< Group 3
 	XSDIAUD_GROUP4       //!< Group 4
 	} XSdiAud_GrpNum;
-
+/** @} */
 /** Sampling Rates
  * @{
  */
@@ -104,7 +104,7 @@ typedef enum {
 	XSDIAUD_SMPLRATE_44, //!< 001 - 44.1 KHz
 	XSDIAUD_SMPLRATE_32  //!< 010 - 32 KHz
 	} XSdiAud_SampRate;
-
+/** @} */
 /** Sample Size
  * @{
  */
@@ -115,7 +115,7 @@ typedef enum {
 	XSDIAUD_SAMPSIZE0,  //!< 0 - 20 Bit Audio Sample
 	XSDIAUD_SAMPSIZE1   //!< 1 - 24 Bit Audio Sample
 	} XSdiAud_SampSize;
-
+/** @} */
 /** AES channel pair
  * @{
  */
@@ -140,7 +140,7 @@ typedef enum {
 	XSDIAUD_AES_CHANNEL_PAIR_15,
 	XSDIAUD_AES_CHANNEL_PAIR_16
 } XSdiAud_AesChPair;
-
+/** @} */
 /** Asynchronous data flag
  * @{
  */
@@ -152,7 +152,7 @@ typedef enum {
 	XSDIAUD_ASYNCHRONOUS_AUDIO
 } XSdiAud_Asx;
 
-/*@}**/
+/** @} */
 
 /** Channel number in any Group
  * @{
@@ -166,7 +166,7 @@ typedef enum {
 	XSDIAUD_GROUPX_CHANNEL3, //!< Channel 3 of Group 1/2/3/4
 	XSDIAUD_GROUPX_CHANNEL4 //!< Channel 4 of Group 1/2/3/4
 	} XSdiAud_GrpXChNum;
-
+/** @} */
 /** Video Rate
  * @{
  */
@@ -185,7 +185,7 @@ typedef enum {
 	XSDIAUD_VID_RATE_59_94_HZ,
 	XSDIAUD_VID_RATE_60_HZ,
 } XSdiAud_VidRate;
-
+/** @} */
 /** Video Scan
  * @{
  */
@@ -196,7 +196,7 @@ typedef enum {
 	XSDIAUD_VID_SCAN_INTERLACED = 0,
 	XSDIAUD_VID_SCAN_PROGRESSIVE,
 } XSdiAud_VidScan;
-
+/** @} */
 /** Video Family
  * @{
  */
@@ -210,7 +210,7 @@ typedef enum {
 	XSDIAUD_VID_FAMILY_720_486 = 8,
 	XSDIAUD_VID_FAMILY_720_576 = 9
 } XSdiAud_VidFam;
-
+/** @} */
 /** Number of Channels
  * @{
  */
@@ -236,7 +236,7 @@ typedef enum {
 	XSDIAUD_16_CHANNELS, //!< 16 channels
 	XSDIAUD_32_CHANNELS = 32//!< 32 channels
 	} XSdiAud_NumOfCh;
-
+/** @} */
 /** Channel Number
  * @{
  */
@@ -278,8 +278,10 @@ typedef enum {
 	XSDIAUD_CHANNEL32 //!< channel 32
 	} XSdiAud_ChNum;
 
+	/**  @brief Callback function pointer type for SDI audio events,
+	invoked with a user-defined reference parameter.*/
 typedef void (*XSdiAud_Callback)(void *CallbackRef);
-/*@}*/
+/** @} */
 /**
  * @brief This typedef contains configuration information for the XSdiAud.
  */
