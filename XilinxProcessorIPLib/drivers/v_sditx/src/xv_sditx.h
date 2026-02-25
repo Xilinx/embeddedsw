@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,13 +66,22 @@ typedef enum {
 /** @name SDI TX stream status
 * @{
 */
+
+/**
+* These constants specify different states of the SDI TX core
+* and are used to track the current operational state.
+*/
 typedef enum {
 	XV_SDITX_STATE_GTRESETDONE_WORKAROUND,	/* GTResetDone workaround */
 	XV_SDITX_STATE_GTRESETDONE_NORMAL	/* Stream up */
 } XV_SdiTx_State;
 
+/** @}  */
 /** @name SDI Stream Configurable Settings
 * @{
+*/
+/**
+* These constants specify stream configuration selector IDs.
 */
 typedef enum {
 	XV_SDITX_STREAMSELID_VMID,
@@ -84,9 +93,13 @@ typedef enum {
 	XV_SDITX_STREAMSELID_STREAMINTERLACE,
 	XV_SDITX_STREAMSELID_CHANNEL,
 } XV_SdiTx_StreamSelId;
+/** @}  */
 
 /** @name SDI Debug Settings
 * @{
+*/
+/**
+* These constants specify debug information selector IDs.
 */
 typedef enum {
 	XV_SDITX_DBGSELID_STRMINFO = 0,
@@ -95,9 +108,13 @@ typedef enum {
 	XV_SDITX_DBGSELID_SDIDBGINFO,
 	XV_SDITX_DBGSELID_REGDUMP
 } XV_SdiTx_DebugSelId;
+/** @}  */
 
 /** @name SDI Core Configurable Settings
 * @{
+*/
+/**
+* These constants specify core configuration selector IDs.
 */
 typedef enum {
 	XV_SDITX_CORESELID_INSERTCRC,
@@ -109,9 +126,13 @@ typedef enum {
 	XV_SDITX_CORESELID_INSERTLN,
 	XV_SDITX_CORESELID_INSERTEDH,
 } XV_SdiTx_CoreSelId;
+/** @}  */
 
 /** @name SDI Mux Pattern
 * @{
+*/
+/**
+* These constants specify supported SDI mux patterns.
 */
 typedef enum {
 	XV_SDITX_MUX_SD_HD_3GA = 0,
@@ -120,24 +141,34 @@ typedef enum {
 	XV_SDITX_MUX_4STREAM_6G = 3,
 	XV_SDITX_MUX_16STREAM_12G = 4
 } XV_SdiTx_MuxPattern;
+/** @}  */
 
 /** @name Default Payload Id Line 1 Number
 * @{
+*/
+/**
+* These constants specify default line 1 payload ID locations.
 */
 typedef enum {
 	XV_SDITX_PAYLOADLN1_HD_3G_6G_12G = 10,
 	XV_SDITX_PAYLOADLN1_SDPAL = 9,
 	XV_SDITX_PAYLOADLN1_SDNTSC = 13
 } XV_SdiTx_PayloadLineNum1;
+/** @}  */
 
 /** @name Default Payload Id Line 2 Number
 * @{
+*/
+/**
+* These constants specify default line 2 payload ID locations.
 */
 typedef enum {
 	XV_SDITX_PAYLOADLN2_HD_3G_6G_12G = 572,
 	XV_SDITX_PAYLOADLN2_SDPAL = 322,
 	XV_SDITX_PAYLOADLN2_SDNTSC = 276
 } XV_SdiTx_PayloadLineNum2;
+/** @}  */
+
 
 /**
 * This typedef contains configuration information for the SDI TX core.
@@ -229,17 +260,29 @@ typedef struct {
   XV_SdiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
   (XV_SDITX_VER_OFFSET))
 
-/* Clear VideoLock Interrupt */
+/**
+* This macro clears the video lock interrupt.
+*
+* @param  InstancePtr is a pointer to the XV_SdiTX core instance.
+*
+*
+*/
 #define XV_SdiTx_VidLckIntrClr(InstancePtr) \
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_SDITX_INT_CLR_OFFSET), \
 		(XV_SDITX_INT_STS_VID_LOCK_MASK))
 
-/* Clear VideoUnlock Interrupt */
+/**
+* This macro clears the video unlock interrupt.
+*
+* @param  InstancePtr is a pointer to the XV_SdiTX core instance.
+*
+*/
 #define XV_SdiTx_VidUnlckIntrClr(InstancePtr) \
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_SDITX_INT_CLR_OFFSET), \
 		(XV_SDITX_INT_STS_VID_UNLOCK_MASK))
 
 /************************** Function Prototypes ******************************/
+/* @{ */
 
 /* Initialization function in xv_sditx_sinit.c */
 #ifndef SDT
@@ -261,6 +304,12 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr,
 	XSdiVid_BitRate IsFractional,
 	XV_SdiTx_MuxPattern MuxPattern);
 int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr);
+/**
+ * @brief Sets the video format for the SDI transmitter.
+ * @param InstancePtr Pointer to the XV_SdiTx instance.
+ * @param ColorFormat The color format to set.
+ * @return Status code indicating success or failure.
+ */
 int XV_SdiTx_SetVidFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat);
 void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr);
@@ -322,3 +371,4 @@ void XV_SdiTx_ConfigureDynamicBpc(XV_SdiTx *InstancePtr);
 #endif
 
 #endif /* End of protection macro */
+/** @} */

@@ -192,7 +192,6 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None
 *
 *
 * @note     This is required after a reset or init.
@@ -213,7 +212,6 @@ void XV_SdiTx_Reset(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None
 *
 *
 * @note     This is required after a reset or init.
@@ -360,8 +358,6 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 *       - 6 = XV_SDITX_CORESELID_INSERTLN
 *       - 7 = XV_SDITX_CORESELID_INSERTEDH
 * @param    Data specifies what data to be set for the selected parameter.
-*
-* @return
 *
 *
 * @note     None.
@@ -896,7 +892,6 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 *	inserted.
 * @param    Payload specifies the data to be sent out as ST352 payload id.
 *
-* @return   None.
 *
 * @note     None.
 *
@@ -922,8 +917,6 @@ void XV_SdiTx_SetPayloadId(XV_SdiTx *InstancePtr, u8 DataStream, u32 Payload)
 *			packets are to be inserted
 * @param    Field2En specifies whether the TX core will send out ST352 packets
 *			in field 2 line number or not.
-*
-* @return   None.
 *
 * @note     None.
 *
@@ -957,8 +950,6 @@ void XV_SdiTx_SetPayloadLineNum(XV_SdiTx *InstancePtr,
 * This function starts the TX SDI stream
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
-*
-* @return	None.
 *
 * @note     None.
 *
@@ -1087,8 +1078,6 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 * @param    MuxPattern specifies the data stream interleaving pattern to be
 *			used.
 *
-* @return   None.
-*
 * @note     None.
 *
 ******************************************************************************/
@@ -1184,8 +1173,6 @@ int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return       None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1211,8 +1198,6 @@ void XV_SdiTx_ST352CSwitch3GA(XV_SdiTx *InstancePtr)
 * This function enables the insertion of ST352 in C stream of the SDI TX Ss core.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
-*
-* @return       None.
 *
 * @note		None.
 *
@@ -1296,8 +1281,6 @@ int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1321,7 +1304,6 @@ void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -1350,7 +1332,6 @@ void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None
 *
 * @note     None.
 *
@@ -1374,7 +1355,6 @@ void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None.
 *
 * @note     None.
 *
@@ -1399,8 +1379,6 @@ void XV_SdiTx_VidBridgeDisable(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None.
-*
 * @note     None.
 *
 ******************************************************************************/
@@ -1423,7 +1401,6 @@ void XV_SdiTx_Axi4sBridgeVtcEnable(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None.
 *
 * @note     None.
 *
@@ -1447,8 +1424,6 @@ void XV_SdiTx_Axi4sBridgeVtcDisable(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 * @param    Mode specifies the SDI bridge mode.
-*
-* @return   None.
 *
 * @note     None.
 *
@@ -1484,7 +1459,6 @@ void XV_SdiTx_SetVidBridgeMode(XV_SdiTx *InstancePtr, XSdiVid_TransMode Mode)
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 * @param    SelId specifies which debug information to be printed out
 *
-* @return   None.
 *
 * @note     None.
 *
@@ -1628,7 +1602,6 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 *       layer when setting the callback functions, and passed back to
 *       the upper layer when the callback is invoked.
 *
-* @return   None.
 *
 * @note     None.
 *
@@ -1646,7 +1619,6 @@ static void StubCallback(void *CallbackRef)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return	None.
 *
 ******************************************************************************/
 void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
@@ -1671,7 +1643,6 @@ void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return	None.
 *
 ******************************************************************************/
 void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
@@ -1695,9 +1666,9 @@ void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
 * This function sets the video bit depth of SDI-TX and configures dynamic BPC support
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+* @param	bitdepth is the video bit depth to be set for SDI-TX.
 *
-* @return	None.
-*
+* @note		None.
 ******************************************************************************/
 void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr, XVidC_ColorDepth bitdepth)
 {
@@ -1720,9 +1691,7 @@ void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr, XVidC_ColorDepth bitdepth)
 * information from the stream configuration.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
-* @param	StreamId is the stream ID for which to configure dynamic BPC.
 *
-* @return	None.
 *
 * @note     This function implements dynamic BPC similar to SDI RX implementation.
 *

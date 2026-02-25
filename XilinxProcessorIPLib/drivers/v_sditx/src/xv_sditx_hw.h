@@ -213,7 +213,13 @@ extern "C" {
 /** @name Register access macro definition
 * @{
 */
+/**
+* This macro reads a 32-bit value from the specified address.
+*/
 #define XV_SdiTx_In32  Xil_In32    /**< Input Operations */
+/**
+* This macro writes a 32-bit value to the specified address.
+*/
 #define XV_SdiTx_Out32 Xil_Out32   /**< Output Operations */
 
 /*****************************************************************************/
@@ -257,7 +263,7 @@ extern "C" {
 ******************************************************************************/
 #define XV_SdiTx_WriteReg(BaseAddress, RegOffset, Data) \
     XV_SdiTx_Out32((BaseAddress) + (RegOffset), (u32)(Data))
-/*@}*/
+
 
 /************************** Function Prototypes ******************************/
 
@@ -270,3 +276,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @}*/

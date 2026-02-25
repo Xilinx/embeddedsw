@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,7 +106,6 @@ u32 XV_SdiTx_GetIntrStatus(XV_SdiTx *InstancePtr)
 * @param	Mask is Interrupt Mask with bits set for corresponding interrupt
 *		to be cleared in the Interrupt Status register
 *
-* @return	None
 *
 * @note		None
 *
@@ -142,8 +141,6 @@ void XV_SdiTx_InterruptClear(XV_SdiTx *InstancePtr, u32 Mask)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx instance that just
 *       interrupted.
-*
-* @return   None.
 *
 * @note     None.
 *
@@ -323,7 +320,6 @@ void *CallbackFunc, void *CallbackRef)
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 * @param	Mask to be enabled.
 *
-* @return	None.
 *
 * @note         None.
 *
@@ -350,8 +346,6 @@ void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask)
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 * @param	Mask to be disabled.
 *
-* @return	None.
-*
 * @note         None.
 *
 ******************************************************************************/
@@ -374,7 +368,6 @@ void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None.
 *
 * @note     None.
 *
@@ -394,8 +387,6 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None.
-*
 * @note     None.
 *
 ******************************************************************************/
@@ -413,8 +404,6 @@ static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 * This function is the interrupt handler for the SDI Tx under flow Event.
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
-*
-* @return   None.
 *
 * @note     None.
 *
@@ -435,8 +424,6 @@ static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
 *
-* @return   None.
-*
 * @note     None.
 *
 ******************************************************************************/
@@ -454,8 +441,6 @@ static void SdiTx_CeAlignErrIntrHandler(XV_SdiTx *InstancePtr)
 * This function is the interrupt handler for the SDI Axi4s bridge lock Event.
 *
 * @param    InstancePtr is a pointer to the XV_SdiTx core instance.
-*
-* @return   None.
 *
 * @note     None.
 *
