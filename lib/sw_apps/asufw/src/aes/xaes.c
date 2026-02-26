@@ -341,6 +341,8 @@ static inline void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
 static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
+static u32 XAes_BuildModeConfig(u32 EngineMode, u32 OperationType);
+static s32 XAes_ValidateModeConfig(const XAes *InstancePtr);
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen);
 static s32 XAes_GHashCal(const XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
 static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr);
@@ -680,13 +682,21 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 	/** Release reset of AES engine. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
+	/** Configure AES engine to encrypt/decrypt operation. */
+	XAes_ConfigAesOperation(InstancePtr);
+
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
 
 	/** Configure AES DPA counter measures. */
 	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
-	/** Configure AES engine to encrypt/decrypt operation. */
-	XAes_ConfigAesOperation(InstancePtr);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Validate mode configuration (Engine mode and Operation type). */
+	Status = XAes_ValidateModeConfig(InstancePtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_MODE_CONFIG_READBACK_ERROR;
+		goto END;
+	}
 
 	/** Perform dummy encryption only for CBC and ECB mode during decryption operation. */
 	if (((InstancePtr->EngineMode == XASU_AES_CBC_MODE) ||
@@ -695,6 +705,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 		/** Set the AES state to valid state before dummy encryption. */
 		InstancePtr->AesState = XAES_STARTED;
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_DummyEncryption(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED;
@@ -1650,11 +1661,31 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	/** Load key to AES engine. */
 	XAes_LoadKey(InstancePtr, AesContext.KeyObject.KeySrc, AesContext.KeyObject.KeySize);
 
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
-
 	/** Restore mode configuration */
 	XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET,
 		AesContext.ModeConfig);
+
+	/** Verify the key source and size by reading them back from the AES key vault registers. */
+	Status = XAes_ValidateKeyConfig(InstancePtr, AesContext.KeyObject.KeySrc,
+		AesContext.KeyObject.KeySize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_KEY_CONFIG_READBACK_ERROR;
+		goto END;
+	}
+
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
+
+	/** Restore engine mode and operation type from saved mode configuration. */
+	InstancePtr->EngineMode = (u8)(AesContext.ModeConfig & XAES_MODE_CONFIG_ENGINE_MODE_MASK);
+	InstancePtr->OperationType = (u8)(AesContext.ModeConfig & XAES_MODE_CONFIG_ENC_DEC_MASK);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Validate restored mode configuration(Engine mode and Operation type). */
+	Status = XAes_ValidateModeConfig(InstancePtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_MODE_CONFIG_READBACK_ERROR;
+		goto END;
+	}
 
 	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
 		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
@@ -1893,6 +1924,61 @@ static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySi
 	if ((XAsufw_ReadReg(InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET) != KeySize) ||
 		(XAsufw_ReadReg(InstancePtr->KeyBaseAddress + XAES_KEY_SEL_OFFSET) !=
 			AesKeyLookupTbl[KeySrc].KeySrcSelVal)) {
+		XFIH_GOTO(END);
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function builds AES_MODE_CONFIG register value based on the AES engine mode and
+ * 		operation type.
+ *
+ * @param	EngineMode	AES engine mode.
+ * @param	OperationType	Encrypt or decrypt operation.
+ *
+ * @return
+ * 		Encoded AES_MODE_CONFIG register value.
+ *
+ *************************************************************************************************/
+static u32 XAes_BuildModeConfig(u32 EngineMode, u32 OperationType)
+{
+	u32 ModeConfigReg = (EngineMode & XAES_MODE_CONFIG_ENGINE_MODE_MASK);
+
+	if (OperationType == XASU_AES_ENCRYPT_OPERATION) {
+		ModeConfigReg |= XAES_MODE_CONFIG_ENC_DEC_MASK;
+	}
+
+	return ModeConfigReg;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the AES_MODE_CONFIG register configuration by reading back
+ * 		the AES_MODE_CONFIG register and compares it against the expected value derived
+ * 		from the instance configuration.
+ *
+ * @param	InstancePtr	Pointer to AES instance.
+ *
+ * @return
+ * 		- XASUFW_SUCCESS, if configuration matches.
+ * 		- XASUFW_AES_MODE_CONFIG_READBACK_ERROR, if mismatch detected.
+ *
+ *************************************************************************************************/
+static s32 XAes_ValidateModeConfig(const XAes *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_AES_MODE_CONFIG_READBACK_ERROR);
+	u32 ExpModeConfigReg;
+
+	ExpModeConfigReg = XAes_BuildModeConfig(InstancePtr->EngineMode,
+		InstancePtr->OperationType);
+
+	if (XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET) !=
+			ExpModeConfigReg) {
 		XFIH_GOTO(END);
 	}
 
