@@ -479,38 +479,30 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 {
 	s32 Status = XASU_INVALID_ARGUMENT;
 
-	if (AesClientParamPtr->AadLen != 0U) {
+	Status = XAsu_IsModeValidForAad(AesClientParamPtr->EngineMode);
+	if (Status != XST_SUCCESS) {
+		/** For standard modes, AAD length and address must be zero. */
+		if ((AesClientParamPtr->AadLen == 0U) && (AesClientParamPtr->AadAddr == 0U)) {
+			Status = XST_SUCCESS;
+		}
+	}
+	else {
 		/**
-		 * If AAD length is non-zero, AAD address must be valid and AAD length should be
-		 * block size aligned within limit.
+		 * For MAC modes, AAD length and address must be present and length must be within
+		 * maximum DMA limit.
+		 * Allow partial AAD only for the final transfer. Intermediate transfers must be
+		 * block size aligned.
 		 */
-		if ((AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
-				(AesClientParamPtr->AadAddr == 0U)) {
-			goto END;
-		}
-
-		Status = XAsu_IsModeValidForAad(AesClientParamPtr->EngineMode);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		if ((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
-			if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
+		if ((AesClientParamPtr->AadLen > 0U) && (AesClientParamPtr->AadAddr != 0U) &&
+				(AesClientParamPtr->AadLen <= XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+			if (((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U) ||
+				((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) ==
+					XASU_AES_FINAL)) {
+				Status = XST_SUCCESS;
 			}
-		}
-	} else {
-		/** If AAD Length is zero, AAD address must also be zero. */
-		Status = XAsu_IsModeValidForAad(AesClientParamPtr->EngineMode);
-		if ((AesClientParamPtr->AadAddr != 0U) && (Status == XST_SUCCESS)) {
-			goto END;
 		}
 	}
 
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 
@@ -530,25 +522,38 @@ static inline s32 XAsu_ValidateDataLen(const XAsu_AesParams *AesClientParamPtr)
 {
 	s32 Status = XASU_INVALID_ARGUMENT;
 
-	if (AesClientParamPtr->DataLen != 0U) {
+	if (XASU_AES_MODE_REQUIRES_DATA(AesClientParamPtr->EngineMode)) {
 		/**
-		 * If Data length is non-zero, both input and output addresses must be valid and
-		 * data length within limit.
-		 * AES-CMAC engine mode must not allow data updates.
+		 * For standard modes, data length and addresses must be present and
+		 * length must be within maximum DMA limit.
 		 */
-		if ((AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+		if ((AesClientParamPtr->DataLen == 0U) ||
+				(AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
 				(AesClientParamPtr->InputDataAddr == 0U) ||
 				(AesClientParamPtr->OutputDataAddr == 0U)) {
 			goto END;
 		}
-		if (AesClientParamPtr->EngineMode == XASU_AES_CMAC_MODE) {
-			goto END;
-		}
-	} else {
+	}
+	else {
 		/** If Data Length is zero, addresses must also be zero. */
-		if ((AesClientParamPtr->InputDataAddr != 0U) ||
-				(AesClientParamPtr->OutputDataAddr != 0U)) {
-			goto END;
+		if (AesClientParamPtr->DataLen == 0U) {
+			if ((AesClientParamPtr->InputDataAddr != 0U) ||
+					(AesClientParamPtr->OutputDataAddr != 0U)) {
+				goto END;
+			}
+		}
+		else {
+			/**
+			 * If Data length is non-zero, both input and output addresses must be valid and
+			 * data length must be within maximum DMA limit.
+			 * AES-CMAC engine mode must not allow data updates.
+			 */
+			if ((AesClientParamPtr->InputDataAddr == 0U) ||
+					(AesClientParamPtr->OutputDataAddr == 0U) ||
+					(AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+					(AesClientParamPtr->EngineMode == XASU_AES_CMAC_MODE)) {
+				goto END;
+			}
 		}
 	}
 

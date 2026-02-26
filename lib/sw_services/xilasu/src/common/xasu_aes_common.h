@@ -48,10 +48,18 @@ extern "C" {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /** Modes that always require block-aligned data */
-#define XASU_AES_MODE_REQUIRES_ALIGNMENT(mode) \
-	(((mode) == XASU_AES_ECB_MODE) || \
-	((mode) == XASU_AES_CBC_MODE) || \
-	((mode) == XASU_AES_CFB_MODE))
+#define XASU_AES_MODE_REQUIRES_ALIGNMENT(Mode) \
+	(((Mode) == XASU_AES_ECB_MODE) || \
+	((Mode) == XASU_AES_CBC_MODE) || \
+	((Mode) == XASU_AES_CFB_MODE))
+
+/** Modes which mandates non-zero plaintext data */
+#define XASU_AES_MODE_REQUIRES_DATA(Mode) \
+	(((Mode) == XASU_AES_ECB_MODE) || \
+	((Mode) == XASU_AES_CBC_MODE) || \
+	((Mode) == XASU_AES_CTR_MODE) || \
+	((Mode) == XASU_AES_CFB_MODE) || \
+	((Mode) == XASU_AES_OFB_MODE))
 
 /************************************ Variable Definitions ***************************************/
 
