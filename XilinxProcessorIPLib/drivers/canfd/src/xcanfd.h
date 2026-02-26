@@ -263,6 +263,7 @@ exclusion
 * 2.12  vlt  11/05/25 Add 64-bit Addressing support.
 * 2.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues
+*       ht   02/26/26 Fix TX buffer transmitted check
 * </pre>
 *
 ******************************************************************************/
@@ -570,7 +571,7 @@ typedef struct {
 #define XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer)	\
 	(((XCanFd_ReadReg((InstancePtr)->CanFdConfig.BaseAddress, \
 			  XCANFD_TRR_OFFSET) & ((u32)1 << (TxBuffer))) \
-	  == (u32)1) ? FALSE : TRUE)
+	  != (u32)0U) ? FALSE : TRUE)
 
 
 /****************************************************************************/
