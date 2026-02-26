@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -69,8 +69,6 @@
 #define XTRNG_STATUS_QCNT_VAL				4U /**< QCNT value for single burst */
 #define XTRNG_AUTOPROC_TIMEOUT				5000U /**< Autoproc mode disable timeout
 								   value in microseconds(5ms)*/
-
-#define XTRNG_COLLECT_RAND_DATA_DELAY_US	(5U) /**< 5us delay to collect random number */
 
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of TRNG. */
@@ -1020,26 +1018,29 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 	u32 Size = RandBufSize / XASUFW_WORD_LEN_IN_BYTES;
 	u32 SingleGenModeVal = 0U;
 
-	/**
-	 * FIXME: Without delay, random number generation is not giving deterministic value for
-	 * subsequent call to the TRNG generation. Add 5us delay as workaround until the issue
-	 * is fixed.
-	 */
-	usleep(XTRNG_COLLECT_RAND_DATA_DELAY_US);
-
 	if (InstancePtr->UserCfg.PredResistance == XASU_TRUE) {
 		SingleGenModeVal = XASU_TRNG_CTRL_SINGLEGENMODE_MASK;
 	}
-	/** Set PRNG mode to generate. */
-	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_RANDOM_DATA_FAILED_TO_GENERATE,
-					   XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
-					   XASU_TRNG_CTRL_PRNGMODE_MASK | XASU_TRNG_CTRL_SINGLEGENMODE_MASK |
-					   XASU_TRNG_CTRL_PRNGSTART_MASK,
-					   XASU_TRNG_CTRL_PRNGMODE_MASK | SingleGenModeVal);
 
-	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_RANDOM_DATA_FAILED_TO_GENERATE,
-					   XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
-					   XASU_TRNG_CTRL_PRNGSTART_MASK, XASU_TRNG_CTRL_PRNGSTART_MASK);
+	/**
+	 * Set TRNG in PRNG mode and start random number generation on first random number
+	 * generation or in single mode generation.
+	 * Skip for subsequent calls to allow continuous random number generation.
+	 */
+	if ((InstancePtr->UserCfg.PredResistance == XASU_TRUE) ||
+	    (InstancePtr->State != XTRNG_GENERATE_STATE)) {
+		/** Set PRNG mode to generate random number. */
+		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_RANDOM_DATA_FAILED_TO_GENERATE,
+				XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
+				XASU_TRNG_CTRL_PRNGMODE_MASK | XASU_TRNG_CTRL_SINGLEGENMODE_MASK |
+				XASU_TRNG_CTRL_PRNGSTART_MASK,
+				XASU_TRNG_CTRL_PRNGMODE_MASK | SingleGenModeVal);
+
+		/** Start random number generation in PRNG mode */
+		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_RANDOM_DATA_FAILED_TO_GENERATE,
+				XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
+				XASU_TRNG_CTRL_PRNGSTART_MASK, XASU_TRNG_CTRL_PRNGSTART_MASK);
+	}
 
 	for (NumofBursts = 0; NumofBursts < XTRNG_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
 		/** Check whether TRNG operation is completed within Timeout(1.5sec) or not. */
