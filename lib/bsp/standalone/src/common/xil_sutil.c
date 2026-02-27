@@ -35,6 +35,7 @@
 *       hj       14/10/25 Remove zero address check in Xil_SMemCpy
 * 9.5   hj       30/01/26 Remove zero address check from all API's
 * 9.5   hae      05/02/26 Replaced standard memcpy with Xil_MemCpy in Xil_SMemCpy
+*       aa       02/26/26 Replaced standard memcpy with Xil_MemCpy in Xil_Memcpy64
 *
 * </pre>
 *
@@ -43,6 +44,7 @@
 /****************************** Include Files *********************************/
 #include "xil_sutil.h"
 #include "sleep.h"
+#include "xil_mem.h"
 #ifdef SDT
 #include "bspconfig.h"
 #endif
@@ -965,7 +967,7 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 			}
 		}
 #else
-		(void)memcpy((void *)(UINTPTR)DstAddr, (void *)(UINTPTR)SrcAddr, Cnt);
+		Xil_MemCpy((void *)(UINTPTR)DstAddr, (const void *)(UINTPTR)SrcAddr, Cnt);
 	}
 #endif
 }
