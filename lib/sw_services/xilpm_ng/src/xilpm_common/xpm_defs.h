@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -631,6 +631,10 @@ enum XPmNotifyEvent {
  * the firmware
  */
 #define XST_API_GET_OP_CHAR_VERSION		(2U)
+/**
+ * @brief Version 2 supports halt state(12) in addition to standard states
+ */
+#define XST_API_GET_NODE_STATUS_VERSION		(2U)
 /** @} */
 
 /**
