@@ -87,8 +87,9 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 		goto done;
 	}
 
-	/** Release reset only for peripheral devices */
-	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) {
+	/** Release reset for peripheral and TCM devices */
+	if (((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) ||
+	    ((u32)XPM_NODETYPE_DEV_TCM == NODETYPE(Device->Node.Id))) {
 		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_RELEASE);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to de-assert reset for 0x%x: 0x%x\n",
