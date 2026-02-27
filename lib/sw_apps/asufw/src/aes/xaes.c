@@ -1577,6 +1577,8 @@ END:
 s32 XAes_SaveContext(XAes *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var AesCurrentState = XFIH_FAILURE;
+	XFih_Var AesSavedState = XFIH_FAILURE;
 	u32 Index;
 
 	/** Validate the input arguments.*/
@@ -1598,13 +1600,26 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 #endif
 	}
 
-	/** Save operational state. */
-	AesContext.IsContextSaved = XASU_TRUE;
-	AesContext.AesSavedState = (u8)InstancePtr->AesState;
+	/** Read the current AES state with fault-injection protection. */
+	AesCurrentState = XFih_VolatileAssignU32((u32)InstancePtr->AesState);
 
-	Status = XASUFW_SUCCESS;
+	/** Write the extracted state value into the context structure. */
+	AesContext.AesSavedState = (u8)XFih_GetVal(AesCurrentState);
 
-	/** Set AES under reset upon any failure. */
+	/** Read back the stored value, again with FIH protection. */
+	AesSavedState = XFih_VolatileAssignU32((u32)AesContext.AesSavedState);
+
+	/** Compare the original FIH variable (source) with the read-back FIH variable. */
+	XFIH_IF_FAILOUT_EQ(AesCurrentState, AesSavedState) {
+		/** - Verification succeeded - the state was correctly stored. */
+		AesContext.IsContextSaved = XASU_TRUE;
+		Status = XASUFW_SUCCESS;
+	} else {
+		/** - Mismatch detected – assignment was skipped or corrupted. */
+		Status = XASUFW_AES_ERR_CTX_SAVED_GLITCH;
+	}
+
+	/** Set AES under reset after saving the context. */
 	XAes_SetReset(InstancePtr);
 
 END:

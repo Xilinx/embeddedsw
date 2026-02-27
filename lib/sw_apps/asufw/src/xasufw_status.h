@@ -701,6 +701,9 @@ enum {
 	XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, /**< 0x1F9U - Error when configuring SSS with DMA and transfering data fails. */
 	XASUFW_AES_MODE_CONFIG_READBACK_ERROR, /**< 0x1FAU - Error when AES mode configuration readback fails,
 							possibly due to glitch or control flow disruption. */
+	XASUFW_AES_ERR_CTX_SAVED_GLITCH, /**< 0x1FBU - Error when AES context save did not
+						complete, possibly due to glitch or control flow
+						disruption. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
