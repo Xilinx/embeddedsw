@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -50,6 +50,10 @@ extern "C" {
  * the firmware */
 #define PM_IOCTL_VERSION	PM_API_VERSION_2
 #define PM_GET_OP_CHAR_VERSION	PM_API_VERSION_2
+/**
+ * @brief Version 2 supports halt state(12) in addition to standard states
+ */
+#define PM_API_GET_NODE_STATUS_VERSION	PM_API_VERSION_2
 /** @} */
 
 /*

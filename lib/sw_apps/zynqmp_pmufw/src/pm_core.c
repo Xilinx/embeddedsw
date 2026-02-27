@@ -2338,7 +2338,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	switch (apiId) {
 	case PM_API(PM_GET_API_VERSION):
 	case PM_API(PM_SET_CONFIGURATION):
-	case PM_API(PM_GET_NODE_STATUS):
 	case PM_API(PM_REGISTER_NOTIFIER):
 	case PM_API(PM_REQUEST_SUSPEND):
 	case PM_API(PM_SELF_SUSPEND):
@@ -2381,6 +2380,10 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_FPGA_GET_VERSION):
 	case PM_API(PM_FPGA_GET_FEATURE_LIST):
 		retPayload[0] = PM_API_BASE_VERSION;
+		status = XST_SUCCESS;
+		break;
+	case PM_API(PM_GET_NODE_STATUS):
+		retPayload[0] = PM_API_GET_NODE_STATUS_VERSION;
 		status = XST_SUCCESS;
 		break;
 	case PM_API(PM_SECURE_AES):

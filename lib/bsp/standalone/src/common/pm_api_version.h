@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,8 @@ extern "C" {
  * | PM_GET_API_VERSION		| 0x1   | Both		| 1	 | The API is used to request the version number of the API		     |
  * | PM_SET_CONFIGURATION	| 0x2	| ZynqMP	| 1	 | The API is used to configure the power management framework		     |
  * | ^				| ^	| ^		| ^	 | Note: Deprecated in Versal but supported in ZynqMP			     |
- * | PM_GET_NODE_STATUS		| 0x3	| Both		| 1	 | The API is used to obtain information about current status of a device    |
+ * | PM_GET_NODE_STATUS		| 0x3	| Both		| 2	 | V1 - The API is used to obtain information about current status of a device     |
+ * | ^				| ^	| ^		| ^	 | V2 - Added support to get proper state value for halt state               |
  * | PM_GET_OP_CHARACTERISTIC	| 0x4	| Both		| 2	 | V1 - The API is used to get operating characteristics of a device	     |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of bitmask functionality, user can check the supported\n									"type" first before performing the actual functionality				       |
  * | PM_REGISTER_NOTIFIER	| 0x5	| Both		| 3	 | V1 - The API is used to register a subsystem to be notified about the\n									device event									       |
