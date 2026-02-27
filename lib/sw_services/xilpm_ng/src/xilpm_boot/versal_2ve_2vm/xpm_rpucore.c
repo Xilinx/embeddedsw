@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,7 +13,10 @@
 
 static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value);
 static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
-
+/** @brief Sets the RPU cluster operating mode (split or lockstep). */
+static XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
+/** @brief Returns the current RPU cluster operating mode. */
+static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
 XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
@@ -110,8 +113,6 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 		goto done;
 	}
 
-	Status = XPm_PlatRpucoreHalt(DeviceId);
-
 done:
 	return Status;
 }
@@ -174,7 +175,7 @@ void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u
 	}
 }
 
-XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
+static XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
 {
 	XStatus Status = XST_FAILURE;
 	if (XPM_RPU_MODE_SPLIT == Mode) {
@@ -188,15 +189,17 @@ XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode
 	/*skip if the mode is already set*/
 	if (Mode != (Xil_In32(RpuCore->ClusterBaseAddr) & 0x1U)) {
 		PmOut32(RpuCore->ClusterBaseAddr + XPM_CLUSTER_CFG_OFFSET, *Val);
+		/* halt the core */
+		Status = XPm_PlatRpucoreHalt(RpuCore->Core.Device.Node.Id);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error while halting RPU core\r\n");
+		}
+	} else {
+		Status = XST_SUCCESS;
 	}
-	Status = XST_SUCCESS;
-
 	return Status;
 }
-
-
-
-u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore)
+static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore)
 {
 	u32 Val;
 
