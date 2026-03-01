@@ -42,6 +42,7 @@
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support
 * 3.15  vlt  01/27/26 Fixed codespell issues
+* 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
 *
 * </pre>
 *
@@ -51,6 +52,7 @@
 
 #include "xparameters.h"
 #include "xiic.h"
+#include "xil_sutil.h"
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -66,7 +68,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -91,15 +93,28 @@
 #endif
 #endif
 
-/*
+/**
  * The following constant defines the address of the IIC
  * device on the IIC bus. Note that since the address is only 7 bits, this
  * constant is the address divided by 2.
  */
 #define SLAVE_ADDRESS	0x70	/* 0xE0 as an 8 bit number. */
 
-#define SEND_COUNT	16
-#define RECEIVE_COUNT   16
+#define SEND_COUNT	16	/** Number of bytes to send */
+#define RECEIVE_COUNT   16	/** Number of bytes to receive */
+
+/**
+ * Maximum delay count used for timeout handling
+ */
+#define MAX_DELAY_CNT               10000
+
+/** IIC event mask */
+#define EventMask	0xFF
+
+/**
+ * Internal event value used for IIC event checking
+ */
+#define Event_Value                 0
 
 /**************************** Type Definitions *******************************/
 
@@ -113,22 +128,22 @@ static int ReadData(u8 *BufferPtr, u16 ByteCount);
 #ifndef SDT
 static int SetupInterruptSystem(XIic *IicInstPtr);
 #endif
-static void SendHandler(XIic *InstancePtr);
-static void ReceiveHandler(XIic *InstancePtr);
+static void SendHandler(void *CallBackRef, int ByteCount);
+static void ReceiveHandler(void *CallBackRef, int ByteCount);
 static void StatusHandler(XIic *InstancePtr, int Event);
 
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;
+XIic IicInstance;	/** The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/* The instance of the Interrupt Controller Driver */
+INTC Intc; 	/** The instance of the Interrupt Controller Driver */
 #endif
 
-u8 WriteBuffer[SEND_COUNT];	/* Write buffer for writing a page. */
-u8 ReadBuffer[RECEIVE_COUNT];	/* Read buffer for reading a page. */
+u8 WriteBuffer[SEND_COUNT];	/** Write buffer for writing a page. */
+u8 ReadBuffer[RECEIVE_COUNT];	/** Read buffer for reading a page. */
 
-volatile u8 TransmitComplete;
-volatile u8 ReceiveComplete;
+volatile u8 TransmitComplete;	/** Flag to check completion of Transmission */
+volatile u8 ReceiveComplete;	/** Flag to check completion of Reception */
 
 /************************** Function Definitions *****************************/
 
@@ -297,16 +312,27 @@ static int WriteData(u16 ByteCount)
 	}
 
 	/*
-	 * Wait till data is transmitted.
-	 */
-	while (TransmitComplete) {
+	* Wait for transmit completion.
+	*
+	* The TransmitComplete flag is set to 0 by the transmit interrupt handler
+	* once all requested bytes are successfully transmitted. Xil_WaitForEvent()
+	* polls this software flag until it matches the expected completion value
+	* or the timeout expires, preventing an infinite wait in case the interrupt
+	* is not serviced.
+	*/
 
+	Status = Xil_WaitForEvent((UINTPTR)&TransmitComplete, EventMask, Event_Value, MAX_DELAY_CNT);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	/*
 	 * This is for verification that Bus is not released and still Busy.
 	 */
 	BusBusy = XIic_IsIicBusy(&IicInstance);
+     if (BusBusy != 0) {
+     return XST_FAILURE;
+    }
 
 	TransmitComplete = 1;
 	IicInstance.Options = 0x0;
@@ -320,10 +346,17 @@ static int WriteData(u16 ByteCount)
 	}
 
 	/*
-	 * Wait till data is transmitted.
-	 */
-	while ((TransmitComplete) || (XIic_IsIicBusy(&IicInstance) == TRUE)) {
-
+	* Wait for transmit completion.
+	*
+	* The TransmitComplete flag is set to 0 by the transmit interrupt handler
+	* once all requested bytes are successfully transmitted. Xil_WaitForEvent()
+	* polls this software flag until it matches the expected completion value
+	* or the timeout expires, preventing an infinite wait in case the interrupt
+	* is not serviced.
+	*/
+	Status = Xil_WaitForEvent((UINTPTR)&TransmitComplete, EventMask, Event_Value, MAX_DELAY_CNT);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	/*
@@ -381,16 +414,28 @@ static int ReadData(u8 *BufferPtr, u16 ByteCount)
 	}
 
 	/*
-	 * Wait till all the data is received.
-	 */
-	while (ReceiveComplete) {
+	* Wait for receive completion.
+	*
+	* The ReceiveComplete flag is set to 0 by the receive interrupt handler
+	* once all requested bytes are successfully received. Xil_WaitForEvent()
+	* polls this software flag until it matches the expected completion value
+	* or the timeout expires, preventing an infinite wait in case the interrupt
+	* is not serviced.
+	*/
 
+	Status = Xil_WaitForEvent((UINTPTR)&ReceiveComplete, EventMask, Event_Value, MAX_DELAY_CNT);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	/*
 	 * This is for verification that Bus is not released and still Busy.
 	 */
 	BusBusy = XIic_IsIicBusy(&IicInstance);
+	if (BusBusy != 0) {
+    return XST_FAILURE;
+    }
+
 
 	ReceiveComplete = 1;
 	IicInstance.Options = 0x0;
@@ -404,10 +449,18 @@ static int ReadData(u8 *BufferPtr, u16 ByteCount)
 	}
 
 	/*
-	 * Wait till all the data is received.
-	 */
-	while ((ReceiveComplete) || (XIic_IsIicBusy(&IicInstance) == TRUE)) {
+	* Wait for receive completion.
+	*
+	* The ReceiveComplete flag is set to 0 by the receive interrupt handler
+	* once all requested bytes are successfully received. Xil_WaitForEvent()
+	* polls this software flag until it matches the expected completion value
+	* or the timeout expires, preventing an infinite wait in case the interrupt
+	* is not serviced.
+	*/
 
+	Status = Xil_WaitForEvent((UINTPTR)&ReceiveComplete, EventMask, Event_Value, MAX_DELAY_CNT);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	/*
@@ -540,40 +593,46 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 }
 #endif
 
-/*****************************************************************************/
-/**
-* This Send handler is called asynchronously from an interrupt context and
-* indicates that data in the specified buffer has been sent.
-*
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-* 		the handler is being called for.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void SendHandler(XIic *InstancePtr)
-{
-	TransmitComplete = 0;
-}
 
 /*****************************************************************************/
 /**
-* This Receive handler is called asynchronously from an interrupt context and
-* indicates that data in the specified buffer has been Received.
+* This Send handler is called asynchronously from an interrupt
+* context and indicates that data in the specified buffer has been sent.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-* 		the handler is being called for.
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes sent.
 *
 * @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-static void ReceiveHandler(XIic *InstancePtr)
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
-	ReceiveComplete = 0;
+    (void)ByteCount;
+    (void)CallBackRef;
+
+    TransmitComplete = 0;
+}
+/*****************************************************************************/
+/**
+* This Receive handler is called asynchronously from an interrupt
+* context and indicates that data in the specified buffer has been received.
+*
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes received.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
+{
+    (void)CallBackRef;
+    (void)ByteCount;
+
+    ReceiveComplete = 0;
 }
 
 /*****************************************************************************/
@@ -593,4 +652,6 @@ static void ReceiveHandler(XIic *InstancePtr)
 static void StatusHandler(XIic *InstancePtr, int Event)
 {
 
+    (void)InstancePtr;
+    (void)Event;
 }

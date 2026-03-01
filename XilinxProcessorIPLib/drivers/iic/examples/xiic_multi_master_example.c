@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,6 +75,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
 *
 * </pre>
 *
@@ -99,7 +100,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -124,7 +125,7 @@
 #endif
 #endif
 
-/*
+/**
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
@@ -134,23 +135,29 @@
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
  */
+
 #define EEPROM_ADDRESS 0x50	/* 0xA0 as an 8 bit number. */
 
-/*
+/**
  * The page size determines how much data should be written at a time.
  * The ML300 board supports a page size of 32 and 16.
  * The write function should be called with this as a maximum byte count.
  */
 #define PAGE_SIZE   16
 
-/*
+/**
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
 #define EEPROM_TEST_START_ADDRESS   128
 
+/**
+ * Maximum delay count used for timeout handling
+ */
+#define  MAX_DELAY_CNT    10000
+
 /**************************** Type Definitions *******************************/
 
-/*
+/**
  * The AddressType for ML300/ML310/ML410/ML510 boards should be u16 as the
  * address pointer in the on board EEPROM is 2 bytes.
  * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
@@ -169,24 +176,24 @@ int IicMultiMasterExample();
 static int SetupInterruptSystem(XIic *IicInstPtr);
 #endif
 
-static void SendHandler(XIic *InstancePtr);
+static void SendHandler(void *CallBackRef, int ByteCount);
 static void StatusHandler(XIic *InstancePtr, int Event);
 
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;		/* The instance of the IIC device. */
+XIic IicInstance;		/** The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/* The instance of the Interrupt Controller Driver */
+INTC Intc; 	/** The instance of the Interrupt Controller Driver */
 #endif
 
-/*
+/**
  * Write buffer for writing a page.
  */
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 
-volatile u8 TransmitComplete;
-volatile u8 ReceiveComplete;
-volatile u8 BusNotBusy;
+volatile u8 TransmitComplete;	/** Transmit completion flag */
+volatile u8 ReceiveComplete;	/** Receive completion flag */
+volatile u8 BusNotBusy;		/** IIC bus idle flag */
 
 /************************** Function Definitions *****************************/
 
@@ -233,6 +240,7 @@ int IicMultiMasterExample(void)
 	int Status;
 	XIic_Config *ConfigPtr;	/* Pointer to configuration data */
 	AddressType Address = EEPROM_TEST_START_ADDRESS;
+	int Timeout = MAX_DELAY_CNT;
 
 	/*
 	 * Initialize the data to write and the read buffer.
@@ -322,6 +330,10 @@ int IicMultiMasterExample(void)
 	XIic_MasterSend(&IicInstance, WriteBuffer, PAGE_SIZE);
 
 	while (1) {
+		if (Timeout -- == 0) {
+			return XST_FAILURE;   /* timeout exit */
+		}
+
 		/*
 		 * If arbitration is lost and some time later Bus if bus
 		 * becomes free transmit the data.
@@ -514,20 +526,23 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 
 /*****************************************************************************/
 /**
-* The Send handler is called asynchronously from an interrupt context and
-* indicates that data in the specified buffer has been sent.
+* This Send handler is called asynchronously from an interrupt
+* context and indicates that data in the specified buffer has been sent.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-*		the handler is being called for.
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes sent.
 *
 * @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-static void SendHandler(XIic *InstancePtr)
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
-	TransmitComplete = 0;
+    (void)ByteCount;
+    (void)CallBackRef;
+
+    TransmitComplete = 0;
 }
 
 /*****************************************************************************/

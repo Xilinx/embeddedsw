@@ -43,6 +43,7 @@
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support
 * 3.15  vlt  01/27/26 Fixed codespell issues
+* 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
 * </pre>
 *
 ******************************************************************************/
@@ -51,6 +52,7 @@
 
 #include "xparameters.h"
 #include "xiic.h"
+#include "xil_sutil.h"
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -66,7 +68,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -91,13 +93,18 @@
 #endif
 #endif
 
-/*
+/**
  * The following constant defines the address of the IIC device on the IIC bus.
  * Since the address is 10 bits, this constant is the address divided by 2.
  */
 #define SLAVE_ADDRESS		0x270	/* 0x4E0 as an 10 bit number. */
-#define RECEIVE_COUNT		16
-#define SEND_COUNT		16
+#define RECEIVE_COUNT		16	/** IIC receive byte count */
+#define SEND_COUNT		16	/** IIC transmit byte count */
+
+/**
+ * Maximum delay count used for timeout handling
+ */
+#define MAX_DELAY_CNT           10000
 
 
 /**************************** Type Definitions *******************************/
@@ -113,25 +120,26 @@ int TenBitAddrReadData(u8 *BufferPtr, u16 ByteCount);
 static int SetupInterruptSystem(XIic *IicInstPtr);
 #endif
 static void StatusHandler(XIic *InstancePtr, int Event);
-static void SendHandler(XIic *InstancePtr);
-static void ReceiveHandler(XIic *InstancePtr);
+static void SendHandler(void *CallBackRef, int ByteCount);
+static void ReceiveHandler(void *CallBackRef, int ByteCount);
 
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;		/* The instance of the IIC device. */
+XIic IicInstance;		/** The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/* The instance of the Interrupt Controller Driver */
+INTC Intc; 	/** The instance of the Interrupt Controller Driver */
 #endif
 
 
-u8 WriteBuffer[SEND_COUNT];	/* Write buffer for writing a page. */
-u8 ReadBuffer[RECEIVE_COUNT];	/* Read buffer for reading a page. */
+u8 WriteBuffer[SEND_COUNT];	/** Write buffer for writing a page. */
+u8 ReadBuffer[RECEIVE_COUNT];	/** Read buffer for reading a page. */
 
-volatile u8 TransmitComplete;
-volatile u8 ReceiveComplete;
 
-volatile u8 SlaveRead;
-volatile u8 SlaveWrite;
+volatile u8 TransmitComplete;  /** Transmit done flag */
+volatile u8 ReceiveComplete;   /** Receive done flag */
+
+volatile u8 SlaveRead;         /** Slave read flag */
+volatile u8 SlaveWrite;        /** Slave write flag */
 
 /************************** Function Definitions *****************************/
 
@@ -277,6 +285,10 @@ int IicTenBitAddrExample(void)
 int TenBitAddrReadData(u8 *BufferPtr, u16 ByteCount)
 {
 	int Status;
+	int Timeout = MAX_DELAY_CNT;
+    (void)BufferPtr;
+    (void)ByteCount;
+
 
 	/*
 	 * Set the defaults.
@@ -300,6 +312,9 @@ int TenBitAddrReadData(u8 *BufferPtr, u16 ByteCount)
 	 * Wait for AAS interrupt and completion of data reception.
 	 */
 	while ((ReceiveComplete) || (XIic_IsIicBusy(&IicInstance) == TRUE)) {
+		if (Timeout -- == 0) {
+			return XST_FAILURE;   /* timeout exit */
+		}
 		if (SlaveRead) {
 			XIic_SlaveRecv(&IicInstance, ReadBuffer, RECEIVE_COUNT);
 			SlaveRead = 0;
@@ -338,6 +353,8 @@ int TenBitAddrReadData(u8 *BufferPtr, u16 ByteCount)
 int TenBitAddrWriteData(u16 ByteCount)
 {
 	int Status;
+	int Timeout = MAX_DELAY_CNT;
+    (void)ByteCount;
 
 	/*
 	 * Set the defaults.
@@ -361,6 +378,9 @@ int TenBitAddrWriteData(u16 ByteCount)
 	 * Wait for AAS interrupt and transmission to complete.
 	 */
 	while ((TransmitComplete) || (XIic_IsIicBusy(&IicInstance) == TRUE)) {
+		if (Timeout -- == 0) {
+			return XST_FAILURE;   /* timeout exit */
+		}
 		if (SlaveWrite) {
 			XIic_SlaveSend(&IicInstance, WriteBuffer, SEND_COUNT);
 			SlaveWrite = 0;
@@ -399,6 +419,7 @@ int TenBitAddrWriteData(u16 ByteCount)
 ****************************************************************************/
 static void StatusHandler(XIic *InstancePtr, int Event)
 {
+	 (void)InstancePtr;
 	/*
 	 * Check whether the Event is to write or read the data from the slave.
 	 */
@@ -414,41 +435,45 @@ static void StatusHandler(XIic *InstancePtr, int Event)
 		SlaveWrite = 1;
 	}
 }
-
-/****************************************************************************/
+/*****************************************************************************/
 /**
 * This Send handler is called asynchronously from an interrupt
 * context and indicates that data in the specified buffer has been sent.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-*		the handler is being called for.
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes sent.
 *
 * @return	None.
 *
 * @note		None.
 *
-****************************************************************************/
-static void SendHandler(XIic *InstancePtr)
+******************************************************************************/
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
-	TransmitComplete = 0;
-}
+    (void)ByteCount;
+    (void)CallBackRef;
 
-/****************************************************************************/
+    TransmitComplete = 0;
+}
+/*****************************************************************************/
 /**
 * This Receive handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been Received.
+* context and indicates that data in the specified buffer has been received.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-*		the handler is being called for.
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes received.
 *
 * @return	None.
 *
 * @note		None.
 *
-****************************************************************************/
-static void ReceiveHandler(XIic *InstancePtr)
+******************************************************************************/
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
 {
-	ReceiveComplete = 0;
+    (void)CallBackRef;
+    (void)ByteCount;
+
+    ReceiveComplete = 0;
 }
 
 #ifndef SDT

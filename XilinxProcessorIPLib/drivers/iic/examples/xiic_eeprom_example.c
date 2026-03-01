@@ -100,6 +100,7 @@
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support
 * 3.15  vlt  12/04/25 Add XIic_SetClk API for dynamic clock configuration.
+* 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
 *
 * </pre>
 *
@@ -111,6 +112,7 @@
 #include "xiic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#include "xil_sutil.h"
 #ifdef SDT
 #include "xinterrupt_wrap.h"
 #endif
@@ -124,15 +126,15 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define IIC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
+#define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
 #else
-#define	XIIC_BASEADDRESS		XPAR_XIIC_0_BASEADDR
+#define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
 #endif
 
 #ifndef SDT
@@ -150,7 +152,7 @@
 #endif
 
 
-/*
+/**
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
@@ -161,9 +163,9 @@
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
  */
-#define EEPROM_ADDRESS 		0x54	/* 0xA0 as an 8 bit number. */
+#define EEPROM_ADDRESS		0x54	/* 0xA0 as an 8 bit number. */
 
-/*
+/**
  * The IIC_MUX_ADDRESS defines the address of the IIC MUX device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
@@ -177,30 +179,43 @@
  * Please refer the User Guide's of the respective
  * boards for further information about the Channel number to use EEPROM.
  */
-#define IIC_MUX_ADDRESS 		0x74
-#define IIC_EEPROM_CHANNEL		0x01
+#define IIC_MUX_ADDRESS 	0x74
+#define IIC_EEPROM_CHANNEL	0x01
 
-/*
+/**
  * This define should be uncommented if there is IIC MUX on the board to which
  * this EEPROM is connected. The boards that have IIC MUX are KC705/ZC702/ZC706.
  */
 #define IIC_MUX_ENABLE
 
-/*
+/**
  * The page size determines how much data should be written at a time.
  * The ML310/ML300 board supports a page size of 32 and 16.
  * The write function should be called with this as a maximum byte count.
  */
 #define PAGE_SIZE   16
 
-/*
+/**
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
 #define EEPROM_TEST_START_ADDRESS   128
 
+/**
+ * Maximum delay count used for timeout handling
+ */
+#define MAX_DELAY_CNT               10000
+
+/** Internal IIC event mask */
+#define EventMask                   0xFF
+
+/**
+ * Internal event value used for IIC event checking
+ */
+#define Event_Value                 0
+
 /**************************** Type Definitions *******************************/
 
-/*
+/**
  * The AddressType for ML300/ML310/ML410/ML510 boards should be u16 as the address
  * pointer in the on board EEPROM is 2 bytes.
  * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605/KC705/ZC702
@@ -223,9 +238,9 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount);
 static int SetupInterruptSystem(XIic *IicInstPtr);
 #endif
 
-static void SendHandler(XIic *InstancePtr);
+static void SendHandler(void *CallBackRef, int ByteCount);
 
-static void ReceiveHandler(XIic *InstancePtr);
+static void ReceiveHandler(void *CallBackRef, int ByteCount);
 
 static void StatusHandler(XIic *InstancePtr, int Event);
 
@@ -234,22 +249,22 @@ static int MuxInit(void);
 #endif
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;	/* The instance of the IIC device. */
+XIic IicInstance;	/** The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/* The instance of the Interrupt Controller Driver */
+INTC Intc; 	/** The instance of the Interrupt Controller Driver */
 #endif
 
-/*
+/**
  * Write buffer for writing a page.
  */
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 
-u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page. */
+u8 ReadBuffer[PAGE_SIZE];	/** Read buffer for reading a page. */
 
-volatile u8 TransmitComplete;	/* Flag to check completion of Transmission */
-volatile u8 ReceiveComplete;	/* Flag to check completion of Reception */
+volatile u8 TransmitComplete;	/** Flag to check completion of Transmission */
+volatile u8 ReceiveComplete;	/** Flag to check completion of Reception */
 
-u8 EepromIicAddr;		/* Variable for storing Eeprom IIC address */
+u8 EepromIicAddr;		/** Variable for storing Eeprom IIC address */
 
 /************************** Function Definitions *****************************/
 
@@ -296,7 +311,7 @@ int IicEepromExample(void)
 {
 	u32 Index;
 	int Status;
-	XIic_Config *ConfigPtr;	/* Pointer to configuration data */
+	XIic_Config *ConfigPtr;	/** Pointer to configuration data */
 	AddressType Address = EEPROM_TEST_START_ADDRESS;
 	EepromIicAddr = EEPROM_ADDRESS;
 
@@ -364,7 +379,6 @@ int IicEepromExample(void)
 	} else {
 		WriteBuffer[0] = (u8) (EEPROM_TEST_START_ADDRESS >> 8);
 		WriteBuffer[1] = (u8) (EEPROM_TEST_START_ADDRESS);
-		ReadBuffer[Index] = 0;
 	}
 
 	for (Index = 0; Index < PAGE_SIZE; Index++) {
@@ -417,7 +431,6 @@ int IicEepromExample(void)
 	} else {
 		WriteBuffer[0] = (u8) (EEPROM_TEST_START_ADDRESS >> 8);
 		WriteBuffer[1] = (u8) (EEPROM_TEST_START_ADDRESS);
-		ReadBuffer[Index] = 0;
 	}
 
 	for (Index = 0; Index < PAGE_SIZE; Index++) {
@@ -471,6 +484,7 @@ int IicEepromExample(void)
 int EepromWriteData(u16 ByteCount)
 {
 	int Status;
+	int Timeout = MAX_DELAY_CNT;
 
 	/*
 	 * Set the defaults.
@@ -498,6 +512,9 @@ int EepromWriteData(u16 ByteCount)
 	 * Wait till the transmission is completed.
 	 */
 	while ((TransmitComplete) || (XIic_IsIicBusy(&IicInstance) == TRUE)) {
+		if (Timeout -- == 0) {
+			return XST_FAILURE;   /* timeout exit */
+		}
 		/*
 		 * This condition is required to be checked in the case where we
 		 * are writing two consecutive buffers of data to the EEPROM.
@@ -599,10 +616,17 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 	}
 
 	/*
-	 * Wait till all the data is received.
-	 */
-	while ((ReceiveComplete) || (XIic_IsIicBusy(&IicInstance) == TRUE)) {
-
+	* Wait for receive completion.
+	*
+	* The ReceiveComplete flag is set to 0 by the receive interrupt handler
+	* once all requested bytes are successfully received. Xil_WaitForEvent()
+	* polls this software flag until it matches the expected completion value
+	* or the timeout expires, preventing an infinite wait in case the interrupt
+	* is not serviced.
+	*/
+	Status = Xil_WaitForEvent((UINTPTR)&ReceiveComplete, EventMask, Event_Value, MAX_DELAY_CNT);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	/*
@@ -737,35 +761,42 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 * This Send handler is called asynchronously from an interrupt
 * context and indicates that data in the specified buffer has been sent.
 *
-* @param	InstancePtr is not used, but contains a pointer to the IIC
-*		device driver instance which the handler is being called for.
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes sent.
 *
 * @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-static void SendHandler(XIic *InstancePtr)
+
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
-	TransmitComplete = 0;
+    (void)ByteCount;
+    (void)CallBackRef;
+    TransmitComplete = 0;
 }
+
 
 /*****************************************************************************/
 /**
 * This Receive handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been Received.
+* context and indicates that data in the specified buffer has been received.
 *
-* @param	InstancePtr is not used, but contains a pointer to the IIC
-*		device driver instance which the handler is being called for.
+* @param	CallBackRef is a pointer to the IIC device instance.
+* @param	ByteCount is the number of bytes received.
 *
 * @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-static void ReceiveHandler(XIic *InstancePtr)
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
 {
-	ReceiveComplete = 0;
+    (void)CallBackRef;
+    (void)ByteCount;
+
+    ReceiveComplete = 0;
 }
 
 /*****************************************************************************/
@@ -785,6 +816,8 @@ static void ReceiveHandler(XIic *InstancePtr)
 static void StatusHandler(XIic *InstancePtr, int Event)
 {
 
+    (void)InstancePtr;
+    (void)Event;
 }
 
 #ifdef IIC_MUX_ENABLE

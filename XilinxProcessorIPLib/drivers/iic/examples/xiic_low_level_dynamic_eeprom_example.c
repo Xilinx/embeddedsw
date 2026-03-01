@@ -1,4 +1,3 @@
-
 /******************************************************************************
 * Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
@@ -92,7 +91,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -100,12 +99,12 @@
 
 #define IIC_BASE_ADDRESS	XPAR_AXI_IIC_0_BASEADDR
 
-/*
+/**
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
 #define EEPROM_TEST_START_ADDRESS	0x80
 
-/*
+/**
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
@@ -117,7 +116,7 @@
  */
 #define EEPROM_ADDRESS		0x50
 
-/*
+/**
  * The page size determines how much data should be written at a time.
  * The ML310/ML300/SCU200/SCU35 board supports a page size of 32 and 16.
  * The write function should be called with this as a maximum byte count.
@@ -125,6 +124,11 @@
 #define PAGE_SIZE	16
 
 #define IIC_SLAVE_ADDRESS	1
+
+/**
+ *  Maximum delay count used for timeout handling
+ */
+#define MAX_DELAY_CNT           10000
 
 /**************************** Type Definitions *******************************/
 
@@ -136,7 +140,7 @@
  */
 typedef u8 AddressType;
 
-u8 EepromIicAddr;		/* Variable for storing Eeprom IIC address */
+u8 EepromIicAddr;
 
 /************************** Function Prototypes ******************************/
 
@@ -147,15 +151,16 @@ u8 EepromWriteByte(u8 *BufferPtr, u8 ByteCount);
 
 /************************** Variable Definitions *****************************/
 
-u8 WriteBuffer[PAGE_SIZE];	/* Write buffer for writing a page. */
+u8 WriteBuffer[PAGE_SIZE];	/** Write buffer for writing a page. */
 
-u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page.  */
+u8 ReadBuffer[PAGE_SIZE];	/** Read buffer for reading a page.  */
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
 * Main function to call the low level Dynamic EEPROM example.
+*
 *
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
@@ -179,13 +184,11 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/******************************************************************************/
 /**
 *
 * The function uses the low level driver of IIC to read from the IIC EEPROM on
 * the ML300/ML310 board. The addresses tested starts from 128.
-*
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -315,7 +318,7 @@ u8 EepromWriteByte(u8 *BufferPtr, u8 ByteCount)
 	return SentByteCount - sizeof(Address);
 }
 
-/******************************************************************************
+/*****************************************************************************/
 /**
 *
 * This function reads a number of bytes from the IIC serial EEPROM into a
@@ -338,6 +341,7 @@ u8 EepromReadByte(u8 *BufferPtr, u8 ByteCount)
 	u8 SentByteCount;
 	u16 StatusReg;
 	AddressType Address = EEPROM_TEST_START_ADDRESS;
+        int Timeout = MAX_DELAY_CNT;
 
 	/*
 	 * Position the Read pointer to specific location in the EEPROM.
@@ -350,6 +354,10 @@ u8 EepromReadByte(u8 *BufferPtr, u8 ByteCount)
 						     (u8 *) &Address,
 						     sizeof(Address),
 						     XIIC_REPEATED_START);
+			if (Timeout-- == 0) {
+				return XST_FAILURE;   /* timeout exit */
+			}
+
 		}
 
 	} while (SentByteCount != sizeof(Address));
@@ -361,6 +369,10 @@ u8 EepromReadByte(u8 *BufferPtr, u8 ByteCount)
 		ReceivedByteCount = XIic_DynRecv(IIC_BASE_ADDRESS,
 						 EepromIicAddr, BufferPtr,
 						 ByteCount);
+		if (Timeout-- == 0) {
+			return XST_FAILURE;   /* timeout exit */
+		}
+
 	} while (ReceivedByteCount != ByteCount);
 
 	/*

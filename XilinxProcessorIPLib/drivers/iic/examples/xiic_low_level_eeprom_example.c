@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,15 +95,16 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 
+
 #define IIC_BASE_ADDRESS	XPAR_AXI_IIC_0_BASEADDR
 
-/*
+/**
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
@@ -113,24 +114,30 @@
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
  */
+
 #define EEPROM_ADDRESS	0x54	 /* 0xA0 as an 8 bit number */
 
-/*
+/**
  * The page size determines how much data should be written at a time.
  * The ML300 board supports a page size of 32 and 16
  * The write function should be called with this as a maximum byte count.
  */
 #define PAGE_SIZE	16
 
-/*
+/**
  * The Starting address in the IIC EEPROM on which this test is performed
  */
 #define EEPROM_TEST_START_ADDRESS	128
 
+/**
+ * Maximum delay count used for timeout handling
+ */
+#define MAX_DELAY_CNT                   10000
+
 
 /**************************** Type Definitions *******************************/
 
-/*
+/**
  * The AddressType for ML300/ML310/ML510 boards should be u16 as the address
  * pointer in the on board EEPROM is 2 bytes.
  * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
@@ -154,13 +161,13 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount);
 
 /************************** Variable Definitions **************************/
 
-int ErrorCount;			  /* The Error Count */
+int ErrorCount;			  /** The Error Count */
 
-u8 WriteBuffer[PAGE_SIZE];	  /* Write buffer for writing a page */
-u8 ReadBuffer[PAGE_SIZE];	  /* Read buffer for reading a page */
-u8 ReadBufferAll[PAGE_SIZE * 4];  /* Buffer used for reading all the data */
+u8 WriteBuffer[PAGE_SIZE];	  /** Write buffer for writing a page */
+u8 ReadBuffer[PAGE_SIZE];	  /** Read buffer for reading a page */
+u8 ReadBufferAll[PAGE_SIZE * 4];  /** Buffer used for reading all the data */
 
-u8 EepromIicAddr;		  /* Variable for storing Eeprom IIC address */
+u8 EepromIicAddr;		  /** Variable for storing Eeprom IIC address */
 
 /*****************************************************************************/
 /**
@@ -357,6 +364,7 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	u8 WriteBuffer[sizeof(Address) + PAGE_SIZE];
 	int Index;
 	u32 CntlReg;
+	int Timeout = MAX_DELAY_CNT;
 
 	/*
 	 * A temporary write buffer must be used which contains both the address
@@ -398,6 +406,10 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 				      CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
 				      XIIC_CR_ENABLE_DEVICE_MASK);
+			if (Timeout-- == 0) {
+				return XST_FAILURE;   /* timeout exit */
+			}
+
 		}
 
 	} while (SentByteCount != sizeof(Address));
@@ -426,6 +438,10 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 				      CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
 				      XIIC_CR_ENABLE_DEVICE_MASK);
+			if (Timeout-- == 0) {
+				return XST_FAILURE;   /* timeout exit */
+			}
+
 		}
 
 	} while (AckByteCount != sizeof(Address));
@@ -459,6 +475,7 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	volatile unsigned ReceivedByteCount;
 	u16 StatusReg;
 	u32 CntlReg;
+	int Timeout = MAX_DELAY_CNT;
 
 	/*
 	 * Set the address register to the specified address by writing
@@ -485,6 +502,10 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 				XIic_WriteReg(IIC_BASE_ADDRESS,
 					      XIIC_CR_REG_OFFSET,
 					      XIIC_CR_ENABLE_DEVICE_MASK);
+				if (Timeout-- == 0) {
+					return XST_FAILURE;   /* timeout exit */
+				}
+
 			}
 		}
 
