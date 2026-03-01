@@ -2249,11 +2249,6 @@ u32 Exdes_CheckDwnstrmSinkCaps()
 		}
 	} else {
 #ifdef XPAR_XV_HDMI_TX_FRL_ENABLE
-			xil_printf(ANSI_COLOR_YELLOW"Set TX stream to HDMI TMDS,"
-					" sink is HDMI\r\n"
-					ANSI_COLOR_RESET"\r\n");
-			XV_Tx_SetHdmiTmdsMode(&xhdmi_example_tx_controller);
-#else
 		if (EdidHdmi_t.EdidCtrlParam.MaxFrlRateSupp !=
 		    XVIDC_MAXFRLRATE_NOT_SUPPORTED) {
 			xil_printf(ANSI_COLOR_YELLOW"Set TX stream to HDMI FRL,"
@@ -2266,6 +2261,11 @@ u32 Exdes_CheckDwnstrmSinkCaps()
 					ANSI_COLOR_RESET"\r\n");
 			XV_Tx_SetHdmiTmdsMode(&xhdmi_example_tx_controller);
 		}
+#else
+		xil_printf(ANSI_COLOR_YELLOW"Set TX stream to HDMI TMDS,"
+			" sink is HDMI\r\n"
+			ANSI_COLOR_RESET"\r\n");
+		XV_Tx_SetHdmiTmdsMode(&xhdmi_example_tx_controller);
 #endif
 
 	}
