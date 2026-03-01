@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 * This example is tested on ML300/ML310/ML403/ML501/ML507/ML510/ML605/SP601 and
 * SP605 Xilinx boards.
 *
-* The ML310/ML410/ML510 boards have a on-board 64 Kb serial IIC EEPROM
+* The ML310/ML410/ML510/SCU200/SCU35 boards have a on-board 64 Kb serial IIC EEPROM
 * (Microchip 24LC64A). The WP pin of the IIC EEPROM is hardwired to ground on
 * this board.
 *
@@ -37,14 +37,14 @@
 * IIC EEPROM(STM M24C08). The WP pin of the IIC EEPROM is hardwired to ground
 * on these boards.
 *
-* The AddressType for ML300/ML310/ML410/ML510 boards should be u16 as the
+* The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be u16 as the
 * address pointer in the on board EEPROM is 2 bytes.
 *
 * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
 * be u8 as the address pointer for the on board EEPROM is 1 byte.
 *
 * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/
-* ML501/ML505/ML507/ML510 boards is 0x50.
+* ML501/ML505/ML507/ML510/SCU200 boards is 0x50.
 * The 7 bit IIC Slave address of the IIC EEPROM on the ML605/SP601/SP605 boards
 * is 0x54.
 * Refer to the User Guide's of the respective boards for further information
@@ -77,6 +77,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support
+* 3.15  vlt  02/11/26 Updated comment lines for SCU200 and SCU35 EEPROM address,
+*                     page size, and address type used for testing.
 * </pre>
 *
 ******************************************************************************/
@@ -130,7 +132,7 @@
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
  * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML510/
- * ML501/ML505/ML507/ML510 boards is 0x50. The 7 bit IIC Slave address of the
+ * ML501/ML505/ML507/ML510/SCU200 boards is 0x50. The 7 bit IIC Slave address of the
  * IIC EEPROM on the ML605/SP601/SP605 boards is 0x54.
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
@@ -139,7 +141,7 @@
 
 /*
  * The page size determines how much data should be written at a time.
- * The ML310/ML300 board supports a page size of 32 and 16.
+ * The ML310/ML300/SCU200/SCU35 board supports a page size of 32 and 16.
  * The write function should be called with this as a maximum byte count.
  */
 #define PAGE_SIZE		16
@@ -152,7 +154,7 @@
 /**************************** Type Definitions *******************************/
 
 /*
- * The AddressType for ML300/ML310/ML410/ML510 boards should be u16 as the
+ * The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be u16 as the
  * address pointer in the on board EEPROM is 2 bytes.
  * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
  * be u8 as the address pointer in the on board EEPROM is 1 bytes.
