@@ -69,6 +69,7 @@
 *       kpt    03/16/22 Removed IPI related code and added mailbox support
 * 5.2   am     05/03/23 Added KAT before crypto usage
 *       pre    08/16/24 Added SSIT support
+* 5.7   bha    02/25/26 Removed ICCARM related code
 *
 * </pre>
 ******************************************************************************/
@@ -127,7 +128,6 @@ static s32 SecureAesGmacTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *I
 static u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE] __attribute__((aligned(64U)))
 						__attribute__ ((section (".data.SharedMem")));
 
-#if defined (__GNUC__)
 static u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Data")));
 static u8 DecData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
@@ -138,18 +138,6 @@ static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.GcmTag")));
 static u8 Aad[XSECURE_AAD_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Aad")));
-#elif defined (__ICCARM__)
-#pragma data_alignment = 64
-static u8 Data[XSECURE_DATA_SIZE];
-#pragma data_alignment = 64
-static u8 DecData[XSECURE_DATA_SIZE];
-#pragma data_alignment = 64
-static u8 EncData[XSECURE_DATA_SIZE ];
-#pragma data_alignment = 64
-static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE];
-#pragma data_alignment = 64
-static u8 Aad[XSECURE_AAD_SIZE];
-#endif
 
 /************************** Function Definitions ******************************/
 

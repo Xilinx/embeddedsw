@@ -55,6 +55,7 @@
 *       mb     03/25/25 Add section attribute to global variables
 * 5.5   mb     06/10/25 Added description on usage of shared memory
 * 5.6   rpu    08/22/25 Updated the print statement to show error code when the example fails
+* 5.7   bha    02/25/26 Removed ICCARM related code
 * </pre>
 ******************************************************************************/
 
@@ -105,7 +106,6 @@ static int SecureAesGmacTest(XSecure_Aes *AesInstance);
 
 /************************** Variable Definitions *****************************/
 
-#if defined (__GNUC__)
 static XSecure_Aes Secure_Aes __attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Secure_Aes")));
 static u8 Iv[XSECURE_IV_SIZE]__attribute__ ((aligned (64)))
@@ -122,18 +122,6 @@ static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.GcmTag")));
 static u8 Aad[XSECURE_AAD_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Aad")));
-#elif defined (__ICCARM__)
-#pragma data_alignment = 64
-static u8 Data[XSECURE_DATA_SIZE];
-#pragma data_alignment = 64
-static u8 DecData[XSECURE_DATA_SIZE];
-#pragma data_alignment = 64
-static u8 EncData[XSECURE_DATA_SIZE ];
-#pragma data_alignment = 64
-static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE];
-#pragma data_alignment = 64
-static u8 Aad[XSECURE_AAD_SIZE];
-#endif
 
 /************************** Function Definitions ******************************/
 
