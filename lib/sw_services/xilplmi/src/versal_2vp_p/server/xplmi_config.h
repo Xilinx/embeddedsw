@@ -23,6 +23,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 * 2.4   rmv 01/30/26 Refactor OCP library
+* 2.5   sd  03/03/26 Added PLM_ENABLE_ADDR_RANGE_VALIDATION macro and enable by default
 *
 * </pre>
 *
@@ -217,6 +218,14 @@ extern "C" {
 
 /* Enable the below define to enable PMC I2C Handshake Feature*/
 //#define PLM_I2C_MB_HANDSHAKE
+
+/**
+ * Enable the below define to enable address range validation in PLM.
+ * By default, address range validation is enabled for Versal_2VP_P devices
+ * When enabled, this feature validates memory access ranges
+ * for security-critical functions.
+ */
+#define PLM_ENABLE_ADDR_RANGE_VALIDATION
 
 /************************************* Function Prototypes ****************************************/
 
