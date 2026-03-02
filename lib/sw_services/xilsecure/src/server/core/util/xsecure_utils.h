@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 5.4   kpt     06/24/24 Added XSECURE_BYTE_IN_BITS
 *       pre     08/16/24 Added XSecure_MemCpy64 macro
 * 5.7   tvp     02/19/26 Added XSECURE_VALUE_ONE/TWO/THREE
+*       tvp     02/19/26 Added XSECURE_ALLFS and XSECURE_ZERO
 *
 * </pre>
 *
@@ -57,6 +58,8 @@ extern "C" {
 #define XSECURE_VALUE_ONE			(1U) /**< Integer value 1U */
 #define XSECURE_VALUE_TWO			(2U) /**< Integer value 2U */
 #define XSECURE_VALUE_THREE			(3U) /**< Integer value 3U */
+#define XSECURE_ALLFS				(0xFFFFFFFFU) /**< To assign invalid value */
+#define XSECURE_ZERO				(0U) /**< To assign/compare to zero */
 
 /***************************** Type Definitions******************************/
 

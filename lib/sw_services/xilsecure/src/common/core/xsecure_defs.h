@@ -39,6 +39,7 @@
 *       yog  03/18/25 Added XSecure_EcdhParams
 * 5.6   obs  09/17/25 Added XSECURE_SIZE_DOUBLE macro
 * 5.7   tvp  02/19/26 Added XSecure_MldsaSignVerifyParams
+*       tvp  02/19/26 Added XSecure_SlhdsaInputParams
 *
 * </pre>
 *
@@ -238,6 +239,18 @@ typedef struct {
 	u64 ContextAddr;	/**< Address of optional context string buffer */
 	u32 ContextLen;		/**< Length of context string in bytes */
 } XSecure_MldsaSignVerifyParams;
+
+/** Structure for input parameters for SLHDSA Sign Veification */
+typedef struct {
+	u64 DataAddr;		/**< Address of message data buffer */
+	u32 DataLen;		/**< Length of message data in bytes */
+	u64 SignatureAddr;	/**< Address of signature buffer */
+	u32 SignatureLen;	/**< Length of signature in bytes */
+	u64 ContextAddr;	/**< Address of optional context string buffer */
+	u32 ContextLen;		/**< Length of context string in bytes */
+	u64 PublicKeyAddr;	/**< Address of public key buffer */
+	u32 PublicKeyLen;	/**< Length of public key in bytes */
+} XSecure_SlhdsaInputParams;
 
 #ifdef __cplusplus
 }

@@ -18,6 +18,7 @@
  * 5.7   tvp  02/19/26 Initial release
  *       tvp  02/19/26 Add error codes related to MLDSA operations
  *       tvp  02/19/26 Add XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
+ *       tvp  02/19/26 Add error codes related to SLHDSA operations
  *
  * </pre>
  *
@@ -375,6 +376,11 @@ enum {
 						  operation failed */
 	XSECURE_MLDSA_SIGNATURE_MISMATCH,	/**< 0x107 - MLDSA signature verification mismatch
 						  (all zeros or CT mismatch) */
+	XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR,	/**< 0x108 */
+	XSECURE_SLHDSA_INVALID_PARAM,	/**< 0x10A */
+	XSECURE_SLHDSA_PK_LEN_ERROR,	/**< 0x10B */
+	XSECURE_SLHDSA_CTX_LEN_ERROR,	/**< 0x10C */
+	XSECURE_SLHDSA_SIGN_LEN_ERROR,	/**< 0x10D */
 
 };
 
