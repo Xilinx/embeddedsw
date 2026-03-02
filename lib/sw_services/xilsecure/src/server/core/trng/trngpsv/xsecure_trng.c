@@ -106,7 +106,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 		UsrCfg.Mode = XTRNGPSV_PTRNG;
 		UsrCfg.DFLenMul = XTRNGPSV_USER_CFG_DF_LENGTH;
 	}
-	if (SeedLength) {
+	if (SeedLength != 0U) {
 		UsrCfg.InitSeedPresent = XTRNGPSV_TRUE;
 		Status = Xil_SMemCpy(&UsrCfg.InitSeed, XTRNGPSV_SEED_LEN_BYTES, Seed, SeedLength,
 				     SeedLength);
