@@ -40,6 +40,9 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_RSA_KEY_ADDRESS		(0xF2008000U) /**< Address to copy RSA input parameters */
+#define XSECURE_RSA_PRIME_SIZE_DIVISOR	(2U) /**< RSA prime factors P and Q
+					       * are each half the modulus size (N = P × Q)
+					       */
 /************************** Function Prototypes *****************************/
 #ifndef PLM_RSA_EXCLUDE
 static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
@@ -214,8 +217,12 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 	}
 
 	if ((RsaKeyParam.IsPrimeAvail == TRUE) || (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE)) {
-		if ((RsaKeyParam.PSize != (RsaParams.Size / 2U)) ||
-			(RsaKeyParam.QSize != (RsaParams.Size / 2U))) {
+		/**
+		 * Validate prime sizes: In RSA, the modulus N = P × Q, where P and Q are prime factors.
+		 * Therefore, each prime (P and Q) must be exactly half the size of the modulus.
+		 */
+		if ((RsaKeyParam.PSize != (RsaParams.Size / XSECURE_RSA_PRIME_SIZE_DIVISOR)) ||
+			(RsaKeyParam.QSize != (RsaParams.Size / XSECURE_RSA_PRIME_SIZE_DIVISOR))) {
 			Status = (int)XST_INVALID_PARAM;
 			goto END;
 		}
