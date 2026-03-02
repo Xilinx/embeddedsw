@@ -57,6 +57,7 @@
   * 2.5   hj   02/11/25 Initial release
   * 2.5   hj   03/25/25 Remove master and slave keywords
   * 2.7   bha  01/06/26 Fixed Doxygen warnings
+  *       bha  02/25/26 Removed ICCARM related code
   * </pre>
   *
   *@note
@@ -136,23 +137,12 @@ static const char RedKeyStr[XNVM_MAX_SLR_NUM + 1][(XPUF_RED_KEY_LEN_IN_BYTES * 2
 static u8 SharedMem[XNVM_TOTAL_SHARED_MEM] __attribute__((aligned(64U)))
 						__attribute__ ((section (".data.SharedMem")));
 
-#if defined (__GNUC__)
 static u8 RedKey[XPUF_RED_KEY_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.RedKey")));
 static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.BlackKey")));
 static u8 GcmTag[XPUF_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.GcmTag")));
-#elif defined (__ICCARM__)
-#pragma data_alignment = 64
-static u8 RedKey[XPUF_RED_KEY_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 DecRedKey[XPUF_RED_KEY_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 GcmTag[XPUF_GCM_TAG_SIZE];
-#endif
 
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput(XNvm_ClientInstance *InstancePtr);

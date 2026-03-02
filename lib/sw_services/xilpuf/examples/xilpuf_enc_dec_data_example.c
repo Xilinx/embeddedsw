@@ -44,6 +44,7 @@
  * 2.2   am   05/03/23 Added KAT before crypto usage
  * 	 vss  11/22/23 Added header file required for SDT flow
  * 2.7   bha  01/06/26 Fixed Doxygen warnings
+ *       bha  02/25/26 Removed ICCARM related code
  * </pre>
  *
  * @note
@@ -161,7 +162,6 @@ static XPuf_Data PufData;
 static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
 						__attribute__ ((section (".data.Data")));
 
-#if defined (__GNUC__)
 static u8 Data[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Data")));
 static u8 DecData[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
@@ -170,16 +170,6 @@ static u8 EncData[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.EncData")));
 static u8 GcmTag[XPUF_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.GcmTag")));
-#elif defined (__ICCARM__)
-#pragma data_alignment = 64
-static u8 Data[XPUF_DATA_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 DecData[XPUF_DATA_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 EncData[XPUF_DATA_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 GcmTag[XPUF_GCM_TAG_SIZE];
-#endif
 
 /************************** Function Prototypes ******************************/
 static int XPuf_GenerateKey(void);

@@ -53,7 +53,8 @@
   * 2.7   bha  01/06/26 Fixed Doxygen warnings
   *       bha  01/23/26 Fixed Compilation errors,Code clean-up and
   *                     added PUF-ID only Regeneration support
-  * 3.7   mb   02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
+  *       mb   02/09/26 Rename secure control bit names for SPARTANUPLUSAES1
+  *       bha  02/25/26 Removed ICCARM related code
   * </pre>
   *
   *@note
@@ -147,21 +148,12 @@ static XNvm_EfuseData EfuseData __attribute__ ((section (".data.EfuseData")));
 static XNvm_EfusePpkHash PrgmPpkHash  __attribute__ ((section (".data.PrgmPpkHash")));
 static u8 PufPpkHash[XPUF_PPK_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.PufPpkHash")));
 
-#if defined (__GNUC__)
 static u8 RedKey[XPUF_RED_KEY_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 __attribute__ ((section (".data.RedKey")));
 static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 __attribute__ ((section (".data.BlackKey")));
 static u8 GcmTag[XPUF_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 __attribute__ ((section (".data.GcmTag")));
-#elif defined (__ICCARM__)
-#pragma data_alignment = 64
-static u8 RedKey[XPUF_RED_KEY_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
-#pragma data_alignment = 64
-static u8 GcmTag[XPUF_GCM_TAG_SIZE];
-#endif
 
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput();
