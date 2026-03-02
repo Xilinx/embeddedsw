@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 5.7   tvp  02/19/26 Initial release
+ *       tvp  02/19/26 Add error codes related to MLDSA operations
  *
  * </pre>
  *
@@ -357,7 +358,19 @@ enum {
 	XSECURE_ERR_GLITCH_DETECTED,		/**< 0xFC - Error glitch detected */
 	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFD - Error in TRNG operation self tests */
 	XSECURE_ERR_TRNG_INIT_N_CONFIG,		/**< 0xFE - Error in TRNG Instantiate and configuration */
-	XSECURE_ERR_INVALID_ADDR_RANGE		/**< 0xFF - Error when address range validation fails */
+	XSECURE_ERR_INVALID_ADDR_RANGE,		/**< 0xFF - Error when address range validation fails */
+	XSECURE_MLDSA_INVALID_PARAM_ERROR,	/**< 0x100 - Invalid parameter */
+	XSECURE_MLDSA_SIGN_CT_ZERO_ERROR,	/**< 0x101 - CT validation failed */
+	XSECURE_MLDSA_CORE_NOT_READY_ERROR,	/**< 0x102 - MLDSA hardware not ready to take a
+						  control command and process the inputs */
+	XSECURE_MLDSA_MSG_STREAM_ERROR,		/**< 0x103 - MLDSA hardware not ready to receive
+						  the message in streaming mode */
+	XSECURE_MLDSA_SIGN_TIMEOUT_ERROR,	/**< 0x104 - MLDSA signature verification failed */
+	XSECURE_MLDSA_AUTH_FAIL_ERROR,		/**< 0x105 - MLDSA authentication failed */
+	XSECURE_MLDSA_REG_ZEROIZE_FAIL_ERROR,	/**< 0x106 - MLDSA internal registers zeroize
+						  operation failed */
+	XSECURE_MLDSA_SIGNATURE_MISMATCH,	/**< 0x107 - MLDSA signature verification mismatch
+						  (all zeros or CT mismatch) */
 
 };
 

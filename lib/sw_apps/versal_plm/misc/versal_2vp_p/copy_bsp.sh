@@ -120,6 +120,7 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/rsa/rsa_qmode/* $BSP_DIR/libsrc/xi
 cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/trngpsx/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/lms_hss/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/mldsa/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/versal_2ve_2vm/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/versal_2vp_p/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h $BSP_DIR/libsrc/xilsecure/src/

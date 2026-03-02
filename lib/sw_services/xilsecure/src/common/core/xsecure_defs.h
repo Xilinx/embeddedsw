@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       Pre  03/02/25 Removed macros and structures related to data context setting
 *       yog  03/18/25 Added XSecure_EcdhParams
 * 5.6   obs  09/17/25 Added XSECURE_SIZE_DOUBLE macro
+* 5.7   tvp  02/19/26 Added XSecure_MldsaSignVerifyParams
 *
 * </pre>
 *
@@ -225,6 +226,18 @@ typedef enum {
 	XSECURE_API_KAT_SET = 0U,				/**< 0U */
 	XSECURE_API_KAT_CLEAR					/**< 1U */
 } XSecure_KatOp;
+
+/** Structure for input parameters for MLDSA Sign Verification */
+typedef struct {
+	u64 DataAddr;		/**< Address of message data buffer */
+	u32 DataLen;		/**< Length of message data in bytes */
+	u64 PubKeyAddr;		/**< Address of public key buffer */
+	u32 PubKeyLen;		/**< Length of public key in bytes */
+	u64 SignAddr;		/**< Address of signature buffer */
+	u32 SignLen;		/**< Length of signature in bytes */
+	u64 ContextAddr;	/**< Address of optional context string buffer */
+	u32 ContextLen;		/**< Length of context string in bytes */
+} XSecure_MldsaSignVerifyParams;
 
 #ifdef __cplusplus
 }

@@ -19,6 +19,7 @@
 * 5.1   yog     05/03/23 Fixed MISRA C violation of Rule 2.5
 * 5.4   kpt     06/24/24 Added XSECURE_BYTE_IN_BITS
 *       pre     08/16/24 Added XSecure_MemCpy64 macro
+* 5.7   tvp     02/19/26 Added XSECURE_VALUE_ONE/TWO/THREE
 *
 * </pre>
 *
@@ -53,6 +54,9 @@ extern "C" {
 #define XSECURE_WORD_ALIGN_MASK			(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
 #define XSECURE_SET_BIT				(0x0U) /**< To set bit */
 #define XSECURE_CLEAR_BIT			(0xFFFFFFFFU) /**< To clear bit */
+#define XSECURE_VALUE_ONE			(1U) /**< Integer value 1U */
+#define XSECURE_VALUE_TWO			(2U) /**< Integer value 2U */
+#define XSECURE_VALUE_THREE			(3U) /**< Integer value 3U */
 
 /***************************** Type Definitions******************************/
 
