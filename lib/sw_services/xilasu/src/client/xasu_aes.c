@@ -493,6 +493,7 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 		 * Allow partial AAD only for the final transfer. Intermediate transfers must be
 		 * block size aligned.
 		 */
+		Status = XASU_INVALID_ARGUMENT;
 		if ((AesClientParamPtr->AadLen > 0U) && (AesClientParamPtr->AadAddr != 0U) &&
 				(AesClientParamPtr->AadLen <= XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 			if (((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U) ||
