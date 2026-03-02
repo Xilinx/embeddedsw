@@ -121,7 +121,10 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/* $BSP_DIR/libsrc/xilsecure/s
 cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/trngpsx/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/lms_hss/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/versal_2ve_2vm/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/server/versal_2ve_2vm/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/versal_2vp_p/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/versal_2ve_2vm/Rsa.h $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/versal_2ve_2vm/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
