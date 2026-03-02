@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -35,6 +35,8 @@
  *                         details & Added Macro protection to invoke
  *                         CORR/CRC/UNCORR Err injection functions.
  * 1.2   gayu  09/08/2025  Fixed Gcc warnings.
+ * 1.3   anv   02/11/2026  Removed local FailCnt variable to ensure global
+ *                         FailCnt is updated correctly.
  * </pre>
  *
  *****************************************************************************/
@@ -606,7 +608,6 @@ int main(void)
 	u32 GoldenCrc = 0U;
 	u32 TotalFrames[7];
 	u32 Id;
-	u32 FailCnt= 0;
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications

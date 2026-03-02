@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -26,6 +26,8 @@
  *                           main function to get clear prints.
  * 0.4   gam     08/29/2025  Updated IPI driver initialization & interrupts
  *                           for SDT support.
+ * 0.5   anv     02/11/2026  Cleared IPI interrupts after calling the
+ *                           IPI interrupt handler
  *
  * </pre>
  *
@@ -220,6 +222,7 @@ XStatus XSem_CfrApiErrNjct (XSemCfrErrInjData *ErrData)
 	return Status;
 }
 
+#ifdef XILSEM_CORR_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject 1-bit correctable error
  *
@@ -247,7 +250,9 @@ XStatus Xsem_CfrApiInjctCorErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_CORR_ERRINJ_ENABLE */
 
+#ifdef XILSEM_UNCORR_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject Uncorrectable error
  *
@@ -277,7 +282,9 @@ XStatus Xsem_CfrApiInjctUnCorErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_UNCORR_ERRINJ_ENABLE */
 
+#ifdef XILSEM_CRC_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject CRC error. This error is treated as
  * uncorrectable error.
@@ -313,6 +320,7 @@ XStatus Xsem_CfrApiInjctCrcErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_CRC_ERRINJ_ENABLE */
 
 /******************************************************************************
  * @brief	This function checks if correctable error counter is incremented
@@ -357,6 +365,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 	u32 ErrQwordLoc = 0U;
 	u32 ErrFarLoc = 0U;
 	u32 ErrRowLoc = 0U;
+	u32 Index = 0U;
 
 	xil_printf("-----------------------------------------------------\n\r");
 	xil_printf("-----------------Print Report------------------------\n\r");
@@ -480,6 +489,16 @@ void PrintErrReport(u32 IntialCorErrCnt)
 		xil_printf("[FAILURE] XilSEM failed to detect error," \
 			" Status = 0x%08x\n\r", CfrStatusInfo.Status);
 	}
+	xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo.Status);
+	xil_printf("\n");
+	for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
+		xil_printf("Last Corrected Location_%x Low Addr : 0x%08x\n", \
+						Index,CfrStatusInfo.ErrAddrL[Index]);
+		xil_printf("Last Corrected Location_%x High Addr: 0x%08x\n", \
+						Index,CfrStatusInfo.ErrAddrH[Index]);
+		xil_printf("\n");
+	}
+	xil_printf("Total CE count: %x\n" ,CfrStatusInfo.ErrCorCnt);
 }
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
@@ -512,10 +531,10 @@ int Xsem_CfrEventRegisterNotifier(u32 Enable)
 /******************************************************************************
  * @brief	IpiCallback to receive event messages
  *
- * @param[in]	InstancePtr : Pointer to IPI driver instance
+ * @return   None.
  *
  *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+void XSem_IpiCallback(void)
 {
 	int Status;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -551,6 +570,9 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 		xil_printf("%s Some other callback received: %d\n", \
 				__func__, Payload[0]);
 	}
+
+	/* Clear Interrupts */
+	XIpiPsu_ClearInterruptStatus(&IpiInst, IPI_PMC_MASK);
 }
 /******************************************************************************/
 /**
@@ -654,10 +676,10 @@ int IntcAndIpiInit(void)
 #ifndef SDT
 	Status = SetUpInterruptSystem(&InterruptController);
 #else
-	Status = XSetupInterruptSystem(&IpiInst, &InterruptController,
-				   IpiInst.Config.IntId,
-				   IpiInst.Config.IntrParent,
-				   XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&IpiInst, (XInterruptHandler)XSem_IpiCallback,
+				IpiInst.Config.IntId,
+				IpiInst.Config.IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -671,7 +693,6 @@ int IntcAndIpiInit(void)
 	/* Clear Any existing Interrupts */
 	XIpiPsu_ClearInterruptStatus(&IpiInst, IPI_PMC_MASK);
 	xil_printf("IPI intr clear done\r\n");
-
 END:
 	return Status;
 }
@@ -697,7 +718,6 @@ int main(void)
 	u32 GoldenCrc = 0U;
 	u32 TotalFrames[7];
 	u32 Id;
-	u32 Index =0U;
 	u32 FailCnt = 0;
 	/**
 	 * Initialize IPI Driver
@@ -717,12 +737,6 @@ int main(void)
 	 * This is applicable when CRAM Scan is set for deferred start up.
 	 */
 	(void)XSem_CmdCfrGetStatus(&CfrStatusInfo);
-	xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo.Status);
-	for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
-		xil_printf("Last Corrected Location_%x High Addr: %x Low Addr: %x\n", \
-			Index,CfrStatusInfo.ErrAddrH,CfrStatusInfo.ErrAddrL);
-	}
-	xil_printf("Total CE count: %x\n" ,CfrStatusInfo.ErrCorCnt);
 	IsInitDone = CfrStatusInfo.Status & CRAM_STATUS_INIT_DONE_MASK;
 	if (IsInitDone != CRAM_STATUS_INIT_DONE_MASK) {
 		Status = XSem_CfrApiInitCram();
@@ -839,7 +853,17 @@ int main(void)
 	 * with Xsem_CfrApiInjctUnCorErr.
 	 */
 
+#if defined(XILSEM_UNCORR_ERRINJ_ENABLE)
+	Status = Xsem_CfrApiInjctUnCorErr();
+#elif defined(XILSEM_CRC_ERRINJ_ENABLE)
+	Status = Xsem_CfrApiInjctCrcErr();
+#elif defined(XILSEM_CORR_ERRINJ_ENABLE)
 	Status = Xsem_CfrApiInjctCorErr();
+#else
+	xil_printf("Not defined type of Error Injection to be done\n\r");
+	goto END;
+#endif
+
 	if (Status == XST_SUCCESS){
 		IsErrorInjected = 1U;
 	}

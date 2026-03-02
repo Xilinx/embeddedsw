@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -42,6 +42,8 @@
  *                           valid case for deferred start-up.
  * 0.4   gam     08/29/2025  Updated IPI driver initialization & interrupts
  *                           for SDT support.
+ * 0.5   anv     02/11/2026  Cleared IPI interrupts after calling the
+ *                           IPI interrupt handler
  *
  * </pre>
  *
@@ -271,10 +273,10 @@ int XSem_NpiEventRegisterNotifier(u32 Enable)
 /******************************************************************************
  * @brief	IpiCallback to receive event messages
  *
- * @param[in]	InstancePtr : Pointer to IPI driver instance
+ * @return   None.
  *
  *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+void XSem_IpiCallback(void)
 {
 	int Status;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -338,6 +340,9 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 		xil_printf("%s Some other callback received: %d\n", __func__,
 				Payload[0]);
 	}
+	/* Clear Interrupts */
+	XIpiPsu_ClearInterruptStatus(&IpiInst, IPI_PMC_MASK);
+	xil_printf("IPI intr clear done\r\n");
 }
 #ifdef XILSEM_ERRINJ_ENABLE
 /******************************************************************************
@@ -475,6 +480,7 @@ void PrintErrReport(void)
 	xil_printf("----------------------------------------------------\n\r");
 }
 #endif /* End of XILSEM_ERRINJ_ENABLE */
+
 /******************************************************************************/
 /**
 *
@@ -576,10 +582,10 @@ int IntcAndIpiInit(void)
 #ifndef SDT
 	Status = SetUpInterruptSystem(&InterruptController);
 #else
-	Status = XSetupInterruptSystem(&IpiInst, &InterruptController,
-				   IpiInst.Config.IntId,
-				   IpiInst.Config.IntrParent,
-				   XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&IpiInst, (XInterruptHandler)XSem_IpiCallback,
+				IpiInst.Config.IntId,
+				IpiInst.Config.IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		goto END;
