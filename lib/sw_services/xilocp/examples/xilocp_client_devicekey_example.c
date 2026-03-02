@@ -68,6 +68,7 @@
 *	                this file
 * 1.3   ng     01/28/24 Added SDT support
 *       har    06/07/24 Added support to generate X.509 certificate for Key Wrap DevAk
+* 1.7   bha    02/25/26 Removed ICCARM related code
 *
 * </pre>
 * @note
@@ -99,21 +100,12 @@ static int XOcp_GetX509DevIK(XOcp_ClientInstance *OcpClientInsPtr);
 static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr);
 static int XOcp_GetX509DevIKCSR(XOcp_ClientInstance *OcpClientInsPtr);
 /************************** Variable Definitions *****************************/
-#if defined (__GNUC__)
 static u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN] __attribute__ ((section (".data.Signature")));
 static u8 X509Cert[XOCP_X509_CERT_BUF_SIZE]__attribute__ ((section (".data.X509Cert")));
 static XOcp_X509Cert DataX509 __attribute__ ((section (".data.DataX509")));
 static u32 ActualCertSize __attribute__ ((section (".data.ActualCertSize")));
 static XOcp_Attest AttestData __attribute__((aligned(64U)))
 				__attribute__ ((section (".data.AttestData")));
-#elif defined (__ICCARM__)
-static u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN];
-static u8 X509Cert[XOCP_X509_CERT_BUF_SIZE];
-static XOcp_X509Cert DataX509;
-static u32 ActualCertSize;
-#pragma data_alignment = 64
-static XOcp_Attest AttestData;
-#endif
 
 static u8 Data[XOCP_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Data"))) =
 						{0x70,0x69,0x77,0x35,0x0b,0x93,
