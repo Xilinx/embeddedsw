@@ -66,9 +66,9 @@ extern "C" {
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */
 
-#define XASU_STATUS_NOT_RUN	(0x0U) /**< KAT not run status. */
-#define XASU_STATUS_FAIL		(0x7U) /**<  Failed status. */
-#define XASU_STATUS_PASS		(0xEU) /**<  Success status. */
+#define XASU_STATUS_NOT_RUN	(0x01U) /**< KAT not run status. */
+#define XASU_STATUS_FAIL		(0xE2U) /**<  Failed status. */
+#define XASU_STATUS_PASS		(0x1EU) /**<  Success status. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -85,7 +85,7 @@ typedef struct {
 				/**< 0xFF: Algorithm is NIST compliant
 				     0x00: Algorithm is not NIST compliant or NIST compliance is not
 					    applicable */
-	u8 KatStatus;	/**< KAT status bit, 0x0 - KAT not run, 0x7 - KAT fail and 0xEU - KAT pass */
+	u8 KatStatus;	/**< KAT status bit, 0x01 - KAT not run, 0xE2 - KAT fail and 0x1E - KAT pass */
 	u8 Reserved2;	/**< Reserved */
 	u8 Reserved3;	/**< Reserved */
 	u32 Reserved4;	/**< Reserved */
