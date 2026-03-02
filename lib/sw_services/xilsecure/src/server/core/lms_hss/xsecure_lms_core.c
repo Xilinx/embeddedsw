@@ -22,6 +22,7 @@
 * 5.7   har  01/13/26  Set Status to error before jumping to END label
 *       tvp  11/20/25  Code refactoring for platform specific LMS functionality
 *       tvp  12/29/25  Add LMS/LMS-HSS algorithm type macros for Versal_2vp_p
+*       tvp  02/23/26  Use platform specific configuration for hash algorithm
 *
 * </pre>
 * @note
@@ -843,6 +844,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 	CurrentLmsQ = XSECURE_ALLFS;
 	SignatureLengthConsumed = 0U;
 	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
+	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)ShaInstPtr->ShaPlatConfig;
 
 
 	/* ****************************************************************************************** */
@@ -981,7 +983,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		   type selected in signature,
 		   currently we do not support combinations of HASH algorithm */
 		if ((PubKeyLmsParam->H != PubKeyLmsOtsParam->H) ||
-			(ShaInstPtr->HashAlgo != PubKeyLmsOtsParam->H)) {
+			(ShaPlatConfig->HashAlgo != PubKeyLmsOtsParam->H)) {
 			Status = XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR;
 			goto END;
 		}

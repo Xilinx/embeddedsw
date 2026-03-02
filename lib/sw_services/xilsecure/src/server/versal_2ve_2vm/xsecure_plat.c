@@ -22,6 +22,7 @@
 * 5.6   mb       08/07/25 Added volatile keyword for Index variable to avoid optimization
 *       tvp      09/23/25 Code refactoring for Platform specific TRNG functions
 *       sd       11/07/25 Update condition to reflect the revised function return value
+* 5.7   tvp      02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
 *
 * </pre>
 *
@@ -80,6 +81,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 		XSECURE_SHA2_DEVICE_ID,
 	}
 };
+
 /************************** Function Prototypes ******************************/
 
 static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
@@ -539,43 +541,44 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
 	/** Initializes the SHA instance based on SHA Mode */
 	switch(ShaMode) {
 		/** SHA2-256 Mode */
 		case XSECURE_SHA2_256:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA2_256_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA256;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA2_256_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA256;
 			break;
 		/** SHA2-384 Mode */
 		case XSECURE_SHA2_384:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA2_384_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA384;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA2_384_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
 		/** SHA2-512 Mode */
 		case XSECURE_SHA2_512:
-            InstancePtr->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
-            InstancePtr->ShaMode = (u32)SHA512;
-            break;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA512;
+			break;
 		/** SHA3-256 Mode */
-        case XSECURE_SHA3_256:
-            InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
-            InstancePtr->ShaMode = (u32)SHA256;
-            break;
+		case XSECURE_SHA3_256:
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA256;
+			break;
 		/** SHA3-384 Mode */
 		case XSECURE_SHA3_384:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA384;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
 		/** SHAKE-512 Mode */
 		case XSECURE_SHA3_512:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA512;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA512;
 			break;
 		/** SHAKE-256 Mode */
 		case XSECURE_SHAKE_256:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
-			InstancePtr->ShaMode = SHAKE256;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
+			ShaPlatConfig->ShaMode = SHAKE256;
 			break;
 		/** SHA invalid mode */
 		case XSECURE_SHA_INVALID_MODE:

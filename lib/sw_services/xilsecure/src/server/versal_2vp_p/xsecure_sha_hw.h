@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
+*       tvp  02/23/26 Move SHA mode and auto padding offset from common file
 *
 * </pre>
 *
@@ -58,6 +59,10 @@ extern "C" {
 #define XSECURE_SHA3_RESET_OFFSET 	XSECURE_SHA_RESET_OFFSET /**< SHA3 Reset Register */
 #define XSECURE_SHA_DONE_OFFSET		(0x08U) /**< SHA Done Register */
 #define XSECURE_SHA_DIGEST_0_OFFSET	(0x10U)	/**< SHA Digest: Reg 0 */
+#define XSECURE_SHA3_MODE_OFFSET		(0xC0U) /**< SHA3 Mode Register */
+#define XSECURE_SHA3_AUTO_PADDING_OFFSET	(0xC4U) /**< SHA3 Auto Padding Register */
+#define XSECURE_SHA2_MODE_OFFSET		(0xA0U) /**< SHA2 Mode Register */
+#define XSECURE_SHA2_AUTO_PADDING_OFFSET	(0xA4U) /**< SHA2 Auto Padding Register */
 /** @} */
 
 #ifdef __cplusplus

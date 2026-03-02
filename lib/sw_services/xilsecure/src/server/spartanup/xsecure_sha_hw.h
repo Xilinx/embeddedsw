@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -17,6 +17,7 @@
 * 5.5   kpt  08/16/24 Initial release
 *       tri  10/25/24 Added maximum supported hash size macro
 * 5.6   aa   07/21/25 Removed unused macros
+* 5.7   tvp  02/23/26 Move SHA mode and auto padding offset from common file
 *
 * </pre>
 *
@@ -47,6 +48,12 @@ extern "C" {
 							/**< SHA 0 device id */
 
 #define XSECURE_MAX_HASH_SIZE_IN_BYTES          (32U)	/**< SHA3 maximum supported hash size */
+
+#define XSECURE_SHA2_MODE_OFFSET		(0xA0U) /**< SHA2 Mode Register offset */
+#define XSECURE_SHA3_MODE_OFFSET		(0xA0U) /**< SHA3 Mode Register offset */
+
+#define XSECURE_SHA2_AUTO_PADDING_OFFSET	(0xA4U) /**< SHA2 Auto Padding Register offset */
+#define XSECURE_SHA3_AUTO_PADDING_OFFSET	(0xA4U) /**< SHA3 Auto Padding Register offset */
 
 #ifdef __cplusplus
 }

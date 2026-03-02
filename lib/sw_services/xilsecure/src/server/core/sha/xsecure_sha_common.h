@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 *       pre  03/02/2025 Removed data context setting and resource busy functionality for SHA
 * 5.6   tus  08/06/2025 Make Sha3Len variable common, earlier it was specific to
 *			Versal and Versal net
+* 5.7   tvp  02/23/2026 Use ShaPlatConfig for platform specific SHA configurations
 *
 * </pre>
 *
@@ -123,11 +124,8 @@ typedef struct {
 	u32 PartialLen; /**< Partial Length */
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN]; /**< Partial Data */
 
-	/* Versal_2Ve_2Vm specific fields */
 	XSecure_SssSrc SssShaCfg; /**< SSS config value */
-	u32 ShaMode; /**< ShaMode value to be configured in SHA_MODE register */
-	u32 ShaDigestSize; /**< Digest size in bytes for specific SHA Mode */
-	XSecure_ShaMode HashAlgo; /**< ShaMode input */
+	void *ShaPlatConfig; /**< SHA Platform specific config */
 } XSecure_Sha;
 
 /**

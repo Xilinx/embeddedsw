@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *                      added explicit parenthesis for sub-expression and fix
 *                      partially initialized array
 *       mb    09/11/25 Added SHA3_384 mode check to calculate hash
+* 5.7   tvp   02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
 *
 * </pre>
 *
@@ -269,7 +270,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
  * @param      IsLastChunk     Last chunk indication
  *
  * @return
- *     -       XST_SUCCESS on successful valdation
+ *     -       XST_SUCCESS on successful validation
  *     -       Error code on failure
  *
  ******************************************************************************/
@@ -408,23 +409,24 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
 	/** Initializes the SHA instance based on SHA Mode */
 	switch(ShaMode) {
         case XSECURE_SHA3_256:
-            InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
-            InstancePtr->ShaMode = (u32)SHA256;
+            ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
+            ShaPlatConfig->ShaMode = (u32)SHA256;
             break;
 		/** SHAKE-256 Mode */
 		case XSECURE_SHAKE_256:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
-			InstancePtr->ShaMode = SHAKE256;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
+			ShaPlatConfig->ShaMode = SHAKE256;
 			break;
 #ifdef SPARTANUPLUSAES1
 		/** SHA3-384 Mode */
 		case XSECURE_SHA3_384:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA384;
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
 #endif
 		/** SHA invalid mode */

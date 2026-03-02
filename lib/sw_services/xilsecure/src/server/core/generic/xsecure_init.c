@@ -39,6 +39,7 @@
 *       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 * 5.6   rpu  08/11/2025 Removed crypto check in xsecure_init
 *       vss  09/30/2025 Updated AES/SHA queueing macro checks.
+* 5.7   tvp  02/23/2025 Initialize SHA2 for Versal_2vp_p
 * </pre>
 *
 ******************************************************************************/
@@ -102,7 +103,7 @@ int XSecure_AesShaInit(void)
 		goto END;
 	}
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
