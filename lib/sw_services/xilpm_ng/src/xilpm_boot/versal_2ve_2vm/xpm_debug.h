@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -538,6 +538,8 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_RESUME_ADDR		0x4500U
 /* Error during core init */
 #define XPM_INT_ERR_CORE_INIT			0x4501U
+/* Error during core power down */
+#define XPM_INT_ERR_CORE_PWRWN			0x4502U
 
 /************************ Subsys specific Errors *****************************/
 /************************** (0x4600) - (0x46FF) ******************************/

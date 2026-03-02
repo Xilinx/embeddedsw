@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,26 @@
 #define CLK_CLKFLAGS_SHIFT		8U
 #define CLK_TYPEFLAGS_SHIFT		24U
 
+
+/* Clock UseCount overflow protection macro (use info print to avoid flooding logs) */
+#define PmIncrementClk(NodeId, Name, UseCount) \
+	do { \
+		if (UseCount < 255) { \
+			UseCount++; \
+		} else { \
+			PmInfo("Usecount is already 255, Clk: 0x%x (%s)\r\n", NodeId, Name); \
+		} \
+	} while (0)
+
+/* Clock UseCount underflow protection macro (use warning to keep current behavior) */
+#define PmDecrementClk(NodeId, Name, UseCount) \
+	do { \
+		if (UseCount > 0) { \
+			UseCount--; \
+		} else { \
+			PmWarn("Usecount is already 0, Clk: 0x%x (%s)\r\n", NodeId, Name); \
+		} \
+	} while (0)
 
 static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNode *Clk, u32 Type)
 {
@@ -96,7 +116,7 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 		}
 
 		/* Increment the use count of clock */
-		Clk->UseCount++;
+		PmIncrementClk(Clk->Node.Id, Clk->Name, Clk->UseCount);
 	}
 
 done:
@@ -141,7 +161,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 
 	if (Clk != NULL) {
 		/* Decrease the use count of clock */
-		PmDecrement(Clk->UseCount);
+		PmDecrementClk(Clk->Node.Id, Clk->Name, Clk->UseCount);
 
 		if (0U == Clk->UseCount) {
 			/* Clear the requested bit of clock */

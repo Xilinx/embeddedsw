@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_powerdomain.h"
@@ -209,6 +209,11 @@ static XStatus XPmPower_PowerOffState(XPm_Node *Node, u32 Event, u16 *DbgErr)
 			/* Hack */
 			Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 		}
+	} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
+		/* Already OFF, so return success */
+		Status = XST_SUCCESS;
+	} else {
+		/* Required by MISRA */
 	}
 done:
 	return Status;
@@ -322,7 +327,16 @@ static XStatus XPmPower_PowerDwnSelfState(XPm_Node *Node, u32 Event)
 			}
 			if (NULL != Power->Parent) {
 				Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;
-				Power->WfParentUseCnt = (u8)(Power->Parent->UseCount - 1U);
+
+				/* Remove cast, add underflow guard */
+				u16 ParentCnt = Power->Parent->UseCount;
+				if (ParentCnt > 0U) {
+					Power->WfParentUseCnt = ParentCnt - (u16)1U;
+				} else {
+					Power->WfParentUseCnt = 0U;
+					PmDbg("Parent UseCount=0, setting WfParentUseCnt=0\r\n");
+				}
+
 				Status = Power->Parent->HandleEvent(&Power->Parent->Node,
 								    XPM_POWER_EVENT_PWR_DOWN);
 				/* Todo: Start timer to poll the parent node */

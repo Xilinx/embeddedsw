@@ -113,6 +113,9 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
 		if (NULL != Core) {
 			Status = XPmCore_PowerDown(Core);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_CORE_PWRWN;
+			}
 			goto done;
 		}
 	}
@@ -151,7 +154,18 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		goto done;
 	}
 	if (NULL != Device->Power) {
-		/* Power down the device */
+		/**
+		 * Power down the device
+		 *
+		 * Guard against underflow when UseCount is 0.
+		 * Can occur during cascading shutdown when multiple devices
+		 * share a power domain and last device triggers power-down.
+		 */
+		if (Device->Power->UseCount > 0U) {
+			Device->WfPwrUseCnt = Device->Power->UseCount - (u16)1U;
+		} else {
+			Device->WfPwrUseCnt = 0U;
+		}
 		Status = Device->Power->HandleEvent(&Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PWRDN;
