@@ -25,6 +25,8 @@
 *       vss  09/02/25 Fixed GCC warnings
 * 5.6   rpu  08/11/25 Added crypto check in XSecure_ShaStart.
 * 5.7   tvp  02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
+*       tvp  02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
+*
 * </pre>
 *
 * @note
@@ -178,6 +180,13 @@ int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr)
 		goto END;
 	}
 
+#ifdef XSECURE_SHA_CHAIN_MODE_EN
+	InstancePtr->DoChainConfig = (u32)FALSE;
+	InstancePtr->StartIdx = 0U;
+	InstancePtr->ChainItr = 0U;
+	Xil_Out32((InstancePtr->BaseAddress + XSECURE_SHA3_CHAIN_OFFSET), 0U);
+#endif
+
 	InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 
 END:
@@ -249,6 +258,20 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	/** Enable Auto Hardware Padding. */
 	Xil_Out32((InstancePtr->BaseAddress + ShaPlatConfig->AutoPaddingOffset),
 				XSECURE_SHA_AUTO_MODE_ENABLE);
+
+#ifdef XSECURE_SHA_CHAIN_MODE_EN
+	if (ShaPlatConfig->ShaMode == SHAKE256_SLH_DSA_CHAIN) {
+		if (InstancePtr->DoChainConfig == (u32)TRUE) {
+			/** Configure Chain start index and chain iteration count */
+			Xil_Out32((InstancePtr->BaseAddress + XSECURE_SHA3_CHAIN_OFFSET),
+				  ((u32)InstancePtr->ChainItr << XSECURE_SHA3_CHAIN_STEPS_BIT_POS) |
+				  (u32)InstancePtr->StartIdx);
+		} else {
+			Status = (int)XSECURE_SHA_INVALID_PARAM;
+			goto END;
+		}
+	}
+#endif
 
 	/** Start SHA Engine. */
 	Xil_Out32(InstancePtr->BaseAddress, XSECURE_SHA_START_VALUE);
@@ -482,6 +505,7 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 			break;
 
 		case XSECURE_SHAKE_256:
+		case XSECURE_SHAKE_256_SLH_DSA_CHAIN:
 			BlockLen = XSECURE_SHAKE_SHA3_256_BLOCK_LEN;
 			break;
 
@@ -509,7 +533,8 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 	}
 
 	/** Update The padding buffer for different modes of Sha2 and SHA3 engine according to the NIST standard */
-	if (ShaPlatConfig->HashAlgo == XSECURE_SHAKE_256 ) {
+	if ((ShaPlatConfig->HashAlgo == XSECURE_SHAKE_256) ||
+	     (ShaPlatConfig->HashAlgo == XSECURE_SHAKE_256_SLH_DSA_CHAIN)) {
 		PaddingBuffer[0] = XSECURE_SHAKE_START_NIST_PADDING_MASK;
 		PaddingBuffer[PadLen - 1U] |= XSECURE_SHA3_END_NIST_PADDING_MASK;
 	}

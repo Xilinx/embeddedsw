@@ -15,7 +15,8 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
-* 5.7   tvp  11/20/26 Initial release
+* 5.7   tvp  02/19/26 Initial release
+*       tvp  02/19/26 Add SHAKE256 SLH-DSA Chaining algorithm support
 *
 * </pre>
 *
@@ -124,6 +125,7 @@ extern "C" {
 #define SHA384					(1U)		/**< SHA384 mode */
 #define SHA512					(2U)		/**< SHA512 mode */
 #define SHAKE256				(4U)		/**< SHAKE256 mode */
+#define SHAKE256_SLH_DSA_CHAIN			(6U)		/**< SHAKE256 SLH-DSA Chain mode */
 
 /***************************************** Type Definitions****************************************/
 

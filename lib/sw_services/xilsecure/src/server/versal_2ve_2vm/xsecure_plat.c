@@ -23,6 +23,7 @@
 *       tvp      09/23/25 Code refactoring for Platform specific TRNG functions
 *       sd       11/07/25 Update condition to reflect the revised function return value
 * 5.7   tvp      02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
+*       tvp      02/23/26 Handle XSECURE_SHAKE_256_SLH_DSA_CHAIN enum value
 *
 * </pre>
 *
@@ -580,6 +581,8 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
 			ShaPlatConfig->ShaMode = SHAKE256;
 			break;
+		/** SHAKE-256 SLH-DSA chaining Mode is not supported for Versal_2ve_2vm */
+		case XSECURE_SHAKE_256_SLH_DSA_CHAIN:
 		/** SHA invalid mode */
 		case XSECURE_SHA_INVALID_MODE:
 		default:

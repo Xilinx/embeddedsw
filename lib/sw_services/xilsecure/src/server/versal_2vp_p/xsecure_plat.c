@@ -17,6 +17,7 @@
 * ----- ----- -------- ----------------------------------------------------------------------------
 * 5.7   tvp   02/19/26 Initial release
 *       tvp   02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
+*       tvp   02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
 *
 * </pre>
 *
@@ -474,6 +475,11 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr, XSecu
 		case XSECURE_SHAKE_256:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
 			ShaPlatConfig->ShaMode = SHAKE256;
+			break;
+		/** SHAKE-256 SLH-DSA chaining Mode */
+		case XSECURE_SHAKE_256_SLH_DSA_CHAIN:
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
+			ShaPlatConfig->ShaMode = SHAKE256_SLH_DSA_CHAIN;
 			break;
 		/** SHA invalid mode */
 		case XSECURE_SHA_INVALID_MODE:

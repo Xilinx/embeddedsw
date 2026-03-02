@@ -22,6 +22,7 @@
 * 5.6   tus  08/06/2025 Make Sha3Len variable common, earlier it was specific to
 *			Versal and Versal net
 * 5.7   tvp  02/23/2026 Use ShaPlatConfig for platform specific SHA configurations
+*       tvp  02/23/2026 Add SHAKE256 SLH-DSA Chaining algorithm support
 *
 * </pre>
 *
@@ -95,14 +96,15 @@ typedef struct {
 
 /** SHA modes */
 typedef enum {
-	XSECURE_SHA_INVALID_MODE = -1,	/**< Invalid mode */
-	XSECURE_SHA3_384,	/**< SHA3-384 mode */
-	XSECURE_SHA2_384,	/**< SHA2-384 mode */
-	XSECURE_SHA2_256,	/**< SHA2-256 mode */
-	XSECURE_SHAKE_256,	/**< SHAKE-256 mode */
-	XSECURE_SHA2_512,	/**< SHA2-512 mode */
-	XSECURE_SHA3_256,	/**< SHA3-256 mode */
-	XSECURE_SHA3_512	/**< SHA3-512 mode */
+	XSECURE_SHA_INVALID_MODE = -1,		/**< Invalid mode */
+	XSECURE_SHA3_384,			/**< SHA3-384 mode */
+	XSECURE_SHA2_384,			/**< SHA2-384 mode */
+	XSECURE_SHA2_256,			/**< SHA2-256 mode */
+	XSECURE_SHAKE_256,			/**< SHAKE-256 mode */
+	XSECURE_SHA2_512,			/**< SHA2-512 mode */
+	XSECURE_SHA3_256,			/**< SHA3-256 mode */
+	XSECURE_SHA3_512,			/**< SHA3-512 mode */
+	XSECURE_SHAKE_256_SLH_DSA_CHAIN		/**< SHAKE-256 SLH-DSA Chain mode */
 } XSecure_ShaMode;
 
 /**
@@ -126,6 +128,11 @@ typedef struct {
 
 	XSecure_SssSrc SssShaCfg; /**< SSS config value */
 	void *ShaPlatConfig; /**< SHA Platform specific config */
+#ifdef XSECURE_SHA_CHAIN_MODE_EN
+	u32 DoChainConfig;      /**< Flag to enable chain configuration */
+	u32 StartIdx;           /**< Starting index for chain operations */
+	u32 ChainItr;           /**< Chain iteration counter */
+#endif
 } XSecure_Sha;
 
 /**

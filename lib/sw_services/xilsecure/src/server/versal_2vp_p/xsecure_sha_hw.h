@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
 *       tvp  02/23/26 Move SHA mode and auto padding offset from common file
+*       tvp  02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
 *
 * </pre>
 *
@@ -33,6 +34,8 @@ extern "C" {
 #include "xsecure_utils.h"
 
 /************************************** Constant Definitions **************************************/
+#define XSECURE_SHA_CHAIN_MODE_EN				/**< Enable SHA chain mode */
+
 #define XSECURE_SHA_NUM_OF_INSTANCES		(2U)	/**< Number of Sha instances*/
 
 #define XSECURE_SHA3_DEVICE_ID			(0U)	/**< SHA3 device id */
@@ -63,6 +66,8 @@ extern "C" {
 #define XSECURE_SHA3_AUTO_PADDING_OFFSET	(0xC4U) /**< SHA3 Auto Padding Register */
 #define XSECURE_SHA2_MODE_OFFSET		(0xA0U) /**< SHA2 Mode Register */
 #define XSECURE_SHA2_AUTO_PADDING_OFFSET	(0xA4U) /**< SHA2 Auto Padding Register */
+#define XSECURE_SHA3_CHAIN_STEPS_BIT_POS	(16U)	/**< SHA3 chaining steps bit position */
+#define XSECURE_SHA3_CHAIN_OFFSET		(0xC8U)	/**< SHA chain control register */
 /** @} */
 
 #ifdef __cplusplus
