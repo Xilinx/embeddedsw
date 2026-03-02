@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
  * 5.5   kpt  08/18/2024 Initial release
  * 5.6   aa   07/29/2025 Added error codes
  * 5.6   tus  08/19/2025 Add error codes for SHA
+ * 5.7   tvp  02/19/2026 Added XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
  *
  * </pre>
  *
@@ -68,6 +69,8 @@ enum {
 
 	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
 						     operation */
+	XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR,	/**< 0x11 - Error when requested hash size exceeds
+						     maximum supported hash size */
 	XSECURE_RESERVED_SHA1 = 0x30,		/**< 0x30 - Reserved for SHA1 */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does

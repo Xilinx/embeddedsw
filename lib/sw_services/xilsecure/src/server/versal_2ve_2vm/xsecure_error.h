@@ -30,6 +30,7 @@
  *       ng   09/19/2025 Fixed error descriptions
  *       obs  09/23/2025 Added XSECURE_ERR_INVALID_ADDR_RANGE
  * 5.7   har  01/13/2026 Added XSECURE_LMS_MEM_COPY_ERROR and XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR
+ *       tvp  01/19/2026 Added XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
  *
  * </pre>
  *
@@ -85,6 +86,9 @@ enum {
 
 	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
 						     operation */
+
+	XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR,	/**< 0x11 - Error when requested hash size exceeds
+						     maximum supported hash size */
 
 	XSECURE_SHA1_TRANSFORM_ERROR = 0x30,	/**< 0x30 - Error when SHA1 transform fails */
 

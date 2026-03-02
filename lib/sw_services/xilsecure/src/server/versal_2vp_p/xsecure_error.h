@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 5.7   tvp  02/19/26 Initial release
  *       tvp  02/19/26 Add error codes related to MLDSA operations
+ *       tvp  02/19/26 Add XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
  *
  * </pre>
  *
@@ -72,6 +73,9 @@ enum {
 
 	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
 						     operation */
+
+	XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR,	/**< 0x11 - Error when requested hash size exceeds
+						     maximum supported hash size */
 
 	XSECURE_SHA1_TRANSFORM_ERROR = 0x30,	/**< 0x30 - Error when SHA1 transform fails */
 

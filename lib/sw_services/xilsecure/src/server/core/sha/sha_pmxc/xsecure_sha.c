@@ -26,6 +26,8 @@
 * 5.6   rpu  08/11/25 Added crypto check in XSecure_ShaStart.
 * 5.7   tvp  02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
 *       tvp  02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
+*       tvp  02/23/26 Add XSecure_ExtendedShaFinish to support variable-length
+*                     hash output
 *
 * </pre>
 *
@@ -348,6 +350,135 @@ END_RST:
 		XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 		InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+* @brief	This function calculates and reads the final hash of input data
+*		with support for variable-length hash output.
+*
+* @param	InstancePtr	Pointer to the SHA instance.
+* @param	HashAddr	Pointer to the buffer where the final hash will
+*				be stored.
+* @param	HashBufSize	Size allocated for the hash buffer in bytes.
+*				Must be at least as large as ReqHashSize to
+*				avoid buffer overflow.
+* @param	ReqHashSize	Requested hash size in bytes to be read from the
+*				SHA digest. Must not exceed
+*				XSECURE_MAX_HASH_SIZE_IN_BYTES.
+*
+* @return
+*		- XST_SUCCESS - Upon successful hash calculation and retrieval.
+*		- XST_FAILURE - Upon failure during hash completion or digest read.
+*		- XSECURE_SHA_INVALID_PARAM - When InstancePtr is NULL or HashBufSize
+*					      is less than ReqHashSize.
+*		- XSECURE_SHA_STATE_MISMATCH_ERROR - When SHA engine is in initialized
+*						     state without any update.
+*		- XSECURE_SHA_NIST_PADDING_ERROR - When NIST padding operation fails.
+*		- XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR - When ReqHashSize exceeds
+*							   XSECURE_MAX_HASH_SIZE_IN_BYTES.
+*
+*******************************************************************************/
+int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
+			      u32 HashBufSize, u32 ReqHashSize)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 Index = 0U;
+	u32 ShaDigestSizeInWords = 0U;
+	u32 RegVal;
+	const u8 *LastWordBytPtr;
+	u32 RemBytes;
+	u64 LastHashAddr;
+	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
+
+	/** Validate the input arguments. */
+	if(InstancePtr == NULL) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate Hash buffer size to avoid buffer overflow. */
+	if(HashBufSize < ReqHashSize) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate SHA state */
+	if (InstancePtr->ShaState == XSECURE_SHA_INITIALIZED) {
+		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
+		goto END;
+	}
+
+	/** Validate SHA platform configs. */
+	if (ShaPlatConfig == NULL) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->ShaState != XSECURE_SHA_UPDATE_DONE) {
+		/**
+		 * Switch padding to SW based padding to address the following
+		 * scenarios.
+		 * - SHA zero-data length use case.
+		 * - SHA Final call without preceding SHA update call with
+		 *   IsLast set to TRUE use case.
+		 */
+		Xil_Out32((InstancePtr->BaseAddress + ShaPlatConfig->AutoPaddingOffset),
+				XSECURE_SHA_AUTO_PADDING_MODE_DISABLE);
+
+		/** Perform NIST padding and send to SHA engine */
+		Status = XSecure_TransferNistPad(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			Status = XSECURE_SHA_NIST_PADDING_ERROR;
+			goto END_RST;
+		}
+	}
+
+	/** Check the SHA2/3 DONE bit. */
+	Status = XSecure_ShaWaitForDone(InstancePtr);
+	if(Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END_RST;
+	}
+
+	if (ReqHashSize <= XSECURE_MAX_HASH_SIZE_IN_BYTES) {
+		ShaDigestSizeInWords = ReqHashSize / XSECURE_WORD_SIZE;
+		RemBytes = ReqHashSize % XSECURE_WORD_SIZE;
+
+		/* Read the Hash (word-aligned) and store in Hash Buffer. */
+		for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
+			RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
+					(u16)(XSECURE_SHA_DIGEST_OFFSET +
+					      (Index * XSECURE_WORD_SIZE)));
+			XSecure_Out64(HashAddr + (Index * XSECURE_WORD_SIZE),
+				      RegVal);
+		}
+
+		LastHashAddr = HashAddr +
+				(ShaDigestSizeInWords * XSECURE_WORD_SIZE);
+		/* Handle last partial word if present */
+		if (RemBytes > 0U) {
+			RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
+					(u16)(XSECURE_SHA_DIGEST_OFFSET +
+					      (Index * XSECURE_WORD_SIZE)));
+			LastWordBytPtr = (u8 *)(UINTPTR)&RegVal;
+			for (Index = 0U; Index < RemBytes; Index++) {
+				XSecure_OutByte64(LastHashAddr + Index,
+						  *(LastWordBytPtr + Index));
+			}
+		}
+	} else {
+		Status = XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR;
+		goto END;
+	}
+
+END_RST:
+	/** Set SHA2/3 under reset. */
+	XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
+	InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 
 END:
 	return Status;

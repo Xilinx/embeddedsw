@@ -29,6 +29,8 @@
 *       tvp  02/23/26 Move SHA mode and auto padding offset to platform specific
 *                     files, Add XSecure_ShaPlatConfig for platform specific SHA
 *                     configurations
+*       tvp  02/23/26 Add XSecure_ExtendedShaFinish to support variable-length
+*                     hash output
 *
 * </pre>
 *
@@ -85,6 +87,8 @@ u32 DataSize, u64 HashAddr, u32 HashBufSize);
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr);
 int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode);
+int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufSize,
+			      u32 ReqHashSize);
 
 #ifdef __cplusplus
 }
