@@ -6,7 +6,7 @@
 title: Bindings for IIC controller
 
 maintainers:
-  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+  - Vasantha Likitha Tandra <VasanthaLikitha.Tandra@amd.com>
 
 type: driver
 
@@ -73,6 +73,12 @@ examples:
         - interrupts
 
     xiic_tenbitaddr_example.c:
+        - interrupts
+
+    xiic_pmbus_polled_example.c:
+        - reg
+
+    xiic_pmbus_intr_example.c:
         - interrupts
 
 tapp:
