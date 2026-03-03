@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -184,6 +184,9 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 *ResponseBufferPtr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 				 XASUFW_RESP_DATA_OFFSET;
 	static u32 HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_HmacParams);
 
 	switch (HmacCmdStage) {
 	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:

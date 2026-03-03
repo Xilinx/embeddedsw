@@ -50,6 +50,7 @@ extern "C" {
 #include "xasufw_init.h"
 #include "xasufw_debug.h"
 #include "xfih.h"
+#include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -105,6 +106,18 @@ extern "C" {
 #define XASUFW_BYTE_MASK			(0xFFU)		/**< Single byte mask */
 #define XASUFW_TWO_BYTE_MASK			(0x00FFU)	/**< Lower byte mask (16-bit) */
 #define XASUFW_BYTE_MULTIPLIER			(256U)		/**< Byte multiplier for endianness swap */
+
+/**
+ * Macro to verify command length from header matches expected parameter structure size.
+ * Extracts command length from header and compares with sizeof(ParamStructType) / XASU_WORD_LEN_IN_BYTES.
+ * Returns XASUFW_INVALID_PARAM error if length don't match.
+ */
+#define XASUFW_VERIFY_CMD_LEN(Label, Status, ReqBuf, ParamStructType) \
+	if (((ReqBuf)->Header & XASU_COMMAND_LENGTH_MASK) >> XASU_COMMAND_LENGTH_SHIFT != \
+		(u32)(sizeof(ParamStructType) / XASUFW_WORD_LEN_IN_BYTES)) { \
+		Status = XASUFW_INVALID_PARAM; \
+		goto Label; \
+	}
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START() \

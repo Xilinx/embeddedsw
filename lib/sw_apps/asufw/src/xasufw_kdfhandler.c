@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -166,12 +166,16 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_KdfParams *KdfParams = (const XAsu_KdfParams *)ReqBuf->Arg;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KdfParams);
+
 	/** Perform KDF generate. */
 	Status = XKdf_Generate(XAsufw_KdfModule.AsuDmaPtr, XAsufw_KdfModule.ShaPtr, KdfParams);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_GENERATE_FAILED);
 	}
 
+END:
 	/** Clear DMA and SHA pointers. */
 	XAsufw_KdfModule.AsuDmaPtr = NULL;
 	XAsufw_KdfModule.ShaPtr = NULL;

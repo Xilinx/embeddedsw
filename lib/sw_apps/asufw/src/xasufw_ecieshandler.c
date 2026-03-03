@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -199,6 +199,9 @@ static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EciesParams);
+
 	/** Perform ECIES encryption. */
 	Status = XEcies_Encrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,
 				XAsufw_EciesModule.AesPtr, EciesParamsPtr);
@@ -206,6 +209,7 @@ static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ENCRYPT_FAILED);
 	}
 
+END:
 	/** Clear DMA, SHA and AES pointers. */
 	XAsufw_EciesModule.AsuDmaPtr = NULL;
 	XAsufw_EciesModule.ShaPtr = NULL;
@@ -238,6 +242,9 @@ static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EciesParams);
+
 	/** Perform ECIES decryption. */
 	Status = XEcies_Decrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,
 				XAsufw_EciesModule.AesPtr, EciesParamsPtr);
@@ -245,6 +252,7 @@ static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_DECRYPT_FAILED);
 	}
 
+END:
 	/** Clear DMA, SHA and AES pointers. */
 	XAsufw_EciesModule.AsuDmaPtr = NULL;
 	XAsufw_EciesModule.ShaPtr = NULL;

@@ -250,6 +250,9 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaParams);
+
 	/** Validate that either KeyCompAddr or KeyId is provided. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
 	if (Status != XASUFW_SUCCESS) {
@@ -323,6 +326,9 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaParams);
 
 	/** Validate that either KeyCompAddr or KeyId is provided. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
@@ -398,6 +404,9 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaParams);
 
 	/** Validate that either KeyCompAddr or KeyId is provided. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
@@ -476,6 +485,9 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaOaepPaddingParams);
 
 	/** Validate that either KeyCompAddr or KeyId is provided. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
@@ -562,6 +574,9 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaOaepPaddingParams);
+
 	/** Validate that either KeyCompAddr or KeyId is provided. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
 	if (Status != XASUFW_SUCCESS) {
@@ -646,6 +661,9 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaPaddingParams);
 
 	/** Validate that either KeyCompAddr or KeyId is provided. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);

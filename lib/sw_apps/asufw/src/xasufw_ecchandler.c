@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -207,6 +207,9 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u64 PvtKeyAddr = EccParamsPtr->KeyAddr;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccParams);
+
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
@@ -232,6 +235,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_GEN_SIGN_OPERATION_FAIL);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -262,6 +266,9 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u64 PubKeyAddr = EccParamsPtr->KeyAddr;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccParams);
+
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
@@ -288,6 +295,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -317,6 +325,9 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccKeyParams);
+
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
@@ -341,6 +352,7 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -368,6 +380,9 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_EcdhParams *EcdhParamsPtr = (const XAsu_EcdhParams *)ReqBuf->Arg;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EcdhParams);
+
 	/** Generate shared secret using public key and private key based on curve type. */
 	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, EcdhParamsPtr->CurveType,
 					EcdhParamsPtr->KeyLen, EcdhParamsPtr->PvtKeyAddr,
@@ -378,6 +393,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL);
 	}
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

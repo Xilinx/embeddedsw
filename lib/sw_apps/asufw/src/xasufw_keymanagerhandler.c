@@ -188,6 +188,9 @@ static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerSubVaultParams);
+
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -276,6 +279,9 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u32 KeyType;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerParams);
 
 	OutIdAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
@@ -369,6 +375,9 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 *OutId;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerParams);
 
 	OutId = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -206,6 +206,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	else if (CmdStage == XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS) {
 		goto XAES_STAGE_DATA_UPDATE_DONE;
 	}
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_AesParams);
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);

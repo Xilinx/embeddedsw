@@ -207,6 +207,9 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyWrapParams);
+
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -258,6 +261,9 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 *OutLenAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyWrapParams);
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);

@@ -179,6 +179,9 @@ static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XOcp_CertData CertData;
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
+
 	/** Validate client parameter. */
 	Status = XAsu_OcpValidateCertParams(OcpCertParam);
 	if (Status != XASUFW_SUCCESS) {
@@ -232,6 +235,9 @@ static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	X509_PlatData PlatData;
 	XOcp_CertData CertData;
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
 
 	/** Validate client parameter. */
 	Status = XAsu_OcpValidateCertParams(OcpCertParam);
@@ -289,6 +295,9 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
 
 	/** Validate client parameter. */
 	Status = XAsu_OcpValidateCertParams(OcpCertParam);
