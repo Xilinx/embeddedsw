@@ -3238,7 +3238,7 @@ END:
 int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
 	 *  Validate input parameters.
@@ -3249,15 +3249,16 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC);
-	Payload[1U] = AesKeyCrc;
-	Payload[2U] = (u32)AesKeyType;
+	/** Fill IPI Payload */
+	XNVM_PACK_PAYLOAD2(Payload, (u32)(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC),
+				AesKeyCrc,
+				AesKeyType);
 
         /**
 	 *  Send check AES key CRC CDO to PLM to check the given CRC.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
