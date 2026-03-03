@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -18,6 +18,7 @@
 * 5.5   tvp  05/13/25 Initial release
 *       sd   11/07/25 Update TRNG function name and return logic to return true
 *                     when TRNG is uninitialized
+* 5.7   tbk  03/03/26 Set error status before Xil_SMemCpy
 *
 * </pre>
 *
@@ -138,6 +139,8 @@ static inline int XSecure_TrngGenerate(XSecure_TrngInstance *TrngInstance, u8 *R
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+		Status = XST_FAILURE;
 		Status = Xil_SMemCpy(RandBuf, RandBufSize, TmpRandBuf, XTRNGPSV_SEC_STRENGTH_BYTES,
 				     RandBufSize);
 	} else {
