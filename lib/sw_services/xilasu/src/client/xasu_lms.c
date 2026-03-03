@@ -99,8 +99,9 @@ s32 XAsu_LmsSignVerify(XAsu_ClientParams *ClientParamsPtr,
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_LMS_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_LMS_ID,
+				   (u8)(sizeof(XAsu_LmsHssSignVerifyParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, LmsParamsPtr,
@@ -169,8 +170,9 @@ s32 XAsu_HssSignVerify(XAsu_ClientParams *ClientParamsPtr,
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_LMS_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_LMS_ID,
+				   (u8)(sizeof(XAsu_LmsHssSignVerifyParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, HssParamsPtr,
@@ -215,8 +217,8 @@ s32 XAsu_LmsKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_LMS_KAT_CMD_ID, UniqueId, XASU_MODULE_LMS_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_LMS_KAT_CMD_ID, UniqueId, XASU_MODULE_LMS_ID,
+				   XASU_CMD_LEN_ZERO, ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);

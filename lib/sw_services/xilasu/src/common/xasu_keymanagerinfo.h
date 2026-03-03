@@ -78,6 +78,7 @@ typedef struct {
 	u16 KDFKeyVaultCapacity; /**< Count for KDF material. */
 	u16 LMSKeyVaultCapacity; /**< Count for LMS keys. */
 	u16 X509KeyVaultCapacity; /**< Count for X.509 certificates. */
+	u16 Reserved; /**< Reserved for alignment */
 } XAsu_KeyManagerSubVaultParams;
 
 typedef struct {

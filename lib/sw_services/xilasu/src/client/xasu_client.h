@@ -46,8 +46,10 @@ extern "C" {
 #include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASU_PRIORITY_LOW                   1U  /**< LOW priority */
-#define XASU_PRIORITY_HIGH                  0U  /**< High priority */
+#define XASU_PRIORITY_LOW			1U	/**< LOW priority */
+#define XASU_PRIORITY_HIGH			0U	/**< High priority */
+#define XASU_CMD_LEN_ZERO			(0U)	/**< Zero command length */
+#define XASU_WORD_LEN_IN_BYTES			(4U)	/**< Word length in bytes */
 
 /************************************** Type Definitions *****************************************/
 

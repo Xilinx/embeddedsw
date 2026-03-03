@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -215,8 +215,9 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA3_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA3_ID,
+				   (u8)(sizeof(XAsu_ShaOperationCmd) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, ShaClientParamPtr,
 						sizeof(XAsu_ShaOperationCmd), Header);
@@ -260,8 +261,8 @@ s32 XAsu_Sha3Kat(XAsu_ClientParams *ClientParamPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId,
-				   XASU_MODULE_SHA3_ID, 0U, ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId, XASU_MODULE_SHA3_ID,
+				   XASU_CMD_LEN_ZERO, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);

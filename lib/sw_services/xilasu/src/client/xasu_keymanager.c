@@ -100,7 +100,9 @@ s32 XAsu_KmCreateKeyVault(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_CREATE_KEYVAULT_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerSubVaultParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmVaultParamPtr,
@@ -162,7 +164,9 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_GEN_AES_KEY_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,
@@ -224,7 +228,9 @@ s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_GEN_AES_IV_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,
@@ -269,7 +275,8 @@ s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr)
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_DELETE_KEYVAULT_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+				XASU_MODULE_KEYMANAGER_ID, XASU_CMD_LEN_ZERO,
+				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
@@ -321,7 +328,9 @@ s32 XAsu_KmDeleteKey(XAsu_ClientParams *ClientParamPtr, u32 KeyId)
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_DELETE_KEY_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+				XASU_MODULE_KEYMANAGER_ID,
+				(XASU_KM_OUTPUT_ID_SIZE_IN_BYTES / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, &KeyId, XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, Header);
@@ -394,7 +403,9 @@ s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, 0U, ClientParamPtr->SecureFlag);
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,

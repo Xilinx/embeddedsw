@@ -104,8 +104,9 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_RSA_PUB_ENC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_RSA_PUB_ENC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -174,8 +175,9 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_RSA_PVT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_RSA_PVT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -246,8 +248,9 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_RSA_PVT_CRT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_RSA_PVT_CRT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -337,8 +340,9 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaOaepPaddingParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -433,7 +437,9 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U, ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaOaepPaddingParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -525,8 +531,9 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaPaddingParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -624,8 +631,9 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID,
+				   (u8)(sizeof(XAsu_RsaPaddingParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, RsaClientParamPtr,
@@ -671,7 +679,8 @@ s32 XAsu_RsaOaepEncDecKat(XAsu_ClientParams *ClientParamPtr)
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID, UniqueId,
-		XASU_MODULE_RSA_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_RSA_ID, XASU_CMD_LEN_ZERO,
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
@@ -716,7 +725,8 @@ s32 XAsu_RsaPssSignGenAndVerKat(XAsu_ClientParams *ClientParamPtr)
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID, UniqueId,
-		XASU_MODULE_RSA_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_RSA_ID, XASU_CMD_LEN_ZERO,
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);

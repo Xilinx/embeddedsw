@@ -91,7 +91,9 @@ s32 XAsu_OcpGetDevIkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID, UniqueId,
-				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpCertParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpCertClientParamPtr,
@@ -150,7 +152,9 @@ s32 XAsu_OcpGetDevAkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID, UniqueId,
-				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpCertParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpCertClientParamPtr,
@@ -209,7 +213,9 @@ s32 XAsu_OcpGetDevIkCsr(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID, UniqueId,
-				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpCertParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpCertClientParamPtr,
@@ -266,8 +272,10 @@ s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_OCP_DEVAK_ATTESTATION_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
-				   0U, ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_OCP_DEVAK_ATTESTATION_CMD_ID, UniqueId,
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpDevAkAttest) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpDevAkAttestParamPtr,
@@ -331,8 +339,10 @@ s32 XAsu_OcpUdeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeParams
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
-				   0U, ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID, UniqueId,
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpUdeParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpUdeParamsPtr,
@@ -396,8 +406,10 @@ s32 XAsu_OcpUdeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncr
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
-				   0U, ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID, UniqueId,
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpUdeKeyEncrypt) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpUdeKeyEnc,

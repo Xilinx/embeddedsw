@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -83,7 +83,8 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 	}
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, UniqueId,
-				   XASU_MODULE_TRNG_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_TRNG_ID, XASU_CMD_LEN_ZERO,
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
@@ -126,8 +127,8 @@ s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_TRNG_KAT_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_TRNG_KAT_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID,
+				   XASU_CMD_LEN_ZERO, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
@@ -177,8 +178,10 @@ END:
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_INSTANTIATE_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID,
-				0U, ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_INSTANTIATE_CMD_ID, UniqueId,
+				   XASU_MODULE_TRNG_ID,
+				   (u8)(sizeof(XAsu_DrbgInstantiateCmd) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Send IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, CmdParamsPtr,
@@ -226,8 +229,10 @@ END:
 		goto END;
 	}
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_RESEED_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID, 0U,
-				ClientParamPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_RESEED_CMD_ID, UniqueId,
+				   XASU_MODULE_TRNG_ID,
+				   (u8)(sizeof(XAsu_DrbgReseedCmd) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, CmdParamsPtr,
@@ -276,7 +281,9 @@ s32 XAsu_TrngDrbgGenerate(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgGenerateCm
 	}
 	/** create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_GENERATE_CMD_ID, UniqueId,
-				   XASU_MODULE_TRNG_ID, 0U, ClientParamPtr->SecureFlag);
+				   XASU_MODULE_TRNG_ID,
+				   (u8)(sizeof(XAsu_DrbgGenerateCmd) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, CmdParamsPtr,
 			sizeof(XAsu_DrbgGenerateCmd), Header);

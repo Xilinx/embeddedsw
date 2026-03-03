@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -92,8 +92,9 @@ s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfPara
 	} else {
 		CommandId = XASU_KDF_GENERATE_SHA3_CMD_ID;
 	}
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_KDF_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_KDF_ID,
+				   (u8)(sizeof(XAsu_KdfParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, KdfParamsPtr,
@@ -135,8 +136,8 @@ s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
-	Header = XAsu_CreateHeader(XASU_KDF_KAT_CMD_ID, UniqueId, XASU_MODULE_KDF_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_KDF_KAT_CMD_ID, UniqueId, XASU_MODULE_KDF_ID,
+				   XASU_CMD_LEN_ZERO, ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);

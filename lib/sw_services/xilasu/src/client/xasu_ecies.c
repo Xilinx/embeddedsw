@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -92,8 +92,9 @@ s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID,
+				   (u8)(sizeof(XAsu_EciesParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EciesParamsPtr,
@@ -160,8 +161,9 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID,
+				   (u8)(sizeof(XAsu_EciesParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EciesParamsPtr,
@@ -205,8 +207,8 @@ s32 XAsu_EciesKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECIES_KAT_CMD_ID, UniqueId, XASU_MODULE_ECIES_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_ECIES_KAT_CMD_ID, UniqueId, XASU_MODULE_ECIES_ID,
+				   XASU_CMD_LEN_ZERO, ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);

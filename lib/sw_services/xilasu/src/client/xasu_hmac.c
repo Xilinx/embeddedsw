@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -181,8 +181,9 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		CommandId = XASU_HMAC_COMPUTE_SHA3_CMD_ID;
 	}
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_HMAC_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_HMAC_ID,
+				   (u8)(sizeof(XAsu_HmacParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, HmacParamsPtr,
@@ -226,8 +227,8 @@ s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_HMAC_KAT_CMD_ID, UniqueId, XASU_MODULE_HMAC_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_HMAC_KAT_CMD_ID, UniqueId, XASU_MODULE_HMAC_ID,
+				   XASU_CMD_LEN_ZERO, ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);

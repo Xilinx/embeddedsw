@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -97,8 +97,9 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID,
+				   (u8)(sizeof(XAsu_KeyWrapParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, KeyWrapParamsPtr,
@@ -164,8 +165,9 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID,
+				   (u8)(sizeof(XAsu_KeyWrapParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, KeyUnwrapParamsPtr,
@@ -210,8 +212,9 @@ s32 XAsu_KeyWrapKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_KEYWRAP_KAT_CMD_ID, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U,
-				ClientParamsPtr->SecureFlag);
+	Header = XAsu_CreateHeader(XASU_KEYWRAP_KAT_CMD_ID, UniqueId,
+				   XASU_MODULE_KEYWRAP_ID, XASU_CMD_LEN_ZERO,
+				   ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
