@@ -21,7 +21,8 @@
 *       tvp  09/13/25 Add function prototype to get KAT status
 *       tvp  09/13/25 Added macro for TRNG KAT
 *       tvp  09/13/25 Added KAT mask for DEVIK/DEVAK/HMAC
-* 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
+* 2.4   sk   01/18/26 Added macros for LPD Domain Init Status
+*       sd   03/03/26 Updated XPlmi_GetSlrType to return SLR type as monolithic
 * </pre>
 *
 * @note
@@ -513,9 +514,7 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
  **************************************************************************************************/
 static inline u8 XPlmi_GetSlrType(void)
 {
-	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
-
-	return SlrType;
+	return XPLMI_SSIT_MONOLITIC;
 }
 
 /**************************************************************************************************/
