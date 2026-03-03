@@ -206,6 +206,7 @@
 * 		abh 10/09/2025 Fixed MISRA-C violations
 *       tvp 01/23/2026 Run SHA KAT during boot
 *       rmv 01/30/2026 Renamed OCP header files and keymanagment macro
+*       sd  03/03/2026 Added redundant check for XLoader_ValidateMHHashBlockIntegrity
 *
 * </pre>
 *
@@ -907,11 +908,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		 * Validate HashBlock 1 integrity, that is read and calculate
 		 * HashBlock1 hash and compare it with hash present in HashBlock 0.
 		 */
-		Status = XST_FAILURE;
-		Status = XLoader_ValidateMHHashBlockIntegrity(&SecureParams);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ValidateMHHashBlockIntegrity, &SecureParams);
+
 		/**
 		 * This is applicable for Versal 2VE and 2VM Devices only.
 		 * After HashBlock 1 integrity is verified above, verify MetaHeader integrity by
