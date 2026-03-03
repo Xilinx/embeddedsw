@@ -48,6 +48,7 @@
  * 6.5  Nava  08/18/23  Resolved the doxygen issues.
  * 6.6  Nava  10/20/23  Removed unwanted branching statements.
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+ * 6.10 Arvd  03/03/26  Added SMC support for EL1 non-secure PDI load via ATF
  * </pre>
  *
  * @note
@@ -55,17 +56,28 @@
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xilfpga.h"
+#if defined(__aarch64__) && (EL1_NONSECURE == 1)
+#include "xil_smc.h"
+#else
 #include "xilmailbox.h"
+#endif
 
 /* @cond nocomments */
 /************************** Constant Definitions *****************************/
+#define FPGA_PDI_SRC_DDR	0xFU
+
+#if defined(__aarch64__) && (EL1_NONSECURE == 1)
+/* SMC Function IDs for PDI loading via ATF */
+#define PM_PDI_LOAD_SMC_FID		0xC2000701U
+#define PM_DELAYED_PDI_LOAD_SMC_FID	0xC2000702U
+#else
 #define PDI_LOAD		0x30701U
 #define DELAYED_PDI_LOAD	0x30702U
 #define LOAD_PDI_MSG_LEN	0x4U
 #define FPGA_IPI_RESP1		0x1U
 #define XMAILBOX_DEVICE_ID	0x0U
-#define FPGA_PDI_SRC_DDR	0xFU
 #define FPGA_IPI_TYPE_BLOCKING	0x1U
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -81,11 +93,13 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr);
 u32 (*const Write_To_Pl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
 
 /* @endcond */
+/** @} */
 
 /*****************************************************************************/
 /**This API, when called, initializes the XFPGA interface with default settings.
  *
  * @param InstancePtr Pointer to the XFpga structure.
+ * @ingroup xilfpga_versal
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -129,12 +143,38 @@ END:
  *****************************************************************************/
 static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 {
+	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
+
+#if defined(__aarch64__) && (EL1_NONSECURE == 1)
+	/* Use SMC call for APU at EL1 Non-secure */
+	XSmc_OutVar Out;
+	u64 SmcArgs1, SmcArgs2;
+	u32 AddrLow, AddrHigh;
+
+	AddrLow = (u32)(BitstreamAddr & 0xFFFFFFFFU);
+	AddrHigh = (u32)(BitstreamAddr >> 32U);
+
+	if (InstancePtr->WriteInfo.Flags == XFPGA_DELAYED_PDI_LOAD) {
+		SmcArgs1 = (u64)AddrLow;
+		SmcArgs2 = 0U;
+
+		Out = Xil_Smc(PM_DELAYED_PDI_LOAD_SMC_FID, SmcArgs1, SmcArgs2,
+			      0U, 0U, 0U, 0U, 0U);
+	} else {
+		SmcArgs1 = ((u64)AddrLow << 32U) | (u64)FPGA_PDI_SRC_DDR;
+		SmcArgs2 = (u64)AddrHigh;
+
+		Out = Xil_Smc(PM_PDI_LOAD_SMC_FID, SmcArgs1, SmcArgs2,
+			      0U, 0U, 0U, 0U, 0U);
+	}
+
+	return ((u32)Out.Arg0);
+#else
+	/* Use IPI mailbox for other cases */
 	volatile u32 Status = XFPGA_FAILURE;
 	u32 RecBuffer = XFPGA_FAILURE;
 	XMailbox XMboxInstance;
 	u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
-
-	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
 	if (Status != (u32)XST_SUCCESS) {
@@ -172,7 +212,7 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 
 END:
 	return Status;
+#endif
 }
 
 /* @endcond */
-/** @} */
