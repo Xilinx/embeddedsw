@@ -119,7 +119,7 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
 				InDataAddr,
 				(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
-				(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT) | (Sha3InitializeMask) | Size))
+				(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT) | (Sha3InitializeMask) | Size));
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
