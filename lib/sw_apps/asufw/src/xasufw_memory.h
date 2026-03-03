@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -36,6 +36,24 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 
 /************************************ Constant Definitions ***************************************/
+
+/**
+ * ASUFW Memory Address Map (0xEBE00000 - 0xEBE5FFFF):
+ *
+ * 0xEBE00000 - 0xEBE3FFFF : Instruction RAM		(256KB)
+ * 0xEBE40000 - 0xEBE40FFF : RTCA Configuration Memory	(4KB)
+ * 0xEBE41000 - 0xEBE48FFF : IPI Shared Memory		(32KB)
+ * 0xEBE49000 - 0xEBE5BBFF : Data RAM			(75KB)
+ * 0xEBE5BC00 - 0xEBE5DBFF : OCP Memory			(8KB)
+ * 0xEBE5DC00 - 0xEBE5EBFF : Debug Log Buffer		(4KB)
+ * 0xEBE5EC00 - 0xEBE5FFFF : RSA Data Buffer		(5KB)
+ */
+
+/*  ASUFW Data Ram Start and end address related defines */
+#define XASUFW_RAM_START_ADDR		(0xEBE00000U)	/**< Start address of ASUFW RAM */
+
+#define XASUFW_RAM_END_ADDR		(0xEBE5FFFFU)	/**< End address of ASUFW RAM */
+
 /*  ASUFW Run Time Configuration Area related register defines */
 #define	XASUFW_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW RTCA Base Address */
 #define XASUFW_RTCA_ACCESS_PERM_ADDR	(XASUFW_RTCA_BASEADDR + 0xC00U)
@@ -62,6 +80,10 @@ extern "C" {
 								memory */
 #define XASUFW_SHARED_MEMORY_SIZE		(0x8000U)	/**< 32KB size for shared memory */
 
+#define XASUFW_DEBUG_LOG_BUFFER_SIZE	(0x1000U)	/**< Size of debug log buffer in bytes */
+
+#define XASUFW_DEBUG_LOG_BUFFER_ADDR	(0xEBE5DC00U)	/**< Address of debug log buffer in
+								data RAM */
 
 /************************************** Type Definitions *****************************************/
 

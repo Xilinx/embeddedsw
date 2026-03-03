@@ -112,8 +112,8 @@ int main(void)
 	s32 Status = XASUFW_FAILURE;
 	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
-	/** Initializes the debug log buffer for ASUFW. */
-	XAsufw_InitDebugLogBuffer();
+	/** Validate debug log buffer information. */
+	XAsufw_ValidateDebugLogBufferInfo();
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nXilinx Versal_2VE_2VM Application Security Unit Firmware\r\n");
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Release %d.%d", SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER);

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -73,7 +73,7 @@ extern "C" {
 	}
 
 /************************************ Function Prototypes ****************************************/
-void XAsufw_InitDebugLogBuffer(void);
+void XAsufw_ValidateDebugLogBufferInfo(void);
 
 /************************************ Variable Definitions ***************************************/
 

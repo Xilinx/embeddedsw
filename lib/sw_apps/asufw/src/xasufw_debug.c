@@ -28,6 +28,8 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_debug.h"
 #include "xasu_sharedmem.h"
+#include "xasufw_memory.h"
+#include "xasu_def.h"
 #if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
 #include "xuartpsv_hw.h"
 #endif
@@ -35,20 +37,20 @@
 #include "bspconfig.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_DEBUG_LOG_BUFFER_SIZE	(0x1000U)	/**< Size of debug log buffer in bytes */
-
-#define XASUFW_DEBUG_LOG_BUFFER_ADDR	(0xEBE5DC00U)	/**< Address of debug log buffer in
-								data RAM */
+#define XASUFW_LOG_OFFSET_MASK		(0x7FFFFFFFU)	/**< Mask for Offset bits [30:0] within
+								OffsetAndBufStatus */
+#define XASUFW_LOG_BUFFER_FULL_MASK	(0x80000000U)	/**< Mask for the buffer full flag
+							(bit 31) in OffsetAndBufStatus */
 
 /************************************** Type Definitions *****************************************/
 /** Circular buffer structure. */
 typedef struct {
 	u32 StartAddr;	/**< Start address of log buffer */
 	u32 Len;	/**< Size of log in bytes */
-	u32 Offset:31;	/**< Variable that holds the offset of current log
-				from Start Address */
-	u32 IsBufferFull:1;	/**< If set, Log buffer is full and Offset
-					gets reset to 0 */
+	u32 OffsetAndBufStatus;	/**< Bits [30:0] hold the offset of current log from
+					Start Address. Bit [31] is the status flag for buffer full,
+					if set, log buffer is full and offset gets reset
+					to 0 */
 } XAsufw_CircularBuffer;
 
 /** Structure holds logging information of buffer. */
@@ -61,12 +63,16 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
-static XAsufw_LogInfo *DebugLog = (XAsufw_LogInfo *)(UINTPTR)XASU_RTCA_DBG_LOG_BUF_INFO_ADDR;
+static XAsufw_LogInfo *const DebugLog = (XAsufw_LogInfo *)(UINTPTR)XASU_RTCA_DBG_LOG_BUF_INFO_ADDR;
+			/**< Pointer to the structure which holds debug log buffer information. */
+
+u8 LogBufValidation = XASU_STATUS_FAIL; /**< Variable to indicate if log buffer information is
+						valid or not. */
 
 /*************************************************************************************************/
 /**
  * @brief	This function prints a character to UART if enabled and logs it to the debug log
- * 		buffer.
+ * 		buffer on successful validation of the log buffer information.
  *
  * @param	Data	The character to be printed and logged
  *
@@ -78,29 +84,36 @@ void outbyte(char Data)
 #if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
 	XUartPsv_SendByte(STDOUT_BASEADDRESS, (u8)Data);
 #endif
-	/** Store the bytes to log buffer. */
-	CurrentAddr = DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset;
+	if (LogBufValidation == XASU_STATUS_PASS) {
+		/** Store the bytes to log buffer. */
+		CurrentAddr = DebugLog->LogBuffer.StartAddr +
+				(DebugLog->LogBuffer.OffsetAndBufStatus & XASUFW_LOG_OFFSET_MASK);
 
-	/** If the log buffer is full, reset the offset to 0 and set IsBufferFull flag. */
-	if (CurrentAddr >= (DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
-		DebugLog->LogBuffer.Offset = 0x0U;
-		DebugLog->LogBuffer.IsBufferFull = TRUE;
-		CurrentAddr = DebugLog->LogBuffer.StartAddr;
+		/** If the log buffer is full, reset the offset to 0 and set IsBufferFull flag. */
+		if (CurrentAddr >= (DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
+			DebugLog->LogBuffer.OffsetAndBufStatus = XASUFW_LOG_BUFFER_FULL_MASK;
+			CurrentAddr = DebugLog->LogBuffer.StartAddr;
+		}
+		Xil_Out8((UINTPTR)CurrentAddr, (u8)Data);
+		++DebugLog->LogBuffer.OffsetAndBufStatus;
 	}
-	Xil_Out8((UINTPTR)CurrentAddr, (u8)Data);
-	++DebugLog->LogBuffer.Offset;
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function initializes the DebugLog structure.
+ * @brief	This function validates the debug log buffer information stored.
+ *
  *
  *************************************************************************************************/
-void XAsufw_InitDebugLogBuffer(void)
+void XAsufw_ValidateDebugLogBufferInfo(void)
 {
-	DebugLog->LogBuffer.StartAddr = XASUFW_DEBUG_LOG_BUFFER_ADDR;
-	DebugLog->LogBuffer.Len = XASUFW_DEBUG_LOG_BUFFER_SIZE;
-	DebugLog->LogBuffer.Offset = 0x00U;
-	DebugLog->LogBuffer.IsBufferFull = (u32)FALSE;
+	if ((DebugLog->LogBuffer.StartAddr >= XASUFW_RAM_START_ADDR) &&
+		(DebugLog->LogBuffer.StartAddr <= XASUFW_RAM_END_ADDR) &&
+		((DebugLog->LogBuffer.StartAddr != XASUFW_DEBUG_LOG_BUFFER_ADDR) ||
+		(DebugLog->LogBuffer.Len != XASUFW_DEBUG_LOG_BUFFER_SIZE))) {
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nNot logging data to debug log buffer as buffer log info validation failed\r\n");
+	} else {
+		LogBufValidation = XASU_STATUS_PASS;
+	}
 }
 /** @} */
