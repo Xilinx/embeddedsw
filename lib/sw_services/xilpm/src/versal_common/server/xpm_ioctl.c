@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -656,7 +656,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_AIE_ISR_CLEAR:
-		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
+		Status = XPm_AieISRClear(Arg1);
 		break;
 	case IOCTL_AIE_OPS:
 	case IOCTL_AIE2PS_OPS:

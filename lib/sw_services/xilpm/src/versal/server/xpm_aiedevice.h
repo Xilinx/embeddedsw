@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022, Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,6 @@ struct XPm_AieDeviceNode {
 	XPm_Device Device;		/**< Device: Base class */
 	struct XPm_AieInitNodeOps *Ops; /**< Node Initialization Operations */
 	XPm_PlDevice *Parent;		/**< Parent of Aie device */
-	XPm_AieNode *BaseDev;			/**< AIE device dependency */
 };
 
 /************************** Function Prototypes ******************************/
@@ -41,7 +40,14 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 			  XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device,
 		const XPm_Subsystem *Subsystem, const u32 Divider);
-void XPmAieDevice_QueryDivider(const XPm_Device *Device, u32 *Response);
+/**
+ * @brief Query the current AIE clock divider value.
+ *
+ * @param Response Pointer to store the divider query result.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ */
+XStatus XPmAieDevice_QueryDivider(u32 *Response);
 
 #ifdef __cplusplus
 }

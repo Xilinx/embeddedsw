@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -190,19 +190,20 @@ static XStatus ResetPulseLpd(const XPm_ResetNode *Rst)
 static XStatus AieResetAssert(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = XPmAie_GetDomain();
 
-	const XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
-	if (NULL == AieDev) {
+	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
 
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Unlock the AIE PCSR register to allow register writes */
-	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
+	XPm_UnlockPcsr(AieDomain->AieNpiAddress);
 
 	/* Set array or shim reset bit in mask register */
-	XPm_RMW32((AieDev->Node.BaseAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
+	XPm_RMW32((AieDomain->AieNpiAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
 
 	/* Write to control register to assert reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
@@ -211,7 +212,7 @@ static XStatus AieResetAssert(const XPm_ResetNode *Rst)
 	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	XPm_LockPcsr(AieDev->Node.BaseAddress);
+	XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	Status = XST_SUCCESS;
 
@@ -222,19 +223,20 @@ done:
 static XStatus AieResetRelease(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = XPmAie_GetDomain();
 
-	const XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
-	if (NULL == AieDev) {
+	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
 
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Unlock the AIE PCSR register to allow register writes */
-	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
+	XPm_UnlockPcsr(AieDomain->AieNpiAddress);
 
 	/* Set array or shim reset bit in mask register */
-	XPm_RMW32((AieDev->Node.BaseAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
+	XPm_RMW32((AieDomain->AieNpiAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
 
 	/* Write to control register to release reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0U);
@@ -243,7 +245,7 @@ static XStatus AieResetRelease(const XPm_ResetNode *Rst)
 	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	XPm_LockPcsr(AieDev->Node.BaseAddress);
+	XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	Status = XST_SUCCESS;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +48,7 @@ done:
 
 XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response);
 XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops, u32 Arg3);
-XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value);
+XStatus XPm_AieISRClear(u32 Value);
 XStatus XPm_GetSsitTemp(u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 *const Response);
 maybe_unused static inline XStatus XPm_ApuGetOperMode(const u32 DeviceId, u32 *Mode)
 {

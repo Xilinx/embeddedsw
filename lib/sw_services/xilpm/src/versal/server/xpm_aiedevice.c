@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -136,23 +136,10 @@ static XStatus AieDeviceInitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_PlDevice *Parent;
-	XPm_AieNode *AieNode;
 	const XPm_AieDomain *AieDomain;
 
 	if ((1U != NumArgs) || ((PM_POWER_ME != Args[0]) && (PM_POWER_ME2 != Args[0]))) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
-		goto done;
-	}
-
-	/* TODO: Remove AIE device dependency on PM_DEV_AIE once it has been
-	 * fully deprecated */
-	/*
-	 * Check the implicit device, PM_DEV_AIE is running. Device represents the
-	 * AIE Device Array as whole (includes resets, clocks, power)
-	 */
-	AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
-	if (NULL == AieNode) {
-		DbgErr = XPM_INT_ERR_DEV_AIE;
 		goto done;
 	}
 
@@ -166,9 +153,6 @@ static XStatus AieDeviceInitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
-
-	/* Assign AIE device dependency */
-	AieDevice->BaseDev = AieNode;
 
 	/*
 	 * AIE CDO cannot run if parent is assigned or in unused or initializing
@@ -268,12 +252,19 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 		const u32 Divider)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_AieDevice *AieDev = (const XPm_AieDevice *)Device;
 	const XPm_Requirement *Reqm = NULL;
 	const XPm_Requirement *NextReqm = NULL;
 	u32 TempDiv = Divider;
-	const XPm_AieNode *AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
-	u32 BaseAddress = AieDev->BaseDev->Device.Node.BaseAddress;
+	const XPm_AieDomain *AieDomain;
+	u32 BaseAddress;
+
+	AieDomain = XPmAie_GetDomain();
+	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
+
+	BaseAddress = AieDomain->AieNpiAddress;
 
 	Reqm = XPmDevice_FindRequirement(Device->Node.Id, Subsystem->Id);
 	if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
@@ -299,14 +290,14 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 	 * set at boot, it is assumed the subsystem would like the maximum
 	 * frequency allowed, which is set at boot time.
 	 */
-	if ((1U == Divider) || (Divider <= AieNode->DefaultClockDiv)) {
-		TempDiv = AieNode->DefaultClockDiv;
+	if ((1U == Divider) || (Divider <= AieDomain->DefaultClockDiv)) {
+		TempDiv = AieDomain->DefaultClockDiv;
 	} else {
 		/* Check requirements placed on this device by any other subsystem */
 		NextReqm = Reqm->NextSubsystem;
 		while (NULL != NextReqm) {
 			if (1U == NextReqm->Allocated) {
-				if ((TempDiv > NextReqm->Curr.QoS) && (AieNode->DefaultClockDiv <= NextReqm->Curr.QoS)) {
+				if ((TempDiv > NextReqm->Curr.QoS) && (AieDomain->DefaultClockDiv <= NextReqm->Curr.QoS)) {
 					TempDiv = NextReqm->Curr.QoS;
 				}
 			}
@@ -318,7 +309,7 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 		NextReqm = Reqm->NextDevice;
 		while (NULL != NextReqm) {
 			if ((1U == NextReqm->Allocated) && (IS_DEV_AIE(NextReqm->Device->Node.Id))) {
-				if ((TempDiv > NextReqm->Curr.QoS) && (AieNode->DefaultClockDiv <= NextReqm->Curr.QoS)) {
+				if ((TempDiv > NextReqm->Curr.QoS) && (AieDomain->DefaultClockDiv <= NextReqm->Curr.QoS)) {
 					TempDiv = NextReqm->Curr.QoS;
 				}
 			}
@@ -333,7 +324,7 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 		while (NULL != NextReqm) {
 			if ((IS_DEV_AIE(NextReqm->Device->Node.Id)) && (NextReqm->Device != Device)
 					&& (NextReqm->Subsystem != Subsystem)) {
-				if ((TempDiv > NextReqm->Curr.QoS) && (AieNode->DefaultClockDiv <= NextReqm->Curr.QoS)) {
+				if ((TempDiv > NextReqm->Curr.QoS) && (AieDomain->DefaultClockDiv <= NextReqm->Curr.QoS)) {
 					TempDiv = NextReqm->Curr.QoS;
 				}
 			}
@@ -348,7 +339,6 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 	XPm_UnlockPcsr(BaseAddress);
 
 	/* Update clock divider with new value */
-	/* TODO: Get clock address from topology */
 	XPm_RMW32(BaseAddress + ME_CORE_REF_CTRL_OFFSET, AIE_DIVISOR0_MASK, TempDiv);
 
 	/* Lock NPI space */
@@ -360,18 +350,41 @@ done:
 	return Status;
 }
 
-void XPmAieDevice_QueryDivider(const XPm_Device *Device, u32 *Response)
+/**
+ * @brief Query the current AIE clock divider value.
+ *
+ * Reads the current clock divider from the AIE NPI register and returns
+ * both the current and default divider values in the response.
+ *
+ * @param Response Pointer to store the divider query result.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ */
+XStatus XPmAieDevice_QueryDivider(u32 *Response)
 {
-	const XPm_AieDevice *AieDev = (const XPm_AieDevice *)Device;
-	const XPm_AieNode *AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
-	u32 BaseAddress = AieDev->BaseDev->Device.Node.BaseAddress;
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain;
+	u32 BaseAddress;
 	u32 DefaultDivider;
 	u32 Divider;
 
-	DefaultDivider = AieNode->DefaultClockDiv;
+	AieDomain = XPmAie_GetDomain();
+	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
+
+	BaseAddress = AieDomain->AieNpiAddress;
+	DefaultDivider = AieDomain->DefaultClockDiv;
+
 	Divider = XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
 	Divider = Divider >> AIE_DIVISOR0_SHIFT;
 
 	Response[0] = DefaultDivider;
 	Response[1] = Divider;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }

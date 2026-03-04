@@ -1836,6 +1836,12 @@ XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs)
 		Status = XST_SUCCESS;
 		break;
 	case (u32)XPM_NODECLASS_DEVICE:
+		/* Skip parent assignment for deprecated PM_DEV_AIE node */
+		if (PM_DEV_AIE == Id) {
+			PmDbg("Skipping parent assignment for deprecated AIE device node 0x%x\r\n", Id);
+			Status = XST_SUCCESS;
+			goto done;
+		}
 		Status = XPmDevice_AddParent(Id, Parents, NumParents);
 		break;
 	default:

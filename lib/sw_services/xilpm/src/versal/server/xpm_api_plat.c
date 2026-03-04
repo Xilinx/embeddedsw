@@ -604,8 +604,6 @@ static XStatus XPm_CosimInit(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 BaseAddress;
-	u32 ClkDivider;
 	const XPm_PlDevice *PlDevice;
 	const u32 PldPwrNodeDependency[1U] = {PM_POWER_PLD};
 
@@ -613,20 +611,6 @@ static XStatus XPm_CosimInit(void)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	XPm_AieNode *AieDev = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
-	if (NULL == AieDev) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		Status = XST_FAILURE;
-		goto done;
-	}
-
-	BaseAddress = AieDev->Device.Node.BaseAddress;
-
-	/* Store initial clock divider value */
-	ClkDivider = XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
-	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
-
-	AieDev->DefaultClockDiv = ClkDivider;
 
 	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(PM_DEV_PLD_0);
 	if (NULL == PlDevice) {
@@ -828,8 +812,8 @@ XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
 	u32 BaseAddr;
 	u32 DeviceId;
 	u32 Index;
-	XPm_AieNode *AieDevice;
 	XPm_Power *Power;
+	XPm_AieDomain *AieDomain;
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
@@ -843,13 +827,14 @@ XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
 
 	switch (Index) {
 	case (u32)XPM_NODEIDX_DEV_AIE:
-		AieDevice = (XPm_AieNode *)XPm_AllocBytes(sizeof(XPm_AieNode));
-		if (NULL == AieDevice) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		Status = XPmDevice_Init(&AieDevice->Device, DeviceId, BaseAddr, Power, NULL, NULL);
+		/*
+		 * The node PM_DEV_AIE has been deprecated but it is still used
+		 * in topology to get the AIE baseaddress. Save the base address
+		 * to AIE power domain so it can be used for housecleaning & AIE OPS
+		 */
+		AieDomain = (XPm_AieDomain *)Power;
+		AieDomain->AieNpiAddress = BaseAddr;
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

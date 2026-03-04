@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -19,22 +19,26 @@
 #include "xpm_requirement.h"
 #include "xpm_common.h"
 
-XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
+/**
+ * @brief Clear AIE ISR status.
+ *
+ * Clears the AIE interrupt status register
+ *
+ * @param Value ISR bits to be cleared.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ */
+XStatus XPm_AieISRClear(u32 Value)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Device *Aie = NULL;
 	u32 IntrClear = 0x0U;
 	u32 IdCode = XPm_GetIdCode();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 
-	if (PM_DEV_AIE != AieDeviceId) {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
-	}
 
-	Aie = XPmDevice_GetById(AieDeviceId);
-	if (NULL == Aie) {
-		Status = XST_DEVICE_NOT_FOUND;
+	XPm_AieDomain *AieDomain = XPmAie_GetDomain();
+	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
 
@@ -42,21 +46,15 @@ XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
 	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
-		/* Check whether given subsystem has access to the device */
-		Status = XPm_IsAccessAllowed(SubsystemId, AieDeviceId);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_PM_NO_ACCESS;
-			goto done;
-		}
 		/* Unlock the AIE PCSR register to allow register writes */
-		XPm_UnlockPcsr(Aie->Node.BaseAddress);
+		XPm_UnlockPcsr(AieDomain->AieNpiAddress);
 
 		/* Clear ISR */
 		IntrClear = Value & ME_NPI_ME_ISR_MASK;
-		XPm_Out32(Aie->Node.BaseAddress + ME_NPI_ME_ISR_OFFSET, IntrClear);
+		XPm_Out32(AieDomain->AieNpiAddress + ME_NPI_ME_ISR_OFFSET, IntrClear);
 
 		/* Re-lock the AIE PCSR register for protection */
-		XPm_LockPcsr(Aie->Node.BaseAddress);
+		XPm_LockPcsr(AieDomain->AieNpiAddress);
 	}
 
 	Status = XST_SUCCESS;
@@ -103,7 +101,6 @@ done:
 XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Device *Device;
 
 	u32 NumArgs = 2U;
 	u32 ArgBuf[2U];
@@ -123,15 +120,8 @@ XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 		goto done;
 	}
 
-	Device = XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
-
 	if (IS_DEV_AIE(DeviceId)) {
-		XPmAieDevice_QueryDivider(Device, Response);
-		Status = XST_SUCCESS;
+		Status = XPmAieDevice_QueryDivider(Response);
 	} else {
 		/* Device not supported */
 		Status = XST_INVALID_PARAM;

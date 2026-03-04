@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 #include "xpm_pldomain.h"
 #include "xpm_debug.h"
 #include "xpm_bisr_plat.h"
+#include "xpm_aie.h"
 
 /* Defines */
 #define TAG_ID_VALID_MASK				(0x80000000U)
@@ -474,22 +475,18 @@ fail:
 static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagOptional, u32 *TagDataAddr)
 {
 	volatile XStatus Status = XST_FAILURE;
-	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_Device *AieDev;
+	const XPm_AieDomain *AieDomain = XPmAie_GetDomain();
+
+	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
 
 	/* Compilation warning fix */
 	(void)TagId;
-
-	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, AieDev, XPm_Device,
-				       XPmDevice_GetById, PM_DEV_AIE);
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		Status = XST_FAILURE;
-		goto done;
-	}
 
 	BaseAddr = (u64)VIVADO_ME_BASEADDR + ((u64)TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr + ME_BISR_FIXED_OFFSET;
@@ -500,13 +497,13 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	 * finished before AXI-MM requests are sent. Ensure NPI writes from CDO
 	 * have finished by dummy NPI register read.
 	 */
-	PmIn32(AieDev->Node.BaseAddress + NPI_PCSR_STATUS_OFFSET, RegValue);
+	PmIn32(AieDomain->AieNpiAddress + NPI_PCSR_STATUS_OFFSET, RegValue);
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Set NPI_PRIVILEGED_CTRL bit */
-	PmRmw32(AieDev->Node.BaseAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
+	PmRmw32(AieDomain->AieNpiAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
 		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK,
 		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK);
 
@@ -533,7 +530,7 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 
 done:
 	/* Clear NPI_PRIVILEGED_CTRL bit */
-	PmRmw32(AieDev->Node.BaseAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
+	PmRmw32(AieDomain->AieNpiAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
 		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 0);
 
 	XPm_PrintDbgErr(Status, DbgErr);

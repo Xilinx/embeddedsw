@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,21 +80,16 @@ struct XPm_AieDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	XPm_AieArray Array;	/**< AIE device instance */
 	XPm_AieDomainOpHooks Hooks;	/**< Hooks for AIE domain ops */
+	u32 AieNpiAddress;	/**< NPI base address of AIE domain */
+	u32 DefaultClockDiv;	/**< Default AIE clock divider at boot */
 };
-
-/**
- * AIE base device node
- */
-typedef struct XPm_AieNode {
-	XPm_Device Device;		/**< Device: Base class */
-	u32 DefaultClockDiv;		/**< Default AIE clock divider at boot */
-} XPm_AieNode;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);
 XStatus Aie_Operations(u32 Part, u32 Ops);
 XStatus AddAieDeviceNode(void);
+XPm_AieDomain* XPmAie_GetDomain(void);
 
 #ifdef __cplusplus
 }

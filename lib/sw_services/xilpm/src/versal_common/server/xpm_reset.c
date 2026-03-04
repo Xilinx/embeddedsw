@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -411,6 +411,14 @@ XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId)
 		goto done;
 	}
 
+	/*
+	 * AIE resets have no device association since PM_DEV_AIE is deprecated.
+	 * Allow these resets unconditionally for any subsystem.
+	 */
+	if ((PM_RST_AIE_ARRAY == ResetId) || (PM_RST_AIE_SHIM == ResetId)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 	DevHandle = Rst->RstHandles;
 	while (NULL != DevHandle) {
 		DevId = DevHandle->Device->Node.Id;
