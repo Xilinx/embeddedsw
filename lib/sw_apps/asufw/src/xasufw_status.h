@@ -704,6 +704,10 @@ enum {
 	XASUFW_AES_ERR_CTX_SAVED_GLITCH, /**< 0x1FBU - Error when AES context save did not
 						complete, possibly due to glitch or control flow
 						disruption. */
+	XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, /**< 0x1FCU - Error when buffer space validation
+						fails */
+	XASUFW_X509_CREATE_BOOLEAN_FAIL, /**< 0x1FDU - Error when creating ASN.1 boolean
+						field fails*/
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

@@ -73,6 +73,17 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 #define X509_ECDSA_SIG_R_S_SIZE_DIVISOR				(2U)	/**< Divisor to split ECDSA
 									signature into R and S
 									components */
+#define X509_ONE_BYTE						(1U)	/**< Buffer validation for
+									single byte access */
+#define X509_TAG_LEN_VAL_MIN_SIZE				(3U)	/**< Minimum size of tag,
+									length and value field */
+#define X509_TAG_BYTE_FIELD_SIZE				(2U)	/**< Size of tag and byte
+									field */
+#define X509_ASN1_INTEGER_SIGN_BYTE_PREFIX			(0x00U)	/**< ASN.1 DER integer sign byte
+									prefix for positive values with
+									MSB set */
+#define X509_ASN1_ZERO_UNUSED_BITS				(0x00U)	/**< Zero unused bits in BIT
+									STRING */
 
 /************************************ Type Definitions *******************************************/
 /**
@@ -136,6 +147,9 @@ static X509_CertGenInfo CertInstance; /**< X.509 certificate generation instance
 					certificate information */
 
 /************************************ Function Prototypes ****************************************/
+static inline s32 X509_ValidateBufferSpace(u32 RequiredSize);
+static s32 X509_ValidateAndUpdateTlvField(u8 Asn1Tag, u8 **LenIdx, u8 **ValIdx);
+static s32 X509_ValidateAndUpdateByteField(u8 Value);
 static s32 X509_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx);
 static u32 X509_Asn1GetFirstNonZeroByteOffset(const u8 *Data, u32 Cnt);
 static s32 X509_Asn1CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 IntegerLen);
@@ -144,7 +158,7 @@ static s32 X509_Asn1CreateRawDataFromByteArray(const u8 *RawData, const u32 LenO
 static u8 X509_Asn1GetTrailingZeroesCount(u8 Data);
 static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u32 IsLastByteFull);
 static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen);
-static void X509_Asn1CreateBoolean(const u32 BooleanVal);
+static s32 X509_Asn1CreateBoolean(const u32 BooleanVal);
 static inline s32 X509_GenVersionField(u8 Version);
 static s32 X509_GenSignAlgoField(void);
 static inline s32 X509_GenIssuerField(const u8 *Issuer, const u32 IssuerValLen);
@@ -161,6 +175,8 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg);
 static s32 X509_GenExtKeyUsageField(void);
 static inline s32 X509_GenSubAltNameField(const u8 *SubAltName, const u32 SubAltNameValLen);
 static inline void X509_AddTagField(u8 Asn1Tag);
+static inline s32 X509_ValidateAndAddTagField(u8 Asn1Tag);
+static s32 X509_ValidateAndAddTagByteFields(u8 Asn1Tag, u8 ByteValue);
 static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg);
 static s32 X509_GenSerialField(const u8 *DataHash);
 static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen);
@@ -193,6 +209,7 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen);
  *	- XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, if signature algorithm field generation is failed.
  *	- XASUFW_X509_GEN_SIGN_FIELD_FAIL, if signature field generation is failed.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -272,14 +289,18 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	CertInstance.Buf = (u8 *)(UINTPTR)X509CertAddr;
 	CertInstance.Offset = 0U;
 
-	/** Add sequence tag and move buffer to next address. */
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	TBSCertStart = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate CSR or TBS(To Be Signed) depending on the request. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (Cfg->IsCsr == XASU_TRUE) {
 		Status = X509_GenCertReqInfo(Cfg, &DataLen);
 	} else {
@@ -342,7 +363,6 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	}
 
 	CertSize = CertInstance.Offset;
-
 	*X509CertSize = CertSize;
 
 END:
@@ -408,13 +428,17 @@ END:
 static s32 X509_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 RemainBufSize = 0U;
+
+	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
 
 	if (Len <= X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
 		*LenIdx = (u8)Len;
 		Status = XASUFW_SUCCESS;
 	} else if (Len <= X509_ASN1_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES) {
 		*LenIdx = X509_ASN1_LONG_FORM_LENGTH_1BYTE;
-		Status = Xil_SMemMove(ValIdx + XASUFW_BUFFER_INDEX_ONE, Len, ValIdx, Len, Len);
+		Status = Xil_SMemMove(ValIdx + XASUFW_BUFFER_INDEX_ONE,
+				      Len - XASUFW_VALUE_ONE + RemainBufSize, ValIdx, Len, Len);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_MOVE_FAIL;
 			goto END;
@@ -422,7 +446,8 @@ static s32 X509_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx)
 		*(LenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)Len;
 	} else {
 		*LenIdx = X509_ASN1_LONG_FORM_LENGTH_2BYTES;
-		Status = Xil_SMemMove(ValIdx + XASUFW_BUFFER_INDEX_TWO, Len, ValIdx, Len, Len);
+		Status = Xil_SMemMove(ValIdx + XASUFW_BUFFER_INDEX_TWO,
+				      Len - XASUFW_VALUE_TWO + RemainBufSize, ValIdx, Len, Len);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_MOVE_FAIL;
 			goto END;
@@ -433,6 +458,86 @@ static s32 X509_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx)
 	}
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates if there is required space available in
+ *		X.509 certificate buffer.
+ *
+ * @param	RequiredSize	Number of bytes required in the buffer.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if sufficient buffer space is available in X.509 certificate buffer.
+ *	- XASUFW_FAILURE, if sufficient buffer space is not available in X.509 certificate buffer.
+ *
+ *************************************************************************************************/
+static inline s32 X509_ValidateBufferSpace(u32 RequiredSize)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	if ((CertInstance.Offset + RequiredSize) < X509_CERTIFICATE_MAX_SIZE_IN_BYTES) {
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates available space in X.509 buffer and updates ASN.1
+ *		tag, length and value field.
+ *
+ * @param	Asn1Tag		ASN.1 tag to be added.
+ * @param	LenIdx		Pointer to store the address of length index.
+ * @param	ValIdx		Pointer to store the address of value index.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if tag is added, buffer space is sufficient and pointers are set.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static s32 X509_ValidateAndUpdateTlvField(u8 Asn1Tag, u8 **LenIdx, u8 **ValIdx)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate buffer space for tag, length and value fields. */
+	Status = X509_ValidateBufferSpace(X509_TAG_LEN_VAL_MIN_SIZE);
+	if (Status == XASUFW_SUCCESS) {
+		/** Add ASN.1 tag field. */
+		X509_AddTagField(Asn1Tag);
+
+		/** Allocate buffer space for the length and value fields. */
+		*LenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+		*ValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates available space in X.509 buffer and writes a
+ *		single byte to the buffer.
+ *
+ * @param	Value	The byte value to write
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if sufficient buffer space is available and byte is written.
+ *	- XASUFW_FAILURE, if sufficient buffer space is not available in X.509 certificate buffer.
+ *
+ *************************************************************************************************/
+static s32 X509_ValidateAndUpdateByteField(u8 Value)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate buffer space for single byte. */
+	Status = X509_ValidateBufferSpace(X509_ONE_BYTE);
+	if (Status == XASUFW_SUCCESS) {
+		CertInstance.Buf[CertInstance.Offset++] = Value;
+	}
+
 	return Status;
 }
 
@@ -455,7 +560,6 @@ X509_InitData *X509_GetInitData(void)
 /**
  * @brief	This function takes a byte array as input and returns offset of a
  *		starting non-zero byte.
- *
  *
  * @param	Data	Input byte array.
  * @param	Cnt	Number of bytes in a given array.
@@ -489,6 +593,7 @@ static u32 X509_Asn1GetFirstNonZeroByteOffset(const u8 *Data, u32 Cnt)
  * @return
  *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 integer.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
@@ -498,18 +603,28 @@ static s32 X509_Asn1CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 In
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Offset = 0U;
+	u32 RemainBufSize = 0U;
 
 	Offset = X509_Asn1GetFirstNonZeroByteOffset(IntegerVal, IntegerLen - 1U);
+
 	/**
 	 * If the most significant bit in the first byte of IntegerVal is set,
 	 * then the value must be prepended with 0x00.
 	 */
 	if ((IntegerVal[Offset] & X509_ASN1_BIT7_MASK) == X509_ASN1_BIT7_MASK) {
-		CertInstance.Buf[CertInstance.Offset++] = 0x0U;
+		/** Validate buffer space and write ASN.1 DER integer sign byte prefix. */
+		Status = X509_ValidateAndUpdateByteField(X509_ASN1_INTEGER_SIGN_BYTE_PREFIX);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+			goto END;
+		}
 	}
 
+	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+
 	/** Copy integer values. */
-	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), IntegerLen - Offset,
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize,
 			     &IntegerVal[Offset], IntegerLen - Offset, IntegerLen - Offset);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
@@ -531,6 +646,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 Integer.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_INTEGER_FIELD_FROM_ARRAY_FAIL, if create integer field is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
@@ -540,14 +656,18 @@ static s32 X509_Asn1CreateInteger(const u8 *IntegerVal, u32 IntegerLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *IntegerLenIdx;
-	const u8 *IntegerValIdx;
+	u8 *IntegerValIdx;
 	const u8 *End;
 
-	X509_AddTagField(X509_ASN1_TAG_INTEGER);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_INTEGER, &IntegerLenIdx,
+						&IntegerValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	IntegerLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	IntegerValIdx = &(CertInstance.Buf[CertInstance.Offset]);
-
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateIntegerFieldFromByteArray(IntegerVal, IntegerLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status,
@@ -580,8 +700,11 @@ END:
 static s32 X509_Asn1CreateRawDataFromByteArray(const u8 *RawData, const u32 LenOfRawDataVal)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 RemainBufSize = 0U;
 
-	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), LenOfRawDataVal, RawData,
+	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize, RawData,
 			     LenOfRawDataVal, LenOfRawDataVal);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
@@ -633,6 +756,7 @@ static u8 X509_Asn1GetTrailingZeroesCount(u8 Data)
  * @return
  *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 BitString.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
@@ -643,12 +767,17 @@ static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u3
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 NumofTrailingZeroes = 0U;
 	u8 *BitStringLenIdx;
-	const u8 *BitStringValIdx;
+	u8 *BitStringValIdx;
 	const u8 *End;
+	u32 RemainBufSize = 0U;
 
-	X509_AddTagField(X509_ASN1_TAG_BIT_STRING);
-	BitStringLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	BitStringValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_BIT_STRING, &BitStringLenIdx,
+						&BitStringValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/**
 	 * The first byte of the value of the BITSTRING is used to show the number
@@ -658,9 +787,19 @@ static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u3
 		NumofTrailingZeroes = X509_Asn1GetTrailingZeroesCount(*(BitStringVal +
 								      BitStringLen - 1U));
 	}
-	CertInstance.Buf[CertInstance.Offset++] = NumofTrailingZeroes;
 
-	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), BitStringLen,
+	/** Validate buffer space and write number of trailing zeroes. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateByteField(NumofTrailingZeroes);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize,
 			     BitStringVal, BitStringLen, BitStringLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
@@ -686,6 +825,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 OctetString.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
@@ -695,8 +835,15 @@ static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringL
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *OctetStringLenIdx;
+	u32 RemainBufSize = 0U;
 
-	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
+	/** Add ASN.1 tag field. */
+	Status = X509_ValidateAndAddTagField(X509_ASN1_TAG_OCTET_STRING);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
 	OctetStringLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
 
 	if (OctetStringLen <= X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
@@ -715,7 +862,10 @@ static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringL
 		CertInstance.Offset += XASUFW_VALUE_TWO;
 	}
 
-	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), OctetStringLen,
+	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize,
 			     OctetStringVal, OctetStringLen, OctetStringLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
@@ -733,19 +883,40 @@ END:
  *
  * @param	BooleanVal	Can be TRUE or FALSE.
  *
+ * @return
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 Boolean.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *
  * @note	ASN.1 tag for Boolean is 0x01.
  *
  *************************************************************************************************/
-static void X509_Asn1CreateBoolean(const u32 BooleanVal)
+static s32 X509_Asn1CreateBoolean(const u32 BooleanVal)
 {
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate buffer space for tag, length and value fields. */
+	Status = X509_ValidateBufferSpace(X509_TAG_LEN_VAL_MIN_SIZE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Add ASN.1 tag field. */
 	X509_AddTagField(X509_ASN1_TAG_BOOLEAN);
+
+	/** Write boolean length. */
 	CertInstance.Buf[CertInstance.Offset++] = X509_ASN1_LEN_OF_VALUE_OF_BOOLEAN;
 
+	/** Write boolean value. */
 	if (BooleanVal == XASU_TRUE) {
 		CertInstance.Buf[CertInstance.Offset++] = (u8)X509_ASN1_BOOLEAN_TRUE;
 	} else {
 		CertInstance.Buf[CertInstance.Offset++] = (u8)X509_ASN1_BOOLEAN_FALSE;
 	}
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -767,11 +938,7 @@ static void X509_Asn1CreateBoolean(const u32 BooleanVal)
  *************************************************************************************************/
 static inline s32 X509_GenVersionField(u8 Version)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	Status = X509_Asn1CreateInteger(&Version, X509_VERSION_VAL_LEN);
-
-	return Status;
+	return X509_Asn1CreateInteger(&Version, X509_VERSION_VAL_LEN);
 }
 
 /*************************************************************************************************/
@@ -782,6 +949,7 @@ static inline s32 X509_GenVersionField(u8 Version)
  * @return
  *	- XASUFW_SUCCESS, if successfully created Signature Algorithm field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_UNSUPPORTED_SIGN_TYPE, if signature type is not supported.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
@@ -808,12 +976,16 @@ static s32 X509_GenSignAlgoField(void)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const X509_InitData *InitData = X509_GetInitData();
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	const u8 *End;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Check whether signature type is supported or not. */
 	if (SignOidList[InitData->SignType].SignType != X509_SIGN_TYPE_ECC_SHA3_384) {
@@ -822,21 +994,28 @@ static s32 X509_GenSignAlgoField(void)
 	}
 
 	/** Copy signature type OID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateRawDataFromByteArray(SignOidList[InitData->SignType].SignOid,
 			(sizeof(SignOidList[InitData->SignType].SignOid[0]) *
 			 SignOidList[InitData->SignType].SignLen));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
 		goto END;
 	}
 
-	X509_AddTagField(X509_ASN1_TAG_NULL);
-	CertInstance.Buf[CertInstance.Offset++] = X509_NULL_VALUE;
+	/** Add ASN.1 tag and NULL value fields. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndAddTagByteFields(X509_ASN1_TAG_NULL, X509_NULL_VALUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
+
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
@@ -858,11 +1037,7 @@ END:
  *************************************************************************************************/
 static inline s32 X509_GenIssuerField(const u8 *Issuer, const u32 IssuerValLen)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	Status = X509_Asn1CreateRawDataFromByteArray(Issuer, IssuerValLen);
-
-	return Status;
+	return X509_Asn1CreateRawDataFromByteArray(Issuer, IssuerValLen);
 }
 
 /*************************************************************************************************/
@@ -881,11 +1056,7 @@ static inline s32 X509_GenIssuerField(const u8 *Issuer, const u32 IssuerValLen)
  *************************************************************************************************/
 static inline s32 X509_GenValidityField(const u8 *Validity, const u32 ValidityValLen)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	Status = X509_Asn1CreateRawDataFromByteArray(Validity, ValidityValLen);
-
-	return Status;
+	return X509_Asn1CreateRawDataFromByteArray(Validity, ValidityValLen);
 }
 
 /*************************************************************************************************/
@@ -904,11 +1075,7 @@ static inline s32 X509_GenValidityField(const u8 *Validity, const u32 ValidityVa
  *************************************************************************************************/
 static inline s32 X509_GenSubjectField(const u8 *Subject, const u32 SubjectValLen)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	Status = X509_Asn1CreateRawDataFromByteArray(Subject, SubjectValLen);
-
-	return Status;
+	return X509_Asn1CreateRawDataFromByteArray(Subject, SubjectValLen);
 }
 
 /*************************************************************************************************/
@@ -922,6 +1089,7 @@ static inline s32 X509_GenSubjectField(const u8 *Subject, const u32 SubjectValLe
  * @return
  *	- XASUFW_SUCCESS, if successfully created Public Key Algorithm Identifier sub-field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -946,24 +1114,34 @@ static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *Pub
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	const u8 *End;
 	u8 EccCurveType = (u8)PubKeyInfo->EccCurveType;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_OID);
-	CertInstance.Buf[CertInstance.Offset++] = PubKeyOidList[PubKeyInfo->PubKeyType].OidLen;
+	/** Add ASN.1 tag and OID length fields. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndAddTagByteFields(X509_ASN1_TAG_OID,
+						  PubKeyOidList[PubKeyInfo->PubKeyType].OidLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Copy public key type OID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateRawDataFromByteArray(PubKeyOidList[PubKeyInfo->PubKeyType].Oid,
 			(sizeof(PubKeyOidList[PubKeyInfo->PubKeyType].Oid[0]) *
 				PubKeyOidList[PubKeyInfo->PubKeyType].OidLen));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
 		goto END;
 	}
 
@@ -973,8 +1151,7 @@ static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *Pub
 				(sizeof(ParamOidList[EccCurveType].ParamOid[0]) *
 				ParamOidList[EccCurveType].ParamOidLen));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
 		goto END;
 	}
 
@@ -996,6 +1173,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Public Key Info field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_GENERATE_PUB_KEY_ALGO_FIELD_FAIL, if public key algorithm generation is
  *	  failed.
  *	- XASUFW_X509_CREATE_BIT_STRING_FAIL, if bit string creation is failed.
@@ -1013,15 +1191,20 @@ static s32 X509_GenPublicKeyInfoField(const X509_SubjectPublicKeyInfo *PubKeyInf
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	u8 UncompressedPublicKey[X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN] = {0U};
 	const u8 *End;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Generate public key algorithm identifier field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenPubKeyAlgIdentifierField(PubKeyInfo);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status,
@@ -1074,6 +1257,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Subject Key Identifier field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- XASUFW_X509_CREATE_OCTET_STRING_FAIL, if octet string creation is failed.
  *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if generate digest is failed.
@@ -1099,9 +1283,9 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 	u32 HashLen = 0U;
 	const u8 Hash[X509_HASH_MAX_SIZE_IN_BYTES] = {0U};
 	u8 *OctetStrLenIdx;
-	const u8 *OctetStrValIdx;
+	u8 *OctetStrValIdx;
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	u8 UncompressedPublicKey[X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN] = {0U};
 	const u8 *End;
 
@@ -1117,17 +1301,21 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 		goto END;
 	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Create field for subject key OID. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateRawDataFromByteArray(Oid_SubKeyIdentifier,
 						     sizeof(Oid_SubKeyIdentifier));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
 		goto END;
 	}
 
@@ -1142,9 +1330,14 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 		goto END;
 	}
 
-	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OCTET_STRING, &OctetStrLenIdx,
+						&OctetStrValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Create octet string field to store calculated hash. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1176,6 +1369,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Authority Key Identifier field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if generate digest is failed.
  *	- XASUFW_X509_CREATE_OCTET_STRING_FAIL, if octet string creation is failed.
@@ -1209,9 +1403,9 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 	u8 *KeyIdSequenceLenIdx;
 	u8 *KeyIdSequenceValIdx;
 	u8 *OctetStrLenIdx;
-	const u8 *OctetStrValIdx;
+	u8 *OctetStrValIdx;
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	u8 UncompressedPublicKey[X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN] = {0U};
 	const u8 *End;
 
@@ -1227,17 +1421,21 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 		goto END;
 	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Create field for authority key OID. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateRawDataFromByteArray(Oid_AuthKeyIdentifier,
 						     sizeof(Oid_AuthKeyIdentifier));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
 		goto END;
 	}
 
@@ -1252,13 +1450,23 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 		goto END;
 	}
 
-	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OCTET_STRING, &OctetStrLenIdx,
+						&OctetStrValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	KeyIdSequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	KeyIdSequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &KeyIdSequenceLenIdx,
+						&KeyIdSequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Create octet string field to store calculated hash. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1313,6 +1521,7 @@ static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, X509_KeyUsageOption KeyUsage
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Key Usage field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- XASUFW_X509_CREATE_BIT_STRING_FAIL, if bit string creation is failed.
  *	- Error code received from called functions in case of other failure from the called
@@ -1339,29 +1548,43 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg)
 	u32 KeyUsageValLen = 0U;
 	u8 KeyUsageVal[X509_KEYUSAGE_VAL_LEN] = {0U};
 	u8 *OctetStrLenIdx;
-	const u8 *OctetStrValIdx;
+	u8 *OctetStrValIdx;
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	const u8 *End;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
-
-	/** Create field for key usage extension OID. */
-	Status = X509_Asn1CreateRawDataFromByteArray(Oid_KeyUsageExtn,
-						     sizeof(Oid_KeyUsageExtn));
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
 		goto END;
 	}
 
-	X509_Asn1CreateBoolean(XASU_TRUE);
+	/** Create field for key usage extension OID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateRawDataFromByteArray(Oid_KeyUsageExtn,
+						     sizeof(Oid_KeyUsageExtn));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateBoolean(XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_BOOLEAN_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OCTET_STRING, &OctetStrLenIdx,
+						&OctetStrValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	if (Cfg->IsSelfSigned == XASU_TRUE) {
 		X509_UpdateKeyUsageVal(KeyUsageVal, X509_KEYCERTSIGN);
@@ -1401,6 +1624,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Extended Key Usage field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -1417,41 +1641,59 @@ static s32 X509_GenExtKeyUsageField(void)
 	const u8 Oid_EkuClientAuth[] = {0x06U, 0x08U, 0x2BU, 0x06U, 0x01U, 0x05U, 0x05U, 0x07U,
 					0x03U, 0x02U};
 	u8 *EkuSequenceLenIdx;
-	const u8 *EkuSequenceValIdx;
+	u8 *EkuSequenceValIdx;
 	u8 *OctetStrLenIdx;
-	const u8 *OctetStrValIdx;
+	u8 *OctetStrValIdx;
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	const u8 *End;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
-
-	/** Create field for extended key usage extension OID. */
-	Status = X509_Asn1CreateRawDataFromByteArray(Oid_EkuExtn, sizeof(Oid_EkuExtn));
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
 		goto END;
 	}
 
-	X509_Asn1CreateBoolean(XASU_TRUE);
+	/** Create field for extended key usage extension OID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateRawDataFromByteArray(Oid_EkuExtn, sizeof(Oid_EkuExtn));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateBoolean(XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_BOOLEAN_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	EkuSequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	EkuSequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OCTET_STRING, &OctetStrLenIdx,
+						&OctetStrValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &EkuSequenceLenIdx,
+						&EkuSequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Create field for extended key usage client authority OID. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateRawDataFromByteArray(Oid_EkuClientAuth, sizeof(Oid_EkuClientAuth));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
 		goto END;
 	}
 
@@ -1483,11 +1725,7 @@ END:
  *************************************************************************************************/
 static inline s32 X509_GenSubAltNameField(const u8 *SubAltName, const u32 SubAltNameValLen)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	Status = X509_Asn1CreateRawDataFromByteArray(SubAltName, SubAltNameValLen);
-
-	return Status;
+	return X509_Asn1CreateRawDataFromByteArray(SubAltName, SubAltNameValLen);
 }
 
 /*************************************************************************************************/
@@ -1500,6 +1738,52 @@ static inline s32 X509_GenSubAltNameField(const u8 *SubAltName, const u32 SubAlt
 static inline void X509_AddTagField(u8 Asn1Tag)
 {
 	CertInstance.Buf[CertInstance.Offset++] = Asn1Tag;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates buffer space and adds ASN.1 tag field in X.509 Certificate.
+ *
+ * @param	Asn1Tag		ASN.1 tag to be added.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if tag field is added successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- Error code received from called functions in case of other failure from the called
+ *	  function.
+ *
+ *************************************************************************************************/
+static inline s32 X509_ValidateAndAddTagField(u8 Asn1Tag)
+{
+	return X509_ValidateAndUpdateByteField(Asn1Tag);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates buffer space and adds ASN.1 tag and byte fields in
+ *		X.509 Certificate.
+ *
+ * @param	Asn1Tag		ASN.1 tag to be added.
+ * @param	ByteValue	Byte value to be added after the tag.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if tag and byte fields are added successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static s32 X509_ValidateAndAddTagByteFields(u8 Asn1Tag, u8 ByteValue)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate buffer space for tag and byte fields. */
+	Status = X509_ValidateBufferSpace(X509_TAG_BYTE_FIELD_SIZE);
+	if (Status == XASUFW_SUCCESS) {
+		/** Add tag and byte fields. */
+		X509_AddTagField(Asn1Tag);
+		CertInstance.Buf[CertInstance.Offset++] = ByteValue;
+	}
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -1522,6 +1806,7 @@ static inline void X509_AddTagField(u8 Asn1Tag)
  *	  is failed.
  *	- XASUFW_X509_GEN_SUB_ALT_NAME_FIELD_FAIL, if subject alternate name field generation
  *	  is failed.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1547,15 +1832,25 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 	u8 *SequenceLenIdx;
 	u8 *SequenceValIdx;
 
-	X509_AddTagField(X509_ASN1_TAG_OPTIONAL_PARAM_3_CONSTRUCTED_TAG);
-	OptionalTagLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	OptionalTagValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OPTIONAL_PARAM_3_CONSTRUCTED_TAG,
+						&OptionalTagLenIdx, &OptionalTagValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Generate subject key identifier field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenSubjectKeyIdentifierField(Cfg->PubKeyInfo.SubjectPublicKey,
 						   Cfg->PubKeyInfo.SubjectPubKeyLen,
 						   Cfg->PlatformData);
@@ -1706,6 +2001,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated TBS certificate.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, error in generating Public Key Info
  *	  field.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, error in updating encoded length.
@@ -1744,20 +2040,40 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	u8 *SequenceValIdx;
 	const u8 *HashStartIdx;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG);
-	CertInstance.Buf[CertInstance.Offset++] = X509_VERSION_FIELD_LEN;
+	/** Add ASN.1 tag and version field length. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndAddTagByteFields(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG,
+						  X509_VERSION_FIELD_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Generate Version field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V3);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VERSION_FIELD_FAIL);
 		goto END;
 	}
 
+	/** Validate buffer space for serial field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateBufferSpace(X509_SERIAL_FIELD_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Store the serial offset to update it later and skip the serial field for now. */
 	CertInstance.SerialOffset = CertInstance.Offset;
 	CertInstance.Offset += X509_SERIAL_FIELD_LEN;
 	HashStartIdx = &(CertInstance.Buf[CertInstance.Offset]);
@@ -1774,7 +2090,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenIssuerField(Cfg->UserCfg->Issuer, Cfg->UserCfg->IssuerLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_ISSUER_FIELD_FAIL);
+		Status = XASUFW_X509_GEN_ISSUER_FIELD_FAIL;
 		goto END;
 	}
 
@@ -1782,7 +2098,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenValidityField(Cfg->UserCfg->Validity, Cfg->UserCfg->ValidityLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VALIDITY_FIELD_FAIL);
+		Status = XASUFW_X509_GEN_VALIDITY_FIELD_FAIL;
 		goto END;
 	}
 
@@ -1790,7 +2106,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenSubjectField(Cfg->UserCfg->Subject, Cfg->UserCfg->SubjectLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_SUBJECT_FIELD_FAIL);
+		Status = XASUFW_X509_GEN_SUBJECT_FIELD_FAIL;
 		goto END;
 	}
 
@@ -1863,6 +2179,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Sign field.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, if integer field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -1884,18 +2201,35 @@ static s32 X509_GenSignField(const u8 *Signature, u32 SignLen)
 	u8 *BitStrLenIdx;
 	u8 *BitStrValIdx;
 	u8 *SequenceLenIdx;
-	const u8 *SequenceValIdx;
+	u8 *SequenceValIdx;
 	const u8 *End;
 
-	X509_AddTagField(X509_ASN1_TAG_BIT_STRING);
-	BitStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	BitStrValIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	*BitStrValIdx = 0x00U;
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_BIT_STRING, &BitStrLenIdx,
+						&BitStrValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and write zero unused bits. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateByteField(X509_ASN1_ZERO_UNUSED_BITS);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateInteger(Signature, (SignLen / X509_ECDSA_SIG_R_S_SIZE_DIVISOR));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_INTEGER_FIELD_FAIL);
@@ -1930,9 +2264,11 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully generated Extensions field for Certification Request Info.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, if key usage field generation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
- *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, if extended key usage field generation is failed.
+ *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, if extended key usage field generation is
+ *	  failed.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -1952,29 +2288,47 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 	u8 *SetLenIdx;
 	u8 *SetValIdx;
 
-	X509_AddTagField(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG);
-	OptionalTagLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	OptionalTagValIdx = &(CertInstance.Buf[CertInstance.Offset]);
-
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	ExtnReqSeqLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	ExtnReqSeqValIdx = &(CertInstance.Buf[CertInstance.Offset]);
-
-	/** Create field for extension request OID in case of CSR. */
-	Status = X509_Asn1CreateRawDataFromByteArray(Oid_ExtnRequest, sizeof(Oid_ExtnRequest));
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG,
+						&OptionalTagLenIdx, &OptionalTagValIdx);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status,
-				XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL);
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
 		goto END;
 	}
 
-	X509_AddTagField(X509_ASN1_TAG_SET);
-	SetLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SetValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &ExtnReqSeqLenIdx,
+						&ExtnReqSeqValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Create field for extension request OID in case of CSR. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateRawDataFromByteArray(Oid_ExtnRequest, sizeof(Oid_ExtnRequest));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SET, &SetLenIdx, &SetValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Generate key usage field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -2060,6 +2414,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if Certificate request info created successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, error in generating Public Key Info
  *	  field.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, error in updating encoded length.
@@ -2079,11 +2434,16 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 	u8 *SequenceValIdx;
 	u32 CsrStart = CertInstance.Offset;
 
-	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
 
 	/** Generate Version field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V0);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VERSION_FIELD_FAIL);
