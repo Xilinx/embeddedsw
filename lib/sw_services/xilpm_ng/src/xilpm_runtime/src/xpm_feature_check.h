@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,7 +49,8 @@ extern "C" {
 	(1ULL << (u64)IOCTL_USB_SET_STATE) | \
 	(1ULL << (u64)IOCTL_GET_LAST_RESET_REASON) | \
 	(1ULL << (u64)IOCTL_READ_REG) | \
-	(1ULL << (u64)IOCTL_MASK_WRITE_REG))
+	(1ULL << (u64)IOCTL_MASK_WRITE_REG) | \
+	(1ULL << (u64)IOCTL_AIE2PS_OPS))
 XStatus XPm_FeatureCheck(u32 ApiId, u32 *Version);
 #ifdef __cplusplus
 }

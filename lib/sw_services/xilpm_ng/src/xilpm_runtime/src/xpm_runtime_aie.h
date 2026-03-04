@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,39 +17,6 @@ extern "C" {
 
 /* Maximum UC Private data memory size is 16KB */
 #define AIE2PS_UC_PRIVATE_DM_MAX_SIZE   (16U * 1024U)
-
-/**
- * AIE Run time Operations
- */
-enum XPmAieOperations {
-        AIE_OPS_MIN = 0U,
-        AIE_OPS_COL_RST = 1U,
-        AIE_OPS_SHIM_RST = 2U,
-        AIE_OPS_UC_ZEROIZATION = 3U,
-        AIE_OPS_ENB_COL_CLK_BUFF = 4U,
-        AIE_OPS_HANDSHAKE = 5U,
-        AIE_OPS_CLR_HW_ERR_STS = 6U,
-        AIE_OPS_START_NUM_COL = 7U,
-        AIE_OPS_ALL_MEM_ZEROIZATION = 8U,
-        AIE_OPS_AXIMM_ISOLATION = 9U,
-        AIE_OPS_NMU_CONFIG = 10U,
-        AIE_OPS_DIS_MEM_PRIV = 11U,
-        AIE_OPS_DIS_MEM_INTERLEAVE = 12U,
-        AIE_OPS_ENB_UC_DMA_PAUSE = 13U,
-        AIE_OPS_ENB_NOC_DMA_PAUSE = 14U,
-        AIE_OPS_SET_ECC_SCRUB_PERIOD = 15U,
-        AIE_OPS_DIS_COL_CLK_BUFF = 16U,
-        AIE_OPS_HW_ERR_INT = 17U,
-        AIE_OPS_HW_ERR_MASK = 18U,
-        AIE_OPS_ENB_MEM_PRIV = 19U,
-        AIE_OPS_CTRL_PKT_TLAST_ERR = 20U,
-        AIE_OPS_ENB_AXI_MM_ERR_EVENT = 32U,     /* Backward compatibility for AIE1/AIE2 */
-        AIE_OPS_SET_L2_CTRL_NPI_INTR = 64U,     /* Backward compatibility for AIE1/AIE2 */
-        AIE_OPS_PROG_MEM_ZEROIZATION = 128U,    /* Backward compatibility for AIE1/AIE2 */
-        AIE_OPS_DATA_MEM_ZEROIZATION = 256U,    /* Backward compatibility for AIE1/AIE2 */
-        AIE_OPS_MEM_TILE_ZEROIZATION = 512U,    /* Backward compatibility for AIE1/AIE2 */
-};
-/** @} */
 
 struct XPm_AieOpStartNumCol {
         u16 Type;         /* Operation Type */

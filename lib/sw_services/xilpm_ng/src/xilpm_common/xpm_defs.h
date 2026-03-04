@@ -405,6 +405,38 @@ typedef enum {
 /** @endcond */
 
 /**
+ * AIE Run time Operations
+ */
+enum XPmAieOperations {
+	AIE_OPS_MIN = 0U,				/**< Minimum OPS ID */
+	AIE_OPS_COL_RST = 1U,				/**< Column reset */
+	AIE_OPS_SHIM_RST = 2U,				/**< Shim reset */
+	AIE_OPS_UC_ZEROIZATION = 3U,			/**< UC zeroization */
+	AIE_OPS_ENB_COL_CLK_BUFF = 4U,			/**< Enable column clock buffer */
+	AIE_OPS_HANDSHAKE = 5U,				/**< Handshake operation */
+	AIE_OPS_CLR_HW_ERR_STS = 6U,			/**< Clear HW error status */
+	AIE_OPS_START_NUM_COL = 7U,			/**< Start number of columns */
+	AIE_OPS_ALL_MEM_ZEROIZATION = 8U,		/**< All memory zeroization */
+	AIE_OPS_AXIMM_ISOLATION = 9U,			/**< AXI-MM isolation */
+	AIE_OPS_NMU_CONFIG = 10U,			/**< NMU configuration */
+	AIE_OPS_DIS_MEM_PRIV = 11U,			/**< Disable memory privilege */
+	AIE_OPS_DIS_MEM_INTERLEAVE = 12U,		/**< Disable memory interleave */
+	AIE_OPS_ENB_UC_DMA_PAUSE = 13U,			/**< Enable UC DMA pause */
+	AIE_OPS_ENB_NOC_DMA_PAUSE = 14U,		/**< Enable NOC DMA pause */
+	AIE_OPS_SET_ECC_SCRUB_PERIOD = 15U,		/**< Set ECC scrub period */
+	AIE_OPS_DIS_COL_CLK_BUFF = 16U,			/**< Disable column clock buffer */
+	AIE_OPS_HW_ERR_INT = 17U,			/**< HW error interrupt */
+	AIE_OPS_HW_ERR_MASK = 18U,			/**< HW error mask */
+	AIE_OPS_ENB_MEM_PRIV = 19U,			/**< Enable memory privilege */
+	AIE_OPS_CTRL_PKT_TLAST_ERR = 20U,		/**< Control packet TLAST error */
+	AIE_OPS_ENB_AXI_MM_ERR_EVENT = 32U,		/**< Enable AXI-MM error event (backward compat AIE1/AIE2) */
+	AIE_OPS_SET_L2_CTRL_NPI_INTR = 64U,		/**< Set L2 control NPI interrupt (backward compat AIE1/AIE2) */
+	AIE_OPS_PROG_MEM_ZEROIZATION = 128U,		/**< Program memory zeroization (backward compat AIE1/AIE2) */
+	AIE_OPS_DATA_MEM_ZEROIZATION = 256U,		/**< Data memory zeroization (backward compat AIE1/AIE2) */
+	AIE_OPS_MEM_TILE_ZEROIZATION = 512U,		/**< Memory tile zeroization (backward compat AIE1/AIE2) */
+};
+
+/**
  * PLL parameters
  */
 enum XPm_PllConfigParams {
