@@ -1022,13 +1022,6 @@ int VsiVvdeviceExecuteCaseline
 			// Reset counters for next second
 			start = GetTime();
 			dequeue_call_count = 0;
-			if (displayInstance == 15) {
-				LOGE("------------------------------------------------------------\r\n");
-				LOGW(" |  📥 To retrieve the image dump, use the following command:\r\n");
-				LOGW(" |  mrd -bin -file dump.rgb 0x%x 0x%x\r\n\n", pBuf->baseAddress, pBuf->baseSize / 4);
-				LOGE("------------------------------------------------------------\r\n");
-				displayInstance = 0;
-			}
 			displayInstance++;
 		}
 		//	CamDevicePipeOutFmt_t test_0={1920,1080,CAMDEV_PIX_FMT_YUV422SP,0};
@@ -1076,6 +1069,18 @@ int VsiVvdeviceExecuteCaseline
 					}
 				}
 			}
+			if (displayInstance == 15) {
+				LOGI("------------------------------------------------------------\r\n");
+				LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
+				if(caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
+					LOGI(" |  mrd -bin -file dump_MP.rgb 0x%x 0x%x\r\n\n", pBuf->baseAddress, pBuf->baseSize / 4);
+				}
+				if(caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
+					LOGI(" |  mrd -bin -file dump_SP.rgb 0x%x 0x%x\r\n\n", pBuf->baseAddress, pBuf->baseSize / 4);
+				}
+				LOGI("------------------------------------------------------------\r\n");
+				displayInstance = 0;
+			}
 		}
 	}
 #else
@@ -1099,20 +1104,19 @@ int VsiVvdeviceExecuteCaseline
 				start = GetTime();
 				dequeue_call_count = 0;
 				if (displayInstance == 3) {
-					LOGE("------------------------------------------------------------\r\n");
-					LOGW(" |  📥 To retrieve the image dump, use the following command:\r\n");
+					LOGI("------------------------------------------------------------\r\n");
+					LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
-				if(ISP_ID == 0) {
-					LOGW(" |  mrd -bin -file lilo.rgb 0x%x 0x17BC00\r\n\n",
-					     (uintptr_t)Frame_Array_p[0][0].aligned_addr);
-				}
-				else if(ISP_ID == 1) {
-					LOGW(" |  mrd -bin -file lilo.rgb 0x%x 0x17BC00\r\n\n",
-					     (uintptr_t)Frame_Array_p[2][0].aligned_addr);
-				}
-
+					if (caseCtx->instanceCfgCtx[ISP_ID].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
+						LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%x 0x17BC00\r\n\n",
+						     ISP_ID, (uintptr_t)Frame_Array_p[ISP_ID * 2][0].aligned_addr);
+					}
+					if (caseCtx->instanceCfgCtx[ISP_ID].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
+						LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%x 0x17BC00\r\n\n",
+						     ISP_ID, (uintptr_t)Frame_Array_p[ISP_ID * 2 + 1][0].aligned_addr);
+					}
 #endif
-					LOGE("------------------------------------------------------------\r\n");
+					LOGI("------------------------------------------------------------\r\n");
 					displayInstance = 0;
 				}
 				displayInstance++;
@@ -2899,12 +2903,12 @@ void VsiVvdeviceShowBuffer
 			osFclose(pFile);
 			pFile = NULL;
 #endif
-			LOGE("------------------------------------------------------------\r\n");
-			LOGW(" |            MIMO CASE RUN SUCESSFULLY \r\n");
-			LOGW(" |  📥 To retrieve the image dump, use the following command:\r\n");
-			LOGW(" |  mrd -bin -file dump.rgb 0x%x 0x%x\r\n\n", pNowBuffer->baseAddress,
+			LOGI("------------------------------------------------------------\r\n");
+			LOGI(" |            MIMO CASE RUN SUCESSFULLY \r\n");
+			LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
+			LOGI(" |  mrd -bin -file dump.rgb 0x%x 0x%x\r\n\n", pNowBuffer->baseAddress,
 			     pNowBuffer->baseSize / 4);
-			LOGE("------------------------------------------------------------\r\n");
+			LOGI("------------------------------------------------------------\r\n");
 			Xil_DCacheInvalidateRange(pNowBuffer->baseAddress, bufferSize);
 		}
 #else
