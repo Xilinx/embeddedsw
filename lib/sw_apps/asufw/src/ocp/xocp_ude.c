@@ -38,6 +38,7 @@
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xasu_generic.h"
+#include "xasu_def.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -56,7 +57,8 @@
 
 /********************************** Variable Definitions *****************************************/
 static u8 XOcp_UdeKek[XOCP_UDE_KEK_SIZE_IN_BYTES] = {0U};	/**< UDE KEK */
-static u8 UdeKekFlag = XASU_FALSE;	/**< UDE KEK presence flag */
+static u32 UdeKekFlag = XASU_STATUS_FAIL;	/**< UDE KEK presence flag */
+
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
 static void XOcp_IncrementIv(u8* Iv, u8 IncVal);
@@ -121,7 +123,7 @@ s32 XOcp_GenerateUdeKek(void)
 END:
 	FihStatus = XFih_VolatileAssignS32(Status);
 	XFIH_IF_FAILOUT (FihStatus, ==, XFIH_SUCCESS) {
-		UdeKekFlag = XASU_TRUE;
+		UdeKekFlag = XASU_STATUS_PASS;
 	}
 
 	return Status;
@@ -149,6 +151,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
 	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
 	u8 IvIncVal = 0U;
+	XFih_Var UdeKekStatus = XFih_VolatileAssignU32(UdeKekFlag);
 
 	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (OcpUdeKeyEnc == NULL)) {
@@ -156,10 +159,10 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 		goto END;
 	}
 
-	/** Check if UDE KEK is present. */
-	if (UdeKekFlag == XASU_FALSE) {
+	/** Check if UDE KEK is present with FIH redundancy. */
+	XFIH_IF_FAILOUT_WITH_VALUE (UdeKekStatus, ==, XASU_STATUS_FAIL) {
 		Status = XASUFW_OCP_UDE_KEK_NOT_PRESENT;
-		goto END;
+		XFIH_GOTO(END);
 	}
 
 	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES,
@@ -410,11 +413,12 @@ static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8
 	u8 ZeroData[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] = {0U};
 	u8 UdeEncPvtKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] = {0U};
 	volatile u32 Index = 0U;
+	XFih_Var UdeKekStatus = XFih_VolatileAssignU32(UdeKekFlag);
 
-	/** Check if UDE KEK is present. */
-	if (UdeKekFlag == XASU_FALSE) {
+	/** Check if UDE KEK is present with FIH redundancy. */
+	XFIH_IF_FAILOUT_WITH_VALUE (UdeKekStatus, ==, XASU_STATUS_FAIL) {
 		Status = XASUFW_OCP_UDE_KEK_NOT_PRESENT;
-		goto END;
+		XFIH_GOTO(END);
 	}
 
 	/** Copy the UDE user key data to the local buffer. */
