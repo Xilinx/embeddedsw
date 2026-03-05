@@ -92,9 +92,9 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	 * of the curve. EK can be obtained by using mod operation over
 	 * 384-bits random number. However to reduce bias associated with mod
 	 * operation, standard recommends of using additional 64-bits i.e.
-	 * 384 + 64 = 448-bits. IPCores library has option to perform 448-bit
+	 * 384 + 64 = 448-bits. Third-Party library has option to perform 448-bit
 	 * mod operation however it treats MSB as sign bit. So to overcome the
-	 * issue, new function added to IPCore library uses next available
+	 * issue, new function added to third-party library uses next available
 	 * large number operation that hardware can handle is selected,
 	 * 480-bits (60 bytes).
 	 * Below code takes 448 bits from random number generated remaining
@@ -144,7 +144,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	for (Index = 0U; (Index < XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN) && (RIndex >= 0); Index++, RIndex--) {
 		XSecure_OutByte64((u64)(UINTPTR)(RandBufEndianChange + Index), (RandBuf[RIndex]));
 	}
-	/* IPCores library expects MSB bit to be 0 always */
+	/* Third-Party library expects MSB bit to be 0 always */
 	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBufEndianChange, (u8 *)(UINTPTR)PrvtKey);
 	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)PrvtKey, PrivateKey->KeyOutPutAddr);
 
@@ -208,7 +208,7 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	/* IPCores library expects MSB bit to be 0 always */
+	/* Third-Party library expects MSB bit to be 0 always */
 	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBuf, (u8 *)(UINTPTR)EphimeralKey);
 	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)EphimeralKey, EphemeralKeyAddr);
 
@@ -288,7 +288,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This is a wrapper function which calls the IPCores API to perform ECDH and
+ * @brief	This is a wrapper function which calls the third-party API to perform ECDH and
  * 		generate shared secret.
  *
  * @param	CrvType			Curve Type of the keys used to generate shared secret

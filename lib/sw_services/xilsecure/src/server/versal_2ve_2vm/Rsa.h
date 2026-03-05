@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
-* Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,10 +35,10 @@ typedef struct {
 } RsaKeyPair;
 
 /**
- * @name IPCores RSA quiet mode API declarations
+ * @name Third-Party RSA quiet mode API declarations
  * @{
  */
-/**< Prototype declarations for IPCores APIs for RSA "quiet" operations */
+/**< Prototype declarations for third-party APIs for RSA "quiet" operations */
 externC int RSA_ExpQ(unsigned char* base, unsigned char* exp, unsigned char* mod,
 	unsigned char* p, unsigned char* q, unsigned char* pub, unsigned char* tot, int len,
 	unsigned char* res);

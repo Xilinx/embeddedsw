@@ -16,7 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/23/23 Initial release
-* 5.3   am      09/28/23 Added wrapper functions for IPCore's RSA APIs
+* 5.3   am      09/28/23 Added wrapper functions for third-party's RSA APIs
 *       dd      10/11/23 MISRA-C violation Rule 10.3 fixed
 *       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed

@@ -50,7 +50,7 @@
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  06/07/23 Added support for P-256 Curve
 *       ng   07/05/23 Added support for system device tree flow
-*       yog  08/07/23 Initialised trng before calling IpCores functions
+*       yog  08/07/23 Initialised trng before calling third-party functions
 *       am   08/18/23 Added XSecure_EllipticValidateAndGetCrvInfo and
 *                     XSecure_EllipticGetCrvSize functions
 *       yog  09/04/23 Restricted XSecure_ECCRandInit API support to VersalNet

@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
+* Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -147,10 +147,10 @@ typedef struct {
 /** @} */
 
 /**
- * @name IPCores API declarations
+ * @name Third-Party API declarations
  * @{
  */
-/**< Prototype declarations for IPCores APIs for Elliptic curve related operations */
+/**< Prototype declarations for third-party APIs for Elliptic curve related operations */
 externC s32 Ecdsa_ValidateKey(const EcdsaCrvInfo* CrvInfo, const EcdsaKey* Key);
 
 externC s32 Ecdsa_VerifySign(const EcdsaCrvInfo* CrvInfo, u8* z, u32 zlen,

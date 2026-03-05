@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -16,7 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   kpt  06/25/23 Initial release
-* 5.3   am   09/28/23 Added wrapper function prototypes for IPCore's RSA APIs
+* 5.3   am   09/28/23 Added wrapper function prototypes for third-party's RSA APIs
 *       kpt  12/13/23 Added XSecure_RsaOperationParam
 *       kpt  12/13/23 Added RSA CRT support for keyunwrap
 * 5.3   ng   01/28/24 Added SDT support

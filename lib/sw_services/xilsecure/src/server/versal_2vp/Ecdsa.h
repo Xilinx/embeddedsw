@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -135,10 +135,10 @@ typedef struct {
 /** @} */
 
 /**
- * @name IPCores API declarations
+ * @name Third-Party API declarations
  * @{
  */
-/**< Prototype declarations for IPCores APIs for Elliptic curve related operations */
+/**< Prototype declarations for third-party APIs for Elliptic curve related operations */
 externC int Ecdsa_ValidateKey(EcdsaCrvInfo* CrvInfo, EcdsaKey* Key);
 
 externC int Ecdsa_VerifySign(EcdsaCrvInfo* CrvInfo, u8* Hash, u32 HashLen, EcdsaKey* Key,
