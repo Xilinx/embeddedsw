@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Freertos10_xilinxExample.cmake * NO_POLICY_SCOPE)
@@ -273,7 +273,7 @@ if (${freertos_use_timeslicing})
     set(configUSE_TIME_SLICING " ")
 endif()
 if (${freertos_use_port_optimized_task_selection})
-    set(configUSE_PORT_OPTIMIZED_TASK_SELECTION " ")
+    set(configUSE_PORT_OPTIMISED_TASK_SELECTION " ")
 endif()
 if (${freertos_stream_buffer})
     set(configSTREAM_BUFFER " ")
