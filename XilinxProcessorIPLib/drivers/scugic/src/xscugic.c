@@ -184,6 +184,8 @@
 * 5.7   bdk  11/29/25 Updated conditional checks to fix 20.9 misra-c violation.
 * 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 5.7   ml   03/05/26 Updated XScuGic_Disable() to use correct offset for disabling
+*                     SGI/PPI interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -742,9 +744,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 {
 	u32 Mask;
-#if defined (GICv3)
-	u32 Temp;
-#else
+#if !defined (GICv3)
 	u8 Cpu_Identifier = (u8)CpuId;
 #endif
 
@@ -761,9 +761,8 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 		Int_Id &= 0x1f;
 		Int_Id = 1 << Int_Id;
 
-		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr, XSCUGIC_RDIST_ISENABLE_OFFSET);
-		Temp &= ~Int_Id;
-		XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_RDIST_ISENABLE_OFFSET, Temp);
+		/* ICENABLER is write-1-to-disable; write only the target bit */
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_RDIST_ICENABLER_OFFSET, Int_Id);
 		return;
 	}
 #endif
