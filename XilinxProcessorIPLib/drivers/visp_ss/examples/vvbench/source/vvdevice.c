@@ -13,6 +13,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <string.h>
 #define LOGTAG "DEV"
 #include "vvbase.h"
 /* memory_manager functions provided by libvisp.a */
@@ -33,6 +34,7 @@ extern void mm_free(void *ptr);
 #include "hal_i2c.h"
 /* vvbench_image_loader provided by libvisp.a */
 #include "xvisp_ss.h"
+extern int custom_json;
 
 /* Forward declarations for types from libvisp.a */
 typedef struct {
@@ -1513,8 +1515,17 @@ int VsiVvdeviceLoadSimulatorToDatabase
 	int result = 0;
 	LOGI("%s enter \n", __func__);
 	//Get submodules info from t_database
-	char manualJson[FILE_LEN] = "vvbcfg/project_json_file/manual_ext.json";
-	char autoJson[FILE_LEN] = "vvbcfg/project_json_file/auto.json";
+	char manualJson[FILE_LEN];
+	char autoJson[FILE_LEN];
+	if(custom_json == 0)
+	{
+		strcpy(manualJson, "vvbcfg/project_json_file/manual_ext.json");
+		strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
+	}
+	else {
+		strcpy(manualJson, "ext_manual.json");
+		strcpy(autoJson, "ext_auto.json");
+	}
 	char simulatorJson[FILE_LEN] = {0};
 
 	if (!caseCtx->fineTuneMode) {
@@ -1959,7 +1970,7 @@ int VsiVvdeviceNrRelocControl
 		return -1;
 	}
 	//NR pre-position in ISP
-	if (!pMetaConfig->nrReloc) {
+	if (pMetaConfig->nrReloc) {
 		result = VsiCamDeviceNrRelocEnable(hCamDevice);
 		if (0 != result) {
 			LOGE("%s: Vvbench Enable Nr Reloc failed!\n", __func__);

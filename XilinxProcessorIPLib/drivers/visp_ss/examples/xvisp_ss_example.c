@@ -30,6 +30,9 @@
 #include "lilo.h"
 #include "mimo.h"
 #include "image.h"
+#include "ext_auto.h"
+#include "ext_manual.h"
+#include "ext_sensor.h"
 
 #define LOGTAG "MAIN"
 

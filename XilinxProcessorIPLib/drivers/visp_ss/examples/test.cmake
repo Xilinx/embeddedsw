@@ -39,6 +39,23 @@ foreach(JSON_FILE ${JSON_FILES})
     list(APPEND GENERATED_JSON_HEADERS ${HEADER_FILE})
 endforeach()
 
+# Convert ext_sensor.xml to header file if it exists
+set(EXT_SENSOR_XML_FILE "${CMAKE_CURRENT_SOURCE_DIR}/reference_jsons/ext_sensor.xml")
+if(EXISTS ${EXT_SENSOR_XML_FILE})
+    set(EXT_SENSOR_HEADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ext_sensor.h")
+
+    add_custom_command(
+        OUTPUT ${EXT_SENSOR_HEADER_FILE}
+        COMMAND xxd -i ext_sensor.xml > ${EXT_SENSOR_HEADER_FILE}
+        DEPENDS ${EXT_SENSOR_XML_FILE}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/reference_jsons
+        COMMENT "Converting ext_sensor.xml to ext_sensor.h"
+        VERBATIM
+    )
+
+    list(APPEND GENERATED_JSON_HEADERS ${EXT_SENSOR_HEADER_FILE})
+endif()
+
 # Convert image.raw to header file if it exists
 set(IMAGE_RAW_FILE "${CMAKE_CURRENT_SOURCE_DIR}/reference_jsons/image.raw")
 if(EXISTS ${IMAGE_RAW_FILE})
