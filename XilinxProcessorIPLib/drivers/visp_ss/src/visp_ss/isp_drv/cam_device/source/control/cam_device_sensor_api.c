@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2022 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -485,6 +485,7 @@ RESULT VsiCamDeviceSensorSetFrameRate
 		return (RET_WRONG_HANDLE);
 	if (NULL == pFps)
 		return (RET_NULL_POINTER);
+	uint32_t fps_as_integer = (uint32_t)(*pFps);
 	pCamDevCtx->cookie ++;
 
 	Payload_packet packet;
@@ -498,8 +499,8 @@ RESULT VsiCamDeviceSensorSetFrameRate
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pFps, sizeof(float));
-	packet.payload_size += sizeof(float);
+	memcpy(p_data, &fps_as_integer, sizeof(uint32_t));
+	packet.payload_size += sizeof(uint32_t);
 
 	if (packet.payload_size > MAX_ITEM)
 		return RET_OUTOFRANGE;
