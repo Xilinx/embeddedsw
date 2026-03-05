@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -178,6 +178,15 @@ proc xgen_opts_file {libhandle} {
 	}
 	if { [string match -nocase "xc2vp3602" $part_name] } {
 		puts $file_handle "\#define XC2VP3602"
+	}
+	if { [string match -nocase "xc2vp3102" $part_name] } {
+		puts $file_handle "\#define XC2VP3202" ;# xc2vp3102 is derivative of xc2vp3202
+	}
+	if { [string match -nocase "xc2vp3402" $part_name] } {
+		puts $file_handle "\#define XC2VP3602" ;# xc2vp3402 is derivative of xc2vp3602
+	}
+	if { [string match -nocase "xc2vp3502" $part_name] } {
+		puts $file_handle "\#define XC2VP3602" ;# xc2vp3502 is derivative of xc2vp3602
 	}
 
 	# Add macro for enabling bulk dev release feature

@@ -45,6 +45,48 @@
 
 static u32 IsCrypto = 0U;
 
+/**
+ * @brief Check if the device has a DDRMC5 crypto block.
+ *
+ * @return TRUE if device has crypto, FALSE otherwise.
+ */
+static inline u32 XPm_IsDdrmc5CryptoDevice(void)
+{
+	u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
+
+	return ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3202 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3102 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3602 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3402 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3502 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode));
+}
+
+/**
+ * @brief Check if the device requires the NPI ScanClear workaround.
+ *
+ * On these devices, the NPI bus is corrupted during NoC ScanClear.
+ *
+ * @return TRUE if device needs the workaround, FALSE otherwise.
+ */
+static inline u32 XPm_IsNpiScanClearWaDevice(void)
+{
+	u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
+
+	return ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3202 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3102 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3602 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3402 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VP3502 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode));
+}
+
 static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 static void Clear_ScanClearErr(void);
 static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
@@ -101,15 +143,11 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/*
-	 * If device is xcvm2152/xcvr1602/xcvr1652, DDRMC5 has crypto block so set local flag.
+	 * If device has DDRMC5 crypto block, set local flag.
 	 * NOTE: This is a temporary solution until topology support is
 	 * available.
 	 */
-	u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
-	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
-		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
-		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
-		(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
+	if (XPm_IsDdrmc5CryptoDevice()) {
 		IsCrypto = 1U;
 	}
 
@@ -367,15 +405,8 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (PM_HOUSECLEAN_CHECK(NPD, SCAN)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-		/*
-		 * This is a workaround for xcvm2152, xcvr1602, xcvr1652. When NoC ScanClear runs
-		 * the NPI bus is corrupted, refer EDT-1070997.
-		 */
-		u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
-		if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
+		/* NPI ScanClear workaround, refer EDT-1070997. */
+		if (XPm_IsNpiScanClearWaDevice()) {
 			/* Idle the PMC-NPI AXI bus */
 			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK);
 
@@ -406,11 +437,8 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			after so increasing delay for scan clear to finish */
 		usleep(400);
 
-		/* NoC ScanClear workaround for xcvm2152, xcvr1602, xcvr1652 continued. refer EDT-1070997*/
-		if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
+		/* NoC ScanClear workaround continued, refer EDT-1070997. */
+		if (XPm_IsNpiScanClearWaDevice()) {
 
 			/* Release PMC-NPI AXI bus reset */
 			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK);

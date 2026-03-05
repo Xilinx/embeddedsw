@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 
@@ -24,6 +24,18 @@ endif()
 string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3602" IS_DEVICE_ID_PRESENT)
 if (IS_DEVICE_ID_PRESENT)
   set(XC2VP3602 " ")
+endif()
+string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3102" IS_DEVICE_ID_PRESENT)
+if (IS_DEVICE_ID_PRESENT)
+  set(XC2VP3202 " ") # xc2vp3102 is derivative of xc2vp3202
+endif()
+string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3402" IS_DEVICE_ID_PRESENT)
+if (IS_DEVICE_ID_PRESENT)
+  set(XC2VP3602 " ") # xc2vp3402 is derivative of xc2vp3602
+endif()
+string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3502" IS_DEVICE_ID_PRESENT)
+if (IS_DEVICE_ID_PRESENT)
+  set(XC2VP3602 " ") # xc2vp3502 is derivative of xc2vp3602
 endif()
 
 
