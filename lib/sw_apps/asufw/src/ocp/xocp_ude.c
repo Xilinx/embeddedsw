@@ -61,6 +61,7 @@ static u8 UdeKekFlag = XASU_FALSE;	/**< UDE KEK presence flag */
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
 static void XOcp_IncrementIv(u8* Iv, u8 IncVal);
 static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8* UdeDecPvtKey);
+static s32 XOcp_GetActiveUdeKeyInfo(u32 *UdeUserKeyPtr, u8 *IvIncValPtr);
 
 /*************************************************************************************************/
 /**
@@ -232,7 +233,6 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u32 UdeFipsRegValue = 0U;
 	u32 UdeUserKeyAddr = 0U;
 	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
 	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
@@ -267,22 +267,9 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 	}
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 
-	/**
-	 * Get the UDE encrypted private key address and update the IV with the offset based on
-	 * UDE revoke bits.
-	 */
-	UdeFipsRegValue = Xil_In32(EFUSE_CACHE_UDE_FIPS_ADDRESS);
-
-	if ((UdeFipsRegValue & EFUSE_CACHE_UDE_REVOKE_0_MASK) == 0U) {
-		UdeUserKeyAddr = EFUSE_CACHE_USERKEY_0_ADDR;
-		IvIncVal = XOCP_UDE0_IV_INC_VAL;
-	} else if ((UdeFipsRegValue & EFUSE_CACHE_UDE_REVOKE_1_MASK) == 0U) {
-		UdeUserKeyAddr = EFUSE_CACHE_USERKEY_1_ADDR;
-		IvIncVal = XOCP_UDE1_IV_INC_VAL;
-	} else if ((UdeFipsRegValue & EFUSE_CACHE_UDE_REVOKE_2_MASK) == 0U) {
-		UdeUserKeyAddr = EFUSE_CACHE_USERKEY_2_ADDR;
-		IvIncVal = XOCP_UDE2_IV_INC_VAL;
-	} else {
+	/** Check UDE key revocation status and get the key address and Iv increment value. */
+	Status = XOcp_GetActiveUdeKeyInfo(&UdeUserKeyAddr, &IvIncVal);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED;
 		goto END;
 	}
@@ -589,6 +576,61 @@ static void XOcp_IncrementIv(u8* Iv, u8 IncVal)
 			break;
 		}
 	}
+}
+
+/*************************************************************************************************/
+ /**
+ * @brief	This function checks the revocation status of UDE private keys and gets the active
+ * 		UDE key information (Key address and IV increment value).
+ *
+ * @param	UdeUserKeyPtr	Pointer to the variable that will hold active UDE user key address.
+ * @param	IvIncValPtr	Pointer to the variable that will hold IV increment value.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if active UDE key information is retrieved successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetActiveUdeKeyInfo(u32 *UdeUserKeyPtr, u8 *IvIncValPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+	XFih_Var UdeFipsRegValue = XFih_VolatileAssignU32(EFUSE_CACHE_UDE_REVOKE_ALL_MASK);
+
+	/** Get the UDE revocation bits from the FIPS register with FIH protection. */
+	UdeFipsRegValue = XFih_VolatileAssignU32(Xil_In32(EFUSE_CACHE_UDE_FIPS_ADDRESS));
+
+	/** If all keys are revoked, return error. */
+	XFIH_IF_FAILOUT_WITH_MASK(UdeFipsRegValue, EFUSE_CACHE_UDE_REVOKE_ALL_MASK, ==,
+	                          EFUSE_CACHE_UDE_REVOKE_ALL_MASK) {
+		Status = XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED;
+		goto END;
+	}
+
+	/** Check UDE key 0 revocation status and get the UDE key information if not revoked. */
+	XFIH_IF_FAILOUT_WITH_MASK(UdeFipsRegValue, EFUSE_CACHE_UDE_REVOKE_0_MASK, ==, 0U) {
+		*UdeUserKeyPtr = EFUSE_CACHE_USERKEY_0_ADDR;
+		*IvIncValPtr = XOCP_UDE0_IV_INC_VAL;
+		Status = XASUFW_SUCCESS;
+		XFIH_GOTO(END);
+	}
+
+	/** If UDE key 0 is revoked, get the UDE key information for the UDE key 1 if not revoked. */
+	XFIH_IF_FAILOUT_WITH_MASK(UdeFipsRegValue, EFUSE_CACHE_UDE_REVOKE_1_MASK, ==, 0U) {
+		*UdeUserKeyPtr = EFUSE_CACHE_USERKEY_1_ADDR;
+		*IvIncValPtr = XOCP_UDE1_IV_INC_VAL;
+		Status = XASUFW_SUCCESS;
+		XFIH_GOTO(END);
+	}
+
+	/** If UDE key 0 and 1 are revoked, get the UDE key information for the UDE key 2 if not revoked. */
+	XFIH_IF_FAILOUT_WITH_MASK(UdeFipsRegValue, EFUSE_CACHE_UDE_REVOKE_2_MASK, ==, 0U) {
+		*UdeUserKeyPtr = EFUSE_CACHE_USERKEY_2_ADDR;
+		*IvIncValPtr = XOCP_UDE2_IV_INC_VAL;
+		Status = XASUFW_SUCCESS;
+	}
+
+END:
+	return Status;
 }
 #endif /* XASU_OCP_ENABLE */
 /** @} */

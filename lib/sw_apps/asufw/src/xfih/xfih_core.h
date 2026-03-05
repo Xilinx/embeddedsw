@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -208,6 +208,36 @@ typedef struct _XFih_Var {
 #define XFIH_IF_FAILOUT_WITH_VALUE(a, condition, b) \
 	XFIH_VALIDATE_VARIABLE(a); \
 	if ((a.Val condition b) && ((a.TransformedVal ^ XFIH_MASK) condition b))
+
+/**
+ * @brief Macro to execute the next block if both below masked conditional checks
+ *        result to TRUE
+ *        1. Comparison of (FIH non-transformed variable & mask) with given value
+ *        2. Comparison of ((FIH transformed variable ^ XFIH_MASK) & mask) with given value
+ *
+ * @note
+ * 		- Validation of input FIH variables depends on
+ *        XFIH_ENABLE_VAR_GLITCH_DETECTION
+ *		- Used for checking specific bits/flags in security-critical register values
+ */
+#define XFIH_IF_FAILOUT_WITH_MASK(a, mask, condition, b) \
+	XFIH_VALIDATE_VARIABLE(a); \
+	if (((a.Val & mask) condition b) && (((a.TransformedVal ^ XFIH_MASK) & mask) condition b))
+
+/**
+ * @brief Macro to execute the next block if one of the below masked conditional checks
+ *        results to TRUE
+ *        1. Comparison of (FIH non-transformed variable & mask) with given value
+ *        2. Comparison of ((FIH transformed variable ^ XFIH_MASK) & mask) with given value
+ *
+ * @note
+ * 		- Validation of input FIH variables depends on
+ *        XFIH_ENABLE_VAR_GLITCH_DETECTION
+ *		- Used for checking specific bits/flags in security-critical register values
+ */
+#define XFIH_IF_FAILIN_WITH_MASK(a, mask, condition, b) \
+	XFIH_VALIDATE_VARIABLE(a); \
+	if (((a.Val & mask) condition b) || (((a.TransformedVal ^ XFIH_MASK) & mask) condition b))
 
 /**
  * @brief Helper macro to trigger secure lockdown using illegal instruction
