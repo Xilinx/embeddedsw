@@ -25,6 +25,7 @@ extern void mm_free(void *ptr);
 #include "vvbparser.h"
 #include "vvpath.h"
 #include "submodule_def.h"
+#include "vmix_hdmi_bridge.h"
 /* cam_common_calib_api provided by libvisp.a */
 /* cam_common_submodules types already forward declared */
 #include <stdio.h>
@@ -1012,6 +1013,10 @@ int VsiVvdeviceExecuteCaseline
 	start = GetTime();
 
 	while (sensor_stream_flag >= 0 && memory_out_flag >= 0) {
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+		/* Poll HDMI TX state machine for event-driven stream start */
+		VmixHdmiBridge_HdmiPoll();
+#endif
 		MediaBuffer_t *pBuf;
 		// Timer-based approach for every second reporting
 		now = GetTime();
@@ -1087,7 +1092,11 @@ int VsiVvdeviceExecuteCaseline
 	}
 #else
 	if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[0].inputType) {
-		while (1) {}
+		while (1) {
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+			VmixHdmiBridge_HdmiPoll();
+#endif
+		}
 	}
 #endif
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
@@ -1095,6 +1104,10 @@ int VsiVvdeviceExecuteCaseline
 #endif
 	if (fbwr_flag == 1 && memory_out_flag == -1) {
 		while (1) {
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+			/* Poll HDMI TX state machine for event-driven stream start */
+			VmixHdmiBridge_HdmiPoll();
+#endif
 			now = GetTime();
 			u64 elapsed_ticks = now - start;
 			double elapsed_seconds = (double)elapsed_ticks / freq;
@@ -1355,8 +1368,8 @@ int VsiVvdeviceStop(const bool stopImmediately)
 	mm_free(pBenchInstance);
 	pBenchInstance = NULL;
 	caseContext = NULL;
-#if ENABLE_VMIX_MACRO
-	clean_vmix();
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	VmixHdmiBridge_Cleanup();
 #endif
 	LOGI("%s exit \n", __func__);
 	return result;
@@ -2933,18 +2946,19 @@ void VsiVvdeviceShowBuffer
 
 
 #ifdef APU_CORE
-		VMix_input_buffer Vmix_buff;
+		VmixHdmiBridge_InputBuffer Vmix_buff;
 		CamDevicePipeOutFmt_t Vmix_format;
 		Vmix_format.outFormat = format;
 		Vmix_format.outWidth = width;
 		Vmix_format.outHeight = height;
 		Vmix_buff.baseAddress = pBuffer->baseAddress;
-#ifdef ENABLE_VMIX_MACRO
-		int ret_value = Update_Buffer_Addr(Vmix_buff.baseAddress, Vmix_format, showChannel, bufferIO);
-		if (ret_value == 0)
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+		int ret_value = VmixHdmiBridge_UpdateBufferAddr(Vmix_buff.baseAddress, Vmix_format, showChannel, bufferIO);
+		if (ret_value == 0) {
 			LOGI("Unsupported Resolution to Display, Read it from SDcard !!\r\n");
-		else if (ret_value < 0)
+		} else if (ret_value < 0) {
 			LOGI("Failed to update the buffer address with layer!!");
+		}
 #endif
 #endif
 

@@ -107,4 +107,28 @@ examples:
             - vvbench
             - lscript.ld
             - reference_jsons
+            - audiogen_drv.c
+            - onsemi_nb7nq621m.c
+            - rc21008adrv.c
+            - ti_lmk03318.c
+            - video_fmc.c
+            - xhdmi_edid.c
+            - xhdmi_intr.c
+            - idt_8t49n24x.c
+            - si5344drv.c
+            - ti_tmds1204.c
+            - vmix_hdmi_bridge.c
+            - xhdmi_exdes_sm_tx.c
+            - onsemi_nb7nq621m.h
+            - audiogen_drv.h
+            - idt_8t49n24x.h
+            - rc21008adrv.h
+            - video_fmc.h
+            - xhdmi_intr.h
+            - si5344drv.h
+            - vmix_hdmi_bridge.h
+            - ti_lmk03318.h
+            - xhdmi_edid.h
+            - ti_tmds1204.h
+            - xhdmi_exdes_sm_tx.h
 ...

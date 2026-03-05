@@ -16,6 +16,7 @@
 #include "vlog.h"
 #include "vvdevice.h"
 #include "memory_manager.h"
+#include "vmix_hdmi_bridge.h"
 #define MAX_BUFFRS_PER_BUFIO (6)
 extern int fbwr_flag;
 
@@ -164,7 +165,15 @@ int VsiVvdeviceOutPutPathCreate
 			return -1;
 		}
 #ifdef APU_CORE
-		//int ret_value=MapVmixLayer(outFormat, instanceId, caseCtx->instanceCfgCtx[instanceId].hpId, bufIo, outFormat.dataBits, 0);
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+		{
+			int ret_value = VmixHdmiBridge_MapLayer(outFormat, instanceId,
+					caseCtx->instanceCfgCtx[instanceId].hpId, bufIo,
+					outFormat.dataBits, 0);
+			if (ret_value < 0)
+				LOGI("Failed to Enable VMix Layer for MO path!!\n");
+		}
+#endif
 #endif
 
 		LOGI("path %d: output width %d", bufIo, outFormat.outWidth);
@@ -227,18 +236,26 @@ int VsiVvdeviceOutPutPathCreate
 			if (result < 0)
 				LOGE("FBWR FAILED \n\n\n\n");
 #endif
-			// int ret_value=MapVmixLayer(outFormat,instanceId,caseCtx->instanceCfgCtx[instanceId].hpId,bufIo,outFormat.dataBits,1);
-			// if(ret_value<0)
-			// {
-			// LOGI("Failed to Enable VMix Layer!!\n");
-			//	}
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+			{
+				int ret_value = VmixHdmiBridge_MapLayer(outFormat, instanceId,
+						caseCtx->instanceCfgCtx[instanceId].hpId, bufIo,
+						outFormat.dataBits, 1);
+				if (ret_value < 0)
+					LOGI("Failed to Enable VMix Layer for LO path!!\n");
+			}
+#endif
 		}
 		if (caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].pathOutType != 1) {
-			// int ret_value=MapVmixLayer(outFormat,instanceId,caseCtx->instanceCfgCtx[instanceId].hpId,bufIo,outFormat.dataBits,0);
-			// if(ret_value<0)
-			// {
-			// LOGI("Failed to Enable VMix Layer!!\n");
-			// }
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+			{
+				int ret_value = VmixHdmiBridge_MapLayer(outFormat, instanceId,
+						caseCtx->instanceCfgCtx[instanceId].hpId, bufIo,
+						outFormat.dataBits, 0);
+				if (ret_value < 0)
+					LOGI("Failed to Enable VMix Layer for MO path!!\n");
+			}
+#endif
 		}
 		if (CAMDEV_BUFMODE_USERPTR == buffMode) {
 			for (int bufIdx = 0; bufIdx < bufferNumber; bufIdx++) {

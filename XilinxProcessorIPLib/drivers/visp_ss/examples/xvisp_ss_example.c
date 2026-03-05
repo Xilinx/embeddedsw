@@ -33,6 +33,7 @@
 #include "ext_auto.h"
 #include "ext_manual.h"
 #include "ext_sensor.h"
+#include "vmix_hdmi_bridge.h"
 
 #define LOGTAG "MAIN"
 
@@ -151,6 +152,13 @@ int main()
 	/* Setup frame buffer writers if available - handles video output buffering */
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	setup_frmbuf_wr();
+#endif
+
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	/* Initialize VMix + HDMI TX bridge for display output */
+	Status = VmixHdmiBridge_Init();
+	if (Status != 0)
+		xil_printf("WARNING: VMix+HDMI bridge init failed (%d)\r\n", Status);
 #endif
 
 	/* Initialize mailbox communication - enables inter-processor communication */
@@ -666,6 +674,12 @@ void FrmbufwrDoneCallback_0(void *CallbackRef)
 			xil_printf("ERROR:: Unable to configure Frame Buffer \ Write chroma buffer address\r\n");
 	}
 
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	/* Update VMix layer with latest completed frame */
+	VmixHdmiBridge_UpdateFbwrLayer(fbwr_id, XvFrmBufRd_Buffer_Baseaddr,
+				       XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+#endif
+
 	/* Increment frame counter for statistics tracking */
 	Frame_Count[fbwr_id]++;
 }
@@ -721,6 +735,11 @@ void FrmbufwrDoneCallback_1(void *CallbackRef)
 			xil_printf("ERROR:: Unable to configure Frame Buffer \ Write chroma buffer address\r\n");
 	}
 	/*************************************************************************/
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	/* Update VMix layer with latest completed frame */
+	VmixHdmiBridge_UpdateFbwrLayer(fbwr_id, XvFrmBufRd_Buffer_Baseaddr,
+				       XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+#endif
 	Frame_Count[fbwr_id]++;
 }
 
@@ -775,6 +794,11 @@ void FrmbufwrDoneCallback_2(void *CallbackRef)
 			xil_printf("ERROR:: Unable to configure Frame Buffer \ Write chroma buffer address\r\n");
 	}
 	/*************************************************************************/
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	/* Update VMix layer with latest completed frame */
+	VmixHdmiBridge_UpdateFbwrLayer(fbwr_id, XvFrmBufRd_Buffer_Baseaddr,
+				       XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+#endif
 	Frame_Count[fbwr_id]++;
 }
 
@@ -829,6 +853,10 @@ void FrmbufwrDoneCallback_3(void *CallbackRef)
 	/*************************************************************************/
 
 	/***Find Vmix Layer assigned for this FBWR & update latest buffer with the layer********/
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	VmixHdmiBridge_UpdateFbwrLayer(fbwr_id, XvFrmBufRd_Buffer_Baseaddr,
+				       XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+#endif
 	/************************************************************************************/
 	Frame_Count[fbwr_id]++;
 }
