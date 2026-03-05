@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 5.6   ml   07/21/25 Fixed GCC warnings.
 * 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 5.7   ml   03/03/26 Extend PPI timer test to all supported platforms (GICv1/v2/v3)
 * </pre>
 ******************************************************************************/
 
@@ -61,6 +62,9 @@
 #endif
 #include "xplatform_info.h"
 
+#if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5))
+#include "xpseudo_asm.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /*
@@ -78,6 +82,22 @@
 #define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID)
 #define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
 
+#if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5))
+#define TIMER_PPI_INT_ID        30U
+#define TIMER_ENABLE_BIT        0x1U   /* CNTP_CTL: ENABLE bit    */
+#define TIMER_IMASK_BIT         0x2U   /* CNTP_CTL: IMASK bit     */
+#elif defined (PLATFORM_ZYNQ)
+#define TIMER_PPI_INT_ID        29U
+/* SCU Private Timer memory-mapped registers (CPU_PRIVATE @ 0xF8F00000) */
+#define SCUTIMER_BASEADDR       0xF8F00600U
+#define SCUTIMER_LOAD_REG       (SCUTIMER_BASEADDR + 0x00U) /* Load Register    */
+#define SCUTIMER_CTRL_REG       (SCUTIMER_BASEADDR + 0x08U) /* Control Register */
+#define SCUTIMER_ISR_REG        (SCUTIMER_BASEADDR + 0x0CU) /* IRQ Status Reg   */
+#define SCUTIMER_CTRL_ENABLE    0x1U   /* Timer enable bit        */
+#define SCUTIMER_CTRL_IRQEN     0x4U   /* IRQ enable bit          */
+#define SCUTIMER_LOAD_100MS     33333333U
+#endif
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -91,6 +111,11 @@ int ScuGicExample(void);
 int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr);
 void DeviceDriverHandler(void *CallbackRef);
 
+#if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5)) || defined (PLATFORM_ZYNQ)
+int TestTimerPPI(XScuGic *XScuGicInstancePtr);
+void TimerInterruptHandler(void *CallbackRef);
+#endif
+
 /************************** Variable Definitions *****************************/
 
 XScuGic InterruptController; 	     /* Instance of the Interrupt Controller */
@@ -103,6 +128,13 @@ static XScuGic_Config *GicConfig;    /* The configuration parameters of the
  * the interrupt processing
  */
 static volatile u32 InterruptProcessed = FALSE;
+
+/* Timer PPI globals used across all APU GIC versions */
+#if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5)) || defined (PLATFORM_ZYNQ)
+static volatile u32 TimerInterruptProcessed = FALSE;
+static u32 TimerIntrId;       /* Encoded interrupt ID (SDT flow only)    */
+static UINTPTR IntcBaseAddr;  /* Encoded intc base addr (SDT flow only)  */
+#endif
 
 static void AssertPrint(const char8 *FilenamePtr, s32 LineNumber)
 {
@@ -297,6 +329,13 @@ int ScuGicExample(void)
 		return XST_FAILURE;
 	}
 
+#if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5)) || defined (PLATFORM_ZYNQ)
+	Status = TestTimerPPI(&InterruptController);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+
 	return XST_SUCCESS;
 }
 
@@ -367,3 +406,128 @@ void DeviceDriverHandler(void *CallbackRef)
 	 */
 	InterruptProcessed = TRUE;
 }
+
+#if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5)) || defined (PLATFORM_ZYNQ)
+/******************************************************************************/
+/**
+*
+* This function tests the timer PPI interrupt for the running APU processor.
+* The timer hardware and GIC version used depend on the target platform:
+*
+*  - PLATFORM_ZYNQ (Zynq Cortex-A9):
+*      Uses the SCU Private Timer (memory-mapped). PPI 13, GIC ID 29.
+*  - PLATFORM_ZYNQMP (ZynqMP Cortex-A53):
+*      Uses the ARM architected Non-secure EL1 Physical Timer via AArch64
+*      system registers (CNTP_*). PPI 14, GIC ID 30.
+*  - GICv3 (Versal Cortex-A72 / Versal2 Cortex-A78AE):
+*      Uses the ARM architected Non-secure Physical Timer via AArch64
+*      system registers (CNTP_*). PPI 14, GIC ID 30.
+*  - GICv3 (Versal2 Cortex-R52, ARMR52):
+*      AArch32 variant using CP15 coprocessor registers. PPI 13, GIC ID 29.
+*
+* @param	XScuGicInstancePtr is a pointer to the instance of XScuGic driver.
+*
+* @return	XST_SUCCESS if the test passes, otherwise XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+int TestTimerPPI(XScuGic *XScuGicInstancePtr)
+{
+	int Status;
+#if (defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5))) && !defined (ARMR52)
+	u64 TimerFreq;  /* AArch64 generic timer frequency (Hz) */
+#endif
+
+	/* Connect timer interrupt handler */
+#ifndef SDT
+	Status = XScuGic_Connect(XScuGicInstancePtr, TIMER_PPI_INT_ID,
+				 (Xil_ExceptionHandler)TimerInterruptHandler,
+				 (void *)XScuGicInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Enable the timer interrupt */
+	XScuGic_Enable(XScuGicInstancePtr, TIMER_PPI_INT_ID);
+#else
+	Status = XGetEncodedIntrId(TIMER_PPI_INT_ID, XINTR_IS_LEVEL_TRIGGERED,
+				   XINTR_IS_PPI, XINTC_TYPE_IS_SCUGIC, &TimerIntrId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	IntcBaseAddr = XGetEncodedIntcBaseAddr(XPAR_XSCUGIC_0_BASEADDR, XINTC_TYPE_IS_SCUGIC);
+	Status = XConnectToInterruptCntrl(TimerIntrId,
+					  (void *)TimerInterruptHandler,
+					  (void *)XScuGicInstancePtr,
+					  IntcBaseAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	XEnableIntrId(TimerIntrId, IntcBaseAddr);
+#endif
+
+#if defined(ARMR52)
+	u32 TimerFreq32;
+	TimerFreq32 = (u32)mfcp("p15, 0, %0, c14, c0, 0");
+	mtcp("p15, 0, %0, c14, c2, 1", 0);                    /* Disable  */
+	mtcp("p15, 0, %0, c14, c2, 0", TimerFreq32 / 10U);   /* 100ms    */
+	mtcp("p15, 0, %0, c14, c2, 1", TIMER_ENABLE_BIT);    /* Enable   */
+#elif defined(GICv3) || (defined(PLATFORM_ZYNQMP) && !defined(ARMR5))
+	TimerFreq = mfcp(CNTFRQ_EL0);
+	mtcp(CNTP_CTL_EL0, (u64)0);                /* Disable               */
+	mtcp(CNTP_TVAL_EL0, (u64)(TimerFreq / 10U)); /* Load 100ms countdown */
+	mtcp(CNTP_CTL_EL0, (u64)TIMER_ENABLE_BIT); /* Enable, IMASK=0       */
+#elif defined(PLATFORM_ZYNQ)
+	Xil_Out32(SCUTIMER_CTRL_REG, 0U);              /* Disable timer        */
+	Xil_Out32(SCUTIMER_LOAD_REG, SCUTIMER_LOAD_100MS); /* ~100ms at 333MHz */
+	Xil_Out32(SCUTIMER_CTRL_REG,
+		  SCUTIMER_CTRL_ENABLE | SCUTIMER_CTRL_IRQEN);
+#endif
+	/* Wait for timer interrupt */
+	Status = Xil_WaitForEventSet(XSCUGIC_SW_TIMEOUT_VAL, 1,
+				     &TimerInterruptProcessed);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+*
+* This is the interrupt handler for the ARM Generic Physical Timer.
+*
+* @param	CallbackRef is a callback reference passed in by the upper layer
+*		when setting the handler, and is passed back to the upper layer
+*		when the handler is called. In this example, it is not used.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void TimerInterruptHandler(void *CallbackRef)
+{
+	(void)CallbackRef;
+	TimerInterruptProcessed = TRUE;
+
+	/* Disable and clear timer interrupt source to prevent interrupt storm */
+#if defined(ARMR52)
+	mtcp("p15, 0, %0, c14, c2, 1", 0);
+#elif defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5))
+	/* Disable and mask the ARM generic timer to clear the interrupt source */
+	mtcp(CNTP_CTL_EL0, (u64)TIMER_IMASK_BIT);
+#elif defined (PLATFORM_ZYNQ)
+	/* Disable SCU private timer and clear its interrupt status */
+	Xil_Out32(SCUTIMER_CTRL_REG, 0U);
+	Xil_Out32(SCUTIMER_ISR_REG, 1U);
+#endif
+
+#ifdef SDT
+	XDisableIntrId(TimerIntrId, IntcBaseAddr);
+#endif
+}
+#endif  /* GICv3 || (PLATFORM_ZYNQMP && !ARMR5) || PLATFORM_ZYNQ */
