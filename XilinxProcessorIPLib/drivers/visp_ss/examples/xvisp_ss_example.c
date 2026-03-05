@@ -16,7 +16,7 @@
  * @note This example is designed for non-MCM (Multi-Channel Mode) operation
  * @note Frame buffer writers support multiple output formats including RGB888
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (C) 2025 Xilinx Inc. All rights reserved.
  ******************************************************************************/
 
@@ -74,17 +74,6 @@ enum outputformat outputformat_selection;  /* Currently selected output format *
 XVidC_ColorFormat FBWR_Cfmt[NUM_FBWR];    /* Color format for each frame buffer writer */
 #define Buffer_Count 3                      /* Triple buffering for smooth video processing */
 
-/* Aligned buffer structure for hardware buffers */
-struct aligned_buf {
-	void *original_addr;    /* Original malloc address for freeing */
-	void *aligned_addr;     /* Aligned address for hardware */
-	uint32_t size;
-	uint32_t alignment;
-};
-
-/* Updated aligned buffer structure to use new memory manager */
-struct aligned_buf Frame_Array_p[4][Buffer_Count];  /* Frame buffer arrays */
-
 u32 Frame_Count[NUM_FBWR];                  /* Frame counter for each FBWR */
 u32 chroma_offset[NUM_FBWR];               /* Chroma buffer offset for semi-planar formats */
 u32 Wr_Ptr[NUM_FBWR], Rd_Ptr[NUM_FBWR];    /* Write and read pointers for buffer management */
@@ -94,6 +83,9 @@ int fbwr_layerID[NUM_FBWR];                                   /* Layer ID mappin
 static int fbcb_cnt[NUM_FBWR] = {0};                         /* Callback counter for each FBWR */
 XVidC_VideoStream StreamOut;                                /* Video stream configuration */
 XIntc InterruptController;                                   /* AXI Interrupt Controller instance */
+
+/* Frame buffer arrays using aligned_buf structure defined in header */
+struct aligned_buf Frame_Array_p[4][Buffer_Count];
 #endif
 
 /* Global VISP SS instance - main video processing subsystem handle */
@@ -142,9 +134,8 @@ int main()
 
 	/* Configure VISP SS - main video processing subsystem */
 	Status = config_visp_ss(XPAR_XVISP_SS_0_BASEADDR);
-	if (Status == XST_INVALID_VERSION) {
-			return Status;
-	}
+	if (Status == XST_INVALID_VERSION)
+		return Status;
 	else if (Status != XST_SUCCESS) {
 		xil_printf("ERROR: VISP SS configuration failed.\r\n");
 		return Status;
@@ -152,10 +143,8 @@ int main()
 
 	/* Initialize ISP to RPU mapping - connects ISP outputs to processing units */
 	reset_isp2rpu_mapping();
-	for(int i=0;i<VISP_INST;i++)
-	{
+	for (int i = 0; i < VISP_INST; i++)
 		init_isp2rpu_mapping(VispSsInst[0].Config.Rpu, VispSsInst[i].Config.IspId);
-	}
 	/* Setup frame buffer writers if available - handles video output buffering */
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	setup_frmbuf_wr();
@@ -274,9 +263,8 @@ int config_visp_ss(u32 baseaddress)
 	int Status;
 
 	/* Lookup the device configuration */
-	for(int i=0;i<VISP_INST;i++)
-	{
-		MEMSET(CfgPtr,0,sizeof(xvisp_ss_Config));
+	for (int i = 0; i < VISP_INST; i++) {
+		MEMSET(CfgPtr, 0, sizeof(xvisp_ss_Config));
 #ifndef SDT
 		CfgPtr = XVisp_Ss_LookupConfig(XPAR_VISP_SS_0_DEVICE_ID);
 #else
@@ -293,7 +281,7 @@ int config_visp_ss(u32 baseaddress)
 			xil_printf("ERROR: Could not initialize VISP SS driver.\r\n");
 			return XST_FAILURE;
 		}
-		xil_printf("base address 0x%x %d\n",baseaddress,__LINE__);
+		xil_printf("base address 0x%x %d\n", baseaddress, __LINE__);
 	}
 	/* Verify single-stream operation - this example doesn't support MCM mode */
 	if (VispSsInst[ISP_ID].Config.NumStreams > 1) {
@@ -894,7 +882,7 @@ int init_fbwr(u8 hpId, CamDeviceBufChainId_t bufIo, CamDevicePipeOutFmt_t outFor
 		}
 
 		xil_printf("FBWR[%d] Buffer[%d]: allocated %llu bytes, aligned_addr=%p\n",
-		     fbwr_id, i, bufsize, aligned_ptr);
+			   fbwr_id, i, bufsize, aligned_ptr);
 	}
 
 	/* Determine output format based on input format specification */
@@ -966,7 +954,8 @@ int init_fbwr(u8 hpId, CamDeviceBufChainId_t bufIo, CamDevicePipeOutFmt_t outFor
 	StreamOut.FrameRate = XVIDC_FR_30HZ ;
 	StreamOut.IsInterlaced = 0;
 
-	xil_printf("Display Format width: %d height: %d\n", StreamOut.Timing.HActive, StreamOut.Timing.VActive);
+	xil_printf("Display Format width: %d height: %d\n", StreamOut.Timing.HActive,
+		   StreamOut.Timing.VActive);
 
 	/* Setup stream parameters based on frame buffer writer capabilities */
 	StreamOut.ColorDepth =
@@ -1025,7 +1014,7 @@ void enable_fbwr()
 			/* Enable and start the frame buffer writer */
 			Xil_Out32(frmbufwr[i].FrmbufWr.Config.BaseAddress, 0x81);
 			xil_printf("Starting FBWR -%x %x \n", frmbufwr[i].FrmbufWr.Config.BaseAddress,
-			     Xil_In32(frmbufwr[i].FrmbufWr.Config.BaseAddress));
+				   Xil_In32(frmbufwr[i].FrmbufWr.Config.BaseAddress));
 		}
 	}
 }

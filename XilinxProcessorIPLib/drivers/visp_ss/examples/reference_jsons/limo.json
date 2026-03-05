@@ -27,14 +27,14 @@
 		"sensorInfo":
 		{
 			"sensorName": "ox03f10",
-			"sensorDevId": 3 ,
+			"sensorDevId": 6 ,
 			"calibrationName": "OX03f10.xml",
 			"modeIndex": 0,
 			"resolutionWidth": 1920,
 			"resolutionHeight": 1080,
 			"illumType": "D50",
 			"fps": 10,
-			"virtualChannelId": 1, "//": "0: Default"
+			"virtualChannelId": 0, "//": "0: Default"
 		},
 		"wdrInfo":
 		{

@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #include <cam_device_app.h>
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	#include <xv_frmbufwr.h>
@@ -7,6 +7,13 @@
 #include "cam_device_buffer_api.h"
 #include "cam_device_common.h"
 
+/* Aligned buffer structure for hardware buffers */
+struct aligned_buf {
+	void *original_addr;    /* Original malloc address for freeing */
+	void *aligned_addr;     /* Aligned address for hardware */
+	uint32_t size;
+	uint32_t alignment;
+};
 
 #define TXT_RED     "\x1b[31m"
 #define TXT_GREEN   "\x1b[32m"
