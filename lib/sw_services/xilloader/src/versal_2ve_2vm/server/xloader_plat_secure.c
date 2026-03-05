@@ -568,7 +568,13 @@ int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
 		else {
 			/** - Invalid/Corrupted CL Mode: Zeroize AES key in BBRAM and trigger Secure Lockdown */
 			if (AesInstPtr != NULL) {
-				Status = XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_BBRAM_RED_KEY);
+				/**
+				 * Status check is intentionally skipped to ensure secure lockdown.
+				 * Adding a status check may cause SLD to be bypassed.
+				 * As a security best practice, zeroization is performed twice.
+				 */
+				(void)XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_BBRAM_RED_KEY);
+				(void)XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_BBRAM_RED_KEY);
 			}
 
 			/** - Initiate Secure lockdown */
