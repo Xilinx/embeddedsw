@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
 *       tvp  09/13/25 Add API to get KAT status
+*       sd   03/03/26 Replaced XPlmi_GetRawVoltage inline function with macro
 *
 * </pre>
 *
@@ -81,20 +82,15 @@
 
 /**************************************************************************************************/
 /**
- * @brief	This function converts voltage to raw voltage value.
+ * This macro converts voltage to raw voltage value.
  *
- * @param	Voltage is the floating point voltage value.
+ * @param	Voltage is the voltage value in volts.
  *
  * @return
  * 		- 32-bit voltage value.
  *
  **************************************************************************************************/
-static inline u32 XPlmi_GetRawVoltage(float Voltage)
-{
-	float RawVoltage = Voltage * XPLMI_PMC_VOLTAGE_MULTIPLIER;
-
-	return (u32)RawVoltage;
-}
+#define XPlmi_GetRawVoltage(Voltage)	((u32)((Voltage) * XPLMI_PMC_VOLTAGE_MULTIPLIER))
 
 /************************************ Function Prototypes *****************************************/
 static int XPlmi_UpdateResetReason(void);

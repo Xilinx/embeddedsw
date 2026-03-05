@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 * 2.3   obs  08/26/2025 Removed XPlmi_VerifyAddrRange function
+*       sd   03/03/2026 Replaced XPlmi_GetRawVoltage inline function with macro
 *
 * </pre>
 *
@@ -109,19 +110,14 @@
 
 /*****************************************************************************/
 /**
- * @brief	This function converts voltage to raw voltage value
+ * This macro converts voltage to raw voltage value
  *
- * @param	Voltage is the floating point voltage value
+ * @param	Voltage is the voltage value in volts
  *
  * @return	32-bit voltage value
  *
  ******************************************************************************/
-static inline u32 XPlmi_GetRawVoltage(float Voltage)
-{
-	float RawVoltage = Voltage * XPLMI_PMC_VOLTAGE_MULTIPLIER;
-
-	return (u32)RawVoltage;
-}
+#define XPlmi_GetRawVoltage(Voltage)	((u32)((Voltage) * XPLMI_PMC_VOLTAGE_MULTIPLIER))
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_UpdateResetReason(void);
