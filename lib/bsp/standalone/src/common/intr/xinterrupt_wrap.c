@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -30,6 +30,7 @@
 * 9.4   ml   24/07/24 Fixed GCC warnings
 * 9.5   vmt  12/12/25 Fixed XConfigInterruptCntrl() to check IsReady, preventing
 * 		      re-initialization that clears interrupt enables.
+* 9.5   ml   26/02/26 Fixed PPI interrupt ID encoding.
 * </pre>
 *
 ******************************************************************************/
@@ -535,7 +536,7 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 *
 * @param    LegacyIntrId Interrupt ID of specific peripheral/PL-PS interrupt
 *           port documented in TRM of targeted SoC.
-* @param  : TriggerType Trigger type for targted interrupt ID (documented in
+* @param  : TriggerType Trigger type for targeted interrupt ID (documented in
 *           TRM of targeted SoC)
 * 		1 = low-to-high edge triggered
 *	        2 = high-to-low edge triggered
@@ -573,7 +574,7 @@ s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcTyp
 			*IntrId -= 32;
 		} else if (IntrType == XPPI) {
 			*IntrId -= 16;
-			*IntrId |= XINTC_INTR_TYPE_SHIFT;
+			*IntrId |= (1 << XINTC_INTR_TYPE_SHIFT);
 		} else if (IntrType == XSGI) {
 			*IntrId |= (1 << XINTC_IS_SGI_INTR_SHIFT);
 		} else {
