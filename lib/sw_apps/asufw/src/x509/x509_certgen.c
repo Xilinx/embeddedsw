@@ -50,7 +50,7 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									field */
 #define X509_VERSION_VAL_LEN					(0x01U)	/**< Length of Version
 									field */
-#define X509_VERSION_VALUE_V0					(0x00U)	/**< Value of version 0 */
+#define X509_VERSION_VALUE_V1					(0x00U)	/**< Value of version 1 */
 #define X509_SERIAL_VAL_LEN					(0x14U)	/**< Length of Serial
 									number field */
 #define X509_SERIAL_FIELD_LEN					(22U)	/**< Length of Serial
@@ -2057,7 +2057,12 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 		goto END;
 	}
 
-	/** Generate Version field. */
+	/**
+	 * Generate Version field.
+	 * As per RFC 5280 (Internet X.509 Public Key Infrastructure Certificate and
+	 * Certificate Revocation List (CRL) Profile), when extensions are used, version
+	 * MUST be v3 (value is 2).
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V3);
 	if (Status != XASUFW_SUCCESS) {
@@ -2442,9 +2447,13 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 		goto END;
 	}
 
-	/** Generate Version field. */
+	/**
+	 * Generate Version field.
+	 * As per RFC 2986 (PKCS #10: Certification Request Syntax Specification Version 1.7),
+	 * the version shall be v1 (value is 0) for Certificate Signing Requests.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V0);
+	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V1);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VERSION_FIELD_FAIL);
 		goto END;
