@@ -40,6 +40,8 @@
 *3.7    bha   01/23/2026 Add note in function documentation explaining validation
 *                        purpose for efuse PUF hash programming
 * 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
+*       bha   03/02/2026 Used XSECURE_TEMPORAL_IMPL pattern for PUFHD_INVLD programming
+*                        in XNvm_EfusePrgmXilinxCtrl
 *
 * </pre>
 *
@@ -1078,8 +1080,9 @@ static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
 
 	if ((XilinxCtrl->PrgmPufHDInvld == (u32)TRUE) &&
 	    ((Data & XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK) == 0x0U)) {
-		Status = XNvm_EfusePrgmPufHDInvld(XilinxCtrl);
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePrgmPufHDInvld, XilinxCtrl);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
