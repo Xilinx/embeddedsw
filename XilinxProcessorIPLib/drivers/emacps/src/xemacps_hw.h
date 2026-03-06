@@ -345,7 +345,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_ENABLE_HS_MAC_SIZE	1
 #define XEMACPS_NWCTRL_FLUSH_DPRAM_MASK	0x00040000U /**< Flush a packet from
 							Rx SRAM */
-#define XEMACPS_NWCTRL_ZEROPAUSETX_MASK 0x00000800U /**< Transmit zero quantum
+#define XEMACPS_NWCTRL_ZEROPAUSETX_MASK 0x00001000U /**< Transmit zero quantum
                                                          pause frame */
 #define XEMACPS_NWCTRL_PAUSETX_MASK     0x00000800U /**< Transmit pause frame */
 #define XEMACPS_NWCTRL_HALTTX_MASK      0x00000400U /**< Halt transmission
