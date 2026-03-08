@@ -722,7 +722,9 @@ def create_domain(args):
         drv_lib_dep = list(set(drv_lib_dep))
         for lib in drv_lib_dep:
             # Validate the lib before copying to the libsrc
-            if lib_obj.is_valid_lib(lib):
+            # Ensure the drv_lib_dep library is not already not in lib_list
+            # before attempting to add it.
+            if lib_obj.is_valid_lib(lib) and lib not in lib_list:
                 lib_list.append(lib)
                 lib_obj.copy_lib_src(lib)
 
