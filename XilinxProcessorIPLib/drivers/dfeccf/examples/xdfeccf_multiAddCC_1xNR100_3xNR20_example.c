@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       dc     11/19/21 Update doxygen documentation
 * 1.5   dc     09/12/22 Update handling overflow status
 *       dc     10/28/22 Switching Uplink/Downlink support
+* 1.10  dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -42,7 +43,8 @@
 #define NUM_COEFFICIENT 2
 static XDfeCcf_Init Init = { {
 				     8, /* [1-16] Sequence length. */
-				     { 0, 1, 2, 3 } /* [0-15] CCID sequence */
+				     { 0, 1, 2, 3 }, /* [0-15] CCID sequence */
+				     0
 			     },
 			     0, /* [0,1] Enable gain stage */
 			     XDFECCF_TUSER_SEL_DOWNLINK };

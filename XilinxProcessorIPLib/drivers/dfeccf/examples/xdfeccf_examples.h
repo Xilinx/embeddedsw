@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 * 1.6   cog    07/18/23 Modify example for SDT flow
 * 1.7   cog    04/20/24 Configure si570 in Linux examples
+* 1.10  dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 *
@@ -30,6 +31,7 @@
 #include "xparameters.h"
 #endif
 #include <metal/device.h>
+#include "xil_printf.h"
 #endif
 #include "xdfeccf.h"
 #include "xdfeccf_hw.h"

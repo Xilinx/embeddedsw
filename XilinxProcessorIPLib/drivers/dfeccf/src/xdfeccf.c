@@ -60,6 +60,7 @@
 * 1.9   dc     10/16/25 Fix zero padding and GetActivSets
 * 1.10  dc     12/10/25 Add IsCcfOperational API
 *       dc     02/18/26 Correct spelling errors
+*       dc     03/08/26 Correct compiler warnings
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -2443,7 +2444,7 @@ u32 XDfeCcf_GetIsCcfOperational(XDfeCcf *InstancePtr)
 {
 	u32 IsOperational;
 
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	IsOperational = XDfeCcf_RdRegBitField(
 		InstancePtr, XDFECCF_STATE_OPERATIONAL_OFFSET,
