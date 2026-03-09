@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3    sd  10/13/25 Initial release
 *        sd  03/03/26 Replaced XPlmi_GetRawVoltage inline function with macro
+* 2.4    tvp 03/06/26 Add SSS config masks for SHA2 engine
 *
 * </pre>
 *
@@ -276,8 +277,11 @@ void XPlmi_SssMask(u32 DmaSrc)
 		if ((RegVal & XPLMI_SSSCFG_SBI_MASK) == XPLMI_SSS_SBI_DMA0) {
 			Mask |= XPLMI_SSSCFG_SBI_MASK;
 		}
-		if ((RegVal & XPLMI_SSSCFG_SHA_MASK) == XPLMI_SSS_SHA_DMA0) {
-			Mask |= XPLMI_SSSCFG_SHA_MASK;
+		if ((RegVal & XPLMI_SSSCFG_SHA0_MASK) == XPLMI_SSS_SHA0_DMA0) {
+			Mask |= XPLMI_SSSCFG_SHA0_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_SHA1_MASK) == XPLMI_SSS_SHA1_DMA0) {
+			Mask |= XPLMI_SSSCFG_SHA1_MASK;
 		}
 		if ((RegVal & XPLMI_SSSCFG_AES_MASK) == XPLMI_SSS_AES_DMA0) {
 			Mask |= XPLMI_SSSCFG_AES_MASK;
@@ -291,8 +295,11 @@ void XPlmi_SssMask(u32 DmaSrc)
 		if ((RegVal & XPLMI_SSSCFG_SBI_MASK) == XPLMI_SSS_SBI_DMA1) {
 			Mask |= XPLMI_SSSCFG_SBI_MASK;
 		}
-		if ((RegVal & XPLMI_SSSCFG_SHA_MASK) == XPLMI_SSS_SHA_DMA1) {
-			Mask |= XPLMI_SSSCFG_SHA_MASK;
+		if ((RegVal & XPLMI_SSSCFG_SHA0_MASK) == XPLMI_SSS_SHA0_DMA1) {
+			Mask |= XPLMI_SSSCFG_SHA0_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_SHA1_MASK) == XPLMI_SSS_SHA1_DMA1) {
+			Mask |= XPLMI_SSSCFG_SHA1_MASK;
 		}
 		if ((RegVal & XPLMI_SSSCFG_AES_MASK) == XPLMI_SSS_AES_DMA1) {
 			Mask |= XPLMI_SSSCFG_AES_MASK;

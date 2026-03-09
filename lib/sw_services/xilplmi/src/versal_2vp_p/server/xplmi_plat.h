@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 * 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
+*       tvp 03/06/26 Add macro for SSS config mask for SHA2 source
 * </pre>
 *
 * @note
@@ -270,12 +271,15 @@ extern "C" {
 #define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK |\
 					XPLMI_SECURE_FIPS_STATE_MASK) /**< KAT mask */
 
-#define XPLMI_SSSCFG_SHA_MASK		(0x000F0000U) /* SSS config SHA mask */
-#define XPLMI_SSSCFG_AES_MASK		(0x0000F000U) /* SSS config AES mask */
-#define XPLMI_SSS_SHA_DMA0		(0x000C0000U) /* SSS SHA DMA0 mask */
-#define XPLMI_SSS_SHA_DMA1		(0x00070000U) /* SSS SHA DMA1 mask */
-#define XPLMI_SSS_AES_DMA0		(0x0000E000U) /* SSS AES DMA0 mask */
-#define XPLMI_SSS_AES_DMA1		(0x00005000U) /* SSS AES DMA1 mask */
+#define XPLMI_SSSCFG_SHA0_MASK		(0x000F0000U) /**< SSS config SHA0 device mask (SHA3)*/
+#define XPLMI_SSSCFG_SHA1_MASK		(0x0F000000U) /**< SSS config SHA1 device mask (SHA2)*/
+#define XPLMI_SSSCFG_AES_MASK		(0x0000F000U) /**< SSS config AES mask */
+#define XPLMI_SSS_SHA0_DMA0		(0x000C0000U) /**< SSS SHA0 DMA0 */
+#define XPLMI_SSS_SHA0_DMA1		(0x00070000U) /**< SSS SHA0 DMA1 */
+#define XPLMI_SSS_SHA1_DMA0		(0x0A000000U) /**< SSS SHA1 DMA0 */
+#define XPLMI_SSS_SHA1_DMA1		(0x0F000000U) /**< SSS SHA1 DMA1 */
+#define XPLMI_SSS_AES_DMA0		(0x0000E000U) /**< SSS AES DMA0 mask */
+#define XPLMI_SSS_AES_DMA1		(0x00005000U) /**< SSS AES DMA1 mask */
 
 /* Defines related to module commands */
 #define XPLMI_PLM_GENERIC_PLMUPDATE		(0x20U) /**< Generic PLM update */
