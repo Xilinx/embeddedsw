@@ -708,6 +708,7 @@ enum {
 						fails */
 	XASUFW_X509_CREATE_BOOLEAN_FAIL, /**< 0x1FDU - Error when creating ASN.1 boolean
 						field fails*/
+	XASUFW_ASU_KAT_FAILED_SECURE_LOCKDOWN, /**< 0x1FEU - ASU secure lockdown triggered due to KAT failure */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

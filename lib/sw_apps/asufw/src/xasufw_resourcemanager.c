@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -44,6 +44,7 @@
 #include "xasufw_resourcemanager.h"
 #include "xasufw_trnghandler.h"
 #include "xasufw_ecchandler.h"
+#include "xasufw_error_manager.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -459,6 +460,10 @@ void XAsufw_DisableResource(XAsufw_Resource Resource)
 	ResourceManager[Resource].OwnerId = 0U;
 	ResourceManager[Resource].AllocatedResources = 0U;
 	XAsufw_Printf(DEBUG_GENERAL, "Disabling the module with Resource Id : %d due to failure\r\n", Resource);
+#ifdef XASU_TRIGGER_SLD_ON_KAT_FAILURE
+	/** Trigger Fatal error to PLM which performs secure lockdown with IO tri-state. */
+	XAsufw_SendErrorToPlm(XASUFW_FATAL_ERROR, (s32)XASUFW_ASU_KAT_FAILED_SECURE_LOCKDOWN);
+#endif /* XASU_TRIGGER_SLD_ON_KAT_FAILURE */
 }
 
 /*************************************************************************************************/
