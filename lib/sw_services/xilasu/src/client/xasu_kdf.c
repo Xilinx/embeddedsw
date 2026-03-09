@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   01/21/25 Initial release
  *       rmv  09/11/25 Move KDF parameter validation function to common file
+ *       kp   02/26/26 Added client-side KDF SHA3-256 KAT
  *
  * </pre>
  *
@@ -33,8 +34,13 @@
 #include "xasu_shainfo.h"
 #include "xasu_hmacinfo.h"
 #include "xasu_kdf_common.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASU_KDF_KAT_KEY_LEN_IN_BYTES		(32U)	/**< KDF KAT key length in bytes */
+#define XASU_KDF_KAT_CTX_LEN_IN_BYTES		(32U)	/**< KDF KAT context length in bytes */
+#define XASU_KDF_KAT_SHA3_256_OUT_LEN		(32U)	/**< KDF KAT SHA3-256 output length
+										in bytes */
 
 /************************************** Type Definitions *****************************************/
 
@@ -43,6 +49,36 @@
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
+
+/* KDF KAT input key - same as server-side EccPrivKey */
+static const u8 KdfKatKey[XASU_KDF_KAT_KEY_LEN_IN_BYTES] = {
+	0x22U, 0x17U, 0x96U, 0x4FU, 0xB2U, 0x14U, 0x35U, 0x33U,
+	0xBAU, 0x93U, 0xAAU, 0x35U, 0xFEU, 0x09U, 0x37U, 0xA6U,
+	0x69U, 0x5EU, 0x20U, 0x87U, 0x27U, 0x07U, 0x06U, 0x44U,
+	0x99U, 0x21U, 0x7CU, 0x5FU, 0x6AU, 0xB8U, 0x09U, 0xDFU
+};
+
+/* KDF KAT context - same as server-side KatMessage */
+static const u8 KdfKatCtx[XASU_KDF_KAT_CTX_LEN_IN_BYTES] = {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+};
+
+/* Expected KDF output with HMAC-SHA3-256 in counter mode */
+static const u8 ExpKdfSha3_256[XASU_KDF_KAT_SHA3_256_OUT_LEN] = {
+	0x09U, 0x9DU, 0xCAU, 0xB0U, 0xF6U, 0xD7U, 0x0FU, 0x41U,
+	0x66U, 0x8FU, 0xEBU, 0x22U, 0xE9U, 0xFEU, 0x9DU, 0x0AU,
+	0x82U, 0x9BU, 0x6CU, 0x5BU, 0x19U, 0x4DU, 0x79U, 0x29U,
+	0xD7U, 0x8AU, 0x99U, 0xB8U, 0xE6U, 0xBDU, 0x51U, 0x23U
+};
+
+/** Per-invocation KAT callback state, passed through CallBackRefPtr. */
+typedef struct {
+	volatile u8 Notify;		/**< Completion flag */
+	volatile s32 CallBackStatus;	/**< Callback status */
+} XAsu_KdfKatCbState;
 
 /*************************************************************************************************/
 /**
@@ -143,6 +179,92 @@ s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr)
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Callback function for KDF client-side KAT. Sets the notify flag and stores
+ *		the completion status via per-invocation state.
+ *
+ * @param	CallBackRefPtr	Pointer to the caller's XAsu_KdfKatCbState on stack.
+ * @param	Status		Completion status from the server.
+ *
+ *************************************************************************************************/
+static void XAsu_KdfKatCallBack(void *CallBackRefPtr, u32 Status)
+{
+	XAsu_KdfKatCbState *State = (XAsu_KdfKatCbState *)CallBackRefPtr;
+
+	State->CallBackStatus = (s32)Status;
+	State->Notify = 1U;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs the client-side KDF KAT using SHA3-256.
+ *		It calls XAsu_KdfGenerate, busy-waits for the callback, and compares the
+ *		derived key output against the expected value.
+ *
+ * @return
+ *	- XST_SUCCESS, if KDF SHA3-256 KAT passes.
+ *	- XST_FAILURE, if KDF computation or comparison fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KdfSha3Kat(void)
+{
+	s32 Status = XST_FAILURE;
+	s32 SStatus = XST_FAILURE;
+	XAsu_ClientParams ClientParams = {0U};
+	XAsu_KdfParams KdfParams = {0U};
+	u8 KdfOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	XAsu_KdfKatCbState KatState = {0U, (s32)XST_FAILURE};
+
+	/** Set up client parameters with KAT callback. */
+	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
+	ClientParams.CallBackFuncPtr = XAsu_KdfKatCallBack;
+	ClientParams.CallBackRefPtr = (void *)&KatState;
+
+	/** Set up KDF parameters. */
+	KdfParams.ShaType = XASU_SHA3_TYPE;
+	KdfParams.ShaMode = XASU_SHA_MODE_256;
+	KdfParams.KeyInAddr = (u64)(UINTPTR)KdfKatKey;
+	KdfParams.KeyInLen = XASU_KDF_KAT_KEY_LEN_IN_BYTES;
+	KdfParams.ContextAddr = (u64)(UINTPTR)KdfKatCtx;
+	KdfParams.ContextLen = XASU_KDF_KAT_CTX_LEN_IN_BYTES;
+	KdfParams.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
+	KdfParams.KeyOutLen = XASU_KDF_KAT_SHA3_256_OUT_LEN;
+
+	/** Send KDF generate request to the server. */
+	Status = XAsu_KdfGenerate(&ClientParams, &KdfParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Busy-wait for the server response. */
+	while (KatState.Notify == 0U) {
+		/* Wait */
+	}
+
+	/** Check the callback status. */
+	if (KatState.CallBackStatus != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/** Compare the derived key against the expected value. */
+	Status = Xil_SMemCmp_CT(ExpKdfSha3_256,
+		XASU_KDF_KAT_SHA3_256_OUT_LEN, KdfOutput,
+		XASU_KDF_KAT_SHA3_256_OUT_LEN,
+		XASU_KDF_KAT_SHA3_256_OUT_LEN);
+
+END:
+	/** Zeroize local output buffer. */
+	SStatus = Xil_SecureZeroize(KdfOutput, XASU_KDF_KAT_SHA3_256_OUT_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 /** @} */

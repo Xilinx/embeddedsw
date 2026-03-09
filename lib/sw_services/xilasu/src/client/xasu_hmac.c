@@ -19,6 +19,7 @@
  * 1.0   yog  01/02/25 Initial release
  *       yog  07/10/25 Added support for priority based multiple request and context verification
  * 1.1   kd   07/23/25 Fixed gcc warnings
+ *       kp   02/26/26 Added client-side HMAC SHA3-256 KAT
  *
  * </pre>
  *
@@ -31,8 +32,13 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_hmac.h"
 #include "xasu_def.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASU_HMAC_KAT_KEY_LEN_IN_BYTES		(32U)	/**< HMAC KAT key length in bytes */
+#define XASU_HMAC_KAT_MSG_LEN_IN_BYTES		(32U)	/**< HMAC KAT message length in bytes */
+#define XASU_HMAC_KAT_SHA3_256_HASH_LEN		(32U)	/**< HMAC KAT SHA3-256 hash length
+										in bytes */
 
 /************************************** Type Definitions *****************************************/
 
@@ -42,6 +48,36 @@
 static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
+
+/* HMAC KAT key - same as server-side EccPrivKey */
+static const u8 HmacKatKey[XASU_HMAC_KAT_KEY_LEN_IN_BYTES] = {
+	0x22U, 0x17U, 0x96U, 0x4FU, 0xB2U, 0x14U, 0x35U, 0x33U,
+	0xBAU, 0x93U, 0xAAU, 0x35U, 0xFEU, 0x09U, 0x37U, 0xA6U,
+	0x69U, 0x5EU, 0x20U, 0x87U, 0x27U, 0x07U, 0x06U, 0x44U,
+	0x99U, 0x21U, 0x7CU, 0x5FU, 0x6AU, 0xB8U, 0x09U, 0xDFU
+};
+
+/* HMAC KAT message - same as server-side KatMessage */
+static const u8 HmacKatMsg[XASU_HMAC_KAT_MSG_LEN_IN_BYTES] = {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+};
+
+/* Expected HMAC-SHA3-256 output for above key and message */
+static const u8 ExpHmacSha3_256[XASU_HMAC_KAT_SHA3_256_HASH_LEN] = {
+	0xFFU, 0x32U, 0x0AU, 0xF4U, 0x3BU, 0x15U, 0x34U, 0x12U,
+	0xCDU, 0x51U, 0x64U, 0x38U, 0x38U, 0xFAU, 0x1BU, 0xD1U,
+	0xBAU, 0x1EU, 0xABU, 0x78U, 0x92U, 0xB2U, 0x20U, 0x46U,
+	0xD8U, 0x96U, 0xE0U, 0x25U, 0xCFU, 0x0AU, 0xE6U, 0x71U
+};
+
+/** Per-invocation KAT callback state, passed through CallBackRefPtr. */
+typedef struct {
+	volatile u8 Notify;		/**< Completion flag */
+	volatile s32 CallBackStatus;	/**< Callback status */
+} XAsu_HmacKatCbState;
 
 /*************************************************************************************************/
 /**
@@ -234,6 +270,95 @@ s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)
 	Status = XAsu_SendCmdToAsu(ClientParamsPtr, NULL, 0U, Header);
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Callback function for HMAC client-side KAT. Sets the notify flag and stores
+ *		the completion status via per-invocation state.
+ *
+ * @param	CallBackRefPtr	Pointer to the caller's XAsu_HmacKatCbState on stack.
+ * @param	Status		Completion status from the server.
+ *
+ *************************************************************************************************/
+static void XAsu_HmacKatCallBack(void *CallBackRefPtr, u32 Status)
+{
+	XAsu_HmacKatCbState *State = (XAsu_HmacKatCbState *)CallBackRefPtr;
+
+	State->CallBackStatus = (s32)Status;
+	State->Notify = 1U;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs the client-side HMAC KAT using SHA3-256.
+ *		It calls XAsu_HmacCompute with INIT|UPDATE|FINAL, busy-waits for the callback,
+ *		and compares the output against the expected HMAC.
+ *
+ * @return
+ *	- XST_SUCCESS, if HMAC SHA3-256 KAT passes.
+ *	- XST_FAILURE, if HMAC computation or comparison fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_HmacSha3Kat(void)
+{
+	s32 Status = XST_FAILURE;
+	s32 SStatus = XST_FAILURE;
+	XAsu_ClientParams ClientParams = {0U};
+	XAsu_HmacParams HmacParams = {0U};
+	u8 HmacOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	XAsu_HmacKatCbState KatState = {0U, (s32)XST_FAILURE};
+
+	/** Set up client parameters with KAT callback. */
+	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
+	ClientParams.CallBackFuncPtr = XAsu_HmacKatCallBack;
+	ClientParams.CallBackRefPtr = (void *)&KatState;
+
+	/** Set up HMAC parameters for single-shot operation. */
+	HmacParams.ShaType = XASU_SHA3_TYPE;
+	HmacParams.ShaMode = XASU_SHA_MODE_256;
+	HmacParams.OperationFlags = XASU_HMAC_INIT | XASU_HMAC_UPDATE |
+		XASU_HMAC_FINAL;
+	HmacParams.IsLast = XASU_TRUE;
+	HmacParams.KeyAddr = (u64)(UINTPTR)HmacKatKey;
+	HmacParams.KeyLen = XASU_HMAC_KAT_KEY_LEN_IN_BYTES;
+	HmacParams.MsgBufferAddr = (u64)(UINTPTR)HmacKatMsg;
+	HmacParams.MsgLen = XASU_HMAC_KAT_MSG_LEN_IN_BYTES;
+	HmacParams.HmacAddr = (u64)(UINTPTR)HmacOutput;
+	HmacParams.HmacLen = XASU_HMAC_KAT_SHA3_256_HASH_LEN;
+
+	/** Send HMAC compute request to the server. */
+	Status = XAsu_HmacCompute(&ClientParams, &HmacParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Busy-wait for the server response. */
+	while (KatState.Notify == 0U) {
+		/* Wait */
+	}
+
+	/** Check the callback status. */
+	if (KatState.CallBackStatus != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/** Compare the computed HMAC against the expected value. */
+	Status = Xil_SMemCmp_CT(ExpHmacSha3_256,
+		XASU_HMAC_KAT_SHA3_256_HASH_LEN, HmacOutput,
+		XASU_HMAC_KAT_SHA3_256_HASH_LEN,
+		XASU_HMAC_KAT_SHA3_256_HASH_LEN);
+
+END:
+	/** Zeroize local output buffer. */
+	SStatus = Xil_SecureZeroize(HmacOutput, XASU_HMAC_KAT_SHA3_256_HASH_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 

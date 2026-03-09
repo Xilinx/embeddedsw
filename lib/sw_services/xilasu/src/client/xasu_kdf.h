@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   01/21/25 Initial release
+ *       kp   02/26/26 Added client-side KDF SHA3-256 KAT prototype
  *
  * </pre>
  *
@@ -45,6 +46,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr);
 s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr);
+s32 XAsu_KdfSha3Kat(void);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

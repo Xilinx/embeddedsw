@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   08/01/24 Initial release
+ *       kp   02/25/26 Added client-side AES CBC/CCM encrypt/decrypt KAT prototypes
  *
  * </pre>
  *
@@ -45,6 +46,10 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClientParamPtr);
 s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr, u32 KatMode);
+s32 XAsu_AesCbcEncryptKat(void);
+s32 XAsu_AesCbcDecryptKat(void);
+s32 XAsu_AesCcmEncryptKat(void);
+s32 XAsu_AesCcmDecryptKat(void);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

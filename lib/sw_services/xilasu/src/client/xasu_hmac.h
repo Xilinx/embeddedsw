@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  01/02/25 Initial release
+ *       kp   02/26/26 Added client-side HMAC SHA3-256 KAT prototype
  *
  * </pre>
  *
@@ -47,6 +48,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr);
 s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacParamsPtr);
+s32 XAsu_HmacSha3Kat(void);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

@@ -23,6 +23,7 @@
  *       am   04/26/25 Cleaned and simplified AAD and input data validation logic
  *       yog  07/10/25 Added support for priority based multiple request and context verification
  *       kd   07/23/25 Fixed gcc warnings
+ *       kp   02/25/26 Added client-side AES CBC/CCM encrypt/decrypt KATs
  *
  * </pre>
  *
@@ -35,10 +36,38 @@
 #include "xasu_aes.h"
 #include "xasu_def.h"
 #include "xasu_aes_common.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASU_AES_KAT_DATA_LEN_IN_BYTES		(32U)	/**< AES KAT data length */
+#define XASU_AES_KAT_KEY_LEN_IN_BYTES		(32U)	/**< AES KAT key length */
+#define XASU_AES_KAT_CBC_IV_LEN_IN_BYTES	(16U)	/**< AES CBC IV length */
+#define XASU_AES_KAT_CCM_NONCE_LEN_IN_BYTES	(12U)	/**< AES CCM nonce length */
+#define XASU_AES_KAT_CCM_AAD_LEN_IN_BYTES	(16U)	/**< AES CCM AAD length */
+#define XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES	(16U)	/**< AES CCM tag length */
 
 /************************************ Type Definitions *******************************************/
+/** Internal structure to describe a KAT vector set. */
+typedef struct {
+	const u8 *Key;		/**< Pointer to AES key */
+	const u8 *Iv;		/**< Pointer to IV/Nonce */
+	u32 IvLen;		/**< IV/Nonce length in bytes */
+	const u8 *Aad;		/**< Pointer to AAD (NULL if none) */
+	u32 AadLen;		/**< AAD length in bytes */
+	const u8 *InData;	/**< Pointer to input data */
+	const u8 *ExpOutData;	/**< Pointer to expected output data */
+	u32 DataLen;		/**< Data length in bytes */
+	const u8 *ExpTag;	/**< Pointer to expected tag (NULL if none) */
+	u32 TagLen;		/**< Tag length in bytes */
+	u8 EngineMode;		/**< AES engine mode */
+	u8 OperationType;	/**< Encrypt or decrypt */
+} XAsu_AesKatVectors;
+
+/** Per-invocation KAT callback state, passed through CallBackRefPtr. */
+typedef struct {
+	volatile u8 Notify;		/**< Completion flag */
+	volatile s32 CallBackStatus;	/**< Callback status */
+} XAsu_AesKatCbState;
 
 /************************************ Macros (Inline Functions) Definitions **********************/
 
@@ -49,8 +78,67 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr);
 static inline s32 XAsu_ValidateAesEngineMode(const XAsu_AesParams *AesClientParamPtr);
 static inline s32 XAsu_ValidateCcmOpMode(const XAsu_AesParams *AesClientParamPtr);
 static inline s32 XAsu_ValidateDataLen(const XAsu_AesParams *AesClientParamPtr);
+static s32 XAsu_AesRunClientKat(const XAsu_AesKatVectors *KatParams);
 
 /************************************ Variable Definitions ***************************************/
+
+/* AES KAT key - AES-256 (NIST SP 800-38A) */
+static const u8 AesKatKey[XASU_AES_KAT_KEY_LEN_IN_BYTES] = {
+	0x60U, 0x3DU, 0xEBU, 0x10U, 0x15U, 0xCAU, 0x71U, 0xBEU,
+	0x2BU, 0x73U, 0xAEU, 0xF0U, 0x85U, 0x7DU, 0x77U, 0x81U,
+	0x1FU, 0x35U, 0x2CU, 0x07U, 0x3BU, 0x61U, 0x08U, 0xD7U,
+	0x2DU, 0x98U, 0x10U, 0xA3U, 0x09U, 0x14U, 0xDFU, 0xF4U
+};
+
+/* AES KAT plaintext (32 bytes, NIST SP 800-38A) */
+static const u8 AesKatPt[XASU_AES_KAT_DATA_LEN_IN_BYTES] = {
+	0x6BU, 0xC1U, 0xBEU, 0xE2U, 0x2EU, 0x40U, 0x9FU, 0x96U,
+	0xE9U, 0x3DU, 0x7EU, 0x11U, 0x73U, 0x93U, 0x17U, 0x2AU,
+	0xAEU, 0x2DU, 0x8AU, 0x57U, 0x1EU, 0x03U, 0xACU, 0x9CU,
+	0x9EU, 0xB7U, 0x6FU, 0xACU, 0x45U, 0xAFU, 0x8EU, 0x51U
+};
+
+/* AES-CBC IV (16 bytes) */
+static const u8 AesKatCbcIv[XASU_AES_KAT_CBC_IV_LEN_IN_BYTES] = {
+	0x00U, 0x01U, 0x02U, 0x03U, 0x04U, 0x05U, 0x06U, 0x07U,
+	0x08U, 0x09U, 0x0AU, 0x0BU, 0x0CU, 0x0DU, 0x0EU, 0x0FU
+};
+
+/* AES-CBC expected ciphertext (32 bytes) */
+static const u8 AesKatCbcCt[XASU_AES_KAT_DATA_LEN_IN_BYTES] = {
+	0xF5U, 0x8CU, 0x4CU, 0x04U, 0xD6U, 0xE5U, 0xF1U, 0xBAU,
+	0x77U, 0x9EU, 0xABU, 0xFBU, 0x5FU, 0x7BU, 0xFBU, 0xD6U,
+	0x9CU, 0xFCU, 0x4EU, 0x96U, 0x7EU, 0xDBU, 0x80U, 0x8DU,
+	0x67U, 0x9FU, 0x77U, 0x7BU, 0xC6U, 0x70U, 0x2CU, 0x7DU
+};
+
+/* AES-CCM nonce (12 bytes) */
+static const u8 AesKatCcmNonce[XASU_AES_KAT_CCM_NONCE_LEN_IN_BYTES] = {
+	0xCAU, 0xFEU, 0xBAU, 0xBEU, 0xFAU, 0xCEU, 0xDBU, 0xADU,
+	0xDEU, 0xCAU, 0xF8U, 0x88U
+};
+
+/* AES-CCM AAD (16 bytes) */
+static const u8 AesKatCcmAad[XASU_AES_KAT_CCM_AAD_LEN_IN_BYTES] = {
+	0xFEU, 0xEDU, 0xFAU, 0xCEU, 0xDEU, 0xADU, 0xBEU, 0xEFU,
+	0xFEU, 0xEDU, 0xFAU, 0xCEU, 0xDEU, 0xADU, 0xBEU, 0xEFU
+};
+
+/* AES-CCM expected ciphertext (32 bytes) */
+static const u8 AesKatCcmCt[XASU_AES_KAT_DATA_LEN_IN_BYTES] = {
+	0xF5U, 0xE9U, 0x26U, 0xDEU, 0x99U, 0x05U, 0x35U, 0x3CU,
+	0xFFU, 0xE6U, 0xFBU, 0xAFU, 0x20U, 0x58U, 0x05U, 0x68U,
+	0x4CU, 0x55U, 0x57U, 0xEAU, 0xCAU, 0x2FU, 0x90U, 0x80U,
+	0x17U, 0xDFU, 0x8DU, 0x33U, 0x59U, 0xECU, 0x1DU, 0x44U
+};
+
+/* AES-CCM expected tag (16 bytes) */
+static const u8 AesKatCcmTag[XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES] = {
+	0x7CU, 0x09U, 0x11U, 0xC0U, 0xADU, 0x5DU, 0x68U, 0xF0U,
+	0x2EU, 0xEAU, 0x6EU, 0xB1U, 0xD4U, 0xF2U, 0x92U, 0xABU
+};
+
+
 
 /*************************************************************************************************/
 /**
@@ -563,6 +651,285 @@ static inline s32 XAsu_ValidateDataLen(const XAsu_AesParams *AesClientParamPtr)
 	Status = XST_SUCCESS;
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Callback handler for AES client KAT operations. Sets the completion flag and
+ *		captures the operation status via per-invocation state.
+ *
+ * @param	CallBackRef	Pointer to the caller's XAsu_AesKatCbState on stack.
+ * @param	Status		Operation status returned by ASUFW.
+ *
+ *************************************************************************************************/
+static void XAsu_AesKatCallBack(void *CallBackRef, u32 Status)
+{
+	XAsu_AesKatCbState *State = (XAsu_AesKatCbState *)CallBackRef;
+
+	State->CallBackStatus = (s32)Status;
+	State->Notify = 1U;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Internal helper that executes a single AES client-side KAT. It sends an
+ *		AES operation request to ASUFW, busy-waits for the response, and compares
+ *		the result against expected vectors.
+ *
+ * @param	KatParams	Pointer to the KAT vector set describing the test case.
+ *
+ * @return
+ *		- XST_SUCCESS, if the KAT passes.
+ *		- XST_FAILURE, if the AES operation fails or output comparison fails.
+ *
+ *************************************************************************************************/
+static s32 XAsu_AesRunClientKat(const XAsu_AesKatVectors *KatParams)
+{
+	s32 Status = XST_FAILURE;
+	s32 SStatus = XST_FAILURE;
+	u8 OutData[XASU_AES_KAT_DATA_LEN_IN_BYTES] = {0U};
+	u8 Tag[XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES] = {0U};
+	XAsu_AesKeyObject KeyObj = {0U};
+	XAsu_AesParams AesParams = {0U};
+	XAsu_ClientParams ClientParams = {0U};
+	XAsu_AesKatCbState KatState = {0U, (s32)XST_FAILURE};
+
+	/**
+	 * For authenticated decrypt, pre-fill the tag buffer with the
+	 * expected tag so the server can verify it.
+	 */
+	if ((KatParams->EngineMode == XASU_AES_CCM_MODE) &&
+	    (KatParams->OperationType == XASU_AES_DECRYPT_OPERATION)) {
+		Status = Xil_SMemCpy(Tag, sizeof(Tag),
+				     KatParams->ExpTag, KatParams->TagLen,
+				     KatParams->TagLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/** Configure key object. */
+	KeyObj.KeyAddress = (u64)(UINTPTR)KatParams->Key;
+	KeyObj.KeySize = XASU_AES_KEY_SIZE_256_BITS;
+	KeyObj.KeySrc = XASU_AES_USER_KEY_7;
+	KeyObj.KeyId = 0U;
+
+	/** Configure AES parameters for single-shot operation. */
+	AesParams.OperationFlags = (u8)(XASU_AES_INIT | XASU_AES_UPDATE |
+					XASU_AES_FINAL);
+	AesParams.OperationType = KatParams->OperationType;
+	AesParams.EngineMode = KatParams->EngineMode;
+	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObj;
+	AesParams.IvAddr = (u64)(UINTPTR)KatParams->Iv;
+	AesParams.IvLen = KatParams->IvLen;
+	AesParams.InputDataAddr = (u64)(UINTPTR)KatParams->InData;
+	AesParams.OutputDataAddr = (u64)(UINTPTR)OutData;
+	AesParams.DataLen = KatParams->DataLen;
+	AesParams.IsLast = XASU_TRUE;
+	AesParams.AadAddr = (u64)(UINTPTR)KatParams->Aad;
+	AesParams.AadLen = KatParams->AadLen;
+	AesParams.TagAddr = (KatParams->TagLen > 0U) ?
+			    (u64)(UINTPTR)Tag : 0U;
+	AesParams.TagLen = KatParams->TagLen;
+
+	/** Configure client parameters for synchronous operation. */
+	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
+	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesKatCallBack);
+	ClientParams.CallBackRefPtr = (void *)&KatState;
+	ClientParams.AdditionalStatus = (u32)XST_FAILURE;
+
+	/** Send AES operation request to ASUFW. */
+	Status = XAsu_AesOperation(&ClientParams, &AesParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Busy-wait for ASUFW response. */
+	while (KatState.Notify == 0U) {
+		/* Wait */
+	}
+
+	/** Check operation status from callback. */
+	if (KatState.CallBackStatus != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/** Compare output data with expected result. */
+	Status = Xil_SMemCmp_CT(KatParams->ExpOutData, KatParams->DataLen,
+				 OutData, KatParams->DataLen, KatParams->DataLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * For CCM, verify server-reported AdditionalStatus and compare
+	 * generated tag with expected tag on encrypt.
+	 */
+	if (KatParams->EngineMode == XASU_AES_CCM_MODE) {
+		if (KatParams->OperationType == XASU_AES_ENCRYPT_OPERATION) {
+			/**
+			 * For encrypt, the server writes the computed tag
+			 * into the tag buffer and reports TAG_READ.
+			 * Verify that status, then compare the tag.
+			 */
+			if (ClientParams.AdditionalStatus != XASU_AES_TAG_READ) {
+				Status = XST_FAILURE;
+				goto END;
+			}
+			Status = Xil_SMemCmp_CT(KatParams->ExpTag, KatParams->TagLen,
+						Tag, KatParams->TagLen, KatParams->TagLen);
+		} else {
+			/**
+			 * For decrypt, the server verifies the pre-filled
+			 * tag internally and reports TAG_MATCHED on success.
+			 */
+			if (ClientParams.AdditionalStatus != XASU_AES_TAG_MATCHED) {
+				Status = XST_FAILURE;
+			}
+		}
+	}
+
+END:
+	/** Zeroize local output buffers. */
+	SStatus = Xil_SecureZeroize(OutData,
+				    XASU_AES_KAT_DATA_LEN_IN_BYTES);
+	SStatus |= Xil_SecureZeroize(Tag,
+				      XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs AES-CBC encryption KAT from the client side.
+ *
+ * @return
+ *		- XST_SUCCESS, if AES-CBC encryption KAT passes.
+ *		- XST_FAILURE, if the KAT fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_AesCbcEncryptKat(void)
+{
+	s32 Status = XST_FAILURE;
+	const XAsu_AesKatVectors KatParams = {
+		.Key = AesKatKey,
+		.Iv = AesKatCbcIv,
+		.IvLen = XASU_AES_KAT_CBC_IV_LEN_IN_BYTES,
+		.Aad = NULL,
+		.AadLen = 0U,
+		.InData = AesKatPt,
+		.ExpOutData = AesKatCbcCt,
+		.DataLen = XASU_AES_KAT_DATA_LEN_IN_BYTES,
+		.ExpTag = NULL,
+		.TagLen = 0U,
+		.EngineMode = XASU_AES_CBC_MODE,
+		.OperationType = XASU_AES_ENCRYPT_OPERATION,
+	};
+
+	Status = XAsu_AesRunClientKat(&KatParams);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs AES-CBC decryption KAT from the client side.
+ *
+ * @return
+ *		- XST_SUCCESS, if AES-CBC decryption KAT passes.
+ *		- XST_FAILURE, if the KAT fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_AesCbcDecryptKat(void)
+{
+	s32 Status = XST_FAILURE;
+	const XAsu_AesKatVectors KatParams = {
+		.Key = AesKatKey,
+		.Iv = AesKatCbcIv,
+		.IvLen = XASU_AES_KAT_CBC_IV_LEN_IN_BYTES,
+		.Aad = NULL,
+		.AadLen = 0U,
+		.InData = AesKatCbcCt,
+		.ExpOutData = AesKatPt,
+		.DataLen = XASU_AES_KAT_DATA_LEN_IN_BYTES,
+		.ExpTag = NULL,
+		.TagLen = 0U,
+		.EngineMode = XASU_AES_CBC_MODE,
+		.OperationType = XASU_AES_DECRYPT_OPERATION,
+	};
+
+	Status = XAsu_AesRunClientKat(&KatParams);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs AES-CCM encryption KAT from the client side.
+ *
+ * @return
+ *		- XST_SUCCESS, if AES-CCM encryption KAT passes.
+ *		- XST_FAILURE, if the KAT fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_AesCcmEncryptKat(void)
+{
+	s32 Status = XST_FAILURE;
+	const XAsu_AesKatVectors KatParams = {
+		.Key = AesKatKey,
+		.Iv = AesKatCcmNonce,
+		.IvLen = XASU_AES_KAT_CCM_NONCE_LEN_IN_BYTES,
+		.Aad = AesKatCcmAad,
+		.AadLen = XASU_AES_KAT_CCM_AAD_LEN_IN_BYTES,
+		.InData = AesKatPt,
+		.ExpOutData = AesKatCcmCt,
+		.DataLen = XASU_AES_KAT_DATA_LEN_IN_BYTES,
+		.ExpTag = AesKatCcmTag,
+		.TagLen = XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES,
+		.EngineMode = XASU_AES_CCM_MODE,
+		.OperationType = XASU_AES_ENCRYPT_OPERATION,
+	};
+
+	Status = XAsu_AesRunClientKat(&KatParams);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs AES-CCM decryption KAT from the client side.
+ *
+ * @return
+ *		- XST_SUCCESS, if AES-CCM decryption KAT passes.
+ *		- XST_FAILURE, if the KAT fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_AesCcmDecryptKat(void)
+{
+	s32 Status = XST_FAILURE;
+	const XAsu_AesKatVectors KatParams = {
+		.Key = AesKatKey,
+		.Iv = AesKatCcmNonce,
+		.IvLen = XASU_AES_KAT_CCM_NONCE_LEN_IN_BYTES,
+		.Aad = AesKatCcmAad,
+		.AadLen = XASU_AES_KAT_CCM_AAD_LEN_IN_BYTES,
+		.InData = AesKatCcmCt,
+		.ExpOutData = AesKatPt,
+		.DataLen = XASU_AES_KAT_DATA_LEN_IN_BYTES,
+		.ExpTag = AesKatCcmTag,
+		.TagLen = XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES,
+		.EngineMode = XASU_AES_CCM_MODE,
+		.OperationType = XASU_AES_DECRYPT_OPERATION,
+	};
+
+	Status = XAsu_AesRunClientKat(&KatParams);
+
 	return Status;
 }
 /** @} */
