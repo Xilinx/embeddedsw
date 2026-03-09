@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -32,6 +32,8 @@
 #include "xasufw_status.h"
 #include "xil_util.h"
 #include "xasufw_hw.h"
+#include "xasufw_resourcemanager.h"
+#include "xasufw_kat.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XTRNG_KAT_DEFAULT_DF_LENGTH 7U /**< Default Derivative function length of TRNG KAT */
@@ -50,7 +52,8 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr);
 /*************************************************************************************************/
 /**
  * @brief	This function runs DRBG self-test i.e DRBG full cycle Instantiate+Reseed,
- * 		Reseed and Generate.
+ * 		Reseed and Generate. On failure, marks the TRNG module KAT as failed and
+ *		disables the TRNG resource.
  *
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
@@ -160,6 +163,15 @@ s32 XTrng_DrbgKat(XTrng *InstancePtr)
 	Status = XTrng_Uninstantiate(InstancePtr);
 
 END:
+	if (Status != XASUFW_SUCCESS) {
+		/**
+		 * On DRBG KAT failure, mark TRNG module KAT as failed in RTCA area and disable
+		 * the TRNG resource.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_TRNG_ID);
+		XAsufw_DisableResource(XASUFW_TRNG);
+	}
+
 	return Status;
 }
 
