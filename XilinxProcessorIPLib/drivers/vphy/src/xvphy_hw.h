@@ -155,7 +155,10 @@ extern "C" {
 #define XVPHY_CLKDET_TMR_TX_REG		0x0214  /**< Clock detector TX timer register offset */
 #define XVPHY_CLKDET_TMR_RX_REG		0x0218  /**< Clock detector RX timer register offset */
 #define XVPHY_CLKDET_FREQ_DRU_REG	0x021C  /**< Clock detector DRU frequency register offset */
-/** @} */
+#define XVPHY_CLKDET_FREQ_TX_RAW_REG	0x0220  /**< Clock detector RAW TX frequency register offset */
+#define XVPHY_CLKDET_FREQ_RX_RAW_REG	0x0224  /**< Clock detector RAW RX frequency register offset */
+#define XVPHY_CLKDET_FREQ_DRU_RAW_REG	0x0228  /**< Clock detector RAW DRU frequency register offset */
+/* @} */
 
 /** @name Data recovery unit registers (HDMI).
   * @{

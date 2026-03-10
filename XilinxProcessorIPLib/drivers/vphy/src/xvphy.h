@@ -987,7 +987,9 @@ void XVphy_HdmiUpdateClockSelection(XVphy *InstancePtr, u8 QuadId,
 void XVphy_ClkDetFreqReset(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir);
 u32 XVphy_ClkDetGetRefClkFreqHz(XVphy *InstancePtr, XVphy_DirectionType Dir);
+u32 XVphy_ClkDetGetRefClkFreqRawHz(XVphy *InstancePtr, XVphy_DirectionType Dir);
 u32 XVphy_DruGetRefClkFreqHz(XVphy *InstancePtr);
+u32 XVphy_DruGetRefClkFreqRawHz(XVphy *InstancePtr);
 void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 void XVphy_SetHdmiCallback(XVphy *InstancePtr,

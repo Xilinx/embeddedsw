@@ -866,6 +866,60 @@ u32 XVphy_DruGetRefClkFreqHz(XVphy *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function returns the raw frequency of the RX/TX reference clock as
+* measured by the clock detector peripheral (unprocessed counter value).
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	Dir is an indicator for RX or TX.
+*
+* @return	The raw measured frequency of the RX/TX reference clock.
+*
+* @note		This function returns the raw counter value without any
+*		processing or validation. Use for debugging purposes.
+*
+******************************************************************************/
+u32 XVphy_ClkDetGetRefClkFreqRawHz(XVphy *InstancePtr, XVphy_DirectionType Dir)
+{
+	u32 RegOffset;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffset = XVPHY_CLKDET_FREQ_TX_RAW_REG;
+	}
+	else {
+		RegOffset = XVPHY_CLKDET_FREQ_RX_RAW_REG;
+	}
+
+	return XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+}
+
+/*****************************************************************************/
+/**
+* This function returns the raw frequency of the DRU reference clock as
+* measured by the clock detector peripheral (unprocessed counter value).
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+*
+* @return	The raw measured frequency of the DRU reference clock.
+*
+* @note		This function returns the raw counter value without any
+*		processing or validation. Use for debugging purposes.
+*		The design must have a DRU for this function to return a valid value.
+*
+******************************************************************************/
+u32 XVphy_DruGetRefClkFreqRawHz(XVphy *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+			XVPHY_CLKDET_FREQ_DRU_RAW_REG);
+}
+
+/*****************************************************************************/
+/**
 * This function resets the DRU in the VPHY.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
