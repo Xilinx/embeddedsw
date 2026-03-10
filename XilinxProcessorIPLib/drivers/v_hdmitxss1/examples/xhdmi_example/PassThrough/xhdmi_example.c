@@ -4022,14 +4022,22 @@ void Info(void)
 	xil_printf("TX reference clock frequency: %0d Hz\r\n",
 		   XHdmiphy1_ClkDetGetRefClkFreqHz(&Hdmiphy1,
 						   XHDMIPHY1_DIR_TX));
+	xil_printf("TX reference clock frequency (RAW): %0d Hz\r\n",
+		   XHdmiphy1_ClkDetGetRefClkFreqHzRaw(&Hdmiphy1,
+						   XHDMIPHY1_DIR_TX));
 #endif
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	xil_printf("RX reference clock frequency: %0d Hz\r\n",
 		   XHdmiphy1_ClkDetGetRefClkFreqHz(&Hdmiphy1,
 						   XHDMIPHY1_DIR_RX));
+	xil_printf("RX reference clock frequency (RAW): %0d Hz\r\n",
+		   XHdmiphy1_ClkDetGetRefClkFreqHzRaw(&Hdmiphy1,
+						   XHDMIPHY1_DIR_RX));
 	if (Hdmiphy1.Config.DruIsPresent == (TRUE)) {
 		xil_printf("DRU reference clock frequency: %0d Hz\r\n",
 			   XHdmiphy1_DruGetRefClkFreqHz(&Hdmiphy1));
+		xil_printf("DRU reference clock frequency (RAW): %0d Hz\r\n",
+			   XHdmiphy1_DruGetRefClkFreqHzRaw(&Hdmiphy1));
 	}
 #endif
 	XHdmiphy1_HdmiDebugInfo(&Hdmiphy1, 0, XHDMIPHY1_CHANNEL_ID_CH1);
