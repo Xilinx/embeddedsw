@@ -733,6 +733,9 @@ u8 XV_HdmiTxSs1_GetFrlLineRate(XV_HdmiTxSs1 *InstancePtr);
 u8 XV_HdmiTxSs1_GetFrlRate(XV_HdmiTxSs1 *InstancePtr);
 u8 XV_HdmiTxSs1_GetFrlLanes(XV_HdmiTxSs1 *InstancePtr);
 #endif
+u8 XV_HdmiTxSs1_FrlCalcBandwidth(XV_HdmiTxSs1 *InstancePtr,
+		XVidC_VideoMode VmId, XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc);
 /**
  * Start TMDS mode.
  *

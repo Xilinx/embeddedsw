@@ -474,3 +474,321 @@ void XV_HdmiTxSs1_SetFrlIntVidCke(XV_HdmiTxSs1 *InstancePtr)
 	XV_HdmiTx1_FrlExtVidCkeSource(InstancePtr->HdmiTx1Ptr, FALSE);
 }
 #endif /* XPAR_XV_HDMI_TX_FRL_ENABLE */
+
+/************************* FRL Bandwidth Calculation *************************/
+
+/**************************** Constant Definitions ***************************/
+/**
+ * FRL Overhead and Timing Constants from HDMI 2.1 Spec Table 6-41
+ */
+#define XV_HDMITXSS1_FRL_TOLERANCE_PIXEL_CLOCK_PPM	5000	/**< ±0.50% = 5000 ppm */
+#define XV_HDMITXSS1_FRL_TOLERANCE_FRL_BIT_PPM		300	/**< ±300 ppm */
+#define XV_HDMITXSS1_FRL_TB_BORROWED_MAX		400	/**< Max Tri-Bytes borrowable */
+#define XV_HDMITXSS1_FRL_CFRL_CB			510	/**< Characters per Character Block */
+#define XV_HDMITXSS1_FRL_CFRL_SB_3LANE			2043	/**< Characters per Super Block (3L) */
+#define XV_HDMITXSS1_FRL_CFRL_SB_4LANE			2044	/**< Characters per Super Block (4L) */
+
+/**
+ * Overhead percentages scaled by 100000 for fixed-point calculation
+ */
+#define XV_HDMITXSS1_FRL_OVERHEAD_SB_3LANE		147	/**< 0.147% * 100000 */
+#define XV_HDMITXSS1_FRL_OVERHEAD_SB_4LANE		196	/**< 0.196% * 100000 */
+#define XV_HDMITXSS1_FRL_OVERHEAD_RS			1566	/**< 1.566% * 100000 */
+#define XV_HDMITXSS1_FRL_OVERHEAD_MAP			122	/**< 0.122% * 100000 */
+#define XV_HDMITXSS1_FRL_OVERHEAD_MARGIN		300	/**< 0.300% * 100000 */
+
+/**
+ * FRL 16b/18b Encoding Constants
+ */
+#define XV_HDMITXSS1_FRL_ENCODE_DATA_BITS		16	/**< Data bits per symbol */
+#define XV_HDMITXSS1_FRL_ENCODE_LINE_BITS		18	/**< Line bits per symbol (16b/18b) */
+#define XV_HDMITXSS1_FRL_TRIBYTE_BITS			24	/**< Bits per tribyte (3 bytes) */
+#define XV_HDMITXSS1_FRL_TB_PER_3CHAR			2	/**< Tribytes per 3 FRL characters */
+#define XV_HDMITXSS1_FRL_CHAR_PER_2TB			3	/**< FRL characters per 2 tribytes */
+
+/**
+ * Display Formatting Constants
+ */
+#define XV_HDMITXSS1_FRL_DISP_ROUND			5	/**< Rounding value for display */
+#define XV_HDMITXSS1_FRL_DISP_DIVISOR			10	/**< Divisor for Gbps display */
+#define XV_HDMITXSS1_FRL_DISP_DECIMAL			100	/**< Divisor for 2-digit decimal */
+
+/**
+ * Unit Conversion Constants
+ */
+#define XV_HDMITXSS1_FRL_GBPS_TO_BPS			1000000000ULL	/**< 1 Gbps = 10^9 bps */
+#define XV_HDMITXSS1_FRL_MBPS_DIVISOR			1000000		/**< Divisor for Mbps */
+#define XV_HDMITXSS1_FRL_PPM_SCALE			1000000		/**< PPM scale factor */
+#define XV_HDMITXSS1_FRL_OVERHEAD_SCALE			100000		/**< Overhead percentage scale */
+#define XV_HDMITXSS1_FRL_AUDIO_MBPS_DIVISOR		10000		/**< Audio Mbps display divisor */
+
+/**
+ * Color Format and TMDS Constants
+ */
+#define XV_HDMITXSS1_FRL_YUV420_DIVISOR			2		/**< YCbCr 4:2:0 bandwidth divisor */
+#define XV_HDMITXSS1_TMDS_MAX_BW_MBPS			18000		/**< TMDS max bandwidth: 18 Gbps */
+
+/**
+ * Precomputed common overhead: RS + MAP + Margin (lane-independent portion)
+ */
+#define XV_HDMITXSS1_FRL_OVERHEAD_COMMON	(XV_HDMITXSS1_FRL_OVERHEAD_RS + \
+						 XV_HDMITXSS1_FRL_OVERHEAD_MAP + \
+						 XV_HDMITXSS1_FRL_OVERHEAD_MARGIN)
+
+/*****************************************************************************/
+/**
+*
+* This function performs FRL bandwidth calculations and determines if the
+* requested video and audio streams can be supported by the trained FRL link.
+* Audio parameters are automatically fetched from the instance.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+*		The trained FRL LineRate and Lanes are fetched from
+*		InstancePtr->HdmiTx1Ptr->Stream.Frl after FRL training.
+*		Audio parameters are fetched from:
+*		- InstancePtr->AudioEnabled
+*		- InstancePtr->HdmiTx1Ptr->Stream.Audio.SampleFrequency
+*		- InstancePtr->AudioChannels
+* @param	VmId is the video mode ID used to lookup timing information
+*		via XVidC_GetVideoModeData().
+* @param	ColorFormat is the color format (RGB, YCbCr444, YCbCr422,
+*		YCbCr420).
+* @param	Bpc is the bits per color component (8, 10, 12, 16).
+*
+* @return
+*		- TRUE if video+audio bandwidth fits within the trained FRL
+*		  rate.
+*		- FALSE if bandwidth exceeds capacity or resolution is not
+*		  divisible by 4.
+*
+* @note		This function prints bandwidth calculation results and
+*		diagnostic information to the console via xil_printf.
+*		For TMDS mode (LineRate=0), returns TRUE if bandwidth is
+*		within 18 Gbps limit, FALSE otherwise. For FRL mode, FRL
+*		training must be completed before calling this function.
+*
+******************************************************************************/
+u8 XV_HdmiTxSs1_FrlCalcBandwidth(XV_HdmiTxSs1 *InstancePtr,
+		XVidC_VideoMode VmId, XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc)
+{
+	/* Video timing mode pointer from VmId lookup */
+	const XVidC_VideoTimingMode *VmPtr;
+
+	/* Common calculation variables */
+	u64 PixelClock;
+	u32 BitsPerPixel;
+	u8 BitsPerComponent;
+	u8 HasAudio;
+
+	/* Audio parameters fetched from instance */
+	u8 IsAudioEnabled;
+	u32 AudioSampleRate;
+	u8 AudioChannels;
+
+	/* Validate instance pointer */
+	if (InstancePtr == NULL || InstancePtr->HdmiTx1Ptr == NULL) {
+		xil_printf("Error: Invalid instance pointer\r\n");
+		return FALSE;
+	}
+
+	/* Lookup video mode data from VmId */
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (VmPtr == NULL) {
+		xil_printf("Error: Invalid VmId (%d) - video mode not found\r\n", VmId);
+		return FALSE;
+	}
+
+	/* Fetch audio parameters from instance */
+	IsAudioEnabled = InstancePtr->AudioEnabled;
+	AudioSampleRate = InstancePtr->HdmiTx1Ptr->Stream.Audio.SampleFrequency;
+	AudioChannels = InstancePtr->AudioChannels;
+
+	/* Pre-calculate common values used in both TMDS and FRL paths */
+	BitsPerComponent = (u8)Bpc;
+	HasAudio = (IsAudioEnabled && AudioSampleRate > 0 && AudioChannels > 0);
+
+	/* Calculate pixel clock (common for both modes) */
+	PixelClock = (u64)VmPtr->Timing.HTotal * (u64)VmPtr->Timing.F0PVTotal *
+		     (u64)VmPtr->FrameRate;
+
+	/* Calculate bits per pixel based on color format (common for both modes) */
+	switch (ColorFormat) {
+	case XVIDC_CSF_RGB:
+	case XVIDC_CSF_YCRCB_444:
+		BitsPerPixel = 3 * BitsPerComponent;
+		break;
+	case XVIDC_CSF_YCRCB_422:
+		BitsPerPixel = 2 * BitsPerComponent;
+		break;
+	case XVIDC_CSF_YCRCB_420:
+		BitsPerPixel = (3 * BitsPerComponent) / 2;
+		break;
+	default:
+		BitsPerPixel = 3 * BitsPerComponent;
+		break;
+	}
+
+	/* Check if TMDS or FRL mode */
+	{
+		u8 TrainedLineRate = InstancePtr->HdmiTx1Ptr->Stream.Frl.LineRate;
+		u8 TrainedLanes = InstancePtr->HdmiTx1Ptr->Stream.Frl.Lanes;
+
+		if (TrainedLineRate == 0 || TrainedLanes == 0) {
+			/* TMDS mode - calculate TMDS bandwidth */
+			u64 TmdsBwMbps;
+			u8 TmdsSupported;
+
+			/*
+			 * TMDS uses 8b/10b encoding (25% overhead)
+			 * TMDS Bandwidth = PixelClock × BitsPerPixel × (10/8)
+			 */
+			TmdsBwMbps = (PixelClock * (u64)BitsPerPixel * 10ULL) /
+				     (8ULL * XV_HDMITXSS1_FRL_MBPS_DIVISOR);
+
+			/*
+			 * Get max TMDS clock from sink EDID (if available)
+			 * Default to HDMI 2.0 max of 600 MHz = 18 Gbps
+			 */
+			u32 MaxTmdsBwMbps = XV_HDMITXSS1_TMDS_MAX_BW_MBPS; /* 18000 */
+
+			TmdsSupported = (TmdsBwMbps <= MaxTmdsBwMbps) ? TRUE : FALSE;
+			if (!TmdsSupported) {
+				/*
+				 * Show FRL bandwidth (16b/18b) since FRL mode is required
+				 * FRL Bandwidth = PixelClock × BitsPerPixel × (18/16)
+				 */
+				u32 FrlBwMbps = (u32)((PixelClock * (u64)BitsPerPixel *
+						      XV_HDMITXSS1_FRL_ENCODE_LINE_BITS) /
+						     (XV_HDMITXSS1_FRL_ENCODE_DATA_BITS *
+						      XV_HDMITXSS1_FRL_MBPS_DIVISOR));
+				u32 ReqDispBw = (FrlBwMbps + 4) / XV_HDMITXSS1_FRL_DISP_DIVISOR;
+				xil_printf("========================================\r\n");
+				xil_printf("Resolution requires FRL mode.\r\n");
+				xil_printf("Connected sink does not support FRL.\r\n");
+				xil_printf("TMDS Max Bandwidth: %d Gbps\r\n",
+					   MaxTmdsBwMbps / 1000);
+				xil_printf("Required FRL Bandwidth: %d.%02d Gbps\r\n",
+					   ReqDispBw / XV_HDMITXSS1_FRL_DISP_DECIMAL,
+					   ReqDispBw % XV_HDMITXSS1_FRL_DISP_DECIMAL);
+				xil_printf("========================================\r\n");
+			}
+			xil_printf("\r\n");
+			return TmdsSupported;
+		}
+	}
+
+	/* FRL mode calculations */
+	{
+		/* FRL-specific variables */
+		u64 VideoTribyte, AudioTribyte, RequiredTribyte;
+		u64 AudioBwBps, FrlAudioBwBps;
+		u32 DataBw, FrlDataBw;
+		u64 TotalFrlMbps;
+		u64 RbitMin, RFRLCharMin, UsableBandwidth, MaxTributePerRate;
+		u32 OverheadMax, OverheadSB;
+		u8 TrainedLineRate, TrainedLanes;
+		u8 IsDiv4, IsSupported;
+		u8 Multiplier;
+
+		/* Check if resolution is divisible by 4 */
+		IsDiv4 = (((VmPtr->Timing.HActive % 4) == 0) &&
+			  ((VmPtr->Timing.VActive % 4) == 0)) ? TRUE : FALSE;
+
+		if (!IsDiv4) {
+			return FALSE;
+		}
+
+		/* Calculate multiplier for tribyte calculation */
+		Multiplier = (ColorFormat == XVIDC_CSF_YCRCB_422) ? 2 : 3;
+
+		/* Calculate required video tribytes per second */
+		VideoTribyte = (u64)VmPtr->Timing.HTotal * (u64)VmPtr->Timing.F0PVTotal *
+			  (u64)VmPtr->FrameRate * (u64)BitsPerComponent * (u64)Multiplier;
+		if (ColorFormat == XVIDC_CSF_YCRCB_420) {
+			VideoTribyte = VideoTribyte / XV_HDMITXSS1_FRL_YUV420_DIVISOR;
+		}
+		VideoTribyte = VideoTribyte / XV_HDMITXSS1_FRL_TRIBYTE_BITS;
+
+		/* Calculate audio bandwidth if enabled */
+		AudioBwBps = HasAudio ?
+			(u64)AudioSampleRate * 32ULL * (u64)AudioChannels : 0;
+
+		/* Calculate raw data bandwidth in Mbps */
+		DataBw = (u32)((PixelClock * (u64)BitsPerPixel) / XV_HDMITXSS1_FRL_MBPS_DIVISOR);
+
+		/* Get trained FRL parameters */
+		TrainedLineRate = InstancePtr->HdmiTx1Ptr->Stream.Frl.LineRate;
+		TrainedLanes = InstancePtr->HdmiTx1Ptr->Stream.Frl.Lanes;
+
+		/* Apply FRL 16b/18b encoding overhead for internal calculations */
+		FrlDataBw = (DataBw * XV_HDMITXSS1_FRL_ENCODE_LINE_BITS) /
+			    XV_HDMITXSS1_FRL_ENCODE_DATA_BITS;
+		FrlAudioBwBps = (AudioBwBps * XV_HDMITXSS1_FRL_ENCODE_LINE_BITS) /
+				XV_HDMITXSS1_FRL_ENCODE_DATA_BITS;
+		TotalFrlMbps = (u64)FrlDataBw + (FrlAudioBwBps / XV_HDMITXSS1_FRL_MBPS_DIVISOR);
+
+		/* Calculate tribytes for FRL capacity check */
+		AudioTribyte = FrlAudioBwBps / XV_HDMITXSS1_FRL_TRIBYTE_BITS;
+		VideoTribyte = (VideoTribyte * XV_HDMITXSS1_FRL_ENCODE_LINE_BITS) /
+			       XV_HDMITXSS1_FRL_ENCODE_DATA_BITS;
+		if(HasAudio)
+			RequiredTribyte = VideoTribyte + AudioTribyte;
+		else
+			RequiredTribyte = VideoTribyte;
+
+		/* Calculate max tribytes for trained FRL rate */
+		RbitMin = (u64)TrainedLineRate * XV_HDMITXSS1_FRL_GBPS_TO_BPS;
+		RbitMin = (RbitMin * (XV_HDMITXSS1_FRL_PPM_SCALE - XV_HDMITXSS1_FRL_TOLERANCE_FRL_BIT_PPM)) /
+			  XV_HDMITXSS1_FRL_PPM_SCALE;
+		RFRLCharMin = RbitMin / XV_HDMITXSS1_FRL_ENCODE_LINE_BITS;
+
+		OverheadSB = (TrainedLanes == 3) ? XV_HDMITXSS1_FRL_OVERHEAD_SB_3LANE :
+						  XV_HDMITXSS1_FRL_OVERHEAD_SB_4LANE;
+		OverheadMax = OverheadSB + XV_HDMITXSS1_FRL_OVERHEAD_COMMON;
+
+		UsableBandwidth = RFRLCharMin * (u64)TrainedLanes;
+		UsableBandwidth = (UsableBandwidth * (XV_HDMITXSS1_FRL_OVERHEAD_SCALE - OverheadMax)) /
+				  XV_HDMITXSS1_FRL_OVERHEAD_SCALE;
+		MaxTributePerRate = (UsableBandwidth * XV_HDMITXSS1_FRL_TB_PER_3CHAR) /
+				    XV_HDMITXSS1_FRL_CHAR_PER_2TB;
+
+		/* Check if trained FRL rate can support this resolution */
+		IsSupported = (MaxTributePerRate >= RequiredTribyte) ? TRUE : FALSE;
+
+		/* Display diagnostic info when FRL support fails */
+		if (!IsSupported) {
+			u32 LinkBwGbps = TrainedLineRate * TrainedLanes;
+			u32 ReqDispBw;
+
+			/* Display audio bandwidth if enabled */
+			if (HasAudio) {
+				u32 AudioDispBw = (u32)(FrlAudioBwBps / XV_HDMITXSS1_FRL_AUDIO_MBPS_DIVISOR);
+				u32 TotalReqBw = (u32)((TotalFrlMbps + 4) / XV_HDMITXSS1_FRL_DISP_DIVISOR);
+				xil_printf("========================================\r\n");
+				xil_printf("Requested Audio Bandwidth: %d.%02d Mbps\r\n",
+					   AudioDispBw / XV_HDMITXSS1_FRL_DISP_DECIMAL,
+					   AudioDispBw % XV_HDMITXSS1_FRL_DISP_DECIMAL);
+				xil_printf("Total Requested Bandwidth: %d.%02d Gbps\r\n",
+					   TotalReqBw / XV_HDMITXSS1_FRL_DISP_DECIMAL,
+					   TotalReqBw % XV_HDMITXSS1_FRL_DISP_DECIMAL);
+			}
+
+			xil_printf("========================================\r\n");
+			xil_printf("Info: Requested bandwidth exceeds trained link capacity\r\n");
+			xil_printf("Current Link Bandwidth: %d Gbps (%d Lanes x %d Gbps)\r\n",
+				   LinkBwGbps, TrainedLanes, TrainedLineRate);
+
+			/* Display Link bandwidth */
+			ReqDispBw = (FrlDataBw + 4) / XV_HDMITXSS1_FRL_DISP_DIVISOR;
+			xil_printf("Requested Link Bandwidth: %d.%02d Gbps\r\n",
+				   ReqDispBw / XV_HDMITXSS1_FRL_DISP_DECIMAL,
+				   ReqDispBw % XV_HDMITXSS1_FRL_DISP_DECIMAL);
+
+			xil_printf("========================================\r\n");
+		}
+		xil_printf("\r\n");
+
+		return IsSupported;
+	}
+}
