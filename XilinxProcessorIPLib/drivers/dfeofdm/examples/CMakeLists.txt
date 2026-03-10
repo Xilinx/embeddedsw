@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/DfeofdmExample.cmake)
@@ -16,6 +16,7 @@ collect(PROJECT_LIB_DEPS c)
 collect(PROJECT_LIB_DEPS m)
 collect(PROJECT_LIB_DEPS dfeofdm)
 collect(PROJECT_LIB_DEPS metal)
+collect(PROJECT_LIB_DEPS metal_xlnx_extension)
 collector_list (_deps PROJECT_LIB_DEPS)
 
 SET(DRIVER_INSTANCES "${NUM_DRIVER_INSTANCES}" CACHE STRING "Driver Instances")

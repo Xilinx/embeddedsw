@@ -32,6 +32,7 @@
 *       dc     09/23/24 Add frequency range MODEL_PARAM
 * 1.5   dc     07/14/25 Update comments about status and delay
 * 1.6   dc     02/18/26 Correct spelling errors
+*       dc     03/08/26 Correct compiler warnings
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -63,7 +64,7 @@
 * @endcond
 */
 #define XDFEOFDM_DRIVER_VERSION_MINOR                                          \
-	(5U) /**< Minor version number of driver */
+	(6U) /**< Minor version number of driver */
 #define XDFEOFDM_DRIVER_VERSION_MAJOR                                          \
 	(1U) /**< Major version number of driver */
 
