@@ -1078,13 +1078,19 @@ void Info(void)
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	xil_printf("TX reference clock frequency: %0d Hz\r\n",
 			   XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_TX));
+	xil_printf("TX reference clock frequency (raw): %0d Hz\r\n",
+			   XVphy_ClkDetGetRefClkFreqRawHz(&Vphy, XVPHY_DIR_TX));
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 	xil_printf("RX reference clock frequency: %0d Hz\r\n",
 			   XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_RX));
+	xil_printf("RX reference clock frequency (raw): %0d Hz\r\n",
+			   XVphy_ClkDetGetRefClkFreqRawHz(&Vphy, XVPHY_DIR_RX));
 	if(Vphy.Config.DruIsPresent == (TRUE)) {
 		xil_printf("DRU reference clock frequency: %0d Hz\r\n",
 				   XVphy_DruGetRefClkFreqHz(&Vphy));
+		xil_printf("DRU reference clock frequency (raw): %0d Hz\r\n",
+				   XVphy_DruGetRefClkFreqRawHz(&Vphy));
 	}
 #endif
 	XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
