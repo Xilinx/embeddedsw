@@ -55,8 +55,8 @@
 #define XOCP_PAYLOAD_START_INDEX		(1U)		/* Start index of payload */
 #define XOCP_DOUBLE_NUM_OF_WORDS		(2U)		/* Double number of words */
 #define XOCP_EVENT_ID_VERSION_LEN_IN_BYTES	(8U)		/* EVENT_ID + Version length */
-#define XOCP_SWPCR_CONFIG_LCVERSION		(1U)   /* SW PCR LC version */
-#define XOCP_SWPCR_CONFIG_VERSION		(1U)   /* SW PCR version */
+#define XOCP_SWPCR_CONFIG_LCVERSION		(2U)   /**< SW PCR LC version */
+#define XOCP_SWPCR_CONFIG_VERSION		(2U)   /**< SW PCR version */
 #define XOCP_SWPCR_STORE_LCVERSION		(1U)   /* SW PCR store LC version */
 #define XOCP_SWPCR_STORE_VERSION		(1U)   /* SW PCR store version */
 #define XOCP_MIN_NUM_OF_DIGESTS_FOR_SW_PCR1	(5U)  /* Min number of digests for SW PCR1 */
@@ -898,6 +898,13 @@ static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len)
 	u32 Index;
 	u32 CurrPloadIdx;
 
+	/** To skip the PCR configuration during InPlacePlm update */
+	if ((XPlmi_IsPlmUpdateDone() == (u8)TRUE)) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"Skipping the PCR config during InPlacePlm Update\n\r");
+		Status = XST_SUCCESS;
+		goto END;
+	}
 	/** Check if PCR configuration is received, else throw an error. */
 	if (SwPcrConfig->IsPcrConfigReceived == TRUE) {
 		Status = (int)XOCP_PCR_ERR_SWPCR_DUP_CONFIG;
