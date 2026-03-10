@@ -20,6 +20,7 @@
 *       cog    02/19/24 SDT Support
 *       dc     03/29/24 Update device node name
 *       cog    04/20/24 Configure si570 in Linux examples
+* 1.9   dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 *
@@ -31,6 +32,7 @@
 #include "xparameters.h"
 #endif
 #include <metal/device.h>
+#include "xil_printf.h"
 #endif
 #include "xdfeprach.h"
 #include "xdfeprach_hw.h"
