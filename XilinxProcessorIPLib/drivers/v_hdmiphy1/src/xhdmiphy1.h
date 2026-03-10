@@ -1005,7 +1005,10 @@ void XHdmiphy1_ClkDetFreqReset(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir);
 u32 XHdmiphy1_ClkDetGetRefClkFreqHz(XHdmiphy1 *InstancePtr,
         XHdmiphy1_DirectionType Dir);
+u32 XHdmiphy1_ClkDetGetRefClkFreqHzRaw(XHdmiphy1 *InstancePtr,
+        XHdmiphy1_DirectionType Dir);
 u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr);
+u32 XHdmiphy1_DruGetRefClkFreqHzRaw(XHdmiphy1 *InstancePtr);
 void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
 void XHdmiphy1_SetHdmiCallback(XHdmiphy1 *InstancePtr,

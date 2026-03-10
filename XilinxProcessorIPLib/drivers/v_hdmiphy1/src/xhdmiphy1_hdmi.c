@@ -778,6 +778,39 @@ u32 XHdmiphy1_ClkDetGetRefClkFreqHz(XHdmiphy1 *InstancePtr,
 
 /*****************************************************************************/
 /**
+* This function returns the raw (unconditional) frequency of the RX/TX reference
+* clock as measured by the clock detector peripheral. Unlike
+* XHdmiphy1_ClkDetGetRefClkFreqHz, this function always returns the measured
+* value regardless of lock status - useful for debugging.
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	Dir is an indicator for RX or TX.
+*
+* @return	The raw measured frequency of the RX/TX reference clock.
+*
+* @note		This function returns the actual measured frequency value even
+*		when lock conditions are not met. Use this for debugging to
+*		determine if a clock is present vs not locked.
+*
+******************************************************************************/
+u32 XHdmiphy1_ClkDetGetRefClkFreqHzRaw(XHdmiphy1 *InstancePtr,
+        XHdmiphy1_DirectionType Dir)
+{
+	u32 RegOffset;
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_RAW_REG;
+	}
+	else {
+		RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_RAW_REG;
+	}
+
+	return XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+}
+
+
+/*****************************************************************************/
+/**
 * This function returns the frequency of the DRU reference clock as measured by
 * the clock detector peripheral.
 *
@@ -860,6 +893,31 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 
 	/* Return Failure */
 	return XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+* This function returns the raw (unconditional) frequency of the DRU reference
+* clock as measured by the clock detector peripheral. Unlike
+* XHdmiphy1_DruGetRefClkFreqHz, this function always returns the measured
+* value without any range checking - useful for debugging.
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+*
+* @return	The raw measured frequency of the DRU reference clock.
+*
+* @note		This function returns the actual measured frequency value without
+*		range validation. Use this for debugging to see the raw DRU clock
+*		measurement independent of expected frequency ranges.
+*
+******************************************************************************/
+u32 XHdmiphy1_DruGetRefClkFreqHzRaw(XHdmiphy1 *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+			XHDMIPHY1_CLKDET_FREQ_DRU_RAW_REG);
 }
 
 /*****************************************************************************/

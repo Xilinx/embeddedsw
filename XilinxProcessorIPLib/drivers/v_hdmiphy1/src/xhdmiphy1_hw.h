@@ -221,6 +221,12 @@ extern "C" {
 #define XHDMIPHY1_CLKDET_TMR_RX_REG      0x0218
 /** Clock detector DRU frequency register (0x021C) */
 #define XHDMIPHY1_CLKDET_FREQ_DRU_REG    0x021C
+/** Clock detector TX raw frequency register (0x0220) */
+#define XHDMIPHY1_CLKDET_FREQ_TX_RAW_REG 0x0220
+/** Clock detector RX raw frequency register (0x0224) */
+#define XHDMIPHY1_CLKDET_FREQ_RX_RAW_REG 0x0224
+/** Clock detector DRU raw frequency register (0x0228) */
+#define XHDMIPHY1_CLKDET_FREQ_DRU_RAW_REG 0x0228
 /** Clock detector TX FRL frequency register (0x0230) */
 #define XHDMIPHY1_CLKDET_FREQ_TX_FRL_REG 0x0230
 /** Clock detector RX FRL frequency register (0x0234) */
