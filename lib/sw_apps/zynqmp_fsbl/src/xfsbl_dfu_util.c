@@ -23,6 +23,7 @@
 * 4.0   bvikram  06/09/21 Add support for delayed enumeration of DFU device
 * 5.0   sd       02/02/26 Add DDR boundary check to prevent USB boot image
 *                         overflow
+*       sd       03/10/26 Remove redundant guard XFSBL_PS_DDR_END_ADDRESS
 *
 * </pre>
 *
@@ -604,10 +605,8 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 	int Result = XST_FAILURE;
 	u32 RxBytesLeft;
 	static u8 DfuReply[DFU_STATUS_SIZE] = {0,};
-#ifdef XFSBL_PS_DDR_END_ADDRESS
 	u64 DfuBaseAddr;
 	u64 WriteEndAddr;
-#endif
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SetupData != NULL);
@@ -635,7 +634,6 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 			RxBytesLeft = SetupData->wLength;
 
 			if(RxBytesLeft > 0U) {
-#ifdef XFSBL_PS_DDR_END_ADDRESS
 				DfuBaseAddr = (u64)((UINTPTR)DfuVirtFlash);
 				WriteEndAddr = DfuBaseAddr + (u64)DfuObj.TotalBytesDnloaded
 								+ (u64)RxBytesLeft - DDR_LAST_BYTE_OFFSET;
@@ -655,7 +653,6 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 					XFsbl_ErrorLockDown(XFSBL_ERROR_STAGE_2 |
 						XFSBL_ERROR_USB_IMAGE_DDR_OVERFLOW);
 				}
-#endif
 				Result = XUsbPsu_EpBufferRecv(
 					(struct XUsbPsu*)InstancePtr->PrivateData,
 					0U, &DfuVirtFlash[DfuObj.TotalBytesDnloaded],
