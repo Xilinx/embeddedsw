@@ -22,9 +22,10 @@
 *       tvp  07/07/25 Added error codes for OCP support
 *       tvp  07/10/25 Added XLOADER_ERR_SECURE_CONFIG_MEASUREMENT error code
 *       tvp  07/10/25 Added XPLM_ERR_PUF_DISABLED error code
-* 2.4  	abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
+* 2.4   abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
 *       gnr  01/06/26 Added XLOADER_ERR_INVALID_CPUID error code
 *       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
+*       aa   03/09/2026 Added error code for USB download timeout
 *
 * </pre>
 *
@@ -476,6 +477,7 @@ typedef enum {
 	XLOADER_ERR_INVALID_CPUID,	/**< 0x37A - Invalid CPU ID in partition header */
 	XLOADER_ERR_OSPI_DUMMY_CFG,	/**< 0x37B - Error when OSPI Macronix
 						 dummy cycle configuration fails */
+	XLOADER_ERR_USB_TIMEOUT,	/**< 0x37C - Error when USB transfer times out */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

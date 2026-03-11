@@ -29,6 +29,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       ng   06/26/2023 Added support for system device tree flow
 *       ng   02/14/2024 removed int typecast for errors
+* 2.4   aa   03/09/2026 Added timeout on USB downloads to avoid indefinite wait
 *
 * </pre>
 *
@@ -55,7 +56,9 @@
 
 /************************** Constant Definitions ****************************/
 #define XLOADER_USB2_REG_CTRL_OFFSET	(0x60U)
-
+#define XLOADER_USB_POLL_US		(100U)
+#define XLOADER_USB_TIMEOUT_US		(300000000U)
+#define XLOADER_USB_MAX_ITERATIONS	(XLOADER_USB_TIMEOUT_US / XLOADER_USB_POLL_US)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -84,6 +87,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	Usb_Config *UsbConfigPtr;
+	u32 TimeoutCounter = 0U;
 	struct XUsbPsu *UsbPrivateDataPtr = (struct XUsbPsu *)
 		XPLMI_PMCRAM_CHUNK_MEMORY;
 	struct Usb_DevData *UsbInstancePtr = (struct Usb_DevData *)
@@ -192,9 +196,18 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	}
 
 	while ((DownloadDone < XLOADER_DOWNLOAD_COMPLETE) && \
-		(DfuObj.CurrStatus != XLOADER_STATE_DFU_ERROR)) {
+		(DfuObj.CurrStatus != XLOADER_STATE_DFU_ERROR) && \
+		(TimeoutCounter < XLOADER_USB_MAX_ITERATIONS)) {
 		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstancePtr->PrivateData);
+		usleep(XLOADER_USB_POLL_US);
+		TimeoutCounter++;
 	}
+
+	/** - polling at 100us */
+	if (TimeoutCounter >= XLOADER_USB_MAX_ITERATIONS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_TIMEOUT, Status);
+	}
+
 	(void)XUsbPsu_Stop((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 
 END:
