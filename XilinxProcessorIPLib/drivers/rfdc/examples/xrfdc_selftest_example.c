@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *                       will be in supplemental example(s).
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
 * 12.1  cog    07/14/23 Modified for SDT flow
+* 13.1  dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 *
@@ -88,10 +89,12 @@ struct metal_device *deviceptr = NULL;
 metal_phys_addr_t metal_phys;
 static struct metal_device CustomDev = {
 	/* RFdc device */
+	.name = NULL,
 	.bus = NULL,
 	.num_regions = 1,
 	.regions = {
 		{
+			.virt = (void *)0,
 			.physmap = &metal_phys,
 			.size = 0x40000,
 			.page_shift = (unsigned)(-1),

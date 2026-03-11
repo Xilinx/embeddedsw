@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
 *       cog    07/03/20 Formatting and text changes.
 * 11.0  cog    07/12/21 Simplified clock distribution user interface.
+* 13.1  dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 *
@@ -163,10 +165,6 @@ int ClockedExample(u16 RFdcDeviceId)
 	u32 DACSetFabricRate[4];
 	u32 GetFabricRate;
 	XRFdc_Distribution_Settings Distribution_Settings;
-	u32 ADCClockedTile;
-	u32 DACClockedTile;
-	u32 ADCSource;
-	u32 DACSource;
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -267,7 +265,7 @@ int ClockedExample(u16 RFdcDeviceId)
 
 	printf("\n Configuring the Clock \r\n");
 	/* This takes a reference clock of 245.76 MHz into ADC1/DAC1 uses PLL to increase to 2211.84 GHz
-	   and distrubutes the ful rate clock to all other ADC/DAC tiles.*/
+	   and distributes the full rate clock to all other ADC/DAC tiles.*/
 	memset(&Distribution_Settings, 0, sizeof(Distribution_Settings));
 	if(XRFdc_IsHighSpeedADC(RFdcInstPtr, Tile) == XRFDC_ENABLED) { /*ZCU208*/
 		Distribution_Settings.SourceTileId = XRFDC_TILE_ID0;

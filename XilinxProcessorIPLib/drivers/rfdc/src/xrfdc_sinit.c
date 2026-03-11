@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *       cog    02/24/22 Fixed memory leak.
 * 12.1  cog    07/04/23 Add support for SDT.
 *       cog    07/14/23 Fix issues with SDT flow.
+* 13.1  dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 *
@@ -63,6 +64,12 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef __BAREMETAL__
+extern int metal_linux_get_device_property(struct metal_device *device,
+					   const char *property_name,
+					   void *output, int len);
+#endif
+
 
 /************************** Variable Definitions *****************************/
 #ifdef __BAREMETAL__

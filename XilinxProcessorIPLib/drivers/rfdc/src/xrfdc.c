@@ -214,6 +214,7 @@
 *       cog    07/27/23 Add NCO frequency to config structures.
 * 12.2  cog    01/29/24 Yocto SDT support.
 * 13.1  dc     02/18/26 Correct spelling errors
+*       dc     03/08/26 Correct compiler warnings
 *
 * </pre>
 *
@@ -2511,5 +2512,5 @@ u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
 ******************************************************************************/
 double XRFdc_GetDriverVersion(void)
 {
-	return 12.2;
+	return 13.1;
 }
