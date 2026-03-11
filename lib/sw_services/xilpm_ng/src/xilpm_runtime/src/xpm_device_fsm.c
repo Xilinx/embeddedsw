@@ -298,6 +298,10 @@ XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 	/* Override FSM type for specific devices */
 	if (XPM_NODETYPE_DEV_HB_MON == NODETYPE(DevOps->Device->Node.Id)) {
 		DevOps->FsmType = XPM_FSM_TYPE_HB_MON;
+	} else if ((u32)XPM_NODETYPE_DEV_DDR == NODETYPE(DevOps->Device->Node.Id)) {
+		DevOps->FsmType = (u8)XPM_FSM_TYPE_DDR;
+	} else {
+		/* To avoid MISRA violation */
 	}
 
 	Status = XST_SUCCESS;

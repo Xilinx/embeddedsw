@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1439,6 +1439,29 @@ extern "C" {
 #define PPU_RAM_DATA_CNTLR_BASEADDR			(0xF0280000U)
 #define PPU_RAM_DATA_CNTLR_HIGHADDR			(0xF029FFFFU)
 
+/**
+ * DDRMC Registers
+ */
+/** @brief Offset for DDRMC5E UB to PMC interrupt register */
+#define DDRMC5E_UB_PMC2UB_INTERRUPT_OFFSET		(0x00000220U)
+/** @brief Offset for DDRMC5E UB to PMC acknowledgment register */
+#define DDRMC5E_UB_UB2PMC_ACK_OFFSET			(0x00000224U)
+/** @brief Offset for DDRMC5E UB to PMC done register */
+#define DDRMC5E_UB_UB2PMC_DONE_OFFSET			(0x00000228U)
+/** @brief Mask for PMC to UB interrupt for self-refresh exit */
+#define DDRMC5E_UB_PMC2UB_INTERRUPT_SR_EXIT_MASK	(0x00000002U)
+/** @brief Mask for UB to PMC acknowledgment for self-refresh exit */
+#define DDRMC5E_UB_UB2PMC_ACK_SR_EXIT_MASK		(0x00000002U)
+/** @brief Mask for UB to PMC done for self-refresh exit */
+#define DDRMC5E_UB_UB2PMC_DONE_SR_EXIT_MASK		(0x00000002U)
+/** @brief Mask for PMC to UB interrupt for self-refresh entry */
+#define DDRMC5E_UB_PMC2UB_INTERRUPT_SR_ENTRY_MASK	(0x00000001U)
+/** @brief Mask for UB to PMC acknowledgment for self-refresh entry */
+#define DDRMC5E_UB_UB2PMC_ACK_SR_ENTRY_MASK		(0x00000001U)
+/** @brief Mask for UB to PMC done for self-refresh entry */
+#define DDRMC5E_UB_UB2PMC_DONE_SR_ENTRY_MASK		(0x00000001U)
+/** @brief Mask for NPI PCSR control PCOMPLETE bit */
+#define NPI_PCSR_CONTROL_PCOMPLETE_MASK			(0x00000001U)
 
 #ifdef __cplusplus
 }

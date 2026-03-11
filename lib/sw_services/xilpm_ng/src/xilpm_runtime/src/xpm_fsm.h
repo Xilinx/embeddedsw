@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C)  2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C)  2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@ typedef enum {
 	XPM_FSM_TYPE_MIN = 0x0,
 	XPM_FSM_TYPE_GENERIC_DEVICE = 0x1, /**< Generic device FSM */
 	XPM_FSM_TYPE_HB_MON = 0x2, /**< Healthy boot monitor device FSM */
+	XPM_FSM_TYPE_DDR = 0x3, /**< DDR device FSM */
 	XPM_FSM_TYPE_MAX = 0xE
 } XPm_FsmType;
 

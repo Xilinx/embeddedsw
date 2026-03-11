@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C)  2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C)  2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_core.h"
@@ -7,6 +7,7 @@
 #include "xpm_power.h"
 #include "xpm_debug.h"
 #include "xpm_fsm.h"
+#include "xpm_ddr_fsm.h"
 #include "xpm_device_fsm.h"
 #include "xpm_subsystem.h"
 
@@ -14,6 +15,7 @@ static const XPm_Fsm* XPmFsmTable[] = {
 	[XPM_FSM_TYPE_GENERIC_DEVICE] = &XPmGenericDeviceFsm,
 	/* Will be retrieved at runtime */
 	[XPM_FSM_TYPE_HB_MON] = NULL,
+	[XPM_FSM_TYPE_DDR] = &XPmDDRDeviceFsm,
 };
 
 static void XPmFsm_SetHbMonFsm(void)
