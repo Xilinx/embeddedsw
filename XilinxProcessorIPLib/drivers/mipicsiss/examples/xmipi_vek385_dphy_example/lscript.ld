@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,9 +12,8 @@ _EL2_STACK_SIZE = DEFINED(_EL2_STACK_SIZE) ? _EL2_STACK_SIZE : 1024;
 
 MEMORY
 {
-	cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app : ORIGIN = 0x0, LENGTH = 0x10000000
-   cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0 : ORIGIN = 0x10000000, LENGTH = 0x70000000
-	cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_1 : ORIGIN = 0x800000000, LENGTH = 0x80000000
+	cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0 : ORIGIN = 0x0, LENGTH = 0x80000000
+	cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_1 : ORIGIN = 0x800000000, LENGTH = 0x80000000
 	cips_ss_0_ps_wizard_0_ps11_0_ocm_ram_0_memory_0 : ORIGIN = 0xbbf00000, LENGTH = 0x80000
 	cips_ss_0_ps_wizard_0_ps11_0_ocm_ram_1_memory_1 : ORIGIN = 0xbbf80000, LENGTH = 0x80000
 	cips_ss_0_ps_wizard_0_ps11_0_ocm_ram_2_memory_2 : ORIGIN = 0xbbe00000, LENGTH = 0x80000
@@ -42,28 +41,28 @@ SECTIONS
    *(.glue_7t)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .note.gnu.build-id : {
    KEEP (*(.note.gnu.build-id))
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 
 .init (ALIGN(64)) : {
    KEEP (*(.init))
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .fini (ALIGN(64)) : {
    KEEP (*(.fini))
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .interp : {
    KEEP (*(.interp))
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .note-ABI-tag : {
    KEEP (*(.note-ABI-tag))
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .rodata : {
    . = ALIGN(64);
@@ -72,7 +71,7 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .rodata1 : {
    . = ALIGN(64);
@@ -80,7 +79,7 @@ SECTIONS
    *(.rodata1)
    *(.rodata1.*)
    __rodata1_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .sdata2 : {
    . = ALIGN(64);
@@ -89,7 +88,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .sbss2 : {
    . = ALIGN(64);
@@ -98,7 +97,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .data : {
    . = ALIGN(64);
@@ -110,7 +109,7 @@ SECTIONS
    *(.got)
    *(.got.plt)
    __data_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .data1 : {
    . = ALIGN(64);
@@ -118,19 +117,19 @@ SECTIONS
    *(.data1)
    *(.data1.*)
    __data1_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .got : {
    *(.got)
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .got1 : {
    *(.got1)
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .got2 : {
    *(.got2)
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .ctors : {
    . = ALIGN(64);
@@ -142,7 +141,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .dtors : {
    . = ALIGN(64);
@@ -154,52 +153,52 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .fixup : {
    __fixup_start = .;
    *(.fixup)
    __fixup_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .eh_frame : {
    *(.eh_frame)
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .eh_framehdr : {
    __eh_framehdr_start = .;
    *(.eh_framehdr)
    __eh_framehdr_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .mmu_tbl0 (ALIGN(4096)) : {
    __mmu_tbl0_start = .;
    *(.mmu_tbl0)
    __mmu_tbl0_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .mmu_tbl1 (ALIGN(4096)) : {
    __mmu_tbl1_start = .;
    *(.mmu_tbl1)
    __mmu_tbl1_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .mmu_tbl2 (ALIGN(4096)) : {
    __mmu_tbl2_start = .;
    *(.mmu_tbl2)
    __mmu_tbl2_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .ARM.exidx : {
    __exidx_start = .;
    *(.ARM.exidx*)
    *(.gnu.linkonce.armexidix.*.*)
    __exidx_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .preinit_array : {
    . = ALIGN(64);
@@ -207,7 +206,7 @@ SECTIONS
    KEEP (*(SORT(.preinit_array.*)))
    KEEP (*(.preinit_array))
    __preinit_array_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .init_array : {
    . = ALIGN(64);
@@ -215,7 +214,7 @@ SECTIONS
    KEEP (*(SORT(.init_array.*)))
    KEEP (*(.init_array))
    __init_array_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .fini_array : {
    . = ALIGN(64);
@@ -223,7 +222,7 @@ SECTIONS
    KEEP (*(SORT(.fini_array.*)))
    KEEP (*(.fini_array))
    __fini_array_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .drvcfg_sec : {
     . = ALIGN(8);
@@ -231,13 +230,13 @@ SECTIONS
     KEEP (*(.drvcfg_sec))
     __drvcfgsecdata_end = .;
     __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .ARM.attributes : {
    __ARM.attributes_start = .;
    *(.ARM.attributes)
    __ARM.attributes_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .sdata : {
    . = ALIGN(64);
@@ -246,7 +245,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .sbss (NOLOAD) : {
    . = ALIGN(64);
@@ -256,7 +255,7 @@ SECTIONS
    *(.gnu.linkonce.sb.*)
    . = ALIGN(64);
    __sbss_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .tdata : {
    . = ALIGN(64);
@@ -265,7 +264,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .tbss : {
    . = ALIGN(64);
@@ -274,7 +273,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .bss (NOLOAD) : {
    . = ALIGN(64);
@@ -285,7 +284,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(64);
    __bss_end__ = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -301,7 +300,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _HEAP_SIZE;
    _heap_end = .;
    HeapLimit = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 .stack (NOLOAD) : {
    . = ALIGN(64);
@@ -320,7 +319,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _EL0_STACK_SIZE;
    . = ALIGN(64);
    __el0_stack = .;
-} > cips_ss_0_axi_noc2_0_ddr_memory_DDR_LOW_0_app
+} > cips_ss_0_axi_noc2_1_ddr_memory_DDR_LOW_0
 
 
 _end = .;

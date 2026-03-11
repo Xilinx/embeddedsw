@@ -1,6 +1,6 @@
  /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -461,7 +461,7 @@ int main() {
 
 	Pipeline_Cfg.ActiveLanes = 4;
 	Pipeline_Cfg.VideoSrc = XVIDSRC_SENSOR;
-	New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
+	New_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;  //XVIDC_VM_1920x1080_60_P
 
 
 	    Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;

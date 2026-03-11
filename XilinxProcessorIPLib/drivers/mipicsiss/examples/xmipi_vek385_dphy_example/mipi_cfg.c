@@ -103,7 +103,7 @@ typedef u8 AddressType;
 
 u8 SensorIicAddr; /* Variable for storing Eeprom IIC address */
 
-#define SENSOR_ADDR         0x36     
+#define SENSOR_ADDR         0x1A
 
 #define IIC_MUX_ADDRESS 		0x75
 #define IIC_EEPROM_CHANNEL		0x01	
@@ -243,7 +243,7 @@ void ConfigDemosaic(u32 width , u32 height)
 	Xil_Out32((DEMOSAIC_BASE + 0x10), width );
 	Xil_Out32((DEMOSAIC_BASE + 0x18), height );
 	Xil_Out32((DEMOSAIC_BASE + 0x20), 0x0   );
-	Xil_Out32((DEMOSAIC_BASE + 0x28), 0x3   );
+	Xil_Out32((DEMOSAIC_BASE + 0x28), 0x2   );
 	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x81   );
 
 }
