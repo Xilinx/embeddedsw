@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -201,7 +201,7 @@
 *                    definitions of sysmon in xparameters.h
 * 7.6  aad  03/23/20 Aligned Macros to the documentation
 * 7.8  cog  07/20/23 Added support for SDT flow
-*
+* 8.0  se   03/05/26 Added SDT interrupt support and IP type detection
 * </pre>
 *
 *****************************************************************************/
@@ -377,6 +377,11 @@ typedef struct {
 	int  IncludeInterrupt; 	/**< Supports Interrupt driven mode */
 	u8   IpType;		/**< 1 - System Management */
 				/**< 0 - XADC/System Monoitor */
+#if defined(XIL_INTERRUPT) || defined(SDT)
+	u32 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type
+				     Bit[64/32:1] Parent base address */
+#endif
 } XSysMon_Config;
 
 

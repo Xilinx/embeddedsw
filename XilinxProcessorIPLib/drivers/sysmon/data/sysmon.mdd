@@ -12,6 +12,7 @@
 # -------- ------ -------- --------------------------------------------------
 # 6.0     adk    10/12/13  Removed support for xps_sysmon_adc
 # 7.0     bss     7/25/14  Added support for Ultrascale.
+# 8.0     se      3/05/26  Added SDT interrupt support and IP type detection.
 ##############################################################################
 OPTION psf_version = 2.1;
 
@@ -20,7 +21,7 @@ BEGIN driver sysmon
   OPTION supported_peripherals = (axi_sysmon_adc axi_xadc xadc_wiz system_management_wiz);
   OPTION copyfiles = all;
   OPTION driver_state = ACTIVE;
-  OPTION VERSION = 7.11;
+  OPTION VERSION = 8.0;
   OPTION NAME = sysmon;
 
 END driver

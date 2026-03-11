@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *           and XSysMon_GetAlarmEnables. This is to fix CR#910905.
 * 7.5	mn    07/06/18  Fixed Doxygen warnings
 * 7.8   cog   07/20/23 Added support for SDT flow
+* 8.0   se    03/05/26 Added SDT interrupt support and IP type detection
 * </pre>
 *
 *****************************************************************************/
@@ -106,11 +107,8 @@ int XSysMon_CfgInitialize(XSysMon *InstancePtr, XSysMon_Config *ConfigPtr,
 	/*
 	 * Set the values read from the device config and the base address.
 	 */
-#ifndef SDT
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-#endif
+	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
-	InstancePtr->Config.IncludeInterrupt = ConfigPtr->IncludeInterrupt;
 
 	/* Store the default Waitcycles value in Mask */
 	InstancePtr->Mask = XSM_CONVST_WAITCYCLES_DEFAULT <<

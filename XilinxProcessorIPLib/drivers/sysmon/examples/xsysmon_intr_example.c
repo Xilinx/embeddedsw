@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
 *                     CR-965028.
 * 7.8   cog  07/20/23 Added support for SDT flow
 * 7.11  dc   02/18/26 Correct spelling errors
+* 8.0   se   03/05/26 Added SDT interrupt support and IP type detection
 * </pre>
 *
 *****************************************************************************/
@@ -58,11 +59,16 @@
 #include "xstatus.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#include "xparameters.h"
 
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#else
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
 #endif
 
 
@@ -95,6 +101,7 @@
 #endif
 #endif
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -102,29 +109,38 @@
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif
+#endif
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Function Prototypes *****************************/
 
+#ifndef SDT
 int SysMonIntrExample(INTC* IntcInstancePtr,
 			XSysMon* SysMonInstPtr,
 			u16 SysMonDeviceId,
 			u32 SysMonIntrId,
 			int *Temp);
+#else
+int SysMonIntrExample(XSysMon* SysMonInstPtr, UINTPTR BaseAddr, int *Temp);
+#endif
 
 static void SysMonInterruptHandler(void *CallBackRef);
 
+#ifndef SDT
 static int SysMonSetupInterruptSystem(INTC* IntcInstancePtr,
 				      XSysMon *SysMonPtr,
 				      u16 IntrId );
+#endif
 
 /************************** Variable Definitions ****************************/
 
 #ifndef TESTAPP_GEN
 static XSysMon SysMonInst; 	  /* System Monitor driver instance */
+#ifndef SDT
 static INTC InterruptController; /* Instance of the XIntc driver. */
+#endif
 #endif
 
 /*
@@ -154,15 +170,15 @@ int main(void)
 	int Status;
 	int Temp;
 
-	/*
-	 * Run the SysMonitor interrupt example, specify the parameters that
-	 * are generated in xparameters.h.
-	 */
+#ifndef SDT
 	Status = SysMonIntrExample(&InterruptController,
 				   &SysMonInst,
 				   SYSMON_DEVICE_ID,
 				   INTR_ID,
 				   &Temp);
+#else
+	Status = SysMonIntrExample(&SysMonInst, XPAR_XSYSMON_0_BASEADDR, &Temp);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sysmon interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -210,8 +226,12 @@ int main(void)
 * @note		This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
+#ifndef SDT
 int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
 			u16 SysMonDeviceId, u32 SysMonIntrId, int *Temp)
+#else
+int SysMonIntrExample(XSysMon* SysMonInstPtr, UINTPTR BaseAddr, int *Temp)
+#endif
 {
 	int Status;
 	XSysMon_Config *ConfigPtr;
@@ -222,7 +242,11 @@ int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
 	/*
 	 * Initialize the SysMon driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XSysMon_LookupConfig(SysMonDeviceId);
+#else
+	ConfigPtr = XSysMon_LookupConfig(BaseAddr);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -351,9 +375,17 @@ int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
 	/*
 	 * Setup the interrupt system.
 	 */
+#ifndef SDT
 	Status = SysMonSetupInterruptSystem(IntcInstancePtr,
 					    SysMonInstPtr,
 					    SysMonIntrId);
+#else
+	Status = XSetupInterruptSystem(SysMonInstPtr,
+				       (XInterruptHandler)SysMonInterruptHandler,
+				       SysMonInstPtr->Config.IntrId,
+				       SysMonInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -519,6 +551,7 @@ static void SysMonInterruptHandler(void *CallBackRef)
 *
 *
 ****************************************************************************/
+#ifndef SDT
 static int SysMonSetupInterruptSystem(INTC* IntcInstancePtr,
 				      XSysMon *SysMonPtr,
 				      u16 IntrId )
@@ -627,3 +660,4 @@ static int SysMonSetupInterruptSystem(INTC* IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif

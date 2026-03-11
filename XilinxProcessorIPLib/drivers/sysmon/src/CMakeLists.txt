@@ -1,9 +1,20 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(sysmon)
-if("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
+set(SYSMON_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+find_package(SYSMON QUIET)
+set(_SYSMON_IS_SYSTEM_MGMT FALSE)
+if ((EXISTS "${SYSMON_DIR}/SYSMONConfig.cmake") AND DRIVER_INSTANCES)
+   foreach(ELEMENT ${TOTAL_DRIVER_PROP_LIST})
+      list(GET ${ELEMENT} 3 _ip_type)
+      if("${_ip_type}" STREQUAL "0x1")
+         set(_SYSMON_IS_SYSTEM_MGMT TRUE)
+      endif()
+   endforeach()
+endif()
+if(_SYSMON_IS_SYSTEM_MGMT OR "${CMAKE_MACHINE}" STREQUAL "ZynqMP")
    add_definitions(-DXSM_ZYNQMP)
 else()
    add_definitions(-DXSM_ZYNQ)
