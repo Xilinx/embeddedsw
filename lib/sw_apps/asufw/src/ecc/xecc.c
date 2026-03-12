@@ -454,6 +454,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u8 Hash[XASU_SHA_512_HASH_LEN];
 	u8 EphemeralKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];
+	u32 HashPadLen = 0U;
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
@@ -494,21 +495,23 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END_CLR;
 	}
 
+	/** Zeroize the hash buffer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+	Status = Xil_SecureZeroize(Hash, XASU_SHA_512_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		goto END_CLR;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
 	}
 
 	/**
-	 * If input hash length is less than curve length, pad the extra bytes with 0's.
-	 * If input hash length is greater than curve length, take first curve length bytes as hash.
+	 * If input hash length is less than curve length, left pad the extra bytes with 0's
+	 * and copy hash to the local buffer.
 	 */
+	HashPadLen  = (HashBufLen < CurveLen) ? (CurveLen - HashBufLen) : 0U;
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_EccPrepareHashForSignature(Hash, CurveLen, HashBufLen);
+	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)(Hash + HashPadLen), HashBufLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECC_HASH_BUF_PAD_FAIL;
+		Status = XASUFW_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
 
@@ -643,8 +646,10 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	XASUFW_MEASURE_PERF_START();
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u8 Hash[XASU_SHA_512_HASH_LEN];
+	u32 HashPadLen = 0U;
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
@@ -671,21 +676,23 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		goto END;
 	}
 
-	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+	/** Zeroize the hash buffer. */
+	Status = Xil_SecureZeroize(Hash, XASU_SHA_512_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECC_WRITE_DATA_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
 	/**
-	 * If input hash length is less than curve length, pad the extra bytes with 0's.
-	 * If input hash length is greater than curve length, take first curve length bytes as hash.
+	 * If input hash length is less than curve length, left pad the extra bytes with 0's
+	 * and copy hash to the local buffer.
 	 */
+	HashPadLen  = (HashBufLen < CurveLen) ? (CurveLen - HashBufLen) : 0U;
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_EccPrepareHashForSignature(Hash, CurveLen, HashBufLen);
+	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)(Hash + HashPadLen), HashBufLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECC_HASH_BUF_PAD_FAIL;
-		goto END;
+		Status = XASUFW_ECC_WRITE_DATA_FAIL;
+		goto END_CLR;
 	}
 
 	/** Release ECC core reset. */
@@ -702,7 +709,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			       CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -711,7 +718,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			       CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -719,7 +726,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			CurveLen, Hash, CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -728,7 +735,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			       CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -737,14 +744,13 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			       CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Update configuration and start the operation. */
 	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_CONFIGURE_AND_START_FAIL);
-		goto END;
 	}
 
 	/**
@@ -752,6 +758,11 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	 * using ECC core, if performance measurement is enabled.
 	 */
 	XASUFW_MEASURE_PERF_STOP(__func__);
+
+END_CLR:
+	/** Zeroize local buffers. */
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_SHA_512_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	if (InstancePtr != NULL) {

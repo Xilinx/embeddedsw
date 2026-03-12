@@ -598,8 +598,8 @@ enum {
 	XASUFW_AES_CONTEXT_RESTORE_FAIL, /**< 0x19AU - Error when AES context restore fails */
 	XASUFW_AES_INVALID_INTERNAL_STATE, /**< 0x19BU - Error when AES invalid internal state. */
 	XASUFW_SW_ERR_INIT_FAIL, /**< 0x19CU - Error when error management initialization fails. */
-	XASUFW_ECC_HASH_BUF_PAD_FAIL, /**< 0x19DU - Error when ECC hash buffer padding fails. */
-	XASUFW_RSA_ECC_HASH_BUF_PAD_FAIL, /**< 0x19EU - Error when RSA ECC hash buffer padding fails. */
+	RESERVED5, /**< 0x19DU - Reserved */
+	RESERVED6, /**< 0x19EU - Reserved */
 	XASUFW_SSS_CFG_GET_FAIL, /**< 0x19FU - Error when retrieved SSS configuration fails. */
 	XASUFW_SSS_CFG_CHECK_FAIL, /**< 0x1A0U - Error when SSS configuration is invalid. */
 	XASUFW_SHA_UPDATE_FAIL, /**< 0x1A1U - Error when SHA update fails. */
