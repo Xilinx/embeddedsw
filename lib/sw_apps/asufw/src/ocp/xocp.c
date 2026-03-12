@@ -27,6 +27,8 @@
 /************************************** Include Files ********************************************/
 #include "x509_cert.h"
 #include "xasu_eccinfo.h"
+#include "xasu_ocp_common.h"
+#include "xasu_ocpinfo.h"
 #include "xasufw_hw.h"
 #include "xasufw_ipi.h"
 #include "xasufw_status.h"
@@ -208,20 +210,15 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 		goto END;
 	}
 
-	/** Validate signature buffer. */
-	if ((OcpAttestParam->SignatureAddr == 0U) ||
-	    (OcpAttestParam->SignatureBufLen < XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Validate data buffer. */
-	if ((OcpAttestParam->DataAddr == 0U) || (OcpAttestParam->DataLen == 0U)) {
+	/** Validate attestation parameters. */
+	Status = XAsu_OcpValidateAttestParams(OcpAttestParam);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Get subsystem index using subsystem ID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XOcp_GetSubsytemIndex(SubsystemId, &SubsysIdx);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_INVALID_SUBSYSTEM_INDEX;
@@ -555,12 +552,9 @@ END:
  * @brief	This function generates the X.509 certificate and DevIK CSR for device keys.
  *
  * @param	SubsystemId		Subsystem ID for which certificate is to be generated.
- * @param	CertPtr			Pointer to the certificate data.
+ * @param	OcpCertParam		Pointer to the OCP certificate parameters.
  * @param	PlatData		Pointer to platform specific data.
  * @param	IsCsr			Indicates if this is a Certificate Signing Request(CSR).
- * @param	CertBufAddr		Destination address for certificate buffer.
- * @param	CertBufLen		Maximum length of certificate buffer.
- * @param	CertActualSizeAddr	Address to store actual certificate size.
  *
  * @return
  *	- XASUFW_SUCCESS, if certificate is generated successfully.
@@ -577,35 +571,46 @@ END:
  *	- XASUFW_DMA_COPY_FAIL, if DMA transfer is failed.
  *
  *************************************************************************************************/
-s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatData, u8 IsCsr,
-		     u64 CertBufAddr, u32 CertBufLen, u64 CertActualSizeAddr)
+s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, void *PlatData,
+		     u8 IsCsr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	X509_Config CertCfg;
 	XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
 	const X509_PlatData *PlatDataPtr = (X509_PlatData *)PlatData;
+	XOcp_CertData CertData;
 	u32 SubsysIdx = 0U;
 	u32 CertSize = 0U;
+	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
-	/** Validate platform data and CSR flag parameter. */
-	if ((PlatData == NULL) || (CertPtr == NULL) || (CertPtr->CertAddr == 0U) ||
-	    ((IsCsr != XASU_FALSE) && (IsCsr != XASU_TRUE)) || (CertBufAddr == 0U) ||
-	    (CertActualSizeAddr == 0U)) {
+	/** Validate OCP certificate parameters. */
+	Status = XAsu_OcpValidateCertParams(OcpCertParam);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
-
 	}
 
+	/** Validate platform data and CSR flag parameter. */
+	if ((PlatData == NULL) || ((IsCsr != XASU_FALSE) && (IsCsr != XASU_TRUE))) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Initialize certificate data. */
+	CertData.DevKeyType = OcpCertParam->DevKeySel;
+	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
+	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
+
 	/** Validate device key type. */
-	if (((IsCsr == XASU_TRUE) && (CertPtr->DevKeyType != (u32)XOCP_DEVIK)) ||
-	    ((CertPtr->DevKeyType != (u32)XOCP_DEVAK) &&
-	    (CertPtr->DevKeyType != (u32)XOCP_DEVIK))) {
+	if (((IsCsr == XASU_TRUE) && (CertData.DevKeyType != (u32)XOCP_DEVIK)) ||
+	    ((CertData.DevKeyType != (u32)XOCP_DEVAK) &&
+	    (CertData.DevKeyType != (u32)XOCP_DEVIK))) {
 		Status = XASUFW_OCP_DEVICE_KEY_TYPE_INVALID;
 		goto END;
 	}
 
 	/** Subsystem ID should be ASU subsystem ID for DevIk. */
-	if ((CertPtr->DevKeyType == (u32)XOCP_DEVIK) && (SubsystemId != XASUFW_SUBSYTEM_ID)) {
+	if ((CertData.DevKeyType == (u32)XOCP_DEVIK) && (SubsystemId != XASUFW_SUBSYTEM_ID)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 	}
@@ -625,7 +630,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 	CertCfg.IssuerPrvtKey = (u8 *)DevIkData.EccPvtKey;
 	CertCfg.PlatformData = PlatData;
 
-	if (CertPtr->DevKeyType == (u32)XOCP_DEVIK) {
+	if (CertData.DevKeyType == (u32)XOCP_DEVIK) {
 		/**
 		 * Get user configurations for DevIk certificate.
 		 * For DevIk, subsystem shall be ASU and subsystem index 0.
@@ -638,6 +643,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 		CertCfg.IsSelfSigned = (u8)XASU_TRUE;
 	} else {
 		/** Get subsystem index using subsystem ID. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XOcp_GetSubsytemIndex(SubsystemId, &SubsysIdx);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_OCP_INVALID_SUBSYSTEM_INDEX;
@@ -681,7 +687,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 
 	/** Generate X.509 certificate. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_GenerateX509Cert(CertPtr->CertAddr, CertPtr->CertMaxSize,
+	Status = X509_GenerateX509Cert(CertData.CertAddr, CertData.CertMaxSize,
 				       &CertSize, &CertCfg);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_X509_CERT_GEN_FAIL);
@@ -689,14 +695,15 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 	}
 
 	/** Validate Certificate buffer length */
-	if (CertBufLen < CertSize) {
+	if (OcpCertParam->CertBufLen < CertSize) {
 		Status = XASUFW_OCP_INVALID_BUF_SIZE;
 		goto END;
 	}
 
 	/** Copy generated certificate to destination address using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, CertPtr->CertAddr, CertBufAddr, CertSize, 0U);
+	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, CertData.CertAddr, OcpCertParam->CertBufAddr,
+			       CertSize, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
@@ -704,7 +711,8 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 
 	/** Copy actual size of generated certificate to destination address using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, (u64)(UINTPTR)&CertSize, CertActualSizeAddr,
+	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, (u64)(UINTPTR)&CertSize,
+			       (u64)(UINTPTR)OcpCertParam->CertActualSize,
 			       XOCP_X509_CERT_FIELD_LEN, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_DMA_COPY_FAIL;

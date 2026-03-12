@@ -167,7 +167,6 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevIk CSR is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
  *************************************************************************************************/
@@ -176,32 +175,17 @@ static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
-	XOcp_CertData CertData;
-	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
-
-	/** Validate client parameter. */
-	Status = XAsu_OcpValidateCertParams(OcpCertParam);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
 
 	/** Assign DMA and SHA instance pointers. */
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
 	PlatData.ShaPtr = XAsufw_OcpModule.ShaPtr;
 
-	/** Initialized certificate data. */
-	CertData.DevKeyType = OcpCertParam->DevKeySel;
-	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
-	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-
 	/** Generate DevIk CSR(Certificate Signing Request) for ASU subsystem. */
-	Status = XOcp_GetX509Cert(XASUFW_SUBSYTEM_ID, &CertData, (void *)(UINTPTR)&PlatData,
-				  XASU_TRUE, OcpCertParam->CertBufAddr, OcpCertParam->CertBufLen,
-				  (u64)(UINTPTR)OcpCertParam->CertActualSize);
+	Status = XOcp_GetX509Cert(XASUFW_SUBSYTEM_ID, OcpCertParam, (void *)(UINTPTR)&PlatData,
+				  XASU_TRUE);
 
 END:
 	/** Release resources. */
@@ -224,7 +208,6 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevIk certificate is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
  *************************************************************************************************/
@@ -233,32 +216,17 @@ static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
-	XOcp_CertData CertData;
-	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
-
-	/** Validate client parameter. */
-	Status = XAsu_OcpValidateCertParams(OcpCertParam);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
 
 	/** Assign DMA and SHA instance pointers. */
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
 	PlatData.ShaPtr = XAsufw_OcpModule.ShaPtr;
 
-	/** Initialized certificate data. */
-	CertData.DevKeyType = OcpCertParam->DevKeySel;
-	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
-	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-
 	/** Generate DevIk certificate for ASU subsystem. */
-	Status = XOcp_GetX509Cert(XASUFW_SUBSYTEM_ID, &CertData, (void *)(UINTPTR)&PlatData,
-				  XASU_FALSE, OcpCertParam->CertBufAddr, OcpCertParam->CertBufLen,
-				  (u64)(UINTPTR)OcpCertParam->CertActualSize);
+	Status = XOcp_GetX509Cert(XASUFW_SUBSYTEM_ID, OcpCertParam, (void *)(UINTPTR)&PlatData,
+				  XASU_FALSE);
 
 END:
 	/** Release resources. */
@@ -281,7 +249,6 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevAk certificate is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
@@ -291,20 +258,11 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
-	XOcp_CertData CertData;
-	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
-
-	/** Validate client parameter. */
-	Status = XAsu_OcpValidateCertParams(OcpCertParam);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
@@ -317,15 +275,9 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
 	PlatData.ShaPtr = XAsufw_OcpModule.ShaPtr;
 
-	/** Initialized certificate data. */
-	CertData.DevKeyType = OcpCertParam->DevKeySel;
-	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
-	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-
 	/** Generate DevAk certificate for given subsystem. */
-	Status = XOcp_GetX509Cert(SubsystemId, &CertData, (void *)(UINTPTR)&PlatData, XASU_FALSE,
-				  OcpCertParam->CertBufAddr, OcpCertParam->CertBufLen,
-				  (u64)(UINTPTR)OcpCertParam->CertActualSize);
+	Status = XOcp_GetX509Cert(SubsystemId, OcpCertParam, (void *)(UINTPTR)&PlatData,
+				  XASU_FALSE);
 
 END:
 	/** Release resources. */
@@ -348,7 +300,6 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevAk is attested successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *
  *************************************************************************************************/
@@ -358,13 +309,6 @@ static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_OcpDevAkAttest *OcpAttestParam = (const XAsu_OcpDevAkAttest *)ReqBuf->Arg;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
-
-	/** Validate client parameter. */
-	Status = XAsu_OcpValidateAttestParams(OcpAttestParam);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
