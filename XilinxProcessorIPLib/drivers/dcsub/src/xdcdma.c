@@ -933,7 +933,7 @@ static void XDcDma_SetDescriptorAddress(XDcDma *InstancePtr,
 
 	}
 
-	DescAddr = (u64) Descriptor;
+	DescAddr = (uintptr_t)Descriptor;
 
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr,
 			AddrEOffset, UPPER_32_BITS(DescAddr));
