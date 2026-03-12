@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,26 @@
 * This example illustrates the SHA3 hash calculation.
 * This example is supported for Versal device.
 *
+* Procedure to link and compile the example for the default ddr less designs in Versal device
+* ------------------------------------------------------------------------------------------------------------
+* The default linker settings places a software stack, heap and data in DDR memory.  For this example to work,
+* any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.
+*
+*    Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+*			be updated to point all the required sections to shared memory(OCM or TCM)
+*			using a memory region drop down selection
+*
+*						OR
+*    In linker script(lscript.ld) user can point data section to OCM or TCM
+*       .data : {
+*        . = ALIGN(4);
+*        __data_start = .;
+*        *(.data)
+*        *(.data.*)
+*        *(.gnu.linkonce.d.*)
+*        __data_end = .;
+*       } > versal_cips_0_pspmc_0_psv_ocm_ram_0_memory_0
+*
 * MODIFICATION HISTORY:
 * <pre>
 * Ver   Who    Date     Changes
@@ -24,6 +44,7 @@
 * 4.9   bm     07/06/22 Refactor versal and versal_net code
 * 5.4   vss    01/08/25 Updated comments related to deprecated server mode of versalnet
 * 5.6   rpu    08/22/25 Added status check for XSecure_Sha3Digest
+* 5.7   mb     02/29/26 Add section attribute to global variables
 * </pre>
 ******************************************************************************/
 
@@ -56,8 +77,26 @@ static void SecureSha3PrintHash(u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
-static const char Data[SHA3_INPUT_DATA_LEN + 1U] = "XILINX";
+/*
+ * Input data string "XILINX" for SHA3 hash calculation.
+ * This variable is 64-byte aligned and placed in a specific data section
+ * for proper memory management.
+ */
+static const char Data[SHA3_INPUT_DATA_LEN + 1U] __attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.Data"))) = "XILINX";
 
+/*
+ * SHA3 instance for secure hash operations.
+ * This variable is 64-byte aligned and placed in a specific data section
+ * for proper memory management and initialized to zero.
+ */
+static XSecure_Sha3 Secure_Sha3 __attribute__ ((aligned (64)))
+		__attribute__ ((section (".data.Secure_Sha3"))) = {0};
+
+/*
+ * Expected SHA3-384 hash value for the input string "XILINX".
+ * This is used to verify the correctness of the SHA3 hash calculation.
+ */
 static u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
 				     {0x70,0x69,0x77,0x35,0x0b,0x93,
 				      0x92,0xa0,0x48,0x2c,0xd8,0x23,
@@ -108,11 +147,6 @@ int main(void)
 /** //! [SHA3 example] */
 static int SecureSha3Example()
 {
-	/*
-	 * It is required to zeroize sha instance before calling
-	 * XSecure_Sha3Initialize in server mode.
-	 */
-	XSecure_Sha3 Secure_Sha3 = {0U};
 	XCsuDma CsuDma;
 	XCsuDma_Config *Config;
 	u8 Out[SHA3_HASH_LEN_IN_BYTES];
@@ -169,6 +203,9 @@ END:
 *
 * This function compares the given hash with the expected Hash
 *
+* @param	Hash		Pointer to the calculated hash buffer
+* @param	ExpectedHash	Pointer to the expected hash buffer
+*
 * @return
 *		- XST_SUCCESS - if the expected hash is equal to the
 *                               given hash
@@ -194,6 +231,10 @@ static int SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
 /**
 *
 * This function prints the given hash on the console
+*
+* @param	Hash	Pointer to the hash buffer to be printed
+*
+* @return	None
 *
 ****************************************************************************/
 static void SecureSha3PrintHash(u8 *Hash)

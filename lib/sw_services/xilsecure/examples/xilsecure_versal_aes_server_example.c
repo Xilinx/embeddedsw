@@ -27,20 +27,25 @@
 *
 * Following is the procedure to compile the example on any memory region which can be accessed by both PL and PMC
 *
-*		1. In linker script(lscript.ld) user can add new memory region in declaration section as shown below
-*			shared_mem : ORIGIN = 0x0402C000, LENGTH = 0x2000
+*    Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+*    be updated to point all the required sections to shared memory using a memory region drop
+*    down selection
 *
-*		2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
-*		   Change the .data section region to point to the new shared_mem region created in step 1. as below
+*						OR
+*    In linker script(lscript.ld) user can point data section to shared memory. For example,
+*       .data : {
+*        . = ALIGN(4);
+*        __data_start = .;
+*        *(.data)
+*        *(.data.*)
+*        *(.gnu.linkonce.d.*)
+*        __data_end = .;
+*       } > shared_mem
 *
-*			.data : {
-*			. = ALIGN(4);
-*			__data_start = .;
-*			*(.data)
-*			*(.data.*)
-*			*(.gnu.linkonce.d.*)
-*			__data_end = .;
-*			} > shared_mem
+* Note: In case of SPARTANUPLUS device, shared_mem section should be mapped to 0x0402C000.
+*       In case of SPARTANUPLUSAES1 device, shared_mem section should be mapped to 0x0403C000.
+*       In case of Versal device, shared_mem section should be mapped to
+*       versal_cips_0_pspmc_0_psv_ocm_ram_0_memory_0.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -56,6 +61,7 @@
 * 5.5   mb     06/10/25 Added description on usage of shared memory
 * 5.6   rpu    08/22/25 Updated the print statement to show error code when the example fails
 * 5.7   bha    02/25/26 Removed ICCARM related code
+*       mb     02/29/26 Add section attribute to global variables
 * </pre>
 ******************************************************************************/
 
