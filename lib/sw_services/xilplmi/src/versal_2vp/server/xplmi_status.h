@@ -276,6 +276,9 @@ typedef enum {
 						  occurs if invalid boot mode is selected or
 						  selected boot mode peripheral is not selected in
 						  CIPS */
+	XLOADER_ERR_UNSUPPORTED_USB_PRIMARY,	/**< 0x301 - Error when USB is used as primary
+						  boot mode. USB boot mode is not supported as
+						  primary boot mode */
 	XLOADER_ERR_IMGHDR_TBL = 0x302,	/**< 0x302 - Multiple conditions can give this error.  - If
 					  PLM is unable to read image header table */
 	XLOADER_ERR_IMGHDR,	/**< 0x303 - Error if image header checksum fails */

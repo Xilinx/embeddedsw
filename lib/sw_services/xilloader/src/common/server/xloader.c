@@ -207,6 +207,7 @@
 *       tvp 01/23/2026 Run SHA KAT during boot
 *       rmv 01/30/2026 Renamed OCP header files and keymanagment macro
 *       sd  03/03/2026 Added redundant check for XLoader_ValidateMHHashBlockIntegrity
+*       aa  03/10/2026 Added check to restrict USB as primary boot
 *
 * </pre>
 *
@@ -409,6 +410,8 @@ END:
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_UNSUPPORTED_BOOT_MODE on unsupported boot mode.
+ * 			- XLOADER_ERR_UNSUPPORTED_USB_PRIMARY if USB is used as
+ * 			  primary boot mode.
  *****************************************************************************/
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 {
@@ -421,6 +424,16 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	u32 SdRawBootVal = RegVal & XLOADER_SD_RAWBOOT_MASK;
 	const char *RawString = "";
 	const PdiSrcMap PdiSourceMap[] = XLOADER_GET_PDISRC_INFO();
+
+	/**
+	 * - USB is not supported as a primary boot mode.
+	 */
+	if ((PdiSrc == XLOADER_PDI_SRC_USB) &&
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL)) {
+		XPlmi_Printf(DEBUG_INFO, "USB is not supported as primary boot mode\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_USB_PRIMARY, 0);
+		goto END;
+	}
 	XilPdi *PdiInstance = XLoader_GetPdiInstance();
 	PdiInstance->MetaHdr = (XilPdi_MetaHdr *)(UINTPTR)METAHEADER_INSTANCE_ADDRESS;
 
