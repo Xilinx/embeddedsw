@@ -140,10 +140,11 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
-* This typedef contains the Short Packet information from the Generic
-* Short Packet Register
-*
-*/
+ * @brief Short Packet information structure
+ *
+ * This structure contains the Short Packet information from the Generic
+ * Short Packet Register.
+ */
 typedef struct {
 	u16 Data;	/**< The Data from Camera Sensor */
 	u8 DataType;	/**< The Data type like RGB, RAW or YUV format */
@@ -152,9 +153,10 @@ typedef struct {
 } XCsi_SPktData;
 
 /**
-* This typedef contains the structure for getting the information about
-* a Virtual Channel
-*/
+ * @brief Virtual Channel information structure
+ *
+ * This structure contains the information about a Virtual Channel.
+ */
 typedef struct {
 	u16 LineCount;	/**< Line Count from Image Info 1 register */
 	u16 ByteCount;	/**< Byte Count from Image Info 1 register */
@@ -163,17 +165,19 @@ typedef struct {
 } XCsi_VCInfo;
 
 /**
-* This typedef contains the structure for getting the information about
-* the Clock Lane
-*/
+ * @brief Clock Lane information structure
+ *
+ * This structure contains the information about the Clock Lane.
+ */
 typedef struct {
 	u8 StopState;	/**< Clock Lane is in Stop State */
 } XCsi_ClkLaneInfo;
 
 /**
-* This typedef contains the structure for getting the information about
-* the Data Lane
-*/
+ * @brief Data Lane information structure
+ *
+ * This structure contains the information about the Data Lane.
+ */
 typedef struct {
 	u8 StopState;	/**< Data Lane is in Stop State */
 	u8 SoTErr;	/**< Detected Start Of Transmission High Speed Error */
@@ -182,11 +186,10 @@ typedef struct {
 } XCsi_DataLaneInfo;
 
 /**
-* The configuration structure for CSI Controller
-*
-* This structure passes the hardware building information to the driver
-*
-*/
+ * @brief Configuration structure for CSI Controller
+ *
+ * This structure passes the hardware building information to the driver.
+ */
 typedef struct {
 #ifndef SDT
 	u32 DeviceId;		/**< Device Id */
@@ -203,27 +206,27 @@ typedef struct {
 } XCsi_Config;
 
 /**
-*
-* Callback type for all interrupts defined.
-*
-* @param	CallBackRef is a callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back to
-*		the upper layer when the callback is invoked.
-* @param	Mask is a bit mask indicating the cause of the event. For
-*		current core version, this parameter is "OR" of 0 or more
-*		XCSI_ISR_*_MASK constants defined in xcsi_hw.h.
-*
-* @return	None.
-*
-* @note		None.
-*
- *****************************************************************************/
+ * @brief Callback type for all interrupts defined
+ *
+ * @param	CallBackRef is a callback reference passed in by the upper
+ *		layer when setting the callback functions, and passed back to
+ *		the upper layer when the callback is invoked.
+ * @param	Mask is a bit mask indicating the cause of the event. For
+ *		current core version, this parameter is "OR" of 0 or more
+ *		XCSI_ISR_*_MASK constants defined in xcsi_hw.h.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 typedef void (*XCsi_CallBack) (void *CallBackRef, u32 Mask);
 
 /**
-* The XCsi driver instance data.
-* An instance must be allocated for each CSI in use.
-*/
+ * @brief The XCsi driver instance data
+ *
+ * An instance must be allocated for each CSI in use.
+ */
 typedef struct {
 	XCsi_Config Config;	/**< Hardware Configuration */
 	u32 ActiveLanes;	/**< Number of Active Lanes */
@@ -270,15 +273,15 @@ typedef struct {
 *
 * This function is used to set bit in a register.
 *
-* @param	BaseAddress is a base address of IP
-* @param	RegisterOffset is offset where the register is present
-* @param	BitMask of bit to be set
+* @param	BaseAddress is a base address of IP.
+* @param	RegisterOffset is offset where the register is present.
+* @param	BitMask of bit to be set.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_BitSet(UINTPTR BaseAddress, u32 RegisterOffset,
 				u32 BitMask)
 {
@@ -286,20 +289,20 @@ static inline void XCsi_BitSet(UINTPTR BaseAddress, u32 RegisterOffset,
 	(XCsi_ReadReg(BaseAddress, RegisterOffset) | BitMask));
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to reset bit in a register.
 *
-* @param	BaseAddress is a base address of IP
-* @param	RegisterOffset is offset where the register is present
-* @param	BitMask of bit to be reset
+* @param	BaseAddress is a base address of IP.
+* @param	RegisterOffset is offset where the register is present.
+* @param	BitMask of bit to be reset.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_BitReset(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask)
 {
@@ -307,21 +310,21 @@ static inline void XCsi_BitReset(UINTPTR BaseAddress, u32 RegisterOffset,
 	(XCsi_ReadReg(BaseAddress, RegisterOffset) & ~(BitMask)));
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to get the value of bitfield from register.
 *
-* @param	BaseAddress is a base address of IP
-* @param	RegisterOffset is offset where the register is present
-* @param	BitMask of bit fields to be retrieved
-* @param	BitShift is offset of the field in register
+* @param	BaseAddress is a base address of IP.
+* @param	RegisterOffset is offset where the register is present.
+* @param	BitMask of bit fields to be retrieved.
+* @param	BitShift is offset of the field in register.
 *
-* @return 	Bit Field Value in u32 format
+* @return	Bit Field Value in u32 format.
 *
-* @note 	None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline u32 XCsi_GetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask, u32 BitShift)
 {
@@ -329,22 +332,22 @@ static inline u32 XCsi_GetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 		 & BitMask) >> BitShift);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to set the value of bitfield from register.
 *
-* @param	BaseAddress is a base address of IP
-* @param	RegisterOffset is offset where the register is present
-* @param	BitMask of bit fields to be retrieved
-* @param	BitShift is offset of the field in register
+* @param	BaseAddress is a base address of IP.
+* @param	RegisterOffset is offset where the register is present.
+* @param	BitMask of bit fields to be retrieved.
+* @param	BitShift is offset of the field in register.
 * @param	Value is to be set. Passed in u32 format.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask, u32 BitShift, u32 Value)
 {
@@ -353,7 +356,7 @@ static inline void XCsi_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 		 ~ BitMask) | (Value << BitShift)));
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to start the soft reset process by setting the
@@ -362,39 +365,39 @@ static inline void XCsi_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 * @param	InstancePtr is a pointer to the CSI2 instance to be
 *		worked on.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_SetSoftReset(XCsi *InstancePtr)
 {
 	XCsi_BitSet(InstancePtr->Config.BaseAddr, XCSI_CCR_OFFSET,
 	XCSI_CCR_SOFTRESET_MASK);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to stop the soft reset process by resetting the
-* soft reset bit in the Core Configuration Register.This is done usually after
+* soft reset bit in the Core Configuration Register. This is done usually after
 * Reset in Progress is 0.
 *
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_ClearSoftReset(XCsi *InstancePtr)
 {
 	XCsi_BitReset(InstancePtr->Config.BaseAddr,
 			XCSI_CCR_OFFSET, XCSI_CCR_SOFTRESET_MASK);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to stop the packet processing by resetting
@@ -403,61 +406,61 @@ static inline void XCsi_ClearSoftReset(XCsi *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_Disable(XCsi *InstancePtr)
 {
 	XCsi_BitReset(InstancePtr->Config.BaseAddr,
 		XCSI_CCR_OFFSET, XCSI_CCR_COREENB_MASK);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to start the packet processing by setting
-* Enable core bit in the Core Configuration Register.This is done after the
+* Enable core bit in the Core Configuration Register. This is done after the
 * configuration of active lanes, interrupt masks, etc.
 *
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_Enable(XCsi *InstancePtr)
 {
 	XCsi_BitSet(InstancePtr->Config.BaseAddr, XCSI_CCR_OFFSET,
 			XCSI_CCR_COREENB_MASK);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to check if the Core is enabled by checking
-* the core enable bit
+* the core enable bit.
 *
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
 * @return
-* 		- 1 - If the CSI core is enabled
-*		- 0 - If the CSI core is disabled
+*		- 1 - If the CSI core is enabled.
+*		- 0 - If the CSI core is disabled.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline u32 XCsi_IsCsiEnabled(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_CCR_OFFSET, XCSI_CCR_COREENB_MASK, XCSI_CCR_COREENB_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to get the number of lanes configured in
@@ -466,18 +469,18 @@ static inline u32 XCsi_IsCsiEnabled(XCsi *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	Max number of lanes available in u32 format
+* @return	Max number of lanes available in u32 format.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline u32 XCsi_GetMaxLaneCount(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_PCR_OFFSET, XCSI_PCR_MAXLANES_MASK, XCSI_PCR_MAXLANES_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to get the actual number of lanes being
@@ -487,18 +490,18 @@ static inline u32 XCsi_GetMaxLaneCount(XCsi *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	Number of lanes being used in u32 format
+* @return	Number of lanes being used in u32 format.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline u32 XCsi_GetActiveLaneCount(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_PCR_OFFSET, XCSI_PCR_ACTLANES_MASK, XCSI_PCR_ACTLANES_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to set the actual number of lanes to be
@@ -507,20 +510,20 @@ static inline u32 XCsi_GetActiveLaneCount(XCsi *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
-* @param	Value is number of lanes to be made active
+* @param	Value is number of lanes to be made active.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
  static inline void XCsi_SetActiveLaneCount(XCsi *InstancePtr, u32 Value)
 {
 	XCsi_SetBitField(InstancePtr->Config.BaseAddr, XCSI_PCR_OFFSET,
 	XCSI_PCR_ACTLANES_MASK, XCSI_PCR_ACTLANES_SHIFT, Value);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to get the number of long packets received.
@@ -528,60 +531,60 @@ static inline u32 XCsi_GetActiveLaneCount(XCsi *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	Number of Packets received
+* @return	Number of Packets received.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
  static inline u32 XCsi_GetCurrentPacketCount(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_CSR_OFFSET, XCSI_CSR_PKTCOUNT_MASK, XCSI_CSR_PKTCOUNT_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is used to check if the Short Packet FIFO is full or not
+* This function is used to check if the Short Packet FIFO is full or not.
 *
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
 * @return
-*		- 1 - If the Short Packet FIFO Full
-*		- 0 - If the Short Packet FIFO available
+*		- 1 - If the Short Packet FIFO Full.
+*		- 0 - If the Short Packet FIFO available.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
  static inline u32 XCsi_IsShortPacketFIFOFull(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_CSR_OFFSET, XCSI_CSR_SPFIFOFULL_MASK, XCSI_CSR_SPFIFOFULL_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is used to check if the Short Packet FIFO is not empty
+* This function is used to check if the Short Packet FIFO is not empty.
 *
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
 * @return
-*		- 1 - If the Short Packet FIFO is not Empty
-*		- 0 - If the Short Packet FIFO is Empty
+*		- 1 - If the Short Packet FIFO is not Empty.
+*		- 0 - If the Short Packet FIFO is Empty.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
  static inline u32 XCsi_IsShortPacketFIFONotEmpty(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_CSR_OFFSET, XCSI_CSR_SPFIFONE_MASK, XCSI_CSR_SPFIFONE_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to check if the Stream Line Buffer is
@@ -591,19 +594,19 @@ static inline u32 XCsi_GetActiveLaneCount(XCsi *InstancePtr)
 *		worked on.
 *
 * @return
-*		- 1 - If the Stream line buffer is full
-*		- 0 - If the Stream line buffer is not full
+*		- 1 - If the Stream line buffer is full.
+*		- 0 - If the Stream line buffer is not full.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
  static inline u32 XCsi_IsStreamLineBuffFull(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_CSR_OFFSET, XCSI_CSR_SLBF_MASK, XCSI_CSR_SLBF_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to check if a reset is completed or is in progress.
@@ -612,19 +615,19 @@ static inline u32 XCsi_GetActiveLaneCount(XCsi *InstancePtr)
 *		worked on.
 *
 * @return
-*		- 1 - If the Soft reset operation is in progress
-*		- 0 - If the Soft reset operation is completed
+*		- 1 - If the Soft reset operation is in progress.
+*		- 0 - If the Soft reset operation is completed.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline u32 XCsi_IsSoftResetInProgress(XCsi *InstancePtr)
 {
 	return XCsi_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI_CSR_OFFSET, XCSI_CSR_RIPCD_MASK, XCSI_CSR_RIPCD_SHIFT);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to enable the global interrupts. This is
@@ -633,18 +636,18 @@ static inline u32 XCsi_IsSoftResetInProgress(XCsi *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_SetGlobalInterrupt(XCsi *InstancePtr)
 {
 	XCsi_BitSet(InstancePtr->Config.BaseAddr, XCSI_GIER_OFFSET,
 			XCSI_GIER_GIE_MASK);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * This function is used to disable the global interrupts. This is
@@ -653,11 +656,11 @@ static inline void XCsi_SetGlobalInterrupt(XCsi *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	None
+* @return	None.
 *
-* @note		None
+* @note		None.
 *
-****************************************************************************/
+*****************************************************************************/
 static inline void XCsi_ResetGlobalInterrupt(XCsi *InstancePtr)
 {
 	XCsi_BitReset(InstancePtr->Config.BaseAddr,
@@ -668,37 +671,365 @@ static inline void XCsi_ResetGlobalInterrupt(XCsi *InstancePtr)
 
 /* Initialization function in xcsi_sinit.c */
 #ifndef SDT
+/**
+ * @brief Lookup the device configuration based on the unique device ID.
+ *
+ * This function returns a reference to an XCsi_Config structure based on
+ * the unique device ID. This function will return a NULL pointer if the
+ * device ID is not found.
+ *
+ * @param	DeviceId is the unique device ID of the device for the lookup
+ *		operation.
+ *
+ * @return	XCsi_Config reference if DeviceId is found, NULL otherwise.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 XCsi_Config *XCsi_LookupConfig(u32 DeviceId);
 #else
+/**
+ * @brief Lookup the device configuration based on the base address.
+ *
+ * This function returns a reference to an XCsi_Config structure based on
+ * the base address. This function will return a NULL pointer if the base
+ * address is not found.
+ *
+ * @param	BaseAddress is the base address of the device to lookup for.
+ *
+ * @return	XCsi_Config reference if BaseAddress is found, NULL otherwise.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /* Initialization and control functions in xcsi.c */
-u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *Config,
+/**
+ * @brief Initialize the CSI driver.
+ *
+ * This function initializes the CSI driver/device. This function must be
+ * called prior to using the driver. Initialization includes setting up the
+ * instance data and ensuring the hardware is in a quiescent state.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	CfgPtr is a reference to a structure containing information
+ *		about a specific XCsi instance.
+ * @param	EffectiveAddr is the base address of the device. If address
+ *		translation is being used, then this parameter must reflect the
+ *		virtual base address. Otherwise, the physical address should be
+ *		used.
+ *
+ * @return
+ *		- XST_SUCCESS if initialization was successful.
+ *		- XST_FAILURE if initialization failed.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *CfgPtr,
 			UINTPTR EffectiveAddr);
-u32 XCsi_Configure(XCsi *InstancePtr, u8 ResetStatus);
+
+/**
+ * @brief Configure the CSI controller.
+ *
+ * This function configures the CSI controller with the active lanes setting.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ *
+ * @return
+ *		- XST_SUCCESS if configuration was successful.
+ *		- XST_FAILURE if configuration failed.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u32 XCsi_Configure(XCsi *InstancePtr);
+
+/**
+ * @brief Activate or deactivate the CSI controller.
+ *
+ * This function activates or deactivates the CSI controller based on the
+ * Flag parameter.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Flag is the enable/disable flag. Set to 1 to enable, 0 to disable.
+ *
+ * @return
+ *		- XST_SUCCESS if operation was successful.
+ *		- XST_FAILURE if operation failed.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag);
+
+/**
+ * @brief Reset the CSI controller.
+ *
+ * This function resets the CSI controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ *
+ * @return
+ *		- XST_SUCCESS if reset was successful.
+ *		- XST_FAILURE if reset failed.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u32 XCsi_Reset(XCsi *InstancePtr);
+
+/**
+ * @brief Set the virtual channel selection.
+ *
+ * This function sets the virtual channel selection for filtering.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Value is the virtual channel selection value to be set.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_SetVCSelection(XCsi *InstancePtr, u16 Value);
+
+/**
+ * @brief Get the virtual channel selection.
+ *
+ * This function returns the current virtual channel selection.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ *
+ * @return	Virtual channel selection value.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u32 XCsi_GetVCSelection(XCsi *InstancePtr);
+
+/**
+ * @brief Get short packet information.
+ *
+ * This function retrieves the short packet information from the controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	ShortPacketStruct is a pointer to the structure where short packet
+ *		data will be stored.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_GetShortPacket(XCsi *InstancePtr, XCsi_SPktData *ShortPacketStruct);
+
+/**
+ * @brief Get clock lane information.
+ *
+ * This function retrieves the clock lane information from the controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	ClkLane is a pointer to the structure where clock lane info
+ *		will be stored.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_GetClkLaneInfo(XCsi *InstancePtr, XCsi_ClkLaneInfo *ClkLane);
+
+/**
+ * @brief Get data lane information.
+ *
+ * This function retrieves the data lane information for a specific lane.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Lane is the lane number (0 to 3) for which to get information.
+ * @param	DataLane is a pointer to the structure where data lane info
+ *		will be stored.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_GetDataLaneInfo(XCsi *InstancePtr, u8 Lane,
 				XCsi_DataLaneInfo *DataLane);
+
+/**
+ * @brief Get virtual channel information.
+ *
+ * This function retrieves the virtual channel information.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Vc is the virtual channel number for which to get information.
+ * @param	VCInfo is a pointer to the structure where virtual channel info
+ *		will be stored.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_GetVCInfo(XCsi *InstancePtr, u8 Vc, XCsi_VCInfo *VCInfo);
+
+/**
+ * @brief Check if active lane count is valid.
+ *
+ * This function validates if the specified active lane count is valid for
+ * the current configuration.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	ActiveLanesCount is the active lane count to be validated.
+ *
+ * @return
+ *		- 1 if the active lane count is valid.
+ *		- 0 if the active lane count is invalid.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u8 XCsi_IsActiveLaneCountValid(XCsi *InstancePtr, u8 ActiveLanesCount);
 
 /* Self test function in xcsi_selftest.c */
+/**
+ * @brief Run a self-test on the CSI controller.
+ *
+ * This function runs a self-test on the CSI controller/device. The self-test
+ * checks for proper functionality of the controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ *
+ * @return
+ *		- XST_SUCCESS if self-test was successful.
+ *		- XST_FAILURE if self-test failed.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u32 XCsi_SelfTest(XCsi *InstancePtr);
 
 /* Interrupt functions in xcsi_intr.c */
+/**
+ * @brief Interrupt handler for the CSI controller.
+ *
+ * This function is the interrupt handler for the CSI driver. It processes
+ * all pending interrupts and routes them to the appropriate callback handlers.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance (passed as void *).
+ *
+ * @return	None.
+ *
+ * @note		This function should be connected to the interrupt system.
+ *
+ ******************************************************************************/
 void XCsi_IntrHandler(void *InstancePtr);
+
+/**
+ * @brief Set callback function for interrupt handling.
+ *
+ * This function sets a callback function for a specific interrupt handler type.
+ * The registered callback function will be called when the corresponding
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	HandleType is the type of handler to register. It can be one of:
+ *		- XCSI_HANDLER_DPHY
+ *		- XCSI_HANDLER_PKTLVL
+ *		- XCSI_HANDLER_PROTLVL
+ *		- XCSI_HANDLER_SHORTPACKET
+ *		- XCSI_HANDLER_FRAMERECVD
+ *		- XCSI_HANDLER_VCXERR
+ *		- XCSI_HANDLER_OTHERERROR
+ * @param	Callbackfunc is the address of the callback function.
+ * @param	Callbackref is a user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return
+ *		- XST_SUCCESS if callback was successfully registered.
+ *		- XST_FAILURE if callback registration failed.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 int XCsi_SetCallBack(XCsi *InstancePtr, u32 HandleType,
 			void *Callbackfunc, void *Callbackref);
+
+/**
+ * @brief Get the current interrupt enable mask.
+ *
+ * This function returns the current interrupt enable mask.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ *
+ * @return	Current interrupt enable mask.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u32 XCsi_GetIntrEnable(XCsi *InstancePtr);
+
+/**
+ * @brief Enable specific interrupts.
+ *
+ * This function enables the specified interrupts in the CSI controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Mask is the bit-mask of the interrupts to be enabled.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_IntrEnable(XCsi *InstancePtr, u32 Mask);
+
+/**
+ * @brief Disable specific interrupts.
+ *
+ * This function disables the specified interrupts in the CSI controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Mask is the bit-mask of the interrupts to be disabled.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_IntrDisable(XCsi *InstancePtr, u32 Mask);
+
+/**
+ * @brief Get the interrupt status.
+ *
+ * This function returns the current interrupt status register value.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ *
+ * @return	Current interrupt status.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 u32 XCsi_GetIntrStatus(XCsi *InstancePtr);
+
+/**
+ * @brief Clear specific interrupts.
+ *
+ * This function clears the specified interrupts in the CSI controller.
+ *
+ * @param	InstancePtr is a pointer to the XCsi instance.
+ * @param	Mask is the bit-mask of the interrupts to be cleared.
+ *
+ * @return	None.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
 void XCsi_InterruptClear(XCsi *InstancePtr, u32 Mask);
 
 #ifdef __cplusplus
