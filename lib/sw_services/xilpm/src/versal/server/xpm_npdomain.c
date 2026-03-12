@@ -35,7 +35,6 @@
 #define XPM_NODEIDX_MEMIC_NSU_MAX1		XPM_NODEIDX_MEMIC_NSU_49   /**< NSU range #1: inclusive max (0x67) */
 #define XPM_NODEIDX_MEMIC_NSU_MIN2		XPM_NODEIDX_MEMIC_NSU_50   /**< NSU range #2: inclusive min (0x94) */
 #define XPM_NODEIDX_MEMIC_NSU_MAX2		XPM_NODEIDX_MEMIC_NSU_57   /**< NSU range #2: inclusive max (0x9B) */
-#define XPM_NODEIDX_MEMIC_NMU_MIN1		XPM_NODEIDX_MEMIC_NMU_0    /**< NMU range #1: inclusive min (0x00) */
 #define XPM_NODEIDX_MEMIC_NMU_MAX1		XPM_NODEIDX_MEMIC_NMU_53   /**< NMU range #1: inclusive max (0x35) */
 #define XPM_NODEIDX_MEMIC_NMU_MIN2		XPM_NODEIDX_MEMIC_NMU_54   /**< NMU range #2: inclusive min (0x68) */
 #define XPM_NODEIDX_MEMIC_NMU_MAX2		XPM_NODEIDX_MEMIC_NMU_97   /**< NMU range #2: inclusive max (0x93) */
@@ -1024,8 +1023,7 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 		 * NMU_0-53:  0x0 to 0x35
 		 * NMU_54-97: 0x68 to 0x93
 		 */
-		if (!(((Idx >= (u32)XPM_NODEIDX_MEMIC_NMU_MIN1) &&
-		       (Idx <= (u32)XPM_NODEIDX_MEMIC_NMU_MAX1)) ||
+		if (!((Idx <= (u32)XPM_NODEIDX_MEMIC_NMU_MAX1) ||
 		      ((Idx >= (u32)XPM_NODEIDX_MEMIC_NMU_MIN2) &&
 		       (Idx <= (u32)XPM_NODEIDX_MEMIC_NMU_MAX2)))) {
 			DbgErr = XPM_INT_ERR_INVALID_PARAM;
