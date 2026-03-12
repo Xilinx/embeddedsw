@@ -93,6 +93,7 @@
 * 2.4	abh  10/09/2025 Fixed MISRA-C violations
 *       gnr  02/06/2026 Fixed IPI access permissions order per XLoader_Cmds order
 *       gnr  02/09/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2ve_2vm
+*       gnr  03/12/2026 Fixed integer overflow in length check of XLoader_AddImageStorePdi() and XLoader_WriteImageStorePdi()
 * </pre>
 *
 ******************************************************************************/
@@ -692,7 +693,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 		XPlmi_Printf(DEBUG_DETAILED, "Image Store PdiId:0x%x exists... updating\n\r",PdiId);
 		FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
 		/* Check if free space to accommodate new PDI */
-		if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+		if (PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		} else {
@@ -708,7 +709,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 		}
 	} else {
 
-		if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+		if(PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		}
@@ -797,7 +798,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 		if (Index < PdiList->Count) {
 			XPlmi_Printf(DEBUG_DETAILED, "%s:PdiId:0x%x exists... updating\n\r", __func__,PdiId);
 			FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
-			if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+			if (PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			} else {
@@ -812,7 +813,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 				PdiList->Count--;
 			}
 		} else {
-			if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+			if(PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			}
