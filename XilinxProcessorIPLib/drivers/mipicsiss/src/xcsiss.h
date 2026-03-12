@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -181,23 +181,28 @@ extern "C" {
 typedef void (*XCsiSs_Callback)(void *CallbackRef, u32 Mask);
 
 /**
- * Sub-Core Configuration Table
+ * @brief Sub-Core Configuration Table
+ *
+ * This structure contains the configuration information for sub-cores
+ * present in the MIPI CSI Rx Subsystem.
  */
 typedef struct {
 	u32 IsPresent;	/**< Flag to indicate if sub-core is present in
 			  *  design */
 #ifndef SDT
 	u32 DeviceId;	/**< Device ID of the sub-core */
-	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
+	u32 AddrOffset;	/**< Sub-core offset from subsystem base address */
 #else
-	UINTPTR AddrOffset;
+	UINTPTR AddrOffset;	/**< Sub-core offset from subsystem base address */
 #endif
 } CsiRxSsSubCore;
 
 /**
- * MIPI CSI Rx Subsystem configuration structure.
- * Each subsystem device should have a configuration structure associated
- * that defines the MAX supported sub-cores within subsystem
+ * @brief MIPI CSI Rx Subsystem configuration structure
+ *
+ * This structure contains the configuration information for the MIPI CSI Rx
+ * Subsystem. Each subsystem device should have a configuration structure
+ * associated that defines the MAX supported sub-cores within subsystem.
  */
 typedef struct {
 #ifndef SDT
@@ -225,70 +230,336 @@ typedef struct {
 	u32 EnableCrc;		/**< CRC Calculation optimization enabled */
 	u32 EnableActiveLanes;	/**< Active Lanes programming optimization
 				  *  enabled */
-	u8 EnableCSIv20; /* csiv2.0 support*/
-	u8 EnableVCx;	/* vcx feature support*/
-	u8 DisableRst; /* reset disable flag */
+	u8 EnableCSIv20;	/**< CSI v2.0 support enabled */
+	u8 EnableVCx;		/**< VCx feature support enabled */
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
-	CsiRxSsSubCore MipiRxPhyInfo; /* MIPI RX PHY sub-core configuration */
+	CsiRxSsSubCore MipiRxPhyInfo;	/**< MIPI RX PHY sub-core configuration */
 #ifdef SDT
-	u16 IntrId;		/* Interrupt ID */
-	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt Parent */
 #endif
 } XCsiSs_Config;
 
 /**
- * The XCsiSs driver instance data. The user is required to allocate a variable
- * of this type for every XCsiSs device in the system. A pointer to a variable
- * of this type is then passed to the driver API functions.
+ * @brief The XCsiSs driver instance data
+ *
+ * The user is required to allocate a variable of this type for every XCsiSs
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XCsiSs_Config Config;	/**< Hardware configuration */
 	u32 IsReady;		/**< Device and the driver instance are
 				  *  initialized */
-	XCsi  *CsiPtr;		/**< handle to sub-core driver instance */
+	XCsi  *CsiPtr;		/**< Handle to CSI sub-core driver instance */
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	XMipi_Rx_Phy *MipiRxPhyPtr;		/**< handle to sub-core driver instance */
+	XMipi_Rx_Phy *MipiRxPhyPtr;	/**< Handle to MIPI RX PHY sub-core driver instance */
 #endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
+	XDphy *DphyPtr;		/**< Handle to DPHY sub-core driver instance */
 #endif
 	XCsi_ClkLaneInfo ClkInfo;	/**< Clock Lane information */
-	XCsi_DataLaneInfo DLInfo[XCSI_MAX_LANES];	/**< Data Lane
-							  *  information */
-	XCsi_SPktData SpktData;		/**< Short packet */
-	XCsi_VCInfo VCInfo[XCSI_MAX_VC];/**< Virtual Channel information */
+	XCsi_DataLaneInfo DLInfo[XCSI_MAX_LANES];	/**< Data Lane information array */
+	XCsi_SPktData SpktData;		/**< Short packet data */
+	XCsi_VCInfo VCInfo[XCSI_MAX_VC];	/**< Virtual Channel information array */
 } XCsiSs;
 
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsiss_sinit.c */
 #ifndef SDT
+/**
+ * @brief Lookup the device configuration based on the unique device ID
+ *
+ * This function returns a reference to an XCsiSs_Config structure based on
+ * the unique device ID. This function will return a NULL pointer if the
+ * device ID is not found.
+ *
+ * @param	DeviceId is the unique device ID of the device for the lookup
+ *		operation.
+ *
+ * @return	XCsiSs_Config reference if DeviceId is found, NULL otherwise.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId);
 #else
+/**
+ * @brief Lookup the device configuration based on the base address
+ *
+ * This function returns a reference to an XCsiSs_Config structure based on
+ * the base address. This function will return a NULL pointer if the base
+ * address is not found.
+ *
+ * @param	BaseAddress is the base address of the device to lookup for.
+ *
+ * @return	XCsiSs_Config reference if BaseAddress is found, NULL otherwise.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 XCsiSs_Config* XCsiSs_LookupConfig(UINTPTR BaseAddress);
+
+/**
+ * @brief Get the driver index based on the base address
+ *
+ * This function returns the driver index based on the base address.
+ *
+ * @param	BaseAddress is the base address of the device.
+ *
+ * @return	Driver index.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_GetDrvIndex(UINTPTR BaseAddress);
 #endif
 
 /* Initialization and control functions xcsiss.c */
+/**
+ * @brief Initialize the MIPI CSI Rx Subsystem driver
+ *
+ * This function initializes the MIPI CSI Rx Subsystem driver. This function
+ * must be called prior to using the driver. Initialization includes setting up
+ * the instance data and ensuring the hardware is in a quiescent state.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	CfgPtr is a reference to a structure containing information
+ *		about a specific XCsiSs instance.
+ * @param	EffectiveAddr is the base address of the device. If address
+ *		translation is being used, then this parameter must reflect the
+ *		virtual base address. Otherwise, the physical address should be
+ *		used.
+ *
+ * @return
+ *		- XST_SUCCESS if initialization was successful.
+ *		- XST_FAILURE if initialization failed.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr);
+
+/**
+ * @brief Configure the MIPI CSI Rx Subsystem
+ *
+ * This function configures the MIPI CSI Rx Subsystem with the specified
+ * active lanes and interrupt mask.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	ActiveLanes is the number of active lanes to be used.
+ * @param	IntrMask is the interrupt mask to enable specific interrupts.
+ *
+ * @return
+ *		- XST_SUCCESS if configuration was successful.
+ *		- XST_FAILURE if configuration failed.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask);
+
+/**
+ * @brief Activate or deactivate the MIPI CSI Rx Subsystem
+ *
+ * This function activates or deactivates the MIPI CSI Rx Subsystem based on
+ * the Flag parameter.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	Flag is the enable/disable flag. TRUE to enable, FALSE to disable.
+ *
+ * @return
+ *		- XST_SUCCESS if operation was successful.
+ *		- XST_FAILURE if operation failed.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag);
+
+/**
+ * @brief Reset the MIPI CSI Rx Subsystem
+ *
+ * This function resets the MIPI CSI Rx Subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return
+ *		- XST_SUCCESS if reset was successful.
+ *		- XST_FAILURE if reset failed.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_Reset(XCsiSs *InstancePtr);
+
+/**
+ * @brief Report the core information
+ *
+ * This function reports the core information of the MIPI CSI Rx Subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr);
+
+/**
+ * @brief Get lane information
+ *
+ * This function retrieves the lane information from the MIPI CSI Rx Subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XCsiSs_GetLaneInfo(XCsiSs *InstancePtr);
+
+/**
+ * @brief Get short packet information
+ *
+ * This function retrieves the short packet information from the MIPI CSI Rx
+ * Subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XCsiSs_GetShortPacket(XCsiSs *InstancePtr);
+
+/**
+ * @brief Get virtual channel information
+ *
+ * This function retrieves the virtual channel information from the MIPI CSI Rx
+ * Subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XCsiSs_GetVCInfo(XCsiSs *InstancePtr);
+
+/**
+ * @brief Get the virtual channel selection
+ *
+ * This function returns the current virtual channel selection.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return	Virtual channel selection value.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_GetVCSelection(XCsiSs *InstancePtr);
+
+/**
+ * @brief Set the virtual channel selection
+ *
+ * This function sets the virtual channel selection.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	Value is the virtual channel selection value to be set.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XCsiSs_SetVCSelection(XCsiSs *InstancePtr, u16 Value);
 
 /* Self test function in xcsiss_selftest.c */
+/**
+ * @brief Run a self-test on the MIPI CSI Rx Subsystem
+ *
+ * This function runs a self-test on the MIPI CSI Rx Subsystem driver/device.
+ * The self-test checks for proper functionality of the subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ *
+ * @return
+ *		- XST_SUCCESS if self-test was successful.
+ *		- XST_FAILURE if self-test failed.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_SelfTest(XCsiSs *InstancePtr);
 
 /* Interrupt functions in xcsiss_intr.c */
+/**
+ * @brief Interrupt handler for the MIPI CSI Rx Subsystem
+ *
+ * This function is the interrupt handler for the MIPI CSI Rx Subsystem driver.
+ * It processes all pending interrupts and routes them to the appropriate
+ * callback handlers.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance (passed as void *).
+ *
+ * @return	None.
+ *
+ * @note	This function should be connected to the interrupt system.
+ *
+ ******************************************************************************/
 void XCsiSs_IntrHandler(void *InstancePtr);
+
+/**
+ * @brief Disable interrupts in the MIPI CSI Rx Subsystem
+ *
+ * This function disables the specified interrupts in the MIPI CSI Rx Subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	IntrMask is the bit-mask of the interrupts to be disabled.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 void XCsiSs_IntrDisable(XCsiSs *InstancePtr, u32 IntrMask);
+
+/**
+ * @brief Set callback function for interrupt handling
+ *
+ * This function sets a callback function for a specific interrupt handler type.
+ * The registered callback function will be called when the corresponding
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	HandlerType is the type of handler to register. It can be one of:
+ *		- XCSISS_HANDLER_DPHY
+ *		- XCSISS_HANDLER_PKTLVL
+ *		- XCSISS_HANDLER_PROTLVL
+ *		- XCSISS_HANDLER_SHORTPACKET
+ *		- XCSISS_HANDLER_FRAMERECVD
+ *		- XCSISS_HANDLER_OTHERERROR
+ *		- XCSISS_HANDLER_VCX
+ * @param	CallbackFunc is the address of the callback function.
+ * @param	CallbackRef is a user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return
+ *		- XST_SUCCESS if callback was successfully registered.
+ *		- XST_FAILURE if callback registration failed.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 u32 XCsiSs_SetCallBack(XCsiSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 
