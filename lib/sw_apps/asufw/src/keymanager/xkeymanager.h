@@ -46,8 +46,6 @@ extern "C" {
 #define XKEYMANAGER_MINOR_VERSION	(0U) /**< Minor version of the key manager */
 #define XKEYMANAGER_IDENTIFICATION_STRING	(0x4C564B58U) /**< Key manager identification string */
 
-#define XKEYMANAGER_MAX_VAULTS		(8U) /**< Maximum number of key vaults supported */
-
 #define XKEYMANAGER_AES_ENC_USE_CASE		(0U)	/**< Data encryption key use case */
 #define XKEYMANAGER_AES_DEC_USE_CASE		(1U)	/**< Data decryption key use case */
 #define XKEYMANAGER_AES_KEY_WRAP_USE_CASE	(2U)	/**< Data key wrap use case */
@@ -64,6 +62,8 @@ extern "C" {
 
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
+
+#define XKEYMANAGER_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
 
 /************************************** Type Definitions *****************************************/
 
@@ -89,54 +89,55 @@ typedef struct {
 	u8 RevokeId;	/**< Revocation identifier. */
 	u8 Reserved1;	/**< Reserved byte. */
 	u16 Reserved2;	/**< Reserved halfword. */
+} XKeyManager_VaultMainHeader;
+
+/** This structure contains key vault header related information. */
+typedef struct {
+	u32 KeyVaultId;	/**< Vault ID. */
+	u16 AccessRights;	/**< Access permissions for the vault. */
+	u8 Restrictions;	/**< Key vault restrictions. */
+	u8 Reserved;	/**< Reserved byte. */
+	u32 VaultSize;	/**< Vault size in bytes. */
 } XKeyManager_VaultHeader;
 
 /** This structure contains sub-vault header related information. */
 typedef struct {
 	u16 Capacity;	/**< Entries the sub-vault can hold. */
 	u16 ActiveKeys;	/**< Number of active keys. */
-	u16 Deactivatedkeys;	/**< Number of deactivated keys. */
+	u16 DeactivatedKeys;	/**< Number of deactivated keys. */
 	u16 Reserved;	/**< Reserved field. */
 	u32 Offset;	/**< Offset to sub-vault in a key vault. */
 } XKeyManager_SubVaultHeader;
 
 /** This structure contains key metadata related information. */
 typedef struct {
-	u8 KeyType; /**< Type of key stored. */
 	u8 VaultId;	/**< Identifier of the vault. */
+	u8 KeyType;	/**< Type of key stored. */
 	u16 KeyId;	/**< Key identifier within sub-vault. */
-	u32 EpochTime;	/**< Time stamp expiry for the key. */
-	u32 UsageCount;	/**< Number of times the key can be used. */
-	u8 AccessRights;	/**< Access permissions for the key. */
-	u8 KeyMode;	/**< Mode of the key stored. */
-	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
-	u8 KeyAttributes;	/**< Additional attribute for the key. */
-	u16 Length;	/**< Key length. */
-	u16 Reserved1;	/**< Reserved half-word. */
-	u32 Reserved2;	/**< Reserved word. */
-} XKeyManager_KeyMetadata;
+	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
+} XKeyManager_KeyIdentifier;
 
 /** This structure contains AES key object information. */
 typedef struct {
-	XKeyManager_KeyMetadata Metadata;	/**< Key metadata. */
+	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
 	u8 Content[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];	/**< Key data. */
 } XKeyManager_AesKeyObject;
 
 /** This structure contains IV object information. */
 typedef struct {
-	XKeyManager_KeyMetadata Metadata;	/**< IV metadata. */
+	XKeyManager_KeyIdentifier Metadata;	/**< IV metadata. */
 	u8 Content[XASU_AES_IV_SIZE_128BIT_IN_BYTES];	/**< IV data. */
 } XKeyManager_IvObject;
 
 /** This structure contains RSA private key object information. */
 typedef struct {
-	XKeyManager_KeyMetadata Metadata;	/**< Key metadata. */
+	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
 	XAsu_RsaKeyPairObject RsaPvtKeyPair;	/**< RSA private key pair structure. */
 } XKeyManager_RsaPvtKeyObject;
 
 /** This structure contains RSA public key object information. */
 typedef struct {
-	XKeyManager_KeyMetadata Metadata;	/**< Key metadata. */
+	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
 	u8 Modulus[XRSA_4096_KEY_SIZE];	/**< Modulus buffer. */
 	u32 PubExp;			/**< Public exponent value. */
 } XKeyManager_RsaPubKeyObject;
@@ -157,23 +158,24 @@ typedef struct {
 
 /** This structure contains each vault info and complete vault size related information. */
 typedef struct {
-	XKeyManager_VaultInfo VaultInfo[XKEYMANAGER_MAX_VAULTS];	/**< Array of vault
+	XKeyManager_VaultInfo VaultInfo[XASU_KM_MAX_VAULTS];	/**< Array of vault
 								information for all subsystems. */
 	u32 RemainingVaultSize;	/**< Remaining vault space available. */
 	u32 TotalVaultSize;	/**< Total vault space allocated. */
+	u16 Reserved;	/**< Reserved field for alignment. */
 } XKeyManager_VaultRegistry;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
 s32 XKeyManager_CfgInitialize(void);
-s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId);
-s32 XKeyManager_DeleteKeyVault(u32 SubsystemId);
+s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId,
+						u32 IpiMask, u32 *VaultIdPtr);
+s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId);
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
 			XKeyManager_SubVaultType KeyType);
 u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase);
-s32 XKeyManager_GetVaultId(u32 SubSystemId, u8 *VaultIdPtr);
 s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject, u32 SubSystemId,
 			u8 KeyUsecase);
 s32 XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,

@@ -54,21 +54,31 @@ extern "C" {
 
 #define XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE	(0xFFFFFFFFU) /**< Marker for keys that
 									never expire */
+
+#define XASU_KM_MAX_VAULTS			(64U) /**< Maximum number of key vaults supported */
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This structure contains info for meta data of key. */
 typedef struct {
-	u8 AccessRights; /**< Access permissions for the key. */
-	u8 KeyUseCase; /**< Usage scenario associated with the key. */
-	u16 Length; /**< Key length in bytes. */
-	u32 EpochTime; /**< Time stamp expiry for the key. */
-	u32 UsageCount; /**< Number of times the key can be used. */
+	u16 Length;	/**< Key length. */
+	u8 KeyAttributes;	/**< Additional attribute for the key. */
+	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
+	u32 EpochTime;	/**< Time stamp expiry for the key. */
+	u32 UsageCount;	/**< Number of times the key can be used. */
+	u32 Reserved;	/**< Reserved field. */
+} XAsu_KeyManagerKeyMetadata;
+
+/** This structure contains info for key manager parameters. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
 	u64 KeyObjectAddr; /**< Address of the key buffer. */
 	u64 KeyIdAddr; /**< Address where generated key ID is stored. */
+	u32 VaultId; /**< Vault ID for key storage. */
 } XAsu_KeyManagerParams;
 
 /** This structure contains info for different sub vault capacities. */
 typedef struct {
+	u64 VaultIdAddr; /**< Address where generated vault ID is stored. */
 	u16 AESKeyVaultCapacity; /**< Count for the AES key vault. */
 	u16 IVVaultCapacity; /**< Count for the IV vault. */
 	u16 RSAPvtKeyVaultCapacity; /**< Count for RSA private keys. */
@@ -78,7 +88,10 @@ typedef struct {
 	u16 KDFKeyVaultCapacity; /**< Count for KDF material. */
 	u16 LMSKeyVaultCapacity; /**< Count for LMS keys. */
 	u16 X509KeyVaultCapacity; /**< Count for X.509 certificates. */
-	u16 Reserved; /**< Reserved for alignment */
+	u16 AccessRights; /**< Access permissions for the key vault. */
+	u8 Restrictions;	/**< Key vault restrictions. */
+	u8 Reserved1; /**< Reserved byte. */
+	u16 Reserved2; /**< Reserved halfword. */
 } XAsu_KeyManagerSubVaultParams;
 
 typedef struct {

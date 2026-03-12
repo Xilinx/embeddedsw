@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -99,6 +99,9 @@ extern "C" {
 #define XASU_RTCA_EXEC_STATUS_ADDR		(XASU_RTCA_BASEADDR + 0x174U)
 						/**< Base address of execution status of
 							size 1 byte */
+
+#define XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR	(XASU_RTCA_BASEADDR + 0x178U)
+						/**< Base address of maximum size of key vault */
 
 #define XASU_RTCA_KAT_EXEC_STATUS_VALUE		(0x01U)
 						/**< KAT status execution complete value */

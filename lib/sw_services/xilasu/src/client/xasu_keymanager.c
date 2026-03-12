@@ -77,22 +77,26 @@ s32 XAsu_KmCreateKeyVault(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Validate at least one sub-vault has non-zero capacity. */
-	if ((KmVaultParamPtr->AESKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->IVVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->RSAPvtKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->RSAPubKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->ECCPvtKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->ECCPubKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->KDFKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->LMSKeyVaultCapacity == 0U) &&
-	    (KmVaultParamPtr->X509KeyVaultCapacity == 0U)) {
+	if (KmVaultParamPtr->VaultIdAddr == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateVaultCreateParams(KmVaultParamPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((KmVaultParamPtr->AccessRights == 0U) ||
+		(!XASU_IS_REDUNDANT_BYTE_VALID(KmVaultParamPtr->AccessRights))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
 	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, (u8 *)(UINTPTR)KmVaultParamPtr->VaultIdAddr,
+						XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -247,6 +251,7 @@ END:
  *
  * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
  * 				client input parameters.
+ * @param	VaultId		ID of the vault to be deleted.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -254,7 +259,7 @@ END:
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr)
+s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr, u32 VaultId)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -263,6 +268,11 @@ s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr)
 	/** Validations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((VaultId == 0U) || (VaultId >= XASU_KM_MAX_VAULTS)) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
@@ -275,11 +285,11 @@ s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr)
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KM_DELETE_KEYVAULT_CMD_ID, UniqueId,
-				XASU_MODULE_KEYMANAGER_ID, XASU_CMD_LEN_ZERO,
+				XASU_MODULE_KEYMANAGER_ID, (sizeof(VaultId) / XASU_WORD_LEN_IN_BYTES),
 				ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, &VaultId, sizeof(VaultId), Header);
 
 END:
 	return Status;

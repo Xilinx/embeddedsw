@@ -41,9 +41,17 @@ extern "C" {
 #define XASU_KM_IV_KEYTYPE      (1U)    /**< Key type identifier for IV */
 #define XASU_KM_RSA_KEYTYPE     (2U)    /**< Key type identifier for RSA key */
 
+#define XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK	(0xFFU) /**< Mask to extract lower byte of AccessRights */
+#define XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT	(8U) /**< Shift to extract upper byte of AccessRights */
+
+#define XASU_KEYMANAGER_NON_EXPORTABLE_VAULT		(0U) /**< Non-exportable vault value */
+#define XASU_KEYMANAGER_EXPORTABLE_VAULT		(3U) /**< Exportable vault value */
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASU_IS_REDUNDANT_BYTE_VALID(Val)  (((Val) & XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK) == \
+						((Val) >> XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT))
+				/**< Check if lower byte and upper byte of AccessRights are same */
 
 /************************************ Variable Definitions ***************************************/
 
@@ -51,6 +59,7 @@ extern "C" {
 s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr);
 s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8 KeyType);
 s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId);
+s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *ParamsPtr);
 
 #ifdef __cplusplus
 }

@@ -28,6 +28,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_keymanagerhandler.h"
 #include "xasu_keymanagerinfo.h"
+#include "xasu_keymanager_common.h"
 #include "xkeymanager.h"
 #include "xasufw_modules.h"
 #include "xasufw_resourcemanager.h"
@@ -39,6 +40,9 @@
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
 
+#define XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY	(2U) /**< RSA key capacity for ASU subsystem */
+
+#define XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY	(1U) /**< AES key capacity for ASU subsystem */
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -50,6 +54,7 @@ static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XKeyManager_CreateAsuKeyVault(void);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KeyManagerModule; /**< ASUFW KeyManager Module ID and commands array */
@@ -122,6 +127,15 @@ s32 XAsufw_KeyManagerInit(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_KeyManagerModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_MODULE_REGISTRATION_FAILED);
+		goto END;
+	}
+
+	/** Create and initialize ASU subsystem vault only if key vault DDR space is configured. */
+	if (XAsufw_ReadReg(XASU_RTCA_KEYVAULT_SIZE_ADDR) != 0U) {
+		Status = XKeyManager_CreateAsuKeyVault();
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED);
+		}
 	}
 
 END:
@@ -176,7 +190,7 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_SUCCESS, if vault creation operation is successful.
  * 	- XASUFW_KEYMANAGER_VAULT_GEN_ERROR, if generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
@@ -185,11 +199,15 @@ static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyManagerSubVaultParams *Cmd = (const XAsu_KeyManagerSubVaultParams *)ReqBuf->Arg;
+	u32 *OutIdAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerSubVaultParams);
+
+	OutIdAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
@@ -199,7 +217,7 @@ static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Create a key vault for the requesting subsystem. */
-	Status = XKeyManager_CreateKeyVault(Cmd, SubsystemId);
+	Status = XKeyManager_CreateKeyVault(Cmd, SubsystemId, IpiMask, OutIdAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_VAULT_GEN_ERROR);
 	}
@@ -221,8 +239,8 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_KEYMANAGER_VAULT_GEN_ERROR, if generation operation fails.
+ * 	- XASUFW_SUCCESS, if vault deletion operation is successful.
+ * 	- XASUFW_KEYMANAGER_VAULT_DELETE_ERROR, if deletion operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
@@ -231,8 +249,10 @@ static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 VaultId = *((u32 *)ReqBuf->Arg);
 
-	(void)ReqBuf;
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, VaultId);
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
@@ -242,7 +262,7 @@ static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Delete the key vault owned by the requesting subsystem. */
-	Status = XKeyManager_DeleteKeyVault(SubsystemId);
+	Status = XKeyManager_DeleteKeyVault(SubsystemId, VaultId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_VAULT_DELETE_ERROR);
 	}
@@ -264,7 +284,7 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if public encryption operation is successful.
+ * 	- XASUFW_SUCCESS, if key/IV generation is successful.
  * 	- XASUFW_KEYMANAGER_KEY_GEN_ERROR, if AES key generation operation fails.
  * 	- XASUFW_KEYMANAGER_IV_GEN_ERROR, if AES IV generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
@@ -331,6 +351,9 @@ static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 KeyId = *(const u32 *)ReqBuf->Arg;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, KeyId);
 
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
@@ -401,6 +424,33 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Create a key vault for the ASU subsystem with predefined capacities.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if key vault is created successfully.
+ * 	- XASUFW_FAILURE, if key vault creation fails.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_CreateAsuKeyVault(void)
+{
+	s32 Status = XASUFW_FAILURE;
+	XAsu_KeyManagerSubVaultParams SubVaultParams = {0};
+	u32 VaultId = 0U;
+
+	SubVaultParams.RSAPubKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY;
+	SubVaultParams.RSAPvtKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY;
+	SubVaultParams.AESKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY;
+	SubVaultParams.AccessRights = 0U;
+	SubVaultParams.Restrictions = XASU_KEYMANAGER_NON_EXPORTABLE_VAULT;
+
+	Status = XKeyManager_CreateKeyVault(&SubVaultParams, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+						0U, &VaultId);
 
 	return Status;
 }

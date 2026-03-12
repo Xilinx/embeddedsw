@@ -252,7 +252,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				goto END;
 			}
 			LocalIvAddr = (u64)(UINTPTR)KeyVaultIvObjectPtr->Content;
-			LocalIvLen = KeyVaultIvObjectPtr->Metadata.Length;
+			LocalIvLen = KeyVaultIvObjectPtr->Metadata.KeyMetadata.Length;
 		}
 	}
 

@@ -70,8 +70,12 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 	}
 
 	/** Validate key metadata. */
-	if ((KmParamsPtr->KeyObjectAddr == 0U) && ((KmParamsPtr->KeyUseCase == 0U) ||
-		(KmParamsPtr->UsageCount == 0U) || (KmParamsPtr->AccessRights == 0U))) {
+	if ((KmParamsPtr->KeyObjectAddr == 0U) && ((KmParamsPtr->KeyMetadata.KeyUseCase == 0U) ||
+		(KmParamsPtr->KeyMetadata.UsageCount == 0U))) {
+		goto END;
+	}
+
+	if ((KmParamsPtr->VaultId == 0U) || (KmParamsPtr->VaultId >= XASU_KM_MAX_VAULTS)) {
 		goto END;
 	}
 
@@ -100,25 +104,25 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 
 	/** Validate key length is either 128-bit or 256-bit for AES. */
 	if (KeyType == XASU_KM_AES_KEYTYPE) {
-		if ((KmSubVaultParamPtr->Length != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
-		   (KmSubVaultParamPtr->Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
+		if ((KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
+		   (KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
 			goto END;
 		}
 	}
 
 	/** Validate IV length is non-zero and does not exceed maximum size. */
 	if (KeyType == XASU_KM_IV_KEYTYPE) {
-		if ((KmSubVaultParamPtr->Length == 0U) ||
-		    (KmSubVaultParamPtr->Length > XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
+		if ((KmSubVaultParamPtr->KeyMetadata.Length == 0U) ||
+		    (KmSubVaultParamPtr->KeyMetadata.Length > XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
 			goto END;
 		}
 	}
 
 	/** Validate key length is either 2048-bit or 3072-bit or 4096-bit for RSA. */
 	if (KeyType == XASU_KM_RSA_KEYTYPE) {
-		if ((KmSubVaultParamPtr->Length != XRSA_2048_KEY_SIZE) &&
-		   (KmSubVaultParamPtr->Length != XRSA_3072_KEY_SIZE) &&
-		   (KmSubVaultParamPtr->Length != XRSA_4096_KEY_SIZE)) {
+		if ((KmSubVaultParamPtr->KeyMetadata.Length != XRSA_2048_KEY_SIZE) &&
+		   (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_3072_KEY_SIZE) &&
+		   (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_4096_KEY_SIZE)) {
 			goto END;
 		}
 	}
@@ -152,6 +156,49 @@ s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId)
 
 	Status = XST_SUCCESS;
 
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates input parameters for key vault creation.
+ *
+ * @param	ParamsPtr	Pointer to XAsu_KeyManagerSubVaultParams structure that holds the
+ * 				input parameters for Key manager.
+ *
+ * @return
+ * 	- XST_SUCCESS, if input validation is successful.
+ * 	- XST_FAILURE, if input validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *ParamsPtr)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (ParamsPtr == NULL) {
+		goto END;
+	}
+
+	/** Validate at least one sub-vault has non-zero capacity. */
+	if ((ParamsPtr->AESKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->IVVaultCapacity == 0U) &&
+	    (ParamsPtr->RSAPvtKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->RSAPubKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->ECCPvtKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->ECCPubKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->KDFKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->LMSKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->X509KeyVaultCapacity == 0U)) {
+		goto END;
+	}
+
+	if ((ParamsPtr->Restrictions != XASU_KEYMANAGER_NON_EXPORTABLE_VAULT) &&
+		(ParamsPtr->Restrictions != XASU_KEYMANAGER_EXPORTABLE_VAULT)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }

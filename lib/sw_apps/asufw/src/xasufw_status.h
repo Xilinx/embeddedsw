@@ -620,7 +620,7 @@ enum {
 	XASUFW_KEYMANAGER_MAX_CAPACITY_REACHED, /**< 0x1AFU - Error when key vault maximum capacity is reached. */
 	XASUFW_RAND_GEN_ERROR, /**< 0x1B0U - Error when random number generation fails. */
 	XASUFW_KEYMANAGER_UPDATE_INFO_FAIL, /**< 0x1B1U - Error when key vault information update fails. */
-	XASUFW_KEYMANAGER_NEW_VAULT_NOT_ALLOWED, /**< 0x1B2U - Error when same subsystem creates another vault. */
+	XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS, /**< 0x1B2U - Error when vault access is invalid for the operation. */
 	XASUFW_KEYMANAGER_VAULT_NOT_FOUND, /**< 0x1B3U - Error when specified vault for a subsystem is not found. */
 	XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, /**< 0x1B4U - Error when key vault DDR address is invalid. */
 	XASUFW_KEYMANAGER_NO_SPACE, /**< 0x1B5U - Error when there is no space left to create key vault. */
@@ -709,6 +709,7 @@ enum {
 	XASUFW_X509_CREATE_BOOLEAN_FAIL, /**< 0x1FDU - Error when creating ASN.1 boolean
 						field fails*/
 	XASUFW_ASU_KAT_FAILED_SECURE_LOCKDOWN, /**< 0x1FEU - ASU secure lockdown triggered due to KAT failure */
+	XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED, /**< 0x1FFU - Error when ASU vault creation fails. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
