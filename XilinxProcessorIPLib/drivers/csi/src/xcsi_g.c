@@ -1,6 +1,6 @@
 /*******************************************************************
 * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 #ifndef SDT
@@ -37,7 +37,7 @@ XCsi_Config XCsi_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 		0x0, /* xlnx,csi-offload-non-image */
 		0x1, /* xlnx,csi-en-vc-support */
 		0x0, /* xlnx,csi-fixed-vc */
-		0x0 /* xlnx,csi-optt3-fixed-lanes */
+		0x0 /* xlnx,csi-opt3-fixedlanes */
 	},
 	 {
 		 NULL

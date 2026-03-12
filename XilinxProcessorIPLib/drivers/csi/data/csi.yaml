@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -25,7 +25,7 @@ properties:
     description: CSI controller enable virtual channel support.
   xlnx,csi-fixed-vc:
     description: Flag for CSI fixed virtual channel.
-  xlnx,csi-opt3-fixed-lanes:
+  xlnx,csi-opt3-fixedlanes:
     description: Flag for CSI OPT3 fixed lanes.
 
 required:
@@ -35,7 +35,7 @@ required:
   - xlnx,csi-offload-non-image
   - xlnx,csi-en-vc-support
   - xlnx,csi-fixed-vc
-  - xlnx,csi-optt3-fixed-lanes
+  - xlnx,csi-opt3-fixedlanes
 
 config:
   - XCsi_Config
