@@ -17,8 +17,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
-* 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
+* 2.4   sk  01/18/26 Added macros for LPD Domain Init Status
 *       tvp 03/06/26 Add macro for SSS config mask for SHA2 source
+*       sd  03/13/26 Added macros for hardware interrupt registers
 * </pre>
 *
 * @note
@@ -303,6 +304,8 @@ extern "C" {
 #define XPLMI_REG_OFFSET_BYTE_4					(4U)  /**< Register Offset by 4 bytes */
 
 #define XPLMI_LPD_DOMAIN_INIT_MASK	(0x2U) /**< LPD Domain Init Status Mask */
+#define XPLMI_HW_INT_GIC_IRQ	(0U) /**< GIC hardware interrupt */
+#define XPLMI_HW_SW_INTR_SHIFT	(0x8U) /**< Shift hardware / software interrupt */
 
 /************************************** Type Definitions ******************************************/
 /* Minor Error Codes */
@@ -1004,7 +1007,7 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask);
 u8 XPlmi_IsPlmUpdateDone(void);
 u8 XPlmi_IsPlmUpdateDoneTmp(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
-void XPlmi_SaveLpdEAMInfo(void);
+
 /************************************ Variable Definitions ****************************************/
 
 #ifdef __cplusplus

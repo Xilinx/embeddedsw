@@ -18,7 +18,8 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 * 2.4   obs 01/19/26 Fixed GCC warnings
-*       sk  01/23/2026 Added define for Domain Init Status Register
+*       sk  01/23/26 Added define for Domain Init Status Register
+*       sd  03/13/26 Added macros for hardware interrupt registers
 * </pre>
 *
 
@@ -403,6 +404,12 @@ extern "C" {
 #define PMC_GLOBAL_TAMPER_TRIG				(PMC_GLOBAL_BASEADDR + 0X00000570U)
 #define PMC_GLOBAL_TAMPER_TRIG_VAL			(1U)
 
+#define PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011520U)
+#define PMC_GLOBAL_PPU1_PL_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011524U)
+#define PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK	(0x00000001U)
+#define PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK	(0x00000002U)
+#define PMC_GLOBAL_PPU1_HW_INT_MB_INSTR_MASK	(0x00000004U)
+#define PMC_GLOBAL_PPU1_PL_INT_GPI_MASK		(0x00000001U)
 /*
  * Register: NPI_NIR
  */
@@ -1254,14 +1261,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * PMC IOmodule interrupts
  */
-#define XPLMI_IOMODULE_PMC_GIC_IRQ			(16U)
-#define XPLMI_IOMODULE_PPU1_MB_RAM			(17U)
+#define XPLMI_IOMODULE_PPU1_HW_INT			(16U)
 #define XPLMI_IOMODULE_ERR_IRQ				(18U)
 #define XPLMI_IOMODULE_CFRAME_SEU			(20U)
-#define XPLMI_IOMODULE_PMC_GPI				(22U)
-#define XPLMI_IOMODULE_SSIT_ERR2			(24U)
-#define XPLMI_IOMODULE_SSIT_ERR1			(25U)
-#define XPLMI_IOMODULE_SSIT_ERR0			(26U)
 
 #define PMC_PMC_MB_IO_IRQ_ACK				(0xF030003CU)
 #define PMC_PMC_MB_IO_IRQ_ISR				(0xF0300030U)
@@ -1286,6 +1288,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_XRAM_BASE_ADDR				(0xFE800000U)
 #define XPLMI_XRAM_HIGH_ADDR				(0xFEBFFFFFU)
 #define XPLMI_TOTAL_CHUNK_SIZE				(0x10400U)
+
+#define PMC_GLOBAL_PPU1_HW_INT_ADDR		(PMC_GLOBAL_BASEADDR + 0x00011500U)
+#define PMC_GLOBAL_PPU1_HW_INT_MASK_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011510U)
+#define PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011520U)
+#define PMC_GLOBAL_PPU1_HW_INT_DISABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011530U)
 
 #ifdef SDT
 #define XCFRAME_DEVICE					(XPAR_XCFRAME_0_BASEADDR)

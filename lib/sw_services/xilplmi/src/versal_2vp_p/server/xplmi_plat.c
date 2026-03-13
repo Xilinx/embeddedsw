@@ -19,6 +19,7 @@
 * 2.3    sd  10/13/25 Initial release
 *        sd  03/03/26 Replaced XPlmi_GetRawVoltage inline function with macro
 * 2.4    tvp 03/06/26 Add SSS config masks for SHA2 engine
+* 2.5    sd  03/13/26 Added changes to enable hardware interrupts
 *
 * </pre>
 *
@@ -94,12 +95,13 @@
 
 /************************************ Function Prototypes *****************************************/
 static int XPlmi_UpdateResetReason(void);
+static void XPlmi_HwIntrHandler(void *CallbackRef);
 static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
 
 /************************************ Variable Definitions ****************************************/
 /* Structure for Top level interrupt table */
 static XInterruptHandler g_TopLevelInterruptTable[] = {
-	XPlmi_GicIntrHandler,
+	XPlmi_HwIntrHandler,
 	XPlmi_IntrHandler,
 	XPlmi_ErrIntrHandler,
 };
@@ -483,7 +485,8 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 #endif /* XPLMI_IPI_DEVICE_ID */
 	{
 		/* Add task to the task queue */
-		XPlmi_GicIntrAddTask(PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ);
+		XPlmi_GicIntrAddTask(PlmIntrId | XPLMI_IOMODULE_PPU1_HW_INT |
+			(XPLMI_HW_INT_GIC_IRQ << XPLMI_HW_SW_INTR_SHIFT));
 	}
 }
 
@@ -507,6 +510,40 @@ int XPlmi_RegisterNEnableIpi(void)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function provides handler for HW interrupts
+ *
+ * @param	CallbackRef is presently the interrupt number that is received
+ *
+ *****************************************************************************/
+static void XPlmi_HwIntrHandler(void *CallbackRef)
+{
+	u32 HwIntStatus;
+	u32 HwIntMask;
+
+	HwIntStatus = XPlmi_In32(PMC_GLOBAL_PPU1_HW_INT_ADDR);
+	HwIntMask = XPlmi_In32(PMC_GLOBAL_PPU1_HW_INT_MASK_ADDR);
+
+	if ((HwIntStatus & PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK) ==
+			PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK) {
+		if ((HwIntMask & PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK) == 0U) {
+			XPlmi_GicIntrHandler(CallbackRef);
+			XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ADDR,
+				PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK);
+			HwIntStatus &= ~PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK;
+		}
+	}
+	/* Call XPlmiIntrHandler if any other interrupt is set */
+	if ((HwIntStatus & (~PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK)) != 0U){
+		if ((HwIntMask & (~PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK)) == 0U){
+			XPlmi_IntrHandler(CallbackRef);
+			XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ADDR,
+				HwIntStatus & (~HwIntMask));
+		}
+	}
+}
+
 /**************************************************************************************************/
 /**
  * @brief	This function registers and enables IPI interrupt.
@@ -514,11 +551,17 @@ int XPlmi_RegisterNEnableIpi(void)
  **************************************************************************************************/
 void XPlmi_EnableIomoduleIntr(void)
 {
-	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_GIC_IRQ);
-	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PPU1_MB_RAM);
+	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PPU1_HW_INT);
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
-	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_GPI);
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_PIT3_IRQ);
+	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
+			PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK);
+	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
+			PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK);
+	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
+			PMC_GLOBAL_PPU1_HW_INT_MB_INSTR_MASK);
+	XPlmi_Out32(PMC_GLOBAL_PPU1_PL_INT_ENABLE_ADDR,
+			PMC_GLOBAL_PPU1_PL_INT_GPI_MASK);
 }
 
 /**************************************************************************************************/
@@ -669,9 +712,11 @@ u32 XPlmi_GetGicIntrId(u32 GicPVal, u32 GicPxVal)
 {
 	u32 IntrId;
 
-	IntrId = (GicPVal << XPLMI_GICP_INDEX_SHIFT) | (GicPxVal << XPLMI_GICPX_INDEX_SHIFT);
+	IntrId = (GicPVal << XPLMI_GICP_INDEX_SHIFT) |
+			(GicPxVal << XPLMI_GICPX_INDEX_SHIFT);
+	IntrId |= (XPLMI_HW_INT_GIC_IRQ << XPLMI_HW_SW_INTR_SHIFT);
 
-	return IntrId | XPLMI_IOMODULE_PMC_GIC_IRQ;
+	return IntrId | XPLMI_IOMODULE_PPU1_HW_INT;
 }
 
 /**************************************************************************************************/
