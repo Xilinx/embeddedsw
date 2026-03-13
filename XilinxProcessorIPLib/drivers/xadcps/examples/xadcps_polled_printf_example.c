@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
 *
-* @file xadc_polled_printf_example.c
+* @file xadcps_polled_printf_example.c
 *
 * This file contains a design example using the driver functions
 * of the XADC driver. The example here shows the driver/device in polled mode
@@ -32,6 +32,7 @@
 *                       recognize it as documentation block for doxygen
 *                       generation.
 * 2.7   cog    07/24/23 Added support for SDT flow
+* 2.8   se     03/12/26 Fix GCC warnings and documentation errors.
 * </pre>
 *
 *****************************************************************************/
@@ -238,19 +239,19 @@ int XAdcPolledPrintfExample(u16 XAdcDeviceId)
 	 */
 	VccPdroRawData = XAdcPs_GetAdcData(XAdcInstPtr, XADCPS_CH_VCCPDRO);
 	VccPintData = XAdcPs_RawToVoltage(VccPdroRawData);
-	printf("\r\nThe Current VCCPDDRO is %0d.%03d Volts. \r\n",
+	printf("\r\nThe Current VCCPDRO is %0d.%03d Volts. \r\n",
 			(int)(VccPintData), XAdcFractionToInt(VccPintData));
 
 	VccPdroRawData = XAdcPs_GetMinMaxMeasurement(XAdcInstPtr,
 							XADCPS_MAX_VCCPDRO);
 	MaxData = XAdcPs_RawToVoltage(VccPdroRawData);
-	printf("The Maximum VCCPDDRO is %0d.%03d Volts. \r\n",
+	printf("The Maximum VCCPDRO is %0d.%03d Volts. \r\n",
 			(int)(MaxData), XAdcFractionToInt(MaxData));
 
 	VccPdroRawData = XAdcPs_GetMinMaxMeasurement(XAdcInstPtr,
 							XADCPS_MIN_VCCPDRO);
 	MinData = XAdcPs_RawToVoltage(VccPdroRawData);
-	printf("The Minimum VCCPDDRO is %0d.%03d Volts. \r\n",
+	printf("The Minimum VCCPDRO is %0d.%03d Volts. \r\n",
 			(int)(MinData), XAdcFractionToInt(MinData));
 
 

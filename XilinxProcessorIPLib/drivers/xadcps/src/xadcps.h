@@ -58,9 +58,9 @@
 *   - <b> Simultaneous Sampling Mode</b>: In this mode the XADC Channel
 *		Sequencer will automatically sequence through eight fixed pairs
 *		of auxiliary analog input channels for simultaneous conversion.
-*   - <b> Independent ADC mode</b>: In this mode the first ADC (A) is used to
+*   - <b> Independent ADC mode</b>: In this mode the first ADC (A)
 *		is used to implement a fixed monitoring mode similar to the
-*		default mode but the alarm functions ar eenabled.
+*		default mode but the alarm functions are enabled.
 *		The second ADC (B) is available to be used with external analog
 *		input channels only.
 *
@@ -160,7 +160,7 @@
 *			functions with no definitions.
 * 2.7   cog    07/24/23 Added support for SDT flow
 * 2.8   dc     02/18/26 Correct spelling errors
-*
+*       se     03/12/26 Fix GCC warnings and documentation errors.
 *
 * </pre>
 *
@@ -244,9 +244,9 @@ extern "C" {
 #define XADCPS_ATR_TEMP_UPPER	 0U /**< High user Temperature */
 #define XADCPS_ATR_VCCINT_UPPER  1U /**< VCCINT high voltage limit register */
 #define XADCPS_ATR_VCCAUX_UPPER  2U /**< VCCAUX high voltage limit register */
-#define XADCPS_ATR_OT_UPPER	 3U /**< VCCAUX high voltage limit register */
-#define XADCPS_ATR_TEMP_LOWER	 4U /**< Upper Over Temperature limit Reg */
-#define XADCPS_ATR_VCCINT_LOWER	 5U /**< VCCINT high voltage limit register */
+#define XADCPS_ATR_OT_UPPER	 3U /**< Over Temperature upper limit */
+#define XADCPS_ATR_TEMP_LOWER	 4U /**< Temperature lower alarm */
+#define XADCPS_ATR_VCCINT_LOWER	 5U /**< VCCINT low voltage limit register */
 #define XADCPS_ATR_VCCAUX_LOWER	 6U /**< VCCAUX low voltage limit register  */
 #define XADCPS_ATR_OT_LOWER	 7U /**< Lower Over Temperature limit */
 #define XADCPS_ATR_VBRAM_UPPER_  8U /**< VRBAM Upper Alarm Reg, 7 Series */

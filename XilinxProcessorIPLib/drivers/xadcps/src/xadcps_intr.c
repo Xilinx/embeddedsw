@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a ssb    12/22/11 First release based on the XPS/AXI xadc driver
+* 2.8   se     03/12/26 Fix GCC warnings and documentation errors.
 *
 * </pre>
 *
@@ -79,7 +80,7 @@ void XAdcPs_IntrEnable(XAdcPs *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Disable the specified interrupts in the IPIER.
+	 * Enable the specified interrupts in the IPIER.
 	 */
 	RegValue = XAdcPs_ReadReg(InstancePtr->Config.BaseAddress,
 				    XADCPS_INT_MASK_OFFSET);
@@ -117,7 +118,7 @@ void XAdcPs_IntrDisable(XAdcPs *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Enable the specified interrupts in the IPIER.
+	 * Disable the specified interrupts in the IPIER.
 	 */
 	RegValue = XAdcPs_ReadReg(InstancePtr->Config.BaseAddress,
 				    XADCPS_INT_MASK_OFFSET);

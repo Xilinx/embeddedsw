@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
 * 2.7   cog    07/24/23 Added support for SDT flow
+* 2.8   se     03/12/26 Fix GCC warnings and documentation errors.
 * </pre>
 *
 *****************************************************************************/
@@ -179,6 +180,8 @@ int XAdcIntrExample(XScuGic *IntcInstancePtr, XAdcPs *XAdcInstPtr,
 	u16 VccpauxData;
 	u32 IntrStatus;
 
+	printf("\r\nEntering the XAdc Interrupt Example. \r\n");
+
 	/*
 	 * Initialize the XAdc driver.
 	 */
@@ -209,6 +212,12 @@ int XAdcIntrExample(XScuGic *IntcInstancePtr, XAdcPs *XAdcInstPtr,
 	 * VCCPAUX High limit and lower limit so that the alarms occur.
 	 */
 	TempData = XAdcPs_GetAdcData(XAdcInstPtr, XADCPS_CH_TEMP);
+
+	/*
+	 * Convert the ADC data into temperature (integer degrees Celsius).
+	 */
+	*Temp = (int)XAdcPs_RawToTemperature(TempData);
+
 	XAdcPs_SetAlarmThreshold(XAdcInstPtr, XADCPS_ATR_TEMP_UPPER,(TempData-0x07FF));
 	XAdcPs_SetAlarmThreshold(XAdcInstPtr, XADCPS_ATR_TEMP_LOWER,(TempData+0x07FF));
 
@@ -252,7 +261,7 @@ int XAdcIntrExample(XScuGic *IntcInstancePtr, XAdcPs *XAdcInstPtr,
 
 
 	/*
-	 * Wait until an Alarm 0 or Alarm 2 interrupt occurs.
+	 * Wait until an Alarm 0 or Alarm 5 interrupt occurs.
 	 */
 	while (1) {
 		if (TemperatureIntr == TRUE) {
@@ -327,7 +336,7 @@ static void XAdcInterruptHandler(void *CallBackRef)
 	}
 	if (IntrStatusValue & XADCPS_INTX_ALM5_MASK) {
 			/*
-			 * Set Temperature interrupt flag so the code
+			 * Set VccPAUX interrupt flag so the code
 			 * in application context can be aware of this interrupt.
 			 */
 		VccpauxIntr = TRUE;
