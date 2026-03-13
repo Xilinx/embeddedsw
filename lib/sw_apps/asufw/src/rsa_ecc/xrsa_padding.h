@@ -46,11 +46,14 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
+		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
+		    u32 *OutDataLenPtr);
 s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
+		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
+		    u32 *OutDataLenPtr);
 s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		   const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
+		   const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
+		   u32 *OutDataLenPtr);
 s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		   const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
 

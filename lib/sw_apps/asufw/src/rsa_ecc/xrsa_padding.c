@@ -92,11 +92,12 @@ enum {
 /************************************ Function Prototypes ****************************************/
 static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode,
 			    const XAsufw_MgfInput *MgfInput);
-static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBlock, u32 HashLen,
-			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr);
+static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBlock,
+			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr,
+			    u64 KeyParamAddr, u32 *OutDataLenPtr);
 static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *HashBuffer,
-			    u32 HashLen, const XAsu_RsaOaepPaddingParams *PaddingParamsPtr,
-			    u64 KeyParamAddr);
+			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr,
+			    u64 KeyParamAddr, u32 *OutDataLenPtr);
 static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				 const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 HashAddr,
 				 u32 *HashLen, u8 OaepOp);
@@ -121,7 +122,8 @@ static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
  *
  *************************************************************************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr)
+		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
+		    u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -130,7 +132,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 HashLen = 0U;
 
 	/** Validating input parameters and calculating digest. */
-	if (KeyParamAddr == 0U) {
+	if ((KeyParamAddr == 0U) || (OutDataLenPtr == NULL)) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
 	}
@@ -139,8 +141,8 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				       (u64)(UINTPTR)DataBlock, &HashLen, XRSA_OAEP_OP_ENCODE);
 	if (Status == XASUFW_SUCCESS) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XRsa_OaepEncrypt(DmaPtr, ShaInstancePtr, DataBlock, HashLen,
-					  PaddingParamsPtr, KeyParamAddr);
+		Status = XRsa_OaepEncrypt(DmaPtr, ShaInstancePtr, DataBlock,
+					  PaddingParamsPtr, KeyParamAddr, OutDataLenPtr);
 	}
 
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
@@ -174,7 +176,8 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr)
+		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
+		    u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -183,7 +186,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 HashLen = 0U;
 
 	/** Validating input parameters and calculating digest. */
-	if (KeyParamAddr == 0U) {
+	if ((KeyParamAddr == 0U) || (OutDataLenPtr == NULL)) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
 	}
@@ -191,8 +194,8 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = XRsa_OaepEncDecCommon(DmaPtr, ShaInstancePtr, PaddingParamsPtr,
 				       (u64)(UINTPTR)HashBuffer, &HashLen, XRSA_OAEP_OP_DECODE);
 	if (Status == XASUFW_SUCCESS) {
-		Status = XRsa_OaepDecrypt(DmaPtr, ShaInstancePtr, HashBuffer, HashLen,
-					  PaddingParamsPtr, KeyParamAddr);
+		Status = XRsa_OaepDecrypt(DmaPtr, ShaInstancePtr, HashBuffer,
+					  PaddingParamsPtr, KeyParamAddr, OutDataLenPtr);
 	}
 
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
@@ -216,6 +219,8 @@ END:
  * @param	PaddingParamsPtr	Pointer to the XAsu_RsaPaddingParams structure which
  * 					holds PSS padding related parameters.
  * @param	KeyParamAddr		Address of the RSA key parameters in server memory.
+ * @param	OutDataLenPtr		Pointer to the output data length to be updated with actual
+ * 					output length.
  *
  * @return
  *		- XASUFW_SUCCESS, if PSS sign generation is successful.
@@ -230,7 +235,8 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
-			const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr)
+			const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
+			u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -247,10 +253,12 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 OutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
+	XAsu_RsaParams PvtExpParams;
 	u32 ZeroPadLen = 0U;
+	u32 RsaOutDataLen = 0U;
 
 	/** Validate the input parameters. */
-	if ((PaddingParamsPtr == NULL) || (KeyParamAddr == 0U)) {
+	if ((PaddingParamsPtr == NULL) || (KeyParamAddr == 0U) || (OutDataLenPtr == NULL)) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
 	}
@@ -275,6 +283,11 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = XAsu_RsaValidateKeySize(KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (PaddingParamsPtr->XAsu_RsaOpComp.OutputDataLen < KeySize) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
 		goto END;
 	}
 
@@ -386,7 +399,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	*/
 
 	/**
-	* Check length of randomized string that if it is zero it is an error else zerioze required
+	* Check length of randomized string that if it is zero it is an error else zeroize required
 	* length which is KeySize - SaltLen - HashLen - 2.
 	*/
 	ZeroPadLen = KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET;
@@ -454,12 +467,27 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/** Perform private exponentiation decryption operation. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_PvtExp(DmaPtr, KeySize,
-			     (u64)(UINTPTR)OutputData, PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
-			     KeyParamAddr, PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
+
+	PvtExpParams.Len = KeySize;
+	PvtExpParams.KeySize = KeySize;
+	PvtExpParams.InputDataAddr = (u64)(UINTPTR)OutputData;
+	PvtExpParams.OutputDataAddr = PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr;
+	PvtExpParams.ExpoCompAddr = PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr;
+	PvtExpParams.OutputDataLen = KeySize;
+	Status = XRsa_PvtExp(DmaPtr, &PvtExpParams, KeyParamAddr, &RsaOutDataLen);
 	if ((Status != XASUFW_SUCCESS ) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_ENCRYPT_ERROR);
+		goto END;
 	}
+
+	if (RsaOutDataLen != KeySize) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Update actual output data length. */
+	*OutDataLenPtr = RsaOutDataLen;
+
 	/**
 	 * This API is calling XRsa_PvtExp which sets ReturnStatus to non-zero success value.
 	 * ReturnStatus is getting validated above. As this is internal API call, ReturnStatus needs
@@ -526,7 +554,9 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u8 SignedInputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
+	XAsu_RsaParams PubExpParams;
 	u32 ZeroPadLen = 0U;
+	u32 RsaOutDataLen = 0U;
 
 	/** Validate the input parameters. */
 	if ((PaddingParamsPtr == NULL) || (KeyParamAddr == 0U)) {
@@ -628,11 +658,21 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/** Perform public exponentiation encryption operation. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_PubExp(DmaPtr, PaddingParamsPtr->SignatureLen,
-			     PaddingParamsPtr->SignatureDataAddr, (u64)(UINTPTR)SignedInputData,
-			     KeyParamAddr, PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
+
+	PubExpParams.Len = PaddingParamsPtr->SignatureLen;
+	PubExpParams.KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
+	PubExpParams.InputDataAddr = PaddingParamsPtr->SignatureDataAddr;
+	PubExpParams.OutputDataAddr = (u64)(UINTPTR)SignedInputData;
+	PubExpParams.ExpoCompAddr = PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr;
+	PubExpParams.OutputDataLen = PaddingParamsPtr->SignatureLen;
+	Status = XRsa_PubExp(DmaPtr, &PubExpParams, KeyParamAddr, &RsaOutDataLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_DECRYPT_ERROR);
+		goto END;
+	}
+
+	if (RsaOutDataLen != KeySize) {
+		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1018,14 +1058,17 @@ END:
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	DataBlock		Pointer to the data block buffer containing the hash of
  *					optional label.
- * @param	HashLen			Length of the hash in bytes.
  * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
  *					holds OAEP padding related parameters.
  * @param	KeyParamAddr		Address of the RSA key parameters in server memory.
+ * @param	OutDataLenPtr		Pointer to the output data length to be updated with actual
+ *					output length.
  *
  * @return
  *	- XASUFW_SUCCESS, if RSA OAEP encryption is successful.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_SHA_INVALID_SHA_MODE, if SHA mode is invalid.
+ *	- XASUFW_RSA_INVALID_OUTPUT_BUF_LEN, if output buffer length is insufficient.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  *	- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy fails.
@@ -1035,13 +1078,15 @@ END:
  *	- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if RSA public exponentiation encryption fails.
  *
  *************************************************************************************************/
-static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBlock, u32 HashLen,
-			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr)
+static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBlock,
+			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr,
+			    u64 KeyParamAddr, u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 KeySize = 0U;
 	u32 Len = 0U;
+	u32 HashLen = 0U;
 	u32 Index = 0U;
 	u32 DataBlockLen = 0U;
 	u8 *DataBlockMask = DataBlock + XRSA_MAX_DB_LEN;
@@ -1049,10 +1094,24 @@ static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBl
 	u8 *MaskSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
 	u8 PaddedOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
+	XAsu_RsaParams PubExpParams;
 	u32 PadLen = 0U;
+	u32 RsaOutDataLen = 0U;
 
 	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
+
+	if (PaddingParamsPtr->XAsu_RsaOpComp.OutputDataLen < KeySize) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
+		goto END;
+	}
+
+	/** Get hash length based on SHA mode. */
+	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SHA_INVALID_SHA_MODE;
+		goto END;
+	}
 
 	PadLen = KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen)) - XRSA_PADDING_LEADING_ZERO_LEN -
 		 XRSA_DB_DELIMITER_LEN;
@@ -1149,13 +1208,26 @@ static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBl
 
 	/** Perform public exponentiation encryption operation on padded data. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_PubExp(DmaPtr, KeySize,
-			     (u64)(UINTPTR)PaddedOutputData,
-			     PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr, KeyParamAddr,
-			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
+
+	PubExpParams.Len = KeySize;
+	PubExpParams.KeySize = KeySize;
+	PubExpParams.InputDataAddr = (u64)(UINTPTR)PaddedOutputData;
+	PubExpParams.OutputDataAddr = PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr;
+	PubExpParams.ExpoCompAddr = PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr;
+	PubExpParams.OutputDataLen = KeySize;
+	Status = XRsa_PubExp(DmaPtr, &PubExpParams, KeyParamAddr, &RsaOutDataLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCRYPT_ERROR);
+		goto END;
 	}
+
+	if (RsaOutDataLen != KeySize) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Update actual output data length. */
+	*OutDataLenPtr = RsaOutDataLen;
 
 END:
 	/** Zeroize local copy of all the parameters. */
@@ -1174,7 +1246,6 @@ END:
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	HashBuffer		Pointer to the buffer containing the hash of optional label.
- * @param	HashLen			Length of the hash in bytes.
  * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
  *					holds OAEP padding related parameters.
  * @param	KeyParamAddr		Address of the RSA key parameters in server memory.
@@ -1193,14 +1264,15 @@ END:
  *
  *************************************************************************************************/
 static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *HashBuffer,
-			    u32 HashLen, const XAsu_RsaOaepPaddingParams *PaddingParamsPtr,
-			    u64 KeyParamAddr)
+			    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr,
+			    u64 KeyParamAddr, u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 KeySize = 0U;
 	u32 Len = 0U;
+	u32 HashLen = 0U;
 	volatile u32 Index = 0U;
 	u32 DataBlockLen = 0U;
 	u32 MsgLen = 0U;
@@ -1211,17 +1283,30 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 	const u8 *MaskedSeedBuffer = SeedBuffer + XASU_SHA_512_HASH_LEN;
 	u8 DecryptOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsufw_MgfInput MgfInput;
+	XAsu_RsaParams PvtExpParams;
 	u32 PadLen = 0U;
+	u32 RsaOutDataLen = 0U;
 
 	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
 
+	/** Get hash length based on SHA mode. */
+	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SHA_INVALID_SHA_MODE;
+		goto END;
+	}
+
 	/** Perform private exponentiation decryption operation. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_PvtExp(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.Len,
-			     PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
-			     (u64)(UINTPTR)DecryptOutputData, KeyParamAddr,
-			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
+
+	PvtExpParams.Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
+	PvtExpParams.KeySize = KeySize;
+	PvtExpParams.InputDataAddr = PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr;
+	PvtExpParams.OutputDataAddr = (u64)(UINTPTR)DecryptOutputData;
+	PvtExpParams.ExpoCompAddr = PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr;
+	PvtExpParams.OutputDataLen = Len;
+	Status = XRsa_PvtExp(DmaPtr, &PvtExpParams, KeyParamAddr, &RsaOutDataLen);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECRYPT_ERROR);
 		goto END;
@@ -1232,6 +1317,11 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 	 * to be validated and set back to default failure value.
 	 */
 	ReturnStatus = XASUFW_FAILURE;
+
+	if (RsaOutDataLen != KeySize) {
+		Status = XASUFW_RSA_INVALID_PARAM;
+		goto END;
+	}
 
 	/** Copy seed buffer and data block from decrypted output. */
 	/** EM = Y || maskedSeed || maskedDB . */
@@ -1320,6 +1410,14 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 		Status = XASUFW_RSA_OAEP_INVALID_LEN;
 		goto END;
 	}
+
+	if (PaddingParamsPtr->XAsu_RsaOpComp.OutputDataLen < MsgLen) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
+		goto END;
+	}
+
+	/** Update actual output data length and validate output buffer length. */
+	*OutDataLenPtr = MsgLen;
 
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(&(DataBlock[Index])),
 				PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,

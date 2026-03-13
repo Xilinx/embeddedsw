@@ -104,6 +104,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	u8 AesKeySizeInBytes = 0U;
 	u32 OutDataLen = 0U;
 	u32 PadLen = 0U;
+	u32 RsaOaepOutLen = 0U;
 	u8 OutData[XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES];
 	u8 EphemeralAesKey[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];
 	XAsu_RsaOaepPaddingParams PaddingParams;
@@ -194,14 +195,21 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	PaddingParams.XAsu_RsaOpComp.KeyId = KeyWrapParamsPtr->RsaKeyId;
 	PaddingParams.XAsu_RsaOpComp.Len = AesKeySizeInBytes;
 	PaddingParams.XAsu_RsaOpComp.KeySize = KeyWrapParamsPtr->RsaKeySize;
+	PaddingParams.XAsu_RsaOpComp.OutputDataLen = KeyWrapParamsPtr->OutuputDataLen;
 	PaddingParams.OptionalLabelAddr = KeyWrapParamsPtr->OptionalLabelAddr;
 	PaddingParams.OptionalLabelSize = KeyWrapParamsPtr->OptionalLabelSize;
+	PaddingParams.ShaType = KeyWrapParamsPtr->ShaType;
 	PaddingParams.ShaMode = KeyWrapParamsPtr->ShaMode;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_OaepEncode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, RsaKeyParamAddr);
+	Status = XRsa_OaepEncode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, RsaKeyParamAddr, &RsaOaepOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
+		goto END;
+	}
+
+	if (RsaOaepOutLen != KeyWrapParamsPtr->RsaKeySize) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
 		goto END;
 	}
 
@@ -293,6 +301,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 AesKeyOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];
+	u32 RsaOaepOutLen = 0U;
 	XAsu_RsaOaepPaddingParams PaddingParams;
 	XAsu_AesKeyObject AesKeyObj;
 	u64 RsaKeyParamAddr = 0U;
@@ -339,14 +348,22 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	PaddingParams.XAsu_RsaOpComp.KeyId = KeyUnwrapParamsPtr->RsaKeyId;
 	PaddingParams.XAsu_RsaOpComp.Len = KeyUnwrapParamsPtr->RsaKeySize;
 	PaddingParams.XAsu_RsaOpComp.KeySize = KeyUnwrapParamsPtr->RsaKeySize;
+	PaddingParams.XAsu_RsaOpComp.OutputDataLen = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
 	PaddingParams.OptionalLabelAddr = KeyUnwrapParamsPtr->OptionalLabelAddr;
 	PaddingParams.OptionalLabelSize = KeyUnwrapParamsPtr->OptionalLabelSize;
+	PaddingParams.ShaType = KeyUnwrapParamsPtr->ShaType;
 	PaddingParams.ShaMode = KeyUnwrapParamsPtr->ShaMode;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_OaepDecode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, RsaKeyParamAddr);
+	Status = XRsa_OaepDecode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, RsaKeyParamAddr, &RsaOaepOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
+		goto END;
+	}
+
+	if (RsaOaepOutLen != (((u32)KeyUnwrapParamsPtr->AesKeySize << XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT) +
+				XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET)) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
 		goto END;
 	}
 

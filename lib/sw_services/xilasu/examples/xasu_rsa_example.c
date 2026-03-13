@@ -213,6 +213,8 @@ __attribute__ ((section (".data.XAsu_RsaPublicExp"))) = 0x1000100U;
 
 static u8 EncResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.EncResult")));
 static u8 DecResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.DecResult")));
+static u32 XAsu_RsaEncOutputLen __attribute__ ((section (".data.XAsu_RsaEncOutputLen")));
+static u32 XAsu_RsaDecOutputLen __attribute__ ((section (".data.XAsu_RsaDecOutputLen")));
 
 static u8 Notify = 0; /**< To notify the call back from client library */
 volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
@@ -287,6 +289,8 @@ int main(void)
 	RsaClientParam.KeyCompAddr = (u64)(UINTPTR)&PubKeyParam;
 	RsaClientParam.ExpoCompAddr = 0U;
 	RsaClientParam.KeyId = 0U;
+	RsaClientParam.OutputDataLen = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
+	RsaClientParam.OutputLenAddr = (u64)(UINTPTR)&XAsu_RsaEncOutputLen;
 	Status = XAsu_RsaEnc(&ClientParam, &RsaClientParam);
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("\r\n Encrypt operation Status = %08x", Status);
@@ -295,6 +299,11 @@ int main(void)
 	while (!Notify);
 	Notify = 0;
 	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (XAsu_RsaEncOutputLen != XASU_RSA_4096_KEY_SIZE_IN_BYTES) {
+		XilAsu_Printf("\r\n RSA client example failed due to output length mismatch in encryption");
 		goto END;
 	}
 
@@ -319,6 +328,8 @@ int main(void)
 	RsaClientParam.KeyCompAddr =  (u64)(UINTPTR)&PvtKeyParam;
 	RsaClientParam.ExpoCompAddr = 0U;
 	RsaClientParam.KeyId = 0U;
+	RsaClientParam.OutputDataLen = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
+	RsaClientParam.OutputLenAddr = (u64)(UINTPTR)&XAsu_RsaDecOutputLen;
 	Status = XAsu_RsaDec(&ClientParam, &RsaClientParam);
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);
@@ -330,6 +341,11 @@ int main(void)
 		(ClientParam.AdditionalStatus != XASU_RSA_DECRYPTION_SUCCESS)) {
 		XilAsu_Printf("\r\n RSA client example failed from server with error %08x and "
 			"additional error of %08x", ErrorStatus, ClientParam.AdditionalStatus);
+		goto END;
+	}
+
+	if (XAsu_RsaDecOutputLen != XASU_RSA_4096_KEY_SIZE_IN_BYTES) {
+		XilAsu_Printf("\r\n RSA client example failed due to output length mismatch in decryption");
 		goto END;
 	}
 

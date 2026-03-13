@@ -856,6 +856,7 @@ s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr)
 {
 	s32 Status = XASUFW_FAILURE;
 	s32 SStatus = XASUFW_FAILURE;
+	u32 RsaOaepOutLen = 0U;
 	XAsu_RsaOaepPaddingParams RsaOaepPaddingParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
 	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
@@ -890,11 +891,17 @@ s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaOaepPaddingParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
 	RsaOaepPaddingParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
 	RsaOaepPaddingParam.XAsu_RsaOpComp.KeyId = 0U;
+	RsaOaepPaddingParam.XAsu_RsaOpComp.OutputDataLen = XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES;
 
 	Status = XRsa_OaepEncode(AsuDmaPtr, Sha2Ptr, &RsaOaepPaddingParam,
-				RsaOaepPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
+				RsaOaepPaddingParam.XAsu_RsaOpComp.KeyCompAddr, &RsaOaepOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
+		goto END;
+	}
+
+	if (RsaOaepOutLen != XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
 		goto END;
 	}
 
@@ -904,15 +911,20 @@ s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaOaepPaddingParam.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)&OutputVal[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES];
 
 	Status = XRsa_OaepDecode(AsuDmaPtr, Sha2Ptr, &RsaOaepPaddingParam,
-				RsaOaepPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
+				RsaOaepPaddingParam.XAsu_RsaOpComp.KeyCompAddr, &RsaOaepOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		goto END;
 	}
 
+	if (RsaOaepOutLen != XASUFW_RSA_INPUT_LEN_IN_BYTES) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
+		goto END;
+	}
+
 	Status = Xil_SMemCmp_CT(RsaData, XASUFW_RSA_INPUT_LEN_IN_BYTES,
 		(u8 *)(UINTPTR)RsaOaepPaddingParam.XAsu_RsaOpComp.OutputDataAddr,
-		XASUFW_RSA_INPUT_LEN_IN_BYTES, XASUFW_RSA_INPUT_LEN_IN_BYTES);
+		XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES, RsaOaepOutLen);
 
 END:
 	/** Zeroize local copy of output value. */
@@ -958,6 +970,7 @@ s32 XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_Dma *AsuDmaPtr)
 	XAsu_RsaPaddingParams RsaPaddingParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
 	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	u32 RsaPssOutLen = 0U;
 
 	PvtKeyParam.PubKeyComp.Keysize = XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES;
 	PvtKeyParam.PubKeyComp.PubExp = RsaPublicExp;
@@ -991,11 +1004,18 @@ s32 XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_Dma *AsuDmaPtr)
 	RsaPaddingParam.XAsu_RsaOpComp.Len = XASUFW_RSA_INPUT_LEN_IN_BYTES;
 	RsaPaddingParam.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)OutputVal;
 	RsaPaddingParam.XAsu_RsaOpComp.KeyId = 0U;
+	RsaPaddingParam.XAsu_RsaOpComp.OutputDataLen = XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES;
 
 	Status = XRsa_PssSignGenerate(AsuDmaPtr, Sha2Ptr, &RsaPaddingParam,
-					RsaPaddingParam.XAsu_RsaOpComp.KeyCompAddr);
+					RsaPaddingParam.XAsu_RsaOpComp.KeyCompAddr,
+					&RsaPssOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_PSS_SIGN_GEN_ERROR;
+		goto END;
+	}
+
+	if (RsaPssOutLen != XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES) {
+		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
 		goto END;
 	}
 

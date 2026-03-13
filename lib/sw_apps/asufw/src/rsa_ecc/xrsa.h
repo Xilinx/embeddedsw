@@ -37,6 +37,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xasufw_dma.h"
+#include "xasu_rsainfo.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_TOTAL_PARAMS		(9U)		/**< RSA total no of parameters */
@@ -57,16 +58,16 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 /* RSA CRT Operation function */
-s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
-	       u64 KeyParamAddr);
+s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyParamAddr,
+	       u32 *OutDataLenPtr);
 
 /* RSA Private Operation function */
-s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
-		u64 KeyParamAddr, u64 ExpoAddr);
+s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyParamAddr,
+		u32 *OutDataLenPtr);
 
 /* RSA Public Operation function */
-s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
-		u64 KeyParamAddr, u64 ExpoAddr);
+s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyParamAddr,
+		u32 *OutDataLenPtr);
 u8 *XRsa_GetDataBlockAddr(void);
 s32 XRsa_KeyPairGeneration(XAsufw_Dma *DmaPtr, u32 Len);
 

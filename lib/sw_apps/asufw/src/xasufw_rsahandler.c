@@ -249,6 +249,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+	u32 *OutLenAddr;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaParams);
@@ -287,8 +288,10 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform public exponentiation encryption operation. */
-	Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
-			     Cmd->OutputDataAddr, KeyParamAddr, Cmd->ExpoCompAddr);
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					XASUFW_RESP_DATA_OFFSET;
+
+	Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd, KeyParamAddr, OutLenAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PUB_OP_ERROR);
 	}
@@ -326,6 +329,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+	u32 *OutLenAddr;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaParams);
@@ -364,8 +368,10 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform private exponentiation decryption operation. */
-	Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
-			     Cmd->OutputDataAddr, KeyParamAddr, Cmd->ExpoCompAddr);
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					XASUFW_RESP_DATA_OFFSET;
+
+	Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd, KeyParamAddr, OutLenAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PVT_OP_ERROR);
 	}
@@ -404,6 +410,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+	u32 *OutLenAddr;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaParams);
@@ -442,8 +449,10 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform private CRT decryption operation. */
-	Status = XRsa_CrtOp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
-			    Cmd->OutputDataAddr, KeyParamAddr);
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					XASUFW_RESP_DATA_OFFSET;
+
+	Status = XRsa_CrtOp(XAsufw_RsaModule.AsuDmaPtr, Cmd, KeyParamAddr, OutLenAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_CRT_OP_ERROR);
 	}
@@ -485,6 +494,7 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+	u32 *OutLenAddr;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaOaepPaddingParams);
@@ -523,7 +533,10 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform OAEP encryption operation. */
-	Status = XRsa_OaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					XASUFW_RESP_DATA_OFFSET;
+	Status = XRsa_OaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr,
+				 OutLenAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -573,6 +586,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+	u32 *OutLenAddr;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaOaepPaddingParams);
@@ -611,7 +625,10 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform OAEP decryption operation. */
-	Status = XRsa_OaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					XASUFW_RESP_DATA_OFFSET;
+	Status = XRsa_OaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr,
+				 OutLenAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -661,6 +678,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u64 KeyParamAddr;
+	u32 *OutLenAddr;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_RsaPaddingParams);
@@ -699,7 +717,11 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform RSA PSS signature generation. */
-	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr);
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					XASUFW_RESP_DATA_OFFSET;
+
+	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd, KeyParamAddr,
+				      OutLenAddr);
 	switch (Status) {
 	case XASUFW_CMD_IN_PROGRESS:
 		XAsufw_DmaCfgNonBlocking(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,

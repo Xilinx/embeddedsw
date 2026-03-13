@@ -65,7 +65,7 @@ extern "C" {
 							decryption */
 #define XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID	(12U) /**< KAT command for RSA PSS sign generation
 							and verification */
-
+#define XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES	(4U) /**< RSA output data length size in bytes */
 /* RSA key size */
 #define XRSA_2048_KEY_SIZE		(256U) /**< 2048 bit key size in bytes */
 #define XRSA_3072_KEY_SIZE		(384U) /**< 3072 bit key size in bytes */
@@ -134,7 +134,12 @@ typedef struct {
 	u64 KeyCompAddr; 	/**< Address of RSA key component structure :
 						  *	XAsu_RsaPubKeyComp - for public key operations and
 						  *	XAsu_RsaPvtKeyComp - for private key operations  */
-	u32 Len;			/**< Data Len */
+	u64 OutputLenAddr;	/**< Contains actual output data length which is returned from
+						RSA operation */
+	u32 Len;		/**< Data Len */
+	u32 OutputDataLen;	/**< Output Data Len is an input from user which specifies the
+					size of output buffer which should be
+					equal or greater than the size of the enc or dec output */
 	u32 KeySize;		/**< Key Size */
 	u32 KeyId;		/**< Key ID */
 } XAsu_RsaParams;

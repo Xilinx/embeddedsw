@@ -80,7 +80,13 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
+	     (RsaClientParamPtr->OutputLenAddr == 0U) ||
 	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U)))) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->OutputDataLen < RsaClientParamPtr->KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -91,13 +97,15 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 		goto END;
 	}
 
-	if (RsaClientParamPtr->Len != RsaClientParamPtr->KeySize) {
+	if (RsaClientParamPtr->Len > RsaClientParamPtr->KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
 	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+					(u8 *)(UINTPTR)RsaClientParamPtr->OutputLenAddr,
+					XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -151,7 +159,13 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 
 	if ((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
+	     (RsaClientParamPtr->OutputLenAddr == 0U) ||
 	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U))) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->OutputDataLen < RsaClientParamPtr->KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -168,7 +182,9 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 	}
 
 	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+					(u8 *)(UINTPTR)RsaClientParamPtr->OutputLenAddr,
+					XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -224,7 +240,13 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 	/** Validations of inputs. */
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
+	     (RsaClientParamPtr->OutputLenAddr == 0U) ||
 	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U)))) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->OutputDataLen < RsaClientParamPtr->KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -241,7 +263,9 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 	}
 
 	/** Generate unique ID and register the callback. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+					(u8 *)(UINTPTR)RsaClientParamPtr->OutputLenAddr,
+					XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -304,7 +328,13 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) ||
-	    (RsaClientParamPtr->OptionalLabelAddr == 0U)) {
+	    (RsaClientParamPtr->OptionalLabelAddr == 0U) ||
+	    (RsaClientParamPtr->XAsu_RsaOpComp.OutputLenAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen < RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -326,7 +356,9 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Generate Unique ID and register the callback. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+					(u8 *)(UINTPTR)RsaClientParamPtr->XAsu_RsaOpComp.OutputLenAddr,
+					XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -396,12 +428,13 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) ||
-	    (RsaClientParamPtr->OptionalLabelAddr == 0U)) {
+	    (RsaClientParamPtr->OptionalLabelAddr == 0U) ||
+	    (RsaClientParamPtr->XAsu_RsaOpComp.OutputLenAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (RsaClientParamPtr->OptionalLabelAddr == 0U) {
+	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen == 0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -423,7 +456,9 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Generate unique ID and register the callback. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+					(u8 *)(UINTPTR)RsaClientParamPtr->XAsu_RsaOpComp.OutputLenAddr,
+					XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -491,7 +526,13 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U)) {
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) ||
+	    (RsaClientParamPtr->XAsu_RsaOpComp.OutputLenAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen < RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -518,7 +559,9 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 	}
 
 	/** Generate unique ID and register the callback. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+					(u8 *)(UINTPTR)RsaClientParamPtr->XAsu_RsaOpComp.OutputLenAddr,
+					XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;

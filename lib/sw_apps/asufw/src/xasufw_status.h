@@ -710,6 +710,8 @@ enum {
 						field fails*/
 	XASUFW_ASU_KAT_FAILED_SECURE_LOCKDOWN, /**< 0x1FEU - ASU secure lockdown triggered due to KAT failure */
 	XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED, /**< 0x1FFU - Error when ASU vault creation fails. */
+	XASUFW_RSA_INVALID_OUTPUT_BUF_LEN, /**< 0x200U - Error when RSA output buffer length
+						provided by user is less than required */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
