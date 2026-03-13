@@ -965,6 +965,53 @@ static void PmFpgaLoad(const PmMaster *const master,
        IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
+#if defined(ENABLE_FPGA_FRAME_READBACK) && defined(XFPGA_FRAME_READBACK)
+static void PmFpgaSetConfigReg(const PmMaster *const master,
+			       const u32 Mask,  const u32 Data)
+{
+	u32 Status;
+	XFpga XFpgaInstance = {0U};
+
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (XST_SUCCESS != (s32)Status) {
+		goto done;
+	}
+
+	Status = XFpga_SetPlConfigReg(&XFpgaInstance, Mask, Data);
+  done:
+       IPI_RESPONSE1(master->ipiMask, (u32)Status);
+}
+
+static void PmFpgaGetFrameData(const PmMaster *const master,
+			       const u32 AddrHigh, const u32 AddrLow,
+			       const u32 NumFrames, const u32 FarAddr)
+{
+	u32 Status;
+	XFpga XFpgaInstance = {0U};
+	UINTPTR ReadbackAddr = ((u64)AddrHigh << 32)|AddrLow;
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_FPGA_READ_BACK)
+	u32 length = NumFrames * 4U;
+	u32 access = (u32)MEM_RANGE_WRITE_ACCESS;
+
+	if (0U == PmIsValidAddressRange(master, ReadbackAddr, length, access)) {
+		Status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+#endif
+
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (XST_SUCCESS != (s32)Status) {
+		goto done;
+	}
+
+	Status = XFpga_GetPlFrameData(&XFpgaInstance, ReadbackAddr,
+				      NumFrames, FarAddr);
+
+ done:
+	IPI_RESPONSE1(master->ipiMask, (u32)Status);
+}
+#endif
+
 #if defined(XFPGA_GET_VERSION_INFO)
 /**
  * PmFpgaGetVersion() - Get xilfpga component version
@@ -2379,6 +2426,10 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_EFUSE_ACCESS):
 	case PM_API(PM_FPGA_GET_VERSION):
 	case PM_API(PM_FPGA_GET_FEATURE_LIST):
+#if defined(ENABLE_FPGA_FRAME_READBACK) && defined(XFPGA_FRAME_READBACK)
+	case PM_API(PM_FPGA_SET_CONFIG_REG):
+	case PM_API(PM_FPGA_GET_FRAME_DATA):
+#endif
 		retPayload[0] = PM_API_BASE_VERSION;
 		status = XST_SUCCESS;
 		break;
@@ -2589,6 +2640,14 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	case PM_API(PM_FPGA_GET_STATUS):
 		PmFpgaGetStatus(master);
 		break;
+#if defined(ENABLE_FPGA_FRAME_READBACK) && defined(XFPGA_FRAME_READBACK)
+	case PM_API(PM_FPGA_SET_CONFIG_REG):
+		PmFpgaSetConfigReg(master, pload[1], pload[2]);
+		break;
+	case PM_API(PM_FPGA_GET_FRAME_DATA):
+		PmFpgaGetFrameData(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+#endif
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
 	case PM_API(PM_FPGA_READ):
 		PmFpgaRead(master, pload[1], pload[2], pload[3], pload[4]);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -160,6 +160,10 @@ static const PmApiPermission defaultApiPermissions[] = {
 #ifdef ENABLE_FPGA_LOAD
 	{PM_API(PM_FPGA_LOAD), PMU_API_FULL_ACCESS},
 	{PM_API(PM_FPGA_GET_STATUS), PMU_API_FULL_ACCESS},
+#ifdef ENABLE_FPGA_FRAME_READBACK
+	{PM_API(PM_FPGA_SET_CONFIG_REG), PMU_API_FULL_ACCESS},
+	{PM_API(PM_FPGA_GET_FRAME_DATA), PMU_API_FULL_ACCESS},
+#endif
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
 	{PM_API(PM_FPGA_READ), PMU_API_FULL_ACCESS},
 #endif

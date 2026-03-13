@@ -75,6 +75,8 @@
  * 6.6 Nava   10/20/23  Added proper validations checks for input parameters.
  * 6.10 Arvd  02/04/26  Fixed codespell errors
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+ * 6.10 Arvd  02/20/26  Add support to set config regs and
+ *                      read frame data via PMUFW
  * </pre>
  *
  *****************************************************************************/
@@ -507,6 +509,102 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 END:
 	return Status;
 }
+
+#ifdef XFPGA_FRAME_READBACK
+/*****************************************************************************/
+/**
+ * This function writes to the PL MASK and CTL0 configuration registers via PCAP.
+ *
+ * @param InstancePtr Pointer to the XFpga structure.
+ *
+ * @param mask Value written to the MASK configuration register, which
+ *		       controls which bits in CTL0 are writable.
+ *
+ * @param Data Value written to the CTL0 configuration register.
+ *
+ * @return
+ *	- XFPGA_SUCCESS if successful
+ *	- XFPGA_FAILURE if unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation does not exist.
+ *	- XFPGA_INVALID_PARAM if InstancePtr is NULL.
+ *
+ * @note
+ *	- This API is not supported for the Versal platform.
+ *
+ ****************************************************************************/
+u32 XFpga_SetPlConfigReg(XFpga *InstancePtr, u32 mask, u32 Data)
+{
+	u32 Status = XFPGA_FAILURE;
+
+	/* Assert validates the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->XFpga_SetConfigReg == NULL) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"XFpga_SetPlConfigReg Implementation not exists..\r\n");
+		goto END;
+	}
+
+	Status = InstancePtr->XFpga_SetConfigReg(InstancePtr, mask, Data);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function reads back CRAM frame data for a given FAR address via PCAP.
+ *
+ * @param InstancePtr Pointer to the XFpga structure.
+ *
+ * @param ReadbackAddr Address of the buffer to store readback data.
+ *
+ * @param NumFrames Number of 32-bit words to read back.
+ *
+ * @param FarAddr Frame Address Register value identifying which
+ *			  CRAM frame to read.
+ *
+ * @return
+ *	- XFPGA_SUCCESS if successful
+ *	- XFPGA_FAILURE if unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation does not exist.
+ *	- XFPGA_INVALID_PARAM if invalid input parameters.
+ *
+ * @note
+ *	- This API is not supported for the Versal platform.
+ *
+ ****************************************************************************/
+u32 XFpga_GetPlFrameData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
+			 u32 NumFrames, u32 FarAddr)
+{
+	u32 Status = XFPGA_FAILURE;
+
+	/* Assert validates the input arguments */
+	if ((InstancePtr == NULL) || (ReadbackAddr == 0U) ||
+	    (NumFrames == 0U)) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->XFpga_GetFrameData == NULL) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		" XFpga_GetPlFrameData Implementation not exists..\r\n");
+		goto END;
+	}
+
+	Status = InstancePtr->XFpga_GetFrameData(InstancePtr, ReadbackAddr,
+						   NumFrames, FarAddr);
+
+END:
+	return Status;
+}
+#endif
+
 /*****************************************************************************/
 /** This function provides the status of the PL programming interface
  *

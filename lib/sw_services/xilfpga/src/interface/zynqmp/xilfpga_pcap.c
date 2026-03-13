@@ -135,6 +135,8 @@
  *                     uninitialized PartitionHdr structure.
  * 6.10 Arvd 02/04/26  Fixed codespell errors
  * 6.10 Arvd 02/11/26  Fixed Doxygen warnings
+ * 6.10 Arvd 02/20/26  Add support to set config regs and
+ *                     read frame data via PMUFW
  * </pre>
  *
  * @note
@@ -236,10 +238,13 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr);
 #endif
 #if defined(XFPGA_READ_CONFIG_DATA)
 static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr);
+#endif
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_FRAME_READBACK)
 static u32 XFpga_PcapWaitForidle(void);
 static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
 #endif
-#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG) || \
+	defined(XFPGA_FRAME_READBACK)
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
 static u32 XFpga_GetFirmwareState(void);
 #endif
@@ -262,6 +267,10 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, UINTPTR SrcAddr);
 static u32 XFpga_AesInit(XSecure_Aes *InstancePtr, u32 *AesKupKey,
 			 u32 *IvPtr, char *KeyPtr, u32 Flags);
+#endif
+#ifdef XFPGA_FRAME_READBACK
+static u32 XFpga_SetPlConfigRegPcap(const XFpga *InstancePtr, u32 mask, u32 Data);
+static u32 XFpga_GetPlFrameDataPcap(const XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames, u32 FarAddr);
 #endif
 
 #ifdef XFPGA_GET_FEATURE_LIST
@@ -321,6 +330,10 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPlPcap;
 	InstancePtr->XFpga_PostConfig = XFpga_PostConfigPcap;
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_PcapStatus;
+#ifdef XFPGA_FRAME_READBACK
+	InstancePtr->XFpga_SetConfigReg = XFpga_SetPlConfigRegPcap;
+	InstancePtr->XFpga_GetFrameData = XFpga_GetPlFrameDataPcap;
+#endif
 #if defined(XFPGA_GET_FEATURE_LIST)
 	InstancePtr->XFpga_GetFeatureList = XFpga_PcapFeatureList;
 #endif
@@ -775,7 +788,7 @@ END:
 	return Status;
 }
 
-#if defined(XFPGA_READ_CONFIG_DATA)
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_FRAME_READBACK)
 /*****************************************************************************/
 /**
  * This function waits for PCAP to come to idle state.
@@ -2464,7 +2477,8 @@ END:
 }
 #endif
 
-#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG) || \
+    defined(XFPGA_FRAME_READBACK)
 /****************************************************************************/
 /**
  * Generates a Type 1 packet header that reads back the requested Configuration
@@ -2505,7 +2519,7 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
 }
 #endif
 
-#if defined(XFPGA_READ_CONFIG_DATA)
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_FRAME_READBACK)
 /****************************************************************************/
 /**
  * Generates a Type 2 packet header that reads back the requested Configuration
@@ -2561,7 +2575,8 @@ static void XFpga_SetFirmwareState(u8 State)
 	Xil_Out32(PMU_GLOBAL_GEN_STORAGE5, RegVal);
 }
 
-#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
+#if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG) || \
+    defined(XFPGA_FRAME_READBACK)
 /*****************************************************************************/
 /** Returns the library firmware state
  *
@@ -2694,5 +2709,292 @@ END:
 }
 #endif
 
+#ifdef XFPGA_FRAME_READBACK
+/*****************************************************************************/
+/** This function is used to Write on  Configuration Register
+ *
+ * @param		- mask : Mask Value used for generating the Header Mask
+ * @param		- Data : Data to write to command buffer
+ *
+ * @return
+ *              - returns XFPGA_SUCCESS on success
+ *              - returns XFPGA_FAILURE on failure
+ *
+ ****************************************************************************/
+static u32 XFpga_SetPlConfigRegPcap(const XFpga *InstancePtr, u32 mask, u32 Data)
+{
+	volatile u32 Status = XFPGA_FAILURE;
+	u32 RegVal;
+	u32 CmdIndex;
+	u32 CmdBuf[XFPGA_REG_CONFIG_CMD_LEN];
+
+	Status = XFpga_GetFirmwareState();
+	if ((XFPGA_FIRMWARE_STATE_SECURE == Status) &&
+	    (XFPGA_SECURE_READBACK_MODE_EN == 0U)) {
+		Xfpga_Printf(XFPGA_DEBUG, "Operation not permitted\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	/* Enable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
+
+	/*
+	 * Register Readback in non secure mode
+	 * Create the data to be written to read back the
+	 * Configuration Registers from PL Region.
+	 */
+	CmdIndex = 0U;
+	CmdBuf[CmdIndex] = 0xAA995566U; /* Sync Word */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = Xfpga_RegAddr((u8)(MASK),OPCODE_WRITE, 0x1U);
+	CmdIndex++;
+	CmdBuf[CmdIndex] = mask;
+	CmdIndex++;
+	CmdBuf[CmdIndex] = Xfpga_RegAddr((u8)(CTL0),OPCODE_WRITE, 0x1U);
+	CmdIndex++;
+	CmdBuf[CmdIndex] = Data;
+	CmdIndex++;
+
+	/* Take PCAP out of Reset */
+	RegVal = Xil_In32(CSU_PCAP_RESET);
+	RegVal &= (~CSU_PCAP_RESET_RESET_MASK);
+	Xil_Out32(CSU_PCAP_RESET, RegVal);
+
+	/* Setup the source DMA channel */
+	Status = XFPGA_FAILURE;
+	Status = XFpga_PcapWaitForDone();
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	Status = XFPGA_FAILURE;
+	Status = XFpga_WriteToPcap(CmdIndex, (UINTPTR)CmdBuf);
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	CmdIndex = 0U;
+	CmdBuf[CmdIndex] = 0x30008001U; /* Type 1 Write 1 word to CMD */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x0000000DU; /* DESYNC command */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* NOOP Word*/
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* NOOP Word */
+	CmdIndex++;
+
+	Status = XFPGA_FAILURE;
+	Status = XFpga_WriteToPcap(CmdIndex, (UINTPTR)CmdBuf);
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+END:
+	/* Disable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
+	return Status;
+}
+
+/*****************************************************************************/
+/** This function performs the readback of fpga configuration data.
+ *
+ * @param		 - ReadbackAddr : Buffer Address to save the readback data
+ * @param		 - NumFrame     : Len of data to read
+ * @param		 - FarAddr      : Frame address
+ *
+ * @return
+ *               - returns XFPGA_SUCCESS on success
+ *               - returns XFPGA_FAILURE on failure
+ *
+ ****************************************************************************/
+static u32 XFpga_GetPlFrameDataPcap(const XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames, u32 FarAddr)
+{
+	volatile u32 Status = XFPGA_FAILURE;
+	UINTPTR Address = ReadbackAddr;
+	u32 RegVal;
+	u32 cmdindex;
+	u32 CmdBuf[XFPGA_DATA_CONFIG_CMD_LEN];
+	u8  i;
+
+	Status = XFpga_GetFirmwareState();
+
+	if (XFPGA_FIRMWARE_STATE_UNKNOWN == Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Error while reading configuration "
+			   "data from FPGA\n\r");
+		Status = XFPGA_ERROR_PLSTATE_UNKNOWN;
+		goto END;
+	}
+
+	if ((XFPGA_FIRMWARE_STATE_SECURE  == Status) &&
+	    (XFPGA_SECURE_READBACK_MODE_EN == 0U)) {
+		Xfpga_Printf(XFPGA_DEBUG, "Operation not permitted\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	/* Enable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+
+	/*
+	 * There is no h/w flow control for pcap read
+	 * to prevent the FIFO from over flowing, reduce
+	 * the PCAP operating frequency.
+	 */
+	RegVal |= 0x3F00U;
+	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
+
+	/* Take PCAP out of Reset */
+	Status = XFPGA_FAILURE;
+	Status = XFpga_PcapInit(1U);
+	if (XFPGA_SUCCESS != Status) {
+		Status = XPFGA_ERROR_PCAP_INIT;
+		Xfpga_Printf(XFPGA_DEBUG, "PCAP init failed\n\r");
+		goto END;
+	}
+
+	cmdindex = 0U;
+
+	/* Step -1*/
+	CmdBuf[cmdindex] = 0xFFFFFFFFU; /* Dummy Word */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0xAA995566U; /* Sync Word */
+	cmdindex++;
+
+	/* Step 2 */
+	CmdBuf[cmdindex] = 0x02000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
+
+	/* Excluded the SHUTDOWN and RCRC command*/
+
+	/* Step 5 --- 5 NOOPS Words */
+	for (i = 0 ; i < 5 ; i++) {
+		CmdBuf[cmdindex] = 0x20000000U;
+		cmdindex++;
+	}
+
+	/* Step 6 */         /* Type 1 Write 1 Word to CMD */
+	CmdBuf[cmdindex] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x00000004U; /* RCFG Command */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
+
+	/* Step 7 */         /* Type 1 Write 1 Word to FAR */
+	CmdBuf[cmdindex] = Xfpga_RegAddr(FAR1, OPCODE_WRITE, 0x1U);
+	cmdindex++;
+	CmdBuf[cmdindex] = FarAddr; /* FAR Address = 00000000 */
+	cmdindex++;
+
+	/* Step 8 */          /* Type 1 Read 0 Words from FDRO */
+	CmdBuf[cmdindex] =  Xfpga_RegAddr(FDRO, OPCODE_READ, 0U);
+	cmdindex++;
+			      /* Type 2 Read Wordlenght Words from FDRO */
+	CmdBuf[cmdindex] = Xfpga_Type2Pkt(OPCODE_READ, NumFrames);
+	cmdindex++;
+
+	/* Step 9 --- 64 NOOPS Words */
+	for (i = 0 ; i < 64 ; i++) {
+		CmdBuf[cmdindex] = 0x20000000U;
+		cmdindex++;
+	}
+
+	XCsuDma_EnableIntr(CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			   XCSUDMA_IXR_DST_MASK);
+
+	/* Flush the DMA buffer */
+	Xil_DCacheFlushRange((INTPTR)Address, NumFrames * 4U);
+
+	/* Set up the Destination DMA Channel*/
+	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			 Address, NumFrames, 0U);
+
+	Status = XFPGA_FAILURE;
+	Status = XFpga_PcapWaitForDone();
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	Status = XFPGA_FAILURE;
+	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)CmdBuf);
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	/*
+	 * Setup the  SSS, setup the DMA to receive from PCAP source
+	 */
+	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_DST_DMA);
+	Xil_Out32(CSU_PCAP_RDWR, 0x1U);
+
+
+	/* Wait for the DST_DMA to complete and the pcap to be IDLE */
+	Status = XFPGA_FAILURE;
+	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Read from PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	Status = XFPGA_FAILURE;
+	Status = XFpga_PcapWaitForidle();
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Reading data from PL through PCAP Failed\n\r");
+		Status = XFPGA_FAILURE;
+		goto END;
+	}
+
+	cmdindex = 0U;
+	/* Step 11 */
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
+
+	/* Excluded the START and RCRC Command */
+
+	/* Step 14 */
+	CmdBuf[cmdindex] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x0000000DU; /* DESYNC Command */
+	cmdindex++;
+
+	/* Step 15 */
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
+
+	Status = XFPGA_FAILURE;
+	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)CmdBuf);
+	if (XFPGA_SUCCESS != Status) {
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP 1 Failed\n\r");
+		Status = XFPGA_FAILURE;
+	}
+END:
+	/* Disable the PCAP clk */
+	RegVal = Xil_In32(PCAP_CLK_CTRL);
+	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
+
+	return Status;
+}
+#endif
 /* @endcond */
 /** @} */

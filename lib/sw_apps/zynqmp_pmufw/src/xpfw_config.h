@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,6 +100,7 @@ extern "C" {
  * 	- ENABLE_STL : Enables STL Module
  * 	- ENABLE_RTC_TEST : Enables RTC Event Handler Test Module
  * 	- ENABLE_FPGA_LOAD : Enables FPGA bit stream loading feature
+ * 	- ENABLE_FPGA_FRAME_READBACK : Enables FPGA CRAM frame readback feature
  * 	- ENABLE_SECURE : Enables security features
  * 	- XPU_INTR_DEBUG_PRINT_ENABLE : Enables debug for XMPU/XPPU functionality
  *
@@ -205,6 +206,14 @@ extern "C" {
 
 #ifndef ENABLE_FPGA_LOAD_VAL
 #define	ENABLE_FPGA_LOAD_VAL				(1U)
+#endif
+
+#ifndef ENABLE_FPGA_FRAME_READBACK_VAL
+/**
+ * @def ENABLE_FPGA_FRAME_READBACK_VAL
+ * Enables or disables FPGA frame readback feature
+ */
+#define ENABLE_FPGA_FRAME_READBACK_VAL		(0U)
 #endif
 
 #ifndef ENABLE_FPGA_READ_CONFIG_DATA_VAL
@@ -476,6 +485,11 @@ extern "C" {
 
 #if (ENABLE_FPGA_LOAD_VAL) && (!defined(ENABLE_FPGA_LOAD))
 #define ENABLE_FPGA_LOAD
+#endif
+
+#if (ENABLE_FPGA_FRAME_READBACK_VAL) && \
+	(!defined(ENABLE_FPGA_FRAME_READBACK))
+#define ENABLE_FPGA_FRAME_READBACK
 #endif
 
 #if (ENABLE_FPGA_READ_CONFIG_DATA_VAL) && \

@@ -43,6 +43,8 @@
  * 6.3  Nava  08/05/22  Added doxygen tags.
  * 6.5 Nava   08/18/23  Resolved the doxygen issues.
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+ * 6.10 Arvd  02/20/26  Add support to set config regs and
+ *                      read frame data via PMUFW
  * </pre>
  *
  * @note
@@ -54,6 +56,8 @@
 
 /* @cond nocomments */
 /************************** Constant Definitions *****************************/
+#define PM_FPGA_SET_CONFIG_REG	0x4BU
+#define PM_FPGA_GET_FRAME_DATA	0x4CU
 #define PM_FPGA_LOAD		0x16U
 #define PM_FPGA_GET_STATUS	0x17U
 #define PM_FPGA_READ		0x2EU
@@ -73,6 +77,11 @@
 static u32 XFpga_IPI_WriteToPl(XFpga *InstancePtr);
 static u32 XFpga_IPI_GetPLConfigDataPcap(const XFpga *InstancePtr);
 static u32 XFpga_IPI_GetPLConfigRegPcap(const XFpga *InstancePtr);
+#ifdef XFPGA_FRAME_READBACK
+static u32 XFpga_IPI_SetPlConfigRegPcap(const XFpga *InstancePtr, u32 mask, u32 Data);
+static u32 XFpga_IPI_GetPlFrameDataPcap(const XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames, u32 FarAddr);
+#endif
+
 static u32 XFpga_IPI_PcapStatus(void);
 /************************** Variable Definitions *****************************/
 
@@ -108,6 +117,10 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 	InstancePtr->XFpga_GetConfigData = XFpga_IPI_GetPLConfigDataPcap;
 	InstancePtr->XFpga_GetConfigReg = XFpga_IPI_GetPLConfigRegPcap;
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_IPI_PcapStatus;
+#ifdef XFPGA_FRAME_READBACK
+	InstancePtr->XFpga_SetConfigReg = XFpga_IPI_SetPlConfigRegPcap;
+	InstancePtr->XFpga_GetFrameData = XFpga_IPI_GetPlFrameDataPcap;
+#endif
 
 	Status = XMailbox_Initialize(&XMboxInstance, 0U);
 END:
@@ -300,6 +313,69 @@ static u32 XFpga_IPI_PcapStatus(void)
 END:
 	return RegVal;
 }
+
+#ifdef XFPGA_FRAME_READBACK
+/*********************************************************************************/
+static u32 XFpga_IPI_SetPlConfigRegPcap(const XFpga *InstancePtr, u32 mask, u32 Data)
+{
+	volatile u32 Status = XFPGA_FAILURE;
+	u32 ReqBuffer[FPGA_MSG_LEN] = {0};
+
+	ReqBuffer[0U] = PM_FPGA_SET_CONFIG_REG;
+	ReqBuffer[1U] = mask;
+	ReqBuffer[2U] = Data;
+
+	/* Send an IPI Req Message */
+	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
+				   FPGA_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
+				   FPGA_IPI_TYPE_BLOCKING);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XFPGA_FAILURE;
+	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
+			       FPGA_IPI_RESP1, XILMBOX_MSG_TYPE_RESP);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status =  ReqBuffer[0U];
+END:
+	return Status;
+}
+
+static u32 XFpga_IPI_GetPlFrameDataPcap(const XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames, u32 FarAddr)
+{
+	volatile u32 Status = XFPGA_FAILURE;
+	u32 ReqBuffer[FPGA_MSG_LEN] = {0};
+
+	ReqBuffer[0U] = PM_FPGA_GET_FRAME_DATA;
+	ReqBuffer[1U] = UPPER_32_BITS(ReadbackAddr);
+	ReqBuffer[2U] = (u32)ReadbackAddr;
+	ReqBuffer[3U] = NumFrames;
+	ReqBuffer[4U] = FarAddr;
+
+	/* Send an IPI Req Message */
+	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
+				   FPGA_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
+				   FPGA_IPI_TYPE_BLOCKING);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XFPGA_FAILURE;
+	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
+			       FPGA_IPI_RESP1, XILMBOX_MSG_TYPE_RESP);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	Status =  ReqBuffer[0U];
+END:
+	return Status;
+}
+#endif
 
 /* @endcond */
 /** @} */

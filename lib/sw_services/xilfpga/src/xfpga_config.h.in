@@ -26,6 +26,8 @@
 #cmakedefine XFPGA_READ_CONFIG_REG @XFPGA_READ_CONFIG_REG@
 /** Read configuration data */
 #cmakedefine XFPGA_READ_CONFIG_DATA @XFPGA_READ_CONFIG_DATA@
+/** Enable frame readback */
+#cmakedefine XFPGA_FRAME_READBACK @XFPGA_FRAME_READBACK@
 /** Get version information */
 #cmakedefine XFPGA_GET_VERSION_INFO @XFPGA_GET_VERSION_INFO@
 /** Get feature list */

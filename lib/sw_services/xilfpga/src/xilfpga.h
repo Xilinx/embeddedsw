@@ -90,6 +90,8 @@
  * 6.6  AC	  04/04/24  Resolved the doxygen issues.
  * 6.10 Arvd  02/04/26  Fixed codespell errors
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+ * 6.10 Arvd  02/20/26  Add support to set config regs and
+ *                      read frame data via PMUFW
  * </pre>
  *
  *
@@ -124,6 +126,10 @@ typedef struct XFpgatag{
 	u32 (*XFpga_GetInterfaceStatus)(void); /**< Provides the STATUS of PL programming interface */
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr); /**< Returns the value of the specified configuration register */
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr); /**< Provides the FPGA readback data */
+#ifdef XFPGA_FRAME_READBACK
+	u32 (*XFpga_SetConfigReg)(const struct XFpgatag *InstancePtr, u32 mask, u32 Data); /**< Writes to PL MASK and CTL0 configuration registers via PCAP */
+	u32 (*XFpga_GetFrameData)(const struct XFpgatag *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames, u32 FarAddr); /**< Reads back CRAM frame data for a given FAR address via PCAP */
+#endif
 #ifndef XFPGA_SECURE_IPI_MODE_EN
 	XFpga_Info	PLInfo; /**< Structure which is used to store the secure image data */
 #endif
@@ -262,7 +268,12 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			 u32 ConfigRegAddr);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
-#pragma message ("From 2023.1 release onwards the XilFPGA BSP user configuration  flags ‘reg_readback_en’ and  ‘data_readback_en’ will be disabled by default but users can still be able to enable these flags as needed")
+#ifdef XFPGA_FRAME_READBACK
+u32 XFpga_SetPlConfigReg(XFpga *InstancePtr, u32 mask, u32 Data);
+u32 XFpga_GetPlFrameData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
+			 u32 NumFrames, u32 FarAddr);
+#endif
+#pragma message ("From 2023.1 release onwards the XilFPGA BSP user configuration  flags 'reg_readback_en' and  'data_readback_en' will be disabled by default but users can still be able to enable these flags as needed")
 #endif
 
 #ifdef __cplusplus

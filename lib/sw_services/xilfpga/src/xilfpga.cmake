@@ -8,6 +8,7 @@ option(XILFPGA_secure_readback "Which is used to Enable the secure PL configurat
 option(XILFPGA_debug_mode "Which is used to Enable the Debug messages in the library" OFF)
 option(XILFPGA_reg_readback_en "Which is used to Enable the FPGA configuration Register Read-back support" ON)
 option(XILFPGA_data_readback_en "Which is used to Enable the FPGA configuration Data Read-back support" ON)
+option(XILFPGA_frame_readback_en "Which is used to Enable the FPGA CRAM frame readback support" OFF)
 option(XILFPGA_get_version_info_en "Which is used to Get the Xilfpga library version info" OFF)
 option(XILFPGA_get_feature_list_en "Which is used to Get the Xilfpga library supported feature list info" OFF)
 option(XILPFGA_skip_efuse_check_en "Which is used to skip the eFUSE checks for PL configuration" OFF)
@@ -49,6 +50,14 @@ endif()
 
 if (${XILFPGA_data_readback_en})
     set(XFPGA_READ_CONFIG_DATA " ")
+endif()
+
+if (${XILFPGA_frame_readback_en})
+    if (NOT ${XILFPGA_data_readback_en})
+        message(FATAL_ERROR "XILFPGA_frame_readback_en requires XILFPGA_data_readback_en "
+            "to be enabled for frame readback support")
+    endif()
+    set(XFPGA_FRAME_READBACK " ")
 endif()
 
 if (${XILFPGA_get_version_info_en})
