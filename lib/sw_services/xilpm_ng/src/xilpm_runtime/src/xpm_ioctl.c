@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -133,7 +133,7 @@ static XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response
 	}
 
 	if (IS_DEV_AIE(DeviceId)) {
-		Status = XPmAieDevice_QueryDivider(Device, Response);
+		Status = XPmAieDevice_QueryDivider(Response);
 	} else {
 		/* Device not supported */
 		Status = XST_INVALID_PARAM;

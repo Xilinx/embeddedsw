@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,16 @@
 #include "xpm_alloc.h"
 
 
+/***************************************************************************/
+/**
+ * @brief  AIE2 domain initialization start handler.
+ *
+ * @param  PwrDomain    Pointer to the power domain
+ * @param  Args         Initialization arguments
+ * @param  NumOfArgs    Number of arguments
+ *
+ * @return XST_SUCCESS if successful else error code
+ ***************************************************************************/
 XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -47,17 +57,56 @@ done:
 	return Status;
 }
 
+/***************************************************************************/
+/**
+ * @brief  AIE2 domain initialization finish handler. Reads and stores the
+ *         default clock divider value from NPI registers.
+ *
+ * @param  PwrDomain    Pointer to the power domain
+ * @param  Args         Initialization arguments (unused)
+ * @param  NumOfArgs    Number of arguments (unused)
+ *
+ * @return XST_SUCCESS on success.
+ ***************************************************************************/
 XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	(void)PwrDomain;
+	XStatus Status = XST_FAILURE;
+	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	u32 ClkDivider;
 	(void)Args;
 	(void)NumOfArgs;
-	/* TODO Adding a place holder.
-	 * Need to Implement while adding AIE support to xilpm */
-	return XST_SUCCESS;
+
+	if (NULL == AieDomain){
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
+
+	/* Store initial clock divider value at boot */
+	ClkDivider = XPm_In32(AieDomain->AieNpiAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET) &
+			AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK;
+	ClkDivider = ClkDivider >> AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT;
+	AieDomain->DefaultClockDiv = ClkDivider;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
+/***************************************************************************/
+/**
+ * @brief  Initialize the AIE domain structure and array configuration.
+ *
+ * @param  AieDomain    Pointer to AIE domain to initialize
+ * @param  Id           Power domain node ID
+ * @param  BaseAddress  NPI base address of the AIE domain
+ * @param  Parent       Pointer to parent power node
+ * @param  Args         Array configuration arguments
+ * @param  NumArgs      Number of arguments
+ *
+ * @return XST_SUCCESS if successful else error code
+ ***************************************************************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs)
 {
@@ -66,8 +115,6 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u16 ArrayInfoPresent = 0U;
 
-	(void)Args;
-	(void)NumArgs;
 	XPm_AieArray *Array = &AieDomain->Array;
 
 	if (PM_POWER_ME2 == Id) {
@@ -121,6 +168,14 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	Array->NumColsAdjusted = Array->NumCols - (u16)(Array->LColOffset + Array->RColOffset);
 	Array->NumRowsAdjusted = Array->NumRows - Array->TRowOffset;
 
+	/* Store AIE NPI base address from topology */
+	/* TODO: Remove check for if Args[4] is present once builds have stabalized */
+	if (4U < NumArgs) {
+		AieDomain->AieNpiAddress = Args[4];
+	}
+	/* Initialize default clock divider */
+	AieDomain->DefaultClockDiv = 0U;
+
 	Status = XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress,
 			Parent);
 
@@ -132,6 +187,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * @brief  Add AIE periph node
@@ -156,8 +212,8 @@ XStatus XPmAie_AddPeriphNode(const u32 *Args, u32 PowerId)
 
 	Power = XPmPower_GetById(PowerId);
 	if (NULL == Power) {
-	        Status = XST_DEVICE_NOT_FOUND;
-	        goto done;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
 	}
 
 	switch (Index) {
@@ -173,7 +229,7 @@ XStatus XPmAie_AddPeriphNode(const u32 *Args, u32 PowerId)
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
-        }
+	}
 
 done:
 	return Status;

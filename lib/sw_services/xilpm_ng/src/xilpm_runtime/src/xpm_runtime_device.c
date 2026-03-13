@@ -916,7 +916,7 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 	 * QOS is the new divider value.
 	 */
 	if (IS_DEV_AIE(DeviceId)) {
-		Status = XPmAieDevice_UpdateClockDiv(Device, QoS);
+		Status = XPmAieDevice_UpdateClockDiv(QoS);
 	}
 
 done:

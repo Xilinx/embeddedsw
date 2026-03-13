@@ -86,8 +86,8 @@ struct XPm_AieCtrlPktTlastErr {
 } __attribute__ ((aligned(4)));
 
 XStatus XPmAie_Operations(u32 Part, u32 Ops, u32 Arg3);
-XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const u32 Divider);
-XStatus XPmAieDevice_QueryDivider(const XPm_Device *Device, u32 *Response);
+XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider);
+XStatus XPmAieDevice_QueryDivider(u32 *Response);
 
 #ifdef __cplusplus
 }
