@@ -1,4 +1,4 @@
-# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 set( CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY" )
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -9,6 +9,8 @@ set( CMAKE_CXX_COMPILER mb-g++ )
 set( CMAKE_C_COMPILER_LAUNCHER  )
 set( CMAKE_CXX_COMPILER_LAUNCHER  )
 set( CMAKE_ASM_COMPILER mb-gcc )
+# Force ASM compiler identification to bypass timeout issues caused by PATH conflicts
+set( CMAKE_ASM_COMPILER_ID "GNU" )
 set( CMAKE_AR mb-ar CACHE FILEPATH "Archiver" )
 set( CMAKE_SIZE mb-size CACHE FILEPATH "Size" )
 set( CMAKE_SYSTEM_PROCESSOR "plm_microblaze" )

@@ -753,3 +753,38 @@ VALID_TEMPLATES = [
     "zynqmp_fsbl",
     "zynqmp_pmufw",
 ]
+
+
+def verify_tool_path(tool_name, version=False, version_flag="--version"):
+    """
+    Verify if a tool path is valid and optionally get its version.
+
+    Args:
+        | tool_name: Name of the tool executable.
+        | version: Whether to get and display version information.
+        | version_flag: Flag to use for getting version (default: --version).
+    Returns:
+        string: Absolute path of the tool executable.
+    """
+    tool_path = shutil.which(tool_name)
+    if tool_path:
+        logger.info(f"Found {tool_name} at {tool_path}")
+
+        # Get version if requested
+        if version:
+            try:
+                version_output = subprocess.check_output(
+                    [tool_name, version_flag],
+                    stderr=subprocess.STDOUT,
+                    text=True
+                ).strip().split('\n')[0]
+                logger.info(f"{tool_name} version: {version_output}")
+            except subprocess.CalledProcessError as e:
+                logger.info(f"Could not get {tool_name} version: {e}")
+            except Exception as e:
+                pass  # Ignore any other exceptions during version retrieval
+
+    else:
+        logger.info(f"Could not find {tool_name} in PATH.")
+        logger.info(f"Current PATH: {os.environ.get('PATH', '')}")
+        logger.info(f"Current LD_LIBRARY_PATH: {os.environ.get('LD_LIBRARY_PATH', '')}")

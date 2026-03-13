@@ -868,6 +868,9 @@ endfunction(_my_hook_end_of_configure)
 
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
     lib_list += ["standalone"]
+    #Verify the cmake and gcc before calling cmake command
+    utils.verify_tool_path("cmake", version=True)
+    utils.verify_tool_path("mb-gcc", version=True)
     if obj.app:
         lib_obj.config_lib(obj.app, lib_list, cmake_cmd_append, is_app=True)
     else:

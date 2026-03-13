@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set( CMAKE_INSTALL_MESSAGE LAZY)
@@ -7,6 +7,8 @@ set( CMAKE_CXX_COMPILER iccarm )
 set( CMAKE_C_COMPILER_LAUNCHER  )
 set( CMAKE_CXX_COMPILER_LAUNCHER  )
 set( CMAKE_ASM_COMPILER iasmarm )
+# Force ASM compiler identification to bypass timeout issues caused by PATH conflicts
+set( CMAKE_ASM_COMPILER_ID "GNU" )
 set( CMAKE_AR iarchive CACHE FILEPATH "Archiver" )
 set( CMAKE_SYSTEM_PROCESSOR "cortexr5" )
 set( CMAKE_MACHINE "ZynqMP")
