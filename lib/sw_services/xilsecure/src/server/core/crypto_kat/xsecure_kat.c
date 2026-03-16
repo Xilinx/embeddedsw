@@ -35,6 +35,8 @@
 *       kal  07/24/2024 Code refacroring for versal_2ve_2vm.
 *	vss  10/01/2024	Changed existing implementation of AES CM KAT to same key and data
 *	vss  10/23/2024 Removed AES duplicate code
+* 5.7   tvp  03/12/2026 Configure DmaSwap before transferring IV to AES engine
+*                       for versal_2vp_p
 *
 * </pre>
 *
@@ -808,7 +810,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END_CLR;
 	}
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 	/** Configure AES engine to decryption */
@@ -928,7 +930,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END_CLR;
 	}
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 	/** Configure AES engine to encryption */

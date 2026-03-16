@@ -45,6 +45,8 @@
 *       pre   03/02/25   Implemented task based event notification functionality for AES IPI events
 * 5.6   mb    09/09/25   Return error code on AES IPI event handling failure
 *    	obs   09/23/25   Added support for Verifying Address Range
+* 5.7   tvp   03/12/26   Configure DmaSwap before transferring IV to AES engine
+*                        for versal_2vp_p
 *
 * </pre>
 *
@@ -735,7 +737,7 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 		goto END;
 	}
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 
