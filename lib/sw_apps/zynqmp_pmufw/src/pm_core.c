@@ -86,8 +86,37 @@
 #define DYNAMIC_MIO_CONFIG_BITMASK	(0ULL)
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 
+#ifdef ENABLE_CSU_REG_ACCESS
+/**
+ * CSU_REG_ACCESS_BITMASK - Bitmask for CSU register access IOCTL features
+ *
+ * This macro defines the bitmask of supported CSU register access IOCTLs
+ * when ENABLE_CSU_REG_ACCESS is defined. It includes:
+ * - PM_IOCTL_READ_REG: Read CSU register
+ * - PM_IOCTL_MASK_WRITE_REG: Masked write to CSU register
+ *
+ * When ENABLE_CSU_REG_ACCESS is not defined, this bitmask is 0.
+ */
+#define CSU_REG_ACCESS_BITMASK	(			\
+	(1ULL << (u64)PM_IOCTL_READ_REG) |	\
+	(1ULL << (u64)PM_IOCTL_MASK_WRITE_REG))
+#else
+#define CSU_REG_ACCESS_BITMASK	(0ULL)
+#endif /* ENABLE_CSU_REG_ACCESS */
+
+/**
+ * PM_IOCTL_FEATURE_BITMASK - Combined bitmask of all supported IOCTL features
+ *
+ * This macro combines all feature-specific bitmasks to create a complete
+ * bitmask of supported IOCTL operations. It includes:
+ * - FEATURE_CONFIG_BITMASK: Feature configuration IOCTLs
+ * - DYNAMIC_MIO_CONFIG_BITMASK: Dynamic MIO configuration IOCTLs
+ * - CSU_REG_ACCESS_BITMASK: CSU register access IOCTLs
+ *
+ * This bitmask is used by PM_FEATURE_CHECK to report supported IOCTL IDs.
+ */
 #define PM_IOCTL_FEATURE_BITMASK (			\
-	(FEATURE_CONFIG_BITMASK) | (DYNAMIC_MIO_CONFIG_BITMASK))
+	(FEATURE_CONFIG_BITMASK) | (DYNAMIC_MIO_CONFIG_BITMASK) | (CSU_REG_ACCESS_BITMASK))
 
 #define PM_GET_OP_CHAR_FEATURE_BITMASK ( \
 		(1U << (u32)PM_OPCHAR_TYPE_POWER) | \
@@ -2326,15 +2355,16 @@ done:
  * @ioctlId	The ioctl id to be requested for
  * @arg1	Argument to be passed to the ioctl call
  * @arg2	Argument to be passed to the ioctl call
+ * @arg3	Argument to be passed to the ioctl call
  */
 static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
-		       XPm_IoctlId ioctlId, u32 arg1, u32 arg2)
+		       XPm_IoctlId ioctlId, u32 arg1, u32 arg2, u32 arg3)
 {
 	s32 status = XST_FAILURE;
 	u32 value = 0;
 
-	PmInfo("%s> PmDevIoctl(%lu, %lu, %lu, %lu)\r\n", master->name,
-		deviceId, ioctlId, arg1, arg2);
+	PmInfo("%s> PmDevIoctl(%lu, %lu, %lu, %lu, %lu)\r\n", master->name,
+		deviceId, ioctlId, arg1, arg2, arg3);
 
 	switch (ioctlId) {
 #ifdef ENABLE_FEATURE_CONFIG
@@ -2356,6 +2386,14 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 		status = PmSetUsbConfig(deviceId, (XPm_UsbConfigType)arg1, arg2);
 		break;
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
+#ifdef ENABLE_CSU_REG_ACCESS
+	case PM_IOCTL_READ_REG:
+		status = PmCsuRegRead(master, arg1, &value);
+		break;
+	case PM_IOCTL_MASK_WRITE_REG:
+		status = PmCsuRegWrite(master, arg1, arg2, arg3);
+		break;
+#endif /* ENABLE_CSU_REG_ACCESS */
 	default:
 		status = XST_INVALID_PARAM;
 		break;
@@ -2364,6 +2402,37 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
 #endif /* ENABLE_IOCTL */
+
+#ifdef ENABLE_CSU_REG_ACCESS
+/**
+ * PmQueryData() - This function queries information about the platform resources.
+ * @master	Master that initiated the call
+ * @qid		The type of data to query
+ * @arg1	Query argument 1
+ */
+static void PmQueryData(const PmMaster* const master, const u32 qid, const u32 arg1)
+{
+	s32 status = XST_FAILURE;
+	u32 response[3] = {0U};
+
+	PmInfo("%s> PmQueryData(%lu, %lu)\r\n", master->name, qid, arg1);
+
+	switch (qid) {
+	case PM_QID_GET_NODE_COUNT:
+		response[0] = PmCsuRegGetCount();
+		status = XST_SUCCESS;
+		break;
+	case PM_QID_GET_NODE_NAME:
+		status = PmCsuRegGetName(arg1, response);
+		break;
+	default:
+		status = XST_INVALID_PARAM;
+		break;
+	}
+
+	IPI_RESPONSE4(master->ipiMask, (u32)status, response[0], response[1], response[2]);
+}
+#endif
 
 /**
  * PmFeatureCheck() - This function returns supported version of API. It
@@ -2737,9 +2806,14 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		break;
 #ifdef ENABLE_IOCTL
 	case PM_API(PM_IOCTL):
-		PmDevIoctl(master, pload[1], (XPm_IoctlId)pload[2], pload[3], pload[4]);
+		PmDevIoctl(master, pload[1], (XPm_IoctlId)pload[2], pload[3], pload[4], pload[5]);
 		break;
 #endif
+#ifdef ENABLE_CSU_REG_ACCESS
+	case PM_API(PM_QUERY_DATA):
+		PmQueryData(master, pload[1], pload[2]);
+		break;
+#endif /* ENABLE_CSU_REG_ACCESS */
 	case PM_API(PM_FEATURE_CHECK):
 		PmFeatureCheck(master, pload[1]);
 		break;
