@@ -118,6 +118,24 @@
 #define PM_IOCTL_FEATURE_BITMASK (			\
 	(FEATURE_CONFIG_BITMASK) | (DYNAMIC_MIO_CONFIG_BITMASK) | (CSU_REG_ACCESS_BITMASK))
 
+#ifdef ENABLE_CSU_REG_ACCESS
+/**
+ * PM_QUERY_DATA_FEATURE_BITMASK - Bitmask of supported QUERY_DATA IDs
+ *
+ * This macro defines the bitmask of supported PM_QUERY_DATA query IDs
+ * when ENABLE_CSU_REG_ACCESS is defined. It includes:
+ * - PM_QID_GET_NODE_COUNT: Get count of CSU register nodes
+ * - PM_QID_GET_NODE_NAME: Get name of CSU register node
+ *
+ * This bitmask is used by PM_FEATURE_CHECK to report supported QUERY_DATA IDs.
+ */
+#define PM_QUERY_DATA_FEATURE_BITMASK (			\
+	(1ULL << (u64)PM_QID_GET_NODE_COUNT) |		\
+	(1ULL << (u64)PM_QID_GET_NODE_NAME))
+#else
+#define PM_QUERY_DATA_FEATURE_BITMASK	(0ULL)
+#endif /* ENABLE_CSU_REG_ACCESS */
+
 #define PM_GET_OP_CHAR_FEATURE_BITMASK ( \
 		(1U << (u32)PM_OPCHAR_TYPE_POWER) | \
 		(1U << (u32)PM_OPCHAR_TYPE_LATENCY))
@@ -2523,6 +2541,14 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 		retPayload[0] = PM_IOCTL_VERSION;
 		retPayload[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);
 		retPayload[2] = (u32)(PM_IOCTL_FEATURE_BITMASK >> 32);
+		status = XST_SUCCESS;
+		break;
+#endif
+#ifdef ENABLE_CSU_REG_ACCESS
+	case PM_API(PM_QUERY_DATA):
+		retPayload[0] = PM_API_VERSION_2;
+		retPayload[1] = (u32)(PM_QUERY_DATA_FEATURE_BITMASK);
+		retPayload[2] = (u32)(PM_QUERY_DATA_FEATURE_BITMASK >> 32);
 		status = XST_SUCCESS;
 		break;
 #endif
