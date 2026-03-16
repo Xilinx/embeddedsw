@@ -1,0 +1,2 @@
+#!/bin/bash
+cmake $@ 2>&1

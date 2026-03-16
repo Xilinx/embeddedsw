@@ -1,0 +1,54 @@
+/*
+ * Copyright (c) 2016-2022 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+/*
+ * @file	alloc.h
+ * @brief	Memory allocation handling primitives for libmetal.
+ */
+
+#ifndef __METAL_ALLOC__H__
+#define __METAL_ALLOC__H__
+
+#include <metal/system/@PROJECT_SYSTEM@/alloc.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/** \defgroup Memory Allocation Interfaces
+ *  @{
+ */
+
+/**
+ * @brief      allocate requested memory size
+ *             return a pointer to the allocated memory
+ *
+ * @param[in]  size        size in byte of requested memory
+ * @return     memory pointer, or 0 if it failed to allocate
+ */
+static inline void *metal_allocate_memory(unsigned int size)
+{
+	return __metal_allocate_memory(size);
+}
+
+/**
+ * @brief      free the memory previously allocated
+ *
+ * @param[in]  ptr       pointer to memory
+ */
+static inline void metal_free_memory(void *ptr)
+{
+	__metal_free_memory(ptr);
+}
+
+/** @} */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __METAL_ALLOC__H__ */
