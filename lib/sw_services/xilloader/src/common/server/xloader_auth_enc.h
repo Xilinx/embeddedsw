@@ -71,6 +71,7 @@
 * 2.4   vss  02/01/26 Updated PPK revoke error logic.
 *       tvp  03/05/26 Add XLoader_AuthKey to accommodate new algorithms support
 *       tvp  03/05/26 Add authenticated boot support for Versal_2vp_p
+*       tvp  03/05/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *
 * </pre>
 *
@@ -218,6 +219,14 @@ extern "C" {
 					/**< PPK1 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD		(0x000000C0U)
 					/**< PPK2 invalid value */
+#ifdef VERSAL_2VP_P
+#define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x1F003EFFU)
+					/**< All PPKs invalid value for PPK0-PPK8 */
+#define XLOADER_EFUSE_PPK_HASH_LEN			(48U)
+					/**< PPK hash length stored in eFUSE */
+#else
+#define XLOADER_EFUSE_PPK_HASH_LEN			(32U)
+					/**< PPK hash length stored in eFUSE */
 #ifndef PLM_EN_ADD_PPKS
 #define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x000000FCU)
 					/**< All PPKs invalid value for PPK0-PPK2 */
@@ -225,9 +234,7 @@ extern "C" {
 #define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x00001EFCU)
 					/**< All PPKs invalid value for PPK0-PPK4 */
 #endif
-
-#define XLOADER_EFUSE_PPK_HASH_LEN			(32U)
-					/**< PPK hash length stored in eFUSE */
+#endif
 
 #define XLOADER_SECURE_IV_LEN				(4U)
 				/**< Secure IV length in words */
@@ -674,9 +681,18 @@ typedef enum {
 	XLOADER_PPK_SEL_0,	/**< 0 - PPK 0 */
 	XLOADER_PPK_SEL_1,	/**< 1 - PPK 1 */
 	XLOADER_PPK_SEL_2,	/**< 2 - PPK 2 */
+#ifdef VERSAL_2VP_P
+	XLOADER_PPK_SEL_3,	/**< 3 - PPK 3 */
+	XLOADER_PPK_SEL_4,	/**< 4 - PPK 4 */
+	XLOADER_PPK_SEL_5,	/**< 5 - PPK 5 */
+	XLOADER_PPK_SEL_6,	/**< 6 - PPK 6 */
+	XLOADER_PPK_SEL_7,	/**< 7 - PPK 7 */
+	XLOADER_PPK_SEL_8,	/**< 8 - PPK 8 */
+#else
 #ifdef PLM_EN_ADD_PPKS
 	XLOADER_PPK_SEL_3,	/**< 3 - PPK 3 */
 	XLOADER_PPK_SEL_4,	/**< 4 - PPK 4 */
+#endif
 #endif
 	XLOADER_PPK_SEL_MAX /**< Max PPK Selector */
 } XLoader_PpkSel;

@@ -15,6 +15,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 * 2.4   vss 02/01/26 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
+*       tvp 02/04/26 Add register addresses for efuse ppk hash
 * </pre>
 *
 ***************************************************************************************************/
@@ -154,15 +155,39 @@ typedef struct {
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
-#ifdef PLM_EN_ADD_PPKS
-#define XLOADER_EFUSE_PPK4_START_OFFSET                 (0xF12502E0U)
-                    /**< PPK4 start register address */
-#define XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD              (0x00000600U)
-                    /**< PPK3 invalid value */
-#define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD              (0x00001800U)
-					/**< PPK4 invalid value */
-#endif /**< END OF PLM_EN_ADD_PPKS*/
+#define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250130U)
+					/**< PPK1 Start register address */
+#define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF125037CU)
+					/**< PPK2 Start register address */
+#define XLOADER_EFUSE_PPK3_START_OFFSET			(0xF12503ACU)
+					/**< PPK3 Start register address */
+#define XLOADER_EFUSE_PPK4_START_OFFSET			(0xF12503DCU)
+					/**< PPK4 Start register address */
+#define XLOADER_EFUSE_PPK5_START_OFFSET			(0xF125040CU)
+					/**< PPK5 Start register address */
+#define XLOADER_EFUSE_PPK6_START_OFFSET			(0xF125043CU)
+					/**< PPK6 Start register address */
+#define XLOADER_EFUSE_PPK7_START_OFFSET			(0xF125046CU)
+					/**< PPK7 Start register address */
+#define XLOADER_EFUSE_PPK8_START_OFFSET			(0xF125049CU)
+					/**< PPK8 Start register address */
+#define XLOADER_EFUSE_PPK1_END_OFFSET			(0xF125015CU)
+					/**< PPK1 End register address */
+#define XLOADER_EFUSE_PPK8_END_OFFSET			(0xF12504C8U)
+					/**< PPK8 End register address */
 
+#define XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD		(0x00000003U)
+					/**< PPK3 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD		(0x03000000U)
+					/**< PPK4 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK5_INVLD		(0x0C000000U)
+					/**< PPK5 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK6_INVLD		(0x00000C00U)
+					/**< PPK6 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK7_INVLD		(0x00003000U)
+					/**< PPK7 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK8_INVLD		(0x10000200U)
+					/**< PPK8 invalid value */
 #define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x7DFFF8C1U)
 		/**< Mask to enable required instructions in Instruction Mask 0 register */
 #define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x071BFF91U)

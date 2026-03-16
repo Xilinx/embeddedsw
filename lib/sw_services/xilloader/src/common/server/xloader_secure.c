@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -136,6 +136,7 @@
 *       tvp  08/27/25 Store Block 0 partition hash to calculate subsystem image hash for versal_2vp
 *       pre  09/30/25 Updated comments for rtf docs
 *       sd   11/10/25 Added support for VERSAL_2VP_P devices.
+* 2.4   tvp  02/04/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *
 * </pre>
 *
@@ -822,6 +823,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VP_P
 /*****************************************************************************/
 /**
 * @brief	This function checks if PPK is programmed.
@@ -862,6 +864,69 @@ int XLoader_CheckNonZeroPpk(void)
 
 	return Status;
 }
+#else
+/**************************************************************************************************/
+/**
+* @brief	This function checks if PPK is programmed.
+*
+* @return
+* 		- XST_SUCCESS if PPK is programmed.
+* 		- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
+* 		- XST_FAILURE on failure.
+*
+***************************************************************************************************/
+int XLoader_CheckNonZeroPpk(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 Index;
+
+	/** - Check if any of the PPK efuses (PPK0 and PPK1) are not programmed. */
+	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
+		Index <= XLOADER_EFUSE_PPK1_END_OFFSET;
+		Index = Index + XIH_PRTN_WORD_LEN) {
+		/* Any bit of PPK hash are non-zero break and return success */
+		if (XPlmi_In32(Index) != 0x0U) {
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+	if (Index > (XLOADER_EFUSE_PPK1_END_OFFSET + XIH_PRTN_WORD_LEN)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index < XLOADER_EFUSE_PPK0_START_OFFSET) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index <= XLOADER_EFUSE_PPK1_END_OFFSET) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		/** - Check if any of the PPK efuses (PPK2 to PPK8) are not programmed. */
+		for (Index = XLOADER_EFUSE_PPK2_START_OFFSET;
+				Index <= XLOADER_EFUSE_PPK8_END_OFFSET;
+				Index = Index + XIH_PRTN_WORD_LEN) {
+			/* Any bit of PPK hash are non-zero break and return success */
+			if (XPlmi_In32(Index) != 0x0U) {
+				Status = XST_SUCCESS;
+				break;
+			}
+		}
+
+		if (Index > (XLOADER_EFUSE_PPK8_END_OFFSET + XIH_PRTN_WORD_LEN)) {
+			Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+		} else if ((Index < XLOADER_EFUSE_PPK2_START_OFFSET) &&
+				(Index > (XLOADER_EFUSE_PPK1_END_OFFSET + XIH_PRTN_WORD_LEN))) {
+			Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+		} else if (Index <= XLOADER_EFUSE_PPK8_END_OFFSET) {
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_FAILURE;
+		}
+	}
+
+	return Status;
+}
+#endif
 
 /*****************************************************************************/
 /**

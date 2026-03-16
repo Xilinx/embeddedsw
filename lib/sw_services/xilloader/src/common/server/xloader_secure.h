@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +60,8 @@
 *       kpt  02/18/22 Removed Flags param from XLoader_SecureInit function prototype
 * 1.08  dc   07/12/22 Moved error codes related to buffer clear to xplmi_status.h
 *       obs  09/30/2024 Fixed Doxygen Warnings
+* 2.4   tvp  02/04/26 Define register addresses for efuse ppk hash only for
+*                     platforms other than Versal_2vp_p
 *
 * </pre>
 *
@@ -87,12 +89,14 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_PPK0_START_OFFSET			(0xF1250100U)
 					/**< PPK0 Start register address */
+#ifndef VERSAL_2VP_P
 #define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250120U)
 					/**< PPK1 Start register address */
 #define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF1250140U)
 					/**< PPK2 Start register address */
 #define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
 					/**< PPK2 End register address */
+#endif
 #define XLOADER_EFUSE_SEC_MISC0_OFFSET			(0xF12500E4U)
 					/**< Security Misc0 register address */
 #define XLOADER_EFUSE_SEC_DEC_MASK			(0x0000FFFFU)
