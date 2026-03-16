@@ -3614,7 +3614,10 @@ static int XNvm_EfusePrgmPpkHash(XNvm_PpkType PpkType, XNvm_PpkHash *EfuseHash)
                 EfusePrgmInfo.NumOfRows = XNVM_EFUSE_ADD_PPK2_HASH_NUM_OF_ROWS;
                 EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
 	}
-
+	else{
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo,
 			&EfuseHash->Hash[XNVM_EFUSE_PPK_HASH_UPPER_WORD_START_OFFSET]);
 	if (Status != XST_SUCCESS) {
