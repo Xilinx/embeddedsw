@@ -92,6 +92,11 @@ typedef enum {
 	PM_IOCTL_SET_FEATURE_CONFIG = 26,
 	PM_IOCTL_GET_FEATURE_CONFIG = 27,
 #endif /* ENABLE_FEATURE_CONFIG */
+#ifdef ENABLE_CSU_REG_ACCESS
+	/* CSU Register Access IOCTLs */
+	PM_IOCTL_READ_REG = 28,
+	PM_IOCTL_MASK_WRITE_REG = 29,
+#endif /* ENABLE_CSU_REG_ACCESS */
 #ifdef ENABLE_DYNAMIC_MIO_CONFIG
 	/* Set SD config */
 	PM_IOCTL_SET_SD_CONFIG = 30,
@@ -103,6 +108,16 @@ typedef enum {
 	PM_IOCTL_MAX,
 } XPm_IoctlId;
 #endif /* ENABLE_IOCTL */
+
+#ifdef ENABLE_CSU_REG_ACCESS
+/* PM QUERY IDs */
+typedef enum {
+	/* Invalid QUERY ID */
+	PM_QID_INVALID = 0,
+	PM_QID_GET_NODE_NAME = 16,
+	PM_QID_GET_NODE_COUNT = 17,
+} XPm_QueryId;
+#endif /* ENABLE_CSU_REG_ACCESS */
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
