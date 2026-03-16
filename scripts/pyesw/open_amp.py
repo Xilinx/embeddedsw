@@ -231,16 +231,11 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     header_location = os.path.join(
         obj.app_src_dir, "openamp-system-reference", "examples"
     )
-    imux = "lop-r52-imux.dts" if "cortexr52" in obj.proc else "lop-r5-imux.dts"
     overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
     output_sdt = os.path.join(
         obj.app_src_dir, "openamp-system-reference", "openamp_output.dts"
     )
-    cmd1 = (
-        f'LOPPER_DTC_FLAGS="-b 0 -@" lopper -f --enhanced --permissive -i lop-xlate-yaml.dts '
-        f"-i {overlay_dst} -i {imux} "
-        f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} "
-    )
+    cmd1 = f"lopper -f --enhanced --auto -i {overlay_dst} -O {obj.app_src_dir} {bsp_sdt} {output_sdt}"
     cmd2 = f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} -- openamp "
     overlay_prefix = ""
 
