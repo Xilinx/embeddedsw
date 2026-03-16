@@ -169,6 +169,7 @@ def create_example(args):
         "domain_path": obj.domain_path,
         "app_src_dir": esw_app_dir,
         "template": "empty_application",
+        "lang": args["lang"]
     }
     utils.write_yaml(obj.app_config_file, data)
 
@@ -264,6 +265,14 @@ def main(arguments=None):
     )
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
+    )
+    parser.add_argument(
+        "-l",
+        "--lang",
+        action="store",
+        default="c",
+        help="Specify the language used for build settings (Default: c)",
+        choices=["c", "c++"],
     )
     parser.add_argument(
         "-r",
