@@ -69,6 +69,7 @@
 *       sd   11/10/25 Added support for VERSAL_2VP_P devices.
 * 2.4   tvp  01/23/26 Add XLoader_Sha3Kat definition
 * 2.4   vss  02/01/26 Updated PPK revoke error logic.
+*       tvp  03/05/26 Add XLoader_AuthKey to accommodate new algorithms support
 *
 * </pre>
 *
@@ -403,6 +404,8 @@ extern "C" {
 #define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)
 	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
 
+#define XLOADER_MAX_TOTAL_KEY_SIZE      (1028U)
+	/**< Maximum size of authentication key */
 #else
 #define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
                                                 XLOADER_RSA_4096_KEY_SIZE \
@@ -449,17 +452,31 @@ extern "C" {
 	/**< User Fuse offset for PPK2 to store upper 128 bits of Digest */
 #define XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET	(1U)
 	/**< Partition Hash index offset in HashBlock for partial PDI */
+
+#ifdef VERSAL_2VE_2VM
+#define XLOADER_MAX_TOTAL_KEY_SIZE	(1040U)
+	/**< Maximum size of authentication key including padding */
+#elif defined(VERSAL_2VP_P)
+#define XLOADER_MAX_TOTAL_KEY_SIZE	(2592U)
+	/**< Maximum size of authentication key */
 #endif
+#endif
+
+
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
 typedef struct {
 	u32 PubModulus[128U];	/**< Public Modulus */
 	u32 PubModulusExt[128U];	/**< Public Modulus Extension */
 	u32 PubExponent;	/**< Public Exponent */
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
-	u32 Reserved[3U];
-#endif
 } XLoader_RsaKey;
+
+typedef struct {
+#ifdef VERSAL_2VP_P
+	u32 Header[8U];
+#endif
+	u8 Key[XLOADER_MAX_TOTAL_KEY_SIZE];
+} XLoader_AuthKey;
 
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 /**< Authentication Certificate */
@@ -467,9 +484,9 @@ typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
 	u32 SpkId;	/**< SPK ID */
 	u32 UserData[14U];	/**< User data */
-	XLoader_RsaKey Ppk;	/**< PPK */
+	XLoader_AuthKey Ppk;	/**< PPK */
 	u32 PPKPadding[3U];	/**< PPK padding */
-	XLoader_RsaKey Spk;	/**< SPK */
+	XLoader_AuthKey Spk;	/**< SPK */
 	u32 SPKPadding;		/**< SPK padding */
 	u32 Alignment1[2U];	/**< Alignment gap */
 	u32 SPKSignature[128U];	/**< SPK signature */
@@ -478,6 +495,7 @@ typedef struct {
 } XLoader_AuthCertificate;
 
 #else
+
 /**
  * Hash Block structure containing partition hashes
  */
@@ -502,9 +520,9 @@ typedef struct {
  * Structure for Hash Block Authentication Certificate
  */
 typedef struct {
-	XLoader_RsaKey Ppk;	/**< PPK */
+	XLoader_AuthKey Ppk;	/**< PPK */
 	XLoader_SpkHeader SpkHeader;	/**< SPK Header */
-	XLoader_RsaKey Spk;	/**< SPK */
+	XLoader_AuthKey Spk;	/**< SPK */
 	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];	/**< SPK Signature */
 	u8 HBSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];	/**< Hash Block Signature */
 	u32 AuthHdr;	/**< Authentication Header */
@@ -584,7 +602,7 @@ typedef struct {
 	u32 JtagEnableTimeout;	/**< JTAG enable timeout */
 	u32 AuthJtagPadding[XLOADER_AUTH_JTAG_PADDING_SIZE];
 				/**< SHA padding for Auth JTAG signature */
-	XLoader_RsaKey PpkData;		/**< PPK */
+	XLoader_AuthKey PpkData;		/**< PPK */
 	u32 AuthJtagPpkShaPadding[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE];
 				/**< SHA padding for PPK */
 	u32 EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE];
@@ -764,7 +782,7 @@ int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
 int XLoader_VerifyRevokeId(u32 RevokeId);
 #ifndef PLM_SECURE_EXCLUDE
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
-	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
+	u8 *Hash, XLoader_AuthKey *AuthKey, u8 *Signature);
 #endif
 int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 int XLoader_Sha3Kat(XilPdi *PdiPtr);

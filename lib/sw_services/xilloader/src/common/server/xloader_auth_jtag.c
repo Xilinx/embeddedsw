@@ -17,6 +17,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 2.3   har  09/26/2025 Initial release
 * 2.4   abh  11/20/2025 Fixed MISRA-C violations
+*       tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms
+*                       support
 *
 * </pre>
 *
@@ -758,7 +760,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, &SecureParams,
-			(u8 *)&SpkHash, (XLoader_RsaKey *)KeyData.PpkData, (u8*)KeyData.SPKSignature);
+			(u8 *)&SpkHash, (XLoader_AuthKey *)KeyData.PpkData, (u8*)KeyData.SPKSignature);
 	}
 
 	/** - Verify if SPK Id is revoked or not. */
@@ -780,7 +782,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 
 	/** - Verify signature of Auth Jtag data */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
-		&SecureParams, (u8 *)&Sha3Hash, (XLoader_RsaKey *)KeyData.SpkData, (u8*)KeyData.EnableJtagSignature);
+		&SecureParams, (u8 *)&Sha3Hash, (XLoader_AuthKey *)KeyData.SpkData, (u8*)KeyData.EnableJtagSignature);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);

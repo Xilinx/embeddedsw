@@ -166,6 +166,7 @@
 *       rmv  01/30/2026 Renamed OCP keymanagment macro
 *                       will be called during boot from Pdi_Init.
 *       vss  02/01/2026 Updated PPK revoke error logic.
+*       tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms support
 *
 * </pre>
 *
@@ -1044,7 +1045,8 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	Hash is pointer to the expected hash to be verified
-* @param	Key is pointer to the RSA/ECDSA public key to be used for verification
+* @param	AuthKey is pointer to the RSA/ECDSA public key to be used for
+* 		verification
 * @param	Signature is pointer to the signature to be verified
 *
 * @return
@@ -1056,7 +1058,7 @@ END:
 *
 ******************************************************************************/
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
-		u8 *Hash, XLoader_RsaKey *Key, u8 *Signature)
+		u8 *Hash, XLoader_AuthKey *AuthKey, u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
 	u32 AuthType;
@@ -1071,7 +1073,8 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	/* RSA authentication */
 	if (AuthType ==	XLOADER_PUB_STRENGTH_RSA_4096) {
 #ifndef PLM_RSA_EXCLUDE
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_RsaSignVerify, Hash, Key, Signature);
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_RsaSignVerify, Hash,
+				       (XLoader_RsaKey *)AuthKey->Key, Signature);
 #else
 
 		XPlmi_Printf(DEBUG_INFO, "RSA code is excluded\n\r");
@@ -1083,7 +1086,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 #ifndef PLM_ECDSA_EXCLUDE
 		/* ECDSA P384 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
-			XSECURE_ECC_NIST_P384, Hash, (u8 *)Key->PubModulus,
+			XSECURE_ECC_NIST_P384, Hash, (u8 *)AuthKey->Key,
 			XLOADER_ECDSA_P384_KEYSIZE, Signature);
 #else
 		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
@@ -1096,7 +1099,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 #ifdef XSECURE_ECC_SUPPORT_NIST_P521
 		/* ECDSA P521 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
-			XSECURE_ECC_NIST_P521, Hash, (u8 *)Key->PubModulus,
+			XSECURE_ECC_NIST_P521, Hash, (u8 *)AuthKey->Key,
 			XLOADER_ECDSA_P521_KEYSIZE, Signature);
 #else
 		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
@@ -1116,7 +1119,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	}
 #if (defined(PLM_RSA_EXCLUDE) && defined(PLM_ECDSA_EXCLUDE))
 	(void)Hash;
-	(void)Key;
+	(void)AuthKey;
 	(void)Signature;
 #endif
 
