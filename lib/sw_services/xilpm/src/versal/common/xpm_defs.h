@@ -195,6 +195,8 @@ enum pm_query_id {
 	XPM_QID_CLOCK_GET_MAX_DIVISOR,			/**< Get max clock divisor */
 	XPM_QID_PLD_GET_PARENT,				/**< Get PLD parent */
 	XPM_QID_PINCTRL_GET_ATTRIBUTES,			/**< Get pin attributes */
+	XPM_QID_GET_NODE_NAME,				/**< Get node name */
+	XPM_QID_GET_NODE_COUNT,				/**< Get node count */
 };
 /** @endcond */
 

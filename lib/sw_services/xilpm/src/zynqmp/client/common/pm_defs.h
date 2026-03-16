@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -839,6 +839,17 @@ typedef enum {
 	USB_CONFIG_INVALID = 0,	/**< Invalid USB config */
 	USB_CONFIG_FIXED = 1,	/**< To set fixed config registers */
 } XPm_UsbConfigType;
+
+/**
+ *  PM QUERY IDs
+ */
+typedef enum {
+	/* Invalid QUERY ID */
+	XPM_QID_INVALID = 0,
+	XPM_QID_GET_NODE_NAME = 16,	/**< Get node name */
+	XPM_QID_GET_NODE_COUNT = 17,	/**< Get node count */
+} XPm_QueryId;
+
 #ifdef __cplusplus
 }
 #endif
