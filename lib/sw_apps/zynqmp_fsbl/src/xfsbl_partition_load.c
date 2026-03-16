@@ -55,6 +55,7 @@
 * 10.0  tvp  09/20/25 Give error if, image is authenticated but but no PPK
 *                     found in eFuse and bh_auth is not enabled
 *       sd   01/08/25 Add PCR indices for partitions missing in the boot image
+* 11.0  sd   03/16/26 Add PCR index support for A53_1/2/3 cores
 *
 * </pre>
 *
@@ -2110,7 +2111,10 @@ static u8 XFsbl_GetPcrIndex(const XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	{
 		PcrIndex = XFSBL_TPM_PMU_PCR_INDEX;
 	}
-	else if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_A53_0)
+	else if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_A53_0) ||
+		(DestinationCpu == XIH_PH_ATTRB_DEST_CPU_A53_1) ||
+		(DestinationCpu == XIH_PH_ATTRB_DEST_CPU_A53_2) ||
+		(DestinationCpu == XIH_PH_ATTRB_DEST_CPU_A53_3))
 	{
 		if (ElFlag == XFSBL_EL3_VAL)
 		{
