@@ -1521,7 +1521,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	const XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * Validate input parameters.
@@ -1614,7 +1614,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	u32 Col_0_Num = 0U;
 	u32 Col_1_Num = 0U;
 	volatile XNvm_DmeRevoke RevokeNumTmp;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	const XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  Validate input parameters.
