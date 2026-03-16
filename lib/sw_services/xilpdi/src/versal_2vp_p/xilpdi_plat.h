@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025-2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -20,6 +20,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.12  sd   10/13/2025 Initial release
+* 1.13  tvp  03/05/2026 Modify Image Header Table and Partition Header according to changes in PDI
+*                       format
 *
 * </pre>
 *
@@ -213,14 +215,9 @@ typedef struct {
 	u32 AcOffset; /**< AC offset of Meta header */
 	u32 KekIv[3U]; /**< Kek IV for meta header decryption */
 	u32 OptionalDataLen; /**< Len in words of OptionalData */
-	u32 AuthenticationHdr; /**< Authentication Header */
 	u32 HashBlockSize; /**< HashBlock Size in words */
 	u32 HashBlockOffset; /**< HashBlock word offset */
-	u32 TotalPpkSize; /**< Total PPK size including alignment */
-	u32 ActualPpkSize; /**< Actual PPK size */
-	u32 TotalHBSignSize; /**< Total HashBlock signature size */
-	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
-	u32 Rsvd; /**< Reserved */
+	u32 Rsvd[6U]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
 
@@ -248,14 +245,9 @@ typedef struct {
 	u32 KekIv[3U]; /**< KEK IV for partition decryption */
 	u32 EncRevokeID; /**< Revocation ID of partition for encrypted partition */
 	u32 MeasuredBootAddr; /**< Single Byte Measured Boot Address */
-	u32 AuthenticationHdr; /**< Authentication Header */
 	u32 HashBlockSize; /**< HashBlock Size in words */
 	u32 HashBlockOffset; /**< HashBlock word offset */
-	u32 TotalPpkSize; /**< Total PPK size including alignment */
-	u32 ActualPpkSize; /**< Actual PPK size */
-	u32 TotalHBSignSize; /**< Total HashBlock signature size */
-	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
-	u32 Reserved; /**< Reserved */
+	u32 Reserved[6U]; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16U)));
 

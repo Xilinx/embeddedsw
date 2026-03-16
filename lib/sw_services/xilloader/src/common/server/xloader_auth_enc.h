@@ -70,6 +70,7 @@
 * 2.4   tvp  01/23/26 Add XLoader_Sha3Kat definition
 * 2.4   vss  02/01/26 Updated PPK revoke error logic.
 *       tvp  03/05/26 Add XLoader_AuthKey to accommodate new algorithms support
+*       tvp  03/05/26 Add authenticated boot support for Versal_2vp_p
 *
 * </pre>
 *
@@ -414,23 +415,6 @@ extern "C" {
 #define XLOADER_PPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
                                                 XLOADER_RSA_4096_KEY_SIZE \
                                                 + 4U)
-/**< Minimum Size of Authentication Certificate(in bytes) */
-#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0x0FU)
-	/**< Mask for Public Strength in Authentication Certificate */
-#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x0U)
-	/**< Shift for Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
-	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x2U)
-	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x3U)
-	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_LMS_HSS		(0x4U)
-	/**< Value of LMS as Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_LMS		(0x5U)
-	/**< Value of LMS as Public Strength in Authentication Certificate */
-#define XLOADER_MAX_TOTAL_SIGN_SIZE		(9952U)
-	/** Maximum Signature size including padding */
 #define XLOADER_AUTH_ATTR_HASH_ALGO_MASK	(0x000000F0U)
 	/**< Value of HashAlgo mask in Authentication Header */
 #define XLOADER_AUTH_ATTR_HASH_ALGO_SHIFT	(4U)
@@ -456,9 +440,97 @@ extern "C" {
 #ifdef VERSAL_2VE_2VM
 #define XLOADER_MAX_TOTAL_KEY_SIZE	(1040U)
 	/**< Maximum size of authentication key including padding */
+#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0x0FU)
+	/**< Mask for Public Strength in Authentication Certificate */
+#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x0U)
+	/**< Shift for Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x2U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x3U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_LMS_HSS		(0x4U)
+	/**< Value of LMS as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_LMS		(0x5U)
+	/**< Value of LMS as Public Strength in Authentication Certificate */
+#define XLOADER_MAX_TOTAL_SIGN_SIZE		(9952U)
+	/** Maximum Signature size including padding */
 #elif defined(VERSAL_2VP_P)
 #define XLOADER_MAX_TOTAL_KEY_SIZE	(2592U)
 	/**< Maximum size of authentication key */
+#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x2U)
+	/**< Value of ECDSA P-384 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x4U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_LMS_HSS		(0x8U)
+	/**< Value of LMS-HSS as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_LMS		(0x10U)
+	/**< Value of LMS as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_MLDSA		(0x20U)
+	/**< Value of MLDSA as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_SLHDSA		(0x40U)
+	/**< Value of SLHDSA as Public Strength in Authentication Certificate */
+#define XLOADER_MAX_TOTAL_SIGN_SIZE		(29792U)
+	/** Maximum Signature size including padding */
+#define XLOADER_KEY_HDR_SIZE_IN_BYTES		(32U)
+	/**< Key header size in bytes */
+#define XLOADER_KEY_HDR_PERMISSION_IDX		(4U)
+	/**< Index of permission field in key header */
+#define XLOADER_KEY_HDR_HYBRID_IDX		(2U)
+	/**< Index of hybrid field in key header */
+#define XLOADER_KEY_IS_PPK			(0U)
+	/**< Key type value for PPK */
+#define XLOADER_KEY_IS_SPK			(1U)
+	/**< Key type value for SPK */
+#define XLOADER_SIGN_HDR_SIZE			(16U)
+	/**< Signature header size in bytes */
+
+#define XLOADER_RSA_TOTAL_KEY_SIZE_IN_BYTES	(1040U)
+	/**< Total RSA key size in bytes including padding */
+#define XLOADER_RSA_KEY_SIZE_IN_BYTES		(1028U)
+	/**< Actual RSA key size in bytes */
+#define XLOADER_RSA_SIGN_PADDING		(0U)
+	/**< RSA signature padding size in bytes */
+
+#define XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES	(96U)
+	/**< ECDSA P-384 key size in bytes */
+#define XLOADER_ECDSA_SIGN_PADDING		(0U)
+	/**< ECDSA signature padding size in bytes */
+
+#define XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES	(60U)
+	/**< LMS-HSS key size in bytes */
+#define XLOADER_LMS_HSS_TOTAL_KEY_SIZE_IN_BYTES	(64U)
+	/**< Total LMS-HSS key size in bytes including padding */
+#define XLOADER_LMS_HSS_SIGN_PADDING		(12U)
+	/**< LMS-HSS signature padding size in bytes */
+
+#define XLOADER_LMS_KEY_SIZE_IN_BYTES		(56U)
+	/**< LMS key size in bytes */
+#define XLOADER_LMS_TOTAL_KEY_SIZE_IN_BYTES	(64U)
+	/**< Total LMS key size in bytes including padding */
+#define XLOADER_LMS_SIGN_PADDING		(4U)
+	/**< LMS signature padding size in bytes */
+
+#define XLOADER_MLDSA_KEY_SIZE_IN_BYTES		(2592U)
+	/**< MLDSA key size in bytes */
+#define XLOADER_MLDSA_SIGN_PADDING		(13U)
+	/**< MLDSA signature padding size in bytes */
+
+#define XLOADER_SLHDSA_KEY_SIZE_IN_BYTES	(64U)
+	/**< SLHDSA key size in bytes */
+#define XLOADER_SLHDSA_SIGN_PADDING		(0U)
+	/**< SLHDSA signature padding size in bytes */
+#define XLOADER_SLHDSA_MAX_DATA1_LEN_IN_BYTES	(2144U)
+	/**< Maximum SLHDSA data1 length in bytes */
+#define XLOADER_SLHDSA_MAX_DATA2_LEN_IN_BYTES	(99U)
+	/**< Maximum SLHDSA data2 length in bytes */
+#define XLOADER_SLHDSA_MAX_DATA3_LEN_IN_BYTES	(32U)
+	/**< Maximum SLHDSA data3 length in bytes */
+#define XLOADER_SLHDSA_MAX_DATA4_LEN_IN_WORDS	(67U)
+	/**< Maximum SLHDSA data4 length in words */
 #endif
 #endif
 
@@ -503,6 +575,7 @@ typedef struct {
 	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U] __attribute__ ((aligned(32U))); /**< HashBlock containing partition hashes */
 } XLoader_HashBlock;
 
+#ifdef VERSAL_2VE_2VM
 /**
  * Structure for SPK Header
  */
@@ -541,6 +614,34 @@ typedef struct {
 	u32 HBSize;	/**< Hash Block Size */
 	u32 AuthHdr;	/**< Authentication Header */
 } XLoader_HBSignParams;
+#endif
+
+#ifdef VERSAL_2VP_P
+/**
+ * Structure for Hash Block Authentication Certificate for VERSAL_2VP_P
+ */
+typedef struct {
+	XLoader_AuthKey PPK;	/**< PPK */
+	XLoader_AuthKey SPK;	/**< SPK */
+	u32 AuthSignHdr[4U];	/**< Authentication signature header */
+	u8 AuthSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
+				/**< Authentication signature */
+} XLoader_HBAuthCertificate;
+
+/**
+ * Structure for Hash Block Sign Parameters for VERSAL_2VP_P
+ */
+typedef struct {
+	u32 ReadOffset;	/**< Read Offset */
+	u32 HBSize;	/**< Hash Block Size */
+	u32 ActualPpkSize;	/**< Actual PPK Size */
+	u32 TotalPpkSize;	/**< Total PPK Size */
+	u32 ActualSpkSize;	/**< Actual SPK Size */
+	u32 TotalSpkSize;	/**< Total SPK Size */
+	u32 ActualAuthSignSize;	/**< Actual authentication signature size */
+	u32 TotalAuthSignSize;	/**< Total authentication signature size */
+} XLoader_HBSignParams;
+#endif
 
 /**
  * Structure for Hash Block AES Parameters
@@ -633,7 +734,9 @@ typedef struct {
  */
 typedef struct {
 	u32* PpkData;	/**< Pointer to PPK */
+#ifdef VERSAL_2VE_2VM
 	XLoader_SpkHeader* SpkHeader;	/**< Pointer to SPK header */
+#endif
 	u32* SpkData;	/**< Pointer to SPK */
 	u32* SPKSignature;	/**< Pointer to SPK Signature */
 	u32* EnableJtagSignature;	/**< Pointer to Enable JTAG message signature */
@@ -727,6 +830,7 @@ static inline int XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, int Minor2)
 	return (int)UMinor1;
 }
 
+#ifndef VERSAL_2VP_P
 /*****************************************************************************/
 /**
 * @brief	This function returns the public algorithm used for authentication
@@ -743,6 +847,29 @@ static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *AuthHdrPtr)
 	return ((*AuthHdrPtr & XLOADER_AC_AH_PUB_STRENGTH_MASK) >>
 		XLOADER_AC_AH_PUB_STRENGTH_SHIFT);
 }
+
+#else
+
+/*****************************************************************************/
+/**
+* @brief	This function returns the public algorithm used for authentication
+*
+* @param	AuthCertPtr is a pointer to the Authentication Certificate.
+*
+* @return	- XLOADER_PUB_STRENGTH_ECDSA_P384
+*		- XLOADER_PUB_STRENGTH_RSA_4096
+*		- XLOADER_PUB_STRENGTH_ECDSA_P521
+*		- XLOADER_PUB_STRENGTH_LMS_HSS
+*		- XLOADER_PUB_STRENGTH_LMS
+*		- XLOADER_PUB_STRENGTH_MLDSA
+*		- XLOADER_PUB_STRENGTH_SLHDSA
+*
+******************************************************************************/
+static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *KeyHdrPtr)
+{
+	return KeyHdrPtr[0];
+}
+#endif
 
 /***************************** Function Prototypes ***************************/
 int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,

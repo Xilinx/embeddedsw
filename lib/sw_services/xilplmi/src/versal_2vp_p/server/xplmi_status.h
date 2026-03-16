@@ -22,6 +22,7 @@
 *       gnr  01/06/26 Added XLOADER_ERR_INVALID_CPUID error code
 *       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *       aa   03/09/2026 Added error code for USB download timeout
+*       tvp  03/13/2026 Add error codes related to authenticated boot
 *
 * </pre>
 *
@@ -644,6 +645,13 @@ typedef enum {
 	XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL, /**< 0x655 Error in verifying hash block signature */
 	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
 		/**< 0x65B Invalid parameter passed for JTAG authentication */
+
+	XLOADER_ERR_PPK_HEADER_COPY_FAIL = 0x65D, /**< 0x65D - Error in PPK Header copy */
+	XLOADER_ERR_INCORRECT_KEY, /**< 0x65E - Key is incorrect */
+	XLOADER_ERR_INVALID_HYBRID_KEYPAIR, /**< 0x65F - Invalid set of key pairs for hybrid signing */
+	XLOADER_ERR_KEY_ALGO_MISMATCH, /**< 0x660 - PPK and SPK algorithms do not match */
+	XLOADER_ERR_SIGN_HDR_COPY_FAIL, /**< 0x661 - Error in Signature header copy */
+	XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, /**< 0x662 - Authenticated JTAG is not supported */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,	/**< 0x6A0 Additional PPks are not

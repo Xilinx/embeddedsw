@@ -208,6 +208,7 @@
 *       rmv 01/30/2026 Renamed OCP header files and keymanagment macro
 *       sd  03/03/2026 Added redundant check for XLoader_ValidateMHHashBlockIntegrity
 *       aa  03/10/2026 Added check to restrict USB as primary boot
+*       tvp 03/13/2026 Modify Image Header Table Details prints for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -734,7 +735,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr->ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.Attr);
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef VERSAL_2VE_2VM
 	XPlmi_Printf(DEBUG_INFO, "AutheticationHdr: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.AuthenticationHdr);
 	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",
@@ -749,6 +750,14 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr->ImgHdrTbl.TotalHBSignSize);
 	XPlmi_Printf(DEBUG_INFO, "ActualHBSignSize: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.ActualHBSignSize);
+	XPlmi_Printf(DEBUG_INFO, "AcOffset: 0x%x\n\r",
+			PdiPtr->MetaHdr->ImgHdrTbl.AcOffset);
+#endif
+#ifdef VERSAL_2VP_P
+	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",
+			PdiPtr->MetaHdr->ImgHdrTbl.HashBlockSize);
+	XPlmi_Printf(DEBUG_INFO, "HashBlockOffset: 0x%x\n\r",
+			PdiPtr->MetaHdr->ImgHdrTbl.HashBlockOffset);
 	XPlmi_Printf(DEBUG_INFO, "AcOffset: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.AcOffset);
 #endif

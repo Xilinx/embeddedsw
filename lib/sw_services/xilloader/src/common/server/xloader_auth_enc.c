@@ -167,6 +167,7 @@
 *                       will be called during boot from Pdi_Init.
 *       vss  02/01/2026 Updated PPK revoke error logic.
 *       tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms support
+*       tvp  03/05/2026 Add authenticated boot support for Versal_2vp_p
 *
 * </pre>
 *
@@ -201,6 +202,10 @@
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 #include "xsecure_lms_core.h"
 #include "xsecure_plat_kat.h"
+#endif
+#ifdef VERSAL_2VP_P
+#include "xsecure_mldsa.h"
+#include "xsecure_slhdsa.h"
 #endif
 #ifdef VERSAL_NET
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
@@ -238,6 +243,10 @@
 #define XLOADER_SECURE_IV_LEN_IN_BYTES                  (12U)
 #define XLOADER_BYTE_SHIFT                              (0x8U)
 #define XLOADER_BYTE_MASK                               (0xFFU)
+#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK			(52U)		/** Each entry size in HashBlock */
+#define XLOADER_MIN_SIGN_SIZE                           (96U)           /** Minimum Signature size excluding padding, actual size */
+
+#ifndef VERSAL_2VP_P
 #define XLOADER_MAX_TOTAL_SPK_SIZE                      (1040U)         /**< Maximum SPK size including padding */
 #define XLOADER_MIN_TOTAL_SPK_SIZE                      (64U)           /**< Minimum SPK size including padding */
 
@@ -248,8 +257,10 @@
 #define XLOADER_MIN_TOTAL_SIGN_SIZE                     (96U)           /** Minimum Signature size including padding */
 
 #define XLOADER_MAX_SIGN_SIZE                           (9940U)         /** Maximum Signature size excluding padding, actual size */
-#define XLOADER_MIN_SIGN_SIZE                           (96U)           /** Minimum Signature size excluding padding, actual size */
-#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK			(52U)		/** Each entry size in HashBlock */
+#else
+#define XLOADER_VERIFY_SPK_SIGN				(0U)	/**< Verify SPK signature with PPK */
+#define XLOADER_VERIFY_HB_SIGN				(1U)	/**< Verify HashBlock signature with SPK */
+#endif
 #else
 
 #define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr) (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) \
@@ -305,7 +316,6 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 	u8 *Data, u32 DataLen);
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
-static int XLoader_ValidateSpkHeader(XLoader_SpkHeader *SpkHeader);
 static int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr);
 static void XLoader_IvIncrement(u8 *Iv, u8 IncrValue);
@@ -315,6 +325,20 @@ static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_CopyHashBlock(u32 TotalHBSize, XilPdi_HashBlock *SrcHB);
+#ifdef VERSAL_2VP_P
+static int XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Algo2);
+static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams, u32 *ReadOffset,
+		u32 AuthType, u32 SignPaddingSize, u8 *HashBlockHash);
+static int XLoader_GetKeySizeSignPadding(u32 AuthType,
+		XLoader_HBSignParams *HBSignParams, u32 *SignPaddingSize);
+static int XLoader_SlhdsaSignVerify(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams, u32 VerifyType);
+static int XLoader_MldsaSignVerify(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams, u32 VerifyType);
+#else
+static int XLoader_ValidateSpkHeader(XLoader_SpkHeader *SpkHeader);
+#endif
 
 /************************** Function Definitions *****************************/
 
@@ -417,6 +441,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->ProcessedLen = XLOADER_AUTH_CERT_MIN_SIZE;
 
 #else
+#ifdef VERSAL_2VE_2VM
 		HBSignParams.ReadOffset = PrtnHdr->AuthCertificateOfst * XIH_PRTN_WORD_LEN;
 		HBSignParams.TotalPpkSize = PrtnHdr->TotalPpkSize;
 		HBSignParams.ActualPpkSize = PrtnHdr->ActualPpkSize;
@@ -424,11 +449,17 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		HBSignParams.ActualHBSignSize = PrtnHdr->ActualHBSignSize;
 		HBSignParams.HBSize = PrtnHdr->HashBlockSize * XIH_PRTN_WORD_LEN;
 		HBSignParams.AuthHdr = PrtnHdr->AuthenticationHdr;
+#else
+		HBSignParams.ReadOffset = PrtnHdr->HashBlockOffset * XIH_PRTN_WORD_LEN;
+		HBSignParams.HBSize = PrtnHdr->HashBlockSize * XIH_PRTN_WORD_LEN;
+#endif
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateHashBlock,
 				SecurePtr, &HBSignParams);
 #endif
+
 		SecurePtr->ProcessPrtn = XLoader_ProcessAuthEncPrtn;
 	}
+
 	Status = XST_SUCCESS;
 
 END:
@@ -876,7 +907,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		goto ERR_END;
 	}
 
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef VERSAL_2VE_2VM
 	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.AcOffset * XIH_PRTN_WORD_LEN;
 	HBSignParams.TotalPpkSize = MetaHdr->ImgHdrTbl.TotalPpkSize;
 	HBSignParams.ActualPpkSize = MetaHdr->ImgHdrTbl.ActualPpkSize;
@@ -884,6 +915,10 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	HBSignParams.ActualHBSignSize = MetaHdr->ImgHdrTbl.ActualHBSignSize;
 	HBSignParams.HBSize = MetaHdr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
 	HBSignParams.AuthHdr = MetaHdr->ImgHdrTbl.AuthenticationHdr;
+#endif
+#ifdef VERSAL_2VP_P
+	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
+	HBSignParams.HBSize = MetaHdr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
 #endif
 	/*
 	 * If headers are in encrypted format
@@ -1063,12 +1098,22 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	u32 AuthType;
 
+#ifndef VERSAL_2VP_P
 	if (SecurePtr->AuthJtagMessagePtr != NULL) {
 		AuthType = XLoader_GetAuthPubAlgo(&(SecurePtr->AuthJtagMessagePtr->AuthHdr));
 	}
 	else {
 		AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 	}
+#else
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
+		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, 0U);
+		goto END;
+	} else {
+		AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+	}
+#endif
 
 	/* RSA authentication */
 	if (AuthType ==	XLOADER_PUB_STRENGTH_RSA_4096) {
@@ -1320,14 +1365,22 @@ int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize)
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 		Status = XSecure_ShaUpdate(ShaInstPtr,
 			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->PpkData), PpkSize);
-#else
+#elif defined(VERSAL_2VE_2VM)
 		Status = XSecure_ShaUpdate(ShaInstPtr,
 			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->AuthJtagData), PpkSize);
+#else
+		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, 0U);
+		goto END;
 #endif
 	}
 	else {
-		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)&SecurePtr->AcPtr->Ppk,
+#ifndef VERSAL_2VP_P
+		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)&SecurePtr->AcPtr->Ppk, PpkSize);
+#else
+		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)&SecurePtr->AcPtr->PPK.Header,
 			PpkSize);
+#endif
 	}
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -3164,13 +3217,24 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_EllipticCrvClass CrvClass = XSECURE_ECC_PRIME;
 #endif
+
 	/** Get the Authentication type. */
+#ifndef VERSAL_2VP_P
 	if (SecurePtr->AuthJtagMessagePtr != NULL) {
 		AuthType = XLoader_GetAuthPubAlgo(&(SecurePtr->AuthJtagMessagePtr->AuthHdr));
 	}
 	else {
 		AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 	}
+#else
+	if (SecurePtr->AuthJtagMessagePtr == NULL) {
+		AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+	} else {
+		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, 0U);
+		goto END;
+	}
+#endif
 
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
 		AuthKatMask = XPLMI_SECURE_RSA_KAT_MASK;
@@ -3348,6 +3412,104 @@ int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function authenticates given HashBlock.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams.
+ * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
+ *
+ * @return
+ * 		XST_SUCCESS on success.
+ * 		ErrorCode on failure.
+ *
+ ******************************************************************************/
+static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
+        XLoader_HBSignParams *HBSignParams)
+{
+	volatile int Status = XST_FAILURE;
+	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
+
+	/** - Read IHT and PHT to structures and verify checksum */
+	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
+			MetaHdr->ImgHdrTbl.NoOfImgs);
+
+	/** - Authenticate Image headers and partition headers */
+	Status = XilPdi_ReadImgHdrs(MetaHdr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
+			MetaHdr->ImgHdrTbl.NoOfPrtns);
+
+	Status = XST_FAILURE;
+	Status = XilPdi_ReadPrtnHdrs(MetaHdr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	Status = XilPdi_VerifyImgHdrs(MetaHdr);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_VERIFY_FAIL, Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	Status = XilPdi_VerifyPrtnHdrs(MetaHdr);
+	if(Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_VERIFY_FAIL, Status);
+		goto END;
+	}
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateHashBlock,
+			SecurePtr, HBSignParams);
+	/**
+	 * - Verify Integrity of Total MetaHeader.
+	 */
+	Status = XST_FAILURE;
+	Status = XLoader_ValidateMetaHdrIntegrity(SecurePtr);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function authenticates HashBlock with respect to headers
+ * 		and decrypts the headers.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams
+ * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
+ * @param	BufferAddr	Read whole headers to the mentioned buffer
+ *				address.
+ *
+ * @return
+ *          - XST_SUCCESS on success.
+ *          - Errorcode on failure.
+ *
+ ******************************************************************************/
+static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
+        XLoader_HBSignParams *HBSignParams, u64 BufferAddr)
+{
+	volatile int Status = XST_FAILURE;
+	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
+	/** - Authenticate HashBlock corresponding to MetaHeader */
+	Status = XLoader_AuthenticateHashBlock(SecurePtr, HBSignParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/** - Decrypt the Headers */
+	Status = XLoader_DecHdrs(SecurePtr, MetaHdr, BufferAddr);
+
+END:
+	return Status;
+}
+
+#ifndef VERSAL_2VP_P
 /******************************************************************************/
 /**
 * @brief	This function performs PPK and SPK authentication
@@ -3470,103 +3632,6 @@ END:
 		}
 	}
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function authenticates given HashBlock.
- *
- * @param	SecurePtr	Pointer to the XLoader_SecureParams.
- * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
- *
- * @return
- * 		XST_SUCCESS on success.
- * 		ErrorCode on failure.
- *
- ******************************************************************************/
-static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
-        XLoader_HBSignParams *HBSignParams)
-{
-	volatile int Status = XST_FAILURE;
-	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
-
-	/** - Read IHT and PHT to structures and verify checksum */
-	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
-			MetaHdr->ImgHdrTbl.NoOfImgs);
-
-	/** - Authenticate Image headers and partition headers */
-	Status = XilPdi_ReadImgHdrs(MetaHdr);
-	if (XST_SUCCESS != Status) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
-		goto END;
-	}
-
-	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
-			MetaHdr->ImgHdrTbl.NoOfPrtns);
-
-	Status = XST_FAILURE;
-	Status = XilPdi_ReadPrtnHdrs(MetaHdr);
-	if (XST_SUCCESS != Status) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XilPdi_VerifyImgHdrs(MetaHdr);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XilPdi_VerifyPrtnHdrs(MetaHdr);
-	if(Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateHashBlock,
-			SecurePtr, HBSignParams);
-	/**
-	 * - Verify Integrity of Total MetaHeader.
-	 */
-	Status = XST_FAILURE;
-	Status = XLoader_ValidateMetaHdrIntegrity(SecurePtr);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function authenticates HashBlock with respect to headers
- * 		and decrypts the headers.
- *
- * @param	SecurePtr	Pointer to the XLoader_SecureParams
- * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
- * @param	BufferAddr	Read whole headers to the mentioned buffer
- *				address.
- *
- * @return
- *          - XST_SUCCESS on success.
- *          - Errorcode on failure.
- *
- ******************************************************************************/
-static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
-        XLoader_HBSignParams *HBSignParams, u64 BufferAddr)
-{
-	volatile int Status = XST_FAILURE;
-	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
-	/** - Authenticate HashBlock corresponding to MetaHeader */
-	Status = XLoader_AuthenticateHashBlock(SecurePtr, HBSignParams);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	/** - Decrypt the Headers */
-	Status = XLoader_DecHdrs(SecurePtr, MetaHdr, BufferAddr);
-
-END:
 	return Status;
 }
 
@@ -3764,6 +3829,712 @@ END:
 	return Status;
 }
 
+#else
+/******************************************************************************/
+/**
+ * @brief	This function gets key sizes and signature padding for the
+ * 		given authentication type.
+ *
+ * @param	AuthType	Authentication algorithm type.
+ * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
+ * @param	SignPaddingSize	Pointer to the signature padding size.
+ *
+ * @return
+ * 		- XST_SUCCESS if parameters are updated successfully.
+ * 		- XST_FAILURE if authentication type is invalid.
+ *
+ ******************************************************************************/
+static int XLoader_GetKeySizeSignPadding(u32 AuthType,
+		XLoader_HBSignParams *HBSignParams, u32 *SignPaddingSize)
+{
+	volatile int Status = XST_SUCCESS;
+	u32 TotalKeySize = 0U;
+	u32 ActualKeySize = 0U;
+	u32 LocalSignPaddingSize = 0U;
+
+	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+		TotalKeySize = XLOADER_RSA_TOTAL_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_RSA_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_RSA_SIGN_PADDING;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		TotalKeySize = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_ECDSA_SIGN_PADDING;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+		TotalKeySize = XLOADER_LMS_HSS_TOTAL_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_LMS_HSS_SIGN_PADDING;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
+		TotalKeySize = XLOADER_LMS_TOTAL_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_LMS_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_LMS_SIGN_PADDING;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_MLDSA) {
+		TotalKeySize = XLOADER_MLDSA_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_MLDSA_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_MLDSA_SIGN_PADDING;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_SLHDSA) {
+		TotalKeySize = XLOADER_SLHDSA_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_SLHDSA_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_SLHDSA_SIGN_PADDING;
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	if (Status == XST_SUCCESS) {
+		HBSignParams->TotalPpkSize = TotalKeySize;
+		HBSignParams->ActualPpkSize = ActualKeySize;
+		HBSignParams->TotalSpkSize = TotalKeySize;
+		HBSignParams->ActualSpkSize = ActualKeySize;
+		*SignPaddingSize = LocalSignPaddingSize;
+	}
+
+	return Status;
+}
+
+
+/******************************************************************************/
+/**
+ * @brief	This function verifies the MLDSA signature using the provided
+ * 		public key.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	HBSignParams is pointer to the XLoader_HBSignParams instance.
+ * @param	VerifyType indicates whether to verify SPK or HashBlock signature.
+ *
+ * @return
+ *		- XST_SUCCESS on successful signature verification.
+ *		- Error code on failure.
+ *
+ *******************************************************************************/
+static int XLoader_MldsaSignVerify(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams, u32 VerifyType)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_MldsaSignVerifyParams MldsaParams;
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
+
+	if (VerifyType == XLOADER_VERIFY_SPK_SIGN) {
+		/* Verify SPK signature using PPK */
+		MldsaParams.DataAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->SPK.Header;
+		MldsaParams.DataLen = HBSignParams->ActualSpkSize + XLOADER_KEY_HDR_SIZE_IN_BYTES;
+		MldsaParams.PubKeyAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->PPK.Key;
+		MldsaParams.PubKeyLen = HBSignParams->ActualPpkSize;
+	} else {
+		/* Verify HashBlock signature using SPK */
+		MldsaParams.DataAddr = (u64)(UINTPTR)&MetaHdrPtr->HashBlock.HashData;
+		MldsaParams.DataLen = HBSignParams->HBSize;
+		MldsaParams.PubKeyAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->SPK.Key;
+		MldsaParams.PubKeyLen = HBSignParams->ActualSpkSize;
+	}
+
+	MldsaParams.SignAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignature;
+	MldsaParams.SignLen = HBSignParams->ActualAuthSignSize;
+	MldsaParams.ContextAddr = 0U;
+	MldsaParams.ContextLen = 0U;
+
+	Status = XSecure_MldsaSignVerify(&MldsaParams);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function verifies the SLH-DSA (Stateless Hash-Based Digital
+ *		Signature Algorithm) signature using the provided public key.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	HBSignParams is pointer to the XLoader_HBSignParams instance.
+ * @param	VerifyType indicates whether to verify SPK or HashBlock signature.
+ *
+ * @return
+ *		- XST_SUCCESS on successful signature verification.
+ *		- Error code on failure.
+ *
+ *******************************************************************************/
+static int XLoader_SlhdsaSignVerify(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams, u32 VerifyType)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_SlhdsaInputParams SlhdsaParams;
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
+
+	if (VerifyType == XLOADER_VERIFY_SPK_SIGN) {
+		/* Verify SPK signature using PPK */
+		SlhdsaParams.DataAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->SPK.Header;
+		SlhdsaParams.DataLen = HBSignParams->ActualSpkSize + XLOADER_KEY_HDR_SIZE_IN_BYTES;
+		SlhdsaParams.PublicKeyAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->PPK.Key;
+		SlhdsaParams.PublicKeyLen = HBSignParams->ActualPpkSize;
+	} else {
+		/* Verify HashBlock signature using SPK */
+		SlhdsaParams.DataAddr = (u64)(UINTPTR)&MetaHdrPtr->HashBlock.HashData;
+		SlhdsaParams.DataLen = HBSignParams->HBSize;
+		SlhdsaParams.PublicKeyAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->SPK.Key;
+		SlhdsaParams.PublicKeyLen = HBSignParams->ActualSpkSize;
+	}
+
+	SlhdsaParams.SignatureAddr = (u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignature;
+	SlhdsaParams.SignatureLen = HBSignParams->ActualAuthSignSize;
+	SlhdsaParams.ContextAddr = 0U;
+	SlhdsaParams.ContextLen = 0U;
+
+	Status = XSecure_SlhdsaVerify(ShaInstPtr, &SlhdsaParams);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+* @brief	This function performs PPK and SPK authentication.
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParams.
+* @param	HBSignParams is pointer to the XLoader_HBSignParams.
+*
+* @return
+*		- XLOADER_ERR_KAT_FAILED if KAT failed.
+*		- XLOADER_SEC_GLITCH_DETECTED_ERROR if Error glitch detected.
+*		- XLOADER_ERR_PPK_HASH_CALC_FAIL if Error in PPK hash calculation.
+*		- XLOADER_ERR_SPK_HASH_CALC_FAIL if Error in SPK hash calculation.
+*		- XST_SUCCESS in case of success.
+*
+*******************************************************************************/
+static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams)
+{
+	volatile int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
+	u8 SpkHash[XLOADER_SHA3_LEN];
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 ReadAuthReg = 0x0U;
+	u32 AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+
+	if ((AuthType != XLOADER_PUB_STRENGTH_LMS) &&
+		(AuthType != XLOADER_PUB_STRENGTH_LMS_HSS) &&
+		(AuthType != XLOADER_PUB_STRENGTH_MLDSA) &&
+		(AuthType != XLOADER_PUB_STRENGTH_SLHDSA)) {
+		Status = XLoader_AuthKat(SecurePtr);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Auth KAT failed\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
+			goto END;
+		}
+	}
+
+	/** - Check Secure state of device
+	 * If A-HWRoT is disabled then BHDR authentication is allowed
+	 */
+	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+		XPLMI_RTCFG_SECURESTATE_AHWROT);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
+		if (Status != XST_SUCCESS) {
+			XPLMI_STATUS_GLITCH_DETECT(Status);
+			if (ReadAuthReg != SecureStateAHWRoT) {
+				Status = XLoader_UpdateMinorErr(
+					XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
+			}
+			goto END;
+		}
+		else {
+			/* Misra-C Compliance */
+		}
+	}
+	else {
+		Status = XST_FAILURE;
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify,
+				SecurePtr,
+				(HBSignParams->ActualPpkSize +
+				 XLOADER_KEY_HDR_SIZE_IN_BYTES));
+	}
+
+	Status = XLoader_ShaDigestCalculation((u8 *)&SecurePtr->AcPtr->SPK.Header,
+			(HBSignParams->ActualSpkSize +
+			 XLOADER_KEY_HDR_SIZE_IN_BYTES), &SpkHash[0]);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL,
+				Status);
+		goto END;
+	}
+
+	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+
+	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
+	    (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
+	    (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature,
+				SecurePtr,
+				(u8 *)&SpkHash, &SecurePtr->AcPtr->PPK,
+				(u8 *)&SecurePtr->AcPtr->AuthSignature);
+	} else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
+		   (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyLmsSignature,
+				SecurePtr,
+				(u8 *)&SecurePtr->AcPtr->AuthSignature,
+				HBSignParams->ActualAuthSignSize,
+				(u8 *)&SecurePtr->AcPtr->PPK.Key,
+				HBSignParams->ActualPpkSize,
+				(u8 *)&SecurePtr->AcPtr->SPK.Header,
+				(HBSignParams->ActualSpkSize +
+					XLOADER_KEY_HDR_SIZE_IN_BYTES));
+	} else if (AuthType == XLOADER_PUB_STRENGTH_MLDSA) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_MldsaSignVerify,
+			SecurePtr, HBSignParams, XLOADER_VERIFY_SPK_SIGN);
+	} else if (AuthType == XLOADER_PUB_STRENGTH_SLHDSA) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SlhdsaSignVerify,
+			SecurePtr, HBSignParams, XLOADER_VERIFY_SPK_SIGN);
+	} else {
+		/* Not supported */
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "SPK authentication is successful\n\r");
+
+END:
+	/** - Zeroize the SpkHash buffer used for storing calculated Spk hash */
+	ClearStatus = XPlmi_MemSetBytes(&SpkHash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+		if (Status != XST_SUCCESS) {
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+		}
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function validates the set of keypairs in case of hybrid
+ * 		signing. Supported combinations are; one keypair of Non-PQC
+ * 		algorithm and one of PQC algorithm.
+ *
+ * @param	Algo1	Algorithm type for first keypair.
+ * @param	Algo2	Algorithm type for second keypair.
+ *
+ * @return
+ * 		- XST_SUCCESS	If hybrid keypairs set is valid.
+ * 		- XST_FAILURE	If hybrid keypairs set is invalid.
+ *
+ ******************************************************************************/
+static int XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Algo2)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (((Algo1 == XLOADER_PUB_STRENGTH_RSA_4096 ||
+	      Algo1 == XLOADER_PUB_STRENGTH_ECDSA_P384 ||
+	      Algo1 == XLOADER_PUB_STRENGTH_ECDSA_P521) &&
+	     (Algo2 == XLOADER_PUB_STRENGTH_LMS ||
+	      Algo2 == XLOADER_PUB_STRENGTH_LMS_HSS ||
+	      Algo2 == XLOADER_PUB_STRENGTH_MLDSA ||
+	      Algo2 == XLOADER_PUB_STRENGTH_SLHDSA)) ||
+	    ((Algo2 == XLOADER_PUB_STRENGTH_RSA_4096 ||
+	      Algo2 == XLOADER_PUB_STRENGTH_ECDSA_P384 ||
+	      Algo2 == XLOADER_PUB_STRENGTH_ECDSA_P521) &&
+	     (Algo1 == XLOADER_PUB_STRENGTH_LMS ||
+	      Algo1 == XLOADER_PUB_STRENGTH_LMS_HSS ||
+	      Algo1 == XLOADER_PUB_STRENGTH_MLDSA ||
+	      Algo1 == XLOADER_PUB_STRENGTH_SLHDSA))) {
+		Status = XST_SUCCESS;
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function authenticates one PPK/SPK keypair and verifies
+ * 		the HashBlock signature using that SPK.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	HBSignParams is pointer to the XLoader_HBSignParams instance.
+ * @param	ReadOffset points to current read offset in Metaheader.
+ * @param	AuthType is current keypair authentication algorithm.
+ * @param	SignPaddingSize is signature padding size for current AuthType.
+ * @param	HashBlockHash is pointer to hash buffer used for HB hash.
+ *
+ * @return
+ * 		- XST_SUCCESS on successful verification.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
+		XLoader_HBSignParams *HBSignParams, u32 *ReadOffset,
+		u32 AuthType, u32 SignPaddingSize, u8 *HashBlockHash)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	u32 SpkAuthType;
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
+
+	/* Read PPK */
+	*ReadOffset += XLOADER_KEY_HDR_SIZE_IN_BYTES;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->PPK.Key,
+			HBSignParams->TotalPpkSize, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PPK_COPY_FAIL, Status);
+		goto END;
+	}
+
+	if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
+			(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
+		/** - Get the Lms Hash algorithm present in public key */
+		Status = XSecure_GetLmsHashAlgo(AuthType,
+					(u8 *)&SecurePtr->AcPtr->PPK.Key,
+					&SecurePtr->SignHashAlgo);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GET_LMS_ALGO_FAILED, Status);
+			goto END;
+		}
+		/** - If AuthType is LMS/LMS_HSS run LMS Kat */
+		Status = XLoader_LmsKat(SecurePtr, AuthType);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
+			goto END;
+		}
+	}
+
+	/* Read SPK Header */
+	*ReadOffset += HBSignParams->TotalPpkSize;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->SPK.Header,
+			XLOADER_KEY_HDR_SIZE_IN_BYTES,
+			0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HEADER_COPY_FAIL, Status);
+		goto END;
+	}
+
+	/* Check permission in SPK Header */
+	if (SecurePtr->AcPtr->SPK.Header[XLOADER_KEY_HDR_PERMISSION_IDX] !=
+			XLOADER_KEY_IS_SPK) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INCORRECT_KEY, Status);
+		goto END;
+	}
+
+	/* Check whether SPK algorithm matches with PPK algorithm */
+	SpkAuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->SPK.Header);
+	if (SpkAuthType != AuthType) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KEY_ALGO_MISMATCH, Status);
+		goto END;
+	}
+
+	/* Read SPK */
+	*ReadOffset += XLOADER_KEY_HDR_SIZE_IN_BYTES;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->SPK.Key,
+			HBSignParams->TotalSpkSize, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_COPY_FAIL, Status);
+		goto END;
+	}
+
+	/* Read SPK Signature Header */
+	*ReadOffset += HBSignParams->TotalSpkSize;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignHdr,
+			XLOADER_SIGN_HDR_SIZE, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SIGN_HDR_COPY_FAIL, Status);
+		goto END;
+	}
+
+	HBSignParams->TotalAuthSignSize = SecurePtr->AcPtr->AuthSignHdr[0];
+
+	/* Validate total signature size before use */
+	if ((HBSignParams->TotalAuthSignSize == 0U) ||
+		(HBSignParams->TotalAuthSignSize > XLOADER_MAX_TOTAL_SIGN_SIZE) ||
+		(HBSignParams->TotalAuthSignSize < SignPaddingSize)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_SIGN_COPY_FAIL, XST_FAILURE);
+		goto END;
+	}
+
+	HBSignParams->ActualAuthSignSize = SecurePtr->AcPtr->AuthSignHdr[0] - SignPaddingSize;
+	if (HBSignParams->ActualAuthSignSize < XLOADER_MIN_SIGN_SIZE) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_SIGN_COPY_FAIL, XST_FAILURE);
+		goto END;
+	}
+
+	/* Read SPK Signature */
+	*ReadOffset += XLOADER_SIGN_HDR_SIZE;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignature,
+			HBSignParams->TotalAuthSignSize, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_SIGN_COPY_FAIL, Status);
+		goto END;
+	}
+
+	/**
+	 * - Verify PPK Hash
+	 * - Authenticate the SPK
+	 * - Return error if selected/all PPK revoked
+	 * - Compare PPK hash with efuse stored value (if eFUSE auth)
+	 * - Skip PPK hash comparison for BH auth
+	 * - Authenticate SPK using PPK
+	 */
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_AuthenticateKeys,
+			SecurePtr, HBSignParams);
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+		XPlmi_Printf(DEBUG_INFO, "Spk Authentication Failed\r\n");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KEY_AUTH_FAIL, Status);
+		goto END;
+	}
+
+	/* Read HB Signature Header */
+	*ReadOffset += HBSignParams->TotalAuthSignSize;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignHdr,
+			XLOADER_SIGN_HDR_SIZE, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SIGN_HDR_COPY_FAIL,
+				Status);
+		goto END;
+	}
+
+	HBSignParams->TotalAuthSignSize = SecurePtr->AcPtr->AuthSignHdr[0];
+
+	/* Validate total signature size before use */
+	if ((HBSignParams->TotalAuthSignSize == 0U) ||
+		(HBSignParams->TotalAuthSignSize > XLOADER_MAX_TOTAL_SIGN_SIZE) ||
+		(HBSignParams->TotalAuthSignSize < SignPaddingSize)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_SIGN_COPY_FAIL, XST_FAILURE);
+		goto END;
+	}
+
+	HBSignParams->ActualAuthSignSize = SecurePtr->AcPtr->AuthSignHdr[0] - SignPaddingSize;
+	if (HBSignParams->ActualAuthSignSize < XLOADER_MIN_SIGN_SIZE) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_SIGN_COPY_FAIL, XST_FAILURE);
+		goto END;
+	}
+
+	/** - Read HashBlock Signature */
+	*ReadOffset += XLOADER_SIGN_HDR_SIZE;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignature,
+			HBSignParams->TotalAuthSignSize, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL,
+				Status);
+		goto END;
+	}
+
+	/** - Calculate HashBlock hash */
+	Status = XLoader_ShaDigestCalculation((u8 *)&MetaHdrPtr->HashBlock.HashData,
+			HBSignParams->HBSize, HashBlockHash);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL,
+				Status);
+		goto END;
+	}
+
+	/** - Verify HashBlock Signature with SPK */
+	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
+		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
+		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifySignature,
+				SecurePtr, HashBlockHash,
+				&SecurePtr->AcPtr->SPK,
+				(u8 *)&SecurePtr->AcPtr->AuthSignature);
+	} else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
+		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
+		XSECURE_TEMPORAL_IMPL(Status, SStatus,
+				XLoader_VerifyLmsSignature, SecurePtr,
+				(u8 *)&SecurePtr->AcPtr->AuthSignature,
+				HBSignParams->ActualAuthSignSize,
+				(u8 *)&SecurePtr->AcPtr->SPK.Key,
+				HBSignParams->ActualSpkSize,
+				(u8 *)&MetaHdrPtr->HashBlock.HashData,
+				HBSignParams->HBSize);
+	} else if (AuthType == XLOADER_PUB_STRENGTH_MLDSA) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_MldsaSignVerify,
+			SecurePtr, HBSignParams, XLOADER_VERIFY_HB_SIGN);
+	} else if (AuthType == XLOADER_PUB_STRENGTH_SLHDSA) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SlhdsaSignVerify,
+			SecurePtr, HBSignParams, XLOADER_VERIFY_HB_SIGN);
+	} else {
+		/* Not supported */
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+		XPlmi_Printf(DEBUG_INFO, "Verification of hash block signature failed %x \r\n", AuthType);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL, Status);
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function Reads Authentication Data and validate.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParams.
+ * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
+ *
+ * @return
+ *		- XST_SUCCESS if Auth data is validated successfully.
+ *		- ErrorCode in case of failure.
+ *
+ ******************************************************************************/
+static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
+	XLoader_HBSignParams *HBSignParams)
+{
+	volatile int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
+	u8 HashBlockHash[XLOADER_SHA3_LEN];
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
+	XLoader_AuthCertificate *AuthCert =
+		(XLoader_AuthCertificate *) XPLMI_PMCRAM_CHUNK_MEMORY_1;
+	u32 ReadOffset;
+	u32 AuthType;
+	u32 SignPaddingSize;
+	u32 IsHybridSign = (u32)FALSE;
+
+	XPlmi_Printf(DEBUG_INFO, "Authentication of HashBlock\n\r");
+
+	SecurePtr->AcPtr = AuthCert;
+	/**
+	 * - Read PPK Header, SPK Header, PPK, SPK and SPK Signature from PDI
+	 *   and copy to PMCRAM memory.
+	 */
+	ReadOffset = HBSignParams->ReadOffset;
+
+	/* Read Hash Block 1 */
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + ReadOffset,
+			(u64)(UINTPTR)MetaHdrPtr->HashBlock.HashData,
+			HBSignParams->HBSize, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_COPY_FAIL, Status);
+		goto END;
+	}
+
+	/* Read PPK Header */
+	ReadOffset += HBSignParams->HBSize;
+
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + ReadOffset,
+			(u64)(UINTPTR)&SecurePtr->AcPtr->PPK.Header,
+			XLOADER_KEY_HDR_SIZE_IN_BYTES,
+			0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PPK_HEADER_COPY_FAIL, Status);
+		goto END;
+	}
+
+	/* Check permission in PPK Header */
+	if (SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_PERMISSION_IDX] !=
+			XLOADER_KEY_IS_PPK) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INCORRECT_KEY, Status);
+		goto END;
+	}
+
+	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+
+	/* Check whether hybrid signing is enabled or not in PPK Header */
+	if (SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX] != 0U) {
+		IsHybridSign = (u32)TRUE;
+		Status = XLoader_ValidateHybridKeyAlgo(AuthType,
+				SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX]);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Hybrid signing requires PQC and Non-PQC "
+					"sets of key pair\r\n");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_HYBRID_KEYPAIR, Status);
+			goto END;
+		}
+	}
+
+	Status = XLoader_GetKeySizeSignPadding(AuthType, HBSignParams,
+			&SignPaddingSize);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	Status = XLoader_AuthHashBlockWithKeyPair(SecurePtr, HBSignParams,
+			&ReadOffset, AuthType, SignPaddingSize,
+			&HashBlockHash[0]);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (IsHybridSign == (u32)TRUE) {
+		/* Read PPK Header */
+		ReadOffset += HBSignParams->TotalAuthSignSize;
+
+		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + ReadOffset,
+				(u64)(UINTPTR)&SecurePtr->AcPtr->PPK.Header,
+				XLOADER_KEY_HDR_SIZE_IN_BYTES,
+				0x0U);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PPK_HEADER_COPY_FAIL, Status);
+			goto END;
+		}
+
+		/* Check permission in PPK Header */
+		if (SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_PERMISSION_IDX] != XLOADER_KEY_IS_PPK) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_INCORRECT_KEY, Status);
+			goto END;
+		}
+
+		AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+
+		Status = XLoader_GetKeySizeSignPadding(AuthType, HBSignParams,
+				&SignPaddingSize);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+
+		Status = XLoader_AuthHashBlockWithKeyPair(SecurePtr, HBSignParams,
+				&ReadOffset, AuthType, SignPaddingSize,
+				&HashBlockHash[0]);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "HashBlock Authentication is successful\n\r");
+
+	/** - Copy Authenticated HashBlock to PPU1 RAM */
+	Status = XLoader_CopyHashBlock(HBSignParams->HBSize, &MetaHdrPtr->HashBlock);
+
+END:
+	/** - Zeroize the HashBlockHash buffer used for storing calculated HashBlock hash */
+	ClearStatus = XPlmi_MemSetBytes(&HashBlockHash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+		if (Status != XST_SUCCESS) {
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+		}
+	}
+
+	return Status;
+}
+#endif /* VERSAL_2VP_P */
+
 /*****************************************************************************/
 /**
 * @brief	This function copies the authenticated HashBlock content to
@@ -3822,9 +4593,13 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = NULL;
-	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 	XSecure_HssInitParams HssInitParams;
 	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
+#ifndef VERSAL_2VP_P
+	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+#else
+	u32 AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+#endif
 
 	XPlmi_Printf(DEBUG_INFO, "LMS Authentication\n\r");
 
@@ -4227,6 +5002,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VP_P
 /******************************************************************************/
 /**
  * @brief	This function validates SPK Header
@@ -4284,6 +5060,7 @@ static int XLoader_ValidateSpkHeader(XLoader_SpkHeader *SpkHeader)
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -5472,7 +6249,7 @@ int XLoader_ValidatePpkHash(const u8 *PpkHash, u32 PpkOffset)
 	volatile int HashStatus = XST_FAILURE;
 	volatile int HashStatusTmp = XST_FAILURE;
 	const u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN] = {0U};
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef VERSAL_2VE_2VM
 	u32 UserOffset = 0U;
 #endif
 
@@ -5493,7 +6270,7 @@ int XLoader_ValidatePpkHash(const u8 *PpkHash, u32 PpkOffset)
 		Status = XST_SUCCESS;
 	}
 
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef VERSAL_2VE_2VM
 	if (PpkOffset == XLOADER_EFUSE_PPK0_START_OFFSET) {
 		UserOffset = XLOADER_EFUSE_PPK0_USER_START_OFFSET;
 	}
