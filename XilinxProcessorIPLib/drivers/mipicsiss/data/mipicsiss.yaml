@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -45,8 +45,6 @@ properties:
     description: flag to enable csi v2.
   xlnx,dphy-lanes:
     description: Number of dphy lanes.
-  xlnx,rst-disable:
-    description: Flag for reset disable.
   csirx-present:
     description: Sub-core instance presence.
   csirx-connected:
@@ -80,7 +78,6 @@ required:
     - xlnx,csi-en-activelanes
     - xlnx,en-csi-v2
     - xlnx,dphy-lanes
-    - xlnx,rst-disable
     - csirx-present
     - csirx-connected: phandle
     - mipi-dphy-present
