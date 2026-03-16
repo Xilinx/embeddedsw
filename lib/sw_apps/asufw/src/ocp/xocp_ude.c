@@ -39,6 +39,7 @@
 #include "xsha_hw.h"
 #include "xasu_generic.h"
 #include "xasu_def.h"
+#include "xil_sutil.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -61,7 +62,6 @@ static u32 UdeKekFlag = XASU_STATUS_FAIL;	/**< UDE KEK presence flag */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
-static void XOcp_IncrementIv(u8* Iv, u8 IncVal);
 static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8* UdeDecPvtKey);
 static s32 XOcp_GetActiveUdeKeyInfo(u32 *UdeUserKeyPtr, u8 *IvIncValPtr);
 
@@ -93,7 +93,7 @@ s32 XOcp_GenerateUdeKek(void)
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
-	XOcp_IncrementIv(KekIv, XOCP_DEC_BLACK_KEY_IV_INC_VAL);
+	Xil_IncrementBuffer(KekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, XOCP_DEC_BLACK_KEY_IV_INC_VAL);
 
 	/** Decrypt efuse black key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -196,7 +196,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 			goto END;
 			break;
 	}
-	XOcp_IncrementIv(UdeKekIv, IvIncVal);
+	Xil_IncrementBuffer(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvIncVal);
 
 	/** Encrypt UDE private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -286,7 +286,7 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Increment IV based on the UDE revoke bits. */
-	XOcp_IncrementIv(UdeKekIv, IvIncVal);
+	Xil_IncrementBuffer(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvIncVal);
 
 	/** Decrypt the UDE encrypted private key from eFUSEs. */
 	Status = XOcp_DecryptPvtKey(DmaPtr, UdeUserKeyAddr, UdeKekIv, UdeDecPvtKey);
@@ -548,38 +548,6 @@ END:
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function returns the IV for encryption of UDE keys
- * 		after incrementing.
- *
- * @param	Iv		- Iv to be incremented.
- * @param	IncVal		- Increment value.
- *
- *************************************************************************************************/
-static void XOcp_IncrementIv(u8* Iv, u8 IncVal)
-{
-	u8 *IvPtr = Iv;
-	u32 Carry = IncVal;
-	u32 Result;
-	s32 Index;
-
-	/**
-	 * IV increment is done as below:
-	 * Repeat I = 0 to 11 OR till Carry becomes zero.
-	 * Get (Iv[I], carry) by performing Iv[I] + carry.
-	 */
-	for (Index = (s32)(XASU_OCP_UDE_IV_SIZE_IN_BYTES - 1); Index >= 0; Index--) {
-		Result = IvPtr[Index] + Carry;
-		IvPtr[Index] = (u8)(Result & XASUFW_LSB_MASK_VALUE);
-		Carry = Result >> XASUFW_ONE_BYTE_SHIFT_VALUE;
-		/** If carry is non zero continue else break. */
-		if (Carry == 0U) {
-			break;
-		}
-	}
 }
 
 /*************************************************************************************************/

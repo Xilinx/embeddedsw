@@ -54,6 +54,8 @@
 #define XIL_WORD_SIZE		    (4U) /**< WORD size in BYTES */
 #define XIL_WORD_ALIGN_MASK		(XIL_WORD_SIZE - 1U)/**< WORD alignment */
 #define XIL_ONE_BYTE	(1U) /**< One byte length */
+#define XIL_LSB_MASK_VALUE	(0xFFU) /**< LSB mask value */
+#define XIL_ONE_BYTE_SHIFT	(8U) /**< One byte shift value */
 
 /************************** Function Prototypes *****************************/
 
@@ -970,4 +972,38 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 		Xil_MemCpy((void *)(UINTPTR)DstAddr, (const void *)(UINTPTR)SrcAddr, Cnt);
 	}
 #endif
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function increments the buffer data by specified value.
+ *
+ * @param	Buffer		Pointer to the buffer to be incremented.
+ * @param	BufferSize	Size of the buffer in bytes.
+ * @param	IncVal		Increment value.
+ *
+ * @return	None
+ *
+ *************************************************************************************************/
+void Xil_IncrementBuffer(u8* Buffer, u32 BufferSize, u8 IncVal)
+{
+	u8 *BufferPtr = Buffer;
+	u32 Carry = IncVal;
+	u32 Result;
+	s32 Index;
+
+	/**
+	 * Buffer increment is done as below:
+	 * Repeat I = BufferSize-1 to 0 OR till Carry becomes zero.
+	 * Get (Buffer[I], carry) by performing Buffer[I] + carry.
+	 */
+	for (Index = (s32)(BufferSize - 1U); Index >= 0; Index--) {
+		Result = BufferPtr[Index] + Carry;
+		BufferPtr[Index] = (u8)(Result & XIL_LSB_MASK_VALUE);
+		Carry = Result >> XIL_ONE_BYTE_SHIFT;
+		/** If carry is non zero continue else break. */
+		if (Carry == 0U) {
+			break;
+		}
+	}
 }
