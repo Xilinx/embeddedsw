@@ -96,7 +96,7 @@ def create_app(args):
         dstdir = os.path.join(dstdir, "openamp-system-reference")
     elif obj.template == "libmetal_echo_demo":
         srcdir = os.path.join(os.environ.get("XILINX_VITIS"), "data")
-        srcdir = os.path.join(srcdir, "libmetal")
+        srcdir = os.path.join(srcdir, "openamp-system-reference")
         if "LOCAL_LIBMETAL_DEMO_REPO" in os.environ:
             srcdir = os.environ.get("LOCAL_LIBMETAL_DEMO_REPO")
             print(f"[INFO]: LOCAL_LIBMETAL_DEMO_REPO variable is set to {srcdir}")
