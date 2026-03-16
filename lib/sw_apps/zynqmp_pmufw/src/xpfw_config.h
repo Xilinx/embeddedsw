@@ -34,6 +34,7 @@ extern "C" {
 #define OVERTEMP_DEGC                  90.0
 #define EXT_RESET_MIO_PIN_VAL          35
 #define ENABLE_CSU_MULTIBOOT
+#define ENABLE_CSU_REG_ACCESS
 #endif
 
 /**
@@ -143,6 +144,10 @@ extern "C" {
  *				register during the PMU firmware initialization and
  *				restart processes, ensuring the boot partition is
  *				maintained during a restart.
+ *	- ENABLE_CSU_REG_ACCESS: Enables CSU register access via PM_IOCTL interface.
+ *				Provides IOCTL-based access to CSU registers
+ *				(MULTIBOOT, IDCODE, PCAP_STATUS, PCAP_PROG, PCAP_CTRL).
+ *				Default: Disabled (to save memory).
  *	- ENABLE_MEM_RANGE: Validates the requested address details before proceeding
  *			    further.
  *	- ENABLE_MEM_RANGE_CRYPTO_REQUEST: Enables address validation for
@@ -338,6 +343,10 @@ extern "C" {
 
 #ifndef ENABLE_CSU_MULTIBOOT_VAL
 #define ENABLE_CSU_MULTIBOOT_VAL			(0U)
+#endif
+
+#ifndef ENABLE_CSU_REG_ACCESS_VAL
+#define ENABLE_CSU_REG_ACCESS_VAL			(0U)
 #endif
 
 #ifndef ENABLE_MEM_RANGE_VAL
@@ -695,6 +704,16 @@ extern "C" {
 
 #if (ENABLE_CSU_MULTIBOOT_VAL) && (!defined(ENABLE_CSU_MULTIBOOT))
 #define ENABLE_CSU_MULTIBOOT
+#endif
+
+#if (ENABLE_CSU_REG_ACCESS_VAL) && (!defined(ENABLE_CSU_REG_ACCESS))
+#define ENABLE_CSU_REG_ACCESS
+#endif
+
+#if defined(ENABLE_CSU_REG_ACCESS)
+#ifndef ENABLE_IOCTL
+#define ENABLE_IOCTL
+#endif
 #endif
 
 #if (ENABLE_MEM_RANGE_VAL) && (!defined(ENABLE_MEM_RANGE))
