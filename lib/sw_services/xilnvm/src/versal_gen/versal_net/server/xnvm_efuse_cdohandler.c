@@ -936,10 +936,10 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 	volatile int Status = XST_FAILURE;
 	u64 OutputBuffer = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 RegData;
-	u32 EndOffset = StartOffset + RegCount * XNVM_WORD_LEN;
+	u32 EndOffset = StartOffset + (RegCount * XNVM_WORD_LEN);
 	u32 Offset = StartOffset;
 
-	if (StartOffset > XNVM_EFUSE_CACHE_END_OFFSET || EndOffset > XNVM_EFUSE_CACHE_END_OFFSET){
+	if ((StartOffset > XNVM_EFUSE_CACHE_END_OFFSET) || EndOffset > XNVM_EFUSE_CACHE_END_OFFSET){
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
