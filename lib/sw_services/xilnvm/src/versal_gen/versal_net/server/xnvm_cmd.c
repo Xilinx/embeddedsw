@@ -258,7 +258,7 @@ void XNvm_CmdsInit(int (*OcpHandler)(void))
 
 	/* Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
-		XNvm_Cmds[Idx].Handler = XNvm_ProcessCmd;
+		XNvm_Cmds[Idx].Handler = &XNvm_ProcessCmd;
 	}
 	XPlmi_ModuleRegister(&XPlmi_Nvm);
 	(void)XNvm_ManageOcpHandler(OcpHandler);
