@@ -114,6 +114,9 @@ typedef enum {
 	PM_MMIO_IDX_CSU_SHA_RESET,
 	PM_MMIO_IDX_CSU_SHA_DONE,
 	PM_MMIO_IDX_CSU_PCAP_PROG,
+	PM_MMIO_IDX_CSU_PCAP_RDWR,
+	PM_MMIO_IDX_CSU_PCAP_CTRL,
+	PM_MMIO_IDX_CSU_PCAP_RESET,
 	PM_MMIO_IDX_CSU_TAMPER_STATUS,
 	PM_MMIO_IDX_CSU_TAMPER_0,
 	PM_MMIO_IDX_CSUDMA,
@@ -170,6 +173,7 @@ typedef enum {
 	CSU_REG_PCAP_STATUS,       /**< CSU PCAP Status register */
 #ifdef SECURE_ACCESS
 	CSU_REG_PCAP_PROG,         /**< CSU PCAP Program register */
+	CSU_REG_PCAP_CTRL,	   /**< CSU PCAP Control register */
 #endif
 	CSU_REG_MAX                /**< Maximum number of CSU registers */
 } XPm_CsuRegId;

@@ -634,9 +634,36 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
-	/* CSU pcap registers*/
+	/* CSU pcap-prog registers*/
 	{
 		.startAddr = CSU_PCAP_PROG_REG,
+		.endAddr = CSU_PCAP_PROG_REG,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+
+	/* CSU pcap-rdwr registers*/
+	{
+		.startAddr = CSU_PCAP_RDWR_REG,
+		.endAddr = CSU_PCAP_RDWR_REG,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+
+	/* CSU pcap-ctrl registers*/
+	{
+		.startAddr = CSU_PCAP_CTRL_REG,
+		.endAddr = CSU_PCAP_CTRL_REG,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+
+	/* CSU pcap-reset registers*/
+	{
+		.startAddr = CSU_PCAP_RESET_REG,
 		.endAddr = CSU_PCAP_RESET_REG,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
@@ -1036,6 +1063,11 @@ static const PmCsuRegInfo csuRegTable[] = {
 		.id = CSU_REG_PCAP_PROG,
 		.name = "pcap-prog",
 		.region = &pmAccessTable[PM_MMIO_IDX_CSU_PCAP_PROG]
+	},
+	{
+		.id = CSU_REG_PCAP_CTRL,
+		.name = "pcap-ctrl",
+		.region = &pmAccessTable[PM_MMIO_IDX_CSU_PCAP_CTRL]
 	},
 #endif
 };
