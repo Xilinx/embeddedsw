@@ -1021,7 +1021,7 @@ static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteDmeRevoke(EnvDisFlag, DmeRevokeNum);
+	Status = XNvm_EfuseWriteDmeRevoke(EnvDisFlag, (XNvm_DmeRevoke)DmeRevokeNum);
 
 	return Status;
 }
