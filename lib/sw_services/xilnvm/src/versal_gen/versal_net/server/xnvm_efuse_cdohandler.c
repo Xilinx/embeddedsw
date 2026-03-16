@@ -150,7 +150,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	static XNvm_CdoChunk CdoChunkData;
 	u32 PloadLen = 0;
 	XNvm_OcpHandler OcpHandler;
-	u32 ApiId = Cmd->CmdId & XNVM_API_ID_MASK;
+	u32 ApiId;
 
 	/**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
@@ -159,7 +159,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
-
+	ApiId = Cmd->CmdId & XNVM_API_ID_MASK;
 	/**
 	 *  Calls the respective handler based on API ID. Return error code upon failure
 	 */
