@@ -1,12 +1,17 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
+#ifdef ENABLE_CSU_REG_ACCESS
+#include "pm_common.h"
+#include "xpfw_util.h"
+#include "xil_util.h"
+#endif /* ENABLE_CSU_REG_ACCESS */
 #include "pm_master.h"
 #include "pm_mmio_access.h"
 #include "crl_apb.h"
@@ -1000,6 +1005,47 @@ static const PmAccessRegion pmAccessTable[] = {
 
 };
 
+#ifdef ENABLE_CSU_REG_ACCESS
+/**
+ * PmCsuRegInfo - CSU Register metadata
+ */
+typedef struct {
+	u32 id;                          /**< Register ID */
+	const char* name;               /**< Register name (for discovery) */
+	const PmAccessRegion* region;   /**< Pointer to access region */
+} PmCsuRegInfo;
+
+static const PmCsuRegInfo csuRegTable[] = {
+	{
+		.id = CSU_REG_MULTIBOOT,
+		.name = "multiboot",
+		.region = &pmAccessTable[PM_MMIO_IDX_CSU_MULTI_BOOT]
+	},
+	{
+		.id = CSU_REG_IDCODE,
+		.name = "idcode",
+		.region = &pmAccessTable[PM_MMIO_IDX_CSU_IDCODE]
+	},
+	{
+		.id = CSU_REG_PCAP_STATUS,
+		.name = "pcap-status",
+		.region = &pmAccessTable[PM_MMIO_IDX_CSU_PCAP_STATUS]
+	},
+#ifdef SECURE_ACCESS
+	{
+		.id = CSU_REG_PCAP_PROG,
+		.name = "pcap-prog",
+		.region = &pmAccessTable[PM_MMIO_IDX_CSU_PCAP_PROG]
+	},
+#endif
+};
+
+#define CSU_REG_COUNT		ARRAY_SIZE(csuRegTable)
+#define CSU_REG_NAME_LEN	(12U)
+
+#endif /* ENABLE_CSU_REG_ACCESS */
+
+
 #ifdef ENABLE_MEM_RANGE
 /**
  * PmIsValidAddressRange - Checks if a given memory range is valid for a
@@ -1090,5 +1136,177 @@ bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address)
 {
 	return PmGetMmioAccess(master, address, MMIO_ACCESS_TYPE_WRITE);
 }
+
+#ifdef ENABLE_CSU_REG_ACCESS
+/**
+ * PmCsuRegGetCount() - Get total number of CSU registers
+ *
+ * This function returns the total count of CSU registers available
+ * in the csuRegTable array.
+ *
+ * Return: Number of CSU registers available
+ */
+u32 PmCsuRegGetCount(void)
+{
+	return CSU_REG_COUNT;
+}
+
+/**
+ * PmCsuRegGetByIndex() - Get CSU register info by index.
+ * @index: Register index (0 to CSU_REG_MAX-1)
+ *
+ * This function retrieves the CSU register information structure
+ * for a given index in the csuRegTable array.
+ *
+ * Return: Pointer to PmCsuRegInfo structure on success, NULL if index is invalid.
+ */
+static const PmCsuRegInfo* PmCsuRegGetByIndex(u32 index)
+{
+	const PmCsuRegInfo *regIdx = NULL;
+
+	if (index >= CSU_REG_COUNT) {
+		goto done;
+	}
+	regIdx = &csuRegTable[index];
+
+done:
+	return regIdx;
+}
+
+/**
+ * PmCsuRegGetById() - Get CSU register info by ID (internal helper)
+ * @regId: Register ID to search for
+ *
+ * This internal helper function searches the csuRegTable array for
+ * a register with the specified ID.
+ *
+ * Return: Pointer to PmCsuRegInfo structure on success, NULL if not found
+ */
+static const PmCsuRegInfo* PmCsuRegGetById(const u32 regId)
+{
+	const PmCsuRegInfo *regInfo = NULL;
+	u32 i;
+
+	for (i = 0; i < CSU_REG_COUNT; i++) {
+		if (csuRegTable[i].id == regId) {
+			regInfo = &csuRegTable[i];
+			break;
+		}
+	}
+
+	return regInfo;
+}
+
+/**
+ * PmCsuRegGetName() - Get CSU register name by index
+ * @regIdx: Register index
+ * @resp: Pointer to response buffer (array of u32) to store the name
+ *
+ * This function retrieves the CSU register name for a given index
+ * and copies it to the response buffer using Xil_SMemCpy for safe
+ * memory copying. The name is copied as a null-terminated string.
+ *
+ * Return: XST_SUCCESS on success, XST_INVALID_PARAM if index is invalid
+ */
+s32 PmCsuRegGetName(const u32 regIdx, u32 *resp)
+{
+	s32 status = XST_FAILURE;
+	const u32 CopySize = CSU_REG_NAME_LEN;
+	const PmCsuRegInfo* regInfo = PmCsuRegGetByIndex(regIdx);
+
+	if (regInfo == NULL) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Copy register name to response buffer using secure memory copy */
+	status = Xil_SMemCpy((char *)resp, CopySize,
+	                     (const char *)regInfo->name, CopySize, CopySize);
+
+done:
+	return status;
+}
+
+/**
+ * PmCsuRegRead() - Read a CSU register
+ * @master: Pointer to the master requesting the operation
+ * @regId: Register ID to read
+ * @value: Pointer to store the read value
+ *
+ * This function reads a CSU register after checking access permissions
+ * using the existing PmGetMmioAccessRead function. The actual read/write
+ * permissions are enforced by the pmAccessTable entries.
+ *
+ * Return: XST_SUCCESS on success, XST_INVALID_PARAM if parameters are invalid,
+ *         XST_PM_NO_ACCESS if access is denied
+ */
+s32 PmCsuRegRead(const PmMaster* master, u32 regId, u32* value)
+{
+	s32 status = XST_FAILURE;
+	const PmCsuRegInfo* regInfo = PmCsuRegGetById(regId);
+
+	if ((value == NULL) || (regInfo == NULL)) {
+		PmErr("Invalid parameters: regId=%d\r\n", regId);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check access permission */
+	if (0U == PmGetMmioAccessRead(master, regInfo->region->startAddr)) {
+		PmErr("Access denied for register %s (0x%08x)\r\n",
+		      regInfo->name, regInfo->region->startAddr);
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Read the register value */
+	*value = XPfw_Read32(regInfo->region->startAddr);
+	status = XST_SUCCESS;
+
+done:
+	return status;
+}
+
+/**
+ * PmCsuRegWrite() - Write a CSU register
+ * @master: Pointer to the master requesting the operation
+ * @regId: Register ID to write
+ * @mask: Mask to be applied to Value
+ * @value: Value to write to the register
+ *
+ * This function writes a CSU register after checking access permissions
+ * using the existing PmGetMmioAccessWrite function. The actual read/write
+ * permissions are enforced by the pmAccessTable entries.
+ *
+ * Return: XST_SUCCESS on success, XST_INVALID_PARAM if register ID is invalid,
+ *         XST_PM_NO_ACCESS if write access is denied
+ */
+s32 PmCsuRegWrite(const PmMaster* master, const u32 regId, const u32 mask, const u32 value)
+{
+	s32 status = XST_FAILURE;
+	const PmCsuRegInfo* regInfo = PmCsuRegGetById(regId);
+
+	if (regInfo == NULL) {
+		PmErr("Invalid register ID: %d\r\n", regId);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check access permission using existing PmGetMmioAccessWrite */
+	if (0U == PmGetMmioAccessWrite(master, regInfo->region->startAddr)) {
+		PmErr("Write access denied for register %s (0x%08x)\r\n",
+		      regInfo->name, regInfo->region->startAddr);
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Write the register value */
+	XPfw_RMW32(regInfo->region->startAddr, mask, value);
+	status = XST_SUCCESS;
+
+done:
+	return status;
+}
+#endif /* ENABLE_CSU_REG_ACCESS */
 
 #endif

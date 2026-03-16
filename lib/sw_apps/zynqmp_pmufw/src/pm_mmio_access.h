@@ -174,6 +174,12 @@ typedef enum {
 	CSU_REG_MAX                /**< Maximum number of CSU registers */
 } XPm_CsuRegId;
 
+/* CSU Register function declarations */
+u32 PmCsuRegGetCount(void);
+s32 PmCsuRegGetName(const u32 regIdx, u32 *resp);
+s32 PmCsuRegRead(const PmMaster* master, const u32 regId, u32* value);
+s32 PmCsuRegWrite(const PmMaster* master, const u32 regId, const u32 mask, const u32 value);
+
 #endif /* ENABLE_CSU_REG_ACCESS */
 
 /*********************************************************************
