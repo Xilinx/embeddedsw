@@ -133,8 +133,8 @@ extern "C" {
  * | IOCTL_REGISTER_SGI			| 25	| None		| Register SGI to ATF			|
  * | IOCTL_SET_FEATURE_CONFIG		| 26	| ZynqMP	| Set runtime feature config		|
  * | IOCTL_GET_FEATURE_CONFIG		| 27	| ZynqMP	| Get runtime feature config		|
- * | IOCTL_READ_REG			| 28	| Versal	| Read a 32-bit register		|
- * | IOCTL_MASK_WRITE_REG		| 29	| Versal	| RMW a 32-bit register			|
+ * | IOCTL_READ_REG			| 28	| Both		| Read a 32-bit register		|
+ * | IOCTL_MASK_WRITE_REG		| 29	| Both		| RMW a 32-bit register			|
  * | IOCTL_SET_SD_CONFIG		| 30	| ZynqMP	| Set SD config register value		|
  * | IOCTL_SET_GEM_CONFIG		| 31	| ZynqMP	| Set GEM config register value		|
  * | IOCTL_SET_USB_CONFIG		| 32	| ZynqMP	| Set USB config register value		|
@@ -172,6 +172,8 @@ extern "C" {
  * | XPM_QID_CLOCK_GET_MAX_DIVISOR		| 13	| Both		| Get max clock divisor			|
  * | XPM_QID_PLD_GET_PARENT			| 14	| Versal	| Get PLD parent			|
  * | XPM_QID_PINCTRL_GET_ATTRIBUTES		| 15	| Versal	| Get pin attributes			|
+ * | XPM_QID_GET_NODE_NAME			| 16	| ZynqMP	| Get node count			|
+ * | XPM_QID_GET_NODE_COUNT			| 17	| ZynqMP	| Get node name				|
  *
  *****************************************************************************/
 
