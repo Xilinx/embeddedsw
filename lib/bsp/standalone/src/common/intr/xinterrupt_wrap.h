@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -24,6 +24,7 @@
 * 9.2   ml   05/08/24 Add Support for connecting fast interrupt for intc.
 * 9.2   ml   09/20/24 Added conditional compilation checks to avoid unused
 * 		      declarations.
+* 9.5   ml   17/03/26 Added Device Tree trigger type macros
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +70,12 @@ enum XIntrType {
 #define XINTR_IS_SPI			0U
 #define XINTR_IS_PPI			1U
 #define XINTR_IS_SGI			2U
+
+/* Trigger type constants from TRM */
+#define XIL_TRIG_LOW_TO_HIGH_EDGE    1U  /* low-to-high edge triggered */
+#define XIL_TRIG_HIGH_TO_LOW_EDGE    2U  /* high-to-low edge triggered */
+#define XIL_TRIG_ACTIVE_HIGH_LEVEL   4U  /* active high level-sensitive */
+#define XIL_TRIG_ACTIVE_LOW_LEVEL    8U  /* active low level-sensitive */
 
 #define XINTC_TYPE_MASK		0x1
 #define XINTC_INTR_TYPE_MASK		0x100000

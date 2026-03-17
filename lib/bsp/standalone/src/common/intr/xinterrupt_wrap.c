@@ -31,6 +31,7 @@
 * 9.5   vmt  12/12/25 Fixed XConfigInterruptCntrl() to check IsReady, preventing
 * 		      re-initialization that clears interrupt enables.
 * 9.5   ml   26/02/26 Fixed PPI interrupt ID encoding.
+* 9.5   ml   13/03/26 Fixed XSetPriorityTriggerType trigger mapping.
 * </pre>
 *
 ******************************************************************************/
@@ -370,9 +371,13 @@ void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 ******************************************************************************/
 void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 {
-	u8 Trigger = (((XGet_TriggerType(IntrId) == 1) ||
-		       (XGet_TriggerType(IntrId) == 2)) ? XINTR_IS_EDGE_TRIGGERED
-		      : XINTR_IS_LEVEL_TRIGGERED);
+	u32 TriggerType = XGet_TriggerType(IntrId);
+
+	/* Edge trigger types (1,2) map to edge-triggered hardware config */
+	u8 Trigger = ((TriggerType == XIL_TRIG_LOW_TO_HIGH_EDGE) ||
+	              (TriggerType == XIL_TRIG_HIGH_TO_LOW_EDGE)) ?
+	              XINTR_IS_EDGE_TRIGGERED : XINTR_IS_LEVEL_TRIGGERED;
+
 	u16 IntrNum = XGet_IntrId(IntrId);
 	u16 Offset = XGet_IntrOffset(IntrId);
 
