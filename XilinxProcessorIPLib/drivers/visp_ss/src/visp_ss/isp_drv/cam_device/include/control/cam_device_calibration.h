@@ -105,7 +105,7 @@ typedef struct CamDeviceCalibHeaderResolution_s {
 	char name[CAMDEV_CALIB_LENGTH];      /**< Resolution header name */
 	char id[CAMDEV_CALIB_LENGTH];        /**< Resolution index */
 	uint16_t width;     /**< Width */
-	uint16_t height;    /**< Heigth */
+	uint16_t height;    /**< Height */
 
 	CamDeviceCalibHeaderResolutionFramerate_t *pFramerate;      /**< Framerate list */
 	uint8_t framerateNumber;                                    /**< The number of framerate list members */
@@ -271,7 +271,7 @@ typedef struct CamDeviceCalibSensorAwbIllumination_s {
 typedef struct CamDeviceCalibSensorAwb_s {
 	CamDeviceCalibSensorAwbGlobal_t
 	*pGlobals;              /**< Calibration sensor AWB global configuration. */
-	uint16_t globalNumber;                                  /**< Global configuration nummber. */
+	uint16_t globalNumber;                                  /**< Global configuration number. */
 
 	CamDeviceCalibSensorAwbIllumination_t
 	*pIlluminations;  /**< Calibration sensor AWB Illumination configuration */

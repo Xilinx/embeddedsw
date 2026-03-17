@@ -51,7 +51,7 @@ extern "C"
  *
  *****************************************************************************/
 typedef enum CamDeviceCprocYuvRangeType_e {
-	CAMDEV_CPROC_YUV_RANGE_INVALID = 0,    /**< Invalid range tpye */
+	CAMDEV_CPROC_YUV_RANGE_INVALID = 0,    /**< Invalid range type */
 	CAMDEV_CPROC_YUV_RANGE_LIMIT_RANGE = 1,    /**< Limit Y/U/V clipping range 16..240 */
 	CAMDEV_CPROC_YUV_RANGE_FULL_RANGE = 2,    /**< Full Y/U/V clipping range 0..255 */
 	CAMDEV_CPROC_YUV_RANGE_MAX,                   /**< Range type max */

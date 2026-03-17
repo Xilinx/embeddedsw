@@ -106,7 +106,7 @@ extern IsiSensorMode_t pox03f10_mode_info[];
 // }
 
 
-// TRACE(SENSOR_DRV_ERROR, "%s: Unsupport sensor %s !\n", __func__,pSensorName);
+// TRACE(SENSOR_DRV_ERROR, "%s: Unsupported sensor %s !\n", __func__,pSensorName);
 // return RET_NOTSUPP;
 // }
 

@@ -71,15 +71,15 @@ int init_des(int des_index)
 	 * 						   which tells us about	i2c core Init status.
 	 * 						   But we still require this .
 	 * 						   If we only use I2C_INIT_STATUS_REG,then in case of multi-core i2c structure for second
-	 * 						   core wont get init.
+	 * 						   core won't get init.
 	 * 						   So even in case of multi-core ,role exist for this variable ,although it is split.
 	 *
 	 */
 	/*
 	 * First time when InitIIC is called on any core
-	 * Core 0   : It init   the I2c hardware and and create required Driver stuctures
+	 * Core 0   : It init   the I2c hardware and and create required Driver structures
 	 * Core1-n  : It doesn't init the I2c(prohibited by I2C_INIT_STATUS_REG ,set by core -0)
-	 * 			  and and create required Driver stuctures
+	 * 			  and and create required Driver structures
 	 * Second time when this function is called again
 	 * core 0-n : Function just return as nothing is required.
 	 *
@@ -218,7 +218,7 @@ void init_sensor(int in_pipe, int des_index)
 
 
 	} else if (des_arr[des_index].link_type == LINK_B) {
-		//SER setup
+		//SERIALIZER setup
 		xil_printf("Programming Link-B Device \r\n", __func__, __LINE__);
 		g_fmc_single.serializer_array[in_pipe]->alias_addr =
 			(des_arr[des_index].link_b.serializer_alias_addr);
@@ -233,7 +233,7 @@ void init_sensor(int in_pipe, int des_index)
 
 
 		if ((in_pipe % 2) == 0) {
-			//SER setup
+			//SERIALIZER setup
 			xil_printf("Programming Link-A Device \r\n", __func__, __LINE__);
 			g_fmc_single.serializer_array[in_pipe]->alias_addr =
 				(des_arr[des_index].link_a.serializer_alias_addr);
@@ -246,7 +246,7 @@ void init_sensor(int in_pipe, int des_index)
 
 		} else {
 
-			//SER setup
+			//SERIALIZER setup
 			xil_printf("Programming Link-B Device \r\n", __func__, __LINE__);
 			g_fmc_single.serializer_array[in_pipe]->alias_addr =
 				(des_arr[des_index].link_b.serializer_alias_addr);

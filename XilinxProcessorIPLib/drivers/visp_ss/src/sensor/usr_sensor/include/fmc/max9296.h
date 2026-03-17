@@ -306,7 +306,7 @@ RegI2CT Des2_revserse_splitter_init[] = {
 	//Back Top
 
 	{0x0320, 0x2F},			//software override bit
-	{0x0323, 0x20},			//No Idesa
+	{0x0323, 0x20},			//No Ideas
 	{0x0316, 0xAC},			//Data Type
 	{0x0317, 0xBC},
 	{0x0318, 0xB0},

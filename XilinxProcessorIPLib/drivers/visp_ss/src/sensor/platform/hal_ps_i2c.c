@@ -274,7 +274,7 @@ RESULT Xil_psI2c_HalI2cInit(uint8_t bus_num)
 	Status = MuxInitChannel(g_Iic[IIC_DEVICE_ID], i2c_slv_addr_mux,
 				0x6);
 	if (Status == XST_SUCCESS)
-		xil_printf("succesfully Init Mux\r\n");
+		xil_printf("successfully Init Mux\r\n");
 
 	xil_printf("Muxer Data Read is:[0]:0x%x\n", read_data[0]);
 

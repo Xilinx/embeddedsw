@@ -56,7 +56,7 @@ typedef int RESULT;
 #define RET_PENDING            14   //!< command pending
 #define RET_WRONG_CONFIG       15   //!< given configuration is invalid
 #define RET_TIME_OUT           16   //!< wait time out
-#define RET_UNSUPPORT_ID   0xFFFF   //!< unsupport index number
+#define RET_UNSUPPORT_ID   0xFFFF   //!< unsupported index number
 
 
 #define UPDATE_RESULT( cur_res, new_res ) { RESULT __lres__ = (new_res); if (cur_res == RET_SUCCESS) cur_res = __lres__; } //!< Keeps first non-success result; cur_res must be a modifiable L-value; new_res can be any type of R-value including function call.

@@ -445,7 +445,7 @@ RESULT HalDisconnectIrq (HalIrqCtx_t *pIrqCtx);
  *
  *  @param  bus_num        Number of bus which is to be used
  *
- *  @param  slave_addr     Address of slave to be accessed (supports auto detection of 10bit adresses)
+ *  @param  slave_addr     Address of slave to be accessed (supports auto detection of 10bit addresses)
  *
  *  @param  reg_address    Address of register to read. The register data gets read starting with the least significant byte
  *
@@ -469,7 +469,7 @@ RESULT HalXilReadI2CReg(u8 bus_num, u8 slave_addr, u32 reg_address, u8 reg_addr_
  *
  *  @param  bus_num        Number of bus which is to be used
  *
- *  @param  slave_addr     Address of slave to be accessed (supports auto detection of 10bit adresses)
+ *  @param  slave_addr     Address of slave to be accessed (supports auto detection of 10bit addresses)
  *
  *  @param  reg_address    Address of register to write. The register data gets written starting with the least significant byte.
  *

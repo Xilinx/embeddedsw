@@ -257,7 +257,7 @@ typedef struct CamDeviceExpTable_s {
 typedef struct CamDeviceAeFrontGroundConfig_s {
 	CamDeviceAeFrontGroundType_t aeFrontGroundType;    /**< AE front ground type */
 	float32_t aeFaceWeight;     /**< AE face weight */
-	float32_t aeTouchWeight;    /**< AE touch wieght */
+	float32_t aeTouchWeight;    /**< AE touch weight */
 } CamDeviceAeFrontGroundConfig_t;
 
 /*****************************************************************************/

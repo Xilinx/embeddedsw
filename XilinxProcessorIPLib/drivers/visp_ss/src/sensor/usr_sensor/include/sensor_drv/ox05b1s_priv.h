@@ -3367,7 +3367,7 @@ static uint16_t Ox05b1s_mipi4lane_2592_1944_linear_ABmode_init[][2] = {
 
 	{0x320e, 0x01}, // A mode stay 1frames
 	{0x320f, 0x01}, // B mode stay 1frames
-	{0x3211, 0xf1}, // enable AB mode, repeat lanuch
+	{0x3211, 0xf1}, // enable AB mode, repeat launch
 	{0x3208, 0xa0}, // luanch 0;quick launch 0xe0; delay launch 0xa0
 	{0x3212, 0x1c}, // 0x1c AB mode group
 

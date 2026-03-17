@@ -48,7 +48,7 @@ extern "C"
 #define CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM     7     /**< The number of AWB color temperature weight */
 #define CAMDEV_AWB_LIGHT_LEVEL              18U    /**< AWB light level */
 #define CAMDEV_ILLUPROFILE_NUM              10U    /**< The number of illumination profiles */
-#define CAMDEV_AWB_CONFOUND_POINTS_NUM      25U    /**< the awb new confound funtion parameters */
+#define CAMDEV_AWB_CONFOUND_POINTS_NUM      25U    /**< the awb new confound function parameters */
 #define AWB_DEVICE_RETENTION_VALUE_MAX      500
 
 /*****************************************************************************/

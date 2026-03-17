@@ -496,7 +496,7 @@ RESULT IsiGainExecuteIss
 /**
  *          IsiSensorExecuteExposureControl
  *
- * @brief   Excute exposure divided in sensor driver.
+ * @brief   Execute exposure divided in sensor driver.
  *
  * @param   pExpParam      the input parameters for dividing exposure.
  * @param   pExpResult     the result after dividing exposure.
@@ -520,7 +520,7 @@ RESULT IsiSensorExecuteExposureControl
 /**
  *          IsiExpDecomposeControl
  *
- * @brief   Excute exposure decompose in sensor driver.
+ * @brief   Execute exposure decompose in sensor driver.
  *
  * @param   IsiExpDecomposeParam_t      the input parameters for decomposing exposure.
  * @param   IsiExpDecomposeResult_t     the result after decomposing exposure.

@@ -1493,7 +1493,7 @@ static RESULT Ox08b40_IsiGetExpandCurveIss(IsiSensorHandle_t handle,
 			pCurve->compandXData[i] = pCurve->compandXData[i - 1];
 
 		else {
-			xil_printf("%s: invalid paramter\n", __func__);
+			xil_printf("%s: invalid parameter\n", __func__);
 			return RET_INVALID_PARM;
 		}
 	}

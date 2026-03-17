@@ -81,8 +81,8 @@ extern ASSERT_HANDLER assert_handler;
 /**
  *              Dump information on stderr and exit.
  *
- *  @param      file  Filename where assertion occured.
- *  @param      line  Linenumber where assertion occured.
+ *  @param      file  Filename where assertion occurred.
+ *  @param      line  Linenumber where assertion occurred.
  *
  *****************************************************************************/
 #ifdef __cplusplus

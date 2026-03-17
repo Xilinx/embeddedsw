@@ -120,7 +120,7 @@ bool fifo_is_full(FifoControl *fifo/*,int fd*/);
  * @brief Check current FIFO is empty or not
  * @param fifo FifoControl info pointer
  * @return Return result
- * @retval ture for empty, false for failure
+ * @retval true for empty, false for failure
  */
 bool fifo_is_empty(FifoControl *fifo/*,int fd*/);
 

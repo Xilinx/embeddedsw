@@ -40,7 +40,7 @@ int fifo_init(FifoControl *fifo, FifoInitData *init_fifo)
 	fifo->item_size = init_fifo->item_size;
 	fifo->item_total = init_fifo->item_total;
 	fifo->buffer_size = init_fifo->buffer_size;
-#if 1    //TODO: do not init these values if this devices boots second.... or syncronize the init's to avoid overriding
+#if 1    //TODO: do not init these values if this devices boots second.... or synchronize the init's to avoid overriding
 	fifo->item_stored = 0;
 	fifo->read_offset = 0;
 	fifo->write_offset = 0;

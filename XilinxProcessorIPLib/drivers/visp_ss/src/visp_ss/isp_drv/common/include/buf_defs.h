@@ -371,7 +371,7 @@ typedef enum PicBufLossMode_e {
  * This structure defines a SCMI buffer. In addition to an address pointer to
  * the actual buffer, this structure also contains the size of the buffer and
  * an optional (may be null) pointer to some buffer meta data. This meta data
- * is defined seperately for each specific buffer type. The buffer_flags
+ * is defined separately for each specific buffer type. The buffer_flags
  * variable contains more information about the buffer in the form of
  * (up to 32) bit flags.
  * The bit flags and their meaning are defined by each SCMI system separately.
@@ -582,8 +582,12 @@ typedef struct PicBufCmpInfo_e {
 typedef struct PicBufMetaData_s {
 	PicBufType_t Type;       // type of picture data
 	PicBufLayout_t Layout;     // kind of data layout
+	/**
+	 * @brief Minimum alignment required for color component planes
+	 *        or sub buffer base addresses for this picture buffer.
+	 */
 	uint32_t
-	Align;      // min. alignment required for color component planes or sub buffer base adresses for this picture buffer
+	Align;
 	int64_t TimeStampUs;  // timestamp in us
 	uint32_t pNext3D;   // Reference to PicBufMetaData of the subsequent buffer in a 3D descriptor chain, valid only in 3D mode; set to NULL if last in chain or for 2D mode.
 	// Note: depending on the 3D format in use, the primary buffer holds left image data while the secondary buffer holds right or depth information.

@@ -63,7 +63,7 @@ typedef struct CamDeviceBlsAutoConfig_s {
  *****************************************************************************/
 typedef struct CamDeviceBlsManualConfig_s {
 	uint32_t bls[CAMDEV_RAW_CHANNEL_NUM];       /**< BLS value:
-                                                 Raw : BLS[0]--red, BLS[1]--greenRed, BLS[2]--greenBlue, BLS[3]--blue. The bls order shold be corresponding with sensor bayer pattern\n
+                                                 Raw : BLS[0]--red, BLS[1]--greenRed, BLS[2]--greenBlue, BLS[3]--blue. The bls order should be corresponding with sensor bayer pattern\n
                                                  Rgbir: BLS[0]--red, BLS[1]--green, BLS[2]--blue, BLS[3]--ir. Algorithm ensure the order: 0->r, 1->g, 2->b, 3->ir, bls don't need to correspond with sensor bayer pattern */
 } CamDeviceBlsManualConfig_t;
 

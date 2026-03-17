@@ -44,7 +44,7 @@ static Tracer	*tracerListHead = NULL;
 // use macro instead of variable, or build error as "variable length array folded to constant array as an extension"
 #define BUFFSIZE  1024
 
-/*	For some stupid reason beyond my imagination, gccs stdio.h doesnt	*/
+/*	For some stupid reason beyond my imagination, gccs stdio.h doesn't	*/
 /*	support vsnprintf() in strict c99 mode. Only happens in cygwin.		*/
 #if defined(__GNUC__) && defined(__CYGWIN__) && !defined(PICO)
 	int vsnprintf(char *, size_t, const char *, __VALIST);

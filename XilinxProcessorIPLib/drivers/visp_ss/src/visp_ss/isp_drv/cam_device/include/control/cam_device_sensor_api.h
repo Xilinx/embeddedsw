@@ -280,8 +280,8 @@ typedef struct CamDeviceSensorIntegerRange_s {
  *
  *****************************************************************************/
 typedef struct CamDeviceSensorFocusPos_s {
-	CamDeviceSensorFocusPosMode_t posMode;  /**< Sensor motor focusing postion mode*/
-	uint32_t position;                      /**< Sensor motor focusing postion, the ranging is from 0 to 1023. */
+	CamDeviceSensorFocusPosMode_t posMode;  /**< Sensor motor focusing position mode*/
+	uint32_t position;                      /**< Sensor motor focusing position, the ranging is from 0 to 1023. */
 } CamDeviceSensorFocusPos_t;
 
 /*****************************************************************************/
@@ -327,7 +327,7 @@ typedef union CamDeviceSensorMetadataAttr_s {
 		uint32_t support : 1;   /**< bit 0: 0-disable 1-enable */
 		uint32_t regInfo : 1;   /**< bit 1: register information */
 		uint32_t expTime : 1;   /**< bit 2: exposure time */
-		uint32_t again : 1;   /**< bit 3: Analogue agin */
+		uint32_t again : 1;   /**< bit 3: Analogue gain */
 		uint32_t dgain : 1;   /**< bit 4: Digital gain */
 		uint32_t bls : 1;   /**< bit 5: BLS */
 		uint32_t hist : 1;   /**< bit 6: Histogram */
@@ -447,7 +447,7 @@ typedef struct CamDeviceSensorConnectPortInfo_s {
  *****************************************************************************/
 typedef struct CamDeviceSensorBls_s {
 	uint32_t bls[CAMDEV_RAW_CHANNEL_NUM];       /**< BLS value:
-                                                 Raw : BLS[0]--red, BLS[1]--greenRed, BLS[2]--greenBlue, BLS[3]--blue. The bls order shold be corresponding with sensor bayer pattern\n
+                                                 Raw : BLS[0]--red, BLS[1]--greenRed, BLS[2]--greenBlue, BLS[3]--blue. The bls order should be corresponding with sensor bayer pattern\n
                                                  Rgbir: BLS[0]--red, BLS[1]--green, BLS[2]--blue, BLS[3]--ir. Algorithm ensure the order: 0->r, 1->g, 2->b, 3->ir, bls don't need to correspond with sensor bayer pattern */
 } CamDeviceSensorBls_t;
 

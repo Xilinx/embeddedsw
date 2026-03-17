@@ -732,7 +732,7 @@ static RESULT Ox05b1s_IsiSetABmodeGroup
 		result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b20, 0x00);
 	result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b1e, 0x00);//auto with exposure width,bit[0] 1 enable
 
-	// result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b21, (gOX05B1S_ABmode[1].irCfg.strobeShift >> 24) & 0xff);//strobe shfit
+	// result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b21, (gOX05B1S_ABmode[1].irCfg.strobeShift >> 24) & 0xff);//strobe shift
 	// result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b22, (gOX05B1S_ABmode[1].irCfg.strobeShift >> 16) & 0xff);
 	// result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b23, (gOX05B1S_ABmode[1].irCfg.strobeShift >> 8) & 0xff);
 	// result |= Ox05b1s_IsiWriteRegIss(handle, 0x3b24, gOX05B1S_ABmode[1].irCfg.strobeShift & 0xff);

@@ -269,7 +269,7 @@ RESULT IsiGetModeIss
 /**
  *          IsiEnumModeIss
  *
- * @brief   query sensor info arry.
+ * @brief   query sensor info array.
  *
  * @param   handle                  sensor instance handle
  * @param   pEnumMode               sensor query mode

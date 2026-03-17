@@ -135,9 +135,9 @@ void setoffLineTraceFrameid(uint32_t instanceId, uint32_t i);
 *  Initial the offline tracer *fp
 *
 *  @param      First parameter is name of offline tracer.
-*              Second paramter is the multi-instance index.
-*              Third paramter is the log file storage path.
-*              Fourth paramter is the File *fp pointer
+*              Second parameter is the multi-instance index.
+*              Third parameter is the log file storage path.
+*              Fourth parameter is the File *fp pointer
 *
 *  @return     No return value.
 *
@@ -159,8 +159,8 @@ void setoffLineTraceFrameid(uint32_t instanceId, uint32_t i);
 *              Send output to an offline tracer.
 *
 *  @param      First parameter is name of offline tracer.
-*              Secone parameter is the log type.
-*              Third paramter is the function name.
+*              Second parameter is the log type.
+*              Third parameter is the function name.
 *              Use variable argument list like printf.
 *
 *  @return     No return value.
@@ -176,8 +176,8 @@ void setoffLineTraceFrameid(uint32_t instanceId, uint32_t i);
 *              Send array output to an offline tracer.
 *
 *  @param      First parameter is name of offline tracer.
-*              Second paramter is the function name.
-*              variable argument  is the name of array varible
+*              Second parameter is the function name.
+*              variable argument  is the name of array variable
                isFloat is whether if it is float type
 *
 *  @return     No return value.

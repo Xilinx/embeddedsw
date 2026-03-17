@@ -101,7 +101,7 @@ int32_t vpi_mbox_post(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, MboxCoreId rece
 		      MboxDriverCb mbox_driver_cb);
 
 /**
- * @brief Boardcast meg to all other known cores
+ * @brief Broadcast msg to all other known cores
  * @param mbox_fifo the MboxFifoCtrl pointer
  * @param msg message to post
  * @param mbox_driver_cb callback function of mbox driver
@@ -122,7 +122,7 @@ int32_t vpi_mbox_broadcast(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, /*,int fd*
 int32_t vpi_mbox_read(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, MboxCoreId sender_id/*,int fd*/);
 
 /**
- * @brief Reset the designated FIFO with id to spectify
+ * @brief Reset the designated FIFO with id to specify
  * @param mbox_fifo the MboxFifoCtrl pointer
  * @param sender_id core_id of the sender
  * @param receiver_id core_id of the receiver
@@ -160,7 +160,7 @@ bool vpi_mbox_is_full(MboxFifoCtrl *mbox_fifo, MboxCoreId sender_id,
  * @param sender_id core_id of the sender
  * @param receiver_id core_id of the receiver
  * @return Return result
- * @retval ture for empty, false for failure
+ * @retval true for empty, false for failure
  */
 bool vpi_mbox_is_empty(MboxFifoCtrl *mbox_fifo, MboxCoreId sender_id,
 		       MboxCoreId receiver_id/*,int fd*/);

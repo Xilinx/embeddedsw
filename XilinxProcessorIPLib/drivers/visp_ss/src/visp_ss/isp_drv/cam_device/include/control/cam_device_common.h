@@ -87,8 +87,8 @@
  *
  *****************************************************************************/
 typedef enum CamDeviceStatus_e {
-	CAMDEV_INVALID = 0,           /**< Un-intialized */
-	CAMDEV_INIT,                  /**< Intialized */
+	CAMDEV_INVALID = 0,           /**< Un-initialized */
+	CAMDEV_INIT,                  /**< Initialized */
 	CAMDEV_IDLE,                  /**< Idle */
 	CAMDEV_RUNNING,                /**< Running */
 	CAMDEV_DUMMY_007 = 0xDEADFEED
@@ -626,7 +626,7 @@ typedef enum CamDeviceExposureFrameIndex_e {
  *
  *****************************************************************************/
 typedef enum CamDeviceAeWorkMode_e {
-	CAMDEV_AE_WORK_MODE_VSI_CTRL = 0,   /**< Choose VSI interal ae control*/
+	CAMDEV_AE_WORK_MODE_VSI_CTRL = 0,   /**< Choose VSI internal ae control*/
 	CAMDEV_AE_WORK_MODE_METADATA_CTRL = 1,   /**< Choose metadata ae control*/
 	CAMDEV_AE_WORK_MODE_MAX,
 	CAMDEV_DUMMY_036 = 0xDEADFEED
@@ -638,7 +638,7 @@ typedef enum CamDeviceAeWorkMode_e {
  *
  *****************************************************************************/
 typedef enum CamDeviceAwbWorkMode_e {
-	CAMDEV_AWB_WORK_MODE_VSI_CTRL = 0,   /**< Choose VSI interal awb control*/
+	CAMDEV_AWB_WORK_MODE_VSI_CTRL = 0,   /**< Choose VSI internal awb control*/
 	CAMDEV_AWB_WORK_MODE_METADATA_CTRL = 1,   /**< Choose metadata awb control*/
 	CAMDEV_AWB_WORK_MODE_MAX,
 	CAMDEV_DUMMY_037 = 0xDEADFEED

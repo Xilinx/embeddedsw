@@ -182,10 +182,10 @@ void setTraceModule(Tracer *, int);
  *
  *
  *  @param    name          Name of the tracer.
- *  @param    arg_prefix    All output of this tracer is preceeded by
+ *  @param    arg_prefix    All output of this tracer is preceded by
  *                          <arg_prefix>.
  *  @param    arg_level     Initial trace level.
- *  @param    arg_enabled   Decide wether the tracer starts in enabled state.
+ *  @param    arg_enabled   Decide whether the tracer starts in enabled state.
  *
  *  @return   No return value.
  *

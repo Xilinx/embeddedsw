@@ -372,7 +372,7 @@ int xylon_Fmc_Setup(int des_arr_id)
 		*ptr = SH_VAR_INIT;
 
 		/* Copy des_arry structure to Shared memory
-		 *  May be  __attribute__ ((aligned (4))) ,alginment required for des_arr
+		 *  May be  __attribute__ ((aligned (4))) ,alignment required for des_arr
 		 *  As des_arr is being copied to Non-Cachable region
 		 * Need to check
 		 *
