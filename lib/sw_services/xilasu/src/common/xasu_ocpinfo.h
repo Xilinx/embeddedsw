@@ -50,6 +50,7 @@ extern "C" {
 #define XASU_OCP_DEVAK_ATTESTATION_CMD_ID	(3U)	/**< Command ID for DevAk attestation */
 #define XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID	(4U)	/**< Command ID for UDE challenge request */
 #define XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID	(5U)	/**< Command ID for UDE private keys encryption */
+#define XASU_OCP_GET_HUK_CMD_ID			(6U)	/**< Command ID for Hardware Unique Key generation */
 
 #define XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS	(12U)	/**< Device ID size in words */
 #define XASU_OCP_UDE_NONCE_SIZE_IN_WORDS	(8U)	/**< Nonce size in words */
@@ -66,6 +67,8 @@ extern "C" {
 #define XASU_OCP_UDE_USER_KEY_0_ID		(0U)	/**< UDE User Key 0 ID */
 #define XASU_OCP_UDE_USER_KEY_1_ID		(1U)	/**< UDE User Key 1 ID */
 #define XASU_OCP_UDE_USER_KEY_2_ID		(2U)	/**< UDE User Key 2 ID */
+
+#define XASU_OCP_HUK_SIZE_IN_BYTES		(32U)	/**< Hardware Unique Key size in bytes (256-bit AES key) */
 
 /************************************** Type Definitions *****************************************/
 /**

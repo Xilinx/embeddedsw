@@ -935,5 +935,45 @@ static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates and returns a Hardware Unique Key (HUK).
+ *
+ * @param	HukBuf		Pointer to the output buffer where HUK will be written.
+ *				Buffer must be at least XASU_OCP_HUK_SIZE_IN_BYTES (32 bytes).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if HUK generation is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+s32 XOcp_GetHuk(u8 *HukBuf)
+{
+	CREATE_VOLATILE(Status, XASUFW_OCP_INVALID_PARAM);
+	/**
+	 * Temporary fixed HUK (256-bit AES key) for development purposes.
+	 * TODO: This will be replaced with a proper key derivation implementation.
+	 */
+	static const u8 TempHuk[XASU_OCP_HUK_SIZE_IN_BYTES] = {
+		0x2F, 0xA8, 0x71, 0xD4, 0x5B, 0xE9, 0x3C, 0x16,
+		0x8A, 0x4D, 0xF2, 0x67, 0xB5, 0x39, 0xC1, 0x8E,
+		0x7C, 0x29, 0xE6, 0x54, 0xA3, 0x1F, 0xDB, 0x68,
+		0x95, 0x42, 0xCE, 0x7A, 0xB7, 0x3D, 0xF4, 0x81
+	};
+
+	/** Validate input parameters. */
+	if (HukBuf == NULL) {
+		goto END;
+	}
+
+	/** Copy the HUK to the output buffer. */
+	Status = Xil_SMemCpy(HukBuf, XASU_OCP_HUK_SIZE_IN_BYTES, TempHuk, XASU_OCP_HUK_SIZE_IN_BYTES,
+					XASU_OCP_HUK_SIZE_IN_BYTES);
+
+END:
+	return Status;
+}
+
 #endif /* XASU_OCP_ENABLE */
 /** @} */

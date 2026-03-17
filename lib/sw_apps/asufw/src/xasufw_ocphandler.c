@@ -55,6 +55,7 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpUdeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpUdePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_OcpGetHuk(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
@@ -89,6 +90,8 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_MODULE_COMMAND(XAsufw_OcpUdeChallengeReq),
 		[XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_OcpUdePvtKeysEncrypt),
+		[XASU_OCP_GET_HUK_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_OcpGetHuk),
 	};
 
 	/**
@@ -117,6 +120,7 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_SHA2_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
 		[XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
+		[XASU_OCP_GET_HUK_CMD_ID] = XASUFW_OCP_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_OcpAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -127,6 +131,7 @@ s32 XAsufw_OcpInit(void)
 		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_DEVAK_ATTESTATION_CMD_ID),
 		[XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID),
 		[XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID),
+		[XASU_OCP_GET_HUK_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_HUK_CMD_ID),
 	};
 
 	XAsufw_OcpModule.Id = XASU_MODULE_OCP_ID;
@@ -347,7 +352,6 @@ static s32 XAsufw_OcpUdeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpUdeParams *OcpUdeParamsPtr = (const XAsu_OcpUdeParams *)(UINTPTR)ReqBuf->Arg;
-	(void)ReqId;
 
 	Status = XOcp_GenerateUdeResponse(XAsufw_OcpModule.AsuDmaPtr, OcpUdeParamsPtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -380,7 +384,6 @@ static s32 XAsufw_OcpUdePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc = (const XAsu_OcpUdeKeyEncrypt *)ReqBuf->Arg;
-	(void)ReqId;
 
 	Status = XOcp_EncryptUdeKeys(XAsufw_OcpModule.AsuDmaPtr, OcpUdeKeyEnc);
 	if (Status != XASUFW_SUCCESS) {
@@ -391,6 +394,37 @@ static s32 XAsufw_OcpUdePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_OcpModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for Hardware Unique Key (HUK) generation.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if HUK generation is successful.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_OcpGetHuk(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u8 *HukBuf = (u8 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+					(XASUFW_RESP_DATA_OFFSET * XASUFW_WORD_LEN_IN_BYTES);
+
+	/** Generate and return HUK in response buffer. */
+	Status = XOcp_GetHuk(HukBuf);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_PARAM);
+	}
+
+	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
 
 	return Status;
 }
@@ -413,14 +447,21 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
+	/** Allocate OCP resource. */
+	XAsufw_AllocateResource(XASUFW_OCP, XASUFW_OCP, ReqId);
+
+	/** HUK command only needs OCP resource, no DMA or other resources. */
+	if (CmdId == XASU_OCP_GET_HUK_CMD_ID) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
 	/** Allocate DMA resource. */
 	XAsufw_OcpModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_OCP, ReqId);
 	if (XAsufw_OcpModule.AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 		goto END;
 	}
-	/** Allocate OCP resource. */
-	XAsufw_AllocateResource(XASUFW_OCP, XASUFW_OCP, ReqId);
 
 	if (CmdId != XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID) {
 		if ((CmdId == XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID) ||
