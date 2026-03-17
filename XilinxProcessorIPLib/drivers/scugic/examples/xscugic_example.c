@@ -276,7 +276,7 @@ int ScuGicExample(void)
 	u32 IntrId;
 	UINTPTR IntcBaseAddr;
 
-	Status = XGetEncodedIntrId(INTC_DEVICE_INT_ID,XINTR_IS_EDGE_TRIGGERED,XINTR_IS_SGI,XINTC_TYPE_IS_SCUGIC, &IntrId);
+	Status = XGetEncodedIntrId(INTC_DEVICE_INT_ID,XIL_TRIG_LOW_TO_HIGH_EDGE,XINTR_IS_SGI,XINTC_TYPE_IS_SCUGIC, &IntrId);
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -451,7 +451,7 @@ int TestTimerPPI(XScuGic *XScuGicInstancePtr)
 	/* Enable the timer interrupt */
 	XScuGic_Enable(XScuGicInstancePtr, TIMER_PPI_INT_ID);
 #else
-	Status = XGetEncodedIntrId(TIMER_PPI_INT_ID, XINTR_IS_LEVEL_TRIGGERED,
+	Status = XGetEncodedIntrId(TIMER_PPI_INT_ID, XIL_TRIG_ACTIVE_HIGH_LEVEL,
 				   XINTR_IS_PPI, XINTC_TYPE_IS_SCUGIC, &TimerIntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
