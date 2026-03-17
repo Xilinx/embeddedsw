@@ -497,10 +497,6 @@ XStatus XPm_HookAfterPlmCdo(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 
-	/* TODO: Remove this when custom ADMA reset is added from topology */
-	/* Make ADMA reset to custom reset */
-	XPmReset_MakeAdmaResetCustom();
-
 	/* If default subsystem is present, attempt to add requirements if needed. */
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 	if (((u32)1U == XPmSubsystem_GetMaxSubsysIdx()) && (NULL != Subsystem) &&

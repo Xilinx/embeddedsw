@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,8 +109,7 @@ XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 			       const XPm_Subsystem *Subsystem,
 			       const u32 Operations);
-void XPmReset_MakeCpmPorResetCustom(void);
-void XPmReset_MakeAdmaResetCustom(void);
+void XPmReset_MakeCustom(u32 ResetId);
 
 #ifdef __cplusplus
 }

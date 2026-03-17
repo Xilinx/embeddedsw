@@ -338,11 +338,11 @@ static void PostTopologyHook(void)
 
 	/* TODO: Remove this when custom CPM POR reset is added from topology */
 	/* Make CPM POR reset to custom reset */
-	XPmReset_MakeCpmPorResetCustom();
+	XPmReset_MakeCustom(PM_RST_CPM_POR);
 
 	/* TODO: Remove this when custom ADMA reset is added from topology */
 	/* Make ADMA reset to custom reset */
-	XPmReset_MakeAdmaResetCustom();
+	XPmReset_MakeCustom(PM_RST_ADMA);
 }
 
 XStatus XPm_EnableDdrSr(const u32 SubsystemId)

@@ -90,21 +90,12 @@ static void XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, 
 	}
 }
 
-void XPmReset_MakeCpmPorResetCustom(void)
+void XPmReset_MakeCustom(u32 ResetId)
 {
-	XPm_ResetNode *CpmRst = XPmReset_GetById(PM_RST_CPM_POR);
+	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
 
-	if (NULL != CpmRst) {
-		CpmRst->Ops = &ResetOps[XPM_RSTOPS_CUSTOM];
-	}
-}
-
-void XPmReset_MakeAdmaResetCustom(void)
-{
-	XPm_ResetNode *AdmaRst = XPmReset_GetById(PM_RST_ADMA);
-
-	if (NULL != AdmaRst) {
-		AdmaRst->Ops = &ResetOps[XPM_RSTOPS_CUSTOM];
+	if (NULL != Rst) {
+		Rst->Ops = &ResetOps[XPM_RSTOPS_CUSTOM];
 	}
 }
 
