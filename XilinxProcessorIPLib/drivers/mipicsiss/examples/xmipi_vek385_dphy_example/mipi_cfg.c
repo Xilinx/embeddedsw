@@ -1508,7 +1508,7 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
 	InitVprocSs_Scaler(1,widthOut, heightOut);
 	}
-	//EnableCSI();
+	EnableCSI();
 
 	xil_printf("CSI is Enabled\r\n");
 
