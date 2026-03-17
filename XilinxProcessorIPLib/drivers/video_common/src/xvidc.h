@@ -413,7 +413,8 @@ typedef enum {
 	XVIDC_CSF_RGBA,  /**< RGBA streaming format */
 	XVIDC_CSF_YCRCBA_444,  /**< YCrCbA 4:4:4 streaming format with alpha */
 
-	/* 6 empty slots reserved for video formats for future
+	/*
+	 * 3 empty slots reserved for video formats for future
 	 * extension
 	 */
 
@@ -453,14 +454,22 @@ typedef enum {
 	XVIDC_CSF_MEM_Y_U_V8,       /**< Memory format [7:0] Y:8, [7:0] U:8, [7:0] V:8 */
 	XVIDC_CSF_MEM_Y_U_V10,      /**< Memory format [9:0] Y:10, [9:0] U:10, [9:0] V:10 */
 	XVIDC_CSF_MEM_Y_U_V12,      /**< Memory format [11:0] Y:12, [11:0] U:12, [11:0] V:12 */
-	XVIDC_CSF_MEM_Y_U_V10_16LE,      /**< Memory format [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16 (10-bit LE) */
-	XVIDC_CSF_MEM_Y_UV10_16LE,       /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (10-bit LE) */
-	XVIDC_CSF_MEM_Y_UV10_420_16LE,   /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (10-bit LE, 4:2:0) */
-	XVIDC_CSF_MEM_Y10_16LE,          /**< Memory format [31:0] Y1:Y0 16:16 (10-bit LE) */
-	XVIDC_CSF_MEM_Y_U_V12_16LE,      /**< Memory format [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16 (12-bit LE) */
-	XVIDC_CSF_MEM_Y_UV12_16LE,       /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (12-bit LE) */
-	XVIDC_CSF_MEM_Y_UV12_420_16LE,   /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (12-bit LE, 4:2:0) */
-	XVIDC_CSF_MEM_Y12_16LE,          /**< Memory format [31:0] Y1:Y0 16:16 (12-bit LE) */
+	XVIDC_CSF_MEM_Y_U_V10_L16LE,      /**< Memory format [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16 (10-bit LSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV10_L16LE,       /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (10-bit LSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV10_420_L16LE,   /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (10-bit LSB Aligned, 4:2:0) */
+	XVIDC_CSF_MEM_Y10_L16LE,          /**< Memory format [31:0] Y1:Y0 16:16 (10-bit LSB Aligned) */
+	XVIDC_CSF_MEM_Y_U_V12_L16LE,      /**< Memory format [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16 (12-bit LSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV12_L16LE,       /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (12-bit LSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV12_420_L16LE,   /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (12-bit LSB Aligned, 4:2:0) */
+	XVIDC_CSF_MEM_Y12_L16LE,          /**< Memory format [31:0] Y1:Y0 16:16 (12-bit LSB Aligned) */
+	XVIDC_CSF_MEM_Y_U_V10_M16LE,      /**< Memory format [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16 (10-bit MSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV10_M16LE,       /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (10-bit MSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV10_420_M16LE,   /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (10-bit MSB Aligned, 4:2:0) */
+	XVIDC_CSF_MEM_Y10_M16LE,          /**< Memory format [31:0] Y1:Y0 16:16 (10-bit MSB Aligned) */
+	XVIDC_CSF_MEM_Y_U_V12_M16LE,      /**< Memory format [31:0] Y1:Y0 16:16 [31:0] U1:U0 16:16 [31:0] V1:V0 16:16 (12-bit MSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV12_M16LE,       /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (12-bit MSB Aligned) */
+	XVIDC_CSF_MEM_Y_UV12_420_M16LE,   /**< Memory format [31:0] Y1:Y0 16:16 [31:0] V0:U0 16:16 (12-bit MSB Aligned, 4:2:0) */
+	XVIDC_CSF_MEM_Y12_M16LE,          /**< Memory format [31:0] Y1:Y0 16:16 (12-bit MSB Aligned) */
 	XVIDC_CSF_MEM_END,          /**< End of memory formats */
 
 	/* Streaming formats with components re-ordered */

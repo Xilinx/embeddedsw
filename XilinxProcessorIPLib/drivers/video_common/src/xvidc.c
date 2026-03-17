@@ -842,6 +842,22 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_Y_U_V8:     return ("Y_U_V8");
 		case XVIDC_CSF_MEM_Y_U_V10:     return ("Y_U_V10");
 		case XVIDC_CSF_MEM_Y_U_V12:     return ("Y_U_V12");
+		case XVIDC_CSF_MEM_Y_U_V10_L16LE:      return ("Y_U_V10_L16LE");
+		case XVIDC_CSF_MEM_Y_UV10_L16LE:       return ("Y_UV10_L16LE");
+		case XVIDC_CSF_MEM_Y_UV10_420_L16LE:   return ("Y_UV10_420_L16LE");
+		case XVIDC_CSF_MEM_Y10_L16LE:          return ("Y10_L16LE");
+		case XVIDC_CSF_MEM_Y_U_V12_L16LE:      return ("Y_U_V12_L16LE");
+		case XVIDC_CSF_MEM_Y_UV12_L16LE:       return ("Y_UV12_L16LE");
+		case XVIDC_CSF_MEM_Y_UV12_420_L16LE:   return ("Y_UV12_420_L16LE");
+		case XVIDC_CSF_MEM_Y12_L16LE:          return ("Y12_L16LE");
+		case XVIDC_CSF_MEM_Y_U_V10_M16LE:      return ("Y_U_V10_M16LE");
+		case XVIDC_CSF_MEM_Y_UV10_M16LE:       return ("Y_UV10_M16LE");
+		case XVIDC_CSF_MEM_Y_UV10_420_M16LE:   return ("Y_UV10_420_M16LE");
+		case XVIDC_CSF_MEM_Y10_M16LE:          return ("Y10_M16LE");
+		case XVIDC_CSF_MEM_Y_U_V12_M16LE:      return ("Y_U_V12_M16LE");
+		case XVIDC_CSF_MEM_Y_UV12_M16LE:       return ("Y_UV12_M16LE");
+		case XVIDC_CSF_MEM_Y_UV12_420_M16LE:   return ("Y_UV12_420_M16LE");
+		case XVIDC_CSF_MEM_Y12_M16LE:          return ("Y12_M16LE");
 		default:
 			return ("Color space format not supported");
 	}
