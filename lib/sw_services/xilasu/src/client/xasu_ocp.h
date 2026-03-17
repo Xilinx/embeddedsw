@@ -54,6 +54,7 @@ s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 			     XAsu_OcpDevAkAttest *OcpDevAkAttestParamPtr);
 s32 XAsu_OcpUdeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeParams *OcpUdeParamsPtr);
 s32 XAsu_OcpUdeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc);
+s32 XAsu_OcpGetHuk(XAsu_ClientParams *ClientParamPtr, u8 *HukBuf, u32 BufLen);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

@@ -418,4 +418,57 @@ s32 XAsu_OcpUdeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncr
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends an IPI request to get the Hardware Unique Key.
+ *
+ * @param	ClientParamPtr is a pointer to XAsu_ClientParams which has parameters for the
+ * 		client request.
+ * @param	HukBuf is a pointer to a buffer to hold the 256-bit Hardware Unique Key.
+ * @param	BufLen is the length of the buffer pointed to by HukBuf. It should not be less than
+ * 		XASU_OCP_HUK_SIZE_IN_BYTES (32 bytes).
+ *
+ * @return
+ *		- XST_SUCCESS, if the function finishes successfully.
+ *		- XASU_INVALID_ARGUMENT, if invalid parameters used.
+ *		- XASU_INVALID_UNIQUE_ID, if failed to get unique ID.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_OcpGetHuk(XAsu_ClientParams *ClientParamPtr, u8 *HukBuf, u32 BufLen)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((HukBuf == NULL) || (BufLen < XASU_OCP_HUK_SIZE_IN_BYTES)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, HukBuf,
+							XASU_OCP_HUK_SIZE_IN_BYTES, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_OCP_GET_HUK_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
+					   XASU_CMD_LEN_ZERO, ClientParamPtr->SecureFlag);
+
+	/** Send an IPI request to ASUFW. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
 /** @} */
