@@ -370,17 +370,6 @@ XStatus NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
 XStatus NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
-#if (defined(XILPM_ZDMA_0) || \
-	defined(XILPM_ZDMA_1) || \
-	defined(XILPM_ZDMA_2) || \
-	defined(XILPM_ZDMA_3) || \
-	defined(XILPM_ZDMA_4) || \
-	defined(XILPM_ZDMA_5) || \
-	defined(XILPM_ZDMA_6) || \
-	defined(XILPM_ZDMA_7))
-#include "xzdma_hw.h"
-XStatus NodeZdmaIdle(u16 DeviceId, u32 BaseAddr);
-#endif
 #endif
 
 XStatus XPmDevice_SoftResetIdle(const XPm_Device *Device, const u32 IdleReq);

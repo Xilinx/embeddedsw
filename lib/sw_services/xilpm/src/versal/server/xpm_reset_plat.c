@@ -18,6 +18,13 @@
 #include "xpm_pmc.h"
 #include "xpm_common.h"
 #include "xplmi.h"
+#include "xzdma_hw.h"
+
+#define XPM_MAX_TIMEOUT			(0x1FFFFFFFU)
+#define XILPM_ZDMA_CH_ISR_OFFSET	(0x100U)
+#define XILPM_ZDMA_CH_IDS_OFFSET	(0x10CU)
+#define XZDMA_CH_OFFSET			(0x10000U)
+#define XZDMA_NUM_CHANNEL		(8U)
 
 static XStatus PsOnlyResetAssert(const XPm_ResetNode *Rst)
 {
@@ -312,6 +319,13 @@ done:
 static XStatus AdmaResetAssert(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
+
+#if (defined(XILPM_ZDMA_0) || defined(XILPM_ZDMA_1) || defined(XILPM_ZDMA_2) || \
+	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
+	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
+	(void)Rst;
+	u8 Channel = 0U;
+	u32 RegVal = 0U, LocalTimeout;
 	const XPm_Device *Device;
 
 	Device = XPmDevice_GetById(PM_DEV_ADMA_0);
@@ -319,11 +333,47 @@ static XStatus AdmaResetAssert(const XPm_ResetNode *Rst)
 		goto done;
 	}
 
-#if (defined(XILPM_ZDMA_0) || defined(XILPM_ZDMA_1) || defined(XILPM_ZDMA_2) || \
-	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
-	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
-	(void)Rst;
-	Status = NodeZdmaIdle(0U, Device->Node.BaseAddress);
+	u32 BaseAddress = Device->Node.BaseAddress;
+
+	for (Channel = 0; Channel < XZDMA_NUM_CHANNEL; Channel++) {
+		XZDma_WriteReg(BaseAddress, (XZDMA_CH_CTRL2_OFFSET),
+			       (XZDMA_CH_CTRL2_DIS_MASK));
+
+		LocalTimeout = XPM_MAX_TIMEOUT;
+		do {
+			RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
+			LocalTimeout--;
+		} while ((0U != RegVal) && (LocalTimeout > 0U));
+
+		if (0U != RegVal) {
+			goto done;
+		}
+
+		XZDma_WriteReg(BaseAddress, XILPM_ZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
+
+		RegVal = XZDma_ReadReg(BaseAddress, XILPM_ZDMA_CH_ISR_OFFSET);
+		XZDma_WriteReg(BaseAddress, XILPM_ZDMA_CH_ISR_OFFSET,
+			       (RegVal & XZDMA_IXR_ALL_INTR_MASK));
+
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL0_OFFSET, XZDMA_CTRL0_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL1_OFFSET, XZDMA_CTRL1_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
+
+		RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET, RegVal);
+
+		(void)XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_SRC_ACCT_OFFSET);
+		(void)XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_DST_ACCT_OFFSET);
+
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_SRC_DSCR_WORD3_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DST_DSCR_WORD3_OFFSET, 0x0);
+
+		BaseAddress += XZDMA_CH_OFFSET;
+	}
+
+	Status = XST_SUCCESS;
 #else
 	const u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	const u32 ControlReg = Rst->Node.BaseAddress;
