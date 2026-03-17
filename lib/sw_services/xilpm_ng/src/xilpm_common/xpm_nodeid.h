@@ -434,6 +434,14 @@ extern "C" {
 #define PM_RST_EIO_SPI_2			(0xC10412AU)
 #define PM_RST_EIO_SPI_3			(0xC10412BU)
 #define PM_RST_GPIO_EIO				(0xC10412CU)
+#define PM_RST_ADMA_0				(0xC10412DU)
+#define PM_RST_ADMA_1				(0xC10412EU)
+#define PM_RST_ADMA_2				(0xC10412FU)
+#define PM_RST_ADMA_3				(0xC104130U)
+#define PM_RST_ADMA_4				(0xC104131U)
+#define PM_RST_ADMA_5				(0xC104132U)
+#define PM_RST_ADMA_6				(0xC104133U)
+#define PM_RST_ADMA_7				(0xC104134U)
 /** @} */
 
 /**
