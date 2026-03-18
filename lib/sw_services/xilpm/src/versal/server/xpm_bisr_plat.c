@@ -482,7 +482,7 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 
 	if (NULL == AieDomain) {
 		Status = XPM_INVALID_PWRDOMAIN;
-		goto done;
+		goto bypass;
 	}
 
 	/* Compilation warning fix */
@@ -533,6 +533,7 @@ done:
 	PmRmw32(AieDomain->AieNpiAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
 		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 0);
 
+bypass:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
