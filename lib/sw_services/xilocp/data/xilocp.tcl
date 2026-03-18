@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2025, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2022-2026, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -11,7 +11,7 @@
 # 1.1   am   12/21/22 Changed user configurable parameter names
 #       am   01/10/23 Added xocp_cache_disable configurable parameter
 #       tvp  05/16/25 Refactor platform specific code
-#
+# 1.7   rpu  02/21/26 Enable cache by default
 ##############################################################################
 
 #---------------------------------------------
@@ -109,7 +109,7 @@ proc xgen_opts_file {libhandle} {
 		file copy -force $source $dstdir
 	}
 
-	# Get cache_disable value set by user, by default it is TRUE
+	# Get cache_disable value set by user, by default it is FALSE
 	set value [common::get_property CONFIG.xocp_cache_disable $libhandle]
 	if {$value == true} {
 		#Open xparameters.h file

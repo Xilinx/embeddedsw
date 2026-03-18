@@ -28,5 +28,5 @@ BEGIN LIBRARY xilocp
   OPTION desc = "Xilinx Open Compute Platform(OCP) support Library. Supported only for Versal Net";
   OPTION VERSION = 1.7;
   OPTION NAME = xilocp;
-  PARAM name = xocp_cache_disable, desc = "Enables/Disables Cache for XilOcp client library", type = bool, default = true;
+  PARAM name = xocp_cache_disable, desc = "Enables/Disables Cache for XilOcp client library", type = bool, default = false;
 END LIBRARY

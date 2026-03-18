@@ -50,7 +50,7 @@
 * 					should be changed to
 * 		   static XOcp_DmeResponse DmeResp __attribute__ ((section (".sharedmemory.DmeResp")));
 *
-* To keep things simple, by default the cache is disabled for this example
+* By default the cache is enabled for this example
 *
 * User configurable parameters for Dme example
 * NonceBuffer[XOCP_DME_NONCE_SIZE_BYTES] can be configured with a 32 byte nonce

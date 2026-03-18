@@ -53,7 +53,7 @@
 *				__attribute__ ((section (".data.AttestData")));
 *	static u32 ActualCertSize __attribute__ ((section (".data.ActualCertSize")));
 *
-* To keep things simple, by default the cache is disabled for this example
+* By default the cache is enabled for this example
 *
 * User configurable parameters for OCP device key example
 * Data[XOCP_SHA3_HASH_LEN_IN_BYTES] can be configured with a 48 byte hash
@@ -69,7 +69,8 @@
 * 1.3   ng     01/28/24 Added SDT support
 *       har    06/07/24 Added support to generate X.509 certificate for Key Wrap DevAk
 * 1.7   bha    02/25/26 Removed ICCARM related code
-*
+*       rpu    02/21/26 Replaced XOCP_ATTESTATION_DATA_SIZE_IN_BYTES with XOCP_SHA3_HASH_LEN_IN_BYTES
+*                       in XOcp_AttestationExample.
 * </pre>
 * @note
 *
@@ -332,7 +333,7 @@ static int XOcp_AttestationExample(XOcp_ClientInstance *OcpClientInsPtr)
 	XOcp_PrintData((const u8*)Data, XOCP_SHA3_HASH_LEN_IN_BYTES);
 
 #ifndef XOCP_CACHE_DISABLE
-	Xil_DCacheInvalidateRange((UINTPTR)Data, XOCP_ATTESTATION_DATA_SIZE_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)Data, XOCP_SHA3_HASH_LEN_IN_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XOCP_ECC_SIGN_TOTAL_LEN);
 #endif
 

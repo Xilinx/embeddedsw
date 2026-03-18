@@ -81,7 +81,7 @@
 *                       this file.
 * 1.2   kal    05/28/23 Adder SW PCR extend and logging functions
 * 1.3   ng     01/28/24 Added SDT support
-*
+* 1.7   rpu    02/21/26 Pass the address of HwPcrLogInfo to Xil_DCacheInvalidateRange.
 * </pre>
 * @note
 *
@@ -169,7 +169,7 @@ int main(void)
 	Xil_DCacheInvalidateRange((UINTPTR)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)PcrBuf, XOCP_PCR_SIZE_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)HwPcrEvents, sizeof(HwPcrEvents));
-	Xil_DCacheInvalidateRange((UINTPTR)HwPcrLogInfo, sizeof(HwPcrLogInfo));
+	Xil_DCacheInvalidateRange((UINTPTR)&HwPcrLogInfo, sizeof(HwPcrLogInfo));
 	Xil_DCacheInvalidateRange((UINTPTR)SwPcrMeasurement, sizeof(SwPcrMeasurement));
 #endif
 
