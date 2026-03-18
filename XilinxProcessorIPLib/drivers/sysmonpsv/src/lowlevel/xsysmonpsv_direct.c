@@ -22,6 +22,7 @@
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.3   se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
+*       se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *
 * </pre>
 *
@@ -30,6 +31,8 @@
 /***************************** Include Files *********************************/
 #include "xsysmonpsv_lowlevel.h"
 #include "xil_io.h"
+#include "xsysmonpsv_common.h"
+#include "xsysmonpsv_hw.h"
 
 #if !defined(XSYSMONPSV_SECURE_MODE)
 /******************************************************************************/
@@ -64,6 +67,8 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_Out32(InstancePtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+		  XSYSMONPSV_LOCK_CODE);
 	Xil_Out32(InstancePtr->Config.BaseAddress + Offset, Data);
 }
 

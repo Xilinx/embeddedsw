@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *                       voltage supplies and temperature satellites.
 * 5.2   se     08/24/25 Microblaze support added and processed values are
 *                       printed on milli scale.
+* 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *
 * </pre>
 *
@@ -44,6 +45,15 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xil_printf.h"
+
+/************************** Constant Definitions ****************************/
+#if defined(XSYSMONPSV_SECURE_MODE)
+#ifndef SDT
+	#define XSYSMONPSV_IPI_BASE_ADDR XPAR_XIPIPSU_0_BASEADDR
+#else
+	#define XSYSMONPSV_IPI_BASE_ADDR XPAR_XIPIPSU_0_BASEADDR
+#endif
+#endif
 
 /************************** Function Prototypes *****************************/
 
@@ -93,12 +103,24 @@ int main(void)
 int SysMonPsvPolledExample()
 {
 	XSysMonPsv InstancePtr;
-	;
 	float Voltage;
 	float TempMin, TempMax;
 	int Supply = 0;
+	int Status;
 
-	XSysMonPsv_Init(&InstancePtr, NULL);
+#if defined(XSYSMONPSV_SECURE_MODE)
+#ifndef SDT
+	InstancePtr.IpiDeviceId = XPAR_XIPIPSU_0_DEVICE_ID;
+#else
+	InstancePtr.IpiBaseAddress = XSYSMONPSV_IPI_BASE_ADDR;
+#endif
+#endif
+
+	Status = XSysMonPsv_Init(&InstancePtr, NULL);
+	if (Status != XST_SUCCESS) {
+		xil_printf("XSysMonPsv_Init failed: %d\r\n", Status);
+		return XST_FAILURE;
+	}
 	xil_printf("Entering the SysMon Polled Example\r\n");
 
 	if (Supply != (int)EndList) {

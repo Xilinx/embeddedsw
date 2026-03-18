@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 * 4.1   cog    07/18/23 Add support for SDT flow
 * 5.1   se     03/03/25 Compiler warnings fixed
 * 5.2   se     08/24/25 Microblaze support added
+* 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *
 * </pre>
 *
@@ -127,7 +128,11 @@ typedef struct {
 	u32 IsReady; /**< Is device ready */
 #if defined (XSYSMONPSV_SECURE_MODE)
 	u32 IpiIntrId; /**< Secure mode IPI Interrupt ID*/
+#ifndef SDT
 	u32 IpiDeviceId; /**< Secure mode IPI Device ID*/
+#else
+	UINTPTR IpiBaseAddress; /**< Secure mode IPI Base Address (SDT flow) */
+#endif
 #endif
 } XSysMonPsv;
 

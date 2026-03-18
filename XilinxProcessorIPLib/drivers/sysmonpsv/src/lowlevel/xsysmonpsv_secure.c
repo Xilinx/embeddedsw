@@ -19,6 +19,7 @@
 * 4.0   se	   11/10/22 Secure and Non-Secure mode integration
 * 5.3   se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
+*       se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *
 * </pre>
 *
@@ -70,7 +71,11 @@ static XStatus XSysMonPsv_IpiConfigure(XSysMonPsv *InstancePtr, XScuGic *const G
 		goto done;
 	}
 	/* Look Up the config data */
+#ifndef SDT
 	IpiCfgPtr = XIpiPsu_LookupConfig(InstancePtr->IpiDeviceId);
+#else
+	IpiCfgPtr = XIpiPsu_LookupConfig(InstancePtr->IpiBaseAddress);
+#endif
 	if (NULL == IpiCfgPtr) {
 		Status = XST_FAILURE;
 		xil_printf("%s ERROR in getting CfgPtr\n", __func__);
@@ -89,18 +94,17 @@ static XStatus XSysMonPsv_IpiConfigure(XSysMonPsv *InstancePtr, XScuGic *const G
 	/* Clear Any existing Interrupts */
 	XIpiPsu_ClearInterruptStatus(IpiInst, XIPIPSU_ALL_MASK);
 
-	if (NULL == GicInst) {
-		Status = XST_FAILURE;
-		goto done;
+	if (NULL != GicInst) {
+		Status = XScuGic_Connect(GicInst, InstancePtr->IpiIntrId,
+					 (Xil_ExceptionHandler)XSysMonPsv_IpiIrqHandler, IpiInst);
+		if (XST_SUCCESS != Status) {
+			xil_printf("%s ERROR #%d in GIC connect\n", __func__, Status);
+			goto done;
+		}
+		XScuGic_Enable(GicInst, InstancePtr->IpiIntrId);
 	}
-	Status = XScuGic_Connect(GicInst, InstancePtr->IpiIntrId,
-				 (Xil_ExceptionHandler)XSysMonPsv_IpiIrqHandler, IpiInst);
-	if (XST_SUCCESS != Status) {
-		xil_printf("%s ERROR #%d in GIC connect\n", __func__, Status);
-		goto done;
-	}
-	/* Enable IPI interrupt at GIC */
-	XScuGic_Enable(GicInst, InstancePtr->IpiIntrId);
+
+	Status = XST_SUCCESS;
 
 done:
 

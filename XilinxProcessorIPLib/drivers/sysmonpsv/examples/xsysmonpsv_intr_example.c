@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 5.1   se     03/03/25 Compiler warnings fixed
 * 5.2   se     08/24/25 Microblaze support added and processed values are
 *                       printed on milli scale.
+* 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *
 * </pre>
 *
@@ -52,8 +53,12 @@
  * change all the needed parameters in one place.
  */
 #if	defined(XSYSMONPSV_SECURE_MODE)
+#ifndef SDT
 	#define XSYSMONPSV_IPI_INT_ID (XPAR_XIPIPSU_0_INT_ID)
 	#define XSYSMONPSV_IPI_DEVICE_ID XPAR_XIPIPSU_0_DEVICE_ID
+#else
+	#define XSYSMONPSV_IPI_BASE_ADDR XPAR_XIPIPSU_0_BASEADDR
+#endif
 #endif
 /****************************************************************************/
 /************************** Function Prototypes *****************************/
@@ -149,11 +154,19 @@ int SysMonPsvIntrExample()
 	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply)0;
 
 #if defined(XSYSMONPSV_SECURE_MODE)
+#ifndef SDT
 	InstancePtr->IpiIntrId = XSYSMONPSV_IPI_INT_ID;
 	InstancePtr->IpiDeviceId = XSYSMONPSV_IPI_DEVICE_ID;
+#else
+	InstancePtr->IpiBaseAddress = XSYSMONPSV_IPI_BASE_ADDR;
+#endif
 #endif
 
-	XSysMonPsv_Init(InstancePtr, &IntcInst);
+	ret = XSysMonPsv_Init(InstancePtr, &IntcInst);
+	if (ret != XST_SUCCESS) {
+		xil_printf("SysMonPsv initialization failed\r\n");
+		return XST_FAILURE;
+	}
 	xil_printf("Entering the SysMon Intr Example\r\n");
 
 	ret = XSysMonPsv_ReadTempProcessed(InstancePtr, XSYSMONPSV_TEMP_MAX,
