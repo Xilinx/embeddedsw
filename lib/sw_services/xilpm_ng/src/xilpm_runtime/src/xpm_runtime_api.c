@@ -773,17 +773,8 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		if ((NULL == Device) || (1U != XPmDevice_IsRequestable(Device->Node.Id))) {
 			continue;
 		}
-		/*
-		 * Prealloc all requestable devices except cores.
-		 * Core devices should not be pre-allocated because
-		 * BringUp only powers the domain and enables clocks
-		 * but leaves the core in reset.
-		 */
-		if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
-			Prealloc = 0U;
-		} else {
-			Prealloc = 1U;
-		}
+		/* Always prealloc all requestable devices */
+		Prealloc = 1U;
 		/* Always use maximum capability and secure if applies */
 		Capability = XPM_MAX_CAPABILITY | PM_CAP_SECURE;
 
