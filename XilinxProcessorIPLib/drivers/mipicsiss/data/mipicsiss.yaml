@@ -247,7 +247,41 @@ examples:
             - xmipi_vek385_dphy_example/xhdmi_exdes_sm_tx.h
             - xmipi_vek385_dphy_example/xhdmi_menu.c
             - xmipi_vek385_dphy_example/xhdmi_menu.h
-            - xmipi_vek385_dphy_example/xmipi_vek385_dphy_example.c          
+            - xmipi_vek385_dphy_example/xmipi_vek385_dphy_example.c
+
+    xmipi_scu200_xp5io_example/xmipi_scu200_xp5io_example.c:
+        - dependency_files:
+            - xmipi_scu200_xp5io_example/idt_8t49n24x.c
+            - xmipi_scu200_xp5io_example/platform.c
+            - xmipi_scu200_xp5io_example/sha256.c
+            - xmipi_scu200_xp5io_example/video_fmc.c
+            - xmipi_scu200_xp5io_example/idt_8t49n24x.h
+            - xmipi_scu200_xp5io_example/platform_config.h
+            - xmipi_scu200_xp5io_example/sha256.h
+            - xmipi_scu200_xp5io_example/video_fmc.h
+            - xmipi_scu200_xp5io_example/xhdmi_menu.c
+            - xmipi_scu200_xp5io_example/platform.h
+            - xmipi_scu200_xp5io_example/ti_lmk03318.c
+            - xmipi_scu200_xp5io_example/xhdmi_edid.c
+            - xmipi_scu200_xp5io_example/xhdmi_exdes_sm_tx.c
+            - xmipi_scu200_xp5io_example/xhdmi_menu.h
+            - xmipi_scu200_xp5io_example/mipi_cfg.c
+            - xmipi_scu200_xp5io_example/ti_lmk03318.h
+            - xmipi_scu200_xp5io_example/xhdmi_edid.h
+            - xmipi_scu200_xp5io_example/xhdmi_exdes_sm_tx.h
+            - xmipi_scu200_xp5io_example/onsemi_nb7nq621m.c
+            - xmipi_scu200_xp5io_example/sensor_cfgs.c
+            - xmipi_scu200_xp5io_example/si5344drv.c
+            - xmipi_scu200_xp5io_example/ti_tmds1204.c
+            - xmipi_scu200_xp5io_example/xhdmi_example.c
+            - xmipi_scu200_xp5io_example/onsemi_nb7nq621m.h
+            - xmipi_scu200_xp5io_example/sensor_cfgs.h
+            - xmipi_scu200_xp5io_example/si5344drv.h
+            - xmipi_scu200_xp5io_example/ti_tmds1204.h
+            - xmipi_scu200_xp5io_example/xhdmi_example.h
+            - xmipi_scu200_xp5io_example/rc21008adrv.h
+            - xmipi_scu200_xp5io_example/rc21008adrv.c
+            - xmipi_scu200_xp5io_example/lscript.ld
 
     sp701_ref_design/xmipi_sp701_example.c:
         - dependency_files:
