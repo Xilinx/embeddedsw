@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 4.0   se	   11/10/22 Secure and Non-Secure mode integration
+* 5.3   se     03/12/26 Enhancements: NULL checks, range validation,
+*                       standardize return values to XST_FAILURE
 *
 * </pre>
 *
@@ -60,6 +62,10 @@ static XStatus XSysMonPsv_IpiConfigure(XSysMonPsv *InstancePtr, XScuGic *const G
 	int Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
 
+
+	if (NULL == InstancePtr) {
+		goto done;
+	}
 	if (NULL == IpiInst) {
 		goto done;
 	}
@@ -84,6 +90,7 @@ static XStatus XSysMonPsv_IpiConfigure(XSysMonPsv *InstancePtr, XScuGic *const G
 	XIpiPsu_ClearInterruptStatus(IpiInst, XIPIPSU_ALL_MASK);
 
 	if (NULL == GicInst) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 	Status = XScuGic_Connect(GicInst, InstancePtr->IpiIntrId,
@@ -186,6 +193,8 @@ done:
 void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 {
 	u32 Payload[3];
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Data != NULL);
 	(void)InstancePtr;
 
 	Payload[0] = Offset;
@@ -213,6 +222,7 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 	u32 Payload[3];
 	u32 Response[5];
 	(void)InstancePtr;
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	Payload[0] = Offset;
 	Payload[1] = XSYSMONPSV_SECURE_WRITE_DEFAULT;
@@ -238,6 +248,8 @@ void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
 {
 	u32 Val;
 
+
+	Xil_AssertVoid(InstancePtr != NULL);
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Val);
 	XSysMonPsv_WriteReg32(InstancePtr, Offset,
 			     (Val & ~Mask) | (Mask & Data));

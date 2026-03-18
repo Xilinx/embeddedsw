@@ -26,6 +26,8 @@
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.2   se     08/24/25 Microblaze support added
 * 5.3   dc     02/18/26 Correct spelling errors
+*       se     03/12/26 Enhancements: NULL checks, range validation,
+*                       standardize return values to XST_FAILURE
 *
 * </pre>
 *
@@ -47,7 +49,7 @@
  * @param	IntrNum Interrupt Offset.
  *
  * @return
- *          - -XST_FAILURE if error.
+ *          - XST_FAILURE if error.
  *			- XST_SUCCESS if successful.
  *
 *******************************************************************************/
@@ -59,7 +61,12 @@ int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
 	u32 SupplyReg, Ier;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
+	}
+	if ((Supply >= XSYSMONPSV_MAX_SUPPLIES) ||
+	    (InstancePtr->Config.Supply_List[Supply] ==
+	     XSYSMONPSV_INVALID_SUPPLY)) {
+		return XST_FAILURE;
 	}
 
 	SupplyReg = InstancePtr->Config.Supply_List[Supply];
@@ -84,7 +91,7 @@ int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
  * @param	Supply Enum from the XSysMonPsv_Supply.
  *
  * @return
- *          - -XST_FAILURE if error.
+ *          - XST_FAILURE if error.
  *			- XST_SUCCESS if successful.
  *
 *******************************************************************************/
@@ -95,7 +102,12 @@ int XSysMonPsv_DisableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply)
 	u32 SupplyReg;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
+	}
+	if ((Supply >= XSYSMONPSV_MAX_SUPPLIES) ||
+	    (InstancePtr->Config.Supply_List[Supply] ==
+	     XSYSMONPSV_INVALID_SUPPLY)) {
+		return XST_FAILURE;
 	}
 
 	SupplyReg = InstancePtr->Config.Supply_List[Supply];

@@ -37,6 +37,8 @@
 *                       voltage supplies and temperature satellites.
 * 5.2   se     08/24/25 Microblaze support added
 * 5.3   dc     02/18/26 Correct spelling errors
+*       se     03/12/26 Enhancements: NULL checks, range validation,
+*                       standardize return values to XST_FAILURE
 *
 * </pre>
 *
@@ -882,13 +884,17 @@ u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply,
 int XSysMonPsv_ReadTempProcessed(XSysMonPsv *InstancePtr,
 				 XSysMonPsv_TempType Type, float *Val)
 {
-	u32 Offset, Regval;
+	int Offset;
+	u32 Regval;
 	int Val1, Val2;
 
 	if (InstancePtr == NULL || Val == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_TempOffset(Type);
+	if (Offset < 0) {
+		return XST_FAILURE;
+	}
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Regval);
 	XSysMonPsv_Q8P7ToCelsius(Regval, &Val1, &Val2);
 	*Val = (float)Val1 / (float)Val2;
@@ -912,12 +918,15 @@ int XSysMonPsv_ReadTempProcessed(XSysMonPsv *InstancePtr,
 int XSysMonPsv_ReadTempRaw(XSysMonPsv *InstancePtr, XSysMonPsv_TempType Type,
 			   u32 *Val)
 {
-	u32 Offset;
+	int Offset;
 
 	if (InstancePtr == NULL || Val == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_TempOffset(Type);
+	if (Offset < 0) {
+		return XST_FAILURE;
+	}
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
 
 	return XST_SUCCESS;
@@ -940,14 +949,19 @@ int XSysMonPsv_ReadTempRaw(XSysMonPsv *InstancePtr, XSysMonPsv_TempType Type,
 int XSysMonPsv_ReadTempProcessedSat(XSysMonPsv *InstancePtr, int SatId,
 				    float *Val)
 {
-	u32 Offset, Regval;
+	int Offset;
+	u32 Regval;
 	int Val1, Val2;
 
 	if (InstancePtr == NULL || Val == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 
-	Offset = XSYSMONPSV_TEMP_SAT + SatId * 4;
+
+	if (SatId < 1 || SatId > 64) {
+		return XST_FAILURE;
+	}
+	Offset = XSYSMONPSV_TEMP_SAT + (SatId - 1) * 4;
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Regval);
 	XSysMonPsv_Q8P7ToCelsius(Regval, &Val1, &Val2);
 	*Val = (float)Val1 / (float)Val2;
@@ -971,13 +985,17 @@ int XSysMonPsv_ReadTempProcessedSat(XSysMonPsv *InstancePtr, int SatId,
 *******************************************************************************/
 int XSysMonPsv_ReadTempRawSat(XSysMonPsv *InstancePtr, int SatId, u32 *Val)
 {
-	u32 Offset;
+	int Offset;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
 	}
 
-	Offset = XSYSMONPSV_TEMP_SAT + SatId * 4U;
+	if (SatId < 1 || SatId > 64) {
+		return XST_FAILURE;
+	}
+
+	Offset = XSYSMONPSV_TEMP_SAT + (SatId - 1) * 4U;
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
 
 	return XST_SUCCESS;
@@ -1003,7 +1021,7 @@ int XSysMonPsv_SetTempThresholdUpper(XSysMonPsv *InstancePtr,
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	if (Event == XSYSMONPSV_TEMP_EVENT) {
@@ -1011,7 +1029,7 @@ int XSysMonPsv_SetTempThresholdUpper(XSysMonPsv *InstancePtr,
 	} else if (Event == XSYSMONPSV_OT_EVENT) {
 		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4;
 	} else {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_WriteReg32(InstancePtr, Offset, Val);
 
@@ -1038,7 +1056,7 @@ int XSysMonPsv_SetTempThresholdLower(XSysMonPsv *InstancePtr,
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	if (Event == XSYSMONPSV_TEMP_EVENT) {
@@ -1046,7 +1064,7 @@ int XSysMonPsv_SetTempThresholdLower(XSysMonPsv *InstancePtr,
 	} else if (Event == XSYSMONPSV_OT_EVENT) {
 		Offset = XSYSMONPSV_OT_TEMP_TH;
 	} else {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_WriteReg32(InstancePtr, Offset, Val);
 
@@ -1071,8 +1089,8 @@ int XSysMonPsv_GetTempThresholdUpper(XSysMonPsv *InstancePtr,
 {
 	u32 Offset;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
 	}
 
 	if (Event == XSYSMONPSV_TEMP_EVENT) {
@@ -1080,7 +1098,7 @@ int XSysMonPsv_GetTempThresholdUpper(XSysMonPsv *InstancePtr,
 	} else if (Event == XSYSMONPSV_OT_EVENT) {
 		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4;
 	} else {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
 
@@ -1106,8 +1124,8 @@ int XSysMonPsv_GetTempThresholdLower(XSysMonPsv *InstancePtr,
 {
 	u32 Offset;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
 	}
 
 	if (Event == XSYSMONPSV_TEMP_EVENT) {
@@ -1115,7 +1133,7 @@ int XSysMonPsv_GetTempThresholdLower(XSysMonPsv *InstancePtr,
 	} else if (Event == XSYSMONPSV_OT_EVENT) {
 		Offset = XSYSMONPSV_OT_TEMP_TH;
 	} else {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
 
@@ -1142,8 +1160,15 @@ int XSysMonPsv_ReadSupplyProcessed(XSysMonPsv *InstancePtr, int Supply,
 	u32 Offset, Regval;
 	int Val1, Val2;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
+	}
+	if (Supply < 0 || (u32)Supply >= XSYSMONPSV_MAX_SUPPLIES) {
+		return XST_FAILURE;
+	}
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_SupplyOffset(InstancePtr, Supply);
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Regval);
@@ -1171,8 +1196,17 @@ int XSysMonPsv_ReadSupplyRaw(XSysMonPsv *InstancePtr, u32 Supply, u32 *Val)
 {
 	u32 Offset;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
+	}
+
+	if (Supply >= XSYSMONPSV_MAX_SUPPLIES) {
+		return XST_FAILURE;
+	}
+
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XST_FAILURE;
 	}
 
 	Offset = XSysMonPsv_SupplyOffset(InstancePtr, Supply);
@@ -1201,7 +1235,7 @@ int XSysMonPsv_SetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
 					       XSYSMONPSV_EV_DIR_RISING);
@@ -1219,7 +1253,7 @@ int XSysMonPsv_SetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
  * @param	Val Threshold Value.
  *
  * @return
- *          - -XST_FAILURE if error
+ *          - XST_FAILURE if error
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1230,7 +1264,7 @@ int XSysMonPsv_SetSupplyThresholdLower(XSysMonPsv *InstancePtr, int Supply,
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
 					       XSYSMONPSV_EV_DIR_FALLING);
@@ -1248,7 +1282,7 @@ int XSysMonPsv_SetSupplyThresholdLower(XSysMonPsv *InstancePtr, int Supply,
  * @param	Val Threshold Value to be read.
  *
  * @return
- *          - -XST_FAILURE if error
+ *          - XST_FAILURE if error
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1258,8 +1292,12 @@ int XSysMonPsv_GetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
 {
 	u32 Offset;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
+	}
+
+	if (Supply >= XSYSMONPSV_MAX_SUPPLIES) {
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
 					       XSYSMONPSV_EV_DIR_RISING);
@@ -1277,7 +1315,7 @@ int XSysMonPsv_GetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
  * @param	Val Threshold Value to be read.
  *
  * @return
- *          - -XST_FAILURE if error.
+ *          - XST_FAILURE if error.
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1287,8 +1325,12 @@ int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
 {
 	u32 Offset;
 
-	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+	if (InstancePtr == NULL || Val == NULL) {
+		return XST_FAILURE;
+	}
+
+	if (Supply >= XSYSMONPSV_MAX_SUPPLIES) {
+		return XST_FAILURE;
 	}
 	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
 					       XSYSMONPSV_EV_DIR_FALLING);
@@ -1508,7 +1550,7 @@ int XSysMonPsv_GetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate)
  * @param	CallbackRef Callback data of the function.
  *
  * @return
- *          - -XST_FAILURE if error
+ *          - XST_FAILURE if error
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1518,7 +1560,7 @@ int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
 				     void *CallbackRef)
 {
 	if (!CallbackFunc || !InstancePtr || !CallbackRef) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_RegisterDevTempCallback(InstancePtr, CallbackFunc,
 					   CallbackRef);
@@ -1534,7 +1576,7 @@ int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
  * @param	InstancePtr Pointer to the driver instance.
  *
  * @return
- *          - -XST_FAILURE if error.
+ *          - XST_FAILURE if error.
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1542,7 +1584,7 @@ int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
 int XSysMonPsv_UnregisterDeviceTempOps(XSysMonPsv *InstancePtr)
 {
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_UnregisterDevTempCallback(InstancePtr);
 
@@ -1559,7 +1601,7 @@ int XSysMonPsv_UnregisterDeviceTempOps(XSysMonPsv *InstancePtr)
  * @param	CallbackRef Callback data of the function.
  *
  * @return
- *          - -XST_FAILURE if error.
+ *          - XST_FAILURE if error.
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1567,8 +1609,8 @@ int XSysMonPsv_UnregisterDeviceTempOps(XSysMonPsv *InstancePtr)
 int XSysMonPsv_RegisterOTOps(XSysMonPsv *InstancePtr,
 			     XSysMonPsv_Handler CallbackFunc, void *CallbackRef)
 {
-	if (CallbackFunc == NULL || InstancePtr == NULL || CallbackRef) {
-		return -XST_FAILURE;
+	if (CallbackFunc == NULL || InstancePtr == NULL || CallbackRef == NULL) {
+		return XST_FAILURE;
 	}
 	XSysMonPsv_RegisterOTCallback(InstancePtr, CallbackFunc, CallbackRef);
 
@@ -1583,7 +1625,7 @@ int XSysMonPsv_RegisterOTOps(XSysMonPsv *InstancePtr,
  * @param	InstancePtr Pointer to the driver instance.
  *
  * @return
- *          - -XST_FAILURE if error.
+ *          - XST_FAILURE if error.
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1591,7 +1633,7 @@ int XSysMonPsv_RegisterOTOps(XSysMonPsv *InstancePtr,
 int XSysMonPsv_UnregisterOTOps(XSysMonPsv *InstancePtr)
 {
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_UnregisterOTCallback(InstancePtr);
 
@@ -1609,7 +1651,7 @@ int XSysMonPsv_UnregisterOTOps(XSysMonPsv *InstancePtr)
  * @param	CallbackRef Callback data of the function.
  *
  * @return
- *          - -XST_FAILURE if error
+ *          - XST_FAILURE if error
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1620,7 +1662,7 @@ int XSysMonPsv_RegisterSupplyOps(XSysMonPsv *InstancePtr,
 				 void *CallbackRef)
 {
 	if (!CallbackFunc || !InstancePtr || !CallbackRef) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_RegisterSupplyCallback(InstancePtr, Supply, CallbackFunc,
 					  CallbackRef);
@@ -1637,7 +1679,7 @@ int XSysMonPsv_RegisterSupplyOps(XSysMonPsv *InstancePtr,
  * @param	Supply Voltage supply.
  *
  * @return
- *          - -XST_FAILURE if error
+ *          - XST_FAILURE if error
  *          - XST_SUCCESS if successful.
  *
  *
@@ -1646,7 +1688,7 @@ int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
 				   XSysMonPsv_Supply Supply)
 {
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	XSysMonPsv_UnregisterSupplyCallback(InstancePtr, Supply);
 
@@ -1662,7 +1704,7 @@ int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
 * @param	IntcInst Instance to the Interrupt controller.
 *
 * @return
-*           - -XST_FAILURE if error
+*           - XST_FAILURE if error
 *           - XST_SUCCESS if successful
 *
 *
@@ -1674,7 +1716,7 @@ int XSysMonPsv_Init(XSysMonPsv *InstancePtr, void *IntcInst)
 	u32 Mask;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	/* XilPM Initialize */
@@ -1682,6 +1724,7 @@ int XSysMonPsv_Init(XSysMonPsv *InstancePtr, void *IntcInst)
 	Status = XSysMonPsv_Xilpm_Init(InstancePtr, NULL, &IpiInst);
 	if (XST_SUCCESS != Status) {
 		xil_printf("XSysMonPsv_Xilpm_Init() failed with error: %d\r\n", Status);
+		return XST_FAILURE;
 	}
 #endif
 
@@ -1690,11 +1733,17 @@ int XSysMonPsv_Init(XSysMonPsv *InstancePtr, void *IntcInst)
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
-	XSysMonPsv_CfgInitialize(InstancePtr, ConfigPtr);
+	Status = (int)XSysMonPsv_CfgInitialize(InstancePtr, ConfigPtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	XSysMonPsv_UnlockRegspace(InstancePtr);
 
-	XSysMonPsv_InterruptDisable(InstancePtr, XSYSMONPSV_INTR_MASK, 0);
+	Status = XSysMonPsv_InterruptDisable(InstancePtr, XSYSMONPSV_INTR_MASK, 0);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	XSysMonPsv_InterruptClear(InstancePtr, XSYSMONPSV_INTR_MASK);
 

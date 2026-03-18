@@ -24,6 +24,8 @@
 *       se     10/27/22 Secure and Non-Secure mode integration
 * 5.1   se     03/03/25 Compiler warnings fixed
 * 5.3   dc     02/18/26 Correct spelling errors
+*       se     03/12/26 Enhancements: NULL checks, range validation,
+*                       standardize return values to XST_FAILURE
 *
 * </pre>
 *
@@ -75,7 +77,7 @@ int XSysMonPsv_TempOffset(XSysMonPsv_TempType Type)
 * @param	Dir Falling or rising direction
 * @param	Offset Upper or lower threshold offset.
 *
-* @return	- -XST_FAILURE when fails
+* @return	- XST_FAILURE when fails
 *		    - XST_SUCCESS when correct params are used.
 *
 ***************************************************************************/
@@ -95,7 +97,7 @@ int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
 				  XSYSMONPSV_OT_TEMP_TH_FALLING;
 		break;
 	default:
-		RetValue = -XST_FAILURE;
+		RetValue = XST_FAILURE;
 		break;
 	}
 	return RetValue;
@@ -320,9 +322,8 @@ u32 XSysMonPsv_IsAlarmPresent(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 * @param        InstancePtr Pointer to the driver instance.
 * @param        Supply Enum which indicates the desired supply.
 *
-* @return       True if new data available.
-*               False if new data isn't available.
-*               Invalid if the Supply hasn't been configured.
+* @return       XST_SUCCESS if the alarm was cleared.
+*               XSYSMONPSV_INVALID if the Supply has not been configured.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
@@ -378,7 +379,7 @@ int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	/* Calculate the offset of the IER register to be written to */
@@ -412,7 +413,7 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	/* Calculate the offset of the IDR register to be written to */
@@ -436,14 +437,14 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 * @param	IntrStatus 32-bit value representing the contents of the Interrupt Status
 *		Register (ISR).
 *
-* @return	- -XST_FAILURE when NULL Instance is passed
+* @return	- XST_FAILURE when NULL Instance is passed
 *           - XST_SUCCESS if succeeds
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus)
 {
 	if (InstancePtr == NULL) {
-		return -XST_FAILURE;
+		return XST_FAILURE;
 	}
 	/* Return the value read from the AMS ISR. */
 	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, IntrStatus);
