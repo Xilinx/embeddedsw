@@ -60,6 +60,14 @@ extern "C" {
 #define XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE		(1U)	/**< RSA public key encryption use case */
 #define XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE	(2U)	/**< RSA public key key transport use case */
 
+#define XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0U)	/**< ECC private key sign use case */
+#define XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(1U)	/**< ECC private key key agreement use case */
+#define XKEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(2U)	/**< ECC private key key authentication and encryption use case */
+
+#define XKEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE		(0U)	/**< ECC public key sign verification use case */
+#define XKEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE	(1U)	/**< ECC public key key agreement use case */
+#define XKEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE	(2U)	/**< ECC public key key authentication and encryption use case */
+
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
 
@@ -142,6 +150,18 @@ typedef struct {
 	u32 PubExp;			/**< Public exponent value. */
 } XKeyManager_RsaPubKeyObject;
 
+/** This structure contains ECC private key object information. */
+typedef struct {
+	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	u8 PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];	/**< ECC private key. */
+} XKeyManager_EccPvtKeyObject;
+
+/** This structure contains ECC public key object information. */
+typedef struct {
+	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	u8 PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES];	/**< ECC public key. */
+} XKeyManager_EccPubKeyObject;
+
 /** This structure contains key manager vault and sub vault header information. */
 typedef struct {
 	XKeyManager_VaultHeader Header;	/**< Vault header. */
@@ -185,6 +205,8 @@ s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObject
 s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
 			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
+			u32 *KeyIdPtr, u32 SubSystemId);
+s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 

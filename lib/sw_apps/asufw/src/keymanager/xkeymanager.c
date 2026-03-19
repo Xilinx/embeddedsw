@@ -40,6 +40,8 @@
 #include "xasufw_trnghandler.h"
 #include "xasufw_queuescheduler.h"
 #include "xrsa.h"
+#include "xrsa_ecc.h"
+#include "xasu_ecies_common.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_VAULT_MAIN_HEADER_SIZE	(12U) /**< Size of the key vault header */
@@ -55,8 +57,8 @@
 #define XKEYMANAGER_KEY_INDEX_OFFSET		(1U) /**< Offset for key index */
 #define XKEYMANAGER_USAGE_COUNT_DEC_VALUE	(1U) /**< Usage count decrement
 							value per access */
-#define XKEYMANAGER_RSA_PVT_KEY_ID_OFFSET	(1U) /**< Offset to update private key ID in
-							RSA key pair generation */
+#define XKEYMANAGER_PVT_KEY_ID_OFFSET	(1U) /**< Offset to update private key ID in
+							RSA/ECC key pair generation */
 
 #define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & ((u16)1U << (Index))) != 0U) /**< Check if a bit is set */
 #define XKEYMANAGER_KEYUSECASE_BITMASK(KeyUseCase) (1U << (KeyUseCase)) /**< Generate bitmask for a use case */
@@ -98,8 +100,8 @@ static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XKEYMANAGER_IV_SUBVAULT_ID] = sizeof(XKeyManager_IvObject),
 	[XKEYMANAGER_RSA_PVT_SUBVAULT_ID] = sizeof(XKeyManager_RsaPvtKeyObject),
 	[XKEYMANAGER_RSA_PUB_SUBVAULT_ID] = sizeof(XKeyManager_RsaPubKeyObject),
-	[XKEYMANAGER_ECC_PVT_SUBVAULT_ID] = 0U,
-	[XKEYMANAGER_ECC_PUB_SUBVAULT_ID] = 0U,
+	[XKEYMANAGER_ECC_PVT_SUBVAULT_ID] = sizeof(XKeyManager_EccPvtKeyObject),
+	[XKEYMANAGER_ECC_PUB_SUBVAULT_ID] = sizeof(XKeyManager_EccPubKeyObject),
 	[XKEYMANAGER_KDF_SUBVAULT_ID] = 0U,
 	[XKEYMANAGER_LMS_SUBVAULT_ID] = 0U,
 	[XKEYMANAGER_X509_SUBVAULT_ID] = 0U
@@ -301,8 +303,8 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 			    (ParamsPtr->IVVaultCapacity * sizeof(XKeyManager_IvObject)) +
 			    (ParamsPtr->RSAPvtKeyVaultCapacity * sizeof(XKeyManager_RsaPvtKeyObject)) +
 			    (ParamsPtr->RSAPubKeyVaultCapacity * sizeof(XKeyManager_RsaPubKeyObject)) +
-			    ParamsPtr->ECCPvtKeyVaultCapacity +
-			    ParamsPtr->ECCPubKeyVaultCapacity +
+			    (ParamsPtr->ECCPvtKeyVaultCapacity * sizeof(XKeyManager_EccPvtKeyObject)) +
+			    (ParamsPtr->ECCPubKeyVaultCapacity * sizeof(XKeyManager_EccPubKeyObject)) +
 			    ParamsPtr->KDFKeyVaultCapacity +
 			    ParamsPtr->LMSKeyVaultCapacity + ParamsPtr->X509KeyVaultCapacity;
 
@@ -645,17 +647,6 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 		goto END;
 	}
 
-	if (ParamsPtr->VaultId >= XASU_KM_MAX_VAULTS) {
-		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Validate vault access for the subsystem. */
-	if (VaultManager.VaultInfo[ParamsPtr->VaultId].SubSystemId != SubSystemId) {
-		Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
-		goto END;
-	}
-
 	/** Validate key length parameters. */
 	Status = XAsu_KmValidateKeyLength(ParamsPtr, (u8)KeyType);
 	if (Status != XASUFW_SUCCESS) {
@@ -685,6 +676,13 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 			goto END_CLR;
 		}
+
+		/** Validate vault access for the subsystem. */
+		if (VaultManager.VaultInfo[ParamsPtr->VaultId].SubSystemId != SubSystemId) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
+			goto END_CLR;
+		}
+
 		/** Store key in vault if no address is provided. */
 		Status = XKeyManager_UpdateKeyVault(KeyType, ParamsPtr, EphemeralData,
 						KeyIdPtr, (u8)ParamsPtr->VaultId);
@@ -739,17 +737,6 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 		goto END;
 	}
 
-	if (ParamsPtr->VaultId >= XASU_KM_MAX_VAULTS) {
-		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Validate vault access for the subsystem. */
-	if (VaultManager.VaultInfo[ParamsPtr->VaultId].SubSystemId != SubSystemId) {
-		Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
-		goto END;
-	}
-
 	RsaKeyPairObjectPtr = (XAsu_RsaKeyPairObject *)(UINTPTR)ParamsPtr->KeyObjectAddr;
 
 	/** Generate RSA key pair. */
@@ -771,17 +758,22 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 			Status = XASUFW_DMA_COPY_FAIL;
 		}
 	} else {
+		/** Else, store the key in the vault. */
 		Status = XAsu_KmValidateVaultParams(ParamsPtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 			goto END_CLR;
 		}
-		/** Else, store the key in the vault. */
+		/** Validate vault access for the subsystem. */
+		if (VaultManager.VaultInfo[ParamsPtr->VaultId].SubSystemId != SubSystemId) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
+			goto END_CLR;
+		}
 
 		/** - Update the private key to key vault and store the KeyId to (KeyIdPtr + 1U). */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_UpdateKeyVault(XKEYMANAGER_RSA_PVT_SUBVAULT_ID, ParamsPtr,
-					ModulusArr, (KeyIdPtr + XKEYMANAGER_RSA_PVT_KEY_ID_OFFSET),
+					ModulusArr, (KeyIdPtr + XKEYMANAGER_PVT_KEY_ID_OFFSET),
 					(u8)ParamsPtr->VaultId);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -803,6 +795,133 @@ END_CLR:
 	/* Securely zeroize key data. */
 	XFIH_CALL(Xil_SecureZeroize, XFihRsaKey, ClearStatus, (u8 *)(UINTPTR)ModulusArr,
 			XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Generate ECC key pair and optionally export it via DMA.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ParamsPtr	Pointer to XAsu_KeyManagerParams.
+ * @param	KeyIdPtr	Pointer to the output Key IDs.
+ * @param	SubSystemId	Subsystem ID for which the key is being generated.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, when the key is generated and transferred or updated in the vault.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ * 	- XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS, if the subsystem does not have access to the vault.
+ * 	- XASUFW_ECC_KEY_PAIR_GENERATION_FAIL, if ECC key pair generation fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, if updating private key in vault fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, if updating public key in vault fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
+			u32 *KeyIdPtr, u32 SubSystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihEccKey = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	XAsu_EccKeyPairObject *EccKeyPairObjectPtr = NULL;
+	u8 PvtKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES];
+
+	/** Validate the input parameters. */
+	if ((ParamsPtr == NULL) || (DmaPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeyIdPtr == NULL) && (ParamsPtr->KeyObjectAddr == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_EccValidateCurveInfo(ParamsPtr->KeyMetadata.KeyAttributes,
+				ParamsPtr->KeyMetadata.Length);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Generate ECC key pair. */
+	Status = XRsa_EccGenKeyPair(DmaPtr, ParamsPtr->KeyMetadata.KeyAttributes,
+				ParamsPtr->KeyMetadata.Length, (u64)(UINTPTR)PvtKey,
+				(u64)(UINTPTR)PubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_KEY_PAIR_GENERATION_FAIL);
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (ParamsPtr->KeyObjectAddr != 0U) {
+		/**
+		 * If KeyObjectAddr is provided, copy the key to the provided address using DMA.
+		 */
+		EccKeyPairObjectPtr = (XAsu_EccKeyPairObject *)(UINTPTR)ParamsPtr->KeyObjectAddr;
+
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PubKey,
+				       (u64)(UINTPTR)EccKeyPairObjectPtr->PublicKey,
+				       XAsu_DoubleCurveLength(ParamsPtr->KeyMetadata.Length), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END_CLR;
+		}
+
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PvtKey,
+				       (u64)(UINTPTR)EccKeyPairObjectPtr->PrivateKey,
+				       ParamsPtr->KeyMetadata.Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	} else {
+		/** Else, store the key in the vault. */
+		Status = XAsu_KmValidateVaultParams(ParamsPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END_CLR;
+		}
+
+		/** Validate vault access for the subsystem. */
+		if (VaultManager.VaultInfo[ParamsPtr->VaultId].SubSystemId != SubSystemId) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
+			goto END_CLR;
+		}
+
+		/** - Update the private key to key vault and store the KeyId to (KeyIdPtr + 1U). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(XKEYMANAGER_ECC_PVT_SUBVAULT_ID, ParamsPtr,
+					PvtKey, (KeyIdPtr + XKEYMANAGER_PVT_KEY_ID_OFFSET),
+					(u8)ParamsPtr->VaultId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+			goto END_CLR;
+		}
+
+		/** - Update the public key to key vault and store the KeyId to KeyIdPtr. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(XKEYMANAGER_ECC_PUB_SUBVAULT_ID, ParamsPtr,
+					PubKey, KeyIdPtr, (u8)ParamsPtr->VaultId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
+		}
+	}
+
+END_CLR:
+	/* Securely zeroize key data. */
+	XFIH_CALL(Xil_SecureZeroize, XFihEccKey, ClearStatus, (u8 *)(UINTPTR)PubKey,
+			XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihEccKey, ClearStatus, (u8 *)(UINTPTR)PvtKey,
+			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -1160,6 +1279,11 @@ static s32 XKeyManager_UpdateKeyVault(XKeyManager_SubVaultType KeyType,
 		KeyCopyLength = XKEYMANAGER_RSA_MAX_KEY_OBJ_SIZE_IN_BYTES;
 	} else if (KeyType == XKEYMANAGER_RSA_PUB_SUBVAULT_ID) {
 		MaxKeySize = XRSA_4096_KEY_SIZE;
+	} else if (KeyType == XKEYMANAGER_ECC_PVT_SUBVAULT_ID) {
+		MaxKeySize = XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES;
+	} else if (KeyType == XKEYMANAGER_ECC_PUB_SUBVAULT_ID) {
+		MaxKeySize = XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES;
+		KeyCopyLength = XAsu_DoubleCurveLength(ParamsPtr->KeyMetadata.Length);
 	} else {
 		/* Do nothing */
 	}

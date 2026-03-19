@@ -984,6 +984,56 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function generates the ECC key pair and validates them by performing PWCT.
+ *
+ * @param	DmaPtr		Pointer to DMA instance.
+ * @param	CurveType	ECC Curve type.
+ * @param	CurveLen	Length of the curve in bytes.
+ * @param	PvtKeyAddr	Address to store the generated private key.
+ * @param	PubKeyAddr	Address to store the generated public key,
+ * 				whose length shall be equal to double of CurveLen
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if private key generation is successful.
+ *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
+ *	-	XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL, if private key generation operation fails.
+ *	-	XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, if public key generation operation fails.
+ *
+ *************************************************************************************************/
+s32 XRsa_EccGenKeyPair(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PvtKeyAddr,
+		       u64 PubKeyAddr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	EcdsaKey Key;
+	EcdsaCrvInfo *CrvInfo = NULL;
+	u32 CurveSize = 0U;
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (PvtKeyAddr == 0U) || (PubKeyAddr == 0U)) {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Generate private key. */
+	Status = XRsa_EccGeneratePvtKey(CurveType, CurveLen, (u8*)(UINTPTR)PvtKeyAddr, NULL, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL);
+		goto END;
+	}
+
+	/** Generate public key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccGeneratePubKey(DmaPtr, CurveType, CurveLen, PvtKeyAddr, PubKeyAddr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function gets the curve related information.
  *
  * @param	CurveType	ECC Curve type.
