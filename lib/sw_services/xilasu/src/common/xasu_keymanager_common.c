@@ -71,11 +71,8 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 
 	/** Validate key metadata. */
 	if ((KmParamsPtr->KeyObjectAddr == 0U) && ((KmParamsPtr->KeyMetadata.KeyUseCase == 0U) ||
-		(KmParamsPtr->KeyMetadata.UsageCount == 0U))) {
-		goto END;
-	}
-
-	if ((KmParamsPtr->VaultId == 0U) || (KmParamsPtr->VaultId >= XASU_KM_MAX_VAULTS)) {
+		(KmParamsPtr->KeyMetadata.UsageCount == 0U) || (KmParamsPtr->VaultId == 0U) ||
+		(KmParamsPtr->VaultId >= XASU_KM_MAX_VAULTS))) {
 		goto END;
 	}
 

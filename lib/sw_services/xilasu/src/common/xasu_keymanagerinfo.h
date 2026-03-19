@@ -37,6 +37,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_util.h"
 #include "xasu_rsainfo.h"
+#include "xasu_eccinfo.h"
 #ifdef SDT
 #include "xasu_bsp_config.h"
 #endif
@@ -49,6 +50,7 @@ extern "C" {
 #define XASU_KM_GEN_AES_KEY_CMD_ID		(3U) /**< Command ID for AES key generation */
 #define XASU_KM_GEN_AES_IV_CMD_ID		(4U) /**< Command ID for AES IV generation */
 #define XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID		(5U) /**< Command ID for RSA key pair generation */
+#define XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID		(6U) /**< Command ID for ECC key pair generation */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
 
@@ -103,6 +105,11 @@ typedef struct {
 	u32 DQ[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to DQ buffer. */
 	u32 QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to QInv buffer. */
 } XAsu_RsaKeyPairObject;
+
+typedef struct {
+	u8 PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES]; /**< Public key buffer. */
+	u8 PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]; /**< Private key buffer. */
+} XAsu_EccKeyPairObject;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

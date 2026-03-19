@@ -85,7 +85,8 @@ extern "C" {
 								size in bytes */
 #define XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES		(57U) /**< Size of Edwards Ed448 private
 								key size in bytes */
-
+#define XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES		(132U) /**< Size of NIST P-521 public key
+								size in bytes */
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This structure contains ECC params info. */

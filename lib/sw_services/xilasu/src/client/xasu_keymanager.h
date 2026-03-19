@@ -54,6 +54,8 @@ s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr, u32 VaultId);
 s32 XAsu_KmDeleteKey(XAsu_ClientParams *ClientParamPtr, u32 KeyId);
 s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
+s32 XAsu_KmGenerateEccKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus
