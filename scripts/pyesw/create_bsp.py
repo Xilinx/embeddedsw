@@ -33,6 +33,7 @@ class Domain(Repo):
         super().__init__(repo_yaml_path=args["repo_info"])
         self.domain_dir = utils.get_abs_path(args["ws_dir"])
         self.proc = args["proc"]
+        self.user_proc_entry = args["proc"]
         self.os = args["os"]
         self.app = args["template"]
         self.compiler_flags = ""
@@ -50,7 +51,8 @@ class Domain(Repo):
         self.proc_mode = args["mode"]
         self.compiler = args["compiler"]
         utils.mkdir(self.domain_dir)
-        self.proc_ip_name = self._validate_inputs()
+        self.proc, self.proc_ip_name = self._validate_proc_inputs()
+        self._validate_inputs()
 
     def _get_family(self):
         """
@@ -76,6 +78,74 @@ class Domain(Repo):
             elif family_str:
                 return family_str[0]
 
+    def _validate_proc_inputs(self):
+        """
+        This function validates the processor input passed by user. If the
+        processor name is not found in the cpu list generated from the sdt, it
+        checks for the processor keywords in the input and tries to find a match
+        in the cpu list. If a match is found, it returns the corresponding proc
+        name that can be used for further processing. If no match is found, it
+        throws an error and exits.
+
+        Returns:
+            proc_name (str): Validated processor name that can be used for
+            further processing.
+            proc_ip_name (str): Validated processor IP Name
+        """
+        cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
+        if not utils.is_file(cpu_list_file):
+            utils.runcmd(
+                f"lopper --werror -f -O {self.domain_dir} -i lop-cpulist.dts {self.sdt}",
+                cwd=self.domain_dir,
+                log_message="Generating CPU list",
+                error_message="CPU List generation failed.",
+            )
+        avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
+        if self.user_proc_entry in avail_cpu_data.keys():
+            return self.user_proc_entry, avail_cpu_data[self.user_proc_entry]
+
+        user_proc_key = self.user_proc_entry.rsplit("_", 1)[0]
+        user_proc_instance = self.user_proc_entry.rsplit("_", 1)[-1]
+
+        if user_proc_key not in utils.processor_keyword_map.keys():
+            self._return_proc_validation_error(avail_cpu_data)
+        else:
+            mb_count = 0
+            for avail_proc_name, avail_proc_ip in avail_cpu_data.items():
+                if avail_proc_ip in utils.processor_keyword_map[user_proc_key]:
+                    if avail_proc_ip in ["microblaze", "microblaze_riscv"]:
+                        if int(user_proc_instance) == mb_count:
+                            return avail_proc_name, avail_proc_ip
+                        mb_count += 1
+                    elif avail_proc_name.endswith(user_proc_instance.lower()):
+                        # user_proc_instance.lower() is needed for ASU.
+                        return avail_proc_name, avail_proc_ip
+            self._return_proc_validation_error(avail_cpu_data)
+
+    def _return_proc_validation_error(self, avail_cpu_data):
+        """Helper function to print the error message for invalid processor input and exit.
+
+        Args:
+            avail_cpu_data (dict): Available CPU data for validation.
+
+        """
+
+        cpulist_metafiles = [
+            "cpulist.yaml",
+            "lop-cpulist.dts.dtb",
+            "lop-cpulist.dts.pp",
+        ]
+
+        utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+        logger.error(f"""\b
+                Please pass a valid processor name. Valid Processor Names for the given SDT are:
+                {list(avail_cpu_data.keys())}
+                You can also use below keywords followed by instance number to specify the processor.
+                Valid keywords are: {list(utils.processor_keyword_map.keys())}
+                Example: APU_0, RPU_0, MBV_0, MB_0 etc.
+                """)
+        sys.exit(1)
+
     def _validate_inputs(self):
         """
         If User wants to validate the inputs before creating the domain,
@@ -84,32 +154,7 @@ class Domain(Repo):
         template app passed over command line are valid or not for the
         sdt input.
         """
-        cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
-        dump = utils.discard_dump()
-        if not utils.is_file(cpu_list_file):
-            utils.runcmd(
-                f"lopper --werror -f -O {self.domain_dir} -i lop-cpulist.dts {self.sdt}",
-                cwd=self.domain_dir,
-                log_message="Generating CPU list",
-                error_message="CPU List generation failed.",
-            )
-        cpulist_metafiles = [
-            "cpulist.yaml",
-            "lop-cpulist.dts.dtb",
-            "lop-cpulist.dts.pp",
-        ]
-        avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
-        if self.proc not in avail_cpu_data.keys():
-            utils.remove_directory(
-                self.domain_dir, cpulist_metafiles, force_remove=False
-            )
-            logger.error(
-                f"Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
-            )
-            sys.exit(1)
-
-        proc_ip_name = avail_cpu_data[self.proc]
-        if proc_ip_name in ("cortexa78", "cortexr52") and "freertos" in self.os:
+        if self.proc_ip_name in ("cortexa78", "cortexr52") and "freertos" in self.os:
             utils.remove_directory(
                 self.domain_dir, cpulist_metafiles, force_remove=False
             )
@@ -162,7 +207,6 @@ class Domain(Repo):
                 self.repo_yaml_path,
             )
             validate_obj.validate_hw()
-        return avail_cpu_data[self.proc]
 
     def build_dir_struct(self):
         """

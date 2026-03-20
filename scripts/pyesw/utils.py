@@ -753,6 +753,22 @@ VALID_TEMPLATES = [
     "zynqmp_fsbl",
     "zynqmp_pmufw",
 ]
+processor_keyword_map = {
+    "APU": [
+        "cortexa78",
+        "psx_cortexa78",
+        "psv_cortexa72",
+        "psu_cortexa53",
+        "ps7_cortexa9",
+    ],
+    "RPU": ["cortexr52", "psx_cortexr52", "psv_cortexr5", "psu_cortexr5"],
+    "PMC": ["pmc", "psx_pmc", "psv_pmc"],
+    "PSM": ["psx_psm", "psv_psm"],
+    "PMU": ["psu_pmu"],
+    "ASU": ["asu"],
+    "MB": ["microblaze"],
+    "MBV": ["microblaze_riscv"],
+}
 
 
 def verify_tool_path(tool_name, version=False, version_flag="--version"):
