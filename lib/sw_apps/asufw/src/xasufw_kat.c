@@ -26,7 +26,7 @@
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  08/25/24 Integrated FIH library
  *       ss   09/26/24 Fixed doxygen comments
- *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
+ *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_SHAKE_256_HASH_LEN
  * 1.1   ss   12/02/24 Added kat support for ECDH
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  01/02/25 Added HMAC KAT
@@ -127,7 +127,7 @@ static const u8 KatMessage[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
 };
 
 /* SHA2 256 hash for above KAT message */
-static const u8 ExpSha2_256Hash[XASU_SHA_256_HASH_LEN] = {
+static const u8 ExpSha2_256Hash[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0x03U, 0xFBU, 0xA3U, 0xBBU, 0x9BU, 0x90U, 0xBBU, 0x5FU,
 	0xF1U, 0x07U, 0xC0U, 0x43U, 0x63U, 0xF7U, 0x99U, 0x34U,
 	0xECU, 0xE9U, 0x56U, 0xB2U, 0x3CU, 0xFAU, 0x13U, 0xC7U,
@@ -147,7 +147,7 @@ static const u8 ExpSha2_512Hash[XASU_SHA_512_HASH_LEN] = {
 };
 
 /* SHA3 256 hash for above KAT message */
-static const u8 ExpSha3_256Hash[XASU_SHA_256_HASH_LEN] = {
+static const u8 ExpSha3_256Hash[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0xBCU, 0x64U, 0xDCU, 0xBBU, 0x66U, 0xDDU, 0x08U, 0xA5U,
 	0xC1U, 0x11U, 0xE6U, 0xB3U, 0x55U, 0x60U, 0xF1U, 0xC3U,
 	0x3EU, 0x6DU, 0xE8U, 0x6AU, 0x15U, 0xDFU, 0x6CU, 0xF3U,
@@ -155,7 +155,7 @@ static const u8 ExpSha3_256Hash[XASU_SHA_256_HASH_LEN] = {
 };
 
 #ifdef XASU_HMAC_ENABLE
-static const u8 ExpHmacOutput[XASU_SHA_256_HASH_LEN] = {
+static const u8 ExpHmacOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0x72U, 0xC5U, 0x39U, 0x7DU, 0x23U, 0x49U, 0x3EU, 0xFFU,
 	0xF9U, 0x16U, 0xC8U, 0x4BU, 0x08U, 0x11U, 0x3EU, 0x26U,
 	0x2FU, 0xA8U, 0x55U, 0x76U, 0xAFU, 0xFEU, 0x96U, 0x4AU,
@@ -164,7 +164,7 @@ static const u8 ExpHmacOutput[XASU_SHA_256_HASH_LEN] = {
 #endif
 
 #ifdef XASU_KDF_ENABLE
-static const u8 ExpKdfOutput[XASU_SHA_256_HASH_LEN] = {
+static const u8 ExpKdfOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0x91U, 0x53U, 0x33U, 0xF0U, 0x62U, 0x3DU, 0xBCU, 0x73U,
 	0x7EU, 0x92U, 0x3CU, 0x1BU, 0xB3U, 0xA9U, 0x92U, 0x31U,
 	0x4EU, 0x66U, 0xC4U, 0x6EU, 0x2CU, 0x8DU, 0x81U, 0x45U,
@@ -772,7 +772,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resour
 	switch (ShaMode) {
 		case XASU_SHA_MODE_256:
 			ExpHash = (ShaResource == XASUFW_SHA2) ? ExpSha2_256Hash : ExpSha3_256Hash;
-			HashLen = XASU_SHA_256_HASH_LEN;
+			HashLen = XASU_SHA_SHAKE_256_HASH_LEN;
 			break;
 		case XASU_SHA_MODE_512:
 			ExpHash = ExpSha2_512Hash;
@@ -1720,12 +1720,12 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 	s32 SStatus = XASUFW_FAILURE;
 	XHmac *XAsufw_HmacInstance = XHmac_GetInstance();
 	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	u8 HmacOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	u8 HmacOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {0U};
 
 	/** Perform HMAC init operation. */
 	Status = XHmac_Init(XAsufw_HmacInstance, AsuDmaPtr, Sha2Ptr, (u64)(UINTPTR)EccPrivKey,
 			    XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES, XASU_SHA_MODE_256,
-			    XASU_SHA_256_HASH_LEN);
+			    XASU_SHA_SHAKE_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1744,17 +1744,17 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Compare generated HMAC output with expected HMAC output. */
-	Status = Xil_SMemCmp(HmacOutput, XASU_SHA_256_HASH_LEN, ExpHmacOutput,
-			     XASU_SHA_256_HASH_LEN,
-			     XASU_SHA_256_HASH_LEN);
+	Status = Xil_SMemCmp(HmacOutput, XASU_SHA_SHAKE_256_HASH_LEN, ExpHmacOutput,
+			     XASU_SHA_SHAKE_256_HASH_LEN,
+			     XASU_SHA_SHAKE_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_HMAC_KAT_COMPARISON_FAILED;
 	}
 
 END_CLR:
 	/** Zeroize local copy of output value. */
-	SStatus = Xil_SMemSet(&HmacOutput[0U], XASU_SHA_256_HASH_LEN, 0U,
-			      XASU_SHA_256_HASH_LEN);
+	SStatus = Xil_SMemSet(&HmacOutput[0U], XASU_SHA_SHAKE_256_HASH_LEN, 0U,
+			      XASU_SHA_SHAKE_256_HASH_LEN);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
 	}
@@ -1792,7 +1792,7 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	s32 Status = XASUFW_FAILURE;
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	u8 KdfOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	u8 KdfOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {0U};
 	XAsu_KdfParams Params;
 
 	Params.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
@@ -1800,7 +1800,7 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.ContextAddr = (u64)(UINTPTR)KatMessage;
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
-	Params.KeyOutLen = XASU_SHA_256_HASH_LEN;
+	Params.KeyOutLen = XASU_SHA_SHAKE_256_HASH_LEN;
 	Params.ShaMode = XASU_SHA_MODE_256;
 	Params.ShaType = XASU_SHA2_TYPE;
 
@@ -1811,17 +1811,17 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Compare generated KDF key output with expected KDF key output. */
-	Status = Xil_SMemCmp(KdfOutput, XASU_SHA_256_HASH_LEN, ExpKdfOutput,
-			     XASU_SHA_256_HASH_LEN,
-			     XASU_SHA_256_HASH_LEN);
+	Status = Xil_SMemCmp(KdfOutput, XASU_SHA_SHAKE_256_HASH_LEN, ExpKdfOutput,
+			     XASU_SHA_SHAKE_256_HASH_LEN,
+			     XASU_SHA_SHAKE_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KDF_KAT_COMPARISON_FAILED;
 	}
 
 END:
 	/** Zeroize local copy of output value. */
-	SStatus = Xil_SMemSet(&KdfOutput[0U], XASU_SHA_256_HASH_LEN, 0U,
-			      XASU_SHA_256_HASH_LEN);
+	SStatus = Xil_SMemSet(&KdfOutput[0U], XASU_SHA_SHAKE_256_HASH_LEN, 0U,
+			      XASU_SHA_SHAKE_256_HASH_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
 	if (Status != XASUFW_SUCCESS) {

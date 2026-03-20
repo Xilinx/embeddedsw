@@ -73,7 +73,7 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_SHA256_N32_W2 */
 	[XLMS_OTS_PARAM_IDX_SHA256_W2] = {
 		.HashAlgId = XASU_SHA_MODE_256,
-		.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 		.w = XLMS_OTS_W2,
 		.u = XLMS_OTS_W2_U,
 		.v = XLMS_OTS_W2_V,
@@ -85,7 +85,7 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_SHA256_N32_W4 */
 	[XLMS_OTS_PARAM_IDX_SHA256_W4] = {
 		.HashAlgId = XASU_SHA_MODE_256,
-		.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 		.w = XLMS_OTS_W4,
 		.u = XLMS_OTS_W4_U,
 		.v = XLMS_OTS_W4_V,
@@ -97,7 +97,7 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_SHA256_N32_W8 */
 	[XLMS_OTS_PARAM_IDX_SHA256_W8] = {
 		.HashAlgId = XASU_SHA_MODE_256,
-		.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 		.w = XLMS_OTS_W8,
 		.u = XLMS_OTS_W8_U,
 		.v = XLMS_OTS_W8_V,
@@ -109,7 +109,7 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_SHAKE_N32_W2 */
 	[XLMS_OTS_PARAM_IDX_SHAKE_W2] = {
 		.HashAlgId = XASU_SHA_MODE_SHAKE256,
-		.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 		.w = XLMS_OTS_W2,
 		.u = XLMS_OTS_W2_U,
 		.v = XLMS_OTS_W2_V,
@@ -121,7 +121,7 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_SHAKE_N32_W4 */
 	[XLMS_OTS_PARAM_IDX_SHAKE_W4] = {
 		.HashAlgId = XASU_SHA_MODE_SHAKE256,
-		.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 		.w = XLMS_OTS_W4,
 		.u = XLMS_OTS_W4_U,
 		.v = XLMS_OTS_W4_V,
@@ -133,7 +133,7 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_SHAKE_N32_W8 */
 	[XLMS_OTS_PARAM_IDX_SHAKE_W8] = {
 		.HashAlgId = XASU_SHA_MODE_SHAKE256,
-		.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 		.w = XLMS_OTS_W8,
 		.u = XLMS_OTS_W8_U,
 		.v = XLMS_OTS_W8_V,

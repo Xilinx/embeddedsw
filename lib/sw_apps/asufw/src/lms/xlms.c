@@ -74,58 +74,58 @@ s32 XLms_LookupParamSet(XLms_Type Type, XLms_Param** Parameters)
 		/* XLMS_SHA256_M32_HEIGHT_5 */
 		[XLMS_PARAM_IDX_SHA256_HEIGHT_5] = {
 			.HashAlgId = XASU_SHA_MODE_256,
-			.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_5,
-			.SignatureLenBytes = (XASU_SHA_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_5) /** 160U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_5) /** 160U */
 		},
 		/* XLMS_SHA256_M32_HEIGHT_10 */
 		[XLMS_PARAM_IDX_SHA256_HEIGHT_10] = {
 			.HashAlgId = XASU_SHA_MODE_256,
-			.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_10,
-			.SignatureLenBytes = (XASU_SHA_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_10) /** 320U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_10) /** 320U */
 		},
 		/* XLMS_SHA256_M32_HEIGHT_15 */
 		[XLMS_PARAM_IDX_SHA256_HEIGHT_15] = {
 			.HashAlgId = XASU_SHA_MODE_256,
-			.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_15,
-			.SignatureLenBytes = (XASU_SHA_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_15) /** 480U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_15) /** 480U */
 		},
 		/* XLMS_SHA256_M32_HEIGHT_20 */
 		[XLMS_PARAM_IDX_SHA256_HEIGHT_20] = {
 			.HashAlgId = XASU_SHA_MODE_256,
-			.HashOutputBytes = XASU_SHA_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_20,
-			.SignatureLenBytes = (XASU_SHA_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_20) /** 640U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_20) /** 640U */
 		},
 		/* XLMS_SHAKE_M32_HEIGHT_5 */
 		[XLMS_PARAM_IDX_SHAKE_HEIGHT_5] = {
 			.HashAlgId = XASU_SHA_MODE_SHAKE256,
-			.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_5,
-			.SignatureLenBytes = (XASU_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_5) /** 160U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_5) /** 160U */
 		},
 		/* XLMS_SHAKE_M32_HEIGHT_10 */
 		[XLMS_PARAM_IDX_SHAKE_HEIGHT_10] = {
 			.HashAlgId = XASU_SHA_MODE_SHAKE256,
-			.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_10,
-			.SignatureLenBytes = (XASU_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_10) /** 320U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_10) /** 320U */
 		},
 		/* XLMS_SHAKE_M32_HEIGHT_15 */
 		[XLMS_PARAM_IDX_SHAKE_HEIGHT_15] = {
 			.HashAlgId = XASU_SHA_MODE_SHAKE256,
-			.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_15,
-			.SignatureLenBytes = (XASU_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_15) /** 480U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_15) /** 480U */
 		},
 		/* XLMS_SHAKE_M32_HEIGHT_20 */
 		[XLMS_PARAM_IDX_SHAKE_HEIGHT_20] = {
 			.HashAlgId = XASU_SHA_MODE_SHAKE256,
-			.HashOutputBytes = XASU_SHAKE_256_HASH_LEN,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_20,
-			.SignatureLenBytes = (XASU_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_20) /** 640U */
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_20) /** 640U */
 		}
 	};
 	*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];

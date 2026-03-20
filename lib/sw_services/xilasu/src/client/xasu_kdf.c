@@ -216,7 +216,7 @@ s32 XAsu_KdfSha3Kat(void)
 	s32 SStatus = XST_FAILURE;
 	XAsu_ClientParams ClientParams = {0U};
 	XAsu_KdfParams KdfParams = {0U};
-	u8 KdfOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	u8 KdfOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {0U};
 	XAsu_KdfKatCbState KatState = {0U, (s32)XST_FAILURE};
 
 	/** Set up client parameters with KAT callback. */

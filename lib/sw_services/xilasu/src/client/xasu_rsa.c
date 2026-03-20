@@ -543,10 +543,10 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_256_HASH_LEN) &&
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_SHAKE_256_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_384_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_512_HASH_LEN) &&
-	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_SHAKE_256_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_MAX_HASH_LEN) &&
 	    (RsaClientParamPtr->InputDataType == XASU_RSA_HASHED_INPUT_DATA)) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -639,10 +639,10 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_256_HASH_LEN) &&
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_SHAKE_256_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_384_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_512_HASH_LEN) &&
-	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_SHAKE_256_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_MAX_HASH_LEN) &&
 	    (RsaClientParamPtr->InputDataType == XASU_RSA_HASHED_INPUT_DATA)) {
 		Status = XASU_INVALID_ARGUMENT;

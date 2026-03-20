@@ -63,10 +63,9 @@ extern "C" {
 #define XASU_SHA3_TYPE				(0x03U) /**< SHA3 type */
 
 /* SHA hash lengths */
-#define XASU_SHA_256_HASH_LEN			(32U) /**< SHA2/3 256 hash length */
+#define XASU_SHA_SHAKE_256_HASH_LEN		(32U) /**< SHA2/3 256 and SHAKE 256 hash length */
 #define XASU_SHA_384_HASH_LEN			(48U) /**< SHA2/3 384 hash length */
 #define XASU_SHA_512_HASH_LEN			(64U) /**< SHA2/3 512 hash length */
-#define XASU_SHAKE_256_HASH_LEN			(32U) /**< SHAKE 256 hash length */
 #define XASU_SHAKE_256_MAX_HASH_LEN		(136U) /**< SHAKE 256 maximum hash length */
 
 /** @} */
@@ -139,7 +138,7 @@ static inline s32 XAsu_ShaValidateHashLen(u8 ShaMode, u32 HashLen)
 	volatile s32 Status = XST_FAILURE;
 
 	if ((((ShaMode == XASU_SHA_MODE_256) &&
-	    (HashLen != XASU_SHA_256_HASH_LEN)) ||
+	    (HashLen != XASU_SHA_SHAKE_256_HASH_LEN)) ||
 	    ((ShaMode == XASU_SHA_MODE_384) &&
 	    (HashLen != XASU_SHA_384_HASH_LEN)) ||
 	    ((ShaMode == XASU_SHA_MODE_512) &&

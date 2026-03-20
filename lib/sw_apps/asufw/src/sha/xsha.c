@@ -21,7 +21,7 @@
  *                     for every update
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
- *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
+ *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_SHAKE_256_HASH_LEN
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's
  *       ma   01/15/25 Minor updates to XSha_GetHashLen API
@@ -460,7 +460,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 	   (HashBufSize != InstancePtr->ShaDigestSize)) ||
 	   ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
 	   (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-	   ((HashBufSize < XASU_SHA_256_HASH_LEN) ||
+	   ((HashBufSize < XASU_SHA_SHAKE_256_HASH_LEN) ||
 	   (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN)))) {
 		Status = XASUFW_SHA_INVALID_HASH_SIZE;
 		goto END;
@@ -585,10 +585,21 @@ END:
 s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if (HashLen == NULL) {
+		Status = XASUFW_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Update HashLen */
+	*HashLen = 0U;
 	switch (ShaMode) {
+		/* SHAKE-256 Mode */
+		case XASU_SHA_MODE_SHAKE256:
 		/* SHA2-256 Mode */
 		case XASU_SHA_MODE_256:
-			*HashLen = XASU_SHA_256_HASH_LEN;
+			*HashLen = XASU_SHA_SHAKE_256_HASH_LEN;
 			Status = XASUFW_SUCCESS;
 			break;
 		/* SHA2-384 Mode */
@@ -601,17 +612,13 @@ s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
 			*HashLen = XASU_SHA_512_HASH_LEN;
 			Status = XASUFW_SUCCESS;
 			break;
-		/* SHAKE-256 Mode */
-		case XASU_SHA_MODE_SHAKE256:
-			*HashLen  = XASU_SHAKE_256_HASH_LEN;
-			Status = XASUFW_SUCCESS;
-			break;
 		/* Invalid Mode */
 		default:
 			Status = XASUFW_SHA_INVALID_SHA_MODE;
 			break;
 	}
 
+END:
 	return Status;
 }
 
@@ -655,7 +662,7 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 	switch (ShaMode) {
 		/* SHA2-256 Mode */
 		case XASU_SHA_MODE_256:
-			InstancePtr->ShaDigestSize = XASU_SHA_256_HASH_LEN;
+			InstancePtr->ShaDigestSize = XASU_SHA_SHAKE_256_HASH_LEN;
 			InstancePtr->ShaMode = XASU_SHA_MODE_256;
 			break;
 		/* SHA2-384 Mode */
@@ -673,7 +680,7 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 			if (InstancePtr->ShaType == XASU_XSHA_0_TYPE) {
 				Status = XASUFW_SHA_INVALID_SHA_TYPE;
 			} else {
-				InstancePtr->ShaDigestSize = XASU_SHAKE_256_HASH_LEN;
+				InstancePtr->ShaDigestSize = XASU_SHA_SHAKE_256_HASH_LEN;
 				InstancePtr->ShaMode = XASU_SHA_MODE_SHAKE256;
 			}
 			break;
@@ -716,6 +723,14 @@ END:
 s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if ((BlockLen == NULL) || (InstancePtr == NULL)) {
+		Status = XASUFW_SHA_INVALID_PARAM;
+	    goto END;
+	}
+
+	/** Update BlockLen */
 	*BlockLen = 0U;
 
 	switch (InstancePtr->ShaType) {
@@ -769,6 +784,7 @@ s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
 			break;
 	}
 
+END:
 	return Status;
 }
 
@@ -905,7 +921,6 @@ static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen)
 					((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);
 		}
 	}
-
 	Status = XASUFW_SUCCESS;
 
 END:
