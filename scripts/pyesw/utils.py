@@ -773,11 +773,13 @@ def verify_tool_path(tool_name, version=False, version_flag="--version"):
         # Get version if requested
         if version:
             try:
-                version_output = subprocess.check_output(
-                    [tool_name, version_flag],
-                    stderr=subprocess.STDOUT,
-                    text=True
-                ).strip().split('\n')[0]
+                version_output = (
+                    subprocess.check_output(
+                        [tool_name, version_flag], stderr=subprocess.STDOUT, text=True
+                    )
+                    .strip()
+                    .split("\n")[0]
+                )
                 logger.info(f"{tool_name} version: {version_output}")
             except subprocess.CalledProcessError as e:
                 logger.info(f"Could not get {tool_name} version: {e}")
@@ -788,3 +790,18 @@ def verify_tool_path(tool_name, version=False, version_flag="--version"):
         logger.info(f"Could not find {tool_name} in PATH.")
         logger.info(f"Current PATH: {os.environ.get('PATH', '')}")
         logger.info(f"Current LD_LIBRARY_PATH: {os.environ.get('LD_LIBRARY_PATH', '')}")
+
+
+def get_builds_embeddedsw_path(silent_discard: bool = True):
+    builds_path = os.environ.get("XILINX_VITIS", "")
+    if builds_path:
+        logger.debug(
+            "Found XILINX_VITIS in environment, checking for ESW repo inside it"
+        )
+        builds_esw_path = os.path.join(builds_path, "data", "embeddedsw")
+        if is_dir(builds_esw_path, silent_discard=True):
+            return builds_esw_path
+    if not silent_discard:
+        logger.error(f"Couldn't find the ESW repo inside {builds_path}")
+        sys.exit(1)
+    return ""

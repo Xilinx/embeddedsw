@@ -44,18 +44,21 @@ class Repo:
         if not utils.is_file(repo_yaml_path):
             if shell_esw_repo:
                 logger.info("Found ESW_REPO in environment")
-                resolve_paths([shell_esw_repo])
+                resolve_paths({"set_repo_path": [shell_esw_repo]})
             else:
-                logger.error(
-                    f"""\b
-                    Please set the Embeddedsw directory path.
-                    Usage:
-                        empyro repo -st <the ESW_REPO_PATH>
-                    For multiple esw repo paths, use below with left one having higher precedence:
-                        empyro repo -st <path_1> <path_2> ... <path_n>
-                    """
-                )
-                sys.exit(1)
+                builds_esw_path = utils.get_builds_embeddedsw_path()
+                if builds_esw_path:
+                    logger.info(f"Using EmbeddedSW path from {builds_esw_path} ...")
+                    resolve_paths({"set_repo_path": [builds_esw_path]})
+                else:
+                    logger.error(f"""\b
+                        Please set the Embeddedsw directory path.
+                        Usage:
+                            empyro repo -st <the ESW_REPO_PATH>
+                        For multiple esw repo paths, use below with left one having higher precedence:
+                            empyro repo -st <path_1> <path_2> ... <path_n>
+                        """)
+                    sys.exit(1)
 
     def get_comp_dir(self, comp_name, sdt_path=""):
         path_found = False
