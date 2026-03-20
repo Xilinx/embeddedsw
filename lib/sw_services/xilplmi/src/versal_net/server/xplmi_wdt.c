@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   05/01/2023 Fix Default PMC WDT timeout when Efuse is enabled
 *       ng   02/14/2024 removed int typecast for errors
+* 2.0   sk   03/20/2026 Fix wdt periodicity param passing to driver
 *
 * </pre>
 *
@@ -421,7 +422,7 @@ static void XPlmi_SetGWdtTimeout(u32 Time)
 		goto END;
 	}
 	XWdtTb_Stop(&PmcWdtInstance.DrvInst);
-	XWdtTb_SetGenericWdtWindowTimeOut(&PmcWdtInstance.DrvInst, Time / 2U);
+	XWdtTb_SetGenericWdtWindowTimeOut(&PmcWdtInstance.DrvInst, Time);
 	XWdtTb_Start(&PmcWdtInstance.DrvInst);
 END:
 	return;
