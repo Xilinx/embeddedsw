@@ -35,7 +35,7 @@ extern void mm_free(void *ptr);
 #include "hal_i2c.h"
 /* vvbench_image_loader provided by libvisp.a */
 #include "xvisp_ss.h"
-extern int custom_json;
+extern int tuning_json;
 
 /* Forward declarations for types from libvisp.a */
 typedef struct {
@@ -114,7 +114,6 @@ extern const EmbeddedJson *find_image_data(const char* name);
 
 extern XVisp_Ss VispSsInst[XPAR_XVISP_SS_NUM_INSTANCES];
 extern int image_len;
-extern int custom_json;
 
 #ifdef PORTING_25
 	//#include <unistd.h>  //usleep conflicting with local bsp and /proj/xbuilds
@@ -1530,15 +1529,32 @@ int VsiVvdeviceLoadSimulatorToDatabase
 	//Get submodules info from t_database
 	char manualJson[FILE_LEN];
 	char autoJson[FILE_LEN];
-	if(custom_json == 0)
+	if(tuning_json == 0)
 	{
-		strcpy(manualJson, "vvbcfg/project_json_file/manual_ext.json");
-		strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
+		/* Override JSON files based on sensorName */
+		const char *sensorName = caseCtx->instanceCfgCtx[index].sensorCfg.sensorName;
+		if (strcmp(sensorName, "ox05b1s") == 0) {
+			strcpy(autoJson, "auto_ox05b10.json");
+			strcpy(manualJson, "vvbcfg/project_json_file/manual_ext.json");
+			LOGI("Sensor %s detected, using autoJson: %s", sensorName, autoJson);
+		}
+		if (strcmp(sensorName, "ox08b40") == 0) {
+			strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
+			strcpy(manualJson, "manual_ext_0x08b40.json");
+			LOGI("Sensor %s detected, using manualJson: %s", sensorName, manualJson);
+		}
+		if (strcmp(sensorName, "ox03f10") == 0) {
+			strcpy(manualJson, "vvbcfg/project_json_file/manual_ext.json");
+			strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
+			LOGI("Sensor %s detected, using manualJson: %s, autoJson: %s", sensorName, manualJson, autoJson);
+		}
 	}
 	else {
 		strcpy(manualJson, "ext_manual.json");
 		strcpy(autoJson, "ext_auto.json");
 	}
+
+
 	char simulatorJson[FILE_LEN] = {0};
 
 	if (!caseCtx->fineTuneMode) {

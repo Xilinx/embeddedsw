@@ -44,6 +44,7 @@
  * custom_json = 1 external json will be configured
  * */
 int custom_json = 0;
+int tuning_json = 0;
 int image_len = image_raw_len;
 
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
