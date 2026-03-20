@@ -29,6 +29,7 @@
 *       pre  09/08/2025 Replaced magic number with macro
 *       sk   09/23/2025 Added additional HBMON Error ID's
 * 2.4   abh  10/17/2025 Fixed MISRA-C violations
+*       pre  03/17/2026 Removed reconfiguration skip for XPLMI_ERROR_OCP_SUBSYS_UPDATE event
 *
 * </pre>
 *
@@ -572,11 +573,6 @@ void XPlmi_ReconfigErrActions(void)
 	XPlmi_EventType NodeType;
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_ARRAY_SIZE(ErrorTable); ErrIndex++) {
-		/* Skip reconfiguration for XPLMI_ERROR_OCP_SUBSYS_UPDATE event */
-		if (ErrIndex == XPLMI_ERROR_OCP_SUBSYS_UPDATE) {
-			continue;
-		}
-
 		ErrorTable[ErrIndex].Handler = NULL;
 		if ((ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_CUSTOM)) {
 				/* Set error action to NONE for all other errors */
