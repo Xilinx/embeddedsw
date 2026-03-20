@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,41 +40,58 @@ extern "C" {
 #define VIDEO_FRAME_CRC_EN
 #endif
 
+/** Base address of Video Frame CRC peripheral */
 #define XPAR_VIDEO_FRAME_CRC_BASEADDR \
 	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
 
 /* Register Offsets */
+/** Video Frame CRC configuration register offset */
 #define VIDEO_FRAME_CRC_CONFIG			0x00
+/** Video Frame CRC value for Green/Red components register offset */
 #define VIDEO_FRAME_CRC_VALUE_G_R		0x04
+/** Video Frame CRC value for Blue component register offset */
 #define VIDEO_FRAME_CRC_VALUE_B			0x08
+/** Video Frame CRC active pixel counts register offset */
 #define VIDEO_FRAME_CRC_ACTIVE_COUNTS		0x0C
+/** Video Frame CRC misses register offset */
 #define VIDEO_FRAME_CRC_MISSES			0x10
 
+/** Video Frame CRC clear control value */
 #define VIDEO_FRAME_CRC_CLEAR			0x10
+/** Video Frame CRC pixel mode mask */
 #define VIDEO_FRAME_CRC_PXLMODE_MASK		0x7
+/** Video Frame CRC R/Y component mask */
 #define VIDEO_FRAME_CRC_R_Y_COMP_MASK		0xFFFF
+/** Video Frame CRC G/Cr component mask */
 #define VIDEO_FRAME_CRC_G_CR_COMP_MASK		0xFFFF0000
+/** Video Frame CRC B/Cb component mask */
 #define VIDEO_FRAME_CRC_B_CB_COMP_MASK		0xFFFF
+/** Video Frame CRC G/Cr component shift value */
 #define VIDEO_FRAME_CRC_G_CR_COMP_SHIFT		16
 
 /************************** Variable Declaration ****************************/
 
 /**************************** Type Definitions ******************************/
+/**
+ * Video CRC configuration structure
+ */
 typedef struct {
-	u8  TEST_CRC_CNT;
-	u8  TEST_CRC_SUPPORTED;
-	u8  TEST_CRC_START_STOP;
-	u16 Pixel_r;
-	u16 Pixel_g;
-	u16 Pixel_b;
-	u8  Mode_422;
+	u8  TEST_CRC_CNT;               /**< CRC test count */
+	u8  TEST_CRC_SUPPORTED;         /**< CRC test supported flag */
+	u8  TEST_CRC_START_STOP;        /**< CRC test start/stop control */
+	u16 Pixel_r;                    /**< Red/Y pixel component value */
+	u16 Pixel_g;                    /**< Green/Cr pixel component value */
+	u16 Pixel_b;                    /**< Blue/Cb pixel component value */
+	u8  Mode_422;                   /**< YUV 4:2:2 mode flag */
 } Video_CRC_Config;
 
 /***************** Macros (Inline Functions) Definitions ********************/
 /** @name Register access macro definitions.
   * @{
   */
+/** Read 32-bit register value */
 #define XVidFrameCrc_In32 Xil_In32
+/** Write 32-bit register value */
 #define XVidFrameCrc_Out32 Xil_Out32
 /* @} */
 

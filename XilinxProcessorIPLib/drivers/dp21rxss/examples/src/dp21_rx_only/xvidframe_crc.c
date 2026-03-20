@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,7 +47,7 @@
 *
 * This function is used to initialize the Video Frame CRC instance.
 *
-* @param    None
+* @param    VidFrameCRC is a pointer to the Video CRC configuration structure.
 *
 * @return   - XST_SUCCESS or XST_FAILURE
 *
@@ -78,11 +78,7 @@ int XVidFrameCrc_Initialize(Video_CRC_Config *VidFrameCRC)
 /*****************************************************************************/
 /**
 *
-* This function is used to initialize the Video Frame CRC instance.
-*
-* @param    None
-*
-* @return   - XST_SUCCESS or XST_FAILURE
+* This function is used to reset the Video Frame CRC instance.
 *
 * @note	    None.
 *
@@ -113,10 +109,6 @@ void XVidFrameCrc_Reset(void)
 /**
 *
 * This function reports CRC values of Video components
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		None.
 *
