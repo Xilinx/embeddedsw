@@ -192,10 +192,10 @@ em_features,0x800,3,3,3,3,3,3,0,0,CDO/IPI,Features
 em_set_action,0x801,3,3,3,3,3,3,0,0,CDO/IPI,Em Set Action
 nvm_features,0xb00,3,3,3,3,3,3,0,0,IPI,Features
 bbram_write_aes_key,0xb01,1,1,1,1,1,1,0,0,IPI,Bbram Write Aes Key
-bbram_zeroize,0xb02,1,1,1,1,1,1,0,0,IPI,Zeroize
-bbram_write_user_data,0xb03,1,1,1,1,1,1,0,0,IPI,Bbram Write User Data
+bbram_zeroize,0xb02,1,1,1,1,1,1,0,0,IPI/CDO,Zeroize
+bbram_write_user_data,0xb03,1,1,1,1,1,1,0,0,IPI/CDO,Bbram Write User Data
 bbram_read_user_data,0xb04,3,3,3,3,3,3,0,0,IPI,Bbram Read User Data
-bbram_lock_write_user_data,0xb05,1,1,1,1,1,1,0,0,IPI,Bbram Lock Write User Data
+bbram_lock_write_user_data,0xb05,1,1,1,1,1,1,0,0,IPI/CDO,Bbram Lock Write User Data
 bbram_write_aes_key_from_pload,0xb06,0,0,0,0,0,0,0,0,CDO,Bbram Write Aes Key From Pload
 efuse_write_aes_key,0xb07,1,1,1,1,1,1,0,0,IPI,Efuse Write Aes Key
 efuse_write_aes_key_from_pload,0xb08,0,0,0,0,0,0,0,0,CDO,Efuse Write Aes Key From Pload
@@ -203,20 +203,20 @@ efuse_write_ppk_hash,0xb09,1,1,1,1,1,1,0,0,IPI,Efuse Write Ppk Hash
 efuse_write_ppk_hash_from_pload,0xb0a,0,0,0,0,0,0,0,0,CDO,Efuse Write Ppk Hash From Pload
 efuse_write_iv,0xb0b,1,1,1,1,1,1,0,0,IPI,Efuse Write Iv
 efuse_write_iv_from_pload,0xb0c,0,0,0,0,0,0,0,0,CDO,Efuse Write Iv From Pload
-efuse_write_glitch_config,0xb0d,1,1,1,1,1,1,0,0,IPI,Efuse Write Glitch Config
-efuse_write_dec_only,0xb0e,1,1,1,1,1,1,0,0,IPI,Efuse Write Dec Only
-efuse_write_revocation_id,0xb0f,1,1,1,1,1,1,0,0,IPI,Efuse Write Revocation Id
-efuse_write_offchip_revoke_id,0xb10,1,1,1,1,1,1,0,0,IPI,Efuse Write Offchip Revoke Id
-efuse_write_misc_ctrl_bits,0xb11,1,1,1,1,1,1,0,0,IPI,Efuse Write Misc Ctrl Bits
-efuse_write_sec_ctrl_bits,0xb12,1,1,1,1,1,1,0,0,IPI,Efuse Write Sec Ctrl Bits
-efuse_write_misc1_ctrl_bits,0xb13,1,1,1,1,1,1,0,0,IPI,Efuse Write Misc1 Ctrl Bits
-efuse_write_boot_env_ctrl_bits,0xb14,1,1,1,1,1,1,0,0,IPI,Efuse Write Boot Env Ctrl Bits
-efuse_write_fips_info,0xb15,1,1,1,1,1,1,0,0,IPI,Efuse Write Fips Info
+efuse_write_glitch_config,0xb0d,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Glitch Config
+efuse_write_dec_only,0xb0e,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Dec Only
+efuse_write_revocation_id,0xb0f,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Revocation Id
+efuse_write_offchip_revoke_id,0xb10,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Offchip Revoke Id
+efuse_write_misc_ctrl_bits,0xb11,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Misc Ctrl Bits
+efuse_write_sec_ctrl_bits,0xb12,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Sec Ctrl Bits
+efuse_write_misc1_ctrl_bits,0xb13,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Misc1 Ctrl Bits
+efuse_write_boot_env_ctrl_bits,0xb14,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Boot Env Ctrl Bits
+efuse_write_fips_info,0xb15,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Fips Info
 efuse_write_uds_from_pload,0xb16,0,0,0,0,0,0,0,0,CDO,Efuse Write Uds From Pload
 efuse_write_dme_key_from_pload,0xb17,0,0,0,0,0,0,0,0,CDO,Efuse Write Dme Key From Pload
-efuse_write_dme_revoke,0xb18,1,1,1,1,1,1,0,0,IPI,Efuse Write Dme Revoke
-efuse_write_plm_update,0xb19,1,1,1,1,1,1,0,0,IPI,Efuse Write Plm Update
-efuse_write_boot_mode_disable,0xb1a,1,1,1,1,1,1,0,0,IPI,Efuse Write Boot Mode Disable
+efuse_write_dme_revoke,0xb18,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Dme Revoke
+efuse_write_plm_update,0xb19,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Plm Update
+efuse_write_boot_mode_disable,0xb1a,1,1,1,1,1,1,0,0,IPI/CDO,Efuse Write Boot Mode Disable
 efuse_write_crc,0xb1b,1,1,1,1,1,1,0,0,IPI,Efuse Write Crc
 efuse_write_dme_mode,0xb1c,1,1,1,1,1,1,0,0,IPI,Efuse Write Dme Mode
 efuse_write_puf_hd_from_pload,0xb1d,0,0,0,0,0,0,0,0,CDO,Efuse Write Puf Hd From Pload
