@@ -34,6 +34,7 @@
 * 5.2   se     08/24/25 Microblaze support added and processed values are
 *                       printed on milli scale.
 * 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
+*       se     03/20/26 Use static for driver instance structs
 *
 * </pre>
 *
@@ -141,13 +142,13 @@ int SysMonPsvIntrExample()
 {
 	int ret;
 	float ProcessedValue;
-	XSysMonPsv Instance;
+	static XSysMonPsv Instance;
 	XSysMonPsv *InstancePtr = &Instance;
 #if defined (ARMR5) || defined (__aarch64__)
-	XScuGic IntcInst;
+	static XScuGic IntcInst;
 #endif
 #if defined (PLATFORM_MB)
-	XIntc IntcInst;
+	static XIntc IntcInst;
 #endif
 	u32 ThresholdValue;
 	u32 Val;
