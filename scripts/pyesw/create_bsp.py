@@ -868,7 +868,7 @@ endfunction(_my_hook_end_of_configure)
 
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
     lib_list += ["standalone"]
-    #Verify the cmake and gcc before calling cmake command
+    # Verify the cmake and gcc before calling cmake command
     utils.verify_tool_path("cmake", version=True)
     utils.verify_tool_path("mb-gcc", version=True)
     if obj.app:
@@ -962,13 +962,28 @@ def main(arguments=None):
         help="Specify the processor name",
         required=True,
     )
-    required_argument.add_argument(
+    # SDT/HW input group - either -s or -hw must be provided
+    sdt_hw_group = parser.add_argument_group(
+        "SDT/Hardware platform input (one required)"
+    )
+    sdt_hw_group.add_argument(
         "-s",
         "--sdt",
         action="store",
-        help="Specify the System device-tree path (till system-top.dts file)",
-        required=True,
+        help="Specify the System device-tree path (e.g., /path/to/system-top.dts)",
+        default=None,
     )
+
+    sdt_hw_group.add_argument(
+        "-hw",
+        "--hardware",
+        action="store",
+        help=f"Enter hardware names to pick sample SDTs. Above are the available options",
+        choices=os.listdir(
+            os.path.join(utils.get_builds_embeddedsw_path(), "sample_sdt")
+        ),
+    )
+
     parser.add_argument(
         "-w",
         "--ws_dir",
@@ -989,13 +1004,11 @@ def main(arguments=None):
         "--template",
         action="store",
         default="",
-        help=textwrap.dedent(
-            f"""\
+        help=textwrap.dedent(f"""\
         Specify template app name. Available names are as below. Please note that
         these template names are maintained statically, they don't contain the custom templates.
 {'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
-        """
-        ),
+        """),
     )
     parser.add_argument(
         "-r",
@@ -1026,6 +1039,23 @@ def main(arguments=None):
 
     args = vars(parser.parse_args(arguments))
     utils.setup_log(args["verbose"])
+    if args.get("sdt"):
+        if args.get("hardware"):
+            logger.warning(
+                "Both -s/--sdt and -hw/--hardware provided. Using -s/--sdt (higher priority)."
+            )
+    elif args.get("hardware"):
+        args["sdt"] = os.path.join(
+            utils.get_builds_embeddedsw_path(),
+            "sample_sdt",
+            args["hardware"],
+            "sdt",
+            "system-top.dts",
+        )
+        logger.info(f"Using SDT from {args['sdt']}")
+    else:
+        parser.error("Either -s/--sdt or -hw/--hardware argument must be provided.")
+
     create_domain(args)
 
 
