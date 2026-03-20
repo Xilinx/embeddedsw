@@ -84,16 +84,21 @@ extern "C" {
 							  * resolution). */
 
 /* Link bandwidth and lane count setting as exposed in the RX DPCD */
+/** DPCD link bandwidth setting register offset. */
 #define XDPRXSS_DPCD_LINK_BW_SET	XDP_RX_DPCD_LINK_BW_SET
+/** DPCD lane count setting register offset. */
 #define XDPRXSS_DPCD_LANE_COUNT_SET	XDP_RX_DPCD_LANE_COUNT_SET
 
 /* Link training status for lanes 0, lane 1, lane 2 and lane 3 as exposed in
  * the RX DPCD
  */
+/** DPCD lane 0 and lane 1 status register offset. */
 #define XDPRXSS_DPCD_LANE01_STATUS	XDP_RX_DPCD_LANE01_STATUS
+/** DPCD lane 2 and lane 3 status register offset. */
 #define XDPRXSS_DPCD_LANE23_STATUS	XDP_RX_DPCD_LANE23_STATUS
 
 /* Vertical blank interrupt mask */
+/** Interrupt mask for vertical blanking period. */
 #define XDPRXSS_INTR_VBLANK_MASK	XDP_RX_INTERRUPT_MASK_VBLANK_MASK
 
 #define XDPRXSS_NUM_STREAMS		4	/**< Maximum number of
@@ -106,6 +111,63 @@ extern "C" {
 
 #define XDPRXSS_TMRCTR_RST_VAL		100000000	/**< Timer Counter
 							  *  reset value */
+/*
+ * Interrupt masks
+ */
+/** All interrupt mask - enables all interrupts */
+#define XDPRXSS_ALL_INTR_MASK			0xFFFFFFFF
+
+/*
+ * Channel coding
+ */
+/** Channel coding register offset */
+#define XDPRXSS_CHANNEL_CODING_OFFSET		0x1600
+/** 8b/10b channel coding value */
+#define XDPRXSS_8B10B_CHANNEL_CODING		0x1
+/** 128b/132b channel coding value */
+#define XDPRXSS_128B132B_CHANNEL_CODING	0x2
+
+/** CRC configuration register offset */
+#define XDPRXSS_CRC_CONFIG 			0x074
+/** CRC component 0 register offset */
+#define XDPRXSS_CRC_COMP0			0x078
+/** CRC component 1 register offset */
+#define XDPRXSS_CRC_COMP1			0x07C
+/** CRC component 2 register offset */
+#define XDPRXSS_CRC_COMP2			0x080
+
+/** CRC enable bit shift position */
+#define XDPRXSS_CRC_ENABLE_SHIFT		5
+/** CRC configuration register mask */
+#define XDPRXSS_CRC_CONFIG_MASK		0x2F
+/*
+ * Link quality and PRBS error counters
+ */
+/** Link quality configuration register offset */
+#define XDPRXSS_DPC_LINK_QUAL_CONFIG		0x454
+/** Lanes 0-1 PRBS counter register offset */
+#define XDPRXSS_DPC_L01_PRBS_CNTR_OFFSET	0x45C
+/** Lanes 2-3 PRBS counter register offset */
+#define XDPRXSS_DPC_L23_PRBS_CNTR_OFFSET	0x460
+
+/** Lane PRBS counter valid bit mask */
+#define XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK	0x8000
+/** Link quality PRBS mode mask */
+#define XDPRXSS_DPC_LINK_QUAL_PRBS_MASK	0x7
+/** Link quality PRBS mode value */
+#define XDPRXSS_DPC_LINK_QUAL_PRBS		0x3
+
+/** CDR timeout mask */
+#define XDPRXSS_CDR_TIMEOUT_MASK		0x000FFFFF
+/** User FIFO overflow for stream 1 mask */
+#define XDPRXSS_USER_FIFO_OVERFLOW_STREAM1_MASK	0x00000111
+
+/** Soft reset AUX bit shift position */
+#define XDPRXSS_SOFT_RESET_AUX_SHIFT		7
+/** Vertical frequency low register offset */
+#define XDPRXSS_VFreqL_OFFSET			0x1608
+/** Vertical frequency high register offset */
+#define XDPRXSS_VFreqH_OFFSET			0x160c
 
 /**************************** Type Definitions *******************************/
 

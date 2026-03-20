@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 
@@ -17,8 +17,6 @@ collect (PROJECT_LIB_SOURCES xdprxss_dbg.c)
 collect (PROJECT_LIB_SOURCES xdprxss_g.c)
 collect (PROJECT_LIB_HEADERS xdprxss_hw.h)
 collect (PROJECT_LIB_SOURCES xdprxss_intr.c)
-collect (PROJECT_LIB_SOURCES xdprxss_mcdp6000.c)
-collect (PROJECT_LIB_HEADERS xdprxss_mcdp6000.h)
 collect (PROJECT_LIB_SOURCES xdprxss_selftest.c)
 collect (PROJECT_LIB_SOURCES xdprxss_sinit.c)
 collect (PROJECT_LIB_SOURCES xdprxss.c)

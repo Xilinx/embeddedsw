@@ -122,6 +122,35 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/* XDPRXSS wrapper macros for XDP_RX register offsets - only used ones */
+/** DPCD link bandwidth set register */
+#define XDPRXSS_DPCD_LINK_BW_SET	XDP_RX_DPCD_LINK_BW_SET
+/** User FIFO overflow register */
+#define XDPRXSS_USER_FIFO_OVERFLOW	XDP_RX_USER_FIFO_OVERFLOW
+/** Line reset disable register */
+#define XDPRXSS_LINE_RESET_DISABLE	XDP_RX_LINE_RESET_DISABLE
+/** Minimum voltage swing register */
+#define XDPRXSS_MIN_VOLTAGE_SWING	XDP_RX_MIN_VOLTAGE_SWING
+/** CDR control configuration register */
+#define XDPRXSS_CDR_CONTROL_CONFIG	XDP_RX_CDR_CONTROL_CONFIG
+/** MSA MISC0 register */
+#define XDPRXSS_MSA_MISC0		XDP_RX_MSA_MISC0
+
+/* XDPRXSS wrapper macros for XDP_RX interrupt masks - only used ones */
+/** Info packet interrupt mask */
+#define XDPRXSS_INTERRUPT_MASK_INFO_PKT_MASK	XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK
+/** Vertical blanking interrupt mask */
+#define XDPRXSS_INTERRUPT_MASK_VBLANK_MASK	XDP_RX_INTERRUPT_MASK_VBLANK_MASK
+/** ACT RX interrupt mask */
+#define XDPRXSS_INTERRUPT_MASK_ACT_RX_MASK	XDP_RX_INTERRUPT_MASK_ACT_RX_MASK
+/** All interrupts mask */
+#define XDPRXSS_INTERRUPT_MASK_ALL_MASK		XDP_RX_INTERRUPT_MASK_ALL_MASK
+#define XDPRXSS_INTERRUPT1_MASK_MST_ALL		0x3FFFF	/**< MST stream interrupts (all 18 bits) */
+
+/* XDPRXSS wrapper macros for XDP_RX CDR control config - only used ones */
+/** CDR control config TDLOCK DP159 */
+#define XDPRXSS_CDR_CONTROL_CONFIG_TDLOCK_DP159	XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159
+
 
 /**************************** Type Definitions *******************************/
 /**
@@ -334,6 +363,16 @@ typedef struct {
 	u8 NumOfStreams;	/**< The total number of MST streams */
 } XDpRxSs_UsrOpt;
 
+/*
+ * User input structure for DpRxSs setup
+ */
+typedef struct {
+    u32 BsIdleTimeout;      /**< Blank screen idle timeout value */
+    u8  AuxClkDeferCount;   /**< AUX clock defer count for link status reads */
+    u8  CrcEnable;          /**< CRC enable flag (1=enabled, 0=disabled) */
+    u8  ChannelCoding;      /**< Channel coding: 8b/10b or 128b/132b */
+} XDpRxSs_UserConfig;
+
 /**
 * DisplayPort Sub-core structure.
 */
@@ -375,7 +414,7 @@ typedef struct {
 	XIic_Config IicConfig;	/**< IIC core configuration
 				  *  information */
 #else
-	XDpRxSs_IicDummySubCoreConfig	XIicConfig;
+	XDpRxSs_IicDummySubCoreConfig	XIicConfig;	/**< Dummy IIC configuration */
 #endif
 } XDpRxSs_IicSubCore;
 
@@ -460,8 +499,8 @@ typedef struct {
 				  *  by this core instance. */
 	u8 ColorFormat;		/**< Type of color format supported by this
 				  *  core instance. */
-	u8 IncludeAxiIic;  	/** < axi i2c support > */
-	u8 IncludeClkWiz;	/** < clocking wizard support for dec_clk > */
+	u8 IncludeAxiIic;  	/**< AXI IIC support flag */
+	u8 IncludeClkWiz;	/**< Clocking wizard support for dec_clk */
 
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
@@ -469,7 +508,7 @@ typedef struct {
 	XDpRxSs_ClkWizSubCore ClkWizSubCore; /**< Clocking Wizard Configuration*/
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
-	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;
+	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;	/**< HDCP 2.2 Configuration */
 #ifdef SDT
 	u32 IntrId[5];
 	UINTPTR IntrParent;
@@ -557,10 +596,10 @@ typedef struct {
 	u32 ceRequestValue; 	/**< To keep track of previous value and
 				  *  used to compare with current value*/
 	u8 ltState; 		/**< To check if current LT is in CR or CE */
-	u8 prevLinkRate;
-	u8 prevLaneCounts;
-	u8 link_up_trigger;
-	u8 no_video_trigger;
+	u8 prevLinkRate;	/**< Previous link rate value */
+	u8 prevLaneCounts;	/**< Previous lane count value */
+	u8 link_up_trigger;	/**< Link up trigger flag */
+	u8 no_video_trigger;	/**< No video trigger flag */
 	XDpRxSs_HdcpProtocol HdcpProtocol; /**< HDCP protocol selected */
 #if ((XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0))
 	u8 HdcpIsReady;			/**< HDCP ready flag */
@@ -572,7 +611,8 @@ typedef struct {
 #endif
 	u8 *EdidDataPtr[XDP_MAX_NPORTS];/**< Pointer to EDID Data */
 	u16 EdidSize[XDP_MAX_NPORTS];	/**< Size of EDID Data */
-	UINTPTR clk_wiz_abs_addr;
+	UINTPTR EdidBaseAddr;		/**< BaseAddress of Edid */
+	UINTPTR clk_wiz_abs_addr;	/**< Clock Wizard absolute base address */
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -589,8 +629,6 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		C-style signature:
 *		void XDpRxSs_DtgEnable(XDpRxSs *InstancePtr)
 *
@@ -604,7 +642,6 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		C-style signature:
 *		void XDpRxSs_DtgDisable(XDpRxSs *InstancePtr)
@@ -619,7 +656,6 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		C-style signature:
 *		void XDpRxSs_AudioEnable(XDpRxSs *InstancePtr)
@@ -634,8 +670,6 @@ typedef struct {
 * This function macro disables audio stream packets on the main link.
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
 *
 * @note		C-style signature:
 *		void XDpRxSs_AudioDisable(XDpRxSs *InstancePtr)
@@ -652,8 +686,6 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		C-style signature:
 *		void XDpRxSs_AudioReset(XDpRxSs *InstancePtr)
 *
@@ -667,8 +699,6 @@ typedef struct {
  * This function macro enable the stream address
  *
  * @param	StreamId is zero for SST, veries for MST.
- *
- * @return	None.
  *
  * @note		C-style signature:
  *		XDP_RX_STREAM_MSA_OFFSET(StreamNumber)
@@ -715,14 +745,318 @@ typedef struct {
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 * @param	MicroSeconds is the number of microseconds to delay/sleep for.
 *
-* @return	None.
-*
 * @note		C-style signature:
-*		void XDpRxSs_WaitUs(XDpRxSs *InstancePtr)
+*		void XDpRxSs_WaitUs(XDpRxSs *InstancePtr, u32 MicroSeconds)
 *
 *******************************************************************************/
 #define XDpRxSs_WaitUs(InstancePtr, MicroSeconds) \
 	XDp_WaitUs((InstancePtr)->DpPtr, MicroSeconds)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro Enables/Disables the Dp Rx link.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Enable is to enable/disable the Dp Rx link.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void DpRxSs_RxEnable(XDpRxSs *InstancePtr, u32 Enable)
+ *
+ ******************************************************************************/
+#define DpRxSs_RxEnable(InstancePtr, Enable)				       \
+	XDp_WriteReg((InstancePtr)->DpPtr->Config.BaseAddr, XDP_RX_LINK_ENABLE,\
+		     Enable)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro provides link Quality of Dp Rx lane.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       Link quality of lane.
+ *
+ * @note         C-style signature:
+ *               u8 DpRxSs_GetLinkQualLane(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define DpRxSs_GetLinkQualLane(InstancePtr)				\
+	(u8)(XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,		\
+			 XDPRXSS_DPC_LINK_QUAL_CONFIG) &		\
+	     XDPRXSS_DPC_LINK_QUAL_PRBS_MASK)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro provides user fifo overflow status.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       user fifo overflow status.
+ *
+ * @note         C-style signature:
+ *               u8 XDpRxSs_UserFifoOverflowStatus(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpRxSs_UserFifoOverflowStatus(InstancePtr)			\
+	(XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,		\
+		     XDP_RX_USER_FIFO_OVERFLOW))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro provides RX line reset disable status.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       RX line reset disable status.
+ *
+ * @note         C-style signature:
+ *               u32 XDpRxSs_GetRxResetDisable(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpRxSs_GetRxResetDisable(InstancePtr)			\
+	(XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,		\
+		     XDP_RX_LINE_RESET_DISABLE))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro provides the contents of DPCD registers
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       DPCD registers content.
+ *
+ * @note         C-style signature:
+ *               u8 XDpRxSs_GetRxMstAlloc(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpRxSs_GetRxMstAlloc(InstancePtr)				\
+	(XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,		\
+		     XDP_RX_MST_ALLOC))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro provides Rx Audio info data.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Index of the registers.
+ *
+ * @return       Rx audio info.
+ *
+ * @note         C-style signature:
+ *               u32 DpRxSs_GetRxAudioInfo(XDpRxSs *InstancePtr, u8 Index)
+ *
+ ******************************************************************************/
+#define DpRxSs_GetRxAudioInfo(InstancePtr, Index)			\
+	(XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,		\
+		     XDP_RX_AUDIO_INFO_DATA(Index)))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro provides Rx Audio Extension packet data.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Index of the registers.
+ *
+ * @return       Rx Audio Extension packet data.
+ *
+ * @note         C-style signature:
+ *               u32 DpRxSs_GetRxAudioExtInfo(InstancePtr, Index)
+ *
+ ******************************************************************************/
+#define DpRxSs_GetRxAudioExtInfo(InstancePtr, Index)			\
+	(XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,		\
+		     XDP_RX_AUDIO_EXT_DATA(Index)))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro Update the CDR config value of Dp Rx.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        CdrConfig is combined value of CDR timeout and timeout disable.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void DpRxSs_UpdateCdrConfig(XDpRxSs *InstancePtr, u32 CdrConfig)
+ *
+ ******************************************************************************/
+#define DpRxSs_UpdateCdrConfig(InstancePtr, CdrConfig)				\
+	XDp_WriteReg((InstancePtr)->DpPtr->Config.BaseAddr,			\
+		     XDP_RX_CDR_CONTROL_CONFIG, CdrConfig)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro updates the CDR timeout value (bits [19:0]) without
+ * disturbing the Disable Training Timeout bit (bit 30).
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        TimeOutVal is the timeout value to be set (20-bit value).
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_UpdateCdrTimeOutVal(XDpRxSs *InstancePtr, u32 TimeOutVal)
+ *
+ ******************************************************************************/
+#define XDpRxSs_UpdateCdrTimeOutVal(InstancePtr, TimeOutVal)			\
+	XDp_WriteReg((InstancePtr)->DpPtr->Config.BaseAddr,			\
+		     XDP_RX_CDR_CONTROL_CONFIG,					\
+		     (XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,	\
+				  XDP_RX_CDR_CONTROL_CONFIG) & 			\
+		      ~XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_TO_MASK) |		\
+		     ((TimeOutVal) & XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_TO_MASK))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro controls the CDR Disable Training Timeout bit (bit 30).
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Disable is 1 to disable training timeout, 0 to enable it.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_CdrDisableTimeout(XDpRxSs *InstancePtr, u8 Disable)
+ *
+ ******************************************************************************/
+#define XDpRxSs_CdrDisableTimeout(InstancePtr, Disable)                             \
+    XDp_WriteReg((InstancePtr)->DpPtr->Config.BaseAddr, XDP_RX_CDR_CONTROL_CONFIG, \
+    (XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr, XDP_RX_CDR_CONTROL_CONFIG) \
+    & ~XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT)                                  \
+    | ((Disable) ? XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT : 0u))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro Reset the AUX logic from Dp RX.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        AuxReset is AUX logic reset value.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_AuxReset(XDpRxSs *InstancePtr, u8 AuxReset)
+ *
+ ******************************************************************************/
+#define XDpRxSs_AuxReset(InstancePtr, AuxReset)					\
+	XDp_WriteReg((InstancePtr)->DpPtr->Config.BaseAddr,			\
+		     XDP_RX_SOFT_RESET,						\
+		     ((XDp_ReadReg((InstancePtr)->DpPtr->Config.BaseAddr,	\
+		       XDP_RX_SOFT_RESET) & (~XDP_RX_SOFT_RESET_AUX_MASK))	\
+		      | (AuxReset << XDPRXSS_SOFT_RESET_AUX_SHIFT)))
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro generates HPD (Hot-Plug-Detect) pulse interrupt.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        DurationUs is the duration of the HPD pulse in microseconds.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_GenerateHpdInterrupt(XDpRxSs *InstancePtr, u32 DurationUs)
+ *
+ ******************************************************************************/
+#define XDpRxSs_GenerateHpdInterrupt(InstancePtr, DurationUs)	\
+	XDp_RxGenerateHpdInterrupt((InstancePtr)->DpPtr, DurationUs)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro enables RX interrupt.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Mask is the interrupt mask to enable.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_RxInterruptEnable(XDpRxSs *InstancePtr, u32 Mask)
+ *
+ ******************************************************************************/
+#define XDpRxSs_RxInterruptEnable(InstancePtr, Mask)	\
+	XDp_RxInterruptEnable((InstancePtr)->DpPtr, Mask)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro disables RX interrupt.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Mask is the interrupt mask to disable.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_RxInterruptDisable(XDpRxSs *InstancePtr, u32 Mask)
+ *
+ ******************************************************************************/
+#define XDpRxSs_RxInterruptDisable(InstancePtr, Mask)	\
+	XDp_RxInterruptDisable((InstancePtr)->DpPtr, Mask)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro enables RX interrupt (Interrupt Enable 1 register).
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Mask is the interrupt mask to enable.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_RxInterruptEnable1(XDpRxSs *InstancePtr, u32 Mask)
+ *
+ ******************************************************************************/
+#define XDpRxSs_RxInterruptEnable1(InstancePtr, Mask)	\
+	XDp_RxInterruptEnable1((InstancePtr)->DpPtr, Mask)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro disables RX interrupt (Interrupt Enable 1 register).
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param        Mask is the interrupt mask to disable.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_RxInterruptDisable1(XDpRxSs *InstancePtr, u32 Mask)
+ *
+ ******************************************************************************/
+#define XDpRxSs_RxInterruptDisable1(InstancePtr, Mask)	\
+	XDp_RxInterruptDisable1((InstancePtr)->DpPtr, Mask)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro allocates payload stream for MST mode.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_RxAllocatePayloadStream(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpRxSs_RxAllocatePayloadStream(InstancePtr)	\
+	XDp_RxAllocatePayloadStream((InstancePtr)->DpPtr)
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define XDpRxSs_Printf		XHdcp1x_Printf	/**< Debug printf */
@@ -732,6 +1066,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 #ifndef SDT
 /* Initialization function in xdprxss_sinit.c */
+/** Looks up the device configuration based on the unique device ID. */
 XDpRxSs_Config* XDpRxSs_LookupConfig(u16 DeviceId);
 #else
 XDpRxSs_Config *XDpRxSs_LookupConfig(UINTPTR BaseAddress);
@@ -741,12 +1076,16 @@ u32 XDpRxSs_GetDrvIndex(UINTPTR BaseAddress);
 u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr);
 u32 XDpRxSs_Start(XDpRxSs *InstancePtr);
+void XDpRxSs_Setup(XDpRxSs *InstancePtr, XDpRxSs_UserConfig *UserConfigPtr);
+void DpRxSs_UpdatePrbsErrCouters(XDpRxSs *InstancePtr, u16 Lane0, u16 Lane1,
+				 u16 Lane2, u16 Lane3);
 void XDpRxSs_Reset(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SetLinkRate(XDpRxSs *InstancePtr, u8 LinkRate);
 u32 XDpRxSs_SetLaneCount(XDpRxSs *InstancePtr, u8 LaneCount);
 u32 XDpRxSs_ExposePort(XDpRxSs *InstancePtr, u8 Port);
 u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr);
+void XDpRxSs_HandleActRxInterrupts(XDpRxSs *InstancePtr);
 void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth);
 u8 XDpRxss_GetBpc(XDpRxSs *InstancePtr, u8 Stream);
 u8 XDpRxss_GetColorComponent(XDpRxSs *InstancePtr, u8 Stream);
@@ -776,13 +1115,23 @@ u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr);
 void XDpRxSs_HandleTimeout(XDpRxSs *InstancePtr);
 #endif
 
+/** Reports information about the DisplayPort RX Subsystem cores. */
 void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr);
+/** Reports information about the current link status. */
 void XDpRxSs_ReportLinkInfo(XDpRxSs *InstancePtr);
+/** Reports Main Stream Attribute (MSA) information. */
 void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr);
+/**
+ * Reports DP159 bit error count.
+ * @param InstancePtr is a pointer to the XDpRxSs core instance.
+ */
 void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr);
+/** Reports HDCP information and status. */
 void XDpRxSs_ReportHdcpInfo(XDpRxSs *InstancePtr);
+u32 XDpRxSs_GetLinkRate(XDpRxSs *InstancePtr);
 
 /* Self test function in xdprxss_selftest.c */
+/** Runs a self-test on the DisplayPort RX Subsystem. */
 u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr);
 
 /* Interrupt functions in xdprxss_intr.c */
@@ -808,11 +1157,11 @@ void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 int XDpRxSs_GetVblank(XDpRxSs *InstancePtr, u8 Stream);
 int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr, u8 Stream);
-XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst);
+XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst);
 int XDpRxSs_GetVideoStream(XDpRxSs *InstancePtr, XVidC_VideoStream *VideoStream,
 			   u8 Stream);
 u8 XDpRxss_GetInterlace(XDpRxSs *InstancePtr, u8 Stream);
-void XDpRxSs_McDp6000_init(void *InstancePtr);
+void XDpRxSs_MstEnable(XDpRxSs *InstancePtr, u8 Enable);
 
 #if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr);

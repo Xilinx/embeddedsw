@@ -71,81 +71,136 @@
 
 #include "xdprxss.h"
 #include "xdp_hw.h"
-#include "xdprxss_mcdp6000.h"
 #include "string.h"
 #include "xdebug.h"
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
-extern u32 MCDP6000_IC_Rev;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/** EDID IIC slave address */
 #define EDID_IIC_ADDRESS	0x50
 
+/* EDID Configuration */
+/** EDID total size in bytes */
+#define EDID_SIZE_BYTES		384
+/** EDID block size */
+#define EDID_BLOCK_SIZE		16
+/** EDID word size in bytes */
+#define EDID_WORD_SIZE		4
+
 /* Clock Wizard registers */
+/** Clock Wizard software reset register offset */
 #define XCLK_WIZ_SWRST_OFFSET	0x00000000
+/** Clock Wizard software reset value */
 #define XCLK_WIZ_SWRST_VAL	0x0A
+/** Clock Wizard status register offset */
 #define XCLK_WIZ_STATUS_OFFSET	0x00000004
+/** Clock Wizard interrupt status register offset */
 #define XCLK_WIZ_ISR_OFFSET	0x0000000C
+/** Clock Wizard interrupt enable register offset */
 #define XCLK_WIZ_IER_OFFSET	0x00000010
+/** Clock Wizard reconfiguration register offset */
 #define XCLK_WIZ_RECONFIG_OFFSET	0x00000014
+/** Clock Wizard reconfiguration value */
 #define XCLK_WIZ_RECONFIG_VAL	0x03
+/** Clock Wizard register 1 offset */
 #define XCLK_WIZ_REG1_OFFSET	0x00000330
+/** Clock Wizard register 2 offset */
 #define XCLK_WIZ_REG2_OFFSET	0x00000334
+/** Clock Wizard register 3 offset */
 #define XCLK_WIZ_REG3_OFFSET	0x00000338
+/** Clock Wizard register 4 offset */
 #define XCLK_WIZ_REG4_OFFSET	0x0000033C
+/** Clock Wizard register 12 offset */
 #define XCLK_WIZ_REG12_OFFSET	0x00000380
+/** Clock Wizard register 13 offset */
 #define XCLK_WIZ_REG13_OFFSET	0x00000384
+/** Clock Wizard register 11 offset */
 #define XCLK_WIZ_REG11_OFFSET	0x00000378
+/** Clock Wizard register 11 value */
 #define XCLK_WIZ_REG11_VAL	0x2E
+/** Clock Wizard register 14 offset */
 #define XCLK_WIZ_REG14_OFFSET	0x00000398
+/** Clock Wizard register 14 value */
 #define XCLK_WIZ_REG14_VAL	0xE80
+/** Clock Wizard register 15 offset */
 #define XCLK_WIZ_REG15_OFFSET	0x0000039C
+/** Clock Wizard register 15 value */
 #define XCLK_WIZ_REG15_VAL	0x4271
+/** Clock Wizard register 16 offset */
 #define XCLK_WIZ_REG16_OFFSET	0x000003A0
+/** Clock Wizard register 16 value */
 #define XCLK_WIZ_REG16_VAL	0x43E9
+/** Clock Wizard register 17 offset */
 #define XCLK_WIZ_REG17_OFFSET	0x000003A8
+/** Clock Wizard register 17 value */
 #define XCLK_WIZ_REG17_VAL	0x1C
+/** Clock Wizard register 19 offset */
 #define XCLK_WIZ_REG19_OFFSET	0x000003CC
+/** Clock Wizard register 25 offset */
 #define XCLK_WIZ_REG25_OFFSET	0x000003F0
+/** Clock Wizard register 26 offset */
 #define XCLK_WIZ_REG26_OFFSET	0x000003FC
+/** Clock Wizard register 26 value */
 #define XCLK_WIZ_REG26_VAL	0x01
 
 /* Lock */
+/** Clock Wizard lock bit */
 #define XCLK_WIZ_LOCK			1
+/** Clock Wizard register 3 pre-divider 2 bit */
 #define XCLK_WIZ_REG3_PREDIV2		(1 << 11)
+/** Clock Wizard register 3 used bit */
 #define XCLK_WIZ_REG3_USED		(1 << 12)
+/** Clock Wizard register 3 MX bit */
 #define XCLK_WIZ_REG3_MX		(1 << 9)
+/** Clock Wizard register 1 pre-divider 2 bit */
 #define XCLK_WIZ_REG1_PREDIV2		(1 << 12)
 /* FBout enable */
+/** Clock Wizard register 1 enable bit */
 #define XCLK_WIZ_REG1_EN		(1 << 9)
+/** Clock Wizard register 1 MX bit */
 #define XCLK_WIZ_REG1_MX		(1 << 10)
+/** Clock Wizard reconfiguration load bit */
 #define XCLK_WIZ_RECONFIG_LOAD		1
+/** Clock Wizard reconfiguration start address bit */
 #define XCLK_WIZ_RECONFIG_SADDR		2
+/** Clock Wizard register 1 edge mask */
 #define XCLK_WIZ_REG1_EDGE_MASK		(1 << 8)
 
+/** Clock Wizard CLKOUT0 pre-divider 2 shift */
 #define XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT	11
+/** Clock Wizard CLKOUT0 MX shift */
 #define XCLK_WIZ_CLKOUT0_MX_SHIFT	9
+/** Clock Wizard CLKOUT0 P5 enable shift */
 #define XCLK_WIZ_CLKOUT0_P5EN_SHIFT	13
+/** Clock Wizard CLKOUT0 P5 falling edge shift */
 #define XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT	15
+/** Clock Wizard register 12 edge shift */
 #define XCLK_WIZ_REG12_EDGE_SHIFT	10
 
+/** M value for 4.05 Gbps link rate */
 #define M_VAL_405	28
+/** M value for 2.70 Gbps link rate */
 #define M_VAL_270	44
+/** M value for 1.35 Gbps link rate */
 #define M_VAL_135	88
+/** M value for 0.81 Gbps link rate */
 #define M_VAL_81	148
+/** D value for all link rates */
 #define D_VAL_ALL	5
 
+/** Clock Wizard status check retry count */
 #define XCLK_WIZ_STATUS_RETRY	10000
+/** Clock Wizard status check wait time in microseconds */
 #define XCLK_WIZ_STATUS_WAIT	100
 
 /**************************** Type Definitions *******************************/
 
 /* Subsystem sub-core's structure includes instances of each sub-core */
 typedef struct {
-	XDp DpInst;
+	XDp DpInst;		/**< DisplayPort RX core instance */
 #ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic IicInst;
 #endif
@@ -162,6 +217,8 @@ typedef struct {
 #endif
 } XDpRxSs_SubCores;
 
+/************************** Constant Definitions *****************************/
+#define VBLANK_WAIT_COUNT_THRESHOLD    200  /**< VBlank interrupt disable threshold */
 /************************** Function Prototypes ******************************/
 #ifndef SDT
 static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr);
@@ -170,10 +227,17 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr,
                                  UINTPTR BaseAddress);
 #endif
 static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr);
+static void DpRxSs_EnableTrainingInterrupts(XDp *DpPtr);
 static void StubTp1Callback(void *InstancePtr);
 static void StubTp2Callback(void *InstancePtr);
 static void StubUnplugCallback(void *InstancePtr);
 static void StubAccessLaneSetCallback(void *InstancePtr);
+static void XDpRxSs_StubTrainingDoneCallback(void *InstancePtr);
+static void XDpRxSs_StubTrainingLostCallback(void *InstancePtr);
+static void XDpRxSs_StubVBlankCallback(void *InstancePtr);
+static void XDpRxSs_StubInfoPacketCallback(void *InstancePtr);
+static void XDpRxSs_StubPayloadAllocCallback(void *InstancePtr);
+static void XDpRxSs_StubNoVideoCallback(void *InstancePtr);
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static int DpRxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
@@ -193,6 +257,16 @@ static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
 static int XDpRxSs_HdcpReset(XDpRxSs *InstancePtr);
 #endif
 
+/*****************************************************************************/
+/**
+*
+* This function sets the decoder clock for the DP RX Subsystem.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @note		None.
+*
+******************************************************************************/
 static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -383,8 +457,19 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				StubTp2Callback, (void *)InstancePtr);
 		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
 				StubUnplugCallback, (void *)InstancePtr);
-		if ((InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4)
-		   || (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1)) {
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TRAININGDONE,
+				XDpRxSs_StubTrainingDoneCallback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TRAININGLOST,
+				XDpRxSs_StubTrainingLostCallback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_NOVIDEO,
+				XDpRxSs_StubNoVideoCallback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_VBLANK,
+				XDpRxSs_StubVBlankCallback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_AUD_INFOPKTRECV,
+				XDpRxSs_StubInfoPacketCallback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_PAYLOADALLOC,
+				XDpRxSs_StubPayloadAllocCallback, (void *)InstancePtr);
+		if ((InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1)) {
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP4,
 					StubTp2Callback, (void *)InstancePtr);
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_ACCESS_LANE_SET,
@@ -580,6 +665,24 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				XDpRxSs_DrvVideoHandler, InstancePtr);
 	XDpRxSs_SetCallBack(InstancePtr, XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT,
 				XDpRxSs_DrvPowerChangeHandler, InstancePtr);
+
+	/*
+	 * Set Link rate and lane count to maximum.
+	 */
+	Status = XDpRxSs_SetLinkRate(InstancePtr, XDPRXSS_LINK_BW_SET_810GBPS);
+	if (Status!= XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL, "Failed to set 8.1 Link rate\n\r");
+	}
+
+	XDpRxSs_SetLaneCount(InstancePtr, XDPRXSS_LANE_COUNT_SET_4);
+
+	/*
+	 * Initialize DisplayPort RX core.
+	 */
+	Status = XDpRxSs_Start(InstancePtr);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
 	return XST_SUCCESS;
 }
 
@@ -673,6 +776,162 @@ u32 XDpRxSs_Start(XDpRxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This static function sets the EDID data to the EDID memory.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs instance.
+*
+*
+* @note		None.
+*
+******************************************************************************/
+static void DpRxSs_SetEdid(XDpRxSs *InstancePtr)
+{
+	int i;
+	int j;
+
+	/*
+	 * Check if EDID data and base address are valid
+	 */
+	if ((InstancePtr->EdidDataPtr[0] != NULL) &&
+	    (InstancePtr->EdidBaseAddr != 0)) {
+
+		for (i = 0 ; i < (EDID_SIZE_BYTES * EDID_WORD_SIZE) ; i = i + (EDID_BLOCK_SIZE * EDID_WORD_SIZE)) {
+			for (j = i ; j < (i + (EDID_BLOCK_SIZE * EDID_WORD_SIZE)) ; j = j + EDID_WORD_SIZE) {
+				XDp_WriteReg(InstancePtr->EdidBaseAddr, j,
+					     InstancePtr->EdidDataPtr[0][(j / EDID_WORD_SIZE) + 1]);
+			}
+		}
+
+		for (i = 0 ; i < (EDID_SIZE_BYTES * EDID_WORD_SIZE) ; i = i + EDID_WORD_SIZE) {
+			XDp_WriteReg(InstancePtr->EdidBaseAddr, i,
+				     InstancePtr->EdidDataPtr[0][i / EDID_WORD_SIZE]);
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function setup the DisplayPort Receiver Subsystem.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	UserConfigPtr is a pointer to the XDpRxSs_UserConfig instance.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_Setup(XDpRxSs *InstancePtr, XDpRxSs_UserConfig *UserConfigPtr)
+{
+	u32 ReadVal;
+
+	/*
+	 * Verify arguments
+	 */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/*
+	 * Disable Rx
+	 */
+	DpRxSs_RxEnable(InstancePtr, 0);
+
+	/*
+	 * Configure Edid
+	 */
+	DpRxSs_SetEdid(InstancePtr);
+
+	/*
+	 * Disable All Interrupts
+	 */
+	XDp_RxInterruptDisable(InstancePtr->DpPtr, XDPRXSS_ALL_INTR_MASK);
+	XDp_RxInterruptDisable1(InstancePtr->DpPtr, XDPRXSS_ALL_INTR_MASK);
+
+	/*
+	 * Enable Training related interrupts
+	 */
+	DpRxSs_EnableTrainingInterrupts(InstancePtr->DpPtr);
+
+	/*
+	 * User need to set AUX Defer Count of Link Status Reads to 8 during Link
+	 * Training 8 Defer counts, and it is chosen to handle worst case time
+	 * interrupt service load (PL system working at 100 MHz) when
+	 * working with R5.
+	 */
+	ReadVal = XDp_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+			      XDP_RX_AUX_CLK_DIVIDER);
+	ReadVal = ReadVal & 0xF0FF00FF;
+	ReadVal = ReadVal | (UserConfigPtr->AuxClkDeferCount <<
+			     XDP_RX_AUX_DEFER_SHIFT);
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER,
+		     ReadVal);
+
+	/*
+	 * Setting BS Idle timeout value
+	 */
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+		     XDP_RX_BS_IDLE_TIME, UserConfigPtr->BsIdleTimeout);
+
+	/*
+	 * Configure CRC Support
+	 */
+
+	/*
+	 * Disabling timeout
+	 */
+	ReadVal = XDp_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+			      XDP_RX_CDR_CONTROL_CONFIG);
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_RX_CDR_CONTROL_CONFIG,
+		     ReadVal | XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT);
+
+	/*
+	 * Setting 8B10 Mode for backward compatibility
+	 */
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDPRXSS_CHANNEL_CODING_OFFSET,
+		     UserConfigPtr->ChannelCoding);
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
+
+	/*
+	 * Enable Rx
+	 */
+	DpRxSs_RxEnable(InstancePtr, 1);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function updates the PRBS error counters of DpRxss.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs instance.
+* @param	Lane0 is PRBS error counter value of Lane0.
+* @param	Lane1 is PRBS error counter value of Lane1.
+* @param	Lane2 is PRBS error counter value of Lane2.
+* @param	Lane3 is PRBS error counter value of Lane3.
+*
+* @note		None.
+*
+******************************************************************************/
+void DpRxSs_UpdatePrbsErrCouters(XDpRxSs *InstancePtr, u16 Lane0, u16 Lane1,
+				 u16 Lane2, u16 Lane3)
+{
+	/*
+	 * Write into DP Core - Validity bit and lower 15 bit counter value
+	 */
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+		     XDPRXSS_DPC_L01_PRBS_CNTR_OFFSET,
+		     (XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK | Lane0) |
+		     ((XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK | Lane1) << 16));
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+		     XDPRXSS_DPC_L23_PRBS_CNTR_OFFSET,
+		     (XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK | Lane2) |
+		     ((XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK | Lane3) << 16));
+}
+
+/*****************************************************************************/
+/**
+*
 * This function sets the data rate to be used by the DisplayPort RX Subsystem
 * core.
 *
@@ -693,21 +952,6 @@ u32 XDpRxSs_SetLinkRate(XDpRxSs *InstancePtr, u8 LinkRate)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		Xil_AssertNonvoid((LinkRate == (XDPRXSS_LINK_BW_SET_162GBPS)) ||
-				(LinkRate == (XDPRXSS_LINK_BW_SET_270GBPS)) ||
-				(LinkRate == (XDPRXSS_LINK_BW_SET_540GBPS)) ||
-				(LinkRate == (XDPRXSS_LINK_BW_SET_810GBPS)));
-
-		/* Check for maximum supported link rate */
-		if (LinkRate > InstancePtr->DpPtr->Config.MaxLinkRate) {
-			xdbg_printf((XDBG_DEBUG_GENERAL),"SS info: This link rate is "
-			"not supported by Source/Sink.\n\rMax Supported link "
-			"rate is 0x%x.\n\rSetting maximum supported link "
-			"rate.\n\r", InstancePtr->DpPtr->Config.MaxLinkRate);
-			LinkRate = InstancePtr->DpPtr->Config.MaxLinkRate;
-		}
-	}
 
 	/* Set link rate */
 	XDp_RxSetLinkRate(InstancePtr->DpPtr, LinkRate);
@@ -1046,7 +1290,7 @@ u8 XDpRxss_GetDynamicRange(XDpRxSs *InstancePtr, u8 Stream)
  *	@return		MSA Config structure
  *
  *****************************************************************************/
-XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
+XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 {
 	u8 Stream;
 	u32 DpHres = 0, i = 0;
@@ -1110,6 +1354,7 @@ XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		rxMsaNVid =
 		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
 			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_NVID);
+
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Misc0 = rxMsamisc0;
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Misc1 = rxMsamisc1;
 
@@ -1299,7 +1544,7 @@ int XDpRxSs_GetVideoStream(XDpRxSs *InstancePtr, XVidC_VideoStream *VideoStream,
 			XDP_RX_STREAM3_ADAPTIVE_VBLANK_VTOTAL,
 			XDP_RX_STREAM4_ADAPTIVE_VBLANK_VTOTAL};
 
-	Msa_Config = XDPRxss_GetMsa(InstancePtr);
+	Msa_Config = XDpRxss_GetMsa(InstancePtr);
 
 	VideoStream->Timing =
 		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].Vtm.Timing;
@@ -1352,6 +1597,33 @@ u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr)
 	Status = XDp_RxHandleDownReq(InstancePtr->DpPtr);
 
 	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function handles ACT (Allocation Change Trigger) received interrupt.
+* It performs driver-level interrupt management for MST stream changes.
+*
+* @param    InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @note     This is a driver-level function that manages interrupt enables/disables
+*           when ACT sequence is received for MST payload allocation changes.
+*
+******************************************************************************/
+void XDpRxSs_HandleActRxInterrupts(XDpRxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	XDp_RxInterruptEnable(InstancePtr->DpPtr,
+			XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
+	XDp_RxInterruptEnable1(InstancePtr->DpPtr,
+			XDPRXSS_INTERRUPT1_MASK_MST_ALL);
+
+	/* Disable ACT_RX interrupt */
+	XDp_RxInterruptDisable(InstancePtr->DpPtr,
+			XDP_RX_INTERRUPT_MASK_ACT_RX_MASK);
 }
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
@@ -1711,7 +1983,6 @@ u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 * @param	PrintfFunc is the printf function.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -1733,8 +2004,6 @@ void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 * @param	LogFunc is the debug logging function.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1789,8 +2058,6 @@ u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1818,7 +2085,6 @@ void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -1844,8 +2110,6 @@ void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 * @param	TmrCtrNumber is the number of the timer/counter within the
 *			Timer Counter core.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1878,7 +2142,6 @@ static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2034,8 +2297,6 @@ static int DpRxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs)
 *		device. The device typically contains at least two
 *		timer/counters.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2101,7 +2362,6 @@ static u32 DpRxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2222,7 +2482,6 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr, UINTPTR BaseAddress
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2318,7 +2577,6 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2330,15 +2588,6 @@ static void StubTp1Callback(void *InstancePtr)
 	/* Verify argument.*/
 	Xil_AssertVoid(DpRxSsPtr != NULL);
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		DpRxSsPtr->ltState = 1;
-		DpRxSsPtr->ceItrCounter = 0;
-
-
-	if (MCDP6000_IC_Rev == 0x3200) {
-		XDpRxSs_MCDP6000_ResetCrPath (DpRxSsPtr, XDPRXSS_MCDP6000_IIC_SLAVE);
-	}
-	}
 	/* Read link rate */
 	DpRxSsPtr->UsrOpt.LinkRate =
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
@@ -2348,13 +2597,6 @@ static void StubTp1Callback(void *InstancePtr)
 	DpRxSsPtr->UsrOpt.LaneCount =
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 			XDPRXSS_DPCD_LANE_COUNT_SET);
-
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		if (MCDP6000_IC_Rev == 0x2100) {
-			XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
-					XDPRXSS_MCDP6000_IIC_SLAVE);
-		}
-	}
 
 	/* Link bandwidth callback */
 	if (DpRxSsPtr->LinkBwCallback) {
@@ -2376,6 +2618,8 @@ static void StubTp1Callback(void *InstancePtr)
 		DpRxSsPtr->PllResetCallback(DpRxSsPtr->PllResetRef);
 	}
 
+    XDp_RxInterruptEnable(DpRxSsPtr->DpPtr, XDP_RX_INTERRUPT_MASK_ALL_MASK);
+
 	/* Set vertical blank */
 	DpRxSsPtr->VBlankEnable = 1;
 
@@ -2384,14 +2628,6 @@ static void StubTp1Callback(void *InstancePtr)
 
 	/* Set vertical blank count */
 	DpRxSsPtr->VBlankCount = 0;
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		DpRxSsPtr->prevLinkRate =
-			XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-						XDPRXSS_DPCD_LINK_BW_SET);
-		DpRxSsPtr->prevLaneCounts =
-			XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-						XDPRXSS_DPCD_LANE_COUNT_SET);
-	}
 }
 
 /*****************************************************************************/
@@ -2404,7 +2640,6 @@ static void StubTp1Callback(void *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
 *
 * @note		None.
 *
@@ -2425,11 +2660,6 @@ static void StubTp2Callback(void *InstancePtr)
 		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 				XDP_RX_SOFT_RESET, 0);
 	}
-
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		DpRxSsPtr->ltState = 2;
-		return;
-	}
 }
 
 /*****************************************************************************/
@@ -2441,8 +2671,6 @@ static void StubTp2Callback(void *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpRxSs core instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -2453,22 +2681,6 @@ static void StubUnplugCallback(void *InstancePtr)
 	/* Verify argument.*/
 	Xil_AssertVoid(DpRxSsPtr != NULL);
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		DpRxSsPtr->ltState = 0;
-		DpRxSsPtr->ceItrCounter = 0;
-		DpRxSsPtr->prevLinkRate = 0;
-		DpRxSsPtr->prevLaneCounts = 0;
-
-		if (MCDP6000_IC_Rev == 0x2100) {
-			XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr,
-					XDPRXSS_MCDP6000_IIC_SLAVE);
-		}
-
-		XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr,
-				XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
-				0x55000000, 0x55000000);
-	}
-
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected
 	 */
@@ -2478,10 +2690,81 @@ static void StubUnplugCallback(void *InstancePtr)
 	/* Generate a HPD interrupt. Bring down HPD signal for 750us */
 	XDp_RxGenerateHpdInterrupt(DpRxSsPtr->DpPtr, 750);
 
+	/*
+	 * Disable All Interrupts
+	 */
+	XDp_RxInterruptDisable(DpRxSsPtr->DpPtr, XDPRXSS_ALL_INTR_MASK);
+	XDp_RxInterruptDisable1(DpRxSsPtr->DpPtr, XDPRXSS_ALL_INTR_MASK);
+
 	/* Unplug event callback */
 	if (DpRxSsPtr->UnplugCallback) {
 		DpRxSsPtr->UnplugCallback(DpRxSsPtr->UnplugRef);
 	}
+
+	/*
+	 * Enable Training related interrupts
+	 */
+	DpRxSs_EnableTrainingInterrupts(DpRxSsPtr->DpPtr);
+
+	XDp_RxGenerateHpdInterrupt(DpRxSsPtr->DpPtr, 5000);
+}
+
+/**
+ * @brief Stub callback function for DisplayPort training done event.
+ *
+ * This function is called when DisplayPort link training is completed.
+ * It resets the Display Timing Generator (DTG) by disabling and then
+ * re-enabling it to ensure proper synchronization with the newly
+ * trained link parameters.
+ *
+ * @param InstancePtr Pointer to the XDpRxSs instance. Must be a valid
+ *                    pointer to an XDpRxSs structure, otherwise an
+ *                    assertion failure will occur.
+ *
+ * @note This is a static stub function intended to be used as a default
+ *       callback handler for training done events.
+ * @note The function assumes the InstancePtr is properly initialized.
+ */
+/*****************************************************************************/
+static void XDpRxSs_StubTrainingDoneCallback(void *InstancePtr)
+{
+    XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+    Xil_AssertVoid(DpRxSsPtr != NULL);
+
+    XDpRxSs_DtgDisable(DpRxSsPtr);
+    XDpRxSs_DtgEnable(DpRxSsPtr);
+}
+
+
+
+/**
+ * @brief Stub callback function for handling training lost events in DisplayPort RX Subsystem.
+ *
+ * This function serves as a default callback handler when DisplayPort link training is lost.
+ * It generates an HPD (Hot Plug Detect) interrupt and disables audio output to properly
+ * handle the loss of link training.
+ *
+ * @param InstancePtr Pointer to the XDpRxSs instance. This pointer is cast to XDpRxSs type
+ *                    internally and must not be NULL.
+ *
+ * @return None
+ *
+ * @note This function performs the following actions:
+ *       - Validates that the instance pointer is not NULL using assertion
+ *       - Generates a 750us HPD interrupt pulse to signal the source
+ *       - Disables audio output in the DisplayPort RX Subsystem
+ *
+ * @warning The InstancePtr parameter must be a valid pointer to an XDpRxSs structure,
+ *          otherwise an assertion failure will occur in debug builds.
+ */
+/*****************************************************************************/
+static void XDpRxSs_StubTrainingLostCallback(void *InstancePtr)
+{
+    XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+    Xil_AssertVoid(DpRxSsPtr != NULL);
+
+    XDp_RxGenerateHpdInterrupt(DpRxSsPtr->DpPtr, 750);
+    XDpRxSs_AudioDisable(DpRxSsPtr);
 }
 
 /*****************************************************************************/
@@ -2513,15 +2796,6 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 					   XDP_RX_DPCD_LANE01_STATUS);
 		read_val &= 0x0000FF00;
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		if (MCDP6000_IC_Rev==0x2100) {
-			if (DpRxSsPtr->ceRequestValue != read_val) {
-				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
-					       XDPRXSS_MCDP6000_IIC_SLAVE);
-			}
-		}
-	}
-
 		/* Update the value to be used in next round */
 		DpRxSsPtr->ceRequestValue =
 			(XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
@@ -2533,24 +2807,39 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This routine initializes the MCDP6000 part on the VFMC card used
-* for DP 1.4.
+* This function enables all training related interrupts for the DisplayPort
+* RX Subsystem.
 *
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	DpPtr is a pointer to the XDp instance.
 *
-* @note		None.
+*
+*
+* @note		This is a common operation used during initialization and
+*		after unplug events.
 *
 ******************************************************************************/
-void XDpRxSs_McDp6000_init(void *InstancePtr)
+static void DpRxSs_EnableTrainingInterrupts(XDp *DpPtr)
 {
-	/* Verify argument.*/
-	Xil_AssertVoid(InstancePtr != NULL);
+    /* Enable Training related interrupts */
+    XDp_RxInterruptEnable(DpPtr,
+                  XDP_RX_INTERRUPT_MASK_TP1_MASK |
+                  XDP_RX_INTERRUPT_MASK_TP2_MASK |
+                  XDP_RX_INTERRUPT_MASK_TP3_MASK |
+                  XDP_RX_INTERRUPT_MASK_POWER_STATE_MASK |
+                  XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK |
+                  XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK |
+                  XDP_RX_INTERRUPT_MASK_VCP_ALLOC_MASK |
+                  XDP_RX_INTERRUPT_MASK_VCP_DEALLOC_MASK |
+                  XDP_RX_INTERRUPT_MASK_DOWN_REPLY_MASK |
+                  XDP_RX_INTERRUPT_MASK_DOWN_REQUEST_MASK);
 
-	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
-	XDpRxSs_MCDP6000_DpInit(DpRxSsPtr,
-				XDPRXSS_MCDP6000_IIC_SLAVE);
-
+    XDp_RxInterruptEnable1(DpPtr,
+                   XDP_RX_INTERRUPT_MASK_TP4_MASK |
+                   XDP_RX_INTERRUPT_MASK_ACCESS_LANE_SET_MASK |
+                   XDP_RX_INTERRUPT_MASK_ACCESS_LINK_QUAL_MASK |
+                   XDP_RX_INTERRUPT_MASK_ACCESS_ERROR_COUNTER_MASK);
 }
+
 #if ((XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0))
 /*****************************************************************************/
 /**
@@ -2962,6 +3251,18 @@ static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr)
 			(XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
 }
 
+/*****************************************************************************/
+/**
+*
+* This function waits for the decoder clock to lock.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return	XST_SUCCESS if clock is locked, XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
 int XDpRxSs_Get_Dec_Clk_Lock(XDpRxSs *InstancePtr)
 {
 	u32 retry = 0;
@@ -2978,4 +3279,144 @@ int XDpRxSs_Get_Dec_Clk_Lock(XDpRxSs *InstancePtr)
 
 	return XST_SUCCESS;
 }
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Enable/Disable MST mode
+*
+* @param        InstancePtr is a pointer to the XDpRxSs instance.
+* @param        Enable is to Enable/Disable Mst mode.
+*
+* @note         If Mst mode is disabled, DpRxss will be in SST mode.
+*
+******************************************************************************/
+void XDpRxSs_MstEnable(XDpRxSs *InstancePtr, u8 Enable)
+{
+        u32 ReadVal;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+        ReadVal= XDp_ReadReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_RX_MST_CAP);
+        ReadVal &= ~XDP_RX_MST_CAP_ENABLE_MASK;
+        ReadVal |= Enable;
+
+        XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_RX_MST_CAP, ReadVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Get the current link rate from DPCD register.
+*
+* @param        InstancePtr is a pointer to the XDpRxSs instance.
+*
+* @return       Link rate value read from DPCD_LINK_BW_SET register.
+*
+* @note         None.
+*
+******************************************************************************/
+u32 XDpRxSs_GetLinkRate(XDpRxSs *InstancePtr)
+{
+	u32 LinkRate;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	LinkRate = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				   XDPRXSS_DPCD_LINK_BW_SET);
+
+	return LinkRate;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the stub callback for NoVideo interrupts.
+* Driver performs interrupt management operations before invoking user callback.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+*
+* @note		Enables VBLANK and INFO_PKT interrupts needed after video loss.
+*
+******************************************************************************/
+static void XDpRxSs_StubNoVideoCallback(void *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	XDp_RxInterruptEnable(DpRxSsPtr->DpPtr,
+			XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
+	XDp_RxInterruptEnable(DpRxSsPtr->DpPtr,
+			XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the stub callback for VBlank interrupts.
+* Driver invokes user callback, then conditionally disables interrupt based
+* on VBlankCount threshold to prevent excessive interrupts.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+*
+* @note		Disables VBLANK interrupt after VBlankCount exceeds threshold.
+*
+******************************************************************************/
+static void XDpRxSs_StubVBlankCallback(void *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	if (DpRxSsPtr->VBlankCount > VBLANK_WAIT_COUNT_THRESHOLD) {
+		XDp_RxInterruptDisable(DpRxSsPtr->DpPtr,
+				XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
+	}
+}
+/*****************************************************************************/
+/**
+*
+* This function is the stub callback for InfoPacket interrupts.
+* Driver invokes user callback which manages packet processing.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+*
+* @note		User callback manages frame_count and interrupt disable logic.
+*
+******************************************************************************/
+static void XDpRxSs_StubInfoPacketCallback(void *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the stub callback for Payload Allocation interrupts.
+* Driver enables ACT_RX interrupt after invoking user callback for MST setup.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @note		Enables ACT_RX interrupt for MST stream synchronization.
+*
+******************************************************************************/
+static void XDpRxSs_StubPayloadAllocCallback(void *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	XDp_RxInterruptEnable(DpRxSsPtr->DpPtr, XDP_RX_INTERRUPT_MASK_ACT_RX_MASK);
+}
+
 /** @} */
