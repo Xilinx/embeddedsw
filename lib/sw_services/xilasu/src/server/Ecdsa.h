@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,13 +67,17 @@ typedef enum {
 	ECDSA_BRAINPOOL_P512,		/**< Brainpool P-512 curve */
 	ECDSA_ED25519,			/**< Edward 25519 curve */
 	ECDSA_ED448,			/**< Edward 448 curve */
-	ECDSA_INVALID_HIGH			/**< Invalid value (max) */
+	ECDSA_FRP256,			/**< FRP256 curve */
+	ECDSA_CURVE25519,		/**< Curve25519 */
+	ECDSA_CURVE448,			/**< Curve448 */
+	ECDSA_INVALID_HIGH		/**< Invalid value (max) */
 } EcdsaCrvTyp;
 
 typedef enum {
 	ECDSA_PRIME = 0,	/**< Prime curve */
 	ECDSA_BINARY = 1,	/**< Binary curve */
-	ECDSA_ED_PH = 2,   // "ph" version of an EDDSA (prime) algorithm
+	ECDSA_ED_PH = 2,	/**< "ph" version of an EDDSA (prime) algorithm */
+	ECDSA_MONTGOMERY = 3,   /**< primary curves with ladder capability (curve25519, curve448) */
 } EcdsaCrvClass;
 
 /**

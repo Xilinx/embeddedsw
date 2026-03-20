@@ -133,6 +133,7 @@ s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
 		case XASU_ECC_BRAINPOOL_P256:
 		case XASU_ECC_NIST_ED25519:
 		case XASU_ECC_NIST_ED25519_PH:
+		case XASU_ECC_CURVE25519:
 			Len = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
 			break;
 		case XASU_ECC_BRAINPOOL_P320:
@@ -150,7 +151,10 @@ s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
 			break;
 		case XASU_ECC_NIST_ED448:
 		case XASU_ECC_NIST_ED448_PH:
-			Len = XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES;
+			Len = XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_CURVE448:
+			Len = XASU_ECC_CURVE448_PVT_KEY_SIZE_IN_BYTES;
 			break;
 		default:
 			Len = 0U;

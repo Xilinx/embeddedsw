@@ -253,7 +253,7 @@ static const u8 EccPrivKey25519[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x70U, 0x3BU, 0xACU, 0x03U, 0x1CU, 0xAEU, 0x7FU, 0x60U
 };
 
-static const u8 EccPrivKey448[XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES] = {
+static const u8 EccPrivKey448[XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES] = {
 	0x6CU, 0x82U, 0xA5U, 0x62U, 0xCBU, 0x80U, 0x8DU, 0x10U,
 	0xD6U, 0x32U, 0xBEU, 0x89U, 0xC8U, 0x51U, 0x3EU, 0xBFU,
 	0x6CU, 0x92U, 0x9FU, 0x34U, 0xDDU, 0xFAU, 0x8CU, 0x9FU,
@@ -1214,7 +1214,7 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType)
 			PrivateKey = EccPrivKey448;
 			ExpPubKey = EccExpPubKeyP448;
 			ExpSign = EccExpSignP448;
-			CurveSize = XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES;
+			CurveSize = XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES;
 			InputLen = 0U;
 			break;
 

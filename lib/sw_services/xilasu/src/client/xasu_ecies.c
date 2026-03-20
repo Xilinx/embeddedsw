@@ -140,13 +140,6 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 		goto END;
 	}
 
-	Status = XAsu_EccValidateCurveInfo(EciesParamsPtr->EccCurveType,
-			EciesParamsPtr->EccKeyLength);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
 	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {

@@ -68,6 +68,8 @@ extern "C" {
 #define XASU_ECC_NIST_ED448			(10U) /**< NIST ED448 curve */
 #define XASU_ECC_NIST_ED25519_PH		(11U) /**< NIST Hash-ED25519 curve */
 #define XASU_ECC_NIST_ED448_PH			(12U) /**< NIST Hash-ED448 curve */
+#define XASU_ECC_CURVE25519			(13U) /**< Curve25519 curve */
+#define XASU_ECC_CURVE448			(14U) /**< Curve448 curve */
 
 #define XASU_ECC_P192_PVT_KEY_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 private key
 								size in bytes */
@@ -83,7 +85,9 @@ extern "C" {
 								key size in bytes */
 #define XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 private key
 								size in bytes */
-#define XASU_ECC_P448_PVT_KEY_SIZE_IN_BYTES		(57U) /**< Size of Edwards Ed448 private
+#define XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES		(57U) /**< Size of Edwards Ed448 private
+								key size in bytes */
+#define XASU_ECC_CURVE448_PVT_KEY_SIZE_IN_BYTES		(56U) /**< Size of Curve448 private
 								key size in bytes */
 #define XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES		(132U) /**< Size of NIST P-521 public key
 								size in bytes */
