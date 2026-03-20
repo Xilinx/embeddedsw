@@ -38,3 +38,7 @@ void FrmbufwrDoneCallback_2(void *CallbackRef);
 void FrmbufwrDoneCallback_3(void *CallbackRef);
 
 void Reset_IP(u8 Ip_ResetBit);
+
+#ifdef XPAR_XMIPICSISS_NUM_INSTANCES
+int setup_mipi_csi_interrupts(void);
+#endif

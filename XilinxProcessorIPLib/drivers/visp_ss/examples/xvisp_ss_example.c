@@ -50,7 +50,7 @@ int image_len = image_raw_len;
 int init_lilo = 1;
 extern int dequeue_call_count;
 #include "xv_frmbufwr_l2.h"    /* Frame Buffer Writer Level 2 driver */
-#include "xintc.h"             /* Interrupt Controller driver */
+#include "xintc.h"             /* AXI Interrupt Controller driver */
 #include "xvidc.h"             /* Video Common driver for format definitions */
 
 /**
@@ -92,12 +92,37 @@ XIntc InterruptController;                                   /* AXI Interrupt Co
 struct aligned_buf Frame_Array_p[4][Buffer_Count];
 #endif
 
+#ifdef XPAR_XMIPICSISS_NUM_INSTANCES
+#include "xcsiss.h"            /* MIPI CSI2 RX Subsystem driver */
+#include "xintc.h"             /* AXI Interrupt Controller driver */
+#ifdef SDT
+extern XCsiSs_Config XCsiSs_ConfigTable[];
+#endif
+static void MipiCsiSs_FrameRcvdCallback(void *CallbackRef, u32 Mask);
+static void MipiCsiSs_DphyCallback(void *CallbackRef, u32 Mask);
+static void MipiCsiSs_ProtLvlCallback(void *CallbackRef, u32 Mask);
+static void MipiCsiSs_PktLvlCallback(void *CallbackRef, u32 Mask);
+static void MipiCsiSs_ShortPktCallback(void *CallbackRef, u32 Mask);
+static void MipiCsiSs_ErrorCallback(void *CallbackRef, u32 Mask);
+int setup_mipi_csi_interrupts(void);
+static int MipiCsiSs_GetId(void *CallbackRef);
+#endif
+
 /* Global VISP SS instance - main video processing subsystem handle */
 #define VISP_INST XPAR_XVISP_SS_NUM_INSTANCES
 XVisp_Ss VispSsInst[VISP_INST];
 
 /* Global interrupt controller instance - manages all system interrupts */
 XScuGic Intc;
+
+/* MIPI CSI2 RX Subsystem instances and AXI Interrupt Controller for MIPI */
+#ifdef XPAR_XMIPICSISS_NUM_INSTANCES
+#define NUM_MIPI_CSI XPAR_XMIPICSISS_NUM_INSTANCES
+XCsiSs MipiCsiSsInst[NUM_MIPI_CSI];
+XIntc MipiIntcController;
+static u32 MipiFrameCount[NUM_MIPI_CSI] = {0};
+static u32 MipiErrCount[NUM_MIPI_CSI] = {0};
+#endif
 
 /**
  * @brief Main application entry point
@@ -152,6 +177,13 @@ int main()
 	/* Setup frame buffer writers if available - handles video output buffering */
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	setup_frmbuf_wr();
+#endif
+
+	/* Setup MIPI CSI2 RX interrupt handling */
+#ifdef XPAR_XMIPICSISS_NUM_INSTANCES
+	Status = setup_mipi_csi_interrupts();
+	if (Status != XST_SUCCESS)
+		xil_printf("WARNING: MIPI CSI interrupt setup failed (%d)\r\n", Status);
 #endif
 
 #ifdef XPAR_XV_MIX_NUM_INSTANCES
@@ -1100,5 +1132,290 @@ void Reset_IP(u8 Ip_ResetBit)
 	Gpio_data |= (1 << (Ip_ResetBit));
 	Xil_Out32(LPD_GPI0_data, Gpio_data);
 	usleep(4000);
+}
+#endif
+
+#ifdef XPAR_XMIPICSISS_NUM_INSTANCES
+/**
+ * @brief Setup MIPI CSI2 RX Subsystem interrupts
+ *
+ * This function initializes the MIPI CSI2 RX subsystem instances and
+ * configures their interrupts through the AXI Interrupt Controller.
+ *
+ * Interrupt topology:
+ *   MIPI CSI SS 0 (intr 0) --> AXI IntC 0 @ 0xb1400000 (fabric intr 143) --> GIC
+ *   MIPI CSI SS 1 (intr 1) --> AXI IntC 0 @ 0xb1400000 (fabric intr 143) --> GIC
+ *
+ * Steps:
+ * 1. Initialize each MIPI CSI2 RX subsystem driver
+ * 2. Initialize the AXI Interrupt Controller for MIPI
+ * 3. Connect MIPI CSI interrupt handlers to AXI IntC
+ * 4. Register callbacks for different MIPI event types
+ * 5. Connect AXI IntC cascade to GIC
+ * 6. Enable all MIPI CSI interrupts
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE on error
+ */
+int setup_mipi_csi_interrupts(void)
+{
+	int Status;
+	XCsiSs_Config *CsiCfgPtr;
+	extern XScuGic Intc;
+
+	/* Step 1: Initialize MIPI CSI2 RX Subsystem instances */
+	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+#ifndef SDT
+		CsiCfgPtr = XCsiSs_LookupConfig(i);
+#else
+		CsiCfgPtr = XCsiSs_LookupConfig(XCsiSs_ConfigTable[i].BaseAddr);
+#endif
+		if (!CsiCfgPtr) {
+			xil_printf("ERROR: MIPI CSI SS[%d] config lookup failed\r\n", i);
+			return XST_FAILURE;
+		}
+
+		Status = XCsiSs_CfgInitialize(&MipiCsiSsInst[i], CsiCfgPtr,
+					       CsiCfgPtr->BaseAddr);
+		if (Status != XST_SUCCESS) {
+			xil_printf("ERROR: MIPI CSI SS[%d] init failed (0x%x)\r\n", i, Status);
+			return XST_FAILURE;
+		}
+		xil_printf("MIPI CSI SS[%d] initialized at 0x%x\r\n", i,
+			   (u32)CsiCfgPtr->BaseAddr);
+	}
+
+	/* Step 2: Initialize AXI Interrupt Controller for MIPI */
+	Status = XIntc_Initialize(&MipiIntcController, XPAR_AXI_INTC_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: MIPI AXI IntC init failed\r\n");
+		return XST_FAILURE;
+	}
+
+	Status = XIntc_SelfTest(&MipiIntcController);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: MIPI AXI IntC self-test failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Step 3: Connect MIPI CSI interrupt handlers to AXI IntC */
+	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+		Status = XIntc_Connect(&MipiIntcController,
+				       XPAR_FABRIC_XMIPICSISS_0_INTR + i,
+				       (XInterruptHandler)XCsiSs_IntrHandler,
+				       (void *)&MipiCsiSsInst[i]);
+		if (Status != XST_SUCCESS) {
+			xil_printf("ERROR: MIPI CSI SS[%d] IntC connect failed\r\n", i);
+			return XST_FAILURE;
+		}
+
+		/* Enable interrupt for this MIPI CSI instance in AXI IntC */
+		XIntc_Enable(&MipiIntcController,
+			     XPAR_FABRIC_XMIPICSISS_0_INTR + i);
+	}
+
+	/* Start the AXI Interrupt Controller in real mode */
+	Status = XIntc_Start(&MipiIntcController, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: MIPI AXI IntC start failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Step 4: Connect AXI IntC cascade to GIC */
+	Status = XSetupInterruptSystem(&MipiIntcController,
+				       (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				       MipiIntcController.CfgPtr->IntrId,
+				       MipiIntcController.CfgPtr->IntrParent,
+				       0xA);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: MIPI AXI IntC -> GIC connect failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Step 5: Register callbacks for each MIPI CSI instance */
+	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+		/* Frame received callback */
+		XCsiSs_SetCallBack(&MipiCsiSsInst[i], XCSISS_HANDLER_FRAMERECVD,
+				    (void *)MipiCsiSs_FrameRcvdCallback,
+				    (void *)&MipiCsiSsInst[i]);
+
+		/* D-PHY error callback */
+		XCsiSs_SetCallBack(&MipiCsiSsInst[i], XCSISS_HANDLER_DPHY,
+				    (void *)MipiCsiSs_DphyCallback,
+				    (void *)&MipiCsiSsInst[i]);
+
+		/* Protocol level error callback */
+		XCsiSs_SetCallBack(&MipiCsiSsInst[i], XCSISS_HANDLER_PROTLVL,
+				    (void *)MipiCsiSs_ProtLvlCallback,
+				    (void *)&MipiCsiSsInst[i]);
+
+		/* Packet level error callback */
+		XCsiSs_SetCallBack(&MipiCsiSsInst[i], XCSISS_HANDLER_PKTLVL,
+				    (void *)MipiCsiSs_PktLvlCallback,
+				    (void *)&MipiCsiSsInst[i]);
+
+		/* Short packet callback */
+		XCsiSs_SetCallBack(&MipiCsiSsInst[i], XCSISS_HANDLER_SHORTPACKET,
+				    (void *)MipiCsiSs_ShortPktCallback,
+				    (void *)&MipiCsiSsInst[i]);
+
+		/* Other error callback */
+		XCsiSs_SetCallBack(&MipiCsiSsInst[i], XCSISS_HANDLER_OTHERERROR,
+				    (void *)MipiCsiSs_ErrorCallback,
+				    (void *)&MipiCsiSsInst[i]);
+	}
+
+	/* Step 6: Enable MIPI CSI interrupts without resetting/reconfiguring the core.
+	 * We must NOT call XCsiSs_Configure() or XCsiSs_Activate() here because
+	 * they perform a soft reset of the CSI core and reactivate the DPHY,
+	 * which disrupts the already-running MIPI pipeline set up by VISP SS.
+	 * Instead, directly enable the interrupt mask and global interrupt
+	 * on each CSI core instance.
+	 */
+	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+		XCsi_IntrEnable(MipiCsiSsInst[i].CsiPtr,
+				XCSI_ISR_ALLINTR_MASK & ~XCSI_ISR_STOP_MASK);
+		XCsi_SetGlobalInterrupt(MipiCsiSsInst[i].CsiPtr);
+	}
+
+	xil_printf("MIPI CSI interrupt setup complete\r\n");
+	return XST_SUCCESS;
+}
+
+/**
+ * @brief MIPI CSI Frame Received Callback
+ *
+ * Called when a complete MIPI CSI frame has been received.
+ *
+ * @param CallbackRef - Reference to the MIPI CSI SS instance
+ * @param Mask - Interrupt status mask
+ */
+/**
+ * @brief Get MIPI CSI instance ID from callback reference
+ *
+ * @param CallbackRef - Pointer passed as callback reference
+ * @return Instance index (0 to NUM_MIPI_CSI-1), or -1 if not found
+ */
+static int MipiCsiSs_GetId(void *CallbackRef)
+{
+	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+		if ((XCsiSs *)CallbackRef == &MipiCsiSsInst[i])
+			return i;
+	}
+	return -1;
+}
+
+static void MipiCsiSs_FrameRcvdCallback(void *CallbackRef, u32 Mask)
+{
+	int id = MipiCsiSs_GetId(CallbackRef);
+
+	MipiFrameCount[id]++;
+	if ((MipiFrameCount[id] % 100) == 0)
+		xil_printf("MIPI CSI[%d]: Frame received (count=%lu)\r\n",
+			   id, MipiFrameCount[id]);
+}
+
+/**
+ * @brief MIPI CSI D-PHY Error Callback
+ *
+ * Called on D-PHY level errors (SoT errors, SoT sync errors).
+ *
+ * @param CallbackRef - Reference to the MIPI CSI SS instance
+ * @param Mask - D-PHY error mask bits
+ */
+static void MipiCsiSs_DphyCallback(void *CallbackRef, u32 Mask)
+{
+	int id = MipiCsiSs_GetId(CallbackRef);
+
+	MipiErrCount[id]++;
+	xil_printf(TXT_RED "MIPI CSI[%d]: D-PHY error (mask=0x%08x, err_count=%lu)\r\n" TXT_RST,
+		   id, Mask, MipiErrCount[id]);
+
+	if (Mask & XCSISS_ISR_SOTERR_MASK)
+		xil_printf("  -> SoT Error\r\n");
+	if (Mask & XCSISS_ISR_SOTSYNCERR_MASK)
+		xil_printf("  -> SoT Sync Error\r\n");
+}
+
+/**
+ * @brief MIPI CSI Protocol Level Error Callback
+ *
+ * Called on protocol level errors (ECC errors, CRC errors, etc).
+ *
+ * @param CallbackRef - Reference to the MIPI CSI SS instance
+ * @param Mask - Protocol error mask bits
+ */
+static void MipiCsiSs_ProtLvlCallback(void *CallbackRef, u32 Mask)
+{
+	int id = MipiCsiSs_GetId(CallbackRef);
+
+	MipiErrCount[id]++;
+	xil_printf(TXT_RED "MIPI CSI[%d]: Protocol error (mask=0x%08x)\r\n" TXT_RST, id, Mask);
+
+	if (Mask & XCSISS_ISR_ECC2BERR_MASK)
+		xil_printf("  -> ECC 2-bit Error\r\n");
+	if (Mask & XCSISS_ISR_ECC1BERR_MASK)
+		xil_printf("  -> ECC 1-bit Error\r\n");
+	if (Mask & XCSISS_ISR_CRCERR_MASK)
+		xil_printf("  -> CRC Error\r\n");
+	if (Mask & XCSISS_ISR_DATAIDERR_MASK)
+		xil_printf("  -> Data ID Error\r\n");
+}
+
+/**
+ * @brief MIPI CSI Packet Level Error Callback
+ *
+ * Called on packet level errors (VC frame sync/level errors).
+ *
+ * @param CallbackRef - Reference to the MIPI CSI SS instance
+ * @param Mask - Packet error mask bits
+ */
+static void MipiCsiSs_PktLvlCallback(void *CallbackRef, u32 Mask)
+{
+	int id = MipiCsiSs_GetId(CallbackRef);
+
+	MipiErrCount[id]++;
+	xil_printf(TXT_YELLOW "MIPI CSI[%d]: Packet level error (mask=0x%08x)\r\n" TXT_RST, id, Mask);
+}
+
+/**
+ * @brief MIPI CSI Short Packet Callback
+ *
+ * Called when a short packet is received or short packet FIFO is full.
+ *
+ * @param CallbackRef - Reference to the MIPI CSI SS instance
+ * @param Mask - Short packet mask bits
+ */
+static void MipiCsiSs_ShortPktCallback(void *CallbackRef, u32 Mask)
+{
+	int id = MipiCsiSs_GetId(CallbackRef);
+
+	xil_printf("MIPI CSI[%d]: Short packet event (mask=0x%08x)\r\n", id, Mask);
+
+	if (Mask & XCSISS_ISR_SPFIFOF_MASK)
+		xil_printf(TXT_RED "  -> Short Packet FIFO Full\r\n" TXT_RST);
+}
+
+/**
+ * @brief MIPI CSI Other Error Callback
+ *
+ * Called on miscellaneous errors (stream line buffer full, incorrect lanes,
+ * stop state, etc).
+ *
+ * @param CallbackRef - Reference to the MIPI CSI SS instance
+ * @param Mask - Error mask bits
+ */
+static void MipiCsiSs_ErrorCallback(void *CallbackRef, u32 Mask)
+{
+	int id = MipiCsiSs_GetId(CallbackRef);
+
+	MipiErrCount[id]++;
+	xil_printf(TXT_RED "MIPI CSI[%d]: Error (mask=0x%08x)\r\n" TXT_RST, id, Mask);
+
+	if (Mask & XCSISS_ISR_SLBF_MASK)
+		xil_printf("  -> Stream Line Buffer Full\r\n");
+	if (Mask & XCSISS_ISR_ILC_MASK)
+		xil_printf("  -> Incorrect Lane Configuration\r\n");
+	if (Mask & XCSISS_ISR_STOP_MASK)
+		xil_printf("  -> Stop State Detected\r\n");
 }
 #endif
