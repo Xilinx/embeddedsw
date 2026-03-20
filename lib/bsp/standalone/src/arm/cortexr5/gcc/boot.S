@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -76,6 +76,8 @@
 * 9.0  mus  08/01/23  Enable low latency peripheral port for CortexR52.
 * 9.1  mus  04/19/24  Add support for lockstep_mode_debug handling in SDT flow
 * 9.4  vmt  15/07/25  Add support to clear FPU registers D16–D31 for Cortex-R52
+* 9.5  asa  03/18/26  Replace BFI with UBFX for CPSR mode check to fix
+*                     non-deterministic HYP mode detection.
 * </pre>
 *
 ******************************************************************************/
@@ -154,7 +156,7 @@ _boot:
 OKToRun:
 #if defined (ARMR52)
 	mrs r0, cpsr
-	bfi r1, r0, #0, #5
+	ubfx r1, r0, #0, #5
 	cmp r1, #0x1A         /* Check if it is HYP mode */
 	bne InitEL1
 
