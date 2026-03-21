@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,15 @@
 
 #define HEADER(len, ApiId)		((len << 16U) | (XILPM_MODULE_ID << 8U) | ((u32)ApiId))
 
+/**
+ * @brief SMC Function ID for pass-through firmware commands
+ *
+ * The full SMC FID (0xC2000FFF) used for extended format PLM commands.
+ * Combines the standard SMC calling convention (0xC2000000) with the
+ * pass-through command ID (0xFFF).
+ */
+#define PASS_THROUGH_FW_CMD_SMC_FID	(0xC2000FFFU)
+
 #define PACK_PAYLOAD0(Payload, ApiId) \
 	PACK_PAYLOAD(Payload, HEADER(0UL, ApiId), 0, 0, 0, 0, 0)
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1) \
@@ -47,6 +56,50 @@
 #define PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
 	PACK_PAYLOAD(Payload, HEADER(5UL, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
 
+/**
+ * @brief Extract upper 32 bits from a 64-bit value
+ *
+ * @param n 64-bit value to extract from
+ *
+ * @return Upper 32 bits of the input value as uint32_t
+ */
+#define upper_32_bits(n)	((uint32_t)(((n) >> 32U)))
+
+/**
+ * @brief Extract lower 32 bits from a 64-bit value
+ *
+ * @param n 64-bit value to extract from
+ *
+ * @return Lower 32 bits of the input value as uint32_t
+ */
+#define lower_32_bits(n)	((uint32_t)((n) & 0xFFFFFFFFU))
+
+/**
+ * @brief Maximum number of payload arguments supported by XPm_GenericRequest
+ *
+ * This defines the maximum number of variable arguments (0-6) that can be
+ * passed to the XPm_GenericRequest function for PM API calls. The actual
+ * number of arguments used depends on the specific PM API being called.
+ *
+ * @note The SMC path supports up to 6 payload arguments. The IPI path
+ *       supports up to 5 payload arguments (Args[5] is not transmitted).
+ */
+#define MAX_PAYLOAD_ARG		(6U)
+
+/**
+ * @brief Maximum number of response arguments supported by XPm_GenericRequest
+ *
+ * This defines the maximum number of response values (0-7) that can be
+ * returned by the XPm_GenericRequest function for PM API calls. The actual
+ * number of response values depends on the specific PM API being called.
+ *
+ * @note The value is set to 7 to accommodate PM APIs that return more
+ *       than the standard 3 response values, providing flexibility for
+ *       extended response data.
+ */
+#define MAX_RESPONSE_ARG	(7U)
+
+#if !(defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1))
 /****************************************************************************/
 /**
  * @brief  Sends IPI request to the target module
@@ -138,6 +191,7 @@ static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 done:
 	return Status;
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -164,6 +218,170 @@ u32 XPm_GetRegisterNotifierVersionServer(void)
 	}
 
 	return PmApiRegisterNotifierVersionServer;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Generic wrapper for PM API calls with variable arguments and responses
+ *
+ * @param  ApiId     API identifier
+ * @param  NumArgs   Number of arguments being passed (0-6)
+ * @param  Response  Pointer to response array (pass NULL if no response expected)
+ *                   Response[0] = first response value
+ *                   Response[1] = second response value
+ *                   Response[2] = third response value
+ * @param  ...       Variable arguments (actual argument values)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note   This is a generic wrapper that handles the common IPI/SMC send/receive
+ *         pattern used by most PM API functions. It uses variable arguments to
+ *         support flexible argument counts (0-6 arguments).
+ *         Pass NULL for Response if no response is expected.
+ *         The function supports both IPI and SMC interfaces based on compile-time
+ *         configuration.
+ *
+ ****************************************************************************/
+static XStatus XPm_GenericRequest(u32 ApiId, u32 NumArgs, u32 *Response, ...)
+{
+	XStatus Status = (s32)XST_FAILURE;
+	va_list arg_list;
+	u32 Args[MAX_PAYLOAD_ARG] = {0};
+	u32 i;
+
+	/* Validate argument count */
+	if (NumArgs > MAX_PAYLOAD_ARG) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Extract arguments from va_list */
+	va_start(arg_list, Response);
+	for (i = 0; i < NumArgs; i++) {
+		Args[i] = va_arg(arg_list, u32);
+	}
+	va_end(arg_list);
+
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	u64 SmcFid;
+	u64 SmcArgs1;
+	u64 SmcArgs2;
+	u64 SmcArgs3;
+	u64 SmcArgs4;
+	u32 PlmHeader;
+
+	/*
+	 * PM_SELF_SUSPEND is not supported via SMC interface because:
+	 * 1. Self-suspend requires processor-specific context handling that cannot
+	 *    be performed through the generic SMC path
+	 * 2. The suspend operation needs to execute WFI (Wait For Interrupt) instruction
+	 *    which must be done in the processor's own context, not through ATF/TF-A
+	 * 3. SMC calls return to the caller, but self-suspend should not return until
+	 *    the processor is woken up by an external event
+	 * Therefore, PM_SELF_SUSPEND must use the IPI path where processor-specific
+	 * handling (XPm_ClientSuspend) can be performed before sending the request.
+	 */
+	if (ApiId == PM_SELF_SUSPEND) {
+		XPm_Err("Self suspend use case not supported in SMC\r\n");
+		goto done;
+	}
+
+	/*
+	 * Extended SMC Format:
+	 * - SMC ID: Fixed 0xC2000FFF
+	 * - x1: Args[0] << 32 | PLM_HEADER
+	 * - x2: Args[2] << 32 | Args[1]
+	 * - x3: Args[4] << 32 | Args[3]
+	 * - x4: Args[5]
+	 * Supports 6 payload arguments and 6 response values
+	 */
+
+	/* Construct PLM header with module ID, API ID, and length */
+	PlmHeader = HEADER(NumArgs, ApiId);
+
+	/* Fixed SMC ID for extended format */
+	SmcFid = PASS_THROUGH_FW_CMD_SMC_FID;
+
+	/* Pack arguments: PLM header in lower 32 bits of x1 */
+	SmcArgs1 = ((u64)Args[0] << 32) | ((u64)PlmHeader);
+	SmcArgs2 = ((u64)Args[2] << 32) | ((u64)Args[1]);
+	SmcArgs3 = ((u64)Args[4] << 32) | ((u64)Args[3]);
+	SmcArgs4 = (u64)Args[5];
+
+	/* Make SMC call with extended format */
+	Out = Xil_Smc(SmcFid, SmcArgs1, SmcArgs2, SmcArgs3, SmcArgs4, 0, 0, 0);
+
+	/* Extract response values from extended format (6 values) */
+	if (NULL != Response) {
+		Response[0] = upper_32_bits(Out.Arg0); /* ret_payload0 */
+		Response[1] = lower_32_bits(Out.Arg1); /* ret_payload1 */
+		Response[2] = upper_32_bits(Out.Arg1); /* ret_payload2 */
+		Response[3] = lower_32_bits(Out.Arg2); /* ret_payload3 */
+		Response[4] = upper_32_bits(Out.Arg2); /* ret_payload4 */
+		Response[5] = lower_32_bits(Out.Arg3); /* ret_payload5 */
+	}
+
+	/* Status is in lower 32 bits of Arg0 */
+	Status = lower_32_bits(Out.Arg0);
+
+#else
+	u32 Payload[PAYLOAD_ARG_CNT];
+	struct XPm_Proc *Proc;
+
+	/*
+	 * Special handling for PM_SELF_SUSPEND in IPI path:
+	 *
+	 * PM_SELF_SUSPEND requires using the processor's own IPI channel (not PrimaryProc)
+	 * because:
+	 * 1. The DeviceId (Args[0]) identifies which processor is suspending itself
+	 * 2. Each processor has its own IPI channel for communication with PLM
+	 * 3. The suspend request must be sent from the suspending processor's IPI channel
+	 *    so PLM can correctly identify and manage that specific processor's state
+	 * 4. XPm_ClientSuspend() performs processor-specific pre-suspend operations like
+	 *    saving context and preparing for WFI execution
+	 *
+	 * For all other PM APIs, we use PrimaryProc since they are general requests
+	 * that don't require processor-specific IPI channels.
+	 */
+	if (ApiId == PM_SELF_SUSPEND) {
+		Proc = XPm_GetProcByDeviceId(Args[0]);
+		if (NULL == Proc) {
+			XPm_Err("Invalid Device ID\r\n");
+			Status = (s32)XST_INVALID_PARAM;
+			goto done;
+		}
+
+		XPm_ClientSuspend(Proc);
+	} else {
+		Proc = PrimaryProc;
+	}
+
+
+	/*
+	 * Pack payload with correct NumArgs in header. IPI buffer holds
+	 * 1 header + 5 arguments; Args[5] cannot be transmitted via IPI
+	 * and is silently dropped (only the SMC path carries all 6 args).
+	 */
+	PACK_PAYLOAD(Payload, HEADER(NumArgs, ApiId), Args[0], Args[1], Args[2], Args[3], Args[4]);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(Proc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	if (NULL != Response) {
+		Status = Xpm_IpiReadBuff32(Proc, &Response[0], &Response[1], &Response[2]);
+	} else {
+		Status = Xpm_IpiReadBuff32(Proc, NULL, NULL, NULL);
+	}
+
+#endif
+
+done:
+	return Status;
 }
 /** @endcond */
 
@@ -264,18 +482,19 @@ done:
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
-	PACK_PAYLOAD0(Payload, PM_GET_CHIPID);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
+	if ((NULL == IDCode) || (NULL == Version)) {
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, IDCode, Version, NULL);
+	Status = XPm_GenericRequest(PM_GET_CHIPID, 0U, RetPayload);
+	if (XST_SUCCESS == Status) {
+		*IDCode = RetPayload[0];
+		*Version = RetPayload[1];
+	}
 
 done:
 	return Status;
@@ -297,18 +516,18 @@ done:
 XStatus XPm_GetApiVersion(u32 *Version)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
-	PACK_PAYLOAD0(Payload, PM_GET_API_VERSION);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
+	if (NULL == Version) {
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Version, NULL, NULL);
+	Status = XPm_GenericRequest(PM_GET_API_VERSION, 0U, RetPayload);
+	if (XST_SUCCESS == Status) {
+		*Version = RetPayload[0];
+	}
 
 done:
 	return Status;
@@ -335,39 +554,12 @@ done:
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack)
 {
-#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
-	u64 SmcArgs1;
-	u64 SmcArgs2;
-	XSmc_OutVar Out;
-
-	SmcArgs1 = (u64)Capabilities << 32;
-	SmcArgs1 |= ((u64)DeviceId);
-
-	SmcArgs2 = (u64)Ack << 32;
-	SmcArgs2 |= ((u64)QoS);
-
-	Out = Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, SmcArgs1, SmcArgs2, 0, 0, 0, 0, 0);
-
-	return ((u32)Out.Arg0);
-#else
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD4(Payload, PM_REQUEST_NODE, DeviceId, Capabilities,
-		      QoS, Ack);
+	Status = XPm_GenericRequest(PM_REQUEST_NODE, 4U, NULL, DeviceId,
+				    Capabilities, QoS, Ack);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
-#endif
 }
 
 /****************************************************************************/
@@ -384,30 +576,11 @@ done:
  ****************************************************************************/
 XStatus XPm_ReleaseNode(const u32 DeviceId)
 {
-#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
-	XSmc_OutVar Out;
-
-	Out = Xil_Smc(PM_RELEASE_DEVICE_SMC_FID, DeviceId, 0, 0, 0, 0, 0, 0);
-
-	return ((u32)Out.Arg0);
-#else
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_RELEASE_NODE, DeviceId);
+	Status = XPm_GenericRequest(PM_RELEASE_NODE, 1U, NULL, DeviceId);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
-#endif
 }
 
 /****************************************************************************/
@@ -432,20 +605,10 @@ XStatus XPm_SetRequirement(const u32 DeviceId, const u32 Capabilities,
 				 const u32 QoS, const u32 Ack)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD4(Payload, PM_SET_REQUIREMENT, DeviceId, Capabilities, QoS, Ack);
+	Status = XPm_GenericRequest(PM_SET_REQUIREMENT, 4U, NULL, DeviceId,
+				    Capabilities, QoS, Ack);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -485,26 +648,20 @@ done:
 XStatus XPm_GetNodeStatus(const u32 DeviceId, XPm_NodeStatus *const NodeStatus)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Response[MAX_RESPONSE_ARG];
 
 	if (NULL == NodeStatus) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_GET_NODE_STATUS, DeviceId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_GET_NODE_STATUS, 1U, Response, DeviceId);
+	if (XST_SUCCESS == Status) {
+		NodeStatus->status = Response[0];
+		NodeStatus->requirements = Response[1];
+		NodeStatus->usage = Response[2];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, &NodeStatus->status,
-				   &NodeStatus->requirements,
-				   &NodeStatus->usage);
-
 done:
 	return Status;
 }
@@ -528,34 +685,11 @@ done:
  ****************************************************************************/
 XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action)
 {
-#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
-	u64 SmcArgs;
-	XSmc_OutVar Out;
-
-	SmcArgs = (u64)Action << 32;
-	SmcArgs |= ((u64)ResetId);
-
-	Out = Xil_Smc(PM_ASSERT_SMC_FID, SmcArgs, 0, 0, 0, 0, 0, 0);
-
-	return ((u32)Out.Arg0);
-#else
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_RESET_ASSERT, ResetId, Action);
+	Status = XPm_GenericRequest(PM_RESET_ASSERT, 2U, NULL, ResetId, Action);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
-#endif
 }
 
 /****************************************************************************/
@@ -576,23 +710,18 @@ done:
 XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == State) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_RESET_GET_STATUS, ResetId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_RESET_GET_STATUS, 1U, RetPayload, ResetId);
+	if (XST_SUCCESS == Status) {
+		*State = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, State, NULL, NULL);
 
 done:
 	return Status;
@@ -613,20 +742,9 @@ done:
 XStatus XPm_PinCtrlRequest(const u32 PinId)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_PINCTRL_REQUEST, PinId);
+	Status = XPm_GenericRequest(PM_PINCTRL_REQUEST, 1U, NULL, PinId);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -645,20 +763,9 @@ done:
 XStatus XPm_PinCtrlRelease(const u32 PinId)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_PINCTRL_RELEASE, PinId);
+	Status = XPm_GenericRequest(PM_PINCTRL_RELEASE, 1U, NULL, PinId);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -678,20 +785,9 @@ done:
 XStatus XPm_PinCtrlSetFunction(const u32 PinId, const u32 FunctionId)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_PINCTRL_SET_FUNCTION, PinId, FunctionId);
+	Status = XPm_GenericRequest(PM_PINCTRL_SET_FUNCTION, 2U, NULL, PinId, FunctionId);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -711,23 +807,18 @@ done:
 XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == FunctionId) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_PINCTRL_GET_FUNCTION, PinId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_PINCTRL_GET_FUNCTION, 1U, RetPayload, PinId);
+	if (XST_SUCCESS == Status) {
+		*FunctionId = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, FunctionId, NULL, NULL);
 
 done:
 	return Status;
@@ -763,20 +854,10 @@ done:
 XStatus XPm_PinCtrlSetParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD3(Payload, PM_PINCTRL_CONFIG_PARAM_SET, PinId, ParamId, ParamVal);
+	Status = XPm_GenericRequest(PM_PINCTRL_CONFIG_PARAM_SET, 3U, NULL,
+				    PinId, ParamId, ParamVal);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -811,23 +892,19 @@ done:
 XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == ParamVal) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD2(Payload, PM_PINCTRL_CONFIG_PARAM_GET, PinId, ParamId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_PINCTRL_CONFIG_PARAM_GET, 2U, RetPayload,
+				    PinId, ParamId);
+	if (XST_SUCCESS == Status) {
+		*ParamVal = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, ParamVal, NULL, NULL);
 
 done:
 	return Status;
@@ -854,26 +931,20 @@ XStatus XPm_DevIoctl(const u32 DeviceId, const pm_ioctl_id IoctlId, const u32 Ar
 		     const u32 Arg2, u32 *const Response)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == Response) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD4(Payload, PM_IOCTL, DeviceId, IoctlId, Arg1, Arg2);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_IOCTL, 4U, RetPayload, DeviceId, IoctlId, Arg1, Arg2);
+	if (XST_SUCCESS == Status) {
+		*Response = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Response, NULL, NULL);
 
 done:
-
 	return Status;
 }
 
@@ -911,7 +982,8 @@ XStatus XPm_DevIoctl2(u32 DeviceId, pm_ioctl_id IoctlId,
 		      u32 *const Response, u32 ResponseSize)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 CmdPayload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG] = {0};
+	u32 i;
 
 	if ((NULL == Payload) || (NULL == Response)) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
@@ -925,23 +997,18 @@ XStatus XPm_DevIoctl2(u32 DeviceId, pm_ioctl_id IoctlId,
 	 */
 	if (((PAYLOAD_ARG_CNT - 5U) < PayloadSize) ||
 	    ((RESPONSE_ARG_CNT - 4U) < ResponseSize)) {
-		XPm_Err("Invalid size of Payload/Response buffer %s\r\n",
-				__func__);
+		XPm_Err("Invalid size of Payload/Response buffer %s\r\n", __func__);
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD5(CmdPayload, PM_IOCTL, DeviceId, IoctlId,
-			Payload[0], Payload[1], Payload[2]);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, CmdPayload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_IOCTL, 5U, RetPayload, DeviceId, IoctlId,
+				    Payload[0], Payload[1], Payload[2]);
+	if (XST_SUCCESS == Status) {
+		for (i = 0U; i < ResponseSize; i++) {
+			Response[i] = RetPayload[i];
+		}
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Response, NULL, NULL);
 
 done:
 	return Status;
@@ -962,20 +1029,9 @@ done:
 XStatus XPm_ClockEnable(const u32 ClockId)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_CLOCK_ENABLE, ClockId);
+	Status = XPm_GenericRequest(PM_CLOCK_ENABLE, 1U, NULL, ClockId);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -994,20 +1050,9 @@ done:
 XStatus XPm_ClockDisable(const u32 ClockId)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_CLOCK_DISABLE, ClockId);
+	Status = XPm_GenericRequest(PM_CLOCK_DISABLE, 1U, NULL, ClockId);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1028,23 +1073,18 @@ done:
 XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == State) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_CLOCK_GETSTATE, ClockId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_CLOCK_GETSTATE, 1U, RetPayload, ClockId);
+	if (XST_SUCCESS == Status) {
+		*State = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, State, NULL, NULL);
 
 done:
 	return Status;
@@ -1066,20 +1106,9 @@ done:
 XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_CLOCK_SETDIVIDER, ClockId, Divider);
+	Status = XPm_GenericRequest(PM_CLOCK_SETDIVIDER, 2U, NULL, ClockId, Divider);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1099,23 +1128,18 @@ done:
 XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == Divider) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_CLOCK_GETDIVIDER, ClockId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_CLOCK_GETDIVIDER, 1U, RetPayload, ClockId);
+	if (XST_SUCCESS == Status) {
+		*Divider = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Divider, NULL, NULL);
 
 done:
 	return Status;
@@ -1137,20 +1161,9 @@ done:
 XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentIdx)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_CLOCK_SETPARENT, ClockId, ParentIdx);
+	Status = XPm_GenericRequest(PM_CLOCK_SETPARENT, 2U, NULL, ClockId, ParentIdx);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1170,23 +1183,18 @@ done:
 XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == ParentIdx) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_CLOCK_GETPARENT, ClockId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_CLOCK_GETPARENT, 1U, RetPayload, ClockId);
+	if (XST_SUCCESS == Status) {
+		*ParentIdx = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, ParentIdx, NULL, NULL);
 
 done:
 	return Status;
@@ -1222,20 +1230,9 @@ XStatus XPm_PllSetParameter(const u32 ClockId,
 			    const u32 Value)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD3(Payload, PM_PLL_SET_PARAMETER, ClockId, ParamId, Value);
+	Status = XPm_GenericRequest(PM_PLL_SET_PARAMETER, 3U, NULL, ClockId, ParamId, Value);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1269,23 +1266,18 @@ XStatus XPm_PllGetParameter(const u32 ClockId,
 			    u32 *const Value)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == Value) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD2(Payload, PM_PLL_GET_PARAMETER, ClockId, ParamId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_PLL_GET_PARAMETER, 2U, RetPayload, ClockId, ParamId);
+	if (XST_SUCCESS == Status) {
+		*Value = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Value, NULL, NULL);
 
 done:
 	return Status;
@@ -1310,20 +1302,9 @@ done:
 XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_PLL_SET_MODE, ClockId, Value);
+	Status = XPm_GenericRequest(PM_PLL_SET_MODE, 2U, NULL, ClockId, Value);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1346,23 +1327,18 @@ done:
 XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == Value) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_PLL_GET_MODE, ClockId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_PLL_GET_MODE, 1U, RetPayload, ClockId);
+	if (XST_SUCCESS == Status) {
+		*Value = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Value, NULL, NULL);
 
 done:
 	return Status;
@@ -1390,31 +1366,10 @@ XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
 			const u8 State, const u64 Address)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-	struct XPm_Proc *Proc;
 
-	Proc = XPm_GetProcByDeviceId(DeviceId);
-	if (NULL == Proc) {
-		XPm_Err("Invalid Device ID\r\n");
-		Status = (s32)XST_INVALID_PARAM;
-		goto done;
-	}
+	Status = XPm_GenericRequest(PM_SELF_SUSPEND, 5U, NULL, DeviceId, Latency,
+				    State, (u32)Address, (u32)(Address >> 32));
 
-	XPm_ClientSuspend(Proc);
-
-	PACK_PAYLOAD5(Payload, PM_SELF_SUSPEND, DeviceId, Latency, State,
-		      (u32)Address, (u32)(Address >> 32));
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(Proc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(Proc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1441,25 +1396,14 @@ XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
 			  const u64 Address, const u32 Ack)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 EncodedAddr;
 
 	/* encode set Address into 1st bit of address */
 	EncodedAddr = Address | ((1U == SetAddress) ? 1U : 0U);
 
-	PACK_PAYLOAD4(Payload, PM_REQUEST_WAKEUP, TargetDevId, (u32)EncodedAddr,
-			(u32)(EncodedAddr >> 32), Ack);
+	Status = XPm_GenericRequest(PM_REQUEST_WAKEUP, 4U, NULL, TargetDevId,
+				    (u32)EncodedAddr, (u32)(EncodedAddr >> 32), Ack);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1551,18 +1495,8 @@ void XPm_SuspendFinalize(void)
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_ABORT_SUSPEND, Reason, PrimaryProc->DevId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	Status = XPm_GenericRequest(PM_ABORT_SUSPEND, 2U, NULL, Reason, PrimaryProc->DevId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1595,20 +1529,9 @@ done:
 XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_FORCE_POWERDOWN, TargetDevId, Ack);
+	Status = XPm_GenericRequest(PM_FORCE_POWERDOWN, 2U, NULL, TargetDevId, Ack);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1629,20 +1552,9 @@ done:
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_SYSTEM_SHUTDOWN, Type, SubType);
+	Status = XPm_GenericRequest(PM_SYSTEM_SHUTDOWN, 2U, NULL, Type, SubType);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1664,23 +1576,10 @@ XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId, const u32 DeviceId,
 			    const u32 Enable)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetDeviceId, DeviceId, Enable);
+	Status = XPm_GenericRequest(PM_SET_WAKEUP_SOURCE, 3U, NULL,
+				    TargetDeviceId, DeviceId, Enable);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-done:
 	return Status;
 }
 
@@ -1701,22 +1600,15 @@ done:
 XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data)
 {
-
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG] = {0};
 
 	if (NULL == Data) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
-	PACK_PAYLOAD4(Payload, PM_QUERY_DATA, QueryId, Arg1, Arg2, Arg3);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	Status = XPm_GenericRequest(PM_QUERY_DATA, 4U, RetPayload, QueryId, Arg1, Arg2, Arg3);
 
 	switch (QueryId) {
 	case (u32)XPM_QID_CLOCK_GET_NAME:
@@ -1727,12 +1619,16 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		 * in response. So this value should not be treated as error code.
 		 * Consider error only if clock name is not found.
 		 */
-		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[1], &Data[2], &Data[3]);
 		if (XST_SUCCESS != Status) {
 			Data[0] = (u32)('\0');
 			Status = (s32)XST_FAILURE;
 		} else {
+#if !(defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1))
 			Data[0] = (u32)Status;
+#endif
+			Data[1] = RetPayload[0];
+			Data[2] = RetPayload[1];
+			Data[3] = RetPayload[2];
 		}
 		break;
 
@@ -1740,13 +1636,7 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_CLOCK_GET_MUXSOURCES:
 	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
 	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
-		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], &Data[1], &Data[2]);
-		break;
-
 	case (u32)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
-		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], &Data[1], NULL);
-		break;
-
 	case (u32)XPM_QID_CLOCK_GET_ATTRIBUTES:
 	case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
 	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
@@ -1755,7 +1645,11 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
 	case (u32)XPM_QID_PLD_GET_PARENT:
 	case (u32)XPM_QID_PINCTRL_GET_ATTRIBUTES:
-		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], NULL, NULL);
+		if (XST_SUCCESS == Status) {
+			Data[0] = RetPayload[0];
+			Data[1] = RetPayload[1];
+			Data[2] = RetPayload[2];
+		}
 		break;
 
 	default:
@@ -1786,20 +1680,9 @@ done:
 XStatus XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_SET_MAX_LATENCY, DeviceId, Latency);
+	Status = XPm_GenericRequest(PM_SET_MAX_LATENCY, 2U, NULL, DeviceId, Latency);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Read the result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1828,17 +1711,18 @@ XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
 				u32 *const Result)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
-	/* Send request to the target module */
-	PACK_PAYLOAD2(Payload, PM_GET_OP_CHARACTERISTIC, DeviceId, Type);
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
+	if (NULL == Result) {
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Result, NULL, NULL);
+	Status = XPm_GenericRequest(PM_GET_OP_CHARACTERISTIC, 2U, RetPayload, DeviceId, Type);
+	if (XST_SUCCESS == Status) {
+		*Result = RetPayload[0];
+	}
 
 done:
 	return Status;
@@ -1855,20 +1739,9 @@ done:
 XStatus XPm_InitFinalize(void)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD0(Payload, PM_INIT_FINALIZE);
+	Status = XPm_GenericRequest(PM_INIT_FINALIZE, 0U, NULL);
 
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
 	return Status;
 }
 
@@ -1893,7 +1766,6 @@ done:
 XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 	u32 Version;
 
 	if (NULL == Notifier) {
@@ -1908,15 +1780,8 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier)
 	}
 
 	/* Send request to the target module */
-	PACK_PAYLOAD4(Payload, PM_REGISTER_NOTIFIER, Notifier->node,
-		      Notifier->event, Notifier->flags, 1);
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	Status = XPm_GenericRequest(PM_REGISTER_NOTIFIER, 4U, NULL,
+				    Notifier->node, Notifier->event, Notifier->flags, 1);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1945,7 +1810,6 @@ done:
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
@@ -1963,19 +1827,10 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
 		goto done;
 	}
 
-	/* Send request to the target module */
-	PACK_PAYLOAD4(Payload, PM_REGISTER_NOTIFIER, Notifier->node,
-		      Notifier->event, 0, 0);
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	/* Send request to the target module (enable=0 to unregister) */
+	Status = XPm_GenericRequest(PM_REGISTER_NOTIFIER, 4U, NULL,
+				    Notifier->node, Notifier->event,
+				    0, 0);
 
 done:
 	return Status;
@@ -2135,25 +1990,19 @@ XStatus XPm_MmioRead(const u32 Address, u32 *const Value)
  ****************************************************************************/
 XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version)
 {
-
 	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 RetPayload[MAX_RESPONSE_ARG];
 
 	if (NULL == Version) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_FEATURE_CHECK, FeatureId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Status = XPm_GenericRequest(PM_FEATURE_CHECK, 1U, RetPayload, FeatureId);
+	if (XST_SUCCESS == Status) {
+		*Version = RetPayload[0];
 	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Version, NULL, NULL);
 
 done:
 	return Status;
