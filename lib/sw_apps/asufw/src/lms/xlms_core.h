@@ -55,7 +55,6 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 SignatureLen);
 s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	const XAsu_LmsHssSignVerifyParams *LmsSignVerifyParams);
-s32 XLms_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, u32 *SignAlgo);
 
 /************************************ Variable Definitions ***************************************/
 

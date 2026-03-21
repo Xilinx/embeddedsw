@@ -76,7 +76,7 @@ s32 XAsufw_KeyManagerInit(void)
 	s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_KeyManagerCmds array contains the list of commands supported by Key Manager module. */
-	static const XAsufw_ModuleCmd XAsufw_KeyManagerCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_KeyManagerCmds[XASU_KM_MAX_CMDS] = {
 		[XASU_KM_CREATE_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerCreateKeyVault),
 		[XASU_KM_DELETE_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerDeleteKeyVault),
 		[XASU_KM_DELETE_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerDeleteKey),
@@ -87,7 +87,7 @@ s32 XAsufw_KeyManagerInit(void)
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_KeyManagerResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyManagerCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_KeyManagerResourcesBuf[XASU_KM_MAX_CMDS] = {
 		[XASU_KM_CREATE_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
 		[XASU_KM_DELETE_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
 		[XASU_KM_DELETE_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
@@ -104,7 +104,7 @@ s32 XAsufw_KeyManagerInit(void)
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_KeyManagerAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyManagerCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_KeyManagerAccessPermBuf[XASU_KM_MAX_CMDS] = {
 		[XASU_KM_CREATE_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_CREATE_KEYVAULT_CMD_ID),
 		[XASU_KM_DELETE_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_DELETE_KEYVAULT_CMD_ID),
 		[XASU_KM_DELETE_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_DELETE_KEY_CMD_ID),
@@ -117,7 +117,7 @@ s32 XAsufw_KeyManagerInit(void)
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
 	XAsufw_KeyManagerModule.Cmds = XAsufw_KeyManagerCmds;
 	XAsufw_KeyManagerModule.ResourcesRequired = XAsufw_KeyManagerResourcesBuf;
-	XAsufw_KeyManagerModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_KeyManagerCmds);
+	XAsufw_KeyManagerModule.CmdCnt = XASU_KM_MAX_CMDS;
 	XAsufw_KeyManagerModule.ResourceHandler = XAsufw_KeyManagerResourceHandler;
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
 	XAsufw_KeyManagerModule.ShaPtr = NULL;

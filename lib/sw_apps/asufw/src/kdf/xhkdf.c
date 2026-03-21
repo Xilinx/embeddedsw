@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -102,6 +102,7 @@ s32 XHkdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_HkdfPara
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XHkdf_Expand(DmaPtr, ShaInstancePtr, HkdfParams, (u8 *)&Prk);
 
+/* coverity[misra_c_2023_rule_2_6_violation] This label 'END_CLR' is used by XFIH_GOTO macro */
 END_CLR:
 	/** Zeroize the intermediate Prk buffer. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(Prk, XASU_SHA_512_HASH_LEN));

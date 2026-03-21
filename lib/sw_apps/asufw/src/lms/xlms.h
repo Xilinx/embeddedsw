@@ -178,7 +178,7 @@ typedef struct {
  *
  * Size = 4 + 4 + 16 + H Len (32) = 56 Bytes
  */
-typedef union XLms_PublicKey_ {
+typedef union {
 	u8 Buff[XLMS_PUB_KEY_TOTAL_SIZE];
 	struct {
 		/**
@@ -216,7 +216,7 @@ typedef union XLms_PublicKey_ {
  *
  * Size = 16(I) + 4(node_number/2) + 2(D_INTR) + (32 * 2)
  */
-typedef union XLms_PubKeyTmp_ {
+typedef union {
 	u8 Buff[XLMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE];
 	struct {
 		/**

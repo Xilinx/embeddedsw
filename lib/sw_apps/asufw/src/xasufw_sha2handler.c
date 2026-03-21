@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -76,19 +76,19 @@ s32 XAsufw_Sha2Init(void)
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 
 	/** The XAsufw_Sha2Cmds array contains the list of commands supported by SHA2 module. */
-	static const XAsufw_ModuleCmd XAsufw_Sha2Cmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_Sha2Cmds[XASU_SHA_MAX_CMDS] = {
 		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha2Operation),
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha2Kat),
 	};
 
 	/** The XAsufw_Sha2ResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_Sha2ResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_Sha2Cmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_Sha2ResourcesBuf[XASU_SHA_MAX_CMDS] = {
 		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_Sha2AccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_Sha2AccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_Sha2Cmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_Sha2AccessPermBuf[XASU_SHA_MAX_CMDS] = {
 		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_OPERATION_CMD_ID),
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_KAT_CMD_ID),
 	};
@@ -96,7 +96,7 @@ s32 XAsufw_Sha2Init(void)
 	XAsufw_Sha2Module.Id = XASU_MODULE_SHA2_ID;
 	XAsufw_Sha2Module.Cmds = XAsufw_Sha2Cmds;
 	XAsufw_Sha2Module.ResourcesRequired = XAsufw_Sha2ResourcesBuf;
-	XAsufw_Sha2Module.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_Sha2Cmds);
+	XAsufw_Sha2Module.CmdCnt = XASU_SHA_MAX_CMDS;
 	XAsufw_Sha2Module.ResourceHandler = XAsufw_Sha2ResourceHandler;
 	XAsufw_Sha2Module.AsuDmaPtr = NULL;
 	XAsufw_Sha2Module.AccessPermBufferPtr = XAsufw_Sha2AccessPermBuf;

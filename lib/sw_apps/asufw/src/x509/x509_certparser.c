@@ -168,6 +168,7 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
 	u32 TbsOffset;
 	u32 TbsHeader;
 	u32 DataLen;
+	const X509_PublicKey *LocalPubKeyInfo = NULL;
 
 	/** Validate certificate address, CertInfo pointer and public key address. */
 	if ((X509CertAddr == 0U) || (CertInfo == NULL) || (PlatformData == NULL)) {
@@ -218,7 +219,7 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
 
 	/** If issuer information is not provided, assume X.509 certificate to be self-signed. */
 	if (IssuerPubKeyInfo == NULL) {
-		IssuerPubKeyInfo = &PubKeyInfo;
+		LocalPubKeyInfo = &PubKeyInfo;
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Check whether public key is uncompressed or not. */
@@ -228,12 +229,14 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
 			goto END;
 		}
 		/** Store the public key after skipping compression indicator. */
-		IssuerPubKeyInfo->PubKey = &CertInfo->PublicKey.PubKey[XASUFW_BUFFER_INDEX_ONE];
-		IssuerPubKeyInfo->PubKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+		PubKeyInfo.PubKey = &CertInfo->PublicKey.PubKey[XASUFW_BUFFER_INDEX_ONE];
+		PubKeyInfo.PubKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	} else {
+		LocalPubKeyInfo = IssuerPubKeyInfo;
 	}
 	/** Verify ECC signature by using TBS certificate data. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_VerifySignature(&X509_CertInstance.Buf[TbsOffset], DataLen, IssuerPubKeyInfo,
+	Status = X509_VerifySignature(&X509_CertInstance.Buf[TbsOffset], DataLen, LocalPubKeyInfo,
 				      PlatformData);
 
 END:

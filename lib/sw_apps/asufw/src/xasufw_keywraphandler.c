@@ -68,7 +68,7 @@ s32 XAsufw_KeyWrapInit(void)
 	 * The XAsufw_KeyWrapCmds array contains the list of commands supported by Key wrap unwrap
 	 * module.
 	 */
-	static const XAsufw_ModuleCmd XAsufw_KeyWrapCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_KeyWrapCmds[XASU_KEYWRAP_MAX_CMDS] = {
 		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrap),
 		[XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrap),
 		[XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyUnwrap),
@@ -77,7 +77,7 @@ s32 XAsufw_KeyWrapInit(void)
 	};
 
 	/** The XAsufw_KeyWrapResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_KeyWrapResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyWrapCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_KeyWrapResourcesBuf[XASU_KEYWRAP_MAX_CMDS] = {
 		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
 		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK,
@@ -96,7 +96,7 @@ s32 XAsufw_KeyWrapInit(void)
 	};
 
 	/** The XAsufw_KeyWrapAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_KeyWrapAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyWrapCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_KeyWrapAccessPermBuf[XASU_KEYWRAP_MAX_CMDS] = {
 		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID),
 		[XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID),
 		[XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID),
@@ -107,7 +107,7 @@ s32 XAsufw_KeyWrapInit(void)
 	XAsufw_KeyWrapModule.Id = XASU_MODULE_KEYWRAP_ID;
 	XAsufw_KeyWrapModule.Cmds = XAsufw_KeyWrapCmds;
 	XAsufw_KeyWrapModule.ResourcesRequired = XAsufw_KeyWrapResourcesBuf;
-	XAsufw_KeyWrapModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_KeyWrapCmds);
+	XAsufw_KeyWrapModule.CmdCnt = XASU_KEYWRAP_MAX_CMDS;
 	XAsufw_KeyWrapModule.ResourceHandler = XAsufw_KeyWrapResourceHandler;
 	XAsufw_KeyWrapModule.AsuDmaPtr = NULL;
 	XAsufw_KeyWrapModule.ShaPtr = NULL;

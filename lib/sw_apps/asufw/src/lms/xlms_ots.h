@@ -324,7 +324,7 @@ typedef struct {
  *
  * Size = 4 + 16 + 4 + H Len (32) = 56 Bytes
  */
-typedef union XLms_OtsPublicKey_ {
+typedef union {
 	u8 Buff[XLMS_OTS_PUB_KEY_TOTAL_SIZE];
 	struct {
 		/**
@@ -364,7 +364,7 @@ typedef union XLms_OtsPublicKey_ {
  *
  * Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes
  */
-typedef union XLms_OtsHashPerDigit_ {
+typedef union {
 	u8 Buff[1U + XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE];
 	struct {
 		/**
@@ -407,7 +407,7 @@ typedef union XLms_OtsHashPerDigit_ {
  *
  * Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32))
  */
-typedef union XLms_OtsSignToPubKeyHash_ {
+typedef union {
 	u8 Buff[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE];
 	struct {
 		/**
@@ -439,7 +439,7 @@ typedef union XLms_OtsSignToPubKeyHash_ {
  * struct Size = 4 + 32
  * Sign size = 4 + 32 + (p * n) = 4 + n * (p+1)
  */
-typedef struct XLms_OtsSignature_ {
+typedef struct {
 	/**
 	 * @brief Type XLms_OtsType
 	 * Size - 4 bytes, 0 to 3 bytes in LMS OTS signature
@@ -463,7 +463,7 @@ typedef struct XLms_OtsSignature_ {
  *
  * Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes
  */
-typedef union XLms_DataDigestFixedFields_ {
+typedef union {
 	u8 Buff[XLMS_MESSAGE_TO_DIGEST_PREFIX_SIZE];
 	struct {
 		/**
@@ -494,7 +494,7 @@ typedef union XLms_DataDigestFixedFields_ {
  *
  * Size = Digest (32) + Check sum (2) = 34 Bytes
  */
-typedef union XLms_DataDigest_ {
+typedef union {
 	u8 Buff[XLMS_DIGEST_CHECKSUM_SIZE];
 	struct {
 		/**
@@ -519,7 +519,7 @@ u32 XLms_OtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w);
 s32 XLms_OtsComputeChecksum(const u8* const Array, const u32 ArrayLen,
 				const u32 w, const u32 ls, u32* const Checksum);
 s32 XLms_OtsLookupParamSet(XLms_OtsType Type,
-	XLms_OtsParam** Parameters);
+	const XLms_OtsParam** Parameters);
 
 #ifdef __cplusplus
 }

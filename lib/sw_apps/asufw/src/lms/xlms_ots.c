@@ -57,7 +57,7 @@
 /**
  * @brief Global lookup table for 'n', 'w', 'p', 'ls' & Signature lengths
  */
-const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
+static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 	/* XLMS_OTS_RESERVED, XLMS_OTS_NOT_SUPPORTED, default*/
 	[XLMS_OTS_PARAM_IDX_RESERVED] = {
 		.HashAlgId = XLMS_HASH_MODE_UNSUPPORTED,
@@ -179,7 +179,7 @@ u32 XLms_OtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w)
 	* mask & (w width value in byte >> to lower most bits) to extract the digit,
 	*/
 
-	u32 Result;
+	u32 Result = 0U;
 
 	u32 Product = ArrayIndex * w;
 
@@ -249,65 +249,65 @@ END:
 *	-	XASUFW_LMS_TYPE_LOOKUP_GLITCH_ERROR - If glitch detected
 *
 **************************************************************************************************/
-s32 XLms_OtsLookupParamSet(XLms_OtsType Type, XLms_OtsParam** Parameters)
+s32 XLms_OtsLookupParamSet(XLms_OtsType Type,const XLms_OtsParam** Parameters)
 {
 	s32 Status = XASUFW_FAILURE;
 	/* Redundant type for temporal check */
 	volatile XLms_OtsType TmpType = (XLms_OtsType)XASUFW_ALLFS;
-	*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
+	*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
 
 	/* 'w' = 1' variations and 24 bit hash outputs are not supported in this library */
 
 	switch (Type) {
 		/* SHA-256 options */
 		case XLMS_OTS_SHA256_N32_W2: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W2];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W2];
 			TmpType = XLMS_OTS_SHA256_N32_W2;
 			break;
 		}
 		case XLMS_OTS_SHA256_N32_W4: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W4];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W4];
 			TmpType = XLMS_OTS_SHA256_N32_W4;
 			break;
 		}
 		case XLMS_OTS_SHA256_N32_W8: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W8];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W8];
 			TmpType = XLMS_OTS_SHA256_N32_W8;
 			break;
 		}
 
 		/* SHAKE 256 options */
 		case XLMS_OTS_SHAKE_N32_W2: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W2];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W2];
 			TmpType = XLMS_OTS_SHAKE_N32_W2;
 			break;
 		}
 		case XLMS_OTS_SHAKE_N32_W4: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W4];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W4];
 			TmpType = XLMS_OTS_SHAKE_N32_W4;
 			break;
 		}
 		case XLMS_OTS_SHAKE_N32_W8: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W8];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W8];
 			TmpType = XLMS_OTS_SHAKE_N32_W8;
 			break;
 		}
 
 		/* default, and other not supported options */
 		case XLMS_OTS_RESERVED: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
 			TmpType = XLMS_OTS_RESERVED;
 			Status = XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}
 		case XLMS_OTS_NOT_SUPPORTED: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
 			TmpType = XLMS_OTS_NOT_SUPPORTED;
 			Status = XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}
 		default: {
-			*Parameters = (XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
 			Status = XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}

@@ -1238,7 +1238,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	}
 
 	/** Error out if curve type is Ed25519 or Ed448 as they don't support ECDH operation. */
-	if (CurveType == XASU_ECC_NIST_ED25519 || CurveType == XASU_ECC_NIST_ED448) {
+	if ((CurveType == XASU_ECC_NIST_ED25519) || (CurveType == XASU_ECC_NIST_ED448)) {
 		Status = XASUFW_RSA_ECC_INCORRECT_CURVE;
 		goto END;
 	}
@@ -1423,7 +1423,7 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 		goto END;
 	}
 
-	if (CurveType == XASU_ECC_CURVE25519 || CurveType == XASU_ECC_CURVE448) {
+	if ((CurveType == XASU_ECC_CURVE25519) || (CurveType == XASU_ECC_CURVE448)) {
 		Status = XASUFW_RSA_ECC_INCORRECT_CURVE;
 		goto END;
 	}

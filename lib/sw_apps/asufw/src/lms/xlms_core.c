@@ -326,8 +326,8 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	XAsu_LmsHssSignVerifyParams LmsSignVerifyParams;
 	static u8 HssLocalSignBuff[XLMS_HSS_LOCAL_SIGNATURE_BUFF_SIZE];
 	static u8 HssLocalPubKeyBuff[XLMS_HSS_PUBLIC_KEY_TOTAL_SIZE];
-	u8 *SignBuff = NULL;
-	u8 *PublicKey = NULL;
+	const u8 *SignBuff = NULL;
+	const u8 *PublicKey = NULL;
 
 	/** Validate that the public key buffer is long enough to contain the 4-byte HSS level count field (L) */
 	if (XLMS_HSS_LEVELS_FIELD_SIZE > HssParamsPtr->PublicKeyLen) {
@@ -459,7 +459,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 		/** Fetch the type of public key, if not a valid/supported Type return error */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, (XLms_OtsParam**)&PubKeyLmsOtsParam);
+		Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, (const XLms_OtsParam**)&PubKeyLmsOtsParam);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
@@ -556,7 +556,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE,
-		(void*)AuthenticatedKey.Fields.PubKeyTreeId, XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
+		(const void*)AuthenticatedKey.Fields.PubKeyTreeId, XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
@@ -568,7 +568,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.C, XLMS_C_FIELD_SIZE,
-		(void*)&TmpSignaturePtr[XLMS_SIGNATURE_OTS_FIELD_OFFSET + XLMS_OTS_SIGN_C_FIELD_OFFSET],
+		(const void*)&TmpSignaturePtr[XLMS_SIGNATURE_OTS_FIELD_OFFSET + XLMS_OTS_SIGN_C_FIELD_OFFSET],
 		XLMS_C_FIELD_SIZE, XLMS_C_FIELD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
@@ -591,7 +591,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 	/** Lookup OTS parameters (Winternitz w, chain count p) for final verification stage */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, (XLms_OtsParam**)&PubKeyLmsOtsParam);
+	Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, (const XLms_OtsParam**)&PubKeyLmsOtsParam);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 		goto END;
@@ -734,7 +734,7 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 
 	/* Lookup OTS parameters for signature verification */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, (XLms_OtsParam**)&PskPubKeyLmsOtsParam);
+	Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, (const XLms_OtsParam**)&PskPubKeyLmsOtsParam);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 		goto END;
@@ -811,7 +811,7 @@ END:
 *		- XASUFW_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR - Public key encodes an
 									unsupported LMS type
 **************************************************************************************************/
-s32 XLms_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, u32 *SignAlgo)
+static s32 XLms_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, u32 *SignAlgo)
 {
 	s32 Status = XASUFW_FAILURE;
 	/** Public key's LMS type */
@@ -900,7 +900,7 @@ static s32 XLms_OtsSignatureInit(u8* LmsOtsSignatureBuff, u32 LmsOtsSignatureLen
 	}
 
 	/** Lookup OTS parameters (w, p, n) based on the extracted type */
-	Status = XLms_OtsLookupParamSet(LmsOtsType, (XLms_OtsParam**)&LmsOtsSignParam_g);
+	Status = XLms_OtsLookupParamSet(LmsOtsType, (const XLms_OtsParam**)&LmsOtsSignParam_g);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR;
 		goto END;
@@ -1113,17 +1113,25 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 	SignToOtsBuffIndex = XLMS_OTS_SIGN_Y_FIELD_OFFSET;
 
+	ShaParamsInput.DataAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.Buff[XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET];
+	ShaParamsInput.HashAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.Fields.y[0U];
+	ShaParamsInput.DataSize = XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE;
+	ShaParamsInput.HashBufSize = XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE;
+	ShaParamsInput.ShaMode = (u8)LmsOtsSignParam_g->HashAlgId;
+
 	/**
 	 * RFC 8554 Section 4.6 Step 4b.3: Process p Winternitz chain elements.
 	 * For each digit position i (0 to p-1), extract w-bit digit 'a' from (Q || Cksm(Q)),
 	 * then compute z[i] by hashing y[i] exactly (2^w - 1 - a) times to reach public key element.
 	 */
-	for (DigitIndex = 0U, IntToOutLoopBuffIndex = 0U; DigitIndex < (u16)LmsOtsSignParam_g->p;
-		 DigitIndex++, IntToOutLoopBuffIndex += XLMS_N_FIELD_SIZE,
-		SignToOtsBuffIndex += XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE) {
+	for (DigitIndex = 0U ; DigitIndex < (u16)LmsOtsSignParam_g->p ; DigitIndex++) {
+
+		IntToOutLoopBuffIndex = DigitIndex * XLMS_N_FIELD_SIZE;
+        SignToOtsBuffIndex = XLMS_OTS_SIGN_Y_FIELD_OFFSET +
+                    (DigitIndex * XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
 
 		/* Extract w-bit digit 'a' at position i using coef() function per RFC 8554 Section 3.1.3 */
-		DigitVal = XLms_OtsCoeff(DigestChecksum.Buff, DigitIndex, LmsOtsSignParam_g->w);
+		DigitVal = XLms_OtsCoeff(DigestChecksum.Buff, DigitIndex, (u32)LmsOtsSignParam_g->w);
 
 		/* Set digit position 'i' */
 		TmpHashPerDigitBuff.Fields.DigitPosition = (u16)(DigitIndex);
@@ -1140,12 +1148,6 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
-
-		ShaParamsInput.DataAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.Buff[XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET];
-		ShaParamsInput.HashAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.Fields.y[0U];
-		ShaParamsInput.DataSize = XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE;
-		ShaParamsInput.HashBufSize = XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE;
-		ShaParamsInput.ShaMode = LmsOtsSignParam_g->HashAlgId;
 
 		/**
 		 * Forward the hash chain from signature element y[i] to public key element z[i].
@@ -1339,7 +1341,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 	/** Lookup OTS parameters (Winternitz parameter w, chain count p.) */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XLms_OtsLookupParamSet(SignLmsOtsType,
-			(XLms_OtsParam**)&CtxPtr->LmsOtsSignParam);
+			(const XLms_OtsParam**)&CtxPtr->LmsOtsSignParam);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR;
 		goto END;
@@ -1427,7 +1429,7 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	/* Configure SHA parameters */
 	ShaParamsInput.HashAddr = (u64)(UINTPTR)LmsTmpBuff;
 	ShaParamsInput.HashBufSize = XLMS_M_BYTE_FIELD_SIZE;
-	ShaParamsInput.ShaMode = CtxPtr->LmsOtsSignParam->HashAlgId;
+	ShaParamsInput.ShaMode = (u8)CtxPtr->LmsOtsSignParam->HashAlgId;
 
 	/**
 	 * RFC 8554 Section 5.4.2 Step 6b: Set domain separator D_INTR (0x8383) to distinguish
@@ -1484,7 +1486,7 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = Xil_SMemCpy(
 				(void*)&LmsPubKeyTmpBuff.Fields.Tmp[XLMS_PUB_KEY_TMP_BUF_ADJ_NODE_VAL_INDEX],
-				XLMS_M_BYTE_FIELD_SIZE, (void*)&Path[PathIndex], XLMS_M_BYTE_FIELD_SIZE,
+				XLMS_M_BYTE_FIELD_SIZE, (const void*)&Path[PathIndex], XLMS_M_BYTE_FIELD_SIZE,
 				XLMS_M_BYTE_FIELD_SIZE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_MEM_COPY_FAIL;

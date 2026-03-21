@@ -63,7 +63,7 @@ s32 XLms_LookupParamSet(XLms_Type Type, XLms_Param** Parameters)
 	s32 Status = XASUFW_FAILURE;
 	/* Redundant type for temporal check */
 	volatile XLms_Type TmpType = (XLms_Type)XASUFW_ALLFS;
-	static XLms_Param XLms_ParamLookup[XLMS_TYPE_MAX_SUPPORTED] = {
+	static const XLms_Param XLms_ParamLookup[XLMS_TYPE_MAX_SUPPORTED] = {
 		/* XLMS_RESERVED, XLMS_NOT_SUPPORTED, default */
 		[XLMS_PARAM_IDX_RESERVED] = {
 			.HashAlgId = XLMS_HASH_MODE_UNSUPPORTED,

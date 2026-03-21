@@ -66,7 +66,7 @@ typedef struct {
 static XAsufw_LogInfo *const DebugLog = (XAsufw_LogInfo *)(UINTPTR)XASU_RTCA_DBG_LOG_BUF_INFO_ADDR;
 			/**< Pointer to the structure which holds debug log buffer information. */
 
-u8 LogBufValidation = XASU_STATUS_FAIL; /**< Variable to indicate if log buffer information is
+static u8 LogBufValidation = XASU_STATUS_FAIL; /**< Variable to indicate if log buffer information is
 						valid or not. */
 
 /*************************************************************************************************/

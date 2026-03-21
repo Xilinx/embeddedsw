@@ -77,7 +77,7 @@ s32 XAsufw_OcpInit(void)
 	s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_OcpCmds array contains the list of commands supported by OCP module. */
-	static const XAsufw_ModuleCmd XAsufw_OcpCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_OcpCmds[XASU_OCP_MAX_CMDS] = {
 		[XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_OcpDevIkX509CertGen),
 		[XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID] =
@@ -98,7 +98,7 @@ s32 XAsufw_OcpInit(void)
 	 * The XAsufw_OcpResources contains the required resources for each supported
 	 * command.
 	 */
-	static XAsufw_ResourcesRequired XAsufw_OcpResources[XASUFW_ARRAY_SIZE(XAsufw_OcpCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_OcpResources[XASU_OCP_MAX_CMDS] = {
 		[XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
@@ -124,7 +124,7 @@ s32 XAsufw_OcpInit(void)
 	};
 
 	/** The XAsufw_OcpAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_OcpAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_OcpCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_OcpAccessPermBuf[XASU_OCP_MAX_CMDS] = {
 		[XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID),
 		[XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID),
 		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID),
@@ -137,7 +137,7 @@ s32 XAsufw_OcpInit(void)
 	XAsufw_OcpModule.Id = XASU_MODULE_OCP_ID;
 	XAsufw_OcpModule.Cmds = XAsufw_OcpCmds;
 	XAsufw_OcpModule.ResourcesRequired = XAsufw_OcpResources;
-	XAsufw_OcpModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_OcpCmds);
+	XAsufw_OcpModule.CmdCnt = XASU_OCP_MAX_CMDS;
 	XAsufw_OcpModule.ResourceHandler = XAsufw_OcpResourceHandler;
 	XAsufw_OcpModule.AsuDmaPtr = NULL;
 	XAsufw_OcpModule.ShaPtr = NULL;

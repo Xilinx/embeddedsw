@@ -42,6 +42,7 @@
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_OCP_GEN_DEV_KEYS_CMD_ID		(0U)	/**< Command ID for device key generation */
+#define XASU_PLM_EVT_MAX_CMDS			(1U)	/**< Maximum number of commands supported by PLM event module */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -82,8 +83,7 @@ s32 XAsufw_PlmInit(void)
 	 * The XAsufw_PlmEvtResources contains the required resources for each supported
 	 * command.
 	 */
-	static XAsufw_ResourcesRequired XAsufw_PlmEvtResources[XASUFW_ARRAY_SIZE(XAsufw_PlmEvtCmds)]
-		= {
+	static XAsufw_ResourcesRequired XAsufw_PlmEvtResources[XASU_PLM_EVT_MAX_CMDS] = {
 #ifdef XASU_OCP_ENABLE
 			[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 				XASUFW_TRNG_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK |
@@ -96,7 +96,7 @@ s32 XAsufw_PlmInit(void)
 	XAsufw_PlmEvtModule.Id = XASU_MODULE_PLM_ID;
 	XAsufw_PlmEvtModule.Cmds = XAsufw_PlmEvtCmds;
 	XAsufw_PlmEvtModule.ResourcesRequired = XAsufw_PlmEvtResources;
-	XAsufw_PlmEvtModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_PlmEvtCmds);
+	XAsufw_PlmEvtModule.CmdCnt = XASU_PLM_EVT_MAX_CMDS;
 	XAsufw_PlmEvtModule.ResourceHandler = XAsufw_PlmEvtResourceHandler;
 	XAsufw_PlmEvtModule.AsuDmaPtr = NULL;
 	XAsufw_PlmEvtModule.ShaPtr = NULL;

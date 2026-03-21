@@ -112,24 +112,6 @@ static inline s32 XSha_WaitForDone(const XSha *InstancePtr);
 static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen);
 
 /************************************ Variable Definitions ***************************************/
-/**
-* The configuration table for devices.
-*/
-static XSha_Config XSha_ConfigTable[XASU_XSHA_NUM_INSTANCES] = {
-	{
-		XASU_XSHA_0_DEVICE_ID,
-		XASU_XSHA_0_TYPE,
-		XASU_XSHA_0_S_AXI_BASEADDR
-	},
-
-	{
-		XASU_XSHA_1_DEVICE_ID,
-		XASU_XSHA_1_TYPE,
-		XASU_XSHA_1_S_AXI_BASEADDR
-	}
-};
-
-static XSha XSha_Instance[XASU_XSHA_NUM_INSTANCES]; /**< ASUFW SHA HW instances */
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
@@ -149,6 +131,7 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
  *************************************************************************************************/
 XSha *XSha_GetInstance(u16 DeviceId)
 {
+	static XSha XSha_Instance[XASU_XSHA_NUM_INSTANCES]; /**< ASUFW SHA HW instances */
 	XSha *XSha_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XSHA_NUM_INSTANCES) {
@@ -177,6 +160,22 @@ END:
  *************************************************************************************************/
 static XSha_Config *XSha_LookupConfig(u16 DeviceId)
 {
+	/**
+	* The configuration table for devices.
+	*/
+	static XSha_Config XSha_ConfigTable[XASU_XSHA_NUM_INSTANCES] = {
+		{
+			XASU_XSHA_0_DEVICE_ID,
+			XASU_XSHA_0_TYPE,
+			XASU_XSHA_0_S_AXI_BASEADDR
+		},
+
+		{
+			XASU_XSHA_1_DEVICE_ID,
+			XASU_XSHA_1_TYPE,
+			XASU_XSHA_1_S_AXI_BASEADDR
+		}
+	};
 	XSha_Config *CfgPtr = NULL;
 	u32 Index;
 

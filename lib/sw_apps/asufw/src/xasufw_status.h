@@ -698,7 +698,7 @@ enum {
 	XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, /**< 0x1F6U - When wait for done timed out */
 	XASUFW_AES_READ_TAG_FAIL, /**< 0x1F7U - Error when reading AES tag fails. */
 	XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, /**< 0x1F8U - Error when finalizing AAD update fails. */
-	XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, /**< 0x1F9U - Error when configuring SSS with DMA and transfering data fails. */
+	XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, /**< 0x1F9U - Error when configuring SSS with DMA and transferring data fails. */
 	XASUFW_AES_MODE_CONFIG_READBACK_ERROR, /**< 0x1FAU - Error when AES mode configuration readback fails,
 							possibly due to glitch or control flow disruption. */
 	XASUFW_AES_ERR_CTX_SAVED_GLITCH, /**< 0x1FBU - Error when AES context save did not
@@ -717,6 +717,7 @@ enum {
 	XASUFW_RSA_PWCT_ENCRYPT_FAIL, /**< 0x202U - RSA PWCT encrypt operation failed */
 	XASUFW_RSA_PWCT_DECRYPT_FAIL, /**< 0x203U - RSA PWCT decrypt operation failed */
 	XASUFW_RSA_PWCT_COMPARISON_FAIL, /**< 0x204U - RSA PWCT comparison failed */
+	XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL, /**< 0x205U - Error when UDE prepare decryption key operation fails */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

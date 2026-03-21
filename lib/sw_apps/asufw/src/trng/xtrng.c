@@ -141,17 +141,6 @@ static inline s32 XTrng_CfgRepCountTestCutoff(const XTrng *InstancePtr, u16 RepC
 static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue);
 
 /************************************ Variable Definitions ***************************************/
-/** The configuration table for TRNG devices */
-static XTrng_Config XTrng_ConfigTable[XASU_XTRNG_NUM_INSTANCES] = {
-	{
-		XASU_XTRNG_0_DEVICE_ID,
-		XASU_XTRNG_0_S_AXI_BASEADDR,
-		XASU_XTRNG_0_FIFO_S_AXI_BASEADDR
-	}
-};
-
-/** TRNG HW instances */
-static XTrng XTrng_Instance[XASU_XTRNG_NUM_INSTANCES];
 
 /*************************************************************************************************/
 /**
@@ -166,6 +155,8 @@ static XTrng XTrng_Instance[XASU_XTRNG_NUM_INSTANCES];
  *************************************************************************************************/
 XTrng *XTrng_GetInstance(u16 DeviceId)
 {
+	/** TRNG HW instances */
+	static XTrng XTrng_Instance[XASU_XTRNG_NUM_INSTANCES];
 	XTrng *XTrng_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XTRNG_NUM_INSTANCES) {
@@ -194,6 +185,14 @@ END:
  *************************************************************************************************/
 static XTrng_Config *XTrng_LookupConfig(u16 DeviceId)
 {
+	/** The configuration table for TRNG devices */
+	static XTrng_Config XTrng_ConfigTable[XASU_XTRNG_NUM_INSTANCES] = {
+		{
+			XASU_XTRNG_0_DEVICE_ID,
+			XASU_XTRNG_0_S_AXI_BASEADDR,
+			XASU_XTRNG_0_FIFO_S_AXI_BASEADDR
+		}
+	};
 	XTrng_Config *CfgPtr = NULL;
 	u32 Index;
 

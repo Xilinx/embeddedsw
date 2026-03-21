@@ -315,6 +315,10 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 				break;
 			case XASUFW_ECC_RESOURCE_MASK:
 				Resource = XAsufw_GetEccMaskResourceId(ReqBuf);
+				if (Resource == XASUFW_INVALID) {
+					Status = XASUFW_RESOURCE_INVALID;
+					goto END;
+				}
 				break;
 			case XASUFW_RSA_RESOURCE_MASK:
 				Resource = XASUFW_RSA;

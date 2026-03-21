@@ -64,14 +64,14 @@ s32 XAsufw_HmacInit(void)
 	XHmac *HmacPtr = XHmac_GetInstance();
 
 	/** The XAsufw_HmacCmds array contains the list of commands supported by HMAC module. */
-	static const XAsufw_ModuleCmd XAsufw_HmacCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_HmacCmds[XASU_HMAC_MAX_CMDS] = {
 		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacComputeSha),
 		[XASU_HMAC_COMPUTE_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacComputeSha),
 		[XASU_HMAC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacKat),
 	};
 
 	/** The XAsufw_HmacResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_HmacResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_HmacCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_HmacResourcesBuf[XASU_HMAC_MAX_CMDS] = {
 		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_HMAC_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
 		[XASU_HMAC_COMPUTE_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
@@ -81,7 +81,7 @@ s32 XAsufw_HmacInit(void)
 	};
 
 	/** The XAsufw_HmacAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_HmacAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_HmacCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_HmacAccessPermBuf[XASU_HMAC_MAX_CMDS] = {
 		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HMAC_COMPUTE_SHA2_CMD_ID),
 		[XASU_HMAC_COMPUTE_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HMAC_COMPUTE_SHA3_CMD_ID),
 		[XASU_HMAC_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HMAC_KAT_CMD_ID),
@@ -90,7 +90,7 @@ s32 XAsufw_HmacInit(void)
 	XAsufw_HmacModule.Id = XASU_MODULE_HMAC_ID;
 	XAsufw_HmacModule.Cmds = XAsufw_HmacCmds;
 	XAsufw_HmacModule.ResourcesRequired = XAsufw_HmacResourcesBuf;
-	XAsufw_HmacModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_HmacCmds);
+	XAsufw_HmacModule.CmdCnt = XASU_HMAC_MAX_CMDS;
 	XAsufw_HmacModule.ResourceHandler = XAsufw_HmacResourceHandler;
 	XAsufw_HmacModule.AsuDmaPtr = NULL;
 	XAsufw_HmacModule.ShaPtr = NULL;

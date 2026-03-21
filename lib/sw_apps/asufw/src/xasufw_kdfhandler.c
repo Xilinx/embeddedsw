@@ -62,14 +62,14 @@ s32 XAsufw_KdfInit(void)
 	volatile s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_KdfCmds array contains the list of commands supported by KDF module. */
-	static const XAsufw_ModuleCmd XAsufw_KdfCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_KdfCmds[XASU_KDF_MAX_CMDS] = {
 		[XASU_KDF_GENERATE_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfGenerate),
 		[XASU_KDF_GENERATE_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfGenerate),
 		[XASU_KDF_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfKat),
 	};
 
 	/** The XAsufw_KdfResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_KdfResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_KdfCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_KdfResourcesBuf[XASU_KDF_MAX_CMDS] = {
 		[XASU_KDF_GENERATE_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_HMAC_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
 		[XASU_KDF_GENERATE_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
@@ -79,7 +79,7 @@ s32 XAsufw_KdfInit(void)
 	};
 
 	/** The XAsufw_KdfAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_KdfAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_KdfCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_KdfAccessPermBuf[XASU_KDF_MAX_CMDS] = {
 		[XASU_KDF_GENERATE_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KDF_GENERATE_SHA2_CMD_ID),
 		[XASU_KDF_GENERATE_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KDF_GENERATE_SHA3_CMD_ID),
 		[XASU_KDF_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KDF_KAT_CMD_ID),
@@ -89,7 +89,7 @@ s32 XAsufw_KdfInit(void)
 	XAsufw_KdfModule.Id = XASU_MODULE_KDF_ID;
 	XAsufw_KdfModule.Cmds = XAsufw_KdfCmds;
 	XAsufw_KdfModule.ResourcesRequired = XAsufw_KdfResourcesBuf;
-	XAsufw_KdfModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_KdfCmds);
+	XAsufw_KdfModule.CmdCnt = XASU_KDF_MAX_CMDS;
 	XAsufw_KdfModule.ResourceHandler = XAsufw_KdfResourceHandler;
 	XAsufw_KdfModule.AsuDmaPtr = NULL;
 	XAsufw_KdfModule.ShaPtr = NULL;

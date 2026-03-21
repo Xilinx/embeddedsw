@@ -435,6 +435,7 @@ static s32 XAsufw_RegisterNotifier(u32 EventErrMask)
 	u32 Payload[XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE] = {0U};
 	u32 Response[XASUFW_REGISTER_NOTIFIER_RESP_SIZE] = {0U};
 
+	/** Prepare IPI payload with notifier registration parameters. */
 	Payload[XASUFW_BUFFER_INDEX_ZERO] =
 		XASUFW_PLM_IPI_HEADER(XOCP_ASU_REG_NOTIFIER_PAYLOAD_SIZE,
 				XOCP_PLM_REG_NOTIFIER_CMD_ID, XASUFW_XILPM_MODULE_ID);
@@ -442,12 +443,14 @@ static s32 XAsufw_RegisterNotifier(u32 EventErrMask)
 	Payload[XASUFW_BUFFER_INDEX_TWO] = EventErrMask;
 	Payload[XASUFW_BUFFER_INDEX_FOUR] = XASUFW_REGISTER_NOTIFIER_ENABLE;
 
+	/** Send registration request to PLM. */
 	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_REGISTER_NOTIFIER_SEND_IPI_FAILED);
 		goto END;
 	}
 
+	/** Read and validate PLM response. */
 	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_REGISTER_NOTIFIER_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) ||
 	    (Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {

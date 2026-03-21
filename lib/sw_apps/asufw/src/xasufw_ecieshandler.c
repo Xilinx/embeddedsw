@@ -68,7 +68,7 @@ s32 XAsufw_EciesInit(void)
 	volatile s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_EciesCmds array contains the list of commands supported by ECIES module. */
-	static const XAsufw_ModuleCmd XAsufw_EciesCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_EciesCmds[XASU_ECIES_MAX_CMDS] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesEncrypt),
 		[XASU_ECIES_ENCRYPT_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesEncrypt),
 		[XASU_ECIES_DECRYPT_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesDecrypt),
@@ -77,7 +77,7 @@ s32 XAsufw_EciesInit(void)
 	};
 
 	/** The XAsufw_EciesResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_EciesResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_EciesCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_EciesResourcesBuf[XASU_ECIES_MAX_CMDS] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_ECIES_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK,
@@ -96,7 +96,7 @@ s32 XAsufw_EciesInit(void)
 	};
 
 	/** The XAsufw_EciesAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_EciesAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_EciesCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_EciesAccessPermBuf[XASU_ECIES_MAX_CMDS] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_ENCRYPT_SHA2_CMD_ID),
 		[XASU_ECIES_ENCRYPT_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_ENCRYPT_SHA3_CMD_ID),
 		[XASU_ECIES_DECRYPT_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_DECRYPT_SHA2_CMD_ID),
@@ -107,7 +107,7 @@ s32 XAsufw_EciesInit(void)
 	XAsufw_EciesModule.Id = XASU_MODULE_ECIES_ID;
 	XAsufw_EciesModule.Cmds = XAsufw_EciesCmds;
 	XAsufw_EciesModule.ResourcesRequired = XAsufw_EciesResourcesBuf;
-	XAsufw_EciesModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_EciesCmds);
+	XAsufw_EciesModule.CmdCnt = XASU_ECIES_MAX_CMDS;
 	XAsufw_EciesModule.ResourceHandler = XAsufw_EciesResourceHandler;
 	XAsufw_EciesModule.AsuDmaPtr = NULL;
 	XAsufw_EciesModule.ShaPtr = NULL;

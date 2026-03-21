@@ -230,7 +230,6 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 			if (WriteResp == TRUE) {
 				XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
 				ChannelQueue->ReqServed++;
-				WriteResp = FALSE;
 			}
 			break;
 		}

@@ -68,7 +68,7 @@ s32 XAsufw_LmsInit(void)
 	s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_LmsCmds array contains the list of commands supported by LMS module. */
-	static const XAsufw_ModuleCmd XAsufw_LmsCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_LmsCmds[XASU_LMS_MAX_CMDS] = {
 		[XASU_LMS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_LmsSignVerify),
 		[XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_LmsSignVerify),
 		[XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HssSignVerify),
@@ -77,7 +77,7 @@ s32 XAsufw_LmsInit(void)
 	};
 
 	/** The XAsufw_LmsResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_LmsResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_LmsCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_LmsResourcesBuf[XASU_LMS_MAX_CMDS] = {
 		[XASU_LMS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
 		[XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
@@ -91,7 +91,7 @@ s32 XAsufw_LmsInit(void)
 	};
 
 	/** The XAsufw_LmsAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_LmsAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_LmsCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_LmsAccessPermBuf[XASU_LMS_MAX_CMDS] = {
 		[XASU_LMS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_LMS_SIGN_VERIFY_SHA2_CMD_ID),
 		[XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID),
 		[XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID),
@@ -102,7 +102,7 @@ s32 XAsufw_LmsInit(void)
 	XAsufw_LmsModule.Id = XASU_MODULE_LMS_ID;
 	XAsufw_LmsModule.Cmds = XAsufw_LmsCmds;
 	XAsufw_LmsModule.ResourcesRequired = XAsufw_LmsResourcesBuf;
-	XAsufw_LmsModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_LmsCmds);
+	XAsufw_LmsModule.CmdCnt = XASU_LMS_MAX_CMDS;
 	XAsufw_LmsModule.ResourceHandler = XAsufw_LmsResourceHandler;
 	XAsufw_LmsModule.AsuDmaPtr = NULL;
 	XAsufw_LmsModule.ShaPtr = NULL;

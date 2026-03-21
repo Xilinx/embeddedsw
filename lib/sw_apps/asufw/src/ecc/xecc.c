@@ -107,16 +107,6 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 
 /************************************ Variable Definitions ***************************************/
 
-/** ECC configuration table for ECC crypto devices */
-static XEcc_Config XEcc_ConfigTable[XASU_XECC_NUM_INSTANCES] = {
-	{
-		XASU_XECC_0_DEVICE_ID,
-		XASU_XECC_0_BASEADDR
-	}
-};
-
-static XEcc XEcc_Instance[XASU_XECC_NUM_INSTANCES]; /**< ASUFW ECC HW instances */
-
 static XEcc_CurveInfo XEcc_CurveInfoTable[XECC_CURVES_SUPPORTED] = {
 	{
 		XECC_CURVE_TYPE_NIST_P256,
@@ -146,6 +136,8 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
  *************************************************************************************************/
 XEcc *XEcc_GetInstance(u32 DeviceId)
 {
+	/** ASUFW ECC HW instances */
+	static XEcc XEcc_Instance[XASU_XECC_NUM_INSTANCES];
 	XEcc *XEcc_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XECC_NUM_INSTANCES) {
@@ -462,6 +454,12 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
+
+	if (CurveLen > XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (HashAddr == 0U) || (SignAddr == 0U)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
@@ -863,6 +861,7 @@ END:
  * 	- XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL, if random number generated is failed.
  * 	- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers is failed.
  * 	- XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL, if buffer clear is failed.
+ * 	- XASUFW_ECC_INVALID_PARAM, if input parameters are invalid.
  *
  *************************************************************************************************/
 static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Count)
@@ -871,6 +870,11 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 	u8 ScpRandom[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];
 	u32 RegOffset = XECC_MEM_SCP_RAND_1_OFFSET;
 	volatile u32 Index;
+
+	if (CurveLen > XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		XFIH_GOTO(END);
+	}
 
 	/** Perform the following steps Count times: */
 	for (Index = 0U; Index < Count; Index++) {
@@ -899,6 +903,7 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 		Status = XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL;
 	}
 
+/* coverity[misra_c_2023_rule_2_6_violation] This label 'END' is used by XFIH_GOTO macro */
 END:
 	/** Clear the local random buffer. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)ScpRandom,
@@ -956,6 +961,13 @@ END:
 **************************************************************************************************/
 static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
 {
+	/** ECC configuration table for ECC crypto devices */
+	static XEcc_Config XEcc_ConfigTable[XASU_XECC_NUM_INSTANCES] = {
+		{
+			XASU_XECC_0_DEVICE_ID,
+			XASU_XECC_0_BASEADDR
+		}
+	};
 	XEcc_Config *CfgPtr = NULL;
 	u32 Index;
 

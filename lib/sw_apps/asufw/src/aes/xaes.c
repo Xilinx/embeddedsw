@@ -314,17 +314,6 @@ struct _XAes {
 	},
 };
 
-/** AES configuration table for AES crypto devices */
-static XAes_Config AesConfigTable[XASU_XAES_NUM_INSTANCES] = {
-	{
-		XASU_XAES_0_DEVICE_ID,
-		XASU_XAES_0_BASEADDR,
-		XASU_XKEY_0_BASEADDR
-	}
-};
-
-static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances */
-
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
@@ -372,6 +361,8 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr);
  *************************************************************************************************/
 XAes *XAes_GetInstance(u16 DeviceId)
 {
+	/** ASUFW AES HW instances */
+	static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES];
 	XAes *XAes_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XAES_NUM_INSTANCES) {
@@ -1819,6 +1810,15 @@ END:
  *************************************************************************************************/
 static XAes_Config *XAes_LookupConfig(u16 DeviceId)
 {
+
+	/** AES configuration table for AES crypto devices */
+	static XAes_Config AesConfigTable[XASU_XAES_NUM_INSTANCES] = {
+		{
+			XASU_XAES_0_DEVICE_ID,
+			XASU_XAES_0_BASEADDR,
+			XASU_XKEY_0_BASEADDR
+		}
+	};
 	XAes_Config *CfgPtr = NULL;
 	u32 Index = 0U;
 
@@ -1944,6 +1944,7 @@ static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySi
 
 	Status = XASUFW_SUCCESS;
 
+/* coverity[misra_c_2023_rule_2_6_violation] This label 'END' is used by XFIH_GOTO macro */
 END:
 	return Status;
 }
@@ -1999,6 +2000,7 @@ static s32 XAes_ValidateModeConfig(const XAes *InstancePtr)
 
 	Status = XASUFW_SUCCESS;
 
+/* coverity[misra_c_2023_rule_2_6_violation] This label 'END' is used by XFIH_GOTO macro */
 END:
 	return Status;
 }
@@ -2264,6 +2266,7 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 		ReturnStatus = XASUFW_AES_TAG_MATCHED;
 	}
 
+/* coverity[misra_c_2023_rule_2_6_violation] This label 'END' is used by XFIH_GOTO macro */
 END:
 	return Status;
 }
@@ -2481,6 +2484,7 @@ static s32 XAes_DummyEncryption(XAes *InstancePtr)
 	Status = XAes_Update(InstancePtr, InstancePtr->AsuDmaPtr, (u64)(UINTPTR)DummyData,
 		(u64)(UINTPTR)DummyData, XASU_AES_BLOCK_SIZE_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
+		InstancePtr->OperationType = XASU_AES_DECRYPT_OPERATION;
 		Status = XAsufw_UpdateErrorStatus(Status,
 			XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED);
 		goto END;

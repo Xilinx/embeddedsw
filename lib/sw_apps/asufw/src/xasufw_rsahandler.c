@@ -80,7 +80,7 @@ s32 XAsufw_RsaInit(void)
 	s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_RsaCmds array contains the list of commands supported by RSA module. */
-	static const XAsufw_ModuleCmd XAsufw_RsaCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_RsaCmds[XASU_RSA_MAX_CMDS] = {
 		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPubEnc),
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPvtDec),
 		[XASU_RSA_PVT_CRT_DEC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPvtCrtDec),
@@ -110,7 +110,7 @@ s32 XAsufw_RsaInit(void)
 	};
 
 	/** The XAsufw_RsaResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_RsaResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_RsaCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_RsaResourcesBuf[XASU_RSA_MAX_CMDS] = {
 		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK,
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
@@ -139,7 +139,7 @@ s32 XAsufw_RsaInit(void)
 	};
 
 	/** The XAsufw_RsaAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_RsaAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_RsaCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_RsaAccessPermBuf[XASU_RSA_MAX_CMDS] = {
 		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_RSA_PUB_ENC_CMD_ID),
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_RSA_PVT_DEC_CMD_ID),
 		[XASU_RSA_PVT_CRT_DEC_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_RSA_PVT_CRT_DEC_CMD_ID),
@@ -158,7 +158,7 @@ s32 XAsufw_RsaInit(void)
 	XAsufw_RsaModule.Id = XASU_MODULE_RSA_ID;
 	XAsufw_RsaModule.Cmds = XAsufw_RsaCmds;
 	XAsufw_RsaModule.ResourcesRequired = XAsufw_RsaResourcesBuf;
-	XAsufw_RsaModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_RsaCmds);
+	XAsufw_RsaModule.CmdCnt = XASU_RSA_MAX_CMDS;
 	XAsufw_RsaModule.ResourceHandler = XAsufw_RsaResourceHandler;
 	XAsufw_RsaModule.AsuDmaPtr = NULL;
 	XAsufw_RsaModule.ShaPtr = NULL;
@@ -397,7 +397,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation using CRT is successful.
  * 	- XASUFW_RSA_INVALID_PARAM, if invalid parameters are provided.
- * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operaiton fails.
+ * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if RSA key object retrieval from vault fails.
  * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
@@ -546,7 +546,10 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCODE_ERROR);
 		}
+		break;
+	}
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -554,7 +557,6 @@ END:
 		}
 		XAsufw_RsaModule.AsuDmaPtr = NULL;
 		XAsufw_RsaModule.ShaPtr = NULL;
-		break;
 	}
 
 	return Status;
@@ -638,7 +640,10 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECODE_ERROR);
 		}
+		break;
+	}
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -646,7 +651,6 @@ END:
 		}
 		XAsufw_RsaModule.AsuDmaPtr = NULL;
 		XAsufw_RsaModule.ShaPtr = NULL;
-		break;
 	}
 
 	return Status;
@@ -731,7 +735,10 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_GEN_ERROR);
 		}
+		break;
+	}
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -739,7 +746,6 @@ END:
 		}
 		XAsufw_RsaModule.AsuDmaPtr = NULL;
 		XAsufw_RsaModule.ShaPtr = NULL;
-		break;
 	}
 
 	return Status;
@@ -816,7 +822,10 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_VER_ERROR);
 		}
+		break;
+	}
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -824,7 +833,6 @@ END:
 		}
 		XAsufw_RsaModule.AsuDmaPtr = NULL;
 		XAsufw_RsaModule.ShaPtr = NULL;
-		break;
 	}
 
 	return Status;

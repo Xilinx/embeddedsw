@@ -95,7 +95,7 @@ static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubV
 static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 KeyUseCase, u8 VaultId);
 
 /************************************ Variable Definitions ***************************************/
-XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for each vault of a
+static XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for each vault of a
 					subsystem and also total and remaining vault size */
 
 /**< Lookup table for key object sizes based on key type */
@@ -264,7 +264,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XKeyManager* KeyVaultPtr;
-	const u16 *SubVaultCapacityPtr = &ParamsPtr->AESKeyVaultCapacity;
+	const u16 *SubVaultCapacityPtr = NULL;
 	u32 Index = 0U;
 	u32 TotalSubVaultSize = 0U;
 	u32 ReqVaultSize = 0U;
@@ -299,6 +299,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 			goto END;
 		}
 	}
+	SubVaultCapacityPtr = &ParamsPtr->AESKeyVaultCapacity;
 
 	/*TODO: Update sizes of other key objects.*/
 
@@ -438,7 +439,7 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 	u32 DelVaultSize = 0U;
 	u32 *DelVaultBasePtr = NULL;
 	u8 *ResidualDataPtr = NULL;
-	u8 *ShiftSrcPtr = NULL;
+	const u8 *ShiftSrcPtr = NULL;
 	u32 ShiftSize = 0U;
 	u8 *VaultBaseAddr = NULL;
 
@@ -650,6 +651,10 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
+	if (ParamsPtr->KeyMetadata.Length > XASU_AES_KEY_SIZE_256BIT_IN_BYTES) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
 
 	/** Validate key length parameters. */
 	Status = XAsu_KmValidateKeyLength(ParamsPtr, (u8)KeyType);
@@ -710,6 +715,7 @@ END:
  * @param	ParamsPtr	Pointer to XAsu_KeyManagerParams.
  * @param	KeyIdPtr	Pointer to the output Key IDs.
  * @param	SubSystemId	Subsystem ID for which the key is being generated.
+ * @param	KeyType		Type of key to be generated.
  *
  * @return
  * 	- XASUFW_SUCCESS, when the key is generated and transferred or updated in the vault.
@@ -1476,6 +1482,8 @@ END:
 /**
  * @brief	Get the number of active RSA private keys in the ASU internal vault.
  *
+ * @param	KeyType	Identifier of the RSA key type to query.
+ *
  * @return	Number of active RSA private keys, or 0 if the vault is not found.
  *
  *************************************************************************************************/
@@ -1484,11 +1492,16 @@ u16 XKeyManager_GetAsuRsaActiveKeyCount(XKeyManager_SubVaultType KeyType)
 	XKeyManager *KeyVaultPtr;
 	u16 ActiveKeys = 0U;
 
+	if(KeyType >= XKEYMANAGER_MAX_SUB_VAULTS) {
+		goto END;
+	}
+
 	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultBasePtr;
 	if (KeyVaultPtr != NULL) {
 		ActiveKeys = KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys;
 	}
 
+END:
 	return ActiveKeys;
 }
 

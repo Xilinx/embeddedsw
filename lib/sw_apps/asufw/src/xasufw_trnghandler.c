@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -89,7 +89,7 @@ s32 XAsufw_TrngInit(void)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 
 	/** The XAsufw_TrngCmds array contains the list of commands supported by TRNG module. */
-	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_TrngCmds[XASU_TRNG_MAX_CMDS] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngGetRandomBytes),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngKat),
 #if defined(XASU_TRNG_ENABLE_DRBG_MODE)
@@ -100,7 +100,7 @@ s32 XAsufw_TrngInit(void)
 	};
 
 	/** The XAsufw_TrngResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_TrngResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_TrngCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_TrngResourcesBuf[XASU_TRNG_MAX_CMDS] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
@@ -112,7 +112,7 @@ s32 XAsufw_TrngInit(void)
 	};
 
 	/** The XAsufw_TrngAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_TrngAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_TrngCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_TrngAccessPermBuf[XASU_TRNG_MAX_CMDS] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_KAT_CMD_ID),
 #if defined(XASU_TRNG_ENABLE_DRBG_MODE)
@@ -125,7 +125,7 @@ s32 XAsufw_TrngInit(void)
 	XAsufw_TrngModule.Id = XASU_MODULE_TRNG_ID;
 	XAsufw_TrngModule.Cmds = XAsufw_TrngCmds;
 	XAsufw_TrngModule.ResourcesRequired = XAsufw_TrngResourcesBuf;
-	XAsufw_TrngModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_TrngCmds);
+	XAsufw_TrngModule.CmdCnt = XASU_TRNG_MAX_CMDS;
 	XAsufw_TrngModule.ResourceHandler = NULL;
 	XAsufw_TrngModule.AsuDmaPtr = NULL;
 	XAsufw_TrngModule.AccessPermBufferPtr = XAsufw_TrngAccessPermBuf;
@@ -336,7 +336,7 @@ static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if command execution is successful.
- * 	- XASUFW_FAILURE, if tehre is any failure.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)

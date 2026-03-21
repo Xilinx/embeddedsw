@@ -79,19 +79,19 @@ s32 XAsufw_AesInit(void)
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
 	/** The XAsufw_AesCmds array contains the list of commands supported by AES module. */
-	static const XAsufw_ModuleCmd XAsufw_AesCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_AesCmds[XASU_AES_MAX_CMDS] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesOperation),
 		[XASU_AES_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesKat),
 	};
 
 	/** The XAsufw_AesResourcesBuf contains the required resources for each supported command. */
-	static XAsufw_ResourcesRequired XAsufw_AesResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_AesCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_AesResourcesBuf[XASU_AES_MAX_CMDS] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 		[XASU_AES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_AesAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_AesAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_AesCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_AesAccessPermBuf[XASU_AES_MAX_CMDS] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_AES_OPERATION_CMD_ID),
 		[XASU_AES_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_AES_KAT_CMD_ID),
 	};
@@ -99,7 +99,7 @@ s32 XAsufw_AesInit(void)
 	XAsufw_AesModule.Id = XASU_MODULE_AES_ID;
 	XAsufw_AesModule.Cmds = XAsufw_AesCmds;
 	XAsufw_AesModule.ResourcesRequired = XAsufw_AesResourcesBuf;
-	XAsufw_AesModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_AesCmds);
+	XAsufw_AesModule.CmdCnt = XASU_AES_MAX_CMDS;
 	XAsufw_AesModule.ResourceHandler = XAsufw_AesResourceHandler;
 	XAsufw_AesModule.AsuDmaPtr = NULL;
 	XAsufw_AesModule.AccessPermBufferPtr = XAsufw_AesAccessPermBuf;

@@ -78,7 +78,7 @@ s32 XAsufw_EccInit(void)
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
 	/** The XAsufw_EccCmds array contains the list of commands supported by ECC module. */
-	static const XAsufw_ModuleCmd XAsufw_EccCmds[] = {
+	static const XAsufw_ModuleCmd XAsufw_EccCmds[XASU_ECC_MAX_CMDS] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenSign),
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccVerifySign),
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccKat),
@@ -96,7 +96,7 @@ s32 XAsufw_EccInit(void)
 	 * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
 	 * availability of RSA core.
 	 */
-	static XAsufw_ResourcesRequired XAsufw_EccResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_EccCmds)] = {
+	static XAsufw_ResourcesRequired XAsufw_EccResourcesBuf[XASU_ECC_MAX_CMDS] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
@@ -112,7 +112,7 @@ s32 XAsufw_EccInit(void)
 	};
 
 	/** The XAsufw_EccAccessPermBuf contains the IPI access permissions for each supported command. */
-	static XAsufw_AccessPerm_t XAsufw_EccAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_EccCmds)] = {
+	static XAsufw_AccessPerm_t XAsufw_EccAccessPermBuf[XASU_ECC_MAX_CMDS] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_GEN_SIGNATURE_CMD_ID),
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_VERIFY_SIGNATURE_CMD_ID),
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_KAT_CMD_ID),
@@ -124,7 +124,7 @@ s32 XAsufw_EccInit(void)
 	XAsufw_EccModule.Id = XASU_MODULE_ECC_ID;
 	XAsufw_EccModule.Cmds = XAsufw_EccCmds;
 	XAsufw_EccModule.ResourcesRequired = XAsufw_EccResourcesBuf;
-	XAsufw_EccModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_EccCmds);
+	XAsufw_EccModule.CmdCnt = XASU_ECC_MAX_CMDS;
 	XAsufw_EccModule.ResourceHandler = XAsufw_EccResourceHandler;
 	XAsufw_EccModule.AsuDmaPtr = NULL;
 	XAsufw_EccModule.ShaPtr = NULL;
@@ -158,6 +158,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_RESOURCE_INVALID, if an invalid resource is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -168,6 +169,10 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Allocate DMA resource for ECC module commands except for Get_Info command. */
 	ResourceId = XAsufw_GetEccMaskResourceId(ReqBuf);
+	if (ResourceId == XASUFW_INVALID) {
+		Status = XASUFW_RESOURCE_INVALID;
+		goto END;
+	}
 	XAsufw_EccModule.AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, ReqId);
 	if (XAsufw_EccModule.AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
