@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
+*       tvp  03/09/26 Added XSecure_MldsaSignGenerate() API
 *
 * </pre>
 *
@@ -47,11 +48,16 @@ extern "C" {
 #define XSECURE_MLDSA_CT_LEN			(0x40U)		/**< CT length */
 #define XSECURE_MLDSA_PK_LEN			(0xA20U)	/**< Public key length */
 #define XSECURE_MLDSA_SIGN_LEN			(0x1213U)	/**< Signature length */
+#define XSECURE_MLDSA_SK_LEN			(0x1320U)	/**< Secret key length (4896 bytes for MLDSA-87) */
+#define XSECURE_MLDSA_SIGN_RND_LEN		(0x20U)		/**< Signing randomness length (256 bits) */
+#define XSECURE_MLDSA_ENTROPY_LEN		(0x40U)		/**< Entropy length (512 bits) */
 
 #define XSECURE_MLDSA_TIMEOUT_MAX		(0x001FFFFFU)	/**< Maximum timeout value */
 
 #define XSECURE_MLDSA_CTRL_SIGN_VERIFY_CMD		(0x00000003U)
 							/**< Sign verification command */
+#define XSECURE_MLDSA_CTRL_SIGN_GEN_CMD			(0x00000002U)
+							/**< Sign generation command */
 #define XSECURE_MLDSA_CTRL_STREAM_MSG_MASK		(0x00000040U)
 							/**< Control register streaming mode mask */
 #define XSECURE_MLDSA_CTRL_ZEROIZE_MASK			(0x00000008U)
@@ -77,6 +83,7 @@ extern "C" {
 
 /*************************************** Function Prototypes **************************************/
 int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams);
+int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams);
 
 #ifdef __cplusplus
 }

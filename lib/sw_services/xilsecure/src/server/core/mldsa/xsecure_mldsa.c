@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
+*       tvp  03/09/26 Added XSecure_MldsaSignGenerate() for signature generation
 *
 * </pre>
 *
@@ -30,6 +31,7 @@
 #include "xsecure_error.h"
 #include "xsecure_defs.h"
 #include "xsecure_utils.h"
+#include "xsecure_plat.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -258,6 +260,182 @@ END:
 	}
 
 	XSecure_ReleaseReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
+
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function generates MLDSA signature for the given data using the provided
+ *		secret key.
+ *
+ * @param	MldsaParams	Pointer to MLDSA signature generation parameters instance.
+ *
+ * @return
+ *		- XST_SUCCESS On successful signature generation.
+ *		- Error code On failure.
+ *
+ **************************************************************************************************/
+int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int ClrStatus = XST_FAILURE;
+	u32 LastWord;
+	u32 AlignedLen;
+	u8 SignRnd[XSECURE_MLDSA_SIGN_RND_LEN];
+	u8 Entropy[XSECURE_MLDSA_ENTROPY_LEN];
+
+	/* Validate MLDSA instance pointer */
+	if (MldsaParams == NULL) {
+		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
+		goto END;
+	}
+
+	/* Validate secret key length */
+	if (MldsaParams->SecretKeyLen != XSECURE_MLDSA_SK_LEN) {
+		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
+		goto END;
+	}
+
+	/* Validate signature buffer length */
+	if (MldsaParams->SignatureLen < XSECURE_MLDSA_SIGN_LEN) {
+		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
+		goto END;
+	}
+
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation started\r\n");
+
+	/** - Generate signing randomness using TRNG (32 bytes) */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Generating sign_rnd\r\n");
+	Status = XSecure_GetRandomNum(SignRnd, XSECURE_MLDSA_SIGN_RND_LEN);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	/** - Generate entropy using TRNG (64 bytes) */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Generating entropy\r\n");
+	Status = XSecure_GetRandomNum(Entropy, XSECURE_MLDSA_ENTROPY_LEN);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	/** - Release MLDSA from reset */
+	XSecure_ReleaseReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
+
+	/** - Wait for the core to be ready (STATUS flag should be 2'b01 or 2'b11) */
+	Status = (int)Xil_WaitForEvent((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_STATUS_OFFSET),
+				  XSECURE_MLDSA_STATUS_READY_MASK, XSECURE_MLDSA_STATUS_READY_MASK,
+				  XSECURE_MLDSA_TIMEOUT_MAX);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_MLDSA_CORE_NOT_READY_ERROR;
+		goto END;
+	}
+
+	/** - Feed the required inputs: msg, sk_in, sign_rnd, entropy */
+
+	/** - Transfer secret key to hardware registers */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing SK\r\n");
+	Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SK_IN_0_OFFSET),
+			 MldsaParams->SecretKeyAddr, XSECURE_MLDSA_SK_LEN);
+
+	/** - Transfer signing randomness to hardware registers (256 bits = 32 bytes) */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing sign_rnd\r\n");
+	Xil_MemCpy((void *)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_RND_0_OFFSET),
+			 SignRnd, XSECURE_MLDSA_SIGN_RND_LEN);
+
+	/** - Transfer entropy to hardware registers (512 bits = 64 bytes) */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing entropy\r\n");
+	Xil_MemCpy((void *)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_ENTROPY_0_OFFSET),
+			 Entropy, XSECURE_MLDSA_ENTROPY_LEN);
+
+	/** - Trigger the core for performing Signing (STATUS flag will be changed to 2'b00) */
+	/** - Configure ML-DSA for signature generation with streaming message mode */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL,
+		       "MLDSA signature generation - Initiating CMD for "
+		       "signature generation with streaming message mode\r\n");
+	XSecure_Out32((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_CTRL_OFFSET),
+		  (XSECURE_MLDSA_CTRL_SIGN_GEN_CMD | XSECURE_MLDSA_CTRL_STREAM_MSG_MASK));
+
+	/** - Wait for the core to be ready to receive the message in streaming mode */
+	Status = XST_FAILURE;
+	Status = (int)Xil_WaitForEvent((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_STATUS_OFFSET),
+				  XSECURE_MLDSA_STATUS_MSG_STREAM_READY_MASK,
+				  XSECURE_MLDSA_STATUS_MSG_STREAM_READY_MASK,
+				  XSECURE_MLDSA_TIMEOUT_MAX);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_MLDSA_MSG_STREAM_ERROR;
+		goto END;
+	}
+
+	/** - Transfer message/data to hardware registers */
+	XSecure_MldsaMsgTransferToCore(MldsaParams->DataAddr, MldsaParams->DataLen);
+
+	/** - Wait for the core to be ready and valid (STATUS flag should be 2'b11) */
+	Status = XST_FAILURE;
+	Status = (int)Xil_WaitForEvent((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_STATUS_OFFSET),
+			XSECURE_MLDSA_STATUS_VALID_MASK,
+			XSECURE_MLDSA_STATUS_VALID_MASK,
+			XSECURE_MLDSA_TIMEOUT_MAX);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_MLDSA_SIGN_TIMEOUT_ERROR;
+		goto END;
+	}
+
+	/** - Read the generated signature from hardware registers */
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Reading signature\r\n");
+
+	/* Transfer word-aligned portion (4624 bytes = 1156 words) */
+	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
+	Xil_MemCpy64(MldsaParams->SignatureAddr,
+			 (u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
+			 AlignedLen);
+
+	/* Handle last 3 bytes using intermediate word buffer */
+	LastWord = XSecure_In32(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET +
+				AlignedLen);
+
+	XSecure_OutByte64(MldsaParams->SignatureAddr + AlignedLen,
+			  (u8)(LastWord & XSECURE_MLDSA_BYTE_MASK));
+	XSecure_OutByte64(MldsaParams->SignatureAddr + AlignedLen + XSECURE_VALUE_ONE,
+			  (u8)((LastWord >> XSECURE_BYTE_IN_BITS) & XSECURE_MLDSA_BYTE_MASK));
+	XSecure_OutByte64(MldsaParams->SignatureAddr + AlignedLen + XSECURE_VALUE_TWO,
+			  (u8)((LastWord >> (XSECURE_VALUE_TWO * XSECURE_BYTE_IN_BITS)) &
+			       XSECURE_MLDSA_BYTE_MASK));
+
+
+	Status = XST_SUCCESS;
+
+	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation success\r\n");
+
+END:
+	/**
+	 * - Clear ML-DSA control registers (using ZEROIZE command) to remove sensitive data from
+	 *   hardware for security
+	 */
+	XSecure_Out32((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_CTRL_OFFSET),
+		  XSECURE_MLDSA_CTRL_ZEROIZE_MASK);
+
+	/** - Wait for zeroize operation to complete */
+	ClrStatus = (int)Xil_WaitForEvent((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_STATUS_OFFSET),
+				     XSECURE_MLDSA_STATUS_READY_MASK,
+				     XSECURE_MLDSA_STATUS_READY_MASK, XSECURE_MLDSA_TIMEOUT_MAX);
+	if (Status == XST_SUCCESS) {
+		Status = ClrStatus;
+	}
+
+	ClrStatus = Xil_SecureZeroize((u8 *)&SignRnd, XSECURE_MLDSA_SIGN_RND_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = ClrStatus;
+	}
+
+	ClrStatus = Xil_SecureZeroize((u8 *)&Entropy, XSECURE_MLDSA_ENTROPY_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = ClrStatus;
+	}
+
+	XSecure_SetReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
 
 	return Status;
 }

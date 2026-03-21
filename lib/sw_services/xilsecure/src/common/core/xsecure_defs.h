@@ -40,6 +40,7 @@
 * 5.6   obs  09/17/25 Added XSECURE_SIZE_DOUBLE macro
 * 5.7   tvp  02/19/26 Added XSecure_MldsaSignVerifyParams
 *       tvp  02/19/26 Added XSecure_SlhdsaInputParams
+*       tvp  03/09/26 Added XSecure_MldsaSignGenParams
 *
 * </pre>
 *
@@ -239,6 +240,16 @@ typedef struct {
 	u64 ContextAddr;	/**< Address of optional context string buffer */
 	u32 ContextLen;		/**< Length of context string in bytes */
 } XSecure_MldsaSignVerifyParams;
+
+/** Structure for input parameters for MLDSA Sign Generation */
+typedef struct {
+	u64 DataAddr;		/**< Address of message data buffer */
+	u64 SecretKeyAddr;	/**< Address of secret key buffer */
+	u64 SignatureAddr;	/**< Address of output signature buffer */
+	u32 DataLen;		/**< Length of message data in bytes */
+	u32 SecretKeyLen;	/**< Length of secret key in bytes */
+	u32 SignatureLen;	/**< Length of signature buffer in bytes */
+} XSecure_MldsaSignGenParams;
 
 /** Structure for input parameters for SLHDSA Sign Veification */
 typedef struct {

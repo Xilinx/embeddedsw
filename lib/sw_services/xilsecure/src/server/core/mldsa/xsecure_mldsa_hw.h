@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
+*       tvp  03/09/26 Added MLDSA hardware register macros required for signature generation
 *
 * </pre>
 *
@@ -36,6 +37,9 @@ extern "C" {
  * @cond xsecure_internal
  * @{
  */
+
+#define XSECURE_MLDSA_BYTE_MASK			(0xFFU)
+						/**< Byte mask for extracting byte values */
 
 #define XSECURE_MLDSA_BASEADDR			(0xF1204000U)
 						/**< MLDSA core base address */
@@ -60,7 +64,7 @@ extern "C" {
 
 #define XSECURE_MLDSA_SIGN_0_OFFSET		(0x00002000U)
 						/**< MLDSA signature register offset
-						  (for verification) */
+						  (for verification input and generation output) */
 
 #define XSECURE_MLDSA_VERIF_RESULT_0_OFFSET	(0x000000D8U)
 						/**< MLDSA signature verification result register
@@ -71,6 +75,16 @@ extern "C" {
 
 #define XSECURE_MLDSA_MSG_0_OFFSET		(0x00000098U)
 						/**< MLDSA message 0 register offset */
+
+#define XSECURE_MLDSA_SK_IN_0_OFFSET		(0x00006000U)
+						/**< MLDSA secret key input register offset
+						  (for signing) */
+
+#define XSECURE_MLDSA_SIGN_RND_0_OFFSET		(0x00000078U)
+						/**< MLDSA signing randomness register offset */
+
+#define XSECURE_MLDSA_ENTROPY_0_OFFSET		(0x00000018U)
+						/**< MLDSA entropy register offset */
 /** @}
  * @endcond
  */
