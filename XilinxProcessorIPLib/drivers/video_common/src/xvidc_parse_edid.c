@@ -1979,7 +1979,6 @@ XV_VidC_parse_edid_extension(const u8 * const data,
 static void
 xvidc_parse_displayid_product_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
     EdidCtrlParam->DispIdProductCode = x[6] | (x[7] << 8);
     EdidCtrlParam->DispIdSerialNumber = x[8] | (x[9] << 8) | (x[10] << 16) | (x[11] << 24);
     EdidCtrlParam->DispIdModelWeek = x[12];
@@ -1997,6 +1996,8 @@ xvidc_parse_displayid_product_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPa
             xil_printf(", Week %u", EdidCtrlParam->DispIdModelWeek);
         xil_printf("\r\n");
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -2072,7 +2073,6 @@ xvidc_parse_displayid_parameters(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPa
 static void
 xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
     u8 length = x[2];
     unsigned cie_year = (x[1] & XVIDC_DISPLAYID_CIE_YEAR_MASK) ? XVIDC_DISPLAYID_CIE_YEAR_1976 : XVIDC_DISPLAYID_CIE_YEAR_1931;
     unsigned xfer_id = (x[1] >> XVIDC_DISPLAYID_XFER_ID_SHIFT) & XVIDC_DISPLAYID_XFER_ID_MASK;
@@ -2080,9 +2080,6 @@ xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam 
     unsigned num_primaries = (x[3] >> XVIDC_DISPLAYID_NUM_PRIMARIES_SHIFT) & XVIDC_DISPLAYID_NUM_PRIMARIES_MASK;
     bool temporal_color = x[3] & XVIDC_DISPLAYID_TEMPORAL_COLOR_MASK;
     unsigned offset = XVIDC_DISPLAYID_COLOR_CHAR_MIN_LEN;
-    cie_year = cie_year;
-    xfer_id = xfer_id;
-    temporal_color = temporal_color;
 
     EdidCtrlParam->DispIdColorDepth = x[3] & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK;
     EdidCtrlParam->DispIdColorEncoding = (x[3] >> XVIDC_DISPLAYID_COLOR_UPPER_NIBBLE_SHIFT) & XVIDC_DISPLAYID_COLOR_LOWER_NIBBLE_MASK;
@@ -2165,6 +2162,11 @@ xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam 
             xil_printf("    Stored White Point: (0x%04x, 0x%04x)\r\n", EdidCtrlParam->DispIdWhitePointX, EdidCtrlParam->DispIdWhitePointY);
         }
     }
+#else
+    (void)VerboseEn;
+    (void)cie_year;
+    (void)xfer_id;
+    (void)temporal_color;
 #endif
 }
 
@@ -2181,7 +2183,6 @@ xvidc_parse_displayid_color_characteristics(const u8 *x, XV_VidC_EdidCntrlParam 
 static void
 xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
     u8 length = x[2];
     u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN) : 0;
     u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
@@ -2240,8 +2241,6 @@ xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
         }
 
         u32 pixel_clock_mhz = (pixel_clock_10khz + 50) / 100;
-        pixel_clock_mhz = pixel_clock_mhz;
-	refresh_rate = refresh_rate;
 
 #if XVIDC_EDID_VERBOSITY > 0
         if (VerboseEn) {
@@ -2256,6 +2255,10 @@ xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
                        v_active, v_blank, v_total);
             xil_printf("\r\n");
         }
+#else
+        (void)pixel_clock_mhz;
+        (void)refresh_rate;
+        (void)VerboseEn;
 #endif
         offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
     }
@@ -2274,7 +2277,6 @@ xvidc_parse_displayid_timing_mode_1(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 static void
 xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
     u8 length = x[2];
     u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN) : 0;
     u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
@@ -2309,9 +2311,6 @@ xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
         /* Convert pixel clock to MHz for display purposes */
         u32 pixel_clock_mhz = (pixel_clock_10khz + 50) / 100;
 
-        pixel_clock_mhz = pixel_clock_mhz;
-	refresh_rate = refresh_rate;
-
         /* Store timing in DispIdTiming array */
         EdidCtrlParam->DispIdTiming[start_idx + i].hres = h_active;
         EdidCtrlParam->DispIdTiming[start_idx + i].vres = v_active;
@@ -2330,6 +2329,10 @@ xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
                        v_active, v_blank, v_total);
             xil_printf("\r\n");
         }
+#else
+        (void)pixel_clock_mhz;
+        (void)refresh_rate;
+        (void)VerboseEn;
 #endif
         offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
     }
@@ -2348,8 +2351,6 @@ xvidc_parse_displayid_timing_mode_2(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 static void
 xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
     u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_SHORT_TIMING_LEN) : 0;
@@ -2366,7 +2367,6 @@ xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
         u8 timing_idx = x[offset];
         u8 asp_ratio = (x[offset+1] >> 4) & 0x0f;
         u8 refresh = (x[offset+1] & 0x0f) + XVIDC_DISPLAYID_REFRESH_RATE_BASE;
-        timing_idx = timing_idx;
 
         EdidCtrlParam->DispIdShortTiming[i].AspectRatio = asp_ratio;
         EdidCtrlParam->DispIdShortTiming[i].RefreshRate = refresh;
@@ -2376,6 +2376,9 @@ xvidc_parse_displayid_short_timings_3(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
         if (VerboseEn) {
             xil_printf("      Timing %u: Index %u, Aspect %u, Refresh %u Hz\r\n", i+1, timing_idx, asp_ratio, refresh);
         }
+#else
+        (void)timing_idx;
+        (void)VerboseEn;
 #endif
         offset += XVIDC_DISPLAYID_SHORT_TIMING_LEN;
     }
@@ -2492,7 +2495,6 @@ xvidc_parse_displayid_cta_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
     for (i = 0; i < num_vics && offset < 128 && i < 16; i++) {
         u8 vic = x[offset] & 0x7f;
         u8 native = (x[offset] >> 7) & 0x01;
-        native = native;
 
         /* Bounds check: VIC must be within valid array range (1-124) */
         if (vic > 124 || vic == 0) {
@@ -2511,6 +2513,8 @@ xvidc_parse_displayid_cta_timings(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
         if (VerboseEn) {
             xil_printf("      VIC %u%s\r\n", vic, native ? " (Native)" : "");
         }
+#else
+        (void)native;
 #endif
         offset++;
     }
@@ -2634,7 +2638,6 @@ static void
 xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
     u8 length = x[2];
-    VerboseEn = VerboseEn;
     u8 device_type, orientation, rotation, bezel_type;
     u16 width_mm, height_mm, depth_mm;
 
@@ -2648,9 +2651,6 @@ xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
     width_mm = x[5] | (x[6] << 8);
     height_mm = x[7] | (x[8] << 8);
     depth_mm = x[9] | (x[10] << 8);
-    rotation = rotation;
-    bezel_type = bezel_type;
-    depth_mm = depth_mm;
 
     EdidCtrlParam->DispIdDeviceType = device_type;
     EdidCtrlParam->DispIdScanOrientation = orientation;
@@ -2665,6 +2665,11 @@ xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
         xil_printf("    Bezel Type: %u\r\n", bezel_type);
         xil_printf("    Device Size: %u x %u x %u mm\r\n", EdidCtrlParam->DispIdDeviceHorSize, EdidCtrlParam->DispIdDeviceVerSize, depth_mm);
     }
+#else
+    (void)VerboseEn;
+    (void)rotation;
+    (void)bezel_type;
+    (void)depth_mm;
 #endif
 }
 
@@ -2681,7 +2686,6 @@ xvidc_parse_displayid_device_data(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlP
 static void
 xvidc_parse_displayid_power_sequencing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
     u8 length = x[2];
     u8 power_on_delay, power_off_delay;
 
@@ -2699,6 +2703,8 @@ xvidc_parse_displayid_power_sequencing(const u8 *x, XV_VidC_EdidCntrlParam *Edid
         xil_printf("    Power On Delay: %u ms\r\n", EdidCtrlParam->DispIdPowerSeqT1);
         xil_printf("    Power Off Delay: %u ms\r\n", EdidCtrlParam->DispIdPowerSeqT2);
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -2941,7 +2947,6 @@ xvidc_parse_displayid_tiled_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
 {
     u8 length = x[2];
     u8 flags, h_tiles, v_tiles, h_position, v_position;
-    VerboseEn = VerboseEn;
 
     u16 pixel_width, pixel_height;
 
@@ -2954,7 +2959,6 @@ xvidc_parse_displayid_tiled_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
     v_tiles = x[5] & 0x1f;
     h_position = (x[5] >> 5) & 0x07;
     v_position = (x[6] >> 5) & 0x07;
-    flags = flags;
 
     pixel_width = x[7] | (x[8] << 8);
     pixel_height = x[9] | ((x[10] & 0x0f) << 8);
@@ -2974,6 +2978,9 @@ xvidc_parse_displayid_tiled_display(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
         xil_printf("    Tile Size: %u x %u pixels\r\n", EdidCtrlParam->DispIdTileWidth, EdidCtrlParam->DispIdTileHeight);
         xil_printf("    Flags: 0x%02x\r\n", flags);
     }
+#else
+    (void)VerboseEn;
+    (void)flags;
 #endif
 }
 
@@ -2992,7 +2999,6 @@ xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *Ed
 {
     u8 length = x[2];
     u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_DETAILED_TIMING_DIVISOR) : 0;
-    VerboseEn = VerboseEn;
 
     u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
     u32 i;
@@ -3004,6 +3010,8 @@ xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *Ed
         xil_printf("    Detailed Timings Type 6 Data Block\r\n");
         xil_printf("    Number of Timings: %u\r\n", num_timings);
     }
+#else
+    (void)VerboseEn;
 #endif
 
     /* Parse detailed timing descriptors - each is 20 bytes */
@@ -3011,9 +3019,6 @@ xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *Ed
         u32 pixel_clock = x[offset] | (x[offset+1] << 8) | (x[offset+2] << 16);
         u16 h_active = x[offset+3] | (x[offset+4] << 8);
         u16 v_active = x[offset+7] | (x[offset+8] << 8);
-        pixel_clock = pixel_clock;
-        h_active = h_active;
-        v_active = v_active;
 
         /* Store timing index/marker for Type 6 */
         EdidCtrlParam->DispIdType6Timing[i] = i;
@@ -3023,6 +3028,11 @@ xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *Ed
         if (VerboseEn) {
             xil_printf("      Timing %u: %u x %u @ %u kHz\r\n", i+1, h_active, v_active, pixel_clock * XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER);
         }
+#else
+        (void)pixel_clock;
+        (void)h_active;
+        (void)v_active;
+        (void)VerboseEn;
 #endif
         offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
     }
@@ -3041,8 +3051,6 @@ xvidc_parse_displayid_detailed_timings_6(const u8 *x, XV_VidC_EdidCntrlParam *Ed
 static void
 xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u32 i;
 
@@ -3070,6 +3078,8 @@ xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
         xil_printf("    Resolution: %u x %u\r\n", h_active, v_active);
         xil_printf("    Pixel Clock: %u kHz\r\n", pixel_clock * XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER);
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -3086,8 +3096,6 @@ xvidc_parse_displayid_detailed_timing(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 static void
 xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_DETAILED_TIMING_DIVISOR) : 0;
     u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
@@ -3109,9 +3117,6 @@ xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *Ed
         u16 h_active = x[offset+3] | (x[offset+4] << 8);
         u16 v_active = x[offset+7] | (x[offset+8] << 8);
         u32 j;
-        pixel_clock = pixel_clock;
-        h_active = h_active;
-        v_active = v_active;
 
         /* Store up to 20 bytes per timing, respecting 32-byte buffer limit */
         for (j = 0; j < XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN && data_idx < XVIDC_DISPLAYID_DETAILED_TIMING_BUFFER_MAX; j++) {
@@ -3125,6 +3130,11 @@ xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *Ed
         if (VerboseEn) {
             xil_printf("      Timing %u: %u x %u @ %u kHz\r\n", i+1, h_active, v_active, pixel_clock * XVIDC_DISPLAYID_PIXEL_CLOCK_MULTIPLIER);
         }
+#else
+        (void)pixel_clock;
+        (void)h_active;
+        (void)v_active;
+        (void)VerboseEn;
 #endif
         offset += XVIDC_DISPLAYID_TIMING_DESCRIPTOR_LEN;
     }
@@ -3143,8 +3153,6 @@ xvidc_parse_displayid_detailed_timings_7(const u8 *x, XV_VidC_EdidCntrlParam *Ed
 static void
 xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u8 flags = 0;
 
@@ -3158,6 +3166,8 @@ xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *Edid
         xil_printf("    Adaptive Refresh Rate Data Block\r\n");
         xil_printf("    Flags: 0x%02x\r\n", flags);
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -3174,8 +3184,6 @@ xvidc_parse_displayid_adaptive_refresh(const u8 *x, XV_VidC_EdidCntrlParam *Edid
 static void
 xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
     u8 lang_code = 0;
@@ -3184,7 +3192,6 @@ xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCt
     if (length >= XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) {
         lang_code = x[XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN];
         EdidCtrlParam->DispIdUnicodeStringLen = (length - XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN > XVIDC_DISPLAYID_STRING_MAX_LEN) ? XVIDC_DISPLAYID_STRING_MAX_LEN : (length - XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN);
-        lang_code = lang_code;
 
         /* Store unicode string bytes (up to XVIDC_DISPLAYID_STRING_MAX_LEN bytes) */
         offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN + 1;
@@ -3210,6 +3217,9 @@ xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCt
         }
         xil_printf("\r\n");
     }
+#else
+    (void)VerboseEn;
+    (void)lang_code;
 #endif
 }
 
@@ -3226,8 +3236,6 @@ xvidc_parse_displayid_unicode_string(const u8 *x, XV_VidC_EdidCntrlParam *EdidCt
 static void
 xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u8 cta_block_header = (length > 0) ? x[3] : 0;
 
@@ -3240,6 +3248,8 @@ xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPar
         xil_printf("    CTA Version: %u\r\n", EdidCtrlParam->DispIdCtaBlockTag);
         xil_printf("    CTA Block Payload Size: %u\r\n", EdidCtrlParam->DispIdCtaBlockPayloadSize);
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -3256,8 +3266,6 @@ xvidc_parse_displayid_cta_block(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPar
 static void
 xvidc_parse_displayid_container_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
     u32 container_id_1, container_id_2, container_id_3, container_id_4;
 
@@ -3292,6 +3300,8 @@ xvidc_parse_displayid_container_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrl
         xil_printf("    Container ID: 0x%08x-%08x-%08x-%08x\r\n",
                    container_id_1, container_id_2, container_id_3, container_id_4);
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -3308,27 +3318,27 @@ xvidc_parse_displayid_container_id(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrl
 static void
 xvidc_parse_displayid_vendor_specific(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
-    EdidCtrlParam = EdidCtrlParam;
-    VerboseEn = VerboseEn;
-
     u8 length = x[2];
-    u8 vendor_id[3];
 
     if (length < 3) return;
 
-    /* Extract vendor ID (IEEE OUI) */
-    vendor_id[0] = x[3];
-    vendor_id[1] = x[4];
-    vendor_id[2] = x[5];
-    vendor_id[0] = vendor_id[0];
-
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
+        u8 vendor_id[3];
+
+        /* Extract vendor ID (IEEE OUI) */
+        vendor_id[0] = x[3];
+        vendor_id[1] = x[4];
+        vendor_id[2] = x[5];
+
         xil_printf("    Vendor-Specific Data Block\r\n");
         xil_printf("    Vendor ID (IEEE OUI): 0x%02x%02x%02x\r\n",
                    vendor_id[2], vendor_id[1], vendor_id[0]);
         xil_printf("    Data length: %d bytes\r\n", length - 3);
     }
+#else
+    (void)EdidCtrlParam;
+    (void)VerboseEn;
 #endif
 }
 
