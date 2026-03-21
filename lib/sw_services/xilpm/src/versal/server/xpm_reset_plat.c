@@ -101,9 +101,6 @@ static XStatus PsOnlyResetPulse(const XPm_ResetNode *Rst)
 
 	/* Release PS System Reset */
 	Status = PsOnlyResetRelease(Rst);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
 done:
 	return Status;

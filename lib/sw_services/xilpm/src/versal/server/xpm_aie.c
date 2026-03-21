@@ -405,15 +405,13 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Use AIE NoC Address if available */
 	if (2U <= NumOfArgs) {
@@ -428,7 +426,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) !=
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-		goto done;
+		goto bypass;
 	}
 
 	/* Unlock ME PCSR */
@@ -449,11 +447,10 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRowsAdjusted);
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock ME PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock ME PCSR */
+	XPm_LockPcsr(BaseAddress);
 
+bypass:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -462,15 +459,13 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Use AIE NoC Address if available */
 	if (2U <= NumOfArgs) {
@@ -485,7 +480,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) !=
 			ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-		goto done;
+		goto bypass;
 	}
 
 	/* Unlock AIE PCSR */
@@ -521,11 +516,10 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock ME PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock ME PCSR */
+	XPm_LockPcsr(BaseAddress);
 
+bypass:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -534,16 +528,14 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 	u32 ClkDivider;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -566,10 +558,8 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	AieDomain->DefaultClockDiv = ClkDivider;
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock ME PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock ME PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -579,16 +569,14 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 	u32 ClkDivider;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -614,10 +602,8 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	AieDomain->DefaultClockDiv = ClkDivider;
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -627,13 +613,11 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, AIE_POLL_TIMEOUT);
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -715,10 +699,8 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -759,15 +741,13 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -819,10 +799,8 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -854,15 +832,13 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -920,10 +896,8 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1028,12 +1002,10 @@ static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, AIE_POLL_TIMEOUT);
-
-	BaseAddress = ((const XPm_AieDomain *)PwrDomain)->AieNpiAddress;
+	u32 BaseAddress = ((const XPm_AieDomain *)PwrDomain)->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -1064,10 +1036,8 @@ static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1077,12 +1047,10 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, AIE_POLL_TIMEOUT);
-
-	BaseAddress = ((const XPm_AieDomain *)PwrDomain)->AieNpiAddress;
+	u32 BaseAddress = ((const XPm_AieDomain *)PwrDomain)->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -1174,10 +1142,8 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1187,15 +1153,13 @@ static XStatus AieMemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = INVALID_ADDRESS;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
+	u32 BaseAddress = AieDomain->AieNpiAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = AieDomain->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -1229,10 +1193,8 @@ static XStatus AieMemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	PmDbg("---------- END ----------\r\n");
 
 done:
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1243,18 +1205,15 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 BaseAddress = INVALID_ADDRESS;
-
 	const XPm_AieArray *Array = &((const XPm_AieDomain *)PwrDomain)->Array;
 	u16 StartCol = Array->StartCol;
 	/* Adjust EndCol value as the StartCol will start from index 0 */
 	u16 EndCol = (u16)(StartCol + Array->NumColsAdjusted - 1U);
+	u32 BaseAddress = ((const XPm_AieDomain *)PwrDomain)->AieNpiAddress;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	BaseAddress = ((const XPm_AieDomain *)PwrDomain)->AieNpiAddress;
 
 	/* Unlock AIE PCSR */
 	XPm_UnlockPcsr(BaseAddress);
@@ -1265,10 +1224,8 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
 	}
 
-	if (INVALID_ADDRESS != BaseAddress) {
-		/* Lock AIE PCSR */
-		XPm_LockPcsr(BaseAddress);
-	}
+	/* Lock AIE PCSR */
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1442,10 +1399,8 @@ static u8 Aie_TileType(const u32 Col, const u32 Row)
  *
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
- *
- * @return XST_SUCCESS.
  */
-static XStatus Aie1_ColRst(const u32 ColStart, const u32 ColEnd)
+static void Aie1_ColRst(const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1468,8 +1423,6 @@ static XStatus Aie1_ColRst(const u32 ColStart, const u32 ColEnd)
 		/* Un-Set column Reset */
 		AieWrite64(BaseAddress + AIE_PL_MODULE_COLUMN_RST_CTRL_OFFSET, 0U);
 	}
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1537,9 +1490,8 @@ done:
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie1_EnbColClkBuff(const u32 ColStart, const u32 ColEnd)
+static void Aie1_EnbColClkBuff(const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1554,8 +1506,6 @@ static XStatus Aie1_EnbColClkBuff(const u32 ColStart, const u32 ColEnd)
 		/* Un-Gate columns */
 		AieWrite64(BaseAddress + AIE_TILE_CLOCK_CONTROL_OFFSET, 3U);
 	}
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1566,9 +1516,8 @@ static XStatus Aie1_EnbColClkBuff(const u32 ColStart, const u32 ColEnd)
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie1_DisColClkBuff(const u32 ColStart, const u32 ColEnd)
+static void Aie1_DisColClkBuff(const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1583,8 +1532,6 @@ static XStatus Aie1_DisColClkBuff(const u32 ColStart, const u32 ColEnd)
 		/* Gate columns */
 		AieWrite64(BaseAddress + AIE_TILE_CLOCK_CONTROL_OFFSET, 0U);
 	}
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1596,9 +1543,8 @@ static XStatus Aie1_DisColClkBuff(const u32 ColStart, const u32 ColEnd)
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie1_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
+static void Aie1_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1628,8 +1574,6 @@ static XStatus Aie1_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
 	/* Disable protect register */
 	PmRmw32(NodeAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
 		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1641,9 +1585,8 @@ static XStatus Aie1_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie1_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
+static void Aie1_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1671,8 +1614,6 @@ static XStatus Aie1_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
 	/* Disable protect register */
 	PmRmw32(NodeAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
 		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 1U);
-
-	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -1755,9 +1696,8 @@ done:
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie2_ColRst(const u32 ColStart, const u32 ColEnd)
+static void Aie2_ColRst(const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1796,8 +1736,6 @@ static XStatus Aie2_ColRst(const u32 ColStart, const u32 ColEnd)
 	/* Disable privileged write access */
 	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1861,9 +1799,8 @@ done:
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie2_EnbColClkBuff(u32 ColStart, u32 ColEnd)
+static void Aie2_EnbColClkBuff(u32 ColStart, u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1893,8 +1830,6 @@ static XStatus Aie2_EnbColClkBuff(u32 ColStart, u32 ColEnd)
 	/* Disable privileged write access */
 	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -1905,9 +1840,8 @@ static XStatus Aie2_EnbColClkBuff(u32 ColStart, u32 ColEnd)
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie2_DisColClkBuff(u32 ColStart, u32 ColEnd)
+static void Aie2_DisColClkBuff(u32 ColStart, u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -1937,8 +1871,6 @@ static XStatus Aie2_DisColClkBuff(u32 ColStart, u32 ColEnd)
 	/* Disable privileged write access */
 	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -2085,9 +2017,8 @@ done:
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie2_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
+static void Aie2_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -2124,8 +2055,6 @@ static XStatus Aie2_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
 	/* Disable privileged write access */
 	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -2137,9 +2066,8 @@ static XStatus Aie2_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
  * @param ColStart Starting column index.
  * @param ColEnd   Ending column index (inclusive).
  *
- * @return XST_SUCCESS.
  */
-static XStatus Aie2_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
+static void Aie2_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -2174,8 +2102,6 @@ static XStatus Aie2_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
 	/* Disable privileged write access */
 	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	return XST_SUCCESS;
 }
 
 /**
@@ -2213,11 +2139,7 @@ static XStatus Aie1_Operation(u32 Part, u32 Ops)
 
 	/* Column Reset */
 	if (0U != (AIE_OPS_COL_RST & Ops)) {
-		Status = Aie1_ColRst(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_COL_RST;
-			goto done;
-		}
+		Aie1_ColRst(ColStart, ColEnd);
 	}
 
 	/* Shim Reset */
@@ -2231,11 +2153,7 @@ static XStatus Aie1_Operation(u32 Part, u32 Ops)
 
 	/* Enable Column Clock Buffer */
 	if (0U != (AIE_OPS_ENB_COL_CLK_BUFF & Ops)) {
-		Status = Aie1_EnbColClkBuff(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF;
-			goto done;
-		}
+		Aie1_EnbColClkBuff(ColStart, ColEnd);
 	}
 
 	/* Zeroization of Program and data memories */
@@ -2250,30 +2168,20 @@ static XStatus Aie1_Operation(u32 Part, u32 Ops)
 
 	/* Disable Column Clock Buffer */
 	if (0U != (AIE_OPS_DIS_COL_CLK_BUFF & Ops)) {
-		Status = Aie1_DisColClkBuff(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_DIS_COL_CLK_BUFF;
-			goto done;
-		}
+		Aie1_DisColClkBuff(ColStart, ColEnd);
 	}
 
 	/* Enable AXI-MM error events */
 	if (0U != (AIE_OPS_ENB_AXI_MM_ERR_EVENT & Ops)) {
-		Status = Aie1_EnbAxiMmErrEvent(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT;
-			goto done;
-		}
+		Aie1_EnbAxiMmErrEvent(ColStart, ColEnd);
 	}
 
 	/* Set L2 controller NPI INTR */
 	if (0U != (AIE_OPS_SET_L2_CTRL_NPI_INTR & Ops)) {
-		Status = Aie1_SetL2CtrlNpiIntr(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR;
-			goto done;
-		}
+		Aie1_SetL2CtrlNpiIntr(ColStart, ColEnd);
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	/* Lock AIE1 PCSR */
@@ -2316,11 +2224,7 @@ static XStatus Aie2_Operation(u32 Part, u32 Ops)
 
 	/* Column Reset */
 	if (0U != (AIE_OPS_COL_RST & Ops)) {
-		Status = Aie2_ColRst(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_COL_RST;
-			goto done;
-		}
+		Aie2_ColRst(ColStart, ColEnd);
 	}
 
 	/* Shim Reset */
@@ -2334,11 +2238,7 @@ static XStatus Aie2_Operation(u32 Part, u32 Ops)
 
 	/* Enable Column Clock Buffer */
 	if (0U != (AIE_OPS_ENB_COL_CLK_BUFF & Ops)) {
-		Status = Aie2_EnbColClkBuff(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF;
-			goto done;
-		}
+		Aie2_EnbColClkBuff(ColStart, ColEnd);
 	}
 
 	/* Zeroization of Program and data memories */
@@ -2352,30 +2252,20 @@ static XStatus Aie2_Operation(u32 Part, u32 Ops)
 
 	/* Disable Column Clock Buffer */
 	if (0U != (AIE_OPS_DIS_COL_CLK_BUFF & Ops)) {
-		Status = Aie2_DisColClkBuff(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_DIS_COL_CLK_BUFF;
-			goto done;
-		}
+		Aie2_DisColClkBuff(ColStart, ColEnd);
 	}
 
 	/* Enable AXI-MM error events */
 	if (0U != (AIE_OPS_ENB_AXI_MM_ERR_EVENT & Ops)) {
-		Status = Aie2_EnbAxiMmErrEvent(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT;
-			goto done;
-		}
+		Aie2_EnbAxiMmErrEvent(ColStart, ColEnd);
 	}
 
 	/* Set L2 controller NPI INTR */
 	if (0U != (AIE_OPS_SET_L2_CTRL_NPI_INTR & Ops)) {
-		Status = Aie2_SetL2CtrlNpiIntr(ColStart, ColEnd);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR;
-			goto done;
-		}
+		Aie2_SetL2CtrlNpiIntr(ColStart, ColEnd);
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	/* Lock AIE2 PCSR */

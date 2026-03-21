@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -82,8 +82,6 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	}
 
 done:
-	if (XST_SUCCESS != Status) {
-		XPm_PrintDbgErr(Status, DbgErr);
-	}
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
