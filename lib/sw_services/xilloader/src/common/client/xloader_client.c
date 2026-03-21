@@ -20,6 +20,7 @@
  *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
  *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
  *       pre  09/30/25 Updated comments for rtf docs
+ * 2.4   tbk  02/10/26 Added SMC call support
  *
  * </pre>
  *
@@ -33,6 +34,9 @@
 /*************************************** Include Files *******************************************/
 
 #include "xloader_client.h"
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+#include "xloader_smc.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 
@@ -71,12 +75,32 @@ int XLoader_LoadPartialPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc P
 		u64 PdiAddr, u32 *PlmErrStatus)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U] = {0U};
+
+	/** Performs input parameters validation */
+	if (PlmErrStatus == NULL) {
+		goto END;
+	}
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	u32 Response[SMC_RESPONSE_LEN] = {0U};
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI;
+	Payload[1U] = (u32)PdiSrc;
+	Payload[2U] = (u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[3U] = (u32)(PdiAddr);
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
+
+	*PlmErrStatus = Response[0U];
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PlmErrStatus == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
@@ -94,6 +118,7 @@ int XLoader_LoadPartialPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc P
 	 */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 	*PlmErrStatus = InstancePtr->Response[1U];
+#endif
 
 END:
 	return Status;
@@ -115,7 +140,17 @@ END:
 int XLoader_LoadImage(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_LOAD_DDRCPY_IMG;
+	Payload[1U] = NodeId;
+	Payload[2U] = FunctionId;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -137,6 +172,7 @@ int XLoader_LoadImage(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 Funct
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 END:
+#endif
 	return Status;
 }
 
@@ -158,7 +194,27 @@ int XLoader_GetImageInfo(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 		XLoader_ImageInfo *ImageInfo)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U] = {0U};
+
+	/** Performs input parameters validation */
+	if (ImageInfo == NULL) {
+		goto END;
+	}
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	u32 Response[SMC_RESPONSE_LEN] = {0U};
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_GET_IMAGE_INFO;
+	Payload[1U] = NodeId;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
+
+	ImageInfo->ImgID = NodeId;
+	ImageInfo->UID = Response[0U];
+	ImageInfo->PUID = Response[1U];
+	ImageInfo->FuncID = Response[2U];
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -181,6 +237,7 @@ int XLoader_GetImageInfo(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 	ImageInfo->UID = InstancePtr->Response[1];
 	ImageInfo->PUID = InstancePtr->Response[2];
 	ImageInfo->FuncID = InstancePtr->Response[3];
+#endif
 
 END:
 	return Status;
@@ -204,13 +261,11 @@ int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,
 		u32 *NumEntries)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U] = {0U};
 	u32 Continue = 0;
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Performs input parameters validation */
+	if (NumEntries == NULL) {
 		goto END;
 	}
 
@@ -222,6 +277,28 @@ int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,
 	 */
 	Continue = ((Maxsize & XLOADER_MSB_MASK) >> 31);
 	if (Continue != 0) {
+		goto END;
+	}
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	u32 Response[SMC_RESPONSE_LEN] = {0U};
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_GET_IMAGE_INFO_LIST;
+	Payload[1U] = (u32)(Buff_Addr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[2U] = (u32)(Buff_Addr);
+	Payload[3U] = Maxsize;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
+
+	*NumEntries = Response[0U];
+#else
+
+    /**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
@@ -239,6 +316,7 @@ int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,
 	 */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 	*NumEntries = InstancePtr->Response[1];
+#endif
 
 END:
 	return Status;
@@ -262,7 +340,20 @@ int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAdd
 		u64 DestBuffAddr, u32 DestBuffSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U] = {0U};
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_EXTRACT_METAHEADER;
+	Payload[1U] = (u32)(PdiSrcAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[2U] = (u32)(PdiSrcAddr);
+	Payload[3U] = (u32)(DestBuffAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[4U] = (u32)(DestBuffAddr);
+	Payload[5U] = DestBuffSize;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -289,6 +380,7 @@ int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAdd
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 END:
+#endif
 	return Status;
 }
 
@@ -311,8 +403,18 @@ int XLoader_UpdateMultiboot(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc 
 		XLoader_FlashType Type, u32 ImageLocation)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
 	u32 BootModeType = Type | BootMode << 8;
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_UPDATE_MULTIBOOT;
+	Payload[1U] = BootModeType;
+	Payload[2U] = ImageLocation;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -334,6 +436,7 @@ int XLoader_UpdateMultiboot(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc 
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 END:
+#endif
 	return Status;
 }
 
@@ -355,7 +458,19 @@ int XLoader_AddImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId,
 		const u64 PdiAddr, u32 PdiSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U] = {0U};
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_ADD_IMAGESTORE_PDI;
+	Payload[1U] = PdiId;
+	Payload[2U] = (u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[3U] = (u32)(PdiAddr);
+	Payload[4U] = PdiSize;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -380,6 +495,7 @@ int XLoader_AddImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId,
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload,sizeof(Payload) / sizeof(u32));
 
 END:
+#endif
 	return Status;
 }
 
@@ -398,7 +514,16 @@ END:
 int XLoader_RemoveImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U] = {0U};
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI;
+	Payload[1U] = PdiId;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -420,6 +545,7 @@ int XLoader_RemoveImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId)
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 END:
+#endif
 	return Status;
 }
 
@@ -441,7 +567,26 @@ int XLoader_GetATFHandOffParams(XLoader_ClientInstance *InstancePtr, u64 BuffAdd
 		 u32 *BufferSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U] = {0U};
+
+	/** Performs input parameters validation */
+	if (BufferSize == NULL) {
+		goto END;
+	}
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	u32 Response[SMC_RESPONSE_LEN] = {0U};
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS;
+	Payload[1U] = (u32)(BuffAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[2U] = (u32)(BuffAddr);
+	Payload[3U] = Size;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
+
+	*BufferSize = Response[0U];
+#else
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -464,6 +609,7 @@ int XLoader_GetATFHandOffParams(XLoader_ClientInstance *InstancePtr, u64 BuffAdd
 	 */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 	*BufferSize = InstancePtr->Response[1];
+#endif
 
 END:
 	return Status;
@@ -486,21 +632,42 @@ int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
                                  XLoader_CfiSelReadbackParams *SelectiveReadbackPtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U] = {0U};
 
-    /**
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	/** Pack frame parameters into Arg1 */
+	u32 Arg1 = ((SelectiveReadbackPtr->Row << XLOADER_SELREADBACK_ROW_START_POS) &
+		XLOADER_SELREADBACK_ROW_MASK) |
+		((SelectiveReadbackPtr->Blocktype << XLOADER_SELREADBACK_BLKTYPE_START_POS) &
+		XLOADER_SLEREADBACK_BLKTYPE_MASK) |
+		((SelectiveReadbackPtr->FrameAddr) & XLOADER_SLEREADBACK_FRAMEADDR_MASK);
+
+	/** Prepare payload buffer with ApiId and arguments */
+	Payload[0U] = (u32)XLOADER_CFI_SEL_READBACK_ID;
+	Payload[1U] = Arg1;
+	Payload[2U] = SelectiveReadbackPtr->FrameCnt;
+	Payload[3U] = (u32)(SelectiveReadbackPtr->DestAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[4U] = (u32)(SelectiveReadbackPtr->DestAddr);
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
+#else
+
+     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
-	    (SelectiveReadbackPtr == NULL)) {
+		(SelectiveReadbackPtr == NULL)) {
 		goto END;
 	}
 
 	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_4, (InstancePtr->SlrIndex <<
 	                                XLOADER_SLR_INDEX_SHIFT) | (u32)XLOADER_CFI_SEL_READBACK_ID);
-    Payload[1U] = ((SelectiveReadbackPtr->Row << XLOADER_SELREADBACK_ROW_START_POS) & XLOADER_SELREADBACK_ROW_MASK)|
-	              ((SelectiveReadbackPtr->Blocktype << XLOADER_SELREADBACK_BLKTYPE_START_POS) & XLOADER_SLEREADBACK_BLKTYPE_MASK) |
-				  ((SelectiveReadbackPtr->FrameAddr) & XLOADER_SLEREADBACK_FRAMEADDR_MASK);
+    Payload[1U] = ((SelectiveReadbackPtr->Row << XLOADER_SELREADBACK_ROW_START_POS) &
+		XLOADER_SELREADBACK_ROW_MASK) |
+		((SelectiveReadbackPtr->Blocktype << XLOADER_SELREADBACK_BLKTYPE_START_POS) &
+		XLOADER_SLEREADBACK_BLKTYPE_MASK) |
+		((SelectiveReadbackPtr->FrameAddr) & XLOADER_SLEREADBACK_FRAMEADDR_MASK);
     Payload[2U] = SelectiveReadbackPtr->FrameCnt;
 	Payload[3U] = (u32)(SelectiveReadbackPtr->DestAddr >> XLOADER_ADDR_HIGH_SHIFT);
 	Payload[4U] = (u32)SelectiveReadbackPtr->DestAddr;
@@ -512,6 +679,7 @@ int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
 	 * response.
 	 */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+#endif
 
 END:
 	return Status;
@@ -555,20 +723,16 @@ int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex)
  *		 - XST_FAILURE  on failure.
  *
 **************************************************************************************************/
-int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr, const XLoader_OptionalDataInfo* OptionalDataInfo,
-	u64 DestAddr, u32 *DestSize)
+int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
+	const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U] = {0U};
 
-	/**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Performs input parameters validation */
+	if ((OptionalDataInfo == NULL) || (DestSize == NULL)) {
 		goto END;
 	}
-
-	Payload[0U] = PACK_XLOADER_HEADER(0, XLOADER_CMD_ID_EXTRACT_METAHEADER);
 
 	if (OptionalDataInfo->PdiSrc == XLOADER_PDI_SRC_DDR) {
 		Payload[1U] = OptionalDataInfo->PdiAddrHigh;
@@ -589,6 +753,28 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr, const XLoader_O
 	Payload[6U] = (OptionalDataInfo->DataId << XLOADER_DATA_ID_SHIFT) | (XLOADER_GET_OPT_DATA_FLAG |
 		OptionalDataInfo->PdiSrc);
 
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	u32 Response[SMC_RESPONSE_LEN] = {0U};
+
+	/** Prepare ApiId for SMC call */
+	Payload[0U] = (u32)XLOADER_CMD_ID_EXTRACT_METAHEADER;
+
+	/** Perform SMC call */
+	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
+
+	*DestSize = Response[0U];
+#else
+
+	/**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Prepare header for IPI call */
+	Payload[0U] = PACK_XLOADER_HEADER(0, XLOADER_CMD_ID_EXTRACT_METAHEADER);
+
 	/**
 	 * - Send an IPI request to the PLM by using the XLoader_GetOptionalData command
 	 * - Wait for IPI response from PLM with a timeout.
@@ -597,6 +783,7 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr, const XLoader_O
 	 */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload)/sizeof(u32));
 	*DestSize = InstancePtr->Response[1U];
+#endif
 
 END:
 	return Status;

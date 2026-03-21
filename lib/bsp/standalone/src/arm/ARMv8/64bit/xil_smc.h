@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 9.0  ml        03/03/23 Added description to fix doxygen warnings.
 * 9.0  ml        09/13/23 Assigned proper suffix to integer constants to fix
 *                         MISRA-C violation for Rule 7.2
+* 9.5  tbk       02/10/26 Added macro for SMC function Id
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +70,10 @@ extern "C" {
 #define MMIO_WRITE_SMC_FID	0xC2000013U
 #define MMIO_READ_SMC_FID	0xC2000014U
 #define GET_CHIPID_SMC_FID      0xC2000018U
+
+#define SMC_FID_EXT		0xC2000FFFU	/* SMC FID for extended packet format */
+#define SMC_REQUEST_LEN		6U		/* SMC request buffer length */
+#define SMC_RESPONSE_LEN	6U		/* SMC response buffer length */
 
 /* GEM device IDs */
 #define	DEV_GEM_0			0x18224019
