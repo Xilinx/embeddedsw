@@ -54,6 +54,7 @@ examples:
   xilsecure_spartanup_sha_server_example.c:
   xilsecure_versal_2ve_2vm_sha_client_example.c:
   xilsecure_versal_net_keyunwrap_client_example.c:
+  xilsecure_mldsa_client_example.c:
 
   condition: |
     examples = []
@@ -94,3 +95,6 @@ examples:
 
     if "Versal_2VP" in variant and proc in versal_procs:
         examples += ["xilsecure_versal_net_ecdh_client_example.c", "xilsecure_versal_net_trng_client_example.c"]
+
+    if "Versal_2VP_P" in variant and proc in versal_procs:
+        examples += ["xilsecure_mldsa_client_example.c"]
