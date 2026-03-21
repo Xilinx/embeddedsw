@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
 *       tvp  03/09/26 Added XSecure_MldsaSignGenerate() for signature generation
+*       tvp  03/09/26 Update last word transfer logic during signature verification
 *
 * </pre>
 *
@@ -126,6 +127,8 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	volatile int ClrStatus = XST_FAILURE;
 	volatile u32 Index;
 	u32 CtValue = XSECURE_ZERO;
+	u32 LastWord;
+	u32 AlignedLen;
 
 	/* Validate MLDSA instance pointer */
 	if (MldsaParams == NULL) {
@@ -188,9 +191,21 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	/** - Transfer signature to hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - "
 					      "Writing Signature\r\n");
-	/* Add 1 to the length to ensure word alignment for the signature transfer */
+
+	/* Transfer word-aligned portion (4624 bytes = 1156 words) */
+	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
 	Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
-			 MldsaParams->SignAddr, XSECURE_MLDSA_SIGN_LEN + XSECURE_VALUE_ONE);
+			 MldsaParams->SignAddr, AlignedLen);
+
+	/* Handle last 3 bytes using intermediate word buffer */
+	LastWord = (u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen);
+	LastWord |= ((u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen +
+			XSECURE_VALUE_ONE) << XSECURE_BYTE_IN_BITS);
+	LastWord |= ((u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen +
+			XSECURE_VALUE_TWO) << (XSECURE_VALUE_TWO * XSECURE_BYTE_IN_BITS));
+
+	XSecure_Out32(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET + AlignedLen,
+		      LastWord);
 
 	/** - Configure ML-DSA for signature verification with streaming message mode */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL,
