@@ -718,6 +718,16 @@ enum {
 	XASUFW_RSA_PWCT_DECRYPT_FAIL, /**< 0x203U - RSA PWCT decrypt operation failed */
 	XASUFW_RSA_PWCT_COMPARISON_FAIL, /**< 0x204U - RSA PWCT comparison failed */
 	XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL, /**< 0x205U - Error when UDE prepare decryption key operation fails */
+	XASUFW_X509_CERT_PARSE_FAIL, /**< 0x206U - Error when parsing x509 certificate fails */
+	XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL, /**< 0x207U - Error when updating key vault
+							fails */
+	XASUFW_KEYMANAGER_STORE_KEY_ERROR, /**< 0x208U - Error when storing key fails */
+	XASUFW_KEYMANAGER_STORE_X509_RAW_KEY_ERROR, /**< 0x209U - Error when storing X.509 raw key
+							fails */
+	XASUFW_KEYMANAGER_INVALID_BUF_SIZE, /**< 0x20aU - Error when provided buffer size is
+						invalid for key object */
+	XASUFW_KEYMANAGER_INVALID_EXPONENT_SIZE, /**< 0x20BU - Error when provided exponent size is
+						invalid for RSA key object */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

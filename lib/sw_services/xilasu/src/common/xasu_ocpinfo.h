@@ -71,6 +71,7 @@ extern "C" {
 #define XASU_OCP_UDE_USER_KEY_2_ID		(2U)	/**< UDE User Key 2 ID */
 
 #define XASU_OCP_HUK_SIZE_IN_BYTES		(32U)	/**< Hardware Unique Key size in bytes (256-bit AES key) */
+#define XASU_X509_MAX_SIZE_IN_BYTES		(2000U)	/**< X.509 certificate max size in bytes */
 
 /************************************** Type Definitions *****************************************/
 /**

@@ -136,9 +136,9 @@ typedef struct {
 } X509_EccPublicKey;
 
 /**
- * This union holds public key value for RSA or ECC algorithms.
+ * This structure holds public key value for RSA or ECC algorithms.
  */
-typedef union {
+typedef struct {
 	X509_EccPublicKey EccPublicKey;		/**< ECC public key */
 	X509_RsaPublicKey RsaPublicKey;		/**< RSA public key */
 } X509_PublicKey;

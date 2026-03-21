@@ -51,7 +51,8 @@ extern "C" {
 #define XASU_KM_GEN_AES_IV_CMD_ID		(4U) /**< Command ID for AES IV generation */
 #define XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID		(5U) /**< Command ID for RSA key pair generation */
 #define XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID		(6U) /**< Command ID for ECC key pair generation */
-#define XASU_KM_MAX_CMDS			(7U) /**< Maximum number of commands
+#define XASU_KM_STORE_KEY_CMD_ID		(7U) /**< Command ID for storing key in vault */
+#define XASU_KM_MAX_CMDS			(8U) /**< Maximum number of commands
 										   * supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
@@ -62,14 +63,31 @@ extern "C" {
 #define XASU_KM_MAX_VAULTS			(64U) /**< Maximum number of key vaults supported */
 /** @} */
 /************************************** Type Definitions *****************************************/
-/** This structure contains info for meta data of key. */
+/** This enum contains sub vault ID related information. */
+typedef enum {
+	XASU_AES_SUBVAULT_ID,		/**< AES key sub-vault ID. */
+	XASU_IV_SUBVAULT_ID,		/**< IV sub-vault ID. */
+	XASU_RSA_PVT_SUBVAULT_ID,	/**< RSA private key sub-vault ID. */
+	XASU_RSA_PUB_SUBVAULT_ID,	/**< RSA public key sub-vault ID. */
+	XASU_ECC_PVT_SUBVAULT_ID,	/**< ECC private key sub-vault ID. */
+	XASU_ECC_PUB_SUBVAULT_ID,	/**< ECC public key sub-vault ID. */
+	XASU_KDF_SUBVAULT_ID,		/**< KDF key sub-vault ID. */
+	XASU_LMS_SUBVAULT_ID,		/**< LMS key sub-vault ID. */
+	XASU_X509_SUBVAULT_ID,		/**< X509 certificate sub-vault ID. */
+	XASU_INVALID_SUBVAULT_ID,	/**< Invalid sub-vault identifier. */
+} XAsu_KeyManagerSubVaultType;
+
+/** This structure contains key meta data information. */
 typedef struct {
-	u16 Length;	/**< Key length. */
-	u8 KeyAttributes;	/**< Additional attribute for the key. */
+	u16 KeyId;	/**< Key identifier within sub-vault. */
+	u8 KeyType;	/**< Type of key stored. */
+	u8 VaultId;	/**< Identifier of the vault. */
 	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
+	u8 KeyAttributes;	/**< Additional attribute for the key. */
+	u16 Length;	/**< Key length. */
 	u32 EpochTime;	/**< Time stamp expiry for the key. */
 	u32 UsageCount;	/**< Number of times the key can be used. */
-	u32 Reserved;	/**< Reserved field. */
+	u32 Reserved;	/**< Reserved field for future use. */
 } XAsu_KeyManagerKeyMetadata;
 
 /** This structure contains info for key manager parameters. */
@@ -77,7 +95,6 @@ typedef struct {
 	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
 	u64 KeyObjectAddr; /**< Address of the key buffer. */
 	u64 KeyIdAddr; /**< Address where generated key ID is stored. */
-	u32 VaultId; /**< Vault ID for key storage. */
 } XAsu_KeyManagerParams;
 
 /** This structure contains info for different sub vault capacities. */

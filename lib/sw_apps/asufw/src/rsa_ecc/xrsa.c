@@ -1037,8 +1037,8 @@ static s32 XRsa_GenerateKeyPairTask(void *Arg)
 
 	if (KeyGenState == XRSA_KEY_GEN_DEFAULT_STATE) {
 		/** Check if ASU vault already has enough RSA keys. */
-		if ((XKeyManager_GetAsuRsaActiveKeyCount(XKEYMANAGER_RSA_PVT_SUBVAULT_ID) >=
-			XRSA_KEY_GEN_VAULT_CAPACITY) && (XKeyManager_GetAsuRsaActiveKeyCount(XKEYMANAGER_RSA_PUB_SUBVAULT_ID) >=
+		if ((XKeyManager_GetAsuRsaActiveKeyCount(XASU_RSA_PVT_SUBVAULT_ID) >=
+			XRSA_KEY_GEN_VAULT_CAPACITY) && (XKeyManager_GetAsuRsaActiveKeyCount(XASU_RSA_PUB_SUBVAULT_ID) >=
 			XRSA_KEY_GEN_VAULT_CAPACITY)) {
 			Status = XASUFW_SUCCESS;
 			goto END;

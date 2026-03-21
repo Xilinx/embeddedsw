@@ -275,9 +275,9 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
-				Cmd->KeyId);
+				XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -355,9 +355,9 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
-				Cmd->KeyId);
+				XKEYMANAGER_RSA_OP_NONCRT);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -436,9 +436,9 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
-				Cmd->KeyId);
+				XKEYMANAGER_RSA_OP_CRT);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -520,9 +520,9 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
-				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
-				Cmd->XAsu_RsaOpComp.KeyId);
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr, SubsystemId,
+				XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -614,9 +614,9 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
-				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
-				Cmd->XAsu_RsaOpComp.KeyId);
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
+				Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr, SubsystemId,
+				XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE, XKEYMANAGER_RSA_OP_NONCRT);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -708,9 +708,11 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
-				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
-				Cmd->XAsu_RsaOpComp.KeyId);
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
+							   Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr,
+							   SubsystemId,
+							   XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
+							   XKEYMANAGER_RSA_OP_NONCRT);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -799,9 +801,11 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
-		Status = XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_RsaModule.AsuDmaPtr,
-				KeyParamAddr, SubsystemId, XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
-				Cmd->XAsu_RsaOpComp.KeyId);
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
+							   Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr,
+							   SubsystemId,
+							   XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
+							   XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;

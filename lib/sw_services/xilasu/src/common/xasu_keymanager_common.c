@@ -71,8 +71,9 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 
 	/** Validate key metadata. */
 	if ((KmParamsPtr->KeyObjectAddr == 0U) && ((KmParamsPtr->KeyMetadata.KeyUseCase == 0U) ||
-		(KmParamsPtr->KeyMetadata.UsageCount == 0U) || (KmParamsPtr->VaultId == 0U) ||
-		(KmParamsPtr->VaultId >= XASU_KM_MAX_VAULTS))) {
+	    (KmParamsPtr->KeyMetadata.UsageCount == 0U) ||
+	    (KmParamsPtr->KeyMetadata.VaultId == 0U) ||
+	    (KmParamsPtr->KeyMetadata.VaultId >= XASU_KM_MAX_VAULTS))) {
 		goto END;
 	}
 
@@ -102,7 +103,7 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 	/** Validate key length is either 128-bit or 256-bit for AES. */
 	if (KeyType == XASU_KM_AES_KEYTYPE) {
 		if ((KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
-		   (KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
+		    (KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
 			goto END;
 		}
 	}
@@ -110,7 +111,8 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 	/** Validate IV length is non-zero and does not exceed maximum size. */
 	if (KeyType == XASU_KM_IV_KEYTYPE) {
 		if ((KmSubVaultParamPtr->KeyMetadata.Length == 0U) ||
-		    (KmSubVaultParamPtr->KeyMetadata.Length > XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
+		    (KmSubVaultParamPtr->KeyMetadata.Length >
+		    XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
 			goto END;
 		}
 	}

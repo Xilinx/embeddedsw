@@ -39,6 +39,8 @@ extern "C" {
 #include "xasu_keymanagerinfo.h"
 #include "xasufw_dma.h"
 #include "xasu_rsainfo.h"
+#include "xasu_ocpinfo.h"
+#include "xasu_eccinfo.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_MAX_SUB_VAULTS	(9U) /**< Total number of supported sub-vaults */
@@ -47,27 +49,43 @@ extern "C" {
 #define XKEYMANAGER_MINOR_VERSION	(0U) /**< Minor version of the key manager */
 #define XKEYMANAGER_IDENTIFICATION_STRING	(0x4C564B58U) /**< Key manager identification string */
 
-#define XKEYMANAGER_AES_ENC_USE_CASE		(0U)	/**< Data encryption key use case */
-#define XKEYMANAGER_AES_DEC_USE_CASE		(1U)	/**< Data decryption key use case */
-#define XKEYMANAGER_AES_KEY_WRAP_USE_CASE	(2U)	/**< Data key wrap use case */
-#define XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE	(3U)	/**< Data key unwrap use case */
-#define XKEYMANAGER_AES_AUTH_USE_CASE		(4U)	/**< Data key unwrap use case */
+#define XKEYMANAGER_AES_ENC_USE_CASE			(0x01U)	/**< Data encryption key use case */
+#define XKEYMANAGER_AES_DEC_USE_CASE			(0x02U)	/**< Data decryption key use case */
+#define XKEYMANAGER_AES_KEY_WRAP_USE_CASE		(0x04U)	/**< Data key wrap use case */
+#define XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE		(0x08U)	/**< Data key unwrap use case */
+#define XKEYMANAGER_AES_AUTH_USE_CASE			(0x10U)	/**< Data authentication use case */
 
-#define XKEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE		(0U)	/**< RSA private key sign use case */
-#define XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE		(1U)	/**< RSA private key decryption use case */
-#define XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE	(2U)	/**< RSA private key key transport use case */
+#define XKEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< RSA private key sign
+								use case */
+#define XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE		(0x02U)	/**< RSA private key decryption
+								use case */
+#define XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE	(0x04U)	/**< RSA private key key transport
+								use case */
 
-#define XKEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE		(0U)	/**< RSA public key sign verification use case */
-#define XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE		(1U)	/**< RSA public key encryption use case */
-#define XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE	(2U)	/**< RSA public key key transport use case */
+#define XKEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< RSA public key sign
+								verification use case */
+#define XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE		(0x02U)	/**< RSA public key encryption
+								use case */
+#define XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE	(0x04U)	/**< RSA public key key transport
+								use case */
 
-#define XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0U)	/**< ECC private key sign use case */
-#define XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(1U)	/**< ECC private key key agreement use case */
-#define XKEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(2U)	/**< ECC private key key authentication and encryption use case */
+#define XKEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< ECC public key sign verification use case */
+#define XKEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC public key key agreement use case */
+#define XKEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC public key key authentication and encryption use case */
 
-#define XKEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE		(0U)	/**< ECC public key sign verification use case */
-#define XKEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE	(1U)	/**< ECC public key key agreement use case */
-#define XKEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE	(2U)	/**< ECC public key key authentication and encryption use case */
+#define XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE	(0x01U)	/**< Digital signature use case */
+#define XKEYMANAGER_X509_NONREPUDIATION_USE_CASE	(0x02U)	/**< Non-repudiation use case */
+#define XKEYMANAGER_X509_KEYENCIPHERMENT_USE_CASE	(0x04U)	/**< Key encipherment use case */
+#define XKEYMANAGER_X509_DATAENCIPHERMENT_USE_CASE	(0x08U)	/**< Data encipherment use case */
+#define XKEYMANAGER_X509_KEYAGREEMENT_USE_CASE		(0x10U)	/**< Key agreement use case */
+#define XKEYMANAGER_X509_KEYCERTSIGN_USE_CASE		(0x20U)	/**< Certificate signing use case */
+#define XKEYMANAGER_X509_CRLSIGN_USE_CASE		(0x40U)	/**< CRL signing use case */
+#define XKEYMANAGER_X509_ENCIPHERONLY_USE_CASE		(0x80U)	/**< Encipher only use case */
+#define XKEYMANAGER_X509_DECIPHERONLY_USE_CASE		(0x100U) /**< Decipher only use case */
+
+#define XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< ECC private key sign use case */
+#define XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC private key key agreement use case */
+#define XKEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC private key key authentication and encryption use case */
 
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
@@ -79,20 +97,12 @@ extern "C" {
 #define XKEYMANAGER_ASU_VAULT_ID	(0U)	/**< Vault index for ASU internal vault */
 
 /************************************** Type Definitions *****************************************/
-
-/** This enum contains sub vault ID related information. */
+/** This enum contains RSA operation types for private key retrieval. */
 typedef enum {
-	XKEYMANAGER_AES_SUBVAULT_ID,		/**< AES key sub-vault ID. */
-	XKEYMANAGER_IV_SUBVAULT_ID,		/**< IV sub-vault ID. */
-	XKEYMANAGER_RSA_PVT_SUBVAULT_ID,	/**< RSA private key sub-vault ID. */
-	XKEYMANAGER_RSA_PUB_SUBVAULT_ID,	/**< RSA public key sub-vault ID. */
-	XKEYMANAGER_ECC_PVT_SUBVAULT_ID,	/**< ECC private key sub-vault ID. */
-	XKEYMANAGER_ECC_PUB_SUBVAULT_ID,	/**< ECC public key sub-vault ID. */
-	XKEYMANAGER_KDF_SUBVAULT_ID,		/**< KDF key sub-vault ID. */
-	XKEYMANAGER_LMS_SUBVAULT_ID,		/**< LMS key sub-vault ID. */
-	XKEYMANAGER_X509_SUBVAULT_ID,		/**< X509 certificate sub-vault ID. */
-	XKEYMANAGER_INVALID_SUBVAULT_ID,	/**< Invalid sub-vault identifier. */
-} XKeyManager_SubVaultType;
+	XKEYMANAGER_RSA_OP_NONE = 0U,		/**< No RSA operation */
+	XKEYMANAGER_RSA_OP_NONCRT = 1U,		/**< RSA Non-CRT operation */
+	XKEYMANAGER_RSA_OP_CRT = 2U		/**< RSA CRT operation */
+} XKeyManager_RsaOpType;
 
 /** This structure contains key vault header related information. */
 typedef struct {
@@ -122,50 +132,49 @@ typedef struct {
 	u32 Offset;	/**< Offset to sub-vault in a key vault. */
 } XKeyManager_SubVaultHeader;
 
-/** This structure contains key metadata related information. */
-typedef struct {
-	u8 VaultId;	/**< Identifier of the vault. */
-	u8 KeyType;	/**< Type of key stored. */
-	u16 KeyId;	/**< Key identifier within sub-vault. */
-	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
-} XKeyManager_KeyIdentifier;
-
 /** This structure contains AES key object information. */
 typedef struct {
-	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
 	u8 Content[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];	/**< Key data. */
 } XKeyManager_AesKeyObject;
 
 /** This structure contains IV object information. */
 typedef struct {
-	XKeyManager_KeyIdentifier Metadata;	/**< IV metadata. */
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< IV metadata. */
 	u8 Content[XASU_AES_IV_SIZE_128BIT_IN_BYTES];	/**< IV data. */
 } XKeyManager_IvObject;
 
 /** This structure contains RSA private key object information. */
 typedef struct {
-	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
 	XAsu_RsaKeyPairObject RsaPvtKeyPair;	/**< RSA private key pair structure. */
 } XKeyManager_RsaPvtKeyObject;
 
 /** This structure contains RSA public key object information. */
 typedef struct {
-	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
 	u8 Modulus[XRSA_4096_KEY_SIZE];	/**< Modulus buffer. */
 	u32 PubExp;			/**< Public exponent value. */
 } XKeyManager_RsaPubKeyObject;
 
 /** This structure contains ECC private key object information. */
 typedef struct {
-	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
 	u8 PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];	/**< ECC private key. */
 } XKeyManager_EccPvtKeyObject;
 
 /** This structure contains ECC public key object information. */
 typedef struct {
-	XKeyManager_KeyIdentifier Metadata;	/**< Key metadata. */
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
 	u8 PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES];	/**< ECC public key. */
 } XKeyManager_EccPubKeyObject;
+
+/** This structure contains X.509 certificate object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 Content[XASU_X509_MAX_SIZE_IN_BYTES];	/**< X.509 certificate data. */
+	u32 RawKeyId;	/**< KeyId of raw public key within the	certificate. */
+} XKeyManager_X509KeyObject;
 
 /** This structure contains key manager vault and sub vault header information. */
 typedef struct {
@@ -199,24 +208,21 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId);
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
-			XKeyManager_SubVaultType KeyType);
+			XAsu_KeyManagerSubVaultType KeyType);
 u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase);
-s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject, u32 SubSystemId,
-			u8 KeyUsecase);
-s32 XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
-			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
-s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
-			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
-s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
-			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
-			u32 *KeyIdPtr, u32 SubSystemId, XKeyManager_SubVaultType KeyType);
+			u32 *KeyIdPtr, u32 SubSystemId, XAsu_KeyManagerSubVaultType KeyType);
 s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
-u16 XKeyManager_GetAsuRsaActiveKeyCount(XKeyManager_SubVaultType KeyType);
+u16 XKeyManager_GetAsuRsaActiveKeyCount(XAsu_KeyManagerSubVaultType KeyType);
 s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 VaultId);
 s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 VaultId, u64 KeyAddr);
+s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *KeyParams,
+				u32 *KeyIdPtr, u32 SubSystemId);
+s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObjectAddr,
+				      u32 SubSystemId, u8 KeyUsecase,
+				      XKeyManager_RsaOpType RsaOpType);
 
 /************************************ Variable Definitions ***************************************/
 

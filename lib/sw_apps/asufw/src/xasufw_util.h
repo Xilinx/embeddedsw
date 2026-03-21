@@ -113,7 +113,7 @@ extern "C" {
  * Returns XASUFW_INVALID_PARAM error if length don't match.
  */
 #define XASUFW_VERIFY_CMD_LEN(Label, Status, ReqBuf, ParamStructType) \
-	if (((ReqBuf)->Header & XASU_COMMAND_LENGTH_MASK) >> XASU_COMMAND_LENGTH_SHIFT != \
+	if ((((ReqBuf)->Header & XASU_COMMAND_LENGTH_MASK) >> XASU_COMMAND_LENGTH_SHIFT) != \
 		(u32)(sizeof(ParamStructType) / XASUFW_WORD_LEN_IN_BYTES)) { \
 		Status = XASUFW_INVALID_PARAM; \
 		goto Label; \

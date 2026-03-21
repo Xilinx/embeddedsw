@@ -92,8 +92,18 @@ extern "C" {
 								key size in bytes */
 #define XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES		(132U) /**< Size of NIST P-521 public key
 								size in bytes */
+#define XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES		(96U) /**< Size of NIST P-384 public key
+								size in bytes */
+
 /** @} */
 /************************************** Type Definitions *****************************************/
+/** This structure contains ECC public key components info. */
+typedef struct {
+	u32 Keysize; /**< Key size in bytes */
+	u8 PublicKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES]; /**< ECC public key data
+								(X and Y coordinates) */
+} XAsu_EccPubKeyComp;
+
 /** This structure contains ECC params info. */
 typedef struct {
 	u32 CurveType; /**< Type of curve */

@@ -190,7 +190,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_AesKeyObject KeyObject;
-	XKeyManager_IvObject *KeyVaultIvObjectPtr;
+	XAsu_AesIvObject IvObject;
 
 	/**
 	 * If the DMA non-blocking transfer was initiated previously,
@@ -245,14 +245,17 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 		if (AesParamsPtr->IvAddr == 0U) {
-			KeyVaultIvObjectPtr = (XKeyManager_IvObject* )XKeyManager_GetKeyObjectPtr(AesParamsPtr->IvId,
-										SubsystemId, KeyUsecase);
-			if (KeyVaultIvObjectPtr == NULL) {
-				Status = XASUFW_AES_INVALID_IV;
+			IvObject.IvId = AesParamsPtr->IvId;
+			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
+							IvObject.IvId, (u64)(UINTPTR)&IvObject,
+							SubsystemId, KeyUsecase,
+							XKEYMANAGER_RSA_OP_NONE);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 				goto END;
 			}
-			LocalIvAddr = (u64)(UINTPTR)KeyVaultIvObjectPtr->Content;
-			LocalIvLen = KeyVaultIvObjectPtr->Metadata.KeyMetadata.Length;
+			LocalIvAddr = IvObject.IvAddr;
+			LocalIvLen = IvObject.IvLen;
 		}
 	}
 
@@ -271,8 +274,10 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		}
 
 		if ((KeyObject.KeyAddress == 0U) && (KeyObject.KeyId != 0U)) {
-		Status = XKeyManager_UpdateAesKeyObjectFromVault(&KeyObject, SubsystemId,
-							KeyUsecase);
+			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
+							KeyObject.KeyId, (u64)(UINTPTR)&KeyObject,
+							SubsystemId, KeyUsecase,
+							XKEYMANAGER_RSA_OP_NONE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 				goto END;

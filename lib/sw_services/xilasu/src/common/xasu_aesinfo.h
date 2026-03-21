@@ -121,6 +121,13 @@ typedef struct {
 	u32 KeyId; /**< AES key ID, if the key to be used from ASU key vault */
 } XAsu_AesKeyObject;
 
+/** This structure contains AES IV object information. */
+typedef struct {
+	u64 IvAddr; /**< AES IV address */
+	u32 IvLen; /**< AES IV length */
+	u32 IvId; /**< AES IV ID */
+} XAsu_AesIvObject;
+
 /**
  * This structure is common for both client and handler, which contains AES input and output
  * parameters information.
