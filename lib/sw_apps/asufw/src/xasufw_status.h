@@ -712,6 +712,11 @@ enum {
 	XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED, /**< 0x1FFU - Error when ASU vault creation fails. */
 	XASUFW_RSA_INVALID_OUTPUT_BUF_LEN, /**< 0x200U - Error when RSA output buffer length
 						provided by user is less than required */
+	XASUFW_RSA_KEY_GEN_ADD_TASK_ERROR, /**< 0x201U - Error during RSA key pair generation
+						in scheduler task */
+	XASUFW_RSA_PWCT_ENCRYPT_FAIL, /**< 0x202U - RSA PWCT encrypt operation failed */
+	XASUFW_RSA_PWCT_DECRYPT_FAIL, /**< 0x203U - RSA PWCT decrypt operation failed */
+	XASUFW_RSA_PWCT_COMPARISON_FAIL, /**< 0x204U - RSA PWCT comparison failed */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

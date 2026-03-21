@@ -22,6 +22,7 @@
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
  *       kd   07/23/25 Fixed gcc warnings
  *       yog  01/28/26 Added RSA key pair generation API.
+ *       ss   03/18/26 Added scheduler-based RSA key pair generation.
  *
  * </pre>
  *
@@ -39,6 +40,9 @@
 #include "xil_util.h"
 #include "xfih.h"
 #include "xasu_generic.h"
+#include "xtask.h"
+#include "xkeymanager.h"
+#include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
 /* Definitions for peripheral RSA */
@@ -46,6 +50,8 @@
 #define XRSA_RESET_REG_OFFSET		(0x40U)		/**< RSA reset register offset */
 
 /* Errors from third-party library */
+#define XRSA_KEY_GEN_STEP_WAIT_STATE		(1)		/**< RSA key generation step needs
+								more iterations (WAIT state) */
 #define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA third-party key pair compare error */
 #define XRSA_RAND_GEN_ERROR		(2)		/**< RSA third-party random number
 								generation error */
@@ -56,13 +62,31 @@
 #define XRSA_BYTE_TO_BIT(x)		(((u32)(x) << 3U)) /**< Byte to bit conversion */
 
 #define XRSA_PUB_EXP_INVALID_ZERO_VALUE		(0U)	/**< Indicates invalid public exponent
-								value of zero */
+														value of zero */
 #define XRSA_PUB_EXP_INVALID_ONE_VALUE		(1U)	/**< Indicates invalid public exponent
-								value of one */
+														value of one */
 #define XRSA_PUB_EXP_INVALID_THREE_VALUE	(3U)	/**< Indicates invalid public exponent
-								value of three */
+														value of three */
+
+#define XRSA_KEY_GEN_POLL_INTERVAL	(100U)	/**< Key pair generation scheduler task poll interval in ms */
+#define XRSA_KEY_GEN_TASK_PRIORITY	(15U)	/**< Key generation scheduler task priority (lowest) */
+
+#define XRSA_PUB_EXP_VALUE	(65537U) /**< RSA public exponent value. */
+
+#define XRSA_KEY_GEN_VAULT_CAPACITY (2U) /**< Number of RSA key pairs that can be stored in ASU vault */
+
+#define XRSA_PWCT_TEST_MSG_VALUE	(2U)	/**< PWCT test message value (must be > 0 and < modulus) */
 
 /************************************** Type Definitions *****************************************/
+typedef RsaKeyPair XRsa_KeyPtr;
+
+/** State machine for scheduler-based RSA key pair generation */
+typedef enum {
+	XRSA_KEY_GEN_DEFAULT_STATE = 0U,	/**< Check vault key count */
+	XRSA_KEY_GEN_INIT_STATE,		/**< Initialize key generation */
+	XRSA_KEY_GEN_STEP_STATE,		/**< Incremental generation step */
+	XRSA_KEY_GEN_READY_STATE,		/**< Finalize and store in vault */
+} XRsa_KeyGenState;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -70,8 +94,15 @@
 static s32 XRsa_UpdateStatus(s32 Status);
 static s32 XRsa_ValidatePubExp(u8 *BuffAddr);
 static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
+static s32 XRsa_GenerateKeyPairTask(void *Arg);
 
 /************************************ Variable Definitions ***************************************/
+/** Buffer for key generation (separate from shared data block) */
+static u8 RsaKeyGenBuf[XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES];
+
+/** Public exponent buffer for background key generation (must be full-key-size). */
+static u32 RsaKeyGenPubExpBuf[XRSA_MAX_KEY_SIZE_IN_BYTES / sizeof(u32)];
+
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
@@ -873,27 +904,6 @@ u8 *XRsa_GetDataBlockAddr(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates an RSA key pair using a third-party cryptographic library.
- *
- * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param	Len		Length of the RSA key in bytes (256, 384, or 512 bytes for
- * 				2048, 3072, or 4096-bit keys respectively).
- *
- * @return
- *		- XASUFW_SUCCESS, if RSA key pair generation is successful.
- *
- *************************************************************************************************/
-/* TODO: Add support for RSA key pair generation.*/
-s32 XRsa_KeyPairGeneration(XAsufw_Dma *DmaPtr, u32 Len)
-{
-	(void)DmaPtr;
-	(void)Len;
-
-	return XASUFW_SUCCESS;
-}
-
-/*************************************************************************************************/
-/**
  * @brief	This function maps the status returned from third-party library to the respective error
  * 		from xasufw_status.h.
  *
@@ -987,6 +997,302 @@ static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len)
 		Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Periodic task handler for scheduler-based RSA key pair generation. Implements a
+ *		non-blocking state machine that generates RSA keys incrementally across multiple
+ *		scheduler invocations and stores them in the ASU key vault.
+ *
+ * @param	Arg	Unused argument (required by task handler signature).
+ *
+ * @return
+ *		- XASUFW_SUCCESS, on each successful step or when vault is full.
+ *		- Error code, on failure during key generation or vault storage.
+ *
+ *************************************************************************************************/
+static s32 XRsa_GenerateKeyPairTask(void *Arg)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	static XRsa_KeyGenState KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+	static XRsa_KeyPtr KeyPairState;
+	static u32 QuantSize = 0U;
+	static u32 KeyLen = 0U;
+	u8 *ModulusPtr = RsaKeyGenBuf;
+	u8 *PvtExpPtr = ModulusPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;
+	u8 *PrimePPtr = PvtExpPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;
+	u8 *PrimeQPtr = PrimePPtr + XRSA_MAX_HALF_KEY_SIZE_IN_BYTES;
+	u8 *DPPtr = PrimeQPtr + XRSA_MAX_HALF_KEY_SIZE_IN_BYTES;
+	u8 *DQPtr = DPPtr + XRSA_MAX_HALF_KEY_SIZE_IN_BYTES;
+	u8 *QInvPtr = DQPtr + XRSA_MAX_HALF_KEY_SIZE_IN_BYTES;
+	u8 *PwctMsg = NULL;
+	u8 *PwctEnc = NULL;
+	u8 *PwctDec = NULL;
+
+	(void)Arg;
+
+	if (KeyGenState == XRSA_KEY_GEN_DEFAULT_STATE) {
+		/** Check if ASU vault already has enough RSA keys. */
+		if ((XKeyManager_GetAsuRsaActiveKeyCount(XKEYMANAGER_RSA_PVT_SUBVAULT_ID) >=
+			XRSA_KEY_GEN_VAULT_CAPACITY) && (XKeyManager_GetAsuRsaActiveKeyCount(XKEYMANAGER_RSA_PUB_SUBVAULT_ID) >=
+			XRSA_KEY_GEN_VAULT_CAPACITY)) {
+			Status = XASUFW_SUCCESS;
+			goto END;
+		}
+
+		KeyLen = XRSA_KEY_GEN_DEFAULT_SIZE;
+		if (KeyLen == XRSA_2048_KEY_SIZE) {
+			QuantSize = XRSA_2048_QUANT_SIZE;
+		} else if (KeyLen == XRSA_3072_KEY_SIZE) {
+			QuantSize = XRSA_3072_QUANT_SIZE;
+		} else {
+			QuantSize = XRSA_4096_QUANT_SIZE;
+		}
+
+		KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+	}
+
+	if (KeyGenState == XRSA_KEY_GEN_INIT_STATE) {
+		/**
+		 * Initialize key pair state with dedicated buffer.
+		 * Uses TRNG internally for random prime candidate generation.
+		 */
+
+		/** Zero-fill the public exponent buffer and set E=65537 at word[0] (LE). */
+		Status = Xil_SMemSet(RsaKeyGenPubExpBuf, sizeof(RsaKeyGenPubExpBuf), 0U,
+				     sizeof(RsaKeyGenPubExpBuf));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		RsaKeyGenPubExpBuf[0U] = XRSA_PUB_EXP_VALUE;
+
+		KeyPairState.M = ModulusPtr;
+		KeyPairState.D = PvtExpPtr;
+		KeyPairState.P = PrimePPtr;
+		KeyPairState.Q = PrimeQPtr;
+		KeyPairState.DP = DPPtr;
+		KeyPairState.DQ = DQPtr;
+		KeyPairState.iQ = QInvPtr;
+		KeyPairState.E = (u8 *)RsaKeyGenPubExpBuf;
+		KeyPairState.stage = 0U;
+		KeyPairState.s = 0U;
+		KeyPairState.bits2 = 0U;
+		KeyPairState.iter = 0U;
+
+		/** Release reset of RSA engine, run init, then set back under reset. */
+		XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = (s32)rsaprvkeyinit_Q(KeyLen * XASUFW_BYTE_LEN_IN_BITS, NULL, &KeyPairState);
+
+		XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		if (Status != XASUFW_SUCCESS) {
+			Status = XRsa_UpdateStatus(Status);
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		KeyGenState = XRSA_KEY_GEN_STEP_STATE;
+	}
+
+	if (KeyGenState == XRSA_KEY_GEN_STEP_STATE) {
+		/**
+		 * Perform one incremental step of Rabin-Miller primality test.
+		 * Returns XRSA_KEY_GEN_STEP_WAIT_STATE (1) when more work is needed.
+		 */
+		XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		ASSIGN_VOLATILE(Status, (s32)XASU_STATUS_FAIL);
+		Status = (s32)rsaprvkeystep_Q(QuantSize, &KeyPairState);
+
+		XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		if (Status == XRSA_KEY_GEN_STEP_WAIT_STATE) {
+			/** Not done yet - return success so scheduler keeps calling. */
+			Status = XASUFW_SUCCESS;
+			goto END;
+		}
+
+		if (Status != XASUFW_SUCCESS) {
+			/** Error during generation, restart from init on next call. */
+			Status = XRsa_UpdateStatus(Status);
+			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			goto END;
+		}
+
+		/** Key generation complete, proceed to finalization. */
+		KeyGenState = XRSA_KEY_GEN_READY_STATE;
+	}
+
+	if (KeyGenState == XRSA_KEY_GEN_READY_STATE) {
+		/**
+		 * Pairwise Consistency Test (PWCT): Verify the generated key pair
+		 * by encrypting a test message with (E, M) and decrypting with (D, M),
+		 * then comparing the result with the original message.
+		 * Keys are still in LE format from the library at this point.
+		 */
+		PwctMsg = XRsa_GetDataBlockAddr();
+		PwctEnc = PwctMsg + XRSA_MAX_KEY_SIZE_IN_BYTES;
+		PwctDec = PwctEnc + XRSA_MAX_KEY_SIZE_IN_BYTES;
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemSet(PwctMsg, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
+				     XRSA_MAX_KEY_SIZE_IN_BYTES);
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
+
+		PwctMsg[0U] = XRSA_PWCT_TEST_MSG_VALUE;
+		XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		rsaexp(PwctMsg, (u8 *)RsaKeyGenPubExpBuf, ModulusPtr,
+		       (s32)XRSA_BYTE_TO_BIT(KeyLen), PwctEnc);
+
+		XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		/** Decrypt: PwctDec = PwctEnc ^ D mod M (with E for internal verification) */
+		XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = RSA_ExpQ(PwctEnc, PvtExpPtr, ModulusPtr, NULL, NULL,
+				  (u8 *)RsaKeyGenPubExpBuf, NULL,
+				  (s32)XRSA_BYTE_TO_BIT(KeyLen), PwctDec);
+
+		XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
+
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			Status = XASUFW_RSA_PWCT_DECRYPT_FAIL;
+			goto END;
+		}
+
+		/** Compare decrypted output with original message. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCmp(PwctDec, XRSA_MAX_KEY_SIZE_IN_BYTES,
+				     PwctMsg, XRSA_MAX_KEY_SIZE_IN_BYTES, KeyLen);
+
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			Status = XASUFW_RSA_PWCT_COMPARISON_FAIL;
+			goto END;
+		}
+		/** Convert endianness from LE to BE for all key components. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(ModulusPtr, KeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PvtExpPtr, KeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PrimePPtr, XRSA_HALF_LEN(KeyLen));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PrimeQPtr, XRSA_HALF_LEN(KeyLen));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(DPPtr, XRSA_HALF_LEN(KeyLen));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(DQPtr, XRSA_HALF_LEN(KeyLen));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(QInvPtr, XRSA_HALF_LEN(KeyLen));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+			goto END;
+		}
+
+		/** Store the generated key pair in the ASU vault. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_StoreRsaKeyPairInAsuVault(RsaKeyGenBuf, KeyLen, 0U);
+
+		/** Reset to default state to check for more keys needed. */
+		KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+	}
+
+END:
+	/**
+	 * Securely zeroize key generation buffer unless in STEP_STATE,
+	 * where intermediate key data must persist for the next scheduler call.
+	 */
+	if (KeyGenState != XRSA_KEY_GEN_STEP_STATE) {
+		if (PwctMsg != NULL) {
+			ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
+			SStatus = Xil_SecureZeroize(PwctMsg,
+						XRSA_MAX_PARAM_SIZE_IN_BYTES);
+			Status = XAsufw_UpdateBufStatus(Status, SStatus);
+		}
+		XFIH_CALL(Xil_SecureZeroize, XFihVar, SStatus, RsaKeyGenBuf,
+						XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES);
+		Status = XAsufw_UpdateBufStatus(Status, SStatus);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Add the RSA key pair generation task to the ASUFW task scheduler. The task runs
+ *		at lowest priority and checks the ASU vault periodically, generating keys
+ *		incrementally when fewer than XRSA_KEY_GEN_VAULT_CAPACITY keys are available.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, on success.
+ *		- XASUFW_RSA_KEY_GEN_ADD_TASK_ERROR, if task creation fails.
+ *
+ *************************************************************************************************/
+s32 XRsa_AddKeyPairGenToScheduler(void)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Task node for periodic RSA key pair generation */
+	XTask_TaskNode *RsaKeyGenTask = NULL;
+
+	/** Create a periodic task for RSA key pair generation. */
+	RsaKeyGenTask = XTask_Create(XRSA_KEY_GEN_TASK_PRIORITY,
+				     XRsa_GenerateKeyPairTask, NULL,
+				     XRSA_KEY_GEN_POLL_INTERVAL);
+	if (RsaKeyGenTask == NULL) {
+		Status = XASUFW_RSA_KEY_GEN_ADD_TASK_ERROR;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
 	return Status;
 }
 /** @} */

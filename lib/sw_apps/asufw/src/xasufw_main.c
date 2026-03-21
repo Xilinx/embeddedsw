@@ -78,6 +78,7 @@
 #include "xasufw_lmshandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
+#include "xrsa.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -166,6 +167,20 @@ int main(void)
 		XAsufw_Printf(DEBUG_GENERAL, "OCP key generation failed. Error: 0x%x\r\n", Status);
 	}
 #endif
+
+	/**
+	 * Start background RSA key pair generation if ASU vault was created successfully.
+	 * Keys are generated and stored in ASU vault. Key generation runs via the task
+	 * scheduler without blocking the main firmware operations.
+	 * In case of failure, continue booting.
+	 */
+	if (XKeyManager_IsAsuVaultCreated() == XASU_STATUS_PASS) {
+		Status = XRsa_AddKeyPairGenToScheduler();
+		if (XASUFW_SUCCESS != Status) {
+			XAsufw_Printf(DEBUG_GENERAL, "RSA key pair gen scheduler init failed. Error: 0x%x\r\n",
+				      Status);
+		}
+	}
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.

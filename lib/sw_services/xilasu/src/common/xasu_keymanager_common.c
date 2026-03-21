@@ -115,13 +115,21 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 		}
 	}
 
-	/** Validate key length is either 2048-bit or 3072-bit or 4096-bit for RSA. */
+	/** Validate key length based on compile-time RSA key generation configuration. */
 	if (KeyType == XASU_KM_RSA_KEYTYPE) {
-		if ((KmSubVaultParamPtr->KeyMetadata.Length != XRSA_2048_KEY_SIZE) &&
-		   (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_3072_KEY_SIZE) &&
-		   (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_4096_KEY_SIZE)) {
+#if defined(XASU_RSA_3072_KEYGEN_ENABLE)
+		if (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_3072_KEY_SIZE) {
 			goto END;
 		}
+#elif defined(XASU_RSA_2048_KEYGEN_ENABLE)
+		if (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_2048_KEY_SIZE) {
+			goto END;
+		}
+#else
+		if (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_4096_KEY_SIZE) {
+			goto END;
+		}
+#endif
 	}
 
 	Status = XST_SUCCESS;

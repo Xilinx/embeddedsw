@@ -13,6 +13,16 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 
 include_directories(${CMAKE_BINARY_DIR}/include)
 
+if( (XILASU_rsa_keygen_2048_support AND XILASU_rsa_keygen_3072_support) OR
+     (XILASU_rsa_keygen_2048_support AND XILASU_rsa_keygen_4096_support) OR
+     (XILASU_rsa_keygen_3072_support AND XILASU_rsa_keygen_4096_support) )
+   message(FATAL_ERROR "Enable only one of XILASU_rsa_keygen_2048_support, XILASU_rsa_keygen_3072_support, XILASU_rsa_keygen_4096_support.")
+endif()
+
+if((NOT (XILASU_rsa_keygen_2048_support)) AND NOT ((XILASU_rsa_keygen_3072_support)) AND NOT ((XILASU_rsa_keygen_4096_support)))
+   set(XILASU_rsa_keygen_4096_support TRUE CACHE BOOL "By default RSA 4096 bit key generation is defined" FORCE)
+endif()
+
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
   if((XILASU_keywrap_support) AND NOT ((XILASU_rsa_padding_support)))
     set(XILASU_rsa_padding_support TRUE CACHE BOOL "Padding is enabled as keywrap depends on RSA padding" FORCE)

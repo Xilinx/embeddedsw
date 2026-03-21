@@ -19,6 +19,7 @@
  *       ss   08/20/24 Added 64-bit address support
  *       ss   09/26/24 Fixed doxygen comments
  *       yog  01/28/26 Added RSA key pair generation API.
+ *       ss   03/18/26 Added scheduler-based RSA key pair generation.
  *
  * </pre>
  *
@@ -52,6 +53,22 @@ extern "C" {
 #define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
 								parameter for private decryption operation */
 
+#define XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES	(2304U) /**< Max private key size in bytes */
+
+#define XRSA_2048_QUANT_SIZE  	(5U)          /**< RSA maximum quant size for 2048 bit key */
+#define XRSA_3072_QUANT_SIZE  	(2U)          /**< RSA maximum quant size for 3072 bit key */
+#define XRSA_4096_QUANT_SIZE  	(1U)          /**< RSA maximum quant size for 4096 bit key */
+
+#define XRSA_MAX_HALF_KEY_SIZE_IN_BYTES	(256U)		/**< RSA max half key size in bytes */
+
+#if defined(XASU_RSA_3072_KEYGEN_ENABLE)
+#define XRSA_KEY_GEN_DEFAULT_SIZE	XRSA_3072_KEY_SIZE /**< Default RSA key size for background generation */
+#elif defined(XASU_RSA_2048_KEYGEN_ENABLE)
+#define XRSA_KEY_GEN_DEFAULT_SIZE	XRSA_2048_KEY_SIZE /**< Default RSA key size for background generation */
+#else
+#define XRSA_KEY_GEN_DEFAULT_SIZE	XRSA_4096_KEY_SIZE /**< Default RSA key size for background generation */
+#endif
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -69,7 +86,9 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyParamAddr,
 		u32 *OutDataLenPtr);
 u8 *XRsa_GetDataBlockAddr(void);
-s32 XRsa_KeyPairGeneration(XAsufw_Dma *DmaPtr, u32 Len);
+
+/* Scheduler-based RSA key pair generation APIs */
+s32 XRsa_AddKeyPairGenToScheduler(void);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -43,6 +43,7 @@
 #define XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY	(2U) /**< RSA key capacity for ASU subsystem */
 
 #define XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY	(1U) /**< AES key capacity for ASU subsystem */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -59,6 +60,7 @@ static s32 XKeyManager_CreateAsuKeyVault(void);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KeyManagerModule; /**< ASUFW KeyManager Module ID and commands array */
+static u32 AsuVaultCreatedFlag = XASU_STATUS_FAIL; /**< Flag indicating ASU vault creation status */
 
 /*************************************************************************************************/
 /**
@@ -141,6 +143,8 @@ s32 XAsufw_KeyManagerInit(void)
 		Status = XKeyManager_CreateAsuKeyVault();
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED);
+		} else {
+			AsuVaultCreatedFlag = XASU_STATUS_PASS;
 		}
 	}
 
@@ -304,7 +308,7 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 *OutIdAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
-	u32 KeyType;
+	u32 KeyType = CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerParams);
@@ -317,8 +321,6 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
-
-	KeyType = CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET;
 
 	/** Perform Key/IV generation operation. */
 	Status = XKeyManager_GenerateKeyIv(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutIdAddr,
@@ -400,10 +402,12 @@ END:
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	const XAsu_KeyManagerParams *Cmd = (const XAsu_KeyManagerParams *)ReqBuf->Arg;
 	u32 *OutId;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 KeyType = CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerParams);
@@ -419,7 +423,7 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Perform RSA key pair generation operation. */
 	Status = XKeyManager_GenerateRsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
-					SubsystemId);
+					SubsystemId, (XKeyManager_SubVaultType)KeyType);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
 	}
@@ -510,5 +514,19 @@ static s32 XKeyManager_CreateAsuKeyVault(void)
 						0U, &VaultId);
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Check if ASU vault was created successfully.
+ *
+ * @return
+ * 	- XASU_STATUS_PASS, if ASU vault is ready.
+ * 	- XASU_STATUS_FAIL, if ASU vault creation failed or was not attempted.
+ *
+ *************************************************************************************************/
+u32 XKeyManager_IsAsuVaultCreated(void)
+{
+	return AsuVaultCreatedFlag;
 }
 /** @} */

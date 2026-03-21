@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added key management support for RSA.
+ *       ss   03/18/26 Added vault query, store, and fetch APIs for scheduler-based RSA key gen.
  *
  * </pre>
  *
@@ -71,7 +72,11 @@ extern "C" {
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
 
+#define XKEYMANAGER_RSA_ALL_KEY_USE_CASES_VALUE	(7U)	/**< Value for all RSA key use cases*/
+
 #define XKEYMANAGER_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
+
+#define XKEYMANAGER_ASU_VAULT_ID	(0U)	/**< Vault index for ASU internal vault */
 
 /************************************** Type Definitions *****************************************/
 
@@ -205,10 +210,13 @@ s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObject
 s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
 			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
-			u32 *KeyIdPtr, u32 SubSystemId);
+			u32 *KeyIdPtr, u32 SubSystemId, XKeyManager_SubVaultType KeyType);
 s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
+u16 XKeyManager_GetAsuRsaActiveKeyCount(XKeyManager_SubVaultType KeyType);
+s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 VaultId);
+s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 VaultId, u64 KeyAddr);
 
 /************************************ Variable Definitions ***************************************/
 
