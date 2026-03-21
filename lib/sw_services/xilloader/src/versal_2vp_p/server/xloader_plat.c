@@ -19,6 +19,7 @@
 *       pre 12/16/25 Handled PCR info invalid case in case of OCP key management disabled
 * 2.4   gnr 01/06/26 Added explicit CPU validation in XLoader_ProcessElf
 *       rmv 01/30/26 Renamed OCP header files and keymanagment macro
+*       tvp 03/18/26 Initialize TRNG instance irrespective of OCP is enabled or not
 *
 * </pre>
 *
@@ -43,8 +44,8 @@
 #include "xplmi_err.h"
 #include "xloader_ddr.h"
 #include "xilpdi.h"
-#ifdef PLM_OCP
 #include "xsecure_trng.h"
+#ifdef PLM_OCP
 #include "xocp.h"
 #include "xloader_secure.h"
 #endif
@@ -55,6 +56,7 @@
 #define XLOADER_RPU_GLBL_CNTL		(0xFF9A0000U) /**< RPU global control */
 #define XLOADER_TCMCOMB_MASK		(0x40U) /**< TCM combine mask */
 #define XLOADER_TCMCOMB_SHIFT		(6U) /**< TCM combine shift */
+#define XLOADER_TRNG_DEVICE_ID		(0U)    /**< TRNG Device Id */
 
 #define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR settle time for VP1802 */
 
@@ -111,6 +113,7 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr,
 static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex,
 				     u32 PdiType);
 #endif
+static int XLoader_InitTrngInstance(void);
 
 /************************************ Variable Definitions ****************************************/
 #if defined(PLM_OCP)
@@ -1564,51 +1567,6 @@ void XLoader_ShaInstance1Reset(void)
 }
 
 #ifdef PLM_OCP
-/**************************************************************************************************/
-/**
- * @brief	This function initializes the Trng instance.
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- XLOADER_TRNG_INIT_FAIL if TRNG initialization fails.
- *
- **************************************************************************************************/
-static int XLoader_InitTrngInstance(void)
-{
-	int Status = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	XTrngpsv_Config *CfgPtr = NULL;
-
-	CfgPtr = XTrngpsv_LookupConfig(0);
-	if (CfgPtr == NULL) {
-		Status = XLOADER_TRNG_INIT_FAIL;
-		goto END;
-	}
-
-	Status = XTrngpsv_CfgInitialize(TrngInstance, CfgPtr, CfgPtr->BaseAddress);
-END:
-	return Status;
-}
-
-/**************************************************************************************************/
-/**
- * @brief	This function initializes the loader with platform specific
- * 		initializations.
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
- *
- **************************************************************************************************/
-int XLoader_PlatInit(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XLoader_InitTrngInstance();
-
-	return Status;
-}
-
 #if (!defined(PLM_SECURE_EXCLUDE))
 /*****************************************************************************/
 /**
@@ -1651,20 +1609,55 @@ END:
 	return Status;
 }
 #endif
-#else
+#endif /* PLM_OCP */
+
 /**************************************************************************************************/
 /**
  * @brief	This function initializes the loader with platform specific
  * 		initializations.
  *
  * @return
- * 		- XST_SUCCESS always.
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
  *
  **************************************************************************************************/
 int XLoader_PlatInit(void)
 {
-	return XST_SUCCESS;
-}
-#endif /* PLM_OCP */
+	int Status = XST_FAILURE;
 
+	Status = XLoader_InitTrngInstance();
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the Trng instance.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_TRNG_INIT_FAIL if TRNG initialization fails.
+ *
+ *****************************************************************************/
+static int XLoader_InitTrngInstance(void)
+{
+	int Status = XST_FAILURE;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	XTrngpsx_Config *CfgPtr = NULL;
+
+	CfgPtr = XTrngpsx_LookupConfig(XLOADER_TRNG_DEVICE_ID);
+	if (CfgPtr == NULL) {
+		Status = XLOADER_TRNG_INIT_FAIL;
+		goto END;
+	}
+
+	Status = XTrngpsx_CfgInitialize(TrngInstance, CfgPtr, CfgPtr->BaseAddress);
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
 /** @} end of xloader_server_apis group */
