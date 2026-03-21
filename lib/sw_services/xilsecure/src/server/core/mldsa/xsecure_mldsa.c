@@ -274,7 +274,8 @@ END:
 		Status = ClrStatus;
 	}
 
-	XSecure_ReleaseReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
+	/** - Put MLDSA into reset state */
+	XSecure_SetReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
 
 	return Status;
 }
@@ -450,6 +451,7 @@ END:
 		Status = ClrStatus;
 	}
 
+	/** - Put MLDSA into reset state */
 	XSecure_SetReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
 
 	return Status;
