@@ -97,6 +97,7 @@ typedef struct {
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
  * 		- XASU_FAIL_SAVE_CTX, if saving context fails.
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
+ * 		- XASU_FREE_CTX_FAIL, if freeing context fails.
  *
  *************************************************************************************************/
 s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacParamsPtr)
@@ -206,8 +207,11 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 			}
 		}
 		/* Free HMAC Ctx */
-		XAsu_FreeCtx(ClientParamsPtr->ClientCtx);
+		Status = XAsu_FreeCtx(ClientParamsPtr->ClientCtx);
 		ClientParamsPtr->ClientCtx = NULL;
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/** Get the command ID based on SHA type. */

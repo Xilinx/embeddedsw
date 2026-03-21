@@ -131,7 +131,7 @@ u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBuffe
 s32 XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall);
 void *XAsu_UpdateNGetCtx(u8 UniqueId);
 s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
-void XAsu_FreeCtx(void *Context);
+s32 XAsu_FreeCtx(void *Context);
 s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId);
 
 /************************************ Variable Definitions ***************************************/

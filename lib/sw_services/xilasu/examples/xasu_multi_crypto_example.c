@@ -529,7 +529,7 @@ static s32 XAsu_MultiCryptoExample(void)
  *************************************************************************************************/
 static s32 XAsu_SendCryptoRequestsSet1(void)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = XST_FAILURE;
 	u8 Set1OpsCount = 0U;
 
 	XAsu_ClientParams Sha2HashClientParams;
@@ -736,7 +736,7 @@ END:
  *************************************************************************************************/
 static s32 XAsu_SendCryptoRequestsSet2(void)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = XST_FAILURE;
 	u8 Set2OpsCount = 0U;
 
 	XAsu_ClientParams AesDecryptClientParams;
@@ -926,7 +926,7 @@ static void XAsu_MultiCryptoCallBack(void *CallBackRef, u32 Status)
  *************************************************************************************************/
 static void XAsu_PrintResults(void)
 {
-	s32 Status;
+	s32 Status = XST_FAILURE;
 
 	xil_printf("\r\n=== Operation Results ===\r\n\r\n");
 

@@ -51,6 +51,8 @@ extern "C" {
 #define XASU_KM_GEN_AES_IV_CMD_ID		(4U) /**< Command ID for AES IV generation */
 #define XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID		(5U) /**< Command ID for RSA key pair generation */
 #define XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID		(6U) /**< Command ID for ECC key pair generation */
+#define XASU_KM_MAX_CMDS			(7U) /**< Maximum number of commands
+										   * supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
 

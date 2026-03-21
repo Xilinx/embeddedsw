@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -45,6 +45,7 @@ extern "C" {
 /* SHA module command IDs */
 #define XASU_SHA_OPERATION_CMD_ID		(0U) /**< Command ID for SHA3 operation command */
 #define XASU_SHA_KAT_CMD_ID			(1U) /**< Command ID for SHA3 KAT command */
+#define XASU_SHA_MAX_CMDS			(2U) /**< Maximum number of commands supported by SHA module */
 
 /* SHA modes */
 #define XASU_SHA_MODE_256			(0U) /**< SHA2/SHA3 mode 256 */

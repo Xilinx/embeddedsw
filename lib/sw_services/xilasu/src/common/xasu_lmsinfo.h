@@ -49,6 +49,7 @@ extern "C" {
 #define XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID	(3U) /**< Command ID for HSS signature verification
 							with SHA3 */
 #define XASU_LMS_KAT_CMD_ID			(4U) /**< Command ID for LMS KAT */
+#define XASU_LMS_MAX_CMDS			(5U) /**< Maximum number of commands supported by LMS module */
 
 /* LMS Type values from RFC 8554 */
 #define XASU_LMS_RESERVED			(0x00000000U) /**< Reserved type */

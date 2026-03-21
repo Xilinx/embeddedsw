@@ -47,6 +47,7 @@ extern "C" {
 #define XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID	(2U) /**< Command ID for Key unwrap using SHA2 */
 #define XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID	(3U) /**< Command ID for Key unwrap using SHA3 */
 #define XASU_KEYWRAP_KAT_CMD_ID			(4U) /**< Command ID for Key wrap unwrap KAT */
+#define XASU_KEYWRAP_MAX_CMDS			(5U) /**< Maximum number of commands supported by Key wrap unwrap module */
 
 #define XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES	(4U)	/**< Key wrap unwrap output length size */
 /** @} */

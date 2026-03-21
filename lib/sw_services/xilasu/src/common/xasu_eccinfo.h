@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -53,6 +53,7 @@ extern "C" {
 #define XASU_ECDH_SHARED_SECRET_CMD_ID		(3U) /**< Command ID for ECDH generate shared secret */
 #define XASU_ECDH_KAT_CMD_ID			(4U) /**< Command ID for ECDH KAT */
 #define XASU_ECC_GEN_PUBKEY_CMD_ID		(5U) /**< Command ID for ECC public key generation */
+#define XASU_ECC_MAX_CMDS			(6U) /**< Maximum number of commands supported by ECC module */
 
 /* ECC curve Type index values */
 #define XASU_ECC_NIST_P256			(0U) /**< NIST P-256 curve */

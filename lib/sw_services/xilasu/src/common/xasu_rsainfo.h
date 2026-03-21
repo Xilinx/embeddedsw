@@ -65,6 +65,8 @@ extern "C" {
 							decryption */
 #define XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID	(12U) /**< KAT command for RSA PSS sign generation
 							and verification */
+#define XASU_RSA_MAX_CMDS			(13U) /**< Maximum number of commands supported by RSA module */
+
 #define XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES	(4U) /**< RSA output data length size in bytes */
 /* RSA key size */
 #define XRSA_2048_KEY_SIZE		(256U) /**< 2048 bit key size in bytes */

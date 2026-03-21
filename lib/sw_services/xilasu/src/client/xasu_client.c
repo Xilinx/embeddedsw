@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -103,9 +103,6 @@ static u8 XAsu_GenerateUniqueId(void);
 static u8 XAsu_GetFreeIndex(u8 Priority);
 
 /************************************ Variable Definitions ***************************************/
-static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
-		XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /**< All IPI channels information received from user
-												configuration */
 static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
 
 static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS] = {[0 ... (XASU_NO_OF_CONTEXTS - 1U)] =
@@ -126,6 +123,9 @@ static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS] = {[0 ... (XASU_NO_OF_CONT
  *************************************************************************************************/
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 {
+	XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
+		XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /**< All IPI channels information received from user
+												configuration */
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 	u32 ChannelIdx;
@@ -628,14 +628,26 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
  *
  * @param	Context		Pointer to the XAsu_ClientCtx to be freed.
  *
+ * @return
+ * 		- XST_SUCCESS, if the context is freed successfully.
+ * 		- XASU_FREE_CTX_FAIL, if freeing the context fails.
+ *
  *************************************************************************************************/
-void XAsu_FreeCtx(void *Context)
+s32 XAsu_FreeCtx(void *Context)
 {
+	s32 Status = XASU_FREE_CTX_FAIL;
 	/* Clear context buffer */
-	(void *)memset(Context, 0, sizeof(XAsu_ClientCtx));
+	Status = Xil_SMemSet(Context, sizeof(XAsu_ClientCtx), 0U, sizeof(XAsu_ClientCtx));
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Mark context as free by resetting UniqueId to XASU_INVALID_UNIQUE_ID_VAL. */
 	((XAsu_ClientCtx *)Context)->UniqueId = XASU_INVALID_UNIQUE_ID_VAL;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/

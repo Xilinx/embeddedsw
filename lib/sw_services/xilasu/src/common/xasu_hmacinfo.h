@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -43,6 +43,7 @@ extern "C" {
 #define XASU_HMAC_COMPUTE_SHA2_CMD_ID		(0U) /**< Command ID for HMAC compute for SHA2 command */
 #define XASU_HMAC_COMPUTE_SHA3_CMD_ID		(1U) /**< Command ID for HMAC compute for SHA3 command */
 #define XASU_HMAC_KAT_CMD_ID			(2U) /**< Command ID for HMAC KAT command */
+#define XASU_HMAC_MAX_CMDS			(3U) /**< Maximum number of commands supported by HMAC module */
 
 /* HMAC operation mode */
 #define XASU_HMAC_INIT				(0x1U) /**< HMAC init operation flag */

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -45,6 +45,7 @@ extern "C" {
 #define XASU_ECIES_DECRYPT_SHA2_CMD_ID	(2U) /**< Command ID for ECIES encrypt command */
 #define XASU_ECIES_DECRYPT_SHA3_CMD_ID	(3U) /**< Command ID for ECIES decrypt command */
 #define XASU_ECIES_KAT_CMD_ID		(4U) /**< Command ID for ECIES KAT command */
+#define XASU_ECIES_MAX_CMDS		(5U) /**< Maximum number of commands supported by ECIES module */
 
 /** @} */
 /************************************** Type Definitions *****************************************/

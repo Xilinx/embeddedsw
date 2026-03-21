@@ -51,6 +51,8 @@ extern "C" {
 #define XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID	(4U)	/**< Command ID for UDE challenge request */
 #define XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID	(5U)	/**< Command ID for UDE private keys encryption */
 #define XASU_OCP_GET_HUK_CMD_ID			(6U)	/**< Command ID for Hardware Unique Key generation */
+#define XASU_OCP_MAX_CMDS			(7U)	/**< Maximum number of commands
+											  * supported by OCP module */
 
 #define XASU_OCP_UDE_DEVICE_ID_SIZE_IN_WORDS	(12U)	/**< Device ID size in words */
 #define XASU_OCP_UDE_NONCE_SIZE_IN_WORDS	(8U)	/**< Nonce size in words */

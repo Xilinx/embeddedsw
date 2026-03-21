@@ -159,6 +159,7 @@ static const u8 AesKatCcmTag[XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES] = {
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
  *  		- XASU_FAIL_SAVE_CTX, if saving context fails.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XASU_FREE_CTX_FAIL, if freeing context fails.
  *
  * @note	Verify the additional status if operation flag is set to XASU_AES_FINAL.
  * 		- XASU_AES_TAG_READ, if the encryption operation is successfully done.
@@ -364,8 +365,11 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 			}
 		}
 		/* Free AES Ctx */
-		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
+		Status = XAsu_FreeCtx(ClientParamPtr->ClientCtx);
 		ClientParamPtr->ClientCtx = NULL;
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/** Create command header. */

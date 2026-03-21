@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -66,6 +66,7 @@ extern "C" {
 /* AES module command IDs */
 #define XASU_AES_OPERATION_CMD_ID	(0x0U) /**< Command ID for AES operation command */
 #define XASU_AES_KAT_CMD_ID		(0x1U) /**< Command ID for AES KAT command */
+#define XASU_AES_MAX_CMDS		(0x2U) /**< Maximum number of commands supported by AES module */
 
 /* AES operation flags */
 #define XASU_AES_INIT			(0x1U) /**< AES initialize operation flag */

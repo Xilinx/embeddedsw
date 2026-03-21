@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -49,6 +49,8 @@ extern "C" {
 #define XASU_TRNG_DRBG_INSTANTIATE_CMD_ID       (2U) /**< Command ID for TRNG DRBG instantiate */
 #define XASU_TRNG_DRBG_RESEED_CMD_ID            (3U) /**< Command ID for TRNG DRBG reseed */
 #define XASU_TRNG_DRBG_GENERATE_CMD_ID          (4U) /**< Command ID for TRNG DRBG generate */
+#define XASU_TRNG_MAX_CMDS			(5U) /**< Maximum number of commands supported by TRNG module */
+
 
 /** @} */
 /************************************** Type Definitions *****************************************/

@@ -63,6 +63,7 @@
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 		- XASU_FAIL_SAVE_CTX, if saving context fails.
+ * 		- XASU_FREE_CTX_FAIL, if freeing context fails.
  *
  *************************************************************************************************/
 s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *ShaClientParamPtr)
@@ -210,8 +211,11 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 			}
 		}
 		/* Free Sha3 Ctx */
-		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
+		Status = XAsu_FreeCtx(ClientParamPtr->ClientCtx);
 		ClientParamPtr->ClientCtx = NULL;
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/** Create command header. */
