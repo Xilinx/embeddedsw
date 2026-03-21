@@ -41,6 +41,7 @@
 * 5.7   tvp  02/19/26 Added XSecure_MldsaSignVerifyParams
 *       tvp  02/19/26 Added XSecure_SlhdsaInputParams
 *       tvp  03/09/26 Added XSecure_MldsaSignGenParams
+*       tvp  03/17/26 Re-arrange Mldsa and Slhdsa Sign verify params
 *
 * </pre>
 *
@@ -232,12 +233,12 @@ typedef enum {
 /** Structure for input parameters for MLDSA Sign Verification */
 typedef struct {
 	u64 DataAddr;		/**< Address of message data buffer */
-	u32 DataLen;		/**< Length of message data in bytes */
 	u64 PubKeyAddr;		/**< Address of public key buffer */
-	u32 PubKeyLen;		/**< Length of public key in bytes */
 	u64 SignAddr;		/**< Address of signature buffer */
-	u32 SignLen;		/**< Length of signature in bytes */
 	u64 ContextAddr;	/**< Address of optional context string buffer */
+	u32 DataLen;		/**< Length of message data in bytes */
+	u32 PubKeyLen;		/**< Length of public key in bytes */
+	u32 SignLen;		/**< Length of signature in bytes */
 	u32 ContextLen;		/**< Length of context string in bytes */
 } XSecure_MldsaSignVerifyParams;
 
@@ -251,16 +252,16 @@ typedef struct {
 	u32 SignatureLen;	/**< Length of signature buffer in bytes */
 } XSecure_MldsaSignGenParams;
 
-/** Structure for input parameters for SLHDSA Sign Veification */
+/** Structure for input parameters for SLHDSA Sign Verification */
 typedef struct {
 	u64 DataAddr;		/**< Address of message data buffer */
-	u32 DataLen;		/**< Length of message data in bytes */
 	u64 SignatureAddr;	/**< Address of signature buffer */
-	u32 SignatureLen;	/**< Length of signature in bytes */
 	u64 ContextAddr;	/**< Address of optional context string buffer */
-	u32 ContextLen;		/**< Length of context string in bytes */
 	u64 PublicKeyAddr;	/**< Address of public key buffer */
+	u32 DataLen;		/**< Length of message data in bytes */
+	u32 SignatureLen;	/**< Length of signature in bytes */
 	u32 PublicKeyLen;	/**< Length of public key in bytes */
+	u32 ContextLen;		/**< Length of context string in bytes */
 } XSecure_SlhdsaInputParams;
 
 #ifdef __cplusplus
