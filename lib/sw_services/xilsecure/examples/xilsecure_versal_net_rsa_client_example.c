@@ -59,6 +59,7 @@
 * 1.0   kpt    05/22/24 Initial release.
 * 5.4   kpt    06/28/24 Fix compilation failure and remove unused variable
 *       kpt    06/30/24 Removed endianness changes
+* 5.7   tvp    03/18/26 Fix compilation failure for versal_2vp_p
 *
 * </pre>
 ******************************************************************************/
@@ -69,7 +70,7 @@
 #include "xil_util.h"
 #include "xsecure_rsaclient.h"
 #include "xsecure_katclient.h"
-#ifndef VERSAL_2VE_2VM
+#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 #include "xsecure_plat_client.h"
 #endif
 /************************** Constant Definitions *****************************/

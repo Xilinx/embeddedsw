@@ -97,4 +97,4 @@ examples:
         examples += ["xilsecure_versal_net_ecdh_client_example.c", "xilsecure_versal_net_trng_client_example.c"]
 
     if "Versal_2VP_P" in variant and proc in versal_procs:
-        examples += ["xilsecure_mldsa_client_example.c"]
+        examples += ["xilsecure_mldsa_client_example.c", "xilsecure_versal_net_rsa_client_example.c",]
