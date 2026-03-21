@@ -61,6 +61,8 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									Subject Key ID */
 #define X509_KEYUSAGE_VAL_LEN					(2U)	/**< Length of value of key
 									usage */
+#define X509_UNCOMPRESSED_PUB_KEY				(0x04U)	/**< To indicate
+									uncompressed public key */
 #define X509_LOWER_NIBBLE_MASK					(0xFU)	/**< Mask to get lower
 									nibble */
 #define X509_NULL_VALUE						(0x00U)	/**< Value of NULL */
@@ -151,6 +153,7 @@ static inline s32 X509_ValidateBufferSpace(u32 RequiredSize);
 static s32 X509_ValidateAndUpdateTlvField(u8 Asn1Tag, u8 **LenIdx, u8 **ValIdx);
 static s32 X509_ValidateAndUpdateByteField(u8 Value);
 static s32 X509_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx);
+static X509_InitData *X509_GetInitData(void);
 static u32 X509_Asn1GetFirstNonZeroByteOffset(const u8 *Data, u32 Cnt);
 static s32 X509_Asn1CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 IntegerLen);
 static s32 X509_Asn1CreateInteger(const u8 *IntegerVal, u32 IntegerLen);
@@ -399,7 +402,6 @@ s32 X509_Init(const X509_InitData *CfgData)
 	InitData->SignType = CfgData->SignType;
 	InitData->GenerateDigest = CfgData->GenerateDigest;
 	InitData->GenerateSignature = CfgData->GenerateSignature;
-	InitData->VerifySignature = CfgData->VerifySignature;
 
 	Status = XASUFW_SUCCESS;
 
@@ -549,7 +551,7 @@ static s32 X509_ValidateAndUpdateByteField(u8 Value)
  *	- Pointer to structure which stores initialized data.
  *
  *************************************************************************************************/
-X509_InitData *X509_GetInitData(void)
+static X509_InitData *X509_GetInitData(void)
 {
 	static X509_InitData InitData;
 

@@ -28,11 +28,8 @@
 */
 /*************************************** Include Files *******************************************/
 #include "x509_cert.h"
-#include "x509_asufw.h"
-#include "xasu_eccinfo.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
-#include "xecc.h"
 #include "xil_sutil.h"
 #include "xstatus.h"
 
@@ -88,10 +85,6 @@ static s32 X509_GetVersion(u8 *Version);
 static s32 X509_ParseTbs(X509_CertInfo *CertInfo);
 static s32 X509_GetFieldLen(u32 *Len);
 static s32 X509_GetTimeAndDate(u8 *YearLen);
-static s32 X509_ParseSignInfo(void);
-static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen);
-static s32 X509_VerifySignature(const u8 *Data, u32 DataLen, const X509_PublicKey *IssuerPubKeyInfo,
-				const void *PlatformData);
 
 /************************************ Variable Definitions ***************************************/
 static X509_CertParserInfo X509_CertInstance;	/**< X.509 certificate parser instance used to hold
@@ -119,28 +112,14 @@ static X509_ExtensionIdDescriptor ExtnList[] = {
 	},
 };
 
-static const u8 Oid_SignAlgoSha3_384[] = {0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U,
-					  0x04U, 0x03U, 0x0BU};	/**< SHA3-384 signature OID */
-
-/**< X.509 signature OID list */
-static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
-	[X509_SIGN_TYPE_ECC_SHA3_384] = {
-		.SignType = X509_SIGN_TYPE_ECC_SHA3_384,
-		.SignOid = Oid_SignAlgoSha3_384,
-		.SignLen = (u8)XASUFW_ARRAY_SIZE(Oid_SignAlgoSha3_384),
-	},
-};
-
 /*************************************************************************************************/
 /**
  * @brief	This function parses DER encoded X.509 certificate.
  *
- * @param	X509CertAddr		X.509 certificate address.
- * @param	Size			Size of X.509 certificate in bytes.
- * @param	CertInfo		Pointer to the structure containing addresses to store
- *					X.509 parsed fields information.
- * @param	IssuerPubKeyInfo	Pointer containing public key information.
- * @param	PlatformData		Pointer containing platform related data.
+ * @param	X509CertAddr	X.509 Certificate address.
+ * @param	Size		Size of X.509 certificate in bytes.
+ * @param	CertInfo	Pointer to the structure containing addresses to store X.509 parsed
+ *				fields information.
  *
  * @return
  *	- XASUFW_SUCCESS, if X.509 certificate parsed successfully.
@@ -156,22 +135,15 @@ static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
  *
  * @note	Currently this API supports only 32-bit addresses. Data type for X509CertAddr is
  *		64-bit to ensure future compatibility with system that may require 64-bit
- *		addressing. For issuer public key, user need to provide uncompressed public key
- *		without compression type indicator(02, 03 or 04).
+ *		addressing.
  *
  *************************************************************************************************/
-s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
-			  X509_PublicKey *IssuerPubKeyInfo, const void *PlatformData)
+s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	X509_PublicKey PubKeyInfo;
-	u32 TbsOffset;
-	u32 TbsHeader;
-	u32 DataLen;
-	const X509_PublicKey *LocalPubKeyInfo = NULL;
 
-	/** Validate certificate address, CertInfo pointer and public key address. */
-	if ((X509CertAddr == 0U) || (CertInfo == NULL) || (PlatformData == NULL)) {
+	/** Validate certificate address and CertInfo pointer. */
+	if ((X509CertAddr == 0U) || (CertInfo == NULL)) {
 		Status = XASUFW_X509_INVALID_PARAM;
 		goto END;
 	}
@@ -194,367 +166,11 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
 		goto END;
 	}
 
-	/** Store TBS data offset. */
-	TbsOffset = X509_CertInstance.Offset;
-
-	/** Validate TBS tag. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TBS_INVALID_TAG);
-		goto END;
-	}
-
-	/** Calculate TBS certificate length. */
-	TbsHeader = X509_CertInstance.Offset - TbsOffset;
-	DataLen = X509_CertInstance.FieldLen + TbsHeader;
-
 	/** Parse TBS certificate. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_ParseTbs(CertInfo);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TBS_FAIL);
-		goto END;
-	}
-
-	/** If issuer information is not provided, assume X.509 certificate to be self-signed. */
-	if (IssuerPubKeyInfo == NULL) {
-		LocalPubKeyInfo = &PubKeyInfo;
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Check whether public key is uncompressed or not. */
-		if (CertInfo->PublicKey.PubKey[XASUFW_BUFFER_INDEX_ZERO] !=
-		    X509_UNCOMPRESSED_PUB_KEY) {
-			Status = XASUFW_X509_INVALID_DATA;
-			goto END;
-		}
-		/** Store the public key after skipping compression indicator. */
-		PubKeyInfo.PubKey = &CertInfo->PublicKey.PubKey[XASUFW_BUFFER_INDEX_ONE];
-		PubKeyInfo.PubKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
-	} else {
-		LocalPubKeyInfo = IssuerPubKeyInfo;
-	}
-	/** Verify ECC signature by using TBS certificate data. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_VerifySignature(&X509_CertInstance.Buf[TbsOffset], DataLen, LocalPubKeyInfo,
-				      PlatformData);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
- /**
- * @brief	This function verifies signature from X.509 certificate.
- *
- * @param	Data			TBS data.
- * @param	DataLen			TBS data length.
- * @param	IssuerPubKeyInfo	Pointer containing public key information.
- * @param	PlatformData		Pointer containing platform related data.
- *
- * @return
- *	- XASUFW_SUCCESS, if signature is verified successfully.
- *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_X509_INVALID_DATA, if data is invalid.
- *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if digest calculation is failed.
- *	- XASUFW_X509_PARSER_SIGN_INFO_FAIL, if parsing signature information is failed.
- *	- XASUFW_X509_PARSER_SIGN_FAIL, if parsing signature is failed.
- *	- XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, if sign callback is not registered.
- *	- Error code received from called functions in case of other failure from the called
- *	  function.
- *
- *************************************************************************************************/
-static s32 X509_VerifySignature(const u8 *Data, u32 DataLen, const X509_PublicKey *IssuerPubKeyInfo,
-				const void *PlatformData)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	const X509_InitData *InitData = X509_GetInitData();
-	u8 Hash[XASU_SHA_384_HASH_LEN] = {0U};
-	u8 Sign[X509_ECC_SIGN_LEN] = {0U};
-	u32 HashLen = 0U;
-
-	/** Validate public key length. */
-	if (IssuerPubKeyInfo->PubKeyLen != X509_ECC_PUB_KEY_LEN) {
-		Status = XASUFW_X509_INVALID_DATA;
-		goto END;
-	}
-
-	/** Validate digest and signature callbacks. */
-	if ((InitData->VerifySignature == NULL) || (InitData->GenerateDigest == NULL)) {
-		Status = XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED;
-		goto END;
-	}
-
-	/** Calculate digest for TBS certificate. */
-	Status = InitData->GenerateDigest(Data, DataLen, Hash,
-					  (u32)XASU_SHA_384_HASH_LEN, &HashLen,
-					  PlatformData);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GENERATE_DIGEST_FAIL);
-		goto END;
-	}
-
-	/** Parse signature information. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ParseSignInfo();
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_SIGN_INFO_FAIL);
-		goto END;
-	}
-
-	/** Extract ECC signature. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_GetEccSignature(Sign, X509_ECC_SIGN_LEN);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_SIGN_FAIL);
-		goto END;
-	}
-
-	/** Verify signature by using issuer public key. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = InitData->VerifySignature(Hash, HashLen, IssuerPubKeyInfo->PubKey, Sign,
-					   X509_ECC_SIGN_LEN, PlatformData);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
- /**
- * @brief	This function extracts ECC signature.
- *
- * @param	Sign		Pointer to store signature.
- * @param	SignLen		Signature size.
- *
- * @return
- *	- XASUFW_SUCCESS, if signature is extracted successfully.
- *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed while parsing X.509.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
- *	- XASUFW_X509_INVALID_DATA, if data is invalid.
- *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
- *	- Error code received from called functions in case of other failure from the called
- *	  function.
- *
- *************************************************************************************************/
-static s32 X509_GetEccSignature(u8 *Sign, u32 SignLen)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	const u8 *SignS;
-	const u8 *SignR;
-	u32 SignSLen;
-	u32 SignRLen;
-
-	/** Validate tag for signature sequence. */
-	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Validate tag for R component. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_INTEGER);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Extract the information for R component of signature. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	SignRLen = X509_CertInstance.FieldLen;
-	SignR = &X509_CertInstance.Buf[X509_CertInstance.Offset];
-	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-		goto END;
-	}
-
-	/** Validate tag for S component. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_INTEGER);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Extract the information for S component of signature. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	SignSLen = X509_CertInstance.FieldLen;
-	SignS = &X509_CertInstance.Buf[X509_CertInstance.Offset];
-	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-		goto END;
-	}
-
-	/** Skipping leading zero if present. */
-	if ((SignRLen == X509_ASN1_SIGN_COMPONENT_MAX_LEN) &&
-	    (*SignR == X509_ASN1_SIGN_UNUSED_BIT_VALUE)) {
-		SignR++;
-		SignRLen--;
-	}
-
-	/** Copy the R component to the output buffer. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (SignRLen == X509_ASN1_SIGN_COMPONENT_MIN_LEN) {
-		Status = Xil_SMemCpy(Sign, SignLen, SignR, SignRLen,
-				     XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_MEM_COPY_FAIL;
-			goto END;
-		}
-	} else {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_INVALID_DATA);
-		goto END;
-	}
-
-	/** Skipping leading zero if present. */
-	if ((SignSLen == X509_ASN1_SIGN_COMPONENT_MAX_LEN) &&
-	    (*SignS == X509_ASN1_SIGN_UNUSED_BIT_VALUE)) {
-		SignS++;
-		SignSLen--;
-	}
-
-	/** Copy the S component to the output buffer. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (SignSLen == X509_ASN1_SIGN_COMPONENT_MIN_LEN) {
-		Status = Xil_SMemCpy(Sign + XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, SignLen, SignS,
-				     SignSLen, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_MEM_COPY_FAIL;
-			goto END;
-		}
-	} else {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_INVALID_DATA);
-		goto END;
-	}
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
- /**
- * @brief	This function parses the signature algorithm type.
- *
- * @param	SignAlgoType	Pointer to structure to store signature algorithm type
- *
- * @return
- *	- XASUFW_SUCCESS, if signature algorithm is parsed successfully.
- *	- XASUFW_FAILURE, in case of failure.
- *
- *************************************************************************************************/
-static s32 X509_GetSignAlgotype(X509_SignAlgoType *SignAlgoType)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 Idx;
-
-	*SignAlgoType = X509_SIGN_TYPE_MAX;
-
-	for (Idx = 0U; Idx < (u32)X509_SIGN_TYPE_MAX; Idx++) {
-		if ((X509_CertInstance.FieldLen == SignOidList[Idx].SignLen) &&
-		    (Xil_SMemCmp(&X509_CertInstance.Buf[X509_CertInstance.Offset],
-				 SignOidList[Idx].SignLen, SignOidList[Idx].SignOid,
-				 SignOidList[Idx].SignLen, SignOidList[Idx].SignLen
-				) == XASUFW_SUCCESS)) {
-			*SignAlgoType = SignOidList[Idx].SignType;
-			Status = XASUFW_SUCCESS;
-		}
-	}
-
-	return Status;
-}
-
-/*************************************************************************************************/
- /**
- * @brief	This function parses signature information from X.509 certificate.
- *
- * @return
- *	- XASUFW_SUCCESS, if signature information is parsed successfully.
- *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed while parsing X.509.
- *	- XASUFW_X509_PARSER_SIGN_ALGO_FAIL, if parsing signature algorithm is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
- *	- Error code received from called functions in case of other failure from the called
- *	  function.
- *
- *************************************************************************************************/
-static s32 X509_ParseSignInfo(void)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	X509_SignAlgoType AlgoType = X509_SIGN_TYPE_MAX;
-	u32 AlgoSeqLen;
-	u32 AlgoSeqOffset;
-	u8 Tag;
-
-	/** Validate tag for signature algorithm. */
-	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Store signature algorithm field length and offset. */
-	AlgoSeqLen = X509_CertInstance.FieldLen;
-	AlgoSeqOffset = X509_CertInstance.Offset;
-
-	/** Validate tag for algorithm OID. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_OID);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Identify algorithm type from OID using helper. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_GetSignAlgotype(&AlgoType);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_SIGN_ALGO_FAIL);
-		goto END;
-	}
-
-	/** Move buffer to next tag. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-		goto END;
-	}
-
-	/* Skip the algorithm parameter field if present */
-	if ((X509_CertInstance.Offset - AlgoSeqOffset) < AlgoSeqLen) {
-		Tag = X509_CertInstance.Buf[X509_CertInstance.Offset];
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = X509_ValidateTag(Tag);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-							  XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-			goto END;
-		}
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-							  XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-			goto END;
-		}
-	}
-
-	/** Validate tag for signatureValue (BIT STRING). */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_BIT_STRING);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	 /** Skip a byte indicating unused bits. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_UpdateOffsetToNextField(X509_ASN1_UNUSED_BITS_SIZE_IN_BYTE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
 		goto END;
 	}
 
@@ -1095,6 +711,10 @@ static s32 X509_GetPublicKeyInfo(X509_CertInfo *CertInfo)
 		break;
 	}
 
+	if (Status == XASUFW_SUCCESS) {
+		CertInfo->PublicKey.PubKeyType = KeyType;
+	}
+
 END:
 	return Status;
 }
@@ -1476,6 +1096,7 @@ END:
  *	- XASUFW_SUCCESS, if TBS certificate is parsed successfully.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_PARSER_TBS_INVALID_TAG, if invalid tag found during TBS parsing.
  *	- XASUFW_X509_PARSER_GET_VERSION_FAIL, if version field parsing is failed.
  *	- XASUFW_X509_PARSER_SERIAL_NO_INVALID_TAG, if invalid tag found during serial number
  *	  parsing.
@@ -1494,6 +1115,13 @@ static s32 X509_ParseTbs(X509_CertInfo *CertInfo)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Version = 0U;
+
+	/** Validate TBS tag. */
+	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TBS_INVALID_TAG);
+		goto END;
+	}
 
 	/** Get version. */
 	Status = X509_GetVersion(&Version);

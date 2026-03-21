@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -34,7 +34,6 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "x509_asufw.h"
 
 /************************************ Constant Definitions ***************************************/
 #define X509_ISSUER_MAX_SIZE		(600U)	/**< Max length of the DER encoded Issuer field
@@ -123,6 +122,7 @@ enum {
 typedef struct {
 	u8 *PubKey;			/**< Pointer to the uncompressed public key */
 	u32 PubKeyLen;			/**< Public key length */
+	X509_PublicKeyType PubKeyType;	/**< Public key type (e.g. ECC, RSA, etc) */
 } X509_PublicKey;
 
 /**
@@ -171,8 +171,6 @@ typedef s32 (*X509_GenerateDigest_t)(const u8 *Buf, u32 DataLen, const u8 *Hash,
 				     u32 *HashLen, const void *PlatformData);
 typedef	s32 (*X509_GenerateSignature_t)(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
 					u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
-typedef s32 (*X509_VerifySignature_t)(const u8 *Hash, u32 HashLen, const u8 *PubKey, const u8 *Sign,
-				      u32 SignLen, const void *PlatformData);
 /**
  * This structure holds the information about user configs.
  */
@@ -181,7 +179,6 @@ typedef struct {
 	X509_GenerateDigest_t GenerateDigest;		/**< Function pointer to generate digest */
 	X509_GenerateSignature_t GenerateSignature;	/**< Function pointer to generate
 							signature */
-	X509_VerifySignature_t VerifySignature;		/**< Function pointer to verify signature */
 } X509_InitData;
 
 /**
@@ -234,8 +231,6 @@ typedef struct {
 								v3 */
 #define X509_CERTIFICATE_MAX_SIZE_IN_BYTES		(2000U)	/**< Maximum length of X.509
 								certificate */
-#define X509_UNCOMPRESSED_PUB_KEY			(0x04U)	/**< To indicate uncompressed
-								public key */
 
 #define X509_ASN1_UNUSED_BITS_SIZE_IN_BYTE		(1U)	/**< No of bytes used to store
 								count of unused bits */
@@ -305,12 +300,10 @@ typedef struct {
 #define X509_ASN1_TAG_CONTEXT_SPECIFIC			(0x80U) /**< ASN.1 tag for context */
 
 /************************************ Function Prototypes ****************************************/
-s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo,
-			  X509_PublicKey *IssuerPubKeyInfo, const void *PlatformData);
+s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo);
 s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 			  const X509_Config *Cfg);
 s32 X509_Init(const X509_InitData *CfgData);
-X509_InitData *X509_GetInitData(void);
 
 /************************************ Variable Definitions ***************************************/
 

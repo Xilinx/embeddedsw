@@ -45,6 +45,7 @@
 #include "xtrng.h"
 #include "xtrng_hw.h"
 #include "xasu_def.h"
+#include "x509_asufw.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
