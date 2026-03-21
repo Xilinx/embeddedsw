@@ -101,6 +101,7 @@
 	(1ULL << (u64)PM_IOCTL_READ_REG) |	\
 	(1ULL << (u64)PM_IOCTL_MASK_WRITE_REG))
 #else
+/** CSU register access bitmask when ENABLE_CSU_REG_ACCESS is not defined */
 #define CSU_REG_ACCESS_BITMASK	(0ULL)
 #endif /* ENABLE_CSU_REG_ACCESS */
 
@@ -133,6 +134,7 @@
 	(1ULL << (u64)PM_QID_GET_NODE_COUNT) |		\
 	(1ULL << (u64)PM_QID_GET_NODE_NAME))
 #else
+/** PM query data feature bitmask when ENABLE_CSU_REG_ACCESS is not defined */
 #define PM_QUERY_DATA_FEATURE_BITMASK	(0ULL)
 #endif /* ENABLE_CSU_REG_ACCESS */
 
@@ -2342,10 +2344,10 @@ static void PmPinCtrlConfigParamGet(PmMaster* const master, const u32 pinId,
 
 /**
  * PmPinCtrlConfigParamSet() - Set the PIN configuration parameter value
- * @master	Master that initiated the call
- * @pinId	ID of the pin
- * @paramId	Parameter ID
- * @val		Parameter value to be set
+ * @param master	Master that initiated the call
+ * @param pinId		ID of the pin
+ * @param paramId	Parameter ID
+ * @param val		Parameter value to be set
  */
 static void PmPinCtrlConfigParamSet(PmMaster* const master, const u32 pinId,
 			     const u32 paramId, const u32 val)

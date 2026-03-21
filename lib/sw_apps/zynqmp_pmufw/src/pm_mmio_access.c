@@ -1159,11 +1159,25 @@ done:
 	return permission;
 }
 
+/**
+ * PmGetMmioAccessRead() - Check if master has read access to MMIO address
+ * @param master	Master requesting access
+ * @param address	MMIO address to check
+ *
+ * @return	true if master has read permission, false otherwise
+ */
 bool PmGetMmioAccessRead(const PmMaster *const master, const u32 address)
 {
 	return PmGetMmioAccess(master, address, MMIO_ACCESS_TYPE_READ);
 }
 
+/**
+ * PmGetMmioAccessWrite() - Check if master has write access to MMIO address
+ * @param master	Master requesting access
+ * @param address	MMIO address to check
+ *
+ * @return	true if master has write permission, false otherwise
+ */
 bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address)
 {
 	return PmGetMmioAccess(master, address, MMIO_ACCESS_TYPE_WRITE);

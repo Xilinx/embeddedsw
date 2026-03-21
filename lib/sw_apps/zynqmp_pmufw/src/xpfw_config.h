@@ -337,6 +337,7 @@ extern "C" {
 #define ENABLE_DDR_XMPU_VAL			(0U)
 #endif
 
+/** Default value for SMMU configuration enable flag */
 #ifndef ENABLE_SMMU_VAL
 #define ENABLE_SMMU_VAL					(0U)
 #endif
