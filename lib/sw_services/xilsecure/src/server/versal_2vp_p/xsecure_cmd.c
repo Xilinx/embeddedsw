@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.7   tvp  02/19/26 Initial release
+*       tvp  03/18/26 Add support for MLDSA signature generation and verification command
 *
 * </pre>
 *
@@ -44,6 +45,7 @@
 #include "xplmi_tamper.h"
 #include "xsecure_cryptochk.h"
 #include "xsecure_plat_aes_ipihandler.h"
+#include "xsecure_mldsa_ipihandler.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -86,6 +88,8 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA3_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_OPERATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_MLDSA_SIGN_VERIFY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_MLDSA_SIGN_GENERATE),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -135,6 +139,8 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 #endif
+	case XSECURE_API(XSECURE_API_MLDSA_SIGN_VERIFY):
+	case XSECURE_API(XSECURE_API_MLDSA_SIGN_GENERATE):
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
@@ -234,6 +240,10 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
 		Status = XSecure_TrngIpiHandler(Cmd);
+		break;
+	case XSECURE_API(XSECURE_API_MLDSA_SIGN_VERIFY):
+	case XSECURE_API(XSECURE_API_MLDSA_SIGN_GENERATE):
+		Status = XSecure_MldsaIpiHandler(Cmd);
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):

@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  03/12/26 Initial release
+*       tvp  03/18/26 Add MLDSA API ids
 *
 * </pre>
 *
@@ -119,7 +120,9 @@ typedef enum {
 	XSECURE_API_RESERVED = 36U,		/**< 36U */
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
 	XSECURE_API_SHA2_OPERATION, 		/**< 38U */
-	XSECURE_API_MAX,			/**< 39U */
+	XSECURE_API_MLDSA_SIGN_VERIFY,		/**< 39U */
+	XSECURE_API_MLDSA_SIGN_GENERATE,	/**< 40U */
+	XSECURE_API_MAX,			/**< 41U */
 } XSecure_ApiId;
 
 /** XilSecure KAT ids */
