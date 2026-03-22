@@ -23,6 +23,7 @@
 *                      partially initialized array
 *       mb    09/11/25 Added SHA3_384 mode check to calculate hash
 * 5.7   tvp   02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
+*       mb	  03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *
 * </pre>
 *
@@ -37,6 +38,13 @@
 /************************** Constant Definitions *****************************/
 
 #define XSECURE_ADDR_HIGH_SHIFT (32U)	/**< High address shift for 64-bit addresses */
+
+/** TRNG related macros for SPARTANUPLUSAES1 device */
+#ifdef SPARTANUPLUSAES1
+#define XSECURE_TRNGPSX_BASEADDR	XPAR_XTRNGPSX_0_BASEADDR /**< TRNGPSX base address */
+#define XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT	(5U) /**< Shift to calculate
+							       no of TRNG generates */
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -546,3 +554,133 @@ int XSecure_CryptoCheck(void)
 	/* Not applicable for spartan ultrascal plus */
 	return XST_SUCCESS;
 }
+
+#ifdef SPARTANUPLUSAES1
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the trng in HRNG mode if it is not initialized
+ *          	and performs health tests if TRNG is not healthy
+ *
+ * @return
+ *		- XST_SUCCESS  On Successful initialization
+ *      	- XST_FAILURE  On Failure
+ *
+ *****************************************************************************/
+int XSecure_ECCRandInit(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	XTrngpsx_Config *Config;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	/*
+	 * Initialize the TRNGPSX driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
+	 */
+	if (TrngInstance->State <= (u32)XTRNGPSX_UNINITIALIZED_STATE) {
+		Config = XTrngpsx_LookupConfig(XSECURE_TRNGPSX_BASEADDR);
+		if (NULL == Config) {
+			goto END;
+		}
+
+	/* Initialize the TRNGPSX driver so that it is ready to use. */
+		Status = XTrngpsx_CfgInitialize(TrngInstance, Config, Config->BaseAddress);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/* Perform health tests if TRNG is not healthy */
+	if(!XSecure_TrngIsHealthy(TrngInstance)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_PreOperationalSelfTests, TrngInstance);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = (int)XSECURE_ERR_IN_TRNG_SELF_TESTS;
+			goto END;
+		}
+	}
+
+	/* Initialize the TRNG in HRNG mode if it is not initialized */
+	if (((XSecureTrng_Mode)TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
+		(XSecure_TrngIsUninitialized(TrngInstance))) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngInitNCfgMode,
+				      XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
+		if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = (int)XSECURE_ERR_TRNG_INIT_N_CONFIG;
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function generates random number of given size
+ *
+ * @param	Output	Pointer to the output buffer
+ * @param	Size	Number of random bytes to be read
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success
+ *  		 - XST_FAILURE  On Failure
+ *		 - XSECURE_ERR_GLITCH_DETECTED Error when glitch is detected
+ *
+ *****************************************************************************/
+int XSecure_GetRandomNum(u8 *Output, u32 Size)
+{
+	volatile int Status = XST_FAILURE;
+	u8 *RandBufPtr = NULL;
+	u32 TotalSize = Size;
+	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
+	volatile u32 Index = 0U;
+	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >>
+				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	if ((Size == 0U) || (Output == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	RandBufPtr = Output;
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
+
+	for (Index = 0U; Index < NoOfGenerates; Index++) {
+		if (Index == (NoOfGenerates - 1U)) {
+			RandBufSize = TotalSize;
+		}
+
+		XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsx_Generate, TrngInstance,
+					RandBufPtr, RandBufSize, FALSE);
+		RandBufPtr += RandBufSize;
+		TotalSize -= RandBufSize;
+	}
+
+	if (Index != NoOfGenerates) {
+		Status = (int)XSECURE_ERR_GLITCH_DETECTED;
+	}
+
+END:
+	if (Status != XST_SUCCESS) {
+		Status |= XSecure_Uninstantiate(TrngInstance);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates TRNG crypto indicator
+ *
+ * @param	Op	To set or clear the bit
+ *
+ *****************************************************************************/
+void XSecure_UpdateTrngCryptoStatus(u32 Op)
+{
+	(void)Op;
+}
+#endif /** SPARTANUPLUSAES1 */

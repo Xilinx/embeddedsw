@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * 5.6   mb    02/28/25 Added XSecure_AesOp enum
 * 5.6   aa    07/21/25 Removed unused macros
 *       mb    09/11/25 Added SHA3_384 mode related macros.
+* 5.7   mb    03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *
 * </pre>
 *
@@ -38,6 +39,10 @@ extern "C" {
 #include "xsecure_aes_core_hw.h"
 #include "xpmcdma.h"
 #include "xsecure_error.h"
+#ifdef SPARTANUPLUSAES1
+#include "xsecure_trng.h"
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -142,6 +147,7 @@ extern "C" {
 #define SHA384					(2U) /** SHA384 mode */
 #define XSECURE_SHA3_384_HASH_LEN		(48U) /**< SHA3_384 hash length */
 #endif
+
 /***************************** Type Definitions******************************/
 
 /** Used for selecting the Key source of AES Core. */
@@ -192,6 +198,15 @@ typedef enum {
 	XSECURE_DECRYPT,        /**< Decrypt operation */
 } XSecure_AesOp;
 
+/** XilSecure ECC curve types */
+typedef enum {
+      XSECURE_ECC_NIST_P192 = 1,			/**< NIST P-192 curve value in Ecdsa.h */
+      XSECURE_ECC_NIST_P224 = 2,			/**< NIST P-224 curve value in Ecdsa.h */
+      XSECURE_ECC_NIST_P256 = 3,			/**< NIST P-256 curve value in Ecdsa.h */
+      XSECURE_ECC_NIST_P384 = 4,			/**< NIST P-384 curve value in Ecdsa.h */
+      XSECURE_ECC_NIST_P521 = 5				/**< NIST P-521 curve value in Ecdsa.h */
+} XSecure_EllipticCrvTyp;
+
 /***************************** Function Prototypes ***************************/
 /**
  * @cond xsecure_internal
@@ -204,6 +219,11 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ValidateShaDataSize(const u32 Size);
 int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
 int XSecure_CryptoCheck(void);
+#ifdef SPARTANUPLUSAES1
+void XSecure_UpdateTrngCryptoStatus(u32 Op);
+int XSecure_GetRandomNum(u8 *Output, u32 Size);
+int XSecure_ECCRandInit(void);
+#endif /** SPARTANUPLUSAES1 */
 
 /**
  * @}

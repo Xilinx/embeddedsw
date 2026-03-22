@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 collect (PROJECT_LIB_HEADERS xsecure_error.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat.h)
@@ -10,3 +10,20 @@ collect (PROJECT_LIB_HEADERS xsecure_aesalginfo.h)
 collect (PROJECT_LIB_SOURCES xsecure_plat.c)
 collect (PROJECT_LIB_SOURCES xsecure_sss.c)
 collect (PROJECT_LIB_SOURCES xsecure_utils.c)
+
+if (${YOCTO})
+    set (STATIC_XILSECURE_LIB ${CMAKE_LIBRARY_PATH}/libxilsecure.a)
+else ()
+    set (STATIC_XILSECURE_LIB ${CMAKE_BINARY_DIR}/libsrc/xilsecure/src/libxilsecure.a)
+endif()
+
+if("spartanuplusaes1" IN_LIST VARIANT)
+    collect (PROJECT_LIB_HEADERS Ecdsa.h)
+    collect (PROJECT_LIB_HEADERS xsecure_ellipticalginfo.h)
+    if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libRSA5X_mb.a ${STATIC_XILSECURE_LIB})
+    endif()
+    if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libRSA5X_mb_riscv.a ${STATIC_XILSECURE_LIB})
+    endif()
+endif()

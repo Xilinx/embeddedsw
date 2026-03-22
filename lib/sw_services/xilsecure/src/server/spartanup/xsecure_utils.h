@@ -16,6 +16,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.1   kpt     08/18/24 Initial Release
 * 5.6   aa      07/21/25 Removed unused macros
+* 5.7   mb      03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *
 * </pre>
 *
@@ -44,6 +45,8 @@ extern "C" {
 #define XSECURE_WORD_IN_BITS		(32U) /**< WORD size in BITS */
 #define XSECURE_BYTE_IN_BITS		(8U)  /**< Byte size in BITS */
 #define XSECURE_WORD_ALIGN_MASK			(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
+#define XSECURE_CLEAR_BIT			(0xFFFFFFFFU) /**< To clear bit */
+#define XSECURE_SET_BIT				(0x0U) /**< To set bit */
 
 /***************************** Type Definitions******************************/
 

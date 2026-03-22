@@ -1,4 +1,4 @@
-# Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
@@ -12,4 +12,9 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     add_subdirectory(trngpsx)
   endif()
 endif()
+endif()
+if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
+  if("spartanuplusaes1" IN_LIST VARIANT)
+    add_subdirectory(trngpsx)
+  endif()
 endif()

@@ -3,6 +3,10 @@
 
 add_subdirectory(aes)
 add_subdirectory(sha)
+if("spartanuplusaes1" IN_LIST VARIANT)
+  add_subdirectory(trng)
+  add_subdirectory(ecdsa)
+endif()
 if (NOT(("${CMAKE_MACHINE}" STREQUAL "spartanuplus")))
   add_subdirectory(rsa)
   add_subdirectory(ecdsa)

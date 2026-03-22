@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
 * 4.6   har     07/14/21 Fixed doxygen warnings
+* 5.7   mb      03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *
 * </pre>
 *
@@ -40,8 +41,13 @@ extern "C" {
 
 #if (!defined(PLM_ECDSA_EXCLUDE) || !defined(PLM_RSA_EXCLUDE))
 /************************** Constant Definitions *****************************/
+#ifndef SPARTANUPLUSAES1
 #define XSECURE_ECDSA_RSA_BASEADDR			(0xF1200000U)
 					/**< Base address of ECDSA RSA core */
+#else
+#define XSECURE_ECDSA_RSA_BASEADDR			(0x04140000U)
+					/**< Base address of ECDSA RSA core */
+#endif
 
 #define XSECURE_ECDSA_RSA_RAM_DATA_OFFSET		(0x00000000U)
 					/**< Offset of RAM_DATA register */

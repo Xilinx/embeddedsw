@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 5.2   yog  06/07/23 Added support for P-256 Curve
 *       har  07/31/23 Redefined XSecure_EllipticCrvClass enum and moved to xsecure_defs.h
 *       yog  02/23/24 Removed XSECURE_ECC_SUPPORT_NIST_P521 and XSECURE_ECC_SUPPORT_NIST_P256
+* 5.7   mb   03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *
 * </pre>
 *
@@ -47,14 +48,17 @@ extern "C" {
 #ifndef PLM_ECDSA_EXCLUDE
 #include "xil_types.h"
 #include <Ecdsa.h>
+#ifdef SPARTANUPLUSAES1
+#include "xsecure_plat.h"
+#else
 #include "xsecure_defs.h"
-
+#endif
 /************************** Constant Definitions ****************************/
 /**
  * @name Supported ECC curves
  * @{
  */
-/**< Macros to enable /disable support of NIST P-384 and NIST P-521 curve */
+/**< Macros to enable /disable support of NIST P-384 curve */
 #define XSECURE_ECC_SUPPORT_NIST_P384
 
 /** @} */

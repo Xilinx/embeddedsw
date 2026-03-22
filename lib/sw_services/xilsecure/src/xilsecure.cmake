@@ -11,6 +11,7 @@ set(_IS_VERSAL_2VP_P FALSE)
 set(_IS_VERSALNET FALSE)
 set(_IS_VERSAL_2VE_2VM FALSE)
 set(_IS_SPARTANUPLUS FALSE)
+set(_IS_SPARTANUPLUS_AES1 FALSE)
 set(_IS_VERSALNET_OR_2VP_OR_2VP_P FALSE)
 set(_IS_VERSALNET_OR_2VP_P FALSE)
 set(_IS_VERSAL_ONLY FALSE)
@@ -51,6 +52,9 @@ endif()
 
 if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(_IS_SPARTANUPLUS TRUE)
+  if("spartanuplusaes1" IN_LIST VARIANT)
+    set(_IS_SPARTANUPLUS_AES1 TRUE)
+  endif()
 endif()
 
 # Combined platform checks for readability
@@ -67,8 +71,8 @@ if(_IS_VERSAL AND (NOT _IS_VERSALNET_OR_2VP_OR_2VP_P))
   set(_IS_VERSAL_ONLY TRUE)
 endif()
 
-# Server configuration is required for PLM Microblaze or for other cores in Versal only
-if(_IS_PLM_MICROBLAZE OR ((NOT _IS_PLM_MICROBLAZE) AND _IS_VERSAL_ONLY))
+# Server configuration is required for PLM Microblaze or for other cores in Versal or Spartan UltraScalePlus AES1 variants
+if(_IS_PLM_MICROBLAZE OR ((NOT _IS_PLM_MICROBLAZE) AND _IS_VERSAL_ONLY) OR _IS_SPARTANUPLUS_AES1)
   set(_IS_SERVER_CONFIG TRUE)
 endif()
 
@@ -131,8 +135,8 @@ if(_IS_SERVER_CONFIG)
     set(XSECURE_ENDIANNESS "1")
   endif()
 
-  # TRNG Configuration for VersalNet and Versal 2VP variants
-  if(_IS_VERSALNET_OR_2VP_OR_2VP_P)
+  # TRNG Configuration for VersalNet, Versal 2VP and Spartan UltraScalePlus AES1 variants
+  if(_IS_VERSALNET_OR_2VP_OR_2VP_P OR _IS_SPARTANUPLUS_AES1)
     set(XILSECURE_seedlife "256" CACHE STRING "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits")
     set(XSECURE_TRNG_USER_CFG_SEED_LIFE_VAL "${XILSECURE_seedlife}")
 
@@ -140,8 +144,8 @@ if(_IS_SERVER_CONFIG)
     set(XSECURE_TRNG_USER_CFG_DF_LENGTH_VAL "${XILSECURE_dlen}")
   endif()
 
-  # Additional TRNG settings for VersalNet or Versal 2VP_P
-  if(_IS_VERSALNET_OR_2VP_P)
+  # Additional TRNG settings for VersalNet or Versal 2VP_P or Spartan UltraScalePlus AES1 variants
+  if(_IS_VERSALNET_OR_2VP_P OR _IS_SPARTANUPLUS_AES1)
     set(XILSECURE_adaptproptestcutoff "645" CACHE STRING "Cutoff value to run adaptive health tests")
     set(XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF_VAL "${XILSECURE_adaptproptestcutoff}")
 
