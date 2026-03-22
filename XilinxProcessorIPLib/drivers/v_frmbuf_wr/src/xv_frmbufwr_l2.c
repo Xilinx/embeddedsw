@@ -168,28 +168,52 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
 		case XVIDC_CSF_MEM_Y_U_V12 :
 			StrmFmt = XVIDC_CSF_YCRCB_444;
 			break;
-		case XVIDC_CSF_MEM_Y_U_V10_16LE :
+		case XVIDC_CSF_MEM_Y_U_V10_L16LE :
 			StrmFmt = XVIDC_CSF_YCRCB_444;
 			break;
-		case XVIDC_CSF_MEM_Y_UV10_16LE :
+		case XVIDC_CSF_MEM_Y_UV10_L16LE :
 			StrmFmt = XVIDC_CSF_YCRCB_422;
 			break;
-		case XVIDC_CSF_MEM_Y_UV10_420_16LE :
+		case XVIDC_CSF_MEM_Y_UV10_420_L16LE :
 			StrmFmt = XVIDC_CSF_YCRCB_420;
 			break;
-		case XVIDC_CSF_MEM_Y10_16LE :
+		case XVIDC_CSF_MEM_Y10_L16LE :
 			StrmFmt = XVIDC_CSF_YONLY;
 			break;
-		case XVIDC_CSF_MEM_Y_U_V12_16LE :
+		case XVIDC_CSF_MEM_Y_U_V12_L16LE :
 			StrmFmt = XVIDC_CSF_YCRCB_444;
 			break;
-		case XVIDC_CSF_MEM_Y_UV12_16LE :
+		case XVIDC_CSF_MEM_Y_UV12_L16LE :
 			StrmFmt = XVIDC_CSF_YCRCB_422;
 			break;
-		case XVIDC_CSF_MEM_Y_UV12_420_16LE :
+		case XVIDC_CSF_MEM_Y_UV12_420_L16LE :
 			StrmFmt = XVIDC_CSF_YCRCB_420;
 			break;
-		case XVIDC_CSF_MEM_Y12_16LE :
+		case XVIDC_CSF_MEM_Y12_L16LE :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V10_M16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_M16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_420_M16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y10_M16LE :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V12_M16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_M16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_420_M16LE :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y12_M16LE :
 			StrmFmt = XVIDC_CSF_YONLY;
 			break;
 		default:
@@ -512,7 +536,7 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
          break;
       case XVIDC_CSF_MEM_YUVA8 :
          if (XVFrmbufWr_IsYUVA8Enabled(InstancePtr)) {
-				FmtValid = TRUE;
+		   FmtValid = TRUE;
          }
          break;
       case XVIDC_CSF_MEM_BGRA8 :
@@ -655,43 +679,83 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
-			case XVIDC_CSF_MEM_Y_U_V10_16LE :
-                if (XVFrmbufWr_IsY_U_V10_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y_U_V10_L16LE :
+                if (XVFrmbufWr_IsY_U_V10_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y_UV10_16LE :
-                if (XVFrmbufWr_IsY_UV10_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y_UV10_L16LE :
+                if (XVFrmbufWr_IsY_UV10_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y_UV10_420_16LE :
-                if (XVFrmbufWr_IsY_UV10_420_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y_UV10_420_L16LE :
+                if (XVFrmbufWr_IsY_UV10_420_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y10_16LE :
-                if (XVFrmbufWr_IsY10_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y10_L16LE :
+                if (XVFrmbufWr_IsY10_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y_U_V12_16LE :
-                if (XVFrmbufWr_IsY_U_V12_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y_U_V12_L16LE :
+                if (XVFrmbufWr_IsY_U_V12_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y_UV12_16LE :
-                if (XVFrmbufWr_IsY_UV12_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y_UV12_L16LE :
+                if (XVFrmbufWr_IsY_UV12_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y_UV12_420_16LE :
-                if (XVFrmbufWr_IsY_UV12_420_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y_UV12_420_L16LE :
+                if (XVFrmbufWr_IsY_UV12_420_L16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
-			case XVIDC_CSF_MEM_Y12_16LE :
-                if (XVFrmbufWr_IsY12_16LEEnabled(InstancePtr)) {
+			case XVIDC_CSF_MEM_Y12_L16LE :
+                if (XVFrmbufWr_IsY12_L16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V10_M16LE :
+                if (XVFrmbufWr_IsY_U_V10_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV10_M16LE :
+                if (XVFrmbufWr_IsY_UV10_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV10_420_M16LE :
+                if (XVFrmbufWr_IsY_UV10_420_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y10_M16LE :
+                if (XVFrmbufWr_IsY10_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V12_M16LE :
+                if (XVFrmbufWr_IsY_U_V12_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV12_M16LE :
+                if (XVFrmbufWr_IsY_UV12_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_UV12_420_M16LE :
+                if (XVFrmbufWr_IsY_UV12_420_M16LEEnabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y12_M16LE :
+                if (XVFrmbufWr_IsY12_M16LEEnabled(InstancePtr)) {
 				   FmtValid = TRUE;
 				}
 				break;
@@ -1009,9 +1073,26 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y_U_V10 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V10En);
   xil_printf("Y_U_V8_420 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8_420En);
   xil_printf("Y_U_V12 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V12En);
+  xil_printf("Y_U_V10_L16LE Enabled:      %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V10_L16LEEn);
+  xil_printf("Y_UV10_L16LE Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_L16LEEn);
+  xil_printf("Y_UV10_420_L16LE Enabled:   %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_420_L16LEEn);
+  xil_printf("YY10_L16LE Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y10_L16LEEn);
+  xil_printf("Y_U_V12_L16LE Enabled:      %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V12_L16LEEn);
+  xil_printf("Y_UV12_L16LE Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV12_L16LEEn);
+  xil_printf("Y_UV12_420_L16LE Enabled:   %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV12_420_L16LEEn);
+  xil_printf("YY12_L16LE Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y12_L16LEEn);
+  xil_printf("Y_U_V10_M16LE Enabled:      %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V10_M16LEEn);
+  xil_printf("Y_UV10_M16LE Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_M16LEEn);
+  xil_printf("Y_UV10_420_M16LE Enabled:   %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_420_M16LEEn);
+  xil_printf("YY10_M16LE Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y10_M16LEEn);
+  xil_printf("Y_U_V12_M16LE Enabled:      %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V12_M16LEEn);
+  xil_printf("Y_UV12_M16LE Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV12_M16LEEn);
+  xil_printf("Y_UV12_420_M16LE Enabled:   %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV12_420_M16LEEn);
+  xil_printf("YY12_M16LE Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y12_M16LEEn);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
   xil_printf("Tile format Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.IsTileFormat);
   xil_printf("Low Latency Support:        %d\r\n", InstancePtr->FrmbufWr.Config.EnSyncSignals);
+  xil_printf("Partial Frame Support:      %d\r\n", InstancePtr->FrmbufWr.Config.EnPartialFrm);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);
   xil_printf("Width:                      %d\r\n", XV_frmbufwr_Get_HwReg_width(&InstancePtr->FrmbufWr));

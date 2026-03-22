@@ -65,7 +65,7 @@ typedef struct {
   u16 YUYV8En;              /**< YUYV8      support */
   u16 RGBA8En;              /**< RGBA8      support */
   u16 YUVA8En;              /**< YUVA8      support */
-  u16 BGRA8En;              /**< YUVA8      support */
+  u16 BGRA8En;              /**< BGRA8      support */
   u16 RGBX10En;             /**< RGBX10     support */
   u16 YUVX10En;             /**< YUVX10     support */
   u16 Y_UV8En;              /**< Y_UV8      support */
@@ -93,17 +93,26 @@ typedef struct {
   u16 Y_U_V10En;            /**< Y_U_V10   support */
   u16 Y_U_V8_420En;         /**< Y_U_V8_420   support */
   u16 Y_U_V12En;            /**< Y_U_V12   support */
-  u16 Y_U_V10_16LEEn;       /**< Y_U_V10_16LE support */
-  u16 Y_UV10_16LEEn;        /**< Y_UV10_16LE support */
-  u16 Y_UV10_420_16LEEn;    /**< Y_UV10_420_16LE support */
-  u16 Y10_16LEEn;           /**< Y10_16LE support */
-  u16 Y_U_V12_16LEEn;       /**< Y_U_V12_16LE support */
-  u16 Y_UV12_16LEEn;        /**< Y_UV12_16LE support */
-  u16 Y_UV12_420_16LEEn;    /**< Y_UV12_420_16LE support */
-  u16 Y12_16LEEn;           /**< Y12_16LE support */
+  u16 Y_U_V10_L16LEEn;       /**< Y_U_V10_L16LE support */
+  u16 Y_UV10_L16LEEn;        /**< Y_UV10_L16LE support */
+  u16 Y_UV10_420_L16LEEn;    /**< Y_UV10_420_L16LE support */
+  u16 Y10_L16LEEn;           /**< Y10_L16LE support */
+  u16 Y_U_V12_L16LEEn;       /**< Y_U_V12_L16LE support */
+  u16 Y_UV12_L16LEEn;        /**< Y_UV12_L16LE support */
+  u16 Y_UV12_420_L16LEEn;    /**< Y_UV12_420_L16LE support */
+  u16 Y12_L16LEEn;           /**< Y12_L16LE support */
+  u16 Y_U_V10_M16LEEn;       /**< Y_U_V10_M16LE support */
+  u16 Y_UV10_M16LEEn;        /**< Y_UV10_M16LE support */
+  u16 Y_UV10_420_M16LEEn;    /**< Y_UV10_420_M16LE support */
+  u16 Y10_M16LEEn;           /**< Y10_M16LE support */
+  u16 Y_U_V12_M16LEEn;       /**< Y_U_V12_M16LE support */
+  u16 Y_UV12_M16LEEn;        /**< Y_UV12_M16LE support */
+  u16 Y_UV12_420_M16LEEn;    /**< Y_UV12_420_M16LE support */
+  u16 Y12_M16LEEn;           /**< Y12_M16LE support */
   u16 Interlaced;           /**< Interlaced support */
   u16 IsTileFormat;         /**< Tile format support */
-  u16 EnSyncSignals;        /**< Low latency support */
+  u16 EnSyncSignals;        /**< Sync Signals for LLP2 support */
+  u16 EnPartialFrm;        /**< Partial Frame support for LLP2 */
 #ifdef SDT
   u16 IntrId; 		    /**< Interrupt ID */
   UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
@@ -180,6 +189,10 @@ u64 XV_frmbufwr_Get_HwReg_frm_buffer2_V(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_Set_HwReg_frm_buffer3_V(XV_frmbufwr *InstancePtr, u64 Data);
 u64 XV_frmbufwr_Get_HwReg_frm_buffer3_V(XV_frmbufwr *InstancePtr);
 u32 XV_frmbufwr_Get_HwReg_field_id(XV_frmbufwr *InstancePtr);
+void XV_frmbufwr_Set_HwReg_force_eof(XV_frmbufwr *InstancePtr, u32 Data);
+u32 XV_frmbufwr_Get_HwReg_force_eof(XV_frmbufwr *InstancePtr);
+void XV_frmbufwr_Set_HwReg_partial_frm_cnt(XV_frmbufwr *InstancePtr, u32 Data);
+u32 XV_frmbufwr_Get_HwReg_partial_frm_cnt(XV_frmbufwr *InstancePtr);
 
 void XV_frmbufwr_InterruptGlobalEnable(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_InterruptGlobalDisable(XV_frmbufwr *InstancePtr);

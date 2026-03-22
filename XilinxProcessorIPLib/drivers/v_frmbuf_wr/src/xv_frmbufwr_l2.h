@@ -673,7 +673,7 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y_U_V10_16LE is available
+* This macro returns if Video Format Y_U_V10_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -682,13 +682,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY_U_V10_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V10_16LEEn)
+#define XVFrmbufWr_IsY_U_V10_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V10_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y_UV10_16LE is available
+* This macro returns if Video Format Y_UV10_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -697,13 +697,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY_UV10_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y_UV10_16LEEn)
+#define XVFrmbufWr_IsY_UV10_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV10_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y_UV10_420_16LE is available
+* This macro returns if Video Format Y_UV10_420_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -712,13 +712,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY_UV10_420_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y_UV10_420_16LEEn)
+#define XVFrmbufWr_IsY_UV10_420_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV10_420_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y10_16LE is available
+* This macro returns if Video Format Y10_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -727,13 +727,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY10_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y10_16LEEn)
+#define XVFrmbufWr_IsY10_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y10_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y_U_V12_16LE is available
+* This macro returns if Video Format Y_U_V12_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -742,13 +742,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY_U_V12_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V12_16LEEn)
+#define XVFrmbufWr_IsY_U_V12_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V12_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y_UV12_16LE is available
+* This macro returns if Video Format Y_UV12_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -757,13 +757,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY_UV12_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_16LEEn)
+#define XVFrmbufWr_IsY_UV12_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y_UV12_420_16LE is available
+* This macro returns if Video Format Y_UV12_420_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -772,13 +772,13 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY_UV12_420_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_420_16LEEn)
+#define XVFrmbufWr_IsY_UV12_420_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_420_L16LEEn)
 
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y12_16LE is available
+* This macro returns if Video Format Y12_L16LE is available
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -787,8 +787,128 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVFrmbufWr_IsY12_16LEEnabled(InstancePtr) \
-                                 ((InstancePtr)->FrmbufWr.Config.Y12_16LEEn)
+#define XVFrmbufWr_IsY12_L16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y12_L16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_U_V10_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_U_V10_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V10_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV10_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV10_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV10_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV10_420_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV10_420_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV10_420_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y10_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY10_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y10_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_U_V12_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_U_V12_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V12_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV12_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV12_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV12_420_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV12_420_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_420_M16LEEn)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y12_M16LE is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY12_M16LEEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y12_M16LEEn)
 
 /*****************************************************************************/
 /**
@@ -834,6 +954,21 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_IsEnSyncSignals(InstancePtr) \
                                  ((InstancePtr)->FrmbufWr.Config.EnSyncSignals)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Partial Frame Wr signal is enabled
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsEnPartialFrm(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.EnPartialFrm)
 
 
 /**************************** Function Prototypes *****************************/

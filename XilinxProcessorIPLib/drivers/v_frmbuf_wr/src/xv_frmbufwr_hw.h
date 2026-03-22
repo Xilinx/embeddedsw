@@ -145,6 +145,18 @@ extern "C" {
 /** Bit width of the tertiary frame buffer address (64 bits) */
 #define XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER3_V_DATA 64
 
+/** Address of the hardware register for Forcing EOF */
+#define XV_FRMBUFWR_CTRL_ADDR_FORCE_EOF_DATA  0x68
+
+/** Bit width of the Forcing EOF register (1 bit: 0 or 1) */
+#define XV_FRMBUFWR_CTRL_BITS_FORCE_EOF_DATA      1
+
+/** Address of the hardware register for partial frame count */
+#define XV_FRMBUFWR_CTRL_ADDR_PARTIAL_FRM_CNT_DATA  0x70
+
+/** Bit width of the partial frame count register (16 bits, supporting values 0-65535) */
+#define XV_FRMBUFWR_CTRL_BITS_PARTIAL_FRM_CNT_DATA      16
+
 #ifdef __cplusplus
 }
 #endif

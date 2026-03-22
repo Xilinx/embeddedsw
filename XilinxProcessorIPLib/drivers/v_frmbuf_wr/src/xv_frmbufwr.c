@@ -535,6 +535,86 @@ u32 XV_frmbufwr_Get_HwReg_field_id(XV_frmbufwr *InstancePtr) {
 }
 
 /**
+ * Sets the hardware register to Force EOF value in the frame buffer write instance.
+ *
+ * This function writes the Force EOF data to the hardware register
+ * associated with the frame buffer writer. It first asserts that the instance pointer
+ * is not NULL and that the instance is ready before performing the register write.
+ *
+ * @param  InstancePtr Pointer to the XV_frmbufwr instance.
+ * @param  Data        The Force EOF data to be written to the hardware register.
+ */
+void XV_frmbufwr_Set_HwReg_force_eof(XV_frmbufwr *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_frmbufwr_WriteReg(InstancePtr->Config.BaseAddress, XV_FRMBUFWR_CTRL_ADDR_FORCE_EOF_DATA, Data);
+}
+
+/**
+ * Retrieves the current hardware register value for the force EOF.
+ *
+ * This function reads the value of the HWREG_FORCE_EOF register from the
+ * frame buffer write hardware instance specified by InstancePtr.
+ *
+ * @param    InstancePtr is a pointer to the XV_frmbufwr instance.
+ *
+ * @return   The value of the HWREG_FORCE_EOF register.
+ *
+ * @note     The function asserts that InstancePtr is not NULL and that the
+ *           instance is ready before accessing the hardware register.
+ */
+u32 XV_frmbufwr_Get_HwReg_force_eof(XV_frmbufwr *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_frmbufwr_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFWR_CTRL_ADDR_FORCE_EOF_DATA);
+    return Data;
+}
+
+/**
+ * Sets the hardware register for the partial frame count in the frame buffer write instance.
+ *
+ * This function writes the specified partial frame count data to the hardware register
+ * associated with the frame buffer writer. It first asserts that the instance pointer
+ * is not NULL and that the instance is ready before performing the register write.
+ *
+ * @param  InstancePtr Pointer to the XV_frmbufwr instance.
+ * @param  Data        The partial frame count data to be written to the hardware register.
+ */
+void XV_frmbufwr_Set_HwReg_partial_frm_cnt(XV_frmbufwr *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_frmbufwr_WriteReg(InstancePtr->Config.BaseAddress, XV_FRMBUFWR_CTRL_ADDR_PARTIAL_FRM_CNT_DATA, Data);
+}
+
+/**
+ * Retrieves the current hardware register value for the partial frame count.
+ *
+ * This function reads the value of the HWREG_PARTIAL_FRM_CNT register from the
+ * frame buffer write hardware instance specified by InstancePtr.
+ *
+ * @param    InstancePtr is a pointer to the XV_frmbufwr instance.
+ *
+ * @return   The value of the PARTIAL_FRM_CNT register.
+ *
+ * @note     The function asserts that InstancePtr is not NULL and that the
+ *           instance is ready before accessing the hardware register.
+ */
+u32 XV_frmbufwr_Get_HwReg_partial_frm_cnt(XV_frmbufwr *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_frmbufwr_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFWR_CTRL_ADDR_PARTIAL_FRM_CNT_DATA);
+    return Data;
+}
+
+/**
  * Enables the global interrupt for the Frame Buffer Write (frmbufwr) core.
  *
  * This function sets the Global Interrupt Enable (GIE) bit in the control register,

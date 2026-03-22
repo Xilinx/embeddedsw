@@ -98,28 +98,44 @@ properties:
     description: y-u-v8-420 3 planar support
   xlnx,has-y-u-v12:
     description: y-u-v12 3 planar support
-  xlnx,has-y-u-v10-16le:
-    description: y-u-v10-16le 3 planar support
-  xlnx,has-y-uv10-16le:
-    description: y-u-v10-16le support
-  xlnx,has-y-uv10-420-16le:
-    description: y-uv10-420-16le support
-  xlnx,has-y10-16le:
-    description: y10-16le support
-  xlnx,has-y-u-v12-16le:
-    description: y-u-v12-16le 3 planar support
-  xlnx,has-y-uv12-16le:
-    description: y-uv12-16le support
-  xlnx,has-y-uv12-420-16le:
-    description: y-uv12-420-16le support
-  xlnx,has-y12-16le:
-    description: y12-16le support
+  xlnx,has-y-u-v10-l16le:
+    description: y-u-v10-l16le 3 planar support
+  xlnx,has-y-uv10-l16le:
+    description: y-u-v10-l16le support
+  xlnx,has-y-uv10-420-l16le:
+    description: y-uv10-420-l16le support
+  xlnx,has-y10-l16le:
+    description: y10-l16le support
+  xlnx,has-y-u-v12-l16le:
+    description: y-u-v12-l16le 3 planar support
+  xlnx,has-y-uv12-l16le:
+    description: y-uv12-l16le support
+  xlnx,has-y-uv12-420-l16le:
+    description: y-uv12-420-l16le support
+  xlnx,has-y12-l16le:
+    description: y12-l16le support
+  xlnx,has-y-uv10-m16le:
+    description: y-u-v10-m16le support
+  xlnx,has-y-uv10-420-m16le:
+    description: y-uv10-420-m16le support
+  xlnx,has-y10-m16le:
+    description: y10-m16le support
+  xlnx,has-y-u-v12-m16le:
+    description: y-u-v12-m16le 3 planar support
+  xlnx,has-y-uv12-m16le:
+    description: y-uv12-m16le support
+  xlnx,has-y-uv12-420-m16le:
+    description: y-uv12-420-m16le support
+  xlnx,has-y12-m16le:
+    description: y12-m16le support
   xlnx,has-interlaced:
     description: Interlaced support
   xlnx,is-tile-format:
     description: Tileformat support
   xlnx,enable-sync-signals:
     description: Low latency support
+  xlnx,enable-partial-frame:
+    description: Partial frame support
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -167,17 +183,26 @@ required:
     - xlnx,has-y-u-v10
     - xlnx,has-y-u-v8-420
     - xlnx,has-y-u-v12
-    - xlnx,has-y-u-v10-16le
-    - xlnx,has-y-uv10-16le
-    - xlnx,has-y-uv10-420-16le
-    - xlnx,has-y10-16le
-    - xlnx,has-y-u-v12-16le
-    - xlnx,has-y-uv12-16le
-    - xlnx,has-y-uv12-420-16le
-    - xlnx,has-y12-16le
+    - xlnx,has-y-u-v10-l16le
+    - xlnx,has-y-uv10-l16le
+    - xlnx,has-y-uv10-420-l16le
+    - xlnx,has-y10-l16le
+    - xlnx,has-y-u-v12-l16le
+    - xlnx,has-y-uv12-l16le
+    - xlnx,has-y-uv12-420-l16le
+    - xlnx,has-y12-l16le
+    - xlnx,has-y-u-v10-m16le
+    - xlnx,has-y-uv10-m16le
+    - xlnx,has-y-uv10-420-m16le
+    - xlnx,has-y10-m16le
+    - xlnx,has-y-u-v12-m16le
+    - xlnx,has-y-uv12-m16le
+    - xlnx,has-y-uv12-420-m16le
+    - xlnx,has-y12-m16le
     - xlnx,has-interlaced
     - xlnx,is-tile-format
     - xlnx,enable-sync-signals
+    - xlnx,enable-partial-frame
     - interrupts
     - interrupt-parent
 
