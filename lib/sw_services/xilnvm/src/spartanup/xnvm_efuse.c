@@ -42,6 +42,7 @@
 * 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
 *       bha   03/02/2026 Used XSECURE_TEMPORAL_IMPL pattern for PUFHD_INVLD programming
 *                        in XNvm_EfusePrgmXilinxCtrl
+*	mb    03/18/2026 Add support for temperature and voltage checks before efuse programming
 *
 * </pre>
 *
@@ -219,6 +220,15 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 		Status = Status;
 		goto END;
 	}
+
+	/** - Perform temperature and voltage checks before programming */
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+	Status = XNvm_EfuseTempAndVoltChecks(EfuseData->SysMonInstPtr);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+#endif
 
 	/** - Sets up Efuse controller with validated frequency */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD, EfuseData->EfuseClkFreq);

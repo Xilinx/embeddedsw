@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XILNVM_BSP_CONFIG_H
@@ -23,4 +23,6 @@
 /* Enable to configure the EFUSE CLK frequency from RTCA Space */
 #cmakedefine XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
 
+/* Enable to environmental monitor checks for eFuse operations */
+#cmakedefine XNVM_ENABLE_ENV_MONITOR_CHECKS
 #endif /* XILNVM_BSP_CONFIG_H */

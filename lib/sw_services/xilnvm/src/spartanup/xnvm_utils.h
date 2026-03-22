@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +20,8 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kpt  08/14/2024 Initial release
 * 3.6   aa   07/24/2025 Remove unused macros
+* 3.7   mb   03/18/2026 Add support for temperature and voltage checks
+*                       before efuse programming
 *
 * </pre>
 *
@@ -64,7 +66,9 @@ int XNvm_EfuseUnlockController(void);
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode, u32 EfuseClkFreq);
 int XNvm_EfuseResetReadMode(void);
 int XNvm_EfuseDisableProgramming(void);
-
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr);
+#endif /* XNVM_ENABLE_ENV_MONITOR_CHECKS */
 #ifdef __cplusplus
 }
 #endif

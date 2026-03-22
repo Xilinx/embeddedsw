@@ -76,6 +76,11 @@ if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   if(XILNVM_en_efuse_clk_freq_rtca)
     set(XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA " ")
   endif()
+
+  option(XILNVM_en_env_monitor_checks "Enables/Disables environmental monitor checks for eFuse operations. Requires System Wizard IP in design." OFF)
+  if(XILNVM_en_env_monitor_checks)
+    set(XNVM_ENABLE_ENV_MONITOR_CHECKS " ")
+  endif()
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xilnvm_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xilnvm_bsp_config.h)

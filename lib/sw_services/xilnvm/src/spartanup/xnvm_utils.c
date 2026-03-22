@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 *       mb   07/22/2025 Update doxygen comments for XNvm_AesCrcCalc
 *       aa   07/24/2025 Typecast to essential datatypes to avoid implicit conversions
 *       mb   20/08/2025 Update Timer calculate API's by passing Frequency value to macros
+* 3.7   mb   03/18/2026 Add support for temperature and voltage before efuse programming
 *
 * </pre>
 *
@@ -53,6 +54,14 @@
 #define Tsu_h_cs(ClkFreq) \
     Xil_Ceil(((30.0f) * ((float)ClkFreq)) / (1000000000.0f))
 
+/**< Temperature limits for Spartan UltraScale Plus eFuses */
+#define XNVM_EFUSE_TEMP_MIN			(-40.0f)
+#define XNVM_EFUSE_TEMP_MAX			(125.0f)
+
+/**< Voltage limits for VCCINT for Spartan UltraScale Plus */
+#define XNVM_EFUSE_VCCINT_MIN		(0.775f)
+#define XNVM_EFUSE_VCCINT_MAX		(0.906f)
+
 /**
  * @}
  * @endcond
@@ -65,6 +74,10 @@ static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
 static int XNvm_EfuseCheckForTBits(void);
 static void XNvm_EfuseEnableProgramming(void);
 static void XNvm_EfuseInitTimers(u32 ClkFreq);
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+static int XNvm_EfuseTemperatureCheck(float Temperature);
+static int XNvm_EfuseVccintVoltageCheck(float Voltage);
+#endif
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
@@ -524,3 +537,175 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 END:
 	return Status;
 }
+
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+/******************************************************************************/
+/**
+ * @brief	This function checks device temperature.
+ *
+ * @param	Temperature - Current device temperature in Celsius.
+ *
+ * @return
+ *		- XST_SUCCESS  On temperature within thresholds.
+ *		- XST_FAILURE  On temperature not within thresholds.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseTemperatureCheck(float Temperature)
+{
+	int Status = XST_FAILURE;
+
+	/**
+	 * Check if temperature is within the limits of -40 to 125 degree Celsius
+	 * If not in limits return XST_FAILURE else return XST_SUCCESS.
+	 */
+	if ((Temperature < XNVM_EFUSE_TEMP_MIN) || (Temperature > XNVM_EFUSE_TEMP_MAX)) {
+		Status = XST_FAILURE;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function checks VCCINT voltage.
+ *
+ * @param	Voltage - Current VCCINT voltage in Volts.
+ *
+ * @return
+ *		- XST_SUCCESS  On VCCINT within thresholds.
+ *		- XST_FAILURE  On VCCINT not within thresholds.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseVccintVoltageCheck(float Voltage)
+{
+	int Status = XST_FAILURE;
+
+	/**
+	 * Check if VCCINT voltage is within the limits.
+	 * If not in limits return XST_FAILURE else XST_SUCCESS.
+	 */
+	if ((Voltage < XNVM_EFUSE_VCCINT_MIN) || (Voltage > XNVM_EFUSE_VCCINT_MAX)) {
+		Status = XST_FAILURE;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function performs the temperature and voltage checks to
+ * 		ensure that they are in limits before eFuse programming.
+ *
+ * @param	SysMonInstPtr - Pointer to XSysMon instance.
+ *
+ * @return
+ * 		- XST_SUCCESS - On successful voltage and temperature checks.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Input validation failure.
+ * 		- XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is out of range
+ * 		- XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range
+ *
+ ******************************************************************************/
+int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
+{
+	int Status = XST_FAILURE;
+	u16 RawTemp;
+	u16 RawVoltage;
+	float Voltage;
+	float Temperature;
+	u8 OriginalSeqMode;
+
+	if (SysMonInstPtr == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (SysMonInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Save the original sequencer mode to restore it later
+	 */
+	OriginalSeqMode = XSysMon_GetSequencerMode(SysMonInstPtr);
+
+	/**
+	 * Disable the Channel Sequencer before configuring the Sequence registers.
+	 * Set to Safe Mode to allow configuration changes.
+	 */
+	XSysMon_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SAFE);
+
+	/**
+	 * Enable TEMP and VCCINT channels in the sequencer.
+	 * This ensures these channels will be converted when the sequencer runs.
+	 */
+	Status = XSysMon_SetSeqChEnables(SysMonInstPtr, XSM_SEQ_CH_TEMP | XSM_SEQ_CH_VCCINT);
+	if (Status != XST_SUCCESS) {
+		/* Restore original mode before returning */
+		XSysMon_SetSequencerMode(SysMonInstPtr, OriginalSeqMode);
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Enable the Channel Sequencer in one-pass mode to trigger fresh conversions.
+	 * This will perform a single conversion cycle through the enabled channels.
+	 */
+	XSysMon_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_ONEPASS);
+
+	/**
+	 * Clear the old status and wait till the End of Sequence occurs.
+	 * This ensures we read fresh conversion data.
+	 */
+	XSysMon_GetStatus(SysMonInstPtr);
+	while ((XSysMon_GetStatus(SysMonInstPtr) & XSM_SR_EOS_MASK) !=
+			XSM_SR_EOS_MASK);
+
+	/**
+	 * Read the current value of the on-chip temperature.
+	 * Convert the raw ADC value to temperature in Celsius.
+	 */
+	RawTemp = XSysMon_GetAdcData(SysMonInstPtr, XSM_CH_TEMP);
+	Temperature = XSysMon_RawToTemperature(RawTemp);
+
+	/**
+	 * Check for temperature operating limits.
+	 * Return error if temperature is not within operating limits.
+	 */
+	Status = XNvm_EfuseTemperatureCheck(Temperature);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE;
+		/* Restore original mode before returning */
+		XSysMon_SetSequencerMode(SysMonInstPtr, OriginalSeqMode);
+		goto END;
+	}
+
+	/**
+	 * Read the raw VCCINT voltage value from SysMon
+	 * Convert the raw ADC value to voltage in Volts.
+	 */
+	RawVoltage = XSysMon_GetAdcData(SysMonInstPtr, XSM_CH_VCCINT);
+	Voltage = XSysMon_RawToVoltage(RawVoltage);
+
+	/**
+	 * Check for voltage operating limits.
+	 * Return error if voltage is not within operating limits.
+	 */
+	Status = XNvm_EfuseVccintVoltageCheck(Voltage);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE;
+	}
+
+	/**
+	 * Restore the original sequencer mode
+	 */
+	XSysMon_SetSequencerMode(SysMonInstPtr, OriginalSeqMode);
+
+END:
+	return Status;
+}
+#endif /* XNVM_ENABLE_ENV_MONITOR_CHECKS */

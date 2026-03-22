@@ -32,6 +32,7 @@
 *       mb   10/14/2025 Update logic for programming Revoke ID's
 *       mb   11/11/2025 Add support for JTAG Boot mode disable efuse programming
 * 3.7   mb   02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
+*       mb   03/18/2026 Add support for temperature and voltage checks before efuse programming
 *
 * </pre>
 *
@@ -53,6 +54,9 @@ extern "C" {
 #include "xil_util.h"
 #include "xnvm_efuse_hw.h"
 #include "xilnvm_bsp_config.h"
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+#include "xsysmon.h"
+#endif
 
 /*************************** Constant Definitions *****************************/
 
@@ -358,6 +362,9 @@ typedef struct {
 #endif
 	u32 EfuseClkFreq; /**< eFuse clock frequency */
 	u32 EfuseClkSrc; /**< eFuse clock source */
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+	XSysMon *SysMonInstPtr; /**< Pointer to XSysMon instance for temperature and voltage checks */
+#endif
 } XNvm_EfuseData;
 
 enum {
@@ -441,6 +448,9 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_LCK_DWN = 0xB800, /**< 0xB800 - Error write lock down */
 	XNVM_EFUSE_ERR_WRITE_JTAG_BOOT_MODE_DIS = 0xB900, /**< 0xB900 - Error write JTAG Boot mode disable */
 	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
+	XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE = 0xF100, /**< 0xF100 - Temperature is out of range */
+	XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200, /**< 0xF200 - Voltage is out of range */
+	XNVM_EFUSE_ERR_SYSMON_NOT_AVAILABLE = 0xF300 /**< 0xF300 - SysMon not available */
 };
 
 /*************************** Function Prototypes ******************************/

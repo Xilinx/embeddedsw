@@ -57,6 +57,7 @@
  *       mb    10/14/2025 Update logic for programming Revoke ID's
  * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
  * 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
+ *       mb    03/17/2026 Add support for temperature and voltage checks using SysMon
  *
  * </pre>
  *
@@ -88,6 +89,10 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Variable Definitions ***************************/
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+static XSysMon SysMonInst;      /* System Monitor driver instance */
+static XSysMon_Config *SysMonConfigPtr = NULL; /* Pointer to hold the SysMon driver configuration */
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -271,6 +276,27 @@ static int XilNvm_EfuseWriteFuses(void)
 #ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
 	EfuseData.EfuseClkFreq = XNVM_EFUSE_SET_REF_CLK_FREQ;
 	EfuseData.EfuseClkSrc = XNVM_EFUSE_SET_CLK_SRC_OP;
+#endif
+
+	/**
+	 * Initialize SysMon for temperature and voltage checks.
+	 * Checks are performed only when System Monitor IP is available in the design
+	 */
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+	EfuseData.SysMonInstPtr = &SysMonInst;
+	SysMonConfigPtr = XSysMon_LookupConfig(XPAR_XSYSMON_0_BASEADDR);
+	if (SysMonConfigPtr == NULL) {
+		xil_printf("XSysMon_LookupConfig failed. Ensure System Monitor IP is in your design.\r\n");
+		Status = XNVM_EFUSE_ERR_SYSMON_NOT_AVAILABLE;
+		goto END;
+	}
+
+	Status = XSysMon_CfgInitialize(EfuseData.SysMonInstPtr,
+			       SysMonConfigPtr, SysMonConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		xil_printf("XSysMon_CfgInitialize failed with error: %08x\r\n", Status);
+		goto END;
+	}
 #endif
 
 	Status = XNvm_EfuseWrite(&EfuseData);
