@@ -65,6 +65,7 @@ typedef struct {
   u16 YUYV8En;              /**< YUYV8      support */
   u16 RGBA8En;              /**< RGBA8      support */
   u16 YUVA8En;              /**< YUVA8      support */
+  u16 BGRA8En;              /**< BGRA8      support */
   u16 RGBX10En;             /**< RGBX10     support */
   u16 YUVX10En;             /**< YUVX10     support */
   u16 Y_UV8En;              /**< Y_UV8      support */
@@ -75,7 +76,6 @@ typedef struct {
   u16 Y_UV10_420En;         /**< Y_UV10_420 support */
   u16 Y8En;                 /**< Y8         support */
   u16 Y10En;                /**< Y10        support */
-  u16 BGRA8En;              /**< BGRA8      support */
   u16 BGRX8En;              /**< BGRX8      support */
   u16 UYVY8En;              /**< UYVY8      support */
   u16 BGR8En;               /**< BGR8       support */
@@ -93,16 +93,24 @@ typedef struct {
   u16 Y_U_V10En;            /**< Y_U_V10 support */
   u16 Y_U_V8_420En;         /**< Y_U_V8_420   support */
   u16 Y_U_V12En;            /**< Y_U_V12 support */
-  u16 Y_U_V10_16LEEn;       /**< Y_U_V10_16LE support */
-  u16 Y_UV10_16LEEn;        /**< Y_UV10_16LE support */
-  u16 Y_UV10_420_16LEEn;    /**< Y_UV10_420_16LE support */
-  u16 Y10_16LEEn;           /**< Y10_16LE support */
-  u16 Y_U_V12_16LEEn;       /**< Y_U_V12_16LE support */
-  u16 Y_UV12_16LEEn;        /**< Y_UV12_16LE support */
-  u16 Y_UV12_420_16LEEn;    /**< Y_UV12_420_16LE support */
-  u16 Y12_16LEEn;           /**< Y12_16LE support */
+  u16 Y_U_V10_L16LEEn;      /**< Y_U_V10_L16LE support */
+  u16 Y_UV10_L16LEEn;       /**< Y_UV10_L16LE support */
+  u16 Y_UV10_420_L16LEEn;   /**< Y_UV10_420_L16LE support */
+  u16 Y10_L16LEEn;          /**< Y10_L16LE support */
+  u16 Y_U_V12_L16LEEn;      /**< Y_U_V12_L16LE support */
+  u16 Y_UV12_L16LEEn;       /**< Y_UV12_L16LE support */
+  u16 Y_UV12_420_L16LEEn;   /**< Y_UV12_420_L16LE support */
+  u16 Y12_L16LEEn;          /**< Y12_L16LE support */
+  u16 Y_U_V10_M16LEEn;      /**< Y_U_V10_M16LE support */
+  u16 Y_UV10_M16LEEn;       /**< Y_UV10_M16LE support */
+  u16 Y_UV10_420_M16LEEn;   /**< Y_UV10_420_M16LE support */
+  u16 Y10_M16LEEn;          /**< Y10_M16LE support */
+  u16 Y_U_V12_M16LEEn;      /**< Y_U_V12_M16LE support */
+  u16 Y_UV12_M16LEEn;       /**< Y_UV12_M16LE support */
+  u16 Y_UV12_420_M16LEEn;   /**< Y_UV12_420_M16LE support */
+  u16 Y12_M16LEEn;          /**< Y12_M16LE support */
   u16 Interlaced;           /**< Interlaced support */
-  u16 IsTileFormat;           /**< Tile format support */
+  u16 IsTileFormat;         /**< Tile format support */
 #ifdef SDT
   u16 IntrId; 		    /**< Interrupt ID */
   UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */

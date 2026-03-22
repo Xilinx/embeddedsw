@@ -42,6 +42,8 @@ properties:
     description: rgba8 support
   xlnx,has-yuva8:
     description: yuva8 support
+  xlnx,has-bgra8:
+    description: bgra8 support
   xlnx,has-rgbx10:
     description: rgbx10 support
   xlnx,has-yuvx10:
@@ -62,8 +64,6 @@ properties:
     description: y8 support
   xlnx,has-y10:
     description: y10 support
-  xlnx,has-bgra8:
-    description: bgra8 support
   xlnx,has-bgrx8:
     description: bgrx8 support
   xlnx,has-uyvy8:
@@ -98,22 +98,36 @@ properties:
     description: y-u-v8-420 3 planar support
   xlnx,has-y-u-v12:
     description: y-u-v12 3 planar support
-  xlnx,has-y-u-v10-16le:
-    description: y-u-v10-16le 3 planar support
-  xlnx,has-y-uv10-16le:
-    description: y-u-v10-16le support
-  xlnx,has-y-uv10-420-16le:
-    description: y-uv10-420-16le support
-  xlnx,has-y10-16le:
-    description: y10-16le support
-  xlnx,has-y-u-v12-16le:
-    description: y-u-v12-16le 3 planar support
-  xlnx,has-y-uv12-16le:
-    description: y-uv12-16le support
-  xlnx,has-y-uv12-420-16le:
-    description: y-uv12-420-16le support
-  xlnx,has-y12-16le:
-    description: y12-16le support
+  xlnx,has-y-u-v10-l16le:
+    description: y-u-v10-l16le 3 planar support
+  xlnx,has-y-uv10-l16le:
+    description: y-u-v10-l16le support
+  xlnx,has-y-uv10-420-l16le:
+    description: y-uv10-420-l16le support
+  xlnx,has-y10-l16le:
+    description: y10-l16le support
+  xlnx,has-y-u-v12-l16le:
+    description: y-u-v12-l16le 3 planar support
+  xlnx,has-y-uv12-l16le:
+    description: y-uv12-l16le support
+  xlnx,has-y-uv12-420-l16le:
+    description: y-uv12-420-l16le support
+  xlnx,has-y12-l16le:
+    description: y12-l16le support
+  xlnx,has-y-uv10-m16le:
+    description: y-u-v10-m16le support
+  xlnx,has-y-uv10-420-m16le:
+    description: y-uv10-420-m16le support
+  xlnx,has-y10-m16le:
+    description: y10-m16le support
+  xlnx,has-y-u-v12-m16le:
+    description: y-u-v12-m16le 3 planar support
+  xlnx,has-y-uv12-m16le:
+    description: y-uv12-m16le support
+  xlnx,has-y-uv12-420-m16le:
+    description: y-uv12-420-m16le support
+  xlnx,has-y12-m16le:
+    description: y12-m16le support
   xlnx,has-interlaced:
     description: Interlaced support
   xlnx,is-tile-format:
@@ -137,6 +151,7 @@ required:
     - xlnx,has-yuyv8
     - xlnx,has-rgba8
     - xlnx,has-yuva8
+    - xlnx,has-bgra8
     - xlnx,has-rgbx10
     - xlnx,has-yuvx10
     - xlnx,has-y-uv8
@@ -147,7 +162,6 @@ required:
     - xlnx,has-y-uv10-420
     - xlnx,has-y8
     - xlnx,has-y10
-    - xlnx,has-bgra8
     - xlnx,has-bgrx8
     - xlnx,has-uyvy8
     - xlnx,has-bgr8
@@ -165,14 +179,22 @@ required:
     - xlnx,has-y-u-v10
     - xlnx,has-y-u-v8-420
     - xlnx,has-y-u-v12
-    - xlnx,has-y-u-v10-16le
-    - xlnx,has-y-uv10-16le
-    - xlnx,has-y-uv10-420-16le
-    - xlnx,has-y10-16le
-    - xlnx,has-y-u-v12-16le
-    - xlnx,has-y-uv12-16le
-    - xlnx,has-y-uv12-420-16le
-    - xlnx,has-y12-16le
+    - xlnx,has-y-u-v10-l16le
+    - xlnx,has-y-uv10-l16le
+    - xlnx,has-y-uv10-420-l16le
+    - xlnx,has-y10-l16le
+    - xlnx,has-y-u-v12-l16le
+    - xlnx,has-y-uv12-l16le
+    - xlnx,has-y-uv12-420-l16le
+    - xlnx,has-y12-l16le
+    - xlnx,has-y-u-v10-m16le
+    - xlnx,has-y-uv10-m16le
+    - xlnx,has-y-uv10-420-m16le
+    - xlnx,has-y10-m16le
+    - xlnx,has-y-u-v12-m16le
+    - xlnx,has-y-uv12-m16le
+    - xlnx,has-y-uv12-420-m16le
+    - xlnx,has-y12-m16le
     - xlnx,has-interlaced
     - xlnx,is-tile-format
     - interrupts
