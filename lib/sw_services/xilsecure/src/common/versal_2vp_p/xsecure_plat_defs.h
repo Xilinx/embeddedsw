@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  03/12/26 Initial release
 *       tvp  03/18/26 Add MLDSA API ids
+*       tvp  03/20/26 Add SLHDSA API ids
 *
 * </pre>
 *
@@ -122,7 +123,8 @@ typedef enum {
 	XSECURE_API_SHA2_OPERATION, 		/**< 38U */
 	XSECURE_API_MLDSA_SIGN_VERIFY,		/**< 39U */
 	XSECURE_API_MLDSA_SIGN_GENERATE,	/**< 40U */
-	XSECURE_API_MAX,			/**< 41U */
+	XSECURE_API_SLHDSA_SIGN_VERIFY,		/**< 41U */
+	XSECURE_API_MAX,			/**< 42U */
 } XSecure_ApiId;
 
 /** XilSecure KAT ids */

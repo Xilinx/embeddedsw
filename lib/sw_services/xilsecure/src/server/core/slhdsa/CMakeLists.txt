@@ -17,3 +17,8 @@ collect (PROJECT_LIB_SOURCES xsecure_slhdsa_ht.c)
 collect (PROJECT_LIB_SOURCES xsecure_slhdsa_instance.c)
 collect (PROJECT_LIB_SOURCES xsecure_slhdsa_wots.c)
 collect (PROJECT_LIB_SOURCES xsecure_slhdsa_xmss.c)
+
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
+    collect (PROJECT_LIB_HEADERS xsecure_slhdsa_ipihandler.h)
+    collect (PROJECT_LIB_SOURCES xsecure_slhdsa_ipihandler.c)
+endif()
