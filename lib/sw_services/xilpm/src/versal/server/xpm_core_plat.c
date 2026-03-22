@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -202,8 +202,8 @@ XStatus ResetAPUGic(const u32 DeviceId)
 	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 
 	if (((PM_DEV_ACPU_0 == DeviceId) || (PM_DEV_ACPU_1 == DeviceId)) &&
-	    (NULL != Acpu0PwrNode) && (NULL != Acpu1PwrNode) &&
 	    (NULL != FpdPwrNode) &&
+	    (NULL != Acpu0PwrNode) && (NULL != Acpu1PwrNode) &&
 	    ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State) &&
 	    ((u8)XPM_POWER_STATE_OFF == Acpu0PwrNode->Node.State) &&
 	    ((u8)XPM_POWER_STATE_OFF == Acpu1PwrNode->Node.State)) {
