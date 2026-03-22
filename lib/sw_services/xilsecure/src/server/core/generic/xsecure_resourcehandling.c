@@ -23,6 +23,7 @@
 * 5.6   mb   08/07/2025 Fix SW-BP-LOOP-CONDSTMT by adding else block.
 *       rpu  09/26/2025 Removed status after XPlmi_LoadResourceTimeout
 *       vss  09/30/2025 Updated AES/SHA queueing macro checks.
+* 5.7   tvp  03/22/2026 Update SHA2 free for Versal_2vp_p
 * </pre>
 *
 ******************************************************************************/
@@ -285,7 +286,7 @@ int XSecure_MakeResFree(XPlmi_CoreType Core)
 
 	/** Reset core and get core state to default (initialized) */
 	switch (Core) {
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 		case XPLMI_SHA2_CORE:
 		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
