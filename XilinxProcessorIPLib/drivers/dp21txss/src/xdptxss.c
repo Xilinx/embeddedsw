@@ -2206,6 +2206,7 @@ u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 #endif
 #if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp22Ptr)
+				XDp_TxHdcp22Disable(InstancePtr->DpPtr);
 		Status = XHdcp22Tx_Dp_DisableEncryption(InstancePtr->Hdcp22Ptr);
 #endif
 
@@ -3223,6 +3224,163 @@ void XDpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr,
 			break;
 	}
 }
+
+/*****************************************************************************/
+/**
+*
+* This function configures stream encryption based on MST/SST mode and the
+* stream_map parameter provided by the application.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	stream_map is the stream encryption selection from application:
+*		- For 2 streams: 1 (Stream 1), 2 (Stream 2), 3 (All)
+*		- For 3 streams: 1 (Stream 1), 2 (Stream 2), 3 (Stream 3), 4 (All)
+*		- For 4 streams: 1 (Stream 1), 2 (Stream 2), 3 (Stream 3), 4 (Stream 4), 5 (All)
+*
+* @note	- SST mode: Default stream 1
+*		- MST single stream: Default stream 1, register configured
+*		- MST multiple streams: Uses stream_map from application, configures registers
+*
+******************************************************************************/
+void XDpTxSs_ConfigureStreamEncryption(XDpTxSs *InstancePtr, u64 stream_map)
+{
+	u32 enhanced_frame_en_val = 0;
+	u32 training_pattern_set_val = 0;
+	u8 MaxStreams = 0;      // Hardware capability - max streams supported
+	u8 ActiveStreams = 0;   // Current active/enumerated streams
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Fetch hardware capability - max streams supported */
+	MaxStreams = InstancePtr->Config.NumMstStreams;
+
+	/* Fetch current active/enumerated streams */
+	ActiveStreams = XDpTxSs_GetNumOfMstStreams(InstancePtr);
+
+	/* Check if MST is capable/enabled AND hardware supports > 1 stream AND active streams > 1 */
+
+	if (InstancePtr->Config.MstSupport &&
+	    InstancePtr->DpPtr->TxInstance.MstEnable &&
+	    MaxStreams > 1 &&
+		ActiveStreams > 1) {
+
+		/* MST mode with multiple streams - use stream_map from application */
+		/* Validate stream_map based on active streams */
+		if (stream_map == 0 ||
+		    (ActiveStreams == 2 && stream_map >= 4) ||
+		    (ActiveStreams == 3 && stream_map >= 5) ||
+		    (ActiveStreams == 4 && stream_map >= 6) ||
+		    stream_map > 5) {
+			/* Invalid input - use default */
+			enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_1;
+			training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+			xil_printf("Error: Invalid stream_map=%llu for %d active streams. Using default (Stream 1)\r\n",
+			           stream_map, ActiveStreams);
+		}
+		/* For 2 streams: options are 1, 2, or 3(all) */
+		else if (ActiveStreams == 2) {
+			switch(stream_map) {
+				case 1:
+					enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_1;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting Stream 1\r\n");
+					break;
+				case 2:
+					enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_2;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting Stream 2\r\n");
+					break;
+				case 3:
+					/* Encrypt all 2 streams */
+					enhanced_frame_en_val = XDPTXSS_REG_ALL_STREAMS_ENCRYPT;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting All 2 Streams\r\n");
+					break;
+			}
+		}
+		/* For 3 streams: options are 1, 2, 3, or 4(all) */
+		else if (ActiveStreams == 3) {
+			switch(stream_map) {
+				case 1:
+					enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_1;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting Stream 1\r\n");
+					break;
+				case 2:
+					enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_2;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting Stream 2\r\n");
+					break;
+				case 3:
+					enhanced_frame_en_val = XDPTXSS_REG_STREAM_ZERO;
+					training_pattern_set_val = XDPTXSS_REG_TRAINING_PATTERN_STREAM_3;
+					xil_printf("Encrypting Stream 3\r\n");
+					break;
+				case 4:
+					/* Encrypt all 3 streams */
+					enhanced_frame_en_val = XDPTXSS_REG_ALL_STREAMS_ENCRYPT;
+					training_pattern_set_val = XDPTXSS_REG_TRAINING_PATTERN_STREAM_3;
+					xil_printf("Encrypting All 3 Streams\r\n");
+					break;
+			}
+		}
+		/* For 4 streams: options are 1, 2, 3, 4, or 5(all) */
+		else if (ActiveStreams == 4) {
+			switch(stream_map) {
+				case 1:
+					enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_1;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting Stream 1\r\n");
+					break;
+				case 2:
+					enhanced_frame_en_val = XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_2;
+					training_pattern_set_val = XDPTXSS_REG_STREAM_ZERO;
+					xil_printf("Encrypting Stream 2\r\n");
+					break;
+				case 3:
+					enhanced_frame_en_val = XDPTXSS_REG_STREAM_ZERO;
+					training_pattern_set_val = XDPTXSS_REG_TRAINING_PATTERN_STREAM_3;
+					xil_printf("Encrypting Stream 3\r\n");
+					break;
+				case 4:
+					enhanced_frame_en_val = XDPTXSS_REG_STREAM_ZERO;
+					training_pattern_set_val = XDPTXSS_REG_TRAINING_PATTERN_STREAM_4;
+					xil_printf("Encrypting Stream 4\r\n");
+					break;
+				case 5:
+					/* Encrypt all 4 streams */
+					enhanced_frame_en_val = XDPTXSS_REG_ALL_STREAMS_ENCRYPT;
+					training_pattern_set_val = XDPTXSS_REG_ALL_STREAMS_ENCRYPT;
+					xil_printf("Encrypting All 4 Streams\r\n");
+					break;
+			}
+		}
+
+		/* Write stream encryption register values */
+		XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+				XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L, enhanced_frame_en_val);
+		XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+				XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H, training_pattern_set_val);
+
+	}
+	else if (InstancePtr->Config.MstSupport &&
+	         InstancePtr->DpPtr->TxInstance.MstEnable && ActiveStreams <= 1 ) {
+		/* MST enabled but only 1 stream */
+		xil_printf("\r\n**** MST Mode - Single Stream ****\r\n");
+		/* Write default stream 1 configuration */
+		XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+					XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L, XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_1);
+		XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+					XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H, XDPTXSS_REG_STREAM_ZERO);
+	}
+	else {
+		/* SST Mode (Not MST capable or MST not enabled) */
+		xil_printf("\r\n**** SST Mode - Single Stream ****\r\n");
+		/* No register configuration needed for SST */
+	}
+}
+
 #endif
 
 #endif

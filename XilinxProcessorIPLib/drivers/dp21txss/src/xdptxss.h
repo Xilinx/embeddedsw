@@ -421,6 +421,14 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/* Stream-specific encryption register values for MST mode */
+#define XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_1      0x0000FFFF  /**< Enhanced frame enable for stream 1 */
+#define XDPTXSS_REG_ENHANCED_FRAME_EN_STREAM_2      0xFFFF0000  /**< Enhanced frame enable for stream 2 */
+#define XDPTXSS_REG_TRAINING_PATTERN_STREAM_3       0x0000FFFF  /**< Training pattern for stream 3 */
+#define XDPTXSS_REG_TRAINING_PATTERN_STREAM_4       0xFFFF0000  /**< Training pattern for stream 4 */
+#define XDPTXSS_REG_STREAM_ZERO                     0x00000000  /**< No stream encryption */
+#define XDPTXSS_REG_ALL_STREAMS_ENCRYPT             0xFFFFFFFF  /**< Encrypt all streams */
+
 /**
 * Callback type which represents a custom timer wait handler.
 */
@@ -497,6 +505,7 @@ int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
 		XDpTxSs_HdcpProtocol Protocol);
 u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
 u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
+void XDpTxSs_ConfigureStreamEncryption(XDpTxSs *InstancePtr, u64 stream_map);
 #endif
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 u32 XDpTxSs_Poll(XDpTxSs *InstancePtr);

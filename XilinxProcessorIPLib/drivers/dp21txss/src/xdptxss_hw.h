@@ -1,7 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -176,7 +175,7 @@ extern "C" {
 ******************************************************************************/
 #define XDpTxSs_WriteReg(BaseAddress, RegOffset, Data) \
 	XDpTxSs_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
-/*@}*/
+/** @} */
 
 /************************** Function Prototypes ******************************/
 
