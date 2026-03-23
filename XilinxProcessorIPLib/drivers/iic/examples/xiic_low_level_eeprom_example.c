@@ -21,7 +21,7 @@
 * This example is tested on ML300/ML310/ML403/ML501/ML507/ML510/ML605/SP601 and
 * SP605 Xilinx boards.
 *
-* The ML310/ML410/ML510 boards have a on-board 64 Kb serial IIC EEPROM
+* The ML310/ML410/ML510/SCU35 boards have a on-board 64 Kb serial IIC EEPROM
 * (Microchip 24LC64A). The WP pin of the IIC EEPROM is hardwired to ground on
 * this board.
 *
@@ -36,14 +36,14 @@
 * IIC EEPROM(STM M24C08). The WP pin of the IIC EEPROM is hardwired to
 * ground on these boards.
 *
-* The AddressType for ML300/ML310/ML410/ML510 boards should be u16 as the
+* The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be u16 as the
 * address pointer in the on board EEPROM is 2 bytes.
 *
 * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
 * be u8 as the address pointer for the on board EEPROM is 1 byte.
 *
 * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/
-* ML501/ML505/ML507/ML510 boards is 0x50.
+* ML501/ML505/ML507/ML510/SCU200 boards is 0x50.
 * The 7 bit IIC Slave address of the IIC EEPROM on the ML605/SP601/SP605 boards
 * is 0x54.
 * Refer to the User Guide's of the respective boards for further information
@@ -81,6 +81,8 @@
 *                     CR-965028.
 * 3.5   sd   08/29/18 Update the fifo flush.
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.15  vlt  03/20/26 Updated comments lines for SCU200 and SCU35 EEPROM address,
+*                     page size, and address type.
 *
 * </pre>
 *
@@ -109,7 +111,7 @@
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
  * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/
- * ML501/ML505/ML507/ML510 boards is 0x50. The 7 bit IIC Slave address of the
+ * ML501/ML505/ML507/ML510/SCU200 boards is 0x50. The 7 bit IIC Slave address of the
  * IIC EEPROM on the ML605/SP601/SP605 boards is 0x54.
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
@@ -138,7 +140,7 @@
 /**************************** Type Definitions *******************************/
 
 /**
- * The AddressType for ML300/ML310/ML510 boards should be u16 as the address
+ * The AddressType for ML300/ML310/ML510/SCU200/SCU35 boards should be u16 as the address
  * pointer in the on board EEPROM is 2 bytes.
  * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
  * be u8 as the address pointer in the on board EEPROM is 1 bytes.
@@ -477,6 +479,13 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	u32 CntlReg;
 	int Timeout = MAX_DELAY_CNT;
 
+	u8 AddressBuffer[sizeof(AddressType)];
+	if (sizeof(AddressType) == 2) {
+		AddressBuffer[0] = (u8)(Address >> 8);
+		AddressBuffer[1] = (u8)(Address);
+	} else {
+		AddressBuffer[0] = (u8)(Address);
+	}
 	/*
 	 * Set the address register to the specified address by writing
 	 * the address to the device, this must be tried until it succeeds
@@ -488,9 +497,9 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 		if (!(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {
 			ReceivedByteCount = XIic_Send(IIC_BASE_ADDRESS,
 						      EepromIicAddr,
-						      (u8 *)&Address,
-						      sizeof(Address),
-						      XIIC_STOP);
+						       AddressBuffer,
+						       sizeof(AddressType),
+						       XIIC_STOP);
 
 			if (ReceivedByteCount != sizeof(Address)) {
 

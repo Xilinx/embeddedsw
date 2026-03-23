@@ -22,7 +22,7 @@
 * This example is tested on ML300/ML310/ML403/ML501/ML507/ML510/ML605/SP601 and
 * SP605 Xilinx boards.
 *
-* The ML310/ML410/ML510/SCU200/SCU35 boards have a on-board 64 Kb serial IIC EEPROM
+* The ML310/ML410/ML510/SCU35 boards have a on-board 64 Kb serial IIC EEPROM
 * (Microchip 24LC64A). The WP pin of the IIC EEPROM is hardwired to ground on
 * this board.
 *
