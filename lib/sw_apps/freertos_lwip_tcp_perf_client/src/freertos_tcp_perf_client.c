@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2018 - 2019 Xilinx, Inc.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,11 +32,33 @@
 
 static char send_buf[TCP_SEND_BUFSIZE];
 static struct perf_stats client;
+static iperf_client_test_hdr client_hdr;
 
 /* Report interval time in ms */
 #define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 1000)
 /* End time in ms */
 #define END_TIME (TCP_TIME_INTERVAL * 1000)
+
+static int send_client_header(int sock)
+{
+	int bytes_sent;
+
+	client_hdr.flags = 0;
+	client_hdr.num_threads = PP_HTONL(1);
+	client_hdr.remote_port = PP_HTONL(TCP_CONN_PORT);
+	client_hdr.buffer_len = PP_HTONL(TCP_SEND_BUFSIZE);
+	client_hdr.win_band = 0;
+	/* Negative value = time-based test (unit is 10ms)
+	 * Positive value = byte-based test (number of bytes to transfer) */
+	client_hdr.amount = PP_HTONL((u32_t)(-(s32_t)(TCP_TIME_INTERVAL * 100)));
+
+	bytes_sent = lwip_send(sock, &client_hdr, sizeof(client_hdr), 0);
+	if (bytes_sent < 0) {
+		xil_printf("TCP Client: Error sending client header\r\n");
+		return -1;
+	}
+	return 0;
+}
 
 void print_app_header()
 {
@@ -244,6 +267,13 @@ void start_application(void)
 #endif /* LWIP_IPV6 */
 	if (connect(sock, (struct sockaddr*)&address, sizeof(address)) < 0) {
 		xil_printf("TCP Client: Error on tcp_connect\r\n");
+		close(sock);
+		return;
+	}
+
+	/* Send client header to server*/
+	if (send_client_header(sock) < 0) {
+		xil_printf("ERROR: send_client_header failed, closing socket %d\r\n", sock);
 		close(sock);
 		return;
 	}
