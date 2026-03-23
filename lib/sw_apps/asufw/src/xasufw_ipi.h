@@ -82,12 +82,14 @@ extern "C" {
 								response size */
 #define XOCP_GET_OCP_EVENT_MASK_PAYLOAD_SIZE		(1U) /**< Get OCP event mask payload size */
 
-#define XOCP_PLM_REG_NOTIFIER_CMD_ID			(5U)	/**< ASU register notifier
+#define XASU_PLM_REG_NOTIFIER_CMD_ID			(5U)	/**< ASU register notifier
 								command ID */
 #define XOCP_ASU_REG_NOTIFIER_PAYLOAD_SIZE		(4U)	/**< ASU register notifier command
 								payload size */
 #define XASUFW_REGISTER_NOTIFIER_ENABLE			(1U)
 							/**< Enable register notifier */
+#define XASUFW_REGISTER_NOTIFIER_DISABLE		(0U)
+							/**< Disable register notifier */
 #define XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE		(5U)
 							/**< Register notifier payload size */
 #define XASUFW_REGISTER_NOTIFIER_RESP_SIZE		(2U)

@@ -85,6 +85,16 @@ extern "C" {
 #define XASUFW_DEBUG_LOG_BUFFER_ADDR	(0xEBE5DC00U)	/**< Address of debug log buffer in
 								data RAM */
 
+/* PLM RunTime Configuration Area Base Address */
+#define XASUFW_PLMI_RTCFG_BASEADDR	(0xF2014000U) /**< PLM runtime configuration base address */
+
+/* DDR Reserved Area Configuration. */
+#define XASUFW_RTCFG_RSVD_DDR_ADDR	(XASUFW_PLMI_RTCFG_BASEADDR + 0x2A8U)
+					/**< Reserved DDR address register */
+#define XASUFW_RTCFG_RSVD_DDR_SIZE	(XASUFW_PLMI_RTCFG_BASEADDR + 0x2ACU)
+					/**< Reserved DDR size register. */
+#define XASUFW_2GB_END_ADDR		(0x7FFFFFFFU)	/**< 2GB end address */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

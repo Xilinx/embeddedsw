@@ -724,10 +724,14 @@ enum {
 	XASUFW_KEYMANAGER_STORE_KEY_ERROR, /**< 0x208U - Error when storing key fails */
 	XASUFW_KEYMANAGER_STORE_X509_RAW_KEY_ERROR, /**< 0x209U - Error when storing X.509 raw key
 							fails */
-	XASUFW_KEYMANAGER_INVALID_BUF_SIZE, /**< 0x20aU - Error when provided buffer size is
+	XASUFW_KEYMANAGER_INVALID_BUF_SIZE, /**< 0x20AU - Error when provided buffer size is
 						invalid for key object */
 	XASUFW_KEYMANAGER_INVALID_EXPONENT_SIZE, /**< 0x20BU - Error when provided exponent size is
 						invalid for RSA key object */
+	XASUFW_INSUFFICIENT_RSVD_DDR_SIZE, /**< 0x20CU - Error when reserved DDR size is insufficient for the operation. */
+	XASUFW_DATA_BACKUP_FAIL, /**< 0x20DU - Error when data backup operation fails. */
+	XASUFW_DATA_RESTORE_FAIL, /**< 0x20EU - Error when data restore operation fails. */
+	XASUFW_UPDATE_MGR_RELOCATION_FAIL, /**< 0x20FU - Error when update manager relocation fails. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

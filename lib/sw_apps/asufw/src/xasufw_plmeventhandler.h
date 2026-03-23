@@ -41,6 +41,7 @@ extern "C" {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_OCP_GEN_DEV_KEYS_CMD_ID		(0U)	/**< Command ID for device key generation */
+#define XASU_ASUFW_UPDATE_CMD_ID		(1U)	/**< Command ID for ASUFW update */
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_PlmInit(void);

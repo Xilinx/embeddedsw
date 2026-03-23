@@ -7,6 +7,7 @@ _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 _RSA_DATA_SIZE = DEFINED(_RSA_DATA_SIZE) ? _RSA_DATA_SIZE : 0x1400;
 _LOG_BUF_SIZE = DEFINED(_LOG_BUF_SIZE) ? _LOG_BUF_SIZE : 0x1000;
+_ASUFW_UPDATE_MNG_SIZE = DEFINED(_ASUFW_UPDATE_MNG_SIZE) ? _ASUFW_UPDATE_MNG_SIZE : 0x200;
 
 /* Define Memories in the system */
 
@@ -16,7 +17,8 @@ MEMORY
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = 0x40000
    tmr_ram_data_Confg_Mem : ORIGIN = 0xEBE40000, LENGTH = 0x1000
    tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x12C00
+   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x12A00
+   update_mgr_Mem : ORIGIN = 0xEBE5BA00, LENGTH = _ASUFW_UPDATE_MNG_SIZE
    tmr_ram_data_ocp_Mem : ORIGIN = 0xEBE5BC00, LENGTH = 0x2000
    tmr_ram_data_log_buf_Mem : ORIGIN = 0xEBE5DC00, LENGTH = _LOG_BUF_SIZE
    tmr_ram_data_rsa_Mem : ORIGIN = 0xEBE5EC00, LENGTH = _RSA_DATA_SIZE
@@ -161,6 +163,22 @@ SECTIONS
    __sdata_end = .;
 } > tmr_ram_instr_cntlr_Mem
 
+.struct_entries : {
+   __data_struct_start = .;
+   KEEP(*(.struct_entries))
+   KEEP(*(.struct_entries*))
+   __data_struct_end = .;
+} > tmr_ram_instr_cntlr_Mem
+
+.update_mgr_a : {
+   . = ALIGN(16);
+   __update_mgr_a_fn_start = .;
+   KEEP (*(.update_mgr_a))
+   __update_mgr_a_fn_end = .;
+   _update_mgr_a_end = __update_mgr_a_fn_start + _ASUFW_UPDATE_MNG_SIZE;
+   . = _update_mgr_a_end;
+} > tmr_ram_instr_cntlr_Mem
+
 .sbss (NOLOAD) : {
    __sbss_start = .;
    *(.sbss)
@@ -211,6 +229,13 @@ SECTIONS
    *(.gnu.linkonce.rs.*)
    __=debug_log_buffer_end = .;
 } > tmr_ram_data_log_buf_Mem
+
+.update_mgr_b (NOLOAD) : {
+   __update_mgr_b = .;
+   __update_mgr_b_start = .;
+   . += _ASUFW_UPDATE_MNG_SIZE;
+   __update_mgr_b_end = .;
+} > update_mgr_Mem
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 

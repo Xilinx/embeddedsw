@@ -43,7 +43,8 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASUFW_PLM_REQ_ID		(0x3FU)	/**< Fixed request ID for PLM request */
 #define XASUFW_NOTIFICATION_TASK_DELAY	(100U)	/**< PLM to ASU notification task handler delay */
-#define XASUFW_MAX_PLM_CMDS		(1U)	/**< Maximum PLM commands */
+#define XASUFW_MAX_PLM_CMDS		(2U)	/**< Maximum PLM commands */
+#define XASUFW_EVENT_PENDING		(0x1U)	/**< Event pending flag */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_PlmEventTaskHandler(void *Arg);
@@ -103,6 +104,11 @@ void XAsufw_HandlePlmEvent(void)
 	if ((EventMask & XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE) == XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE) {
 		/** Update the pending event for a given command. */
 		XAsufw_Event[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = 0x1;
+	}
+
+	if ((EventMask & XIL_EVENT_ERROR_MASK_ASU_UPDATE) == XIL_EVENT_ERROR_MASK_ASU_UPDATE) {
+		/** Update the pending event for ASU update command. */
+		XAsufw_Event[XASU_ASUFW_UPDATE_CMD_ID] = XASUFW_EVENT_PENDING;
 	}
 
 	/** Trigger PLM notification task. */

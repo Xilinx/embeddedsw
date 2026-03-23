@@ -33,6 +33,7 @@
 #include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_update.h"
 #include "xocp.h"
 #include "xsha_hw.h"
 
@@ -42,13 +43,15 @@
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_OCP_GEN_DEV_KEYS_CMD_ID		(0U)	/**< Command ID for device key generation */
-#define XASU_PLM_EVT_MAX_CMDS			(1U)	/**< Maximum number of commands supported by PLM event module */
+#define XASU_ASUFW_UPDATE_CMD_ID		(1U)	/**< Command ID for ASUFW update */
+#define XASU_PLM_EVT_MAX_CMDS			(2U)	/**< Maximum number of commands supported by PLM event module */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 #ifdef XASU_OCP_ENABLE
 static s32 XAsufw_GenerateDeviceKeys(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 #endif
+static s32 XAsufw_AsufwUpdate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_PlmEvtModule;	/**< ASUFW PLM event module instance */
@@ -77,6 +80,7 @@ s32 XAsufw_PlmInit(void)
 #else
 		[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = NULL,
 #endif
+		[XASU_ASUFW_UPDATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AsufwUpdate),
 	};
 
 	/**
@@ -91,6 +95,7 @@ s32 XAsufw_PlmInit(void)
 #else
 			[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = 0U,
 #endif
+			[XASU_ASUFW_UPDATE_CMD_ID] = 0U,
 		};
 
 	XAsufw_PlmEvtModule.Id = XASU_MODULE_PLM_ID;
@@ -158,6 +163,38 @@ END:
 	return Status;
 }
 #endif
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for ASUFW update command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if command executed successfully.
+ *	- XASUFW_FAILURE, if ASUFW update fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_AsufwUpdate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_SUCCESS;
+	(void)ReqBuf;
+	(void)ReqId;
+
+	XAsufw_Printf(DEBUG_GENERAL, "ASUFW Update command received\r\n");
+
+	/** Perform ASUFW update operation. */
+	Status = XAsufw_PerformAsufwUpdate();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	XAsufw_Printf(DEBUG_GENERAL, "ASUFW Update command completed successfully\r\n");
+
+END:
+	return Status;
+}
 
 /*************************************************************************************************/
 /**

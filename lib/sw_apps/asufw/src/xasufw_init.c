@@ -56,6 +56,8 @@
 #include "xasufw_alginfo.h"
 #include "xasufw_kat.h"
 #include "xocp_ude.h"
+#include "xasufw_hw.h"
+#include "xil_error_node.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
@@ -109,6 +111,7 @@ static void XAsufw_ExceptionEnable(void);
 static void XAsufw_ExceptionHandler(void *Data);
 static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XAsufw_Pit3TimerHandler(const void *Data);
+static s32 XAsufw_RegisterNotifier(u32 EventErrMask, u32 Enable);
 
 /************************************ Variable Definitions ***************************************/
 static XIOModule IOModule; /**< Instance of the IO Module */
@@ -540,4 +543,94 @@ void XAsufw_UpdateModulesInfo(void)
 	XASUFW_INIT_CRYPTO_MODULE_INFO(KEYWRAP, XASUFW_NIST_COMPLIANT);
 	XASUFW_INIT_CRYPTO_MODULE_INFO(LMS, XASUFW_NIST_COMPLIANT);
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function disables the IO Module interrupts.
+ *
+ * @return	None.
+ *
+ *************************************************************************************************/
+void XAsufw_DisableInterruptSystem(void)
+{
+	/** Disable IPI interrupt. */
+	XIOModule_Disable(&IOModule, XASUFW_IOMODULE_IPI_INTRNUM);
+
+	/** Disable PIT3 interrupt. */
+	XIOModule_Disable(&IOModule, XIN_IOMODULE_PIT_3_INTERRUPT_INTR);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function registers notifier to get events notification from PLM.
+ *
+ * @param	EventErrMask	Event error mask.
+ * @param	Enable		Enable/Disable flag for notifier registration.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if notifier registration is successful.
+ *	- XASUFW_FAILURE, if any other failure.
+ *	- XASUFW_REGISTER_NOTIFIER_SEND_IPI_FAILED, if IPI send is failed.
+ *	- XASUFW_REGISTER_NOTIFIER_READ_IPI_FAILED, if IPI read is failed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_RegisterNotifier(u32 EventErrMask, u32 Enable)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 Payload[XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE] = {0U};
+	u32 Response[XASUFW_REGISTER_NOTIFIER_RESP_SIZE] = {0U};
+
+	/**
+	 * Prepare payload to register notifier for events specified in EventErrMask. Payload will be
+	 * sent to PLM through IPI to register the notifier.
+	 */
+	Payload[XASUFW_BUFFER_INDEX_ZERO] =
+		XASUFW_PLM_IPI_HEADER(XOCP_ASU_REG_NOTIFIER_PAYLOAD_SIZE,
+				XASU_PLM_REG_NOTIFIER_CMD_ID, XASUFW_XILPM_MODULE_ID);
+	Payload[XASUFW_BUFFER_INDEX_ONE] = XIL_NODETYPE_EVENT_ERROR_SW_ERR;
+	Payload[XASUFW_BUFFER_INDEX_TWO] = EventErrMask;
+	Payload[XASUFW_BUFFER_INDEX_FOUR] = Enable;
+
+	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_REGISTER_NOTIFIER_SEND_IPI_FAILED);
+		goto END;
+	}
+
+	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_REGISTER_NOTIFIER_RESP_SIZE);
+	if ((Status != XASUFW_SUCCESS) ||
+	    (Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_REGISTER_NOTIFIER_READ_IPI_FAILED);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function enables or disables event notifiers for ASU and OCP subsystem updates.
+ *
+ * @param	Enable	Enable/Disable flag for notifier registration
+ * 			(XASUFW_REGISTER_NOTIFIER_ENABLE or XASUFW_REGISTER_NOTIFIER_DISABLE).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if notifier operation is successful.
+ *	- XASUFW_FAILURE, if any other failure.
+ *
+ *************************************************************************************************/
+s32 XAsufw_EnableDisableEventNotifiers(u32 Enable)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 EventMask = XIL_EVENT_ERROR_MASK_ASU_UPDATE;
+
+#ifdef XASU_OCP_ENABLE
+	/** Include OCP subsystem update event mask if OCP is enabled. */
+	EventMask |= XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE;
+#endif
+	Status = XAsufw_RegisterNotifier(EventMask, Enable);
+
+	return Status;
+}
+
 /** @} */

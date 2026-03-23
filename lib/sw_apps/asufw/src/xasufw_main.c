@@ -79,6 +79,7 @@
 #include "xocp.h"
 #include "xil_error_node.h"
 #include "xrsa.h"
+#include "xasufw_update.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -90,7 +91,6 @@
 static s32 XAsufw_Init(void);
 static s32 XAsufw_ModulesInit(void);
 static void XAsufw_SetAsufwPresentBit(void);
-static s32 XAsufw_RegisterNotifier(u32 EventErrMask);
 #ifdef XASU_OCP_ENABLE
 static s32 XAsufw_RunOcpKeyGeneration(void);
 #endif
@@ -112,6 +112,15 @@ int main(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+
+	/** Restore data backup if update state indicates load ELF done. */
+	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
+		Status = XAsufw_RestoreDataBackup();
+		if (Status != XASUFW_SUCCESS) {
+			XAsufw_Printf(DEBUG_GENERAL, "\r\n ASUFW restore data backup failed. Error: 0x%0x\r\n", Status);
+		}
+		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
+	}
 
 	/** Validate debug log buffer information. */
 	XAsufw_ValidateDebugLogBufferInfo();
@@ -156,6 +165,12 @@ int main(void)
 	 * Run UDE KEK derivation if PUF regeneration is successful.
 	 */
 	XFIH_CALL(XAsufw_RunKeyTransfer, FihVar, Status);
+
+	/** Enable event notifiers. */
+	Status = XAsufw_EnableDisableEventNotifiers(XASUFW_REGISTER_NOTIFIER_ENABLE);
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW enable event notifiers failed. Error: 0x%x\r\n", Status);
+	}
 
 #ifdef XASU_OCP_ENABLE
 	/**
@@ -416,51 +431,6 @@ static void XAsufw_SetAsufwPresentBit(void)
 			XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE);
 }
 
-/*************************************************************************************************/
-/**
- * @brief	This function registers notifier to get events notification from PLM.
- *
- * @param	EventErrMask	Event error mask.
- *
- * @return
- *		- XASUFW_SUCCESS, if notifier registration is successful.
- *		- XASUFW_FAILURE, if any other failure.
- *		- XASUFW_REGISTER_NOTIFIER_SEND_IPI_FAILED, if IPI send is failed.
- *		- XASUFW_REGISTER_NOTIFIER_READ_IPI_FAILED, if IPI read is failed.
- *
- *************************************************************************************************/
-static s32 XAsufw_RegisterNotifier(u32 EventErrMask)
-{
-	s32 Status = XASUFW_FAILURE;
-	u32 Payload[XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE] = {0U};
-	u32 Response[XASUFW_REGISTER_NOTIFIER_RESP_SIZE] = {0U};
-
-	/** Prepare IPI payload with notifier registration parameters. */
-	Payload[XASUFW_BUFFER_INDEX_ZERO] =
-		XASUFW_PLM_IPI_HEADER(XOCP_ASU_REG_NOTIFIER_PAYLOAD_SIZE,
-				XOCP_PLM_REG_NOTIFIER_CMD_ID, XASUFW_XILPM_MODULE_ID);
-	Payload[XASUFW_BUFFER_INDEX_ONE] = XIL_NODETYPE_EVENT_ERROR_SW_ERR;
-	Payload[XASUFW_BUFFER_INDEX_TWO] = EventErrMask;
-	Payload[XASUFW_BUFFER_INDEX_FOUR] = XASUFW_REGISTER_NOTIFIER_ENABLE;
-
-	/** Send registration request to PLM. */
-	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_REGISTER_NOTIFIER_PAYLOAD_SIZE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_REGISTER_NOTIFIER_SEND_IPI_FAILED);
-		goto END;
-	}
-
-	/** Read and validate PLM response. */
-	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_REGISTER_NOTIFIER_RESP_SIZE);
-	if ((Status != XASUFW_SUCCESS) ||
-	    (Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_REGISTER_NOTIFIER_READ_IPI_FAILED);
-	}
-
-END:
-	return Status;
-}
-
 #ifdef XASU_OCP_ENABLE
 /*************************************************************************************************/
 /**
@@ -477,14 +447,6 @@ static s32 XAsufw_RunOcpKeyGeneration(void)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 EventMask = 0U;
 	XAsufw_Dma *XOcpAsuDmaPtr = XAsufw_GetDmaInstance(ASUDMA_0_DEVICE_ID);
-
-	/** Register notifier for events from PLM to ASU. */
-	Status = XAsufw_RegisterNotifier((u32)XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE);
-	if (Status != XASUFW_SUCCESS) {
-		XAsufw_Printf(DEBUG_GENERAL, "ASUFW register notifier failed. Error: 0x%x\r\n",
-			      Status);
-		goto END;
-	}
 
 	/** Get OCP event mask from PLM. */
 	Status = XOcp_GetOcpEventMaskFromPlm(&EventMask);

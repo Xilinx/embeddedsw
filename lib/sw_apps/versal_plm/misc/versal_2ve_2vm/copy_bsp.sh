@@ -64,8 +64,8 @@ cp -r $SERVICES_DIR/xilplmi/src/Makefile $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/versal_net/server/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/versal_net/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/common/server/* $BSP_DIR/libsrc/xilplmi/src/
-cp -r $SERVICES_DIR/xilplmi/src/versal_2ve_2vm/* $BSP_DIR/libsrc/xilplmi/src/
-cp -r $SERVICES_DIR/xilplmi/src/versal_2ve_2vm/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilplmi/src/versal_2ve_2vm/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/versal_2ve_2vm/server/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilplmi/src/common/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
 rm -rf $BSP_DIR/libsrc/xilplmi/src/xplmi_err_psm.c

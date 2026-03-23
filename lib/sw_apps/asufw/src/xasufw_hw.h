@@ -98,6 +98,9 @@ extern "C" {
 /** ASU_GLOBAL ASU_NON_FATAL_ERROR_TRIGGER asu_sw_error mask */
 #define ASU_GLOBAL_ASU_NON_FATAL_ERROR_TRIGGER_ASU_SW_ERROR_MASK	(0x00000100U)
 
+/** ASU_GLOBAL GLOBAL_GEN_STORAGE7 register address */
+#define ASU_GLOBAL_GLOBAL_GEN_STORAGE7		(ASU_GLOBAL_BASEADDR + 0x0000003CU)
+
 /*
  * Definitions required from asu_io_bus.h
  */
