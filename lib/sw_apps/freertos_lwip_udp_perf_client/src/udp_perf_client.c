@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
+ * Copyright (C) 2017 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -29,12 +30,15 @@
 /* Connection handle for a UDP Client session */
 
 #include "udp_perf_client.h"
+#include <string.h>
 
 extern struct netif server_netif;
 static struct perf_stats client;
 static char send_buf[UDP_SEND_BUFSIZE];
 static struct sockaddr_in addr;
 static int sock[NUM_OF_PARALLEL_CLIENTS];
+static int udp_packet_id[NUM_OF_PARALLEL_CLIENTS];
+static u8_t udp_client_hdr_sent[NUM_OF_PARALLEL_CLIENTS];
 #define FINISH	1
 /* Report interval time in ms */
 #define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 1000)
@@ -131,6 +135,7 @@ static void udp_conn_report(u64_t diff,
 
 static void reset_stats(void)
 {
+	u16_t i;
 	client.client_id++;
 
 	/* Print connection statistics */
@@ -145,24 +150,98 @@ static void reset_stats(void)
 	client.i_report.start_time = 0;
 	client.i_report.total_bytes = 0;
 	client.i_report.last_report_time = 0;
+
+	/* Initialize packet IDs to 2 (packet 1 is iperf header)
+	 * and reset header sent flags */
+	for (i = 0; i < NUM_OF_PARALLEL_CLIENTS; i++) {
+		udp_packet_id[i] = 2;
+		udp_client_hdr_sent[i] = 0;
+	}
+}
+
+static int send_iperf_udp_client_header(u8_t stream_idx)
+{
+	int count;
+	udp_client_test_hdr *hdr;
+	char tx_buf[UDP_SEND_BUFSIZE];
+	socklen_t len = sizeof(addr);
+
+	memcpy(tx_buf, send_buf, UDP_SEND_BUFSIZE);
+
+	hdr = (udp_client_test_hdr *)tx_buf;
+
+	/* UDP datagram header */
+	hdr->id = PP_HTONL(1);
+	hdr->tv_sec = 0;
+	hdr->tv_usec = 0;
+	hdr->id2 = 0;
+
+	/* iperf client header */
+	hdr->flags = PP_HTONL(0);
+	hdr->num_threads = PP_HTONL(NUM_OF_PARALLEL_CLIENTS);
+	hdr->remote_port = PP_HTONL(UDP_CONN_PORT);
+	hdr->buffer_len = PP_HTONL(UDP_SEND_BUFSIZE);
+	hdr->win_band = 0;
+	/* Negative value = time-based test (unit is 10ms)
+	 * Positive value = byte-based test (number of bytes to transfer) */
+	hdr->amount = PP_HTONL((u32_t)(-(s32_t)(UDP_TIME_INTERVAL * 100)));
+
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	count = lwip_sendto_blocking(sock[stream_idx], tx_buf, UDP_SEND_BUFSIZE, 0,
+			(struct sockaddr *)&addr, len);
+#else
+	count = lwip_sendto(sock[stream_idx], tx_buf, UDP_SEND_BUFSIZE, 0,
+			(struct sockaddr *)&addr, len);
+#endif
+	if (count > 0) {
+		client.total_bytes += count;
+		client.cnt_datagrams++;
+		client.i_report.total_bytes += count;
+		return 0;
+	}
+	return -1;
 }
 
 static int udp_packet_send(u8_t finished)
 {
-	static int packet_id;
 	int i, count, *payload;
 	u8_t retries = MAX_SEND_RETRY;
 	socklen_t len = sizeof(addr);
 
-	payload = (int*) (send_buf);
-	if (finished == FINISH)
-		packet_id = -1;
-	*payload = htonl(packet_id);
-
-	/* always increment the id */
-	packet_id++;
-
 	for (i = 0; i < NUM_OF_PARALLEL_CLIENTS; i++) {
+		retries = MAX_SEND_RETRY;
+
+		/* Send iperf header first if not sent yet */
+		if (!finished && !udp_client_hdr_sent[i]) {
+			while (retries) {
+				if (send_iperf_udp_client_header(i) < 0) {
+					xil_printf("UDP client[%d]: Error sending iperf header\r\n", i);
+					retries--;
+					usleep(ERROR_SLEEP);
+				} else {
+					udp_client_hdr_sent[i] = 1;
+					usleep(IPERF_HDR_SEND_DELAY_US);
+					break;
+				}
+			}
+			if (!retries) {
+				u64_t now = sys_now();
+				u64_t diff_ms = now - client.start_time;
+				xil_printf("Too many retries sending udp iperf header, ");
+				xil_printf("Terminating application\n\r");
+				udp_conn_report(diff_ms, UDP_DONE_CLIENT);
+				xil_printf("UDP test failed\n\r");
+				close(sock[i]);
+				return -1;
+			}
+			continue;
+		}
+
+		payload = (int*) (send_buf);
+		if (finished == FINISH)
+			udp_packet_id[i] = -1;
+		*payload = htonl(udp_packet_id[i]);
+
 		while (retries) {
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 			count = lwip_sendto_blocking(sock[i], send_buf, sizeof(send_buf), 0,
@@ -178,6 +257,7 @@ static int udp_packet_send(u8_t finished)
 				client.total_bytes += count;
 				client.cnt_datagrams++;
 				client.i_report.total_bytes += count;
+				udp_packet_id[i]++;
 				break;
 			}
 		}
@@ -192,7 +272,6 @@ static int udp_packet_send(u8_t finished)
 			xil_printf("UDP test failed\n\r");
 			return -1;
 		}
-		retries = MAX_SEND_RETRY;
 
 		/* For ZynqMP GEM, At high speed, packets are being
 		 * received as Out of order at Iperf server running

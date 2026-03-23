@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2017 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -93,6 +93,28 @@ struct perf_stats {
 	struct interim_report i_report;
 };
 
+/**
+ * This structure defines the iperf2 UDP client test header sent to the server
+ * at the beginning of a performance test session. It contains the UDP datagram
+ * header fields (id, tv_sec, tv_usec, id2) followed by test configuration
+ * parameters such as thread count, port, buffer size, and test duration or
+ * byte amount.
+ */
+typedef struct udp_client_test_hdr_v1 {
+	/* UDP datagram fields */
+	u32_t id;
+	u32_t tv_sec;
+	u32_t tv_usec;
+	u32_t id2;
+	/* client_hdr fields */
+	u32_t flags;
+	u32_t num_threads;
+	u32_t remote_port;
+	u32_t buffer_len;
+	u32_t win_band;
+	u32_t amount;
+} udp_client_test_hdr;
+
 /* seconds between periodic bandwidth reports */
 #define INTERIM_REPORT_INTERVAL 5
 
@@ -116,6 +138,9 @@ struct perf_stats {
 
 /* Sleep in microseconds in case of UDP send errors */
 #define ERROR_SLEEP 100
+
+/* Delay after sending iperf header in microseconds (100ms) */
+#define IPERF_HDR_SEND_DELAY_US 100000
 
 #ifdef __cplusplus
 }
