@@ -39,6 +39,18 @@ static iperf_client_test_hdr client_hdr;
 /* End time in ms */
 #define END_TIME (TCP_TIME_INTERVAL * 1000)
 
+/*****************************************************************************/
+/**
+ * This function sends the iperf2 client header to the remote server over
+ * the established TCP connection. The header contains test parameters
+ * such as thread count, port, buffer length, and test duration.
+ *
+ * @param    sock is the socket descriptor for the active connection.
+ *
+ * @return   Returns 0 if the header was sent successfully, otherwise
+ *           returns -1 if lwip_send failed.
+ *
+ *****************************************************************************/
 static int send_client_header(int sock)
 {
 	int bytes_sent;
@@ -60,6 +72,15 @@ static int send_client_header(int sock)
 	return 0;
 }
 
+/*****************************************************************************/
+/**
+ * This function prints the application header showing the server IP address
+ * and port the client will connect to, along with the iperf command to run
+ * on the host.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void print_app_header()
 {
 #if LWIP_IPV6==1
@@ -75,6 +96,16 @@ void print_app_header()
 #endif /* LWIP_IPV6 */
 }
 
+/*****************************************************************************/
+/**
+ * This function prints the TCP connection statistics including the local
+ * and remote IP addresses and ports for the performance test.
+ *
+ * @param    sock is the socket descriptor for the active connection.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void print_tcp_txperf_header(int sock)
 {
 	int size;
@@ -103,6 +134,19 @@ void print_tcp_txperf_header(int sock)
 
 }
 
+/*****************************************************************************/
+/**
+ * This function formats a data value into a human-readable string with
+ * appropriate unit prefix (K, M, G) for display in performance reports.
+ *
+ * @param    outString is a pointer to the output buffer for the formatted
+ *           string.
+ * @param    data is the value to format.
+ * @param    type indicates whether the value represents BYTES or SPEED.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void stats_buffer(char* outString, double data, enum measure_t type)
 {
 	int conv = KCONV_UNIT;
@@ -128,7 +172,20 @@ static void stats_buffer(char* outString, double data, enum measure_t type)
 	sprintf(outString, format, data, kLabel[conv]);
 }
 
-/** The report function of a TCP client session */
+/*****************************************************************************/
+/**
+ * This function generates and prints a performance report for the TCP
+ * client session, showing the transfer interval, bytes transferred, and
+ * bandwidth achieved.
+ *
+ * @param    diff is the time difference in milliseconds for the report
+ *           interval.
+ * @param    report_type indicates whether this is an interim report or
+ *           final report.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void tcp_conn_report(u64_t diff, enum report_type report_type)
 {
 	u64_t total_len;
@@ -166,6 +223,17 @@ static void tcp_conn_report(u64_t diff, enum report_type report_type)
 		client.i_report.last_report_time += duration;
 }
 
+/*****************************************************************************/
+/**
+ * This function sends TCP performance test traffic over the established
+ * connection. It continuously sends data and handles interim and final
+ * reporting based on configured time intervals.
+ *
+ * @param    sock is the socket descriptor for the active connection.
+ *
+ * @return   Returns ERR_OK when the test completes.
+ *
+ *****************************************************************************/
 int tcp_send_perf_traffic(int sock)
 {
 	int bytes_send;
@@ -236,6 +304,15 @@ int tcp_send_perf_traffic(int sock)
 	return ERR_OK;
 }
 
+/*****************************************************************************/
+/**
+ * This function initializes and starts the TCP performance client
+ * application. It creates a socket, connects to the remote iperf server,
+ * sends the client header, and starts the performance test.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void start_application(void)
 {
 	int sock, i;

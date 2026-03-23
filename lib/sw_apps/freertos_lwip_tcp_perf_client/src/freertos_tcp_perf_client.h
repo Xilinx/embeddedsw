@@ -97,12 +97,12 @@ struct perf_stats {
  * and test duration or byte amount.
  */
 typedef struct iperf_client_test_hdr {
-	u32_t flags;
-	u32_t num_threads;
-	u32_t remote_port;
-	u32_t buffer_len;
-	u32_t win_band;
-	u32_t amount;
+	u32_t flags;        /**< Test configuration flags. */
+	u32_t num_threads;  /**< Number of parallel threads for the test. */
+	u32_t remote_port;  /**< Remote server port number. */
+	u32_t buffer_len;   /**< Length of the data buffer in bytes. */
+	u32_t win_band;     /**< Window size or bandwidth limit. */
+	u32_t amount;       /**< Test duration (negative) or bytes to transfer. */
 } iperf_client_test_hdr;
 
 /* seconds between periodic bandwidth reports */

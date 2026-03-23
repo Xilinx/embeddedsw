@@ -45,6 +45,15 @@ static u8_t udp_client_hdr_sent[NUM_OF_PARALLEL_CLIENTS];
 /* End time in ms */
 #define END_TIME (UDP_TIME_INTERVAL * 1000)
 
+/*****************************************************************************/
+/**
+ * This function prints the application header showing the server IP address
+ * and port the client will connect to, along with the iperf command to run
+ * on the host.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void print_app_header(void)
 {
 	xil_printf("UDP client connecting to %s on port %d\r\n",
@@ -53,6 +62,14 @@ void print_app_header(void)
 			INTERIM_REPORT_INTERVAL);
 }
 
+/*****************************************************************************/
+/**
+ * This function prints the UDP connection statistics including the local
+ * and remote IP addresses and ports.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void print_udp_conn_stats(void)
 {
 	xil_printf("[%3d] local %s port %d connected with ",
@@ -63,6 +80,19 @@ static void print_udp_conn_stats(void)
 	xil_printf("[ ID] Interval\t\tTransfer   Bandwidth\n\r");
 }
 
+/*****************************************************************************/
+/**
+ * This function formats a data value into a human-readable string with
+ * appropriate unit prefix (K, M, G) for display in performance reports.
+ *
+ * @param    outString is a pointer to the output buffer for the formatted
+ *           string.
+ * @param    data is the value to format.
+ * @param    type indicates whether the value represents BYTES or SPEED.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void stats_buffer(char* outString,
 		double data, enum measure_t type)
 {
@@ -89,8 +119,20 @@ static void stats_buffer(char* outString,
 	sprintf(outString, format, data, kLabel[conv]);
 }
 
-
-/* The report function of a UDP client session */
+/*****************************************************************************/
+/**
+ * This function generates and prints a performance report for the UDP
+ * client session, showing the transfer interval, bytes transferred,
+ * bandwidth achieved, and datagram count.
+ *
+ * @param    diff is the time difference in milliseconds for the report
+ *           interval.
+ * @param    report_type indicates whether this is an interim report or
+ *           final report.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void udp_conn_report(u64_t diff,
 		enum report_type report_type)
 {
@@ -132,7 +174,15 @@ static void udp_conn_report(u64_t diff,
 				client.client_id, client.cnt_datagrams);
 }
 
-
+/*****************************************************************************/
+/**
+ * This function resets the client statistics and initializes the state
+ * for a new UDP performance test session. It sets up packet IDs and
+ * header sent flags for all parallel client streams.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void reset_stats(void)
 {
 	u16_t i;
@@ -159,6 +209,18 @@ static void reset_stats(void)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * This function sends the iperf2 client header to the remote server over
+ * the established UDP connection. The header contains test parameters
+ * such as thread count, port, buffer length, and test duration.
+ *
+ * @param    stream_idx is the index of the parallel client stream.
+ *
+ * @return   Returns 0 if the header was sent successfully, otherwise
+ *           returns -1 if sendto failed.
+ *
+ *****************************************************************************/
 static int send_iperf_udp_client_header(u8_t stream_idx)
 {
 	int count;
@@ -202,6 +264,19 @@ static int send_iperf_udp_client_header(u8_t stream_idx)
 	return -1;
 }
 
+/*****************************************************************************/
+/**
+ * This function sends UDP packets for the performance test. It handles
+ * sending the iperf header on the first packet and then sends data
+ * packets with incrementing sequence IDs. It also handles retry logic
+ * and error reporting.
+ *
+ * @param    finished indicates whether this is the final packet (FINISH)
+ *           or a regular data packet.
+ *
+ * @return   Returns 0 on success, -1 on failure.
+ *
+ *****************************************************************************/
 static int udp_packet_send(u8_t finished)
 {
 	int i, count, *payload;
@@ -288,7 +363,15 @@ static int udp_packet_send(u8_t finished)
 	return 0;
 }
 
-/* Transmit data on a udp session */
+/*****************************************************************************/
+/**
+ * This function is called from the main application loop to continue
+ * sending performance test traffic on active UDP connections. It handles
+ * interim reporting and test termination based on configured time.
+ *
+ * @return   Returns FINISH when test is complete, 0 to continue.
+ *
+ *****************************************************************************/
 int transfer_data(void)
 {
 	if (END_TIME || REPORT_INTERVAL_TIME) {
@@ -326,6 +409,15 @@ int transfer_data(void)
 	return 0;
 }
 
+/*****************************************************************************/
+/**
+ * This function initializes and starts the UDP performance client
+ * application. It creates sockets for parallel client streams, connects
+ * to the remote iperf server, and runs the performance test loop.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void start_application(void)
 {
 	err_t err;

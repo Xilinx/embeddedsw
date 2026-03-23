@@ -137,6 +137,15 @@ void network_thread(void *p)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * This function is the main thread entry point for the UDP performance
+ * client application. It initializes lwIP, creates network threads, and
+ * manages the application lifecycle.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void main_thread()
 {
 

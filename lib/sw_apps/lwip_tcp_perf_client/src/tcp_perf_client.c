@@ -39,10 +39,38 @@ static iperf_client_test_hdr client_hdr;
 static u8_t client_hdr_acked = 0;
 
 /* Forward declarations */
+
+/*****************************************************************************/
+/**
+ * This function generates and prints a performance report for the TCP
+ * client session, showing the transfer interval, bytes transferred,
+ * and bandwidth achieved.
+ *
+ * @param    diff is the time difference in milliseconds for the report
+ *           interval.
+ * @param    report_type indicates whether this is an interim report or
+ *           final report.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void tcp_conn_report(u64_t diff, enum report_type report_type);
 static void tcp_client_close(struct tcp_pcb *pcb);
 void print_app_header(void);
 
+/*****************************************************************************/
+/**
+ * This function sends the iperf2 client header to the remote server over
+ * the established TCP connection. The header contains test parameters
+ * such as thread count, port, buffer length, and test duration.
+ *
+ * @param    pcb is a pointer to the TCP protocol control block for the
+ *           active connection.
+ *
+ * @return   Returns ERR_OK if the header was sent successfully, otherwise
+ *           returns an error code if tcp_write or tcp_output failed.
+ *
+ *****************************************************************************/
 static err_t send_iperf_client_header(struct tcp_pcb *pcb)
 {
 	err_t err;
@@ -72,6 +100,15 @@ static err_t send_iperf_client_header(struct tcp_pcb *pcb)
 	return ERR_OK;
 }
 
+/*****************************************************************************/
+/**
+ * This function prints the application header showing the server IP address
+ * and port the client will connect to, along with the iperf command to run
+ * on the host.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void print_app_header(void)
 {
 #if LWIP_IPV6==1
@@ -87,6 +124,14 @@ void print_app_header(void)
 #endif /* LWIP_IPV6 */
 }
 
+/*****************************************************************************/
+/**
+ * This function prints the TCP connection statistics including the local
+ * and remote IP addresses and ports.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void print_tcp_conn_stats(void)
 {
 #if LWIP_IPv6==1
@@ -106,6 +151,19 @@ static void print_tcp_conn_stats(void)
 	xil_printf("[ ID] Interval\t\tTransfer   Bandwidth\n\r");
 }
 
+/*****************************************************************************/
+/**
+ * This function formats a data value into a human-readable string with
+ * appropriate unit prefix (K, M, G) for display in performance reports.
+ *
+ * @param    outString is a pointer to the output buffer for the formatted
+ *           string.
+ * @param    data is the value to format.
+ * @param    type indicates whether the value represents BYTES or SPEED.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void stats_buffer(char* outString,
 		double data, enum measure_t type)
 {
@@ -132,8 +190,20 @@ static void stats_buffer(char* outString,
 	sprintf(outString, format, data, kLabel[conv]);
 }
 
-
-/** The report function of a TCP client session */
+/*****************************************************************************/
+/**
+ * This function generates and prints a performance report for the TCP
+ * client session, showing the transfer interval, bytes transferred, and
+ * bandwidth achieved.
+ *
+ * @param    diff is the time difference in milliseconds for the report
+ *           interval.
+ * @param    report_type indicates whether this is an interim report or
+ *           final report.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void tcp_conn_report(u64_t diff,
 		enum report_type report_type)
 {
@@ -171,7 +241,16 @@ static void tcp_conn_report(u64_t diff,
 		client.i_report.last_report_time += duration;
 }
 
-/** Close a tcp session */
+/*****************************************************************************/
+/**
+ * This function closes the TCP client connection by clearing callbacks
+ * and releasing the protocol control block resources.
+ *
+ * @param    pcb is a pointer to the TCP protocol control block to close.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void tcp_client_close(struct tcp_pcb *pcb)
 {
 	err_t err;
@@ -187,7 +266,18 @@ static void tcp_client_close(struct tcp_pcb *pcb)
 	}
 }
 
-/** Error callback, tcp session aborted */
+/*****************************************************************************/
+/**
+ * This function is the error callback invoked when the TCP connection is
+ * aborted by the remote host or encounters an error. It closes the
+ * connection and prints a final report.
+ *
+ * @param    arg is a pointer to user-supplied argument (unused).
+ * @param    err is the error code indicating the reason for abort.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 static void tcp_client_err(void *arg, err_t err)
 {
 	LWIP_UNUSED_ARG(arg);
@@ -201,6 +291,16 @@ static void tcp_client_err(void *arg, err_t err)
 	xil_printf("TCP connection aborted\n\r");
 }
 
+/*****************************************************************************/
+/**
+ * This function sends performance test traffic over the established TCP
+ * connection. It writes data to the TCP send buffer and handles interim
+ * and final reporting based on configured time intervals.
+ *
+ * @return   Returns ERR_OK on success, ERR_CONN if no connection exists,
+ *           or other error codes if tcp_write or tcp_output fails.
+ *
+ *****************************************************************************/
 static err_t tcp_send_perf_traffic(void)
 {
 	err_t err;
@@ -272,7 +372,19 @@ static err_t tcp_send_perf_traffic(void)
 	return ERR_OK;
 }
 
-/** TCP sent callback, try to send more data */
+/*****************************************************************************/
+/**
+ * This function is the TCP sent callback invoked when data has been
+ * acknowledged by the remote host. It checks for the client header ACK
+ * and triggers sending more performance traffic.
+ *
+ * @param    arg is a pointer to user-supplied argument (unused).
+ * @param    tpcb is a pointer to the TCP protocol control block.
+ * @param    len is the number of bytes acknowledged.
+ *
+ * @return   Returns ERR_OK on success or error code from tcp_send_perf_traffic.
+ *
+ *****************************************************************************/
 static err_t tcp_client_sent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 {
 	LWIP_UNUSED_ARG(arg);
@@ -286,7 +398,19 @@ static err_t tcp_client_sent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 	return tcp_send_perf_traffic();
 }
 
-/** TCP connected callback (active connection), send data now */
+/*****************************************************************************/
+/**
+ * This function is the TCP connected callback invoked when the active
+ * connection to the remote server is established. It initializes the
+ * client state and sends the iperf client header to begin the test.
+ *
+ * @param    arg is a pointer to user-supplied argument (unused).
+ * @param    tpcb is a pointer to the TCP protocol control block.
+ * @param    err is the connection result status.
+ *
+ * @return   Returns ERR_OK on success or error code if connection failed.
+ *
+ *****************************************************************************/
 static err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err)
 {
 	LWIP_UNUSED_ARG(arg);
@@ -324,12 +448,29 @@ static err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err)
 	return ERR_OK;
 }
 
+/*****************************************************************************/
+/**
+ * This function is called from the main application loop to continue
+ * sending performance test traffic on an active TCP connection.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void transfer_data(void)
 {
 	if (client.client_id)
 		tcp_send_perf_traffic();
 }
 
+/*****************************************************************************/
+/**
+ * This function initializes and starts the TCP performance client
+ * application. It creates a TCP PCB, sets up callbacks, and initiates
+ * a connection to the remote iperf server.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
 void start_application(void)
 {
 	err_t err;

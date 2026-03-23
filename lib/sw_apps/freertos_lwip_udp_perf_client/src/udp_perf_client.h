@@ -102,17 +102,17 @@ struct perf_stats {
  */
 typedef struct udp_client_test_hdr_v1 {
 	/* UDP datagram fields */
-	u32_t id;
-	u32_t tv_sec;
-	u32_t tv_usec;
-	u32_t id2;
+	u32_t id;           /**< Unique datagram identifier. */
+	u32_t tv_sec;       /**< Timestamp seconds component. */
+	u32_t tv_usec;      /**< Timestamp microseconds component. */
+	u32_t id2;          /**< Secondary datagram identifier. */
 	/* client_hdr fields */
-	u32_t flags;
-	u32_t num_threads;
-	u32_t remote_port;
-	u32_t buffer_len;
-	u32_t win_band;
-	u32_t amount;
+	u32_t flags;        /**< Test configuration flags. */
+	u32_t num_threads;  /**< Number of parallel threads for the test. */
+	u32_t remote_port;  /**< Remote server port number. */
+	u32_t buffer_len;   /**< Length of the data buffer in bytes. */
+	u32_t win_band;     /**< Window size or bandwidth limit. */
+	u32_t amount;       /**< Test duration (negative) or bytes to transfer. */
 } udp_client_test_hdr;
 
 /* seconds between periodic bandwidth reports */
@@ -139,7 +139,10 @@ typedef struct udp_client_test_hdr_v1 {
 /* Sleep in microseconds in case of UDP send errors */
 #define ERROR_SLEEP 100
 
-/* Delay after sending iperf header in microseconds (100ms) */
+/**
+ * @def IPERF_HDR_SEND_DELAY_US
+ * @brief Delay after sending iperf header in microseconds (100ms).
+ */
 #define IPERF_HDR_SEND_DELAY_US 100000
 
 #ifdef __cplusplus
