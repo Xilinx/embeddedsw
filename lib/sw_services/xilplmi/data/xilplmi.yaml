@@ -39,6 +39,7 @@ examples:
   xplmi_glitch_detector_example.c:
   xplmi_usermodule_example.c:
   xilplmi_in_place_plm_update_client_example.c:
+  xilplmi_in_place_asu_update_client_example.c:
   xplmi_configure_secure_comm_example.c:
 
   condition: |
@@ -64,4 +65,7 @@ examples:
 
     if (platform == "VersalNet" and proc in versalnet_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
       examples += ["xilplmi_in_place_plm_update_client_example.c"]
+
+    if platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs:
+      examples += ["xilplmi_in_place_asu_update_client_example.c"]
 ...
