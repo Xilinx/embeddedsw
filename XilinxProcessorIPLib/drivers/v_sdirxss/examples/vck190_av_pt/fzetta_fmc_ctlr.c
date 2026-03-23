@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 /**
@@ -79,6 +79,7 @@ int fzetta_fmc_register_write(fzetta_dev_type *Dev, u8 *Channel, spi_slave_sel *
 	int Status = XST_SUCCESS;
 
 	if (*Dev == IIC_Dev){
+		Status |= fzetta_fmc_iic_xbar_register_write(*RegAddr, *RegData);
 	}
 	else if (*Dev == SPI_Dev){
 		Status |= fzetta_fmc_spi_channel_select(*Channel);

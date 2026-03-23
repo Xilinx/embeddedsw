@@ -134,4 +134,16 @@ examples:
             - vek385_av_pt/idt_8t49n24x.h
             - vek385_av_pt/lscript.ld
 
+    scu200_picxo_example/scu200_picxo_example.txt:
+        - dependency_files:
+            - scu200_picxo_example/xsdi_example.c
+            - scu200_picxo_example/platform.c
+            - scu200_picxo_example/platform.h
+            - scu200_picxo_example/platform_config.h
+            - scu200_picxo_example/si570drv.c
+            - scu200_picxo_example/si570drv.h
+            - scu200_picxo_example/xsdi_menu.c
+            - scu200_picxo_example/xsdi_menu.h
+            - scu200_picxo_example/lscript.ld
+
 ...

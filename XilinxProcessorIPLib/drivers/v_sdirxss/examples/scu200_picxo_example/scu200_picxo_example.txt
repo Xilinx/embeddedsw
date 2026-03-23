@@ -1,0 +1,4 @@
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+
+Note: This Application is supported for Microblaze device SDI rxss pixco designs.
