@@ -20,6 +20,8 @@
 * ----- ------ -------- ----------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.7   vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+* 1.7   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -84,7 +86,7 @@ XClockPs_Config *XClock_LookupConfig(u16 DeviceId)
 	return (XClockPs_Config *)CfgPtr;
 }
 #else
-XClockPs_Config *XClock_LookupConfig(u32 BaseAddress)
+XClockPs_Config *XClock_LookupConfig(UINTPTR BaseAddress)
 {
 	XClockPs_Config *CfgPtr = NULL;
 	u32 Index;

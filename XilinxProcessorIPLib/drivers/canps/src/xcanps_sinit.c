@@ -27,6 +27,8 @@
 * 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * 3.7	ht     06/28/23 Added support for system device-tree flow.
 * 3.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.12  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR to
+* 			support 64-bit addressing.
 
 * </pre>
 *
@@ -85,7 +87,7 @@ XCanPs_Config *XCanPs_LookupConfig(u16 DeviceId)
 	return (XCanPs_Config *)CfgPtr;
 }
 #else
-XCanPs_Config *XCanPs_LookupConfig(u32 BaseAddress)
+XCanPs_Config *XCanPs_LookupConfig(UINTPTR BaseAddress)
 {
 	XCanPs_Config *CfgPtr = NULL;
 	u32 Index;

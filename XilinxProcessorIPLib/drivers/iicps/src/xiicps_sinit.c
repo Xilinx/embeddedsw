@@ -23,6 +23,8 @@
 * 3.00	sk     01/31/15	Modified the code according to MISRAC 2012 Compliant.
 * 3.18  gm     07/14/23 Added SDT support.
 * 3.23  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.23  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 *
 * </pre>
 *
@@ -85,7 +87,7 @@ XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId)
 	return (XIicPs_Config *)CfgPtr;
 }
 #else
-XIicPs_Config *XIicPs_LookupConfig(u32 BaseAddress)
+XIicPs_Config *XIicPs_LookupConfig(UINTPTR BaseAddress)
 {
 	XIicPs_Config *CfgPtr = NULL;
 	s32 Index;

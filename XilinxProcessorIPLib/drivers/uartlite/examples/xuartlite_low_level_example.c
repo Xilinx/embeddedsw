@@ -31,6 +31,8 @@
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.13  vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
+*                     to support 64-bit addressing
 * </pre>
 ******************************************************************************/
 
@@ -71,7 +73,7 @@
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
-int UartLiteLowLevelExample(u32 UartliteBaseAddress);
+int UartLiteLowLevelExample(UINTPTR UartliteBaseAddress);
 #else
 int UartLiteLowLevelExample(UINTPTR BaseAddress);
 #endif
@@ -138,7 +140,7 @@ int main(void)
 *
 ******************************************************************************/
 #ifndef SDT
-int UartLiteLowLevelExample(u32 UartliteBaseAddress)
+int UartLiteLowLevelExample(UINTPTR UartliteBaseAddress)
 #else
 int UartLiteLowLevelExample(UINTPTR UartliteBaseAddress)
 #endif

@@ -37,6 +37,9 @@
 * 1.5   sd     07/10/23 Added SDT support
 * 1.6   sd     11/03/23 Fix the redefinition of the PSS_REF frequency
 * 1.7   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+* 1.7   vlt    04/14/26 Updated LookupConfig BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing
+
 * </pre>
 *
 ******************************************************************************/
@@ -196,7 +199,7 @@ typedef struct {
 	u16 DeviceId;                    /**< Unique ID of device */
 #else
 	char *Name;                       /**< Name of the device */
-	u32 BaseAddress;                  /**< Base address of the device */
+	UINTPTR BaseAddress;                  /**< Base address of the device */
 #endif
 } XClockPs_Config;
 
@@ -666,7 +669,7 @@ XClockRate XClock_FetchRate(XClock_Types NodeType, u8 NodeIdx);
 #ifndef SDT
 XClockPs_Config *XClock_LookupConfig(u16 DeviceId);
 #else
-XClockPs_Config *XClock_LookupConfig(u32 BaseAddress);
+XClockPs_Config *XClock_LookupConfig(UINTPTR BaseAddress);
 #endif
 XStatus XClock_CfgInitialize(XClock *InstancePtr, XClockPs_Config *ConfigPtr);
 XStatus XClock_EnableClock(XClock_OutputClks ClockId);

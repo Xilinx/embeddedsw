@@ -24,6 +24,8 @@
 * 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.6   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 *
 * </pre>
 *
@@ -79,7 +81,7 @@ XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId)
 	return (XSdPs_Config *)CfgPtr;
 }
 #else
-XSdPs_Config *XSdPs_LookupConfig(u32 BaseAddress)
+XSdPs_Config *XSdPs_LookupConfig(UINTPTR BaseAddress)
 {
 	XSdPs_Config *CfgPtr = NULL;
 	u32 Index;

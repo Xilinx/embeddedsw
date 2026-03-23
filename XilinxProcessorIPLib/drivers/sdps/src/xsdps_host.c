@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,8 @@
 * 4.2   ap     08/09/23 Restructured XSdPs_FrameCmd API
 * 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
 * 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
+* 4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -1258,7 +1260,7 @@ u32 XSdPs_CalcClock(XSdPs *InstancePtr, u32 SelFreq)
 void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 {
 #ifndef versal
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 	u32 DllCtrl;
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
@@ -1312,7 +1314,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 ******************************************************************************/
 void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 {
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 	u32 TapDelay;
 	u32 ITapDelay;
 	u32 OTapDelay;

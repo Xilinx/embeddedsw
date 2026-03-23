@@ -129,7 +129,9 @@
  * 1.18 sb  08/01/23 Added support for Feed back clock
  * 1.19 sb  01/12/24 Added support for baud rate divisor
  * 1.20 ht  09/27/24 Fix IAR warning.
- * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+ * 1.23 vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+ * 1.23 vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
+ *                   to support 64-bit addressing.
  *
  * </pre>
  *
@@ -495,7 +497,7 @@ static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 #ifndef SDT
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId);
 #else
-XQspiPsu_Config *XQspiPsu_LookupConfig(u32 BaseAddress);
+XQspiPsu_Config *XQspiPsu_LookupConfig(UINTPTR BaseAddress);
 #endif
 s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 			   const XQspiPsu_Config *ConfigPtr,

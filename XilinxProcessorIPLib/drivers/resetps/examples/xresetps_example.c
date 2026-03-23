@@ -27,6 +27,8 @@
 *       mus    02/28/19 Initialized FailCnt variable
 * 1.6   sd     07/07/23 Added SDT support.
 * 1.8   vlt    01/27/26 Fixed codespell issues.
+* 1.8   vlt    03/15/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -56,7 +58,7 @@ typedef struct {
 #ifndef SDT
 static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDevId);
 #else
-static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u32 BaseAddress);
+static XStatus ResetPsExample(XResetPs *ResetInstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -123,7 +125,7 @@ int main(void)
 #ifndef SDT
 static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDeviceId)
 #else
-static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u32 BaseAddress)
+static XStatus ResetPsExample(XResetPs *ResetInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int                Status;

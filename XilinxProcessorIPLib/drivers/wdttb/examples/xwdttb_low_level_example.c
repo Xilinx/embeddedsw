@@ -36,6 +36,8 @@
 * 4.0   sha  02/04/16 Added debug messages.
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.12  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                     to support 64-bit addressing.
 * </pre>
 ******************************************************************************/
 
@@ -66,7 +68,7 @@
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
-int XWdtTb_LowLevelExample(u32 WdtTbBaseAddress);
+int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress);
 #else
 int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress);
 #endif
@@ -132,7 +134,7 @@ int main(void)
 *
 ****************************************************************************/
 #ifndef SDT
-int XWdtTb_LowLevelExample(u32 WdtTbBaseAddress)
+int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
 #else
 int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
 #endif

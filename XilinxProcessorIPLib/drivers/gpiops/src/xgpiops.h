@@ -132,6 +132,8 @@
 * 3.14  bkv  02/20/25 Changed data type of effective address from u32 to UINTPTR
 *                     to support both 32-bit and 64-bit platforms.
 * 3.15  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                     to support 64-bit addressing.
 *
 * </pre>
 *
@@ -313,7 +315,7 @@ void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin);
 #ifndef SDT
 XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId);
 #else
-XGpioPs_Config *XGpioPs_LookupConfig(u32 BaseAddress);
+XGpioPs_Config *XGpioPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 #ifdef __cplusplus
 }

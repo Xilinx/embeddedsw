@@ -26,6 +26,8 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.12  gm   07/11/23 Added SDT support.
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                     to support 64-bit addressing.
 *
 * </pre>
 *
@@ -82,7 +84,7 @@ XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId)
 	return (XGpioPs_Config *)CfgPtr;
 }
 #else
-XGpioPs_Config *XGpioPs_LookupConfig(u32 BaseAddress)
+XGpioPs_Config *XGpioPs_LookupConfig(UINTPTR BaseAddress)
 {
 	XGpioPs_Config *CfgPtr = NULL;
 	u32 Index;

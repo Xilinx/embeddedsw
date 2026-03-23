@@ -21,6 +21,8 @@
 * 1.00  sd      06/10/22 First release
 * 1.3   sd      11/17/23 Added support for system device-tree flow
 * 1.7   vlt     12/18/25 Update Doxygen comments to include SDT flow details.
+* 1.7   vlt     03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                        to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -80,7 +82,7 @@ XI3cPsx_Config *XI3cPsx_LookupConfig(u16 DeviceId)
 	return (XI3cPsx_Config *)CfgPtr;
 }
 #else
-XI3cPsx_Config *XI3cPsx_LookupConfig(u32 BaseAddress)
+XI3cPsx_Config *XI3cPsx_LookupConfig(UINTPTR BaseAddress)
 {
 	XI3cPsx_Config *CfgPtr = NULL;
 	s32 Index;

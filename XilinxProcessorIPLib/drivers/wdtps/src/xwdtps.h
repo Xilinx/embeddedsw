@@ -71,6 +71,8 @@
 * 3.4	sne    08/28/20 Modify Makefile to support parallel make execution.
 * 3.6	sb     06/27/23 Added support for system device-tree flow.
 * 3.9   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.9   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 *
 * </pre>
 *
@@ -188,7 +190,7 @@ extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table */
 #ifndef SDT
 XWdtPs_Config *XWdtPs_LookupConfig(u16 DeviceId);
 #else
-XWdtPs_Config *XWdtPs_LookupConfig(u32 BaseAddress);
+XWdtPs_Config *XWdtPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /*

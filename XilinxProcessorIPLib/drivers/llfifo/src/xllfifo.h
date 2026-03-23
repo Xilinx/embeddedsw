@@ -165,6 +165,8 @@
  * 5.5 sd     09/04/20  Makefile update for parallel execution.
  * 5.6 sd     07/7/23  Add system devicetree support.
  * 6.1 vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+ * 6.1 vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+ *                     to support 64-bit addressing.
  * </pre>
  *
  *****************************************************************************/
@@ -196,7 +198,7 @@ typedef struct XLlFifo {
 	                        *   has been initialized.
 	                        */
 
-	u32 Axi4BaseAddress;	/**< BaseAddress if the FIFO Data interface is
+	UINTPTR Axi4BaseAddress;	/**< BaseAddress if the FIFO Data interface is
 				 *	AXI4 this address should use for FIFO
 				 *	access
 				 */
@@ -223,7 +225,7 @@ typedef struct XLlFifo_Config {
 	char *Name;             /**< Name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< Base Address of the AXI FIFO */
-	u32 Axi4BaseAddress;    /**< Axi4 interface Base address */
+	UINTPTR Axi4BaseAddress;    /**< Axi4 interface Base address */
 	u32 Datainterface;	/**< Type of Datainterface */
 #ifdef SDT
 	u32 IntId; /**< Interrupt ID on GIC **/

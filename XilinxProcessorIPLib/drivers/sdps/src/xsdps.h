@@ -104,6 +104,8 @@
 * 4.4   ht     09/30/24 Fix IAR warnings.
 * 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
 * 4.6   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+* 4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 *
 * </pre>
 *
@@ -318,7 +320,7 @@ extern XSdPs_Config XSdPs_ConfigTable[];
 #ifndef SDT
 XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId);
 #else
-XSdPs_Config *XSdPs_LookupConfig(u32 BaseAddress);
+XSdPs_Config *XSdPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 			UINTPTR EffectiveAddr);

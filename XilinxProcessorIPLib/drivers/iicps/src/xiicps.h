@@ -71,7 +71,9 @@
 * 		      Added support for clock stretching and timeout support.
 * 3.18  gm   07/14/23 Added SDT support.
 * 	sd   09/06/23 Compile refclk for SDT
-* 3.23  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.23  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.23  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                     to support 64-bit addressing
 *
 * </pre>
 *
@@ -286,7 +288,7 @@ static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
 #ifndef SDT
 XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId);
 #else
-XIicPs_Config *XIicPs_LookupConfig(u32 BaseAddress);
+XIicPs_Config *XIicPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /**

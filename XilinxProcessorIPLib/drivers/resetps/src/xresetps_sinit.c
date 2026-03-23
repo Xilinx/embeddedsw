@@ -23,6 +23,8 @@
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 * 1.5   sd     07/07/23 Added SDT support.
 * 1.8   vlt    12/16/25 Update Doxygen comments to include SDT flow details.
+* 1.8   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -86,7 +88,7 @@ XResetPs_Config *XResetPs_LookupConfig(u16 DeviceId)
 	return (XResetPs_Config *)CfgPtr;
 }
 #else
-XResetPs_Config *XResetPs_LookupConfig(u32 BaseAddress)
+XResetPs_Config *XResetPs_LookupConfig(UINTPTR BaseAddress)
 {
 	XResetPs_Config *CfgPtr = NULL;
 	u32 Index;

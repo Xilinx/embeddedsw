@@ -22,6 +22,8 @@
 * 1.00  drg/jz 01/13/10 First Release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.18  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.18  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 *****************************************************************************/
@@ -88,7 +90,7 @@ XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId)
 	return (XUartPs_Config *)CfgPtr;
 }
 #else
-XUartPs_Config *XUartPs_LookupConfig(u32 BaseAddress)
+XUartPs_Config *XUartPs_LookupConfig(UINTPTR BaseAddress)
 {
 	XUartPs_Config *CfgPtr = NULL;
 	u32 Index;

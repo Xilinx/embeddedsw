@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,8 @@
 *                       ensure that "Successfully ran" and "Failed" strings
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
+* 3.18  vlt    03/15/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 ****************************************************************************/
 
@@ -71,7 +73,7 @@
 
 /************************** Function Prototypes ****************************/
 
-int UartPsEchoExample(u32 UartBaseAddress);
+int UartPsEchoExample(UINTPTR UartBaseAddress);
 
 /************************** Variable Definitions ***************************/
 
@@ -125,7 +127,7 @@ int main(void)
 * @note		None.
 *
 **************************************************************************/
-int UartPsEchoExample(u32 UartBaseAddress)
+int UartPsEchoExample(UINTPTR UartBaseAddress)
 {
 	int Index;
 	u32 Running;

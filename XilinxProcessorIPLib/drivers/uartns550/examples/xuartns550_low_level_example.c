@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.9   gm   07/09/23 Added SDT support
+* 3.14  vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
+*                     to support 64-bit addressing.
 * </pre>
 ******************************************************************************/
 
@@ -68,7 +70,7 @@
 
 /************************** Function Prototypes ******************************/
 
-int XUartNs550_LowLevelExample(u32 UartBaseAddress);
+int XUartNs550_LowLevelExample(UINTPTR UartBaseAddress);
 
 /************************** Variable Definitions *****************************/
 
@@ -126,7 +128,7 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
-int XUartNs550_LowLevelExample(u32 UartBaseAddress)
+int XUartNs550_LowLevelExample(UINTPTR UartBaseAddress)
 {
 	int Index;
 

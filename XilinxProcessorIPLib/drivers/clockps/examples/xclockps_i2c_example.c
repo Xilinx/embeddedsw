@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,8 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    2/20/18 First release
 * 1.5   sd     07/10/23 Added SDT support
+* 1.7   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -45,7 +47,7 @@
 #ifndef SDT
 static XStatus ClockPsExample(XClock *ClockInstancePtr, u16 ClockDevId);
 #else
-static XStatus ClockPsExample(XClock *ClockInstancePtr, u32 BaseAddress);
+static XStatus ClockPsExample(XClock *ClockInstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -102,7 +104,7 @@ int main(void)
 #ifndef SDT
 static XStatus ClockPsExample(XClock *ClockInstancePtr, u16 ClockDeviceId)
 #else
-static XStatus ClockPsExample(XClock *ClockInstancePtr, u32 BaseAddress)
+static XStatus ClockPsExample(XClock *ClockInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	XStatus    Status;

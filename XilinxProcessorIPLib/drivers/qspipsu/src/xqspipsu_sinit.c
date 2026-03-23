@@ -23,6 +23,8 @@
 * 1.15  akm 10/26/21 Fix MISRA-C violations.
 * 1.18  sb  06/07/23 Added support for system device-tree flow.
 * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+* 1.23  vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                    to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -80,7 +82,7 @@ XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId)
 	return (XQspiPsu_Config *)CfgPtr;
 }
 #else
-XQspiPsu_Config *XQspiPsu_LookupConfig(u32 BaseAddress)
+XQspiPsu_Config *XQspiPsu_LookupConfig(UINTPTR BaseAddress)
 {
        XQspiPsu_Config *CfgPtr = NULL;
        s32 Index;

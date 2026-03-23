@@ -37,6 +37,8 @@
 * 1.6   sd     07/07/23 Added SDT support.
 * 1.7   sd     11/07/23 Remove the unused pss ref frequency
 * 1.8   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+* 1.8   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -82,7 +84,7 @@ typedef struct {
 	u16 DeviceId;                    /**< Unique ID of device */
 #else
 	char *Name;                     /**< Name of the device */
-	u32 BaseAddress;                /**< Base address of the device */
+	UINTPTR BaseAddress;                /**< Base address of the device */
 #endif
 } XResetPs_Config;
 
@@ -359,7 +361,7 @@ typedef enum {
 #ifndef SDT
 XResetPs_Config *XResetPs_LookupConfig(u16 DeviceId);
 #else
-XResetPs_Config *XResetPs_LookupConfig(u32 BaseAddress);
+XResetPs_Config *XResetPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /*

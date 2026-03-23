@@ -75,6 +75,8 @@
 * 		     Update data type of Send and Recv byte counts.
 * 1.7  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *      vlt  01/27/26 Fixed codespell issues.
+*      vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
+*                    to support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -431,7 +433,7 @@ static inline void XI3cPsx_SetTxStartThreshold(XI3cPsx *InstancePtr, u32 Val)
 #ifndef SDT
 XI3cPsx_Config *XI3cPsx_LookupConfig(u16 DeviceId);
 #else
-XI3cPsx_Config *XI3cPsx_LookupConfig(u32 BaseAddress);
+XI3cPsx_Config *XI3cPsx_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /*

@@ -274,6 +274,8 @@
 * 3.11	akm 07/10/23 Update the driver to support for system device-tree flow.
 * 3.12	sb  02/20/24 Add missing parenthesis for macro expansions.
 * 3.15  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vlt 03/15/26 Updated BaseAddress type from u32 to UINTPTR
+*                    to support 64-bit addressing.
 *
 * </pre>
 *
@@ -493,7 +495,7 @@ typedef struct {
 #else
 	char *Name;             /**< Name of the device */
 #endif
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8  ConnectionMode; /**< Single, Stacked and Parallel mode */
 #ifdef SDT

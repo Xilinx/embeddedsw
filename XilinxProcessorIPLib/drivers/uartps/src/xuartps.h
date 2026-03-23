@@ -151,6 +151,8 @@
 * 3.12	gm     11/04/22 Added timeout support using Xil_WaitForEvent
 * 3.13	adk    14/04/23 Added support for system device-tree flow.
 * 3.18  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.18  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+*                       to support 64-bit addressing.
 * </pre>
 *
 *****************************************************************************/
@@ -278,7 +280,7 @@ typedef struct {
 #else
 	char *Name;     /**< Name of the device */
 #endif
-	u32 BaseAddress; /**< Base address of device (IPIF) */
+	UINTPTR BaseAddress; /**< Base address of device (IPIF) */
 	u32 InputClockHz;/**< Input clock frequency */
 	s32 ModemPinsConnected; /**< Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
@@ -458,7 +460,7 @@ typedef struct {
 #ifndef SDT
 XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId);
 #else
-XUartPs_Config *XUartPs_LookupConfig(u32 BaseAddress);
+XUartPs_Config *XUartPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /* Interface functions implemented in xuartps.c */
