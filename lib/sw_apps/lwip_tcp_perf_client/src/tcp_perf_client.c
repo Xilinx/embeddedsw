@@ -72,7 +72,7 @@ static err_t send_iperf_client_header(struct tcp_pcb *pcb)
 	return ERR_OK;
 }
 
-void print_app_header()
+void print_app_header(void)
 {
 #if LWIP_IPV6==1
 	xil_printf("TCP client connecting to %s on port %d\r\n",
@@ -87,7 +87,7 @@ void print_app_header()
 #endif /* LWIP_IPV6 */
 }
 
-static void print_tcp_conn_stats()
+static void print_tcp_conn_stats(void)
 {
 #if LWIP_IPv6==1
 	xil_printf("[%3d] local %s port %d connected with ",
@@ -190,6 +190,7 @@ static void tcp_client_close(struct tcp_pcb *pcb)
 /** Error callback, tcp session aborted */
 static void tcp_client_err(void *arg, err_t err)
 {
+	LWIP_UNUSED_ARG(arg);
 	LWIP_UNUSED_ARG(err);
 	u64_t now = get_time_ms();
 	u64_t diff_ms = now - client.start_time;
@@ -274,6 +275,8 @@ static err_t tcp_send_perf_traffic(void)
 /** TCP sent callback, try to send more data */
 static err_t tcp_client_sent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 {
+	LWIP_UNUSED_ARG(arg);
+	LWIP_UNUSED_ARG(tpcb);
 
 	/* Check if this is server ACK for client header */
 	if (!client_hdr_acked && len >= sizeof(iperf_client_test_hdr)) {
@@ -286,6 +289,7 @@ static err_t tcp_client_sent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 /** TCP connected callback (active connection), send data now */
 static err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err)
 {
+	LWIP_UNUSED_ARG(arg);
 
 	if (err != ERR_OK) {
 		tcp_client_close(tpcb);
