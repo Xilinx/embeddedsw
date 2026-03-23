@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 - 2021 Xilinx, Inc.
- * Copyright (C) 2021 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2017 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,11 +30,15 @@
 /* Connection handle for a UDP Client session */
 
 #include "udp_perf_client.h"
+#include <string.h>
 
 extern struct netif server_netif;
 static struct udp_pcb *pcb[NUM_OF_PARALLEL_CLIENTS];
 static struct perf_stats client;
 static char send_buf[UDP_SEND_BUFSIZE];
+static int udp_packet_id[NUM_OF_PARALLEL_CLIENTS];
+static u8_t udp_client_hdr_sent[NUM_OF_PARALLEL_CLIENTS];
+
 #define FINISH	1
 /* Report interval time in ms */
 #define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 20)
@@ -130,6 +134,7 @@ static void udp_conn_report(u64_t diff,
 
 static void reset_stats(void)
 {
+	u16_t i;
 	client.client_id++;
 	/* Print connection statistics */
 	print_udp_conn_stats();
@@ -142,34 +147,106 @@ static void reset_stats(void)
 	client.i_report.start_time = 0;
 	client.i_report.total_bytes = 0;
 	client.i_report.last_report_time = 0;
+	/* Initialize packet IDs to 2 (packet 1 is iperf header)
+	 * and reset header sent flags */
+	for (i = 0; i < NUM_OF_PARALLEL_CLIENTS; i++) {
+		udp_packet_id[i] = 2;
+		udp_client_hdr_sent[i] = 0;
+	}
+}
+
+static err_t send_iperf_udp_client_header(u8_t stream_idx)
+{
+	err_t err;
+	struct pbuf *packet;
+	udp_client_test_hdr *hdr;
+	char tx_buf[UDP_SEND_BUFSIZE];
+
+	memcpy(tx_buf, send_buf, UDP_SEND_BUFSIZE);
+	hdr = (udp_client_test_hdr *)tx_buf;
+
+	/* UDP datagram header */
+	hdr->id = PP_HTONL(1);
+	hdr->tv_sec = 0;
+	hdr->tv_usec = 0;
+	hdr->id2 = 0;
+
+	/* iperf2 client header */
+	hdr->flags = 0;
+	hdr->num_threads = PP_HTONL(NUM_OF_PARALLEL_CLIENTS);
+	hdr->remote_port = PP_HTONL(UDP_CONN_PORT);
+	hdr->buffer_len = PP_HTONL(UDP_SEND_BUFSIZE);
+	hdr->win_band = 0;
+	/* Negative value = time-based test (unit is 10ms)
+	 * Positive value = byte-based test (number of bytes to transfer) */
+	hdr->amount = PP_HTONL((u32_t)(-(s32_t)(UDP_TIME_INTERVAL * 100)));
+
+	packet = pbuf_alloc(PBUF_TRANSPORT, UDP_SEND_BUFSIZE, PBUF_POOL);
+	if (!packet) {
+		xil_printf("UDP client: error allocating pbuf for iperf header\r\n");
+		return ERR_MEM;
+	}
+	pbuf_take(packet, tx_buf, UDP_SEND_BUFSIZE);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	err = udp_send_blocking(pcb[stream_idx], packet);
+#else
+	err = udp_send(pcb[stream_idx], packet);
+#endif
+	pbuf_free(packet);
+	if (err == ERR_OK) {
+		client.total_bytes += UDP_SEND_BUFSIZE;
+		client.cnt_datagrams++;
+		client.i_report.total_bytes += UDP_SEND_BUFSIZE;
+	}
+	return err;
 }
 
 static void udp_packet_send(u8_t finished)
 {
 	int *payload;
-	static int packet_id;
 	u8_t i;
-	u8_t retries = MAX_SEND_RETRY;
+	u8_t retries;
 	struct pbuf *packet;
 	err_t err;
-
 	for (i = 0; i < NUM_OF_PARALLEL_CLIENTS; i++) {
-
+		retries = MAX_SEND_RETRY;
+		if (!finished && !udp_client_hdr_sent[i]) {
+			while (retries) {
+				err = send_iperf_udp_client_header(i);
+				if (err != ERR_OK) {
+					xil_printf("UDP client[%d]: Error sending iperf header: %d\r\n", i, err);
+					retries--;
+					usleep(SEND_RETRY_DELAY_US);
+				} else {
+					udp_client_hdr_sent[i] = 1;
+					usleep(IPERF_HDR_SEND_DELAY_US);
+					break;
+				}
+			}
+			if (!retries) {
+				u64_t now = get_time_ms();
+				u64_t diff_ms = now - client.start_time;
+				xil_printf("Too many retries sending udp iperf header, ");
+				xil_printf("Terminating application\n\r");
+				udp_conn_report(diff_ms, UDP_DONE_CLIENT);
+				xil_printf("UDP test failed\n\r");
+				udp_remove(pcb[i]);
+				pcb[i] = NULL;
+			}
+			continue;
+		}
 		packet = pbuf_alloc(PBUF_TRANSPORT, UDP_SEND_BUFSIZE, PBUF_POOL);
 		if (!packet) {
 			xil_printf("error allocating pbuf to send\r\n");
 			return;
-		} else {
-			pbuf_take(packet, send_buf, UDP_SEND_BUFSIZE);
 		}
-
+		pbuf_take(packet, send_buf, UDP_SEND_BUFSIZE);
 		/* always increment the id */
 		payload = (int*) (packet->payload);
 		if (finished == FINISH)
-			packet_id = -1;
+			udp_packet_id[i] = -1;
 
-		payload[0] = htonl(packet_id);
-
+		payload[0] = htonl(udp_packet_id[i]);
 		while (retries) {
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 			err = udp_send_blocking(pcb[i], packet);
@@ -179,11 +256,12 @@ static void udp_packet_send(u8_t finished)
 			if (err != ERR_OK) {
 				xil_printf("Error on udp_send: %d\r\n", err);
 				retries--;
-				usleep(100);
+				usleep(SEND_RETRY_DELAY_US);
 			} else {
 				client.total_bytes += UDP_SEND_BUFSIZE;
 				client.cnt_datagrams++;
 				client.i_report.total_bytes += UDP_SEND_BUFSIZE;
+				udp_packet_id[i]++;
 				break;
 			}
 		}
@@ -214,7 +292,6 @@ static void udp_packet_send(u8_t finished)
 #endif /* __aarch64__ */
 #endif
 	}
-	packet_id++;
 }
 
 /** Transmit data on a udp session */
