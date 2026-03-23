@@ -75,9 +75,8 @@
 #define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
 #define XASUFW_MEGA			(1000000U) /**< Value for mega */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
-#define XASUFW_KEY_TX_PAYLOAD_SIZE 	(2U) /**< Key transfer payload size */
-#define XASUFW_PAYLOAD_INDEX_0		(0U) /**< Key transfer payload index 0 */
-#define XASUFW_PAYLOAD_INDEX_1		(1U) /**< Key transfer payload index 1 */
+#define XASUFW_KEY_TX_PAYLOAD_SIZE 	(1U) /**< Key transfer TX payload size */
+#define XASUFW_KEY_RX_PAYLOAD_SIZE 	(2U) /**< Key transfer RX payload size */
 #define XASUFW_RESPONSE_INDEX_0		(0U) /**< Key transfer response index 0 */
 #define XASUFW_RESPONSE_INDEX_1		(1U) /**< Key transfer response index 1 */
 
@@ -431,8 +430,8 @@ void XAsufw_RtcaInit(void)
 s32 XAsufw_PmcKeyTransfer(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 Response[XASUFW_KEY_TX_PAYLOAD_SIZE] = {0U};
-	u32 Payload[XASUFW_KEY_TX_PAYLOAD_SIZE];
+	u32 Response[XASUFW_KEY_RX_PAYLOAD_SIZE] = {0U};
+	u32 Payload;
 
 	/** Transfer efuse key_0 is black or red based on user configuration. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
@@ -446,12 +445,11 @@ s32 XAsufw_PmcKeyTransfer(void)
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK);
 
-	Payload[XASUFW_PAYLOAD_INDEX_0] = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID,
+	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID,
 			XASUFW_PLM_ASU_MODULE_ID);
-	Payload[XASUFW_PAYLOAD_INDEX_1] = XASU_RTCA_BH_IV_ADDR;
 
 	/** Send Key transfer IPI request to PLM. */
-	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_KEY_TX_PAYLOAD_SIZE);
+	Status = XAsufw_SendIpiToPlm(&Payload, XASUFW_KEY_TX_PAYLOAD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		XAsufw_Printf(DEBUG_INFO, "Send IPI to PLM failed\r\n");
 		goto END;
@@ -470,7 +468,7 @@ s32 XAsufw_PmcKeyTransfer(void)
 		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
 
 	/** Read Key transfer response received from PLM. */
-	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_KEY_TX_PAYLOAD_SIZE);
+	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_KEY_RX_PAYLOAD_SIZE);
 	if ((Status != XASUFW_SUCCESS) || (Response[XASUFW_RESPONSE_INDEX_0] != (u32)XASUFW_SUCCESS)) {
 		XAsufw_Printf(DEBUG_INFO, "Read IPI response from PLM failed\r\n");
 	}

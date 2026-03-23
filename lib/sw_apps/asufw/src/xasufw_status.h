@@ -568,7 +568,7 @@ enum {
 						invalid */
 	XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED, /**< 0x182U - Error when updating access permissions */
 	XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED, /**< 0x183U - Error when all UDE private keys are revoked */
-	RESERVED1, /**< 0x184U - Reserved */
+	XASUFW_OCP_UDE_IV_IS_ZERO, /**< 0x184U - Error when UDE IV is zero */
 	XASUFW_OCP_DEVICE_ID_CALC_FAIL, /**< 0x185U - Error when device ID calculation is failed */
 	XASUFW_OCP_NONCE_UPDATE_FAIL, /**< 0x186U - Error when nonce update is failed */
 	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */

@@ -93,9 +93,6 @@ extern "C" {
 #define XASU_RTCA_DBG_LOG_BUF_INFO_ADDR		(XASU_RTCA_BASEADDR + 0x15CU)
 						/**< Debug log buffer info address */
 
-#define XASU_RTCA_BH_IV_ADDR			(XASU_RTCA_BASEADDR + 0x168U)
-						/**< Base address of BH IV of size 12 bytes */
-
 #define XASU_RTCA_EXEC_STATUS_ADDR		(XASU_RTCA_BASEADDR + 0x174U)
 						/**< Base address of execution status of
 							size 1 byte */

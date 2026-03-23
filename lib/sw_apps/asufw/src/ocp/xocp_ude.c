@@ -53,6 +53,8 @@
 #define XOCP_UDE2_IV_INC_VAL		(0x04U)	/**< UDE2 IV increment value */
 #define XOCP_DEC_BLACK_KEY_IV_INC_VAL	(0x10U)	/**< UDE decryption black key IV increment value */
 #define XASU_OCP_UDE_TAG_SIZE_IN_BYTES	(16U)	/**< UDE tag size in bytes */
+#define XASU_PLM_RTCA_EFUSE_0_IV_ADDR	(0xF201436CU) /**< Address of efuse 0 IV of size 12 bytes */
+#define XASU_PLM_RTCA_EFUSE_1_IV_ADDR	(0xF2014378U) /**< Address of efuse 1 IV of size 12 bytes */
 
 /************************************ Type Definitions *******************************************/
 
@@ -91,15 +93,24 @@ s32 XOcp_GenerateUdeKek(void)
 	const char *CtxStr = XOCP_UDE_CONTEXT;
 	const u8 *Context = (const u8 *)CtxStr;
 	u8 KekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
-	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
+	const u8 *IvPtr = (const u8*)(UINTPTR)XASU_PLM_RTCA_EFUSE_0_IV_ADDR;
 	XFih_Var FihStatus = XFih_VolatileAssignS32(XASUFW_FAILURE);
 
+	/** Copy IV from RTCA to local buffer. */
 	Status = Xil_SMemCpy(KekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvPtr,
 			XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
+
+	/** Check if IV is non-zero. */
+	Status = XAsu_IsBufferNonZero(KekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
+		goto END;
+	}
+	/** Update IV with the offset for black key decryption. */
 	Xil_IncrementBuffer(KekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, XOCP_DEC_BLACK_KEY_IV_INC_VAL);
 
 	/** Decrypt efuse black key. */
@@ -155,7 +166,7 @@ END:
 s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
+	const u8 *IvPtr = (const u8*)(UINTPTR)XASU_PLM_RTCA_EFUSE_0_IV_ADDR;
 	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
 	u8 IvIncVal = 0U;
 	XFih_Var UdeKekStatus = XFih_VolatileAssignU32(UdeKekFlag);
@@ -172,13 +183,20 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 		XFIH_GOTO(END);
 	}
 
-	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES,
-			IvPtr, XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	/** Copy IV from RTCA to local buffer. */
+	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvPtr,
+			XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
+	/** Check if IV is non-zero. */
+	Status = XAsu_IsBufferNonZero(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
+		goto END;
+	}
 	/**
 	 * Based on UDE key ID, update the KEK IV with the offset to the local buffer.
 	 */
@@ -678,14 +696,21 @@ static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecP
 				   const XAsu_OcpUdeParams *OcpUdeParamsPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
+	const u8 *IvPtr = (const u8*)(UINTPTR)XASU_PLM_RTCA_EFUSE_0_IV_ADDR;
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
-	/** Copy IV to the local buffer. */
-	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES,
-			IvPtr, XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	/** Copy IV from RTCA to local buffer. */
+	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvPtr,
+			XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	/** Check if IV is non-zero. */
+	Status = XAsu_IsBufferNonZero(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
 		goto END;
 	}
 
