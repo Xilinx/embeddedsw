@@ -255,6 +255,7 @@ void start_application(void)
 	}
 	address.sin6_family = AF_INET6;
 	address.sin6_port = htons(TCP_CONN_PORT);
+	address.sin6_len = sizeof(address);
 	inet6_aton(TCP_SERVER_IPV6_ADDRESS, &address.sin6_addr.s6_addr);
 #else
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -263,7 +264,12 @@ void start_application(void)
 	}
 	address.sin_family = AF_INET;
 	address.sin_port = htons(TCP_CONN_PORT);
-	address.sin_addr.s_addr = inet_addr(TCP_SERVER_IP_ADDRESS);
+	address.sin_len = sizeof(address);
+	if (inet_aton(TCP_SERVER_IP_ADDRESS, &address.sin_addr) == 0) {
+		xil_printf("TCP Client: Invalid server IP address\r\n");
+		close(sock);
+		return;
+	}
 #endif /* LWIP_IPV6 */
 	if (connect(sock, (struct sockaddr*)&address, sizeof(address)) < 0) {
 		xil_printf("TCP Client: Error on tcp_connect\r\n");
