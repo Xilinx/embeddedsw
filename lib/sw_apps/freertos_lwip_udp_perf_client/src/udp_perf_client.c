@@ -332,9 +332,13 @@ void start_application(void)
 	u32_t i;
 
 	memset(&addr, 0, sizeof(struct sockaddr_in));
+	addr.sin_len = sizeof(addr);
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(UDP_CONN_PORT);
-	addr.sin_addr.s_addr = inet_addr(UDP_SERVER_IP_ADDRESS);
+	if (inet_aton(UDP_SERVER_IP_ADDRESS, &addr.sin_addr) == 0) {
+		xil_printf("UDP client: Invalid server IP address\r\n");
+		return;
+	}
 
 	for (i = 0; i < NUM_OF_PARALLEL_CLIENTS; i++) {
 		if ((sock[i] = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
