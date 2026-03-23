@@ -59,8 +59,7 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
 /************************************ Function Prototypes ****************************************/
 static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *AesInstancePtr,
 					XAsufw_Dma *AsuDmaPtr, u8 *OutData);
-static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
-					XAsufw_Dma *AsuDmaPtr, u32 *OutDataLenPtr);
+
 /************************************** Macros Definitions ***************************************/
 
 /************************************** Function Definitions *************************************/
@@ -118,7 +117,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END;
 	}
 
-	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyWrapParamsPtr);
+	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyWrapParamsPtr, XASU_KEYWRAP_AES_RSA_KWPUNWP);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
@@ -316,7 +315,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		goto END;
 	}
 
-	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyUnwrapParamsPtr);
+	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyUnwrapParamsPtr, XASU_KEYWRAP_AES_RSA_KWPUNWP);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
@@ -394,7 +393,8 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 
 	/** Perform AES Key Unwrap. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XKeyWrap_UnwrapOp(KeyUnwrapParamsPtr, AesInstancePtr, AsuDmaPtr, OutDataLenPtr);
+	Status = XKeyWrap_UnwrapOp(KeyUnwrapParamsPtr, AesInstancePtr, AsuDmaPtr, OutDataLenPtr,
+					XASU_KEYWRAP_AES_RSA_KWPUNWP);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
 	}
@@ -461,7 +461,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		goto END;
 	}
 
-	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyWrapParamsPtr);
+	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyWrapParamsPtr, XASU_KEYWRAP_AES_RSA_KWPUNWP);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
@@ -642,6 +642,7 @@ END:
  * @param	AesInstancePtr		Pointer to the XAes instance.
  * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	OutDataLenPtr		Pointer to the variable to store the actual output length.
+ * @param	OperationType		Type of key unwrap operation to be performed.
  *
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
@@ -652,8 +653,8 @@ END:
  * 	- XASUFW_KEYWRAP_ICV_CMP_FAIL, if ICV comparison with first 4 bytes of output fails.
  *
  *************************************************************************************************/
-static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
-				XAsufw_Dma *AsuDmaPtr, u32 *OutDataLenPtr)
+s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
+				XAsufw_Dma *AsuDmaPtr, u32 *OutDataLenPtr, u8 OperationType)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -680,7 +681,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END;
 	}
 
-	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyUnwrapParamsPtr);
+	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyUnwrapParamsPtr, OperationType);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;

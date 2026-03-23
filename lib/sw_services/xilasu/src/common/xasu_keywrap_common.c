@@ -50,16 +50,22 @@
  * @brief	This function validates input parameters for key wrap and unwrap.
  *
  * @param	KwpunwpParamsPtr	Pointer to XAsu_KeyWrapParams structure that holds the input
- * 		parameters for Key wrap and unwrap
+ * 								parameters for Key wrap and unwrap
+ * @param	OperationType		Indicates whether the operation is AES/RSA key wrap/unwrap or
+ * 								AES key wrap/unwrap
  *
  * @return
  *	- XST_SUCCESS, if input validation is successful.
  *	- XST_FAILURE, if input validation fails.
  *
  *************************************************************************************************/
-s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr)
+s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr, u8 OperationType)
 {
 	volatile s32 Status = XST_FAILURE;
+
+	if ((OperationType != XASU_KEYWRAP_AES_RSA_KWPUNWP) && (OperationType != XASU_KEYWRAP_AES_KWPUNWP)) {
+		goto END;
+	}
 
 	if (KwpunwpParamsPtr == NULL) {
 		goto END;
@@ -67,15 +73,12 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 
 	/** Validate that the addresses of all input and output buffers are non-zero. */
 	if ((KwpunwpParamsPtr->InputDataAddr == 0U) || (KwpunwpParamsPtr->OutputDataAddr == 0U)
-	    || ((KwpunwpParamsPtr->KeyCompAddr == 0U) && (KwpunwpParamsPtr->RsaKeyId == 0U))
-	    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U) ||
-	       (KwpunwpParamsPtr->ActualOutuputDataLenAddr == 0U)) {
+	    || ((KwpunwpParamsPtr->ActualOutuputDataLenAddr == 0U))) {
 		goto END;
 	}
 
 	/** Validate that the length of all input and output sizes are non-zero. */
-	if ((KwpunwpParamsPtr->InputDataLen == 0U) || (KwpunwpParamsPtr->OutuputDataLen == 0U)
-	    || (KwpunwpParamsPtr->OptionalLabelSize == 0U)) {
+	if ((KwpunwpParamsPtr->InputDataLen == 0U) || (KwpunwpParamsPtr->OutuputDataLen == 0U)) {
 		goto END;
 	}
 
@@ -85,15 +88,22 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 		goto END;
 	}
 
-	/** Validate SHA Mode and SHAType. */
-	if (XAsu_ShaValidateModeAndType(KwpunwpParamsPtr->ShaType, KwpunwpParamsPtr->ShaMode) != XST_SUCCESS) {
-		goto END;
-	}
+	if (OperationType == XASU_KEYWRAP_AES_RSA_KWPUNWP) {
+		if (((KwpunwpParamsPtr->KeyCompAddr == 0U) && (KwpunwpParamsPtr->RsaKeyId == 0U))
+		    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U)) {
+			goto END;
+		}
 
-	/** Validate RSA key size. */
-	Status = XAsu_RsaValidateKeySize(KwpunwpParamsPtr->RsaKeySize);
-	if (Status != XST_SUCCESS) {
-		goto END;
+		/** Validate SHA Mode and SHAType. */
+		if (XAsu_ShaValidateModeAndType(KwpunwpParamsPtr->ShaType, KwpunwpParamsPtr->ShaMode) != XST_SUCCESS) {
+			goto END;
+		}
+
+		/** Validate RSA key size. */
+		Status = XAsu_RsaValidateKeySize(KwpunwpParamsPtr->RsaKeySize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XST_SUCCESS;

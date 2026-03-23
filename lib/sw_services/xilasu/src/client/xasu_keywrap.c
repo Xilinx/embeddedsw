@@ -71,7 +71,7 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 		goto END;
 	}
 
-	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyWrapParamsPtr);
+	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyWrapParamsPtr, XASU_KEYWRAP_AES_RSA_KWPUNWP);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -139,7 +139,7 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 		goto END;
 	}
 
-	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyUnwrapParamsPtr);
+	Status = XAsu_KeyWrapUnwrapValidateInputParams(KeyUnwrapParamsPtr, XASU_KEYWRAP_AES_RSA_KWPUNWP);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;

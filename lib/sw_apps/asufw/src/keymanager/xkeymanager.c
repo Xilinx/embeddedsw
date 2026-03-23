@@ -45,6 +45,9 @@
 #include "xasu_ecies_common.h"
 #include "x509_cert.h"
 #include "xasufw_util.h"
+#include "xasu_keywrapinfo.h"
+#include "xasu_keywrap_common.h"
+#include "xkeywrap.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_VAULT_MAIN_HEADER_SIZE	(12U) /**< Size of the key vault header */
@@ -81,6 +84,8 @@
 #define XKEYMANAGER_ASU_DDR_SIZE_INDEX	(8U)	/**< Index for ASU DDR size in RTCA registers */
 
 #define XKEYMANAGER_HALF_KEY_LEN(x)		((u32)(x) >> 1U)	/**< Calculate half value */
+
+#define XKEYMANAGER_MAX_UNWRAPPED_BUFF_OP_LEN_IN_BYTES	(512U)	/**< Maximum length of unwrapped buffer in bytes */
 
 /************************************** Type Definitions *****************************************/
 
@@ -1493,6 +1498,7 @@ static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubV
  *		key type, and updates the X.509 certificate object with the referenced raw key ID.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr	Pointer to the XAes instance for key unwrapping if the key is wrapped.
  * @param	KeyParams	Pointer to key manager parameters containing key metadata and
  *				key data address in KeyObjectAddr field.
  * @param	KeyIdPtr	Pointer to the output Key ID where the generated composite key
@@ -1507,19 +1513,30 @@ static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubV
  *	- XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL, if updating key vault fails.
  *	- XASUFW_KEYMANAGER_STORE_X509_RAW_KEY_ERROR, if storing raw key from X.509 cert fails.
  *	- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *	- XASUFW_AES_WRITE_KEY_FAILED, if writing AES key for unwrapping fails.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if resolving key object for unwrapping fails.
+ *	- XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, if unwrapping input key fails.
  *
  *************************************************************************************************/
-s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *KeyParams,
+s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KeyManagerParams *KeyParams,
 				u32 *KeyIdPtr, u32 SubSystemId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
 	X509_CertInfo CertInfo;
+	u8 UnwrapOutBuf[XKEYMANAGER_MAX_UNWRAPPED_BUFF_OP_LEN_IN_BYTES];
 	XKeyManager_X509KeyObject *X509KeyObjectPtr = NULL;
 	u32 X509RawKeyId = 0U;
+	XAsu_AesKeyObject AesKeyObj;
+	XAsu_KeyWrapParams KeyUnwrapParams;
+	u64 LocalBuffAddr = 0U;
+	u8 KeyType;
+	u32 OutDataLen = 0U;
+	u32 KeyWrapUnwrapOutputLen = 0U;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (KeyParams == NULL) || (KeyIdPtr == NULL) ||
-	    (KeyParams->KeyMetadata.KeyType >= XKEYMANAGER_MAX_SUB_VAULTS)) {
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (KeyParams == NULL) || (KeyIdPtr == NULL) ||
+	    ((KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) >= XKEYMANAGER_MAX_SUB_VAULTS)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -1538,42 +1555,125 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams 
 		goto END;
 	}
 
+	LocalBuffAddr = KeyParams->KeyObjectAddr;
+
+	/* Check if wrapped key. */
+	if ((KeyParams->KeyMetadata.KeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
+#ifdef XASU_KEYWRAP_ENABLE
+		if (KeyParams->WrappedInputLen == 0U) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
+		if ((KeyParams->AesKeyObj.KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
+			(KeyParams->AesKeyObj.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
+		if ((KeyParams->AesKeyObj.KeySrc >= XASU_AES_MAX_KEY_SOURCES)) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
+		KeyUnwrapParams.InputDataAddr = KeyParams->KeyObjectAddr;
+		KeyUnwrapParams.OutputDataAddr = (u64)(UINTPTR)UnwrapOutBuf;
+		KeyUnwrapParams.ExpoCompAddr = 0U;
+		KeyUnwrapParams.KeyCompAddr = 0U;
+		KeyUnwrapParams.OptionalLabelAddr = 0U;
+		KeyUnwrapParams.InputDataLen = KeyParams->WrappedInputLen;
+		KeyUnwrapParams.RsaKeySize = 0U;
+		KeyUnwrapParams.OptionalLabelSize = 0U;
+		KeyUnwrapParams.OutuputDataLen = XKEYMANAGER_MAX_UNWRAPPED_BUFF_OP_LEN_IN_BYTES;
+		KeyUnwrapParams.ActualOutuputDataLenAddr = (u64)(UINTPTR)&KeyWrapUnwrapOutputLen;
+		KeyUnwrapParams.AesKeySize = (u8)KeyParams->AesKeyObj.KeySize;
+		KeyUnwrapParams.ShaType = 0U;
+		KeyUnwrapParams.ShaMode = 0U;
+		KeyUnwrapParams.AesKeyId = 0U;
+		KeyUnwrapParams.RsaKeyId = 0U;
+
+		AesKeyObj.KeySrc = KeyParams->AesKeyObj.KeySrc;
+		if ((KeyParams->AesKeyObj.KeyAddress == 0U) && (KeyParams->AesKeyObj.KeyId != 0U)) {
+			AesKeyObj.KeyAddress = 0U;
+			AesKeyObj.KeyId = KeyParams->AesKeyObj.KeyId;
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XKeyManager_UpdateAesKeyObjectFromVault(&AesKeyObj, SubSystemId,
+								XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+				goto END;
+			}
+		} else if (KeyParams->AesKeyObj.KeyAddress != 0U) {
+			AesKeyObj.KeyAddress = KeyParams->AesKeyObj.KeyAddress;
+			AesKeyObj.KeySize = KeyUnwrapParams.AesKeySize;
+		} else {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+		/** Write AES key. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_WriteKey(AesInstancePtr, DmaPtr, &AesKeyObj);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_AES_WRITE_KEY_FAILED;
+			goto END_KEY_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyWrap_UnwrapOp(&KeyUnwrapParams, AesInstancePtr, DmaPtr, &OutDataLen,
+					XASU_KEYWRAP_AES_KWPUNWP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
+			goto END_KEY_CLR;
+		}
+
+		if (OutDataLen != KeyParams->KeyMetadata.Length) {
+			Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
+			goto END_KEY_CLR;
+		}
+
+		LocalBuffAddr = (u64)(UINTPTR)UnwrapOutBuf;
+#else
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+#endif
+	}
+
+	KeyType = (u8)(KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK);
+
 	/**
 	 * Parse X.509 certificate if the key type is X.509.
 	 * This extracts the public key, key usage, and other certificate information
 	 * needed for storing the raw public key in the appropriate sub-vault.
 	 */
-	if (KeyParams->KeyMetadata.KeyType == (u8)XASU_X509_SUBVAULT_ID) {
+	if (KeyType == (u8)XASU_X509_SUBVAULT_ID) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = X509_ParseCertificate(KeyParams->KeyObjectAddr,
-						KeyParams->KeyMetadata.Length,
-						&CertInfo);
+		Status = X509_ParseCertificate(LocalBuffAddr, KeyParams->KeyMetadata.Length, &CertInfo);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CERT_PARSE_FAIL);
-			goto END;
+			goto END_KEY_CLR;
 		}
 	}
 
 	/** Update the key vault with the provided key data. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XKeyManager_UpdateKeyVault(DmaPtr,
-					    (XAsu_KeyManagerSubVaultType)KeyParams->KeyMetadata.KeyType,
-					    KeyParams, (u8 *)(UINTPTR)KeyParams->KeyObjectAddr,
+					    (XAsu_KeyManagerSubVaultType)KeyType,
+					    KeyParams, (u8 *)(UINTPTR)LocalBuffAddr,
 					    KeyIdPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL);
-		goto END;
+		goto END_KEY_CLR;
 	}
 
 	/** Store X.509 raw public key to respective key vault. */
-	if (KeyParams->KeyMetadata.KeyType == (u8)XASU_X509_SUBVAULT_ID) {
+	if (KeyType == (u8)XASU_X509_SUBVAULT_ID) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_StoreX509RawPublicKey(DmaPtr, KeyParams, &CertInfo,
 							   &X509RawKeyId);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
 							XASUFW_KEYMANAGER_STORE_X509_RAW_KEY_ERROR);
-			goto END;
+			goto END_KEY_CLR;
 		}
 
 		/** Store the raw key ID in the X.509 certificate object. */
@@ -1582,10 +1682,22 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams 
 										CertInfo.KeyUsage);
 		if (X509KeyObjectPtr == NULL) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
-			goto END;
+			goto END_KEY_CLR;
 		}
 		X509KeyObjectPtr->RawKeyId = X509RawKeyId;
 	}
+
+END_KEY_CLR:
+	if ((KeyParams->KeyMetadata.KeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
+		ClearStatus = XAes_KeyClear(AesInstancePtr, AesKeyObj.KeySrc);
+		if (ClearStatus != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+		}
+	}
+	/** Zeroize output data. */
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize(UnwrapOutBuf, XKEYMANAGER_MAX_UNWRAPPED_BUFF_OP_LEN_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;

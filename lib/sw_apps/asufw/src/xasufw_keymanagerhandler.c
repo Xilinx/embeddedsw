@@ -36,6 +36,7 @@
 #include "xasu_def.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_aeshandler.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
@@ -104,7 +105,7 @@ s32 XAsufw_KeyManagerInit(void)
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
-		XASUFW_DMA_RESOURCE_MASK,
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -174,6 +175,15 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
+	if (CmdId == XASU_KM_STORE_KEY_CMD_ID) {
+		/** Check and save the AES context if resource is not busy. */
+		Status = XAsufw_AesCheckAndSaveContext(ReqId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_SAVE_FAIL);
+			goto END;
+		}
+	}
+
 	/** Allocate KeyManager resource. */
 	XAsufw_AllocateResource(XASUFW_KEYMANAGER, XASUFW_KEYMANAGER, ReqId);
 
@@ -198,6 +208,12 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	if ((CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) || (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID)) {
 		/** Allocate RSA resource. */
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_KEYMANAGER, ReqId);
+	}
+
+	if (CmdId == XASU_KM_STORE_KEY_CMD_ID) {
+		/** Allocate AES resource. */
+		XAsufw_AllocateResource(XASUFW_AES, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_KeyManagerModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	}
 
 	Status = XASUFW_SUCCESS;
@@ -566,8 +582,8 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Store the key in the vault for the requesting subsystem. */
-	Status = XKeyManager_StoreKeyInVault(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd,
-					     OutIdAddr, SubsystemId);
+	Status = XKeyManager_StoreKeyInVault(XAsufw_KeyManagerModule.AsuDmaPtr,
+										XAsufw_KeyManagerModule.AesPtr, Cmd, OutIdAddr, SubsystemId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_STORE_KEY_ERROR);
 		goto END;
@@ -579,6 +595,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+	XAsufw_KeyManagerModule.AesPtr = NULL;
 
 	return Status;
 }

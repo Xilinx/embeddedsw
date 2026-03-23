@@ -35,6 +35,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xaes.h"
 #include "xasu_aesinfo.h"
 #include "xasu_keymanagerinfo.h"
 #include "xasufw_dma.h"
@@ -218,7 +219,7 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 u16 XKeyManager_GetAsuRsaActiveKeyCount(XAsu_KeyManagerSubVaultType KeyType);
 s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 VaultId);
 s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 VaultId, u64 KeyAddr);
-s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *KeyParams,
+s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr,  XAes *AesInstancePtr, const XAsu_KeyManagerParams *KeyParams,
 				u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObjectAddr,
 				      u32 SubSystemId, u8 KeyUsecase,

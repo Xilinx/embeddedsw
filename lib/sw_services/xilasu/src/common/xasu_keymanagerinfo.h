@@ -38,6 +38,7 @@ extern "C" {
 #include "xil_util.h"
 #include "xasu_rsainfo.h"
 #include "xasu_eccinfo.h"
+#include "xasu_aesinfo.h"
 #ifdef SDT
 #include "xasu_bsp_config.h"
 #endif
@@ -59,6 +60,8 @@ extern "C" {
 
 #define XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE	(0xFFFFFFFFU) /**< Marker for keys that
 									never expire */
+
+#define XASU_KM_KEYTYPE_WRAPPED_BIT_MASK	(0x80U) /**< Bit mask for wrapped key type */
 
 #define XASU_KM_MAX_VAULTS			(64U) /**< Maximum number of key vaults supported */
 /** @} */
@@ -93,6 +96,8 @@ typedef struct {
 /** This structure contains info for key manager parameters. */
 typedef struct {
 	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
+	XAsu_AesKeyObject AesKeyObj; /**< AES key object to be filled if input is wrapped key type. */
+	u32 WrappedInputLen; /**< Length of the wrapped key input data, to be filled if input is wrapped key type. */
 	u64 KeyObjectAddr; /**< Address of the key buffer. */
 	u64 KeyIdAddr; /**< Address where generated key ID is stored. */
 } XAsu_KeyManagerParams;

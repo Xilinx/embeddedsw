@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -38,6 +38,8 @@ extern "C" {
 #include "xasu_keywrapinfo.h"
 
 /************************** Constant Definitions *************************************************/
+#define XASU_KEYWRAP_AES_RSA_KWPUNWP (1U) /**< Operation type for AES/RSA key wrap/unwrap operation */
+#define XASU_KEYWRAP_AES_KWPUNWP (2U) /**< Operation type for AES key wrap/unwrap operation */
 
 /************************************** Type Definitions *****************************************/
 
@@ -46,7 +48,7 @@ extern "C" {
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr);
+s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr, u8 OperationType);
 
 #ifdef __cplusplus
 }
