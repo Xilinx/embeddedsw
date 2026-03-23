@@ -98,6 +98,7 @@ void XPlm_EnablePlatformSlaveErrors(void);
 int XPlm_CompatibilityCheck(u32 PdiAddr);
 int XPlm_PostPlmUpdate(void);
 int XPlmi_PufOnDemandRegeneration(u8* StatusFlag);
+int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr);
 
 /************************** Variable Definitions *****************************/
 

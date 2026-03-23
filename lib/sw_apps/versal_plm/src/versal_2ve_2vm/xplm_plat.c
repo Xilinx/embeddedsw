@@ -72,6 +72,9 @@
 #define XPLMI_EFUSE_CACHE_ADDRESS	(0xF1250000U) /** eFuse cache address. */
 #define XPLMI_EFUSE_CACHE_PUF_CHASH_OFFSET	(0xA8U) /** eFuse cache puf CHASH offset. */
 
+/* ASU firmware image ID */
+#define XPLMI_ASUFW_IMAGE_ID			(0x1C000002U) /**< ASUFW image ID in PDI */
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -376,6 +379,62 @@ int XPlmi_PufOnDemandRegeneration(u8* StatusFlag)
 	} else {
 		*StatusFlag = XST_SUCCESS;
 	}
+
+END:
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function checks if ASUFW image is present in PDI by searching for ASUFW
+ * 		image ID (0x1C000002) in the PDI image headers.
+ *
+ * @param	PdiAddr is the PDI address to check.
+ *
+ * @return
+ * 		- XST_SUCCESS if ASUFW image is found.
+ * 		- XLOADER_ERR_ASU_FW_NOT_FOUND if ASUFW image is not found.
+ * 		- XST_FAILURE for other errors.
+ *
+ **************************************************************************************************/
+int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr)
+{
+	int Status = XST_FAILURE;
+	XilPdi TempPdiInst;
+	XilPdi *PdiPtr = &TempPdiInst;
+
+	/** Check if PDI address is valid */
+	if (PdiAddr == 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Invalid PDI address\n\r");
+		Status = XPLMI_ERR_INVALID_PAYLOAD_LEN;
+		goto END;
+	}
+
+	/** Initialize PDI structure */
+	Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "ERROR: PDI memset failed\n\r");
+		goto END;
+	}
+
+	/** Initialize PDI */
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_IAU;
+	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, (u64)PdiAddr);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			     "ERROR: XLoader_PdiInit failed (0x%x)\n\r", Status);
+			goto END;
+	}
+
+	/** Check if ASUFW image is present in the PDI */
+	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, XPLMI_ASUFW_IMAGE_ID);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "ERROR: ASUFW image not found in PDI\n\r");
+		Status = XLOADER_ERR_ASU_FW_NOT_FOUND;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;

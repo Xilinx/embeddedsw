@@ -160,7 +160,7 @@ static int XPlm_Init(void)
 
 #ifdef VERSAL_2VE_2VM
 	/** Initialize ASU in-place update subsystem for VERSAL_2VE_2VM platforms */
-	Status = XPlmi_AsuUpdateInit(XLoader_IsPdiAddrLookup, XPlmi_CheckAsuPresenceInPdi,
+	Status = XPlmi_AsuUpdateInit(XLoader_IsPdiAddrLookup, XPlm_CheckAsuPresenceInPdi,
 			XLoader_LoadAsuImage);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "ASU update initialization failed: 0x%x\n\r", Status);
