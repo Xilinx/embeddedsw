@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
-******************************************************************************/
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
+*****************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -31,6 +31,8 @@
 *       hk     07/19/19  Remove Versal clock and routing workarounds.
 * 1.10  hk     04/29/20  Enable Scatter Gather setup and Enable APIs for use
 *                        in applications directly.
+* 1.20	gn     16/06/25  Add PM support for driver
+* 1.20	gn     16/06/25  Implement the Stop API
 * </pre>
 *
 ******************************************************************************/
@@ -39,6 +41,14 @@
 
 #include "xzdma.h"
 #include <string.h>
+#if defined  (XPM_SUPPORT)
+#include "pm_defs.h"
+#include "pm_api_sys.h"
+#include "pm_client.h"
+#include "xstatus.h"
+#include "xpm_init.h"
+#endif
+
 
 /************************** Function Prototypes ******************************/
 
@@ -85,11 +95,29 @@ static void XZDma_GetConfigurations(XZDma *InstancePtr);
 s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 			u32 EffectiveAddr)
 {
+#if defined  (XPM_SUPPORT)
+	XStatus Status;
+#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(EffectiveAddr != ((u32)0x00));
+
+#if defined  (XPM_SUPPORT)
+	Status = XPm_RequestNode(XpmGetNodeId((u64)EffectiveAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
+
+	if (XST_SUCCESS != Status) {
+		xil_printf("ZDMA: XPm_RequestNode failed \r\n");
+		return Status;
+	}
+
+	Status = XPm_ResetAssert(XpmGetResetId((u64)EffectiveAddr), XILPM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		xil_printf("ZDMA: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
+		return Status;
+	}
+#endif
 
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
 #ifndef SDT
@@ -1263,5 +1291,37 @@ static void StubDoneCallBack(void *CallBackRef)
 	/* Verify arguments. */
 	Xil_AssertVoid(CallBackRef != NULL);
 	Xil_AssertVoidAlways();
+}
+
+/*****************************************************************************/
+/**
+ * Stops the ZDMA engine and releases power management resources if supported.
+ *
+ * This function asserts the validity of the input instance pointer. If power
+ * management (XPM_SUPPORT) is enabled, it releases the power management node
+ * associated with the ZDMA instance. If the release fails, an error message is
+ * printed. The function returns the status of the operation.
+ *
+ * @param	InstancePtr is a pointer to the XZDma instance.
+ *
+ * @return	Status code:
+ *             - XST_SUCCESS if successful.
+ *             - Error code if PM resource release fails (when XPM_SUPPORT is defined).
+ *
+ * @note	None.
+ ******************************************************************************/
+s32 XZDma_Stop(XZDma *InstancePtr)
+{
+	int Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined (XPM_SUPPORT)
+	Status = XPm_ReleaseNode(XpmGetNodeId((u64)InstancePtr->Config.BaseAddress));
+	if(Status != XST_SUCCESS) {
+		xil_printf("ZDMA: XPm_ReleaseNode failed with reason 0x%x \r\n", Status);
+	}
+#endif
+	return Status;
 }
 /** @} */

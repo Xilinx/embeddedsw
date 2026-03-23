@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -317,6 +317,7 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 
 	/* Reset the DMA to remove all configurations done in this example  */
 	XZDma_Reset(&ZDma);
+	XZDma_Stop(&ZDma);
 
 	return XST_SUCCESS;
 
