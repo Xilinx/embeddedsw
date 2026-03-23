@@ -901,11 +901,17 @@ extern "C" {
 #define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
 				0x0001		/**< Disables bypass of the
 							HDCP core. */
+#define XDP_TX_HDCP_ENABLE_BYPASS_ENABLE_MASK \
+				0x0000		/**< Enables bypass of the
+							HDCP core (disables HDCP). */
 
 /* 0x404: XDP_TX_HDCP22_ENABLE */
 #define XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK \
 	1		/**< Disables bypass of the
 			  HDCP22 core. */
+#define XDP_TX_HDCP22_ENABLE_BYPASS_ENABLE_MASK \
+	0		/**< Enables bypass of the
+			  HDCP22 core (disables HDCP22). */
 /** @} */
 
 /** @name DPTX status registers: Lanes done with Clock Recovery.

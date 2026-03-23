@@ -5968,9 +5968,14 @@ void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable)
  ******************************************************************************/
 void XDp_TxHdcp22Enable(XDp *InstancePtr)
 {
+	/* HDCP22 core */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr,
 			XDP_TX_HDCP22_ENABLE,
 			XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK);
+	/* HDCP core */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_HDCP_ENABLE,
+			XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK);
 }
 
 /******************************************************************************/
@@ -6017,8 +6022,14 @@ void XDp_TxHdcp22EnableECFSlots(XDp *InstancePtr)
  *******************************************************************************/
 void XDp_TxHdcp22Disable(XDp *InstancePtr)
 {
+	/* HDCP22 core */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr,
-			XDP_TX_HDCP22_ENABLE, 0);
+			XDP_TX_HDCP22_ENABLE,
+			XDP_TX_HDCP22_ENABLE_BYPASS_ENABLE_MASK);
+	/* HDCP core */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_HDCP_ENABLE,
+			XDP_TX_HDCP_ENABLE_BYPASS_ENABLE_MASK);
 }
 #endif
 /** @} */
