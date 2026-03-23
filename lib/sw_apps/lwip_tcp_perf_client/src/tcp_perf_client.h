@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 - 2019 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -89,6 +89,21 @@ struct perf_stats {
 	u64_t total_bytes;
 	struct interim_report i_report;
 };
+
+/**
+ * This structure defines the iperf client test header sent to the server
+ * at the beginning of a performance test session. It contains test
+ * configuration parameters such as thread count, port, buffer size,
+ * and test duration or byte amount.
+ */
+typedef struct iperf_client_hdr_v1 {
+	u32_t flags;
+	u32_t num_threads;
+	u32_t remote_port;
+	u32_t buffer_len;
+	u32_t win_band;
+	u32_t amount;
+} iperf_client_test_hdr;
 
 /* seconds between periodic bandwidth reports */
 #define INTERIM_REPORT_INTERVAL 5

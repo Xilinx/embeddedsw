@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 - 2019 Xilinx, Inc.
- * Copyright (C) 2019 - 2026 Advanced Micro Devices, Inc.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,10 +30,47 @@
 /* Connection handle for a TCP Client session */
 
 #include "tcp_perf_client.h"
+#include <string.h>
 
 static struct tcp_pcb *c_pcb;
 static char send_buf[TCP_SEND_BUFSIZE];
 static struct perf_stats client;
+static iperf_client_test_hdr client_hdr;
+static u8_t client_hdr_acked = 0;
+
+/* Forward declarations */
+static void tcp_conn_report(u64_t diff, enum report_type report_type);
+static void tcp_client_close(struct tcp_pcb *pcb);
+void print_app_header(void);
+
+static err_t send_iperf_client_header(struct tcp_pcb *pcb)
+{
+	err_t err;
+
+	client_hdr.flags = 0;
+	client_hdr.num_threads = PP_HTONL(1);
+	client_hdr.remote_port = PP_HTONL(TCP_CONN_PORT);
+	client_hdr.buffer_len = PP_HTONL(TCP_SEND_BUFSIZE);
+	client_hdr.win_band = 0;
+	/* Negative value = time-based test (unit is 10ms)
+	 * Positive value = byte-based test (number of bytes to transfer) */
+	client_hdr.amount = PP_HTONL((u32_t)(-(s32_t)(TCP_TIME_INTERVAL * 100)));
+
+	/* Send the header */
+	err = tcp_write(pcb, &client_hdr, sizeof(client_hdr), TCP_WRITE_FLAG_COPY);
+	if (err != ERR_OK) {
+		xil_printf("TCP client: Error sending iperf header: %d\r\n", err);
+		return err;
+	}
+
+	err = tcp_output(pcb);
+	if (err != ERR_OK) {
+		xil_printf("TCP client: Error on tcp_output for header: %d\r\n", err);
+		return err;
+	}
+
+	return ERR_OK;
+}
 
 void print_app_header()
 {
@@ -172,6 +209,10 @@ static err_t tcp_send_perf_traffic(void)
 		return ERR_CONN;
 	}
 
+	if (!client_hdr_acked) {
+		return ERR_OK;
+	}
+
 #ifdef __MICROBLAZE__
 	/* Zero-copy pbufs is used to get maximum performance for Microblaze.
 	 * For Zynq A9, ZynqMP A53 and R5 zero-copy pbufs does not give
@@ -233,12 +274,19 @@ static err_t tcp_send_perf_traffic(void)
 /** TCP sent callback, try to send more data */
 static err_t tcp_client_sent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 {
+
+	/* Check if this is server ACK for client header */
+	if (!client_hdr_acked && len >= sizeof(iperf_client_test_hdr)) {
+		client_hdr_acked = 1;
+	}
+
 	return tcp_send_perf_traffic();
 }
 
 /** TCP connected callback (active connection), send data now */
 static err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err)
 {
+
 	if (err != ERR_OK) {
 		tcp_client_close(tpcb);
 		xil_printf("Connection error\n\r");
@@ -253,17 +301,20 @@ static err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err)
 	client.total_bytes = 0;
 
 	/* report interval time in ms */
+	memset(&client.i_report, 0, sizeof(client.i_report));
 	client.i_report.report_interval_time = INTERIM_REPORT_INTERVAL * 20;
-	client.i_report.last_report_time = 0;
-	client.i_report.start_time = 0;
-	client.i_report.total_bytes = 0;
 
 	print_tcp_conn_stats();
 
-	/* set callback values & functions */
-	tcp_arg(c_pcb, NULL);
-	tcp_sent(c_pcb, tcp_client_sent);
-	tcp_err(c_pcb, tcp_client_err);
+	/* Send iperf client header before starting data transfer */
+	client_hdr_acked = 0;
+	err = send_iperf_client_header(c_pcb);
+	if (err != ERR_OK) {
+		xil_printf("Failed to send iperf2 client header\r\n");
+		tcp_client_close(c_pcb);
+		c_pcb = NULL;
+		return err;
+	}
 
 	/* initiate data transfer */
 	return ERR_OK;
@@ -283,7 +334,7 @@ void start_application(void)
 	u32_t i;
 
 #if LWIP_IPV6==1
-	remote_addr.type= IPADDR_TYPE_V6;
+	remote_addr.type = IPADDR_TYPE_V6;
 	err = inet6_aton(TCP_SERVER_IPV6_ADDRESS, &remote_addr);
 #else
 	err = inet_aton(TCP_SERVER_IP_ADDRESS, &remote_addr);
@@ -300,6 +351,11 @@ void start_application(void)
 		xil_printf("Error in PCB creation. out of memory\r\n");
 		return;
 	}
+
+	/* Initialize callbacks */
+	tcp_arg(pcb, NULL);
+	tcp_sent(pcb, tcp_client_sent);
+	tcp_err(pcb, tcp_client_err);
 
 	err = tcp_connect(pcb, &remote_addr, TCP_CONN_PORT,
 			tcp_client_connected);
