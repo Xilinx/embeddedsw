@@ -249,13 +249,21 @@ void XHdcp22Cipher_Dp_SetMst(XHdcp22_Cipher_Dp *InstancePtr, u8 Mode)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	u64 MstMode = Mode;
 
-	MstMode |= (MstMode << XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS);
 
-	/*Clear Lane count bits*/
-	XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress,
-			XHDCP22_CIPHER_REG_CTRL_SET_OFFSET,
-			MstMode);
+	if (Mode) {
+		u64 MstMode = Mode;
+		MstMode |= (MstMode << XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS);
+
+		/*Set MST mode*/
+		XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress,
+				XHDCP22_CIPHER_REG_CTRL_SET_OFFSET,
+				MstMode);
+	} else {
+		/*Clear MST bit for SST mode - set transport offset*/
+		XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress,
+				XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET,
+				(1 << XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS));
+	}
 }
 /** @} */

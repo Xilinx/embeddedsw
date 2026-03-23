@@ -199,7 +199,7 @@ extern "C" {
 ******************************************************************************/
 #define XHdcp22Cipher_Dp_GetControlReg(BaseAddress) \
         XHdcp22Cipher_Dp_ReadReg(BaseAddress, XHDCP22_CIPHER_REG_CTRL_OFFSET)
-/*@}*/
+/** @} */
 
 /************************** Function Prototypes ******************************/
 
