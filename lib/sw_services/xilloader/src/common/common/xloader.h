@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -191,6 +191,7 @@ extern "C" {
 #define XLOADER_PDI_TYPE_FULL_METAHEADER 	(0x4U)
 #define XLOADER_PDI_TYPE_PARTIAL_METAHEADER 	(0x5U)
 #define XLOADER_PDI_TYPE_IPU	(0x6U)
+#define XLOADER_PDI_TYPE_IAU	(0x7U)
 /** @} */
 
 /**

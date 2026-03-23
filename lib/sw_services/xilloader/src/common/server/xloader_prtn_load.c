@@ -628,7 +628,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 		CdoProcessTimeStart = XPlmi_GetTimerValue();
 #endif
-		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) {
+		if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) &&
+		    (PdiPtr->PdiType != XLOADER_PDI_TYPE_IAU)) {
 			/** Process the chunk */
 			Status = XPlmi_ProcessCdo(&Cdo);
 			if (Status != XST_SUCCESS) {
@@ -656,7 +657,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
 				Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted = (u8)FALSE;
-				if (PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) {
+				if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) &&
+				    (PdiPtr->PdiType != XLOADER_PDI_TYPE_IAU)) {
 					Status = XPlmi_ProcessCdo(&Cdo);
 					if (Status != XST_SUCCESS) {
 						goto END;

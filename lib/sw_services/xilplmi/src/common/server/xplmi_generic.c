@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -127,6 +127,7 @@
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 *		abh  08/15/2025 Fixed GCC warnings
 *       obs  08/26/2025 Added support for address range checks
+*       vm   03/16/2026 Added support for ASUFW update command
 * </pre>
 *
 *
@@ -157,6 +158,9 @@
 #endif
 #include "xplmi_plat.h"
 #include "xplmi_tamper.h"
+#ifdef VERSAL_2VE_2VM
+#include "xplmi_asu_update.h"
+#endif
 
 /** @cond xplmi_internal */
 
@@ -2476,6 +2480,11 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(NULL),
 		XPLMI_MODULE_COMMAND(XPlmi_GetSsitSecCommStatus),
 		XPLMI_MODULE_COMMAND(XPlmi_SetDDRMCRegStsCmdHandler),
+#ifdef VERSAL_2VE_2VM
+		XPLMI_MODULE_COMMAND(XPlmi_AsuUpdate),
+#else
+		XPLMI_MODULE_COMMAND(NULL),
+#endif
 	};
 
 	/* Buffer to store access permissions of xilplmi generic module */
@@ -2535,6 +2544,11 @@ void XPlmi_GenericInit(void)
 		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_GETSECCOMM_STATUS_CMD_ID),
 #endif
 		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID),
+#ifdef VERSAL_2VE_2VM
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_INPLACE_ASU_UPDATE_CMD_ID),
+#else
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_INPLACE_ASU_UPDATE_CMD_ID),
+#endif
 	};
 
 	/* This is to store CMD_END in xplm_modules section */

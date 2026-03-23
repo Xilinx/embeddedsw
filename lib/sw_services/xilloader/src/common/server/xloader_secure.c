@@ -618,7 +618,9 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(ChecksumOffset,
 			(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
 #else
-		if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+		if ((SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) &&
+		    (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) &&
+		    (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_IAU)){
 			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
 					HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
 					XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);

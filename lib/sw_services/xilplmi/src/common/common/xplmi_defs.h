@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *       pre  09/30/24 Added support for get secure communication status command
  *       pre  10/19/24 Added XPLMI_HEADER_LEN_5 and XPLMI_HEADER_LEN_6 macros
  *       pre  01/13/25 Added command to set access status of DDRMC main registers
+ *       vm   03/16/2026 Added XPLMI_INPLACE_ASU_UPDATE_CMD_ID command
  *
  * </pre>
  *
@@ -86,6 +87,7 @@ extern "C" {
 #define XPLMI_CONFIG_SECCOMM_CMD_ID     (43U) /**< command id for secure communication configuration */
 #define XPLMI_GETSECCOMM_STATUS_CMD_ID  (45U) /**< command id to get secure communication status */
 #define XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID (46U) /**< command id to get secure communication status */
+#define XPLMI_INPLACE_ASU_UPDATE_CMD_ID (47U) /**< command id for In-Place ASU firmware update */
 #define XPLMI_CDO_END_CMD_ID		    (0xFFU) /**< command id for CDO end */
 
 #define XPLMI_HEADER_LEN_0			(0U) /**< Header Length 0 */

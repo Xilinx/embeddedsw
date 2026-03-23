@@ -44,6 +44,7 @@
 * 1.09  sk   09/26/2023 Added Support for In-Place Update from Image Store
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
+*       vm   03/16/2026 Added ASU in-place update initialization for VERSAL_2VE_2VM
 *
 * </pre>
 *
@@ -65,6 +66,9 @@
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
 #include "xplm_plat.h"
+#ifdef VERSAL_2VE_2VM
+#include "xplmi_asu_update.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -153,6 +157,16 @@ static int XPlm_Init(void)
 	if (Status != XST_SUCCESS) {
 		XPlmi_ErrMgr(Status);
 	}
+
+#ifdef VERSAL_2VE_2VM
+	/** Initialize ASU in-place update subsystem for VERSAL_2VE_2VM platforms */
+	Status = XPlmi_AsuUpdateInit(XLoader_IsPdiAddrLookup, XPlmi_CheckAsuPresenceInPdi,
+			XLoader_LoadAsuImage);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "ASU update initialization failed: 0x%x\n\r", Status);
+		XPlmi_ErrMgr(Status);
+	}
+#endif
 
 	/** Initialize debug log buffer structure */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {

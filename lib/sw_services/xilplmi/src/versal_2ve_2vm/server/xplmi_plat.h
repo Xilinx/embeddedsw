@@ -70,6 +70,7 @@
 * 	    abh  07/21/2025 Fixed GCC warnings
 *       obs  08/26/2025 Added error codes and macros for handling verifying address range
 * 2.4	abh  10/14/2025 Fixed MISRAC Violations
+*       vm   03/16/2026 Added error code related to ASU update event
 * </pre>
 *
 * @note
@@ -312,6 +313,12 @@ enum {
 
 	/** 0x20D - ROM error during In Place Update */
 	XPLMI_ERR_INPLACE_UPDATE_ROM_ERROR,
+
+	/** 0x20E - ASU firmware not running or failed to restart after in-place update */
+	XPLMI_ERR_ASU_FW_NOT_RUNNING,
+
+	/** 0x20F - ASU firmware shutdown timeout during in-place update. */
+	XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT,
 };
 
 typedef struct {

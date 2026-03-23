@@ -53,6 +53,7 @@
 *                       to update DataMeasurement
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 * 2.4   gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+*       vm   03/16/2026 Added XLOADER_ERR_ASU_FW_NOT_FOUND error code
 *
 * </pre>
 *
@@ -287,6 +288,9 @@ enum {
 	/** 0x30 - Error while releasing I2C device used for Handshake */
 	XLOADER_ERR_I2C_DEV_RELEASE,
 
+	/** 0x31 - ASUFW image not found in PDI */
+	XLOADER_ERR_ASU_FW_NOT_FOUND,
+
 	/**< 0x32 - Error when invalid address range is detected. */
 	XLOADER_ERR_INVALID_ADDR_RANGE = 0x32,
 
@@ -501,6 +505,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
+int XLoader_LoadAsuImage(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);

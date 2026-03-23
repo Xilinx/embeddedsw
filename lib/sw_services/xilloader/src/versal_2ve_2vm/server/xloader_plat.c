@@ -73,6 +73,7 @@
 * 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
 *       rmv  01/30/2026 Renamed OCP header files
 *       gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+*       vm   03/16/2026 Added XLoader_LoadAsuElf function for ASU update
 *
 * </pre>
 *
@@ -92,6 +93,7 @@
 #include "xpm_rpucore.h"
 #include "xloader_plat.h"
 #include "xplmi_update.h"
+#include "xplmi_asu_update.h"
 #include "xplmi.h"
 #include "xilpdi.h"
 #include "xplmi_gic_interrupts.h"
@@ -468,7 +470,8 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	ImageMeasureInfo.SubsystemID = SubsystemID;
 	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
-		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU) ||
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IAU)) {
 		ImageMeasureInfo.OverWrite = TRUE;
 	}
 	else {
@@ -1786,4 +1789,57 @@ void XLoader_ShaInstance1Reset(void)
 	 /** Not Applicable for Versal_2Ve_2Vm */
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function loads the ASU firmware image from DDR during
+ *		In-Place ASU Update.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+ *
+*****************************************************************************/
+int XLoader_LoadAsuImage(void)
+{
+	int Status = XST_FAILURE;
+	u64 PdiAddr = (u64)(XPlmi_GetAsuUpdatePdiAddr());
+	XilPdi *PdiPtr = XLoader_GetPdiInstance();
+
+	/** Memset the PDI instance. */
+	Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_PDIPTR);
+		goto END;
+	}
+
+	/** Initialize the PDI to load the ASU subsystem from DDR. */
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_IAU;
+	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Check if ASU is present in InPlace update PDI and get the
+	 * Image number and Partition number.
+	 * If ASU is not found, return error.
+	 */
+	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, PM_SUBSYS_ASU);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
+		goto END;
+	}
+
+	/** Load the ASU image. */
+	Status = XLoader_LoadImage(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** We need to reset NoOfHandOffCpus here because we don't call StartImage routine */
+	PdiPtr->NoOfHandoffCpus = 0U;
+
+END:
+	return Status;
+}
 /** @} end of xloader_server_apis group */

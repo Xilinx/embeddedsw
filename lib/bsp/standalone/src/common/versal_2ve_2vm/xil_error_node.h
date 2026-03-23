@@ -834,6 +834,9 @@ extern "C" {
 
 /** OCP subsystem update events */
 #define XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE	(0x00004000U)
+
+/** ASU firmware update event */
+#define XIL_EVENT_ERROR_MASK_ASU_UPDATE		(0x00008000U)
 /**
  * @}
  */

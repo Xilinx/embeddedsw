@@ -21,6 +21,7 @@
 *       sk   09/20/2024 Added defines for errors in LPDSLCR
 *       sk   09/23/2025 Added additional HBMON Error ID's
 * 2.4   abh  10/14/2025 Fixed MISRAC Violations
+*       vm   03/16/2026 Added XPLMI_ERROR_ASU_UPDATE event
 *
 * </pre>
 *
@@ -313,7 +314,8 @@ typedef enum {
 #define XPLMI_ERROR_HB_MON_6		(0xECU)
 #define XPLMI_ERROR_HB_MON_7		(0xEDU)
 #define XPLMI_ERROR_OCP_SUBSYS_UPDATE	(0xEEU)
-#define XPLMI_ERROR_SW_ERR_MAX		(0xEFU)
+#define XPLMI_ERROR_ASU_UPDATE		(0xEFU)
+#define XPLMI_ERROR_SW_ERR_MAX		(0xF0U)
 
 #define PSX_EAM_E0_BIT_SHIFT		14U
 #define PSX_EAM_E1_BIT_SHIFT		15U

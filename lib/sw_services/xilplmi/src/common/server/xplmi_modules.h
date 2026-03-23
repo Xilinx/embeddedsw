@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 *       pre  01/13/2025 Added command to set access status of DDRMC main registers
 *       am   02/22/2025 Added ASU module Id
 *       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
+*       vm   03/16/2026 Added XPLMI_INPLACE_ASU_UPDATE_CMD_ID command ID
 *
 * </pre>
 *
@@ -216,6 +217,7 @@ typedef struct {
 #define XPLMI_SSIT_CFG_SEC_COMM_CMD_ID (43U)
 #define XPLMI_GETSECCOMM_STATUS_CMD_ID (45U)
 #define XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID (46U)
+#define XPLMI_INPLACE_ASU_UPDATE_CMD_ID	(47U) /**< In-Place ASU firmware update command ID */
 #define XPLMI_CDO_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/
