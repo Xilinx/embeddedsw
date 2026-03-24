@@ -175,15 +175,12 @@ endif()
 # =============================================================================
 # Client Configuration
 # =============================================================================
-if((NOT _IS_PLM_MICROBLAZE) AND (NOT _IS_SPARTANUPLUS))
+if((NOT _IS_PLM_MICROBLAZE) AND (NOT _IS_SPARTANUPLUS) AND (NOT _IS_PMU_MICROBLAZE))
   # Versal: mode can be client or server
   if(_IS_VERSAL_ONLY)
     set(XILSECURE_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilSecure library for Versal")
     set_property(CACHE XILSECURE_mode PROPERTY STRINGS "client" "server")
-  endif()
-
-  # VersalNet and Versal 2VP variants: mode is client only
-  if(_IS_VERSALNET_OR_2VP_OR_2VP_P)
+  else()
     set(XILSECURE_mode "client")
   endif()
 
