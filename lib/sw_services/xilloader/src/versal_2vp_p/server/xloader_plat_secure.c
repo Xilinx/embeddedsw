@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
+* 2.4   tvp 03/24/26 Add support for obfuscated key
 *
 * </pre>
 *
@@ -36,6 +37,10 @@
 #include "xloader_plat_secure.h"
 
 /************************************ Constant Definitions ****************************************/
+#define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U)	/**< eFuse obfuscated key */
+#define XLOADER_BBRAM_OBFUS_KEY		(0x3A5C3C57U)	/**< BBRAM obfuscated key */
+#define XLOADER_BH_OBFUS_KEY		(0xA35C7CA5U)	/**< Boot header obfuscated key */
+#define XLOADER_INVALID_OBFUS_KEY	(0xFFFFFFFFU)	/**< Invalid obfuscated key */
 
 /************************************** Type Definitions ******************************************/
 
@@ -66,12 +71,15 @@ u32 XLoader_GetKekSrc(void)
 	XPlmi_Printf(DEBUG_INFO, "Identifying KEK's corresponding RED key availability status\n\r");
 	switch(BootHdrPtr->EncStatus) {
 	case XLOADER_BH_BLK_KEY:
+	case XLOADER_BH_OBFUS_KEY:
 		DecKeySrc = XLOADER_BHDR_RED_KEY;
 		break;
 	case XLOADER_BBRAM_BLK_KEY:
+	case XLOADER_BBRAM_OBFUS_KEY:
 		DecKeySrc = XLOADER_BBRAM_RED_KEY;
 		break;
 	case XLOADER_EFUSE_BLK_KEY:
+	case XLOADER_EFUSE_OBFUS_KEY:
 		DecKeySrc = XLOADER_EFUSE_RED_KEY;
 		break;
 	default:
@@ -97,12 +105,46 @@ u32 XLoader_GetKekSrc(void)
  **************************************************************************************************/
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 {
-	(void)PdiKeySrc;
-	(void)KeySrcPtr;
-	(void)DecKeyMask;
+	volatile int Status = XST_FAILURE;
+	XSecure_AesKeySrc *KeySrc = (XSecure_AesKeySrc *)KeySrcPtr;
+	volatile u32 PdiKeySrcTmp = XLOADER_INVALID_OBFUS_KEY;
 
-	/* Obfuscated Key is not supported in Versal_2vp */
-	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0);
+	*KeySrc = XSECURE_AES_INVALID_KEY;
+
+	switch (PdiKeySrc) {
+	case XLOADER_EFUSE_OBFUS_KEY:
+		PdiKeySrcTmp = XLOADER_EFUSE_OBFUS_KEY;
+		if (((DecKeyMask) & XLOADER_EFUSE_RED_KEY) == XLOADER_EFUSE_RED_KEY) {
+			Status = XST_SUCCESS;
+			*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
+		}
+		break;
+	case XLOADER_BBRAM_OBFUS_KEY:
+		PdiKeySrcTmp = XLOADER_BBRAM_OBFUS_KEY;
+		if (((DecKeyMask) & XLOADER_BBRAM_RED_KEY) == XLOADER_BBRAM_RED_KEY) {
+			*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
+			Status = XST_SUCCESS;
+		}
+		break;
+	case XLOADER_BH_OBFUS_KEY:
+		PdiKeySrcTmp = XLOADER_BH_OBFUS_KEY;
+		if (((DecKeyMask) & XLOADER_BHDR_RED_KEY) == XLOADER_BHDR_RED_KEY) {
+			*KeySrc = XSECURE_AES_BH_RED_KEY;
+			Status = XST_SUCCESS;
+		}
+		break;
+	default:
+		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, Status);
+		break;
+	}
+
+	if (Status == XST_SUCCESS) {
+		if ((PdiKeySrc != PdiKeySrcTmp) || (*KeySrc == XSECURE_AES_INVALID_KEY)) {
+			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0U);
+		}
+	}
+
+	return Status;
 }
 
 #ifndef PLM_RSA_EXCLUDE
