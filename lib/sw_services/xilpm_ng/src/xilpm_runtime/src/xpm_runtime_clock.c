@@ -32,6 +32,17 @@
 #define MAX_CLK_CHAIN_DEPTH		10U
 
 
+/* CLOCK_DESCRIBE_RATE response format macros */
+#define CLK_RATE_FORMAT_SHIFT	12U
+#define CLK_RATES_TRIPLET	3U
+
+/* CLOCK_DESCRIBE_RATE FLAG macros */
+#define CLK_RANGE_FORMAT	1U
+
+/* Helper macro to format clock rate response */
+#define CLK_DESCRIBE_RATE_FORMAT(num_rates, format_type) \
+	((num_rates) | ((format_type) << CLK_RATE_FORMAT_SHIFT))
+
 /* Rate change allowed for only few clocks (for now) */
 #define IS_RATE_CHANGE_ALLOWED(ClkId) \
 	((ClkId == PM_CLK_GEM0_TX) || (ClkId == PM_CLK_GEM1_TX) || \
@@ -1186,5 +1197,73 @@ XStatus XPmClock_ProgramRate(u32 ClockId, u32 ClkRate, u32 Flags)
 	}
 
 done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Describe supported clock rates for a given clock
+ *
+ * This function returns clock rate information in one of two formats
+ * depending on the clock type.
+ *
+ * @param ClockId   Clock node ID to query
+ * @param RateIdx   Index of the rate to describe (reserved for future use)
+ * @param Response  Output array (minimum 4 elements):
+ *                  Response[0]: Format and count flags
+ *                               - Bits [11:0]:  Number of rates returned (3 for range, 1 for single)
+ *                               - Bit  [12]:    Format (1 = range triplet, 0 = discrete list)
+ *                               - Bits [15:13]: Reserved
+ *                               - Bits [31:16]: Number of remaining rates after this call
+ *
+ *                  Range format (bit 12 = 1):
+ *                    Response[1]: Minimum rate in Hz
+ *                    Response[2]: Maximum rate in Hz
+ *                    Response[3]: Step size in Hz
+ *
+ *                  Discrete format (bit 12 = 0):
+ *                    Response[1]: Rate in Hz (or first discrete rate)
+ *                    Response[2]: 0 (unused, or second discrete rate)
+ *                    Response[3]: 0 (unused, or third discrete rate)
+ *
+ * @return XST_SUCCESS always
+ *
+ * @note Follows SCMI CLOCK_DESCRIBE_RATES format
+ *
+ ****************************************************************************/
+XStatus XPmClock_DescribeRate(u32 ClockId, u32 RateIdx, u32 *Response)
+{
+	XStatus Status = XST_FAILURE;
+	(void)RateIdx; /* RateIdx is not used for now, kept for future use */
+
+	if ((PM_CLK_GEM0_TX == ClockId) || (PM_CLK_GEM1_TX == ClockId)) {
+		Response[0] = CLK_DESCRIBE_RATE_FORMAT(CLK_RATES_TRIPLET, CLK_RANGE_FORMAT);
+		Response[1] = 2500000U;    /* Min: 2.5 MHz */
+		Response[2] = 125000000U;  /* Max: 125 MHz */
+		Response[3] = 2500000U;    /* Step: 2.5 MHz */
+	} else if (PM_CLK_MMIPLL == ClockId) {
+		Response[0] = CLK_DESCRIBE_RATE_FORMAT(CLK_RATES_TRIPLET, CLK_RANGE_FORMAT);
+		Response[1] = 189000000U;   /* Min: 189 MHz */
+		Response[2] = 2997000000U;  /* Max: 2.997 GHz */
+		Response[3] = 100000U;      /* Step: 100 kHz */
+	} else if (PM_CLK_DC_PIXEL == ClockId) {
+		Response[0] = CLK_DESCRIBE_RATE_FORMAT(CLK_RATES_TRIPLET, CLK_RANGE_FORMAT);
+		Response[1] = 25175000U;   /* Min: 25.175 MHz */
+		Response[2] = 597000000U;  /* Max: 597 MHz */
+		Response[3] = 1000U;       /* Step: 1 kHz */
+	} else if (PM_CLK_DC_REF == ClockId) {
+		Response[0] = CLK_DESCRIBE_RATE_FORMAT(CLK_RATES_TRIPLET, CLK_RANGE_FORMAT);
+		Response[1] = 2822400U;   /* Min: 2.8224 MHz */
+		Response[2] = 27000000U;  /* Max: 27 MHz */
+		Response[3] = 4800U;      /* Step: 4.8 kHz */
+	} else if (PM_CLK_MMI_AUX1_REF == ClockId) {
+		Response[0] = 1U;         /* Single discrete rate */
+		Response[1] = 27000000U;  /* 27 MHz */
+	} else {
+		Response[0] = 1U;  /* Single rate */
+		XPmClock_GetRate(ClockId, &Response[1]);
+	}
+	Status = XST_SUCCESS;
+
 	return Status;
 }

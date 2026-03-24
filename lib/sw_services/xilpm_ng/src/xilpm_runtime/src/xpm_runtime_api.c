@@ -129,6 +129,7 @@ static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
 static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
 static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd);
+static XStatus XPm_DoDescribeClockRate(XPlmi_Cmd* Cmd);
 
 /* Defined in xilpm-boot */
 extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
@@ -414,6 +415,7 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoSetNodeAccess;
 	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)XPm_DoGetClockRate;
 	XPlmi_PmCmds[PM_CLOCK_PROGRAM_RATE].Handler = (XPlmi_CmdHandler)XPm_DoProgramClockRate;
+	XPlmi_PmCmds[PM_CLOCK_DESCRIBERATE].Handler = (XPlmi_CmdHandler)XPm_DoDescribeClockRate;
 	Status = XPmSubsystem_ModuleInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -979,6 +981,45 @@ static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd)
 
 done:
 	Cmd->Response[0] = (u32)Status;
+	return Status;
+}
+
+/**
+ * @brief  Handle PM_CLOCK_DESCRIBERATE command to describe supported rates.
+ *
+ * Resolves the indexed node ID and returns the rate description
+ * (format, min/max/step or discrete list) for the specified clock.
+ *
+ * @param  Cmd	Pointer to the command structure
+ *
+ * @return XST_SUCCESS if successful else error code
+ *
+ ****************************************************************************/
+static XStatus XPm_DoDescribeClockRate(XPlmi_Cmd* Cmd)
+{
+	XStatus Status = XST_FAILURE;
+	u32 IndexedClockId = Cmd->Payload[0];
+	u32 ClockId;
+	u32 RateIdx = Cmd->Payload[1];
+
+	Status = XPm_ResolveIndexedNodeId(IndexedClockId, &ClockId);
+	if (XST_SUCCESS != Status) {
+		Cmd->Response[0] = (u32)Status;
+		/*
+		 * For getter APIs, a hole in the SCMI (INDEXED) ID space is
+		 * not a failure — the API returns SUCCESS with the actual
+		 * status in the response payload so the caller (e.g. TF-A
+		 * SCMI server) can act accordingly.
+		 */
+		if (XPM_PM_INVALID_NODE == Status) {
+			Status = XST_SUCCESS;
+		}
+		goto done;
+	}
+
+	Status = XPmClock_DescribeRate(ClockId, RateIdx, &Cmd->Response[1]);
+	Cmd->Response[0] = (u32)Status;
+done:
 	return Status;
 }
 
