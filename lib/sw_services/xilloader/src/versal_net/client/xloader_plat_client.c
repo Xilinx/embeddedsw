@@ -22,6 +22,7 @@
  *       kpt  10/04/24 Added support to validate partial and optimized authentication enabled PDI
  * 2.2   prt  04/12/25 Added support on Error code with more description for XLoader_ValidatePdiAuth
  *	 prt  05/15/25 Removal of unnecessary log print message
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -223,7 +224,7 @@ static u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES] __attribute__((aligned (64)))
 int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
@@ -232,8 +233,8 @@ int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 		goto END;
 	}
 
-	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_1, XLOADER_CMD_ID_CONFIG_JTAG_STATE);
-	Payload[1U] = Flag;
+	/** Fill IPI Payload */
+	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_CONFIG_JTAG_STATE, Flag);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command
@@ -241,7 +242,7 @@ int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -264,7 +265,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 		XLoader_DDRCounters *CryptoCounters)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
@@ -273,9 +274,8 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 		goto END;
 	}
 
-	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_1,
-					XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS);
-	Payload[1U] = NodeId;
+	/** Fill IPI Payload */
+	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS, NodeId);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XLoader_ReadDdrCryptoPerfCounters CDO command
@@ -283,7 +283,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 	CryptoCounters->DDRCounter0 =  InstancePtr->Response[1];
 	CryptoCounters->DDRCounter1 =  InstancePtr->Response[2];
 	CryptoCounters->DDRCounter2 =  InstancePtr->Response[3];
@@ -970,16 +970,13 @@ END:
 static int XLoader_VerifyDataAuth(XLoader_ClientInstance *InstancePtr, u64 HashAddr, u64 ACAddr, u32 SignatureSelect)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
-	Payload[0U] = PACK_XLOADER_HEADER(0,XLOADER_CMD_ID_DATA_AUTH);
-	Payload[1U] = SignatureSelect;
-	Payload[2U] = (u32)HashAddr;
-	Payload[3U] = (u32)(HashAddr >> 32U);
-	Payload[4U] = (u32)ACAddr;
-	Payload[5U] = (u32)(ACAddr >> 32U);
+	/** Fill IPI Payload */
+	XLOADER_PACK_PAYLOAD5(Payload, (u32)XLOADER_CMD_ID_DATA_AUTH, SignatureSelect, (u32)HashAddr,
+			(u32)(HashAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)ACAddr, (u32)(ACAddr >> XLOADER_ADDR_HIGH_SHIFT));
 
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 	return Status;
 }

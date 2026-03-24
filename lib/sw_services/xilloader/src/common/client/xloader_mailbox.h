@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       har  03/05/24 Fixed doxygen warnings
  * 1.01  pre  08/21/24 Added SlrIndex in XLoader_ClientInstance structure
  * 1.02  obs  02/18/25 Fixed IPI message length
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -57,6 +58,36 @@ extern "C" {
 #define XLOADER_SHARED_MEM_SIZE		(160U)
 						/**< Max size of shared memory used to store the CDO command */
 
+/**@cond xloader_internal
+ * @{
+ */
+/**< Payload Packets */
+#define XLOADER_PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)      \
+    Payload[0U] = (u32)Arg0;                        \
+    Payload[1U] = (u32)Arg1;                        \
+    Payload[2U] = (u32)Arg2;                        \
+    Payload[3U] = (u32)Arg3;                        \
+    Payload[4U] = (u32)Arg4;                        \
+    Payload[5U] = (u32)Arg5;                        \
+    Payload[6U] = (u32)Arg6;
+
+#define XLOADER_PACK_PAYLOAD0(Payload, ApiId) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(0UL, (ApiId)), 0U, 0U, 0U, 0U, 0U, 0U)
+#define XLOADER_PACK_PAYLOAD1(Payload, ApiId, Arg1) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(1UL, (ApiId)), (Arg1), 0U, 0U, 0U, 0U, 0U)
+#define XLOADER_PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(2UL, (ApiId)), (Arg1), (Arg2), 0U, 0U, 0U, 0U)
+#define XLOADER_PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(3UL, (ApiId)), (Arg1), (Arg2), (Arg3), 0U, 0U, 0U)
+#define XLOADER_PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(4UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), 0U, 0U)
+#define XLOADER_PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(5UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), (Arg5), 0U)
+#define XLOADER_PACK_PAYLOAD6(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6) \
+    XLOADER_PACK_PAYLOAD(Payload, PACK_XLOADER_HEADER(6UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), (Arg5), (Arg6))
+/** @}
+ * @endcond
+ */
 /************************************** Type Definitions *****************************************/
 
 /**

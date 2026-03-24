@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  gnr  02/09/26 Initial release
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -55,7 +56,7 @@
 int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
@@ -64,8 +65,8 @@ int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 		goto END;
 	}
 
-	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_1, XLOADER_CMD_ID_CONFIG_JTAG_STATE);
-	Payload[1U] = Flag;
+	/** Fill IPI Payload */
+	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_CONFIG_JTAG_STATE, Flag);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command
@@ -73,7 +74,7 @@ int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -96,7 +97,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 		XLoader_DDRCounters *CryptoCounters)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
 	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
@@ -105,9 +106,8 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 		goto END;
 	}
 
-	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_1,
-					XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS);
-	Payload[1U] = NodeId;
+	/** Fill IPI Payload */
+	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS, NodeId);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XLoader_ReadDdrCryptoPerfCounters CDO command
@@ -115,7 +115,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 	CryptoCounters->DDRCounter0 =  InstancePtr->Response[1];
 	CryptoCounters->DDRCounter1 =  InstancePtr->Response[2];
 	CryptoCounters->DDRCounter2 =  InstancePtr->Response[3];
