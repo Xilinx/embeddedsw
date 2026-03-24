@@ -41,6 +41,8 @@
 * 6.4  rg  09/26/20 Added driver handler function XDpTxSs_WriteVscExtPktProcess
 *		    for programming the extended packet up on receiving extended
 *		    packet transmission done interrupt.
+* 6.5 pam  03/18/26 Max lane count and Max link rate parsing based on Extended
+* 		    receiver capability
 * </pre>
 *
 ******************************************************************************/
@@ -168,6 +170,8 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
 	u8 ext_cap = 0;
+	u8 enc_cap = 0;
+	u8 max_cap_local = 0;
 	u8 ext_dpcd_rd = 0;
 	u8 Dpcd_ext [16];
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
@@ -179,23 +183,46 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 
 	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
 		/* From here is the requirement per DP spec */
-		Status = XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_MAX_LINK_RATE, 1,
-				&UsrHpdEventData->MaxCapNew);
-		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_DPCD_MAX_LANE_COUNT, 1,
-				&UsrHpdEventData->MaxCapLanesNew);
+
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 				XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &ext_cap);
+		if (ext_cap & 0x80) {
+			Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+					XDP_EXT_DPCD_MAX_LANE_COUNT, 1,
+					&UsrHpdEventData->MaxCapLanesNew);
+		} else {
+			Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+					XDP_DPCD_MAX_LANE_COUNT, 1,
+					&UsrHpdEventData->MaxCapLanesNew);
+		}
 
 		if(ext_cap & 0x80) {
-			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
-				XDP_EDID_DPCD_MAX_LINK_RATE, 1, &ext_cap);
-			if(ext_cap == XDP_DPCD_LINK_BW_SET_810GBPS){
-				UsrHpdEventData->MaxCapNew = 0x1E;
-			}
+			Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+					XDP_EDID_DPCD_MAX_LINK_RATE, 1,
+					&UsrHpdEventData->MaxCapNew);
+		} else {
+			Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+					XDP_DPCD_MAX_LINK_RATE, 1,
+					&UsrHpdEventData->MaxCapNew);
+		}
 
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_ML_CH_CODING_CAP, 1, &enc_cap);
+
+		if(enc_cap & 0x02) {
+			Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE, 1,
+					&max_cap_local);
+			if (max_cap_local != 0) { /* Handling UCD500 setup*/
+				if (max_cap_local & 0x01)
+					UsrHpdEventData->MaxCapNew = XDP_TX_LINK_BW_SET_UHBR10;
+				if (max_cap_local & 0x04)
+					UsrHpdEventData->MaxCapNew = XDP_TX_LINK_BW_SET_UHBR135;
+				if (max_cap_local & 0x02)
+					UsrHpdEventData->MaxCapNew = XDP_TX_LINK_BW_SET_UHBR20;
+			}
+		}
+
+		if(ext_cap & 0x80) {
 			/* UCD400 required reading these extended registers */
 			XDp_TxAuxRead(XDpTxSsPtr->DpPtr,XDP_DPCD_SINK_COUNT_ESI,
 					1, &ext_dpcd_rd);
