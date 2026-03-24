@@ -312,10 +312,9 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Validate input length which should not be less than HashLen + SaltLen + 2. */
-	if ((PaddingParamsPtr->InputDataType != XASU_RSA_HASHED_INPUT_DATA) &&
-		(PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
-		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
+	/** Validate encoded message length: KeySize should not be less than HashLen + SaltLen + 2. */
+	if (KeySize < (HashLen + SaltLen +
+		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN)) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -613,10 +612,9 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			goto END;
 	}
 
-	/** Validate input length which should not be less than HashLen + SaltLen + 2. */
-	if ((PaddingParamsPtr->InputDataType != XASU_RSA_HASHED_INPUT_DATA) &&
-		(PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
-		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN))) {
+	/** Validate encoded message length: SignatureLen should not be less than HashLen + SaltLen + 2. */
+	if (PaddingParamsPtr->SignatureLen < (HashLen + SaltLen +
+		XRSA_PADDING_LEADING_ZERO_LEN + XRSA_DB_DELIMITER_LEN)) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -1346,7 +1344,7 @@ static s32 XRsa_OaepProcessDecryptedData(XAsufw_Dma *DmaPtr, XSha *ShaInstancePt
 	 * original message is separated from rest of the data block.
 	 */
 	Index = HashLen;
-	while ((Index < (DataBlockLen - XASUFW_BUFFER_INDEX_ONE))
+	while ((Index < DataBlockLen)
 		&& (DataBlock[Index] == XRSA_OAEP_ZERO_PADDING_DATA_VALUE)) {
 		Index++;
 	}
@@ -1363,7 +1361,7 @@ static s32 XRsa_OaepProcessDecryptedData(XAsufw_Dma *DmaPtr, XSha *ShaInstancePt
 	if ((DecryptOutputData[XRSA_PADDING_LEADING_ZERO_IDX] != 0U) ||
 		(XASUFW_SUCCESS != Xil_SMemCmp(DataBlock, XRSA_MAX_DB_LEN, HashBuffer,
 		XASU_SHA_512_HASH_LEN, HashLen)) ||
-		((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
+		((Index >= DataBlockLen) ||
 		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE))) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		XFIH_GOTO(END);
