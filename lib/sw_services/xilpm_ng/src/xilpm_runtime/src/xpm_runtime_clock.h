@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,8 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
 XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp);
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx);
+/** @brief Iteratively calculate the clock rate for a given clock node */
+u32 XPmClock_CalculateRate(XPm_ClockNode *Clk);
 #ifdef __cplusplus
 }
 #endif

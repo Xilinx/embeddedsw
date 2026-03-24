@@ -16,6 +16,7 @@
 #include "xpm_runtime_clock.h"
 #include "xpm_runtime_device.h"
 #include "xpm_pll.h"
+#include "xpm_runtime_pll.h"
 
 #define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES)
 #define CLK_INIT_ENABLE_SHIFT		1U
@@ -27,6 +28,8 @@
 #define CLK_TOPOLOGY_PAYLOAD_LEN	12U
 #define CLK_CLKFLAGS_SHIFT		8U
 #define CLK_TYPEFLAGS_SHIFT		24U
+/* Max depth is 8 as per current topology; 10 to accommodate future expansion */
+#define MAX_CLK_CHAIN_DEPTH		10U
 
 
 /* Clock UseCount overflow protection macro (use info print to avoid flooding logs) */
@@ -744,4 +747,123 @@ XStatus XPmClock_Request(const XPm_ClockHandle *ClkHandle)
 
 done:
 	return Status;
+}
+
+/**
+ * @brief  Compute the clock rate for a single node given its parent's rate.
+ *
+ * @param  ClkNode	Pointer to the clock node
+ * @param  ParentRate	Parent clock rate in Hz
+ *
+ * @return Computed clock rate in Hz, or 0 on failure
+ *
+ ****************************************************************************/
+static u32 XPmClock_ComputeNodeRate(XPm_ClockNode *ClkNode, u32 ParentRate)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Rate = 0U;
+	u32 Div = 0U;
+	const struct XPm_ClkTopologyNode *DivNode = NULL;
+
+	if ((ClkNode == NULL) || (ParentRate == 0U)) {
+		goto done;
+	}
+
+	if (ISREFCLK(ClkNode->Node.Id)) {
+		Rate = ParentRate;
+	} else if (ISPLL(ClkNode->Node.Id)) {
+		Status = XPmClockPll_GetParam((XPm_PllClockNode *)ClkNode,
+					      (u32)PM_PLL_PARAM_ID_FBDIV, &Div);
+		if ((Status != XST_SUCCESS) || (Div == 0U)) {
+			goto done;
+		}
+		Rate = ParentRate * Div;
+	} else if (ISOUTCLK(ClkNode->Node.Id)) {
+		DivNode = XPmClock_GetTopologyNode((XPm_OutClockNode *)ClkNode,
+						   (u32)TYPE_DIV1);
+		if (NULL == DivNode) {
+			Rate = ParentRate;
+			goto done;
+		}
+
+		Status = XPmClock_GetClockData((XPm_OutClockNode *)ClkNode,
+					       (u32)TYPE_DIV1, &Div);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		if (Div == 0U) {
+			if (DivNode->Typeflags & CLK_DIVIDER_ALLOW_ZERO) {
+				Rate = ParentRate;
+			}
+			goto done;
+		}
+
+		if (DivNode->Typeflags & CLK_DIVIDER_POWER_OF_TWO) {
+			Rate = ParentRate >> Div;
+		} else {
+			Rate = ParentRate / Div;
+		}
+	} else {
+		Rate = ParentRate;
+	}
+
+done:
+	return Rate;
+}
+
+/**
+ * @brief  Iteratively calculate the clock rate for a given clock node.
+ *
+ * Walks up the parent chain collecting unresolved nodes, then walks
+ * back down computing and caching rates. Bounded by MAX_CLK_CHAIN_DEPTH
+ * to prevent runaway traversal on malformed topologies.
+ *
+ * @param  Clk  Pointer to the clock node
+ *
+ * @return Calculated clock rate in Hz, or 0 on failure
+ *
+ ****************************************************************************/
+u32 XPmClock_CalculateRate(XPm_ClockNode *Clk)
+{
+	XPm_ClockNode *ClkChain[MAX_CLK_CHAIN_DEPTH];
+	u32 ChainDepth = 0U;
+	u32 ParentRate = 0U;
+	XPm_ClockNode *ClkNode = Clk;
+
+	if (ClkNode == NULL) {
+		goto done;
+	}
+
+	/* Phase 1: Walk up, collect unresolved clocks */
+	while ((ClkNode != NULL) && (ClkNode->ClkRate == 0U) &&
+	       (ChainDepth < MAX_CLK_CHAIN_DEPTH)) {
+		if (ISOUTCLK(ClkNode->Node.Id) && (ClkNode->NumParents > 1U)) {
+			XPmClock_InitParent((XPm_OutClockNode *)ClkNode);
+		}
+		ClkChain[ChainDepth] = ClkNode;
+		ChainDepth++;
+		ClkNode = XPmClock_GetByIdx(ClkNode->ParentIdx);
+	}
+
+	if (ChainDepth == MAX_CLK_CHAIN_DEPTH) {
+		PmWarn("Clock chain depth exceeded %u for Clk 0x%x\r\n",
+		       MAX_CLK_CHAIN_DEPTH, Clk->Node.Id);
+	}
+
+	/* Use cached rate */
+	if (ClkNode != NULL) {
+		ParentRate = ClkNode->ClkRate;
+	}
+
+	/* Phase 2: Walk back down, compute and cache each rate */
+	while (ChainDepth > 0U) {
+		ChainDepth--;
+		ClkNode = ClkChain[ChainDepth];
+		ClkNode->ClkRate = XPmClock_ComputeNodeRate(ClkNode, ParentRate);
+		ParentRate = ClkNode->ClkRate;
+	}
+
+done:
+	return (Clk != NULL) ? Clk->ClkRate : 0U;
 }

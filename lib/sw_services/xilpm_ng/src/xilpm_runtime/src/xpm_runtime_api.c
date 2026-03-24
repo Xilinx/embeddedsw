@@ -3545,6 +3545,15 @@ XStatus XPm_HookAfterBootPdi(void)
 		}
 		XPmPin_RuntimeOps_Init(Pin);
 	}
+
+	/* Calculate rate for all clocks */
+	for (u32 i = 1U; i < XPM_NODEIDX_CLK_MAX; i++) {
+		XPm_ClockNode *Clk = XPmClock_GetByIdx(i);
+		if (NULL != Clk) {
+			(void)XPmClock_CalculateRate(Clk);
+		}
+	}
+
 done:
 	return XST_SUCCESS;
 }
