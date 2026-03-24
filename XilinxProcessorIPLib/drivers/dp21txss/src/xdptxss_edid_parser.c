@@ -1,8 +1,9 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -377,8 +378,6 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
  * @param    VActive is the vertical active lines.
  * @param    RefreshRate is the refresh rate in Hz.
  *
- * @return   None.
- *
  ******************************************************************************/
 static void XDpTxSs_FillEstablishedTiming(XDpTxSs_VideoTimingParam *Timing,
 		u16 HActive, u16 VActive, u8 RefreshRate)
@@ -421,8 +420,6 @@ static void XDpTxSs_FillEstablishedTiming(XDpTxSs_VideoTimingParam *Timing,
  * @param    AspectRatio is the aspect ratio code (0-3).
  * @param    RefreshRate is the refresh rate in Hz.
  *
- * @return   None.
- *
  ******************************************************************************/
 static void XDpTxSs_FillStandardTiming(XDpTxSs_VideoTimingParam *Timing,
 		u16 HActive, u16 VActive,
@@ -462,8 +459,6 @@ static void XDpTxSs_FillStandardTiming(XDpTxSs_VideoTimingParam *Timing,
  *
  * @param    TimingParam is the source timing parameter structure.
  * @param    VideoTiming is the destination XDpTxSs_VideoTimingParam structure.
- *
- * @return   None.
  *
  ******************************************************************************/
 static void XDpTxSs_ConvertTimingParamToVideoTiming(
