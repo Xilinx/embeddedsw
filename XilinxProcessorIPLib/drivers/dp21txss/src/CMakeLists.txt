@@ -1,4 +1,5 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 
@@ -22,6 +23,8 @@ collect (PROJECT_LIB_SOURCES xdptxss_selftest.c)
 collect (PROJECT_LIB_SOURCES xdptxss_sinit.c)
 collect (PROJECT_LIB_SOURCES xdptxss.c)
 collect (PROJECT_LIB_HEADERS xdptxss.h)
+collect (PROJECT_LIB_SOURCES xdptxss_edid_parser.c)
+collect (PROJECT_LIB_HEADERS xdptxss_edid_parser.h)
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
