@@ -32,6 +32,7 @@
  * 6.0   tu   08/03/17 Enabled video packing for bpc > 10
  * 6.0   tu   08/24/17 Modify #define for YCBCR422 and YCBCR444
  * 6.0	 jb	  02/19/19 Added HDCP22 registers.
+ * 6.1   pam  03/18/26 Added EXT DPCD Max Lane count register
  * </pre>
  *
 *******************************************************************************/
@@ -2454,6 +2455,7 @@ extern "C" {
 #define XDP_DPCD_REV						0x00000 /**< DPCD revision register address. */
 #define XDP_DPCD_MAX_LINK_RATE					0x00001 /**< Maximum link rate register address. */
 #define XDP_EDID_DPCD_MAX_LINK_RATE				0x02201 /**< Extended DPCD max link rate register address. */
+#define XDP_EXT_DPCD_MAX_LANE_COUNT                             0x02202 /**< Extended DPCD Max Lane count register address */
 #define XDP_EDID_DPCD_MAINLINKCHANNELCODING			0x02206 /**< Main link channel coding register address. */
 #define XDP_DPCD_FEATURE_ENUMERATION_LIST			0x02210 /**< Feature enumeration list register address. */
 #define XDP_DPCD_MAX_LANE_COUNT					0x00002 /**< Maximum lane count register address. */
