@@ -275,7 +275,9 @@ typedef enum {
 	PM_HNICX_NPI_DATA_XFER,				/**< 0x4A */
 	PM_FPGA_SET_CONFIG_REG,				/**< 0x4B */
 	PM_FPGA_GET_FRAME_DATA,				/**< 0x4C */
-	PM_API_MAX					/**< 0x4D */
+	PM_CLOCK_DESCRIBERATE,				/**< 0x4D */
+	PM_CLOCK_PROGRAM_RATE,				/**< 0x4E */
+	PM_API_MAX					/**< 0x4F */
 } XPm_ApiId;
 
 #ifdef __cplusplus

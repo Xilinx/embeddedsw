@@ -32,6 +32,12 @@
 #define MAX_CLK_CHAIN_DEPTH		10U
 
 
+/* Rate change allowed for only few clocks (for now) */
+#define IS_RATE_CHANGE_ALLOWED(ClkId) \
+	((ClkId == PM_CLK_GEM0_TX) || (ClkId == PM_CLK_GEM1_TX) || \
+	(ClkId == PM_CLK_MMIPLL) || (ClkId == PM_CLK_DC_REF) || \
+	(ClkId == PM_CLK_DC_PIXEL) || (ClkId == PM_CLK_MMI_AUX1_REF))
+
 /* Clock UseCount overflow protection macro (use info print to avoid flooding logs) */
 #define PmIncrementClk(NodeId, Name, UseCount) \
 	do { \
@@ -887,6 +893,297 @@ XStatus XPmClock_GetRate(u32 ClockId, u32 *Rate)
 
 	*Rate = Clk->ClkRate;
 	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/**
+ * XPmClockPll_EvaluateDivider() - Evaluate a divider value and calculate best PLL params
+ * @TargetRate: Desired output rate
+ * @Divider: Divider value to evaluate (1, 2, 4, 8)
+ * @RefClkRate: Reference clock rate (input to PLL)
+ * @Fbdiv: Output - calculated FBDIV
+ * @FracData: Output - calculated FRAC_DATA
+ * @ActualRate: Output - actual achievable rate
+ *
+ * Return: Absolute difference between ActualRate and TargetRate
+ */
+static u32 XPmClockPll_EvaluateDivider(u32 TargetRate, u32 Divider, u32 RefClkRate,
+                                        u32 *Fbdiv, u32 *FracData, u32 *ActualRate)
+{
+	u64 RateDiv;
+	u32 CalcFbdiv, CalcFracData;
+	u64 PllRate;
+	u32 OutputRate;
+	u32 Error;
+	u64 RequiredPllRate = (u64)TargetRate * Divider;
+
+	/* Calculate FBDIV and FRAC_DATA based on required PLL rate */
+	RateDiv = ((u64)RequiredPllRate * FRAC_DIV) / RefClkRate;
+	CalcFbdiv = (u32)(RateDiv / FRAC_DIV);
+	CalcFracData = (u32)(RateDiv % FRAC_DIV);
+
+	/* Clamp FBDIV to valid range */
+	if (CalcFbdiv < PLL_FBDIV_MIN) {
+		CalcFbdiv = PLL_FBDIV_MIN;
+	} else if (CalcFbdiv > PLL_FBDIV_MAX) {
+		CalcFbdiv = PLL_FBDIV_MAX;
+	}
+
+	/* Calculate actual PLL rate using u64 to prevent overflow */
+	PllRate = (u64)RefClkRate * CalcFbdiv;
+	if (CalcFracData != 0U) {
+		PllRate += ((u64)RefClkRate * CalcFracData) / FRAC_DIV;
+	}
+
+	/* Reject rates outside valid VCO operating range */
+	if ((PllRate < (u64)PLL_VCO_MIN) || (PllRate > (u64)PLL_VCO_MAX)) {
+		OutputRate = 0U;
+		Error = 0xFFFFFFFFU;
+	} else {
+		/* Calculate actual output rate after divider */
+		OutputRate = (u32)(PllRate / Divider);
+
+		Error = (OutputRate >= TargetRate) ?
+		        (OutputRate - TargetRate) : (TargetRate - OutputRate);
+	}
+
+	*Fbdiv = CalcFbdiv;
+	*FracData = CalcFracData;
+	*ActualRate = OutputRate;
+
+	return Error;
+}
+
+/**
+ * XPmClockOut_SetRateWithPll() - Set rate for divider clock with PLL parent
+ * @Clk: The divider clock node (e.g., mmi_pll_out)
+ * @ClkRate: Desired rate
+ * @Flags: Rate setting flags
+ *
+ * Uses greedy algorithm to find best divider and PLL parameters:
+ * 1. Try all possible divider values (1, 2, 4, 8)
+ * 2. Select combination that gives closest rate
+ * 3. Program PLL (FBDIV + FRAC_DATA) and divider
+ * 4. Update clock rates
+ *
+ * Return: XST_SUCCESS or error code
+ */
+static XStatus XPmClockOut_SetRateWithPll(XPm_ClockNode *Clk, const u32 ClkRate, u32 Flags)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *PllClk;
+	XPm_ClockNode *RefClk;
+	u32 RefClkRate;
+	u32 BestDivIdx = 0U;
+	u32 BestFbdiv = 0U;
+	u32 BestFracData = 0U;
+	u32 BestError = 0xFFFFFFFFU;
+	u32 i, Fbdiv, FracData, ActualRate, Error;
+	u64 PllRate;
+	u32 PllMode;
+
+	(void)Flags;
+
+	/* Parent should be a PLL */
+	PllClk = XPmClock_GetByIdx(Clk->ParentIdx);
+	if ((NULL == PllClk) || (!ISPLL(PllClk->Node.Id))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	RefClk = XPmClock_GetById(PM_CLK_REF_CLK);
+	if (NULL == RefClk) {
+		goto done;
+	}
+
+	RefClkRate = RefClk->ClkRate;
+
+	/* PLL_OUT valid divider values: 1, 2, 4, 8 */
+	for (i = 0U; i < PLL_NUM_DIVIDERS; i++) {
+		Error = XPmClockPll_EvaluateDivider(ClkRate, 1U << i, RefClkRate,
+		                                     &Fbdiv, &FracData, &ActualRate);
+
+		if (Error < BestError) {
+			BestError = Error;
+			BestDivIdx = i;
+			BestFbdiv = Fbdiv;
+			BestFracData = FracData;
+		}
+
+		/* Exit early if perfect match found */
+		if (0U == Error) {
+			break;
+		}
+	}
+
+	/* Check if we found a valid solution */
+	if (BestFbdiv == 0U) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Determine PLL mode based on fractional data */
+	PllMode = (BestFracData != 0U) ?
+	          (u32)PM_PLL_MODE_FRACTIONAL :
+	          (u32)PM_PLL_MODE_INTEGER;
+
+	/* Set PLL mode */
+	Status = XPmClockPll_SetMode((XPm_PllClockNode *)PllClk, PllMode);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Set FBDIV (common to both modes) */
+	Status = XPmClockPll_SetParam((XPm_PllClockNode *)PllClk,
+	                               (u32)PM_PLL_PARAM_ID_FBDIV, BestFbdiv);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Set fractional data only if in fractional mode */
+	if (BestFracData != 0U) {
+		Status = XPmClockPll_SetParam((XPm_PllClockNode *)PllClk,
+		                               (u32)PM_PLL_PARAM_ID_DATA, BestFracData);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Program divide */
+	Status = XPmClock_SetDivider((XPm_OutClockNode *)Clk, BestDivIdx);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Update clock rates using u64 to prevent overflow */
+	PllRate = (u64)RefClkRate * BestFbdiv;
+	if (BestFracData != 0U) {
+		PllRate += ((u64)RefClkRate * BestFracData) / FRAC_DIV;
+	}
+
+	PllClk->ClkRate = (u32)PllRate;
+	Clk->ClkRate = (u32)(PllRate / (1U << BestDivIdx));
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/**
+ * XPmClockOut_SetRate() - Set the rate of an output clock
+ * @Clk: Clock node to configure
+ * @ClkRate: Desired clock rate in Hz
+ * @Flags: Rate setting flags
+ *
+ * Return: XST_SUCCESS on success, error code otherwise
+ */
+static XStatus XPmClockOut_SetRate(XPm_ClockNode *Clk, const u32 ClkRate, u32 Flags)
+{
+	XStatus Status = XST_FAILURE;
+	const struct XPm_ClkTopologyNode *DivNode = NULL;
+	u32 ParentRate = 0U;
+	XPm_ClockNode *ParentClk = NULL;
+	u32 Div = 0U;
+
+	if ((Clk == NULL) || (ClkRate == 0U)) {
+		goto done;
+	}
+	/**
+	 * @todo Remove this once parent change is supported by SCMI.
+	 *
+	 * Since parent change is not supported by SCMI, initialise the
+	 * parent explicitly for clocks that have multiple parents.
+	 */
+	if (Clk->NumParents > 1U) {
+		XPmClock_InitParent((XPm_OutClockNode *)Clk);
+	}
+
+	ParentClk = XPmClock_GetByIdx(Clk->ParentIdx);
+	if (NULL == ParentClk) {
+		goto done;
+	}
+
+	DivNode = XPmClock_GetTopologyNode((XPm_OutClockNode *)Clk, (u32)TYPE_DIV1);
+	if (NULL == DivNode) {
+		/* No divider node - propagate rate change to parent for certain clocks */
+		if (IS_RATE_CHANGE_ALLOWED(Clk->Node.Id)) {
+			Status = XPmClockOut_SetRate(ParentClk, ClkRate, Flags);
+			if (XST_SUCCESS == Status) {
+				Clk->ClkRate = ParentClk->ClkRate;
+			}
+		}
+		goto done;
+	}
+
+	/* Check if parent is a PLL - so clock is PLL_OUT */
+	if (ISPLL(ParentClk->Node.Id)) {
+		Status = XPmClockOut_SetRateWithPll(Clk, ClkRate, Flags);
+		goto done;
+	}
+
+	/* Normal divider case - calculate required divider value */
+	ParentRate = ParentClk->ClkRate;
+	Div = ParentRate / ClkRate;
+
+	/* Apply rounding based on divider type flags */
+	if (DivNode->Typeflags & CLK_DIVIDER_ROUND_CLOSEST) {
+		u32 Remainder = ParentRate % ClkRate;
+		if ((Remainder << 1U) >= ClkRate) {
+			Div += 1U;
+		}
+	} else if (ParentRate % ClkRate != 0U) {
+		Div += 1U;
+	}
+
+	if (Div == 0U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_SetDivider((XPm_OutClockNode *)Clk, Div);
+	if (XST_SUCCESS == Status) {
+		Clk->ClkRate = ParentRate / Div;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sets the rate of the clock.
+ *
+ * @param ClockId	Clock node ID
+ * @param ClkRate	Clock rate
+ * @param Flags		Flags for setting clock rate
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClock_ProgramRate(u32 ClockId, u32 ClkRate, u32 Flags)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (!IS_RATE_CHANGE_ALLOWED(ClockId)) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	if (ISOUTCLK(ClockId)) {
+		Status = XPmClockOut_SetRate(Clk, ClkRate, Flags);
+	}
 
 done:
 	return Status;

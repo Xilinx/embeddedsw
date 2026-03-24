@@ -128,6 +128,7 @@ static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
 static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
+static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd);
 
 /* Defined in xilpm-boot */
 extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
@@ -412,6 +413,7 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoSetNodeAccess;
 	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)XPm_DoGetClockRate;
+	XPlmi_PmCmds[PM_CLOCK_PROGRAM_RATE].Handler = (XPlmi_CmdHandler)XPm_DoProgramClockRate;
 	Status = XPmSubsystem_ModuleInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -934,6 +936,49 @@ static XStatus XPm_DoGetClockRate(XPlmi_Cmd* Cmd)
 	Cmd->Response[0] = (u32)Status;
 
 done:
+	return Status;
+}
+
+/**
+ * @brief  Handle PM_CLOCK_PROGRAM_RATE command to set a clock's rate.
+ *
+ * Resolves the indexed node ID, checks subsystem permissions for the
+ * target clock, and programs the requested rate.
+ *
+ * @param  Cmd	Pointer to the command structure
+ *
+ * @return XST_SUCCESS if successful else error code
+ *
+ ****************************************************************************/
+static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId = Cmd->SubsystemId;
+	u32 IndexedClockId = Cmd->Payload[0];
+	u32 ClockId;
+	u32 ClkRate = Cmd->Payload[1];
+	u32 Flags = Cmd->Payload[2];
+
+	if (ClkRate > PLL_VCO_MAX) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPm_ResolveIndexedNodeId(IndexedClockId, &ClockId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Status = XPmClock_ProgramRate(ClockId, ClkRate, Flags);
+
+done:
+	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
 
