@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,10 +56,9 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 	HandlePowerEvent = PmcDomain->Domain.Power.HandleEvent;
 	PmcDomain->Domain.Power.HandleEvent = HandlePmcDomainEvent;
 
-	/* For all domain, rail stats are updated with init node finish. For
-	pmc domain, init node commands are not received so update here */
-	Status = XPmPower_UpdateRailStats(&PmcDomain->Domain,
-					  (u8)XPM_POWER_STATE_ON);
+	/* update PMC Power Domain - Turn ON */
+	Status = XPmPower_UpdateDomainPower(&PmcDomain->Domain, (u8)XPM_POWER_STATE_ON);
+
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_RAIL_CONTROL;
 	}

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -105,6 +105,43 @@ static XPm_DomainAmsTrimOp XPmPowerDomain_GetAmsTrimOp(u32 DomainId)
 	default:
 		return NULL;
 	}
+}
+
+/**
+ * @brief 	Helper function to perform PL domain reset actions (assert/de-assert)
+ *
+ * @param RstNodeId 	Node Id to assert reset for PL Power Domain
+ * @param Action	Reset action to be performed (assert/de-assert)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ */
+static inline XStatus PLRstAction(u32 RstNodeId, u32 Action) {
+	XStatus Status = XST_FAILURE;
+	XPm_ResetNode *Rst = XPmReset_GetById(RstNodeId);
+	u32 ControlReg = 0x0UL;
+	u32 Mask = 0x0UL;
+
+	if (NULL == Rst) {
+		goto done;
+	}
+
+	if (XPM_RST_STATE_ASSERTED == Action) {
+		/* extract base address and register mask */
+		ControlReg = Rst->Node.BaseAddress;
+		Mask = BITNMASK(Rst->Shift, Rst->Width);
+
+		/* assert by writing to hw register */
+		XPm_RMW32(ControlReg, Mask, Mask);
+		Rst->Node.State = XPM_RST_STATE_ASSERTED;
+	}
+	else {
+		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
@@ -226,11 +263,53 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 XStatus XPm_PowerUpPLD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_PlDomain *PldDomain = NULL;
 
-	/* TODO: Add Power up sequence for PLD */
-	(void)Node;
-	Status = XST_SUCCESS;
+	/**
+	 * Perform the PLD power up sequence
+	 *
+	 * - CDO takes care of the sequence,
+	 * 	only perform HW PowerUp
+	*/
 
+	if (NULL == Node) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PldDomain = (XPm_PlDomain *)XPmPower_GetById(Node->Id);
+	if (NULL == PldDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
+	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, (u8)XPM_POWER_STATE_ON);
+
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
+		goto done;
+	}
+
+	/**
+	 * change Reset Node change to de-asserted for software sync
+	 * ( actual reset de-assertion is done by CDO )
+	*/
+	Status = PLRstAction(PM_RST_PL_POR, XPM_RST_STATE_DEASSERTED);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+	Status = PLRstAction(PM_RST_PL_SRST, XPM_RST_STATE_DEASSERTED);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -238,22 +317,123 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_PlDomain *PldDomain = NULL;
+	const XPm_Pmc *Pmc = NULL;
 
-	(void)Node;
-
-	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Pmc) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+	if (NULL == Node) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
+	PldDomain = (XPm_PlDomain *)XPmPower_GetById(Node->Id);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	if (NULL == Pmc) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (NULL == PldDomain) {
+		Status = XST_INVALID_PARAM;
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
+	/* disable Write Protections */
+	PmOut32(CRP_BASEADDR + CRP_WPROT_OFFSET, 0U);
+
 	/* Unset CFG_POR_CNT_SKIP to enable PL_POR counting */
-	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET,
-		0U);
-	Status = XST_SUCCESS;
+	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET, 0U);
+
+	/* Isolate: SOC-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
+		goto done;
+	}
+	/* Isolate: FPD-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_PL_ISO;
+		goto done;
+	}
+	/* Isolate: FPD_TEST-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_PL_TEST_ISO;
+		goto done;
+	}
+	/* Isolate: LPD-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_PL_ISO;
+		goto done;
+	}
+	/* Isolate: LPD_TEST-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_PL_TEST_ISO;
+		goto done;
+	}
+	/* Isolate: PMC-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_ISO;
+		goto done;
+	}
+	/* Isolate: PMC_TEST-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_TEST_ISO;
+		goto done;
+	}
+	/* Isolate: PMC_CFRAME-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
+		goto done;
+	}
+	/* Isolate: VCCAUX-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
+		goto done;
+	}
+	/* Isolate: VCCSOC-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
+		goto done;
+	}
+
+	/* Extract needed logic from XPmReset_AssertbyId() to boot module */
+	/* Assert POR PL */
+	Status = PLRstAction(PM_RST_PL_POR, XPM_RST_STATE_ASSERTED);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+		goto done;
+	}
+	/* Assert SRST PL */
+	Status = PLRstAction(PM_RST_PL_SRST, XPM_RST_STATE_ASSERTED);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+		goto done;
+	}
+
+	/* Power down PLD power rail */
+	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, (u8)XPM_POWER_STATE_OFF);
+
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
+		goto done;
+	}
 
 done:
+	/* enable Write Protections */
+	PmOut32(CRP_BASEADDR + CRP_WPROT_OFFSET, 1U);
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -533,8 +713,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;
-		Status = XPmPower_UpdateRailStats(PwrDomain,
-						  (u8)XPM_POWER_STATE_ON);
+		Status = XPmPower_UpdateDomainPower(PwrDomain, (u8)XPM_POWER_STATE_ON);
+
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL;
 			goto done;
@@ -598,61 +778,41 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
-{
+/**
+ * @brief 	Turn ON/OFF Power Domain using GPIO Domain Control
+ *
+ * @param PwrDomain 	Pointer to the power domain to be updated
+ * @param State 	Desired power state of the domain (ON/OFF)
+ *
+ * @return XST_SUCCESS if the power domain was successfully updated, otherwise an error code
+*/
+XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u8 State) {
 	XStatus Status = XST_FAILURE;
-	u32 i=0, j=0;
-	const XPm_PowerDomain *ParentDomain;
-	XPm_Rail *ParentRail;
 
-	/* Update rail node usecounts */
-	for (i = 0; ((i < MAX_POWERDOMAINS) && (0U != PwrDomain->Parents[i])); i++) {
-		/* If power domain is the parent, scan through its rails */
-		if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(PwrDomain->Parents[i])) {
-			ParentDomain = (XPm_PowerDomain *)XPmPower_GetById(PwrDomain->Parents[i]);
-			for (j = 0; ((j < MAX_POWERDOMAINS) && (0U != ParentDomain->Parents[j])); j++) {
-				if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(ParentDomain->Parents[j])) {
-					ParentRail = (XPm_Rail *)XPmPower_GetById(ParentDomain->Parents[j]);
-					if ((u8)XPM_POWER_STATE_ON == State) {
-						ParentRail->Power.UseCount++;
-					} else {
-						PmDecrement(ParentRail->Power.UseCount);
-					}
-				}
-			}
-		} else if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(PwrDomain->Parents[i])) {
-			ParentRail = (XPm_Rail *)XPmPower_GetById(PwrDomain->Parents[i]);
-			if ((u8)XPM_POWER_STATE_ON == State) {
-				if (PM_POWER_PMC == PwrDomain->Power.Node.Id) {
-					ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
-				} else if ((u8)XPM_POWER_STATE_ON != ParentRail->Power.Node.State) {
-					PmDbg("Turning %x rail on now\r\n", ParentRail->Power.Node.Id);
-					Status = XST_FAILURE;
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				} else {
-					/* Required by MISRA */
-				}
-				ParentRail->Power.UseCount++;
-			} else {
-				PmDecrement(ParentRail->Power.UseCount);
-				if (ParentRail->Power.UseCount <= 0U) {
-					PmDbg("Turning %x rail off now\r\n", ParentRail->Power.Node.Id);
-					Status = XST_FAILURE;
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				}
-			}
-		} else {
-			PmDbg("Power parent error.\r\n");
-			Status = XST_FAILURE;
-			goto done;
-		}
+	(void)State;
+
+	if (NULL == PwrDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
 	}
 
+	/* Node must be a power domain */
+	if ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PwrDomain->Power.Node.Id)) {
+		PmErr("Invalid Power Node: 0x%x\r\n", PwrDomain->Power.Node.Id);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/**
+	 * Turn ON/OFF the given Power Domain on the following conditions:
+	 * - Power Down if State == XPM_POWER_STATE_OFF
+	 * - Power Up if State == XPM_POWER_STATE_ON
+	 *
+	 * Note: Powering Up and Powering Down of a Power Domain is done using GPIO Control (external HW sequencer)
+	*/
+
 	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }

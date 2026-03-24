@@ -42,7 +42,7 @@ XStatus XPm_PowerUpCPM5N(const XPm_Node *Node);
 XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
-XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State);
+XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u8 State);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  const u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask);

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -122,10 +122,8 @@ static XStatus Pld_ReleaseMemCtrlr(XPm_PlDevice *PlDevice)
 		    ((u8)XPM_DEVSTATE_RUNNING != PlDevice->MemCtrlr[i]->Device.Node.State)) {
 			continue;
 		}
-		/* TODO: FIXME: Quick Fix for now! Eventually, need more re-modelling and changes for PLD */
-		Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
-				PlDevice->MemCtrlr[i]->Device.Node.Id,
-				XPLMI_CMD_SECURE);
+
+		Status = XPm_PmcReleaseDevice(PlDevice->MemCtrlr[i]->Device.Node.Id);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_DEVICE_RELEASE;
 			goto done;
@@ -180,9 +178,9 @@ done:
 
 /****************************************************************************/
 /**
- * @brief	Release a PlDevice's children from PMC Subsystem and unlink
+ * @brief	Release a PlDevice's children from PMC Subsystem and unlink.
  *
- * @param PlDevice	PlDevice whose children need to released and unlinked
+ * @param PlDevice	PlDevice whose children need to be released and unlinked
  *
  * @return	XStatus	Returns XST_SUCCESS or appropriate error code
  *
@@ -368,6 +366,7 @@ XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	const XPm_PlDevice *Parent;
 	u32 i;
 
+	/* PL Device node must be present within the system (via topology)*/
 	if (NULL == PlDevice) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
@@ -386,6 +385,14 @@ XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		goto done;
 	}
 
+	/**
+	 * Set the desired power domain dependency bitmask
+	 * WfPowerBitMask is cleared and then set based on the
+	 * arguments present in Args[]
+	 * - NOC Power Domain : BitMask [0]
+	 * - PL Power Domain  : BitMask [1]
+	 * - AIE Power Domain : BitMask [2]
+	 */
 	PlDevice->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
 	for (i = 0; i < NumArgs; ++i) {
 		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
@@ -395,17 +402,25 @@ XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		}
 	}
 
+	/**
+	 * Power Management for PLD device elements:
+	 * - Power Domain Dependency management based on WfPowerBitMask
+	 * 	- Parent power-up events for domains (if parent exists)
+	 * 	- Self power-up events for domains
+	 * 	- UseCount Management
+	 */
 	Status = Pld_ManagePower(PlDevice);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLDEVICE_PWR_MANAGE;
 		goto done;
 	}
 
-	PlDevice->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	/* PL Device state change: UNUSED -> INITIALIZING */
+	PlDevice->Device.Node.State = (u8)XPM_DEVSTATE_INITIALIZING;
 	/* Trigger Xilsem handler to clear previous descriptors */
 	XPmPlDevice_TriggerSemHandler(PlDevice->Device.Node.Id);
 
-	/*
+	/**
 	 * PL Init Start indicates that a new RM or static image has been
 	 * re/loaded. We must get rid of any existing child nodes if at all
 	 * there are any, since new topology can be formed with those
@@ -445,14 +460,17 @@ XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumA
 		goto done;
 	}
 
-	/*
-	 * InitFinish should only be executed if device is currently in initial-
-	 * izing state
+	/**
+	 * InitFinish should only be executed if device is currently in initializing state
+	 * This is needed to maintain device state machine transitions:
+	 * - UNUSED -> INITIALIZING -> RUNNING
+	 * OR
+	 * - UNUSED -> INITIALIZING -> UNUSED (if no power domains are specified)
 	 */
-	// if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
-	// 	DbgErr = XPM_INT_ERR_INVALID_STATE;
-	// 	goto done;
-	// }
+	if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
+		DbgErr = XPM_INT_ERR_INVALID_STATE;
+		goto done;
+	}
 
 	Parent = PlDevice->Parent;
 	if ((NULL == Parent) && (PM_DEV_PLD_0 != PlDevice->Device.Node.Id)) {
@@ -467,8 +485,15 @@ XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumA
 		goto done;
 	}
 
+	/**
+	 * Set the desired power domain dependency bitmask
+	 * WfPowerBitMask is cleared and then set based on the
+	 * arguments present in Args[]
+	 * - NOC Power Domain : BitMask [0]
+	 * - PL Power Domain  : BitMask [1]
+	 * - AIE Power Domain : BitMask [2]
+	 */
 	PlDevice->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
-
 	for (i = 0; i < NumArgs; ++i) {
 		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
 		if (XST_SUCCESS != Status) {
@@ -477,6 +502,15 @@ XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumA
 		}
 	}
 
+	/**
+	 * Case1: If no power domains are specified, release all the
+	 * DDRMCx links to PLD, set state to UNUSED and perform
+	 * Power Down management on power domains
+	 *
+	 * Case2: If one or more power domains are specified,
+	 * set state to RUNNING and perform Power Down
+	 * management on the absent power domains
+	 */
 	if (PWR_DOMAIN_UNUSED_BITMASK == PlDevice->WfPowerBitMask) {
 		/* Release DDRMCs linked to this PLD */
 		Status = Pld_ReleaseMemCtrlr(PlDevice);
@@ -484,14 +518,11 @@ XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumA
 			DbgErr = XPM_INT_ERR_PLDEVICE_MEM_CTRLR_RELEASE;
 			goto done;
 		}
+		PlDevice->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
 	} else {
-		// DO nothing
-		Status = XST_SUCCESS;
-		// Status = XPmDevice_ChangeState(&PlDevice->Device, (u32)XPM_DEVSTATE_RUNNING);
-		// if (XST_SUCCESS != Status) {
-		// 	DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
-		// }
+		PlDevice->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	}
+	Status = Pld_ManagePower(PlDevice);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
