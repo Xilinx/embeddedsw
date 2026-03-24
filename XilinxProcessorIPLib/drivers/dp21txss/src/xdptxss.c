@@ -51,7 +51,8 @@
 *                   XDpTxSs_SetVscExtendedPacket,
 *                   XDpTxss_EnableVscColorimetry
 * 6.4  rg  09/26/20 Added support for YUV420 color format
-*
+* 6.5 pam  03/18/26 XDpTxSs_SendAudioInfoFrame API is updated to handle Audio control
+* 		    registers
 * </pre>
 *
 ******************************************************************************/
@@ -3025,6 +3026,86 @@ static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr)
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sends audio infoframe and configures audio parameters
+ * including MAUD/NAUD values based on the current link rate.
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	xilInfoFrame is a pointer to the audio infoframe structure.
+ *
+ * @note	This function performs the following operations:
+ *		1. Disables audio
+ *		2. Configures the audio infoframe packet
+ *		3. Calculates and sets MAUD/NAUD based on link rate
+ *              4. Enables Audio
+ ******************************************************************************/
+void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr, XDp_TxAudioInfoFrame *xilInfoFrame)
+{
+	u32 m_aud, n_aud;
+	u8 LinkRate;
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
+
+	XDp_TxSendAudioInfoFrame(InstancePtr->DpPtr, xilInfoFrame);
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CHANNELS, 0x1);
+
+	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
+
+	/* Calculate MAUD and NAUD based on link rate
+	 * These values are for 48kHz audio sampling rate
+	 * MAUD is fixed at 512 for all link rates
+	 * NAUD = (Link Symbol Rate / 1000) * 27 / 8
+	 */
+	switch (LinkRate) {
+		case XDP_TX_LINK_BW_SET_162GBPS:	/* 1.62 Gbps */
+			m_aud = 512;
+			n_aud = 3375;
+			break;
+		case XDP_TX_LINK_BW_SET_270GBPS:	/* 2.7 Gbps */
+			m_aud = 512;
+			n_aud = 5625;
+			break;
+		case XDP_TX_LINK_BW_SET_540GBPS:	/* 5.4 Gbps */
+			m_aud = 512;
+			n_aud = 11250;
+			break;
+		case XDP_TX_LINK_BW_SET_810GBPS:	/* 8.1 Gbps */
+			m_aud = 512;
+			n_aud = 16875;
+			break;
+		case XDP_TX_LINK_BW_SET_UHBR10:        /* UHBR10 - 10.0 Gbps */
+                        m_aud = 512;
+                        n_aud = 20833;
+                        break;
+                case XDP_TX_LINK_BW_SET_UHBR135:        /* UHBR13.5 - 13.5 Gbps */
+                        m_aud = 512;
+                        n_aud = 28125;
+                        break;
+                case XDP_TX_LINK_BW_SET_UHBR20:        /* UHBR20 - 20.0 Gbps */
+                        m_aud = 512;
+                        n_aud = 41666;
+                        break;
+		default:	/* Default to 1.62 Gbps values */
+			xil_printf("Warning: Unknown link rate 0x%02X, using 1.62Gbps default\r\n", LinkRate);
+			m_aud = 512;
+			n_aud = 3375;
+			break;
+	}
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_TX_AUDIO_MAUD, m_aud);
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_TX_AUDIO_NAUD, n_aud);
+
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
+
+
+	xil_printf("Audio configured: LinkRate=0x%02X, MAUD=%d, NAUD=%d\r\n",
+			LinkRate, m_aud, n_aud);
 }
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)

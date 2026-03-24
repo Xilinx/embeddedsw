@@ -102,7 +102,7 @@
 * 6.4  rg  09/01/20 Added handler type as enum for extended packet transmit
 *                   done interrupt.
 * 6.4  rg  09/26/20 Added support for YUV420 color format.
-*
+* 6.5  pam 03/18/26 Added Function prototype for XDpTxSs_SendAudioInfoFrame API
 * </pre>
 *
 ******************************************************************************/
@@ -492,6 +492,7 @@ u32 XDpTxSs_SetVideoStream(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream,
 u8 XDpTxSs_GetNumOfMstStreams(XDpTxSs *InstancePtr);
 u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap,
 		u8 *MaxLinkrate_128B);
+void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr, XDp_TxAudioInfoFrame *xilInfoFrame);
 #if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
 u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
@@ -609,24 +610,6 @@ void XDpTxSs_WriteVscExtPktProcess(void * InstancePtr);
  ******************************************************************************/
 #define XDpTxSs_Mst_AudioDisable(InstancePtr) \
         XDp_TxAudioDis((InstancePtr)->DpPtr)
-
-/*****************************************************************************/
-/**
- *
- * This function macro sends audio infoframe packets on the main link.
- *
- * @param        InstancePtr is a pointer to the XDpTxSs core instance.
- * @param		xilInfoFrame is a pointer to the InfoFrame buffer.
- *
- * @return       None.
- *
- * @note         C-style signature:
- *               void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr,
- *               			XDp_TxAudioInfoFrame *xilInfoFrame)
- *
- ******************************************************************************/
-#define XDpTxSs_SendAudioInfoFrame(InstancePtr, xilInfoFrame) \
-	XDp_TxSendAudioInfoFrame((InstancePtr)->DpPtr, xilInfoFrame)
 
 #ifdef __cplusplus
 }
