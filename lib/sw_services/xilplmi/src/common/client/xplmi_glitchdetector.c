@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +23,8 @@
  *                       misrac warnings
  *       pre  10/19/2024 Added support for PL microblaze
  * 1.01   abh   07/22/2025 Added doxygen tag
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
+ *
  * </pre>
  *
  * @note
@@ -100,7 +102,7 @@ int XPlmi_WriteReg32(u32 Offset, u32 Data)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Return error code if parameters are invalid
@@ -109,12 +111,9 @@ int XPlmi_WriteReg32(u32 Offset, u32 Data)
 		goto END;
 	}
 
-	Payload[0U] = PACK_XILPM_HEADER(XPLMI_HEADER_LEN_5, (u32)XPLMI_PM_IOCTL);
-	Payload[1U] = PM_REG_PMC_ANALOG_ID;
-	Payload[2U] = XPLMI_IOCTL_MASK_WRITE_REG;
-	Payload[3U] = Offset;
-	Payload[4U] = XGLITCHDETECTOR_SECURE_WRITE_DEFAULT;
-	Payload[5U] = Data;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD5(Payload, (u32)XPLMI_PM_IOCTL, PM_REG_PMC_ANALOG_ID, XPLMI_IOCTL_MASK_WRITE_REG,
+			Offset, XGLITCHDETECTOR_SECURE_WRITE_DEFAULT, Data);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPm_DevIoctl2 CDO command
@@ -122,7 +121,7 @@ int XPlmi_WriteReg32(u32 Offset, u32 Data)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, PAYLOAD_ARG_CNT);
 END:
 #else
 	/* Write value to register */
@@ -147,7 +146,7 @@ static int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Return error code if parameters are invalid
@@ -156,12 +155,9 @@ static int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
 		goto END;
 	}
 
-	Payload[0U] = PACK_XILPM_HEADER(XPLMI_HEADER_LEN_5, (u32)XPLMI_PM_IOCTL);
-	Payload[1U] = PM_REG_PMC_ANALOG_ID;
-	Payload[2U] = XPLMI_IOCTL_MASK_WRITE_REG;
-	Payload[3U] = Offset;
-	Payload[4U] = Mask;
-	Payload[5U] = Data;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD5(Payload, (u32)XPLMI_PM_IOCTL, PM_REG_PMC_ANALOG_ID, XPLMI_IOCTL_MASK_WRITE_REG,
+			Offset, Mask, Data);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPm_DevIoctl2 CDO command
@@ -169,7 +165,7 @@ static int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, PAYLOAD_ARG_CNT);
 END:
 #else
     /* Read register value */
@@ -197,7 +193,7 @@ int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * -  Return error code if parameters are invalid
@@ -206,12 +202,9 @@ int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 		goto END;
 	}
 
-	Payload[0U] = PACK_XILPM_HEADER(XPLMI_HEADER_LEN_5, (u32)XPLMI_PM_IOCTL);
-	Payload[1U] = PM_REG_PMC_ANALOG_ID;
-	Payload[2U] = XPLMI_IOCTL_READ_REG;
-	Payload[3U] = Offset;
-	Payload[4U] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
-	Payload[5U] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD5(Payload, (u32)XPLMI_PM_IOCTL, PM_REG_PMC_ANALOG_ID, XPLMI_IOCTL_READ_REG,
+			Offset, XGLITCHDETECTOR_SECURE_READ_DEFAULT, XGLITCHDETECTOR_SECURE_READ_DEFAULT);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPm_DevIoctl2 CDO command
@@ -219,7 +212,7 @@ int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

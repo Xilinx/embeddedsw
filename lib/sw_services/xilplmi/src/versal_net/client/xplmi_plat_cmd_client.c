@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       am   04/04/24 Fixed doxygen warnings
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -60,7 +61,7 @@ static int XPlmi_InPlacePlmUpdate(XPlmi_ClientInstance *InstancePtr,const u32 Fl
 static int XPlmi_InPlacePlmUpdate(XPlmi_ClientInstance *InstancePtr,const u32 Flag, u32 PdiValue)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -69,9 +70,8 @@ static int XPlmi_InPlacePlmUpdate(XPlmi_ClientInstance *InstancePtr,const u32 Fl
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_2, XPLMI_INPLACE_PLM_UPDATE_CMD_ID);
-	Payload[1U] = Flag;
-    Payload[2u] = PdiValue;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD2(Payload, (u32)XPLMI_INPLACE_PLM_UPDATE_CMD_ID, Flag, PdiValue);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_InPlacePlmUpdate CDO command
@@ -79,7 +79,7 @@ static int XPlmi_InPlacePlmUpdate(XPlmi_ClientInstance *InstancePtr,const u32 Fl
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

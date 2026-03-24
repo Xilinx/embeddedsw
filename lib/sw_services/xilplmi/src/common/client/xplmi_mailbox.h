@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       am   04/10/24 Fixed doxygen warning
  * 1.01  pre  07/10/24 Added SLR index in client data structure
  * 1.02  obs  02/18/25 Fixed IPI message length
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -55,7 +56,36 @@ extern "C" {
 										/**< Module id mask*/
 #define XPLMI_SHARED_MEM_SIZE		(160U)
 						/**< Max size of shared memory used to store the CDO command */
+/**@cond xplmi_internal
+ * @{
+ */
+/**< Payload Packets */
+#define XPLMI_PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)      \
+    Payload[0U] = (u32)Arg0;                        \
+    Payload[1U] = (u32)Arg1;                        \
+    Payload[2U] = (u32)Arg2;                        \
+    Payload[3U] = (u32)Arg3;                        \
+    Payload[4U] = (u32)Arg4;                        \
+    Payload[5U] = (u32)Arg5;                        \
+    Payload[6U] = (u32)Arg6;
 
+#define XPLMI_PACK_PAYLOAD0(Payload, ApiId) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(0UL, (ApiId)), 0U, 0U, 0U, 0U, 0U, 0U)
+#define XPLMI_PACK_PAYLOAD1(Payload, ApiId, Arg1) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(1UL, (ApiId)), (Arg1), 0U, 0U, 0U, 0U, 0U)
+#define XPLMI_PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(2UL, (ApiId)), (Arg1), (Arg2), 0U, 0U, 0U, 0U)
+#define XPLMI_PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(3UL, (ApiId)), (Arg1), (Arg2), (Arg3), 0U, 0U, 0U)
+#define XPLMI_PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(4UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), 0U, 0U)
+#define XPLMI_PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(5UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), (Arg5), 0U)
+#define XPLMI_PACK_PAYLOAD6(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6) \
+    XPLMI_PACK_PAYLOAD(Payload, PACK_XPLMI_HEADER(6UL, (ApiId)), (Arg1), (Arg2), (Arg3), (Arg4), (Arg5), (Arg6))
+/** @}
+ * @endcond
+ */
 /************************************** Type Definitions *****************************************/
 
 /**

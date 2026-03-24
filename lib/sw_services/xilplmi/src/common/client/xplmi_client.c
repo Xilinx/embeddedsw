@@ -23,6 +23,7 @@
  *       pre  01/13/25 Added command to set access status of DDRMC main registers
  *       obs  03/17/25 Fixed GCC warnings
  * 2.00  sk   01/23/26 Updated event logging for all sub commands
+ * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -63,7 +64,7 @@
 int XPlmi_GetDeviceID(XPlmi_ClientInstance *InstancePtr, XLoader_DeviceIdCode *DeviceIdCode)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -72,7 +73,8 @@ int XPlmi_GetDeviceID(XPlmi_ClientInstance *InstancePtr, XLoader_DeviceIdCode *D
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_0, (u32)XPLMI_GET_DEVICE_CMD_ID);
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD0(Payload, (u32)XPLMI_GET_DEVICE_CMD_ID);
 
     /**
 	 * - Send an IPI request to the PLM by using the XPlmi_GetDeviceID CDO command
@@ -80,7 +82,7 @@ int XPlmi_GetDeviceID(XPlmi_ClientInstance *InstancePtr, XLoader_DeviceIdCode *D
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 	DeviceIdCode->IdCode = InstancePtr->Response[1];
 	DeviceIdCode->ExtIdCode = InstancePtr->Response[2];
 
@@ -105,7 +107,7 @@ END:
 int XPlmi_GetBoard(XPlmi_ClientInstance *InstancePtr, u64 Addr, u32 Size, u32 *ResponseLength)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -114,10 +116,8 @@ int XPlmi_GetBoard(XPlmi_ClientInstance *InstancePtr, u64 Addr, u32 Size, u32 *R
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_3, (u32)XPLMI_GET_BOARD_CMD_ID);
-    Payload[1U] = (u32)(Addr >> XPLMI_ADDR_HIGH_SHIFT);
-	Payload[2U] = (u32)(Addr);
-    Payload[3U] = Size;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD3(Payload, (u32)XPLMI_GET_BOARD_CMD_ID, (u32)(Addr >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Addr), Size);
 
     /**
 	 * - Send an IPI request to the PLM by using the XPlmi_GetBoard CDO command
@@ -125,7 +125,7 @@ int XPlmi_GetBoard(XPlmi_ClientInstance *InstancePtr, u64 Addr, u32 Size, u32 *R
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 	*ResponseLength = InstancePtr->Response[1];
 
 END:
@@ -147,7 +147,7 @@ END:
 int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -155,8 +155,9 @@ int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_1, (u32)XPLMI_TAMPER_TRIGGER_CMD_ID);
-    Payload[1U] = TamperResponse;
+
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD1(Payload, (u32)XPLMI_TAMPER_TRIGGER_CMD_ID, TamperResponse);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_TamperTrigger CDO command
@@ -164,7 +165,7 @@ int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
@@ -190,7 +191,7 @@ END:
 int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, u32 Len)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U] = {0};
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -199,45 +200,42 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, 
 		goto END;
 	}
 
-    Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_4, (InstancePtr->SlrIndex <<
-	                              XPLMI_SLR_INDEX_SHIFT) | (u32)XPLMI_EVENT_LOGGING_CMD_ID);
-    Payload[1U] = sub_cmd;
+	/** Fill IPI Payload based on sub command */
 	switch (sub_cmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
-			Payload[2U] = (u32)Arg;
+			XPLMI_PACK_PAYLOAD2(Payload, (InstancePtr->SlrIndex << XPLMI_SLR_INDEX_SHIFT) |
+			(u32)XPLMI_EVENT_LOGGING_CMD_ID, sub_cmd, Arg);
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
-			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
-			Payload[3U] = (u32)(Arg);
-			Payload[4U] = Len;
+			XPLMI_PACK_PAYLOAD4(Payload, (InstancePtr->SlrIndex << XPLMI_SLR_INDEX_SHIFT) |
+			(u32)XPLMI_EVENT_LOGGING_CMD_ID, sub_cmd, (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Arg), Len);
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
-			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
-			Payload[3U] = (u32)(Arg);
+			XPLMI_PACK_PAYLOAD3(Payload, (InstancePtr->SlrIndex << XPLMI_SLR_INDEX_SHIFT) |
+			(u32)XPLMI_EVENT_LOGGING_CMD_ID, sub_cmd, (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Arg));
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
-			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
-			Payload[3U] = (u32)(Arg);
-			Payload[4U] = Len;
+			XPLMI_PACK_PAYLOAD4(Payload, (InstancePtr->SlrIndex << XPLMI_SLR_INDEX_SHIFT) |
+			(u32)XPLMI_EVENT_LOGGING_CMD_ID, sub_cmd, (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Arg), Len);
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
-			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
-			Payload[3U] = (u32)(Arg);
+			XPLMI_PACK_PAYLOAD3(Payload, (InstancePtr->SlrIndex << XPLMI_SLR_INDEX_SHIFT) |
+			(u32)XPLMI_EVENT_LOGGING_CMD_ID, sub_cmd, (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Arg));
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_UART:
-			Payload[2U] = (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT);
-			Payload[3U] = (u32)(Arg);
+			XPLMI_PACK_PAYLOAD3(Payload, (InstancePtr->SlrIndex << XPLMI_SLR_INDEX_SHIFT) |
+			(u32)XPLMI_EVENT_LOGGING_CMD_ID, sub_cmd, (u32)(Arg >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Arg));
 			Status = XST_SUCCESS;
 			break;
 		default:
@@ -256,7 +254,7 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, 
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 	if ((Status == XST_SUCCESS) && ((sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO) ||
 			(sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO))) {
@@ -284,7 +282,7 @@ END:
 int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm *SsitSecCommDataPtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -294,10 +292,10 @@ int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm 
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_3, (u32)XPLMI_CONFIG_SECCOMM_CMD_ID);
-    Payload[1U] = SsitSecCommDataPtr->SlrIndex;
-    Payload[2U] = (u32)((u64)(UINTPTR)&SsitSecCommDataPtr->IVsandKey >> XPLMI_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)((UINTPTR)&SsitSecCommDataPtr->IVsandKey);
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD3(Payload, (u32)XPLMI_CONFIG_SECCOMM_CMD_ID, SsitSecCommDataPtr->SlrIndex,
+			(u32)((u64)(UINTPTR)&SsitSecCommDataPtr->IVsandKey >> XPLMI_ADDR_HIGH_SHIFT),
+			(u32)((UINTPTR)&SsitSecCommDataPtr->IVsandKey));
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_SsitCfgSecComm CDO command
@@ -305,7 +303,7 @@ int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm 
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 END:
 	return Status;
 }
@@ -326,7 +324,7 @@ END:
 int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u32 *SecCommStatus)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -335,8 +333,8 @@ int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_1, (u32)XPLMI_GETSECCOMM_STATUS_CMD_ID);
-	Payload[1U] = SlrIndex;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD1(Payload, (u32)XPLMI_GETSECCOMM_STATUS_CMD_ID, SlrIndex);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_GetSecureCommStatus CDO command
@@ -344,7 +342,7 @@ int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 	*SecCommStatus = InstancePtr->Response[1U];
 
@@ -368,7 +366,7 @@ END:
 int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u32 RegSts)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -377,9 +375,8 @@ int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u3
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_2, (u32)XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID);
-	Payload[1U] = DDRMCNum;
-	Payload[2U] = RegSts;
+	/** Fill IPI Payload */
+	XPLMI_PACK_PAYLOAD2(Payload, (u32)XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID, DDRMCNum, RegSts);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_SetDDRMCMainRegSts CDO command
@@ -387,7 +384,7 @@ int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u3
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
 	return Status;
