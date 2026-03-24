@@ -213,6 +213,142 @@ done:
 }
 
 /**
+ * @brief Format "prefix_<index>" string into buffer without libc stdio.
+ *
+ * @param Buf     Destination buffer
+ * @param BufSize Size of destination buffer
+ * @param Prefix  Null-terminated prefix string (e.g., "power_", "reset_")
+ * @param Index   Numeric index to append
+ */
+static void XPm_FormatNodeName(char *Buf, u32 BufSize, const char *Prefix, u32 Index)
+{
+	u32 i = 0U;
+	u32 Val = Index;
+	u32 Tmp = Val;
+	u32 NumDigits = 1U;
+	u32 Pos;
+
+	/* Copy prefix */
+	while ((Prefix[i] != '\0') && (i < (BufSize - 1U))) {
+		Buf[i] = Prefix[i];
+		i++;
+	}
+
+	/* Count decimal digits needed */
+	while (Tmp >= 10U) {
+		Tmp /= 10U;
+		NumDigits++;
+	}
+
+	/* Clamp to remaining buffer space */
+	if ((i + NumDigits) >= BufSize) {
+		NumDigits = BufSize - 1U - i;
+	}
+
+	/* Write digits right-to-left directly into buffer */
+	Pos = i + NumDigits;
+	Buf[Pos] = '\0';
+	do {
+		Pos--;
+		Buf[Pos] = (char)('0' + (Val % 10U));
+		Val /= 10U;
+	} while (Pos > i);
+}
+
+/**
+ * @brief Query node name - returns name for Clock, Device, Reset Node
+ *
+ * @param NodeId Node ID (Clock, Power Domain, or Reset)
+ * @param Resp Response buffer to store name
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ */
+static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeClass;
+	u32 ClockId;
+	const XPm_ClockNode *Clk = NULL;
+
+	Status = Xil_SMemSet(Resp, MAX_NAME_BYTES, 0U, MAX_NAME_BYTES);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	NodeClass = NODECLASS(NodeId);
+
+	switch (NodeClass) {
+	case (u32)XPM_NODECLASS_CLOCK:
+		Status = XPm_ResolveIndexedNodeId(NodeId, &ClockId);
+		if (XST_SUCCESS != Status) {
+			break;
+		}
+
+		Clk = XPmClock_GetById(ClockId);
+		if (NULL == Clk) {
+			goto done;
+		}
+
+		Status = Xil_SMemCpy((char *)Resp, MAX_NAME_BYTES, &Clk->Name[0], MAX_NAME_BYTES, MAX_NAME_BYTES);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+
+	case (u32)XPM_NODECLASS_DEVICE:
+		XPm_FormatNodeName((char *)Resp, MAX_NAME_BYTES, "power_", NODEINDEX(NodeId));
+		break;
+
+	case (u32)XPM_NODECLASS_RESET:
+		XPm_FormatNodeName((char *)Resp, MAX_NAME_BYTES, "reset_", NODEINDEX(NodeId));
+		break;
+
+	default:
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns node count based on class
+ *
+ * @param Class		Node class (Clock, Reset, or Device)
+ * @param Output	Pointer to store the count
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ ****************************************************************************/
+static XStatus XPm_GetNodeCount(const u32 Class, u32 *Output)
+{
+	XStatus Status = XST_FAILURE;
+
+	switch (Class) {
+	case (u32)XPM_NODECLASS_CLOCK:
+		Status = XPmClock_GetNumClocks(Output);
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		*Output = XPM_NODEIDX_RST_MAX - 1U;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		*Output = XPM_NODEIDX_DEV_MAX - 1U;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	return Status;
+}
+
+/**
  * @brief Initializes the Xilinx Power Management (XPM) runtime.
  *
  * This function initializes the XPM runtime and performs any necessary setup
@@ -2937,6 +3073,13 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 		break;
 	case (u32)XPM_QID_PINCTRL_GET_ATTRIBUTES:
 		Status = XPmPin_QueryAttributes(Arg1, Output);
+		break;
+	case (u32)XPM_QID_GET_NODE_NAME:
+		Status = XPm_GetNodeName(Arg1, Output);
+		break;
+	case (u32)XPM_QID_GET_NODE_COUNT:
+		/* Arg1 specifies the node type: Clock, Reset, or Device */
+		Status = XPm_GetNodeCount(Arg1, Output);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

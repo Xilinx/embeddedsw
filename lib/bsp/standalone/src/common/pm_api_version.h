@@ -172,8 +172,8 @@ extern "C" {
  * | XPM_QID_CLOCK_GET_MAX_DIVISOR		| 13	| Both		| Get max clock divisor			|
  * | XPM_QID_PLD_GET_PARENT			| 14	| Versal	| Get PLD parent			|
  * | XPM_QID_PINCTRL_GET_ATTRIBUTES		| 15	| Versal	| Get pin attributes			|
- * | XPM_QID_GET_NODE_NAME			| 16	| ZynqMP	| Get node count			|
- * | XPM_QID_GET_NODE_COUNT			| 17	| ZynqMP	| Get node name				|
+ * | XPM_QID_GET_NODE_NAME			| 16	| ZynqMP/versal_2ve_2vm	| Get node name				|
+ * | XPM_QID_GET_NODE_COUNT			| 17	| ZynqMP/versal_2ve_2vm	| Get node count			|
  *
  *****************************************************************************/
 
