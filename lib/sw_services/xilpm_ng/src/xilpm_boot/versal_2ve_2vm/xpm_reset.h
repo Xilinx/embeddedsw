@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,6 +83,7 @@ struct ResetCustomOps {
 
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, const u32* Parents);
 XPm_ResetNode* XPmReset_GetById(u32 ResetId);
+XPm_ResetNode* XPmReset_GetByIdx(u32 ResetIdx);
 
 
 

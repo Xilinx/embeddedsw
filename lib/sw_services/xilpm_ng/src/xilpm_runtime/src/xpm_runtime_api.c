@@ -34,6 +34,7 @@
 #include "xpm_access.h"
 #include "xpm_power_handlers.h"
 
+
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -129,6 +130,87 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
 
 /* Defined in xilpm-boot */
 extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
+
+/**
+ * @brief Get Node ID by Index and Class if subclass is INDEXED
+ *
+ * @param NodeId    Input NodeId to be resolved
+ * @param ResolvedId Pointer to store the resolved NodeId
+ *
+ * @return XST_SUCCESS         - node resolved successfully or subclass is not indexed
+ *         XPM_PM_INVALID_NODE - node not found (not added from Topology)
+ *         XST_INVALID_PARAM   - node index exceeds the maximum allowed
+ */
+static XStatus XPm_ResolveIndexedNodeId(const u32 NodeId, u32 *const ResolvedId)
+{
+	XStatus Status = XPM_PM_INVALID_NODE;
+	u32 NodeIdx;
+	XPm_ClockNode *Clk = NULL;
+	XPm_ResetNode *Rst = NULL;
+	XPm_Device *Device = NULL;
+
+	if (NULL == ResolvedId) {
+		goto done;
+	}
+
+	*ResolvedId = NodeId;
+	NodeIdx = NODEINDEX(NodeId);
+
+	switch (NODECLASS(NodeId)) {
+	case (u32)XPM_NODECLASS_CLOCK:
+		if ((u32)XPM_NODESUBCL_CLOCK_INDEXED != NODESUBCLASS(NodeId)) {
+			break;
+		}
+		if (NodeIdx >= XPM_NODEIDX_CLK_MAX) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		Clk = XPmClock_GetByIdx(NodeIdx);
+		if (Clk == NULL) {
+			goto done;
+		}
+		*ResolvedId = Clk->Node.Id;
+		break;
+
+	case (u32)XPM_NODECLASS_RESET:
+		if ((u32)XPM_NODESUBCL_RESET_INDEXED != NODESUBCLASS(NodeId)) {
+			break;
+		}
+		if (NodeIdx >= XPM_NODEIDX_RST_MAX) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		Rst = XPmReset_GetByIdx(NodeIdx);
+		if (Rst == NULL) {
+			goto done;
+		}
+		*ResolvedId = Rst->Node.Id;
+		break;
+
+	case (u32)XPM_NODECLASS_DEVICE:
+		if ((u32)XPM_NODESUBCL_DEV_INDEXED != NODESUBCLASS(NodeId)) {
+			break;
+		}
+		if (NodeIdx >= XPM_NODEIDX_DEV_MAX) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		Device = XPmDevice_GetByIndex(NodeIdx);
+		if (Device == NULL) {
+			goto done;
+		}
+		*ResolvedId = Device->Node.Id;
+		break;
+
+	default:
+		break;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
 
 /**
  * @brief Initializes the Xilinx Power Management (XPM) runtime.

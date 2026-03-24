@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,6 +109,31 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 	if ((NULL != Rst) && (ResetId != Rst->Node.Id)) {
 		Rst = NULL;
 	}
+
+done:
+	return Rst;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns a reset node by its index.
+ *
+ * @param  ResetIdx	Index of the reset node
+ *
+ * @return Pointer to the reset node if found, NULL otherwise
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XPm_ResetNode* XPmReset_GetByIdx(u32 ResetIdx)
+{
+	XPm_ResetNode *Rst = NULL;
+
+	if (MaxRstNodes <= ResetIdx) {
+		goto done;
+	}
+
+	Rst = RstNodeList[ResetIdx];
 
 done:
 	return Rst;
