@@ -206,8 +206,9 @@ s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 
 #else   // ENABLE_CONST_TIME_MEMCMP
 
-#include <memory.h>
-#define RSA5X_MEM_CMP(Src1, Src2, Len)   memcmp(Src1, Len, Src2, Len)
+s32 Xil_SMemCmp (const void *Src1, const u32 Src1Size,
+		 const void *Src2, const u32 Src2Size, const u32 CmpLen);
+#define RSA5X_MEM_CMP(Src1, Src2, Len)   Xil_SMemCmp(Src1, Len, Src2, Len, Len)
 
 #endif  // ENABLE_CONST_TIME_MEMCMP
 /** @} */
