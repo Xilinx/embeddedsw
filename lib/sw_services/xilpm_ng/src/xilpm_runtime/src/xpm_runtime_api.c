@@ -534,10 +534,34 @@ static XStatus XPm_DoGetNodeStatus(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 NodeId = Cmd->Payload[0];
+	u32 IndexedNodeId = Cmd->Payload[0];
+	u32 NodeId;
+
+	Status = XPm_ResolveIndexedNodeId(IndexedNodeId, &NodeId);
+	if (XST_SUCCESS != Status) {
+		Cmd->Response[0] = (u32)Status;
+		/*
+		 * For getter APIs, a hole in the SCMI (INDEXED) ID space is
+		 * not a failure — the API returns SUCCESS with the actual
+		 * status in the response payload so the caller (e.g. TF-A
+		 * SCMI server) can act accordingly.
+		 */
+		if (XPM_PM_INVALID_NODE == Status) {
+			Status = XST_SUCCESS;
+		}
+		goto done;
+	}
+
 	/* TODO: FIXME fix casting below */
 	Status = XPm_GetDeviceStatus(SubsystemId, NodeId, (XPm_DeviceStatus*)(&Cmd->Response[1]));
-	Cmd->Response[0] = (u32)Status;
+	if (XPM_PM_NO_ACCESS == Status) {
+		Cmd->Response[0] = XPM_PM_NO_ACCESS;
+		Status = XST_SUCCESS;
+	} else {
+		Cmd->Response[0] = (u32)Status;
+	}
+
+done:
 	return Status;
 }
 static XStatus XPm_DoSetWakeUpSource(XPlmi_Cmd* Cmd)
@@ -619,19 +643,29 @@ done:
 static XStatus XPm_DoSetRequirement(XPlmi_Cmd* Cmd){
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 DeviceId = Cmd->Payload[0];
+	u32 IndexedDeviceId = Cmd->Payload[0];
+	u32 DeviceId;
 	u32 Capabilities = Cmd->Payload[1];
 	u32 QoS = Cmd->Payload[2];
+
+	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
+
 	Status = XPmDevice_SetRequirement(SubsystemId, DeviceId, Capabilities, QoS);
+
 done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
+
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
@@ -639,10 +673,17 @@ done:
 static XStatus XPm_DoRequestDevice(XPlmi_Cmd* Cmd) {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 DeviceId = Cmd->Payload[0];
+	u32 IndexedDeviceId = Cmd->Payload[0];
+	u32 DeviceId;
 	u32 Capabilities = Cmd->Payload[1];
 	u32 QoS = Cmd->Payload[2];
 	u32 CmdType = Cmd->IpiReqType;
+
+	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
+	if (XST_SUCCESS != Status) {
+		Cmd->Response[0] = (u32)Status;
+		goto done;
+	}
 
 	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
 				   QoS, CmdType);
@@ -650,6 +691,8 @@ static XStatus XPm_DoRequestDevice(XPlmi_Cmd* Cmd) {
 		PmErr("0x%x\n\r", Status);
 	}
 	Cmd->Response[0] = (u32)Status;
+
+done:
 	return Status;
 }
 
@@ -657,11 +700,19 @@ static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 DeviceId = Cmd->Payload[0];
+	u32 IndexedDeviceId = Cmd->Payload[0];
+	u32 DeviceId;
 	u32 CmdType = Cmd->IpiReqType;
 	u32 Usage = 0U;
 	const XPm_Subsystem* Subsystem = NULL;
 	const XPm_Device* Device = NULL;
+
+	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
+	if (XST_SUCCESS != Status) {
+		Cmd->Response[0] = (u32)Status;
+		goto done;
+	}
+
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
 		goto done;
@@ -2133,11 +2184,20 @@ static XStatus XPm_DoResetAssert(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 ResetId = Cmd->Payload[0];
+	u32 IndexedResetId = Cmd->Payload[0];
+	u32 ResetId;
 	u32 CmdType = Cmd->IpiReqType;
 	u32 Action = Cmd->Payload[1];
+
+	Status = XPm_ResolveIndexedNodeId(IndexedResetId, &ResetId);
+	if (XST_SUCCESS != Status) {
+		Cmd->Response[0] = (u32)Status;
+		goto done;
+	}
+
 	Status = XPm_SetResetState(SubsystemId, ResetId, Action, CmdType);
 	Cmd->Response[0] = (u32)Status;
+done:
 	return Status;
 }
 
@@ -2577,12 +2637,21 @@ static XStatus XPm_DoDevIoctl(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 DeviceId = Cmd->Payload[0];
+	u32 IndexedDeviceId = Cmd->Payload[0];
+	u32 DeviceId;
 	pm_ioctl_id IoctlId = Cmd->Payload[1];
 	u32 Arg1 = Cmd->Payload[2];
 	u32 Arg2 = Cmd->Payload[3];
 	u32 Arg3 = Cmd->Payload[4];
+
+	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Status = XPm_DevIoctl(SubsystemId, DeviceId, IoctlId, Arg1, Arg2, Arg3, &Cmd->Response[1], Cmd->IpiReqType);
+
+done:
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 

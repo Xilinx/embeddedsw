@@ -1432,6 +1432,10 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
+	if ((!XPmDevice_IsRequestable(DeviceId)) || (NULL == FindReqm(Device, Subsystem))) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
 
 	/*
 	 * For RPU cores, we need to verify the following conditions:
@@ -1476,9 +1480,6 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 	Status = XST_SUCCESS;
 
 done:
-	if (XST_SUCCESS != Status) {
-		PmErr("0x%x\n\r", Status);
-	}
 	return Status;
 }
 
