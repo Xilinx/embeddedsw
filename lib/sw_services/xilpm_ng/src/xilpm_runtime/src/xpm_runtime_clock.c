@@ -867,3 +867,27 @@ u32 XPmClock_CalculateRate(XPm_ClockNode *Clk)
 done:
 	return (Clk != NULL) ? Clk->ClkRate : 0U;
 }
+
+/**
+ * @brief  Get the cached clock rate for a given clock node.
+ *
+ * @param  ClockId	Clock node ID
+ * @param  Rate		Pointer to store the clock rate in Hz
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+XStatus XPmClock_GetRate(u32 ClockId, u32 *Rate)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		goto done;
+	}
+
+	*Rate = Clk->ClkRate;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}

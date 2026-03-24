@@ -127,6 +127,7 @@ static XStatus XPm_DoGetClockDivider(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
+static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
 
 /* Defined in xilpm-boot */
 extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
@@ -410,6 +411,7 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_ACTIVATE_SUBSYSTEM].Handler = (XPlmi_CmdHandler)XPm_DoActivateSubsystem;
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoSetNodeAccess;
+	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)XPm_DoGetClockRate;
 	Status = XPmSubsystem_ModuleInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -896,6 +898,43 @@ done:
 static XStatus XPm_DoAddSubsystem(XPlmi_Cmd* Cmd)
 {
 	return XPm_AddSubsystem(Cmd);
+}
+
+/**
+ * @brief  Handle PM_CLOCK_GETRATE command to retrieve a clock's rate.
+ *
+ * @param  Cmd	Pointer to the command structure
+ *
+ * @return XST_SUCCESS if successful else error code
+ *
+ ****************************************************************************/
+static XStatus XPm_DoGetClockRate(XPlmi_Cmd* Cmd)
+{
+	XStatus Status = XST_FAILURE;
+	u32 IndexedClockId = Cmd->Payload[0];
+	u32 ClockId;
+	u32 *Rate = (u32*)&Cmd->Response[1];
+
+	Status = XPm_ResolveIndexedNodeId(IndexedClockId, &ClockId);
+	if (XST_SUCCESS != Status) {
+		Cmd->Response[0] = (u32)Status;
+		/*
+		 * For getter APIs, a hole in the SCMI (INDEXED) ID space is
+		 * not a failure — the API returns SUCCESS with the actual
+		 * status in the response payload so the caller (e.g. TF-A
+		 * SCMI server) can act accordingly.
+		 */
+		if (XPM_PM_INVALID_NODE == Status) {
+			Status = XST_SUCCESS;
+		}
+		goto done;
+	}
+
+	Status = XPmClock_GetRate(ClockId, Rate);
+	Cmd->Response[0] = (u32)Status;
+
+done:
+	return Status;
 }
 
 XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)

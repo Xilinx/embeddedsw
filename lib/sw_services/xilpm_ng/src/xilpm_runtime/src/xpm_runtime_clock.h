@@ -30,6 +30,8 @@ XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp);
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx);
 /** @brief Iteratively calculate the clock rate for a given clock node */
 u32 XPmClock_CalculateRate(XPm_ClockNode *Clk);
+/** @brief Get the cached clock rate for a given clock node */
+XStatus XPmClock_GetRate(u32 ClockId, u32 *Rate);
 #ifdef __cplusplus
 }
 #endif

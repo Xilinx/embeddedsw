@@ -76,6 +76,7 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_PINCTRL_SET_FUNCTION):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
+	case PM_API(PM_CLOCK_GETRATE):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
 		break;

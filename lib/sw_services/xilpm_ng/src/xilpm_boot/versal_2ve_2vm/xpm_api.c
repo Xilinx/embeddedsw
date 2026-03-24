@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -155,6 +155,7 @@ static XPlmi_AccessPerm_t XPlmi_PmAccessPermBuff[PM_API_MAX] XPM_INIT_DATA(XPlmi
 	XPLMI_ALL_IPI_NO_ACCESS(PM_IF_NOC_CLOCK_ENABLE),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_FORCE_HOUSECLEAN),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_HNICX_NPI_DATA_XFER),
+	XPLMI_ALL_IPI_FULL_ACCESS(PM_CLOCK_GETRATE),
 };
 
 static XPlmi_Module XPlmi_Pm =

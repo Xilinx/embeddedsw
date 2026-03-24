@@ -85,6 +85,7 @@ extern "C" {
  * | PM_CLOCK_GETSTATE		| 0x26	| Both		| 1	 | The API is used to read the clock state				     |
  * | PM_CLOCK_SETDIVIDER	| 0x27	| Both		| 1	 | The API is used to set the divider value of the clock		     |
  * | PM_CLOCK_GETDIVIDER	| 0x28	| Both		| 1	 | The API is used to read the clock divider				     |
+ * | PM_CLOCK_GETRATE		| 0x2A	| versal_2ve_2vm| 1	 | The API is used to read the clock rate				     |
  * | PM_CLOCK_SETPARENT		| 0x2B	| Both		| 1	 | The API is used to set the parent of the clock			     |
  * | PM_CLOCK_GETPARENT		| 0x2C	| Both		| 1	 | The API is used to read the clock parent				     |
  * | PM_PLL_SET_PARAM		| 0x30	| Both		| 1	 | The API is used to set the parameter of PLL clock			     |
@@ -239,8 +240,7 @@ typedef enum {
 	PM_CLOCK_SETDIVIDER,				/**< 0x27 */
 	PM_CLOCK_GETDIVIDER,				/**< 0x28 */
 	PM_CLOCK_SETRATE,				/**< 0x29 */
-	/* PM_CLOCK_GETRATE API is deprecated */
-	PM_RESERVE_ID,					/**< 0x2A */
+	PM_CLOCK_GETRATE,				/**< 0x2A */
 	PM_CLOCK_SETPARENT,				/**< 0x2B */
 	PM_CLOCK_GETPARENT,				/**< 0x2C */
 	PM_SECURE_IMAGE,				/**< 0x2D */
