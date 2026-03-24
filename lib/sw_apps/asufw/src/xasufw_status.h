@@ -732,6 +732,8 @@ enum {
 	XASUFW_DATA_BACKUP_FAIL, /**< 0x20DU - Error when data backup operation fails. */
 	XASUFW_DATA_RESTORE_FAIL, /**< 0x20EU - Error when data restore operation fails. */
 	XASUFW_UPDATE_MGR_RELOCATION_FAIL, /**< 0x20FU - Error when update manager relocation fails. */
+	XASUFW_ERR_RAM_ECC_UE, /**< 0x210U - RAM ECC uncorrectable error detected */
+	XASUFW_ERR_RAM_ECC_CE, /**< 0x211U - RAM ECC correctable error detected */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

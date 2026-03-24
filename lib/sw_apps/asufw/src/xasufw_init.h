@@ -73,6 +73,7 @@ void XAsufw_UpdateModulesInfo(void);
 s32 XAsufw_RunKeyTransfer(void);
 void XAsufw_DisableInterruptSystem(void);
 s32 XAsufw_EnableDisableEventNotifiers(u32 Enable);
+void XAsufw_RamEccInit(void);
 
 /************************************ Variable Definitions ***************************************/
 

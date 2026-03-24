@@ -31,6 +31,7 @@
  * 1.3   am   05/18/25 Changed wait condition from implicit to explicit comparison
  *       am   06/16/25 Fixed consecutive PMC to ASU key transfers failing
  *       rmv  09/09/25 Removed XASUFW_KILO macro as it not needed and fix doxygen comments
+ *       kp   03/16/26 Added ASU RAM ECC initialization and interrupt handling
  *
  * </pre>
  *
@@ -49,6 +50,7 @@
 #include "xasufw_ipi.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_hw.h"
 #include "xasufw_memory.h"
 #include "xaes.h"
 #include "xasufw_error_manager.h"
@@ -63,6 +65,10 @@
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
 #define XASUFW_ASU_IRO_FREQ_IN_HZ	(500000000U) /**< ASU IRO frequency 500Mhz */
 #define XASUFW_IOMODULE_IPI_INTRNUM	(28U) /**< IPI interrupt number in IO Module */
+#define XASUFW_IOMODULE_DATA_ECC_INTRNUM  (16U) /**< Data RAM ECC interrupt number in
+						      IO Module (riscv_interrupt[0]) */
+#define XASUFW_IOMODULE_INSTR_ECC_INTRNUM (17U) /**< Instr RAM ECC interrupt number in
+						      IO Module (riscv_interrupt[1]) */
 #define XASUFW_PIT3_TIMER_TICK		(10U) /**< PIT3 timer tick in milli-seconds */
 
 #define XASUFW_PIT1_RESET_VALUE		(0xFFFFFFFDU) /**< PIT1 reset value */
@@ -111,6 +117,10 @@ static void XAsufw_ExceptionHandler(void *Data);
 static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XAsufw_Pit3TimerHandler(const void *Data);
 static s32 XAsufw_RegisterNotifier(u32 EventErrMask, u32 Enable);
+#ifdef XASUFW_RAM_ECC_ENABLE
+static void XAsufw_RamEccIntrHandler(void *CallbackRef);
+static void XAsufw_RamEccEnableCtrl(u32 BaseAddr);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 static XIOModule IOModule; /**< Instance of the IO Module */
@@ -163,6 +173,16 @@ static void XAsufw_ExceptionHandler(void *Data)
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Received Exception \n\r");
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x, "
 			"CSR(mtval): 0x%x\r\n", csrr(mstatus), csrr(mcause), csrr(mtval));
+
+#ifdef XASUFW_RAM_ECC_ENABLE
+	/**
+	 * On RISC-V, a RAM ECC uncorrectable error (UE) aborts the bus transaction
+	 * causing a load access fault (mcause=0x5) before the ECC interrupt fires.
+	 * Call the unified ECC interrupt handler to detect and report UE.
+	 */
+	XAsufw_RamEccIntrHandler((void *)(UINTPTR)ASU_RAM_INSTR_ECC_CTRL_BASEADDR);
+	XAsufw_RamEccIntrHandler((void *)(UINTPTR)ASU_RAM_DATA_ECC_CTRL_BASEADDR);
+#endif
 
 	/** Trigger Fatal error to PLM which performs secure lockdown with IO tri-state. */
 	XAsufw_SendErrorToPlm(XASUFW_FATAL_ERROR, (s32)Data);
@@ -217,6 +237,113 @@ static void XAsufw_Pit3TimerHandler(const void *Data)
 	(void)Data;
 	/** Update TaskTimeNow every time the scheduler handler is called for every 10ms */
 	TaskTimeNow += XASUFW_PIT3_TIMER_TICK;
+}
+
+#ifdef XASUFW_RAM_ECC_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function enables the ECC controller of instruction or data RAM at the given
+ *		base address. It turns on ECC checking, enables CE and UE interrupts, and clears
+ *		any pending status.
+ *
+ * @param	BaseAddr	Base address of the ECC controller.
+ *
+ *************************************************************************************************/
+static void XAsufw_RamEccEnableCtrl(u32 BaseAddr)
+{
+	/** Enable ECC checking. */
+	XAsufw_RMW(BaseAddr + ASU_RAM_ECC_CTRL_ONOFF_OFFSET,
+		   ASU_RAM_ECC_CTRL_ONOFF_EN_MASK, ASU_RAM_ECC_CTRL_ONOFF_EN_MASK);
+
+	/** Clear any pending CE/UE status before enabling interrupts. */
+	XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_STATUS_OFFSET,
+			ASU_RAM_ECC_CTRL_STATUS_UE_MASK | ASU_RAM_ECC_CTRL_STATUS_CE_MASK);
+
+	/** Enable both CE and UE interrupts. */
+	XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_EN_IRQ_OFFSET,
+			ASU_RAM_ECC_CTRL_EN_IRQ_UE_MASK | ASU_RAM_ECC_CTRL_EN_IRQ_CE_MASK);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This is the unified interrupt handler for ASU RAM ECC events. It handles both
+ *		correctable errors (CE) reported as non-fatal and uncorrectable errors (UE)
+ *		reported as fatal. This handler is called from the IO Module interrupt context
+ *		for CE events, and from XAsufw_ExceptionHandler for UE events since UE aborts
+ *		the bus transaction causing a load access fault (mcause=0x5) before the ECC
+ *		interrupt fires.
+ *
+ * @param	CallbackRef	Pointer containing the base address of the ECC controller that
+ *				triggered the interrupt (cast to void *).
+ *
+ *************************************************************************************************/
+static void XAsufw_RamEccIntrHandler(void *CallbackRef)
+{
+	u32 BaseAddr = (u32)(UINTPTR)CallbackRef;
+	u32 EccStatus = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_STATUS_OFFSET);
+	u32 FfAddr;
+	u32 Ffd;
+	u32 Ffe;
+	u32 CeCnt;
+
+	/** Handle uncorrectable error (fatal). */
+	if ((EccStatus & ASU_RAM_ECC_CTRL_STATUS_UE_MASK) != 0U) {
+		FfAddr = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_UE_FFA_OFFSET);
+		Ffd = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_UE_FFD_OFFSET);
+		Ffe = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_UE_FFE_OFFSET);
+
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "RAM ECC UE at controller 0x%08x, "
+			       "first failing addr: 0x%08x, first failing data: 0x%08x, "
+			       "first failing ECC: 0x%08x\r\n",
+			       BaseAddr, FfAddr, Ffd, Ffe);
+
+		/** Clear UE status. */
+		XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_STATUS_OFFSET,
+				ASU_RAM_ECC_CTRL_STATUS_UE_MASK);
+
+		/** Report fatal error to PLM. */
+		XAsufw_SendErrorToPlm(XASUFW_FATAL_ERROR, (s32)XASUFW_ERR_RAM_ECC_UE);
+
+		/** Enters infinite loop just in case control reaches here. */
+		while (XASU_TRUE) {
+			;
+		}
+	}
+
+	/** Handle correctable error (non-fatal). */
+	if ((EccStatus & ASU_RAM_ECC_CTRL_STATUS_CE_MASK) != 0U) {
+		FfAddr = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_CE_FFA_OFFSET);
+		CeCnt = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_CE_CNT_OFFSET);
+		Ffd = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_CE_FFD_OFFSET);
+		Ffe = XAsufw_ReadReg(BaseAddr + ASU_RAM_ECC_CTRL_CE_FFE_OFFSET);
+
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "RAM ECC CE at controller 0x%08x, "
+			       "first failing addr: 0x%08x, count: %u, "
+			       "first failing data: 0x%08x, "
+			       "first failing ECC: 0x%08x\r\n",
+			       BaseAddr, FfAddr, CeCnt, Ffd, Ffe);
+
+		/** Clear CE status. */
+		XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_STATUS_OFFSET,
+				ASU_RAM_ECC_CTRL_STATUS_CE_MASK);
+
+		/** Report non-fatal error to PLM. */
+		XAsufw_SendErrorToPlm(XASUFW_NON_FATAL_ERROR, (s32)XASUFW_ERR_RAM_ECC_CE);
+	}
+}
+#endif
+
+/*************************************************************************************************/
+/**
+ * @brief	This function enables ECC for both instruction and data RAM controllers.
+ *
+ *************************************************************************************************/
+void XAsufw_RamEccInit(void)
+{
+#ifdef XASUFW_RAM_ECC_ENABLE
+	XAsufw_RamEccEnableCtrl(ASU_RAM_INSTR_ECC_CTRL_BASEADDR);
+	XAsufw_RamEccEnableCtrl(ASU_RAM_DATA_ECC_CTRL_BASEADDR);
+#endif
 }
 
 /*************************************************************************************************/
@@ -319,6 +446,32 @@ s32 XAsufw_SetUpInterruptSystem(void)
 
 	/** Enable the IO Module IPI interrupt. */
 	XIOModule_Enable(&IOModule, IntrNum);
+
+#ifdef XASUFW_RAM_ECC_ENABLE
+	/** Connect instruction RAM ECC interrupt to its handler. */
+	Status = XIOModule_Connect(&IOModule, XASUFW_IOMODULE_INSTR_ECC_INTRNUM,
+				   (XInterruptHandler)XAsufw_RamEccIntrHandler,
+				   (void *)(UINTPTR)ASU_RAM_INSTR_ECC_CTRL_BASEADDR);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_CONNECT_FAILED, Status);
+		goto END;
+	}
+
+	/** Enable the IO Module instruction RAM ECC interrupt. */
+	XIOModule_Enable(&IOModule, XASUFW_IOMODULE_INSTR_ECC_INTRNUM);
+
+	/** Connect data RAM ECC interrupt to its handler. */
+	Status = XIOModule_Connect(&IOModule, XASUFW_IOMODULE_DATA_ECC_INTRNUM,
+				   (XInterruptHandler)XAsufw_RamEccIntrHandler,
+				   (void *)(UINTPTR)ASU_RAM_DATA_ECC_CTRL_BASEADDR);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_CONNECT_FAILED, Status);
+		goto END;
+	}
+
+	/** Enable the IO Module data RAM ECC interrupt. */
+	XIOModule_Enable(&IOModule, XASUFW_IOMODULE_DATA_ECC_INTRNUM);
+#endif
 
 	/** Enable interrupts and exceptions. */
 	XAsufw_ExceptionEnable();

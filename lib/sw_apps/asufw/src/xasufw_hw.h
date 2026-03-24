@@ -22,6 +22,7 @@
  *       ma   02/21/25 Added defines related to FATAL and NON-FAL registers
  *       rmv  08/01/25 Added defines related to EFUSE CACHE registers
  *       rmf  09/12/25 Added defines related to ASU IPI registers
+ *       kp   03/16/26 Added defines related to ASU RAM ECC controllers
  *
  * </pre>
  *
@@ -181,6 +182,81 @@ extern "C" {
 #define IPI_ASU_ISR_PMC_MASK	(0x00000002U)
 /**< IPI6 NoBuf channel mask */
 #define IPI_ASU_NOBUF_6_MASK	(0x00008000U)
+
+/*
+ * Definitions required from asu_ram_ecc_ctrl
+ */
+/** ASU RAM instruction ECC controller base address */
+#define ASU_RAM_INSTR_ECC_CTRL_BASEADDR		(0xEBEA0000U)
+/** ASU RAM data ECC controller base address */
+#define ASU_RAM_DATA_ECC_CTRL_BASEADDR		(0xEBEB0000U)
+
+/** ASU RAM ECC STATUS register offset */
+#define ASU_RAM_ECC_CTRL_STATUS_OFFSET		(0x000U)
+/** ASU RAM ECC STATUS uncorrectable error mask */
+#define ASU_RAM_ECC_CTRL_STATUS_UE_MASK		(0x00000001U)
+/** ASU RAM ECC STATUS correctable error mask */
+#define ASU_RAM_ECC_CTRL_STATUS_CE_MASK		(0x00000002U)
+
+/** ASU RAM ECC EN_IRQ register offset */
+#define ASU_RAM_ECC_CTRL_EN_IRQ_OFFSET		(0x004U)
+/** ASU RAM ECC EN_IRQ uncorrectable error interrupt enable mask */
+#define ASU_RAM_ECC_CTRL_EN_IRQ_UE_MASK		(0x00000001U)
+/** ASU RAM ECC EN_IRQ correctable error interrupt enable mask */
+#define ASU_RAM_ECC_CTRL_EN_IRQ_CE_MASK		(0x00000002U)
+
+/** ASU RAM ECC ONOFF register offset */
+#define ASU_RAM_ECC_CTRL_ONOFF_OFFSET		(0x008U)
+/** ASU RAM ECC ONOFF enable mask */
+#define ASU_RAM_ECC_CTRL_ONOFF_EN_MASK		(0x00000001U)
+
+/** ASU RAM ECC correctable error count register offset */
+#define ASU_RAM_ECC_CTRL_CE_CNT_OFFSET		(0x00CU)
+/** ASU RAM ECC CE first failing data register offset */
+#define ASU_RAM_ECC_CTRL_CE_FFD_OFFSET		(0x100U)
+/** ASU RAM ECC CE first failing ECC syndrome register offset */
+#define ASU_RAM_ECC_CTRL_CE_FFE_OFFSET		(0x180U)
+/** ASU RAM ECC CE first failing address register offset */
+#define ASU_RAM_ECC_CTRL_CE_FFA_OFFSET		(0x1C0U)
+/** ASU RAM ECC UE first failing data register offset */
+#define ASU_RAM_ECC_CTRL_UE_FFD_OFFSET		(0x200U)
+/** ASU RAM ECC UE first failing ECC syndrome register offset */
+#define ASU_RAM_ECC_CTRL_UE_FFE_OFFSET		(0x280U)
+/** ASU RAM ECC UE first failing address register offset */
+#define ASU_RAM_ECC_CTRL_UE_FFA_OFFSET		(0x2C0U)
+
+/*
+ * Map canonical xparameters instances to instruction/data ECC controllers by base address.
+ * XPAR_XASU_RAM_ECC_0/1 numbering may not match the HW controller identity, so compare
+ * base addresses to determine which controller each instance corresponds to.
+ */
+#if defined(XPAR_XASU_RAM_ECC_0_BASEADDR) && defined(XPAR_XASU_RAM_ECC_0_IS_ECC)
+#if (XPAR_XASU_RAM_ECC_0_BASEADDR == ASU_RAM_INSTR_ECC_CTRL_BASEADDR) && \
+    (XPAR_XASU_RAM_ECC_0_IS_ECC == 1U)
+#define XASUFW_RAM_INSTR_ECC_ENABLE
+#elif (XPAR_XASU_RAM_ECC_0_BASEADDR == ASU_RAM_DATA_ECC_CTRL_BASEADDR) && \
+      (XPAR_XASU_RAM_ECC_0_IS_ECC == 1U)
+#define XASUFW_RAM_DATA_ECC_ENABLE
+#endif
+#endif
+
+#if defined(XPAR_XASU_RAM_ECC_1_BASEADDR) && defined(XPAR_XASU_RAM_ECC_1_IS_ECC)
+#if (XPAR_XASU_RAM_ECC_1_BASEADDR == ASU_RAM_INSTR_ECC_CTRL_BASEADDR) && \
+    (XPAR_XASU_RAM_ECC_1_IS_ECC == 1U)
+#ifndef XASUFW_RAM_INSTR_ECC_ENABLE
+#define XASUFW_RAM_INSTR_ECC_ENABLE
+#endif
+#elif (XPAR_XASU_RAM_ECC_1_BASEADDR == ASU_RAM_DATA_ECC_CTRL_BASEADDR) && \
+      (XPAR_XASU_RAM_ECC_1_IS_ECC == 1U)
+#ifndef XASUFW_RAM_DATA_ECC_ENABLE
+#define XASUFW_RAM_DATA_ECC_ENABLE
+#endif
+#endif
+#endif
+
+#if defined(XASUFW_RAM_INSTR_ECC_ENABLE) && defined(XASUFW_RAM_DATA_ECC_ENABLE)
+#define XASUFW_RAM_ECC_ENABLE
+#endif
 
 /************************************** Type Definitions *****************************************/
 

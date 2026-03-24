@@ -238,6 +238,9 @@ static s32 XAsufw_Init(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** Enable RAM ECC controllers. */
+	XAsufw_RamEccInit();
+
 	/** Initialize task queues. */
 	XTask_Init();
 
