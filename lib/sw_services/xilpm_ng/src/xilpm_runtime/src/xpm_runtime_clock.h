@@ -32,8 +32,10 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx);
 u32 XPmClock_CalculateRate(XPm_ClockNode *Clk);
 /** @brief Get the cached clock rate for a given clock node */
 XStatus XPmClock_GetRate(u32 ClockId, u32 *Rate);
-XStatus XPmClock_ProgramRate(u32 ClockId, u32 Rate, u32 flags);
+#ifdef XILPM_NG_ENABLE_CLK_SCMI
+XStatus XPmClock_ProgramRate(u32 ClockId, u32 Rate, u32 Flags);
 XStatus XPmClock_DescribeRate(u32 ClockId, u32 RateIdx, u32 *Response);
+#endif /* XILPM_NG_ENABLE_CLK_SCMI */
 #ifdef __cplusplus
 }
 #endif

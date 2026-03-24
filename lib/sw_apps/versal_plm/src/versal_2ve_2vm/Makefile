@@ -11,6 +11,7 @@ _LN_XILPM_FLAGS:=--whole-archive
 
 XILPM_BOOT_LIB ?= 1
 XILPM_RUNTIME_LIB ?= 0
+XILPM_NG_ENABLE_CLK_SCMI ?= 1
 ifeq ($(XILPM_RUNTIME_LIB),1)
 	XILPM_BOOT_LIB = 1
 	# For now, we are using only xilpm_runtime (eemi) library by default if XILPM_RUNTIME_LIB is enabled
@@ -30,6 +31,15 @@ else ifeq ($(XILPM_RUNTIME_LIB),SUBSYS)
 endif
 ifeq ($(XILPM_BOOT_LIB), 1)
 	XILPM_BOOT_FLAGS := -DXILPM_BOOT
+endif
+ifeq ($(XILPM_NG_ENABLE_CLK_SCMI),1)
+  ifneq ($(XILPM_RUNTIME_LIB),0)
+	XILPM_RUNTIME_FLAGS += -DXILPM_NG_ENABLE_CLK_SCMI
+	XILPM_BOOT_FLAGS += -DXILPM_NG_ENABLE_CLK_SCMI
+  else
+    $(info XILPM_NG_ENABLE_CLK_SCMI requires XILPM_RUNTIME_LIB. SCMI Clock APIs are disabled.)
+    XILPM_NG_ENABLE_CLK_SCMI := 0
+  endif
 endif
 ifeq ($(XILPM_BOOT_LIB), 1)
 	_LN_XILPM_FLAGS:=$(strip $(_LN_XILPM_FLAGS),-lxilpm)

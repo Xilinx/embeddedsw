@@ -128,8 +128,10 @@ static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
 static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
+#ifdef XILPM_NG_ENABLE_CLK_SCMI
 static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoDescribeClockRate(XPlmi_Cmd* Cmd);
+#endif /* XILPM_NG_ENABLE_CLK_SCMI */
 
 /* Defined in xilpm-boot */
 extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
@@ -414,8 +416,10 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoSetNodeAccess;
 	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)XPm_DoGetClockRate;
+#ifdef XILPM_NG_ENABLE_CLK_SCMI
 	XPlmi_PmCmds[PM_CLOCK_PROGRAM_RATE].Handler = (XPlmi_CmdHandler)XPm_DoProgramClockRate;
 	XPlmi_PmCmds[PM_CLOCK_DESCRIBERATE].Handler = (XPlmi_CmdHandler)XPm_DoDescribeClockRate;
+#endif /* XILPM_NG_ENABLE_CLK_SCMI */
 	Status = XPmSubsystem_ModuleInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -941,6 +945,7 @@ done:
 	return Status;
 }
 
+#ifdef XILPM_NG_ENABLE_CLK_SCMI
 /**
  * @brief  Handle PM_CLOCK_PROGRAM_RATE command to set a clock's rate.
  *
@@ -1022,6 +1027,7 @@ static XStatus XPm_DoDescribeClockRate(XPlmi_Cmd* Cmd)
 done:
 	return Status;
 }
+#endif /* XILPM_NG_ENABLE_CLK_SCMI */
 
 XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)
 {

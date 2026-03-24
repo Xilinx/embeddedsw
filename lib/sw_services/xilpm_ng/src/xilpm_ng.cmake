@@ -4,6 +4,7 @@
 # Define XILPM library options with default values
 option(XILPM_NG_EEMI_ENABLE "Enable EEMI support" ON)
 option(XILPM_NG_SUBSYS_ENABLE "Enable Subsystem support" ON)
+option(XILPM_NG_ENABLE_CLK_SCMI "Enable support for SCMI Clock APIs" ON)
 
 if(XILPM_NG_SUBSYS_ENABLE)
     if(NOT XILPM_NG_EEMI_ENABLE)
@@ -29,6 +30,15 @@ else()
     add_compile_definitions(XILPM_RUNTIME_EEMI)
   else()
     message(STATUS "EEMI support is disabled.")
+  endif()
+endif()
+
+if(XILPM_NG_ENABLE_CLK_SCMI)
+  if(NOT XILPM_NG_SUBSYS_ENABLE AND NOT XILPM_NG_EEMI_ENABLE)
+    message(STATUS "XILPM_NG_ENABLE_CLK_SCMI requires XILPM Runtime (XILPM_NG_SUBSYS_ENABLE or XILPM_NG_EEMI_ENABLE). SCMI Clock APIs are disabled.")
+    set(XILPM_NG_ENABLE_CLK_SCMI OFF CACHE BOOL "Enable support for SCMI Clock APIs" FORCE)
+  else()
+    add_compile_definitions(XILPM_NG_ENABLE_CLK_SCMI)
   endif()
 endif()
 

@@ -28,10 +28,13 @@
 #define CLK_TOPOLOGY_PAYLOAD_LEN	12U
 #define CLK_CLKFLAGS_SHIFT		8U
 #define CLK_TYPEFLAGS_SHIFT		24U
-/* Max depth is 8 as per current topology; 10 to accommodate future expansion */
-#define MAX_CLK_CHAIN_DEPTH		10U
+/** Maximum clock parent-chain depth for iterative rate calculation.
+ *  Limits traversal in XPmClock_CalculateRate() to guard against
+ *  runaway walks on malformed or unexpectedly deep topologies. */
+#define MAX_CLK_CHAIN_DEPTH		32U
 
 
+#ifdef XILPM_NG_ENABLE_CLK_SCMI
 /* CLOCK_DESCRIBE_RATE response format macros */
 #define CLK_RATE_FORMAT_SHIFT	12U
 #define CLK_RATES_TRIPLET	3U
@@ -48,6 +51,7 @@
 	((ClkId == PM_CLK_GEM0_TX) || (ClkId == PM_CLK_GEM1_TX) || \
 	(ClkId == PM_CLK_MMIPLL) || (ClkId == PM_CLK_DC_REF) || \
 	(ClkId == PM_CLK_DC_PIXEL) || (ClkId == PM_CLK_MMI_AUX1_REF))
+#endif /* XILPM_NG_ENABLE_CLK_SCMI */
 
 /* Clock UseCount overflow protection macro (use info print to avoid flooding logs) */
 #define PmIncrementClk(NodeId, Name, UseCount) \
@@ -909,6 +913,8 @@ done:
 	return Status;
 }
 
+#ifdef XILPM_NG_ENABLE_CLK_SCMI
+
 /**
  * XPmClockPll_EvaluateDivider() - Evaluate a divider value and calculate best PLL params
  * @TargetRate: Desired output rate
@@ -1010,6 +1016,10 @@ static XStatus XPmClockOut_SetRateWithPll(XPm_ClockNode *Clk, const u32 ClkRate,
 	}
 
 	RefClkRate = RefClk->ClkRate;
+	if (0U == RefClkRate) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* PLL_OUT valid divider values: 1, 2, 4, 8 */
 	for (i = 0U; i < PLL_NUM_DIVIDERS; i++) {
@@ -1267,3 +1277,5 @@ XStatus XPmClock_DescribeRate(u32 ClockId, u32 RateIdx, u32 *Response)
 
 	return Status;
 }
+
+#endif /* XILPM_NG_ENABLE_CLK_SCMI */
