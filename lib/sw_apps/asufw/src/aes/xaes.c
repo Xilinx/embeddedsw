@@ -325,7 +325,6 @@ static XAes_ContextInfo AesContext; /**< AES context. */
 
 /************************** Function Prototypes **************************************************/
 static XAes_Config *XAes_LookupConfig(u16 DeviceId);
-static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc);
 static inline void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
 static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
@@ -563,13 +562,6 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
 		}
-	}
-
-	/** Check whether key is zeroed or not and return failure if the key is zeroed. */
-	Status = XAes_IsKeyZeroized(InstancePtr, KeyObjectPtr->KeySrc);
-	if (Status != XAES_KEY_NOT_ZEROIZED) {
-		Status = XASUFW_AES_KEY_ZEROED;
-		goto END;
 	}
 
 	/** Load key to AES engine. */
@@ -1831,35 +1823,6 @@ static XAes_Config *XAes_LookupConfig(u16 DeviceId)
 	}
 
 	return CfgPtr;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function checks whether given key source is in zeroized status or not.
- *
- * @param	InstancePtr	Pointer to the XAes instance.
- * @param	KeySrc		Key source.
- *
- * @return
- *		- XAES_KEY_ZEROIZED, if key is zeroized.
- * 		- XAES_KEY_NOT_ZEROIZED, if key is not zeroized
- *
- *************************************************************************************************/
-static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
-{
-	CREATE_VOLATILE(Status, XAES_KEY_ZEROIZED);
-	volatile u32 ReadKeyZeroedStatus = XAES_KEY_ZEROED_STATUS_RESET_VAL;
-
-	/** Read the key zeroized status register. */
-	ReadKeyZeroedStatus = XAsufw_ReadReg(InstancePtr->KeyBaseAddress +
-		XAES_KEY_ZEROED_STATUS_OFFSET);
-
-	/** Check the key zeroized status with its zeroized mask. */
-	if ((ReadKeyZeroedStatus & AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask) == 0U) {
-		Status = XAES_KEY_NOT_ZEROIZED;
-	}
-
-	return Status;
 }
 
 /*************************************************************************************************/
