@@ -67,6 +67,8 @@
 * 2.4   abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
 *       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *       aa   03/09/2026 Added error code for USB download timeout
+*       pre  03/12/2026 Added error codes for TPM Initialization failure and ROM,PLM hash
+*                       extension failures
 *
 * </pre>
 *
@@ -308,7 +310,7 @@ typedef enum {
 	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x1B4 - Error when memset of DbHdr during store database is failed */
 	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x1B5 - Error when relocating of update manager code is failed */
 	XPLMI_ERR_PLAT_RESERVED_1B6, /**< 0x1B6 - XPLMI_ERR_PLAT_RESERVED_1B6. */
-	XPLMI_ERR_PLAT_RESERVED_1B7, /**< 0x1B7 - XPLMI_ERR_PLAT_RESERVED_1B7. */
+	XPLMI_ERR_TPM_INIT, /**< 0x1B7 Error when TPM initialization gets failed */
 	XPLMI_ERR_PLAT_RESERVED_1B8, /**< 0x1B8 - XPLMI_ERR_PLAT_RESERVED_1B8. */
 	XPLMI_ERR_PLAT_RESERVED_1B9, /**< 0x1B9 - XPLMI_ERR_PLAT_RESERVED_1B9. */
 	XPLMI_ERR_PLAT_RESERVED_1BA, /**< 0x1BA - XPLMI_ERR_PLAT_RESERVED_1BA. */
@@ -625,7 +627,8 @@ typedef enum {
 	XLOADER_ERR_DATA_MEASUREMENT,   /**< 0x3A8 - Error in data measurement */
 	XLOADER_ERR_SHA3_1_INIT,	/**< 0x3A9 - Error when SHA3 Instance 1 initialization fails */
 	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< 0x3AA - Error in Secure config measurement */
-
+	XLOADER_MEASURE_ROM_FAILURE,	/**< 0x3AB - Error while ROM digest transfer to TPM */
+	XLOADER_MEASURE_PLM_FAILURE,	/**< 0x3AC - Error while PLM digest transfer to TPM */
 
 	/**< Security Major error codes */
 	/* Security error codes common for all platforms are from 0x600 to 0x69F */

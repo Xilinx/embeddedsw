@@ -131,6 +131,7 @@
 * 2.03  tvp  08/22/2025 Removed unnecessary XLoader_ImageMeasureInfo structure member for TPM.
 *       sk   09/27/2025 Added defines related to UFS Boot
 *       sk   10/16/2025 Remove conditional declaration for XLoader_MbPmcI2cHandshake
+*       pre  03/12/2026 Added macro needed to validate PCR number
 * </pre>
 *
 ******************************************************************************/
@@ -164,6 +165,7 @@ extern "C" {
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U)	/**< 32K */
 #define XLOADER_DEVICE_COPY_OPTIMIZATION_MASK	(0x30U) /**< Mask to extract copy optimization bits of RTCA SecureCtrl registers */
 #define XLOADER_PCR_NUMBER_MASK 				(0x0000FFFFU) /**< Number mask value */
+#define XLOADER_PCR_INVALID_VALUE				    (0xFFFFFFFFU) /**< PCR invalid value */
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U) /**< Index of executed coammnd status */
 #define XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX	(1U) /**< Index of PDI load status */
 

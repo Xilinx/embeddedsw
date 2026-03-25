@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -851,6 +851,32 @@ extern "C" {
 #define XPAR_XIICPS_1_HIGHADDR 0xF100FFFF
 #define XPAR_XIICPS_1_I2C_CLK_FREQ_HZ 99999992
 
+/* Definitions for driver SPIPS */
+#define XPAR_XSPIPS_NUM_INSTANCES 2
+
+/* Definitions for peripheral PSU_SPI_0 */
+#define XPAR_PSU_SPI_0_DEVICE_ID 0
+#define XPAR_PSU_SPI_0_BASEADDR 0xF19C0000
+#define XPAR_PSU_SPI_0_HIGHADDR 0xF19C0FFF
+#define XPAR_PSU_SPI_0_SPI_CLK_FREQ_HZ 199998001
+
+/* Definitions for peripheral PSU_SPI_1 */
+#define XPAR_PSU_SPI_1_DEVICE_ID 1
+#define XPAR_PSU_SPI_1_BASEADDR 0xF19D0000
+#define XPAR_PSU_SPI_1_HIGHADDR 0xF19DFFFF
+#define XPAR_PSU_SPI_1_SPI_CLK_FREQ_HZ 199998001
+
+/* Canonical definitions for peripheral PSU_SPI_0 */
+#define XPAR_XSPIPS_0_DEVICE_ID XPAR_PSU_SPI_0_DEVICE_ID
+#define XPAR_XSPIPS_0_BASEADDR 0xF19C0000
+#define XPAR_XSPIPS_0_HIGHADDR 0xF19C0FFF
+#define XPAR_XSPIPS_0_SPI_CLK_FREQ_HZ 199998001
+
+/* Canonical definitions for peripheral PSU_SPI_1 */
+#define XPAR_XSPIPS_1_DEVICE_ID XPAR_PSU_SPI_1_DEVICE_ID
+#define XPAR_XSPIPS_1_BASEADDR 0xF19D0000
+#define XPAR_XSPIPS_1_HIGHADDR 0xF19DFFFF
+#define XPAR_XSPIPS_1_SPI_CLK_FREQ_HZ 199998001
 
 /******************************************************************/
 
@@ -1728,6 +1754,9 @@ extern "C" {
 
 /* PUF handlers disable */
 #define PLM_PUF_EXCLUDE
+
+/* TPM handlers disable */
+#define PLM_TPM_EXCLUDE
 
 #define XPAR_XILPM_ENABLED
 

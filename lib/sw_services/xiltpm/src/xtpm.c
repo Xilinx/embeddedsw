@@ -19,6 +19,7 @@
 *       pre  08/23/25 Did enhancements needed
 *       pre  09/23/25 Fixed misrac violations
 * 1.2   pre  01/16/25 Updated comments for RTF documentation
+*       pre  03/12/26 Added validation of PCR number in partition measurement
 *
 * </pre>
 *
@@ -41,6 +42,9 @@
 #define XTPM_BYTE7 (7U) /**< Byte 7 */
 #define XTPM_BYTE8 (8U) /**< Byte 8 */
 #define XTPM_BYTE9 (9U) /**< Byte 9 */
+
+#define XTPM_PCR_2	(2U) /**< Start PCR index for partition hash extend */
+#define XTPM_PCR_23	(23U) /**< Final PCR index of TPM */
 
 /**************************** Type Definitions *******************************/
 
@@ -76,7 +80,7 @@ u32 XTpm_Init(void)
 	u8 Access = 0U;
 
 	/** - Initializes SPI. Returns XTPM_ERR_SPIPS_INIT error if it fails. */
-	Status = XTpm_SpiInit();
+	Status = XTpm_InterfaceInit();
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SPIPS_INIT;
 		goto END;
@@ -118,7 +122,6 @@ u32 XTpm_Init(void)
 
 	/** - Gets capability of TPM. Returns XST_SUCCESS on success. Otherwise, returns error code. */
 	Status = XTpm_GetCap();
-
 END:
 	return Status;
 }
@@ -328,6 +331,12 @@ END:
 int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash)
 {
 	int Status = (int)XTPM_ERR_MEASURE_PARTITION;
+
+	/** Validate input parameters. PCR0 and PCR1 are reserved for ROM and PLM measurements */
+	if (PcrIndex < XTPM_PCR_2 || PcrIndex > XTPM_PCR_23) {
+		Status = (int)XTPM_ERR_PCR_INDEX_INVALID;
+		goto END;
+	}
 
 	/**
 	 * - Extends data to PCR using PCR_EVENT command and gets response.

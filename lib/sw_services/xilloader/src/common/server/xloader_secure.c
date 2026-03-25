@@ -137,6 +137,8 @@
 *       pre  09/30/25 Updated comments for rtf docs
 *       sd   11/10/25 Added support for VERSAL_2VP_P devices.
 * 2.4   tvp  02/04/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
+*       pre  03/12/26 Disabled partition hash table update for VERSAL_2VE_2VM devices
+*                     as the partition hash is not stored in the table for these devices.
 *
 * </pre>
 *
@@ -462,7 +464,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	volatile int ClearStatus = XST_FAILURE;
-#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
+#if (defined(versal) && !defined(VERSAL_2VE_2VM) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
 	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 #endif
 
@@ -540,7 +542,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
+#if (defined(versal) && !defined(VERSAL_2VE_2VM) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
 	/** Store Hash of first block requird for the data measurements */
 	if (SecurePtr->BlockNum == 0x0U) {
 		/** Store Hash of the first block of the partition, required for data measurement */

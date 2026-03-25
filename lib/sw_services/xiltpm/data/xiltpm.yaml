@@ -17,6 +17,8 @@ supported_processors:
       supported_processors = []
       if platform in ["Versal"]:
           supported_processors = ["psv_pmc"]
+      elif platform in ["Versal_2VE_2VM"]:
+          supported_processors = ["pmc"]
       else:
           supported_processors = []
 

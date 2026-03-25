@@ -19,6 +19,7 @@
 * 1.0   tri  03/13/25 Initial release
 *       pre  09/23/25 Fixed misrac violations
 * 1.2   pre  01/16/25 Fixed a Doxygen warning
+*       pre  03/12/26 Added error code for invalid PCR index
 *
 * </pre>
 *
@@ -65,6 +66,7 @@ enum {
 	XTPM_ERR_SPIPS_SET_OPTIONS,/**<0x13 - SPIPS set options failure */
 	XTPM_ERR_SPIPS_SET_CLK_PRESCALER,/**<0x14 - SPIPS set clock prescaler failure */
 	XTPM_ERR_SPIPS_TRANSFER,/**<0x15 - Data transfer failure to TPM */
+	XTPM_ERR_PCR_INDEX_INVALID,/**<0x16 - Invalid PCR index for extend operation */
 };
 #endif	/* PLM_TPM */
 

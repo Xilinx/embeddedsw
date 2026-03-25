@@ -20,6 +20,7 @@
 *       pre  09/23/25 Fixed misrac violations
 *       pre  10/23/25 Fixed bug in TPM command transmission
 * 1.2   pre  01/16/25 Updated comments for RTF documentation
+*       pre  03/13/26 Added support to change TPM interface layer as per customer requirement
 *
 * </pre>
 *
@@ -43,14 +44,63 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 (*XTpm_InterfaceInit)(void); /**< Function pointer to TPM interface initialization
+										  function */
+	s32 (*XTpm_TransferViaInterface)(void *InstancePtr, u8 *SendBufPtr,
+			  u8 *RecvBufPtr, u32 ByteCount); /**< Function pointer to TPM command transmission
+                                                   function via the initialized interface */
+} XTpm_Interface_t;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
+static u32 XTpm_SpiInit(void);
+static s32 XTpm_SpiTransfer(void *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr, u32 ByteCount);
 
 /************************** Variable Definitions *****************************/
 static XSpiPs SpiInstance;
+/**
+ * @brief Structure can be overridden by customer-defined functions to use
+ *        other transport layers (for example, I2C). The structure is initialized
+ *        with SPI function pointers by default.
+ */
+static XTpm_Interface_t XTpm_Interface = {
+	.XTpm_InterfaceInit = XTpm_SpiInit,
+	.XTpm_TransferViaInterface = XTpm_SpiTransfer
+};
+
+/*************************************************************************************************/
+/**
+ * @brief	This function initializes the TPM interface
+ *
+ * @return
+ * 			- XST_SUCCESS if initialization is successful
+ * 			- Error code if initialization fails
+ *
+ *************************************************************************************************/
+u32 XTpm_InterfaceInit(void)
+{
+	return XTpm_Interface.XTpm_InterfaceInit();
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends command to TPM via the initialized interface and gets response.
+ *
+ * @param	InstancePtr is pointer to the initialized interface instance
+ * @param	SendBufPtr is pointer to buffer in which command to be sent is present
+ * @param	RecvBufPtr is pointer to buffer in which response from TPM gets stored
+ * @param	ByteCount is the number of bytes to be sent and received
+ * @return
+ * 			- XST_SUCCESS if command transmission and response reception are successful
+ * 			- Error code if any of the operations fail
+ *
+ *************************************************************************************************/
+static s32 XTpm_SpiTransfer(void *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr, u32 ByteCount)
+{
+    return XSpiPs_PolledTransfer((XSpiPs *)InstancePtr, SendBufPtr, RecvBufPtr, ByteCount);
+}
 
 /*****************************************************************************/
 /**
@@ -165,7 +215,7 @@ static inline u32 XTpm_FifoWrite(const u8* DataPtr, u8 ByteCount)
  * 			- XST_DEVICE_BUSY in case of failure during chip select assertion
  *
  *************************************************************************************************/
-u32 XTpm_SpiInit(void)
+static u32 XTpm_SpiInit(void)
 {
 	u32 Status = (u32)XST_FAILURE;
 	const XSpiPs_Config *SpiConfig;
@@ -386,7 +436,7 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 		 * - Transfers data and receive response in polled mode.
 		 * Returns XTPM_ERR_SPIPS_POLLING_TRANSFER in case of failure
 		 */
-		Status = (u32)XSpiPs_PolledTransfer(&SpiInstance, TpmTxBuffer,
+		Status = (u32)XTpm_Interface.XTpm_TransferViaInterface((void *)&SpiInstance, TpmTxBuffer,
 			TpmRxBuffer, (u32)(TranLen + XTPM_TX_HEAD_SIZE));
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XTPM_ERR_SPIPS_POLLING_TRANSFER;

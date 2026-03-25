@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -25,6 +25,7 @@ BSP_SEQUENTIAL_MAKEFILES += ${PROCESSOR}/libsrc/xilnvm/src/Makefile
 BSP_SEQUENTIAL_MAKEFILES += ${PROCESSOR}/libsrc/xilocp/src/Makefile
 BSP_SEQUENTIAL_MAKEFILES += ${PROCESSOR}/libsrc/xilcert/src/Makefile
 BSP_SEQUENTIAL_MAKEFILES += ${PROCESSOR}/libsrc/xilsecure/src/Makefile
+BSP_SEQUENTIAL_MAKEFILES += ${PROCESSOR}/libsrc/xiltpm/src/Makefile
 BSP_PARALLEL_MAKEFILES := $(filter-out $(BSP_SEQUENTIAL_MAKEFILES),$(BSP_MAKEFILES))
 SEQ_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_SEQUENTIAL_MAKEFILES))
 PAR_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_PARALLEL_MAKEFILES))

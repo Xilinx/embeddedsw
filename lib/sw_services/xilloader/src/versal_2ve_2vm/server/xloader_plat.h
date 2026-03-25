@@ -54,6 +54,7 @@
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 * 2.4   gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *       vm   03/16/2026 Added XLOADER_ERR_ASU_FW_NOT_FOUND error code
+*       pre  03/23/2026 Added support to extend to TPM PCRs
 *
 * </pre>
 *
@@ -339,20 +340,6 @@ typedef struct {
 
 #define XLoader_VerifyDataAuth NULL  /**< Reserved */
 
-/***************************************************************************************/
-/**
- * @brief	This function extends the image hashes of ROM and PLM data
- *
- * @return
- * 			- XST_SUCCESS on successful extension
- * 			- error code on failure
- *
- ***************************************************************************************/
-static inline int XLoader_MeasureRomAndPlm(void)
-{
-	return XST_SUCCESS;
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function is used to check if the given NodeId is
@@ -509,6 +496,8 @@ int XLoader_LoadAsuImage(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
+u32 XLoader_GetBootHeaderIvAddr(void);
+int XLoader_MeasureRomAndPlm(void);
 
 /************************** Variable Definitions *****************************/
 

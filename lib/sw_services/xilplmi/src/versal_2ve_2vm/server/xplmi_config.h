@@ -40,6 +40,7 @@
 *       vss  10/09/2025 Added PLM_ENABLE_SHA_AES_EVENTS_QUEUING macro
 *       sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 * 2.4   rmv  01/30/2026 Refactor OCP library
+*       pre  03/12/2026 Added configurable option for TPM support
 *
 * </pre>
 *
@@ -165,6 +166,9 @@ extern "C" {
 #define PLM_PUF
 #endif
 
+#if (!defined(PLM_TPM_EXCLUDE)) && (!defined(PLM_TPM))
+#define PLM_TPM
+#endif
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
@@ -241,7 +245,6 @@ extern "C" {
  * The below define enable events queuing mechanism for SHA & AES
  */
 #define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
-
 
 /************************** Function Prototypes ******************************/
 

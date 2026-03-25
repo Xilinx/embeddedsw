@@ -258,8 +258,7 @@ void XPlmi_LpdInit(void)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-
-	#if (defined(versal) && defined(PLM_TPM))
+	#if ((defined(versal) || defined(VERSAL_2VE_2VM)) && defined(PLM_TPM))
 		/* TPM module is applicable only for Versal */
 		Status = (int)XTpm_Init();
 		if (Status != XST_SUCCESS) {

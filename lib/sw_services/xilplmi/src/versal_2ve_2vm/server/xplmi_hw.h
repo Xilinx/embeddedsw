@@ -63,6 +63,7 @@
 *       pre  10/09/2025 Removed FIXME comment since SSIT PLM to PLM communication space is unused
 *                       in Versal_2VE_2VM and can be used for other purposes
 *       obs  12/31/2025 Fixed GCC warnings
+*       pre  03/12/2026 Added register addresses of ROM and PLM hashes
 *
 * </pre>
 *
@@ -188,6 +189,7 @@ extern "C" {
 #define PMC_GLOBAL_PPU_1_RST_MODE    (PMC_GLOBAL_BASEADDR + 0X00000624U)
 
 #define PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK   (0X00000010U)
+
 
 /*
  * Register: PMC_GLOBAL_DONE
@@ -1299,11 +1301,22 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
  */
-#define PMC_GLOBAL_ROM_VALIDATION_DIGEST_0    (PMC_GLOBAL_BASEADDR + 0X00000704U)
+#define PMC_GLOBAL_ROM_VALIDATION_DIGEST_0    (PMC_GLOBAL_BASEADDR + 0X00000700U)
+
 /*
- * Register: PMC_GLOBAL_PMC_FW_HASH_0
+ * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_11
  */
-#define PMC_GLOBAL_PMC_FW_HASH_0	(PMC_GLOBAL_BASEADDR + 0X00000750U)
+#define PMC_GLOBAL_ROM_VALIDATION_DIGEST_11    (PMC_GLOBAL_BASEADDR + 0X0000072CU)
+
+/*
+ * Register: PMC_GLOBAL_FW_AUTH_HASH_0
+ */
+#define PMC_GLOBAL_FW_AUTH_HASH_0    (PMC_GLOBAL_BASEADDR + 0X00000750U)
+
+/*
+ * Register: PMC_GLOBAL_FW_AUTH_HASH_11
+ */
+#define PMC_GLOBAL_FW_AUTH_HASH_11    (PMC_GLOBAL_BASEADDR + 0X0000077CU)
 
 /*
  * Definitions required for PMC, PS GPIO

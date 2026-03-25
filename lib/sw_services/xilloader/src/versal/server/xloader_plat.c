@@ -55,6 +55,7 @@
 *       pre  12/12/2025 Added warning message for user indication if PCR info
 *                       is added in BIF without enabling TPM feature.
 *       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
+*       pre  03/12/2026 Moved PCR number validation to XTpm_MeasurePartition API
 *
 * </pre>
 *
@@ -101,8 +102,6 @@
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 	(0xFFFF0000U)  /**< Mask for
                                                    * PCR Measurement index */
 #define XLOADER_PCR_MEASUREMENT_INDEX_SHIFT		(16U) /**< PCR Measurement index shift */
-#define XLOADER_PRTN_PCR_START_IDX	(2U) /**< Partition hash extend to PCR:2 */
-#define XLOADER_PRTN_PCR_END_IDX	(23U) /**< Final PCR index of TPM */
 #endif
 /**
  * @cond DDR calibration errors
@@ -686,13 +685,11 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			goto END;
 		}
 
-		/* Extend TPM PCR Image Digest, Pcr0: ROM, Pcr1: PLM */
-		if (ImageInfo->PcrInfo >= XLOADER_PRTN_PCR_START_IDX && ImageInfo->PcrInfo <= XLOADER_PRTN_PCR_END_IDX) {
-			Status = XTpm_MeasurePartition(ImageInfo->PcrInfo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
-						Status);
-			}
+		/* Extend Image Digest to TPM PCR */
+		Status = XTpm_MeasurePartition(ImageInfo->PcrInfo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
+					Status);
 		}
 	}
 

@@ -18,6 +18,7 @@
  * 1.00  tri  03/13/25 Initial release
  *       pre  09/23/25 Fixed misrac violations
  * 1.2   pre  01/16/25 Updated comments
+ *       pre  03/13/26 Added support to change TPM interface layer as per customer requirement
  *
  * </pre>
  *
@@ -58,7 +59,7 @@ u32 XTpm_Init(void);
 int XTpm_MeasureRom(void);
 int XTpm_MeasurePlm(void);
 int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash);
-u32 XTpm_SpiInit(void);
+u32 XTpm_InterfaceInit(void);
 u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len);
 u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen);
 u32 XTpm_StatusGet(u8* StatusPtr);

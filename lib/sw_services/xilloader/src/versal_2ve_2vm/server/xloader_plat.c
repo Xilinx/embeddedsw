@@ -74,6 +74,7 @@
 *       rmv  01/30/2026 Renamed OCP header files
 *       gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *       vm   03/16/2026 Added XLoader_LoadAsuElf function for ASU update
+*       pre  03/23/2026 Added support to extend to TPM PCRs
 *
 * </pre>
 *
@@ -111,6 +112,10 @@
 #include "xpm_rpucore.h"
 #include "xpm_apucore.h"
 #include "xloader_auth_jtag.h"
+#ifdef PLM_TPM
+#include "xtpm.h"
+#include "xloader_secure.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
@@ -1337,6 +1342,63 @@ END:
 	return Status;
 }
 
+/***************************************************************************************/
+/**
+ * @brief	This function extends the image hashes of ROM and PLM data
+ *
+ * @return
+ * 			- XST_SUCCESS on successful extension
+ * 			- error code on failure
+ *
+ ***************************************************************************************/
+int XLoader_MeasureRomAndPlm(void)
+{
+#ifdef PLM_TPM
+	int Status = XST_FAILURE;
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	if (LpdInitializedPtr == NULL) {
+		goto END;
+	}
+
+	if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+					"ROM and PLM images due to uninitialized LPD\r\n", __func__);
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Sends ROM digest stored in PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
+	 * - register to TPM
+	 */
+	Status = XTpm_MeasureRom();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_ROM_FAILURE, Status);
+		goto END;
+	}
+
+	/* Skip PCR extension of PLM hash in case of non authenticated PDI */
+	if (XLoader_GetAHWRoT(NULL)  == (u32)XPLMI_RTCFG_SECURESTATE_NONSECURE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Sends PLM digest stored in PMC_GLOBAL_FW_AUTH_HASH_0 register to TPM
+	 */
+	Status = XTpm_MeasurePlm();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_PLM_FAILURE, Status);
+	}
+
+END:
+	return Status;
+#else
+	return XST_SUCCESS;
+#endif
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function measures the data by calculating SHA3 hash.
@@ -1352,7 +1414,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
 	volatile int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
 
-#ifdef PLM_OCP
+#if defined(PLM_OCP) || defined(PLM_TPM)
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
@@ -1390,18 +1452,30 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XOcp_StoreSubsysDigest(ImageInfo->SubsystemID, (u64)(UINTPTR)Sha3Hash.Hash);
 #endif
 
-		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
-			PcrNo = (u32)ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
-			/* Extend HW PCR */
+		if (ImageInfo->PcrInfo != XLOADER_PCR_INVALID_VALUE) {
+			PcrNo = (u32)ImageInfo->PcrInfo & XLOADER_PCR_NUMBER_MASK;
+
+#ifdef PLM_TPM
+			/* Extend to external HW PCR (TPM) */
+			Status = XTpm_MeasurePartition(PcrNo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
+						Status);
+			}
+#else
+			/* Extend to internal HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+#endif
+#ifdef PLM_OCP
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
 				(u64)(UINTPTR)Sha3Hash.Hash, XLOADER_SHA3_LEN,
 				ImageInfo->OverWrite);
+#endif
 		}
 	}
 

@@ -39,7 +39,7 @@ ifneq ($(filter-out 0,$(XILPM_RUNTIME_LIB)),)
 endif
 _LN_XILPM_FLAGS:=$(strip $(_LN_XILPM_FLAGS),--no-whole-archive)
 _CC_XILPM_FLAGS += $(XILPM_BOOT_FLAGS) $(XILPM_RUNTIME_FLAGS) -Os
-LN_FLAGS := -fdiagnostics-color=always -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,$(_LN_XILPM_FLAGS),-lxilsecure,-lxilnvm,-lxilocp,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
+LN_FLAGS := -fdiagnostics-color=always -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,$(_LN_XILPM_FLAGS),-lxilsecure,-lxilnvm,-lxiltpm,-lxilocp,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
 c_SOURCES := $(wildcard *.c)
 c_SOURCES += $(wildcard ../common/*.c)
 INCLUDES := $(wildcard *.h)
