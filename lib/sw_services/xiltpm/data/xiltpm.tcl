@@ -28,7 +28,7 @@ proc tpm_drc {libhandle} {
 
 	if {$mode == "server"} {
 		if {$proc_type != "psu_pmc" && $proc_type != "psv_pmc"} {
-				error "ERROR: XilLoader library is not supported for selected processor in\
+				error "ERROR: XilTpm library is not supported for selected processor in\
 						 server mode.";
 			return;
 		}

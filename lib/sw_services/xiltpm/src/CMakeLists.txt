@@ -1,4 +1,4 @@
-# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -9,7 +9,7 @@ find_package(common)
 include(${CMAKE_CURRENT_SOURCE_DIR}/xiltpm.cmake NO_POLICY_SCOPE)
 
 if ((NOT ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")) AND
-	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
+	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)) AND (NOT YOCTO))
       message(FATAL_ERROR "Xiltpm library requires xilmailbox library in client mode.")
 endif()
 

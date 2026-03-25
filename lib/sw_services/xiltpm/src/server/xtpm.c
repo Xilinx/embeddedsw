@@ -21,6 +21,7 @@
 * 1.2   pre  01/16/25 Updated comments for RTF documentation
 *       pre  03/12/26 Added validation of PCR number in partition measurement
 *       pre  03/16/26 Added PCR reading support in TPM
+*       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
 *
 * </pre>
 *
@@ -41,7 +42,6 @@
 #include "xtpm_cmd.h"
 
 /************************** Constant Definitions *****************************/
-#define XTPM_PCR_23 (23U) /**< Final PCR index of TPM */
 #define XTPM_BYTE_SIZE_IN_BITS (8U) /**< Number of bits in a byte */
 #define XTPM_SET (1U) /**< Value to set a bit */
 
@@ -52,14 +52,36 @@
 #define XTPM_PCR_READ_CMD_SIZE          (20U) /**< PCR read command size in bytes */
 #define XTPM_HASH_ALGO_INDEX			(15U) /**< Index for hash algorithm in PCR read command */
 #define XTPM_PCR_READ_INDEX				(17U) /**< Index for PCR selection in PCR read command */
+#ifdef VERSAL_2VE_2VM
+#define XTPM_PCR_LOG_LCVERSION		(1U)   /**< PCR log LC version */
+#define XTPM_PCR_LOG_VERSION		(1U)   /**< PCR log version */
+#define XTPM_PCR_LOG_DS_ID			(1U)	/**< PCR log data structure ID */
+#endif
 
 /**
  * @addtogroup xtpm_apis XilTPM APIs
  * @{
  */
+/*****************************************************************************/
+/**
+ * @brief	This function updates the index of PCR log
+ *
+ * @param	PcrIndex pointer to the index to be incremented
+ * @param  	Val      Increment value
+ *
+ ******************************************************************************/
+static INLINE void XTpm_UpdatePcrIndex(u32 *PcrIndex, u32 Val)
+{
+	*PcrIndex += Val;
+	if (*PcrIndex >= XTPM_MAX_NUM_OF_PCR_EVENTS) {
+		*PcrIndex = 0U;
+	}
+}
 
 /************************** Function Prototypes ******************************/
 static u32 XTpm_GetCap(void);
+static XTpm_PcrLog_t *XTpm_GetPcrLogInstance(void);
+static u32 XTpm_UpdatePcrLog(u32 PcrNum, u64 ExtHashAddr, u32 DataSize);
 
 /************************** Variable Definitions *****************************/
 static u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
@@ -88,11 +110,11 @@ static u8 TpmPcrEvent[XTPM_PCR_MAX_EVENT_SIZE + XTPM_PCR_EVENT_CMD_SIZE] =
  ******************************************************************************/
 u32 XTpm_Init(void)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Access = 0U;
 
 	/** - Initializes SPI. Returns XTPM_ERR_SPIPS_INIT error if it fails. */
-	Status = XTpm_InterfaceInit();
+	Status = XilTpm_InterfaceInit();
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SPIPS_INIT;
 		goto END;
@@ -151,7 +173,7 @@ END:
  ******************************************************************************/
 u32 XTpm_ModuleInit(void)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/** - Initializes TPM. Returns XST_SUCCESS on success. Otherwise, returns error code. */
 	Status = XTpm_Init();
@@ -159,7 +181,7 @@ u32 XTpm_ModuleInit(void)
 		goto END;
 	}
 
-	/** - Initializes TPM commands. Returns XST_SUCCESS on success. Otherwise, returns error code. */
+	/** - Initializes TPM commands. */
 	XTpm_CmdsInit();
 
 END:
@@ -262,7 +284,7 @@ static u32 XTpm_GetCap(void)
 	/** - Verifies response. Returns XST_SUCCESS on success response reception. Otherwise, returns XTPM_ERR_RESP_POLLING error. */
 	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
 		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
-		Status = XTPM_ERR_RESP_POLLING;
+		Status = (u32)XTPM_ERR_RESP_POLLING;
 	}
 
 END:
@@ -280,8 +302,8 @@ END:
  ******************************************************************************/
 int XTpm_MeasureRom(void)
 {
-	volatile int Status = (int)XTPM_ERR_MEASURE_ROM;
-	u32 ShaData[XTPM_HASH_TYPE_SHA3 / XTPM_DATA_WORD_LENGTH];
+	volatile int Status = XTPM_ERR_MEASURE_ROM;
+	u32 ShaData[XTPM_SHA3_HASH_LEN_IN_BYTES / XTPM_DATA_WORD_LENGTH];
 	u8 Index = 0U;
 	u32 RegVal;
 
@@ -296,21 +318,8 @@ int XTpm_MeasureRom(void)
 	 * - Extends data to PCR using PCR_EVENT command and gets response.
 	 * If the command is not successful, returns error code.
 	 */
-	Status = (int)XTpm_Event(XTPM_TPM_ROM_PCR_INDEX, XTPM_HASH_TYPE_SHA3, (const u8 *)ShaData, TpmRespBuffer);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status = (int)XTpm_Event(XTPM_TPM_ROM_PCR_INDEX, XTPM_SHA3_HASH_LEN_IN_BYTES, (const u8 *)ShaData);
 
-	/**
-	 * - Verifies response. Returns XST_SUCCESS on success response reception.
-	 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
-	 */
-	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
-		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
-		Status = (int)XTPM_ERR_RESP_POLLING;
-	}
-
-END:
 	return Status;
 }
 
@@ -326,7 +335,7 @@ END:
 int XTpm_MeasurePlm(void)
 {
 	volatile int Status = (int)XTPM_ERR_MEASURE_PLM;
-	u32 ShaData[XTPM_HASH_TYPE_SHA3 / XTPM_DATA_WORD_LENGTH];
+	u32 ShaData[XTPM_SHA3_HASH_LEN_IN_BYTES / XTPM_DATA_WORD_LENGTH];
 	u8 Index = 0U;
 	u32 RegVal;
 
@@ -341,21 +350,8 @@ int XTpm_MeasurePlm(void)
 	 * - Extends data to PCR using PCR_EVENT command and gets response.
 	 * If the command is not successful, returns error code.
 	 */
-	Status = (int)XTpm_Event(XTPM_TPM_PLM_PCR_INDEX, XTPM_HASH_TYPE_SHA3, (const u8 *)ShaData, TpmRespBuffer);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status = (int)XTpm_Event(XTPM_TPM_PLM_PCR_INDEX, XTPM_SHA3_HASH_LEN_IN_BYTES, (const u8 *)ShaData);
 
-	/**
-	 * - Verifies response. Returns XST_SUCCESS on success response reception.
-	 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
-	 */
-	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
-		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
-		Status = (int)XTPM_ERR_RESP_POLLING;
-	}
-
-END:
 	return Status;
 }
 
@@ -375,8 +371,8 @@ int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash)
 {
 	int Status = (int)XTPM_ERR_MEASURE_PARTITION;
 
-	/** Validate input parameters. PCR0 and PCR1 are reserved for ROM and PLM measurements */
-	if (PcrIndex < XTPM_PCR_2 || PcrIndex > XTPM_PCR_23) {
+	/** Validate input parameters. PCR0 and PCR1 are reserved for ROM and PLM measurements, PCR17 to PCR22 are not extendable */
+	if ((PcrIndex < XTPM_PCR_2) || (PcrIndex > XTPM_PCR_23) || ((PcrIndex > XTPM_PCR_16) && (PcrIndex < XTPM_PCR_23))) {
 		Status = (int)XTPM_ERR_PCR_INDEX_INVALID;
 		goto END;
 	}
@@ -385,19 +381,7 @@ int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash)
 	 * - Extends data to PCR using PCR_EVENT command and gets response.
 	 * If the command is not successful, returns error code.
 	 */
-	Status = (int)XTpm_Event(PcrIndex, XTPM_HASH_TYPE_SHA3, ImageHash, TpmRespBuffer);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/**
-	 * - Verifies response. Returns XST_SUCCESS on success response reception.
-	 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
-	 */
-	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
-		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
-		Status = (int)XTPM_ERR_RESP_POLLING;
-	}
+	Status = (int)XTpm_Event(PcrIndex, XTPM_SHA3_HASH_LEN_IN_BYTES, ImageHash);
 
 END:
 	return Status;
@@ -412,22 +396,25 @@ END:
  * @param	PcrIndex is the number of the PCR register to which extension is to be done
  * @param	size is size of SHA digest in bytes
  * @param	data is pointer to buffer which contains SHA digest
- * @param	Response is pointer to TPM response buffer in which response from TPM gets stored
  *
  * @return
  * 			- XST_SUCCESS if successful
  * 			- Error code on failure
  *
  ******************************************************************************/
-u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response)
+u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u32 idx;
 	/* cmd_ptr points to const data TpmPcrEvent */
 	u8* cmd_ptr = TpmPcrEvent;
 
-	/** - Validates size of input data. Returns XTPM_REQ_MAX_SIZE error if it exceeds 1024 bytes */
-	if(size > XTPM_REQ_MAX_SIZE) {
+	/**
+	 * - Validates size of input data. Returns XTPM_ERR_DATA_SIZE_INVALID error if data size
+	 * is not equal to 48bytes
+	 */
+	if (size != XTPM_SHA3_HASH_LEN_IN_BYTES) {
+		Status = (u32)XTPM_ERR_DATA_SIZE_INVALID;
 		goto END;
 	}
 
@@ -447,30 +434,51 @@ u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response)
 		 * - Sends PCR_EVENT command to TPM and gets response.
 		 * If the command is not successful, returns error code.
 		 */
-		Status = XTpm_DataTransfer((const u8 *)TpmPcrEvent, Response, XTPM_PCR_EVENT_CMD_SIZE + size);
+		Status = XTpm_DataTransfer((const u8 *)TpmPcrEvent, TpmRespBuffer, XTPM_PCR_EVENT_CMD_SIZE + size);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XTPM_ERR_DATA_TRANSFER;
+			goto END;
 		}
+
+		/**
+		 * - Verifies response. Returns XST_SUCCESS on success response reception.
+		 * Otherwise, returns XTPM_ERR_RESP_POLLING error.
+		 */
+		if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
+			(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
+			Status = (u32)XTPM_ERR_RESP_POLLING;
+			goto END;
+		}
+
+		Status = XTpm_UpdatePcrLog(PcrIndex, (u64)(UINTPTR)&data[0], size);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (u32)XTPM_ERR_PCR_LOG_UPDATE;
+		}
+	}
+	else {
+		Status = (u32)XTPM_ERR_PCR_INDEX_INVALID;
 	}
 
 END:
 	return Status;
 }
 
-/*****************************************************************************/
+/*************************************************************************************************/
 /**
- * @brief	This function reads PCR value for the specified PCR index and hash algorithm using PCR_READ command.
+ * @brief	This function reads PCR value for the specified PCR index and hash algorithm using
+ *          PCR_READ command.
  *
  * @param	PcrIndex is the number of the PCR register to be read
  * @param	HashAlgo is the hash algorithm identifier for which PCR value needs to be read
- * @param	Response is pointer to TPM response buffer in which response from TPM gets stored
+ * @param	ResponseBufAddr is the address of the response buffer in which response from TPM gets
+ *                          stored
  *
  * @return
  * 			- XST_SUCCESS if successful
  * 			- Error code on failure
  *
- ******************************************************************************/
-u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u8 *Response)
+ *************************************************************************************************/
+u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	/* TPM PCR read command formation */
@@ -485,12 +493,12 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u8 *Response)
 	};
 
 	if (PcrIndex > XTPM_PCR_23) {
-		Status = (int)XTPM_ERR_PCR_INDEX_INVALID;
+		Status = (u32)XTPM_ERR_PCR_INDEX_INVALID;
 		goto END;
 	}
 
-	if ((HashAlgo != XTPM_HASH_TYPE_SHA1) && (HashAlgo != XTPM_HASH_TYPE_SHA256)) {
-		Status = (int)XTPM_ERR_HASH_ALGO_INVALID;
+	if ((HashAlgo != (u8)XTPM_HASH_TYPE_SHA1) && (HashAlgo != (u8)XTPM_HASH_TYPE_SHA256)) {
+		Status = (u32)XTPM_ERR_HASH_ALGO_INVALID;
 		goto END;
 	}
 
@@ -498,11 +506,193 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u8 *Response)
 	TpmPcrRead[XTPM_PCR_READ_INDEX + (PcrIndex / XTPM_BYTE_SIZE_IN_BITS)] =
 			(XTPM_SET << (PcrIndex % XTPM_BYTE_SIZE_IN_BITS));
 
-	Status = XTpm_DataTransfer((const u8 *)TpmPcrRead, Response, XTPM_PCR_READ_CMD_SIZE);
+	Status = XTpm_DataTransfer((const u8 *)TpmPcrRead, TpmRespBuffer, XTPM_PCR_READ_CMD_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_DATA_TRANSFER;
+		goto END;
 	}
 
+	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
+		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
+		Status = (u32)XTPM_ERR_RESP_POLLING;
+		goto END;
+	}
+
+	/** -
+	 * Copy the PCR read response from local buffer to the response buffer
+	 * address provided by the client
+	 */
+	Status = (u32)XPlmi_MemCpy64(ResponseBufAddr,
+			(u64)(UINTPTR)&TpmRespBuffer[XTPM_PCR_VALUE_START_INDEX],
+			((u32)TpmRespBuffer[XTPM_INDEX_5] - (u32)XTPM_PCR_VALUE_START_INDEX));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function provides the pointer to the XTpm_PcrLog
+ *        instance which has to be used across the file to store the
+ *        PCR log.
+ *
+ * @return
+ *		Pointer to the XTpm_PcrLog instance
+ *
+ ******************************************************************************/
+static XTpm_PcrLog_t *XTpm_GetPcrLogInstance(void)
+{
+	static XTpm_PcrLog_t PcrLog __attribute__ ((aligned(4U))) = {0U};
+
+#ifdef VERSAL_2VE_2VM
+	EXPORT_TPM_DS(PcrLog, XTPM_PCR_LOG_DS_ID,
+		XTPM_PCR_LOG_VERSION, XTPM_PCR_LOG_LCVERSION,
+		sizeof(PcrLog), (u32)(UINTPTR)&PcrLog);
+#endif
+
+	return &PcrLog;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function updates the PCR log.
+ *
+ * @param	PcrNum		PCR register number
+ * @param	ExtHashAddr	Address of the hash to be extended
+ * @param	DataSize	Size of the Data
+ *
+ * @return
+ *		- XST_SUCCESS - If log update is successful
+ *		- XST_FAILURE - Upon failure
+ *
+ *************************************************************************************************/
+static u32 XTpm_UpdatePcrLog(u32 PcrNum, u64 ExtHashAddr, u32 DataSize)
+{
+	volatile u32 Status = (u32)XST_FAILURE;
+	XTpm_PcrLog_t *PcrLog = XTpm_GetPcrLogInstance();
+
+	/** - PCR number validation */
+	if ((PcrNum > XTPM_PCR_23) || (ExtHashAddr == 0U) ||
+		(DataSize != (u32)XTPM_SHA3_HASH_LEN_IN_BYTES)) {
+		goto END;
+	}
+
+	/** If number of PCR events is greater than XTPM_MAX_NUM_OF_PCR_EVENTS
+	 * update overflow count as true and decrement number of PCR events for
+	 * new update and update the tail index.
+	 */
+	if (PcrLog->LogInfo.RemainingPcrEvents >= XTPM_MAX_NUM_OF_PCR_EVENTS) {
+		PcrLog->LogInfo.OverflowCntSinceLastRd++;
+		if (PcrLog->HeadIndex == PcrLog->TailIndex) {
+			XTpm_UpdatePcrIndex(&PcrLog->TailIndex, 1U);
+		}
+		PcrLog->LogInfo.RemainingPcrEvents--;
+	}
+
+	/** - Update PCR log with extended hash */
+	PcrLog->Buffer[PcrLog->HeadIndex].PcrNo = (u8)PcrNum;
+	Status = (u32)XPlmi_MemCpy64((u64)(UINTPTR)PcrLog->Buffer[PcrLog->HeadIndex].Hash,
+							ExtHashAddr, DataSize);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Update PCR log with new PCR value */
+	Status = (u32)XTpm_PcrRead(PcrNum, XTPM_HASH_TYPE_SHA256,
+				(u64)(UINTPTR)PcrLog->Buffer[PcrLog->HeadIndex].PcrValue);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Update PCR log info */
+	PcrLog->LogInfo.RemainingPcrEvents++;
+	PcrLog->LogInfo.TotalPcrLogEvents++;
+	XTpm_UpdatePcrIndex(&PcrLog->HeadIndex, 1U);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reads the PCR log and info into the user provided
+ * 		buffer.
+ *
+ * @param	PcrEventsAddr  Pointer to the buffer which contains PCR log events read from TPM
+ * @param	PcrLogInfoAddr Pointer to the buffer which contains PCR log info like number of events
+ *                         read, remaining events and overflow count
+ * @param	NumOfLogEntries	 Maximum number of log entries to be read
+ *
+ * @return
+ *		- XST_SUCCESS - If log read is successful
+ *		- error code on failure
+ *************************************************************************************************/
+u32 XTpm_GetPcrLog(u64 PcrEventsAddr, u64 PcrLogInfoAddr, u32 NumOfLogEntries)
+{
+	u32 Status = (u32)XST_FAILURE;
+	u32 ReqPcrLogEntries = NumOfLogEntries;
+	u32 RemPcrLogEvents = 0U;
+	u32 TotalRdPcrLogEvents = 0U;
+	u64 PcrEventsAddrTmp = PcrEventsAddr;
+	XTpm_PcrLog_t *PcrLog = XTpm_GetPcrLogInstance();
+
+	/** Validate input parameters. */
+	if (ReqPcrLogEntries > XTPM_MAX_NUM_OF_PCR_EVENTS) {
+		Status = (u32)XTPM_PCR_ERR_INVALID_LOG_READ_REQUEST;
+		goto END;
+	}
+
+	if ((PcrLog->LogInfo.RemainingPcrEvents == 0U) || (ReqPcrLogEntries == 0U)) {
+		Status = (u32)XST_SUCCESS;
+		goto END1;
+	}
+
+	if (ReqPcrLogEntries > PcrLog->LogInfo.RemainingPcrEvents) {
+		ReqPcrLogEntries = PcrLog->LogInfo.RemainingPcrEvents;
+	}
+
+	TotalRdPcrLogEvents = ReqPcrLogEntries;
+	/**
+	 * From current TailIndex if number of entries are more than XTPM_MAX_NUM_OF_PCR_EVENTS
+	 * then copy log entries from TailIndex to XTPM_MAX_NUM_OF_PCR_EVENTS and update
+	 * log entries and TailIndex.
+	 */
+	if ((PcrLog->TailIndex + ReqPcrLogEntries) >= XTPM_MAX_NUM_OF_PCR_EVENTS) {
+		RemPcrLogEvents = XTPM_MAX_NUM_OF_PCR_EVENTS - PcrLog->TailIndex;
+		Status = (u32)XPlmi_MemCpy64(PcrEventsAddrTmp,
+					(u64)(UINTPTR)&PcrLog->Buffer[PcrLog->TailIndex],
+					(RemPcrLogEvents * sizeof(XTpm_PcrEvent_t)));
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+		/** Update PCR events and log entries to handle remaining entries */
+		PcrLog->LogInfo.RemainingPcrEvents -= RemPcrLogEvents;
+		ReqPcrLogEntries -= RemPcrLogEvents;
+		PcrEventsAddrTmp += (u64)RemPcrLogEvents * sizeof(XTpm_PcrEvent_t);
+		PcrLog->TailIndex = 0U;
+    }
+
+	/** Copy PCR log to the user buffer. */
+	if (ReqPcrLogEntries != 0U) {
+		Status = (u32)XPlmi_MemCpy64(PcrEventsAddrTmp,
+					(u64)(UINTPTR)&PcrLog->Buffer[PcrLog->TailIndex],
+					(ReqPcrLogEntries * sizeof(XTpm_PcrEvent_t)));
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+		PcrLog->LogInfo.RemainingPcrEvents -= ReqPcrLogEntries;
+		XTpm_UpdatePcrIndex(&PcrLog->TailIndex, ReqPcrLogEntries);
+	}
+END1:
+	/** Update current PCR log status */
+	PcrLog->LogInfo.PcrEventsRead = TotalRdPcrLogEvents;
+	/** Copy PCR log info to the user buffer. */
+	Status = (u32)XPlmi_MemCpy64(PcrLogInfoAddr, (u64)(UINTPTR)&PcrLog->LogInfo,
+				sizeof(XTpm_PcrLogInfo_t));
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+	PcrLog->LogInfo.OverflowCntSinceLastRd = 0U;
 END:
 	return Status;
 }

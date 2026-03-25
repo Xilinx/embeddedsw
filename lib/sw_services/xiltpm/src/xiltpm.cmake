@@ -4,7 +4,7 @@
 if (NOT ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
   option(XILTPM_cache_disable "Enables/Disables Cache for xiltpm client library." ON)
   if(XILTPM_cache_disable)
-    set(XILTPM_CACHE_DISABLE " ")
+    set(XTPM_CACHE_DISABLE " ")
   endif()
 endif()
 

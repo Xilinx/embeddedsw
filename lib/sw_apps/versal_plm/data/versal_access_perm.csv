@@ -248,3 +248,10 @@ get_swpcr,0xd0b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 get_swpcrlog,0xd0c,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 get_swpcrdata,0xd0d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 gen_shared_secret_with_devak,0xd0e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+tpm_features,0xf00,3,3,3,3,3,3,0,3,IPI,Checks if an Api Id is valid for the TPM module
+tpm_init,0xf01,3,3,3,3,3,3,0,3,IPI,Initializes TPM
+tpm_startup,0xf02,3,3,3,3,3,3,0,3,IPI,Performs start up of TPM
+tpm_selftest,0xf03,3,3,3,3,3,3,0,3,IPI,Performs self test of TPM
+pcr_event,0xf04,3,3,3,3,3,3,0,3,IPI,Extends data to specified PCR using PCR event command
+pcr_read,0xf05,3,3,3,3,3,3,0,3,IPI,Reads specified PCR
+get_pcr_log,0xf06,3,3,3,3,3,3,0,3,IPI,Reads PCR log

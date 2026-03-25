@@ -25,5 +25,5 @@ BEGIN LIBRARY xiltpm
   OPTION VERSION = 1.2;
   OPTION NAME = xiltpm;
   PARAM name = xtpm_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
-  PARAM name = xloader_cache_disable, desc = "Enables/Disables Cache for XilLoader client library", type = bool, default = true;
+  PARAM name = xtpm_cache_disable, desc = "Enables/Disables Cache for XilTpm client library", type = bool, default = true;
 END LIBRARY

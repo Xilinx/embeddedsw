@@ -31,6 +31,7 @@
 *       am   02/22/2025 Added Puf on dmand regeneration support
 *       sk   03/25/2025 Updated platform name
 *       pre  09/09/2025 Added status reset before reusing
+*       pre  03/23/2026 Added PLM hash extension to TPM after PLM update
 *
 * </pre>
 *
@@ -57,6 +58,9 @@
 #include "xplmi_ipi.h"
 #endif
 #include "xpuf.h"
+#ifdef PLM_TPM
+#include "xtpm.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PSM_COUNTER_VER 		(1U) /**< PSM counter version */
@@ -253,6 +257,13 @@ int XPlm_PostPlmUpdate(void)
 	#ifndef PLM_SECURE_EXCLUDE
 	volatile u32 DecKeySrcTmp;
 	#endif
+#ifdef PLM_TPM
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	if (LpdInitializedPtr == NULL) {
+		goto END;
+	}
+#endif
 
 	/**
 	 * Update KEK red key availability status if PLM is encrypted with
@@ -286,6 +297,30 @@ int XPlm_PostPlmUpdate(void)
 	Status = XOcp_MeasureSecureStateAndExtendSwPcr();
 #else
 	Status = XST_SUCCESS;
+#endif
+
+#ifdef PLM_TPM
+	if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+					"PLM image due to uninitialized LPD\r\n", __func__);
+		Status = XST_SUCCESS;
+	}
+	else {
+		/* TPM module is applicable for Versal and Versal_2VE_2VM only */
+		Status = (int)XTpm_ModuleInit();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/**
+		 * - Sends PLM digest stored in PMC_GLOBAL_FW_AUTH_HASH_0 register to TPM
+		 */
+		Status = XTpm_MeasurePlm();
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_MEASURE_PLM_FAILURE, Status);
+			goto END;
+		}
+	}
 #endif
 	/*
 	 * Set FW_IS_PRESENT bit indicating new PLM is ready.

@@ -79,7 +79,7 @@ static XTpm_Interface_t XTpm_Interface = {
  * 			- Error code if initialization fails
  *
  *************************************************************************************************/
-u32 XTpm_InterfaceInit(void)
+u32 XilTpm_InterfaceInit(void)
 {
 	return XTpm_Interface.XTpm_InterfaceInit();
 }
@@ -368,7 +368,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	 * successful and XTPM_ERR_SPIPS_FIFO_READ in case of failure
 	 */
 	if (RxBuf[XTPM_DATA_SIZE_INDEX] > XTPM_RX_HEAD_SIZE) {
-		RxLen = (u16)(RxBuf[XTPM_DATA_SIZE_INDEX] - XTPM_RX_HEAD_SIZE);
+		RxLen = ((u16)RxBuf[XTPM_DATA_SIZE_INDEX] - (u16)XTPM_RX_HEAD_SIZE);
 		Status = XTpm_FifoRead(&RxBuf[XTPM_RX_HEAD_SIZE],
 			(u8)RxLen);
 		if (Status != (u32)XST_SUCCESS) {
@@ -438,7 +438,7 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 		 * Returns XTPM_ERR_SPIPS_POLLING_TRANSFER in case of failure
 		 */
 		Status = (u32)XTpm_Interface.XTpm_TransferViaInterface((void *)&SpiInstance, TpmTxBuffer,
-			TpmRxBuffer, (u32)(TranLen + XTPM_TX_HEAD_SIZE));
+			TpmRxBuffer, ((u32)TranLen + (u32)XTPM_TX_HEAD_SIZE));
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XTPM_ERR_SPIPS_POLLING_TRANSFER;
 			goto END;
@@ -446,7 +446,7 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 
 		/** - Copies received response to receive buffer. Returns XST_SUCCESS */
 		if (RxBuf != NULL) {
-			(void)Xil_SMemCpy(&RxBuf[RxOffset], TranLen,
+			(void)Xil_SMemCpy(&RxBuf[RxOffset], (u32)TranLen,
 				&TpmRxBuffer[XTPM_TX_HEAD_SIZE], TranLen, TranLen);
 			RxOffset += TranLen;
 		}

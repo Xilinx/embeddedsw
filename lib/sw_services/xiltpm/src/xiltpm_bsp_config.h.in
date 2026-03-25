@@ -5,6 +5,6 @@
 #ifndef XILTPM_BSP_CONFIG_H
 #define XILTPM_BSP_CONFIG_H
 
-#cmakedefine XILTPM_CACHE_DISABLE
+#cmakedefine XTPM_CACHE_DISABLE
 
 #endif /* XILTPM_BSP_CONFIG_H */

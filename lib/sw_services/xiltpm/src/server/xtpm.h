@@ -20,6 +20,7 @@
  * 1.2   pre  01/16/25 Updated comments
  *       pre  03/13/26 Added support to change TPM interface layer as per customer requirement
  *       pre  03/16/26 Added PCR reading support in TPM
+ *       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
  *
  * </pre>
  *
@@ -48,7 +49,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XTPM_HASH_TYPE_SHA3			(48U) /**< Length of SHA3 hash in bytes */
 #define XTPM_TPM_ROM_PCR_INDEX		(0U) /**< TPM PCR index for ROM measurement */
 #define XTPM_TPM_PLM_PCR_INDEX		(1U) /**< TPM PCR index for PLM measurement */
 #define XTPM_DATA_SIZE_INDEX		(5U) /**< Index for data size in PCR event command */
@@ -69,6 +69,7 @@ extern "C" {
 #define XTPM_INDEX_9 (9U) /**< Index 9 */
 
 #define XTPM_PCR_2	(2U) /**< Start PCR index for partition hash extend */
+#define XTPM_PCR_16	(16U) /**< PCR index 16 */
 #define XTPM_PCR_23	(23U) /**< Final PCR index of TPM */
 
 /************************** Function Prototypes ******************************/
@@ -76,18 +77,19 @@ u32 XTpm_Init(void);
 int XTpm_MeasureRom(void);
 int XTpm_MeasurePlm(void);
 int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash);
-u32 XTpm_InterfaceInit(void);
+u32 XilTpm_InterfaceInit(void);
 u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len);
 u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen);
 u32 XTpm_StatusGet(u8* StatusPtr);
 u32 XTpm_StatusSet(u8 StatusVal);
 u32 XTpm_AccessGet(u8* AccessPtr);
 u32 XTpm_AccessSet(u8 Access);
-u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data, u8 *Response);
+u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data);
 u32 XTpm_StartUp(void);
 u32 XTpm_SelfTest(void);
-u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u8 *Response);
+u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr);
 u32 XTpm_ModuleInit(void);
+u32 XTpm_GetPcrLog(u64 PcrEventsAddr, u64 PcrLogInfoAddr, u32 NumOfLogEntries);
 
 #ifdef __cplusplus
 }

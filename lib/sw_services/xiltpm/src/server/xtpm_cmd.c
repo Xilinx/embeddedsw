@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.3   pre  03/09/26 Initial release
+*       pre  03/21/26 Added GetPcrLog server API
 *
 * </pre>
 *
@@ -44,10 +45,64 @@
 #define XTPM_ADDR_HIGH_SHIFT	(32U)	/**< Shift to get upper 32 bits of address */
 
 /************************** Function Prototypes ******************************/
+static int XilTpm_Features(XPlmi_Cmd *Cmd);
+static int XilTpm_Init(XPlmi_Cmd *Cmd);
+static int XilTpm_StartUp(XPlmi_Cmd *Cmd);
+static int XilTpm_SelfTest(XPlmi_Cmd *Cmd);
+static int XilTpm_PcrEvent(XPlmi_Cmd *Cmd);
+static int XilTpm_PcrRead(XPlmi_Cmd *Cmd);
+static int XilTpm_GetPcrLog(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
-static XPlmi_Module XPlmi_Tpm;
-static u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
+
+/*************************************************************************************************/
+/**
+ * @brief	Contains the array of PLM TPM commands
+ *
+ *************************************************************************************************/
+static const XPlmi_ModuleCmd XTpm_Cmds[] =
+{
+	XPLMI_MODULE_COMMAND(XilTpm_Features),
+	XPLMI_MODULE_COMMAND(XilTpm_Init),
+	XPLMI_MODULE_COMMAND(XilTpm_StartUp),
+	XPLMI_MODULE_COMMAND(XilTpm_SelfTest),
+	XPLMI_MODULE_COMMAND(XilTpm_PcrEvent),
+	XPLMI_MODULE_COMMAND(XilTpm_PcrRead),
+	XPLMI_MODULE_COMMAND(XilTpm_GetPcrLog),
+};
+
+/*****************************************************************************/
+/**
+ * @brief	Contains the array of PLM TPM access permissions
+ *
+ *****************************************************************************/
+static XPlmi_AccessPerm_t XTpm_AccessPermBuff[XPLMI_ARRAY_SIZE(XTpm_Cmds)] =
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_FEATURES),
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_INIT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_STARTUP),
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_SELFTEST),
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_PCR_EVENT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_PCR_READ),
+	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_GET_PCR_LOG),
+};
+
+/*****************************************************************************/
+/**
+ * @brief	Contains the module ID and loader commands array
+ *
+ *****************************************************************************/
+static XPlmi_Module XPlmi_Tpm =
+{
+	XPLMI_MODULE_TPM_ID,
+	XTpm_Cmds,
+	XPLMI_ARRAY_SIZE(XTpm_Cmds),
+	NULL,
+	XTpm_AccessPermBuff,
+#ifdef VERSAL_2VE_2VM
+	NULL,
+#endif
+};
 
 /*****************************************************************************/
 /**
@@ -63,11 +118,15 @@ static int XilTpm_Features(XPlmi_Cmd *Cmd)
 {
 	(void)Cmd;
 #ifdef PLM_TPM
+	/** - Check if the requested API ID is supported.
+	 * If supported, set success in response buffer else set failure.
+	 */
 	if (Cmd->Payload[XTPM_INDEX_0] < XPlmi_Tpm.CmdCnt) {
 		Cmd->Response[XTPM_INDEX_1] = (u32)XST_SUCCESS;
 	} else {
 		Cmd->Response[XTPM_INDEX_1] = (u32)XST_FAILURE;
 	}
+	/** - Set success in command response for feature query command */
 	Cmd->Response[XTPM_INDEX_0] = (u32)XST_SUCCESS;
 #else
 	(void)Cmd;
@@ -82,48 +141,50 @@ static int XilTpm_Features(XPlmi_Cmd *Cmd)
  * 			specified in the input with PCR event command.
  *
  * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ * 			- Pcr Index - PCR index to which data needs to be extended
  *			- High DataAddr - Upper 32 bit value of Data address
  *			- Low DataAddr - Lower 32 bit value of Data address
- *			- Data Size - Size of the data to be extended using PCR event command
- *			- Pcr Index - PCR index to which data needs to be extended
+ *			- Data Length - Length of the data in bytes to be extended using PCR event command
  *
  * @return
  * 		- XST_SUCCESS on success and error code on failure
  *
  *************************************************************************************************/
-static int XilTpm_Pcr_Event(XPlmi_Cmd *Cmd)
+static int XilTpm_PcrEvent(XPlmi_Cmd *Cmd)
 {
-#ifdef PLM_TPM
 	int Status = XST_FAILURE;
-	u64 Addr = (((u64)Cmd->Payload[XTPM_INDEX_1] << XTPM_ADDR_HIGH_SHIFT) | Cmd->Payload[XTPM_INDEX_0]);
-	u32 PcrIndex = Cmd->Payload[XTPM_INDEX_3];
+#ifdef PLM_TPM
+	/** - Get the PCR index and data address from the command payload */
+	u32 PcrIndex = Cmd->Payload[XTPM_INDEX_0];
+	u64 Addr = (((u64)Cmd->Payload[XTPM_INDEX_2] << XTPM_ADDR_HIGH_SHIFT) | Cmd->Payload[XTPM_INDEX_1]);
 
-	/** Validate input parameters. PCR0 and PCR1 are reserved for ROM and PLM measurements */
-	if (PcrIndex < XTPM_PCR_2 || PcrIndex > XTPM_PCR_23) {
+	/** - Verify the address range for the data to be extended */
+	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, Addr,
+							Cmd->Payload[XTPM_INDEX_3], Status,
+							XTPM_ERR_INVALID_ADDR_RANGE, END);
+
+	/** - Validate input parameters. PCR0 and PCR1 are reserved for ROM and PLM measurements, PCR17 to PCR22 are not extendable */
+	if ((PcrIndex < XTPM_PCR_2) || (PcrIndex > XTPM_PCR_23) || ((PcrIndex > XTPM_PCR_16) && (PcrIndex < XTPM_PCR_23))) {
 		Status = (int)XTPM_ERR_PCR_INDEX_INVALID;
 		goto END;
 	}
 
-	Status = (int)XTpm_Event(PcrIndex, (u16)Cmd->Payload[XTPM_INDEX_2], (const u8 *)(UINTPTR)Addr, TpmRespBuffer);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/**
-	 * - Verifies response. Returns XST_SUCCESS on success response reception. Otherwise, returns XTPM_ERR_RESP_POLLING error.
+	 * - Get the data from the input address and extend it to PCR using PCR_EVENT command and gets response.
+	 * If the command is not successful, returns error code.
 	 */
-	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
-		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
-		Status = (int)XTPM_ERR_RESP_POLLING;
-	}
+	Status = (int)XTpm_Event(PcrIndex, (u16)Cmd->Payload[XTPM_INDEX_3], (const u8 *)(UINTPTR)Addr);
 
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
+#endif
 END:
-	return Status;
 #else
 	(void)Cmd;
 	XTpm_Printf(XTPM_DEBUG_GENERAL, "TPM is disabled\r\n");
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
 #endif
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -204,80 +265,83 @@ static int XilTpm_SelfTest(XPlmi_Cmd *Cmd)
  * 			- Error code on failure
  *
  *************************************************************************************************/
-static int XilTpm_Pcr_Read(XPlmi_Cmd *Cmd)
+static int XilTpm_PcrRead(XPlmi_Cmd *Cmd)
 {
-#ifdef PLM_TPM
 	int Status = XST_FAILURE;
+#ifdef PLM_TPM
+	/** - Get the PCR index, hash algorithm and response buffer address from the command payload */
 	u32 PcrIndex = Cmd->Payload[XTPM_INDEX_0];
 	u8 HashAlgo = (u8)Cmd->Payload[XTPM_INDEX_1];
-	u64 RespBufferAddr = (((u64)Cmd->Payload[XTPM_INDEX_3] << 32) | Cmd->Payload[XTPM_INDEX_2]);
-	u8 *RespBufPtr = (u8 *)(UINTPTR)RespBufferAddr;
+	u64 RespBufferAddr = (((u64)Cmd->Payload[XTPM_INDEX_3] << XTPM_ADDR_HIGH_SHIFT) |
+						Cmd->Payload[XTPM_INDEX_2]);
 
-	Status = (int)XTpm_PcrRead(PcrIndex, HashAlgo, TpmRespBuffer);
-	if ((TpmRespBuffer[XTPM_INDEX_6] != 0U) || (TpmRespBuffer[XTPM_INDEX_7] != 0U) ||
-		(TpmRespBuffer[XTPM_INDEX_8] != 0U) || (TpmRespBuffer[XTPM_INDEX_9] != 0U)) {
-		Status = (int)XTPM_ERR_RESP_POLLING;
-		goto END;
-	}
+	/** - Verify the address range for the response buffer to store PCR read response */
+	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, RespBufferAddr,
+							PCR_VALUE_MAX_LEN, Status,
+							XTPM_ERR_INVALID_ADDR_RANGE, END);
 
-	/* Copy the PCR read response from local buffer to the response buffer address provided by the client */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)RespBufPtr, (u64)(UINTPTR)&TpmRespBuffer[XTPM_PCR_VALUE_START_INDEX], (u32)(TpmRespBuffer[XTPM_INDEX_5] - XTPM_PCR_VALUE_START_INDEX));
+	/** - Read the PCR value using the specified index and hash algorithm */
+	Status = (int)XTpm_PcrRead(PcrIndex, HashAlgo, RespBufferAddr);
 
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
+#endif
 END:
-	return Status;
 #else
 	(void)Cmd;
 	XTpm_Printf(XTPM_DEBUG_GENERAL, "TPM is disabled\r\n");
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
 #endif
+	return Status;
 }
 
 /*************************************************************************************************/
 /**
- * @brief	Contains the array of PLM TPM commands
+ * @brief   This function handler calls XTpm_GetPcrLog server API to get log
+ *
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ * 		- PcrEventAddrLow - Lower 32 bit address of the PCR event buffer address
+ * 		- PcrEventAddrHigh - Higher 32 bit address of the PCR event buffer address
+ * 		- PcrLogInfoAddrLow - Lower 32 bit address of the PCR log info buffer address
+ * 		- PcrLogInfoAddrHigh - Higher 32 bit address of the PCR log info buffer address
+ * 		- NumOfLogEntries - Number of log entries to read
+ *
+ * @return
+ *          - XST_SUCCESS - If log contents are copied
+ *          - ErrorCode - Upon any failure
  *
  *************************************************************************************************/
-static const XPlmi_ModuleCmd XTpm_Cmds[] =
+static int XilTpm_GetPcrLog(XPlmi_Cmd *Cmd)
 {
-	XPLMI_MODULE_COMMAND(XilTpm_Features),
-	XPLMI_MODULE_COMMAND(XilTpm_Init),
-	XPLMI_MODULE_COMMAND(XilTpm_StartUp),
-	XPLMI_MODULE_COMMAND(XilTpm_SelfTest),
-	XPLMI_MODULE_COMMAND(XilTpm_Pcr_Event),
-	XPLMI_MODULE_COMMAND(XilTpm_Pcr_Read),
-};
+	int Status = XST_FAILURE;
+#ifdef PLM_TPM
+	/** - Get the PCR event buffer address and PCR log info buffer address from the command payload */
+	u64 PcrEventAddr = ((u64)Cmd->Payload[XTPM_INDEX_1] << XTPM_ADDR_HIGH_SHIFT) |
+						(u64)Cmd->Payload[XTPM_INDEX_0];
+	u64 PcrLogInfoAddr = ((u64)Cmd->Payload[XTPM_INDEX_3] << XTPM_ADDR_HIGH_SHIFT) |
+							(u64)Cmd->Payload[XTPM_INDEX_2];
 
-/*****************************************************************************/
-/**
- * @brief	Contains the array of PLM TPM access permissions
- *
- *****************************************************************************/
-static XPlmi_AccessPerm_t XTpm_AccessPermBuff[XPLMI_ARRAY_SIZE(XTpm_Cmds)] =
-{
-	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_FEATURES),
-	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_INIT),
-	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_STARTUP),
-	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_SELFTEST),
-	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_PCR_EVENT),
-	XPLMI_ALL_IPI_FULL_ACCESS(XTPM_API_ID_PCR_READ),
-};
+	/** - Verify the address range for the PCR event buffer and PCR log info buffer */
+	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, PcrEventAddr,
+							(sizeof(XTpm_PcrEvent_t) * Cmd->Payload[XTPM_INDEX_4]),
+							Status, XTPM_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, PcrLogInfoAddr,
+							sizeof(XTpm_PcrLogInfo_t), Status, XTPM_ERR_INVALID_ADDR_RANGE, END);
 
-/*****************************************************************************/
-/**
- * @brief	Contains the module ID and loader commands array
- *
- *****************************************************************************/
-static XPlmi_Module XPlmi_Tpm =
-{
-	XPLMI_MODULE_TPM_ID,
-	XTpm_Cmds,
-	XPLMI_ARRAY_SIZE(XTpm_Cmds),
-	NULL,
-	XTpm_AccessPermBuff,
-#ifdef VERSAL_2VE_2VM
-	NULL,
+	/** - Get the PCR log and write to specified event buffer and log info buffer */
+	Status = (int)XTpm_GetPcrLog(PcrEventAddr, PcrLogInfoAddr, Cmd->Payload[XTPM_INDEX_4]);
+
+#ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
+	goto END;
 #endif
-};
+END:
+#else
+	(void)Cmd;
+	XTpm_Printf(XTPM_DEBUG_GENERAL, "TPM is disabled\r\n");
+	Status = XST_SUCCESS;
+#endif
+	return Status;
+}
 
 /*****************************************************************************/
 /**

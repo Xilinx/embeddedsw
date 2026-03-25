@@ -21,6 +21,7 @@
 * 1.2   pre  01/16/25 Fixed a Doxygen warning
 *       pre  03/12/26 Added error code for invalid PCR index
 *       pre  03/16/26 Added error code for invalid hash algorithm
+*       pre  03/21/26 Added error codes related to GetPcrLog feature
 *
 * </pre>
 *
@@ -69,6 +70,10 @@ enum {
 	XTPM_ERR_SPIPS_TRANSFER,/**<0x15 - Data transfer failure to TPM */
 	XTPM_ERR_PCR_INDEX_INVALID,/**<0x16 - Invalid PCR index */
 	XTPM_ERR_HASH_ALGO_INVALID, /**<0x17 - Invalid hash algorithm */
+	XTPM_ERR_DATA_SIZE_INVALID, /**<0x18 - Invalid data size for PCR event */
+	XTPM_ERR_PCR_LOG_UPDATE, /**<0x19 - Error while updating PCR log */
+	XTPM_PCR_ERR_INVALID_LOG_READ_REQUEST, /**<0x1A - Invalid PCR log read request */
+	XTPM_ERR_INVALID_ADDR_RANGE, /**<0x1B - Invalid address range for PCR log read */
 };
 #endif	/* PLM_TPM */
 

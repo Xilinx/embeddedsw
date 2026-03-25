@@ -42,18 +42,16 @@
 * 		2. In this example ".data" section elements that are passed by reference to the server-side should
 * 		   be stored in the above shared memory section. To make it happen in below example,
 *		   replace ".data" in attribute section with ".sharedmemory". For example,
-* 		   static const char Data[INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data")));
+* 		   static u8 Data[XTPM_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Data")));
 * 					should be changed to
-* 		   static const char Data[INPUT_DATA_LEN + 1U] __attribute__ ((section (".sharedmemory.Data")));
-*
-*
-* To keep things simple, by default the cache is disabled for this example.
+* 		   static u8 Data[XTPM_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Data")));
 *
 * MODIFICATION HISTORY:
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0	pre    03/13/26 Initial Release
+*       pre    03/21/26 Added example usage of GetPcrLog API
 *
 * </pre>
 ******************************************************************************/
@@ -64,31 +62,37 @@
 #include "xtpm_client.h"
 
 /************************** Constant Definitions *****************************/
-#define SLR_INDEX XTPM_SLR_IDX_0 /**< SLR0 index */
-#define	INPUT_DATA	\
-	"1234567808F070B030D0509010E060A020C0408000A5DE08D85898A5A5FEDCA101346679874309713627463801AD1056"
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XTPM_CACHE_DISABLE /**< Cache is disabled by default for this example */
-#define INPUT_DATA_LEN     48U /**< Length of input data to be extended to PCR */
-#define INPUT_DATA_SIZE_IN_BITS	(INPUT_DATA_LEN * 8U) /**< Length of input data in bits */
-#define PCR_INDEX		  2U /**< PCR index to which data needs to be extended. PCR0 and PCR1 are reserved */
-#define PCR_VALUE_MAX_LEN 32U /**< Maximum length of PCR value in bytes */
+#define PCR_INDEX		  2U /**< PCR index to which data needs to be extended. PCR0 and PCR1 are reserved.
+									PCR17 to PCR22 are not extendable */
+#define XTPM_READ_NUM_OF_LOG_ENTRIES	(1U) /**< Number of PCR log entries to read. Maximum value is up to 24 */
 
 /************************** Function Prototypes ******************************/
 static int TPMExample(void);
+static void XTpm_PrintData(const u8 *Data, u32 Size);
 
 /************************** Variable Definitions *****************************/
-static u8 Data[INPUT_DATA_LEN]__attribute__ ((aligned (64)))
-				__attribute__ ((section (".data.Data")));
 static u8 PcrValue[PCR_VALUE_MAX_LEN] __attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.PcrValue")));
+static XTpm_PcrEvent_t PcrEvents[XTPM_READ_NUM_OF_LOG_ENTRIES] __attribute__ ((section (".data.PcrEvents")));
+static XTpm_PcrLogInfo_t PcrLogInfo __attribute__ ((section (".data.PcrLogInfo")));
+/* Length of data to be extended must be 48bytes */
+static u8 Data[XTPM_SHA3_HASH_LEN_IN_BYTES]__attribute__ ((section (".data.Data")))=
+						{0x70,0x69,0x77,0x35,0x0b,0x93,
+						0x92,0xa0,0x48,0x2c,0xd8,0x23,
+						0x38,0x47,0xd2,0xd9,0x2d,0x1a,
+						0x95,0x0c,0xad,0xa8,0x60,0xc0,
+						0x9b,0x70,0xc6,0xad,0x6e,0xf1,
+						0x5d,0x49,0x68,0xa3,0x50,0x75,
+						0x06,0xbb,0x0b,0x9b,0x03,0x7d,
+						0xd5,0x93,0x76,0x50,0xdb,0xd4};
 
 /* shared memory allocation */
 static u8 SharedMem[XTPM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
-		__attribute__ ((section (".data.SharedMem")));
+              __attribute__ ((section (".data.SharedMem")));
 
 /*****************************************************************************/
 /**
@@ -132,6 +136,7 @@ static int TPMExample(void)
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XTpm_ClientInstance TpmClientInstance;
+	u32 Index;
 
 	#ifndef SDT
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
@@ -149,6 +154,10 @@ static int TPMExample(void)
 		goto END;
 	}
 
+	#ifndef XTPM_CACHE_DISABLE
+	Xil_DCacheFlushRange((UINTPTR)Data, XTPM_SHA3_HASH_LEN_IN_BYTES);
+	#endif
+
 	/* Set shared memory */
 	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)&SharedMem[0U],
 			XTPM_SHARED_MEM_SIZE);
@@ -157,47 +166,91 @@ static int TPMExample(void)
 		goto END;
 	}
 
-	/* Convert strings to buffers */
-	Status = Xil_ConvertStringToHexBE((const char *) (INPUT_DATA),
-			Data, INPUT_DATA_SIZE_IN_BITS);
-	if (Status != XST_SUCCESS) {
-		xil_printf(
-			"String Conversion error (DATA):%08x !!!\r\n", Status);
-		goto END;
-	}
-
-
-	Status = XTpm_SetSlrIndex(&TpmClientInstance, SLR_INDEX);
-	if (Status != XST_SUCCESS) {
-			xil_printf("invalid SlrIndex \r\n");
-			goto END;
-	}
-
 	Status = XTpm_Init(&TpmClientInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("TPM initialization failed, Status = %x \r\n ", Status);
 		goto END;
 	}
 
-	Status = XTpm_PcrEvent(&TpmClientInstance, (u64)(UINTPTR)&Data, INPUT_DATA_LEN, PCR_INDEX);
+	Status = XTpm_PcrEvent(&TpmClientInstance, PCR_INDEX, (u64)(UINTPTR)&Data, XTPM_SHA3_HASH_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("TPM PCR event failed, Status = %x \r\n ", Status);
 		goto END;
 	}
+
+	#ifndef XTPM_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)PcrValue, PCR_VALUE_MAX_LEN);
+	#endif
 
 	Status = XTpm_PcrRead(&TpmClientInstance, PCR_INDEX, (u8)XTPM_HASH_TYPE_SHA256, (u64)(UINTPTR)&PcrValue[0U]);
 	if (Status != XST_SUCCESS) {
 		xil_printf("TPM PCR read failed, Status = %x \r\n ", Status);
 	}
 
-	xil_printf("PCR %d Value:", PCR_INDEX);
-	for (u8 index = 0; index < PCR_VALUE_MAX_LEN; index++) {
-		xil_printf("%02x", PcrValue[index]);
+	#ifndef XTPM_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)PcrValue, PCR_VALUE_MAX_LEN);
+	#endif
+
+	xil_printf("PCR %d Value:\n\r", PCR_INDEX);
+	XTpm_PrintData((const u8*)PcrValue, PCR_VALUE_MAX_LEN);
+
+	#ifndef XTPM_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)PcrEvents, sizeof(PcrEvents));
+	Xil_DCacheInvalidateRange((UINTPTR)&PcrLogInfo, sizeof(PcrLogInfo));
+	#endif
+
+	Status = XTpm_GetPcrLog(&TpmClientInstance, (u64)(UINTPTR)PcrEvents,
+				(u64)(UINTPTR)&PcrLogInfo, XTPM_READ_NUM_OF_LOG_ENTRIES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Get TPM PCR Log failed Status: 0x%02x\n\r", Status);
+		goto END;
 	}
-	xil_printf("\r\n");
+
+	#ifndef XTPM_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)PcrEvents, sizeof(PcrEvents));
+	Xil_DCacheInvalidateRange((UINTPTR)&PcrLogInfo, sizeof(PcrLogInfo));
+	#endif
+
+	if (PcrLogInfo.PcrEventsRead != 0U) {
+		xil_printf("\n\rTPM PCR Log contents:\n\r");
+		for (Index = 0U; Index < PcrLogInfo.PcrEventsRead; Index++) {
+			xil_printf("PCR Number: %x\r\n", PcrEvents[Index].PcrNo);
+			xil_printf("Hash to be extended:\n\r");
+			XTpm_PrintData((const u8*)PcrEvents[Index].Hash, XTPM_SHA3_HASH_LEN_IN_BYTES);
+			xil_printf("PCR Extended Value:\n\r");
+			XTpm_PrintData((const u8*)PcrEvents[Index].PcrValue, PCR_VALUE_MAX_LEN);
+			xil_printf("\n\r");
+		}
+	}
+	xil_printf("\n\rTPM PCR Log status:\n\r");
+	xil_printf("No of requested TPM PCR log events:%d \n\r",XTPM_READ_NUM_OF_LOG_ENTRIES);
+	xil_printf("No of read TPM PCR log events occurred:%d \n\r",PcrLogInfo.PcrEventsRead);
+	xil_printf("No of pending TPM PCR read log events:%d \n\r",PcrLogInfo.RemainingPcrEvents);
+	xil_printf("Total No of update TPM PCR log events:%d \n\r",PcrLogInfo.TotalPcrLogEvents);
+	xil_printf("TPM PCR log overflow count since last read:%d \n\r",PcrLogInfo.OverflowCntSinceLastRd);
 
 END:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+* @brief   This function prints the given data on the console
+*
+* @param   Data - Pointer to any given data buffer
+*
+* @param   Size - Size of the given buffer
+*
+****************************************************************************/
+static void XTpm_PrintData(const u8 *Data, u32 Size)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < Size; Index++) {
+		xil_printf("%02x", Data[Index]);
+	}
+	xil_printf("\r\n");
+ }
+
 /** //! [TPM example] */
 /** @} */

@@ -248,3 +248,10 @@ asu_features,0xe00,0,0,0,0,0,0,0,3,IPI,Features
 asu_key_transfer,0xe01,0,0,0,0,0,0,0,3,IPI,Generates and transfers key - Performs PUF regeneration if enabled and initiates key transfer to ASU
 asu_cdi_transfer,0xe02,0,0,0,0,0,0,0,3,IPI,Transfers the ASU CDI
 subsystem_hash_transfer,0xe03,0,0,0,0,0,0,0,3,IPI,Transfers the subsystem hash
+tpm_features,0xf00,3,3,3,3,3,3,0,3,IPI,Checks if an Api Id is valid for the TPM module
+tpm_init,0xf01,3,3,3,3,3,3,0,3,IPI,Initializes TPM
+tpm_startup,0xf02,3,3,3,3,3,3,0,3,IPI,Performs start up of TPM
+tpm_selftest,0xf03,3,3,3,3,3,3,0,3,IPI,Performs self test of TPM
+pcr_event,0xf04,3,3,3,3,3,3,0,3,IPI,Extends data to specified PCR using PCR event command
+pcr_read,0xf05,3,3,3,3,3,3,0,3,IPI,Reads specified PCR
+get_pcr_log,0xf06,3,3,3,3,3,3,0,3,IPI,Reads PCR log

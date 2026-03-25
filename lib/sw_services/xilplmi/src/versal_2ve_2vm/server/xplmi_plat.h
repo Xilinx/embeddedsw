@@ -71,6 +71,7 @@
 *       obs  08/26/2025 Added error codes and macros for handling verifying address range
 * 2.4	abh  10/14/2025 Fixed MISRAC Violations
 *       vm   03/16/2026 Added error code related to ASU update event
+*       pre 03/23/26 Added macro for TPM data structure export
 * </pre>
 *
 * @note
@@ -614,6 +615,8 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 #else
 #define VERIFY_ADDR_DEBUG_PRINT(error)	/* do nothing, if debug print is disabled */
 #endif
+
+#define EXPORT_TPM_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_TPM_ID, __VA_ARGS__) /**< TPM data structure */
 
 /******************************************************************************/
 /**

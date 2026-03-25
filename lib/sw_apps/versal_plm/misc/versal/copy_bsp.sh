@@ -119,8 +119,7 @@ mkdir -p $BSP_DIR/libsrc/xiltpm/src
 cp -r $SERVICES_DIR/xiltpm/src/Makefile $BSP_DIR/libsrc/xiltpm/src/
 cp -r $SERVICES_DIR/xiltpm/src/server/* $BSP_DIR/libsrc/xiltpm/src/
 cp -r $SERVICES_DIR/xiltpm/src/common/* $BSP_DIR/libsrc/xiltpm/src/
-cp $BSP_DIR/libsrc/xiltpm/src/common/*.h $BSP_DIR/include/
-cp $BSP_DIR/libsrc/xiltpm/src/server/*.h $BSP_DIR/include/
+cp $BSP_DIR/libsrc/xiltpm/src/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/

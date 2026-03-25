@@ -26,6 +26,9 @@
 #ifndef XTPM_CMD_H
 #define XTPM_CMD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
@@ -35,4 +38,9 @@
 void XTpm_CmdsInit(void);
 
 #endif	/* PLM_TPM */
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif	/* XTPM_CMD_H */

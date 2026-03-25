@@ -27,6 +27,10 @@
 extern "C" {
 #endif
 
+/**
+* @addtogroup xtpm_mailbox_apis XilTPM mailbox APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xparameters.h"
@@ -66,8 +70,6 @@ extern "C" {
 #define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT		XIPIPSU_MAX_MSG_LEN
-/**< IPI timeout */
-#define XTPM_IPI_TIMEOUT		(0xFFFFFFFFU)
 /**< Target PMC IPI interrupt mask */
 #define XTPM_TARGET_IPI_INT_MASK	(0x00000002U)
 /**< Module Id shift*/
@@ -78,10 +80,7 @@ extern "C" {
 #define XILTPM_MODULE_ID_MASK		((u32)XILTPM_MODULE_ID << XTPM_MODULE_ID_SHIFT)
 
 /**< Max size of shared memory used */
-#define XTPM_SHARED_MEM_SIZE		(1056U)
-
-/**< Slr index shift constant */
-#define XTPM_SLR_INDEX_SHIFT	(6U)
+#define XTPM_SHARED_MEM_SIZE		(160U)
 
 /**************************** Type Definitions *******************************/
 /**< xilTPM client instance*/
@@ -90,50 +89,12 @@ typedef struct {
 	u32 SlrIndex;         /**< Slr index to trigger the slave PLM*/
 } XTpm_ClientInstance;
 
-/**< Enumeration constants for SlrIndex*/
-typedef enum{
-	XTPM_SLR_IDX_0 = 0,	/**< SLR_INDEX_0 */
-	XTPM_SLR_IDX_1,	/**< SLR_INDEX_1 */
-	XTPM_SLR_IDX_2,	/**< SLR_INDEX_2 */
-	XTPM_SLR_IDX_3	/**< SLR_INDEX_3 */
-} XTPM_SlrIndex;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 static inline u32 Header(u32 Len, u32 ApiId)
 {
 	return ((Len << XTPM_PAYLOAD_LEN_SHIFT) |
 		XILTPM_MODULE_ID_MASK | (ApiId));
-}
-
-/******************************************************************************/
-/**
- * @brief	This function sets slr index in the TPM client instance.
- *
- * @param	InstancePtr	Pointer to XTpm_ClientInstance
- *
- * @param	SlrIndex	Slr index to be set in instance
- *
- * @return
- * 		- XST_SUCCESS On valid input SlrIndex.
- * 		- XST_FAILURE On invalid SlrIndex.
- *
- * @note	This function is applicable to only Versal
- *
- *******************************************************************************/
-static inline int XTpm_SetSlrIndex(XTpm_ClientInstance *InstancePtr, u32 SlrIndex)
-{
-	int Status = XST_FAILURE;
-
-	if (SlrIndex <= (u32)XTPM_SLR_IDX_3) {
-		/**
-		 * Validate SlrIndex and assign it to instance pointer
-		 */
-		InstancePtr->SlrIndex = SlrIndex;
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
 }
 
 /**
@@ -145,6 +106,8 @@ static inline int XTpm_SetSlrIndex(XTpm_ClientInstance *InstancePtr, u32 SlrInde
 /************************** Function Definitions *****************************/
 int XTpm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 int XTpm_ClientInit(XTpm_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
+
+/** @} End of xtpm_mailbox_apis group */
 
 #ifdef __cplusplus
 }

@@ -571,7 +571,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 END:
 #else
 	Status = XLoader_LoadImagePrtns(PdiPtr);
-	if (PcrInfo != XLOADER_PCR_INVALID_VALUE) {
+	if (PcrInfo != (u32)XLOADER_PCR_INVALID_VALUE) {
 		XPlmi_Printf(DEBUG_GENERAL, "Warning: PCR extension failed for "
 					"image 0x%0x since TPM feature is disabled\r\n",PdiPtr->ImageNum);
 	}

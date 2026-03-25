@@ -248,3 +248,10 @@ get_swpcr,0xd0b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 get_swpcrlog,0xd0c,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 get_swpcrdata,0xd0d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 gen_shared_secret_with_devak,0xd0e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+tpm_features,0xf00,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+tpm_init,0xf01,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+tpm_startup,0xf02,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+tpm_selftest,0xf03,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pcr_event,0xf04,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pcr_read,0xf05,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_pcr_log,0xf06,0,0,0,0,0,0,0,0,Unsupported,Unsupported command

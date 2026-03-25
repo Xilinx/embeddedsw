@@ -114,4 +114,4 @@ int XTpm_ClientInit(XTpm_ClientInstance* const InstancePtr, XMailbox* const Mail
 
 	return Status;
 }
-/** @} */
+/** @} End of xtpm_mailbox_apis group */

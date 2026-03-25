@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pre  03/09/26 Initial release
+*       pre  03/21/26 Added definitions related to GetPcrLog feature
 *
 * </pre>
 *
@@ -31,6 +32,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_printf.h"
 #include "xil_types.h"
+#ifdef SDT
+#include "xiltpm_bsp_config.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 #define XTPM_DEBUG	(0U)	/**< Enable client printfs by setting XTPM_DEBUG to 1 */
@@ -47,21 +51,11 @@ extern "C" {
 #define XTpm_Printf(DebugType, ...)	\
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}	/**< Print debug messages */
 
-#ifndef XTPM_CACHE_DISABLE
-	#if defined(__microblaze__)
-		#define XTpm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((UINTPTR)SrcAddr, Len)
-		/**< Flush the data cache for a specific range */
-	#else
-		#define XTpm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)
-		/**< Flush the data cache for a specific range */
-	#endif
-#else
-	#define XTpm_DCacheFlushRange(SrcAddr, Len) {}
-#endif /**< Cache Invalidate function */
+#define XTPM_SHA3_HASH_LEN_IN_BYTES	(48U) /**< Length of SHA3 hash in bytes */
 
-#define XTPM_API(ApiId)	((u32)ApiId)	/**< Macro to typecast API ID */
-
-#define XTPM_API_ID_MASK	(0xFFU)	/**< API ID Mask*/
+#define XTPM_MAX_NUM_OF_PCR_EVENTS	(24U) /**< Maximum number of hardware PCR events
+                                                  that can be stored in the log */
+#define PCR_VALUE_MAX_LEN 32U /**< Maximum length of PCR value in bytes */
 
 /************************** Variable Definitions *****************************/
 
@@ -69,15 +63,42 @@ extern "C" {
 /**
  * @brief API ids, IDs ranging from an enum value of 24 to 35 are used by IPI
  */
-typedef enum {
-	XTPM_API_ID_FEATURES = 0,	/**< 0U */
-	XTPM_API_ID_INIT,		/**< 1U */
-	XTPM_API_ID_STARTUP,	/**< 2U */
-	XTPM_API_ID_SELFTEST,	/**< 3U */
-	XTPM_API_ID_PCR_EVENT,	/**< 4U */
-	XTPM_API_ID_PCR_READ,	/**< 5U */
-	XTPM_API_MAX,			/**< 6U */
-} XTPM_ApiId;
+enum {
+	XTPM_API_ID_FEATURES = 0, /**< 0U */
+	XTPM_API_ID_INIT, /**< 1U */
+	XTPM_API_ID_STARTUP, /**< 2U */
+	XTPM_API_ID_SELFTEST, /**< 3U */
+	XTPM_API_ID_PCR_EVENT, /**< 4U */
+	XTPM_API_ID_PCR_READ, /**< 5U */
+	XTPM_API_ID_GET_PCR_LOG, /**< 6U */
+	XTPM_API_MAX, /**< 7U */
+};
+
+/*
+ * HW PCR Event
+ */
+typedef struct {
+	u8 PcrNo; /**< HW PCR number */
+	u8 Hash[XTPM_SHA3_HASH_LEN_IN_BYTES]; /**< Hash to be extended */
+	u8 PcrValue[PCR_VALUE_MAX_LEN]; /**< PCR value after extension */
+} XTpm_PcrEvent_t;
+
+/*
+ * HW PCR Log
+ */
+typedef struct {
+	u32 RemainingPcrEvents; /**< Number of PCR log events */
+	u32 TotalPcrLogEvents; /**< Total number of PCR log events */
+	u32 OverflowCntSinceLastRd; /**< Overflow count since last read */
+	u32 PcrEventsRead; /**< Number of events read in current request */
+} XTpm_PcrLogInfo_t;
+
+typedef struct {
+	XTpm_PcrEvent_t Buffer[XTPM_MAX_NUM_OF_PCR_EVENTS]; /**< Stores hardware PCR events */
+	XTpm_PcrLogInfo_t LogInfo; /**< Log information of hardware PCR */
+	u32 HeadIndex; /**< Starting index of hardware PCR event */
+	u32 TailIndex; /**< Last index of hardware PCR event */
+} XTpm_PcrLog_t;
 
 #ifdef __cplusplus
 }
