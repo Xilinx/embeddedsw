@@ -111,11 +111,19 @@ typedef enum{
  * 	- 32-bit header value combining payload length, module ID, and API ID.
  *
  *******************************************************************************/
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+static inline u32 PufHeader(u32 Len, u32 ApiId)
+{
+	(void)Len; /* Payload length is not used in SMC mode */
+	return (XILPUF_MODULE_ID_MASK | ApiId);
+}
+#else
 static inline u32 PufHeader(u32 Len, u32 ApiId)
 {
 	return ((Len << XPUF_PAYLOAD_LEN_SHIFT) |
 		XILPUF_MODULE_ID_MASK | (ApiId));
 }
+#endif
 
 /******************************************************************************/
 /**
