@@ -119,7 +119,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_LMS_ENABLE
-s32 XAsufw_LmsOperationKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_HssOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 
 /************************************ Variable Definitions ***************************************/

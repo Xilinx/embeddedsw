@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ss   01/07/26 Initial release
+* 1.1   ss   03/21/26 Added non-blocking DMA support for LMS/HSS signature verification
 *
 * </pre>
 *
@@ -23,7 +24,7 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xasufw_lms_core_apis ASUFW LMS Core APIs
+* @addtogroup xlms_server_apis LMS Server APIs
 * @{
 */
 #ifndef XLMS_CORE_H_
@@ -42,6 +43,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xasu_lmsinfo.h"
 
+#ifdef XASU_LMS_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -55,6 +57,8 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 SignatureLen);
 s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	const XAsu_LmsHssSignVerifyParams *LmsSignVerifyParams);
+XAsuDma_Channel XLms_GetPendingDmaChannel(void);
+#endif /* XASU_LMS_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
 

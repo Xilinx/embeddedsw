@@ -682,7 +682,7 @@ enum {
 	XASUFW_LMS_TYPE_LOOKUP_GLITCH_ERROR, /**< 0x1EAU - LMS OTS type lookup glitch error */
 	XASUFW_LMS_TYPE_UNSUPPORTED_ERROR, /**< 0x1EBU - LMS type unsupported error */
 	XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR, /**< 0x1ECU - LMS OTS type unsupported error */
-	XASUFW_LMS_KAT_FAILED, /**< 0x1EDU - LMS KAT failed */
+	XASUFW_HSS_KAT_FAILED, /**< 0x1EDU - HSS KAT failed */
 	XASUFW_LMS_KAT_COMPARISON_FAILED, /**< 0x1EEU - LMS KAT comparison failed */
 	XASUFW_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR, /**< 0x1EFU - LMS OTS checksum buffer invalid length */
 	XASUFW_LMS_SIGN_INPUT_VALIDATION_FAILED, /**< 0x1F0U - LMS signature input validation failed */

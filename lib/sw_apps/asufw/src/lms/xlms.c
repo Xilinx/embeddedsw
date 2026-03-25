@@ -34,6 +34,8 @@
 #include "xasu_shainfo.h"
 #include "xasufw_util.h"
 
+#ifdef XASU_LMS_ENABLE
+
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -58,7 +60,7 @@
 *	- XASUFW_LMS_TYPE_LOOKUP_GLITCH_ERROR - If glitch detected
 *
 **************************************************************************************************/
-s32 XLms_LookupParamSet(XLms_Type Type, XLms_Param** Parameters)
+s32 XLms_LookupParamSet(XLms_Type Type, const XLms_Param** Parameters)
 {
 	s32 Status = XASUFW_FAILURE;
 	/* Redundant type for temporal check */
@@ -99,6 +101,14 @@ s32 XLms_LookupParamSet(XLms_Type Type, XLms_Param** Parameters)
 			.TreeHeight = XLMS_TREE_HEIGHT_20,
 			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_20) /** 640U */
 		},
+		/* XLMS_SHA256_M32_HEIGHT_25 */
+		[XLMS_PARAM_IDX_SHA256_HEIGHT_25] = {
+			.HashAlgId = XASU_SHA_MODE_256,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
+			.TreeHeight = XLMS_TREE_HEIGHT_25,
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_25) /** 800U */
+		},
+
 		/* XLMS_SHAKE_M32_HEIGHT_5 */
 		[XLMS_PARAM_IDX_SHAKE_HEIGHT_5] = {
 			.HashAlgId = XASU_SHA_MODE_SHAKE256,
@@ -126,72 +136,204 @@ s32 XLms_LookupParamSet(XLms_Type Type, XLms_Param** Parameters)
 			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
 			.TreeHeight = XLMS_TREE_HEIGHT_20,
 			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_20) /** 640U */
+		},
+		/* XLMS_SHAKE_M32_HEIGHT_25 */
+		[XLMS_PARAM_IDX_SHAKE_HEIGHT_25] = {
+			.HashAlgId = XASU_SHA_MODE_SHAKE256,
+			.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
+			.TreeHeight = XLMS_TREE_HEIGHT_25,
+			.SignatureLenBytes = (XASU_SHA_SHAKE_256_HASH_LEN * (u32)XLMS_TREE_HEIGHT_25) /** 800U */
+		},
+
+		/* M=24 SHA-256 variants */
+		[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_5] = {
+			.HashAlgId = XASU_SHA_MODE_256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_5,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_5) /** 120U */
+		},
+		[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_10] = {
+			.HashAlgId = XASU_SHA_MODE_256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_10,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_10) /** 240U */
+		},
+		[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_15] = {
+			.HashAlgId = XASU_SHA_MODE_256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_15,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_15) /** 360U */
+		},
+		[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_20] = {
+			.HashAlgId = XASU_SHA_MODE_256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_20,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_20) /** 480U */
+		},
+		[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_25] = {
+			.HashAlgId = XASU_SHA_MODE_256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_25,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_25) /** 600U */
+		},
+
+		/* M=24 SHAKE-256 variants */
+		[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_5] = {
+			.HashAlgId = XASU_SHA_MODE_SHAKE256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_5,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_5) /** 120U */
+		},
+		[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_10] = {
+			.HashAlgId = XASU_SHA_MODE_SHAKE256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_10,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_10) /** 240U */
+		},
+		[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_15] = {
+			.HashAlgId = XASU_SHA_MODE_SHAKE256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_15,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_15) /** 360U */
+		},
+		[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_20] = {
+			.HashAlgId = XASU_SHA_MODE_SHAKE256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_20,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_20) /** 480U */
+		},
+		[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_25] = {
+			.HashAlgId = XASU_SHA_MODE_SHAKE256,
+			.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+			.TreeHeight = XLMS_TREE_HEIGHT_25,
+			.SignatureLenBytes = (XLMS_N24_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_25) /** 600U */
 		}
 	};
-	*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
-
-	/* 'h'=25 variations and 24 bit hash outputs are not supported till date */
+	*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
 
 	switch (Type) {
 		/* SHA-256 options */
 		case XLMS_SHA256_M32_HEIGHT_5: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_5];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_5];
 			TmpType = XLMS_SHA256_M32_HEIGHT_5;
 			break;
 		}
 		case XLMS_SHA256_M32_HEIGHT_10: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_10];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_10];
 			TmpType = XLMS_SHA256_M32_HEIGHT_10;
 			break;
 		}
 		case XLMS_SHA256_M32_HEIGHT_15: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_15];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_15];
 			TmpType = XLMS_SHA256_M32_HEIGHT_15;
 			break;
 		}
 		case XLMS_SHA256_M32_HEIGHT_20: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_20];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_20];
 			TmpType = XLMS_SHA256_M32_HEIGHT_20;
 			break;
 		}
+		case XLMS_SHA256_M32_HEIGHT_25: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_HEIGHT_25];
+			TmpType = XLMS_SHA256_M32_HEIGHT_25;
+			break;
+		}
+
 
 		/* SHAKE 256 options */
 		case XLMS_SHAKE_M32_HEIGHT_5: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_5];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_5];
 			TmpType = XLMS_SHAKE_M32_HEIGHT_5;
 			break;
 		}
 		case XLMS_SHAKE_M32_HEIGHT_10: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_10];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_10];
 			TmpType = XLMS_SHAKE_M32_HEIGHT_10;
 			break;
 		}
 		case XLMS_SHAKE_M32_HEIGHT_15: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_15];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_15];
 			TmpType = XLMS_SHAKE_M32_HEIGHT_15;
 			break;
 		}
 		case XLMS_SHAKE_M32_HEIGHT_20: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_20];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_20];
 			TmpType = XLMS_SHAKE_M32_HEIGHT_20;
 			break;
 		}
-
+		case XLMS_SHAKE_M32_HEIGHT_25: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_HEIGHT_25];
+			TmpType = XLMS_SHAKE_M32_HEIGHT_25;
+			break;
+		}
 		/* default, and other not supported options */
 		case XLMS_RESERVED: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
 			TmpType = XLMS_RESERVED;
 			Status = XASUFW_LMS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}
 		case XLMS_NOT_SUPPORTED: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
 			TmpType = XLMS_NOT_SUPPORTED;
 			Status = XASUFW_LMS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}
+		/* SHA-256 M=24 options (NIST SP 800-208) */
+		case XLMS_SHA256_M24_HEIGHT_5: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_5];
+			TmpType = XLMS_SHA256_M24_HEIGHT_5;
+			break;
+		}
+		case XLMS_SHA256_M24_HEIGHT_10: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_10];
+			TmpType = XLMS_SHA256_M24_HEIGHT_10;
+			break;
+		}
+		case XLMS_SHA256_M24_HEIGHT_15: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_15];
+			TmpType = XLMS_SHA256_M24_HEIGHT_15;
+			break;
+		}
+		case XLMS_SHA256_M24_HEIGHT_20: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_20];
+			TmpType = XLMS_SHA256_M24_HEIGHT_20;
+			break;
+		}
+		case XLMS_SHA256_M24_HEIGHT_25: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHA256_M24_HEIGHT_25];
+			TmpType = XLMS_SHA256_M24_HEIGHT_25;
+			break;
+		}
+
+		/* SHAKE-256 M=24 options (NIST SP 800-208) */
+		case XLMS_SHAKE_M24_HEIGHT_5: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_5];
+			TmpType = XLMS_SHAKE_M24_HEIGHT_5;
+			break;
+		}
+		case XLMS_SHAKE_M24_HEIGHT_10: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_10];
+			TmpType = XLMS_SHAKE_M24_HEIGHT_10;
+			break;
+		}
+		case XLMS_SHAKE_M24_HEIGHT_15: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_15];
+			TmpType = XLMS_SHAKE_M24_HEIGHT_15;
+			break;
+		}
+		case XLMS_SHAKE_M24_HEIGHT_20: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_20];
+			TmpType = XLMS_SHAKE_M24_HEIGHT_20;
+			break;
+		}
+		case XLMS_SHAKE_M24_HEIGHT_25: {
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_25];
+			TmpType = XLMS_SHAKE_M24_HEIGHT_25;
+			break;
+		}
 		default: {
-			*Parameters = (XLms_Param*)&XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
+			*Parameters = &XLms_ParamLookup[XLMS_PARAM_IDX_RESERVED];
 			Status = XASUFW_LMS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}
@@ -213,4 +355,5 @@ END:
 	/* No matter success or failure, call happened successfully */
 	return Status;
 }
+#endif /* XASU_LMS_ENABLE */
 /** @} */

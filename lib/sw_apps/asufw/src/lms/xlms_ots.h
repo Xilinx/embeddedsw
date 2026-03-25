@@ -36,7 +36,11 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
+#ifdef XASU_LMS_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /**
@@ -44,7 +48,7 @@ extern "C" {
  * number should be max valid + 1 (as first slot will be for invalid parameters)
  * XLms_OtsType
  */
-#define	XLMS_OTS_TYPE_MAX_SUPPORTED	(7U)
+#define	XLMS_OTS_TYPE_MAX_SUPPORTED	(17U)
 
 /** Lookup table indices for LMS OTS parameter sets */
 #define XLMS_OTS_PARAM_IDX_RESERVED	(0U)	/**< Index for reserved/unsupported type */
@@ -54,11 +58,22 @@ extern "C" {
 #define XLMS_OTS_PARAM_IDX_SHAKE_W2	(4U)	/**< Index for SHAKE_N32_W2 */
 #define XLMS_OTS_PARAM_IDX_SHAKE_W4	(5U)	/**< Index for SHAKE_N32_W4 */
 #define XLMS_OTS_PARAM_IDX_SHAKE_W8	(6U)	/**< Index for SHAKE_N32_W8 */
+#define XLMS_OTS_PARAM_IDX_SHA256_W1	(7U)	/**< Index for SHA256_N32_W1 */
+#define XLMS_OTS_PARAM_IDX_SHAKE_W1	(8U)	/**< Index for SHAKE_N32_W1 */
+#define XLMS_OTS_PARAM_IDX_SHA256_N24_W1 (9U)	/**< Index for SHA256_N24_W1 */
+#define XLMS_OTS_PARAM_IDX_SHA256_N24_W2 (10U)	/**< Index for SHA256_N24_W2 */
+#define XLMS_OTS_PARAM_IDX_SHA256_N24_W4 (11U)	/**< Index for SHA256_N24_W4 */
+#define XLMS_OTS_PARAM_IDX_SHA256_N24_W8 (12U)	/**< Index for SHA256_N24_W8 */
+#define XLMS_OTS_PARAM_IDX_SHAKE_N24_W1  (13U)	/**< Index for SHAKE_N24_W1 */
+#define XLMS_OTS_PARAM_IDX_SHAKE_N24_W2  (14U)	/**< Index for SHAKE_N24_W2 */
+#define XLMS_OTS_PARAM_IDX_SHAKE_N24_W4  (15U)	/**< Index for SHAKE_N24_W4 */
+#define XLMS_OTS_PARAM_IDX_SHAKE_N24_W8  (16U)	/**< Index for SHAKE_N24_W8 */
 
 /**
  * Number of hash invocations for signature verification (2^w - 1)
  * These values represent the maximum hash chain iterations per Winternitz digit
  */
+#define XLMS_OTS_NO_OF_INV_SIGN_W1	(1U)	/**< NoOfInvSign for W1: 2^1 - 1 = 1 */
 #define XLMS_OTS_NO_OF_INV_SIGN_W2	(3U)	/**< NoOfInvSign for W2: 2^2 - 1 = 3 */
 #define XLMS_OTS_NO_OF_INV_SIGN_W4	(15U)	/**< NoOfInvSign for W4: 2^4 - 1 = 15 */
 #define XLMS_OTS_NO_OF_INV_SIGN_W8	(255U)	/**< NoOfInvSign for W8: 2^8 - 1 = 255 */
@@ -69,8 +84,10 @@ extern "C" {
 #define XLMS_OTS_TYPE_SIZE		(4U) /**< Length of type field */
 #define XLMS_I_FIELD_SIZE		(16U) /**< Length of I field */
 #define XLMS_Q_FIELD_SIZE		(4U) /**< Length of q field */
-#define XLMS_N_FIELD_SIZE		(32U) /**< For now supported variants
-						o/p length match */
+#define XLMS_N_FIELD_SIZE		(32U) /**< Maximum supported hash output bytes (n).
+						  Used for buffer allocation only.
+						  Runtime uses HashOutputBytes from params. */
+#define XLMS_N24_FIELD_SIZE		(24U) /**< Hash output bytes for n=24 variants */
 #define XLMS_C_FIELD_SIZE		(32U) /**< 32 byte random value for
 						every msg to be authenticated */
 #define XLMS_D_MESG_FIELD_SIZE		(2U) /**< Size of XLMS_D_MESG */
@@ -81,8 +98,8 @@ extern "C" {
 						/**< 'n' bytes, output of SHA operation */
 #define XLMS_CHECKSUM_FIELD_SIZE		(2U) /**< Length of checksum field after digest */
 
-/** Max OTS signature length (for W2 variant: 4 + 32 * 134 = 4292) */
-#define XLMS_OTS_MAX_SIGN_LEN		(4292U)
+/** Max OTS signature length (for W1 variant: 4 + 32 * 266 = 8516) */
+#define XLMS_OTS_MAX_SIGN_LEN		(8516U)
 
 /** Digest of data to be authenticated concatenated with checksum value */
 #define XLMS_DIGEST_CHECKSUM_SIZE		(XLMS_DIGEST_SIZE + \
@@ -130,11 +147,8 @@ extern "C" {
  * concatenated result of hash chain for each
  * digit processed in signature during verification */
 
-/** Used for calculating the size of z array, based on p value */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURR_z_SIZE(p)  ((u32)p * XLMS_N_FIELD_SIZE)
-
-/** Max possible size as supported only till XLMS_OTS_W2 */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE		((u32)XLMS_OTS_W2_P *\
+/** Max possible size as supported, XLMS_OTS_W1 has the largest 'p' */
+#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE		((u32)XLMS_OTS_W1_P *\
 								 XLMS_N_FIELD_SIZE)
 
 /** Total MAX Size of buffer used in OTS verification */
@@ -143,22 +157,7 @@ extern "C" {
 							XLMS_D_PBLC_FIELD_SIZE + \
 							XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE)
 
-/** Total Size of buffer used in OTS verification, while considering current 'p' parameter */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURRENT_SIZE(p) (XLMS_I_FIELD_SIZE +\
-								XLMS_Q_FIELD_SIZE +\
-								XLMS_D_PBLC_FIELD_SIZE +\
-								XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURR_z_SIZE(p))
-
 /* ************************ offsets ***************************************** */
-
-/* Public key offsets */
-
-/** Offset of 'I' field in OTS Public key */
-#define XLMS_OTS_PUBKEY_I_OFFSET		(0U)
-/** Offset of 'q' field in OTS Public key */
-#define XLMS_OTS_PUBKEY_Q_OFFSET	(XLMS_OTS_PUBKEY_I_OFFSET +\
-					XLMS_I_FIELD_SIZE)
-
 
 /* OTS signature fields offset */
 
@@ -167,9 +166,6 @@ extern "C" {
 /** Offset of 'C' field in OTS Signature buffer */
 #define XLMS_OTS_SIGN_C_FIELD_OFFSET			(XLMS_OTS_SIGN_TYPE_FIELD_OFFSET + \
 							XLMS_OTS_TYPE_SIZE)
-/** Offset of 'Y' field in OTS Signature buffer */
-#define XLMS_OTS_SIGN_Y_FIELD_OFFSET			(XLMS_OTS_SIGN_C_FIELD_OFFSET + \
-							XLMS_C_FIELD_SIZE)
 
 /* Offsets of fields in tmp buffer used for storing intermediate
  * values during hash chains for each
@@ -231,25 +227,35 @@ extern "C" {
 /**
  * @brief Types of LMS_OTS supported
  *
- * @note Only 32 byte output is supported, i.e., 256 bit SHA or SHAKE are only supported, w=1 is not supported
  */
 typedef enum {
 	XLMS_OTS_RESERVED 	= 0x00000000U,	/**< Reserved */
+	XLMS_OTS_SHA256_N32_W1 	= 0x00000001U,	/**< 'n' = 32, 'H' = SHA2-256, 'w' = 1 */
 	XLMS_OTS_SHA256_N32_W2 	= 0x00000002U,	/**< 'n' = 32, 'H' = SHA2-256, 'w' = 2 */
 	XLMS_OTS_SHA256_N32_W4 	= 0x00000003U,	/**< 'n' = 32, 'H' = SHA2-256, 'w' = 4 */
 	XLMS_OTS_SHA256_N32_W8 	= 0x00000004U,	/**< 'n' = 32, 'H' = SHA2-256, 'w' = 8 */
+	XLMS_OTS_SHA256_N24_W1 	= 0x00000005U,	/**< 'n' = 24, 'H' = SHA2-256, 'w' = 1 */
+	XLMS_OTS_SHA256_N24_W2 	= 0x00000006U,	/**< 'n' = 24, 'H' = SHA2-256, 'w' = 2 */
+	XLMS_OTS_SHA256_N24_W4 	= 0x00000007U,	/**< 'n' = 24, 'H' = SHA2-256, 'w' = 4 */
+	XLMS_OTS_SHA256_N24_W8 	= 0x00000008U,	/**< 'n' = 24, 'H' = SHA2-256, 'w' = 8 */
+	XLMS_OTS_SHAKE_N32_W1 	= 0x00000009U,	/**< 'n' = 32, 'H' = SHAKE-256, 'w' = 1 */
 	XLMS_OTS_SHAKE_N32_W2 	= 0x0000000AU,	/**< 'n' = 32, 'H' = SHAKE-256, 'w' = 2 */
 	XLMS_OTS_SHAKE_N32_W4 	= 0x0000000BU,	/**< 'n' = 32, 'H' = SHAKE-256, 'w' = 4 */
 	XLMS_OTS_SHAKE_N32_W8 	= 0x0000000CU,	/**< 'n' = 32, 'H' = SHAKE-256, 'w' = 8 */
+	XLMS_OTS_SHAKE_N24_W1 	= 0x0000000DU,	/**< 'n' = 24, 'H' = SHAKE-256, 'w' = 1 */
+	XLMS_OTS_SHAKE_N24_W2 	= 0x0000000EU,	/**< 'n' = 24, 'H' = SHAKE-256, 'w' = 2 */
+	XLMS_OTS_SHAKE_N24_W4 	= 0x0000000FU,	/**< 'n' = 24, 'H' = SHAKE-256, 'w' = 4 */
+	XLMS_OTS_SHAKE_N24_W8 	= 0x00000010U,	/**< 'n' = 24, 'H' = SHAKE-256, 'w' = 8 */
 	XLMS_OTS_NOT_SUPPORTED			/**< Not Supported */
 } XLms_OtsType;
 
 /**
  * @brief Number of bits per digit
- * Possible values are as supported, w=1 is not supported
+ * Possible values are as supported
  */
 typedef enum {
 	XLMS_OTS_W_NOT_SUPPORTED	= 0U,	/**< Not Supported */
+	XLMS_OTS_W1 		= 1U,	/**< 'w' = 1 */
 	XLMS_OTS_W2 		= 2U,	/**< 'w' = 2 */
 	XLMS_OTS_W4 		= 4U,	/**< 'w' = 4 */
 	XLMS_OTS_W8 		= 8U	/**< 'w' = 8 */
@@ -261,9 +267,14 @@ typedef enum {
  */
 typedef enum {
 	XLMS_OTS_U_NOT_SUPPORTED	= 0U,	/**< Not Supported */
-	XLMS_OTS_W2_U 		= 128U,	/**< 'u' corresponding to 'w' = 2 */
-	XLMS_OTS_W4_U 		= 64U,	/**< 'u' corresponding to 'w' = 4 */
-	XLMS_OTS_W8_U 		= 32U	/**< 'u' corresponding to 'w' = 8 */
+	XLMS_OTS_W1_U 		= 256U,	/**< 'u' corresponding to n=32, 'w' = 1 */
+	XLMS_OTS_W2_U 		= 128U,	/**< 'u' corresponding to n=32, 'w' = 2 */
+	XLMS_OTS_W4_U 		= 64U,	/**< 'u' corresponding to n=32, 'w' = 4 */
+	XLMS_OTS_W8_U 		= 32U,	/**< 'u' corresponding to n=32, 'w' = 8 */
+	XLMS_OTS_N24_W1_U 	= 192U,	/**< 'u' corresponding to n=24, 'w' = 1 */
+	XLMS_OTS_N24_W2_U 	= 96U,	/**< 'u' corresponding to n=24, 'w' = 2 */
+	XLMS_OTS_N24_W4_U 	= 48U,	/**< 'u' corresponding to n=24, 'w' = 4 */
+	XLMS_OTS_N24_W8_U 	= 24U	/**< 'u' corresponding to n=24, 'w' = 8 */
 } XLms_OtsuIndex;
 
 /**
@@ -272,9 +283,14 @@ typedef enum {
  */
 typedef enum {
 	XLMS_OTS_V_NOT_SUPPORTED	= 0U,	/**< Not Supported */
-	XLMS_OTS_W2_V 		= 5U,	/**< 'v' corresponding to 'w' = 2 */
-	XLMS_OTS_W4_V 		= 3U,	/**< 'v' corresponding to 'w' = 4 */
-	XLMS_OTS_W8_V 		= 2U	/**< 'v' corresponding to 'w' = 8 */
+	XLMS_OTS_W1_V 		= 9U,	/**< 'v' corresponding to n=32, 'w' = 1 */
+	XLMS_OTS_W2_V 		= 5U,	/**< 'v' corresponding to n=32, 'w' = 2 */
+	XLMS_OTS_W4_V 		= 3U,	/**< 'v' corresponding to n=32, 'w' = 4 */
+	XLMS_OTS_W8_V 		= 2U,	/**< 'v' corresponding to n=32, 'w' = 8 */
+	XLMS_OTS_N24_W1_V 	= 8U,	/**< 'v' corresponding to n=24, 'w' = 1 */
+	XLMS_OTS_N24_W2_V 	= 5U,	/**< 'v' corresponding to n=24, 'w' = 2 */
+	XLMS_OTS_N24_W4_V 	= 3U,	/**< 'v' corresponding to n=24, 'w' = 4 */
+	XLMS_OTS_N24_W8_V 	= 2U	/**< 'v' corresponding to n=24, 'w' = 8 */
 } XLms_OtsvIndex;
 
 /**
@@ -282,9 +298,14 @@ typedef enum {
  * Possible values are as supported
  */
 typedef enum {
+	XLMS_OTS_W1_LS 		= 7U,	/**< 'ls' corresponding to n=32, 'w' = 1 */
 	XLMS_OTS_W2_LS 		= 6U,	/**< 'ls' corresponding to 'w' = 2 */
 	XLMS_OTS_W4_LS 		= 4U,	/**< 'ls' corresponding to 'w' = 4 */
 	XLMS_OTS_W8_LS 		= 0U,	/**< 'ls' corresponding to 'w' = 8 */
+	XLMS_OTS_N24_W1_LS 	= 8U,	/**< 'ls' corresponding to n=24, 'w' = 1 */
+	XLMS_OTS_N24_W2_LS 	= 6U,	/**< 'ls' corresponding to n=24, 'w' = 2 */
+	XLMS_OTS_N24_W4_LS 	= 4U,	/**< 'ls' corresponding to n=24, 'w' = 4 */
+	XLMS_OTS_N24_W8_LS 	= 0U,	/**< 'ls' corresponding to n=24, 'w' = 8 */
 	XLMS_OTS_LS_NOT_SUPPORTED = 16U	/**< Not Supported */
 } XLms_OtslsIndex;
 
@@ -294,9 +315,14 @@ typedef enum {
  */
 typedef enum {
 	XLMS_OTS_P_NOT_SUPPORTED	= 0U,	/**< Not Supported */
-	XLMS_OTS_W2_P 		= 133U,	/**< 'p' corresponding to 'w' = 2 */
-	XLMS_OTS_W4_P 		= 67U,	/**< 'p' corresponding to 'w' = 4 */
-	XLMS_OTS_W8_P 		= 34U	/**< 'p' corresponding to 'w' = 8 */
+	XLMS_OTS_W1_P 		= 265U,	/**< 'p' corresponding to n=32, 'w' = 1 */
+	XLMS_OTS_W2_P 		= 133U,	/**< 'p' corresponding to n=32, 'w' = 2 */
+	XLMS_OTS_W4_P 		= 67U,	/**< 'p' corresponding to n=32, 'w' = 4 */
+	XLMS_OTS_W8_P 		= 34U,	/**< 'p' corresponding to n=32, 'w' = 8 */
+	XLMS_OTS_N24_W1_P 	= 200U,	/**< 'p' corresponding to n=24, 'w' = 1 */
+	XLMS_OTS_N24_W2_P 	= 101U,	/**< 'p' corresponding to n=24, 'w' = 2 */
+	XLMS_OTS_N24_W4_P 	= 51U,	/**< 'p' corresponding to n=24, 'w' = 4 */
+	XLMS_OTS_N24_W8_P 	= 26U	/**< 'p' corresponding to n=24, 'w' = 8 */
 } XLms_OtspIndex;
 
 /**
@@ -512,14 +538,15 @@ typedef union {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
-/************************************ Variable Definitions ***************************************/
-
 /************************************ Function Prototypes ****************************************/
 u32 XLms_OtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w);
 s32 XLms_OtsComputeChecksum(const u8* const Array, const u32 ArrayLen,
 				const u32 w, const u32 ls, u32* const Checksum);
 s32 XLms_OtsLookupParamSet(XLms_OtsType Type,
 	const XLms_OtsParam** Parameters);
+#endif /* XASU_LMS_ENABLE */
+
+/************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus
 }

@@ -347,12 +347,15 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 			case XASUFW_KEYMANAGER_RESOURCE_MASK:
 				Resource = XASUFW_KEYMANAGER;
 				break;
+			case XASUFW_LMS_RESOURCE_MASK:
+				Resource = XASUFW_LMS;
+				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
 				break;
 		}
 
-		if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
+		if ((Status == XASUFW_RESOURCE_UNAVAILABLE) || (Status == XASUFW_RESOURCE_INVALID)) {
 			goto END;
 		}
 

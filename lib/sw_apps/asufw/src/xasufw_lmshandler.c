@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ss   01/21/26 Initial release
+* 1.1   ss   03/21/26 Added non-blocking DMA support for LMS/HSS signature verification
 *
 * </pre>
 *
@@ -40,10 +41,10 @@
 
 #ifdef XASU_LMS_ENABLE
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_LmsKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_LmsResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_HssKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_LmsModule; /**< ASUFW LMS Module ID and commands array */
@@ -51,6 +52,14 @@ static XAsufw_Module XAsufw_LmsModule; /**< ASUFW LMS Module ID and commands arr
 /************************************** Type Definitions *****************************************/
 
 /************************************** Macros Definitions ***************************************/
+/** @name HSS Sign Verify Command Stages
+ * @{
+ */
+#define XASUFW_HSS_STAGE_INIT			(0U) /**< Initial stage - start HSS init */
+#define XASUFW_HSS_STAGE_HSS_INIT_RESUME		(1U) /**< Resume after HssInit DMA completion */
+#define XASUFW_HSS_STAGE_HASH_MESSAGE_RESUME	(2U) /**< Resume after HashMessage DMA completion */
+#define XASUFW_HSS_STAGE_HSS_FINISH_RESUME	(3U) /**< Resume after HssFinish DMA completion */
+/** @} */
 
 /************************************** Function Definitions *************************************/
 
@@ -73,7 +82,7 @@ s32 XAsufw_LmsInit(void)
 		[XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_LmsSignVerify),
 		[XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HssSignVerify),
 		[XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HssSignVerify),
-		[XASU_LMS_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_LmsKat),
+		[XASU_HSS_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HssKat),
 	};
 
 	/** The XAsufw_LmsResourcesBuf contains the required resources for each supported command. */
@@ -86,8 +95,8 @@ s32 XAsufw_LmsInit(void)
 		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
 		[XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
-		[XASU_LMS_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
-		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
+		[XASU_HSS_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
+		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_LmsAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -96,7 +105,7 @@ s32 XAsufw_LmsInit(void)
 		[XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID),
 		[XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID),
 		[XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID),
-		[XASU_LMS_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_LMS_KAT_CMD_ID),
+		[XASU_HSS_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HSS_KAT_CMD_ID),
 	};
 
 	XAsufw_LmsModule.Id = XASU_MODULE_LMS_ID;
@@ -172,6 +181,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if LMS signature verification is successful.
+ * 	- XASUFW_CMD_IN_PROGRESS, if non-blocking DMA operation is in progress.
  * 	- XASUFW_LMS_SIGN_VERIFY_FAILED, if LMS signature verification fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
@@ -182,21 +192,39 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_LmsHssSignVerifyParams *LmsParamsPtr =
 		(const XAsu_LmsHssSignVerifyParams *)ReqBuf->Arg;
 
-	/** Perform LMS signature verification. */
+	/**
+	 * Perform LMS signature verification.
+	 * XLms_SignatureVerification manages its own internal state machine
+	 * (ValidateInputs / OtsProcess). On resume after DMA completion,
+	 * calling it again continues from where it left off.
+	 */
 	Status = XLms_SignatureVerification(XAsufw_LmsModule.ShaPtr,
 						XAsufw_LmsModule.AsuDmaPtr,
 						LmsParamsPtr);
-	if (Status != XASUFW_SUCCESS) {
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		/**
+		 * Non-blocking DMA transfer in progress.
+		 * Use XLms_GetPendingDmaChannel() to determine which channel to wait on:
+		 * DST for signature copy, SRC for SHA engine feed.
+		 */
+		XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr,
+					 XLms_GetPendingDmaChannel(),
+					 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_LMS_SIGN_VERIFY_FAILED);
+	} else {
+		/* Do nothing */
 	}
 
-	/** Clear DMA and SHA pointers. */
-	XAsufw_LmsModule.AsuDmaPtr = NULL;
-	XAsufw_LmsModule.ShaPtr = NULL;
+	/** Clear DMA and SHA pointers if operation completed (not in progress). */
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		XAsufw_LmsModule.AsuDmaPtr = NULL;
+		XAsufw_LmsModule.ShaPtr = NULL;
 
-	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_LMS, ReqId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		/** Release resources. */
+		if (XAsufw_ReleaseResource(XASUFW_LMS, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
 	}
 
 	return Status;
@@ -211,6 +239,7 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if HSS signature verification is successful.
+ * 	- XASUFW_CMD_IN_PROGRESS, if non-blocking DMA operation is in progress.
  * 	- XASUFW_HSS_SIGN_VERIFY_FAILED, if HSS signature verification fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
@@ -220,40 +249,92 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_LmsHssSignVerifyParams *HssParamsPtr =
 		(const XAsu_LmsHssSignVerifyParams *)ReqBuf->Arg;
+	/** Stage tracking for non-blocking DMA operations */
+	static u32 CmdStage = XASUFW_HSS_STAGE_INIT;
 
-	/** Initialize HSS verification. */
-	Status = XLms_HssInit(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
-				HssParamsPtr);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HSS_SIGN_VERIFY_FAILED);
-		goto END;
-	}
+	switch (CmdStage) {
+	case XASUFW_HSS_STAGE_INIT:
+	case XASUFW_HSS_STAGE_HSS_INIT_RESUME:
+		/**
+		 * Initialize HSS verification.
+		 * XLms_HssInit manages its own internal state machine.
+		 * On resume after DMA completion, calling it again continues processing.
+		 */
+		Status = XLms_HssInit(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
+					HssParamsPtr);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			CmdStage = XASUFW_HSS_STAGE_HSS_INIT_RESUME;
+			XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr,
+						 XLms_GetPendingDmaChannel(),
+						 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+			break;
+		} else if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HSS_SIGN_VERIFY_FAILED);
+			goto END;
+		} else {
+			/* Do nothing */
+		}
+		/* HssInit complete, fall through to hash message */
+		/* fall through */
+	case XASUFW_HSS_STAGE_HASH_MESSAGE_RESUME:
+		/**
+		 * Hash the message.
+		 * XLms_HashMessage manages its own internal state machine.
+		 * On resume after DMA completion, calling it again continues processing.
+		 */
+		Status = XLms_HashMessage(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
+						HssParamsPtr->MsgAddr,
+						HssParamsPtr->MsgLen,
+						HssParamsPtr->ShaMode);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			CmdStage = XASUFW_HSS_STAGE_HASH_MESSAGE_RESUME;
+			XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+						 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+			break;
+		} else if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HSS_SIGN_VERIFY_FAILED);
+			goto END;
+		} else {
+			/* Do nothing */
+		}
+		/* HashMessage complete, fall through to finish */
+		/* fall through */
+	case XASUFW_HSS_STAGE_HSS_FINISH_RESUME:
+		/**
+		 * Finish HSS verification.
+		 * XLms_HssFinish manages its own internal state machine.
+		 * On resume after DMA completion, calling it again continues processing.
+		 */
+		Status = XLms_HssFinish(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
+					HssParamsPtr->SignatureAddr, HssParamsPtr->SignatureLen);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			CmdStage = XASUFW_HSS_STAGE_HSS_FINISH_RESUME;
+			XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr,
+						 XLms_GetPendingDmaChannel(),
+						 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+		} else if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HSS_SIGN_VERIFY_FAILED);
+		} else {
+			/* Do nothing */
+		}
+		break;
 
-	/** Hash the message. */
-	Status = XLms_HashMessage(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
-					HssParamsPtr->MsgAddr,
-					HssParamsPtr->MsgLen,
-					HssParamsPtr->ShaMode);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HSS_SIGN_VERIFY_FAILED);
-		goto END;
-	}
-
-	/** Finish HSS verification. */
-	Status = XLms_HssFinish(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
-				HssParamsPtr->SignatureAddr, HssParamsPtr->SignatureLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HSS_SIGN_VERIFY_FAILED);
+	default:
+		Status = XASUFW_FAILURE;
+		break;
 	}
 
 END:
-	/** Clear DMA and SHA pointers. */
-	XAsufw_LmsModule.AsuDmaPtr = NULL;
-	XAsufw_LmsModule.ShaPtr = NULL;
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		CmdStage = XASUFW_HSS_STAGE_INIT;
+		/** Clear DMA and SHA pointers. */
+		XAsufw_LmsModule.AsuDmaPtr = NULL;
+		XAsufw_LmsModule.ShaPtr = NULL;
 
-	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_LMS, ReqId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		/** Release resources. */
+		if (XAsufw_ReleaseResource(XASUFW_LMS, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
 	}
 
 	return Status;
@@ -261,24 +342,24 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is a handler for LMS KAT command.
+ * @brief	This function is a handler to perform HSS Known Answer Test.
  *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Requester ID.
+ * @param	ReqBuf		Pointer to the request buffer.
+ * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if LMS KAT is successful.
+ * 	- XASUFW_SUCCESS, if HSS KAT is successful.
+ * 	- XASUFW_HSS_KAT_FAILED, if HSS KAT fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- Error code, returned when XAsufw_LmsOperationKat API fails.
+ * 	- Error code, returned when XAsufw_HssOperationKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_LmsKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+static s32 XAsufw_HssKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
-	/** Perform LMS KAT. */
-	Status = XAsufw_LmsOperationKat(XAsufw_LmsModule.AsuDmaPtr);
+	Status = XAsufw_HssOperationKat(XAsufw_LmsModule.AsuDmaPtr);
 
 	/** Clear DMA and SHA pointers. */
 	XAsufw_LmsModule.AsuDmaPtr = NULL;

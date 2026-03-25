@@ -6,28 +6,27 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasu_lms.h
+ * @file xasu_lms_common.h
  *
- * This file Contains the LMS client function prototypes, defines and macros for
- * the LMS module.
+ * This file contains the LMS function prototypes which are common across the client and server.
  *
  * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
- * 1.0   ss   01/21/26 Initial release
- *       ss   03/23/26 Added client-side LMS signature verification KAT
+ * 1.0   ss   03/24/26 Initial release
  *
  * </pre>
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_lms_client_apis LMS Client APIs
+ * @addtogroup xasu_lms_common_apis LMS Common APIs
  * @{
 */
-#ifndef XASU_LMS_H_
-#define XASU_LMS_H_
+
+#ifndef XASU_LMS_COMMON_H_
+#define XASU_LMS_COMMON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,28 +34,22 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "xasu_client.h"
 #include "xasu_lmsinfo.h"
 
-/************************************ Constant Definitions ***************************************/
+/*********************************** Constant Definitions ****************************************/
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
-/************************************ Function Prototypes ****************************************/
-s32 XAsu_LmsSignVerify(XAsu_ClientParams *ClientParamsPtr,
-		XAsu_LmsHssSignVerifyParams *LmsParamsPtr);
-s32 XAsu_HssSignVerify(XAsu_ClientParams *ClientParamsPtr,
-		XAsu_LmsHssSignVerifyParams *HssParamsPtr);
-s32 XAsu_LmsSignVerifyKat(void);
-s32 XAsu_HssSignVerifyKat(XAsu_ClientParams *ClientParamsPtr);
-
 /************************************ Variable Definitions ***************************************/
+
+/************************************ Function Prototypes ****************************************/
+s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XASU_LMS_H_ */
+#endif  /* XASU_LMS_COMMON_H_ */
 /** @} */

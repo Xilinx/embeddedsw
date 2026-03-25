@@ -36,6 +36,11 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xlms.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
+
+#ifdef XASU_LMS_ENABLE
 
 /************************************ Constant Definitions ***************************************/
 #define XLMS_HSS_MIN_LEVELS_SUPPORTED	(1U)	/**< during KAT we support only one tree */
@@ -83,6 +88,8 @@ typedef struct {
 	u32 Levels;	/**< Levels supported */
 	u8* SignList;	/**< Pointer to signature list */
 } XLms_HssSignature;
+
+#endif /* XASU_LMS_ENABLE */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

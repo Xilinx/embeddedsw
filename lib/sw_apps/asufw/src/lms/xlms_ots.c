@@ -35,6 +35,8 @@
 #include "xasu_shainfo.h"
 #include "xasufw_util.h"
 
+#ifdef XASU_LMS_ENABLE
+
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -141,6 +143,126 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
 		.p = XLMS_OTS_W8_P,
 		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W8,
 		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N_FIELD_SIZE * ((u32)XLMS_OTS_W8_P + 1U))) /* 1124U */
+	},
+	/* XLMS_OTS_SHA256_N32_W1 */
+	[XLMS_OTS_PARAM_IDX_SHA256_W1] = {
+		.HashAlgId = XASU_SHA_MODE_256,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
+		.w = XLMS_OTS_W1,
+		.u = XLMS_OTS_W1_U,
+		.v = XLMS_OTS_W1_V,
+		.ls = XLMS_OTS_W1_LS,
+		.p = XLMS_OTS_W1_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W1,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N_FIELD_SIZE * ((u32)XLMS_OTS_W1_P + 1U))) /* 8516U */
+	},
+	/* XLMS_OTS_SHAKE_N32_W1 */
+	[XLMS_OTS_PARAM_IDX_SHAKE_W1] = {
+		.HashAlgId = XASU_SHA_MODE_SHAKE256,
+		.HashOutputBytes = XASU_SHA_SHAKE_256_HASH_LEN,
+		.w = XLMS_OTS_W1,
+		.u = XLMS_OTS_W1_U,
+		.v = XLMS_OTS_W1_V,
+		.ls = XLMS_OTS_W1_LS,
+		.p = XLMS_OTS_W1_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W1,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N_FIELD_SIZE * ((u32)XLMS_OTS_W1_P + 1U))) /* 8516U */
+	},
+	/* XLMS_OTS_SHA256_N24_W1 */
+	[XLMS_OTS_PARAM_IDX_SHA256_N24_W1] = {
+		.HashAlgId = XASU_SHA_MODE_256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W1,
+		.u = XLMS_OTS_N24_W1_U,
+		.v = XLMS_OTS_N24_W1_V,
+		.ls = XLMS_OTS_N24_W1_LS,
+		.p = XLMS_OTS_N24_W1_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W1,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W1_P + 1U))) /* 4828U */
+	},
+	/* XLMS_OTS_SHA256_N24_W2 */
+	[XLMS_OTS_PARAM_IDX_SHA256_N24_W2] = {
+		.HashAlgId = XASU_SHA_MODE_256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W2,
+		.u = XLMS_OTS_N24_W2_U,
+		.v = XLMS_OTS_N24_W2_V,
+		.ls = XLMS_OTS_N24_W2_LS,
+		.p = XLMS_OTS_N24_W2_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W2,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W2_P + 1U))) /* 2452U */
+	},
+	/* XLMS_OTS_SHA256_N24_W4 */
+	[XLMS_OTS_PARAM_IDX_SHA256_N24_W4] = {
+		.HashAlgId = XASU_SHA_MODE_256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W4,
+		.u = XLMS_OTS_N24_W4_U,
+		.v = XLMS_OTS_N24_W4_V,
+		.ls = XLMS_OTS_N24_W4_LS,
+		.p = XLMS_OTS_N24_W4_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W4,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W4_P + 1U))) /* 1252U */
+	},
+	/* XLMS_OTS_SHA256_N24_W8 */
+	[XLMS_OTS_PARAM_IDX_SHA256_N24_W8] = {
+		.HashAlgId = XASU_SHA_MODE_256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W8,
+		.u = XLMS_OTS_N24_W8_U,
+		.v = XLMS_OTS_N24_W8_V,
+		.ls = XLMS_OTS_N24_W8_LS,
+		.p = XLMS_OTS_N24_W8_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W8,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W8_P + 1U))) /* 652U */
+	},
+	/* XLMS_OTS_SHAKE_N24_W1 */
+	[XLMS_OTS_PARAM_IDX_SHAKE_N24_W1] = {
+		.HashAlgId = XASU_SHA_MODE_SHAKE256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W1,
+		.u = XLMS_OTS_N24_W1_U,
+		.v = XLMS_OTS_N24_W1_V,
+		.ls = XLMS_OTS_N24_W1_LS,
+		.p = XLMS_OTS_N24_W1_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W1,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W1_P + 1U))) /* 4828U */
+	},
+	/* XLMS_OTS_SHAKE_N24_W2 */
+	[XLMS_OTS_PARAM_IDX_SHAKE_N24_W2] = {
+		.HashAlgId = XASU_SHA_MODE_SHAKE256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W2,
+		.u = XLMS_OTS_N24_W2_U,
+		.v = XLMS_OTS_N24_W2_V,
+		.ls = XLMS_OTS_N24_W2_LS,
+		.p = XLMS_OTS_N24_W2_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W2,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W2_P + 1U))) /* 2452U */
+	},
+	/* XLMS_OTS_SHAKE_N24_W4 */
+	[XLMS_OTS_PARAM_IDX_SHAKE_N24_W4] = {
+		.HashAlgId = XASU_SHA_MODE_SHAKE256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W4,
+		.u = XLMS_OTS_N24_W4_U,
+		.v = XLMS_OTS_N24_W4_V,
+		.ls = XLMS_OTS_N24_W4_LS,
+		.p = XLMS_OTS_N24_W4_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W4,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W4_P + 1U))) /* 1252U */
+	},
+	/* XLMS_OTS_SHAKE_N24_W8 */
+	[XLMS_OTS_PARAM_IDX_SHAKE_N24_W8] = {
+		.HashAlgId = XASU_SHA_MODE_SHAKE256,
+		.HashOutputBytes = XLMS_N24_FIELD_SIZE,
+		.w = XLMS_OTS_W8,
+		.u = XLMS_OTS_N24_W8_U,
+		.v = XLMS_OTS_N24_W8_V,
+		.ls = XLMS_OTS_N24_W8_LS,
+		.p = XLMS_OTS_N24_W8_P,
+		.NoOfInvSign = XLMS_OTS_NO_OF_INV_SIGN_W8,
+		.SignLen = (XLMS_OTS_TYPE_SIZE + (XLMS_N24_FIELD_SIZE * ((u32)XLMS_OTS_N24_W8_P + 1U))) /* 652U */
 	}
 };
 
@@ -249,17 +371,20 @@ END:
 *	-	XASUFW_LMS_TYPE_LOOKUP_GLITCH_ERROR - If glitch detected
 *
 **************************************************************************************************/
-s32 XLms_OtsLookupParamSet(XLms_OtsType Type,const XLms_OtsParam** Parameters)
+s32 XLms_OtsLookupParamSet(XLms_OtsType Type, const XLms_OtsParam** Parameters)
 {
 	s32 Status = XASUFW_FAILURE;
 	/* Redundant type for temporal check */
 	volatile XLms_OtsType TmpType = (XLms_OtsType)XASUFW_ALLFS;
 	*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
 
-	/* 'w' = 1' variations and 24 bit hash outputs are not supported in this library */
-
 	switch (Type) {
 		/* SHA-256 options */
+		case XLMS_OTS_SHA256_N32_W1: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W1];
+			TmpType = XLMS_OTS_SHA256_N32_W1;
+			break;
+		}
 		case XLMS_OTS_SHA256_N32_W2: {
 			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_W2];
 			TmpType = XLMS_OTS_SHA256_N32_W2;
@@ -277,6 +402,11 @@ s32 XLms_OtsLookupParamSet(XLms_OtsType Type,const XLms_OtsParam** Parameters)
 		}
 
 		/* SHAKE 256 options */
+		case XLMS_OTS_SHAKE_N32_W1: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W1];
+			TmpType = XLMS_OTS_SHAKE_N32_W1;
+			break;
+		}
 		case XLMS_OTS_SHAKE_N32_W2: {
 			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_W2];
 			TmpType = XLMS_OTS_SHAKE_N32_W2;
@@ -306,7 +436,49 @@ s32 XLms_OtsLookupParamSet(XLms_OtsType Type,const XLms_OtsParam** Parameters)
 			Status = XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
 		}
+		/* N=24 variants defined in NIST SP 800-208 */
+		case XLMS_OTS_SHA256_N24_W1: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_N24_W1];
+			TmpType = XLMS_OTS_SHA256_N24_W1;
+			break;
+		}
+		case XLMS_OTS_SHA256_N24_W2: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_N24_W2];
+			TmpType = XLMS_OTS_SHA256_N24_W2;
+			break;
+		}
+		case XLMS_OTS_SHA256_N24_W4: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_N24_W4];
+			TmpType = XLMS_OTS_SHA256_N24_W4;
+			break;
+		}
+		case XLMS_OTS_SHA256_N24_W8: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHA256_N24_W8];
+			TmpType = XLMS_OTS_SHA256_N24_W8;
+			break;
+		}
+		case XLMS_OTS_SHAKE_N24_W1: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_N24_W1];
+			TmpType = XLMS_OTS_SHAKE_N24_W1;
+			break;
+		}
+		case XLMS_OTS_SHAKE_N24_W2: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_N24_W2];
+			TmpType = XLMS_OTS_SHAKE_N24_W2;
+			break;
+		}
+		case XLMS_OTS_SHAKE_N24_W4: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_N24_W4];
+			TmpType = XLMS_OTS_SHAKE_N24_W4;
+			break;
+		}
+		case XLMS_OTS_SHAKE_N24_W8: {
+			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_SHAKE_N24_W8];
+			TmpType = XLMS_OTS_SHAKE_N24_W8;
+			break;
+		}
 		default: {
+		/* default, and other not supported options */
 			*Parameters = (const XLms_OtsParam*)&XLms_OtsParamLookup[XLMS_OTS_PARAM_IDX_RESERVED];
 			Status = XASUFW_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
 			goto END;
@@ -325,4 +497,5 @@ s32 XLms_OtsLookupParamSet(XLms_OtsType Type,const XLms_OtsParam** Parameters)
 END:
 	return Status;
 }
+#endif /* XASU_LMS_ENABLE */
 /** @} */

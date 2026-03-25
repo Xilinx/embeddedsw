@@ -38,13 +38,14 @@ extern "C" {
 #include "xil_types.h"
 #include "xlms_ots.h"
 
+#ifdef XASU_LMS_ENABLE
 /************************************ Constant Definitions ***************************************/
 /**
  * Max supported types, used for creating lookup table for parameters for types
  * supported number should be max valid + 1 (as first slot will be for invalid parameters)
- * XLms_Type from 0 (unsupported) to XLMS_SHAKE_M32_HEIGHT_20
+ * XLms_Type from 0 (unsupported) to XLMS_SHAKE_M32_HEIGHT_25
  */
-#define XLMS_TYPE_MAX_SUPPORTED		(9U)
+#define XLMS_TYPE_MAX_SUPPORTED		(21U)
 
 /** Lookup table indices for LMS parameter sets */
 #define XLMS_PARAM_IDX_RESERVED		(0U)	/**< Index for reserved/unsupported type */
@@ -52,10 +53,22 @@ extern "C" {
 #define XLMS_PARAM_IDX_SHA256_HEIGHT_10	(2U)	/**< Index for SHA256_M32_HEIGHT_10 */
 #define XLMS_PARAM_IDX_SHA256_HEIGHT_15	(3U)	/**< Index for SHA256_M32_HEIGHT_15 */
 #define XLMS_PARAM_IDX_SHA256_HEIGHT_20	(4U)	/**< Index for SHA256_M32_HEIGHT_20 */
-#define XLMS_PARAM_IDX_SHAKE_HEIGHT_5	(5U)	/**< Index for SHAKE_M32_HEIGHT_5 */
-#define XLMS_PARAM_IDX_SHAKE_HEIGHT_10	(6U)	/**< Index for SHAKE_M32_HEIGHT_10 */
-#define XLMS_PARAM_IDX_SHAKE_HEIGHT_15	(7U)	/**< Index for SHAKE_M32_HEIGHT_15 */
-#define XLMS_PARAM_IDX_SHAKE_HEIGHT_20	(8U)	/**< Index for SHAKE_M32_HEIGHT_20 */
+#define XLMS_PARAM_IDX_SHA256_HEIGHT_25	(5U)	/**< Index for SHA256_M32_HEIGHT_25 */
+#define XLMS_PARAM_IDX_SHAKE_HEIGHT_5	(6U)	/**< Index for SHAKE_M32_HEIGHT_5 */
+#define XLMS_PARAM_IDX_SHAKE_HEIGHT_10	(7U)	/**< Index for SHAKE_M32_HEIGHT_10 */
+#define XLMS_PARAM_IDX_SHAKE_HEIGHT_15	(8U)	/**< Index for SHAKE_M32_HEIGHT_15 */
+#define XLMS_PARAM_IDX_SHAKE_HEIGHT_20	(9U)	/**< Index for SHAKE_M32_HEIGHT_20 */
+#define XLMS_PARAM_IDX_SHAKE_HEIGHT_25	(10U)	/**< Index for SHAKE_M32_HEIGHT_25 */
+#define XLMS_PARAM_IDX_SHA256_M24_HEIGHT_5  (11U) /**< Index for SHA256_M24_HEIGHT_5 */
+#define XLMS_PARAM_IDX_SHA256_M24_HEIGHT_10 (12U) /**< Index for SHA256_M24_HEIGHT_10 */
+#define XLMS_PARAM_IDX_SHA256_M24_HEIGHT_15 (13U) /**< Index for SHA256_M24_HEIGHT_15 */
+#define XLMS_PARAM_IDX_SHA256_M24_HEIGHT_20 (14U) /**< Index for SHA256_M24_HEIGHT_20 */
+#define XLMS_PARAM_IDX_SHA256_M24_HEIGHT_25 (15U) /**< Index for SHA256_M24_HEIGHT_25 */
+#define XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_5   (16U) /**< Index for SHAKE_M24_HEIGHT_5 */
+#define XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_10  (17U) /**< Index for SHAKE_M24_HEIGHT_10 */
+#define XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_15  (18U) /**< Index for SHAKE_M24_HEIGHT_15 */
+#define XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_20  (19U) /**< Index for SHAKE_M24_HEIGHT_20 */
+#define XLMS_PARAM_IDX_SHAKE_M24_HEIGHT_25  (20U) /**< Index for SHAKE_M24_HEIGHT_25 */
 
 /** Domain separator constants as per RFC 8554 */
 #define XLMS_D_PBLC_VALUE	(0x8080U)	/**< Domain separator for OTS public key calc */
@@ -98,12 +111,6 @@ extern "C" {
 						/**< Length of D internal field */
 #define	XLMS_D_FIELD_SIZE			(2U)	/**< Length of D field */
 
-/** Used for leaf node processing */
-#define XLMS_PUB_KEY_TMP_BUFFER_LEAF_TOTAL_SIZE	(XLMS_I_FIELD_SIZE + \
-							XLMS_MERKLE_TREE_NODE_NUMBER_SIZE + \
-							XLMS_D_LEAF_FIELD_SIZE + \
-							XLMS_M_BYTE_FIELD_SIZE)
-
 /** Used for internal nodes processing */
 #define XLMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE	(XLMS_I_FIELD_SIZE + \
 							XLMS_MERKLE_TREE_NODE_NUMBER_SIZE + \
@@ -141,26 +148,48 @@ typedef enum {
 					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 15 */
 	XLMS_SHA256_M32_HEIGHT_20 = 0x00000008U,
 					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 20 */
+	XLMS_SHA256_M32_HEIGHT_25 = 0x00000009U,
+					/**< 'M' = 32, 'H' =  SHA2-256, 'h' = 25 */
+	XLMS_SHA256_M24_HEIGHT_5 = 0x0000000AU,
+				/**< 'M' = 24, 'H' =  SHA2-256, 'h' = 5 */
+	XLMS_SHA256_M24_HEIGHT_10 = 0x0000000BU,
+				/**< 'M' = 24, 'H' =  SHA2-256, 'h' = 10 */
+	XLMS_SHA256_M24_HEIGHT_15 = 0x0000000CU,
+				/**< 'M' = 24, 'H' =  SHA2-256, 'h' = 15 */
+	XLMS_SHA256_M24_HEIGHT_20 = 0x0000000DU,
+				/**< 'M' = 24, 'H' =  SHA2-256, 'h' = 20 */
+	XLMS_SHA256_M24_HEIGHT_25 = 0x0000000EU,
+				/**< 'M' = 24, 'H' =  SHA2-256, 'h' = 25 */
 	XLMS_SHAKE_M32_HEIGHT_5 = 0x0000000FU,
-					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 5 */
+				/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 5 */
 	XLMS_SHAKE_M32_HEIGHT_10 = 0x00000010U,
-					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 10 */
+				/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 10 */
 	XLMS_SHAKE_M32_HEIGHT_15 = 0x00000011U,
-					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 15 */
+				/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 15 */
 	XLMS_SHAKE_M32_HEIGHT_20 = 0x00000012U,
-					/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 20 */
+				/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 20 */
+	XLMS_SHAKE_M32_HEIGHT_25 = 0x00000013U,
+				/**< 'M' = 32, 'H' =  SHAKE-256, 'h' = 25 */
+	XLMS_SHAKE_M24_HEIGHT_5 = 0x00000014U,
+				/**< 'M' = 24, 'H' =  SHAKE-256, 'h' = 5 */
+	XLMS_SHAKE_M24_HEIGHT_10 = 0x00000015U,
+				/**< 'M' = 24, 'H' =  SHAKE-256, 'h' = 10 */
+	XLMS_SHAKE_M24_HEIGHT_15 = 0x00000016U,
+				/**< 'M' = 24, 'H' =  SHAKE-256, 'h' = 15 */
+	XLMS_SHAKE_M24_HEIGHT_20 = 0x00000017U,
+				/**< 'M' = 24, 'H' =  SHAKE-256, 'h' = 20 */
+	XLMS_SHAKE_M24_HEIGHT_25 = 0x00000018U,
+				/**< 'M' = 24, 'H' =  SHAKE-256, 'h' = 25 */
 	XLMS_NOT_SUPPORTED	/**< Not Supported */
 } XLms_Type;
 
-/**
- * @brief Different Heights supported for Merkle Tree, 'h'=25 not supported
- */
 typedef enum {
 	XLMS_TREE_HEIGHT_UNSUPPORTED = 0U,	/**< Unsupported tree height */
 	XLMS_TREE_HEIGHT_5 = 5U,	/**< Supported tree height 5*/
 	XLMS_TREE_HEIGHT_10 = 10U,	/**< Supported tree height 10*/
 	XLMS_TREE_HEIGHT_15 = 15U,	/**< Supported tree height 15*/
-	XLMS_TREE_HEIGHT_20 = 20U	/**< Supported tree height 20*/
+	XLMS_TREE_HEIGHT_20 = 20U,	/**< Supported tree height 20*/
+	XLMS_TREE_HEIGHT_25 = 25U	/**< Supported tree height 25*/
 } XLms_TreeHeight;
 
 /**
@@ -246,7 +275,8 @@ typedef union {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XLms_LookupParamSet(XLms_Type Type, XLms_Param** Parameters);
+s32 XLms_LookupParamSet(XLms_Type Type, const XLms_Param** Parameters);
+#endif /* XASU_LMS_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
 
