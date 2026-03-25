@@ -157,25 +157,6 @@ typedef struct {
 	u8 IsLastChunkDest;     /**< Flag for last update in destination */
 }XSecure_AesDmaCfg;
 
-/**************************************** static inline function **********************************/
-
-/**************************************************************************************************/
-/**
- * @brief	This function validates SHA input data size.
- *
- * @param	Size	Input data size in bytes.
- *
- * @return
- *		- XST_SUCCESS Success always.
- *
- **************************************************************************************************/
-static inline int XSecure_ValidateShaDataSize(const u32 Size)
-{
-	(void)Size;
-
-	return XST_SUCCESS;
-}
-
 /**************************************** Function Prototypes *************************************/
 void XSecure_SetRsaCryptoStatus(void);
 void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op);
@@ -187,7 +168,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr, XPmcDma_Channel Channe
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
 int XSecure_InitiateASUKeyTransfer(void);
-int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
+int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 
 /*************************************** Variable Prototypes  *************************************/

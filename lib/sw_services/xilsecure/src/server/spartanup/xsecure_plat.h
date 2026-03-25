@@ -217,8 +217,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
-int XSecure_ValidateShaDataSize(const u32 Size);
-int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
+int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
 int XSecure_CryptoCheck(void);
 #ifdef SPARTANUPLUSAES1
 void XSecure_UpdateTrngCryptoStatus(u32 Op);

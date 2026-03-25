@@ -604,21 +604,22 @@ END:
 /**
 * @brief	This function transfer data to SHA engine from DMA
 *
-* @param	DmaPtr		Pointer to XPmcDma
+* @param	InstancePtr	Pointer to the SHA instance.
 * @param	DataAddr	Input data address
-* @param	Size		Input data size in words.
+* @param	Size		Input data size in bytes.
 * @param	IsLastUpdate	Last update flag
 *
  * @return
  *		- XST_SUCCESS - Upon success
- *		- XSECURE_SHA_INVALID_PARAM - Invalid parameter (DMA pointer is NULL or invalid IsLastUpdate value)
+ *		- XSECURE_SHA_INVALID_PARAM - Invalid parameter
 *
  *******************************************************************************************/
-int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
+int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
 {
 	int Status = XST_FAILURE;
+	XSecure_Sha *ShaInstancePtr = (XSecure_Sha *)InstancePtr;
 
-	if (DmaPtr == NULL) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
@@ -628,10 +629,18 @@ int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
 		goto END;
 	}
 
-	XPmcDma_ByteAlignedTransfer(DmaPtr, XPMCDMA_SRC_CHANNEL, DataAddr,
+	XPmcDma_ByteAlignedTransfer(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, DataAddr,
 				(u32)Size, (u8)IsLastUpdate);
 
-	Status = XST_SUCCESS;
+	/** Wait for PMC DMA done bit to be set. */
+	Status = XPmcDma_WaitForDoneTimeout(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/** Acknowledge the transfer has completed. */
+	XPmcDma_IntrClear(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 
 END:
 	return Status;

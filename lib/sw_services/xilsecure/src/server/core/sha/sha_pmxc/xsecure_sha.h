@@ -89,6 +89,7 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode);
 int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufSize,
 			      u32 ReqHashSize);
+u32 XSecure_ShaGetBlockLen(XSecure_ShaMode HashAlgo);
 
 #ifdef __cplusplus
 }

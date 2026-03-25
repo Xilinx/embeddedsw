@@ -56,7 +56,9 @@ extern "C" {
 
 #define XSECURE_SHA3_DONE_DONE		(1U << 0) /**< SHA Done */
 
-#define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA min block length */
+#define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA3-384 block length */
+#define XSECURE_SHA_PARTIAL_BUF_LEN	(256U) /**< Partial data buffer length,
+						  * sized for max block + NIST padding */
 
 #define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU)
 				/**< PMC DMA Max Transfer rate in bytes*/
@@ -124,7 +126,7 @@ typedef struct {
 
 	/* Versal and VersalNet specific fields */
 	u32 PartialLen; /**< Partial Length */
-	u8 PartialData[XSECURE_SHA3_BLOCK_LEN]; /**< Partial Data */
+	u8 PartialData[XSECURE_SHA_PARTIAL_BUF_LEN]; /**< Partial Data */
 
 	XSecure_SssSrc SssShaCfg; /**< SSS config value */
 	void *ShaPlatConfig; /**< SHA Platform specific config */
