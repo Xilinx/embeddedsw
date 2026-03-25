@@ -179,8 +179,8 @@ static s32 XHkdf_Extract(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	 * Update Input Keying Material (IKM) provided by user to the HMAC pseudo random function.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XHmac_Update(HmacPtr, DmaPtr, HkdfParams->KdfParams.KeyInAddr,
-			      HkdfParams->KdfParams.KeyInLen, XASU_TRUE);
+	Status = XHmac_Update(HmacPtr, DmaPtr, HkdfParams->KdfParams.KeyObject.KeyInAddr,
+			      HkdfParams->KdfParams.KeyObject.KeyInLen, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_HMAC_UPDATE_FAILED);
 		goto END;

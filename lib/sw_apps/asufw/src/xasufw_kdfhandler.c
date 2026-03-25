@@ -32,6 +32,9 @@
 #include "xsha_hw.h"
 #include "xasufw_util.h"
 #include "xasufw_kat.h"
+#include "xkeymanager.h"
+#include "xasufw_queuescheduler.h"
+#include "xil_sutil.h"
 
 #ifdef XASU_KDF_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -163,14 +166,54 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
-	const XAsu_KdfParams *KdfParams = (const XAsu_KdfParams *)ReqBuf->Arg;
+	s32 Status = XASUFW_FAILURE;
+	XAsu_KdfParams KdfParams;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KdfParams);
 
-	/** Perform KDF generate. */
-	Status = XKdf_Generate(XAsufw_KdfModule.AsuDmaPtr, XAsufw_KdfModule.ShaPtr, KdfParams);
+	/** Copy KDF parameters from request buffer. */
+	Status = Xil_SMemCpy(&KdfParams, sizeof(XAsu_KdfParams),
+			ReqBuf->Arg, sizeof(XAsu_KdfParams), sizeof(XAsu_KdfParams));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	/** If key vault ID is provided, resolve key object from vault. */
+	if (KdfParams.KeyObject.KeyId != 0U) {
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KdfModule.AsuDmaPtr,
+				KdfParams.KeyObject.KeyId, (u64)(UINTPTR)&KdfParams.KeyObject,
+				SubsystemId,
+				XKEYMANAGER_KDF_HMAC_KDF_USE_CASE,
+				XKEYMANAGER_RSA_OP_NONE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+	} else if (KdfParams.KeyObject.KeyInAddr == 0U) {
+		/**
+		 * If no vault key ID and no direct key address,
+		 * there is no key source to derive from.
+		 */
+		Status = XASUFW_KDF_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Else, use the direct key address provided by the caller.
+	 * Perform KDF generate with the resolved or direct key.
+	 */
+	Status = XKdf_Generate(XAsufw_KdfModule.AsuDmaPtr, XAsufw_KdfModule.ShaPtr, &KdfParams);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_GENERATE_FAILED);
 	}

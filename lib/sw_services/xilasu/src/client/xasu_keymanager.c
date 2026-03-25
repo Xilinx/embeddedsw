@@ -571,4 +571,69 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to perform raw key generation for the
+ * 		requested subsystem on the provided key size. This can be used for KDF and HMAC
+ * 		key generation in the key vault.
+ *
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * 					client input parameters.
+ * @param	KmSubVaultParamPtr	Pointer to XAsu_KeyManagerParams structure which holds the
+ *					parameters of KeyVault input arguments.
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerParams *KmSubVaultParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_KDF_HMAC_KEYTYPE);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+						(u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr,
+						XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_GEN_RAW_KEY_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,
+					(u32)(sizeof(XAsu_KeyManagerParams)), Header);
+
+END:
+	return Status;
+}
 /** @} */

@@ -228,8 +228,9 @@ s32 XAsu_KdfSha3Kat(void)
 	/** Set up KDF parameters. */
 	KdfParams.ShaType = XASU_SHA3_TYPE;
 	KdfParams.ShaMode = XASU_SHA_MODE_256;
-	KdfParams.KeyInAddr = (u64)(UINTPTR)KdfKatKey;
-	KdfParams.KeyInLen = XASU_KDF_KAT_KEY_LEN_IN_BYTES;
+	KdfParams.KeyObject.KeyInAddr = (u64)(UINTPTR)KdfKatKey;
+	KdfParams.KeyObject.KeyInLen = XASU_KDF_KAT_KEY_LEN_IN_BYTES;
+	KdfParams.KeyObject.KeyId = 0U;
 	KdfParams.ContextAddr = (u64)(UINTPTR)KdfKatCtx;
 	KdfParams.ContextLen = XASU_KDF_KAT_CTX_LEN_IN_BYTES;
 	KdfParams.KeyOutAddr = (u64)(UINTPTR)KdfOutput;

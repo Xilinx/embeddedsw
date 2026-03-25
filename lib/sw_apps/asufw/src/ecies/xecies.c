@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -302,8 +302,9 @@ static s32 XEcies_HkdfGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 	HkdfParams.KdfParams.ShaType = (u8)EciesParams->ShaType;
 	HkdfParams.KdfParams.ShaMode = (u8)EciesParams->ShaMode;
-	HkdfParams.KdfParams.KeyInAddr = (u64)(UINTPTR)SharedSecretPtr;
-	HkdfParams.KdfParams.KeyInLen = (u32)EciesParams->EccKeyLength;
+	HkdfParams.KdfParams.KeyObject.KeyInAddr = (u64)(UINTPTR)SharedSecretPtr;
+	HkdfParams.KdfParams.KeyObject.KeyInLen = (u32)EciesParams->EccKeyLength;
+	HkdfParams.KdfParams.KeyObject.KeyId = 0U;
 	HkdfParams.KdfParams.KeyOutAddr = (u64)(UINTPTR)KOutPtr;
 	HkdfParams.KdfParams.ContextAddr = EciesParams->ContextAddr;
 	HkdfParams.KdfParams.ContextLen = EciesParams->ContextLen;

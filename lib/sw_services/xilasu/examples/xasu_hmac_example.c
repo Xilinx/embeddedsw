@@ -204,8 +204,9 @@ static s32 Asu_HmacExample(void)
 	HmacClientParam.ShaMode = (u8)XASU_SHA_MODE_512;
 	HmacClientParam.IsLast = (u8)TRUE;
 	HmacClientParam.OperationFlags = (u8)(XASU_HMAC_INIT | XASU_HMAC_UPDATE | XASU_HMAC_FINAL);
-	HmacClientParam.KeyAddr = (u64)(UINTPTR)Key;
-	HmacClientParam.KeyLen = ASU_HMAC_KEY_LEN_IN_BYTES;
+	HmacClientParam.KeyObject.KeyInAddr = (u64)(UINTPTR)Key;
+	HmacClientParam.KeyObject.KeyInLen = ASU_HMAC_KEY_LEN_IN_BYTES;
+	HmacClientParam.KeyObject.KeyId = 0U;
 	HmacClientParam.MsgBufferAddr = (u64)(UINTPTR)Message;
 	HmacClientParam.MsgLen = ASU_HMAC_MSG_LEN_IN_BYTES;
 	HmacClientParam.HmacAddr = (u64)(UINTPTR)HmacOutput;

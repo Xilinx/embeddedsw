@@ -37,9 +37,11 @@ extern "C" {
 #include "xasu_keymanagerinfo.h"
 
 /************************** Constant Definitions *************************************************/
-#define XASU_KM_AES_KEYTYPE     (0U)    /**< Key type identifier for AES key */
-#define XASU_KM_IV_KEYTYPE      (1U)    /**< Key type identifier for IV */
-#define XASU_KM_RSA_KEYTYPE     (2U)    /**< Key type identifier for RSA key */
+#define XASU_KM_AES_KEYTYPE     	(0U)    /**< Key type identifier for AES key */
+#define XASU_KM_IV_KEYTYPE      	(1U)    /**< Key type identifier for IV */
+#define XASU_KM_KDF_HMAC_KEYTYPE     	(2U)    /**< Key type identifier for KDF/HMAC key */
+#define XASU_KM_RSA_KEYTYPE     	(3U)    /**< Key type identifier for RSA key */
+
 
 #define XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK	(0xFFU) /**< Mask to extract lower byte of AccessRights */
 #define XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT	(8U) /**< Shift to extract upper byte of AccessRights */

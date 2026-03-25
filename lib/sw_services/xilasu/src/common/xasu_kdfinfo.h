@@ -16,6 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   01/15/25 Initial release
+ *       kp   03/24/26 Added XAsu_KdfHmacKeyObject structure for key vault resolution
+ *                     Embedded KeyObject in XAsu_KdfParams replacing inline key fields
  *
  * </pre>
  *
@@ -34,6 +36,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_hmacinfo.h"
 #ifdef SDT
 #include "xasu_bsp_config.h"
 #endif
@@ -46,22 +49,22 @@ extern "C" {
 #define XASU_KDF_MAX_CMDS		(3U) /**< Maximum number of commands supported by KDF module */
 
 #define XASU_KDF_MAX_CONTEXT_LEN		(1024U) /**< Maximum context length */
+#define XASU_KDF_MAX_KEY_LENGTH			(1024U) /**< Maximum key length for KDF */
 
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This structure contains KDF params info. */
 typedef struct {
-	u64 KeyInAddr; /**< Address of the input key buffer */
+	XAsu_KdfHmacKeyObject KeyObject; /**< Key object for input key */
 	u64 ContextAddr; /**< Address of the buffer holding the fixed input data */
 	u64 KeyOutAddr; /**< Address of the buffer to hold the keying material output from KDF */
-	u32 KeyInLen; /**< Length of the input key */
 	u32 ContextLen; /**< Length of the Context */
 	u32 KeyOutLen; /**< Length of the keying material output to be generated from KDF */
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
 		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
-	u16 Reserved; /**< Reserved for alignment */
+	u8 Reserved[6]; /**< Reserved for 8-byte alignment */
 } XAsu_KdfParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

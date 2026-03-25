@@ -32,6 +32,8 @@
 #include "xasufw_util.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
+#include "xkeymanager.h"
+#include "xasufw_queuescheduler.h"
 
 #ifdef XASU_HMAC_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -184,17 +186,53 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 *ResponseBufferPtr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 				 XASUFW_RESP_DATA_OFFSET;
 	static u32 HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
+	XAsu_KdfHmacKeyObject KeyObject;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_HmacParams);
 
+	KeyObject = HmacParamsPtr->KeyObject;
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
 	switch (HmacCmdStage) {
 	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:
 		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
-			/** If operation flags include HMAC INIT, perform HMAC init operation. */
+			/** If key vault ID is provided, resolve key object from vault. */
+			if (HmacParamsPtr->KeyObject.KeyId != 0U) {
+				Status = XKeyManager_UpdateKeyObjFromVault(
+						XAsufw_HmacModule.AsuDmaPtr,
+						HmacParamsPtr->KeyObject.KeyId,
+						(u64)(UINTPTR)&KeyObject,
+						SubsystemId,
+						XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE,
+						XKEYMANAGER_RSA_OP_NONE);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+					goto END;
+				}
+			} else if (HmacParamsPtr->KeyObject.KeyInAddr == 0U) {
+				/**
+				 * If no vault key ID and no direct key address,
+				 * there is no key source to authenticate with.
+				 */
+				Status = XASUFW_HMAC_INVALID_PARAM;
+				goto END;
+			}
+			/**
+			 * Else, use the direct key address provided by the caller.
+			 * Perform HMAC init with the resolved or direct key.
+			 */
 			Status = XHmac_Init(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
-					XAsufw_HmacModule.ShaPtr, HmacParamsPtr->KeyAddr,
-					HmacParamsPtr->KeyLen, HmacParamsPtr->ShaMode,
+					XAsufw_HmacModule.ShaPtr, KeyObject.KeyInAddr,
+					KeyObject.KeyInLen, HmacParamsPtr->ShaMode,
 					HmacParamsPtr->HmacLen);
 			if (Status != XST_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status,

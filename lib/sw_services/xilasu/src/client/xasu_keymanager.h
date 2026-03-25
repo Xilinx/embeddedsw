@@ -57,6 +57,8 @@ s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 s32 XAsu_KmGenerateEccKeyPair(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *KeyParams);
+s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

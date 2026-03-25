@@ -18,6 +18,7 @@
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added key management support for RSA.
  *       ss   03/18/26 Added vault query, store, and fetch APIs for scheduler-based RSA key gen.
+ *       kp   03/24/26 Moved KDF/HMAC key info structure to xasu_kdfinfo.h
  *
  * </pre>
  *
@@ -38,6 +39,7 @@ extern "C" {
 #include "xaes.h"
 #include "xasu_aesinfo.h"
 #include "xasu_keymanagerinfo.h"
+#include "xasu_kdfinfo.h"
 #include "xasufw_dma.h"
 #include "xasu_rsainfo.h"
 #include "xasu_ocpinfo.h"
@@ -87,6 +89,9 @@ extern "C" {
 #define XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< ECC private key sign use case */
 #define XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC private key key agreement use case */
 #define XKEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC private key key authentication and encryption use case */
+
+#define XKEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */
+#define XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE	(0x02U)	/**< HMAC secret key use case */
 
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
 #define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
@@ -144,6 +149,12 @@ typedef struct {
 	XAsu_KeyManagerKeyMetadata Metadata;	/**< IV metadata. */
 	u8 Content[XASU_AES_IV_SIZE_128BIT_IN_BYTES];	/**< IV data. */
 } XKeyManager_IvObject;
+
+/** This structure contains KDF/HMAC key object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 Content[XASU_KM_KDF_HMAC_MAX_KEY_LENGTH];	/**< Key data. */
+} XKeyManager_KdfHmacKeyObject;
 
 /** This structure contains RSA private key object information. */
 typedef struct {

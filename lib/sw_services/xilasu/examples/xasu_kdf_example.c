@@ -184,8 +184,9 @@ static s32 Asu_KdfExample(void)
 	ErrorStatus = XST_FAILURE;
 	KdfClientParam.ShaType = (u8)XASU_SHA3_TYPE;
 	KdfClientParam.ShaMode = (u8)XASU_SHA_MODE_384;
-	KdfClientParam.KeyInAddr = (u64)(UINTPTR)Key;
-	KdfClientParam.KeyInLen = ASU_KDF_KEY_LEN_IN_BYTES;
+	KdfClientParam.KeyObject.KeyInAddr = (u64)(UINTPTR)Key;
+	KdfClientParam.KeyObject.KeyInLen = ASU_KDF_KEY_LEN_IN_BYTES;
+	KdfClientParam.KeyObject.KeyId = 0U;
 	KdfClientParam.ContextAddr = (u64)(UINTPTR)Data;
 	KdfClientParam.ContextLen = ASU_KDF_FIXED_DATA_LEN_IN_BYTES;
 	KdfClientParam.KeyOutAddr = (u64)(UINTPTR)KdfOutput;

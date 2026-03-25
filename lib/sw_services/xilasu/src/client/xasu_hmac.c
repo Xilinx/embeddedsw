@@ -326,8 +326,9 @@ s32 XAsu_HmacSha3Kat(void)
 	HmacParams.OperationFlags = XASU_HMAC_INIT | XASU_HMAC_UPDATE |
 		XASU_HMAC_FINAL;
 	HmacParams.IsLast = XASU_TRUE;
-	HmacParams.KeyAddr = (u64)(UINTPTR)HmacKatKey;
-	HmacParams.KeyLen = XASU_HMAC_KAT_KEY_LEN_IN_BYTES;
+	HmacParams.KeyObject.KeyInAddr = (u64)(UINTPTR)HmacKatKey;
+	HmacParams.KeyObject.KeyInLen = XASU_HMAC_KAT_KEY_LEN_IN_BYTES;
+	HmacParams.KeyObject.KeyId = 0U;
 	HmacParams.MsgBufferAddr = (u64)(UINTPTR)HmacKatMsg;
 	HmacParams.MsgLen = XASU_HMAC_KAT_MSG_LEN_IN_BYTES;
 	HmacParams.HmacAddr = (u64)(UINTPTR)HmacOutput;
@@ -401,9 +402,14 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 			goto END;
 		}
 
-		if ((HmacParamsPtr->KeyAddr == 0U) ||
-		    (HmacParamsPtr->KeyLen == 0U) ||
-		    (HmacParamsPtr->KeyLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+		/**
+		 * Validate key input: either a direct key address or a vault key ID
+		 * must be provided. If a direct key is given, its length must be
+		 * non-zero and within the maximum DMA transfer length.
+		 */
+		if (((HmacParamsPtr->KeyObject.KeyInAddr == 0U) && (HmacParamsPtr->KeyObject.KeyId == 0U)) ||
+		    ((HmacParamsPtr->KeyObject.KeyInAddr != 0U) && ((HmacParamsPtr->KeyObject.KeyInLen == 0U) ||
+		    (HmacParamsPtr->KeyObject.KeyInLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)))) {
 			goto END;
 		}
 	}

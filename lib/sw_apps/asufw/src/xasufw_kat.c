@@ -1795,8 +1795,9 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	u8 KdfOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {0U};
 	XAsu_KdfParams Params;
 
-	Params.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
-	Params.KeyInLen = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
+	Params.KeyObject.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
+	Params.KeyObject.KeyInLen = XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES;
+	Params.KeyObject.KeyId = 0U;
 	Params.ContextAddr = (u64)(UINTPTR)KatMessage;
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;

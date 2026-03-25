@@ -29,6 +29,7 @@
 /***************************** Include Files *****************************************************/
 #include "xasu_keymanager_common.h"
 #include "xasu_aesinfo.h"
+#include "xasu_hmacinfo.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -117,6 +118,14 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 		}
 	}
 
+	/** Validate key length is non-zero and does not exceed maximum size for KDF/HMAC. */
+	if (KeyType == XASU_KM_KDF_HMAC_KEYTYPE) {
+		if ((KmSubVaultParamPtr->KeyMetadata.Length == 0U) ||
+		    (KmSubVaultParamPtr->KeyMetadata.Length > XASU_KM_KDF_HMAC_MAX_KEY_LENGTH)) {
+			goto END;
+		}
+	}
+
 	/** Validate key length based on compile-time RSA key generation configuration. */
 	if (KeyType == XASU_KM_RSA_KEYTYPE) {
 #if defined(XASU_RSA_3072_KEYGEN_ENABLE)
@@ -190,11 +199,11 @@ s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *Params
 	/** Validate at least one sub-vault has non-zero capacity. */
 	if ((ParamsPtr->AESKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->IVVaultCapacity == 0U) &&
+	    (ParamsPtr->KDFHmacKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->RSAPvtKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->RSAPubKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->ECCPvtKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->ECCPubKeyVaultCapacity == 0U) &&
-	    (ParamsPtr->KDFKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->LMSKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->X509KeyVaultCapacity == 0U)) {
 		goto END;

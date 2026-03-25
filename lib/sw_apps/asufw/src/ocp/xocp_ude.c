@@ -124,10 +124,10 @@ s32 XOcp_GenerateUdeKek(void)
 	}
 
 	/** Update KDF parameters. */
-	KdfParams.KeyInAddr = 0U;
+	KdfParams.KeyObject.KeyInAddr = 0U;
 	KdfParams.ContextAddr = (u64)(UINTPTR)Context;
 	KdfParams.KeyOutAddr = (u64)(UINTPTR)XOcp_UdeKek;
-	KdfParams.KeyInLen = XASU_AES_KEY_SIZE_256_BITS;
+	KdfParams.KeyObject.KeyInLen = XASU_AES_KEY_SIZE_256_BITS;
 	KdfParams.ContextLen = XOCP_UDE_CONTEXT_LEN;
 	KdfParams.KeyOutLen = XOCP_UDE_KEK_SIZE_IN_BYTES;
 

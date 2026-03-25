@@ -50,11 +50,12 @@ extern "C" {
 #define XASU_KM_DELETE_KEY_CMD_ID		(2U) /**< Command ID for key deletion */
 #define XASU_KM_GEN_AES_KEY_CMD_ID		(3U) /**< Command ID for AES key generation */
 #define XASU_KM_GEN_AES_IV_CMD_ID		(4U) /**< Command ID for AES IV generation */
-#define XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID		(5U) /**< Command ID for RSA key pair generation */
-#define XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID		(6U) /**< Command ID for ECC key pair generation */
-#define XASU_KM_STORE_KEY_CMD_ID		(7U) /**< Command ID for storing key in vault */
-#define XASU_KM_MAX_CMDS			(8U) /**< Maximum number of commands
-										   * supported by KeyManager module */
+#define XASU_KM_GEN_RAW_KEY_CMD_ID		(5U) /**< Command ID for raw key generation */
+#define XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID		(6U) /**< Command ID for RSA key pair generation */
+#define XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID		(7U) /**< Command ID for ECC key pair generation */
+#define XASU_KM_STORE_KEY_CMD_ID		(8U) /**< Command ID for storing key in vault */
+#define XASU_KM_MAX_CMDS			(9U) /**< Maximum number of commands
+											   * supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
 
@@ -64,17 +65,20 @@ extern "C" {
 #define XASU_KM_KEYTYPE_WRAPPED_BIT_MASK	(0x80U) /**< Bit mask for wrapped key type */
 
 #define XASU_KM_MAX_VAULTS			(64U) /**< Maximum number of key vaults supported */
+
+#define XASU_KM_KDF_HMAC_MAX_KEY_LENGTH		(136U) /**< Max key length for KDF/HMAC in
+							    key vault. */
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This enum contains sub vault ID related information. */
 typedef enum {
 	XASU_AES_SUBVAULT_ID,		/**< AES key sub-vault ID. */
 	XASU_IV_SUBVAULT_ID,		/**< IV sub-vault ID. */
+	XASU_KDF_HMAC_SUBVAULT_ID,	/**< KDF/HMAC key sub-vault ID. */
 	XASU_RSA_PVT_SUBVAULT_ID,	/**< RSA private key sub-vault ID. */
 	XASU_RSA_PUB_SUBVAULT_ID,	/**< RSA public key sub-vault ID. */
 	XASU_ECC_PVT_SUBVAULT_ID,	/**< ECC private key sub-vault ID. */
 	XASU_ECC_PUB_SUBVAULT_ID,	/**< ECC public key sub-vault ID. */
-	XASU_KDF_SUBVAULT_ID,		/**< KDF key sub-vault ID. */
 	XASU_LMS_SUBVAULT_ID,		/**< LMS key sub-vault ID. */
 	XASU_X509_SUBVAULT_ID,		/**< X509 certificate sub-vault ID. */
 	XASU_INVALID_SUBVAULT_ID,	/**< Invalid sub-vault identifier. */
@@ -107,11 +111,11 @@ typedef struct {
 	u64 VaultIdAddr; /**< Address where generated vault ID is stored. */
 	u16 AESKeyVaultCapacity; /**< Count for the AES key vault. */
 	u16 IVVaultCapacity; /**< Count for the IV vault. */
+	u16 KDFHmacKeyVaultCapacity; /**< Count for KDF/HMAC key material. */
 	u16 RSAPvtKeyVaultCapacity; /**< Count for RSA private keys. */
 	u16 RSAPubKeyVaultCapacity; /**< Count for RSA public keys. */
 	u16 ECCPvtKeyVaultCapacity; /**< Count for ECC private keys. */
 	u16 ECCPubKeyVaultCapacity; /**< Count for ECC public keys. */
-	u16 KDFKeyVaultCapacity; /**< Count for KDF material. */
 	u16 LMSKeyVaultCapacity; /**< Count for LMS keys. */
 	u16 X509KeyVaultCapacity; /**< Count for X.509 certificates. */
 	u16 AccessRights; /**< Access permissions for the key vault. */
