@@ -1101,7 +1101,6 @@ done:
 XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Source;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Platform = XPm_GetPlatform();
 
@@ -1114,14 +1113,13 @@ XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask)
 		goto done;
 	}
 
-	Source = (u32)Rail->Source;
-	if ((u32)XPM_PGOOD_SYSMON == Source) {
-		Status = XPmPower_SysmonCheckPower(Rail);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-		}
-	} else {
-		DbgErr = XPM_INT_ERR_RAIL_SOURCE;
+	/*
+	 * Rail->Source is guaranteed to be XPM_PGOOD_SYSMON here because
+	 * the guard above rejects any other source via goto done.
+	 */
+	Status = XPmPower_SysmonCheckPower(Rail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 	}
 
 done:
