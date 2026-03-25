@@ -115,11 +115,6 @@ XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 		goto done;
 	}
 
-	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
-
 	if (IS_DEV_AIE(DeviceId)) {
 		Status = XPmAieDevice_QueryDivider(Response);
 	} else {
