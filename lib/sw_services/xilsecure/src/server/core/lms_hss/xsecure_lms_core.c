@@ -35,7 +35,6 @@
 /***************************** Include Files **********************************/
 #include "xsecure_sha.h"
 #include "xsecure_lms_core.h"
-#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 static volatile XSecure_LmsPublicKey AuthenticatedKey;
@@ -54,7 +53,7 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes);
 
 /**************************** Type Definitions *******************************/
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) || defined(SPARTANUPLUS)
 #define XSECURE_PUB_ALGO_LMS_HSS	(4U)	/**< LMS/HSS public key algorithm */
 #define XSECURE_PUB_ALGO_LMS		(5U)	/**< LMS public key algorithm */
 #endif
@@ -475,7 +474,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	/**
 	 * 6a. Signature checks
-	 * 1 	- Length should be atleast 8 bytes long
+	 * 1 	- Length should be at least 8 bytes long
 	 * 2a 	- Parse 'q', OTS 'Type'
 	 * 2b,2c - OTS 'Type' should match with pub key OTS 'Type'
 	 * 2d 	- Set 'n', 'p' from signature OTS 'Type',
@@ -886,7 +885,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 	/* Signature processing - sequence */
 	/* ****************************************************************************************** */
 
-	/* Length should have atleast levels mentioned */
+	/* Length should have at least levels mentioned */
 	if (XSECURE_LMS_HSS_LEVELS_FIELD_SIZE > HssInitParams->SignatureLen) {
 		Status = XSECURE_LMS_INVALID_PARAM;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -999,7 +998,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			CurrentLevelSignLen);
 		/*
 		 * Signature Length should be equal or more than required,
-		 * should have atleast sig[0] + pub[1] Length
+		 * should have at least sig[0] + pub[1] Length
 		 */
 		if (HssInitParams->SignatureLen < (XSECURE_LMS_HSS_LEVELS_FIELD_SIZE +
 				CurrentLevelSignLen +
@@ -1309,6 +1308,86 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Finish - Data Authenticated using LMS\n\r");
 
 	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+* @brief	This function performs complete HSS signature verification in a
+*		single call. It internally calls HssInit, LmsHashMessage, and
+*		HssFinish in sequence. The hash algorithm mode is automatically
+*		determined from the authenticated public key.
+*
+* @param	ShaInstPtr	Pointer to SHA instance
+* @param	DmaPtr		Pointer to DMA instance
+* @param	HssInitParams	Pointer to HSS initialization parameters
+*				(signature buffer, public key, and their lengths)
+* @param	Data		Pointer to the data to be verified
+* @param	DataLen		Length of data to be verified
+*
+* @return
+*		- XST_SUCCESS - On success
+*		- Error codes from XSecure_HssInit, XSecure_LmsHashMessage,
+*		  or XSecure_HssFinish on failure
+*******************************************************************************/
+int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
+	XSecure_HssInitParams *HssInitParams, u8 *Data, u32 DataLen)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_LmsType PublicKeyLmsType;
+	const XSecure_LmsParam *PubKeyLmsParam = NULL;
+
+	if ((ShaInstPtr == NULL) || (DmaPtr == NULL) ||
+	    (HssInitParams == NULL) || (Data == NULL)) {
+		Status = (int)XSECURE_LMS_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * - Validate public key and signature structure; authenticate upper-level
+	 * tree public keys for multi-level HSS
+	 */
+	Status = XSecure_HssInit(ShaInstPtr, DmaPtr, HssInitParams);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	/**
+	 * - Determine the hash algorithm from the authenticated bottom-level
+	 * public key's LMS type
+	 */
+	PublicKeyLmsType = (XSecure_LmsType)XSecure_SwapBytes(
+		(const void *)&AuthenticatedKey.Buff[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
+		XSECURE_LMS_TYPE_SIZE);
+
+	Status = XST_FAILURE;
+	Status = XSecure_LmsLookupParamSet(PublicKeyLmsType,
+		(XSecure_LmsParam **)&PubKeyLmsParam);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	/**
+	 * - Compute the message digest to be verified against the LMS signature
+	 */
+	Status = XST_FAILURE;
+	Status = XSecure_LmsHashMessage(ShaInstPtr, Data, DataLen,
+		PubKeyLmsParam->H);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	/**
+	 * - Verify the bottom-level LMS signature against the message digest
+	 */
+	Status = XST_FAILURE;
+	Status = XSecure_HssFinish(ShaInstPtr, DmaPtr,
+		HssInitParams->SignBuff, HssInitParams->SignatureLen);
+
 END:
 	return Status;
 }

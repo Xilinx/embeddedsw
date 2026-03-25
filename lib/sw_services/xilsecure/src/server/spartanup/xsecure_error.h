@@ -105,24 +105,144 @@ enum {
 
 	XSECURE_AES_DMA_COMPONENT_IS_NOT_READY, /**< 0x4D - Error when DMA component is not ready */
 
-	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV = 0xC2,		/**< 0xC2 - Elliptic Curve not supported */
-	XSECURE_ELLIPTIC_KEY_ZERO,			/**< 0xC3 - Public key is zero */
-	XSECURE_ELLIPTIC_KEY_WRONG_ORDER,		/**< 0xC4 - Wrong order of Public key */
-	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV,		/**< 0xC5 - Key not found on curve */
-	XSECURE_ELLIPTIC_BAD_SIGN,			/**< 0xC6 - Signature provided for
+	XSECURE_LMS_INVALID_PARAM = 0x95,			/**< 0x95 - LMS invalid input param */
+	XSECURE_LMS_OTS_PUB_KEY_SIGN_TYPE_MISMATCH_ERROR,	/**< 0x96 - LMS OTS Signature
+					Verification - OTS Sign type mismatch with public key */
+	XSECURE_LMS_TYPE_UNSUPPORTED_ERROR,
+					/**< 0x97 - LMS Type not supported */
+	XSECURE_LMS_TYPE_LOOKUP_GLITCH_ERROR,
+					/**< 0x98 - LMS parameter look up - glitch detected */
+	XSECURE_LMS_OTS_SIGN_SHA_DIGEST_FAILED_ERROR,	/**< 0x99 - LMS OTS Signature
+				Verification - hash chain per iteration sha digest failed */
+	XSECURE_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR,	/**< 0x9A - LMS OTS Signature
+				Verification - parameter lookup failed - not supported type */
+	XSECURE_AUTH_LMS_OTS_INVALID_SIGN_ADDR_ERROR,	/**< 0x9B - LMS OTS Signature
+				Verification - when signature to be used is at invalid address */
+	XSECURE_AUTH_LMS_DIGEST_CHECKSUM_FAILED_ERROR,	/**< 0x9C - LMS OTS Signature
+				Verification - checksum calculation failed during
+				digest calculation */
+	XSECURE_LMS_OTS_DIGEST_CHECKSUM_OP_FAILED_ERROR,	/**< 0x9D - LMS OTS Signature
+				Verification - Digest calculation operation failed */
+	XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_ADDR_ERROR,		/**< 0x9E - LMS Signature
+				Verification - invalid address for expected public key
+				at Merkle tree root */
+	XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_1_ERROR,		/**< 0x9F - LMS Signature
+				Verification - invalid len for expected public key at
+				Merkle tree root - less than or equal to 4 */
+	XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR,		/**< 0xA0 - LMS Signature
+				Verification - invalid len for expected public key at Merkle
+				tree root - total less than required by parameters */
+	XSECURE_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR,	/**< 0xA1 - LMS Signature Verification
+				 - LMS public key parameter pick up failed - un supported type */
+	XSECURE_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR,	/**< 0xA2 - LMS Signature
+				Verification - LMS type mismatch between LMS
+				signature and public key */
+	XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR,/**< 0xA3 - LMS OTS type mismatch
+						 - between LMS OTS signature and public key */
+	XSECURE_LMS_SIGN_LEN_1_ERROR,	/**< 0xA4 - LMS Signature Verification
+					 - LMS signature length less than or equal 4 bytes */
+	XSECURE_LMS_SIGN_LEN_2_ERROR,	/**< 0xA5 - LMS Signature Verification - LMS signature
+					 length less than required for LMS OTS signature */
+	XSECURE_LMS_SIGN_LEN_3_ERROR,	/**< 0xA6 - LMS Signature Verification - LMS signature
+				length error - total len less than required by parameters */
+	XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR,	/**< 0xA7 - LMS Signature Verification
+				 - LMS OTS parameters look up failed - unsupported type */
+	XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR,	/**< 0xA8 - LMS Signature Verification
+				 - LMS signature parameters lookup failed - un supported type */
+	XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR,	/**< 0xA9 - LMS Signature Verification
+				- invalid node number 'q' in a Merkle tree */
+	XSECURE_LMS_SIGN_OTS_OP_ERROR,			/**< 0xAA - LMS Signature Verification
+				- LMS OTS signature verification failed */
+	XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR,	/**< 0xAB - LMS Signature
+				Verification - calculated LMS public key did not match with
+				expected - authentication failed */
+	XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR,	/**< 0xAC - LMS Signature
+				Verification - LMS public key comparison glitch detected -
+				authentication failed */
+	XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR,	/**< 0xAD - LMS Signature
+				Verification - LMS signature to public key - leaf node
+				sha digest failed */
+	XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_ODD_FAILED_ERROR,/**< 0xAE - LMS Signature
+				Verification - LMS signature to public key - odd internal
+				node sha digest failed */
+	XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_EVEN_FAILED_ERROR,/**< 0xAF - LMS Signature
+				Verification - LMS signature to public key - even internal
+				node sha digest failed */
+	XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR,/**< 0xB0 - LMS Signature
+				Verification - SHA algorithm mismatch between one selected in
+				Boot header and LMS & OTS - level 0 */
+	XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L1_ERROR,/**< 0xB1 - LMS Signature
+				Verification - SHA algorithm mismatch between one selected
+				in Boot header and LMS & OTS - level 1 */
+	XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_1_ERROR,	/**< 0xB2 - LMS HSS Signature
+				verification - HSS public key at an invalid address */
+	XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR,	/**< 0xB3 - LMS HSS Signature
+				verification - HSS pub key len less than required */
+	XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR,	/**< 0xB4 - LMS HSS Signature
+				verification - only two levels of Merkle trees are supported */
+	XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR,	/**< 0xB5 - LMS HSS
+				Signature verification - HSS pub key's LMS type parameter
+				look up failed for level 0 tree */
+	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR,	/**< 0xB6 - LMS HSS
+				Signature verification - HSS pub key's LMS type parameter look
+				up failed for level 1 tree - in HSS init */
+	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR,	/**< 0xB7 - LMS HSS
+				Signature verification - HSS pub key's LMS type parameter look
+				up failed for level 1 tree - in HSS Finish */
+	XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR,	/**< 0xB8 - LMS HSS
+				Signature verification - HSS pub key's LMS OTS type parameter
+				look up failed for level 0 tree */
+	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR,	/**< 0xB9 - LMS HSS
+				Signature verification - HSS pub key's LMS OTS type parameter look
+				up failed for level 1 tree */
+	XSECURE_LMS_HSS_SIGN_INVALID_LEN_1_ERROR,	/**< 0xBA - LMS HSS Signature verification
+				 - HSS pub key's LMS OTS type parameter look up for level
+				1 tree - temporal glitch detected */
+	XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR,	/**< 0xBB - LMS HSS Signature verification
+				 - HSS signature len does not fit OTS signature for level 0 */
+	XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR,	/**< 0xBC - LMS HSS Signature verification
+				 - HSS signature len does not fit OTS signature for level 1 */
+	XSECURE_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR,	/**< 0xBD - LMS HSS Signature
+				verification - HSS pub key & Signature levels mismatch */
+	XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR,		/**< 0xBE - LMS HSS Signature
+				verification - Level 0 LMS auth op failed */
+	XSECURE_LMS_HSS_L1_PUB_KEY_AUTH_FAILED_ERROR,		/**< 0xBF - LMS HSS Signature
+				verification - Level 1 LMS auth op failed */
+	XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR,	/**< 0xC0 - LMS HSS Signature
+				verification - OTS sign at level 1 is less than 4 bytes */
+	XSECURE_LMS_PUB_OP_FAILED_ERROR,	/**< 0xC1 - LMS HSS Signature verification
+				 - authenticated public key for level 1 tree copy failed */
+	XSECURE_LMS_PUB_OP_FAILED_1_ERROR,	/**< 0xC2 - LMS HSS Signature verification
+				 - authenticated public key for level 1 tree copy
+				failed - iteration mismatch */
+	XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR,	/**< 0xC3 - LMS OTS
+				Checksum - buffer for digest is of invalid length (0) */
+	XSECURE_LMS_OTS_TYPE_UNSUPPORTED_ERROR,		/**< 0xC4 - LMS OTS
+							type not supported */
+	XSECURE_LMS_OTS_TYPE_LOOKUP_GLITCH_ERROR,	/**< 0xC5 - LMS OTS
+							parameter look up - glitch detected */
+	XSECURE_LMS_MEM_COPY_ERROR = 0xD9,	/**< 0xD9 - Error in copying from buffer in LMS operation */
+	XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR,	/**< 0xDA - Error in zeroizing LMS HSS key */
+
+	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV = 0xC6,		/**< 0xC6 - Elliptic Curve not supported */
+	XSECURE_ELLIPTIC_KEY_ZERO,			/**< 0xC7 - Public key is zero */
+	XSECURE_ELLIPTIC_KEY_WRONG_ORDER,		/**< 0xC8 - Wrong order of Public key */
+	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV,		/**< 0xC9 - Key not found on curve */
+	XSECURE_ELLIPTIC_BAD_SIGN,			/**< 0xCA - Signature provided for
 							verification is bad */
-	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN,   /**< 0xC7 - Incorrect hash length
+	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN,   /**< 0xCB - Incorrect hash length
 							for sign generation */
-	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN,   /**< 0xC8 - Incorrect hash length
+	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN,   /**< 0xCC - Incorrect hash length
 							for sign verification */
-	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM,	        /**< 0xC9 - Bad random number used
+	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM,	/**< 0xCD - Bad random number used
 							for sign generation */
-	XSECURE_ELLIPTIC_GEN_KEY_ERR,		     /**< 0xCA - Error in generating Public key */
-	XSECURE_ELLIPTIC_INVALID_PARAM,		     /**< 0xCB - Invalid argument */
-	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO,               /**< 0xCC - R set to zero */
-	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO,               /**< 0xCD - S set to zero */
-	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR,        /**< 0xCE - R is not within ECC order */
-	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xCF - S is not within ECC order */
+	XSECURE_ELLIPTIC_GEN_KEY_ERR,		     /**< 0xCE - Error in generating Public key */
+	XSECURE_ELLIPTIC_INVALID_PARAM,		     /**< 0xCF - Invalid argument */
+	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO,               /**< 0xD0 - R set to zero */
+	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO,               /**< 0xD1 - S set to zero */
+	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR,        /**< 0xD2 - R is not within ECC order */
+	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xD3 - S is not within ECC order */
+
 	XSECURE_ERR_GLITCH_DETECTED = 0xFC,		/**< 0xFC - Error glitch detected */
 	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFD - Error in TRNG self tests */
 	XSECURE_ERR_TRNG_INIT_N_CONFIG,		/**< 0xFE - Error in TRNG Instantiate and configuration */

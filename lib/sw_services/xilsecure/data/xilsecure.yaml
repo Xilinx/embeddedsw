@@ -52,6 +52,7 @@ examples:
   xilsecure_versal_sha_client_example.c:
   xilsecure_versal_sha_server_example.c:
   xilsecure_spartanup_sha_server_example.c:
+  xilsecure_spartanup_lms_hss_server_example.c:
   xilsecure_versal_2ve_2vm_sha_client_example.c:
   xilsecure_versal_net_keyunwrap_client_example.c:
   xilsecure_mldsa_client_example.c:
@@ -92,7 +93,8 @@ examples:
       examples += ["xilsecure_versal_net_trng_client_example.c", "xilsecure_versal_net_ecdh_client_example.c"]
 
     if "spartanuplus" in variant and proc in spartanuplus_procs:
-      examples += ["xilsecure_spartanup_sha_server_example.c", "xilsecure_versal_aes_server_example.c"]
+      examples += ["xilsecure_spartanup_sha_server_example.c", "xilsecure_versal_aes_server_example.c",
+                   "xilsecure_spartanup_lms_hss_server_example.c"]
 
     if "spartanuplusaes1" in variant and proc in spartanuplus_procs:
       examples += ["xilsecure_versal_ecdsa_server_example.c"]

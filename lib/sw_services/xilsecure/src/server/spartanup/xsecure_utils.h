@@ -54,6 +54,24 @@ extern "C" {
 #define XSecure_MemCpy			Xil_MemCpy /**< Backward compatibility */
 
 /**
+ * @name  Debug related macros
+ * @{
+ */
+/**< Enable printfs by setting XSECURE_DEBUG to 1 */
+#define XSECURE_DEBUG	(0U)
+
+#if (XSECURE_DEBUG)
+#define XSECURE_DEBUG_GENERAL (1U)	/**< Enable general debug prints */
+#else
+#define XSECURE_DEBUG_GENERAL (0U)	/**< Disable general debug prints */
+#endif
+/** @} */
+
+#define XSecure_Printf(DebugType, ...)	\
+	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
+				/**< For prints in XilSecure library */
+
+/**
  * @name  Definition of asserts if macro is defined
  * @{
  */

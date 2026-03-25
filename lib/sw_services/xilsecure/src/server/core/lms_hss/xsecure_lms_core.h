@@ -67,6 +67,8 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, u8* SignBuff,
 	u32 SignatureLen);
 int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_LmsSignVerifyParams *LmsSignVerifyParams);
+int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
+	XSecure_HssInitParams *HssInitParams, u8 *Data, u32 DataLen);
 int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode *SignAlgo);
 
 #ifdef __cplusplus

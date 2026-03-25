@@ -137,6 +137,7 @@ extern "C" {
 						/**< Max key source value */
 
 #define XSECURE_SHA3_256_HASH_LEN		(32U) /**< SHA3_256 block length */
+#define XSECURE_SHA2_256_HASH_LEN		(32U) /**< SHA2_256 hash length */
 #define XSECURE_SHAKE_256_HASH_LEN		(32U) /**< SHAKE_256 hash length */
 
 #define SHA256					(0U) /**< SHA256 mode */
