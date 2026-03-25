@@ -121,6 +121,7 @@ static u8 ExpHash[SHA_HASH_LEN_IN_BYTES] = {
 * Main function to call the SecureShaExample
 *
 * @return
+*		- XST_SUCCESS if the SHA calculation is successful.
 *		- XST_FAILURE if the SHA calculation failed.
 *
 ******************************************************************************/
@@ -150,7 +151,7 @@ int main(void)
 *		- XST_FAILURE - if the hash generation failed.
 *
 ****************************************************************************/
-/** //! [SHA3 example] */
+/** //! [SHA example] */
 static int SecureShaExample()
 {
 	int Status = XST_FAILURE;
@@ -243,7 +244,7 @@ static void SecureShaPrintHash(u8 *Hash)
 	for (Index = 0U; Index < SHA_HASH_LEN_IN_BYTES; Index++) {
 		xil_printf(" %0x ", Hash[Index]);
 	}
-	xil_printf(" \r\n ");
+	xil_printf("\r\n");
 }
 /** //! [SHA example] */
 /** @} */
