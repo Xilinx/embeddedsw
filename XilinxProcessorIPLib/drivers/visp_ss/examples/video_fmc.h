@@ -42,7 +42,9 @@
 #include "xiic.h"
 #endif
 #include "sleep.h"
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
+#endif
 #include "idt_8t49n24x.h"
 #include "ti_lmk03318.h"
 #include "onsemi_nb7nq621m.h"
@@ -112,7 +114,9 @@ typedef enum {
  */
 typedef struct {
 	void *IicPtr;        /**< Reference to IIC controller for vfmc. */
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	XGpio Gpio;          /**< Reference to GPIO for vfmc */
+#endif
 	XVfmc_Location Loc;  /**< Location of vfmc on development board */
 	XVfmc_MezzType TxMezzType; /**< Mezzanine Type */
 	XVfmc_MezzType RxMezzType; /**< Mezzanine Type */

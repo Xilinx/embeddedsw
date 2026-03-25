@@ -130,7 +130,7 @@ typedef struct vvbench_vdev_iba {
 	Xil_In32( (UINTPTR) (((u8 *)BaseAddress) + (RegOffset)))
 
 #define XPAR_IBA_INSTANCES 4
-#define XPAR_ISP_INSTANCE  2
+#define XPAR_ISP_INSTANCE  6
 #define XPAR_TILE_INSTANCES 1
 
 /*

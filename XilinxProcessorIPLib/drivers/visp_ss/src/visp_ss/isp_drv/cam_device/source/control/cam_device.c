@@ -106,7 +106,7 @@ RESULT CamDeviceInstanceIdMapping
 	if (NULL == pInstanceId)
 		return RET_NULL_POINTER;
 
-	if (hwId >= CAMDEV_HARDWARE_ID_MAX)
+	if (hwId > CAMDEV_HARDWARE_ID_MAX)
 		return RET_UNSUPPORT_ID;
 
 	if (vtId >= CAMDEV_VIRTUAL_ID_MAX)

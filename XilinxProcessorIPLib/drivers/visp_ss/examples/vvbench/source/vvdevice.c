@@ -144,7 +144,7 @@ extern int userVirtualChannelId;
 int ISP_ID;
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	extern int noOfFrmbufInstances;
-	extern struct aligned_buf Frame_Array_p[4][3];
+	extern struct aligned_buf Frame_Array_p[XPAR_XV_FRMBUF_WR_NUM_INSTANCES][3];
 #endif
 
 volatile uint32_t apuBufferInform[CAMDEV_VIRTUAL_ID_MAX *
@@ -312,10 +312,7 @@ int VsiVvdeviceExecuteCaseline
 #ifdef APU_CORE
 		selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId);
 #endif
-
-
-		//result = SetATM();
-
+			result = SetATM();
 
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
@@ -1079,10 +1076,12 @@ int VsiVvdeviceExecuteCaseline
 				LOGI("------------------------------------------------------------\r\n");
 				LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
 				if(caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-					LOGI(" |  mrd -bin -file dump_MP.rgb 0x%x 0x%x\r\n\n", pBuf->baseAddress, pBuf->baseSize / 4);
+					u64 dumpAddr = (u64)pBuf->baseAddress | ((u64)0x8 << 32);
+					LOGI(" |  mrd -bin -file dump_MP.rgb 0x%llx 0x%x\r\n\n", dumpAddr, pBuf->baseSize / 4);
 				}
 				if(caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
-					LOGI(" |  mrd -bin -file dump_SP.rgb 0x%x 0x%x\r\n\n", pBuf->baseAddress, pBuf->baseSize / 4);
+					u64 dumpAddr = (u64)pBuf->baseAddress | ((u64)0x8 << 32);
+					LOGI(" |  mrd -bin -file dump_SP.rgb 0x%llx 0x%x\r\n\n", dumpAddr, pBuf->baseSize / 4);
 				}
 				LOGI("------------------------------------------------------------\r\n");
 				displayInstance = 0;
@@ -1122,12 +1121,12 @@ int VsiVvdeviceExecuteCaseline
 					LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 					if (caseCtx->instanceCfgCtx[ISP_ID].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-						LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%x 0x17BC00\r\n\n",
-						     ISP_ID, (uintptr_t)Frame_Array_p[ISP_ID * 2][0].aligned_addr);
+						LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x17BC00\r\n\n",
+						     ISP_ID, (unsigned long long)(uintptr_t)Frame_Array_p[ISP_ID * 2][0].aligned_addr);
 					}
 					if (caseCtx->instanceCfgCtx[ISP_ID].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
-						LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%x 0x17BC00\r\n\n",
-						     ISP_ID, (uintptr_t)Frame_Array_p[ISP_ID * 2 + 1][0].aligned_addr);
+						LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x17BC00\r\n\n",
+						     ISP_ID, (unsigned long long)(uintptr_t)Frame_Array_p[ISP_ID * 2 + 1][0].aligned_addr);
 					}
 #endif
 					LOGI("------------------------------------------------------------\r\n");
@@ -2876,7 +2875,7 @@ void VsiVvdeviceShowBuffer
 		// LOGI("showbuffer: Phy_Addr:0x%x,", pNowBuffer->baseAddress);
 		// LOGI("showbuffer: Ipl_Addr:%p", pNowBuffer->pIplAddress);
 		if (pBuffer->pIplAddress == NULL) {
-			LOGE("%s: show buffer pIplAddress error", __func__);
+			//LOGE("%s: show buffer pIplAddress error", __func__);
 			return;
 		}
 

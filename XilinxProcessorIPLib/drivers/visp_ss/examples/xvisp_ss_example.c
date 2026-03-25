@@ -20,6 +20,7 @@
  * Copyright (C) 2025 Xilinx Inc. All rights reserved.
  ******************************************************************************/
 
+#include "memory_manager.h"     /* Must come before xvisp_ss_example.h for struct aligned_buf */
 #include <xvisp_ss_example.h>
 #include <xil_types.h>
 #include "xparameters.h"        /* Contains hardware platform parameters */
@@ -90,7 +91,7 @@ XVidC_VideoStream StreamOut;                                /* Video stream conf
 XIntc InterruptController;                                   /* AXI Interrupt Controller instance */
 
 /* Frame buffer arrays using aligned_buf structure defined in header */
-struct aligned_buf Frame_Array_p[4][Buffer_Count];
+struct aligned_buf Frame_Array_p[NUM_FBWR][Buffer_Count];
 #endif
 
 #ifdef XPAR_XMIPICSISS_NUM_INSTANCES
@@ -245,8 +246,8 @@ int setup_axi_with_device(UINTPTR BaseAddr)
 	}
 
 	/* Connect interrupt handlers for all frame buffer writer instances */
-	for (int i = 0; i < 4; i++) {
-		// Connect interrupt handlers for all 4 frame buffer writers
+	for (int i = 0; i < NUM_FBWR; i++) {
+		// Connect interrupt handlers for all frame buffer writers
 		Status = XIntc_Connect(&InterruptController, frmbufwr[i].FrmbufWr.Config.IntrId,
 				       (XInterruptHandler) XVFrmbufWr_InterruptHandler,
 				       (void *) &frmbufwr[i]);
@@ -572,7 +573,7 @@ void setup_frmbuf_wr()
 #endif
 
 	/* Initialize Frame Buffer Write instances */
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < XPAR_XV_FRMBUF_WR_NUM_INSTANCES; i++) {
 		/* Reset each frame buffer writer IP block */
 		Reset_IP(i);
 
@@ -594,44 +595,26 @@ void setup_frmbuf_wr()
 	/* Setup AXI Interrupt Controller for frame buffer writer interrupts */
 	setup_axi_with_device(XPAR_FRMBUF_WR_SS_AXI_INTC_FRMBUF_BASEADDR);
 
-	/* Register completion callback for Frame Buffer Writer 0 */
-	Status = XVFrmbufWr_SetCallback(&frmbufwr[0],
-					XVFRMBUFWR_HANDLER_DONE,
-					(void *)FrmbufwrDoneCallback_0,
-					(void *) &frmbufwr[0]);
-	if (Status != XST_SUCCESS)	{
-		xil_printf("Frame Buffer Write Call back  failed status = %x.\r\n" TXT_RST, Status);
-		return XST_FAILURE;
-	}
+	/* Callback function pointer table for all frame buffer writers */
+	void (*fbwr_callbacks[12])(void *) = {
+		FrmbufwrDoneCallback_0, FrmbufwrDoneCallback_1,
+		FrmbufwrDoneCallback_2, FrmbufwrDoneCallback_3,
+		FrmbufwrDoneCallback_4, FrmbufwrDoneCallback_5,
+		FrmbufwrDoneCallback_6, FrmbufwrDoneCallback_7,
+		FrmbufwrDoneCallback_8, FrmbufwrDoneCallback_9,
+		FrmbufwrDoneCallback_10, FrmbufwrDoneCallback_11
+	};
 
-	/* Register completion callback for Frame Buffer Writer 1 */
-	Status = XVFrmbufWr_SetCallback(&frmbufwr[1],
-					XVFRMBUFWR_HANDLER_DONE,
-					(void *)FrmbufwrDoneCallback_1,
-					(void *) &frmbufwr[1]);
-	if (Status != XST_SUCCESS)	{
-		xil_printf("Frame Buffer Write Call back  failed status = %x.\r\n" TXT_RST, Status);
-		return XST_FAILURE;
-	}
-
-	/* Register completion callback for Frame Buffer Writer 2 */
-	Status = XVFrmbufWr_SetCallback(&frmbufwr[2],
-					XVFRMBUFWR_HANDLER_DONE,
-					(void *)FrmbufwrDoneCallback_2,
-					(void *) &frmbufwr[2]);
-	if (Status != XST_SUCCESS)	{
-		xil_printf("Frame Buffer Write Call back  failed status = %x.\r\n" TXT_RST, Status);
-		return XST_FAILURE;
-	}
-
-	/* Register completion callback for Frame Buffer Writer 3 */
-	Status = XVFrmbufWr_SetCallback(&frmbufwr[3],
-					XVFRMBUFWR_HANDLER_DONE,
-					(void *)FrmbufwrDoneCallback_3,
-					(void *) &frmbufwr[3]);
-	if (Status != XST_SUCCESS)	{
-		xil_printf("Frame Buffer Write Call back  failed status = %x.\r\n" TXT_RST, Status);
-		return XST_FAILURE;
+	/* Register completion callbacks for all frame buffer writers */
+	for (int i = 0; i < XPAR_XV_FRMBUF_WR_NUM_INSTANCES; i++) {
+		Status = XVFrmbufWr_SetCallback(&frmbufwr[i],
+						XVFRMBUFWR_HANDLER_DONE,
+						(void *)fbwr_callbacks[i],
+						(void *) &frmbufwr[i]);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Frame Buffer Write[%d] Call back failed status = %x.\r\n" TXT_RST, i, Status);
+			return XST_FAILURE;
+		}
 	}
 
 }
@@ -893,6 +876,66 @@ void FrmbufwrDoneCallback_3(void *CallbackRef)
 	/************************************************************************************/
 	Frame_Count[fbwr_id]++;
 }
+
+/**
+ * @brief Generic Frame Buffer Writer Done Callback Handler
+ *
+ * Common callback logic for all frame buffer writer instances.
+ * Implements triple-buffering scheme for smooth video processing.
+ *
+ * @param fbwr_id - Frame buffer writer instance ID
+ */
+static void FrmbufwrDoneCallback_Generic(int fbwr_id)
+{
+	XVidC_ColorFormat Cfmt = FBWR_Cfmt[fbwr_id];
+
+	fbcb_cnt[fbwr_id]++;
+	dequeue_call_count++;
+
+	int Status;
+	u64 XvFrmBufFWr_Buffer_Baseaddr = 0, XvFrmBufRd_Buffer_Baseaddr = 0;
+
+	Rd_Ptr[fbwr_id] = Wr_Ptr[fbwr_id];
+	if (Wr_Ptr[fbwr_id] == 0)
+		Rd_Ptr[fbwr_id] = (Buffer_Count - 1);
+	else
+		Rd_Ptr[fbwr_id] = Wr_Ptr[fbwr_id] - 1;
+
+	if (Wr_Ptr[fbwr_id] == (Buffer_Count - 1))
+		Wr_Ptr[fbwr_id] = 0;
+	else
+		Wr_Ptr[fbwr_id] = Wr_Ptr[fbwr_id] + 1;
+
+	XvFrmBufRd_Buffer_Baseaddr = Frame_Array_p[fbwr_id][Rd_Ptr[fbwr_id]].aligned_addr;
+	XvFrmBufFWr_Buffer_Baseaddr = Frame_Array_p[fbwr_id][Wr_Ptr[fbwr_id]].aligned_addr;
+
+	Status = XVFrmbufWr_SetBufferAddr(&frmbufwr[fbwr_id], XvFrmBufFWr_Buffer_Baseaddr);
+	if (Status != XST_SUCCESS)
+		xil_printf("ERROR:: Unable to configure Frame Buffer Write buffer address\r\n");
+
+	if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420)
+	    || (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+		Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr[fbwr_id],
+							XvFrmBufFWr_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+		if (Status != XST_SUCCESS)
+			xil_printf("ERROR:: Unable to configure Frame Buffer Write chroma buffer address\r\n");
+	}
+
+#ifdef XPAR_XV_MIX_NUM_INSTANCES
+	VmixHdmiBridge_UpdateFbwrLayer(fbwr_id, XvFrmBufRd_Buffer_Baseaddr,
+				       XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+#endif
+	Frame_Count[fbwr_id]++;
+}
+
+void FrmbufwrDoneCallback_4(void *CallbackRef)  { FrmbufwrDoneCallback_Generic(4); }
+void FrmbufwrDoneCallback_5(void *CallbackRef)  { FrmbufwrDoneCallback_Generic(5); }
+void FrmbufwrDoneCallback_6(void *CallbackRef)  { FrmbufwrDoneCallback_Generic(6); }
+void FrmbufwrDoneCallback_7(void *CallbackRef)  { FrmbufwrDoneCallback_Generic(7); }
+void FrmbufwrDoneCallback_8(void *CallbackRef)  { FrmbufwrDoneCallback_Generic(8); }
+void FrmbufwrDoneCallback_9(void *CallbackRef)  { FrmbufwrDoneCallback_Generic(9); }
+void FrmbufwrDoneCallback_10(void *CallbackRef) { FrmbufwrDoneCallback_Generic(10); }
+void FrmbufwrDoneCallback_11(void *CallbackRef) { FrmbufwrDoneCallback_Generic(11); }
 
 
 /**

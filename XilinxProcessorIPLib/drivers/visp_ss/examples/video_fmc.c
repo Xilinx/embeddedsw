@@ -375,7 +375,9 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 	u8 Buffer[2];
 	int ByteCount;
 	u8 RevisionNumber;
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	XGpio_Config *Gpio_Vfmc_ConfigPtr;
+#endif
 
 
 	/* Check if VFMC was already Initialized */
@@ -403,6 +405,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 	void *Iic_Ptr = IicPtr;
 #endif
 
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	/* Initialize GPIO for VFMC */
 	Gpio_Vfmc_ConfigPtr =
 #ifndef SDT
@@ -425,6 +428,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 		xil_printf("Initialization failed %d\r\n", Status);
 		return(XST_FAILURE);
 	}
+#endif
 
 #if !(defined (XPS_BOARD_VEK280) || \
 	defined (XPS_BOARD_VEK385_1))
@@ -693,6 +697,7 @@ int Vfmc_PowerDownTiLMK03318(XVfmc *VfmcPtr, u8 Powerdown)
 ******************************************************************************/
 void Vfmc_Gpio_Led_On(XVfmc *VfmcPtr, XVfmc_Gpio_Led Led, u8 On)
 {
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	u32 Data;
 
 	Data = XGpio_DiscreteRead(&VfmcPtr->Gpio, 1);
@@ -704,6 +709,7 @@ void Vfmc_Gpio_Led_On(XVfmc *VfmcPtr, XVfmc_Gpio_Led Led, u8 On)
 	}
 
 	XGpio_DiscreteWrite(&VfmcPtr->Gpio, 1, Data);
+#endif
 }
 
 /*****************************************************************************/
@@ -730,6 +736,7 @@ void Vfmc_Gpio_Led_On(XVfmc *VfmcPtr, XVfmc_Gpio_Led Led, u8 On)
 void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 		XVfmc_Gpio_Ch4_DataClkSel DataClkSel)
 {
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	u32 Data;
 
 	/* Skip if Tx Mezzanine is Active type since it is using the 4th GT
@@ -754,7 +761,7 @@ void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 	}
 
 	XGpio_DiscreteWrite(&VfmcPtr->Gpio, 1, Data);
-
+#endif
 }
 
 
@@ -771,6 +778,7 @@ void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 ******************************************************************************/
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(XVfmc *VfmcPtr, u8 Enable)
 {
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	u32 Data;
 	/* Read GPIO Register */
 	Data = XGpio_DiscreteRead(&VfmcPtr->Gpio, 1);
@@ -783,6 +791,7 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(XVfmc *VfmcPtr, u8 Enable)
 
 	/* Write new register value */
 	XGpio_DiscreteWrite(&VfmcPtr->Gpio, 1, Data);
+#endif
 }
 
 /*****************************************************************************/
@@ -798,6 +807,7 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(XVfmc *VfmcPtr, u8 Enable)
 ******************************************************************************/
 void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable)
 {
+#ifdef XPAR_XGPIO_NUM_INSTANCES
 	u32 Data;
 	/* Read GPIO Register */
 	Data = XGpio_DiscreteRead(&VfmcPtr->Gpio, 1);
@@ -810,6 +820,7 @@ void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable)
 
 	/* Write new register value */
 	XGpio_DiscreteWrite(&VfmcPtr->Gpio, 1, Data);
+#endif
 }
 
 /*****************************************************************************/

@@ -22,6 +22,7 @@ extern int mm_init(void);
 #include "cJSON.h"
 /* vvbench_json_loader provided by libvisp.a */
 #include "xvisp_ss.h"
+extern int ATM_ENABLE;
 
 #define LOGTAG "VVBENCH"
 //#include <unistd.h>
@@ -250,6 +251,7 @@ int main_vvbench(XVisp_Ss *InstancePtr)
 	LOGI("IOMODE %s\n", InstancePtr->Config.IoMode);
 #ifndef JSON_CHANGE
 	if (strcmp(InstancePtr->Config.IoMode, "mimo") == 0) {
+		ATM_ENABLE = 1;
 		if (custom_json == 1)
 			vvctx.caseJsonFile = "MIMO_L1_JSON.json";
 		else
@@ -262,6 +264,7 @@ int main_vvbench(XVisp_Ss *InstancePtr)
 			exit(1);
 		}
 	} else if (strcmp(InstancePtr->Config.IoMode, "limo") == 0) {
+		ATM_ENABLE = 1;
 		if (custom_json == 1)
 			vvctx.caseJsonFile = "LIMO_L1_JSON.json";
 		else

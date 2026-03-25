@@ -91,7 +91,7 @@ RESULT VsiCamDeviceCreate
 
 #ifdef DEBUG_FLAG
 #else
-	if (hwId >= CAMDEV_HARDWARE_ID_MAX)
+	if (hwId > CAMDEV_HARDWARE_ID_MAX)
 		return RET_OUTOFRANGE;
 #endif
 

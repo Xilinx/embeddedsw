@@ -619,8 +619,8 @@ int VsiVvbenchExecuteList
 				ATM_ENABLE = item->valueint;
 				LOGI("ATM_ENABLED\n");
 			} else {
-				ATM_ENABLE = 0;
-				LOGI("ATM_DISABLED\n");
+				//ATM_ENABLE = 1;
+				LOGI("ATM_ENABLED\n");
 			}
 		}
 		cJSON *caseLists = cJSON_GetObjectItem(listRoot, "caseLists");
@@ -862,7 +862,7 @@ int VsiVvbenchParseCase
 		while (instanceCfg) {
 			uint32_t instanceEnable = cJSON_GetObjectItem(instanceCfg, "instanceEnable")->valueint;
 			uint32_t hpId = cJSON_GetObjectItem(instanceCfg, "hpId")->valueint;
-			if (CAMDEV_HARDWARE_ID_MAX <= hpId) {
+			if (CAMDEV_HARDWARE_ID_MAX < hpId) {
 				LOGW("case list hpId parser error");
 				cJSON_Delete(root);
 				return -1;

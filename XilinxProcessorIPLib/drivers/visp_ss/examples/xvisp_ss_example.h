@@ -7,13 +7,15 @@
 #include "cam_device_buffer_api.h"
 #include "cam_device_common.h"
 
-/* Aligned buffer structure for hardware buffers */
+/* Aligned buffer structure - use memory_manager.h definition if available */
+#ifndef MEMORY_MANAGER_H
 struct aligned_buf {
 	void *original_addr;    /* Original malloc address for freeing */
 	void *aligned_addr;     /* Aligned address for hardware */
 	uint32_t size;
 	uint32_t alignment;
 };
+#endif
 
 #define TXT_RED     "\x1b[31m"
 #define TXT_GREEN   "\x1b[32m"
@@ -36,6 +38,14 @@ void FrmbufwrDoneCallback_0(void *CallbackRef);
 void FrmbufwrDoneCallback_1(void *CallbackRef);
 void FrmbufwrDoneCallback_2(void *CallbackRef);
 void FrmbufwrDoneCallback_3(void *CallbackRef);
+void FrmbufwrDoneCallback_4(void *CallbackRef);
+void FrmbufwrDoneCallback_5(void *CallbackRef);
+void FrmbufwrDoneCallback_6(void *CallbackRef);
+void FrmbufwrDoneCallback_7(void *CallbackRef);
+void FrmbufwrDoneCallback_8(void *CallbackRef);
+void FrmbufwrDoneCallback_9(void *CallbackRef);
+void FrmbufwrDoneCallback_10(void *CallbackRef);
+void FrmbufwrDoneCallback_11(void *CallbackRef);
 
 void Reset_IP(u8 Ip_ResetBit);
 

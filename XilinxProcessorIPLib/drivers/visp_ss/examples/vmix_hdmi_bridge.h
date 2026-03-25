@@ -73,7 +73,7 @@ extern "C" {
  * @brief Simple structure for passing buffer addresses to VMix layer update
  */
 typedef struct VmixHdmiBridge_InputBuffer {
-	u32 baseAddress;
+	u64 baseAddress;
 } VmixHdmiBridge_InputBuffer;
 
 /**
@@ -161,7 +161,7 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
  * @param bufferIO    - Buffer chain ID (MP/SP1)
  * @return 1 on success, 0 if unsupported resolution, -1 on failure
  */
-int VmixHdmiBridge_UpdateBufferAddr(u32 baseAddress,
+int VmixHdmiBridge_UpdateBufferAddr(u64 baseAddress,
 				    CamDevicePipeOutFmt_t Vmix_format,
 				    u8 InstanceID,
 				    CamDeviceBufChainId_t bufferIO);

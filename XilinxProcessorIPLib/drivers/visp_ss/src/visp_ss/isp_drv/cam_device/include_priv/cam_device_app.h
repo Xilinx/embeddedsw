@@ -29,7 +29,7 @@ extern "C"
 **/
 /*******************************************/
 typedef struct CamDeviceIspcore_s {
-	CamDeviceHandle_t hCamDevSet[CAMDEV_HARDWARE_ID_MAX][CAMDEV_VIRTUAL_ID_MAX];
+	CamDeviceHandle_t hCamDevSet[CAMDEV_HARDWARE_ID_MAX + 1][CAMDEV_VIRTUAL_ID_MAX];
 
 } CamDeviceIspcore_t;
 

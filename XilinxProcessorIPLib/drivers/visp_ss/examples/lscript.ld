@@ -292,6 +292,13 @@ SECTIONS
    __bss_end__ = .;
 } > NoC_C0_C1_ddr_memory_DDR_LOW_0
 
+.large_pool_mem (NOLOAD) : {
+   . = ALIGN(64);
+   __large_pool_mem_start = .;
+   . += (48 * 28 * 1024 * 1024);  /* MM_LARGE_POOL_BLOCKS * MM_LARGE_BLOCK_SIZE */
+   __large_pool_mem_end = .;
+} > NoC_C0_C1_ddr_memory_DDR_LOW_1
+
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
 _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );

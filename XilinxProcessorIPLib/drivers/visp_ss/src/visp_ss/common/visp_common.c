@@ -14,8 +14,25 @@ int SetATM(void)
 	packet.payload_size = 0;
 
 	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &ATM_ENABLE, sizeof(int));
+
+	/* Send instanceId (0 for now) */
+	uint32_t instanceId = 0;
+	memcpy(p_data, &instanceId, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
+
+	/* Send high_mem prefix */
+	uint32_t high_mem = ATM_HIGH_MEM_PREFIX ;
+	memcpy(p_data, &high_mem, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	packet.payload_size += sizeof(uint32_t);
+
+	/* Send is_64bit flag */
+	uint32_t is_64bit = 1;
+	memcpy(p_data, &is_64bit, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	packet.payload_size += sizeof(uint32_t);
+
 	if (packet.payload_size > MAX_ITEM)
 		return RET_OUTOFRANGE;
 	LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);

@@ -15,5 +15,5 @@
 
 int SetATM(void);
 
-int ATM_ENABLE;
+int ATM_ENABLE = 0;
 #define ATM_HIGH_MEM_PREFIX 0x8

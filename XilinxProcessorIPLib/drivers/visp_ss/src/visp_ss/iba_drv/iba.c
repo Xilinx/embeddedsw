@@ -124,7 +124,214 @@ iba_inst_t IBA_ConfigTable[XPAR_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP1,
 		}
 
+	},
+	{
+		//ISP-0
+		{   /*Tile-0, ISP-0, IBA0 configuration*/
+			.DeviceId = IBA_0,
+			.BaseAddress = XPAR_TILE0_IBA0_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP2,
+		},
+		{
+			//Tile-0, ISP-0, IBA1 configuration
+			.DeviceId = IBA_1,
+			.BaseAddress = XPAR_TILE0_IBA1_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP2,
+		},
+		{
+			//Tile-0, ISP-0, IBA2 configuration
+			.DeviceId = IBA_2,
+			.BaseAddress = XPAR_TILE0_IBA2_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC1,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP2,
+		},
+		{
+			//Tile-0, ISP-0, IBA3 configuration,This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			.DeviceId = IBA_3,
+			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP2,
+		}
+
+	},
+	{
+		//ISP-1
+		{
+			//Tile-0, ISP-1, IBA0 configuration
+			.DeviceId = IBA_4,
+			.BaseAddress = XPAR_TILE0_IBA4_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC1,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP3,
+		},
+		{
+			//Tile-0, ISP-1, IBA1 configuration.This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			.DeviceId = IBA_3,
+			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP3,
+		}
+
+	},
+	{
+		//ISP-0
+		{   /*Tile-0, ISP-0, IBA0 configuration*/
+			.DeviceId = IBA_0,
+			.BaseAddress = XPAR_TILE0_IBA0_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP4,
+		},
+		{
+			//Tile-0, ISP-0, IBA1 configuration
+			.DeviceId = IBA_1,
+			.BaseAddress = XPAR_TILE0_IBA1_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP4,
+		},
+		{
+			//Tile-0, ISP-0, IBA2 configuration
+			.DeviceId = IBA_2,
+			.BaseAddress = XPAR_TILE0_IBA2_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC1,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP4,
+		},
+		{
+			//Tile-0, ISP-0, IBA3 configuration,This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			.DeviceId = IBA_3,
+			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP4,
+		}
+
+	},
+	{
+		//ISP-1
+		{
+			//Tile-0, ISP-1, IBA0 configuration
+			.DeviceId = IBA_4,
+			.BaseAddress = XPAR_TILE0_IBA4_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC1,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP5,
+		},
+		{
+			//Tile-0, ISP-1, IBA1 configuration.This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			.DeviceId = IBA_3,
+			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.data_format = 0x10, //RAW8
+			.hres = 1920,
+			.vres = 1080,
+			.iba_is_enabled = IBA_DISABLED, /*Disabled by default,
+																 it is automatically enabled in the code,
+																 depending on port selection*/
+			.hblank_prog = 0x50,
+			.vblank_prog = 0x23,
+			.virtual_channel_id = VC0,
+			.input_pixel_width = QUAD_PIXEL_WIDTH,
+			.isp_instance = ISP5,
+		}
+
 	}
+
 };
 
 iba_inst_t *iba_LookupConfig(iba_isp_instance_t isp_no, iba_id_t iba_no)

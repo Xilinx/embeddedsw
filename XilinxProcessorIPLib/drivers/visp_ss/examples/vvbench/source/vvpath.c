@@ -284,7 +284,9 @@ int VsiVvdeviceOutPutPathCreate
 				} */
 				config.pBaseAddrList[bufIdx] = phyAddr;
 				config.pIplAddrList[bufIdx] = (void**)pIplAddr;
-				LOGI("buffer[%d]: Phy_Addr:0x%x, size:0x%x", bufIdx, config.pBaseAddrList[bufIdx], config.bufSize);
+				LOGI("buffer[%d]: Phy_Addr:0x%llx (ATM 32-bit:0x%x), size:0x%x", bufIdx,
+				     (unsigned long long)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr,
+				     config.pBaseAddrList[bufIdx], config.bufSize);
 				LOGI("buffer[%d]: Ipl_Addr:%p", bufIdx, config.pIplAddrList[bufIdx]);
 			}
 		}
