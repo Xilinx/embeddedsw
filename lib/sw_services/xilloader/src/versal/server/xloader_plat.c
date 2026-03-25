@@ -56,6 +56,7 @@
 *                       is added in BIF without enabling TPM feature.
 *       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
 *       pre  03/12/2026 Moved PCR number validation to XTpm_MeasurePartition API
+*       pre  03/16/2026 Updated PCR Info validation logic in XLoader_DataMeasurement API
 *
 * </pre>
 *
@@ -193,7 +194,7 @@ int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLe
 		 */
 		ImageMeasureInfo.DataAddr = DataAddr;
 		ImageMeasureInfo.DataSize = DataLen;
-		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 
@@ -521,7 +522,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 			goto END;
 		}
 
-		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
@@ -533,7 +534,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		    Index++)
 		{
 			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
-			ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+			ImageMeasureInfo.PcrInfo = PcrInfo;
 			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)PtrnHashTablePtr[Index].Hash;
@@ -553,7 +554,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 			XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES);
 		Status = XPlmi_UpdateStatus(Status, TmpStatus);
 	} else {
-		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
@@ -570,7 +571,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 END:
 #else
 	Status = XLoader_LoadImagePrtns(PdiPtr);
-	if ((PcrInfo  & XLOADER_PCR_NUMBER_MASK) != XLOADER_PCR_NUMBER_MASK) {
+	if (PcrInfo != XLOADER_PCR_INVALID_VALUE) {
 		XPlmi_Printf(DEBUG_GENERAL, "Warning: PCR extension failed for "
 					"image 0x%0x since TPM feature is disabled\r\n",PdiPtr->ImageNum);
 	}
@@ -658,6 +659,11 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		goto END;
 	}
 
+	if ((ImageInfo->PcrInfo == XLOADER_PCR_INVALID_VALUE)) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
 		Status = XSecure_ShaStart(Sha3InstPtr, XSECURE_SHA3_384);
@@ -681,12 +687,12 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
 		if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
 			XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
-					"PCR 0x%x value due to uninitialized LPD\r\n", __func__, ImageInfo->PcrInfo);
+					"PCR 0x%x value due to uninitialized LPD\r\n", __func__, (ImageInfo->PcrInfo  & XLOADER_PCR_NUMBER_MASK));
 			goto END;
 		}
 
 		/* Extend Image Digest to TPM PCR */
-		Status = XTpm_MeasurePartition(ImageInfo->PcrInfo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
+		Status = XTpm_MeasurePartition((ImageInfo->PcrInfo  & XLOADER_PCR_NUMBER_MASK), (const u8*)(UINTPTR)&Sha3Hash.Hash);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
 					Status);

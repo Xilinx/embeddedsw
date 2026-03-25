@@ -67,6 +67,7 @@
 *                       and 2VM Devices
 *       pre  08/21/2025 Added TPM initialization after LPD initialization
 *       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
+*       pre  03/16/2025 Added client support for TPM module
 *
 * </pre>
 *
@@ -259,10 +260,9 @@ void XPlmi_LpdInit(void)
 			goto END;
 		}
 	#if ((defined(versal) || defined(VERSAL_2VE_2VM)) && defined(PLM_TPM))
-		/* TPM module is applicable only for Versal */
-		Status = (int)XTpm_Init();
+		/* TPM module is applicable for Versal and Versal_2VE_2VM only */
+		Status = (int)XTpm_ModuleInit();
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_TPM_INIT, Status);
 			goto END;
 		}
 	#endif

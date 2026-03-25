@@ -1,0 +1,10 @@
+/******************************************************************************
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XILTPM_BSP_CONFIG_H
+#define XILTPM_BSP_CONFIG_H
+
+#cmakedefine XILTPM_CACHE_DISABLE
+
+#endif /* XILTPM_BSP_CONFIG_H */

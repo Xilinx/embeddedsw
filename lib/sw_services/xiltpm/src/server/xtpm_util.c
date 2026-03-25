@@ -368,7 +368,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	 * successful and XTPM_ERR_SPIPS_FIFO_READ in case of failure
 	 */
 	if (RxBuf[XTPM_DATA_SIZE_INDEX] > XTPM_RX_HEAD_SIZE) {
-		RxLen = (u16)RxBuf[XTPM_DATA_SIZE_INDEX] - XTPM_RX_HEAD_SIZE;
+		RxLen = (u16)(RxBuf[XTPM_DATA_SIZE_INDEX] - XTPM_RX_HEAD_SIZE);
 		Status = XTpm_FifoRead(&RxBuf[XTPM_RX_HEAD_SIZE],
 			(u8)RxLen);
 		if (Status != (u32)XST_SUCCESS) {
@@ -422,7 +422,8 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 			XTPM_SPI_MAX_SIZE);
 
 		/** - Prepares data to be transferred */
-		TpmTxBuffer[0U] = ((RxBuf != NULL) ? 0x80U : 0U) | (TranLen - XTPM_ACCESS_TX_LENGTH);
+		TpmTxBuffer[0U] = (u8)(((u8)((RxBuf != NULL) ? 0x80U : 0U)) |
+			(TranLen - (u8)XTPM_ACCESS_TX_LENGTH));
 		TpmTxBuffer[1U] = 0xD4U;
 		TpmTxBuffer[2U] = (u8)(Address >> 8U);
 		TpmTxBuffer[3U] = (u8)Address;

@@ -48,6 +48,7 @@
 *       am   02/22/2025 Added ASU module Id
 *       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
 *       vm   03/16/2026 Added XPLMI_INPLACE_ASU_UPDATE_CMD_ID command ID
+*       pre  03/23/2026 Added client support for TPM module
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES			(15U)
+#define XPLMI_MAX_MODULES			(16U)
 #define XPLMI_MODULE_GENERIC_ID		(1U)
 #define XPLMI_MODULE_XILPM_ID		(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
@@ -84,6 +85,7 @@ extern "C" {
 #define XPLMI_MODULE_XILPUF_ID		(12U)
 #define XPLMI_MODULE_XILOCP_ID		(13U)
 #define XPLMI_MODULE_ASU_ID			(14U)
+#define XPLMI_MODULE_TPM_ID         (15U)
 #define XPLMI_MODULE_COMMAND(FUNC)	{ (FUNC) }
 
 /* User modules */

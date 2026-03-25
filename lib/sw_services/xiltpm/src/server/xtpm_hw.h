@@ -51,6 +51,7 @@ extern "C" {
 #define XTPM_RX_HEAD_SIZE				(10U) /**< TPM SPI receive header size */
 #define XTPM_START_CMD_SIZE				(12U) /**< TPM startup command size */
 #define XTPM_SELF_TEST_CMD_SIZE			(12U) /**< TPM self-test command size */
+#define XTPM_GET_CAP_CMD_SIZE			(22U) /**< TPM get capability command size */
 #define XTPM_SPI_MAX_SIZE				(64U) /**< Maximum SPI transfer size in bytes */
 #define XTPM_PCR_MAX_EVENT_SIZE			(1024U) /**< Maximum PCR event size in bytes */
 #define XTPM_REQ_MAX_SIZE			(1024U) /**< Maximum TPM request size in bytes */

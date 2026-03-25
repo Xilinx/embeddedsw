@@ -8,7 +8,8 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   tri  03/13/25 Initial Release
 # 1.1   Pre  08/25/25 Did enhancements needed
-# 1.2   Pre  01/16/25 Updated comments for RTF documentation
+# 1.2   Pre  01/16/26 Updated comments for RTF documentation
+#       Pre  03/13/26 Updated description
 #
 ##############################################################################
 
@@ -17,10 +18,12 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xiltpm
   OPTION drc = tpm_drc;
   OPTION copyfiles = all;
-  OPTION SUPPORTED_PERIPHERALS = (psv_pmc microblaze)
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION REQUIRES_OS = (standalone);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxiltpm,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "tpm. Supported for Versal only";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxiltpm,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "Xilinx TPM library. Supported for Versal and Versal_2VE_2VM only";
   OPTION VERSION = 1.2;
   OPTION NAME = xiltpm;
+  PARAM name = xtpm_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
+  PARAM name = xloader_cache_disable, desc = "Enables/Disables Cache for XilLoader client library", type = bool, default = true;
 END LIBRARY

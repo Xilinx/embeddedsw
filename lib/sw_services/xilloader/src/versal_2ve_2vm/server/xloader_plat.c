@@ -114,7 +114,6 @@
 #include "xloader_auth_jtag.h"
 #ifdef PLM_TPM
 #include "xtpm.h"
-#include "xloader_secure.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -1375,12 +1374,6 @@ int XLoader_MeasureRomAndPlm(void)
 	Status = XTpm_MeasureRom();
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_ROM_FAILURE, Status);
-		goto END;
-	}
-
-	/* Skip PCR extension of PLM hash in case of non authenticated PDI */
-	if (XLoader_GetAHWRoT(NULL)  == (u32)XPLMI_RTCFG_SECURESTATE_NONSECURE) {
-		Status = XST_SUCCESS;
 		goto END;
 	}
 

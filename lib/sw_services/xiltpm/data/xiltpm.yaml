@@ -16,14 +16,25 @@ supported_processors:
   - condition : |
       supported_processors = []
       if platform in ["Versal"]:
-          supported_processors = ["psv_pmc"]
+          supported_processors = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psv_pmc", "psu_cortexa72"]
       elif platform in ["Versal_2VE_2VM"]:
-          supported_processors = ["pmc"]
+          supported_processors = ["microblaze", "cortexa78", "cortexr52", "pmc"]
       else:
           supported_processors = []
 
 supported_os:
   - standalone
 
-depends_libs:
-  xilsecure: {}
+examples:
+  xiltpm_example.c:
+
+  condition : |
+    examples = []
+
+    versal_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5"]
+    versal_2ve_2vm_procs = ["microblaze", "cortexa78", "cortexr52"]
+
+    if (platform == "Versal" and proc in versal_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
+      examples += ["xiltpm_example.c"]
+
+...
