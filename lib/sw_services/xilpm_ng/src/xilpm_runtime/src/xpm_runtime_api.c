@@ -1274,101 +1274,10 @@ END:
 }
 
 
-/**
- * @brief Add individual ADMA reset nodes
- *
- * Add individual ADMA reset nodes (PM_RST_ADMA_0 through PM_RST_ADMA_7).
- * Base addresses are derived from existing ADMA device nodes.
- *
- * @return XST_SUCCESS if successful, error code otherwise
- *
- * @note TODO: This is a temporary workaround, Remove this function when
- *       individual ADMA reset nodes are added from topology.
- */
-static XStatus XPm_AddAdmaResetNodes(void)
-{
-	XStatus Status = XST_FAILURE;
-	u32 i;
-	XPm_Device *AdmaDevice;
-	const u32 AdmaDeviceIds[] = {
-		PM_DEV_ADMA_0, PM_DEV_ADMA_1, PM_DEV_ADMA_2, PM_DEV_ADMA_3,
-		PM_DEV_ADMA_4, PM_DEV_ADMA_5, PM_DEV_ADMA_6, PM_DEV_ADMA_7
-	};
-	const u32 AdmaResetIds[] = {
-		PM_RST_ADMA_0, PM_RST_ADMA_1, PM_RST_ADMA_2, PM_RST_ADMA_3,
-		PM_RST_ADMA_4, PM_RST_ADMA_5, PM_RST_ADMA_6, PM_RST_ADMA_7
-	};
-	const u32 NumAdmaChannels = (u32)ARRAY_SIZE(AdmaResetIds);
-
-	/* Create reset nodes */
-	for (i = 0U; i < NumAdmaChannels; i++) {
-		AdmaDevice = XPmDevice_GetById(AdmaDeviceIds[i]);
-		if (NULL == AdmaDevice) {
-			PmErr("ADMA device 0x%x not found\r\n", AdmaDeviceIds[i]);
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-
-		Status = XPmReset_AddNode(AdmaResetIds[i],
-					  AdmaDevice->Node.BaseAddress,
-					  0U, 1U, (u8)XPM_RSTOPS_CUSTOM, 0U, NULL);
-		if (XST_SUCCESS != Status) {
-			PmErr("Failed to add ADMA reset node 0x%x, Status=0x%x\r\n",
-			      AdmaResetIds[i], Status);
-			goto done;
-		}
-	}
-
-	/* Link resets to devices via RstHandles for permission checking */
-	for (i = 0U; i < NumAdmaChannels; i++) {
-		XPm_ResetNode *Rst;
-		XPm_ResetHandle *RstHandle;
-
-		Rst = XPmReset_GetById(AdmaResetIds[i]);
-		if (NULL == Rst) {
-			PmErr("Failed to get ADMA reset node 0x%x\r\n", AdmaResetIds[i]);
-			Status = XST_FAILURE;
-			goto done;
-		}
-
-		AdmaDevice = XPmDevice_GetById(AdmaDeviceIds[i]);
-		if (NULL == AdmaDevice) {
-			PmErr("Failed to get ADMA device 0x%x\r\n", AdmaDeviceIds[i]);
-			Status = XST_FAILURE;
-			goto done;
-		}
-
-		/* Create reset handle to link reset to device */
-		RstHandle = (XPm_ResetHandle *)XPm_AllocBytes(sizeof(XPm_ResetHandle));
-		if (NULL == RstHandle) {
-			PmErr("Failed to allocate RstHandle for ADMA reset 0x%x\r\n", AdmaResetIds[i]);
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		RstHandle->Device = AdmaDevice;
-		RstHandle->NextDevice = Rst->RstHandles;
-		Rst->RstHandles = RstHandle;
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
 XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-
-	/* TODO: Remove this workaround when individual ADMA reset nodes are added from topology */
-	Status = XPm_AddAdmaResetNodes();
-	if (XST_SUCCESS != Status) {
-		PmErr("Failed to add ADMA reset nodes\r\n");
-		goto done;
-	}
-
 	/* Registers all  power related interrupt post PLM cdo loaded*/
 	Status = RegisterNEnablePwrIntr();
 	if (XST_SUCCESS != Status) {
