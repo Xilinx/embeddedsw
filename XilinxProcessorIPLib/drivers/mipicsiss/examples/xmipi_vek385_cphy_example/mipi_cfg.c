@@ -614,8 +614,8 @@ int SetupCameraSensor(void) {
 
 	/* Validate Pipeline Configuration */
 	if ((Pipeline_Cfg.VideoMode == XVIDC_VM_3840x2160_30_P)
-			&& (Pipeline_Cfg.ActiveLanes != 4)) {
-		xil_printf("4K supports only 4 Lane configuration\r\n");
+			&& (Pipeline_Cfg.ActiveLanes != 3)) {
+		xil_printf("4K supports only 3 Lane configuration\r\n");
 		return XST_FAILURE;
 	}
 
@@ -1386,7 +1386,7 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	 * SetColorDepth
 	 */
 
-	Pipeline_Cfg.ActiveLanes = 4;
+	Pipeline_Cfg.ActiveLanes = 3;
 	Pipeline_Cfg.VideoSrc = XVIDSRC_SENSOR;
 
 	Pipeline_Cfg.Live = TRUE;
@@ -1508,7 +1508,7 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
 	InitVprocSs_Scaler(1,widthOut, heightOut);
 	}
-	//EnableCSI();
+	EnableCSI();
 
 	xil_printf("CSI is Enabled\r\n");
 

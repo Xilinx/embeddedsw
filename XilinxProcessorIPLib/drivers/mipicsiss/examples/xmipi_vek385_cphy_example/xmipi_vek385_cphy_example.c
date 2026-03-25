@@ -1,6 +1,6 @@
  /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -492,7 +492,7 @@ int main() {
 
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
-	Pipeline_Cfg.ActiveLanes = 4;
+	Pipeline_Cfg.ActiveLanes = 3;
 	Pipeline_Cfg.VideoSrc = XVIDSRC_SENSOR;
 	New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
 
