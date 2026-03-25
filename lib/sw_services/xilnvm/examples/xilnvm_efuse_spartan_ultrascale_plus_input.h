@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilnvm_efuse_spartan_ultrascale_input.h.
+* @file xilnvm_efuse_spartan_ultrascale_plus_input.h
 * This file contains macros which needs to configured by user based on the
 * options selected by user operations will be performed.
 *
@@ -31,8 +31,8 @@
 *
 * 	#define XNVM_EFUSE_WRITE_PPK0_HASH		FALSE
 * 	TRUE will burn PPK0 with it's SHA3 hash provided in
-* 		XNVM_EFUSE_PPK0_SHA3_HASH.
-*	FALSE will ignore the hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.
+* 		XNVM_EFUSE_PPK0_HASH.
+*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK0_HASH.
 *
 *	#define XNVM_EFUSE_WRITE_PPK1_HASH		FALSE
 *	TRUE will burn PPK1 with it's SHA3 hash provided in
@@ -42,12 +42,12 @@
 *	#define XNVM_EFUSE_WRITE_PPK2_HASH		FALSE
 *	TRUE will burn PPK2 with it's SHA3 hash provided in
 *		XNVM_EFUSE_PPK2_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSEPS_PPK2_HASH.
+*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK2_HASH.
 *
 *	#define		XNVM_EFUSE_AES_KEY
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value mentioned in this will be converted to hex buffer and written
-*	into the Versal eFuse array when write API used. This value should
+*	into the Spartan UltraScale Plus eFuse array when write API used. This value should
 *	be given in string format. It should be 64 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as
 *	invalid string and will not burn any eFuses.
@@ -59,7 +59,7 @@
 *	#define		XNVM_EFUSE_PPK0_HASH
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
-*	into the Versal eFUSE array. This value should
+*	into the Spartan UltraScale Plus eFUSE array. This value should
 *	be given in string format. It should be 64 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK0 hash.
@@ -69,7 +69,7 @@
 *	#define		XNVM_EFUSE_PPK1_HASH
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
+*	into the Spartan UltraScale Plus eFuse array. This value should
 *	be given in string format. It should be 64 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK1 hash.
@@ -79,7 +79,7 @@
 * 	#define		XNVM_EFUSE_PPK2_HASH
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
+*	into the Spartan UltraScale Plus eFuse array. This value should
 *	be given in string format. It should be 64 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK2 hash.
@@ -89,17 +89,17 @@
 *	#define 	XNVM_EFUSE_AES_PLM_IV
 *	"000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
+*	into the Spartan UltraScale Plus eFuse array. This value should
 *	be given in string format. It should be 24 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn Metaheader IV.
+*	and will not burn PLM IV.
 *	Note that,for writing the PLM IV, XNVM_EFUSE_WRITE_PLM_IV
 *	should be set to TRUE.
 *	While writing Plm IV, length should be 24 characters long.
 *
 *	#define		XNVM_EFUSE_REVOCATION_ID_0_FUSES	"00000000"
 *	The value  will be converted to hex buffer and written
-*	into the Versal eFuse array when write API used. This value should
+*	into the Spartan UltraScale Plus eFuse array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn Revocation Id 0 eFuse.
@@ -108,7 +108,7 @@
 *
 *	#define		XNVM_EFUSE_REVOCATION_ID_1_FUSES	"00000000"
 *	The value  will be converted to hex buffer and written
-*	into the Versal eFuse array when write API used. This value should
+*	into the Spartan UltraScale Plus eFuse array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn Revocation Id 1 eFuse.
@@ -117,7 +117,7 @@
 *
 *	#define		XNVM_EFUSE_REVOCATION_ID_2_FUSES	"00000000"
 *	The value will be converted to hex buffer and written
-*	into the Versal eFUSE array when write API used. This value should
+*	into the Spartan UltraScale Plus eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn the Revocation Id 2 Fuse.

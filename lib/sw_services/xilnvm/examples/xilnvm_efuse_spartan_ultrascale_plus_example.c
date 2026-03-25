@@ -409,7 +409,7 @@ static int XilNvm_EfuseShowDna(void)
 		goto END;
 	}
 
-	xil_printf("\r\nDNA:%08x%08x%08x%08x", Dna[2U], Dna[1U], Dna[0U]);
+	xil_printf("\r\nDNA:%08x%08x%08x", Dna[2U], Dna[1U], Dna[0U]);
 	Status = XST_SUCCESS;
 
 END:
@@ -785,7 +785,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
 	SecCtrl->UserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
 	SecCtrl->JtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
-	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
 	SecCtrl->HashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
 	SecCtrl->RmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
 	SecCtrl->RmaEn = XNVM_EFUSE_XNVM_RMA_EN;
@@ -809,7 +808,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	    (SecCtrl->JtagDis == TRUE) ||
 	    (SecCtrl->UserWrlk == TRUE) ||
 	    (SecCtrl->JtagErrDis == TRUE) ||
-	    (SecCtrl->JtagDis == TRUE) ||
 	    (SecCtrl->HashPufOrKey == TRUE) ||
 	    (SecCtrl->RmaDis == TRUE) ||
 	    (SecCtrl->RmaEn == TRUE) ||
@@ -903,10 +901,7 @@ static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
 		}
 	}
 
-	if (Status == XST_SUCCESS) {
-		EfuseData->AesRevokeId = AesRevokeId;
-	}
-
+	EfuseData->AesRevokeId = AesRevokeId;
 	Status = XST_SUCCESS;
 END:
 	return Status;
