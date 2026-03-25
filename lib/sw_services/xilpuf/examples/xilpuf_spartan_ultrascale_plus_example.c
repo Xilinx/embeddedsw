@@ -156,7 +156,7 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 __attribute__ ((section (".data.GcmTag")));
 
 /************************** Function Prototypes ******************************/
-static int XPuf_ValidateUserInput();
+static int XPuf_ValidateUserInput(void);
 static int XPuf_GenerateKey(XPmcDma *DmaPtr);
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr);
 static int XPuf_ProgramBlackKeynIV();
@@ -271,7 +271,7 @@ END:
  * 		- XST_FAILURE - If user input validation failed.
  *
  ******************************************************************************/
-static int XPuf_ValidateUserInput()
+static int XPuf_ValidateUserInput(void)
 {
 	int Status = XST_FAILURE;
 	u32 Index = 0U;

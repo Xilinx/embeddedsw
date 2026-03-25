@@ -8,8 +8,8 @@
 *
 * @file xilpuf_spartan_ultrascale_plus_example.h
 * This file contains macros which needs to configured by user for
-* xilpuf_example.c and based on the options selected by user operations will be
-* performed.
+* xilpuf_spartan_ultrascale_plus_example.c and based on the options selected by
+* user operations will be performed.
 *
 * This example is supported for spartan ultrascale plus devices.
 *
@@ -112,8 +112,8 @@ extern "C" {
 				     it is only applicable during registration */
 
 #define XPUF_KEY_GENERATE_OPTION	(XPUF_REGISTRATION)
-					/**< PUF kEK generate option it can be either
-					     registration/regeneration on demand */
+					/**< PUF KEK generate option it can be either
+					     XPUF_REGISTRATION or XPUF_REGEN_ON_DEMAND */
 
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE) /**< Enables/disables global variation filter
 						    during PUF registration/regeneration */
