@@ -113,8 +113,8 @@ typedef enum {
 			/**< 0x06 PPK HAsh is all zero hence inavalid */
 	XLOADER_SEC_PPK_HASH_COMPARE_FAIL,
 			/**< 0x07 HAsh comparison failed */
-	XLOADER_SEC_ALL_PPK_INVALID_ERR,
-			/**< 0x08 All PPKs are invalid */
+	XLOADER_ERR_RESERVED_08,
+			/**< 0x08 XLOADER_ERR_RESERVED_08 */
 	XLOADER_SEC_SPK_HASH_CALCULATION_FAIL,
 			/**< 0x09 SPK HAsh calculation failed */
 	XLOADER_SEC_RSA_AUTH_FAIL,

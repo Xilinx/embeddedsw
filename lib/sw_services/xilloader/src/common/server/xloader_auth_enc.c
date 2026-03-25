@@ -6247,7 +6247,7 @@ int XLoader_IsPpkRevoked(u32 PpkInvldMask)
 	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & PpkInvldMask;
 	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & PpkInvldMask;
 	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
-		Status = (int)XLOADER_SEC_SEL_PPK_REVOKED_ERR;
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_SEL_PPK_REVOKED_ERR, 0x0);
 	}
 	else {
 		Status = XST_SUCCESS;
