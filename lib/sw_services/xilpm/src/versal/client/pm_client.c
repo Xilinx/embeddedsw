@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,34 @@
 #include <xreg_cortexa53.h>
 #elif defined (__arm__)
 #include <xreg_cortexr5.h>
+#endif
+
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+#include <xil_smc.h>
+#include <xpseudo_asm.h>
+
+/**
+ * PSCI CPU_SUSPEND function ID for AArch64 (SMC64 calling convention).
+ * Defined in ARM PSCI specification (DEN0022D), Table 5-21.
+ */
+#define PSCI_CPU_SUSPEND_AARCH64	(0xC4000001U)
+
+/**
+ * PSCI power_state value for CPU power-down on Versal.
+ * Bit 30 = 1 (PSTATE_TYPE_POWERDOWN), bits [27:0] = 0 (StateID = 0)
+ * as required by Versal TF-A's versal_validate_power_state().
+ */
+#define PSCI_CPU_PWRDN_STATE		(0x40000000U)
+
+/*
+ * RAM-based flag to detect resume from PSCI CPU_SUSPEND.
+ * TF-A clears the CPUPWRDWNREQ bit on resume (pm_client_wakeup), so
+ * XPm_GetBootStatus() cannot use it for resume detection in the PSCI path.
+ *
+ * Placed in .data via section attribute so the BSP _start routine does not
+ * clear it on warm boot (.bss is zeroed on every boot, .data is not).
+ */
+volatile u32 __attribute__((section(".data"))) XPm_PsciSuspendFlag = 0U;
 #endif
 
 #ifndef __microblaze__
@@ -210,9 +238,19 @@ void XPm_ClientSuspendFinalize(void)
 {
 	u32 CtrlReg;
 
+	/* Disable interrupts and set resume flag before cache flush */
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+	XpmDisableInterrupts();
+	XPm_PsciSuspendFlag = 1U;
+#endif
+
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
+#if defined(XPM_SUPPORT) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+	CtrlReg = (u32)mfcp(SCTLR_EL1);
+#else
 	CtrlReg = (u32)mfcp(SCTLR_EL3);
+#endif
 	if (0U != (XREG_CONTROL_DCACHE_BIT & CtrlReg)) {
 		Xil_DCacheFlush();
 	}
@@ -224,7 +262,41 @@ void XPm_ClientSuspendFinalize(void)
 #endif
 
 	XPm_Dbg("Going to WFI...\n");
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+	{
+		XSmc_OutVar PsciOut;
+		/*
+		 * Use VBAR_EL1 as the PSCI resume entry point. On power-down
+		 * resume, TF-A saves this NS entry address and ERETs back to
+		 * EL1 at it. The BSP boot.S programs VBAR_EL1 to the vector
+		 * table base during initialization and executes _start from
+		 * there on warm boot, reinitializing the EL1 environment.
+		 */
+		u64 ResumeAddr = mfcp(VBAR_EL1);
+
+		XPm_Dbg("PSCI CPU_SUSPEND: pstate=0x%x addr=0x%x%08x\n",
+			PSCI_CPU_PWRDN_STATE,
+			(u32)(ResumeAddr >> 32),
+			(u32)ResumeAddr);
+
+		PsciOut = Xil_Smc(PSCI_CPU_SUSPEND_AARCH64,
+				  (u64)PSCI_CPU_PWRDN_STATE,
+				  ResumeAddr, 0, 0, 0, 0, 0);
+
+		/*
+		 * On success PSCI CPU_SUSPEND does not return (CPU powers
+		 * down). If we reach here, the call failed — restore the
+		 * interrupt state and clear the resume flag so
+		 * XPm_GetBootStatus() does not falsely report PM_RESUME.
+		 */
+		XPm_PsciSuspendFlag = 0U;
+		XpmEnableInterrupts();
+		XPm_Err("PSCI CPU_SUSPEND returned 0x%x\r\n",
+			(u32)PsciOut.Arg0);
+	}
+#else
 	WFI;
+#endif
 	XPm_Dbg("WFI exit...\n");
 }
 #endif

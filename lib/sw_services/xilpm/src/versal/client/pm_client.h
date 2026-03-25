@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,6 +80,10 @@ extern char ProcName[5];
 #define pm_dbg			XPm_Dbg
 #define pm_read			XPm_Read
 #define pm_write		XPm_Write
+
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+extern volatile u32 XPm_PsciSuspendFlag;
+#endif
 
 XStatus XPm_SetPrimaryProc(void);
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId);

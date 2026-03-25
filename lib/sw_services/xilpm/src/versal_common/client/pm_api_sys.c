@@ -272,18 +272,24 @@ static XStatus XPm_GenericRequest(u32 ApiId, u32 NumArgs, u32 *Response, ...)
 	u32 PlmHeader;
 
 	/*
-	 * PM_SELF_SUSPEND is not supported via SMC interface because:
-	 * 1. Self-suspend requires processor-specific context handling that cannot
-	 *    be performed through the generic SMC path
-	 * 2. The suspend operation needs to execute WFI (Wait For Interrupt) instruction
-	 *    which must be done in the processor's own context, not through ATF/TF-A
-	 * 3. SMC calls return to the caller, but self-suspend should not return until
-	 *    the processor is woken up by an external event
-	 * Therefore, PM_SELF_SUSPEND must use the IPI path where processor-specific
-	 * handling (XPm_ClientSuspend) can be performed before sending the request.
+	 * PM_SELF_SUSPEND and PM_ABORT_SUSPEND are not supported via the
+	 * SMC interface. In the PSCI path, TF-A internally handles the
+	 * suspend notification to PLM when XPm_ClientSuspendFinalize()
+	 * issues PSCI CPU_SUSPEND, so a duplicate PM_SELF_SUSPEND from
+	 * the client library is not needed. Since PM_SELF_SUSPEND is not
+	 * sent to PLM, PM_ABORT_SUSPEND has no pending suspend to cancel.
 	 */
 	if (ApiId == PM_SELF_SUSPEND) {
-		XPm_Err("Self suspend use case not supported in SMC\r\n");
+		XPm_Dbg("PM_SELF_SUSPEND is not sent via SMC; use "
+			 "XPm_ClientSuspendFinalize() for PSCI CPU_SUSPEND\r\n");
+		Status = (s32)XST_SUCCESS;
+		goto done;
+	}
+
+	if (ApiId == PM_ABORT_SUSPEND) {
+		XPm_Dbg("PM_ABORT_SUSPEND is not supported via SMC; "
+			 "PM_SELF_SUSPEND is not sent in this path\r\n");
+		Status = (s32)XST_SUCCESS;
 		goto done;
 	}
 
@@ -450,6 +456,24 @@ enum XPmBootStatus XPm_GetBootStatus(void)
 		Ret = PM_BOOT_ERROR;
 		goto done;
 	}
+
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+	{
+		/*
+		 * In the PSCI path, TF-A clears the CPUPWRDWNREQ bit on resume
+		 * (via pm_client_wakeup in pwr_domain_suspend_finish), so we
+		 * cannot use it for resume detection. Instead, check the
+		 * RAM-based flag set by XPm_ClientSuspendFinalize() before
+		 * the PSCI CPU_SUSPEND call. The flag is placed in .data via
+		 * section attribute so it survives the BSP _start .bss clear.
+		 */
+		if (XPm_PsciSuspendFlag != 0U) {
+			XPm_PsciSuspendFlag = 0U;
+			Ret = PM_RESUME;
+			goto done;
+		}
+	}
+#endif
 
 	PwrDwnReq = XPm_Read(PrimaryProc->PwrCtrl);
 	if (0U != (PwrDwnReq & PrimaryProc->PwrDwnMask)) {
