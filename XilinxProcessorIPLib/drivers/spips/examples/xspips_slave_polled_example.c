@@ -67,21 +67,12 @@
  */
 #define MAX_DATA		100
 
+#define UNIQUE_VALUE		0xAA
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define SpiPs_RecvByte(BaseAddress) \
-	(u8)XSpiPs_In32((BaseAddress) + XSPIPS_RXD_OFFSET)
-
-#define SpiPs_SendByte(BaseAddress, Data) \
-	XSpiPs_Out32((BaseAddress) + XSPIPS_TXD_OFFSET, (Data))
-
 /************************** Function Prototypes ******************************/
-
-void SpiSlaveRead(int ByteCount);
-
-void SpiSlaveWrite(u8 *Sendbuffer, int ByteCount);
 
 #ifndef SDT
 int SpiPsSlavePolledExample(u16 SpiDeviceId);
@@ -99,10 +90,11 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress);
 static XSpiPs SpiInstance;
 
 /*
- * The ReadBuffer is used to read to the data which it received from the SPI
- * Bus which master has sent.
+ * The ReadBuffer/WriteBuffer is used to read/write to the data which it received
+ * from the SPI Bus which master has sent.
  */
 u8 ReadBuffer[MAX_DATA];
+u8 WriteBuffer[MAX_DATA];
 
 /*****************************************************************************/
 /**
@@ -169,7 +161,6 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress)
 #endif
 {
 	int Status;
-	u8 *BufferPtr;
 	XSpiPs_Config *SpiConfig;
 
 	/*
@@ -190,136 +181,20 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-	/*
-	 * The SPI device is a slave by default and the clock phase
-	 * have to be set according to its master. In this example, CPOL is set
-	 * to quiescent high and CPHA is set to 1.
-	 */
-	Status = XSpiPs_SetOptions((&SpiInstance), (XSPIPS_CR_CPHA_MASK) | \
-				   (XSPIPS_CR_CPOL_MASK));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	memset(ReadBuffer, 0x00, sizeof(ReadBuffer));
+	/* Prepare buffers */
+	for (u32 i = 0; i < MAX_DATA; i++) {
+		WriteBuffer[i] = (u8)i + UNIQUE_VALUE;
+		ReadBuffer[i] = 0;
+	}
 
-	/*
-	 * Set the Rx FIFO Threshold to the Max Data
-	 */
-	XSpiPs_SetRXWatermark((&SpiInstance), MAX_DATA);
-
-	/*
-	 * Enable the device.
-	 */
-	XSpiPs_Enable((&SpiInstance));
-
-	/*
-	 * Read the contents of the Receive buffer
-	 * Master is expected to send MAX_DATA number of bytes
-	 */
-	SpiSlaveRead(MAX_DATA);
-
-	/*
-	 * Setup a pointer to the start of the data that was read into the read
-	 * buffer and the same back
-	 */
-	BufferPtr = ReadBuffer;
-
-	/*
-	 * Send the data received back to Master
-	 * Master is expected to send MAX_DATA number of dummy bytes for
-	 * the slave to be able to echo previously received data.
-	 */
-	SpiSlaveWrite(BufferPtr, MAX_DATA);
-
-	/*
-	 * Disable the device.
-	 */
-	XSpiPs_Disable((&SpiInstance));
+	Status = XSpiPs_PolledTransfer(&SpiInstance, WriteBuffer, ReadBuffer, MAX_DATA);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function reads from the Rx buffer
-*
-* @param	ByteCount is the number of bytes to be read from Rx buffer.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void SpiSlaveRead(int ByteCount)
-{
-	int Count;
-	u32 StatusReg;
-
-	StatusReg = XSpiPs_ReadReg(SpiInstance.Config.BaseAddress,
-				   XSPIPS_SR_OFFSET);
-
-	/*
-	 * Polling the Rx Buffer for Data
-	 */
-	do {
-		StatusReg = XSpiPs_ReadReg(SpiInstance.Config.BaseAddress,
-					   XSPIPS_SR_OFFSET);
-	} while (!(StatusReg & XSPIPS_IXR_RXNEMPTY_MASK));
-
-	/*
-	 * Reading the Rx Buffer
-	 */
-	for (Count = 0; Count < ByteCount; Count++) {
-		ReadBuffer[Count] = SpiPs_RecvByte(
-					    SpiInstance.Config.BaseAddress);
-	}
-
-}
-
-/*****************************************************************************/
-/**
-*
-* This function writes Data into the Tx buffer
-*
-* @param	Sendbuffer is the buffer whose data is to be sent onto the
-* 		Tx FIFO.
-* @param	ByteCount is the number of bytes to be read from Rx buffer.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void SpiSlaveWrite(u8 *Sendbuffer, int ByteCount)
-{
-	u32 StatusReg;
-	u32 TransCount = 0;
-
-	StatusReg = XSpiPs_ReadReg(SpiInstance.Config.BaseAddress,
-				   XSPIPS_SR_OFFSET);
-
-	/*
-	 * Fill the TXFIFO with as many bytes as it will take (or as
-	 * many as we have to send).
-	 */
-	while ((ByteCount > 0) &&
-	       (TransCount < XSPIPS_FIFO_DEPTH)) {
-		SpiPs_SendByte(SpiInstance.Config.BaseAddress,
-			       *Sendbuffer);
-		Sendbuffer++;
-		++TransCount;
-		ByteCount--;
-	}
-
-	/*
-	 * Wait for the transfer to finish by polling Tx fifo status.
-	 */
-	do {
-		StatusReg = XSpiPs_ReadReg(
-				    SpiInstance.Config.BaseAddress,
-				    XSPIPS_SR_OFFSET);
-	} while ((StatusReg & XSPIPS_IXR_TXOW_MASK) == 0);
-
 }
