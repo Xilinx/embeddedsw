@@ -35,6 +35,7 @@
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
 * 3.7   mb   12/31/2025 Added client API to check AES key CRC
 *       mb   01/06/2026 Added client API to check USER key CRC
+*       tbk  03/20/26 Added SMC support for client applications
 *
 * </pre>
 *
@@ -44,6 +45,7 @@
 #include "xil_cache.h"
 #include "xnvm_efuseclient.h"
 #include "xil_util.h"
+#include "xnvm_generic.h"
 
 /************************** Constant Definitions *****************************/
 #define XNVM_REVOKE_ID_COL_MASK		(0x1FU) /**< Column Mask*/
@@ -77,28 +79,27 @@ int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Sends EFUSE WRITE CDO to PLM through IPI. Return XST_FAILURE if IPI request of sending CDO not success.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "eFUSE programming Failed \r\n");
 	}
+
 END:
 	return Status;
 }
@@ -163,17 +164,15 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Sends EFUSE WRITE IV CDO to PLM through IPI request.
-	 *  Return XST_FAILURE if IPI request is failed
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -267,16 +266,15 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Sends CDO to PLM to write eFuses to revoke the user specified PPK. Return XST_FAILURE if IPI request not success
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -360,17 +358,14 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send Revocation Id CDO to PLM to write to the user specified revocation eFuses.
-	 *  Return XST_FAILURE, if IPI request status is not success.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -435,17 +430,14 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send eFUSE write CDO to PLM to write user specified user eFuses.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -472,28 +464,24 @@ int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, c
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_IV),
 				IvType,
 				IvAddr,
 				(IvAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send Read IV CDO to PLM to read user specified IV from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -520,28 +508,24 @@ int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_REVOCATION_ID),
 				RevokeIdNum,
 				RevokeIdAddr,
 				(RevokeIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read revocation id CDO to PLM to read user specified Revocation ID from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -566,27 +550,23 @@ int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 Us
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_USER_FUSES),
 				UserFuseAddr,
 				(UserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read use efuses CDO to PLM to read user specified user eFuses from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -611,27 +591,23 @@ int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS),
 				MiscCtrlBits,
 				(MiscCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read misc_ctrl CDO to PLM to read miscellaneous control eFuses from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -656,27 +632,23 @@ int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS),
 				SecCtrlBits,
 				(SecCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read sec_ctrl CDO to PLM to read security control eFuses from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -701,27 +673,23 @@ int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS),
 				SecMisc1Bits,
 				(SecMisc1Bits >> XNVM_ADDR_HIGH_SHIFT));
 
-         /**
-	  *  Send read misc1 ctrl CDO to PLM to read security and miscellaneous 1 control from eFuse cache.
-	  *  Return XST_FAILURE, if IPI request processing fails in PLM.
-	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 		return Status;
 }
@@ -746,27 +714,23 @@ int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const 
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS),
 				BootEnvCtrlBits,
 				(BootEnvCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-         /**
-	  *  Send read boot env ctrl CDO to PLM to read Boot Environment control bits from eFuse cache.
-	  *  Return XST_FAILURE if IPI request processing fails in PLM.
-	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -791,11 +755,11 @@ int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -806,12 +770,8 @@ int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u
 				PufSecCtrlBits,
 				(PufSecCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-
-         /**
-	  *  Send read puf ctrl CDO to PLM to read user specified Puf security control eFuses from eFuse cache.
-	  *  Return XST_FAILURE if IPI request processing fails in PLM.
-	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	 /** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -839,28 +799,24 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload,  (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID),
 				OffChipIdNum,
 				OffChidIdAddr,
 				(OffChidIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-         /**
-	  *  Send read Offchip revoke CDO to PLM to read user specified Offchip revoke registers from eFuse cache.
-	  *  Return XST_FAILURE if IPI request processing fails in PLM.
-	  */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -886,29 +842,24 @@ int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkH
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PPK_HASH),
 				PpkHashType,
 				PpkHashAddr,
 				(PpkHashAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-
-        /**
-	 *  Send read ppk hash CDO to PLM to read user specified PPK from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -933,27 +884,23 @@ int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecO
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY),
 				DecOnlyAddr,
 				(DecOnlyAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read dec_only CDO to PLM to read decrypt eFuse only bits from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -978,27 +925,23 @@ int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_DNA),
 				DnaAddr,
 				(DnaAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read dna CDO to PLM to read DNA bits from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -1025,27 +968,23 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE),
 				PufUserFuseAddr,
 				(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send puf user fuses CDO to PLM to write user specified PUF data to corresponding eFuses.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -1070,27 +1009,23 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE),
 				PufUserFuseAddr,
 				(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read puf user fuses CDO to PLM to read PUF data from corresponding eFuses.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -1116,11 +1051,11 @@ int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAd
 	u64 DataAddr;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1129,18 +1064,14 @@ int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAd
 
 	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE_PUF),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send write puf CDO to PLM to write PUF helper data to eFuses.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 
@@ -1165,27 +1096,23 @@ int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAdd
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PUF),
 				PufHdAddr,
 				(PufHdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  Send read puf CDO to PLM to read PUF helper data from eFuse cache.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -1214,28 +1141,23 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Validate input parameters.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC),
 				AesKeyCrc,
 				AesKeyType);
 
-
-        /**
-	 *  Send check AES key CRC CDO to PLM to check the given CRC.
-	 *  Return XST_FAILURE if IPI request processing fails in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }

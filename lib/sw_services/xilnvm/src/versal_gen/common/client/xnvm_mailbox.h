@@ -110,13 +110,19 @@ typedef enum{
 } XNvm_SlrIndex;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+static inline u32 Header(u32 Len, u32 ApiId)
+{
+	(void)Len;
+	return (XILNVM_MODULE_ID_MASK | (ApiId));
+}
+#else
 static inline u32 Header(u32 Len, u32 ApiId)
 {
 	return ((Len << XNVM_PAYLOAD_LEN_SHIFT) |
 		XILNVM_MODULE_ID_MASK | (ApiId));
 }
-
+#endif
 /******************************************************************************/
 /**
  * @brief	This function sets slr index in the NVM client instance.

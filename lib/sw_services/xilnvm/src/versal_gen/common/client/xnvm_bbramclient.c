@@ -25,6 +25,7 @@
 * 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
 * 3.4   har  08/22/24 Added support for provisioning configuration limiter
 * 3.4   ng   09/05/24 Fixed doxygen grouping
+* 3.7   tbk  03/20/26 Added SMC support for client applications
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 
 /***************************** Include Files *********************************/
 #include "xnvm_bbramclient.h"
+#include "xnvm_generic.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -65,31 +67,28 @@ int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyA
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-        /**
-	 *  Performs input parameters validation.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	/**
+	 * Performs input parameters validation.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_WRITE_AES_KEY),
 				KeyLen,
 				KeyAddr,
 				(KeyAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-        /**
-	 *  @{ Sends BBRAM Write CDO command to PLM through IPI.
-	 *     Waits for the response from PLM.
-	 *     Returns the response of BBRAM aes key write status of PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "BBRAM programming Failed \r\n");
 	}
+
 END:
 	return Status;
 }
@@ -112,21 +111,21 @@ int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 *  Performs input parameters validation.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	 * Performs input parameters validation.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_ZEROIZE));
-	/**
-	 *  Sends BBRAM Zeroize CDO command to PLM through IPI.
-	 *  Returns the response of the BBRAM Zeroize operation from the PLM
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -151,24 +150,22 @@ int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 Usr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 *  Performs input parameters validation.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	 * Performs input parameters validation.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD1(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_WRITE_USER_DATA),
 				UsrData);
 
-	/**
-	 *  Sends BBRAM WRITE USER DATA CDO command to PLM IPI.
-	 *  Returns the response of Bbram write user data status from the PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -193,25 +190,23 @@ int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutD
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 *  Performs input parameters validation.
-	 *  Return XST_INVALID_PARAM if input parameters are invalid.
+	 * Performs input parameters validation.
+	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_READ_USER_DATA),
 				OutDataAddr,
 				(OutDataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/**
-	 *  Sends BBRAM READ USER DATA CDO command to PLM through IPI.
-	 *  Returns the response of Bbram Read user data status from the PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -236,23 +231,21 @@ int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 *  Performs input parameters validation.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	 * Performs input parameters validation.
+	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA));
 
-	/**
-	 *  Sends BBRAM LOCK USER DATA WRITE CDO command to PLM through IPI.
-	 *  Returns the response of BBRAM lock user data write status from the PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -284,7 +277,8 @@ int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, c
 	/**
 	 *  Performs input parameters validation. Return error code if input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -295,10 +289,8 @@ int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, c
 				ClMode,
 				MaxNumOfConfigs);
 
-	/**
-	 *  Sends BBRAM_WRITE_CFG_LMT_PARAMS CDO command to PLM through IPI. Returns the response of BBRAM_WRITE_CFG_LMT_PARAMS status in PLM.
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
