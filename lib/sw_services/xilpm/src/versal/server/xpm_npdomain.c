@@ -39,7 +39,6 @@
 #define XPM_NODEIDX_MEMIC_NMU_MIN2		XPM_NODEIDX_MEMIC_NMU_54   /**< NMU range #2: inclusive min (0x68) */
 #define XPM_NODEIDX_MEMIC_NMU_MAX2		XPM_NODEIDX_MEMIC_NMU_97   /**< NMU range #2: inclusive max (0x93) */
 #define XPM_NODEIDX_MEMIC_NPS_MIN		XPM_NODEIDX_MEMIC_NPS_0    /**< NPS range: inclusive min (0x9C) */
-#define XPM_NODEIDX_MEMIC_NPS_MAX		XPM_NODEIDX_MEMIC_NPS_102  /**< NPS range: inclusive max (0x102) */
 /** @} */
 
 static u32 IsCrypto = 0U;
@@ -1011,9 +1010,13 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 			goto done;
 		}
 	} else if ((u32)XPM_NODETYPE_MEMIC_NPS == Type) {
-		/* NPS nodes: single contiguous range 0x9C to 0x102 */
-		if ((Idx < (u32)XPM_NODEIDX_MEMIC_NPS_MIN) ||
-		    (Idx > (u32)XPM_NODEIDX_MEMIC_NPS_MAX)) {
+		/*
+		 * NPS nodes: single contiguous range 0x9C to 0x102.
+		 * Upper bound is not checked here because the entry guard
+		 * already ensures Idx < XPM_NODEIDX_MEMIC_MAX (0x103),
+		 * and the last NPS index (0x102) is MEMIC_MAX - 1.
+		 */
+		if (Idx < (u32)XPM_NODEIDX_MEMIC_NPS_MIN) {
 			DbgErr = XPM_INT_ERR_INVALID_PARAM;
 			Status = XST_INVALID_PARAM;
 			goto done;
