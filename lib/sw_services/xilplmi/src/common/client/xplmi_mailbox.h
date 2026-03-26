@@ -20,6 +20,7 @@
  * 1.01  pre  07/10/24 Added SLR index in client data structure
  * 1.02  obs  02/18/25 Fixed IPI message length
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
+ *       tbk  02/24/26 Added XPLMI_PACK_PAYLOAD macros
  *
  * </pre>
  *
@@ -111,10 +112,18 @@ typedef struct {
  * @return	xilplmi command header
  *
  *****************************************************************************/
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+static inline u32 PACK_XPLMI_HEADER(u32 Len, u32 ApiId)
+{
+	(void)Len;
+	return (XILPLMI_MODULE_ID_MASK | (ApiId));
+}
+#else
 static inline u32 PACK_XPLMI_HEADER(u32 Len, u32 ApiId)
 {
 	return ((Len << XPLMI_PAYLOAD_LEN_SHIFT) | XILPLMI_MODULE_ID_MASK | (ApiId));
 }
+#endif
 
 /************************************ Function Prototypes ****************************************/
 

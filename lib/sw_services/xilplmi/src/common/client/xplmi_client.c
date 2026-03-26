@@ -24,6 +24,7 @@
  *       obs  03/17/25 Fixed GCC warnings
  * 2.00  sk   01/23/26 Updated event logging for all sub commands
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
+ *       tbk  02/24/26 Added SMC support for client applications
  *
  * </pre>
  *
@@ -37,6 +38,7 @@
 /*************************************** Include Files *******************************************/
 
 #include "xplmi_client.h"
+#include "xplmi_generic.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XPLMI_ADDR_HIGH_SHIFT              (32U) /**< Shift value to get higher 32 bit address */
@@ -65,26 +67,30 @@ int XPlmi_GetDeviceID(XPlmi_ClientInstance *InstancePtr, XLoader_DeviceIdCode *D
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if (DeviceIdCode == NULL) {
 		goto END;
 	}
 
 	/** Fill IPI Payload */
 	XPLMI_PACK_PAYLOAD0(Payload, (u32)XPLMI_GET_DEVICE_CMD_ID);
 
-    /**
-	 * - Send an IPI request to the PLM by using the XPlmi_GetDeviceID CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	DeviceIdCode->IdCode = InstancePtr->Response[1];
-	DeviceIdCode->ExtIdCode = InstancePtr->Response[2];
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
+			(u32)RESPONSE_ARG_CNT);
+	if (Status == XST_SUCCESS) {
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+		/* For SMC, response starts at index 0 */
+		DeviceIdCode->IdCode = Response[0U];
+		DeviceIdCode->ExtIdCode = Response[1U];
+#else
+		/* For mailbox, response starts at index 1 */
+		DeviceIdCode->IdCode = Response[1U];
+		DeviceIdCode->ExtIdCode = Response[2U];
+#endif
+	}
 
 END:
 	return Status;
@@ -108,25 +114,28 @@ int XPlmi_GetBoard(XPlmi_ClientInstance *InstancePtr, u64 Addr, u32 Size, u32 *R
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if (ResponseLength == NULL) {
 		goto END;
 	}
 
 	/** Fill IPI Payload */
 	XPLMI_PACK_PAYLOAD3(Payload, (u32)XPLMI_GET_BOARD_CMD_ID, (u32)(Addr >> XPLMI_ADDR_HIGH_SHIFT), (u32)(Addr), Size);
 
-    /**
-	 * - Send an IPI request to the PLM by using the XPlmi_GetBoard CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	*ResponseLength = InstancePtr->Response[1];
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
+			(u32)RESPONSE_ARG_CNT);
+	if (Status == XST_SUCCESS) {
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+		/* For SMC, response starts at index 0 */
+		*ResponseLength = Response[0U];
+#else
+		/* For mailbox, response starts at index 1 */
+		*ResponseLength = Response[1U];
+#endif
+	}
 
 END:
 	return Status;
@@ -149,25 +158,12 @@ int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
 	/** Fill IPI Payload */
 	XPLMI_PACK_PAYLOAD1(Payload, (u32)XPLMI_TAMPER_TRIGGER_CMD_ID, TamperResponse);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XPlmi_TamperTrigger CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
 	return Status;
 }
 
@@ -192,11 +188,10 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, 
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Performs input parameters validation. Return error code if input parameters are invalid */
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
@@ -247,22 +242,23 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, 
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XST_FAILURE;
-	/**
-	 * - Send an IPI request to the PLM by using the XPlmi_EventLogging CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
+			(u32)RESPONSE_ARG_CNT);
 	if ((Status == XST_SUCCESS) && ((sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO) ||
 			(sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO))) {
-				xil_printf("Received Data: 0x%x 0x%x 0x%x 0x%x 0x%x,\n\r",
-				InstancePtr->Response[1], InstancePtr->Response[2],
-				InstancePtr->Response[3], InstancePtr->Response[4],
-				InstancePtr->Response[5]);
-		}
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+		/* For SMC, response starts at index 0 */
+		xil_printf("Received Data: 0x%x 0x%x 0x%x 0x%x 0x%x,\n\r",
+			Response[0U], Response[1U], Response[2U], Response[3U], Response[4U]);
+#else
+		/* For mailbox, response starts at index 1 */
+		xil_printf("Received Data: 0x%x 0x%x 0x%x 0x%x 0x%x,\n\r",
+			Response[1U], Response[2U], Response[3U], Response[4U], Response[5U]);
+#endif
+	}
+
 END:
 	return Status;
 }
@@ -284,11 +280,8 @@ int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm 
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
-	    (SsitSecCommDataPtr == NULL)) {
+	/** Validate input parameters */
+	if (SsitSecCommDataPtr == NULL) {
 		goto END;
 	}
 
@@ -297,13 +290,9 @@ int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm 
 			(u32)((u64)(UINTPTR)&SsitSecCommDataPtr->IVsandKey >> XPLMI_ADDR_HIGH_SHIFT),
 			(u32)((UINTPTR)&SsitSecCommDataPtr->IVsandKey));
 
-	/**
-	 * - Send an IPI request to the PLM by using the XPlmi_SsitCfgSecComm CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
 END:
 	return Status;
 }
@@ -325,26 +314,28 @@ int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecCommStatus == NULL)) {
+	/** Validate input parameters */
+	if (SecCommStatus == NULL) {
 		goto END;
 	}
 
 	/** Fill IPI Payload */
 	XPLMI_PACK_PAYLOAD1(Payload, (u32)XPLMI_GETSECCOMM_STATUS_CMD_ID, SlrIndex);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XPlmi_GetSecureCommStatus CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-
-	*SecCommStatus = InstancePtr->Response[1U];
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
+			(u32)RESPONSE_ARG_CNT);
+	if (Status == XST_SUCCESS) {
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+		/* For SMC, response starts at index 0 */
+		*SecCommStatus = Response[0U];
+#else
+		/* For mailbox, response starts at index 1 */
+		*SecCommStatus = Response[1U];
+#endif
+	}
 
 END:
 	return Status;
@@ -368,25 +359,12 @@ int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u3
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
 	/** Fill IPI Payload */
 	XPLMI_PACK_PAYLOAD2(Payload, (u32)XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID, DDRMCNum, RegSts);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XPlmi_SetDDRMCMainRegSts CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request to PLM using generic API */
+	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
 	return Status;
 }
 
