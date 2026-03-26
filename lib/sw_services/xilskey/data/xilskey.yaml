@@ -33,28 +33,36 @@ examples:
   xilskey_bbram_example.c:
     - dependency_files:
       - xilskey_input.h
-    - supported_platforms:
-      - Zynq
   xilskey_efuse_example.c:
     - dependency_files:
       - xilskey_input.h
   xilskey_efuseps_zynqmp_example.c:
     - dependency_files:
       - xilskey_efuseps_zynqmp_input.h
-    - supported_platforms:
-      - ZynqMP
   xilskey_bbramps_zynqmp_example.c:
-    - supported_platforms:
-      - ZynqMP
   xilskey_bbram_ultrascale_example.c:
     - dependency_files:
       - xilskey_bbram_ultrascale_input.h
   xilskey_puf_registration_example.c:
     - dependency_files:
       - xilskey_puf_registration.h
-    - supported_platforms:
-      - ZynqMP
   xilskey_puf_regeneration_example.c:
-    - supported_platforms:
-      - ZynqMP
+
+  condition : |
+    examples = []
+
+    zynq_procs = ["ps7_cortexa9"]
+    zynqmp_procs = ["psu_cortexa53", "psu_cortexr5"]
+    ultrascale_procs = ["microblaze"]
+
+    if platform in ["Zynq"] and proc in zynq_procs:
+      examples += ["xilskey_bbram_example.c", "xilskey_efuse_example.c"]
+
+    if platform in ["ZynqMP"] and proc in zynqmp_procs:
+      examples += ["xilskey_efuseps_zynqmp_example.c", "xilskey_bbramps_zynqmp_example.c",
+                   "xilskey_puf_registration_example.c", "xilskey_puf_regeneration_example.c"]
+
+    if proc in ultrascale_procs:
+      if "spartanuplus" not in variant:
+        examples += ["xilskey_bbram_ultrascale_example.c", "xilskey_efuse_example.c"]
 ...
