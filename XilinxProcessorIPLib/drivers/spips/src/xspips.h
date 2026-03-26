@@ -257,6 +257,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xstatus.h"
+#include "xil_mem.h"
 #include "xspips_hw.h"
 
 /************************** Constant Definitions *****************************/
@@ -396,6 +397,7 @@ typedef struct {
 #endif
 	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
+	u32 FifoDepth;		/**< Total size of transfer fifo in bytes (witdth * depth) */
 #ifdef SDT
 	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
 				 * trigger type and level flags */
@@ -423,6 +425,8 @@ typedef struct {
 
 	XSpiPs_StatusHandler StatusHandler;
 	void *StatusRef;  	 /**< Callback reference for status handler */
+	u32 FifoDepth ;		 /**< Depth of the transfer FIFO in Bytes */
+	u32 FifoWidth ;		 /**< Width of the transfer FIFO in Bytes */
 
 } XSpiPs;
 

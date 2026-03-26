@@ -186,7 +186,13 @@ s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 		InstancePtr->RecvBufferPtr = NULL;
 		InstancePtr->RequestedBytes = 0U;
 		InstancePtr->RemainingBytes = 0U;
+		InstancePtr->FifoWidth = 1U; /* 1Byte */
+		InstancePtr->FifoDepth = 128U;
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+		if( ConfigPtr->FifoDepth != 0U) {
+			InstancePtr->FifoWidth = 4U;
+			InstancePtr->FifoDepth = 256U;
+		}
 
 		/*
 		 * Reset the SPI device to get it into its initial state. It is
@@ -311,6 +317,7 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		    u8 *RecvBufPtr, u32 ByteCount)
 {
 	u32 ConfigReg;
+	u32 FifoEntries;
 	u8 TransCount = 0U;
 	s32 StatusTransfer;
 
@@ -367,20 +374,26 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		/*
 		 * Clear all the interrupts.
 		 */
+		u32 Intsr = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress, XSPIPS_SR_OFFSET);
 		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_SR_OFFSET,
-				XSPIPS_IXR_WR_TO_CLR_MASK);
+				Intsr);
 
 		/*
 		 * Fill the TXFIFO with as many bytes as it will take (or as many as
 		 * we have to send).
 		 */
 		while ((InstancePtr->RemainingBytes > 0U) &&
-		       (TransCount < XSPIPS_FIFO_DEPTH)) {
+		       (TransCount < (InstancePtr->FifoDepth * InstancePtr->FifoWidth))) {
+			FifoEntries = InstancePtr->RemainingBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: InstancePtr->RemainingBytes;
+			u32 TempData = 0U;
+			if (InstancePtr->SendBufferPtr != NULL) {
+				(void)Xil_MemCpy((u8 *)&TempData, InstancePtr->SendBufferPtr, FifoEntries);
+				InstancePtr->SendBufferPtr += FifoEntries;
+			}
 			XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
-					*InstancePtr->SendBufferPtr);
-			InstancePtr->SendBufferPtr += 1;
-			InstancePtr->RemainingBytes--;
-			TransCount++;
+					TempData);
+			InstancePtr->RemainingBytes -= FifoEntries;
+			TransCount += FifoEntries;
 		}
 
 		/*
@@ -469,7 +482,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 	u32 TransCount;
 	u32 CheckTransfer;
 	s32 Status_Polled;
-	u8 TempData;
+	u32 TempData;
+	u32 FifoEntries;
 
 	/*
 	 * The RecvBufPtr argument can be NULL.
@@ -529,12 +543,18 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 			 * many as we have to send).
 			 */
 			while ((InstancePtr->RemainingBytes > (u32)0U) &&
-			       ((u32)TransCount < (u32)XSPIPS_FIFO_DEPTH)) {
+			       ((u32)TransCount < (InstancePtr->FifoDepth * InstancePtr->FifoWidth))) {
+				FifoEntries = InstancePtr->RemainingBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: InstancePtr->RemainingBytes;
+				TempData = 0U;
+				if (InstancePtr->SendBufferPtr != NULL) {
+					(void)Xil_MemCpy((u8 *)&TempData, InstancePtr->SendBufferPtr, FifoEntries);
+					InstancePtr->SendBufferPtr += FifoEntries;
+				}
+
 				XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
-						*InstancePtr->SendBufferPtr);
-				InstancePtr->SendBufferPtr += 1;
-				InstancePtr->RemainingBytes--;
-				++TransCount;
+						TempData);
+				InstancePtr->RemainingBytes -= FifoEntries;
+				TransCount += FifoEntries;
 			}
 
 			/*
@@ -585,14 +605,15 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 			 * care to receive data).
 			 */
 			while (TransCount != (u32)0U) {
-				TempData = (u8)XSpiPs_RecvByte(
-						   InstancePtr->Config.BaseAddress);
+				TempData = XSpiPs_RecvByte(InstancePtr->Config.BaseAddress);
+
+				FifoEntries = InstancePtr->RequestedBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: InstancePtr->RequestedBytes;
 				if (InstancePtr->RecvBufferPtr != NULL) {
-					*(InstancePtr->RecvBufferPtr) = TempData;
-					InstancePtr->RecvBufferPtr += 1;
+					(void)Xil_MemCpy(InstancePtr->RecvBufferPtr, (u8 *)&TempData, FifoEntries);
+					InstancePtr->RecvBufferPtr += FifoEntries;
 				}
-				InstancePtr->RequestedBytes--;
-				--TransCount;
+				InstancePtr->RequestedBytes -= FifoEntries;
+				TransCount -= FifoEntries;
 			}
 		}
 
@@ -887,6 +908,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 	u32 IntrStatus;
 	u32 ConfigReg;
 	u32 BytesDone; /* Number of bytes done so far. */
+	u32 FifoEntries;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SpiPtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -931,7 +953,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 
 
 	if ((IntrStatus & XSPIPS_IXR_TXOW_MASK) != 0U) {
-		u8 TempData;
+		u32 TempData;
 		u32 TransCount;
 		/*
 		 * A transmit has just completed. Process received data and
@@ -954,13 +976,15 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 				usleep(10);
 			}
 
-			TempData = (u8)XSpiPs_RecvByte(SpiPtr->Config.BaseAddress);
+			TempData = XSpiPs_RecvByte(SpiPtr->Config.BaseAddress);
+
+			FifoEntries = SpiPtr->RequestedBytes > SpiPtr->FifoWidth ? SpiPtr->FifoWidth: SpiPtr->RequestedBytes;
 			if (SpiPtr->RecvBufferPtr != NULL) {
-				*SpiPtr->RecvBufferPtr = TempData;
-				SpiPtr->RecvBufferPtr += 1;
+				(void)Xil_MemCpy(SpiPtr->RecvBufferPtr, (u8 *)&TempData, FifoEntries);
+				SpiPtr->RecvBufferPtr += FifoEntries;
 			}
-			SpiPtr->RequestedBytes--;
-			--TransCount;
+			SpiPtr->RequestedBytes -= FifoEntries;
+			TransCount -= FifoEntries;
 		}
 
 		/*
@@ -968,12 +992,17 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		 * FIFO depth.
 		 */
 		while ((SpiPtr->RemainingBytes > 0U) &&
-		       (TransCount < XSPIPS_FIFO_DEPTH)) {
+		       (TransCount < (InstancePtr->FifoDepth * InstancePtr->FifoWidth))) {
+			FifoEntries = SpiPtr->RemainingBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: SpiPtr->RemainingBytes;
+			TempData = 0U;
+			if (SpiPtr->SendBufferPtr != NULL) {
+				(void)Xil_MemCpy((u8 *)&TempData, SpiPtr->SendBufferPtr, FifoEntries);
+				SpiPtr->SendBufferPtr += FifoEntries;
+			}
 			XSpiPs_SendByte(SpiPtr->Config.BaseAddress,
-					*SpiPtr->SendBufferPtr);
-			SpiPtr->SendBufferPtr += 1;
-			SpiPtr->RemainingBytes--;
-			++TransCount;
+					TempData);
+			SpiPtr->RemainingBytes -= FifoEntries;
+			TransCount += FifoEntries;
 		}
 
 		if ((SpiPtr->RemainingBytes == 0U) &&
@@ -1136,7 +1165,7 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 	 * Read all RX_FIFO entries
 	 */
 #if !defined(versal)
-	for (Count = 0U; Count < XSPIPS_FIFO_DEPTH; Count++) {
+	for (Count = 0U; Count < InstancePtr->FifoDepth; Count++) {
 		(void)XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				     XSPIPS_RXD_OFFSET);
 	}
