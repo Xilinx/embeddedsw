@@ -3694,3 +3694,15 @@ XStatus XPm_HookAfterBootPdi(void)
 done:
 	return XST_SUCCESS;
 }
+
+/**
+ * @brief Restore EVENT notifier EM actions after in-place PLM update
+ *        by calling XPmNotifier_RestoreEmActions().
+ *
+ * @return XST_SUCCESS on success; otherwise the first error code
+ *         returned by XPlmi_EmSetAction().
+ */
+XStatus XPmUpdate_RestoreNotifierEmActions(void)
+{
+	return XPmNotifier_RestoreEmActions();
+}

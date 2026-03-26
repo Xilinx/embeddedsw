@@ -195,6 +195,10 @@ XStatus __attribute__((weak, noinline)) XPm_AddDDRMemRegnForDefaultSubsystem(con
 	return XST_SUCCESS;
 };
 
+XStatus __attribute__((weak, noinline)) XPmUpdate_RestoreNotifierEmActions(void) {
+	return XST_SUCCESS;
+}
+
 static inline u32 XPmSubsystem_GetSubSysIdByIpiMask_Core(u32 IpiMask) {
 	u32 SubsystemId = PM_SUBSYS_INVALID;
 	s32 FirstSet = 0;

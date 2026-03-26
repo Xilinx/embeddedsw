@@ -65,6 +65,8 @@
 *                       an argument to XPlmi_Init function.
 *       tvp  08/27/2025 Generate CDI before generating DevIK from XPlm_ModuleInit for Versal_2vp
 * 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
+*       tt   03/25/2026 Restore EVENT notifier EM actions after IPU via
+*                       weak XPmUpdate_RestoreNotifierEmActions()
 *
 * </pre>
 *
@@ -181,6 +183,21 @@ int XPlm_ModuleInit(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef VERSAL_2VE_2VM
+	/*
+	 * XPlmi_EmInit() calls XPlmi_ReconfigErrActions() on in-place update,
+	 * which wipes all custom EM actions. Restore EVENT-class notifier
+	 * registrations from the preserved PmNotifiers[] table now that
+	 * EM reconfiguration is complete.
+	 */
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		Status = XPmUpdate_RestoreNotifierEmActions();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
 
 	Status = XLoader_Init();
 	if (Status != XST_SUCCESS) {

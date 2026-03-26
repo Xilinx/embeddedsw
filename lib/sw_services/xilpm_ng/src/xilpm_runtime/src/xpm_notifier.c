@@ -671,6 +671,47 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Re-register custom error actions for all EVENT-class notifiers.
+ *
+ * After an in-place PLM update, XPlmi_ReconfigErrActions() clears all custom
+ * error actions. This function must be called during post-update init to
+ * restore the XPmNotifier_Event handler for every EVENT-class entry that was
+ * preserved in PmNotifiers[] across the update.
+ *
+ * @return XST_SUCCESS if all restores succeeded; otherwise the first
+ *         error code returned by XPlmi_EmSetAction().
+ *
+ ****************************************************************************/
+XStatus XPmNotifier_RestoreEmActions(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Idx;
+
+	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
+		if ((0U == PmNotifiers[Idx].SubsystemId) ||
+		    ((u32)XPM_NODECLASS_EVENT != NODECLASS(PmNotifiers[Idx].NodeId))) {
+			continue;
+		}
+
+		Status = XPlmi_EmSetAction(PmNotifiers[Idx].NodeId,
+					   PmNotifiers[Idx].EventMask,
+					   XPLMI_EM_ACTION_CUSTOM,
+					   XPmNotifier_Event,
+					   INVALID_SUBSYSID);
+		if (XST_SUCCESS != Status) {
+			PmWarn("EM restore failed: NodeId=0x%08x Mask=0x%08x Sts=%d\r\n",
+			       PmNotifiers[Idx].NodeId, PmNotifiers[Idx].EventMask, Status);
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function triggers the notification if enabled for current
  *         NodeId and current event.
  *

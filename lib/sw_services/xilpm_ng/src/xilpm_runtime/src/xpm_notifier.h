@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,8 @@ XStatus XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem);
 void XPmNotifier_Event(const u32 NodeId, const u32 Event);
 
 void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload);
+
+XStatus XPmNotifier_RestoreEmActions(void);
 
 #ifdef __cplusplus
 }

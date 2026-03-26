@@ -29,6 +29,7 @@
 * 1.15  tt  08/20/2025 Add IPI re-init after IPU(Impactless PLM Update)
 * 1.16  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *	rmv  01/30/2025 Removed call to XOcp_NotifyAsu()
+*       tt   03/25/2026 Remove dead XILPM_RUNTIME include guard
 *
 * </pre>
 *
@@ -47,13 +48,7 @@
 #include "xplmi_ipi.h"
 #include "xplmi.h"
 #include "xloader_plat.h"
-/** TODO: remove this condition when psm is removed */
-#if defined(XILPM_RUNTIME)
-#include "xpm_subsystem.h"
 #include "xpm_alloc.h"
-#else
-#include "xpm_alloc.h"
-#endif
 #ifdef PLM_OCP
 #include "xocp.h"
 #endif

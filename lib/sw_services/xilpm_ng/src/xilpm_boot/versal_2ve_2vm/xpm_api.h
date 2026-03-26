@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -111,6 +111,12 @@ XStatus XPm_HookAfterBootPdi(void);
 XStatus XPm_RuntimeInit(void);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
 XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev);
+/**
+ * @brief Restore EVENT notifier EM actions after in-place PLM update.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ */
+XStatus XPmUpdate_RestoreNotifierEmActions(void);
 
 #ifdef __cplusplus
 }
