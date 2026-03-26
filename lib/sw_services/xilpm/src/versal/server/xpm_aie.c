@@ -1369,23 +1369,28 @@ done:
 	return Status;
 }
 
-static u8 Aie_TileType(const u32 Col, const u32 Row)
+/**
+ * @brief Determine the shim tile type based on column index.
+ *
+ * Shim tiles are always at row 0. Columns where (Col % 4) is 0 or 1
+ * are Shim-PL tiles; all others are Shim-NOC tiles.
+ *
+ * @param Col Column index of the tile.
+ *
+ * @return AIE_TILE_TYPE_SHIMPL or AIE_TILE_TYPE_SHIMNOC.
+ */
+static u8 Aie_TileType(const u32 Col)
 {
 	u8 TileType;
 	u8 RemVal;
 
-	/* Check for the type of Tile based on (Col,Row) */
-	if (0U == Row) {
-		RemVal = (u8)((Col) % 4U);
-		if((RemVal == 0U) || (RemVal == 1U)) {
-			/* Shim-PL Tile */
-			TileType = AIE_TILE_TYPE_SHIMPL;
-		} else {
-			/* Shim-NOC Tile */
-			TileType = AIE_TILE_TYPE_SHIMNOC;
-		}
+	RemVal = (u8)((Col) % 4U);
+	if((RemVal == 0U) || (RemVal == 1U)) {
+		/* Shim-PL Tile */
+		TileType = AIE_TILE_TYPE_SHIMPL;
 	} else {
-		TileType = AIE_TILE_TYPE_UNDEFINED;
+		/* Shim-NOC Tile */
+		TileType = AIE_TILE_TYPE_SHIMNOC;
 	}
 
 	return TileType;
@@ -1558,7 +1563,7 @@ static void Aie1_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* Skip if it's not an NOC Tile */
-		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col)) {
 			continue;
 		}
 
@@ -1600,7 +1605,7 @@ static void Aie1_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* Skip if it's not an NOC Tile */
-		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col)) {
 			continue;
 		}
 
@@ -2039,7 +2044,7 @@ static void Aie2_EnbAxiMmErrEvent(u32 ColStart, u32 ColEnd)
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* Skip if it's not an NOC Tile */
-		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col)) {
 			continue;
 		}
 
@@ -2088,7 +2093,7 @@ static void Aie2_SetL2CtrlNpiIntr(u32 ColStart, u32 ColEnd)
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* Skip if it's not an NOC Tile */
-		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col)) {
 			continue;
 		}
 
