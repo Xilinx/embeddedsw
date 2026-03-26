@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,7 +106,12 @@ static XStatus ResetSdDllRegs(const XPm_Device *Device)
 			SD_DLL_DIV_MAP_RESET_VAL);
 		PmOut32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,
 			Value);
-	} else if (PM_DEV_SDIO_1 == Device->Node.Id) {
+	} else {
+		/* Device->Node.Id is PM_DEV_SDIO_1 here, guaranteed by
+		 * the caller XPmDevice_SdResetWorkaround which pre-filters
+		 * for PM_DEV_SDIO_0 or PM_DEV_SDIO_1 before calling this
+		 * function.
+		 */
 		PmIn32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,
 		       Value);
 		PmOut32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,
@@ -119,8 +124,6 @@ static XStatus ResetSdDllRegs(const XPm_Device *Device)
 			SD_DLL_DIV_MAP_RESET_VAL);
 		PmOut32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,
 			Value);
-	} else {
-		/* Required by MISRA */
 	}
 
 	Status = XST_SUCCESS;
