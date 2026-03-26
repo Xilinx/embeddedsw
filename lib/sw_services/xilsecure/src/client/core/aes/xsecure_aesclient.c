@@ -37,6 +37,7 @@
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *	vss  03/04/24 Removed code redundancy for AesPerformOperation API
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+* 5.7   tbk  03/16/26 Added SMC support
 *
 * </pre>
 *
@@ -47,6 +48,7 @@
 */
 /***************************** Include Files *********************************/
 #include "xsecure_aesclient.h"
+#include "xsecure_generic.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SLR_INDEX_SHIFT (6U)	/**< SLR index shift */
@@ -131,17 +133,17 @@ int XSecure_AesEncryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_OP_INIT),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesOperationInit
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -193,17 +195,17 @@ int XSecure_AesDecryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_OP_INIT),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesOperationInit
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -256,11 +258,15 @@ int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_UPDATE_AAD),
 				AadAddr,
@@ -269,11 +275,10 @@ int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u
 				IsLastChunkSrc);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesUpdateAad
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -331,7 +336,7 @@ int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 
 	XSecure_DCacheFlushRange(EncInAddr, sizeof(XSecure_AesInParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_ENCRYPT_UPDATE),
 				SrcAddr,
@@ -340,10 +345,10 @@ int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesEncUpdate
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -369,24 +374,24 @@ int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_ENCRYPT_FINAL),
 				GcmTagAddr,
 				(GcmTagAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesEncFinal
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -423,7 +428,7 @@ int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
@@ -444,7 +449,7 @@ int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 
 	XSecure_DCacheFlushRange(DecInParams, sizeof(XSecure_AesInParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_DECRYPT_UPDATE),
 				SrcAddr,
@@ -453,10 +458,10 @@ int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecUpdate
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -481,24 +486,24 @@ int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_DECRYPT_FINAL),
 				GcmTagAddr,
 				(GcmTagAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecFinal
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -522,23 +527,23 @@ int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_KEY_ZERO),
 				KeySrc);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesKeyZeroize
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -566,11 +571,15 @@ int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySourc
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_WRITE_KEY),
 				Size,
@@ -579,11 +588,10 @@ int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySourc
 				(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesWriteKey
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -616,9 +624,10 @@ int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
@@ -628,7 +637,7 @@ int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_KEK_DECRYPT),
 				(((u32)Size << XSECURE_KEY_SIZE_SHIFT) | ((u32)DstKeySrc << XSECURE_DST_KEY_SRC_SHIFT) | DecKeySrc),
@@ -636,10 +645,10 @@ int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
 				(IvAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecryptKek
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -662,21 +671,24 @@ int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_SET_DPA_CM),
 				DpaCmCfg);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesSetDpaCm
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -743,17 +755,17 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_PERFORM_OPERATION),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesEncryptData
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -821,17 +833,17 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_PERFORM_OPERATION),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecryptData
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -905,17 +917,17 @@ int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr,
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_AES_PERFORM_OPERATION),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesPerformOperation
-	 * API and returns the status of the IPI response
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;

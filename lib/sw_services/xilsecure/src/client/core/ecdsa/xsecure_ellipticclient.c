@@ -31,6 +31,7 @@
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/29/24 APIs are updated for SSIT support
+* 5.7   tbk  03/16/26 Added SMC support
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 */
 /***************************** Include Files *********************************/
 #include "xsecure_ellipticclient.h"
+#include "xsecure_generic.h"
 
 /*****************************************************************************/
 /**
@@ -96,7 +98,7 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignGenParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_GENERATE_SIGN),
 				Buffer,
@@ -105,10 +107,10 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 				(SignAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenSign
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -137,13 +139,14 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD5(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_GENERATE_KEY),
 				CurveType,
@@ -153,11 +156,10 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 				(PubKeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenKey
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -182,13 +184,14 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_VALIDATE_KEY),
 				CurveType,
@@ -196,11 +199,10 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 				(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticValidatePubKey
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -258,17 +260,17 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignVerifyParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_VERIFY_SIGN),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticVerifySignature
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, (u32 *)Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;

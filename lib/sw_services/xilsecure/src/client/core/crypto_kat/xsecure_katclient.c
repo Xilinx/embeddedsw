@@ -22,6 +22,7 @@
 *       am   06/19/23 Added error code for failure cases
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/16/24 Added SSIT support
+* 5.7   tbk  03/16/26 Added SMC support
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 */
 /***************************** Include Files *********************************/
 #include "xsecure_katclient.h"
+#include "xsecure_generic.h"
 #include "xsecure_plat_defs.h"
 
 /************************** Constant Definitions *****************************/
@@ -61,22 +63,25 @@ int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_AES_DECRYPT_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -100,22 +105,25 @@ int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_AES_DECRYPT_CM_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecCmKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -138,22 +146,25 @@ int XSecure_RsaPublicEncKat(XSecure_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_RSA_PUB_ENC_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaPubEncKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -176,22 +187,25 @@ int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_SHA3_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -215,23 +229,26 @@ int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_E
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT,
 				CurveClass);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticSignVerifyKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -254,22 +271,25 @@ int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_AES_ENCRYPT_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesEncKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -292,22 +312,25 @@ int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_RSA_PRIVATE_DEC_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaPrivateDecKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }
@@ -331,23 +354,26 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 * are invalid
+	 */
+	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
 				XSECURE_API_ELLIPTIC_SIGN_GEN_KAT,
 				CurveClass);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticSignGenKat
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
-
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
 }

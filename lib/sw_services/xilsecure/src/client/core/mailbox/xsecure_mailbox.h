@@ -71,10 +71,13 @@ extern "C" {
 	Payload[3U] = (u32)Arg3;						\
 	Payload[4U] = (u32)Arg4;						\
 	Payload[5U] = (u32)Arg5;
-
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+#define HEADER(len, ApiId) (((u32)XILSECURE_MODULE_ID << 8U) | (u32)ApiId )
+				/**< Header for XilSecure SMC Commands */
+#else
 #define HEADER(len, ApiId) (((u32)len << 16U) | ((u32)XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
-				/**< Header for XilSecure Commands */
-
+				/**< Header for XilSecure Mailbox Commands */
+#endif
 #define XSECURE_PACK_PAYLOAD0(Payload, ApiId) \
 	XSECURE_PACK_PAYLOAD(Payload, HEADER(0UL, (ApiId)), 0U, 0U, 0U, 0U, 0U)
 #define XSECURE_PACK_PAYLOAD1(Payload, ApiId, Arg1) \

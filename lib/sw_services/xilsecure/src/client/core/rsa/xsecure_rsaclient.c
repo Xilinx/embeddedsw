@@ -30,6 +30,7 @@
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/29/24 APIs are updated for SSIT support
+* 5.7   tbk  03/16/26 Added SMC support
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 */
 /***************************** Include Files *********************************/
 #include "xsecure_rsaclient.h"
+#include "xsecure_generic.h"
 
 /*****************************************************************************/
 /**
@@ -95,18 +97,19 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_RSA_PRIVATE_DECRYPT),
 				BufferAddr,
 				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT),
 				OutDataAddr,
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
+
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDecrypt
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -167,7 +170,7 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_RSA_PUBLIC_ENCRYPT),
 				BufferAddr,
@@ -176,10 +179,10 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaEncrypt
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -235,17 +238,17 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 
 	XSecure_DCacheFlushRange(SignParams, sizeof(XSecure_RsaSignParams));
 
-	/* Fill IPI Payload */
+	/* Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_RSA_SIGN_VERIFY),
 				BufferAddr,
 				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaSignVerify
-	 * API and returns the status of the IPI response.
+	 * Send request to PLM through generic request API.
+	 * This internally handles SMC or IPI mailbox based on build configuration.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_SendRequest(InstancePtr, (u32 *)Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
