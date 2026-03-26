@@ -55,6 +55,7 @@
 * 2.4   gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *       vm   03/16/2026 Added XLOADER_ERR_ASU_FW_NOT_FOUND error code
 *       pre  03/23/2026 Added support to extend to TPM PCRs
+*       sri  03/26/2026 Added IPI API definition for Versal 2VE and 2VM devices
 *
 * </pre>
 *
@@ -338,7 +339,9 @@ typedef struct {
 		{"DDR", XLOADER_DDR_INDEX}, /* DDR - 0xF */\
 	}/**< Get PDI source info */
 
-#define XLoader_VerifyDataAuth NULL  /**< Reserved */
+#ifdef PLM_SECURE_EXCLUDE
+#define XLoader_VerifyAuthHashBlock NULL
+#endif
 
 /*****************************************************************************/
 /**

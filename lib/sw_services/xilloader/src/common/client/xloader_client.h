@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
  *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
  * 2.3   aa   09/29/25 Added UFS support as pdisrc option for partial PDI load
+ * 2.4   sri  03/26/26 Included header file for cache disable option
  *
  * </pre>
  *
@@ -37,6 +38,12 @@ extern "C" {
 #include "xil_types.h"
 #include "xloader_mailbox.h"
 #include "xloader_defs.h"
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
+#include "xloader_plat_client.h"
+#endif
+#ifdef SDT
+#include "xloader_bsp_config.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 /**< shift constant to place slr id*/

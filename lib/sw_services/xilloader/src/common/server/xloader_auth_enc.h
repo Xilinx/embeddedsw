@@ -72,6 +72,7 @@
 *       tvp  03/05/26 Add XLoader_AuthKey to accommodate new algorithms support
 *       tvp  03/05/26 Add authenticated boot support for Versal_2vp_p
 *       tvp  03/05/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
+*       sri  03/26/26 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 *
 * </pre>
 *
@@ -906,6 +907,10 @@ int XLoader_IsPpkValid(const u8 *PpkHash);
 int XLoader_ClearAesKey(u32 *DecKeySrc);
 int XLoader_IsPpkRevoked(u32 PpkInvldMask);
 int XLoader_ValidatePpkHash(const u8 *PpkHash, u32 PpkOffset);
+#if defined(VERSAL_2VE_2VM)
+int XLoader_AuthenticateClientHashBlock(XLoader_SecureParams *SecurePtr,
+        XLoader_HBSignParams *HBSignParams, XLoader_HashBlock *ClientHBInstance);
+#endif
 int XLoader_GetPpkInvalidMaskAndOffset(XLoader_PpkSel PpkSelect,
 		u32 *InvalidMask, u32 *PpkOffset);
 #endif

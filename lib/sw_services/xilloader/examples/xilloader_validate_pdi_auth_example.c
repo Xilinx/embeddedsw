@@ -15,15 +15,16 @@
 * To build this application, xilmailbox library must be included in BSP and
 * xilloader library must be in client mode and xilsecure must be in client mode
 *
-* This example is supported for Versal Net devices.
+* This example is supported for Versal Net and Versal 2Ve 2Vm devices.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
-* 1.00  har   12/11/23 Initial release
-*       kpt   10/04/24 Added support to validate authentication enabled partial PDI
+* 1.00  har  12/11/23 Initial release
+*       kpt  10/04/24 Added support to validate authentication enabled partial PDI
+* 2.40  sri  03/26/26 Included common client header file for cache disable option
 *
 * </pre>
 *
@@ -67,9 +68,8 @@
 **************************************************************************************************/
 
 /*************************************** Include Files *******************************************/
-#include "xloader_plat_client.h"
 #include "xil_cache.h"
-
+#include "xloader_client.h"
 /************************************ Constant Definitions ***************************************/
 /* Example defines below, update with required values*/
 #define PDI_SRC_ADDR		(0x1000000U) /**< Address where authenticated PDI is available */
@@ -104,7 +104,7 @@ int main(void)
 	XLoader_ClientInstance LoaderClientInstance;
 
 #ifdef XLOADER_CACHE_DISABLE
-		Xil_DCacheDisable();
+	Xil_DCacheDisable();
 #endif
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
@@ -143,7 +143,7 @@ END:
 
 /*************************************************************************************************/
 /**
-* @brief	This function calls the client API to validate authenticaed PDI
+* @brief	This function calls the client API to validate authenticated PDI
 *
 * @param	InstancePtr is a pointer to the XLoader_ClientInstance instance
 *
@@ -157,11 +157,15 @@ static int ValidateAuthPdi(XLoader_ClientInstance *InstancePtr)
 	int Status = XST_FAILURE;
 	u64 PdiAddr = PDI_SRC_ADDR;
 
+#ifndef XLOADER_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
+#endif
 
-	Status =  XLoader_ValidatePdiAuth(InstancePtr, PdiAddr, PDI_TYPE);
+	Status = XLoader_ValidatePdiAuth(InstancePtr, PdiAddr, PDI_TYPE);
 
+#ifndef XLOADER_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
+#endif
 
 	return Status;
 }

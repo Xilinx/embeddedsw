@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  gnr  02/09/26 Initial release
+ * 2.40  sri  03/26/26 Added client API to validate authenticated PDI
  *
  * </pre>
  *
@@ -40,10 +41,10 @@ extern "C" {
  * Structure to hold DDR Counters
  */
 typedef struct {
-		u32 DDRCounter0; /**< DDR Counter0 */
-		u32 DDRCounter1; /**< DDR Counter1 */
-		u32 DDRCounter2; /**< DDR Counter2 */
-		u32 DDRCounter3; /**< DDR Counter3 */
+	u32 DDRCounter0; /**< DDR Counter0 */
+	u32 DDRCounter1; /**< DDR Counter1 */
+	u32 DDRCounter2; /**< DDR Counter2 */
+	u32 DDRCounter3; /**< DDR Counter3 */
 } XLoader_DDRCounters;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -56,6 +57,7 @@ typedef struct {
 int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag);
 int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 		XLoader_DDRCounters *CryptoCounters);
+int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u32 PdiType);
 
 /************************************ Variable Definitions ***************************************/
 

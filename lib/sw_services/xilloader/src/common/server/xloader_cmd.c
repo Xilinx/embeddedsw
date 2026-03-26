@@ -94,6 +94,7 @@
 *       gnr  02/06/2026 Fixed IPI access permissions order per XLoader_Cmds order
 *       gnr  02/09/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2ve_2vm
 *       gnr  03/12/2026 Fixed integer overflow in length check of XLoader_AddImageStorePdi() and XLoader_WriteImageStorePdi()
+*       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 * </pre>
 *
 ******************************************************************************/
@@ -187,12 +188,23 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
 #define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
 
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && (!defined(VERSAL_2VE_2VM))
+#if (!defined(PLM_SECURE_EXCLUDE))
+#if (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
 #define XLOADER_ISHDR_IDX			(0U)
 #define XLOADER_HASH_LOW_ADDR_IDX		(1U)
 #define XLOADER_HASH_HIGH_ADDR_IDX		(2U)
 #define XLOADER_AC_LOW_ADDR_IDX			(3U)
 #define XLOADER_AC_HIGH_ADDR_IDX		(4U)
+#elif defined(VERSAL_2VE_2VM)
+#define XLOADER_HB_SIGN_PARAMS_LOW_ADDR_IDX     (0U)
+		/**< Payload index for the low 32 bits of the hash block sign parameters address */
+#define XLOADER_HB_SIGN_PARAMS_HIGH_ADDR_IDX    (1U)
+		/**< Payload index for the high 32 bits of the hash block sign parameters address */
+#define XLOADER_HB_INSTANCE_LOW_ADDR_IDX        (2U)
+		/**< Payload index for the low 32 bits of the hash block instance address */
+#define XLOADER_HB_INSTANCE_HIGH_ADDR_IDX       (3U)
+		/**< Payload index for the high 32 bits of the hash block instance address */
+#endif
 #endif
 
 #define XLOADER_SD_MULTIBOOT_SHIFT		(4U)
@@ -1201,7 +1213,8 @@ END:
 	return Status;
 }
 
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && (!defined(VERSAL_2VE_2VM))
+#if (!defined(PLM_SECURE_EXCLUDE))
+#if (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
 /*****************************************************************************/
 /**
  * @brief	This function verifies the signature of the provided hash
@@ -1246,12 +1259,56 @@ static int XLoader_VerifyDataAuth(XPlmi_Cmd *Cmd)
 		Signature = (u8*)SecurePtr.AcPtr->ImgSignature;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END,Status,XLoader_DataAuth, &SecurePtr, Hash, Signature);
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_DataAuth, &SecurePtr, Hash, Signature);
+END:
+	return Status;
+}
+#elif defined(VERSAL_2VE_2VM)
+/*****************************************************************************/
+/**
+ * @brief	This function verifies the signature of the provided hash
+ *
+ *  Command payload parameters are:
+ *	- Higher address of buffer which stores the HB Sign Parameters
+ *	- Lower address of buffer which stores the HB Sign Parameters
+ *	- Higher address of buffer which stores the HB Instance
+ *	- Lower address of buffer which stores the HB Instance
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error Code in case of failure
+ *
+ *****************************************************************************/
+static int XLoader_VerifyAuthHashBlock(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	XLoader_SecureParams SecurePtr = {0U};
+	u64 HBSignParamsAddr = 0;
+	u64 HBInstanceAddr = 0;
+
+	HBSignParamsAddr = Cmd->Payload[XLOADER_HB_SIGN_PARAMS_HIGH_ADDR_IDX];
+	HBSignParamsAddr = (u64)(Cmd->Payload[XLOADER_HB_SIGN_PARAMS_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(HBSignParamsAddr)));
+	HBInstanceAddr = Cmd->Payload[XLOADER_HB_INSTANCE_HIGH_ADDR_IDX];
+	HBInstanceAddr = (u64)(Cmd->Payload[XLOADER_HB_INSTANCE_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(HBInstanceAddr)));
+
+	SecurePtr.NoLoad = XLOADER_NOLOAD_VAL;
+	SecurePtr.AuthJtagMessagePtr = NULL;
+	SecurePtr.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+	if (SecurePtr.PmcDmaInstPtr == NULL) {
+		goto END;
+	}
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateClientHashBlock, &SecurePtr,
+								(XLoader_HBSignParams *)(UINTPTR)HBSignParamsAddr,
+								(XLoader_HashBlock *)(UINTPTR)HBInstanceAddr);
 
 END:
 	return Status;
 }
-#endif
+#endif // (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
+#endif // (!defined(PLM_SECURE_EXCLUDE))
 
 /**
  * @cond xloader_internal
@@ -1281,7 +1338,11 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState),
 	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters),
     XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake),
+#if defined(VERSAL_2VE_2VM)
+	XPLMI_MODULE_COMMAND(XLoader_VerifyAuthHashBlock),
+#else
 	XPLMI_MODULE_COMMAND(XLoader_VerifyDataAuth),
+#endif
 	XPLMI_MODULE_COMMAND(XLoader_CfiSelectiveRead),
 };
 
@@ -1314,7 +1375,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
 #endif
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE),
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && !(defined(VERSAL_2VE_2VM))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET) || defined(VERSAL_2VE_2VM))
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_DATA_AUTH),
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_DATA_AUTH),

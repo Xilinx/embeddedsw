@@ -90,6 +90,24 @@ extern "C" {
 #define XLOADER_DATA_ID_SHIFT			(16U)
 	/**< Shift to get data ID from the payload of Extract metaheader command */
 
+/***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * @def XLOADER_DEBUG
+ * @brief Enable debug prints in XLoader when set to 1.
+ */
+ #define XLOADER_DEBUG	(0U)
+
+ /**
+ * @def XLOADER_DEBUG_GENERAL
+ * @brief General flag to enable debug prints in XLoader when set to 1.
+ */
+#if (XLOADER_DEBUG)
+#define XLOADER_DEBUG_GENERAL (1U)
+#else
+#define XLOADER_DEBUG_GENERAL (0U)
+#endif
+#define XLoader_Client_Printf(DebugType, ...)	\
+	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}	/**< Print debug messages */
 /************************************** Type Definitions *****************************************/
 /**
  * Structure to hold Image information

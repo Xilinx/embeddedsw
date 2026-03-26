@@ -86,6 +86,7 @@ examples:
 
     if platform in ["Versal_2VE_2VM"] and proc in versal_2ve_2vm_procs:
       examples += [
+        "xilloader_validate_pdi_auth_example.c",
         "xilloader_configure_jtag_status_client_example.c",
         "xilloader_read_ddr_crypto_perf_counters_client_example.c"
       ]
