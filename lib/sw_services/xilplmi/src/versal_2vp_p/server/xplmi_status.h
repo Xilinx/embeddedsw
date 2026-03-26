@@ -646,12 +646,13 @@ typedef enum {
 	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
 		/**< 0x65B Invalid parameter passed for JTAG authentication */
 
-	XLOADER_ERR_PPK_HEADER_COPY_FAIL = 0x65D, /**< 0x65D - Error in PPK Header copy */
-	XLOADER_ERR_INCORRECT_KEY, /**< 0x65E - Key is incorrect */
-	XLOADER_ERR_INVALID_HYBRID_KEYPAIR, /**< 0x65F - Invalid set of key pairs for hybrid signing */
-	XLOADER_ERR_KEY_ALGO_MISMATCH, /**< 0x660 - PPK and SPK algorithms do not match */
-	XLOADER_ERR_SIGN_HDR_COPY_FAIL, /**< 0x661 - Error in Signature header copy */
-	XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, /**< 0x662 - Authenticated JTAG is not supported */
+	XLOADER_ERR_PRTN_REVOKED = 0x65D, /**< 0x65D - Partition is revoked */
+	XLOADER_ERR_PPK_HEADER_COPY_FAIL, /**< 0x65E - Error in PPK Header copy */
+	XLOADER_ERR_INCORRECT_KEY, /**< 0x65F - Key is incorrect */
+	XLOADER_ERR_INVALID_HYBRID_KEYPAIR, /**< 0x660 - Invalid set of key pairs for hybrid signing */
+	XLOADER_ERR_KEY_ALGO_MISMATCH, /**< 0x661 - PPK and SPK algorithms do not match */
+	XLOADER_ERR_SIGN_HDR_COPY_FAIL, /**< 0x662 - Error in Signature header copy */
+	XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, /**< 0x663 - Authenticated JTAG is not supported */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,	/**< 0x6A0 Additional PPks are not

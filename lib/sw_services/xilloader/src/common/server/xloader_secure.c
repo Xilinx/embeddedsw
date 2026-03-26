@@ -211,8 +211,15 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+#ifdef VERSAL_2VE_2VM
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 ReadAuthReg;
+	u32 ReadEncReg;
+#endif
 
 	/** - Initialize XLoader_SecureParms instance with zeros. */
 	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
@@ -259,6 +266,61 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, 0);
 		goto END;
 	}
+#ifndef PLM_SECURE_EXCLUDE
+#ifdef VERSAL_2VE_2VM
+	/**
+	 * - Read both secure state registers upfront, then perform partition
+	 *   revocation check when actual HWRoT (AHWROT or SHWROT) and
+	 *   Emulated SHWROT (encrypted PLM) is active.
+	 *   Emulated AHWROT (BH auth) is excluded intentionally.
+	 */
+	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+	ReadEncReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+
+	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+		XPLMI_RTCFG_SECURESTATE_AHWROT);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
+			XPLMI_RTCFG_SECURESTATE_SHWROT);
+	}
+
+	/** - Verify revoke ID if AHWROT or SHWROT is active, or encryption is enabled */
+	if (((Status == XST_SUCCESS) &&
+		((ReadAuthReg == SecureStateAHWRoT) ||
+		(ReadEncReg == SecureStateSHWRoT))) ||
+		(PrtnHdr->EncStatus != 0x00U)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
+			PrtnHdr->EncRevokeID);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
+			XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_REVOKED, Status);
+			goto END;
+		}
+	}
+	else {
+		/** - Neither active; detect any glitch on register reads */
+		if ((ReadAuthReg != SecureStateAHWRoT) ||
+			(ReadEncReg != SecureStateSHWRoT)) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			goto END;
+		}
+		Status = XST_SUCCESS;
+	}
+#else
+	/** - Verify revoke ID if encryption is enabled */
+	if (PrtnHdr->EncStatus != 0x00U) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
+			PrtnHdr->EncRevokeID);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
+			XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_REVOKED, Status);
+			goto END;
+		}
+	}
+#endif
+#endif
 
 	/** - Initialize the checksum. */
 	Status = XLoader_ChecksumInit(SecurePtr, PrtnHdr);
@@ -543,7 +605,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	}
 
 #if (defined(versal) && !defined(VERSAL_2VE_2VM) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
-	/** Store Hash of first block requird for the data measurements */
+	/** Store Hash of first block required for the data measurements */
 	if (SecurePtr->BlockNum == 0x0U) {
 		/** Store Hash of the first block of the partition, required for data measurement */
 		Status = Xil_SMemCpy(&PtrnHashTablePtr[SecurePtr->PdiPtr->ImagePrtnId].Hash,

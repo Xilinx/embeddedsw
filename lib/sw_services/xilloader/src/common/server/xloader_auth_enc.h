@@ -926,11 +926,11 @@ int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
 XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
 int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 #endif
-int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
-int XLoader_VerifyRevokeId(u32 RevokeId);
 #ifndef PLM_SECURE_EXCLUDE
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_AuthKey *AuthKey, u8 *Signature);
+int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
+int XLoader_VerifyRevokeId(u32 RevokeId);
 #endif
 int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 int XLoader_Sha3Kat(XilPdi *PdiPtr);

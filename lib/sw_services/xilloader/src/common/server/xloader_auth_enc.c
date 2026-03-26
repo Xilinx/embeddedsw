@@ -1201,7 +1201,7 @@ int XLoader_VerifyRevokeId(u32 RevokeId)
 	volatile u32 Value;
 	volatile u32 ValueTmp;
 
-	XPlmi_Printf(DEBUG_INFO, "Validating SPKID\n\r");
+	XPlmi_Printf(DEBUG_INFO, "Validating Revocation ID\n\r");
 	/** - Verify if provided revocation ID is in range of 0 to 255 */
 	if(RevokeId > XLOADER_REVOCATION_IDMAX) {
 		XPlmi_Printf(DEBUG_INFO, "Revocation ID provided is out of range, "
@@ -3022,26 +3022,15 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
 		(SecureTempParams->IsEncrypted == (u8)TRUE)) {
-
 		if (SecurePtr->BlockNum == 0x0U) {
 			SecurePtr->RemainingEncLen =
 				SecurePtr->PrtnHdr->EncDataWordLen << XPLMI_WORD_LEN_SHIFT;
-			/** - Verify encrypted partition is revoked or not */
-			XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifyRevokeId,
-					SecurePtr->PrtnHdr->EncRevokeID);
-			if ((Status != XST_SUCCESS) ||
-				(SStatus != XST_SUCCESS)) {
-				Status |= SStatus;
-				XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
-				goto END;
-			}
 		}
-
 		if (Last == (u8)TRUE) {
 			TotalSize = SecurePtr->RemainingEncLen;
 		}
 		else {
-			if (SecurePtr->BlockNum == 0U)  {
+			if (SecurePtr->BlockNum == 0x0U) {
 				/* To include Secure Header */
 				TotalSize = TotalSize + XLOADER_SECURE_HDR_TOTAL_SIZE;
 			}

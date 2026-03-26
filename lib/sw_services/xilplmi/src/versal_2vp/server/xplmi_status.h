@@ -585,7 +585,8 @@ typedef enum {
 					  possible */
 	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< Error in Secure config measurement */
 	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
-				/**< 0x65B Invalid parameter passed for JTAG authentication */
+			/**< 0x65B Invalid parameter passed for JTAG authentication */
+	XLOADER_ERR_PRTN_REVOKED = 0x65D, /**< 0x65D - Partition is revoked */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,	/**< 0x6A0 Additional PPks are not
