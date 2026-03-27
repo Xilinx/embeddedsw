@@ -821,3 +821,14 @@ def get_builds_embeddedsw_path(silent_discard: bool = True):
         logger.error(f"Couldn't find the ESW repo inside {builds_path}")
         sys.exit(1)
     return ""
+
+def get_sample_sdt_list():
+    """Function to get the list of sample SDTs
+     if the sample SDTs are not present in the data/embeddedsw/sample_sdt directory, return the default list"""
+
+    default_sample_sdt_list = ["vck190", "vek385", "vmk180", "zc702", "zc706", "zcu102", "zcu106", "zed"]
+    sample_sdt_path = os.path.join(get_builds_embeddedsw_path(), "sample_sdt")
+    if is_dir(sample_sdt_path, silent_discard=True):
+        return os.listdir(sample_sdt_path)
+    else:
+        return default_sample_sdt_list

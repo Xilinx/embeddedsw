@@ -1023,9 +1023,7 @@ def main(arguments=None):
         "--hardware",
         action="store",
         help=f"Enter hardware names to pick sample SDTs. Above are the available options",
-        choices=os.listdir(
-            os.path.join(utils.get_builds_embeddedsw_path(), "sample_sdt")
-        ),
+        choices=utils.get_sample_sdt_list(),
     )
 
     parser.add_argument(
