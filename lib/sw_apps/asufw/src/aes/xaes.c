@@ -55,8 +55,6 @@
 #define XAES_TIMEOUT_MAX		(5000U) /**<  AES maximum wait timeout value in
 							micro seconds (5000us/5ms). */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
-#define XAES_KEY_NOT_ZEROIZED		(0x0) /**< Key in AES subsystem is not zeroized */
-#define XAES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized */
 #define XAES_FULL_WORD_MASK		(0xFFFFFFFFU) /**< Mask to compare a full 32-bit word. */
 #define XAES_BIT_MASK(Bytes)		((1UL << ((Bytes) * XASUFW_BYTE_LEN_IN_BITS)) - 1U)
 						/**< Bit mask with lower (Bytes * 8) bits set. */
@@ -118,10 +116,8 @@
 
 #define XAES_AAD_LENGTH_SHORT_LIMIT	(0xFF00U) /**< (1 << 16) - (1 << 8) = 65280. */
 #define XAES_HEADER_6BYTE_INDICATOR	(0xFFFEU) /**< Header 6-byte indicator. */
-#define XAES_HEADER_10BYTE_INDICATOR	(0xFFFFU) /**< Header 10-byte indicator. */
 #define XAES_TWO_BYTE_ENCODING		(2U) /**< 2-byte encoding for small values. */
 #define XAES_SIX_BYTE_ENCODING		(6U) /**< 6-byte encoding for medium values. */
-#define XAES_TEN_BYTE_ENCODING		(10U) /**< 10-byte encoding for large values. */
 #define XAES_BYTE_MASK			(0xFFU) /**< Byte mask. */
 #define XAES_MSB_SHIFT_32		(24U) /**< Most significant byte shift of 32-bit word. */
 

@@ -303,8 +303,6 @@ extern "C" {
  */
 #define XAES_KEY_ZEROED_STATUS_OFFSET			(0x00000008U)
 	/**< AES key Zeroed register offset */
-#define XAES_KEY_ZEROED_STATUS_RESET_VAL		(0x00003FFEU)
-	/**< AES key Zeroed status reset value */
 #define XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK		(0x00002000U)
 	/**< Puf key zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK	(0x00001000U)
