@@ -75,8 +75,10 @@ struct { __VA_ARGS__ } save; \
 struct { __VA_ARGS__};};
 
 u32 XPm_GetByteBufferOffset(void);
+u32 XPm_GetByteBufferSize(void);
 u32 XPm_GetSavedByteBufferAddress(void);
 u32 XPm_GetPrevByteBufferAddress(void);
+u32 XPm_IsValidSavedAddress(u32 Addr);
 u32 XPm_ConvertToSavedAddress(u32 InputAddress);
 
 #define XPm_OutVerify32(ADDR, VAL, STATUS)					\

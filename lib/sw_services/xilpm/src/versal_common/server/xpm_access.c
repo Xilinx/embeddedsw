@@ -15,8 +15,345 @@
 #include "xpm_psm.h"
 #endif
 
+#ifdef VERSAL_NET
+#include "xplmi_update.h"
+#include "xpm_update_data.h"
+#include "xpm_update.h"
+#endif
+
 static XPm_RegNode *PmRegnodes;
+static u32 PmRegnodeCount;
 static XPm_NodeAccess *PmNodeAccessTable;
+static u32 PmNodeAccessCount;
+static u32 PmApertureCount;
+
+#ifdef VERSAL_NET
+/**
+ * Structure to save regnode and access table state for IPU.
+ * The actual data is in ByteBuffer which is saved separately.
+ */
+typedef struct {
+	u32 PmRegnodesPtr;        /**< Head of regnode linked list */
+	u32 PmRegnodeCount;       /**< Number of regnodes in list */
+	u32 PmNodeAccessTablePtr; /**< Head of access table linked list */
+	u32 PmNodeAccessCount;    /**< Number of access table entries */
+	u32 PmApertureCount;      /**< Total number of apertures across all entries */
+} XPm_AccessPtrs;
+
+static XPm_AccessPtrs AccessPtrs;
+
+/**
+ * @brief Handler for saving regnode and access table pointers during IPU
+ *
+ * Only saves pointers during STORE. The actual restore is done later
+ * via XPmAccess_RestoreRegnodes() called from XPmUpdate_RestoreAllNodes()
+ * after ByteBuffer has been fully restored.
+ */
+static int XPmAccess_PtrOps(u32 Op, u64 Addr, void *Data)
+{
+	int Status = XST_FAILURE;
+
+	if (Op == XPLMI_STORE_DATABASE) {
+		/* Save head pointers and counts */
+		AccessPtrs.PmRegnodesPtr = (u32)(UINTPTR)PmRegnodes;
+		AccessPtrs.PmRegnodeCount = PmRegnodeCount;
+		AccessPtrs.PmNodeAccessTablePtr = (u32)(UINTPTR)PmNodeAccessTable;
+		AccessPtrs.PmNodeAccessCount = PmNodeAccessCount;
+		AccessPtrs.PmApertureCount = PmApertureCount;
+
+		PmDbg("IPU: Save regnodes=%u access=%u apertures=%u\n\r",
+			AccessPtrs.PmRegnodeCount, AccessPtrs.PmNodeAccessCount,
+			AccessPtrs.PmApertureCount);
+
+		/* Use default handler to copy to DDR */
+		Status = XPlmi_DsOps(Op, Addr, Data);
+	}
+	else if (Op == XPLMI_RESTORE_DATABASE) {
+		/* Just restore the saved pointers from DDR - actual pointer fixup
+		 * happens later in XPmAccess_RestoreRegnodes() after ByteBuffer restore */
+		Status = XPlmi_DsOps(Op, Addr, Data);
+	}
+	else {
+		Status = XPLMI_ERR_PLM_UPDATE_INVALID_OP;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+EXPORT_DS_W_HANDLER(AccessPtrs,
+	XPLMI_MODULE_XILPM_ID, XPM_REGNODES_DS_ID,
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION,
+	sizeof(AccessPtrs), (u32)(UINTPTR)(&AccessPtrs), XPmAccess_PtrOps);
+
+/**
+ * @brief Advance to the next node in a saved linked list
+ *
+ * Returns the offset-adjusted next pointer, or NULL if the raw
+ * pointer is NULL or fails conversion.
+ * Uses XPm_ConvertToSavedAddress() for the actual conversion.
+ *
+ * @param RawPtr The raw pointer value from saved data
+ * @return Adjusted pointer, or NULL if invalid
+ */
+static inline void *XPmAccess_NextSaved(u32 RawPtr)
+{
+	u32 Adjusted;
+
+	if (RawPtr == 0U) {
+		return NULL;
+	}
+
+	Adjusted = XPm_ConvertToSavedAddress(RawPtr);
+	if (0U == Adjusted) {
+		return NULL;
+	}
+
+	return (void *)(UINTPTR)Adjusted;
+}
+
+/**
+ * @brief Restore regnodes and access table after In-Place PLM Update
+ *
+ * Deep-copies regnode and access table linked lists from the DDR-saved
+ * ByteBuffer into fresh ByteBuffer allocations. Must be called after
+ * ByteBuffer restore is complete.
+ *
+ * @return XST_SUCCESS if all entries restored, error code otherwise
+ */
+XStatus XPmAccess_RestoreRegnodes(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegnodeCount = 0U;
+	u32 AccessCount = 0U;
+	u32 ApertureCount = 0U;
+
+	PmDbg("IPU: Restore regnodes=%u access=%u apertures=%u\n\r",
+		AccessPtrs.PmRegnodeCount, AccessPtrs.PmNodeAccessCount,
+		AccessPtrs.PmApertureCount);
+
+	/*
+	 * Deep copy regnodes from DDR saved ByteBuffer into fresh
+	 * ByteBuffer allocations. The DDR reserved region is reused
+	 * on the next IPU, so regnodes must live in ByteBuffer.
+	 *
+	 * Lists are rebuilt using append to preserve original order.
+	 */
+	PmRegnodes = NULL;
+	PmNodeAccessTable = NULL;
+
+	/* Restore regnodes */
+	if (AccessPtrs.PmRegnodesPtr != 0U) {
+		XPm_RegNode *SavedNode = (XPm_RegNode *)XPmAccess_NextSaved(
+			AccessPtrs.PmRegnodesPtr);
+		XPm_RegNode *Tail = NULL;
+		if (NULL == SavedNode) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+
+		while ((NULL != SavedNode) && (RegnodeCount < AccessPtrs.PmRegnodeCount)) {
+			u32 SavedPowerPtr = (u32)(UINTPTR)SavedNode->Power;
+			u32 SavedNextRegnodePtr = (u32)(UINTPTR)SavedNode->NextRegnode;
+			void *PowerAddr;
+			u32 PowerId;
+			XPm_RegNode *NewNode = (XPm_RegNode *)XPm_AllocBytes(sizeof(XPm_RegNode));
+			if (NULL == NewNode) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			NewNode->Id = SavedNode->Id;
+			NewNode->BaseAddress = SavedNode->BaseAddress;
+			NewNode->Requirements = SavedNode->Requirements;
+			NewNode->NextRegnode = NULL;
+
+			/* Resolve power parent by ID. All regnodes must have valid power. */
+			if (SavedPowerPtr == 0U) {
+				PmErr("IPU: Regnode 0x%08x has NULL power parent\n\r",
+					SavedNode->Id);
+				Status = XST_FAILURE;
+				goto done;
+			}
+			PowerAddr = XPmAccess_NextSaved(SavedPowerPtr);
+			if (NULL == PowerAddr) {
+				PmErr("IPU: Cannot resolve power ptr 0x%08x for regnode 0x%08x\n\r",
+					SavedPowerPtr, SavedNode->Id);
+				Status = XST_FAILURE;
+				goto done;
+			}
+			PowerId = ((XPm_Node *)PowerAddr)->Id;
+			NewNode->Power = XPmPower_GetById(PowerId);
+			if (NULL == NewNode->Power) {
+				PmErr("IPU: Power ID 0x%08x not found for regnode 0x%08x\n\r",
+					PowerId, SavedNode->Id);
+				Status = XST_FAILURE;
+				goto done;
+			}
+
+			/* Append to preserve original list order */
+			if (NULL == PmRegnodes) {
+				PmRegnodes = NewNode;
+			} else {
+				Tail->NextRegnode = NewNode;
+			}
+			Tail = NewNode;
+
+			PmDbg("  RegNode: 0x%08x @ 0x%08x\n\r",
+				NewNode->Id, NewNode->BaseAddress);
+
+			if (SavedNextRegnodePtr != 0U) {
+				SavedNode = (XPm_RegNode *)XPmAccess_NextSaved(
+					SavedNextRegnodePtr);
+				if (NULL == SavedNode) {
+					Status = XST_FAILURE;
+					goto done;
+				}
+			}
+			else {
+				SavedNode = NULL;
+			}
+			RegnodeCount++;
+		}
+	}
+
+	/* Validate regnode count matches saved count */
+	if (RegnodeCount != AccessPtrs.PmRegnodeCount) {
+		PmErr("IPU: regnode count %u != %u\n\r",
+			RegnodeCount, AccessPtrs.PmRegnodeCount);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Restore access table */
+	if (AccessPtrs.PmNodeAccessTablePtr != 0U) {
+		XPm_NodeAccess *SavedEntry = (XPm_NodeAccess *)XPmAccess_NextSaved(
+			AccessPtrs.PmNodeAccessTablePtr);
+		XPm_NodeAccess *TableTail = NULL;
+		if (NULL == SavedEntry) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+
+		while ((NULL != SavedEntry) && (AccessCount < AccessPtrs.PmNodeAccessCount)) {
+			u32 SavedAperturePtr = (u32)(UINTPTR)SavedEntry->Aperture;
+			u32 SavedNextEntryPtr = (u32)(UINTPTR)SavedEntry->NextNode;
+			XPm_NodeAccess *NewEntry = (XPm_NodeAccess *)XPm_AllocBytes(sizeof(XPm_NodeAccess));
+			if (NULL == NewEntry) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			NewEntry->Id = SavedEntry->Id;
+			NewEntry->Aperture = NULL;
+			NewEntry->NextNode = NULL;
+
+			/* Deep copy aperture chain */
+			if (SavedAperturePtr != 0U) {
+				XPm_NodeAper *SavedAper = (XPm_NodeAper *)XPmAccess_NextSaved(
+					SavedAperturePtr);
+				XPm_NodeAper *LastAper = NULL;
+				if (NULL == SavedAper) {
+					Status = XST_FAILURE;
+					goto done;
+				}
+
+				while ((NULL != SavedAper) && (ApertureCount < AccessPtrs.PmApertureCount)) {
+					u32 SavedNextAperPtr = (u32)(UINTPTR)SavedAper->NextAper;
+					XPm_NodeAper *NewAper = (XPm_NodeAper *)XPm_AllocBytes(sizeof(XPm_NodeAper));
+					if (NULL == NewAper) {
+						Status = XST_BUFFER_TOO_SMALL;
+						goto done;
+					}
+					NewAper->Offset = SavedAper->Offset;
+					NewAper->Size = SavedAper->Size;
+					NewAper->Access = SavedAper->Access;
+					NewAper->NextAper = NULL;
+					if (NULL == NewEntry->Aperture) {
+						NewEntry->Aperture = NewAper;
+					} else {
+						LastAper->NextAper = NewAper;
+					}
+					LastAper = NewAper;
+
+					if (SavedNextAperPtr != 0U) {
+						SavedAper = (XPm_NodeAper *)XPmAccess_NextSaved(
+							SavedNextAperPtr);
+						if (NULL == SavedAper) {
+							Status = XST_FAILURE;
+							goto done;
+						}
+					}
+					else {
+						SavedAper = NULL;
+					}
+					ApertureCount++;
+				}
+			}
+
+			/* Append to preserve original list order */
+			if (NULL == PmNodeAccessTable) {
+				PmNodeAccessTable = NewEntry;
+			} else {
+				TableTail->NextNode = NewEntry;
+			}
+			TableTail = NewEntry;
+
+			PmDbg("  Access: 0x%08x\n\r", NewEntry->Id);
+
+			if (SavedNextEntryPtr != 0U) {
+				SavedEntry = (XPm_NodeAccess *)XPmAccess_NextSaved(
+					SavedNextEntryPtr);
+				if (NULL == SavedEntry) {
+					Status = XST_FAILURE;
+					goto done;
+				}
+			}
+			else {
+				SavedEntry = NULL;
+			}
+			AccessCount++;
+		}
+	}
+
+	/* Validate access table count matches saved count */
+	if (AccessCount != AccessPtrs.PmNodeAccessCount) {
+		PmErr("IPU: access count %u != %u\n\r",
+			AccessCount, AccessPtrs.PmNodeAccessCount);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Validate aperture count matches saved count */
+	if (ApertureCount != AccessPtrs.PmApertureCount) {
+		PmErr("IPU: aperture count %u != %u\n\r",
+			ApertureCount, AccessPtrs.PmApertureCount);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Update static counts to match restored state */
+	PmRegnodeCount = RegnodeCount;
+	PmNodeAccessCount = AccessCount;
+	PmApertureCount = ApertureCount;
+
+	/* Update AccessPtrs to reflect new addresses for test validation */
+	AccessPtrs.PmRegnodesPtr = (u32)(UINTPTR)PmRegnodes;
+	AccessPtrs.PmNodeAccessTablePtr = (u32)(UINTPTR)PmNodeAccessTable;
+
+	PmDbg("IPU: Restored %u regnodes, %u access, %u apertures\n\r",
+		RegnodeCount, AccessCount, ApertureCount);
+	Status = XST_SUCCESS;
+
+done:
+	if (XST_SUCCESS != Status) {
+		/* Reset to clean empty state on partial restore failure */
+		PmRegnodes = NULL;
+		PmNodeAccessTable = NULL;
+	}
+	return Status;
+}
+
+#endif /* VERSAL_NET */
 
 /* Match found in the "Node Access Table" */
 typedef struct XPm_NodeAccessMatch {
@@ -334,7 +671,11 @@ static XStatus XPmAccess_CheckParent(u32 DeviceId, u32 *BaseAddress)
 				/* Get base for a regnode */
 				Base = Regnode->BaseAddress;
 				/* Check parent power domain state */
-				if ((u32)XPM_POWER_STATE_ON == Regnode->Power->Node.State) {
+				if (NULL == Regnode->Power) {
+					PmErr("Regnode 0x%08x has NULL power parent\n\r",
+						DeviceId);
+					Status = XST_FAILURE;
+				} else if ((u32)XPM_POWER_STATE_ON == Regnode->Power->Node.State) {
 					Status = XST_SUCCESS;
 				}
 				break;
@@ -642,6 +983,7 @@ XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_NodeAper *NodeApertures = NULL;
+	u32 AperCount = 0U;
 
 	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
 	for (u32 i = 1U; i < NumArgs; i += 2U) {
@@ -659,12 +1001,17 @@ XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 		/* Add new aperture entry to the list */
 		Aper->NextAper = NodeApertures;
 		NodeApertures = Aper;
+		AperCount++;
 	}
 	NodeEntry->Aperture = NodeApertures;
 
 	/* Add new node entry to the access table */
 	NodeEntry->NextNode = PmNodeAccessTable;
 	PmNodeAccessTable = NodeEntry;
+	PmNodeAccessCount++;
+
+	/* Commit aperture count only after successful addition */
+	PmApertureCount += AperCount;
 
 	Status = XST_SUCCESS;
 
@@ -694,7 +1041,7 @@ void XPmAccess_PrintTable(void)
 		PmDbg("Id: 0x%08x, Base: 0x%08x, Req: 0x%08x, Power: 0x%08x\r\n",
 				Regnode->Id, Regnode->BaseAddress,
 				Regnode->Requirements,
-				Regnode->Power->Node.Id);
+				(NULL != Regnode->Power) ? Regnode->Power->Node.Id : 0U);
 		Regnode = Regnode->NextRegnode;
 	}
 
@@ -765,4 +1112,5 @@ void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 	/* Add to list of regnodes */
 	RegNode->NextRegnode = PmRegnodes;
 	PmRegnodes = RegNode;
+	PmRegnodeCount++;
 }

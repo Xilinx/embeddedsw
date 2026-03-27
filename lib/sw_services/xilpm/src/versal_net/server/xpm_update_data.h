@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -11,8 +11,18 @@
 extern "C" {
 #endif
 /****************** Data struct Version **************/
-#define XPM_DATA_STRUCT_VERSION 0x1
-#define XPM_DATA_STRUCT_LCVERSION 0x1
+/**
+ * Version 2: Added regnode/access table save/restore for IPU.
+ * LCVERSION bumped to 2 to reject IPU from older PLM that lacks
+ * XPM_REGNODES_DS_ID support - regnode state cannot be preserved
+ * across such updates.
+ */
+#define XPM_DATA_STRUCT_VERSION 0x2
+/**
+ * @def XPM_DATA_STRUCT_LCVERSION
+ * @brief Lowest compatible version for IPU data structure
+ */
+#define XPM_DATA_STRUCT_LCVERSION 0x2
 /****************** Data struct IDs **************/
 #define XPM_BYTEBUFFER_DS_ID		1U
 #define XPM_BYTEBUFFER_ADDR_DS_ID	2U
@@ -26,6 +36,11 @@ extern "C" {
 #define XPM_ALLSAVEREGIONSINFO_DS_ID	10U
 #define XPM_PREVNUMSAVEREGIONINFO_DS_ID 11U
 #define XPM_GICPROXYGROUPS_DS_ID	12U
+/**
+ * @def XPM_REGNODES_DS_ID
+ * @brief Data structure ID for regnode and access table state
+ */
+#define XPM_REGNODES_DS_ID		13U
 
 #ifdef __cplusplus
 }

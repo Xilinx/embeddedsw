@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,12 +97,45 @@ void XPm_DumpMemUsage(void)
 }
 
 /**
+ * @brief Get the size of the ByteBuffer
+ *
+ * @return u32 Size of ByteBuffer in bytes
+ */
+inline u32 XPm_GetByteBufferSize(void) {
+	return MAX_BYTEBUFFER_SIZE;
+}
+
+/**
  * @brief Get the address of ByteBuffer that is in DDR region
  *
  * @return u32 32-bit Address within DDR region
  */
 inline u32 XPm_GetSavedByteBufferAddress(void) {
        return SavedBBAddr;
+}
+
+/**
+ * @brief Validate that an address is within the saved ByteBuffer region
+ *
+ * Checks that the address is non-zero, word-aligned, and falls within
+ * the valid DDR save region [SavedBBAddr, SavedBBAddr + MAX_BYTEBUFFER_SIZE).
+ *
+ * @param Addr Address to validate
+ * @return 1U if valid, 0U if invalid
+ */
+u32 XPm_IsValidSavedAddress(u32 Addr)
+{
+	/* Check non-zero and word-aligned */
+	if ((0U == Addr) || ((Addr & 0x3U) != 0U)) {
+		return 0U;
+	}
+
+	/* Check within saved ByteBuffer bounds */
+	if ((Addr < SavedBBAddr) || (Addr >= (SavedBBAddr + MAX_BYTEBUFFER_SIZE))) {
+		return 0U;
+	}
+
+	return 1U;
 }
 
 /**
@@ -135,12 +168,30 @@ inline u32 XPm_GetPrevByteBufferAddress(void) {
 
 u32 XPm_ConvertToSavedAddress(u32 InputAddress){
 	u32 OutputAddress = 0U;
-	if (0U != InputAddress) {
-		OutputAddress = InputAddress + XPm_GetByteBufferOffset();
-		/** TODO: add range check here on OutputAddress
-		 * to make sure it is within the PLM storage area.
-		 */
+	u32 Offset;
+
+	if (0U == InputAddress) {
+		goto done;
 	}
+
+	Offset = XPm_GetByteBufferOffset();
+
+	/*
+	 * Note: Offset calculation (SavedBBAddr - PrevBBAddr) wraps when
+	 * SavedBBAddr (DDR, ~0x10000000) < PrevBBAddr (TCM, ~0xF0000000).
+	 * The addition InputAddress + Offset is expected to wrap back to
+	 * the DDR range. This is correct modular arithmetic - do NOT add
+	 * an overflow check here. The bounds validation below ensures the
+	 * result is within the valid saved ByteBuffer region.
+	 */
+	OutputAddress = InputAddress + Offset;
+
+	/* Validate output is within saved ByteBuffer bounds */
+	if (XPm_IsValidSavedAddress(OutputAddress) == 0U) {
+		OutputAddress = 0U;
+	}
+
+done:
 	return OutputAddress;
 }
 

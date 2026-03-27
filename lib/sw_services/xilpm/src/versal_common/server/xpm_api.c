@@ -443,6 +443,13 @@ static XStatus XPm_AddRequirement(const u32 *Args, const u32 NumArgs)
 		Status = XPmReset_AddPermission(Rst, Subsys, Flags);
 		break;
 	case (u32)XPM_NODECLASS_REGNODE:
+#ifdef VERSAL_NET
+		/* During IPU, regnode requirements are restored from saved state */
+		if ((u8)TRUE == XPlmi_IsPlmUpdateDone()) {
+			Status = XST_SUCCESS;
+			break;
+		}
+#endif
 		Status = XPmAccess_AddRegnodeRequirement(SubsysId, DevId);
 		break;
 	default:
@@ -474,6 +481,14 @@ static XStatus XPm_SetNodeAccess(const u32 *Args, u32 NumArgs)
 	XStatus Status = XST_FAILURE;
 	u32 NodeId;
 	XPm_NodeAccess *NodeEntry;
+
+#ifdef VERSAL_NET
+	/* During IPU, access tables are restored from saved state */
+	if ((u8)TRUE == XPlmi_IsPlmUpdateDone()) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+#endif
 
 	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
 	if ((NumArgs < 3U) || ((NumArgs % 2U) == 0U)) {
@@ -2779,6 +2794,14 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
 	u32 BaseAddress;
 	XPm_Power *Power = NULL;
 	XPm_RegNode *Regnode = NULL;
+
+#ifdef VERSAL_NET
+	/* During IPU, regnodes are restored from saved state */
+	if ((u8)TRUE == XPlmi_IsPlmUpdateDone()) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+#endif
 
 	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;

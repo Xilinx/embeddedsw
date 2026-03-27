@@ -35,6 +35,7 @@
 #include "xpm_requirement.h"
 #include "xpm_update_data.h"
 #include "xpm_notifier_plat.h"
+#include "xpm_access.h"
 
 #define XPM_UPDATE_PSM_RST_TIMEOUT 150000U /** < Timeout to wait for PSM firmware us */
 #define DONTCAREVAL 0xCAFECAFEU
@@ -202,19 +203,29 @@ done:
  * @brief Function to return a pointer to a Node within DDR region
  *
  * @param Index an index within the saved AllNodes array
- * @return NULL if Index out of bound; else pointer to XPm_Node within DDR region
+ * @return NULL if Index out of bound or invalid; else pointer to XPm_Node within DDR region
  */
 static XPm_Node* GetSavedNodeAt(u32 Index)
 {
+	u32 PrevNodeAddr;
+	u32 AdjustedAddr;
+
 	if (0U == SavedAllNodesAddr) {
 		return NULL;
 	}
 	if (PrevNumNodes < Index){
 		return NULL;
 	}
-	u32 PrevNodeAddr = (u32)((XPm_Node**)SavedAllNodesAddr)[Index];
-	u32 ByteBufferOffset =	XPm_GetByteBufferOffset();
-	return (XPm_Node*)(PrevNodeAddr + ByteBufferOffset);
+
+	PrevNodeAddr = (u32)((XPm_Node**)SavedAllNodesAddr)[Index];
+
+	/* Use common conversion function with overflow and bounds checks */
+	AdjustedAddr = XPm_ConvertToSavedAddress(PrevNodeAddr);
+	if (0U == AdjustedAddr) {
+		return NULL;
+	}
+
+	return (XPm_Node*)(UINTPTR)AdjustedAddr;
 }
 
 /**
@@ -866,6 +877,11 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 		goto done;
 	}
 	Status = AddMissingxGGsDevices();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	/* Restore regnodes and access table */
+	Status = XPmAccess_RestoreRegnodes();
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

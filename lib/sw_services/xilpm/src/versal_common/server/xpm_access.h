@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2021 - 2021 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -108,6 +108,11 @@ XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 
 /* Debug only function meant for printing regnodes and "Node Access Table" */
 void XPmAccess_PrintTable(void);
+
+#ifdef VERSAL_NET
+/* Restore regnodes and access table after ByteBuffer is restored (IPU) */
+XStatus XPmAccess_RestoreRegnodes(void);
+#endif
 
 #ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
 /* Forward PLM read event to psm using IPI. */
