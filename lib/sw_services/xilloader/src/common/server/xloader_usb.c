@@ -30,6 +30,7 @@
 *       ng   06/26/2023 Added support for system device tree flow
 *       ng   02/14/2024 removed int typecast for errors
 * 2.4   aa   03/09/2026 Added timeout on USB downloads to avoid indefinite wait
+*       aa   03/27/2026 Update logic to impose timeout on USB to reduce downtime
 *
 * </pre>
 *
@@ -46,7 +47,7 @@
 #ifdef XLOADER_USB
 #include "xloader_dfu_util.h"
 #include "xplmi_util.h"
-#include "sleep.h"
+#include "xplmi_proc.h"
 #include "xloader.h"
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
@@ -56,9 +57,7 @@
 
 /************************** Constant Definitions ****************************/
 #define XLOADER_USB2_REG_CTRL_OFFSET	(0x60U)
-#define XLOADER_USB_POLL_US		(100U)
 #define XLOADER_USB_TIMEOUT_US		(300000000U)
-#define XLOADER_USB_MAX_ITERATIONS	(XLOADER_USB_TIMEOUT_US / XLOADER_USB_POLL_US)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -81,13 +80,15 @@ u8 DownloadDone = 0U;
  * 			- XLOADER_ERR_USB_LOOKUP if failed to lookup USB config.
  * 			- XLOADER_ERR_USB_CFG if USB fails to configure.
  * 			- XLOADER_ERR_USB_START if USB fails to start.
+ * 			- XLOADER_ERR_USB_TIMEOUT if USB download times out.
  *
 *****************************************************************************/
 int XLoader_UsbInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	Usb_Config *UsbConfigPtr;
-	u32 TimeoutCounter = 0U;
+	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
+	u64 TStart,TEnd;
 	struct XUsbPsu *UsbPrivateDataPtr = (struct XUsbPsu *)
 		XPLMI_PMCRAM_CHUNK_MEMORY;
 	struct Usb_DevData *UsbInstancePtr = (struct Usb_DevData *)
@@ -195,17 +196,17 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	while ((DownloadDone < XLOADER_DOWNLOAD_COMPLETE) && \
-		(DfuObj.CurrStatus != XLOADER_STATE_DFU_ERROR) && \
-		(TimeoutCounter < XLOADER_USB_MAX_ITERATIONS)) {
-		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstancePtr->PrivateData);
-		usleep(XLOADER_USB_POLL_US);
-		TimeoutCounter++;
-	}
+	TStart = XPlmi_GetTimerValue();
+	TEnd = TStart - ((u64)XLOADER_USB_TIMEOUT_US * (u64)(*PmcIroFreq / XPLMI_MEGA));
 
-	/** - polling at 100us */
-	if (TimeoutCounter >= XLOADER_USB_MAX_ITERATIONS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_TIMEOUT, Status);
+	while ((DownloadDone < XLOADER_DOWNLOAD_COMPLETE) && \
+		(DfuObj.CurrStatus != XLOADER_STATE_DFU_ERROR)) {
+		TStart = XPlmi_GetTimerValue();
+		if (TStart <= TEnd) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_TIMEOUT, XST_FAILURE);
+			break;
+		}
+		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 	}
 
 	(void)XUsbPsu_Stop((struct XUsbPsu*)UsbInstancePtr->PrivateData);
