@@ -43,6 +43,15 @@
  */
 #define PASS_THROUGH_FW_CMD_SMC_FID	(0xC2000FFFU)
 
+/**
+ * Old-format SMC FIDs for TF-A-specific PM APIs. These are handled
+ * by TF-A's TF_A_specific_handler rather than going through the PLM
+ * pass-through path (0xC2000FFF).
+ */
+#define PM_GET_CALLBACK_DATA_SMC_FID		(0xC2000a01ULL)
+#define TF_A_PM_REGISTER_SGI_SMC_FID		(0xC2000a04ULL)
+#define PM_NOTIFY_CB_TYPE			(32U)
+
 #define PACK_PAYLOAD0(Payload, ApiId) \
 	PACK_PAYLOAD(Payload, HEADER(0UL, ApiId), 0, 0, 0, 0, 0)
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1) \
@@ -1960,6 +1969,82 @@ void XPm_NotifyCb(const u32 Node, const u32 Event, const u32 Oppoint)
 	XPm_Dbg("%s (%d, %d, %d)\n", __func__, Node, Event, Oppoint);
 	XPm_NotifierProcessEvent(Node, Event, Oppoint);
 }
+
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+/**
+ * XPm_HandlePmNotification() - Handle a pending PM notification (SMC mode).
+ *
+ * Calls PM_GET_CALLBACK_DATA (0xa01) TF-A SMC to read the IPI payload.
+ * Can be invoked from an SGI handler (interrupt-driven) or called directly
+ * for polling.
+ *
+ * Return format from PM_GET_CALLBACK_DATA:
+ *   x0 = callback_type | (arg1 << 32)
+ *   x1 = arg2 | (arg3 << 32)
+ *
+ * For PM_NOTIFY_CB (type=32): arg1=node, arg2=event, arg3=oppoint.
+ */
+void XPm_HandlePmNotification(void)
+{
+	XSmc_OutVar Out = Xil_Smc(PM_GET_CALLBACK_DATA_SMC_FID,
+				  0U, 0U, 0U, 0U, 0U, 0U, 0U);
+	u32 cb_type = lower_32_bits(Out.Arg0);
+
+	if (cb_type == PM_NOTIFY_CB_TYPE) {
+		u32 node = upper_32_bits(Out.Arg0);
+		u32 event = lower_32_bits(Out.Arg1);
+		u32 oppoint = upper_32_bits(Out.Arg1);
+		XPm_NotifyCb(node, event, oppoint);
+	}
+}
+
+/**
+ * XPm_RegisterSgi() - Register an SGI with TF-A for PM notifications.
+ *
+ * Tells TF-A to signal the non-secure world via the specified SGI number
+ * whenever an IPI callback arrives from PLM. The caller must first set up
+ * a GIC handler for this SGI that calls XPm_HandlePmNotification().
+ *
+ * @param  SgiNum  SGI interrupt number to register (0-15).
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ *
+ * @note   Uses old-format SMC (TF_A_PM_REGISTER_SGI_SMC_FID) because
+ *         this is a TF-A-specific API handled by TF_A_specific_handler,
+ *         not a PLM pass-through command.
+ */
+XStatus XPm_RegisterSgi(u32 SgiNum)
+{
+	XSmc_OutVar Out;
+
+	Out = Xil_Smc(TF_A_PM_REGISTER_SGI_SMC_FID, (u64)SgiNum,
+		      0U, 0U, 0U, 0U, 0U, 0U);
+
+	return (XStatus)lower_32_bits(Out.Arg0);
+}
+
+/**
+ * XPm_UnregisterSgi() - Unregister SGI from TF-A for PM notifications.
+ *
+ * Tells TF-A to stop sending SGI notifications to the non-secure world.
+ * The caller should disable and disconnect the GIC handler afterwards.
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ *
+ * @note   Uses old-format SMC (TF_A_PM_REGISTER_SGI_SMC_FID) because
+ *         this is a TF-A-specific API handled by TF_A_specific_handler,
+ *         not a PLM pass-through command.
+ */
+XStatus XPm_UnregisterSgi(void)
+{
+	XSmc_OutVar Out;
+
+	Out = Xil_Smc(TF_A_PM_REGISTER_SGI_SMC_FID, ((u64)1U << 32),
+		      0U, 0U, 0U, 0U, 0U, 0U);
+
+	return (XStatus)lower_32_bits(Out.Arg0);
+}
+#endif
 
 /** @cond INTERNAL */
 XStatus XPm_SetConfiguration(const u32 Address)

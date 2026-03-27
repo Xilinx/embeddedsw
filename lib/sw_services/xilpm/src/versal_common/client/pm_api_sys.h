@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,6 +150,12 @@ XStatus XPm_InitFinalize(void);
 XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier);
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
 void XPm_NotifyCb(const u32 Node, const u32 Event, const u32 Oppoint);
+
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+void XPm_HandlePmNotification(void);
+XStatus XPm_RegisterSgi(u32 SgiNum);
+XStatus XPm_UnregisterSgi(void);
+#endif
 
 void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 		       const u32 Latency, const u32 State, const u32 Timeout);
