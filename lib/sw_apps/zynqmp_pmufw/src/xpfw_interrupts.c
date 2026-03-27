@@ -11,6 +11,16 @@
 #include "xil_exception.h"
 #include "xpfw_error_manager.h"
 #include "pmu_lmb_bram.h"
+
+/** Mask for all GPI interrupt sources */
+#define XPFW_GPI_IRQ_MASK	(PMU_IOMODULE_IRQ_PENDING_GPI0_MASK | \
+				 PMU_IOMODULE_IRQ_PENDING_GPI1_MASK | \
+				 PMU_IOMODULE_IRQ_PENDING_GPI2_MASK | \
+				 PMU_IOMODULE_IRQ_PENDING_GPI3_MASK)
+
+/** Checks if the given interrupt mask contains any GPI interrupt */
+#define XPFW_IS_GPI_INTERRUPT(Mask)	(0U != ((Mask) & XPFW_GPI_IRQ_MASK))
+
 /**
  * InterruptRegister holds the state of the IRQ Enable Register
  *
@@ -271,11 +281,17 @@ void XPfw_InterruptHandler(void)
 				l_index++) {
 			if ((l_IrqReg & g_TopLevelInterruptTable[l_index].Mask)
 					== g_TopLevelInterruptTable[l_index].Mask) {
-				/* ACK the Interrupt */
-				XPfw_Write32(PMU_IOMODULE_IRQ_ACK,
-						g_TopLevelInterruptTable[l_index].Mask);
-				/* Call the Handler */
-				g_TopLevelInterruptTable[l_index].Handler();
+				if (XPFW_IS_GPI_INTERRUPT(g_TopLevelInterruptTable[l_index].Mask)) {
+					/* GPI (edge-triggered): ACK first */
+					XPfw_Write32(PMU_IOMODULE_IRQ_ACK,
+							g_TopLevelInterruptTable[l_index].Mask);
+					g_TopLevelInterruptTable[l_index].Handler();
+				} else {
+					/* Others (level-sensitive): clear source first */
+					g_TopLevelInterruptTable[l_index].Handler();
+					XPfw_Write32(PMU_IOMODULE_IRQ_ACK,
+							g_TopLevelInterruptTable[l_index].Mask);
+				}
 			}
 		}
 
