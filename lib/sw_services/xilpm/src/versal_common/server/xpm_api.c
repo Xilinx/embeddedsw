@@ -233,7 +233,7 @@ static XStatus XPm_SetClockRate(const u32 IpiMask, const u32 ClockId, const u32 
 	}
 
 	/* Set rate is allowed only for ref clocks */
-	if (!ISREFCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_REF != NODESUBCLASS(ClockId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1315,7 +1315,7 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	}
 
 	/* HACK: Don't disable PLL clocks for now */
-	if((Enable == 0U) && (ISPLL(ClockId)))
+	if((Enable == 0U) && ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)))
 	{
 		Status = XST_SUCCESS;
 		goto done;
@@ -1328,10 +1328,10 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	}
 
 	if (1U == Enable) {
-		if (ISPLL(ClockId)) {
+		if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 			/* HACK: Allow enabling of PLLs for now */
 			goto bypass;
-		} else if (ISOUTCLK(ClockId) &&
+		} else if (((u32)XPM_NODESUBCL_CLOCK_OUT == NODESUBCLASS(ClockId)) &&
 			   (0U != (Clk->Flags & CLK_FLAG_READ_ONLY))) {
 			/* Allow enable operation for read-only clocks */
 			goto bypass;
@@ -1347,9 +1347,9 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	}
 
 bypass:
-	if (ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT == NODESUBCLASS(ClockId)) {
 		Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, Enable);
-	} else if (ISPLL(ClockId)) {
+	} else if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 		u32 Mode;
 		if (1U == Enable) {
 			Mode = ((XPm_PllClockNode *)Clk)->PllMode;
@@ -1395,10 +1395,10 @@ XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 		goto done;
 	}
 
-	if (ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT == NODESUBCLASS(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
 						(u32)TYPE_GATE, State);
-	} else if (ISPLL(ClockId)) {
+	} else if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 		Status = XPmClockPll_GetMode((XPm_PllClockNode *)Clk, State);
 		if (*State == (u32)PM_PLL_MODE_RESET) {
 			*State = 0;
@@ -1452,9 +1452,9 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 		goto done;
 	}
 
-	if (ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT == NODESUBCLASS(ClockId)) {
 		Status = XPmClock_SetDivider((XPm_OutClockNode *)Clk, Divider);
-	} else if (ISPLL(ClockId)) {
+	} else if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 		Status = XPmClockPll_SetParam((XPm_PllClockNode *)Clk,
 					      (u32)PM_PLL_PARAM_ID_FBDIV, Divider);
 	} else {
@@ -1493,10 +1493,10 @@ XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 		goto done;
 	}
 
-	if (ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT == NODESUBCLASS(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
 						(u32)TYPE_DIV1, Divider);
-	} else if (ISPLL(ClockId)) {
+	} else if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 		Status = XPmClockPll_GetParam((XPm_PllClockNode *)Clk,
 					      (u32)PM_PLL_PARAM_ID_FBDIV, Divider);
 	} else {
@@ -1577,7 +1577,7 @@ XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 	}
 
 	/* Get parent is allowed only on output clocks */
-	if (!ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT != NODESUBCLASS(ClockId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
