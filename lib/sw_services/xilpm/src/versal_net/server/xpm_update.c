@@ -840,6 +840,10 @@ static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
 	case XPM_NODETYPE_DEV_PGGS :
 		Status = RESTORE(XPm_Device, SavedNode, Node);
 		break;
+	case XPM_NODETYPE_DEV_HB_MON :
+		/* HB_MON does not need state restore - no-op case */
+		Status = XST_SUCCESS;
+		break;
 	case XPM_NODETYPE_DEV_SOC:
 	case XPM_NODETYPE_DEV_GT:
 	case XPM_NODETYPE_DEV_XRAM:
@@ -847,7 +851,6 @@ static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
 	case XPM_NODETYPE_DEV_RESERVED_1:
 	case XPM_NODETYPE_DEV_HBM :
 	case XPM_NODETYPE_DEV_VDU :
-	case XPM_NODETYPE_DEV_HB_MON :
 	case XPM_NODETYPE_DEV_BFRB :
 	default:
 		PmWarn("Warning: IPU unsupported device node. NodeId: %x.\n\r", NodeId);
