@@ -135,8 +135,9 @@ static XStatus SetPlDeviceNode(u32 Id, XPm_Device *Device)
 	/*
 	 * Node ID class, subclass and type should _already_ been validated
 	 * before, so only check bounds here against index.
+	 * Device pointer is guaranteed non-NULL by caller (XPmDevice_Init).
 	 */
-	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_PLD_MAX > NodeIndex)) {
+	if ((u32)XPM_NODEIDX_DEV_PLD_MAX > NodeIndex) {
 		PmPlDevices[NodeIndex] = Device;
 		PmNumPlDevices++;
 		Status = XST_SUCCESS;
@@ -150,7 +151,7 @@ static XStatus SetVirtDeviceNode(u32 Id, XPm_Device *Device)
 	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
-	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_VIRT_MAX > NodeIndex)) {
+	if ((u32)XPM_NODEIDX_DEV_VIRT_MAX > NodeIndex) {
 		PmVirtualDevices[NodeIndex] = Device;
 		PmNumVirtualDevices++;
 		Status = XST_SUCCESS;
@@ -164,7 +165,7 @@ static XStatus SetHbMonDeviceNode(u32 Id, XPm_Device *Device)
 	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
-	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_HB_MON_MAX > NodeIndex)) {
+	if ((u32)XPM_NODEIDX_DEV_HB_MON_MAX > NodeIndex) {
 		PmHbMonDevices[NodeIndex] = Device;
 		PmNumHbMonDevices++;
 		Status = XST_SUCCESS;
@@ -178,7 +179,7 @@ static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
 	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
-	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX > NodeIndex)) {
+	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX > NodeIndex) {
 		PmMemRegnDevices[NodeIndex] = Device;
 		PmNumMemRegnDevices++;
 		Status = XST_SUCCESS;
@@ -192,7 +193,7 @@ static XStatus SetAieDeviceNode(u32 Id, XPm_Device *Device)
 	XStatus Status = XST_FAILURE;
 	u32 NodeIdx = NODEINDEX(Id);
 
-	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_AIE_MAX > NodeIdx)) {
+	if ((u32)XPM_NODEIDX_DEV_AIE_MAX > NodeIdx) {
 		PmAieDevices[NodeIdx] = Device;
 		PmNumAieDevices++;
 		Status = XST_SUCCESS;
@@ -238,9 +239,10 @@ static XStatus SetDeviceNode(u32 Id, XPm_Device *Device)
 
 	/*
 	 * We assume that the Node ID class, subclass and type has _already_
-	 * been validated before, so only check bounds here against index
+	 * been validated before, so only check bounds here against index.
+	 * Device pointer is guaranteed non-NULL by caller (XPmDevice_Init).
 	 */
-	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_MAX > NodeIndex)) {
+	if ((u32)XPM_NODEIDX_DEV_MAX > NodeIndex) {
 		PmDevices[NodeIndex] = Device;
 		PmNumDevices++;
 		Status = XST_SUCCESS;
@@ -1574,7 +1576,8 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 		DevicesHandle = PmDevices;
 	}
 
-	if ((DevicesHandle != NULL) && (NODEINDEX(DeviceId) < MaxIndex)) {
+	/* DevicesHandle is guaranteed non-NULL by the if-else chain above */
+	if (NODEINDEX(DeviceId) < MaxIndex) {
 		/* Retrieve the device */
 		Device = DevicesHandle[NODEINDEX(DeviceId)];
 		/* Check that Device's ID is same as given ID or not. */
@@ -2026,8 +2029,8 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 			}
 		} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Parents[i])) &&
 			((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Parents[i]))) {
-			if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Id)) &&
-			((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id))) {
+			/* NODECLASS(Id) is guaranteed DEVICE by GetById validation at entry */
+			if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id)) {
 				XPm_PlDevice *PlDevice = (XPm_PlDevice *)DevPtr;
 				XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(Parents[i]);
 				/*
@@ -2219,11 +2222,10 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
+		/* State pointer is guaranteed non-NULL by all callers */
 		if ((Caps & Device->DeviceFsm->States[Idx].Cap) == Caps) {
 			Status = XST_SUCCESS;
-			if (NULL != State) {
-				*State = Device->DeviceFsm->States[Idx].State;
-			}
+			*State = Device->DeviceFsm->States[Idx].State;
 			break;
 		}
 	}
