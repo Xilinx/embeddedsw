@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,7 +100,7 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 
 	if (Subclass == (u32)XPM_NODETYPE_CLOCK_REF) {
 		XPmNode_Init(&Clk->Node, Id, (u8)XPM_CLK_STATE_ON, 0);
-	} else if (Subclass == (u32)XPM_NODETYPE_CLOCK_OUT) {
+	} else {
 		if (NumParents > MAX_MUX_PARENTS) {
 			DbgErr = XPM_INT_ERR_MAX_CLK_PARENTS;
 			Status = XST_INVALID_PARAM;
@@ -127,10 +127,6 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			OutClkPtr->Topology.NumNodes = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].NumNodes;
 			OutClkPtr->Topology.Nodes = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].Nodes;
 		}
-	} else {
-		DbgErr = XPM_INT_ERR_INVALID_SUBCLASS;
-		Status = XST_INVALID_PARAM;
-		goto done;
 	}
 
 	if (((u32)XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
@@ -836,7 +832,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 		goto done;
 	}
 
-	if (ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT == NODESUBCLASS(ClockId)) {
 		PtrNodes = *Clk->Topology.Nodes;
 
 		/* Skip parent till index */
@@ -882,7 +878,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			Resp[i] |= ((u32)Clkflags << CLK_CLKFLAGS_SHIFT);
 			Resp[i] |= ((u32)Typeflags << CLK_TYPEFLAGS_SHIFT);
 		}
-	} else if (ISPLL(ClockId)) {
+	} else if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 		if (Index != 0U) {
 			Status = XST_SUCCESS;
 			goto done;
@@ -913,7 +909,7 @@ XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp)
 		goto done;
 	}
 
-	if (!ISOUTCLK(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_OUT != NODESUBCLASS(ClockId)) {
 		goto done;
 	}
 
@@ -939,7 +935,7 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 	u32 i;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
-	if ((NULL == Clk) || (!ISOUTCLK(ClockId))) {
+	if ((NULL == Clk) || ((u32)XPM_NODESUBCL_CLOCK_OUT != NODESUBCLASS(ClockId))) {
 		Status = XPM_INVALID_CLKID;
 		goto done;
 	}
@@ -1065,7 +1061,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 		goto done;
 	}
 
-	if (ISPLL(ClockId)) {
+	if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(ClockId)) {
 		/* Do not allow permission by default when PLL is shared */
 		DbgErr = XPM_INT_ERR_PLL_PERMISSION;
 		Status = XPM_PM_NO_ACCESS;
