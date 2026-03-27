@@ -39,6 +39,8 @@
 * 5.3   dc     02/18/26 Correct spelling errors
 *       se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
+*       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+*                       (void) cast, sign conversion, parentheses
 *
 * </pre>
 *
@@ -1025,9 +1027,9 @@ int XSysMonPsv_SetTempThresholdUpper(XSysMonPsv *InstancePtr,
 	}
 
 	if (Event == XSYSMONPSV_TEMP_EVENT) {
-		Offset = XSYSMONPSV_DEVICE_TEMP_TH + 0x4;
+		Offset = XSYSMONPSV_DEVICE_TEMP_TH + 0x4U;
 	} else if (Event == XSYSMONPSV_OT_EVENT) {
-		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4;
+		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4U;
 	} else {
 		return XST_FAILURE;
 	}
@@ -1094,9 +1096,9 @@ int XSysMonPsv_GetTempThresholdUpper(XSysMonPsv *InstancePtr,
 	}
 
 	if (Event == XSYSMONPSV_TEMP_EVENT) {
-		Offset = XSYSMONPSV_DEVICE_TEMP_TH + 0x4;
+		Offset = XSYSMONPSV_DEVICE_TEMP_TH + 0x4U;
 	} else if (Event == XSYSMONPSV_OT_EVENT) {
-		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4;
+		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4U;
 	} else {
 		return XST_FAILURE;
 	}
@@ -1765,7 +1767,7 @@ int XSysMonPsv_Init(XSysMonPsv *InstancePtr, void *IntcInst)
 			return Status;
 		}
 		Mask = XSYSMONPSV_IER0_OT_MASK | XSYSMONPSV_IER0_TEMP_MASK;
-		XSysMonPsv_InterruptEnable(InstancePtr, Mask, 0);
+		(void)XSysMonPsv_InterruptEnable(InstancePtr, Mask, 0);
 	}
 
 	return XST_SUCCESS;

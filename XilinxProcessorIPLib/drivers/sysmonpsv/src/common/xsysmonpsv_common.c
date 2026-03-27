@@ -26,6 +26,8 @@
 * 5.3   dc     02/18/26 Correct spelling errors
 *       se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
+*       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+*                       (void) cast, sign conversion, parentheses
 *
 * </pre>
 *
@@ -175,7 +177,7 @@ u32 XSysMonPsv_SupplyThreshOffset(XSysMonPsv *InstancePtr, int Supply,
 ***************************************************************************/
 void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2)
 {
-	*Val = (RawData & 0x8000) ? -(twoscomp(RawData)) : RawData;
+	*Val = (RawData & 0x8000U) ? -(int)twoscomp(RawData) : (int)RawData;
 	*Val2 = 128;
 }
 
@@ -193,7 +195,7 @@ void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2)
 ***************************************************************************/
 void XSysMonPsv_CelsiusToQ8P7(u32 *RawData, int Val, int Val2)
 {
-	int Scale = 1 << 7;
+	int Scale = (1 << 7);
 
 	Val2 = Val2 / 1000;
 	*RawData = (u32)((Val * Scale) + ((Val2 * Scale) / 1000));
@@ -224,7 +226,7 @@ void XSysMonPsv_SupplyRawToProcessed(int RawData, int *Val, int *Val2)
 	*Val2 = 1 << (16 - Exponent);
 	*Val = Mantissa;
 	if (Format && (Mantissa >> XSYSMONPSV_SUPPLY_MANTISSA_SIGN)) {
-		*Val = (~(Mantissa)&XSYSMONPSV_SUPPLY_MANTISSA_MASK) * -1;
+		*Val = -(int)(~(Mantissa) & XSYSMONPSV_SUPPLY_MANTISSA_MASK);
 	}
 }
 
@@ -269,7 +271,7 @@ void XSysMonPsv_SupplyProcessedToRaw(int Val, int Val2, u32 RegVal,
 		}
 	}
 
-	*RawData = Tmp & 0xFFFF;
+	*RawData = Tmp & 0xFFFFU;
 }
 
 /*****************************************************************************/

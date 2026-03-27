@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
 * ----- -----  -------- -----------------------------------------------
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.2   ak     03/10/25 Fixed doxygen warnings
+* 5.3   se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+*                       (void) cast, sign conversion, parentheses
 *
 * </pre>
 *
@@ -41,8 +43,8 @@ extern "C" {
 #include "xsysmonpsv_lowlevel.h"
 #include "pm_api_sys.h"
 
-#define XSYSMONPSV_SECURE_WRITE_DEFAULT 0xFFFFFFFF /**< Secure Write Command Payload */
-#define XSYSMONPSV_SECURE_READ_DEFAULT 0x0         /**< Secure Read Command Payload  */
+#define XSYSMONPSV_SECURE_WRITE_DEFAULT 0xFFFFFFFFU /**< Secure Write Command Payload */
+#define XSYSMONPSV_SECURE_READ_DEFAULT 0x0U        /**< Secure Read Command Payload  */
 
 #define XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE 3U  /**< Secure Payload Size  */
 

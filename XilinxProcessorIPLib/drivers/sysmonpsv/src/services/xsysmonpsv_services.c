@@ -28,6 +28,8 @@
 * 5.3   dc     02/18/26 Correct spelling errors
 *       se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
+*       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+*                       (void) cast, sign conversion, parentheses
 *
 * </pre>
 *
@@ -77,7 +79,7 @@ int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
 	XSysMonPsv_ReadReg32(InstancePtr, AlarmRegOffset, &Val);
 	Val = Val | (1U << Bit);
 	Ier = GET_BIT(Event);
-	XSysMonPsv_InterruptEnable(InstancePtr, Ier, IntrNum);
+	(void)XSysMonPsv_InterruptEnable(InstancePtr, Ier, IntrNum);
 	XSysMonPsv_WriteReg32(InstancePtr, AlarmRegOffset, Val);
 
 	return XST_SUCCESS;
@@ -294,7 +296,7 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Determine what kind of interrupt occurred */
-	XSysMonPsv_InterruptGetStatus(InstancePtr, &IntrStatus);
+	(void)XSysMonPsv_InterruptGetStatus(InstancePtr, &IntrStatus);
 
 	/* Clear interrupt status register */
 	XSysMonPsv_InterruptClear(InstancePtr, IntrStatus);
@@ -335,9 +337,9 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 					InstancePtr->Config.Supply_List[Supply];
 				EventHandler =
 					&InstancePtr->SupplyEvent[SupplyReg];
-				XSysMonPsv_DisableVoltageEvents(InstancePtr,
+				(void)XSysMonPsv_DisableVoltageEvents(InstancePtr,
 								Supply);
-				XSysMonPsv_ClearAlarm(InstancePtr, Supply);
+				(void)XSysMonPsv_ClearAlarm(InstancePtr, Supply);
 				if (EventHandler->IsCallbackSet == 1U) {
 					EventHandler->Handler(
 						EventHandler->CallbackRef);
