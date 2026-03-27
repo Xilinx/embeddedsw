@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -403,8 +403,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 		} else if (PM_DEV_PLD_0 == NodeId) {
 			Device = XPmDevice_GetById(NodeId);
 			if ((NULL != Device) &&
-				((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
-				((u8)XPM_POWER_STATE_INITIALIZING != Device->Node.State)) {
+				((u8)XPM_DEVSTATE_RUNNING != Device->Node.State)) {
 				Status = XST_FAILURE;
 				goto done;
 			}
@@ -583,10 +582,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 					  Mask, Mask);
 			}
 		} else {
-			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
-			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
-				XramIsoUnmask(IsoIdx);
-			}
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
@@ -663,10 +658,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 					  Mask, 0U);
 			}
 		} else {
-			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
-			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
-				XramIsoUnmask(IsoIdx);
-			}
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
@@ -759,11 +750,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				}
 			}
 		} else {
-			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
-			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
-				XramIsoUnmask(IsoIdx);
-			}
-
 			if (((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx)) {
 
@@ -878,10 +864,6 @@ XStatus XPmDomainIso_ProcessPending(void)
 
 		if (XPmDomainIso_List[i].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
 			Status = XPmDomainIso_Control(i, FALSE_VALUE);
-			if ((XST_SUCCESS != Status) && (XST_DEVICE_NOT_FOUND != Status)){
-				/* if device is not found, we still scan through the list of iso node*/
-				goto done;
-			}
 		} else {
 			Status = XST_SUCCESS;
 		}
@@ -892,7 +874,6 @@ XStatus XPmDomainIso_ProcessPending(void)
 		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_XRAM_PL_AXILITE, FALSE_VALUE);
 	}
 
-done:
 	return Status;
 }
 
