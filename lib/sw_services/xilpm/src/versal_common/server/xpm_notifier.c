@@ -525,10 +525,6 @@ static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload
 	u32 Event;
 	u32 Idx;
 
-	if (NULL == Payload) {
-		goto done;
-	}
-
 	CbType = Payload[0];
 
 	switch (CbType) {
@@ -592,8 +588,14 @@ done:
 void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
 {
 	XStatus IpiAck;
-	u32 CbType = Payload[0];
+	u32 CbType;
 	u32 TaskPresent = SchedulerTask;
+
+	if (NULL == Payload) {
+		return;
+	}
+
+	CbType = Payload[0];
 
 	IpiAck = XPm_IpiPollForAck(IpiMask, XPM_NOTIFY_TIMEOUTCOUNT);
 	if ((XST_SUCCESS == IpiAck) &&
