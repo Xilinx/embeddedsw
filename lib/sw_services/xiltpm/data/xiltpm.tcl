@@ -8,6 +8,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   tri  03/13/25 Initial Release
 # 1.2   Pre  03/16/26 Added client support
+#       aa   03/28/26 Fix Versal Net build issues
 #
 ##############################################################################
 
@@ -27,7 +28,7 @@ proc tpm_drc {libhandle} {
 	set common_dir "./src/common"
 
 	if {$mode == "server"} {
-		if {$proc_type != "psu_pmc" && $proc_type != "psv_pmc"} {
+		if {$proc_type != "psu_pmc" && $proc_type != "psv_pmc" && $proc_type != "psx_pmc"} {
 				error "ERROR: XilTpm library is not supported for selected processor in\
 						 server mode.";
 			return;
@@ -35,7 +36,8 @@ proc tpm_drc {libhandle} {
 	}
 
 	if {$mode == "client" &&  ($proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-        $proc_type == "psv_cortexr5" || $proc_type == "microblaze")} {
+        $proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
+        $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52")} {
         set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
         if { [llength $librarylist] == 0 } {
             error "This library requires xilmailbox library in the \
@@ -45,7 +47,8 @@ proc tpm_drc {libhandle} {
 
 	switch $proc_type {
 		"psu_pmc" -
-		"psv_pmc" {
+		"psv_pmc" -
+		"psx_pmc" {
 			copy_files_to_src $server_dir
 			copy_files_to_src $common_dir
 		}
@@ -53,7 +56,9 @@ proc tpm_drc {libhandle} {
 		"psu_cortexa72" -
 		"psv_cortexa72" -
 		"psv_cortexr5" -
-		"microblaze" {
+		"microblaze" -
+		"psx_cortexa78" -
+		"psx_cortexr52" {
 			copy_files_to_src $client_dir
 			copy_files_to_src $common_dir
 		}
@@ -112,7 +117,8 @@ proc xgen_opts_file {libhandle} {
 	if {$value == true} {
 		#Open xparameters.h file
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-                        $proc_type == "psv_cortexr5" || $proc_type == "microblaze" } {
+                        $proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
+                        $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52" } {
 			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "#define XTPM_CACHE_DISABLE\n"
 		}
