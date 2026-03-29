@@ -54,10 +54,14 @@ extern "C" {
 #define XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID		(6U) /**< Command ID for RSA key pair generation */
 #define XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID		(7U) /**< Command ID for ECC key pair generation */
 #define XASU_KM_STORE_KEY_CMD_ID		(8U) /**< Command ID for storing key in vault */
-#define XASU_KM_MAX_CMDS			(9U) /**< Maximum number of commands
-											   * supported by KeyManager module */
+#define XASU_KM_EXPORT_KEYVAULT_CMD_ID		(9U) /**< Command ID for exporting key vault */
+#define XASU_KM_IMPORT_KEYVAULT_CMD_ID		(10U) /**< Command ID for importing key vault */
+#define XASU_KM_MAX_CMDS			(11U) /**< Maximum number of commands
+							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
+#define XASU_KM_EXPORT_SIZE_IN_BYTES		(4U) /**< Size in bytes of the field storing actual
+							exported keyvault data size */
 
 #define XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE	(0xFFFFFFFFU) /**< Marker for keys that
 									never expire */
@@ -138,6 +142,13 @@ typedef struct {
 	u8 PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES]; /**< Public key buffer. */
 	u8 PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]; /**< Private key buffer. */
 } XAsu_EccKeyPairObject;
+
+/** This structure contains info for exporting and importing key vault. */
+typedef struct {
+	u64 DataAddr;		/**< Address for vault data (export destination or import source). */
+	u64 ActualSizeAddr;	/**< Address where actual vault size will be stored (used only for export). */
+	u32 BufSize;		/**< Buffer size for export or actual data size for import. */
+} XAsu_KeyVaultTransferParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

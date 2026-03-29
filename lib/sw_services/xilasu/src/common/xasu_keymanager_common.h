@@ -46,8 +46,8 @@ extern "C" {
 #define XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK	(0xFFU) /**< Mask to extract lower byte of AccessRights */
 #define XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT	(8U) /**< Shift to extract upper byte of AccessRights */
 
-#define XASU_KEYMANAGER_NON_EXPORTABLE_VAULT		(0U) /**< Non-exportable vault value */
-#define XASU_KEYMANAGER_EXPORTABLE_VAULT		(3U) /**< Exportable vault value */
+#define XASU_KEYMANAGER_NON_EXPORTABLE_VAULT		(0x00U) /**< Non-exportable vault value */
+#define XASU_KEYMANAGER_EXPORTABLE_VAULT		(0x01U) /**< Exportable vault value */
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

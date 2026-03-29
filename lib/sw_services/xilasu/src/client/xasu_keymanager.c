@@ -636,4 +636,118 @@ s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to export the key vault.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ *				client input parameters.
+ * @param	ExportParams	Pointer to XAsu_KeyVaultTransferParams structure which holds the
+ *				export parameters.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmExportKeyVault(XAsu_ClientParams *ClientParamPtr,
+			  XAsu_KeyVaultTransferParams *ExportParams)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((ExportParams == NULL) || (ExportParams->DataAddr == 0U) ||
+	    (ExportParams->BufSize == 0U) || (ExportParams->ActualSizeAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+						(u8 *)(UINTPTR)ExportParams->ActualSizeAddr,
+						XASU_KM_EXPORT_SIZE_IN_BYTES, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_EXPORT_KEYVAULT_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyVaultTransferParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, ExportParams,
+					(u32)(sizeof(XAsu_KeyVaultTransferParams)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to import the key vault.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ *				client input parameters.
+ * @param	ImportParams	Pointer to XAsu_KeyVaultTransferParams structure which holds the
+ *				import parameters.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmImportKeyVault(XAsu_ClientParams *ClientParamPtr,
+			  XAsu_KeyVaultTransferParams *ImportParams)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((ImportParams == NULL) || (ImportParams->DataAddr == 0U) ||
+	    (ImportParams->BufSize == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_IMPORT_KEYVAULT_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyVaultTransferParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, ImportParams,
+					(u32)(sizeof(XAsu_KeyVaultTransferParams)), Header);
+
+END:
+	return Status;
+}
 /** @} */
