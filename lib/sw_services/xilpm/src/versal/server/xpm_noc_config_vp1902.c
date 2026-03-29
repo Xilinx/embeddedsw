@@ -306,12 +306,26 @@ XStatus XPm_NocConfig_vp1902(void)
 		goto done;
 	}
 	/**
-	 * NoC Power is checked in the HW config routine
+	 * NoC HW Config: Remove isolation for SoC
 	 */
-	Status = XPm_NoCHWConfig();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	XPm_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+		(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_NPI_MASK),
+		~PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_NPI_MASK);
+	usleep(10);
+	XPm_RMW32(CRP_RST_NONPS,
+		(CRP_RST_NONPS_NOC_POR_MASK),
+		~(CRP_RST_NONPS_NOC_POR_MASK));
+	usleep(1);
+	XPm_RMW32(CRP_RST_NONPS,
+		(CRP_RST_NONPS_NPI_RESET_MASK),
+		~(CRP_RST_NONPS_NPI_RESET_MASK));
+	XPm_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+		(PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_MASK),
+		~PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_MASK);
+	usleep(10);
+	XPm_RMW32(CRP_RST_NONPS,
+		(CRP_RST_NONPS_NOC_RESET_MASK),
+		~(CRP_RST_NONPS_NOC_RESET_MASK));
 
 	/**
 	 * Temporal check on return value added

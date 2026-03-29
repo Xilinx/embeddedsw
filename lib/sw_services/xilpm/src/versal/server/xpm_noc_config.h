@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 1.0  rpoolla	 23/01/18 Initial release
 * 2.0  tnt	 01/11/22 Porting to xilpm
 * 3.0  ronakj	 11/04/24 Add extern 'C' signature
+* 4.0  hgodhani  26/03/26 Convert XPm_NoCHWConfig to static void
 * </pre>
 *
 * @note
@@ -37,7 +38,6 @@ extern "C" {
 #endif
 
 XStatus XPm_NoCConfig(void);
-XStatus XPm_NoCHWConfig(void);
 #ifdef XCVP1902
 XStatus XPm_NocConfig_vp1902(void);
 #endif

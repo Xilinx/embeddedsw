@@ -82,6 +82,20 @@ static XStatus XPm_SlvSlrNidbCfg(u32 NidbAddr);
 static XStatus XPm_SlvSlrBootNocCfg(u32 NirAddr, u32 RelNpsAddr, u32 PmcNsuID,
 				u32 MstPmcNmuID, u32 SsitType);
 static XStatus XPm_NocSwitchConfig(u32 SlrType);
+/****************************************************************************/
+/**
+ * @brief	Perform NoC hardware configuration.
+ *
+ * Remove SoC isolation, de-assert NoC POR, NPI and NoC resets to bring
+ * the NoC out of reset. This is a fixed register write sequence with no
+ * error path.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPm_NoCHWConfig(void);
 
 XStatus XPm_NoCConfig(void)
 {
@@ -101,10 +115,7 @@ XStatus XPm_NoCConfig(void)
 	/**
 	* NoC Power is checked in the HW config routine
 	*/
-	Status = XPm_NoCHWConfig();
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
+	XPm_NoCHWConfig();
 	/**
 	 * NIDB Repair
 	 * Enable NIDB
@@ -122,7 +133,7 @@ END:
 	return Status;
 }
 
-XStatus XPm_NoCHWConfig(void)
+static void XPm_NoCHWConfig(void)
 {
 	/**
 	 * Check the power supply for SoC (NoC)
@@ -158,7 +169,6 @@ XStatus XPm_NoCHWConfig(void)
 	XPm_RMW32(CRP_RST_NONPS,
 		(CRP_RST_NONPS_NOC_RESET_MASK),
 		~(CRP_RST_NONPS_NOC_RESET_MASK));
-	return XST_SUCCESS;
 }
 
 static XStatus XPm_NocSwitchConfig(u32 SlrType)
