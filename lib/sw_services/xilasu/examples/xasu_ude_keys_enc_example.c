@@ -214,7 +214,7 @@ static s32 XAsu_OcpUdeEncNdPrgmUdeKey(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	if (PrgmFlag == TRUE) {
-		Status = XNvm_WriteUdePrivateKey(NvmClientInstancePtr, UdeKeyId, (u64)(UINTPTR)EncUdeKey, XOCP_ENV_MONITOR_DISABLE);
+		Status = XNvm_WriteDmePrivateKey(NvmClientInstancePtr, UdeKeyId, (u64)(UINTPTR)EncUdeKey, XOCP_ENV_MONITOR_DISABLE);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\n Failed to program encrypted UDE private key 0 into eFuses: Status = %08x", Status);
 			goto END;
