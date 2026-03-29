@@ -538,7 +538,20 @@ bypass:
 	return Status;
 }
 
-static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
+/****************************************************************************/
+/**
+ * @brief	Repair hard-block (CFRM_HB) BISR entries from eFuse data.
+ *
+ * @param	EfuseTagAddr	eFuse address of the current BISR tag
+ * @param	TagSize		Number of repair pairs in this tag
+ * @param	EfuseCache	Validated pointer to the eFuse cache device
+ *
+ * @return	Address of the next eFuse tag on success, ~0U on failure
+ *
+ *****************************************************************************/
+
+static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize,
+				   const XPm_Device *EfuseCache)
 {
 	const XPm_PlDomain *Pld;
 	u32 TagPairCnt;
@@ -557,13 +570,6 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	u32 EfuseTagBitS2Addr;
 
 	TagDataAddr = EfuseTagAddr + 4U;
-
-	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
-	if (NULL == EfuseCache) {
-		/* Return negative address so error can be identified by caller */
-		TagDataAddr = ~0U;
-		goto done;
-	}
 
 	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
 	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
@@ -817,7 +823,19 @@ static void LagunaRmwOneFrame(const XPm_PlDomain *Pld, u32 RowIndex,
 	}
 }
 
-static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
+/****************************************************************************/
+/**
+ * @brief	Repair Laguna BISR entries from eFuse data.
+ *
+ * @param	EfuseTagAddr	eFuse address of the current BISR tag
+ * @param	TagSize		Number of repair pairs in this tag
+ * @param	EfuseCache	Validated pointer to the eFuse cache device
+ *
+ * @return	Address of the next eFuse tag on success, ~0U on failure
+ *
+ *****************************************************************************/
+static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize,
+				const XPm_Device *EfuseCache)
 {
 	const XPm_PlDomain *Pld;
 	u32 TagRow = 0U;
@@ -841,19 +859,11 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 	u32 EfuseTagBitS2Addr;
 	u8 i;
 
-	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
-
 	TagDataAddr = EfuseTagAddr + 4U;
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		/* Return negative address so error can be identified by caller*/
-		TagDataAddr = ~0U;
-		goto done;
-	}
-
-	if (NULL == EfuseCache) {
-		/* Return negative address so error can be identified by caller */
 		TagDataAddr = ~0U;
 		goto done;
 	}
@@ -1074,7 +1084,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 						}
 						break;
 					case TAG_ID_TYPE_CFRM_HB: //HardBlock repair function
-						EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
+						EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize, EfuseCache);
 						if (EfuseNextAddr != ~0U) {
 							Status = XST_SUCCESS;
 						}
@@ -1087,7 +1097,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 						break;
 #ifndef XCVP1902
 					case TAG_ID_TYPE_LAGUNA:
-						EfuseNextAddr = XPmBisr_RepairLaguna(EfuseCurrAddr, EfuseBisrSize);
+						EfuseNextAddr = XPmBisr_RepairLaguna(EfuseCurrAddr, EfuseBisrSize, EfuseCache);
 						if (EfuseNextAddr != ~0U) {
 							Status = XST_SUCCESS;
 						}
