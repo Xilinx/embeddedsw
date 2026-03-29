@@ -51,10 +51,10 @@ extern "C" {
 s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams);
 #endif /* XASU_KDF_ENABLE */
 
-#ifdef XASU_OCP_ENABLE
-s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 AesKeySrc);
-#endif /* XASU_OCP_ENABLE */
-
+s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KdfParams *KdfParams,
+		      u32 AesKeySrc);
+s32 XKdf_GenerateKekFromEfuse0(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u8 *Context,
+			       u32 ContextLen, u8 IvIncVal, u32 KekLen, u8 *Kek);
 #ifdef __cplusplus
 }
 #endif

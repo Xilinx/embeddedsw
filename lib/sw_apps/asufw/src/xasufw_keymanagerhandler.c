@@ -57,8 +57,10 @@ static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XKeyManager_CreateAsuKeyVault(void);
+static s32 XAsufw_CreateAsuKeyVault(void);
 static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KeyManagerModule; /**< ASUFW KeyManager Module ID and commands array */
@@ -88,6 +90,8 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerRsaKeyPairGen),
 		[XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerEccKeyPairGen),
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerStoreKey),
+		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerExportVault),
+		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerImportVault),
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
@@ -109,6 +113,11 @@ s32 XAsufw_KeyManagerInit(void)
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
+		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
+		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -122,6 +131,8 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID),
 		[XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID),
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_STORE_KEY_CMD_ID),
+		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_EXPORT_KEYVAULT_CMD_ID),
+		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_IMPORT_KEYVAULT_CMD_ID),
 	};
 
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
@@ -150,7 +161,7 @@ s32 XAsufw_KeyManagerInit(void)
 
 	/** Create and initialize ASU subsystem vault only if key vault DDR space is configured. */
 	if (XAsufw_ReadReg(XASU_RTCA_KEYVAULT_SIZE_ADDR) != 0U) {
-		Status = XKeyManager_CreateAsuKeyVault();
+		Status = XAsufw_CreateAsuKeyVault();
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED);
 		} else {
@@ -179,7 +190,8 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
-	if (CmdId == XASU_KM_STORE_KEY_CMD_ID) {
+	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
 		/** Check and save the AES context if resource is not busy. */
 		Status = XAsufw_AesCheckAndSaveContext(ReqId);
 		if (Status != XASUFW_SUCCESS) {
@@ -195,7 +207,9 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_GEN_RAW_KEY_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_STORE_KEY_CMD_ID)) {
+	    (CmdId == XASU_KM_STORE_KEY_CMD_ID) ||
+	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
 		/** Allocate DMA resource. */
 		XAsufw_KeyManagerModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYMANAGER, ReqId);
 		if (XAsufw_KeyManagerModule.AsuDmaPtr == NULL) {
@@ -205,8 +219,9 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	}
 
 	if ((CmdId == XASU_KM_GEN_AES_KEY_CMD_ID) || (CmdId == XASU_KM_GEN_AES_IV_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_RAW_KEY_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) || (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID)) {
+	    (CmdId == XASU_KM_GEN_RAW_KEY_CMD_ID) || (CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
+	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID)) {
 		/** Allocate TRNG resource. */
 		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYMANAGER, ReqId);
 	}
@@ -216,10 +231,16 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_KEYMANAGER, ReqId);
 	}
 
-	if (CmdId == XASU_KM_STORE_KEY_CMD_ID) {
+	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
 		/** Allocate AES resource. */
 		XAsufw_AllocateResource(XASUFW_AES, XASUFW_KEYMANAGER, ReqId);
 		XAsufw_KeyManagerModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	}
+
+	if ((CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) || (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
+		/** Allocate KDF resource. */
+		XAsufw_AllocateResource(XASUFW_KDF, XASUFW_KEYMANAGER, ReqId);
 	}
 
 	Status = XASUFW_SUCCESS;
@@ -533,7 +554,7 @@ END:
  * 	- XASUFW_FAILURE, if key vault creation fails.
  *
  *************************************************************************************************/
-static s32 XKeyManager_CreateAsuKeyVault(void)
+static s32 XAsufw_CreateAsuKeyVault(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	XAsu_KeyManagerSubVaultParams SubVaultParams = {0};
@@ -603,6 +624,111 @@ END:
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
 	XAsufw_KeyManagerModule.AesPtr = NULL;
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for key vault export operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if vault export operation is successful.
+ *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
+ *	- XASUFW_KEYMANAGER_EXPORT_VAULT_ERROR, if vault export operation fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_KeyVaultTransferParams *Cmd = (const XAsu_KeyVaultTransferParams *)ReqBuf->Arg;
+	u32 *ActualSizeAddr;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyVaultTransferParams);
+
+	ActualSizeAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						  XASUFW_RESP_DATA_OFFSET;
+
+	/** Export the entire key vault. */
+	Status = XKeyManager_ExportKeyVault(XAsufw_KeyManagerModule.AsuDmaPtr,
+					    XAsufw_KeyManagerModule.AesPtr, Cmd->DataAddr,
+					    Cmd->BufSize, (u32)(UINTPTR)ActualSizeAddr);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		/** Configure DMA for non-blocking wait and return in-progress status. */
+		XAsufw_DmaCfgNonBlocking(XAsufw_KeyManagerModule.AsuDmaPtr,
+					 XASUDMA_DST_CHANNEL, ReqBuf, ReqId,
+					 XASUFW_BLOCK_DMA);
+		goto DONE;
+	} else if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_EXPORT_VAULT_ERROR);
+	} else {
+		/* Do nothing.*/
+	}
+
+END:
+	/** Release resources on completion or error. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+	XAsufw_KeyManagerModule.AesPtr = NULL;
+
+DONE:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for key vault import operation command.
+ *		Supports non-blocking DMA operations for large vault transfers.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if vault import operation is successful.
+ *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
+ *	- XASUFW_KEYMANAGER_IMPORT_VAULT_ERROR, if vault import operation fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_KeyVaultTransferParams *Cmd = (const XAsu_KeyVaultTransferParams *)ReqBuf->Arg;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyVaultTransferParams);
+
+	/** Import the entire key vault. */
+	Status = XKeyManager_ImportKeyVault(XAsufw_KeyManagerModule.AsuDmaPtr,
+					    XAsufw_KeyManagerModule.AesPtr, Cmd->DataAddr,
+					    Cmd->BufSize);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		/** Configure DMA for non-blocking wait and return in-progress status. */
+		XAsufw_DmaCfgNonBlocking(XAsufw_KeyManagerModule.AsuDmaPtr,
+					 XASUDMA_DST_CHANNEL, ReqBuf, ReqId,
+					 XASUFW_BLOCK_DMA);
+		goto DONE;
+	} else if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_IMPORT_VAULT_ERROR);
+	} else {
+		/* Do nothing. */
+	}
+
+END:
+	/** Release resources on completion or error. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+	XAsufw_KeyManagerModule.AesPtr = NULL;
+
+DONE:
 	return Status;
 }
 

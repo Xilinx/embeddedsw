@@ -576,8 +576,8 @@ enum {
 	XASUFW_OCP_AES_WRITE_KEY_FAILURE, /**< 0x189U - Error when AES write key operation fails */
 	XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when UDE key encryption is failed */
 	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
-	XASUFW_UDE_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x18CU - Error when UDE decrypts black key 0 fails */
-	XASUFW_UDE_CMAC_KDF_FAIL, /**< 0x18DU - Error when UDE CMAC KDF operation fails */
+	RESERVED5, /**< 0x18CU - Reserved */
+	RESERVED6, /**< 0x18DU - Reserved */
 	XASUFW_OCP_UDE_AES_COMPUTE_FAIL, /**< 0x18EU - Error when UDE AES compute operation fails */
 	XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when UDE challenge response operation fails */
 	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */
@@ -734,6 +734,22 @@ enum {
 	XASUFW_UPDATE_MGR_RELOCATION_FAIL, /**< 0x20FU - Error when update manager relocation fails. */
 	XASUFW_ERR_RAM_ECC_UE, /**< 0x210U - RAM ECC uncorrectable error detected */
 	XASUFW_ERR_RAM_ECC_CE, /**< 0x211U - RAM ECC correctable error detected */
+	XASUFW_KEYMANAGER_EXPORT_VAULT_ERROR, /**< 0x212U - Error when exporting vault fails */
+	XASUFW_KEYMANAGER_IMPORT_VAULT_ERROR, /**< 0x213U - Error when importing vault fails */
+	XASUFW_KEYMANAGER_KV_KEK_GEN_FAIL, /**< 0x214U - Error when Key Manager KEK generation
+						fails */
+	XASUFW_KEYMANAGER_AES_KEY_SETUP_FAIL, /**< 0x215U - Error when Key Manager AES key setup
+						fails */
+	XASUFW_KEYMANAGER_INVALID_ID_STRING, /**< 0x216U - Error when invalid identification string
+						is detected. */
+	XASUFW_KEYMANAGER_INVALID_VAULT_VERSION, /**< 0x217U - Error when invalid vault version is
+						provided for vault import/export. */
+	XASUFW_KEYMANAGER_VAULT_REVOKE_ID_MISMATCH, /**< 0x218U - Error when vault revoke ID does
+							not match with expected value. */
+	XASUFW_KEYMANAGER_INVALID_VAULT_ID, /**< 0x219U - Error when vault ID is invalid. */
+	XASUFW_KDF_IV_IS_ZERO, /**< 0x21AU - Error when KDF IV is zero */
+	XASUFW_KDF_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x21BU - Error when KDF decrypts black key 0
+						fails */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

@@ -127,6 +127,7 @@ typedef struct {
 	u8 Restrictions;	/**< Key vault restrictions. */
 	u8 Reserved;	/**< Reserved byte. */
 	u32 VaultSize;	/**< Vault size in bytes. */
+	u32 SubSystemId;	/**< Subsystem ID */
 } XKeyManager_VaultHeader;
 
 /** This structure contains sub-vault header related information. */
@@ -235,6 +236,10 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr,  XAes *AesInstancePtr, const
 s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObjectAddr,
 				      u32 SubSystemId, u8 KeyUsecase,
 				      XKeyManager_RsaOpType RsaOpType);
+s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ExportAddr,
+			       u32 ExportBufSize, u32 ActualVaultSizeAddr);
+s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,
+			       u32 ImportSize);
 
 /************************************ Variable Definitions ***************************************/
 

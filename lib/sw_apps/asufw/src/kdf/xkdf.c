@@ -36,6 +36,8 @@
 #include "xasufw_util.h"
 #include "xfih.h"
 #include "xasu_kdf_common.h"
+#include "xasufw_memory.h"
+#include "xasu_generic.h"
 
 #ifdef XASU_KDF_ENABLE
 /************************************** Type Definitions *****************************************/
@@ -192,7 +194,6 @@ END:
 }
 #endif /* XASU_KDF_ENABLE */
 
-#ifdef XASU_OCP_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function performs KDF generate operation using CMAC as pseudorandom function with
@@ -200,6 +201,7 @@ END:
  * in counter mode as specified in NIST SP 800-108r1.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr	Pointer to the XAes instance.
  * @param	KdfParams	Pointer to the KDF structure containing user input parameters.
  * @param	AesKeySrc	Aes Key source.
  *
@@ -211,12 +213,12 @@ END:
  * 	- Errors codes from AES-CMAC, if AES-CMAC operation fails.
  *
  *************************************************************************************************/
-s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 AesKeySrc)
+s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KdfParams *KdfParams,
+		      u32 AesKeySrc)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	volatile u32 Iterations = 0U;
 	volatile u32 KdfIndex = 0U;
 	u32 KdfValue;
@@ -226,7 +228,7 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 A
 	u32 KeyOutLen = 0U;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (KdfParams == NULL)) {
+	if ((DmaPtr == NULL) || (KdfParams == NULL) || (AesInstancePtr == NULL)) {
 		Status = XASUFW_KDF_INVALID_PARAM;
 		goto END;
 	}
@@ -354,5 +356,84 @@ END_CLR:
 END:
 	return Status;
 }
-#endif /* XASU_OCP_ENABLE */
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates a KEK (Key Encryption Key) from efuse black key 0 using
+ *		CMAC-KDF.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr	Pointer to the XAes instance.
+ * @param	Context		Pointer to the context string for KDF.
+ * @param	ContextLen	Length of the context string.
+ * @param	IvIncVal	IV increment value for black key decryption.
+ * @param	KekLen		Length of the KEK to generate in bytes.
+ * @param	Kek		Pointer to buffer where the generated KEK will be stored.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if KEK generation is successful.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails.
+ *	- XASUFW_KDF_DECRYPT_BLACK_KEY_0_FAIL, if black key decryption fails.
+ *
+ *************************************************************************************************/
+s32 XKdf_GenerateKekFromEfuse0(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u8 *Context,
+			       u32 ContextLen, u8 IvIncVal, u32 KekLen, u8 *Kek)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsu_KdfParams KdfParams = {0U};
+	u8 KekIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {0U};
+	const u8 *IvPtr = (const u8 *)(UINTPTR)XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR;
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (Context == NULL) ||
+	    (ContextLen == 0U) || (Kek == NULL) || (KekLen == 0U)) {
+		Status = XASUFW_KDF_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Copy IV from RTCA to local buffer. */
+	Status = Xil_SMemCpy(KekIv, XASU_AES_IV_SIZE_96BIT_IN_BYTES, IvPtr,
+			     XASU_AES_IV_SIZE_96BIT_IN_BYTES, XASU_AES_IV_SIZE_96BIT_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	/** Check if IV is non-zero. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_IsBufferNonZero(KekIv, XASU_AES_IV_SIZE_96BIT_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KDF_IV_IS_ZERO;
+		goto END;
+	}
+
+	/** Update IV with the offset for black key decryption. */
+	Xil_IncrementBuffer(KekIv, XASU_AES_IV_SIZE_96BIT_IN_BYTES, IvIncVal);
+
+	/** Decrypt efuse black key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_DecryptEfuseBlackKey(AesInstancePtr, DmaPtr,
+					   XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
+					   XASU_AES_KEY_SIZE_256_BITS, (u64)(UINTPTR)KekIv,
+					   XASU_AES_IV_SIZE_96BIT_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_DECRYPT_BLACK_KEY_0_FAIL);
+		goto END;
+	}
+
+	/** Update KDF parameters. */
+	KdfParams.KeyObject.KeyInAddr = 0U;
+	KdfParams.ContextAddr = (u64)(UINTPTR)Context;
+	KdfParams.KeyOutAddr = (u64)(UINTPTR)Kek;
+	KdfParams.KeyObject.KeyInLen = XASU_AES_KEY_SIZE_256_BITS;
+	KdfParams.ContextLen = ContextLen;
+	KdfParams.KeyOutLen = KekLen;
+
+	/** Generate KEK using CMAC-KDF. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKdf_CmacGenerate(DmaPtr, AesInstancePtr, &KdfParams, XASU_AES_EFUSE_KEY_RED_0);
+
+END:
+	return Status;
+}
 /** @} */

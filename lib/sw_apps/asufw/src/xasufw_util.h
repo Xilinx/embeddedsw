@@ -106,6 +106,8 @@ extern "C" {
 #define XASUFW_BYTE_MASK			(0xFFU)		/**< Single byte mask */
 #define XASUFW_TWO_BYTE_MASK			(0x00FFU)	/**< Lower byte mask (16-bit) */
 #define XASUFW_BYTE_MULTIPLIER			(256U)		/**< Byte multiplier for endianness swap */
+#define XASUFW_MAX_BIT_INDEX_IN_WORD		(31U)	/**< Maximum bit index in a 32-bit word */
+#define XASUFW_BITS_IN_WORD			(32U)	/**< Number of bits in a 32-bit word */
 
 /**
  * Macro to verify command length from header matches expected parameter structure size.
