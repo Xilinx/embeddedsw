@@ -198,6 +198,25 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		goto END;
 	}
 
+	if ((((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+	      (AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
+	      (AesClientParamPtr->EngineMode != XASU_AES_ECB_MODE)) ||
+	     (((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
+	      (AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE))) {
+
+		if ((AesClientParamPtr->IvAddr == 0U) && (AesClientParamPtr->IvId == 0U)) {
+			Status = XASU_INVALID_ARGUMENT;
+			goto END;
+		}
+		if (AesClientParamPtr->IvAddr != 0U) {
+			Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
+				AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+	}
+
 	/** Validate required parameters for AES initialization operation. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
 		/** Validate AES operation type. */
@@ -218,22 +237,6 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 			(const XAsu_AesKeyObject *)(UINTPTR)AesClientParamPtr->KeyObjectAddr);
 		if (Status != XST_SUCCESS) {
 			goto END;
-		}
-
-		if ((AesClientParamPtr->EngineMode != XASU_AES_ECB_MODE) && (AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE)) {
-			if ((AesClientParamPtr->IvAddr == 0U) && (AesClientParamPtr->IvId == 0U)) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
-		}
-
-		/** Validate IV. */
-		if (AesClientParamPtr->IvAddr != 0U) {
-			Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
-				AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 		}
 	}
 
