@@ -148,6 +148,7 @@
 #define XAES_CCM_2BYTE_MAX_LEN		(0xFFFFU) /**< AES CCM 2BYTE maximum length (64KB). */
 #define XAES_CCM_3BYTE_MAX_LEN		(0xFFFFFFU) /**< AES CCM 3BYTE maximum length (16MB). */
 
+/** This typedef is used to define the states of the AES. */
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
 	XAES_STARTED, /**< AES is in start state */

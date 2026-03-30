@@ -134,30 +134,30 @@ extern "C" {
 /** EFUSE_CACHE Device DNA Size in bytes */
 #define EFUSE_CACHE_DNA_SIZE				(16U)
 
-/**< EFUSE_CACHE UDE FIPS address */
+/** EFUSE_CACHE UDE FIPS address */
 #define EFUSE_CACHE_UDE_FIPS_ADDRESS			(EFUSE_CACHE_BASEADDR + 0x0000234U)
 
-/**< EFUSE_CACHE UDE Revoke 0 Mask */
+/** EFUSE_CACHE UDE Revoke 0 Mask */
 #define EFUSE_CACHE_UDE_REVOKE_0_MASK			(0x30U)
 
-/**< EFUSE_CACHE UDE Revoke 1 Mask */
+/** EFUSE_CACHE UDE Revoke 1 Mask */
 #define EFUSE_CACHE_UDE_REVOKE_1_MASK			(0xC0U)
 
-/**< EFUSE_CACHE UDE Revoke 2 Mask */
+/** EFUSE_CACHE UDE Revoke 2 Mask */
 #define EFUSE_CACHE_UDE_REVOKE_2_MASK			(0x300U)
 
-/**< EFUSE_CACHE UDE Revoke 0, 1, 2 Mask */
+/** EFUSE_CACHE UDE Revoke 0, 1, 2 Mask */
 #define EFUSE_CACHE_UDE_REVOKE_ALL_MASK		(EFUSE_CACHE_UDE_REVOKE_0_MASK | \
 						 EFUSE_CACHE_UDE_REVOKE_1_MASK | \
 						 EFUSE_CACHE_UDE_REVOKE_2_MASK)
 
-/**< EFUSE_CACHE UDE User Key 0 Address */
+/** EFUSE_CACHE UDE User Key 0 Address */
 #define EFUSE_CACHE_USERKEY_0_ADDR			(EFUSE_CACHE_BASEADDR + 0x00000240U)
 
-/**< EFUSE_CACHE UDE User Key 1 Address */
+/** EFUSE_CACHE UDE User Key 1 Address */
 #define EFUSE_CACHE_USERKEY_1_ADDR			(EFUSE_CACHE_BASEADDR + 0x00000270U)
 
-/**< EFUSE_CACHE UDE User Key 2 Address */
+/** EFUSE_CACHE UDE User Key 2 Address */
 #define EFUSE_CACHE_USERKEY_2_ADDR			(EFUSE_CACHE_BASEADDR + 0x000002A0U)
 
 /**< EFUSE_CACHE OFFCHIP Revoke 0 Address */
@@ -177,13 +177,13 @@ extern "C" {
 /** ASU IPI base address */
 #define IPI_ASU_BASEADDR	XPAR_XIPIPSU_0_BASEADDR
 
-/**< ASU IPI Interrupt Trigger Register */
+/** ASU IPI Interrupt Trigger Register */
 #define IPI_ASU_TRIG		(IPI_ASU_BASEADDR + 0x00000000U)
 /** ASU IPI Interrupt Status Register */
 #define IPI_ASU_ISR		(IPI_ASU_BASEADDR + 0x00000010U)
-/**< PMC IPI channel mask */
+/** PMC IPI channel mask */
 #define IPI_ASU_ISR_PMC_MASK	(0x00000002U)
-/**< IPI6 NoBuf channel mask */
+/** IPI6 NoBuf channel mask */
 #define IPI_ASU_NOBUF_6_MASK	(0x00008000U)
 
 /*

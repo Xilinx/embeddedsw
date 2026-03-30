@@ -33,8 +33,11 @@
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
+/** Mask for command count in access permissions buffer */
 #define XASUFW_ACCESS_PERM_CMD_CNT_MASK			0xFFFF0000U
+/** Shift for command count in access permissions buffer */
 #define XASUFW_ACCESS_PERM_CMD_CNT_SHIFT		16U
+/** Mask for module ID in access permissions buffer */
 #define XASUFW_ACCESS_PERM_MODULE_ID_MASK		0x0000FFFFU
 
 /************************************** Type Definitions *****************************************/

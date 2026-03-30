@@ -699,8 +699,6 @@ void XAsufw_UpdateModulesInfo(void)
 /**
  * @brief	This function disables the IO Module interrupts.
  *
- * @return	None.
- *
  *************************************************************************************************/
 void XAsufw_DisableInterruptSystem(void)
 {

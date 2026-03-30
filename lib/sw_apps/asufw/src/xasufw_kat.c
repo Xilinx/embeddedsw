@@ -2176,8 +2176,6 @@ END_CLR:
  *
  * @param	AsuDmaPtr	Pointer to the dma instance.
  *
- * @return		None
- *
  *************************************************************************************************/
 static void RunKdfAndDependentKat(XAsufw_Dma *AsuDmaPtr)
 {
