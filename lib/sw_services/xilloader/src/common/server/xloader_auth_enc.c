@@ -169,6 +169,7 @@
 *       tvp  03/05/2026 Add authenticated boot support for Versal_2vp_p
 *       tvp  03/05/2026 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
+*       vss  03/30/26 Fix for get partition hash index calculation for IPU/Full metaheader.
 *
 * </pre>
 *
@@ -268,9 +269,11 @@
 #endif
 #else
 
-#define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr) (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) \
+#define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr) ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) || \
+						 (PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU) || \
+						(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER)) \
 						? (PdiPtr->PrtnNum) : (PdiPtr->PrtnNum +1U)
-		/**< Get partition hash index depending on full/partial PDI */
+		/**< Get partition hash index depending on full/IPU/partial/full metaheader PDI */
 #endif
 
 /************************** Function Prototypes ******************************/
