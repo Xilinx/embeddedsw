@@ -236,14 +236,18 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	LocalIvAddr = AesParamsPtr->IvAddr;
-	LocalIvLen = AesParamsPtr->IvLen;
-
-	if ((AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) && (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
+	if ((((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
+	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) ||
+	     (((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
+	      (AesParamsPtr->EngineMode == XASU_AES_CCM_MODE))) {
 		if ((AesParamsPtr->IvAddr == 0U) && (AesParamsPtr->IvId == 0U)) {
 			Status = XASUFW_AES_INVALID_IV;
 			goto END;
 		}
+		LocalIvAddr = AesParamsPtr->IvAddr;
+		LocalIvLen = AesParamsPtr->IvLen;
+
 		if (AesParamsPtr->IvAddr == 0U) {
 			IvObject.IvId = AesParamsPtr->IvId;
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
