@@ -289,4 +289,40 @@ examples:
             - sp701_ref_design/function_prototype.h
             - sp701_ref_design/pcam_5C_cfgs.c
             - sp701_ref_design/pcam_5C_cfgs.h
+
+    xmipi_scu200_hpio_example/xmipi_scu200_hpio_example.c:
+        - dependency_files:
+            - xmipi_scu200_hpio_example/idt_8t49n24x.c
+            - xmipi_scu200_hpio_example/platform.c
+            - xmipi_scu200_hpio_example/sha256.c
+            - xmipi_scu200_hpio_example/video_fmc.c
+            - xmipi_scu200_hpio_example/idt_8t49n24x.h
+            - xmipi_scu200_hpio_example/platform_config.h
+            - xmipi_scu200_hpio_example/sha256.h
+            - xmipi_scu200_hpio_example/video_fmc.h
+            - xmipi_scu200_hpio_example/xhdmi_menu.c
+            - xmipi_scu200_hpio_example/platform.h
+            - xmipi_scu200_hpio_example/ti_lmk03318.c
+            - xmipi_scu200_hpio_example/xhdmi_edid.c
+            - xmipi_scu200_hpio_example/xhdmi_exdes_sm_tx.c
+            - xmipi_scu200_hpio_example/xhdmi_menu.h
+            - xmipi_scu200_hpio_example/mipi_cfg.c
+            - xmipi_scu200_hpio_example/ti_lmk03318.h
+            - xmipi_scu200_hpio_example/xhdmi_edid.h
+            - xmipi_scu200_hpio_example/xhdmi_exdes_sm_tx.h
+            - xmipi_scu200_hpio_example/onsemi_nb7nq621m.c
+            - xmipi_scu200_hpio_example/sensor_cfgs.c
+            - xmipi_scu200_hpio_example/si5344drv.c
+            - xmipi_scu200_hpio_example/ti_tmds1204.c
+            - xmipi_scu200_hpio_example/xhdmi_example.c
+            - xmipi_scu200_hpio_example/onsemi_nb7nq621m.h
+            - xmipi_scu200_hpio_example/sensor_cfgs.h
+            - xmipi_scu200_hpio_example/si5344drv.h
+            - xmipi_scu200_hpio_example/ti_tmds1204.h
+            - xmipi_scu200_hpio_example/xhdmi_example.h
+            - xmipi_scu200_hpio_example/rc21008adrv.h
+            - xmipi_scu200_hpio_example/rc21008adrv.c
+            - xmipi_scu200_hpio_example/lscript.ld
+
+
 ...
