@@ -19,6 +19,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.5   tvp  05/13/25 Initial release
 *       sd   11/07/25 Add check to ensure TRNG is initialized before uninitializing
+* 5.7   tbk  03/27/26 Set error status before returning in TRNG operations
 *
 * </pre>
 *
@@ -29,6 +30,7 @@
 */
 
 /*************************************** Include Files ********************************************/
+#include "xil_sutil.h"
 #include "xsecure_plat.h"
 #include "xsecure_trng.h"
 #include "xsecure_utils.h"
@@ -79,12 +81,14 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 
 	Status = Xil_SMemSet(&UsrCfg, sizeof(XTrngpsv_UsrCfg), 0U, sizeof(XTrngpsv_UsrCfg));
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
 	if (TrngInstance->State != XTRNGPSV_UNINITIALIZED) {
 		Status = XSecure_Uninstantiate(TrngInstance);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -111,6 +115,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 		Status = Xil_SMemCpy(&UsrCfg.InitSeed, XTRNGPSV_SEED_LEN_BYTES, Seed, SeedLength,
 				     SeedLength);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	} else {
@@ -121,6 +126,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 		Status = Xil_SMemCpy(&UsrCfg.PersString, sizeof(UsrCfg.PersString), PersStr,
 				     sizeof(UsrCfg.PersString), sizeof(UsrCfg.PersString));
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	} else {
@@ -130,6 +136,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 	Status = XTrngpsv_Instantiate(TrngInstance, &UsrCfg);
 	if (Status != XST_SUCCESS) {
 		(void)XSecure_Uninstantiate(TrngInstance);
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 
 	}
@@ -158,12 +165,14 @@ int XSecure_PreOperationalSelfTests(XSecure_TrngInstance *TrngInstance)
 	if (!XSecure_TrngIsUninitialized(TrngInstance)){
 		Status = XTrngpsv_Uninstantiate(InstancePtr);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
 
 	Status = XTrngpsv_RunKAT(InstancePtr);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 

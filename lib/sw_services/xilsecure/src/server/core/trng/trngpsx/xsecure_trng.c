@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.5   tvp  05/13/25 Initial release
+* 5.7   tbk  03/30/26 Add glitch detection for TRNG operations
 *
 * </pre>
 *
@@ -28,6 +29,7 @@
 */
 
 /*************************************** Include Files ********************************************/
+#include "xil_sutil.h"
 #include "xtrngpsx.h"
 #include "xsecure_trng.h"
 #include "xsecure_utils.h"
@@ -80,12 +82,14 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 
 	Status = Xil_SMemSet(&UsrCfg, sizeof(XTrngpsx_UserConfig), 0U, sizeof(XTrngpsx_UserConfig));
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
 	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE ) {
 		Status = XSecure_Uninstantiate(TrngInstance);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
@@ -113,6 +117,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 	if (Status != XST_SUCCESS) {
 		(void)XSecure_Uninstantiate(TrngInstance);
 		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 	XSecure_UpdateTrngCryptoStatus(XSECURE_SET_BIT);
