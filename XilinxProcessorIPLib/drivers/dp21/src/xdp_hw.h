@@ -3029,17 +3029,29 @@ extern "C" {
 
 #define XDP_VFREQ_STREAM_OFFSET  0x0008  /**< 8 bytes offset between VFREQ stream registers. */
 
-#define XDP_TX_VFREQ_STREAM1_LOW 0x1608	/**< Vfreq for MST stream1. */
-#define XDP_TX_VFREQ_STREAM1_HIGH 0x160C	/**< Vfreq for MST stream1. */
+#define XDP_TX_VFREQ_STREAM1_LOW 0x6D0	/**< Vfreq for MST stream1. */
+#define XDP_TX_VFREQ_STREAM1_HIGH 0x6D4	/**< Vfreq for MST stream1. */
 
-#define XDP_TX_VFREQ_STREAM2_LOW 0x1610	/**< Vfreq for MST stream2. */
-#define XDP_TX_VFREQ_STREAM2_HIGH 0x1614	/**< Vfreq for MST stream2. */
+#define XDP_TX_VFREQ_STREAM2_LOW 0x6E4	/**< Vfreq for MST stream2. */
+#define XDP_TX_VFREQ_STREAM2_HIGH 0x6E8	/**< Vfreq for MST stream2. */
 
-#define XDP_TX_VFREQ_STREAM3_LOW 0x1618	/**< Vfreq for MST stream3. */
-#define XDP_TX_VFREQ_STREAM3_HIGH 0x161C	/**< Vfreq for MST stream3. */
+#define XDP_TX_VFREQ_STREAM3_LOW 0x6EC	/**< Vfreq for MST stream3. */
+#define XDP_TX_VFREQ_STREAM3_HIGH 0x6F0	/**< Vfreq for MST stream3. */
 
-#define XDP_TX_VFREQ_STREAM4_LOW 0x1620	/**< Vfreq for MST stream4. */
-#define XDP_TX_VFREQ_STREAM4_HIGH 0x1624	/**< Vfreq for MST stream4. */
+#define XDP_TX_VFREQ_STREAM4_LOW 0x6F4	/**< Vfreq for MST stream4. */
+#define XDP_TX_VFREQ_STREAM4_HIGH 0x6F8	/**< Vfreq for MST stream4. */
+
+#define XDP_RX_VFREQ_STREAM1_LOW 0x1608	/**< Vfreq for MST stream1. */
+#define XDP_RX_VFREQ_STREAM1_HIGH 0x160C	/**< Vfreq for MST stream1. */
+
+#define XDP_RX_VFREQ_STREAM2_LOW 0x1610	/**< Vfreq for MST stream2. */
+#define XDP_RX_VFREQ_STREAM2_HIGH 0x1614	/**< Vfreq for MST stream2. */
+
+#define XDP_RX_VFREQ_STREAM3_LOW 0x1618	/**< Vfreq for MST stream3. */
+#define XDP_RX_VFREQ_STREAM3_HIGH 0x161C	/**< Vfreq for MST stream3. */
+
+#define XDP_RX_VFREQ_STREAM4_LOW 0x1620	/**< Vfreq for MST stream4. */
+#define XDP_RX_VFREQ_STREAM4_HIGH 0x1624	/**< Vfreq for MST stream4. */
 
 
 #define XDP_TX_V2_0_CONFIG 0x6E0	/**< DP v2.1 Config Params. */
