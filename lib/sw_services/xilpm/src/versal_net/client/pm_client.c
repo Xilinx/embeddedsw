@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,8 @@
 #define MPIDR_AFF1_SHIFT		(8U)
 #define MPIDR_AFF2_SHIFT		(16U)
 #define APU_PCIL_BASEADDR		(0xECB10000U)
+#define FPX_SLCR_APU_CTRL		(0xEC8C1000U)
+#define APU_CLUSTER_LOCKSTEP_MASK(ClusterId)	(1U << (ClusterId))
 #define CORE_0_PWRDWN_OFFSET		(0x0U)
 #define CORE_1_PWRDWN_OFFSET		(0x30U)
 #define CORE_2_PWRDWN_OFFSET		(0x60U)
@@ -274,10 +276,29 @@ XStatus XPm_SetPrimaryProc(void)
 	XStatus Status = (s32)XST_FAILURE;
 	u64 CpuId;
 	u64 ClusterId;
+#if defined (__aarch64__)
+	u32 ApuCtrlReg;
+#endif
 
 #if defined (__aarch64__)
 	CpuId = (mfcp(MPIDR_EL1) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
 	ClusterId = (mfcp(MPIDR_EL1) >> MPIDR_AFF2_SHIFT) & MPIDR_AFFLVL_MASK;
+
+	/*
+	 * Check if APU cluster is in lockstep mode
+	 * In lockstep mode, hardware remaps MPIDR:
+	 * - Physical core 0 -> MPIDR Aff1=0
+	 * - Physical core 2 -> MPIDR Aff1=1 (remapped by hardware)
+	 * Need to remap back to physical core: core_id = Aff1 * 2
+	 */
+	ApuCtrlReg = XPm_Read(FPX_SLCR_APU_CTRL);
+	if (0U != (ApuCtrlReg & APU_CLUSTER_LOCKSTEP_MASK((u32)ClusterId))) {
+		/* Cluster is in lockstep mode - remap MPIDR to physical core */
+		CpuId = CpuId * 2U;
+		XPm_Dbg("APU Cluster %u in lockstep mode, remapped MPIDR Aff1 to core %u\r\n",
+			(unsigned int)ClusterId, (unsigned int)CpuId);
+	}
+
 	ProcId = (((u32)ClusterId * PM_APU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
 #elif defined (__arm__)
 	CpuId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF0_SHIFT) & MPIDR_AFFLVL_MASK;
