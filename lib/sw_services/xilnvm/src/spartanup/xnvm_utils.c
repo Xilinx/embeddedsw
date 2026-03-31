@@ -22,6 +22,7 @@
 *       aa   07/24/2025 Typecast to essential datatypes to avoid implicit conversions
 *       mb   20/08/2025 Update Timer calculate API's by passing Frequency value to macros
 * 3.7   mb   03/18/2026 Add support for temperature and voltage before efuse programming
+*       mb    03/25/2026 Use VCCAUX channel to read voltage for efuse programming checks
 *
 * </pre>
 *
@@ -58,15 +59,14 @@
 #define XNVM_EFUSE_TEMP_MIN			(-40.0f)
 #define XNVM_EFUSE_TEMP_MAX			(125.0f)
 
-/**< Voltage limits for VCCINT for Spartan UltraScale Plus */
-#define XNVM_EFUSE_VCCINT_MIN		(0.775f)
-#define XNVM_EFUSE_VCCINT_MAX		(0.906f)
+/**< Voltage limits for VCCAUX for Spartan UltraScale Plus */
+#define XNVM_EFUSE_VCCAUX_MIN		(1.746f)
+#define XNVM_EFUSE_VCCAUX_MAX		(1.854f)
 
 /**
  * @}
  * @endcond
  */
-
 
 /***************************** Function Definitions *******************************/
 
@@ -76,7 +76,7 @@ static void XNvm_EfuseEnableProgramming(void);
 static void XNvm_EfuseInitTimers(u32 ClkFreq);
 #ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
 static int XNvm_EfuseTemperatureCheck(float Temperature);
-static int XNvm_EfuseVccintVoltageCheck(float Voltage);
+static int XNvm_EfuseVccauxVoltageCheck(float Voltage);
 #endif
 
 /****************** Macros (Inline Functions) Definitions *********************/
@@ -569,24 +569,24 @@ static int XNvm_EfuseTemperatureCheck(float Temperature)
 
 /******************************************************************************/
 /**
- * @brief	This function checks VCCINT voltage.
+ * @brief	This function checks VCCAUX voltage.
  *
- * @param	Voltage - Current VCCINT voltage in Volts.
+ * @param	Voltage - Current VCCAUX voltage in Volts.
  *
  * @return
- *		- XST_SUCCESS  On VCCINT within thresholds.
- *		- XST_FAILURE  On VCCINT not within thresholds.
+ *		- XST_SUCCESS  On VCCAUX within thresholds.
+ *		- XST_FAILURE  On VCCAUX not within thresholds.
  *
  ******************************************************************************/
-static int XNvm_EfuseVccintVoltageCheck(float Voltage)
+static int XNvm_EfuseVccauxVoltageCheck(float Voltage)
 {
 	int Status = XST_FAILURE;
 
 	/**
-	 * Check if VCCINT voltage is within the limits.
+	 * Check if VCCAUX voltage is within the limits.
 	 * If not in limits return XST_FAILURE else XST_SUCCESS.
 	 */
-	if ((Voltage < XNVM_EFUSE_VCCINT_MIN) || (Voltage > XNVM_EFUSE_VCCINT_MAX)) {
+	if ((Voltage < XNVM_EFUSE_VCCAUX_MIN) || (Voltage > XNVM_EFUSE_VCCAUX_MAX)) {
 		Status = XST_FAILURE;
 	} else {
 		Status = XST_SUCCESS;
@@ -640,10 +640,10 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 	XSysMon_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SAFE);
 
 	/**
-	 * Enable TEMP and VCCINT channels in the sequencer.
+	 * Enable TEMP and VCCAUX channels in the sequencer.
 	 * This ensures these channels will be converted when the sequencer runs.
 	 */
-	Status = XSysMon_SetSeqChEnables(SysMonInstPtr, XSM_SEQ_CH_TEMP | XSM_SEQ_CH_VCCINT);
+	Status = XSysMon_SetSeqChEnables(SysMonInstPtr, XSM_SEQ_CH_TEMP | XSM_SEQ_CH_VCCAUX);
 	if (Status != XST_SUCCESS) {
 		/* Restore original mode before returning */
 		XSysMon_SetSequencerMode(SysMonInstPtr, OriginalSeqMode);
@@ -685,17 +685,17 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 	}
 
 	/**
-	 * Read the raw VCCINT voltage value from SysMon
+	 * Read the raw VCCAUX voltage value from SysMon
 	 * Convert the raw ADC value to voltage in Volts.
 	 */
-	RawVoltage = XSysMon_GetAdcData(SysMonInstPtr, XSM_CH_VCCINT);
+	RawVoltage = XSysMon_GetAdcData(SysMonInstPtr, XSM_CH_VCCAUX);
 	Voltage = XSysMon_RawToVoltage(RawVoltage);
 
 	/**
 	 * Check for voltage operating limits.
 	 * Return error if voltage is not within operating limits.
 	 */
-	Status = XNvm_EfuseVccintVoltageCheck(Voltage);
+	Status = XNvm_EfuseVccauxVoltageCheck(Voltage);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE;
 	}
