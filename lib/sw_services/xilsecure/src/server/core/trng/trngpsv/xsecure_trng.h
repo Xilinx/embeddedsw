@@ -19,6 +19,7 @@
 *       sd   11/07/25 Update TRNG function name and return logic to return true
 *                     when TRNG is uninitialized
 * 5.7   tbk  03/03/26 Set error status before Xil_SMemCpy
+*       tbk  03/27/26 Add glitch detection for TRNG generation failures
 *
 * </pre>
 *
@@ -137,6 +138,7 @@ static inline int XSecure_TrngGenerate(XSecure_TrngInstance *TrngInstance, u8 *R
 		Status = XTrngpsv_Generate(TrngInstance, (u8 *)&TmpRandBuf,
 					   XTRNGPSV_SEC_STRENGTH_BYTES, PredResistance);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
