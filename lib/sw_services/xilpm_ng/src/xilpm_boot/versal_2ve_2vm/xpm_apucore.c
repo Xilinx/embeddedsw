@@ -1,18 +1,71 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #include "xil_io.h"
 #include "xpm_apucore.h"
+#include "xpm_core.h"
 #include "xpm_regs.h"
 #include "xpm_debug.h"
 #include "xpm_psfpdomain.h"
+#include "xpm_defs.h"
 
 #define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
+
+/**
+ * XPmApuCore_IsValidCoreInLockstep() - Check if core is valid in lockstep mode
+ * @param DeviceId Device ID of the APU core
+ *
+ * In lockstep mode, only core 0 of each cluster is valid, while core 1 is
+ * invalid and should not be allowed to wake up or power down.
+ *
+ * Return: XST_SUCCESS if core is valid, XST_INVALID_PARAM or XST_FAILURE
+ * otherwise
+ */
+static XStatus XPmApuCore_IsValidCoreInLockstep(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 OperMode = XPM_INVAL_OPER_MODE;
+	u32 CoreNum;
+
+	/* Get the operation mode for this cluster */
+	Status = XPm_ApuGetOperMode(DeviceId, &OperMode);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get APU operation mode\r\n");
+		goto done;
+	}
+
+	/* If in split mode, all cores are valid */
+	if (XPM_APU_MODE_SPLIT == OperMode) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* In lockstep mode, only core 0 is valid */
+	CoreNum = GET_APU_CORE_NUM(DeviceId);
+	if (XPM_DSTN_CORE_0 != CoreNum) {
+		PmErr("Invalid APU core 0x%x in lockstep mode\r\n", DeviceId);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Check if this core is valid in lockstep mode */
+	Status = XPmApuCore_IsValidCoreInLockstep(Core->Device.Node.Id);
+	if (XST_SUCCESS != Status) {
+		PmErr("Core wake up rejected: invalid core in lockstep mode\r\n");
+		goto done;
+	}
 
 	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
@@ -29,11 +82,20 @@ XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 
 	PmInfo("APU PwrDwn\r\n");
+
+	/* Check if this core is valid in lockstep mode */
+	Status = XPmApuCore_IsValidCoreInLockstep(Core->Device.Node.Id);
+	if (XST_SUCCESS != Status) {
+		PmErr("Core power down rejected: invalid core in lockstep mode\r\n");
+		goto done;
+	}
+
 	Status = XPmCore_PwrDwn(Core);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status = %x\r\n", Status);
 	}
 
+done:
 	return Status;
 }
 
