@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,6 +71,7 @@ typedef struct XPm_ApuCore XPm_ApuCore;
 XStatus XPmApuCore_AssignRegisterMask(struct XPm_ApuCore *ApuCore, const u32 Id);
 XStatus XPm_ApuSetOperMode(const u32 ClusterId, const u32 Mode);
 XStatus XPm_ApuGetOperMode(const u32 ClusterId, u32 *Mode);
+XStatus XPmApuCore_IsValidCoreInLockstep(u32 DeviceId);
 
 #ifdef __cplusplus
 }

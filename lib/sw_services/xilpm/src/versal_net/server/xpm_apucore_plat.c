@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,54 @@
 #include "xpm_debug.h"
 #include "xpm_power.h"
 #include "xpm_psfpdomain.h"
+#include "xpm_defs.h"
 
 #define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
+
+/**
+ * XPmApuCore_IsValidCoreInLockstep() - Check if APU core is valid in lockstep mode
+ * @param DeviceId Device ID of the APU core
+ *
+ * In lockstep mode for Versal Net, each APU cluster has 4 cores. Only cores 0
+ * and 2 are valid in lockstep mode; cores 1 and 3 are invalid and should not
+ * be allowed to wake up or power down.
+ *
+ * Return: XST_SUCCESS if core is valid,
+ *         XST_INVALID_PARAM if core is invalid in lockstep mode,
+ *         XST_FAILURE if operation mode cannot be determined
+ */
+XStatus XPmApuCore_IsValidCoreInLockstep(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 OperMode = XPM_INVAL_OPER_MODE;
+	u32 CoreNum;
+
+	/* Get the operation mode for this cluster */
+	Status = XPm_ApuGetOperMode(DeviceId, &OperMode);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get APU operation mode\r\n");
+		goto done;
+	}
+
+	/* If in split mode, all cores are valid */
+	if (XPM_APU_MODE_SPLIT == OperMode) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* In lockstep mode, only cores 0 and 2 are valid */
+	CoreNum = GET_APU_CORE_NUM(DeviceId);
+	if ((XPM_DSTN_CORE_0 != CoreNum) && (XPM_DSTN_CORE_2 != CoreNum)) {
+		PmErr("Invalid APU core 0x%x in lockstep mode\r\n", DeviceId);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
 
 XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id)
 {

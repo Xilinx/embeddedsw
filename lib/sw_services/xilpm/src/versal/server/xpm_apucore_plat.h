@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,21 @@ extern "C" {
 typedef struct XPm_ApuCore XPm_ApuCore;
 /************************** Function Prototypes ******************************/
 XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id);
+
+/**
+ * XPmApuCore_IsValidCoreInLockstep() - Check if APU core is valid in lockstep mode
+ * @param DeviceId Device ID of the APU core
+ *
+ * For Versal, lockstep mode is not supported for APU cores, so all cores
+ * are always valid.
+ *
+ * Return: XST_SUCCESS (always)
+ */
+static inline XStatus XPmApuCore_IsValidCoreInLockstep(u32 DeviceId)
+{
+	(void)DeviceId;
+	return XST_SUCCESS;
+}
 
 #ifdef __cplusplus
 }

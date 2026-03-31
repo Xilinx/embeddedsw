@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,13 @@
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Check if this core is valid in lockstep mode */
+	Status = XPmApuCore_IsValidCoreInLockstep(Core->Device.Node.Id);
+	if (XST_SUCCESS != Status) {
+		PmErr("Core wake up rejected: invalid core in lockstep mode\r\n");
+		goto done;
+	}
 
 	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
@@ -28,11 +35,19 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Check if this core is valid in lockstep mode */
+	Status = XPmApuCore_IsValidCoreInLockstep(Core->Device.Node.Id);
+	if (XST_SUCCESS != Status) {
+		PmErr("Core power down rejected: invalid core in lockstep mode\r\n");
+		goto done;
+	}
+
 	Status = XPmCore_PwrDwn(Core);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status = %x\r\n", Status);
 	}
 
+done:
 	return Status;
 }
 
