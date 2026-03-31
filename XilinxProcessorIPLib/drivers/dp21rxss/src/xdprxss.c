@@ -1387,7 +1387,7 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].SynchronousClockMode =
 				rxMsamisc0 & 1;
 
-		bpc = XDpRxss_GetBpc(DpRxSsInst, XDP_TX_STREAM_ID1);
+		bpc = XDpRxss_GetBpc(DpRxSsInst, XDP_RX_STREAM_ID1);
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].BitsPerColor = bpc;
 
 		color_mode = XDpRxss_GetColorComponent(DpRxSsInst, Stream);
@@ -1408,9 +1408,9 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		}else{	//dp2.1 linkrates
 		u32 stream_offset = (Stream - 1) * XDP_VFREQ_STREAM_OFFSET;
 			u32 VFreq_lower = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
-							XDP_TX_VFREQ_STREAM1_LOW + stream_offset);
+							XDP_RX_VFREQ_STREAM1_LOW + stream_offset);
 			u32 VFreq_higher = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
-							XDP_TX_VFREQ_STREAM1_HIGH + stream_offset);
+							XDP_RX_VFREQ_STREAM1_HIGH + stream_offset);
 			u64 VFreq = 0;
 			VFreq = VFreq_higher;
 			VFreq = (VFreq << 24) | VFreq_lower;
