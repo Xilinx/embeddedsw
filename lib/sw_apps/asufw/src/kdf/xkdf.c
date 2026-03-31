@@ -94,6 +94,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get SHA hash length based on SHA Mode. */
 	Status = XSha_GetHashLen(KdfParams->ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {

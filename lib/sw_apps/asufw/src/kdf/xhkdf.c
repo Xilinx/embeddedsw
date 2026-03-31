@@ -272,6 +272,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	 */
 	KeyOutAddr = HkdfParams->KdfParams.KeyOutAddr;
 	for (KdfIndex = 0U; KdfIndex < Iterations; ++KdfIndex) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** - Initialize HMAC with PRK generated from HKDF extract step. */
 		Status = XHmac_Init(HmacPtr, DmaPtr, ShaInstancePtr, (u64)(UINTPTR)Prk, HashLen,
 				    HkdfParams->KdfParams.ShaMode, HashLen);
@@ -339,12 +340,12 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		}
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Check if the desired number of iterations are executed. */
 	if (KdfIndex != Iterations) {
 		Status = XASUFW_KDF_ITERATION_COUNT_MISMATCH;
 	} else {
 		/** Copy the final HMAC to the destination key output buffer. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy((u8 *)(UINTPTR)KeyOutAddr, HashLen,
 				     (u8 *)(UINTPTR)KeyOutAddrTemp, HashLen, HashLen);
 		if (Status != XASUFW_SUCCESS) {

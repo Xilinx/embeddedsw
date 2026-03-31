@@ -62,7 +62,7 @@ static XAsufw_Module XAsufw_KdfModule; /**< ASUFW KDF Module ID and commands arr
  *************************************************************************************************/
 s32 XAsufw_KdfInit(void)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_KdfCmds array contains the list of commands supported by KDF module. */
 	static const XAsufw_ModuleCmd XAsufw_KdfCmds[XASU_KDF_MAX_CMDS] = {
@@ -121,7 +121,7 @@ s32 XAsufw_KdfInit(void)
  *************************************************************************************************/
 static s32 XAsufw_KdfResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
@@ -246,7 +246,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
 	/** Perform KDF KAT. */

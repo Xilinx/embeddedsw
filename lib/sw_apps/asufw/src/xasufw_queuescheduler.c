@@ -196,6 +196,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					}
 					/* fall through */
 				case XASU_COMMAND_VALIDATED:
+					ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 					/** Check and allocate resources for the command. */
 					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
 					if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
@@ -211,6 +212,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					}
 					/* fall through */
 				case XASU_COMMAND_DMA_WAIT_COMPLETE:
+					ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 					/**
 					 * If command validation and resource allocation is successful, or the DMA
 					 * wait is complete, call the command handler.

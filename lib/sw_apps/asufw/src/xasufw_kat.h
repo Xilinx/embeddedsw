@@ -94,7 +94,7 @@ static inline u8 *XAsu_GetKatStatusPtr(u32 ModuleId)
 	(GetModuleInfoPtr()[ModuleId].KatStatus == XASU_STATUS_PASS)
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_RunCryptoKats(void);
+void XAsufw_RunCryptoKats(void);
 s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resource ShaResource,
 	u32 ShaMode);
 #ifdef XASU_RSA_PADDING_ENABLE

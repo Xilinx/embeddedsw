@@ -62,7 +62,7 @@ static XAsufw_Module XAsufw_KeyWrapModule; /**< ASUFW Key wrap unwp Module ID an
  *************************************************************************************************/
 s32 XAsufw_KeyWrapInit(void)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 
 	/**
 	 * The XAsufw_KeyWrapCmds array contains the list of commands supported by Key wrap unwrap
@@ -201,7 +201,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
 	u32 *OutLenAddr;
 	u32 SubsystemId = 0U;
@@ -256,7 +256,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
 	u32 *OutLenAddr;
 	u32 SubsystemId = 0U;
@@ -308,7 +308,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
 	/** Perform Key wrap unwrap KAT. */

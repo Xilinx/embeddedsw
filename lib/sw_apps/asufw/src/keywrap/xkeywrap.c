@@ -177,6 +177,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		 */
 		RsaKeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_UpdateKeyObjFromVault(AsuDmaPtr, KeyWrapParamsPtr->RsaKeyId,
 							RsaKeyParamAddr, SubsystemId,
 							XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE,
@@ -331,6 +332,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		 */
 		RsaKeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_UpdateKeyObjFromVault(AsuDmaPtr, KeyUnwrapParamsPtr->RsaKeyId,
 						RsaKeyParamAddr, SubsystemId,
 						XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE,
@@ -695,6 +697,7 @@ s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesIns
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Copy wrapped input data from user memory to ASU memory using DMA. */
 	Status = XAsufw_DmaXfr(AsuDmaPtr, (KeyUnwrapParamsPtr->InputDataAddr +
 				KeyUnwrapParamsPtr->RsaKeySize), (u64)(UINTPTR)InData,

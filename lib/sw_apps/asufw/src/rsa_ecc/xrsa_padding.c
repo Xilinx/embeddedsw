@@ -286,6 +286,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	SaltLen = PaddingParamsPtr->SaltLen;
 	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsu_RsaValidateKeySize(KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_INVALID_PARAM;
@@ -352,6 +353,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			goto END;
 		}
 	} else {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
 				       (u64)(UINTPTR)&MPrime[XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN],
 				       PaddingParamsPtr->XAsu_RsaOpComp.Len, 0U);
@@ -796,6 +798,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCmp(HashBuffer, XASU_SHA_512_HASH_LEN, EncodedMsgHashBuffer,
 					XASU_SHA_512_HASH_LEN, HashLen);
 	if (Status != XASUFW_SUCCESS) {

@@ -289,6 +289,7 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Copy Device DNA as personalized string. */
 	Status = Xil_SMemCpy(PersonalString, XOCP_PERSONAL_STRING_LEN, (u8 *)EFUSE_CACHE_DNA_0,
 			     EFUSE_CACHE_DNA_SIZE, EFUSE_CACHE_DNA_SIZE);

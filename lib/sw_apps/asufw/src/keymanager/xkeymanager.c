@@ -769,6 +769,7 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			goto END_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Store key in vault if no address is provided. */
 		Status = XKeyManager_UpdateKeyVault(DmaPtr, KeyType, ParamsPtr, EphemeralData,
 						    KeyIdPtr);
@@ -955,6 +956,7 @@ s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 			goto END_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PvtKey,
 				       (u64)(UINTPTR)EccKeyPairObjectPtr->PrivateKey,
 				       ParamsPtr->KeyMetadata.Length, 0U);

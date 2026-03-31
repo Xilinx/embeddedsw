@@ -515,6 +515,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			goto END_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/**
 		 * Generate the ephemeral key using TRNG if input pointer is NULL
 		 * else copy the key to the local buffer and change the endianness of it.
@@ -1287,6 +1288,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
 	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
 	 * Zeroize the private key buffer before use to make sure for Curve448 57th byte is zero.
 	 * Because, Curve448 private key is of 56 bytes.

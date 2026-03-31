@@ -62,7 +62,7 @@ static XAsufw_Module XAsufw_HmacModule; /**< ASUFW HMAC Module ID and commands a
  *************************************************************************************************/
 s32 XAsufw_HmacInit(void)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	XHmac *HmacPtr = XHmac_GetInstance();
 
 	/** The XAsufw_HmacCmds array contains the list of commands supported by HMAC module. */
@@ -129,7 +129,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_HmacResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
@@ -180,7 +180,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	const XAsu_HmacParams *HmacParamsPtr = (const XAsu_HmacParams *)ReqBuf->Arg;
 	XHmac *HmacPtr = XHmac_GetInstance();
 	u32 *ResponseBufferPtr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
@@ -327,7 +327,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
 	/** Perform HMAC KAT with known inputs. */

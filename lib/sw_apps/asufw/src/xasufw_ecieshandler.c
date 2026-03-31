@@ -65,7 +65,7 @@ static XAsufw_Module XAsufw_EciesModule; /**< ASUFW ECIES Module ID and commands
  *************************************************************************************************/
 s32 XAsufw_EciesInit(void)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 
 	/** The XAsufw_EciesCmds array contains the list of commands supported by ECIES module. */
 	static const XAsufw_ModuleCmd XAsufw_EciesCmds[XASU_ECIES_MAX_CMDS] = {
@@ -137,7 +137,7 @@ s32 XAsufw_EciesInit(void)
  *************************************************************************************************/
 static s32 XAsufw_EciesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
@@ -196,7 +196,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
 
 	/** Verify command length. */
@@ -239,7 +239,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
 
 	/** Verify command length. */
@@ -281,7 +281,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
 	/** Perform ECIES KAT. */

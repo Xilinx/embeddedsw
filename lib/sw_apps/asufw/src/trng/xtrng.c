@@ -854,6 +854,7 @@ s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode)
 	UsrCfg.DFLength = XTRNG_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XTRNG_USER_CFG_SEED_LIFE;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
 		(void)XTrng_Uninstantiate(InstancePtr);
@@ -894,6 +895,7 @@ static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, con
 
 	/** Write personalization string if it is not NULL. */
 	if (PerStr != NULL) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XTrng_WritePersString(InstancePtr, PerStr);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;

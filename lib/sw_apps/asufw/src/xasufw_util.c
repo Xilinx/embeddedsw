@@ -240,6 +240,7 @@ s32 XAsufw_SMemSet(void *Dest, const u32 DestSize)
  *
  * @return	- XASUFW_SUCCESS, if write data to registers is successful.
  * 		- XASUFW_FAILURE, if write data to registers fails.
+ * 		- XASUFW_INVALID_PARAM, if input parameters are invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
@@ -247,6 +248,11 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	volatile u32 Index = 0U;
+
+	if ((DataArray == NULL) || (RegOffset % XASUFW_WORD_LEN_IN_BYTES != 0U)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
 
 	/** Write data words to the respective registers by converting them to big-endian. */
 	for (Index = 0U; Index < NumOfWords; Index++) {
@@ -259,6 +265,7 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
 		Status = XASUFW_SUCCESS;
 	}
 
+END:
 	return Status;
 }
 
@@ -273,6 +280,7 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
  * @return
  *	- XASUFW_SUCCESS, if ASCII to integer conversion is successful.
  *	- XASUFW_FAILURE, if ASCII to integer conversion fails.
+ *	- XASUFW_INVALID_PARAM, if input parameters are invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value)
@@ -281,6 +289,10 @@ s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value)
 	u32 Idx = 0U;
 	u32 LenTmp = Len;
 
+	if ((Buf == NULL) || (Value == NULL) || (Len == 0U)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
 	/* Initialize output value to zero before conversion. */
 	*Value = 0U;
 

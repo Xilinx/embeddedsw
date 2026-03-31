@@ -520,6 +520,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 			goto END;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Send NIST padding bytes to SHA engine. */
 		Status = XSha_Update(InstancePtr, DmaPtr, (u64)(UINTPTR)Data, PadLen, (u32)XASU_TRUE);
 		if (Status != XASUFW_SUCCESS) {
@@ -527,6 +528,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 		}
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Check the SHA2/3 DONE bit. */
 	Status = XSha_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {

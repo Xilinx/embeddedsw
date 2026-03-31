@@ -520,6 +520,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CFG_OFFSET,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Copy private key and hash to respective registers using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			(u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_GEN_SIGN_PVT_KEY_OFFSET),
@@ -745,6 +746,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		goto END_CLR;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Update configuration and start the operation. */
 	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
 	if (Status != XASUFW_SUCCESS) {
@@ -810,7 +812,6 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	}
 
 	/** Generate signature using the provided private key and curve type. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(InstancePtr, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
 			NULL, (u64)(UINTPTR)Hash, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
 			(u64)(UINTPTR)Signature);

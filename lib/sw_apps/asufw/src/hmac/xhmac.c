@@ -191,7 +191,6 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 	InstancePtr->HashBufLen = (u8)HashLen;
 	InstancePtr->ShaMode = ShaMode;
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Preprocess key. */
 	Status = XHmac_ProcessKeyWithPadding(InstancePtr, AsuDmaPtr, KeyAddr, KeyLen, (u8 *)K0);
 	if (Status != XASUFW_SUCCESS) {

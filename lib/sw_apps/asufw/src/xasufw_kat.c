@@ -76,6 +76,14 @@
 static s32 XAsufw_ValidateDpaIntermediateValues(const u32 *MaskedOutput0, const u32 *MaskedOutput1,
 	const u32 *Mask0, const u32 *Mask1);
 static void XAsufw_ApplyMask(const u32 *Data, u32 *MaskedData, u32 Mask, u32 Length);
+static void XAsufw_RunAesKats(XAsufw_Dma *AsuDmaPtr);
+static void XAsufw_RunTrngKats(XTrng *XAsufw_TrngPtr);
+#ifdef XASU_RSA_PADDING_ENABLE
+static void XAsufw_RunRsaKats(XAsufw_Dma *AsuDmaPtr);
+static s32 XAsufw_RunRsaEccKats(XAsufw_Dma *AsuDmaPtr);
+#endif /* XASU_RSA_PADDING_ENABLE */
+static void XAsufw_RunEccKats(XAsufw_Dma *AsuDmaPtr);
+static void XAsufw_RunKeywrapKats(void);
 static void RunKdfAndDependentKat(XAsufw_Dma *AsuDmaPtr);
 
 /************************************ Variable Definitions ***************************************/
@@ -655,11 +663,8 @@ static const u8 HssKatSignature[XASUFW_HSS_KAT_SIG_SIZE] = {
 /**
  * @brief	This function executes KAT (Known Answer Test) for all cryptographic modules.
  *
- * @return
- *	- Always returns XASUFW_SUCCESS.
- *
  *************************************************************************************************/
-s32 XAsufw_RunCryptoKats(void)
+void XAsufw_RunCryptoKats(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3Ptr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
@@ -671,21 +676,7 @@ s32 XAsufw_RunCryptoKats(void)
 	XAsufw_Printf(DEBUG_GENERAL, "Running KAT tasks\r\n");
 
 	/** Run AES GCM mode KAT. */
-	Status = XAsufw_AesOperationKat(AsuDmaPtr, XASU_AES_GCM_MODE);
-	if (Status == XASUFW_SUCCESS) {
-		/** On AES GCM KAT success, run AES ECB mode KAT. */
-		Status = XAsufw_AesOperationKat(AsuDmaPtr, XASU_AES_ECB_MODE);
-		if (Status == XASUFW_SUCCESS) {
-#ifdef XASU_AES_CM_ENABLE
-			/** On AES ECB KAT success, run AES DPA countermeasure KAT. */
-			Status = XAsufw_AesDpaCmKat(AsuDmaPtr);
-#endif
-			if ((Status == XASUFW_SUCCESS) || (Status == XASUFW_KAT_NOT_SUPPORTED_ON_QEMU)) {
-				/** On AES KATs success, mark AES module KAT as passed in RTCA area. */
-				XASUFW_SET_KAT_PASSED(XASU_MODULE_AES_ID);
-			}
-		}
-	}
+	XAsufw_RunAesKats(AsuDmaPtr);
 
 	/** Run KDF KAT and its dependent module KATs (HMAC, SHA2-256/512). */
 	RunKdfAndDependentKat(AsuDmaPtr);
@@ -697,88 +688,13 @@ s32 XAsufw_RunCryptoKats(void)
 		XASUFW_SET_KAT_PASSED(XASU_MODULE_SHA3_ID);
 	}
 
-	/** Run TRNG KAT. */
-	Status = XTrng_PreOperationalSelfTests(XAsufw_TrngPtr);
-	if (Status == XASUFW_SUCCESS) {
-		/** On TRNG self-tests success, enable HRNG autoproc mode. */
-		Status = XTrng_EnableDefaultMode(XAsufw_TrngPtr);
-	}
-	if (Status != XASUFW_SUCCESS) {
-		/**
-		 * On TRNG KAT failure, mark TRNG module KAT as failed in RTCA area and disable
-		 * the TRNG resource.
-		 */
-		XASUFW_MARK_KAT_FAILED(XASU_MODULE_TRNG_ID);
-		XAsufw_DisableResource(XASUFW_TRNG);
-	}
-	else {
-		/** On TRNG KAT success, mark TRNG module KAT as passed in RTCA area. */
-		XASUFW_SET_KAT_PASSED(XASU_MODULE_TRNG_ID);
-	}
+	XAsufw_RunTrngKats(XAsufw_TrngPtr);
 
 #ifdef XASU_RSA_PADDING_ENABLE
-	/** Run RSA OAEP encrypt and decrypt KAT. */
-	Status = XAsufw_RsaEncDecOaepOpKat(AsuDmaPtr);
-	if (Status == XASUFW_SUCCESS) {
-		/** On RSA OAEP KAT success, run RSA PSS signature generation and verification KAT. */
-		Status = XAsufw_RsaPssSignGenAndVerifOpKat(AsuDmaPtr);
-		if (Status == XASUFW_SUCCESS) {
-			/** On RSA PSS KAT success, mark RSA module KAT as passed in RTCA area. */
-			XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
-		}
-	}
+	XAsufw_RunRsaKats(AsuDmaPtr);
 #endif /* XASU_RSA_PADDING_ENABLE */
 
-#ifdef XASU_KEYWRAP_ENABLE
-	/** Check if all Keywrap dependent modules (AES, SHA2, RSA) have passed their KATs. */
-	if ((XASUFW_IS_KAT_PASSED(XASU_MODULE_AES_ID)) &&
-		(XASUFW_IS_KAT_PASSED(XASU_MODULE_SHA2_ID)) &&
-		(XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID))) {
-		/** On all dependent KATs success, mark Keywrap module KAT as passed in RTCA area. */
-		XASUFW_SET_KAT_PASSED(XASU_MODULE_KEYWRAP_ID);
-	}
-	else {
-		/**
-		 * On any dependent KAT failure, mark Keywrap module KAT as failed in RTCA area
-		 * and disable the Keywrap resource.
-		 */
-		XASUFW_MARK_KAT_FAILED(XASU_MODULE_KEYWRAP_ID);
-		XAsufw_DisableResource(XASUFW_KEYWRAP);
-	}
-#endif /* XASU_KEYWRAP_ENABLE */
-
-	/** Run ECC sign generation and verification KAT on ECC core for P-256 curve. */
-	Status = XAsufw_EccCoreKat(AsuDmaPtr);
-	if (Status == XASUFW_SUCCESS) {
-		/** On ECC core KAT success, mark ECC module KAT as passed in RTCA area. */
-		XASUFW_SET_KAT_PASSED(XASU_MODULE_ECC_ID);
-#ifdef XASU_RSA_PADDING_ENABLE
-		if(!(XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID))) {
-			/** If RSA KAT has not passed, skip ECC KATs on RSA core. */
-			goto END;
-		}
-#endif
-#ifdef XASU_ECC_SUPPORT_EDWARD_P25519
-		/** Run ECC sign generation and verification KAT on RSA core using ED25519 curve. */
-		Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_ED25519);
-#endif /* XASU_ECC_SUPPORT_EDWARD_P25519 */
-		if (Status == XASUFW_SUCCESS) {
-#ifdef XASU_ECC_SUPPORT_EDWARD_P448
-			/** On ED25519 KAT success, run ECC KAT on RSA core using ED448 curve. */
-			Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_ED448);
-#endif /* XASU_ECC_SUPPORT_EDWARD_P448 */
-			if (Status == XASUFW_SUCCESS) {
-#ifdef XASU_ECC_SUPPORT_NIST_P256
-				/** On ED448 KAT success, run ECC KAT on RSA core using P-256 curve. */
-				Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_P256);
-#endif /* XASU_ECC_SUPPORT_NIST_P256 */
-				if (Status == XASUFW_SUCCESS) {
-					/** On all RSA-ECC KATs success, mark RSA module KAT as passed in RTCA area. */
-					XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
-				}
-			}
-		}
-	}
+	XAsufw_RunKeywrapKats();
 
 #ifdef XASU_LMS_ENABLE
 	/** Run HSS KAT with SHAKE-256. */
@@ -789,15 +705,12 @@ s32 XAsufw_RunCryptoKats(void)
 	}
 #endif /* XASU_LMS_ENABLE */
 
-#ifdef XASU_RSA_PADDING_ENABLE
-END:
-#endif
+	XAsufw_RunEccKats(AsuDmaPtr);
+
 	XAsufw_RMW(XASU_RTCA_EXEC_STATUS_ADDR, XASU_RTCA_KAT_EXEC_STATUS_MASK,
 			XASU_RTCA_KAT_EXEC_STATUS_VALUE);
 	XAsufw_Printf(DEBUG_GENERAL, "KATs execution completed.\r\n");
 
-	/** Returning success as we have disabled the module for which the KAT has failed. */
-	return XASUFW_SUCCESS;
 }
 
 /*************************************************************************************************/
@@ -2387,5 +2300,179 @@ static void XAsufw_ApplyMask(const u32 *Data, u32 *MaskedData, u32 Mask, u32 Len
 	for (Index = 0U; Index < Length; Index++) {
 		MaskedData[Index] = (Data[Index] ^ Mask);
 	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs all AES KATs.
+ *
+ * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
+ *
+ *************************************************************************************************/
+static void XAsufw_RunAesKats(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Run AES GCM mode KAT. */
+	Status = XAsufw_AesOperationKat(AsuDmaPtr, XASU_AES_GCM_MODE);
+	if (Status == XASUFW_SUCCESS) {
+		/** On AES GCM KAT success, run AES ECB mode KAT. */
+		Status = XAsufw_AesOperationKat(AsuDmaPtr, XASU_AES_ECB_MODE);
+		if (Status == XASUFW_SUCCESS) {
+#ifdef XASU_AES_CM_ENABLE
+			/** On AES ECB KAT success, run AES DPA countermeasure KAT. */
+			Status = XAsufw_AesDpaCmKat(AsuDmaPtr);
+#endif
+			if ((Status == XASUFW_SUCCESS) || (Status == XASUFW_KAT_NOT_SUPPORTED_ON_QEMU)) {
+				/** On AES KATs success, mark AES module KAT as passed in RTCA area. */
+				XASUFW_SET_KAT_PASSED(XASU_MODULE_AES_ID);
+			}
+		}
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs TRNG KAT.
+ *
+ * @param	XAsufw_TrngPtr	Pointer to the TRNG instance.
+ *
+ *************************************************************************************************/
+static void XAsufw_RunTrngKats(XTrng *XAsufw_TrngPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Run TRNG KAT. */
+	Status = XTrng_PreOperationalSelfTests(XAsufw_TrngPtr);
+	if (Status == XASUFW_SUCCESS) {
+		/** On TRNG self-tests success, enable HRNG autoproc mode. */
+		Status = XTrng_EnableDefaultMode(XAsufw_TrngPtr);
+	}
+	if (Status != XASUFW_SUCCESS) {
+		/**
+		 * On TRNG KAT failure, mark TRNG module KAT as failed in RTCA area and disable
+		 * the TRNG resource.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_TRNG_ID);
+		XAsufw_DisableResource(XASUFW_TRNG);
+	}
+	else {
+		/** On TRNG KAT success, mark TRNG module KAT as passed in RTCA area. */
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_TRNG_ID);
+	}
+}
+
+#ifdef XASU_RSA_PADDING_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function runs RSA KATs.
+ *
+ * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
+ *
+ *************************************************************************************************/
+static void XAsufw_RunRsaKats(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Run RSA OAEP encrypt and decrypt KAT. */
+	Status = XAsufw_RsaEncDecOaepOpKat(AsuDmaPtr);
+	if (Status == XASUFW_SUCCESS) {
+		/** On RSA OAEP KAT success, run RSA PSS signature generation and verification KAT. */
+		Status = XAsufw_RsaPssSignGenAndVerifOpKat(AsuDmaPtr);
+		if (Status == XASUFW_SUCCESS) {
+			/** On RSA PSS KAT success, mark RSA module KAT as passed in RTCA area. */
+			XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
+		}
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs ECC KATs on RSA core for all enabled curves.
+ *
+ * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if all enabled RSA-ECC KATs are successful.
+ *	- Error code returned by XAsufw_RsaEccKat on failure.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_RunRsaEccKats(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status = XASUFW_SUCCESS;
+
+#ifdef XASU_ECC_SUPPORT_EDWARD_P25519
+	/** Run ECC sign generation and verification KAT on RSA core using ED25519 curve. */
+	Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_ED25519);
+#endif /* XASU_ECC_SUPPORT_EDWARD_P25519 */
+	if (Status == XASUFW_SUCCESS) {
+#ifdef XASU_ECC_SUPPORT_EDWARD_P448
+		/** On ED25519 KAT success, run ECC KAT on RSA core using ED448 curve. */
+		Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_ED448);
+#endif /* XASU_ECC_SUPPORT_EDWARD_P448 */
+		if (Status == XASUFW_SUCCESS) {
+#ifdef XASU_ECC_SUPPORT_NIST_P256
+			/** On ED448 KAT success, run ECC KAT on RSA core using P-256 curve. */
+			Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_P256);
+#endif /* XASU_ECC_SUPPORT_NIST_P256 */
+		}
+	}
+
+	return Status;
+}
+#endif /* XASU_RSA_PADDING_ENABLE */
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs ECC KATs.
+ *
+ * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
+ *
+ *************************************************************************************************/
+static void XAsufw_RunEccKats(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Run ECC sign generation and verification KAT on ECC core for P-256 curve. */
+	Status = XAsufw_EccCoreKat(AsuDmaPtr);
+	if (Status == XASUFW_SUCCESS) {
+		/** On ECC core KAT success, mark ECC module KAT as passed in RTCA area. */
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_ECC_ID);
+#ifdef XASU_RSA_PADDING_ENABLE
+		if (XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID)) {
+			Status = XAsufw_RunRsaEccKats(AsuDmaPtr);
+			if (Status == XASUFW_SUCCESS) {
+				/** On all RSA-ECC KATs success, mark RSA module KAT as passed in RTCA area. */
+				XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
+			}
+		}
+#endif /* XASU_RSA_PADDING_ENABLE */
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs Keywrap dependent KAT checks.
+ *
+ *************************************************************************************************/
+static void XAsufw_RunKeywrapKats(void)
+{
+#ifdef XASU_KEYWRAP_ENABLE
+	/** Check if all Keywrap dependent modules (AES, SHA2, RSA) have passed their KATs. */
+	if ((XASUFW_IS_KAT_PASSED(XASU_MODULE_AES_ID)) &&
+		(XASUFW_IS_KAT_PASSED(XASU_MODULE_SHA2_ID)) &&
+		(XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID))) {
+		/** On all dependent KATs success, mark Keywrap module KAT as passed in RTCA area. */
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_KEYWRAP_ID);
+	}
+	else {
+		/**
+		 * On any dependent KAT failure, mark Keywrap module KAT as failed in RTCA area
+		 * and disable the Keywrap resource.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_KEYWRAP_ID);
+		XAsufw_DisableResource(XASUFW_KEYWRAP);
+	}
+#endif /* XASU_KEYWRAP_ENABLE */
 }
 /** @} */

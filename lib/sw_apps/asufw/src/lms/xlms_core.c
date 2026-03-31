@@ -1877,6 +1877,7 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 * (sibling on right).
 	 */
 	while (CurrentNodeNum > XLMS_ROOT_NODE_NUM) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/* RFC 8554 Section 5.3.3: Compute parent node as u32str(node_num/2) */
 		LmsPubKeyTmpBuff.Fields.half_node_number = Xil_Htonl((CurrentNodeNum) / XASUFW_EVEN_MODULUS);
 
