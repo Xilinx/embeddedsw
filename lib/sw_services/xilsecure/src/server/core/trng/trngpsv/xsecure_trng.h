@@ -20,6 +20,7 @@
 *                     when TRNG is uninitialized
 * 5.7   tbk  03/03/26 Set error status before Xil_SMemCpy
 *       tbk  03/27/26 Add glitch detection for TRNG generation failures
+*       tbk  03/27/26 Zeroize TmpRandBuf after TRNG generation
 *
 * </pre>
 *
@@ -132,6 +133,7 @@ static inline int XSecure_TrngGenerate(XSecure_TrngInstance *TrngInstance, u8 *R
 		u32 RandBufSize, u8 PredResistance)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	u8 TmpRandBuf[XTRNGPSV_SEC_STRENGTH_BYTES];
 
 	if (RandBufSize < XTRNGPSV_SEC_STRENGTH_BYTES) {
@@ -149,6 +151,12 @@ static inline int XSecure_TrngGenerate(XSecure_TrngInstance *TrngInstance, u8 *R
 		Status = XTrngpsv_Generate(TrngInstance, RandBuf, RandBufSize, PredResistance);
 	}
 END:
+	/* Zeroize TmpRandBuf to prevent key material from remaining on stack */
+	SStatus = Xil_SecureZeroize(TmpRandBuf, XTRNGPSV_SEC_STRENGTH_BYTES);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 
