@@ -22,7 +22,8 @@
 *       pre  03/02/25 Implemented task based event notification functionality for SHA IPI events
 *       pre  04/16/25 Fixed warning
 * 5.6   mb   09/09/25 Return error code on SHA IPI event handling failure
-*   	obs  09/23/25 Added support for Verifying Address Range
+*       obs  09/23/25 Added support for Verifying Address Range
+* 5.7   sri  03/27/26 Added check to validate the operation flags for SHA IPI handler
 *
 * </pre>
 *
@@ -46,9 +47,11 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_SHA_START	(0x1U)	/**< Operation flags for SHA start */
-#define XSECURE_SHA_UPDATE      (0x2U)	/**< Operation flags for SHA update */
-#define XSECURE_SHA_FINISH      (0x4U)	/**< Operation flags for SHA finish */
+#define XSECURE_SHA_NONE            ((u8)0x0U) /**< For invalid SHA operation flag checks */
+#define XSECURE_SHA_START           ((u8)0x1U) /**< Operation flags for SHA start */
+#define XSECURE_SHA_UPDATE          ((u8)0x2U) /**< Operation flags for SHA update */
+#define XSECURE_SHA_FINISH          ((u8)0x4U) /**< Operation flags for SHA finish */
+#define XSECURE_SHA_VALID_OP_FLAGS  ((u8)(XSECURE_SHA_START | XSECURE_SHA_UPDATE | XSECURE_SHA_FINISH)) /**< Operation flags for all valid SHA operations */
 
 /************************** Function Prototypes *****************************/
 static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh);
@@ -138,7 +141,7 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 {
 	volatile int Status = XST_FAILURE;
 	u64 ShaParamsAddr = ((u64)AddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)AddrLow;
-	XSecure_ShaOpParams ShaParams __attribute__ ((aligned (32U)));;
+	XSecure_ShaOpParams ShaParams __attribute__ ((aligned (32U)));
 
 	if (XSecureShaInstPtr == NULL) {
 		Status = XST_INVALID_PARAM;
@@ -159,6 +162,12 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.DataAddr, ShaParams.DataSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.HashAddr, ShaParams.HashBufSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
+	/* Validate Operation Flags */
+	if (((ShaParams.OperationFlags & XSECURE_SHA_VALID_OP_FLAGS) == XSECURE_SHA_NONE) ||
+		((ShaParams.OperationFlags & ~XSECURE_SHA_VALID_OP_FLAGS) != XSECURE_SHA_NONE)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	if ((ShaParams.OperationFlags & XSECURE_SHA_START) == XSECURE_SHA_START) {
 		Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaParams.ShaMode);
