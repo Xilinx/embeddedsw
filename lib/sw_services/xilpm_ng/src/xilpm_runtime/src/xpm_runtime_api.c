@@ -2130,7 +2130,8 @@ static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 DeviceId = Cmd->Payload[0];
+	u32 DeviceId;
+	u32 IndexedDeviceId = Cmd->Payload[0];
 	/**  setAddress is encoded in the LSB bit of the low-word address */
 	/**  we can do this because addresses are word alinghed ignore LSB */
 	u32 SetAddress = Cmd->Payload[1] & 0x1U;
@@ -2139,8 +2140,19 @@ static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd)
 	u64 Address = (u64)AddressLow + ((u64)AddressHigh << 32ULL);
 	u32 Ack = Cmd->Payload[3];
 	u32 CmdType =Cmd->IpiReqType;
+
+	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Status = XPm_RequestWakeUp(SubsystemId, DeviceId, SetAddress, Address, Ack, CmdType);
 	Cmd->Response[0] = (u32)Status;
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 
