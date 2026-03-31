@@ -60,6 +60,13 @@ static u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig );
 
 /************************** Constant Definitions *****************************/
 #define MPU_REGION_SIZE_MIN 0x40U
+/*
+ * Cortex-R52 MPU regions are programmed on 64-byte granularity.
+ * OR-ing with this mask normalizes an inclusive end address to the
+ * end of the containing 64-byte-aligned MPU block.
+ */
+#define XMPU_REGION_ALIGNMENT_MASK 0x3FU
+
 /************************** Variable Definitions *****************************/
 XMpu_Config Mpu_Config __attribute__((section(".bootdata")));
 
@@ -248,11 +255,17 @@ static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)
 	Xil_GetMPUConfig(MpuConfig);
 	Xil_GetMPUConfig(MpuConfigNew);
 
-	ReqEndAddr =  (((Addr & XMPU_PBAR_REG_BASEADDR_MASK) + Size) | 0x3F);
+	/*
+	 * Size is a byte count at this API boundary. Convert it to the inclusive
+	 * end address before applying the MPU's 64-byte granularity so adjacent
+	 * regions are not treated as overlapping.
+	 */
+	ReqEndAddr = (((Addr & XMPU_PBAR_REG_BASEADDR_MASK) + (Size - 1U)) |
+			XMPU_REGION_ALIGNMENT_MASK);
 
 	for (Cnt = 0; (Cnt < MAX_POSSIBLE_MPU_REGS) && (MpuConfig[Cnt].flags & XMPU_VALID_REGION); Cnt++) {
 		Endaddr =  MpuConfig[Cnt].Size + MpuConfig[Cnt].BaseAddress;
-		Endaddr |=  0x3F;
+		Endaddr |= XMPU_REGION_ALIGNMENT_MASK;
 
 		/*
 		 * Possible scenarios are listed below
@@ -398,15 +411,17 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 		}
 	}
 
-	ReqEndAddr =  (((ReqMPUConfig.BaseAddress & XMPU_PBAR_REG_BASEADDR_MASK) + Size) | 0x3F);
+	/* ReqMPUConfig.Size is already stored as an inclusive size field. */
+	ReqEndAddr = (((ReqMPUConfig.BaseAddress & XMPU_PBAR_REG_BASEADDR_MASK) + Size) |
+			XMPU_REGION_ALIGNMENT_MASK);
 	Endaddr =  MpuConfig[EndRegNum].Size + MpuConfig[EndRegNum].BaseAddress;
-	Endaddr |=  0x3F;
+	Endaddr |= XMPU_REGION_ALIGNMENT_MASK;
 	if ( (StartRegNum != EndRegNum) && \
 	     (MpuConfig[StartRegNum].BaseAddress == (ReqMPUConfig.BaseAddress & XMPU_PBAR_REG_BASEADDR_MASK))  && \
-	     ((MpuConfig[EndRegNum].BaseAddress + MpuConfig[EndRegNum].Size) | 0x3F) == ReqEndAddr) {
+	     ((MpuConfig[EndRegNum].BaseAddress + MpuConfig[EndRegNum].Size) | XMPU_REGION_ALIGNMENT_MASK) == ReqEndAddr) {
 		/* 1 free region needed */
 		Temp.BaseAddress = MpuConfig[StartRegNum].BaseAddress;
-		Temp.Size = (Size - 1);
+		Temp.Size = Size;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute = Attrib;
 		Temp.flags = XMPU_VALID_REGION;
@@ -421,7 +436,7 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 		}
 
 		Temp.BaseAddress = MpuConfig[StartRegNum].BaseAddress;
-		Temp.Size = (Size - 1);
+		Temp.Size = Size;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute = Attrib;
 		Temp.flags = XMPU_VALID_REGION;
@@ -433,8 +448,10 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 		} else {
 			RegNum = StartRegNum;
 		}
-		Temp.BaseAddress = ((MpuConfig[RegNum].BaseAddress + (Size - 1) ) | 0x3F) + 1;
-		Temp.Size =  ((MpuConfig[RegNum].BaseAddress + MpuConfig[RegNum].Size) | 0x3F) - Temp.BaseAddress - 1 ;
+		Temp.BaseAddress = ((MpuConfig[RegNum].BaseAddress + Size) |
+				     XMPU_REGION_ALIGNMENT_MASK) + 1;
+		Temp.Size =  ((MpuConfig[RegNum].BaseAddress + MpuConfig[RegNum].Size) |
+			       XMPU_REGION_ALIGNMENT_MASK) - Temp.BaseAddress - 1 ;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute =  MpuConfig[RegNum].Attribute;
 		Temp.flags = XMPU_VALID_REGION;
@@ -448,7 +465,8 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 		}
 
 		Temp.BaseAddress = MpuConfig[StartRegNum].BaseAddress;
-		Temp.Size = ((MpuConfig[StartRegNum].BaseAddress + MpuConfig[StartRegNum].Size) | 0x3F) -
+		Temp.Size = ((MpuConfig[StartRegNum].BaseAddress + MpuConfig[StartRegNum].Size) |
+			     XMPU_REGION_ALIGNMENT_MASK) -
 			    (Localaddr & XMPU_PBAR_REG_BASEADDR_MASK) - 1;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute = MpuConfig[StartRegNum].Attribute;
@@ -457,7 +475,7 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 		Xil_AddEntryToMPUConfig(MpuConfigNew, Temp);
 
 		Temp.BaseAddress = (ReqMPUConfig.BaseAddress & XMPU_PBAR_REG_BASEADDR_MASK);
-		Temp.Size = (Size - 1);
+		Temp.Size = Size;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute = Attrib;
 		Temp.flags = XMPU_VALID_REGION;
@@ -479,7 +497,7 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 		Xil_AddEntryToMPUConfig(MpuConfigNew, Temp);
 
 		Temp.BaseAddress = (ReqMPUConfig.BaseAddress & XMPU_PBAR_REG_BASEADDR_MASK);
-		Temp.Size = (Size - 1);
+		Temp.Size = Size;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute = Attrib;
 		Temp.flags = XMPU_VALID_REGION;
@@ -492,8 +510,10 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 			RegNum = StartRegNum;
 		}
 
-		Temp.BaseAddress = (((Temp.BaseAddress + Temp.Size) | 0x3F) + 1) & XMPU_PBAR_REG_BASEADDR_MASK;
-		Temp.Size =  ((MpuConfig[RegNum].BaseAddress + MpuConfig[RegNum].Size) | 0x3F) - Temp.BaseAddress - 1 ;
+		Temp.BaseAddress = (((Temp.BaseAddress + Temp.Size) |
+				      XMPU_REGION_ALIGNMENT_MASK) + 1) & XMPU_PBAR_REG_BASEADDR_MASK;
+		Temp.Size =  ((MpuConfig[RegNum].BaseAddress + MpuConfig[RegNum].Size) |
+			       XMPU_REGION_ALIGNMENT_MASK) - Temp.BaseAddress - 1 ;
 		Temp.RegionStatus = MPU_REG_ENABLED;
 		Temp.Attribute =  MpuConfig[RegNum].Attribute;
 		Temp.flags = XMPU_VALID_REGION;
