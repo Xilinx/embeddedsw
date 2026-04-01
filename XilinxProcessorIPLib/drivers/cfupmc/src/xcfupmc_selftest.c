@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,6 @@
 /**
 *
 * @file xcfupmc_selftest.c
-* @addtogroup cfupmc Overview
-* @{
 *
 * This file contains a diagnostic self-test function for the CFU driver.
 * Refer to the header file xcfupmc.h for more detailed information.
@@ -23,9 +21,15 @@
 * 1.0   kc   22/10/17 First release
 * 2.0   bsv  27/06/2020 Code clean up
 *       pre  01/16/2025 Fixed warning
+* 4.2   ng   03/26/2026 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup cfupmc Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xcfupmc.h"

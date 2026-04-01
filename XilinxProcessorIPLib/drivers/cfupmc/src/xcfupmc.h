@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,12 +25,16 @@
 *                       base addresses
 *       bsv  07/15/2021 Fix doxygen warnings
 * 4.01  ng   06/30/23   Added support for system device tree flow
+* 4.2   ng   03/26/2026 Fixed doxygen warnings
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup cfupmc Overview
+ * @{
+ */
 
 #ifndef XCFUPMC_H
 #define XCFUPMC_H
@@ -110,7 +114,7 @@ typedef struct {
 	u32 Crc32Val;			/**< Checksum value */
 	u8 Crc8Dis;			/**< Indicates if CRC8 is enabled
 						* or not */
-}XCfupmc;
+} XCfupmc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
@@ -119,8 +123,6 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XCfupmc instance.
 * @param	IsrMask specifies the bits to be cleared in ISR
-*
-* @return	None
 *
 ******************************************************************************/
 static inline void XCfupmc_ClearIsr(const XCfupmc *InstancePtr, u32 IsrMask)
@@ -184,10 +186,10 @@ XCfupmc_Config *XCfupmc_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr,
-	u32 EffectiveAddr);
+			  u32 EffectiveAddr);
 s32 XCfupmc_SelfTest(const XCfupmc *InstancePtr);
 void XCfupmc_MaskRegWrite(const XCfupmc *InstancePtr, u32 Addr, u32 Mask,
-	u32 Val);
+			  u32 Val);
 void XCfupmc_SetGlblSigEn(const XCfupmc *InstancePtr, u8 Enable);
 void XCfupmc_GlblSeqInit(const XCfupmc *InstancePtr);
 void XCfupmc_CfuErrHandler(const XCfupmc *InstancePtr);
@@ -201,3 +203,5 @@ void XCfupmc_ClearCfuIsr(const XCfupmc *InstancePtr);
 #endif
 
 #endif  /* XCFUPMC_H */
+
+/** @} */

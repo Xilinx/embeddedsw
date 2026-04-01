@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,6 @@
 /**
 *
 * @file xcfupmc_sinit.c
-* @addtogroup cfupmc Overview
-* @{
 *
 * This file contains static initialization methods for Xilinx CFU core.
 *
@@ -22,9 +20,15 @@
 * 1.0   kc   22/10/17 First release
 * 2.0   bsv  27/06/20 Code clean up
 * 2.1   ng   06/30/23 Added support for system device tree flow
+* 4.2   ng   03/26/26 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup cfupmc Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xcfupmc.h"
@@ -59,8 +63,11 @@ extern XCfupmc_Config XCfupmc_ConfigTable[];
 * to an entry in the device configuration table defined in the xcfupmc_g.c
 * file.
 *
-* @param	DeviceId is the unique device ID of the device for the lookup
-*		operation.
+* @if SDT
+* @param        BaseAddress contains the base address of the device
+* @else
+* @param        DeviceId contains the unique ID of the device
+* @endif
 *
 * @return	CfgPtr is a reference to a config record in the configuration
 *		table (in xcfupmc_g.c) corresponding to <i>DeviceId</i>, or

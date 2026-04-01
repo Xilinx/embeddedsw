@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,6 @@
 /**
 *
 * @file xcfupmc_hw.h
-* @addtogroup cfupmc Overview
-* @{
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx CFU core.
@@ -21,13 +19,18 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kc  22/10/17 First release
 * 2.0   bsv 27/06/2020 Changed macros to inline functions
+* 4.2   ng  03/26/2026 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup cfupmc Overview
+ * @{
+ */
+
 #ifndef XCFUPMC_HW_H_
-#define XCFUPMC_HW_H_	/**< Prevent circular inclusions
-				 *  by using protection macros	*/
+#define XCFUPMC_HW_H_ /* Prevent circular inclusions by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,8 +69,6 @@ static inline u32 XCfupmc_ReadReg(u32 RegOffset)
 * @param	RegOffset is the address of the register.
 * @param	Data is the 32-bit value to write to the register.
 *
-* @return	None.
-*
 ******************************************************************************/
 static inline void XCfupmc_WriteReg(u32 RegOffset, u32 Data)
 {
@@ -79,4 +80,5 @@ static inline void XCfupmc_WriteReg(u32 RegOffset, u32 Data)
 #endif
 
 #endif /* End of protection macro */
+
 /** @} */

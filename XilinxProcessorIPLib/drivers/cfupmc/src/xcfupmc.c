@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,9 +21,8 @@
 * 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
 * 3.00  bsv  27/06/2020 Code clean up
 *       pre  01/16/2025 Fixed warning
+* 4.2   ng   03/26/2026 Fixed doxygen warnings
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -91,8 +90,6 @@ s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr,
  * @param	Mask Mask of the bit field to be written
  * @param	Val Value of bit field
  *
- * @return  None
- *
  ******************************************************************************/
 void XCfupmc_MaskRegWrite(const XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Val)
 {
@@ -112,8 +109,8 @@ void XCfupmc_MaskRegWrite(const XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Va
  * This function enables or disables the global signals
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return	None
+ * @param	Enable pass 0x1 to enable the global signals, 0x0 to disable the
+ *		global signals.
  *
  ******************************************************************************/
 void XCfupmc_SetGlblSigEn(const XCfupmc *InstancePtr, u8 Enable)
@@ -147,8 +144,6 @@ void XCfupmc_SetGlblSigEn(const XCfupmc *InstancePtr, u8 Enable)
  * loading the CFI data
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
- *
- * @return	None
  *
  ******************************************************************************/
 void XCfupmc_GlblSeqInit(const XCfupmc *InstancePtr)
@@ -185,8 +180,6 @@ void XCfupmc_GlblSeqInit(const XCfupmc *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return	None
- *
  ******************************************************************************/
 static void XCfupmc_Reset(const XCfupmc *InstancePtr)
 {
@@ -219,8 +212,6 @@ static void XCfupmc_Reset(const XCfupmc *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return	None
- *
  ******************************************************************************/
 void XCfupmc_CfuErrHandler(const XCfupmc *InstancePtr)
 {
@@ -248,8 +239,6 @@ void XCfupmc_CfuErrHandler(const XCfupmc *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return	None
- *
  ******************************************************************************/
 void XCfupmc_CfiErrHandler(const XCfupmc *InstancePtr)
 {
@@ -275,8 +264,6 @@ void XCfupmc_CfiErrHandler(const XCfupmc *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return	None
- *
  ******************************************************************************/
 void XCfupmc_ClearCfuIsr(const XCfupmc *InstancePtr)
 {
@@ -298,8 +285,6 @@ void XCfupmc_ClearCfuIsr(const XCfupmc *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return	None
- *
  ******************************************************************************/
 void XCfupmc_ClearIgnoreCfiErr(const XCfupmc *InstancePtr)
 {
@@ -312,15 +297,13 @@ void XCfupmc_ClearIgnoreCfiErr(const XCfupmc *InstancePtr)
 	return;
 }
 
-/****************************************?*************************************/
+/*****************************************************************************/
 /**
-* This function is called when bitstream transfer is aborted by user
-*
-* @param   InstancePtr is a pointer to the XCfupmc instance.
-*
-* @return  None
-*
-*****************************************?*************************************/
+ * This function is called when bitstream transfer is aborted by user
+ *
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ ******************************************************************************/
 void XCfupmc_ExtErrorHandler(const XCfupmc *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
