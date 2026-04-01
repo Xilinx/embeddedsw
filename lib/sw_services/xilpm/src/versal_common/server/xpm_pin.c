@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -194,13 +194,18 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 	}
 
 	PinBaseAddr = (Pin->Node.BaseAddress + (ABS_PINNUM(Pin->Node.Id, Pin->Bank) * 4U));
+	/*
+	 * Only two pin node types can reach this point:
+	 *   - XPM_NODETYPE_LPD_MIO
+	 *   - XPM_NODETYPE_PMC_MIO
+	 * XPmPin_GetById() rejects any other node type, so this is an intentional
+	 * two-way mapping: LPD pins use LMIO mask; otherwise the valid type is PMC
+	 * and PMIO mask is used.
+	 */
 	if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(PinId)) {
 		PmOut32(PinBaseAddr, PinFunc->LmioRegMask);
-	} else if ((u32)XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {
-		PmOut32(PinBaseAddr, PinFunc->PmioRegMask);
 	} else {
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
+		PmOut32(PinBaseAddr, PinFunc->PmioRegMask);
 	}
 	Pin->FuncId = (u8)(FuncId & 0xFFU);
 	Pin->Node.State = (u8)XPM_PINSTATE_ASSIGNED;
