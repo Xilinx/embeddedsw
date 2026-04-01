@@ -8,8 +8,6 @@
 /**
 *
 * @file xcframe_hw.h
-* @addtogroup cframe Overview
-* @{
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx CFRAME core.
@@ -24,9 +22,15 @@
 *			  CFRM_IER_OFFSET and STATUS_OFFSET
 * 1.2   bsv 07/23/2021    Fix doxygen warnings
 * 1.5   mss 09/04/2023    Added XCFRAME_MASK_DEFVAL macro for a constant integer
+* 2.0   ng  03/26/2026    Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup cframe Overview
+ * @{
+ */
 
 #ifndef XCFRAME_HW_H_
 #define XCFRAME_HW_H_	/**< Prevent circular inclusions
@@ -41,8 +45,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /**
- * @{
  * @cond cframe_internal
+ * @{
  */
 #define XCFRAME_CRC_OFFSET				(0x000U)
 #define XCFRAME_FAR_OFFSET				(0x010U)
@@ -121,6 +125,6 @@ extern "C" {
 
 #endif
 
-
 #endif /* End of protection macro */
+
 /** @} */
