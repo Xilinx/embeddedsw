@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -452,10 +452,6 @@ static XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId
 	}
 
 	DevId = Device->Node.Id;
-	if (((u8)XPM_PINSTATE_UNUSED == Pin->Node.State) || (0U == DevId)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
 
 	Status = XPmDevice_CheckPermissions(Subsystem, DevId);
 	if (XST_SUCCESS != Status) {
