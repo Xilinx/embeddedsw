@@ -374,9 +374,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 
 			break;
 		case (u32)XPM_NODECLASS_DEVICE:
-			if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) ||
-			    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(NodeId)))
-			{
+			if ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(NodeId)) {
 				Status = XST_INVALID_PARAM;
 				break;
 			}
