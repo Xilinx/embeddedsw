@@ -42,6 +42,16 @@ if(XILPM_NG_ENABLE_CLK_SCMI)
   endif()
 endif()
 
+# GPIO-based Domain Control for Power Domain Management
+# By default, GPIO Domain Control is disabled.
+# Enabling this option allows the XILPM_NG library to use GPIOs for controlling power domains,
+# which is done via external HW Sequencers
+option(XILPM_NG_DOMAIN_CONTROL_GPIO "Enable GPIO-based domain control for power domains" OFF)
+if(XILPM_NG_DOMAIN_CONTROL_GPIO)
+  message(STATUS "GPIO Domain Control is enabled.")
+  add_compile_definitions(XILPM_NG_DOMAIN_CONTROL_GPIO)
+endif()
+
 # If the part used in BSP is one of the following speed-grades, it can be subject to
 # VID adjustment.  Depending on to which HW SKU the part belongs, voltage on different
 # power rails needs to be adjusted.  The VID_SPGD_INDEX macro setting identifies to

@@ -7,7 +7,12 @@
 #define XPM_POWERDOMAIN_H_
 
 #include "xpm_power.h"
+// #include "xpm_device.h"
 #include "xpm_rail.h"
+
+#if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
+#include "xpm_domainctrl.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,6 +31,9 @@ struct XPm_PowerDomain {
 	u32 Children[MAX_POWERDOMAINS]; /**< List of dependent children Ids */
 	u16 InitFlag; /**< Flag to indicate which Ops are performed */
 	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
+#if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
+	XPm_DomainCtrl *DomainCtrl; 	/**< DomainCtrl: GPIO based domain control class */
+#endif
 };
 
 /************************** Function Prototypes ******************************/
@@ -42,7 +50,7 @@ XStatus XPm_PowerUpCPM5N(const XPm_Node *Node);
 XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
-XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u8 State);
+XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u32 State);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  const u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask);

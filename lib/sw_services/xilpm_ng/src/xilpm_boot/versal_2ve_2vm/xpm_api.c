@@ -45,6 +45,9 @@
 #ifdef XILPM_RUNTIME
 #include "xpm_subsystem.h"
 #endif
+#if defined (XILPM_NG_DOMAIN_CONTROL_GPIO)
+#include "xpm_domainctrl.h"
+#endif
 #include "xpm_aie.h"
 
 #define PM_SUBSYS_INVALID		   (0xFFFFFFFFU) /* Invalid Subsystem ID */
@@ -1397,9 +1400,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 
 	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN) &&
 	    ((u32)XPM_NODETYPE_POWER_RAIL != PowerType) &&
-#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
-		((u32)XPM_NODETYPE_POWER_DOMAIN_CTRL != PowerType) &&
-#endif
+	    ((u32)XPM_NODETYPE_POWER_DOMAIN_CTRL != PowerType) &&
 	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
 		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;
@@ -1517,6 +1518,16 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent,
 				&Args[3U], (NumArgs - 3U));
 		break;
+#if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_CTRL:
+		XPm_DomainCtrl *DomainCtrl = (XPm_DomainCtrl *)XPm_AllocBytesBoard(sizeof(XPm_DomainCtrl));
+		if (NULL == DomainCtrl) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmDomainCtrl_Init(DomainCtrl, PowerId, Args, NumArgs);
+		break;
+#endif
 	default:
 		Status = XST_INVALID_PARAM;
 		break;

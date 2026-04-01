@@ -160,6 +160,13 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 		PowerDomain->Parents[0] = Parent->Node.Id;
 	}
 
+#if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
+	/**
+	 * Initialize the DomainCtrl pointer to NULL. This will be updated later (via board topology data)
+	*/
+	PowerDomain->DomainCtrl = NULL;
+#endif
+
 	/*TBD: Set houseclean disable mask to default */
 
 done:
@@ -286,7 +293,7 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		goto done;
 	}
 
-	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, (u8)XPM_POWER_STATE_ON);
+	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_ON);
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
@@ -423,7 +430,7 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 	}
 
 	/* Power down PLD power rail */
-	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, (u8)XPM_POWER_STATE_OFF);
+	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_OFF);
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
@@ -713,7 +720,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;
-		Status = XPmPower_UpdateDomainPower(PwrDomain, (u8)XPM_POWER_STATE_ON);
+		Status = XPmPower_UpdateDomainPower(PwrDomain, XPM_POWER_STATE_ON);
 
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL;
@@ -786,7 +793,7 @@ done:
  *
  * @return XST_SUCCESS if the power domain was successfully updated, otherwise an error code
 */
-XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u8 State) {
+XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u32 State) {
 	XStatus Status = XST_FAILURE;
 
 	(void)State;
@@ -811,7 +818,19 @@ XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u8 State) {
 	 * Note: Powering Up and Powering Down of a Power Domain is done using GPIO Control (external HW sequencer)
 	*/
 
+#if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
+	/* check whether the domain control parent node exists or not */
+	if (NULL != PwrDomain->DomainCtrl) {
+		Status = XPmDomainCtrl_Control(PwrDomain, State);
+		goto done;
+	}
+	else {
+		/* Domain control parent node does not exist, skip GPIO control and return success */
+		Status = XST_SUCCESS;
+	}
+#else
 	Status = XST_SUCCESS;
+#endif
 
 done:
 	return Status;
