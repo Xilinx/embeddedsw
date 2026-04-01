@@ -78,6 +78,9 @@
 * 9.4  vmt  15/07/25  Add support to clear FPU registers D16–D31 for Cortex-R52
 * 9.5  asa  03/18/26  Replace BFI with UBFX for CPSR mode check to fix
 *                     non-deterministic HYP mode detection.
+* 9.5  asa  03/31/26  Moved TCM region initialization earlier in the boot sequence,
+*		      before stack pointer configuration, to prevent speculative
+*		      access.
 * </pre>
 *
 ******************************************************************************/
@@ -155,6 +158,37 @@ _boot:
 
 OKToRun:
 #if defined (ARMR52)
+
+	/* Disable interrupts */
+        cpsid   if
+
+        /*  Enable TCM  */
+        ldr r0, =_TCM_A_REGION
+        ldr r1, [r0]
+        tst r1, #0x1
+        beq InitTCMB
+        mcr p15, 0, r1, c9, c1, 0        /* Write r1 to IMP_ATCMREGIONR */
+        isb
+
+InitTCMB:
+
+        ldr r0, =_TCM_B_REGION
+        ldr r1, [r0]
+        tst r1, #0x1
+        beq InitTCMC
+        mcr p15, 0, r1, c9, c1, 1        /* Write r1 to IMP_BTCMREGIONR */
+        isb
+
+InitTCMC:
+
+        ldr r0, =_TCM_C_REGION
+        ldr r1, [r0]
+        tst r1, #0x1
+        beq InitTCMDone
+        mcr p15, 0, r1, c9, c1, 2       /* Write r1 to IMP_CTCMREGIONR */
+        isb
+InitTCMDone:
+
 	mrs r0, cpsr
 	ubfx r1, r0, #0, #5
 	cmp r1, #0x1A         /* Check if it is HYP mode */
@@ -334,27 +368,6 @@ InitEL1:
 	bic r0, r0, #(0x1 << 0)				/* disable TCM and L1 cache ECC */
 	mcr p15, 1, r0, c9, c1, 2			/* Write IMP_MEMPROTCTLR */
 
-/* Enable TCM */
-	ldr r0, =_TCM_A_REGION
-	ldr r1, [r0]
-	tst r1, #0x1
-	beq InitTCMB
-	mcr p15, 0, r1, c9, c1, 0  /* Write r1 to IMP_ATCMREGIONR */
-
-InitTCMB:
-	ldr r0, =_TCM_B_REGION
-	ldr r1, [r0]
-	tst r1, #0x1
-	beq InitTCMC
-	mcr p15, 0, r1, c9, c1, 1  /* Write r1 to IMP_BTCMREGIONR */
-
-InitTCMC:
-	ldr r0, =_TCM_C_REGION
-	ldr r1, [r0]
-	tst r1, #0x1
-	beq InitTCMDone
-	mcr p15, 0, r1, c9, c1, 2  /* Write r1 to IMP_CTCMREGIONR */
-InitTCMDone:
 	mrc     p15, 0, r1, c15, c0, 0   /* Read IMP_PERIPHPREGIONR */
 	orr     r1, r1, #(0x3)           /* Enable peripheral port at EL2 and EL1 and EL0 */
 	mcr     p15, 0, r1, c15, c0, 0   /* Write IMP_PERIPHPREGIONR */
