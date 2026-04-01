@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -37,6 +37,7 @@
 *                     boot code. It will be reverted once triggering of
 *                     constructor is fixed.
 * 9.1  mus   25/03/24 Use correct macro for checking FPU enablement.
+* 9.1  ss    01/04/26 Add gp reg initialization and disable interrupts on boot.
 * </pre>
 *
 ******************************************************************************/
@@ -45,10 +46,18 @@
 
 .global _boot
 .global __stack
+.global __global_pointer$
 
 .section .text.init,"ax"
 
 _boot:
+
+/* Disable Machine interrupts globally */
+	li t0, 0x8  /* MIE bit is 1<<3 */
+	csrc mstatus, t0
+
+/* Disable all individual interrupt enables */
+	csrw mie, zero
 
 /* FIXME: Initialize mtvec CSR to _trap_handler */
 	la	t0, _trap_handler
@@ -56,7 +65,6 @@ _boot:
 
 /* Initialize processor registers to 0 */
 	addi	x1,x0,0
-	addi	x3,x0,0
 	addi	x4,x0,0
 	addi	x5,x0,0
 	addi	x6,x0,0
@@ -85,6 +93,13 @@ _boot:
 	addi	x29,x0,0
 	addi	x30,x0,0
 	addi	x31,x0,0
+
+
+/* Initialize global pointer reg */
+	.option push
+	.option norelax
+	la	gp, __global_pointer$
+	.option pop
 
 /* Initialize stack pointer */
 	.option push
