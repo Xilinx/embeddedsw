@@ -104,7 +104,7 @@ s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask)
 	/** Send IPI request to PLM to get OCP event mask. */
 	Status = XAsufw_SendIpiToPlm(Payload, XOCP_GET_OCP_EVENT_MASK_PAYLOAD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SEND_IPI_REQ_FAIL);
+		Status = XASUFW_OCP_SEND_IPI_REQ_FAIL;
 		goto END;
 	}
 
@@ -113,7 +113,7 @@ s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask)
 	Status = XAsufw_ReadIpiRespFromPlm(Response, XOCP_GET_OCP_EVENT_MASK_PAYLOAD_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) ||
 	    (Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_READ_IPI_RESP_FAIL);
+		Status = XASUFW_OCP_READ_IPI_RESP_FAIL;
 		goto END;
 	}
 
@@ -833,7 +833,7 @@ static inline s32 XOcp_GetAsuCdiFromPlm(const u8 *XOcpAsuCdi)
 	/** Send IPI request to PLM to get ASU CDI. */
 	Status = XAsufw_SendIpiToPlm(Payload, XOCP_ASU_CDI_TX_PAYLOAD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SEND_IPI_REQ_FAIL);
+		Status = XASUFW_OCP_SEND_IPI_REQ_FAIL;
 		goto END;
 	}
 
@@ -842,7 +842,7 @@ static inline s32 XOcp_GetAsuCdiFromPlm(const u8 *XOcpAsuCdi)
 	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response,
 					   XOCP_ASU_CDI_TX_PAYLOAD_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_READ_IPI_RESP_FAIL);
+		Status = XASUFW_OCP_READ_IPI_RESP_FAIL;
 		goto END;
 	}
 
@@ -918,7 +918,7 @@ static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr)
 	/** Send IPI request to PLM to get subsystem hash. */
 	Status = XAsufw_SendIpiToPlm(Payload, XOCP_SUBSYS_HASH_TX_PAYLOAD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SEND_IPI_REQ_FAIL);
+		Status = XASUFW_OCP_SEND_IPI_REQ_FAIL;
 		goto END;
 	}
 
@@ -927,7 +927,7 @@ static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr)
 	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response,
 					   XOCP_SUBSYS_HASH_TX_PAYLOAD_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_READ_IPI_RESP_FAIL);
+		Status = XASUFW_OCP_READ_IPI_RESP_FAIL;
 		goto END;
 	}
 
