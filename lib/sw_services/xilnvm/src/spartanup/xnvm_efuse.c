@@ -43,6 +43,9 @@
 *       bha   03/02/2026 Used XSECURE_TEMPORAL_IMPL pattern for PUFHD_INVLD programming
 *                        in XNvm_EfusePrgmXilinxCtrl
 *	mb    03/18/2026 Add support for temperature and voltage checks before efuse programming
+* 3.7   hae   02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
+*                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
+*                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
 *
 * </pre>
 *
@@ -103,6 +106,7 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
 int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
 static int XNvm_EfuseCheckZeros(u32 OffsetStart, u32 OffsetEnd);
 static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld);
+static int XNvm_EfusePrgmRomOspiCmdSeqCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl);
 static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl);
 static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData);
 #ifdef SPARTANUPLUSAES1
@@ -1046,10 +1050,10 @@ static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld)
 		goto END;
 	}
 
-	PufHDInvld_Info.StartRow = XNVM_EFUSE_PUF_HD_INVLD_START_ROW;
-	PufHDInvld_Info.NumOfRows = XNVM_EFUSE_PUF_HD_INVLD_NUM_OF_ROWS;
-	PufHDInvld_Info.ColStart = XNVM_EFUSE_PUF_HD_INVLD_START_COL;
-	PufHDInvld_Info.ColEnd = XNVM_EFUSE_PUF_HD_INVLD_END_COL;
+	PufHDInvld_Info.StartRow =  XNVM_EFUSE_XILINX_CTRL_START_ROW;
+	PufHDInvld_Info.NumOfRows = XNVM_EFUSE_PUFHD_INVLD_NUM_OF_ROWS;
+	PufHDInvld_Info.ColStart = XNVM_EFUSE_PUFHD_INVLD_START_COL;
+	PufHDInvld_Info.ColEnd = XNVM_EFUSE_PUFHD_INVLD_END_COL;
 	PufHDInvld_Info.SkipVerify = (u32)FALSE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&PufHDInvld_Info, (const u32 *)&PrgmPufHDInvld);
@@ -1063,10 +1067,49 @@ END:
 
 /******************************************************************************/
 /**
+ * @brief	This function is used to program ROM_OSPI_CMD_SEQ_CTRL eFuse
+ * 		bits
+ *
+ * @param	XilinxCtrl - Pointer to XNvm_EfuseXilinxCtrl structure which
+ * 		holds PrgmRomOspiCmdSeqCtrl value to program into eFuse.
+ *
+ * @return
+ * 		- XST_SUCCESS  On successful programming.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM  On NULL pointer input.
+ * 		- XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL  Error in
+ * 						ROM_OSPI_CMD_SEQ_CTRL
+ * 						efuse programming.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmRomOspiCmdSeqCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfusePrgmInfo RomOspiCmdSeqCtrl_Info = {0U};
+	u32 PrgmRomOspiCmdSeqCtrl;
+
+	PrgmRomOspiCmdSeqCtrl = XilinxCtrl->PrgmRomOspiCmdSeqCtrl;
+
+	RomOspiCmdSeqCtrl_Info.StartRow =  XNVM_EFUSE_XILINX_CTRL_START_ROW;
+	RomOspiCmdSeqCtrl_Info.NumOfRows = XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_NUM_OF_ROWS;
+	RomOspiCmdSeqCtrl_Info.ColStart = XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_START_COL;
+	RomOspiCmdSeqCtrl_Info.ColEnd = XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_END_COL;
+	RomOspiCmdSeqCtrl_Info.SkipVerify = (u32)FALSE;
+
+	Status = XNvm_EfusePgmAndVerifyData(&RomOspiCmdSeqCtrl_Info, (const u32 *)&PrgmRomOspiCmdSeqCtrl);
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL);
+	}
+	return Status;
+}
+
+/******************************************************************************/
+/**
  * @brief	This function is used to program XILINX_CTRL fuses.
  *
  * @param	XilinxCtrl - Pointer to XNvm_EfuseXilinxCtrl structure which holds
- * 		PufHDInvld and PrgmDisSJtag flag which says to program eFuse.
+ * 		PufHDInvld, PrgmDisSJtag, PrgmOspiResetRecoveryDelayCtrl,
+ * 		PrgmRomRsvdOspiDevResetChoice and PrgmRomOspiCmdSeqCtrl flags
+ * 		which say to program eFuse.
  *
  * @return
  * 		- XST_SUCCESS  Specified data read.
@@ -1075,6 +1118,12 @@ END:
  * 						     programming.
  * 		- XNVM_EFUSE_ERR_WRITE_DIS_SJTAG Error in DIS_SJTAG
  * 						     programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL Error in
+ * 						     OSPI Reset Recovery Delay Control programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE Error in
+ * 						     ROM RSVD OSPI Device Reset Choice programming.
+ * 		- XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL Error in
+ * 						     ROM OSPI Cmd Seq Ctrl programming.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
@@ -1097,11 +1146,40 @@ static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
 		}
 	}
 	if ((XilinxCtrl->PrgmDisSJtag == (u32)TRUE) &&
-	    ((Data & XNVM_EFUSE_DISSJTAG_EFUSE_MASK) != XNVM_EFUSE_DISSJTAG_EFUSE_MASK)) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_DIS_SJTAG_ROW,
+	    ((Data & XNVM_EFUSE_DIS_SJTAG_EFUSE_MASK) != XNVM_EFUSE_DIS_SJTAG_EFUSE_MASK)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit,  XNVM_EFUSE_XILINX_CTRL_START_ROW,
 				      XNVM_EFUSE_DIS_SJTAG_COL, FALSE);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_DIS_SJTAG;
+			goto END;
+		}
+	}
+	if ((XilinxCtrl->PrgmOspiResetRecoveryDelayCtrl == (u32)TRUE) &&
+	    ((Data & XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_MASK) !=
+	     XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_MASK)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit,
+				      XNVM_EFUSE_XILINX_CTRL_START_ROW,
+				      XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_COL, FALSE);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL;
+			goto END;
+		}
+	}
+	if ((XilinxCtrl->PrgmRomRsvdOspiDevResetChoice == (u32)TRUE) &&
+	    ((Data & XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_MASK) !=
+	     XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_MASK)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit,
+				      XNVM_EFUSE_XILINX_CTRL_START_ROW,
+				      XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_COL, FALSE);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE;
+			goto END;
+		}
+	}
+	if ((XilinxCtrl->PrgmRomOspiCmdSeqCtrl != 0x0U) &&
+	    ((Data & XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_MASK) == 0x0U)) {
+		Status = XNvm_EfusePrgmRomOspiCmdSeqCtrl(XilinxCtrl);
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -2495,8 +2573,17 @@ int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl)
 
 	XilinxCtrl->PrgmPufHDInvld = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS,
 							XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT);
-	XilinxCtrl->PrgmDisSJtag = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_DISSJTAG_EFUSE_BITS,
-							XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT);
+	XilinxCtrl->PrgmDisSJtag = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_DIS_SJTAG_EFUSE_BITS,
+							XNVM_EFUSE_DIS_SJTAG_EFUSE_SHIFT);
+	XilinxCtrl->PrgmOspiResetRecoveryDelayCtrl = XNVM_GET_8_BIT_VAL(Data,
+							XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_BITS,
+							XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_SHIFT);
+	XilinxCtrl->PrgmRomRsvdOspiDevResetChoice = XNVM_GET_8_BIT_VAL(Data,
+							XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_BITS,
+							XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_SHIFT);
+	XilinxCtrl->PrgmRomOspiCmdSeqCtrl = XNVM_GET_8_BIT_VAL(Data,
+							XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_BITS,
+							XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_SHIFT);
 END:
 	return Status;
 }

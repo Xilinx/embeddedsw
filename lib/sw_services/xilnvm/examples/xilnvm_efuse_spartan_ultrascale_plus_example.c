@@ -58,6 +58,9 @@
  * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
  * 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
  *       mb    03/17/2026 Add support for temperature and voltage checks using SysMon
+ * 3.7   hae   02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
+ *                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
+ *                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
  *
  * </pre>
  *
@@ -956,8 +959,11 @@ END:
  * to program XILINX_CTRL eFuse.
  *
  * typedef struct {
- *	u8 PrgmPufHDInvld;
-*	u8 PrgmDisSJtag;
+ *	u32 PrgmPufHDInvld;
+ *	u32 PrgmDisSJtag;
+ *	u32 PrgmOspiResetRecoveryDelayCtrl;
+ *	u32 PrgmRomRsvdOspiDevResetChoice;
+ *	u32 PrgmRomOspiCmdSeqCtrl;
  * } XNvm_EfuseXilinxCtrl;
  *
  * @param	EfuseData	Pointer to XNvm_EfuseData structure.
@@ -975,8 +981,15 @@ static int XilNvm_EfuseInitXilinxCtrl(XNvm_EfuseData *EfuseData,
 {
 	XilinxCtrl->PrgmPufHDInvld = XNVM_EFUSE_WRITE_PUFHD_INVLD;
 	XilinxCtrl->PrgmDisSJtag = XNVM_EFUSE_WRITE_DIS_SJTAG;
+	XilinxCtrl->PrgmOspiResetRecoveryDelayCtrl = XNVM_EFUSE_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL;
+	XilinxCtrl->PrgmRomRsvdOspiDevResetChoice = XNVM_EFUSE_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE;
+	XilinxCtrl->PrgmRomOspiCmdSeqCtrl = XNVM_EFUSE_WRITE_ROM_OSPI_CMD_SEQ_CTRL;
 
-	if (XilinxCtrl->PrgmPufHDInvld == TRUE || (XilinxCtrl->PrgmDisSJtag == TRUE))
+	if ((XilinxCtrl->PrgmPufHDInvld == TRUE) ||
+	    (XilinxCtrl->PrgmDisSJtag == TRUE) ||
+	    (XilinxCtrl->PrgmOspiResetRecoveryDelayCtrl == TRUE) ||
+	    (XilinxCtrl->PrgmRomRsvdOspiDevResetChoice == TRUE) ||
+	    (XilinxCtrl->PrgmRomOspiCmdSeqCtrl != 0x0U))
 	{
 		EfuseData->XilinxCtrl = XilinxCtrl;
 	}
@@ -1271,6 +1284,9 @@ static int XilNvm_EfuseShowXilinxCtrl(void)
 
 	xil_printf("PUFHD_INVLD Fuse : %x\r\n", XilinxCtrl.PrgmPufHDInvld);
 	xil_printf("DIS_SJTAG Fuse : %x\r\n", XilinxCtrl.PrgmDisSJtag);
+	xil_printf("OSPI_RESET_RECOVERY_DELAY_CTRL Fuse : %x\r\n", XilinxCtrl.PrgmOspiResetRecoveryDelayCtrl);
+	xil_printf("ROM_RSVD_OSPI_DEV_RESET_CHOICE Fuse : %x\r\n", XilinxCtrl.PrgmRomRsvdOspiDevResetChoice);
+	xil_printf("ROM_OSPI_CMD_SEQ_CTRL Fuse : %x\r\n", XilinxCtrl.PrgmRomOspiCmdSeqCtrl);
 
 	Status = XST_SUCCESS;
 END:

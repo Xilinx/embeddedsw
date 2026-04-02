@@ -21,7 +21,9 @@
 *       mb      10/03/25 Rename macro names
 *       mb      10/04/25 PPKs updates for SPARTANUPLUSAES1
 *       mb      11/11/2025 Add support for JTAG Boot mode disable efuse programming
-*
+* 3.7   hae     02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
+*                          and ROM_RSVD_OSPI_DEV_RESET_CHOICE
+*                          and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
 * </pre>
 *
 ******************************************************************************/
@@ -364,6 +366,41 @@ extern "C" {
 #define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL		(28U) /**< PPK1 write lock bit column value: 28 */
 #define XNVM_EFUSE_BOOT_MODE_DIS_OFFSET			(0x0000104CU) /**< Boot mode disable cache offset */
 #endif
+
+/**
+ * @name  XILINX_CTRL register
+ * @{
+ */
+/**< Xilinx control register bits, shifts and masks */
+#define XNVM_EFUSE_PUFHD_INVLD_START_COL	        (13U) /**< PUF_HD_INVLD start column */
+#define XNVM_EFUSE_PUFHD_INVLD_END_COL		        (14U) /**< PUF_HD_INVLD end column */
+#define XNVM_EFUSE_PUFHD_INVLD_NUM_OF_ROWS	        (1U) /**< PUF_HD_INVLD number of rows */
+#define XNVM_EFUSE_DIS_SJTAG_COL		        (12U) /**< DIS_SJTAG column */
+#define XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_COL	(11U) /**< OSPI Reset Recovery Delay Control column */
+#define XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_COL	(10U) /**< ROM RSVD OSPI Device Reset Choice column */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_START_COL	(8U) /**< ROM OSPI Cmd Seq Ctrl start column */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_END_COL	(9U) /**< ROM OSPI Cmd Seq Ctrl end column */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_NUM_OF_ROWS	(1U) /**< ROM OSPI Cmd Seq Ctrl number of rows */
+
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT              (0x13U) /**< Puf Invalid shift */
+#define XNVM_EFUSE_DIS_SJTAG_EFUSE_SHIFT		(0x12U) /**< Disable Secure JTAG shift */
+#define XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_SHIFT	(0xBU) /**< OSPI Reset Recovery Delay Control shift */
+#define XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_SHIFT	(0xAU) /**< ROM RSVD OSPI Device Reset Choice shift */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_SHIFT		(0x8U) /**< ROM OSPI Cmd Seq Ctrl shift */
+
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK               (0x00006000U) /**< Puf Invalid mask */
+#define XNVM_EFUSE_DIS_SJTAG_EFUSE_MASK	                (0x00001000U) /**< Disable Secure JTAG mask */
+#define XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_MASK	(0x00000800U) /**< OSPI Reset Recovery Delay Control mask */
+#define XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_MASK	(0x00000400U) /**< ROM RSVD OSPI Device Reset Choice mask */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_MASK		(0x00000300U) /**< ROM OSPI Cmd Seq Ctrl mask */
+
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS	        (0x02U) /**< Puf Invalid bits */
+#define XNVM_EFUSE_DIS_SJTAG_EFUSE_BITS		        (0x01U) /**< Disable Secure JTAG bits */
+#define XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_BITS	(0x01U) /**< OSPI Reset Recovery Delay Control bits */
+#define XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_BITS	(0x01U) /**< ROM RSVD OSPI Device Reset Choice bits */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_BITS		(0x02U) /**< ROM OSPI Cmd Seq Ctrl bits */
+
+/** @} */
 
 #ifdef __cplusplus
 }

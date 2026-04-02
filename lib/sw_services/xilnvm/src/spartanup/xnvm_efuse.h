@@ -33,6 +33,9 @@
 *       mb   11/11/2025 Add support for JTAG Boot mode disable efuse programming
 * 3.7   mb   02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
 *       mb   03/18/2026 Add support for temperature and voltage checks before efuse programming
+* 3.7   hae  02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
+*                       and ROM_RSVD_OSPI_DEV_RESET_CHOICE
+*                       and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
 *
 * </pre>
 *
@@ -101,13 +104,7 @@ extern "C" {
 #define XNVM_EFUSE_DEC_ONLY_START_COL		(8U) /**< Decrypt only start column */
 #define XNVM_EFUSE_DEC_ONLY_END_COL		(15U) /**< Decrypt only end column */
 #define XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS		(2U) /**< Decrypt only number of rows */
-
-#define XNVM_EFUSE_PUF_HD_INVLD_START_ROW	(50U) /**< PUF_HD_INVLD start row */
-#define XNVM_EFUSE_PUF_HD_INVLD_START_COL	(13U) /**< DPUF_HD_INVLD start column */
-#define XNVM_EFUSE_PUF_HD_INVLD_END_COL		(14U) /**< PUF_HD_INVLD end column */
-#define XNVM_EFUSE_PUF_HD_INVLD_NUM_OF_ROWS	(1U) /**< PUF_HD_INVLD number of rows */
-#define XNVM_EFUSE_DIS_SJTAG_ROW		(50) /**< DIS_SJTAG start row */
-#define XNVM_EFUSE_DIS_SJTAG_COL		(12) /**< DIS_SJTAG column */
+#define XNVM_EFUSE_XILINX_CTRL_START_ROW	(50U) /**< Xilinx control bits start row */
 
 /**< PPK Efuse programming related macros */
 #ifndef SPARTANUPLUSAES1
@@ -168,14 +165,8 @@ extern "C" {
 #define XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET		(0xFFU) /**< Byte mask */
 
 #define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U) /**< CRC for Aes zero key */
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS	(0x02U) /**< Puf Invalid Bits*/
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT	(0x13U) /**< Puf Invalid shift*/
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK	(0x00006000U) /**< Puf Invalid mask*/
-#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL	(0x03U) /**< Puf Invalid */
 
-#define XNVM_EFUSE_DISSJTAG_EFUSE_BITS		(0x01U) /**< Disable Secure JTAG shift*/
-#define XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT		(0x12U) /**< Disable Secure JTAG shift*/
-#define XNVM_EFUSE_DISSJTAG_EFUSE_MASK		(0x00001000U) /**< Disable Secure JTAG shift*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL	(0x03U) /**< Puf Invalid */
 
 /**< Efuse clock programming related macros */
 #ifndef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
@@ -294,6 +285,9 @@ typedef struct {
 typedef struct {
 	u32 PrgmPufHDInvld;  /**< Program PUFHD_INVLD */
 	u32 PrgmDisSJtag;    /**< Program Disable Secure JTAG */
+	u32 PrgmOspiResetRecoveryDelayCtrl; /**< Program OSPI Reset Recovery Delay Control */
+	u32 PrgmRomRsvdOspiDevResetChoice;  /**< Program ROM RSVD OSPI Device Reset Choice */
+	u32 PrgmRomOspiCmdSeqCtrl;          /**< Program ROM OSPI Command Sequence Control */
 } XNvm_EfuseXilinxCtrl;
 
 /**
@@ -435,6 +429,9 @@ enum {
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0xA900, /**< 0xA900 - Error glitch detected */
 	XNVM_EFUSE_ERR_WRITE_PUFHD_INVLD = 0xAA00, /**< 0xAA00 - Error write PUF_HD_INVLD detected */
 	XNVM_EFUSE_ERR_WRITE_DIS_SJTAG = 0xAB00, /**< 0xAB00 - Error write DIS_SJTAG detected */
+	XNVM_EFUSE_ERR_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL = 0xAC00, /**< 0xAC00 - Error write OSPI Reset Recovery Delay Control */
+	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE = 0xAD00, /**< 0xAD00 - Error write ROM RSVD OSPI Device Reset Choice */
+	XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL = 0xAE00, /**< 0xAE00 - Error write ROM OSPI Cmd Seq Ctrl */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY = 0xD000, /**< 0xD000 - Error Invalid Clock Frequency */
 	XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS = 0xB000, /**< 0xB000 - Error read Boot mode disable bits from cache */

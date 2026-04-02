@@ -152,6 +152,18 @@
 *	Even if the bits are already programmed user must pass these already
 *	programmed bits along with the new bits that need to be programmed.
 *
+*	#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_0	(0U)
+*       0 will not burn either of ROM_OSPI_CMD_SEQ_CTRL eFuse bits
+*
+*	#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_1	(1U)
+*       1 will burn bit 8 of ROM_OSPI_CMD_SEQ_CTRL eFuse
+*
+*	#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_2	(2U)
+*       2 will burn bit 9 of ROM_OSPI_CMD_SEQ_CTRL eFuse
+*
+*	#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_3	(3U)
+*       3 will burn bit 8 and bit 9 of ROM_OSPI_CMD_SEQ_CTRL eFuse
+*
 *	#define XNVM_EFUSE_WRITE_PUFHD_INVLD
 *	TRUE will burn the 2 bits of PUFHD_INVLD eFuse row.
 *	FALSE will not modify 2 bits of PUFHD_INVLD eFuse row.
@@ -159,6 +171,17 @@
 *	#define XNVM_EFUSE_WRITE_DIS_SJTAG
 *	TRUE will burn the DIS_SJTAG eFuse bit.
 *	FALSE will not modify DIS_SJTAG eFuse bit.
+*
+*	#define XNVM_EFUSE_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL		FALSE
+*	TRUE will burn the OSPI_RESET_RECOVERY_DELAY_CONTROL eFuse bit.
+*	FALSE will not modify OSPI_RESET_RECOVERY_DELAY_CONTROL eFuse bit.
+*
+*	#define XNVM_EFUSE_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE		FALSE
+*	TRUE will burn the ROM_RSVD_OSPI_DEVICE_RESET_CHOICE eFuse bit.
+*	FALSE will not modify ROM_RSVD_OSPI_DEVICE_RESET_CHOICE eFuse bit.
+*
+*	#define XNVM_EFUSE_WRITE_ROM_OSPI_CMD_SEQ_CTRL		(XNVM_EFUSE_ROM_OSPI_CMD_SEQ_0)
+*	Select the ROM OSPI Command Sequence to program.
 *
 *	NOTE: When user opts to provide the clock and frequency via application,
 *	BSP default configuration "XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA" shall be
@@ -250,6 +273,9 @@
 *       mb     09/01/2025 Add support to program 384 bit PPK HASH in efuses for SPARTANUPLUSAES1
 * 3.7   mb    11/11/2025 Add support for JTAG Boot mode disable efuse programming
 * 3.7   mb    02/09/2026 Rename secure control bit names for SPARTANUPLUSAES1
+* 3.7   hae   02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
+*                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
+*                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
 *
 * </pre>
 *
@@ -270,6 +296,14 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/**
+ * Following are the defines to select ROM OSPI commands.
+ */
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_0	(0U)
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_1	(1U)
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_2	(2U)
+#define XNVM_EFUSE_ROM_OSPI_CMD_SEQ_3	(3U)
 
 /** @name Secure control bits programming selection
  *  @brief Defines to select whether the user wants to program secure control bits.
@@ -324,6 +358,9 @@ extern "C" {
 
 #define XNVM_EFUSE_WRITE_PUFHD_INVLD	FALSE
 #define XNVM_EFUSE_WRITE_DIS_SJTAG	FALSE
+#define XNVM_EFUSE_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL	FALSE
+#define XNVM_EFUSE_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE	FALSE
+#define XNVM_EFUSE_WRITE_ROM_OSPI_CMD_SEQ_CTRL	(XNVM_EFUSE_ROM_OSPI_CMD_SEQ_0)
 
 /**
  * Following defines should be given in the form of hex string.
