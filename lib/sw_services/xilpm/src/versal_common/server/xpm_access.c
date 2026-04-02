@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -219,7 +219,7 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 				       u32 CmdType,
 				       const XPm_NodeAccessMatch *const Match)
 {
-	XStatus Status = XPM_PM_NO_ACCESS;
+	XStatus Status = XST_NO_FEATURE;
 	XPm_NodeAccessTypes AccessType = (XPm_NodeAccessTypes) Match->Aper->Access;
 
 	/* Handlers for access policy checking */
@@ -247,12 +247,8 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 	case ACCESS_SEC_NS_SUBSYS_RW:
 	case ACCESS_SEC_SUBSYS_RO:
 	case ACCESS_SEC_SUBSYS_RW:
-		if (NULL != AccessPolicy[AccessType].Handler) {
-			Status = AccessPolicy[AccessType].Handler(SubsystemId,
+		Status = AccessPolicy[AccessType].Handler(SubsystemId,
 					IoctlId, CmdType, AccessType, Match);
-		} else {
-			Status = XPM_PM_NO_ACCESS;
-		}
 		break;
 	case ACCESS_RESERVED:
 	case ACCESS_TYPE_MAX:
@@ -323,11 +319,13 @@ static XStatus XPmAccess_CheckParent(u32 DeviceId, u32 *BaseAddress)
 			Status = XST_FAILURE;
 			goto done;
 		}
-		/* Get device base */
+		/*
+		 * Get device base address. XPm_GetDeviceBaseAddr() always returns
+		 * XST_SUCCESS when Device is non-NULL (verified above) and
+		 * BaseAddr is non-NULL (stack pointer &Base). Return value
+		 * check is intentionally omitted as it is unreachable here.
+		 */
 		Status = XPm_GetDeviceBaseAddr(DeviceId, &Base);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
 		break;
 	case (u32)XPM_NODECLASS_REGNODE:
 		Regnode = PmRegnodes;
