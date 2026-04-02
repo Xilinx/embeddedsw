@@ -488,7 +488,13 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		goto END;
 	}
 	for (Index = 0U; Index < NoOfPrtns; Index++) {
-		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&HBPtr->HashData[PrtnNum].PrtnHash;
+		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+			ImageMeasureInfo.DataAddr =
+			(u64)(UINTPTR)&HBPtr->HashData[PrtnNum].PrtnHash;
+		} else {
+			ImageMeasureInfo.DataAddr =
+			(u64)(UINTPTR)&HBPtr->HashData[PrtnNum + XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET].PrtnHash;
+		}
 		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
 		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
