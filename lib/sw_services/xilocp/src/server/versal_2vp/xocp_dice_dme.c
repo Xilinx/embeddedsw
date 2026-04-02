@@ -20,6 +20,7 @@
 *       sd   11/07/25 Update condition to reflect the revised function return value
 * 1.7   tvp  12/10/25 Add required header file
 *       rmv  01/30/26 Refactor OCP library
+*       tvp  03/31/26 Use generic API to increment IV
 *
 * </pre>
 *
@@ -65,7 +66,6 @@ static int XOcp_GenerateCdi(void);
 static int XOcp_DmeKeySel(u32 *KeySel);
 static int XOcp_PufRegeneration(void);
 static u32 XOcp_DmeHashGen(XOcp_Dme *DmePtr, u8 *Hash);
-static void XOcp_GetIncIv(u8 *Iv, u8 IncVal, u8 *UpdatedIv);
 static void XOcp_GetIvData(u8 *IvAddr);
 static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr);
 
@@ -293,36 +293,6 @@ END:
 
 /**************************************************************************************************/
 /**
- * @brief	This function increments the IV with the value passed.
- *
- * @param	Iv is the pointer to the init vector to be incremented.
- * @param	IncVal is the value with which IV needs to be incremented.
- * @param	UpdatedIv is the pointer to store the updated IV.
- *
- * @return
- * 		- None.
- *
- **************************************************************************************************/
-static void XOcp_GetIncIv(u8 *Iv, u8 IncVal, u8 *UpdatedIv)
-{
-	u8 Carry = 0;
-	u8 Byte;
-	u16 ByteSum = 0;
-	int Idx;
-
-	for (Idx = XOCP_SECURE_IV_LEN_IN_BYTES - 1; Idx >= 0; Idx--) {
-		Byte = Iv[Idx];
-		ByteSum = Byte + IncVal + Carry;
-		Carry = ByteSum >> 8U;
-		UpdatedIv[Idx] = ByteSum & 0xFF;
-		if (Carry == 0) {
-			break;
-		}
-	}
-}
-
-/**************************************************************************************************/
-/**
  * @brief	This function calculate CDI and store in XOcp_RegSpace.
  *
  * @return
@@ -342,7 +312,6 @@ static int XOcp_GenerateCdi(void)
 	XSecure_Sha3Hash HashAll;
 	XSecure_Aes *AesInstance = XSecure_GetAesInstance();
 	u8 Iv[XOCP_SECURE_IV_LEN_IN_BYTES] = {0U};
-	u8 UpdatedIv[XOCP_SECURE_IV_LEN_IN_BYTES] = {0U};
 	u8 DecUds[XOCP_CDI_SIZE_IN_BYTES] = {0U};
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 	u8 AesBuffer[XOCP_AES_OCP_DATA_LEN_IN_BYTES] = {0};
@@ -377,7 +346,7 @@ static int XOcp_GenerateCdi(void)
 	XOcp_GetIvData((u8 *)&Iv[0]);
 
 	/* Increment Iv */
-	XOcp_GetIncIv((u8 *)Iv, XOCP_UDS_IV_INC, UpdatedIv);
+	Xil_IncrementBuffer(Iv, XOCP_SECURE_IV_LEN_IN_BYTES, XOCP_UDS_IV_INC);
 
 	Status = XSecure_AesKeyZero(AesInstance, XSECURE_AES_PUF_KEY);
 	if (Status != XST_SUCCESS) {
@@ -393,7 +362,7 @@ static int XOcp_GenerateCdi(void)
 
 	/* Encrypt all zero data with the key */
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_PUF_KEY, XSECURE_AES_KEY_SIZE_256,
-					(u64)(UINTPTR)UpdatedIv);
+					(u64)(UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XOCP_ERR_AES_ENC_INIT;
 		goto RET;
@@ -440,10 +409,6 @@ RET:
 		Status |= ClrStatus;
 	}
 	ClrStatus = Xil_SecureZeroize((u8 *)Iv, XOCP_SECURE_IV_LEN_IN_BYTES);
-	if (ClrStatus != XST_SUCCESS) {
-		Status |= ClrStatus;
-	}
-	ClrStatus = Xil_SecureZeroize((u8 *)UpdatedIv, XOCP_SECURE_IV_LEN_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
@@ -614,7 +579,6 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 	int Status = XST_FAILURE;
 	int ClrStatus = XST_FAILURE;
 	u32 InitVector[XOCP_SECURE_IV_LEN_IN_WORDS] = {0};
-	u32 IncInitVector[XOCP_SECURE_IV_LEN_IN_WORDS] = {0};
 	u32 EncDmePrivKey = 0U;
 	u8 AesBuffer[XOCP_AES_OCP_DATA_LEN_IN_BYTES] = {0};
 	u32 EncryptedZeros[XOCP_AES_OCP_DATA_LEN_IN_WORDS] = {0};
@@ -629,8 +593,8 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 	/* Get KekIv to decrypt DME private key */
 	XOcp_GetIvData((u8 *)&InitVector[0]);
 
-	/* Increment Iv */
-	XOcp_GetIncIv((u8 *)(UINTPTR)InitVector, (u8)XOCP_DME_IV_INC, (u8 *)(UINTPTR)IncInitVector);
+	/* Increment InitVector */
+	Xil_IncrementBuffer((u8 *)InitVector, XOCP_SECURE_IV_LEN_IN_BYTES, (u8)XOCP_DME_IV_INC);
 
 	Status = XSecure_AesKeyZero(AesInstance, XSECURE_AES_PUF_KEY);
 	if (Status != XST_SUCCESS) {
@@ -647,7 +611,7 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 
 	/* Encrypt all zero data with the key */
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_PUF_KEY, XSECURE_AES_KEY_SIZE_256,
-					(u64)(UINTPTR)IncInitVector);
+					(u64)(UINTPTR)InitVector);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XOCP_ERR_AES_ENC_INIT;
 		goto END;
@@ -665,11 +629,7 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 
 END:
 	/** Zeroize all local buffers */
-	ClrStatus = Xil_SecureZeroize((u8 *)InitVector, XOCP_SECURE_IV_LEN_IN_WORDS);
-	if (ClrStatus != XST_SUCCESS) {
-		Status |= ClrStatus;
-	}
-	ClrStatus = Xil_SecureZeroize((u8 *)IncInitVector, XOCP_SECURE_IV_LEN_IN_WORDS);
+	ClrStatus = Xil_SecureZeroize((u8 *)InitVector, XOCP_SECURE_IV_LEN_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
