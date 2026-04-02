@@ -218,49 +218,6 @@ END:
 	return Status;
 }
 #endif
-
-/**************************************************************************************************/
-/**
- * @brief	This function verifies whether the additional PPK is valid.
- *
- * @param	PpkHash is pointer to the PPK hash.
- *
- * @return
- * 		- XST_SUCCESS on success and error code on failure
- *
- **************************************************************************************************/
-int XLoader_IsAdditionalPpkValid(const u8 *PpkHash)
-{
-	int Status = XST_FAILURE;
-	(void)PpkHash;
-
-	return Status;
-}
-
-/**************************************************************************************************/
-/**
- * @brief	This function checks for the additional PPK select and returns the PPK invalid mask
- * 		and PPK efuse cache start offset if PPK is valid.
- *
- * @param	PpkSelect   PPK selection of eFUSE.
- * @param	InvalidMask Pointer to the PPK invalid mask.
- * @param 	PpkOffset   Pointer to the efuse cache PPK start offset.
- *
- * @return
- *	 	- XST_SUCCESS on success and error code on failure.
- *
- **************************************************************************************************/
-int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset)
-{
-	int Status = XST_FAILURE;
-
-	(void)PpkSelect;
-	(void)InvalidMask;
-	(void)PpkOffset;
-
-	return Status;
-}
-
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /**************************************************************************************************/
 /**
