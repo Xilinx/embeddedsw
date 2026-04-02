@@ -16,6 +16,26 @@
   *
   * This example is supported for Versal and Versal Net devices.
   *
+  * Procedure to link and compile the example for the default ddr less designs in Versal device
+  * ------------------------------------------------------------------------------------------------------------
+  * The default linker settings places a software stack, heap and data in DDR memory.  For this example to work,
+  * any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.
+  *
+  *    Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+  *			be updated to point all the required sections to shared memory(OCM or TCM)
+  *			using a memory region drop down selection
+  *
+  *						OR
+  *    In linker script(lscript.ld) user can point data section to OCM or TCM
+  *       .data : {
+  *        . = ALIGN(4);
+  *        __data_start = .;
+  *        *(.data)
+  *        *(.data.*)
+  *        *(.gnu.linkonce.d.*)
+  *        __data_end = .;
+  *       } > versal_cips_0_pspmc_0_psv_ocm_ram_0_memory_0
+  *
   * <pre>
   * MODIFICATION HISTORY:
   *
@@ -46,6 +66,8 @@
   * 2.6   rpu  07/15/25 Fixed GCC warnings
   * 2.7   bha  01/06/26 Fixed Doxygen warnings
   *       bha  02/25/26 Removed ICCARM related code
+  *       mb   02/25/26 Added support for xilpuf in server mode on PL-MB
+  *
   * </pre>
   *@note
   *
