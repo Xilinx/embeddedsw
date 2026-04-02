@@ -41,7 +41,7 @@
 
 /************************** Function Prototypes ******************************/
 static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
-					u64 KeyAddr, u32 KeyLen, u64 KeyOut);
+					u64 KeyAddr, u32 KeyLen, u32 KeyOut, u32 KeyOutLen);
 static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result);
 
 /************************** Variable Definitions *****************************/
@@ -90,7 +90,7 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 
 	InstancePtr->Sha3InstPtr = Sha3InstancePtr;
 
-	Status = XSecure_PreProcessKey(InstancePtr, KeyAddr, KeyLen, (UINTPTR)K0);
+	Status = XSecure_PreProcessKey(InstancePtr, KeyAddr, KeyLen, (u32)(UINTPTR)K0, XSECURE_SHA3_BLOCK_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -260,6 +260,7 @@ RET:
  * @param	KeyAddr		is the variable which holds the address of key for HMAC
  * @param	KeyLen		variable holds the length of the key
  * @param	KeyOut		is the variable which holds the output key buffer's address
+ * @param	KeyOutLen	is the variable which specifies the output key length based on SHA mode
  *
  * @return
  *		 - XST_SUCCESS - If initialization was successful.
@@ -267,48 +268,43 @@ RET:
  *
  ******************************************************************************/
 static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
-		u64 KeyAddr, u32 KeyLen, u64 KeyOut)
+		u64 KeyAddr, u32 KeyLen, u32 KeyOut, u32 KeyOutLen)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u8 Index;
-	u32 *K0Ptr = (u32 *)(UINTPTR)KeyOut;
-	u8 *K0 = (u8 *)K0Ptr;
-	const u32 *InKey = (u32 *)(UINTPTR)KeyAddr;
+	u8 *K0 = (u8 *)(UINTPTR)KeyOut;
 
 	/* KDF uses this path, for UDS 48 bytes key in DICE */
-	if (KeyLen < XSECURE_SHA3_BLOCK_LEN) {
+	if (KeyLen < KeyOutLen) {
 		/*
 		 * if Key provided is less than SHA 3 block length
 		 * Append Zeros to the key provided
 		 */
-		for (Index = 0U; Index < (KeyLen / XSECURE_HMAC_WORD_LEN);
-					 Index++) {
-			K0Ptr[Index] = InKey[Index];
-		}
-		Status = Xil_SMemSet((void *)&K0[KeyLen], XSECURE_SHA3_BLOCK_LEN - KeyLen, 0U,
-							  XSECURE_SHA3_BLOCK_LEN - KeyLen);
+		XSecure_MemCpy64((u64)(UINTPTR)K0, KeyAddr, KeyLen);
+
+		Status = Xil_SMemSet((void *)&K0[KeyLen], KeyOutLen - KeyLen, 0U,
+							  KeyOutLen - KeyLen);
 	}
-	else if (KeyLen > XSECURE_SHA3_BLOCK_LEN) {
+	else if (KeyLen > KeyOutLen) {
 		/*
 		 * If provided key length is greater than SHA3 block length
 		 * Calculate hash on key and append with zero to
 		 * make K0 to the length of SHA3 Block length
 		 */
 		Status = XSecure_ShaDigest(InstancePtr->Sha3InstPtr, XSECURE_SHA3_384,
-			(UINTPTR)KeyAddr, KeyLen, (u64)(UINTPTR)(XSecure_Sha3Hash *)K0, XSECURE_HASH_SIZE_IN_BYTES);
+			KeyAddr, KeyLen, (u64)(UINTPTR)(XSecure_Sha3Hash *)K0, XSECURE_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		Status = XST_FAILURE;
 		Status = Xil_SMemSet((void *)&K0[XSECURE_HASH_SIZE_IN_BYTES],
-							  XSECURE_SHA3_BLOCK_LEN - XSECURE_HASH_SIZE_IN_BYTES, 0U,
-							  XSECURE_SHA3_BLOCK_LEN - XSECURE_HASH_SIZE_IN_BYTES);
+							  KeyOutLen - XSECURE_HASH_SIZE_IN_BYTES, 0U,
+							  KeyOutLen - XSECURE_HASH_SIZE_IN_BYTES);
 	}
 	else {
 		/* if Key provided is of SHA 3 block length */
-		Status = Xil_SMemCpy((void *)K0, XSECURE_SHA3_BLOCK_LEN, (const void *)(UINTPTR)KeyAddr,
-							  XSECURE_SHA3_BLOCK_LEN, XSECURE_SHA3_BLOCK_LEN);
+		XSecure_MemCpy64((u64)(UINTPTR)K0, KeyAddr, KeyOutLen);
+		Status = XST_SUCCESS;
 	}
 
 END:
