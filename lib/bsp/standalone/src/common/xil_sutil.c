@@ -36,6 +36,7 @@
 * 9.5   hj       30/01/26 Remove zero address check from all API's
 * 9.5   hae      05/02/26 Replaced standard memcpy with Xil_MemCpy in Xil_SMemCpy
 *       aa       02/26/26 Replaced standard memcpy with Xil_MemCpy in Xil_Memcpy64
+*       tvp      02/04/26 Add doxygen note for Xil_IncrementBuffer
 *
 * </pre>
 *
@@ -983,6 +984,10 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
  * @param	IncVal		Increment value.
  *
  * @return	None
+ *
+ * @note	The caller shall define a local buffer as the buffer contents are modified
+ *		in-place by this API. The input buffer will be updated with the incremented
+ *		values upon successful execution.
  *
  *************************************************************************************************/
 void Xil_IncrementBuffer(u8* Buffer, u32 BufferSize, u8 IncVal)
