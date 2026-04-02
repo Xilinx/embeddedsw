@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -299,11 +299,6 @@ static XStatus Pld_HandlePowerEvent(u8 *BitMask, u32 PwrNodeId, u32 Action)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Power *Power = NULL;
-
-	if (NOT_INITIALIZED == Action) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
 
 	Power = XPmPower_GetById(PwrNodeId);
 	if (NULL == Power) {
