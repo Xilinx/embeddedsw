@@ -28,6 +28,7 @@
 *	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
 * 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       ng   11/22/2023 Fixed doxygen grouping
+* 3.7   mb   03/26/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
 *
 * </pre>
 *
@@ -355,42 +356,46 @@ void XNvm_EfuseInitTimers(void)
 	u32 Tsu_h_ps;
 	u32 Tsu_h_ps_cs;
 	u32 Tsu_h_cs;
+	u32 RefClkFreq;
+
+	/* Read reference clock frequency */
+	RefClkFreq = XNVM_PSU_PSS_REF_CLK_FREQ;
 
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
-	Tpgm = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TPGM_DIV - 1U) /
+	Tpgm = (u32)((RefClkFreq + XNVM_EFUSE_TPGM_DIV - 1U) /
 							XNVM_EFUSE_TPGM_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TPGM_REG_OFFSET, Tpgm);
 
 	/* TRD = ceiling(217ns/REF_CLK_PERIOD) */
-	Trd = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TRD_DIV - 1U) /
+	Trd = (u32)((RefClkFreq + XNVM_EFUSE_TRD_DIV - 1U) /
 							XNVM_EFUSE_TRD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRD_REG_OFFSET, Trd);
 
 	/* TRDM = ceiling(500ns/REF_CLK_PERIOD)*/
-	Trdm = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TRMD_DIV - 1U) /
+	Trdm = (u32)((RefClkFreq + XNVM_EFUSE_TRMD_DIV - 1U) /
 							XNVM_EFUSE_TRMD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRDM_REG_OFFSET, Trdm);
 
 	/* TSU_H_PS = ceiling(208ns/REF_CLK_PERIOD) */
-	Tsu_h_ps = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_PS_DIV - 1U) /
+	Tsu_h_ps = (u32)((RefClkFreq + XNVM_EFUSE_TSU_H_PS_DIV - 1U) /
 							XNVM_EFUSE_TSU_H_PS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_REG_OFFSET,
 				Tsu_h_ps);
 
 	/* TSU_H_PS_CS = ceiling(143ns/REF_CLK_PERIOD) */
-	Tsu_h_ps_cs = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_PS_CS_DIV - 1U) /
+	Tsu_h_ps_cs = (u32)((RefClkFreq + XNVM_EFUSE_TSU_H_PS_CS_DIV - 1U) /
 							XNVM_EFUSE_TSU_H_PS_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET,
 				Tsu_h_ps_cs);
 
 	/* TSU_H_CS = ceiling(184ns/REF_CLK_PERIOD) */
-	Tsu_h_cs = (u32)((XNVM_PS_REF_CLK_FREQ + XNVM_EFUSE_TSU_H_CS_DIV - 1U) /
+	Tsu_h_cs = (u32)((RefClkFreq + XNVM_EFUSE_TSU_H_CS_DIV - 1U) /
 							XNVM_EFUSE_TSU_H_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_CS_REG_OFFSET,

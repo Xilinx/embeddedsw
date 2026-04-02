@@ -45,6 +45,7 @@
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 * 2.3   obs  08/26/2025 Removed XPlmi_VerifyAddrRange function
 *       sd   03/03/2026 Replaced XPlmi_GetRawVoltage inline function with macro
+*       mb   03/25/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
 *
 * </pre>
 *
@@ -238,6 +239,16 @@ void XPlmi_RtcaPlatInit(void)
 	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_501_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
 	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_502_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
 	XPlmi_Out32(XPLMI_RTCFG_RST_PL_POR_WA, 0U);
+
+	/** If XPAR_PSU_PSS_REF_CLK_FREQ_HZ is present in the design,
+	 *  it means that the reference clock frequency is known and can be stored in RTCA during initialization.
+	 *  If it's not defined, store 0 to indicate unknown reference clock frequency.
+	 */
+#ifndef	XPAR_PSU_PSS_REF_CLK_FREQ_HZ
+	XPlmi_Out32(XPLMI_RTCFG_PSU_PSS_REF_CLK_FREQ_ADDR, 0U);
+#else
+	XPlmi_Out32(XPLMI_RTCFG_PSU_PSS_REF_CLK_FREQ_ADDR, XPAR_PSU_PSS_REF_CLK_FREQ_HZ);
+#endif
 }
 
 /*****************************************************************************/

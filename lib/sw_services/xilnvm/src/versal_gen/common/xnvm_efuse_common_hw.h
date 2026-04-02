@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
 * 3.2   kum  04/11/2023 moved BOOTENV, SYSMON related macros to common to make use for both veral and versalnet
+* 3.7   mb   03/26/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
 *
 * </pre>
 *
@@ -180,9 +181,17 @@ extern "C" {
 
 #define XNVM_EFUSE_PD_ENABLE				(0x01U << 0U) /**< eFuse controller Power Down bit mask */
 
-
-#define XNVM_PS_REF_CLK_FREQ			(XPAR_PSU_PSS_REF_CLK_FREQ_HZ) /**< PS Ref clock definition in Hz */
-
+/**
+ * @name  PS Reference Clock Frequency
+ */
+/**< For PL-Microblaze, read from RTCA; for APU/RPU, use xparameters macro */
+#if defined(__microblaze__) && defined(VERSAL)
+#define XNVM_PSU_PSS_REF_CLK_FREQ_RTCA_ADDR		(0xF2014370U) /**< RTCA address to store PSU PSS reference clock frequency in Hz */
+#define XNVM_PSU_PSS_REF_CLK_FREQ		(Xil_In32(XNVM_PSU_PSS_REF_CLK_FREQ_RTCA_ADDR)) /**< PSU PSS reference clock definition in Hz */
+#else
+#define XNVM_PSU_PSS_REF_CLK_FREQ		(XPAR_PSU_PSS_REF_CLK_FREQ_HZ) /**< PSU PSS reference clock definition in Hz */
+#endif
+/** @} */
 
 #define XNVM_NUM_OF_ROWS_PER_PAGE			(256U) /**< Number of Rows per Page */
 
