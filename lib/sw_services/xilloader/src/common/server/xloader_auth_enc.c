@@ -170,6 +170,7 @@
 *       tvp  03/05/2026 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 *       vss  03/30/26 Fix for get partition hash index calculation for IPU/Full metaheader.
+*       tvp  03/31/2026 Use generic API to increment IV
 *
 * </pre>
 *
@@ -243,8 +244,6 @@
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 #define XLOADER_HASH_BLOCK_IV_INCREMENT_VAL             (0x01U)
 #define XLOADER_SECURE_IV_LEN_IN_BYTES                  (12U)
-#define XLOADER_BYTE_SHIFT                              (0x8U)
-#define XLOADER_BYTE_MASK                               (0xFFU)
 #define XLOADER_ENTRY_SIZE_IN_HASHBLOCK                 (52U) /**< Each entry size in HashBlock */
 #define XLOADER_MIN_SIGN_SIZE                           (96U) /**< Minimum Signature size excluding padding, actual size */
 
@@ -326,7 +325,6 @@ static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
 static int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr);
-static void XLoader_IvIncrement(u8 *Iv, u8 IncrValue);
 static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType);
 static int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr);
@@ -4675,38 +4673,6 @@ END:
 	return Status;
 }
 
-/******************************************************************************/
-/**
-* @brief        This function increments the IV with given value.
-*
-* @param        Iv - Pointer to an array of 12 bytes which holds IV to be
-*                       incremented.
-* @param        IncrValue - Value with which IV needs to be incremented.
-*
-*******************************************************************************/
-static void XLoader_IvIncrement(u8 *Iv, u8 IncrValue)
-{
-    u8 *IvPtr = Iv;
-    u32 Carry = IncrValue;
-    u32 Result;
-    int Index;
-
-    /*
-    * IV increment is done as below
-    * Repeat I = 0 to 11 OR till Carry becomes zero
-    * Get (Iv[I], carry) by performing Iv[I] + carry
-    */
-    for (Index = XLOADER_SECURE_IV_LEN_IN_BYTES - 1; Index >= 0; Index--) {
-        Result = *(IvPtr + Index) + Carry;
-        *(IvPtr + Index) = (u8)(Result & XLOADER_BYTE_MASK);
-        Carry = Result >> XLOADER_BYTE_SHIFT;
-        /* If carry is non zero continue else break */
-       if (Carry == 0x0U) {
-           break;
-       }
-    }
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function is used to validate HashBlock partition
@@ -4738,7 +4704,8 @@ static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
 	}
 
 	/** - Increment the IV by 1 for HashBlock AAD verification */
-	XLoader_IvIncrement((u8 *)(UINTPTR)Iv, XLOADER_HASH_BLOCK_IV_INCREMENT_VAL);
+	Xil_IncrementBuffer(Iv, XLOADER_SECURE_IV_LEN_IN_BYTES,
+				XLOADER_HASH_BLOCK_IV_INCREMENT_VAL);
 
 	/** - Read HashBlock tag for validation */
 	TagOffset = HBParams->HashBlockOffset + HBParams->HashBlockSize;
