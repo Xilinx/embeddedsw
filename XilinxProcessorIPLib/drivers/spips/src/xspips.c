@@ -59,6 +59,7 @@
 *                       running at low clock speed in slave mode.
 * 3.12  sb     02/24/25 Use delay in interrupt handler for slave mode only.
 * 3.13  sb     09/09/25 Fix chip selection issues
+* 3.14  sb     04/01/26 Fix TX/RX FIFO byte-order handling.
 * </pre>
 *
 ******************************************************************************/
@@ -318,6 +319,7 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 {
 	u32 ConfigReg;
 	u32 FifoEntries;
+	u32 Index;
 	u8 TransCount = 0U;
 	s32 StatusTransfer;
 
@@ -387,7 +389,10 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 			FifoEntries = InstancePtr->RemainingBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: InstancePtr->RemainingBytes;
 			u32 TempData = 0U;
 			if (InstancePtr->SendBufferPtr != NULL) {
-				(void)Xil_MemCpy((u8 *)&TempData, InstancePtr->SendBufferPtr, FifoEntries);
+				for (Index = 0U; Index < FifoEntries; Index++) {
+					TempData |= (u32)InstancePtr->SendBufferPtr[Index] <<
+						(8U * (InstancePtr->FifoWidth - 1U - Index));
+				}
 				InstancePtr->SendBufferPtr += FifoEntries;
 			}
 			XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
@@ -484,6 +489,7 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 	s32 Status_Polled;
 	u32 TempData;
 	u32 FifoEntries;
+	u32 Index;
 
 	/*
 	 * The RecvBufPtr argument can be NULL.
@@ -547,7 +553,10 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 				FifoEntries = InstancePtr->RemainingBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: InstancePtr->RemainingBytes;
 				TempData = 0U;
 				if (InstancePtr->SendBufferPtr != NULL) {
-					(void)Xil_MemCpy((u8 *)&TempData, InstancePtr->SendBufferPtr, FifoEntries);
+					for (Index = 0U; Index < FifoEntries; Index++) {
+						TempData |= (u32)InstancePtr->SendBufferPtr[Index] <<
+							(8U * (InstancePtr->FifoWidth - 1U - Index));
+					}
 					InstancePtr->SendBufferPtr += FifoEntries;
 				}
 
@@ -609,7 +618,10 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 
 				FifoEntries = InstancePtr->RequestedBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: InstancePtr->RequestedBytes;
 				if (InstancePtr->RecvBufferPtr != NULL) {
-					(void)Xil_MemCpy(InstancePtr->RecvBufferPtr, (u8 *)&TempData, FifoEntries);
+					for (Index = 0U; Index < FifoEntries; Index++) {
+						InstancePtr->RecvBufferPtr[Index] = (u8)(TempData >>
+							(8U * (InstancePtr->FifoWidth - 1U - Index)));
+					}
 					InstancePtr->RecvBufferPtr += FifoEntries;
 				}
 				InstancePtr->RequestedBytes -= FifoEntries;
@@ -955,6 +967,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 	if ((IntrStatus & XSPIPS_IXR_TXOW_MASK) != 0U) {
 		u32 TempData;
 		u32 TransCount;
+		u32 Index;
 		/*
 		 * A transmit has just completed. Process received data and
 		 * check for more data to transmit.
@@ -980,7 +993,10 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 
 			FifoEntries = SpiPtr->RequestedBytes > SpiPtr->FifoWidth ? SpiPtr->FifoWidth: SpiPtr->RequestedBytes;
 			if (SpiPtr->RecvBufferPtr != NULL) {
-				(void)Xil_MemCpy(SpiPtr->RecvBufferPtr, (u8 *)&TempData, FifoEntries);
+				for (Index = 0U; Index < FifoEntries; Index++) {
+					SpiPtr->RecvBufferPtr[Index] = (u8)(TempData >>
+						(8U * (SpiPtr->FifoWidth - 1U - Index)));
+				}
 				SpiPtr->RecvBufferPtr += FifoEntries;
 			}
 			SpiPtr->RequestedBytes -= FifoEntries;
@@ -996,7 +1012,10 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 			FifoEntries = SpiPtr->RemainingBytes > InstancePtr->FifoWidth ? InstancePtr->FifoWidth: SpiPtr->RemainingBytes;
 			TempData = 0U;
 			if (SpiPtr->SendBufferPtr != NULL) {
-				(void)Xil_MemCpy((u8 *)&TempData, SpiPtr->SendBufferPtr, FifoEntries);
+				for (Index = 0U; Index < FifoEntries; Index++) {
+					TempData |= (u32)SpiPtr->SendBufferPtr[Index] <<
+						(8U * (InstancePtr->FifoWidth - 1U - Index));
+				}
 				SpiPtr->SendBufferPtr += FifoEntries;
 			}
 			XSpiPs_SendByte(SpiPtr->Config.BaseAddress,
