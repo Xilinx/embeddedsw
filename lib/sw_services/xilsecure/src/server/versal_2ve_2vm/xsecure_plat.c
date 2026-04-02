@@ -511,8 +511,8 @@ int XSecure_InitiateASUKeyTransfer(void)
 	/** Wait for 4msec for AES KTE DONE bit to set */
         Status = (int)Xil_WaitForEvent(XSECURE_AES_KTE_DONE_ADDRESS,
 		XSECURE_AES_KTE_DONE_MASK, XSECURE_AES_KTE_DONE_MASK, XSECURE_AES_KTE_DONE_POLL_TIMEOUT);
-        if (Status !=  XST_SUCCESS){
-                XSecure_Printf(DEBUG_PRINT_ALWAYS, "Key Transfer Count-0x%x\r\n",
+		if (Status != XST_SUCCESS) {
+			XSecure_Printf(XSECURE_DEBUG_GENERAL, "Key Transfer Count-0x%x\r\n",
                                 XSecure_In32(XSECURE_AES_KTE_CNT_ADDRESS));
                 Status =  (int)XSECURE_ERR_ASU_KTE_DONE_NOT_SET;
                 goto END;

@@ -211,7 +211,7 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated);
 int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
+	volatile int IroRestoreStatus = XST_FAILURE;
 	u32 Idx = 0U;
 	u8 IroFreqUpdated = FALSE;
 
@@ -331,9 +331,9 @@ END:
 	 * else, return Status.
 	 */
 	if (IroFreqUpdated == TRUE) {
-		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
-		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-			Status = StatusTmp;
+		IroRestoreStatus = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
+		if (Status == XST_SUCCESS) {
+			Status = IroRestoreStatus;
 		}
 	}
 
@@ -370,7 +370,7 @@ END:
 int XPuf_Regeneration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
+	volatile int IroRestoreStatus = XST_FAILURE;
 	u32 GlobalCntrlVal;
 	u32 Reset = FALSE;
 	u8 IroFreqUpdated = FALSE;
@@ -507,9 +507,9 @@ END:
 	 * Return status.
 	 */
 	if (IroFreqUpdated == TRUE) {
-		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
-		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-			Status = StatusTmp;
+		IroRestoreStatus = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
+		if (Status == XST_SUCCESS) {
+			Status = IroRestoreStatus;
 		}
 	}
 

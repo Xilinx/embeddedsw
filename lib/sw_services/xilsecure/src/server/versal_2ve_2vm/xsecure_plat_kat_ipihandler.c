@@ -71,6 +71,10 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	Pload = Cmd->Payload;
+	if (NULL == Pload) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	switch (Pload[0U] & XSECURE_API_ID_MASK) {
 #ifndef PLM_SECURE_EXCLUDE
@@ -93,7 +97,8 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 END:
-	if (XSecureSha2InstPtr->ShaState == XSECURE_SHA_INITIALIZED) {
+	if ((XSecureSha2InstPtr != NULL) &&
+		(XSecureSha2InstPtr->ShaState == XSECURE_SHA_INITIALIZED)) {
 		SStatus = XSecure_MakeResFree(XPLMI_SHA2_CORE);
 		if (Status == XST_SUCCESS) {
 			Status = SStatus;
