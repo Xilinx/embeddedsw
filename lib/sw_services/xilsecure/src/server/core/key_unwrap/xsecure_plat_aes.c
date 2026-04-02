@@ -21,6 +21,7 @@
 * 5.6	tus	10/10/25 Move XSecure_AesEcbDecryptInit() inside the unwrap
 *			 loop to properly initialise AES state before each
 *			 independent ECB decrypt operation
+* 5.7   tbk    03/30/26 Add Control Flow Integrity protection to XSecure_AesKeyUnwrap
 * </pre>
 *
 ******************************************************************************/
@@ -221,7 +222,7 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	u8 DecInput[XSECURE_AES_64BIT_BLOCK_SIZE * 2U];
 	u8 DecOut[XSECURE_AES_64BIT_BLOCK_SIZE * 2U];
 	u32 AesBlkRoundNum;
-	int AesRoundNum;
+	volatile int AesRoundNum;
 
 	MaxRounds = (Size / XSECURE_AES_64BIT_BLOCK_SIZE) - 1U;
 	if ((MaxRounds != XSECURE_AES_256BIT_MAX_KEY_BLOCK_ROUNDS) &&
@@ -233,12 +234,14 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	/* Validate input arguments and write AES key */
 	Status = XSecure_AesWriteKey(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize, (u64)(UINTPTR)EphAesKey);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
 	/* Copy initial value*/
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)InitValue, (u64)(UINTPTR)AesWrapKey, XSECURE_AES_64BIT_BLOCK_SIZE);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -252,34 +255,51 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 			}
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)DecInput, (u64)(UINTPTR)InitValue, XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)(DecInput + XSECURE_AES_64BIT_BLOCK_SIZE), (u64)(UINTPTR)(AesWrapKey + (AesBlkRoundNum * 8U)), XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
 			/* Validate and put AES in ECB and decryption mode */
 			Status = XSecure_AesEcbDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
 			Status = XSecure_AesDecryptUpdate(InstancePtr, (u64)(UINTPTR)DecInput, (u64)(UINTPTR)DecOut, XSECURE_AES_64BIT_BLOCK_SIZE * 2U, TRUE);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)InitValue, (u64)(UINTPTR)DecOut, XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)(AesWrapKey + (AesBlkRoundNum * 8U)), (u64)(UINTPTR)(DecOut + XSECURE_AES_64BIT_BLOCK_SIZE), XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 		}
+	}
+
+	/*
+	 * CFI protection: Verify loop counter reached expected value.
+	 * Loop runs from XSECURE_AES_KEY_WRAP_MAX_ROUNDS down to and including 0.
+	 * After normal completion, counter should be -1 (one less than termination value 0)
+	 */
+	if ((AesRoundNum + 1) != 0) {
+		/* Loop counter mismatch indicates potential fault injection attack */
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
 	}
 
 	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp, InitValue, XSECURE_AES_64BIT_BLOCK_SIZE, (void*)(UINTPTR)&DefInitVal,
