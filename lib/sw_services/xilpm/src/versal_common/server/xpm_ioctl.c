@@ -771,11 +771,12 @@ XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+		/*
+		 * XPm_AddNode() succeeded above, so the device is now
+		 * registered in the PM database. XPmDevice_GetById() is
+		 * guaranteed to return non-NULL for a registered device.
+		 */
 		Device = XPmDevice_GetById(DeviceId);
-		if (NULL == Device) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
 	}
 
 	if (PM_SUBSYS_PMC == SubsystemId) {
