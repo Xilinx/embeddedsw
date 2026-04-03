@@ -280,3 +280,5 @@ examples:
         - dpdc/mmi_dpdc_menus.h
         - dpdc/mmi_dpdc_platform.c
         - dpdc/mmi_dpdc_platform.h
+        - dpdc/mmi_dp_intr.c
+        - dpdc/mmi_dp_intr.h
