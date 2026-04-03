@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 title: AMD Multimedia Integrated Display Controller.
 description: "The AMD Multimedia Integrated Display Controller IP block implements\
@@ -262,50 +262,21 @@ required:
   - xlnx,dc-stream3-sdp-en
 additionalProperties:
 examples:
-    nonlive/mmi_dc_nonlive_test.c:
+    dpdc/mmi_dpdc_example.c:
     - dependency_files:
-        - nonlive/mmi_dc_nonlive_test.h
-        - nonlive/mmi_dp_init.c
-        - nonlive/mmi_dp_init.h
-    mixed/mmi_dc_mixed_test.c:
-    - dependency_files:
-        - mixed/mmi_dc_mixed_test.h
-        - mixed/mmi_dp_init.c
-        - mixed/mmi_dp_init.h
-        - mixed/xavtpg.c
-        - mixed/xavtpg.h
-        - mixed/xavtpg_hw.h
-    live/mmi_dc_live_test.c:
-    - dependency_files:
-        - live/mmi_dc_live_test.h
-        - live/mmi_dp_init.c
-        - live/mmi_dp_init.h
-        - live/xavtpg.c
-        - live/xavtpg.h
-        - live/xavtpg_hw.h
-    bypass/mmi_dc_bypass_test.c:
-    - dependency_files:
-        - bypass/mmi_dc_bypass_test.h
-        - bypass/mmi_dp_init.c
-        - bypass/mmi_dp_init.h
-        - bypass/xavtpg.c
-        - bypass/xavtpg.h
-        - bypass/xavtpg_hw.h
-    nonlive_4k_hbr3/mmi_dc_nonlive_4k_hbr3_test.c:
-    - dependency_files:
-        - nonlive_4k_hbr3/mmi_dc_nonlive_4k_hbr3_test.h
-        - nonlive_4k_hbr3/mmi_dp_init.c
-        - nonlive_4k_hbr3/mmi_dp_init.h
-    mst/mmi_dc_mst_test.c:
-    - dependency_files:
-        - mst/mmi_dc_mst_test.h
-        - mst/mmi_dp_init.c
-        - mst/mmi_dp_init.h
-        - mst/xavtpg.c
-        - mst/xavtpg.h
-        - mst/xavtpg_hw.h
-    sdp/mmi_dc_sdp_test.c:
-    - dependency_files:
-        - sdp/mmi_dc_sdp_test.h
-        - sdp/mmi_dp_init.c
-        - sdp/mmi_dp_init.h
+        - dpdc/mmi_dc_cursor.c
+        - dpdc/mmi_dc_cursor.h
+        - dpdc/mmi_dc_generate_frames.c
+        - dpdc/mmi_dc_generate_frames.h
+        - dpdc/mmi_dc_nonlive_test.c
+        - dpdc/mmi_dc_nonlive_test.h
+        - dpdc/mmi_dc_partial_plane.c
+        - dpdc/mmi_dc_partial_plane.h
+        - dpdc/mmi_dc_setup_frames.c
+        - dpdc/mmi_dc_setup_frames.h
+        - dpdc/mmi_dp_init.c
+        - dpdc/mmi_dp_init.h
+        - dpdc/mmi_dpdc_menus.c
+        - dpdc/mmi_dpdc_menus.h
+        - dpdc/mmi_dpdc_platform.c
+        - dpdc/mmi_dpdc_platform.h
