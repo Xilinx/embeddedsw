@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -16,6 +16,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.6   tvp  07/07/25 Initial release
 *       sd   11/07/25 Update condition to reflect the revised function return value
+* 5.7   tbk  02/24/26 Add CFI protection for TRNG loop counter
 *
 * </pre>
 *
@@ -298,6 +299,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  * @return
  *		 - XST_SUCCESS  On Success
  *		 - XST_FAILURE  On Failure
+ *		 - XST_GLITCH_ERROR On glitch detection
  *
  **************************************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
@@ -307,7 +309,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u8 *RandBufPtr = Output;
 	u32 TotalSize = Size;
 	u32 RandBufSize = XSECURE_TRNG_SEC_STRENGTH_IN_BYTES;
-	u32 Index = 0U;
+	volatile u32 Index = 0U;
 	u32 NoOfGenerates = (Size + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES - 1U) >>
 				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
 	u8 TmpRandBuf[XTRNGPSV_SEC_STRENGTH_BYTES];
@@ -331,6 +333,11 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 				       RandBufSize, XTRNGPSV_FALSE);
 		RandBufPtr += RandBufSize;
 		TotalSize -= RandBufSize;
+	}
+
+	/* Verify loop index is within expected bounds */
+	if (Index != (NoOfGenerates - 1U)) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}
 
 END:

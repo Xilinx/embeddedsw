@@ -44,6 +44,7 @@
 #include "xsecure_sha.h"
 #include "xsecure_plat_kat.h"
 #include "xplmi.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -590,7 +591,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u8 *RandBufPtr = Output;
 	u32 TotalSize = Size;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
-	u32 Index = 0U;
+	volatile u32 Index = 0U;
 	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
@@ -605,6 +606,11 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 					RandBufPtr, RandBufSize, FALSE);
 		RandBufPtr += RandBufSize;
 		TotalSize -= RandBufSize;
+	}
+
+	/* Verify loop index is within expected bounds */
+	if (Index != NoOfGenerates) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}
 
 END:
