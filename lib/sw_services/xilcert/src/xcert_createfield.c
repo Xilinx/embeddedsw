@@ -35,7 +35,8 @@
 *			Fixed doxygen warnings
 *       har  09/17/2024 Fixed doxygen warnings
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
-* 1.6   rmv  01/30/2026 Renamed OCP keymanagment macro
+* 1.6   rmv  01/30/2026 Renamed OCP keymanagement macro
+*       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
 *
 * </pre>
 * @note
@@ -111,47 +112,59 @@
 static u32 XCert_GetTrailingZeroesCount(u8 Data);
 static u32 XCert_ConvertNumToString(u32 Num, u8 *Out);
 static u32 XCert_BuildPlmVerNumber(u32 Num, u8 *Out);
-static u32 XCert_GetFirstNonZeroByteOffset(const u8* Data, u32 Cnt);
+static u32 XCert_GetFirstNonZeroByteOffset(const u8 *Data, u32 Cnt);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * @brief	This function creates DER encoded ASN.1 Integer
- *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
- * @param	IntegerVal	Value of the ASN.1 Integer
- * @param	IntegerLen	Length of the value of the ASN.1 Integer
- * @param	FieldLen	Total length of the encoded ASN.1 Integer
+ * @brief	This function return X509 Certificate info instance
  *
  * @return
+ *		 Pointer to XCert_X509CertInfo instance
+ *
+ ******************************************************************************/
+XCert_X509CertInfo *XCert_GetX509CertInstance(void)
+{
+	static XCert_X509CertInfo X509CertInstance; /**< X.509 certificate generation instance*/
+
+	return &X509CertInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function creates DER encoded ASN.1 Integer
+ *
+ * @param	IntegerVal	Value of the ASN.1 Integer
+ * @param	IntegerLen	Length of the value of the ASN.1 Integer
+ *
+ * @return
+ *		 - XCERT_ERR_X509_INSUFFICIENT_MEMORY  If provided buffer is not sufficient
  *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 Integer
  *		 - XST_FAILURE  In case of failure
  *
  * @note	ASN.1 tag for Integer is 0x02.
  *
  ******************************************************************************/
-int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32* FieldLen)
+int XCert_CreateInteger(const u8 *IntegerVal, u32 IntegerLen)
 {
 	int Status = XST_FAILURE;
-	u32 IntegerFieldLen;
-	u8* Curr = DataBuf;
-	u8* IntegerLenIdx;
-	u8* IntegerValIdx;
+	u8 *IntegerLenIdx;
+	u8 *IntegerValIdx;
 
-	*(Curr++) = XCERT_ASN1_TAG_INTEGER;
+	XCert_X509CertInfo *X509CertInfo =  XCert_GetX509CertInstance();
 
-	IntegerLenIdx = Curr++;
-	IntegerValIdx = Curr;
-
-	Status = XCert_CreateIntegerFieldFromByteArray(Curr, IntegerVal, IntegerLen,
-		&IntegerFieldLen);
+	Status = XCert_UpdateTLVField(XCERT_ASN1_TAG_INTEGER,
+					&IntegerLenIdx, &IntegerValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Curr = Curr + IntegerFieldLen;
-	*IntegerLenIdx = (u8)(Curr - IntegerValIdx);
-	*FieldLen = (u8)(Curr - DataBuf);
+	Status = XCert_CreateIntegerFieldFromByteArray(IntegerVal, IntegerLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	*IntegerLenIdx = XCERT_PTR_DIFF_U8(X509CertInfo->CurrOffset, IntegerValIdx);
 
 END:
 	return Status;
@@ -161,50 +174,53 @@ END:
 /**
  * @brief	This function creates DER encoded ASN.1 BitString
  *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
  * @param	BitStringVal	Value of the ASN.1 BitString
  * @param	BitStringLen	Length of the value of the ASN.1 BitString in bytes
  * @param	IsLastByteFull	Flag to check if the last byte is full or not
  * 			- FALSE for Key Usage
  * 			- TRUE for Public Key
- * @param	FieldLen	Total length of the encoded ASN.1 BitString
  *
  * @return
- *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 BitString
- *		 - XST_FAILURE  In case of failure
+ *		 - XST_SUCCESS  if successfully created DER encoded ASN.1 BitString
+ *		 - Error  In case of failure
  *
  * @note	ASN.1 tag for BitString is 0x03
  *
  ******************************************************************************/
-int XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen)
+int XCert_CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u32 IsLastByteFull)
 {
 	int Status = XST_FAILURE;
 	u32 NumofTrailingZeroes = 0U;
-	u8* Curr = DataBuf;
-	u8* BitStringLenIdx;
-	u8* BitStringValIdx;
+	u8 *BitStringLenIdx;
+	u8 *BitStringValIdx;
 
-	*(Curr++) = XCERT_ASN1_TAG_BITSTRING;
-	BitStringLenIdx = Curr++;
-	BitStringValIdx = Curr;
+	XCert_X509CertInfo *X509CertInfo =  XCert_GetX509CertInstance();
 
+	Status  = XCert_UpdateTLVField(XCERT_ASN1_TAG_BITSTRING,
+					&BitStringLenIdx, &BitStringValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	/**
 	 * The first byte of the value of the BITSTRING is used to show the number
 	 * of unused bits in the last byte of the BITSTRING.
 	 */
 	if (IsLastByteFull == FALSE) {
-		NumofTrailingZeroes = XCert_GetTrailingZeroesCount(*(BitStringVal + BitStringLen - 1U));
+		NumofTrailingZeroes = XCert_GetTrailingZeroesCount(BitStringVal[BitStringLen - 1U]);
 	}
-	*(Curr++) = NumofTrailingZeroes;
 
-	Status  = Xil_SMemCpy(Curr, BitStringLen, BitStringVal, BitStringLen, BitStringLen);
+	*(X509CertInfo->CurrOffset) = (u8)NumofTrailingZeroes;
+
+	XCert_AdvanceOffset(X509CertInfo, XCERT_BYTE_LEN);
+
+	Status  = Xil_SMemCpy(X509CertInfo->CurrOffset, X509CertInfo->RemainingBytes, BitStringVal,
+					BitStringLen, BitStringLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Curr = Curr + BitStringLen;
-	*BitStringLenIdx = (u8)(Curr - BitStringValIdx);
-	*FieldLen = (u8)(Curr - DataBuf);
+	XCert_AdvanceOffset(X509CertInfo, BitStringLen);
+	*BitStringLenIdx = XCERT_PTR_DIFF_U8(X509CertInfo->CurrOffset, BitStringValIdx);
 
 END:
 	return Status;
@@ -214,45 +230,49 @@ END:
 /**
  * @brief	This function creates DER encoded ASN.1 OctetString
  *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
  * @param	OctetStringVal	Value of the ASN.1 OctetString
  * @param	OctetStringLen	Length of the value of the ASN.1 OctetString
- * @param	FieldLen	Total length of the encoded ASN.1 OctetString
  *
  * @return
- *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 OctetString
+ *		 - XST_SUCCESS  if successfully created DER encoded ASN.1 OctetString
  *		 - XST_FAILURE  In case of failure
  *
  * @note	ASN.1 tag for OctetString is 0x04
  *
  ******************************************************************************/
-int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen, u32* FieldLen)
+int XCert_CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen)
 {
 	int Status = XST_FAILURE;
-	u8* Curr = DataBuf;
-	u8* OctetStringLenIdx;
-	u8* OctetStringValIdx;
+	u8 *OctetStringLenIdx;
+	u8 *OctetStringValIdx;
 
-	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
-	OctetStringLenIdx = Curr++;
-	OctetStringValIdx = Curr;
+	XCert_X509CertInfo *X509CertInfo =  XCert_GetX509CertInstance();
 
-	Status  = Xil_SMemCpy(Curr, OctetStringLen, OctetStringVal, OctetStringLen, OctetStringLen);
+	Status  = XCert_UpdateTLVField(XCERT_ASN1_TAG_OCTETSTRING,
+					&OctetStringLenIdx, &OctetStringValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + OctetStringLen;
 
-	Status = XCert_UpdateEncodedLength(OctetStringLenIdx, (u32)(Curr - OctetStringValIdx), OctetStringValIdx);
+	Status  = Xil_SMemCpy(X509CertInfo->CurrOffset, X509CertInfo->RemainingBytes, OctetStringVal,
+					OctetStringLen, OctetStringLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XCert_AdvanceOffset(X509CertInfo, OctetStringLen);
+
+	Status = XCert_UpdateEncodedLength(OctetStringLenIdx,
+				XCERT_PTR_DIFF_U32(X509CertInfo->CurrOffset, OctetStringValIdx),
+				OctetStringValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if ((*OctetStringLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		Curr = Curr + ((*OctetStringLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+		XCert_AdvanceOffset(X509CertInfo,
+				((u32)(*OctetStringLenIdx) & XCERT_LOWER_NIBBLE_MASK));
 	}
-	*FieldLen = (u8)(Curr - DataBuf);
-
 END:
 	return Status;
 }
@@ -262,29 +282,26 @@ END:
  * @brief	This function takes DER encoded data as input in form of byte array
  *		and updates it in the provided buffer.
  *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
  * @param	RawData		DER encoded value as byte array to be updated in buffer
  * @param	LenOfRawDataVal	Length of DER encoded value
- * @param	RawDataFieldLen	Total length of the field
  *
  * @return
+ *		 - XCERT_ERR_X509_INSUFFICIENT_MEMORY  If provided buffer is not sufficient
  *		 - XST_SUCCESS  If update is successful
  *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
-int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen)
+int XCert_CreateRawDataFromByteArray(const u8 *RawData, const u32 LenOfRawDataVal)
 {
 	int Status = XST_FAILURE;
-	u8* Curr = DataBuf;
+	XCert_X509CertInfo *X509CertInfo =  XCert_GetX509CertInstance();
 
-	Status = Xil_SMemCpy(Curr, LenOfRawDataVal, RawData, LenOfRawDataVal, LenOfRawDataVal);
+	Status = Xil_SMemCpy(X509CertInfo->CurrOffset, X509CertInfo->RemainingBytes, RawData,
+							LenOfRawDataVal, LenOfRawDataVal);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	Curr = Curr + LenOfRawDataVal;
-	*RawDataFieldLen = (u8)(Curr - DataBuf);
-
+	XCert_AdvanceOffset(X509CertInfo, LenOfRawDataVal);
 END:
 	return Status;
 }
@@ -293,28 +310,47 @@ END:
 /**
  * @brief	This function creates DER encoded ASN.1 Boolean
  *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
  * @param	BooleanVal	Can be TRUE or FALSE
- * @param	FieldLen	Total length of the encoded ASN.1 Boolean
+ *
+ * @return
+ *		 - XCERT_ERR_X509_INSUFFICIENT_MEMORY  If provided buffer is not sufficient
+ *		 - XST_SUCCESS  if successfully created DER encoded ASN.1 Boolean
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	ASN.1 tag for Boolean is 0x01
  *
  ******************************************************************************/
-void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen)
+int XCert_CreateBoolean(const u8 BooleanVal)
 {
-	u8* Curr = DataBuf;
+	int Status = XST_FAILURE;
 
-	*(Curr++) = XCERT_ASN1_TAG_BOOLEAN;
-	*(Curr++) = XCERT_LEN_OF_VALUE_OF_BOOLEAN;
+	Status = XCert_UpdateByteField(XCERT_ASN1_TAG_BOOLEAN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-	if (BooleanVal == (u8)TRUE) {
-		*(Curr++) = (u8)XCERT_BOOLEAN_TRUE;
+	Status  = XCert_UpdateByteField(XCERT_LEN_OF_VALUE_OF_BOOLEAN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (BooleanVal == TRUE) {
+		Status  = XCert_UpdateByteField(XCERT_BOOLEAN_TRUE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 	else {
-		*(Curr++) = (u8)XCERT_BOOLEAN_FALSE;
+		Status  = XCert_UpdateByteField(XCERT_BOOLEAN_FALSE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
-	*FieldLen = (u8)(Curr - DataBuf);
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -342,9 +378,10 @@ void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen)
  *		as a multi-byte integer.
  *
  ******************************************************************************/
-int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx)
+int XCert_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx)
 {
 	int Status = XST_FAILURE;
+	XCert_X509CertInfo *X509CertInfo = XCert_GetX509CertInstance();
 
 	if (Len <= XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
 		*LenIdx = (u8)Len;
@@ -352,6 +389,8 @@ int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx)
 	}
 	else if ((Len > XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES) && (Len <=
 		XCERT_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES)) {
+		XCERT_CHECK_BUFFER_LENGTH(X509CertInfo->RemainingBytes,
+						XCERT_LONG_FORM_LENGTH_1BYTE, Status, END);
 		*LenIdx = XCERT_LONG_FORM_LENGTH_1BYTE;
 		Status = Xil_SMemMove(ValIdx + 1U, Len, ValIdx, Len, Len);
 		if (Status != XST_SUCCESS) {
@@ -360,6 +399,8 @@ int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx)
 		*(LenIdx + 1U) = (u8)Len;
 	}
 	else {
+		XCERT_CHECK_BUFFER_LENGTH(X509CertInfo->RemainingBytes,
+				XCERT_LONG_FORM_LENGTH_2BYTES, Status, END);
 		*LenIdx = XCERT_LONG_FORM_LENGTH_2BYTES;
 		Status = Xil_SMemMove(ValIdx + 2U, Len, ValIdx, Len, Len);
 		if (Status != XST_SUCCESS) {
@@ -415,7 +456,7 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data)
  *		Offset of first non-zero byte in a given array
  *
  ******************************************************************************/
-static u32 XCert_GetFirstNonZeroByteOffset(const u8* Data, u32 Cnt)
+static u32 XCert_GetFirstNonZeroByteOffset(const u8 *Data, u32 Cnt)
 {
 	u32 Offset = 0;
 
@@ -432,41 +473,41 @@ static u32 XCert_GetFirstNonZeroByteOffset(const u8* Data, u32 Cnt)
 /*****************************************************************************/
 /**
  * @brief	This function extracts each byte from the integer value and create
- * 		DER encoded ASN.1 Integer.
+ *		DER encoded ASN.1 Integer.
  *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
  * @param	IntegerVal	Pointer to the Value of the ASN.1 Integer
  * @param       IntegerLen      Length of the integer
- * @param	FieldLen	Total length of the encoded ASN.1 Integer
  *
  * @return
+ *		- XCERT_ERR_X509_INSUFFICIENT_MEMORY  If provided buffer is not sufficient
  *		- XST_SUCCESS  Successfully created DER encoded ASN.1 integer
  *		- XST_FAILURE  In case of failure
  *
  ******************************************************************************/
-int XCert_CreateIntegerFieldFromByteArray(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen,
-	u32* FieldLen)
+int XCert_CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 IntegerLen)
 {
 	int Status = XST_FAILURE;
 	u32 Offset = 0U;
-	u8* Curr = DataBuf;
-
+	XCert_X509CertInfo *X509CertInfo = XCert_GetX509CertInstance();
 	Offset = XCert_GetFirstNonZeroByteOffset(IntegerVal, IntegerLen - 1U);
 	/**
 	 * If the most significant bit in the first byte of IntegerVal is set,
 	 * then the value must be prepended with 0x00.
 	 */
 	if ((IntegerVal[Offset] & XCERT_BIT7_MASK) == XCERT_BIT7_MASK) {
-		*(Curr++) = 0x0;
+		Status  = XCert_UpdateByteField(0x0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
-	Status  = Xil_SMemCpy(Curr, IntegerLen - Offset, &IntegerVal[Offset], IntegerLen - Offset,
-			IntegerLen - Offset);
+	Status  = Xil_SMemCpy(X509CertInfo->CurrOffset, X509CertInfo->RemainingBytes,
+						&IntegerVal[Offset], IntegerLen - Offset,
+						IntegerLen - Offset);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + (IntegerLen - Offset);
-	*FieldLen = (u32)(Curr - DataBuf);
+	XCert_AdvanceOffset(X509CertInfo, (IntegerLen - Offset));
 
 END:
 	return Status;
@@ -554,26 +595,85 @@ static u32 XCert_BuildPlmVerNumber(u32 Num, u8 *Out)
 /**
  * @brief	This function builds PLM version number and creates raw data from byte array.
  *
- * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
  * @param	IntegerVal	Value of the ASN.1 Integer
- * @param	FieldLen	Total length of the encoded ASN.1 UTF8 string
  *
+ * @return
+ *		 - XST_SUCCESS  Successfully created PLM version field
+ *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
-int XCert_BuildPlmVersionAndCreateRawField(u8* DataBuf, const u32 IntegerVal, u32* FieldLen)
+int XCert_BuildPlmVersionAndCreateRawField(const u32 IntegerVal)
 {
-	int Status = XST_FAILURE;
 	u8 VersionData[XCERT_MAX_VER_LEN] = XCERT_PLM_VER_DEF_MSB_VAL;
 	u32 VersionLength = XCERT_PLM_VER_LEN_INIT_VAL;
 
 	VersionLength += XCert_BuildPlmVerNumber(IntegerVal, &VersionData[XCERT_PLM_VER_START_IDX]);
 
-	Status = XCert_CreateRawDataFromByteArray(DataBuf, VersionData, VersionLength, FieldLen);
+	return XCert_CreateRawDataFromByteArray(VersionData, VersionLength);
+}
 
+/*****************************************************************************/
+/**
+ * @brief	This function create the TLV field in the X.509 certificate
+ *
+ * @param	Tag		Tag value of the TLV field
+ * @param	Len		Pointer to store the Length field address
+ * @param	Val		Pointer to store the Value field address
+ *
+ * @return
+ *		 - XST_SUCCESS  If successfully generated TLV field
+ *		 - XST_FAILURE  In case of failure
+ * @note
+ *		The TLV field is created by writing Tag, Length and Value fields
+ *		sequentially in the buffer.
+ *		Tag : 1 byte
+ *		Length : 1 byte
+ ******************************************************************************/
+int XCert_UpdateTLVField(u32 Tag, u8 **Len, u8 **Val)
+{
+
+	int Status = XST_FAILURE;
+	XCert_X509CertInfo *X509CertInfo = XCert_GetX509CertInstance();
+
+	XCERT_CHECK_BUFFER_LENGTH(X509CertInfo->RemainingBytes, XCERT_TLVHDRLEN, Status, END);
+
+	*(X509CertInfo->CurrOffset) = (u8)Tag;
+	XCert_AdvanceOffset(X509CertInfo, XCERT_BYTE_LEN);
+	*Len = X509CertInfo->CurrOffset;
+	XCert_AdvanceOffset(X509CertInfo, XCERT_BYTE_LEN);
+	*Val = X509CertInfo->CurrOffset;
+	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
-#endif  /* PLM_OCP_NATIVE_KEY_MGMT */
+/*****************************************************************************/
+/**
+ * @brief	This function create the Byte field in the X.509 certificate
+ *
+ * @param	Data		Data byte to be written in the buffer
+ *
+ * @return
+ *		 - XST_SUCCESS  if successfully generated Byte field
+ *		 - XST_FAILURE  In case of failure
+ * @note
+ *		The Byte field is created by writing a single byte in the
+ *		buffer.
+ ******************************************************************************/
+int XCert_UpdateByteField(u8 data)
+{
+	int Status = XST_FAILURE;
+	XCert_X509CertInfo *X509CertInfo = XCert_GetX509CertInstance();
+
+	XCERT_CHECK_BUFFER_LENGTH(X509CertInfo->RemainingBytes, XCERT_BYTE_LEN, Status, END);
+
+	*(X509CertInfo->CurrOffset) = data;
+	XCert_AdvanceOffset(X509CertInfo, XCERT_BYTE_LEN);
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+#endif  /* PLM_OCP_KEY_MNGMT */
 
 /**
  * @}

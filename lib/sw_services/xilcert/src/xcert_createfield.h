@@ -21,7 +21,8 @@
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Added support for DME extension
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
-* 1.6   rmv  01/30/2026 Renamed OCP keymanagment macro
+* 1.6   rmv  01/30/2026 Renamed OCP keymanagement macro
+*       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
 *
 * </pre>
 * @note
@@ -40,6 +41,7 @@ extern "C" {
 
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
 #include "xil_types.h"
+#include "xcert_genx509cert.h"
 
 /************************** Constant Definitions *****************************/
 /** @name ASN.1 tags
@@ -85,17 +87,67 @@ extern "C" {
 						/**< Length of word in bytes */
 #define XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES				(127U)
 		/**< Max length for which short form encoding of length is used */
+#define XCERT_TLVHDRLEN						(3U)
+				/**< Length of Tag + Length + Value fields in TLV */
+#define XCERT_BYTE_LEN							(1U)
+						/**< Length of byte in bytes */
+#define XCERT_SERIAL_DATA_HDR_LEN					(3U)
+					/**< Length of Serial Data Header */
 
+/**< Calculates pointer difference as u8. */
+#define XCERT_PTR_DIFF_U8(End, Start) \
+	((u8)((UINTPTR)(End) - (UINTPTR)(Start)))
+
+/**< Calculates pointer difference as u32. */
+#define XCERT_PTR_DIFF_U32(End, Start) \
+	((u32)((UINTPTR)(End) - (UINTPTR)(Start)))
+
+/**< Checks buffer length; sets Status to XCERT_ERR_X509_INSUFFICIENT_MEMORY
+ * and jumps to exit if insufficient. */
+#define XCERT_CHECK_BUFFER_LENGTH(BufLen, RequiredLen, Status, Exit) \
+	do { \
+		if ((BufLen) < (RequiredLen)) { \
+			Status = (int)XCERT_ERR_X509_INSUFFICIENT_MEMORY; \
+			goto Exit; \
+		} \
+	} while (0U != 0U)
+
+
+
+/**************************** Type Definitions *******************************/
+/**
+ * This typedef contains enumeration of the fields of X.509 certificate
+ * which are configured by user
+ */
+
+ /** X.509 Certificate Information Structure */
+typedef struct {
+	u8 *Buff;			/**< Buffer to store X509 certificate */
+	u8 *CurrOffset;			/**< Offset of Current buffer */
+	u32 RemainingBytes;		/**< Remaining Byte in buffer */
+} XCert_X509CertInfo;
+
+
+/************************** Helper Functions *********************************/
+static inline void XCert_AdvanceOffset(XCert_X509CertInfo *Info, u32 Bytes)
+{
+	Info->CurrOffset += Bytes;
+	Info->RemainingBytes -= Bytes;
+}
 /************************** Function Prototypes ******************************/
-int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32 *FieldLen);
-int XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen);
-int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen,
-	u32* FieldLen);
-int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen);
-void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen);
-int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx);
-int XCert_CreateIntegerFieldFromByteArray(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32* FieldLen);
-int XCert_BuildPlmVersionAndCreateRawField(u8* DataBuf, const u32 IntegerVal, u32* FieldLen);
+int XCert_CreateInteger(const u8 *IntegerVal, u32 IntegerLen);
+int XCert_CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u32 IsLastByteFull);
+int XCert_CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen);
+int XCert_CreateRawDataFromByteArray(const u8 *RawData,	const u32 LenOfRawDataVal);
+
+int XCert_CreateBoolean(const u8 BooleanVal);
+int XCert_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx);
+int XCert_CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 IntegerLen);
+
+int XCert_BuildPlmVersionAndCreateRawField(const u32 IntegerVal);
+XCert_X509CertInfo *XCert_GetX509CertInstance(void);
+int XCert_UpdateTLVField(u32 Tag, u8 **Len, u8 **Val);
+int XCert_UpdateByteField(u8 data);
 
 #ifdef __cplusplus
 }

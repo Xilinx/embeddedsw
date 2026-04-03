@@ -27,6 +27,7 @@
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
 * 1.6   vm   12/18/2025 Add Error code for Insufficient Memory
 *       rmv  01/30/2026 Renamed OCP keymanagment macro
+*       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
 *
 *
 * </pre>
@@ -156,12 +157,12 @@ typedef struct {
 typedef struct {
 	u32 IsSelfSigned;	/**< Flag to check if self-signed certificate */
 	u32 IsCsr;		/**< Flag to check if Certificate Signing Request */
-	u8* SubjectPublicKey;	/**< Subject Public Key */
-	u8* IssuerPrvtKey;	/**< Issuer Private Key */
-	u8* IssuerPublicKey;	/**< Issuer Public Key */
-	u8* FwHash;		/**< Firmware Hash */
+	u8 *SubjectPublicKey;	/**< Subject Public Key */
+	u8 *IssuerPrvtKey;	/**< Issuer Private Key */
+	u8 *IssuerPublicKey;	/**< Issuer Public Key */
+	u8 *FwHash;		/**< Firmware Hash */
 	XCert_DmeResponse* DmeResp; /**< DME configuration */
-	u8* FwVersion;		/**< Version of application for which hash is provided */
+	u8 *FwVersion;		/**< Version of application for which hash is provided */
 	u32 FwVersionLen;	/**< Length of version of application for which hash is provided */
 }XCert_AppCfg;
 
@@ -200,8 +201,9 @@ typedef enum {
 }XCert_ErrorStatus;
 
 /************************** Function Prototypes ******************************/
-int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);
-int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len, u32 KeyIndex);
+int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize, XCert_Config *Cfg);
+int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8 *Val,
+							u32 Len, u32 KeyIndex);
 u32* XCert_GetSpkId(void);
 
 #ifdef __cplusplus
