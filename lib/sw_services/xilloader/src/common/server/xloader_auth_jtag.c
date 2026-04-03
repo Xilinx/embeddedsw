@@ -565,7 +565,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	u32 AuthType;
 	u32 CopyLen;
 	u32 MsgLenInWords;
-	u32 RemainingWords;
+	volatile u32 RemainingWords;
 	XLoader_AuthJtagData KeyData;
 	u32* CurrPtr;
 
@@ -691,6 +691,15 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		/** - Clear Auth Jtag Interrupt Status register in PMC TAP module */
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
+	}
+
+	/**
+	 * - RemainingWords must be zero after the read loop terminates;
+	 *   a non-zero value indicates a glitch/tamper condition
+	 */
+	if (RemainingWords != 0U) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+		goto END;
 	}
 
 	/**
