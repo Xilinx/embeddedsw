@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.5   tvp  05/13/25 Initial release
 * 5.7   tbk  03/27/26 Add fault injection protection for HKDF loop counter
+*       tbk  03/27/26 Set error code before goto on Hmac operations
 *
 * </pre>
 *
@@ -27,6 +28,7 @@
 */
 
 /*************************************** Include Files ********************************************/
+#include "xil_sutil.h"
 #include "xsecure_kdf.h"
 #include "xsecure_sha_common.h"
 #include "xsecure_hmac.h"
@@ -91,31 +93,39 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 		Status = XSecure_HmacInit(&HmacInstance, Sha3InstPtr, (u64)(UINTPTR)InDataPtr->Key,
 				InDataPtr->KeyLen);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
 		/** - Update block index of 1 byte to HMAC. */
 		KdfValue = KdfIndex + XSECURE_HKDF_BLOCK_INDEX_LENGTH;
 
+		Status = XST_FAILURE;
 		Status = XSecure_HmacUpdate(&HmacInstance, (u64)(UINTPTR)&KdfValue,
 				XSECURE_WORD_SIZE);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
 		/* Update Context */
+		Status = XST_FAILURE;
 		Status = XSecure_HmacUpdate(&HmacInstance, (u64)(UINTPTR)InDataPtr->Context,
 				InDataPtr->ContextLen);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
+		Status = XST_FAILURE;
 		/* Get final HMAC */
 		Status = XSecure_HmacFinal(&HmacInstance, &Hmac);
 		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
+		Status = XST_FAILURE;
 		/**
 		 * - HMAC output size is the SHA algorithm hash length. HKDF key output can be any
 		 * length.
