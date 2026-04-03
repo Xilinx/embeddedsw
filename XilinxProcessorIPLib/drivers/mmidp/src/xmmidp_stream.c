@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -31,6 +31,28 @@
 #define XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT 	30
 #define XMMIDP_STREAM_OFFSET			0x10000
 
+/* Transfer Unit (TU) parameter constants */
+#define XMMIDP_TU_SIZE				64
+#define XMMIDP_TU_AVG_MAX			63
+#define XMMIDP_TU_FRAC_SCALE			64
+#define XMMIDP_BITS_PER_BYTE			8
+#define XMMIDP_MHZ_TO_HZ			1000000ULL
+#define XMMIDP_YCBCR420_BW_DIVISOR		2
+
+/* TU threshold boundaries */
+#define XMMIDP_TU_LOW_AVG_BOUNDARY		16
+#define XMMIDP_TU_THRESHOLD_LOW_AVG		32
+#define XMMIDP_TU_HBLANK_NARROW_420		40
+#define XMMIDP_TU_THRESHOLD_NARROW_420		3
+#define XMMIDP_TU_HBLANK_NARROW		80
+#define XMMIDP_TU_THRESHOLD_NARROW		12
+#define XMMIDP_TU_THRESHOLD_DEFAULT		16
+
+/* InitThreshold bit-field masks */
+#define XMMIDP_INIT_THRESHOLD_LO_MASK		0x7F
+#define XMMIDP_INIT_THRESHOLD_LO_BITS		7
+#define XMMIDP_INIT_THRESHOLD_HI_MASK		0x3
+
 /******************************************************************************/
 /**
  * This function disables video stream
@@ -49,10 +71,8 @@ void XMmiDp_DisableVideoStream(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegOffset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VSAMPLE_CTRL + ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
@@ -81,10 +101,8 @@ void XMmiDp_EnableVideoStream(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegOffset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VSAMPLE_CTRL + ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
@@ -116,10 +134,8 @@ void XMmiDp_ClearMsaValues(XMmiDp *InstancePtr, u8 Stream)
 	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	StreamOffset = (Stream - 1) * XMMIDP_STREAM_OFFSET ;
 
@@ -150,10 +166,8 @@ void XMmiDp_ClearVideoConfigValues(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegOffset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	StreamOffset = (Stream - 1) * XMMIDP_STREAM_OFFSET ;
 
@@ -184,10 +198,8 @@ void XMmiDp_SetVInputPolarityCtrl(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VINPUT_POLARITY_CTRL +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -222,10 +234,8 @@ void XMmiDp_SetVideoConfig1(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_CONFIG1 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -263,10 +273,8 @@ void XMmiDp_SetVideoConfig2(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_CONFIG2 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -300,10 +308,8 @@ void XMmiDp_SetVideoConfig3(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_CONFIG3 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -336,10 +342,8 @@ void XMmiDp_SetVideoConfig4(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_CONFIG4 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -372,10 +376,8 @@ void XMmiDp_SetVideoConfig5(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_CONFIG5 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -415,10 +417,8 @@ void XMmiDp_SetVSampleCtrl(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VSAMPLE_CTRL +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -455,10 +455,8 @@ void XMmiDp_SetVideoMsa1(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_MSA1 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -492,10 +490,8 @@ void XMmiDp_SetVideoMsa2(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_MSA2 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -529,10 +525,8 @@ void XMmiDp_SetVideoMsa3(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_MSA3 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -566,10 +560,8 @@ void XMmiDp_SetHBlankInterval(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_VIDEO_HBLANK_INTERVAL +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -599,10 +591,8 @@ void XMmiDp_ConfigureVideoController(XMmiDp *InstancePtr, u8 Stream)
 {
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	XMmiDp_SetVInputPolarityCtrl(InstancePtr, Stream);
 	XMmiDp_SetVideoConfig1(InstancePtr, Stream);
@@ -665,10 +655,8 @@ void XMmiDp_ClearVideoController(XMmiDp *InstancePtr)
 void XMmiDp_SetMsaBpc(XMmiDp *InstancePtr, u8 Stream, u8 BitsPerColor)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((BitsPerColor == 6) || (BitsPerColor == 8) ||
 		       (BitsPerColor == 10) || (BitsPerColor == 12));
@@ -690,10 +678,8 @@ void XMmiDp_SetMsaBpc(XMmiDp *InstancePtr, u8 Stream, u8 BitsPerColor)
 void XMmiDp_SetPixModeSel(XMmiDp *InstancePtr, u8 Stream, XMmiDp_PPC PixModeSel)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->VSampleCtrl[Stream - 1].PixModeSel = PixModeSel;
 }
@@ -712,10 +698,8 @@ void XMmiDp_SetPixModeSel(XMmiDp *InstancePtr, u8 Stream, XMmiDp_PPC PixModeSel)
 void XMmiDp_SetVideoMapping(XMmiDp *InstancePtr, u8 Stream, XMmiDp_VidMap VidMap)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->VSampleCtrl[Stream - 1].VideoMapping = VidMap;
 }
@@ -734,10 +718,8 @@ void XMmiDp_SetVideoMapping(XMmiDp *InstancePtr, u8 Stream, XMmiDp_VidMap VidMap
 void XMmiDp_SetVidStreamEnable(XMmiDp *InstancePtr, u8 Stream, u8 StreamEnable)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((StreamEnable == 0) || (StreamEnable == 1));
 
@@ -758,10 +740,8 @@ void XMmiDp_SetVidStreamEnable(XMmiDp *InstancePtr, u8 Stream, u8 StreamEnable)
 void XMmiDp_SetAudStreamInterfaceSel(XMmiDp *InstancePtr, u8 Stream, u8 InterfaceSel)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((InterfaceSel == XMMIDP_AUD_INF_I2S) || (InterfaceSel == XMMIDP_AUD_INF_SPDIF));
 
@@ -783,10 +763,8 @@ void XMmiDp_SetAudStreamInterfaceSel(XMmiDp *InstancePtr, u8 Stream, u8 Interfac
 void XMmiDp_SetAudDataInputEn(XMmiDp *InstancePtr, u8 Stream, u8 ActiveDataInput)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->AudCfg[Stream - 1].DataInEn = ActiveDataInput;
 
@@ -806,10 +784,8 @@ void XMmiDp_SetAudDataInputEn(XMmiDp *InstancePtr, u8 Stream, u8 ActiveDataInput
 void XMmiDp_SetAudDataWidth(XMmiDp *InstancePtr, u8 Stream, u8 DataWidth)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((DataWidth == XMMIDP_AUDIO_INPUT_16_BIT) ||
 		       (DataWidth == XMMIDP_AUDIO_INPUT_17_BIT) ||
@@ -839,10 +815,8 @@ void XMmiDp_SetAudDataWidth(XMmiDp *InstancePtr, u8 Stream, u8 DataWidth)
 void XMmiDp_SetAudHbrModeEn(XMmiDp *InstancePtr, u8 Stream, u8 HbrModeEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((HbrModeEn == 0) || (HbrModeEn == 1));
 
@@ -864,10 +838,8 @@ void XMmiDp_SetAudHbrModeEn(XMmiDp *InstancePtr, u8 Stream, u8 HbrModeEn)
 void XMmiDp_SetAudNumChannels(XMmiDp *InstancePtr, u8 Stream, u8 NumChannels)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid(NumChannels <= XMMIDP_AUDIO_8_CHANNEL);
 
@@ -889,10 +861,8 @@ void XMmiDp_SetAudNumChannels(XMmiDp *InstancePtr, u8 Stream, u8 NumChannels)
 void XMmiDp_SetAudMuteFlag(XMmiDp *InstancePtr, u8 Stream, u8 AudioMute)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((Stream == XMMIDP_CLEAR_AUDIOMUTE) ||
 		       (Stream == XMMIDP_SET_AUDIOMUTE));
@@ -915,10 +885,8 @@ void XMmiDp_SetAudMuteFlag(XMmiDp *InstancePtr, u8 Stream, u8 AudioMute)
 void XMmiDp_SetAudPktId(XMmiDp *InstancePtr, u8 Stream, u8 PktId)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->AudCfg[Stream - 1].PktId = PktId;
 
@@ -938,10 +906,8 @@ void XMmiDp_SetAudPktId(XMmiDp *InstancePtr, u8 Stream, u8 PktId)
 void XMmiDp_SetAudTimeStampVerNum(XMmiDp *InstancePtr, u8 Stream, u8 VerNum)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->AudCfg[Stream - 1].TimeStampVerNum = VerNum;
 
@@ -962,10 +928,8 @@ void XMmiDp_SetAudTimeStampVerNum(XMmiDp *InstancePtr, u8 Stream, u8 VerNum)
 void XMmiDp_SetAudClkMultFs(XMmiDp *InstancePtr, u8 Stream, u8 ClkMultFs)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((Stream == XMMIDP_AUDIO_CLK_512FS) ||
 		       (Stream == XMMIDP_AUDIO_CLK_256FS) ||
@@ -988,14 +952,12 @@ void XMmiDp_SetAudClkMultFs(XMmiDp *InstancePtr, u8 Stream, u8 ClkMultFs)
 *******************************************************************************/
 void XMmiDp_SetAudioConfig1(XMmiDp *InstancePtr, u8 Stream)
 {
-	u32 RegVal;
 	u32 RegOffset;
+	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_AUD_CONFIG1 + ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
@@ -1037,10 +999,8 @@ void XMmiDp_SetAudioConfig1(XMmiDp *InstancePtr, u8 Stream)
 void XMmiDp_SetSdpVertAudTimeStampEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudTimeStamp)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpVertCtrl[Stream - 1].EnAudioTimeStampSdp = EnAudTimeStamp;
 
@@ -1060,10 +1020,8 @@ void XMmiDp_SetSdpVertAudTimeStampEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudTim
 void XMmiDp_SetSdpVertAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpVertCtrl[Stream - 1].EnAudioStreamSdp = EnAudStream;
 
@@ -1084,10 +1042,8 @@ void XMmiDp_SetSdpVertAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream
 void XMmiDp_SetSdpVertEn(XMmiDp *InstancePtr, u8 Stream, u32 EnVerticalSdp)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpVertCtrl[Stream - 1].EnVerticalSdp = EnVerticalSdp;
 
@@ -1107,10 +1063,8 @@ void XMmiDp_SetSdpVertEn(XMmiDp *InstancePtr, u8 Stream, u32 EnVerticalSdp)
 void XMmiDp_SetSdpVertEn128Bytes(XMmiDp *InstancePtr, u8 Stream, u8 En128Bytes)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpVertCtrl[Stream - 1].En128Bytes = En128Bytes;
 
@@ -1130,10 +1084,8 @@ void XMmiDp_SetSdpVertEn128Bytes(XMmiDp *InstancePtr, u8 Stream, u8 En128Bytes)
 void XMmiDp_SetDisableExternalSdp(XMmiDp *InstancePtr, u8 Stream, u8 DisExternalSdp)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpVertCtrl[Stream - 1].DisableExtSdp = DisExternalSdp;
 
@@ -1154,10 +1106,8 @@ void XMmiDp_SetDisableExternalSdp(XMmiDp *InstancePtr, u8 Stream, u8 DisExternal
 void XMmiDp_SetSdpVertFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPriority)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpVertCtrl[Stream - 1].FixedPriorityArb = EnFixedPriority;
 
@@ -1175,14 +1125,12 @@ void XMmiDp_SetSdpVertFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPr
 *******************************************************************************/
 void XMmiDp_SetSdpVerticalCtrl(XMmiDp *InstancePtr, u8 Stream)
 {
-	u32 RegVal;
 	u32 RegOffset;
+	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_SDP_VERTICAL_CTRL + ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
@@ -1217,10 +1165,8 @@ void XMmiDp_SetSdpVerticalCtrl(XMmiDp *InstancePtr, u8 Stream)
 void XMmiDp_SetSdpHorAudTimeStampEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudTimeStamp)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpHorCtrl[Stream - 1].EnAudioTimeStampSdp = EnAudTimeStamp;
 
@@ -1240,10 +1186,8 @@ void XMmiDp_SetSdpHorAudTimeStampEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudTime
 void XMmiDp_SetSdpHorAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpHorCtrl[Stream - 1].EnAudioStreamSdp = EnAudStream;
 
@@ -1264,10 +1208,8 @@ void XMmiDp_SetSdpHorAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream)
 void XMmiDp_SetSdpHorizontalEn(XMmiDp *InstancePtr, u8 Stream, u32 EnHorizontalSdp)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpHorCtrl[Stream - 1].EnHorizontalSdp = EnHorizontalSdp;
 
@@ -1288,10 +1230,8 @@ void XMmiDp_SetSdpHorizontalEn(XMmiDp *InstancePtr, u8 Stream, u32 EnHorizontalS
 void XMmiDp_SetSdpHorFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPriority)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpHorCtrl[Stream - 1].FixedPriorityArb = EnFixedPriority;
 
@@ -1309,14 +1249,12 @@ void XMmiDp_SetSdpHorFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPri
 *******************************************************************************/
 void XMmiDp_SetSdpHorizontalCtrl(XMmiDp *InstancePtr, u8 Stream)
 {
-	u32 RegVal;
 	u32 RegOffset;
+	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_SDP_HORIZONTAL_CTRL + ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
@@ -1364,10 +1302,8 @@ void XMmiDp_ConfigureAudioController(XMmiDp *InstancePtr, u8 Stream)
 void XMmiDp_SetSdpManualCtrl(XMmiDp *InstancePtr, u8 Stream, u32 SdpManualCtrl)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpManualCtrl[Stream - 1] = SdpManualCtrl;
 }
@@ -1386,10 +1322,8 @@ void XMmiDp_SetSdpManualCtrl(XMmiDp *InstancePtr, u8 Stream, u32 SdpManualCtrl)
 void XMmiDp_SetSdpCfg1HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpCfg1[Stream - 1].OverrideBytesReqHBlank = SdpHBlankOvr;
 }
@@ -1397,10 +1331,8 @@ void XMmiDp_SetSdpCfg1HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
 void XMmiDp_SetSdpCfgr2HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpCfg2[Stream - 1].OverrideBytesReqHBlank = SdpHBlankOvr;
 }
@@ -1408,10 +1340,8 @@ void XMmiDp_SetSdpCfgr2HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr
 void XMmiDp_SetSdpCfgr3HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpCfg3[Stream - 1].OverrideBytesReqHBlank = SdpHBlankOvr;
 }
@@ -1430,10 +1360,8 @@ void XMmiDp_SetSdpCfgr3HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr
 void XMmiDp_SetSdpCfg1VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpCfg1[Stream - 1].OverrideBytesReqVBlank = SdpVBlankOvr;
 }
@@ -1441,10 +1369,8 @@ void XMmiDp_SetSdpCfg1VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
 void XMmiDp_SetSdpCfg2VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpCfg2[Stream - 1].OverrideBytesReqVBlank = SdpVBlankOvr;
 }
@@ -1452,10 +1378,8 @@ void XMmiDp_SetSdpCfg2VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
 void XMmiDp_SetSdpCfg3VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpCfg3[Stream - 1].OverrideBytesReqVBlank = SdpVBlankOvr;
 }
@@ -1484,10 +1408,8 @@ void XMmiDp_SetSdpConfig(XMmiDp *InstancePtr, u8 Stream)
 	u32 SdpCfg3Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	SdpCfg1Offset = XMMIDP_SDP_CONFIG1 +
 			((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -1534,10 +1456,8 @@ void XMmiDp_SetSdpConfig(XMmiDp *InstancePtr, u8 Stream)
 void XMmiDp_SetSdpRegBank(XMmiDp *InstancePtr, u8 Stream, u32 SdpReg)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	InstancePtr->SdpRegBank[Stream - 1] = SdpReg;
 }
@@ -1556,10 +1476,8 @@ void XMmiDp_SetSdpRegBank(XMmiDp *InstancePtr, u8 Stream, u32 SdpReg)
 void XMmiDp_SetControllerScrambleDis(XMmiDp *InstancePtr, u8 Stream, u8 ScrambleDis)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((ScrambleDis == 0) || (ScrambleDis == 1));
 
@@ -1581,10 +1499,8 @@ void XMmiDp_SetControllerScrambleDis(XMmiDp *InstancePtr, u8 Stream, u8 Scramble
 void XMmiDp_SetControllerEnhanceFramingEn(XMmiDp *InstancePtr, u8 Stream, u8 EnhanceFramingEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((EnhanceFramingEn == 0) || (EnhanceFramingEn == 1));
 
@@ -1607,10 +1523,8 @@ void XMmiDp_SetControllerEnhanceFramingWithFecEn(XMmiDp *InstancePtr, u8 Stream,
 	u8 EnhanceFramingWithFecEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((EnhanceFramingWithFecEn == 0) || (EnhanceFramingWithFecEn == 1));
 
@@ -1632,10 +1546,8 @@ void XMmiDp_SetControllerEnhanceFramingWithFecEn(XMmiDp *InstancePtr, u8 Stream,
 void XMmiDp_SetControllerFastLinkTrainEn(XMmiDp *InstancePtr, u8 Stream, u8 FastLinkTrainEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((FastLinkTrainEn == 0) || (FastLinkTrainEn == 1));
 
@@ -1657,10 +1569,8 @@ void XMmiDp_SetControllerFastLinkTrainEn(XMmiDp *InstancePtr, u8 Stream, u8 Fast
 void XMmiDp_SetControllerScaleDownModeEn(XMmiDp *InstancePtr, u8 Stream, u8 ScaleDownModeEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((ScaleDownModeEn == 0) || (ScaleDownModeEn == 1));
 
@@ -1682,10 +1592,8 @@ void XMmiDp_SetControllerScaleDownModeEn(XMmiDp *InstancePtr, u8 Stream, u8 Scal
 void XMmiDp_SetControllerDisableInterleaving(XMmiDp *InstancePtr, u8 Stream, u8 DisableInterleaving)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((DisableInterleaving == 0) || (DisableInterleaving == 1));
 
@@ -1707,10 +1615,8 @@ void XMmiDp_SetControllerDisableInterleaving(XMmiDp *InstancePtr, u8 Stream, u8 
 void XMmiDp_SetControllerSelAuxTimeout32Ms(XMmiDp *InstancePtr, u8 Stream, u8 SelAuxTimeout32Ms)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((SelAuxTimeout32Ms == 0) || (SelAuxTimeout32Ms == 1));
 
@@ -1732,10 +1638,8 @@ void XMmiDp_SetControllerSelAuxTimeout32Ms(XMmiDp *InstancePtr, u8 Stream, u8 Se
 void XMmiDp_SetControllerMstModeEn(XMmiDp *InstancePtr, u8 Stream, u8 MstModeEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((MstModeEn == 0) || (MstModeEn == 1));
 
@@ -1757,10 +1661,8 @@ void XMmiDp_SetControllerMstModeEn(XMmiDp *InstancePtr, u8 Stream, u8 MstModeEn)
 void XMmiDp_SetControllerFecEn(XMmiDp *InstancePtr, u8 Stream, u8 FecEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((FecEn == 0) || (FecEn == 1));
 
@@ -1782,10 +1684,8 @@ void XMmiDp_SetControllerFecEn(XMmiDp *InstancePtr, u8 Stream, u8 FecEn)
 void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((eDpEn == 0) || (eDpEn == 1));
 
@@ -1807,10 +1707,8 @@ void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn)
 void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 InitiateMstActSeq)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	Xil_AssertVoid((InitiateMstActSeq == 0) || (InitiateMstActSeq == 1));
 
@@ -1838,10 +1736,8 @@ void XMmiDp_SetCoreCtrl(XMmiDp *InstancePtr, u8 Stream)
 	u32 RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
-		       (Stream == XMMIDP_STREAM_ID2) ||
-		       (Stream == XMMIDP_STREAM_ID3) ||
-		       (Stream == XMMIDP_STREAM_ID4));
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
 
 	RegOffset = XMMIDP_CCTL0 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
@@ -1936,7 +1832,7 @@ u32 XMmiDp_WaitPayloadTableUpdateStatus(XMmiDp *InstancePtr)
 			       1, &AuxReply);
 
 		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
-			xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS timeout error\n");
+			xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS timeout error\r\n");
 
 			return XST_ERROR_COUNT_MAX;
 		}
@@ -1947,7 +1843,7 @@ u32 XMmiDp_WaitPayloadTableUpdateStatus(XMmiDp *InstancePtr)
 	} while ((AuxReply & XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK) !=
 		 XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK);
 
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\r\n", AuxReply);
 
 	return XST_SUCCESS;
 
@@ -1975,7 +1871,7 @@ u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr)
 			       1, &AuxReply);
 
 		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
-			xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS timeout error\n");
+			xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS timeout error\r\n");
 
 			return XST_ERROR_COUNT_MAX;
 		}
@@ -1986,7 +1882,7 @@ u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr)
 	} while ((AuxReply & XMMIDP_DPCD_VC_PAYLOAD_ACT_HANDLED_MASK) !=
 		 XMMIDP_DPCD_VC_PAYLOAD_ACT_HANDLED_MASK);
 
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\r\n", AuxReply);
 	return XST_SUCCESS;
 
 }
@@ -2016,7 +1912,7 @@ u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 
 	Status = XMmiDp_WaitActHandledStatus(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failed to handle ACT trigger sequence\n");
+		xil_printf("Failed to handle ACT trigger sequence\r\n");
 		return Status;
 	}
 
@@ -2025,7 +1921,7 @@ u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 		Status &= XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK;
 
 		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
-			xil_printf("CCTL0_INITIATE_MST_ACT_SEQ timeout error\n");
+			xil_printf("CCTL0_INITIATE_MST_ACT_SEQ timeout error\r\n");
 
 			return XST_ERROR_COUNT_MAX;
 		}
@@ -2117,4 +2013,313 @@ void XMmiDp_SetMstVcpTable7(XMmiDp *InstancePtr, u32 Payload)
 			XMMIDP_MST_VCP_TABLE_REG7, Payload);
 
 }
+/******************************************************************************/
+/**
+ * Computes the MSA Misc0 field from the stream's BitsPerColor and the
+ * supplied color format, and stores the result in MsaConfig[Stream].Misc0.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2).
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+void XMmiDp_ComputeMisc0(XMmiDp *InstancePtr, u8 Stream,
+			 XVidC_ColorFormat ColorFormat)
+{
+	XMmiDp_MainStreamAttributes *MsaConfig;
+	u32 Bdc;
+	u32 CompFmt;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+
+	switch (MsaConfig->BitsPerColor) {
+	case 6:
+		Bdc = 0;
+		break;
+	case 10:
+		Bdc = 2;
+		break;
+	case 12:
+		Bdc = 3;
+		break;
+	case 8:
+		/* fall through */
+	default:
+		Bdc = 1;
+		break;
+	}
+
+	switch (ColorFormat) {
+	case XVIDC_CSF_YCRCB_422:
+		CompFmt = 1;
+		break;
+	case XVIDC_CSF_YCRCB_444:
+		CompFmt = 2;
+		break;
+	case XVIDC_CSF_RGB:
+		/* fall through */
+	default:
+		CompFmt = 0;
+		break;
+	}
+
+	MsaConfig->Misc0 = (Bdc << XMMIDP_MISC0_BDC_SHIFT) |
+			   XMMIDP_MISC0_DYN_RANGE_BIT |
+			   (CompFmt << XMMIDP_MISC0_COMP_FMT_SHIFT);
+}
+
+/******************************************************************************/
+/**
+ * Computes the HBlankInterval register value from the stream's HBlank,
+ * BitsPerColor, and the supplied color format, and stores the result in
+ * MsaConfig[Stream].HBlankInterval.
+ *
+ * HBlankInterval = HBlank (pixels) x BytesPerPixel.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2/4:2:0).
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+void XMmiDp_ComputeHBlankInterval(XMmiDp *InstancePtr, u8 Stream,
+				  XVidC_ColorFormat ColorFormat)
+{
+	XMmiDp_MainStreamAttributes *MsaConfig;
+	XMmiDp_VideoConfig *VideoConfig;
+	u32 ComponentsPerPixel;
+	u64 HBlankInterval;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	VideoConfig = &InstancePtr->VideoConfig[Stream - 1];
+
+	switch (ColorFormat) {
+	case XVIDC_CSF_YCRCB_422:
+		ComponentsPerPixel = 2;
+		break;
+	case XVIDC_CSF_YONLY:
+		ComponentsPerPixel = 1;
+		break;
+	case XVIDC_CSF_RGB:
+	case XVIDC_CSF_YCRCB_444:
+		/* fall through */
+	default:
+		ComponentsPerPixel = 3;
+		break;
+	}
+
+	HBlankInterval = (u64)VideoConfig->HBlank *
+			 (u64)MsaConfig->BitsPerColor *
+			 (u64)ComponentsPerPixel;
+	HBlankInterval /= 8U;
+
+	if (HBlankInterval == 0U)
+		HBlankInterval = 1U;
+
+	MsaConfig->HBlankInterval = (u32)HBlankInterval;
+}
+
+/******************************************************************************/
+/**
+ * Computes AvgBytesPerTu, AvgBytesPerTuFrac, InitThreshold, and
+ * InitThresholdHi for the VIDEO_CONFIG5 register using the stream's
+ * pixel clock, color depth, link config, and blanking parameters.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2/4:2:0).
+ * @return	None.
+ *
+ ******************************************************************************/
+void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
+			    XVidC_ColorFormat ColorFormat)
+{
+	XMmiDp_MainStreamAttributes *MsaConfig;
+	XMmiDp_VideoConfig *VideoConfig;
+	XMmiDp_LinkConfig *LinkConfig;
+	u64 PeakStreamBw;
+	u64 LinkBw;
+	u32 BitsPerPixel;
+	u32 AvgInt, AvgFrac;
+	u32 Threshold;
+	u16 LinkRateMHz;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	VideoConfig = &InstancePtr->VideoConfig[Stream - 1];
+	LinkConfig = &InstancePtr->LinkConfig;
+
+	switch (LinkConfig->LinkRate) {
+	case XMMIDP_PHY_RATE_HBR3_810GBPS:
+		LinkRateMHz = XMMIDP_HBR3_LINK_RATE;
+		break;
+	case XMMIDP_PHY_RATE_HBR2_540GBPS:
+		LinkRateMHz = XMMIDP_HBR2_LINK_RATE;
+		break;
+	case XMMIDP_PHY_RATE_HBR_270GBPS:
+		LinkRateMHz = XMMIDP_HBR_LINK_RATE;
+		break;
+	case XMMIDP_PHY_RATE_RBR_162GBPS:
+		/* fall through */
+	default:
+		LinkRateMHz = XMMIDP_RBR_LINK_RATE;
+		break;
+	}
+
+	switch (ColorFormat) {
+	case XVIDC_CSF_YCRCB_422:
+		BitsPerPixel = MsaConfig->BitsPerColor * 2;
+		break;
+	case XVIDC_CSF_YONLY:
+		BitsPerPixel = MsaConfig->BitsPerColor;
+		break;
+	case XVIDC_CSF_YCRCB_420:
+		BitsPerPixel = MsaConfig->BitsPerColor * 3;
+		break;
+	case XVIDC_CSF_RGB:
+	case XVIDC_CSF_YCRCB_444:
+		/* fall through */
+	default:
+		BitsPerPixel = MsaConfig->BitsPerColor * 3;
+		break;
+	}
+
+	PeakStreamBw = ((u64)MsaConfig->PixelClockHz * (u64)BitsPerPixel) /
+		       XMMIDP_BITS_PER_BYTE;
+	if (ColorFormat == XVIDC_CSF_YCRCB_420)
+		PeakStreamBw /= XMMIDP_YCBCR420_BW_DIVISOR;
+
+	LinkBw = (u64)LinkConfig->NumLanes * LinkRateMHz * XMMIDP_MHZ_TO_HZ;
+	if (LinkBw == 0U) {
+		xil_printf("[VID] WARNING: Invalid link bandwidth (lanes=%d rate=%d)\r\n",
+			   LinkConfig->NumLanes, LinkConfig->LinkRate);
+		Threshold = XMMIDP_TU_THRESHOLD_DEFAULT;
+		VideoConfig->AvgBytesPerTu = 0U;
+		VideoConfig->AvgBytesPerTuFrac = 0U;
+		VideoConfig->InitThreshold =
+			(u8)(Threshold & XMMIDP_INIT_THRESHOLD_LO_MASK);
+		VideoConfig->InitThresholdHi =
+			(u8)((Threshold >> XMMIDP_INIT_THRESHOLD_LO_BITS) &
+			     XMMIDP_INIT_THRESHOLD_HI_MASK);
+		return;
+	}
+
+	AvgInt = (u32)((PeakStreamBw * XMMIDP_TU_SIZE) / LinkBw);
+	AvgFrac = (u32)(((PeakStreamBw * XMMIDP_TU_SIZE) % LinkBw) *
+		  XMMIDP_TU_FRAC_SCALE / LinkBw);
+
+	if (AvgInt > XMMIDP_TU_AVG_MAX)
+		AvgInt = XMMIDP_TU_AVG_MAX;
+	if (AvgFrac > XMMIDP_TU_AVG_MAX)
+		AvgFrac = XMMIDP_TU_AVG_MAX;
+
+	VideoConfig->AvgBytesPerTu = (u8)AvgInt;
+	VideoConfig->AvgBytesPerTuFrac = (u8)AvgFrac;
+
+	if (AvgInt <= XMMIDP_TU_LOW_AVG_BOUNDARY) {
+		Threshold = XMMIDP_TU_THRESHOLD_LOW_AVG;
+	} else if (ColorFormat == XVIDC_CSF_YCRCB_420 &&
+		   VideoConfig->HBlank <= XMMIDP_TU_HBLANK_NARROW_420) {
+		Threshold = XMMIDP_TU_THRESHOLD_NARROW_420;
+	} else if (VideoConfig->HBlank <= XMMIDP_TU_HBLANK_NARROW) {
+		Threshold = XMMIDP_TU_THRESHOLD_NARROW;
+	} else {
+		Threshold = XMMIDP_TU_THRESHOLD_DEFAULT;
+	}
+
+	VideoConfig->InitThreshold =
+		(u8)(Threshold & XMMIDP_INIT_THRESHOLD_LO_MASK);
+	VideoConfig->InitThresholdHi =
+		(u8)((Threshold >> XMMIDP_INIT_THRESHOLD_LO_BITS) &
+		     XMMIDP_INIT_THRESHOLD_HI_MASK);
+}
+
+/******************************************************************************/
+/**
+ * Configures the video controller with standard video mode timing parameters
+ * including HActive, VActive, sync widths, blanking intervals, pixel clock,
+ * and dynamically computed MSA and transfer unit parameters.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	VideoMode is the standard video mode to configure.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2/4:2:0).
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
+	XVidC_VideoMode VideoMode, u8 Stream,
+	XVidC_ColorFormat ColorFormat)
+{
+	XMmiDp_VideoConfig *VideoConfig;
+	XMmiDp_MainStreamAttributes *MsaConfig;
+	const XVidC_VideoTimingMode *Vtm;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
+		       (Stream <= XMMIDP_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+
+	Xil_AssertVoid((MsaConfig->BitsPerColor == 6) ||
+		       (MsaConfig->BitsPerColor == 8) ||
+		       (MsaConfig->BitsPerColor == 10) ||
+		       (MsaConfig->BitsPerColor == 12));
+
+	VideoConfig = &InstancePtr->VideoConfig[Stream - 1];
+	Vtm = XVidC_GetVideoModeData(VideoMode);
+	if (Vtm == NULL) {
+		xil_printf("[VID] WARNING: Invalid or unsupported video mode (%d)\r\n",
+			   (int)VideoMode);
+		return;
+	}
+
+	VideoConfig->HActive = Vtm->Timing.HActive;
+	VideoConfig->HBlank = Vtm->Timing.HFrontPorch +
+			      Vtm->Timing.HBackPorch +
+			      Vtm->Timing.HSyncWidth;
+	VideoConfig->I_P = XVidC_IsInterlaced(Vtm->VmId);
+
+	VideoConfig->VBlank = Vtm->Timing.F0PVFrontPorch +
+			      Vtm->Timing.F0PVBackPorch +
+			      Vtm->Timing.F0PVSyncWidth;
+	VideoConfig->VActive = Vtm->Timing.VActive;
+
+	VideoConfig->HSyncWidth = Vtm->Timing.HSyncWidth;
+	VideoConfig->VSyncWidth = Vtm->Timing.F0PVSyncWidth;
+
+	MsaConfig->HStart = Vtm->Timing.HSyncWidth + Vtm->Timing.HBackPorch;
+	MsaConfig->VStart = Vtm->Timing.F0PVSyncWidth +
+			    Vtm->Timing.F0PVBackPorch;
+
+	VideoConfig->HSyncInPolarity = XMMIDP_HSYNC_IN_POLARITY_ACTIVE_HIGH;
+	VideoConfig->VSyncInPolarity = XMMIDP_VSYNC_IN_POLARITY_ACTIVE_HIGH;
+
+	MsaConfig->PixelClockHz =
+		XVidC_GetPixelClockHzByVmId(Vtm->VmId);
+
+	MsaConfig->MVid  = XMMIDP_MVID_ASYNC_DEFAULT;
+	MsaConfig->NVid  = XMMIDP_NVID_ASYNC_DEFAULT;
+	MsaConfig->Misc1 = XMMIDP_MISC1_DEFAULT;
+
+	XMmiDp_ComputeMisc0(InstancePtr, Stream, ColorFormat);
+	XMmiDp_ComputeHBlankInterval(InstancePtr, Stream, ColorFormat);
+	XMmiDp_ComputeTuParams(InstancePtr, Stream, ColorFormat);
+}
+
 /** @} */

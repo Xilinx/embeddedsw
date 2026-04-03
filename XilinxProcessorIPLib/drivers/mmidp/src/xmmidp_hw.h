@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -47,6 +47,13 @@ extern "C" {
 
 #define XMMIDP_MAX_VS_LEVEL	0x3
 #define XMMIDP_MAX_PE_LEVEL	0x3
+#define XMMIDP_MAX_NUM_LANES	4
+#define XMMIDP_FAST_LINK_ENABLE		0x1
+#define XMMIDP_FAST_LINK_DISABLE	0x0
+#define XMMIDP_ENHANCE_FRAMING_ENABLE	0x1
+#define XMMIDP_ENHANCE_FRAMING_DISABLE	0x0
+#define XMMIDP_SCRAMBLE_ENABLE		0x0
+#define XMMIDP_SCRAMBLE_DISABLE		0x1
 
 /* Core Control */
 #define XMMIDP_CCTL0					0x200
@@ -153,6 +160,12 @@ extern "C" {
 #define XMMIDP_SFT_RST_CTRL0_CNTRLR_RST_SHIFT			0
 #define XMMIDP_SFT_RST_CTRL0_CNTRLR_RST_WIDTH			1
 #define XMMIDP_SFT_RST_CTRL0_CNTRLR_RST_MASK			0x00000001
+
+#define XMMIDP_SFT_RST_CTRL0_ALL_MASK		\
+	(XMMIDP_SFT_RST_CTRL0_CNTRLR_RST_MASK |	\
+	 XMMIDP_SFT_RST_CTRL0_HDCP_MODULE_RST_MASK |	\
+	 XMMIDP_SFT_RST_CTRL0_AUD_SMPLR_RST_MASK |	\
+	 XMMIDP_SFT_RST_CTRL0_AUX_RST_MASK)
 
 /* MST_VCP_TABLE_REG0 */
 #define XMMIDP_MST_VCP_TABLE_REG0				0x210
@@ -1026,7 +1039,7 @@ extern "C" {
 
 #define XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_SHIFT	5
 #define XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_WIDTH	1
-#define XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_MASK	0x00000010
+#define XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_MASK	0x00000020
 
 /* VINPUT_POLARITY_CTRL */
 #define XMMIDP_VINPUT_POLARITY_CTRL				0x0030C
@@ -1588,6 +1601,7 @@ extern "C" {
 #define XMMIDP_DPCD_TRAINING_PATTERN_SELECT_SHIFT	0
 #define XMMIDP_DPCD_TRAINING_PATTERN_SELECT_WIDTH	4
 #define XMMIDP_DPCD_TRAINING_PATTERN_SELECT_MASK	0x0F
+#define XMMIDP_DPCD_TPS4_PATTERN_SELECT		0x7
 
 /*
  *  * Register: XMMIDP_DPCD_TRAINING_LANE0_SET
@@ -1978,6 +1992,16 @@ extern "C" {
 *******************************************************************************/
 #define XMmiDp_WriteReg(BaseAddress, RegOffset, Data) \
 	XMmiDp_Out32((BaseAddress) + (RegOffset), (Data))
+
+/* MSA Misc0 bit-field positions */
+#define XMMIDP_MISC0_BDC_SHIFT		5
+#define XMMIDP_MISC0_COMP_FMT_SHIFT	1
+#define XMMIDP_MISC0_DYN_RANGE_BIT	(1U << 3)
+
+/* Async clock mode defaults */
+#define XMMIDP_NVID_ASYNC_DEFAULT	0x8000
+#define XMMIDP_MVID_ASYNC_DEFAULT	0x0
+#define XMMIDP_MISC1_DEFAULT		0x0
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -285,6 +285,7 @@ typedef struct {
 	u8 ScrambleEn;
 	u8 VsLevelUpdated;
 	u8 PeLevelUpdated;
+	u8 LinkTrained;
 } XMmiDp_LinkConfig;
 
 /**
@@ -398,6 +399,7 @@ typedef struct {
 
 typedef void (*XMmiDp_HpdIrqHandler)(void *InstancePtr);
 typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
+typedef void (*XMmiDp_HpdHotUnplugHandler)(void *InstancePtr);
 
 /**
  * The XMmiDp driver instance data. The user is required to allocate a variable
@@ -424,8 +426,10 @@ typedef struct {
 	XMmiDp_Config Config;
 	void *HpdHotPlugCallbackRef;
 	void *HpdIrqCallbackRef;
+	void *HpdHotUnplugCallbackRef;
 	XMmiDp_HpdIrqHandler HpdIrqHandler;
 	XMmiDp_HpdHotPlugHandler HpdHotPlugHandler;
+	XMmiDp_HpdHotUnplugHandler HpdHotUnplugHandler;
 } XMmiDp;
 
 /**************************** Function Prototypes *****************************/
@@ -441,7 +445,7 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 
 void XMmiDp_RegReadModifyWrite(XMmiDp *InstancePtr, u32 RegOffset, u32
 			       Mask, u32 Shift, u32 Val);
-void XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 RegOffset, u32
+u32 XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 RegOffset, u32
 				Mask, u32 Shift, u32 Val);
 /* Phy Control Config */
 
@@ -470,6 +474,9 @@ void XMmiDp_SetAux_2000Us_Cnt_Limit(XMmiDp *InstancePtr, u16 Limit);
 void XMmiDp_SetAux_100000Us_Cnt_Limit(XMmiDp *InstancePtr, u32 Limit);
 void XMmiDp_SetPmConfig1(XMmiDp *InstancePtr, u32 Val);
 void XMmiDp_SetPmConfig2(XMmiDp *InstancePtr, u32 Val);
+void XMmiDp_SetAuxDebug(u8 Enable);
+void XMmiDp_AuxSoftReset(XMmiDp *InstancePtr);
+void XMmiDp_CoreSoftResetAll(XMmiDp *InstancePtr);
 
 /* HPD */
 u32 XMmiDp_IsConnected(XMmiDp *InstancePtr);
@@ -477,15 +484,21 @@ void XMmiDp_SetHpdIrqHandler(XMmiDp *InstancePtr, XMmiDp_HpdIrqHandler CallbackF
 			     void *CallbackRef);
 void XMmiDp_SetHpdHotPlugHandler(XMmiDp *InstancePtr, XMmiDp_HpdHotPlugHandler CallbackFun,
 				 void *CallbackRef);
+void XMmiDp_SetHpdHotUnplugHandler(XMmiDp *InstancePtr, XMmiDp_HpdHotUnplugHandler CallbackFun,
+				   void *CallbackRef);
 
 void XMmiDp_HpdInterruptHandler(XMmiDp *InstancePtr);
+void XMmiDp_GeneralInterruptHandler(XMmiDp *InstancePtr);
+void XMmiDp_ClearGeneralHpdEvent(XMmiDp *InstancePtr);
 
 /* EDID */
 u32 XMmiDp_GetEdidBlock(XMmiDp *InstancePtr, u8 *Data, u8 BlockNum);
 
-/* Interrupt Enable */
+/* Interrupt Enable/Disable */
 void XMmiDp_GeneralInterruptEnable(XMmiDp *InstancePtr, u32 Mask);
+void XMmiDp_GeneralInterruptDisable(XMmiDp *InstancePtr, u32 Mask);
 void XMmiDp_HpdInterruptEnable(XMmiDp *InstancePtr, u32 Mask);
+void XMmiDp_HpdInterruptDisable(XMmiDp *InstancePtr, u32 Mask);
 void XMmiDp_SdpStatusInterruptEnable(XMmiDp *InstancePtr, u32 Mask);
 
 /* DPCD */
@@ -558,6 +571,16 @@ void XMmiDp_SetVideoMapping(XMmiDp *InstancePtr,
 			    u8 Stream, XMmiDp_VidMap VidMap);
 void XMmiDp_SetVidStreamEnable(XMmiDp *InstancePtr, u8 Stream,
 			       u8 StreamEnable);
+
+void XMmiDp_ComputeMisc0(XMmiDp *InstancePtr, u8 Stream,
+			 XVidC_ColorFormat ColorFormat);
+void XMmiDp_ComputeHBlankInterval(XMmiDp *InstancePtr, u8 Stream,
+				  XVidC_ColorFormat ColorFormat);
+void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
+			    XVidC_ColorFormat ColorFormat);
+void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
+	XVidC_VideoMode VideoMode, u8 Stream,
+	XVidC_ColorFormat ColorFormat);
 
 void XMmiDp_ConfigureAudioController(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_SetAudStreamInterfaceSel(XMmiDp *InstancePtr, u8 Stream, u8 InterfaceSel);
