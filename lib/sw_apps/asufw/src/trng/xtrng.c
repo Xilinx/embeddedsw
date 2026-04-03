@@ -229,6 +229,12 @@ s32 XTrng_CfgInitialize(XTrng *InstancePtr)
 		goto END;
 	}
 
+	/** Check if TRNG instance is already initialized. */
+	if (InstancePtr->IsReady == XIL_COMPONENT_IS_READY) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
 	CfgPtr = XTrng_LookupConfig(InstancePtr->DeviceId);
 	if (CfgPtr == NULL) {
 		Status = XASUFW_TRNG_INVALID_PARAM;

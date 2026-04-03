@@ -394,6 +394,12 @@ s32 XAes_CfgInitialize(XAes *InstancePtr)
 		goto END;
 	}
 
+	/** Check if AES instance is already initialized. */
+	if (InstancePtr->AesState >= XAES_INITIALIZED) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
 	CfgPtr = XAes_LookupConfig(InstancePtr->DeviceId);
 	if (CfgPtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;

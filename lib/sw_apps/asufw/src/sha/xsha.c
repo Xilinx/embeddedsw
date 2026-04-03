@@ -212,6 +212,12 @@ s32 XSha_CfgInitialize(XSha *InstancePtr)
 		goto END;
 	}
 
+	/** Check if SHA instance is already initialized. */
+	if (InstancePtr->ShaState >= XSHA_INITIALIZED) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
 	CfgPtr = XSha_LookupConfig(InstancePtr->DeviceId);
 	if (CfgPtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;

@@ -113,6 +113,12 @@ s32 XHmac_CfgInitialize(XHmac *InstancePtr)
 		goto END;
 	}
 
+	/** Check if HMAC instance is already initialized. */
+	if (InstancePtr->HmacState >= XHMAC_INITIALIZED) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
 	/** Update HMAC state to XHMAC_INITIALIZED. */
 	InstancePtr->HmacState = XHMAC_INITIALIZED;
 	Status = XASUFW_SUCCESS;
