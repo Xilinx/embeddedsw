@@ -655,6 +655,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		 *   This ensures hardware has prepared the next chunk of data
 		 *   before attempting to read from PMC TAP registers
 		 */
+		Status = XST_FAILURE;
 		Status = (int)Xil_WaitForEvent((UINTPTR)XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK, XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK,
 			XLOADER_AUTH_JTAG_INT_STATUS_WAIT_TIMEOUT);
@@ -676,6 +677,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		}
 
 		/** - Perform DMA transfer from PMC TAP data registers to memory buffer */
+		Status = XST_FAILURE;
 		Status = XPlmi_DmaXfr(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET, (u64)(UINTPTR)CurrPtr, CopyLen,
 			XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
@@ -695,6 +697,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	 * - Check Secure State of device
 	 * If A-HWRoT is not enabled then return error
 	 */
+	Status = XST_FAILURE;
 	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
 	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 		XPLMI_RTCFG_SECURESTATE_AHWROT);
@@ -772,6 +775,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	}
 
 	/** - Calculate hash for Authenticated JTAG signature */
+	Status = XST_FAILURE;
 	Status = XLoader_ShaDigestCalculation((u8 *)&SecureParams.AuthJtagMessagePtr->IdWord,
 			(MsgLenInBytes - SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize),
 			&Sha3Hash[0]);
@@ -805,6 +809,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 				goto END;
 			}
 		}
+		Status = XST_FAILURE;
 		Status = XLoader_EnableJtag((u32)XLOADER_CONFIG_DAP_STATE_ALL_DBG);
 		*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 	}
