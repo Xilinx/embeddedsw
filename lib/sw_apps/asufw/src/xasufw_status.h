@@ -181,16 +181,16 @@ enum {
 	XASUFW_SHA2_MODULE_REGISTRATION_FAILED, /**< 0x5CU - Module registration failed for SHA2
 						module */
 	XASUFW_SHA2_INIT_FAILED, /**< 0x5DU - SHA2 initialization failed */
-	XASUFW_SHA2_START_FAILED, /**< 0x5EU - SHA2 start failed */
-	XASUFW_SHA2_UPDATE_FAILED, /**< 0x5FU - SHA2 update failed */
-	XASUFW_SHA2_FINISH_FAILED, /**< 0x60U - SHA2 finish failed */
+	RESERVED1, /**< 0x5EU - Reserved */
+	RESERVED2, /**< 0x5FU - Reserved */
+	RESERVED3, /**< 0x60U - Reserved */
 	XASUFW_SHA2_HASH_COMPARISON_FAILED, /**< 0x61U - SHA2 hash comparison failed */
 	XASUFW_SHA3_MODULE_REGISTRATION_FAILED, /**< 0x62U - Module registration failed for SHA3
 						module */
 	XASUFW_SHA3_INIT_FAILED, /**< 0x63U - SHA3 initialization failed */
-	XASUFW_SHA3_START_FAILED, /**< 0x64U - SHA3 start failed */
-	XASUFW_SHA3_UPDATE_FAILED, /**< 0x65U - SHA3 update failed */
-	XASUFW_SHA3_FINISH_FAILED, /**< 0x66U - SHA3 finish failed */
+	RESERVED4, /**< 0x64U - Reserved */
+	RESERVED5, /**< 0x65U - Reserved */
+	RESERVED6, /**< 0x66U - Reserved */
 	XASUFW_SHA3_HASH_COMPARISON_FAILED, /**< 0x67U - SHA3 hash comparison failed */
 	XASUFW_TRNG_MODULE_REGISTRATION_FAILED, /**< 0x68U - TRNG module registration failed */
 	XASUFW_TRNG_INVALID_PARAM, /**< 0x69U - TRNG invalid input parameters received */
@@ -552,9 +552,9 @@ enum {
 	XASUFW_OCP_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
-	RESERVED2, /**< 0x178U - Reserved */
-	RESERVED3, /**< 0x179U - Reserved */
-	RESERVED4, /**< 0x17AU - Reserved */
+	RESERVED7, /**< 0x178U - Reserved */
+	RESERVED8, /**< 0x179U - Reserved */
+	RESERVED9, /**< 0x17AU - Reserved */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
 	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when IPI access is not available */
@@ -576,8 +576,8 @@ enum {
 	XASUFW_OCP_AES_WRITE_KEY_FAILURE, /**< 0x189U - Error when AES write key operation fails */
 	XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when UDE key encryption is failed */
 	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
-	RESERVED5, /**< 0x18CU - Reserved */
-	RESERVED6, /**< 0x18DU - Reserved */
+	RESERVED10, /**< 0x18CU - Reserved */
+	RESERVED11, /**< 0x18DU - Reserved */
 	XASUFW_OCP_UDE_AES_COMPUTE_FAIL, /**< 0x18EU - Error when UDE AES compute operation fails */
 	XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when UDE challenge response operation fails */
 	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */
@@ -750,6 +750,7 @@ enum {
 	XASUFW_KDF_IV_IS_ZERO, /**< 0x21AU - Error when KDF IV is zero */
 	XASUFW_KDF_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x21BU - Error when KDF decrypts black key 0
 						fails */
+	XASUFW_SHA_FINISH_FAILED, /**< 0x21CU - Error when SHA finish operation fails */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

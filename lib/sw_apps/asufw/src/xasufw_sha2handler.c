@@ -26,6 +26,7 @@
  *                     Updated copying the hash to response buffer
  *       ma   12/23/24 Allocate SHA resource for SHA start and SHA finish as well
  *       am   07/18/25 Added core reset support for single glitch recovery
+ *       rmv  04/01/26 Moved common SHA operation and KAT logic to xasufw_shahandler_common.c
  *
  * </pre>
  *
@@ -36,15 +37,13 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xasufw_sha2handler.h"
+#include "xasufw_shahandler_common.h"
 #include "xasufw_modules.h"
 #include "xasufw_status.h"
 #include "xsha.h"
-#include "xsha_hw.h"
-#include "xasufw_util.h"
 #include "xasufw_resourcemanager.h"
-#include "xasufw_debug.h"
-#include "xasufw_kat.h"
 #include "xasu_shainfo.h"
+#include "xsha_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -53,12 +52,10 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
-static XAsufw_Module XAsufw_Sha2Module; /**< ASUFW SHA2 Module ID and commands array */
+static XAsufw_ShaContext XAsufw_Sha2Context; /**< ASUFW SHA2 common context */
 
 /*************************************************************************************************/
 /**
@@ -73,12 +70,11 @@ static XAsufw_Module XAsufw_Sha2Module; /**< ASUFW SHA2 Module ID and commands a
 s32 XAsufw_Sha2Init(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 
 	/** The XAsufw_Sha2Cmds array contains the list of commands supported by SHA2 module. */
 	static const XAsufw_ModuleCmd XAsufw_Sha2Cmds[XASU_SHA_MAX_CMDS] = {
-		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha2Operation),
-		[XASU_SHA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha2Kat),
+		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_ShaOperation),
+		[XASU_SHA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_ShaKatOperation),
 	};
 
 	/** The XAsufw_Sha2ResourcesBuf contains the required resources for each supported command. */
@@ -93,23 +89,25 @@ s32 XAsufw_Sha2Init(void)
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_KAT_CMD_ID),
 	};
 
-	XAsufw_Sha2Module.Id = XASU_MODULE_SHA2_ID;
-	XAsufw_Sha2Module.Cmds = XAsufw_Sha2Cmds;
-	XAsufw_Sha2Module.ResourcesRequired = XAsufw_Sha2ResourcesBuf;
-	XAsufw_Sha2Module.CmdCnt = XASU_SHA_MAX_CMDS;
-	XAsufw_Sha2Module.ResourceHandler = XAsufw_Sha2ResourceHandler;
-	XAsufw_Sha2Module.AsuDmaPtr = NULL;
-	XAsufw_Sha2Module.AccessPermBufferPtr = XAsufw_Sha2AccessPermBuf;
+	XAsufw_Sha2Context.Module.Id = XASU_MODULE_SHA2_ID;
+	XAsufw_Sha2Context.Module.Cmds = XAsufw_Sha2Cmds;
+	XAsufw_Sha2Context.Module.ResourcesRequired = XAsufw_Sha2ResourcesBuf;
+	XAsufw_Sha2Context.Module.CmdCnt = XASU_SHA_MAX_CMDS;
+	XAsufw_Sha2Context.Module.ResourceHandler = XAsufw_Sha2ResourceHandler;
+	XAsufw_Sha2Context.Module.AsuDmaPtr = NULL;
+	XAsufw_Sha2Context.Module.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	XAsufw_Sha2Context.Module.AccessPermBufferPtr = XAsufw_Sha2AccessPermBuf;
+	XAsufw_Sha2Context.CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 
 	/** Register SHA2 module. */
-	Status = XAsufw_ModuleRegister(&XAsufw_Sha2Module);
+	Status = XAsufw_ModuleRegister(&XAsufw_Sha2Context.Module);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_MODULE_REGISTRATION_FAILED);
 		goto END;
 	}
 
 	/** Initialize the SHA2 crypto engine. */
-	Status = XSha_CfgInitialize(XAsufw_Sha2);
+	Status = XSha_CfgInitialize(XAsufw_Sha2Context.Module.ShaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_INIT_FAILED);
 	}
@@ -143,8 +141,8 @@ static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (((CmdId == XASU_SHA_OPERATION_CMD_ID) &&
 		((Cmd->OperationFlags & (XASU_SHA_UPDATE | XASU_SHA_FINISH)) != 0U)) ||
 		(CmdId == XASU_SHA_KAT_CMD_ID)) {
-		XAsufw_Sha2Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
-		if (XAsufw_Sha2Module.AsuDmaPtr == NULL) {
+		XAsufw_Sha2Context.Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
+		if (XAsufw_Sha2Context.Module.AsuDmaPtr == NULL) {
 			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 			goto END;
 		}
@@ -154,150 +152,6 @@ static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	Status = XASUFW_SUCCESS;
 
 END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for SHA2 operation command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- * 	- XASUFW_SUCCESS, if SHA2 hash operation is successful.
- * 	- XASUFW_FAILURE, in case of failure.
- * 	- XASUFW_SHA2_START_FAILED, if SHA2 start fails.
- * 	- XASUFW_SHA2_UPDATE_FAILED, if SHA2 update fails.
- * 	- XASUFW_SHA2_FINISH_FAILED, if SHA2 finish fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- XASUFW_CMD_IN_PROGRESS, if SHA operation is in progress(non-blocking).
- * 	- XASUFW_INVALID_CMD_STAGE, if command stage is invalid.
- *
- *************************************************************************************************/
-static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
-	static u32 CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
-	u32 *HashAddr;
-
-	switch (CmdStage) {
-	case XSHA_NON_BLOCKING_CMD_STAGE_INIT:
-		if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
-			/** If operation flags include SHA START, perform SHA2 start operation. */
-			Status = XSha_Start(XAsufw_Sha2, Cmd->ShaMode);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_START_FAILED);
-				goto END;
-			}
-		}
-
-		/** If operation flags include SHA UPDATE perform SHA2 update operation. */
-		if ((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) {
-			Status = XSha_Update(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr,
-					     Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
-			if (Status == XASUFW_CMD_IN_PROGRESS) {
-				CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS;
-				XAsufw_DmaCfgNonBlocking(XAsufw_Sha2Module.AsuDmaPtr,
-					XASUDMA_SRC_CHANNEL, ReqBuf, ReqId, XASUFW_RELEASE_DMA);
-				XAsufw_Sha2Module.AsuDmaPtr = NULL;
-				break;
-			} else if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status,
-								  XASUFW_SHA2_UPDATE_FAILED);
-				goto END;
-			} else {
-				/* Do nothing */
-			}
-		}
-		/* fall through */
-	case XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
-		CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
-		if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
-			/** If operation flags include SHA FINISH, perform SHA2 finish operation. */
-			HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
-				XASUFW_RESP_DATA_OFFSET;
-			Status = XSha_Finish(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, HashAddr,
-					Cmd->HashBufSize, XASU_FALSE);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status,
-								  XASUFW_SHA2_FINISH_FAILED);
-				goto END;
-			}
-		} else {
-			if (XAsufw_Sha2Module.AsuDmaPtr != NULL) {
-				/**
-				 * If SHA_FINISH is not set in operation flags and SHA2 update is
-				 * complete, release DMA resource and Idle SHA2 resource.
-				 */
-				Status = XAsufw_ReleaseDmaResource(XAsufw_Sha2Module.AsuDmaPtr,
-						ReqId);
-				if (Status != XASUFW_SUCCESS) {
-					Status = XAsufw_UpdateErrorStatus(Status,
-							XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-				}
-				XAsufw_Sha2Module.AsuDmaPtr = NULL;
-			}
-			XAsufw_IdleResource(XASUFW_SHA2);
-		}
-		break;
-	default:
-		Status = XASUFW_INVALID_CMD_STAGE;
-		break;
-	}
-
-END:
-	if (((Status != XASUFW_SUCCESS) ||
-	     ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH)) &&
-	    (Status != XASUFW_CMD_IN_PROGRESS)) {
-		/** Release resources. */
-		if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-		}
-		XSha_Reset(XAsufw_Sha2);
-		XAsufw_Sha2Module.AsuDmaPtr = NULL;
-	}
-
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for SHA2 KAT command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- * 	- XASUFW_SUCCESS, if KAT is successful.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- Error code from XAsufw_ShaKat API, if any operation fails.
- *
- *************************************************************************************************/
-static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	u32 Sha2Mode = *((u32 *)ReqBuf->Arg);
-
-	if ((Sha2Mode != XASU_SHA_MODE_256) && (Sha2Mode != XASU_SHA_MODE_512)) {
-		Status = XASUFW_SHA_INVALID_SHA_MODE;
-		goto END;
-	}
-
-	/** Perform SHA2 KAT. */
-	Status = XAsufw_ShaKat(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, XASUFW_SHA2, Sha2Mode);
-
-END:
-	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-	}
-	XAsufw_Sha2Module.AsuDmaPtr = NULL;
-
 	return Status;
 }
 /** @} */
