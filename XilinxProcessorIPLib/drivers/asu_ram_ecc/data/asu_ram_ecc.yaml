@@ -1,0 +1,33 @@
+# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for ASU RAM ECC controller
+
+maintainers:
+  - Koushik Parlapalli <koushik.parlapalli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,asu-ram-data-ecc-ctrl-11.0
+          - xlnx,asu-ram-instr-ecc-ctrl-11.0
+          - xlnx,asu-ram-data-ecc-ctrl
+          - xlnx,asu-ram-instr-ecc-ctrl
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,is-ecc:
+    description: Is ECC enabled in H/W
+
+config:
+    - XAsu_Ram_Ecc_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,is-ecc
+...
