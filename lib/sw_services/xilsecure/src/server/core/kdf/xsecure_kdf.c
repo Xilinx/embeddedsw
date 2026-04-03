@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.5   tvp  05/13/25 Initial release
+* 5.7   tbk  03/27/26 Add fault injection protection for HKDF loop counter
 *
 * </pre>
 *
@@ -60,7 +61,7 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 	XSecure_Hmac HmacInstance;
 	u32 KdfValue = 0U;
 	u32 Iterations = 0U;
-	u32 KdfIndex = 0U;
+	volatile u32 KdfIndex = 0U;
 	XSecure_HmacRes Hmac;
 
 	/** Validate input parameters. */
@@ -139,6 +140,12 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 		}
 
 	}
+
+	/* Verify loop index is within expected bounds */
+	if (KdfIndex != Iterations) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+	}
+
 END:
 	return Status;
 }
