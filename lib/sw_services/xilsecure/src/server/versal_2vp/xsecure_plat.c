@@ -18,6 +18,7 @@
 *       sd   11/07/25 Update condition to reflect the revised function return value
 * 5.7   tbk  02/24/26 Add CFI protection for TRNG loop counter
 *       tbk  02/24/26 Correct platform in XSecure_ECCRandInit() header comment and other typo
+*       tbk  02/23/26 Set error status in XSecure_ECCRandInit
 *
 * </pre>
 *
@@ -34,6 +35,7 @@
 #include "xsecure_sha.h"
 #include "xsecure_defs.h"
 #include "xsecure_trng.h"
+#include "xsecure_error.h"
 #include "xplmi.h"
 
 /************************************ Constant Definitions ****************************************/
@@ -369,6 +371,7 @@ int XSecure_ECCRandInit(void)
 		Status = XSecure_PreOperationalSelfTests(TrngInstance);
 		if (Status != XST_SUCCESS) {
 			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			Status = (int)XSECURE_ERR_IN_TRNG_SELF_TESTS;
 			goto END;
 		} else {
 			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
@@ -378,6 +381,7 @@ int XSecure_ECCRandInit(void)
 		(XSecure_TrngIsUninitialized(TrngInstance))) {
 		Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_ERR_TRNG_INIT_N_CONFIG;
 			goto END;
 		}
 	}

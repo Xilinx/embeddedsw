@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -22,6 +22,7 @@
  *       tvp  09/23/25 Add error code for ECC private key generation
  *       tvp  09/23/25 Add error code for HMAC KAT
  * 5.7   tvp  12/10/25 Add error code for invalid SHA384 param
+ *       tbk  03/31/26 Add error code XSECURE_ERR_TRNG_INIT_N_CONFIG, XSECURE_ERR_IN_TRNG_SELF_TESTS
  *
  * </pre>
  *
@@ -180,6 +181,8 @@ enum {
 	XSECURE_ERR_KAT_NOT_EXECUTED,	/**< 0xF5 - Error when KAT is not executed when crypto kat
 					  efuse bit is enabled */
 	XSECURE_ERR_HKDF_INVALID_PARAM,	/**< 0xF6 - Invalid parameters to HKDF */
+	XSECURE_ERR_IN_TRNG_SELF_TESTS = 0xFD,	/**< 0xFD - Error in TRNG operation self tests */
+	XSECURE_ERR_TRNG_INIT_N_CONFIG,		/**< 0xFE - Error in TRNG Instantiate and configuration */
 	XSECURE_ERR_INVALID_ADDR_RANGE = 0xFF		    /**< 0xFF - Error when address range validation fails */
 
 };
