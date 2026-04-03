@@ -17,6 +17,7 @@
 * 5.6   tvp  07/07/25 Initial release
 *       sd   11/07/25 Update condition to reflect the revised function return value
 * 5.7   tbk  02/24/26 Add CFI protection for TRNG loop counter
+*       tbk  02/24/26 Correct platform in XSecure_ECCRandInit() header comment and other typo
 *
 * </pre>
 *
@@ -351,7 +352,7 @@ END:
 /**************************************************************************************************/
 /**
  * @brief	This function initializes the trng in HRNG mode if it is not initialized
- *		and it is applicable only for VersalNet
+ *		and it is applicable only for Versal_2VP
  *
  * @return
  *		 - XST_SUCCESS  On Successful initialization
