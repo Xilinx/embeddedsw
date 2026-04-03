@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -559,27 +559,29 @@ u32 XDcSub_SetChromaKey(XDcSub *InstancePtr, u8 ChromaEnable, u8 ChromaMasterSel
  *
  ******************************************************************************/
 u32 XDcSub_SetCursorBlend(XDcSub *InstancePtr, XDc_CursorBlend Enable,
-			  XDc_Cursor *Cursor)
+		  XDc_Cursor *Cursor)
 {
 	XDc_Blender *DcBlender;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Enable != CB_ENABLE);
-	Xil_AssertNonvoid(Cursor != NULL);
-	Xil_AssertNonvoid(Cursor->CursorAttribute->VideoFormat
-			  != RGBA4444);
 
 	DcBlender = &InstancePtr->DcPtr->Blender;
 
+	/* Set cursor enable state */
 	DcBlender->CursorEnable = Enable;
 
-	DcBlender->Cursor.CursorAttribute =
-		Cursor->CursorAttribute;
+	/* Only validate and assign cursor parameters when enabling */
+	if (Enable == CB_ENABLE) {
+		Xil_AssertNonvoid(Cursor != NULL);
+		Xil_AssertNonvoid(Cursor->CursorAttribute != NULL);
+		Xil_AssertNonvoid(Cursor->CursorAttribute->VideoFormat == RGBA4444);
 
-	DcBlender->Cursor.CoordY = Cursor->CoordY;
-	DcBlender->Cursor.CoordX = Cursor->CoordX;
-	DcBlender->Cursor.SizeY = Cursor->SizeY;
-	DcBlender->Cursor.SizeX = Cursor->SizeX;
+		DcBlender->Cursor.CursorAttribute = Cursor->CursorAttribute;
+		DcBlender->Cursor.CoordY = Cursor->CoordY;
+		DcBlender->Cursor.CoordX = Cursor->CoordX;
+		DcBlender->Cursor.SizeY = Cursor->SizeY;
+		DcBlender->Cursor.SizeX = Cursor->SizeX;
+	}
 
 	return XST_SUCCESS;
 }
