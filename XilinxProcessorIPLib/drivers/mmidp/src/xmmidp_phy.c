@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -38,6 +38,11 @@
 #define XMMIDP_AUX_MAX_DATA_BYTES		16
 
 #define XMMIDP_EDID_BLOCK_SIZE			128
+
+static u8 XMmiDp_AuxDebugEnabled = 0;
+
+#define XMmiDp_AuxDbg(fmt, ...) \
+	do { if (XMmiDp_AuxDebugEnabled) xil_printf("[AUX] " fmt, ##__VA_ARGS__); } while (0)
 #define XMMIDP_EDID_ADDR			0x50
 #define XMMIDP_SEGPTR_ADDR			0x30
 #define XMMIDP_MAX_SEGMENT_SIZE			256
@@ -67,9 +72,9 @@ void XMmiDp_WaitUs(XMmiDp *InstancePtr, u32 MicroSeconds)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	if (!MicroSeconds) {
+	if (!MicroSeconds)
 		return;
-	}
+
 	/* Wait the requested amount of time. */
 	usleep(MicroSeconds);
 }
@@ -158,11 +163,16 @@ static u32 XMmiDp_GetAuxData(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
 		XMmiDp_WaitUs(InstancePtr, 100);
 		TimeoutCount++;
 		if (TimeoutCount >= XMMIDP_AUX_MAX_TIMEOUT_COUNT) {
+			XMmiDp_AuxDbg("GetAuxData: timeout waiting for %d bytes\n",
+				       Request->NumBytes);
 			return XST_ERROR_COUNT_MAX;
 		}
 
 		BytesRead = (Status & XMMIDP_AUX_BYTES_READ_MASK) >>
 			    XMMIDP_AUX_BYTES_READ_SHIFT;
+		if (BytesRead == 0)
+			continue;
+
 		BytesRead -= 1;
 	} while (BytesRead != Request->NumBytes);
 
@@ -204,9 +214,9 @@ static u32 XMmiDp_AuxWaitReady(XMmiDp *InstancePtr)
 		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
 					XMMIDP_GEN_INT0);
 
-		if (!Timeout --) {
+		if (!Timeout --)
 			return XST_ERROR_COUNT_MAX;
-		}
+
 
 		XMmiDp_WaitUs(InstancePtr, XMMIDP_AUX_REPLY_TIMEOUT_TIMER);
 
@@ -243,10 +253,17 @@ static u32 XMmiDp_AuxWaitReply(XMmiDp *InstancePtr)
 		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
 					XMMIDP_AUX_STATUS0);
 
+		/* Check for HW timeout (spec step 5). */
+		if (Status & XMMIDP_AUX_TIMEOUT_MASK) {
+			XMmiDp_AuxDbg("WaitReply: HW timeout (STATUS0=0x%08X)\n", Status);
+			return XST_ERROR_COUNT_MAX;
+		}
+
 		ReplyError = (Status & XMMIDP_AUX_REPLY_ERR_MASK) >>
 			     XMMIDP_AUX_REPLY_ERR_SHIFT;
 		/* Check for error. */
 		if (ReplyError) {
+			XMmiDp_AuxDbg("WaitReply: reply error (STATUS0=0x%08X)\n", Status);
 			return XST_ERROR_COUNT_MAX;
 		}
 
@@ -255,9 +272,9 @@ static u32 XMmiDp_AuxWaitReply(XMmiDp *InstancePtr)
 
 		/* Check for a reply. */
 		/* This bit resets to 0 when AUX transfer completes */
-		if (ReplyReceived == XMMIDP_AUX_REPLY_RECEIVED) {
+		if (ReplyReceived == XMMIDP_AUX_REPLY_RECEIVED)
 			return XST_SUCCESS;
-		}
+
 
 		(Timeout--);
 		XMmiDp_WaitUs(InstancePtr, XMMIDP_AUX_REPLY_TIMEOUT_TIMER);
@@ -289,7 +306,9 @@ static u32 XMmiDp_AuxWaitReply(XMmiDp *InstancePtr)
 static u32 XMmiDp_SetAuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request)
 {
 
-	u32 Status;
+	u32 Status = XST_SUCCESS;
+	u32 IntStatus;
+	u32 RawStatus;
 	u32 RegVal = 0;
 	u32 TimeoutCount = 0;
 	u32 AuxState = 0;
@@ -300,9 +319,8 @@ static u32 XMmiDp_SetAuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Requ
 
 		XMmiDp_WaitUs(InstancePtr, XMMIDP_AUX_REPLY_TIMEOUT_TIMER);
 		TimeoutCount++;
-		if (TimeoutCount >= XMMIDP_AUX_MAX_TIMEOUT_COUNT) {
+		if (TimeoutCount >= XMMIDP_AUX_MAX_TIMEOUT_COUNT)
 			return XST_ERROR_COUNT_MAX;
-		}
 
 		AuxState = (Status & XMMIDP_AUX_REPLY_RECEIVED_MASK) >>
 			   XMMIDP_AUX_REPLY_RECEIVED_SHIFT ;
@@ -314,9 +332,8 @@ static u32 XMmiDp_SetAuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Requ
 	/* Program AUX_DATA 0/1/2/3 */
 	if ((Request->Cmd == XMMIDP_AUX_CMD_NATIVE_WRITE) ||
 	    (Request->Cmd == XMMIDP_AUX_CMD_I2C_WRITE) ||
-	    (Request->Cmd == XMMIDP_AUX_CMD_I2C_MOT_WRITE)) {
+	    (Request->Cmd == XMMIDP_AUX_CMD_I2C_MOT_WRITE))
 		XMmiDp_SetAuxData(InstancePtr, Request);
-	}
 
 	/* Program AUX_CMD_TYPE, AUX_ADDR, AUX_LEN */
 	RegVal = Request->NumBytes - 1;
@@ -327,72 +344,144 @@ static u32 XMmiDp_SetAuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Requ
 
 	/* Wait for Aux Reply */
 	Status = XMmiDp_AuxWaitReply(InstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return Status;
-	}
 
 	/* Handle Aux Reply Status */
-	Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_AUX_STATUS0);
-	Status = Status & XMMIDP_AUX_STATUS_MASK;
+	RawStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_AUX_STATUS0);
+	Status = RawStatus & XMMIDP_AUX_STATUS_MASK;
 
 	/* Request NACK'd, return error */
 	if ((Status == XMMIDP_AUX_STATUS_AUX_NACK) ||
 	    (Status == XMMIDP_AUX_STATUS_I2C_NACK)) {
+		XMmiDp_AuxDbg("SetAuxReq: NACK (status=0x%02X addr=0x%05X cmd=0x%X)\n",
+			       Status, Request->Address, Request->Cmd);
 		return XST_FAILURE;
 	}
 
 	/* Request defered, re-try again */
 	if ((Status == XMMIDP_AUX_STATUS_AUX_DEFER) ||
 	    (Status == XMMIDP_AUX_STATUS_I2C_DEFER)) {
+		XMmiDp_AuxDbg("SetAuxReq: DEFER (status=0x%02X addr=0x%05X cmd=0x%X)\n",
+			       Status, Request->Address, Request->Cmd);
 		return XST_SEND_ERROR;
 	}
 
-	/* Request ACK'd, Read Reply */
-	if ((Request->Cmd == XMMIDP_AUX_CMD_NATIVE_READ) ||
-	    (Request->Cmd == XMMIDP_AUX_CMD_I2C_READ) ||
-	    (Request->Cmd == XMMIDP_AUX_CMD_I2C_MOT_READ)) {
+	/* Unexpected status -- signal reset+retry to caller */
+	if (Status != XMMIDP_AUX_STATUS_ACK) {
+		XMmiDp_AuxDbg("SetAuxReq: unexpected status=0x%02X addr=0x%05X cmd=0x%X"
+			       " raw=0x%08X\n",
+			       Status, Request->Address, Request->Cmd, RawStatus);
+		Status = XST_DEVICE_BUSY;
+	}
+
+	/* Read reply data only for ACKed read commands */
+	if ((Status == XMMIDP_AUX_STATUS_ACK) &&
+	    ((Request->Cmd == XMMIDP_AUX_CMD_NATIVE_READ) ||
+	     (Request->Cmd == XMMIDP_AUX_CMD_I2C_READ) ||
+	     (Request->Cmd == XMMIDP_AUX_CMD_I2C_MOT_READ))) {
 		Status = XMmiDp_GetAuxData(InstancePtr, Request);
 		if (Status != XST_SUCCESS) {
-			return Status;
+			XMmiDp_AuxDbg("SetAuxReq: ACK but BytesRead=0, reset+retry\n");
+			Status = XST_DEVICE_BUSY;
 		}
 	}
 
 	/* Clear Aux Reply Event bit */
-	Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
+	IntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
 				XMMIDP_GEN_INT0);
 
-	RegVal =  Status & (XMMIDP_GEN_INT0_AUX_REPLY_EVENT_MASK);
+	RegVal =  IntStatus & (XMMIDP_GEN_INT0_AUX_REPLY_EVENT_MASK);
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 			XMMIDP_GEN_INT0, RegVal);
 
-	return XST_SUCCESS;
+	return Status;
 
 }
 
 /******************************************************************************/
 /**
- * This function submits the supplied AUX request to the RX device over the AUX
- * channel. If waiting for a reply times out, or if the DisplayPort TX core
- * indicates that the request was deferred, the request is sent again (up to a
- * maximum specified by XMMIDP_AUX_MAX_DEFER_COUNT|DPPSU14_AUX_MAX_TIMEOUT_COUNT).
+ * Resets Controller, HDCP, Audio Sampler, and AUX blocks.
+ * PHY and Video stream resets are intentionally excluded.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ *
+ ******************************************************************************/
+void XMmiDp_CoreSoftResetAll(XMmiDp *InstancePtr)
+{
+	u32 RegVal;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	RegVal = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XMMIDP_SFT_RST_CTRL0);
+
+	/* Assert reset for Controller, HDCP, Audio Sampler, AUX. */
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_SFT_RST_CTRL0,
+			RegVal | XMMIDP_SFT_RST_CTRL0_ALL_MASK);
+
+	XMmiDp_WaitUs(InstancePtr, 1000);
+
+	/* Deassert reset. */
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_SFT_RST_CTRL0,
+			RegVal & ~XMMIDP_SFT_RST_CTRL0_ALL_MASK);
+}
+
+/******************************************************************************/
+/**
+ * Performs an AUX soft reset by toggling the AUX reset bit.
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
- * @param       Request is a pointer to an initialized XMmiDp_AuxTransaction
- *              structure containing the required information for issuing an
- *              AUX command, as well as a write buffer used for write commands,
- *              and a read buffer for read commands.
  *
- * @return
- *              - XST_SUCCESS if the request was acknowledged.
- *              - XST_ERROR_COUNT_MAX if resending the request exceeded the
- *                maximum for deferral and timeout.
- *              - XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
- *                reply code or if the AUX transaction failed).
+ * @return		None.
  *
  * @note        None.
  *
 *******************************************************************************/
+void XMmiDp_AuxSoftReset(XMmiDp *InstancePtr)
+{
+	u32 RegVal;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	RegVal = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XMMIDP_SFT_RST_CTRL0);
+
+	/* Assert AUX reset. */
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_SFT_RST_CTRL0,
+			RegVal | XMMIDP_SFT_RST_CTRL0_AUX_RST_MASK);
+
+	XMmiDp_WaitUs(InstancePtr, 10);
+
+	/* Deassert AUX reset. */
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_SFT_RST_CTRL0,
+			RegVal & ~XMMIDP_SFT_RST_CTRL0_AUX_RST_MASK);
+}
+
+/******************************************************************************/
+/**
+ * Submits the supplied AUX request to the RX device over the AUX channel.
+ * If waiting for a reply times out, or if the TX core indicates DEFER, the
+ * request is resent up to the configured defer/timeout retry limits.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Request is a pointer to an initialized XMmiDp_AuxTransaction
+ *              structure containing the required information for issuing an
+ *              AUX command, as well as write/read buffers.
+ *
+ * @return
+ *              - XST_SUCCESS if the request was acknowledged.
+ *              - XST_ERROR_COUNT_MAX if resending exceeded defer/timeout limits.
+ *              - XST_FAILURE otherwise (for NACK or AUX transaction failure).
+ *
+ * @note        None.
+ *
+ ******************************************************************************/
 static u32 XMmiDp_AuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request)
 {
 	u32 Status;
@@ -412,6 +501,10 @@ static u32 XMmiDp_AuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
 			DeferCount++;
 		} else if (Status == XST_ERROR_COUNT_MAX) {
 			TimeoutCount++;
+		} else if (Status == XST_DEVICE_BUSY) {
+			XMmiDp_AuxDbg("AuxRequest: invalid status or BR=0, AUX reset+retry\n");
+			XMmiDp_AuxSoftReset(InstancePtr);
+			TimeoutCount++;
 		} else {
 			return Status;
 		}
@@ -420,6 +513,11 @@ static u32 XMmiDp_AuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
 
 	} while ((DeferCount <  XMMIDP_AUX_MAX_DEFER_COUNT) &&
 		 (TimeoutCount < XMMIDP_AUX_MAX_TIMEOUT_COUNT));
+
+	/* Reset AUX channel to recover from persistent errors. */
+	XMmiDp_AuxDbg("AuxRequest: exhausted retries (defer=%d timeout=%d), soft reset\n",
+		       DeferCount, TimeoutCount);
+	XMmiDp_AuxSoftReset(InstancePtr);
 
 	return XST_ERROR_COUNT_MAX;
 }
@@ -463,9 +561,8 @@ static u32 XMmiDp_AuxChanCommand(XMmiDp *InstancePtr, u32 AuxCmdType, u32
 		Request.Cmd = AuxCmdType;
 
 		if ((Request.Cmd == XMMIDP_AUX_CMD_NATIVE_WRITE) ||
-		    (Request.Cmd == XMMIDP_AUX_CMD_NATIVE_READ)) {
+		    (Request.Cmd == XMMIDP_AUX_CMD_NATIVE_READ))
 			Request.Address = Address + (Bytes - BytesLeft);
-		}
 
 		Request.Data = &Data[Bytes - BytesLeft];
 
@@ -477,20 +574,17 @@ static u32 XMmiDp_AuxChanCommand(XMmiDp *InstancePtr, u32 AuxCmdType, u32
 
 		BytesLeft -= Request.NumBytes;
 
-	if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_WRITE) && (BytesLeft > 0)) {
-		Request.Cmd = XMMIDP_AUX_CMD_I2C_MOT_WRITE;
-	}
+		if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_WRITE) && (BytesLeft > 0))
+			Request.Cmd = XMMIDP_AUX_CMD_I2C_MOT_WRITE;
 
-	if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_READ) && (BytesLeft > 0)) {
-		Request.Cmd = XMMIDP_AUX_CMD_I2C_MOT_READ;
-	}
+		if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_READ) && (BytesLeft > 0))
+			Request.Cmd = XMMIDP_AUX_CMD_I2C_MOT_READ;
 
 		XMmiDp_WaitUs(InstancePtr, XMMIDP_AUX_REQUEST_TIMEOUT_TIMER);
 
 		Status = XMmiDp_AuxRequest(InstancePtr, &Request);
-		if (Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS)
 			return Status;
-		}
 	}
 
 	return XST_SUCCESS;
@@ -528,6 +622,19 @@ u32 XMmiDp_AuxWrite(XMmiDp *InstancePtr, u32 DpcdAddr, u32 Bytes, void *Data)
 	Xil_AssertNonvoid(Bytes <= 0xFFFFF);
 	Xil_AssertNonvoid(Data != NULL);
 
+	if (!XMmiDp_IsConnected(InstancePtr)) {
+		XMmiDp_AuxDbg("AuxWrite: not connected (addr=0x%05X)\n", DpcdAddr);
+		return XST_DEVICE_NOT_FOUND;
+	}
+
+	XMmiDp_AuxDbg("WR  0x%05X [%d]:", DpcdAddr, Bytes);
+	if (XMmiDp_AuxDebugEnabled) {
+		u32 i;
+		for (i = 0; i < Bytes && i < 16; i++)
+			xil_printf(" %02X", ((u8 *)Data)[i]);
+		xil_printf("\r\n");
+	}
+
 	return XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_NATIVE_WRITE,
 				     DpcdAddr, Bytes, (u8 *)Data);
 
@@ -558,14 +665,32 @@ u32 XMmiDp_AuxWrite(XMmiDp *InstancePtr, u32 DpcdAddr, u32 Bytes, void *Data)
 *******************************************************************************/
 u32 XMmiDp_AuxRead(XMmiDp *InstancePtr, u32 DpcdAddr, u32 Bytes, void *Data)
 {
+	u32 AuxStatus;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DpcdAddr <= 0xFFFFF);
 	Xil_AssertNonvoid(Bytes <= 0xFFFFF);
 	Xil_AssertNonvoid(Data != NULL);
 
-	return XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_NATIVE_READ,
-				     DpcdAddr, Bytes, (u8 *)Data);
+	if (!XMmiDp_IsConnected(InstancePtr)) {
+		XMmiDp_AuxDbg("AuxRead: not connected (addr=0x%05X)\n", DpcdAddr);
+		return XST_DEVICE_NOT_FOUND;
+	}
+
+	AuxStatus = XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_NATIVE_READ,
+				DpcdAddr, Bytes, (u8 *)Data);
+	XMmiDp_AuxDbg("RD  0x%05X [%d]:", DpcdAddr, Bytes);
+	if (XMmiDp_AuxDebugEnabled) {
+		if (AuxStatus == XST_SUCCESS) {
+			u32 i;
+			for (i = 0; i < Bytes && i < 16; i++)
+				xil_printf(" %02X", ((u8 *)Data)[i]);
+		} else {
+			xil_printf(" ERR=%d", (int)AuxStatus);
+		}
+		xil_printf("\r\n");
+	}
+	return AuxStatus;
 }
 
 /******************************************************************************/
@@ -593,6 +718,9 @@ u32 XMmiDp_I2cWrite(XMmiDp *InstancePtr, u32 I2cAddr, u32 Bytes, void *Data)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Bytes <= 0xFFFFF);
 	Xil_AssertNonvoid(Data != NULL);
+
+	if (!XMmiDp_IsConnected(InstancePtr))
+		return XST_DEVICE_NOT_FOUND;
 
 	return XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_I2C_WRITE,
 				     I2cAddr, Bytes, (u8 *)Data);
@@ -641,9 +769,8 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 	Xil_AssertNonvoid(Bytes <= 0xFFFFF);
 	Xil_AssertNonvoid(Data != NULL);
 
-	if (!XMmiDp_IsConnected(InstancePtr)) {
+	if (!XMmiDp_IsConnected(InstancePtr))
 		return XST_DEVICE_NOT_FOUND;
-	}
 
 	BytesLeft = Bytes;
 
@@ -672,15 +799,13 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 		Status = XMmiDp_AuxChanCommand(InstancePtr,
 					       XMMIDP_AUX_CMD_I2C_MOT_WRITE, I2cAddr, 1,
 					       &Offset8);
-		if (Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS)
 			return Status;
-		}
 
 		Status = XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_I2C_READ,
 					       I2cAddr, CurrBytesToRead, (u8 *)Data);
-		if (Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS)
 			return Status;
-		}
 
 		/* Previous I2C read was done on the remaining data in the
 		 * current segment; prepare for next read. */
@@ -753,25 +878,31 @@ void XMmiDp_RegReadModifyWrite(XMmiDp *InstancePtr, u32 RegOffset,
  * @param	Val to be written
  *
  * @return
- *              - None.
+ *              - XST_SUCCESS if AUX read and write both succeed.
+ *              - Error code propagated from XMmiDp_AuxRead() on read failure.
+ *              - Error code propagated from XMmiDp_AuxWrite() on write failure.
  *
  * @note        None.
  *
 *******************************************************************************/
-void XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 DpcdReg,
+u32 XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 DpcdReg,
 				u32 Mask, u32 Shift, u32 Val)
 {
-	u32 DpcdVal;
+	u32 Status;
+	u8 DpcdVal = 0;
 
 	/* Read Rx DPCD register val */
-	XMmiDp_AuxRead(InstancePtr, DpcdReg, 0x1, &DpcdVal);
+	Status = XMmiDp_AuxRead(InstancePtr, DpcdReg, 0x1, &DpcdVal);
+	if (Status != XST_SUCCESS)
+		return Status;
 
 	DpcdVal &= ~Mask;
 	DpcdVal |= Val << Shift;
 
-	/* Write the new lane count to the RX device. */
-	XMmiDp_AuxWrite(InstancePtr, DpcdReg, 0x1, &DpcdVal);
+	/* Write the new value to the RX device. */
+	Status = XMmiDp_AuxWrite(InstancePtr, DpcdReg, 0x1, &DpcdVal);
 
+	return Status;
 }
 
 u8 XMmiDp_GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
@@ -862,13 +993,13 @@ u16 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 	(void)InstancePtr;
 
 	if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_270GBPS) {
-		link_rate = XMMIDP_HBR_LINK_RATE;
+		link_rate = XMMIDP_PHY_RATE_HBR_270GBPS;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_540GBPS) {
-		link_rate = XMMIDP_HBR2_LINK_RATE;
+		link_rate = XMMIDP_PHY_RATE_HBR2_540GBPS;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_810GBPS) {
-		link_rate = XMMIDP_HBR3_LINK_RATE;
+		link_rate = XMMIDP_PHY_RATE_HBR3_810GBPS;
 	} else {
-		link_rate = XMMIDP_RBR_LINK_RATE;
+		link_rate = XMMIDP_PHY_RATE_RBR_162GBPS;
 	}
 	return link_rate;
 }
@@ -1051,13 +1182,11 @@ void XMmiDp_SetDpcdTrainingPattern(XMmiDp *InstancePtr,
 
 	Val = Pattern;
 
-	if (Pattern == XMMIDP_PHY_NO_TRAIN) {
+	if (Pattern == XMMIDP_PHY_NO_TRAIN)
 		ScrambleEn = 0x0;
-	}
 
-	if (Pattern == XMMIDP_PHY_TPS4) {
+	if (Pattern == XMMIDP_PHY_TPS4)
 		Val = 0x7;
-	}
 
 	/* Read from Rx DPCDP */
 	XMmiDp_AuxRead(InstancePtr, DpcdReg, 0x1, &DpcdVal);
@@ -1522,9 +1651,8 @@ u32 XMmiDp_PhyWaitReady(XMmiDp *InstancePtr)
 		RegVal |= RegVal >> XMMIDP_PHYIF_CTRL_0_PHY_BUSY_SHIFT;
 
 		/* Protect against an infinite loop. */
-		if (!Timeout--) {
+		if (!Timeout--)
 			return XST_ERROR_COUNT_MAX;
-		}
 
 	} while ((RegVal & BusyLanes) != 0x0);
 
@@ -1556,14 +1684,14 @@ void XMmiDp_PhySoftReset(XMmiDp *InstancePtr)
 				XMMIDP_SFT_RST_CTRL0);
 
 	/* Apply reset. */
-	RegVal = PhyVal | XMMIDP_SFT_RST_CTRL0_AUX_RST_MASK;
+	RegVal = PhyVal | XMMIDP_SFT_RST_CTRL0_PHY_SFT_RST_MASK;
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 			XMMIDP_SFT_RST_CTRL0, RegVal);
 
 	XMmiDp_WaitUs(InstancePtr, 10);
 
 	/* Remove the reset. */
-	RegVal = PhyVal & (~XMMIDP_SFT_RST_CTRL0_AUX_RST_MASK);
+	RegVal = PhyVal & (~XMMIDP_SFT_RST_CTRL0_PHY_SFT_RST_MASK);
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 			XMMIDP_SFT_RST_CTRL0, RegVal);
 
@@ -1845,5 +1973,21 @@ void XMmiDp_SetPmConfig2(XMmiDp *InstancePtr, u32 Val)
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_PM_CONFIG2, Val);
 
+}
+
+/******************************************************************************/
+/**
+ * This function enables or disables runtime AUX debug prints.
+ *
+ * @param       Enable is 1 to enable debug prints, 0 to disable.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+void XMmiDp_SetAuxDebug(u8 Enable)
+{
+	XMmiDp_AuxDebugEnabled = Enable;
 }
 /** @} */
