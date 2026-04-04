@@ -6,7 +6,7 @@ write,0x103,0,0,0,0,0,0,0,0,CDO,Write specified value to the 32-bit address spec
 delay,0x104,0,0,0,0,0,0,0,0,CDO,Delay in micro seconds
 dma_write,0x105,0,0,0,0,0,0,0,0,CDO,Dma transfer of data present in the payload to the specified destination address
 mask_poll64,0x106,0,0,0,0,0,0,0,0,CDO,Read a 64-bit address until expected value or timeout
-mask_write64,0x107,0,0,0,0,0,0,0,0,CDO,Read Modify Write to specified 32-bit address with the specifed value and mask
+mask_write64,0x107,0,0,0,0,0,0,0,0,CDO,Read Modify Write to specified 32-bit address with the specified value and mask
 write64,0x108,0,0,0,0,0,0,0,0,CDO,Write specified value to the 64-bit address specified
 dma_xfer,0x109,0,0,0,0,0,0,0,0,CDO,Dma transfer of data present in the specified source address to the destination address for the specified length
 init_seq,0x10a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
