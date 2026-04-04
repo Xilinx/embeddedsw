@@ -28,6 +28,7 @@
   * 2.4   har   05/06/24 Fixed issue in case of regeneration from eFUSE cache
   * 2.6   rpu   07/15/25 Fixed GCC warnings
   * 2.7   bha   01/06/26 Fixed Doxygen warnings
+  * 2.8   tvp   04/03/26 Use generic API to increment IV
   * </pre>
   *@note
   *
@@ -42,6 +43,7 @@
 #include "xnvm_efuseclient.h"
 #include "xil_util.h"
 #include "xil_cache.h"
+#include "xil_sutil.h"
 #include "xilpuf_versal_net_example.h"
 #include "xparameters.h"
 
@@ -119,7 +121,6 @@ static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance);
 static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr);
 static int XPuf_EncryptData(XSecure_ClientInstance *SecureClientInstance, char* Data,
 	u32 DataLen, u8* Iv, u8* OutputData);
-static void XPuf_GetIv(u8* Iv, u8 IncVal, u8* UpdatedIv);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
 static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance);
@@ -410,7 +411,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		XPuf_GetIv(Iv, XPUF_UDS_IV_INC_VAL, UpdatedIv);
+		Xil_IncrementBuffer(UpdatedIv, XPUF_IV_LEN_IN_BYTES, XPUF_UDS_IV_INC_VAL);
 		Status = XPuf_EncryptData(&SecureClientInstance,
 			XPUF_UDS, XPUF_UDS_LEN_IN_BYTES,
 			UpdatedIv, EncryptedData->UdsPrime);
@@ -431,7 +432,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		XPuf_GetIv(Iv, XPUF_DME0_IV_INC_VAL, UpdatedIv);
+		Xil_IncrementBuffer(UpdatedIv, XPUF_IV_LEN_IN_BYTES, XPUF_DME0_IV_INC_VAL);
 		Status = XPuf_EncryptData(&SecureClientInstance,
 			XPUF_DME_PRIV_KEY_0, XPUF_DME_PRIV_KEY_LEN_IN_BYTES,
 			UpdatedIv, EncryptedData->EncDmeKey0);
@@ -452,7 +453,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		XPuf_GetIv(Iv, XPUF_DME1_IV_INC_VAL, UpdatedIv);
+		Xil_IncrementBuffer(UpdatedIv, XPUF_IV_LEN_IN_BYTES, XPUF_DME1_IV_INC_VAL);
 		Status = XPuf_EncryptData(&SecureClientInstance,
 			XPUF_DME_PRIV_KEY_1, XPUF_DME_PRIV_KEY_LEN_IN_BYTES,
 			UpdatedIv,  EncryptedData->EncDmeKey1);
@@ -473,7 +474,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		XPuf_GetIv(Iv, XPUF_DME2_IV_INC_VAL, UpdatedIv);
+		Xil_IncrementBuffer(UpdatedIv, XPUF_IV_LEN_IN_BYTES, XPUF_DME2_IV_INC_VAL);
 		Status = XPuf_EncryptData(&SecureClientInstance,
 			XPUF_DME_PRIV_KEY_2, XPUF_DME_PRIV_KEY_LEN_IN_BYTES,
 			UpdatedIv,  EncryptedData->EncDmeKey2);
@@ -494,7 +495,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		XPuf_GetIv(Iv, XPUF_DME3_IV_INC_VAL, UpdatedIv);
+		Xil_IncrementBuffer(UpdatedIv, XPUF_IV_LEN_IN_BYTES, XPUF_DME3_IV_INC_VAL);
 		Status = XPuf_EncryptData(&SecureClientInstance,
 			XPUF_DME_PRIV_KEY_3, XPUF_DME_PRIV_KEY_LEN_IN_BYTES,
 			UpdatedIv, EncryptedData->EncDmeKey3);
@@ -582,37 +583,6 @@ static int XPuf_EncryptData(XSecure_ClientInstance *SecureClientInstance, char* 
 
 END:
 	return Status;
-}
-
-/******************************************************************************/
-/**
- *
- * @brief	This function returns the IV for encryption of UDS and DME keys
- * 		after incrementing.
- *
- * @param	Iv		 - Iv to be incremented.
- * @param	IncVal		 - Increment value.
- * 		For UDS, IncVal = 0x1
- * 		For DME Priv Key0 Inc Val = 0x2
- * 		For DME Priv Key1 Inc Val = 0x3
- * 		For DME Priv Key2 Inc Val = 0x4
- * 		For DME Priv Key3 Inc Val = 0x5
- * @param	UpdatedIv	- Pointer to Incremented IV
- *
- ******************************************************************************/
-static void XPuf_GetIv(u8* Iv, u8 IncVal, u8* UpdatedIv)
-{
-	u8 Carry = 0;
-
-	for(int BIdx = XPUF_IV_LEN_IN_BYTES-1; BIdx >= 0; BIdx--) {
-		u8 Byte = Iv[BIdx];
-		u16 ByteSum = Byte + IncVal + Carry;
-		Carry = ByteSum >> 8U;
-		UpdatedIv[BIdx] = ByteSum & 0xFF;
-		if (Carry == 0) {
-			break;
-		}
-	}
 }
 
 /******************************************************************************/
