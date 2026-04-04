@@ -386,7 +386,7 @@ s32 XAsu_OcpUdeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncr
 		goto END;
 	}
 
-	if ((OcpUdeKeyEnc->UdePvtKeyAddr == 0U) || (OcpUdeKeyEnc->UdeEncPvtKeyAddr == 0U)) {
+	if (OcpUdeKeyEnc->UdeEncPvtKeyAddr == 0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

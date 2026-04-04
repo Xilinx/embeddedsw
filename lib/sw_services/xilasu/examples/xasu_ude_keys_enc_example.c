@@ -79,18 +79,15 @@
 /************************************ Function Prototypes ****************************************/
 static void XAsu_OcpUdeKeyCallBackRef(void *CallBackRef, u32 Status);
 static void XAsu_OcpUdeKeyPrintData(const u8 *Data, u32 DataLen);
-static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data, u32 DataLen,
-	u8* OutputData, u32 UdeKeyId);
+static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, u32 DataLen, u8* OutputData,
+	u32 UdeKeyId);
 static s32 XAsu_OcpUdeEncNdPrgmUdeKey(XAsu_ClientParams *ClientParamPtr,
-	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, char* UdePvtKey,
-	u8 UdeKeyId);
+	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, u8 UdeKeyId);
 
 /************************************ Variable Definitions ***************************************/
 static u8 Notify = 0;			/**< To notify the call back from client library */
 static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP-UDE operation from
 					client library and gets updated during callback. */
-/** UDE private key buffer for storing converted hex data */
-static u8 UdePvtKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.UdePvtKey")));
 /** Encrypted UDE private key buffer for storing encrypted output */
 static u8 EncUdeKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.EncUdeKey")));
 
@@ -143,8 +140,7 @@ int main(void)
 	ClientParam.SecureFlag = XASU_CMD_SECURE;
 
 	Status = XAsu_OcpUdeEncNdPrgmUdeKey(&ClientParam, &NvmClientInstance,
-		XOCP_ENCRYPT_UDE_PRIV_KEY_0, XOCP_PRGM_ENC_UDE_PRIV_KEY_0,
-		XOCP_UDE_PRIV_KEY_0, XASU_OCP_UDE_USER_KEY_0_ID);
+		XOCP_ENCRYPT_UDE_PRIV_KEY_0, XOCP_PRGM_ENC_UDE_PRIV_KEY_0, XASU_OCP_UDE_USER_KEY_0_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n OCP-UDE Encrypt and Program UDE Key 0 failed with Status = %08x",
 			Status);
@@ -152,8 +148,7 @@ int main(void)
 	}
 
 	Status = XAsu_OcpUdeEncNdPrgmUdeKey(&ClientParam, &NvmClientInstance,
-		XOCP_ENCRYPT_UDE_PRIV_KEY_1, XOCP_PRGM_ENC_UDE_PRIV_KEY_1,
-		XOCP_UDE_PRIV_KEY_1, XASU_OCP_UDE_USER_KEY_1_ID);
+		XOCP_ENCRYPT_UDE_PRIV_KEY_1, XOCP_PRGM_ENC_UDE_PRIV_KEY_1, XASU_OCP_UDE_USER_KEY_1_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n OCP-UDE Encrypt and Program UDE Key 1 failed with Status = %08x",
 			Status);
@@ -161,8 +156,7 @@ int main(void)
 	}
 
 	Status = XAsu_OcpUdeEncNdPrgmUdeKey(&ClientParam, &NvmClientInstance,
-		XOCP_ENCRYPT_UDE_PRIV_KEY_2, XOCP_PRGM_ENC_UDE_PRIV_KEY_2,
-		XOCP_UDE_PRIV_KEY_2, XASU_OCP_UDE_USER_KEY_2_ID);
+		XOCP_ENCRYPT_UDE_PRIV_KEY_2, XOCP_PRGM_ENC_UDE_PRIV_KEY_2, XASU_OCP_UDE_USER_KEY_2_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n OCP-UDE Encrypt and Program UDE Key 2 failed with Status = %08x",
 			Status);
@@ -190,7 +184,6 @@ END:
  * @param	NvmClientInstancePtr	Pointer to XilNvm client instance.
  * @param	EncFlag			Flag to indicate whether to encrypt the key.
  * @param	PrgmFlag		Flag to indicate whether to program the key.
- * @param	UdePvtKey		Pointer to the UDE private key data.
  * @param	UdeKeyId		ID of the UDE key.
  *
  * @return
@@ -199,13 +192,12 @@ END:
  *
  *************************************************************************************************/
 static s32 XAsu_OcpUdeEncNdPrgmUdeKey(XAsu_ClientParams *ClientParamPtr,
-	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, char* UdePvtKey,
-	u8 UdeKeyId)
+	XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, u8 UdeKeyId)
 {
 	s32 Status = XST_FAILURE;
 
 	if (EncFlag == TRUE) {
-		Status = XAsu_OcpUdeEncryptData(ClientParamPtr, UdePvtKey, XASU_OCP_UDE_KEY_SIZE_IN_BYTES,
+		Status = XAsu_OcpUdeEncryptData(ClientParamPtr, XASU_OCP_UDE_KEY_SIZE_IN_BYTES,
 			EncUdeKey, UdeKeyId);
 		if(Status != XST_SUCCESS) {
 			xil_printf("\r\n UDE Priv Key encryption failed");
@@ -233,7 +225,6 @@ END:
  * @brief	This function encrypts the data using UDE KEK in ASUFW.
  *
  * @param	ClientParamPtr	Pointer to XAsu_ClientParams instance
- * @param	Data		Pointer to data to be encrypted
  * @param	DataLen		Length of data to be encrypted in bytes
  * @param	OutputData	Pointer to buffer where encrypted data will be stored
  * @param	UdeKeyId	Identifier for the UDE key
@@ -244,36 +235,17 @@ END:
  *			AES Encrypt data.
  *
  *************************************************************************************************/
-static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data, u32 DataLen,
-	u8* OutputData, u32 UdeKeyId)
+static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, u32 DataLen, u8* OutputData,
+	u32 UdeKeyId)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_OcpUdeKeyEncrypt OcpUdeKeyEncParam;
 
-	if (Xil_Strnlen(Data, (DataLen * XASU_VALUE_TWO)) == (DataLen * XASU_VALUE_TWO)) {
-		Status = Xil_ConvertStringToHexBE((const char *)Data,
-			UdePvtKey, DataLen * XASU_VALUE_EIGHT);
-		if (Status != XST_SUCCESS) {
-			xil_printf("\r\n String Conversion error (Data):%08x", Status);
-			goto END;
-		}
-	}
-	else {
-		xil_printf("\r\n Provided input data length is wrong");
-		goto END;
-	}
-
-	xil_printf("\r\n Data to be encrypted: ");
-	XAsu_OcpUdeKeyPrintData(UdePvtKey, DataLen);
-
-	Xil_DCacheFlushRange((UINTPTR)UdePvtKey, DataLen);
-
 	ErrorStatus = XST_FAILURE;
-	OcpUdeKeyEncParam.UdePvtKeyAddr = (u64)(UINTPTR)UdePvtKey;
 	OcpUdeKeyEncParam.UdeEncPvtKeyAddr = (u64)(UINTPTR)OutputData;
 	OcpUdeKeyEncParam.UdeKeyId = UdeKeyId;
 
-	/** Generate UDE Response. */
+	/** Generate UDE encrypted keys. */
 	Status = XAsu_OcpUdeKeysEncrypt(ClientParamPtr, &OcpUdeKeyEncParam);
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("\r\n UDE Challenge request failed:Status = %08x", Status);

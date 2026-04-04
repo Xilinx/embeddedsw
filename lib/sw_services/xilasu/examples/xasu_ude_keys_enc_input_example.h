@@ -31,18 +31,9 @@
  *
  * XOCP_ENCRYPT_UDE_PRIV_KEY_0 must be configured as TRUE to encrypt UDE Private key 0.
  *
- * XOCP_UDE_PRIV_KEY_0 - UDE Private Key 0 to be encrypted by UDE KEK should be
- * provided in string format in this macro. It should be 96 characters long.
- *
  * XOCP_ENCRYPT_UDE_PRIV_KEY_1 must be configured as TRUE to encrypt UDE Private key 1.
  *
- * XOCP_UDE_PRIV_KEY_1 - UDE Private Key 1 to be encrypted by UDE KEK should be
- * provided in string format in this macro. It should be 96 characters long.
- *
  * XOCP_ENCRYPT_UDE_PRIV_KEY_2 must be configured as TRUE to encrypt UDE Private key 2.
- *
- * XOCP_UDE_PRIV_KEY_2 - UDE Private Key 2 to be encrypted by UDE KEK should be
- * provided in string format in this macro. It should be 96 characters long.
  *
  * XOCP_ENV_MONITOR_DISABLE - configure as TRUE to disable the temperature
  * and voltage checks before eFuse programming. FALSE will not disable the temperature
@@ -70,23 +61,14 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions *****************************/
-#define XOCP_ENCRYPT_UDE_PRIV_KEY_0		(FALSE)	/**< Enable/disable encryption of
+#define XOCP_ENCRYPT_UDE_PRIV_KEY_0		(TRUE)	/**< Enable/disable encryption of
 													 * UDE Private Key 0 */
-#define XOCP_UDE_PRIV_KEY_0	\
-	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-/**< UDE Private Key 0 data (96 characters long) to be encrypted by UDE KEK */
 
-#define XOCP_ENCRYPT_UDE_PRIV_KEY_1		(FALSE)	/**< Enable/disable encryption of
+#define XOCP_ENCRYPT_UDE_PRIV_KEY_1		(TRUE)	/**< Enable/disable encryption of
 													 * UDE Private Key 1 */
-#define XOCP_UDE_PRIV_KEY_1	\
-	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-/**< UDE Private Key 1 data (96 characters long) to be encrypted by UDE KEK */
 
-#define XOCP_ENCRYPT_UDE_PRIV_KEY_2		(FALSE)	/**< Enable/disable encryption of
+#define XOCP_ENCRYPT_UDE_PRIV_KEY_2		(TRUE)	/**< Enable/disable encryption of
 													 * UDE Private Key 2 */
-#define XOCP_UDE_PRIV_KEY_2	\
-	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-/**< UDE Private Key 2 data (96 characters long) to be encrypted by UDE KEK */
 
 #define XOCP_ENV_MONITOR_DISABLE		(FALSE)
 /**< Enable/disable environment monitoring during eFuse programming */

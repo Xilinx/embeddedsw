@@ -41,6 +41,7 @@
 #include "xasu_def.h"
 #include "xil_sutil.h"
 #include "xasufw_memory.h"
+#include "xrsa_ecc.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -108,8 +109,8 @@ s32 XOcp_GenerateUdeKek(void)
 
 /*************************************************************************************************/
  /**
- * @brief	This function encrypts the provided UDE private key of provided key ID, copies the
- * 		received IV to the ASU memory based on key ID and returns the encrypted key.
+ * @brief	This function generates a UDE private key, encrypts it with the UDE KEK,
+ * 		and returns the encrypted key based on the provided key ID.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	OcpUdeKeyEnc	Pointer to the XAsu_OcpUdeKeyEncrypt structure.
@@ -120,13 +121,17 @@ s32 XOcp_GenerateUdeKek(void)
  *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
  *	- XASUFW_OCP_UDE_IV_COPY_FAIL, if UDE IV copy operation fails.
  *	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, if UDE key encryption operation fails.
+ *	- XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, if UDE private key generation fails.
  *
  *************************************************************************************************/
 s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	const u8 *IvPtr = (const u8*)(UINTPTR)XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR;
 	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
+	u8 PvtKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES] = {0U};
 	u8 IvIncVal = 0U;
 	XFih_Var UdeKekStatus = XFih_VolatileAssignU32(UdeKekFlag);
 
@@ -151,6 +156,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 	}
 
 	/** Check if IV is non-zero. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsu_IsBufferNonZero(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
@@ -182,13 +188,27 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 	}
 	Xil_IncrementBuffer(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvIncVal);
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+				PvtKey, NULL, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL;
+		goto END_CLR;
+	}
+
 	/** Encrypt UDE private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XOcp_AesCompute(DmaPtr, (u64)(UINTPTR)UdeKekIv, OcpUdeKeyEnc->UdePvtKeyAddr,
+	Status = XOcp_AesCompute(DmaPtr, (u64)(UINTPTR)UdeKekIv, (u64)(UINTPTR)PvtKey,
 			OcpUdeKeyEnc->UdeEncPvtKeyAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_AES_COMPUTE_FAIL);
 	}
+
+END_CLR:
+	/** Zeroize local buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, PvtKey,
+					XASU_OCP_UDE_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -241,12 +261,9 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 	Status = XOcp_ProcessUdeResponse(DmaPtr, UdeKekIv, UdeDecPvtKey, OcpUdeResp,
 			 OcpUdeParamsPtr);
 
-	/** Zeroize local buffers. */
+	/** Zeroize local buffer. */
 	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeDecPvtKey,
 					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	ClearStatus = Xil_SecureZeroize(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:

@@ -131,7 +131,6 @@ typedef struct {
  * This structure contains information related to UDE private key encryption.
  */
 typedef struct {
-	u64 UdePvtKeyAddr; /**< Address of the UDE Private Key */
 	u64 UdeEncPvtKeyAddr; /**< Address of the UDE Encrypted Private Key */
 	u32 UdeKeyId; /**< ID of the UDE Key either 3/4/5 */
 	u32 Reserved; /**< Reserved */
