@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -30,6 +30,7 @@
 * 1.02 	abh  07/22/2025 Added doxygen tag
 *       kd   09/04/2025 Modified status variable to volatile in XPlm_SsitCommSendMessage
 *       kd   09/11/2025 Modified status and ZeroizeStatus variables to volatile in XPlm_SsitCommAesKeyWrite
+*       tvp  04/03/2026 Use generic API to increment IV
 *</pre>
 *
 * @note
@@ -50,6 +51,7 @@
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 #include "xplmi_plat.h"
 #include "xsecure_init.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *************************************************/
 #define XPLMI_ZERO                       (0U) /**< Zero value */
@@ -211,39 +213,6 @@ static XPlmi_SsitCommParams XPlm_SsitCommVar = {.SendMessage = XPlm_SsitCommSend
 												.NewKeyAddr = (u32)XPlmi_SsitCommNewKey
 											   };
 
-/*****************************************************************************/
-/**
-* @brief   This function increments the IV with given value.
-*
-* @param   AesIv - Pointer to an array of 16 bytes which holds IV to be
-*          increment.
-* @param   IncrValue - Value with which IV needs to be incremented.
-*
-* @return  None.
-******************************************************************************/
-static void XPlmi_SsitIvIncrement(u8 *AesIv, u8 IncrValue)
-{
-	u8 *IvPtr = AesIv;
-    u32 Carry = IncrValue;
-    u32 Result;
-    s32 Index;
-
-    /**
-    * IV increment is done as below
-    * Repeat I = 0 to 11 OR till Carry becomes zero
-    * Get (AesIv[I], carry) by performing AesIv[I] + carry
-    */
-   for (Index = XPLMI_IV_SIZE_BYTES - 1U; Index >= (s8)XPLMI_ZERO; Index--) {
-		Result = IvPtr[Index] + Carry;
-		IvPtr[Index] = (u8)(Result & XPLMI_BYTE_MASK);
-		Carry = Result >> XPLMI_BYTE_SHIFT;
-		/* If carry is non zero continue else break */
-		if (Carry == (u32)XPLMI_ZERO) {
-			break;
-		}
-	}
-}
-
 /*************************************************************************************************/
 /**
 * @brief This function performs encryption or decryption operation
@@ -400,7 +369,7 @@ static void XPlm_SsitCommPrepareEncParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 			}
 
 			/* Increment IV by 2 to use unique IV for every data set*/
-			XPlmi_SsitIvIncrement((u8 *)EncParams->IvPtr, 2U);
+			Xil_IncrementBuffer((u8 *)EncParams->IvPtr, XPLMI_IV_SIZE_BYTES, 2U);
 		}
 		EncParams->AADLen = XPLM_AAD_LEN_BYTES;
 	}
@@ -413,7 +382,7 @@ static void XPlm_SsitCommPrepareEncParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 		EncParams->DataLen = (XPLMI_CMD_RESP_SIZE * XPLMI_WORD_LEN);
 
 		/* Increment IV by 2 to use unique IV for every data set */
-		XPlmi_SsitIvIncrement((u8 *)EncParams->IvPtr, 2U);
+		Xil_IncrementBuffer((u8 *)EncParams->IvPtr, XPLMI_IV_SIZE_BYTES, 2U);
 
 		EncParams->AADLen = 0U;
 	}
@@ -449,7 +418,7 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 		/* Use (currentIV+1) for decryption */
 		Xil_MemCpy64((u64)(UINTPTR)XPlm_SsitCommIV, (u64)(UINTPTR)DecParams->IvPtr,
 		                 XPLMI_IV_SIZE_BYTES);
-		XPlmi_SsitIvIncrement((u8 *)XPlm_SsitCommIV, 1U);
+		Xil_IncrementBuffer((u8 *)XPlm_SsitCommIV, XPLMI_IV_SIZE_BYTES, 1U);
 
 		/* Take IvPtr, start address of buf to place decrypted data */
 		DecParams->OutDataPtr =  &DecParams->TempRespBuf[0];
@@ -491,7 +460,7 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 			/* use (currentIV+1) for decryption */
 			Xil_MemCpy64((u64)(UINTPTR)XPlm_SsitCommIV, (u64)XPLMI_SLR_CURRENTIV_ADDR,
 					                 XPLMI_IV_SIZE_BYTES);
-			XPlmi_SsitIvIncrement((u8 *)XPlm_SsitCommIV, 1U);
+			Xil_IncrementBuffer((u8 *)XPlm_SsitCommIV, XPLMI_IV_SIZE_BYTES, 1U);
 
 			/* Take IvPtr, start address of buf to place decrypted data */
 			DecParams->OutDataPtr = &Buf[PAYLOAD_OFFSET];
@@ -571,7 +540,7 @@ static int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd)
 
 		/* Set secure communication established flag and increment IV */
 		XPlmi_SsitSetCommEstFlag(SECCOMM_SLAVE_INDEX);
-		XPlmi_SsitIvIncrement((u8 *)XPLMI_SLR_CURRENTIV_ADDR, 1U);
+		Xil_IncrementBuffer((u8 *)XPLMI_SLR_CURRENTIV_ADDR, XPLMI_IV_SIZE_BYTES, 1U);
 	}
 	else {
 		Status = XST_SUCCESS;
