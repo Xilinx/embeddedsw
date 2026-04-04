@@ -23,6 +23,7 @@
 *       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *       aa   03/09/2026 Added error code for USB download timeout
 *       tvp  03/13/2026 Add error codes related to authenticated boot
+*       aa   04/01/2026 Added XLOADER_ERR_USB_DDR_OVERFLOW error code
 *
 * </pre>
 *
@@ -511,6 +512,8 @@ typedef enum {
 	XLOADER_ERR_OSPI_DUMMY_CFG,	/**< 0x37B - Error when OSPI Macronix
 						 dummy cycle configuration fails */
 	XLOADER_ERR_USB_TIMEOUT, /**< 0x37C - Error when USB transfer times out */
+	XLOADER_ERR_USB_DDR_OVERFLOW, /**< 0x37D - Error when USB boot image
+					 exceeds DDR boundary */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

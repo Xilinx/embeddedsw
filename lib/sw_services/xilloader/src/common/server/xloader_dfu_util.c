@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,8 @@
 * 1.02   bsv 08/31/2021 Code clean up
 * 1.03   kpt 12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 * 1.04   sk  03/13/24 Fixed doxygen comments format
+* 2.4    aa  04/01/2026 Added DDR address range validation during USB DFU
+*                      download to prevent buffer overflow
 *
 * </pre>
 *
@@ -44,6 +46,8 @@
 #include "xloader_usb.h"
 #include "xloader.h"
 #include "xil_util.h"
+#include "xplmi_plat.h"
+#include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -746,6 +750,7 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 	int Result;
 	u32 RxBytesLeft;
 	static u8 DfuReply[XLOADER_DFU_STATUS_SIZE] = {0U,};
+	int AddrStatus;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SetupData != NULL);
@@ -759,17 +764,43 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 			if(DfuObj.GotDnloadRqst == (u8)FALSE) {
 				DfuObj.GotDnloadRqst = (u8)TRUE;
 			}
-			if ((DfuObj.TotalTransfers == 0U) &&
-				(SetupData->wValue == 0U)) {
-				/* We are at the start of the data,
-				 * clear the download counter
+			if (DfuObj.CurrState == XLOADER_STATE_DFU_IDLE) {
+				/*
+				 * Clear the download counter at the
+				 * start of a new download. Do not use
+				 * wValue == 0 for this check as wValue
+				 * is u16 and wraps to 0 after 65536
+				 * blocks, which would incorrectly
+				 * reset the counter during large
+				 * transfers.
 				 */
 				DfuObj.TotalBytesDnloaded = 0U;
 			}
 
 			RxBytesLeft = SetupData->wLength;
 
-			if(RxBytesLeft > 0U) {
+			if (RxBytesLeft > 0U) {
+				/**
+				 * Validate that the write does not
+				 * exceed valid DDR address range.
+				 */
+				if (XPlmi_IsAddrRangeValid != NULL) {
+					AddrStatus = XPlmi_IsAddrRangeValid(
+						PM_SUBSYS_PMC,
+						(u64)((UINTPTR)DfuVirtFlash),
+						(u64)DfuObj.TotalBytesDnloaded
+							+ (u64)RxBytesLeft);
+					if (AddrStatus != XST_SUCCESS) {
+						DfuObj.CurrState =
+							XLOADER_STATE_DFU_ERROR;
+						DfuObj.CurrStatus =
+							XLOADER_DFU_STATUS_ERROR;
+						XUsbPsu_Ep0StallRestart(
+							(struct XUsbPsu *)
+							InstancePtr->PrivateData);
+						break;
+					}
+				}
 				Result = XUsbPsu_EpBufferRecv(
 					(struct XUsbPsu*)InstancePtr->PrivateData,
 					0U, &DfuVirtFlash[DfuObj.TotalBytesDnloaded],

@@ -31,6 +31,8 @@
 *       ng   02/14/2024 removed int typecast for errors
 * 2.4   aa   03/09/2026 Added timeout on USB downloads to avoid indefinite wait
 *       aa   03/27/2026 Update logic to impose timeout on USB to reduce downtime
+*       aa   04/01/2026 Added check to report XLOADER_ERR_USB_DDR_OVERFLOW
+*                       when DFU download exceeds valid DDR address range
 *
 * </pre>
 *
@@ -81,7 +83,8 @@ u8 DownloadDone = 0U;
  * 			- XLOADER_ERR_USB_CFG if USB fails to configure.
  * 			- XLOADER_ERR_USB_START if USB fails to start.
  * 			- XLOADER_ERR_USB_TIMEOUT if USB download times out.
- *
+ * 			- XLOADER_ERR_USB_DDR_OVERFLOW if USB boot image exceeds
+ * 			valid DDR address range.
 *****************************************************************************/
 int XLoader_UsbInit(u32 DeviceFlags)
 {
@@ -200,13 +203,17 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	TEnd = TStart - ((u64)XLOADER_USB_TIMEOUT_US * (u64)(*PmcIroFreq / XPLMI_MEGA));
 
 	while ((DownloadDone < XLOADER_DOWNLOAD_COMPLETE) && \
-		(DfuObj.CurrStatus != XLOADER_STATE_DFU_ERROR)) {
+		(DfuObj.CurrState != XLOADER_STATE_DFU_ERROR)) {
 		TStart = XPlmi_GetTimerValue();
 		if (TStart <= TEnd) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_TIMEOUT, XST_FAILURE);
 			break;
 		}
 		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstancePtr->PrivateData);
+	}
+
+	if (DfuObj.CurrStatus == XLOADER_DFU_STATUS_ERROR) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_DDR_OVERFLOW, XST_FAILURE);
 	}
 
 	(void)XUsbPsu_Stop((struct XUsbPsu*)UsbInstancePtr->PrivateData);
