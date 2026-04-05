@@ -185,13 +185,13 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
  *************************************************************************************************/
 static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex)
 {
-	u32 CmdPerm = (CmdHeader & XASU_COMMAND_SECURE_FLAG_MASK) >> XASU_COMMAND_SECURE_FLAG_SHIFT;
+	volatile u32 CmdPerm = (CmdHeader & XASU_COMMAND_SECURE_FLAG_MASK) >> XASU_COMMAND_SECURE_FLAG_SHIFT;
 	volatile u32 ChannelPerm = XASU_CMD_NON_SECURE;
 	u32 ReqType = XASU_CMD_NON_SECURE;
 	u32 IpiBitPos;
 
 	/** If command permission is not secure, return non-secure. */
-	if (CmdPerm != XASU_CMD_SECURE) {
+	if ((CmdPerm != XASU_CMD_SECURE) && (CmdPerm != XASU_CMD_SECURE)) {
 		goto END;
 	}
 
