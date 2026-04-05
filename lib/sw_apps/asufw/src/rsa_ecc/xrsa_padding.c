@@ -909,7 +909,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u32 *)Hash, HashLen,
+		Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)Hash, HashLen,
 			XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_ERROR);

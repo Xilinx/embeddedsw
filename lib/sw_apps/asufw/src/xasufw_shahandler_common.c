@@ -102,7 +102,6 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
-	u32 *HashAddr;
 	u32 ModuleId = (ReqBuf->Header & XASU_MODULE_ID_MASK) >> XASU_MODULE_ID_SHIFT;
 	XAsufw_Module *ShaModulePtr = NULL;
 	XAsufw_ShaContext *ShaCtxPtr = NULL;
@@ -154,8 +153,7 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
 				ShaCtxPtr->CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS;
 				XAsufw_DmaCfgNonBlocking(ShaModulePtr->AsuDmaPtr,
-					XASUDMA_SRC_CHANNEL, ReqBuf, ReqId, XASUFW_RELEASE_DMA);
-				ShaModulePtr->AsuDmaPtr = NULL;
+					XASUDMA_SRC_CHANNEL, ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 				break;
 			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA_UPDATE_FAIL);
@@ -169,10 +167,8 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		ShaCtxPtr->CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 		if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 			/** If operation flags include SHA FINISH, perform SHA finish operation. */
-			HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
-				XASUFW_RESP_DATA_OFFSET;
-			Status = XSha_Finish(ShaInstancePtr, ShaModulePtr->AsuDmaPtr, HashAddr,
-					Cmd->HashBufSize, XASU_FALSE);
+			Status = XSha_Finish(ShaInstancePtr, ShaModulePtr->AsuDmaPtr,
+					Cmd->HashAddr, Cmd->HashBufSize, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status,
 								  XASUFW_SHA_FINISH_FAILED);

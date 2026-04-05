@@ -137,12 +137,15 @@ static inline s32 XAsu_ShaValidateHashLen(u8 ShaMode, u32 HashLen)
 {
 	volatile s32 Status = XST_FAILURE;
 
-	if ((((ShaMode == XASU_SHA_MODE_256) &&
+	if ((HashLen == 0U) ||
+	    ((ShaMode == XASU_SHA_MODE_256) &&
 	    (HashLen != XASU_SHA_SHAKE_256_HASH_LEN)) ||
 	    ((ShaMode == XASU_SHA_MODE_384) &&
 	    (HashLen != XASU_SHA_384_HASH_LEN)) ||
 	    ((ShaMode == XASU_SHA_MODE_512) &&
-	    (HashLen != XASU_SHA_512_HASH_LEN)))) {
+	    (HashLen != XASU_SHA_512_HASH_LEN)) ||
+	    ((ShaMode == XASU_SHA_MODE_SHAKE256) &&
+	    (HashLen > XASU_SHAKE_256_MAX_HASH_LEN))) {
 		goto END;
 	}
 

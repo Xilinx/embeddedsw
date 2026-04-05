@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -78,7 +78,7 @@ XSha *XSha_GetInstance(u16 DeviceId);
 s32 XSha_CfgInitialize(XSha *InstancePtr);
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode);
 s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast);
-s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput);
+s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutput);
 s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen);
 s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen);
 s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,

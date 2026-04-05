@@ -936,7 +936,7 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/* Finalize hash and store 32-byte digest Q in DigestChecksum buffer for OTS processing */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(ShaInstPtr, DmaPtr, (u32 *)DigestChecksum.Buff, XLMS_DIGEST_SIZE,
+		Status = XSha_Finish(ShaInstPtr, DmaPtr, (u64)(UINTPTR)DigestChecksum.Buff, XLMS_DIGEST_SIZE,
 					XASU_FALSE);
 	}
 

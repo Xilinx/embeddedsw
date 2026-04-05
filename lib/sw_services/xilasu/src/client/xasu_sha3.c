@@ -194,11 +194,9 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		}
 	}
 
-	/** If FINISH operation flag is set, update response buffer details. */
+	/** If FINISH operation flag is set, update callback details. */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
-		Status = XAsu_UpdateCallBackDetails(UniqueId,
-						    (u8 *)(UINTPTR)ShaClientParamPtr->HashAddr,
-						    ShaClientParamPtr->HashBufSize, XASU_TRUE);
+		Status = XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

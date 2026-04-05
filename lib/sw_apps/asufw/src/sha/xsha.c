@@ -437,13 +437,10 @@ END:
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  *************************************************************************************************/
-s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput)
+s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutput)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	volatile u32 Index = 0U;
-	u32 *HashPtr = HashAddr;
 	u32 ShaDigestAddr;
-	u32 ShaDigestSizeInWords = 0U;
 	u32 PadLen;
 	u32 BlockLen;
 	u8 Data[XSHA_MAX_PADDING_LENGTH];
@@ -451,13 +448,8 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 	u64 TotalLen = 0U;
 
 	/** Validate input parameters. */
-	if (InstancePtr == NULL) {
+	if ((InstancePtr == NULL) || (DmaPtr == NULL) || (HashAddr == 0U)) {
 		Status = XASUFW_SHA_INVALID_PARAM;
-		goto END;
-	}
-
-	if (HashAddr == NULL) {
-		Status = XASUFW_SHA_INVALID_HASH_ADDRESS;
 		goto END;
 	}
 
@@ -466,8 +458,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 	   (HashBufSize != InstancePtr->ShaDigestSize)) ||
 	   ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
 	   (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-	   ((HashBufSize < XASU_SHA_SHAKE_256_HASH_LEN) ||
-	   (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN)))) {
+	   (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN))) {
 		Status = XASUFW_SHA_INVALID_HASH_SIZE;
 		goto END;
 	}
@@ -542,18 +533,9 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Read out the digest in reverse order and store in the Buffer. */
-	ShaDigestSizeInWords = HashBufSize / XASUFW_WORD_LEN_IN_BYTES;
+	/** Read out the digest and copy to the given hash address using DMA. */
 	ShaDigestAddr = InstancePtr->BaseAddress + XASU_SHA_DIGEST_0_OFFSET;
-
-	for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
-		*HashPtr = XAsufw_ReadReg(ShaDigestAddr);
-		HashPtr++;
-		ShaDigestAddr += XASUFW_WORD_LEN_IN_BYTES;
-	}
-	if ((Index == ShaDigestSizeInWords) && (ShaDigestSizeInWords != 0U)) {
-		Status = XASUFW_SUCCESS;
-	}
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)ShaDigestAddr, HashAddr, HashBufSize, 0U);
 
 	/**
 	 * Measure and print the performance time for the SHA finish operation, if
@@ -850,7 +832,7 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 	case XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u32 *)(UINTPTR)ShaParamsPtr->HashAddr,
+		Status = XSha_Finish(ShaInstancePtr, DmaPtr, ShaParamsPtr->HashAddr,
 				ShaParamsPtr->HashBufSize, XASU_FALSE);
 		break;
 	default:
