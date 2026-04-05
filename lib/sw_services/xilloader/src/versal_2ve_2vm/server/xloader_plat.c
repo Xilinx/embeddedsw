@@ -75,6 +75,7 @@
 *       gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *       vm   03/16/2026 Added XLoader_LoadAsuElf function for ASU update
 *       pre  03/23/2026 Added support to extend to TPM PCRs
+*       sk   04/02/2026 Added unlock and lock before TAP register access
 *
 * </pre>
 *
@@ -1765,11 +1766,17 @@ int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
+	/** - Unlock the PMC_TAP registers */
+	XPlmi_Out32(XLOADER_PMC_TAP_LOCK_ADDR, XLOADER_PMC_TAP_UNLOCK_VAL);
+
 	if (Flag == XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE) {
 		Status = XLoader_EnableJtag(XLOADER_CONFIG_DAP_STATE_NONSECURE_DBG);
 	} else {
 		Status = XLoader_DisableJtag();
 	}
+
+	/** - Lock the PMC_TAP registers */
+	XPlmi_Out32(XLOADER_PMC_TAP_LOCK_ADDR, XLOADER_PMC_TAP_LOCK_VAL);
 
 END:
 #else

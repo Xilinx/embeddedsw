@@ -19,6 +19,7 @@
 * 2.4   abh  11/20/2025 Fixed MISRA-C violations
 *       tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms
 *                       support
+*       sk   04/02/2026 Moved TAP unlock defines to Header file
 *
 * </pre>
 *
@@ -40,12 +41,6 @@
 
 /************************** Constant Definitions *****************************/
 #ifdef PLM_AUTH_JTAG_PPK_SPK
-#define XLOADER_PMC_TAP_LOCK_ADDR		(0xF11B1000U)
-				/**< Address of PMC_TAP_LOCK register */
-#define XLOADER_PMC_TAP_LOCK_VAL		(0x1U)
-				/**< Value to lock write to PMC_TAP registers */
-#define XLOADER_PMC_TAP_UNLOCK_VAL		(0x0U)
-				/**< Value to unlock write to PMC_TAP registers */
 #define XLOADER_AUTH_JTAG_INT_STATUS_WAIT_TIMEOUT	(1000000U)
 	/**< Timeout to wait for authenticated JTAG interrupt status bit to be set */
 #define XLOADER_AUTH_JTAG_MAX_MSG_SIZE			(0x8000U)

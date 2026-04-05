@@ -56,6 +56,7 @@
 *       vm   03/16/2026 Added XLOADER_ERR_ASU_FW_NOT_FOUND error code
 *       pre  03/23/2026 Added support to extend to TPM PCRs
 *       sri  03/26/2026 Added IPI API definition for Versal 2VE and 2VM devices
+*       sk   04/02/2026 Added TAP Unlock register defines
 *
 * </pre>
 *
@@ -140,6 +141,12 @@ extern "C" {
 
 #define XLOADER_VERSAL_2VE_2VM_PDI_VERSION_1	(0x00010000U) /**< PDI Version */
 
+#define XLOADER_PMC_TAP_LOCK_ADDR		(0xF11B1000U)
+				/**< Address of PMC_TAP_LOCK register */
+#define XLOADER_PMC_TAP_LOCK_VAL		(0x1U)
+				/**< Value to lock write to PMC_TAP registers */
+#define XLOADER_PMC_TAP_UNLOCK_VAL		(0x0U)
+				/**< Value to unlock write to PMC_TAP registers */
 /* Minor Error Codes */
 enum {
 	/* Do not move this error, as it is used to represent XST_FAILURE */
