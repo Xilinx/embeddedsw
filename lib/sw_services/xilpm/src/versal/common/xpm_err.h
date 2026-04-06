@@ -155,6 +155,10 @@ extern "C" {
 #define XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT	(2125L) /**< Error while Enabling of AXI-MM error events */
 #define XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR	(2126L) /**< Error while Setting of L2 controller NPI INTR */
 
+/************************** Boot Device Errors ******************************/
+/************************** (2130L) - (2139L) ****************************/
+#define XPM_PMC_BOOT_DEV_RETAINED		(2130L) /**< Boot device retained by PMC per RTCA policy */
+
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

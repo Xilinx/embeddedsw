@@ -10,6 +10,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_defs.h"
+#include "xpm_err.h"
 #include "xplmi_ipi.h"
 #include "xpm_mem.h"
 
@@ -93,12 +94,12 @@ XStatus XPm_Init(void (*const RequestCb)(u32 SubsystemId, XPmApiCbId_t EventId, 
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
 XStatus XPm_PmcRequestDevice(u32 DeviceId);
+XStatus XPm_PmcReleaseDevice(u32 DeviceId);
 XStatus XPm_PmcActivateSubsystem(u32 SubsystemId);
 XStatus XPm_PmcWakeAllCores(void);
 XStatus XPm_PmcWakeUpCore(u32 CoreId , u32 SetAddress, u64 Address);
 XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState);
 XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType);
-XStatus XPm_PmcReleaseDevice(u32 DeviceId);
 XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd);
 XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);

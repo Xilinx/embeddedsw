@@ -71,6 +71,7 @@
 * 2.4   sk   09/27/2025 Added Boot Time config support to disable UART Logs
 *       aa   03/11/2025 Updated SDK release version
 *       tvp  24/12/2025 Added RTCA define for JTAG enablement for secondary PDI
+*       ias  03/26/2026 Added RTCA register and masks for boot device release policy
 * </pre>
 *
 * @note
@@ -214,6 +215,7 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_PLM_VERSION_ADDR		(XPLMI_RTCFG_BASEADDR + 0x320U)
 #define XPLMI_RTCFG_PLM_KAT_ADDR 		(XPLMI_RTCFG_SECURE_STATE_PLM_ADDR)
 #define XPLMI_RTCFG_SEC_PDI_CFG			(XPLMI_RTCFG_BASEADDR + 0x368U)
+#define XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE	(XPLMI_RTCFG_BASEADDR + 0x36CU)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
@@ -229,6 +231,13 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK		(0x4U)
 /* Mask for secondary PDI configuration to enable JTAG */
 #define XPLMI_RTCFG_SEC_PDI_CFG_JTAG_EN_MASK	(0x1U)
+/* Boot device release skip policy bit masks */
+#define XPLMI_SKIP_BOOT_DEV_QSPI_MASK		(0x00000001U)
+#define XPLMI_SKIP_BOOT_DEV_SD0_MASK		(0x00000002U)
+#define XPLMI_SKIP_BOOT_DEV_SD1_MASK		(0x00000004U)
+#define XPLMI_SKIP_BOOT_DEV_OSPI_MASK		(0x00000008U)
+#define XPLMI_SKIP_BOOT_DEV_USB_MASK		(0x00000010U)
+#define XPLMI_SKIP_BOOT_DEV_UFS_MASK		(0x00000020U)
 
 /* Shifts of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT	(0x10U)

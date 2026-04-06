@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +11,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_defs.h"
+#include "xpm_err.h"
 #include "xpm_api_plat.h"
 #include "xplmi_ipi.h"
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       pre  09/06/2024 Setting the pre-scaler for QSPI clock from CIPS
 *		prt	 04/02/2025 Added support for Infineon QSPI flash parts
+*       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in QSPI release
 *
 * </pre>
 *
@@ -986,6 +987,13 @@ int XLoader_QspiRelease(void)
 #else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI, XPLMI_CMD_SECURE);
 #endif
+	/**
+	 * Boot device is not released and retained by PMC,
+	 * this is intended behavior, return success.
+	 */
+	if (Status == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }

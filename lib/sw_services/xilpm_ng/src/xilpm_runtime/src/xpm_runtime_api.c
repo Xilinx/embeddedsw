@@ -5,6 +5,7 @@
 
 #include "xil_types.h"
 #include "xstatus.h"
+#include "xplmi.h"
 #include "xplmi_cmd.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
@@ -33,6 +34,7 @@
 #include "xpm_runtime_periph.h"
 #include "xpm_access.h"
 #include "xpm_power_handlers.h"
+#include "xpm_debug.h"
 
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
@@ -891,6 +893,233 @@ done:
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
+
+/**
+ * @brief Get the RTCA skip bit mask for a boot device.
+ *
+ * @param DeviceId	Device node ID.
+ *
+ * @return Bit mask if DeviceId is a boot device, 0 otherwise.
+ */
+static u32 XPm_GetBootDevSkipMask(u32 DeviceId)
+{
+	u32 Mask = 0U;
+
+	switch (DeviceId) {
+	case PM_DEV_QSPI:
+		Mask = XPLMI_SKIP_BOOT_DEV_QSPI_MASK;
+		break;
+	case PM_DEV_SDIO_0:
+		Mask = XPLMI_SKIP_BOOT_DEV_SD0_MASK;
+		break;
+	case PM_DEV_SDIO_1:
+		Mask = XPLMI_SKIP_BOOT_DEV_SD1_MASK;
+		break;
+	case PM_DEV_OSPI:
+		Mask = XPLMI_SKIP_BOOT_DEV_OSPI_MASK;
+		break;
+	case PM_DEV_USB_0:
+		Mask = XPLMI_SKIP_BOOT_DEV_USB_MASK;
+		break;
+	case PM_DEV_UFS:
+		Mask = XPLMI_SKIP_BOOT_DEV_UFS_MASK;
+		break;
+	default:
+		Mask = 0U;
+		break;
+	}
+
+	return Mask;
+}
+
+/**
+ * @brief Check if boot device release should be skipped.
+ *
+ * @param DeviceId	Device node ID.
+ *
+ * @return Non-zero if release should be skipped, 0 otherwise.
+ */
+static u32 XPm_ShouldSkipBootDevRelease(u32 DeviceId)
+{
+	u32 SkipMask = XPm_GetBootDevSkipMask(DeviceId);
+
+	if (0U == SkipMask) {
+		return 0U;
+	}
+
+	return (XPm_In32(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE) & SkipMask);
+}
+
+/**
+ * @brief Request Device from PMC Subsystem (runtime strong override).
+ *
+ * Sets PmcAllocated so GetMaxCapabilities() accounts for PMC's usage,
+ * then triggers FSM evaluation via UpdateStatus().  If the device is
+ * currently UNUSED and DevOps exists, this causes ActionBringUpAll to
+ * fire, which properly brings up power, enables clocks, and releases
+ * resets through the FSM -- ensuring clock UseCount is tracked.
+ *
+ * If no DevOps exists (no subsystem registered requirements via CDO),
+ * falls back to direct XPmDevice_BringUp() (power-only, same as boot
+ * stub).
+ *
+ * When the device is already RUNNING (e.g. another subsystem holds it),
+ * UpdateStatus() sees no state change needed and returns SUCCESS.
+ *
+ * @param DeviceId	Device node ID to request.
+ *
+ * @return XST_SUCCESS on successful request, error code on failure.
+ */
+XStatus XPm_PmcRequestDevice(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	/* Mark PMC ownership */
+	Device->PmcAllocated = 1U;
+
+	/*
+	 * If DevOps exists, use the FSM path.  UpdateStatus() will
+	 * evaluate GetMaxCapabilities() (which now includes
+	 * PM_CAP_ACCESS from PmcAllocated) and trigger a
+	 * UNUSED -> RUNNING transition via ActionBringUpAll if the
+	 * device is not already running.
+	 *
+	 * ActionBringUpAll handles power + clocks + resets, ensuring
+	 * clock UseCount is properly tracked for later release via
+	 * ActionShutdown's symmetric SetClocks(0).
+	 *
+	 * If device is already RUNNING, UpdateStatus() sees same state
+	 * and returns SUCCESS with no transition.
+	 */
+	if (NULL != XPm_GetDevOps_ById(DeviceId)) {
+		Status = XPmDevice_UpdateStatus(Device);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
+		}
+	} else {
+		/*
+		 * No DevOps: no subsystem registered requirements.
+		 * Fall back to direct BringUp (power-only).
+		 * This is the boot-compatible path where CDO has
+		 * already configured clocks and resets.
+		 */
+		Status = XPmDevice_BringUp(Device);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_PWR_PARENT_UP;
+		}
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/**
+ * @brief Release a device owned by the PMC subsystem (runtime strong override).
+ *
+ * Clears PmcAllocated and lets the device FSM evaluate whether the
+ * device should be powered down.  If other subsystems still hold
+ * requirements, GetMaxCapabilities() returns non-zero and the device
+ * stays in RUNNING state.
+ *
+ * If no DevOps exists (no subsystem ever registered a requirement for
+ * this device via CDO), falls back to direct power-down since no
+ * sharing conflict is possible.
+ *
+ * If the RTCA skip-boot-device-release policy has the corresponding
+ * bit set, the release is skipped and XPM_PMC_BOOT_DEV_RETAINED is
+ * returned (PmcAllocated stays set).
+ *
+ * @param DeviceId	Device node ID to release.
+ *
+ * @return XST_SUCCESS on successful release,
+ *         XPM_PMC_BOOT_DEV_RETAINED if release was skipped per RTCA policy,
+ *         error code on failure.
+ */
+XStatus XPm_PmcReleaseDevice(u32 DeviceId)
+{
+	XStatus Status = XPM_ERR_DEVICE_RELEASE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	/* Check if boot device is to be retained by PMC */
+	if (0U != XPm_ShouldSkipBootDevRelease(DeviceId)) {
+		PmInfo("Boot dev 0x%x release skipped (retained)\r\n", DeviceId);
+		Status = XPM_PMC_BOOT_DEV_RETAINED;
+		goto done;
+	}
+
+	/* Check if device is already in unused state */
+	if (Device->Node.State == (u8)XPM_DEVSTATE_UNUSED) {
+		/* Clear PMC ownership */
+		Device->PmcAllocated = 0U;
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Clear PMC ownership */
+	Device->PmcAllocated = 0U;
+
+	/*
+	 * If DevOps exists, let the device FSM evaluate whether the
+	 * device should be powered down.  GetMaxCapabilities() now
+	 * returns 0 for the PmcAllocated contribution; if other
+	 * subsystems still hold requirements, their capabilities keep
+	 * the device in RUNNING state.
+	 *
+	 * If no DevOps exists, no subsystem ever registered a
+	 * requirement for this device, so no sharing conflict is
+	 * possible.  Fall back to direct power-down.
+	 */
+	if (NULL != XPm_GetDevOps_ById(DeviceId)) {
+		Status = XPmDevice_UpdateStatus(Device);
+		if (XST_SUCCESS != Status) {
+			/* Restore PMC ownership on failed release */
+			Device->PmcAllocated = 1U;
+			DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
+		}
+	} else {
+		/* Direct power-down fallback (no FSM available) */
+		if (NULL != Device->Power) {
+			if (Device->Power->UseCount > 0U) {
+				Device->WfPwrUseCnt = Device->Power->UseCount - (u16)1U;
+			} else {
+				Device->WfPwrUseCnt = 0U;
+			}
+			Status = Device->Power->HandleEvent(&Device->Power->Node,
+							(u32)XPM_POWER_EVENT_PWR_DOWN);
+			if (XST_SUCCESS == Status) {
+				Device->Node.State = (u8)XPM_DEVSTATE_UNUSED;
+			} else {
+				/* Restore PMC ownership on failed power-down */
+				Device->PmcAllocated = 1U;
+				DbgErr = XPM_INT_ERR_PWRDN;
+			}
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
+
+done:
+	/* Suppress error log when release was intentionally skipped per RTCA policy */
+	if ((XStatus)XPM_PMC_BOOT_DEV_RETAINED != Status) {
+		XPm_PrintDbgErr(Status, DbgErr);
+	}
+	return Status;
+}
+
 /**
  * @brief Adds a subsystem to the power management framework.
  *

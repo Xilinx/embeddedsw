@@ -49,6 +49,7 @@
 *       prt  04/08/2025 Added support for skipping OSPI copy on zero byte length
 * 2.4   abh  12/17/2025 Fixed MISRA-C violations
 *       aa   02/03/2026 Added DDR support for Macronix flash
+*       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in OSPI release
 *
 * </pre>
 *
@@ -1189,6 +1190,13 @@ int XLoader_OspiRelease(void)
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 		XPLMI_CMD_SECURE);
 #endif
+	/**
+	 * Boot device is not released and retained by PMC,
+	 * this is intended behavior, return success.
+	 */
+	if (Status == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }

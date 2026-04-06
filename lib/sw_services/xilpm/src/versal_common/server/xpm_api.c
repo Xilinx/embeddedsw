@@ -3434,6 +3434,59 @@ done:
 }
 #endif /* ENABLE_BULK_DEV_RELEASE_SUPPORT */
 
+/**
+ * @brief Get the RTCA skip bit mask for a boot device.
+ *
+ * @param DeviceId	Device node ID.
+ *
+ * @return Bit mask if DeviceId is a boot device, 0 otherwise.
+ */
+static u32 XPm_GetBootDevSkipMask(u32 DeviceId)
+{
+	u32 Mask = 0U;
+
+	switch (DeviceId) {
+	case PM_DEV_QSPI:
+		Mask = XPLMI_SKIP_BOOT_DEV_QSPI_MASK;
+		break;
+	case PM_DEV_SDIO_0:
+		Mask = XPLMI_SKIP_BOOT_DEV_SD0_MASK;
+		break;
+	case PM_DEV_SDIO_1:
+		Mask = XPLMI_SKIP_BOOT_DEV_SD1_MASK;
+		break;
+	case PM_DEV_OSPI:
+		Mask = XPLMI_SKIP_BOOT_DEV_OSPI_MASK;
+		break;
+	case PM_DEV_USB_0:
+		Mask = XPLMI_SKIP_BOOT_DEV_USB_MASK;
+		break;
+	default:
+		Mask = 0U;
+		break;
+	}
+
+	return Mask;
+}
+
+/**
+ * @brief Check if boot device release should be skipped per RTCA policy.
+ *
+ * @param DeviceId	Device node ID.
+ *
+ * @return Non-zero if release should be skipped, 0 otherwise.
+ */
+static u32 XPm_ShouldSkipBootDevRelease(u32 DeviceId)
+{
+	u32 SkipMask = XPm_GetBootDevSkipMask(DeviceId);
+
+	if (0U == SkipMask) {
+		return 0U;
+	}
+
+	return (XPm_In32(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE) & SkipMask);
+}
+
 /****************************************************************************/
 /**
  * @brief  This function is used by a subsystem to release the usage of a
@@ -3467,6 +3520,14 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	 */
 	if (PM_DEV_AIE == DeviceId) {
 		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if this boot device should be retained per RTCA policy */
+	if ((SubsystemId == PM_SUBSYS_PMC) &&
+	    (0U != XPm_ShouldSkipBootDevRelease(DeviceId))) {
+		PmInfo("Boot dev 0x%x release skipped (retained)\r\n", DeviceId);
+		Status = XPM_PMC_BOOT_DEV_RETAINED;
 		goto done;
 	}
 
@@ -3518,7 +3579,7 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 done:
-	if (XST_SUCCESS != Status) {
+	if ((XST_SUCCESS != Status) && (XPM_PMC_BOOT_DEV_RETAINED != Status)) {
 		PmErr("0x%x\n\r", Status);
 	}
 	return Status;

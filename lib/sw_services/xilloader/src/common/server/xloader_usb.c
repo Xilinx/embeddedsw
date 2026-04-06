@@ -33,6 +33,7 @@
 *       aa   03/27/2026 Update logic to impose timeout on USB to reduce downtime
 *       aa   04/01/2026 Added check to report XLOADER_ERR_USB_DDR_OVERFLOW
 *                       when DFU download exceeds valid DDR address range
+*       ias  03/27/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in USB release
 *
 * </pre>
 *
@@ -274,6 +275,13 @@ int XLoader_UsbRelease(void)
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
 		XPLMI_CMD_SECURE);
 #endif
+	/**
+	 * Boot device is not released and retained by PMC,
+	 * this is intended behavior, return success.
+	 */
+	if (Status == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }

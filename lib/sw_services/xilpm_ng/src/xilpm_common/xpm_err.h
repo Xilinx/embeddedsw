@@ -156,6 +156,11 @@ extern "C" {
 #define XPM_ERR_AIE_OPS_UC_ZEROIZATION		(2127L) /**< Error during UC zeroization */
 #define XPM_ERR_AIE_OPS_NMU_CONFIG		(2128L) /**< Error during nmu config */
 #define XPM_ERR_AIE_OPS_HANDSHAKE		(2129L) /**< Error during handshake OP */
+
+/************************** Boot Device Errors ******************************/
+/************************** (2130L) - (2139L) ****************************/
+#define XPM_PMC_BOOT_DEV_RETAINED		(2130L) /**< Boot device retained by PMC per RTCA policy */
+
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,6 +68,7 @@ typedef struct XPmRuntime_DeviceOps XPmRuntime_DeviceOps;
 struct XPm_DeviceNode {
 	XPm_Node Node; /**< Node: Base class */
 	u16 WfPwrUseCnt; /**< Pending power use count */
+	u8 PmcAllocated; /**< PMC has this device allocated (subsystem-aware flag) */
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
 	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */

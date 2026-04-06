@@ -54,6 +54,7 @@
 *       bm   03/02/2024 Make SD drive number logic order independent
 *       pre  04/17/2025 Passing baseaddress for XSdPs_LookupConfig in SDT flow
 * 2.01	abh	 07/21/2025 Fixed GCC warnings
+*       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in SD release
 *
 * </pre>
 *
@@ -449,6 +450,13 @@ END:
 	PmStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);
 #endif
+	/**
+	 * Boot device is not released and retained by PMC,
+	 * this is intended behavior, return success.
+	 */
+	if (PmStatus == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+		PmStatus = XST_SUCCESS;
+	}
 	if (Rc == FR_OK) {
 		Status = PmStatus;
 	}
@@ -744,6 +752,13 @@ int XLoader_RawRelease(void)
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);
 #endif
+	/**
+	 * Boot device is not released and retained by PMC,
+	 * this is intended behavior, return success.
+	 */
+	if (Status == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }

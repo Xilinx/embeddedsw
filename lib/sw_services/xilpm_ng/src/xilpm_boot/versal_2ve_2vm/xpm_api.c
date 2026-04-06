@@ -1774,19 +1774,25 @@ done:
 
 
 /**
- * XPm_PmcReleaseDevice - Release a device in the PMC.
+ * @brief Release a device owned by the PMC subsystem (weak boot stub).
  *
- * This function is a placeholder and does not actually release the device.
- * The XILPM boot does not support releasing devices.
+ * In boot-only mode (no runtime linked), this clears PmcAllocated but
+ * does not perform actual power-down.  The runtime strong override
+ * replaces this with FSM-aware release logic.
  *
- * @param DeviceId: The ID of the device to be released.
+ * @param DeviceId	Device node ID to release.
  *
- * @return XST_SUCCESS always, as the function does not perform any action.
+ * @return XST_SUCCESS always (no-op in boot context).
  */
-XStatus XPm_PmcReleaseDevice(const u32 DeviceId)
+XStatus __attribute__((weak, noinline)) XPm_PmcReleaseDevice(u32 DeviceId)
 {
-	/* XILPM boot does not support Releasing device*/
-	(void)DeviceId;
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+
+	if (NULL != Device) {
+		/* Clear PMC ownership */
+		Device->PmcAllocated = 0U;
+	}
+	/* XILPM boot does not support full device release */
 	return XST_SUCCESS;
 }
 
@@ -1880,15 +1886,31 @@ XStatus XPm_PmcGetDeviceState(const u32 DeviceId, u32 *const DeviceState)
 }
 
 /**
- * @brief Request Device from PMC Subsystem.
-*/
-XStatus XPm_PmcRequestDevice(const u32 DeviceId) {
+ * @brief Request Device from PMC Subsystem (weak boot stub).
+ *
+ * @DeviceId: Device node ID to request
+ *
+ * Sets the PmcAllocated flag on the device so that the device FSM's
+ * GetMaxCapabilities() accounts for PMC's usage.  This prevents
+ * premature device shutdown when a device is shared between PMC and
+ * another subsystem (e.g. APU requests then releases the same device).
+ *
+ * In boot-only mode this is sufficient: CDO has already configured
+ * clocks and resets, so only the power domain needs tracking via
+ * BringUp.  The runtime strong override adds FSM-aware bring-up
+ * (power + clocks + resets) for devices re-requested after release.
+ *
+ * Return: XST_SUCCESS on successful request, error code on failure.
+ */
+XStatus __attribute__((weak, noinline)) XPm_PmcRequestDevice(u32 DeviceId) {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+	/* Mark PMC ownership */
+	Device->PmcAllocated = 1U;
 	Status = XPmDevice_BringUp(Device);
 done:
 	return Status;

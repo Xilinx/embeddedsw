@@ -22,6 +22,7 @@
 * 1.02 	abh	07/21/2025 Fixed GCC warnings
 *       sk  09/26/2025 Added UFS speed change config
 * 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+*       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in UFS release
 *
 * </pre>
 *
@@ -330,6 +331,13 @@ END:
 END:
 	/** - Release the device */
 	PmStatus = XPm_PmcReleaseDevice(PM_DEV_UFS);
+	/**
+	 * Boot device is not released and retained by PMC,
+	 * this is intended behavior, return success.
+	 */
+	if (PmStatus == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+		PmStatus = XST_SUCCESS;
+	}
 	if (Rc == FR_OK) {
 		Status = PmStatus;
 	}

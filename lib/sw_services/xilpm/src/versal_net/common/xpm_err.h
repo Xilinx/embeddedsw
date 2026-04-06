@@ -146,6 +146,10 @@ extern "C" {
 #define XPM_ERR_NEW_DATA_FLAG_TIMEOUT		 (2111L) /**< Sysmon new data flag timeout */
 #define XPM_ERR_RAIL_VOLTAGE			 (2112L) /**< Power rail not ramped up */
 
+/************************** Boot Device Errors ******************************/
+/************************** (2130L) - (2139L) ****************************/
+#define XPM_PMC_BOOT_DEV_RETAINED		 (2130L) /**< Boot device retained by PMC per RTCA policy */
+
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

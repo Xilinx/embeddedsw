@@ -460,6 +460,12 @@ done:
 static u32 GetMaxCapabilities(const XPm_Device* const Device)
 {
 	u32 MaxCaps = 0U;
+
+	/* PMC allocation contributes a virtual capability */
+	if (1U == Device->PmcAllocated) {
+		MaxCaps |= (u32)PM_CAP_ACCESS;
+	}
+
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
