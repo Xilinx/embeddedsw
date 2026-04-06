@@ -180,8 +180,13 @@ int num_channels;
 
 static u8 TxBuffer[TX_BUFFER_SIZE] __attribute__ ((aligned(64)));
 static u8 RxBuffer[RX_BUFFER_SIZE] __attribute__ ((aligned(64)));
+#ifdef __aarch64__
+static u8 TxBdSpace[TX_BD_SPACE_SIZE] __attribute__ ((aligned(BLOCK_SIZE_2MB)));
+static u8 RxBdSpace[RX_BD_SPACE_SIZE] __attribute__ ((aligned(BLOCK_SIZE_2MB)));
+#else
 static u8 TxBdSpace[TX_BD_SPACE_SIZE] __attribute__ ((aligned(64)));
 static u8 RxBdSpace[RX_BD_SPACE_SIZE] __attribute__ ((aligned(64)));
+#endif
 
 static UINTPTR TxBufferPtr;
 static UINTPTR RxBufferPtr;
@@ -237,6 +242,12 @@ int main(void)
 	/* For ARM64, set BD spaces as non-cacheable */
 	Xil_SetTlbAttributes((UINTPTR)TxBdSpace & ~(BLOCK_SIZE_2MB - 1), NORM_NONCACHE);
 	Xil_SetTlbAttributes((UINTPTR)RxBdSpace & ~(BLOCK_SIZE_2MB - 1), NORM_NONCACHE);
+#elif defined(ARMR5)
+        Xil_SetTlbAttributes((UINTPTR)TxBdSpace, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW);
+        Xil_SetTlbAttributes((UINTPTR)RxBdSpace, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW);
+#elif !defined(__MICROBLAZE__)
+        Xil_SetTlbAttributes((UINTPTR)TxBdSpace, DEVICE_MEMORY);
+        Xil_SetTlbAttributes((UINTPTR)RxBdSpace, DEVICE_MEMORY);
 #endif
 
 
