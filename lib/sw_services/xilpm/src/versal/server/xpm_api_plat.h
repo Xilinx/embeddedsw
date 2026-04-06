@@ -66,10 +66,43 @@ XStatus XPm_DisableDdrSr(const u32 SubsystemId);
 XStatus XPm_ForceHouseClean(u32 NodeId);
 void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void));
 void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State);
+#ifdef ENABLE_GPIO_PROC_HANDLER
+/**
+ * @brief Maximum number of GPIO procs supported.
+ */
+#define MAX_GPIO_PROC_PINS	(8U)
+
+/**
+ * @brief Per-pin configuration for GPIO-triggered interrupt.
+ *
+ * Cached by XPm_GpioProcHandlerInit() and passed to XPm_GpioProcHandler()
+ * via the GIC callback data pointer so the handler can identify the
+ * triggering MIO pin and execute the correct CDO PROC.
+ */
+typedef struct {
+	u8 SlrId;	/**< SLR ID */
+	u32 PinId;	/**< MIO pin node ID (PM_STMIC_LMIO_x / PM_STMIC_PMIO_x) */
+	u32 Bank;	/**< GPIO bank number (0 = bank[0:25], 1 = bank[26:51]) */
+	u32 ProcId;	/**< CDO Proc ID to execute on reset event */
+	u32 GicId;	/**< GIC proxy index for re-enable */
+	u32 GicSrc;	/**< GIC source bit for re-enable */
+} XPm_GpioProcCfg;
+
+int XPm_GpioProcHandlerInit(u32 CfgRegAddr);
+int XPm_GpioProcHandler(void *Data);
+
+/**
+ * @brief GPIO controller type encoded in the RTCA configuration register.
+ */
+typedef enum {
+	LPD_GPIO_CONTROLLER = 0U,	/**< LPD GPIO Controller */
+	PMC_GPIO_CONTROLLER = 1U,	/**< PMC GPIO Controller */
+} XPm_GpioControllerType;
+
+#endif /* ENABLE_GPIO_PROC_HANDLER */
 
 #ifdef __cplusplus
 }
 #endif
 
-/** @} */
 #endif /* XPM_API_PLAT_H_ */

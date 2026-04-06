@@ -1457,6 +1457,146 @@ extern "C" {
 #define PPU_RAM_DATA_CNTLR_HIGHADDR			(0xF025FFFFU)
 
 
+/**
+ * @brief offset of PMC_GPIO_INT_EN_0 register (Bank 0 interrupt enable, write-only)
+ */
+#define PMC_GPIO_INT_EN_0_OFFSET      (0x00000210U)
+/**
+ * @brief offset of PMC_GPIO_INT_EN_1 register (Bank 1 interrupt enable, write-only)
+ */
+#define PMC_GPIO_INT_EN_1_OFFSET      (0x00000250U)
+ /**
+ * @brief offset of PMC_GPIO_INT_EN_2 register (Bank 2 interrupt enable, write-only)
+ */
+#define PMC_GPIO_INT_EN_2_OFFSET      (0x00000290U)
+/**
+ * @brief offset of PMC_GPIO_INT_STAT_0 register
+ */
+#define PMC_GPIO_INT_STAT_0_OFFSET    (0x00000218U)
+/**
+ * @brief offset of PMC_GPIO_INT_STAT_1 register
+ */
+#define PMC_GPIO_INT_STAT_1_OFFSET    (0x00000258U)
+/**
+ * @brief offset of PMC_GPIO_INT_STAT_2 register
+ */
+#define PMC_GPIO_INT_STAT_2_OFFSET    (0x00000298U)
+/**
+ * @brief offset of PMC_GPIO_INT_ANY_0 register (Bank 0 interrupt on any edge)
+ */
+#define PMC_GPIO_INT_ANY_0_OFFSET     (0x00000224U)
+/**
+ * @brief offset of PMC_GPIO_INT_ANY_1 register (Bank 1 interrupt on any edge)
+ */
+#define PMC_GPIO_INT_ANY_1_OFFSET     (0x00000264U)
+/**
+ * @brief offset of PMC_GPIO_INT_ANY_2 register (Bank 2 interrupt on any edge)
+ */
+#define PMC_GPIO_INT_ANY_2_OFFSET     (0x000002A4U)
+/**
+ * @brief offset of PMC_GPIO_DATA_0_RO register
+ */
+#define PMC_GPIO_DATA_0_RO_OFFSET     (0x00000060U)
+/**
+ * @brief offset of PMC_GPIO_DATA_1_RO register
+ */
+#define PMC_GPIO_DATA_1_RO_OFFSET     (0x00000064U)
+/**
+ * @brief offset of PMC_GPIO_DATA_2_RO register
+ */
+#define PMC_GPIO_DATA_2_RO_OFFSET     (0x00000068U)
+/**
+ * @brief offset of PS_GPIO_INT_STAT_0 register
+ */
+#define PS_GPIO_INT_STAT_0_OFFSET    (0x00000218U)
+/**
+ * @brief offset of PS_GPIO_DATA_0_RO register
+ */
+#define PS_GPIO_DATA_0_RO_OFFSET     (0x00000060U)
+/**
+ * @brief offset of PS_GPIO_DATA_1_RO register
+ */
+#define PS_GPIO_DATA_1_RO_OFFSET     (0x00000064U)
+/**
+ * @brief offset of PS_GPIO_INT_STAT_1 register
+ */
+#define PS_GPIO_INT_STAT_1_OFFSET    (0x00000258U)
+
+/**
+ * GPIO PROC Configuration Register (RTCA offset 0x370)
+ *
+ * Resides in the PLM Run-Time Configuration Area (RTCA).
+ * RTCA base: 0xF2014000 (XPLMI_RTCFG_BASEADDR), offset: 0x370.
+ *
+ * The register holds two 16-bit GPIO configurations with identical layout:
+ *   Bits [15:0]  — first GPIO configuration
+ *   Bits [31:16] — second GPIO configuration
+ *
+ * Per-half bit layout (applied after extracting the 16-bit half):
+ *   [2:0]   / [18:16] : SLR ID
+ *   [4:3]   / [20:19] : GPIO Controller — 0 = LPD GPIO Controller, 1 = PMC GPIO Controller
+ *   [6:5]   / [22:21] : GPIO bank number
+ *   [12:7]  / [28:23] : MIO pin index
+ *   [15:13] / [31:29] : CDO Proc ID to execute on reset event
+ */
+#define RTCA_GPIO_PROC_CFG_REG		(0xF2014370U)
+/**
+ * @brief Mask of SLR ID
+ */
+#define GPIO_CFG_SLRID_MASK	(0x7U)
+/**
+ * @brief Shift value of SLR ID
+ */
+#define GPIO_CFG_SLRID_SHIFT	(0U)
+/**
+ * @brief Mask of GPIO type
+ */
+#define GPIO_CFG_TYPE_MASK		(0x18U)
+/**
+ * @brief Shift value of GPIO type
+ */
+#define GPIO_CFG_TYPE_SHIFT	(3U)
+/**
+ * @brief Mask of GPIO bank number
+ */
+#define GPIO_CFG_BANK_MASK		(0x60U)
+/**
+ * @brief Shift value of GPIO bank number
+ */
+#define GPIO_CFG_BANK_SHIFT	(5U)
+/**
+ * @brief Mask of MIO pin index
+ */
+#define GPIO_CFG_MIO_MASK		(0x1F80U)
+/**
+ * @brief Shift value of MIO pin index
+ */
+#define GPIO_CFG_MIO_SHIFT		(7U)
+/**
+ * @brief Mask of PROC ID
+ */
+#define GPIO_CFG_PROCID_MASK	(0xE000U)
+/**
+ * @brief Shift value of PROC ID
+ */
+#define GPIO_CFG_PROCID_SHIFT	(13U)
+/**
+ * @brief Mask to extract one 16-bit configuration half
+ */
+#define GPIO_CFG_HALF_MASK		(0xFFFFU)
+/**
+ * @brief shift to reach the upper 16-bit GPIO configuration
+ */
+#define GPIO_CFG_UPPER_SHIFT	(16U)
+/**
+ * @brief Bit shift between the two configuration halves
+ */
+#define GPIO_CFG_HALF_SHIFT	(16U)
+/**
+ * @brief Number of configuration entries packed in the register
+ */
+#define GPIO_CFG_ENTRIES		(2U)
+
 #ifdef __cplusplus
 }
 #endif
