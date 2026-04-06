@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 3.11  sd	02/06/20 Added clocking support.
 * 3.11  rna	02/11/20 Moved XIicPs_Reset to xiicps_hw.c
 * 3.18  gm	07/14/23 Added SDT support.
+* 3.23  vlt     03/30/26 Implemented bus recovery feature.
 *
 * </pre>
 *
@@ -42,12 +43,17 @@
 
 #include "xiicps.h"
 #include "xiicps_xfer.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** Number of SCL pulses for bus recovery */
+#define XIICPS_RECOVERY_PULSES	9U
+/** HOLD toggle delay in microseconds (5000 us = 5 ms) for I2C bus recovery */
+#define XIICPS_RECOVERY_DELAY	5000U
 
 /************************** Function Prototypes ******************************/
 
@@ -348,4 +354,54 @@ void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value)
 		XIicPs_WriteReg(BaseAddr, XIICPS_TIME_OUT_OFFSET, Value);
 	}
 }
+/*****************************************************************************/
+/**
+ *
+ * Performs I2C bus recovery using the PS I2C controller HOLD feature.
+ *
+ * This API is used when the I2C controller is already in Master mode and the
+ * bus is stuck due to a slave holding SDA low. The API toggles the HOLD bit
+ * to manually generate SCL pulses, allowing the slave to release the bus.
+ *
+ * @param   InstancePtr Pointer to the XIicPs instance.
+ *
+ * @return  XST_SUCCESS if recovery sequence is executed.
+ *          XST_FAILURE if controller is not in Master mode.
+ *
+ ******************************************************************************/
+s32 XIicPs_BusRecovery(XIicPs *InstancePtr)
+{
+	UINTPTR BaseAddr;
+	u32 CtrlRegVal;
+	u8 Index;
+
+	/*
+	 * Assert validates the input arguments
+	 */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	BaseAddr = InstancePtr->Config.BaseAddress;
+
+	/* Read control register value */
+	CtrlRegVal = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
+
+	/* Recovery supported only in Master mode */
+	if ((CtrlRegVal & XIICPS_CR_MS_MASK) == 0U) {
+		return XST_FAILURE;
+	}
+	/* Toggle HOLD to generate SCL pulses */
+	for (Index = 0U; Index < XIICPS_RECOVERY_PULSES; Index++) {
+		/* Force SCL low */
+		CtrlRegVal |= XIICPS_CR_HOLD_MASK;
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, CtrlRegVal);
+		usleep(XIICPS_RECOVERY_DELAY);
+		/* Release SCL high */
+		CtrlRegVal &= ~((u32)XIICPS_CR_HOLD_MASK);
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, CtrlRegVal);
+		usleep(XIICPS_RECOVERY_DELAY);
+	}
+
+	return XST_SUCCESS;
+}
+
 /** @} */

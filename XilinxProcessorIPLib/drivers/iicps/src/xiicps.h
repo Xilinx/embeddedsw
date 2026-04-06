@@ -74,6 +74,7 @@
 * 3.23  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.23  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing
+*       vlt  04/03/26 Added prototype for XIicPs_BusRecovery API.
 *
 * </pre>
 *
@@ -303,6 +304,7 @@ void XIicPs_Reset(XIicPs *InstancePtr);
 
 s32 XIicPs_BusIsBusy(XIicPs *InstancePtr);
 s32 TransmitFifoFill(XIicPs *InstancePtr);
+s32 XIicPs_BusRecovery(XIicPs *InstancePtr);
 /** @} */
 
 /**
