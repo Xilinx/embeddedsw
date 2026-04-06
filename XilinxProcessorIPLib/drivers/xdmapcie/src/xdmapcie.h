@@ -121,14 +121,20 @@ typedef  struct {
 	u64 Ecam;
 	u32     NpMemBaseAddr;          /**< non prefetchable memory base address */
 	u32     NpMemMaxAddr;   /**< non prefetchable memory max base address*/
+#if !defined(ARMR5)
 	u64     PMemBaseAddr;           /**< prefetchable memory base address */
 	u64     PMemMaxAddr;    /**< prefetchable memory max base address */
+#endif
 #else
 	u64 Ecam;
 	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
+#if !defined(ARMR5)
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
+#endif
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
+#if !defined(ARMR5)
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
+#endif
 #endif
 
 } XDmaPcie_Config;

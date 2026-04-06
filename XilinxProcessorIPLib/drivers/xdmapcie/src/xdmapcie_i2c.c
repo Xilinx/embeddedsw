@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -15,14 +15,14 @@
 /************************** Constant Definitions ****************************/
 #ifndef SDT
 #ifndef  XPAR_XIICPS_1_DEVICE_ID
-#define  XDMAPCIE_IIC_DEVICE_ID         -1
+#define  XDMAPCIE_IIC_DEVICE_ID         (-1U)
 #else
 #define  XDMAPCIE_IIC_DEVICE_ID              XPAR_XIICPS_1_DEVICE_ID
 #endif
 
 #else
 #ifndef  XPAR_XIICPS_1_BASEADDR
-#define  XDMAPCIE_IIC_BASEADDR          -1
+#define  XDMAPCIE_IIC_BASEADDR          (-1U)
 #else
 #define  XDMAPCIE_IIC_BASEADDR               XPAR_XIICPS_1_BASEADDR
 #endif
