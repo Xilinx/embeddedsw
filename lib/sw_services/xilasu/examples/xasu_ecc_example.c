@@ -152,10 +152,11 @@ static void XAsu_GenSign(void)
 	ErrorStatus = XST_FAILURE;
 	EccParams.CurveType = XASU_CURVE_TYPE;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
-	EccParams.KeyAddr = (u64)(UINTPTR)PrivKey;
+	EccParams.Key.KeyAddr = (u64)(UINTPTR)PrivKey;
+	EccParams.Key.KeyId = 0U;
 	EccParams.SignAddr = (u64)(UINTPTR)Sign;
 	EccParams.DigestLen = XASU_CURVE_LENGTH;
-	EccParams.KeyLen = XASU_CURVE_LENGTH;
+	EccParams.Key.KeyLen = XASU_CURVE_LENGTH;
 
 	/* Measure start time. */
 	XAsu_StartTiming();
@@ -207,10 +208,11 @@ static void XAsu_VerifySign(void)
 	ErrorStatus = XST_FAILURE;
 	EccParams.CurveType = XASU_CURVE_TYPE;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
-	EccParams.KeyAddr = (u64)(UINTPTR)PubKey;
+	EccParams.Key.KeyAddr = (u64)(UINTPTR)PubKey;
+	EccParams.Key.KeyId = 0U;
 	EccParams.SignAddr = (u64)(UINTPTR)Sign;
 	EccParams.DigestLen = XASU_CURVE_LENGTH;
-	EccParams.KeyLen = XASU_CURVE_LENGTH;
+	EccParams.Key.KeyLen = XASU_CURVE_LENGTH;
 
 	Status = XAsu_EccVerifySign(&ClientParams, &EccParams);
 	if (Status != XST_SUCCESS) {
@@ -249,9 +251,10 @@ static void XAsu_GenPubKey(void)
 
 	ErrorStatus = XST_FAILURE;
 	EccKeyParams.CurveType = XASU_CURVE_TYPE;
-	EccKeyParams.KeyLen = XASU_CURVE_LENGTH;
-	EccKeyParams.PvtKeyAddr = (u64)(UINTPTR)PrivKey;
+	EccKeyParams.PvtKey.KeyLen = XASU_CURVE_LENGTH;
+	EccKeyParams.PvtKey.KeyAddr = (u64)(UINTPTR)PrivKey;
 	EccKeyParams.PubKeyAddr = (u64)(UINTPTR)PubKeyOut;
+	EccKeyParams.PvtKey.KeyId = 0U;
 
 	Status = XAsu_EccGenPubKey(&ClientParams, &EccKeyParams);
 	if (Status != XST_SUCCESS) {

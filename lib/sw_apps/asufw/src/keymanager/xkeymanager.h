@@ -89,6 +89,7 @@ extern "C" {
 #define XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< ECC private key sign use case */
 #define XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC private key key agreement use case */
 #define XKEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC private key key authentication and encryption use case */
+#define XKEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE	(0x08U)	/**< ECC private key for public key generation */
 
 #define XKEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */
 #define XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE	(0x02U)	/**< HMAC secret key use case */

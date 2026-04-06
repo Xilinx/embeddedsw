@@ -140,11 +140,12 @@ static s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 Ke
 			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 static s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
 			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
-static s32 XKeyManager_UpdateEccPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
-			u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
+static s32 XKeyManager_UpdateEccPubKeyObjectFromVault(XAsu_EccKeyObject *KeyObjectPtr,
+					       u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
+static s32 XKeyManager_UpdateEccPvtKeyObjectFromVault(XAsu_EccKeyObject *KeyObjectPtr,
+       u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 static inline u8 XKeyManager_GetRevokeId(void);
 static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr);
-
 
 /************************************ Variable Definitions ***************************************/
 static XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for each vault of a
@@ -1112,12 +1113,18 @@ s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObje
 		break;
 	case XASU_ECC_PUB_SUBVAULT_ID:
 		/** Update ECC public key object from vault. */
-		Status = XKeyManager_UpdateEccPubKeyObjectFromVault(DmaPtr, KeyObjectAddr,
+		Status = XKeyManager_UpdateEccPubKeyObjectFromVault((XAsu_EccKeyObject *)(UINTPTR)KeyObjectAddr,
 								    SubSystemId,
 								    KeyUsecase,
 								    ActualKeyId);
 		break;
 	case XASU_ECC_PVT_SUBVAULT_ID:
+		/** Update ECC private key object from vault. */
+		Status = XKeyManager_UpdateEccPvtKeyObjectFromVault((XAsu_EccKeyObject *)(UINTPTR)KeyObjectAddr,
+								    SubSystemId,
+								    KeyUsecase,
+								    ActualKeyId);
+		break;
 	case XASU_LMS_SUBVAULT_ID:
 	default:
 		/** Invalid key type. */
@@ -1511,8 +1518,7 @@ END:
 /**
  * @brief	Resolve key object from key vault if KeyId is provided for ECC public key.
  *
- * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	KeyObjectAddr	Address of key object.
+ * @param	KeyObjectPtr	Pointer to key object.
  * @param	SubSystemId	Subsystem ID of the requested subsystem.
  * @param	KeyUsecase	Requested use case for the key.
  * @param	KeyId		Composite key identifier.
@@ -1523,34 +1529,70 @@ END:
  *	- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
  *
  *************************************************************************************************/
-static s32 XKeyManager_UpdateEccPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 KeyObjectAddr,
+static s32 XKeyManager_UpdateEccPubKeyObjectFromVault(XAsu_EccKeyObject *KeyObjectPtr,
 					       u32 SubSystemId, u8 KeyUsecase, u32 KeyId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XKeyManager_EccPubKeyObject *KeyVaultKeyObjectPtr;
-	XAsu_EccPubKeyComp *KeyObject;
+	const XKeyManager_EccPubKeyObject *KeyVaultKeyObjectPtr;
 
 	/** Validate input parameters. */
-	if (KeyObjectAddr == 0U) {
+	if (KeyObjectPtr == NULL) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
 
-	KeyObject = (XAsu_EccPubKeyComp *)(UINTPTR)KeyObjectAddr;
-
 	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
 	KeyVaultKeyObjectPtr = (XKeyManager_EccPubKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
-									SubSystemId, KeyUsecase);
+		SubSystemId, KeyUsecase);
 	if (KeyVaultKeyObjectPtr == NULL) {
 		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
 		goto END;
 	}
 
-	/** Copy the key object XAsu_EccPubKeyComp from key vault to the provided address. */
-	KeyObject->Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
+	KeyObjectPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PublicKey;
+	KeyObjectPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
 
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->PublicKey,
-			       (u64)(UINTPTR)KeyObject->PublicKey, KeyObject->Keysize, 0U);
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function retrieves an ECC private key from the key vault and copies it into
+ * 		the provided XAsu_EccPvtKeyComp structure using DMA.
+ *
+ * @param	KeyObjectPtr	Pointer to key object.
+ * @param	SubSystemId	Subsystem ID requesting the key.
+ * @param	KeyUsecase	Key use case (e.g., signature generation).
+ * @param	KeyId		Composite key identifier.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if key resolution is successful.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_UpdateEccPvtKeyObjectFromVault(XAsu_EccKeyObject *KeyObjectPtr,
+       u32 SubSystemId, u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XKeyManager_EccPvtKeyObject *KeyVaultKeyObjectPtr;
+
+	/** Validate input parameters. */
+	if (KeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_EccPvtKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId, SubSystemId, KeyUsecase);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	KeyObjectPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PrivateKey;
+	KeyObjectPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
 
 END:
 	return Status;

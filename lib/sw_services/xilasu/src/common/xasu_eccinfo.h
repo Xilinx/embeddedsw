@@ -97,41 +97,36 @@ extern "C" {
 
 /** @} */
 /************************************** Type Definitions *****************************************/
-/** This structure contains ECC public key components info. */
+/** Common key object structure used by all ECC operations. */
 typedef struct {
-	u32 Keysize; /**< Key size in bytes */
-	u8 PublicKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES]; /**< ECC public key data
-								(X and Y coordinates) */
-} XAsu_EccPubKeyComp;
+	u64 KeyAddr;     /**< Address of the key data (private or public) */
+	u32 KeyId;       /**< Key identifier from key management (used if KeyAddr == 0) */
+	u32 KeyLen;      /**< Length of the key in bytes (curve length) */
+} XAsu_EccKeyObject;
 
-/** This structure contains ECC params info. */
+/** This structure contains ECC params info for signature operations. */
 typedef struct {
-	u32 CurveType; /**< Type of curve */
-	u32 KeyLen; /**< Length of the key */
-	u32 DigestLen; /**< Length of the digest provided */
-	u32 Reserved; /**< Reserved */
-	u64 KeyAddr; /**< Key address */
-	u64 DigestAddr; /**< Digest address */
-	u64 SignAddr; /**< Signature address */
+	XAsu_EccKeyObject Key;  /**< Key object (private or public) */
+	u64 DigestAddr;         /**< Address of digest */
+	u64 SignAddr;           /**< Address of signature */
+	u32 CurveType;          /**< Type of curve */
+	u32 DigestLen;          /**< Length of the digest provided */
 } XAsu_EccParams;
 
 /** This structure contains ECC params info for public key generation. */
 typedef struct {
-	u32 CurveType; /**< Type of curve */
-	u32 KeyLen; /**< Length of the key */
-	u64 PvtKeyAddr; /**< ECC Private Key buffer address of X party, of KeyLen size */
-	u64 PubKeyAddr; /**< ECC Public Key buffer address of Y party, of double the KeyLen size */
+	XAsu_EccKeyObject PvtKey; /**< Private key object */
+	u64 PubKeyAddr;         /**< Address where public key will be written (size = 2 * PvtKey.KeyLen) */
+	u32 CurveType;          /**< Type of curve */
 } XAsu_EccKeyParams;
 
 /** This structure contains ECDH params info. */
 typedef struct {
-	u32 CurveType; /**< Type of curve */
-	u32 KeyLen; /**< Length of the key */
-	u64 PvtKeyAddr; /**< Private Key address */
-	u64 PubKeyAddr; /**< Public Key address */
-	u64 SharedSecretAddr; /**< Shared Secret address */
-	u64 SharedSecretObjIdAddr; /**< 0 : if SharedSecretAddr is not null
-				non zero: if SharedSecretAddr is null */
+	XAsu_EccKeyObject PvtKey; /**< Private key object */
+	XAsu_EccKeyObject PubKey; /**< Peer's public key object */
+	u64 SharedSecretAddr;   /**< Address where shared secret will be written (size = PvtKey.KeyLen) */
+	u64 SharedSecretObjIdAddr; /**< Optional object ID for shared secret storage */
+	u32 CurveType;          /**< Type of curve */
 } XAsu_EcdhParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

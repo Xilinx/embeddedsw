@@ -137,10 +137,13 @@ int main(void)
 
 	ErrorStatus = XST_FAILURE;
 	EcdhParams.CurveType = CurveType;
-	EcdhParams.KeyLen = CurveLength;
 	EcdhParams.SharedSecretObjIdAddr = 0U;
-	EcdhParams.PvtKeyAddr = (u64)(UINTPTR)PrivKey;
-	EcdhParams.PubKeyAddr = (u64)(UINTPTR)PubKey1;
+	EcdhParams.PvtKey.KeyLen = CurveLength;
+	EcdhParams.PubKey.KeyLen = CurveLength;
+	EcdhParams.PvtKey.KeyId = 0U;
+	EcdhParams.PubKey.KeyId = 0U;
+	EcdhParams.PvtKey.KeyAddr = (u64)(UINTPTR)PrivKey;
+	EcdhParams.PubKey.KeyAddr = (u64)(UINTPTR)PubKey1;
 	EcdhParams.SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
 
 	Status = XAsu_EcdhGenSharedSecret(&ClientParams, &EcdhParams);
@@ -176,10 +179,13 @@ int main(void)
 
 	ErrorStatus = XST_FAILURE;
         EcdhParams.CurveType = CurveType;
-        EcdhParams.KeyLen = CurveLength;
 	EcdhParams.SharedSecretObjIdAddr = 0U;
-	EcdhParams.PvtKeyAddr = (u64)(UINTPTR)PrivKey1;
-	EcdhParams.PubKeyAddr = (u64)(UINTPTR)PubKey;
+	EcdhParams.PvtKey.KeyLen = CurveLength;
+	EcdhParams.PubKey.KeyLen = CurveLength;
+	EcdhParams.PvtKey.KeyId = 0U;
+	EcdhParams.PubKey.KeyId = 0U;
+	EcdhParams.PvtKey.KeyAddr = (u64)(UINTPTR)PrivKey1;
+	EcdhParams.PubKey.KeyAddr = (u64)(UINTPTR)PubKey;
 	EcdhParams.SharedSecretAddr = (u64)(UINTPTR)SharedSecret1;
 
         Status = XAsu_EcdhGenSharedSecret(&ClientParams, &EcdhParams);

@@ -46,6 +46,8 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr);
+static s32 XAsu_ValidateEccKeyParameters(const XAsu_EccKeyParams *EccKeyParamsPtr);
+static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -124,7 +126,7 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 	u32 Header;
 	u8 UniqueId;
 
-	/* Validatations of inputs */
+	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -185,17 +187,7 @@ s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *Ecc
 		goto END;
 	}
 
-	if (EccKeyParamsPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((EccKeyParamsPtr->PvtKeyAddr == 0U) || (EccKeyParamsPtr->PubKeyAddr == 0U)) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_EccValidateCurveInfo(EccKeyParamsPtr->CurveType, EccKeyParamsPtr->KeyLen);
+	Status = XAsu_ValidateEccKeyParameters(EccKeyParamsPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_CURVEINFO;
 		goto END;
@@ -302,20 +294,8 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 		goto END;
 	}
 
-	if (EcdhParamsPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((EcdhParamsPtr->PvtKeyAddr == 0U) || (EcdhParamsPtr->PubKeyAddr == 0U) ||
-		((EcdhParamsPtr->SharedSecretAddr == 0U) &&
-		(EcdhParamsPtr->SharedSecretObjIdAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->CurveType, EcdhParamsPtr->KeyLen) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateEcdhParameters(EcdhParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -403,13 +383,17 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 	}
 
 	/** Validate input addresses provided. */
-	if ((EccParamsPtr->DigestAddr == 0U) || (EccParamsPtr->KeyAddr == 0U) ||
-		(EccParamsPtr->SignAddr == 0U)) {
+	if ((EccParamsPtr->DigestAddr == 0U) || (EccParamsPtr->SignAddr == 0U)) {
+		goto END;
+	}
+
+	if (((EccParamsPtr->Key.KeyAddr == 0U) && (EccParamsPtr->Key.KeyId == 0U)) ||
+		((EccParamsPtr->Key.KeyAddr != 0U) && (EccParamsPtr->Key.KeyId != 0U))) {
 		goto END;
 	}
 
 	/** Validate curve information. */
-	if (XAsu_EccValidateCurveInfo(EccParamsPtr->CurveType, EccParamsPtr->KeyLen)!= XST_SUCCESS) {
+	if (XAsu_EccValidateCurveInfo(EccParamsPtr->CurveType, EccParamsPtr->Key.KeyLen)!= XST_SUCCESS) {
 		goto END;
 	}
 
@@ -427,5 +411,95 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates ECC parameters for public key generation.
+ *
+ * @param	EccKeyParamsPtr	Pointer to XAsu_EccKeyParams structure.
+ *
+ * @return
+ * 	- XST_SUCCESS, if ECC parameters are validated successfully.
+ * 	- XASU_INVALID_ARGUMENT, if parameter validation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsu_ValidateEccKeyParameters(const XAsu_EccKeyParams *EccKeyParamsPtr)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	/** Validate input parameters. */
+	if (EccKeyParamsPtr == NULL) {
+		goto END;
+	}
+
+	if ((EccKeyParamsPtr->PubKeyAddr == 0U)) {
+		goto END;
+	}
+
+	if (((EccKeyParamsPtr->PvtKey.KeyAddr == 0U) && (EccKeyParamsPtr->PvtKey.KeyId == 0U)) ||
+		((EccKeyParamsPtr->PvtKey.KeyAddr != 0U) && (EccKeyParamsPtr->PvtKey.KeyId != 0U))) {
+		goto END;
+	}
+
+	if (XAsu_EccValidateCurveInfo(EccKeyParamsPtr->CurveType, EccKeyParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates ECDH parameters.
+ *
+ * @param	EcdhParamsPtr	Pointer to XAsu_EcdhParams structure.
+ *
+ * @return
+ * 	- XST_SUCCESS, if ECC parameters are validated successfully.
+ * 	- XASU_INVALID_ARGUMENT, if parameter validation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
+{
+	s32 Status = XASU_INVALID_ARGUMENT;
+
+	/** Validate input parameters. */
+	if (EcdhParamsPtr == NULL) {
+		goto END;
+	}
+
+	if ((EcdhParamsPtr->SharedSecretAddr == 0U) &&
+			(EcdhParamsPtr->SharedSecretObjIdAddr == 0U)) {
+		goto END;
+	}
+
+	/** Validate private key object */
+	if (((EcdhParamsPtr->PvtKey.KeyAddr == 0U) && (EcdhParamsPtr->PvtKey.KeyId == 0U)) ||
+			((EcdhParamsPtr->PvtKey.KeyAddr != 0U) && (EcdhParamsPtr->PvtKey.KeyId != 0U))) {
+		goto END;
+	}
+
+	/** Validate public key object */
+	if (((EcdhParamsPtr->PubKey.KeyAddr == 0U) && (EcdhParamsPtr->PubKey.KeyId == 0U)) ||
+			((EcdhParamsPtr->PubKey.KeyAddr != 0U) && (EcdhParamsPtr->PubKey.KeyId != 0U))) {
+		goto END;
+	}
+
+	if (EcdhParamsPtr->PvtKey.KeyLen != EcdhParamsPtr->PubKey.KeyLen) {
+		goto END;
+	}
+
+	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->CurveType, EcdhParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+   return Status;
 }
 /** @} */
