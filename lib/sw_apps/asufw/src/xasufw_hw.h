@@ -258,7 +258,7 @@ extern "C" {
 #endif
 
 #if defined(XASUFW_RAM_INSTR_ECC_ENABLE) && defined(XASUFW_RAM_DATA_ECC_ENABLE)
-#define XASUFW_RAM_ECC_ENABLE
+//#define XASUFW_RAM_ECC_ENABLE /* TODO Enable when suppport is added in QEMU. */
 #endif
 
 /************************************** Type Definitions *****************************************/
