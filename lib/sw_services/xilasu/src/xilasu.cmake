@@ -136,7 +136,7 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
         set(XASU_TRIGGER_SLD_ON_KAT_FAILURE " ")
     endif()
 
-    option(XILASU_lms_support "Enables/Disables LMS algorithm in ASUFW." ON)
+    option(XILASU_lms_support "Enables/Disables LMS algorithm in ASUFW." OFF)
     if(XILASU_lms_support )
         set(XASU_LMS_ENABLE " ")
     endif()
