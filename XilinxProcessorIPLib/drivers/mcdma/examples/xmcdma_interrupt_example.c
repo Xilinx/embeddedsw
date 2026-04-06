@@ -338,6 +338,9 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 
 	for (ChanId = 1; ChanId <= num_channels; ChanId++) {
+
+		RxBufferPtr = (UINTPTR)RxBuffer + ((ChanId-1) * NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN);
+
 		Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
@@ -380,14 +383,6 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 				}
 			}
 
-			RxBufferPtr += MAX_PKT_LEN;
-			if (!Rx_Chan->Has_Rxdre) {
-				buf_align = RxBufferPtr % 64;
-				if (buf_align > 0) {
-					buf_align = 64 - buf_align;
-				}
-				RxBufferPtr += buf_align;
-			}
 			XMcdma_SetChanCoalesceDelay(Rx_Chan, PACKETS_PER_IRQ, 255);
 		}
 
@@ -395,15 +390,6 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 		if (Status != XST_SUCCESS) {
 			xil_printf("XMcDma_ChanToHw failed\n\r");
 			return XST_FAILURE;
-		}
-
-		RxBufferPtr += MAX_PKT_LEN;
-		if (!Rx_Chan->Has_Rxdre) {
-			buf_align = RxBufferPtr % 64;
-			if (buf_align > 0) {
-				buf_align = 64 - buf_align;
-			}
-			RxBufferPtr += buf_align;
 		}
 
 		RxBdSpacePtr += BdCount * Rx_Chan->Separation;
@@ -494,15 +480,6 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)TxBufferPtr, 0, MAX_PKT_LEN);
 
-			}
-
-			TxBufferPtr += MAX_PKT_LEN;
-			if (!Tx_Chan->Has_Txdre) {
-				buf_align = TxBufferPtr % 64;
-				if (buf_align > 0) {
-					buf_align = 64 - buf_align;
-				}
-				TxBufferPtr += buf_align;
 			}
 		}
 

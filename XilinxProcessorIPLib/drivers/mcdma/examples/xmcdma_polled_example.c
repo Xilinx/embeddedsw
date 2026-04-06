@@ -392,14 +392,6 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 			return XST_FAILURE;
 		}
 
-		RxBufferPtr += MAX_PKT_LEN;
-		if (!Rx_Chan->Has_Rxdre) {
-			buf_align = RxBufferPtr % 64;
-			if (buf_align > 0) {
-				buf_align = 64 - buf_align;
-			}
-			RxBufferPtr += buf_align;
-		}
 		RxBdSpacePtr += BdCount * Rx_Chan->Separation;
 		XMcdma_IntrEnable(Rx_Chan, XMCDMA_IRQ_ALL_MASK);
 	}
@@ -466,15 +458,6 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 				memset((void *)TxBufferPtr, 0, MAX_PKT_LEN);
 
 			}
-		}
-
-		TxBufferPtr += MAX_PKT_LEN;
-		if (!Tx_Chan->Has_Txdre) {
-			buf_align = TxBufferPtr % 64;
-			if (buf_align > 0) {
-				buf_align = 64 - buf_align;
-			}
-			TxBufferPtr += buf_align;
 		}
 
 		TxBdSpacePtr += BdCount * Tx_Chan->Separation;
