@@ -154,7 +154,7 @@ static int TxSetup(XMcdma *McDmaInstPtr);
 static int SendPacket(XMcdma *McDmaInstPtr);
 static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId);
 static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id);
-static void Mcdma_Poll(XMcdma *McDmaInstPtr);
+static int Mcdma_Poll(XMcdma *McDmaInstPtr);
 
 /************************** Variable Definitions *****************************/
 /*
@@ -295,7 +295,11 @@ int main(void)
 
 	/* Wait for transfer to complete or 1usec * 10^6 iterations of timeout occurs */
 	while (TimeOut) {
-		Mcdma_Poll(&AxiMcdma);
+		if (Mcdma_Poll(&AxiMcdma) != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			break;
+		}
+
 		if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels) {
 			break;
 		}
@@ -572,19 +576,24 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 }
 
 
-static void Mcdma_Poll(XMcdma *McDmaInstPtr)
+static int Mcdma_Poll(XMcdma *McDmaInstPtr)
 {
 	u16 Chan_id = 1;
 	u32 i;
 	u32 Chan_SerMask;
+	int status = XST_SUCCESS;
 
 	Chan_SerMask = XMcdma_ReadReg(McDmaInstPtr->Config.BaseAddress,
 				      XMCDMA_RX_OFFSET + XMCDMA_RXCH_SER_OFFSET);
 
 	for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask; i <<= 1, Chan_id++)
 		if (Chan_SerMask & i) {
-			CheckDmaResult(&AxiMcdma, Chan_id);
+			if (CheckDmaResult(&AxiMcdma, Chan_id) != XST_SUCCESS) {
+				status = XST_FAILURE;
+			}
 		}
+
+	return status;
 }
 
 
