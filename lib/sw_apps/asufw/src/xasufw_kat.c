@@ -1972,11 +1972,11 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ExpoCompAddr = 0U;
 	KwpunwpParam.KeyCompAddr = (u64)(UINTPTR)&PvtKeyParam.PubKeyComp;
 	KwpunwpParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
-	KwpunwpParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&OutLengthVal;
+	KwpunwpParam.ActualOutputDataLenAddr = (u64)(UINTPTR)&OutLengthVal;
 	KwpunwpParam.InputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
 	KwpunwpParam.RsaKeySize = XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES;
 	KwpunwpParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
-	KwpunwpParam.OutuputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
+	KwpunwpParam.OutputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
 	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
@@ -1995,11 +1995,11 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ExpoCompAddr = 0U;
 	KwpunwpParam.KeyCompAddr = (u64)(UINTPTR)&PvtKeyParam;
 	KwpunwpParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
-	KwpunwpParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&OutLengthVal;
+	KwpunwpParam.ActualOutputDataLenAddr = (u64)(UINTPTR)&OutLengthVal;
 	KwpunwpParam.InputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
 	KwpunwpParam.RsaKeySize = XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES;
 	KwpunwpParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
-	KwpunwpParam.OutuputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
+	KwpunwpParam.OutputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
 	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;

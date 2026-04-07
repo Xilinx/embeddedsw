@@ -134,7 +134,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	*OutDataLenPtr = OutDataLen + KeyWrapParamsPtr->RsaKeySize;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (KeyWrapParamsPtr->OutuputDataLen < (*OutDataLenPtr)) {
+	if (KeyWrapParamsPtr->OutputDataLen < (*OutDataLenPtr)) {
 		Status = XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN;
 		goto END;
 	}
@@ -198,7 +198,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	PaddingParams.XAsu_RsaOpComp.KeyId = KeyWrapParamsPtr->RsaKeyId;
 	PaddingParams.XAsu_RsaOpComp.Len = AesKeySizeInBytes;
 	PaddingParams.XAsu_RsaOpComp.KeySize = KeyWrapParamsPtr->RsaKeySize;
-	PaddingParams.XAsu_RsaOpComp.OutputDataLen = KeyWrapParamsPtr->OutuputDataLen;
+	PaddingParams.XAsu_RsaOpComp.OutputDataLen = KeyWrapParamsPtr->OutputDataLen;
 	PaddingParams.OptionalLabelAddr = KeyWrapParamsPtr->OptionalLabelAddr;
 	PaddingParams.OptionalLabelSize = KeyWrapParamsPtr->OptionalLabelSize;
 	PaddingParams.ShaType = KeyWrapParamsPtr->ShaType;
@@ -866,7 +866,7 @@ s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesIns
 
 	/** Copy output data from ASU memory to the user provided memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (KeyUnwrapParamsPtr->OutuputDataLen < (*OutDataLenPtr)) {
+	if (KeyUnwrapParamsPtr->OutputDataLen < (*OutDataLenPtr)) {
 		Status = XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN;
 		goto END_CLR;
 	}

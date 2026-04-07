@@ -1749,8 +1749,8 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 		KeyUnwrapParams.InputDataLen = KeyParams->WrappedInputLen;
 		KeyUnwrapParams.RsaKeySize = 0U;
 		KeyUnwrapParams.OptionalLabelSize = 0U;
-		KeyUnwrapParams.OutuputDataLen = XKEYMANAGER_MAX_UNWRAPPED_BUFF_OP_LEN_IN_BYTES;
-		KeyUnwrapParams.ActualOutuputDataLenAddr = (u64)(UINTPTR)&KeyWrapUnwrapOutputLen;
+		KeyUnwrapParams.OutputDataLen = XKEYMANAGER_MAX_UNWRAPPED_BUFF_OP_LEN_IN_BYTES;
+		KeyUnwrapParams.ActualOutputDataLenAddr = (u64)(UINTPTR)&KeyWrapUnwrapOutputLen;
 		KeyUnwrapParams.AesKeySize = (u8)KeyParams->AesKeyObj.KeySize;
 		KeyUnwrapParams.ShaType = 0U;
 		KeyUnwrapParams.ShaMode = 0U;

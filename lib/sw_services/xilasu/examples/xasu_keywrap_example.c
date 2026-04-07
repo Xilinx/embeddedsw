@@ -228,8 +228,8 @@ int main(void)
 	KwpunwpClientParam.InputDataLen = XASU_KEYWRAP_INPUT_SIZE_IN_BYTES;
 	KwpunwpClientParam.RsaKeySize = XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES;
 	KwpunwpClientParam.OptionalLabelSize = XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
-	KwpunwpClientParam.OutuputDataLen = XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
-	KwpunwpClientParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&XAsu_KeyWrapOutputLen;
+	KwpunwpClientParam.OutputDataLen = XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
+	KwpunwpClientParam.ActualOutputDataLenAddr = (u64)(UINTPTR)&XAsu_KeyWrapOutputLen;
 	KwpunwpClientParam.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KwpunwpClientParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpClientParam.ShaMode = XASU_SHA_MODE_256;
@@ -267,8 +267,8 @@ int main(void)
 	KwpunwpClientParam.InputDataLen = XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
 	KwpunwpClientParam.RsaKeySize = XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES;
 	KwpunwpClientParam.OptionalLabelSize = XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
-	KwpunwpClientParam.OutuputDataLen = XASU_KEYWRAP_INPUT_SIZE_IN_BYTES;
-	KwpunwpClientParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&XAsu_KeyWrapUnwrapOutputLen;
+	KwpunwpClientParam.OutputDataLen = XASU_KEYWRAP_INPUT_SIZE_IN_BYTES;
+	KwpunwpClientParam.ActualOutputDataLenAddr = (u64)(UINTPTR)&XAsu_KeyWrapUnwrapOutputLen;
 	KwpunwpClientParam.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KwpunwpClientParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpClientParam.ShaMode = XASU_SHA_MODE_256;

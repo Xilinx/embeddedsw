@@ -62,12 +62,12 @@ typedef struct {
 	u64 KeyCompAddr;	/**< RSA key component address of type: XAsu_RsaPubKeyComp for key wrap
 					and XAsu_RsaPvtKeyComp  for key unwrap */
 	u64 OptionalLabelAddr;	/**< RSA optional label address for OAEP padding */
-	u64 ActualOutuputDataLenAddr;	/**< Actual output data length which is returned from
+	u64 ActualOutputDataLenAddr;	/**< Actual output data length which is returned from
 						key wrap/unwrap operation */
 	u32 InputDataLen;	/**< Input data Len */
 	u32 RsaKeySize;		/**< RSA Key Size */
 	u32 OptionalLabelSize;	/**< RSA optional label size for OAEP padding */
-	u32 OutuputDataLen;	/**< Output Data Len is an input from user which specifies the
+	u32 OutputDataLen;	/**< Output Data Len is an input from user which specifies the
 					output wrapped key length in wrap operation and in unwrap
 					operation it is the size of output buffer which should be
 					equal or greater than the size of the unwrapped input */
