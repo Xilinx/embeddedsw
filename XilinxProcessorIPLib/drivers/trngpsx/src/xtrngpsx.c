@@ -29,6 +29,7 @@
 *	vss  08/02/24 Fixed comments on security best practices
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
 * 1.6   hae  01/06/26 Fixed doxygen warnings
+*       tvp  04/06/26 Allow continuous random number generation in PRNG mode
 *
 * </pre>
 *
@@ -950,19 +951,30 @@ static int XTrngpsx_CollectRandData(XTrngpsx_Instance *InstancePtr, u8 *RandBuf,
 		SingleGenModeVal = TRNG_CTRL_SINGLEGENMODE_MASK;
 	}
 
-	/** Set PRNG mode to generate */
-	XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
-		TRNG_CTRL_PRNGMODE_MASK | TRNG_CTRL_SINGLEGENMODE_MASK | TRNG_CTRL_PRNGSTART_MASK,
-		TRNG_CTRL_PRNGMODE_MASK | SingleGenModeVal);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		goto END;
-	}
+	/**
+	 * Set TRNG in PRNG mode and start random number generation on first random number
+	 * generation or in single mode generation.
+	 * Skip for subsequent calls to allow continuous random number generation.
+	 */
+	if ((InstancePtr->UserCfg.PredResistance == TRUE) ||
+			(InstancePtr->State != XTRNGPSX_GENERATE_STATE)) {
+		/** Set PRNG mode to generate */
+		XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32,
+				(InstancePtr->Config.BaseAddress + TRNG_CTRL),
+				TRNG_CTRL_PRNGMODE_MASK | TRNG_CTRL_SINGLEGENMODE_MASK |
+				TRNG_CTRL_PRNGSTART_MASK,
+				TRNG_CTRL_PRNGMODE_MASK | SingleGenModeVal);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
 
-	/** Start random number generation */
-	XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
-		TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		goto END;
+		/** Start random number generation */
+		XTRNGPSX_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32,
+				(InstancePtr->Config.BaseAddress + TRNG_CTRL),
+				TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
 	}
 
 	for (NumofBursts = 0U; NumofBursts < XTRNGPSX_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
