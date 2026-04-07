@@ -141,6 +141,12 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 		goto END;
 	}
 
+	/** Validate key address is non-zero. */
+	if (OcpUdeKeyEnc->UdeEncPvtKeyAddr == 0U) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Check if UDE KEK is present with FIH redundancy. */
 	XFIH_IF_FAILOUT_WITH_VALUE (UdeKekStatus, ==, XASU_STATUS_FAIL) {
 		Status = XASUFW_OCP_UDE_KEK_NOT_PRESENT;

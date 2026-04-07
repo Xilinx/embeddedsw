@@ -85,6 +85,7 @@ static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx);
  * @return
  *	- XASUFW_SUCCESS, if event mask retrieved successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_SEND_IPI_REQ_FAIL, if IPI request is failed.
  *	- XASUFW_OCP_READ_IPI_RESP_FAIL, if IPI read response is failed.
  *
@@ -94,6 +95,12 @@ s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Payload[XOCP_GET_OCP_EVENT_MASK_PAYLOAD_SIZE];
 	u32 Response[XOCP_GET_OCP_EVENT_MASK_PAYLOAD_RESP_SIZE] = {0U};
+
+	/** Validate input parameter. */
+	if (EventMask == NULL) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
 
 	/** Prepare IPI request payload. */
 	Payload[XASUFW_BUFFER_INDEX_ZERO] =

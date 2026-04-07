@@ -2784,13 +2784,14 @@ void XAes_SetReset(XAes *InstancePtr)
 	* - Hardware workaround for clearing the IV as it is not being cleared after
 	*   AES engine is set into reset.
 	*/
+	if (InstancePtr != NULL) {
+		for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
+			XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_3_OFFSET) -
+				(Index * XASUFW_WORD_LEN_IN_BYTES), 0U);
+		}
 
-	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_3_OFFSET) -
-			(Index * XASUFW_WORD_LEN_IN_BYTES), 0U);
+		InstancePtr->AesState = XAES_INITIALIZED;
+		XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 	}
-
-	InstancePtr->AesState = XAES_INITIALIZED;
-	XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 }
 /** @} */
