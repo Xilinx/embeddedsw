@@ -36,6 +36,7 @@
 *       kpt  06/30/24 Updated version number
 * 5.5   vss  04/25/25 Updated minor version
 * 5.6   vss  09/30/25 Moved crypto algorithm version code to it's corresponding files.
+* 5.7   tvp  04/04/26 Define macros for RSA key status in RTCA
 *
 * </pre>
 *
@@ -72,6 +73,11 @@ extern "C" {
 
 #define XSECURE_SHARED_KEY_STORE_SIZE_OFFSET   (8U)           /**< Key size offset */
 #define XSECURE_SHARED_KEY_SLOT_STATUS_START_OFFSET (12U)     /**< Bitmap offset */
+
+#define XSECURE_RTCA_RSA_KEY_STATUS_REG		(0xF2014028U)
+						/**< RTCA register to extract RSA key pair readiness */
+#define XSECURE_RTCA_RSA_KEY_STATUS_MASK	(0x000000C0U)
+						/**< RTCA bits [7:6] mask for RSA key status */
 
 /************************** Variable Definitions *****************************/
 

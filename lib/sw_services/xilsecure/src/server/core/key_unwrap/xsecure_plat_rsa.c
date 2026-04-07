@@ -30,6 +30,7 @@
 *       kpt     07/04/24 Add major error code for RSA key pair generation.
 *       kal     07/24/24 Code refactoring changes for versal_2ve_2vm
 *       mb      10/14/24 Removed duplicate definitions
+* 5.7   tvp     04/04/26 Update RSA key availability in RTCA register
 *
 * </pre>
 *
@@ -57,6 +58,7 @@
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xplmi_scheduler.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -561,6 +563,7 @@ int XSecure_RsaDestroyKeyInUse(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_RsaKeyMgmt* RsaKeyMgmt = XSecure_GetRsaKeyMgmtInstance();
+	volatile u32 Idx = 0U;
 
 	if (RsaKeyMgmt->KeyInUse < XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
 		/*< Clear RSA private and public keys */
@@ -582,6 +585,20 @@ int XSecure_RsaDestroyKeyInUse(void)
 			goto END;
 		}
 		RsaKeyMgmt->KeyInUse = 0xFFFFFFFFU;
+
+		/* Clear RSA key availability into RTCA register bits [7:6] if none of key is available */
+		for (Idx = 0U; Idx < XSECURE_RSA_MAX_KEY_GEN_SUPPORT; Idx++) {
+			if (RsaKeyMgmt->Key[Idx].IsRsaKeyAvail == XSECURE_RSA_KEY_AVAIL) {
+				break;
+			}
+		}
+		if (Idx == XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
+			Xil_UtilRMW32(XSECURE_RTCA_RSA_KEY_STATUS_REG,
+					XSECURE_RTCA_RSA_KEY_STATUS_MASK,
+					XSECURE_ZERO);
+		}
+
+
 		Status = XSecure_AddRsaKeyPairGenerationToScheduler();
 	}
 	else {
@@ -667,6 +684,12 @@ static int XSecure_GenerateRsaKeyPair(void* arg)
 			goto END;
 		}
 		RsaKeyParam->IsRsaKeyAvail = XSECURE_RSA_KEY_AVAIL;
+
+		/* Update RSA key availability into RTCA register bits [7:6] */
+		Xil_UtilRMW32(XSECURE_RTCA_RSA_KEY_STATUS_REG,
+			      XSECURE_RTCA_RSA_KEY_STATUS_MASK,
+			      XSECURE_RTCA_RSA_KEY_STATUS_MASK);
+
 		RsaKeyGenState = XSECURE_RSA_KEY_DEFAULT_STATE;
 	} else {
 		/* for MISRA-C violation */
