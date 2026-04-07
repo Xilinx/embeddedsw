@@ -10,8 +10,8 @@
 * @addtogroup xsecure_keyunwrap_example_apis XilSecure Key Unwrap API Example Usage
 * @{
 * This example illustrates on how to unwrap the wrapped key using IPI calls.
-* To build this application, xilmailbox library must be included in BSP and xilsecure
-* must be in client mode
+* To build this application, xilmailbox, xilocp, xilsecure library must be included
+* in BSP and xilsecure must be in client mode
 * This example is supported for Versal Net devices.
 *
 * @note
@@ -58,6 +58,7 @@
 * 5.3   kpt    12/13/23 Added support for RSA CRT
 * 5.3   ng     01/28/24 Added SDT support
 * 5.4   kpt    06/13/24 Add AES key wrap with padding support
+* 5.7   tvp    04/04/26 Wait for RSA key pair to be available
 *
 * </pre>
 ******************************************************************************/
@@ -65,6 +66,7 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_plat_client.h"
 #include "xsecure_katclient.h"
 #include "xsecure_rsaclient.h"
@@ -86,6 +88,8 @@
 #define XSECURE_KEY_WRAP_PUB_KEY_OFFSET (0U) /** Public key offset */
 
 #define XSECURE_ECC_SIGN_TOTAL_LEN		(96U) /** ECC signature length */
+
+#define XSECURE_RSA_KEY_GEN_TIMEOUT_US		(600000000U) /**< Timeout in microseconds */
 
 /**************************** Type Definitions *******************************/
 
@@ -260,6 +264,21 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Wait for PLM to complete RSA key pair generation by polling RTCA status register. */
+	xil_printf("\r\n Waiting for RSA key pair generation...");
+	Status = Xil_WaitForEvent(XSECURE_RTCA_RSA_KEY_STATUS_REG,
+				  XSECURE_RTCA_RSA_KEY_STATUS_MASK,
+				  XSECURE_RTCA_RSA_KEY_STATUS_MASK,
+				  XSECURE_RSA_KEY_GEN_TIMEOUT_US);
+
+	/* Check if we exited due to timeout */
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n Timeout waiting for RSA key pair generation. Increase timeout and retry.");
+		goto END;
+	}
+
+	xil_printf("\r\n RSA key pair is ready. \r\n");
 
 	Status = XOcp_ClientAttestWithKeyWrapDevAk(&OcpClientInstance, (u64)(UINTPTR)&KeyWrapBuf, sizeof(KeyWrapBuf),
 			 XSECURE_KEY_WRAP_PUB_KEY_OFFSET, (u64)(UINTPTR)Signature);
