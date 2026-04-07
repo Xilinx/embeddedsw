@@ -77,6 +77,8 @@
 
 #define XRSA_PWCT_TEST_MSG_VALUE	(2U)	/**< PWCT test message value (must be > 0 and < modulus) */
 
+#define XRSA_BORROW_PROPAGATION_FILL_VALUE	(0xFFU)	/**< Fill value during borrow propagation in subtraction */
+
 /************************************** Type Definitions *****************************************/
 typedef RsaKeyPair XRsa_KeyPtr;
 
@@ -93,7 +95,7 @@ typedef enum {
 /************************************ Function Prototypes ****************************************/
 static s32 XRsa_UpdateStatus(s32 Status);
 static s32 XRsa_ValidatePubExp(u8 *BuffAddr);
-static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
+static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len, u8 *ScratchBuf);
 static s32 XRsa_GenerateKeyPairTask(void *Arg);
 
 /************************************ Variable Definitions ***************************************/
@@ -224,14 +226,8 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyPa
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsu_IsBufferNonZero((u8 *)KeyPtr->PubKeyComp.Modulus, RsaParamsPtr->KeySize);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MOD_DATA_IS_ZERO;
-		goto END;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	SStatus = XRsa_ValidateModulus((u8 *)KeyPtr->PubKeyComp.Modulus, InData, RsaParamsPtr->KeySize);
+	SStatus = XRsa_ValidateModulusNdInputdata((u8 *)KeyPtr->PubKeyComp.Modulus, InData,
+			RsaParamsPtr->KeySize, OutData);
 	if (SStatus != XASUFW_SUCCESS) {
 		Status = SStatus;
 		goto END;
@@ -474,14 +470,8 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsu_IsBufferNonZero((u8 *)KeyPtr->PubKeyComp.Modulus, RsaParamsPtr->KeySize);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MOD_DATA_IS_ZERO;
-		goto END;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	SStatus = XRsa_ValidateModulus((u8 *)KeyPtr->PubKeyComp.Modulus, InData, RsaParamsPtr->KeySize);
+	SStatus = XRsa_ValidateModulusNdInputdata((u8 *)KeyPtr->PubKeyComp.Modulus, InData,
+			RsaParamsPtr->KeySize, OutData);
 	if (SStatus != XASUFW_SUCCESS) {
 		Status = SStatus;
 		goto END;
@@ -965,11 +955,12 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
 
 /*************************************************************************************************/
 /**
- * @brief	This function checks the modulus data is valid or not
+ * @brief	This function checks whether the modulus and input data is valid or not
  *
  * @param	BuffAddr	Pointer to the buffer whose value needs to be checked.
  * @param	InputData	Pointer to the buffer whose value needs to be checked with.
- * @param       Len		Length of the buffers
+ * @param       Len		Length of the buffers.
+ * @param	ScratchBuf	Pointer to scratch buffer for temporary computation.
  *
  * @return
  *		- XASUFW_SUCCESS, if modulus data is greater than input data.
@@ -977,25 +968,78 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
  *		- XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL, if modulus data equal to input data.
  *
  *************************************************************************************************/
-static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len)
+static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len, u8 *ScratchBuf)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 SStatus = XASUFW_FAILURE;
 	volatile u32 Index = 0U;
+	volatile u32 Borrow = XASUFW_VALUE_ONE;
+	/* Use caller-provided scratch buffer from RSA data block region. */
+	u8 *ModulusMinus1 = ScratchBuf;
+	u32 Idx = 0U;
 
+	/** Check if modulus is non-zero. */
+	Status = XAsu_IsBufferNonZero(BuffAddr, Len);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_MOD_DATA_IS_ZERO;
+		goto END;
+	}
+
+	/** Check if modulus is odd (LSB should be 1) */
+	if ((BuffAddr[Len - XASUFW_VALUE_ONE] & XASUFW_VALUE_ONE) == XASUFW_VALUE_ONE) {
+		Status = XASUFW_SUCCESS;
+	} else {
+		Status = XASUFW_RSA_MOD_DATA_INVALID;
+		goto END;
+	}
+
+	/** Validate and error out if the InputData is 0 or 1. */
+	Status = XAsu_IsBufferNonZero(InputData, (Len - XASUFW_VALUE_ONE));
+	if (Status != XASUFW_SUCCESS) {
+		if ((InputData[Len - XASUFW_VALUE_ONE] == 0U) ||
+		    (InputData[Len - XASUFW_VALUE_ONE] == XASUFW_VALUE_ONE)) {
+			Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
+			goto END;
+		}
+	}
+
+	/** Check if InputData < (BuffAddr - 1) by comparing InputData with (BuffAddr - 1) */
+	/** - Copy BuffAddr to ModulusMinus1 and subtract 1 from the last byte */
 	for (Index = 0U; Index < Len; Index++) {
-		if (BuffAddr[Index] > InputData[Index]) {
-			Status = XASUFW_SUCCESS;
+		ModulusMinus1[Index] = BuffAddr[Index];
+	}
+
+	/** - Subtract 1 from the last byte (least significant byte) with borrow propagation */
+	for (Index = Len; Index > 0U; Index--) {
+		Idx = Index - XASUFW_VALUE_ONE;
+		if (ModulusMinus1[Idx] >= Borrow) {
+			ModulusMinus1[Idx] = ModulusMinus1[Idx] - (u8)Borrow;
+			Borrow = 0U;
 			break;
-		}
-		if (BuffAddr[Index] < InputData[Index]) {
-			Status = XASUFW_RSA_MOD_DATA_INVALID;
-			break;
+		} else {
+			ModulusMinus1[Idx] = XRSA_BORROW_PROPAGATION_FILL_VALUE;
+			Borrow = XASUFW_VALUE_ONE;
 		}
 	}
 
-	if (Index == Len) {
-		Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
+	/** Now compare InputData with ModulusMinus1 (BuffAddr - 1) */
+	Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
+	for (Index = 0U; Index < Len; Index++) {
+		if (ModulusMinus1[Index] > InputData[Index]) {
+			Status = XASUFW_SUCCESS;
+			Index = Len;
+		} else if (ModulusMinus1[Index] < InputData[Index]) {
+			Status = XASUFW_RSA_MOD_DATA_INVALID;
+			Index = Len;
+		} else {
+			/* Continue to next byte when both values are equal. */
+		}
 	}
+
+END:
+	/** Zeroize the ModulusMinus1 buffer. */
+	SStatus = Xil_SecureZeroize((u8 *)ModulusMinus1, XRSA_MAX_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
 	return Status;
 }

@@ -306,6 +306,11 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
+	/** For SHAKE256, use 512-bit hash length. */
+	if (PaddingParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) {
+		HashLen = XASU_SHA_512_HASH_LEN;
+	}
+
 	/** The length (in bytes) of the salt shall satisfy 0 <= SaltLen <= HashLen. */
 	if (SaltLen > HashLen) {
 		Status = XASUFW_RSA_PSS_INVALID_SALT_LEN;
@@ -607,6 +612,11 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
+	/** For SHAKE256, use 512-bit hash length. */
+	if (PaddingParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) {
+		HashLen = XASU_SHA_512_HASH_LEN;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((PaddingParamsPtr->InputDataType == XASU_RSA_HASHED_INPUT_DATA) &&
 		(PaddingParamsPtr->XAsu_RsaOpComp.Len != HashLen)) {
@@ -872,6 +882,11 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
+	}
+
+	/** For SHAKE256, use 512-bit hash length. */
+	if (ShaMode == XASU_SHA_MODE_SHAKE256) {
+		HashLen = XASU_SHA_512_HASH_LEN;
 	}
 
 	OutputSize = MgfInput->OutputLen;

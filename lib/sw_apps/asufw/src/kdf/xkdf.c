@@ -279,8 +279,8 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KdfPa
 	for (KdfIndex = 0U; KdfIndex < Iterations; ++KdfIndex) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** - Initialize AES with KeyIn provided in CMAC mode. */
-		Status = XAes_Init(AesInstancePtr, DmaPtr, (u64)(UINTPTR)KOut,
-				XASU_AES_MAX_TAG_LENGTH_IN_BYTES, XASU_AES_CMAC_MODE,
+		/* AES-CMAC mode does not require an IV, hence IvAddr and IvLen is set to 0U. */
+		Status = XAes_Init(AesInstancePtr, DmaPtr, 0U, 0U, XASU_AES_CMAC_MODE,
 				XASU_AES_ENCRYPT_OPERATION);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_ERROR);
