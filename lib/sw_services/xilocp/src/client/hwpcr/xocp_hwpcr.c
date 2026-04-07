@@ -18,7 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ------------------------------------------------------------------------------
 * 1.7   rpu  02/18/26 Initial release
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 * @note
@@ -63,7 +63,14 @@ int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) ||(PcrNum <= XOCP_PCR_1) || (PcrNum > XOCP_PCR_7) ||
+		(ExtHashAddr == 0U) || (Size != XOCP_PCR_SIZE_BYTES)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -102,7 +109,13 @@ int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (PcrMask == 0U) || (PcrBufAddr == 0U) || (PcrBufSize == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -135,20 +148,27 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
 		u32 NumOfLogEntries)
 {
 	volatile int Status = XST_FAILURE;
-        u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT];
 
-        if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-                goto END;
-        }
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (HwPcrEventAddr == 0U) || (HwPcrLogInfoAddr == 0U) ||
+		(NumOfLogEntries == 0U) || (NumOfLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 
-        /** Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server */
+	/** Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server */
 	XOCP_PACK_PAYLOAD5(Payload, XOCP_API_GET_HWPCRLOG, HwPcrEventAddr,
 				(HwPcrEventAddr >> XOCP_ADDR_HIGH_SHIFT), HwPcrLogInfoAddr,
 				(HwPcrLogInfoAddr >> XOCP_ADDR_HIGH_SHIFT), NumOfLogEntries);
 
-        Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
 END:
-        return Status;
+	return Status;
 }
 /** @} */

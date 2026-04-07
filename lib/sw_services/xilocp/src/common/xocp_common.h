@@ -69,7 +69,7 @@ extern "C" {
 #define XOCP_NUM_OF_SWPCRS			(0x8U) /**< Number of software pcrs */
 #define XOCP_EVENT_ID_NUM_OF_BYTES		(4U) /**< Number of bytes of pcr event ID*/
 #define XOCP_VERSION_NUM_OF_BYTES		(1U) /**< Number of bytes of ocp version */
-
+#define XOCP_GET_ALL_PCR_MASK			(0x000000FFU) /**< Maximum valid PCR mask */
 /**************************** Type Definitions *******************************/
 
 typedef enum {

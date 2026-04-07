@@ -31,7 +31,7 @@
 *       tvp  05/15/25 Disable attestation with unwrapped key for Versal_2vp
 * 1.7   Nik  11/21/25 Removed UINTPTR typecast of 64 bit variable to avoid truncation risks
 *       rmv  01/30/26 Refactor xilocp library
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 * @note
@@ -106,9 +106,17 @@ static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh);
 int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload;
 
+	/** Validate input parameters. */
+	if (Cmd == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 	if (Pload == NULL) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 

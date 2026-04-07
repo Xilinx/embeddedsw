@@ -18,7 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ------------------------------------------------------------------------------
 * 1.7   rpu  02/18/26 Initial release
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 * @note
@@ -57,15 +57,24 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	u64 ExtendParamsAddr = (u64)(UINTPTR)ExtendParams;
+	u64 ExtendParamsAddr;
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (ExtendParams == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+	if ((InstancePtr->MailboxPtr == NULL) || (ExtendParams->DataAddr == 0U) ||
+		(ExtendParams->DataSize == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
+	ExtendParamsAddr = (u64)(UINTPTR)ExtendParams;
+
 	if (ExtendParams->DataSize > XOCP_EXTENDED_HASH_SIZE_IN_BYTES) {
 		if (((u32)(ExtendParams->DataAddr >> 32U)) != 0x00U) {
-			Status = (int)XOCP_PCR_ERR_DATA_IN_INVALID_MEM;
+			Status = (int)XST_INVALID_PARAM;
 			goto END;
 		}
 	}
@@ -102,11 +111,20 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	u64 PcrBufAddr = (u64)(UINTPTR)PcrBuf;
+	u64 PcrBufAddr;
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (PcrBuf == NULL) || (PcrMask == 0U) ||
+		(PcrMask > XOCP_GET_ALL_PCR_MASK) || (PcrBufSize == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	PcrBufAddr = (u64)(UINTPTR)PcrBuf;
 
 	/** Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server */
 	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GET_SWPCR, PcrMask, PcrBufAddr,
@@ -124,7 +142,7 @@ END:
  * @brief   This function sends IPI request to get the SW PCR log.
  *
  * @param   InstancePtr - Pointer to the client instance
- * @param   LogParams - Pointer to the XOcp_SwPcrLogReadData structure.
+ * @param   LogParams - Pointer to the XOcp_SwPcrLogReadData structure. It cannot be NULL.
  *
  * @return
  *          - XST_SUCCESS - If PCR contents are copied
@@ -135,11 +153,19 @@ int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *Lo
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	u64 LogBufAddr = (u64)(UINTPTR)LogParams;
+	u64 LogBufAddr;
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (LogParams == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	LogBufAddr = (u64)(UINTPTR)LogParams;
 
 	/** Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRLOG, LogBufAddr,
@@ -157,7 +183,7 @@ END:
  * 		specified PCR.
  *
  * @param   InstancePtr - Pointer to the client instance
- * @param   DataParams - Pointer of the XOcp_SwPcrReadData structure.
+ * @param   DataParams - Pointer of the XOcp_SwPcrReadData structure. It cannot be NULL.
  *
  * @return
  *          - XST_SUCCESS - If PCR contents are copied
@@ -168,11 +194,19 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	u64 DataBufAddr = (u64)(UINTPTR)DataParams;
+	u64 DataBufAddr;
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (DataParams == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	DataBufAddr = (u64)(UINTPTR)DataParams;
 
 	/** Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRDATA, DataBufAddr,

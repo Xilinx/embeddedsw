@@ -18,7 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ------------------------------------------------------------------------------
 * 1.7   rpu  02/18/26 Initial release
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 * @note
@@ -62,7 +62,13 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	/** Validate input parameters */
+	if ((InstancePtr == NULL) || (NonceAddr == 0U) || (DmeStructResAddr == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+	if (InstancePtr->MailboxPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 

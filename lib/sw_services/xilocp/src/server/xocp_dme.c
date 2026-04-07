@@ -18,7 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 **************************************************************************************************/
@@ -78,11 +78,18 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 {
 	int Status = XST_FAILURE;
 
+	/** Validate input parameters */
+	if ((NonceAddr == 0U) || (DmeStructResAddr == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XOcp_GenerateDmeResponseImpl(NonceAddr, DmeStructResAddr);
 	if (Status == XST_SUCCESS) {
 		IsDmeChlAvail = TRUE;
 	}
 
+END:
 	return Status;
 }
 

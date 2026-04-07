@@ -18,7 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 **************************************************************************************************/
@@ -100,8 +100,8 @@ END:
 /**
  * @brief	This function generates the seed for DEVAK key generation.
  *
- * @param	KeyAddr holds the address of key to be used for HMAC.
- * @param	KeyLen specifies the length of the key.
+ * @param	CdiAddr holds the address of key to be used for HMAC.
+ * @param	CdiLen specifies the length of the key.
  * @param	DataAddr holds the data address to be updated to HMAC.
  * @param	DataLen specifies the length of the data to be updated to HMAC.
  * @param	Out is a pointer of type XSecure_HmacRes where the resultant gets
@@ -119,6 +119,13 @@ int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSe
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Hmac HmacInstance;
+
+	/** Validate input parameters */
+	if ((Out == NULL) || (CdiAddr == 0U) || (CdiLen == 0U) || (DataAddr == 0U) ||
+		(DataLen == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp,

@@ -47,7 +47,7 @@
 *       tvp  05/16/25 Don't export OCP DS for Versal_2vp
 *       tvp  05/16/25 Add support for Versal_2vp
 * 1.7   rmv  01/30/26 Refactor OCP library
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 **************************************************************************************************/
@@ -309,6 +309,11 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 
+	/** Validate input parameters */
+	if ((PerString == NULL) || (SubSystemId == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
 		XOcp_Printf(DEBUG_DETAILED, "No Device keys are supported\n\r");
 		Status = XST_SUCCESS;
@@ -523,6 +528,12 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
+	/** Validate input parameters */
+	if ((XOcp_GetX509CertPtr == NULL) || (SubSystemId == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	if (((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
 			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) &&
 			(XOcp_GetX509CertPtr->DevKeySel != XOCP_KEY_WRAP_DEVAK)) {
@@ -620,11 +631,11 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId)
 	int Status = XST_FAILURE;
 	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 
-	if (AttestationInfoPtr == NULL) {
+	/** Validate input parameters */
+	if ((AttestationInfoPtr == NULL) || (SubSystemId == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
-
 	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -666,7 +677,9 @@ int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId
 	int Status = XST_FAILURE;
 	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 
-	if (AttestationInfoPtr == NULL) {
+	/** Validate input parameters */
+	if ((AttestationInfoPtr == NULL) || (AttnPloadAddr == 0U) || (AttnPloadSize == 0U) ||
+		(SubSystemId == 0U)){
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
@@ -719,7 +732,9 @@ static int XOcp_Attestation(XOcp_Attest *AttestationInfoPtr, u32 DevAkIndex)
 	u8 Hash[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	u8 Signature[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 
-	if ((DevAkIndex == XOCP_INVALID_DEVAK_INDEX) || (AttestationInfoPtr == NULL)) {
+	/** Validate input parameters */
+	if ((AttestationInfoPtr == NULL) || (DevAkIndex == XOCP_INVALID_DEVAK_INDEX)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1006,6 +1021,12 @@ int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSec
 	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 
+	/** Validate input parameters */
+	if ((PubKeyAddr == 0U) || (SharedSecretAddr == 0U) || (SubSystemId == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1065,6 +1086,12 @@ int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 KeyIndex = 0U;
 
+	/** Validate input parameters */
+	if ((InHash == 0U) || (SubsystemID == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XOcp_GetSubSysDevAkIndex(SubsystemID, DevAkIndex);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1111,6 +1138,11 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
 	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
 	u32 KeyIndex = 0U;
 
+	/** Validate input parameters */
+	if ((AppVersion == 0U) || (SubsystemID == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 	if (AppVersionLen > XOCP_APP_VERSION_MAX_LENGTH) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;

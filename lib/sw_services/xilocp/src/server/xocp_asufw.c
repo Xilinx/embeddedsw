@@ -19,7 +19,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rmv  02/18/26 Increase value of maximum OCP subsystems
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 **************************************************************************************************/
@@ -180,8 +180,10 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 		}
 	}
 
-	/** Process subsystem and notify ASUFW. */
-	Status = XOcp_GenerateCdiAndNotify(SubsystemId);
+	if (Status == XST_SUCCESS) {
+		/** Process subsystem and notify ASUFW. */
+		Status = XOcp_GenerateCdiAndNotify(SubsystemId);
+	}
 
 END:
 	return Status;
@@ -286,6 +288,12 @@ int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr)
 	volatile int Status = XST_FAILURE;
 	u32 SubsystemHash = 0U;
 
+	/** Validate input parameters. */
+	if (SubsysHashAddrPtr == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Get the address of the subsystem digest for the required subsystem. */
 	Status = XOcp_GetSubsysDigestAddr(SubsystemId, &SubsystemHash);
 	if (Status != XST_SUCCESS) {
@@ -311,8 +319,15 @@ END:
  *************************************************************************************************/
 void XOcp_GetOcpEventMask(u32 *EventMask)
 {
+	/** Validate input parameters. */
+	if (EventMask == NULL) {
+		goto END;
+	}
+
 	*EventMask = OcpEventMask;
 	OcpEventMask = 0U;
+END:
+	return;
 }
 
 /*************************************************************************************************/
@@ -440,12 +455,19 @@ int XOcp_GetAsuCdiSeed(u32 CdiAddr)
 {
 	volatile int Status = XST_FAILURE;
 
+	/** Validate input parameters. */
+	if (CdiAddr == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	if (IsAsuCdiValid == TRUE) {
 		Status = Xil_SMemCpy((void *)(UINTPTR)CdiAddr, XOCP_CDI_SIZE_IN_BYTES,
 				     (const void *)(UINTPTR)XOcpAsuCdi, XOCP_CDI_SIZE_IN_BYTES,
 				     XOCP_CDI_SIZE_IN_BYTES);
 	}
 
+END:
 	return Status;
 }
 

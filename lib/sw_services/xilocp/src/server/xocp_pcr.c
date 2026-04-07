@@ -18,7 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
-*
+*       rpu  03/11/26 Validate input parameters
 * </pre>
 *
 **************************************************************************************************/
@@ -43,7 +43,6 @@
 /** @cond xocp_internal
  * @{
  */
-#define XOCP_GET_ALL_PCR_MASK			(0x000000FFU)	/* All PCR read mask */
 #define XOCP_SW_PCR				(0x1U)		/* SW PCR type */
 #define XOCP_HW_PCR				(0x0U)		/* HW PCR type */
 
@@ -166,8 +165,7 @@ int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
 		goto END;
 	}
-
-	if (DataSize != XOCP_PCR_SIZE_BYTES) {
+	if ((ExtHashAddr == 0U) || (DataSize != XOCP_PCR_SIZE_BYTES)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
@@ -236,6 +234,11 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 	XOcp_HwPcrLog *HwPcrLog = XOcp_GetHwPcrLogInstance();
 
 	/** Validate input parameters. */
+	if ((HwPcrLogInfoAddr == 0U) || ((NumOfLogEntries > 0U) && (HwPcrEventsAddr == 0U))) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	if (ReqHwPcrLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
 		Status = (int)XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST;
 		goto END;
@@ -441,8 +444,19 @@ int XOcp_GetSwPcrData(u64 Addr)
 	u32 DigestIdx;
 	u32 CurrDataLen;
 
+	/** Validate input parameters. */
+	if (Addr == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Data, Addr, sizeof(Data));
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((Data.BufAddr == 0U) || (Data.BufSize == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -450,12 +464,6 @@ int XOcp_GetSwPcrData(u64 Addr)
 	/** If SW PCR number is more than 7, throw an error */
 	if (Data.PcrNum > (u32)XOCP_PCR_7) {
 		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
-		goto END;
-	}
-
-	/** If Data buffer size is zero, throw an error */
-	if (Data.BufSize == 0U) {
-		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -539,6 +547,11 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 	/** If SW PCR number is more than 7, throw an error */
 	if (PcrNum > (u32)XOCP_PCR_7) {
 		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
+		goto END;
+	}
+
+	if ((DataAddr == 0U) || (DataSize == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -673,8 +686,19 @@ int XOcp_GetSwPcrLog(u64 Addr)
 	u32 Index;
 	u32 BufOffset = 0U;
 
+	/** Validate input parameters */
+	if (Addr == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Log, Addr, sizeof(Log));
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (Log.PcrLogAddr == 0U) {
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -862,6 +886,12 @@ END:
 int XOcp_StoreSwPcrConfigAndExtendSwPcr_0_1(u32 *Pload, u32 Len)
 {
 	volatile int Status = XST_FAILURE;
+
+	/** Validate input parameters */
+	if ((Pload == NULL) || (Len == 0U)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = XOcp_StoreSwPcrConfig(Pload, Len);
 	if (Status != XST_SUCCESS) {
@@ -1938,6 +1968,11 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
 	u32 BufOffset = 0U;
 	u32 PcrNum = 0U;
 
+	/** Validate input parameters */
+	if (PcrBuf == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 	NumOfBitsSetInMask = XOcp_CountNumOfOnesInWord(Mask);
 	if (PcrBufSize < (NumOfBitsSetInMask * XOCP_PCR_SIZE_BYTES)) {
 		Status = (int)XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM;
@@ -1947,7 +1982,6 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
-
 	if (Mask > XOCP_GET_ALL_PCR_MASK) {
 		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
 		goto END;
