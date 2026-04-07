@@ -70,8 +70,7 @@ static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 				     XAsu_OcpUdeResponse *OcpUdeResp,
 				     const XAsu_OcpUdeParams *OcpUdeParamsPtr);
 static s32 XOcp_PrepareUdeDecKey(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvtKey);
-static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvtKey,
-				   XAsu_OcpUdeResponse *OcpUdeResp,
+static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpUdeResp,
 				   const XAsu_OcpUdeParams *OcpUdeParamsPtr);
 
 /*************************************************************************************************/
@@ -244,10 +243,6 @@ END:
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
-	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
 	XAsu_OcpUdeResponse *OcpUdeResp = NULL;
 
 	/** Validate input parameters. */
@@ -264,13 +259,7 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 	OcpUdeResp = (XAsu_OcpUdeResponse *)(UINTPTR)OcpUdeParamsPtr->OcpUdeResponseAddr;
 
 	/** Perform core UDE response generation. */
-	Status = XOcp_ProcessUdeResponse(DmaPtr, UdeKekIv, UdeDecPvtKey, OcpUdeResp,
-			 OcpUdeParamsPtr);
-
-	/** Zeroize local buffer. */
-	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeDecPvtKey,
-					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	Status = XOcp_ProcessUdeResponse(DmaPtr, OcpUdeResp, OcpUdeParamsPtr);
 
 END:
 	return Status;
@@ -660,8 +649,6 @@ END:
  *		IV copy, key preparation, public key generation, and response data building.
  *
  * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
- * @param	UdeKekIv		Pointer to the IV buffer to populate.
- * @param	UdeDecPvtKey		Pointer to the buffer to store the decrypted private key.
  * @param	OcpUdeResp		Pointer to the UDE response structure to populate.
  * @param	OcpUdeParamsPtr		Pointer to the XAsu_OcpUdeParams structure.
  *
@@ -673,11 +660,14 @@ END:
  *	- XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL, if UDE public key generation fails.
  *
  *************************************************************************************************/
-static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvtKey,
-				   XAsu_OcpUdeResponse *OcpUdeResp,
+static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpUdeResp,
 				   const XAsu_OcpUdeParams *OcpUdeParamsPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
+	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
 	const u8 *IvPtr = (const u8*)(UINTPTR)XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR;
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
@@ -719,6 +709,11 @@ static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecP
 	Status = XOcp_BuildUdeResponseData(DmaPtr, UdeDecPvtKey, OcpUdeResp, OcpUdeParamsPtr);
 
 END:
+	/** Zeroize local buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeDecPvtKey,
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 
