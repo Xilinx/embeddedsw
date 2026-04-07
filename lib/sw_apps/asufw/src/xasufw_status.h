@@ -753,6 +753,8 @@ enum {
 	XASUFW_SHA_FINISH_FAILED, /**< 0x21CU - Error when SHA finish operation fails */
 	XASUFW_KEYMANAGER_ECC_INVALID_KEY, /**< 0x21DU - Error when both key Id and key address
 						are invalid */
+	XASUFW_AES_GET_CONTEXT_FAIL, /**< 0x21EU - Error when AES get context operation fails. */
+
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

@@ -37,6 +37,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasufw_aeshandler.h"
+#include "xasufw_memory.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
@@ -160,7 +161,7 @@ s32 XAsufw_KeyManagerInit(void)
 	}
 
 	/** Create and initialize ASU subsystem vault only if key vault DDR space is configured. */
-	if (XAsufw_ReadReg(XASU_RTCA_KEYVAULT_SIZE_ADDR) != 0U) {
+	if (XAsufw_ReadReg(XASU_RTCA_DDR_SIZE_ADDR) > XASUFW_DDR_RSVD_SIZE) {
 		Status = XAsufw_CreateAsuKeyVault();
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED);

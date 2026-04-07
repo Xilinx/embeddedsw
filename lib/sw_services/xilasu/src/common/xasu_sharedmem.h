@@ -79,12 +79,12 @@ extern "C" {
 #define XASU_RTCA_COMM_CHANNEL_INFO_ADDR	(XASU_RTCA_BASEADDR + 0x10U) /**< Communication
 										channel info register
 										address */
-#define XASU_RTCA_KEYVAULT_BASEADDR_HIGH	(XASU_RTCA_BASEADDR + 0x98U)
-						/**< Higher 32-bit base address of key vault */
-#define XASU_RTCA_KEYVAULT_BASEADDR_LOW		(XASU_RTCA_BASEADDR + 0x9CU)
-						/**< Lower 32-bit base address of key vault */
-#define XASU_RTCA_KEYVAULT_SIZE_ADDR		(XASU_RTCA_BASEADDR + 0xA0U)
-						/**< Address of size of key vault */
+#define XASU_RTCA_DDR_BASEADDR_HIGH	(XASU_RTCA_BASEADDR + 0x98U)
+						/**< Higher 32-bit base address of DDR */
+#define XASU_RTCA_DDR_BASEADDR_LOW	(XASU_RTCA_BASEADDR + 0x9CU)
+						/**< Lower 32-bit base address of DDR */
+#define XASU_RTCA_DDR_SIZE_ADDR		(XASU_RTCA_BASEADDR + 0xA0U)
+						/**< Address of size of DDR */
 
 #define XASU_RTCA_MODULE_INFO_BASEADDR		(XASU_RTCA_BASEADDR + 0xA8U)
 						/**< Base address of module info of

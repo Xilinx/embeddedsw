@@ -97,6 +97,8 @@ extern "C" {
 					/**< Reserved DDR size register. */
 #define XASUFW_2GB_END_ADDR		(0x7FFFFFFFU)	/**< 2GB end address */
 
+#define XASUFW_DDR_RSVD_SIZE		(1024U)	/**< Size of DDR reserved area for ASUFW in bytes. */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

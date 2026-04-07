@@ -48,6 +48,7 @@
 #include "xasu_def.h"
 #include "xasu_aes_common.h"
 #include "xfih.h"
+#include "xasufw_memory.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -316,8 +317,6 @@ static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif
 
-static XAes_ContextInfo AesContext; /**< AES context. */
-
 /************************** Inline Function Definitions ******************************************/
 
 /************************** Function Prototypes **************************************************/
@@ -339,7 +338,8 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 	u32 Size, u8 IsLastChunk);
 static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
-static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr);
+static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
+static s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr);
 static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
@@ -428,7 +428,11 @@ END:
  *************************************************************************************************/
 XAes_ContextInfo *XAes_GetAesContext(void)
 {
-	return &AesContext;
+	XAes_ContextInfo *CtxPtr = NULL;
+
+	(void)XAes_GetContextDdrPtr(&CtxPtr);
+
+	return CtxPtr;
 }
 
 /*************************************************************************************************/
@@ -474,6 +478,7 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 	u32 Key[XASU_AES_KEY_SIZE_256BIT_IN_WORDS];
 	u32 Offset = XAES_INVALID_CFG;
 	u32 KeySizeInWords = 0U;
+	XAes_ContextInfo *CtxPtr = NULL;
 
 	/** Validate the input arguments. */
 	if ((InstancePtr == NULL) || (DmaPtr == NULL) || (KeyObjectPtr == NULL)) {
@@ -544,27 +549,31 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 		goto END_CLR;
 	}
 
-	/** Save the key information for context switching. */
-	if (AesContext.IsContextSaved != XASU_TRUE) {
-		/**
-		 * Copy KeyObject structure from 64-bit address space to AES context
-		 * structure using ASU DMA.
-		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, (u64)(UINTPTR)KeyObjectPtr,
-			(u64)(UINTPTR)&AesContext.KeyObject, sizeof(XAsu_AesKeyObject), 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END;
-		}
+	/** Save key information in DDR context for context switching. */
+	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
+		if (CtxPtr->IsContextSaved != XASU_TRUE) {
+			/**
+			 * Copy KeyObject structure from 64-bit address space to DDR context
+			 * using ASU DMA.
+			 */
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, (u64)(UINTPTR)KeyObjectPtr,
+				(u64)(UINTPTR)&CtxPtr->KeyObject, sizeof(XAsu_AesKeyObject), 0U);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_DMA_COPY_FAIL;
+				goto END;
+			}
 
-		/** Copy Key from 64-bit address space to AES context structure using ASU DMA. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr,  (u64)KeyObjectPtr->KeyAddress,
-			(u64)(UINTPTR)AesContext.Key, (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END;
+			/** Copy user key to DDR context for restore. */
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr,
+				(u64)KeyObjectPtr->KeyAddress,
+				(u64)(UINTPTR)CtxPtr->Key,
+				(KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_DMA_COPY_FAIL;
+				goto END;
+			}
 		}
 	}
 
@@ -888,6 +897,8 @@ RET:
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAes_ContextInfo *CtxPtr = NULL;
+
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
@@ -973,9 +984,11 @@ END:
 		XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
-	if (AesContext.IsContextSaved == XASU_TRUE) {
-		/** Set restore context flag to true. */
-		AesContext.IsContextRestoreReq = XASU_TRUE;
+	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
+		if (CtxPtr->IsContextSaved == XASU_TRUE) {
+			/** Set restore context flag to true in DDR context. */
+			CtxPtr->IsContextRestoreReq = XASU_TRUE;
+		}
 	}
 
 	return Status;
@@ -1576,6 +1589,7 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var AesCurrentState = XFIH_FAILURE;
 	XFih_Var AesSavedState = XFIH_FAILURE;
+	XAes_ContextInfo *CtxPtr = NULL;
 	u32 Index;
 
 	/** Validate the input arguments.*/
@@ -1584,15 +1598,21 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 		goto END;
 	}
 
-	/** Save mode configuration. */
-	AesContext.ModeConfig = XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET);
+	Status = XAes_GetContextDdrPtr(&CtxPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_GET_CONTEXT_FAIL;
+		goto END;
+	}
+
+	/** Save mode configuration directly to DDR context. */
+	CtxPtr->ModeConfig = XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET);
 
 	/** Save the intermediate context. */
 	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
-		AesContext.IvOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+		CtxPtr->IvOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 			XAES_IV_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
 #ifdef XASU_AES_CM_ENABLE
-		AesContext.IvMaskOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+		CtxPtr->IvMaskOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 			XAES_IV_MASK_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
 #endif
 	}
@@ -1600,16 +1620,16 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 	/** Read the current AES state with fault-injection protection. */
 	AesCurrentState = XFih_VolatileAssignU32((u32)InstancePtr->AesState);
 
-	/** Write the extracted state value into the context structure. */
-	AesContext.AesSavedState = (u8)XFih_GetVal(AesCurrentState);
+	/** Write the extracted state value into the DDR context structure. */
+	CtxPtr->AesSavedState = (u8)XFih_GetVal(AesCurrentState);
 
 	/** Read back the stored value, again with FIH protection. */
-	AesSavedState = XFih_VolatileAssignU32((u32)AesContext.AesSavedState);
+	AesSavedState = XFih_VolatileAssignU32((u32)CtxPtr->AesSavedState);
 
 	/** Compare the original FIH variable (source) with the read-back FIH variable. */
 	XFIH_IF_FAILOUT_EQ(AesCurrentState, AesSavedState) {
 		/** - Verification succeeded - the state was correctly stored. */
-		AesContext.IsContextSaved = XASU_TRUE;
+		CtxPtr->IsContextSaved = XASU_TRUE;
 		Status = XASUFW_SUCCESS;
 	} else {
 		/** - Mismatch detected – assignment was skipped or corrupted. */
@@ -1642,6 +1662,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihAesCtxClear;
+	XAes_ContextInfo *CtxPtr = NULL;
 	volatile u32 Index = 0U;
 
 	/** Validate the input arguments.*/
@@ -1650,8 +1671,14 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 		goto END;
 	}
 
-	if ((AesContext.IsContextSaved != XASU_TRUE) ||
-			(AesContext.IsContextRestoreReq != XASU_TRUE)) {
+	Status = XAes_GetContextDdrPtr(&CtxPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_GET_CONTEXT_FAIL;
+		goto END;
+	}
+
+	if ((CtxPtr->IsContextSaved != XASU_TRUE) ||
+			(CtxPtr->IsContextRestoreReq != XASU_TRUE)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -1663,7 +1690,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
 	/** Check and restore the keys if provided key source is a user key. */
-	Status = XAes_CheckAndRestoreUserKeyContext(InstancePtr);
+	Status = XAes_CheckAndRestoreUserKeyContext(InstancePtr, CtxPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL);
 		goto END;
@@ -1671,15 +1698,15 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Load key to AES engine. */
-	XAes_LoadKey(InstancePtr, AesContext.KeyObject.KeySrc, AesContext.KeyObject.KeySize);
+	XAes_LoadKey(InstancePtr, CtxPtr->KeyObject.KeySrc, CtxPtr->KeyObject.KeySize);
 
 	/** Restore mode configuration */
 	XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET,
-		AesContext.ModeConfig);
+		CtxPtr->ModeConfig);
 
 	/** Verify the key source and size by reading them back from the AES key vault registers. */
-	Status = XAes_ValidateKeyConfig(InstancePtr, AesContext.KeyObject.KeySrc,
-		AesContext.KeyObject.KeySize);
+	Status = XAes_ValidateKeyConfig(InstancePtr, CtxPtr->KeyObject.KeySrc,
+		CtxPtr->KeyObject.KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_KEY_CONFIG_READBACK_ERROR;
 		goto END;
@@ -1688,8 +1715,9 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
 
 	/** Restore engine mode and operation type from saved mode configuration. */
-	InstancePtr->EngineMode = (u8)(AesContext.ModeConfig & XAES_MODE_CONFIG_ENGINE_MODE_MASK);
-	InstancePtr->OperationType = (u8)(AesContext.ModeConfig & XAES_MODE_CONFIG_ENC_DEC_MASK);
+	InstancePtr->EngineMode = (u8)(CtxPtr->ModeConfig & XAES_MODE_CONFIG_ENGINE_MODE_MASK);
+	InstancePtr->OperationType = ((CtxPtr->ModeConfig & XAES_MODE_CONFIG_ENC_DEC_MASK) != 0U) ?
+		(u8)XASU_AES_ENCRYPT_OPERATION : (u8)XASU_AES_DECRYPT_OPERATION;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Validate restored mode configuration(Engine mode and Operation type). */
@@ -1701,10 +1729,10 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 
 	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
 		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
-			(Index * XASUFW_WORD_LEN_IN_BYTES), AesContext.IvOut[Index]);
+			(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvOut[Index]);
 #ifdef XASU_AES_CM_ENABLE
 		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_MASK_IN_0_OFFSET +
-			(Index * XASUFW_WORD_LEN_IN_BYTES), AesContext.IvMaskOut[Index]);
+			(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvMaskOut[Index]);
 #endif
 	}
 
@@ -1718,16 +1746,18 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 		XAES_IV_LOAD_MASK);
 
 	/** Restore the AES state machine to saved state. */
-	InstancePtr->AesState = (XAes_State)AesContext.AesSavedState;
+	InstancePtr->AesState = (XAes_State)CtxPtr->AesSavedState;
 
 	Status = XASUFW_SUCCESS;
 
 END:
-	/** Clear saved AES context. */
-	XFIH_CALL(Xil_SecureZeroize, XFihAesCtxClear, ClearStatus, (u8 *)(UINTPTR)&AesContext,
-		sizeof(XAes_ContextInfo));
+	/** Clear saved AES context in DDR. */
+	if (CtxPtr != NULL) {
+		XFIH_CALL(Xil_SecureZeroize, XFihAesCtxClear, ClearStatus,
+			(u8 *)(UINTPTR)CtxPtr, sizeof(XAes_ContextInfo));
 
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
 
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/** Set AES under reset upon any failure. */
@@ -2577,27 +2607,28 @@ END:
  *		- XASUFW_AES_WRITE_WITH_ENDIAN_SWAP_FAIL, if writing key with endian swap fails.
  *
  *************************************************************************************************/
-static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr)
+static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 Offset;
 	u32 KeySizeInWords = 0U;
 
-	/** Restore key. */
-	if (AesContext.KeyObject.KeySrc <= XASU_AES_USER_KEY_7) {
-		KeySizeInWords = (AesContext.KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
+	/** Restore key from DDR context. */
+	if (CtxPtr->KeyObject.KeySrc <= XASU_AES_USER_KEY_7) {
+		KeySizeInWords = (CtxPtr->KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
 			XASU_AES_KEY_SIZE_128BIT_IN_WORDS : XASU_AES_KEY_SIZE_256BIT_IN_WORDS;
 
-		Offset = AesKeyLookupTbl[AesContext.KeyObject.KeySrc].RegOffset;
+		Offset = AesKeyLookupTbl[CtxPtr->KeyObject.KeySrc].RegOffset;
 		/**
-		 * Traverse to Offset of last word of respective USER key register
-		 * (i.e., XAES_USER_KEY_X_7), where X = 0 to 7 USER key.
-		 * Write the key to the respective key source registers by changing the endianness.
-		 */
+		 * Traverse to Offset of last word of respective USER key register
+		 * (i.e., XAES_USER_KEY_X_7), where X = 0 to 7 USER key.
+		 * Write the key to the respective key source registers by changing the endianness.
+		 */
 		Offset = Offset + (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES) - XASUFW_WORD_LEN_IN_BYTES;
 
-		/** Write user key to the respective user key registers by changing the endianness. */
-		Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset, AesContext.Key, KeySizeInWords);
+		/** Write user key from DDR context to the respective user key registers. */
+		Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset,
+			CtxPtr->Key, KeySizeInWords);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_AES_WRITE_WITH_ENDIAN_SWAP_FAIL;
 			goto END;
@@ -2608,6 +2639,43 @@ static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr)
 END:
 	return Status;
 
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Returns a direct pointer to the AES context stored at the beginning of key vault DDR.
+ *
+ * @param	CtxPtrPtr	Output pointer-to-pointer for the DDR context location.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if DDR context address is valid.
+ *		- XASUFW_AES_INVALID_PARAM, if CtxPtrPtr is NULL or DDR is not configured.
+ *
+ *************************************************************************************************/
+static s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 DdrRsvdAddr = 0U;
+	u32 DdrRsvdSize = 0U;
+
+	if (CtxPtrPtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	DdrRsvdAddr = XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW);
+	DdrRsvdSize = XAsufw_ReadReg(XASU_RTCA_DDR_SIZE_ADDR);
+
+	if (DdrRsvdSize < XASUFW_DDR_RSVD_SIZE) {
+		Status = XASUFW_AES_GET_CONTEXT_FAIL;
+		goto END;
+	}
+
+	*CtxPtrPtr = (XAes_ContextInfo *)(UINTPTR)DdrRsvdAddr;
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/

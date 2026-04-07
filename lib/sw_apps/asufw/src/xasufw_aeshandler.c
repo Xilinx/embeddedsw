@@ -492,22 +492,24 @@ s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
 	XAes_ContextInfo *Ctx = XAes_GetAesContext();
 	u8 EngineMode = XAes_GetEngineMode(AesInstancePtr);
 
-	if (!(XAsufw_IsResourceBusy(XASUFW_AES, ReqId)) && (Ctx->IsContextSaved != XASU_TRUE) &&
-			(XAes_GetAndValidateInternalState(AesInstancePtr))) {
-		/** AES-ECB and AES-CCM mode doesn't support context switching. */
-		if ((EngineMode == XASU_AES_ECB_MODE) ||
-				(EngineMode == XASU_AES_CCM_MODE)) {
-			Status = XASUFW_RESOURCE_UNAVAILABLE;
-			goto END;
-		}
+	if (Ctx != NULL) {
+		if (!(XAsufw_IsResourceBusy(XASUFW_AES, ReqId)) && (Ctx->IsContextSaved != XASU_TRUE) &&
+				(XAes_GetAndValidateInternalState(AesInstancePtr))) {
+			/** AES-ECB and AES-CCM mode doesn't support context switching. */
+			if ((EngineMode == XASU_AES_ECB_MODE) ||
+					(EngineMode == XASU_AES_CCM_MODE)) {
+				Status = XASUFW_RESOURCE_UNAVAILABLE;
+				goto END;
+			}
 
-		Status = XAes_SaveContext(AesInstancePtr);
-		if (Status != XASUFW_SUCCESS) {
-			goto END;
+			Status = XAes_SaveContext(AesInstancePtr);
+			if (Status != XASUFW_SUCCESS) {
+				goto END;
+			}
 		}
-	}
-	else {
-		Ctx->ReqId = ReqId;
+		else {
+			Ctx->ReqId = ReqId;
+		}
 	}
 
 	Status = XASUFW_SUCCESS;
