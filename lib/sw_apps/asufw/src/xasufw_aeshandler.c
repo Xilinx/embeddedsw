@@ -49,8 +49,6 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XASUFW_AES_OP_FLAGS_ALL	(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL) /**< Combined
-							mask for all operation flags. */
 #define XAES_NON_BLOCKING_CMD_STAGE_INIT	(0x0U) /**< Initial Command stage value for AES operations */
 #define XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS	(0x1U) /**< AES AAD update in progress
 							stage for DMA non-blocking wait */
@@ -218,9 +216,18 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesParamsPtr->OperationFlags &
-			XASUFW_AES_OP_FLAGS_ALL) != XASUFW_AES_OP_FLAGS_ALL)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
+	/**
+	 * For AES CCM mode, AadLen and DataLen in INIT encode the B0 block, so they must
+	 * be the total sizes for the complete operation. INIT|UPDATE without FINAL is not
+	 * allowed as AadLen/DataLen would be per-chunk sizes, producing an incorrect B0
+	 * encoding. INIT|UPDATE|FINAL (single-shot) is allowed.
+	 */
+	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) &&
+		((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+		((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
+		((AesParamsPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL)) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
 		goto END;
 	}
 
@@ -237,11 +244,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	if ((((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+	if (((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
-	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) ||
-	     (((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
-	      (AesParamsPtr->EngineMode == XASU_AES_CCM_MODE))) {
+	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
 		if ((AesParamsPtr->IvAddr == 0U) && (AesParamsPtr->IvId == 0U)) {
 			Status = XASUFW_AES_INVALID_IV;
 			goto END;
@@ -304,6 +309,21 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
 			goto END;
 		}
+
+		/** For AES CCM mode, format and transmit the CCM B0 header (nonce block and
+		 * AAD length encoding) to the AES engine. This is a one-time initialization
+		 * step; actual AAD data chunks are pushed via XAes_Update calls.
+		 */
+		if (AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) {
+			Status = XAes_CcmSendB0Header(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
+					LocalIvAddr, (u8)LocalIvLen, AesParamsPtr->AadLen,
+					AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_AES_CCM_AAD_FORMATTING_FAILED);
+				goto END;
+			}
+		}
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
@@ -323,18 +343,22 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * User should pass AAD address as zero for AES standard modes(CBC, ECB, CFB, OFB, CTR)
 		 */
 		if ((AesParamsPtr->AadAddr != 0U) &&
-				((EngineMode == XASU_AES_GCM_MODE) || (EngineMode == XASU_AES_CMAC_MODE))) {
+				((EngineMode == XASU_AES_GCM_MODE) ||
+				 (EngineMode == XASU_AES_CMAC_MODE) ||
+				 (EngineMode == XASU_AES_CCM_MODE))) {
 			/**
 			 * IsLast flag behaviour for AAD based on AES mode and data:
-			 * For AES-GCM mode:
+			 * For AES-GCM/CCM mode:
 			 * (1) If only AAD is provided (no payload), IsLast should be set to true
 			 *     as a part of last update of AAD.
 			 * (2) If payload follows AAD, IsLast is not set during AAD update.
-			 * For CMAC/CCM mode:
+			 * For CMAC mode:
 			 * IsLast is set for the last block of both AAD and Plaintext.
 			 */
 			AadIsLast = AesParamsPtr->IsLast;
-			if  ((EngineMode == XASU_AES_GCM_MODE) && (AesParamsPtr->InputDataAddr != 0U)) {
+			if (((EngineMode == XASU_AES_GCM_MODE) ||
+					(EngineMode == XASU_AES_CCM_MODE)) &&
+					(AesParamsPtr->InputDataAddr != 0U)) {
 				AadIsLast = XASU_FALSE;
 			}
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
@@ -351,22 +375,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			}
 		}
 
-		/** For AES CCM mode, format and push the AAD to AES engine. */
-		if (EngineMode == XASU_AES_CCM_MODE) {
-			Status = XAes_CcmFormatAadAndXfer(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
-				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, LocalIvAddr,
-				(u8)LocalIvLen, AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
-			if (Status == XASUFW_CMD_IN_PROGRESS) {
-				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
-				XAsufw_DmaCfgNonBlocking(XAsufw_AesModule.AsuDmaPtr,
-							 XASUDMA_SRC_CHANNEL, ReqBuf, ReqId,
-							 XASUFW_BLOCK_DMA);
-				goto DONE;
-			} else if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_AAD_FORMATTING_FAILED);
-				goto END;
-			}
-		}
 
 XAES_STAGE_DATA_UPDATE:
 		/**

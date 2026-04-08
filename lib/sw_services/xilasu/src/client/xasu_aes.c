@@ -502,11 +502,20 @@ static inline s32 XAsu_ValidateCcmOpMode(const XAsu_AesParams *AesClientParamPtr
 {
 	s32 Status = XASU_INVALID_ARGUMENT;
 
-	if (!((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) &&
-			((AesClientParamPtr->OperationFlags &
-			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
-			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)))) {
+	/**
+	 * For CCM, INIT combined with UPDATE but without FINAL is not allowed.
+	 * AadLen/DataLen on INIT encode the B0 block totals; if UPDATE is also set
+	 * without FINAL, they carry per-chunk sizes instead, producing an invalid tag.
+	 * INIT|UPDATE|FINAL (single-shot) is valid since totals equal chunk sizes.
+	 */
+	if (AesClientParamPtr->EngineMode != XASU_AES_CCM_MODE) {
 		Status = XST_SUCCESS;
+	} else {
+		if (!(((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+				((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
+				((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL))) {
+			Status = XST_SUCCESS;
+		}
 	}
 
 	return Status;
