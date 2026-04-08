@@ -404,7 +404,7 @@ int XSecure_AddRsaKeyPairGenerationToScheduler(void)
 
 /******************************************************************************/
 /**
- * @brief	This function removes keypair generation task from scheduler.
+ * @brief	This function removes key pair generation task from scheduler.
  *
  * @return
  *		 - XST_SUCCESS - On success.

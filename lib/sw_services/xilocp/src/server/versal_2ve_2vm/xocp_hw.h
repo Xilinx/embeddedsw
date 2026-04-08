@@ -167,7 +167,7 @@ extern "C" {
 #define XOCP_EFUSE_CACHE_BOOT_ENV_CTRL			(0xF1250094U) /**< Boot environmental register address */
 #define XOCP_PMC_LOCAL_BOOT_MODE_DIS			(0xF00441D0U) /**< Boot mode register address */
 #define XOCP_EFUSE_CACHE_MISC_CTRL			(0xF12500A0U) /**< MISC control register address */
-#define XOCP_EFUSE_CACHE_ANLG_TRIM_3			(0xF1250010U) /**< Analog Trim3 registe address */
+#define XOCP_EFUSE_CACHE_ANLG_TRIM_3			(0xF1250010U) /**< Analog Trim3 register address */
 #define XOCP_EFUSE_CACHE_IP_DISABLE_0			(0xF1250018U) /**< IP disable 0 register address */
 #define XOCP_EFUSE_CACHE_IP_DISABLE_1			(0xF125001CU) /**< IP disable 1 register address */
 #define XOCP_EFUSE_CACHE_CAHER_1			(0xF12500F0U) /**< Caher1 register address */
@@ -175,7 +175,7 @@ extern "C" {
 #define XOCP_EFUSE_CACHE_SECURITY_CONTROL		(0xF12500ACU) /**< security control register address */
 #define XOCP_EFUSE_CACHE_SECURITY_MISC_1		(0xF12500E8U) /**< security misc 1 control register address */
 #define XOCP_EFUSE_CACHE_DME_FIPS			(0xF1250234U) /**< DME FIPS register address */
-#define XOCP_EFUSE_CACHE_ROM_RSVD			(0xF1250090U) /**< ROM reseved register address */
+#define XOCP_EFUSE_CACHE_ROM_RSVD			(0xF1250090U) /**< ROM reserved register address */
 #define XOCP_EFUSE_CACHE_RO_SWAP_EN			(0xF12500D0U) /**< RO SWAP enable address */
 
 #define XOCP_CAHER_1_MEASURED_MASK			(0x00000F00U) /**< HNIC DIS| DDR XTS export | HNIC DDR export | DDR XTS GCM DIS */

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +29,7 @@
 *					 					 fallback unless FSBL* and FSBL are
 *					 					 identical in length
 *					 Fix for CR#791245 - Use of xilrsa in FSBL
-* 10.0  vns 03/18/22 Fixed CR#1125470 to authenticate the parition header buffer
+* 10.0  vns 03/18/22 Fixed CR#1125470 to authenticate the partition header buffer
 *                    which is being used instead of one from DDR. Modified
 *                    prototype of AuthenticatePartition() API
 * </pre>

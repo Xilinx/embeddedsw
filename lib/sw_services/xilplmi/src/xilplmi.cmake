@@ -79,7 +79,7 @@ if (NOT XILPLMI_plm_sem_en)
   set(PLM_SEM_EXCLUDE " ")
 endif()
 
-option(XILPLMI_plm_secure_en "Enables or Disbales Secure features" ON)
+option(XILPLMI_plm_secure_en "Enables or Disables Secure features" ON)
 if (NOT XILPLMI_plm_secure_en)
   set(PLM_SECURE_EXCLUDE " ")
 endif()

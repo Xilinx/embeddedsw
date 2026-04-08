@@ -235,9 +235,9 @@ typedef enum {
  */
 typedef enum {
 	XSECURE_LMS_OTS_U_NOT_SUPPORTED	= 0U,	/**< Not Supported */
-	XSECURE_LMS_OTS_W2_U 		= 128U,	/**< 'u' corrsponding to 'w' = 2 */
-	XSECURE_LMS_OTS_W4_U 		= 64U,	/**< 'u' corrsponding to 'w' = 4 */
-	XSECURE_LMS_OTS_W8_U 		= 32U	/**< 'u' corrsponding to 'w' = 8 */
+	XSECURE_LMS_OTS_W2_U 		= 128U,	/**< 'u' corresponding to 'w' = 2 */
+	XSECURE_LMS_OTS_W4_U 		= 64U,	/**< 'u' corresponding to 'w' = 4 */
+	XSECURE_LMS_OTS_W8_U 		= 32U	/**< 'u' corresponding to 'w' = 8 */
 } XSecure_LmsOtsuIndex;
 
 /**
@@ -246,9 +246,9 @@ typedef enum {
  */
 typedef enum {
 	XSECURE_LMS_OTS_V_NOT_SUPPORTED	= 0U,	/**< Not Supported */
-	XSECURE_LMS_OTS_W2_V 		= 5U,	/**< 'v' corrsponding to 'w' = 2 */
-	XSECURE_LMS_OTS_W4_V 		= 3U,	/**< 'v' corrsponding to 'w' = 4 */
-	XSECURE_LMS_OTS_W8_V 		= 2U	/**< 'v' corrsponding to 'w' = 8 */
+	XSECURE_LMS_OTS_W2_V 		= 5U,	/**< 'v' corresponding to 'w' = 2 */
+	XSECURE_LMS_OTS_W4_V 		= 3U,	/**< 'v' corresponding to 'w' = 4 */
+	XSECURE_LMS_OTS_W8_V 		= 2U	/**< 'v' corresponding to 'w' = 8 */
 } XSecure_LmsOtsvIndex;
 
 /**
@@ -256,9 +256,9 @@ typedef enum {
  * Possible values are as supported by ROM
  */
 typedef enum {
-	XSECURE_LMS_OTS_W2_LS 		= 6U,	/**< 'ls' corrsponding to 'w' = 2 */
-	XSECURE_LMS_OTS_W4_LS 		= 4U,	/**< 'ls' corrsponding to 'w' = 4 */
-	XSECURE_LMS_OTS_W8_LS 		= 0U,	/**< 'ls' corrsponding to 'w' = 8 */
+	XSECURE_LMS_OTS_W2_LS 		= 6U,	/**< 'ls' corresponding to 'w' = 2 */
+	XSECURE_LMS_OTS_W4_LS 		= 4U,	/**< 'ls' corresponding to 'w' = 4 */
+	XSECURE_LMS_OTS_W8_LS 		= 0U,	/**< 'ls' corresponding to 'w' = 8 */
 	XSECURE_LMS_OTS_LS_NOT_SUPPORTED = 16U	/**< Not Supported */
 } XSecure_LmsOtslsIndex;
 
@@ -268,9 +268,9 @@ typedef enum {
  */
 typedef enum {
 	XSECURE_LMS_OTS_P_NOT_SUPPORTED	= 0U,	/**< Not Supported */
-	XSECURE_LMS_OTS_W2_P 		= 133U,	/**< 'p' corrsponding to 'w' = 2 */
-	XSECURE_LMS_OTS_W4_P 		= 67U,	/**< 'p' corrsponding to 'w' = 4 */
-	XSECURE_LMS_OTS_W8_P 		= 34U	/**< 'p' corrsponding to 'w' = 8 */
+	XSECURE_LMS_OTS_W2_P 		= 133U,	/**< 'p' corresponding to 'w' = 2 */
+	XSECURE_LMS_OTS_W4_P 		= 67U,	/**< 'p' corresponding to 'w' = 4 */
+	XSECURE_LMS_OTS_W8_P 		= 34U	/**< 'p' corresponding to 'w' = 8 */
 } XSecure_LmsOtspIndex;
 
 /**

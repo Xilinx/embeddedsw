@@ -506,12 +506,12 @@ END :
 
 /******************************************************************************/
 /**
- * @brief	This function checks device Temparature for
+ * @brief	This function checks device Temperature for
  * 		LP,MP and HP devices based on the Efuse value.
  *
  * @return
- *		- XST_SUCCESS  On Temparature within thresholds.
- *		- XST_FAILURE  On Temparature not within thresholds.
+ *		- XST_SUCCESS  On Temperature within thresholds.
+ *		- XST_FAILURE  On Temperature not within thresholds.
  *
  ******************************************************************************/
 static int XNvm_EfuseTemparatureCheck(float Temparature)
@@ -529,7 +529,7 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
 	/**
-	 * Get the boot time temparatures upper and lower limits
+	 * Get the boot time temperatures upper and lower limits
 	 * from the BootEnvCtrl register.
 	 */
 	EfuseTempMax = (ReadReg &
@@ -565,9 +565,9 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 		goto END;
 	}
 
-	/* Check junction temparature operational limits for
+	/* Check junction temperature operational limits for
 	 * eFUSE programming as per TSMC data sheet.
-	 * if the temparature is within the limits return XST_SUCCESS
+	 * if the temperature is within the limits return XST_SUCCESS
 	 * else XST_FAILURE.
 	 */
 
@@ -614,7 +614,7 @@ static int XNvm_EfusePmcVoltageCheck(float Voltage)
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
 
 	/**
-	 * Get the boot time PMC temparature from the BootEnvCtrl register.
+	 * Get the boot time PMC temperature from the BootEnvCtrl register.
 	 */
 	EfuseVoltVal = (ReadReg &
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK) >>
@@ -721,7 +721,7 @@ u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
 
 /******************************************************************************/
 /**
- * @brief	This function performs the Temparature and Voltage checks to
+ * @brief	This function performs the Temperature and Voltage checks to
  * 		ensure that they are in limits before eFuse programming.
  *
  * @param	SysMonInstPtr - Pointer to SysMon instance.
@@ -834,7 +834,7 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 		}
 	}
 	/**
-	 * Read the raw temparature value from the sysmon satellite.
+	 * Read the raw temperature value from the sysmon satellite.
 	 */
 	RawTemp = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
 			XSYSMONPSV_TEMP_SAT);
@@ -858,8 +858,8 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 		"Device temperature on the chip = %c%d.%06dC \r\n",
 		Signchar, IntegralPart,FractionalPart);
 	/**
-	 * Check for temparature operating limits.
-	 * Return error if temparature is not withing operating limits.
+	 * Check for temperature operating limits.
+	 * Return error if temperature is not within operating limits.
 	 */
 	Status = XNvm_EfuseTemparatureCheck(Temparature);
 	if (Status != XST_SUCCESS) {
