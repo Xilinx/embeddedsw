@@ -112,8 +112,8 @@
  */
 #define XAES_B0FLAG(AadLen, TagLen, NonceLen) \
 	((u8)(((((AadLen) > 0U) ? XAES_CCM_AAD_FLAG : 0x00U) | \
-	((((TagLen - 2U) / 2U) & XAES_CCM_TAG_MASK) << XAES_CCM_TAG_SHIFT) | \
-	((XAES_CCM_Q_CONST - NonceLen - 1U) & XAES_CCM_Q_MASK))))
+	(((((TagLen) - 2U) / 2U) & XAES_CCM_TAG_MASK) << XAES_CCM_TAG_SHIFT) | \
+	((XAES_CCM_Q_CONST - (NonceLen) - 1U) & XAES_CCM_Q_MASK))))
 
 #define XAES_AAD_LENGTH_SHORT_LIMIT	(0xFF00U) /**< (1 << 16) - (1 << 8) = 65280. */
 #define XAES_HEADER_6BYTE_INDICATOR	(0xFFFEU) /**< Header 6-byte indicator. */
@@ -822,7 +822,8 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	 * During initial payload update, finalize the AAD update phase by optionally sending
 	 * zero padding (for CCM mode) and clearing the AAD configuration for all modes.
 	 */
-	if (InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS) {
+	if ((InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS) &&
+		(OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR)) {
 		Status = XAes_FinalizeAadUpdate(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL);
@@ -996,35 +997,33 @@ RET:
 
 /*************************************************************************************************/
 /**
- * @brief	This function formats the Additional Authenticated Data (AAD), Nonce, and associated
- * 		parameters into a structure compliant with AES-CCM input formatting requirements.
+ * @brief	This function formats and transmits the AES-CCM B0 header block to the AES engine.
+ *		It sends the B0 block (flag | nonce | encoded payload length) and the AAD length
+ *		encoding header as a one-time initialization step.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param	AadAddr		Address of the AAD data.
- * @param	AadLen		Length of the AAD in bytes.
  * @param	NonceAddr	Address of the nonce.
  * @param	NonceLen	Length of the nonce in bytes.
+ * @param	TotalAadLen	Total length of all AAD data.
  * @param	PlainTextLen	Length of the plaintext (payload) in bytes.
  * @param	TagLen		Length of the authentication tag in bytes.
  *
  * @return
- *		- XASUFW_SUCCESS, if formatting of AAD data is successful.
- *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL or AAD and Nonce Address
- * 			and lengths are zero.
- *		- XASUFW_FAILURE, if transfer of data is failed.
- *		- XASUFW_AES_STATE_MISMATCH_ERROR, if AES state is not valid.
- *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
- *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if configuring SSS with DMA transfer fails.
+ *		- XASUFW_SUCCESS, if B0 header formatting and transfer is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if any input argument is invalid.
+ *		- XASUFW_AES_STATE_MISMATCH_ERROR, if AES state is not XAES_STARTED.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy of nonce fails.
+ *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if DMA transfer to AES engine fails.
  *
  *************************************************************************************************/
-s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr, u32 AadLen,
-	u64 NonceAddr, u8 NonceLen, u32 PlainTextLen, u8 TagLen)
+s32 XAes_CcmSendB0Header(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 NonceAddr, u8 NonceLen,
+	u32 TotalAadLen, u32 PlainTextLen, u8 TagLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 NonceHeader[XASU_AES_BLOCK_SIZE_IN_BYTES];
 	volatile u8 Index = 0U;
-	u8 TotalAadLen;
+	u8 AadLengthEncodingSize = XAES_TWO_BYTE_ENCODING;
 	u8 LengthFieldSize;
 	u64 PtLenCpy = PlainTextLen;
 	u8 IsLast;
@@ -1041,7 +1040,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
-	if ((AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+	if ((TotalAadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
 			(PlainTextLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
@@ -1052,7 +1051,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
-	/** Validate the IV with respect to the AES-CCM engine mode. */
+	/** Validate the nonce with respect to the AES-CCM engine mode. */
 	Status = XAsu_AesValidateIvParams(XASU_AES_CCM_MODE, NonceAddr, NonceLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_INVALID_PARAM;
@@ -1081,18 +1080,30 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
-	/** Configure AES AAD configurations before pushing AAD data to AES engine. */
-	InstancePtr->AesState = (PlainTextLen == 0U) ? XAES_ONLY_AAD_UPDATE_IN_PROGRESS :
-		XAES_AAD_UPDATE_IN_PROGRESS;
-	XAes_ConfigAad(InstancePtr);
+	/** Clear CCM AAD zero block pad length to avoid stale values from previous operations. */
+	InstancePtr->CcmAadZeroBlockPadLen = 0U;
 
 	/**
-	 * AAD formatting:
-	 * B0 Flag | Nonce | Encoded PT Length | Encoded AAD Length | AAD | Zero padding for 16 bytes alignment.
+	 * Configure AES AAD mode bits.
+	 * - For authentication-only (PlainTextLen == 0): set AUTH_WITH_NO_PAYLOAD bit by
+	 *   briefly using XAES_ONLY_AAD_UPDATE_IN_PROGRESS state, then restore to
+	 *   XAES_AAD_UPDATE_IN_PROGRESS to allow subsequent multi-chunk AAD updates.
+	 * - For encrypt/decrypt with AAD: set AUTH bit only.
 	 */
+	if (PlainTextLen == 0U) {
+		InstancePtr->AesState = XAES_ONLY_AAD_UPDATE_IN_PROGRESS;
+		XAes_ConfigAad(InstancePtr);
+		if (TotalAadLen > 0U) {
+			/** Restore state to allow subsequent XAes_Update AAD calls. */
+			InstancePtr->AesState = XAES_AAD_UPDATE_IN_PROGRESS;
+		}
+	} else {
+		InstancePtr->AesState = XAES_AAD_UPDATE_IN_PROGRESS;
+		XAes_ConfigAad(InstancePtr);
+	}
 
 	/** Calculate the B0 flag dynamically based on tag length and nonce length. */
-	NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = XAES_B0FLAG(AadLen, TagLen, NonceLen);
+	NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = XAES_B0FLAG(TotalAadLen, TagLen, NonceLen);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Copy the nonce into NonceHeader local array. */
@@ -1104,14 +1115,13 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	}
 
 	NonceHeaderIndex = XAES_NONCE_HEADER_FLAG + NonceLen + (LengthFieldSize - 1U);
-
 	for (Index = 0U; Index < LengthFieldSize; Index++) {
-		NonceHeader[NonceHeaderIndex - Index]  = (u8)(PtLenCpy & XAES_BYTE_MASK);
+		NonceHeader[NonceHeaderIndex - Index] = (u8)(PtLenCpy & XAES_BYTE_MASK);
 		PtLenCpy >>= XASUFW_ONE_BYTE_SHIFT_VALUE;
 	}
 
 	/** Update IsLast based on the presence of AAD. */
-	IsLast = (AadLen == 0U) ? XASU_TRUE : XASU_FALSE;
+	IsLast = (TotalAadLen == 0U) ? XASU_TRUE : XASU_FALSE;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Configure DMA with AES and transfer the Nonce Header to AES engine. */
@@ -1122,53 +1132,41 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
-	if (AadLen > 0U) {
-		/** Add AAD length (AadLen encoding based on size). */
-		if (AadLen < XAES_AAD_LENGTH_SHORT_LIMIT) {
-			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (u8)((AadLen >>
+	if (TotalAadLen > 0U) {
+		/** Encode AAD length and transmit the length header (2 or 6 bytes). */
+		if (TotalAadLen < XAES_AAD_LENGTH_SHORT_LIMIT) {
+			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (u8)((TotalAadLen >>
 				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK);
-			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = (u8)(AadLen & XAES_BYTE_MASK);
-			TotalAadLen = XAES_TWO_BYTE_ENCODING;
-		}
-		else if (AadLen < XASU_ASU_DMA_MAX_TRANSFER_LENGTH) {
+			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] =
+				(u8)(TotalAadLen & XAES_BYTE_MASK);
+			AadLengthEncodingSize = XAES_TWO_BYTE_ENCODING;
+		} else if (TotalAadLen <= XASU_ASU_DMA_MAX_TRANSFER_LENGTH) {
 			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (u8)((XAES_HEADER_6BYTE_INDICATOR >>
 				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK);
 			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = (u8)(XAES_HEADER_6BYTE_INDICATOR &
 				XAES_BYTE_MASK);
 			for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
-				NonceHeader[XAES_TWO_BYTE_ENCODING + Index] = (u8)((AadLen >>
+				NonceHeader[XAES_TWO_BYTE_ENCODING + Index] = (u8)((TotalAadLen >>
 					(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK);
 			}
-			TotalAadLen = XAES_SIX_BYTE_ENCODING;
+			AadLengthEncodingSize = XAES_SIX_BYTE_ENCODING;
 		}
 		else {
 			/* Required for MISRA C compliance. */
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Configure DMA with AES and transfer the AAD data to AES engine. */
-		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U, TotalAadLen,
-			XASU_FALSE);
+		/** Configure DMA with AES and transfer the AAD length header to AES engine. */
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U,
+			AadLengthEncodingSize, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL);
 			goto END;
 		}
 
 		InstancePtr->CcmAadZeroBlockPadLen = (u8)((XASU_AES_BLOCK_SIZE_IN_BYTES -
-			((TotalAadLen + AadLen) % XASU_AES_BLOCK_SIZE_IN_BYTES)) %
+			((AadLengthEncodingSize + TotalAadLen) % XASU_AES_BLOCK_SIZE_IN_BYTES)) %
 			XASU_AES_BLOCK_SIZE_IN_BYTES);
-
-		/** Update IsLast based on whether zero padding is required. */
-		IsLast = (InstancePtr->CcmAadZeroBlockPadLen == 0U) ? XASU_TRUE : XASU_FALSE;
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Configure DMA with AES and transfer the AAD data to AES engine. */
-		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, AadAddr, 0U, AadLen,
-			IsLast);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL);
-			goto END;
-		}
 	}
 
 END:
