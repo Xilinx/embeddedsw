@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,26 +8,37 @@
 #include "xpm_debug.h"
 #include "xpm_rpucore.h"
 #include "xpm_mem_tcm.h"
+#include "xplmi_dma.h"
 
 /**
- * XPmMem_TcmResetReleaseById - Release reset for TCM by ID.
+ * XPmMem_TcmResetRelease - Release reset and ECC initialize TCM.
  *
- * @NodeId: The ID of the TCM to release reset for.
+ * @Device: Pointer to the TCM device.
  *
- * This function releases the reset for the specified TCM ID.
+ * This function releases the reset for the specified TCM and then
+ * ECC initializes the TCM memory.
  *
  * Return:
  * XST_SUCCESS if successful, otherwise an error code.
  */
 
-XStatus XPmMem_TcmResetReleaseById(u32 NodeId)
+XStatus XPmMem_TcmResetRelease(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
-	/** Get RpuId */
 	u32 RpuId = 0U;
-	Status = XPm_GetRpuByTcmId(NodeId, &RpuId);
+	const XPm_MemDevice *Tcm = NULL;
+	u32 Size = 0U;
+
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Tcm = (const XPm_MemDevice *)Device;
+
+	Status = XPm_GetRpuByTcmId(Device->Node.Id, &RpuId);
 	if (XST_SUCCESS != Status) {
-		PmErr("Failed to get RPU ID for TCM ID: 0x%x\n", NodeId);
+		PmErr("Failed to get RPU ID for TCM ID: 0x%x\n", Device->Node.Id);
 		goto done;
 	}
 	Status = XPmRpuCore_ResetAndHalt(RpuId);
@@ -40,6 +51,17 @@ XStatus XPmMem_TcmResetReleaseById(u32 NodeId)
 		PmErr("Failed to release reset for RPU ID: 0x%x\n", RpuId);
 		goto done;
 	}
+
+	/* TCM is now accessible -- ECC initialize the memory */
+	Size = Tcm->EndAddress - Tcm->StartAddress + 1U;
+	if (0U != Size) {
+		Status = XPlmi_EccInit((u64)Tcm->StartAddress, Size);
+		if (XST_SUCCESS != Status) {
+			PmErr("ECC init failed for TCM 0x%x\r\n", Device->Node.Id);
+			goto done;
+		}
+	}
+
 done:
 	return Status;
 }
