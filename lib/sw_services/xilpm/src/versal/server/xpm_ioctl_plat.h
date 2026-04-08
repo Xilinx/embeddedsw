@@ -47,6 +47,7 @@ done:
 }
 
 XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response);
+XStatus XPm_SetAieClkDiv(const u32 DeviceId, const u32 Divider);
 XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops, u32 Arg3);
 XStatus XPm_AieISRClear(u32 Value);
 XStatus XPm_GetSsitTemp(u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 *const Response);

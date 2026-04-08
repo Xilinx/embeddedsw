@@ -3590,6 +3590,22 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
+	/*
+	 * Workaround: For AIEx devices that were not previously requested
+	 * implicitly request the device so that SetRequirement can proceed.
+	 * This is temporary until the SetRequirement flow for AIE clock
+	 * frequency scaling is fully deprecated in favor of the
+	 * IOCTL_SET_AIE_CLK_DIV IOCTL.
+	 */
+	if (IS_DEV_AIE(DeviceId)) {
+		Status = XPmDevice_Request(SubsystemId, DeviceId,
+			(u32)PM_CAP_ACCESS, XPM_DEF_QOS,
+			(u32)XPLMI_CMD_NON_SECURE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;

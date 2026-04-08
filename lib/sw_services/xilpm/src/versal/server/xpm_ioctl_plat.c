@@ -128,6 +128,33 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  IOCTL to set AIE clock divider
+ *
+ * @param  DeviceId: Device Id of the AIE device
+ * @param  Divider: Requested divider value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_SetAieClkDiv(const u32 DeviceId, const u32 Divider)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (!(IS_DEV_AIE(DeviceId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmAieDevice_UpdateClockDiv(Divider);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  IOCTL read secondary SLR temperature data
  *
  * @param  DeviceId: Device Id (Sysmon node ID + SLR number)

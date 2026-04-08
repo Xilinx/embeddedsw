@@ -53,7 +53,8 @@ extern "C" {
 	(1ULL << (u64)IOCTL_PREPARE_DDR_SHUTDOWN) | \
 	(1ULL << (u64)IOCTL_READ_REG) | \
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG) | \
-	(1ULL << (u64)IOCTL_AIE2PS_OPS))
+	(1ULL << (u64)IOCTL_AIE2PS_OPS) | \
+	(1ULL << (u64)IOCTL_SET_AIE_CLK_DIV))
 XStatus XPm_FeatureCheck(u32 ApiId, u32 *Version);
 #ifdef __cplusplus
 }

@@ -38,8 +38,7 @@ struct XPm_AieDeviceNode {
 XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 			  u32 BaseAddress, XPm_Power *Power,
 			  XPm_ClockNode *Clock, XPm_ResetNode *Reset);
-XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device,
-		const XPm_Subsystem *Subsystem, const u32 Divider);
+XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider);
 /**
  * @brief Query the current AIE clock divider value.
  *

@@ -676,6 +676,9 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	case IOCTL_GET_QOS:
 		Status = XPm_GetQos(DeviceId, IoctlId, Response);
 		break;
+	case IOCTL_SET_AIE_CLK_DIV:
+		Status = XPm_SetAieClkDiv(DeviceId, Arg1);
+		break;
 	case IOCTL_SET_TAPDELAY_BYPASS:
 	case IOCTL_SD_DLL_RESET:
 	case IOCTL_SET_SD_TAPDELAY:
