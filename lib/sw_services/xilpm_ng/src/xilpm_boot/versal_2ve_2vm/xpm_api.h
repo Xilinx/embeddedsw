@@ -109,6 +109,30 @@ u32 XPm_GetSubsystemId(u32 ImageId);
 XPlmi_ModuleCmd* XPm_GetPmCmds(void);
 XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
 XStatus XPm_HookAfterBootPdi(void);
+
+/**
+ * @brief Maximum number of GPIO procs supported.
+ */
+#define MAX_GPIO_PROCS	(8U)
+
+/**
+ * @brief Per-pin configuration for GPIO-triggered interrupt configuration.
+ *
+ * Cached by XPm_GpioProcHandlerInit().  The shared XPm_GpioProcHandler()
+ * iterates the global XPm_GpioProcCfg[] array, checks each pin's INT_STAT
+ * to identify which pin triggered, and executes the correct CDO PROC.
+ */
+typedef struct {
+	u8 SlrId;	/**< SLR ID */
+	u32 PinId;	/**< MIO pin node ID (PM_STMIC_LMIO_x / PM_STMIC_PMIO_x) */
+	u8 Bank;	/**< GPIO bank number */
+	u16 ProcId;	/**< CDO Proc ID to execute on reset event */
+	u8 GicId;	/**< GIC proxy index for re-enable */
+	u8 GicSrc;	/**< GIC source bit for re-enable */
+} XPm_GpioProcCfg;
+
+int XPm_GpioProcHandlerInit(void);
+int XPm_GpioProcHandler(void *Data);
 XStatus XPm_RuntimeInit(void);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
 XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev);
@@ -123,5 +147,4 @@ XStatus XPmUpdate_RestoreNotifierEmActions(void);
 }
 #endif
 
-/** @} */
 #endif /* XPM_API_H_ */

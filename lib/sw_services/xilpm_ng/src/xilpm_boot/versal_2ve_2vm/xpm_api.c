@@ -8,6 +8,7 @@
 #include "xplmi_modules.h"
 #include "xplmi_sysmon.h"
 #include "xplmi_util.h"
+#include "xplmi_gic_interrupts.h"
 #include "xpm_api.h"
 #include "xpm_apucore.h"
 #include "xpm_asucore.h"
@@ -76,6 +77,11 @@ static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs);
 static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs);
 /*********************************************************************/
+
+/** Configuration for GPIO pins. */
+static XPm_GpioProcCfg GpioProcCfg[MAX_GPIO_PROCS] XPM_INIT_DATA(GpioProcCfg);
+/** Number of configured GPIO pins. */
+static u32 GpioProcCfgCount XPM_INIT_DATA(GpioProcCfgCount) = 0U;
 
 u32 ResetReason;
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload) = NULL;
@@ -2087,6 +2093,12 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 #else
 		PmWarn("IPI is not enabled in design\r\n");
 #endif /* XPLMI_IPI_DEVICE_ID */
+
+		/* Register GPIO interrupt handlers for all configured RTCA registers */
+		Status = XPm_GpioProcHandlerInit();
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to initialize GPIO handlers, Status: 0x%x\r\n", Status);
+		}
 	}
 done:
 	if (XST_SUCCESS != Status) {
@@ -2333,6 +2345,369 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
 done:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief  Shared GPIO interrupt handler for configured MIO pins.
+ *
+ * Called by the GIC dispatcher when a PS-GPIO or PMC-GPIO interrupt
+ * fires (GICP0 SRC20 for LPD GPIO, or GICP6 SRC10 for PMC GPIO).
+ *
+ * The handler iterates every entry in GpioProcCfg[] and, for each pin
+ * whose INT_STAT bit is set, checks the DATA_RO level.  A rising edge
+ * (INT_STAT pending + DATA_RO high) triggers XPlmi_ExecuteProc() with
+ * that pin's ProcId.  This allows multiple MIO pins on the same GPIO
+ * controller to share one GIC source while each executing a different
+ * CDO proc.
+ *
+ * After processing all pins the handler clears INT_STAT, re-enables
+ * the GPIO INT_EN / INT_ANY bits, and re-enables the GIC source so
+ * subsequent toggles are delivered.
+ *
+ * @param  Data  Unused (handler iterates the global GpioProcCfg array).
+ *
+ * @return XST_SUCCESS always (errors are logged but do not propagate).
+ *
+ *****************************************************************************/
+int XPm_GpioProcHandler(void *Data)
+{
+	u32 Idx;
+	u32 IntStatOff, DataRoOff, IntEnOff, IntAnyOff, GpioBaseAddr;
+	u32 IntStat, DataRo;
+	u32 MioNum, BitPos, BitMask, DevId;
+	u8 IsProcExecuted = FALSE;
+	XPm_GpioProcCfg *Cfg = NULL;
+	XStatus Status;
+
+	(void)Data;
+
+	for (Idx = 0U; Idx < GpioProcCfgCount; Idx++) {
+		Cfg = &GpioProcCfg[Idx];
+
+		if (NODETYPE(Cfg->PinId) == XPM_NODETYPE_LPD_MIO) {
+			DevId = PM_DEV_GPIO;
+			/*
+			 * PinId was built as PM_STMIC_LMIO_BASE + MioIdx during
+			 * registration, so NODEINDEX(PinId) equals MioIdx (1-based).
+			 * Subtract NODEINDEX(PM_STMIC_LMIO_0) (which is 1) to get
+			 * a 0-based MIO pin number for the GPIO register bit math.
+			 * e.g. LMIO_0 → NODEINDEX 1 − 1 = MioNum 0
+			 *      LMIO_5 → NODEINDEX 6 − 1 = MioNum 5
+			 */
+			MioNum  = (NODEINDEX(Cfg->PinId) - NODEINDEX(PM_STMIC_LMIO_0));
+		} else if (NODETYPE(Cfg->PinId) == XPM_NODETYPE_PMC_MIO) {
+			DevId = PM_DEV_GPIO_PMC;
+			/*
+			 * PinId was built as PM_STMIC_PMIO_BASE + MioIdx during
+			 * registration, so NODEINDEX(PinId) equals MioIdx (1-based).
+			 * Same conversion for PMC MIO pins.
+			 * Subtract NODEINDEX(PM_STMIC_PMIO_0) (which is 27) to
+			 * get a 0-based MIO pin number within the PMC GPIO block.
+			 * e.g. PMIO_0 → NODEINDEX 27 − 27 = MioNum 0
+			 *      PMIO_5 → NODEINDEX 32 − 27 = MioNum 5
+			 */
+			MioNum  = (NODEINDEX(Cfg->PinId) - NODEINDEX(PM_STMIC_PMIO_0));
+		} else {
+			continue;
+		}
+
+		Status = XPm_GetDeviceBaseAddr(DevId, &GpioBaseAddr);
+		if (Status != XST_SUCCESS) {
+			PmErr("Failed to get GPIO base address for dev 0x%x\r\n", DevId);
+			goto done;
+		}
+
+		/* Bit position within the bank: each bank covers GPIO_PINS_PER_BANK pins */
+		BitPos  = MioNum % GPIO_PINS_PER_BANK;
+		/* Single-bit mask for this pin's position in the bank registers */
+		BitMask = (1U << BitPos);
+
+		/* Select bank register offsets */
+		if (Cfg->Bank == GPIO_BANK_0) {
+			IntStatOff = PMC_GPIO_INT_STAT_0_OFFSET;
+			DataRoOff  = PMC_GPIO_DATA_0_RO_OFFSET;
+			IntEnOff   = PMC_GPIO_INT_EN_0_OFFSET;
+			IntAnyOff  = PMC_GPIO_INT_ANY_0_OFFSET;
+		} else if (Cfg->Bank == GPIO_BANK_1) {
+			IntStatOff = PMC_GPIO_INT_STAT_1_OFFSET;
+			DataRoOff  = PMC_GPIO_DATA_1_RO_OFFSET;
+			IntEnOff   = PMC_GPIO_INT_EN_1_OFFSET;
+			IntAnyOff  = PMC_GPIO_INT_ANY_1_OFFSET;
+		} else if (Cfg->Bank == GPIO_BANK_2) {
+			IntStatOff = PMC_GPIO_INT_STAT_2_OFFSET;
+			DataRoOff  = PMC_GPIO_DATA_2_RO_OFFSET;
+			IntEnOff   = PMC_GPIO_INT_EN_2_OFFSET;
+			IntAnyOff  = PMC_GPIO_INT_ANY_2_OFFSET;
+		} else {
+			PmErr("Invalid bank %u\r\n", Cfg->Bank);
+			continue;
+		}
+
+		/* Read interrupt status and current pin level from the resolved bank */
+		IntStat = XPm_In32(GpioBaseAddr + IntStatOff);
+		DataRo  = XPm_In32(GpioBaseAddr + DataRoOff);
+
+		/*
+		 * Execute this pin's proc on a rising edge: INT_STAT pending
+		 * and DATA_RO high indicates rising edge.
+		 */
+		if ((IntStat & BitMask) != 0U) {
+			if ((DataRo & BitMask) != 0U) {
+				Status = XPlmi_ExecuteProc(Cfg->ProcId);
+				if (XST_SUCCESS != Status) {
+					PmErr("proc 0x%x failed\r\n", Cfg->ProcId);
+				}
+				IsProcExecuted = TRUE;
+			}
+			/* Write-to-clear this pin's interrupt */
+			XPm_Out32(GpioBaseAddr + IntStatOff, BitMask);
+		}
+		/* Clear GIC pending and re-enable for this pin's source */
+		XPlmi_GicIntrClearStatus(Cfg->GicId, Cfg->GicSrc);
+		XPlmi_GicIntrEnable(Cfg->GicId, Cfg->GicSrc);
+
+		/* Re-enable GPIO interrupt and INT_ANY for this pin */
+		XPm_Out32(GpioBaseAddr + IntEnOff, BitMask);
+		XPm_RMW32(GpioBaseAddr + IntAnyOff, BitMask, BitMask);
+
+	}
+
+	/*
+	 * If no CDO proc was executed for any registered pin, log an error.
+	 * This can happen if the interrupt fired but DATA_RO showed no
+	 * rising edge, or no registered pin matched the pending INT_STAT.
+	 */
+	if (!IsProcExecuted) {
+		PmErr("GPIO Interrupt is triggered but no proc executed\r\n");
+		Status = XST_FAILURE;
+	}
+
+done:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief  Parse one 16-bit GPIO configuration half and register a GIC handler.
+ *
+ * Stores the pin configuration in GpioProcCfg[], enables the GPIO
+ * INT_EN and INT_ANY registers for the pin, and registers the shared
+ * XPm_GpioProcHandler with the GIC if no handler has been registered
+ * yet for this (GicId, GicSrc) pair.
+ *
+ * @param  CfgHalf  16-bit configuration value (lower or upper half of
+ *                   RTCA_GPIO_CFG_REG, already shifted to bits [15:0]).
+ *
+ * @return XST_SUCCESS on success, error code otherwise.
+ *
+ *****************************************************************************/
+static int XPm_GpioRegisterPin (u32 CfgHalf)
+{
+	int Status = XST_FAILURE;
+	u8 SlrId, GicId, GicSrc, Bank;
+	u32 PinId;
+	u32 GpioController, MioIdx;
+	u16 ProcId;
+	u32 GpioBaseAddr, IntEnOff, IntAnyOff, BitMask;
+	u32 Idx, DevId, MioNum;
+	u8 GicRegistered = (u8)FALSE;
+	XPm_GpioProcCfg *Cfg = NULL;
+
+	if (GpioProcCfgCount >= MAX_GPIO_PROCS) {
+		PmErr("Max registrations (%u) reached\r\n",
+		      MAX_GPIO_PROCS);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	SlrId    = CfgHalf & GPIO_CFG_SLRID_MASK;
+	GpioController = (CfgHalf & GPIO_CFG_TYPE_MASK) >> GPIO_CFG_TYPE_SHIFT;
+	Bank     = (CfgHalf & GPIO_CFG_BANK_MASK) >> GPIO_CFG_BANK_SHIFT;
+	MioIdx   = (CfgHalf & GPIO_CFG_MIO_MASK) >> GPIO_CFG_MIO_SHIFT;
+	ProcId   = (CfgHalf & GPIO_CFG_PROCID_MASK) >> GPIO_CFG_PROCID_SHIFT;
+
+	/* MioIdx is 1-based in the RTCA config (0 is invalid) */
+	if ((MioIdx == 0U) || (MioIdx > XPM_NODEIDX_STMIC_MAX)) {
+		PmErr("Invalid MIO index %u\r\n", MioIdx);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (Bank > GPIO_BANK_2) {
+		PmErr("Invalid bank %u\r\n", Bank);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/*
+	 * Map the GPIO Controller to the corresponding pin node ID, GIC interrupt
+	 * source, and base address:
+	 *   GpioController 0 - (LPD Controller) -> LPD_GPIO via GICP0/SRC20
+	 *   GpioController 1 - (PMC Controller) -> PMC_GPIO via GICP6/SRC10
+	 */
+	if (GpioController == (u32)LPD_GPIO_CONTROLLER) {
+		PinId        = PM_STMIC_LMIO_BASE + MioIdx;
+		GicId        = (u32)XPLMI_PMC_GIC_IRQ_GICP0;
+		GicSrc       = (u32)XPLMI_GICP0_SRC20;
+		DevId = PM_DEV_GPIO;
+	} else if (GpioController == (u32)PMC_GPIO_CONTROLLER) {
+		PinId        = PM_STMIC_PMIO_BASE + MioIdx;
+		GicId        = (u32)XPLMI_PMC_GIC_IRQ_GICP6;
+		GicSrc       = (u32)XPLMI_GICP6_SRC10;
+		DevId = PM_DEV_GPIO_PMC;
+	} else {
+		PmErr("Invalid GPIO Controller 0x%x\r\n", GpioController);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Status = XPm_GetDeviceBaseAddr(DevId, &GpioBaseAddr);
+	if (Status != XST_SUCCESS) {
+		PmErr("Failed to get GPIO base address for dev 0x%x\r\n", DevId);
+		goto done;
+	}
+
+	/* Reject duplicate MIO pin across all previously registered halves/registers */
+	for (Idx = 0U; Idx < GpioProcCfgCount; Idx++) {
+		if (GpioProcCfg[Idx].PinId == PinId) {
+			PmErr("MIO pin 0x%x already registered\r\n", PinId);
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	}
+
+	/* Convert 1-based RTCA MioIdx to 0-based MIO pin number for bit math */
+	MioNum  = (MioIdx - GPIO_CFG_MIO_IDX_BASE);
+	BitMask = (1U << (MioNum % GPIO_PINS_PER_BANK));
+
+	/* Select bank register offsets */
+	if (Bank == GPIO_BANK_0) {
+		IntEnOff  = PMC_GPIO_INT_EN_0_OFFSET;
+		IntAnyOff = PMC_GPIO_INT_ANY_0_OFFSET;
+	} else if (Bank == GPIO_BANK_1) {
+		IntEnOff  = PMC_GPIO_INT_EN_1_OFFSET;
+		IntAnyOff = PMC_GPIO_INT_ANY_1_OFFSET;
+	} else if (Bank == GPIO_BANK_2) {
+		IntEnOff  = PMC_GPIO_INT_EN_2_OFFSET;
+		IntAnyOff = PMC_GPIO_INT_ANY_2_OFFSET;
+	} else {
+		PmErr("Invalid bank %u\r\n", Bank);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Store pin configuration */
+	Cfg = &GpioProcCfg[GpioProcCfgCount];
+	Cfg->PinId  = PinId;
+	Cfg->Bank   = Bank;
+	Cfg->ProcId = ProcId;
+	Cfg->SlrId  = SlrId;
+	Cfg->GicId  = GicId;
+	Cfg->GicSrc = GicSrc;
+
+	/*
+	 * Check if a GIC handler is already registered for this source.
+	 * Only one handler per (GicId, GicSrc) is dispatched by the GIC
+	 * framework, so skip registration if a previous pin already
+	 * registered on the same source.
+	 */
+	for (Idx = 0U; Idx < GpioProcCfgCount; Idx++) {
+		if ((GpioProcCfg[Idx].GicId == GicId) &&
+		    (GpioProcCfg[Idx].GicSrc == GicSrc)) {
+			GicRegistered = (u8)TRUE;
+			break;
+		}
+	}
+
+	/* Register the GIC handler if it is not already registered */
+	if (GicRegistered == (u8)FALSE) {
+		Status = XPlmi_GicRegisterHandler(GicId, GicSrc,
+						  &XPm_GpioProcHandler, NULL);
+		if (Status != XST_SUCCESS) {
+			PmErr("GIC register failed 0x%x\r\n",
+			      Status);
+			goto done;
+		}
+	}
+
+	GpioProcCfgCount++;
+
+	/* Enable GIC interrupt for this source */
+	XPlmi_GicIntrEnable(GicId, GicSrc);
+	/* Enable GPIO interrupt for this pin */
+	XPm_Out32(GpioBaseAddr + IntEnOff, BitMask);
+	/* Enable interrupt on any edge for this pin */
+	XPm_RMW32(GpioBaseAddr + IntAnyOff, BitMask, BitMask);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief  Initialize GPIO interrupt handlers.
+ *
+ * Reads the specified GPIO configuration register (e.g. RTCA_GPIO_CFG_REG
+ * at 0xF2014370 or RTCA_GPIO_CFG1_REG at 0xF2014374).  The 32-bit register
+ * carries two independent 16-bit pin configurations (bits [15:0] and
+ * [31:16]).  Each non-zero half is parsed and a GIC interrupt handler is
+ * registered for the corresponding MIO pin.
+ *
+ * 16-bit configuration field layout:
+ *   [2:0]   / [18:16] : SLR ID
+ *   [4:3]   / [20:19] : GPIO Controller — 0 = LPD GPIO Controller, 1 = PMC GPIO Controller
+ *   [6:5]   / [22:21] : GPIO bank number
+ *   [12:7]  / [28:23] : MIO pin index
+ *   [15:13] / [31:29] : CDO Proc ID to execute on reset event
+ *
+ * GIC routing:
+ *   LPD GPIO Controller -> GICP0 SRC20
+ *   PMC GPIO Controller -> GICP6 SRC10
+ *
+ * @return XST_SUCCESS if all configured handlers were registered.
+ *         Error code from XPm_GpioRegisterPin on first failure.
+ *
+ *****************************************************************************/
+int XPm_GpioProcHandlerInit(void)
+{
+	int Status = XST_FAILURE;
+	u32 CfgVal, HalfCfg, RegIdx, HalfIdx;
+
+	static const u32 GpioProcCfgRegs[] = {
+		RTCA_GPIO_PROC_CFG0_REG,
+		RTCA_GPIO_PROC_CFG1_REG,
+		RTCA_GPIO_PROC_CFG2_REG,
+		RTCA_GPIO_PROC_CFG3_REG,
+	};
+
+	for (RegIdx = 0U; RegIdx < ARRAY_SIZE(GpioProcCfgRegs); RegIdx++) {
+		CfgVal = XPm_In32(GpioProcCfgRegs[RegIdx]);
+		if (CfgVal == 0U) {
+			continue;
+		}
+
+		for (HalfIdx = 0U; HalfIdx < 2U; HalfIdx++) {
+			HalfCfg = (CfgVal >> (HalfIdx * GPIO_CFG_UPPER_SHIFT))
+				  & GPIO_CFG_HALF_MASK;
+			if (HalfCfg != 0U) {
+				Status = XPm_GpioRegisterPin(HalfCfg);
+				if (Status != XST_SUCCESS) {
+					PmErr("Reg 0x%x half %u failed 0x%x\r\n",
+					      GpioProcCfgRegs[RegIdx], HalfIdx, Status);
+					goto done;
+				}
+			}
+		}
+
+		XPm_Out32(GpioProcCfgRegs[RegIdx], 0U);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus __attribute__((weak, noinline)) XPm_HookAfterBootPdi(void)
 {
 	/* TODO: Review where interrupts need to be enabled */
