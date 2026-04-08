@@ -33,7 +33,7 @@
 #include "xasufw_util.h"
 #include "xasufw_kat.h"
 #include "xkeymanager.h"
-#include "xasufw_queuescheduler.h"
+#include "xasu_sharedmem.h"
 #include "xil_sutil.h"
 
 #ifdef XASU_KDF_ENABLE
@@ -183,7 +183,7 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;

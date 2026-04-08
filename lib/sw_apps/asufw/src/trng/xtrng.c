@@ -70,6 +70,10 @@
 #define XTRNG_AUTOPROC_TIMEOUT				5000U /**< Autoproc mode disable timeout
 								   value in microseconds(5ms)*/
 
+#define XTRNG_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
+#define XTRNG_GET_RANDOM_BYTES_TIMEOUT_VAL	40000U /**< Maximum loop count waiting for TRNG
+							random number to be available in FIFO */
+
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of TRNG. */
 typedef enum {
@@ -867,6 +871,92 @@ s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode)
 	}
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reads the requested number of random bytes from TRNG AUTOPROC FIFO.
+ *
+ * @param	RandomBuf	Pointer to the random buffer.
+ * @param	Size		Size of the random buffer.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if requested bytes of random number is generated successfully.
+ * 	- XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, if size of random buffer is invalid.
+ * 	- XASUFW_FAILURE, if there is any failure.
+ *
+ * @note	The maximum size allowed is 510 Bytes.This limitation is kept to support RSA
+ * 		padding requirements.In RSA encryption with a 512-byte key size, the padding
+ * 		scheme requires 510 random bytes to be added to the plaintext, with the remaining
+ * 		two bytes being 0x00U and the input data.
+ *
+ *************************************************************************************************/
+s32 XTrng_GetRandomNumbers(u8 *RandomBuf, u32 Size)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
+	u32 Bytes = Size;
+	u8 *BufAddr = RandomBuf;
+	u8 LocalBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
+	u32 Loop;
+
+	/** Validate the size. */
+	if (Size > XTRNG_MAX_RANDOM_BYTES_ALLOWED) {
+		Status = XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE;
+		goto END;
+	}
+
+	while (Bytes != 0U) {
+		/** Check if the random number is available in the TRNG FIFO for 40 ms. */
+		for (Loop = 0x0U; Loop < XTRNG_GET_RANDOM_BYTES_TIMEOUT_VAL; ++Loop) {
+			if (XTrng_IsRandomNumAvailable(XAsufw_Trng) == XASUFW_SUCCESS) {
+				break;
+			}
+			usleep(1U);
+		}
+
+		/**
+		 * Check again if random number is available for redundancy.
+		 * Return error if random number is not available.
+		 */
+		if (XTrng_IsRandomNumAvailable(XAsufw_Trng) != XASUFW_SUCCESS) {
+			Status = XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT;
+			goto END;
+		}
+
+		/** Read the random number from the TRNG FIFO to the given buffer. */
+		if (Bytes >= XTRNG_SEC_STRENGTH_IN_BYTES) {
+			XFIH_CALL_GOTO(XTrng_ReadTrngFifo, XFihVar, Status, END, XAsufw_Trng, (u32 *)BufAddr,
+							XTRNG_SEC_STRENGTH_IN_BYTES);
+			BufAddr += XTRNG_SEC_STRENGTH_IN_BYTES;
+			Bytes -= XTRNG_SEC_STRENGTH_IN_BYTES;
+		} else {
+			XFIH_CALL_GOTO(XTrng_ReadTrngFifo, XFihVar, Status, END, XAsufw_Trng, (u32 *)LocalBuf,
+							XTRNG_SEC_STRENGTH_IN_BYTES);
+			XFIH_CALL_GOTO(Xil_SMemCpy, XFihVar, Status, END, BufAddr, Bytes, LocalBuf,
+							XTRNG_SEC_STRENGTH_IN_BYTES, Bytes);
+			BufAddr += Bytes;
+			Bytes = 0U;
+		}
+	}
+
+	/** Validate if desired number of bytes are copied. */
+	if ((RandomBuf + Size) != BufAddr) {
+		Status = XASUFW_TRNG_INVALID_RANDOM_NUMBER;
+	}
+
+END:
+	/** Zeroize local buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, LocalBuf, XTRNG_SEC_STRENGTH_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+#else
+	(void)RandomBuf;
+	(void)Size;
+#endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 	return Status;
 }
 

@@ -43,7 +43,7 @@
 #include "xasufw_util.h"
 #include "xasu_eccinfo.h"
 #include "xfih.h"
-#include "xasufw_trnghandler.h"
+#include "xtrng.h"
 #include "xsha.h"
 #include "xsha_hw.h"
 
@@ -535,7 +535,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 				EKeyPtr = EphemeralKey ;
 				EphemeralKeyLen = (u8)CurveLen;
 			}
-			Status = XAsufw_TrngGetRandomNumbers(EKeyPtr, EphemeralKeyLen);
+			Status = XTrng_GetRandomNumbers(EKeyPtr, EphemeralKeyLen);
 		} else {
 			Status =  Xil_SMemCpy((u8 *)EphemeralKey, CurveLen,
 					(const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
@@ -990,7 +990,7 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 			RandGenLen = (u8)(CurveLen + XRSA_ECC_GENERIC_RAND_NUM_GEN_EXTRA_BYTES);
 		}
 
-		Status = XAsufw_TrngGetRandomNumbers(RandBuf, RandGenLen);
+		Status = XTrng_GetRandomNumbers(RandBuf, RandGenLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
 			goto END;

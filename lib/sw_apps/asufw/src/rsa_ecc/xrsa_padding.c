@@ -31,7 +31,7 @@
 #include "xasufw_util.h"
 #include "xil_util.h"
 #include "xfih.h"
-#include "xasufw_trnghandler.h"
+#include "xtrng.h"
 #include "xasu_rsa_common.h"
 
 #ifdef XASU_RSA_PADDING_ENABLE
@@ -383,7 +383,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** MPrime = 00 00 00 00 00 00 00 00 || mHash(hash of input) || salt. */
 	if (SaltLen != 0U) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_TrngGetRandomNumbers(&MPrime[HashLen + XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN],
+		Status = XTrng_GetRandomNumbers(&MPrime[HashLen + XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN],
 						     SaltLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_RAND_GEN_ERROR;
@@ -1170,7 +1170,7 @@ static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBl
 
 	/** Get random numbers for seed input. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_TrngGetRandomNumbers(SeedBuffer, HashLen);
+	Status = XTrng_GetRandomNumbers(SeedBuffer, HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_RAND_GEN_ERROR;
 		goto END;

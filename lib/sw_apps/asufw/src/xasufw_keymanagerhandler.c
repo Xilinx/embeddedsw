@@ -38,6 +38,7 @@
 #include "xasufw_util.h"
 #include "xasufw_aeshandler.h"
 #include "xasufw_memory.h"
+#include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
@@ -278,7 +279,7 @@ static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						XASUFW_RESP_DATA_OFFSET;
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -323,7 +324,7 @@ static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, VaultId);
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -374,7 +375,7 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	OutIdAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -421,7 +422,7 @@ static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, KeyId);
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -472,7 +473,7 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	OutId = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -523,7 +524,7 @@ static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	OutId = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -603,7 +604,7 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						XASUFW_RESP_DATA_OFFSET;
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;

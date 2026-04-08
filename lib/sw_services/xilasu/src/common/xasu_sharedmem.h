@@ -173,10 +173,14 @@ typedef struct {
 } XAsu_CommChannelInfo;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASU_MAX_CHANNELS_SUPPORTED	(8U) /**< Maximum channels supported */
 
 /************************************ Function Prototypes ****************************************/
+u32 XAsu_GetSubsysIdFromIpiMask(u32 IpiMask);
+u32 XAsu_GetIpiMask(u32 ChannelIndex);
 
 /************************************ Variable Definitions ***************************************/
+extern XAsu_CommChannelInfo *CommChannelInfo;
 
 #ifdef __cplusplus
 }

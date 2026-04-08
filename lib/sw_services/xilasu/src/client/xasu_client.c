@@ -123,9 +123,6 @@ static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS] = {[0 ... (XASU_NO_OF_CONT
  *************************************************************************************************/
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 {
-	XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
-		XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /**< All IPI channels information received from user
-												configuration */
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 	u32 ChannelIdx;

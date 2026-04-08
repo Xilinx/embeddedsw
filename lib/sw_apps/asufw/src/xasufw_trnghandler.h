@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -46,7 +46,6 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_TrngInit(void);
 s32 XAsufw_TrngIsRandomNumAvailable(void);
-s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size);
 
 /************************************ Variable Definitions ***************************************/
 

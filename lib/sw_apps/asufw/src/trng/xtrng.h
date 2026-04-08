@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -90,6 +90,7 @@ s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSi
 s32 XTrng_IsRandomNumAvailable(const XTrng *InstancePtr);
 s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr);
 s32 XTrng_EnableDefaultMode(XTrng *InstancePtr);
+s32 XTrng_GetRandomNumbers(u8 *RandomBuf, u32 Size);
 
 /************************************ Variable Definitions ***************************************/
 

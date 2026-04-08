@@ -88,35 +88,8 @@ static s32 XAsufw_QueueTaskHandler(void *Arg);
 static XAsufw_SharedMemory *SharedMemory = (XAsufw_SharedMemory *)(UINTPTR)
 	XASUFW_SHARED_MEMORY_ADDRESS;
 
-/* All IPI channels information received from user configuration */
-static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
-	XASU_RTCA_COMM_CHANNEL_INFO_ADDR;
-
 /* All channel's task related information */
 static XAsufw_ChannelTasks CommChannelTasks = { 0U };
-
-/*************************************************************************************************/
-/**
- * @brief	This function returns IPI Mask corresponding to the Channel Index.
- *
- * @param	ChannelIndex	IPI Channel Index.
- *
- * @return
- *	- IPI Bit Mask.
- *
- *************************************************************************************************/
-u32 XAsufw_GetIpiMask(u32 ChannelIndex)
-{
-	u32 IpiBitMask;
-
-	if (ChannelIndex >= CommChannelInfo->NumOfIpiChannels) {
-		IpiBitMask = 0U;
-	} else {
-		IpiBitMask = CommChannelInfo->Channel[ChannelIndex].IpiBitMask;
-	}
-
-	return IpiBitMask;
-}
 
 /*************************************************************************************************/
 /**
@@ -300,32 +273,6 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 			SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		}
 	}
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function provides subsystem ID based on IPI mask.
- *
- * @param	IpiMask		IPI mask.
- *
- * @return
- *	- Returns subsystem ID correspond to IPI mask.
- *
- *************************************************************************************************/
-u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask)
-{
-	u32 ChannelIndex;
-	u32 SubsystemId = XASUFW_INVALID_SUBSYS_ID;
-
-	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
-		if (CommChannelInfo->Channel[ChannelIndex].IpiBitMask == IpiMask) {
-			SubsystemId = CommChannelInfo->Channel[ChannelIndex].SubsystemId;
-			goto END;
-		}
-	}
-
-END:
-	return SubsystemId;
 }
 
 /*************************************************************************************************/

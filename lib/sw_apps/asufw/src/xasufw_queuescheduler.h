@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -46,7 +46,6 @@ extern "C" {
 /* Queue Unique ID related defines */
 #define XASUFW_IPI_BITMASK_SHIFT		(16U) /**< IPI bit mask shift value in Queue Unique ID */
 #define XASUFW_QUEUE_TASK_PRIVDATA_RSVD_MASK	(0xFFU) /**< Queue task PrivData reserved mask */
-#define XASUFW_MAX_CHANNELS_SUPPORTED	(8U) /**< Maximum channels supported */
 #define XASUFW_RESP_DATA_OFFSET			(2U) /**< Response data offset in response buffer */
 
 #define XASUFW_INVALID_SUBSYS_ID		(0xFFFFFFFFU) /**< Invalid subsystem ID */
@@ -55,7 +54,7 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 /** This structure is for shared memory of all channels. */
 typedef struct {
-	XAsu_ChannelMemory ChannelMemory[XASUFW_MAX_CHANNELS_SUPPORTED]; /**< Channel memories */
+	XAsu_ChannelMemory ChannelMemory[XASU_MAX_CHANNELS_SUPPORTED]; /**< Channel memories */
 } XAsufw_SharedMemory;
 
 /** This structure contains P0 and P1 queue tasks and queue task handler required info. */
@@ -80,8 +79,6 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
-u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask);
-u32 XAsufw_GetIpiMask(u32 ChannelIndex);
 s32 XAsufw_CheckPreemption(u32 CurrentReqId, u32 OwnerReqId);
 
 /************************************ Variable Definitions ***************************************/
