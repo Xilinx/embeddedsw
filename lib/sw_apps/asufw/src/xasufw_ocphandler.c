@@ -33,7 +33,7 @@
 #include "xasufw_ipi.h"
 #include "xasufw_modules.h"
 #include "xasufw_ocphandler.h"
-#include "xasufw_queuescheduler.h"
+#include "xasu_sharedmem.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
@@ -271,7 +271,7 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
@@ -317,7 +317,7 @@ static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;

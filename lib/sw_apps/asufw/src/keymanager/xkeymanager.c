@@ -38,8 +38,8 @@
 #include "xasufw_util.h"
 #include "xasufw_status.h"
 #include "xasufw_debug.h"
-#include "xasufw_trnghandler.h"
-#include "xasufw_queuescheduler.h"
+#include "xtrng.h"
+#include "xasu_sharedmem.h"
 #include "xrsa.h"
 #include "xrsa_ecc.h"
 #include "xasu_ecies_common.h"
@@ -224,7 +224,7 @@ s32 XKeyManager_CfgInitialize(void)
 		VaultHeaderPtr = (XKeyManager_VaultMainHeader *)XKEYMANAGER_GET_VAULT_BASE_PTR;
 
 		/** Calculate total size allocated for vaults including ASU vault based on RTCA register values. */
-		for (Index = 0U; Index <= XASUFW_MAX_CHANNELS_SUPPORTED; Index++) {
+		for (Index = 0U; Index <= XASU_MAX_CHANNELS_SUPPORTED; Index++) {
 			TotalSizeAllocated += XAsufw_ReadReg(XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR + (Index * XASUFW_WORD_LEN_IN_BYTES));
 		}
 
@@ -407,12 +407,12 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	}
 
 	if (IpiMask != 0U) {
-		for (Index = 0U; Index < XASUFW_MAX_CHANNELS_SUPPORTED; Index++) {
-			if (IpiMask == XAsufw_GetIpiMask(Index)) {
+		for (Index = 0U; Index < XASU_MAX_CHANNELS_SUPPORTED; Index++) {
+			if (IpiMask == XAsu_GetIpiMask(Index)) {
 				break;
 			}
 		}
-		if (Index == XASUFW_MAX_CHANNELS_SUPPORTED) {
+		if (Index == XASU_MAX_CHANNELS_SUPPORTED) {
 			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 			goto END;
 		}
@@ -760,7 +760,7 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 
 	/** Generate ephemeral Key/IV using TRNG. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_TrngGetRandomNumbers(EphemeralData, ParamsPtr->KeyMetadata.Length);
+	Status = XTrng_GetRandomNumbers(EphemeralData, ParamsPtr->KeyMetadata.Length);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RAND_GEN_ERROR;
 		goto END_CLR;
@@ -2373,14 +2373,14 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 Key
 
 	/** Check for access rights. */
 	if (VaultManager.VaultInfo[VaultId].SubSystemId != SubSystemId) {
-		for (Index = 0U; Index < XASUFW_MAX_CHANNELS_SUPPORTED; Index++) {
+		for (Index = 0U; Index < XASU_MAX_CHANNELS_SUPPORTED; Index++) {
 			if (XKEYMANAGER_IS_BIT_SET(AllowedAccessRights, Index)) {
-				if (SubSystemId == XAsufw_GetSubsysIdFromIpiMask(XAsufw_GetIpiMask(Index))) {
+				if (SubSystemId == XAsu_GetSubsysIdFromIpiMask(XAsu_GetIpiMask(Index))) {
 					break;
 				}
 			}
 		}
-		if (Index == XASUFW_MAX_CHANNELS_SUPPORTED) {
+		if (Index == XASU_MAX_CHANNELS_SUPPORTED) {
 			Status = XASUFW_KEYMANAGER_ACCESS_DENIED;
 			goto END;
 		}
@@ -2634,7 +2634,7 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 
 		/** Generate ephemeral Key/IV using TRNG. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_TrngGetRandomNumbers(KeyIv, XKEYMANAGER_AES_IV_LEN_IN_BYTES);
+		Status = XTrng_GetRandomNumbers(KeyIv, XKEYMANAGER_AES_IV_LEN_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RAND_GEN_ERROR;
 			goto END_CLR;

@@ -35,7 +35,7 @@
 #include "xfih.h"
 #include "xasu_keywrap_common.h"
 #include "xasu_aesinfo.h"
-#include "xasufw_trnghandler.h"
+#include "xtrng.h"
 #include "xkeymanager.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
@@ -143,7 +143,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	if (KeyWrapParamsPtr->AesKeyId == 0U) {
 		AesKeySizeInBytes = (u8)((KeyWrapParamsPtr->AesKeySize << XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT) +
 				XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET);
-		Status = XAsufw_TrngGetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
+		Status = XTrng_GetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RAND_GEN_ERROR;
 			goto END;

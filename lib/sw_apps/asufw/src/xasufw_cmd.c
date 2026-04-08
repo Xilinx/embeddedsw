@@ -196,7 +196,7 @@ static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex)
 	}
 
 	/** Get IPI bit position from the channel's IPI bit mask. */
-	IpiBitPos = (u32)(__builtin_ctz(XAsufw_GetIpiMask(ChannelIndex)));
+	IpiBitPos = (u32)(__builtin_ctz(XAsu_GetIpiMask(ChannelIndex)));
 	if (IpiBitPos == 0U) {
 		goto END;
 	}
@@ -243,7 +243,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 	u32 ReqType = XASU_CMD_NON_SECURE;
 
 	/** Validate channel index. */
-	if (ChannelIndex >= XASUFW_MAX_CHANNELS_SUPPORTED) {
+	if (ChannelIndex >= XASU_MAX_CHANNELS_SUPPORTED) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX;
 		goto END;
 	}

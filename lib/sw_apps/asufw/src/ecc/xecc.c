@@ -42,7 +42,7 @@
 #include "xil_util.h"
 #include "xasu_eccinfo.h"
 #include "xfih.h"
-#include "xasufw_trnghandler.h"
+#include "xtrng.h"
 #include "xrsa_ecc.h"
 #include "xasu_shainfo.h"
 
@@ -484,7 +484,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	 * else copy the key to the local buffer.
 	 */
 	if (EphemeralKeyPtr == NULL) {
-		Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, CurveLen);
+		Status = XTrng_GetRandomNumbers(EphemeralKey, CurveLen);
 	} else {
 		Status = Xil_SecureMemCpy(EphemeralKey, CurveLen, EphemeralKeyPtr, CurveLen);
 	}
@@ -881,7 +881,7 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 	for (Index = 0U; Index < Count; Index++) {
 		/** - Generate the random number using TRNG of length equal to CurveLen. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_TrngGetRandomNumbers(ScpRandom, CurveLen);
+		Status = XTrng_GetRandomNumbers(ScpRandom, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL;
 			XFIH_GOTO(END);

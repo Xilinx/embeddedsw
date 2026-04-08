@@ -33,7 +33,7 @@
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
 #include "xkeymanager.h"
-#include "xasufw_queuescheduler.h"
+#include "xasu_sharedmem.h"
 
 #ifdef XASU_HMAC_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -196,7 +196,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	KeyObject = HmacParamsPtr->KeyObject;
 
 	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
 		goto END;
