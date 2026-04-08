@@ -192,6 +192,9 @@ proc xgen_opts_file {libhandle} {
 	if { [string match -nocase "xc2vp3502" $part_name] } {
 		puts $file_handle "\#define XC2VP3602" ;# xc2vp3502 is derivative of xc2vp3602
 	}
+	if { [string match -nocase "xcvm2152" $part_name] } {
+		puts $file_handle "\#define XCVM2152"
+	}
 
 	# Add macro for enabling bulk dev release feature
 	if { $enable_bulk_dev_release == true } {

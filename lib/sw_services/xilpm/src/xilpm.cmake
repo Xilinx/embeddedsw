@@ -37,6 +37,10 @@ string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3502" IS_DEVICE_ID_PRESENT)
 if (IS_DEVICE_ID_PRESENT)
   set(XC2VP3602 " ") # xc2vp3502 is derivative of xc2vp3602
 endif()
+string(COMPARE EQUAL "${DEVICE_ID}" "xcvm2152" IS_DEVICE_ID_PRESENT)
+if (IS_DEVICE_ID_PRESENT)
+  set(XCVM2152 " ")
+endif()
 
 
 option(XILPM_rpu0_as_power_management_master "true: RPU0 as power management master, false: Disable RPU0 as power management master." ON)
