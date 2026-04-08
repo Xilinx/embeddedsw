@@ -42,6 +42,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasu_def.h"
+#include "xasufw_perf.h"
 
 /************************************ Constant Definitions ***************************************/
 #define	XSHA_LAST_WORD					(1U) /**< SHA last word value */
@@ -113,10 +114,7 @@ static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen);
 
 /************************************ Variable Definitions ***************************************/
 
-#if XASUFW_ENABLE_PERF_MEASUREMENT
-static u64 StartTime; /**< Performance measurement start time. */
-static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
-#endif
+
 
 /*************************************************************************************************/
 /**
@@ -256,12 +254,6 @@ END:
  *************************************************************************************************/
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 {
-	/**
-	 * Capture the start time of the SHA start operation, if performance
-	 * measurement is enabled.
-	 */
-	XASUFW_MEASURE_PERF_START();
-
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
@@ -269,6 +261,12 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 		Status = XASUFW_SHA_INVALID_PARAM;
 		goto END;
 	}
+
+	/**
+	 * Capture the start time of the SHA start operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(InstancePtr->ShaType - XASUFW_VALUE_ONE);
 
 	/** Validate if SHA state is XSHA_INITIALIZED or not. */
 	if (InstancePtr->ShaState != XSHA_INITIALIZED) {
@@ -541,7 +539,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 HashAddr, u32 HashBuf
 	 * Measure and print the performance time for the SHA finish operation, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(InstancePtr->ShaType - XASUFW_VALUE_ONE);
 
 END:
 	if (InstancePtr != NULL) {

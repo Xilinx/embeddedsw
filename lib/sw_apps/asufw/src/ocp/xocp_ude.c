@@ -42,6 +42,7 @@
 #include "xil_sutil.h"
 #include "xasufw_memory.h"
 #include "xrsa_ecc.h"
+#include "xasufw_perf.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -125,6 +126,12 @@ s32 XOcp_GenerateUdeKek(void)
  *************************************************************************************************/
 s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc)
 {
+	/**
+	 * Capture the start time of the OCP UDE key encryption operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -209,6 +216,12 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_AES_COMPUTE_FAIL);
 	}
 
+	/**
+	 * Measure and print the performance time for the OCP UDE key encryption operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
+
 END_CLR:
 	/** Zeroize local buffer. */
 	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, PvtKey,
@@ -242,6 +255,12 @@ END:
  *************************************************************************************************/
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr)
 {
+	/**
+	 * Capture the start time of the OCP UDE response generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsu_OcpUdeResponse *OcpUdeResp = NULL;
 
@@ -260,6 +279,12 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 
 	/** Perform core UDE response generation. */
 	Status = XOcp_ProcessUdeResponse(DmaPtr, OcpUdeResp, OcpUdeParamsPtr);
+
+	/**
+	 * Measure and print the performance time for the OCP UDE response generation operation,
+	 * if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
 
 END:
 	return Status;

@@ -52,6 +52,7 @@
 #include "xkdf.h"
 #include "xasufw_memory.h"
 #include "xasufw_hw.h"
+#include "xasufw_perf.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_VAULT_MAIN_HEADER_SIZE	(12U) /**< Size of the key vault table header */
@@ -333,6 +334,12 @@ END:
 s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId,
 				u32 IpiMask, u32 *VaultIdPtr)
 {
+	/**
+	 * Capture the start time of the key vault creation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XKeyManager* KeyVaultPtr;
@@ -494,6 +501,12 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
 	}
 
+	/**
+	 * Measure and print the performance time for the key vault creation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
 END_CLR:
 	/* Clear vault info on failure. */
 	if (Status != XASUFW_SUCCESS) {
@@ -523,6 +536,12 @@ END:
  *************************************************************************************************/
 s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 {
+	/**
+	 * Capture the start time of the key vault deletion operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Index = 0U;
 	u32 DelVaultSize = 0U;
@@ -611,6 +630,12 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 
 	Status = XASUFW_SUCCESS;
 
+	/**
+	 * Measure and print the performance time for the key vault deletion operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
 END:
 	return Status;
 }
@@ -635,6 +660,12 @@ END:
  *************************************************************************************************/
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 {
+	/**
+	 * Capture the start time of the key deletion operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XKeyManager *KeyVaultPtr = NULL;
 	u32 VaultId = XKEYMANAGER_EXTRACT_VAULTID(KeyId);
@@ -714,6 +745,12 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 
 	Status = XASUFW_SUCCESS;
 
+	/**
+	 * Measure and print the performance time for the key deletion operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
 END:
 	return Status;
 }
@@ -740,6 +777,12 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
 			XAsu_KeyManagerSubVaultType KeyType)
 {
+	/**
+	 * Capture the start time of the key/IV generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	u8 EphemeralData[XASU_KM_KDF_HMAC_MAX_KEY_LENGTH];
@@ -792,6 +835,12 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 		Status = XKeyManager_UpdateKeyVault(DmaPtr, KeyType, ParamsPtr, EphemeralData,
 						    KeyIdPtr);
 	}
+
+	/**
+	 * Measure and print the performance time for the key/IV generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
 
 END_CLR:
 	/* Securely zeroize ephemeral key data. */
@@ -924,6 +973,12 @@ END:
 s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId)
 {
+	/**
+	 * Capture the start time of the ECC key pair generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccKey = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
@@ -1014,6 +1069,12 @@ s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
 		}
 	}
+
+	/**
+	 * Measure and print the performance time for the ECC key pair generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
 
 END_CLR:
 	/* Securely zeroize key data. */
@@ -1686,6 +1747,12 @@ static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubV
 s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KeyManagerParams *KeyParams,
 				u32 *KeyIdPtr, u32 SubSystemId)
 {
+	/**
+	 * Capture the start time of the key store operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	X509_CertInfo CertInfo;
@@ -1851,6 +1918,12 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 		}
 		X509KeyObjectPtr->RawKeyId = X509RawKeyId;
 	}
+
+	/**
+	 * Measure and print the performance time for the key store operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
 
 END_KEY_CLR:
 	if ((KeyParams->KeyMetadata.KeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
@@ -2584,6 +2657,12 @@ END:
 s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ExportAddr,
 			       u32 ExportBufSize, u32 ActualVaultSizeAddr)
 {
+	/**
+	 * Capture the start time of the key vault export operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR;
@@ -2776,6 +2855,12 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 		break;
 	}
 
+	/**
+	 * Measure and print the performance time for the key vault export operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
 END_CLR:
 	/** Zeroize the IV buffer. */
 	ClearStatus = Xil_SecureZeroize(KeyIv, XKEYMANAGER_AES_IV_LEN_IN_BYTES);
@@ -2835,6 +2920,12 @@ END:
 s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,
 			       u32 ImportSize)
 {
+	/**
+	 * Capture the start time of the key vault import operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR;
@@ -3090,6 +3181,12 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		break;
 	}
+
+	/**
+	 * Measure and print the performance time for the key vault import operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
 
 END_CLR:
 	/** Zeroize the IV buffer. */

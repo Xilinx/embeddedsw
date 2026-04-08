@@ -40,6 +40,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xfih.h"
+#include "xasufw_perf.h"
 #include "xasu_ecies_common.h"
 #include "xasu_def.h"
 
@@ -81,6 +82,12 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
 		   const XAsu_EciesParams *EciesParams)
 {
+	/**
+	 * Capture the start time of the ECIES encryption operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECIES_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcies = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -175,6 +182,12 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_AES_FAILURE);
 	}
 
+	/**
+	 * Measure and print the performance time for the ECIES encryption operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECIES_ID);
+
 END:
 	return Status;
 }
@@ -200,6 +213,12 @@ END:
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
 		   const XAsu_EciesParams *EciesParams)
 {
+	/**
+	 * Capture the start time of the ECIES decryption operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECIES_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcies = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -267,6 +286,12 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_AES_FAILURE);
 	}
+
+	/**
+	 * Measure and print the performance time for the ECIES decryption operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECIES_ID);
 
 END:
 	return Status;

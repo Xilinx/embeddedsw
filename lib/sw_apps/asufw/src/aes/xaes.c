@@ -49,6 +49,7 @@
 #include "xasu_aes_common.h"
 #include "xfih.h"
 #include "xasufw_memory.h"
+#include "xasufw_perf.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -311,11 +312,6 @@ struct _XAes {
 		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK /**< Mask to check if EFUSE KEY RED1 is zeroed */
 	},
 };
-
-#if XASUFW_ENABLE_PERF_MEASUREMENT
-static u64 StartTime; /**< Performance measurement start time. */
-static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
-#endif
 
 /************************** Inline Function Definitions ******************************************/
 
@@ -629,7 +625,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 	 * Capture the start time of the AES initialization operation, if performance
 	 * measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_AES_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
@@ -975,7 +971,7 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	 * Measure and print the performance time for the AES finalization operation, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_AES_ID);
 
 END:
 	/** Set AES under reset after AES operation is complete. */

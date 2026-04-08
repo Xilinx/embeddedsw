@@ -516,6 +516,7 @@
 #define XASU_RSA_PADDING_ENABLE
 #define XASU_OCP_ENABLE
 //#define XASU_LMS_ENABLE /**< Macro to enable/disable support of LMS algorithm */
+//#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
 
 /* Macros to enable / disable support of NIST and Brainpool curves */
 /**< Macro to enable/disable support of NIST P-192 curve */

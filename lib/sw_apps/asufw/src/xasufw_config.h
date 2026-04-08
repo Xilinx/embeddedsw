@@ -59,9 +59,6 @@ extern "C" {
 #define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_BLACK_KEY) /**< PMX eFuse user key 1
 									configuration */
 
-#define XASUFW_ENABLE_PERF_MEASUREMENT		(XASUFW_CONFIG_DISABLE) /**< To enable/disable
-									performance measurement. */
-
 /** SDK release version */
 #define SDK_RELEASE_YEAR		2026	/**< Specifies the SDK release year */
 #define SDK_RELEASE_QUARTER		1	/**< Specifies the SDK release quarter */

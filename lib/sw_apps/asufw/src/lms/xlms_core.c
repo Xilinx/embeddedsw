@@ -44,6 +44,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasu_lms_common.h"
+#include "xasufw_perf.h"
 
 #ifdef XASU_LMS_ENABLE
 /************************** Constant Definitions *************************************************/
@@ -165,6 +166,12 @@ static XLms_PubKeyTmp LmsPubKeyTmpBuff; /**< Structured view over leaf/internal 
 s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	const XAsu_LmsHssSignVerifyParams *LmsSignVerifyParams)
 {
+	/**
+	 * Capture the start time of the LMS signature verification operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_LMS_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	static XLms_SignVerifyCtx Ctx;
 	const u8* Path = NULL;
@@ -371,6 +378,12 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		ReturnStatus = XASUFW_LMS_SIGNATURE_VERIFIED;
 	}
 
+	/**
+	 * Measure and print the performance time for the LMS signature verification operation,
+	 * if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_LMS_ID);
+
 END:
 	return Status;
 }
@@ -417,6 +430,12 @@ END:
 s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		const XAsu_LmsHssSignVerifyParams *HssParamsPtr)
 {
+	/**
+	 * Capture the start time of the HSS/LMS initialization operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_LMS_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XLms_Type PublicKeyLmsType = XLMS_NOT_SUPPORTED;
 	XLms_OtsType PublicKeyLmsOtsType = XLMS_OTS_NOT_SUPPORTED;
@@ -1116,6 +1135,12 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 			HssFinishDmaState = XLMS_HSS_FINISH_STATE_SIGN_VERIFY;
 		}
 	}
+
+	/**
+	 * Measure and print the performance time for the HSS/LMS verification operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_LMS_ID);
 
 END:
 	return Status;

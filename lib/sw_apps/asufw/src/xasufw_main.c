@@ -71,6 +71,7 @@
 #include "xfih.h"
 #include "xasufw_error_manager.h"
 #include "xasufw_config.h"
+#include "xasufw_perf.h"
 #include "xasufw_plmeventhandler.h"
 #include "xasufw_ocphandler.h"
 #include "xasufw_kat.h"
@@ -167,8 +168,14 @@ int main(void)
 	 */
 	XAsufw_SetAsufwPresentBit();
 
+	/** Pause performance monitoring during KAT execution. */
+	XASUFW_PERF_SET_MONITORING_STATE(XASUFW_PERF_MON_PAUSED);
+
 	/** Run KATs for all crypto modules. */
 	XAsufw_RunCryptoKats();
+
+	/** Resume performance monitoring after KATs complete. */
+	XASUFW_PERF_SET_MONITORING_STATE(XASUFW_PERF_MON_RESUMED);
 
 	/**
 	 * Run key transfer and PUF regeneration.

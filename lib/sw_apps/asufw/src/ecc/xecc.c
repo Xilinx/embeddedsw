@@ -45,6 +45,7 @@
 #include "xtrng.h"
 #include "xrsa_ecc.h"
 #include "xasu_shainfo.h"
+#include "xasufw_perf.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
@@ -117,11 +118,6 @@ static XEcc_CurveInfo XEcc_CurveInfoTable[XECC_CURVES_SUPPORTED] = {
 		XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES
 	}
 };
-
-#if XASUFW_ENABLE_PERF_MEASUREMENT
-static u64 StartTime; /**< Performance measurement start time. */
-static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
-#endif
 
 /*************************************************************************************************/
 /**
@@ -218,6 +214,12 @@ END:
 s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			   u64 PrivKeyAddr, u64 PubKeyAddr)
 {
+	/**
+	 * Capture the start time of the ECC public key generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
@@ -304,6 +306,12 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	/** Perform pair wise consistency test using the key pair. */
 	XFIH_CALL(XEcc_Pwct, XFihEccVar, Status, InstancePtr, DmaPtr, CurveType, CurveLen,
 		PrivKeyAddr, PubKeyAddr);
+
+	/**
+	 * Measure and print the performance time for the ECC public key generation operation
+	 * using ECC core, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END:
 	if (InstancePtr != NULL) {
@@ -438,7 +446,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	 * Capture the start time of the ECC signature generation operation using ECC core, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -590,7 +598,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	 * Measure and print the performance time for the ECC signature generation operation
 	 * using ECC core, if performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END_CLR:
 	/** Zeroize local buffers. */
@@ -642,7 +650,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	 * Capture the start time of the ECC signature verification operation using ECC core, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -757,7 +765,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	 * Measure and print the performance time for the ECC signature verification operation
 	 * using ECC core, if performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END_CLR:
 	/** Zeroize local buffers. */

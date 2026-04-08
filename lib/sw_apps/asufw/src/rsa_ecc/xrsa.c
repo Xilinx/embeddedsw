@@ -43,6 +43,7 @@
 #include "xtask.h"
 #include "xkeymanager.h"
 #include "xasu_def.h"
+#include "xasufw_perf.h"
 
 /************************************ Constant Definitions ***************************************/
 /* Definitions for peripheral RSA */
@@ -105,11 +106,6 @@ static u8 RsaKeyGenBuf[XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES];
 /** Public exponent buffer for background key generation (must be full-key-size). */
 static u32 RsaKeyGenPubExpBuf[XRSA_MAX_KEY_SIZE_IN_BYTES / sizeof(u32)];
 
-#if XASUFW_ENABLE_PERF_MEASUREMENT
-static u64 StartTime; /**< Performance measurement start time. */
-static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
-#endif
-
 /*************************************************************************************************/
 /**
  * @brief	This function performs RSA decryption using CRT algorithm for the provided
@@ -142,7 +138,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyPa
 	 * Capture the start time of the RSA CRT operation, if performance measurement is
 	 * enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
@@ -334,7 +330,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyPa
 	 * Measure and print the performance time for the RSA CRT operation, if performance
 	 * measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 
 END:
 	/** Zeroize local copy of all the parameters. */
@@ -381,7 +377,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 	 * Capture the start time of the RSA private exponent operation, if performance measurement
 	 * is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
@@ -641,7 +637,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 	 * Measure and print the performance time for the RSA private exponent operation, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 
 END:
 	/** Zeroize local copy of all the parameters. */
@@ -687,7 +683,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 	 * Capture the start time of the RSA public exponent operation, if performance measurement
 	 * is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
@@ -862,7 +858,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 	 * Measure and print the performance time for the RSA public exponent operation, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 
 END:
 	/** Zeroize local copy of all the parameters. */
@@ -1102,6 +1098,12 @@ static s32 XRsa_GenerateKeyPairTask(void *Arg)
 
 	if (KeyGenState == XRSA_KEY_GEN_INIT_STATE) {
 		/**
+		 * Capture the start time of the RSA key pair generation operation, if
+		 * performance measurement is enabled.
+		 */
+		XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
+
+		/**
 		 * Initialize key pair state with dedicated buffer.
 		 * Uses TRNG internally for random prime candidate generation.
 		 */
@@ -1285,6 +1287,12 @@ static s32 XRsa_GenerateKeyPairTask(void *Arg)
 
 		/** Reset to default state to check for more keys needed. */
 		KeyGenState = XRSA_KEY_GEN_DEFAULT_STATE;
+
+		/**
+		 * Measure and print the performance time for the RSA key pair generation
+		 * operation, if performance measurement is enabled.
+		 */
+		XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 	}
 
 END:
