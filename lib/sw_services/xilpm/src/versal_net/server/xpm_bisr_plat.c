@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -189,8 +189,22 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseTagBitS2Addr;
 	u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
 
-	EfuseTagBitS1Addr = (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
-	EfuseTagBitS2Addr = (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
+	volatile XStatus StatusTmp = XST_FAILURE;
+	const XPm_Device *EfuseCache;
+	u32 EfuseCacheBaseAddr;
+
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device,
+					       XPmDevice_GetById, PM_DEV_EFUSE_CACHE);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
 
 	//set up the white list
 	XPmBisr_InitTagIdList(&XPmTagIdWhiteList);
@@ -212,7 +226,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	}
 
 	//Scan EFUSE looking for valid tags that match requested tag, exit on 0, skip row on all 1's
-	EfuseNextAddr = EFUSE_CACHE_BASEADDR + EFUSE_CACHE_BISR_RSVD_0_OFFSET;
+	EfuseNextAddr = EfuseCacheBaseAddr + EFUSE_CACHE_BISR_RSVD_0_OFFSET;
 	ExitCodeSeen = 0U;
 
 	while (0U == ExitCodeSeen) {
