@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef _XPM_CONFIG_H
@@ -17,5 +17,6 @@
 #cmakedefine ENABLE_GPIO_PROC_HANDLER @ENABLE_GPIO_PROC_HANDLER@
 #cmakedefine XC2VP3202 @XC2VP3202@
 #cmakedefine XC2VP3602 @XC2VP3602@
+#cmakedefine XCVM2152 @XCVM2152@
 
 #endif /* XPM_CONFIG_H */
