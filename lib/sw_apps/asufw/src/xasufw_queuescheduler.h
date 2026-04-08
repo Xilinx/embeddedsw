@@ -80,6 +80,7 @@ typedef struct {
 s32 XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
 s32 XAsufw_CheckPreemption(u32 CurrentReqId, u32 OwnerReqId);
+void XAsufw_PostUpdateTriggerPendingRequests(void);
 
 /************************************ Variable Definitions ***************************************/
 
