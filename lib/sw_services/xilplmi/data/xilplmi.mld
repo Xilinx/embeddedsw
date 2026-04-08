@@ -57,14 +57,14 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_sd_en, desc = "Enables (if enabled in hardware design too) or Disables SD boot mode", type = bool, default = true;
   PARAM name = plm_ospi_en, desc = "Enables (if enabled in hardware design too) or Disables OSPI boot mode", type = bool, default = true;
   PARAM name = plm_sem_en, desc = "Enables (if enabled in hardware design too) or Disables SEM feature", type = bool, default = true;
-  PARAM name = plm_secure_en, desc = "Enables or Disbales Secure features", type = bool, default = true;
+  PARAM name = plm_secure_en, desc = "Enables or Disables Secure features", type = bool, default = true;
   PARAM name = plm_usb_en, desc = "Enables (if enabled in hardware design too) or disables USB boot mode", type = bool, default = false;
   PARAM name = plm_nvm_en, desc = "Enables or Disables NVM handlers", type = bool, default = false;
   PARAM name = plm_puf_en, desc = "Enables or Disables PUF handlers", type = bool, default = false;
   PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
   PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = true;
   PARAM name = plm_add_ppks_en, desc = "Enables or Disables additional PPKs", type = bool, default = false;
-  PARAM name = plm_tpm_en, desc = "Enables or Disbales TPM features (valid only for Versal, Versal_2VE_2VM)", type = bool, default = false;
+  PARAM name = plm_tpm_en, desc = "Enables or Disables TPM features (valid only for Versal, Versal_2VE_2VM)", type = bool, default = false;
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
   PARAM name = ssit_secure_plm_to_plm_comm_en, desc = "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)", type = bool, default = false;
   PARAM name = plm_get_opt_data_en, esc = "Enables or Disables the feature to get optional data (valid only for Versal)", type = bool, default = false;

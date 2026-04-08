@@ -1951,7 +1951,7 @@ static INLINE u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 
 /****************************************************************************/
 /**
-* Reads the bit of given normal or reduntant row of PL efuse key for Ultrascale.
+* Reads the bit of given normal or redundant row of PL efuse key for Ultrascale.
 *
 *
 * @param	Row is the row number of Fuse array.

@@ -67,7 +67,7 @@
  * 			coef(S, 0, 4)
  *
  * If i is larger than the number of w-bit values in S, then coef(S, i, w) is undefined,
- * this cant be checked here
+ * this can't be checked here
  *
  * @param	Arr	Byte array from where the digit needs to be picked
  * @param	ArrayIndex	When array is divided into array of digits,
