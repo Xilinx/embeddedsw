@@ -1463,6 +1463,197 @@ extern "C" {
 /** @brief Mask for NPI PCSR control PCOMPLETE bit */
 #define NPI_PCSR_CONTROL_PCOMPLETE_MASK			(0x00000001U)
 
+/**
+ * @brief offset of PMC_GPIO_INT_EN_0 register (Bank 0 interrupt enable, write-only)
+ */
+#define PMC_GPIO_INT_EN_0_OFFSET      (0x00000210U)
+/**
+ * @brief offset of PMC_GPIO_INT_EN_1 register (Bank 1 interrupt enable, write-only)
+ */
+#define PMC_GPIO_INT_EN_1_OFFSET      (0x00000250U)
+/**
+ * @brief offset of PMC_GPIO_INT_EN_2 register (Bank 2 interrupt enable, write-only)
+ */
+#define PMC_GPIO_INT_EN_2_OFFSET      (0x00000290U)
+/**
+ * @brief offset of PMC_GPIO_INT_STAT_0 register
+ */
+#define PMC_GPIO_INT_STAT_0_OFFSET    (0x00000218U)
+/**
+ * @brief offset of PMC_GPIO_INT_STAT_1 register
+ */
+#define PMC_GPIO_INT_STAT_1_OFFSET    (0x00000258U)
+/**
+ * @brief offset of PMC_GPIO_INT_STAT_2 register
+ */
+#define PMC_GPIO_INT_STAT_2_OFFSET    (0x00000298U)
+/**
+ * @brief offset of PMC_GPIO_INT_ANY_0 register (Bank 0 interrupt on any edge)
+ */
+#define PMC_GPIO_INT_ANY_0_OFFSET     (0x00000224U)
+/**
+ * @brief offset of PMC_GPIO_INT_ANY_1 register (Bank 1 interrupt on any edge)
+ */
+#define PMC_GPIO_INT_ANY_1_OFFSET     (0x00000264U)
+/**
+ * @brief offset of PMC_GPIO_INT_ANY_2 register (Bank 2 interrupt on any edge)
+ */
+#define PMC_GPIO_INT_ANY_2_OFFSET     (0x000002A4U)
+/**
+ * @brief offset of PMC_GPIO_DATA_0_RO register
+ */
+#define PMC_GPIO_DATA_0_RO_OFFSET     (0x00000060U)
+/**
+ * @brief offset of PMC_GPIO_DATA_1_RO register
+ */
+#define PMC_GPIO_DATA_1_RO_OFFSET     (0x00000064U)
+/**
+ * @brief offset of PMC_GPIO_DATA_2_RO register
+ */
+#define PMC_GPIO_DATA_2_RO_OFFSET     (0x00000068U)
+
+/**
+ * @brief offset of PS_GPIO_INT_STAT_0 register
+ */
+#define PS_GPIO_INT_STAT_0_OFFSET    (0x00000218U)
+/**
+ * @brief offset of PS_GPIO_DATA_0_RO register
+ */
+#define PS_GPIO_DATA_0_RO_OFFSET     (0x00000060U)
+/**
+ * @brief offset of PS_GPIO_DATA_1_RO register
+ */
+#define PS_GPIO_DATA_1_RO_OFFSET     (0x00000064U)
+/**
+ * @brief offset of PS_GPIO_INT_STAT_1 register
+ */
+#define PS_GPIO_INT_STAT_1_OFFSET    (0x00000258U)
+
+/**
+ * GPIO Proc Configuration Register (RTCA offset 0x370)
+ *
+ * Resides in the PLM Run-Time Configuration Area (RTCA).
+ * RTCA base: 0xF2014000 (XPLMI_RTCFG_BASEADDR), offset: 0x370.
+ *
+ * Bit layout (same 16-bit pattern in each half):
+ *   [2:0]   / [18:16] : SLR ID
+ *   [4:3]   / [20:19] : GPIO Controller — 0 = LPD GPIO Controller, 1 = PMC GPIO Controller
+ *   [6:5]   / [22:21] : GPIO bank number
+ *   [12:7]  / [28:23] : MIO pin index
+ *   [15:13] / [31:29] : CDO Proc ID to execute on reset event
+ *
+ * Bits [15:0]  configure the first  GPIO pin.
+ * Bits [31:16] configure the second GPIO pin (same field layout).
+ */
+/**
+ * @brief RTCA GPIO configuration register
+ */
+#define RTCA_GPIO_PROC_CFG0_REG		(0xF2014370U)
+/**
+ * @brief RTCA GPIO configuration register1
+ */
+#define RTCA_GPIO_PROC_CFG1_REG		(0xF2014374U)
+/**
+ * @brief RTCA GPIO configuration register2
+ */
+#define RTCA_GPIO_PROC_CFG2_REG		(0xF2014378U)
+/**
+ * @brief RTCA GPIO configuration register3
+ */
+#define RTCA_GPIO_PROC_CFG3_REG		(0xF201437CU)
+
+/**
+ * @brief GPIO controller type encoded in the RTCA configuration register.
+ */
+typedef enum {
+	LPD_GPIO_CONTROLLER = 0U,	/**< LPD GPIO Controller */
+	PMC_GPIO_CONTROLLER = 1U,	/**< PMC GPIO Controller */
+} XPm_GpioControllerType;
+
+/**
+ * @brief Number of MIO pins per GPIO bank.
+ */
+#define GPIO_PINS_PER_BANK		(26U)
+
+/**
+ * @brief GPIO bank0 indices.
+ */
+#define GPIO_BANK_0			(0U)
+/**
+ * @brief GPIO bank1 indices.
+ */
+ #define GPIO_BANK_1			(1U)
+/**
+ * @brief GPIO bank2 indices.
+ */
+ #define GPIO_BANK_2			(2U)
+
+/**
+ * @brief Base node ID for LPD MIO pins (NODEINDEX = 0).
+ *
+ * RTCA uses 1-based MIO indexing, matching the 1-based NODEINDEX in the
+ * topology (PM_STMIC_LMIO_0 has NODEINDEX=1).  Adding RTCA MioIdx directly
+ * to this base yields the correct pin node ID without an extra -1 adjustment.
+ */
+#define PM_STMIC_LMIO_BASE		(PM_STMIC_LMIO_0 - 1U)
+
+/**
+ * @brief Base node ID for PMC MIO pins (NODEINDEX offset = 0).
+ */
+#define PM_STMIC_PMIO_BASE		(PM_STMIC_PMIO_0 - 1U)
+
+/**
+ * @brief Starting index offset for MIO in the RTCA configuration register.
+ *
+ * RTCA uses 1-based MIO indexing; subtract this value to convert to 0-based.
+ */
+#define GPIO_CFG_MIO_IDX_BASE		(1U)
+
+/**
+ * @brief mask of SLR ID
+ */
+#define GPIO_CFG_SLRID_MASK	(0x7U)
+/**
+ * @brief mask of Pin TYPE
+ */
+#define GPIO_CFG_TYPE_MASK		(0x18U)
+/**
+ * @brief shift value of Pin TYPE
+ */
+#define GPIO_CFG_TYPE_SHIFT	(3U)
+/**
+ * @brief mask value of Pin BANK
+ */
+#define GPIO_CFG_BANK_MASK		(0x60U)
+/**
+ * @brief shift value of Pin BANK
+ */
+#define GPIO_CFG_BANK_SHIFT	(5U)
+/**
+ * @brief mask value of Pin Index
+ */
+#define GPIO_CFG_MIO_MASK		(0x1F80U)
+/**
+ * @brief shift value of Pin Index
+ */
+#define GPIO_CFG_MIO_SHIFT		(7U)
+/**
+ * @brief mask value of PROCID
+ */
+#define GPIO_CFG_PROCID_MASK	(0xE000U)
+/**
+ * @brief shift value of PROCID
+ */
+#define GPIO_CFG_PROCID_SHIFT	(13U)
+/**
+ * @brief mask for one 16-bit GPIO configuration half
+ */
+#define GPIO_CFG_HALF_MASK		(0xFFFFU)
+/**
+ * @brief shift to reach the upper 16-bit GPIO configuration
+ */
+#define GPIO_CFG_UPPER_SHIFT	(16U)
+
 #ifdef __cplusplus
 }
 #endif

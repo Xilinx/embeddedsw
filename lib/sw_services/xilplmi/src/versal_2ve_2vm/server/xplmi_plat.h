@@ -469,6 +469,7 @@ typedef enum {
  * PMC GICP6 interrupts
  */
 #define XPLMI_GICP6_SRC1	(1U) /**< SBI Interrupt */
+#define XPLMI_GICP6_SRC10	(10U) /**< PMC GPIO Interrupt */
 
 /*
  * PMC GICP7 interrupts
