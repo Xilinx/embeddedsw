@@ -641,7 +641,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 		if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 		    ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(Device->Node.Id)) &&
 		    ((u32)XPM_NODETYPE_DEV_TCM == NODETYPE(Device->Node.Id))) {
-			Status = XPmMem_TcmResetReleaseById(Device->Node.Id);
+			Status = XPmMem_TcmResetRelease(Device);
 			if (XST_SUCCESS != Status) {
 				PmErr("Failed to release TCM reset\r\n");
 				goto done;
