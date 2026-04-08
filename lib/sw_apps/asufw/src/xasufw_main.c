@@ -120,7 +120,6 @@ int main(void)
 		if (Status != XASUFW_SUCCESS) {
 			XAsufw_Printf(DEBUG_GENERAL, "\r\n ASUFW restore data backup failed. Error: 0x%0x\r\n", Status);
 		}
-		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
 	}
 
 	/** Validate debug log buffer information. */
@@ -305,6 +304,12 @@ static s32 XAsufw_Init(void)
 		XAsufw_Printf(DEBUG_GENERAL, "Channel config init failed with error: 0x%x\r\n",
 			      Status);
 		goto END;
+	}
+
+	/** Check if this is a post-update boot and trigger pending requests. */
+	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
+		XAsufw_PostUpdateTriggerPendingRequests();
+		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
 	}
 
 	/** Initialize all ASUFW modules. */

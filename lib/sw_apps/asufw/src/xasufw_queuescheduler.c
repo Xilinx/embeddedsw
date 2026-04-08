@@ -418,4 +418,63 @@ s32 XAsufw_CheckPreemption(u32 CurrentReqId, u32 OwnerReqId)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Trigger pending requests after ASU in-place update by waking queue tasks.
+ *
+ *************************************************************************************************/
+void XAsufw_PostUpdateTriggerPendingRequests(void)
+{
+	u32 ChannelIdx;
+	u32 BufIdx;
+	XAsu_ChannelMemory *ChannelMem;
+	XTask_TaskNode *Task;
+
+	/** Iterate through all channels and trigger the queue task if there are pending requests. */
+	for (ChannelIdx = 0U; ChannelIdx < CommChannelInfo->NumOfIpiChannels; ChannelIdx++) {
+		ChannelMem = &SharedMemory->ChannelMemory[ChannelIdx];
+
+		/**
+		 * After ASU in-place update, module-local runtime state (e.g., AsuDmaPtr)
+		 * is reinitialized to NULL. Commands still marked as DMA_WAIT_COMPLETE
+		 * will skip resource allocation in the normal scheduler path and directly
+		 * call handlers with NULL DMA pointer, causing failures. Converting
+		 * DMA_WAIT_COMPLETE to VALIDATED forces these requests through
+		 * CheckAndAllocateResources() so DMA and crypto handlers can re-populate
+		 * runtime pointers.
+		 */
+		for (BufIdx = 0U; BufIdx < XASU_MAX_BUFFERS; BufIdx++) {
+			if (ChannelMem->P0ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus ==
+					XASU_COMMAND_DMA_WAIT_COMPLETE) {
+				ChannelMem->P0ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus =
+					XASU_COMMAND_VALIDATED;
+			}
+
+			if (ChannelMem->P1ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus ==
+					XASU_COMMAND_DMA_WAIT_COMPLETE) {
+				ChannelMem->P1ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus =
+					XASU_COMMAND_VALIDATED;
+			}
+		}
+
+		if (ChannelMem->P0ChannelQueue.ReqSent != ChannelMem->P0ChannelQueue.ReqServed) {
+			Task = CommChannelTasks.Channel[ChannelIdx].P0QueueTask;
+			if (Task != NULL) {
+				XTask_TriggerNow(Task);
+				XAsufw_Printf(DEBUG_GENERAL,
+					"Triggered P0 task for channel %u\r\n", ChannelIdx);
+			}
+		}
+
+		if (ChannelMem->P1ChannelQueue.ReqSent != ChannelMem->P1ChannelQueue.ReqServed) {
+			Task = CommChannelTasks.Channel[ChannelIdx].P1QueueTask;
+			if (Task != NULL) {
+				XTask_TriggerNow(Task);
+				XAsufw_Printf(DEBUG_GENERAL,
+					"Triggered P1 task for channel %u\r\n", ChannelIdx);
+			}
+		}
+	}
+}
 /** @} */

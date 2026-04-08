@@ -46,6 +46,7 @@
 /************************************ Function Prototypes ****************************************/
 static void XAsufw_DisableInterrupts(void);
 static s32 XAsufw_ShutdownAsu(void);
+static s32 XAsufw_InitDbRegion(void);
 static u32 XAsufw_GetDbSize(void);
 static s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data);
 static XAsufw_DsEntry* XAsufw_GetDsEntry(XAsufw_DsEntry *DsList, u32 DsCnt, XAsufw_DsVer *DsVer);
@@ -63,6 +64,48 @@ static u32 DbStartAddr;	/**< Database start address */
 static u32 DbEndAddr;	/**< Database end address */
 
 #define XASUFW_DS_CNT	(u32)(__data_struct_end - __data_struct_start)	/**< Data structure count */
+
+/*************************************************************************************************/
+/**
+ * @brief	This function initializes reserved DDR database region information.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if reserved DDR region is valid.
+ * 	- XASUFW_INVALID_RSVD_DDR_ADDR, if DDR reserved area address is invalid.
+ *	- XASUFW_INSUFFICIENT_RSVD_DDR_SIZE, if DDR reserved area size is insufficient.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_InitDbRegion(void)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 DdrRsvdAddr;
+	u32 DdrRsvdSize;
+
+	/** Get DDR reserved area configuration. */
+	DdrRsvdAddr = XAsufw_ReadReg(XASUFW_RTCFG_RSVD_DDR_ADDR);
+	DdrRsvdSize = XAsufw_ReadReg(XASUFW_RTCFG_RSVD_DDR_SIZE);
+
+	/** Check if DDR reserved area is valid. */
+	if ((DdrRsvdAddr == XASUFW_INVALID_RSVD_DDR_ADDR) ||
+		(DdrRsvdSize == XASUFW_INVALID_RSVD_DDR_SIZE) ||
+		(((u64)DdrRsvdAddr + DdrRsvdSize) > (u64)XASUFW_2GB_END_ADDR)) {
+		Status = XASUFW_INVALID_RSVD_DDR_ADDR;
+		goto END;
+	}
+
+	/** Check if DDR reserved area is sufficient. */
+	if (DdrRsvdSize < XAsufw_GetDbSize()) {
+		Status = XASUFW_INSUFFICIENT_RSVD_DDR_SIZE;
+		goto END;
+	}
+
+	DbStartAddr = DdrRsvdAddr;
+	DbEndAddr = DdrRsvdAddr + DdrRsvdSize - 1U;
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
 
 /*************************************************************************************************/
 /**
@@ -150,29 +193,12 @@ END:
 s32 XAsufw_PerformAsufwUpdate(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 DdrRsvdAddr;
-	u32 DdrRsvdSize;
 
-	/** Get DDR reserved area configuration. */
-	DdrRsvdAddr = XAsufw_ReadReg(XASUFW_RTCFG_RSVD_DDR_ADDR);
-	DdrRsvdSize = XAsufw_ReadReg(XASUFW_RTCFG_RSVD_DDR_SIZE);
-
-	/** Check if DDR reserved area is valid. */
-	if ((DdrRsvdAddr == XASUFW_INVALID_RSVD_DDR_ADDR) ||
-		(DdrRsvdSize == XASUFW_INVALID_RSVD_DDR_SIZE) ||
-		(((u64)DdrRsvdAddr + DdrRsvdSize) > (u64)XASUFW_2GB_END_ADDR)) {
-		Status = XASUFW_INVALID_RSVD_DDR_ADDR;
+	/** Initialize reserved DDR region used for database backup. */
+	Status = XAsufw_InitDbRegion();
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
-
-	/** Check if DDR reserved area is sufficient. */
-	if (DdrRsvdSize < XAsufw_GetDbSize()) {
-		Status = XASUFW_INSUFFICIENT_RSVD_DDR_SIZE;
-		goto END;
-	}
-
-	DbStartAddr = DdrRsvdAddr;
-	DbEndAddr = DdrRsvdAddr + DdrRsvdSize - 1U;
 
 	/** Store data backup before update. */
 	Status = XAsufw_StoreDataBackup();
@@ -339,9 +365,17 @@ s32 XAsufw_RestoreDataBackup(void)
 	s32 Status = XASUFW_FAILURE;
 	XAsufw_DsEntry *DsEntry = NULL;
 	XAsufw_DsHdr *DsHdr = NULL;
-	const XAsufw_DbHdr *DbHdr = (XAsufw_DbHdr *)DbStartAddr ;
+	const XAsufw_DbHdr *DbHdr;
 	u64 DsAddr;
 	u64 EndAddr;
+
+	/** Reinitialize database region after reboot before reading backup data. */
+	Status = XAsufw_InitDbRegion();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	DbHdr = (XAsufw_DbHdr *)DbStartAddr;
 
 	/** Validate database header version. */
 	if (DbHdr->HdrVersion != XASUFW_UPDATE_DB_VERSION) {

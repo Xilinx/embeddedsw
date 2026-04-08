@@ -1904,6 +1904,8 @@ int XLoader_LoadAsuImage(void)
 	/** We need to reset NoOfHandOffCpus here because we don't call StartImage routine */
 	PdiPtr->NoOfHandoffCpus = 0U;
 
+	/** Signal ASUFW that ELF has been loaded. */
+	XPlmi_Out32(XPLMI_ASU_UPDATE_STATE_REG, XPLMI_UPDATE_STATE_LOAD_ELF_DONE);
 END:
 	return Status;
 }
