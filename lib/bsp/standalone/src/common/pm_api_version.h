@@ -146,6 +146,7 @@ extern "C" {
  * | IOCTL_PREPARE_DDR_SHUTDOWN		| 37	| Versal	| Prepare DDR for shut down		|
  * | IOCTL_GET_SSIT_TEMP		| 38	| Versal	| Get secondary SLR min/max temperature |
  * | IOCTL_AIE2PS_OPS			| 39 	| Versal_2ve_2vm	| AIE2PS Operations			|
+ * | IOCTL_SET_AIE_CLK_DIV		| 40	| Versal/Versal_2ve_2vm	| Set AIE clock divider			|
  *
  *****************************************************************************/
 

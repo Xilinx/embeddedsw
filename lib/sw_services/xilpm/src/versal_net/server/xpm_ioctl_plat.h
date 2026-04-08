@@ -85,6 +85,21 @@ maybe_unused static inline XStatus XPm_AieISRClear(u32 Value)
 
 	return XPM_ERR_IOCTL;
 }
+/**
+ * @brief Set AIE clock divider (stub for versal_net).
+ *
+ * @param DeviceId Device ID (unused).
+ * @param Divider Clock divider value (unused).
+ *
+ * @return XPM_ERR_IOCTL always.
+ */
+maybe_unused static inline XStatus XPm_SetAieClkDiv(const u32 DeviceId, const u32 Divider)
+{
+	(void)DeviceId;
+	(void)Divider;
+
+	return XPM_ERR_IOCTL;
+}
 maybe_unused static inline XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 {
 	(void)DeviceId;

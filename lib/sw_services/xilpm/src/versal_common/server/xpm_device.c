@@ -1514,6 +1514,18 @@ XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
 		goto done;
 	}
 
+	/*
+	 * Workaround: AIE devices may not have been explicitly requested.
+	 * Skip the permission check for AIE devices to allow SetRequirement,
+	 * IOCTL, and Release flows to proceed. This is temporary until the
+	 * SetRequirement flow for AIE clock frequency scaling is fully
+	 * deprecated in favor of the IOCTL_SET_AIE_CLK_DIV IOCTL.
+	 */
+	if (IS_DEV_AIE(DeviceId)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
 		goto done;

@@ -1186,7 +1186,6 @@ XStatus XPmAie_Operations(u32 Size, u32 HighAddr, u32 LowAddr)
 /**
  * @brief  Update AIE clock divider
  *
- * @param  Device: Pointer to Device
  * @param  Divider: Requested divider value
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
@@ -1197,7 +1196,6 @@ XStatus XPmAie_Operations(u32 Size, u32 HighAddr, u32 LowAddr)
 XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 {
 	XStatus Status = XST_FAILURE;
-	u32 TempDiv = Divider;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
 
 	if (NULL == AieDomain) {
@@ -1214,18 +1212,12 @@ XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 		goto done;
 	}
 
-	/* Check if requested divider is higher than max possible divider value */
-	if (AIE_MAX_DIVIDER < Divider) {
+	/* Check if requested divider is higher than max possible divider value
+	 * or less than the default divider value.
+	 */
+	if ((AIE_MAX_DIVIDER < Divider) || (Divider < AieDomain->DefaultClockDiv)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	}
-
-	/* If 1 is passed or divider is less than or equal to the default
-	 * value, it is assumed the subsystem would like the maximum frequency allowed,
-	 * i.e. the default divider value.
-	 */
-	if ((1U == Divider) || (Divider <= AieDomain->DefaultClockDiv)) {
-		TempDiv = AieDomain->DefaultClockDiv;
 	}
 
 	/* Unlock NPI space */
@@ -1234,7 +1226,7 @@ XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 	/* Update clock divider with new value */
 	XPm_RMW32(AieDomain->AieNpiAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET,
 		  AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK,
-		  TempDiv << AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT);
+		  Divider << AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT);
 
 	/* Lock NPI space */
 	XPm_LockPcsr(AieDomain->AieNpiAddress);

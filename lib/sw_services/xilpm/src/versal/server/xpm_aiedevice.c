@@ -239,8 +239,6 @@ done:
 /**
  * @brief  Update AIE clock divider
  *
- * @param  Device: Pointer to Device
- * @param  Subsystem: Current subsystem making the request
  * @param  Divider: Requested divider value
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
@@ -248,26 +246,14 @@ done:
  * @note None
  *
  *****************************************************************************/
-XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsystem *Subsystem,
-		const u32 Divider)
+XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Requirement *Reqm = NULL;
-	const XPm_Requirement *NextReqm = NULL;
-	u32 TempDiv = Divider;
 	const XPm_AieDomain *AieDomain;
-	u32 BaseAddress;
 
 	AieDomain = XPmAie_GetDomain();
 	if (NULL == AieDomain) {
 		Status = XPM_INVALID_PWRDOMAIN;
-		goto done;
-	}
-
-	BaseAddress = AieDomain->AieNpiAddress;
-
-	Reqm = XPmDevice_FindRequirement(Device->Node.Id, Subsystem->Id);
-	if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
 		goto done;
 	}
 
@@ -280,69 +266,22 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 		goto done;
 	}
 
-	/* Check if requested divider is higher than max possible divider value */
-	if (AIE_MAX_DIVIDER < Divider) {
+	/* Check if requested divider is higher than max possible divider value
+	 * or less than the default divider value.
+	 */
+	if ((AIE_MAX_DIVIDER < Divider) || (Divider < AieDomain->DefaultClockDiv)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	/* If the divider value is 1 or any number smaller than the initial divider
-	 * set at boot, it is assumed the subsystem would like the maximum
-	 * frequency allowed, which is set at boot time.
-	 */
-	if ((1U == Divider) || (Divider <= AieDomain->DefaultClockDiv)) {
-		TempDiv = AieDomain->DefaultClockDiv;
-	} else {
-		/* Check requirements placed on this device by any other subsystem */
-		NextReqm = Reqm->NextSubsystem;
-		while (NULL != NextReqm) {
-			if (1U == NextReqm->Allocated) {
-				if ((TempDiv > NextReqm->Curr.QoS) && (AieDomain->DefaultClockDiv <= NextReqm->Curr.QoS)) {
-					TempDiv = NextReqm->Curr.QoS;
-				}
-			}
-
-			NextReqm = NextReqm->NextSubsystem;
-		}
-
-		/* Check for any other AIE devices within this subsystem */
-		NextReqm = Reqm->NextDevice;
-		while (NULL != NextReqm) {
-			if ((1U == NextReqm->Allocated) && (IS_DEV_AIE(NextReqm->Device->Node.Id))) {
-				if ((TempDiv > NextReqm->Curr.QoS) && (AieDomain->DefaultClockDiv <= NextReqm->Curr.QoS)) {
-					TempDiv = NextReqm->Curr.QoS;
-				}
-			}
-
-			NextReqm = NextReqm->NextDevice;
-		}
-
-		/* Check for any other AIE devices in a separate subsystem. If there
-		 * are any other AIE devices check the QoS (divider) values.
-		 */
-		NextReqm = Device->Requirements;
-		while (NULL != NextReqm) {
-			if ((IS_DEV_AIE(NextReqm->Device->Node.Id)) && (NextReqm->Device != Device)
-					&& (NextReqm->Subsystem != Subsystem)) {
-				if ((TempDiv > NextReqm->Curr.QoS) && (AieDomain->DefaultClockDiv <= NextReqm->Curr.QoS)) {
-					TempDiv = NextReqm->Curr.QoS;
-				}
-			}
-
-			NextReqm = NextReqm->NextSubsystem;
-		}
-	}
-
-	TempDiv = TempDiv << AIE_DIVISOR0_SHIFT;
-
 	/* Unlock NPI space */
-	XPm_UnlockPcsr(BaseAddress);
+	XPm_UnlockPcsr(AieDomain->AieNpiAddress);
 
 	/* Update clock divider with new value */
-	XPm_RMW32(BaseAddress + ME_CORE_REF_CTRL_OFFSET, AIE_DIVISOR0_MASK, TempDiv);
+	XPm_RMW32(AieDomain->AieNpiAddress + ME_CORE_REF_CTRL_OFFSET, AIE_DIVISOR0_MASK, Divider << AIE_DIVISOR0_SHIFT);
 
 	/* Lock NPI space */
-	XPm_LockPcsr(BaseAddress);
+	XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	Status = XST_SUCCESS;
 
