@@ -36,6 +36,7 @@
 #include "xasufw_util.h"
 #include "xfih.h"
 #include "xasu_kdf_common.h"
+#include "xasufw_perf.h"
 #include "xasufw_memory.h"
 #include "xasu_generic.h"
 
@@ -70,6 +71,12 @@
  *************************************************************************************************/
 s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams)
 {
+	/**
+	 * Capture the start time of the KDF key generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KDF_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -179,6 +186,12 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 	if (KdfIndex != Iterations) {
 		Status = XASUFW_KDF_ITERATION_COUNT_MISMATCH;
 	}
+
+	/**
+	 * Measure and print the performance time for the KDF key generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KDF_ID);
 
 END_CLR:
 	/** Zeroize the intermediate KOut buffer and locally created KeyOutAddr variable. */

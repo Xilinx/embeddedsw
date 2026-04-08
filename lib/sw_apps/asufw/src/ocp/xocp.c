@@ -46,6 +46,7 @@
 #include "xtrng_hw.h"
 #include "xasu_def.h"
 #include "x509_asufw.h"
+#include "xasufw_perf.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -208,6 +209,12 @@ END:
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
 			 u32 SubsystemId)
 {
+	/**
+	 * Capture the start time of the OCP attestation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u32 SubsysIdx = 0U;
@@ -247,6 +254,12 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 					(u64)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey,
 					NULL, OcpAttestParam->DataAddr,
 					OcpAttestParam->DataLen, OcpAttestParam->SignatureAddr);
+
+	/**
+	 * Measure and print the performance time for the OCP attestation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
 
 END:
 	return Status;
@@ -583,6 +596,12 @@ END:
 s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, void *PlatData,
 		     u8 IsCsr)
 {
+	/**
+	 * Capture the start time of the OCP X.509 certificate generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	X509_Config CertCfg;
 	XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
@@ -729,6 +748,12 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	}
 
 	ReturnStatus = XASUFW_OCP_CERT_GENERATION_SUCCESS;
+
+	/**
+	 * Measure and print the performance time for the OCP X.509 certificate generation
+	 * operation, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
 
 END:
 	return Status;

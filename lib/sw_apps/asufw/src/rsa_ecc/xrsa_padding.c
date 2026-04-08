@@ -33,6 +33,7 @@
 #include "xfih.h"
 #include "xtrng.h"
 #include "xasu_rsa_common.h"
+#include "xasufw_perf.h"
 
 #ifdef XASU_RSA_PADDING_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -130,6 +131,12 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
 		    u32 *OutDataLenPtr)
 {
+	/**
+	 * Capture the start time of the RSA OAEP encode operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
@@ -156,6 +163,12 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 					     XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
+
+	/**
+	 * Measure and print the performance time for the RSA OAEP encode operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 
 END:
 	return Status;
@@ -185,6 +198,12 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
 		    u32 *OutDataLenPtr)
 {
+	/**
+	 * Capture the start time of the RSA OAEP decode operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -210,6 +229,12 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			  XASU_SHA_512_HASH_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
+
+	/**
+	 * Measure and print the performance time for the RSA OAEP decode operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 
 END:
 	return Status;
@@ -244,6 +269,12 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr,
 			u32 *OutDataLenPtr)
 {
+	/**
+	 * Capture the start time of the RSA PSS sign generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -507,6 +538,12 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	 */
 	ReturnStatus = XASUFW_FAILURE;
 
+	/**
+	 * Measure and print the performance time for the RSA PSS sign generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
+
 END:
 	/** Zeroize local copy of all the parameters. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, DataBlockStart,
@@ -547,6 +584,12 @@ RET:
 s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			const XAsu_RsaPaddingParams *PaddingParamsPtr, u64 KeyParamAddr)
 {
+	/**
+	 * Capture the start time of the RSA PSS sign verification operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_RSA_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	volatile u32 Index = XASUFW_FAILURE;
@@ -817,6 +860,12 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	ReturnStatus = XASUFW_RSA_PSS_SIGNATURE_VERIFIED;
+
+	/**
+	 * Measure and print the performance time for the RSA PSS sign verification operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_RSA_ID);
 
 END:
 	/** Zeroize local copy of all the parameters. */

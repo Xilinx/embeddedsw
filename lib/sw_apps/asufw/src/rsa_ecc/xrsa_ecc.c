@@ -46,6 +46,7 @@
 #include "xtrng.h"
 #include "xsha.h"
 #include "xsha_hw.h"
+#include "xasufw_perf.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes */
@@ -104,11 +105,6 @@ static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u
 
 /************************************ Variable Definitions ***************************************/
 
-#if XASUFW_ENABLE_PERF_MEASUREMENT
-static u64 StartTime; /**< Performance measurement start time. */
-static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
-#endif
-
 /*************************************************************************************************/
 /**
  * @brief	This function generates the public key using the provided private key for the
@@ -138,6 +134,12 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
 s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 			   u64 PubKeyAddr)
 {
+	/**
+	 * Capture the start time of the ECC public key generation operation using RSA core, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -250,6 +252,12 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		XFIH_CALL(XRsa_EccPwct, XFihEcc, Status, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
 			PubKeyAddr);
 	}
+
+	/**
+	 * Measure and print the performance time for the ECC public key generation operation
+	 * using RSA core, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END_CLR:
 	/** Zeroize local buffers. */
@@ -424,7 +432,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	 * Capture the start time of the ECC signature generation operation using RSA core, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -637,7 +645,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	 * Measure and print the performance time for the ECC signature generation operation
 	 * using RSA core, if performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END_CLR:
 	/** Zeroize local buffers. */
@@ -705,7 +713,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	 * Capture the start time of the ECC signature verification operation using RSA core, if
 	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START();
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -880,7 +888,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	 * Measure and print the performance time for the ECC signature verification operation
 	 * using RSA core, if performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(__func__);
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END_CLR:
 	/** Zeroize local buffers. */
@@ -1216,6 +1224,12 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
 s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 		u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr)
 {
+	/**
+	 * Capture the start time of the ECDH shared secret generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_ECC_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcdh;
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -1364,6 +1378,12 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	} else {
 		ReturnStatus = XASUFW_RSA_ECDH_SUCCESS;
 	}
+
+	/**
+	 * Measure and print the performance time for the ECDH shared secret generation operation,
+	 * if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECC_ID);
 
 END_CLR:
 

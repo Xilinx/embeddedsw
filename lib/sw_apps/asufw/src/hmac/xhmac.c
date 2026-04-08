@@ -32,6 +32,7 @@
 #include "xasufw_util.h"
 #include "xfih.h"
 #include "xasu_def.h"
+#include "xasufw_perf.h"
 
 #ifdef XASU_HMAC_ENABLE
 /************************************** Type Definitions *****************************************/
@@ -151,6 +152,12 @@ END:
 s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, u64 KeyAddr,
 	       u32 KeyLen, u8 ShaMode, u32 HashLen)
 {
+	/**
+	 * Capture the start time of the HMAC initialization operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_HMAC_ID);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -420,6 +427,12 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 	}
+
+	/**
+	 * Measure and print the performance time for the HMAC finalization operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_HMAC_ID);
 
 END:
 	if (InstancePtr != NULL) {

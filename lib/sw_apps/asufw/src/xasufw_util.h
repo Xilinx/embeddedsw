@@ -121,22 +121,6 @@ extern "C" {
 		goto Label; \
 	}
 
-#if XASUFW_ENABLE_PERF_MEASUREMENT
-#define XASUFW_MEASURE_PERF_START() \
-	StartTime = XAsufw_GetTimerValue()
-		/**< Capture the start time for performance measurement */
-#define XASUFW_MEASURE_PERF_STOP(func_name) \
-	XAsufw_MeasurePerfTime(StartTime, &PerfTime); \
-	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "%s execution time: %llu.%06llu us\n\r", func_name, \
-		(u64)PerfTime.TPerfUs, (u64)PerfTime.TPerfUsFrac)
-		/**< Measure and print execution time with the function name */
-#else
-#define XASUFW_MEASURE_PERF_START()
-		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
-#define XASUFW_MEASURE_PERF_STOP(func_name)
-		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
-#endif
-
 /**
  * This macro provides temporal redundancy against single instruction skipping glitches
  * by calling the specified void function twice.
