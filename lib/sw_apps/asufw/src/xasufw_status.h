@@ -577,7 +577,7 @@ enum {
 	XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when UDE key encryption is failed */
 	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
 	XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, /**< 0x18CU - Error when UDE private key generation fails */
-	RESERVED10, /**< 0x18DU - Reserved */
+	XASUFW_CRYPTO_DISABLED, /**< 0x18DU - Error when crypto is disabled via eFuse */
 	XASUFW_OCP_UDE_AES_COMPUTE_FAIL, /**< 0x18EU - Error when UDE AES compute operation fails */
 	XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when UDE challenge response operation fails */
 	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */

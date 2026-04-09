@@ -152,6 +152,16 @@ int main(void)
 	}
 
 	/**
+	 * Check if crypto is disabled via eFuse and report non-fatal error to PLM if disabled
+	 * and exit ASUFW execution.
+	 */
+	if (((Xil_In32(EFUSE_CACHE_IP_DISABLE_0_ADDR) & EFUSE_CACHE_IP_DISABLE_0_PS_CRYPTO_DIS_MASK))
+				== EFUSE_CACHE_IP_DISABLE_0_PS_CRYPTO_DIS_MASK) {
+		XAsufw_Printf(DEBUG_GENERAL, "Crypto is disabled via eFuse.\r\n");
+		XAsufw_SendErrorToPlm(XASUFW_NON_FATAL_ERROR, (s32)XASUFW_CRYPTO_DISABLED);
+		goto END;
+	}
+	/**
 	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register and RTCA address reserved for FW_IS_PRSNT.
 	 * Clients need to check the bit in RTCA area before sending any requests to ASUFW.
 	 */
