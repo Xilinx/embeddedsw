@@ -70,7 +70,8 @@ static int XSecure_HssShakeVerifyExample(void);
  */
 static XSecure_Sha SecureSha __attribute__ ((aligned (64)))
 			__attribute__ ((section (".data.SecureSha")));
-static XPmcDma PmcDma __attribute__ ((section (".data.PmcDma")));
+static XPmcDma PmcDma __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.PmcDma")));
 
 /************************** Constant Definitions *****************************/
 
