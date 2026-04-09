@@ -1523,7 +1523,7 @@ extern "C" {
 #define PS_GPIO_INT_STAT_1_OFFSET    (0x00000258U)
 
 /**
- * GPIO PROC Configuration Register (RTCA offset 0x370)
+ * GPIO PROC Configuration Register (RTCA offset 0x374)
  *
  * Resides in the PLM Run-Time Configuration Area (RTCA).
  * RTCA base: 0xF2014000 (XPLMI_RTCFG_BASEADDR), offset: 0x370.
@@ -1539,7 +1539,7 @@ extern "C" {
  *   [12:7]  / [28:23] : MIO pin index
  *   [15:13] / [31:29] : CDO Proc ID to execute on reset event
  */
-#define RTCA_GPIO_PROC_CFG_REG		(0xF2014370U)
+#define RTCA_GPIO_PROC_CFG_REG		(0xF2014374U)
 /**
  * @brief Mask of SLR ID
  */
@@ -1596,6 +1596,45 @@ extern "C" {
  * @brief Number of configuration entries packed in the register
  */
 #define GPIO_CFG_ENTRIES		(2U)
+
+/**
+ * @brief Number of MIO pins per GPIO bank.
+ */
+#define GPIO_PINS_PER_BANK		(26U)
+
+/**
+ * @brief GPIO bank0 indices.
+ */
+#define GPIO_BANK_0			(0U)
+/**
+ * @brief GPIO bank1 indices.
+ */
+#define GPIO_BANK_1			(1U)
+/**
+ * @brief GPIO bank2 indices.
+ */
+#define GPIO_BANK_2			(2U)
+
+/**
+ * @brief Base node ID for LPD MIO pins (NODEINDEX = 0).
+ *
+ * RTCA uses 1-based MIO indexing, matching the 1-based NODEINDEX in the
+ * topology (PM_STMIC_LMIO_0 has NODEINDEX=1).  Adding RTCA MioIdx directly
+ * to this base yields the correct pin node ID without an extra -1 adjustment.
+*/
+#define PM_STMIC_LMIO_BASE		(PM_STMIC_LMIO_0 - 1U)
+
+/**
+ * @brief Base node ID for PMC MIO pins (NODEINDEX offset = 0).
+ */
+#define PM_STMIC_PMIO_BASE		(PM_STMIC_PMIO_0 - 1U)
+
+/**
+ * @brief Starting index offset for MIO in the RTCA configuration register.
+ *
+ * RTCA uses 1-based MIO indexing; subtract this value to convert to 0-based.
+ */
+#define GPIO_CFG_MIO_IDX_BASE		(1U)
 
 #ifdef __cplusplus
 }

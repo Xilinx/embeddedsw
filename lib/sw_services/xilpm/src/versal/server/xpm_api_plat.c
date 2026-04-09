@@ -300,6 +300,7 @@ int XPm_GpioProcHandler(void *Data)
 	u32 IntStat, DataRo, DevId;
 	u32 MioNum, BitPos, BitMask;
 	XPm_GpioProcCfg *Cfg;
+	u8 IsProcExecuted = FALSE;
 	XStatus Status;
 
 	(void)Data;
@@ -310,8 +311,27 @@ int XPm_GpioProcHandler(void *Data)
 		/* Resolve GPIO base address from pin node type */
 		if (NODETYPE(Cfg->PinId) == XPM_NODETYPE_LPD_MIO) {
 			DevId = PM_DEV_GPIO;
+			/*
+			 * PinId was built as PM_STMIC_LMIO_BASE + MioIdx during
+			 * registration, so NODEINDEX(PinId) equals MioIdx (1-based).
+			 * Subtract NODEINDEX(PM_STMIC_LMIO_0) (which is 1) to get
+			 * a 0-based MIO pin number for the GPIO register bit math.
+			 * e.g. LMIO_0 → NODEINDEX 1 − 1 = MioNum 0
+			 *      LMIO_5 → NODEINDEX 6 − 1 = MioNum 5
+			 */
+			 MioNum  = (NODEINDEX(Cfg->PinId) - NODEINDEX(PM_STMIC_LMIO_0));
 		} else if (NODETYPE(Cfg->PinId) == XPM_NODETYPE_PMC_MIO) {
 			DevId = PM_DEV_GPIO_PMC;
+						/*
+			 * PinId was built as PM_STMIC_PMIO_BASE + MioIdx during
+			 * registration, so NODEINDEX(PinId) equals MioIdx (1-based).
+			 * Same conversion for PMC MIO pins.
+			 * Subtract NODEINDEX(PM_STMIC_PMIO_0) (which is 27) to
+			 * get a 0-based MIO pin number within the PMC GPIO block.
+			 * e.g. PMIO_0 → NODEINDEX 27 − 27 = MioNum 0
+			 *      PMIO_5 → NODEINDEX 32 − 27 = MioNum 5
+			 */
+			 MioNum  = (NODEINDEX(Cfg->PinId) - NODEINDEX(PM_STMIC_PMIO_0));
 		} else {
 			continue;
 		}
@@ -322,23 +342,23 @@ int XPm_GpioProcHandler(void *Data)
 			goto done;
 		}
 
-		/* Derive bit position within the bank */
-		MioNum  = (NODEINDEX(Cfg->PinId) - 1U);
-		BitPos  = MioNum % 26U;
+		/* Bit position within the bank: each bank covers GPIO_PINS_PER_BANK pins */
+		BitPos  = MioNum % GPIO_PINS_PER_BANK;
+		/* Single-bit mask for this pin's position in the bank registers */
 		BitMask = (1U << BitPos);
 
 		/* Select bank register offsets */
-		if (Cfg->Bank == 0U) {
+		if (Cfg->Bank == GPIO_BANK_0) {
 			IntStatOff = PMC_GPIO_INT_STAT_0_OFFSET;
 			DataRoOff  = PMC_GPIO_DATA_0_RO_OFFSET;
 			IntEnOff   = PMC_GPIO_INT_EN_0_OFFSET;
 			IntAnyOff  = PMC_GPIO_INT_ANY_0_OFFSET;
-		} else if (Cfg->Bank == 1U) {
+		} else if (Cfg->Bank == GPIO_BANK_1) {
 			IntStatOff = PMC_GPIO_INT_STAT_1_OFFSET;
 			DataRoOff  = PMC_GPIO_DATA_1_RO_OFFSET;
 			IntEnOff   = PMC_GPIO_INT_EN_1_OFFSET;
 			IntAnyOff  = PMC_GPIO_INT_ANY_1_OFFSET;
-		} else if (Cfg->Bank == 2U) {
+		} else if (Cfg->Bank == GPIO_BANK_2) {
 			IntStatOff = PMC_GPIO_INT_STAT_2_OFFSET;
 			DataRoOff  = PMC_GPIO_DATA_2_RO_OFFSET;
 			IntEnOff   = PMC_GPIO_INT_EN_2_OFFSET;
@@ -347,6 +367,8 @@ int XPm_GpioProcHandler(void *Data)
 			PmErr("Invalid bank %u\r\n", Cfg->Bank);
 			goto done;
 		}
+
+		/* Read interrupt status and current pin level from the resolved bank */
 		IntStat = XPm_In32(GpioBaseAddr + IntStatOff);
 		DataRo  = XPm_In32(GpioBaseAddr + DataRoOff);
 
@@ -361,6 +383,7 @@ int XPm_GpioProcHandler(void *Data)
 					PmErr("Proc 0x%x "
 					      "failed\r\n", Cfg->ProcId);
 				}
+				IsProcExecuted = TRUE;
 			}
 			/* Write-to-clear this pin's interrupt */
 			XPm_Out32(GpioBaseAddr + IntStatOff, BitMask);
@@ -373,8 +396,18 @@ int XPm_GpioProcHandler(void *Data)
 		XPm_RMW32(GpioBaseAddr + IntAnyOff, BitMask, BitMask);
 	}
 
+	/*
+	 * If no CDO proc was executed for any registered pin, log an error.
+	 * This can happen if the interrupt fired but DATA_RO showed no
+	 * rising edge, or no registered pin matched the pending INT_STAT.
+	 */
+	if (!IsProcExecuted) {
+		PmErr("GPIO Interrupt is triggered but no proc executed\r\n");
+		Status = XST_FAILURE;
+	}
+
 done:
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -403,7 +436,7 @@ static int XPm_GpioRegisterPin(u32 CfgHalf)
 	u8 SlrId;
 	u32 GpioController, Bank, MioIdx, ProcId;
 	u32 GpioBaseAddr, IntEnOff, IntAnyOff, BitMask;
-	u32 Idx, DevId;
+	u32 Idx, DevId, MioNum;
 	u8 GicRegistered = (u8)FALSE;
 	XPm_GpioProcCfg *Cfg = NULL;
 
@@ -420,13 +453,14 @@ static int XPm_GpioRegisterPin(u32 CfgHalf)
 	MioIdx   = (CfgHalf & GPIO_CFG_MIO_MASK) >> GPIO_CFG_MIO_SHIFT;
 	ProcId   = (CfgHalf & GPIO_CFG_PROCID_MASK) >> GPIO_CFG_PROCID_SHIFT;
 
-	if (MioIdx >= XPM_NODEIDX_STMIC_MAX) {
+	/* MioIdx is 1-based in the RTCA config (0 is invalid) */
+	if ((MioIdx == 0U) || (MioIdx > XPM_NODEIDX_STMIC_MAX)) {
 		PmErr("Invalid MIO index %u\r\n", MioIdx);
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (Bank > 1U) {
+	if (Bank > GPIO_BANK_2) {
 		PmErr("Invalid bank %u\r\n", Bank);
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -439,12 +473,12 @@ static int XPm_GpioRegisterPin(u32 CfgHalf)
 	 */
 
 	if (GpioController == (u32)LPD_GPIO_CONTROLLER) {
-		PinId        = PM_STMIC_LMIO_0 + MioIdx;
+		PinId        = PM_STMIC_LMIO_BASE + MioIdx;
 		GicId        = (u32)XPLMI_PMC_GIC_IRQ_GICP0;
 		GicSrc       = (u32)XPLMI_GICP0_SRC13;
 		DevId = PM_DEV_GPIO;
 	} else if (GpioController == (u32)PMC_GPIO_CONTROLLER) {
-		PinId        = PM_STMIC_PMIO_0 + MioIdx;
+		PinId        = PM_STMIC_PMIO_BASE + MioIdx;
 		GicId        = (u32)XPLMI_PMC_GIC_IRQ_GICP3;
 		GicSrc       = (u32)XPLMI_GICP3_SRC26;
 		DevId = PM_DEV_GPIO_PMC;
@@ -466,22 +500,19 @@ static int XPm_GpioRegisterPin(u32 CfgHalf)
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
-		if (GpioProcCfg[Idx].ProcId == ProcId) {
-			PmErr("Proc ID %u already registered\r\n", ProcId);
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
 	}
 
-	BitMask = (1U << (MioIdx % 26U));
+	/* Convert 1-based RTCA MioIdx to 0-based MIO pin number for bit math */
+	MioNum  = (MioIdx - GPIO_CFG_MIO_IDX_BASE);
+	BitMask = (1U << (MioNum % GPIO_PINS_PER_BANK));
 
-	if (Bank == 0U) {
+	if (Bank == GPIO_BANK_0) {
 		IntEnOff  = PMC_GPIO_INT_EN_0_OFFSET;
 		IntAnyOff = PMC_GPIO_INT_ANY_0_OFFSET;
-	} else if (Bank == 1U) {
+	} else if (Bank == GPIO_BANK_1) {
 		IntEnOff  = PMC_GPIO_INT_EN_1_OFFSET;
 		IntAnyOff = PMC_GPIO_INT_ANY_1_OFFSET;
-	} else if (Bank == 2U) {
+	} else if (Bank == GPIO_BANK_2) {
 		IntEnOff  = PMC_GPIO_INT_EN_2_OFFSET;
 		IntAnyOff = PMC_GPIO_INT_ANY_2_OFFSET;
 	} else {
@@ -563,13 +594,17 @@ done:
  *         Error code from XPm_GpioRegisterPin on first failure.
  *
  *****************************************************************************/
-int XPm_GpioProcHandlerInit(u32 CfgRegAddr)
+int XPm_GpioProcHandlerInit(void)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	u32 CfgVal, HalfCfg, Idx;
 
 	/* Read the RTCA configuration register to get the GPIO configurations */
-	CfgVal = XPm_In32(CfgRegAddr);
+	CfgVal = XPm_In32(RTCA_GPIO_PROC_CFG_REG);
+	if (0U == CfgVal) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Process each half of the configuration register */
 	for (Idx = 0U; Idx < 2U; Idx++) {
@@ -587,6 +622,7 @@ int XPm_GpioProcHandlerInit(u32 CfgRegAddr)
 	}
 
 done:
+	XPm_Out32(RTCA_GPIO_PROC_CFG_REG, 0U);
 	return Status;
 }
 #endif /* ENABLE_GPIO_PROC_HANDLER */
@@ -988,12 +1024,9 @@ XStatus XPm_HookAfterBootPdi(void)
 
 #ifdef ENABLE_GPIO_PROC_HANDLER
 	/* register gpio interrupt handler when MIO pin is selected */
-	if (0U != XPm_In32(RTCA_GPIO_PROC_CFG_REG)) {
-		Status = XPm_GpioProcHandlerInit(RTCA_GPIO_PROC_CFG_REG);
-		if (XST_SUCCESS != Status) {
-			PmErr("Failed to initialize GPIO handler, Status: 0x%x\r\n", Status);
-		}
-		XPm_Out32(RTCA_GPIO_PROC_CFG_REG, 0U); /* Clear config to prevent unintended triggers */
+	Status = XPm_GpioProcHandlerInit();
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to initialize GPIO handler, Status: 0x%x\r\n", Status);
 	}
 #endif /* ENABLE_GPIO_PROC_HANDLER */
 
