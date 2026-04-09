@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2020 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 * 9.0   sa       07/20/20 Initial version
 * 9.0   sa       07/20/23 Added CSR definitions for  Hardware Performance
 *                         Counters and Physical Memory Protection.
+* 9.0   ss       04/03/26 Added user custom CSR to access AXI STREAM (FSL)
+*                         from user mode.
 * </pre>
 *
 ******************************************************************************/
@@ -429,8 +431,10 @@ extern "C" {
 #define XREG_MHPMEVENT30			mhpmevent30   /* 0x33E      */
 #define XREG_MHPMEVENT31			mhpmevent31   /* 0x33F      */
 
+/* Custom CSR Defines */
 #define XREG_MSTREAM                            mstream     /* 0x7C0      */
 #define XREG_MWFI                               mwfi        /* 0x7C4      */
+#define XREG_STREAM                             stream      /* 0x8C0      */
 
 /* MSTATUS bits */
 #define XREG_MSTATUS_MSS_MASK                   (0x00001800U)
