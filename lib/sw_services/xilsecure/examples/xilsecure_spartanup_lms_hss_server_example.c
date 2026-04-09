@@ -58,9 +58,9 @@ static int XSecure_HssShakeVerifyExample(void);
 
 /************************** Macro Definitions *****************************/
 
-#define LMS_HSS_EXAMPLE_DATA_SIZE		(56U)
-#define LMS_HSS_EXAMPLE_HSS_SIG_SIZE	(4464U)
-#define LMS_HSS_EXAMPLE_LMS_SIG_SIZE	(4460U)
+#define XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE	(56U)
+#define XSECURE_LMS_HSS_EXAMPLE_HSS_SIG_SIZE	(4464U)
+#define XSECURE_LMS_HSS_EXAMPLE_LMS_SIG_SIZE	(4460U)
 
 /************************** Variable Definitions *****************************/
 
@@ -74,8 +74,8 @@ static XPmcDma PmcDma __attribute__ ((section (".data.PmcDma")));
 
 /************************** Constant Definitions *****************************/
 
-static const u8 Shake_256LmsData[LMS_HSS_EXAMPLE_DATA_SIZE] __attribute__ ((aligned (64)))
-			__attribute__ ((section (".data.Shake_256LmsData"))) = {
+static const u8 LmsShake256Data[XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE] __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.LmsShake256Data"))) = {
 	0xD3, 0x7D, 0x15, 0x14, 0xD0, 0x4D, 0xE1, 0x94, 0x44, 0xCD, 0xCA, 0x3F, 0x4C, 0x45, 0x86, 0x53, 0x4B,
 	0xF9, 0x51, 0x9A, 0x2C, 0xC1, 0x26, 0x30, 0x1F, 0x8C, 0x68, 0x2B, 0x90, 0xD8, 0x09, 0x57, 0xA6, 0x60,
 	0xFE, 0xE6, 0x97, 0xBE, 0x94, 0x16, 0x46, 0x81, 0xC3, 0x12, 0x5C, 0xBB, 0x00, 0x96, 0x29, 0x7A, 0xAC,
@@ -91,8 +91,8 @@ static const u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE] __attribute__ 
 	0x60, 0x28, 0x05, 0x40, 0x6B, 0x22, 0xF4, 0x17, 0x5B, 0x21, 0x39, 0xF3, 0xD8, 0x16, 0x46, 0x3E
 };
 
-static const u8 Shake_256HssData[LMS_HSS_EXAMPLE_DATA_SIZE] __attribute__ ((aligned (64)))
-			__attribute__ ((section (".data.Shake_256HssData"))) = {
+static const u8 HssShake256Data[XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE] __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.HssShake256Data"))) = {
 	0xD3, 0x7D, 0x15, 0x14, 0xD0, 0x4D, 0xE1, 0x94, 0x44, 0xCD, 0xCA, 0x3F, 0x4C, 0x45, 0x86, 0x53, 0x4B,
 	0xF9, 0x51, 0x9A, 0x2C, 0xC1, 0x26, 0x30, 0x1F, 0x8C, 0x68, 0x2B, 0x90, 0xD8, 0x09, 0x57, 0xA6, 0x60,
 	0xFE, 0xE6, 0x97, 0xBE, 0x94, 0x16, 0x46, 0x81, 0xC3, 0x12, 0x5C, 0xBB, 0x00, 0x96, 0x29, 0x7A, 0xAC,
@@ -109,8 +109,8 @@ static const u8 HssShake256PubKey[XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE] __attribute
 	0xAE, 0xE3, 0x6C, 0xCE, 0x7C, 0xA3, 0xEF, 0x18, 0x27, 0x7F, 0xE6, 0x5D, 0xBF, 0xAC, 0x84, 0x46
 };
 
-static const u8 HssSignature[LMS_HSS_EXAMPLE_HSS_SIG_SIZE] __attribute__ ((aligned (64)))
-			__attribute__ ((section (".data.HssSignature"))) = {
+static const u8 HssShake256Signature[XSECURE_LMS_HSS_EXAMPLE_HSS_SIG_SIZE] __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.HssShake256Signature"))) = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x61, 0xBB, 0x73, 0xAA, 0x86,
 	0x74, 0x7E, 0xBD, 0x18, 0x97, 0x17, 0xE7, 0xB0, 0xE8, 0x71, 0xF0, 0xAE, 0x28, 0xF4, 0x93, 0x4F, 0xA4,
 	0x96, 0xF0, 0xD3, 0xBF, 0x24, 0x2C, 0x73, 0x91, 0x45, 0x75, 0xD8, 0x8C, 0x75, 0x91, 0xF1, 0x28, 0x73,
@@ -376,8 +376,8 @@ static const u8 HssSignature[LMS_HSS_EXAMPLE_HSS_SIG_SIZE] __attribute__ ((align
 	0x00, 0xE1, 0x38, 0x5B, 0xD4, 0x9E, 0x38, 0x73, 0x47, 0x46
 };
 
-static const u8 LmsSignature[LMS_HSS_EXAMPLE_LMS_SIG_SIZE] __attribute__ ((aligned (64)))
-			__attribute__ ((section (".data.LmsSignature"))) = {
+static const u8 LmsShake256Signature[XSECURE_LMS_HSS_EXAMPLE_LMS_SIG_SIZE] __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.LmsShake256Signature"))) = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xA9, 0xC0, 0x0E, 0xDE, 0xF9,
 	0x2C, 0x0D, 0x41, 0x7A, 0x71, 0x8F, 0x32, 0x5A, 0xD9, 0x0E, 0x54, 0xB9, 0xF7,
 	0x3A, 0xC5, 0x1E, 0x03, 0xF7, 0x28, 0xA9, 0x2D, 0x2B, 0xBA, 0xB2, 0xBD, 0xC0,
@@ -822,11 +822,11 @@ static int XSecure_LmsShakeVerifyExample(void)
 		goto END;
 	}
 
-	LmsParams.Data = (u8 *)Shake_256LmsData;
-	LmsParams.DataLen = LMS_HSS_EXAMPLE_DATA_SIZE;
+	LmsParams.Data = (u8 *)LmsShake256Data;
+	LmsParams.DataLen = XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE;
 	LmsParams.PreHashedMsg = FALSE;
-	LmsParams.LmsSign = (u8 *)LmsSignature;
-	LmsParams.LmsSignLen = LMS_HSS_EXAMPLE_LMS_SIG_SIZE;
+	LmsParams.LmsSign = (u8 *)LmsShake256Signature;
+	LmsParams.LmsSignLen = XSECURE_LMS_HSS_EXAMPLE_LMS_SIG_SIZE;
 	LmsParams.ExpectedPubKey = (u8 *)LmsShake256PubKey;
 	LmsParams.PubKeyLen = XSECURE_LMS_PUB_KEY_TOTAL_SIZE;
 
@@ -867,13 +867,13 @@ static int XSecure_HssShakeVerifyExample(void)
 		goto END;
 	}
 
-	HssParams.SignBuff = (u8 *)HssSignature;
-	HssParams.SignatureLen = LMS_HSS_EXAMPLE_HSS_SIG_SIZE;
+	HssParams.SignBuff = (u8 *)HssShake256Signature;
+	HssParams.SignatureLen = XSECURE_LMS_HSS_EXAMPLE_HSS_SIG_SIZE;
 	HssParams.PublicKey = (u8 *)HssShake256PubKey;
 	HssParams.PublicKeyLen = XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE;
 
 	Status = XSecure_HssSignatureVerification(&SecureSha, &PmcDma, &HssParams,
-				(u8 *)Shake_256HssData, LMS_HSS_EXAMPLE_DATA_SIZE);
+				(u8 *)HssShake256Data, XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("HSS signature verification failed, Status = 0x%x\n\r", Status);
 		goto END;
