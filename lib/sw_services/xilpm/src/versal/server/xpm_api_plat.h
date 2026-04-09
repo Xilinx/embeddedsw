@@ -88,7 +88,7 @@ typedef struct {
 	u32 GicSrc;	/**< GIC source bit for re-enable */
 } XPm_GpioProcCfg;
 
-int XPm_GpioProcHandlerInit(u32 CfgRegAddr);
+int XPm_GpioProcHandlerInit(void);
 int XPm_GpioProcHandler(void *Data);
 
 /**
