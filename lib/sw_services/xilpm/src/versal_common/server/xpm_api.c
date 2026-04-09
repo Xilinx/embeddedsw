@@ -1547,6 +1547,11 @@ XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 P
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
