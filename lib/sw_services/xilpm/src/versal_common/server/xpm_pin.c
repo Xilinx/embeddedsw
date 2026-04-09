@@ -616,7 +616,7 @@ XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp)
 	const XPm_PinNode *Pin;
 
 	/* Check for valid pin index */
-	if (PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) {
+	if (PinIndex >= ((u32)XPM_NODEIDX_STMIC_MAX - 1U)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
