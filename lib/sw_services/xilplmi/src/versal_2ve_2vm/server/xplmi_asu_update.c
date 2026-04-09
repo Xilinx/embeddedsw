@@ -34,7 +34,7 @@
 #include "xplmi_err_common.h"
 
 /************************************ Constant Definitions ****************************************/
-#define XPLMI_ASU_UPDATE_TASK_ID		(0x121U) /**< Task Id for ASU update */
+#define XPLMI_ASU_UPDATE_TASK_ID		(0x122U) /**< Task Id for ASU update */
 #define XPLMI_INVALID_UPDATE_ADDR		(0xFFFFFFFFU) /**< Invalid update address */
 #define XPLMI_ASU_MAX_RETRY_COUNT		(600U) /**< Max retry count: 600 * 100ms = 60 sec */
 #define XPLMI_US_TO_MS_DIV_FACTOR		(1000U) /**< Microseconds to milliseconds conversion factor */
