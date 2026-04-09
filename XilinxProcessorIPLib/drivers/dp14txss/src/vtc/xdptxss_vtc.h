@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +46,18 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/**
+ * @brief Divides n by d and rounds to the nearest integer
+ *
+ * This macro performs integer division with rounding to the nearest integer.
+ * It adds half the divisor to the numerator before dividing to achieve
+ * round-to-nearest behavior.
+ *
+ * @param n Numerator
+ * @param d Divisor
+ * @return Result of n divided by d, rounded to nearest integer
+ */
+#define DIV_ROUND_CLOSEST(n, d) (((n) + ((d) / 2U)) / (d))
 
 /************************** Function Prototypes ******************************/
 
