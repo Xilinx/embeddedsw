@@ -1352,6 +1352,10 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 		/* If power domain is the parent, scan through its rails */
 		if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(PwrDomain->Parents[i])) {
 			ParentDomain = (XPm_PowerDomain *)XPmPower_GetById(PwrDomain->Parents[i]);
+			if (NULL == ParentDomain) {
+				Status = XPM_INVALID_PWRDOMAIN;
+				goto done;
+			}
 			for (j = 0; ((j < MAX_POWERDOMAINS) && (0U != ParentDomain->Parents[j])); j++) {
 				if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(ParentDomain->Parents[j])) {
 					ParentRail = (XPm_Rail *)XPmPower_GetById(ParentDomain->Parents[j]);
