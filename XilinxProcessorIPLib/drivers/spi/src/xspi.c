@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +85,7 @@
 *                     Interrupt enabled.
 * 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
 * 4.14  sb   12/03/24 Fixed GCC warnings.
+* 4.16  zm   04/03/26 Added the Inhibit logic in XSpi_InterruptHandler.
 * </pre>
 *
 ******************************************************************************/
@@ -1116,6 +1117,7 @@ void XSpi_InterruptHandler(void *InstancePtr)
 	u8  DataWidth;
 	u32 DataLen;
 	u32 Index;
+	u32 ControlReg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -1211,17 +1213,20 @@ void XSpi_InterruptHandler(void *InstancePtr)
 		 */
 		if (SpiPtr->RemainingBytes > 0) {
 			/*
-			 * As master transaction inhibit is not set while filling
-			 * the DTR/FIFO in the interrupt handler, so as soon as
-			 * the data is written to the DTR/FIFO, it gets pushed
-			 * out on to the lines and the TX_FULL never gets set.
-			 * If we depend on TX_FULL flag for filling the DTR/FIFO
-			 * then it will lead to RXFIFO overrun error. For filling
-			 * DTR/FIFO check if TX_HALF_EMPTY is set then fill the
-			 * DTR/FIFO with (TXFIFO_DEPTH/2) length or remaining length
-			 * of data, whichever is less. If TX_HALF_EMPTY is not set
-			 * then fill the DTR/FIFO with TXFIFO_DEPTH length or
-			 * remaining length of data, whichever is less.
+			 * Save the current control register value and Set the master
+			 * transaction inhibit bit to pause SPI transfer while the
+			 * DTR/FIFO is being refilled.
+			 */
+			ControlReg = XSpi_GetControlReg(SpiPtr);
+			XSpi_SetControlReg(SpiPtr, ControlReg | XSP_CR_TRANS_INHIBIT_MASK);
+
+			/*
+			 * For filling DTR/FIFO check if TX_HALF_EMPTY is set then fill
+			 * the DTR/FIFO with (TXFIFO_DEPTH/2) length or remaining length
+			 * of data, whichever is less. If TX_HALF_EMPTY is not set then
+			 * fill the DTR/FIFO with TXFIFO_DEPTH length or remaining length
+			 * of data, whichever is less. This FIFO filling method is
+			 * more efficient than using the DTR Full flag.
 			 */
 			if ((IntrStatus & XSP_INTR_TX_HALF_EMPTY_MASK) &&
 			    (SpiPtr->RemainingBytes > (SpiPtr->FifosDepth / 2)) &&
@@ -1261,6 +1266,12 @@ void XSpi_InterruptHandler(void *InstancePtr)
 			}
 			SpiPtr->RemainingBytes -= DataLen;
 
+			/*
+			 * Restore the original control register value, which clears
+			 * the master transaction inhibit bit that was set earlier,
+			 * thereby resuming SPI transfers.
+			 */
+			XSpi_SetControlReg(SpiPtr, ControlReg);
 		} else {
 
 			/*
