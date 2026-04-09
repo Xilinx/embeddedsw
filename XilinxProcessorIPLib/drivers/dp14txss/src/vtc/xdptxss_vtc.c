@@ -42,7 +42,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /**************************** Type Definitions *******************************/
 
 
@@ -74,7 +73,8 @@
 u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 			u8 VtcAdjustBs)
 {
-	u32 UserPixelWidth;
+	    u32 UserPixelWidth;
+    u32 HScale;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -93,8 +93,8 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 	XVtc_DisableGenerator(InstancePtr);
 	XVtc_Disable(InstancePtr);
 
-	/* Set up source select */
-	memset((void *)&SourceSelect, 0, sizeof(SourceSelect));
+    /* Set up source select */
+    memset(&SourceSelect, 0, sizeof(SourceSelect));
 
 	/* 1 = Generator registers, 0 = Detector registers */
 	SourceSelect.VChromaSrc = 1;
@@ -112,47 +112,61 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 	/* Set source */
 	XVtc_SetSource(InstancePtr, &SourceSelect);
 
+    HScale = UserPixelWidth;
 	/* For YCbCr 4:2:0 color component format, consider
+
 	 * half of the actual Horizontal timing */
 	if (MsaConfig->ComponentFormat ==
 			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420)
-	{
-		VideoTiming.HActiveVideo =
-			MsaConfig->Vtm.Timing.HActive / (UserPixelWidth * 2);
-		VideoTiming.HFrontPorch =
-			MsaConfig->Vtm.Timing.HFrontPorch / (UserPixelWidth * 2);
-		VideoTiming.HSyncWidth =
-			MsaConfig->Vtm.Timing.HSyncWidth / (UserPixelWidth * 2);
-		VideoTiming.HBackPorch =
-			MsaConfig->Vtm.Timing.HBackPorch / (UserPixelWidth * 2);
-	}
-	else {
-	/* Horizontal timing */
-		VideoTiming.HActiveVideo =
-			MsaConfig->Vtm.Timing.HActive / UserPixelWidth;
-		VideoTiming.HFrontPorch =
-			MsaConfig->Vtm.Timing.HFrontPorch / UserPixelWidth;
-		VideoTiming.HSyncWidth =
-			MsaConfig->Vtm.Timing.HSyncWidth / UserPixelWidth;
-		VideoTiming.HBackPorch =
-			MsaConfig->Vtm.Timing.HBackPorch / UserPixelWidth;
-	}
+        HScale *= 2;
 
-	if (VtcAdjustBs) {
-		u16 HBlank;
-		u16 HReducedBlank;
+    /* Native horizontal timings */
+    u32 HActive = MsaConfig->Vtm.Timing.HActive;
+    u32 HFP     = MsaConfig->Vtm.Timing.HFrontPorch;
+    u32 HSW     = MsaConfig->Vtm.Timing.HSyncWidth;
+    u32 HBP     = MsaConfig->Vtm.Timing.HBackPorch;
+    u32 HTotal  = HActive + HFP + HSW + HBP;
+
+    /* Scale total ONCE */
+    HTotal = DIV_ROUND_CLOSEST(HTotal, HScale);
+
+    /* Re‑derive components proportionally */
+    VideoTiming.HActiveVideo =
+        DIV_ROUND_CLOSEST(HActive * HTotal,
+                          MsaConfig->Vtm.Timing.HTotal);
+
+    VideoTiming.HFrontPorch =
+        DIV_ROUND_CLOSEST(HFP * HTotal,
+                          MsaConfig->Vtm.Timing.HTotal);
+
+    VideoTiming.HSyncWidth =
+        DIV_ROUND_CLOSEST(HSW * HTotal,
+                          MsaConfig->Vtm.Timing.HTotal);
+
+    VideoTiming.HBackPorch =
+        HTotal -
+        VideoTiming.HActiveVideo -
+        VideoTiming.HFrontPorch -
+        VideoTiming.HSyncWidth;
+
+    /* Reduced blanking adjustment */
+    if (VtcAdjustBs) {
+        u16 HBlank;
+        u16 HReducedBlank;
 
 		/* Adjust bs timing */
-		HBlank = MsaConfig->Vtm.Timing.HBackPorch +
-			MsaConfig->Vtm.Timing.HFrontPorch +
-			MsaConfig->Vtm.Timing.HSyncWidth;
+        HBlank = VideoTiming.HBackPorch +
+                 VideoTiming.HFrontPorch +
+                 VideoTiming.HSyncWidth;
 		/* Reduced blanking starts at ceil(0.2 * HTotal). */
-		HReducedBlank = 2 * MsaConfig->Vtm.Timing.HTotal;
+        HReducedBlank = 2 * HTotal;
 		if (HReducedBlank % 10)
 			HReducedBlank += 10;
 		HReducedBlank /= 10;
 		/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
-		if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160))) {
+        if ((HBlank < HReducedBlank) &&
+            ((HBlank == 80) || (HBlank == 160))) {
+
 			u32 tmp = VideoTiming.HFrontPorch;
 			VideoTiming.HFrontPorch = 4;
 			VideoTiming.HBackPorch += (tmp - 4);
@@ -191,16 +205,11 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 	XVtc_SetGeneratorTiming(InstancePtr, &VideoTiming);
 
 	/* Set up Polarity of all outputs */
-	memset((void *)&Polarity, 0, sizeof(XVtc_Polarity));
+    memset(&Polarity, 0, sizeof(Polarity));
 	Polarity.ActiveChromaPol = 1;
 	Polarity.ActiveVideoPol = 1;
 
-	if (VideoTiming.Interlaced) {
-		Polarity.FieldIdPol = 1;
-	}
-	else {
-		Polarity.FieldIdPol = 0;
-	}
+    Polarity.FieldIdPol = VideoTiming.Interlaced ? 1 : 0;
 
 	Polarity.VBlankPol = VideoTiming.VSyncPolarity;
 	Polarity.VSyncPol = VideoTiming.VSyncPolarity;
