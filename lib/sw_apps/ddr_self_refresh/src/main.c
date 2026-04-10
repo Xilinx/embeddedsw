@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -250,7 +250,7 @@ int main(void)
 		} else if (nodestatus.status == DDR_STATE_RET) {
 			xil_printf("DDR is in self-refresh mode\n");
 		} else {
-			xil_printf("Unexpect state %d\n", nodestatus.status);
+			xil_printf("Unexpected state %d\n", nodestatus.status);
 		}
 	}
 
