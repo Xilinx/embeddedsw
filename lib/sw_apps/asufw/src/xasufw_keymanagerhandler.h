@@ -34,7 +34,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_keymanagerinfo.h"
 
+#ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -44,6 +46,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_KeyManagerInit(void);
 u32 XKeyManager_IsAsuVaultCreated(void);
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 #ifdef __cplusplus
 }

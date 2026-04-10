@@ -54,6 +54,7 @@
 #include "xasufw_hw.h"
 #include "xasufw_perf.h"
 
+#ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_VAULT_MAIN_HEADER_SIZE	(12U) /**< Size of the key vault table header */
 #define XKEYMANAGER_HEADER_SIZE			(16U) /**< Size of the each key vault header */
@@ -1246,8 +1247,8 @@ static s32 XKeyManager_UpdateAesKeyObjectFromVault(XAsu_AesKeyObject *KeyObject,
 	}
 	KeyObject->KeyAddress = (u64)(UINTPTR)KeyVaultKeyObjectPtr->Content;
 
-	KeyObject->KeySize = (((u32)KeyVaultKeyObjectPtr->Metadata.Length - XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET)
-				>> XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT);
+	KeyObject->KeySize = (((u32)KeyVaultKeyObjectPtr->Metadata.Length - XAES_KEY_SIZE_CONVERSION_OFFSET)
+				>> XAES_KEY_SIZE_CONVERSION_SHIFT);
 
 	Status = XASUFW_SUCCESS;
 
@@ -3302,4 +3303,5 @@ static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInsta
 END:
 	return Status;
 }
+#endif  /* XASU_KEYMANAGER_ENABLE */
 /** @} */

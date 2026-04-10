@@ -69,6 +69,7 @@
 #define XRSA_PUB_EXP_INVALID_THREE_VALUE	(3U)	/**< Indicates invalid public exponent
 														value of three */
 
+#ifdef XASU_KEYMANAGER_ENABLE
 #define XRSA_KEY_GEN_POLL_INTERVAL	(100U)	/**< Key pair generation scheduler task poll interval in ms */
 #define XRSA_KEY_GEN_TASK_PRIORITY	(15U)	/**< Key generation scheduler task priority (lowest) */
 
@@ -90,6 +91,7 @@ typedef enum {
 	XRSA_KEY_GEN_STEP_STATE,		/**< Incremental generation step */
 	XRSA_KEY_GEN_READY_STATE,		/**< Finalize and store in vault */
 } XRsa_KeyGenState;
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -97,14 +99,18 @@ typedef enum {
 static s32 XRsa_UpdateStatus(s32 Status);
 static s32 XRsa_ValidatePubExp(u8 *BuffAddr);
 static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len, u8 *ScratchBuf);
+#ifdef XASU_KEYMANAGER_ENABLE
 static s32 XRsa_GenerateKeyPairTask(void *Arg);
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
+#ifdef XASU_KEYMANAGER_ENABLE
 /** Buffer for key generation (separate from shared data block) */
 static u8 RsaKeyGenBuf[XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES];
 
 /** Public exponent buffer for background key generation (must be full-key-size). */
 static u32 RsaKeyGenPubExpBuf[XRSA_MAX_KEY_SIZE_IN_BYTES / sizeof(u32)];
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 /*************************************************************************************************/
 /**
@@ -1040,6 +1046,7 @@ END:
 	return Status;
 }
 
+#ifdef XASU_KEYMANAGER_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	Periodic task handler for scheduler-based RSA key pair generation. Implements a
@@ -1347,4 +1354,5 @@ s32 XRsa_AddKeyPairGenToScheduler(void)
 END:
 	return Status;
 }
+#endif /* XASU_KEYMANAGER_ENABLE */
 /** @} */

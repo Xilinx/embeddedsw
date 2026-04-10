@@ -40,6 +40,7 @@
 #include "xasufw_memory.h"
 #include "xasu_sharedmem.h"
 
+#ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
 
@@ -281,7 +282,7 @@ static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -326,7 +327,7 @@ static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -377,7 +378,7 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -424,7 +425,7 @@ static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -454,7 +455,7 @@ END:
  * 	- XASUFW_SUCCESS, if RSA key pair generation operation is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if RSA key pair generation operation fails.
- * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -475,7 +476,7 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -507,7 +508,7 @@ END:
  * 	- XASUFW_SUCCESS, if RSA key pair generation operation is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if RSA key pair generation operation fails.
- * 	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -526,7 +527,7 @@ static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -586,7 +587,7 @@ static s32 XAsufw_CreateAsuKeyVault(void)
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_KEYMANAGER_STORE_KEY_ERROR, if key storage operation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -606,7 +607,7 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -747,4 +748,5 @@ u32 XKeyManager_IsAsuVaultCreated(void)
 {
 	return AsuVaultCreatedFlag;
 }
+#endif  /* XASU_KEYMANAGER_ENABLE */
 /** @} */

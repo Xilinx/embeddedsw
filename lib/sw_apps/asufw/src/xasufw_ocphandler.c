@@ -255,7 +255,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevAk certificate is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
  *************************************************************************************************/
@@ -273,7 +273,7 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -306,7 +306,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevAk is attested successfully.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *
  *************************************************************************************************/
 static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -319,7 +319,7 @@ static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 

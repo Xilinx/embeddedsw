@@ -88,6 +88,9 @@ typedef struct {
 #define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 #define XAES_DPA_IV_LEN_IN_BYTES			(12U)	/**< DPA CM KAT IV length in bytes. */
 
+#define XAES_KEY_SIZE_CONVERSION_OFFSET		(16U) /**< Offset for AES key size enum to byte conversion */
+#define XAES_KEY_SIZE_CONVERSION_SHIFT		(3U)  /**< Shift for AES key size enum to byte conversion */
+
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/
