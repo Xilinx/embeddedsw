@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -46,6 +46,7 @@
 * </pre>
  */
 
+#ifndef SDT
 #ifdef __arm__
 
 #include "xparameters.h"
@@ -229,5 +230,6 @@ void cleanup_platform()
 	Xil_DCacheDisable();
 	return;
 }
+#endif
 #endif
 #endif
