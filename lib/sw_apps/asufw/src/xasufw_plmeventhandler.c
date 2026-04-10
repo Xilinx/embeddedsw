@@ -110,7 +110,7 @@ s32 XAsufw_PlmInit(void)
 	/** Register PLM event module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_PlmEvtModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PLM_MODULE_REGISTRATION_FAIL);
+		Status = XASUFW_PLM_MODULE_REGISTRATION_FAIL;
 		goto END;
 	}
 

@@ -168,7 +168,7 @@ s32 XAsufw_RsaInit(void)
 	/** Register RSA module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_RsaModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_RSA_MODULE_REGISTRATION_FAILED;
 	}
 
 	return Status;
@@ -265,7 +265,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -348,7 +348,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -430,7 +430,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -515,7 +515,7 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -611,7 +611,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -707,7 +707,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -805,7 +805,7 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 

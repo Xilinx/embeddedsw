@@ -117,7 +117,7 @@ s32 XAsufw_EciesInit(void)
 	/** Register ECIES module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_EciesModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_ECIES_MODULE_REGISTRATION_FAILED;
 	}
 
 	return Status;

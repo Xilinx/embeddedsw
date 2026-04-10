@@ -102,7 +102,7 @@ s32 XAsufw_Sha2Init(void)
 	/** Register SHA2 module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha2Context.Module);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_SHA2_MODULE_REGISTRATION_FAILED;
 		goto END;
 	}
 

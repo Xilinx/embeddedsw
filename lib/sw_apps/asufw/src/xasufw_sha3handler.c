@@ -103,7 +103,7 @@ s32 XAsufw_Sha3Init(void)
 	/** Register SHA3 module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha3Context.Module);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_SHA3_MODULE_REGISTRATION_FAILED;
 		goto END;
 	}
 

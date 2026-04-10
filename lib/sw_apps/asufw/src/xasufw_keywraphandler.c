@@ -118,7 +118,7 @@ s32 XAsufw_KeyWrapInit(void)
 	/** Register Key wrap unwrap module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_KeyWrapModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_KEYWRAP_MODULE_REGISTRATION_FAILED;
 	}
 
 	return Status;
@@ -214,7 +214,7 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -269,7 +269,7 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 

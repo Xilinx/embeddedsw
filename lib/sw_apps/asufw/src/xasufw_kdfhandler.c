@@ -101,7 +101,7 @@ s32 XAsufw_KdfInit(void)
 	/** Register KDF module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_KdfModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_KDF_MODULE_REGISTRATION_FAILED;
 	}
 
 	return Status;
@@ -186,7 +186,7 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 

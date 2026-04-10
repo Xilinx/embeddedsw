@@ -137,7 +137,7 @@ s32 XAsufw_EccInit(void)
 	/** Register ECC module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_EccModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_ECC_MODULE_REGISTRATION_FAILED;
 		goto END;
 	}
 
@@ -233,7 +233,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -316,7 +316,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -400,7 +400,7 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -474,7 +474,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
