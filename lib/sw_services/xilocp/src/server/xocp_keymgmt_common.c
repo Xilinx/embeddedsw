@@ -7,10 +7,8 @@
 /**
 *
 * @file xocp_keymgmt_common.c
-* @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
-* @{
 *
-* This file contains the XilOcp KeyMgmt APIs.
+* This file contains the XilOcp KeyMgmt Server APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,10 +17,14 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  03/11/26 Validate input parameters
+*       rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 *
 **************************************************************************************************/
-
+/**
+ * @addtogroup xilocp_keymgmt_server_apis XilOcp KeyMgmt Server APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -67,7 +69,7 @@ int XOcp_ValidateDiceCdi(void)
 	volatile u32 CdiParityTmp = 0U;
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
-	/** Upon DICE CDI SEED zeroize, if CDI valid bit is not cleared in Versal Net.
+	/** - Upon DICE CDI SEED zeroize, if CDI valid bit is not cleared in Versal Net.
 	 *  Check whether DICE CDI SEED is non zero or not.
 	 */
 	for (Index = 0U; Index < XOCP_CDI_SIZE_IN_WORDS; Index++) {
@@ -120,7 +122,7 @@ int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSe
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Hmac HmacInstance;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((Out == NULL) || (CdiAddr == 0U) || (CdiLen == 0U) || (DataAddr == 0U) ||
 		(DataLen == 0U)) {
 		Status = (int)XST_INVALID_PARAM;

@@ -8,11 +8,9 @@
 /**
 *
 * @file xocp_client.c
-* @addtogroup xocp_client_apis XilOcp Client APIs
-* @{
 *
 * This file contains the implementation of the client interface functions for
-* OCP hardware interface API's.
+* OCP hardware interface APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,6 +29,11 @@
 * @note
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xocp_mailbox_apis XilOcp Mailbox APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xocp_client.h"
@@ -65,7 +68,7 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr,
 	int Status = XST_FAILURE;
 
 	/**
-	 * Uses XMailbox instance to initiate the communication between
+	 * - Uses XMailbox instance to initiate the communication between
 	 * client and server.
 	 */
 	if (InstancePtr != NULL) {

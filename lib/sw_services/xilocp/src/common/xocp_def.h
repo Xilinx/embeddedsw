@@ -1,18 +1,16 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xocp_defs.h
-* @addtogroup xocp_api_ids XilOcp API IDs
-* @{
+* @file xocp_def.h
 *
 * @cond xocp_internal
-* This file contains the xilocp API IDs
+* This file contains the XilOcp API IDs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,12 +23,16 @@
 * 1.3   ng   01/28/24 Added SDT support
 * 1.4   har  06/11/24 Added XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK API ID
 * 	rmv  07/17/25 Added XOCP_API_OCP_SUBSYS_INPUT API ID
-*
+* 1.7   rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 * @note
 *
 * @endcond
 ******************************************************************************/
+/**
+ * @addtogroup xocp_definitions XilOcp Definitions
+ * @{
+ */
 
 #ifndef XOCP_DEF_H
 #define XOCP_DEF_H
@@ -89,6 +91,9 @@ extern "C" {
  * @name  XOcp API ids
  * @{
  */
+/**
+ * XilOcp API identifiers
+ */
 typedef enum {
 	XOCP_API_FEATURES = 0U,	/**< 0U */
 	XOCP_API_EXTEND_HWPCR,	/**< 1U */
@@ -116,3 +121,4 @@ typedef enum {
 #endif
 
 #endif  /* XOCP_DEF_H */
+/** @} */

@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -7,8 +7,9 @@
 /**
 *
 * @file xocp_sha.h
-* @addtogroup xil_ocpapis APIs
-* @{
+*
+* This file contains the wrapper functions for SHA2-384 used in OCP server implementation for
+* versal_2vp.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -17,7 +18,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.6   tvp  09/01/25 Initial release
 * 1.7   tvp  12/10/25 Use soft SHA2-384 instead of SHA3-384 for PCR Measurement.
-*
+*       rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 *
 ***************************************************************************************************/
@@ -93,7 +94,7 @@ static inline int XOcp_ShaFinish(u8 *ResHash)
 /**
  * @brief	This wrapper function calls SHA2-384 digest on the given input data.
  *
- * @param	Data		Starting address of the data on which sha2-384 hash should be
+ * @param	Data		Starting address of the data on which SHA2-384 hash should be
  * 				calculated.
  *
  * @param	Size		Size of the input data.

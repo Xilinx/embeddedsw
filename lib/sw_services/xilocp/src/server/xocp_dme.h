@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_dme.h
-* @addtogroup xilocp_dme_apis XilOcp DME APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -53,4 +51,3 @@ u32 XOcp_IsDmeChlAvail(void);
 #endif
 
 #endif  /* XOCP_DME_H */
-/** @} */

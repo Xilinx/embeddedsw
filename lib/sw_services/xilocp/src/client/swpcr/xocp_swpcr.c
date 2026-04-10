@@ -7,10 +7,8 @@
 /**
 *
 * @file xocp_swpcr.c
-* @addtogroup xocp_swpcr_client_apis XilOcp SwPcr Client APIs
-* @{
 *
-* This file contains the implementation of the client interface functions for Software PCR API's.
+* This file contains the implementation of the client interface functions for Software PCR APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +22,11 @@
 * @note
 *
 ***************************************************************************************************/
+
+/**
+ * @addtogroup xocp_swpcr_client_apis XilOcp SwPcr Client APIs
+ * @{
+ */
 
 /*************************************** Include Files ********************************************/
 #include "xocp_swpcr.h"
@@ -59,7 +62,7 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 ExtendParamsAddr;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (ExtendParams == NULL)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -78,7 +81,7 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 			goto END;
 		}
 	}
-	/** Fill IPI payload for XOCP_API_EXTEND_SWPCR command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_EXTEND_SWPCR command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_EXTEND_SWPCR, ExtendParamsAddr,
 				(ExtendParamsAddr >> XOCP_ADDR_HIGH_SHIFT));
 
@@ -113,7 +116,7 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 PcrBufAddr;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (PcrBuf == NULL) || (PcrMask == 0U) ||
 		(PcrMask > XOCP_GET_ALL_PCR_MASK) || (PcrBufSize == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
@@ -126,7 +129,7 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 
 	PcrBufAddr = (u64)(UINTPTR)PcrBuf;
 
-	/** Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server */
 	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GET_SWPCR, PcrMask, PcrBufAddr,
 				(PcrBufAddr >> XOCP_ADDR_HIGH_SHIFT),
 				PcrBufSize);
@@ -155,7 +158,7 @@ int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *Lo
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 LogBufAddr;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (LogParams == NULL)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -167,7 +170,7 @@ int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *Lo
 
 	LogBufAddr = (u64)(UINTPTR)LogParams;
 
-	/** Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRLOG, LogBufAddr,
 				(LogBufAddr >> XOCP_ADDR_HIGH_SHIFT));
 
@@ -196,7 +199,7 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 DataBufAddr;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (DataParams == NULL)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -208,7 +211,7 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 
 	DataBufAddr = (u64)(UINTPTR)DataParams;
 
-	/** Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRDATA, DataBufAddr,
 				(DataBufAddr >> XOCP_ADDR_HIGH_SHIFT));
 

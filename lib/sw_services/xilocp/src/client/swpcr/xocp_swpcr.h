@@ -7,9 +7,7 @@
 /**
 *
 * @file xocp_swpcr.h
-* @addtogroup xocp_swpcr_client_apis XilOcp SwPcr Client APIs
-* @{
-* @cond xocp_internal
+*
 * This file Contains the client function prototypes, defines and macros for the Software PCR
 * interface.
 *
@@ -24,7 +22,6 @@
 *
 * @note
 *
-* @endcond
 ***************************************************************************************************/
 
 #ifndef XOCP_SWPCR_H
@@ -59,4 +56,3 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 #endif
 
 #endif  /* XOCP_SWPCR_H */
-/** @} */

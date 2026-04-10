@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_asufw.c
-* @addtogroup xilocp_asufw_apis XilOcp ASUFW APIs
-* @{
 *
 * This file contains the implementation of the functionalities required for the ASUFW.
 *
@@ -23,7 +21,10 @@
 * </pre>
 *
 **************************************************************************************************/
-
+/**
+ * @addtogroup xilocp_asufw_server_apis XilOcp ASUFW Server APIs
+ * @{
+ */
 /************************************** Include Files ********************************************/
 #include "xplmi_config.h"
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
@@ -48,8 +49,8 @@
 								compatible version */
 
 /************************************ Type Definitions *******************************************/
-/*
- * Structure to store OCP subsystem's ID and its hash.
+/**
+ * OCP subsystem identifier and associated subsystem hash
  */
 typedef struct {
 	u32 SubsystemId;				/**< Subsystem ID */
@@ -127,12 +128,12 @@ int XOcp_StoreOcpSubsysIDs(u32 SubsystemIdListLen, const u32 *SubsystemIdList)
 	XOcp_SubsysInfo *OcpSubsysInfo = XOcp_GetOcpSubsysInfoDb();
 	u32 Idx;
 
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if ((SubsystemIdListLen > XOCP_TOTAL_OCP_SUBSYS) || (SubsystemIdList == NULL)) {
 		goto END;
 	}
 
-	/** Store subsystem IDs. */
+	/** - Store subsystem IDs. */
 	for (Idx = 0; Idx < SubsystemIdListLen; Idx++) {
 		OcpSubsysInfo[Idx].SubsystemId = SubsystemIdList[Idx];
 	}
@@ -161,12 +162,12 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 	u32 *OcpActiveSubsysMask = XOcp_OcpActiveSubsysMask();
 	u32 Idx;
 
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if (SubsystemId == XOCP_INVALID_SUBSYSTEM_ID) {
 		goto END;
 	}
 
-	/** Copy hash if OCP support is required for the subsystem, else ignore it. */
+	/** - Copy hash if OCP support is required for the subsystem, else ignore it. */
 	for (Idx = 0; Idx < XOCP_TOTAL_OCP_SUBSYS; Idx++) {
 		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
 			Status = XPlmi_MemCpy64((u64)(UINTPTR)OcpSubsysInfo[Idx].SubsystemHash,
@@ -181,7 +182,7 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 	}
 
 	if (Status == XST_SUCCESS) {
-		/** Process subsystem and notify ASUFW. */
+		/** - Process subsystem and notify ASUFW. */
 		Status = XOcp_GenerateCdiAndNotify(SubsystemId);
 	}
 
@@ -206,12 +207,12 @@ u8 XOcp_IsOcpSubsystem(u32 SubsystemId)
 	u32 Idx;
 	u8 IsOcpSubsystem = FALSE;
 
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if (SubsystemId == XOCP_INVALID_SUBSYSTEM_ID) {
 		goto END;
 	}
 
-	/** Check if given subsystem ID is in OCP subsystems list or not. */
+	/** - Check if given subsystem ID is in OCP subsystems list or not. */
 	for (Idx = 0U; Idx < XOCP_TOTAL_OCP_SUBSYS; Idx++) {
 		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
 			IsOcpSubsystem = TRUE;
@@ -258,7 +259,7 @@ static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr)
 	const XOcp_SubsysInfo *OcpSubsysInfo = XOcp_GetOcpSubsysInfoDb();
 	u32 Idx;
 
-	/** Get the address of subsystem digest using subsystem ID. */
+	/** - Get the address of subsystem digest using subsystem ID. */
 	for (Idx = 0; Idx < XOCP_TOTAL_OCP_SUBSYS; Idx++) {
 		if (OcpSubsysInfo[Idx].SubsystemId == SubsystemId) {
 			*SubsysHashAddrPtr = (u32)(UINTPTR)(OcpSubsysInfo[Idx].SubsystemHash);
@@ -288,19 +289,19 @@ int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr)
 	volatile int Status = XST_FAILURE;
 	u32 SubsystemHash = 0U;
 
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if (SubsysHashAddrPtr == 0U) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Get the address of the subsystem digest for the required subsystem. */
+	/** - Get the address of the subsystem digest for the required subsystem. */
 	Status = XOcp_GetSubsysDigestAddr(SubsystemId, &SubsystemHash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Copy subsystem digest to provided address. */
+	/** - Copy subsystem digest to provided address. */
 	Status = Xil_SMemCpy((void *)(UINTPTR)SubsysHashAddrPtr, XOCP_SHA3_LEN_IN_BYTES,
 			     (const void *)(UINTPTR)SubsystemHash,
 			     XOCP_SHA3_LEN_IN_BYTES,
@@ -319,7 +320,7 @@ END:
  *************************************************************************************************/
 void XOcp_GetOcpEventMask(u32 *EventMask)
 {
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if (EventMask == NULL) {
 		goto END;
 	}
@@ -349,7 +350,7 @@ static int XOcp_GenerateCdiAndNotify(u32 SubsystemId)
 	u8 ActionId = 0U;
 	const u32 *OcpActiveSubsysMask = XOcp_OcpActiveSubsysMask();
 
-	/** For ASU subsystem, generate ASU CDI seed and copy device DNA. */
+	/** - For ASU subsystem, generate ASU CDI seed and copy device DNA. */
 	if ((SubsystemId == XOCP_ASU_SUBSYSTEM_ID) || (SubsystemId == XOCP_PMC_SUBSYSTEM_ID)) {
 		if (((OcpEventMask & XOCP_PLM_ASUFW_EVENT_MASK) == XOCP_PLM_ASUFW_EVENT_MASK) ||
 		    (SubsystemId == XOCP_PMC_SUBSYSTEM_ID)) {
@@ -361,7 +362,7 @@ static int XOcp_GenerateCdiAndNotify(u32 SubsystemId)
 		OcpEventMask = *OcpActiveSubsysMask;
 	}
 
-	/** Send event notification if error action is CUSTOM. */
+	/** - Send event notification if error action is CUSTOM. */
 	Status = XPlmi_EmGetAction(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 				   XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE, &ActionId);
 	if (Status != XST_SUCCESS) {
@@ -394,10 +395,10 @@ static int XOcp_GenerateAsuCdiSeed(void)
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
 	u32 PlmCdiAddr = (u32)(UINTPTR)&Seed[0];
 
-	/** Mark ASU CDI as invalid. */
+	/** - Mark ASU CDI as invalid. */
 	IsAsuCdiValid = FALSE;
 
-	/** If CDI is not valid device key generation is skipped */
+	/** - If CDI is not valid device key generation is skipped */
 	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
 		XOcp_Printf(DEBUG_GENERAL, "Valid CDI not found, OCP key management functionalities"
 					   " will be affected\n\r");
@@ -405,13 +406,13 @@ static int XOcp_GenerateAsuCdiSeed(void)
 		goto END;
 	}
 
-	/** Read and validate whether, DICE CDI SEED is valid or not */
+	/** - Read and validate whether, DICE CDI SEED is valid or not */
 	Status = XOcp_ValidateDiceCdi();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Copy CDI from PMC global registers to Seed buffer */
+	/** - Copy CDI from PMC global registers to Seed buffer */
 	Status = Xil_SMemCpy((void *)(UINTPTR)Seed, XOCP_CDI_SIZE_IN_BYTES,
 			     (const void *)(UINTPTR)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
 			     XOCP_CDI_SIZE_IN_BYTES, XOCP_CDI_SIZE_IN_BYTES);
@@ -419,13 +420,13 @@ static int XOcp_GenerateAsuCdiSeed(void)
 		goto END;
 	}
 
-	/** Get the subsystem digest for the ASUFW. */
+	/** - Get the subsystem digest for the ASUFW. */
 	Status = XOcp_GetSubsysDigestAddr(XOCP_ASU_SUBSYSTEM_ID, &AsuHashAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Generate ASUFW CDI. */
+	/** - Generate ASUFW CDI. */
 	Status = XOcp_KeyGenDevAkSeed(PlmCdiAddr, XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)AsuHashAddr,
 				      XOCP_CDI_SIZE_IN_BYTES,
 				      (XSecure_HmacRes *)(UINTPTR)XOcpAsuCdi);
@@ -433,7 +434,7 @@ static int XOcp_GenerateAsuCdiSeed(void)
 		goto END;
 	}
 
-	/** Mark ASU CDI as valid. */
+	/** - Mark ASU CDI as valid. */
 	IsAsuCdiValid = TRUE;
 
 END:
@@ -455,7 +456,7 @@ int XOcp_GetAsuCdiSeed(u32 CdiAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if (CdiAddr == 0U) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;

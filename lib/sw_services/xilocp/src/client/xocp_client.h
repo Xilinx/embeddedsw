@@ -8,9 +8,7 @@
 /**
 *
 * @file xocp_client.h
-* @addtogroup xocp_client_apis XilOcp Client APIs
-* @{
-* @cond xocp_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the OCP hardware interface.
 *
@@ -28,7 +26,6 @@
 *
 * @note
 *
-* @endcond
 ******************************************************************************/
 
 #ifndef XOCP_CLIENT_H
@@ -69,4 +66,3 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr, XMailbox* const Mail
 #endif
 
 #endif  /* XOCP_CLIENT_H */
-/** @} */

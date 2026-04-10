@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_generic.h
-* @addtogroup xilocp_server_apis XilOcp Server APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,7 +19,6 @@
 *
 * @note
 *
-* @endcond
 ******************************************************************************/
 #ifndef XOCP_GENERIC_H
 #define XOCP_GENERIC_H
@@ -68,6 +65,9 @@ extern "C" {
  */
 
 /**************************** Type Definitions *******************************/
+/**
+ * Secure TAP (DAP) and boot mode configuration read from hardware
+ */
 typedef struct {
 	u32 DapCfg; /**< Dap configuration */
 	u32 InstMask0; /**< Inst mask 0 */
@@ -76,6 +76,9 @@ typedef struct {
 	u32 BootDevice; /**< Boot Device */
 } XOcp_SecureTapConfig;
 
+/**
+ * Digests for ROM, PLM, secure configuration, and TAP used in secure-state measurement
+ */
 typedef struct {
 	u8 RomHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Rom hash */
 	u8 PlmHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /**< Plm hash */
@@ -95,4 +98,3 @@ void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
 #endif
 #endif /* PLM_OCP */
 #endif  /* XOCP_GENERIC_H */
-/** @} */

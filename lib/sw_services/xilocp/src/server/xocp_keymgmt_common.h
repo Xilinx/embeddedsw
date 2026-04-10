@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_keymgmt_common.h
-* @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -16,7 +14,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
-*
+*       rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 *
 **************************************************************************************************/
@@ -52,4 +50,3 @@ int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSe
 #endif
 
 #endif  /* XOCP_KEYMGMT_COMMON_H */
-/** @} */

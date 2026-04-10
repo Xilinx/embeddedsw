@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_sha.h
-* @addtogroup xilocp_sha_apis XilOcp SHA APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,6 +19,7 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 #ifndef XOCP_SHA_H
 #define XOCP_SHA_H
 
@@ -42,7 +41,7 @@ extern "C" {
 
 /**************************************************************************************************/
 /**
- * @brief	This function wrapper function to starts the SHA2-384 engine.
+ * @brief	This is a wrapper function to start the SHA2-384 engine.
  *
  * @return
  * 		- XST_SUCCESS always.
@@ -57,7 +56,7 @@ static inline int XOcp_ShaStart(void)
 
 /**************************************************************************************************/
 /**
- * @brief	This function wrapper function call XSecure_Sha384Update to
+ * @brief	This is a wrapper function that calls XSecure_Sha384Update to
  * 		update the data in SHA2-384 engine.
  *
  * @param	InDataAddr	Address of the data which has to be updated to SHA engine.
@@ -78,7 +77,7 @@ static inline int XOcp_ShaUpdate(u8 *InDataAddr, u32 Size)
 
 /**************************************************************************************************/
 /**
- * @brief	This function wrapper function reads the final SHA2-384 hash on complete data.
+ * @brief	This is a wrapper function that reads the final SHA2-384 hash on complete data.
  *
  * @param	ResHash	Pointer to storage for output SHA2-384 Hash.
  *
@@ -98,7 +97,7 @@ static inline int XOcp_ShaFinish(u8 *ResHash)
 /**
  * @brief	This wrapper function calls SHA2-384 digest on the given input data.
  *
- * @param	Data		Starting address of the data on which sha2-384 hash should be
+ * @param	Data		Starting address of the data on which SHA2-384 hash should be
  * 				calculated.
  *
  * @param	Size		Size of the input data.
@@ -124,4 +123,3 @@ static inline int XOcp_ShaDigest(u8* Data, u32 Size, u8* Hash)
 }
 #endif
 #endif /* XOCP_SHA_H */
-/** @} */

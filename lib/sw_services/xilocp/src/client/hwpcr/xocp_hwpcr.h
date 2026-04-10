@@ -7,9 +7,7 @@
 /**
 *
 * @file xocp_hwpcr.h
-* @addtogroup xocp_hwpcr_client_apis XilOcp HwPcr Client APIs
-* @{
-* @cond xocp_internal
+*
 * This file Contains the client function prototypes, defines and macros for the Hardware PCR
 * interface.
 *
@@ -24,7 +22,6 @@
 *
 * @note
 *
-* @endcond
 ***************************************************************************************************/
 
 #ifndef XOCP_HWPCR_H
@@ -59,4 +56,3 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
 #endif
 
 #endif  /* XOCP_HWPCR_H */
-/** @} */

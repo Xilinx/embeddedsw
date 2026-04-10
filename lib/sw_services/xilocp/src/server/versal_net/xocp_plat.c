@@ -48,7 +48,7 @@
  * @brief      This function provides OCP related register space.
  *
  * @return
- * 		- XOcp_RegSpace pointer to register space.
+ * 	- XOcp_RegSpace pointer to register space.
  *
  **************************************************************************************************/
 XOcp_RegSpace* XOcp_GetRegSpace(void)
@@ -67,6 +67,13 @@ XOcp_RegSpace* XOcp_GetRegSpace(void)
 	return &RegSpace;
 }
 
+/**************************************************************************************************/
+/**
+ * @brief	This function reads secure eFuse configuration.
+ *
+ * @param	EfuseConfig Pointer to XOcp_SecureConfig.
+ *
+ **************************************************************************************************/
 void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
 {
 	EfuseConfig->BootmodeDis = XPlmi_In32(XOCP_PMC_LOCAL_BOOT_MODE_DIS) &

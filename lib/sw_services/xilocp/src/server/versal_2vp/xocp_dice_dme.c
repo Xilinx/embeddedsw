@@ -26,6 +26,11 @@
 *
 ***************************************************************************************************/
 
+/**
+ * @addtogroup xilocp_plat_apis XilOcp Platform APIs
+ * @{
+ */
+
 /*************************************** Include Files ********************************************/
 
 #include "xplmi_config.h"
@@ -72,7 +77,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr);
 /************************************ Variable Definitions ****************************************/
 /**< Secure state hash */
 static XOcp_SecureStateHash SecureStateHash;
-/**< Secure efuse configuration */
+/**< Secure eFuse configuration */
 static XOcp_SecureConfig SecureConfig;
 /**< Secure tap configuration */
 static XOcp_SecureTapConfig SecureTapConfig;
@@ -97,12 +102,12 @@ static void XOcp_GetIvData(u8 *IvAddr)
 	volatile u32 eFUSEEncStatusTmp = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_0) &
 						  XOCP_DEC_ONLY_MEASURED_MASK;
 	if ((eFUSEEncStatus != 0U) || (eFUSEEncStatusTmp != 0U)) {
-		/* Copy the Black Key IV from eFUSE */
+		/** - Copy the Black Key IV from eFuse */
 		Xil_SMemCpy((void *)(UINTPTR)IvAddr, XOCP_SECURE_IV_LEN_IN_BYTES,
 			    (void *)(UINTPTR)XOCP_EFUSE_CACHE_BLACK_IV_0,
 			    XOCP_SECURE_IV_LEN_IN_BYTES, XOCP_SECURE_IV_LEN_IN_BYTES);
 	} else {
-		/* Copy the Black Key IV from BH */
+		/** - Copy the Black Key IV from BH */
 		Xil_SMemCpy((void *)(UINTPTR)IvAddr, XOCP_SECURE_IV_LEN_IN_BYTES, BootHdr->KekIv,
 			    XOCP_SECURE_IV_LEN_IN_BYTES, XOCP_SECURE_IV_LEN_IN_BYTES);
 	}
@@ -139,17 +144,17 @@ static int XOcp_PufRegeneration(void)
 			     PufData.Chash, PufData.Aux);
 	} else {
 		/**
-		 * Skip PUF regeneration, if CHASH in eFuse cache is zero.
+		 * - Skip PUF regeneration, if CHASH in eFuse cache is zero.
 		 */
 		if (Xil_In32(XOCP_PUF_CHASH_EFUSE_CACHE_ADDR) == 0U) {
 			Status = XST_SUCCESS;
 			goto END;
 		}
-		XPlmi_Printf(DEBUG_INFO, "PUF helper data is in efuse cache\n\r");
+		XPlmi_Printf(DEBUG_INFO, "PUF helper data is in eFuse cache\n\r");
 		PufData.ReadOption = XPUF_READ_FROM_EFUSE_CACHE;
 	}
 
-	/* If PUF is disabled then raise an error */
+	/** - If PUF is disabled then raise an error */
 	PufIpStatus = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL) & XPUF_PUF_DIS;
 	if (PufIpStatus == XPUF_PUF_DIS) {
 		Status = XPLM_ERR_PUF_DISABLED;
@@ -165,7 +170,7 @@ END:
 
 /**************************************************************************************************/
 /**
- * @brief	This function calculates the hash of secure efuse configuration.
+ * @brief	This function calculates the hash of secure eFuse configuration.
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -178,10 +183,10 @@ static int XOcp_DigestDiceSecCfgDigest(void)
 
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	/* Read secure efuse configuration */
+	/** - Read secure eFuse configuration */
 	XOcp_ReadSecureConfig(&SecureConfig);
 
-	/* Calculate secure efuse configuration hash */
+	/** - Calculate secure eFuse configuration hash */
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecureConfig,
 				sizeof(XOcp_SecureConfig),
 				(u64)(UINTPTR)(XSecure_Sha3Hash*)&SecureStateHash.SecureConfigHash,
@@ -205,10 +210,10 @@ static int XOcp_DigestTapConf(void)
 
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	/* Read secure tap configuration */
+	/** - Read secure tap configuration */
 	XOcp_ReadTapConfig(&SecureTapConfig);
 
-	/* Calculate secure tap configuration hash */
+	/** - Calculate secure tap configuration hash */
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecureTapConfig,
 				   sizeof(XOcp_SecureTapConfig),
 				   (u64)(UINTPTR)(XSecure_Sha3Hash*)&SecureStateHash.TapConfigHash,
@@ -230,7 +235,7 @@ static int XOcp_GetRomPlmHash(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Copy ROM hash */
+	/** - Copy ROM hash */
 	Status = Xil_SMemCpy(&SecureStateHash.RomHash, XOCP_PCR_HASH_SIZE_IN_BYTES,
 			     (u8*)(UINTPTR)XOCP_PMC_ROM_HASH_ADDR, XOCP_PCR_HASH_SIZE_IN_BYTES,
 			     XOCP_PCR_HASH_SIZE_IN_BYTES);
@@ -238,7 +243,7 @@ static int XOcp_GetRomPlmHash(void)
 		goto END;
 	}
 
-	/* Copy PLM hash */
+	/** - Copy PLM hash */
 	Status = Xil_SMemCpy(&SecureStateHash.PlmHash, XOCP_PCR_HASH_SIZE_IN_BYTES,
 			     (u8*)(UINTPTR)XOCP_PMC_PLM_HASH_ADDR, XOCP_PCR_HASH_SIZE_IN_BYTES,
 			     XOCP_PCR_HASH_SIZE_IN_BYTES);
@@ -323,7 +328,7 @@ static int XOcp_GenerateCdi(void)
 	CryptoKATTmp = Xil_In32(EFUSE_CACHE_MISC_CTRL) &
 				XOCP_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK;
 
-	/* KAT for HMAC */
+	/** - KAT for HMAC */
 	if ((CryptoKAT != 0U) || (CryptoKATTmp != 0U)) {
 		Status = XSecure_HmacKat(Sha3InstPtr);
 		if (Status != XST_SUCCESS) {
@@ -332,8 +337,8 @@ static int XOcp_GenerateCdi(void)
 		}
 	}
 
-	/*
-	 * Calculate hash of (ROM hash || PLM CDO hash || Efuse secure configurations hash ||
+	/**
+	 * - Calculate hash of (ROM hash || PLM CDO hash || eFuse secure configurations hash ||
 	 * tapConfig hash)
 	 */
 	Status = XOcp_DigestHashCom(&HashAll);
@@ -342,10 +347,10 @@ static int XOcp_GenerateCdi(void)
 		goto RET;
 	}
 
-	/* Get KekIv to decrypt UDS */
+	/** - Get KekIv to decrypt UDS */
 	XOcp_GetIvData((u8 *)&Iv[0]);
 
-	/* Increment Iv */
+	/** - Increment Iv */
 	Xil_IncrementBuffer(Iv, XOCP_SECURE_IV_LEN_IN_BYTES, XOCP_UDS_IV_INC);
 
 	Status = XSecure_AesKeyZero(AesInstance, XSECURE_AES_PUF_KEY);
@@ -360,7 +365,7 @@ static int XOcp_GenerateCdi(void)
 		goto RET;
 	}
 
-	/* Encrypt all zero data with the key */
+	/** - Encrypt all zero data with the key */
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_PUF_KEY, XSECURE_AES_KEY_SIZE_256,
 					(u64)(UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
@@ -375,14 +380,14 @@ static int XOcp_GenerateCdi(void)
 		goto RET;
 	}
 
-	/* Decrypt the encrypted UDS */
+	/** - Decrypt the encrypted UDS */
 	for (Index = 0; Index < XOCP_AES_OCP_DATA_LEN_IN_WORDS; Index++) {
 		Xil_Out32(((u32)(UINTPTR)DecUds + (u32)(Index * XOCP_WORD_SIZE)),
 				(EncryptedZeros[Index] ^ Xil_In32((u32)XOCP_UDS_EFUSE_CACHE_ADDR +
 								  (u32)(Index * XOCP_WORD_SIZE))));
 	}
 
-	/* Generate KDF with UDS as key and Hash as context */
+	/** - Generate KDF with UDS as key and Hash as context */
 	KdfInput.Context = (u8 *)&HashAll;
 	KdfInput.ContextLen = XSECURE_SHA3_HASH_LENGTH_IN_WORDS;
 	KdfInput.Key = (u8 *)&DecUds;
@@ -393,13 +398,13 @@ static int XOcp_GenerateCdi(void)
 		goto RET;
 	}
 
-	/* Copy CDI to XOcp_RegSpace */
+	/** - Copy CDI to XOcp_RegSpace */
 	Status = Xil_SMemCpy((void *)XOcp_Reg->DiceCdiSeedAddr, XOCP_ECC_P384_SIZE_BYTES, KdfOut,
 			     XOCP_CDI_SIZE_IN_BYTES, XOCP_CDI_SIZE_IN_BYTES);
 	XPlmi_Out32(XOcp_Reg->DiceCdiSeedValidAddr, XOCP_CDI_SEED_VALID);
 
 RET:
-	/** Zeroize all local buffers */
+	/** - Zeroize all local buffers */
 	ClrStatus = Xil_SecureZeroize((u8 *)KdfOut, XOCP_CDI_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
@@ -445,29 +450,29 @@ int XOcp_GenerateDiceCdi(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Get plm and rom hash */
+	/** - Get plm and rom hash */
 	Status = XOcp_GetRomPlmHash();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Secure efuse measurement */
+	/** - Secure eFuse measurement */
 	Status = XOcp_DigestDiceSecCfgDigest();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Secure tap measurement */
+	/** - Secure tap measurement */
 	Status = XOcp_DigestTapConf();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Generate CDI and store in XOcp_RegSpace */
+	/** - Generate CDI and store in XOcp_RegSpace */
 	Status = XOcp_GenerateCdi();
 
 END:
-	/** Even if DICE CDI generation gets failed, PLM should boot successfully */
+	/** - Even if DICE CDI generation fails, PLM should boot successfully */
 	Status = XST_SUCCESS;
 
 	return Status;
@@ -578,7 +583,6 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 	XSecure_Aes *AesInstance = XSecure_GetAesInstance();
 	int Status = XST_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	u32 InitVector[XOCP_SECURE_IV_LEN_IN_WORDS] = {0};
 	u32 EncDmePrivKey = 0U;
 	u8 AesBuffer[XOCP_AES_OCP_DATA_LEN_IN_BYTES] = {0};
 	u32 EncryptedZeros[XOCP_AES_OCP_DATA_LEN_IN_WORDS] = {0};
@@ -590,11 +594,11 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 		goto END;
 	}
 
-	/* Get KekIv to decrypt DME private key */
+	/** - Get KekIv to decrypt DME private key */
 	XOcp_GetIvData((u8 *)&InitVector[0]);
 
-	/* Increment InitVector */
-	Xil_IncrementBuffer((u8 *)InitVector, XOCP_SECURE_IV_LEN_IN_BYTES, (u8)XOCP_DME_IV_INC);
+	/** - Increment Iv */
+	Xil_IncrementBuffer((u8 *)(UINTPTR)InitVector, XOCP_SECURE_IV_LEN_IN_BYTES, XOCP_DME_IV_INC);
 
 	Status = XSecure_AesKeyZero(AesInstance, XSECURE_AES_PUF_KEY);
 	if (Status != XST_SUCCESS) {
@@ -602,14 +606,14 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 		goto END;
 	}
 
-	/* Regenerating the PUF */
+	/** - Regenerating the PUF */
 	Status = XOcp_PufRegeneration();
 	if (Status != XST_SUCCESS) {
 		Status = Status | XOCP_ERR_PUF_REGENERATION;
 		goto END;
 	}
 
-	/* Encrypt all zero data with the key */
+	/** - Encrypt all zero data with the key */
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_PUF_KEY, XSECURE_AES_KEY_SIZE_256,
 					(u64)(UINTPTR)InitVector);
 	if (Status != XST_SUCCESS) {
@@ -620,7 +624,7 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 					(u64)(UINTPTR)EncryptedZeros, XOCP_AES_OCP_DATA_LEN_IN_BYTES,
 					(u64)(UINTPTR)GcmTag);
 
-	/* Decrypt DME private key */
+	/** - Decrypt DME private key */
 	for (Index = 0; Index < XOCP_AES_OCP_DATA_LEN_IN_WORDS; Index++) {
 		Xil_Out32((DecDmeKeyAddr + (u32)(Index * XOCP_WORD_SIZE)),
 				(EncryptedZeros[Index] ^ Xil_In32(EncDmePrivKey +
@@ -628,7 +632,7 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 	}
 
 END:
-	/** Zeroize all local buffers */
+	/** - Zeroize all local buffers */
 	ClrStatus = Xil_SecureZeroize((u8 *)InitVector, XOCP_SECURE_IV_LEN_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
@@ -682,42 +686,42 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
 	u8 EphimeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
 
-	/* Start the TRNG */
+	/** - Start the TRNG */
 	Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_HRNG_MODE, NULL, 0, NULL);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XLOADER_TRNG_INIT_FAIL;
 		goto END;
 	}
 
-	/* Calculate the hash on DME challenge structure */
+	/** - Calculate the hash on DME challenge structure */
 	Status = XOcp_DmeHashGen(DmePtr, Hash);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XOCP_ERR_DIGEST_CALC;
 		goto END;
 	}
 
-	/* Decrypt the DME private key with PUF key */
+	/** - Decrypt the DME private key with PUF key */
 	Status = XOcp_DmeDecryptPrivKey((u32)(UINTPTR)&DecDmePrivKey[0]);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XOCP_ERR_DME_DEC_PRIV_KEY;
 		goto END;
 	}
 
-	/* Reseed and wait */
+	/** - Reseed and wait */
 	Status = XSecure_TrngInitNCfgMode(XSECURE_TRNG_PTRNG_MODE, NULL, 0, NULL);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XLOADER_TRNG_INIT_FAIL;
 		goto END;
 	}
 
-	/* Generate the DME public key */
+	/** - Generate the DME public key */
 	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P384, DecDmePrivKey, &DmePubKeyXY);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XOCP_ERR_GEN_DME_PUB_KEY;
 		goto END;
 	}
 
-	/* Pair Wise Consistency Test check */
+	/** - Pair Wise Consistency Test check */
 	Status = XSecure_EllipticPwct(XSECURE_ECC_NIST_P384, (u64)(UINTPTR)DecDmePrivKey,
 				      &DmePubKeyXYAddr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -726,7 +730,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 		goto END;
 	}
 
-	/* Generate the ephemeral key using TRNG */
+	/** - Generate the ephemeral key using TRNG */
 	Status = XSecure_EllipticGenerateEphemeralKey(XSECURE_ECC_NIST_P384,
 						      (u32)(UINTPTR)EphimeralKey);
 	if (Status != (u32)XST_SUCCESS) {
@@ -735,12 +739,12 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 		goto END;
 	}
 
-	/* Generate the signature */
+	/** - Generate the signature */
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, Hash,
 			(u32)XSECURE_HASH_SIZE_IN_BYTES, DecDmePrivKey, EphimeralKey,
 			&DmeSignature);
 	if (Status != (u32)XST_SUCCESS) {
-		/* Clear the Ephimeral key if signature generation is failed */
+		/** - Clear the Ephimeral key if signature generation is failed */
 		Xil_SMemSet((void *)(UINTPTR)EphimeralKey, XSECURE_HASH_SIZE_IN_BYTES,
 			    0U, XSECURE_HASH_SIZE_IN_BYTES);
 		XPlmi_Printf(DEBUG_INFO,"ERROR: DME Signature generation failed!\r\n");
@@ -748,7 +752,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 		goto END;
 	}
 
-	/* Clear the Ephimeral key */
+	/** - Clear the Ephimeral key */
 	ClrStatus = Xil_SMemSet((void *)(UINTPTR)EphimeralKey, XSECURE_HASH_SIZE_IN_BYTES,
 			     0U, XSECURE_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
@@ -756,7 +760,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 		goto END;
 	}
 
-	/* Copy DME signature from local buffer to register */
+	/** - Copy DME signature from local buffer to register */
 	Status = Xil_SMemCpy((void *)(UINTPTR)XOcp_Reg->DmeSignRAddr, XSECURE_HASH_SIZE_IN_BYTES,
 			     (void *)(UINTPTR)DmeSignature.SignR, XSECURE_HASH_SIZE_IN_BYTES,
 			     XSECURE_HASH_SIZE_IN_BYTES);
@@ -772,7 +776,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 		goto END;
 	}
 
-	/* Verify the signature generated */
+	/** - Verify the signature generated */
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P384, Hash,
 			(u32)XSECURE_HASH_SIZE_IN_BYTES, &DmePubKeyXY, &DmeSignature);
 	if (Status != (u32)XST_SUCCESS) {
@@ -786,7 +790,7 @@ END:
 	TrngInstance = XSecure_GetTrngInstance();
 	Status = XSecure_Uninstantiate(TrngInstance);
 
-	/** Zeroize all local buffers */
+	/** - Zeroize all local buffers */
 	ClrStatus = Xil_SecureZeroize((u8 *)Qx, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
@@ -846,7 +850,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	XOcp_Dme *DmePtr = &DmeInput;
 	XSecure_TrngInstance *XSecureTrngInstance = NULL;
 
-	/* Zeorizing the DME structure */
+	/** - Zeroing the DME structure */
 	Status = Xil_SMemSet((void *)(UINTPTR)DmePtr, sizeof(XOcp_Dme), 0U, sizeof(XOcp_Dme));
 	if (Status != XST_SUCCESS) {
 		Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
@@ -854,7 +858,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
-	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
+	/** - Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus,
@@ -884,7 +888,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 #endif
 
-	/* Fill the DME structure with Nonce */
+	/** - Fill the DME structure with Nonce */
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)DmePtr->Nonce, NonceAddr, XOCP_DME_NONCE_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XOCP_ERR_DME_PARAM_COPY_FAILED;
@@ -897,7 +901,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 		goto RET;
 	}
 
-	/* Copy the contents to user DME response structure */
+	/** - Copy the contents to user DME response structure */
 	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureR,
 				XOCP_ECC_P384_SIZE_BYTES, (const u8 *)XOcp_Reg->DmeSignRAddr,
 				XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
@@ -935,9 +939,9 @@ RET:
 	}
 
 	/**
-	 * TRNG is used for DME service and resets the core after the usage
-	 * in this case TRNG state should be set to uninitialized state
-	 * so that it can be re-initialize during runtime requests.
+	 * - TRNG is used for DME service and resets the core after the usage
+	 * - In this case TRNG state should be set to uninitialized state
+	 * So that it can be re-initialize during runtime requests.
 	 */
 	XSecureTrngInstance = XSecure_GetTrngInstance();
 	if (!XSecure_TrngIsUninitialized(XSecureTrngInstance)){
@@ -952,3 +956,4 @@ RET:
 	return Status;
 }
 #endif /* PLM OCP */
+/** @} */

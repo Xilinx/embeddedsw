@@ -7,9 +7,7 @@
 /**
 *
 * @file xocp_dme.h
-* @addtogroup xocp_dme_client_apis XilOcp DME Client APIs
-* @{
-* @cond xocp_internal
+*
 * This file Contains the client function prototypes, defines and macros for the DME interface.
 *
 * <pre>
@@ -23,7 +21,6 @@
 *
 * @note
 *
-* @endcond
 ***************************************************************************************************/
 
 #ifndef XOCP_DME_H
@@ -55,4 +52,3 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr, u64 DmeStru
 #endif
 
 #endif  /* XOCP_DME_H */
-/** @} */

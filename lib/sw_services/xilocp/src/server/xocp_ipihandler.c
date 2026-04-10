@@ -35,7 +35,6 @@
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -213,7 +212,7 @@ static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHi
  * @param   PcrMask - Mask to tell what PCRs to read
  * @param   PcrBuffAddrLow - Lower 32 bit address of the PCR buffer address
  * @param   PcrBuffAddrHigh - Higher 32 bit address of the PCR buffer address
- * @param   PcrBufSize - Size of the Pcr Buffer
+ * @param   PcrBufSize - Size of the PCR Buffer
  *
  * @return
  *          - XST_SUCCESS - If PCR contents are copied

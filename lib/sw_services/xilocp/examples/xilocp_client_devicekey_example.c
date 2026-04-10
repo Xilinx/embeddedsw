@@ -207,7 +207,7 @@ static int XOcp_GetX509DevIK(XOcp_ClientInstance *OcpClientInsPtr)
 		xil_printf("DEV IK X.509 Certificate of length %d bytes \n\r",
 							ActualCertSize);
 		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
-		xil_printf("\n\rSuccessfully generated  DEV IK X509 certificate\n\r");
+		xil_printf("\n\rSuccessfully generated DEV IK X509 certificate\n\r");
 	}
 
 	return Status;
@@ -247,7 +247,7 @@ static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr)
 		xil_printf("DEV AK X.509 Certificate of length %d bytes\n\r",
 						ActualCertSize);
 		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
-		xil_printf("\n\rSuccessfully generated  DEV AK X509 certificate\n\r");
+		xil_printf("\n\rSuccessfully generated DEV AK X509 certificate\n\r");
 	}
 
 
@@ -264,7 +264,7 @@ static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr)
 		xil_printf(" Key Wrap DEV AK X.509 Certificate of length %d bytes\n\r",
 						ActualCertSize);
 		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
-		xil_printf("\n\rSuccessfully generated  Key Wrap DEV AK X509 certificate\n\r");
+		xil_printf("\n\rSuccessfully generated Key Wrap DEV AK X509 certificate\n\r");
 	}
 
 	return Status;
@@ -309,7 +309,7 @@ static int XOcp_GetX509DevIKCSR(XOcp_ClientInstance *OcpClientInsPtr)
 		xil_printf("DEV IK CSR of length %d bytes \n\r",
 							ActualCertSize);
 		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
-		xil_printf("\n\rSuccessfully generated  DEV IK CSR\n\r");
+		xil_printf("\n\rSuccessfully generated DEV IK CSR\n\r");
 	}
 
 	return Status;

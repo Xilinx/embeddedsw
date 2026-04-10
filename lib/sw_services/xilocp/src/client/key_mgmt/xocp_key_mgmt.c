@@ -7,10 +7,8 @@
 /**
 *
 * @file xocp_key_mgmt.c
-* @addtogroup xocp_key_mgmt_client_apis XilOcp Key Management Client APIs
-* @{
 *
-* This file contains the implementation of the client interface functions for Key management API's.
+* This file contains the implementation of the client interface functions for Key Mgmt APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +22,11 @@
 * @note
 *
 ***************************************************************************************************/
+
+/**
+ * @addtogroup xocp_key_mgmt_client_apis XilOcp KeyMgmt Client APIs
+ * @{
+ */
 
 /*************************************** Include Files ********************************************/
 #include "xocp_key_mgmt.h"
@@ -57,7 +60,7 @@ int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (GetX509CertAddr == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -67,7 +70,7 @@ int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_GETX509CERT command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_GETX509CERT command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GETX509CERT, GetX509CertAddr,
 				(GetX509CertAddr >> XOCP_ADDR_HIGH_SHIFT));
 
@@ -95,7 +98,7 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (AttestWithDevAk == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -105,7 +108,7 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_ATTESTWITHDEVAK command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_ATTESTWITHDEVAK command and send the request to Server */
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_ATTESTWITHDEVAK, AttestWithDevAk,
 				(AttestWithDevAk >> XOCP_ADDR_HIGH_SHIFT));
 
@@ -137,7 +140,7 @@ int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (AttnPloadAddr == 0U) || (AttnPloadSize == 0U) ||
 		(SignatureAddr == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
@@ -148,7 +151,7 @@ int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK command and send the request to Server */
 	XOCP_PACK_PAYLOAD6(Payload, XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK,
 			AttnPloadAddr, (AttnPloadAddr >> XOCP_ADDR_HIGH_SHIFT),
 			AttnPloadSize, PubKeyOffset,
@@ -188,7 +191,7 @@ int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* Pu
 	u64 PubKeyAddr = (u64)(UINTPTR)PubKey;
 	u64 SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (PubKey == NULL) || (SharedSecret == NULL)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -198,7 +201,7 @@ int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* Pu
 		goto END;
 	}
 
-	/** Fill IPI Payload for XOCP_API_GEN_SHARED_SECRET and send request to Server */
+	/** - Fill IPI Payload for XOCP_API_GEN_SHARED_SECRET and send request to Server */
 	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GEN_SHARED_SECRET, PubKeyAddr,
 				(PubKeyAddr >> XOCP_ADDR_HIGH_SHIFT),
 				SharedSecretAddr,
