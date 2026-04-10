@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_dme.c
-* @addtogroup xilocp_dme_apis XilOcp DME APIs
-* @{
 *
 * This file contains the xilocp DME implementation.
 *
@@ -22,6 +20,11 @@
 * </pre>
 *
 **************************************************************************************************/
+
+/**
+ * @addtogroup xilocp_dme_server_apis XilOcp DME Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
@@ -61,7 +64,7 @@ XOcp_DmeResponse* XOcp_GetDmeResponse(void)
 
 /*****************************************************************************/
 /**
- * @brief	This is wrapper function to generate DME response.
+ * @brief	This is a wrapper function to generate DME response.
  *
  * @param	NonceAddr holds the address of 32 bytes buffer Nonce,
  *		which shall be used to fill one of the member of DME structure.
@@ -78,7 +81,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 {
 	int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((NonceAddr == 0U) || (DmeStructResAddr == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;

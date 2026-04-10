@@ -7,10 +7,8 @@
 /**
 *
 * @file xocp_key_mgmt.h
-* @addtogroup xocp_key_mgmt_client_apis XilOcp Key Management Client APIs
-* @{
-* @cond xocp_internal
-* This file Contains the client function prototypes, defines and macros for the Key Management
+*
+* This file contains the client function prototypes, defines and macros for the Key Mgmt
 * interface.
 *
 * <pre>
@@ -24,7 +22,6 @@
 *
 * @note
 *
-* @endcond
 ***************************************************************************************************/
 
 #ifndef XOCP_KEY_MGMT_H
@@ -60,4 +57,3 @@ int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
 #endif
 
 #endif  /* XOCP_KEY_MGMT_H */
-/** @} */

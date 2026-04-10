@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_dice_dme.h
-* @addtogroup xil_ocpapis APIs
-* @{
 *
 * This file contains the xilocp DME challenge signature and DICE CDI declarations for versal_2vp.
 *
@@ -19,12 +17,11 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.5   tvp  06/05/25 Initial release
 * 1.7   rmv  01/30/26 Refactor OCP library
-*
+*       rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 *
 * @note
 *
-* @endcond
 ***************************************************************************************************/
 
 #ifndef XOCP_DICE_DME_H

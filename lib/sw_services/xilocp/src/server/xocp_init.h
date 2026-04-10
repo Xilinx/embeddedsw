@@ -8,8 +8,6 @@
 /**
  *
  * @file xocp_init.h
- * @addtogroup xocp_init_apis XilOcp Initialize APIs
- * @{
  * @cond xocp_internal
  * <pre>
  * MODIFICATION HISTORY:
@@ -17,7 +15,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.1   am   12/21/22 Initial release
- *
+ * 1.7   rpu  02/18/26 Fixed Doxygen warnings
  * </pre>
  *
  * @note

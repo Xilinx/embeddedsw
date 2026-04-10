@@ -32,6 +32,10 @@ extern "C" {
 #include "xplmi_hw.h"
 
 /************************************ Constant Definitions ****************************************/
+/** @cond xocp_internal
+ * @{
+ */
+
 /**
  * Register: XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0
  */
@@ -116,6 +120,9 @@ extern "C" {
 #define XOCP_PMC_ROM_HASH_ADDR				(0xF1110704U) /**< ROM hash address */
 
 #define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U) /**< DNA cache */
+/** @}
+ * @endcond
+ */
 /************************************ Function Prototypes *****************************************/
 
 /************************************ Variable Definitions ****************************************/

@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_generic.c
-* @addtogroup xilocp_server_api XilOcp common APIs
-* @{
 *
 * This file contains the implementation of the common APIs required for
 * OCP functionalities.
@@ -54,7 +52,7 @@
 *****************************************************************************/
 void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig)
 {
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if (TapConfig == NULL) {
 		goto END;
 	}
@@ -69,5 +67,4 @@ END:
 	return;
 }
 
-#endif /* PLM OCP */
-/** @} */
+#endif /* PLM_OCP */

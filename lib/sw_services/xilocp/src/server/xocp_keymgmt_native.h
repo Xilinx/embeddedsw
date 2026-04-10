@@ -8,8 +8,6 @@
 /**
 *
 * @file xocp_keymgmt_native.h
-* @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -61,12 +59,12 @@ extern "C" {
 #define XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES		(48U) /**< Trng seed size in bytes */
 #define XOCP_TIMEOUT_MAX				(0x1FFFFU) /**< Maximum timeout */
 
-#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK	(0x00000001U) /**< Zeorize mask */
-#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK	(0x00000000U) /**< Zeorize clear mask */
+#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK	(0x00000001U) /**< Zeroize mask */
+#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK	(0x00000000U) /**< Zeroize clear mask */
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK	(0x00000002U)
-							/**< Zeorize status pass mask */
+							/**< Zeroize status pass mask */
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_DONE_MASK	(0x00000001U)
-							/**< Zeorize status done mask */
+							/**< Zeroize status done mask */
 
 #define XOCP_MAX_DEVAK_SUPPORT				(4U) /**< Maximum DEVAK support */
 #define XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM		(2U)
@@ -152,4 +150,3 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen);
 #endif
 
 #endif /* XOCP_KEYMGMT_NATIVE_H */
-/** @} */

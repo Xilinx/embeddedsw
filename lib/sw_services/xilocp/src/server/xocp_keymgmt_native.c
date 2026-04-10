@@ -8,10 +8,8 @@
 /**
 *
 * @file xocp_keymgmt_native.c
-* @addtogroup xilocp_keymgmt_apis XilOcp KeyMgmt APIs
-* @{
 *
-* This file contains the XilOcp KeyMgmt APIs.
+* This file contains the XilOcp KeyMgmt Server APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -51,7 +49,10 @@
 * </pre>
 *
 **************************************************************************************************/
-
+/**
+ * @addtogroup xilocp_keymgmt_server_apis XilOcp KeyMgmt Server APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -86,7 +87,13 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond xocp_internal
+ * @{
+ */
 #define XOcp_MemSet					XPlmi_MemSet
+/** @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 #ifndef VERSAL_2VP
@@ -179,7 +186,7 @@ int XOcp_GenerateDevIKKeyPair(void)
 
 	KeyInstPtr->KeyMgmtReady = FALSE;
 
-	/** If CDI is not valid device key generation is skipped */
+	/** - If CDI is not valid device key generation is skipped */
 	if (XPlmi_In32(XOcp_Reg->DiceCdiSeedValidAddr) == 0x0U) {
 		XOcp_Printf(DEBUG_GENERAL, "Device key init is skipped"
 			" as no valid CDI is found\n\r");
@@ -187,7 +194,7 @@ int XOcp_GenerateDevIKKeyPair(void)
 		goto RET;
 	}
 
-	/** Read and validate whether, DICE CDI SEED is valid or not */
+	/** - Read and validate whether, DICE CDI SEED is valid or not */
 	Status = XOcp_ValidateDiceCdi();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -214,11 +221,11 @@ int XOcp_GenerateDevIKKeyPair(void)
 END:
 	if (Status != XST_SUCCESS) {
 #ifndef VERSAL_2VP
-		/** Zeroize private keys */
+		/** - Zeroize private keys */
 		Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
 #else
-		/** Zeroize private keys stored in PMC RAM for Versal_2vp */
+		/** - Zeroize private keys stored in PMC RAM for Versal_2vp */
 		Status = Xil_SecureZeroize((u8 *)(UINTPTR)XOcp_Reg->DevIkPvtAddr,
 				XOCP_ECC_P384_SIZE_BYTES);
 #endif
@@ -309,7 +316,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((PerString == NULL) || (SubSystemId == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -344,7 +351,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 		goto END;
 	}
 
-	/** Each time this index points to the next empty DEVAK input array */
+	/** - Each time this index points to the next empty DEVAK input array */
 	KeyMgmtInstance->DevAkInputIndex++;
 
 END:
@@ -397,7 +404,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 			XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
 			(XSecure_HmacRes *)(UINTPTR)Seed);
 
-		/** Generate the DEV AK public and private keys */
+		/** - Generate the DEV AK public and private keys */
 		KeyGenParams.SeedAddr = (u32)(UINTPTR)Seed;
 		KeyGenParams.SeedLength = XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES;
 		KeyGenParams.PerStringAddr = (u32)(UINTPTR)DevAkData->PerString;
@@ -427,7 +434,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 							(u64)(UINTPTR)EccY);
 
 		DevAkData->IsDevAkKeyReady = TRUE;
-		/** Store hash of the sub-system */
+		/** - Store hash of the sub-system */
 		SubSysHashDs->ValidData = FALSE;
 		SubSysHashDs->SubSystemId = DevAkData->SubSystemId;
 		Status = Xil_SMemCpy((void *)(UINTPTR)SubSysHashDs->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
@@ -464,6 +471,7 @@ END:
  *
  * @param	SubSystemId holds the sub system ID of whose corresponding DEVAK
  *		index is requested.
+ * @param	DevAkIndex pointer to array receiving DevAK index(es) for the subsystem.
  *
  * @return
  *		- XST_SUCCESS in case of success
@@ -484,7 +492,7 @@ int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex)
 		goto END;
 	}
 
-	/** Returns invalid DEVAK index if no device key is supported */
+	/** - Returns invalid DEVAK index if no device key is supported */
 	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
@@ -755,10 +763,10 @@ static int XOcp_Attestation(XOcp_Attest *AttestationInfoPtr, u32 DevAkIndex)
 		XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
 	}
 
-	/** Convert hash to little endian */
+	/** - Convert hash to little endian */
 	XSecure_FixEndiannessNCopy(AttestationInfoPtr->HashLen,
 		(u64)(UINTPTR)Hash, AttestationInfoPtr->HashAddr);
-	/** Generate the signature using DEVAK */
+	/** - Generate the signature using DEVAK */
 	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, Hash,
 			AttestationInfoPtr->HashLen,
 			(u8 *)(UINTPTR)DevAkData->EccPrvtKey,
@@ -811,10 +819,10 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 		KeyMgmtReady = KeyInstPtr->KeyMgmtReady;
 		KeyMgmtReadyTmp = KeyInstPtr->KeyMgmtReady;
 		if ((KeyMgmtReady == TRUE) || (KeyMgmtReadyTmp == TRUE)) {
-			/** Zeroize DEVIK */
+			/** - Zeroize DEVIK */
 			Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
-				/** Zeroize DICE CDI SEED irrespective of DEVIK Zeroize status */
+				/** - Zeroize DICE CDI SEED irrespective of DEVIK Zeroize status */
 			Status |= XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DICE_CDI_SEED_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DICE_CDI_SEED_ZEROIZE_STATUS);
 		}
@@ -854,7 +862,7 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 	volatile int Status = XST_FAILURE;
 	u32 ReadReg;
 
-	/** Writes data to 32-bit address and checks for blind writes */
+	/** - Writes data to 32-bit address and checks for blind writes */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureOut32, CtrlReg,
 		XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK);
 
@@ -871,7 +879,7 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 	}
 
 END:
-	/** Clearing Zeroize Control register */
+	/** - Clearing Zeroize Control register */
 	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK);
 
 	return Status;
@@ -903,13 +911,13 @@ static int XOcp_KeyGenerateDevIk(void)
 	volatile u32 CryptoKatEnTmp = TRUE;
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 
-	/** Copy CDI from PMC global registers to Seed buffer */
+	/** - Copy CDI from PMC global registers to Seed buffer */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)(UINTPTR)Seed, XOCP_CDI_SIZE_IN_BYTES,
 		(const void *)(UINTPTR)XOcp_Reg->DiceCdiSeedAddr, XOCP_CDI_SIZE_IN_BYTES,
 		XOCP_CDI_SIZE_IN_BYTES);
 
 	/**
-	 * Copy Personalized string to buffer, here the input string is DNA
+	 * - Copy Personalized string to buffer, here the input string is DNA
 	 * which is of size 16 bytes where as TRNG requires 48 bytes of data as
 	 * personalized so the remaining bytes are set to zero.
 	 */
@@ -928,7 +936,7 @@ static int XOcp_KeyGenerateDevIk(void)
 		goto END;
 	}
 
-	/** Generate the DEV IK public and private keys */
+	/** - Generate the DEV IK public and private keys */
 	KeyGenParams.SeedAddr = (u32)(UINTPTR)Seed;
 	KeyGenParams.SeedLength = XOCP_CDI_SIZE_IN_BYTES;
 	KeyGenParams.PerStringAddr = (u32)(UINTPTR)PersString;
@@ -953,7 +961,7 @@ static int XOcp_KeyGenerateDevIk(void)
 		XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK);
 	}
 
-	/** Copy Private key to PMC global registers */
+	/** - Copy Private key to PMC global registers */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)(UINTPTR)XOcp_Reg->DevIkPvtAddr,
 						   XOCP_ECC_P384_SIZE_BYTES, (const void *)(UINTPTR)EccPvtKey,
 						   XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
@@ -1003,8 +1011,8 @@ static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void)
  *
  * @param	SubSystemId - ID of the subsystem from where the command is
  * 		originating
- * @param	PubKeyAddrLow - 64 bit address of the Public Key buffer
- * @param	SharedSecretAddrLow - 64 bit address of the Shared Secret buffer
+ * @param	PubKeyAddr - 64-bit address of the peer public key buffer
+ * @param	SharedSecretAddr - 64-bit address of the shared secret output buffer
  *
  * @return
  *		 - XST_SUCCESS  On Success
@@ -1074,7 +1082,7 @@ END:
  * @brief	This function generates the DEVAK for requested subsystem by user.
  *
  * @param	SubsystemID is the ID of image.
- * @param	InhHash 64-bit address of hash.
+ * @param	InHash 64-bit address of subsystem hash buffer.
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

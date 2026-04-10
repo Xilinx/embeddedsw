@@ -8,7 +8,6 @@
 /**
 *
 * @file xocp_cmd.c
-*
 * This file contains the xilocp IPI handler implementation.
 *
 * <pre>
@@ -74,7 +73,7 @@
 			/**< Shift for Key Index in Payload of Get Certificate User Cfg CDO command*/
 #define XOCP_DEV_AK_INPUT_PLOAD_KEYIDX_INDEX			(1U + 12U)
 		/**< Index of KeyIdx in Payload of DevAkInput command
-		 * Payload -> Subsystem ID (1 word) + Personlization string(12 words) + KeyIdx*/
+		 * Payload -> Subsystem ID (1 word) + Personalization string(12 words) + KeyIdx*/
 #define XOCP_DEV_AK_INPUT_KEYIDX_MASK				(0x3U)
 			/**< Mask for KeyIdx in Payload of DevAkInput CDO command */
 /**************************** Type Definitions *******************************/
@@ -278,7 +277,7 @@ void XOcp_CmdsInit(void)
 	};
 	u32 Idx;
 
-	/** Register command handlers with XilPlmi */
+	/** - Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Ocp.CmdCnt; Idx++) {
 		XOcp_Cmds[Idx].Handler = &XOcp_ProcessCmd;
 	}

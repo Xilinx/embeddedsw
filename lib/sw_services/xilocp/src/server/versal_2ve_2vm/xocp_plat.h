@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_plat.h
-* @addtogroup xilocp_plat_apis XilOcp Platform APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,6 +21,12 @@
 * </pre>
 *
 **************************************************************************************************/
+
+/**
+ * @addtogroup xilocp_plat_apis XilOcp Platform APIs
+ * @{
+ */
+
 #ifndef XOCP_PLAT_H
 #define XOCP_PLAT_H
 
@@ -41,7 +45,7 @@ extern "C" {
 /** @cond xocp_internal
  * @{
  */
-/** Efuse number of rows */
+/** eFuse number of rows */
 #define XOCP_EFUSE_PPK_NUM_OF_BYTES			(32U)	/**< PPK Hash number of bytes */
 #define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS			(XOCP_EFUSE_PPK_NUM_OF_BYTES / XOCP_WORD_LEN)
 								/**< PPK Hash number of words */

@@ -7,10 +7,8 @@
 /**
 *
 * @file xocp_dme.c
-* @addtogroup xocp_dme_client_apis XilOcp DME Client APIs
-* @{
 *
-* This file contains the implementation of the client interface functions for DME API's.
+* This file contains the implementation of the client interface functions for DME APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +22,11 @@
 * @note
 *
 ***************************************************************************************************/
+
+/**
+ * @addtogroup xocp_dme_client_apis XilOcp DME Client APIs
+ * @{
+ */
 
 /*************************************** Include Files ********************************************/
 #include "xocp_dme.h"
@@ -62,7 +65,7 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (NonceAddr == 0U) || (DmeStructResAddr == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -72,7 +75,7 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_GENDMERESP command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_GENDMERESP command and send the request to Server */
 	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GENDMERESP, NonceAddr,
 				(NonceAddr >> XOCP_ADDR_HIGH_SHIFT),
 				DmeStructResAddr,

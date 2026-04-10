@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_dice_dme.h
-* @addtogroup xilocp_dme_apis XilOcp DME APIs
-* @{
 *
 * This file contains the xilocp DME challenge signature declarations for versal_2ve_2vm.
 *
@@ -18,12 +16,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.5   tvp  06/05/25 Initial release
-*
+* 1.7   rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 *
 * @note
 *
-* @endcond
 ***************************************************************************************************/
 
 #ifndef XOCP_DICE_DME_H

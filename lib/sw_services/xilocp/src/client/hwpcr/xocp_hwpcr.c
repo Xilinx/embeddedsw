@@ -7,10 +7,8 @@
 /**
 *
 * @file xocp_hwpcr.c
-* @addtogroup xocp_hwpcr_client_apis XilOcp HwPcr Client APIs
-* @{
 *
-* This file contains the implementation of the client interface functions for Hardware PCR API's.
+* This file contains the implementation of the client interface functions for Hardware PCR APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +22,11 @@
 * @note
 *
 ***************************************************************************************************/
+
+/**
+ * @addtogroup xocp_hwpcr_client_apis XilOcp HwPcr Client APIs
+ * @{
+ */
 
 /*************************************** Include Files ********************************************/
 #include "xocp_hwpcr.h"
@@ -63,7 +66,7 @@ int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) ||(PcrNum <= XOCP_PCR_1) || (PcrNum > XOCP_PCR_7) ||
 		(ExtHashAddr == 0U) || (Size != XOCP_PCR_SIZE_BYTES)) {
 		Status = (int)XST_INVALID_PARAM;
@@ -74,7 +77,7 @@ int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_EXTEND_HWPCR command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_EXTEND_HWPCR command and send the request to Server */
 	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_EXTEND_HWPCR, PcrNum, ExtHashAddr,
 				(ExtHashAddr >> XOCP_ADDR_HIGH_SHIFT),
 				Size);
@@ -109,7 +112,7 @@ int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (PcrMask == 0U) || (PcrBufAddr == 0U) || (PcrBufSize == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
@@ -119,7 +122,7 @@ int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_GET_HWPCR command and send the request to Server */
+	/** - Fill IPI payload for XOCP_API_GET_HWPCR command and send the request to Server */
 	XOCP_PACK_PAYLOAD4(Payload, XOCP_API_GET_HWPCR, PcrMask, PcrBufAddr,
 				(PcrBufAddr >> XOCP_ADDR_HIGH_SHIFT),
 				PcrBufSize);
@@ -150,7 +153,7 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((InstancePtr == NULL) || (HwPcrEventAddr == 0U) || (HwPcrLogInfoAddr == 0U) ||
 		(NumOfLogEntries == 0U) || (NumOfLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS)) {
 		Status = (int)XST_INVALID_PARAM;
@@ -161,7 +164,7 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
 		goto END;
 	}
 
-	/** Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server */
+        /** - Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server */
 	XOCP_PACK_PAYLOAD5(Payload, XOCP_API_GET_HWPCRLOG, HwPcrEventAddr,
 				(HwPcrEventAddr >> XOCP_ADDR_HIGH_SHIFT), HwPcrLogInfoAddr,
 				(HwPcrLogInfoAddr >> XOCP_ADDR_HIGH_SHIFT), NumOfLogEntries);

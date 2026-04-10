@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_asufw.h
-* @addtogroup xilocp_asufw_apis XilOcp ASUFW APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,7 +50,7 @@ extern "C" {
 #define XOCP_ASUFW_UNIQUE_REQ_ID_SHIFT		(6U)		/**< Unique request ID shift
 								  value */
 #define XOCP_ASUFW_MODULE_ID_MASK		(0x0003F000U)	/**< Module ID mask */
-#define XOCP_ASUFW_MODULE_ID_SHIFT		(12U)		/**< Module ID shit value */
+#define XOCP_ASUFW_MODULE_ID_SHIFT		(12U)		/**< Module ID shift value */
 #define XOCP_ASUFW_CMD_LENGTH_MASK		(0x00FC0000U)	/**< Command length mask */
 #define XOCP_ASUFW_CMD_LENGTH_SHIFT		(18U)		/**< Command length shift value */
 
@@ -98,4 +96,3 @@ int XOcp_PostPlmUpdateNotify(void);
 #endif
 
 #endif /* XOCP_ASUFW_H */
-/** @} */

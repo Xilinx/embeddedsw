@@ -8,10 +8,7 @@
 /**
 *
 * @file xocp_mailbox.h
-* @addtogroup xocp_mailbox_apis XilOcp Mailbox APIs
-* @{
 *
-* @cond xocp_internal
 * This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
@@ -21,11 +18,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   am   12/21/22 Initial release
 * 1.1   obs  02/18/25 Fixed IPI message length
-*
+* 1.7   rpu  02/18/26 Fixed Doxygen warnings
 * </pre>
 * @note
 *
-* @endcond
 ******************************************************************************/
 
 #ifndef XOCP_MAILBOX_H
@@ -92,6 +88,9 @@ extern "C" {
  */
 
 /**************************** Type Definitions *******************************/
+/**
+ * XilOcp client instance structure
+ */
 typedef struct {
 	XMailbox *MailboxPtr;	/**< Mailbox pointer */
 } XOcp_ClientInstance;
@@ -120,4 +119,3 @@ int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 #endif
 
 #endif  /* XOCP_MAILBOX_H */
-/** @} */

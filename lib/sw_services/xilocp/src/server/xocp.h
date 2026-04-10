@@ -8,8 +8,6 @@
 /**
 *
 * @file xocp.h
-* @addtogroup xilocp_server_apis XilOcp Server APIs
-* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -35,7 +33,6 @@
 *
 * @note
 *
-* @endcond
 ******************************************************************************/
 #ifndef XOCP_H
 #define XOCP_H
@@ -80,4 +77,3 @@ extern "C" {
 #endif
 #endif /* PLM_OCP */
 #endif  /* XOCP_H */
-/** @} */

@@ -34,6 +34,11 @@
 
 /************************************ Constant Definitions ****************************************/
 
+/**
+ * @addtogroup xilocp_plat_apis XilOcp Platform APIs
+ * @{
+ */
+
 /************************************** Type Definitions ******************************************/
 typedef struct {
 	u32 DevIkPubX[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key X */
@@ -58,7 +63,7 @@ typedef struct {
  * @brief      This function provides OCP related register space.
  *
  * @return
- * 		- XOcp_RegSpace pointer to register space.
+ * 	- XOcp_RegSpace pointer to register space.
  *
  **************************************************************************************************/
 XOcp_RegSpace* XOcp_GetRegSpace(void)
@@ -89,9 +94,6 @@ XOcp_RegSpace* XOcp_GetRegSpace(void)
  *
  * @param	EfuseConfig Pointer to XOcp_SecureConfig.
  *
- * @return
- * 		- None.
- *
  **************************************************************************************************/
 void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
 {
@@ -112,5 +114,5 @@ void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
 	EfuseConfig->RomRsvd = XPlmi_In32(XOCP_EFUSE_CACHE_ROM_RSVD) &
 			XOCP_ROM_RSVD_MEASURED_MASK;
 }
-
+/** @} */
 #endif /* PLM OCP */

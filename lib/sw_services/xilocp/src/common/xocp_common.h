@@ -8,10 +8,8 @@
 /**
 *
 * @file xocp_common.h
-* @addtogroup xil_ocpapis DME APIs
-* @{
 *
-* @cond xocp_internal
+* This file contains the common definitions, structures and macros for the OCP library.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,13 +27,18 @@
 *       kpt  02/21/2024 Added XOCP_ERR_DME_RESP_ALREADY_GENERATED and
 *                       XOCP_ERR_DME_RESP_NOT_GENERATED
 *       har  06/07/2024 Added XOCP_KEY_WRAP_DEVAK in XOcp_DevKey
-*
+* 1.7   rpu  02/18/2026 Fixed Doxygen warnings
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xocp_definitions XilOcp Definitions
+ * @{
+ */
+
 #ifndef XOCP_COMMON_H
 #define XOCP_COMMON_H
 
@@ -63,22 +66,25 @@ extern "C" {
 #define XOCP_ECC_P384_SIZE_BYTES		(48U) /**< Curve P384 size in bytes */
 #define XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES	(96U) /**< Size of P384 public key in bytes */
 
-#define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U) /**< Maximum number of hardware pcr events */
-#define XOCP_SHA3_LEN_IN_BYTES          	(48U) /**< Length of sha3 hash in bytes */
-#define XOCP_MAX_NUM_OF_SWPCRS			(0x40U) /**< Maximum number of software pcrs */
-#define XOCP_NUM_OF_SWPCRS			(0x8U) /**< Number of software pcrs */
-#define XOCP_EVENT_ID_NUM_OF_BYTES		(4U) /**< Number of bytes of pcr event ID*/
-#define XOCP_VERSION_NUM_OF_BYTES		(1U) /**< Number of bytes of ocp version */
+#define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U) /**< Maximum number of hardware PCR events */
+#define XOCP_SHA3_LEN_IN_BYTES          	(48U) /**< Length of SHA3 hash in bytes */
+#define XOCP_MAX_NUM_OF_SWPCRS			(0x40U) /**< Maximum number of software PCRs */
+#define XOCP_NUM_OF_SWPCRS			(0x8U) /**< Number of software PCRs */
+#define XOCP_EVENT_ID_NUM_OF_BYTES		(4U) /**< Number of bytes of PCR event ID*/
+#define XOCP_VERSION_NUM_OF_BYTES		(1U) /**< Number of bytes of OCP version */
 #define XOCP_GET_ALL_PCR_MASK			(0x000000FFU) /**< Maximum valid PCR mask */
 /**************************** Type Definitions *******************************/
 
+/**
+ * Device key selection enumeration
+ */
 typedef enum {
 	XOCP_DEVIK = 0, /**< Device Identity key */
 	XOCP_DEVAK,	/**< Device attestation key */
 	XOCP_KEY_WRAP_DEVAK /**< Key wrap Device attestation key */
 }XOcp_DevKey;
 
-/*
+/**
  * Hardware PCR selection
  */
 typedef enum {
@@ -92,8 +98,8 @@ typedef enum {
 	XOCP_PCR_7	/**< PCR 7 */
 } XOcp_HwPcr;
 
-/*
- * DME
+/**
+ * DME structure
  */
 typedef struct {
 	u32 DeviceID[XOCP_DME_DEVICE_ID_SIZE_WORDS];	/**< Device ID */
@@ -101,8 +107,8 @@ typedef struct {
 	u32 Measurement[XOCP_DME_MEASURE_SIZE_WORDS];	/**< Measurement */
 } XOcp_Dme;
 
-/*
- * DME response
+/**
+ * DME response structure
  */
 typedef struct {
 	XOcp_Dme Dme;									/**< DME */
@@ -110,8 +116,8 @@ typedef struct {
 	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */
 } XOcp_DmeResponse;
 
-/*
- * HW PCR Event
+/**
+ * Hardware PCR Event structure
  */
 typedef struct {
 	u8 PcrNo;					/**< HW PCR number */
@@ -119,8 +125,8 @@ typedef struct {
 	u8 PcrValue[XOCP_SHA3_LEN_IN_BYTES];		/**< PCR value after extension */
 } XOcp_HwPcrEvent;
 
-/*
- * HW PCR Log
+/**
+ * Hardware PCR Log information structure
  */
 typedef struct {
 	u32 RemainingHwPcrEvents;         /**< Number of HWPCR log events */
@@ -129,14 +135,17 @@ typedef struct {
 	u32 HwPcrEventsRead;              /**< Number of events read in current request */
 } XOcp_HwPcrLogInfo;
 
+/**
+ * Hardware PCR Log structure
+ */
 typedef struct {
-	XOcp_HwPcrEvent Buffer[XOCP_MAX_NUM_OF_HWPCR_EVENTS]; /**< Stores hardware pcr events */
-	XOcp_HwPcrLogInfo LogInfo; /**< Log information of hardware pcr */
-	u32 HeadIndex; /**< Starting index of hardware pcr event */
-	u32 TailIndex; /**< Last index of hardware pcr event */
+	XOcp_HwPcrEvent Buffer[XOCP_MAX_NUM_OF_HWPCR_EVENTS]; /**< Stores hardware PCR events */
+	XOcp_HwPcrLogInfo LogInfo; /**< Log information of hardware PCR */
+	u32 HeadIndex; /**< Starting index of hardware PCR event */
+	u32 TailIndex; /**< Last index of hardware PCR event */
 } XOcp_HwPcrLog;
-/*
- * SW PCR extend params
+/**
+ * Software PCR extend parameters structure
  */
 typedef struct {
 	u32 PcrNum;		/**< SW PCR number */
@@ -146,8 +155,8 @@ typedef struct {
 	u64 DataAddr;		/**< Address of the data to be extended */
 } XOcp_SwPcrExtendParams;
 
-/*
- * SW PCR Data read params
+/**
+ * Software PCR Data read parameters structure
  */
 typedef struct {
 	u32 PcrNum;					/**< SW PCR number */
@@ -158,8 +167,8 @@ typedef struct {
 	u32 ReturnedBytes;				/**< Returned bytes */
 } XOcp_SwPcrReadData;
 
-/*
- * SW PCR Measurement
+/**
+ * Software PCR Measurement structure
  */
 typedef struct {
 	u32 EventId;					/**< Event Id */
@@ -169,8 +178,8 @@ typedef struct {
 	u8 MeasuredData[XOCP_PCR_SIZE_BYTES];		/**< PCR measurement with N-1 digest */
 } XOcp_PcrMeasurement;
 
-/*
- * SW PCR Log InParams
+/**
+ * Software PCR Log read data structure
  */
 typedef struct {
 	u32 PcrNum;					/**< SW PCR number */
@@ -179,6 +188,9 @@ typedef struct {
 	u32 DigestCount;				/**< Extended digest count*/
 } XOcp_SwPcrLogReadData;
 
+/**
+ * X509 Certificate structure
+ */
 typedef struct {
 	u64 CertAddr;		/**< Address of Certificate */
 	u64 ActualLenAddr;	/**< Address of Actual Length of certificate */
@@ -187,6 +199,9 @@ typedef struct {
 	u32 IsCsr;		/**< Flag for Certificate Signing Request */
 } XOcp_X509Cert;
 
+/**
+ * Attestation structure
+ */
 typedef struct {
 	u64 HashAddr; /**< Address of the hash */
 	u64 SignatureAddr; /**< Address of the signature */
@@ -194,19 +209,22 @@ typedef struct {
 	u32 HashLen; /**< Length of the hash */
 } XOcp_Attest;
 
+/**
+ * OCP Error Status enumeration
+ */
 typedef enum {
 	XOCP_PCR_ERR_PCR_SELECT	= 0x02, /**< 0x02 Error in PCR selection */
 	XOCP_PCR_ERR_NOT_COMPLETED,	/**< 0x03 PCR operation not completed */
 	XOCP_PCR_ERR_OPERATION,		/**< 0x04 PCR operation error */
 	XOCP_PCR_ERR_IN_UPDATE_LOG,	/**< 0x05 PCR log update error */
-	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x06 Error in GetPcr */
-	XOCP_PCR_ERR_IN_GET_PCR_LOG,	/**< 0x07 Error in GetPcrLog*/
+	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x06 Error in Get PCR */
+	XOCP_PCR_ERR_IN_GET_PCR_LOG,	/**< 0x07 Error in Get PCR Log */
 	XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST,
 					/**< 0x08 PCR log read request is invalid */
-	XOCP_PCR_ERR_MEASURE_IDX_SELECT,/**< 0x09 SwPcr measurement index is invalid */
-	XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED, /**< 0x0A SwPcr configuration is not done */
-	XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM, /**< 0x0B Pcr insufficient buffer size provided */
-	XOCP_PCR_ERR_SWPCR_DUP_EXTEND, /**< 0x0C Duplicate Pcr extend request received */
+	XOCP_PCR_ERR_MEASURE_IDX_SELECT,/**< 0x09 SW PCR measurement index is invalid */
+	XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED, /**< 0x0A SW PCR configuration is not done */
+	XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM, /**< 0x0B PCR insufficient buffer size provided */
+	XOCP_PCR_ERR_SWPCR_DUP_EXTEND, /**< 0x0C Duplicate PCR extend request received */
 	XOCP_PCR_ERR_DATA_IN_INVALID_MEM, /**< 0x0D SW PCR data is in upper DDR memory */
 
 	XOCP_DICE_CDI_PARITY_ERROR = 0x20,	/**< 0x20 CDI parity error */
@@ -218,7 +236,7 @@ typedef enum {
 	XOCP_DICE_CDI_SEED_ZERO,	/**< 0x26 DICE CDI Seed is zero */
 	XOCP_ERR_GLITCH_DETECTED,	/**< 0x27 Error glitch detected */
 	XOCP_ERR_CHUNK_BOUNDARY_CROSSED,	/**< 0x28 Error when command length crossed chunk boundary */
-	XOCP_ERR_SECURE_EFUSE_CONFIG,	/**< 0x29 Error when updating secure efuse configuration */
+	XOCP_ERR_SECURE_EFUSE_CONFIG,	/**< 0x29 Error when updating secure eFuse configuration */
 	XOCP_ERR_SECURE_TAP_CONFIG,		/**< 0x2A Error when updating tap configuration */
 	XOCP_ERR_SECURE_STATE_MEASUREMENT,	/**< 0x2B Error when calculating secure state hash */
 	XOCP_ERR_DME_RESP_ALREADY_GENERATED,	/**< 0x2C Error when DME challenge request is made
@@ -268,4 +286,4 @@ typedef enum {
 #endif
 
 #endif  /* XOCP_COMMON_H */
-/* @} */
+/** @} */

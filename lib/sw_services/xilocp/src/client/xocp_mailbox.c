@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,8 +8,6 @@
 /**
 *
 * @file xocp_mailbox.c
-* @addtogroup xocp_mailbox_apis XilOcp Mailbox APIs
-* @{
 *
 * This file contains the implementation of the xilmailbox generic interface APIs
 * for xilocp client library.
@@ -27,6 +25,11 @@
 * @note
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xocp_mailbox_apis XilOcp Mailbox APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -65,7 +68,7 @@ int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	u32 Response[RESPONSE_ARG_CNT];
 
 	/**
-	 * Sends IPI CDO to PLM, returns XST_FAILURE if sending data is failed
+	 * - Sends IPI CDO to PLM, returns XST_FAILURE if sending data is failed.
 	 */
 	Status = (int)XMailbox_SendData(MailboxPtr, XOCP_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 		XILMBOX_MSG_TYPE_REQ, TRUE);
@@ -74,8 +77,8 @@ int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	}
 
 	/**
-	 * Waits for IPI response from PLM  with a default timeout of 2 seconds.
-	 * If the timeout exceeds then error is returned otherwise,
+	 * - Waits for IPI response from PLM  with a default timeout of 2 seconds.
+	 * - If the timeout exceeds then error is returned otherwise,
 	 * it returns the status of the IPI response
 	 */
 	Status = (int)XMailbox_Recv(MailboxPtr, XOCP_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,

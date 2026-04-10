@@ -7,8 +7,6 @@
 /**
 *
 * @file xocp_plat.c
-* @addtogroup xilocp_plat_apis XilOcp Platform APIs
-* @{
 *
 * This file contains the implementation of the functionalities required for the ASUFW.
 *
@@ -25,6 +23,11 @@
 * </pre>
 *
 **************************************************************************************************/
+
+/**
+ * @addtogroup xilocp_plat_apis XilOcp Platform APIs
+ * @{
+ */
 
 /************************************** Include Files ********************************************/
 #include "xplmi_config.h"
@@ -71,12 +74,9 @@ XOcp_RegSpace* XOcp_GetRegSpace(void)
 
 /**************************************************************************************************/
 /**
- * @brief	This function reads secure efuse configuration.
+ * @brief	This function reads secure eFuse configuration.
  *
  * @param	EfuseConfig Pointer to XOcp_SecureConfig.
- *
- * @return
- * 		- None.
  *
  **************************************************************************************************/
 void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
