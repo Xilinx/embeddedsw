@@ -23,6 +23,7 @@
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 * 1.02   bsv 08/31/2021 Code clean up
 * 2.4    aa  04/01/2026 Added macro for USB DFU status
+*        aa  04/10/2026 Renamed DFU macro
 *
 * </pre>
 *
@@ -57,7 +58,7 @@ extern "C" {
 #define XLOADER_DFU_MAX_TRANSFER		(u16)(1024U)
 /* DFU status */
 #define XLOADER_DFU_STATUS_OK               	(0x0U)
-#define XLOADER_DFU_STATUS_ERROR            	(0x1U)
+#define XLOADER_DFU_DDR_OVERFLOW_ERROR      	(0x1U)
 /* DFU commands */
 #define XLOADER_DFU_DETACH      		(0x0U)
 #define XLOADER_DFU_DNLOAD      		(0x1U)
