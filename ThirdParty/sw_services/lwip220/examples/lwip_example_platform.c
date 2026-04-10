@@ -36,7 +36,7 @@
 #include "xil_exception.h"
 #include "lwip/tcp.h"
 #ifdef TFTP_APP
-#include "platform_fs.h"
+#include "lwip_example_tftp_platform_fs.h"
 #endif
 #ifdef STDOUT_IS_16550
 #include "xuartns550_l.h"
