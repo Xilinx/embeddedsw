@@ -121,7 +121,7 @@ s32 XAsufw_LmsInit(void)
 	/** Register LMS module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_LmsModule);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_LMS_MODULE_REGISTRATION_FAILED);
+		Status = XASUFW_LMS_MODULE_REGISTRATION_FAILED;
 	}
 
 	return Status;

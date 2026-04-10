@@ -93,8 +93,7 @@ enum {
 						module */
 	XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, /**< 0x0AU - Invalid command is received from
 						client */
-	XASUFW_MODULE_REGISTRATION_FAILED, /**< 0x0BU - Module registration failed as to max supported
-						modules are created */
+	RESERVED1, /**< 0x0BU - Reserved */
 	XASUFW_SSS_INVALID_INPUT_PARAMETERS, /**< 0x0CU - Received invalid input parameters to SSS
 						configuration APIs */
 	XASUFW_IOMODULE_INIT_FAILED, /**< 0x0DU - IOModule initialization failed */
@@ -181,16 +180,16 @@ enum {
 	XASUFW_SHA2_MODULE_REGISTRATION_FAILED, /**< 0x5CU - Module registration failed for SHA2
 						module */
 	XASUFW_SHA2_INIT_FAILED, /**< 0x5DU - SHA2 initialization failed */
-	RESERVED1, /**< 0x5EU - Reserved */
-	RESERVED2, /**< 0x5FU - Reserved */
-	RESERVED3, /**< 0x60U - Reserved */
+	RESERVED2, /**< 0x5EU - Reserved */
+	RESERVED3, /**< 0x5FU - Reserved */
+	RESERVED4, /**< 0x60U - Reserved */
 	XASUFW_SHA2_HASH_COMPARISON_FAILED, /**< 0x61U - SHA2 hash comparison failed */
 	XASUFW_SHA3_MODULE_REGISTRATION_FAILED, /**< 0x62U - Module registration failed for SHA3
 						module */
 	XASUFW_SHA3_INIT_FAILED, /**< 0x63U - SHA3 initialization failed */
-	RESERVED4, /**< 0x64U - Reserved */
-	RESERVED5, /**< 0x65U - Reserved */
-	RESERVED6, /**< 0x66U - Reserved */
+	RESERVED5, /**< 0x64U - Reserved */
+	RESERVED6, /**< 0x65U - Reserved */
+	RESERVED7, /**< 0x66U - Reserved */
 	XASUFW_SHA3_HASH_COMPARISON_FAILED, /**< 0x67U - SHA3 hash comparison failed */
 	XASUFW_TRNG_MODULE_REGISTRATION_FAILED, /**< 0x68U - TRNG module registration failed */
 	XASUFW_TRNG_INVALID_PARAM, /**< 0x69U - TRNG invalid input parameters received */
@@ -552,9 +551,9 @@ enum {
 	XASUFW_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
-	RESERVED7, /**< 0x178U - Reserved */
-	RESERVED8, /**< 0x179U - Reserved */
-	RESERVED9, /**< 0x17AU - Reserved */
+	RESERVED8, /**< 0x178U - Reserved */
+	RESERVED9, /**< 0x179U - Reserved */
+	RESERVED10, /**< 0x17AU - Reserved */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
 	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when IPI access is not available */

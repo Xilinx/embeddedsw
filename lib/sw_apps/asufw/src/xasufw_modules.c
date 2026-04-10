@@ -57,7 +57,7 @@ XAsufw_Module *Modules[XASU_MAX_MODULES]; /**< Array for Modules structures */
  *
  * @return
  * 	- XASUFW_SUCCESS, if module registration is successful.
- * 	- XASUFW_MODULE_REGISTRATION_FAILED, if module registration fails.
+ * 	- XASUFW_FAILURE, if module registration fails.
  *
  *************************************************************************************************/
 s32 XAsufw_ModuleRegister(XAsufw_Module *Module)
@@ -66,18 +66,14 @@ s32 XAsufw_ModuleRegister(XAsufw_Module *Module)
 	u32 ModuleId = Module->Id;
 
 	/**
-	 * If the Module ID is greater than maximum supported modules or the module is already registered,
-	 * return failure. Otherwise, register the module.
+	 * If the Module ID is within the supported range and the module is not already registered,
+	 * register the module.
 	 */
-	if ((ModuleId >= XASU_MAX_MODULES) || (Modules[ModuleId] != NULL)) {
-		Status = XASUFW_MODULE_REGISTRATION_FAILED;
-		goto END;
+	if ((ModuleId < XASU_MAX_MODULES) && (Modules[ModuleId] == NULL)) {
+		Modules[ModuleId] = Module;
+		Status = XASUFW_SUCCESS;
 	}
 
-	Modules[ModuleId] = Module;
-	Status = XASUFW_SUCCESS;
-
-END:
 	return Status;
 }
 
