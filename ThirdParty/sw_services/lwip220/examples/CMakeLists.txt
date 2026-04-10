@@ -27,6 +27,10 @@ if (EXAMPLE_LIST MATCHES "_ws_|_tftp|_webserver")
     collect(PROJECT_LIB_DEPS xilffs)
 endif()
 
+if (EXAMPLE_LIST MATCHES "^freertos_")
+    collect(PROJECT_LIB_DEPS freertos)
+endif()
+
 collector_list (_deps PROJECT_LIB_DEPS)
 
 set(valid_ex 0)
