@@ -23,6 +23,10 @@ SET(COMMON_FILE lwip_example_iic_phyreset.c)
 SET(EXAMPLE_LIST "${${ex_list}}" CACHE STRING "Driver Example List")
 SET_PROPERTY(CACHE EXAMPLE_LIST PROPERTY STRINGS "${${ex_list}}")
 
+if (EXAMPLE_LIST MATCHES "_ws_|_tftp|_webserver")
+    collect(PROJECT_LIB_DEPS xilffs)
+endif()
+
 collector_list (_deps PROJECT_LIB_DEPS)
 
 set(valid_ex 0)

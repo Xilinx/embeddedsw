@@ -58,7 +58,7 @@
 #include "platform_config.h"
 #include "netif/xadapter.h"
 #ifdef TFTP_APP
-#include "platform_fs.h"
+#include "lwip_example_tftp_platform_fs.h"
 #endif
 #ifdef PLATFORM_ZYNQ
 #include "xscutimer.h"
