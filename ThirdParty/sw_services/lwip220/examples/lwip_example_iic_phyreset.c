@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,10 +30,12 @@
 #include <stdio.h>
 
 #include "xparameters.h"
+#if defined (__arm__) || defined(__aarch64__)
 #include "xil_printf.h"
+#endif
 
 #ifdef XPS_BOARD_ZCU102
-#ifdef XPAR_XIICPS_0_DEVICE_ID
+#if defined(XPAR_XIICPS_0_DEVICE_ID) || defined(XPAR_XIICPS_0_BASEADDR)
 #include "xiicps.h"
 
 #define BUF_LEN		10U
@@ -59,7 +61,11 @@ int IicPhyReset(void)
 	int Status = XST_SUCCESS;
 
 	/* Initialize the IIC0 driver so that it is ready to use */
+#if defined(SDT) && defined(XPAR_XIICPS_0_BASEADDR)
+	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_BASEADDR);
+#else
 	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
+#endif
 	if (I2c0CfgPtr == NULL) {
 		Status = XST_FAILURE;
 		return Status;

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,12 +30,18 @@
 #ifndef __PLATFORM_H_
 #define __PLATFORM_H_
 
+#include "xil_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void init_platform();
 void cleanup_platform();
+#ifdef SDT
+void init_timer();
+void TimerCounterHandler(void *CallBackRef __attribute__((unused)), u32 TmrCtrNumber __attribute__((unused)));
+#endif
 #ifdef __MICROBLAZE__
 void timer_callback();
 #endif

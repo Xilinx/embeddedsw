@@ -1,6 +1,7 @@
+
 /*
  * Copyright (C) 2017 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -26,13 +27,12 @@
  * OF SUCH DAMAGE.
  *
  */
-#if __MICROBLAZE__
+#if defined(SDT) || __MICROBLAZE__
 #include "arch/cc.h"
-#include "platform.h"
-#include "platform_config.h"
+#include "lwip_example_platform.h"
+#include "lwip_example_platform_config.h"
 #include "xil_cache.h"
 #include "xparameters.h"
-#include "xintc.h"
 #include "xil_exception.h"
 #include "lwip/tcp.h"
 #ifdef TFTP_APP
@@ -50,6 +50,13 @@ void dhcp_fine_tmr();
 void dhcp_coarse_tmr();
 #endif
 
+#ifdef SDT
+#include "xiltimer.h"
+#include "xinterrupt_wrap.h"
+#else
+#include "xintc.h"
+#endif
+
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
@@ -59,30 +66,46 @@ timer_callback()
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified by lwIP.
 	 * It is not important that the timing is absoluetly accurate.
 	 */
-	static int odd = 1;
+	static int Tcp_Fasttimer = 0;
+	static int Tcp_Slowtimer = 0;
 #if LWIP_DHCP==1
 	static int dhcp_timer = 0;
+	static int dhcp_finetimer = 0;
 #endif
 
-	TcpFastTmrFlag = 1;
-	odd = !odd;
-	if (odd) {
+	Tcp_Fasttimer++;
+	Tcp_Slowtimer++;
 
 #if LWIP_DHCP==1
-		dhcp_timer++;
-		dhcp_timoutcntr--;
+	dhcp_timer++;
+	dhcp_finetimer++;
+	dhcp_timoutcntr--;
 #endif
-		TcpSlowTmrFlag = 1;
-#if LWIP_DHCP==1
-		dhcp_fine_tmr();
-		if (dhcp_timer >= 120) {
-			dhcp_coarse_tmr();
-			dhcp_timer = 0;
-		}
-#endif
+
+	/* TCP fast timer - 250ms */
+	if (Tcp_Fasttimer % 5 == 0) {
+		TcpFastTmrFlag = 1;
 	}
+
+	/* TCP slow timer - 500ms */
+	if (Tcp_Slowtimer % 10 == 0) {
+		TcpSlowTmrFlag = 1;
+	}
+
+#if LWIP_DHCP==1
+	/* DHCP fine timer - 500ms */
+	if (dhcp_finetimer % 10 == 0) {
+		dhcp_fine_tmr();
+	}
+	/* DHCP coarse timer - 60sec (1200 * 50ms) */
+	if (dhcp_timer >= 1200) {
+		dhcp_coarse_tmr();
+		dhcp_timer = 0;
+	}
+#endif
 }
 
+#ifndef SDT
 static XIntc intc;
 
 void platform_setup_interrupts()
@@ -135,6 +158,7 @@ void platform_setup_interrupts()
 
 
 }
+#endif
 
 void
 enable_caches()
@@ -165,7 +189,11 @@ void init_platform()
 	XUartNs550_SetLineControlReg(STDOUT_BASEADDR, XUN_LCR_8_DATA_BITS);
 #endif
 
+#ifndef SDT
 	platform_setup_interrupts();
+#else
+	init_timer();
+#endif
 
 #ifdef TFTP_APP
 	platform_init_fs();
@@ -176,4 +204,18 @@ void cleanup_platform()
 {
 	disable_caches();
 }
+
+#ifdef SDT
+void TimerCounterHandler(void *CallBackRef __attribute__((unused)), u32 TmrCtrNumber __attribute__((unused)))
+{
+	timer_callback();
+}
+
+void init_timer()
+{
+	/* Calibrate the platform timer for 50 ms */
+	XTimer_SetInterval(50);
+	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
+}
+#endif
 #endif
