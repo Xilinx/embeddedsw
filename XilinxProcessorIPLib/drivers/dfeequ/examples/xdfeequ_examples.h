@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.5   cog    07/18/23 Modify example for SDT flow
 * 1.6   cog    04/20/24 Configure si570 in Linux examples
+* 1.7   dc     04/10/26 Correct Complex mode configuration
 *
 * </pre>
 *
@@ -29,6 +30,7 @@
 #include "xparameters.h"
 #endif
 #include <metal/device.h>
+#include "xil_printf.h"
 #endif
 #include "xdfeequ.h"
 #include "xdfeequ_hw.h"

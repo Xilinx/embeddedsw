@@ -38,6 +38,7 @@
 * 1.5   cog    07/04/23 Add support for SDT
 * 1.6   cog    01/29/24 Yocto SDT support
 * 1.7   dc     02/18/26 Correct spelling errors
+*       dc     04/10/26 Correct Complex mode configuration
 *
 * </pre>
 * @addtogroup dfeequ Overview
@@ -71,7 +72,7 @@
 * @endcond
 */
 #define XDFEEQU_TAP_MAX (24U) /**< Maximum tap value */
-#define XDFEEQU_DRIVER_VERSION_MINOR (6U) /**< Driver's minor version number */
+#define XDFEEQU_DRIVER_VERSION_MINOR (7U) /**< Driver's minor version number */
 #define XDFEEQU_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -828,6 +829,7 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 					  XDFEEQU_COMPLEX_MODE_OFFSET, Data,
 					  XDFEEQU_COMPLEX_MODE);
 	}
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET, Data);
 
 	/* Trigger NEXT_CONTROL (UPDATE) immediately using Register source to
 	   update CURRENT from NEXT */
