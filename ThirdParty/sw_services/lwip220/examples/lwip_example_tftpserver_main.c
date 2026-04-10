@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -52,7 +52,9 @@ extern volatile int TcpSlowTmrFlag;
 #define DEFAULT_IP_MASK		"255.255.255.0"
 #define DEFAULT_GW_ADDRESS	"192.168.1.1"
 
+#ifndef SDT
 void platform_enable_interrupts(void);
+#endif
 void start_application(void);
 void print_app_header(void);
 
@@ -64,7 +66,7 @@ int ProgramSfpPhy(void);
 #endif
 
 #ifdef XPS_BOARD_ZCU102
-#ifdef XPAR_XIICPS_0_DEVICE_ID
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)
 int IicPhyReset(void);
 #endif
 #endif
@@ -124,7 +126,9 @@ int main(void)
 	 * on ZCU102
 	 */
 #ifdef XPS_BOARD_ZCU102
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)
 	IicPhyReset();
+#endif
 #endif
 
 	init_platform();
@@ -143,8 +147,10 @@ int main(void)
 	}
 	netif_set_default(netif);
 
+#ifndef SDT
 	/* now enable interrupts */
 	platform_enable_interrupts();
+#endif
 
 	/* specify that the network if is up */
 	netif_set_up(netif);
