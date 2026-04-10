@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -45,6 +45,7 @@
 # 5.5   pre 06/06/25 Updated library version for 2025.2
 # 5.7   mk  10/30/25  Updated library version for 2026.1
 #       vm  18/13/25  Removed nonsecure_ipi_access parameter
+#       ank 03/31/26  Enable cache by default
 #
 ##############################################################################
 
@@ -62,7 +63,7 @@ BEGIN LIBRARY xilsecure
   PARAM name = xsecure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = cache_disable, desc = "Enables/Disables cache", type = bool, default = true;
+  PARAM name = cache_disable, desc = "Enables/Disables cache", type = bool, default = false;
   PARAM name = seedlife, desc = "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits", type = int, default = 256;
   PARAM name = dlen, desc = "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31", type = int, default = 7;
   PARAM name = adaptproptestcutoff, desc = "Cutoff value to run adaptive health tests", type = int, default = 645;

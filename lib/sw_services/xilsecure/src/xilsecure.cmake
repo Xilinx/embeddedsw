@@ -167,7 +167,7 @@ if((NOT _IS_PLM_MICROBLAZE) AND (NOT _IS_SPARTANUPLUS) AND (NOT _IS_PMU_MICROBLA
   endif()
 
   # Cache disable option while operating in client mode
-  option(XILSECURE_cache_disable "Enables/Disables Cache for XilSecure client library" ON)
+  option(XILSECURE_cache_disable "Enables/Disables Cache for XilSecure client library" OFF)
   if(XILSECURE_cache_disable AND XILSECURE_mode STREQUAL "client")
     set(XSECURE_CACHE_DISABLE " ")
   endif()

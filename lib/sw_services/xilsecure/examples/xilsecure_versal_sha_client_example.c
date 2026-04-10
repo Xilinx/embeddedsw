@@ -47,7 +47,7 @@
 * 					should be changed to
 * 		   static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Sha3Hash")));
 *
-* To keep things simple, by default the cache is disabled for this example
+* By default the cache is enabled for this example
 *
 * MODIFICATION HISTORY:
 * <pre>

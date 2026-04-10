@@ -54,7 +54,7 @@
 * 					should be changed to
 * 	static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.Data")));
 *
-* To keep things simple, by default the cache is disabled for this example
+* By default the cache is enabled for this example
 *
 * MODIFICATION HISTORY:
 * <pre>
