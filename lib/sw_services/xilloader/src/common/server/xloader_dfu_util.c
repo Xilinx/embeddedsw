@@ -28,6 +28,7 @@
 * 1.04   sk  03/13/24 Fixed doxygen comments format
 * 2.4    aa  04/01/2026 Added DDR address range validation during USB DFU
 *                      download to prevent buffer overflow
+*        aa  04/10/2026 Update DDR overflow check for USB DFU
 *
 * </pre>
 *
@@ -46,8 +47,6 @@
 #include "xloader_usb.h"
 #include "xloader.h"
 #include "xil_util.h"
-#include "xplmi_plat.h"
-#include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -750,7 +749,8 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 	int Result;
 	u32 RxBytesLeft;
 	static u8 DfuReply[XLOADER_DFU_STATUS_SIZE] = {0U,};
-	int AddrStatus;
+	u64 DfuBaseAddr;
+	u64 WriteEndAddr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SetupData != NULL);
@@ -780,26 +780,23 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 			RxBytesLeft = SetupData->wLength;
 
 			if (RxBytesLeft > 0U) {
-				/**
+				/*
 				 * Validate that the write does not
 				 * exceed valid DDR address range.
 				 */
-				if (XPlmi_IsAddrRangeValid != NULL) {
-					AddrStatus = XPlmi_IsAddrRangeValid(
-						PM_SUBSYS_PMC,
-						(u64)((UINTPTR)DfuVirtFlash),
-						(u64)DfuObj.TotalBytesDnloaded
-							+ (u64)RxBytesLeft);
-					if (AddrStatus != XST_SUCCESS) {
-						DfuObj.CurrState =
-							XLOADER_STATE_DFU_ERROR;
-						DfuObj.CurrStatus =
-							XLOADER_DFU_STATUS_ERROR;
-						XUsbPsu_Ep0StallRestart(
-							(struct XUsbPsu *)
-							InstancePtr->PrivateData);
-						break;
-					}
+				DfuBaseAddr = (u64)((UINTPTR)DfuVirtFlash);
+				WriteEndAddr = DfuBaseAddr
+					+ (u64)DfuObj.TotalBytesDnloaded
+					+ (u64)RxBytesLeft - 1U;
+				if (WriteEndAddr > (u64)XPLMI_2GB_END_ADDR) {
+					DfuObj.CurrState =
+						XLOADER_STATE_DFU_ERROR;
+					DfuObj.CurrStatus =
+						XLOADER_DFU_DDR_OVERFLOW_ERROR;
+					XUsbPsu_Ep0StallRestart(
+						(struct XUsbPsu *)
+						InstancePtr->PrivateData);
+					break;
 				}
 				Result = XUsbPsu_EpBufferRecv(
 					(struct XUsbPsu*)InstancePtr->PrivateData,

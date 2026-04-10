@@ -34,6 +34,7 @@
 *       aa   04/01/2026 Added check to report XLOADER_ERR_USB_DDR_OVERFLOW
 *                       when DFU download exceeds valid DDR address range
 *       ias  03/27/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in USB release
+*       aa   04/10/2026 Renamed DFU macro
 *
 * </pre>
 *
@@ -213,7 +214,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 	}
 
-	if (DfuObj.CurrStatus == XLOADER_DFU_STATUS_ERROR) {
+	if (DfuObj.CurrStatus == XLOADER_DFU_DDR_OVERFLOW_ERROR) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_DDR_OVERFLOW, XST_FAILURE);
 	}
 
