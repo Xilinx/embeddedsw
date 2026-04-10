@@ -30,6 +30,7 @@
 #include "bspconfig.h"
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 #include "xloader_smc.h"
+#include "xloader_mailbox.h"
 
 /************************************ Constant Definitions ***************************************/
 
