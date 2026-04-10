@@ -47,7 +47,7 @@
 * 					should be changed to
 * 		   static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (".sharedmemory.RandBuf")));
 *
-* To keep things simple, by default the cache is disabled for this example
+* By default the cache is enabled for this example
 *
 * MODIFICATION HISTORY:
 * <pre>

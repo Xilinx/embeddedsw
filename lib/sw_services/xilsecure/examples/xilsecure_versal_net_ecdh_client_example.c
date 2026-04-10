@@ -47,7 +47,7 @@
 * 					should be changed to
 * 		   static const u8 Hash_P384[] __attribute__ ((section (".sharedmemory.Hash_P384")))
 *
-* To keep things simple, by default the cache is disabled for this example
+* By default the cache is enabled for this example
 *
 * The endianness selected in the example should be in sync with the endianness selected for
 * Xilsecure server which is part of PLM.
