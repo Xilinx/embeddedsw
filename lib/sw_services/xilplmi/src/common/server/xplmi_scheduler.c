@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -351,15 +351,15 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			 */
 			if (TaskNodePresent == (u8)FALSE) {
 				Task = XPlmi_TaskCreate(Priority, CallbackFn, Data);
+				if (Task == NULL) {
+					Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+					XPlmi_Printf(DEBUG_INFO, "Task Creation "
+							"Err:0x%x\n\r", Status);
+					goto END;
+				}
+				Task->IntrId = XPLMI_INVALID_INTR_ID;
 			}
 
-			if (Task == NULL) {
-				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
-				XPlmi_Printf(DEBUG_INFO, "Task Creation "
-						"Err:0x%x\n\r", Status);
-				goto END;
-			}
-			Task->IntrId = XPLMI_INVALID_INTR_ID;
 			Sched.TaskList[Idx].Task = Task;
 			if (TaskType != XPLMI_PERIODIC_TASK) {
 				microblaze_disable_interrupts();
