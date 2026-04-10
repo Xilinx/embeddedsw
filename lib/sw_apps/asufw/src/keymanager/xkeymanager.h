@@ -45,6 +45,7 @@ extern "C" {
 #include "xasu_ocpinfo.h"
 #include "xasu_eccinfo.h"
 
+#ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XKEYMANAGER_MAX_SUB_VAULTS	(9U) /**< Total number of supported sub-vaults */
 
@@ -93,9 +94,6 @@ extern "C" {
 
 #define XKEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */
 #define XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE	(0x02U)	/**< HMAC secret key use case */
-
-#define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_OFFSET	(16U) /**< Offset for length to key size conversion */
-#define XKEYMANAGER_LENGTH_AND_KEY_CONVERSION_SHIFT	(3U)  /**< Shift for length to key size conversion */
 
 #define XKEYMANAGER_RSA_ALL_KEY_USE_CASES_VALUE	(7U)	/**< Value for all RSA key use cases*/
 
@@ -241,6 +239,7 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 			       u32 ExportBufSize, u32 ActualVaultSizeAddr);
 s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,
 			       u32 ImportSize);
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
 

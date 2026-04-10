@@ -205,6 +205,7 @@ int main(void)
 	 * scheduler without blocking the main firmware operations.
 	 * In case of failure, continue booting.
 	 */
+#ifdef XASU_KEYMANAGER_ENABLE
 	if (XKeyManager_IsAsuVaultCreated() == XASU_STATUS_PASS) {
 		Status = XRsa_AddKeyPairGenToScheduler();
 		if (XASUFW_SUCCESS != Status) {
@@ -212,6 +213,7 @@ int main(void)
 				      Status);
 		}
 	}
+#endif
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
@@ -431,11 +433,13 @@ static s32 XAsufw_ModulesInit(void)
 	}
 #endif
 
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Key manager module initialization. */
 	Status = XAsufw_KeyManagerInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Modules init done\r\n");
 

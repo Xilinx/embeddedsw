@@ -220,13 +220,6 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccParams);
 
-	/** Get subsystem ID from IPI mask. */
-	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
-		goto END;
-	}
-
 	/** Copy key object from request */
 	EccKeyObj = EccParamsPtr->Key;
 
@@ -235,6 +228,13 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
+	}
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Get subsystem ID from IPI mask. */
+	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		goto END;
 	}
 
 	/** If KeyAddr is zero and KeyId is provided, retrieve private key from vault. */
@@ -247,13 +247,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-	else if (EccKeyObj.KeyAddr == 0U) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ECC_INVALID_KEY);
-		goto END;
-	}
-	else {
-		/* MISRA C compliant. */
-	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * Generate signature using core API XEcc_GenerateSignature or XRsa_EccGenerateSignature
@@ -309,13 +303,6 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccParams);
 
-	/** Get subsystem ID from IPI mask. */
-	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
-		goto END;
-	}
-
 	/** Copy key object from request */
 	EccKeyObj = EccParamsPtr->Key;
 
@@ -324,6 +311,13 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
+	}
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Get subsystem ID from IPI mask. */
+	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		goto END;
 	}
 
 	/** If KeyAddr is zero and KeyId is provided, retrieve public key from vault. */
@@ -336,13 +330,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-	else if (EccKeyObj.KeyAddr == 0U) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ECC_INVALID_KEY);
-		goto END;
-	}
-	else {
-		/* MISRA C compliant. */
-	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * Verify signature using core API XEcc_VerifySignature or XRsa_EccVerifySignature
@@ -399,13 +387,6 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccKeyParams);
 
-	/** Get subsystem ID from IPI mask. */
-	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
-		goto END;
-	}
-
 	/** Copy key object from request */
 	EccPvtKeyObj = EccParamsPtr->PvtKey;
 
@@ -414,6 +395,13 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
+	}
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Get subsystem ID from IPI mask. */
+	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		goto END;
 	}
 
 	if (EccPvtKeyObj.KeyId != 0U) {
@@ -425,13 +413,7 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-	else if (EccPvtKeyObj.KeyAddr == 0U) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ECC_INVALID_KEY);
-		goto END;
-	}
-	else {
-		/* MISRA C compliant. */
-	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * Generate the public key using core API XEcc_GeneratePublicKey or XRsa_EccGeneratePubKey
@@ -485,16 +467,16 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EcdhParams);
 
-	/** Get subsystem ID from IPI mask. */
-	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
-		goto END;
-	}
-
 	/** Copy key object from request */
 	PvtKeyObj = EcdhParamsPtr->PvtKey;
 	PubKeyObj = EcdhParamsPtr->PubKey;
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Get subsystem ID from IPI mask. */
+	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
 
 	if (PvtKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
@@ -504,13 +486,6 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
 		}
-	}
-	else if (PvtKeyObj.KeyAddr == 0U) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ECC_INVALID_KEY);
-		goto END;
-	}
-	else {
-		/* MISRA C compliant. */
 	}
 
 	if (PubKeyObj.KeyId != 0U) {
@@ -522,13 +497,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-	else if (PubKeyObj.KeyAddr == 0U) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ECC_INVALID_KEY);
-		goto END;
-	}
-	else {
-		/* MISRA C compliant. */
-	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Generate shared secret using public key and private key based on curve type. */
 	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, EcdhParamsPtr->CurveType,

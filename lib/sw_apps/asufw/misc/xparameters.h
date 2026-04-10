@@ -508,7 +508,7 @@
 #define XASU_AES_CM_ENABLE
 #define XASU_ECC_CM_ENABLE
 
-/* Enable/disable for HMAC,KDF,ECIES,Keywrap,RSA padding schemes and OCP */
+/* Enable/disable for HMAC,KDF,ECIES,Keywrap,RSA padding schemes, OCP and KeyManager */
 #define XASU_HMAC_ENABLE
 #define XASU_KDF_ENABLE
 #define XASU_ECIES_ENABLE
@@ -517,6 +517,7 @@
 #define XASU_OCP_ENABLE
 //#define XASU_LMS_ENABLE /**< Macro to enable/disable support of LMS algorithm */
 //#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
+#define XASU_KEYMANAGER_ENABLE /**< Macro to enable/disable support of KeyManager */
 
 /* Macros to enable / disable support of NIST and Brainpool curves */
 /**< Macro to enable/disable support of NIST P-192 curve */

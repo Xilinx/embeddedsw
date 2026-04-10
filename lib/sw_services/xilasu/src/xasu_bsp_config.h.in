@@ -29,6 +29,7 @@
 #cmakedefine    XASU_ECC_SUPPORT_EDWARD_P448
 #cmakedefine    XASU_TRIGGER_SLD_ON_KAT_FAILURE
 #cmakedefine    XASU_LMS_ENABLE
+#cmakedefine    XASU_KEYMANAGER_ENABLE
 #cmakedefine    XASU_RSA_4096_KEYGEN_ENABLE
 #cmakedefine    XASU_RSA_3072_KEYGEN_ENABLE
 #cmakedefine    XASU_RSA_2048_KEYGEN_ENABLE

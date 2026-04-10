@@ -195,17 +195,17 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	KeyObject = HmacParamsPtr->KeyObject;
 
-	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
-		goto END;
-	}
-
 	switch (HmacCmdStage) {
 	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:
 		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
-			/** If key vault ID is provided, resolve key object from vault. */
+#ifdef XASU_KEYMANAGER_ENABLE
+			/** Get subsystem ID from IPI mask. */
+			SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+			if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
+				goto END;
+			}
+
 			if (HmacParamsPtr->KeyObject.KeyId != 0U) {
 				Status = XKeyManager_UpdateKeyObjFromVault(
 						XAsufw_HmacModule.AsuDmaPtr,
@@ -218,14 +218,10 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 					goto END;
 				}
-			} else if (HmacParamsPtr->KeyObject.KeyInAddr == 0U) {
-				/**
-				 * If no vault key ID and no direct key address,
-				 * there is no key source to authenticate with.
-				 */
-				Status = XASUFW_HMAC_INVALID_PARAM;
-				goto END;
 			}
+
+#endif /* XASU_KEYMANAGER_ENABLE */
+
 			/**
 			 * Else, use the direct key address provided by the caller.
 			 * Perform HMAC init with the resolved or direct key.

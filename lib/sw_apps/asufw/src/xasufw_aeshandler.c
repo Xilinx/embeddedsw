@@ -212,7 +212,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -230,7 +230,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
 		goto END;
 	}
-
+#ifdef XASU_KEYMANAGER_ENABLE
 	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) ||
 		(AesParamsPtr->EngineMode == XASU_AES_GCM_MODE) ||
 		(AesParamsPtr->EngineMode == XASU_AES_CMAC_MODE) || (AesParamsPtr->EngineMode == XASU_AES_GHASH_MODE)) {
@@ -243,18 +243,16 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_AES_INVALID_OPERATION_TYPE;
 		goto END;
 	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	if (((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
-		if ((AesParamsPtr->IvAddr == 0U) && (AesParamsPtr->IvId == 0U)) {
-			Status = XASUFW_AES_INVALID_IV;
-			goto END;
-		}
 		LocalIvAddr = AesParamsPtr->IvAddr;
 		LocalIvLen = AesParamsPtr->IvLen;
 
-		if (AesParamsPtr->IvAddr == 0U) {
+#ifdef XASU_KEYMANAGER_ENABLE
+		if (AesParamsPtr->IvId != 0U) {
 			IvObject.IvId = AesParamsPtr->IvId;
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
 							IvObject.IvId, (u64)(UINTPTR)&IvObject,
@@ -267,6 +265,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			LocalIvAddr = IvObject.IvAddr;
 			LocalIvLen = IvObject.IvLen;
 		}
+#endif /* XASU_KEYMANAGER_ENABLE */
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
@@ -278,12 +277,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
-		if ((KeyObject.KeyAddress == 0U) && (KeyObject.KeyId == 0U)) {
-			Status = XASUFW_AES_INVALID_KEY_ADDRESS;
-			goto END;
-		}
-
-		if ((KeyObject.KeyAddress == 0U) && (KeyObject.KeyId != 0U)) {
+#ifdef XASU_KEYMANAGER_ENABLE
+		if (KeyObject.KeyId != 0U) {
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
 							KeyObject.KeyId, (u64)(UINTPTR)&KeyObject,
 							SubsystemId, KeyUsecase,
@@ -293,6 +288,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				goto END;
 			}
 		}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 		/** Write the given user key to the specified AES USER KEY register. */
 		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, &KeyObject);

@@ -182,10 +182,11 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_INVALID_SUBSYSTEM_ID);
 		goto END;
 	}
 
@@ -200,14 +201,8 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
 		}
-	} else if (KdfParams.KeyObject.KeyInAddr == 0U) {
-		/**
-		 * If no vault key ID and no direct key address,
-		 * there is no key source to derive from.
-		 */
-		Status = XASUFW_KDF_INVALID_PARAM;
-		goto END;
 	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * Else, use the direct key address provided by the caller.
