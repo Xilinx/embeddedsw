@@ -107,6 +107,8 @@
 *       mb   10/06/2025 Optimize Status variable usage.
 *	tus  10/10/2025 Fix ECB mode state transition to
 *			XSECURE_AES_INITIALIZED
+* 5.7   tbk  04/07/2026 Optimized key zeroization by directly writing combined
+*                       key clear mask to registers
 * </pre>
 *
 ******************************************************************************/
@@ -805,16 +807,11 @@ END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	if ((InstancePtr->NextBlkLen == 0U) || (Status != XST_SUCCESS)) {
 		InstancePtr->NextBlkLen = 0U;
-		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_AND_EXPANDED_KEYS);
 		if (Status == XST_SUCCESS) {
 			Status = SStatus;
 		}
 
-		SStatus = XST_FAILURE;
-		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
-		if (Status == XST_SUCCESS) {
-			Status = SStatus;
-		}
 		/*
 		 * Issue a soft to reset to AES engine
 		 */
@@ -1240,6 +1237,9 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	}
 	else if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
+	}
+	else if (KeySrc == XSECURE_AES_KUP_AND_EXPANDED_KEYS) {
+		Mask = XSECURE_AES_KEY_CLEAR_KUP_AND_EXP_KEYS_MASK;
 	}
 	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XSECURE_AES_INVALID_CFG) {
 		Mask = AesKeyLookupTbl[KeySrc].KeyClearVal;
@@ -1985,6 +1985,7 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -2024,6 +2025,14 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 		/* Wait for AES Done for last chunk in ECB mode */
 		Status = XSecure_AesWaitForDone(InstancePtr);
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+
+		/* Zeroize the keys after AES operation completion */
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_AND_EXPANDED_KEYS);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
 END_RST:
@@ -2086,13 +2095,7 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 		Status = XSecure_AesWaitForDone(InstancePtr);
 
 		/* Zeroize the keys after AES operation completion */
-		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
-		if (Status == XST_SUCCESS) {
-			Status = SStatus;
-		}
-
-		SStatus = XST_FAILURE;
-		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_AND_EXPANDED_KEYS);
 		if (Status == XST_SUCCESS) {
 			Status = SStatus;
 		}
