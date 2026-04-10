@@ -19,6 +19,7 @@
 * 5.6   aa    07/21/25 Removed unused macros
 *       mb    09/11/25 Added SHA3_384 mode related macros.
 * 5.7   mb    03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
+*       tbk   04/07/26 Added combined KUP and expanded key clear mask and enum
 *
 * </pre>
 *
@@ -124,6 +125,9 @@ extern "C" {
 
 #define XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK	(0x00288003U)
 
+/** Combined mask to clear KUP key and expanded (zeroize) key simultaneously */
+#define XSECURE_AES_KEY_CLEAR_KUP_AND_EXP_KEYS_MASK	(XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK | \
+							 XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK)
 /** @} */
 
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED		(0x1U)
@@ -170,6 +174,7 @@ typedef enum {
 	XSECURE_AES_USER_KEY_7,			/**< User Key 7 */
 	XSECURE_AES_EXPANDED_KEYS,		/**< Expanded keys */
 	XSECURE_AES_PUF_RED_EXPANDED_KEYS,	/**< AES PUF,RED,KUP keys */
+	XSECURE_AES_KUP_AND_EXPANDED_KEYS,	/**< KUP and Expanded keys */
 	XSECURE_AES_ALL_KEYS,			/**< AES All keys */
 	XSECURE_AES_INVALID_KEY,		/**< AES Invalid Key */
 } XSecure_AesKeySrc;
