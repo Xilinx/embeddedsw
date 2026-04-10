@@ -489,7 +489,8 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		goto END;
 	}
 	for (Index = 0U; Index < NoOfPrtns; Index++) {
-		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+		if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) &&
+			(PdiPtr->PdiType != XLOADER_PDI_TYPE_IAU)) {
 			ImageMeasureInfo.DataAddr =
 			(u64)(UINTPTR)&HBPtr->HashData[PrtnNum].PrtnHash;
 		} else {
