@@ -120,95 +120,27 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		goto END;
 	}
 
-	/** If the operation flag is set to INIT, */
-	if ((HmacParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
-		/**
-		 * - If either P0HmacCtx or P1HmacCtx is not NULL depending on whether the priority
-		 * is HIGH or LOW, it indicates that a multi-request operation is already in progress.
-		 */
-		if (((ClientParamsPtr->Priority == XASU_PRIORITY_HIGH) && (P0HmacCtx != NULL)) ||
-			((ClientParamsPtr->Priority == XASU_PRIORITY_LOW) && (P1HmacCtx != NULL))) {
-			/** - Additionally, if the operation flag is set to UPDATE and FINAL, */
-			if (((HmacParamsPtr->OperationFlags & XASU_UPDATE)
-				== XASU_UPDATE) &&
-			   ((HmacParamsPtr->OperationFlags & XASU_FINAL)
-				== XASU_FINAL)) {
-				/** - Generate a Unique ID for the new request. */
-				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
-								NULL, 0U, XASU_TRUE);
-				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-					Status = XASU_INVALID_UNIQUE_ID;
-					goto END;
-				}
-			} else {
-				/** - Else, return an error. */
-				Status = XASU_REQUEST_INPROGRESS;
-				goto END;
-			}
-		} else {
-			/** - If context is NULL based on priority, generate Unique ID. */
-			UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
-							NULL, 0U, XASU_FALSE);
-			if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-				Status = XASU_INVALID_UNIQUE_ID;
-				goto END;
-			}
-			/** If P0 priority and respective context is NULL, */
-			if ((ClientParamsPtr->Priority == XASU_PRIORITY_HIGH) && (P0HmacCtx == NULL)) {
-				/** - Save the P0 Context. */
-				P0HmacCtx = XAsu_UpdateNGetCtx(UniqueId);
-				if (P0HmacCtx == NULL) {
-					Status = XASU_FAIL_SAVE_CTX;
-					goto END;
-				}
-				ClientParamsPtr->ClientCtx = P0HmacCtx;
-			} else {
-				/** If P1 priority and respective context is NULL, */
-				if ((ClientParamsPtr->Priority == XASU_PRIORITY_LOW) && (P1HmacCtx == NULL)) {
-					/** - Save the P1 Context. */
-					P1HmacCtx = XAsu_UpdateNGetCtx(UniqueId);
-					if (P1HmacCtx == NULL) {
-						Status = XASU_FAIL_SAVE_CTX;
-						goto END;
-					}
-					ClientParamsPtr->ClientCtx = P1HmacCtx;
-				}
-			}
-		}
-	}
-	/** If the operation flag is either UPDATE or FINAL, */
-	else {
-		/** - Check if the context already exists. If not, return an error. */
-		if (ClientParamsPtr->ClientCtx != NULL) {
-			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamsPtr->ClientCtx, &UniqueId);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		} else {
-			Status = XASU_CLIENT_CTX_NOT_CREATED;
-			goto END;
-		}
+	/** Validate required parameters for HMAC update operation. */
+	if (((HmacParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
+	    ((HmacParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
+	    ((HmacParamsPtr->OperationFlags & XASU_UPDATE) != XASU_UPDATE)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
 	}
 
-	/** If FINISH operation flag is set, update response buffer details. */
-	if ((HmacParamsPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) {
-		Status = XAsu_UpdateCallBackDetails(UniqueId,
-						    (u8 *)(UINTPTR)HmacParamsPtr->HmacAddr,
-						    HmacParamsPtr->HmacLen, XASU_TRUE);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	/** Handle context operation. */
+	Status = XAsu_HandleContextOperation(ClientParamsPtr, &P0HmacCtx, &P1HmacCtx,
+				     HmacParamsPtr->OperationFlags, &UniqueId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-		if (ClientParamsPtr->ClientCtx == P0HmacCtx) {
-			P0HmacCtx = NULL;
-		} else {
-			if (ClientParamsPtr->ClientCtx == P1HmacCtx) {
-				P1HmacCtx = NULL;
-			}
-		}
-		/* Free HMAC Ctx */
-		Status = XAsu_FreeCtx(ClientParamsPtr->ClientCtx);
-		ClientParamsPtr->ClientCtx = NULL;
+	/** Cleanup on FINAL operation. */
+	if ((HmacParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
+		Status = XAsu_CleanupFinishOperation(ClientParamsPtr, &P0HmacCtx, &P1HmacCtx,
+						     UniqueId,
+						     (u8 *)(UINTPTR)HmacParamsPtr->HmacAddr,
+						     HmacParamsPtr->HmacLen);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -323,7 +255,7 @@ s32 XAsu_HmacSha3Kat(void)
 	/** Set up HMAC parameters for single-shot operation. */
 	HmacParams.ShaType = XASU_SHA3_TYPE;
 	HmacParams.ShaMode = XASU_SHA_MODE_256;
-	HmacParams.OperationFlags = XASU_INIT | XASU_UPDATE | XASU_FINAL;
+	HmacParams.OperationFlags = XASU_INIT | XASU_UPDATE | XASU_FINISH;
 	HmacParams.IsLast = XASU_TRUE;
 	HmacParams.KeyObject.KeyInAddr = (u64)(UINTPTR)HmacKatKey;
 	HmacParams.KeyObject.KeyInLen = XASU_HMAC_KAT_KEY_LEN_IN_BYTES;
@@ -387,7 +319,7 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 	}
 
 	if ((HmacParamsPtr->OperationFlags &
-	     (XASU_INIT | XASU_UPDATE | XASU_FINAL)) == 0U) {
+	     (XASU_INIT | XASU_UPDATE | XASU_FINISH)) == 0U) {
 		goto END;
 	}
 
@@ -424,7 +356,7 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 		}
 	}
 
-	if ((((HmacParamsPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) &&
+	if ((((HmacParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
 	     (HmacParamsPtr->HmacAddr == 0U))) {
 		goto END;
 	}

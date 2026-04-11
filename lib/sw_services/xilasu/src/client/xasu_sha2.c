@@ -85,14 +85,14 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	}
 
 	if ((ShaClientParamPtr->OperationFlags &
-			(XASU_INIT | XASU_UPDATE | XASU_FINAL)) == 0x0U) {
+			(XASU_INIT | XASU_UPDATE | XASU_FINISH)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
 	if ((((ShaClientParamPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) &&
 			(ShaClientParamPtr->DataAddr == 0U)) ||
-			(((ShaClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) &&
+			(((ShaClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
 			(ShaClientParamPtr->HashAddr == 0U))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -113,7 +113,7 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if (((ShaClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) &&
+	if (((ShaClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
 			(XAsu_ShaValidateHashLen(ShaClientParamPtr->ShaMode,
 			ShaClientParamPtr->HashBufSize) != XST_SUCCESS)) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -125,91 +125,17 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	/** If the operation flag is set to START, */
-	if ((ShaClientParamPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
-		/**
-		 * - If either P0Sha2Ctx or P1Sha2Ctx is not NULL depending on whether the priority
-		 * is HIGH or LOW, it indicates that a multi-request operation is already in progress.
-		 */
-		if (((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0Sha2Ctx != NULL)) ||
-			((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1Sha2Ctx != NULL))) {
-			/** - Additionally, if the operation flag is set to FINISH, */
-			if ((ShaClientParamPtr->OperationFlags & XASU_FINAL)
-				== XASU_FINAL) {
-				/** - Generate a Unique ID for the new request. */
-				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-								NULL, 0U, XASU_TRUE);
-				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-					Status = XASU_INVALID_UNIQUE_ID;
-					goto END;
-				}
-			} else {
-				/** - Else, return an error. */
-				Status = XASU_REQUEST_INPROGRESS;
-				goto END;
-			}
-		} else {
-			/** - If context is NULL based on priority, generate Unique ID. */
-			UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-							NULL, 0U, XASU_FALSE);
-			if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-				Status = XASU_INVALID_UNIQUE_ID;
-				goto END;
-			}
-			/** If P0 priority and respective context is NULL, */
-			if ((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0Sha2Ctx == NULL)) {
-				/** - Save the P0 Context. */
-				P0Sha2Ctx = XAsu_UpdateNGetCtx(UniqueId);
-				if (P0Sha2Ctx == NULL) {
-					Status = XASU_FAIL_SAVE_CTX;
-					goto END;
-				}
-				ClientParamPtr->ClientCtx = P0Sha2Ctx;
-			} else {
-				/** If P1 priority and respective context is NULL, */
-				if ((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1Sha2Ctx == NULL)) {
-					/** - Save the P1 Context. */
-					P1Sha2Ctx = XAsu_UpdateNGetCtx(UniqueId);
-					if (P1Sha2Ctx == NULL) {
-						Status = XASU_FAIL_SAVE_CTX;
-						goto END;
-					}
-					ClientParamPtr->ClientCtx = P1Sha2Ctx;
-				}
-			}
-		}
-	}
-	/** If the operation flag is either UPDATE or FINISH, */
-	else {
-		/** - Check if the context already exists. If not, return an error. */
-		if (ClientParamPtr->ClientCtx != NULL) {
-			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		} else {
-			Status = XASU_CLIENT_CTX_NOT_CREATED;
-			goto END;
-		}
+	/** Handle context operation. */
+	Status = XAsu_HandleContextOperation(ClientParamPtr, &P0Sha2Ctx, &P1Sha2Ctx,
+				     ShaClientParamPtr->OperationFlags, &UniqueId);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
-	/** If FINISH operation flag is set, update callback details. */
-	if ((ShaClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) {
-		Status = XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		if (ClientParamPtr->ClientCtx == P0Sha2Ctx) {
-			P0Sha2Ctx = NULL;
-		} else {
-			if (ClientParamPtr->ClientCtx == P1Sha2Ctx) {
-				P1Sha2Ctx = NULL;
-			}
-		}
-		/* Free Sha3 Ctx */
-		Status = XAsu_FreeCtx(ClientParamPtr->ClientCtx);
-		ClientParamPtr->ClientCtx = NULL;
+	/** Cleanup on FINISH operation. */
+	if ((ShaClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
+		Status = XAsu_CleanupFinishOperation(ClientParamPtr, &P0Sha2Ctx, &P1Sha2Ctx,
+					     UniqueId, NULL, 0U);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

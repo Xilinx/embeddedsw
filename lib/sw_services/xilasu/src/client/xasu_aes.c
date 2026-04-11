@@ -161,7 +161,7 @@ static const u8 AesKatCcmTag[XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES] = {
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 		- XASU_FREE_CTX_FAIL, if freeing context fails.
  *
- * @note	Verify the additional status if operation flag is set to XASU_FINAL.
+ * @note	Verify the additional status if operation flag is set to XASU_FINISH.
  * 		- XASU_AES_TAG_READ, if the encryption operation is successfully done.
  * 		- XASU_AES_TAG_MATCHED, if the decryption operation is successfully done.
  * 		- Any other value shall be treated as failure.
@@ -187,7 +187,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	}
 
 	if ((AesClientParamPtr->OperationFlags &
-			(XASU_INIT | XASU_UPDATE | XASU_FINAL)) == 0x0U) {
+			(XASU_INIT | XASU_UPDATE | XASU_FINISH)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -262,7 +262,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		/** Validate the input data alignment. */
 		if ((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
 			if (XASU_AES_MODE_REQUIRES_ALIGNMENT(AesClientParamPtr->EngineMode) ||
-					((AesClientParamPtr->OperationFlags & XASU_FINAL) != XASU_FINAL)) {
+					((AesClientParamPtr->OperationFlags & XASU_FINISH) != XASU_FINISH)) {
 				Status = XASU_INVALID_ARGUMENT;
 				goto END;
 			}
@@ -276,7 +276,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	}
 
 	/** Validate tag for AES final operation. */
-	if ((AesClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) {
+	if ((AesClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
 		Status = XAsu_AesValidateTagParams(AesClientParamPtr->EngineMode, AesClientParamPtr->TagAddr,
 			AesClientParamPtr->TagLen);
 		if (Status != XST_SUCCESS) {
@@ -284,92 +284,25 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		}
 	}
 
-	/** If the operation flag is set to INIT, */
-	if ((AesClientParamPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
-		/**
-		 * - If either P0AesCtx or P1AesCtx is not NULL depending on whether the priority
-		 * is HIGH or LOW, it indicates that a multi-request operation is already in progress.
-		 */
-		if (((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0AesCtx != NULL)) ||
-			((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1AesCtx != NULL))) {
-			/** - Additionally, if the operation flag is set to UPDATE and FINAL, */
-			if (((AesClientParamPtr->OperationFlags & XASU_UPDATE)
-				== XASU_UPDATE) && ((AesClientParamPtr->OperationFlags & XASU_FINAL)
-				== XASU_FINAL)) {
-				/** - Generate a Unique ID for the new request. */
-				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-								NULL, 0U, XASU_TRUE);
-				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-					Status = XASU_INVALID_UNIQUE_ID;
-					goto END;
-				}
-			} else {
-				/** - Else, return an error. */
-				Status = XASU_REQUEST_INPROGRESS;
-				goto END;
-			}
-		} else {
-			/** - If context is NULL based on priority, generate Unique ID. */
-			UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-							NULL, 0U, XASU_FALSE);
-			if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-				Status = XASU_INVALID_UNIQUE_ID;
-				goto END;
-			}
-			/** - If P0 priority and respective context is NULL, */
-			if ((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0AesCtx == NULL)) {
-				/** - Save the P0 Context. */
-				P0AesCtx = XAsu_UpdateNGetCtx(UniqueId);
-				if (P0AesCtx == NULL) {
-					Status = XASU_FAIL_SAVE_CTX;
-					goto END;
-				}
-				ClientParamPtr->ClientCtx = P0AesCtx;
-			} else {
-				/** - If P1 priority and respective context is NULL, */
-				if ((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1AesCtx == NULL)) {
-					/** - Save the P1 Context. */
-					P1AesCtx = XAsu_UpdateNGetCtx(UniqueId);
-					if (P1AesCtx == NULL) {
-						Status = XASU_FAIL_SAVE_CTX;
-						goto END;
-					}
-					ClientParamPtr->ClientCtx = P1AesCtx;
-				}
-			}
-		}
-	}
-	/** If the operation flag is either UPDATE or FINAL, */
-	else {
-		/** - Check if the context already exists. If not, return an error. */
-		if (ClientParamPtr->ClientCtx != NULL) {
-			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		} else {
-			Status = XASU_CLIENT_CTX_NOT_CREATED;
-			goto END;
-		}
+	/** Validate required parameters for AES update operation. */
+	if (((AesClientParamPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
+	    ((AesClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
+	    ((AesClientParamPtr->OperationFlags & XASU_UPDATE) != XASU_UPDATE)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
 	}
 
-	/** If FINISH operation flag is set, update response buffer details. */
-	if ((AesClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) {
-		Status = XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	/** Handle context operation. */
+	Status = XAsu_HandleContextOperation(ClientParamPtr, &P0AesCtx, &P1AesCtx,
+					     AesClientParamPtr->OperationFlags, &UniqueId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-		if (ClientParamPtr->ClientCtx == P0AesCtx) {
-			P0AesCtx = NULL;
-		} else {
-			if (ClientParamPtr->ClientCtx == P1AesCtx) {
-				P1AesCtx = NULL;
-			}
-		}
-		/* Free AES Ctx */
-		Status = XAsu_FreeCtx(ClientParamPtr->ClientCtx);
-		ClientParamPtr->ClientCtx = NULL;
+	/** Cleanup on FINAL operation. */
+	if ((AesClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
+		Status = XAsu_CleanupFinishOperation(ClientParamPtr, &P0AesCtx, &P1AesCtx,
+						     UniqueId, NULL, 0U);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -603,7 +536,7 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 		if ((AesClientParamPtr->AadLen > 0U) && (AesClientParamPtr->AadAddr != 0U) &&
 				(AesClientParamPtr->AadLen <= XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 			if (((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U) ||
-			    ((AesClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL)) {
+			    ((AesClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH)) {
 				Status = XST_SUCCESS;
 			}
 		}
@@ -732,7 +665,7 @@ static s32 XAsu_AesRunClientKat(const XAsu_AesKatVectors *KatParams)
 
 	/** Configure AES parameters for single-shot operation. */
 	AesParams.OperationFlags = (u8)(XASU_INIT | XASU_UPDATE |
-					XASU_FINAL);
+					XASU_FINISH);
 	AesParams.OperationType = KatParams->OperationType;
 	AesParams.EngineMode = KatParams->EngineMode;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObj;
