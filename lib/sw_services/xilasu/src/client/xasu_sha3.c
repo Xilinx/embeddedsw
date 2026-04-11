@@ -85,15 +85,14 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->OperationFlags &
-			(XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH)) == 0x0U) {
+	if ((ShaClientParamPtr->OperationFlags & (XASU_INIT | XASU_UPDATE | XASU_FINAL)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((((ShaClientParamPtr->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) &&
+	if ((((ShaClientParamPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) &&
 			(ShaClientParamPtr->DataAddr == 0U)) ||
-			(((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
+			(((ShaClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) &&
 			(ShaClientParamPtr->HashAddr == 0U))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -103,7 +102,7 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	 * The maximum length of input data should be less than 0x1FFFFFFC bytes, which is the
 	 * ASU DMA's maximum supported data transfer length.
 	 */
-	 if (((ShaClientParamPtr->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) &&
+	 if (((ShaClientParamPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) &&
 			(ShaClientParamPtr->DataSize > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -114,7 +113,7 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if (((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
+	if (((ShaClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) &&
 			(XAsu_ShaValidateHashLen(ShaClientParamPtr->ShaMode,
 			ShaClientParamPtr->HashBufSize) != XST_SUCCESS)) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -127,7 +126,7 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	}
 
 	/** If the operation flag is set to START, */
-	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+	if ((ShaClientParamPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
 		/**
 		 * - If either P0Sha3Ctx or P1Sha3Ctx is not NULL depending on whether the priority
 		 * is HIGH or LOW, it indicates that a multi-request operation is already in progress.
@@ -135,8 +134,8 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		if (((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0Sha3Ctx != NULL)) ||
 			((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1Sha3Ctx != NULL))) {
 			/** - Additionally, if the operation flag is set to FINISH, */
-			if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH)
-				== XASU_SHA_FINISH) {
+			if ((ShaClientParamPtr->OperationFlags & XASU_FINAL)
+				== XASU_FINAL) {
 				/** - Generate a Unique ID for the new request. */
 				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
 								NULL, 0U, XASU_TRUE);
@@ -195,7 +194,7 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	}
 
 	/** If FINISH operation flag is set, update callback details. */
-	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
+	if ((ShaClientParamPtr->OperationFlags & XASU_FINAL) == XASU_FINAL) {
 		Status = XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
 		if (Status != XST_SUCCESS) {
 			goto END;

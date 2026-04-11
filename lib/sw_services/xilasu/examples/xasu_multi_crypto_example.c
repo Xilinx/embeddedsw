@@ -565,7 +565,7 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 	Sha2HashParams.HashBufSize = XASU_SHA2_HASH_LEN_IN_BYTES;
 	Sha2HashParams.ShaMode = XASU_SHA_MODE_256;
 	Sha2HashParams.IsLast = TRUE;
-	Sha2HashParams.OperationFlags = (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH);
+	Sha2HashParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 
 	Status = XAsu_Sha2Operation(&Sha2HashClientParams, &Sha2HashParams);
 	if (Status != XST_SUCCESS) {
@@ -591,7 +591,7 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 	AesKeyObj.KeyId = 0U;
 
 	AesEncryptParams.EngineMode = XASU_AES_GCM_MODE;
-	AesEncryptParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
+	AesEncryptParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 	AesEncryptParams.IsLast = TRUE;
 	AesEncryptParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 	AesEncryptParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
@@ -770,7 +770,7 @@ static s32 XAsu_SendCryptoRequestsSet2(void)
 		AesKeyObj.KeyId = 0U;
 
 		AesDecryptParams.EngineMode = XASU_AES_GCM_MODE;
-		AesDecryptParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
+		AesDecryptParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 		AesDecryptParams.IsLast = TRUE;
 		AesDecryptParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 		AesDecryptParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;

@@ -273,7 +273,7 @@ END:
  * @brief	This  function performs AES encryption and decryption operation on a given data
  *		using AES-GCM engine mode.
  *
- * @note	Verify the additional status if operation flag is set to XASU_AES_FINAL.
+ * @note	Verify the additional status if operation flag is set to XASU_FINISH.
  * 		- XASU_AES_TAG_READ, if encryption operation successfully done.
  * 		- XASU_AES_TAG_MATCHED, if decryption operation successfully done.
  * 		- Any other value shall be treated as failure.
@@ -298,7 +298,7 @@ static void XAsu_AesGcmExample(void)
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
-	AesParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
+	AesParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 
@@ -328,7 +328,7 @@ static void XAsu_AesGcmExample(void)
 	while(!Notify);
 
 	/**
-	 * Verify additional status as well if operation flag set to XASU_AES_FINAL to know
+	 * Verify additional status as well if operation flag set to XASU_FINISH to know
 	 * operation is successful.
 	 */
 	if ((ErrorStatus != XST_SUCCESS) ||
@@ -372,7 +372,7 @@ static void XAsu_AesGcmExample(void)
 
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
-	AesParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
+	AesParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 
@@ -401,7 +401,7 @@ static void XAsu_AesGcmExample(void)
 	Notify = 0;
 
 	/**
-	 * Verify additional status as well if operation flag set to XASU_AES_FINAL to know
+	 * Verify additional status as well if operation flag set to XASU_FINISH to know
 	 * operation is successful.
 	 */
 	if ((ErrorStatus != XST_SUCCESS) ||
@@ -453,7 +453,7 @@ static void XAsu_AesCtrExample(void)
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_CTR_MODE;
-	AesParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
+	AesParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 
@@ -505,7 +505,7 @@ static void XAsu_AesCtrExample(void)
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_CTR_MODE;
-	AesParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
+	AesParams.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 

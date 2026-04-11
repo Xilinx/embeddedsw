@@ -137,7 +137,7 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	switch (ShaCtxPtr->CmdStage) {
 	case XSHA_NON_BLOCKING_CMD_STAGE_INIT:
-		if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+		if ((Cmd->OperationFlags & XASU_INIT) == XASU_INIT) {
 			/** If operation flags include SHA START, perform SHA start operation. */
 			Status = XSha_Start(ShaInstancePtr, Cmd->ShaMode);
 			if (Status != XASUFW_SUCCESS) {
@@ -147,7 +147,7 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		}
 
 		/** If operation flags include SHA UPDATE perform SHA update operation. */
-		if ((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) {
+		if ((Cmd->OperationFlags & XASU_UPDATE) == XASU_UPDATE) {
 			Status = XSha_Update(ShaInstancePtr, ShaModulePtr->AsuDmaPtr,
 					     Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
@@ -165,7 +165,7 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* fall through */
 	case XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		ShaCtxPtr->CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
-		if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
+		if ((Cmd->OperationFlags & XASU_FINISH) == XASU_FINISH) {
 			/** If operation flags include SHA FINISH, perform SHA finish operation. */
 			Status = XSha_Finish(ShaInstancePtr, ShaModulePtr->AsuDmaPtr,
 					Cmd->HashAddr, Cmd->HashBufSize, XASU_FALSE);
@@ -198,7 +198,7 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 END:
 	if (((Status != XASUFW_SUCCESS) ||
-	      ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH)) &&
+	      ((Cmd->OperationFlags & XASU_FINISH) == XASU_FINISH)) &&
 	     (Status != XASUFW_CMD_IN_PROGRESS)) {
 		/** Release resources. */
 		if ((ResourceId != XASUFW_INVALID) &&

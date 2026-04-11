@@ -139,7 +139,7 @@ static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * or if CmdId is SHA KAT.
 	 */
 	if (((CmdId == XASU_SHA_OPERATION_CMD_ID) &&
-		((Cmd->OperationFlags & (XASU_SHA_UPDATE | XASU_SHA_FINISH)) != 0U)) ||
+		((Cmd->OperationFlags & (XASU_UPDATE | XASU_FINISH)) != 0U)) ||
 		(CmdId == XASU_SHA_KAT_CMD_ID)) {
 		XAsufw_Sha2Context.Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
 		if (XAsufw_Sha2Context.Module.AsuDmaPtr == NULL) {

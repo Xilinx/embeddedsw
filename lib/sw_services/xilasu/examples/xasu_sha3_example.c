@@ -180,7 +180,7 @@ static s32 Asu_Sha3Example(void)
 	ShaClientParam.HashBufSize = ASU_SHA3_HASH_LEN_IN_BYTES;
 	ShaClientParam.ShaMode = XASU_SHA_MODE_384;
 	ShaClientParam.IsLast = TRUE;
-	ShaClientParam.OperationFlags = (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH);
+	ShaClientParam.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 
 	Status = XAsu_Sha3Operation(&ClientParam, &ShaClientParam);
 	if(Status != XST_SUCCESS) {

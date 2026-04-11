@@ -223,9 +223,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * encoding. INIT|UPDATE|FINAL (single-shot) is allowed.
 	 */
 	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) &&
-		((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
-		((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
-		((AesParamsPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL)) {
+		((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
+		((AesParamsPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) &&
+		((AesParamsPtr->OperationFlags & XASU_FINISH) != XASU_FINISH)) {
 		Status = XAsufw_UpdateErrorStatus(Status,
 				XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
 		goto END;
@@ -245,7 +245,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 #endif /* XASU_KEYMANAGER_ENABLE */
 
-	if (((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+	if (((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
 		LocalIvAddr = AesParamsPtr->IvAddr;
@@ -268,7 +268,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 #endif /* XASU_KEYMANAGER_ENABLE */
 	}
 
-	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
+	if ((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
 		/** Copy KeyObject structure from 64-bit address space to local structure using ASU DMA. */
 		Status = XAsufw_DmaXfr(XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
 			(u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
@@ -322,7 +322,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		}
 	}
 
-	if ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
+	if ((AesParamsPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) {
 		/* Fetch the actual engine mode from the initialized AES instance */
 		EngineMode = XAes_GetEngineMode(XAsufw_Aes);
 		if (EngineMode == (u8)XASUFW_AES_INVALID_ENGINE_MODE) {
@@ -398,7 +398,7 @@ XAES_STAGE_DATA_UPDATE:
 XAES_STAGE_DATA_UPDATE_DONE:
 	CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 
-	if ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
+	if ((AesParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
 		/** Complete the AES operation. */
 		Status = XAes_Final(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->TagAddr,
 					AesParamsPtr->TagLen);
@@ -419,8 +419,8 @@ XAES_STAGE_DATA_UPDATE_DONE:
 
 END:
 	/** Release the resource in the event of failure or after a successful final operation. */
-	if ((Status != XASUFW_SUCCESS) || ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) ==
-			XASU_AES_FINAL)) {
+	if ((Status != XASUFW_SUCCESS) || ((AesParamsPtr->OperationFlags & XASU_FINISH) ==
+			XASU_FINISH)) {
 		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}

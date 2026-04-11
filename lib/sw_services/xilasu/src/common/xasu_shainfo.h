@@ -53,11 +53,6 @@ extern "C" {
 #define XASU_SHA_MODE_512			(2U) /**< SHA2/SHA3 mode 512 */
 #define XASU_SHA_MODE_SHAKE256			(4U) /**< SHA3 mode SHAKE */
 
-/* SHA operation mode */
-#define XASU_SHA_START				(0x1U) /**< SHA start operation flag */
-#define XASU_SHA_UPDATE				(0x2U) /**< SHA update operation flag */
-#define XASU_SHA_FINISH				(0x4U) /**< SHA finish operation flag */
-
 /* SHA Type */
 #define XASU_SHA2_TYPE				(0x02U) /**< SHA2 type */
 #define XASU_SHA3_TYPE				(0x03U) /**< SHA3 type */
@@ -82,8 +77,8 @@ typedef struct {
 	u8 IsLast; /**< Indicates whether it is the last update of data to AES engine.
 				 * - FALSE: Not Last update.
 				 * - TRUE: Last update. */
-	u8 OperationFlags; /**< SHA2/3 operation flags is a combination of (XASU_SHA_START,
-					* XASU_SHA_UPDATE, XASU_AES_FINISH) */
+	u8 OperationFlags; /**< SHA2/3 operation flags is a combination of (XASU_INIT,
+					* XASU_UPDATE, XASU_FINISH) */
 	u8 ShakeReserved; /**< SHA3 SHAKE256 next xof enable flag. NA for client. ASUFW internal use */
 } XAsu_ShaOperationCmd;
 

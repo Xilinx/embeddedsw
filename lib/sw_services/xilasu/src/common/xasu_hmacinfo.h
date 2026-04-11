@@ -46,11 +46,6 @@ extern "C" {
 #define XASU_HMAC_KAT_CMD_ID			(2U) /**< Command ID for HMAC KAT command */
 #define XASU_HMAC_MAX_CMDS			(3U) /**< Maximum number of commands supported by HMAC module */
 
-/* HMAC operation mode */
-#define XASU_HMAC_INIT				(0x1U) /**< HMAC init operation flag */
-#define XASU_HMAC_UPDATE			(0x2U) /**< HMAC update operation flag */
-#define XASU_HMAC_FINAL				(0x4U) /**< HMAC final operation flag */
-
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This structure contains KDF/HMAC key object for vault resolution. */
@@ -76,7 +71,7 @@ typedef struct {
 				 * - FALSE: Not Last update.
 				 * - TRUE: Last update.   */
 	u8 OperationFlags; /**< Flags that determine the operation type. These can be a combination of
-			XASU_HMAC_INIT, XASU_HMAC_UPDATE and XASU_HMAC_FINAL */
+			XASU_INIT, XASU_UPDATE and XASU_FINISH */
 	u8 Reserved[4]; /**< Reserved for 8-byte alignment */
 } XAsu_HmacParams;
 
