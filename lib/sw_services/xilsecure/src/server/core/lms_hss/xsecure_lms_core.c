@@ -780,11 +780,14 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	/**
 	 * 6.4, Now that we have arrived at root value, compare with expected to see if it matches,
-	 * comparison should be single glitch resistant
+	 * comparison should be single glitch resistant.
+	 * Pre-set Status to failure so that a glitch on the inner Status assignment still
+	 * results in failure when goto END is taken. Status is only set to success after
+	 * both the comparison loop and the glitch counter check pass.
 	 */
+	Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_T_FIELD_SIZE; Index++) {
 		if (LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_T_OFFSET + Index] != TmpBuff[Index]) {
-			Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 			XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"LMS signature verification - public key 0x%x, expected 0x%x\n\r",
 				TmpBuff[Index], LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_T_OFFSET + Index]);
@@ -796,6 +799,8 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR;
 		goto END;
 	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -1054,11 +1059,15 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 	* 	- If copy fails, read back and check will catch it
 	*/
 
-	/* As T field of pub[1]/pub[Npsk] is authenticated, now let's copy rest of pub[1] contents for further use */
+	/* As T field of pub[1]/pub[Npsk] is authenticated, now let's copy rest of pub[1] contents for further use.
+	 * Pre-set Status to failure so that a glitch on the inner copy mismatch check still results in failure
+	 * when goto END is taken. Status will be overwritten by subsequent operations once both the copy loop
+	 * and glitch counter check pass.
+	 */
+	Status = XSECURE_LMS_PUB_OP_FAILED_ERROR;
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_TOTAL_SIZE; Index++) {
 		AuthenticatedKey.Buff[Index] = TmpPublicKeyPtr[Index];
 		if (TmpPublicKeyPtr[Index] != AuthenticatedKey.Buff[Index]) {
-			Status = XSECURE_LMS_PUB_OP_FAILED_ERROR;
 			XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - public key copy failed location 0x%x\n\r", Index);
 			goto END;
 		}
@@ -1068,6 +1077,8 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		Status = XSECURE_LMS_PUB_OP_FAILED_1_ERROR;
 		goto END;
 	}
+
+	Status = XST_SUCCESS;
 
 	/* Extract 'q' from lowest level Signature Npsk, for use in Data's pre-processing before authentication,
 	   Big Endian to Little Endian */
