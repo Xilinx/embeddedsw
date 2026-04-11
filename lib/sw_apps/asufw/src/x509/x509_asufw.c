@@ -38,6 +38,7 @@
 #include "xil_types.h"
 #include "xsha.h"
 #include "xsha_hw.h"
+#include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -190,7 +191,7 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
 	ShaParam.HashBufSize = X509_SHA_HASH_LEN;
 	ShaParam.ShaMode = X509_SHA_MODE;
 	ShaParam.IsLast = (u8)XASU_TRUE;
-	ShaParam.OperationFlags = (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH);
+	ShaParam.OperationFlags = (XASU_INIT | XASU_UPDATE | XASU_FINISH);
 
 	/** Calculate SHA-3 digest on given data. */
 	Status = XSha_Digest(PlatData->ShaPtr, PlatData->DmaPtr, &ShaParam);

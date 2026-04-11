@@ -66,6 +66,11 @@ extern "C" {
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */
 
+/* Common operation flags for multi-request crypto operations (AES, SHA and HMAC) */
+#define XASU_INIT				(0x1U) /**< init operation flag */
+#define XASU_UPDATE				(0x2U) /**< update operation flag */
+#define XASU_FINISH				(0x4U) /**< final operation flag */
+
 #define XASU_STATUS_NOT_RUN	(0x01U) /**< KAT not run status. */
 #define XASU_STATUS_FAIL		(0xE2U) /**<  Failed status. */
 #define XASU_STATUS_PASS		(0x1EU) /**<  Success status. */

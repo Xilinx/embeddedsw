@@ -68,11 +68,6 @@ extern "C" {
 #define XASU_AES_KAT_CMD_ID		(0x1U) /**< Command ID for AES KAT command */
 #define XASU_AES_MAX_CMDS		(0x2U) /**< Maximum number of commands supported by AES module */
 
-/* AES operation flags */
-#define XASU_AES_INIT			(0x1U) /**< AES initialize operation flag */
-#define XASU_AES_UPDATE			(0x2U) /**< AES update operation flag */
-#define XASU_AES_FINAL			(0x4U) /**< AES final operation flag */
-
 /* AES engine mode */
 #define XASU_AES_CBC_MODE		(0x0U) /**< AES CBC mode */
 #define XASU_AES_CFB_MODE		(0x1U) /**< AES CFB mode */
@@ -144,8 +139,8 @@ typedef struct {
 	u32 IvLen; /**< AES Iv/Nonce length */
 	u32 TagLen; /**< AES tag length */
 	u8 EngineMode; /**< AES engine mode */
-	u8 OperationFlags; /**< AES operation flag is a combination of (XASU_AES_INIT,
-					* XASU_AES_UPDATE, XASU_AES_FINAL) */
+	u8 OperationFlags; /**< AES operation flag is a combination of (XASU_INIT,
+					* XASU_UPDATE, XASU_FINISH) */
 	u8 IsLast; /**< Indicates whether it is the last update of data to AES engine.
 				 * - FALSE: Not Last update.
 				 * - TRUE: Last update.   */

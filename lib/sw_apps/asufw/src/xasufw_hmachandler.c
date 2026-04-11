@@ -197,7 +197,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	switch (HmacCmdStage) {
 	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:
-		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
+		if ((HmacParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
 #ifdef XASU_KEYMANAGER_ENABLE
 			/** Get subsystem ID from IPI mask. */
 			SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
@@ -239,7 +239,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* fall through */
 	case XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
-		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
+		if ((HmacParamsPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) {
 			/**
 			 * If operation flags include HMAC UPDATE, perform HMAC update operation.
 			 */
@@ -261,7 +261,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			}
 		}
 
-		if ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) {
+		if ((HmacParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
 			/** If operation flags include HMAC FINAL, perform HMAC final operation. */
 			Status = XHmac_Final(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
 					     ResponseBufferPtr);
@@ -294,7 +294,7 @@ END:
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_HmacModule.AsuDmaPtr = NULL;
 		if ((Status != XASUFW_SUCCESS) ||
-		    ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL)) {
+		    ((HmacParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH)) {
 			/**
 			 * Release resources upon any failure or after HMAC operation is complete.
 			 */
