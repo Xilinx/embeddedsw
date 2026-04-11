@@ -708,4 +708,136 @@ s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId)
 	return Status;
 }
 
+/*************************************************************************************************/
+/**
+ * @brief	Handles INIT or UPDATE/FINAL operations for multi-part cryptographic
+ *		operations with priority-based context management.
+ *
+ * @param	ClientParamPtr		Pointer to XAsu_ClientParams structure with priority information.
+ * @param	P0CtxPtr		Pointer to HIGH priority (P0) context.
+ * @param	P1CtxPtr		Pointer to LOW priority (P1) context.
+ * @param	OperationFlags		Current operation flags (combination of XASU_INIT, XASU_UPDATE,
+ *					XASU_FINISH) from the client request.
+ * @param	UniqueIdPtr		Pointer to store the generated or retrieved Unique ID.
+ *
+ * @return
+ *		- XST_SUCCESS, if operation is successful.
+ *		- XASU_INVALID_PRIORITY, if the priority in ClientParamPtr is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if generated Unique ID is invalid.
+ *		- XASU_REQUEST_INPROGRESS, if a multi-part request is already in progress.
+ *		- XASU_FAIL_SAVE_CTX, if context save fails.
+ *		- XASU_CLIENT_CTX_NOT_CREATED, if client context does not exist.
+ *
+ *************************************************************************************************/
+s32 XAsu_HandleContextOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxPtr,
+				void **P1CtxPtr, u32 OperationFlags, u8 *UniqueIdPtr)
+{
+	s32 Status = XST_FAILURE;
+	void **CurrentCtxPtr;
+
+	/** Check if this is an INIT operation. */
+	if ((OperationFlags & XASU_INIT) == XASU_INIT) {
+		/** Determine context pointer based on priority. */
+		if (ClientParamPtr->Priority == XASU_PRIORITY_HIGH) {
+			CurrentCtxPtr = P0CtxPtr;
+		} else if (ClientParamPtr->Priority == XASU_PRIORITY_LOW) {
+			CurrentCtxPtr = P1CtxPtr;
+		} else {
+			Status = XASU_INVALID_PRIORITY;
+			goto END;
+		}
+
+		/** Check if context already exists for this priority level. */
+		if (*CurrentCtxPtr != NULL) {
+			/** Allow only single-shot operation when context already exists. */
+			if ((OperationFlags & XASU_FINISH) == XASU_FINISH) {
+				*UniqueIdPtr = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U,
+								XASU_TRUE);
+				if (*UniqueIdPtr >= XASU_UNIQUE_ID_MAX) {
+					Status = XASU_INVALID_UNIQUE_ID;
+					goto END;
+				}
+			} else {
+				Status = XASU_REQUEST_INPROGRESS;
+				goto END;
+			}
+		} else {
+			/** Create new context for new multi-part or single-shot operation. */
+			*UniqueIdPtr = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U,
+							XASU_FALSE);
+			if (*UniqueIdPtr >= XASU_UNIQUE_ID_MAX) {
+				Status = XASU_INVALID_UNIQUE_ID;
+				goto END;
+			}
+
+			/** Save context and update client context pointer. */
+			*CurrentCtxPtr = XAsu_UpdateNGetCtx(*UniqueIdPtr);
+			if (*CurrentCtxPtr == NULL) {
+				Status = XASU_FAIL_SAVE_CTX;
+				goto END;
+			}
+
+			ClientParamPtr->ClientCtx = *CurrentCtxPtr;
+		}
+	} else {
+		/** Handle UPDATE/FINAL operation - verify that context exists. */
+		if (ClientParamPtr->ClientCtx != NULL) {
+			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, UniqueIdPtr);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		} else {
+			Status = XASU_CLIENT_CTX_NOT_CREATED;
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Cleans up context and updates callback details when a FINISH/FINAL operation
+ *		is executed.
+ *
+ * @param	ClientParamPtr	Pointer to XAsu_ClientParams structure.
+ * @param	P0CtxPtr	HIGH priority (P0) context.
+ * @param	P1CtxPtr	LOW priority (P1) context.
+ * @param	UniqueId	Unique ID associated with this operation.
+ * @param	ResponseBuffer	Pointer to response buffer address (can be NULL).
+ * @param	ResponseSize	Size of the response buffer.
+ *
+ * @return
+ *		- XST_SUCCESS, if cleanup is successful.
+ *		- Error code from callback update or context free.
+ *
+ *************************************************************************************************/
+s32 XAsu_CleanupFinishOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxPtr,
+				void **P1CtxPtr, u8 UniqueId, u8 *ResponseBuffer,
+				u32 ResponseSize)
+{
+	s32 Status = XST_FAILURE;
+
+	Status = XAsu_UpdateCallBackDetails(UniqueId, ResponseBuffer, ResponseSize, XASU_TRUE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (ClientParamPtr->ClientCtx == *P0CtxPtr) {
+		*P0CtxPtr = NULL;
+	} else if (ClientParamPtr->ClientCtx == *P1CtxPtr) {
+		*P1CtxPtr = NULL;
+	} else {
+		/* Do Nothing */
+	}
+
+	Status = XAsu_FreeCtx(ClientParamPtr->ClientCtx);
+	ClientParamPtr->ClientCtx = NULL;
+
+END:
+	return Status;
+}
+
 /** @} */

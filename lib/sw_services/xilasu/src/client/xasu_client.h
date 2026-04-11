@@ -133,6 +133,11 @@ void *XAsu_UpdateNGetCtx(u8 UniqueId);
 s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
 s32 XAsu_FreeCtx(void *Context);
 s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId);
+s32 XAsu_HandleContextOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxPtr,
+				void **P1CtxPtr, u32 OperationFlags, u8 *UniqueIdPtr);
+s32 XAsu_CleanupFinishOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxPtr,
+				void **P1CtxPtr, u8 UniqueId, u8 *ResponseBuffer,
+				u32 ResponseSize);
 
 /************************************ Variable Definitions ***************************************/
 
