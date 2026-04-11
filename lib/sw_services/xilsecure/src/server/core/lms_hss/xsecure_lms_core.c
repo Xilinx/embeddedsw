@@ -107,7 +107,8 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	u32 LmsOtsSignatureLen, XSecure_LmsOtsType LmsOtsExpectedType,
 	u8* Kc)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int ReturnStatus = XST_GLITCH_ERROR;
 	volatile XSecure_LmsOtsType LmsOtsType = XSECURE_LMS_OTS_NOT_SUPPORTED;
 	const XSecure_LmsOtsParam* LmsOtsSignParam = NULL;
 	u32 Checksum = 0U;
@@ -159,6 +160,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	Status = XSecure_LmsOtsLookupParamSet(LmsOtsType, (XSecure_LmsOtsParam**)&LmsOtsSignParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -192,6 +194,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			XSECURE_LMS_C_FIELD_SIZE, XSECURE_LMS_C_FIELD_SIZE);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_LMS_MEM_COPY_ERROR;
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
@@ -202,11 +205,8 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			goto END;
 		}
 
-		Status = XSecure_LmsHashMessage(ShaInstPtr, Data, DataLen, LmsOtsSignParam->H);
-		if (Status != XST_SUCCESS) {
-			Status = XSECURE_LMS_OTS_DIGEST_CHECKSUM_OP_FAILED_ERROR;
-			goto END;
-		}
+		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsHashMessage, ShaInstPtr, Data, DataLen,
+			LmsOtsSignParam->H);
 	}
 
 	/* Append checksum at end of buffer */
@@ -214,6 +214,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			(u32)LmsOtsSignParam->w, (u32)LmsOtsSignParam->ls, (u32* const)&Checksum);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_AUTH_LMS_DIGEST_CHECKSUM_FAILED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -253,6 +254,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -271,6 +273,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		XSECURE_LMS_I_FIELD_SIZE, XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -310,6 +313,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_LMS_MEM_COPY_ERROR;
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
@@ -321,15 +325,11 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			TmpHashPerDigitBuff.Fields.j = (u8)(ChainIter);
 
 			/* Compute digest for this iteration */
-			Status = XSecure_ShaDigest(ShaInstPtr, LmsOtsSignParam->H,
+			XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
 					(u64)(UINTPTR)&TmpHashPerDigitBuff.Buff[XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET],
 					XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE,
 					(u64)(UINTPTR)&TmpHashPerDigitBuff.Fields.y[0U],
 					XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
-			if (Status != XST_SUCCESS) {
-				Status = XSECURE_LMS_OTS_SIGN_SHA_DIGEST_FAILED_ERROR;
-				goto END;
-			}
 		}
 
 		/* Copy to overall buffer, later all values concatenated used to calculate LMS OTS public key */
@@ -340,6 +340,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_LMS_MEM_COPY_ERROR;
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - IntToOutLoopBuffIndex 0x%x\n\r", IntToOutLoopBuffIndex);
@@ -349,15 +350,32 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	   complete the final step of signature verification
 	   Kc = H(I || u32str(q) || u16str(D_PBLC) || z[0] || z[1] || ... || z[p-1]) */
 
-	/* concatenated buffer's hash */
-	Status = XSecure_ShaDigest(ShaInstPtr, LmsOtsSignParam->H,
+	/**
+	 * All prior checks have passed. ReturnStatus is only set to success here.
+	 * Any goto END before this point returns XST_GLITCH_ERROR (initial value of ReturnStatus),
+	 * hardening against a glitch on any inner Status assignment: even if Status is left
+	 * as XST_SUCCESS from a prior op when goto END fires, ReturnStatus is still XST_GLITCH_ERROR.
+	 * Note: a glitch on a goto END instruction itself (rather than the Status assignment)
+	 * would reach here and produce incorrect Kc; the caller's Kc comparison detects this.
+	 */
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
 			(u64)(UINTPTR)LmsOtsSignVerifBuff.Buff,
 			XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_CURRENT_SIZE(LmsOtsSignParam->p),
 			(u64)(UINTPTR)Kc,
 			XSECURE_LMS_N_FIELD_SIZE);
 
+	/* ReturnStatus is set to success only on the true success path, before END label,
+	 * so any goto END taken from an error branch leaves ReturnStatus at its initial
+	 * XST_GLITCH_ERROR value, guarding against glitches on Status assignments.
+	 */
+	ReturnStatus = XST_SUCCESS;
+
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		ReturnStatus = Status;
+	}
+
+	return ReturnStatus;
 }
 
 /******************************************************************************/
@@ -392,6 +410,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_LmsSignVerifyParams *LmsSignVerifyParams)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int ReturnStatus = XST_GLITCH_ERROR;
 	u32 LoopError = XST_FAILURE;
 	volatile XSecure_LmsType PubKeyLmsType = XSECURE_LMS_NOT_SUPPORTED;
 	volatile XSecure_LmsOtsType PubKeyLmsOtsType = XSECURE_LMS_OTS_NOT_SUPPORTED;
@@ -454,6 +473,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 			(XSecure_LmsParam**)&LmsPubKeyParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -522,6 +542,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_I_FIELD_SIZE);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_LMS_MEM_COPY_ERROR;
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -550,6 +571,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 			(XSecure_LmsOtsParam**)&LmsOtsSignParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -589,6 +611,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 			(XSecure_LmsParam**)&LmsSignParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -625,14 +648,11 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - Initiating OTS verification\n\r");
 
 	/** 6a.3: LMS OTS candidate public key 'Kc' */
-	Status = XSecure_LmsOtsSignatureCompute(ShaInstPtr, DmaPtr, LmsSignVerifyParams->Data,
-			LmsSignVerifyParams->DataLen, LmsSignVerifyParams->PreHashedMsg,
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsOtsSignatureCompute, ShaInstPtr, DmaPtr,
+			LmsSignVerifyParams->Data, LmsSignVerifyParams->DataLen,
+			LmsSignVerifyParams->PreHashedMsg,
 			&LmsSignVerifyParams->LmsSign[XSECURE_LMS_Q_FIELD_SIZE], LmsOtsSignParam->SignLen,
 			PubKeyLmsOtsType, (u8* const)ExpectedPublicKey);
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_LMS_SIGN_OTS_OP_ERROR;
-		goto END;
-	}
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - OTS operation Complete\n\r");
 
@@ -648,6 +668,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -669,6 +690,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE);	/* 32 bytes */
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -676,15 +698,11 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	   During LMS OTS HASH hw has been used, need to start again for public key calculation */
 
 	/* Start till finish HASH to calculate digest */
-	Status = XSecure_ShaDigest(ShaInstPtr, LmsOtsSignParam->H,
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
 			(u64)(UINTPTR)&LmsPubKeyTmpBuff.Buff[0U],
 			XSECURE_LMS_PUB_KEY_TMP_BUFFER_LEAF_TOTAL_SIZE,
 			(u64)(UINTPTR)TmpBuff,
 			XSECURE_LMS_M_BYTE_FIELD_SIZE);
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR;
-		goto END;
-	}
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - completed node's operations\n\r");
 
@@ -714,6 +732,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
 				Status = XSECURE_LMS_MEM_COPY_ERROR;
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
@@ -725,11 +744,11 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
 				Status = XSECURE_LMS_MEM_COPY_ERROR;
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
 			LoopError = (u32)XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_ODD_FAILED_ERROR;
-
 		}
 		else {
 			/* Even: 	H(I||u32str(node_num/2)||u16str(D_INTR)||tmp||path[i]) */
@@ -745,6 +764,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
 				Status = XSECURE_LMS_MEM_COPY_ERROR;
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 			Status = Xil_SMemCpy(
@@ -755,6 +775,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE);
 			if (Status != XST_SUCCESS) {
 				Status = XSECURE_LMS_MEM_COPY_ERROR;
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
@@ -762,14 +783,22 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		}
 
 		/* Start till finish HASH to calculate digest */
-		Status = XSecure_ShaDigest(ShaInstPtr, LmsOtsSignParam->H,
-				(u64)(UINTPTR)LmsPubKeyTmpBuff.Buff,
-				XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE,
-				(u64)(UINTPTR)TmpBuff,
-				XSECURE_LMS_M_BYTE_FIELD_SIZE);
-		if (Status != XST_SUCCESS) {
-			Status = (int)LoopError;
-			goto END;
+		{
+			volatile int StatusTmp = XST_FAILURE;
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
+					(u64)(UINTPTR)LmsPubKeyTmpBuff.Buff,
+					XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE,
+					(u64)(UINTPTR)TmpBuff,
+					XSECURE_LMS_M_BYTE_FIELD_SIZE);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				if ((Status != StatusTmp) || (Status == XST_SUCCESS)) {
+					Status = XST_GLITCH_ERROR;
+				}
+				else {
+					Status = (int)LoopError;
+				}
+				goto END;
+			}
 		}
 
 		CurrentNodeNum = CurrentNodeNum / 2U;
@@ -781,9 +810,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	/**
 	 * 6.4, Now that we have arrived at root value, compare with expected to see if it matches,
 	 * comparison should be single glitch resistant.
-	 * Pre-set Status to failure so that a glitch on the inner Status assignment still
-	 * results in failure when goto END is taken. Status is only set to success after
-	 * both the comparison loop and the glitch counter check pass.
+	 * Status is pre-set to failure to guard against glitches on the inner assignment.
 	 */
 	Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_T_FIELD_SIZE; Index++) {
@@ -795,15 +822,21 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		}
 	}
 
-	if (XSECURE_LMS_PUB_KEY_T_FIELD_SIZE != Index) {
+	if (XSECURE_LMS_PUB_KEY_T_FIELD_SIZE == Index) {
+		Status = XST_SUCCESS;
+		ReturnStatus = XST_SUCCESS;
+	}
+	else {
 		Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR;
-		goto END;
+		ReturnStatus = Status;
 	}
 
-	Status = XST_SUCCESS;
-
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		ReturnStatus = Status;
+	}
+
+	return ReturnStatus;
 }
 
 /******************************************************************************/
@@ -835,6 +868,7 @@ END:
 int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitParams *HssInitParams)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int ReturnStatus = XST_GLITCH_ERROR;
 	XSecure_LmsType PublicKeyLmsType = XSECURE_LMS_NOT_SUPPORTED;
 	XSecure_LmsOtsType PublicKeyLmsOtsType = XSECURE_LMS_OTS_NOT_SUPPORTED;
 	const u8* TmpPublicKeyPtr = NULL;
@@ -880,11 +914,8 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	Status = Xil_SecureZeroize((u8 *)(UINTPTR)&AuthenticatedKey.Buff[0U], sizeof(XSecure_LmsPublicKey));
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR;
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureZeroize,
+		(u8 *)(UINTPTR)&AuthenticatedKey.Buff[0U], sizeof(XSecure_LmsPublicKey));
 
 	/* ****************************************************************************************** */
 	/* Signature processing - sequence */
@@ -972,6 +1003,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			(XSecure_LmsParam**)&PubKeyLmsParam);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR;
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
@@ -980,6 +1012,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			(XSecure_LmsOtsParam**)&PubKeyLmsOtsParam);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 			goto END;
 		}
 
@@ -1028,11 +1061,8 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		/* Now that we have checked if signature has sig[0] & pub[1] contents verify pub[1] as data to
 		   be authenticated, with sig[0], output of operation should match with HSS public key (either spk
 		   or ppk in case of ROM) */
-		Status = XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
-		if (Status != XST_SUCCESS) {
-			Status = XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR;
-			goto END;
-		}
+		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsSignatureVerification,
+			ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 
 		/* At this point the signature has a valid Length signature
 		 * for a valid Length public key for a lower level tree,
@@ -1078,8 +1108,6 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	Status = XST_SUCCESS;
-
 	/* Extract 'q' from lowest level Signature Npsk, for use in Data's pre-processing before authentication,
 	   Big Endian to Little Endian */
 	CurrentLmsQ = XSecure_SwapBytes(&TmpSignaturePtr[XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET],
@@ -1095,6 +1123,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		XSECURE_LMS_I_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1106,6 +1135,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		XSECURE_LMS_C_FIELD_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_MEM_COPY_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1120,6 +1150,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			(XSecure_LmsParam**)&PubKeyLmsParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1128,6 +1159,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			(XSecure_LmsOtsParam**)&PubKeyLmsOtsParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1135,9 +1167,19 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 
 	/* Initialize HASH to calculate digest */
 	Status = XSecure_ShaInitialize(ShaInstPtr, DmaPtr);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	ReturnStatus = XST_SUCCESS;
 
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		ReturnStatus = Status;
+	}
+
+	return ReturnStatus;
 }
 
 /******************************************************************************/
@@ -1235,7 +1277,8 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	XPmcDma *DmaPtr, u8* SignBuff,
 	u32 SignatureLen)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int ReturnStatus = XST_GLITCH_ERROR;
 	const XSecure_LmsParam* PskPubKeyLmsParam = NULL;
 	const XSecure_LmsOtsParam* PskPubKeyLmsOtsParam = NULL;
 	XSecure_LmsType PublicKeyLmsType = XSECURE_LMS_NOT_SUPPORTED;
@@ -1259,6 +1302,7 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 			(XSecure_LmsParam**)&PskPubKeyLmsParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1267,6 +1311,7 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 			(XSecure_LmsOtsParam**)&PskPubKeyLmsOtsParam);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1309,18 +1354,19 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	/* Now that we have checked if signature has sig[Npsk],
 	 * verify the already authenticated and stored public key and data
 	 */
-	Status = XSecure_LmsSignatureVerification(ShaInstPtr,
-			DmaPtr, &LmsSignVerifyParams);
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR;
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsSignatureVerification,
+		ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Finish - Data Authenticated using LMS\n\r");
 
-	Status = XST_SUCCESS;
+	ReturnStatus = XST_SUCCESS;
+
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		ReturnStatus = Status;
+	}
+
+	return ReturnStatus;
 }
 
 /******************************************************************************/
@@ -1346,12 +1392,14 @@ int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_HssInitParams *HssInitParams, u8 *Data, u32 DataLen)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int ReturnStatus = XST_GLITCH_ERROR;
 	XSecure_LmsType PublicKeyLmsType;
 	const XSecure_LmsParam *PubKeyLmsParam = NULL;
 
 	if ((ShaInstPtr == NULL) || (DmaPtr == NULL) ||
 	    (HssInitParams == NULL) || (Data == NULL)) {
 		Status = (int)XSECURE_LMS_INVALID_PARAM;
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1359,11 +1407,7 @@ int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	 * - Validate public key and signature structure; authenticate upper-level
 	 * tree public keys for multi-level HSS
 	 */
-	Status = XSecure_HssInit(ShaInstPtr, DmaPtr, HssInitParams);
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_HssInit, ShaInstPtr, DmaPtr, HssInitParams);
 
 	/**
 	 * - Determine the hash algorithm from the authenticated bottom-level
@@ -1384,23 +1428,22 @@ int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	/**
 	 * - Compute the message digest to be verified against the LMS signature
 	 */
-	Status = XST_FAILURE;
-	Status = XSecure_LmsHashMessage(ShaInstPtr, Data, DataLen,
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsHashMessage, ShaInstPtr, Data, DataLen,
 		PubKeyLmsParam->H);
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
-	}
 
 	/**
 	 * - Verify the bottom-level LMS signature against the message digest
 	 */
-	Status = XST_FAILURE;
-	Status = XSecure_HssFinish(ShaInstPtr, DmaPtr,
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_HssFinish, ShaInstPtr, DmaPtr,
 		HssInitParams->SignBuff, HssInitParams->SignatureLen);
 
+	ReturnStatus = XST_SUCCESS;
+
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		ReturnStatus = Status;
+	}
+	return ReturnStatus;
 }
 
 /******************************************************************************/
