@@ -98,6 +98,7 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes);
 *		- XSECURE_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR - If unsupported signature type
 *		- XSECURE_LMS_OTS_DIGEST_CHECKSUM_OP_FAILED_ERROR - If digest checksum operation fails
 *		- XSECURE_AUTH_LMS_DIGEST_CHECKSUM_FAILED_ERROR - If checksum computation fails
+*		- XSECURE_ERR_GLITCH_DETECTED - If outer digit loop glitch is detected
 *		- XST_FAILURE - On failure
 *******************************************************************************/
 static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
@@ -261,7 +262,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	/* Copy 'q' from public key, Little Endian to Big Endian copy */
 	TmpHashPerDigitBuff.Fields.q = Xil_Htonl(CurrentLmsQ);
 
-	/** Fill @ref XSecure_LmsOtsSignToPubKeyHash fields, we copy early so that during internal loop
+	/** Fill XSecure_LmsOtsSignToPubKeyHash fields, we copy early so that during internal loop
 		we reduce operations during loop
 		as PMCRAM is cleared, we do clear first OTS op is complete, again used for lower level tree
 		OTS op, then cleared again. */
@@ -292,7 +293,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	 * Here 'p' can be from signature or public key
 	 * covers 4b.2e & 4b.3 step
 	 */
-	for (DigitIndex = 0u, IntToOutLoopBuffIndex = 0U;
+	for (DigitIndex = 0U, IntToOutLoopBuffIndex = 0U;
 		 DigitIndex < (u16)LmsOtsSignParam->p;
 		 DigitIndex++, IntToOutLoopBuffIndex += XSECURE_LMS_N_FIELD_SIZE,
 		SignToOtsBuffIndex += XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE) {
@@ -344,6 +345,11 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			goto END;
 		}
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - IntToOutLoopBuffIndex 0x%x\n\r", IntToOutLoopBuffIndex);
+	}
+
+	if ((u16)LmsOtsSignParam->p != DigitIndex) {
+		Status = (int)XSECURE_ERR_GLITCH_DETECTED;
+		goto END;
 	}
 
 	/* At this point all the hash chains for n byte arrays in signature are completed, we have to
@@ -1081,6 +1087,11 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			TmpPublicKeyPtr,
 			TmpSignaturePtr,
 			SignatureLengthConsumed);
+	}
+
+	if (Index != (TotalLevelsInSignature - 1U)) {
+		Status = XSECURE_ERR_GLITCH_DETECTED;
+		goto END;
 	}
 
 	/*
