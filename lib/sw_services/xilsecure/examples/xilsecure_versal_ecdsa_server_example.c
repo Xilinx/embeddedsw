@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 5.4   mb   04/13/24 Added support for P-192 Curve
 *       mb   04/13/24 Added support for P-224 Curve
 *       vss  01/08/25 Updated comments related to deprecated server mode of versalnet
+* 5.7   mb   04/11/26 Refactor code to run curves based on BSP configs
 *
 * </pre>
 *
@@ -52,96 +53,69 @@
 #include "xsecure_config.h"
 #endif
 /************************** Constant Definitions *****************************/
-#define TEST_NIST_P384
-#define TEST_NIST_P521
-#define TEST_NIST_P256
-#define TEST_NIST_P192
-#define TEST_NIST_P224
 
-#define XSECURE_MINOR_ERROR_MASK 0xFFU
-#define XSECURE_ELLIPTIC_NON_SUPPORTED_CRV 0xC2U
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
-#ifdef TEST_NIST_P384
-static int XSecure_TestP384();
+int XSecure_TestP384();
+#ifdef XSECURE_ECC_SUPPORT_NIST_P192
+int XSecure_TestP192();
 #endif
-#ifdef TEST_NIST_P521
-static int XSecure_TestP521();
+#ifdef XSECURE_ECC_SUPPORT_NIST_P224
+int XSecure_TestP224();
 #endif
-#ifdef TEST_NIST_P256
-static int XSecure_TestP256();
+#ifdef XSECURE_ECC_SUPPORT_NIST_P256
+int XSecure_TestP256();
 #endif
-#ifdef TEST_NIST_P192
-static int XSecure_TestP192();
+#ifdef XSECURE_ECC_SUPPORT_NIST_P521
+int XSecure_TestP521();
 #endif
-#ifdef TEST_NIST_P224
-static int XSecure_TestP224();
-#endif
- int main()
+
+int main()
 {
 	int Status = XST_FAILURE;
 
-#ifdef TEST_NIST_P384
 	xil_printf("Test P-384 curve started \r\n");
 	Status = XSecure_TestP384();
 	if (Status != XST_SUCCESS) {
+		xil_printf("Ecdsa example failed for P-384 with Status:%08x\r\n", Status);
+		goto END;
+	}
+#ifdef XSECURE_ECC_SUPPORT_NIST_P192
+	xil_printf("Test P-192 curve started \r\n");
+	Status = XSecure_TestP192();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Ecdsa example failed for P-192 with Status:%08x\r\n", Status);
 		goto END;
 	}
 #endif
 
-	xil_printf("\r\n");
-
-#ifdef TEST_NIST_P521
-	xil_printf("Test P-521 curve started \r\n");
-	Status = XSecure_TestP521();
-	if (Status != XST_SUCCESS) {
-		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
-			xil_printf("Ecdsa example failed for P-521 with Status:%08x\r\n", Status);
-		}
-		else {
-			goto END;
-		}
-	}
-#endif
-
-#ifdef TEST_NIST_P256
-	xil_printf("Test P-256 curve started \r\n");
-	Status = XSecure_TestP256();
-	if (Status != XST_SUCCESS) {
-		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
-			xil_printf("Ecdsa example failed for P-256 with Status:%08x\r\n", Status);
-		}
-		else {
-			goto END;
-		}
-	}
-#endif
-
-#ifdef TEST_NIST_P192
-	xil_printf("Test P-192 curve started \r\n");
-	Status = XSecure_TestP192();
-	if (Status != XST_SUCCESS) {
-		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
-			xil_printf("Ecdsa example failed for P-192 with Status:%08x\r\n", Status);
-		}
-		else {
-			goto END;
-		}
-	}
-#endif
-
-#ifdef TEST_NIST_P224
+#ifdef XSECURE_ECC_SUPPORT_NIST_P224
 	xil_printf("Test P-224 curve started \r\n");
 	Status = XSecure_TestP224();
 	if (Status != XST_SUCCESS) {
-		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
-			xil_printf("Ecdsa example failed for P-224 with Status:%08x\r\n", Status);
-		}
-		else {
-			goto END;
-		}
+		xil_printf("Ecdsa example failed for P-224 with Status:%08x\r\n", Status);
+		goto END;
 	}
 #endif
+
+#ifdef XSECURE_ECC_SUPPORT_NIST_P256
+	xil_printf("Test P-256 curve started \r\n");
+	Status = XSecure_TestP256();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Ecdsa example failed for P-256 with Status:%08x\r\n", Status);
+		goto END;
+	}
+#endif
+
+#ifdef XSECURE_ECC_SUPPORT_NIST_P521
+	xil_printf("Test P-521 curve started \r\n");
+	Status = XSecure_TestP521();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Ecdsa example failed for P-521 with Status:%08x\r\n", Status);
+		goto END;
+	}
+#endif
+
 	xil_printf("Successfully ran Ecdsa example \r\n");
 
 END:
@@ -158,7 +132,6 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-384 failed.
 *
 ******************************************************************************/
-#ifdef TEST_NIST_P384
 int XSecure_TestP384()
 {
 	int Status = XST_FAILURE;
@@ -271,7 +244,6 @@ int XSecure_TestP384()
 END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -283,7 +255,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-521 failed.
 *
 ******************************************************************************/
-#ifdef TEST_NIST_P521
+#ifdef XSECURE_ECC_SUPPORT_NIST_P521
 int XSecure_TestP521()
 {
 	int Status = XST_FAILURE;
@@ -425,7 +397,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-256 failed.
 *
 ******************************************************************************/
-#ifdef TEST_NIST_P256
+#ifdef XSECURE_ECC_SUPPORT_NIST_P256
 int XSecure_TestP256()
 {
 	int Status = XST_FAILURE;
@@ -538,7 +510,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-192 failed.
 *
 ******************************************************************************/
-#ifdef TEST_NIST_P192
+#ifdef XSECURE_ECC_SUPPORT_NIST_P192
 int XSecure_TestP192()
 {
 	int Status = XST_FAILURE;
@@ -645,7 +617,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-224 failed.
 *
 ******************************************************************************/
-#ifdef TEST_NIST_P224
+#ifdef XSECURE_ECC_SUPPORT_NIST_P224
 int XSecure_TestP224()
 {
 	int Status = XST_FAILURE;
