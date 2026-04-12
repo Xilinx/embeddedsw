@@ -1530,10 +1530,10 @@ extern "C" {
 #define PS_GPIO_INT_STAT_1_OFFSET    (0x00000258U)
 
 /**
- * GPIO Proc Configuration Register (RTCA offset 0x370)
+ * GPIO Proc Configuration Register (RTCA offset 0x374)
  *
  * Resides in the PLM Run-Time Configuration Area (RTCA).
- * RTCA base: 0xF2014000 (XPLMI_RTCFG_BASEADDR), offset: 0x370.
+ * RTCA base: 0xF2014000 (XPLMI_RTCFG_BASEADDR), offset: 0x374.
  *
  * Bit layout (same 16-bit pattern in each half):
  *   [2:0]   / [18:16] : SLR ID
@@ -1548,19 +1548,19 @@ extern "C" {
 /**
  * @brief RTCA GPIO configuration register
  */
-#define RTCA_GPIO_PROC_CFG0_REG		(0xF2014370U)
+#define RTCA_GPIO_PROC_CFG0_REG		(0xF2014374U)
 /**
  * @brief RTCA GPIO configuration register1
  */
-#define RTCA_GPIO_PROC_CFG1_REG		(0xF2014374U)
+#define RTCA_GPIO_PROC_CFG1_REG		(0xF2014378U)
 /**
  * @brief RTCA GPIO configuration register2
  */
-#define RTCA_GPIO_PROC_CFG2_REG		(0xF2014378U)
+#define RTCA_GPIO_PROC_CFG2_REG		(0xF201437CU)
 /**
  * @brief RTCA GPIO configuration register3
  */
-#define RTCA_GPIO_PROC_CFG3_REG		(0xF201437CU)
+#define RTCA_GPIO_PROC_CFG3_REG		(0xF2014380U)
 
 /**
  * @brief GPIO controller type encoded in the RTCA configuration register.
