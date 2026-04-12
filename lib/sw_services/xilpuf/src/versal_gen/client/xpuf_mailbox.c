@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -54,8 +54,8 @@
 
 /****************************************************************************/
 /**
- * @brief  This function sends IPI request to the target module and gets the
- * response from it
+ * @brief 	This function sends IPI request to the target module and gets the
+ * 		response from it.
  *
  * @param	MailboxPtr	Pointer to mailbox instance
  * @param	MsgPtr		Pointer to the payload message
@@ -65,8 +65,8 @@
  *		- XST_SUCCESS if the IPI send and receive is successful
  *		- XST_FAILURE if there is a failure
  *
- * @note	Payload  consists of API id and call arguments to be written
- * 		in IPI buffer
+ * @note	Payload consists of API ID and call arguments to be written
+ * 		in IPI buffer.
  *
  ****************************************************************************/
 int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
@@ -74,7 +74,7 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	volatile int Status = XST_FAILURE;
 	u32 Response[RESPONSE_ARG_CNT];
 
-	/** Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed. */
+	/** - Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed. */
 	Status = (int)XMailbox_SendData(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 				XILMBOX_MSG_TYPE_REQ, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -82,7 +82,7 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 		goto END;
 	}
 
-	/** Wait for IPI response from PLM and return the status of the IPI response. */
+	/** - Wait for IPI response from PLM and return the status of the IPI response. */
 	Status = (int)XMailbox_Recv(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {

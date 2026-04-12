@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,13 +56,13 @@ static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief       This function calls respective IPI handler based on the API ID.
  *
- * @param 	    Cmd is pointer to the command structure
+ * @param 	Cmd is pointer to the command structure
  *
  * @return
- * 		- XST_SUCCESS - When PUF operation completes successfully
- * 		- XST_INVALID_PARAM - When Cmd or Payload is NULL, or unsupported API ID
+ * 		- XST_SUCCESS when PUF operation completes successfully
+ * 		- XST_INVALID_PARAM when Cmd or Payload is NULL, or unsupported API ID
  *
  ******************************************************************************/
 int XPuf_IpiHandler(const XPlmi_Cmd *Cmd)
@@ -71,7 +71,7 @@ int XPuf_IpiHandler(const XPlmi_Cmd *Cmd)
 	u32 *Pload = NULL;
 
 	/**
-	 *  Validate the input parameters. Return XST_FAILURE if input parameters are invalid
+	 * - Validate the input parameters. Return XST_FAILURE if input parameters are invalid.
 	 */
 	if (NULL == Cmd) {
 		goto END;
@@ -84,7 +84,7 @@ int XPuf_IpiHandler(const XPlmi_Cmd *Cmd)
 	}
 
 	/**
-	 *  Calls the respective handler based on the API Id
+	 *  - Calls the respective handler based on the API ID.
 	 */
 	switch (Cmd->CmdId & XPUF_API_ID_MASK) {
 		case XPUF_API(XPUF_PUF_REGISTRATION):
@@ -108,7 +108,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function performs PUF registration
+ * @brief   This function performs PUF registration.
  *
  * @param 	SubsystemId	Subsystem ID.
  * @param 	AddrLow		Lower 32 bit address of the
@@ -117,8 +117,8 @@ END:
  *				XPuf_DataAddr structure
  *
  * @return
- * 		- XST_SUCCESS - When PUF registration completes successfully
- * 		- XST_FAILURE - When any operation in the registration process fails
+ * 		- XST_SUCCESS when PUF registration completes successfully
+ * 		- XST_FAILURE when any operation in the registration process fails
  *
  ******************************************************************************/
 static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
@@ -130,7 +130,7 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufDataAddr), Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
 
 	/**
-	 * Copy user configured puf structure to local PufDataAddr structure.
+	 * - Copy user configured puf structure to local PufDataAddr structure.
 	 */
 	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr,
 			sizeof(PufDataAddr));
@@ -139,7 +139,7 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure.
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr.SyndromeDataAddr, XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES, Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr.ChashAddr, XPUF_WORD_LENGTH, Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
@@ -148,14 +148,14 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr.EfuseSynDataAddr, XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES, Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
 
 	/**
-	 * Point user configured data from PufDataAddr to PufData structure.
+	 * - Point user configured data from PufDataAddr to PufData structure.
 	 */
 	PufData.ShutterValue = PufDataAddr.ShutterValue;
 	PufData.PufOperation = PufDataAddr.PufOperation;
 	PufData.GlobalVarFilter = PufDataAddr.GlobalVarFilter;
 
 	/**
-	 * Call to server puf registration function.
+	 * - Call to server puf registration function.
 	 */
 	Status = XPuf_Registration(&PufData);
 	if (Status != XST_SUCCESS) {
@@ -163,7 +163,7 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Copy syndrome data from PufData structure to PufDataAddr structure.
+	 * - Copy syndrome data from PufData structure to PufDataAddr structure.
 	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.SyndromeData,
 		PufDataAddr.SyndromeDataAddr,
@@ -173,7 +173,7 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Copy Puf Id from PufData structure to PufDataAddr structure.
+	 * - Copy Puf Id from PufData structure to PufDataAddr structure.
 	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
 		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
@@ -182,7 +182,7 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Read Chash and Aux.
+	 * - Read Chash and Aux.
 	 */
 	XPlmi_Out64(PufDataAddr.AuxAddr, PufData.Aux);
 	XPlmi_Out64(PufDataAddr.ChashAddr, PufData.Chash);
@@ -193,7 +193,7 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Copy eFuse syndrome data from PufData structure to PufDataAddr structure.
+	 * - Copy eFuse syndrome data from PufData structure to PufDataAddr structure.
 	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.EfuseSynData,
 		PufDataAddr.EfuseSynDataAddr,
@@ -205,7 +205,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function performs PUF regeneration
+ * @brief	This function performs PUF regeneration.
  *
  * @param 	SubsystemId	Subsystem ID.
  * @param 	AddrLow		Lower 32 bit address of the
@@ -214,8 +214,8 @@ END:
  *				XPuf_DataAddr structure
  *
  * @return
- * 		- XST_SUCCESS - When PUF regeneration completes successfully
- * 		- XST_FAILURE - When any operation in the regeneration process fails
+ * 		- XST_SUCCESS when PUF regeneration completes successfully
+ * 		- XST_FAILURE when any operation in the regeneration process fails
  *
  ******************************************************************************/
 static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
@@ -227,7 +227,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufDataAddr), Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
 
 	/**
-	 * Copy user configured puf structure to local PufDataAddr structure.
+	 * - Copy user configured puf structure to local PufDataAddr structure.
 	 */
 	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr, sizeof(PufDataAddr));
 	if (Status != XST_SUCCESS) {
@@ -235,7 +235,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr.ChashAddr, XPUF_WORD_LENGTH, Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr.AuxAddr, XPUF_WORD_LENGTH, Status, XPUF_ERR_INVALID_ADDR_RANGE, END);
@@ -247,7 +247,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Point user configured data from PufDataAddr to PufData structure.
+	 * - Point user configured data from PufDataAddr to PufData structure.
 	 */
 	PufData.ShutterValue = PufDataAddr.ShutterValue;
 	PufData.PufOperation = PufDataAddr.PufOperation;
@@ -257,7 +257,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	PufData.Aux = XPlmi_In64(PufDataAddr.AuxAddr);
 
 	/**
-	 * If higher address of syndrome data is non-zero then copy syndrome data at XPUF_SYNDROME_ADDRESS
+	 * - If higher address of syndrome data is non-zero then copy syndrome data at XPUF_SYNDROME_ADDRESS
 	 * and update it as syndrome data to be used for regeneration else,
 	 * use the same syndrome address provided by the user
 	 */
@@ -276,7 +276,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Call to server puf regeneration function.
+	 * - Call to server puf regeneration function.
 	 */
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
@@ -284,7 +284,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	}
 
 	/**
-	 * Copy Puf Id from PufData structure to PufDataAddr structure.
+	 * - Copy Puf Id from PufData structure to PufDataAddr structure.
 	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
 		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
@@ -305,8 +305,8 @@ END:
  * @param 	Len 		Length of data to be copied in bytes
  *
  * @return
- * 		- XST_SUCCESS - If the copy is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- XST_SUCCESS if the copy is successful
+ * 		- XST_FAILURE if there is a failure
  *
  *****************************************************************************/
 static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)

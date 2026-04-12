@@ -23,7 +23,7 @@
 *************************************************************************************************/
 
 /**
- * @addtogroup xpuf_client_apis XilPuf Client APIs
+ * @addtogroup xpuf_client_api XilPuf Client APIs
  * @{
  */
 /*************************************** Include Files *******************************************/
@@ -46,16 +46,16 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs SMC call to communicate with PLM
+ * @brief	This function performs SMC call to communicate with PLM.
  *
- * @param	PayloadBuf	Pointer to payload buffer containing ApiId and arguments
+ * @param	PayloadBuf	Pointer to payload buffer containing API ID and arguments
  * @param	PayloadLen	Length of payload buffer (number of u32 elements)
  * @param	ResponseBuf	Pointer to store response values
  * @param	ResponseLen	Length of response buffer (pass 0U when ResponseBuf is NULL)
  *
  * @return
- *			 - XST_SUCCESS on success
- *			 - Error on failure
+ *		- XST_SUCCESS on success
+ *		- Error on failure
  *
 *************************************************************************************************/
 int XPuf_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)
@@ -67,12 +67,12 @@ int XPuf_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 Response
 	u64 SmcArg3;
 	u64 SmcArg4;
 
-	/** Validate input parameters */
+	/** - Validate input parameters. */
 	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
 		goto END;
 	}
 
-	/** Prepare payload using extended format */
+	/** - Prepare payload using extended format. */
 	SmcArg1 = ((u64)PayloadBuf[XPUF_SMC_PAYLOAD_INDEX_1] << XPUF_WORD_SHIFT) |
 		 PayloadBuf[XPUF_SMC_PAYLOAD_INDEX_0];
 	SmcArg2 = ((u64)PayloadBuf[XPUF_SMC_PAYLOAD_INDEX_3] << XPUF_WORD_SHIFT) |
@@ -81,10 +81,10 @@ int XPuf_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 Response
 		PayloadBuf[XPUF_SMC_PAYLOAD_INDEX_4];
 	SmcArg4 = PayloadBuf[XPUF_SMC_PAYLOAD_INDEX_6];
 
-	/** Perform SMC call */
+	/** - Perform SMC call. */
 	Out = Xil_Smc((u64)SMC_FID_EXT, SmcArg1, SmcArg2, SmcArg3, SmcArg4, 0U, 0U, 0U);
 
-	/** Store response in provided buffer based on ResponseLen */
+	/** - Store response in provided buffer based on ResponseLen. */
 	if ((ResponseBuf != NULL) && (ResponseLen > 0U)) {
 		ResponseBuf[XPUF_SMC_RESPONSE_INDEX_0] =
 					(u32)(Out.Arg0 >> XPUF_WORD_SHIFT);
@@ -113,6 +113,5 @@ END:
 	return Status;
 }
 
-/** @} end of xpuf_client_apis group */
-
 #endif /* defined (__aarch64__) && (EL1_NONSECURE == 1) */
+/** @} */

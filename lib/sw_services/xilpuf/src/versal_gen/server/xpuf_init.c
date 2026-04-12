@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +48,8 @@
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handlers for Xilpuf IPI commands
+ * @brief	This function registers the handler for commands supported
+ * 		in PUF module.
  *
  *****************************************************************************/
 void XPuf_Init(void)
