@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,7 @@
 /*****************************************************************************/
 /**
  *
- * @brief	This function checks Global Variation Filter option
+ * @brief	This function checks Global Variation Filter option.
  *
  * @param	PufData - Pointer to XPuf_Data structure which includes options
  *		to configure PUF
@@ -70,8 +70,8 @@ int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData)
 
 #if (defined(versal) && !defined(VERSAL_NET))
 	/**
-	 * Error code shall be returned if MSB of PUF shutter value does not
-	 * match with Global Variation Filter option
+	 * - Error code shall be returned if MSB of PUF shutter value does not
+	 * match with Global Variation Filter option.
 	 */
 	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
 		PufData->GlobalVarFilter) == TRUE) {
@@ -100,7 +100,7 @@ int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData)
 void XPuf_SetRoSwap(const XPuf_Data *PufData)
 {
 #if defined (VERSAL_NET)
-	/** Update PUF Ring Oscillator Swap setting. */
+	/** - Update PUF Ring Oscillator Swap setting. */
 	Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMX_GLOBAL_PUF_RO_SWP_OFFSET,
 		PufData->RoSwapVal);
 #else

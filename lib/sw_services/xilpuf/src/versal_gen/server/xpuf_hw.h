@@ -53,88 +53,100 @@ extern "C" {
  * @name  Offsets for PUF registers in PMC_GLOBAL module
  * @{
  */
-/**< PUF register offsets */
 #define XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET		(0x0U)
+			/**< GLOBAL Control register offset */
 #define XPUF_PMC_GLOBAL_PUF_CMD_OFFSET			(0x00040000U)
+			/**< PUF Command register offset */
 #define XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET			(0x00040004U)
+			/**< PUF Configuration 0 register offset */
 #define XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET			(0x00040008U)
+			/**< PUF Configuration 1 register offset */
 #define XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET			(0x0004000CU)
+			/**< PUF Shutter register offset */
 #define XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET		(0x00040010U)
+			/**< PUF Status register offset */
 #define XPUF_PMC_GLOBAL_PUF_WORD_OFFSET			(0x00040018U)
+			/**< PUF Word register offset */
 #define XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET		(0x00040020U)
+			/**< PUF Syndrome Address register offset */
 #define XPUF_PMC_GLOBAL_PUF_AUX_OFFSET			(0x00040024U)
+			/**< PUF AUX register offset */
 #define XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET		(0x00040028U)
+			/**< PUF CHASH register offset */
 #define XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET		(0x0004002CU)
+			/**< PUF Clear register offset */
 #define XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET			(0x00040030U)
+			/**< PUF ID 0 register offset */
 /** @} */
 
 /**
  * @name  GLOBAL Control register definition
  * @{
  */
-/**< GLOBAL_CNTRL register definition */
 #define XPUF_SLVERR_ENABLE_MASK		(0x1U << 1U)
+			/**< Mask to enable SLVERR generation for PUF access */
 /** @} */
 
 /**
  * @name  PUF Command register definition
  * @{
  */
-/**< PUF_CMD register definition */
-#define XPUF_CMD_REGISTRATION		(0x01U)
-#define XPUF_CMD_REGEN_ON_DEMAND	(0x02U)
-#define XPUF_CMD_REGEN_ID_ONLY		(0x03U)
+#define XPUF_CMD_REGISTRATION		(0x01U)	/**< PUF Registration command */
+#define XPUF_CMD_REGEN_ON_DEMAND	(0x02U)	/**< PUF Regenerate On-Demand command */
+#define XPUF_CMD_REGEN_ID_ONLY		(0x03U)	/**< PUF Regenerate ID Only command */
 /** @} */
 
 /**
  * @name  PUF Configuration 0 register definition
  * @{
  */
-/**< PUF_CFG0 register definition */
-#define XPUF_CFG0_GLOBAL_FILTER_ENABLE		(0x01U)
-#define XPUF_CFG0_HASH_SEL			(0x02U)
+#define XPUF_CFG0_GLOBAL_FILTER_ENABLE		(0x01U)	/**< PUF Global Filter Enable */
+#define XPUF_CFG0_HASH_SEL			(0x02U)	/**< PUF Hash Select */
 /** @} */
 
 /**
  * @name  PUF Configuration 1 register definition
  * @{
  */
-/**< PUF_CFG1 register definition */
 #define XPUF_CFG1_INIT_VAL_4K			(0x0C230090U)
+			/**< PUF Configuration 1 register value for 4K Registration mode */
 #define XPUF_CFG1_INIT_VAL_12K			(0x00230150U)
+			/**< PUF Configuration 1 register value for 12K Registration mode */
 /** @} */
 
 /**
  * @name  PUF Status register definition
  * @{
  */
-/**< PUF_STATUS register definition */
-#define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)
-#define XPUF_STATUS_ID_ZERO			((u32)0x01U << 1U)
-#define XPUF_STATUS_ID_RDY			((u32)0x01U << 2U)
-#define XPUF_STATUS_KEY_RDY			((u32)0x01U << 3U)
-#define XPUF_STATUS_PUF_DONE			((u32)0x01U << 30U)
+#define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)	/**< PUF Status Syndrome Word Ready */
+#define XPUF_STATUS_ID_ZERO			((u32)0x01U << 1U)	/**< PUF Status ID Zero */
+#define XPUF_STATUS_ID_RDY			((u32)0x01U << 2U)	/**< PUF Status ID Ready */
+#define XPUF_STATUS_KEY_RDY			((u32)0x01U << 3U)	/**< PUF Status Key Ready */
+#define XPUF_STATUS_PUF_DONE			((u32)0x01U << 30U)	/**< PUF Status PUF Done */
 /** @} */
-/**< Clear PUF ID bit in PUF_STATUS register */
+
 #define XPUF_CLEAR_ID				(0x1U)
+			/**< Clear PUF ID bit in PUF_STATUS register */
 
 #define XPUF_EFUSE_CACHE_BASEADDR		(0xF1250000U)
-				/**< EFUSE_CACHE Base Address */
+			/**< EFUSE_CACHE Base Address */
 
 /**
  * @name  Offsets for registers in EFUSE_CACHE module
  * @{
  */
-/**< EFUSE_CACHE register offsets. */
 #define XPUF_PUF_ECC_PUF_CTRL_OFFSET		(0x000000A4U)
+			/**< PUF ECC PUF Control register offset */
 #define XPUF_EFUSE_CACHE_SECURITY_CONTROL	(0x000000ACU)
+			/**< EFUSE_CACHE Security Control register offset */
 
 /* EFUSE_CACHE PUF_ECC_PUF_CTRL register definition */
 #define XPUF_PUF_REGEN_DIS			((u32)1U << 31U)
-#define XPUF_PUF_HD_INVLD			((u32)1U << 30U)
+			/**< PUF Regeneration Disable */
+#define XPUF_PUF_HD_INVLD			((u32)1U << 30U)	/**< PUF HD Invalid */
 
 /* EFUSE_CACHE SECURITY_CONTROL register definition */
-#define XPUF_PUF_DIS				((u32)1U << 18U)
+#define XPUF_PUF_DIS				((u32)1U << 18U)	/**< PUF Disable */
 
 /** @} */
 

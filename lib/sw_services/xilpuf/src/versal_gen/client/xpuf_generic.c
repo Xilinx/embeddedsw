@@ -23,7 +23,7 @@
 *************************************************************************************************/
 
 /**
- * @addtogroup xpuf_client_api XilPuf Client API
+ * @addtogroup xpuf_client_api XilPuf Client APIs
  * @{
  */
 
@@ -56,9 +56,9 @@
  * @param	ResponseLen	Length of response buffer (number of u32 elements)
  *
  * @return
- *		- XST_SUCCESS  If the request is successful
- *		- XST_FAILURE  If there is a failure
- *		- XST_INVALID_PARAM  If input parameters are invalid
+ *		- XST_SUCCESS  if the request is successful
+ *		- XST_FAILURE  if there is a failure
+ *		- XST_INVALID_PARAM  if input parameters are invalid
  *
  * @note	This is a generic API that internally handles SMC or Mailbox communication based on
  *		the build configuration.
@@ -69,30 +69,31 @@ int XPuf_SendRequest(const XPuf_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters. */
 	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	/** For AArch64 EL1 non-secure, use SMC call */
+	/** - For AArch64 EL1 non-secure, use SMC call. */
 	(void)InstancePtr; /**< Mark InstancePtr as unused to avoid compiler warning */
 
-	/** Perform SMC call for EL1 non-secure AArch64 applications */
+	/** - Perform SMC call for EL1 non-secure AArch64 applications */
 	Status = XPuf_SmcCall(PayloadBuf, PayloadLen, ResponseBuf, ResponseLen);
 #else
-	/** Validate mailbox pointer for IPI communication */
+	/** - For other environments, use IPI mailbox communication. */
+	/** - Validate mailbox pointer for IPI communication */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Send request through IPI mailbox */
+	/** - Send request through IPI mailbox */
 	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, PayloadBuf, PayloadLen);
 
 	/**
-	 * Note: For mailbox path, response is not directly returned.
+	 * - Note: For communication via IPI mailbox, response is not directly returned.
 	 * The caller should handle response retrieval if needed.
 	 */
 	(void)ResponseBuf; /* Unused in mailbox path */
@@ -103,4 +104,4 @@ END:
 	return Status;
 }
 
-/** @} End of xpuf_client_api group */
+/** @} */

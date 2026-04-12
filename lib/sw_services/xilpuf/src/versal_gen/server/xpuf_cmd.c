@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -82,14 +82,14 @@ static XPlmi_Module XPlmi_Puf =
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * @brief	This function calls the handler for invalid commands
+ * @brief	This function calls the handler for invalid commands.
  *
  * @param	Payload  payload data
- * @param   RespBuf buffer to store response of slaves
+ * @param	RespBuf buffer to store response of slaves
  *
  * @return
- * 		- XST_SUCCESS  On successful communication
- * 		- XST_FAILURE  On failure
+ * 		- XST_SUCCESS  on successful communication
+ * 		- XST_FAILURE  on failure
  *
  *****************************************************************************/
 static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
@@ -110,13 +110,13 @@ static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
 /*****************************************************************************/
 /**
  * @brief	This function checks for the supported features based on the
- * 		requested API ID
+ * 		requested API ID.
  *
  * @param	ApiId	ApiId to check the supported features
  *
  * @return
  * 		- XST_SUCCESS  if the requested API ID is supported
- * 		- XST_INVALID_PARAM  On invalid command
+ * 		- XST_INVALID_PARAM  on invalid command
  *
  *****************************************************************************/
 static int XPuf_FeaturesCmd(u32 ApiId)
@@ -124,7 +124,7 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 	int Status = XST_INVALID_PARAM;
 
 	/**
-	 * Check the requested ApiId (registration, regeneration or puf Id),
+	 * - Check the requested ApiId (registration, regeneration or puf Id),
 	 * return XST_SUCCESS for valid ApiId else, return XST_INVALID_PARAM if the ApiId is invalid.
 	 */
 	switch (ApiId) {
@@ -144,13 +144,13 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 
 /*****************************************************************************/
 /**
- * @brief	This function processes XilPuf IPI commands
+ * @brief	This function processes XilPuf IPI commands.
  *
  * @param	Cmd 	Pointer to the XPlmi_Cmd structure
  *
  * @return
- * 		- XST_SUCCESS  On successful IPI processing
- * 		- XST_INVALID_PARAM  On invalid command
+ * 		- XST_SUCCESS  on successful IPI processing
+ * 		- XST_INVALID_PARAM  on invalid command
  *
  *****************************************************************************/
 static int XPuf_ProcessCmd(XPlmi_Cmd *Cmd)
@@ -187,7 +187,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the XilPuf commands to the PLMI.
+ * @brief	This function registers the XilPuf commands during initialization
+ *		of PUF module.
  *
  *****************************************************************************/
 void XPuf_CmdsInit(void)
