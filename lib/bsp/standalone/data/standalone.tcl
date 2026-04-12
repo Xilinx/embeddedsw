@@ -258,7 +258,7 @@ proc get_processor_access {} {
 proc is_ttc_accessible_from_processor {ttc_instance} {
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
-	set ttc_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter { INSTANCE == "$ttc_instance" }]
+	set ttc_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter "INSTANCE==$ttc_instance"]
 
 	set r5_tz [common::get_property CONFIG.C_TZ_NONSECURE $hw_proc_handle]
 	if {$r5_tz == "" || $r5_tz == "0"} {
