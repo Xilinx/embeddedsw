@@ -2154,6 +2154,9 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 	u32 AvgInt, AvgFrac;
 	u32 Threshold;
 	u16 LinkRateMHz;
+	u32 TuFracScale = InstancePtr->CtrlConfig[Stream - 1].MstModeEn ?
+				XMMIDP_TU_FRAC_SCALE : 10;
+	u32 TuFracShift = InstancePtr->CtrlConfig[Stream - 1].MstModeEn ? 0 : 2;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
@@ -2220,7 +2223,7 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 
 	AvgInt = (u32)((PeakStreamBw * XMMIDP_TU_SIZE) / LinkBw);
 	AvgFrac = (u32)(((PeakStreamBw * XMMIDP_TU_SIZE) % LinkBw) *
-		  XMMIDP_TU_FRAC_SCALE / LinkBw);
+		  TuFracScale / LinkBw) << TuFracShift;
 
 	if (AvgInt > XMMIDP_TU_AVG_MAX)
 		AvgInt = XMMIDP_TU_AVG_MAX;
