@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -149,7 +149,7 @@ XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode);
 XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode);
-XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll);
+void XPmClockPll_Suspend(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param,u32 Value);
