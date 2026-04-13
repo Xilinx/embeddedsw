@@ -298,11 +298,6 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 	u64 imgStoreRegionSize    = 0x0ULL;
 	u64 RegionStartAddr = 0x0ULL;
 	u64 RegionEndAddr = 0x0ULL;
-
-	if (RegionSize < 1U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 	RegionStartAddr = RegionAddr;
 	RegionEndAddr = RegionAddr + (RegionSize - 1ULL);
 
@@ -476,11 +471,6 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 	u64 MemSize = 0x0ULL;
 	u32 PLFlag = 0x0UL;
 	*IsPLMem = 0U;
-
-	if (RegionSize < 1U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	/**
 	 * For built-in subsystems, we don't have any Mem-Regns
