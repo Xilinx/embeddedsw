@@ -764,6 +764,7 @@ RET:
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
 	u32 DataLength, u8 IsLastChunk)
 {
+	u8 DmaXferIsLast = XASU_FALSE;
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
@@ -849,10 +850,26 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 			XAES_DATA_UPDATE_IN_PROGRESS;
 	}
 
+	/**
+	 * For CCM AAD updates, when zero-block padding is still required after this chunk
+	 * (CcmAadZeroBlockPadLen != 0), defer the IsLast=TRUE signal to XAes_FinalizeAadUpdate
+	 * which sends the actual final transfer (zero padding) with IsLast=TRUE. Sending
+	 * IsLast=TRUE here would prematurely terminate the AAD phase before the padding is sent.
+	 * DmaXferIsLast is the IsLast value for the actual DMA transfer, which may differ from
+	 * the user-provided IsLastChunk when CCM zero-pad is still pending.
+	 */
+	DmaXferIsLast = IsLastChunk;
+	if ((OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) &&
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE) &&
+			(IsLastChunk == XASU_TRUE) &&
+			(InstancePtr->CcmAadZeroBlockPadLen != 0U)) {
+		DmaXferIsLast = XASU_FALSE;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Configure DMA with AES and transfer the data to AES engine. */
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InDataAddr, OutDataAddr, DataLength,
-		IsLastChunk);
+		DmaXferIsLast);
 
 END:
 	/**

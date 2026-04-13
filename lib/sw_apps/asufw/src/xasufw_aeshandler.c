@@ -354,7 +354,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			AadIsLast = AesParamsPtr->IsLast;
 			if (((EngineMode == XASU_AES_GCM_MODE) ||
 					(EngineMode == XASU_AES_CCM_MODE)) &&
-					(AesParamsPtr->InputDataAddr != 0U)) {
+					(AesParamsPtr->InputDataAddr != 0U) &&
+					(AesParamsPtr->DataLen != 0U)) {
 				AadIsLast = XASU_FALSE;
 			}
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
