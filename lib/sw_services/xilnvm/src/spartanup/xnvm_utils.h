@@ -75,4 +75,4 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr);
 
 #endif		// XNVM_UTILS_H
 
-/* @} */
+/** @} */

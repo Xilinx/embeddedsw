@@ -7,7 +7,7 @@
 /**
 *
 * @file spartanup/xnvm_efuse.h
-* @addtogroup xnvm_versal_efuse_apis XilNvm spartan ultrascale plus eFuse APIs
+* @addtogroup xnvm_versal_efuse_apis XilNvm Spartan Ultrascale Plus eFuse APIs
 * @{
 *
 * @cond xnvm_internal
@@ -68,7 +68,7 @@ extern "C" {
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
 #define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for parts-SU10P,SU25P,SU35P*/
 #define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for all other
-							parts except SU10P,SU25P,SU35P */
+							* parts except SU10P,SU25P,SU35P */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_BYTES		(12U) /**< AES IV size in bytes */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_WORDS		(3U) /**< AES IV size in words */
 #define XNVM_EFUSE_PPK0_HASH_START_ROW		(0U) /**< PPK0 hash start row */
@@ -106,7 +106,10 @@ extern "C" {
 #define XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS		(2U) /**< Decrypt only number of rows */
 #define XNVM_EFUSE_XILINX_CTRL_START_ROW	(50U) /**< Xilinx control bits start row */
 
-/**< PPK Efuse programming related macros */
+/**
+ * @name PPK Efuse programming related macros
+ * @{
+ */
 #ifndef SPARTANUPLUSAES1
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(256U) /**< PPK hash length in bits */
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
@@ -120,6 +123,7 @@ extern "C" {
 						/**< PPK hash size in bytes */
 #define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK1 /**< Last PPK */
 #endif
+/** @} */
 
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */
@@ -147,16 +151,20 @@ extern "C" {
 #define XNVM_EFUSE_ISR_CACHE_ERROR		(0x01U << 4U) /**< Cache error value */
 #define XNVM_EFUSE_STS_CACHE_DONE		(0x01U << 5U) /**< Cache done value */
 
-/**< Timeout in term of number of times status register polled to check eFUSE
- * programming operation complete
+/**
+ * @name Timeout in term of number of times status register polled to check eFuse programming operation complete
+ * @{
  */
 #define XNVM_EFUSE_PGM_TIMEOUT_VAL		(100U) /**< Program timeout value */
 #define XNVM_EFUSE_RD_TIMEOUT_VAL		(100U) /**< Read timeout value */
+/** @} */
 
-/**< Timeout in term of number of times status register polled to check eFuse
- * Cache load is done
+/**
+ * @name Timeout in term of number of times status register polled to check eFuse Cache load is done
+ * @{
  */
 #define XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL	(0x800U) /**< Cache load timeout value */
+/** @} */
 
 #define XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK	(0x0000FFFFU) /**< Decrypt only efuse mask */
 
@@ -168,7 +176,6 @@ extern "C" {
 
 #define XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL	(0x03U) /**< Puf Invalid */
 
-/**< Efuse clock programming related macros */
 #ifndef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
 #define XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER	/**< Set efuse clock frequency from user */
 #endif
@@ -176,7 +183,7 @@ extern "C" {
 /***************************** Type Definitions *******************************/
 
 /**
- * @brief eFuse programming information
+ * eFuse programming information
  */
 typedef struct {
 	u32 StartRow; /**< Start row number of eFuse */
@@ -187,7 +194,7 @@ typedef struct {
 } XNvm_EfusePrgmInfo;
 
 /**
- * @brief eFuse IV type
+ * eFuse IV type
  */
 typedef enum {
 	XNVM_EFUSE_AES_IV_RANGE, /**< IV range */
@@ -195,9 +202,7 @@ typedef enum {
 } XNvm_EfuseIvType;
 
 /**
- * @brief eFuse security control bits
- *
- * This structure defines security control bits for eFuse programming and reading
+ * eFuse security control bits
  */
 typedef struct {
 	u8 HashPufOrKey; /**< Flag to read or program hash of PUF syndrome data or PPK */
@@ -226,7 +231,7 @@ typedef struct {
 } XNvm_EfuseSecCtrlBits;
 
 /**
- * @brief Efuse AES key
+ * eFuse AES key
  */
 typedef struct {
 	u32 AesKey[XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS]; /**< AES key value to be programmed */
@@ -234,7 +239,7 @@ typedef struct {
 } XNvm_EfuseAesKeys;
 
 /**
- * @brief Efuse AES IV
+ * eFuse AES IV
  */
 typedef struct {
 	u32 AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]; /**< AES IV value to be programmed */
@@ -243,7 +248,7 @@ typedef struct {
 } XNvm_EfuseAesIvs;
 
 /**
- * @brief Efuse PPK hashes
+ * eFuse PPK hashes
  */
 typedef struct {
 	u32 ActualPpkHashSize; /**< PPK hash size to be programmed it can be either 256/384 bit */
@@ -258,14 +263,14 @@ typedef struct {
 } XNvm_EfusePpkHash;
 
 /**
- * @brief Efuse Decrypt only
+ * eFuse Decrypt only
  */
 typedef struct {
 	u8 PrgmDeconly; /**< Flag to determine whether to program Decrypt only or not */
 } XNvm_EfuseDecOnly;
 
 /**
- * @brief Efuse SPK revoke ID
+ * Efuse SPK revoke ID
  */
 typedef struct {
 	u32 RevokeIdNum; /**< Revoke ID Bit number */
@@ -273,15 +278,15 @@ typedef struct {
 } XNvm_EfuseSpkRevokeId;
 
 /**
- * @brief Efuse AES revoke ID info
+ * eFuse AES revoke ID info
  */
 typedef struct {
-	u32 AesRevokeId; /**< AES revoke ID */
-	u8 PrgmAesRevokeId; /**< Flag to determine whether to program AES revoke ID or not */
+	u32 AesRevokeId; /**< eFuse AES revoke ID */
+	u8 PrgmAesRevokeId; /**< Flag to determine whether to program eFuse AES revoke ID or not */
 } XNvm_EfuseAesRevokeId;
 
 /**
- * @brief Efuse Xilinx control
+ * eFuse Xilinx control
  */
 typedef struct {
 	u32 PrgmPufHDInvld;  /**< Program PUFHD_INVLD */
@@ -292,29 +297,29 @@ typedef struct {
 } XNvm_EfuseXilinxCtrl;
 
 /**
- * @brief Efuse user fuse info
+ * eFuse user fuse info
  */
 typedef struct {
-	u32 UserFuseVal; /**< User efuse value */
-	u8 PrgmUserEfuse; /**< Program user efuse */
+	u32 UserFuseVal; /**< User eFuse value */
+	u8 PrgmUserEfuse; /**< Program user eFuse */
 } XNvm_EfuseUserFuse;
 
 #ifdef SPARTANUPLUSAES1
 /**
- * @brief Efuse boot mode disable
+ * eFuse boot mode disable
  */
 typedef struct {
-	u32 PrgmQspi24ModDis; /* Flag to program QSPI24 bootmode disable efuse bit */
-	u32 PrgmQspi32ModDis; /* Flag to program QSPI32 bootmode disable efuse bit */
-	u32 PrgmOspiModDis;   /* Flag to program OSPI bootmode disable efuse bit */
-	u32 PrgmJtagModDis;   /* Flag to program JTAG bootmode disable efuse bit */
-	u32 PrgmSmapModDis;   /* Flag to program SMAP bootmode disable efuse bit */
-	u32 PrgmSerialModDis; /* Flag to program SERIAL bootmode disable efuse bit */
+	u32 PrgmQspi24ModDis; /**< Flag to program QSPI24 bootmode disable eFuse bit */
+	u32 PrgmQspi32ModDis; /**< Flag to program QSPI32 bootmode disable eFuse bit */
+	u32 PrgmOspiModDis;   /**< Flag to program OSPI bootmode disable eFuse bit */
+	u32 PrgmJtagModDis;   /**< Flag to program JTAG bootmode disable eFuse bit */
+	u32 PrgmSmapModDis;   /**< Flag to program SMAP bootmode disable eFuse bit */
+	u32 PrgmSerialModDis; /**< Flag to program SERIAL bootmode disable eFuse bit */
 } XNvm_EfuseBootModeDis;
 #endif
 
 /**
- * @brief Operation mode
+ * eFuse operation mode
  */
 typedef enum {
 	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
@@ -322,7 +327,7 @@ typedef enum {
 } XNvm_EfuseOpMode;
 
 /**
- * @brief Read mode
+ * eFuse read mode
  */
 typedef enum {
 	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
@@ -330,17 +335,17 @@ typedef enum {
 } XNvm_EfuseRdMode;
 
 /**
- * @brief PPK type
+ * eFuse PPK type
  */
 typedef enum {
-	XNVM_EFUSE_PPK0, /**< PPK 0 */
-	XNVM_EFUSE_PPK1, /**< PPK 1 */
-	XNVM_EFUSE_PPK2 /**< PPK 2 */
+	XNVM_EFUSE_PPK0, /**< eFuse PPK 0 */
+	XNVM_EFUSE_PPK1, /**< eFuse PPK 1 */
+	XNVM_EFUSE_PPK2 /**< eFuse PPK 2 */
 } XNvm_EfusePpkType;
 
 
 /**
- * @brief structure defines sub structures of Spartan Ultrascale plus eFuses to be blown
+ * Structure defines sub structures of Spartan Ultrascale plus eFuses to be blown
  */
 typedef struct {
 	XNvm_EfuseAesKeys *AesKeys; /**< Pointer to Aes keys*/
@@ -362,6 +367,9 @@ typedef struct {
 #endif
 } XNvm_EfuseData;
 
+/**
+ * eFuse error codes
+ */
 enum {
 	XNVM_EFUSE_ERR_UNLOCK = 2U, /**< 0x2 - Error efuse unlock */
 	XNVM_EFUSE_ERR_LOCK, /**< 0x3 - Error efuse locked */

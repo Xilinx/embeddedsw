@@ -84,7 +84,7 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr, X
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program eFuses with
- * 		user provided data
+ * 		user provided data.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	DataAddr	Address of the data structure where the eFUSE
@@ -94,7 +94,6 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr, X
  * 		- XST_SUCCESS - If the eFUSE programming is successful
  * 		- XST_INVALID_PARAM - On invalid input parameters
  *
- *@section Implementation
  ******************************************************************************/
 int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 {
@@ -109,7 +108,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	XNvm_PpkWriteCdo *PpkWrCdo = (XNvm_PpkWriteCdo *)Payload;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -118,7 +117,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	}
 
 	/**
-	 *  @{ Validate AES,UsrKey,PPK0,PPK1,PPK2,IVs write request.
+	 *  - Validate AES,UsrKey,PPK0,PPK1,PPK2,IVs write request.
 	 *  If validation is success, Send XNvm_EfuseWrite CDO over IPI to the PLM.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *  If the timeout exceeds then return the error else return status of the IPI response.
@@ -166,10 +165,10 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	}
 
 	/**
-	 *  @{ Validates PPK hash and sends an IPI request to the PLM by using the
-	 *     XNVM_API_ID_EFUSE_WRITE_PPK_HASH CDO command.
-	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 *     If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 *  - Validate PPK hash and sends an IPI request to the PLM by using the
+	 *  XNVM_API_ID_EFUSE_WRITE_PPK_HASH CDO command.
+	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 *  If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	if (EfusePpk->PrgmPpk0Hash == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 0 \r\n");
@@ -214,10 +213,10 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	}
 
 	/**
-	 *  @{ Validates IV and sends an IPI request to the PLM by using the
-	 *     XNVM_API_ID_EFUSE_WRITE_IV CDO command.
-	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 *     If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 *  - Validates IV and sends an IPI request to the PLM by using the
+	 *  XNVM_API_ID_EFUSE_WRITE_IV CDO command.
+	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 *  If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, (u32)EfuseData->EnvMonDisFlag);
@@ -227,7 +226,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
@@ -242,7 +241,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to program IV as requested by the user
+ * @brief	This function sends IPI request to program IV as requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	IvAddr		Address of the IV to be programmed
@@ -267,7 +266,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	XNvm_IvWriteCdo *IvWrCdo = (XNvm_IvWriteCdo *)Payload;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -276,9 +275,9 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	}
 
 	/**
-	 *  @{ Get shared memory allocated by the user using XMailbox_GetSharedMem API,
+	 *  - Get shared memory allocated by the user using XMailbox_GetSharedMem API,
 	 *  to store data structure in the user memory.
-	 *  Perform validation on the size of the shared memory,
+	 *  - Perform validation on the size of the shared memory,
 	 *  if size is less than the total size return XST_FAILURE.
 	 */
 	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&Ivs);
@@ -292,14 +291,14 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	}
 
 	/**
-	 *  Fill the EfuseData structure with the IV address, Environmental disable flag.
+	 *  - Fill the EfuseData structure with the IV address, Environmental disable flag.
 	 */
 	Ivs = (XNvm_EfuseIvs *)(UINTPTR)IvAddr;
 
 	Xil_DCacheFlushRange((UINTPTR)Ivs, TotalSize);
 
 	/**
-	 *  @{ Send XNvm_EfuseWriteIv CDO over IPI to the PLM.
+	 *  - Send XNvm_EfuseWriteIv CDO over IPI to the PLM.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	if (Ivs->PrgmMetaHeaderIv == TRUE) {
@@ -363,7 +362,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
@@ -379,7 +378,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to program DICE UDS
+ * @brief	This function sends IPI request to program DICE UDS.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	UdsAddr		Address of the UDS to be programmed
@@ -401,7 +400,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	XNvm_UdsWriteCdo *UdsWriteCdo = (XNvm_UdsWriteCdo *)Payload;
 
 	/**
-	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -417,8 +416,8 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	UdsWriteCdo->Pload.AddrHigh = (u32)(UdsAddr >> XNVM_ADDR_HIGH_SHIFT);
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_UDS CDO command.
-	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_UDS CDO command.
+	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)UdsWriteCdo,
@@ -434,7 +433,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
@@ -449,7 +448,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to program encrypted DME private key
+ * @brief	This function sends IPI request to program encrypted DME private key.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	DmeKeyType	Type of DME Key which needs to be programmed
@@ -472,7 +471,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	XNvm_DmeKeyWriteCdo *DmeKeyWriteCdo = (XNvm_DmeKeyWriteCdo *)Payload;
 
 	/**
-	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -493,8 +492,8 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	DmeKeyWriteCdo->Pload.AddrHigh = (u32)(DmeKeyAddr >> XNVM_ADDR_HIGH_SHIFT);
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_KEY CDO command.
-	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_KEY CDO command.
+	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DmeKeyWriteCdo,
@@ -510,7 +509,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	RetStatus = Status;
@@ -545,7 +544,7 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 	XNvm_DmeRevokeId *RevokeId = (XNvm_DmeRevokeId *)Payload;
 
 	/**
-	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -562,8 +561,8 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 	RevokeId->Pload.DmeRevokeNum = DmeRevokeNum;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_REVOKE CDO command.
-	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_REVOKE CDO command.
+	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeId,
 			sizeof(XNvm_DmeRevokeId) / XNVM_WORD_LEN);
@@ -578,7 +577,7 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -609,7 +608,7 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 	XNvm_DmeModeWriteCdo *DmeModeWriteCdo = (XNvm_DmeModeWriteCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -622,7 +621,7 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 	DmeModeWriteCdo->Pload.DmeMode = DmeMode;
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_MODE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_MODE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DmeModeWriteCdo,
@@ -639,7 +638,7 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -651,7 +650,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Secure Control Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	SecCtrlBits	Value of Secure Control  Bits to be programmed
@@ -671,7 +670,7 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	XNvm_SecCtrlBitsWriteCdo *SecCtrlBitsWrCdo = (XNvm_SecCtrlBitsWriteCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -684,7 +683,7 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	SecCtrlBitsWrCdo->Pload.SecCtrlBits = SecCtrlBits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_SEC_CTRL_BITS CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_SEC_CTRL_BITS CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecCtrlBitsWrCdo,
@@ -701,7 +700,7 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -712,7 +711,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Puf Control Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	PufCtrlBits	Value of Puf Control  Bits to be programmed
@@ -732,7 +731,7 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 	XNvm_PufCtrlBitsWriteCdo *PufCtrlBitsWrCdo = (XNvm_PufCtrlBitsWriteCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -745,7 +744,7 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 	PufCtrlBitsWrCdo->Pload.PufCtrlBits = PufCtrlBits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PufCtrlBitsWrCdo,
@@ -762,7 +761,7 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -773,7 +772,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Misc Control Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	MiscCtrlBits	Value of Misc Control Bits to be programmed
@@ -793,7 +792,7 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 	XNvm_MiscCtrlBitsWriteCdo *MiscCtrlBitsWrCdo = (XNvm_MiscCtrlBitsWriteCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -806,7 +805,7 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 	MiscCtrlBitsWrCdo->Pload.MiscCtrlBits = MiscCtrlBits;
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_MISC_CTRL_BITS CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_MISC_CTRL_BITS CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)MiscCtrlBitsWrCdo,
@@ -823,7 +822,7 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -834,7 +833,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program BootMode disable efuse bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	BootModeDisBits	Value of Boot mode disable Bits to be programmed
@@ -854,7 +853,7 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 	XNvm_BootModeDisCdo *BootModeDisCdo = (XNvm_BootModeDisCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -867,7 +866,7 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 	BootModeDisCdo->Pload.BootModeDisVal = BootModeDisBits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE CDO command.
+	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE CDO command.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)BootModeDisCdo,
@@ -884,7 +883,7 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -896,7 +895,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Sec Misc 1 Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	SecMisc1Bits	Value of Sec Misc 1 Bits to be programmed
@@ -916,7 +915,7 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 	XNvm_SecMisc1BitsCdo *SecMisc1BitsCdo = (XNvm_SecMisc1BitsCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -929,7 +928,7 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 	SecMisc1BitsCdo->Pload.Misc1CtrlBitsVal = SecMisc1Bits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_MISC1_CTRL_BITS CDO command.
+	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_MISC1_CTRL_BITS CDO command.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecMisc1BitsCdo,
@@ -946,7 +945,7 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -957,7 +956,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Boot Env Ctrl Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	BootEnvCtrlBits	Value of BootEnvCtrl Bits to be programmed
@@ -977,7 +976,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 	XNvm_BootEnvCtrlBitsCdo *BootEnvCtrlBitsCdo = (XNvm_BootEnvCtrlBitsCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -990,7 +989,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 	BootEnvCtrlBitsCdo->Pload.BootEnvCtrlVal = BootEnvCtrlBits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL_BITS CDO command.
+	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL_BITS CDO command.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)BootEnvCtrlBitsCdo,
@@ -1007,7 +1006,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1018,7 +1017,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program ROM Rsvd Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	RomRsvdBits	Value of ROM Rsvd Bits to be programmed
@@ -1038,7 +1037,7 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 	XNvm_RomRsvdBitsWriteCdo *RomRsvdBitsWriteCdo = (XNvm_RomRsvdBitsWriteCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1051,7 +1050,7 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 	RomRsvdBitsWriteCdo->Pload.RomRsvdBits = RomRsvdBits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_ROM_RSVD CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_ROM_RSVD CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RomRsvdBitsWriteCdo,
@@ -1067,7 +1066,7 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1078,7 +1077,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Glitch Cfg Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	GlitchCfgBits	Value of Glitch Cfg Bits to be programmed
@@ -1098,7 +1097,7 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 	XNvm_GlitchConfigCdo *GlitchConfigCdo = (XNvm_GlitchConfigCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1111,7 +1110,7 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 	GlitchConfigCdo->Pload.GlitchConfigVal = GlitchCfgBits;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_GLITCH_CONFIG CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_GLITCH_CONFIG CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)GlitchConfigCdo,
@@ -1127,7 +1126,7 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1137,7 +1136,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to program PLM update bit
+ * @brief	This function sends IPI request to program PLM update bit.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	EnvDisFlag	Environmental monitoring flag set by the user.
@@ -1156,7 +1155,7 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 	XNvm_DisPlmUpdateCdo *DisPlmUpdateCdo = (XNvm_DisPlmUpdateCdo *)Payload;
 
 	/**
-	 * Perform input parameter validation on InstancePtr.
+	 * - Perform input parameter validation on InstancePtr.
 	 * Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1168,7 +1167,7 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 	DisPlmUpdateCdo->Pload.EnvDisFlag = EnvDisFlag;
 
 	/**
-	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DisPlmUpdateCdo,
@@ -1184,7 +1183,7 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1213,7 +1212,7 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 	XNvm_DecOnlyCdo *DecOnlyCdo = (XNvm_DecOnlyCdo *)Payload;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1225,7 +1224,7 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 	DecOnlyCdo->Pload.EnvDisFlag = EnvDisFlag;
 
 	/**
-	 *  @{ Send XNvm_EfuseWriteSecCtrl CDO over IPI to the PLM.
+	 *  - Send XNvm_EfuseWriteSecCtrl CDO over IPI to the PLM.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DecOnlyCdo,
@@ -1241,7 +1240,7 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1272,7 +1271,7 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 	XNvm_FipsInfoCdo *FipsInfoCdo = (XNvm_FipsInfoCdo *)Payload;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1286,7 +1285,7 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 	FipsInfoCdo->Pload.FipsVersion = FipsVersion;
 
 	/**
-	 *  @{ Send XNvm_EfuseWritePufCtrl CDO over IPI request to the PLM.
+	 *  - Send XNvm_EfuseWritePufCtrl CDO over IPI request to the PLM.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)FipsInfoCdo,
@@ -1302,7 +1301,7 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1332,7 +1331,7 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 	XNvm_RevokeIdCdo *RevokeIdCdo = (XNvm_RevokeIdCdo *)Payload;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1344,8 +1343,9 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 	RevokeIdCdo->Pload.EnvDisFlag = EnvDisFlag;
 	RevokeIdCdo->Pload.RevokeIdNum = RevokeIdNum;
 
-	/** @{ Send XNvm_EfuseWriteMiscCtrl CDO over IPI request to the PLM.
-	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	/**
+	 * - Send XNvm_EfuseWriteMiscCtrl CDO over IPI request to the PLM.
+	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeIdCdo,
 			sizeof(XNvm_RevokeIdCdo) / XNVM_WORD_LEN);
@@ -1360,7 +1360,7 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1390,7 +1390,7 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 	XNvm_OffChipIdCdo *OffChipIdCdo = (XNvm_OffChipIdCdo *)Payload;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1403,7 +1403,7 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 	OffChipIdCdo->Pload.OffChipIdNum = OffChipRevokeIdNum;
 
 	/**
-	 *  @{ Send XNvm_EfuseWriteRomRsvd CDO over IPI request to the PLM.
+	 *  - Send XNvm_EfuseWriteRomRsvd CDO over IPI request to the PLM.
 	 *  Wait for IPI response from PLM with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)OffChipIdCdo,
@@ -1419,7 +1419,7 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1431,7 +1431,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Puf as User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufUserFuseAddr	Address of the XNvm_EfusePufFuseAddr structure
@@ -1449,7 +1449,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1461,7 +1461,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 		(u32)PufUserFuseAddr, (u32)(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	/**
-	 *  Send PUF user fuses CDO to PLM to write user specified PUF data to corresponding eFuses.
+	 *  - Send PUF user fuses CDO to PLM to write user specified PUF data to corresponding eFuses.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
@@ -1476,7 +1476,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read Puf User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufUserFuseAddr	Address of the output buffer to store the
@@ -1499,7 +1499,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	u32 LowAddr;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1507,22 +1507,22 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	/* Get PUF fuse address structure */
+	/** - Get PUF fuse address structure */
 	PufFuseAddrInfo = (XNvm_EfusePufFuseAddr *)(UINTPTR)PufUserFuseAddr;
 
-	/* Calculate cache offset: PUF SYN data starts at row 192, each row = 4 bytes */
+	/** - Calculate cache offset: PUF SYN data starts at row 192, each row = 4 bytes */
 	StartOffset = XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET + (PufFuseAddrInfo->StartPufFuseRow * XNVM_WORD_LEN);
 
-	/* Use address fields directly from structure */
+	/** - Use address fields directly from structure */
 	HighAddr = PufFuseAddrInfo->AddrHigh;
 	LowAddr = PufFuseAddrInfo->AddrLow;
 
-	/* Create read cache CDO using unified API */
+	/** - Create read cache CDO using unified API */
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, (u8)PufFuseAddrInfo->NumOfPufFusesRows,
 			LowAddr, HighAddr);
 
 	/**
-	 * @{ Send XNvm_EfuseReadPufAsUserFuses CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseReadPufAsUserFuses CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM with a default timeout of 300 seconds.
 	 * If the timeout exceeds return error else return the status of the IPI response.
 	 */
@@ -1539,7 +1539,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Puf helper data
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	PufHdAddr	Address of the XNvm_EfusePufHdAddr structure
@@ -1560,7 +1560,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	u32 LowAddr;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1575,7 +1575,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	XNvm_EfuseCreateWritePufCmd(PufWrCdo, LowAddr, HighAddr);
 
 	/**
-	 * @{ Send XNvm_EfuseWritePuf CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseWritePuf CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return status of the IPI response.
 	 */
@@ -1593,7 +1593,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 
 	Status = XST_FAILURE;
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -1603,7 +1603,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to read Puf data from the eFUSE cache.
+ * @brief	This function sends IPI request to read Puf data(Puf helper data,
+ *              Puf Chash, Puf Aux data and Puf RO Swap) from the eFUSE cache.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	PufHdAddr	Address of the XNvm_EfusePufHdAddr structure
@@ -1629,7 +1630,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	u32 LowAddr;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1643,7 +1644,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadRoSwap, XNVM_WORD_LEN);
 
 	/**
-	 * Read Puf helper data.
+	 * - Read Puf helper data.
 	 */
 	XNVM_GET_HADDR(ReadPufHd, HighAddr);
 	LowAddr = (u32)(UINTPTR)ReadPufHd;
@@ -1659,7 +1660,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	Xil_DCacheInvalidateRange((UINTPTR)ReadPufHd, (XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN));
 
 	/**
-	 * Read Puf Chash.
+	 * - Read Puf Chash.
 	 */
 	XNVM_GET_HADDR(&ReadChash, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadChash;
@@ -1676,7 +1677,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadChash, XNVM_WORD_LEN);
 
 	/**
-	 * Read Puf Aux data.
+	 * - Read Puf Aux data.
 	 */
 	XNVM_GET_HADDR(&ReadAux, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadAux;
@@ -1693,7 +1694,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadAux, XNVM_WORD_LEN);
 
 	/**
-	 * Read RO Swap.
+	 * - Read RO Swap.
 	 */
 	XNVM_GET_HADDR(&ReadRoSwap, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadRoSwap;
@@ -1701,7 +1702,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 		HighAddr);
 
 	/**
-	 * @{ Send XNvm_EfuseReadPuf CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseReadPuf CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -1737,7 +1738,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read IV eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	IvAddr		Address of the output buffer to store the
@@ -1760,7 +1761,7 @@ int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	u32 LowAddr;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1796,7 +1797,7 @@ int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 		HighAddr);
 
 	/**
-	 * @{ Send XNvm_EfuseReadIv CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseReadIv CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceed return error else return the status of the IPI response
 	 */
@@ -1810,7 +1811,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read Revocation ID eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	RevokeIdAddr	Address of the output buffer to store the
@@ -1833,7 +1834,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1853,7 +1854,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 		HighAddr);
 
 	/**
-	 * @{ Send XNvm_EfuseReadRevocationId CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseReadRevocationId CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds return error else return the status of the IPI response.
 	 */
@@ -1867,7 +1868,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	UserFuseAddr	Address of the output buffer to store the
@@ -1889,7 +1890,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1909,7 +1910,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, UserFuseData->NumOfUserFuses, LowAddr,
 		HighAddr);
 	/**
-	 * @{ Send XNvm_EfuseReadUserFuses CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseReadUserFuses CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds return error else return the status of the IPI response.
 	 */
@@ -1924,7 +1925,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read MiscCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	MiscCtrlBits	Address of the output buffer to store the
@@ -1946,7 +1947,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	u32 LowAddr;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -1962,7 +1963,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 		HighAddr);
 
 	/**
-	 * @{ Send EfuseReadMiscCtrlBits CDO over IPI request to the PLM.
+	 * - Send EfuseReadMiscCtrlBits CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -2023,7 +2024,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read SecCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	SecCtrlBits	Address of the output buffer to store the
@@ -2045,7 +2046,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2061,7 +2062,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 		HighAddr);
 
 	/**
-	 * @{ Send EfuseReadSecCtrlBits CDO over IPI request to the PLM.
+	 * - Send EfuseReadSecCtrlBits CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -2157,7 +2158,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read SecMisc1Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	SecMisc1Bits	Address of the output buffer to store the
@@ -2179,7 +2180,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	u32 LowAddr;
 
 	/**
-	 *  Perform input parameter validation on InstancePtr.
+	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2195,7 +2196,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 		HighAddr);
 
 	/**
-	 * @{ Send EfuseReadSecMisc1Bits CDO over IPI request to the PLM.
+	 * - Send EfuseReadSecMisc1Bits CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return status of the IPI response.
 	 */
@@ -2236,7 +2237,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read BootEnvCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	BootEnvCtrlBits	Address of the output buffer to store the
@@ -2258,7 +2259,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2274,7 +2275,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 		HighAddr);
 
 	/**
-	 * @{ Send EfuseReadBootEnvCtrlBits CDO over IPI request to the PLM.
+	 * - Send EfuseReadBootEnvCtrlBits CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response
 	 */
@@ -2323,7 +2324,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read RomRsvdBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	RomRsvdBits	Address of the output buffer to store the
@@ -2345,7 +2346,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 	u32 LowAddr;
 
 	/**
-	 *  Perform input parameter validation on InstancePtr.
+	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2361,7 +2362,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 *    - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 *    Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2401,7 +2402,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read FIPS info bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	FipsInfoBits	Address of the output buffer to store the
@@ -2426,7 +2427,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	u8 FipsVersionLowerBit;
 
 	/**
-	 *  Perform input parameter validation on InstancePtr.
+	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2443,7 +2444,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 *    - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 *    Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2462,7 +2463,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 *    - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 *    Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2497,7 +2498,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read PufSecCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufSecCtrlBits	Address of the output buffer to store the
@@ -2520,7 +2521,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2551,7 +2552,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		HighAddr);
 
 	/**
-	 * @{ Send EfuseReadPufSecCtrlBits CDO over IPI request to the PLM.
+	 * - Send EfuseReadPufSecCtrlBits CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -2597,7 +2598,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read OffChip ID eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	OffChipIdAddr	Address of the output buffer to store the
@@ -2620,7 +2621,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2640,7 +2641,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, LowAddr, HighAddr);
 
 	/**
-	 * @{ Send EfuseReadOffchipRevokeId CDO over IPI request to the PLM.
+	 * - Send EfuseReadOffchipRevokeId CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -2654,7 +2655,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read PpkHash
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PpkHashAddr	Address of the output buffer to store the
@@ -2676,7 +2677,7 @@ int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAdd
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2709,7 +2710,7 @@ int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAdd
 		LowAddr, HighAddr);
 
 	/**
-	 * @{ Send EfuseReadPpkHash CDO over IPI request to the PLM.
+	 * - Send EfuseReadPpkHash CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -2723,7 +2724,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read DecEfuseOnly eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DecOnlyAddr	Address of the output buffer to store the
@@ -2743,7 +2744,7 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2757,7 +2758,7 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2772,7 +2773,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read DME Mode eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DmeModeAddr	Address of the output buffer to store the
@@ -2792,7 +2793,7 @@ int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAdd
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2806,7 +2807,7 @@ int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAdd
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2820,7 +2821,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read BootModeDisable eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	BootModeDisAddr	Address of the output buffer to store the
@@ -2840,7 +2841,7 @@ int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootMo
 	u32 LowAddr;
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2854,7 +2855,7 @@ int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootMo
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2868,7 +2869,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read Dme Revoke
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DmeRevokeIdAddr	Address of the output buffer to store the
@@ -2889,7 +2890,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 	u32 HighAddr;
 	u32 LowAddr;
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2903,7 +2904,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -2927,7 +2928,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read DNA eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DnaAddr		Address of the output buffer to store the
@@ -2947,7 +2948,7 @@ int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 	u32 LowAddr;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -2961,7 +2962,7 @@ int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 		HighAddr);
 
 	/**
-	 * @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -3073,8 +3074,8 @@ static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 S
 
 /******************************************************************************/
 /**
- * This function Validates the Aes Key and sends IPI request to program
- * Aes Key/User Key0/User Key1 as requested by the user
+ * @brief	This function Validates the Aes Key and sends IPI request to program
+ * 		Aes Key/User Key0/User Key1 as requested by the user.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	KeyWrCdo	Pointer to the Write AES Key CDO
@@ -3086,7 +3087,6 @@ static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 S
  * 		- XST_SUCCESS  If the eFUSE programming is successful
  * 		- XST_FAILURE  If there is a failure
  *
- *@section Implementation
  ******************************************************************************/
 static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePtr,
 		XNvm_AesKeyWriteCdo *KeyWrCdo, XNvm_AesKeyType KeyType, u64 Addr, u32 EnvMonDis)
@@ -3094,7 +3094,7 @@ static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePt
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 * Validate Aes Keys requested for programming.
+	 * - Validate Aes Keys requested for programming.
 	 */
 	Status = XNvm_EfuseValidateAesKeyWriteReq(KeyType);
 	if (Status != XST_SUCCESS) {
@@ -3102,13 +3102,13 @@ static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePt
 	}
 
 	/**
-	 * Create Payload for write Aes Key/User0 Key/User1 Key.
+	 * - Create Payload for write Aes Key/User0 Key/User1 Key.
 	 */
 	XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, KeyType, (u32)(Addr),
 		(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT), EnvMonDis);
 
 	/**
-	 * Send XNvm_EfuseWriteAesKey CDO over IPI request to the PLM.
+	 * - Send XNvm_EfuseWriteAesKey CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
@@ -3122,8 +3122,8 @@ END:
 
 /******************************************************************************/
 /**
- * This function Validates the PPK Hash and sends IPI request to program
- * PPK0/PPK1/PPK2 HASH
+ * @brief	This function Validates the PPK Hash and sends IPI request to program
+ * 		PPK0/PPK1/PPK2 HASH.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	PpkWrCdo	Pointer to the Write AES Key CDO
@@ -3135,7 +3135,6 @@ END:
  * 		- XST_SUCCESS  If the eFUSE programming is successful
  * 		- XST_FAILURE  If there is a failure
  *
- *@section Implementation
  ******************************************************************************/
 static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePtr,
 		XNvm_PpkWriteCdo *PpkWrCdo, XNvm_PpkType PpkType, u64 Addr, u32 EnvMonDis)
@@ -3143,7 +3142,7 @@ static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePt
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 * Validate PPK Hash's requested for programming
+	 * - Validate PPK Hash's requested for programming
 	 */
 	Status = XNvm_EfuseValidatePpkHashWriteReq(PpkType);
 	if (Status != XST_SUCCESS) {
@@ -3151,13 +3150,13 @@ static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePt
 	}
 
 	/**
-	 * Create Payload for write PPK0/PPK1/PPK2 Hash
+	 * - Create Payload for write PPK0/PPK1/PPK2 Hash
 	 */
 	XNvm_EfuseCreateWritePpkCmd(PpkWrCdo, PpkType, (u32)(Addr),
 			(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT), EnvMonDis);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XNvm_EfuseWritePpkHash API.
+	 * - Send an IPI request to the PLM by using the CDO command to call XNvm_EfuseWritePpkHash API.
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -3171,8 +3170,8 @@ END:
 
 /******************************************************************************/
 /**
- * This function Validates the IV and sends IPI request to program
- * IV's as requested by the user
+ * @brief	This function Validates the IV and sends IPI request to program
+ * 		IV's as requested by the user.
  *
  * @param	InstancePtr 	Pointer to the client instance
  * @param	IvWrCdo		Pointer to the Write AES Key CDO
@@ -3184,7 +3183,6 @@ END:
  * 		- XST_SUCCESS  If the eFUSE programming is successful
  * 		- XST_FAILURE  If there is a failure
  *
- *@section Implementation
  ******************************************************************************/
 static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 		XNvm_IvWriteCdo *IvWrCdo, XNvm_IvType IvType, u64 Addr, u32 EnvMonDis)
@@ -3192,7 +3190,7 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 * Validate IV's requested for programming
+	 * - Validate IV's requested for programming
 	 */
 	Status = XNvm_EfuseValidateIvWriteReq(IvType, (XNvm_Iv*)(UINTPTR)(Addr));
 	if (Status != XST_SUCCESS) {
@@ -3200,13 +3198,13 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	}
 
 	/**
-	 * Create Payload for write IV
+	 * - Create Payload for write IV
 	 */
 	XNvm_EfuseCreateWriteIvCmd(IvWrCdo, IvType, (u32)(Addr),
 			(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT), EnvMonDis);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XNvm_EfuseWriteIv API.
+	 * - Send an IPI request to the PLM by using the CDO command to call XNvm_EfuseWriteIv API.
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
@@ -3219,7 +3217,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to check given CRC is matched with calculated CRC
+ * @brief	This function sends IPI request to check given CRC is matched with calculated CRC.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	AesKeyCrc	CRC value of the AES key which needs to be checked
@@ -3241,7 +3239,7 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -3249,13 +3247,13 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC),
 				AesKeyCrc,
 				AesKeyType);
 
         /**
-	 *  Send check AES key CRC CDO to PLM to check the given CRC.
+	 *  - Send check AES key CRC CDO to PLM to check the given CRC.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,6 @@
 /**
 *
 * @file net/server/xnvm_efuse_cdohandler.h
-* @addtogroup xnvm_versal_net_apis XilNvm Versal Net APIs
-* @{
 * This file contains the Versal_Net XilNvm eFUSE Cdo handler declaration.
 *
 * <pre>
@@ -28,6 +26,11 @@
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xnvm_server_apis XilNvm Plat Server APIs
+* @{
+*/
+
 #ifndef XNVM_EFUSE_CDOHANDLER_H_
 #define XNVM_EFUSE_CDOHANDLER_H_
 
@@ -43,46 +46,55 @@ extern "c" {
 
 
 /************************** Variable Definitions *****************************/
-/*< 16-bits used for Environmental monitoring, 16-bits used for Key_type and 8 words are for AES Key> */
+/** 16-bits used for Environmental monitoring, 16-bits used for Key_type and 8 words are for AES Key */
 #define XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS          (9U)
 
 #if defined(VERSAL_2VE_2VM)
-/*< 16-bits used for Env monitoring, 16-bits used for ppk_type and 12 words are for PPK Hash> */
+/** 16-bits used for Env monitoring, 16-bits used for ppk_type and 12 words are for PPK Hash */
 #define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS (13U)
 #elif defined(VERSAL_NET)
-/*< 16-bits used for Env monitoring, 16-bits used for ppk_type and 8 words are for PPK Hash> */
+/** 16-bits used for Env monitoring, 16-bits used for ppk_type and 8 words are for PPK Hash */
 #define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS (9U)
 #else
 /*< Define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS for other devices here */
 #endif
 
 
-/*< 16-bits used for Environmental monitoring, 16-bits are reserved and 12 words are for DICE UDS> */
+/** 16-bits used for Environmental monitoring, 16-bits are reserved and 12 words are for DICE UDS */
 #define XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS              (13U)
 
-/*< 16-bits used for Environmental monitoring, 16-bits are key_type and 12 words are for DME User Key> */
+/** 16-bits used for Environmental monitoring, 16-bits are key_type and 12 words are for DME User Key */
 #define XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS          (13U)
 
-/*< 16-bits used for Environmental monitoring, 16-bits are reserved,1-word is for c-hash,
- * 1-word is for Auxiliary, 1-word is for Ro swap and 127 words are for PUF SYN> */
+/** 16-bits used for Environmental monitoring, 16-bits are reserved,1-word is for c-hash,
+ * 1-word is for Auxiliary, 1-word is for Ro swap and 127 words are for PUF SYN */
 #define XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS          (131U)
 
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * OCP handler function pointer
+ */
 typedef int (*XNvm_OcpHandler)(void);
 
+/**
+ * Structure to store eFUSE keys for CDO operations
+ */
 typedef struct {
-		u32 AesKey[XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS];
-		u32 PpkHash[XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS];
-		u32 UdsKey[XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS];
-		u32 DmeKey[XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS];
-		u32 PufCfg[XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS];
+	u32 AesKey[XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS];	/**< AES key array */
+	u32 PpkHash[XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS];	/**< PPK hash array */
+	u32 UdsKey[XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS];		/**< UDS key array */
+	u32 DmeKey[XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS];	/**< DME key array */
+	u32 PufCfg[XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS];	/**< PUF configuration array */
 } XNvm_CdoEfuseKeys;
 
+/**
+ * Structure to store CDO chunk data with keys and memory clear flag
+ */
 typedef struct {
-	XNvm_CdoEfuseKeys Keys;
-	u8 MemClear;
+	XNvm_CdoEfuseKeys Keys;		/**< eFUSE keys structure */
+	u8 MemClear;			/**< Memory clear flag */
 } XNvm_CdoChunk;
 
 /************************** Constant Definitions *****************************/

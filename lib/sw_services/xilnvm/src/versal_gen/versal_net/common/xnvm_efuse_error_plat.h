@@ -40,7 +40,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * @addtogroup xilnvm_versal_net_common_error_codes XilNvm Versal Net Error Codes
+ * @addtogroup xilnvm_error_codes XilNvm Error Codes
  * @{
  */
 

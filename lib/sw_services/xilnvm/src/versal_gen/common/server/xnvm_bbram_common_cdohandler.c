@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,7 +70,7 @@ static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxN
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief       This function calls respective IPI handler based on the API_ID.
  *
  * @param 	Cmd is pointer to the command structure
  *
@@ -84,8 +84,8 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = NULL;
 
-    /**
-	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	/**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
 	 */
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -99,9 +99,9 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-   /**
-    *  Calls the respected API handler according to API ID
-	*/
+	/**
+	 * - Calls the respected API handler according to API ID.
+	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY):
 		Status = XNvm_BbramKeyWrite(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2]);
@@ -140,8 +140,8 @@ END:
  * @param	SubsystemId	Subsystem ID
  * @param 	Size		Size of the input data in bytes to be
  *				updated
- * 		KeyAddrLow	Lower 32 bit address of the key
- *		KeyAddrHigh	Higher 32 bit address of the key
+ * @param	KeyAddrLow	Lower 32 bit address of the key
+ * @param	KeyAddrHigh	Higher 32 bit address of the key
  *
  * @return
  * 		- XST_SUCCESS  If the programming is successful
@@ -229,7 +229,7 @@ static int XNvm_BbramUsrDataWrite(u32 UsrData)
  * @param	SubsystemId	Subsystem ID
  * @param	DstAddrLow	Lower 32 bit address of the destination
  * 				address to store the user data
- *		DstAddrHigh	Higher 32 bit address of the destination
+ * @param	DstAddrHigh	Higher 32 bit address of the destination
  *				address to store the user data
  *
  * @return
@@ -281,6 +281,10 @@ static int XNvm_BbramLockUsrData(void)
 /*****************************************************************************/
 /**
  * @brief       This function write configuration limiter params
+ *
+ * @param	ClEnFlag	Configuration limiter enable flag
+ * @param	ClMode		Configuration limiter mode
+ * @param	MaxNumOfConfigs	Maximum number of configurations
  *
  * @return
  * 		- XST_SUCCESS  If the provisioning is successful

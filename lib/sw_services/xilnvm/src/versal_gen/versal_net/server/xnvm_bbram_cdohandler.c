@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,7 +49,7 @@ static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective handler based on the API_ID
+ * @brief       This function calls respective handler based on the API_ID.
  *
  * @param 	Cmd is pointer to the command structure
  *
@@ -64,7 +64,7 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 	u32 *Pload = NULL;
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if (NULL == Cmd) {
@@ -80,7 +80,7 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 	}
 
         /**
-	 *  Call the respective handler based on API ID.
+	 *  - Call the respective handler based on API ID.
 	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY_FROM_PLOAD):
@@ -108,7 +108,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function programs BBRAM Aes key from the CDO
+ * @brief       This function programs BBRAM Aes key from the CDO.
  *
  * @param 	Pload is pointer to the CDO payload
  *

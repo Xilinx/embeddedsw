@@ -23,7 +23,7 @@
 *************************************************************************************************/
 
 /**
- * @addtogroup xnvm_client_apis XilNvm Client APIs
+ * @addtogroup xnvm_mailbox_apis XilNvm Mailbox APIs
  * @{
  */
 /*************************************** Include Files *******************************************/
@@ -45,7 +45,7 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs SMC call to communicate with PLM
+ * @brief	This function performs SMC call to communicate with PLM.
  *
  * @param	PayloadBuf	Pointer to payload buffer containing ApiId and arguments
  * @param	PayloadLen	Length of payload buffer (number of u32 elements)
@@ -66,12 +66,12 @@ int XNvm_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 Response
 	u64 SmcArg3;
 	u64 SmcArg4;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
 		goto END;
 	}
 
-	/** Prepare payload using extended format */
+	/** - Prepare payload using extended format */
 	SmcArg1 = ((u64)PayloadBuf[XNVM_SMC_PAYLOAD_INDEX_1] << XNVM_WORD_SHIFT) |
 		PayloadBuf[XNVM_SMC_PAYLOAD_INDEX_0];
 	SmcArg2 = ((u64)PayloadBuf[XNVM_SMC_PAYLOAD_INDEX_3] << XNVM_WORD_SHIFT) |
@@ -80,10 +80,10 @@ int XNvm_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 Response
 		PayloadBuf[XNVM_SMC_PAYLOAD_INDEX_4];
 	SmcArg4 = PayloadBuf[XNVM_SMC_PAYLOAD_INDEX_6];
 
-	/** Perform SMC call */
+	/** - Perform SMC call */
 	Out = Xil_Smc((u64)SMC_FID_EXT, SmcArg1, SmcArg2, SmcArg3, SmcArg4, 0U, 0U, 0U);
 
-	/** Store response in provided buffer based on ResponseLen */
+	/** - Store response in provided buffer based on ResponseLen */
 	if ((ResponseBuf != NULL) && (ResponseLen > 0U)) {
 		ResponseBuf[XNVM_SMC_RESPONSE_INDEX_0] = (u32)(Out.Arg0 >> XNVM_WORD_SHIFT);
 		if (ResponseLen > XNVM_SMC_RESPONSE_INDEX_1) {
@@ -111,6 +111,5 @@ END:
 	return Status;
 }
 
-/** @} end of xnvm_client_apis group */
-
 #endif /* defined (__aarch64__) && (EL1_NONSECURE == 1) */
+/** @} */

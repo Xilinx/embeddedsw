@@ -49,10 +49,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/**< Slr index shift constant*/
-#define XNVM_SLR_INDEX_SHIFT (6U)
+#define XNVM_SLR_INDEX_SHIFT (6U) /**< Slr index shift constant*/
 
-/**< SlrIndexs constants*/
 #define XNVM_SLR_INDEX_0 (0U) /**< SLR Index 0*/
 #define XNVM_SLR_INDEX_1 (1U) /**< SLR Index 1*/
 #define XNVM_SLR_INDEX_2 (2U) /**< SLR Index 2*/

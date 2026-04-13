@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +39,7 @@ extern "C" {
 
 /***************************** Type Definitions *******************************/
 /**
- * @addtogroup xilnvm_versal_error_codes XilNvm Versal Error Codes
+ * @addtogroup xilnvm_error_codes XilNvm Error Codes
  * @{
  */
 
@@ -308,4 +308,4 @@ typedef enum {
 
 #endif	/* XNVM_EFUSE_ERROR_PLAT_H */
 
-/* @} */
+/** @} */

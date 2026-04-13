@@ -8,7 +8,7 @@
 /**
 *
 * @file versal_net/common/xnvm_validate.h
-* @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
+* @addtogroup xnvm_versal_net_validate_api_ids XilNvm Validate APIs
 * @{
 * @cond xnvm_internal
 * This file contains the APIs used to validate write request for different eFUSEs.
@@ -62,13 +62,9 @@ int XNvm_EfuseIsPufHelperDataEmpty(void);
 int XNvm_EfuseValidatePufUserFuseAccess(void);
 #endif
 
-/**
- * @}
- * @endcond
- */
-
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XNVM_VALIDATE_H */
+/** @} */

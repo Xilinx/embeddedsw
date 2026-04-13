@@ -63,10 +63,9 @@
 
 /************************** Constant Definitions *****************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
-#define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U)
+#define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U) /**< Number of PUF fuses available for user data */
 #endif
-/**< eFuse word length */
-#define XNVM_EFUSE_WORD_LEN			(4U)
+#define XNVM_EFUSE_WORD_LEN		(4U)	/**< eFuse word length */
 
 /************************** Function Prototypes *****************************/
 static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
@@ -120,7 +119,7 @@ static int XNvm_EfuseAesKeysWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief       This function calls respective IPI handler based on the API_ID.
  *
  * @param 	Cmd is pointer to the command structure
  *
@@ -135,7 +134,7 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 	u32 *Pload = NULL;
 
 	/**
-	 *  Validate the input parameters. Return error code if input parameters are not valid
+	 *  - Validate the input parameters. Return error code if input parameters are not valid
 	 */
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -149,8 +148,8 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-    /**
-	 *  Calls the function according to API ID
+	/**
+	 *  - Calls the function according to API ID
 	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE):
@@ -280,7 +279,7 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	if (EfuseDataAddr.AesKeyAddr != 0U) {
 		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AesKeyAddr, sizeof(XNvm_EfuseAesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
@@ -420,7 +419,7 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
 
 		/**
-		 * Validate internal address field for user fuse data
+		 * - Validate internal address field for user fuse data
 		 */
 		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UserFusesAddr.UserFuseDataAddr,
 			UserData.NumOfUserFuses * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
@@ -521,7 +520,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	}
 
 	/**
-	 * Validate internal address field for PUF fuse data
+	 * - Validate internal address field for PUF fuse data
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufFuseAddr.PufFuseDataAddr,
 		PufFuseAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
@@ -554,7 +553,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the Puf User eFuses requested by the client
+ * @brief       This function reads the Puf User eFuses requested by the client.
  *
  * @param 	SubsystemId	Subsystem ID.
  * @param	AddrLow		Lower 32 bit address of the PufUserFuseAddr
@@ -585,7 +584,7 @@ static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	}
 
 	/**
-	 * Validate internal address field for PUF fuse data
+	 * - Validate internal address field for PUF fuse data
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufFusesAddr.PufFuseDataAddr,
 		PufFusesAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
@@ -719,7 +718,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the IV requested by the client
+ * @brief       This function reads the IV requested by the client.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -756,7 +755,9 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the Revocation ID requested by the client
+ * @brief       This function reads the Revocation ID requested by the client.
+ *
+ * @param 	SubsystemId	Subsystem ID
  *
  * @param	RevokeIdNum	Revocation ID number to be read
  *
@@ -792,7 +793,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the User eFuses requested by the client
+ * @brief       This function reads the User eFuses requested by the client.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -841,7 +842,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the PpkHash requested by the client
+ * @brief       This function reads the PpkHash requested by the client.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -879,7 +880,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the MiscCtrlBits eFuse cache data
+ * @brief       This function reads the MiscCtrlBits eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -916,7 +917,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the SecCtrlBits eFuse cache data
+ * @brief       This function reads the SecCtrlBits eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -953,7 +954,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the Misc1CtrlBits eFuse cache data
+ * @brief       This function reads the Misc1CtrlBits eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -990,7 +991,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the BootEnvCtrlBits eFuse cache data
+ * @brief       This function reads the BootEnvCtrlBits eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -1027,7 +1028,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the PufSecCtrlBits eFuse cache data
+ * @brief       This function reads the PufSecCtrlBits eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -1064,11 +1065,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the OffChip ID requested by the client
+ * @brief       This function reads the OffChip ID requested by the client.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param	IdNum	OffChip ID number to be read
+ * @param	IdNum		OffChip ID number to be read
  *
  * @param	AddrLow		Lower 32 bit address of the OffChip ID
  *
@@ -1102,7 +1103,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the DecEfuseOnly eFuse cache data
+ * @brief       This function reads the DecEfuseOnly eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -1137,7 +1138,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function reads the DNA eFuse cache data
+ * @brief       This function reads the DNA eFuse cache data.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -1174,7 +1175,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function checks the CRC of the AES key
+ * @brief       This function checks the CRC of the AES key.
  *
  * @param	Crc		CRC value of the AES key
  * @param	AesKeyType	Type of AES key
@@ -1249,7 +1250,7 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 	(defined (XNVM_WRITE_USER_EFUSE))
 /*****************************************************************************/
 /**
- * * @brief	This function is used to program eFuses
+ * @brief	This function is used to program eFuses.
  *
  *
  * @param	Cmd - is pointer to the command structure.
@@ -1257,7 +1258,7 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
  * 				Payload
  * @param	AddrHigh	Higher 32 bit address of the
  *				Payload
- *@param	EnvMonitorDis	Environment monitor disable variable.
+ * @param	EnvMonitorDis	Environment monitor disable variable.
  *
  * @return
  * 		- XST_SUCCESS - On Specified data write.
@@ -1338,7 +1339,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to read a specific eFuse
+ * @brief	This function is used to read a specific eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
@@ -1375,11 +1376,11 @@ END:
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
 /*****************************************************************************/
 /**
- * @brief	This function is used to write a Iv eFuse
+ * @brief	This function is used to write a Iv eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1417,11 +1418,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write SecMisc1Bits eFuse
+ * @brief	This function is used to write SecMisc1Bits eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1459,11 +1460,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write GlitchCfgBits eFuse
+ * @brief	This function is used to write GlitchCfgBits eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1501,11 +1502,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write BootEnvCtrl eFuse
+ * @brief	This function is used to write BootEnvCtrl eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1543,11 +1544,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write puf eFuse
+ * @brief	This function is used to write puf eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1599,11 +1600,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write SecMisc0 eFuse
+ * @brief	This function is used to write SecMisc0 eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1641,11 +1642,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write Aeskeys eFuse
+ * @brief	This function is used to write Aeskeys eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1685,11 +1686,11 @@ END:
 #ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
 /*****************************************************************************/
 /**
- * @brief	This function is used to write OffChipIds eFuse
+ * @brief	This function is used to write OffChipIds eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1727,11 +1728,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write RevokeIds eFuse
+ * @brief	This function is used to write RevokeIds eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1769,11 +1770,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write PpkHash eFuse
+ * @brief	This function is used to write PpkHash eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1813,11 +1814,11 @@ END:
 #ifdef XNVM_WRITE_USER_EFUSE
 /*****************************************************************************/
 /**
- * @brief	This function is used to write UserFuses eFuse
+ * @brief	This function is used to write UserFuses eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1857,11 +1858,11 @@ END:
 #if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
 /*****************************************************************************/
 /**
- * @brief	This function is used to write MiscCtrlBits eFuse
+ * @brief	This function is used to write MiscCtrlBits eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *
@@ -1918,11 +1919,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to write SecCtrlBits eFuse
+ * @brief	This function is used to write SecCtrlBits eFuse.
  *
  * @param 	SubsystemId	Subsystem ID.
  *
- * @param 	Addr 	Address of the data to be written
+ * @param 	Addr 		Address of the data to be written
  *
  * @param 	EnvMonitorDis	Environmental Disable variable
  *

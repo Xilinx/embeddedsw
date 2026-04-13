@@ -88,7 +88,7 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 	u32 WrLkMask = 0U;
 
 	/**
-	 *  Read the Security control eFUSE bits and check if the bit to disable AES engine is set.
+	 *  - Read the Security control eFUSE bits and check if the bit to disable AES engine is set.
 	 *  If set, return XNVM_EFUSE_ERR_AES_DISABLED.
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -122,7 +122,7 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 	}
 
 	/**
-	 *  Check if write is locked for the requested key type. If locked then return
+	 *  - Check if write is locked for the requested key type. If locked then return
 	 *  XNVM_EFUSE_ERR_FUSE_PROTECTED.
 	 */
 	if ((SecCtrlBits & WrLkMask) != 0U) {
@@ -132,7 +132,7 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 	}
 
 	/**
-	 *  Check if CRC of the requested key type is zero. If non-zero then
+	 *  - Check if CRC of the requested key type is zero. If non-zero then
 	 *  it implies that the key is already programmed and return XNVM_EFUSE_ERR_AES_ALREADY_PRGMD.
 	 */
 	Status = XNvm_EfuseCheckAesKeyCrc(CrcRegOffset, CrcDoneMask,
@@ -180,7 +180,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	u32 UserFuseOffset = 0U;
 #endif
 	/**
-	 *  Read the security control bits at offset of SECURITY_CTRL
+	 *  - Read the security control bits at offset of SECURITY_CTRL
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
@@ -201,8 +201,8 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 		goto END;
 	}
 
-    /**
-	 *  Check for zeros in eFuse. Return XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD if not success
+	/**
+	 *  - Check for zeros in eFuse. Return XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD if not success
 	 */
 	Status = XNvm_EfuseCheckZeros(PpkOffset,
 			XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS);
@@ -228,7 +228,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
         }
 
 	/**
-	 * Check for corresponding user eFuses for zeros for Versal_2Ve_2Vm
+	 * - Check for corresponding user eFuses for zeros for Versal_2Ve_2Vm
 	 */
 	Status = XNvm_EfuseCheckZeros(UserFuseOffset,
                         XNVM_EFUSE_PPK_HASH_USER_FUSE_NUM_OF_CACHE_ROWS);
@@ -275,12 +275,13 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	volatile int Status = XST_FAILURE;
 	u32 IvOffset = 0U;
 
-    /**
-	 *  validate the input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if inputs parameters are invalid
+	/**
+	 *  - Validate the input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if inputs parameters are invalid
 	 */
 	if (IvType == XNVM_EFUSE_BLACK_IV) {
 		/**
-		 *   Check Zeros at offset of Black_Iv. Return XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD if not success
+		 *   - Check Zeros at offset of Black_Iv.
+		 *   Return XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD if not success
 		 */
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET,
 				XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
@@ -304,8 +305,8 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 		goto END;
 	}
 
-    /**
-	 *  Validate Ivs. Return Error code upon failure
+	/**
+	 *  - Validate Ivs. Return Error code upon failure
 	 */
 	Status = XNvm_EfuseValidateIV(EfuseIv->Iv, IvOffset);
 	if (Status != XST_SUCCESS) {
@@ -380,8 +381,8 @@ int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 	volatile u32 Offset = CacheOffset;
 	u32 CacheData = 0U;
 
-    /**
-	 *  Read ISR_REG offset. Return XNVM_EFUSE_ERR_CACHE_PARITY if not success
+	/**
+	 *  - Read ISR_REG offset. Return XNVM_EFUSE_ERR_CACHE_PARITY if not success
 	 */
 	IsrStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_ISR_REG_OFFSET);
@@ -391,7 +392,7 @@ int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 		goto END;
 	}
 	/**
-	 *  Read the eFuse data at user specified offset. Return XST_FAILURE upon failure
+	 *  - Read the eFuse data at user specified offset. Return XST_FAILURE upon failure
 	 */
 	while (Offset < EndOffset) {
 		CacheData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
@@ -476,7 +477,7 @@ int XNvm_EfuseValidateDecOnlyRequest(void)
 	u32 SecurityMisc0 = 0U;
 
 	/**
-	 * Read direct from cache at offset of SECURITY_MISC_0.
+	 * - Read direct from cache at offset of SECURITY_MISC_0.
 	 * Return XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD if decrypt only not enabled
 	 */
 	SecurityMisc0 = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -532,8 +533,8 @@ int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion)
 	u8 RdFipsVer_0 = 0U;
 	u8 RdFipsVer_2_1 = 0U;
 
-    /**
-	 *  Read Fips version direct from cache at offset of CACHE_IP_DISABLE. Return Error code upon failure
+	/**
+	 *  - Read Fips version direct from cache at offset of CACHE_IP_DISABLE. Return Error code upon failure
 	 */
 	RdFipsVersion = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_IP_DISABLE_OFFSET) &
@@ -551,8 +552,8 @@ int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion)
 		goto END;
 	}
 
-    /**
-	 *  Read Fips mode directly from cache at offset of CACHE_DME_FIPS. Return Error code upon failure
+	/**
+	 *  - Read Fips mode directly from cache at offset of CACHE_DME_FIPS. Return Error code upon failure
 	 */
 	RdFipsMode = (XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_DME_FIPS_OFFSET) &
@@ -588,7 +589,7 @@ int XNvm_IsDmeModeEn(void)
 	u32 DmeMode;
 
 	/**
-	 * Read DME Mode from DME FIPS register and return error
+	 * - Read DME Mode from DME FIPS register and return error
 	 * if DME Mode is set
 	 */
 	DmeMode = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -611,7 +612,7 @@ END:
 /******************************************************************************/
 /**
  * @brief	This function validates PUF user fuse access by checking security
- *          control bits (PUF_SYN_LK, CHASH, AUX, and DEC_ONLY).
+ * 		control bits (PUF_SYN_LK, CHASH, AUX, and DEC_ONLY).
  *
  * @return
  *		- XST_SUCCESS - If validation is successful
@@ -630,18 +631,18 @@ int XNvm_EfuseValidatePufUserFuseAccess(void)
 	u32 IsDecOnly = 0U;
 
 	/**
-	 *  Read security control register to check PUF syndrome lock
+	 *  - Read security control register to check PUF syndrome lock
 	 */
 	PufSecurityCtrlReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 
-	/* Check for PUF syndrome lock status */
+	/** - Check for PUF syndrome lock status */
 	if ((PufSecurityCtrlReg & XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK) != 0x0U) {
 		Status = XNVM_EFUSE_ERR_FUSE_PROTECTED | XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
 		goto END;
 	}
 
-	/* Check for non-zero PUF Chash */
+	/** - Check for non-zero PUF Chash */
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET,
 			XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS);
 	if (Status != XST_SUCCESS) {
@@ -649,7 +650,7 @@ int XNvm_EfuseValidatePufUserFuseAccess(void)
 		goto END;
 	}
 
-	/* Check for non-zero PUF AUX */
+	/** - Check for non-zero PUF AUX */
 	RowDataVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET);
 
@@ -659,7 +660,7 @@ int XNvm_EfuseValidatePufUserFuseAccess(void)
 	}
 
 	/**
-	 *  Check for DEC_ONLY bits.
+	 *  - Check for DEC_ONLY bits.
 	 */
 	IsDecOnly = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);

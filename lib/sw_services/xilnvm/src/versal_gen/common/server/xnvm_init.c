@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +48,7 @@
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handlers for Xilnvm IPI commands
+ * @brief	This function registers the handlers for Xilnvm IPI commands.
  *
  * @param	GenericHandler Pointer to generic handler
  *

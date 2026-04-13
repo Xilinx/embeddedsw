@@ -47,7 +47,7 @@
 
 /*****************************************************************************/
 /**
- * @brief       This function sends IPI request to program BBRAM AES key
+ * @brief       This function sends IPI request to program BBRAM AES key.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	KeyAddr		Address of the key buffer where the key to
@@ -68,7 +68,7 @@ int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyA
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Performs input parameters validation.
+	 * - Performs input parameters validation.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -76,14 +76,14 @@ int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyA
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_WRITE_AES_KEY),
 				KeyLen,
 				KeyAddr,
 				(KeyAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "BBRAM programming Failed \r\n");
@@ -95,7 +95,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function sends IPI request to zeroize the BBRAM
+ * @brief       This function sends IPI request to zeroize the BBRAM.
  *
  * @param	InstancePtr Pointer to the client instance
  *
@@ -111,7 +111,7 @@ int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Performs input parameters validation.
+	 * - Performs input parameters validation.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -119,11 +119,11 @@ int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_ZEROIZE));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -133,7 +133,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to write the user data into
- * 		BBRAM user data registers
+ * 		BBRAM user data registers.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	UsrData		User data to be written to BBRAM
@@ -150,7 +150,7 @@ int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 Usr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Performs input parameters validation.
+	 * - Performs input parameters validation.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -158,12 +158,12 @@ int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 Usr
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD1(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_WRITE_USER_DATA),
 				UsrData);
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -172,7 +172,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to read the BBRAM user data
+ * @brief	This function sends IPI request to read the BBRAM user data.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	OutDataAddr	Address of the output buffer to store the
@@ -190,7 +190,7 @@ int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutD
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Performs input parameters validation.
+	 * - Performs input parameters validation.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -198,13 +198,13 @@ int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutD
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_READ_USER_DATA),
 				OutDataAddr,
 				(OutDataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -231,7 +231,7 @@ int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Performs input parameters validation.
+	 * - Performs input parameters validation.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -239,11 +239,11 @@ int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -254,7 +254,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to provision the configuration limiter parameters
+ * @brief	This function sends IPI request to provision the configuration limiter parameters.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	ClEnFlag - Flag to indicate if the configuration limiter feature is enabled/disabled
@@ -275,25 +275,24 @@ int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, c
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
 	 */
 	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) |
 				(u32)XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS),
 				ClEnFlag,
 				ClMode,
 				MaxNumOfConfigs);
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
 }
 #endif
-/*@}*/

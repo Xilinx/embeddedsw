@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xnvm_bbram_cdohandler.h
-* @addtogroup xnvm_versal_net_apis XilNvm Versal Net APIs
+* @addtogroup xnvm_server_apis XilNvm Plat Server APIs
 * @{
 * @cond xnvm_internal
 * This file contains the Versal_Net XilNvm BBRAM Cdo handler declaration.
@@ -52,4 +52,4 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd);
 
 #endif /* XNVM_BBRAM_CDOHANDLER_H_ */
 
-/* @} */
+/** @} */

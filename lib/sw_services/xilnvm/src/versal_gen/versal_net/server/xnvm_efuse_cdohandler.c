@@ -53,9 +53,9 @@
 #include "xnvm_validate.h"
 
 /************************** Constant Definitions *****************************/
-#define XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK 	(0x0000FFFFU)
-#define XNVM_EFUSE_CACHE_BASEADDR		(0xF1250000U)
-#define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)
+#define XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK 	(0x0000FFFFU)	/**< Mask for lower double byte */
+#define XNVM_EFUSE_CACHE_BASEADDR		(0xF1250000U)	/**< Base address for eFUSE cache access */
+#define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)	/**< End offset for eFUSE cache access */
 
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 #define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U) /**< Total number of PUF fuses available */
@@ -102,7 +102,7 @@ static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective handler based on the API_ID
+ * @brief       This function calls respective handler based on the API_ID.
  *
  * @param 	Cmd is pointer to the command structure
  *
@@ -153,7 +153,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	u32 ApiId;
 
 	/**
-	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
+	 *  - Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
 	 */
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -161,7 +161,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	}
 	ApiId = Cmd->CmdId & XNVM_API_ID_MASK;
 	/**
-	 *  Calls the respective handler based on API ID. Return error code upon failure
+	 *  - Calls the respective handler based on API ID. Return error code upon failure
 	 */
 	switch (ApiId) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD):
@@ -429,7 +429,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function programs Efuse Aes key from the CDO
+ * @brief       This function programs Efuse Aes key from the CDO.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -453,7 +453,7 @@ static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType Key
 
 /*****************************************************************************/
 /**
- * @brief       This function programs Efuse PpkHash from the CDO
+ * @brief       This function programs Efuse PpkHash from the CDO.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -477,7 +477,7 @@ static int XNvm_EfuseWritePpkHashFromCdoPload(u32 EnvDisFlag, XNvm_PpkType PpkTy
 
 /*****************************************************************************/
 /**
- * @brief       This function programs Efuse IV from the CDO
+ * @brief       This function programs Efuse IV from the CDO.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -546,7 +546,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief       This function programs Glitch Configuration eFuses with the
- * 		data sent through CDO
+ * 		data sent through CDO.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -569,7 +569,7 @@ static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs DecOnly eFuses
+ * @brief       This function programs DecOnly eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -591,7 +591,7 @@ static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvDisFlag)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs Revocation id eFuses
+ * @brief       This function programs Revocation id eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -614,7 +614,7 @@ static int XNvm_EfuseWriteRevocationId(u32 EnvDisFlag, u32 RevokeIdNum)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs Offchip revocation id eFuses
+ * @brief       This function programs Offchip revocation id eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -673,7 +673,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function programs MiscCtrl eFuses
+ * @brief       This function programs MiscCtrl eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -696,7 +696,7 @@ static int XNvm_EfuseWriteMiscCtrl(u32 EnvDisFlag, u32 MiscCtrlBits)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs SecCtrlBits eFuses
+ * @brief       This function programs SecCtrlBits eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -826,7 +826,7 @@ END:
 
 /*****************************************************************************/
 /**
- ** @brief       This function programs Misc1Ctrl eFuses
+ * @brief       This function programs Misc1Ctrl eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -849,12 +849,12 @@ static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvDisFlag, u32 Misc1CtrlBits)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs BootEnvCtrl eFuses
+ * @brief       This function programs BootEnvCtrl eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
- * @param 	BootEnvCtrl - BootEnvCtrl input to be programmed
+ * @param 	BootEnvCtrlBits - BootEnvCtrlBits input to be programmed
  *
  * @return
  *		- XST_SUCCESS - If the programming is successful
@@ -872,12 +872,13 @@ static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs Fips mode and Fips version eFuses
+ * @brief       This function programs Fips mode and Fips version eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
- * @param 	FipsInfo - FipsMode and FipsVersion input to be programmed
+ * @param 	FipsMode - FIPS mode input to be programmed
+ * @param 	FipsVersion - FIPS version input to be programmed
  *
  * @return
  *		- XST_SUCCESS - If the programming is successful
@@ -895,7 +896,7 @@ static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVe
 
 /*****************************************************************************/
 /**
- * @brief       This function programs DICE UDS eFuses
+ * @brief       This function programs DICE UDS eFuses.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -918,7 +919,7 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 
 /*****************************************************************************/
 /**
- * @brief	This function reads eFUSE cache registers from the required offset
+ * @brief	This function reads eFUSE cache registers from the required offset.
  *
  * @param	SubsystemId	Subsystem ID.
  * @param	StartOffset	Start offset of cache register
@@ -963,7 +964,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function reloads cache and programs the protection bits
+ * @brief	This function reloads cache and programs the protection bits.
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
@@ -981,7 +982,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function programs DmeKey eFuses
+ * @brief       This function programs DmeKey eFuses.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -1005,7 +1006,7 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyTyp
 
 /*****************************************************************************/
 /**
- * @brief       This function programs DmeRevoke eFuses
+ * @brief       This function programs DmeRevoke eFuses.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -1028,7 +1029,7 @@ static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs PLM_UPDATE eFuses
+ * @brief       This function programs PLM_UPDATE eFuses.
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -1050,7 +1051,7 @@ static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs BootModeDisable eFuses
+ * @brief       This function programs BootModeDisable eFuses.
  *
  * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
@@ -1073,12 +1074,12 @@ static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs CRC eFuses
+ * @brief       This function programs CRC eFuses.
  *
  * @param 	EnvDisFlag 	Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
- * 		Crc		Crc to be programmed into eFuses
+ * @param	Crc		Crc to be programmed into eFuses
  *
  * @return
  *		- XST_SUCCESS - If the programming is successful
@@ -1096,12 +1097,12 @@ static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc)
 
 /*****************************************************************************/
 /**
- * @brief       This function programs DmeMode eFuses
+ * @brief       This function programs DmeMode eFuses.
  *
  * @param 	EnvDisFlag 	Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
- * 		DmeMode		DmeMode to be programmed into eFuses
+ * @param	EfuseDmeMode	EfuseDmeMode to be programmed into eFuses
  *
  * @return
  *		- XST_SUCCESS - If the programming is successful
@@ -1186,7 +1187,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	u32 DataSize;
 
 	/**
-	 * Validate the address range for PufFuseAddr structure
+	 * - Validate the address range for PufFuseAddr structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
@@ -1196,22 +1197,22 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	}
 
 	/**
-	 * Extract the 64-bit address where actual PUF fuse data is located
+	 * - Extract the 64-bit address where actual PUF fuse data is located
 	 */
 	PufDataAddr = ((u64)PufFuseAddr.AddrHigh << XNVM_ADDR_HIGH_SHIFT) | (u64)PufFuseAddr.AddrLow;
 
 	/**
-	 * Calculate the size of PUF fuse data to be read
+	 * - Calculate the size of PUF fuse data to be read
 	 */
 	DataSize = PufFuseAddr.NumOfPufFusesRows * XNVM_WORD_LEN;
 
 	/**
-	 * Validate internal address field for PUF fuse data
+	 * - Validate internal address field for PUF fuse data
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, DataSize, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	/**
-	 * Copying PUF fuse data from the provided address
+	 * - Copying PUF fuse data from the provided address
 	 */
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PufFusesArr, PufDataAddr, DataSize);
 	if (Status != XST_SUCCESS) {
@@ -1219,7 +1220,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	}
 
 	/**
-	 * Populate PufUserFuse structure with configuration parameters
+	 * - Populate PufUserFuse structure with configuration parameters
 	 */
 	PufUserFuse.EnvMonitorDis = PufFuseAddr.EnvMonitorDis;
 	PufUserFuse.PrgmPufFuse = PufFuseAddr.PrgmPufFuse;
@@ -1228,7 +1229,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	PufUserFuse.PufFuseData = PufFusesArr;
 
 	/**
-	 * Program the PUF eFuses as general-purpose user eFuses
+	 * - Program the PUF eFuses as general-purpose user eFuses
 	 */
 	Status = XNvm_EfuseWritePufAsUserFuses(&PufUserFuse);
 
@@ -1294,7 +1295,9 @@ static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets or returns XNvm_OcpHandler
+ * @brief	This function sets or returns XNvm_OcpHandler.
+ *
+ * @param	OcpHandler - Pointer to the OCP handler function to be registered.
  *
  * @return
  * 		- XNvm_OcpHandler
@@ -1314,7 +1317,7 @@ XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler)
 
 /*****************************************************************************/
 /**
- * @brief       This function checks the CRC of the AES key
+ * @brief       This function checks the CRC of the AES key.
  *
  * @param	Crc		CRC value of the AES key
  * @param	AesKeyType	Type of AES key

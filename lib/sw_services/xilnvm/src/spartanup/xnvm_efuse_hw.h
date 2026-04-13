@@ -45,12 +45,11 @@ extern "C" {
  * @{
  */
 #define XNVM_EFUSE_CTRL_BASEADDR	0x04160000U /**< Efuse base address */
-/*@}*/
+/** @} */
 
 /** @name Write lock register
  * @{
  */
-/**< Write lock register offsets and definitions */
 #define XNVM_EFUSE_WR_LOCK_OFFSET	0x00000000U /**< Efuse Write lock offset */
 
 #define XNVM_EFUSE_WR_UNLOCK_VALUE	0xDF0DU /**< Efuse Write unlock value */
@@ -60,7 +59,6 @@ extern "C" {
  * @name  Configuration register
  * @{
  */
-/**< Configuration register offsets and definitions */
 #define XNVM_EFUSE_CFG_OFFSET		0x00000004U /**< Efuse Configuration offset */
 #define XNVM_EFUSE_CFG_MARGIN_RD_MASK	0x0000000cU /**< Efuse Margin Read mask */
 #define XNVM_EFUSE_CFG_NORMAL_RD	0x00U /**< Efuse Normal Read */
@@ -74,7 +72,6 @@ extern "C" {
  * @name  Status register
  * @{
  */
-/**< Status register offsets and definitions */
 #define XNVM_EFUSE_STS_OFFSET		0x00000008U /**< Efuse Status register offset */
 
 #define XNVM_EFUSE_STS_AES_CRC_PASS_MASK	0x00000080U /**< Efuse AES CRC Pass mask */
@@ -89,7 +86,6 @@ extern "C" {
  * @name  Program address register
  * @{
  */
-/**< program address register offsets and definitions */
 #define XNVM_EFUSE_PGM_ADDR_OFFSET	0x0000000CU /**< Efuse Program Address offset */
 /** @} */
 
@@ -97,7 +93,6 @@ extern "C" {
  * @name  Read address register
  * @{
  */
-/**< Read address register offsets and definitions */
 #define XNVM_EFUSE_RD_ADDR_OFFSET	0x00000010U /**< Efuse Read Address offset */
 /** @} */
 
@@ -105,7 +100,6 @@ extern "C" {
  * @name  Read data register
  * @{
  */
-/**< Read data register offsets and definitions */
 #define XNVM_EFUSE_RD_DATA_OFFSET	0x00000014U /**< Efuse Read Data offset */
 /** @} */
 
@@ -113,7 +107,6 @@ extern "C" {
  * @name  TPGM register
  * @{
  */
-/**< TPGM register offsets and definitions */
 #define XNVM_EFUSE_TPGM_OFFSET		0x00000018U /**< Efuse TPGM offset */
 /** @} */
 
@@ -121,7 +114,6 @@ extern "C" {
  * @name  TRD register
  * @{
  */
-/**< TRD register offsets and definitions */
 #define XNVM_EFUSE_TRD_OFFSET		0x0000001CU /**< Efuse TRD offset */
 /** @} */
 
@@ -129,7 +121,6 @@ extern "C" {
  * @name  TSU_H_PS register
  * @{
  */
-/**< TSU_H_PS register offsets and definitions */
 #define XNVM_EFUSE_TSU_H_PS_OFFSET	0x00000020U /**< Efuse TSU_H_PS offset */
 /** @} */
 
@@ -137,7 +128,6 @@ extern "C" {
  * @name  TSU_H_PS_CS register
  * @{
  */
-/**< TSU_H_PS_CS register offsets and definitions */
 #define XNVM_EFUSE_TSU_H_PS_CS_OFFSET	0x00000024U /**< Efuse TSU_H_PS_CS offset */
 /** @} */
 
@@ -145,7 +135,6 @@ extern "C" {
  * @name  TSU_H_CS register
  * @{
  */
-/**< TSU_H_CS register offsets and definitions */
 #define XNVM_EFUSE_TSU_H_CS_OFFSET	0x0000002CU /**< Efuse TSU_H_CS offset */
 /** @} */
 
@@ -153,7 +142,6 @@ extern "C" {
  * @name  ISR register
  * @{
  */
-/**< ISR register offsets and definitions */
 #define XNVM_EFUSE_ISR_OFFSET		0x00000030U /**< Efuse ISR offset */
 
 #define XNVM_EFUSE_ISR_CACHE_ERR_MASK	0x00000010U /**< Efuse ISR Cache Error mask */
@@ -163,7 +151,6 @@ extern "C" {
  * @name  Cache load register
  * @{
  */
-/**< Cache load register offsets and definitions */
 #define XNVM_EFUSE_CACHE_LOAD_OFFSET	0x00000044U /**< Efuse Cache Load offset */
 #define XNVM_EFUSE_CACHE_LOAD_MASK	0x00000001U /**< Efuse Cache Load mask */
 /** @} */
@@ -172,7 +159,6 @@ extern "C" {
  * @name  AES CRC register
  * @{
  */
-/**< AES CRC register offsets and definitions */
 #define XNVM_EFUSE_AES_CRC_OFFSET	0x0000004CU /**< Efuse AES CRC offset */
 /** @} */
 
@@ -180,7 +166,6 @@ extern "C" {
  * @name  Tbits programming enable register
  * @{
  */
-/**< Tbits programming enable register offsets and definitions */
 #define XNVM_EFUSE_TEST_CTRL_REG_OFFSET	0x00000100U /**< Efuse Test Control Register offset */
 /** @} */
 
@@ -207,9 +192,9 @@ extern "C" {
 
 /**
  * @name  BOOT_MODE_DISABLE
+ * Boot mode disable Efuse bits programming related macros
  * @{
  */
-/**< Boot mode disable Efuse bits programming related macros */
 #define XNVM_EFUSE_BOOT_MODE_DIS_ROW_60	(60U) /**< Boot mode disable row 60 */
 #define XNVM_EFUSE_BOOT_MODE_DIS_ROW_61	(61U) /**< Boot mode disable row 61 */
 
@@ -247,9 +232,9 @@ extern "C" {
 
 /**
  * @name  EFUSE_CACHE_SECURITY_CONTROL_REG
+ * Efuse Cache Security Control bits, shifts, masks, rows and columns
  * @{
  */
-/**< Efuse Cache Security Control bits, shifts, masks, rows and columns */
 #define XNVM_EFUSE_SEC_CTRL_BITS			(0x01U) /**< Secure control bits */
 
 #define XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_SHIFT		(0U) /**< SCAN_CLEAR_EN shift */
@@ -307,9 +292,9 @@ extern "C" {
 
 /**
  * @name  EFUSE_CRC_EN_REG
+ * Efuse Cache Crc Enabled Register bits, shifts, masks and columns
  * @{
  */
-/**< Efuse Cache Crc Enabled Register bits, shifts, masks and columns */
 #define XNVM_EFUSE_SEC_CTRL_DFT_BITS			(2U) /**< DFT bits */
 
 #define XNVM_EFUSE_CRC_EN_SHIFT				(0U) /**< CRC enable shift */
@@ -334,7 +319,6 @@ extern "C" {
 
 /** @} */
 
-/** Macro defines which are different for SPARTANUPLUS and SPARTANUPLUSAES1 */
 #ifndef SPARTANUPLUSAES1
 #define XNVM_EFUSE_PPK1_START_OFFSET			(0x000010A0U) /**< PPK1 cache start offset */
 #define XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT		(13U) /**< PPK1 write lock shift */
@@ -372,9 +356,9 @@ extern "C" {
 
 /**
  * @name  XILINX_CTRL register
+ * Xilinx control register bits, shifts and masks
  * @{
  */
-/**< Xilinx control register bits, shifts and masks */
 #define XNVM_EFUSE_PUFHD_INVLD_START_COL	        (13U) /**< PUF_HD_INVLD start column */
 #define XNVM_EFUSE_PUFHD_INVLD_END_COL		        (14U) /**< PUF_HD_INVLD end column */
 #define XNVM_EFUSE_PUFHD_INVLD_NUM_OF_ROWS	        (1U) /**< PUF_HD_INVLD number of rows */
