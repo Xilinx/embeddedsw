@@ -20,6 +20,9 @@
 *       tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms
 *                       support
 *       sk   04/02/2026 Moved TAP unlock defines to Header file
+*       vns  04/04/2026 Added JtagUnlockedByAuth flag to XLoader_AuthJtagStatus
+*                       and XLoader_DisableJtagIfOpenedByAuthJtag to lock DAP
+*                       during PLM update
 *
 * </pre>
 *
@@ -61,6 +64,7 @@
 typedef struct {
 	u32 JtagTimeOut;	/**< Timeout value set by user */
 	u8 JtagTimerEnabled;	/**< Enable JTAG timer */
+	u8 JtagUnlockedByAuth;	/**< TRUE only after successful Auth JTAG unlock */
 	volatile u8 AuthFailCounter;
 		/**< Counter for failed attempts to authenticate JTAG */
 	volatile u8 AuthFailCounterTmp;	/**< For temporal redundancy */
@@ -230,10 +234,8 @@ int XLoader_CheckAuthJtagIntStatus(void *Arg)
 				if ((AuthJtagStatus.AuthFailCounter >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS) ||
 						(AuthJtagStatus.AuthFailCounterTmp >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS)) {
 					/**
-					 * - When AUTH_JTAG_LOCK_DIS eFuse is programmed, allow only one
-					 * failed attempt for AuthJTag message. For the second failure
-					 * trigger secure lock down.
-					 *
+					 * - When AUTH_JTAG_LOCK_DIS eFuse is programmed, upon failure
+					 * of the authentication, the secure lockdown is triggered.
 					 */
 					XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
 							XPLMI_TRIGGER_TAMPER_TASK);
@@ -248,6 +250,7 @@ int XLoader_CheckAuthJtagIntStatus(void *Arg)
 		else {
 			AuthJtagStatus.JtagTimerEnabled = TRUE;
 		}
+		AuthJtagStatus.JtagUnlockedByAuth = (u8)TRUE;
 	}
 	else {
 		if (AuthJtagStatus.JtagTimerEnabled == TRUE) {
@@ -266,12 +269,41 @@ END:
 		(void)XLoader_DisableJtag();
 		AuthJtagStatus.JtagTimerEnabled = FALSE;
 		AuthJtagStatus.JtagTimeOut = (u32)0U;
+		AuthJtagStatus.JtagUnlockedByAuth = (u8)FALSE;
 	}
 
 #ifdef PLM_AUTH_JTAG_PPK_SPK
 	/** - Lock the PMC_TAP registers */
 	XPlmi_Out32(XLOADER_PMC_TAP_LOCK_ADDR, XLOADER_PMC_TAP_LOCK_VAL);
 #endif
+	return Status;
+}
+
+/******************************************************************************/
+/**
+* @brief	This function disables JTAG only if it was previously opened via
+* 		an authenticated JTAG unlock. JTAG opened by other means (e.g.
+* 		Configure JTAG State with non-secure debug) is left untouched.
+*
+* @return
+* 		- XST_SUCCESS on success or if JTAG was not opened by Auth JTAG.
+* 		- Error code from XLoader_DisableJtag() on failure.
+*
+******************************************************************************/
+int XLoader_DisableJtagIfOpenedByAuthJtag(void)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (AuthJtagStatus.JtagUnlockedByAuth == (u8)TRUE) {
+		Status = XLoader_DisableJtag();
+		AuthJtagStatus.JtagUnlockedByAuth = (u8)FALSE;
+		AuthJtagStatus.JtagTimerEnabled = (u8)FALSE;
+		AuthJtagStatus.JtagTimeOut = 0U;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 
