@@ -227,6 +227,11 @@
 *	The number of revocation ID which needs to be programmed.
 *	The value should be between 0 and 95.
 *
+* 	#define XNVM_EFUSE_XNVM_SCAN_CLEAR_EN		FALSE
+* 	TRUE will enable the Scan Clear during ROM Operation or
+* 	during lockdown
+* 	FALSE will not modify this control bit of eFuse.
+*
 *	#define XNVM_EFUSE_XNVM_JTAG_DIS		FALSE
 *	TRUE will disable all JTAG instructions
 *
@@ -310,6 +315,7 @@ extern "C" {
  *  @{
  */
 /**< Following defines should be defined either TRUE or FALSE */
+#define XNVM_EFUSE_XNVM_SCAN_CLEAR_EN		FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_AES_DIS           FALSE
 #define XNVM_EFUSE_XNVM_AES_RD_LK               FALSE
 #define XNVM_EFUSE_XNVM_JTAG_DIS                FALSE

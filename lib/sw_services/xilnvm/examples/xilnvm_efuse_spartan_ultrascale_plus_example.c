@@ -783,6 +783,7 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 {
 	int Status = XST_FAILURE;
 
+	SecCtrl->ScanClearEn = XNVM_EFUSE_XNVM_SCAN_CLEAR_EN;
 	SecCtrl->AesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
 	SecCtrl->AesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
 	SecCtrl->JtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
@@ -806,7 +807,8 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->CrcRmaDis = XNVM_EFUSE_XNVM_CRC_RMA_DIS;
 	SecCtrl->CrcRmaEn = XNVM_EFUSE_XNVM_CRC_RMA_EN;
 
-	if ((SecCtrl->AesDis == TRUE) ||
+	if ((SecCtrl->ScanClearEn == TRUE) ||
+	    (SecCtrl->AesDis == TRUE) ||
 	    (SecCtrl->AesRdlk == TRUE) ||
 	    (SecCtrl->JtagDis == TRUE) ||
 	    (SecCtrl->UserWrlk == TRUE) ||
@@ -1153,6 +1155,11 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 
 	xil_printf("\r\nSecurity Control eFuses:\n\r");
 
+	if (SecCtrlBits.ScanClearEn == TRUE) {
+		xil_printf("\r\n Scan Clear is enabled\n\r");
+	} else {
+		xil_printf("\r\n Scan Clear is disabled\n\r");
+	}
 	if (SecCtrlBits.AesDis == TRUE) {
 		xil_printf("\r\nAES is disabled\n\r");
 	} else {

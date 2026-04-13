@@ -209,6 +209,7 @@ typedef struct {
 	u8 AesRdlk; /**< Flag to read or program AES read lock */
 	u8 JtagDis; /**< Flag to read or program JTAG disable */
 	u8 AesDis; /**< Flag to read or program AES disable */
+	u8 ScanClearEn; /**< Flag to read or program ScanClearEn */
 	u8 Ppk0lck; /**< Flag to read or program PPK0 read/write lock */
 	u8 Ppk0Invld; /**< Flag to read or program PPK0 invalid */
 	u8 Ppk1lck; /**< Flag to read or program PPK1 read/write lock */
@@ -432,6 +433,7 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL = 0xAC00, /**< 0xAC00 - Error write OSPI Reset Recovery Delay Control */
 	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE = 0xAD00, /**< 0xAD00 - Error write ROM RSVD OSPI Device Reset Choice */
 	XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL = 0xAE00, /**< 0xAE00 - Error write ROM OSPI Cmd Seq Ctrl */
+	XNVM_EFUSE_ERR_WRITE_SCAN_CLEAR_EN = 0xAF00, /**< - Error write SCAN_CLEAR_EN */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY = 0xD000, /**< 0xD000 - Error Invalid Clock Frequency */
 	XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS = 0xB000, /**< 0xB000 - Error read Boot mode disable bits from cache */
