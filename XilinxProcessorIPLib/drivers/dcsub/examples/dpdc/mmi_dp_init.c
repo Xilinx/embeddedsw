@@ -533,30 +533,6 @@ u32 XMmiDp_StartFullLinkTrainingCapped(XMmiDp *InstancePtr,
 
 	XDpDc_PrintSinkCapabilities(InstancePtr);
 
-	Status = XMmiDp_CheckLinkStatus(InstancePtr, InstancePtr->RxConfig.MaxLaneCount);
-	if (Status == XST_SUCCESS) {
-		xil_printf("  Link already trained for %d lanes\r\n",
-			   InstancePtr->RxConfig.MaxNumLanes);
-
-		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
-					XMMIDP_PHYIF_CTRL_0);
-		if (((Status & XMMIDP_PHYIF_CTRL_0_PHY_RATE_MASK)
-		     >> XMMIDP_PHYIF_CTRL_0_PHY_RATE_SHIFT)
-		    == (InstancePtr->RxConfig.MaxLinkRate)) {
-			xil_printf("  Link already at target rate %s -- skipping\r\n",
-				   RateStr);
-			return XST_SUCCESS;
-		} else {
-			xil_printf("  Rate mismatch -- retraining to %s\r\n",
-				   RateStr);
-		}
-	} else if (Status == XST_FAILURE) {
-		xil_printf("  No existing link -- starting fresh training\r\n");
-	} else {
-		xil_printf("  ERROR: Failed to check link status\r\n");
-		return XST_FAILURE;
-	}
-
 	InstancePtr->LinkConfig.LaneCount = InstancePtr->RxConfig.MaxLaneCount;
 	InstancePtr->LinkConfig.NumLanes = InstancePtr->RxConfig.MaxNumLanes;
 	InstancePtr->LinkConfig.LinkRate = InstancePtr->RxConfig.MaxLinkRate;
