@@ -147,10 +147,7 @@ static XStatus SendPowerDownReq(const XPm_Node *Node)
 			Clk = XPmClock_GetByIdx(Idx);
 			if ((NULL != Clk) && (ISPLL(Clk->Node.Id)) &&
 			    (Node->Id == Clk->PwrDomain->Node.Id)) {
-				Status = XPmClockPll_Suspend((XPm_PllClockNode *)Clk);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
+				XPmClockPll_Suspend((XPm_PllClockNode *)Clk);
 			}
 		}
 

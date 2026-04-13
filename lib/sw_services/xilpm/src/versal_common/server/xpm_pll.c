@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -189,25 +189,16 @@ static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
 	Pll->Context.Flag &= (u8)(~PM_PLL_CONTEXT_SAVED);
 }
 
-XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
+void XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 {
-	XStatus Status = XST_FAILURE;
-
 	XPm_PllSaveContext(Pll);
 
 	/* If PLL is not already in reset, bypass it and put in reset/pwrdn */
 	if (PM_PLL_STATE_RESET != Pll->ClkNode.Node.State) {
-		Status = XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		(void)XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
 	}
 
 	Pll->ClkNode.Node.State = PM_PLL_STATE_SUSPENDED;
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
 }
 
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -142,7 +142,7 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 XStatus XPmClockPll_AddParent(u32 Id, const u32 *Parents, u8 NumParents);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
-XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll);
+void XPmClockPll_Suspend(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 
