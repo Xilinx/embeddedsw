@@ -93,6 +93,7 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 		xil_printf("  ERROR: Failed to initialize Clock Wizard IP\r\n");
 		return XST_FAILURE;
 	}
+	InstancePtr.MinErr = 20000; /* we need 20KHz accuracy */
 
 	xil_printf("  ClkWiz: BaseAddr=0x%08X  PrimInClkFreq=%llu Hz  MinErr=%llu\r\n",
 		   (u32)CfgPtr->BaseAddr,
