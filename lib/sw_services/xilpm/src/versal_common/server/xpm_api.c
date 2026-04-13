@@ -261,8 +261,7 @@ static XStatus XPm_AddHbMonDevice(const u32 DeviceId)
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *Device = NULL;
 
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
-			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
+	if ((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) {
 		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
 		if (NULL == Device) {
 			/*
@@ -1014,8 +1013,7 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	}
 
 	Periph = (XPm_Periph *)XPmDevice_GetById(SourceNodeId);
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if((NULL == Periph) || (NULL == Subsystem)) {
+	if(NULL == Periph) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1368,8 +1366,6 @@ bypass:
 		u32 Mode;
 		if (1U == Enable) {
 			Mode = ((XPm_PllClockNode *)Clk)->PllMode;
-		} else if (0U == Enable) {
-			Mode = (u32)PM_PLL_MODE_RESET;
 		} else {
 			Status = XST_INVALID_PARAM;
 			goto done;
