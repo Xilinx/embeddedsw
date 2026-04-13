@@ -65,6 +65,7 @@
 * 2.4   gnr  01/19/2026 Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
 * 		abh  10/09/2025 Fixed MISRA-C violations
 *       rmv  01/30/2026 Renamed OCP header files and keymanagment macro
+*       vns  04/04/2026 Lock DAP during PLM update via XLoader_DisableJtagIfOpenedByAuthJtag
 *
 * </pre>
 *
@@ -1158,10 +1159,13 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
 		if (LoaderHandlerState == XPLMI_MODULE_NORMAL_STATE) {
 			LoaderHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
-
-			/** - Remove Scheduler tasks if they already exist. */
 #ifndef PLM_SECURE_EXCLUDE
 #ifdef PLM_AUTH_JTAG
+			/** - Lock DAP during PLM update if Auth JTAG is opened */
+			(void)XLoader_DisableJtagIfOpenedByAuthJtag();
+			(void)XLoader_DisableJtagIfOpenedByAuthJtag();
+
+			/** - Remove Scheduler tasks if they already exist. */
 			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
 				XLoader_CheckAuthJtagIntStatus,
 				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, NULL);

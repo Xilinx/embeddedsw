@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +16,8 @@
 *
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
-* 1.00  har  09/23/2025 Initial release
+* 1.0  har  09/23/2025 Initial release
+* 2.4  vns  04/04/2026 Added XLoader_DisableJtagIfOpenedByAuthJtag declaration
 *
 * </pre>
 *
@@ -45,6 +46,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_AddAuthJtagToScheduler(void);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
+int XLoader_DisableJtagIfOpenedByAuthJtag(void);
 
 #endif	/**< PLM_AUTH_JTAG */
 
