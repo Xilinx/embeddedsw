@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,11 +107,6 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 
-	if ((u8)XPM_POWER_STATE_ON == Node->State) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	if ((u32)XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPower_SendIslandPowerUpReq(Node);
 	} else {
@@ -134,7 +129,6 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 			break;
 		}
 	}
-done:
 	return Status;
 }
 
