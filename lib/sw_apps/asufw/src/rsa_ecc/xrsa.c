@@ -965,8 +965,8 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
  *
  * @return
  *		- XASUFW_SUCCESS, if modulus data is greater than input data.
+ *		- XASUFW_RSA_MOD_DATA_IS_ZERO, if modulus data is zero.
  *		- XASUFW_RSA_MOD_DATA_INVALID, if modulus data less than input data.
- *		- XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL, if modulus data equal to input data.
  *
  *************************************************************************************************/
 static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len, u8 *ScratchBuf)
@@ -999,7 +999,7 @@ static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len,
 	if (Status != XASUFW_SUCCESS) {
 		if ((InputData[Len - XASUFW_VALUE_ONE] == 0U) ||
 		    (InputData[Len - XASUFW_VALUE_ONE] == XASUFW_VALUE_ONE)) {
-			Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
+			Status = XASUFW_RSA_MOD_DATA_INVALID;
 			goto END;
 		}
 	}
@@ -1024,7 +1024,6 @@ static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len,
 	}
 
 	/** Now compare InputData with ModulusMinus1 (BuffAddr - 1) */
-	Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
 	for (Index = 0U; Index < Len; Index++) {
 		if (ModulusMinus1[Index] > InputData[Index]) {
 			Status = XASUFW_SUCCESS;

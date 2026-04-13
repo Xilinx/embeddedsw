@@ -271,8 +271,9 @@ enum {
 	XASUFW_RSA_INVALID_PARAM, /**< 0xAAU - Invalid parameters to RSA APIs */
 	XASUFW_RSA_PUB_EXP_INVALID_VALUE, /**< 0xABU - Error in Public exponent value */
 	XASUFW_RSA_MOD_DATA_IS_ZERO, /**< 0xACU - Modulus data is zero */
-	XASUFW_RSA_MOD_DATA_INVALID, /**< 0xADU - Modulus data is less than input data */
-	XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL, /**< 0xAEU - Modulus data is equal to input data */
+	XASUFW_RSA_MOD_DATA_INVALID, /**< 0xADU - if Input data is out of valid range
+							(must satisfy: 1 < InputData < (Modulus - 1)) */
+	RESERVED11, /**< 0xAEU - Reserved */
 	XASUFW_RSA_RAND_GEN_ERROR, /**< 0xAFU - Random number generation failed to RSA APIs */
 	XASUFW_RSA_KEY_PAIR_COMP_ERROR, /**< 0xB0U - Key pair comparison failure to RSA APIs */
 	XASUFW_RSA_ERROR, /**< 0xB1U - Any other error to RSA APIs */
