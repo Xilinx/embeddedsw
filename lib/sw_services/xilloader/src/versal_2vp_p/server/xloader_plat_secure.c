@@ -201,10 +201,10 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, u32 OutLen, u8 
 	int Status = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
 	u32 Counter = 0U;
-	u32 HashLen = XLOADER_SHA3_LEN;
-	XSecure_Sha3Hash HashStore;
+	u32 HashLen = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
+	XSecure_Sha384Hash HashStore;
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
-	u32 Size = XLOADER_SHA3_LEN;
+	u32 Size = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 	u8 *OutTmp;
 
 	if ((Sha3InstancePtr == NULL) || (Out == NULL) || (Input == NULL)) {
@@ -251,13 +251,13 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, u32 OutLen, u8 
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		OutTmp = &OutTmp[XLOADER_SHA3_LEN];
+		OutTmp = &OutTmp[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 		Counter = Counter + 1U;
 	}
 
 END:
 	ClearStatus = XPlmi_MemSetBytes(Convert, sizeof(Convert), 0U, sizeof(Convert));
-	ClearStatus |= XPlmi_MemSetBytes(&HashStore, XLOADER_SHA3_LEN, 0U, XLOADER_SHA3_LEN);
+	ClearStatus |= XPlmi_MemSetBytes(&HashStore, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (ClearStatus != XST_SUCCESS) {
 		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}

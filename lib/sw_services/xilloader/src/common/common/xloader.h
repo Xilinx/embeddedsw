@@ -309,7 +309,6 @@ typedef struct {
 			/**< Maximum limit of boot files in UFS filesystem */
 #define XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL	(1000U)
 			/**< Polling interval for checking Authenticated JTAG interrupt status*/
-#define XLOADER_SHA3_LEN				(48U)	/**< SHA3 hash length in bytes */
 
 #define XLOADER_MAX_PDI_LIST		(32U)	/**< Maximum number of PDIs */
 

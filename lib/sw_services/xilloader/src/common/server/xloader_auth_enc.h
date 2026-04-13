@@ -113,7 +113,7 @@ extern "C" {
 #define XLOADER_RSA_SIG_EXP_BYTE	(0xBCU)
 #define XLOADER_RSA_EM_MSB_EXP_BYTE	(0x0U)
 #define XLOADER_I2OSP_INT_LIMIT		(256U)
-#define XLOADER_RSA_PSS_SALT_LEN	(XLOADER_SHA3_LEN)
+#define XLOADER_RSA_PSS_SALT_LEN	(XSECURE_SHA_384_HASH_SIZE_IN_BYTES) /**< Salt length for RSA PSS padding */
 #define XLOADER_RSA_PSS_PADDING1	(8U)
 #define XLOADER_RSA_PSS_BUFFER_LEN	(480U)
 /** @} */
@@ -782,7 +782,7 @@ typedef struct XLoader_SecureParams {
 	u32 RemainingDataLen;	/**< Remaining data length */
 	u32 RemainingEncLen;	/**< Remaining encrypted data length */
 	u32 BlockNum;		/**< Block number */
-	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];	/**< SHA3 hash */
+	u32 Sha3Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES / 4U];	/**< SHA3 hash */
 	u32 SecureHdrLen;	/**< Secure header length */
 	XPmcDma *PmcDmaInstPtr;	/**< PMC DMA instance pointer */
 	int (*ProcessPrtn)(struct XLoader_SecureParams *SecurePtr, u64 DestAddr,

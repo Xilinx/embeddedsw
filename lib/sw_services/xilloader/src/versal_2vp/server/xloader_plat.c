@@ -225,7 +225,7 @@ int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLe
 				 */
 				Status = XSecure_ShaFinish(ShaInstPtr,
 					 (u64)(UINTPTR)PtrnHashTablePtr[PdiPtr->ImagePrtnId].Hash,
-					 XLOADER_SHA3_LEN);
+					 XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 				ProcessedLen = 0U;
 			}
 		} else {
@@ -446,7 +446,7 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 
 	Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
 			(UINTPTR)&SecurePtr->AcPtr->Spk,
-			SpkLen, (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			SpkLen, (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -470,7 +470,7 @@ static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 Dige
 {
 	int Status = XST_FAILURE;
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-			          (u64)(UINTPTR)&SpkHash->Hash, XLOADER_SHA3_LEN, PdiType);
+			          (u64)(UINTPTR)&SpkHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 
 	return Status;
 }
@@ -494,7 +494,7 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
 				   sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash,
-				   XLOADER_SHA3_LEN);
+				   XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -517,7 +517,7 @@ static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrNo, u32 Diges
 {
 	int Status = XST_FAILURE;
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-				(u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN, PdiType);
+				(u64)(UINTPTR)&SpkIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 
 	return Status;
 }
@@ -543,7 +543,7 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr,
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,
 				   (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
 				   sizeof(SecurePtr->PrtnHdr->EncRevokeID), (u64)(UINTPTR)Sha3Hash,
-				   XLOADER_SHA3_LEN);
+				   XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -567,7 +567,7 @@ static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrNo, 
 {
 	int Status = XST_FAILURE;
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex, (u64)(UINTPTR)&RevokeIdHash->Hash,
-				  XLOADER_SHA3_LEN, PdiType);
+				  XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 
 	return Status;
 }
@@ -745,7 +745,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		}
 		for(Index = 0U; Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns; Index++)
 		{
-			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
+			ImageMeasureInfo.DataSize = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 			ImageMeasureInfo.PcrInfo = PcrInfo;
 			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
@@ -762,8 +762,8 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 		/* Zeroise the stored hashes from hash table */
 		TmpStatus = Xil_SMemSet((void *)(UINTPTR)PtrnHashTablePtr[0].Hash,
-				XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES, 0U,
-				XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES);
+				XIH_MAX_PRTNS * XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+				XIH_MAX_PRTNS * XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		Status = XPlmi_UpdateStatus(Status, TmpStatus);
 	} else {
 		ImageMeasureInfo.PcrInfo = PcrInfo;
@@ -847,7 +847,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
+		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		break;
 	default:
 		XPlmi_Printf(DEBUG_INFO, "Please check provided case\r\n");
@@ -875,7 +875,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
-				(u64)(UINTPTR)Sha3Hash.Hash, XLOADER_SHA3_LEN,
+				(u64)(UINTPTR)Sha3Hash.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 				ImageInfo->OverWrite);
 		}
 	}

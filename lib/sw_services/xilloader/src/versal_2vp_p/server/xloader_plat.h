@@ -460,7 +460,7 @@ void XLoader_ShaInstance1Reset(void);
 int XLoader_PlatInit(void);
 
 #if defined(PLM_OCP)
-XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
+XSecure_Sha384Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
 

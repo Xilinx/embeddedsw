@@ -262,10 +262,10 @@ int XOcp_RegenSubSysDevAk(void)
 			if ((DevAkData->SubSystemId == SubSysHashDs->SubSystemId) &&
 				(SubSysHashDs->ValidData == TRUE)) {
 				Status = Xil_SMemCpy((void *)(UINTPTR)DevAkData->SubSysHash,
-						XSECURE_HASH_SIZE_IN_BYTES,
+						XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 						(const void *)(UINTPTR)SubSysHashDs->SubSysHash,
-						 XSECURE_HASH_SIZE_IN_BYTES,
-						XSECURE_HASH_SIZE_IN_BYTES);
+						 XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+						XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
@@ -401,7 +401,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		DevAkData->IsDevAkKeyReady = FALSE;
 
 		XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOcp_Reg->DiceCdiSeedAddr,
-			XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
+			XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)DevAkData->SubSysHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 			(XSecure_HmacRes *)(UINTPTR)Seed);
 
 		/** - Generate the DEV AK public and private keys */
@@ -437,10 +437,10 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		/** - Store hash of the sub-system */
 		SubSysHashDs->ValidData = FALSE;
 		SubSysHashDs->SubSystemId = DevAkData->SubSystemId;
-		Status = Xil_SMemCpy((void *)(UINTPTR)SubSysHashDs->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
+		Status = Xil_SMemCpy((void *)(UINTPTR)SubSysHashDs->SubSysHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 					(const void *)(UINTPTR)DevAkData->SubSysHash,
-					XSECURE_HASH_SIZE_IN_BYTES,
-					XSECURE_HASH_SIZE_IN_BYTES);
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -449,9 +449,9 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		}
 
 		XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccX,
-			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
 		XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccY,
-			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
 
 		KeyIndex++;
 	}
@@ -708,7 +708,7 @@ int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId
 		goto END;
 	}
 
-	AttestationInfoPtr->HashLen = XSECURE_HASH_SIZE_IN_BYTES;
+	AttestationInfoPtr->HashLen = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 
 	Status = XOcp_Attestation(AttestationInfoPtr, DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX]);
 	if (Status != XST_SUCCESS) {

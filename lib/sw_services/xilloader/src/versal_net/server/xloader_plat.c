@@ -1393,7 +1393,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_ShaFinish(Sha3Instance, (u64)(UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
+		Status = XSecure_ShaFinish(Sha3Instance, (u64)(UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		break;
 	default:
 		break;
@@ -1420,13 +1420,13 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 			/* Extend HW PCR */
 			Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&Sha3Hash.Hash,
-				XLOADER_SHA3_LEN);
+				XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
-				(u64)(UINTPTR)Sha3Hash.Hash, XLOADER_SHA3_LEN,
+				(u64)(UINTPTR)Sha3Hash.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 				ImageInfo->OverWrite);
 		}
 	}
@@ -1571,7 +1571,7 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 
 	Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
 			(UINTPTR)&SecurePtr->AcPtr->Spk,
-			SpkLen, (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			SpkLen, (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -1594,13 +1594,13 @@ static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 Dige
 	int Status = XST_FAILURE;
 
 	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
-			XLOADER_SHA3_LEN);
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
                 goto END;
         }
 
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-			(u64)(UINTPTR)&SpkHash->Hash, XLOADER_SHA3_LEN, PdiType);
+			(u64)(UINTPTR)&SpkHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 END:
 	return Status;
 }
@@ -1621,7 +1621,7 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
-			sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -1644,13 +1644,13 @@ static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrNo, u32 Diges
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN);
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
                 goto END;
         }
 
         Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-				(u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN, PdiType);
+				(u64)(UINTPTR)&SpkIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 END:
 	return Status;
 }
@@ -1671,7 +1671,7 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecu
 	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
-			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -1694,13 +1694,13 @@ static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrNo, 
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN);
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-			(u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN, PdiType);
+			(u64)(UINTPTR)&RevokeIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 
 END:
 	return Status;

@@ -497,8 +497,8 @@ static u32 XOcp_DmeHashGen(XOcp_Dme *DmePtr, u8 *Hash)
 	XSecure_Sha3Hash DmeMeasurementHash, DmeHash;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = Xil_SMemSet((void *)(UINTPTR)DmePtr->Measurement, XSECURE_HASH_SIZE_IN_BYTES, 0U,
-			     XSECURE_HASH_SIZE_IN_BYTES);
+	Status = Xil_SMemSet((void *)(UINTPTR)DmePtr->Measurement, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+			     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
 		goto RET;
 	}
@@ -509,9 +509,9 @@ static u32 XOcp_DmeHashGen(XOcp_Dme *DmePtr, u8 *Hash)
 		goto RET;
 	}
 
-	Status = Xil_SMemCpy((void *)(UINTPTR)DmePtr->Measurement, XSECURE_HASH_SIZE_IN_BYTES,
-			     (void *)(UINTPTR)&DmeMeasurementHash, XSECURE_HASH_SIZE_IN_BYTES,
-			     XSECURE_HASH_SIZE_IN_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)DmePtr->Measurement, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     (void *)(UINTPTR)&DmeMeasurementHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XOCP_ERR_DME_MEAS_COPY_FAILED;
 		goto RET;
@@ -523,16 +523,16 @@ static u32 XOcp_DmeHashGen(XOcp_Dme *DmePtr, u8 *Hash)
 		goto RET;
 	}
 
-	Status = Xil_SChangeEndiannessAndCpy((void *)(UINTPTR)Hash, XSECURE_HASH_SIZE_IN_BYTES,
+	Status = Xil_SChangeEndiannessAndCpy((void *)(UINTPTR)Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 					     (void *)(UINTPTR)DmeHash.Hash,
-					     XSECURE_HASH_SIZE_IN_BYTES,
-					     XSECURE_HASH_SIZE_IN_BYTES);
+					     XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+					     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
 		goto RET;
 	}
 
-	Status = Xil_SMemSet((void *)(UINTPTR)DmePtr->Measurement, XSECURE_HASH_SIZE_IN_BYTES, 0U,
-			     XSECURE_HASH_SIZE_IN_BYTES);
+	Status = Xil_SMemSet((void *)(UINTPTR)DmePtr->Measurement, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+			     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 RET:
 	return Status;
@@ -684,7 +684,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 	XSecure_TrngInstance *TrngInstance;
 	u8 DecDmePrivKey[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0};
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
-	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+	u8 Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 	u8 EphimeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
 
 	/** - Start the TRNG */
@@ -742,36 +742,36 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 
 	/** - Generate the signature */
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, Hash,
-			(u32)XSECURE_HASH_SIZE_IN_BYTES, DecDmePrivKey, EphimeralKey,
+			(u32)XSECURE_SHA_384_HASH_SIZE_IN_BYTES, DecDmePrivKey, EphimeralKey,
 			&DmeSignature);
 	if (Status != (u32)XST_SUCCESS) {
 		/** - Clear the Ephimeral key if signature generation is failed */
-		Xil_SMemSet((void *)(UINTPTR)EphimeralKey, XSECURE_HASH_SIZE_IN_BYTES,
-			    0U, XSECURE_HASH_SIZE_IN_BYTES);
+		Xil_SMemSet((void *)(UINTPTR)EphimeralKey, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			    0U, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		XPlmi_Printf(DEBUG_INFO,"ERROR: DME Signature generation failed!\r\n");
 		Status = Status | XOCP_ERR_GEN_DME_SIGN;
 		goto END;
 	}
 
 	/** - Clear the Ephimeral key */
-	ClrStatus = Xil_SMemSet((void *)(UINTPTR)EphimeralKey, XSECURE_HASH_SIZE_IN_BYTES,
-			     0U, XSECURE_HASH_SIZE_IN_BYTES);
+	ClrStatus = Xil_SMemSet((void *)(UINTPTR)EphimeralKey, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     0U, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
 		ClrStatus = Status | ClrStatus;
 		goto END;
 	}
 
 	/** - Copy DME signature from local buffer to register */
-	Status = Xil_SMemCpy((void *)(UINTPTR)XOcp_Reg->DmeSignRAddr, XSECURE_HASH_SIZE_IN_BYTES,
-			     (void *)(UINTPTR)DmeSignature.SignR, XSECURE_HASH_SIZE_IN_BYTES,
-			     XSECURE_HASH_SIZE_IN_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)XOcp_Reg->DmeSignRAddr, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     (void *)(UINTPTR)DmeSignature.SignR, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XOCP_ERR_DME_SIGN_COPY_FAILED;
 		goto END;
 	}
-	Status = Xil_SMemCpy((void *)(UINTPTR)XOcp_Reg->DmeSignSAddr, XSECURE_HASH_SIZE_IN_BYTES,
-			     (void *)(UINTPTR)DmeSignature.SignS, XSECURE_HASH_SIZE_IN_BYTES,
-			     XSECURE_HASH_SIZE_IN_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)XOcp_Reg->DmeSignSAddr, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     (void *)(UINTPTR)DmeSignature.SignS, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | XOCP_ERR_DME_SIGN_COPY_FAILED;
 		goto END;
@@ -779,7 +779,7 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 
 	/** - Verify the signature generated */
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P384, Hash,
-			(u32)XSECURE_HASH_SIZE_IN_BYTES, &DmePubKeyXY, &DmeSignature);
+			(u32)XSECURE_SHA_384_HASH_SIZE_IN_BYTES, &DmePubKeyXY, &DmeSignature);
 	if (Status != (u32)XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"ERROR: Signature verification failed!\r\n");
 		Status = Status | XOCP_ERR_DME_SIGN_VERIF_FAILED;
@@ -812,7 +812,7 @@ END:
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
-	ClrStatus = Xil_SecureZeroize((u8 *)Hash, XSECURE_HASH_SIZE_IN_BYTES);
+	ClrStatus = Xil_SecureZeroize((u8 *)Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
@@ -878,10 +878,10 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 			goto RET;
 		}
 		Status = Xil_SMemCpy((void *)(UINTPTR)DmePtr->DeviceID,
-				     XSECURE_MAX_HASH_SIZE_IN_BYTES,
+				     XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 				     (const void *)(UINTPTR)&Sha3Hash_Instance.Hash,
-				     XSECURE_MAX_HASH_SIZE_IN_BYTES,
-				     XSECURE_MAX_HASH_SIZE_IN_BYTES);
+				     XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+				     XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			Status = Status | XOCP_ERR_HASH_COPY_FAILED;
 			goto RET;

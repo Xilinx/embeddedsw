@@ -62,7 +62,6 @@ extern "C" {
 #define	XSECURE_SHA_AUTO_MODE_ENABLE		(1U)	/**< SHA AUTO_MODE enable */
 #define XSECURE_SHA_AUTO_PADDING_MODE_DISABLE	(0U)	/** SHA Auto padding disable */
 #define XSECURE_SHA_TIMEOUT_MAX			(0x1FFFFU) /**< SHA Timeout max */
-#define XSECURE_HASH_SIZE_IN_BYTES		(48U) 	/**< SHA3-384 hash in size of bytes */
 #define XSECURE_SHA_DIGEST_OFFSET		(0x10U) /**< SHA Digest Register */
 /** @endcond */
 /***************************** Type Definitions******************************/

@@ -99,7 +99,7 @@ typedef struct {
  */
 typedef struct {
 	u32 SubSystemId;	/**< Corresponding Sub system ID */
-	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
+	u8 SubSysHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
 	u8 AppVersion[XOCP_APP_VERSION_MAX_LENGTH];	/**< App version */
 	u32 AppVersionLen;		/**< Length of app version */
 	u32 ValidData;		/**< Valid Data */
@@ -114,7 +114,7 @@ typedef struct {
 	u32 AppVersionLen;		/**< Length of app version */
 	u8 AppVersion[XOCP_APP_VERSION_MAX_LENGTH];		/**< App version */
 	u8 PerString[XSECURE_TRNG_PER_STRING_LEN_IN_BYTES];/**< Personalization string */
-	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
+	u8 SubSysHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DevAK private key */
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DevAK public key X */
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DevAK public key Y */

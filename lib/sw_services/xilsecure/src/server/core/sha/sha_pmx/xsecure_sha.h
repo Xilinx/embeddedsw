@@ -88,15 +88,16 @@ extern "C" {
 
 #define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU)
 			/**< PMC DMA Max Transfer rate in bytes */
-#define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
+#define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU) /**< SHA Timeout Max */
 
-#define XSECURE_HASH_SIZE_IN_BYTES      (48U)
-
-#define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
-					/**< SHA 3 hash length in bits */
+#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
+					(XSECURE_SHA_384_HASH_SIZE_IN_BYTES / 4U)
+					/**< SHA 3 hash length in words */
 
 /** @endcond */
 /***************************** Type Definitions******************************/
+/** Define XSecure_Sha3Hash with XSecure_Sha384Hash to maintain backward compatibility */
+#define XSecure_Sha3Hash		XSecure_Sha384Hash
 
 /***************************** Type Definitions******************************/
 

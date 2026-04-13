@@ -120,7 +120,7 @@ static const u8 AesAadData[XSECURE_KAT_AAD_SIZE_IN_BYTES] = {
 	0xB2U, 0x21U, 0xBDU, 0x03U, 0x47U, 0x0BU, 0xDCU, 0x2EU
 };
 
-static const u8 ExpSha3Hash[XSECURE_HASH_SIZE_IN_BYTES] = {
+static const u8 ExpSha3Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES] = {
 	0xFFU, 0x4EU, 0x69U, 0xA1U, 0x4CU, 0xBCU, 0xBDU, 0x93U,
 	0xBEU, 0xAAU, 0xB1U, 0xC4U, 0x7FU, 0x57U, 0x8BU, 0x34U,
 	0x6DU, 0x54U, 0x88U, 0x93U, 0xADU, 0xEDU, 0x45U, 0xA3U,
@@ -1028,7 +1028,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	volatile int Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	volatile int SStatus = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	volatile u32 Index;
-	XSecure_Sha3Hash OutVal;
+	XSecure_Sha384Hash OutVal;
 
 	if (SecureSha3 ==  NULL) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
@@ -1071,19 +1071,19 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 
 	/** Validate the generated hash with the provided expected hash */
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+	for(Index = 0U; Index < XSECURE_SHA_384_HASH_SIZE_IN_BYTES; Index++) {
 		if (OutVal.Hash[Index] != ExpSha3Hash[Index]) {
 			Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 			goto END_RST;
 		}
 	}
 
-	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
+	if (Index == XSECURE_SHA_384_HASH_SIZE_IN_BYTES) {
 		Status = XST_SUCCESS;
 	}
 
 END_RST:
-	SStatus = Xil_SecureZeroize(OutVal.Hash, XSECURE_HASH_SIZE_IN_BYTES);
+	SStatus = Xil_SecureZeroize(OutVal.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -1190,7 +1190,7 @@ int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 
 	Status = XST_FAILURE;
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P384, (u8*)&ExpEccSha3Hash[0U],
-				XSECURE_HASH_SIZE_IN_BYTES, PubKey, ExpSign);
+				XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PubKey, ExpSign);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR;
 		goto END;

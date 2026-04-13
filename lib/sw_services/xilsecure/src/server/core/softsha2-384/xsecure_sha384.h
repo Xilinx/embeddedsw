@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -40,12 +40,12 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define XSECURE_HASH_SIZE_IN_BYTES		(48U)
+#define XSECURE_SHA2_384_HASH_SIZE_IN_BYTES		(48U) /**< SHA2-384 hash size in bytes */
 
 /**************************** Type Definitions *******************************/
 /** Stores the resultant Hash. */
 typedef struct {
-	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+	u8 Hash[XSECURE_SHA2_384_HASH_SIZE_IN_BYTES];
 } XSecure_Sha2Hash;
 
 /************************** Function Prototypes ******************************/

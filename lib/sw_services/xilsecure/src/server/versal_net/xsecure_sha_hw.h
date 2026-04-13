@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -50,8 +50,6 @@ extern "C" {
 #define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_0_DEVICE_ID) /**< SHA 0 device id */
 
 #define XSECURE_SHA_1_DEVICE_ID			(XSECURE_SHA3_1_DEVICE_ID) /**< SHA 1 device id */
-
-#define XSECURE_MAX_HASH_SIZE_IN_BYTES          (48U)  /**< SHA3 maximum supported hash size */
 
 /** @name Register Map
  *

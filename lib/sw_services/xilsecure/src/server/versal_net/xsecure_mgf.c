@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,8 +49,8 @@ static int XSecure_ShaMgfDigest(XSecure_ShaMode Shatype, void *InstancePtr, u64 
 /************************** Variable Definitions *****************************/
 
 static XSecure_HashAlgInfo XSecure_MgfHashList[] =
-{{XSECURE_SHA3_384, XSECURE_HASH_SIZE_IN_BYTES, XSecure_ShaMgfStart, XSecure_ShaMgfUpdate, XSecure_ShaMgfFinish, XSecure_ShaMgfDigest},
- {XSECURE_SHA2_384, XSECURE_HASH_SIZE_IN_BYTES, XSecure_ShaMgfStart, XSecure_ShaMgfUpdate, XSecure_ShaMgfFinish, XSecure_ShaMgfDigest}};
+{{XSECURE_SHA3_384, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSecure_ShaMgfStart, XSecure_ShaMgfUpdate, XSecure_ShaMgfFinish, XSecure_ShaMgfDigest},
+ {XSECURE_SHA2_384, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSecure_ShaMgfStart, XSecure_ShaMgfUpdate, XSecure_ShaMgfFinish, XSecure_ShaMgfDigest}};
 
 /************************** Function Definitions *****************************/
 

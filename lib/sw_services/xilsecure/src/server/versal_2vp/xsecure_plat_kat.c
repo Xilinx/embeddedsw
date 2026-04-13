@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -130,7 +130,7 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 	volatile u32 Index;
 	XSecure_HmacRes Hmac = {0U};
 	XSecure_Hmac HmacInstance;
-	const u8 HmacExpected[XSECURE_HASH_SIZE_IN_BYTES] = {
+	const u8 HmacExpected[XSECURE_SHA_384_HASH_SIZE_IN_BYTES] = {
 		0x0E, 0x1D, 0x1E, 0x2A, 0x22, 0x6F, 0xB9, 0x56, 0x10, 0x4F, 0x10, 0x00, 0x8A, 0x50,
 		0xE3, 0x5E, 0xAB, 0x2E, 0x37, 0xB5, 0xE0, 0x9F, 0xA1, 0x68, 0x2F, 0xE4, 0x93, 0x59,
 		0x71, 0x96, 0xCC, 0x1B, 0x40, 0xFD, 0xCB, 0xDD, 0x93, 0x4F, 0x01, 0x3A, 0xB2, 0x64,
@@ -158,18 +158,18 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 	}
 
 	Status = (int)XSECURE_HMAC_KAT_ERROR;
-	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+	for(Index = 0U; Index < XSECURE_SHA_384_HASH_SIZE_IN_BYTES; Index++) {
 		if (HmacExpected[Index] != Hmac.Hash[Index]) {
 			Status = (int)XSECURE_HMAC_KAT_ERROR;
 			goto END;
 		}
 	}
 
-	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
+	if (Index == XSECURE_SHA_384_HASH_SIZE_IN_BYTES) {
 		Status = XST_SUCCESS;
 	}
 END:
-	SStatus = Xil_SecureZeroize(Hmac.Hash, XSECURE_HASH_SIZE_IN_BYTES);
+	SStatus = Xil_SecureZeroize(Hmac.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
