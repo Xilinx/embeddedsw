@@ -28,6 +28,8 @@
  *                           for SDT support.
  * 0.5   anv     02/11/2026  Cleared IPI interrupts after calling the
  *                           IPI interrupt handler
+ * 0.6   gam     03/26/2026  Fix Correctable Error count check in detect only
+ *                           configuration
  *
  * </pre>
  *
@@ -46,6 +48,7 @@
 #define CRAM_STATUS_CRC_ERR_MASK	(0X00000400U)
 #define CRAM_STATUS_UNCOR_ERR_MASK	(0X00000200U)
 #define CRAM_STATUS_ECC_COR_DONE_MASK	(0X00004000U)
+#define CRAM_STATUS_ECC_COR_DISABLE_MASK	(0X0000C000U)
 
 #ifndef SDT
 	/* Interrupt Controller device ID */
@@ -429,10 +432,9 @@ void PrintErrReport(u32 IntialCorErrCnt)
 
 		xil_printf("[SUCCESS] Correctable error detected \n\r");
 
-		Status = CfrStatusInfo.Status & CRAM_STATUS_ECC_COR_DONE_MASK;
+		Status = CfrStatusInfo.Status & CRAM_STATUS_ECC_COR_DISABLE_MASK;
 		/*To print and check Corrected Error count*/
 		if (Status == CRAM_STATUS_ECC_COR_DONE_MASK) {
-
 			xil_printf("[SUCCESS] Correction Done \n\r");
 
 			CorErrCount = CfrStatusInfo.ErrCorCnt;
