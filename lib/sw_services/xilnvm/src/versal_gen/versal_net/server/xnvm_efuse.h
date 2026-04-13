@@ -40,22 +40,28 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /**
- * @name  EFUSE masks
+ * @name  Protection bit masks of various eFuses
  * @{
  */
-/**< Protection bit masks of various eFuses */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM) |      \
 				                                ((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_1_COL_NUM)
+			/**< eFuse protection bits for security control */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_0_COL_NUM) |     \
 				                                ((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_1_COL_NUM)
+			/**< eFuse protection bits for security misc 0 */
 #define XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK	((u32)1U << XNVM_EFUSE_ROW_0_PPK_HASH_PROT_0_COL_NUM) |      \
 				                                ((u32)1U << XNVM_EFUSE_ROW_0_PPK_HASH_PROT_1_COL_NUM)
+			/**< eFuse protection bits for PPK0 hash */
 #define XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK	((u32)1U << XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_0_COL_NUM) |        \
 				                                ((u32)1U << XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_1_COL_NUM)
+			/**< eFuse protection bits for Meta header IV */
 #define XNVM_EFUSE_PROTECTION_BIT_ME_ID_CODE_MASK	((u32)1U << XNVM_EFUSE_ROW_0_CRC_PROT_0_COL_NUM) |   \
 				                                ((u32)1U << XNVM_EFUSE_ROW_0_CRC_PROT_1_COL_NUM)
+			/**< eFuse protection bits for ME ID code and CRC */
 #define XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK	((u32)1U << XNVM_EFUSE_ROW_0_PUF_CHASH_PROT_COL_NUM)
+			/**< eFuse protection bit for PUF Challenge Hash */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM)
+			/**< eFuse protection bits for security misc 1 */
 /** @} */
 
 
@@ -66,12 +72,15 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
+/**
+ * Structure to hold PUF Fuse programming information
+ */
 typedef struct {
-	u32 EnvMonitorDis;
-	u32 PrgmPufFuse;
-	u32 StartPufFuseRow;
-	u32 NumOfPufFusesRows;
-	u32 *PufFuseData;
+	u32 EnvMonitorDis;	/**< Environment Monitor Disable flag */
+	u32 PrgmPufFuse;	/**< Program PUF Fuse flag */
+	u32 StartPufFuseRow;	/**< Start row for PUF Fuse programming */
+	u32 NumOfPufFusesRows;	/**< Number of PUF Fuse rows to program */
+	u32 *PufFuseData;	/**< Pointer to PUF Fuse data */
 }XNvm_EfusePufFuse;
 #endif
 /************************** Function Prototypes ******************************/

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -47,10 +47,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/**< shift constant to place slr id*/
-#define XNVM_SLR_INDEX_SHIFT (6U)
+#define XNVM_SLR_INDEX_SHIFT (6U) /**< shift constant to place slr id*/
 
-/**< SlrIndexs constants*/
 #define XNVM_SLR_INDEX_0 (0U) /**< SLR Index 0*/
 #define XNVM_SLR_INDEX_1 (1U) /**< SLR Index 1*/
 #define XNVM_SLR_INDEX_2 (2U) /**< SLR Index 2*/

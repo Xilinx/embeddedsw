@@ -314,7 +314,7 @@ void XNvm_CmdsInit(int (*GenericHandler)(void))
 
 	(void)GenericHandler;
 	/**
-     *	Register command handlers with XilPlmi
+	 * Register command handlers with XilPlmi
 	 */
 	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
 		XNvm_Cmds[Idx].Handler = XNvm_ProcessCmd;

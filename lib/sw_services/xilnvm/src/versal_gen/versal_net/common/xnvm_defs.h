@@ -8,7 +8,7 @@
 /**
 *
 * @file versal_net/common/xnvm_defs.h
-* @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
+* @addtogroup xnvm_def_api_ids XilNvm Definitions
 * @{
 *
 * @cond xnvm_internal
@@ -524,7 +524,7 @@ typedef struct {
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 
 /**
- * @brief PUF user data address structure for IPI/CDO communication
+ * PUF user data address structure for IPI/CDO communication
  */
 typedef struct {
 	u32 AddrLow;	/**< PufUserFuseData lower Address */
@@ -536,6 +536,11 @@ typedef struct {
 } XNvm_EfusePufFuseAddr;
 
 #endif
+
+/**
+ * @}
+ * @endcond
+ */
 
 /** XilNVM API ids */
 typedef enum {
@@ -585,11 +590,6 @@ typedef enum {
 	XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC,
 	XNVM_API_MAX,
 } XNvm_ApiId;
-
-/**
- * @}
- * @endcond
- */
 
 #ifdef __cplusplus
 }

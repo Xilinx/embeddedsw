@@ -51,72 +51,90 @@ extern "C" {
 /*************************** Constant Definitions *****************************/
 /**
  *  @name eFuse ctrls constants
+ *  @{
  */
-/**< Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
-#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
-#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
+#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)	/**< eFuse control write locked */
+#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U) /**< eFuse control write unlocked */
 /** @} */
 
 /**
- *  @{ Temperature limits definition for versal Efuses
+ *  @name Temperature limits definition for versal Efuses
+ *  @{
  */
-#define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f)
-#define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f)
+#define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f) /**< Minimum temperature for full range check */
+#define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f) /**< Maximum temperature for full range check */
 
-#define XNVM_EFUSE_TEMP_LP_MIN		(0.0f)
-#define XNVM_EFUSE_TEMP_LP_MAX		(100.0f)
-#define XNVM_EFUSE_TEMP_MP_MIN		(-40.0f)
-#define XNVM_EFUSE_TEMP_MP_MAX		(110.0f)
-#define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f)
-#define XNVM_EFUSE_TEMP_HP_MAX		(125.0f)
+#define XNVM_EFUSE_TEMP_LP_MIN		(0.0f)   /**< Minimum temperature for low power range check */
+#define XNVM_EFUSE_TEMP_LP_MAX		(100.0f) /**< Maximum temperature for low power range check */
+#define XNVM_EFUSE_TEMP_MP_MIN		(-40.0f) /**< Minimum temperature for medium power range check */
+#define XNVM_EFUSE_TEMP_MP_MAX		(110.0f) /**< Maximum temperature for medium power range check */
+#define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f) /**< Minimum temperature for high power range check */
+#define XNVM_EFUSE_TEMP_HP_MAX		(125.0f) /**< Maximum temperature for high power range check */
+/** @} */
 
-/**< eFuse Range check  definitions*/
-#define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)
-#define XNVM_EFUSE_LP_RANGE_CHECK		(1U)
-#define XNVM_EFUSE_MP_RANGE_CHECK		(2U)
-#define XNVM_EFUSE_HP_RANGE_CHECK		(3U)
+/**
+ *  @name eFuse range check definitions
+ *  @{
+ */
+#define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)	/**< To check both voltage
+						* and temperature in full range */
+#define XNVM_EFUSE_LP_RANGE_CHECK		(1U)	/**< To check both voltage
+						* and temperature in low power range */
+#define XNVM_EFUSE_MP_RANGE_CHECK		(2U)	/**< To check both voltage
+						* and temperature in medium power range */
+#define XNVM_EFUSE_HP_RANGE_CHECK		(3U)	/**< To check both voltage
+						* and temperature in high power range */
+/** @} */
 
-/**< eFuse voltage limits definitions*/
-#define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f)
-#define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f)
-#define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f)
-#define XNVM_EFUSE_VCC_PMC_MP_MAX		(0.825f)
-#define XNVM_EFUSE_VCC_PMC_HP_MIN		(0.854f)
-#define XNVM_EFUSE_VCC_PMC_HP_MAX		(0.906f)
+/**
+ *  @name eFuse voltage limits definitions
+ *  @{
+ */
+#define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f) /**< Minimum voltage for
+						* low power range check */
+#define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f) /**< Maximum voltage for
+						* low power range check */
+#define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f) /**< Minimum voltage for
+						* medium power range check */
+#define XNVM_EFUSE_VCC_PMC_MP_MAX		(0.825f) /**< Maximum voltage for
+						* medium power range check */
+#define XNVM_EFUSE_VCC_PMC_HP_MIN		(0.854f) /**< Minimum voltage for
+						* high power range check */
+#define XNVM_EFUSE_VCC_PMC_HP_MAX		(0.906f) /**< Maximum voltage for
+						* high power range check */
+/** @} */
 
-#define XNVM_EFUSE_SYSMON_LOCK_CODE	(0xF9E8D7C6U)
+#define XNVM_EFUSE_SYSMON_LOCK_CODE		(0xF9E8D7C6U)
+			/**< System monitor lock code for eFUSE operations */
 
-#define XNVM_EFUSE_PROTECTION_BIT_CLEAR                           (0U)
-                                                        /**< To check the corresponding protection eFuse is set or not */
+#define XNVM_EFUSE_PROTECTION_BIT_CLEAR		(0U)
+                        /**< To check the corresponding protection eFuse is set or not */
 
 /***************************** Type Definitions *******************************/
 /**
- * @name  Operation mode
+ * Operation mode
  */
 typedef enum {
 	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
 	XNVM_EFUSE_MODE_PGM /**< eFuse program mode */
 } XNvm_EfuseOpMode;
-/** @} */
 
 /**
- * @name  Read mode
+ * Read mode
  */
 typedef enum {
 	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
 	XNVM_EFUSE_MARGIN_RD /**< eFuse margin read */
 } XNvm_EfuseRdMode;
-/** @} */
 
 /**
- * @name  eFuse Page
+ * eFuse Page
  */
 typedef enum {
 	XNVM_EFUSE_PAGE_0 = 0, /**< Efuse page 0*/
 	XNVM_EFUSE_PAGE_1, /**< Efuse page 1*/
 	XNVM_EFUSE_PAGE_2 /**< Efuse page 2*/
 } XNvm_EfuseType;
-/** @} */
 
 
 
@@ -142,4 +160,4 @@ u32 XNvm_EfuseReadProtectionBits(u32 Mask);
 
 #endif	/* XNVM_EFUSE_COMMON_H */
 
-/* @} */
+/** @} */

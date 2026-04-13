@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,7 +29,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xnvm_mailbox_apis XilNVM mailbox APIs
+* @addtogroup xnvm_mailbox_apis XilNvm Mailbox APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -48,8 +48,8 @@
 
 /****************************************************************************/
 /**
- * @brief  This function sends IPI request to the target module and gets the
- * response from it
+ * @brief	This function sends IPI request to the target module and gets the
+ * 		response from it.
  *
  * @param	MailboxPtr	Pointer to mailbox instance
  * @param	MsgPtr		Pointer to the payload message
@@ -69,7 +69,7 @@ int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	u32 Response[RESPONSE_ARG_CNT];
 
 	/**
-	 *  Send IPI CDO to PLM.
+	 *  - Send IPI CDO to PLM.
 	 *  Return XST_FAILURE, if failure in IPI send request.
 	 */
 	Status = (int)XMailbox_SendData(MailboxPtr, XNVM_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
@@ -79,7 +79,7 @@ int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	}
 
 	/**
-	 * Wait for IPI response from PLM  with a default timeout of 2 seconds.
+	 * - Wait for IPI response from PLM  with a default timeout of 2 seconds.
 	 * If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.
 	 */
 	Status = (int)XMailbox_Recv(MailboxPtr, XNVM_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
@@ -96,7 +96,7 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function sets the instance of mailbox
+* @brief	This function sets the instance of mailbox.
 *
 * @param 	InstancePtr	Pointer to the client instance
 * @param 	MailboxPtr 	Pointer to the mailbox instance
@@ -110,7 +110,7 @@ int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const Mail
 	int Status = XST_FAILURE;
 
         /**
-	 *  Perform input parameter validation on InstancePtr.
+	 *  - Perform input parameter validation on InstancePtr.
 	 *  If not NULL initialize the InstancePtr, else return XST_FAILURE.
 	 */
 	if (InstancePtr != NULL) {

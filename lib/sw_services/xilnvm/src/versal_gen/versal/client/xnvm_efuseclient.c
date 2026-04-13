@@ -62,7 +62,7 @@
 /*****************************************************************************/
 /**
  * @brief       This function sends IPI request to program eFuses with
- * 		user provided data
+ * 		user provided data.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DataAddr	Address of the data structure where the eFUSE
@@ -80,7 +80,7 @@ int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -88,13 +88,13 @@ int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "eFUSE programming Failed \r\n");
@@ -107,7 +107,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief       This function sends IPI request to program IV eFuses with
- * 		user provided data
+ * 		user provided data.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	IvAddr		Address of the data structure where the eFUSE
@@ -132,7 +132,7 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	u32 Payload[PAYLOAD_ARG_CNT];
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -141,7 +141,7 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	}
 
         /**
-	 *  Link Shared memory for IPI usage.
+	 *  - Link Shared memory for IPI usage.
 	 *  If shared memory is not assigned return XST_FAILURE.
 	 */
 	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EfuseData);
@@ -151,7 +151,7 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	}
 
         /**
-	 *  Zeroize the shared memory.
+	 *  - Zeroize the shared memory.
 	 */
 	Status = Xil_SMemSet(EfuseData, TotalSize, 0U, TotalSize);
 	if (Status != XST_SUCCESS) {
@@ -164,13 +164,13 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -180,7 +180,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program PPK_INVLD eFuse
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PpkRevoke	Type of PPK_INVLD to be revoked
@@ -205,7 +205,7 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseMiscCtrlBits);
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -214,7 +214,7 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 	}
 
 	/**
-	 *  Link shared memory for IPI usage.
+	 *  - Link shared memory for IPI usage.
 	 *  If shared memory is not assigned return XST_FAILURE.
 	 */
 	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EfuseData);
@@ -227,7 +227,7 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 	MiscCtrlBits = (XNvm_EfuseMiscCtrlBits*)(UINTPTR)((u8*)EfuseData + sizeof(XNvm_EfuseDataAddr));
 
 	/**
-	 *  Zeroize the shared memory.
+	 *  - Zeroize the shared memory.
 	 */
 	Status = Xil_SMemSet(EfuseData, sizeof(XNvm_EfuseDataAddr), 0U, sizeof(XNvm_EfuseDataAddr));
 	if (Status != XST_SUCCESS) {
@@ -266,13 +266,13 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -282,7 +282,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program revoke id eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	RevokeId	RevokeId number to be revoked
@@ -309,7 +309,7 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseRevokeIds);
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -318,7 +318,7 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 	}
 
 	/**
-	 *  Link shared memory for IPI usage.
+	 *  - Link shared memory for IPI usage.
 	 *  If shared memory is not assigned return XST_FAILURE.
 	 */
 	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EfuseData);
@@ -330,7 +330,7 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 	WriteRevokeId = (XNvm_EfuseRevokeIds*)(UINTPTR)((u8*)EfuseData + sizeof(XNvm_EfuseDataAddr));
 
 	/**
-	 *  Zeroize the shared memory.
+	 *  - Zeroize the shared memory.
 	 */
 	Status = Xil_SMemSet(EfuseData, sizeof(XNvm_EfuseDataAddr), 0U, sizeof(XNvm_EfuseDataAddr));
 	if (Status != XST_SUCCESS) {
@@ -358,13 +358,13 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -374,7 +374,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	UserFuseAddr	Address of the XNvm_EfuseUserData structure
@@ -398,7 +398,7 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
@@ -407,7 +407,7 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 	}
 
 	/**
-	 *  Link shared memory for IPI usage.
+	 *  - Link shared memory for IPI usage.
 	 *  If shared memory is not assigned return XST_FAILURE.
 	 */
 	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EfuseData);
@@ -417,7 +417,7 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 	}
 
 	/**
-	 *  Zeroize the shared memory.
+	 *  - Zeroize the shared memory.
 	 */
 	Status = Xil_SMemSet(EfuseData, TotalSize, 0U, TotalSize);
 	if (Status != XST_SUCCESS) {
@@ -430,13 +430,13 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -446,7 +446,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read IV eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	IvAddr		Address of the output buffer to store the
@@ -465,7 +465,7 @@ int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, c
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -473,14 +473,14 @@ int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, c
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_IV),
 				IvType,
 				IvAddr,
 				(IvAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -489,7 +489,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read Revocation ID eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	RevokeIdAddr	Address of the output buffer to store the
@@ -509,7 +509,7 @@ int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -517,14 +517,14 @@ int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_REVOCATION_ID),
 				RevokeIdNum,
 				RevokeIdAddr,
 				(RevokeIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -533,7 +533,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	UserFuseAddr	Address of the output buffer to store the
@@ -551,7 +551,7 @@ int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 Us
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -559,13 +559,13 @@ int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 Us
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_USER_FUSES),
 				UserFuseAddr,
 				(UserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -574,7 +574,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read MiscCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	MiscCtrlBits	Address of the output buffer to store the
@@ -592,7 +592,7 @@ int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -600,13 +600,13 @@ int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS),
 				MiscCtrlBits,
 				(MiscCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -615,7 +615,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read SecCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	SecCtrlBits	Address of the output buffer to store the
@@ -633,7 +633,7 @@ int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -641,13 +641,13 @@ int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS),
 				SecCtrlBits,
 				(SecCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -656,7 +656,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read SecMisc1Bits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	SecMisc1Bits	Address of the output buffer to store the
@@ -674,7 +674,7 @@ int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -682,13 +682,13 @@ int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS),
 				SecMisc1Bits,
 				(SecMisc1Bits >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 		return Status;
@@ -697,7 +697,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read BootEnvCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	BootEnvCtrlBits	Address of the output buffer to store the
@@ -715,7 +715,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const 
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -723,13 +723,13 @@ int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const 
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS),
 				BootEnvCtrlBits,
 				(BootEnvCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -738,7 +738,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read PufSecCtrlBits
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufSecCtrlBits	Address of the output buffer to store the
@@ -756,7 +756,7 @@ int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -764,13 +764,13 @@ int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u
 		goto END;
 	}
 
-	/** Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS),
 				PufSecCtrlBits,
 				(PufSecCtrlBits >> XNVM_ADDR_HIGH_SHIFT));
 
-	 /** Send request using generic API */
+	 /** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
@@ -780,7 +780,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read OffChip ID eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	OffChidIdAddr	Address of the output buffer to store the
@@ -800,7 +800,7 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -808,14 +808,14 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload,  (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID),
 				OffChipIdNum,
 				OffChidIdAddr,
 				(OffChidIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -824,7 +824,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read PpkHash
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PpkHashAddr	Address of the output buffer to store the
@@ -843,7 +843,7 @@ int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkH
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -851,14 +851,14 @@ int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkH
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD3(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PPK_HASH),
 				PpkHashType,
 				PpkHashAddr,
 				(PpkHashAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -867,7 +867,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read DecEfuseOnly eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DecOnlyAddr	Address of the output buffer to store the
@@ -885,7 +885,7 @@ int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecO
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -893,13 +893,13 @@ int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecO
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY),
 				DecOnlyAddr,
 				(DecOnlyAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -908,7 +908,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read DNA eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	DnaAddr		Address of the output buffer to store the
@@ -926,7 +926,7 @@ int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -934,13 +934,13 @@ int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_DNA),
 				DnaAddr,
 				(DnaAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -951,7 +951,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Puf as User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufUserFuseAddr	Address of the XNvm_EfusePufFuseAddr structure
@@ -969,7 +969,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -977,13 +977,13 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE),
 				PufUserFuseAddr,
 				(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -992,7 +992,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to read Puf User eFuses
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufUserFuseAddr	Address of the output buffer to store the
@@ -1010,7 +1010,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -1018,13 +1018,13 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE),
 				PufUserFuseAddr,
 				(PufUserFuseAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -1034,7 +1034,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program Puf helper data
- * 		requested by the user
+ * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
  * @param	PufHdAddr	Address of the XNvm_EfusePufHdAddr structure
@@ -1052,7 +1052,7 @@ int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAd
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -1064,13 +1064,13 @@ int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAd
 
 	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_WRITE_PUF),
 				DataAddr,
 				(DataAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -1097,7 +1097,7 @@ int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAdd
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -1105,13 +1105,13 @@ int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAdd
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_PUF),
 				PufHdAddr,
 				(PufHdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;
@@ -1120,7 +1120,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to check given CRC is matched with calculated CRC
+ * @brief	This function sends IPI request to check given CRC is matched with calculated CRC.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	AesKeyCrc	CRC value of the AES key which needs to be checked
@@ -1142,7 +1142,7 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (InstancePtr == NULL) {
@@ -1150,13 +1150,13 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 		goto END;
 	}
 
-	/** Fill Payload */
+	/** - Fill Payload */
 	XNVM_PACK_PAYLOAD2(Payload, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC),
 				AesKeyCrc,
 				AesKeyType);
 
-	/** Send request using generic API */
+	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
 	return Status;

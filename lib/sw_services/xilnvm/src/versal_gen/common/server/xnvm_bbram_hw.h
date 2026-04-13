@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,73 +37,69 @@ extern "C" {
 /****************************** Include Files *********************************/
 
 /*************************** Constant Definitions *****************************/
+
 /**
  * @name BBRAM Controller Base Address
+ * @{
  */
-#define XNVM_BBRAM_BASE_ADDR			(0xF11F0000U)
-						/**< BBRAM Base Address */
+#define XNVM_BBRAM_BASE_ADDR			(0xF11F0000U) /**< BBRAM Base Address */
 /** @} */
 
 /**
- * @name BBRAM Controller Registers
+ * @name BBRAM Control Register offsets
+ * @{
  */
-/**< BBRAM Control Register offsets */
-#define XNVM_BBRAM_STATUS_REG			(0x00U)
-#define XNVM_BBRAM_CTRL_REG			(0x04U)
-#define XNVM_BBRAM_PGM_MODE_REG			(0x08U)
-#define XNVM_BBRAM_AES_CRC_REG			(0x0CU)
-#define XNVM_BBRAM_0_REG			(0x10U)
-#define XNVM_BBRAM_8_REG			(0x30U)
-#define XNVM_BBRAM_MSW_LOCK_REG			(0x4CU)
+#define XNVM_BBRAM_STATUS_REG			(0x00U)	/**< BBRAM Status Register */
+#define XNVM_BBRAM_CTRL_REG			(0x04U) /**< BBRAM Control Register */
+#define XNVM_BBRAM_PGM_MODE_REG			(0x08U) /**< BBRAM Program Mode Register */
+#define XNVM_BBRAM_AES_CRC_REG			(0x0CU) /**< BBRAM AES CRC Register */
+#define XNVM_BBRAM_0_REG			(0x10U) /**< BBRAM 0 Register */
+#define XNVM_BBRAM_8_REG			(0x30U) /**< BBRAM 8 Register */
+#define XNVM_BBRAM_MSW_LOCK_REG			(0x4CU) /**< BBRAM MSW Lock Register */
 
 #ifdef VERSAL_2VE_2VM
-#define XNVM_BBRAM_8_MEM_REG			(0x50U)
+#define XNVM_BBRAM_8_MEM_REG			(0x50U) /**< BBRAM 8 Memory Register */
 #endif
-
 /** @} */
 
 /**
- * @name  STATUS register
+ * @name BBRAM Status Register definition
+ * @{
  */
-/**< BBRAM Status Register definition */
-#define XNVM_BBRAM_STATUS_PGM_MODE_DONE		((u32)0x01U << 0U)
-#define XNVM_BBRAM_STATUS_ZEROIZED			((u32)0x01U << 4U)
-#define XNVM_BBRAM_STATUS_AES_CRC_DONE		((u32)0x01U << 8U)
-#define XNVM_BBRAM_STATUS_AES_CRC_PASS		((u32)0x01U << 9U)
+#define XNVM_BBRAM_STATUS_PGM_MODE_DONE		((u32)0x01U << 0U) /**< BBRAM Program Mode Done mask */
+#define XNVM_BBRAM_STATUS_ZEROIZED		((u32)0x01U << 4U) /**< BBRAM Zeroized mask */
+#define XNVM_BBRAM_STATUS_AES_CRC_DONE		((u32)0x01U << 8U) /**< BBRAM AES CRC Done mask */
+#define XNVM_BBRAM_STATUS_AES_CRC_PASS		((u32)0x01U << 9U) /**< BBRAM AES CRC Pass mask */
 /** @} */
 
 /**
- * @name  CTRL register
+ * @name CTRL register
+ * @{
  */
-/**< BBRAM Ctrl Start Zeroize mask */
-#define XNVM_BBRAM_CTRL_START_ZEROIZE		((u32)0x01U << 0U)
+#define XNVM_BBRAM_CTRL_START_ZEROIZE		((u32)0x01U << 0U) /**< BBRAM Start Zeroize mask */
 /** @} */
 
 /**
- * @name  PGM_MODE register
+ * @name PGM_MODE register
+ * @{
  */
-/**< PGM_MODE Passcode */
-#define XNVM_EFUSE_PGM_MODE_PASSCODE		(0x757BDF0DU)
+#define XNVM_EFUSE_PGM_MODE_PASSCODE		(0x757BDF0DU)	/**< PGM_MODE Passcode */
 /** @} */
 
 /**
- * @name  MSW_LOCK register definition
+ * @name MSW_LOCK register definition
+ * @{
  */
-/**< BBRAM MSW LOCK Mask */
-#define XNVM_BBRAM_MSW_LOCK			((u32)0x01U << 0U)
+#define XNVM_BBRAM_MSW_LOCK			((u32)0x01U << 0U) /**< BBRAM MSW LOCK Mask */
 /** @} */
 
 /**
- * @name  Timeout in term of number of times status register polled
+ * @name Timeout in term of number of times status register polled
+ * @{
  */
-/**< PGM_MODE Timeout */
-#define XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL		(0x400U)
-
-/**< CRC_DONE Timeout */
-#define XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL	(0x400U)
-
-/**< ZEROIZE Timeout */
-#define XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL		(0x400U)
+#define XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL		(0x400U) /**< PGM_MODE Timeout */
+#define XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL	(0x400U) /**< CRC_DONE Timeout */
+#define XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL		(0x400U) /**< ZEROIZE Timeout */
 /** @} */
 
 /***************************** Type Definitions *******************************/

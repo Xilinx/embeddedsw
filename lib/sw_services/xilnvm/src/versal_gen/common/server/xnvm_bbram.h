@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -42,17 +42,19 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 /**
- * @{ AES Key size
+ * AES Key size
+ * @{
  */
-
-/**< AES Key size in bytes */
 #define XNVM_BBRAM_AES_KEY_SIZE          XNVM_256_BITS_AES_KEY_LEN_IN_BYTES
+			/**< AES Key size in bytes */
 #define XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS (XNVM_BBRAM_AES_KEY_SIZE / sizeof(u32))
+			/**< AES Key size in words */
+/** @} */
 
 /**
- * @{ BBRAM error codes
+ * BBRAM error codes
+ * @{
  */
-/**< BBRAM API error codes */
 #define XNVM_EFUSE_BBRAM_TAG                       (u32)(0x8100U) /**< BBRAM ERRORs Offset */
 #define XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  (XNVM_EFUSE_BBRAM_TAG | 0x00U)
 						/**< Error in enabling BBRAM Program mode */
@@ -79,6 +81,7 @@ extern "C" {
 						/**< Error, invalid AES key size */
 #define XNVM_BBRAM_ERROR_INVALID_ADDR_RANGE       (XNVM_EFUSE_BBRAM_TAG | 0x50U)
 						/**< Error, when accessed invalid address range */
+/** @} */
 /***************************** Type Definitions *******************************/
 
 /*************************** Function Prototypes ******************************/
@@ -108,5 +111,3 @@ int XNvm_BbramWriteConfigLimiterParams(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfCon
 #endif
 
 #endif
-
-/* @} */

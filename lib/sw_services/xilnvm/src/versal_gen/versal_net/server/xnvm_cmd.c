@@ -119,7 +119,7 @@ static XPlmi_Module XPlmi_Nvm =
 /*****************************************************************************/
 /**
  * @brief	This function checks for the supported features based on the
- * 		requested API ID
+ * 		requested API ID.
  *
  * @param	ApiId	ApiId to check the supported features
  *
@@ -165,7 +165,7 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 
 /*****************************************************************************/
 /**
- * @brief	This function processes XilNvm IPI commands
+ * @brief	This function processes XilNvm IPI commands.
  *
  * @param	Cmd 	Pointer to the XPlmi_Cmd structure
  *
@@ -256,7 +256,7 @@ void XNvm_CmdsInit(int (*OcpHandler)(void))
 {
 	u32 Idx;
 
-	/* Register command handlers with XilPlmi */
+	/** - Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
 		XNvm_Cmds[Idx].Handler = &XNvm_ProcessCmd;
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@
  ******************************************************************************/
 
 /**
- * @addtogroup xnvm_server_apis XilNvm Server APIs
+ * @addtogroup xnvm_server_apis XilNvm Plat Server APIs
  * @{
  */
 

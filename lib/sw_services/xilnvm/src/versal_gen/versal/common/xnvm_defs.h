@@ -35,7 +35,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+ * @addtogroup xnvm_def_api_ids XilNvm Definitions
+ * @{
+ */
 #ifndef XNVM_DEFS_H
 #define XNVM_DEFS_H
 
@@ -49,7 +52,9 @@ extern "C" {
 #include "xnvm_common_defs.h"
 
 /************************** Constant Definitions ****************************/
-
+/**@cond xnvm_internal
+ * @{
+ */
 #define XNVM_DEBUG	(0U)	/**< Enable client printfs by setting XNVM_DEBUG to 1 */
 
 #if (XNVM_DEBUG)
@@ -83,7 +88,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 /**
- * @brief PUF user data
+ * PUF user data
  */
 typedef struct {
 	u64 PufFuseDataAddr;	/**< PufUserFuseData Address */
@@ -94,7 +99,7 @@ typedef struct {
 } XNvm_EfusePufFuseAddr;
 #else
 /**
- * @brief PUF helper data
+ * PUF helper data
  */
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;/**< PufSecCtrlBits Data */
@@ -109,7 +114,7 @@ typedef struct {
 
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
 /**
- * @brief Efuse PUF Syndrome data
+ * Efuse PUF Syndrome data
  */
 typedef struct {
 	u32 Chash;	/**< Chash value to be programmed to Chash eFuses */
@@ -120,7 +125,7 @@ typedef struct {
 
 #ifdef XNVM_EN_ADD_PPKS
 /**
- * @brief Additional PPK Hash
+ * Additional PPK Hash
  */
 typedef struct {
 	u8 PrgmPpk3Hash; /**< Program flag for PPK3 Hash TRUE/FALSE */
@@ -131,7 +136,12 @@ typedef struct {
 #endif
 
 /**
- * @brief API ids, IDs ranging from an enum value of 24 to 35 are used by IPI
+ * @}
+ * @endcond
+ */
+
+/**
+ * API ids, IDs ranging from an enum value of 24 to 35 are used by IPI
  */
 typedef enum {
 	XNVM_API_FEATURES = 0,			/**< 0U */
@@ -180,3 +190,4 @@ typedef enum {
 #endif
 
 #endif  /* XNVM_DEFS_H */
+/** @} */

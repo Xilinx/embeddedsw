@@ -61,6 +61,9 @@
 #include "xsysmonpsv.h"
 #include "xplmi_sysmon.h"
 /**************************** Type Definitions *******************************/
+/**
+ * Structure to hold eFuse programming information
+ */
 typedef struct {
 	u32 StartRow; /**< Start row number of eFuse */
 	u32 ColStart; /**< Start column number of eFuse */
@@ -258,7 +261,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((KeyType != XNVM_EFUSE_AES_KEY) &&
@@ -274,7 +277,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -284,7 +287,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	}
 
 	/**
-	 * Unlock eFuse controller.
+	 * - Unlock eFuse controller.
 	 * On error return appropriate failure code.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -297,7 +300,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	Status = XST_FAILURE;
 
 	/**
-	 * Validate the Aes write request before writing AES into eFuse.
+	 * - Validate the Aes write request before writing AES into eFuse.
 	 * Return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING, if not success.
 	 */
 	Status = XNvm_EfuseValidateAesKeyWriteReq(KeyType);
@@ -309,13 +312,13 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	Status = XST_FAILURE;
 
 	/**
-	 * Program Aes key into eFuse.
+	 * - Program Aes key into eFuse.
 	 */
 	Status = XNvm_EfusePrgmAesKey(KeyType, EfuseKey);
 
 END_CLS_CONTROLLER:
 	/**
-	 *  Lock eFuse Controller.
+	 *  - Lock eFuse Controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -354,7 +357,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
 
@@ -371,7 +374,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -381,7 +384,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	}
 
 	/**
-	 * Unlock eFuse controller.
+	 * - Unlock eFuse controller.
 	 * On error return appropriate failure code.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -392,7 +395,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	}
 
 	/**
-	 * Validate the PPK hash write request before writing PPK into eFuse.
+	 * - Validate the PPK hash write request before writing PPK into eFuse.
 	 * Return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING, if not success.
 	 */
 	Status = XST_FAILURE;
@@ -405,13 +408,13 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	Status = XST_FAILURE;
 
 	/**
-	 * Program PPK hash into eFuse.
+	 * - Program PPK hash into eFuse.
 	 */
 	Status = XNvm_EfusePrgmPpkHash(PpkType, EfuseHash);
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -454,7 +457,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if ((IvType != XNVM_EFUSE_META_HEADER_IV_RANGE) &&
@@ -472,7 +475,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -482,7 +485,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 
 	/**
-	 * Unlock eFuse controller.
+	 * - Unlock eFuse controller.
 	 * On error return appropriate failure code.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -493,7 +496,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 
 	/**
-	 * Validate IVs write request before writing IVs into eFuse.
+	 * - Validate IVs write request before writing IVs into eFuse.
 	 * Return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING, if not success.
 	 */
 	Status = XST_FAILURE;
@@ -505,13 +508,13 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program IVs into eFuse.
+	 * - Program IVs into eFuse.
 	 */
 	Status = XNvm_EfusePrgmIv(IvType, EfuseIv);
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -551,7 +554,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -561,7 +564,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 	}
 
 	/**
-	 * Unlock eFuse controller.
+	 * - Unlock eFuse controller.
 	 * On error return appropriate failure code.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -574,7 +577,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 	Status = XST_FAILURE;
 
 	/**
-	 * Compute glitch config programmable bits to program.
+	 * - Compute glitch config programmable bits to program.
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&GlitchConfig,
 					&PrgmGlitchConfig,
@@ -596,7 +599,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify the glitch config bits.
+	 * - Program and verify the glitch config bits.
 	 */
 	if (GlitchDetVal != 0U) {
 		Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &GlitchDetVal);
@@ -619,7 +622,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -655,7 +658,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -665,7 +668,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -677,7 +680,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 
 	Status = XST_FAILURE;
 	/**
-	 *  Validate Decrypt only request before programming.
+	 *  - Validate Decrypt only request before programming.
 	 *  Return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING, if not success.
 	 */
 	Status = XNvm_EfuseValidateDecOnlyRequest();
@@ -694,7 +697,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify decrypt only data.
+	 * - Program and verify decrypt only data.
 	 * Return XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &Data);
@@ -704,7 +707,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -745,7 +748,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if (RevokeIdNum > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
@@ -755,7 +758,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 * Perform Environmental monitoring checks.
+		 * - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -765,7 +768,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	}
 
 	/**
-	 * Unlock eFuse controller.
+	 * - Unlock eFuse controller.
 	 * Return appropriate error code upon failure.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -775,7 +778,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 		goto END_CLS_CONTROLLER;
 	}
 	/**
-	 * Compute start column and row offset values.
+	 * - Compute start column and row offset values.
 	 */
 	if (RevokeIdNum <= XNVM_EFUSE_REVOKE_ID_127) {
 		Offset = 0U;
@@ -786,7 +789,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 		StartCol = XNVM_EFUSE_REVOKE_ID_128_TO_255_START_COL_NUM;
 	}
 	/**
-	 * Calculate the Row and Column numbers based on the revoke id number input provided.
+	 * - Calculate the Row and Column numbers based on the revoke id number input provided.
 	 */
 	RevokeIdRow = XNVM_EFUSE_REVOKE_ID_START_ROW + ((RevokeIdNum - Offset) / XNVM_EFUSE_BITS_IN_A_BYTE);
 	RevokeIdCol = StartCol + (RevokeIdNum % XNVM_EFUSE_BITS_IN_A_BYTE);
@@ -794,7 +797,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	Status = XST_FAILURE;
 
 	/**
-	 * Program revocation Ids data.
+	 * - Program revocation Ids data.
 	 * Return XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -805,7 +808,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -842,7 +845,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if (OffchipIdNum > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
@@ -852,7 +855,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -862,7 +865,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -878,7 +881,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify revocation Ids data.
+	 * - Program and verify revocation Ids data.
 	 * Return XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -889,7 +892,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -926,7 +929,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -936,7 +939,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -948,7 +951,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Compute MiscCtrl programmable bits to program.
+	 * - Compute MiscCtrl programmable bits to program.
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&MiscCtrlBits,
 				&RdMiscCtrlBits,
@@ -967,7 +970,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify miscellaneous control bits.
+	 * - Program and verify miscellaneous control bits.
 	 * Return XNVM_EFUSE_ERR_WRITE_MISC_CTRL_BITS upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &RdMiscCtrlBits);
@@ -977,7 +980,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1013,7 +1016,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1023,7 +1026,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1035,7 +1038,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Compute secure control programmable bits to program.
+	 * - Compute secure control programmable bits to program.
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&SecCtrlBits, &RdSecCtrlBits,
 				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET,
@@ -1053,7 +1056,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify security controls bits.
+	 * - Program and verify security controls bits.
 	 * Return XNVM_EFUSE_ERR_WRITE_SEC_CTRL_BITS upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &RdSecCtrlBits);
@@ -1063,7 +1066,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1099,7 +1102,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1109,7 +1112,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1121,7 +1124,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Compute security misc1 programmable bits to program.
+	 * - Compute security misc1 programmable bits to program.
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&Misc1Bits, &RdMisc1Bits,
 				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET,
@@ -1139,7 +1142,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify miscellaneous 1 controls bits.
+	 * - Program and verify miscellaneous 1 controls bits.
 	 * Return XNVM_EFUSE_ERR_WRITE_MISC1_CTRL_BITS upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &RdMisc1Bits);
@@ -1149,7 +1152,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1186,7 +1189,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1196,7 +1199,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1208,7 +1211,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Compute BootEnvCtrl programmable bits to program.
+	 * - Compute BootEnvCtrl programmable bits to program.
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&BootEnvCtrlBits,
 				&RdBootEnvCtrlBits,
@@ -1227,7 +1230,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify miscellaneous 1 controls bits.
+	 * - Program and verify miscellaneous 1 controls bits.
 	 * Return XNVM_EFUSE_ERR_WRITE_BOOT_ENV_CTRL upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &RdBootEnvCtrlBits);
@@ -1237,7 +1240,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1272,7 +1275,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (FipsVersion > XNVM_EFUSE_MAX_FIPS_VERSION) {
@@ -1287,7 +1290,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1297,7 +1300,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1309,7 +1312,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 
 	Status = XST_FAILURE;
 	/**
-	 * Validate Fips information.
+	 * - Validate Fips information.
 	 * Return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING upon failure.
 	 */
 	Status = XNvm_EfuseValidateFipsInfo(FipsMode, FipsVersion);
@@ -1320,13 +1323,13 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program Fips information into eFuse.
+	 * - Program Fips information into eFuse.
 	 */
 	Status = XNvm_EfusePrgmFipsInfo(FipsMode, FipsVersion);
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1363,7 +1366,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (EfuseUds == NULL) {
@@ -1373,7 +1376,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 * Perform environmental monitoring checks.
+		 * - Perform environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1383,7 +1386,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1394,7 +1397,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	}
 
 	/**
-	 * Read security ctrl efuse cache register and check if UDS_WR_LK
+	 * - Read security ctrl efuse cache register and check if UDS_WR_LK
 	 * is programmed. If yes, return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING
 	 * else proceed for UDS programming.
 	 */
@@ -1409,7 +1412,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	}
 
 	/**
-	 * Program and verify UDS data.
+	 * - Program and verify UDS data.
 	 */
 	EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
 	EfusePrgmInfo.SkipVerify = XNVM_EFUSE_SKIP_VERIFY;
@@ -1464,7 +1467,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	}
 
 	/**
-	 * Reload cache and check protection bits.
+	 * - Reload cache and check protection bits.
 	 */
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 	if (Status != XST_SUCCESS) {
@@ -1473,12 +1476,12 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	}
 
 	/**
-	 * Calculate CRC for UDS data.
+	 * - Calculate CRC for UDS data.
 	 */
 	Crc = XNvm_UdsCrcCalc(EfuseUds->Uds);
 
 	/**
-	 * Check UDS Crc.
+	 * - Check UDS Crc.
 	 * Return XNVM_EFUSE_ERR_WRITE_UDS upon failure
 	 */
 	Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_CTRL_UDS_DICE_CRC_OFFSET,
@@ -1490,7 +1493,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1524,7 +1527,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	const XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if (KeyType > XNVM_DME_USER_KEY_MAX_VALUE) {
@@ -1539,7 +1542,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 * Perform Environmental monitoring checks.
+		 * - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1549,7 +1552,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	}
 #ifndef VERSAL_2VE_2VM
 	/**
-	 * Check if DmeMode eFuse is programmed.
+	 * - Check if DmeMode eFuse is programmed.
 	 * If yes, return failure.
 	 */
 	Status = XNvm_IsDmeModeEn();
@@ -1571,13 +1574,13 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 
 	Status = XST_FAILURE;
 	/**
-	 * Program dme user key into eFuse.
+	 * - Program dme user key into eFuse.
 	 */
 	Status = XNvm_EfusePrgmDmeUserKey(KeyType, EfuseKey);
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1617,7 +1620,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	const XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (RevokeNum > XNVM_DME_REVOKE_MAX_VALUE) {
@@ -1627,7 +1630,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform environmental monitoring checks.
+		 *  - Perform environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1637,7 +1640,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1685,7 +1688,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify dme revoke data.
+	 * - Program and verify dme revoke data.
 	 */
 	Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 					Row, Col_0_Num, XNVM_EFUSE_PROGRAM_VERIFY);
@@ -1706,7 +1709,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1740,7 +1743,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1750,7 +1753,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1762,7 +1765,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify Plm update data.
+	 * - Program and verify Plm update data.
 	 */
 	Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 					XNVM_EFUSE_DISABLE_PLM_UPDATE_ROW,
@@ -1774,7 +1777,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1812,7 +1815,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1822,7 +1825,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1840,7 +1843,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify boot mode disable data.
+	 * - Program and verify boot mode disable data.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &BootModeMask);
 
@@ -1850,7 +1853,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1887,7 +1890,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 * Perform Environmental monitoring checks.
+		 * - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1897,7 +1900,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -1915,7 +1918,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 
 	Status = XST_FAILURE;
 	/**
-	 *   Program and verify dme mode data
+	 *  - Program and verify dme mode data
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &DmeMode);
 	if (Status != XST_SUCCESS) {
@@ -1923,8 +1926,8 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 	}
 
 END_CLS_CONTROLLER:
-    /**
-	 *  Lock eFuse controller
+	/**
+	 *  - Lock eFuse controller
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -1967,7 +1970,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks
+		 *  - Perform Environmental monitoring checks
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1977,7 +1980,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 	}
 
 	/**
-	 *  Read CRC eFUSE cache offset.
+	 *  - Read CRC eFUSE cache offset.
 	 *  Return XNVM_EFUSE_ERR_WRITE_CRC | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING if crc non zero.
 	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, XNVM_EFUSE_CACHE_CRC_OFFSET);
@@ -1987,7 +1990,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 	}
 
 	/**
-	 *  Unlock eFuse Controller.
+	 *  - Unlock eFuse Controller.
 	 *  Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD);
@@ -2004,7 +2007,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify Uds Crc data.
+	 * - Program and verify Uds Crc data.
 	 * Return XNVM_EFUSE_ERR_WRITE_CRC upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &Crc);
@@ -2021,7 +2024,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify Uds Crc salt data.
+	 * - Program and verify Uds Crc salt data.
 	 * Return XNVM_EFUSE_ERR_WRITE_CRC_SALT upon failure.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &CrcSalt);
@@ -2031,7 +2034,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 
 END_CLS_CONTROLLER:
 	/**
-	 *  Lock eFuse controller.
+	 *  - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -2069,7 +2072,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufHelperData == NULL) {
@@ -2078,7 +2081,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	}
 
 	/**
-	 *  Unlock eFuse Controller.
+	 *  - Unlock eFuse Controller.
 	 *  Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -2089,7 +2092,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	}
 
 	/**
-	 * Read directly from cache offset of the PufCtrl data.
+	 * - Read directly from cache offset of the PufCtrl data.
 	 */
 	PufSecurityCtrlReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET);
@@ -2105,7 +2108,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 
 	if (PufHelperData->EnvMonitorDis != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -2116,7 +2119,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	if (PufHelperData->PrgmPufHelperData == TRUE) {
 		Status = XST_FAILURE;
 		/**
-		 *  Check if Puf helper data is empty.
+		 *  - Check if Puf helper data is empty.
 		 *  Return XNVM_EFUSE_ERR_BEFORE_PROGRAMMING if empty.
 		 */
 		Status = XNvm_EfuseIsPufHelperDataEmpty();
@@ -2127,7 +2130,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 
 		Status = XST_FAILURE;
 		/**
-		 *  Write puf syndrome data into eFuse.
+		 *  - Write puf syndrome data into eFuse.
 		 *  Return XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA upon failure.
 		 */
 		Status = XNvm_EfuseWritePufSynData(PufHelperData->EfuseSynData);
@@ -2138,7 +2141,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 
 		Status = XST_FAILURE;
 		/**
-		 * Write puf chash data into eFuse.
+		 * - Write puf chash data into eFuse.
 		 * Return XNVM_EFUSE_ERR_WRITE_PUF_CHASH upon failure.
 		 */
 		Status = XNvm_EfuseWritePufChash(PufHelperData->Chash);
@@ -2149,7 +2152,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 
 		Status = XST_FAILURE;
 		/**
-		 * Write puf aux into eFuse.
+		 * - Write puf aux into eFuse.
 		 * Return XNVM_EFUSE_ERR_WRITE_PUF_AUX upon failure.
 		 */
 		Status = XNvm_EfuseWritePufAux(PufHelperData->Aux);
@@ -2161,7 +2164,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		if (PufHelperData->RoSwap != 0x0U) {
 			Status = XST_FAILURE;
 			/**
-			 * Write puf RoSwap data into eFuse.
+			 * - Write puf RoSwap data into eFuse.
 			 * Return XNVM_EFUSE_ERR_WRITE_RO_SWAP upon failure.
 			 */
 			Status = XNvm_EfuseWriteRoSwapEn(PufHelperData->RoSwap);
@@ -2174,7 +2177,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 
 END_CLS_CONTROLLER:
 	/**
-	 *  Lock eFuse controller.
+	 *  - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -2205,7 +2208,7 @@ static int XNvm_UdsCrcCalc(const u32 *Uds)
 	volatile u32 Temp2Crc;
 
 	for (Idx = 0U; Idx < XNVM_UDS_SIZE_IN_WORDS; Idx++) {
-		/* Process each bits of 32-bit Value */
+		/** - Process each bits of 32-bit Value */
 		Value = Uds[XNVM_UDS_SIZE_IN_WORDS - Idx - 1U];
 		for (BitNo = 0U; BitNo < 32U; BitNo++) {
 			Temp1Crc = Crc >> 1U;
@@ -2219,7 +2222,7 @@ static int XNvm_UdsCrcCalc(const u32 *Uds)
 			Value = Value >> 1U;
 		}
 
-		/* Get 5-bit from Address */
+		/** - Get 5-bit from Address */
 		Value = XNVM_UDS_SIZE_IN_WORDS - (u32)Idx;
 		for (BitNo = 0U; BitNo < 5U; BitNo++) {
 			Temp1Crc = Crc >> 1U;
@@ -2332,7 +2335,7 @@ END:
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 * Validate input parameters.
+	 * - Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((PufCtrlBits == 0U) || ((PufCtrlBits & (~XNVM_EFUSE_PUF_SEC_CTRL_INVLD_MASK)) != 0U)) {
@@ -2341,7 +2344,7 @@ END:
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -2354,7 +2357,7 @@ END:
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 * Perform Environmental monitoring checks.
+		 * - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -2400,7 +2403,7 @@ END:
 
 END_CLS_CONTROLLER:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -2581,14 +2584,14 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 	}
 
 	/**
-	 * Validate input parameters
+	 * - Validate input parameters
 	 */
 	StartRowCache = (XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET / XNVM_WORD_LEN) +
 			WritePufFuses->StartPufFuseRow;
 	EndRowCache = StartRowCache + WritePufFuses->NumOfPufFusesRows;
 
 	/**
-	 * Validate PufFuses before programming
+	 * - Validate PufFuses before programming
 	 */
 	for (Row = StartRowCache; Row < EndRowCache; Row++) {
 		CacheValue = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Row * XNVM_WORD_LEN);
@@ -2601,7 +2604,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 	}
 
 	/**
-	 * Compute programmable bits
+	 * - Compute programmable bits
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(WritePufFuses->PufFuseData,
 							PufFusesDataToPrgm,
@@ -2612,14 +2615,14 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 	}
 
 	/**
-	 * Program PUF fuses in chunks of page size
+	 * - Program PUF fuses in chunks of page size
 	 */
 	StartRow = WritePufFuses->StartPufFuseRow;
 	ToBeProgrammed = WritePufFuses->NumOfPufFusesRows;
 	DataPtr = PufFusesDataToPrgm;
 
 	/**
-	 * Setup common programming parameters for PUF fuses
+	 * - Setup common programming parameters for PUF fuses
 	 */
 	EfusePrgmInfo.ColStart = XNVM_EFUSE_PUF_SYN_DATA_START_COL_NUM;
 	EfusePrgmInfo.ColEnd = XNVM_EFUSE_PUF_SYN_DATA_END_COL_NUM;
@@ -2640,7 +2643,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 		RowsRemainingInPage = XNVM_EFUSE_PUF_ROWS_PER_PAGE - RowOffset;
 
 		/**
-		 * Setup programming parameters based on page.
+		 * - Setup programming parameters based on page.
 		 * Least significant 6 bits are index in page, 7th bit is page index.
 		 */
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_ROW + RowOffset;
@@ -2648,13 +2651,13 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 		EfusePrgmInfo.EfuseType = (XNvm_EfuseType)(StartRow >> XNVM_EFUSE_PUF_PAGE_ROW_INDEX_BITS);
 
 		/**
-		 * Program up to end of page or remaining eFuses, whichever is smaller
+		 * - Program up to end of page or remaining eFuses, whichever is smaller
 		 */
 		NumRows = (ToBeProgrammed < RowsRemainingInPage) ? ToBeProgrammed : RowsRemainingInPage;
 		EfusePrgmInfo.NumOfRows = NumRows;
 
 		/**
-		 * Program the eFuses for this page chunk
+		 * - Program the eFuses for this page chunk
 		 */
 		Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &DataPtr[DataOffset]);
 		if (Status != XST_SUCCESS) {
@@ -2662,7 +2665,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 		}
 
 		/**
-		 * Update counters and offsets for next iteration
+		 * - Update counters and offsets for next iteration
 		 */
 		ToBeProgrammed -= NumRows;
 		StartRow += NumRows;
@@ -2701,7 +2704,7 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 */
 	if (PufFuse == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -2731,7 +2734,7 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	*  Validate PUF user fuse access (checks PUF_SYN_LK, CHASH, AUX, DEC_ONLY)
+	*  - Validate PUF user fuse access (checks PUF_SYN_LK, CHASH, AUX, DEC_ONLY)
 	*/
 	Status = XNvm_EfuseValidatePufUserFuseAccess();
 	if (Status != XST_SUCCESS) {
@@ -2739,7 +2742,7 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Monitor voltage and temperature if EnvMonitorDis is TRUE.
+	 *  - Monitor voltage and temperature if EnvMonitorDis is TRUE.
 	 */
 	if (PufFuse->EnvMonitorDis != TRUE) {
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
@@ -2750,7 +2753,7 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Unlock the eFUSE controller. On failure return appropriate failure code.
+	 *  - Unlock the eFUSE controller. On failure return appropriate failure code.
 	 *  Set reference clock.
 	 *  Set read mode.
 	 */
@@ -2761,7 +2764,7 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Program PUF Fuses if it set by user.
+	 *  - Program PUF Fuses if it set by user.
 	 */
 	if (PufFuse->PrgmPufFuse == TRUE) {
 		Status = XNvm_EfusePrgmPufFuses(PufFuse);
@@ -2772,20 +2775,20 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Reload the cache once programming of all eFuses requested are programmed.
+	 *  - Reload the cache once programming of all eFuses requested are programmed.
 	 */
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 
 END:
 	/**
-	 *  Reset Read mode.
+	 *  - Reset Read mode.
 	 */
 	ResetStatus = XNvm_EfuseResetReadMode();
 	if (XST_SUCCESS == Status) {
 		Status = ResetStatus;
 	}
 	/**
-	 *  Disable eFuse Programming mode.
+	 *  - Disable eFuse Programming mode.
 	 */
 	DisableStatus = XNvm_EfuseDisableProgramming();
 	if (XST_SUCCESS == Status) {
@@ -2793,7 +2796,7 @@ END:
 	}
 
 	/**
-	 *  Lock eFuse controller
+	 *  - Lock eFuse controller
 	 */
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
@@ -2865,7 +2868,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		goto END;
 	}
 
-	/* Check DME key eFuse if they are already programmed */
+	/** - Check DME key eFuse if they are already programmed */
 	RdOffset = StartOffset;
 	while (RdOffset < (StartOffset + XNVM_EFUSE_DME_KEY_SIZE_IN_BYTES)) {
 		RegData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, RdOffset);
@@ -2913,7 +2916,7 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 	volatile int CloseStatus = XST_FAILURE;
 
 	/**
-	 *  Unlock eFuse Controller. Return appropriate error code if not success
+	 *  - Unlock eFuse Controller. Return appropriate error code if not success
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
 					XNVM_EFUSE_MARGIN_RD);
@@ -2923,7 +2926,7 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 	}
 
 	/**
-	 * Reload Cache and check protection bits.
+	 * - Reload Cache and check protection bits.
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
@@ -2933,7 +2936,7 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 	}
 
 	/**
-	 *  Write protection bits into eFuse.
+	 *  - Write protection bits into eFuse.
 	 *  Return error code upon failure.
 	 */
 	Status = XST_FAILURE;
@@ -2944,14 +2947,14 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 	}
 
 	/**
-	 * Reload cache and check protection bits.
+	 * - Reload cache and check protection bits.
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 
 END:
 	/**
-	 * Lock eFuse controller.
+	 * - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -3818,7 +3821,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -3828,7 +3831,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 	}
 
 	/**
-	 * Unlock eFuse Controller.
+	 * - Unlock eFuse Controller.
 	 * Return appropriate error code if not success.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -3840,7 +3843,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Compute programmable data for RomRsvd data.
+	 * - Compute programmable data for RomRsvd data.
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&RomRsvdBits,
 				&WrRomRsvdBits,
@@ -3859,7 +3862,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 
 	Status = XST_FAILURE;
 	/**
-	 * Program and verify RomRsvdBits.
+	 * - Program and verify RomRsvdBits.
 	 */
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &WrRomRsvdBits);
 
@@ -3869,7 +3872,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 
 END_CLS_CONTROLLER:
 	/**
-	 *  Lock eFuse controller.
+	 *  - Lock eFuse controller.
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
@@ -3967,7 +3970,7 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 	u32 Data;
 
 	/**
-	 * This condition ensures that the calculated EndRow does not exceed the last
+	 * - This condition ensures that the calculated EndRow does not exceed the last
 	 * permissible eFuse row. The maximum valid row index is
 	 * defined by XNVM_EFUSE_LAST_ROW_IN_PAGE. Since row indices start from 0,
 	 * the check is against (XNVM_EFUSE_LAST_ROW_IN_PAGE + 1U).
@@ -4319,7 +4322,7 @@ static int XNvm_EfuseValidateCrc(void)
 	InputData[Index++] = Xil_In32(XNVM_EFUSE_CACHE_ANLG_TRIM_7);
 
 	/*
-	 * Only the lower nibble is considered, so the value
+	 * - Only the lower nibble is considered, so the value
 	 * considered for CRC calculation would be
 	 * 0x0000000X
 	 */
@@ -4391,7 +4394,8 @@ static u32 XNvm_EfuseCalculateCrc32(const u8* Data, u32 Len)
 {
 	u32 Crc = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 Index;
-	/** CRC32 Lookup Table
+	/**
+	 * CRC32 Lookup Table
 	 * Polynomial : 0x1EDC6F41
 	 */
 	static const u32 Crc32_LookupTbl[] = {

@@ -23,7 +23,7 @@
 **************************************************************************************************/
 
 /**
- * @addtogroup xnvm_client_apis XilNvm Client APIs
+ * @addtogroup xnvm_mailbox_apis XilNvm Mailbox APIs
  * @{
  */
 
@@ -69,26 +69,26 @@ int XNvm_SendRequest(const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	/** For AArch64 EL1 non-secure, use SMC call */
+	/** - For AArch64 EL1 non-secure, use SMC call */
 	(void)InstancePtr; /**< Mark InstancePtr as unused to avoid compiler warning */
 
-	/** Perform SMC call for EL1 non-secure AArch64 applications */
+	/** - Perform SMC call for EL1 non-secure AArch64 applications */
 	Status = XNvm_SmcCall(PayloadBuf, PayloadLen, ResponseBuf, ResponseLen);
 #else
-	/** Validate mailbox pointer for IPI communication */
+	/** - Validate mailbox pointer for IPI communication */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Send request through IPI mailbox */
+	/** - Send request through IPI mailbox */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, PayloadBuf, PayloadLen);
 
 	/**

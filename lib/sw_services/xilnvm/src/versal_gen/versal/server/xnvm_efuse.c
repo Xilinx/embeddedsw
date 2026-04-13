@@ -124,39 +124,25 @@
 /*************************** Constant Definitions *****************************/
 /**
  * @name eFuse macro definitions
-  */
-/**< CRC for Aes zero key */
-#define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U)
-/**< Efuse total number of rows */
-#define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(768U)
-/**< PPK hash number of eFuse rows */
+ * @{
+ */
+#define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U) /**< CRC for Aes zero key */
+#define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(768U) /**< Efuse total number of rows */
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS  (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)
-/**< eFuse word length */
-#define XNVM_EFUSE_WORD_LEN			(4U)
-/**< Default secure value for 32 bit */
-#define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
-/**< Sysmon VCCPMC Amux ctrl value */
-#define XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL	(0x0bU)
-/**< Sysmon VCCPMC Abus sw1 value */
-#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1	(0x00U)
-/**< Sysmon VCCPMC Abus sw0 value*/
-#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0	(0x02U)
-/**< Sysmon VCCPMC mode value */
-#define XNVM_EFUSE_SYSMON_VCCPMC_MODE		(0x00U)
-/**< Sysmon number of measurement registers */
-#define XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS	(0x20U)
-/**< Sysmon number of supplies per flag */
-#define XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG	(32U)
-/**< Sysmon Psv timeout value */
-#define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U)
-/**< Fraction multiplier value */
-#define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U)
-
-#define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE		(0x400U)
-/**< PPK3 and PPK4 enable bits mask*/
-#define XNVM_EFUSE_PPK_3_PPK_4_ENABLE       (0x00030000U)
-/**< Total number of PPKS */
-#define XNVM_EFUSE_NUM_OF_PPKS				(3U)
+				/**< PPK hash number of eFuse rows */
+#define XNVM_EFUSE_WORD_LEN			(4U) /**< eFuse word length */
+#define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU) /**< Default secure value for 32 bit */
+#define XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL	(0x0bU)	/**< Sysmon VCCPMC Amux ctrl value */
+#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1	(0x00U) /**< Sysmon VCCPMC Abus sw1 value */
+#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0	(0x02U) /**< Sysmon VCCPMC Abus sw0 value*/
+#define XNVM_EFUSE_SYSMON_VCCPMC_MODE		(0x00U) /**< Sysmon VCCPMC mode value */
+#define XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS	(0x20U) /**< Sysmon number of measurement registers */
+#define XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG	(32U)   /**< Sysmon number of supplies per flag */
+#define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U) /**< Sysmon Psv timeout value */
+#define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U) /**< Fraction multiplier value */
+#define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE		(0x400U)  /**< Number of cache addresses per page */
+#define XNVM_EFUSE_PPK_3_PPK_4_ENABLE       (0x00030000U) /**< PPK3 and PPK4 enable bits mask*/
+#define XNVM_EFUSE_NUM_OF_PPKS			(3U)      /**< Total number of PPKS */
 /** @} */
 
 /***************************** Type Definitions *******************************/
@@ -262,7 +248,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	int ResetStatus = XST_FAILURE;
 
         /**
-	 *  Check for input parameters.
+	 *  - Check for input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (WriteNvm == NULL) {
@@ -291,7 +277,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 
 	if ((WriteNvm->EnvMonitorDis != TRUE)) {
 		/**
-                 * NULL for SysMonInstPtr indicates, no need to check for
+                 * - NULL for SysMonInstPtr indicates, no need to check for
                  * temperature and Voltage before eFUSE programming.
                  * Non-NULL indicates, perform Temp and Volt monitoring.
                  */
@@ -301,7 +287,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		}
 
 		/**
-		 *  Perform Environmental monitoring checks.
+		 *  - Perform Environmental monitoring checks.
 		 */
 
 		Status = XNvm_EfuseTempAndVoltChecks(WriteNvm->SysMonInstPtr);
@@ -312,7 +298,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
         /**
-	 *  Unlock Efuse controller.
+	 *  - Unlock Efuse controller.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
 					XNVM_EFUSE_MARGIN_RD);
@@ -321,7 +307,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
         /**
-	 *  Validate all the write requests for AesKeys, PPK hash 0/1/2/3/4, Revocation Ids, Ivs, DecOnly, User eFuses, Glitch configuration, BootEnvCtrl, Misc1 Ctrl and offchip revocation eFuses.
+	 *  - Validate all the write requests for AesKeys, PPK hash 0/1/2/3/4, Revocation Ids, Ivs, DecOnly, User eFuses, Glitch configuration, BootEnvCtrl, Misc1 Ctrl and offchip revocation eFuses.
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_EfuseValidateWriteReq(WriteNvm);
@@ -331,7 +317,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check if GlitchCfgBits user config is NULL, else program Glitch configuration,
+         * - Check if GlitchCfgBits user config is NULL, else program Glitch configuration,
          * glitch detection wrlk , glitch gdrommonen and glitch haltbooten eFUSEs.
          */
 	if (WriteNvm->GlitchCfgBits != NULL) {
@@ -367,7 +353,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for AesKeys configuration, if NULL do nothing
+         * - Check for AesKeys configuration, if NULL do nothing
          * else program aes key eFUSE with the user provided data.
          */
 	if (WriteNvm->AesKeys != NULL) {
@@ -379,7 +365,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for PpkHash configuration, if NULL do nothing
+         * - Check for PpkHash configuration, if NULL do nothing
          * else program ppk hash eFUSEs with the user provided data.
          */
 	if (WriteNvm->PpkHash != NULL) {
@@ -391,7 +377,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for Ivs configuration, if NULL do nothing
+         * - Check for Ivs configuration, if NULL do nothing
          * else program IV eFUSE with the user provided data.
          */
 	if (WriteNvm->Ivs != NULL) {
@@ -403,7 +389,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for DecOnly configuration, if NULL do nothing
+         * - Check for DecOnly configuration, if NULL do nothing
          * else program DecOnly eFUSEs.
          */
 	if (WriteNvm->DecOnly != NULL) {
@@ -415,7 +401,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for RevokeIds configuration, if NULL do nothing
+         * - Check for RevokeIds configuration, if NULL do nothing
          * else program RevocationID eFUSEs with the user provided data.
          */
 	if (WriteNvm->RevokeIds != NULL) {
@@ -427,7 +413,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for OffChipIds configuration, if NULL do nothing
+         * - Check for OffChipIds configuration, if NULL do nothing
          * else program OffChipID eFUSEs with the user provided data.
          */
 	if (WriteNvm->OffChipIds != NULL) {
@@ -440,7 +426,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 
 #ifdef XNVM_EN_ADD_PPKS
 	/**
-         * Check for Additional PPK configuration, if NULL do nothing
+         * - Check for Additional PPK configuration, if NULL do nothing
          * else program additional PPK eFUSE reserved in MiscCtrl eFUSEs.
          */
 	if (WriteNvm->MiscCtrlBits != NULL) {
@@ -451,7 +437,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		}
 	}
 	/**
-         * Check for Additional PPK configuration, if NULL do nothing
+         * - Check for Additional PPK configuration, if NULL do nothing
          * else program additional PPK eFUSEs with the user provided data.
          */
 	if (WriteNvm->AdditionalPpkHash != NULL) {
@@ -463,7 +449,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 #endif
 	/**
-         * Check for MiscCtrlBits configuration, if NULL do nothing
+         * - Check for MiscCtrlBits configuration, if NULL do nothing
          * else program MiscCtrl eFUSEs with the user provided data.
          */
 	if (WriteNvm->MiscCtrlBits != NULL) {
@@ -514,7 +500,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for UserFuses configuration, if NULL do nothing
+         * - Check for UserFuses configuration, if NULL do nothing
          * else program user eFUSEs with the user provided data.
          */
 	if (WriteNvm->UserFuses != NULL) {
@@ -526,7 +512,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for Misc1Bits configuration, if NULL do nothing
+         * - Check for Misc1Bits configuration, if NULL do nothing
          * else program Misc1Ctrl eFUSEs with the user provided data.
          */
 	if (WriteNvm->Misc1Bits != NULL) {
@@ -538,7 +524,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for BootEnvCtrl configuration, if NULL do nothing
+         * - Check for BootEnvCtrl configuration, if NULL do nothing
          * else program BootEnvCtrl eFUSEs with the user provided data.
          */
 	if (WriteNvm->BootEnvCtrl != NULL) {
@@ -550,7 +536,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	/**
-         * Check for SecCtrlBits configuration, if NULL do nothing
+         * - Check for SecCtrlBits configuration, if NULL do nothing
          * else program SecCtrl eFUSEs with the user provided data.
          */
 	if (WriteNvm->SecCtrlBits != NULL) {
@@ -562,7 +548,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
        /**
-        * Reload the eFUSE cache.
+        * - Reload the eFUSE cache.
 	*/
 	Status = XST_FAILURE;
 	Status = XNvm_EfuseCacheLoadAndProtectionChecks();
@@ -571,13 +557,13 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
         /**
-	 * Program the Protection Row Efuses.
+	 * - Program the Protection Row Efuses.
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_EfusePrgmProtectionEfuse();
 END:
         /**
-	 *  Reset Read mode.
+	 * - Reset Read mode.
 	 */
 	ResetStatus = XNvm_EfuseResetReadMode();
 	if (XST_SUCCESS == Status) {
@@ -585,7 +571,7 @@ END:
 	}
 
 	/**
-	 *  Disable programming mode.
+	 * - Disable programming mode.
 	 */
 	DisableStatus = XNvm_EfuseDisableProgramming();
 	if (XST_SUCCESS == Status) {
@@ -593,7 +579,7 @@ END:
 	}
 
 	/**
-	 *  Lock Efuse controller.
+	 * - Lock Efuse controller.
 	 */
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
@@ -621,7 +607,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 	u32 RegData = 0U;
 
         /**
-	 *  Perform input parameter validation.
+	 *  - Perform input parameter validation.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (SecCtrlBits == NULL) {
@@ -630,7 +616,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 	}
 
 	/**
-	 *  Read Directly from cache offset of security control to fill the SecCtrlBits structure.
+	 *  - Read Directly from cache offset of security control to fill the SecCtrlBits structure.
 	 *  Return XST_SUCCESS if read is success.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_CONTROL_ROW,
@@ -734,7 +720,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_EfuseSecMisc1Bits *SecMisc1Bits)
 	u32 RegData = 0U;
 
         /**
-	 *  Perform input parameter validation.
+	 *  - Perform input parameter validation.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (SecMisc1Bits == NULL) {
@@ -743,7 +729,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_EfuseSecMisc1Bits *SecMisc1Bits)
 	}
 
 	/**
-	 *  Read Directly from cache offset of SEC_MISC1 to fill SecMisc1Bits structure.
+	 *  - Read Directly from cache offset of SEC_MISC1 to fill SecMisc1Bits structure.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_MISC_1_ROW,
 			&RegData);
@@ -794,7 +780,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits)
 	u32 RegData = 0U;
 
         /**
-	 *  Perform input parameter validation.
+	 *  - Perform input parameter validation.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (BootEnvCtrlBits == NULL) {
@@ -803,7 +789,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits)
 	}
 
 	/**
-	 * Read directly from cache offset of BOOT_ENV_CTRL offset to fill the BootEnvCtrlBits structure.
+	 * - Read directly from cache offset of BOOT_ENV_CTRL offset to fill the BootEnvCtrlBits structure.
 	 * Return XST_SUCCESS if read is success.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_ENV_CTRL_ROW,
@@ -875,7 +861,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	u32 PufSecurityCtrlReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufHelperData == NULL) {
@@ -884,7 +870,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	}
 
         /**
-	 *  Read from cache offset of Puf SecCtrl bits.
+	 *  - Read from cache offset of Puf SecCtrl bits.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_CONTROL_ROW,
 				&PufSecurityCtrlReg);
@@ -903,7 +889,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 
 	if (PufHelperData->EnvMonitorDis != TRUE) {
 		/**
-                 * NULL for SysMonInstPtr indicates, no need to check for
+                 * - NULL for SysMonInstPtr indicates, no need to check for
                  * temperature and Voltage before eFUSE programming
                  * Non-NULL indicates, perform Temp and Volt monitoring.
                  */
@@ -914,7 +900,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 		Status = XST_FAILURE;
 
 		/**
-		 *  Check Environmental monitoring checks for temperature and voltage.
+		 *  - Check Environmental monitoring checks for temperature and voltage.
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(
 					PufHelperData->SysMonInstPtr);
@@ -927,7 +913,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	Status = XST_FAILURE;
 
 	/**
-	 *  Unlock Efuse controller.
+	 *  - Unlock Efuse controller.
 	 */
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
 					XNVM_EFUSE_MARGIN_RD);
@@ -936,7 +922,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	}
 
         /**
-	 *  Set eFuse controller parameters for efuse write operation.
+	 *  - Set eFuse controller parameters for efuse write operation.
 	 */
 	if (PufHelperData->PrgmPufHelperData == TRUE) {
 		Status = XST_FAILURE;
@@ -969,7 +955,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	}
 
 	/**
-	 *  Programming Puf Security control bits.
+	 *  - Programming Puf Security control bits.
 	 */
 	if (PufHelperData->PrgmPufSecCtrlBits == TRUE) {
 		Status = XST_FAILURE;
@@ -983,7 +969,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	Status = XST_FAILURE;
 
 	/**
-	 *  Reload the cache once the programming of all the efuses requested are programmed.
+	 *  - Reload the cache once the programming of all the efuses requested are programmed.
 	 */
 	Status = XNvm_EfuseCacheLoadAndProtectionChecks();
 	if (Status != XST_SUCCESS) {
@@ -993,13 +979,13 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	Status = XST_FAILURE;
 
 	/**
-	 *  Program Corresponding Protection Row eFuses.
+	 *  - Program Corresponding Protection Row eFuses.
 	 */
 	Status = XNvm_EfusePrgmProtectionEfuse();
 END :
 
 	/**
-	 *  Reset Read mode.
+	 *  - Reset Read mode.
 	 */
 	ResetStatus = XNvm_EfuseResetReadMode();
 	if (XST_SUCCESS == Status) {
@@ -1007,7 +993,7 @@ END :
 	}
 
 	/**
-	 *  Disable eFuse programming mode.
+	 *  - Disable eFuse programming mode.
 	 */
 	DisableStatus = XNvm_EfuseDisableProgramming();
 	if (XST_SUCCESS == Status) {
@@ -1015,7 +1001,7 @@ END :
 	}
 
 	/**
-	 *  Lock eFuse controller.
+	 *  - Lock eFuse controller.
 	 */
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
@@ -1117,7 +1103,7 @@ static int XNvm_EfuseIsPufHelperDataEmpty(void)
 	u32 RowDataVal;
 
 	/**
-	 * Check if PUF Chash is zero.
+	 * - Check if PUF Chash is zero.
 	 */
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_CHASH_ROW,
 					(XNVM_EFUSE_PUF_CHASH_ROW +
@@ -1128,7 +1114,7 @@ static int XNvm_EfuseIsPufHelperDataEmpty(void)
 	}
 
 	/**
-	 * Check if PUF Aux is zero.
+	 * - Check if PUF Aux is zero.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_AUX_ROW, &RowDataVal);
 	if (Status != XST_SUCCESS) {
@@ -1141,7 +1127,7 @@ static int XNvm_EfuseIsPufHelperDataEmpty(void)
 	}
 
 	/**
-	 * Puf Syndrome eFuses are in Page 2 of eFuse memory map,
+	 * - Puf Syndrome eFuses are in Page 2 of eFuse memory map,
 	 * hence effective row should be calculated to read
 	 * correct eFuses.
 	 */
@@ -1307,7 +1293,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 	u32 PufSecurityCtrlReg = 0U;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufSecCtrlBits == NULL) {
@@ -1316,7 +1302,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 	}
 
 	/**
-	 * Read directly from cache offset of the PUF_ECC_PUF_CTRL and also SEC_CRTL
+	 * - Read directly from cache offset of the PUF_ECC_PUF_CTRL and also SEC_CRTL
 	 * to fill the PufSecCtrlBits structure.
 	 * Return XST_SUCESS if read is success.
 	 */
@@ -1373,7 +1359,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits)
 	u32 ReadReg = 0U;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (MiscCtrlBits == NULL) {
@@ -1471,7 +1457,7 @@ int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
 	XNvm_EfuseData WriteIvs = {0U};
 
         /**
-	 *  Validate Input parameters.
+	 *  - Validate Input parameters.
 	 *  Return XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED if input parameters are invalid.
 	 */
 	if (EfuseIv == NULL) {
@@ -1480,7 +1466,7 @@ int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
 	}
 
 	/**
-	 * NULL for SysMonInstPtr indicates, no need to check for
+	 * - NULL for SysMonInstPtr indicates, no need to check for
 	 * temperature and Voltage before eFUSE programming.
 	 * Non-NULL indicates, perform Temp and Volt monitoring.
 	 */
@@ -1493,12 +1479,12 @@ int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
 	}
 
         /**
-	 *  Fill the EfuseData structure with the IV address, Environmental disable flag and remaining as NULL.
+	 *  - Fill the EfuseData structure with the IV address, Environmental disable flag and remaining as NULL.
 	 */
 	WriteIvs.Ivs = EfuseIv;
 
         /**
-	 * Fill the XNvm_EfuseData global structure with the EfuseIv structure and
+	 * - Fill the XNvm_EfuseData global structure with the EfuseIv structure and
 	 * call XNvm_EfuseWrite API. Return the Status.
 	 */
 	Status = XNvm_EfuseWrite(&WriteIvs);
@@ -1529,7 +1515,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 	int ClearStatus = XST_FAILURE;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (EfuseIv == NULL) {
@@ -1546,7 +1532,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 	}
 
         /**
-	 * Based on user input IvType Reads the efuse cache. Fills EfuseIv structure.
+	 * - Based on user input IvType Reads the efuse cache. Fills EfuseIv structure.
 	 * If read cache fails zeroize the EfuseIv data and return XST_FAILURE.
 	 */
 	if (IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) {
@@ -1628,7 +1614,7 @@ int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 	u32 PufSynRowNum;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufHelperData == NULL) {
@@ -1637,7 +1623,7 @@ int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 	}
 
 	/**
-	 * Puf Syndrome eFuses are in Page 2 of eFuse memory map,
+	 * - Puf Syndrome eFuses are in Page 2 of eFuse memory map,
 	 * hence effective row should be calculated to read
 	 * correct eFuses.
 	 */
@@ -1645,7 +1631,7 @@ int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 		(XNVM_NUM_OF_ROWS_PER_PAGE * (u32)XNVM_EFUSE_PAGE_2);
 
         /**
-	 *  Read directly from cache offset of the PUF syndrome data, Chash and Aux data
+	 *  - Read directly from cache offset of the PUF syndrome data, Chash and Aux data
 	 *  to fill the PufHelperData structure.
 	 *  Return XST_SUCCESS if read is successful.
 	 */
@@ -1703,7 +1689,7 @@ int XNvm_EfuseReadDna(XNvm_Dna *EfuseDna)
 	int Status = XST_FAILURE;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (EfuseDna == NULL) {
@@ -1712,7 +1698,7 @@ int XNvm_EfuseReadDna(XNvm_Dna *EfuseDna)
 	}
 
         /**
-	 *  Read directly from cache offset of the Dna to fill the Dna array.
+	 *  - Read directly from cache offset of the Dna to fill the Dna array.
 	 *  Return XST_SUCCESS if read success.
 	 */
 	Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_DNA_START_ROW,
@@ -1745,7 +1731,7 @@ int XNvm_EfuseReadDecOnly(u32* DecOnly)
 	int Status = XST_FAILURE;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (DecOnly == NULL) {
@@ -1754,7 +1740,7 @@ int XNvm_EfuseReadDecOnly(u32* DecOnly)
 	}
 
        /**
-	*  Read directly from cache offset of the DecOnly eFuse to fill the input param.
+	*  - Read directly from cache offset of the DecOnly eFuse to fill the input param.
 	*  Return XST_SUCCESS if read success.
 	*/
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_EFUSE_ONLY_ROW,
@@ -1786,7 +1772,7 @@ int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 	u32 PpkRow = XNVM_EFUSE_PPK_0_HASH_START_ROW;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (EfusePpk == NULL) {
@@ -1815,7 +1801,7 @@ int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 	}
 
          /**
-	  *  Read directly from cache offset of the mentioned ppk type to fill the ppk hash array.
+	  *  - Read directly from cache offset of the mentioned ppk type to fill the ppk hash array.
 	  *  Return XST_SUCCESS if read success.
 	  */
 	Status = XNvm_EfuseReadCacheRange(PpkRow,
@@ -1849,7 +1835,7 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((PpkRevoke != XNVM_EFUSE_PPK0) &&
@@ -1860,7 +1846,7 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
 	}
 
 	/**
-	 * Fill the XNvm_EfuseMiscCtrlBits structure with PPK INVLD inputs from user
+	 * - Fill the XNvm_EfuseMiscCtrlBits structure with PPK INVLD inputs from user
 	 * and fill the XNvm_EfuseData global structure with the MiscCtrlBits structure
 	 * and call XNvm_EfuseWrite API. Return the Status.
 	 */
@@ -1874,7 +1860,7 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
 		MiscCtrlBits.Ppk2Invalid = TRUE;
 	}
 	/**
-	 * NULL for SysMonInstPtr indicates, no need to check for
+	 * - NULL for SysMonInstPtr indicates, no need to check for
 	 * temperature and Voltage before eFUSE programming
 	 * Non-NULL indicates, perform Temp and Volt monitoring
 	 */
@@ -1920,7 +1906,7 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 	XNvm_EfuseData EfuseData = {0U};
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (RevokeId > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
@@ -1929,7 +1915,7 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 	}
 
         /**
-	 *  Calculate the REVOCATION_ID eFuse row and the column based on the input provided.
+	 *  - Calculate the REVOCATION_ID eFuse row and the column based on the input provided.
 	 */
 	RevokeIdRow = (RevokeId / XNVM_EFUSE_MAX_BITS_IN_ROW);
 	RevokeIdBit = (RevokeId % XNVM_EFUSE_MAX_BITS_IN_ROW);
@@ -1939,14 +1925,14 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 		goto END;
 	}
 
-    /**
-	 *  Fill the XNvm_EfuseRevokeIds structure with the calculated inputs
+	/**
+	 *  - Fill the XNvm_EfuseRevokeIds structure with the calculated inputs
 	 *  and fill the XNvm_EfuseData global structure with the XNvm_EfuseRevokeIds and call XNvm_EfuseWrite API.
-     *  Return the Status.
+	 *  Return the Status.
 	 */
 	if (SysMonInstPtr == NULL) {
 		/**
-		 * NULL for SysMonInstPtr indicates, no need to check for
+		 * - NULL for SysMonInstPtr indicates, no need to check for
 		 * temperature and Voltage before eFUSE programming.
 		 * Non-NULL indicates, perform Temp and Volt monitoring.
 		 */
@@ -1989,7 +1975,7 @@ int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr,
 	u32 Row;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if ((RevokeFusePtr == NULL) ||
@@ -2000,8 +1986,8 @@ int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr,
 	else {
 
 		/**
-		 *  Read directly from cache offset of the Revocation Id to fill the Revocation Id array.
-         *  Return XST_SUCCESS if the read is successful.
+		 *  - Read directly from cache offset of the Revocation Id to fill the Revocation Id array.
+		 *  Return XST_SUCCESS if the read is successful.
 		 */
 		Row = XNVM_EFUSE_REVOCATION_ID_0_ROW + (u32)RevokeFuseNum;
 		Status = XNvm_EfuseReadCache(Row, RevokeFusePtr);
@@ -2032,7 +2018,7 @@ int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
 	u32 Row;
 
          /**
-	  *  Validate input parameters.
+	  *  - Validate input parameters.
 	  *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	  */
 	if ((OffchipIdPtr == NULL) ||
@@ -2043,13 +2029,13 @@ int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
 	else {
 
 		/**
-		 *  Calculate offchip_revoke id offset based on which revoke id value is requested.
+		 *  - Calculate offchip_revoke id offset based on which revoke id value is requested.
 		 */
 		Row = XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW + (u32)OffchipIdNum;
 
 		/**
-		 *  Read directly from cache offset of the offchip revoke id offset to fill the OffchipIdPtr.
-         *  Return XST_SUCCESS if the read is successful.
+		 *  - Read directly from cache offset of the offchip revoke id offset to fill the OffchipIdPtr.
+		 *  Return XST_SUCCESS if the read is successful.
 		 */
 		Status = XNvm_EfuseReadCache(Row, OffchipIdPtr);
 	}
@@ -2075,7 +2061,7 @@ int XNvm_EfuseReadUserFuses(const XNvm_EfuseUserData *UserFusesData)
 	u32 Row;
 
          /**
-	  *  Validate input parameters.
+	  *  - Validate input parameters.
 	  *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	  */
 	if (UserFusesData == NULL) {
@@ -2101,9 +2087,11 @@ int XNvm_EfuseReadUserFuses(const XNvm_EfuseUserData *UserFusesData)
 	Row = XNVM_EFUSE_USER_FUSE_START_ROW +
 		(UserFusesData->StartUserFuseNum - 1U);
 
-    /**
-	 * Read directly from cache offset of the User Data eFuse to fill the UserFuseData address from specified UserFuse number (StartUserFuseNum) and number of eFuses to be read by NumOfUserFuses.
-     * Return XST_SUCCESS if the read is successful.
+	/**
+	 * - Read directly from cache offset of the User Data eFuse to fill the UserFuseData
+	 * address from specified UserFuse number (StartUserFuseNum) and number of
+	 * eFuses to be read by NumOfUserFuses.
+	 * Return XST_SUCCESS if the read is successful.
 	 */
 	Status = XNvm_EfuseReadCacheRange(Row,
 					(u8)(UserFusesData->NumOfUserFuses),
@@ -2135,7 +2123,7 @@ int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
 	XNvm_EfuseData UserFusesData = {0};
 
          /**
-	  *  Validate input parameters.
+	  *  - Validate input parameters.
 	  *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	  */
 	if (WriteUserFuses == NULL) {
@@ -2144,7 +2132,7 @@ int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
 	}
 
 	/**
-	 * NULL for SysMonInstPtr indicates, no need to check for
+	 * - NULL for SysMonInstPtr indicates, no need to check for
 	 * temperature and Voltage before eFUSE programming.
 	 * Non-NULL indicates, perform Temp and Volt monitoring.
 	 */
@@ -2156,10 +2144,10 @@ int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
 		UserFusesData.EnvMonitorDis = FALSE;
 	}
 
-    /**
-	* Fill the XNvm_EfuseData global structure with the user provided WriteUserFuses and call XNvm_EfuseWrite API.
-    * Return the XST_SUCCESS.
-	*/
+	/**
+	 * - Fill the XNvm_EfuseData global structure with the user provided WriteUserFuses and call XNvm_EfuseWrite API.
+	 * Return the XST_SUCCESS.
+	 */
 	UserFusesData.UserFuses = WriteUserFuses;
 
 	Status = XNvm_EfuseWrite(&UserFusesData);
@@ -4982,7 +4970,7 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	u32 EventMask = 0x00U;
 
 	/*
-	 * If Row Belongs to AES key or User key 0 or
+	 * - If Row Belongs to AES key or User key 0 or
 	 * User key 1 can't verify the bit
 	 * as those can be checked only CRC
 	 */
@@ -5373,7 +5361,7 @@ static int XNvm_EfuseIsAdditionalPpkEn(void)
 	volatile u32 ReadReg;
 	volatile u32 ReadRegTmp;
 
-	/* Read PPK3 and PPK4 enable set bits */
+	/** - Read PPK3 and PPK4 enable set bits */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_MISC_CTRL_ROW, (u32*)&ReadReg);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -5432,7 +5420,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 			WritePufFuses->StartPufFuseRow;
 	EndRow = StartRow + WritePufFuses->NumOfPufFusesRows;
 
-	/* Validate PufFuses before programming */
+	/** - Validate PufFuses before programming */
 	for (Row = StartRow; Row < EndRow; Row++) {
 		Status = XNvm_EfuseReadCache(Row, &PufCacheValue);
 		if (Status != XST_SUCCESS) {
@@ -5454,7 +5442,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 		}
 	}
 
-	/* Program Puf Fuses */
+	/** - Program Puf Fuses */
 	Status = XNvm_EfuseComputeProgrammableBits(WritePufFuses->PufFuseData,
 						PufFusesDataToPrgm,
 						StartRow,
@@ -5509,7 +5497,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	u32 IsDecOnly = 0U;
 
         /**
-	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
+	 *  - Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
 	 */
 	if (PufFuse == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -5544,7 +5532,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	/* Check for PUF syndrome lock status */
+	/** - Check for PUF syndrome lock status */
 	if ((PufSecurityCtrlReg &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK) != 0x0U) {
 		Status = XNVM_EFUSE_ERR_FUSE_PROTECTED |
@@ -5552,7 +5540,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	/* Check for non-zero PUF Chash and AUX */
+	/** - Check for non-zero PUF Chash and AUX */
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_CHASH_ROW,
 					(XNVM_EFUSE_PUF_CHASH_ROW +
 					XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS));
@@ -5573,7 +5561,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Check for DEC only bits.
+	 *  - Check for DEC only bits.
 	 */
 	IsDecOnly = XNvm_EfuseReadReg(
 				XNVM_EFUSE_CACHE_BASEADDR,
@@ -5586,7 +5574,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Monitor voltage and temperature if EnvMonitorDis is TRUE.
+	 *  - Monitor voltage and temperature if EnvMonitorDis is TRUE.
 	 */
 	if (PufFuse->EnvMonitorDis != TRUE) {
 		if (PufFuse->SysMonInstPtr == NULL) {
@@ -5602,7 +5590,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 * Unlock the eFUSE controller. On failure return appropriate failure code.
+	 * - Unlock the eFUSE controller. On failure return appropriate failure code.
 	 * Set reference clock.
 	 * Set read mode.
 	 */
@@ -5613,7 +5601,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Program PUF Fuses if it set by user.
+	 *  - Program PUF Fuses if it set by user.
 	 */
 	if (PufFuse->PrgmPufFuse == TRUE) {
 		Status = XNvm_EfusePrgmPufFuses(PufFuse);
@@ -5624,20 +5612,20 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	/**
-	 *  Reload the cache once programming of all eFuses requested are programmed.
+	 *  - Reload the cache once programming of all eFuses requested are programmed.
 	 */
 	Status = XNvm_EfuseCacheLoadAndProtectionChecks();
 
 END:
 	/**
-	 *  Reset Read mode.
+	 *  - Reset Read mode.
 	 */
 	ResetStatus = XNvm_EfuseResetReadMode();
 	if (XST_SUCCESS == Status) {
 		Status = ResetStatus;
 	}
 	/**
-	 *  Disable eFuse Programming mode.
+	 *  - Disable eFuse Programming mode.
 	 */
 	DisableStatus = XNvm_EfuseDisableProgramming();
 	if (XST_SUCCESS == Status) {
@@ -5645,7 +5633,7 @@ END:
 	}
 
 	/**
-	 *  Lock eFuse controller
+	 *  - Lock eFuse controller
 	 */
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
@@ -5689,7 +5677,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	u32 IsDecOnly = 0U;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufFuse == NULL) {
@@ -5698,7 +5686,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
         /**
-	 *  Check the PufSynLk bit,Chash,Aux and Deconly eFuses if they are blown.
+	 *  - Check the PufSynLk bit,Chash,Aux and Deconly eFuses if they are blown.
 	 *  If not programmed proceed else return error.
 	 */
 	if (PufFuse->StartPufFuseRow  > (XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS - 1)) {
@@ -5724,7 +5712,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 
-	/* Check for PUF syndrome lock status */
+	/** - Check for PUF syndrome lock status */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_CONTROL_ROW,
 					&PufSecurityCtrlReg);
 	if (Status != XST_SUCCESS) {
@@ -5738,7 +5726,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	/* Check for non-zero PUF Chash and AUX */
+	/** - Check for non-zero PUF Chash and AUX */
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PUF_CHASH_ROW,
 					(XNVM_EFUSE_PUF_CHASH_ROW +
 					XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS));
@@ -5758,7 +5746,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	/* Check for DEC only bits */
+	/** - Check for DEC only bits */
 	IsDecOnly = XNvm_EfuseReadReg(
 				XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
@@ -5773,7 +5761,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		PufFuse->StartPufFuseRow;
 
 	/**
-	 *  Read Puf data from efuse cache by calculating offset range from start row to end row based on user inputs.
+	 *  - Read Puf data from efuse cache by calculating offset range from start row to end row based on user inputs.
 	 *  Return XST_SUCCESS when read is successful or error code on failure.
 	 */
 	Status = XNvm_EfuseReadCacheRange(Row,
@@ -5909,7 +5897,7 @@ static int XNvm_EfusePrgmAdditionalPpksMiscBits(const XNvm_EfuseMiscCtrlBits *Wr
 		}
 	}
 
-	/**< Read PPK3 and PPK4 enable bits*/
+	/** - Read PPK3 and PPK4 enable bits. */
 	if ((WriteReq->Ppk3Invalid != FALSE) ||
 		(WriteReq->Ppk4Invalid != FALSE)) {
 		Status = XST_FAILURE;
@@ -5991,7 +5979,7 @@ int XNvm_EfuseReadAdditionalPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType
 	u32 PpkRow;
 
         /**
-	 *  Validate input parameters.
+	 *  - Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (EfusePpk == NULL) {
@@ -6011,7 +5999,7 @@ int XNvm_EfuseReadAdditionalPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType
 	}
 
          /**
-	  *  Read directly from cache offset of the mentioned ppk type to fill the ppk hash array.
+	  *  - Read directly from cache offset of the mentioned ppk type to fill the ppk hash array.
 	  *  Return XST_SUCCESS if read success.
 	  */
 	Status = XNvm_EfuseReadCacheRange(PpkRow,
@@ -6055,7 +6043,7 @@ static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseData *WriteCh
 
 	if ((WriteReq->PrgmPpk3Hash == TRUE) ||
 		(WriteReq->PrgmPpk4Hash == TRUE)) {
-		/* Check if any one of the PPK hash is already programmed */
+		/** - Check if any one of the PPK hash is already programmed */
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_0_HASH_START_ROW,
 					(XNVM_EFUSE_PPK_0_HASH_START_ROW + (XNVM_EFUSE_NUM_OF_PPKS *
 					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS)));
@@ -6075,11 +6063,11 @@ static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseData *WriteCh
 			}
 		}
 
-		/* Check MISC ctrl bits before programming */
+		/** - Check MISC ctrl bits before programming */
 		Status = XNvm_EfuseIsAdditionalPpkEn();
 		if (Status != XST_SUCCESS) {
 			if (WriteChecks->MiscCtrlBits != NULL) {
-			/* Allow additional PPK programming only when additional PPK enable is being programmed */
+			/** - Allow additional PPK programming only when additional PPK enable is being programmed */
 				if (WriteChecks->MiscCtrlBits->AdditionalPpkEn != TRUE) {
 					Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
 					goto END;

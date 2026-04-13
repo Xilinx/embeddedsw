@@ -74,11 +74,15 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 
-/**< PUF syndrome length definitions for Versal eFuse*/
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
+			/**< PUF syndrome length definitions for Versal eFuse*/
 #define XNVM_PUF_ROW_UPPER_NIBBLE_MASK              (0xF0000000U)
+			/**< Mask to extract upper nibble of a PUF row */
 
-/**< User efuses start, end and number of efuses definitions*/
+/**
+ * @name User eFuses start, end and number of eFuses definitions
+ * @{
+ */
 #define XNVM_USER_FUSE_START_NUM			(1U) /**< User eFuse start number*/
 
 #ifdef XNVM_EN_ADD_PPKS
@@ -87,35 +91,45 @@ extern "C" {
 	#define XNVM_USER_FUSE_END_NUM			(63U) /**< User eFuse end number*/
 #endif
 
-#define XNVM_NUM_OF_USER_FUSES				(XNVM_USER_FUSE_END_NUM) /**< Number of user eFuses*/
+#define XNVM_NUM_OF_USER_FUSES				(XNVM_USER_FUSE_END_NUM)
+					/**< Number of user eFuses*/
+/** @} */
 
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
-											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
+							* XNVM_EFUSE_MAX_BITS_IN_ROW)
+							/**< Maximum eFuses in a row*/
 /**
  * @name  EFUSE masks
+ * @{
  */
-/**< Protection bit masks of various eFuses */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK	((u32)1U << XNVM_EFUSE_ROW_43_0_PROT_COLUMN) | 	\
 								((u32)1U << XNVM_EFUSE_ROW_43_1_PROT_COLUMN)
+					/**< Security control protection bit mask */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK	((u32)1U << XNVM_EFUSE_ROW_57_0_PROT_COLUMN) |	\
 								((u32)1U << XNVM_EFUSE_ROW_57_1_PROT_COLUMN)
+					/**< Security misc 0 control protection bit mask */
 #define XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK	((u32)1U << XNVM_EFUSE_ROW64_87_0_PROT_COLUMN) |	\
 								((u32)1U << XNVM_EFUSE_ROW64_87_1_PROT_COLUMN)
+					/**< PPK 0 hash protection bit mask */
 #define XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK	((u32)1U << XNVM_EFUSE_ROW96_99_0_PROT_COLUMN) |	\
 								((u32)1U << XNVM_EFUSE_ROW96_99_1_PROT_COLUMN)
+					/**< Meta header IV protection bit mask */
 #define XNVM_EFUSE_BOOTENVCTRL_ANLGTRIMX_TRIMAMS_MASK	((u32)1U << XNVM_EFUSE_ROW_37_PROT_COLUMN)
+					/**< Boot env ctrl ANLGTRIMX TRIMAMS protection bit mask */
 #define XNVM_EFUSE_PROTECTION_BIT_MISC_CTRL_MASK	((u32)1U << XNVM_EFUSE_ROW_40_PROT_COLUMN)
+					/**< Misc control protection bit mask */
 #define XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK	((u32)1U << XNVM_EFUSE_ROW_42_PROT_COLUMN)
+					/**< PUF CHASH protection bit mask */
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_58_PROT_COLUMN)
+					/**< Security misc 1 protection bit mask */
 /** @} */
 
 /***************************** Type Definitions *******************************/
 
 
 /**
- * @{ eFuse control bits
+ * This enum defines eFuse security control bits
  */
- /**< This structure defines Security control bits*/
 typedef enum {
 	XNVM_EFUSE_SEC_AES_DIS = 0, /**< Aes disable*/
 	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS, /**< Jtag error out disable*/
@@ -150,7 +164,9 @@ typedef enum {
 	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1 /**< Reg init disable bit 1*/
 }XNvm_SecCtrlBitColumns;
 
-/**< This enum defines Miscellaneous control bits*/
+/**
+ * This enum defines Miscellaneous control bits
+ */
 typedef enum {
 	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0 = 2, /**< Ppk0 invalid bit 0*/
 	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1, /**< Ppk0 invalid bit 1*/
@@ -177,7 +193,7 @@ typedef enum {
 }XNvm_MiscCtrlBitColumns;
 
 /**
- *  user efuses details
+ * This structure defines user efuses details
  */
 typedef struct {
 	u32 StartUserFuseNum; /**<User efuse start number*/
@@ -186,18 +202,21 @@ typedef struct {
 }XNvm_EfuseUserData;
 
 #ifdef XNVM_ACCESS_PUF_USER_DATA
+/**
+ * This structure defines PUF user data
+ */
 typedef struct {
-	u8 EnvMonitorDis;
-	u8 PrgmPufFuse;
-	XSysMonPsv *SysMonInstPtr;
-	u32 StartPufFuseRow;
-	u32 NumOfPufFusesRows;
-	u32 *PufFuseData;
+	u8 EnvMonitorDis;	/**< Environment monitor disable */
+	u8 PrgmPufFuse; 	/**< Program PUF fuse */
+	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance */
+	u32 StartPufFuseRow; 	/**< Start PUF fuse row */
+	u32 NumOfPufFusesRows;	/**< Number of PUF fuse rows */
+	u32 *PufFuseData; 	/**< Pointer to PUF fuse data */
 }XNvm_EfusePufFuse;
 #endif
 
 /**
- *  Defines Puf helper data
+ * This structure defines PUF helper data
  */
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits; /**< Puf security control bits*/
@@ -209,13 +228,9 @@ typedef struct {
 	u32 Chash; /**< Chash value*/
 	u32 Aux; /**< Aux value*/
 }XNvm_EfusePufHd;
-/**
- * @}
- * @endcond
- */
 
 /**
- *  This structure defines sub structures of Versal eFuses to be blown
+ * This structure defines sub structures of Versal eFuses to be blown
  */
 typedef struct {
 	u8 EnvMonitorDis; /**< Environmental Monitor Disable */
@@ -233,7 +248,7 @@ typedef struct {
 	XNvm_EfuseSecMisc1Bits *Misc1Bits; /**< Pointer to Miscellneous bits structure*/
 	XNvm_EfuseOffChipIds *OffChipIds; /**< Pointer to offchip IDs structure*/
 #ifdef XNVM_EN_ADD_PPKS
-        XNvm_EfuseAdditionalPpkHash *AdditionalPpkHash;
+        XNvm_EfuseAdditionalPpkHash *AdditionalPpkHash;	/**< Pointer to additional PPK hash structure */
 #endif /* END OF XNVM_EN_ADD_PPKS*/
 }XNvm_EfuseData;
 

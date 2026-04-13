@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -93,7 +93,7 @@
 static INLINE u32 XNvm_BbramReadReg(u32 Offset)
 {
 	/**
-	 *  Performs Reading the BBRAM register at the given offset
+	 *  - Performs Reading the BBRAM register at the given offset
 	 */
 	return Xil_In32((UINTPTR)(XNVM_BBRAM_BASE_ADDR + Offset));
 }
@@ -109,7 +109,7 @@ static INLINE u32 XNvm_BbramReadReg(u32 Offset)
 static INLINE void XNvm_BbramWriteReg(u32 Offset, u32 Data)
 {
 	/**
-	 *  Writes the data in to BBRAM register at given offset
+	 *  - Writes the data in to BBRAM register at given offset
 	 */
 	Xil_Out32((UINTPTR)(XNVM_BBRAM_BASE_ADDR + Offset), Data);
 }
@@ -154,7 +154,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	u32 Idx;
 
         /**
-	 *  Perform input parameter validation.
+	 *  - Perform input parameter validation.
 	 *  Return appropriate error code if input parameters are invalid.
 	 */
 	if ((KeyLen != XNVM_256_BITS_AES_KEY_LEN_IN_BYTES) ||
@@ -164,12 +164,12 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	}
 
         /**
-	 * Assign the key address to local pointer.
+	 * - Assign the key address to local pointer.
 	 */
 	AesKey = (const u32 *) Key;
 
         /**
-	 *  Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register.
+	 *  - Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register.
 	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_BbramEnablePgmMode);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
@@ -178,7 +178,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	}
 
         /**
-	 * Write 256-bit AES Key to BBRAM registers BBRAM_0 to BBRAM_7.
+	 * - Write 256-bit AES Key to BBRAM registers BBRAM_0 to BBRAM_7.
 	 */
 	BbramKeyAddr = XNVM_BBRAM_0_REG;
 	for (Idx = 0U; Idx < XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS; Idx++) {
@@ -188,7 +188,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	}
 
         /**
-	 *  Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check.
+	 *  - Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check.
 	 *  Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second.
 	 *  If timed out return timeout error.
 	 *  If AES_CRC_PASS bit is set in BBRAM_STATUS register, return XST_SUCCESS else return CRC mismatch error.
@@ -204,7 +204,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 
 END:
         /**
-	 *  Disable BBRAM programming mode by writing 0x00 to PGM_MODE register.
+	 *  - Disable BBRAM programming mode by writing 0x00 to PGM_MODE register.
 	 */
 	DisableStatus = XNvm_BbramDisablePgmMode();
 	if ((DisableStatus != XST_SUCCESS) && (Status == XST_SUCCESS)) {
@@ -229,7 +229,7 @@ int XNvm_BbramLockUsrDataWrite(void)
 	u32 LockStatus = 0U;
 
         /**
-	 *  Write to BBRAM Lock register and readback to confirm if lock is successful.
+	 *  - Write to BBRAM Lock register and readback to confirm if lock is successful.
 	 *  Return the status of the lock, Success if the lock is done else error.
 	 */
 	XNvm_BbramWriteReg(XNVM_BBRAM_MSW_LOCK_REG, XNVM_BBRAM_MSW_LOCK);
@@ -246,7 +246,7 @@ int XNvm_BbramLockUsrDataWrite(void)
 
 /******************************************************************************/
 /**
- * @brief	Programs BBRAM_8 register
+ * @brief	Programs BBRAM_8 register.
  *
  * @param	Data - 32-bit data to be written to BBRAM_8 register
  *
@@ -262,7 +262,7 @@ static int XNvm_BbramWriteBbram8(u32 Data)
 	u32 ReadReg;
 
         /**
-	 * Check for BBRAM Lock register for Lock.
+	 * - Check for BBRAM Lock register for Lock.
          * If it Locked then return XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED
 	 */
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
@@ -271,12 +271,12 @@ static int XNvm_BbramWriteBbram8(u32 Data)
 	}
 	else {
 		/**
-		 * Else write user data to BBRAM and Return XST_SUCCESS
+		 * -Else write user data to BBRAM and Return XST_SUCCESS
 		 */
 		XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, Data);
 
 		/**
-		 * Read back the user data to verify if the data is correctly programmed.
+		 * - Read back the user data to verify if the data is correctly programmed.
 		 * For versal_2ve_2vm devices, the data should be written in BBRAM_8 register and
 		 * read from BBRAM_8_MEM register.
 		 */
@@ -320,7 +320,7 @@ int XNvm_BbramWriteUsrData(u32 GeneralPurposeData)
 		Status = XNvm_BbramWriteBbram8(GeneralPurposeData);
 	} else {
 		/**
-		 * BBRAM is used for Config Limiter Params when SB is enabled
+		 * - BBRAM is used for Config Limiter Params when SB is enabled
 		 */
 
 		Status = XNVM_BBRAM_ERROR_USER_DATA_WRITE_IN_SB;
@@ -342,7 +342,7 @@ int XNvm_BbramWriteUsrData(u32 GeneralPurposeData)
 u32 XNvm_BbramReadUsrData(void)
 {
 	/**
-	 * Read the 32 bit user data from the BBRAM_8 register and return it
+	 * - Read the 32 bit user data from the BBRAM_8 register and return it
 	 */
 #ifndef VERSAL_2VE_2VM
 	return XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
@@ -366,7 +366,7 @@ int XNvm_BbramZeroize(void)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Write 1 to BBRAM_CTRL register.
+	 * - Write 1 to BBRAM_CTRL register.
 	 * Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second.
 	 * If timed out return timeout error. Return XST_SUCCESS.
 	 */
@@ -398,10 +398,10 @@ static inline int XNvm_BbramEnablePgmMode(void)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Write PassCode 0x757BDF0DU to BBRAM_PGM_MODE register to enable programming mode.
-         * Wait for BBRAM_PGM_MODE_DONE bit to set in BBRAM_STATUS register with timeout of 1 second.
+	 * - Write PassCode 0x757BDF0DU to BBRAM_PGM_MODE register to enable programming mode.
+	 * Wait for BBRAM_PGM_MODE_DONE bit to set in BBRAM_STATUS register with timeout of 1 second.
 	 * If timed out return timeout error else Return XST_SUCCESS.
-         */
+	 */
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG,
 	                   XNVM_EFUSE_PGM_MODE_PASSCODE);
 	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG),
@@ -431,10 +431,10 @@ static inline int XNvm_BbramDisablePgmMode(void)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Write 0x0 to BBRAM_PGM_MODE register.
-         * Read back and verify that 0x0 is written to BBRAM_PGM_MODE register.
-	 * If PGM_MODE is disabled return XST_SUCCESS else XST_FAILURE.
-         */
+	 * - Write 0x0 to BBRAM_PGM_MODE register.
+	 * - Read back and verify that 0x0 is written to BBRAM_PGM_MODE register.
+	 * - If PGM_MODE is disabled return XST_SUCCESS else XST_FAILURE.
+	 */
 	u32 ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_PGM_MODE_REG);
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG, 0x00U);
@@ -467,11 +467,11 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 	u32 BbramStatus;
 
 	/**
-	 * Calculate the 32 bit CRC of the input key.
-         * Write that CRC to BBRAM_AES_CRC_REG register.
-	 * Wait for BBRAM_AES_CRC_DONE to set in BBRAM_STATUS register with timeout of 1 second.
+	 * - Calculate the 32 bit CRC of the input key.
+         * - Write that CRC to BBRAM_AES_CRC_REG register.
+	 * - Wait for BBRAM_AES_CRC_DONE to set in BBRAM_STATUS register with timeout of 1 second.
 	 * If timed out return timeout error else Check for CRC_PASS.
-	 * Check for BBRAM_AES_CRC_PASS bit in BBRAM_STATUS register.
+	 * - Check for BBRAM_AES_CRC_PASS bit in BBRAM_STATUS register.
 	 * If set return XST_SUCCESS else return XNVM_BBRAM_ERROR_AES_CRC_MISMATCH error.
          */
 	Crc = XNvm_AesCrcCalc(Key);
@@ -508,9 +508,8 @@ END:
 /**
  * @brief	This function provisions BBRAM_8 register with the parameters of
  * 		configuration limiter.
- * 		-------------------------------------------------------
+ *
  *		| CL enable(31:30) | CL mode (29:28) | Counter (27:0) |
- * 		-------------------------------------------------------
  *
  * 		CL enable indicates that the Configuration Limiter feature is
  * 		enabled/disabled.

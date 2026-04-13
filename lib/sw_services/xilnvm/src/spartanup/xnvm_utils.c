@@ -101,7 +101,7 @@ static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	u32 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 
 	/**
-	 *  Read EFUSE_CFG_REG register
+	 *  - Read EFUSE_CFG_REG register
 	 */
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				   XNVM_EFUSE_CFG_OFFSET);
@@ -112,7 +112,7 @@ static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	}
 
 	/**
-	 *  Read modify and write to EFUSE_CFG_REG
+	 *  - Read modify and write to EFUSE_CFG_REG
 	 */
 	Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
 			XNVM_EFUSE_CFG_OFFSET),
@@ -145,13 +145,13 @@ END:
 static void XNvm_EfuseEnableProgramming(void)
 {
 	/**
-	 *  Read EFUSE_CFG_REG
+	 *  - Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				    XNVM_EFUSE_CFG_OFFSET);
 
 	/**
-	 *  Enable eFuse program mode by writing EFUSE_CFG_REG register
+	 *  - Enable eFuse program mode by writing EFUSE_CFG_REG register
 	 */
 	Cfg = Cfg | XNVM_EFUSE_CFG_ENABLE_PGM;
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -171,13 +171,13 @@ int XNvm_EfuseDisableProgramming(void)
 {
 	volatile int Status = XST_FAILURE;
 	/**
-	 *  Read EFUSE_CFG_REG
+	 *  - Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				    XNVM_EFUSE_CFG_OFFSET);
 
 	/**
-	 *  Disable eFuse program mode by writing EFUSE_CFG_REG register
+	 *  - Disable eFuse program mode by writing EFUSE_CFG_REG register
 	 *  and return XST_FAILURE on failure
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
@@ -201,13 +201,13 @@ int XNvm_EfuseResetReadMode(void)
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 *  Read EFUSE_CFG_REG
+	 *  - Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				    XNVM_EFUSE_CFG_OFFSET);
 
 	/**
-	 *  Reset Read mode from margin read mode by writing the EFUSE_CFG_REG
+	 *  - Reset Read mode from margin read mode by writing the EFUSE_CFG_REG
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
@@ -267,7 +267,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 *  Unlock eFuse controller by writing into WR_LOCK_REG
+	 *  - Unlock eFuse controller by writing into WR_LOCK_REG
 	 */
 	Status = XNvm_EfuseUnlockController();
 	if (Status != XST_SUCCESS) {
@@ -279,7 +279,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *  Set Read mode and return XST_FAILURE on failure
+	 *  - Set Read mode and return XST_FAILURE on failure
 	 */
 	Status = XNvm_EfuseSetReadMode(RdMode);
 	if (Status != XST_SUCCESS) {
@@ -287,19 +287,19 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *  Initialize eFuse controller timers with validated frequency
+	 *  - Initialize eFuse controller timers with validated frequency
 	 *  by writing into registers(tpgm, trd, tsu_h_ps, tsu_h_ps_cs, tsu_h_cs)
 	 */
 	XNvm_EfuseInitTimers(EfuseClkFreq);
 
 	/**
-	*	Enable programming of Xilinx reserved eFuse
+	 *  - Enable programming of Xilinx reserved eFuse
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			   XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
 
 	/**
-	 *   Check for T bits enabled and return XNVM_EFUSE_ERR_PGM_TBIT_PATTERN
+	 *   - Check for T bits enabled and return XNVM_EFUSE_ERR_PGM_TBIT_PATTERN
 	 *   on failure
 	 */
 	Status = XNvm_EfuseCheckForTBits();
@@ -324,7 +324,7 @@ static int XNvm_EfuseCheckForTBits(void)
 	u32 TbitMask = XNVM_EFUSE_STATUS_TBIT_0;
 
 	/**
-	 *  Read EFUSE_STATUS_REG. Return error code if Read register value not equals to Tbit mask
+	 *  - Read EFUSE_STATUS_REG. Return error code if Read register value not equals to Tbit mask
 	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				    XNVM_EFUSE_STS_OFFSET);
@@ -384,13 +384,13 @@ int XNvm_EfuseLockController(void)
 	volatile u32 LockStatus = ~XNVM_EFUSE_WRITE_LOCKED;
 
 	/**
-	 *  Write lock Passcode in efuse control at offset of WR_LOCK_REG
+	 *  - Write lock Passcode in efuse control at offset of WR_LOCK_REG
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			   XNVM_EFUSE_WR_LOCK_OFFSET,
 			   ~XNVM_EFUSE_WR_UNLOCK_VALUE);
 	/**
-	*  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success
+	*  - Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success
 	*/
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				       XNVM_EFUSE_WR_LOCK_OFFSET);
@@ -420,13 +420,13 @@ int XNvm_EfuseUnlockController(void)
 	volatile u32 LockStatus = ~XNVM_EFUSE_WR_UNLOCK_VALUE;
 
 	/**
-	 *  Write unlock Passcode in efuse control at offset of WR_LOCK_REG
+	 *  - Write unlock Passcode in efuse control at offset of WR_LOCK_REG
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			   XNVM_EFUSE_WR_LOCK_OFFSET,
 			   XNVM_EFUSE_WR_UNLOCK_VALUE);
 	/**
-	*  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success
+	*  - Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success
 	*/
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				       XNVM_EFUSE_WR_LOCK_OFFSET);
@@ -459,7 +459,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 
 	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS; Idx++) {
 		/**
-		*	Process each bit of 32-bit Value
+		 *  - Process each bit of 32-bit Value
 		 */
 		Value = Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U];
 		for (BitNo = 0U; BitNo < 32U; BitNo++) {
@@ -474,7 +474,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 		}
 
 		/**
-		*	Get 5-bit from Address
+		 *  - Get 5-bit from Address
 		 */
 		Value = XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx;
 		for (BitNo = 0U; BitNo < 5U; BitNo++) {
@@ -490,7 +490,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 	}
 
 	/**
-	 *  Return CRC value upon success
+	 *  - Return CRC value upon success
 	 */
 	return Crc;
 }
@@ -513,7 +513,7 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	volatile u32 Index;
 
 	/**
-	*	Clear the buffer provided.
+	 *  - Clear the buffer provided.
 	 */
 	Status = Xil_SMemSet(DataPtr, Length, 0, Length);
 	if (Status != XST_SUCCESS) {
@@ -521,7 +521,7 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	}
 
 	/**
-	*  Read it back to verify.
+	 * - Read it back to verify.
 	 * Return success upon successful zeroization else return XST_FAILURE.
 	 */
 	Status = XST_FAILURE;
@@ -555,7 +555,7 @@ static int XNvm_EfuseTemperatureCheck(float Temperature)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Check if temperature is within the limits of -40 to 125 degree Celsius
+	 * - Check if temperature is within the limits of -40 to 125 degree Celsius
 	 * If not in limits return XST_FAILURE else return XST_SUCCESS.
 	 */
 	if ((Temperature < XNVM_EFUSE_TEMP_MIN) || (Temperature > XNVM_EFUSE_TEMP_MAX)) {
@@ -583,7 +583,7 @@ static int XNvm_EfuseVccauxVoltageCheck(float Voltage)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Check if VCCAUX voltage is within the limits.
+	 * - Check if VCCAUX voltage is within the limits.
 	 * If not in limits return XST_FAILURE else XST_SUCCESS.
 	 */
 	if ((Voltage < XNVM_EFUSE_VCCAUX_MIN) || (Voltage > XNVM_EFUSE_VCCAUX_MAX)) {
@@ -629,18 +629,18 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 	}
 
 	/**
-	 * Save the original sequencer mode to restore it later
+	 * - Save the original sequencer mode to restore it later
 	 */
 	OriginalSeqMode = XSysMon_GetSequencerMode(SysMonInstPtr);
 
 	/**
-	 * Disable the Channel Sequencer before configuring the Sequence registers.
+	 * - Disable the Channel Sequencer before configuring the Sequence registers.
 	 * Set to Safe Mode to allow configuration changes.
 	 */
 	XSysMon_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SAFE);
 
 	/**
-	 * Enable TEMP and VCCAUX channels in the sequencer.
+	 * - Enable TEMP and VCCAUX channels in the sequencer.
 	 * This ensures these channels will be converted when the sequencer runs.
 	 */
 	Status = XSysMon_SetSeqChEnables(SysMonInstPtr, XSM_SEQ_CH_TEMP | XSM_SEQ_CH_VCCAUX);
@@ -652,13 +652,13 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 	}
 
 	/**
-	 * Enable the Channel Sequencer in one-pass mode to trigger fresh conversions.
+	 * - Enable the Channel Sequencer in one-pass mode to trigger fresh conversions.
 	 * This will perform a single conversion cycle through the enabled channels.
 	 */
 	XSysMon_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_ONEPASS);
 
 	/**
-	 * Clear the old status and wait till the End of Sequence occurs.
+	 * - Clear the old status and wait till the End of Sequence occurs.
 	 * This ensures we read fresh conversion data.
 	 */
 	XSysMon_GetStatus(SysMonInstPtr);
@@ -666,14 +666,14 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 			XSM_SR_EOS_MASK);
 
 	/**
-	 * Read the current value of the on-chip temperature.
+	 * - Read the current value of the on-chip temperature.
 	 * Convert the raw ADC value to temperature in Celsius.
 	 */
 	RawTemp = XSysMon_GetAdcData(SysMonInstPtr, XSM_CH_TEMP);
 	Temperature = XSysMon_RawToTemperature(RawTemp);
 
 	/**
-	 * Check for temperature operating limits.
+	 * - Check for temperature operating limits.
 	 * Return error if temperature is not within operating limits.
 	 */
 	Status = XNvm_EfuseTemperatureCheck(Temperature);
@@ -685,14 +685,14 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 	}
 
 	/**
-	 * Read the raw VCCAUX voltage value from SysMon
+	 * - Read the raw VCCAUX voltage value from SysMon
 	 * Convert the raw ADC value to voltage in Volts.
 	 */
 	RawVoltage = XSysMon_GetAdcData(SysMonInstPtr, XSM_CH_VCCAUX);
 	Voltage = XSysMon_RawToVoltage(RawVoltage);
 
 	/**
-	 * Check for voltage operating limits.
+	 * - Check for voltage operating limits.
 	 * Return error if voltage is not within operating limits.
 	 */
 	Status = XNvm_EfuseVccauxVoltageCheck(Voltage);
@@ -701,7 +701,7 @@ int XNvm_EfuseTempAndVoltChecks(XSysMon *SysMonInstPtr)
 	}
 
 	/**
-	 * Restore the original sequencer mode
+	 * - Restore the original sequencer mode
 	 */
 	XSysMon_SetSequencerMode(SysMonInstPtr, OriginalSeqMode);
 
