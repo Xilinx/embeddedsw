@@ -56,14 +56,11 @@ static XPm_Power *XPmPower_GetByIndex(const u32 PwrIndex)
 {
 	XPm_Power *Power = NULL;
 
-	/* Validate power node index is less than maximum power node index. */
-	if ((u32)XPM_NODEIDX_POWER_MAX > PwrIndex) {
-		Power = PmPowers[PwrIndex];
-		/* Validate power node index is same as given index. */
-		if ((NULL != Power) &&
-		    (PwrIndex != NODEINDEX(Power->Node.Id))) {
-			Power = NULL;
-		}
+	Power = PmPowers[PwrIndex];
+	/* Validate power node index is same as given index. */
+	if ((NULL != Power) &&
+	    (PwrIndex != NODEINDEX(Power->Node.Id))) {
+		Power = NULL;
 	}
 
 	return Power;
